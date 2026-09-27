@@ -253,7 +253,8 @@ FX = {
         "courage": ("fx_courage", 6, (0.128, 0.128), anchors_courage, (0, -6), [90] * 6, 0.4),
     },
     "league_garen_spin": {
-        "loop": ("fx_spin", 8, (0.32, 0.24), anchors_spin, (0, -4), [54] * 8, 0.4),
+        # 4/3 of the first size (0.32, 0.24): the spin's radius went from 30000 to 40000
+        "loop": ("fx_spin", 8, (0.32 * 4 / 3, 0.24 * 4 / 3), anchors_spin, (0, -4), [54] * 8, 0.4),
     },
     "league_garen_r": {
         "impact": ("fx_r", 9, (0.18, 0.18), anchors_r, (0, 10), [100, 60, 80, 80, 80, 80, 80, 80, 80], 0.4),

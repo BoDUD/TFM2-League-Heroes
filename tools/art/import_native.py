@@ -44,7 +44,14 @@ MOD = os.path.join(ROOT, "league")
 HEAD_ROWS = 12                  # idle frame 1's top rows: the head
 SURE = 0.9                      # share of the head's pixels that must match exactly
 STEADY = ("idle", "run")
-ORDER = {("lux", "idle"): [0, 1, 2, 3, 5, 4]}
+ORDER = {("lux", "idle"): [0, 1, 2, 3, 5, 4],
+         # League leans his upper body a square forward in idle 4-5 and back in 6, and every frame's head
+         # is voted anew, so the face swung and changed shape as he breathed (the user). Frame 1 in every
+         # slot, breathing through BOB instead.
+         ("yasuo", "idle"): [0, 0, 0, 0, 0, 0]}
+# (hero, tag): (y, slots) - in those slots everything at or above pivot row y moves down a row (the row under
+# it is covered): one frame breathing, the face the same drawing throughout
+BOB = {("yasuo", "idle"): (-2, [2, 3, 4])}
 CROWN = {"leesin"}              # heroes whose head template starts at the crown (a braid stands above it)
 
 
@@ -176,6 +183,21 @@ def touch_up(hero, sheet):
     return n
 
 
+def breathe(hero, sheet):
+    """BOB: move the upper body of the listed slots down a row (after the retouch, which is drawn on the frame
+    before it moves)."""
+    for (h, tag), (y0, slots) in BOB.items():
+        if h != hero or tag not in sheet:
+            continue
+        for k in slots:
+            a, ms = sheet[tag][k]
+            cut = a.shape[0] // 2 + y0 + 1           # array rows before `cut` sit at pivot rows <= y0
+            b = a.copy()
+            b[1:cut + 1] = a[0:cut]
+            b[0] = 0
+            sheet[tag][k] = (b, ms)
+
+
 def flatness(frames):
     """Share of opaque pixels whose right neighbour is opaque and the same colour."""
     same = n = 0
@@ -218,6 +240,7 @@ def main():
         touched = touch_up(hero, sheet)
         if touched:
             print(f"{hero}_retouch.json: {touched} pixels retouched")
+        breathe(hero, sheet)
         w, h = G.write_sheet(os.path.join(MOD, "champions", f"league_{hero}"), sheet)
         frames = [a for fr in sheet.values() for a, _ in fr]
         colours = len(np.unique(np.concatenate([a[a[..., 3] > 0][:, :3] for a in frames]), axis=0))

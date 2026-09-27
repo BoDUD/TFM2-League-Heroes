@@ -124,6 +124,12 @@ also means minions and monsters: a non-penetrating skillshot on it stops on the 
 - `action_name` may be any tag: `ult_cast`, `skill2_dash`... Base uses this heavily.
 - `can_use_with_move` lets the unit cast without stopping. No base skill uses it (LoL Reborn
   does), and it does not let the unit walk during a `CasterAnimation`.
+- **Attack speed shortens `start_timing`, not `Delayed`** *(measured in the SDK simulation)*. A basic
+  attack with `start_timing: 12` fired its effect 13 ticks after the action began at 100% attack speed,
+  7 at 200% and 4 at 400% (the action event reports the speed as `speed_mult`); a `Delayed {tick: 9}`
+  inside it stayed 9 ticks at every speed. An attack that must choose its animation first (league_jinx:
+  minigun or rockets) branches at `start_timing: 1` and fires its projectile from a short `Delayed`; at
+  200% attack speed that lands about 3 ticks after the frame drawn for it.
 - `patch_type_name` only appears in base data (patch notes); skip it.
 
 ## 4. Effect catalogue
@@ -242,6 +248,24 @@ and airborne also cancels the target's dash.
 
 `applied_target`: `Enemy`, `EnemyWithoutTower`, `EnemyChampion`, `EnemyChampionInCC`, `Ally`,
 `AllyChampion`. RangeEffect `target` also accepts `AllyOnlySelf`, `AllyNotSelf`.
+
+How they behave *(measured in the SDK simulation for league_jinx, 3-12 ten-minute games each)*:
+- A projectile placed in another projectile's `applied_effects` is never spawned (a `RangeProjectile`
+  there: 116 hits, no zone). `end_effects` of `LinearProjectile` and `ParabolicProjectile` are plain
+  effects run once where the projectile stopped or landed, so zones, `ViewEffect`s and further
+  projectiles can start there (LoL Reborn Jinx's rocket splash, league_ashe R).
+- `RangePeriodProjectile`'s `end_effects` are applied effects (`{casting_type, effect}`), run on each
+  unit in the area when it ends (LoL Reborn Viktor stuns with them), not once at its position.
+- `RangeProjectile` hits what is inside at `delay` and is gone: one with `delay: 30, apply: 270` was
+  removed 30 ticks after it appeared, every time. It is not a lasting trap.
+- `TargetSplashProjectile` homes on its target and hits every unit within `range` of itself on the way,
+  the target included; with `range` 20000 at speed 4500 the target is hit about 5 ticks before the
+  projectile reaches it.
+- `RandomTarget {from_projectile: true}` measures its `range` from the projectile (the hit point)
+  instead of the caster.
+- A unit killed by an effect still counts as a valid target for the rest of that tick; a `Delayed` effect
+  queued on it still runs after it died; an `AddCasted` on it stops once it is dead. "Kill trigger" in
+  section 7 is built on the last two.
 `ApplyInProjectile` has no `period` and `RangePeriodProjectile` no `follow_caster` (SDK), so an aura
 that ticks while it follows the hero is built from `Delayed` pulses of a `RangeEffect` around the
 caster (section 7, "Aura that runs while he fights").
@@ -357,8 +381,9 @@ For different 1st/2nd casts, add a short `x_recast` buff on first cast and `Swit
 
 **Telegraphed AoE.** `RangeProjectile {delay, apply}` / `LineRangeProjectile {width, length,
 delay, apply}` / `ParabolicProjectile {travel_time}`; or `ViewEffect warning` + `Delayed {tick}
-RangeEffect`. `apply` is how many ticks the area stays live after `delay`; each unit is hit once
-(base spellbreaker Q: delay 8, apply 3, one hit per its tooltip).
+RangeEffect`. `apply` was read as how many ticks the area stays live after `delay` (base spellbreaker
+Q: delay 8, apply 3, one hit per its tooltip), but a `RangeProjectile` with `delay: 30, apply: 270`
+vanished at tick 30 in the simulation (section 4): count on one hit at `delay`.
 
 **Cone / fan (Ashe W).** No projectile takes an angle, but `LineRangeProjectile` in a
 `casting_type: Direction` action is a rectangle from the caster toward the target, and its view
@@ -408,6 +433,15 @@ issued at the start did not survive the dashes. Base Nightmare plays its forced 
 dash's `end_effects`, so league_garen E now re-issues `CasterAnimation spin` on every pulse (after
 its `RandomTarget`) and in each `MoveToTarget`'s `end_effects`, each lasting until the next pulse
 *(inferred: a dash ending drops the forced animation; not yet confirmed in-game)*.
+Make the spin reach past the cast distance. The AI starts an action at `range` plus both units'
+radii (league_garen E, range 28000, began with its target about 45 px away, centre to centre), so
+a 30000 spin missed whoever stood at its edge and players still called the skill useless, though
+it dealt about 70% of Garen's damage *(measured in the SDK simulation)*. League's spin reaches
+about 1.9 times Garen's attack range; 40000, with League's +25% on the nearest enemy (here an
+`Attack` in each dash's `end_effects`, so the chased champion takes it) and a 6 s armour shred,
+took Garen's team from -3.0 to 0.0 kills in 10 minutes against base top laners (240 games). A
+position tracker in the simulator must also read `ForceMove` events: dashes do not send
+`EntityMove`, and without them the spin looked as if it never moved.
 
 **`MoveToTarget` needs a target.** It dashes to the action's target, so use it in `Targeting`
 actions (Nocturne R, Gragas E). Under `casting_type: None` there is none and nothing moves (seen
@@ -544,6 +578,52 @@ heroes (Darius E pull, Amumu Q/R stuns, Ashe R, Lux Q root); his own whirlwind m
 minions, since his Q is cast on anything. **When a new hero brings knock-ups or other hard CC
 (Malphite, Alistar, Nautilus...), rerun that simulation with Yasuo on its team and revisit his R**
 (its range, or letting it take a few more CC kinds) - the user asked for this.
+
+**Kill trigger (league_jinx Get Excited!).** No effect fires on a kill, but section 4's facts make one:
+1. Next to the damaging projectile, fire an invisible twin with the same speed and path and
+   `applied_target: EnemyChampion` (a `TargetProjectile` next to a basic attack's, a
+   `TargetSplashProjectile` with the same `range` next to a splash), so only champions are checked.
+2. In the twin's `applied_effects`: `AddCasterBuff flag` (a few ticks), an `AddCasted {duration: 3,
+   period: 1}` on the target whose effect is `RemoveCasterBuff flag`, and `WithSelf {Delayed {tick: 4,
+   SwitchByBuff flag -> reward}}`.
+3. A living target runs the casted effect and clears the flag; a dead one drops it, and the flag is
+   still there when the delayed check reads it.
+
+Where the damage comes a tick later than the hit (league_jinx R: the blast is a `RangeProjectile` with
+`delay: 1` in the rocket's `end_effects`), add the casted effect from a `Delayed {tick: 2}` and read the
+flag at tick 7, or it runs before the blast and clears the flag. In 10 simulated games every basic-attack
+kill (13) and every rocket kill of the champion it struck (3) was found, and no other hit set it off.
+Rejected on the way: a `RandomTarget` from the hit point after the damage (the dying unit is still
+valid that tick), a `Delayed` effect on the target (it runs on the dead), and one twin for all targets
+(a minion dying next to an enemy champion set it off). A splash hitting two champions shares one flag,
+so a survivor's check can hide the other's death. The same check could build other takedown effects
+(Darius's Noxian Guillotine reset).
+
+**A trap that waits and snaps once (league_jinx E).** One zone cannot last and hit once (section 4), so
+the trap is a chain of short links, each started where the thrown `ParabolicProjectile` landed:
+- a `ViewEffect` of the lying trap for the link's length (15 ticks);
+- a `RangeProjectile` with `delay` 14 on `EnemyChampion`, whose effects (skipped under a lock) bite:
+  `Bind`, damage, a `ViewEffect` on the victim, and `WithSelf {Delayed {tick: 1, AddCasterBuff lock}}`,
+  so every champion inside at that check is bitten before the lock falls;
+- a hidden `ParabolicProjectile` of `travel_time` 15 aimed at the same spot, whose `end_effects` start
+  the next link unless the lock is on.
+
+The first link only arms (no check). 20 links make 5 s; after a bite the next link never starts, so the
+trap vanishes a tick after it snaps. The lock lives on the caster and is shorter than the cooldown, so
+it never blocks the next throw. In simulation 77 throws: 46 bit a champion, 31 ran out.
+
+**Weapon picked by distance (league_jinx Switcheroo!).** The attack's `range` is the long weapon's
+(rockets, 64500). At `start_timing: 1` a `RandomTarget {range: 52500, casting_target:
+EnemyWithoutTower}` adds a 2-tick `near` caster buff; `SwitchByBuff near` fires the minigun (its own
+attack-speed stacks) or plays `CasterAnimation rocket` and fires rockets. A permanent `fishbones` buff
+remembers the gun in hand, so the swap sound plays only on a change and the rockets' -10% attack
+speed lasts until the next minigun shot. Simulated: 70% minigun, 29% rockets, a swap every ~3.6
+attacks.
+
+**A rocket that bursts where it lands, with splash.** `TargetSplashProjectile` hits early (section 4)
+and a projectile cannot start a zone from its hit, so league_jinx fires three together at one speed:
+the visible `TargetProjectile` (its hit plays the explosion), a hidden `TargetSplashProjectile` for
+the damage and the hidden champion twin of the kill trigger.
 
 ## 8. Gotchas
 

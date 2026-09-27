@@ -48,7 +48,10 @@ OK = direct, ~ = approximate, X = not possible in data-only mods.
 | Stacking bleed (Darius passive) | `AddCasted {casted_type: Bleed}` on every hit: each cast is its own instance, so the target's stacks are real (no cap) | OK |
 | Bonus at N stacks on the target (Noxian Might; Darius R +20% per stack) | `SwitchByBuff` cannot read the target, so count the caster's own hits with hidden buffs and branch on those (champion-data "Bleed that stacks") | ~ |
 | Cone pull to self (Darius E) | `RangeEffect` `Forward` + `DirDot` cone + `Grab` without `tick` (stops at the caster; `Pull` overshoots close targets) | OK |
-| Reset / refresh on kill (Darius R, Katarina) | no kill trigger in the effect tree | X |
+| Bonus on a kill (Jinx's Get Excited!) | a kill check: an invisible champion-only twin of the projectile flags the caster, a short `AddCasted` on the target clears the flag while it lives (champion-data "Kill trigger"); the hero's own killing blows only, not assists | ~ |
+| Reset / refresh on kill (Darius R, Katarina) | the kill can be detected (row above), but no effect resets a cooldown (`ult_cooldown_mult` untested) | X |
+| Weapon swap the player chooses (Jinx Q) | automatic by distance: the long weapon's range on the attack, the short one while an enemy is close (champion-data "Weapon picked by distance") | ~ |
+| Trap that lasts and springs once (Jinx E) | a chain of short links, each checking once; a bite locks the chain (champion-data "A trap that waits and snaps once") | ~ |
 | Toggled aura (Amumu W) | on while fighting: every action starts a guarded train of `Delayed` pulses around the caster (champion-data "Aura that runs while he fights") | ~ |
 | %-max-health magic damage (Amumu W) | `ApAttack` has no `target_hp_ratio`: the % part becomes `FixedAttack` (true), whole percents only | ~ |
 | Amplify one damage type (Amumu's Curse: +10% of magic damage as true) | no per-type amplify field: `damaged_amplify` on all damage, re-applied so it never stacks | ~ |
@@ -272,6 +275,17 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   barrel with vertical stripes. Raw effect strips become native strips with
   `tools/art/import_amumu.py --raw` (median-cut colours, majority per game pixel, a scale per
   effect set by the kit's radius).
+- **Raw effect strips whose frames are not evenly spaced (Jinx, Codex effects only).** Six equal
+  cells cut the rocket blast mid-fireball: `tools/art/import_jinx.py --raw` cuts each strip at the
+  n - 1 widest empty column runs (strips whose own drawings have wide gaps - three smoke puffs, a
+  ring of sparkles - get their cut columns written out) and places every frame in its cell on an
+  anchor: projectiles on their nose (no jitter, the nose meets the target), traps and bites on the
+  ground line the strip was drawn on, a ring on the rows without the speed streaks. Effects that
+  play one after another must match: Codex drew the arm / wait / fizzle rows of chompers at 589, 635
+  and 504 px, so each strip gets its own scale to the kit's width, and the five chomper strips share
+  one palette (per-strip median cuts turned the arming flames pink and the waiting ones orange). A
+  rocket's body wobbles between generated frames: keep frame 1's body in every frame, only the flame
+  moving. Place projectiles at the caster in the showcase: a 59 px rocket starts over her body.
 - **A ponytail that swings, a palette beyond crimson, a head that turns (Yasuo, drawn by Claude,
   restyled).** Codex's image tool missed the grid again (1254 px canvas, blocks 9.6-10.8 px), so the
   design was drawn on League's 34 px silhouette like Amumu's: every render pixel votes for a colour
@@ -294,8 +308,26 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
     side from the head joint's up / forward axes). Pasting only the brow and eye squares let the
     fringe swallow the brows and the mouth land on the cheek - the user found eyes and mouth strange.
     The frames no rule fits (bowed: downcast eye lines; profile: brow, eye, mouth on the front edge;
-    lying: closed eyes; a tie that flickered) are retouched by hand in `yasuo_retouch.json` (20
-    frames, 80 squares). Check every frame's face at 12x before sending a GIF.
+    lying: closed eyes; a tie that flickered) are retouched by hand in `yasuo_retouch.json` (14
+    frames, 35 squares). Check every frame's face at 12x before sending a GIF.
+  - Shrinking a hero: the user found Yasuo a size bigger than the others and chose, of three
+    options (all 80%, body 80% with the head kept, all 88%), the body at 80% with the head kept
+    (`"height"` 30, `"chibi"` head 2.4 and hair 0.417: the head's pixel size unchanged). The same
+    face block on that head read as a horse face with its right side cut flat, a crooked mouth, and
+    a far eye that merged with the hair into one dark line (one-eyed, the user said). What fixed it,
+    in the block and three `"features"` keys: the fringe covers the forehead but for two squares;
+    the chin's front corner steps in with an outline under the chin; `"neck"` recolours body skin
+    within two squares of the face, below the eye row, to the scarf (the neck under the chin made
+    the face a row longer); the far eye was redrawn with a white and the mouth in red between the eyes,
+    but the user then found the face cute, "not a samurai at all", and wanted the pre-shrink
+    features back: the final face keeps them (forehead, slanted brow, a narrow eye with one white,
+    the far eye a dark slit, a small dark-brown mouth, jaw shadow) over the short round chin. Fix a
+    face's shape without changing its expression. `"trim_front": 4` cuts a one-square bump of League's fringe past the face's front
+    edge above the eyes and redraws the outline (not when hair covers the face in the eye row: cut
+    there, ult 7 got a notch); `"hair_above": 2` turns the forehead skin above the drawn fringe
+    into hair. `"skip"` leaves pixels of the `"rect"` out, and `"pixels"` entries may carry a colour
+    (`[x, y, least facing, "hex"]`). Show the user the face at 12x next to the base heroes' faces
+    before redrawing all frames: base chibi faces have no mouth and a 2 x 2 near eye, 1 x 2 far eye.
   - `"hide"` per tag: the drawn sword has no track in the death clip and stood upright beside the
     body. `"chibi": {"scale": {"L_Rope_Back1": 0.6, ...}}` shortens the rope tails that flew out as a
     big gold fan in the run.
