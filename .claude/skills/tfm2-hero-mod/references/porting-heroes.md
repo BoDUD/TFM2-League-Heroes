@@ -275,6 +275,17 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   barrel with vertical stripes. Raw effect strips become native strips with
   `tools/art/import_amumu.py --raw` (median-cut colours, majority per game pixel, a scale per
   effect set by the kit's radius).
+- **Raw effect strips whose frames are not evenly spaced (Jinx, Codex effects only).** Six equal
+  cells cut the rocket blast mid-fireball: `tools/art/import_jinx.py --raw` cuts each strip at the
+  n - 1 widest empty column runs (strips whose own drawings have wide gaps - three smoke puffs, a
+  ring of sparkles - get their cut columns written out) and places every frame in its cell on an
+  anchor: projectiles on their nose (no jitter, the nose meets the target), traps and bites on the
+  ground line the strip was drawn on, a ring on the rows without the speed streaks. Effects that
+  play one after another must match: Codex drew the arm / wait / fizzle rows of chompers at 589, 635
+  and 504 px, so each strip gets its own scale to the kit's width, and the five chomper strips share
+  one palette (per-strip median cuts turned the arming flames pink and the waiting ones orange). A
+  rocket's body wobbles between generated frames: keep frame 1's body in every frame, only the flame
+  moving. Place projectiles at the caster in the showcase: a 59 px rocket starts over her body.
 - **A ponytail that swings, a palette beyond crimson, a head that turns (Yasuo, drawn by Claude,
   restyled).** Codex's image tool missed the grid again (1254 px canvas, blocks 9.6-10.8 px), so the
   design was drawn on League's 34 px silhouette like Amumu's: every render pixel votes for a colour
