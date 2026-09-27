@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_yasuo_sfx_eq",
+      "volume": 0.9
+    },
+    {
+      "delay": 0.0,
+      "clip": "league_yasuo_vo_q3",
+      "volume": 1.0
+    }
+  ]
+}

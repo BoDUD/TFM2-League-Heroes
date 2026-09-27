@@ -55,6 +55,14 @@ OK = direct, ~ = approximate, X = not possible in data-only mods.
 | Hook that pulls the caster in (Amumu Q) | `LinearProjectile` on `EnemyChampion` + `MoveToTarget` in `applied_effects` | OK |
 | Cooldown reduced when hit (Amumu E) | no "was hit" trigger: a shorter fixed cooldown | X |
 | Charges (Amumu Q: 2) | `cooltime_use_count` is "up to N times in succession" (base Nightmare's text); the AI would throw both at once *(inferred)*, so league_amumu keeps 1 and a shorter cooldown | ~ |
+| Ability treated as a basic attack (Yasuo Q: crits, on-hit) | the action's `attack_type: BaseAttack` (champion-data "Critical strikes") | OK |
+| Crit chance up, crit damage down (Yasuo, Yone passive) | a flat `crit_chance` stat or buff; a crit is always 2x and the chance cannot be multiplied | ~ |
+| Third cast changes (Yasuo Q3) | two hidden stack buffs + `SwitchByBuff` (champion-data "Third cast is different") | OK |
+| Cast during a dash changes the shape (Yasuo EQ) | window buff from the dash, checked by the other skill | ~ (AI timing) |
+| Dash through a target (Yasuo E, Fizz Q) | `RushMoveToBack`: lands 15000 units past the target, then its `applied_effects` | OK |
+| Blocks projectiles (Yasuo W, Braum E, Samira W) | nothing can block a projectile: a view-only wall + `base_attack_damaged_reduce` on allied champions around the caster | X / ~ |
+| Only on airborne enemies (Yasuo R) | `EnemyChampionInCC`, which also counts stun, root, fear and charm | ~ |
+| Shield when damaged (Yasuo Flow) | a hidden cooldown buff; the next action after it ends shields him | ~ |
 | Stealth | `Invisible` / `CasterInvisible` | OK |
 | 2-3 stage recast | `cooltime_use_count` or recast buff + `SwitchByBuff` | ~ (AI timing) |
 | Cone / fan of projectiles (Ashe W) | no angle field on any projectile (base harpooner's fan is `Native`): a `LineRangeProjectile` rectangle cast by `Direction`, drawn as a fan sprite centred on it (champion-data "Cone / fan"); the hit area stays a rectangle | ~ |
@@ -107,7 +115,10 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   `Play_vo_<Champ>_*` event names (plain strings in the champion `.bin` files) to .wem media;
   vgmstream decodes the .wem. Ability icons are `ASSETS/Characters/<Champ>/HUD/Icons2D/*.dds`.
 - Chinese voice: `<Champ>.zh_CN.wad.client` in the Tencent (WeGame) client; inside it the banks
-  keep the `vo/en_us/` path.
+  keep the `vo/en_us/` path. A voice line whose media bytes are identical in the zh_CN and en_US
+  banks is a wordless shout or a line left untranslated (Yasuo's R "Sorye ge ton"); comparing the two
+  banks finds them without listening (`tools/lol/extract_yasuo.py`). A `.sound_info` always plays the
+  same clips (no random pick), so choose one variant per sound.
 - Real animations as pose references: `tools/lol/pose_ref.py --anim Run --frames 6` skins the
   champion's `.skn`/`.skl` with an `.anm` clip (compressed `r3d2canm`, or uncompressed
   `r3d2anmd` v3 / v4 / v5 - most of Lux's clips are v3, her R is v4) and renders textured

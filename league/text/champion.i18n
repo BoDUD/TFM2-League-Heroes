@@ -49,6 +49,13 @@
         "skill": "掷出绷带，穿过小兵和野怪，粘住第一个敌方英雄，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法术强度<>的<#a974ffff>魔法伤害<>并<#ef5350ff>眩晕<><#ffb900ff>1秒<>，随后阿木木把自己拉过去。",
         "skill2": "对周围敌人造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% 法术强度<>的<#a974ffff>魔法伤害<>。被动：受到的普攻伤害降低<#ffb900ff>10%<>。",
         "ult": "用绷带缠住周围所有敌人，造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 法术强度<>的<#a974ffff>魔法伤害<>，<#ef5350ff>眩晕<><#ffb900ff>1.5秒<>并施加<#ef5350ff>诅咒<><#ffb900ff>3秒<>。"
+      },
+      "league_yasuo": {
+        "name": "亚索",
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。被动 <#ff9028ff>浪客之道<>：<#ffb900ff>20%<>暴击几率，暴击造成双倍伤害。<#ff9028ff>剑意<>每<#ffb900ff>12秒<>充满一次，充满后下一次出手获得<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% 攻击力<>的<#e8d44dff>护盾<>，持续<#ffb900ff>2秒<>，并立起<#ff9028ff>风之障壁<>：<#ffb900ff>4秒<>内身边的友方英雄受到的普攻伤害降低<#ffb900ff>40%<>。",
+        "skill": "向前突刺，对直线上的敌人造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>，视为普攻，可以暴击。命中后获得一层<#ff9028ff>旋风烈斩<>，满<#ffb900ff>2<>层时下一次改为放出旋风，<#ef5350ff>击飞<>直线上的敌人<#ffb900ff>1秒<>。在<#ff9028ff>踏前斩<>突进中施放时改为环状出剑。",
+        "skill2": "冲刺穿过一名敌方英雄，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% 攻击力<>的<#ff9028ff>物理伤害<>。<#ffb900ff>6秒<>内再次施放，伤害提高<#ffb900ff>25%<>，最多提高<#ffb900ff>50%<>。",
+        "ult": "闪到一名被控制（<#ef5350ff>击飞<>、<#ef5350ff>眩晕<>、<#ef5350ff>禁锢<>等）的敌方英雄身边，对附近所有被控制的敌方英雄造成<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150% 攻击力<>的<#ff9028ff>物理伤害<>并再<#ef5350ff>击飞<><#ffb900ff>1秒<>。之后<#ffb900ff>10秒<>内无视目标<#ffb900ff>30%<><#ffdd8eff>护甲<>，<#ff9028ff>剑意<>立即充满。"
       }
     },
     "skill_name": {
@@ -86,6 +93,11 @@
         "skill1": "绷带牵引",
         "skill2": "阿木木的愤怒",
         "ult": "木乃伊之咒"
+      },
+      "league_yasuo": {
+        "skill1": "斩钢闪",
+        "skill2": "踏前斩",
+        "ult": "狂风绝息斩"
       }
     }
   },
@@ -139,6 +151,13 @@
         "skill": "擲出繃帶，穿過小兵和野怪，黏住第一個敵方英雄，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 魔法強度<>的<#a974ffff>魔法傷害<>並<#ef5350ff>暈眩<><#ffb900ff>1秒<>，隨後阿姆姆把自己拉過去。",
         "skill2": "對周圍敵人造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% 魔法強度<>的<#a974ffff>魔法傷害<>。被動：受到的普攻傷害降低<#ffb900ff>10%<>。",
         "ult": "用繃帶纏住周圍所有敵人，造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 魔法強度<>的<#a974ffff>魔法傷害<>，<#ef5350ff>暈眩<><#ffb900ff>1.5秒<>並施加<#ef5350ff>詛咒<><#ffb900ff>3秒<>。"
+      },
+      "league_yasuo": {
+        "name": "犽宿",
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。被動 <#ff9028ff>浪人之道<>：<#ffb900ff>20%<>暴擊率，暴擊造成雙倍傷害。<#ff9028ff>風湧<>每<#ffb900ff>12秒<>充滿一次，充滿後下一次出手獲得<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% 攻擊力<>的<#e8d44dff>護盾<>，持續<#ffb900ff>2秒<>，並立起<#ff9028ff>風牆<>：<#ffb900ff>4秒<>內身邊的友方英雄受到的普攻傷害降低<#ffb900ff>40%<>。",
+        "skill": "向前突刺，對直線上的敵人造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>，視為普攻，可以暴擊。命中後獲得一層<#ff9028ff>天寒地凍<>，滿<#ffb900ff>2<>層時下一次改為擊出旋風，<#ef5350ff>擊飛<>直線上的敵人<#ffb900ff>1秒<>。在<#ff9028ff>刃敵千軍<>衝刺中施放時改為圓形揮砍。",
+        "skill2": "衝刺穿過一名敵方英雄，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% 攻擊力<>的<#ff9028ff>物理傷害<>。<#ffb900ff>6秒<>內再次施放，傷害提高<#ffb900ff>25%<>，最多提高<#ffb900ff>50%<>。",
+        "ult": "瞬間移動至一名受控（<#ef5350ff>擊飛<>、<#ef5350ff>暈眩<>、<#ef5350ff>禁錮<>等）的敵方英雄身邊，對附近所有受控的敵方英雄造成<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150% 攻擊力<>的<#ff9028ff>物理傷害<>並再<#ef5350ff>擊飛<><#ffb900ff>1秒<>。之後<#ffb900ff>10秒<>內無視目標<#ffb900ff>30%<><#ffdd8eff>物理防禦<>，<#ff9028ff>風湧<>立即回滿。"
       }
     },
     "skill_name": {
@@ -176,6 +195,11 @@
         "skill1": "繃帶牽引",
         "skill2": "憤怒",
         "ult": "木乃伊之咒"
+      },
+      "league_yasuo": {
+        "skill1": "鋼鐵暴雪",
+        "skill2": "刃敵千軍",
+        "ult": "奪命氣息"
       }
     }
   },
@@ -229,6 +253,13 @@
         "skill": "Throws a bandage that passes through minions and monsters and sticks to the first enemy champion, dealing <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% Ability Power<> <#a974ffff>magic damage<> and <#ef5350ff>stunning<> it for <#ffb900ff>1s<>; Amumu then pulls himself to it.",
         "skill2": "Deals <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% Ability Power<> <#a974ffff>magic damage<> to nearby enemies. Passive: Amumu takes <#ffb900ff>10%<> less damage from basic attacks.",
         "ult": "Entangles every nearby enemy in bandages, dealing <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% Ability Power<> <#a974ffff>magic damage<>, <#ef5350ff>stunning<> them for <#ffb900ff>1.5s<> and <#ef5350ff>Cursing<> them for <#ffb900ff>3s<>."
+      },
+      "league_yasuo": {
+        "name": "Yasuo",
+        "attack": "Basic attacks deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. Passive <#ff9028ff>Way of the Wanderer<>: <#ffb900ff>20%<> critical strike chance; crits deal double damage. <#ff9028ff>Flow<> fills every <#ffb900ff>12s<>; when full, Yasuo's next attack or ability grants him a <#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% AD<> <#e8d44dff>shield<> for <#ffb900ff>2s<> and raises a <#ff9028ff>Wind Wall<>: nearby allied champions take <#ffb900ff>40%<> less basic attack damage for <#ffb900ff>4s<>.",
+        "skill": "Thrusts forward, dealing <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<> to enemies in a line. It is treated as a basic attack and can critically strike. On hit Yasuo gains a stack of <#ff9028ff>Gathering Storm<>; at <#ffb900ff>2<> stacks the next cast fires a whirlwind that <#ef5350ff>knocks up<> enemies in a line for <#ffb900ff>1s<>. Cast during <#ff9028ff>Sweeping Blade<>, it strikes in a circle.",
+        "skill2": "Dashes through an enemy champion, dealing <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% AD<> <#ff9028ff>physical damage<>. Each cast within <#ffb900ff>6s<> of the last deals <#ffb900ff>25%<> more damage, up to <#ffb900ff>50%<>.",
+        "ult": "Blinks to an enemy champion under crowd control (<#ef5350ff>knocked up<>, <#ef5350ff>stunned<>, <#ef5350ff>rooted<>...) and deals <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150% AD<> <#ff9028ff>physical damage<> to every crowd-controlled enemy champion nearby, keeping them <#ef5350ff>airborne<> for <#ffb900ff>1s<> more. For <#ffb900ff>10s<> after, Yasuo ignores <#ffb900ff>30%<> of their <#ffdd8eff>Armor<>, and his <#ff9028ff>Flow<> is refilled."
       }
     },
     "skill_name": {
@@ -266,6 +297,11 @@
         "skill1": "Bandage Toss",
         "skill2": "Tantrum",
         "ult": "Curse of the Sad Mummy"
+      },
+      "league_yasuo": {
+        "skill1": "Steel Tempest",
+        "skill2": "Sweeping Blade",
+        "ult": "Last Breath"
       }
     }
   },
@@ -319,6 +355,13 @@
         "skill": "붕대를 던져 미니언과 몬스터를 지나 처음 맞힌 적 챔피언에게 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 70%<> <#a974ffff>마법 피해<>를 입히고 <#ffb900ff>1초<> 동안 <#ef5350ff>기절<>시킨 뒤 그 대상에게 날아갑니다.",
         "skill2": "주변 적에게 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 50%<> <#a974ffff>마법 피해<>를 입힙니다. 기본 지속 효과: 기본 공격으로 받는 피해가 <#ffb900ff>10%<> 감소합니다.",
         "ult": "주변의 모든 적을 붕대로 휘감아 <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 80%<> <#a974ffff>마법 피해<>를 입히고 <#ffb900ff>1.5초<> 동안 <#ef5350ff>기절<>시키며 <#ffb900ff>3초<> 동안 <#ef5350ff>저주<>를 겁니다."
+      },
+      "league_yasuo": {
+        "name": "야스오",
+        "attack": "기본 공격으로 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다. 기본 지속 효과 <#ff9028ff>낭인의 길<>: 치명타 확률 <#ffb900ff>20%<>, 치명타 피해 2배. <#ff9028ff>기류<>가 <#ffb900ff>12초<>마다 가득 차며, 가득 차면 다음 행동으로 <#ffb900ff>2초<> 동안 <#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 60%<> <#e8d44dff>보호막<>을 얻고 <#ff9028ff>바람 장막<>을 세웁니다: <#ffb900ff>4초<> 동안 주변 아군 챔피언이 받는 기본 공격 피해가 <#ffb900ff>40%<> 감소합니다.",
+        "skill": "전방으로 내질러 일직선 상의 적에게 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다. 기본 공격으로 간주되어 치명타가 적용됩니다. 적중 시 <#ff9028ff>폭풍 구름<>이 1회 중첩되며, <#ffb900ff>2<>회 중첩되면 다음 사용 시 회오리바람을 발사해 일직선 상의 적을 <#ffb900ff>1초<> 동안 <#ef5350ff>공중으로 띄워 올립니다<>. <#ff9028ff>질풍검<> 돌진 중 사용하면 원형으로 타격합니다.",
+        "skill2": "적 챔피언을 뚫고 돌진하여 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 60%<> <#ff9028ff>물리 피해<>를 입힙니다. <#ffb900ff>6초<> 안에 다시 사용할 때마다 피해량이 <#ffb900ff>25%<> 증가합니다(최대 <#ffb900ff>50%<>).",
+        "ult": "군중 제어(<#ef5350ff>에어본<>, <#ef5350ff>기절<>, <#ef5350ff>속박<> 등)에 걸린 적 챔피언에게 점멸하여 주변의 군중 제어에 걸린 모든 적 챔피언에게 <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 150%<> <#ff9028ff>물리 피해<>를 입히고 <#ffb900ff>1초<> 더 <#ef5350ff>공중에 붙들어 둡니다<>. 이후 <#ffb900ff>10초<> 동안 <#ffdd8eff>방어구<>를 <#ffb900ff>30%<> 관통하며 <#ff9028ff>기류<>가 가득 찹니다."
       }
     },
     "skill_name": {
@@ -356,6 +399,11 @@
         "skill1": "붕대 던지기",
         "skill2": "짜증내기",
         "ult": "슬픈 미라의 저주"
+      },
+      "league_yasuo": {
+        "skill1": "강철 폭풍",
+        "skill2": "질풍검",
+        "ult": "최후의 숨결"
       }
     }
   },
@@ -409,6 +457,13 @@
         "skill": "包帯を投げる。包帯はミニオンとモンスターをすり抜け、最初に当たった敵チャンピオンに<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の70%<>の<#a974ffff>魔法ダメージ<>を与えて<#ffb900ff>1秒<>間<#ef5350ff>スタン<>させ、アムムはその敵へ飛んでいく。",
         "skill2": "周囲の敵に<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の50%<>の<#a974ffff>魔法ダメージ<>を与える。パッシブ：通常攻撃から受けるダメージが<#ffb900ff>10%<>減少する。",
         "ult": "周囲のすべての敵を包帯で縛り、<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の80%<>の<#a974ffff>魔法ダメージ<>を与えて<#ffb900ff>1.5秒<>間<#ef5350ff>スタン<>させ、<#ffb900ff>3秒<>間<#ef5350ff>呪い<>を付与する。"
+      },
+      "league_yasuo": {
+        "name": "ヤスオ",
+        "attack": "通常攻撃は<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>を与える。パッシブ <#ff9028ff>浪人道<>：クリティカル率<#ffb900ff>20%<>、クリティカルで2倍ダメージ。<#ff9028ff>波動<>は<#ffb900ff>12秒<>ごとに満タンになり、次の行動で<#ffb900ff>2秒<>間<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の60%<>の<#e8d44dff>シールド<>を得て<#ff9028ff>風殺の壁<>を張る：<#ffb900ff>4秒<>間、周囲の味方チャンピオンが受ける通常攻撃ダメージを<#ffb900ff>40%<>軽減。",
+        "skill": "前方に突きを放ち、直線上の敵に<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>を与える。通常攻撃扱いでクリティカルが発生する。命中すると<#ff9028ff>つむじ風<>のスタックを得て、<#ffb900ff>2<>スタックで次の発動時に旋風を放ち、直線上の敵を<#ffb900ff>1秒<>間<#ef5350ff>ノックアップ<>させる。<#ff9028ff>風薙ぎ<>中は円状に斬る。",
+        "skill2": "敵チャンピオンを通り過ぎるようにダッシュし、<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の60%<>の<#ff9028ff>物理ダメージ<>を与える。<#ffb900ff>6秒<>以内に再発動するたびダメージが<#ffb900ff>25%<>増加する（最大<#ffb900ff>50%<>）。",
+        "ult": "行動妨害（<#ef5350ff>ノックアップ<>、<#ef5350ff>スタン<>、<#ef5350ff>スネア<>など）中の敵チャンピオンのもとへブリンクし、周囲の行動妨害中の敵チャンピオン全員に<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の150%<>の<#ff9028ff>物理ダメージ<>を与え、さらに<#ffb900ff>1秒<>間<#ef5350ff>ノックアップ<>させる。その後<#ffb900ff>10秒<>間<#ffdd8eff>物理防御<>を<#ffb900ff>30%<>貫通し、<#ff9028ff>波動<>が満タンになる。"
       }
     },
     "skill_name": {
@@ -446,6 +501,11 @@
         "skill1": "絡みつく包帯",
         "skill2": "だだっこ",
         "ult": "めそめそミイラの呪い"
+      },
+      "league_yasuo": {
+        "skill1": "抜刀",
+        "skill2": "風薙ぎ",
+        "ult": "鬼哭啾々"
       }
     }
   }

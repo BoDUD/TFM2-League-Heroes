@@ -95,6 +95,12 @@ also means minions and monsters: a non-penetrating skillshot on it stops on the 
   `AllyChampionInCC`, `BothWithoutTower`, `BothChampion` (the engine also has `Ally`, `Both`, `None`).
   `EnemyChampionRecentlyAttacked` is an enemy champion that the caster's *team* damaged recently
   (a per-team timer on the target, `CastingTarget::check`), not one the caster hit itself.
+  `EnemyChampionInCC` / `AllyChampionInCC` is a champion carrying one of six crowd-control states
+  *(read from the SDK's game_core: `CastingTarget::check` tests the target's CC list against mask
+  0x347)*: airborne (`Airborne`), stun, root (`Bind`), forced movement (`Knockback`, `Pull`, `Grab`),
+  fear and charm. Disarm (`BlockAttack`), silence (`BlockSkill`), `BlockMoveSkill`, taunt and slows
+  (slows are buffs) do not count, and no target narrows it to knock-ups only: league_yasuo's R, cast on
+  `EnemyChampionInCC`, also fires on stunned or rooted champions. No base champion's data uses it.
 - **Which ally gets an ally skill** *(read from the mod SDK's compiled `game_core`, not yet seen
   in game)*: `AllyNotSelf` is an allied champion other than the caster (no minions), `AllyChampion`
   includes the caster, `Ally` is any allied unit (`CastingTarget::check`). The battle AI makes one
@@ -158,6 +164,21 @@ the engine's other kinds are `EnemyTarget` (skips the caster's team) and `EnemyA
 `FixedAttack` with only `target_hp_ratio` has an expected damage of 0 for the AI (it is
 estimated from the caster's stats), which keeps a health cost out of the skill's score.
 
+**Critical strikes follow the action's `attack_type`** *(read from the SDK's game_core,
+`apply_attack_inner`)*. In an action with `attack_type: BaseAttack`, every `Attack` (in projectiles
+too) rolls a crit: chance = the `crit_chance` stat plus buffs, capped at 100, and a crit deals
+exactly **2x**. In a `Skill` action an `Attack` never crits (`AttackEffect` passes no skill-crit flag);
+only `ApAttack` with `can_crit: true` can. The type also picks the target's reduction:
+`base_attack_damaged_reduce` for `BaseAttack`, `skill_damaged_reduce` for `Skill`. Setting a skill's
+action to `BaseAttack` is how "treated as a basic attack" is built (base swordman's skill does it;
+league_yasuo's Q crits that way). No base champion has crit chance (items give 10-25%), a crit's
+damage cannot be changed, the chance can only be added to (no multiplier), and the stats panel does
+not show it, so write it in the text. `defence_penetration` is a percent: the target's armour counts
+as armour x (100 - penetration) / 100 (`utils::get_damage`).
+
+No effect and no buff field blocks, reflects or destroys a projectile (a wall like Yasuo W or Braum E
+cannot exist); `ShrinkingBarrier` is a closing ring that hits units at its edge.
+
 **Buffs** - `AddBuff {buff_state}` (on target), `AddCasterBuff {buff_state, only_to_enemy}`
 (on caster), `RemoveCasterBuff {name}`. See section 5.
 
@@ -184,9 +205,18 @@ so the target stops at the caster wherever it started (league_darius E).
 | MoveToTarget | speed, range, end_effects[] | dash onto the target, then end_effects |
 | MoveBack | speed, tick | hop backwards |
 | RushTime | speed, tick, range, casting_target, penetrate, applied_effects[] | charge for `tick`, hitting units passed |
-| RushMoveToBack | speed, applied_effects[] | dash to behind the target *(inferred)* |
+| RushMoveToBack | speed, applied_effects[] | dash through the target to 15000 units behind it, then applied_effects on it |
 | DirTeleport | moved | blink `moved` units in the cast direction |
-| Teleport | - | teleport to target *(inferred)* |
+| Teleport | - | put the caster on the target's (or the cast point's) position |
+
+*(read from the SDK's game_core)* `RushMoveToBack` aims at a point 15000 units (a fixed value) past
+the target on the line from the caster, clamped to the map, and schedules `applied_effects` (plain
+effects, no `casting_type` wrappers) on the target for when it arrives: a dash *through* an enemy
+(LoL Reborn Fizz Q, Touhou Sakuya, league_yasuo E), where `MoveToTarget` stops on it. `Teleport` copies
+the target unit's coordinates (`Targeting`) or the cast point (`Position`) onto the caster and does
+nothing for `Direction`. `Airborne` on a unit that is already airborne keeps the longer of the two
+remaining times; every CC's duration is cut by the target's `toughness` (x (100 - toughness) / 100),
+and airborne also cancels the target's dash.
 
 **Projectiles and zones** (all take `name` -> bound in `view_projectiles`; `applied_effects` items are `{"casting_type": "Targeting", "effect": {...}}`)
 | Type | Extra fields | Meaning |
@@ -220,7 +250,8 @@ collision radius of the unit tested, and for RangeEffect the caster's too)*:
 RangeEffect `apply_type`: `"AroundCaster"` or `{"Forward": {"offset": N}}` - the centre N units from
 the caster toward the effect's target (the unit of a `Targeting` action, the point of a `Position`
 one; a `Direction` cast falls back to the caster). The Touhou pack's Sanae ult uses Forward + Rect;
-league_darius E uses Forward `{offset: 1000}` + DirDot as its cone.
+league_darius E uses Forward `{offset: 1000}` + DirDot as its cone. `offset` is unsigned (`-20000` is a
+parse error), so no area can be put behind the caster.
 
 **Presentation**
 `ViewEffect {name}` (play a `view_effects` animation on the target/point),
@@ -448,6 +479,33 @@ it leaves. The ult's longer curse adds a caster "window" buff that the pulses ch
 applied_target: EnemyChampion}` passes minions and monsters (the AI cannot aim around them); its
 `applied_effects` hold the damage, `Stun`, `MoveToTarget` (the Lee Sin Q2 dash, without the delay)
 and `CasterAnimation` for the flight. A miss moves nothing.
+
+**Third cast is different (league_yasuo Q3).** Two hidden caster buffs count the hits: the first
+hit of a cast adds `q_stack`, the next cast's hit swaps it for `q_ready` (both 6 s, one per cast with
+the Soraka lock above); the skill starts with `SwitchByBuff q_ready` and fires the whirlwind
+(`LinearProjectile`, `penetrate: true`, `Airborne`) instead of the thrust, removing `q_ready`, whose
+`view_buffs` entry shows the charged sword meanwhile. Branch at `start_timing` 1 and delay the hits,
+so the `CasterAnimation` of the other form replaces the action's animation before it shows.
+
+**A skill that changes shape after another (league_yasuo EQ).** The dash adds a short caster window
+buff (40 ticks); the other skill checks it first and strikes as a circle (`RangeEffect` around the
+caster) while it lasts. Nothing forces the AI to follow up, but a skill whose target is now in range
+and whose cooldown is up is cast as soon as the dash's action ends.
+
+**A shield that waits for combat (league_yasuo Flow).** There is no "took damage" trigger, so every
+action (basic attack, both skills) starts with `SwitchByBuff flow_cd`: without it, add `flow_cd`
+(12 s) and `WithSelf {Shield}` (a `Shield` in a `Targeting` action would shield the enemy). The first
+action of a fight shields him; the ult removes `flow_cd` to refill it.
+
+**A projectile wall, approximated (league_yasuo Wind Wall).** Nothing blocks projectiles (section 4),
+so the wall is a view-only `LineRangeProjectile` (width 40000, length 8000, `delay` 1, `apply` 239: a
+4 s thin rectangle turned toward the target, *inferred* to live `delay + apply` ticks) plus a
+`RangeEffect` on `AllyChampion` around the caster adding `base_attack_damaged_reduce` for 4 s; ranged
+basic attacks are the projectiles most units throw, melee ones are reduced too.
+
+**Blink to a crowd-controlled champion (league_yasuo R).** `Targeting` + `EnemyChampionInCC` (range
+100000) then `Teleport`; a `RangeEffect` on `EnemyChampionInCC` around the caster re-applies `Airborne`
+(the longer time wins) and a `Delayed` second one deals the damage while they are still up.
 
 ## 8. Gotchas
 
