@@ -8,7 +8,7 @@
 
 ![艾希演示：跑步、普攻、Q 连射、W 万箭齐发、R 魔法水晶箭](docs/preview/league_ashe_showcase.gif?v=native)
 
-![拉克丝演示：跑步、普攻、Q 光之束缚和护盾、被动引爆、E 透光奇点、R 终极闪光](docs/preview/league_lux_showcase.gif?v=legs)
+![拉克丝演示：跑步、普攻、Q 光之束缚和护盾、被动引爆、E 透光奇点、R 终极闪光](docs/preview/league_lux_showcase.gif?v=wand)
 
 ![李青演示：跑步、Q 天音波和回音击、疾风骤雨普攻、E 天雷破和金钟罩、R 猛龙摆尾](docs/preview/league_leesin_showcase.gif)
 
@@ -123,6 +123,8 @@ python tools/art/preview_lux.py
 后来角色图按游戏原尺寸重画了（见下文），每帧的位置沿用第一轮，所以法杖仍在光束里。`import_lux.py --body` 仍能写出第一轮的角色图。
 
 跑步第 4、5、7、8 帧的下半身像变了形：英雄联盟里拉克丝跑到后半段把法杖竖在身后，杖尾垂到后脚边，游戏尺寸下金白色的杖尾和后腿粘在一起，看起来像一只金色的脚。这四帧的杖尾改画成和其他帧一样的深色靴子（杖尾算作被腿挡住），逐像素记在 [`native/lux_retouch.json`](assets/source/native/lux_retouch.json)，导入时套用。
+
+待机的法杖看起来是歪的：法杖从她身后斜穿过去，露出的两截不在一条直线上。脚边金球到左腿那截画成 45°，右手到右上金球那截约 30°，顺着下面那截看，会从手上方 6 格处穿过。6 帧待机的这一截都按"金球—右手—金球"这条直线重画（每 3 格升 2 格，中间一格棕色，放到深色卡片背景上也看得出方向），每帧改 8～9 个像素，同样记在 `lux_retouch.json` 里。受击两帧的杖身本来就在直线上，没有改。
 
 逐帧预览：[`docs/preview/league_lux_frames.png`](docs/preview/league_lux_frames.png)，特效：[`docs/preview/league_lux_effects.png`](docs/preview/league_lux_effects.png)。
 
