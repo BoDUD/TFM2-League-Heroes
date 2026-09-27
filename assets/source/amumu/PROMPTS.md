@@ -54,6 +54,18 @@
    - 3/4 正面朝右，看得到两只眼睛。
 
    **不对就重画这一张，不要带着错的造型图往下做。**
+
+   **第一轮结果（2026-09-27）**：用户选了方案 A（原版比例）。Codex 用内置生图画了两版，交接说明自己写明"草稿，未达到生产规格"：画布 1254×1254，方块约 13.45 px 而且不均匀，227 种颜色加半透明像素；人只有 29 格高，身体是细杆。画风是对的：圆头上三种深浅的横向绷带条，深紫黑眼窝里白加琥珀的眼睛，远眼一列贴脸边，没有嘴，身后拖着绷带。
+
+   按草稿自己的网格逐格取色只能得到 29 格、绷带发锯齿的图；把英雄联盟渲染按亮度自动分色又糊成一团。用户选择由 Claude 逐格画 34 格：轮廓、姿势和大小照英雄联盟渲染（和动作参考、锚点表对得上），画风照 Codex 草稿，分部件描边（躯干、挂在下巴下的小爪子、两只大圆脚、拖地的绷带）。用户在四个选项里选了 ③：**大眼睛**（近眼在眼窝里 3 格宽，远眼 1 列），**不画嘴**。定稿为 [`../native/amumu_native.png`](../native/amumu_native.png)：34 格高（第 66–99 行），10 种颜色：
+
+   | 用途 | 颜色 |
+   |---|---|
+   | 描边 | `#111317` |
+   | 绷带：薄荷高光、浅青、青绿、深绿、最深的绿 | `#C9E5D5`、`#6DBA9B`、`#4F967C`、`#2D6454`、`#1C3F35` |
+   | 眼窝、白色高光、琥珀、橙 | `#2A1C30`、`#FFFFFF`、`#FFC83C`、`#F08A2C` |
+
+   眼睛的每一格（128×128 画布，行列从 0 数）：近眼在第 79–82 行、第 72–76 列，最上一行 5 格眼窝；中间一行眼窝、白、琥珀、琥珀、眼窝；下面一行眼窝、琥珀、琥珀、橙、眼窝；再下面第 73–75 列 3 格眼窝。远眼在第 80 列、第 79–81 行：眼窝、琥珀、橙，左边第 79 列是它的眼窝，右边就是脸的描边。9 张动作图都以这张定稿为第一张附图。
 3. 造型图通过后，9 张动作图**同一批**生成，每张附三张图：
    - 第一张：定稿造型图 `amumu_native.png`；
    - 第二张：对应的 `amumu_native_<动作>.png`（原尺寸姿势参考）；
@@ -62,7 +74,7 @@
 5. 8 张特效图不附图，可以和动作图同时生成。
 6. **交给 Claude 之前请 Codex 整理**（和前几个英雄一样）：
    - 每个像素都是严格对齐的 8×8 纯色块，透明度只有全透明和不透明；
-   - 全部角色图共用造型图的调色板，不超过 16 色，去掉孤立的杂色点；
+   - 全部角色图只用定稿造型图的 10 种颜色，去掉孤立的杂色点；
    - **每一帧的头和造型图一样大**（按方块数一样），脸朝观众的帧直接把造型图的头逐格贴进去；头缩起来、倒下的帧按参考图转动同一个头，不要画大画小；
    - **身体要画出来，不要用方块拼**：德莱厄斯那批的身体是在格子上按参考手工拼的，动起来忽大忽小。如果生图做不到，请在交接说明里写明哪些帧是拼的，Claude 会改用英雄联盟原版动画重新上色（`tools/art/restyle_native.py`）；
    - 待机 6 帧头的大小不变，只随抽泣上下动；跑步 8 帧头保持在参考图的那一列，不要左右跳 1–2 格；
@@ -82,7 +94,7 @@ Riot 模型渲染和原版游戏截图只在本地用，不提交到仓库。
 | `amumu_model_chibi.png` | 英雄联盟游戏内模型的正面、侧面、背面 | 造型图 |
 | `tfm2_face_ref_undead.png` | 原版僵尸、幽灵、死灵法师、杀手的头，12 倍：眼睛怎么排，深色眼窝里的发光眼睛怎么画 | 造型图 |
 | `pack_native_ref.png` | 本包按原尺寸画的拉克丝、艾希、李青、索拉卡、德莱厄斯，8 倍 | 造型图 |
-| `amumu_native.png` | 定稿造型图（审完后放进来） | 全部动作图（第一张附图） |
+| `amumu_native.png` | 定稿造型图（Claude 逐格画，用户选的 ③：大眼睛、不画嘴），8 倍，128×128 方块画布 | 全部动作图（第一张附图） |
 | `amumu_native_<动作>.png` | 原版动作渲染成游戏尺寸，8 倍，按格子排好 | 各自的动作图 |
 | `amumu_pose_<动作>.png` | 同一批帧的高清渲染，格子和位置完全相同 | 各自的动作图 |
 | `amumu_cells.json` | 每帧锚点在格子里的位置和帧时长（给 Codex 核对位置用） | 整理 |
@@ -95,13 +107,13 @@ Riot 模型渲染和原版游戏截图只在本地用，不提交到仓库。
   - 每个像素是一个清楚的 8×8 方块，所有方块对齐同一个 8 px 网格；
   - 没有比一个方块更小的东西，没有抗锯齿、模糊、柔光。
 - **干净，不要细节**：
-  - 整个精灵最多 16 种颜色：绷带 4 个青绿色阶（薄荷白高光、浅青、青绿、深绿），眼睛 4 色（白、亮琥珀、橙、深紫黑眼窝），再加近黑描边；
+  - 只用定稿的 10 种颜色：绷带 5 个绿色阶（薄荷高光、浅青、青绿、深绿、最深的绿），眼睛 4 色（深紫黑眼窝、白、琥珀、橙），再加近黑描边；
   - 不要抖动、渐变、噪点，一块颜色里不要夹单个杂色方块；
   - 1 个方块宽的近黑色描边；
   - 绷带的缠绕用少量深色短横线表示（头上 3–4 道），不要把每条绷带都画出来。
 - **脸**：
   - 头超过身高一半，每一帧都和造型图一样大；
-  - 眼睛按造型图逐格照抄（近眼在左 2 格宽，远眼 1 格贴脸边，各 3 行），眼睛四周是深紫黑的眼窝；嘴按造型图（默认没有嘴）；
+  - 眼睛按造型图逐格照抄：近眼在左，眼窝里 3 格宽（上面一行眼窝，中间白、琥珀、琥珀，下面琥珀、琥珀、橙），远眼 1 列贴着脸边（眼窝、琥珀、橙），四周是深紫黑的眼窝；没有嘴；
   - 眼睛下面约 2 行深绿色的脸；嘴鼻附近不要画深色点和竖线。
 - **身体**：小身子驼背，细手臂、小爪子手，短腿、大圆脚，身上一圈圈绷带；身后拖着一条长绷带贴在地上，1–2 格粗。
 - **朝向**：3/4 正面朝右，看得到两只眼睛。空翻、缩成一团时头会转开，按参考图画；其他帧都把脸转向观众，不画背影。
@@ -149,7 +161,7 @@ Before finishing, check square by square: he is 34 squares tall from the top of 
 ```text
 Three attached images. FIRST: the approved clean pixel-art design of Amumu at 8x (every pixel an 8x8 block) - copy his colors, shapes, face and pixel style exactly. SECOND: League of Legends' real animation of Amumu rendered at our game's sprite size and shown at 8x, frames in a grid of cells read left to right, top to bottom - copy each frame's pose, size and position in its cell exactly, but NOT its blurry pixels. THIRD: the same frames as a high-resolution render, same grid, same places - look at it wherever a pose in the SECOND image is hard to read.
 Task: redraw every frame of the SECOND image as clean pixel art in the style of the FIRST image, at EXACTLY the same pixel size: standing he is 34 pixels tall from the top of his head to his soles, every pixel one crisp 8x8 square on a single 8-px grid, nothing smaller than one square, no anti-aliasing, no blur.
-Pixel rules (most important): at most 16 colors (those of the FIRST image); big flat areas, 4 teal-green shades for the bandages; no dithering, no noise, no lone square of a different color inside an area; a 1-square near-black outline around the silhouette. His head is EXACTLY the head of the FIRST image, copied square for square, in every frame where he faces us - the same size (more than half of his standing height), the same bandage lines, the same two glowing amber eyes (the near eye on the left 2 squares wide, the far eye 1 square, each 3 rows tall) and the same face. When the SECOND image tucks, tilts or turns his head (a flip, a fall), turn or tilt that same head - never draw it bigger or smaller. Draw the body in every frame as a real drawing of the pose in the SECOND image, not assembled from blocks. Keep the long loose bandage end trailing from his leg as in the SECOND image, 1-2 squares thick. 3/4 FRONT view facing right; keep his glowing eyes toward the viewer wherever the SECOND image shows them.
+Pixel rules (most important): only the 10 colors of the FIRST image; big flat areas, 5 green shades for the bandages; no dithering, no noise, no lone square of a different color inside an area; a 1-square near-black outline around the silhouette and around each part (head, torso, hand, each foot, the trailing bandage). His head is EXACTLY the head of the FIRST image, copied square for square, in every frame where he faces us - the same size (21 squares tall, 19 wide), the same bandage bands and seams, the same two glowing eyes in dark purple sockets (the near eye on the left 3 squares wide, the far eye 1 square against the right edge of his face, each 3 rows tall) and no mouth. When the SECOND image tucks, tilts or turns his head (a flip, a fall), turn or tilt that same head - never draw it bigger or smaller. Draw the body in every frame as a real drawing of the pose in the SECOND image, not assembled from blocks. Keep the long loose bandage end trailing from his leg as in the SECOND image, 1-2 squares thick. 3/4 FRONT view facing right; keep his glowing eyes toward the viewer wherever the SECOND image shows them.
 ```
 
 ### 2. `amumu_idle.png`：待机，6 帧，3 列 × 2 行
