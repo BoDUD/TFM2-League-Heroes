@@ -1,5 +1,5 @@
 {
-  "about": "Yasuo's heads are League's own (restyle_native.py votes them frame by frame, so they turn, bow and lie down with the body) with the design's face block pasted where native_pose.py tracks the face. Where that could not work these edits draw the face by hand: the bowed head of attack 2 and the dying ones of dead 2-4 get downcast eye lines, the lying dead 6-7 closed eyes, the profiles of q3 6-7 a mouth (and in q3 7, turned too far for the block, a brow and an eye) on the front edge. Idle's hair tie is the design's two squares (light over dark) in all six frames; League's tie came out as one or two gold squares or none, and flickered. import_native.py applies these edits after cutting the frames and stops if a pixel no longer has the colour an edit expects.",
+  "about": "Yasuo's heads are League's own (restyle_native.py votes them frame by frame, so they turn, bow and lie down with the body) with the design's face block pasted where native_pose.py tracks the face. Where that could not work these edits draw the face by hand: the bowed head of attack 2 and the dying ones of dead 2-4 get downcast eye lines, the lying dead 6-7 closed eyes, the profiles of q3 6-7 a mouth (and in q3 7, turned too far for the block, a brow and an eye) on the front edge. The crouches after the ult and the E dash (ult 7-8, skill2 7) tuck the chin into the scarf: with the body at 80% and the head kept, the lower face stuck out past the body and read as a mask coming off the head. Idle's hair tie is the design's two squares (light over dark) in all six frames; League's tie came out as one or two gold squares or none, and flickered. import_native.py applies these edits after cutting the frames and stops if a pixel no longer has the colour an edit expects.",
   "palette": {
     "O": "#141319",
     "h": "#2b1a1f",
@@ -58,6 +58,25 @@
       [],
       [[-4, 6, "T", "h"], [-3, 6, "T", "h"], [-1, 6, "T", "h"]],
       [[-5, 7, "S", "h"], [-4, 7, "S", "h"], [-2, 7, "S", "h"]]
+    ],
+    "ult": [
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [[6, 1, "S", "b"], [7, 1, "S", "B"], [8, 1, "S", "b"], [6, 2, "S", "B"], [7, 2, "S", "B"]],
+      [[7, -4, "T", "S"], [6, -3, "T", "S"], [7, -3, "S", "B"], [5, -2, "O", "s"], [6, -2, "O", "b"]]
+    ],
+    "skill2": [
+      [],
+      [],
+      [],
+      [],
+      [],
+      [],
+      [[7, -6, "T", "S"], [6, -5, "T", "S"], [7, -5, "S", "B"], [5, -4, "O", "s"], [6, -4, "O", "b"]]
     ]
   }
 }
