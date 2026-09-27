@@ -433,6 +433,15 @@ issued at the start did not survive the dashes. Base Nightmare plays its forced 
 dash's `end_effects`, so league_garen E now re-issues `CasterAnimation spin` on every pulse (after
 its `RandomTarget`) and in each `MoveToTarget`'s `end_effects`, each lasting until the next pulse
 *(inferred: a dash ending drops the forced animation; not yet confirmed in-game)*.
+Make the spin reach past the cast distance. The AI starts an action at `range` plus both units'
+radii (league_garen E, range 28000, began with its target about 45 px away, centre to centre), so
+a 30000 spin missed whoever stood at its edge and players still called the skill useless, though
+it dealt about 70% of Garen's damage *(measured in the SDK simulation)*. League's spin reaches
+about 1.9 times Garen's attack range; 40000, with League's +25% on the nearest enemy (here an
+`Attack` in each dash's `end_effects`, so the chased champion takes it) and a 6 s armour shred,
+took Garen's team from -3.0 to 0.0 kills in 10 minutes against base top laners (240 games). A
+position tracker in the simulator must also read `ForceMove` events: dashes do not send
+`EntityMove`, and without them the spin looked as if it never moved.
 
 **`MoveToTarget` needs a target.** It dashes to the action's target, so use it in `Targeting`
 actions (Nocturne R, Gragas E). Under `casting_type: None` there is none and nothing moves (seen
