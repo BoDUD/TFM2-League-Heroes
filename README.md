@@ -2,7 +2,7 @@
 
 团战经理2（Teamfight Manager 2）的英雄联盟英雄 Mod，mod_id 是 `league`。纯数据 mod：不改游戏本体，不需要编译。
 
-英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）。第一组（上单、打野、中单、ADC、辅助各一）齐了，第二组已有上单德莱厄斯和打野阿木木。
+英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）。第一组（上单、打野、中单、ADC、辅助各一）齐了，第二组已有上单德莱厄斯、打野阿木木和中单亚索。
 
 对敌人放的小技能，施放目标是「敌人（不含防御塔）」，清线、打野时也会放；只有大招、德莱厄斯的 E（拉人）和阿木木的 Q（绷带）只对英雄放。最早几个英雄的小技能只对英雄放，打野时一直平 A 野怪，按玩家反馈改了。
 
@@ -19,6 +19,8 @@
 ![德莱厄斯演示：跑步、E 无情铁手拉人、W 致残打击、普攻叠出血、Q 大杀四方、诺克萨斯之力、R 诺克萨斯断头台](docs/preview/league_darius_showcase.gif)
 
 ![阿木木演示：跑步、Q 绷带牵引、绝望光环和诅咒、R 木乃伊之咒、E 阿木木的愤怒、普攻](docs/preview/league_amumu_showcase.gif)
+
+![亚索演示：跑步、普攻触发剑意护盾和风之障壁、Q 斩钢闪两次叠出旋风、Q3 旋风击飞两人、R 狂风绝息斩、E 踏前斩接 EQ 环形斩](docs/preview/league_yasuo_showcase.gif)
 
 ## 英雄：盖伦
 
@@ -265,6 +267,44 @@ python tools/art/preview_amumu.py
 - 结果：10 色，和右边像素同色的比例 62%（绷带是大块平涂；原版英雄 18%–46%）。头像截取点 (5, −26)：`tfm2_ase.py face` 按头顶建议 −34，但阿木木的眼睛在头顶往下十几格，往下移 8 格，让卡片露出眼睛。
 
 逐帧预览：[`docs/preview/league_amumu_frames.png`](docs/preview/league_amumu_frames.png)，特效：[`docs/preview/league_amumu_effects.png`](docs/preview/league_amumu_effects.png)。
+
+## 英雄：亚索
+
+| 部分 | 内容 |
+|---|---|
+| 定位 | 中单（Melee / Fighter），第二组第三个 |
+| 普攻 | 挥刀劈砍，100% 攻击力。被动「浪客之道」：20% 暴击几率（英雄联盟里暴击几率翻倍，这里直接给 20%）。「剑意」每 12 秒充满一次，充满后下一次出手（普攻、Q 或 E）获得 60 + 60% 攻击力的护盾（2 秒），并立起「风之障壁」：4 秒内身边的友方英雄受到的普攻伤害降低 40%。数据里没有能挡掉飞行物的效果，风墙改成减少普攻伤害 |
+| 技能1 | Q「斩钢闪」：向前突刺（45000 × 12000 的长条），30 + 100% 攻击力，按普攻算、可以暴击；命中后叠一层，满 2 层时放出旋风（飞 80000），击飞直线上的敌人 1 秒。E 冲刺中施放改为环形斩（半径 25000），满层时是环形击飞。冷却 4 秒 |
+| 技能2 | E「踏前斩」：冲刺穿过一名敌人（施放距离 40000），停在它身后 15000，40 + 60% 攻击力；6 秒内再冲一次伤害 +25%，最多 +50%。冷却 5 秒 |
+| 大招 | R「狂风绝息斩」：闪到施放距离 100000 内一名被控制（击飞、眩晕、禁锢、拉拽等）的敌方英雄身边，附近被控制的敌方英雄再被击飞 1 秒，受到 150 + 150% 攻击力的物理伤害；之后 10 秒无视 30% 护甲，剑意立即充满。冷却 40 秒。要有控制才能放：对战模拟里 10 分钟平均放 0.5 次（队友是原版英雄）到 2.9 次（队友是德莱厄斯、阿木木、艾希、拉克丝），以后加入带击飞的英雄时再调 |
+| 精灵图 | 10 个动作 68 帧：待机、跑步、普攻、Q 突刺、Q3 放旋风、EQ 环形斩、E 冲刺、R、受击、死亡。头顶到脚底 34 px（马尾另外往上翘约 9 格），19 色，动作全部取自英雄联盟原版动画 |
+| 特效 | 普攻命中、Q 突刺的风、Q 命中、旋风烈斩就绪、Q3 旋风、击飞、EQ 环形斩、EQ3 环形击飞、E 命中、剑意护盾、风之障壁、R 连斩 |
+| 图标 | 官方技能图标（Q / E / R），64×64 |
+| 音频 | 从本地客户端提取的 14 条技能音效和 4 条中文语音（Q、Q3、E、R）。不提交到仓库，按下面的命令在本地生成 |
+
+```bash
+python tools/lol/extract_yasuo.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstream-cli.exe 路径>"
+python tools/lol/native_pose.py assets/source/yasuo/poses.json --out <渲染文件夹> --alpha --parts
+python tools/art/restyle_native.py assets/source/yasuo/poses.json --renders <渲染文件夹>   # 角色图
+python tools/art/import_native.py --hero yasuo     # 套用 yasuo_retouch.json
+python tools/art/import_yasuo.py      # 特效；--raw <Codex 的交付文件夹> 先把原始图转成原尺寸条
+python tools/art/preview_yasuo.py
+```
+
+美术（提示词见 [`assets/source/yasuo/PROMPTS.md`](assets/source/yasuo/PROMPTS.md)）：
+- 比例和镜头：用户在三种头身比例里选了 C（头 2.0、腿 0.8），马尾按一半缩放（`hair 0.5`），保持原版的长度感。亚索的待机是深蹲，只有站直时的 80%，头顶到脚底仍按 34 px 算。待机时刀收在鞘里，腰上往后伸的是刀鞘；普攻和技能时手里是拔出来的银色刀，刀鞘还挂在腰上。
+- 造型图：Codex 的两版生图对不准网格（1254 px 画布，方块 9.6–10.8 px），眼睛也不合规格。Claude 在英雄联盟 34 格的剪影上逐格画：先按材质自动投色，再手画肩甲的层叠羽片、刀鞘的银边、胸口的皮肤和斜挎皮带、金绳腰带和刀穗。脸在三个方案里，用户先选了原版游戏画法加小嘴，后来改成英雄联盟里的冷脸：三格粗眉、一行眼睛（白眼挨着黑瞳）、一格暗褐小嘴。19 色。
+- 动作图：用英雄联盟动画重新上色（`restyle_native.py`），这次加了三样：
+  - 蓝布、深蓝裤子、金绳、皮肤、棕色皮革、钢铁按色相、饱和度、亮度分类投色（`materials`），原来只认深红布、皮肤和钢铁。原版的暗部很暗：胸口皮肤亮度只有 0.27、阴影里的金绳 0.13–0.36，所以皮肤从 0.1 算起，金色按色相认、不看亮度。
+  - 马尾单独成一个部位（`native_pose.py` 的 `hair_part`），每帧跟着原版动画甩。
+  - 头：第一版每帧贴待机时的造型头，跑步低头、EQ 转身、R、死亡躺下时头和身体对不上，用户指出后改成头也按原版逐帧取色（跟着身体转、低头、躺下），脸抹成造型图的两色平涂，再把造型图整块脸（额头、粗眉、眼睛、嘴，6×6 格）贴到每帧看得见的脸上：远眼贴着脸的前缘，朝左时镜像，背对镜头时不贴（`native_pose.py` 的 `face_track` 记下每帧脸的位置和朝向）。只贴眉眼几格时，刘海压住眉毛、嘴落到脸颊边上，用户觉得眼睛和嘴都怪。
+  - 自动贴不好的 20 帧逐格手修（80 格）：低头看下的画成向下的眼线，侧脸画前缘的眉眼嘴，躺平后画闭眼，待机 6 帧的金发箍统一成 2 格。记在 [`native/yasuo_retouch.json`](assets/source/native/yasuo_retouch.json)，导入时套用。
+  - 死亡动画里拔出来的刀没有动画轨道，会竖在身边，死亡动作不画这把刀（`hide`）；腰绳的两根绳尾缩到 0.6 倍，跑动时不再甩出一大片金色。
+- 特效用 Codex 画的 12 张：`import_yasuo.py --raw` 把原始图（半透明、格子比例不对）转成原尺寸条，再按技能范围定大小：Q 突刺 45 px 长，旋风 24 px 宽，风墙 40 px 高，EQ 的圈 50 px 宽（半径 25000，画一半大再放大 2 倍）。风墙的判定矩形从亚索脚下往前 8000，图画在他身前 12 px，不压在身上。
+- 出手时刻和动画对齐：普攻第 11 tick 命中，Q 第 8 tick 命中，Q3 旋风每 tick 飞 2.5 px，R 第 24 tick 落刀。
+- 结果：19 色，和右边像素同色的比例 48%（原版英雄 18%–46%）。头像截取点 (5, −34)：`tfm2_ase.py face` 按最高点把马尾尖当成了头顶（−43），它和 lint 现在会再按脸的肤色找一次头，(5, −34) 就在头顶上。
+
+逐帧预览：[`docs/preview/league_yasuo_frames.png`](docs/preview/league_yasuo_frames.png)，特效：[`docs/preview/league_yasuo_effects.png`](docs/preview/league_yasuo_effects.png)。
 
 ## 按游戏原尺寸重画（拉克丝、艾希）
 

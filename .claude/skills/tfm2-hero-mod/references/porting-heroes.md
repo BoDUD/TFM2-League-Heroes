@@ -272,23 +272,36 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   barrel with vertical stripes. Raw effect strips become native strips with
   `tools/art/import_amumu.py --raw` (median-cut colours, majority per game pixel, a scale per
   effect set by the kit's radius).
-- **A ponytail that swings, a palette beyond crimson (Yasuo, drawn by Claude, restyled).** Codex's
-  image tool missed the grid again (1254 px canvas, blocks 9.6-10.8 px), so the design was drawn on
-  League's 34 px silhouette like Amumu's: every render pixel votes for a colour by part and material
-  (the materials below), then the face, the sheath's edge, the pauldron's grooves, the rope belt and
-  the chest were drawn square by square - 19 colours. The strips come from `restyle_native.py`, with
-  three additions: `native_pose.py` `"hair_part": true` paints the hair chains (pose_ref HAIR:
-  Hair1-4, Hair_Top) yellow, so the ponytail is voted frame by frame on a `"hair"` ramp while the
-  design's head (without the ponytail) is pasted over the head; `"materials"` (hue / saturation /
-  value windows, first match wins) replace crimson / skin / steel - League's lighting leaves Yasuo's
-  chest at value 0.27 and the rope in shadow at 0.13-0.36, so skin starts at 0.22 and gold is any
-  saturated pixel of hue 32-55 whatever its value (skin and leather sit at 16-31); `"head": {"dy":
-  -1}` pastes the head a row higher, because the frame is lifted a pixel for the outline under the
-  soles while the paste used League's unlifted head. Darius's and Amumu's strips stay byte for
-  byte without these keys. `import_native.py` steadies idle and run on the pasted head for a
-  `hair_part` hero (its top rows are the ponytail, different every frame). What Yasuo holds at his
-  hip in idle is the sheath (League's weapon part there is only the hilt); the drawn blade appears
-  in attacks next to it.
+- **A ponytail that swings, a palette beyond crimson, a head that turns (Yasuo, drawn by Claude,
+  restyled).** Codex's image tool missed the grid again (1254 px canvas, blocks 9.6-10.8 px), so the
+  design was drawn on League's 34 px silhouette like Amumu's: every render pixel votes for a colour
+  by part and material, then the face, the sheath's edge, the pauldron's grooves, the rope belt and
+  the chest were drawn square by square - 19 colours. The strips come from `restyle_native.py` with
+  these additions (Darius's and Amumu's strips stay byte for byte without the keys):
+  - `"materials"` (hue / saturation / value windows, first match wins) replace crimson / skin /
+    steel. League's lighting is dark: Yasuo's chest sits at value 0.27 and the rope in shadow at
+    0.13-0.36, so skin starts at 0.1 and gold is any saturated pixel of hue 32-55 whatever its value
+    (skin and leather sit at 16-31); darker, both came out as a brown vest.
+  - `native_pose.py` `"hair_part": true` paints the hair chains (pose_ref HAIR: Hair1-4, Hair_Top)
+    yellow, so the ponytail is voted frame by frame instead of riding on a pasted head.
+  - The head. Pasting the design's head (Darius, Amumu) made a sticker: upright while League's head
+    bowed in the run, turned away in the EQ spin and lay down in death, and the user saw a head apart
+    from the body. `"head": {"mode": "voted"}` votes League's head too (gold tie, skin, hair), flattens
+    the face into the design's two tones (a dark jaw of League's stubble read as a mask) and pastes
+    the design's whole face block (forehead, brows, eyes, cheeks, mouth: 6x6) on the face this frame
+    shows: the far eye on the face's front edge in the eye row, mirrored when it looks left, left out
+    when it turns away (`native_pose.py` `"face_track"` writes each frame's face point, facing and
+    side from the head joint's up / forward axes). Pasting only the brow and eye squares let the
+    fringe swallow the brows and the mouth land on the cheek - the user found eyes and mouth strange.
+    The frames no rule fits (bowed: downcast eye lines; profile: brow, eye, mouth on the front edge;
+    lying: closed eyes; a tie that flickered) are retouched by hand in `yasuo_retouch.json` (20
+    frames, 80 squares). Check every frame's face at 12x before sending a GIF.
+  - `"hide"` per tag: the drawn sword has no track in the death clip and stood upright beside the
+    body. `"chibi": {"scale": {"L_Rope_Back1": 0.6, ...}}` shortens the rope tails that flew out as a
+    big gold fan in the run.
+  What Yasuo holds at his hip in idle is the sheath (League's weapon part there is only the hilt);
+  the drawn blade appears in attacks next to it. `import_native.py` steadies idle and run on
+  League's head joint for a voted head.
 - **A face point under the hair.** `tfm2_ase.py face` and the lint find the crown at the top of
   the idle sprite, which for Yasuo is the ponytail's tip, 9 px above his head and to the left of
   it. Both now also look for the head from the face: the top two rows of skin-toned pixels and the

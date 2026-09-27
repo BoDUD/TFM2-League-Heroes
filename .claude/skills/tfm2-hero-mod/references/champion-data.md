@@ -527,6 +527,12 @@ basic attacks are the projectiles most units throw, melee ones are reduced too.
 **Blink to a crowd-controlled champion (league_yasuo R).** `Targeting` + `EnemyChampionInCC` (range
 100000) then `Teleport`; a `RangeEffect` on `EnemyChampionInCC` around the caster re-applies `Airborne`
 (the longer time wins) and a `Delayed` second one deals the damage while they are still up.
+How often it fires depends on the team's crowd control: in 10 simulated minutes (5v5 on the SDK,
+12 seeds) league_yasuo cast it 0.5 times beside base heroes and 2.9 times beside the pack's CC
+heroes (Darius E pull, Amumu Q/R stuns, Ashe R, Lux Q root); his own whirlwind mostly lands on
+minions, since his Q is cast on anything. **When a new hero brings knock-ups or other hard CC
+(Malphite, Alistar, Nautilus...), rerun that simulation with Yasuo on its team and revisit his R**
+(its range, or letting it take a few more CC kinds) - the user asked for this.
 
 ## 8. Gotchas
 

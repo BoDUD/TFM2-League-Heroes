@@ -2,14 +2,19 @@
   "hero": "yasuo",
   "champ": "Yasuo",
   "camera": {"yaw": 55, "pitch": 25, "mirror": false},
-  "chibi": {"head": 2.0, "legs": 0.8, "hair": 0.5},
+  "chibi": {"head": 2.0, "legs": 0.8, "hair": 0.5, "scale": {"L_Rope_Back1": 0.6, "L_Rope_Front1": 0.6}},
   "weapon": "^sword$",
-  "hide": ["^flute$"], "hair_part": true,
+  "hide": ["^flute$"], "hair_part": true, "face_track": {"offset": [1.7, 0.6]},
   "height": 34,
   "cell": [96, 88],
   "design": "Yasuo_Idle1@0",
   "restyle": {
-    "head": {"rect": [69, 64, 12, 13], "dy": -1, "cut": [[69, 64], [70, 64], [69, 65], [69, 69], [70, 69], [69, 70], [69, 71], [69, 72], [69, 73], [69, 74], [70, 74], [71, 74], [69, 75], [70, 75], [71, 75], [79, 75], [80, 75], [69, 76], [70, 76], [71, 76], [72, 76], [78, 76], [79, 76], [80, 76]]},
+    "head": {"mode": "voted", "materials": [
+      {"name": "gold", "hue": [32, 55], "sat": [0.45, 1], "val": [0.1, 1], "ramp": [["A8701F", 0.34], ["E6A93A"]]},
+      {"name": "skin", "hue": [12, 40], "sat": [0.2, 1], "val": [0.05, 1], "ramp": [["9C643F", 0.42], ["C98E5F", 0.56], ["E8B98C"]]},
+      {"name": "hair", "ramp": [["2B1A1F", 0.185], ["4A2A30", 0.23], ["6B3C3F"]]}],
+      "features": {"anchor": [78, 72], "rect": [73, 70, 6, 6], "late": [[77, 75, 0.45, "C98E5F"]],
+                   "min_facing": 0.05}},
     "outline": "141319",
     "weapon": [["4B5B63", 0.3], ["7F929A", 0.5], ["B9C8CC", 0.78], ["E8F4F2"]],
     "hair": [["2B1A1F", 0.185], ["4A2A30", 0.23], ["6B3C3F"]],
@@ -17,7 +22,7 @@
       {"name": "gold", "hue": [32, 55], "sat": [0.45, 1], "val": [0.1, 1], "ramp": [["A8701F", 0.34], ["E6A93A"]]},
       {"name": "blue", "hue": [180, 240], "sat": [0.3, 1], "val": [0.38, 1], "ramp": [["275783", 0.55], ["3D86C2", 0.75], ["6AB8E6"]]},
       {"name": "navy", "hue": [190, 270], "sat": [0.2, 1], "val": [0, 0.38], "ramp": [["1B2344", 0.2], ["2B3A66"]]},
-      {"name": "skin", "hue": [8, 32], "sat": [0.25, 1], "val": [0.22, 1], "ramp": [["9C643F", 0.45], ["C98E5F", 0.65], ["E8B98C"]]},
+      {"name": "skin", "hue": [8, 32], "sat": [0.25, 1], "val": [0.1, 1], "ramp": [["9C643F", 0.45], ["C98E5F", 0.65], ["E8B98C"]]},
       {"name": "brown", "hue": [0, 50], "sat": [0.25, 1], "val": [0.08, 1], "ramp": [["5F3F2A"]]},
       {"name": "steel", "ramp": [["4B5B63", 0.3], ["7F929A", 0.5], ["B9C8CC", 0.78], ["E8F4F2"]]}
     ]
@@ -55,7 +60,7 @@
       ["Yasuo_Spell4@1100", 100], ["Yasuo_Spell4@1300>Yasuo_Idle1@0:0.5", 100]]},
     "hit": {"flat": true, "frames": [
       ["Yasuo_Idle1@0>Yasuo_Death@150:0.3", 120], ["Yasuo_Idle1@0>Yasuo_Death@150:0.12", 120]]},
-    "dead": {"lunge": 0.65, "flat": true, "frames": [
+    "dead": {"lunge": 0.65, "flat": true, "hide": ["^sword$"], "frames": [
       ["Yasuo_Death@0", 100], ["Yasuo_Death@300", 100], ["Yasuo_Death@700", 150], ["Yasuo_Death@1900", 150],
       ["Yasuo_Death@2150", 100], ["Yasuo_Death@2350", 120], ["Yasuo_Death@2719", 400]]}
   }
