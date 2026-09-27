@@ -16,10 +16,16 @@ and <hero>_native_design.png (the design pose on a 128x128 canvas at 8x, feet li
 bottom, like native_refs.py's <hero>_now_design.png), <hero>_pose_design.png (the same at 8x
 render), and <hero>_cells.json: each frame's pivot in its cell and its duration, the table
 tools/art/import_native.py cuts the redrawn frames out with, plus where League's head joint is in
-the cell (tools/art/fit_native.py puts a redrawn frame's head there).
+the cell (tools/art/fit_native.py puts a redrawn frame's head there) and, when it leans past 45
+degrees, which way its crown points ("tilt", degrees clockwise from up: a body lying on its back).
+--alpha writes <hero>_pose_<tag>.png on a transparent background and --parts adds
+<hero>_parts_<tag>.png, the same frames painted by part (head with its hair red, weapon green, body
+blue), for tools/art/restyle_native.py, which recolours them into the design's palette.
 
 Placement: the unit stands at the world origin. Every frame keeps League's height (jumps,
-landings, the death fall) and one vertical offset puts the design pose's soles on the feet line.
+landings, the death fall) and one vertical offset puts the design pose's lowest point on the feet
+line; the pivot is 11.5 px above its soles, so a prop hanging below them (Darius's axe) does not
+lift the sprite in game.
 Sideways, an action keeps `lunge` of League's travel around the design pose's head (the importers
 kept 65-70%: League blends back to idle, a sprite snaps back), then each frame is centred across
 its cell by its content and its pivot recorded. Per tag, "anchor": "first" measures that travel
@@ -38,7 +44,7 @@ without them, as without the hair.
 (Darius's Noxian Guillotine leaps about five metres, three times his chibi height: 0.3).
 
 Spec (JSON): {"hero", "champ", "camera": {"yaw", "pitch", "mirror"}, "chibi": {"head", "legs",
-"hair", "keep": {"<joint>": <radius>}}, "height", "cell": [w, h] or [w, h, feet] (optional, default 56x64, feet line 10 px above the bottom), "design": "<clip@ms>", "tags": {"<tag>": {"lunge": 1.0, "rise": 1.0, "anchor": "design",
+"hair", "keep": {"<joint>": <radius>}, "scale": {"<joint>": <factor>}}, "height", "cell": [w, h] or [w, h, feet] (optional, default 56x64, feet line 10 px above the bottom), "design": "<clip@ms>", "tags": {"<tag>": {"lunge": 1.0, "rise": 1.0, "anchor": "design",
 "flat": false, "head_like": null, "frames": [["<clip@ms or clipA@ms>clipB@ms:w>", <ms>, {"turn": <deg>,
 "head_like": "<clip@ms>"}], ...]}}} (the third item is optional; its "head_like" overrides the tag's for
 that frame, null turns it off). The renders show
@@ -62,6 +68,10 @@ from native_refs import CELL, FEET_ROW, Z, layout  # noqa: E402
 from riot import Wad  # noqa: E402
 
 BG = (225, 225, 225)
+PARTS = [(0, 0, 255), (255, 0, 0), (0, 255, 0)]          # --parts colours: body, head (with its hair), weapon
+PART_TEX = Image.new("RGBA", (len(PARTS), 1))
+for _k, _c in enumerate(PARTS):
+    PART_TEX.putpixel((_k, 0), _c + (255,))
 PIVOT_ROW = FEET_ROW - 12            # base sprites: pivot 11.5 px above the soles
 
 
@@ -97,6 +107,10 @@ class Champ:
         hair = P.chain_vertices(self.joints, self.influences, self.verts, self.hair_re)
         self.headv = head & ~hair
         self.head = next(i for i, j in enumerate(self.joints) if j["name"].lower() == "head")
+        on = lambda pat: P.chain_vertices(self.joints, self.influences, self.verts, re.compile(pat, re.I))
+        up = np.linalg.inv(bind[self.head][:3, :3]) @ np.array([0.0, 1.0, 0.0])
+        self.head_up = up / np.linalg.norm(up)          # the head joint's axis that points up in the bind pose
+        self.part = np.where(on(r"^head$"), 1, np.where(on(r"^weapon$"), 2, 0))     # index into PARTS
 
     def clip(self, name):
         if name.lower() not in self.by_name:
@@ -170,18 +184,26 @@ def camera(cam):
     return np.array([[1, 0, 0], [0, cp, -sp], [0, sp, cp]]) @ np.array([[cy, 0, sy], [0, 1, 0], [-sy, 0, cy]])
 
 
-def render(ch, pv, cam, scale, dy):
+def render(ch, pv, cam, scale, dy, tris=None, parts=False):
     """8x render two cells wide (RGBA float), the unit's origin at the centre of game column
-    CELL[0] and dy px (8x) below the feet line; frames are cut out of it by their content."""
+    CELL[0] and dy px (8x) below the feet line; frames are cut out of it by their content.
+    `tris` renders only those triangles (default: the whole model); `parts` paints each triangle
+    flat in the PARTS colour of what most of its corners follow (the shading keeps the hue)."""
     W, H = 2 * CELL[0] * Z, CELL[1] * Z
     x0 = (CELL[0] + 0.5) * Z
     shift = x0 / W - 0.5
     yaw = cam["yaw"]
+    tris = ch.tris if tris is None else tris
+    uv, tex = ch.verts["uv"], ch.tex
+    if parts:
+        n = np.stack([(ch.part[tris] == k).sum(1) for k in range(len(PARTS))], 1).argmax(1)
+        pv, tris = pv[tris].reshape(-1, 3), np.arange(3 * len(tris)).reshape(-1, 3)
+        uv, tex = np.c_[(np.repeat(n, 3) + 0.5) / len(PARTS), np.full(len(pv), 0.5)], PART_TEX
     if cam.get("mirror"):
-        img = P.render_hq(pv, ch.tris, ch.verts["uv"], ch.tex, -yaw, cam["pitch"], (W, H), scale,
+        img = P.render_hq(pv, tris, uv, tex, -yaw, cam["pitch"], (W, H), scale,
                           FEET_ROW * Z + dy, -shift).transpose(Image.FLIP_LEFT_RIGHT)
     else:
-        img = P.render_hq(pv, ch.tris, ch.verts["uv"], ch.tex, yaw, cam["pitch"], (W, H), scale, FEET_ROW * Z + dy, shift)
+        img = P.render_hq(pv, tris, uv, tex, yaw, cam["pitch"], (W, H), scale, FEET_ROW * Z + dy, shift)
     return np.asarray(img).astype(np.float32)
 
 
@@ -212,6 +234,10 @@ def main():
     ap.add_argument("--out", required=True)
     ap.add_argument("--lol", default=r"D:\WeGameApps\lol", help="League install folder")
     ap.add_argument("--tag", action="append", help="only these tags (default: all, plus the design canvas)")
+    ap.add_argument("--alpha", action="store_true",
+                    help="write <hero>_pose_<tag>.png on a transparent background instead of grey (to recolour it)")
+    ap.add_argument("--parts", action="store_true",
+                    help="also write <hero>_parts_<tag>.png: the same frames painted by part (PARTS colours)")
     args = ap.parse_args()
     with open(args.spec, encoding="utf-8") as f:
         spec = json.load(f)
@@ -233,13 +259,20 @@ def main():
         return sign * (rot @ g[ch.head][:3, 3])[0] * unit
 
     ref_head = head_x(glob)
-    # one vertical offset for every frame: the design pose's soles on the feet line
+    # one vertical offset for every frame: the design pose's lowest point on the feet line
     probe = blocks(render(ch, pv, cam, scale, 0.0))
     dy = (FEET_ROW - 1 - np.nonzero(probe[..., 3].any(1))[0].max()) * Z
     design = blocks(render(ch, pv, cam, scale, dy))
     rows = np.nonzero(design[..., 3].any(1))[0]
+    # the pivot is 11.5 px above the soles, found in a render of the legs alone: Darius's axe hangs
+    # 5 px below his, and a pivot counted from the axe tip left him floating 5 px in game
+    global PIVOT_ROW
+    legs = np.zeros(len(pv), bool)
+    legs[ch.legv] = True
+    soles = np.nonzero(blocks(render(ch, pv, cam, scale, dy, ch.tris[legs[ch.tris].all(1)]))[..., 3].any(1))[0].max()
+    PIVOT_ROW = int(soles) + 1 - 12
     print(f"{hero}: {unit * 100:.3f} game px per 100 units; design pose {rows.max() - rows.min() + 1} px tall with "
-          f"what hangs from the head, feet on row {rows.max()}, offset {dy / Z:+.0f} px")
+          f"what hangs from the head, lowest point on row {rows.max()}, soles on row {soles}, offset {dy / Z:+.0f} px")
 
     def cell(frame_spec, lunge, base, flat, turn=0.0, head_like=None, rise=1.0):
         pv, glob, _ = ch.posed(frame_spec, chibi, turn, head_like, rise)
@@ -254,6 +287,8 @@ def main():
                 lo = blocks(hi)
         hx = head_x(glob)
         head_y = FEET_ROW + dy / Z + down - (rot @ glob[ch.head][:3, 3])[1] * unit
+        su = rot @ (glob[ch.head][:3, :3] @ ch.head_up)
+        tilt = np.degrees(np.arctan2(sign * su[0], su[1]))      # where the crown points on screen, clockwise from up
         pivot = CELL[0] + int(round((1.0 - lunge) * (hx - base) + (base - ref_head)))
         ys, xs = np.nonzero(lo[..., 3])
         if len(xs) == 0:
@@ -267,7 +302,11 @@ def main():
         x0 = min(max(x0, 0), lo.shape[1] - CELL[0])
         lo = lo[:, x0:x0 + CELL[0]]
         hi = np.clip(hi, 0, 255).astype(np.uint8)[:, x0 * Z:(x0 + CELL[0]) * Z]
-        return lo, hi, (pivot - x0, PIVOT_ROW), hx - ref_head, clipped, (CELL[0] + 0.5 + hx - x0, head_y)
+        pa = None
+        if args.parts:
+            pa = np.clip(render(ch, pv, cam, scale, dy + down * Z, parts=True), 0, 255).astype(np.uint8)
+            pa = pa[:, x0 * Z:(x0 + CELL[0]) * Z]
+        return lo, hi, (pivot - x0, PIVOT_ROW), hx - ref_head, clipped, (CELL[0] + 0.5 + hx - x0, head_y, tilt), pa
 
     table = {}
     tags = args.tag or list(spec["tags"])
@@ -281,16 +320,23 @@ def main():
                        opt(f).get("head_like", t.get("head_like")), t.get("rise", 1.0)) for f in t["frames"]]
         cols, nrows = layout(len(frames))
         lo_img = Image.new("RGB", (cols * CELL[0], nrows * CELL[1]), BG)
-        hi_img = Image.new("RGB", (cols * CELL[0] * Z, nrows * CELL[1] * Z), BG)
+        hi_img = Image.new("RGBA" if args.alpha else "RGB", (cols * CELL[0] * Z, nrows * CELL[1] * Z),
+                           (0, 0, 0, 0) if args.alpha else BG)
         for k, (lo, hi, *_) in enumerate(frames):
             cx, cy = k % cols, k // cols
             lo_img.paste(on_bg(lo), (cx * CELL[0], cy * CELL[1]))
-            hi_img.paste(on_bg(hi), (cx * CELL[0] * Z, cy * CELL[1] * Z))
+            hi_img.paste(Image.fromarray(hi, "RGBA") if args.alpha else on_bg(hi), (cx * CELL[0] * Z, cy * CELL[1] * Z))
         lo_img.resize((lo_img.width * Z, lo_img.height * Z), Image.NEAREST).save(
             os.path.join(args.out, f"{hero}_native_{tag}.png"))
         hi_img.save(os.path.join(args.out, f"{hero}_pose_{tag}.png"))
-        table[tag] = [{"pivot": list(map(int, p)), "ms": int(ms), "head": [round(float(h[0]), 1), round(float(h[1]), 1)]}
-                      for (_, _, p, _, _, h), (_, ms, *_) in zip(frames, t["frames"])]
+        if args.parts:
+            pa_img = Image.new("RGBA", hi_img.size, (0, 0, 0, 0))
+            for k, fr in enumerate(frames):
+                pa_img.paste(Image.fromarray(fr[6], "RGBA"), (k % cols * CELL[0] * Z, k // cols * CELL[1] * Z))
+            pa_img.save(os.path.join(args.out, f"{hero}_parts_{tag}.png"))
+        table[tag] = [{"pivot": list(map(int, p)), "ms": int(ms), "head": [round(float(h[0]), 1), round(float(h[1]), 1)],
+                       "tilt": int(round(float(h[2])))}
+                      for (_, _, p, _, _, h, _), (_, ms, *_) in zip(frames, t["frames"])]
         colours = len(np.unique(np.concatenate([lo[lo[..., 3] > 0][:, :3] for lo, *_ in frames]), axis=0))
         print(f"{hero}_native_{tag}.png  {len(frames)} frames, {cols}x{nrows} cells, {colours} colours; head x from the "
               f"design pose " + " ".join(f"{fr[3]:+.1f}" for fr in frames) +
@@ -311,8 +357,11 @@ def main():
         w = min(hi.shape[1] - sx0, big.shape[1] - max(0, x0))
         big[max(0, y0):max(0, y0) + h, max(0, x0):max(0, x0) + w] = hi[sy0:sy0 + h, sx0:sx0 + w]
         on_bg(big).save(os.path.join(args.out, f"{hero}_pose_design.png"))
+        # "tilt" (where the crown points, degrees clockwise from up) only for a head leaning past 45 degrees:
+        # a lying body, whose drawn head a restyle turns by quarter turns
         lines = [f'  "{tag}": [' + ", ".join(f'{{"pivot": [{r["pivot"][0]}, {r["pivot"][1]}], "ms": {r["ms"]}, '
-                                             f'"head": [{r["head"][0]}, {r["head"][1]}]}}'
+                                             f'"head": [{r["head"][0]}, {r["head"][1]}]' +
+                                             (f', "tilt": {r["tilt"]}' if abs(r["tilt"]) >= 45 else "") + "}"
                                              for r in rows_) + "]" for tag, rows_ in table.items()]
         text = f'{{"cell": [{CELL[0]}, {CELL[1]}], "scale": {Z}, "tags": {{\n' + ",\n".join(lines) + "\n}}\n"
         json.loads(text)

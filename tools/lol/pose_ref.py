@@ -277,15 +277,17 @@ LOWER = re.compile(r"hip|thigh|cape|skirt|cloth", re.I)     # legs and what hang
 HAIR = re.compile(r"hair|braid|ponytail", re.I)             # chains hanging from the head
 
 
-def chibi(joints, local, head=1.0, legs=1.0, hair=1.0, hair_re=None):
+def chibi(joints, local, head=1.0, legs=1.0, hair=1.0, hair_re=None, scale=None):
     """TFM2 proportions from League's adult ones: scale the head joint, and the root of every leg,
     cape, skirt and cloth chain (meshes and child bones scale with it), so the reference already shows
     the big head and short legs of the sprite to draw instead of pulling the image model back to
     realistic proportions. `hair` scales the hair chains hanging from the head on top of the head's
     scale: a long braid would otherwise grow with the head (Lee Sin's reached the ground at 2x),
     so --hair 0.5 with --head 2.0 keeps it at League's length. `hair_re` (default HAIR) names those
-    chains; keep_parts() adds parts such as a horn."""
-    if head == 1.0 and legs == 1.0:
+    chains; keep_parts() adds parts such as a horn. `scale` maps more joint names to a factor
+    (Darius's pauldrons: {"L_Shoulderpad": 1.4, "R_Shoulderpad": 1.4}, as big as the sprite draws them)."""
+    scale = {k.lower(): v for k, v in (scale or {}).items()}
+    if head == 1.0 and legs == 1.0 and not scale:
         return local
     hair_re = hair_re or HAIR
     out = []
@@ -294,7 +296,7 @@ def chibi(joints, local, head=1.0, legs=1.0, hair=1.0, hair_re=None):
         k = head if j["name"].lower() == "head" else \
             hair if parent.lower() == "head" and hair_re.search(j["name"]) else \
             legs if LOWER.search(j["name"]) and not LOWER.search(parent) else 1.0
-        out.append((t, r, np.asarray(s, float) * k))
+        out.append((t, r, np.asarray(s, float) * k * scale.get(j["name"].lower(), 1.0)))
     return out
 
 
