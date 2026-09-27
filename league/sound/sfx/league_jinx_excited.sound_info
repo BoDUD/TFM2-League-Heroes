@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_jinx_sfx_excited",
+      "volume": 0.7
+    },
+    {
+      "delay": 0.1,
+      "clip": "league_jinx_vo_laugh",
+      "volume": 0.9
+    }
+  ]
+}

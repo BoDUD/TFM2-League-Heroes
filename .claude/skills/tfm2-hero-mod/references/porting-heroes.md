@@ -48,7 +48,10 @@ OK = direct, ~ = approximate, X = not possible in data-only mods.
 | Stacking bleed (Darius passive) | `AddCasted {casted_type: Bleed}` on every hit: each cast is its own instance, so the target's stacks are real (no cap) | OK |
 | Bonus at N stacks on the target (Noxian Might; Darius R +20% per stack) | `SwitchByBuff` cannot read the target, so count the caster's own hits with hidden buffs and branch on those (champion-data "Bleed that stacks") | ~ |
 | Cone pull to self (Darius E) | `RangeEffect` `Forward` + `DirDot` cone + `Grab` without `tick` (stops at the caster; `Pull` overshoots close targets) | OK |
-| Reset / refresh on kill (Darius R, Katarina) | no kill trigger in the effect tree | X |
+| Bonus on a kill (Jinx's Get Excited!) | a kill check: an invisible champion-only twin of the projectile flags the caster, a short `AddCasted` on the target clears the flag while it lives (champion-data "Kill trigger"); the hero's own killing blows only, not assists | ~ |
+| Reset / refresh on kill (Darius R, Katarina) | the kill can be detected (row above), but no effect resets a cooldown (`ult_cooldown_mult` untested) | X |
+| Weapon swap the player chooses (Jinx Q) | automatic by distance: the long weapon's range on the attack, the short one while an enemy is close (champion-data "Weapon picked by distance") | ~ |
+| Trap that lasts and springs once (Jinx E) | a chain of short links, each checking once; a bite locks the chain (champion-data "A trap that waits and snaps once") | ~ |
 | Toggled aura (Amumu W) | on while fighting: every action starts a guarded train of `Delayed` pulses around the caster (champion-data "Aura that runs while he fights") | ~ |
 | %-max-health magic damage (Amumu W) | `ApAttack` has no `target_hp_ratio`: the % part becomes `FixedAttack` (true), whole percents only | ~ |
 | Amplify one damage type (Amumu's Curse: +10% of magic damage as true) | no per-type amplify field: `damaged_amplify` on all damage, re-applied so it never stacks | ~ |
