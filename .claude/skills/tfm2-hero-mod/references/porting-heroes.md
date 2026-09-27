@@ -222,6 +222,18 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   motion, lunges and jumps, and one model in every frame, so the body never changes size. The body
   comes out slimmer than a hand-drawn design; enlarge what the design exaggerates, and keep the
   effects from the delivery.
+  Amumu (2026-09-27) went this way end to end. Codex's image tool could not hold the grid even for
+  the design sheet (raw 1254 px output, ~13.45 px blocks, 29 blocks tall), so the design was drawn
+  square by square on League's own 34 px silhouette of the design pose (parts outlined one by one,
+  the style taken from Codex's draft) - it then lines up with the pose references and the restyle.
+  The strips came back as raw generations too (soft alpha, other canvas sizes, a new head in every
+  frame, standing heights 32-47 once converted), and the user picked the restyle from a
+  side-by-side GIF. An all-bandage hero gives every ramp of `restyle` the same five greens (cuts
+  from the design's own tone shares). `"turn": {"dead": 50, "*": 180}` turns the pasted head only
+  in the death strip: a head thrown back in a jump (tilt -50 to -65) turned a quarter read as a
+  barrel with vertical stripes. Raw effect strips become native strips with
+  `tools/art/import_amumu.py --raw` (median-cut colours, majority per game pixel, a scale per
+  effect set by the kit's radius).
 - **Head tracks for the importer.** `pose_ref.py --frame <clip@ms> ... --track <hero px>
   --track-ref <idle clip@0>` prints each frame's head joint x in game px from the unit, for a
   hero that many px tall in idle, through the same camera and `--mirror` / `--head` / `--legs` as

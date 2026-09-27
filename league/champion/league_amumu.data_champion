@@ -40,7 +40,7 @@
   "attack": {
     "action_name": "attack",
     "description": "#asset/base/text/champion?description.league_amumu.attack",
-    "duration": 24,
+    "duration": 28,
     "cooltime": 70,
     "start_timing": 3,
     "cancelable": true,
@@ -488,7 +488,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 11,
+          "tick": 12,
           "effects": [
             {
               "type": "Attack",
@@ -511,9 +511,9 @@
   "skill": {
     "action_name": "skill",
     "description": "#asset/base/text/champion?description.league_amumu.skill",
-    "duration": 40,
+    "duration": 44,
     "cooltime": 360,
-    "start_timing": 8,
+    "start_timing": 16,
     "cancelable": false,
     "range": 62000,
     "casting_type": "Direction",
@@ -1031,9 +1031,9 @@
   "skill2": {
     "action_name": "skill2",
     "description": "#asset/base/text/champion?description.league_amumu.skill2",
-    "duration": 26,
+    "duration": 32,
     "cooltime": 270,
-    "start_timing": 10,
+    "start_timing": 20,
     "cancelable": false,
     "range": 28000,
     "casting_type": "None",

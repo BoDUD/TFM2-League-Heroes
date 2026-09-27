@@ -22,10 +22,15 @@ the strips import_native.py cuts, plus <hero>_cells.json copied from DIR (the sa
     that belong to the body) goes where League's head joint is, as far from the joint as League's
     head starts in the first idle frame, behind the weapon. A head whose crown points back past 60
     degrees (the cells' "tilt": lying on his back) turns a quarter; a bowed head stays upright.
+    "turn" in the spec moves that limit, for all tags or per tag with "*" for the rest (Amumu lies
+    at 52-64 degrees, while his jumps throw the head back 50-65: {"dead": 50, "*": 180}).
 Spec, in the hero's poses.json: "restyle": {"head": {"rect": [x, y, w, h], "cut": [[x, y], ...]},
 "outline": "<hex>", "weapon" / "steel" / "cloth" / "skin": [["<hex>", <up to brightness>], ...,
-["<hex>"]], "trim": ["<hex>", <from brightness>], "weights": {"<hex>": <vote weight>}}. The design
-sheet is assets/source/native/<hero>_native.png. The renders show Riot's model: keep them local.
+["<hex>"]], "trim": ["<hex>", <from brightness>], "weights": {"<hex>": <vote weight>},
+"turn": 60 or {"<tag>": <degrees>, "*": <degrees>}}.
+A hero without a weapon, red cloth or skin (Amumu, all bandages) gives every ramp the same colours.
+The design sheet is assets/source/native/<hero>_native.png. The renders show Riot's model: keep them
+local.
 """
 import argparse
 import json
@@ -152,13 +157,13 @@ def body(pal, hi, pa, w, h):
     return a, weapon, part == HEAD
 
 
-def paste_head(a, weapon, head, joint, tilt):
+def paste_head(a, weapon, head, joint, tilt, turn=TURN):
     """Paste the head grid (list of rows of hex or None) with League's head joint at joint[0] (x, y), given
     as the joint's place inside the upright head: joint = (x, y, jx, jy)."""
     x, y, jx, jy = joint
     g = np.array([[c or "" for c in row] for row in head], dtype=object)
     H, W = g.shape
-    if tilt <= -TURN:                      # lying on his back: the crown points left, the face up
+    if tilt <= -turn:                      # lying on his back: the crown points left, the face up
         g, (jx, jy) = np.rot90(g, 1), (jy, W - jx)
     x0, y0 = int(round(x - jx)), int(round(y - jy))
     for j, row in enumerate(g):
@@ -204,7 +209,10 @@ def main():
         cols, nrows = layout(len(rows))
         sheet = np.zeros((nrows * h, cols * w, 4), np.uint8)
         for k, (a, weapon, _, cell) in enumerate(frames(tag)):
-            paste_head(a, weapon, head, (cell["head"][0], cell["head"][1], jx, jy), cell.get("tilt", 0))
+            turn = rs.get("turn", TURN)
+            if isinstance(turn, dict):         # per tag, "*" for the rest
+                turn = turn.get(tag, turn.get("*", TURN))
+            paste_head(a, weapon, head, (cell["head"][0], cell["head"][1], jx, jy), cell.get("tilt", 0), turn)
             sheet[k // cols * h:(k // cols + 1) * h, k % cols * w:(k % cols + 1) * w] = a
         Image.fromarray(np.repeat(np.repeat(sheet, Z, 0), Z, 1), "RGBA").save(G.lp(os.path.join(SRC, f"{hero}_{tag}.png")))
         colours = len(np.unique(sheet[sheet[..., 3] > 0][:, :3], axis=0))
