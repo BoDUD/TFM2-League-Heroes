@@ -147,6 +147,17 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   cut back to the chin shadow. Offered no mouth and a one-square mouth, the user picked the mouth
   in dark red: a mouth in the skin's shadow colour merges with the chin shadow. When a design
   sheet comes back, compare its eyes with base heroes square by square, not just their size.
+- **Show faces as options, side by side.** league_yasuo's first drawn face followed the rule above
+  to the letter (a black brow row, highlight + black pupil, white + iris, one skin column between
+  the eyes, a dark-red mouth square) and the user found the eyes and mouth strange. Base male
+  faces (`tfm2_face_ref_male.png`) differ in ways the rule missed: the top eye row is a dark-brown
+  lash, not a black brow; the eyes stand two skin columns apart; the iris is coloured and
+  lighter in its lower row; most draw no mouth; the face is the light skin tone with the mid tone
+  only as shade (a mid-tone face swallows the eyes). Three variants at 12x on the arena and a dark
+  card, with the full body at 3x and 1x and the base faces underneath, settled it: the user took
+  the base-game eyes with a small muted mouth, then switched to League's stern look (a heavy
+  three-square brow, one row of eye - white beside a dark pupil - and a one-square mouth in dark
+  brown). Draw two or three faces from the start instead of one by the rule.
 - **A prop touching a limb becomes part of it.** In Lux's run, League's wand swings upright
   behind her, and its gold end hangs by her back foot. At game size the end (gold, white and
   skin pixels, no outline between) merged with the leg and read as a gold foot: the user saw

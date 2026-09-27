@@ -272,6 +272,28 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   barrel with vertical stripes. Raw effect strips become native strips with
   `tools/art/import_amumu.py --raw` (median-cut colours, majority per game pixel, a scale per
   effect set by the kit's radius).
+- **A ponytail that swings, a palette beyond crimson (Yasuo, drawn by Claude, restyled).** Codex's
+  image tool missed the grid again (1254 px canvas, blocks 9.6-10.8 px), so the design was drawn on
+  League's 34 px silhouette like Amumu's: every render pixel votes for a colour by part and material
+  (the materials below), then the face, the sheath's edge, the pauldron's grooves, the rope belt and
+  the chest were drawn square by square - 19 colours. The strips come from `restyle_native.py`, with
+  three additions: `native_pose.py` `"hair_part": true` paints the hair chains (pose_ref HAIR:
+  Hair1-4, Hair_Top) yellow, so the ponytail is voted frame by frame on a `"hair"` ramp while the
+  design's head (without the ponytail) is pasted over the head; `"materials"` (hue / saturation /
+  value windows, first match wins) replace crimson / skin / steel - League's lighting leaves Yasuo's
+  chest at value 0.27 and the rope in shadow at 0.13-0.36, so skin starts at 0.22 and gold is any
+  saturated pixel of hue 32-55 whatever its value (skin and leather sit at 16-31); `"head": {"dy":
+  -1}` pastes the head a row higher, because the frame is lifted a pixel for the outline under the
+  soles while the paste used League's unlifted head. Darius's and Amumu's strips stay byte for
+  byte without these keys. `import_native.py` steadies idle and run on the pasted head for a
+  `hair_part` hero (its top rows are the ponytail, different every frame). What Yasuo holds at his
+  hip in idle is the sheath (League's weapon part there is only the hilt); the drawn blade appears
+  in attacks next to it.
+- **A face point under the hair.** `tfm2_ase.py face` and the lint find the crown at the top of
+  the idle sprite, which for Yasuo is the ponytail's tip, 9 px above his head and to the left of
+  it. Both now also look for the head from the face: the top two rows of skin-toned pixels and the
+  silhouette above them. A face point on that head passes (an INFO line); one above the head still
+  warns.
 - **Clips that are not what their name says (Yasuo).** Read which animation a spell plays in
   `data/characters/<champ>/<champ>.bin`: the spell name is followed by its animation name (Yasuo:
   `YasuoQ1` -> `Spell1A`, `YasuoQ2` -> `Spell1B`, `YasuoQ3` -> `Spell1C`, `YasuoDashWrapper` ->

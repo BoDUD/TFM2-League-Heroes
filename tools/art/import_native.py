@@ -91,6 +91,24 @@ def head_of(frame, crown=False):
     return band[:, xs[0]:xs[-1] + 1]
 
 
+def pasted_head(hero):
+    """The head restyle_native.py pastes into every frame (the design sheet's head rect without its
+    cut pixels), for a hero whose hair swings above it ("hair_part" in its poses.json: Yasuo's
+    ponytail is the top of every frame and changes each time); None for everyone else."""
+    path = os.path.join(ROOT, "assets", "source", hero, "poses.json")
+    if not os.path.exists(path):
+        return None
+    with open(path, encoding="utf-8") as f:
+        spec = json.load(f)
+    if not spec.get("hair_part") or "restyle" not in spec:
+        return None
+    x0, y0, w, h = spec["restyle"]["head"]["rect"]
+    tpl = blocks(os.path.join(SRC, f"{hero}_native.png"))[y0:y0 + h, x0:x0 + w].copy()
+    for x, y in spec["restyle"]["head"].get("cut", []):
+        tpl[y - y0, x - x0] = 0
+    return tpl
+
+
 def find(frame, tpl):
     """(share of tpl's pixels matched exactly, x, y) at the best spot."""
     th, tw = tpl.shape[:2]
@@ -109,7 +127,9 @@ def build(hero):
     with open(os.path.join(SRC, f"{hero}_cells.json"), encoding="utf-8") as f:
         spec = json.load(f)
     table, cell = spec["tags"], tuple(spec.get("cell", CELL))
-    head = head_of(cells(hero, "idle", len(table["idle"]), cell)[0], crown=hero in CROWN)
+    head = pasted_head(hero)
+    if head is None:
+        head = head_of(cells(hero, "idle", len(table["idle"]), cell)[0], crown=hero in CROWN)
     sheet, report = {}, {}
     for tag, rows in table.items():
         fr = cells(hero, tag, len(rows), cell)

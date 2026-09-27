@@ -255,6 +255,11 @@ def check_face(rep, where, sprite_stem, face):
         rep.info(where, f"face point not checked ({e})")
         return
     if not tfm2_ase.face_ok(face, sug):
+        alt = tfm2_ase.suggest_face_skin(tfm2_ase.load_sprite(sprite_stem))
+        if alt and tfm2_ase.face_ok(face, alt):
+            rep.info(where, f"champion_view face {face} sits on the head found from the face's skin {alt}; "
+                            f"the top of the idle sprite ({sug}) is something above the head (hair)")
+            return
         above, dx = sug["y"] - face.get("y", 0), face.get("x", 0) - sug["x"]
         rep.warn(where, f"champion_view face {face} is {above:+d} px above / {dx:+d} px right of the idle head's crown "
                         f"{sug} - portraits crop around it (tfm2_ase.py face <sprite> --out shows both)")
