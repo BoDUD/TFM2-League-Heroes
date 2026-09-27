@@ -75,6 +75,13 @@ Sin's first idle, fixed in `leesin_retouch.json`).
 - 5-10 frames @ 65-125 ms; impact frames can flash white silhouettes.
 - Sizes: projectiles 25-75 px, impacts 100-250 px wide, ground zones drawn with `z: -1/-2`.
 - Reuse base effects when they fit (`bundle_tool.py list --grep skill_effect/`).
+- **Anything with an up and down goes on a caster view.** A projectile's view is turned to the
+  cast direction (champion-data section 6), so a wall or a banner on a `LineRangeProjectile` lies
+  across the screen when cast upward. A `CasterViewEffect` is not turned, is mirrored for a
+  left-facing caster and stands where it was played. league_yasuo's Wind Wall went this way (64 px
+  tall, 20 px in front of him) before the user dropped the skill: Codex's twisted column of wind read
+  as a tornado, League's ground-line shape (a long line with the ends bent back) read as a wall, and
+  44 px was too small to shield him.
 
 ## Skill icons
 
@@ -147,6 +154,25 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   cut back to the chin shadow. Offered no mouth and a one-square mouth, the user picked the mouth
   in dark red: a mouth in the skin's shadow colour merges with the chin shadow. When a design
   sheet comes back, compare its eyes with base heroes square by square, not just their size.
+- **Show faces as options, side by side.** league_yasuo's first drawn face followed the rule above
+  to the letter (a black brow row, highlight + black pupil, white + iris, one skin column between
+  the eyes, a dark-red mouth square) and the user found the eyes and mouth strange. Base male
+  faces (`tfm2_face_ref_male.png`) differ in ways the rule missed: the top eye row is a dark-brown
+  lash, not a black brow; the eyes stand two skin columns apart; the iris is coloured and
+  lighter in its lower row; most draw no mouth; the face is the light skin tone with the mid tone
+  only as shade (a mid-tone face swallows the eyes). Three variants at 12x on the arena and a dark
+  card, with the full body at 3x and 1x and the base faces underneath, settled it: the user took
+  the base-game eyes with a small muted mouth, then switched to League's stern look (a heavy
+  three-square brow, one row of eye - white beside a dark pupil - and a one-square mouth in dark
+  brown). Draw two or three faces from the start instead of one by the rule.
+- **Keep the mouth on the face's middle line.** A 3/4 face turned right has its middle line between
+  the near eye's pupil and the far eye, in front of the face's centre, and the mouth sits on it
+  (league_darius: pupil at column 67, far eye at 69, mouth at 68). A redraw that moved the mouth one
+  square back, under the near eye, and slid the brow back off the pupil got "the mouth is crooked,
+  the eyes are strange". League's Darius (the design pose rendered at 1400 px with `pose_ref.py
+  --hq`) scowls under slanted brows with stubble; the user kept the base game's two-row eyes and
+  took a heavy three-square brow, a furrow before the far brow and stubble on the chin. A changed
+  design face is pasted into every frame on the next `restyle_native.py` run; nothing else moves.
 - **A prop touching a limb becomes part of it.** In Lux's run, League's wand swings upright
   behind her, and its gold end hangs by her back foot. At game size the end (gold, white and
   skin pixels, no outline between) merged with the leg and read as a gold foot: the user saw

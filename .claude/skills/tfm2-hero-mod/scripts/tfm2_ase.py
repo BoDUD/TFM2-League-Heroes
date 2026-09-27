@@ -348,6 +348,42 @@ def suggest_face(sp):
     return {"x": int(round(cx + 1.5)), "y": -(feet - crown)}
 
 
+def skin_head(sp, tag="idle"):
+    """(feet row, crown row, head centre x) found from the face instead: the highest skin-toned
+    pixels (hue 5-45 degrees, saturation 0.2-0.65 - gold trim is more saturated - value 0.45 up; their
+    top two rows, the forehead: an ear lower down can sit under the hair),
+    the crown the top of the silhouette over their columns. For hair standing above the head:
+    league_yasuo's ponytail rises 9 px over his crown and is wider than his head, so head_of()
+    finds its tip. None when no skin shows (masks, undead)."""
+    import colorsys
+    f = sp.frames[(sp.tag_frames(tag) or [0])[0]].convert("RGBA")
+    px, W = f.load(), f.width
+    bb = f.getbbox()
+
+    def skin(p):
+        if not p[3]:
+            return False
+        h, s, v = colorsys.rgb_to_hsv(p[0] / 255.0, p[1] / 255.0, p[2] / 255.0)
+        return 5 <= h * 360 <= 45 and 0.2 <= s <= 0.65 and v >= 0.45
+
+    top = next((y for y in range(bb[1], bb[3]) if any(skin(px[x, y]) for x in range(bb[0], bb[2]))), None)
+    if top is None:
+        return None
+    xs = [x for y in range(top, min(top + 2, bb[3])) for x in range(bb[0], bb[2]) if skin(px[x, y])]
+    x0, x1 = min(xs), max(xs)
+    crown = min(next(y for y in range(bb[1], bb[3]) if px[x, y][3]) for x in range(x0, x1 + 1))
+    return bb[3], crown, (x0 + x1) / 2.0 - W / 2.0
+
+
+def suggest_face_skin(sp):
+    """suggest_face() on the head skin_head() finds; None without skin."""
+    h = skin_head(sp)
+    if h is None:
+        return None
+    feet, crown, cx = h
+    return {"x": int(round(cx + 1.5)), "y": -(feet - crown)}
+
+
 def face_ok(face, sug):
     """Within the base champions' spread: at most 4 px above the crown, 10 below, 8 aside (62 of
     the 68 pass; the others are a mount, the ogre, the werewolf, two big hats and the strongman).
@@ -407,12 +443,20 @@ def cmd_face(sp, face=None, out=None, game=None):
     print(f"  suggested champion_view face: {{\"x\": {sug['x']}, \"y\": {sug['y']}}}  "
           f"(base heroes: at the crown, ~1.5 px ahead of the head centre)")
     bad = 0
+    alt = suggest_face_skin(sp)
+    if alt and not face_ok(alt, sug):
+        print(f"  the face's skin puts the head elsewhere (hair above it?): face {{\"x\": {alt['x']}, "
+              f"\"y\": {alt['y']}}}")
     if face:
         ok = face_ok(face, sug)
+        msg = (f"face {face} is {sug['y'] - face['y']:+d} px above / {face['x'] - sug['x']:+d} px right of the "
+               f"suggestion (base: at most 4 above, 10 below, 8 aside; portraits crop around it - above the head "
+               f"they show hair and empty space)")
+        if not ok and alt and face_ok(face, alt):
+            ok = True
+            msg = f"face {face} sits on the head found from the face's skin ({alt}); the top of the sprite is above it"
         bad += not ok
-        print(("  PASS  " if ok else "  WARN  ") + f"face {face} is {sug['y'] - face['y']:+d} px above / "
-              f"{face['x'] - sug['x']:+d} px right of the suggestion (base: at most 4 above, 10 below, 8 aside; "
-              f"portraits crop around it - above the head they show hair and empty space)")
+        print(("  PASS  " if ok else "  WARN  ") + msg)
     if out:
         face_sheet(sp, face or sug, out, game)
         print(f"  wrote {out}: look at the 1x row - is the head about a third of the height and are the eyes visible?")

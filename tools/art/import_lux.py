@@ -28,9 +28,10 @@ Pixels: one shared palette; every game pixel takes the colour covering most of i
 with her blue eyes, gold, skin and whites weighted up so the face and the wand's trim survive,
 then a 1 px dark outline.
 Effects: own palette per sheet, no outline; projectiles anchored on the orb, bursts and marks on
-their centre, the E field on its ring (drawn on the ground, 60 px = its 30000 radius), the Final
-Spark beam from 6 px past the caster to the end of its 240 px rectangle (the view is centred on the
-LineRangeProjectile and turned to the cast direction).
+their centre, the E field on its ring (drawn on the ground, 53 px = its 26500 radius), the Final
+Spark beam from 6 px past the caster to the end of its 340 px rectangle (the view is centred on the
+LineRangeProjectile and turned to the cast direction; the brightest frame is 35 px thick, the
+rectangle 40 px wide).
 --review DIR writes one alignment sheet per strip (pivot + feet lines, idle silhouette in red).
 """
 import argparse
@@ -309,10 +310,10 @@ def loop(frames_ms, first, last, times, ms):
     return frames_ms[:first] + [(f, ms) for _ in range(times) for f, _ in frames_ms[first:last]] + frames_ms[last:]
 
 
-# Final Spark: the LineRangeProjectile is 240 px long; its view is centred on the rectangle, so the
-# caster stands at -120. The beam's drawn left end goes 6 px past her (her wand, whose flash sits a
-# further ~7 px out), the right end at +120.
-BEAM_LENGTH = 240
+# Final Spark: the LineRangeProjectile is 340 px long (LoL Reborn's numbers); its view is centred on
+# the rectangle, so the caster stands at -170. The beam's drawn left end goes 6 px past her (her wand,
+# whose flash sits a further ~7 px out), the right end at +170.
+BEAM_LENGTH = 340
 BEAM_START = 6
 
 
@@ -343,8 +344,8 @@ FX = {
         # a bubble around the whole unit, centred on its body
         "shield": ("fx_shield", 8, 0.115, anchors_oval, (0, -5), [80, 80, 110, 110, 110, 110, 90, 90], 0.4),
         "e_orb": ("fx_e_orb", 4, 0.03, anchors_centre, (0, 0), [80] * 4, 0.4),
-        # the field ring = 60 px (its 30000 radius) on the ground; 1-4 twice (1 s), then the blast
-        "e_zone": ("fx_e_zone", 8, 0.29, anchors_field, (0, 11), [125] * 4 + [100] * 4, 0.4),
+        # the field ring = 53 px (its 26500 radius) on the ground; 1-4 twice (1 s), then the blast
+        "e_zone": ("fx_e_zone", 8, 0.256, anchors_field, (0, 11), [125] * 4 + [100] * 4, 0.4),
         "mark": ("fx_mark", 6, 0.05, anchors_centre, (0, -8), [80, 110, 110, 110, 110, 100], 0.4),
         "ignite": ("fx_ignite", 6, 0.06, anchors_centre, (0, -6), [60] * 6, 0.4),
     },
@@ -355,12 +356,15 @@ FX = {
 }
 LOOPS = {"q_bind": (2, 6, 2, 130), "shield": (2, 6, 2, 110), "e_zone": (0, 4, 2, 125), "mark": (1, 5, 2, 110)}
 FX_COLORS = {"league_lux_fx": 48, "league_lux_r": 32}
+# The palette still sees the E ring at the scale it was first drawn for (60 px, a 30000 radius): the
+# ring shrank to LoL Reborn's 26500 later, and every other effect on the sheet kept its colours.
+PALETTE_SCALE = {"e_zone": 0.29}
 
 
 def build_fx():
     sprites = {}
     for sprite, tags in FX.items():
-        raw = {}
+        raw, pal_src = {}, {}
         for tag, (strip, n, s, rule, spot, ms, cut) in tags.items():
             if tag == "beam":
                 frames, s = beam_frames(cut)
@@ -372,7 +376,12 @@ def build_fx():
             X0, Y0 = spot
             raw[tag] = [(G.render(f, s, s, ax, ay, X0, Y0, cut=cut, keep=0.9), m)
                         for f, (ax, ay), m in zip(frames, rule(frames, img.shape[1]), ms)]
-        pal = G.Palette([r[0][0] for rs in raw.values() for r in rs], colors=FX_COLORS[sprite], extra=())
+            if tag in PALETTE_SCALE:
+                ps = PALETTE_SCALE[tag]
+                pal_src[tag] = [G.render(f, ps, ps, ax, ay, X0, Y0, cut=cut, keep=0.9)[0]
+                                for f, (ax, ay) in zip(frames, rule(frames, img.shape[1]))]
+        pal = G.Palette([a for tag, rs in raw.items() for a in pal_src.get(tag, [r[0][0] for r in rs])],
+                        colors=FX_COLORS[sprite], extra=())
         out = {}
         for tag, rs in raw.items():
             fr = [(G.centre_frame(pal.apply(arr), u0, r0), m) for (arr, u0, r0), m in rs]

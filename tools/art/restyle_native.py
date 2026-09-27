@@ -24,13 +24,27 @@ the strips import_native.py cuts, plus <hero>_cells.json copied from DIR (the sa
     degrees (the cells' "tilt": lying on his back) turns a quarter; a bowed head stays upright.
     "turn" in the spec moves that limit, for all tags or per tag with "*" for the rest (Amumu lies
     at 52-64 degrees, while his jumps throw the head back 50-65: {"dead": 50, "*": 180}).
-Spec, in the hero's poses.json: "restyle": {"head": {"rect": [x, y, w, h], "cut": [[x, y], ...]},
+Spec, in the hero's poses.json: "restyle": {"head": {"rect": [x, y, w, h], "cut": [[x, y], ...], "dy": 0},
 "outline": "<hex>", "weapon" / "steel" / "cloth" / "skin": [["<hex>", <up to brightness>], ...,
 ["<hex>"]], "trim": ["<hex>", <from brightness>], "weights": {"<hex>": <vote weight>},
 "turn": 60 or {"<tag>": <degrees>, "*": <degrees>}}.
 A hero without a weapon, red cloth or skin (Amumu, all bandages) gives every ramp the same colours.
 The design sheet is assets/source/native/<hero>_native.png. The renders show Riot's model: keep them
 local.
+Yasuo (league_yasuo) has more than crimson, skin and steel, and a ponytail that swings: "materials":
+[{"name", "hue": [lo, hi] (degrees; lo > hi wraps), "sat": [lo, hi], "val": [lo, hi], "ramp": [...]},
+...] replaces cloth / skin / steel / trim - a body pixel takes the first class it fits (a class with
+no conditions takes the rest) - and "hair": ramp colours the hair part of a "hair_part" render
+(native_pose.py) by brightness, so the ponytail follows League's animation while the design's head
+is pasted over the head. "head": {"dy": -1} pastes that head a row higher: the frame is lifted a pixel
+for the outline under the soles, and a design drawn on the lifted body has its head a row up too.
+A pasted head is a sticker: Yasuo's stayed upright while League's head bowed in the run, turned away in
+the spins and lay down in death, and the user saw a head apart from the body. "head": {"mode":
+"voted", "materials": [...], "features": {"anchor": [x, y], "pixels": [[x, y], ...], "min_facing": 0.2}}
+votes League's head and hair like the body (the head materials: gold tie, skin, the rest hair), turns
+League's eyes and brows (not-skin pixels with three skin neighbours) into skin, and draws the design's
+feature pixels at native_pose's "face" point ("face_track"): not when the face turns from the camera,
+mirrored when it looks left, turned with the crown when he lies down.
 """
 import argparse
 import json
@@ -50,6 +64,7 @@ from native_refs import Z, layout  # noqa: E402
 
 SRC = os.path.join(ROOT, "assets", "source", "native")
 HEAD, WEAPON, BODY = 0, 1, 2      # the strongest channel of native_pose's part colours: red, green, blue
+HAIR = 3                          # yellow (red and green) in a "hair_part" render
 TURN = 60
 
 
@@ -76,17 +91,44 @@ def hsv(a):
 class Palette:
     def __init__(self, spec):
         cols, self.ramps = [], {}
-        for name in ("weapon", "steel", "cloth", "skin"):
-            for c in spec[name]:
+        self.materials = spec.get("materials")
+        self.hair = "hair" in spec
+        self.head_materials = spec.get("head", {}).get("materials")
+        if self.materials is None:
+            ramps = [(name, spec[name]) for name in ("weapon", "steel", "cloth", "skin")]
+        else:
+            ramps = [("weapon", spec["weapon"])] + ([("hair", spec["hair"])] if self.hair else []) + \
+                    [(m["name"], m["ramp"]) for m in self.materials] + \
+                    [("head:" + m["name"], m["ramp"]) for m in (self.head_materials or [])]
+        for name, ramp in ramps:
+            for c in ramp:
                 if c[0] not in cols:
                     cols.append(c[0])
-            self.ramps[name] = ([cols.index(c[0]) for c in spec[name]], [c[1] for c in spec[name][:-1]])
-        if spec["trim"][0] not in cols:
-            cols.append(spec["trim"][0])
-        self.trim = (cols.index(spec["trim"][0]), spec["trim"][1])
+            self.ramps[name] = ([cols.index(c[0]) for c in ramp], [c[1] for c in ramp[:-1]])
+        self.trim = None
+        if self.materials is None:
+            if spec["trim"][0] not in cols:
+                cols.append(spec["trim"][0])
+            self.trim = (cols.index(spec["trim"][0]), spec["trim"][1])
         self.rgb = np.array([rgb(c) for c in cols], np.uint8)
+        self.skin = sorted(set(self.ramps["head:skin"][0])) if "head:skin" in self.ramps else []
         self.weight = np.array([spec.get("weights", {}).get(c, 1.0) for c in cols])
         self.outline = rgb(spec["outline"])
+
+    def classify(self, h, s, v, out, left, materials, prefix=""):
+        """Vote the pixels in `left` by `materials`: the first class a pixel fits takes it."""
+        left = left.copy()
+        for m in materials:
+            sel = left.copy()
+            if "hue" in m:
+                lo, hi = m["hue"]
+                sel &= ((h >= lo) & (h <= hi)) if lo <= hi else ((h >= lo) | (h <= hi))
+            if "sat" in m:
+                sel &= (s >= m["sat"][0]) & (s <= m["sat"][1])
+            if "val" in m:
+                sel &= (v >= m["val"][0]) & (v <= m["val"][1])
+            out[sel] = self.ramp(prefix + m["name"], v[sel])
+            left &= ~sel
 
     def ramp(self, name, v):
         idx, cuts = self.ramps[name]
@@ -98,6 +140,14 @@ class Palette:
         out = np.full(v.shape, -1, np.int32)
         w = part == WEAPON
         out[w] = self.ramp("weapon", v[w])
+        if self.materials is not None:
+            if self.head_materials is not None:       # a voted head: head and hair by their own classes
+                self.classify(h, s, v, out, (part == HEAD) | (part == HAIR), self.head_materials, "head:")
+            elif self.hair:
+                hr = part == HAIR
+                out[hr] = self.ramp("hair", v[hr])
+            self.classify(h, s, v, out, part == BODY, self.materials)
+            return out
         b = part == BODY
         red = b & ((h < 20) | (h > 330)) & (s > 0.35) & (v > 0.08)
         tan = b & ~red & (h >= 10) & (h <= 50) & (s > 0.25) & (v > 0.22)
@@ -133,20 +183,67 @@ def near(m):
     return p[:-2, 1:-1] | p[2:, 1:-1] | p[1:-1, :-2] | p[1:-1, 2:]
 
 
+def part_of(pa, hair):
+    """Each render pixel's part: the strongest channel of its part colour; with a hair ramp in the
+    spec, yellow (red and green, no blue) is the hair."""
+    c = pa[..., :3]
+    part = c.argmax(-1)
+    if hair:
+        top = c.max(-1)
+        part = np.where((c[..., 0] > 0.5 * top) & (c[..., 1] > 0.5 * top) & (c[..., 2] < 0.5 * top), HAIR, part)
+    return part
+
+
+def clean_face(a, head, pal, rounds=2):
+    """On the head, a pixel that is not skin but has three or four skin neighbours becomes the skin they
+    share most: League's own eyes and brows, under the design's."""
+    skin = [tuple(int(t) for t in pal.rgb[i]) for i in pal.skin]
+    for _ in range(rounds):
+        c = a[..., :3].astype(np.int64)
+        key = np.where(a[..., 3] > 0, (c[..., 0] << 16) | (c[..., 1] << 8) | c[..., 2], -1)
+        skey = [(r << 16) | (g << 8) | b for r, g, b in skin]
+        p = np.pad(key, 1, constant_values=-2)
+        n = np.stack([p[:-2, 1:-1], p[2:, 1:-1], p[1:-1, :-2], p[1:-1, 2:]], -1)
+        counts = np.stack([(n == k).sum(-1) for k in skey], -1)
+        change = head & (a[..., 3] > 0) & ~np.isin(key, skey) & (counts.sum(-1) >= 3)
+        best = np.array(skey)[counts.argmax(-1)]
+        v = best[change]
+        a[change, 0], a[change, 1], a[change, 2] = (v >> 16) & 255, (v >> 8) & 255, v & 255
+    return a
+
+
+def flat_face(a, head, pal):
+    """The voted face in the design's two tones: light inside, the middle tone along its edge. League's
+    shading and stubble left Yasuo a dark jaw, like a mask, under the design's eyes."""
+    idx = pal.ramps["head:skin"][0]
+    c = a[..., :3].astype(np.int64)
+    key = np.where(a[..., 3] > 0, (c[..., 0] << 16) | (c[..., 1] << 8) | c[..., 2], -1)
+    skey = [(int(r) << 16) | (int(g) << 8) | int(b) for r, g, b in pal.rgb[idx]]
+    face = head & np.isin(key, skey)
+    rim = face & near(~face)
+    a[face & ~rim, :3] = pal.rgb[idx[-1]]
+    a[rim, :3] = pal.rgb[idx[len(idx) // 2]]
+    return a
+
+
 def body(pal, hi, pa, w, h):
     """One frame without its head: (RGBA game pixels, weapon mask, League's head in the 8x render)."""
     op = (hi[..., 3] >= 128) & (pa[..., 3] >= 128)
-    part = np.where(op, pa[..., :3].argmax(-1), -1)
+    part = np.where(op, part_of(pa, pal.hair), -1)
     bv, bp = per_block(pal.votes(hi[..., :3], part), w, h), per_block(part, w, h)
-    count = np.stack([(bp == k).sum(-1) for k in (HEAD, WEAPON, BODY)], -1)
+    count = np.stack([(bp == k).sum(-1) for k in (HEAD, WEAPON, BODY, HAIR)], -1)
     main = count.argmax(-1)
     score = np.stack([(bv == k).sum(-1) * pal.weight[k] for k in range(len(pal.rgb))], -1)
     on = ((bp >= 0).mean(-1) >= 0.5) | ((main == WEAPON) & (count[..., WEAPON] >= 20))
-    keep = on & (main != HEAD)
+    voted = pal.head_materials is not None
+    keep = on if voted else on & (main != HEAD)
     a = np.zeros((h, w, 4), np.uint8)
     a[keep, :3] = pal.rgb[score.argmax(-1)[keep]]
     a[keep, 3] = 255
     a = lonely(a)
+    if voted:
+        a = clean_face(a, keep & (main == HEAD), pal)
+        a = flat_face(a, keep & (main == HEAD), pal)
     weapon = keep & (main == WEAPON)
     o = a[..., 3] > 0
     ring = ~o & near(o)
@@ -154,10 +251,11 @@ def body(pal, hi, pa, w, h):
     a[ring, 3] = 255
     a = np.concatenate([a[1:], np.zeros((1, w, 4), np.uint8)])       # the outline under the soles on the sole row
     weapon = np.concatenate([weapon[1:], np.zeros((1, w), bool)])
-    return a, weapon, part == HEAD
+    head_px = np.concatenate([(keep & (main == HEAD))[1:], np.zeros((1, w), bool)])
+    return a, weapon, part == HEAD, head_px
 
 
-def paste_head(a, weapon, head, joint, tilt, turn=TURN):
+def paste_head(a, weapon, head, joint, tilt, turn=TURN, dy=0):
     """Paste the head grid (list of rows of hex or None) with League's head joint at joint[0] (x, y), given
     as the joint's place inside the upright head: joint = (x, y, jx, jy)."""
     x, y, jx, jy = joint
@@ -165,12 +263,51 @@ def paste_head(a, weapon, head, joint, tilt, turn=TURN):
     H, W = g.shape
     if tilt <= -turn:                      # lying on his back: the crown points left, the face up
         g, (jx, jy) = np.rot90(g, 1), (jy, W - jx)
-    x0, y0 = int(round(x - jx)), int(round(y - jy))
+    x0, y0 = int(round(x - jx)), int(round(y - jy)) + dy
     for j, row in enumerate(g):
         for i, c in enumerate(row):
             yy, xx = y0 + j, x0 + i
             if c and 0 <= yy < a.shape[0] and 0 <= xx < a.shape[1] and not weapon[yy, xx]:
                 a[yy, xx] = rgb(c) + (255,)
+
+
+def paste_face(a, weapon, head_px, feats, cell, pal, min_facing, dy=-1):
+    """The design's brows, eyes and mouth on the face this frame shows. native_pose's track (cells "face":
+    x, y, facing, side) says whether a face shows (facing), which way it looks (side: mirrored to the
+    left) and the eye row (y, kept a row inside the visible skin); the far eye goes on the face's front
+    edge in that row, the near eye two columns behind it (one on a narrow face). Placed by the 3D point
+    alone, the eyes of a bowed head landed in the fringe and a face turned half away got none. Not on a
+    head leaning past 45 degrees (lying down). `feats`: (dx, dy, colour, least facing) from the design's
+    anchor, the far eye. dy -1: the frame is lifted a row."""
+    if "face" not in cell or abs(cell.get("tilt", 0)) >= 45:
+        return
+    fx, fy, facing, side = cell["face"]
+    if facing < min_facing:
+        return
+    idx = pal.ramps["head:skin"][0]
+    c = a[..., :3].astype(np.int64)
+    key = np.where(a[..., 3] > 0, (c[..., 0] << 16) | (c[..., 1] << 8) | c[..., 2], -1)
+    skin = head_px & np.isin(key, [(int(r) << 16) | (int(g) << 8) | int(b) for r, g, b in pal.rgb[idx]])
+    ys, xs = np.nonzero(skin)
+    if len(ys) < 8:
+        return
+    top, bottom = ys.min(), ys.max()
+    er = min(max(int(np.floor(fy + 0.5)) + dy, top + 1), bottom - 1)
+    row = xs[ys == er]
+    if len(row) < 3:
+        return
+    xe = row.max() if side > 0 else row.min()
+    narrow = len(row) < 5
+    for ox, oy, col, least, alt in feats:
+        if facing < least:
+            if alt is None:
+                continue
+            col = alt
+        if narrow and ox < -3:
+            continue          # a face in profile: the block's front four columns
+        x, y = xe + (ox if side > 0 else -ox), er + oy
+        if 0 <= y < a.shape[0] and 0 <= x < a.shape[1] and a[y, x, 3] and not weapon[y, x] and head_px[y, x]:
+            a[y, x, :3] = col
 
 
 def main():
@@ -187,10 +324,27 @@ def main():
         table = json.load(f)
     w, h = table["cell"]
     design = np.asarray(Image.open(G.lp(os.path.join(SRC, f"{hero}_native.png"))).convert("RGBA"))[::Z, ::Z]
-    x0, y0, hw, hh = rs["head"]["rect"]
-    cut = {tuple(p) for p in rs["head"].get("cut", [])}
-    head = [["%02X%02X%02X" % tuple(design[y0 + j, x0 + i, :3])
-             if design[y0 + j, x0 + i, 3] and (x0 + i, y0 + j) not in cut else None for i in range(hw)] for j in range(hh)]
+    voted = rs["head"].get("mode") == "voted"
+    if voted:           # League's head voted like the body, the design's features drawn on its face
+        fs = rs["head"]["features"]
+        ax, ay = fs["anchor"]
+        # the design's face block ("rect": forehead, brows, eyes, cheeks and mouth, as drawn), or single
+        # "pixels"; [x, y, least facing, colour below it]: the mouth only on a face turned to the camera
+        if "rect" in fs:
+            rx, ry, rw, rh = fs["rect"]
+            late = {(p[0], p[1]): p[2:] for p in fs.get("late", [])}
+            feats = [(x - ax, y - ay, design[y, x, :3], late.get((x, y), [0.0])[0],
+                      np.array(rgb(late[(x, y)][1]), np.uint8) if len(late.get((x, y), [])) > 1 else None)
+                     for y in range(ry, ry + rh) for x in range(rx, rx + rw) if design[y, x, 3]]
+        else:
+            feats = [(p[0] - ax, p[1] - ay, design[p[1], p[0], :3], p[2] if len(p) > 2 else 0.0, None)
+                     for p in fs["pixels"]]
+    else:
+        x0, y0, hw, hh = rs["head"]["rect"]
+        cut = {tuple(p) for p in rs["head"].get("cut", [])}
+        head = [["%02X%02X%02X" % tuple(design[y0 + j, x0 + i, :3])
+                 if design[y0 + j, x0 + i, 3] and (x0 + i, y0 + j) not in cut else None for i in range(hw)]
+                for j in range(hh)]
 
     def frames(tag):
         n = len(table["tags"][tag])
@@ -202,23 +356,29 @@ def main():
             yield (*body(pal, hi[sl], pa[sl], w, h), table["tags"][tag][k])
 
     # where the drawn head starts from League's head joint: where League's head starts in the first idle frame
-    _, _, league_head, first = next(frames("idle"))
-    ys, xs = np.nonzero(league_head)
-    jx, jy = first["head"][0] - xs.min() // Z, first["head"][1] - ys.min() // Z
+    if not voted:
+        _, _, league_head, _, first = next(frames("idle"))
+        ys, xs = np.nonzero(league_head)
+        jx, jy = first["head"][0] - xs.min() // Z, first["head"][1] - ys.min() // Z
     for tag, rows in table["tags"].items():
         cols, nrows = layout(len(rows))
         sheet = np.zeros((nrows * h, cols * w, 4), np.uint8)
-        for k, (a, weapon, _, cell) in enumerate(frames(tag)):
+        for k, (a, weapon, _, head_px, cell) in enumerate(frames(tag)):
             turn = rs.get("turn", TURN)
             if isinstance(turn, dict):         # per tag, "*" for the rest
                 turn = turn.get(tag, turn.get("*", TURN))
-            paste_head(a, weapon, head, (cell["head"][0], cell["head"][1], jx, jy), cell.get("tilt", 0), turn)
+            if voted:
+                paste_face(a, weapon, head_px, feats, cell, pal, fs.get("min_facing", 0.05))
+            else:
+                paste_head(a, weapon, head, (cell["head"][0], cell["head"][1], jx, jy), cell.get("tilt", 0), turn,
+                           rs["head"].get("dy", 0))
             sheet[k // cols * h:(k // cols + 1) * h, k % cols * w:(k % cols + 1) * w] = a
         Image.fromarray(np.repeat(np.repeat(sheet, Z, 0), Z, 1), "RGBA").save(G.lp(os.path.join(SRC, f"{hero}_{tag}.png")))
         colours = len(np.unique(sheet[sheet[..., 3] > 0][:, :3], axis=0))
         print(f"{hero}_{tag}.png  {len(rows)} frames, {colours} colours")
     shutil.copyfile(cells_path, os.path.join(SRC, f"{hero}_cells.json"))
-    print(f"head joint {jx:.1f}, {jy:.1f} inside the drawn head; {hero}_cells.json copied")
+    print(f"{hero}_cells.json copied" if voted else f"head joint {jx:.1f}, {jy:.1f} inside the drawn head; "
+                                                     f"{hero}_cells.json copied")
 
 
 if __name__ == "__main__":

@@ -213,9 +213,10 @@ def read_tex(b):
 def diffuse_textures(paths):
     """The base skin's colour texture among the texture paths a skin bin names: `*_TX_CM` / `*_CM_TX`
     (Garen, Lux), else the base textures that are not a load screen or an icon (Amumu's is a plain
-    `SadMummy.tex`)."""
+    `SadMummy.tex`). A weapon trail's texture is named like a colour map too (Yasuo's
+    `Yasuo_Weapon_Trail_TX_CM` sorts before `Yasuo_base_TX_CM`, and its alpha cut holes in the model)."""
     base = [p for p in paths if "/Base/" in p]
-    named = [p for p in base if re.search(r"_tx_cm|_cm_tx", p, re.I)]
+    named = [p for p in base if re.search(r"_tx_cm|_cm_tx", p, re.I) and not re.search(r"trail", p, re.I)]
     return named or [p for p in base if not re.search(r"loadscreen|square|circle|icon|/particles/", p, re.I)]
 
 

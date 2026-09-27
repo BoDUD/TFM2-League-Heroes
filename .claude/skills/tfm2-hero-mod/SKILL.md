@@ -47,7 +47,9 @@ empty tooltip). That is why the linter exists - run it after every edit.
    kit fit, sprite cost, roster gap, showcase). Only build heroes the data system can express.
 2. **Design the kit on paper** - map passive/skills to `attack`/`skill`/`skill2`/`ult`, pick
    effect types from `references/champion-data.md`, set numbers inside the base ranges there.
-   Remember the AI casts skills whenever a target is in range.
+   Remember the AI casts skills whenever a target is in range. Damaging basic abilities go on
+   `casting_target: EnemyWithoutTower` so the AI also uses them on waves and jungle camps; on
+   `EnemyChampion` a jungler clears with auto-attacks only (champion-data section 3).
 3. **Start from the template** - copy `templates/mymod/` (a lint-clean skeleton hero that
    borrows base sprite/effects/sounds as placeholders), rename `mymod`/`mymod_hero`, rewrite the kit.
    The skeleton hero is lint-clean against the base bundle but has not been play-tested; its
@@ -62,7 +64,9 @@ empty tooltip). That is why the linter exists - run it after every edit.
 5. **Text and sound** - `references/text-audio.md` (colour codes, icon ids, sound overrides).
 6. **Validate** - `python scripts/lint_mod.py <mod folder>` (add `--game <TFM2 folder>` if the
    game is not in a standard Steam path) until 0 errors; read every WARN.
-7. **Play-test** - copy to `<game>/mods/<mod_id>/`, enable in the Mods menu, watch each action,
+7. **Play-test** - a 5v5 simulation on the mod SDK first shows every cast with its target kind and
+   the end-of-game statistics (porting-heroes.md "Balance check"). Then
+   copy to `<game>/mods/<mod_id>/`, enable in the Mods menu, watch each action,
    compare the hero's height with a base champion. Details: `references/mod-structure.md`.
 8. **Publish** - `TFM2ModUploader.exe` + the page layout in `references/workshop-page.md`.
 

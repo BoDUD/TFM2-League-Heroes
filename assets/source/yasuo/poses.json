@@ -1,0 +1,67 @@
+{
+  "hero": "yasuo",
+  "champ": "Yasuo",
+  "camera": {"yaw": 55, "pitch": 25, "mirror": false},
+  "chibi": {"head": 2.0, "legs": 0.8, "hair": 0.5, "scale": {"L_Rope_Back1": 0.6, "L_Rope_Front1": 0.6}},
+  "weapon": "^sword$",
+  "hide": ["^flute$"], "hair_part": true, "face_track": {"offset": [1.7, 0.6]},
+  "height": 34,
+  "cell": [96, 88],
+  "design": "Yasuo_Idle1@0",
+  "restyle": {
+    "head": {"mode": "voted", "materials": [
+      {"name": "gold", "hue": [32, 55], "sat": [0.45, 1], "val": [0.1, 1], "ramp": [["A8701F", 0.34], ["E6A93A"]]},
+      {"name": "skin", "hue": [12, 40], "sat": [0.2, 1], "val": [0.05, 1], "ramp": [["9C643F", 0.42], ["C98E5F", 0.56], ["E8B98C"]]},
+      {"name": "hair", "ramp": [["2B1A1F", 0.185], ["4A2A30", 0.23], ["6B3C3F"]]}],
+      "features": {"anchor": [78, 72], "rect": [73, 70, 6, 6], "late": [[77, 75, 0.45, "C98E5F"]],
+                   "min_facing": 0.05}},
+    "outline": "141319",
+    "weapon": [["4B5B63", 0.3], ["7F929A", 0.5], ["B9C8CC", 0.78], ["E8F4F2"]],
+    "hair": [["2B1A1F", 0.185], ["4A2A30", 0.23], ["6B3C3F"]],
+    "materials": [
+      {"name": "gold", "hue": [32, 55], "sat": [0.45, 1], "val": [0.1, 1], "ramp": [["A8701F", 0.34], ["E6A93A"]]},
+      {"name": "blue", "hue": [180, 240], "sat": [0.3, 1], "val": [0.38, 1], "ramp": [["275783", 0.55], ["3D86C2", 0.75], ["6AB8E6"]]},
+      {"name": "navy", "hue": [190, 270], "sat": [0.2, 1], "val": [0, 0.38], "ramp": [["1B2344", 0.2], ["2B3A66"]]},
+      {"name": "skin", "hue": [8, 32], "sat": [0.25, 1], "val": [0.1, 1], "ramp": [["9C643F", 0.45], ["C98E5F", 0.65], ["E8B98C"]]},
+      {"name": "brown", "hue": [0, 50], "sat": [0.25, 1], "val": [0.08, 1], "ramp": [["5F3F2A"]]},
+      {"name": "steel", "ramp": [["4B5B63", 0.3], ["7F929A", 0.5], ["B9C8CC", 0.78], ["E8F4F2"]]}
+    ]
+  },
+  "tags": {
+    "idle": {"frames": [
+      ["Yasuo_Idle1@0", 278], ["Yasuo_Idle1@278", 278], ["Yasuo_Idle1@556", 278],
+      ["Yasuo_Idle1@833", 278], ["Yasuo_Idle1@1111", 278], ["Yasuo_Idle1@1389", 278]]},
+    "run": {"frames": [
+      ["Yasuo_Run1@0", 112], ["Yasuo_Run1@112", 112], ["Yasuo_Run1@225", 112], ["Yasuo_Run1@337", 112],
+      ["Yasuo_Run1@450", 112], ["Yasuo_Run1@562", 112], ["Yasuo_Run1@675", 112], ["Yasuo_Run1@787", 112]]},
+    "attack": {"lunge": 0.7, "frames": [
+      ["Yasuo_Idle1@0>Yasuo_Attack1@60:0.5", 50], ["Yasuo_Attack1@100", 50], ["Yasuo_Attack1@170", 50],
+      ["Yasuo_Attack1@230", 60], ["Yasuo_Attack1@278", 70], ["Yasuo_Attack1@380", 80],
+      ["Yasuo_Attack1@520>Yasuo_Idle1@0:0.5", 80]]},
+    "skill": {"lunge": 0.7, "frames": [
+      ["Yasuo_Idle1@0>Yasuo_Spell1A@40:0.5", 50], ["Yasuo_Spell1A@110", 50, {"turn": -30}],
+      ["Yasuo_Spell1A@180", 50, {"turn": -30}], ["Yasuo_Spell1A@242", 70, {"turn": -30}], ["Yasuo_Spell1A@300", 70],
+      ["Yasuo_Spell1A@420", 80], ["Yasuo_Spell1A@600>Yasuo_Idle1@0:0.5", 80]]},
+    "q3": {"lunge": 0.7, "frames": [
+      ["Yasuo_Idle1@0>Yasuo_Spell1C@0:0.5", 50], ["Yasuo_Spell1C@83", 50], ["Yasuo_Spell1C@167", 50],
+      ["Yasuo_Spell1C@250", 60], ["Yasuo_Spell1C@333", 80], ["Yasuo_Spell1C@417", 80],
+      ["Yasuo_Spell1C@583", 90], ["Yasuo_Spell1C@800>Yasuo_Idle1@0:0.5", 90]]},
+    "eq": {"lunge": 0.0, "frames": [
+      ["Yasuo_Spell1_Dash@83", 50], ["Yasuo_Spell1_Dash@166", 50], ["Yasuo_Spell1_Dash@415", 50],
+      ["Yasuo_Spell1_Dash@498", 50], ["Yasuo_Spell1_Dash@581", 60], ["Yasuo_Spell1_Dash@664", 60],
+      ["Yasuo_Spell1_Dash@830", 70], ["Yasuo_Spell1_Dash@996>Yasuo_Idle1@0:0.5", 80]]},
+    "skill2": {"lunge": 0.0, "frames": [
+      ["Yasuo_Idle1@0>Yasuo_Spell3@0:0.5", 40], ["Yasuo_Spell3@60", 40], ["Yasuo_Spell3@120", 50],
+      ["Yasuo_Spell3@200", 50], ["Yasuo_Spell3@280", 60], ["Yasuo_Spell3@380", 70],
+      ["Yasuo_Spell3@560>Yasuo_Idle1@0:0.5", 80]]},
+    "ult": {"lunge": 0.3, "rise": 0.15, "frames": [
+      ["Yasuo_Idle1@0>Yasuo_Spell4@100:0.5", 60], ["Yasuo_Spell4@100", 60], ["Yasuo_Spell4@300", 80, {"turn": -30}],
+      ["Yasuo_Spell4@500", 90], ["Yasuo_Spell4@600", 90, {"turn": -30}], ["Yasuo_Spell4@800", 90, {"turn": -30}],
+      ["Yasuo_Spell4@1100", 100], ["Yasuo_Spell4@1300>Yasuo_Idle1@0:0.5", 100]]},
+    "hit": {"flat": true, "frames": [
+      ["Yasuo_Idle1@0>Yasuo_Death@150:0.3", 120], ["Yasuo_Idle1@0>Yasuo_Death@150:0.12", 120]]},
+    "dead": {"lunge": 0.65, "flat": true, "hide": ["^sword$"], "frames": [
+      ["Yasuo_Death@0", 100], ["Yasuo_Death@300", 100], ["Yasuo_Death@700", 150], ["Yasuo_Death@1900", 150],
+      ["Yasuo_Death@2150", 100], ["Yasuo_Death@2350", 120], ["Yasuo_Death@2719", 400]]}
+  }
+}

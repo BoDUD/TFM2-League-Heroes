@@ -11,7 +11,8 @@ canvas at 8x (1024x1024). <hero>_cells.json: where each frame's pivot stands in 
 duration - the redraw keeps these cells, so tools/art/import_native.py cuts each redrawn frame out
 around the same pivot and it lands where the current one stands (commit it with the redraw).
 --style writes tfm2_style_ref.png / _mage / _martial / _healer (staff-carrying casters, for Soraka) /
-_warrior (heavy weapons and armour, for Darius) / _undead (small undead and monsters, for Amumu):
+_warrior (heavy weapons and armour, for Darius) / _undead (small undead and monsters, for Amumu) /
+_swordsman (blades and quick fighters, for Yasuo):
 base heroes' idle frame 1 (top row) and attack middle frame (bottom row), feet aligned, at 8x - read
 from the game's bundle, keep local. --faces writes tfm2_face_ref_male.png: base heroes' heads at 12x,
 how their eyes are built (Darius's second design round), and tfm2_face_ref_undead.png (jiangshi,
@@ -43,6 +44,7 @@ STYLE = {
     "tfm2_style_ref_healer.png": ["white_mage", "priest", "druid", "enchanter", "barrier_magician", "wind_mage"],
     "tfm2_style_ref_warrior.png": ["berserker", "executioner", "hammerer", "siege_breaker", "knight", "strongman"],
     "tfm2_style_ref_undead.png": ["jiangshi", "ghost", "necromancer", "ogre", "dokkaebi", "prisoner"],
+    "tfm2_style_ref_swordsman.png": ["swordman", "dual_blader", "ninja", "circus_blade", "hunter", "berserker"],
 }
 # base heads for --faces: (hero, first and last+1 column of its head in the top rows of idle frame 1)
 FACES = {

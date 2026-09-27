@@ -55,6 +55,14 @@ OK = direct, ~ = approximate, X = not possible in data-only mods.
 | Hook that pulls the caster in (Amumu Q) | `LinearProjectile` on `EnemyChampion` + `MoveToTarget` in `applied_effects` | OK |
 | Cooldown reduced when hit (Amumu E) | no "was hit" trigger: a shorter fixed cooldown | X |
 | Charges (Amumu Q: 2) | `cooltime_use_count` is "up to N times in succession" (base Nightmare's text); the AI would throw both at once *(inferred)*, so league_amumu keeps 1 and a shorter cooldown | ~ |
+| Ability treated as a basic attack (Yasuo Q: crits, on-hit) | the action's `attack_type: BaseAttack` (champion-data "Critical strikes") | OK |
+| Crit chance up, crit damage down (Yasuo, Yone passive) | a flat `crit_chance` stat or buff; a crit is always 2x and the chance cannot be multiplied | ~ |
+| Third cast changes (Yasuo Q3) | two hidden stack buffs + `SwitchByBuff` (champion-data "Third cast is different") | OK |
+| Cast during a dash changes the shape (Yasuo EQ) | window buff from the dash, checked by the other skill | ~ (AI timing) |
+| Dash through a target (Yasuo E, Fizz Q) | `RushMoveToBack`: lands 15000 units past the target, then its `applied_effects` | OK |
+| Blocks projectiles (Yasuo W, Braum E, Samira W) | nothing can block a projectile. league_yasuo tried a picture of the wall + `base_attack_damaged_reduce` on allied champions around the caster; the user found it odd in this game and had it removed - leave such skills out | X |
+| Only on airborne enemies (Yasuo R) | `EnemyChampionInCC`, which also counts stun, root, fear and charm | ~ |
+| Shield when damaged (Yasuo Flow) | a hidden cooldown buff; the next action after it ends shields him | ~ |
 | Stealth | `Invisible` / `CasterInvisible` | OK |
 | 2-3 stage recast | `cooltime_use_count` or recast buff + `SwitchByBuff` | ~ (AI timing) |
 | Cone / fan of projectiles (Ashe W) | no angle field on any projectile (base harpooner's fan is `Native`): a `LineRangeProjectile` rectangle cast by `Direction`, drawn as a fan sprite centred on it (champion-data "Cone / fan"); the hit area stays a rectangle | ~ |
@@ -85,6 +93,33 @@ translate relative strengths: if the source hero's skill is its main damage, giv
 larger ratio; long source cooldowns stay long relative to the hero's other skills. Ultimates
 sit at 2400-3600 ticks. Never copy raw numbers from the source game.
 
+Two corrections from players:
+- A multi-hit skill needs its total, not League's per-hit number: league_garen E had League's
+  per-spin 12 + 32% AD for 7 spins, less than auto-attacking for the same 3 s, and players
+  thought it dealt no damage (now 25 + 55% a spin). Compare every damaging skill with the
+  auto-attacks the caster gives up while casting it.
+- When LoL Reborn already has the hero with the same effects, the user wants its numbers, not
+  a weaker re-tune (players compare the two packs side by side): league_lux copies Reborn's
+  stats, damage, ranges, cooldowns and hit areas. Where our kit is our own design (league_yasuo)
+  it keeps its own numbers.
+
+### Balance check: simulate on the SDK
+
+`mod-sdk/deps` holds the compiled `game_core`; a small Rust program built against it with the
+SDK's toolchain (`rustup run nightly-2026-05-24 rustc --edition 2021 -L dependency=<sdk>/deps
+--extern game_core=... serde_json bincode bumpalo rand`) plays whole 5v5 games with the real AI:
+`GameRunner::new(seed, false, Arc<GameSetting>, Arc<MapSetting>, Arc<ItemSetting>,
+Arc<ChampionInfoSheet>)`, `set_macro_weights`, `add_player(GamePlayer::new(i, name, team,
+Position, AthleteStat, id, Arc<dyn ChampionInfo>, vec![]))`, then `run_tick(&mut Bump, true)`
+per tick. A mod hero is `ModChampionEntry::from_data_champion_info(&DataChampionInfo, None)`;
+base heroes come from the sheet (`get_champion_info`). The settings come from the game's
+asset bundle (game setting and item setting as JSON, the map setting as bincode). `Game` and
+`DeathMatchGame` alone have no champion AI. Each frame's events carry every action with its
+target (`EntityEvent` / `Action`) and `PlayerStatistics` (deal, tank, heal, self_heal, cs,
+cs_jungle, kills, deaths, assists): the numbers players read after a match. Ten game minutes
+take ~4 s, so average 12-16 seeds per lineup and change one thing at a time; the same lineup
+varies about 10% between batches. The simulator and the extracted settings stay local.
+
 ## League of Legends specifics
 
 How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slots:
@@ -107,7 +142,10 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   `Play_vo_<Champ>_*` event names (plain strings in the champion `.bin` files) to .wem media;
   vgmstream decodes the .wem. Ability icons are `ASSETS/Characters/<Champ>/HUD/Icons2D/*.dds`.
 - Chinese voice: `<Champ>.zh_CN.wad.client` in the Tencent (WeGame) client; inside it the banks
-  keep the `vo/en_us/` path.
+  keep the `vo/en_us/` path. A voice line whose media bytes are identical in the zh_CN and en_US
+  banks is a wordless shout or a line left untranslated (Yasuo's R "Sorye ge ton"); comparing the two
+  banks finds them without listening (`tools/lol/extract_yasuo.py`). A `.sound_info` always plays the
+  same clips (no random pick), so choose one variant per sound.
 - Real animations as pose references: `tools/lol/pose_ref.py --anim Run --frames 6` skins the
   champion's `.skn`/`.skl` with an `.anm` clip (compressed `r3d2canm`, or uncompressed
   `r3d2anmd` v3 / v4 / v5 - most of Lux's clips are v3, her R is v4) and renders textured
@@ -234,6 +272,56 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   barrel with vertical stripes. Raw effect strips become native strips with
   `tools/art/import_amumu.py --raw` (median-cut colours, majority per game pixel, a scale per
   effect set by the kit's radius).
+- **A ponytail that swings, a palette beyond crimson, a head that turns (Yasuo, drawn by Claude,
+  restyled).** Codex's image tool missed the grid again (1254 px canvas, blocks 9.6-10.8 px), so the
+  design was drawn on League's 34 px silhouette like Amumu's: every render pixel votes for a colour
+  by part and material, then the face, the sheath's edge, the pauldron's grooves, the rope belt and
+  the chest were drawn square by square - 19 colours. The strips come from `restyle_native.py` with
+  these additions (Darius's and Amumu's strips stay byte for byte without the keys):
+  - `"materials"` (hue / saturation / value windows, first match wins) replace crimson / skin /
+    steel. League's lighting is dark: Yasuo's chest sits at value 0.27 and the rope in shadow at
+    0.13-0.36, so skin starts at 0.1 and gold is any saturated pixel of hue 32-55 whatever its value
+    (skin and leather sit at 16-31); darker, both came out as a brown vest.
+  - `native_pose.py` `"hair_part": true` paints the hair chains (pose_ref HAIR: Hair1-4, Hair_Top)
+    yellow, so the ponytail is voted frame by frame instead of riding on a pasted head.
+  - The head. Pasting the design's head (Darius, Amumu) made a sticker: upright while League's head
+    bowed in the run, turned away in the EQ spin and lay down in death, and the user saw a head apart
+    from the body. `"head": {"mode": "voted"}` votes League's head too (gold tie, skin, hair), flattens
+    the face into the design's two tones (a dark jaw of League's stubble read as a mask) and pastes
+    the design's whole face block (forehead, brows, eyes, cheeks, mouth: 6x6) on the face this frame
+    shows: the far eye on the face's front edge in the eye row, mirrored when it looks left, left out
+    when it turns away (`native_pose.py` `"face_track"` writes each frame's face point, facing and
+    side from the head joint's up / forward axes). Pasting only the brow and eye squares let the
+    fringe swallow the brows and the mouth land on the cheek - the user found eyes and mouth strange.
+    The frames no rule fits (bowed: downcast eye lines; profile: brow, eye, mouth on the front edge;
+    lying: closed eyes; a tie that flickered) are retouched by hand in `yasuo_retouch.json` (20
+    frames, 80 squares). Check every frame's face at 12x before sending a GIF.
+  - `"hide"` per tag: the drawn sword has no track in the death clip and stood upright beside the
+    body. `"chibi": {"scale": {"L_Rope_Back1": 0.6, ...}}` shortens the rope tails that flew out as a
+    big gold fan in the run.
+  What Yasuo holds at his hip in idle is the sheath (League's weapon part there is only the hilt);
+  the drawn blade appears in attacks next to it. `import_native.py` steadies idle and run on
+  League's head joint for a voted head.
+- **A face point under the hair.** `tfm2_ase.py face` and the lint find the crown at the top of
+  the idle sprite, which for Yasuo is the ponytail's tip, 9 px above his head and to the left of
+  it. Both now also look for the head from the face: the top two rows of skin-toned pixels and the
+  silhouette above them. A face point on that head passes (an INFO line); one above the head still
+  warns.
+- **Clips that are not what their name says (Yasuo).** Read which animation a spell plays in
+  `data/characters/<champ>/<champ>.bin`: the spell name is followed by its animation name (Yasuo:
+  `YasuoQ1` -> `Spell1A`, `YasuoQ2` -> `Spell1B`, `YasuoQ3` -> `Spell1C`, `YasuoDashWrapper` ->
+  `Spell3`, `YasuoRKnockUpCombo` -> `Spell4`). `Yasuo_Spell1_Wind.anm` (an uncompressed v4 file)
+  animates only the hair and cloth - the Q3-ready overlay - and every other joint has a zero
+  translation, so rendered alone it collapses into a heap; the whirlwind's body motion is `Spell1C`.
+  A prop the clips leave without a track hangs at full size wherever its joint sits: Yasuo's flute is
+  scaled to nothing in idle but floats beside him in his attack and death clips, so the spec leaves
+  it out (`"hide": ["^flute$"]`). His katana hangs from a joint named `Sword`, not `Weapon`
+  (`"weapon": "^sword$"` for `--parts`). His diffuse texture is `Yasuo_base_TX_CM`; the weapon
+  trail's `Yasuo_Weapon_Trail_TX_CM` sorts first and was picked before `pose_ref.diffuse_textures`
+  skipped trails (white model with holes).
+  A deep stance is still measured from the crown to the soles: Yasuo's idle crouch is 80% of his
+  standing height, yet base heroes in stances (the ninja) and this pack's Lee Sin are 34 px the same
+  way, so league_yasuo is too; his wider silhouette comes from the stance.
 - **Head tracks for the importer.** `pose_ref.py --frame <clip@ms> ... --track <hero px>
   --track-ref <idle clip@0>` prints each frame's head joint x in game px from the unit, for a
   hero that many px tall in idle, through the same camera and `--mirror` / `--head` / `--legs` as

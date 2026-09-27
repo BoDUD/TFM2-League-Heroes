@@ -44,8 +44,8 @@ class Lob(Anim):
 def showcase(out, z=3, step=40):
     lux = load(CHAMP)
     fx = {k: load(v) for k, v in FX.items()}
-    W, H = 300, 104
-    ax, tx, gy = 40, 100, 62          # Lux, target (60 px: attack range), pivot row
+    W, H = 400, 104
+    ax, tx, gy = 40, 95, 62           # Lux, target (55 px: attack range), pivot row
     wand = (ax + 12, gy - 2)          # where bolts leave: the thrust wand tip, y_offset 2000
     body, flinch, effects, shots = [], [], [], []
     t = 0.0
@@ -78,10 +78,10 @@ def showcase(out, z=3, step=40):
     t += run
     a("idle", 400, loop=True)
     bolt(t)
-    start = t                                         # Q: the orb at tick 13, 4200/tick; shields at cast
+    start = t                                         # Q: the orb at tick 13, 2000/tick; shields at cast
     a("skill")
     at = start + tick(13)
-    arrive = at + tick((tx - wand[0]) / 4.2)
+    arrive = at + tick((tx - wand[0]) / 2.0)
     shots.append(Anim(frames_of(fx["league_lux_fx"], "q_orb"), at, wand[0], wand[1], loop=True,
                       until=arrive, x1=tx, y1=gy - 2, z=1))
     fx_at("shield", at, ax)
@@ -103,7 +103,7 @@ def showcase(out, z=3, step=40):
     bolt(t, ignite=True)
     start = t                                         # R: the beam's view from tick 2, damage at tick 30
     a("ult")
-    effects.append(Anim(frames_of(fx["league_lux_r"], "beam"), start + tick(2), ax + 120, gy, z=1))
+    effects.append(Anim(frames_of(fx["league_lux_r"], "beam"), start + tick(2), ax + 170, gy, z=1))
     fx_at("mark", start + tick(30), tx)
     hurt(start + tick(30))
     death = start + tick(34)
