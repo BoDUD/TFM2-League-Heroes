@@ -2,10 +2,21 @@
   "hero": "darius",
   "champ": "Darius",
   "camera": {"yaw": 55, "pitch": 25, "mirror": true},
-  "chibi": {"head": 2.0, "legs": 0.8},
+  "chibi": {"head": 2.0, "legs": 0.8,
+            "scale": {"L_Shoulderpad": 1.4, "R_Shoulderpad": 1.4, "L_Scapulapad": 1.4, "R_Scapulapad": 1.4}},
   "height": 34,
   "cell": [88, 96, 18],
   "design": "Darius_Idle1@0",
+  "restyle": {
+    "head": {"rect": [61, 62, 10, 13], "cut": [[61, 72], [62, 72], [63, 72], [61, 73], [62, 73], [61, 74], [62, 74], [63, 74]]},
+    "outline": "141319",
+    "weapon": [["20282D", 0.12], ["34424A", 0.22], ["50616A", 0.35], ["7D9097", 0.5], ["C1D2D6", 0.66], ["BFE8E7", 0.84], ["E8F4F2"]],
+    "steel": [["20282D", 0.12], ["34424A", 0.24], ["50616A", 0.42], ["7D9097"]],
+    "trim": ["C1D2D6", 0.62],
+    "cloth": [["77182B", 0.28], ["A72B3C"]],
+    "skin": [["A97754", 0.45], ["CA996E", 0.65], ["E2B289"]],
+    "weights": {"BFE8E7": 1.5, "E8F4F2": 1.5, "A72B3C": 1.2, "A97754": 1.3, "CA996E": 1.3, "E2B289": 1.3}
+  },
   "tags": {
     "idle": {"frames": [
       ["Darius_Idle1@0", 222], ["Darius_Idle1@222", 222], ["Darius_Idle1@444", 222],

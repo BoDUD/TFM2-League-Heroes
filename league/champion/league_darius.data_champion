@@ -546,7 +546,7 @@
     "cooltime": 360,
     "start_timing": 2,
     "cancelable": false,
-    "range": 34000,
+    "range": 30000,
     "casting_type": "None",
     "casting_target": "EnemyChampion",
     "attack_type": "Skill",
@@ -573,7 +573,7 @@
               "type": "RangeEffect",
               "shape": {
                 "Circle": {
-                  "radius": 36000
+                  "radius": 32000
                 }
               },
               "target": "EnemyWithoutTower",
@@ -611,7 +611,7 @@
               "type": "RangeEffect",
               "shape": {
                 "Circle": {
-                  "radius": 36000
+                  "radius": 32000
                 }
               },
               "target": "EnemyChampion",
