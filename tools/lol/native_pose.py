@@ -43,6 +43,11 @@ without them, as without the hair.
 "rise" (per tag) keeps that share of League's height while the whole body is off the ground
 (Darius's Noxian Guillotine leaps about five metres, three times his chibi height: 0.3).
 
+"weapon" is the regex naming the joint whose chain is the weapon part in --parts renders (default
+"^weapon$"; Yasuo's katana hangs from "Sword"). "hide" lists joint regexes whose chains are left out
+of every render: Yasuo's flute is scaled to nothing in idle but has no track in his attack and death
+clips, where it floats beside him at full size.
+
 Spec (JSON): {"hero", "champ", "camera": {"yaw", "pitch", "mirror"}, "chibi": {"head", "legs",
 "hair", "keep": {"<joint>": <radius>}, "scale": {"<joint>": <factor>}}, "height", "cell": [w, h] or [w, h, feet] (optional, default 56x64, feet line 10 px above the bottom), "design": "<clip@ms>", "tags": {"<tag>": {"lunge": 1.0, "rise": 1.0, "anchor": "design",
 "flat": false, "head_like": null, "frames": [["<clip@ms or clipA@ms>clipB@ms:w>", <ms>, {"turn": <deg>,
@@ -86,7 +91,7 @@ def set_cell(w, h, feet=10):
 class Champ:
     """A champion's base skin: mesh, skeleton, texture and clips, read from the local client."""
 
-    def __init__(self, lol, champ, keep=None):
+    def __init__(self, lol, champ, keep=None, weapon=r"^weapon$", hide=()):
         w = Wad(os.path.join(lol, "Game", "DATA", "FINAL", "Champions", f"{champ}.wad.client"))
         skin_bin = w.read_path(f"data/characters/{champ.lower()}/skins/skin0.bin")
         refs = lambda blob, ext: sorted(set(m.decode("latin1") for m in re.findall(rb"[A-Za-z0-9_/\.\-]+\." + ext, blob)))
@@ -96,6 +101,9 @@ class Champ:
         self.tris, self.verts = P.read_skn(w.read_path(skn.lower()))
         self.joints, self.influences = P.read_skl(w.read_path(skl.lower()))
         self.influences, self.hair_re = P.keep_parts(self.joints, self.influences, self.verts, keep or {})
+        for pat in hide:     # props the clips leave unanimated (Yasuo's flute floats beside him)
+            gone = P.chain_vertices(self.joints, self.influences, self.verts, re.compile(pat, re.I))
+            self.tris = self.tris[~gone[self.tris].any(1)]
         self.tex = P.read_tex(w.read_path(texs[0].lower()))
         bind = P.globals_(self.joints, [P.trs(j["t"], j["r"], j["s"]) for j in self.joints])
         self.bind_inv = [np.linalg.inv(m) for m in bind]
@@ -110,7 +118,7 @@ class Champ:
         on = lambda pat: P.chain_vertices(self.joints, self.influences, self.verts, re.compile(pat, re.I))
         up = np.linalg.inv(bind[self.head][:3, :3]) @ np.array([0.0, 1.0, 0.0])
         self.head_up = up / np.linalg.norm(up)          # the head joint's axis that points up in the bind pose
-        self.part = np.where(on(r"^head$"), 1, np.where(on(r"^weapon$"), 2, 0))     # index into PARTS
+        self.part = np.where(on(r"^head$"), 1, np.where(on(weapon), 2, 0))     # index into PARTS
 
     def clip(self, name):
         if name.lower() not in self.by_name:
@@ -244,7 +252,7 @@ def main():
     hero, cam, chibi = spec["hero"], spec["camera"], dict(spec["chibi"])
     keep = chibi.pop("keep", None)
     set_cell(*spec.get("cell", CELL))
-    ch = Champ(args.lol, spec["champ"], keep)
+    ch = Champ(args.lol, spec["champ"], keep, spec.get("weapon", r"^weapon$"), spec.get("hide", ()))
     rot = camera(cam)
     sign = -1.0 if cam.get("mirror") else 1.0
     os.makedirs(args.out, exist_ok=True)

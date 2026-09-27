@@ -245,6 +245,21 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   barrel with vertical stripes. Raw effect strips become native strips with
   `tools/art/import_amumu.py --raw` (median-cut colours, majority per game pixel, a scale per
   effect set by the kit's radius).
+- **Clips that are not what their name says (Yasuo).** Read which animation a spell plays in
+  `data/characters/<champ>/<champ>.bin`: the spell name is followed by its animation name (Yasuo:
+  `YasuoQ1` -> `Spell1A`, `YasuoQ2` -> `Spell1B`, `YasuoQ3` -> `Spell1C`, `YasuoDashWrapper` ->
+  `Spell3`, `YasuoRKnockUpCombo` -> `Spell4`). `Yasuo_Spell1_Wind.anm` (an uncompressed v4 file)
+  animates only the hair and cloth - the Q3-ready overlay - and every other joint has a zero
+  translation, so rendered alone it collapses into a heap; the whirlwind's body motion is `Spell1C`.
+  A prop the clips leave without a track hangs at full size wherever its joint sits: Yasuo's flute is
+  scaled to nothing in idle but floats beside him in his attack and death clips, so the spec leaves
+  it out (`"hide": ["^flute$"]`). His katana hangs from a joint named `Sword`, not `Weapon`
+  (`"weapon": "^sword$"` for `--parts`). His diffuse texture is `Yasuo_base_TX_CM`; the weapon
+  trail's `Yasuo_Weapon_Trail_TX_CM` sorts first and was picked before `pose_ref.diffuse_textures`
+  skipped trails (white model with holes).
+  A deep stance is still measured from the crown to the soles: Yasuo's idle crouch is 80% of his
+  standing height, yet base heroes in stances (the ninja) and this pack's Lee Sin are 34 px the same
+  way, so league_yasuo is too; his wider silhouette comes from the stance.
 - **Head tracks for the importer.** `pose_ref.py --frame <clip@ms> ... --track <hero px>
   --track-ref <idle clip@0>` prints each frame's head joint x in game px from the unit, for a
   hero that many px tall in idle, through the same camera and `--mirror` / `--head` / `--legs` as
