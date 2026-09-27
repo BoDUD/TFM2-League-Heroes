@@ -20,7 +20,7 @@
 
 | 技能位 | 内容 | 用到的图 |
 |---|---|---|
-| 普攻 | 挥刀劈砍；被动「浪客之道」：暴击几率 20%；剑意每 12 秒充满，充满后下一次出手获得护盾，并立起「风之障壁」（4 秒内身边友方英雄受到的普攻伤害降低 40%） | `yasuo_attack` · `yasuo_fx_hit` · `yasuo_fx_shield` · `yasuo_fx_wall` |
+| 普攻 | 挥刀劈砍；被动「浪客之道」：暴击几率 20%；剑意每 12 秒充满，充满后下一次出手获得护盾，并立起「风之障壁」（4 秒内身边友方英雄受到的普攻伤害降低 40%；后来风墙从技能里删了） | `yasuo_attack` · `yasuo_fx_hit` · `yasuo_fx_shield` · `yasuo_fx_wall`（未使用） |
 | 技能 1 | Q「斩钢闪」：向前突刺；命中两次后第三次放出旋风，击飞直线上的敌人；刚用过 E 时改为环形斩（EQ），满两层时是环形击飞（EQ3） | `yasuo_skill` · `yasuo_q3` · `yasuo_eq` · `yasuo_fx_q_thrust` · `yasuo_fx_q_hit` · `yasuo_fx_q_ready` · `yasuo_fx_tornado` · `yasuo_fx_knockup` · `yasuo_fx_eq` · `yasuo_fx_eq3` |
 | 技能 2 | E「踏前斩」：冲刺穿过一名敌方英雄，停在它身后 | `yasuo_skill2` · `yasuo_fx_e_hit` |
 | 大招 | R「狂风绝息斩」：闪到被控制的敌方英雄身边，跃在空中连斩，落地 | `yasuo_ult` · `yasuo_fx_r_slash` |
@@ -346,7 +346,7 @@ Effect: a WIND SHIELD around a swordsman, 6 frames over 2 seconds. In the middle
 Layout: one horizontal row of 6 equal square cells, image size 1536x256; no gaps, no borders, no labels. Transparent background (if not possible: pure black #000000).
 ```
 
-### 22. `yasuo_fx_wall.png`：风之障壁（立在亚索面前，4 秒），6 帧循环
+### 22. `yasuo_fx_wall.png`：风之障壁（立在亚索面前，4 秒），6 帧循环（未使用：风墙后来从技能里删了）
 
 游戏把这张图转到亚索面对的方向：墙面垂直于前进方向，所以画成竖着的一道窄墙。约 40 格高、8 格厚。
 
@@ -392,10 +392,10 @@ Layout: one horizontal row of 8 equal square cells, image size 2048x256; the sla
 | `yasuo_fx_eq3.png` | 6 | 特效 `league_yasuo_eq3`（跟随亚索，半径 25000） | 6 × 70 |
 | `yasuo_fx_e_hit.png` | 5 | 特效 `league_yasuo_e_hit`（跟随目标） | 5 × 60 |
 | `yasuo_fx_shield.png` | 6 | 特效 `league_yasuo_shield`（跟随亚索，2 秒） | 6 × 333 |
-| `yasuo_fx_wall.png` | 6 | 投射物 `league_yasuo_wall`（风墙，4 秒，40000 × 8000） | 6 × 100 循环 |
+| `yasuo_fx_wall.png` | 6 | 未使用（风墙从技能里删了） | - |
 | `yasuo_fx_r_slash.png` | 8 | 特效 `league_yasuo_r_slash`（跟随目标） | 8 × 70 |
 
-`yasuo_native.png` 只用来保持造型一致，不进游戏。特效表：`league_yasuo_fx`（hit、q_hit、knockup、e_hit、shield、q_ready），`league_yasuo_big`（q_thrust、tornado、wall、eq、eq3、r_slash）。
+`yasuo_native.png` 只用来保持造型一致，不进游戏。特效表：`league_yasuo_fx`（hit、q_hit、knockup、e_hit、shield、q_ready），`league_yasuo_big`（q_thrust、tornado、eq、eq3、r_slash）。
 
 ## 姿势参考：英雄联盟原版动作
 

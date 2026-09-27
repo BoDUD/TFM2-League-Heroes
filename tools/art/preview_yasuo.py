@@ -7,8 +7,8 @@ load).
   league_yasuo_frames.png    every animation, frame by frame, 3x on the arena colour
   league_yasuo_effects.png   every effect animation, 3x
   league_yasuo_showcase.gif  a scripted fight against Darius and Garen, timed like the kit: Yasuo
-                             runs in, his first cut raises the wind shield and the wind wall
-                             (Way of the Wanderer), two Steel Tempest thrusts gather the storm, the
+                             runs in, his first cut raises the wind shield (Way of the
+                             Wanderer), two Steel Tempest thrusts gather the storm, the
                              whirlwind knocks both up, Last Breath blinks to them and cuts them in
                              the air (Darius falls), Sweeping Blade dashes through Garen and a
                              spinning EQ follows, 3x
@@ -62,12 +62,10 @@ def showcase(out, z=3, step=40):
     # run in (move speed 1100, about 1.1 px a tick)
     a("run", tick((sx - x0) / 1.1), loop=True, at=x0, to=sx)
     a("idle", 200, loop=True)
-    # a cut at tick 11; the first one of the fight raises the wind shield (2 s) and the wind wall in
-    # front of him (its 4 s animation, played once where he stands)
+    # a cut at tick 11; the first one of the fight raises the wind shield (2 s)
     start = t
     cut = start + tick(11)
     fx_at("league_yasuo_fx", "shield", cut, x, until=cut + 2000)
-    fx_at("league_yasuo_big", "wall", cut, x)
     fx_at("league_yasuo_fx", "hit", cut, d.x, d.y)
     d.flinches.append(cut)
     a("attack")

@@ -679,10 +679,6 @@
     "remapping": "asset/league/sound/sfx/league_yasuo_e_hit",
     "type": "override"
   },
-  "asset/base/sound/sfx/league_yasuo_w": {
-    "remapping": "asset/league/sound/sfx/league_yasuo_w",
-    "type": "override"
-  },
   "asset/base/sound/sfx/league_yasuo_shield": {
     "remapping": "asset/league/sound/sfx/league_yasuo_shield",
     "type": "override"
@@ -745,10 +741,6 @@
   },
   "asset/base/sound/sfx/league_yasuo_sfx_shield": {
     "remapping": "asset/league/sound/sfx/league_yasuo_sfx_shield",
-    "type": "override"
-  },
-  "asset/base/sound/sfx/league_yasuo_sfx_w": {
-    "remapping": "asset/league/sound/sfx/league_yasuo_sfx_w",
     "type": "override"
   },
   "asset/base/sound/sfx/league_yasuo_vo_e": {

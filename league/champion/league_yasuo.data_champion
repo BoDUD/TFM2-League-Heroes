@@ -104,38 +104,6 @@
               {
                 "type": "Sfx",
                 "name": "league_yasuo_shield"
-              },
-              {
-                "type": "CasterViewEffect",
-                "name": "league_yasuo_wall"
-              },
-              {
-                "type": "Sfx",
-                "name": "league_yasuo_w"
-              },
-              {
-                "type": "RangeEffect",
-                "shape": {
-                  "Circle": {
-                    "radius": 60000
-                  }
-                },
-                "target": "AllyChampion",
-                "apply_type": "AroundCaster",
-                "effects": [
-                  {
-                    "type": "AddBuff",
-                    "buff_state": {
-                      "name": "league_yasuo_windwall",
-                      "duration": {
-                        "Time": {
-                          "tick": 240
-                        }
-                      },
-                      "base_attack_damaged_reduce": 40
-                    }
-                  }
-                ]
               }
             ]
           }
@@ -198,38 +166,6 @@
               {
                 "type": "Sfx",
                 "name": "league_yasuo_shield"
-              },
-              {
-                "type": "CasterViewEffect",
-                "name": "league_yasuo_wall"
-              },
-              {
-                "type": "Sfx",
-                "name": "league_yasuo_w"
-              },
-              {
-                "type": "RangeEffect",
-                "shape": {
-                  "Circle": {
-                    "radius": 60000
-                  }
-                },
-                "target": "AllyChampion",
-                "apply_type": "AroundCaster",
-                "effects": [
-                  {
-                    "type": "AddBuff",
-                    "buff_state": {
-                      "name": "league_yasuo_windwall",
-                      "duration": {
-                        "Time": {
-                          "tick": 240
-                        }
-                      },
-                      "base_attack_damaged_reduce": 40
-                    }
-                  }
-                ]
               }
             ]
           }
@@ -665,38 +601,6 @@
               {
                 "type": "Sfx",
                 "name": "league_yasuo_shield"
-              },
-              {
-                "type": "CasterViewEffect",
-                "name": "league_yasuo_wall"
-              },
-              {
-                "type": "Sfx",
-                "name": "league_yasuo_w"
-              },
-              {
-                "type": "RangeEffect",
-                "shape": {
-                  "Circle": {
-                    "radius": 60000
-                  }
-                },
-                "target": "AllyChampion",
-                "apply_type": "AroundCaster",
-                "effects": [
-                  {
-                    "type": "AddBuff",
-                    "buff_state": {
-                      "name": "league_yasuo_windwall",
-                      "duration": {
-                        "Time": {
-                          "tick": 240
-                        }
-                      },
-                      "base_attack_damaged_reduce": 40
-                    }
-                  }
-                ]
               }
             ]
           }
@@ -961,13 +865,6 @@
       "tag": "shield",
       "z": 1,
       "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_yasuo_wall",
-      "anim": "asset/league/effects/league_yasuo_big",
-      "tag": "wall",
-      "z": 1
     },
     {
       "type": "Animation",

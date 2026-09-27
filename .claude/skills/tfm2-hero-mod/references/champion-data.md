@@ -328,8 +328,7 @@ the same champion file.
   A `CasterViewEffect` is not turned: it is drawn at the caster's pivot, mirrored when the caster
   faces left (the base gunner's backward-run dust is drawn only behind him), and stays where it was
   played unless `is_follow`. An `Animation` plays its tag once, so a view that must stand for
-  seconds lists its loop frames again (league_yasuo's 4 s wind wall is 40 frames; `strips.py`
-  `write_sheet(dedupe=True)` packs repeated frames once).
+  seconds lists its loop frames again (a 4 s loop of 100 ms frames is 40 frames).
 - Every `anim` + `tag` must exist. Name typos fail silently - LoL Reborn's Nocturne binds
   `nocturne_attack_hits` while the effect is `nocturne_attack_hit`, so that hit never shows.
 
@@ -529,13 +528,12 @@ action (basic attack, both skills) starts with `SwitchByBuff flow_cd`: without i
 (12 s) and `WithSelf {Shield}` (a `Shield` in a `Targeting` action would shield the enemy). The first
 action of a fight shields him; the ult removes `flow_cd` to refill it.
 
-**A projectile wall, approximated (league_yasuo Wind Wall).** Nothing blocks projectiles (section 4),
-so the wall is a picture - a `CasterViewEffect` whose 4 s animation stands in front of the caster
-(section 6) - plus a `RangeEffect` on `AllyChampion` around the caster adding
-`base_attack_damaged_reduce` for 4 s; ranged basic attacks are the projectiles most units throw,
-melee ones are reduced too. It was first a view-only `LineRangeProjectile` (width 40000, length
-8000, `delay` 1, `apply` 239), whose view the game turns to the cast direction: cast upward the wall
-lay across the screen over his head, and the user ruled that out.
+**A projectile wall does not port (league_yasuo Wind Wall, removed).** Nothing blocks projectiles
+(section 4). league_yasuo first stood a picture of the wall in front of him - a view-only
+`LineRangeProjectile` (its view turned to the cast direction, so cast upward it lay over his head),
+then a 4 s `CasterViewEffect` - with a `RangeEffect` on `AllyChampion` around him adding
+`base_attack_damaged_reduce` 40% for 4 s. A wall that blocks nothing read as odd in this game and
+the user had the skill removed: leave such skills out rather than drawing them.
 
 **Blink to a crowd-controlled champion (league_yasuo R).** `Targeting` + `EnemyChampionInCC` (range
 100000) then `Teleport`; a `RangeEffect` on `EnemyChampionInCC` around the caster re-applies `Airborne`

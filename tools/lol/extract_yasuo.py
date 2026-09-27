@@ -12,7 +12,7 @@ Every event is named in the champion bins. Q1, Q2 and Q3 share one set of sword 
 has its own launch and hit. Voice lines, compared with the en_US bank: the Q1 and E shouts are the same
 recordings in both languages (wordless); both zh_CN Q3 lines are Chinese takes of "Hasaki", and the one
 whose rhythm matches the English take best is used; the R line is the one shared with en_US ("Sorye ge
-ton"). Wind Wall rides on the passive in TFM2, so it gets its cast sound but no voice.
+ton"). Wind Wall is not in the TFM2 kit (the user dropped it), so neither is its sound.
 """
 import argparse
 import io
@@ -42,7 +42,6 @@ CLIPS = {
     "league_yasuo_sfx_eq": ("Play_sfx_Yasuo_YasuoEQComboSoundHit_OnBuffActivate", 558685910, 1.0, -3),
     "league_yasuo_sfx_e_cast": ("Play_sfx_Yasuo_YasuoDashWrapper_cast", 591673493, 1.0, -4),
     "league_yasuo_sfx_e_hit": ("Play_sfx_Yasuo_YasuoDashWrapper_hit", 327728017, 0.7, -4),
-    "league_yasuo_sfx_w": ("Play_sfx_Yasuo_YasuoWMovingWall_OnCast", 530452173, 1.6, -4),
     "league_yasuo_sfx_shield": ("Play_sfx_Yasuo_YasuoPassiveShield_OnBuffActivate", 667139755, 1.0, -5),
     "league_yasuo_sfx_r_cast": ("Play_sfx_Yasuo_YasuoRDummySpell_OnCast", 35601773, 1.6, -3),
     "league_yasuo_sfx_r_combo": ("Play_sfx_Yasuo_YasuoRKnockUpCombo_OnBuffActivate", 372517854, 1.6, -4),
@@ -52,7 +51,7 @@ CLIPS = {
     "league_yasuo_vo_e": ("Play_vo_Yasuo_YasuoEDash_cast3D", 522189190, 0.8, -2),
     "league_yasuo_vo_r": ("Play_vo_Yasuo_YasuoR_cast3D", 2132191535, 2.0, -2),
 }
-ICONS = {  # TFM2 slot -> Riot icon (the passive and Wind Wall ride on the basic attack, so they have no slot)
+ICONS = {  # TFM2 slot -> Riot icon (the passive rides on the basic attack, so it has no slot)
     "league_yasuo_skill": "ASSETS/Characters/Yasuo/HUD/Icons2D/Yasuo_Q1.dds",
     "league_yasuo_skill2": "ASSETS/Characters/Yasuo/HUD/Icons2D/Yasuo_E.dds",
     "league_yasuo_ult": "ASSETS/Characters/Yasuo/HUD/Icons2D/Yasuo_R.dds",

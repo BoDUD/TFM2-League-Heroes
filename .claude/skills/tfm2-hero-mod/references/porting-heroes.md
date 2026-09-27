@@ -60,7 +60,7 @@ OK = direct, ~ = approximate, X = not possible in data-only mods.
 | Third cast changes (Yasuo Q3) | two hidden stack buffs + `SwitchByBuff` (champion-data "Third cast is different") | OK |
 | Cast during a dash changes the shape (Yasuo EQ) | window buff from the dash, checked by the other skill | ~ (AI timing) |
 | Dash through a target (Yasuo E, Fizz Q) | `RushMoveToBack`: lands 15000 units past the target, then its `applied_effects` | OK |
-| Blocks projectiles (Yasuo W, Braum E, Samira W) | nothing can block a projectile: a view-only wall + `base_attack_damaged_reduce` on allied champions around the caster | X / ~ |
+| Blocks projectiles (Yasuo W, Braum E, Samira W) | nothing can block a projectile. league_yasuo tried a picture of the wall + `base_attack_damaged_reduce` on allied champions around the caster; the user found it odd in this game and had it removed - leave such skills out | X |
 | Only on airborne enemies (Yasuo R) | `EnemyChampionInCC`, which also counts stun, root, fear and charm | ~ |
 | Shield when damaged (Yasuo Flow) | a hidden cooldown buff; the next action after it ends shields him | ~ |
 | Stealth | `Invisible` / `CasterInvisible` | OK |

@@ -78,12 +78,10 @@ Sin's first idle, fixed in `leesin_retouch.json`).
 - **Anything with an up and down goes on a caster view.** A projectile's view is turned to the
   cast direction (champion-data section 6), so a wall or a banner on a `LineRangeProjectile` lies
   across the screen when cast upward. A `CasterViewEffect` is not turned, is mirrored for a
-  left-facing caster and stands where it was played. league_yasuo's Wind Wall: Codex drew a twisted
-  column of wind with curls, which the user read as a tornado; what reads as League's wall is its
-  ground line (a long line with the ends bent back, `Yasuo_base_W_windwall_indicator.tex`) with the
-  curtain on its forward side, drawn by code (`import_yasuo.py --wall`). At 44 px it looked too
-  small to shield him and touched his body; it stands 64 px (almost twice his height), 20 px in
-  front of his pivot.
+  left-facing caster and stands where it was played. league_yasuo's Wind Wall went this way (64 px
+  tall, 20 px in front of him) before the user dropped the skill: Codex's twisted column of wind read
+  as a tornado, League's ground-line shape (a long line with the ends bent back) read as a wall, and
+  44 px was too small to shield him.
 
 ## Skill icons
 
