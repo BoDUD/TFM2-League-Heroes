@@ -13,6 +13,7 @@ Contents
 6. View bindings (how things become visible)
 7. Patterns that work (copy these)
 8. Gotchas
+9. Checking a fact against the engine
 
 ## 1. Top-level fields
 
@@ -78,6 +79,8 @@ Cooldowns (ticks, median [IQR]): skill 240-420, skill2 300-480, ult 2400-3600 (a
 - `casting_target`: `Enemy`, `EnemyWithoutTower`, `EnemyChampion`, `EnemyChampionInCC`,
   `EnemyChampionRecentlyAttacked`, `AllyOnlySelf`, `AllyChampion`, `AllyNotSelf`,
   `AllyChampionInCC`, `BothWithoutTower`, `BothChampion` (the engine also has `Ally`, `Both`, `None`).
+  `EnemyChampionRecentlyAttacked` is an enemy champion that the caster's *team* damaged recently
+  (a per-team timer on the target, `CastingTarget::check`), not one the caster hit itself.
 - **Which ally gets an ally skill** *(read from the mod SDK's compiled `game_core`, not yet seen
   in game)*: `AllyNotSelf` is an allied champion other than the caster (no minions), `AllyChampion`
   includes the caster, `Ally` is any allied unit (`CastingTarget::check`). The battle AI makes one
@@ -114,11 +117,22 @@ Every effect is `{"type": "<Type>", ...fields}`. Counts = uses across base + 52 
 | Type | Fields | Meaning |
 |---|---|---|
 | Attack | damage, attack_ratio, hp_ratio, target_hp_ratio, attack_effect_type:"Target" | physical: damage + ratio% AD (+% max-HP parts) |
-| ApAttack | damage, attack_ratio, hp_ratio, target_hp_ratio | magic: damage + attack_ratio% **AP** |
-| FixedAttack | damage, attack_ratio, target_hp_ratio | true/fixed damage (e.g. 10% target max HP) *(inferred)* |
-| Heal | amount, attack_ratio, ap_ratio, heal_type: Caster\|Ally\|Any | heal (`Caster` heals the caster even inside a projectile that hit an enemy; `Ally` the allied target). No field scales with the target's missing health |
-| Shield | amount, attack_ratio, ap_ratio, hp_ratio, tick | shield for `tick` |
-| AddCasted | casted_type: Fire\|Poison, duration, period, effects[] | damage-over-time: run effects every `period` |
+| ApAttack | damage, attack_ratio, hp_ratio, can_crit | magic: damage + attack_ratio% **AP** |
+| FixedAttack | damage, attack_ratio, hp_ratio, target_hp_ratio | true damage: damage + ratio% AD + hp_ratio% of the caster's and target_hp_ratio% of the target's **max** health |
+| Heal | amount, attack_ratio, ap_ratio, heal_type: Caster\|Ally\|Any\|AllyAll | heal (`Caster` heals the caster even inside a projectile that hit an enemy; `Ally` the allied target). No field scales with the target's missing health |
+| Shield | amount, attack_ratio, ap_ratio, tick | shield for `tick` |
+| AddCasted | casted_type: Fire\|Poison\|Bleed\|Heal, duration, period, effects[] | damage-over-time: run effects every `period`; every cast adds another instance (see below) |
+
+Defaults *(read from the SDK's game_core)*: `attack_ratio` of Attack, ApAttack and FixedAttack is
+**100 when left out** (Heal and Shield default to 0), so always write it, even as 0. No attack
+effect has a missing-health field: `target_hp_ratio` is a share of the target's maximum health.
+A key the effect does not have is skipped without a word: league_garen's Q shield wrote `hp_ratio:
+6` (a Shield has none) and shielded 60 instead of the 60 + 6% max health its text promised, until
+it became 60 + 50% AD. `lint_mod.py` warns about both (unknown fields, a missing `attack_ratio`).
+
+`AddCasted` never refreshes or replaces: `AddCastedEffect::apply` pushes a new entry on the target's
+list of casted effects each time, so repeated hits stack, each with its own timer, and nothing caps
+the count. `Bleed` is the base Inquisitor's bleed (league_darius uses it for Hemorrhage).
 
 `attack_effect_type` on the three attack effects: `Target` (every pack writes it) hits the
 effect's own target with no team check, so `WithSelf` + `FixedAttack` damages the caster;
@@ -136,6 +150,14 @@ estimated from the caster's stats), which keeps a health cost out of the skill's
 `BlockAttack {tick}` (disarm), `BlockSkill {tick}` (silence), `BlockMoveSkill {tick}` (no dashes),
 `Invisible {tick}` (target cannot be seen/targeted - Nocturne ult applies it to allies),
 `CasterInvisible {tick}` (base Nightmare).
+
+**Pull vs Grab** *(read from the SDK's game_core, `Entity::pull` / `Entity::grab`)*. Both move the
+target in a straight line at `speed` units per tick for their duration (tenacity shortens it) and
+are blocked by `cc_immune`. `Pull {speed, tick}` heads for the caster, or for the projectile's
+position when it runs in a projectile's `applied_effects` (the Touhou Patchouli vortex), and does not
+stop there: a target closer than speed x tick is pulled through and out the other side. `Grab
+{speed, tick?}` always heads for the caster; with `tick` left out its duration is distance / speed,
+so the target stops at the caster wherever it started (league_darius E).
 
 **Movement**
 | Type | Fields | Meaning |
@@ -163,8 +185,21 @@ estimated from the caster's stats), which keeps a health cost out of the skill's
 | ApplyInProjectile | shape, tick, follow_caster | aura / zone that can follow the caster |
 
 `applied_target`: `Enemy`, `EnemyWithoutTower`, `EnemyChampion`, `EnemyChampionInCC`, `Ally`,
-`AllyChampion`. Shapes: `{"Circle": {"radius": N}}`, `{"Rect": {...}}` (rare).
-RangeEffect `target` also accepts `AllyOnlySelf`, `AllyNotSelf`.
+`AllyChampion`. RangeEffect `target` also accepts `AllyOnlySelf`, `AllyNotSelf`.
+
+Shapes *(`ProjectileShape::is_in` in the SDK's game_core; every radius and half-size also counts the
+collision radius of the unit tested, and for RangeEffect the caster's too)*:
+- `{"Circle": {"radius": N}}`
+- `{"Rect": {"width": W, "height": H}}` - axis-aligned around the centre, never turned
+- `{"Line": {"width", "from_x", "from_y", "to_x", "to_y"}}` - a segment with fixed coordinates
+- `{"DirDot": {"radius": N, "range": C}}` - a **cone**: within `radius` of the centre and at most
+  acos(C / 1000) off the direction from the caster to the centre (`range` 600 = 53 degrees each side).
+  Around the caster that direction is zero and the cone is a full circle, so use it with `Forward`.
+
+RangeEffect `apply_type`: `"AroundCaster"` or `{"Forward": {"offset": N}}` - the centre N units from
+the caster toward the effect's target (the unit of a `Targeting` action, the point of a `Position`
+one; a `Direction` cast falls back to the caster). The Touhou pack's Sanae ult uses Forward + Rect;
+league_darius E uses Forward `{offset: 1000}` + DirDot as its cone.
 
 **Presentation**
 `ViewEffect {name}` (play a `view_effects` animation on the target/point),
@@ -193,9 +228,21 @@ Fields seen (count across packs): `range` (attack range bonus, 278), `move_speed
 `base_attack_enemy_max_hp_damage` (on-hit % max HP, 111), `skill_cooldown_mult` (110),
 `damaged_reduce` (% less damage taken, 74), `defence_mult` (72), `magic_resistance_mult` (70),
 `vamp` (lifesteal %, 66), `toughness` (tenacity, 58), `damage_reflect` (56), `cc_immune` (bool),
-`is_hidden` (bool, hide from UI), `radius_mult`, `can_stack` + `max_stack`, flat `attack`
-`defence` `magic_resistance` `hp` `magic_power` `crit_chance` `hp_regen`, `ignore_wall`,
-`undying`, `damaged_amplify`, `ult_cooldown_mult`, `defence_penetration`, `heal_reduce`.
+`radius_mult`, flat `attack` `defence` `magic_resistance` `hp` `magic_power` `crit_chance`
+`hp_regen`, `ignore_wall`, `undying`, `damaged_amplify`, `ult_cooldown_mult`, `defence_penetration`,
+`heal_reduce`; the engine also reads `dot_amplify`, `self_max_hp_damage`,
+`skill_enemy_max_hp_damage`, `base_attack_damaged_reduce`, `skill_damaged_reduce` and
+`magic_resistance_penetration`.
+
+**How buffs stack** *(read from the SDK's game_core, not yet seen in game)*. `is_hidden`,
+`can_stack` and `max_stack`, common in packs, are not buff fields at all: the engine's parser skips
+unknown keys and the game binary does not contain those names. Every `AddBuff` / `AddCasterBuff`
+pushes one more instance, even with a name already present, and the stats of all instances are
+added up; `RemoveCasterBuff` removes every instance with that name and `SwitchByBuff` asks whether
+any exists. So a stat buff added again while it runs doubles (guard it with `SwitchByBuff`, as
+league_darius does for Noxian Might), a counter buff needs no fields, and a buff without a
+`view_buffs` entry is invisible anyway. Summed `*_mult` values stop at -99% (100 + sum is clamped to
+at least 1), so two slows cannot push a unit backwards.
 
 ## 6. View bindings
 
@@ -343,6 +390,26 @@ EnemyChampion}` stops on the first champion; its `end_effects` run where it stop
 `RangeProjectile {delay: 1, apply: 1, shape}` there is the splash (LoL Reborn Jinx R, Fizz R;
 league_ashe R). It also fires at the end of the range when nothing was hit.
 
+**Bleed that stacks on the target, threshold counted on the caster (league_darius Hemorrhage).**
+Each hit runs `AddCasted {casted_type: Bleed, duration: 300, period: 60}`; every cast adds its own
+instance, so the target really carries one bleed per recent hit. What the kit cannot read is how
+many the target carries, so Noxian Might counts Darius's own hits instead: hidden caster buffs
+`hemo_1`..`hemo_4` (300 ticks each) walked by a `SwitchByBuff` chain checked from the top, the fifth
+hit removing them all and adding `might` (`attack_mult`), skipped while `might` runs so it never
+stacks. Noxian Guillotine reads the same chain as a ladder of six `FixedAttack`s (+20% per buff,
+double under `might`). The chain sits in the basic attack, the empowered attack and Q.
+
+**Pull a cone to you (league_darius E).** A `Targeting` action whose `RangeEffect` uses
+`apply_type {"Forward": {"offset": 1000}}` and `shape {"DirDot": {"radius": 46000, "range": 600}}`
+(106 degrees wide, toward the target) and applies `Grab {speed: 3500}` without `tick`, so everyone in
+the cone stops at Darius instead of flying past him as a fixed `Pull` would. The sweep is drawn by a
+separate `LineRangeProjectile` with empty `applied_effects` (its view turns to the target).
+
+**Hits counted once per cast, heal per champion hit (league_darius Q).** One `RangeEffect` on
+`EnemyWithoutTower` for the damage and the bleed, a second one with the same circle on
+`EnemyChampion` holding only `Heal {heal_type: Caster}`, so the heal runs once per champion; the
+Noxian Might counter sits beside them, outside both, so it counts the cast once.
+
 ## 8. Gotchas
 
 - `action_name` / `CasterAnimation.name` must be real sprite tags. Two LoL Reborn heroes use
@@ -360,3 +427,19 @@ league_ashe R). It also fires at the end of the range when nothing was hit.
   play `CasterViewEffect` on a timer instead (one per `Delayed` pulse, `is_follow: true` in
   `view_effects`); keep buff views for states that must vanish on consumption (Q ready).
 - Run `python scripts/lint_mod.py <mod>` after every edit.
+
+## 9. Checking a fact against the engine
+
+The mod SDK in the game folder ships the engine itself: `mod-sdk*/deps/libgame_core-*.rlib` (+
+`.rmeta`, serde_json next to it) built with the toolchain pinned in its `rust-toolchain.toml`
+(`nightly-2026-05-24`). Two ways to ask it:
+- **Parse with the official data types.** `scripts/sdk_probe.rs` deserializes a whole
+  `.data_champion` (`game_core::DataChampionInfo`) or single effects, one JSON per line
+  (`game_core::DataEffectDef`), and prints serde's error or the parsed value with every field and
+  its default - an unknown variant error lists all accepted values, a field missing from the output
+  is one the engine ignores (that is how `DirDot`, `Forward`, `Bleed`, the `attack_ratio` default
+  and the ignored `is_hidden` were found). Build and run it as the file's header shows.
+- **Read the code.** `llvm-nm -A --defined-only` and `llvm-objdump -d -r --disassemble-symbols=<mangled>`
+  from the same toolchain (`lib/rustlib/x86_64-pc-windows-msvc/bin`) on the object files inside the
+  rlib (`llvm-ar x`): each effect is `<...Effect as EffectType>::apply`, the per-tick logic is
+  `Entity::run`. Slow but decisive; mark such facts "read from the SDK's game_core" until seen in game.

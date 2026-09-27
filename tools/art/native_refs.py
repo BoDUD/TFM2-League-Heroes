@@ -10,10 +10,12 @@ feet on the cell's line 10 px above the bottom. <hero>_now_design.png: idle fram
 canvas at 8x (1024x1024). <hero>_cells.json: where each frame's pivot stands in its cell, and its
 duration - the redraw keeps these cells, so tools/art/import_native.py cuts each redrawn frame out
 around the same pivot and it lands where the current one stands (commit it with the redraw).
---style writes tfm2_style_ref.png / _mage / _martial / _healer (staff-carrying casters, for Soraka): base heroes'
+--style writes tfm2_style_ref.png / _mage / _martial / _healer (staff-carrying casters, for Soraka) /
+_warrior (heavy weapons and armour, for Darius): base heroes'
 idle frame 1 (top row) and attack middle frame (bottom row), feet aligned, at 8x - read from the
-game's bundle, keep local. --pack lux --pack ashe writes pack_native_ref.png the same way from this
-pack's own native-size sprites.
+game's bundle, keep local. --faces writes tfm2_face_ref_male.png: base heroes' heads at 12x, how
+their eyes are built (Darius's second design round). --pack lux --pack ashe writes pack_native_ref.png
+the same way from this pack's own native-size sprites.
 """
 import argparse
 import json
@@ -38,6 +40,11 @@ STYLE = {
                                 "barrier_magician"],
     "tfm2_style_ref_martial.png": ["fighter", "monk", "ninja", "swordman", "hunter", "knight"],
     "tfm2_style_ref_healer.png": ["white_mage", "priest", "druid", "enchanter", "barrier_magician", "wind_mage"],
+    "tfm2_style_ref_warrior.png": ["berserker", "executioner", "hammerer", "siege_breaker", "knight", "strongman"],
+}
+# base heads for --faces: (hero, first and last+1 column of its head in the top rows of idle frame 1)
+FACES = {
+    "tfm2_face_ref_male.png": [("gladiator", 0, 13), ("cavalry_knight", 8, 23), ("magic_knight", 4, 19), ("hitman", 3, 16)],
 }
 
 
@@ -106,11 +113,35 @@ def style(names):
     return img.resize((img.width * Z, img.height * Z), Image.NEAREST).convert("RGB")
 
 
+def faces(entries, z=12, rows=16):
+    """The top `rows` rows of each hero's idle frame 1 between the given columns (its head, without the
+    weapon beside it), on the arena colour at `z`x, side by side: how base heroes build their eyes
+    (brow, highlight + pupil, white + iris; the far eye one column), for design prompts."""
+    tiles = []
+    for name, c0, c1 in entries:
+        sp = T.load_sprite(f"asset/base/aseprite_resources/champions/{name}")
+        f = np.asarray(sp.frames[sp.tag_frames("idle")[0]].convert("RGBA"))
+        top = int(np.nonzero(f[..., 3])[0].min())
+        x0 = min(x for x in range(f.shape[1]) if f[top:top + rows, x, 3].any())
+        im = Image.fromarray(f[top:top + rows, x0 + c0:x0 + c1], "RGBA")
+        t = Image.new("RGBA", (im.width + 2, im.height + 2), (92, 98, 86, 255))
+        t.alpha_composite(im, (1, 1))
+        tiles.append(t.resize((t.width * z, t.height * z), Image.NEAREST))
+    img = Image.new("RGB", (sum(t.width for t in tiles) + 24 * (len(tiles) - 1), max(t.height for t in tiles)), BG[:3])
+    x = 0
+    for t in tiles:
+        img.paste(t, (x, img.height - t.height))
+        x += t.width + 24
+    return img
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--out", required=True)
     ap.add_argument("--hero", action="append", default=[])
     ap.add_argument("--style", action="store_true")
+    ap.add_argument("--faces", action="store_true",
+                    help="also write tfm2_face_ref_male.png: base heroes' heads at 12x (how their eyes are built)")
     ap.add_argument("--pack", action="append", default=[],
                     help="also write pack_native_ref.png: these heroes of this pack (e.g. lux, ashe) like --style")
     args = ap.parse_args()
@@ -130,6 +161,11 @@ def main():
     if args.style:
         for fname, names in STYLE.items():
             img = style(names)
+            img.save(os.path.join(args.out, fname))
+            print(fname, img.size)
+    if args.faces:
+        for fname, entries in FACES.items():
+            img = faces(entries)
             img.save(os.path.join(args.out, fname))
             print(fname, img.size)
     if args.pack:

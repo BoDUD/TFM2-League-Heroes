@@ -4,7 +4,7 @@
       "league_garen": {
         "name": "盖伦",
         "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。",
-        "skill": "<#ff9028ff>致命打击<>：盖伦获得<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>35% 移动速度<>，持续<#ffb900ff>1.5秒<>。<#ffb900ff>4.5秒<>内的下一次普攻变为跃起重击，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150% 攻击力<>的<#ff9028ff>物理伤害<>并<#ef5350ff>沉默<>目标<#ffb900ff>1.5秒<>。同时获得<#ff9028ff>勇气<>：<#ffb900ff>2秒<>内受到的伤害降低<#ffb900ff>30%<>、韧性提高<#ffb900ff>60%<>，并获得<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>6% 最大生命值<>的<#e8d44dff>护盾<>。",
+        "skill": "<#ff9028ff>致命打击<>：盖伦获得<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>35% 移动速度<>，持续<#ffb900ff>1.5秒<>。<#ffb900ff>4.5秒<>内的下一次普攻变为跃起重击，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150% 攻击力<>的<#ff9028ff>物理伤害<>并<#ef5350ff>沉默<>目标<#ffb900ff>1.5秒<>。同时获得<#ff9028ff>勇气<>：<#ffb900ff>2秒<>内受到的伤害降低<#ffb900ff>30%<>、韧性提高<#ffb900ff>60%<>，并获得<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50% 攻击力<>的<#e8d44dff>护盾<>。",
         "skill2": "<#ff9028ff>审判<>：盖伦挥剑旋转<#ffb900ff>3秒<>，边转边追着目标移动，共转<#ffb900ff>7<>圈，每圈对周围敌人造成<#ff9028ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>32% 攻击力<>的<#ff9028ff>物理伤害<>。第<#ffb900ff>7<>圈命中的敌人<i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>护甲<>降低<#ffb900ff>25%<>，持续<#ffb900ff>4秒<>。被动 <#ff9028ff>坚韧<>：盖伦拥有很高的<#6aff55ff>生命回复<>。",
         "ult": "<#ff9028ff>德玛西亚正义<>：召唤巨剑从天而降，对目标敌方英雄造成<#f5f5f5ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120% 攻击力<> + <#f5f5f5ff>12% 目标最大生命值<>的<#f5f5f5ff>真实伤害<>。"
       },
@@ -35,6 +35,13 @@
         "skill": "造成<#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%法术强度<>的<#a974ffff>魔法伤害<>并<#ef5350ff>减速30%<>，命中敌方英雄时获得<#ff9028ff>活力焕发<>：回复<#6aff55ff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%法术强度<>的<#6aff55ff>生命值<>并加速20%。每<#ffb900ff>16秒<>一次附带<#ff9028ff>星体结界<>：<#ef5350ff>沉默<>圈内敌人，<#ffb900ff>1.5秒<>后仍在圈内的<#ef5350ff>禁锢1秒<>并受到<#a974ffff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%法术强度<>的<#a974ffff>魔法伤害<>。",
         "skill2": "消耗自身<i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>8%最大生命值<>（不会致死），为一名其他友方英雄回复<#6aff55ff>110<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%法术强度<>的<#6aff55ff>生命值<>。带<#ff9028ff>活力焕发<>时消耗减半且目标加速20%。被动<#ff9028ff>拯救<>：施放后<#ffb900ff>2秒<>内<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移动速度提高30%<>。",
         "ult": "<#ff9028ff>祈愿<>：为全图所有友方英雄（包括自己）回复<#6aff55ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55% 法术强度<>的<#6aff55ff>生命值<>。"
+      },
+      "league_darius": {
+        "name": "德莱厄斯",
+        "attack": "普攻挥斧劈砍，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。被动 <#ff9028ff>出血<>：普攻和<#ff9028ff>大杀四方<>命中的敌人流血<#ffb900ff>5秒<>，共受到<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20% 攻击力<>的<#ff9028ff>物理伤害<>，可叠加。德莱厄斯<#ffb900ff>5秒<>内命中<#ffb900ff>5<>次后获得<#ff9028ff>诺克萨斯之力<>：<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻击力<>提高<#ffb900ff>40%<>，持续<#ffb900ff>5秒<>。",
+        "skill": "<#ff9028ff>大杀四方<>：德莱厄斯举斧蓄力后挥舞一圈，对周围敌人造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110% 攻击力<>的<#ff9028ff>物理伤害<>并施加<#ff9028ff>出血<>。每命中一名敌方英雄，回复<#6aff55ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30% 攻击力<>的<#6aff55ff>生命值<>。",
+        "skill2": "<#ff9028ff>无情铁手<>：德莱厄斯用斧钩扫过前方扇形区域，把其中的敌人全部<#ef5350ff>拉<>到身边。之后<#ffb900ff>4秒<>内的下一次普攻变为<#ff9028ff>致残打击<>：造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150% 攻击力<>的<#ff9028ff>物理伤害<>并<#ef5350ff>减速<><#ffb900ff>90%<>，持续<#ffb900ff>1秒<>。",
+        "ult": "<#ff9028ff>诺克萨斯断头台<>：德莱厄斯跃向一名敌方英雄猛力劈下，造成<#f5f5f5ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#f5f5f5ff>真实伤害<>。<#ffb900ff>5秒<>内每命中一次，伤害提高<#ffb900ff>20%<>；处于<#ff9028ff>诺克萨斯之力<>时伤害翻倍。"
       }
     },
     "skill_name": {
@@ -62,6 +69,11 @@
         "skill1": "流星坠落",
         "skill2": "星之灌注",
         "ult": "祈愿"
+      },
+      "league_darius": {
+        "skill1": "大杀四方",
+        "skill2": "无情铁手",
+        "ult": "诺克萨斯断头台"
       }
     }
   },
@@ -70,7 +82,7 @@
       "league_garen": {
         "name": "蓋倫",
         "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。",
-        "skill": "<#ff9028ff>致命打擊<>：蓋倫獲得<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>35% 移動速度<>，持續<#ffb900ff>1.5秒<>。<#ffb900ff>4.5秒<>內的下一次普攻變為躍起重擊，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150% 攻擊力<>的<#ff9028ff>物理傷害<>並<#ef5350ff>沉默<>目標<#ffb900ff>1.5秒<>。同時獲得<#ff9028ff>勇氣<>：<#ffb900ff>2秒<>內受到的傷害降低<#ffb900ff>30%<>、韌性提高<#ffb900ff>60%<>，並獲得<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>6% 最大生命值<>的<#e8d44dff>護盾<>。",
+        "skill": "<#ff9028ff>致命打擊<>：蓋倫獲得<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>35% 移動速度<>，持續<#ffb900ff>1.5秒<>。<#ffb900ff>4.5秒<>內的下一次普攻變為躍起重擊，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150% 攻擊力<>的<#ff9028ff>物理傷害<>並<#ef5350ff>沉默<>目標<#ffb900ff>1.5秒<>。同時獲得<#ff9028ff>勇氣<>：<#ffb900ff>2秒<>內受到的傷害降低<#ffb900ff>30%<>、韌性提高<#ffb900ff>60%<>，並獲得<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50% 攻擊力<>的<#e8d44dff>護盾<>。",
         "skill2": "<#ff9028ff>審判<>：蓋倫揮劍旋轉<#ffb900ff>3秒<>，邊轉邊追著目標移動，共轉<#ffb900ff>7<>圈，每圈對周圍敵人造成<#ff9028ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>32% 攻擊力<>的<#ff9028ff>物理傷害<>。第<#ffb900ff>7<>圈命中的敵人<i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>護甲<>降低<#ffb900ff>25%<>，持續<#ffb900ff>4秒<>。被動 <#ff9028ff>堅韌<>：蓋倫擁有很高的<#6aff55ff>生命回復<>。",
         "ult": "<#ff9028ff>德瑪西亞正義<>：召喚巨劍從天而降，對目標敵方英雄造成<#f5f5f5ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120% 攻擊力<> + <#f5f5f5ff>12% 目標最大生命值<>的<#f5f5f5ff>真實傷害<>。"
       },
@@ -101,6 +113,13 @@
         "skill": "造成<#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%魔法強度<>的<#a974ffff>魔法傷害<>並<#ef5350ff>緩速30%<>，命中敵方英雄時獲得<#ff9028ff>回春<>：回復<#6aff55ff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%魔法強度<>的<#6aff55ff>生命<>並加速20%。每<#ffb900ff>16秒<>一次附帶<#ff9028ff>寂靜星河<>：<#ef5350ff>沉默<>圈內敵人，<#ffb900ff>1.5秒<>後仍在圈內的<#ef5350ff>定身1秒<>並承受<#a974ffff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%魔法強度<>的<#a974ffff>魔法傷害<>。",
         "skill2": "消耗自身<i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>8%最大生命<>（不會致死），為一名其他友方英雄回復<#6aff55ff>110<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%魔法強度<>的<#6aff55ff>生命<>。帶<#ff9028ff>回春<>時消耗減半且目標加速20%。被動<#ff9028ff>群星指路<>：施放後<#ffb900ff>2秒<>內<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>跑速提高30%<>。",
         "ult": "<#ff9028ff>祈願<>：為全圖所有友方英雄（包括自己）回復<#6aff55ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55% 魔法強度<>的<#6aff55ff>生命<>。"
+      },
+      "league_darius": {
+        "name": "達瑞斯",
+        "attack": "普攻揮斧劈砍，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。被動 <#ff9028ff>絞喉<>：普攻和<#ff9028ff>毀滅風暴<>命中的敵人流血<#ffb900ff>5秒<>，共承受<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20% 攻擊力<>的<#ff9028ff>物理傷害<>，可累加。達瑞斯<#ffb900ff>5秒<>內命中<#ffb900ff>5<>次後獲得<#ff9028ff>諾克薩斯威能<>：<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻擊力<>提高<#ffb900ff>40%<>，持續<#ffb900ff>5秒<>。",
+        "skill": "<#ff9028ff>毀滅風暴<>：達瑞斯舉斧蓄力後揮舞一圈，對周圍敵人造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110% 攻擊力<>的<#ff9028ff>物理傷害<>並附加<#ff9028ff>絞喉<>。每命中一位敵方英雄，回復<#6aff55ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30% 攻擊力<>的<#6aff55ff>生命<>。",
+        "skill2": "<#ff9028ff>索魂奪命<>：達瑞斯用斧鉤掃過前方扇形區域，把其中的敵人全部<#ef5350ff>拉<>到身邊。之後<#ffb900ff>4秒<>內的下一次普攻變為<#ff9028ff>殘廢打擊<>：造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150% 攻擊力<>的<#ff9028ff>物理傷害<>並<#ef5350ff>緩速<><#ffb900ff>90%<>，持續<#ffb900ff>1秒<>。",
+        "ult": "<#ff9028ff>諾克薩斯斷頭台<>：達瑞斯躍向一位敵方英雄猛力劈下，造成<#f5f5f5ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#f5f5f5ff>真實傷害<>。<#ffb900ff>5秒<>內每命中一次，傷害提高<#ffb900ff>20%<>；處於<#ff9028ff>諾克薩斯威能<>時傷害加倍。"
       }
     },
     "skill_name": {
@@ -128,6 +147,11 @@
         "skill1": "殞星召喚",
         "skill2": "星之祝福",
         "ult": "祈願"
+      },
+      "league_darius": {
+        "skill1": "毀滅風暴",
+        "skill2": "索魂奪命",
+        "ult": "諾克薩斯斷頭台"
       }
     }
   },
@@ -136,7 +160,7 @@
       "league_garen": {
         "name": "Garen",
         "attack": "Basic attacks deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>.",
-        "skill": "<#ff9028ff>Decisive Strike<>: Garen gains <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>35% movement speed<> for <#ffb900ff>1.5s<>. His next basic attack within <#ffb900ff>4.5s<> becomes a leaping strike that deals <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150% AD<> <#ff9028ff>physical damage<> and <#ef5350ff>silences<> the target for <#ffb900ff>1.5s<>. He also gains <#ff9028ff>Courage<>: <#ffb900ff>30%<> damage reduction and <#ffb900ff>60%<> tenacity for <#ffb900ff>2s<>, plus a <#e8d44dff>shield<> of <#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>6% max health<>.",
+        "skill": "<#ff9028ff>Decisive Strike<>: Garen gains <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>35% movement speed<> for <#ffb900ff>1.5s<>. His next basic attack within <#ffb900ff>4.5s<> becomes a leaping strike that deals <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150% AD<> <#ff9028ff>physical damage<> and <#ef5350ff>silences<> the target for <#ffb900ff>1.5s<>. He also gains <#ff9028ff>Courage<>: <#ffb900ff>30%<> damage reduction and <#ffb900ff>60%<> tenacity for <#ffb900ff>2s<>, plus a <#e8d44dff>shield<> of <#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50% AD<>.",
         "skill2": "<#ff9028ff>Judgment<>: Garen spins his sword for <#ffb900ff>3s<> and chases his target while spinning. Each of the <#ffb900ff>7<> spins deals <#ff9028ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>32% AD<> <#ff9028ff>physical damage<> to nearby enemies; the <#ffb900ff>7th<> spin lowers their <i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>armor<> by <#ffb900ff>25%<> for <#ffb900ff>4s<>. Passive <#ff9028ff>Perseverance<>: Garen has very high <#6aff55ff>health regeneration<>.",
         "ult": "<#ff9028ff>Demacian Justice<>: Calls a giant sword down on the target enemy champion, dealing <#f5f5f5ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120% AD<> + <#f5f5f5ff>12% of its max health<> <#f5f5f5ff>true damage<>."
       },
@@ -167,6 +191,13 @@
         "skill": "Deals <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% Ability Power<> <#a974ffff>magic damage<> and <#ef5350ff>slows<> by 30%. Hitting a champion grants <#ff9028ff>Rejuvenation<>: she heals <#6aff55ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25% Ability Power<> and gains 20% Move Speed. Once per <#ffb900ff>16s<> it adds <#ff9028ff>Equinox<>: <#ef5350ff>silences<> enemies inside; those still inside after <#ffb900ff>1.5s<> are <#ef5350ff>rooted<> for 1s and take <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30% Ability Power<> <#a974ffff>magic damage<>.",
         "skill2": "Spends <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>8% of her max health<> (never fatal) to heal another allied champion for <#6aff55ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% Ability Power<>. With <#ff9028ff>Rejuvenation<> the cost is halved and the target gains 20% Move Speed. Passive <#ff9028ff>Salvation<>: <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>30% Move Speed<> for <#ffb900ff>2s<> after casting.",
         "ult": "<#ff9028ff>Wish<>: Restores <#6aff55ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55% Ability Power<> <#6aff55ff>health<> to every allied champion on the map, Soraka included."
+      },
+      "league_darius": {
+        "name": "Darius",
+        "attack": "Basic attacks are axe chops that deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. Passive <#ff9028ff>Hemorrhage<>: enemies hit by basic attacks and <#ff9028ff>Decimate<> bleed for <#ffb900ff>5s<>, taking <#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20% AD<> <#ff9028ff>physical damage<> in total; it stacks. After <#ffb900ff>5<> hits within <#ffb900ff>5s<> Darius gains <#ff9028ff>Noxian Might<>: <#ffb900ff>40%<> more <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>Attack Damage<> for <#ffb900ff>5s<>.",
+        "skill": "<#ff9028ff>Decimate<>: Darius winds up and swings his axe in a full circle, dealing <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110% AD<> <#ff9028ff>physical damage<> to nearby enemies and applying <#ff9028ff>Hemorrhage<>. He heals <#6aff55ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30% AD<> for each enemy champion hit.",
+        "skill2": "<#ff9028ff>Apprehend<>: Darius sweeps a cone in front of him with his axe's hook and <#ef5350ff>pulls<> every enemy in it to him. His next basic attack within <#ffb900ff>4s<> becomes <#ff9028ff>Crippling Strike<>: <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150% AD<> <#ff9028ff>physical damage<> and a <#ffb900ff>90%<> <#ef5350ff>slow<> for <#ffb900ff>1s<>.",
+        "ult": "<#ff9028ff>Noxian Guillotine<>: Darius leaps to an enemy champion and strikes a lethal blow, dealing <#f5f5f5ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#f5f5f5ff>true damage<>. Each hit he landed in the last <#ffb900ff>5s<> adds <#ffb900ff>20%<> damage; during <#ff9028ff>Noxian Might<> the damage is doubled."
       }
     },
     "skill_name": {
@@ -194,6 +225,11 @@
         "skill1": "Starcall",
         "skill2": "Astral Infusion",
         "ult": "Wish"
+      },
+      "league_darius": {
+        "skill1": "Decimate",
+        "skill2": "Apprehend",
+        "ult": "Noxian Guillotine"
       }
     }
   },
@@ -202,7 +238,7 @@
       "league_garen": {
         "name": "가렌",
         "attack": "기본 공격은 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 줍니다.",
-        "skill": "<#ff9028ff>결정타<>: 가렌이 <#ffb900ff>1.5초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도가 35%<> 증가합니다. <#ffb900ff>4.5초<> 안의 다음 기본 공격은 도약 강타가 되어 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 150%<> <#ff9028ff>물리 피해<>를 주고 대상을 <#ffb900ff>1.5초<> 동안 <#ef5350ff>침묵<>시킵니다. 또한 <#ff9028ff>용기<>를 얻어 <#ffb900ff>2초<> 동안 받는 피해가 <#ffb900ff>30%<> 감소하고 강인함이 <#ffb900ff>60%<> 증가하며, <#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>최대 체력의 6%<>의 <#e8d44dff>보호막<>을 얻습니다.",
+        "skill": "<#ff9028ff>결정타<>: 가렌이 <#ffb900ff>1.5초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도가 35%<> 증가합니다. <#ffb900ff>4.5초<> 안의 다음 기본 공격은 도약 강타가 되어 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 150%<> <#ff9028ff>물리 피해<>를 주고 대상을 <#ffb900ff>1.5초<> 동안 <#ef5350ff>침묵<>시킵니다. 또한 <#ff9028ff>용기<>를 얻어 <#ffb900ff>2초<> 동안 받는 피해가 <#ffb900ff>30%<> 감소하고 강인함이 <#ffb900ff>60%<> 증가하며, <#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 50%<>의 <#e8d44dff>보호막<>을 얻습니다.",
         "skill2": "<#ff9028ff>심판<>: 가렌이 <#ffb900ff>3초<> 동안 검을 휘두르며 회전하고, 회전하며 대상을 쫓아갑니다. <#ffb900ff>7<>번의 회전마다 주변 적에게 <#ff9028ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 32%<> <#ff9028ff>물리 피해<>를 주며, <#ffb900ff>7<>번째 회전은 <i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>방어력<>을 <#ffb900ff>4초<> 동안 <#ffb900ff>25%<> 낮춥니다. 기본 지속 효과 <#ff9028ff>인내<>: 가렌은 <#6aff55ff>체력 재생<>이 매우 높습니다.",
         "ult": "<#ff9028ff>데마시아의 정의<>: 대상 적 챔피언에게 거대한 검을 내리꽂아 <#f5f5f5ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 120%<> + <#f5f5f5ff>대상 최대 체력의 12%<> <#f5f5f5ff>고정 피해<>를 줍니다."
       },
@@ -233,6 +269,13 @@
         "skill": "<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 50%<> <#a974ffff>마법 피해<>를 입히고 <#ef5350ff>30% 둔화<>시킵니다. 적 챔피언 적중 시 <#ff9028ff>별의 가호<>: <#6aff55ff>체력 30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 25%<> 회복, 이동 속도 20% 증가. <#ffb900ff>16초<>에 한 번 <#ff9028ff>별의 균형<>: 범위 안의 적을 <#ef5350ff>침묵<>시키고 <#ffb900ff>1.5초<> 뒤에도 남은 적은 <#ef5350ff>1초 속박<>되며 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 30%<> <#a974ffff>마법 피해<>를 입습니다.",
         "skill2": "<i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>최대 체력의 8%<>를 소모해(죽지 않음) 다른 아군 챔피언 하나의 <#6aff55ff>체력을 110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 60%<> 회복시킵니다. <#ff9028ff>별의 가호<> 중에는 소모량 절반, 대상 이동 속도 20% 증가. 기본 지속 효과 <#ff9028ff>구원<>: 사용 후 <#ffb900ff>2초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도 30%<> 증가.",
         "ult": "<#ff9028ff>기원<>: 거리와 관계없이 모든 아군 챔피언(소라카 포함)의 <#6aff55ff>체력을 150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 55%<>만큼 회복시킵니다."
+      },
+      "league_darius": {
+        "name": "다리우스",
+        "attack": "기본 공격으로 도끼를 내리찍어 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다. 기본 지속 효과 <#ff9028ff>과다출혈<>: 기본 공격과 <#ff9028ff>학살<>에 맞은 적은 <#ffb900ff>5초<> 동안 출혈되어 총 <#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 20%<> <#ff9028ff>물리 피해<>를 입으며 중첩됩니다. <#ffb900ff>5초<> 안에 <#ffb900ff>5<>번 적중시키면 <#ff9028ff>녹서스의 힘<>을 얻어 <#ffb900ff>5초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력<>이 <#ffb900ff>40%<> 증가합니다.",
+        "skill": "<#ff9028ff>학살<>: 다리우스가 도끼를 들어 올렸다가 한 바퀴 휘둘러 주변 적에게 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 110%<> <#ff9028ff>물리 피해<>를 입히고 <#ff9028ff>과다출혈<>을 적용합니다. 적 챔피언을 맞힐 때마다 <#6aff55ff>체력<>을 <#6aff55ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 30%<> 회복합니다.",
+        "skill2": "<#ff9028ff>포획<>: 다리우스가 도끼 갈고리로 전방 부채꼴 범위를 휩쓸어 그 안의 적을 모두 자신에게 <#ef5350ff>끌어당깁니다<>. 이후 <#ffb900ff>4초<> 안에 하는 다음 기본 공격은 <#ff9028ff>마비의 일격<>이 되어 <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 150%<> <#ff9028ff>물리 피해<>를 입히고 <#ffb900ff>1초<> 동안 <#ffb900ff>90%<> <#ef5350ff>둔화<>시킵니다.",
+        "ult": "<#ff9028ff>녹서스의 단두대<>: 다리우스가 적 챔피언에게 뛰어올라 치명적인 일격을 가해 <#f5f5f5ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#f5f5f5ff>고정 피해<>를 입힙니다. 최근 <#ffb900ff>5초<> 동안 적중시킨 횟수마다 피해가 <#ffb900ff>20%<> 증가하며, <#ff9028ff>녹서스의 힘<> 상태에서는 피해가 2배가 됩니다."
       }
     },
     "skill_name": {
@@ -260,6 +303,11 @@
         "skill1": "별부름",
         "skill2": "은하의 마력",
         "ult": "기원"
+      },
+      "league_darius": {
+        "skill1": "학살",
+        "skill2": "포획",
+        "ult": "녹서스의 단두대"
       }
     }
   },
@@ -268,7 +316,7 @@
       "league_garen": {
         "name": "ガレン",
         "attack": "通常攻撃は<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>を与える。",
-        "skill": "<#ff9028ff>断固たる一撃<>：<#ffb900ff>1.5秒<>間<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度が35%<>増加する。<#ffb900ff>4.5秒<>以内の次の通常攻撃は跳躍斬りになり、<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の150%<>の<#ff9028ff>物理ダメージ<>を与え、<#ffb900ff>1.5秒<>間<#ef5350ff>サイレンス<>にする。<#ff9028ff>勇気<>：<#ffb900ff>2秒<>間受けるダメージが<#ffb900ff>30%<>減少し、行動妨害耐性が<#ffb900ff>60%<>増加し、<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>最大体力の6%<>の<#e8d44dff>シールド<>を得る。",
+        "skill": "<#ff9028ff>断固たる一撃<>：<#ffb900ff>1.5秒<>間<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度が35%<>増加する。<#ffb900ff>4.5秒<>以内の次の通常攻撃は跳躍斬りになり、<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の150%<>の<#ff9028ff>物理ダメージ<>を与え、<#ffb900ff>1.5秒<>間<#ef5350ff>サイレンス<>にする。<#ff9028ff>勇気<>：<#ffb900ff>2秒<>間受けるダメージが<#ffb900ff>30%<>減少し、行動妨害耐性が<#ffb900ff>60%<>増加し、<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の50%<>の<#e8d44dff>シールド<>を得る。",
         "skill2": "<#ff9028ff>審判<>：ガレンは<#ffb900ff>3秒<>間剣を振り回して回転し、回転しながら対象を追いかける。<#ffb900ff>7<>回の回転ごとに周囲の敵に<#ff9028ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の32%<>の<#ff9028ff>物理ダメージ<>を与え、<#ffb900ff>7<>回目の回転は<i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>物理防御<>を<#ffb900ff>4秒<>間<#ffb900ff>25%<>低下させる。自動効果 <#ff9028ff>忍耐<>：ガレンは非常に高い<#6aff55ff>体力自動回復<>を持つ。",
         "ult": "<#ff9028ff>デマーシアの正義<>：対象の敵チャンピオンに巨大な剣を落とし、<#f5f5f5ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の120%<> + <#f5f5f5ff>対象の最大体力の12%<>の<#f5f5f5ff>確定ダメージ<>を与える。"
       },
@@ -299,6 +347,13 @@
         "skill": "<#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の50%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>30%スロウ<>を与える。敵チャンピオンに命中すると<#ff9028ff>「再生」<>：<#6aff55ff>体力を30<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の25%<>回復し移動速度20%増加。<#ffb900ff>16秒<>に1回<#ff9028ff>星の静寂<>を伴う：範囲内の敵を<#ef5350ff>サイレンス<>にし、<#ffb900ff>1.5秒<>後も残った敵を<#ef5350ff>1秒スネア<>にして<#a974ffff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の30%<>の<#a974ffff>魔法ダメージ<>を与える。",
         "skill2": "<i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>最大体力の8%<>を消費し（倒れることはない）、自分以外の味方チャンピオン1体の<#6aff55ff>体力を110<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の60%<>回復する。<#ff9028ff>「再生」<>中はコスト半分、対象の移動速度20%増加。パッシブ<#ff9028ff>救済の足音<>：発動後<#ffb900ff>2秒<>間<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度が30%<>増加。",
         "ult": "<#ff9028ff>星に願いを<>：距離に関係なく、すべての味方チャンピオン（ソラカを含む）の<#6aff55ff>体力を150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の55%<>回復する。"
+      },
+      "league_darius": {
+        "name": "ダリウス",
+        "attack": "通常攻撃は斧を振り下ろし、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>を与える。パッシブ <#ff9028ff>大出血<>：通常攻撃と<#ff9028ff>皆殺しの斧<>が命中した敵を<#ffb900ff>5秒<>間出血させ、合計<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の20%<>の<#ff9028ff>物理ダメージ<>を与える（スタックする）。<#ffb900ff>5秒<>以内に<#ffb900ff>5<>回命中させると<#ff9028ff>紅血の激昂<>を得て、<#ffb900ff>5秒<>間<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力<>が<#ffb900ff>40%<>増加する。",
+        "skill": "<#ff9028ff>皆殺しの斧<>：斧を構えてから一回転させ、周囲の敵に<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の110%<>の<#ff9028ff>物理ダメージ<>を与えて<#ff9028ff>大出血<>を付与する。敵チャンピオン1体に命中するごとに<#6aff55ff>体力<>を<#6aff55ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の30%<>回復する。",
+        "skill2": "<#ff9028ff>捕縛<>：斧の鉤で前方の扇形範囲を薙ぎ払い、範囲内の敵をすべて自分の元へ<#ef5350ff>引き寄せる<>。その後<#ffb900ff>4秒<>以内の次の通常攻撃が<#ff9028ff>脚削ぎ<>になり、<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の150%<>の<#ff9028ff>物理ダメージ<>を与えて<#ffb900ff>1秒<>間<#ffb900ff>90%<>の<#ef5350ff>スロウ<>にする。",
+        "ult": "<#ff9028ff>ノクサスギロチン<>：敵チャンピオンに飛びかかって強烈な一撃を加え、<#f5f5f5ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#f5f5f5ff>確定ダメージ<>を与える。直近<#ffb900ff>5秒<>間の命中1回ごとにダメージが<#ffb900ff>20%<>増加し、<#ff9028ff>紅血の激昂<>中はダメージが2倍になる。"
       }
     },
     "skill_name": {
@@ -326,6 +381,11 @@
         "skill1": "星のささやき",
         "skill2": "星霊の癒し",
         "ult": "星に願いを"
+      },
+      "league_darius": {
+        "skill1": "皆殺しの斧",
+        "skill2": "捕縛",
+        "ult": "ノクサスギロチン"
       }
     }
   }

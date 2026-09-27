@@ -179,9 +179,8 @@
             {
               "type": "Shield",
               "amount": 60,
-              "attack_ratio": 0,
+              "attack_ratio": 50,
               "ap_ratio": 0,
-              "hp_ratio": 6,
               "tick": 120
             }
           ]

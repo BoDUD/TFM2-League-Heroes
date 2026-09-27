@@ -1,0 +1,1091 @@
+{
+  "id": "league_darius",
+  "category": "Melee",
+  "tags": [
+    "AD",
+    "Melee",
+    "Tank",
+    "CC",
+    "Dot"
+  ],
+  "sprite": "asset/league/champions/league_darius",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/league/icons/league_darius_skill",
+    "asset/league/icons/league_darius_skill2",
+    "asset/league/icons/league_darius_ult"
+  ],
+  "stat": {
+    "attack": 90,
+    "magic_power": 0,
+    "hp": 1080,
+    "defence": 34,
+    "magic_resistance": 26,
+    "move_speed": 1000,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 18,
+    "magic_power": 0,
+    "hp": 105,
+    "defence": 8,
+    "magic_resistance": 4,
+    "move_speed": 11,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.league_darius.attack",
+    "duration": 24,
+    "cooltime": 66,
+    "start_timing": 3,
+    "cancelable": true,
+    "range": 25000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "SwitchByBuff",
+      "buff_name": "league_darius_w_ready",
+      "effect_buff": {
+        "type": "Combine",
+        "effects": [
+          {
+            "type": "CasterAnimation",
+            "name": "w_attack",
+            "tick": 36
+          },
+          {
+            "type": "RemoveCasterBuff",
+            "name": "league_darius_w_ready"
+          },
+          {
+            "type": "Delayed",
+            "tick": 16,
+            "effects": [
+              {
+                "type": "Attack",
+                "damage": 20,
+                "attack_ratio": 150
+              },
+              {
+                "type": "AddBuff",
+                "buff_state": {
+                  "name": "league_darius_w_slow",
+                  "duration": {
+                    "Time": {
+                      "tick": 60
+                    }
+                  },
+                  "move_speed_mult": -90
+                }
+              },
+              {
+                "type": "ViewEffect",
+                "name": "league_darius_w_hit"
+              },
+              {
+                "type": "TargetSfx",
+                "name": "league_darius_w_hit"
+              },
+              {
+                "type": "AddCasted",
+                "casted_type": "Bleed",
+                "duration": 300,
+                "period": 60,
+                "effects": [
+                  {
+                    "type": "Attack",
+                    "damage": 3,
+                    "attack_ratio": 4
+                  }
+                ]
+              },
+              {
+                "type": "ViewEffect",
+                "name": "league_darius_bleed"
+              },
+              {
+                "type": "SwitchByBuff",
+                "buff_name": "league_darius_might",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": []
+                },
+                "effect_none": {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_darius_hemo_4",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_darius_hemo_1"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_darius_hemo_2"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_darius_hemo_3"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_darius_hemo_4"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_darius_might",
+                          "duration": {
+                            "Time": {
+                              "tick": 300
+                            }
+                          },
+                          "attack_mult": 40
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "Sfx",
+                        "name": "league_darius_might"
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_darius_vo_cd",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": []
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_darius_vo_cd",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 1200
+                                  }
+                                },
+                                "is_hidden": true
+                              },
+                              "only_to_enemy": false
+                            },
+                            {
+                              "type": "Sfx",
+                              "name": "league_darius_might_vo"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "type": "Delayed",
+                        "tick": 0,
+                        "effects": [
+                          {
+                            "type": "CasterViewEffect",
+                            "name": "league_darius_might"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Delayed",
+                        "tick": 60,
+                        "effects": [
+                          {
+                            "type": "CasterViewEffect",
+                            "name": "league_darius_might"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Delayed",
+                        "tick": 120,
+                        "effects": [
+                          {
+                            "type": "CasterViewEffect",
+                            "name": "league_darius_might"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Delayed",
+                        "tick": 180,
+                        "effects": [
+                          {
+                            "type": "CasterViewEffect",
+                            "name": "league_darius_might"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Delayed",
+                        "tick": 240,
+                        "effects": [
+                          {
+                            "type": "CasterViewEffect",
+                            "name": "league_darius_might"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_darius_hemo_3",
+                    "effect_buff": {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_darius_hemo_4",
+                        "duration": {
+                          "Time": {
+                            "tick": 300
+                          }
+                        },
+                        "is_hidden": true
+                      },
+                      "only_to_enemy": false
+                    },
+                    "effect_none": {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_darius_hemo_2",
+                      "effect_buff": {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_darius_hemo_3",
+                          "duration": {
+                            "Time": {
+                              "tick": 300
+                            }
+                          },
+                          "is_hidden": true
+                        },
+                        "only_to_enemy": false
+                      },
+                      "effect_none": {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_darius_hemo_1",
+                        "effect_buff": {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_darius_hemo_2",
+                            "duration": {
+                              "Time": {
+                                "tick": 300
+                              }
+                            },
+                            "is_hidden": true
+                          },
+                          "only_to_enemy": false
+                        },
+                        "effect_none": {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_darius_hemo_1",
+                            "duration": {
+                              "Time": {
+                                "tick": 300
+                              }
+                            },
+                            "is_hidden": true
+                          },
+                          "only_to_enemy": false
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "effect_none": {
+        "type": "Delayed",
+        "tick": 12,
+        "effects": [
+          {
+            "type": "Attack",
+            "damage": 0,
+            "attack_ratio": 100
+          },
+          {
+            "type": "ViewEffect",
+            "name": "league_darius_hit"
+          },
+          {
+            "type": "TargetSfx",
+            "name": "league_darius_attack_hit"
+          },
+          {
+            "type": "AddCasted",
+            "casted_type": "Bleed",
+            "duration": 300,
+            "period": 60,
+            "effects": [
+              {
+                "type": "Attack",
+                "damage": 3,
+                "attack_ratio": 4
+              }
+            ]
+          },
+          {
+            "type": "ViewEffect",
+            "name": "league_darius_bleed"
+          },
+          {
+            "type": "SwitchByBuff",
+            "buff_name": "league_darius_might",
+            "effect_buff": {
+              "type": "Combine",
+              "effects": []
+            },
+            "effect_none": {
+              "type": "SwitchByBuff",
+              "buff_name": "league_darius_hemo_4",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_darius_hemo_1"
+                  },
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_darius_hemo_2"
+                  },
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_darius_hemo_3"
+                  },
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_darius_hemo_4"
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_darius_might",
+                      "duration": {
+                        "Time": {
+                          "tick": 300
+                        }
+                      },
+                      "attack_mult": 40
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "Sfx",
+                    "name": "league_darius_might"
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_darius_vo_cd",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": []
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_darius_vo_cd",
+                            "duration": {
+                              "Time": {
+                                "tick": 1200
+                              }
+                            },
+                            "is_hidden": true
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_darius_might_vo"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 0,
+                    "effects": [
+                      {
+                        "type": "CasterViewEffect",
+                        "name": "league_darius_might"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 60,
+                    "effects": [
+                      {
+                        "type": "CasterViewEffect",
+                        "name": "league_darius_might"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 120,
+                    "effects": [
+                      {
+                        "type": "CasterViewEffect",
+                        "name": "league_darius_might"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 180,
+                    "effects": [
+                      {
+                        "type": "CasterViewEffect",
+                        "name": "league_darius_might"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 240,
+                    "effects": [
+                      {
+                        "type": "CasterViewEffect",
+                        "name": "league_darius_might"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_darius_hemo_3",
+                "effect_buff": {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_darius_hemo_4",
+                    "duration": {
+                      "Time": {
+                        "tick": 300
+                      }
+                    },
+                    "is_hidden": true
+                  },
+                  "only_to_enemy": false
+                },
+                "effect_none": {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_darius_hemo_2",
+                  "effect_buff": {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_darius_hemo_3",
+                      "duration": {
+                        "Time": {
+                          "tick": 300
+                        }
+                      },
+                      "is_hidden": true
+                    },
+                    "only_to_enemy": false
+                  },
+                  "effect_none": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_darius_hemo_1",
+                    "effect_buff": {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_darius_hemo_2",
+                        "duration": {
+                          "Time": {
+                            "tick": 300
+                          }
+                        },
+                        "is_hidden": true
+                      },
+                      "only_to_enemy": false
+                    },
+                    "effect_none": {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_darius_hemo_1",
+                        "duration": {
+                          "Time": {
+                            "tick": 300
+                          }
+                        },
+                        "is_hidden": true
+                      },
+                      "only_to_enemy": false
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.league_darius.skill",
+    "duration": 45,
+    "cooltime": 360,
+    "start_timing": 2,
+    "cancelable": false,
+    "range": 30000,
+    "casting_type": "None",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "league_darius_q_cast"
+        },
+        {
+          "type": "Delayed",
+          "tick": 26,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "league_darius_q_spin"
+            },
+            {
+              "type": "CasterViewEffect",
+              "name": "league_darius_q_spin"
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 32000
+                }
+              },
+              "target": "EnemyWithoutTower",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "Attack",
+                  "damage": 60,
+                  "attack_ratio": 110
+                },
+                {
+                  "type": "TargetSfx",
+                  "name": "league_darius_q_hit"
+                },
+                {
+                  "type": "AddCasted",
+                  "casted_type": "Bleed",
+                  "duration": 300,
+                  "period": 60,
+                  "effects": [
+                    {
+                      "type": "Attack",
+                      "damage": 3,
+                      "attack_ratio": 4
+                    }
+                  ]
+                },
+                {
+                  "type": "ViewEffect",
+                  "name": "league_darius_bleed"
+                }
+              ]
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 32000
+                }
+              },
+              "target": "EnemyChampion",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "Heal",
+                  "amount": 25,
+                  "attack_ratio": 30,
+                  "ap_ratio": 0,
+                  "heal_type": "Caster"
+                },
+                {
+                  "type": "CasterViewEffect",
+                  "name": "league_darius_q_heal"
+                }
+              ]
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_darius_might",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_darius_hemo_4",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_darius_hemo_1"
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_darius_hemo_2"
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_darius_hemo_3"
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_darius_hemo_4"
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_darius_might",
+                        "duration": {
+                          "Time": {
+                            "tick": 300
+                          }
+                        },
+                        "attack_mult": 40
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "Sfx",
+                      "name": "league_darius_might"
+                    },
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_darius_vo_cd",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": []
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_darius_vo_cd",
+                              "duration": {
+                                "Time": {
+                                  "tick": 1200
+                                }
+                              },
+                              "is_hidden": true
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "Sfx",
+                            "name": "league_darius_might_vo"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "Delayed",
+                      "tick": 0,
+                      "effects": [
+                        {
+                          "type": "CasterViewEffect",
+                          "name": "league_darius_might"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Delayed",
+                      "tick": 60,
+                      "effects": [
+                        {
+                          "type": "CasterViewEffect",
+                          "name": "league_darius_might"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Delayed",
+                      "tick": 120,
+                      "effects": [
+                        {
+                          "type": "CasterViewEffect",
+                          "name": "league_darius_might"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Delayed",
+                      "tick": 180,
+                      "effects": [
+                        {
+                          "type": "CasterViewEffect",
+                          "name": "league_darius_might"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Delayed",
+                      "tick": 240,
+                      "effects": [
+                        {
+                          "type": "CasterViewEffect",
+                          "name": "league_darius_might"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "effect_none": {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_darius_hemo_3",
+                  "effect_buff": {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_darius_hemo_4",
+                      "duration": {
+                        "Time": {
+                          "tick": 300
+                        }
+                      },
+                      "is_hidden": true
+                    },
+                    "only_to_enemy": false
+                  },
+                  "effect_none": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_darius_hemo_2",
+                    "effect_buff": {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_darius_hemo_3",
+                        "duration": {
+                          "Time": {
+                            "tick": 300
+                          }
+                        },
+                        "is_hidden": true
+                      },
+                      "only_to_enemy": false
+                    },
+                    "effect_none": {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_darius_hemo_1",
+                      "effect_buff": {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_darius_hemo_2",
+                          "duration": {
+                            "Time": {
+                              "tick": 300
+                            }
+                          },
+                          "is_hidden": true
+                        },
+                        "only_to_enemy": false
+                      },
+                      "effect_none": {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_darius_hemo_1",
+                          "duration": {
+                            "Time": {
+                              "tick": 300
+                            }
+                          },
+                          "is_hidden": true
+                        },
+                        "only_to_enemy": false
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.league_darius.skill2",
+    "duration": 32,
+    "cooltime": 480,
+    "start_timing": 2,
+    "cancelable": false,
+    "range": 46000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "league_darius_e_cast"
+        },
+        {
+          "type": "LineRangeProjectile",
+          "name": "league_darius_e_sweep",
+          "width": 40000,
+          "length": 50000,
+          "delay": 16,
+          "apply": 1,
+          "applied_target": "EnemyWithoutTower",
+          "applied_effects": []
+        },
+        {
+          "type": "Delayed",
+          "tick": 12,
+          "effects": [
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "DirDot": {
+                  "radius": 46000,
+                  "range": 600
+                }
+              },
+              "target": "EnemyWithoutTower",
+              "apply_type": {
+                "Forward": {
+                  "offset": 1000
+                }
+              },
+              "effects": [
+                {
+                  "type": "Grab",
+                  "speed": 3500
+                },
+                {
+                  "type": "ViewEffect",
+                  "name": "league_darius_e_hook"
+                },
+                {
+                  "type": "TargetSfx",
+                  "name": "league_darius_e_hit"
+                }
+              ]
+            },
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_darius_w_ready",
+                "duration": {
+                  "Time": {
+                    "tick": 240
+                  }
+                }
+              },
+              "only_to_enemy": false
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.league_darius.ult",
+    "duration": 48,
+    "cooltime": 3000,
+    "start_timing": 4,
+    "cancelable": false,
+    "range": 46000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "league_darius_r_cast"
+        },
+        {
+          "type": "MoveToTarget",
+          "speed": 3000,
+          "range": 60000,
+          "end_effects": []
+        },
+        {
+          "type": "Delayed",
+          "tick": 22,
+          "effects": [
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_darius_might",
+              "effect_buff": {
+                "type": "FixedAttack",
+                "damage": 200,
+                "attack_ratio": 200,
+                "attack_effect_type": "Target"
+              },
+              "effect_none": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_darius_hemo_4",
+                "effect_buff": {
+                  "type": "FixedAttack",
+                  "damage": 180,
+                  "attack_ratio": 180,
+                  "attack_effect_type": "Target"
+                },
+                "effect_none": {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_darius_hemo_3",
+                  "effect_buff": {
+                    "type": "FixedAttack",
+                    "damage": 160,
+                    "attack_ratio": 160,
+                    "attack_effect_type": "Target"
+                  },
+                  "effect_none": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_darius_hemo_2",
+                    "effect_buff": {
+                      "type": "FixedAttack",
+                      "damage": 140,
+                      "attack_ratio": 140,
+                      "attack_effect_type": "Target"
+                    },
+                    "effect_none": {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_darius_hemo_1",
+                      "effect_buff": {
+                        "type": "FixedAttack",
+                        "damage": 120,
+                        "attack_ratio": 120,
+                        "attack_effect_type": "Target"
+                      },
+                      "effect_none": {
+                        "type": "FixedAttack",
+                        "damage": 100,
+                        "attack_ratio": 100,
+                        "attack_effect_type": "Target"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "ViewEffect",
+              "name": "league_darius_r_impact"
+            },
+            {
+              "type": "TargetSfx",
+              "name": "league_darius_r_hit"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "league_darius_e_sweep",
+      "anim": "asset/league/effects/league_darius_big",
+      "tag": "e_sweep",
+      "repeat": false,
+      "z": 1
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "league_darius_hit",
+      "anim": "asset/league/effects/league_darius_fx",
+      "tag": "hit",
+      "z": 1
+    },
+    {
+      "type": "Animation",
+      "name": "league_darius_bleed",
+      "anim": "asset/league/effects/league_darius_fx",
+      "tag": "bleed",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_darius_w_hit",
+      "anim": "asset/league/effects/league_darius_fx",
+      "tag": "w_hit",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_darius_e_hook",
+      "anim": "asset/league/effects/league_darius_fx",
+      "tag": "e_hook",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_darius_q_heal",
+      "anim": "asset/league/effects/league_darius_fx",
+      "tag": "q_heal",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_darius_might",
+      "anim": "asset/league/effects/league_darius_fx",
+      "tag": "might",
+      "z": -1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_darius_q_spin",
+      "anim": "asset/league/effects/league_darius_big",
+      "tag": "q_spin",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_darius_r_impact",
+      "anim": "asset/league/effects/league_darius_big",
+      "tag": "r_impact",
+      "z": 1,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "league_darius_w_ready",
+      "anim": "asset/league/effects/league_darius_fx",
+      "tag": "w_ready",
+      "z": -1
+    }
+  ]
+}

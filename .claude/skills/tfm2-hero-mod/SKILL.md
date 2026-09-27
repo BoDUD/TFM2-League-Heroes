@@ -94,6 +94,7 @@ empty tooltip). That is why the linter exists - run it after every edit.
 | `scripts/tfm2_ase.py` | `info` / `render` / `metrics` / `face` (portrait point + side-by-side with base heroes) for .aseprite, exported sheets, or base sprites by asset path |
 | `scripts/strips.py` | library for importing generated sprite strips: frame split, leg alignment, pixelize, palette, outline, sheet export (needs numpy) |
 | `scripts/bundle_tool.py` | list / cat / extract base assets, list base sound names |
+| `scripts/sdk_probe.rs` | parse a kit or single effects with the engine's own types from the game's mod SDK: accepted enum values, fields the engine ignores, defaults (champion-data section 9) |
 | `templates/mymod/` | skeleton mod: manifest, override_info, one hero, 4-language text, champion_view, icons |
 
 Scripts need Python 3.9+ and Pillow (`pip install pillow`; `strips.py` also numpy). They only

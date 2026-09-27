@@ -206,7 +206,7 @@ def main():
     with open(lp(os.path.join(SRC, f"{hero}_cells.json")), encoding="utf-8") as fh:
         table = json.load(fh)
     cell, tags = tuple(table["cell"]), table["tags"]
-    feet = cell[1] - 10                                  # the row under the soles
+    feet = tags["idle"][0]["pivot"][1] + 12              # the row under the soles (pivot + 11.5)
     scales = parse_scales(args.scale, tags)
 
     idle = load_cells(os.path.join(args.src, f"{hero}_idle.png"), len(tags["idle"]), cell)

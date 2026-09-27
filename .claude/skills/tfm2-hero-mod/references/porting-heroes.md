@@ -45,11 +45,15 @@ OK = direct, ~ = approximate, X = not possible in data-only mods.
 | Skillshot that stops after N targets (Lux Q: two) | `LinearProjectile` only has `penetrate` true/false; the mod SDK's `LinearProjectileEffect` has no hit-count field | ~ |
 | Skillshot, then dash to the unit it hit (Lee Sin Q2, Blitz/Naut hooks) | `MoveToTarget` inside the projectile's `applied_effects` (LoL Reborn Nautilus Q); a `Delayed` there keeps the hit unit as target; no recast, it dashes by itself | ~ |
 | Kick back + collision (Lee Sin R) | `Targeting`: `Attack` + `Knockback` on the target, plus a penetrating `LinearProjectile` toward it at the knockback's speed that knocks up what it passes (LoL Reborn Nautilus R) | ~ |
+| Stacking bleed (Darius passive) | `AddCasted {casted_type: Bleed}` on every hit: each cast is its own instance, so the target's stacks are real (no cap) | OK |
+| Bonus at N stacks on the target (Noxian Might; Darius R +20% per stack) | `SwitchByBuff` cannot read the target, so count the caster's own hits with hidden buffs and branch on those (champion-data "Bleed that stacks") | ~ |
+| Cone pull to self (Darius E) | `RangeEffect` `Forward` + `DirDot` cone + `Grab` without `tick` (stops at the caster; `Pull` overshoots close targets) | OK |
+| Reset / refresh on kill (Darius R, Katarina) | no kill trigger in the effect tree | X |
 | Stealth | `Invisible` / `CasterInvisible` | OK |
 | 2-3 stage recast | `cooltime_use_count` or recast buff + `SwitchByBuff` | ~ (AI timing) |
 | Cone / fan of projectiles (Ashe W) | no angle field on any projectile (base harpooner's fan is `Native`): a `LineRangeProjectile` rectangle cast by `Direction`, drawn as a fan sprite centred on it (champion-data "Cone / fan"); the hit area stays a rectangle | ~ |
 | Untargetable / invulnerable | `Invisible` on self + `cc_immune` / `damaged_reduce` buff | ~ |
-| Execute / missing-HP scaling | `FixedAttack target_hp_ratio`, flat bonus | ~ |
+| Execute / missing-HP scaling | `FixedAttack target_hp_ratio` (a share of *max* health; no effect reads missing health), flat bonus | ~ |
 | Effect scaling with distance / charge time | fixed middle value | ~ |
 | Summons, clones, turrets | zones/projectiles that deal the damage (LoL Reborn's Azir) | ~ |
 | Transformation / stance | form buff + `SwitchByBuff` + long `CasterAnimation`; one sprite file per hero, so the "other form" must live as tags in the same `.aseprite` | ~ |
@@ -167,9 +171,16 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   toward the camera for spins and bent-over slams that would show the back, and `head_like`
   (per tag or per frame) to turn the head the way it faces in another pose, the body untouched:
   a chibi head bowed toward the ground shows only its crown (Soraka's Q and R bows keep her face
-  with `"head_like": "Soraka_Idle1@0"`). Cells can be bigger
-  than 56x64 (`"cell": [64, 72]` for the braid and the flying kick). The cells table also records
-  League's head joint per frame. GPT followed the poses but drew every action except idle about
+  with `"head_like": "Soraka_Idle1@0"`), and `rise` (per tag) to keep only that share of League's
+  height while the whole body is off the ground (Darius's Noxian Guillotine leaps five metres:
+  0.18). When `turn` cannot bring the chest round (Darius's Q spin faces straight away at 100 ms,
+  his W sweep twice), pick the neighbouring times that face the camera instead. Cells can be bigger
+  than 56x64 (`"cell": [64, 72]` for the braid and the flying kick), and a third value moves the
+  feet line up from its 10 px (`[88, 96, 18]`: Darius's axe lands 16 px below his soles, the pitch
+  drawing the ground in front of him lower on screen). The feet line holds the design pose's lowest
+  point; the pivot sits 11.5 px above the soles, found in a render of the legs alone (until
+  2026-09-27 it was counted from the lowest point, and Darius, whose axe hangs 5 px below his
+  soles, floated 5 px in game). The cells table also records League's head joint per frame. GPT followed the poses but drew every action except idle about
   1.4x the design (heads more than bodies) and its jumps too low; `tools/art/fit_native.py`
   shrinks each strip back by the head (a 16-colour vote, still flat pixels) and puts each frame's
   blindfold on League's head joint, soles back on the line where the reference stands - check
@@ -180,6 +191,20 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   adds a fringe and a side lock). `import_native.py` starts its idle head search at the top row, which
   for Soraka is her staff's crescent, so the other strips report no head column - harmless when the
   delivery already keeps it steady.
+- **Straight from League, recoloured (Darius: worked, no GPT strips).** Codex assembled Darius's
+  strips from blocks on the grid: the body changed size between frames, the cape was a red slab, the
+  run held the axe as a pole. When a delivery's bodies are built rather than drawn, take the pixels
+  from League as well: `native_pose.py --alpha --parts` renders every tag on a transparent background
+  with a part map (head red, weapon green, body blue; the spec's chibi `scale` enlarges named
+  joints - his pauldrons 1.4x, as big as the design draws them), and `tools/art/restyle_native.py`
+  votes each 8x8 block into the design sheet's palette (the weapon by brightness, the body by hue:
+  crimson, skin, steel with a bright trim), draws the outline outside the silhouette so thin limbs
+  keep their colour, lifts the frame a pixel so the outline under the soles lies on the sole row, and
+  pastes the design's head on League's head joint (a quarter turn when he lies on his back, from the
+  cells' `tilt`; a bowed head stays upright). Result: 18 colours, 37% right-neighbour, League's
+  motion, lunges and jumps, and one model in every frame, so the body never changes size. The body
+  comes out slimmer than a hand-drawn design; enlarge what the design exaggerates, and keep the
+  effects from the delivery.
 - **Head tracks for the importer.** `pose_ref.py --frame <clip@ms> ... --track <hero px>
   --track-ref <idle clip@0>` prints each frame's head joint x in game px from the unit, for a
   hero that many px tall in idle, through the same camera and `--mirror` / `--head` / `--legs` as
