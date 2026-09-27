@@ -56,6 +56,15 @@ HEAL_TYPES = {"Caster", "Ally", "Any", "AllyAll"}
 CASTED_TYPES = {"Fire", "Poison", "Bleed", "Heal"}
 SHAPES = {"Circle", "Line", "Rect", "DirDot"}
 RANGE_APPLY_TYPES = {"AroundCaster", "Forward"}
+# The fields the engine reads for the effects whose numbers matter; the parser skips any other key
+# silently (league_garen's Q shield once wrote hp_ratio, which a Shield does not have).
+EFFECT_FIELDS = {
+    "Attack": {"damage", "attack_ratio", "hp_ratio", "target_hp_ratio", "attack_effect_type"},
+    "ApAttack": {"damage", "attack_ratio", "hp_ratio", "attack_effect_type", "can_crit"},
+    "FixedAttack": {"damage", "attack_ratio", "hp_ratio", "target_hp_ratio", "attack_effect_type"},
+    "Heal": {"amount", "attack_ratio", "ap_ratio", "heal_type"},
+    "Shield": {"amount", "attack_ratio", "ap_ratio", "tick"},
+}
 STAT_KEYS = ["attack", "magic_power", "hp", "defence", "magic_resistance", "move_speed", "hp_regen", "stack",
              "crit_chance"]
 STAT_ICONS = {"ad_0", "ap_0", "attack_speed_0", "speed_0", "hp_0", "range_0", "armor_0", "magic resistance_0"}
@@ -279,6 +288,10 @@ def walk_effects(node, out):
                     out["bad_enum"].append((t, k, node[k]))
             if t == "Heal" and node.get("heal_type") not in HEAL_TYPES:
                 out["bad_enum"].append((t, "heal_type", node.get("heal_type")))
+            if t in EFFECT_FIELDS:
+                out["ignored"] += [(t, k) for k in node if k != "type" and k not in EFFECT_FIELDS[t]]
+                if t in ("Attack", "ApAttack", "FixedAttack") and "attack_ratio" not in node:
+                    out["no_ratio"].add(t)
             if t == "AddCasted" and node.get("casted_type") not in CASTED_TYPES:
                 out["bad_enum"].append((t, "casted_type", node.get("casted_type")))
             shape = node.get("shape")
@@ -489,7 +502,7 @@ def main(argv=None):
 
         # actions + effects
         found = dict(types=[], projectiles=set(), view_effects=set(), anims=set(), sfx=set(), switch_buffs=set(),
-                     removed_buffs=set(), buffs=set(), bad_enum=[], no_duration=set())
+                     removed_buffs=set(), buffs=set(), bad_enum=[], no_duration=set(), ignored=[], no_ratio=set())
         for slot in ACTIONS:
             a = d.get(slot)
             if not isinstance(a, dict):
@@ -542,6 +555,11 @@ def main(argv=None):
                 rep.warn(W, f"unknown effect type '{t}' (not seen in base or shipped packs)")
         for t, k, v in found["bad_enum"]:
             rep.warn(W, f"{t}.{k} = {v!r} is not a value seen in shipped packs or accepted by the engine's parser")
+        for t, k in sorted(set(found["ignored"])):
+            rep.warn(W, f"{t}.{k}: the engine has no such field on {t} and ignores it (it reads "
+                        f"{', '.join(sorted(EFFECT_FIELDS[t]))})")
+        for t in sorted(found["no_ratio"]):
+            rep.warn(W, f"{t} without attack_ratio: the engine then uses 100 (100% AD or AP) - write it, even as 0")
         for nm in sorted(found["no_duration"]):
             rep.info(W, f"buff '{nm}' has no duration (shipped packs do this; set Permanent or Time explicitly)")
         if isinstance(tags, list):

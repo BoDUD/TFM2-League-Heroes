@@ -126,6 +126,9 @@ Every effect is `{"type": "<Type>", ...fields}`. Counts = uses across base + 52 
 Defaults *(read from the SDK's game_core)*: `attack_ratio` of Attack, ApAttack and FixedAttack is
 **100 when left out** (Heal and Shield default to 0), so always write it, even as 0. No attack
 effect has a missing-health field: `target_hp_ratio` is a share of the target's maximum health.
+A key the effect does not have is skipped without a word: league_garen's Q shield wrote `hp_ratio:
+6` (a Shield has none) and shielded 60 instead of the 60 + 6% max health its text promised, until
+it became 60 + 50% AD. `lint_mod.py` warns about both (unknown fields, a missing `attack_ratio`).
 
 `AddCasted` never refreshes or replaces: `AddCastedEffect::apply` pushes a new entry on the target's
 list of casted effects each time, so repeated hits stack, each with its own timer, and nothing caps
