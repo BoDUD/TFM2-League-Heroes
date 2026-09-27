@@ -44,7 +44,10 @@ MOD = os.path.join(ROOT, "league")
 HEAD_ROWS = 12                  # idle frame 1's top rows: the head
 SURE = 0.9                      # share of the head's pixels that must match exactly
 STEADY = ("idle", "run")
-ORDER = {("lux", "idle"): [0, 1, 2, 3, 5, 4]}
+ORDER = {("lux", "idle"): [0, 1, 2, 3, 5, 4],
+         # League leans his upper body a square forward in idle 4-5 and back in 6: the face swung sideways
+         # (the user). Frame 3 stands in for 4 and 5, so he only breathes up and down.
+         ("yasuo", "idle"): [0, 1, 2, 2, 2, 5]}
 CROWN = {"leesin"}              # heroes whose head template starts at the crown (a braid stands above it)
 
 
