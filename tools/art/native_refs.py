@@ -11,11 +11,12 @@ canvas at 8x (1024x1024). <hero>_cells.json: where each frame's pivot stands in 
 duration - the redraw keeps these cells, so tools/art/import_native.py cuts each redrawn frame out
 around the same pivot and it lands where the current one stands (commit it with the redraw).
 --style writes tfm2_style_ref.png / _mage / _martial / _healer (staff-carrying casters, for Soraka) /
-_warrior (heavy weapons and armour, for Darius): base heroes'
-idle frame 1 (top row) and attack middle frame (bottom row), feet aligned, at 8x - read from the
-game's bundle, keep local. --faces writes tfm2_face_ref_male.png: base heroes' heads at 12x, how
-their eyes are built (Darius's second design round). --pack lux --pack ashe writes pack_native_ref.png
-the same way from this pack's own native-size sprites.
+_warrior (heavy weapons and armour, for Darius) / _undead (small undead and monsters, for Amumu):
+base heroes' idle frame 1 (top row) and attack middle frame (bottom row), feet aligned, at 8x - read
+from the game's bundle, keep local. --faces writes tfm2_face_ref_male.png: base heroes' heads at 12x,
+how their eyes are built (Darius's second design round), and tfm2_face_ref_undead.png (jiangshi,
+ghost, necromancer: glowing eyes in dark sockets, for Amumu). --pack lux --pack ashe writes
+pack_native_ref.png the same way from this pack's own native-size sprites.
 """
 import argparse
 import json
@@ -41,10 +42,12 @@ STYLE = {
     "tfm2_style_ref_martial.png": ["fighter", "monk", "ninja", "swordman", "hunter", "knight"],
     "tfm2_style_ref_healer.png": ["white_mage", "priest", "druid", "enchanter", "barrier_magician", "wind_mage"],
     "tfm2_style_ref_warrior.png": ["berserker", "executioner", "hammerer", "siege_breaker", "knight", "strongman"],
+    "tfm2_style_ref_undead.png": ["jiangshi", "ghost", "necromancer", "ogre", "dokkaebi", "prisoner"],
 }
 # base heads for --faces: (hero, first and last+1 column of its head in the top rows of idle frame 1)
 FACES = {
     "tfm2_face_ref_male.png": [("gladiator", 0, 13), ("cavalry_knight", 8, 23), ("magic_knight", 4, 19), ("hitman", 3, 16)],
+    "tfm2_face_ref_undead.png": [("jiangshi", 0, 17), ("ghost", 0, 24), ("necromancer", 12, 28), ("hitman", 3, 16)],
 }
 
 
@@ -141,7 +144,8 @@ def main():
     ap.add_argument("--hero", action="append", default=[])
     ap.add_argument("--style", action="store_true")
     ap.add_argument("--faces", action="store_true",
-                    help="also write tfm2_face_ref_male.png: base heroes' heads at 12x (how their eyes are built)")
+                    help="also write tfm2_face_ref_male.png and tfm2_face_ref_undead.png: base heroes' heads "
+                         "at 12x (how their eyes are built)")
     ap.add_argument("--pack", action="append", default=[],
                     help="also write pack_native_ref.png: these heroes of this pack (e.g. lux, ashe) like --style")
     args = ap.parse_args()

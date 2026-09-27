@@ -164,6 +164,17 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   (`"keep": {"horn": 4.0}` in `chibi` of a native_pose spec) binds the head vertices above that
   joint and within 4 units of it to the joint, so `--hair` holds the horn at League's size and the
   crown is measured without it (`pose_ref.keep_parts`).
+  **Measure the head share before scaling it.** Some champions are chibi already: Amumu's head is
+  63% of his height at `--head 1.0` (the head part of a `native_pose.py --parts` render, rows of
+  the design pose), 91% at 2.0 / 0.8 and 53% at 0.8 - so league_amumu keeps League's proportions
+  and the user picks from a side-by-side sheet against base heroes. Base TFM2 heads are about 36%;
+  the base ghost and ogre show that big-headed creatures fit the style.
+- **Texture and side for a drooping head.** The diffuse texture is found by name (`*_TX_CM`,
+  `*_CM_TX`) or, failing that, as the base skin's texture that is not a load screen or icon
+  (`pose_ref.diffuse_textures`; Amumu's is `SadMummy.tex`). Amumu's idle hangs his head to the
+  right, so at yaw 55 only the near eye shows; yaw 40 shows both (look at `--hq` renders at 0/30/55
+  before picking). His `Spell2` clip, 0.34 s, is the flat flying pose of Bandage Toss's pull and
+  serves as the `q_pull` tag.
 - **Game size straight from League (Lee Sin: worked, one GPT round).** The native-size
   redraw needed a first GPT round only to turn League's poses into game frames.
   `tools/lol/native_pose.py <hero>/poses.json` renders the clips at game size instead: the chibi
