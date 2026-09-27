@@ -319,6 +319,17 @@ the same champion file.
 - `view_effects` <- `ViewEffect` / `CasterViewEffect` names (and `range_effect_name`).
 - `view_buffs` <- `buff_state.name`. `{"type": "ThreePhase", "pre_tag", "loop_tag", "remove_tag"}` gives an intro/loop/outro buff.
 - `z` < 0 draws under units (ground decals, zones); `is_follow` makes an effect follow its unit.
+- The whole schema (serde names in the SDK's `game_core` metadata): `view_effects` are `Animation` or
+  `LoopAnimation`, each `{name, anim, tag, z, is_follow}`; `view_projectiles` are `Animated
+  {repeat}`, `Sprite` or `ThreePhase {pre_tag, loop_tag, remove_tag}`. There is no rotation or flip
+  field: how a view is placed depends on what plays it.
+- A projectile's view is turned to its direction (a `LineRangeProjectile` rectangle: drawn pointing
+  right, see "Cone / fan"), so cast upward it lies across the screen and cast left it is upside down.
+  A `CasterViewEffect` is not turned: it is drawn at the caster's pivot, mirrored when the caster
+  faces left (the base gunner's backward-run dust is drawn only behind him), and stays where it was
+  played unless `is_follow`. An `Animation` plays its tag once, so a view that must stand for
+  seconds lists its loop frames again (league_yasuo's 4 s wind wall is 40 frames; `strips.py`
+  `write_sheet(dedupe=True)` packs repeated frames once).
 - Every `anim` + `tag` must exist. Name typos fail silently - LoL Reborn's Nocturne binds
   `nocturne_attack_hits` while the effect is `nocturne_attack_hit`, so that hit never shows.
 
@@ -519,10 +530,12 @@ action (basic attack, both skills) starts with `SwitchByBuff flow_cd`: without i
 action of a fight shields him; the ult removes `flow_cd` to refill it.
 
 **A projectile wall, approximated (league_yasuo Wind Wall).** Nothing blocks projectiles (section 4),
-so the wall is a view-only `LineRangeProjectile` (width 40000, length 8000, `delay` 1, `apply` 239: a
-4 s thin rectangle turned toward the target, *inferred* to live `delay + apply` ticks) plus a
-`RangeEffect` on `AllyChampion` around the caster adding `base_attack_damaged_reduce` for 4 s; ranged
-basic attacks are the projectiles most units throw, melee ones are reduced too.
+so the wall is a picture - a `CasterViewEffect` whose 4 s animation stands in front of the caster
+(section 6) - plus a `RangeEffect` on `AllyChampion` around the caster adding
+`base_attack_damaged_reduce` for 4 s; ranged basic attacks are the projectiles most units throw,
+melee ones are reduced too. It was first a view-only `LineRangeProjectile` (width 40000, length
+8000, `delay` 1, `apply` 239), whose view the game turns to the cast direction: cast upward the wall
+lay across the screen over his head, and the user ruled that out.
 
 **Blink to a crowd-controlled champion (league_yasuo R).** `Targeting` + `EnemyChampionInCC` (range
 100000) then `Teleport`; a `RangeEffect` on `EnemyChampionInCC` around the caster re-applies `Airborne`

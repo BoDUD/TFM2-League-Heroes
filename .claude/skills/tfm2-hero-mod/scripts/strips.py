@@ -358,16 +358,25 @@ def centre_frame(arr, u0, r0):
     return out
 
 
-def write_sheet(path_stem, tags, gap=1, max_w=2048):
+def write_sheet(path_stem, tags, gap=1, max_w=2048, dedupe=False):
     """tags: {tag: [(frame_array, duration_ms), ...]} -> path_stem#sheet.png + path_stem#anim.fanim.
-    Frames are shelf-packed left to right (1 px gaps), a new shelf when max_w is reached."""
+    Frames are shelf-packed left to right (1 px gaps), a new shelf when max_w is reached. With
+    dedupe a frame equal to an earlier one points at its rectangle (an effect that loops a few cells
+    for seconds, like league_yasuo's wind wall, lists them again instead of packing copies)."""
     rects, x, y, shelf_h = [], 0, 0, 0
+    seen = {}
     for tag, frames in tags.items():
         for arr, _ in frames:
+            key = (arr.shape, arr.tobytes()) if dedupe else None
+            if key in seen:
+                rects.append(seen[key])
+                continue
             h, w = arr.shape[:2]
             if x and x + w > max_w:
                 x, y, shelf_h = 0, y + shelf_h + gap, 0
             rects.append((x, y, w, h))
+            if dedupe:
+                seen[key] = rects[-1]
             x += w + gap
             shelf_h = max(shelf_h, h)
     W = max(r[0] + r[2] for r in rects)

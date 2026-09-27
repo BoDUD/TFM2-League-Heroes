@@ -106,14 +106,8 @@
                 "name": "league_yasuo_shield"
               },
               {
-                "type": "LineRangeProjectile",
-                "name": "league_yasuo_wall",
-                "width": 40000,
-                "length": 8000,
-                "delay": 1,
-                "apply": 59,
-                "applied_target": "EnemyWithoutTower",
-                "applied_effects": []
+                "type": "CasterViewEffect",
+                "name": "league_yasuo_wall"
               },
               {
                 "type": "Sfx",
@@ -206,14 +200,8 @@
                 "name": "league_yasuo_shield"
               },
               {
-                "type": "LineRangeProjectile",
-                "name": "league_yasuo_wall",
-                "width": 40000,
-                "length": 8000,
-                "delay": 1,
-                "apply": 59,
-                "applied_target": "EnemyWithoutTower",
-                "applied_effects": []
+                "type": "CasterViewEffect",
+                "name": "league_yasuo_wall"
               },
               {
                 "type": "Sfx",
@@ -679,14 +667,8 @@
                 "name": "league_yasuo_shield"
               },
               {
-                "type": "LineRangeProjectile",
-                "name": "league_yasuo_wall",
-                "width": 40000,
-                "length": 8000,
-                "delay": 1,
-                "apply": 59,
-                "applied_target": "EnemyWithoutTower",
-                "applied_effects": []
+                "type": "CasterViewEffect",
+                "name": "league_yasuo_wall"
               },
               {
                 "type": "Sfx",
@@ -938,14 +920,6 @@
       "tag": "tornado",
       "repeat": true,
       "z": 1
-    },
-    {
-      "type": "Animated",
-      "name": "league_yasuo_wall",
-      "anim": "asset/league/effects/league_yasuo_big",
-      "tag": "wall",
-      "repeat": true,
-      "z": 1
     }
   ],
   "view_effects": [
@@ -987,6 +961,13 @@
       "tag": "shield",
       "z": 1,
       "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_yasuo_wall",
+      "anim": "asset/league/effects/league_yasuo_big",
+      "tag": "wall",
+      "z": 1
     },
     {
       "type": "Animation",

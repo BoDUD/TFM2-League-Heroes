@@ -75,6 +75,15 @@ Sin's first idle, fixed in `leesin_retouch.json`).
 - 5-10 frames @ 65-125 ms; impact frames can flash white silhouettes.
 - Sizes: projectiles 25-75 px, impacts 100-250 px wide, ground zones drawn with `z: -1/-2`.
 - Reuse base effects when they fit (`bundle_tool.py list --grep skill_effect/`).
+- **Anything with an up and down goes on a caster view.** A projectile's view is turned to the
+  cast direction (champion-data section 6), so a wall or a banner on a `LineRangeProjectile` lies
+  across the screen when cast upward. A `CasterViewEffect` is not turned, is mirrored for a
+  left-facing caster and stands where it was played. league_yasuo's Wind Wall: Codex drew a twisted
+  column of wind with curls, which the user read as a tornado; what reads as League's wall is its
+  ground line (a long line with the ends bent back, `Yasuo_base_W_windwall_indicator.tex`) with the
+  curtain on its forward side, drawn by code (`import_yasuo.py --wall`). At 44 px it looked too
+  small to shield him and touched his body; it stands 64 px (almost twice his height), 20 px in
+  front of his pivot.
 
 ## Skill icons
 
@@ -158,6 +167,14 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   the base-game eyes with a small muted mouth, then switched to League's stern look (a heavy
   three-square brow, one row of eye - white beside a dark pupil - and a one-square mouth in dark
   brown). Draw two or three faces from the start instead of one by the rule.
+- **Keep the mouth on the face's middle line.** A 3/4 face turned right has its middle line between
+  the near eye's pupil and the far eye, in front of the face's centre, and the mouth sits on it
+  (league_darius: pupil at column 67, far eye at 69, mouth at 68). A redraw that moved the mouth one
+  square back, under the near eye, and slid the brow back off the pupil got "the mouth is crooked,
+  the eyes are strange". League's Darius (the design pose rendered at 1400 px with `pose_ref.py
+  --hq`) scowls under slanted brows with stubble; the user kept the base game's two-row eyes and
+  took a heavy three-square brow, a furrow before the far brow and stubble on the chin. A changed
+  design face is pasted into every frame on the next `restyle_native.py` run; nothing else moves.
 - **A prop touching a limb becomes part of it.** In Lux's run, League's wand swings upright
   behind her, and its gold end hangs by her back foot. At game size the end (gold, white and
   skin pixels, no outline between) merged with the leg and read as a gold foot: the user saw

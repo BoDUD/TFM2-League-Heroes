@@ -62,12 +62,12 @@ def showcase(out, z=3, step=40):
     # run in (move speed 1100, about 1.1 px a tick)
     a("run", tick((sx - x0) / 1.1), loop=True, at=x0, to=sx)
     a("idle", 200, loop=True)
-    # a cut at tick 11; the first one of the fight raises the wind shield and a gust of wall in front
-    # of him (both seen for 1 s; the shield holds 2 s, the wall's buff 4 s)
+    # a cut at tick 11; the first one of the fight raises the wind shield (2 s) and the wind wall in
+    # front of him (its 4 s animation, played once where he stands)
     start = t
     cut = start + tick(11)
-    fx_at("league_yasuo_fx", "shield", cut, x, until=cut + 1000)
-    fx_at("league_yasuo_big", "wall", cut, x + 4, until=cut + 1000)
+    fx_at("league_yasuo_fx", "shield", cut, x, until=cut + 2000)
+    fx_at("league_yasuo_big", "wall", cut, x)
     fx_at("league_yasuo_fx", "hit", cut, d.x, d.y)
     d.flinches.append(cut)
     a("attack")
