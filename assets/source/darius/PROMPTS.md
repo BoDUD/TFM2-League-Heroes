@@ -45,6 +45,14 @@
    - 3/4 正面朝右，看得到脸和胸口。
 
    **不对就重画这一张，不要带着错的造型图往下做。**
+
+   **第一轮结果（2026-09-27）**：Codex 本机的生图接口返回 404，改用桥接流程生成了一张 1254 px 的大图，再用最近邻缩成 34 格。高度、8×8 网格、20 色、站姿、发型、深红前摆都对，但有 4 处没过：
+   - 近眼只有两行（白色加灰块，没有近黑瞳孔），远眼上下颠倒；
+   - 右脸没有描边；
+   - 肩甲和胸口满是单格的银白碎点；
+   - 斧刃是一团碎块，看不出双月牙和徽记。
+
+   用户选择让 Codex 按第 1b 条再画一版：保留姿势、大小、发型和配色，逐格重画，不再缩小大图。
 3. 9 张动作图**同一批**生成，每张附三张图：
    - 第一张：新造型图 `darius_native.png`；
    - 第二张：对应的 `darius_native_<动作>.png`（原尺寸姿势参考）；
@@ -72,6 +80,8 @@ Riot 模型渲染和原版游戏截图只在本地用，不提交到仓库。
 | `tfm2_style_ref_warrior.png` | 团战经理 2 原版的狂战士、处刑者、锤手、攻城者、骑士、大力士（重武器、盔甲），上排待机、下排攻击，8 倍 | 造型图 |
 | `darius_model_chibi.png` | 英雄联盟游戏内模型的正面、侧面、背面，Q 版比例 | 造型图 |
 | `pack_native_ref.png` | 本包按原尺寸画的拉克丝、艾希、李青、索拉卡，8 倍 | 造型图 |
+| `darius_native_round1.png` | Codex 第一轮造型候选（没通过），8 倍 | 造型图第二版（1b） |
+| `tfm2_face_ref_male.png` | 原版角斗士、骑兵、魔剑士、杀手的头，12 倍：眼睛怎么排 | 造型图第二版（1b） |
 | `darius_native_<动作>.png` | 原版动作渲染成游戏尺寸，8 倍，按格子排好 | 各自的动作图 |
 | `darius_pose_<动作>.png` | 同一批帧的高清渲染，格子和位置完全相同 | 各自的动作图 |
 | `darius_cells.json` | 每帧锚点在格子里的位置和帧时长（给 Codex 核对位置用） | 整理 |
@@ -130,6 +140,25 @@ Face: the head is one third of his height. The hair covers the top, the back and
 Pose, size and place: exactly as in the FIRST image - the same menacing stance, the axe hanging from his far hand, the same height, the soles of his boots on the line 32 squares (256 px) above the bottom of the image and the axe blade reaching 4 squares lower, the character where he stands in the FIRST image. 3/4 FRONT view facing right: we see his face and chest.
 Layout: one single square image, 1024x1024 (a 128x128-square canvas at 8x). Transparent background (if not possible: solid #FF00FF magenta). No grid lines, no text, no border, no shadow.
 Before finishing, check: he is 34 squares tall from the tips of his hair to his soles, all squares 8x8 on one grid, at most 20 colors, the near eye on the left is 2 squares wide and the far eye 1 square, each eye 3 rows tall, no mouth, the hair covers his head, and the axe is separated from his body by an outline.
+```
+
+### 1b. `darius_native.png`：造型图第二版（按第一轮候选修订）
+
+附五张图：`darius_native_round1.png`（第一轮候选）、`darius_native_design.png`、`tfm2_face_ref_male.png`（原版角斗士、骑兵、魔剑士、杀手的头，12 倍）、`tfm2_style_ref_warrior.png`、`darius_model_chibi.png`。
+
+**直接按原尺寸逐格画，不要先画大图再缩小**（第一轮的碎点和糊掉的眼睛就是缩小造成的）。如果生图接口仍然不可用，请先告诉用户，不要用缩小大图的办法凑。交接说明里请写明两只眼睛每一格的颜色。
+
+```text
+Five attached images. FIRST: a first pixel-art draft of Darius at our game's exact sprite size, shown enlarged 8x - every game pixel is an 8x8 block. Keep its pose, its size and its place on the canvas, its hair, its palette and its costume colors. But it was made by shrinking a bigger picture, so it is noisy and several parts do not read - redraw it cleanly, square by square, at this exact size. SECOND: League of Legends' Darius rendered at this size (a blurry 3D render) - his pose and where the axe hangs. THIRD: heads of official Teamfight Manager 2 heroes enlarged 12x - copy how their eyes are built. FOURTH: official heroes with heavy weapons and armor at 8x - the cleanliness to match: big flat plates, few colors, a 1-pixel dark outline. FIFTH: Darius's in-game model with chibi proportions - his armor and his axe.
+Task: redraw the FIRST image as clean hand-made pixel art at EXACTLY the same pixel size and place: 34 pixels from the tips of his hair to his soles, the soles on the line 32 squares above the bottom of the 128x128-square canvas, the axe blade 4 squares lower. Work directly at this size, placing every square deliberately - do NOT draw a bigger picture and shrink it. Every pixel one crisp 8x8 square on one 8-px grid; at most 20 colors; no anti-aliasing, no blur.
+Fix these five things and keep everything else of the FIRST image:
+1. EYES (most important), built like the heads in the THIRD image. He faces right. His NEAR eye is on the LEFT, 2 squares wide and 3 rows tall: the top row two near-black squares (his thick angry brow); the middle row a pale highlight square on the left and a near-black pupil on the right; the bottom row a white square on the left and a grey-blue iris on the right. Then 1-2 columns of skin. Then his FAR eye, 1 square wide and 3 rows tall, near the right edge of his face: a near-black brow, a near-black pupil, a dark grey-blue iris. Under the eyes 2 rows of tanned skin, then his jaw with one darker row under the chin. NO mouth and no nose line.
+2. OUTLINE: a 1-square near-black outline all around his head and face, down the far cheek to the chin too - the face never touches the background directly.
+3. ARMOR, flat and clean: each round shoulder pauldron one big plate in 3 steel greys with a 1-square silver rim and 1-2 one-square spikes; the chest plate dark steel with one silver V-shaped collar; spiked knee guards; dark gauntlets and boots. No lone speckles: never a single white, silver or grey square scattered inside a plate.
+4. AXE, bold and clear: a 1-square dark iron handle line from his far hand; a 3x3-square iron ring at its top end, above and behind his shoulder; at its bottom end a big double crescent blade about 9-10 squares wide and 8-9 tall - two curved silver blades back to back, a row of pale cyan along their cutting edges, one white square emblem in the middle, a dark outline all around - hanging by his feet and separated from his boots by an outline.
+5. Keep his black spiky hair covering the top, back and sides of his head down to his ears (drawn in dark grey-brown shades lighter than the outline), his tanned skin, bare tanned upper arms, the crimson cape and the crimson cloth hanging in front of his legs.
+3/4 FRONT view facing right. Layout: one single square image, 1024x1024 (a 128x128-square canvas at 8x). Transparent background (if not possible: solid #FF00FF magenta). No grid lines, no text, no border, no shadow.
+Before finishing, check square by square: 34 squares tall, all squares 8x8 on one grid, at most 20 colors; the near eye on the left is 2 wide and 3 tall (brow, highlight + pupil, white + iris), the far eye 1 wide and 3 tall; no mouth; an outline all around the face; no lone speckles on the armor; the axe reads at once as ring, handle and double crescent blade.
 ```
 
 9 张动作图的提示词都以同一段开头，可以整段复制；每张只有最后的动作说明和排版不同。
@@ -391,10 +420,10 @@ Layout: one horizontal row of 8 equal cells, each twice as tall as wide (1:2), i
 
 ```bash
 python tools/lol/native_pose.py assets/source/darius/poses.json --out <文件夹>
-python tools/art/native_refs.py --out <文件夹> --style --pack lux --pack ashe --pack leesin --pack soraka
+python tools/art/native_refs.py --out <文件夹> --style --faces --pack lux --pack ashe --pack leesin --pack soraka
 ```
 
-第二条写出 `tfm2_style_ref_warrior.png` 和 `pack_native_ref.png`（还有其他几张风格图，用不到可以删）。原版英雄对照图从游戏的 `bundle.game_data` 读取，只在本地用。
+第二条写出 `tfm2_style_ref_warrior.png`、`tfm2_face_ref_male.png` 和 `pack_native_ref.png`（还有其他几张风格图，用不到可以删）。原版英雄对照图从游戏的 `bundle.game_data` 读取，只在本地用。
 
 三视图 `darius_model_chibi.png`：待机第 0 帧 `Darius_Idle1@0`，`--mirror`，`--yaw 40`、`100`、`200` 各渲染一张，横向拼接：
 
