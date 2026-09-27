@@ -415,11 +415,11 @@
               {
                 "type": "CasterAnimation",
                 "name": "rocket",
-                "tick": 21
+                "tick": 19
               },
               {
                 "type": "Delayed",
-                "tick": 9,
+                "tick": 11,
                 "effects": [
                   {
                     "type": "Sfx",
@@ -2824,7 +2824,7 @@
   "ult": {
     "action_name": "ult",
     "description": "#asset/base/text/champion?description.league_jinx.ult",
-    "duration": 45,
+    "duration": 36,
     "cooltime": 3000,
     "start_timing": 1,
     "cancelable": false,
@@ -2841,7 +2841,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 29,
+          "tick": 17,
           "effects": [
             {
               "type": "Sfx",
