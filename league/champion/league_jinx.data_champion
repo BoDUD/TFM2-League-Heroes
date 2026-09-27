@@ -14,9 +14,9 @@
     "asset/league/icons/league_jinx_ult"
   ],
   "stat": {
-    "attack": 75,
+    "attack": 100,
     "magic_power": 0,
-    "hp": 750,
+    "hp": 900,
     "defence": 20,
     "magic_resistance": 15,
     "move_speed": 900,
@@ -25,9 +25,9 @@
     "crit_chance": 0
   },
   "growth": {
-    "attack": 15,
+    "attack": 20,
     "magic_power": 0,
-    "hp": 80,
+    "hp": 90,
     "defence": 7,
     "magic_resistance": 3,
     "move_speed": 9,
@@ -635,11 +635,11 @@
   "skill": {
     "action_name": "skill",
     "description": "#asset/base/text/champion?description.league_jinx.skill",
-    "duration": 50,
+    "duration": 32,
     "cooltime": 360,
     "start_timing": 1,
     "cancelable": false,
-    "range": 150000,
+    "range": 100000,
     "casting_type": "Direction",
     "casting_target": "EnemyWithoutTower",
     "attack_type": "Skill",
@@ -656,7 +656,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 29,
+          "tick": 23,
           "effects": [
             {
               "type": "Sfx",
@@ -666,7 +666,7 @@
               "type": "LinearProjectile",
               "name": "league_jinx_zap",
               "speed": 3300,
-              "range": 150000,
+              "range": 100000,
               "penetrate": false,
               "shape": {
                 "Circle": {
@@ -680,7 +680,7 @@
                   "effect": {
                     "type": "Attack",
                     "damage": 75,
-                    "attack_ratio": 80,
+                    "attack_ratio": 120,
                     "hp_ratio": 0,
                     "target_hp_ratio": 0,
                     "attack_effect_type": "Target"
