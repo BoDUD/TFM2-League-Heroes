@@ -51,7 +51,11 @@ CASTING_TARGETS = {"Enemy", "EnemyWithoutTower", "EnemyChampion", "EnemyChampion
                    "AllyOnlySelf", "AllyChampion", "AllyNotSelf", "AllyChampionInCC", "BothWithoutTower",
                    "BothChampion", "Ally"}
 ATTACK_TYPES = {"BaseAttack", "Skill"}
-HEAL_TYPES = {"Caster", "Ally", "Any"}
+# Enum values the engine's parser accepts (game_core in the game's mod SDK; scripts/sdk_probe.rs)
+HEAL_TYPES = {"Caster", "Ally", "Any", "AllyAll"}
+CASTED_TYPES = {"Fire", "Poison", "Bleed", "Heal"}
+SHAPES = {"Circle", "Line", "Rect", "DirDot"}
+RANGE_APPLY_TYPES = {"AroundCaster", "Forward"}
 STAT_KEYS = ["attack", "magic_power", "hp", "defence", "magic_resistance", "move_speed", "hp_regen", "stack",
              "crit_chance"]
 STAT_ICONS = {"ad_0", "ap_0", "attack_speed_0", "speed_0", "hp_0", "range_0", "armor_0", "magic resistance_0"}
@@ -275,6 +279,16 @@ def walk_effects(node, out):
                     out["bad_enum"].append((t, k, node[k]))
             if t == "Heal" and node.get("heal_type") not in HEAL_TYPES:
                 out["bad_enum"].append((t, "heal_type", node.get("heal_type")))
+            if t == "AddCasted" and node.get("casted_type") not in CASTED_TYPES:
+                out["bad_enum"].append((t, "casted_type", node.get("casted_type")))
+            shape = node.get("shape")
+            if isinstance(shape, dict) and (len(shape) != 1 or next(iter(shape)) not in SHAPES):
+                out["bad_enum"].append((t, "shape", json.dumps(shape)))
+            if t == "RangeEffect":
+                at = node.get("apply_type")
+                kind = at if isinstance(at, str) else next(iter(at), None) if isinstance(at, dict) else None
+                if kind not in RANGE_APPLY_TYPES:
+                    out["bad_enum"].append((t, "apply_type", json.dumps(at)))
         bs = node.get("buff_state")
         if isinstance(bs, dict) and bs.get("name"):
             out["buffs"].add(bs["name"])
@@ -527,7 +541,7 @@ def main(argv=None):
             elif t not in KNOWN_EFFECTS:
                 rep.warn(W, f"unknown effect type '{t}' (not seen in base or shipped packs)")
         for t, k, v in found["bad_enum"]:
-            rep.warn(W, f"{t}.{k} = {v!r} is not a value seen in shipped packs")
+            rep.warn(W, f"{t}.{k} = {v!r} is not a value seen in shipped packs or accepted by the engine's parser")
         for nm in sorted(found["no_duration"]):
             rep.info(W, f"buff '{nm}' has no duration (shipped packs do this; set Permanent or Time explicitly)")
         if isinstance(tags, list):
