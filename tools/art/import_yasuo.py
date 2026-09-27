@@ -11,7 +11,8 @@ each into a native strip (equal cells, every game pixel one flat 8x8 block, bina
 assets/source/yasuo/yasuo_fx_<name>.png: the strip's colours cut to 12 by median cut, every game
 pixel the majority colour of the source pixels it covers (opaque when a third of them are), at a
 scale set by the kit: the Q thrust 45 px long (its 45000 x 12000 hit area), the whirlwind 24 px wide
-(radius 12000), the wind wall 40 px tall (40000 across), the EQ rings 50 px wide (radius 25000, drawn
+(radius 12000), the wind wall 24 px tall (a 1 s gust: the user found a 40 px wall standing 4 s
+beside him a tornado stuck in place), the EQ rings 50 px wide (radius 25000, drawn
 at half size and enlarged 2x, so their squares match the others'), the rest sized to a 34 px hero.
 
 The second step anchors each strip on the union of its frames' drawings: hits on the target's chest,
@@ -53,7 +54,7 @@ RAW = {
     "q_ready": (6, 0.1),
     "q_thrust": (4, 0.088),          # the spear ~510 source px -> 45 px
     "tornado": (6, 0.08),            # ~300 -> 24 px
-    "wall": (6, 0.08),               # ~503 -> 40 px
+    "wall": (6, 0.048),              # ~503 -> 24 px: a gust in front of him, seen for 1 s
     "eq": (5, 0.0735),               # enlarged 2x on import: ring ~50 px
     "eq3": (6, 0.08),                # 2x: ring ~50 px
     "r_slash": (8, 0.1),
@@ -116,7 +117,7 @@ FX = {
         # rises from the target's feet; follows the target into the air
         "knockup": ("knockup", 6, 1, union(0.5, 1.0), FEET, [167] * 6),
         "e_hit": ("e_hit", 5, 1, union(0.5, 0.5), (0, -2), [60] * 5),
-        "shield": ("shield", 6, 1, union(0.5, 0.5), BODY, [333] * 6),
+        "shield": ("shield", 6, 1, union(0.5, 0.5), BODY, [167] * 6),
         # the ribbons circle the waist of his crouch, 13 px above the feet
         "q_ready": ("q_ready", 6, 1, union(0.5, 0.5), (0, -2), [100] * 6),
     },
