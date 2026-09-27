@@ -171,8 +171,13 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   toward the camera for spins and bent-over slams that would show the back, and `head_like`
   (per tag or per frame) to turn the head the way it faces in another pose, the body untouched:
   a chibi head bowed toward the ground shows only its crown (Soraka's Q and R bows keep her face
-  with `"head_like": "Soraka_Idle1@0"`). Cells can be bigger
-  than 56x64 (`"cell": [64, 72]` for the braid and the flying kick). The cells table also records
+  with `"head_like": "Soraka_Idle1@0"`), and `rise` (per tag) to keep only that share of League's
+  height while the whole body is off the ground (Darius's Noxian Guillotine leaps five metres:
+  0.18). When `turn` cannot bring the chest round (Darius's Q spin faces straight away at 100 ms,
+  his W sweep twice), pick the neighbouring times that face the camera instead. Cells can be bigger
+  than 56x64 (`"cell": [64, 72]` for the braid and the flying kick), and a third value moves the
+  feet line up from its 10 px (`[88, 96, 18]`: Darius's axe lands 16 px below his soles, the pitch
+  drawing the ground in front of him lower on screen). The cells table also records
   League's head joint per frame. GPT followed the poses but drew every action except idle about
   1.4x the design (heads more than bodies) and its jumps too low; `tools/art/fit_native.py`
   shrinks each strip back by the head (a 16-colour vote, still flat pixels) and puts each frame's

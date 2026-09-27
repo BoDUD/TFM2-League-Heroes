@@ -34,8 +34,11 @@ ground, and a chibi head seen from above shows only its crown, never the blindfo
 the hair (Soraka's horn: {"horn": 4.0}, see pose_ref.keep_parts); the crown is then measured
 without them, as without the hair.
 
+"rise" (per tag) keeps that share of League's height while the whole body is off the ground
+(Darius's Noxian Guillotine leaps about five metres, three times his chibi height: 0.3).
+
 Spec (JSON): {"hero", "champ", "camera": {"yaw", "pitch", "mirror"}, "chibi": {"head", "legs",
-"hair", "keep": {"<joint>": <radius>}}, "height", "cell": [w, h] (optional, default 56x64), "design": "<clip@ms>", "tags": {"<tag>": {"lunge": 1.0, "anchor": "design",
+"hair", "keep": {"<joint>": <radius>}}, "height", "cell": [w, h] or [w, h, feet] (optional, default 56x64, feet line 10 px above the bottom), "design": "<clip@ms>", "tags": {"<tag>": {"lunge": 1.0, "rise": 1.0, "anchor": "design",
 "flat": false, "head_like": null, "frames": [["<clip@ms or clipA@ms>clipB@ms:w>", <ms>, {"turn": <deg>,
 "head_like": "<clip@ms>"}], ...]}}} (the third item is optional; its "head_like" overrides the tag's for
 that frame, null turns it off). The renders show
@@ -62,11 +65,11 @@ BG = (225, 225, 225)
 PIVOT_ROW = FEET_ROW - 12            # base sprites: pivot 11.5 px above the soles
 
 
-def set_cell(w, h):
+def set_cell(w, h, feet=10):
     """A bigger cell than native_refs.py's 56x64 (Lee Sin's braid and flying kick need 64x72);
-    the feet line stays 10 px above the bottom."""
+    the feet line `feet` px above the bottom (10; Darius's axe lands 16 px below his soles: 18)."""
     global CELL, FEET_ROW, PIVOT_ROW
-    CELL, FEET_ROW = (w, h), h - 10
+    CELL, FEET_ROW = (w, h), h - feet
     PIVOT_ROW = FEET_ROW - 12
 
 
@@ -123,16 +126,22 @@ class Champ:
                 out[i] = (ti, quat(want.T @ unscaled(was[i][:3, :3])), si)
         return out
 
-    def posed(self, spec, chibi, turn=0.0, head_like=None):
+    def posed(self, spec, chibi, turn=0.0, head_like=None, rise=1.0):
         """World vertices of the chibi model in a pose, feet where League has them, and the chibi
         skeleton's global matrices; `turn` degrees about the vertical axis through the unit (a
-        spin or a bent-over slam turned toward the camera so the chest shows, as animators cheat)."""
+        spin or a bent-over slam turned toward the camera so the chest shows, as animators cheat);
+        `rise` the share of League's height above the floor kept when the whole body is off the
+        ground (Darius's Noxian Guillotine leaps five metres: 0.3 keeps it inside the cell)."""
         local = self.local(spec, head_like)
         glob = P.globals_(self.joints, [P.trs(*p) for p in P.chibi(self.joints, local, **chibi, hair_re=self.hair_re)])
         pv = P.skin(self.verts, self.influences, self.bind_inv, glob)
         adult = P.skin(self.verts, self.influences, self.bind_inv, P.globals_(self.joints, [P.trs(*p) for p in local]))
         lift = adult[self.legv, 1].min() - pv[self.legv, 1].min()
         pv[:, 1] += lift
+        if rise != 1.0:
+            drop = (1.0 - rise) * max(0.0, adult[self.legv, 1].min())
+            pv[:, 1] -= drop
+            glob = [np.vstack([np.c_[g[:3, :3], g[:3, 3] - np.array([0.0, drop, 0.0])], g[3]]) for g in glob]
         if turn:
             c, s = np.cos(np.radians(turn)), np.sin(np.radians(turn))
             r = np.array([[c, 0, s], [0, 1, 0], [-s, 0, c]])
@@ -232,8 +241,8 @@ def main():
     print(f"{hero}: {unit * 100:.3f} game px per 100 units; design pose {rows.max() - rows.min() + 1} px tall with "
           f"what hangs from the head, feet on row {rows.max()}, offset {dy / Z:+.0f} px")
 
-    def cell(frame_spec, lunge, base, flat, turn=0.0, head_like=None):
-        pv, glob, _ = ch.posed(frame_spec, chibi, turn, head_like)
+    def cell(frame_spec, lunge, base, flat, turn=0.0, head_like=None, rise=1.0):
+        pv, glob, _ = ch.posed(frame_spec, chibi, turn, head_like, rise)
         hi = render(ch, pv, cam, scale, dy)
         lo = blocks(hi)
         down = 0
@@ -269,7 +278,7 @@ def main():
             base = head_x(ch.posed(t["frames"][0][0], chibi, head_like=t.get("head_like"))[1])
         opt = lambda f: f[2] if len(f) > 2 else {}
         frames = [cell(f[0], t.get("lunge", 1.0), base, t.get("flat", False), opt(f).get("turn", 0.0),
-                       opt(f).get("head_like", t.get("head_like"))) for f in t["frames"]]
+                       opt(f).get("head_like", t.get("head_like")), t.get("rise", 1.0)) for f in t["frames"]]
         cols, nrows = layout(len(frames))
         lo_img = Image.new("RGB", (cols * CELL[0], nrows * CELL[1]), BG)
         hi_img = Image.new("RGB", (cols * CELL[0] * Z, nrows * CELL[1] * Z), BG)
