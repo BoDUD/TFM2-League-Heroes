@@ -318,9 +318,11 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
     in the block and three `"features"` keys: the fringe covers the forehead but for two squares;
     the chin's front corner steps in with an outline under the chin; `"neck"` recolours body skin
     within two squares of the face, below the eye row, to the scarf (the neck under the chin made
-    the face a row longer); the far eye gets its white on the inner side, so both eyes look ahead;
-    the one-square mouth sits between the two eyes (with a pupil and a white each, the middle falls
-    on a column). `"trim_front": 4` cuts a one-square bump of League's fringe past the face's front
+    the face a row longer); the far eye was redrawn with a white and the mouth in red between the eyes,
+    but the user then found the face cute, "not a samurai at all", and wanted the pre-shrink
+    features back: the final face keeps them (forehead, slanted brow, a narrow eye with one white,
+    the far eye a dark slit, a small dark-brown mouth, jaw shadow) over the short round chin. Fix a
+    face's shape without changing its expression. `"trim_front": 4` cuts a one-square bump of League's fringe past the face's front
     edge above the eyes and redraws the outline (not when hair covers the face in the eye row: cut
     there, ult 7 got a notch); `"hair_above": 2` turns the forehead skin above the drawn fringe
     into hair. `"skip"` leaves pixels of the `"rect"` out, and `"pixels"` entries may carry a colour
