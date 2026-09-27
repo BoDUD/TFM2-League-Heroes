@@ -49,6 +49,12 @@ OK = direct, ~ = approximate, X = not possible in data-only mods.
 | Bonus at N stacks on the target (Noxian Might; Darius R +20% per stack) | `SwitchByBuff` cannot read the target, so count the caster's own hits with hidden buffs and branch on those (champion-data "Bleed that stacks") | ~ |
 | Cone pull to self (Darius E) | `RangeEffect` `Forward` + `DirDot` cone + `Grab` without `tick` (stops at the caster; `Pull` overshoots close targets) | OK |
 | Reset / refresh on kill (Darius R, Katarina) | no kill trigger in the effect tree | X |
+| Toggled aura (Amumu W) | on while fighting: every action starts a guarded train of `Delayed` pulses around the caster (champion-data "Aura that runs while he fights") | ~ |
+| %-max-health magic damage (Amumu W) | `ApAttack` has no `target_hp_ratio`: the % part becomes `FixedAttack` (true), whole percents only | ~ |
+| Amplify one damage type (Amumu's Curse: +10% of magic damage as true) | no per-type amplify field: `damaged_amplify` on all damage, re-applied so it never stacks | ~ |
+| Hook that pulls the caster in (Amumu Q) | `LinearProjectile` on `EnemyChampion` + `MoveToTarget` in `applied_effects` | OK |
+| Cooldown reduced when hit (Amumu E) | no "was hit" trigger: a shorter fixed cooldown | X |
+| Charges (Amumu Q: 2) | `cooltime_use_count` is "up to N times in succession" (base Nightmare's text); the AI would throw both at once *(inferred)*, so league_amumu keeps 1 and a shorter cooldown | ~ |
 | Stealth | `Invisible` / `CasterInvisible` | OK |
 | 2-3 stage recast | `cooltime_use_count` or recast buff + `SwitchByBuff` | ~ (AI timing) |
 | Cone / fan of projectiles (Ashe W) | no angle field on any projectile (base harpooner's fan is `Native`): a `LineRangeProjectile` rectangle cast by `Direction`, drawn as a fan sprite centred on it (champion-data "Cone / fan"); the hit area stays a rectangle | ~ |

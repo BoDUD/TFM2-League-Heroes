@@ -42,6 +42,13 @@
         "skill": "<#ff9028ff>大杀四方<>：德莱厄斯举斧蓄力后挥舞一圈，对周围敌人造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110% 攻击力<>的<#ff9028ff>物理伤害<>并施加<#ff9028ff>出血<>。每命中一名敌方英雄，回复<#6aff55ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30% 攻击力<>的<#6aff55ff>生命值<>。",
         "skill2": "<#ff9028ff>无情铁手<>：德莱厄斯用斧钩扫过前方扇形区域，把其中的敌人全部<#ef5350ff>拉<>到身边。之后<#ffb900ff>4秒<>内的下一次普攻变为<#ff9028ff>致残打击<>：造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150% 攻击力<>的<#ff9028ff>物理伤害<>并<#ef5350ff>减速<><#ffb900ff>90%<>，持续<#ffb900ff>1秒<>。",
         "ult": "<#ff9028ff>诺克萨斯断头台<>：德莱厄斯跃向一名敌方英雄猛力劈下，造成<#f5f5f5ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#f5f5f5ff>真实伤害<>。<#ffb900ff>5秒<>内每命中一次，伤害提高<#ffb900ff>20%<>；处于<#ff9028ff>诺克萨斯之力<>时伤害翻倍。"
+      },
+      "league_amumu": {
+        "name": "阿木木",
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。被动 <#ff9028ff>诅咒之触<>、<#ff9028ff>绝望光环<>：普攻或施放技能后哭泣<#ffb900ff>4秒<>，每秒对周围敌人造成<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10% 法术强度<>的<#a974ffff>魔法伤害<>（英雄另受<#f5f5f5ff>1% 最大生命值<>的<#f5f5f5ff>真实伤害<>）并施加<#ef5350ff>诅咒<>：<#ef5350ff>受到伤害提高10%<>。",
+        "skill": "掷出绷带，穿过小兵和野怪，粘住第一个敌方英雄，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法术强度<>的<#a974ffff>魔法伤害<>并<#ef5350ff>眩晕<><#ffb900ff>1秒<>，随后阿木木把自己拉过去。",
+        "skill2": "对周围敌人造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% 法术强度<>的<#a974ffff>魔法伤害<>。被动：受到的普攻伤害降低<#ffb900ff>10%<>。",
+        "ult": "用绷带缠住周围所有敌人，造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 法术强度<>的<#a974ffff>魔法伤害<>，<#ef5350ff>眩晕<><#ffb900ff>1.5秒<>并施加<#ef5350ff>诅咒<><#ffb900ff>3秒<>。"
       }
     },
     "skill_name": {
@@ -74,6 +81,11 @@
         "skill1": "大杀四方",
         "skill2": "无情铁手",
         "ult": "诺克萨斯断头台"
+      },
+      "league_amumu": {
+        "skill1": "绷带牵引",
+        "skill2": "阿木木的愤怒",
+        "ult": "木乃伊之咒"
       }
     }
   },
@@ -120,6 +132,13 @@
         "skill": "<#ff9028ff>毀滅風暴<>：達瑞斯舉斧蓄力後揮舞一圈，對周圍敵人造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110% 攻擊力<>的<#ff9028ff>物理傷害<>並附加<#ff9028ff>絞喉<>。每命中一位敵方英雄，回復<#6aff55ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30% 攻擊力<>的<#6aff55ff>生命<>。",
         "skill2": "<#ff9028ff>索魂奪命<>：達瑞斯用斧鉤掃過前方扇形區域，把其中的敵人全部<#ef5350ff>拉<>到身邊。之後<#ffb900ff>4秒<>內的下一次普攻變為<#ff9028ff>殘廢打擊<>：造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150% 攻擊力<>的<#ff9028ff>物理傷害<>並<#ef5350ff>緩速<><#ffb900ff>90%<>，持續<#ffb900ff>1秒<>。",
         "ult": "<#ff9028ff>諾克薩斯斷頭台<>：達瑞斯躍向一位敵方英雄猛力劈下，造成<#f5f5f5ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#f5f5f5ff>真實傷害<>。<#ffb900ff>5秒<>內每命中一次，傷害提高<#ffb900ff>20%<>；處於<#ff9028ff>諾克薩斯威能<>時傷害加倍。"
+      },
+      "league_amumu": {
+        "name": "阿姆姆",
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。被動 <#ff9028ff>詛咒之觸<>、<#ff9028ff>絕望<>：普攻或施放技能後哭泣<#ffb900ff>4秒<>，每秒對周圍敵人造成<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10% 魔法強度<>的<#a974ffff>魔法傷害<>（英雄另受<#f5f5f5ff>1% 最大生命<>的<#f5f5f5ff>真實傷害<>）並施加<#ef5350ff>詛咒<>：<#ef5350ff>受到傷害提高10%<>。",
+        "skill": "擲出繃帶，穿過小兵和野怪，黏住第一個敵方英雄，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 魔法強度<>的<#a974ffff>魔法傷害<>並<#ef5350ff>暈眩<><#ffb900ff>1秒<>，隨後阿姆姆把自己拉過去。",
+        "skill2": "對周圍敵人造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% 魔法強度<>的<#a974ffff>魔法傷害<>。被動：受到的普攻傷害降低<#ffb900ff>10%<>。",
+        "ult": "用繃帶纏住周圍所有敵人，造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 魔法強度<>的<#a974ffff>魔法傷害<>，<#ef5350ff>暈眩<><#ffb900ff>1.5秒<>並施加<#ef5350ff>詛咒<><#ffb900ff>3秒<>。"
       }
     },
     "skill_name": {
@@ -152,6 +171,11 @@
         "skill1": "毀滅風暴",
         "skill2": "索魂奪命",
         "ult": "諾克薩斯斷頭台"
+      },
+      "league_amumu": {
+        "skill1": "繃帶牽引",
+        "skill2": "憤怒",
+        "ult": "木乃伊之咒"
       }
     }
   },
@@ -198,6 +222,13 @@
         "skill": "<#ff9028ff>Decimate<>: Darius winds up and swings his axe in a full circle, dealing <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110% AD<> <#ff9028ff>physical damage<> to nearby enemies and applying <#ff9028ff>Hemorrhage<>. He heals <#6aff55ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30% AD<> for each enemy champion hit.",
         "skill2": "<#ff9028ff>Apprehend<>: Darius sweeps a cone in front of him with his axe's hook and <#ef5350ff>pulls<> every enemy in it to him. His next basic attack within <#ffb900ff>4s<> becomes <#ff9028ff>Crippling Strike<>: <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150% AD<> <#ff9028ff>physical damage<> and a <#ffb900ff>90%<> <#ef5350ff>slow<> for <#ffb900ff>1s<>.",
         "ult": "<#ff9028ff>Noxian Guillotine<>: Darius leaps to an enemy champion and strikes a lethal blow, dealing <#f5f5f5ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#f5f5f5ff>true damage<>. Each hit he landed in the last <#ffb900ff>5s<> adds <#ffb900ff>20%<> damage; during <#ff9028ff>Noxian Might<> the damage is doubled."
+      },
+      "league_amumu": {
+        "name": "Amumu",
+        "attack": "Basic attacks deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. Passive <#ff9028ff>Cursed Touch<> and <#ff9028ff>Despair<>: after a basic attack or any ability Amumu cries for <#ffb900ff>4s<>, dealing <#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10% Ability Power<> <#a974ffff>magic damage<> to nearby enemies every second (champions also take <#f5f5f5ff>1% of their max health<> as <#f5f5f5ff>true damage<>) and <#ef5350ff>Cursing<> them: they <#ef5350ff>take 10% more damage<>.",
+        "skill": "Throws a bandage that passes through minions and monsters and sticks to the first enemy champion, dealing <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% Ability Power<> <#a974ffff>magic damage<> and <#ef5350ff>stunning<> it for <#ffb900ff>1s<>; Amumu then pulls himself to it.",
+        "skill2": "Deals <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% Ability Power<> <#a974ffff>magic damage<> to nearby enemies. Passive: Amumu takes <#ffb900ff>10%<> less damage from basic attacks.",
+        "ult": "Entangles every nearby enemy in bandages, dealing <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% Ability Power<> <#a974ffff>magic damage<>, <#ef5350ff>stunning<> them for <#ffb900ff>1.5s<> and <#ef5350ff>Cursing<> them for <#ffb900ff>3s<>."
       }
     },
     "skill_name": {
@@ -230,6 +261,11 @@
         "skill1": "Decimate",
         "skill2": "Apprehend",
         "ult": "Noxian Guillotine"
+      },
+      "league_amumu": {
+        "skill1": "Bandage Toss",
+        "skill2": "Tantrum",
+        "ult": "Curse of the Sad Mummy"
       }
     }
   },
@@ -276,6 +312,13 @@
         "skill": "<#ff9028ff>학살<>: 다리우스가 도끼를 들어 올렸다가 한 바퀴 휘둘러 주변 적에게 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 110%<> <#ff9028ff>물리 피해<>를 입히고 <#ff9028ff>과다출혈<>을 적용합니다. 적 챔피언을 맞힐 때마다 <#6aff55ff>체력<>을 <#6aff55ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 30%<> 회복합니다.",
         "skill2": "<#ff9028ff>포획<>: 다리우스가 도끼 갈고리로 전방 부채꼴 범위를 휩쓸어 그 안의 적을 모두 자신에게 <#ef5350ff>끌어당깁니다<>. 이후 <#ffb900ff>4초<> 안에 하는 다음 기본 공격은 <#ff9028ff>마비의 일격<>이 되어 <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 150%<> <#ff9028ff>물리 피해<>를 입히고 <#ffb900ff>1초<> 동안 <#ffb900ff>90%<> <#ef5350ff>둔화<>시킵니다.",
         "ult": "<#ff9028ff>녹서스의 단두대<>: 다리우스가 적 챔피언에게 뛰어올라 치명적인 일격을 가해 <#f5f5f5ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#f5f5f5ff>고정 피해<>를 입힙니다. 최근 <#ffb900ff>5초<> 동안 적중시킨 횟수마다 피해가 <#ffb900ff>20%<> 증가하며, <#ff9028ff>녹서스의 힘<> 상태에서는 피해가 2배가 됩니다."
+      },
+      "league_amumu": {
+        "name": "아무무",
+        "attack": "기본 공격으로 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다. 기본 지속 효과 <#ff9028ff>저주의 손길<>·<#ff9028ff>절망<>: 기본 공격이나 스킬을 사용하면 <#ffb900ff>4초<> 동안 울며 매초 주변 적에게 <#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 10%<> <#a974ffff>마법 피해<>를 입히고(챔피언은 <#f5f5f5ff>최대 체력의 1%<> <#f5f5f5ff>고정 피해<>를 추가로 받음) <#ef5350ff>저주<>를 겁니다: <#ef5350ff>받는 피해량 10% 증가<>.",
+        "skill": "붕대를 던져 미니언과 몬스터를 지나 처음 맞힌 적 챔피언에게 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 70%<> <#a974ffff>마법 피해<>를 입히고 <#ffb900ff>1초<> 동안 <#ef5350ff>기절<>시킨 뒤 그 대상에게 날아갑니다.",
+        "skill2": "주변 적에게 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 50%<> <#a974ffff>마법 피해<>를 입힙니다. 기본 지속 효과: 기본 공격으로 받는 피해가 <#ffb900ff>10%<> 감소합니다.",
+        "ult": "주변의 모든 적을 붕대로 휘감아 <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 80%<> <#a974ffff>마법 피해<>를 입히고 <#ffb900ff>1.5초<> 동안 <#ef5350ff>기절<>시키며 <#ffb900ff>3초<> 동안 <#ef5350ff>저주<>를 겁니다."
       }
     },
     "skill_name": {
@@ -308,6 +351,11 @@
         "skill1": "학살",
         "skill2": "포획",
         "ult": "녹서스의 단두대"
+      },
+      "league_amumu": {
+        "skill1": "붕대 던지기",
+        "skill2": "짜증내기",
+        "ult": "슬픈 미라의 저주"
       }
     }
   },
@@ -354,6 +402,13 @@
         "skill": "<#ff9028ff>皆殺しの斧<>：斧を構えてから一回転させ、周囲の敵に<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の110%<>の<#ff9028ff>物理ダメージ<>を与えて<#ff9028ff>大出血<>を付与する。敵チャンピオン1体に命中するごとに<#6aff55ff>体力<>を<#6aff55ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の30%<>回復する。",
         "skill2": "<#ff9028ff>捕縛<>：斧の鉤で前方の扇形範囲を薙ぎ払い、範囲内の敵をすべて自分の元へ<#ef5350ff>引き寄せる<>。その後<#ffb900ff>4秒<>以内の次の通常攻撃が<#ff9028ff>脚削ぎ<>になり、<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の150%<>の<#ff9028ff>物理ダメージ<>を与えて<#ffb900ff>1秒<>間<#ffb900ff>90%<>の<#ef5350ff>スロウ<>にする。",
         "ult": "<#ff9028ff>ノクサスギロチン<>：敵チャンピオンに飛びかかって強烈な一撃を加え、<#f5f5f5ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#f5f5f5ff>確定ダメージ<>を与える。直近<#ffb900ff>5秒<>間の命中1回ごとにダメージが<#ffb900ff>20%<>増加し、<#ff9028ff>紅血の激昂<>中はダメージが2倍になる。"
+      },
+      "league_amumu": {
+        "name": "アムム",
+        "attack": "通常攻撃は<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>を与える。パッシブ <#ff9028ff>呪いの手<>・<#ff9028ff>めそめそ<>：通常攻撃かスキルの後<#ffb900ff>4秒<>間泣き、毎秒周囲の敵に<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の10%<>の<#a974ffff>魔法ダメージ<>（チャンピオンには<#f5f5f5ff>最大体力の1%<>の<#f5f5f5ff>確定ダメージ<>も）を与えて<#ef5350ff>呪い<>を付与する：<#ef5350ff>受けるダメージ量が10%増加<>。",
+        "skill": "包帯を投げる。包帯はミニオンとモンスターをすり抜け、最初に当たった敵チャンピオンに<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の70%<>の<#a974ffff>魔法ダメージ<>を与えて<#ffb900ff>1秒<>間<#ef5350ff>スタン<>させ、アムムはその敵へ飛んでいく。",
+        "skill2": "周囲の敵に<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の50%<>の<#a974ffff>魔法ダメージ<>を与える。パッシブ：通常攻撃から受けるダメージが<#ffb900ff>10%<>減少する。",
+        "ult": "周囲のすべての敵を包帯で縛り、<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の80%<>の<#a974ffff>魔法ダメージ<>を与えて<#ffb900ff>1.5秒<>間<#ef5350ff>スタン<>させ、<#ffb900ff>3秒<>間<#ef5350ff>呪い<>を付与する。"
       }
     },
     "skill_name": {
@@ -386,6 +441,11 @@
         "skill1": "皆殺しの斧",
         "skill2": "捕縛",
         "ult": "ノクサスギロチン"
+      },
+      "league_amumu": {
+        "skill1": "絡みつく包帯",
+        "skill2": "だだっこ",
+        "ult": "めそめそミイラの呪い"
       }
     }
   }
