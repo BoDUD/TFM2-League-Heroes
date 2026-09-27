@@ -548,7 +548,7 @@
     "cancelable": false,
     "range": 30000,
     "casting_type": "None",
-    "casting_target": "EnemyChampion",
+    "casting_target": "EnemyWithoutTower",
     "attack_type": "Skill",
     "effect": {
       "type": "Combine",

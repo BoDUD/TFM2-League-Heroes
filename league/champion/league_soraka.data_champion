@@ -97,7 +97,7 @@
     "cancelable": false,
     "range": 70000,
     "casting_type": "Position",
-    "casting_target": "EnemyChampion",
+    "casting_target": "EnemyWithoutTower",
     "attack_type": "Skill",
     "effect": {
       "type": "Combine",
@@ -318,10 +318,23 @@
                       "only_to_enemy": false
                     },
                     {
-                      "type": "Heal",
-                      "amount": 30,
-                      "ap_ratio": 25,
-                      "heal_type": "Caster"
+                      "type": "WithSelf",
+                      "effects": [
+                        {
+                          "type": "AddCasted",
+                          "casted_type": "Heal",
+                          "duration": 150,
+                          "period": 30,
+                          "effects": [
+                            {
+                              "type": "Heal",
+                              "amount": 15,
+                              "ap_ratio": 6,
+                              "heal_type": "Caster"
+                            }
+                          ]
+                        }
+                      ]
                     },
                     {
                       "type": "AddCasterBuff",
@@ -368,10 +381,10 @@
     "action_name": "skill2",
     "description": "#asset/base/text/champion?description.league_soraka.skill2",
     "duration": 35,
-    "cooltime": 300,
+    "cooltime": 240,
     "start_timing": 13,
     "cancelable": false,
-    "range": 60000,
+    "range": 90000,
     "casting_type": "Targeting",
     "casting_target": "AllyNotSelf",
     "attack_type": "Skill",
@@ -384,8 +397,8 @@
         },
         {
           "type": "Heal",
-          "amount": 110,
-          "ap_ratio": 60,
+          "amount": 200,
+          "ap_ratio": 50,
           "heal_type": "Ally"
         },
         {
@@ -413,18 +426,6 @@
             "type": "Combine",
             "effects": [
               {
-                "type": "WithSelf",
-                "effects": [
-                  {
-                    "type": "FixedAttack",
-                    "damage": 0,
-                    "attack_ratio": 0,
-                    "target_hp_ratio": 4,
-                    "attack_effect_type": "Target"
-                  }
-                ]
-              },
-              {
                 "type": "AddBuff",
                 "buff_state": {
                   "name": "league_soraka_w_rejuvenation",
@@ -435,6 +436,20 @@
                   },
                   "move_speed_mult": 20
                 }
+              },
+              {
+                "type": "AddCasted",
+                "casted_type": "Heal",
+                "duration": 150,
+                "period": 30,
+                "effects": [
+                  {
+                    "type": "Heal",
+                    "amount": 15,
+                    "ap_ratio": 6,
+                    "heal_type": "Ally"
+                  }
+                ]
               }
             ]
           },
@@ -445,7 +460,7 @@
                 "type": "FixedAttack",
                 "damage": 0,
                 "attack_ratio": 0,
-                "target_hp_ratio": 8,
+                "target_hp_ratio": 6,
                 "attack_effect_type": "Target"
               }
             ]
@@ -505,8 +520,8 @@
           "effects": [
             {
               "type": "Heal",
-              "amount": 150,
-              "ap_ratio": 55,
+              "amount": 220,
+              "ap_ratio": 60,
               "heal_type": "Ally"
             },
             {

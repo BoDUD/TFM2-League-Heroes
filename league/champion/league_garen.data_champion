@@ -117,7 +117,7 @@
     "cancelable": false,
     "range": 40000,
     "casting_type": "None",
-    "casting_target": "EnemyChampion",
+    "casting_target": "EnemyWithoutTower",
     "attack_type": "Skill",
     "can_use_with_move": true,
     "effect": {
@@ -237,7 +237,7 @@
     "cancelable": false,
     "range": 28000,
     "casting_type": "Targeting",
-    "casting_target": "EnemyChampion",
+    "casting_target": "EnemyWithoutTower",
     "attack_type": "Skill",
     "can_use_with_move": true,
     "effect": {
@@ -301,8 +301,8 @@
               "effects": [
                 {
                   "type": "Attack",
-                  "damage": 12,
-                  "attack_ratio": 32
+                  "damage": 25,
+                  "attack_ratio": 55
                 }
               ]
             }
@@ -353,8 +353,8 @@
               "effects": [
                 {
                   "type": "Attack",
-                  "damage": 12,
-                  "attack_ratio": 32
+                  "damage": 25,
+                  "attack_ratio": 55
                 }
               ]
             }
@@ -409,8 +409,8 @@
               "effects": [
                 {
                   "type": "Attack",
-                  "damage": 12,
-                  "attack_ratio": 32
+                  "damage": 25,
+                  "attack_ratio": 55
                 }
               ]
             }
@@ -461,8 +461,8 @@
               "effects": [
                 {
                   "type": "Attack",
-                  "damage": 12,
-                  "attack_ratio": 32
+                  "damage": 25,
+                  "attack_ratio": 55
                 }
               ]
             }
@@ -517,8 +517,8 @@
               "effects": [
                 {
                   "type": "Attack",
-                  "damage": 12,
-                  "attack_ratio": 32
+                  "damage": 25,
+                  "attack_ratio": 55
                 }
               ]
             }
@@ -569,8 +569,8 @@
               "effects": [
                 {
                   "type": "Attack",
-                  "damage": 12,
-                  "attack_ratio": 32
+                  "damage": 25,
+                  "attack_ratio": 55
                 }
               ]
             }
@@ -625,8 +625,8 @@
               "effects": [
                 {
                   "type": "Attack",
-                  "damage": 12,
-                  "attack_ratio": 32
+                  "damage": 25,
+                  "attack_ratio": 55
                 },
                 {
                   "type": "AddBuff",

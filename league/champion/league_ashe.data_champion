@@ -182,7 +182,7 @@
     "cancelable": false,
     "range": 60000,
     "casting_type": "None",
-    "casting_target": "EnemyChampion",
+    "casting_target": "EnemyWithoutTower",
     "attack_type": "Skill",
     "effect": {
       "type": "Combine",
@@ -296,7 +296,7 @@
     "cancelable": false,
     "range": 70000,
     "casting_type": "Direction",
-    "casting_target": "EnemyChampion",
+    "casting_target": "EnemyWithoutTower",
     "attack_type": "Skill",
     "effect": {
       "type": "Combine",

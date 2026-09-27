@@ -101,6 +101,14 @@ also means minions and monsters: a non-penetrating skillshot on it stops on the 
   fear and charm. Disarm (`BlockAttack`), silence (`BlockSkill`), `BlockMoveSkill`, taunt and slows
   (slows are buffs) do not count, and no target narrows it to knock-ups only: league_yasuo's R, cast on
   `EnemyChampionInCC`, also fires on stunned or rooted champions. No base champion's data uses it.
+- **Damaging basic abilities go on `EnemyWithoutTower`** *(reported by players; measured in a 5v5
+  simulation on the SDK)*. The AI only casts an action while a unit matching `casting_target` is
+  within `range`, so a skill on `EnemyChampion` is never used on minions or jungle monsters: the
+  first pack heroes had it everywhere, league_leesin cleared camps with auto-attacks (10 simulated
+  minutes: 14 Q and 3 E casts; 48 and 26 on `EnemyWithoutTower`, and he took less damage) and
+  Garen never spun on a wave. Keep `EnemyChampion` for ults and for abilities wasted on anything
+  else (league_darius E pull, league_amumu Q engage). `EnemyWithoutTower` includes the epic
+  monster (see section 2).
 - **Which ally gets an ally skill** *(read from the mod SDK's compiled `game_core`, not yet seen
   in game)*: `AllyNotSelf` is an allied champion other than the caster (no minions), `AllyChampion`
   includes the caster, `Ally` is any allied unit (`CastingTarget::check`). The battle AI makes one
@@ -382,8 +390,9 @@ spin with only `can_use_with_move` stood in place), so give every `Delayed` puls
 to its `RangeEffect`: `RandomTarget {range: 60000, casting_target: EnemyChampion, effects:
 [MoveToTarget {speed: 1400, range: 60000, end_effects: []}]}`. Re-pick the target on every pulse:
 chasing only the cast target left Garen spinning in place once it died - at once when it was a
-minion. Cast it with `casting_target: EnemyChampion` so it opens on champions; minions still take
-the spin damage. See league_garen E.
+minion. Cast it on `EnemyWithoutTower` so it is also used on waves and camps (on `EnemyChampion`
+players never saw it clear and thought it dealt no damage); the pulses' `RandomTarget` still
+chases champions in range. See league_garen E.
 Once the dashes worked, the user saw Garen chase *without* turning: one 180-tick `CasterAnimation`
 issued at the start did not survive the dashes. Base Nightmare plays its forced animation from the
 dash's `end_effects`, so league_garen E now re-issues `CasterAnimation spin` on every pulse (after
@@ -417,9 +426,21 @@ landing spot. *(inferred: Knockback pushes away from the caster at a constant sp
 
 **Heal an ally at a health cost (league_soraka W).** `Targeting` + `AllyNotSelf`: `Heal
 {heal_type: Ally}` on the target, then a 3-tick caster buff with `undying: true` and
-`WithSelf {FixedAttack {damage: 0, target_hp_ratio: 8, attack_effect_type: Target}}` - 8% of her
-own max health that can never kill her (League forbids the cast below 5% health). *(inferred from
-the engine code; not yet seen in game)*
+`WithSelf {FixedAttack {damage: 0, target_hp_ratio: 6, attack_effect_type: Target}}` - 6% of her
+own max health that can never kill her (League forbids the cast below 5% health). Under
+Rejuvenation the cost is skipped and the target gets Rejuvenation too, as in League. *(inferred
+from the engine code; not yet seen in game)*
+
+**Heal over time (league_soraka Rejuvenation).** `AddCasted {casted_type: Heal, duration: 150,
+period: 30, effects: [Heal {amount: 15, ap_ratio: 6, heal_type: Ally}]}` on the target heals it
+5 times (75 + 30% AP over 2.5 s); for the caster itself wrap it in `WithSelf` with `heal_type:
+Caster`. Every cast adds another instance. *(seen in the SDK simulation: the caster's heal and
+self-heal statistics rose with it; not yet seen in game)*
+
+**What a heal is worth to the AI.** Heals score `min(heal, missing health)` (section 3), and the
+statistics count only what landed. In simulation a bigger flat heal on league_soraka W (180 ->
+320) healed no more in total; a longer range (60000 -> 90000), a shorter cooldown (5 s -> 4 s) and
+Rejuvenation passed to the target did (+50% in 10 simulated minutes, near base Priest).
 
 **Heal every allied champion (league_soraka R).** `Targeting` + `AllyChampion` with range 960000
 (base Priest's ult range) and `RangeEffect {radius: 960000, target: AllyChampion}` around the

@@ -93,6 +93,33 @@ translate relative strengths: if the source hero's skill is its main damage, giv
 larger ratio; long source cooldowns stay long relative to the hero's other skills. Ultimates
 sit at 2400-3600 ticks. Never copy raw numbers from the source game.
 
+Two corrections from players:
+- A multi-hit skill needs its total, not League's per-hit number: league_garen E had League's
+  per-spin 12 + 32% AD for 7 spins, less than auto-attacking for the same 3 s, and players
+  thought it dealt no damage (now 25 + 55% a spin). Compare every damaging skill with the
+  auto-attacks the caster gives up while casting it.
+- When LoL Reborn already has the hero with the same effects, the user wants its numbers, not
+  a weaker re-tune (players compare the two packs side by side): league_lux copies Reborn's
+  stats, damage, ranges, cooldowns and hit areas. Where our kit is our own design (league_yasuo)
+  it keeps its own numbers.
+
+### Balance check: simulate on the SDK
+
+`mod-sdk/deps` holds the compiled `game_core`; a small Rust program built against it with the
+SDK's toolchain (`rustup run nightly-2026-05-24 rustc --edition 2021 -L dependency=<sdk>/deps
+--extern game_core=... serde_json bincode bumpalo rand`) plays whole 5v5 games with the real AI:
+`GameRunner::new(seed, false, Arc<GameSetting>, Arc<MapSetting>, Arc<ItemSetting>,
+Arc<ChampionInfoSheet>)`, `set_macro_weights`, `add_player(GamePlayer::new(i, name, team,
+Position, AthleteStat, id, Arc<dyn ChampionInfo>, vec![]))`, then `run_tick(&mut Bump, true)`
+per tick. A mod hero is `ModChampionEntry::from_data_champion_info(&DataChampionInfo, None)`;
+base heroes come from the sheet (`get_champion_info`). The settings come from the game's
+asset bundle (game setting and item setting as JSON, the map setting as bincode). `Game` and
+`DeathMatchGame` alone have no champion AI. Each frame's events carry every action with its
+target (`EntityEvent` / `Action`) and `PlayerStatistics` (deal, tank, heal, self_heal, cs,
+cs_jungle, kills, deaths, assists): the numbers players read after a match. Ten game minutes
+take ~4 s, so average 12-16 seeds per lineup and change one thing at a time; the same lineup
+varies about 10% between batches. The simulator and the extracted settings stay local.
+
 ## League of Legends specifics
 
 How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slots:

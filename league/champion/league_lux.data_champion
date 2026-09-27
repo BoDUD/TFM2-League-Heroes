@@ -15,9 +15,9 @@
     "asset/league/icons/league_lux_ult"
   ],
   "stat": {
-    "attack": 80,
-    "magic_power": 40,
-    "hp": 900,
+    "attack": 68,
+    "magic_power": 28,
+    "hp": 770,
     "defence": 20,
     "magic_resistance": 20,
     "move_speed": 900,
@@ -27,7 +27,7 @@
   },
   "growth": {
     "attack": 6,
-    "magic_power": 20,
+    "magic_power": 16,
     "hp": 100,
     "defence": 7,
     "magic_resistance": 3,
@@ -43,7 +43,7 @@
     "cooltime": 90,
     "start_timing": 13,
     "cancelable": true,
-    "range": 60000,
+    "range": 55000,
     "casting_type": "Targeting",
     "casting_target": "Enemy",
     "attack_type": "BaseAttack",
@@ -80,7 +80,7 @@
                 "casting_type": "Targeting",
                 "effect": {
                   "type": "ApAttack",
-                  "damage": 30,
+                  "damage": 50,
                   "attack_ratio": 35
                 }
               },
@@ -151,9 +151,9 @@
     "cooltime": 360,
     "start_timing": 13,
     "cancelable": false,
-    "range": 72000,
+    "range": 130000,
     "casting_type": "Direction",
-    "casting_target": "EnemyChampion",
+    "casting_target": "EnemyWithoutTower",
     "attack_type": "Skill",
     "effect": {
       "type": "Combine",
@@ -165,11 +165,11 @@
         {
           "type": "LinearProjectile",
           "name": "league_lux_q_orb",
-          "speed": 4200,
-          "range": 85000,
+          "speed": 2000,
+          "range": 130000,
           "shape": {
             "Circle": {
-              "radius": 6000
+              "radius": 14000
             }
           },
           "penetrate": true,
@@ -180,8 +180,8 @@
               "casting_type": "Targeting",
               "effect": {
                 "type": "ApAttack",
-                "damage": 70,
-                "attack_ratio": 70
+                "damage": 80,
+                "attack_ratio": 75
               }
             },
             {
@@ -247,9 +247,9 @@
           "effects": [
             {
               "type": "Shield",
-              "amount": 60,
+              "amount": 55,
               "attack_ratio": 0,
-              "ap_ratio": 30,
+              "ap_ratio": 40,
               "tick": 150
             },
             {
@@ -265,12 +265,12 @@
     "action_name": "skill2",
     "description": "#asset/base/text/champion?description.league_lux.skill2",
     "duration": 34,
-    "cooltime": 420,
+    "cooltime": 480,
     "start_timing": 16,
     "cancelable": false,
-    "range": 70000,
+    "range": 110000,
     "casting_type": "Position",
-    "casting_target": "EnemyChampion",
+    "casting_target": "EnemyWithoutTower",
     "attack_type": "Skill",
     "effect": {
       "type": "Combine",
@@ -283,7 +283,7 @@
           "type": "ParabolicProjectile",
           "name": "league_lux_e_orb",
           "travel_time": 20,
-          "range": 70000,
+          "range": 110000,
           "shape": {
             "Circle": {
               "radius": 1
@@ -301,7 +301,7 @@
               "name": "league_lux_e_field",
               "shape": {
                 "Circle": {
-                  "radius": 30000
+                  "radius": 26500
                 }
               },
               "tick": 60,
@@ -320,7 +320,7 @@
                           "tick": 15
                         }
                       },
-                      "move_speed_mult": -40
+                      "move_speed_mult": -20
                     }
                   }
                 }
@@ -332,7 +332,7 @@
               "name": "league_lux_e_burst",
               "shape": {
                 "Circle": {
-                  "radius": 30000
+                  "radius": 26500
                 }
               },
               "tick": 84,
@@ -344,8 +344,8 @@
                   "casting_type": "Targeting",
                   "effect": {
                     "type": "ApAttack",
-                    "damage": 90,
-                    "attack_ratio": 70
+                    "damage": 70,
+                    "attack_ratio": 80
                   }
                 },
                 {
@@ -393,10 +393,10 @@
     "action_name": "ult",
     "description": "#asset/base/text/champion?description.league_lux.ult",
     "duration": 66,
-    "cooltime": 3000,
+    "cooltime": 3600,
     "start_timing": 2,
     "cancelable": false,
-    "range": 110000,
+    "range": 120000,
     "casting_type": "Direction",
     "casting_target": "EnemyChampion",
     "attack_type": "Skill",
@@ -410,8 +410,8 @@
         {
           "type": "LineRangeProjectile",
           "name": "league_lux_r_beam",
-          "width": 16000,
-          "length": 240000,
+          "width": 40000,
+          "length": 340000,
           "delay": 55,
           "apply": 1,
           "applied_target": "EnemyChampion",
@@ -420,8 +420,8 @@
         {
           "type": "LineRangeProjectile",
           "name": "league_lux_r_hit",
-          "width": 16000,
-          "length": 240000,
+          "width": 40000,
+          "length": 340000,
           "delay": 28,
           "apply": 3,
           "applied_target": "EnemyWithoutTower",
@@ -430,8 +430,8 @@
               "casting_type": "Targeting",
               "effect": {
                 "type": "ApAttack",
-                "damage": 180,
-                "attack_ratio": 100
+                "damage": 250,
+                "attack_ratio": 115
               }
             },
             {
