@@ -63,6 +63,13 @@
         "skill": "蓄力<#ffb900ff>0.4秒<>后射出电磁波，对命中的第一个敌人造成<#ff9028ff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120% 攻击力<>的<#ff9028ff>物理伤害<>并<#ef5350ff>减速<><#ffb900ff>25%<>，持续<#ffb900ff>2秒<>。",
         "skill2": "向敌方英雄脚下扔出<#ffb900ff>3<>只嚼火者手雷，<#ffb900ff>0.5秒<>后布好，最多留<#ffb900ff>5秒<>。敌方英雄踩上时手雷爆炸，<#ef5350ff>禁锢<>范围内的敌方英雄<#ffb900ff>1.5秒<>并造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>，随后手雷消失。",
         "ult": "发射一枚飞越全图的飞弹，穿过小兵和野怪，命中第一个敌方英雄后爆炸，对周围敌人造成<#ff9028ff>175<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90% 攻击力<> + <#ff9028ff>10% 目标最大生命值<>的<#ff9028ff>物理伤害<>。"
+      },
+      "league_leona": {
+        "name": "蕾欧娜",
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。被动 <#ff9028ff>日光<>：被蕾欧娜技能命中的敌人<#ffb900ff>1.5秒<>内<#ef5350ff>受到的伤害提高10%<>，每个技能各挂一层。",
+        "skill": "用盾猛击身边的一个敌人，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>和<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 法术强度<>的<#a974ffff>魔法伤害<>，<#ef5350ff>眩晕<><#ffb900ff>1秒<>。",
+        "skill2": "掷出剑光，对直线上的敌人造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 法术强度<>的<#a974ffff>魔法伤害<>，<#ef5350ff>禁锢<>命中的第一个敌方英雄<#ffb900ff>0.5秒<>并冲到它身边。<#ff9028ff>日蚀<>：出手时举盾，<#ffb900ff>3秒<>内受到的伤害降低<#ffb900ff>25%<>，随后盾牌爆发，对周围敌人造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 法术强度<>的<#a974ffff>魔法伤害<>；命中敌人则减伤再持续<#ffb900ff>3秒<>。",
+        "ult": "召唤一道阳光，<#ffb900ff>0.6秒<>后落在敌方英雄所在处，对范围内的敌人造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 法术强度<>的<#a974ffff>魔法伤害<>并<#ef5350ff>减速<><#ffb900ff>80%<>，中心的敌人改为<#ef5350ff>眩晕<>，持续<#ffb900ff>1.75秒<>。"
       }
     },
     "skill_name": {
@@ -110,6 +117,11 @@
         "skill1": "震荡电磁波！",
         "skill2": "嚼火者手雷！",
         "ult": "超究极死神飞弹！"
+      },
+      "league_leona": {
+        "skill1": "破晓之盾",
+        "skill2": "天顶之刃",
+        "ult": "日炎耀斑"
       }
     }
   },
@@ -177,6 +189,13 @@
         "skill": "蓄力<#ffb900ff>0.4秒<>後射出震盪波，對命中的第一個敵人造成<#ff9028ff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120% 攻擊力<>的<#ff9028ff>物理傷害<>並<#ef5350ff>緩速<><#ffb900ff>25%<>，持續<#ffb900ff>2秒<>。",
         "skill2": "向敵方英雄腳下丟出<#ffb900ff>3<>顆咬咬手榴彈，<#ffb900ff>0.5秒<>後布好，最多留<#ffb900ff>5秒<>。敵方英雄踩上時手榴彈爆炸，<#ef5350ff>束縛<>範圍內的敵方英雄<#ffb900ff>1.5秒<>並造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>，隨後手榴彈消失。",
         "ult": "發射一枚飛越全圖的火箭，穿過小兵和野怪，命中第一個敵方英雄後爆炸，對周圍敵人造成<#ff9028ff>175<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90% 攻擊力<> + <#ff9028ff>10% 目標最大生命值<>的<#ff9028ff>物理傷害<>。"
+      },
+      "league_leona": {
+        "name": "雷歐娜",
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。被動 <#ff9028ff>烈陽之力<>：被雷歐娜技能命中的敵人<#ffb900ff>1.5秒<>內<#ef5350ff>受到的傷害提高10%<>，每個技能各掛一層。",
+        "skill": "用盾猛擊身邊的一個敵人，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>和<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 魔法強度<>的<#a974ffff>魔法傷害<>，<#ef5350ff>暈眩<><#ffb900ff>1秒<>。",
+        "skill2": "擲出劍光，對直線上的敵人造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 魔法強度<>的<#a974ffff>魔法傷害<>，<#ef5350ff>束縛<>命中的第一個敵方英雄<#ffb900ff>0.5秒<>並衝到它身邊。<#ff9028ff>日蝕<>：出手時舉盾，<#ffb900ff>3秒<>內受到的傷害降低<#ffb900ff>25%<>，隨後盾牌爆發，對周圍敵人造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 魔法強度<>的<#a974ffff>魔法傷害<>；命中敵人則減傷再持續<#ffb900ff>3秒<>。",
+        "ult": "召喚一道陽光，<#ffb900ff>0.6秒<>後落在敵方英雄所在處，對範圍內的敵人造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 魔法強度<>的<#a974ffff>魔法傷害<>並<#ef5350ff>緩速<><#ffb900ff>80%<>，中心的敵人改為<#ef5350ff>暈眩<>，持續<#ffb900ff>1.75秒<>。"
       }
     },
     "skill_name": {
@@ -224,6 +243,11 @@
         "skill1": "咻咻！",
         "skill2": "咬咬手榴彈！",
         "ult": "超威能死亡火箭！"
+      },
+      "league_leona": {
+        "skill1": "拂曉盾擊",
+        "skill2": "太陽聖劍",
+        "ult": "日輪聖芒"
       }
     }
   },
@@ -291,6 +315,13 @@
         "skill": "After a <#ffb900ff>0.4s<> charge, Jinx fires a shock blast that deals <#ff9028ff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120% AD<> <#ff9028ff>physical damage<> to the first enemy hit and <#ef5350ff>slows<> it by <#ffb900ff>25%<> for <#ffb900ff>2s<>.",
         "skill2": "Jinx tosses <#ffb900ff>3<> chompers at an enemy champion's feet. They arm after <#ffb900ff>0.5s<> and last up to <#ffb900ff>5s<>. When an enemy champion steps on them they explode, <#ef5350ff>rooting<> the enemy champions caught for <#ffb900ff>1.5s<> and dealing <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>; then the chompers are gone.",
         "ult": "Jinx fires a rocket across the map. It flies past minions and monsters and explodes on the first enemy champion, dealing <#ff9028ff>175<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90% AD<> + <#ff9028ff>10% of the target’s max health<> <#ff9028ff>physical damage<> to enemies around it."
+      },
+      "league_leona": {
+        "name": "Leona",
+        "attack": "Basic attacks deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. Passive <#ff9028ff>Sunlight<>: enemies hit by Leona's abilities <#ef5350ff>take 10% more damage<> for <#ffb900ff>1.5s<> (one mark per ability).",
+        "skill": "Leona bashes a nearby enemy with her shield, dealing <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<> plus <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% Ability Power<> <#a974ffff>magic damage<> and <#ef5350ff>stunning<> it for <#ffb900ff>1s<>.",
+        "skill2": "Leona projects a solar blade that deals <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% Ability Power<> <#a974ffff>magic damage<> to enemies in a line and dashes to the first enemy champion hit, <#ef5350ff>rooting<> it for <#ffb900ff>0.5s<>. <#ff9028ff>Eclipse<>: her raised shield cuts damage taken by <#ffb900ff>25%<> for <#ffb900ff>3s<>, then bursts for <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% Ability Power<> <#a974ffff>magic damage<> around her; if it hits, the reduction lasts <#ffb900ff>3s<> more.",
+        "ult": "Leona calls down a beam of sunlight where an enemy champion stands. After <#ffb900ff>0.6s<> it deals <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% Ability Power<> <#a974ffff>magic damage<> to enemies in the area and <#ef5350ff>slows<> them by <#ffb900ff>80%<>; enemies in the center are <#ef5350ff>stunned<> instead. Both last <#ffb900ff>1.75s<>."
       }
     },
     "skill_name": {
@@ -338,6 +369,11 @@
         "skill1": "Zap!",
         "skill2": "Flame Chompers!",
         "ult": "Super Mega Death Rocket!"
+      },
+      "league_leona": {
+        "skill1": "Shield of Daybreak",
+        "skill2": "Zenith Blade",
+        "ult": "Solar Flare"
       }
     }
   },
@@ -405,6 +441,13 @@
         "skill": "<#ffb900ff>0.4초<> 동안 충전한 뒤 충격파를 쏘아 처음 맞은 적에게 <#ff9028ff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 120%<> <#ff9028ff>물리 피해<>를 입히고 <#ffb900ff>2초<> 동안 <#ffb900ff>25%<> <#ef5350ff>둔화<>시킵니다.",
         "skill2": "적 챔피언의 발밑에 와작와작 지뢰 <#ffb900ff>3<>개를 던집니다. 지뢰는 <#ffb900ff>0.5초<> 후 설치되고 최대 <#ffb900ff>5초<> 동안 남습니다. 적 챔피언이 밟으면 폭발해 범위 안의 적 챔피언을 <#ffb900ff>1.5초<> 동안 <#ef5350ff>속박<>하고 <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힌 뒤 사라집니다.",
         "ult": "맵 전체를 가로지르는 로켓을 발사합니다. 로켓은 미니언과 몬스터를 지나쳐 처음 맞은 적 챔피언에게서 폭발하며, 주변 적에게 <#ff9028ff>175<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 90%<> + <#ff9028ff>대상 최대 체력의 10%<> <#ff9028ff>물리 피해<>를 입힙니다."
+      },
+      "league_leona": {
+        "name": "레오나",
+        "attack": "기본 공격으로 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다. 기본 지속 효과 <#ff9028ff>햇빛<>: 레오나의 스킬에 맞은 적은 <#ffb900ff>1.5초<> 동안 <#ef5350ff>받는 피해량이 10% 증가<>합니다(스킬마다 하나씩).",
+        "skill": "방패로 주변의 적 하나를 내리쳐 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>와 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 40%<> <#a974ffff>마법 피해<>를 입히고 <#ffb900ff>1초<> 동안 <#ef5350ff>기절<>시킵니다.",
+        "skill2": "태양의 검을 날려 일직선상의 적에게 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 40%<> <#a974ffff>마법 피해<>를 입히고, 처음 맞은 적 챔피언을 <#ffb900ff>0.5초<> 동안 <#ef5350ff>속박<>하며 돌진합니다. <#ff9028ff>일식<>: 방패를 들어 <#ffb900ff>3초<> 동안 받는 피해가 <#ffb900ff>25%<> 감소하고, 이후 폭발해 주변 적에게 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 40%<> <#a974ffff>마법 피해<>를 입힙니다. 적중 시 피해 감소가 <#ffb900ff>3초<> 더 유지됩니다.",
+        "ult": "적 챔피언이 있는 곳에 태양 광선을 내립니다. <#ffb900ff>0.6초<> 후 범위 안의 적에게 <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 80%<> <#a974ffff>마법 피해<>를 입히고 <#ffb900ff>80%<> <#ef5350ff>둔화<>시키며, 중심에 있는 적은 대신 <#ef5350ff>기절<>합니다. 모두 <#ffb900ff>1.75초<> 동안 지속됩니다."
       }
     },
     "skill_name": {
@@ -452,6 +495,11 @@
         "skill1": "빠직!",
         "skill2": "와작와작 뻥!",
         "ult": "초강력 초토화 로켓!"
+      },
+      "league_leona": {
+        "skill1": "여명의 방패",
+        "skill2": "천공의 검",
+        "ult": "흑점 폭발"
       }
     }
   },
@@ -519,6 +567,13 @@
         "skill": "<#ffb900ff>0.4秒<>溜めてから衝撃波を放ち、最初に当たった敵に<#ff9028ff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の120%<>の<#ff9028ff>物理ダメージ<>を与えて<#ffb900ff>2秒<>間<#ffb900ff>25%<><#ef5350ff>スロウ<>にする。",
         "skill2": "敵チャンピオンの足元に爆雷を<#ffb900ff>3<>個投げる。<#ffb900ff>0.5秒<>後に設置され、最大<#ffb900ff>5秒<>残る。敵チャンピオンが踏むと爆発し、範囲内の敵チャンピオンを<#ffb900ff>1.5秒<>間<#ef5350ff>スネア<>状態にして<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>を与え、消える。",
         "ult": "マップ全体を飛ぶロケットを放つ。ミニオンとモンスターを通り抜け、最初に当たった敵チャンピオンで爆発し、周囲の敵に<#ff9028ff>175<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の90%<> + <#ff9028ff>対象の最大体力の10%<>の<#ff9028ff>物理ダメージ<>を与える。"
+      },
+      "league_leona": {
+        "name": "レオナ",
+        "attack": "通常攻撃は<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>を与える。パッシブ <#ff9028ff>サンライト<>：レオナのスキルが命中した敵は<#ffb900ff>1.5秒<>間<#ef5350ff>受けるダメージが10%増加<>する（スキルごとに1つ）。",
+        "skill": "盾で近くの敵を殴り、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>と<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の40%<>の<#a974ffff>魔法ダメージ<>を与え、<#ffb900ff>1秒<>間<#ef5350ff>スタン<>させる。",
+        "skill2": "太陽の剣を放ち、直線上の敵に<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の40%<>の<#a974ffff>魔法ダメージ<>を与え、最初に当たった敵チャンピオンを<#ffb900ff>0.5秒<>間<#ef5350ff>スネア<>にして突進する。<#ff9028ff>エクリプス<>：同時に盾を掲げ<#ffb900ff>3秒<>間被ダメージ<#ffb900ff>25%<>減少、その後盾が炸裂し周囲の敵に<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の40%<>の<#a974ffff>魔法ダメージ<>。命中すると軽減がさらに<#ffb900ff>3秒<>続く。",
+        "ult": "敵チャンピオンのいる場所に太陽光を降らせる。<#ffb900ff>0.6秒<>後、範囲内の敵に<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の80%<>の<#a974ffff>魔法ダメージ<>を与えて<#ffb900ff>80%<>の<#ef5350ff>スロウ<>を付与し、中心の敵は代わりに<#ef5350ff>スタン<>する。効果時間は<#ffb900ff>1.75秒<>。"
       }
     },
     "skill_name": {
@@ -566,6 +621,11 @@
         "skill1": "シビレーザー！",
         "skill2": "パックンチョッパー！",
         "ult": "スーパーメガデスロケット！"
+      },
+      "league_leona": {
+        "skill1": "シールド・オブ・デイブレイク",
+        "skill2": "ゼニスブレード",
+        "ult": "ソーラーフレア"
       }
     }
   }

@@ -1,0 +1,19 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_leona_sfx_e_cast",
+      "volume": 0.8
+    },
+    {
+      "delay": 0.05,
+      "clip": "league_leona_sfx_e_fly",
+      "volume": 0.6
+    },
+    {
+      "delay": 0.0,
+      "clip": "league_leona_vo_e",
+      "volume": 1.0
+    }
+  ]
+}
