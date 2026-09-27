@@ -2,7 +2,7 @@
 
 团战经理2（Teamfight Manager 2）的英雄联盟英雄 Mod，mod_id 是 `league`。纯数据 mod：不改游戏本体，不需要编译。
 
-英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）。第一组（上单、打野、中单、ADC、辅助各一）齐了，第二组从上单德莱厄斯开始。
+英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）。第一组（上单、打野、中单、ADC、辅助各一）齐了，第二组已有上单德莱厄斯和打野阿木木。
 
 ![盖伦演示：普攻、Q+W、强化普攻、E 旋转、R 德玛西亚正义](docs/preview/league_garen_showcase.gif)
 
@@ -10,11 +10,13 @@
 
 ![拉克丝演示：跑步、普攻、Q 光之束缚和护盾、被动引爆、E 透光奇点、R 终极闪光](docs/preview/league_lux_showcase.gif?v=wand)
 
-![李青演示：跑步、Q 天音波和回音击、疾风骤雨普攻、E 天雷破和金钟罩、R 猛龙摆尾](docs/preview/league_leesin_showcase.gif)
+![李青演示：跑步、Q 天音波和回音击、疾风骤雨普攻、E 天雷破和金钟罩、R 猛龙摆尾](docs/preview/league_leesin_showcase.gif?v=bob)
 
 ![索拉卡演示：跑步、普攻、Q 流星坠落和星体结界、W 星之灌注、R 祈愿](docs/preview/league_soraka_showcase.gif)
 
 ![德莱厄斯演示：跑步、E 无情铁手拉人、W 致残打击、普攻叠出血、Q 大杀四方、诺克萨斯之力、R 诺克萨斯断头台](docs/preview/league_darius_showcase.gif)
+
+![阿木木演示：跑步、Q 绷带牵引、绝望光环和诅咒、R 木乃伊之咒、E 阿木木的愤怒、普攻](docs/preview/league_amumu_showcase.gif)
 
 ## 英雄：盖伦
 
@@ -227,6 +229,39 @@ python tools/art/preview_darius.py
 - 结果：18 色，和右边像素同色的比例 37%（原版英雄 18%–46%）；头像截取点 (0, −34)。`tfm2_ase.py face` 把斧尖当成了脚，建议值是 −37。
 
 逐帧预览：[`docs/preview/league_darius_frames.png`](docs/preview/league_darius_frames.png)，特效：[`docs/preview/league_darius_effects.png`](docs/preview/league_darius_effects.png)。
+
+## 英雄：阿木木
+
+| 部分 | 内容 |
+|---|---|
+| 定位 | 打野（Melee / Tank），第二组第二个 |
+| 普攻 | 跳起来往下砸，100% 攻击力。被动「诅咒之触」+「绝望光环」：普攻或放任何技能后哭 4 秒，每秒对周围 25000 内的敌人造成 10 + 10% 法术强度的魔法伤害（敌方英雄另受 1% 最大生命值的真实伤害），并施加诅咒：受到的伤害提高 10%。英雄联盟里 W 是开关，按最大生命值算的部分是魔法伤害；数据里没有开关，魔法伤害也没有按目标生命值算的字段，所以改成打起来自动开的光环，百分比部分做成真实伤害，只打英雄（免得秒大型野怪）。诅咒每秒重新给 1 秒，不会叠加 |
+| 技能1 | Q「绷带牵引」：朝敌方英雄扔绷带（施放距离 62000），穿过小兵和野怪，粘住第一个敌方英雄：80 + 70% 法术强度的魔法伤害，眩晕 1 秒，然后阿木木飞过去。只有 1 层充能（英雄联盟是 2 层，AI 会立刻连扔两次） |
+| 技能2 | E「阿木木的愤怒」：跺脚，周围 28000 内的敌人受到 60 + 50% 法术强度的魔法伤害，冷却 4.5 秒。被动：受到的普攻伤害降低 10%。英雄联盟里被攻击时冷却缩短，数据里没有"受到攻击时"的触发 |
+| 大招 | R「木乃伊之咒」：周围 42000 内的所有敌人受到 150 + 80% 法术强度的魔法伤害，眩晕 1.5 秒，诅咒 3 秒。冷却 60 秒 |
+| 精灵图 | 9 个动作 57 帧：待机、跑步、普攻、Q 扔绷带、Q 飞过去、E 发脾气、R 蜷起后炸开、受击、死亡。头顶到脚底 34 px，10 色，动作全部取自英雄联盟原版动画 |
+| 特效 | 普攻命中、飞出的绷带、Q 粘住、诅咒标记、绝望光环（脚下）、E 冲击环、R 绷带炸开、R 缠住 |
+| 图标 | 官方技能图标（Q / E / R），64×64 |
+| 音频 | 从本地客户端提取的 9 条技能音效和 2 条中文语音（Q 的语音；大招借用一句普攻台词）。不提交到仓库，按下面的命令在本地生成 |
+
+```bash
+python tools/lol/extract_amumu.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstream-cli.exe 路径>"
+python tools/lol/native_pose.py assets/source/amumu/poses.json --out <渲染文件夹> --alpha --parts
+python tools/art/restyle_native.py assets/source/amumu/poses.json --renders <渲染文件夹>   # 角色图
+python tools/art/import_native.py --hero amumu
+python tools/art/import_amumu.py      # 特效；--raw <Codex 的 generated 文件夹> 先把原始图转成原尺寸条
+python tools/art/preview_amumu.py
+```
+
+美术（提示词见 [`assets/source/amumu/PROMPTS.md`](assets/source/amumu/PROMPTS.md)）：
+- 比例和镜头：阿木木在英雄联盟里本来就是大头，原版比例时头已经占身高 63%，前几个英雄用的"头 2.0、腿 0.8"会让头占 91%，所以用原版比例。待机时他的头往右垂，yaw 55 下只看得到一只眼睛，改用 yaw 40；镜像让身后拖在地上的绷带露出来。原版的 `Spell2` 是被绷带拉过去时身体放平的飞行姿势，用作 `q_pull`。
+- 造型图：Codex 的生图对不准网格（1254 px 画布，方块约 13.45 px，只有 29 格高），但画风是对的。Claude 照英雄联盟 34 格的轮廓和姿势逐格画：头上三种深浅的横向绷带条，深紫黑眼窝里一双琥珀色大眼睛（用户在四个选项里选了"大眼睛、不画嘴"），躯干、下巴下的小爪子、两只大圆脚和拖地的绷带各自描边，10 色。
+- 动作图：Codex 交回的 9 张也是生图原始输出，头每帧都是重画的，眼睛只是小点，转成原尺寸后站着的身高在 32 到 47 格之间跳。用户看了并排对比，选了用英雄联盟动画重新上色：`restyle_native.py` 把每个 8×8 块投票成造型图的 10 色（全身按亮度分五个绿），头换成造型图的头，只有倒地的几帧把头转 90°（`restyle` 新加的按动作设置的 `turn`）。
+- 特效用 Codex 画的：`import_amumu.py --raw` 把原始图（半透明、格子比例不对）转成 8×8 方块的原尺寸条，再按技能范围定大小：E 冲击环约 58 px（半径 28000），R 约 84 px（42000），绝望光环约 56 px（25000）。
+- 出手时刻和动画对齐：普攻第 15 tick 砸中，Q 第 16 tick 出手，E 第 20 tick 跺地，R 第 18 tick 炸开。
+- 结果：10 色，和右边像素同色的比例 62%（绷带是大块平涂；原版英雄 18%–46%）。头像截取点 (5, −26)：`tfm2_ase.py face` 按头顶建议 −34，但阿木木的眼睛在头顶往下十几格，往下移 8 格，让卡片露出眼睛。
+
+逐帧预览：[`docs/preview/league_amumu_frames.png`](docs/preview/league_amumu_frames.png)，特效：[`docs/preview/league_amumu_effects.png`](docs/preview/league_amumu_effects.png)。
 
 ## 按游戏原尺寸重画（拉克丝、艾希）
 

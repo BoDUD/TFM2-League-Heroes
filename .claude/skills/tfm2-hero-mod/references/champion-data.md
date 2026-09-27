@@ -29,8 +29,11 @@ Contents
 | `attack` `skill` `skill2` `ult` | the four actions (section 3) |
 | `view_projectiles` `view_effects` `view_buffs` | bindings from effect names to animations (section 6) |
 
-The engine struct also has `passive`, `passive_skill2`, `passive_ult`, `stack_skill_index` and
-`name`; no shipped file uses them - format unknown, so build passives with buffs instead (section 7).
+The game binary also names `passive`, `passive_skill2`, `passive_ult`, `stack_skill_index` and
+`name`, but the mod SDK's `DataChampionInfo` (what a mod's file is parsed into) has none of them:
+its fields are exactly the ones above plus `skill_icon`. There is no "on spawn" hook either, so build
+passives with buffs (section 7); a permanent one goes on at the first action (league_amumu's Tantrum
+armour: `SwitchByBuff` on itself, then `AddCasterBuff` with `"duration": "Permanent"`).
 
 ## 2. Units and balance ranges
 
@@ -55,6 +58,17 @@ Growth for defence is ~7-9, magic_resistance ~3-5, move_speed ~9-14.
 
 Cooldowns (ticks, median [IQR]): skill 240-420, skill2 300-480, ult 2400-3600 (almost always
 3000). Attack `duration` ~20-30 with `start_timing` ~13-18.
+
+The 11 base tanks (Melee with the `Tank` tag) sit at attack 80, magic power 0, hp 1100, defence 40,
+magic resistance 30, attack range 25000, attack cooldown 70, growth attack 6 / hp 120 / defence 10 /
+magic resistance 5; their stuns last 60 ticks, some every 180-240.
+
+**What else is on the map** (`asset/base/setting/game_setting`): the full mode has lanes with
+minion waves (melee 400 hp, ranged 250 hp, +20-30 per level), jungle camps (300-700 hp, +100-150),
+an epic monster (10000 hp, +1500, 150 defence and magic resistance) and the serpent (5000 hp, +1000),
+towers (2000 hp) and levels (`need_exp`, 12 levels). `champion_radius` is 10000. So `EnemyWithoutTower`
+also means minions and monsters: a non-penetrating skillshot on it stops on the first minion, and a
+%-max-health effect on it melts the epic monster (league_amumu keeps both to `EnemyChampion`).
 
 ## 3. Actions
 
@@ -129,6 +143,10 @@ effect has a missing-health field: `target_hp_ratio` is a share of the target's 
 A key the effect does not have is skipped without a word: league_garen's Q shield wrote `hp_ratio:
 6` (a Shield has none) and shielded 60 instead of the 60 + 6% max health its text promised, until
 it became 60 + 50% AD. `lint_mod.py` warns about both (unknown fields, a missing `attack_ratio`).
+`ApAttack` has no `target_hp_ratio`, so "% of the target's max health as magic damage" (Amumu's
+Despair) cannot be magic: league_amumu deals that part as `FixedAttack` (true damage). All the ratio
+fields are whole percents (`usize` in the SDK; `0.5` is a parse error), so a pulse every second can
+take no less than 1% of max health.
 
 `AddCasted` never refreshes or replaces: `AddCastedEffect::apply` pushes a new entry on the target's
 list of casted effects each time, so repeated hits stack, each with its own timer, and nothing caps
@@ -186,6 +204,9 @@ so the target stops at the caster wherever it started (league_darius E).
 
 `applied_target`: `Enemy`, `EnemyWithoutTower`, `EnemyChampion`, `EnemyChampionInCC`, `Ally`,
 `AllyChampion`. RangeEffect `target` also accepts `AllyOnlySelf`, `AllyNotSelf`.
+`ApplyInProjectile` has no `period` and `RangePeriodProjectile` no `follow_caster` (SDK), so an aura
+that ticks while it follows the hero is built from `Delayed` pulses of a `RangeEffect` around the
+caster (section 7, "Aura that runs while he fights").
 
 Shapes *(`ProjectileShape::is_in` in the SDK's game_core; every radius and half-size also counts the
 collision radius of the unit tested, and for RangeEffect the caster's too)*:
@@ -409,6 +430,24 @@ separate `LineRangeProjectile` with empty `applied_effects` (its view turns to t
 `EnemyWithoutTower` for the damage and the bleed, a second one with the same circle on
 `EnemyChampion` holding only `Heal {heal_type: Caster}`, so the heal runs once per champion; the
 Noxian Might counter sits beside them, outside both, so it counts the cast once.
+
+**Aura that runs while he fights (league_amumu Despair, a League toggle).** There is no toggle and
+no periodic aura that follows the caster, so every action (basic attack, each skill, Q on landing)
+starts a train unless one runs: `SwitchByBuff train` -> `AddCasterBuff train {tick: 240}` + four
+`Delayed` pulses at 0/60/120/180, each a `RangeEffect` around the caster plus a `CasterViewEffect`.
+The train buff outlasts the last pulse, so a new train never doubles one; the gap at a restart is at
+most one attack. Each pulse checks the train buff again, so the aura should stop when he dies
+*(inferred: death clears buffs)*. A sound on the start of a train is gated by its own 600-tick buff.
+
+**A debuff that must not stack (league_amumu's Curse).** Same-name buffs add up (section 5), so a
+3 s `damaged_amplify` on every hit would reach +30%. Re-apply it from a pulse with a duration equal
+to the period (60 ticks every 60): one instance while the enemy stays in range, gone a second after
+it leaves. The ult's longer curse adds a caster "window" buff that the pulses check to skip theirs.
+
+**Pull yourself to the first champion hit (league_amumu Q).** `LinearProjectile {penetrate: false,
+applied_target: EnemyChampion}` passes minions and monsters (the AI cannot aim around them); its
+`applied_effects` hold the damage, `Stun`, `MoveToTarget` (the Lee Sin Q2 dash, without the delay)
+and `CasterAnimation` for the flight. A miss moves nothing.
 
 ## 8. Gotchas
 

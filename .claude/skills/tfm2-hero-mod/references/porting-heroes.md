@@ -49,6 +49,12 @@ OK = direct, ~ = approximate, X = not possible in data-only mods.
 | Bonus at N stacks on the target (Noxian Might; Darius R +20% per stack) | `SwitchByBuff` cannot read the target, so count the caster's own hits with hidden buffs and branch on those (champion-data "Bleed that stacks") | ~ |
 | Cone pull to self (Darius E) | `RangeEffect` `Forward` + `DirDot` cone + `Grab` without `tick` (stops at the caster; `Pull` overshoots close targets) | OK |
 | Reset / refresh on kill (Darius R, Katarina) | no kill trigger in the effect tree | X |
+| Toggled aura (Amumu W) | on while fighting: every action starts a guarded train of `Delayed` pulses around the caster (champion-data "Aura that runs while he fights") | ~ |
+| %-max-health magic damage (Amumu W) | `ApAttack` has no `target_hp_ratio`: the % part becomes `FixedAttack` (true), whole percents only | ~ |
+| Amplify one damage type (Amumu's Curse: +10% of magic damage as true) | no per-type amplify field: `damaged_amplify` on all damage, re-applied so it never stacks | ~ |
+| Hook that pulls the caster in (Amumu Q) | `LinearProjectile` on `EnemyChampion` + `MoveToTarget` in `applied_effects` | OK |
+| Cooldown reduced when hit (Amumu E) | no "was hit" trigger: a shorter fixed cooldown | X |
+| Charges (Amumu Q: 2) | `cooltime_use_count` is "up to N times in succession" (base Nightmare's text); the AI would throw both at once *(inferred)*, so league_amumu keeps 1 and a shorter cooldown | ~ |
 | Stealth | `Invisible` / `CasterInvisible` | OK |
 | 2-3 stage recast | `cooltime_use_count` or recast buff + `SwitchByBuff` | ~ (AI timing) |
 | Cone / fan of projectiles (Ashe W) | no angle field on any projectile (base harpooner's fan is `Native`): a `LineRangeProjectile` rectangle cast by `Direction`, drawn as a fan sprite centred on it (champion-data "Cone / fan"); the hit area stays a rectangle | ~ |
@@ -158,6 +164,17 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   (`"keep": {"horn": 4.0}` in `chibi` of a native_pose spec) binds the head vertices above that
   joint and within 4 units of it to the joint, so `--hair` holds the horn at League's size and the
   crown is measured without it (`pose_ref.keep_parts`).
+  **Measure the head share before scaling it.** Some champions are chibi already: Amumu's head is
+  63% of his height at `--head 1.0` (the head part of a `native_pose.py --parts` render, rows of
+  the design pose), 91% at 2.0 / 0.8 and 53% at 0.8 - so league_amumu keeps League's proportions
+  and the user picks from a side-by-side sheet against base heroes. Base TFM2 heads are about 36%;
+  the base ghost and ogre show that big-headed creatures fit the style.
+- **Texture and side for a drooping head.** The diffuse texture is found by name (`*_TX_CM`,
+  `*_CM_TX`) or, failing that, as the base skin's texture that is not a load screen or icon
+  (`pose_ref.diffuse_textures`; Amumu's is `SadMummy.tex`). Amumu's idle hangs his head to the
+  right, so at yaw 55 only the near eye shows; yaw 40 shows both (look at `--hq` renders at 0/30/55
+  before picking). His `Spell2` clip, 0.34 s, is the flat flying pose of Bandage Toss's pull and
+  serves as the `q_pull` tag.
 - **Game size straight from League (Lee Sin: worked, one GPT round).** The native-size
   redraw needed a first GPT round only to turn League's poses into game frames.
   `tools/lol/native_pose.py <hero>/poses.json` renders the clips at game size instead: the chibi
@@ -205,6 +222,18 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   motion, lunges and jumps, and one model in every frame, so the body never changes size. The body
   comes out slimmer than a hand-drawn design; enlarge what the design exaggerates, and keep the
   effects from the delivery.
+  Amumu (2026-09-27) went this way end to end. Codex's image tool could not hold the grid even for
+  the design sheet (raw 1254 px output, ~13.45 px blocks, 29 blocks tall), so the design was drawn
+  square by square on League's own 34 px silhouette of the design pose (parts outlined one by one,
+  the style taken from Codex's draft) - it then lines up with the pose references and the restyle.
+  The strips came back as raw generations too (soft alpha, other canvas sizes, a new head in every
+  frame, standing heights 32-47 once converted), and the user picked the restyle from a
+  side-by-side GIF. An all-bandage hero gives every ramp of `restyle` the same five greens (cuts
+  from the design's own tone shares). `"turn": {"dead": 50, "*": 180}` turns the pasted head only
+  in the death strip: a head thrown back in a jump (tilt -50 to -65) turned a quarter read as a
+  barrel with vertical stripes. Raw effect strips become native strips with
+  `tools/art/import_amumu.py --raw` (median-cut colours, majority per game pixel, a scale per
+  effect set by the kit's radius).
 - **Head tracks for the importer.** `pose_ref.py --frame <clip@ms> ... --track <hero px>
   --track-ref <idle clip@0>` prints each frame's head joint x in game px from the unit, for a
   hero that many px tall in idle, through the same camera and `--mirror` / `--head` / `--legs` as

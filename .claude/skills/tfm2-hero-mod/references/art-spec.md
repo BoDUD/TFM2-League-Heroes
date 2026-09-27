@@ -39,6 +39,12 @@ more colours - dark heroes (Nocturne, Shadow Fiend) are near-black bodies with g
 The hit frame of `attack` should land around the action's `start_timing` (e.g. attack
 `duration` 20-24 ticks = 0.33-0.4 s, hit at tick 13-15).
 
+Idle breathing in almost every base sprite: the body sinks 1, 2, 1 px over the 4 frames, and
+everything from the crown down to the thighs moves together; only the lowest 5-7 rows (shins
+and feet) stay, and the rows the move covers vanish inside the legs. Do not move the upper body
+over a still pelvis: the seam then sits at the waist and the belt slides over the hips (Lee
+Sin's first idle, fixed in `leesin_retouch.json`).
+
 ## Canvas and anchoring
 
 - Base exported frames are cropped with odd sizes so the pivot pixel sits in the middle; the

@@ -92,7 +92,7 @@ class Champ:
         refs = lambda blob, ext: sorted(set(m.decode("latin1") for m in re.findall(rb"[A-Za-z0-9_/\.\-]+\." + ext, blob)))
         skn = [p for p in refs(skin_bin, rb"skn") if "/Base/" in p][0]
         skl = [p for p in refs(skin_bin, rb"skl") if "/Base/" in p][0]
-        texs = [p for p in refs(skin_bin, rb"(?:tex|dds)") if "/Base/" in p and re.search(r"_tx_cm|_cm_tx", p, re.I)]
+        texs = P.diffuse_textures(refs(skin_bin, rb"(?:tex|dds)"))
         self.tris, self.verts = P.read_skn(w.read_path(skn.lower()))
         self.joints, self.influences = P.read_skl(w.read_path(skl.lower()))
         self.influences, self.hair_re = P.keep_parts(self.joints, self.influences, self.verts, keep or {})

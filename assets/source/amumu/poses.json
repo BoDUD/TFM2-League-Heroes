@@ -1,0 +1,50 @@
+{
+  "hero": "amumu",
+  "champ": "Amumu",
+  "camera": {"yaw": 40, "pitch": 25, "mirror": true},
+  "chibi": {"head": 1.0, "legs": 1.0},
+  "height": 34,
+  "cell": [64, 64],
+  "design": "Amumu_Idle1@0",
+  "restyle": {
+    "head": {"rect": [65, 65, 19, 22], "cut": [[65, 83], [66, 83], [65, 84], [66, 84], [67, 84], [80, 84], [81, 84], [65, 85], [66, 85], [67, 85], [68, 85], [69, 85], [79, 85], [80, 85], [81, 85], [82, 85], [65, 86], [66, 86], [67, 86], [68, 86], [69, 86], [70, 86], [71, 86], [78, 86], [79, 86], [80, 86], [81, 86], [82, 86]]},
+    "outline": "111317",
+    "weapon": [["1C3F35", 0.13], ["2D6454", 0.30], ["4F967C", 0.42], ["6DBA9B"]],
+    "steel": [["1C3F35", 0.13], ["2D6454", 0.30], ["4F967C", 0.42], ["6DBA9B"]],
+    "trim": ["C9E5D5", 0.58],
+    "cloth": [["1C3F35", 0.13], ["2D6454", 0.30], ["4F967C", 0.42], ["6DBA9B"]],
+    "skin": [["1C3F35", 0.13], ["2D6454", 0.30], ["4F967C", 0.42], ["6DBA9B"]],
+    "turn": {"dead": 50, "*": 180}
+  },
+  "tags": {
+    "idle": {"frames": [
+      ["Amumu_Idle1@0", 211], ["Amumu_Idle1@211", 211], ["Amumu_Idle1@422", 211],
+      ["Amumu_Idle1@633", 211], ["Amumu_Idle1@844", 211], ["Amumu_Idle1@1056", 211]]},
+    "run": {"frames": [
+      ["Amumu_Run@0", 69], ["Amumu_Run@69", 69], ["Amumu_Run@137", 69], ["Amumu_Run@206", 69],
+      ["Amumu_Run@274", 69], ["Amumu_Run@343", 69], ["Amumu_Run@411", 69], ["Amumu_Run@480", 69]]},
+    "attack": {"lunge": 0.7, "rise": 0.3, "frames": [
+      ["Amumu_Idle1@0>Amumu_Attack1@97:0.5", 60], ["Amumu_Attack1@194", 60], ["Amumu_Attack1@290", 70],
+      ["Amumu_Attack1@387", 60], ["Amumu_Attack1@484", 80], ["Amumu_Attack1@581", 70],
+      ["Amumu_Attack1@677>Amumu_Idle1@0:0.5", 70]]},
+    "skill": {"lunge": 0.7, "frames": [
+      ["Amumu_Idle1@0>Amumu_Spell1@117:0.5", 70], ["Amumu_Spell1@234", 70], ["Amumu_Spell1@300", 60],
+      ["Amumu_Spell1@351", 70], ["Amumu_Spell1@468", 80], ["Amumu_Spell1@585", 80],
+      ["Amumu_Spell1@700>Amumu_Idle1@0:0.5", 90]]},
+    "q_pull": {"lunge": 0.0, "frames": [
+      ["Amumu_Spell2@0", 75], ["Amumu_Spell2@86", 75], ["Amumu_Spell2@172", 75], ["Amumu_Spell2@258", 75]]},
+    "skill2": {"lunge": 0.7, "rise": 0.5, "frames": [
+      ["Amumu_Idle1@0>Amumu_Spell3@138:0.5", 50], ["Amumu_Spell3@275", 50], ["Amumu_Spell3@413", 50],
+      ["Amumu_Spell3@500", 50], ["Amumu_Spell3@600", 60], ["Amumu_Spell3@688", 70],
+      ["Amumu_Spell3@825", 90], ["Amumu_Spell3@963>Amumu_Idle1@0:0.5", 90]]},
+    "ult": {"lunge": 0.7, "rise": 0.25, "frames": [
+      ["Amumu_Idle1@0>Amumu_Spell4@183:0.5", 70], ["Amumu_Spell4@367", 80], ["Amumu_Spell4@500", 70],
+      ["Amumu_Spell4@600", 70], ["Amumu_Spell4@733", 90, {"turn": 120}], ["Amumu_Spell4@917", 90, {"turn": 120}],
+      ["Amumu_Spell4@1100", 90], ["Amumu_Spell4@1283>Amumu_Idle1@0:0.5", 100]]},
+    "hit": {"flat": true, "frames": [
+      ["Amumu_Idle1@0>Amumu_Death@1150:0.3", 120], ["Amumu_Idle1@0>Amumu_Death@1150:0.12", 120]]},
+    "dead": {"lunge": 0.65, "flat": true, "frames": [
+      ["Amumu_Death@950", 100], ["Amumu_Death@1100", 100], ["Amumu_Death@1200", 100], ["Amumu_Death@1300", 120],
+      ["Amumu_Death@1450", 120], ["Amumu_Death@1650", 200], ["Amumu_Death@1900", 400]]}
+  }
+}
