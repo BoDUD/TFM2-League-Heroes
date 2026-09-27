@@ -287,7 +287,8 @@ def paste_face(a, weapon, head_px, feats, cell, pal, min_facing, dy=-1, trim=0, 
     head pixels one square past the face's front edge are cut and the outline redrawn round the cut:
     League's fringe stuck out a square past Yasuo's forehead in the idle, a bump the user found strange.
     `hair_above`: the head's skin more than that many rows above the eye row becomes hair (the ramp's
-    middle): League's forehead showed as a band of skin over the design's fringe."""
+    darkest, the crown's own lower edge; the middle tone read as a lighter band that came and went
+    in the idle): League's forehead showed as a band of skin over the design's fringe."""
     if "face" not in cell or abs(cell.get("tilt", 0)) >= 45:
         return
     fx, fy, facing, side = cell["face"]
@@ -321,7 +322,7 @@ def paste_face(a, weapon, head_px, feats, cell, pal, min_facing, dy=-1, trim=0, 
         hi_ = pal.ramps["head:hair"][0]
         up = np.zeros(a.shape[:2], bool)
         up[:max(0, er - hair_above)] = True
-        a[up & skin & ~weapon, :3] = pal.rgb[hi_[len(hi_) // 2]]
+        a[up & skin & ~weapon, :3] = pal.rgb[hi_[0]]           # the darkest: the crown's own edge there
     if trim:
         # only a one-square bump over a face that is the head's front edge in the eye row: where League's
         # hair hangs further in front of the face (ult 7), cutting it left a notch
@@ -338,6 +339,11 @@ def paste_face(a, weapon, head_px, feats, cell, pal, min_facing, dy=-1, trim=0, 
                 xs = np.nonzero(head[y] & past)[0]
                 if len(xs) and (xs != one).any():
                     break                                            # the crown: wider than the face
+                cut[y, xs] = True
+            for y in range(er + 1, min(a.shape[0], er + 4)):          # and the jaw, downwards
+                xs = np.nonzero(head[y] & past)[0]
+                if len(xs) and (xs != one).any():
+                    break
                 cut[y, xs] = True
         if cut.any():
             a[cut, 3] = 0
