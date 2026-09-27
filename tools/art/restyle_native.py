@@ -45,6 +45,11 @@ votes League's head and hair like the body (the head materials: gold tie, skin, 
 League's eyes and brows (not-skin pixels with three skin neighbours) into skin, and draws the design's
 feature pixels at native_pose's "face" point ("face_track"): not when the face turns from the camera,
 mirrored when it looks left, turned with the crown when he lies down.
+After Yasuo's body went to 80% with the head kept, "features" gained "skip" (pixels of "rect" left out),
+a colour on "pixels" ([x, y, least facing, "<hex>"]), "neck": "<hex>" (body skin within two squares of
+the face, below the eye row: his scarf, where League's neck made the face a row longer), "trim_front":
+rows (a one-square bump of the fringe past the face's front edge above the eyes, cut and outlined
+again) and "hair_above": rows (the forehead's skin above the drawn fringe becomes hair).
 """
 import argparse
 import json
@@ -271,14 +276,18 @@ def paste_head(a, weapon, head, joint, tilt, turn=TURN, dy=0):
                 a[yy, xx] = rgb(c) + (255,)
 
 
-def paste_face(a, weapon, head_px, feats, cell, pal, min_facing, dy=-1):
+def paste_face(a, weapon, head_px, feats, cell, pal, min_facing, dy=-1, trim=0, hair_above=0):
     """The design's brows, eyes and mouth on the face this frame shows. native_pose's track (cells "face":
     x, y, facing, side) says whether a face shows (facing), which way it looks (side: mirrored to the
     left) and the eye row (y, kept a row inside the visible skin); the far eye goes on the face's front
     edge in that row, the near eye two columns behind it (one on a narrow face). Placed by the 3D point
     alone, the eyes of a bowed head landed in the fringe and a face turned half away got none. Not on a
     head leaning past 45 degrees (lying down). `feats`: (dx, dy, colour, least facing) from the design's
-    anchor, the far eye. dy -1: the frame is lifted a row."""
+    anchor, the far eye. dy -1: the frame is lifted a row. `trim`: in that many rows above the eye row,
+    head pixels one square past the face's front edge are cut and the outline redrawn round the cut:
+    League's fringe stuck out a square past Yasuo's forehead in the idle, a bump the user found strange.
+    `hair_above`: the head's skin more than that many rows above the eye row becomes hair (the ramp's
+    middle): League's forehead showed as a band of skin over the design's fringe."""
     if "face" not in cell or abs(cell.get("tilt", 0)) >= 45:
         return
     fx, fy, facing, side = cell["face"]
@@ -308,6 +317,52 @@ def paste_face(a, weapon, head_px, feats, cell, pal, min_facing, dy=-1):
         x, y = xe + (ox if side > 0 else -ox), er + oy
         if 0 <= y < a.shape[0] and 0 <= x < a.shape[1] and a[y, x, 3] and not weapon[y, x] and head_px[y, x]:
             a[y, x, :3] = col
+    if hair_above:
+        hi_ = pal.ramps["head:hair"][0]
+        up = np.zeros(a.shape[:2], bool)
+        up[:max(0, er - hair_above)] = True
+        a[up & skin & ~weapon, :3] = pal.rgb[hi_[len(hi_) // 2]]
+    if trim:
+        # only a one-square bump over a face that is the head's front edge in the eye row: where League's
+        # hair hangs further in front of the face (ult 7), cutting it left a notch
+        xs_ = np.arange(a.shape[1])
+        past = (xs_ > xe) if side > 0 else (xs_ < xe)
+        c = a[..., :3].astype(np.int64)
+        key = np.where(a[..., 3] > 0, (c[..., 0] << 16) | (c[..., 1] << 8) | c[..., 2], -1)
+        hair = np.isin(key, [(int(r) << 16) | (int(g) << 8) | int(b) for r, g, b in pal.rgb[pal.ramps["head:hair"][0]]])
+        head = head_px & (a[..., 3] > 0) & ~(a[..., :3] == pal.outline).all(-1)
+        cut = np.zeros(a.shape[:2], bool)
+        one = xe + (1 if side > 0 else -1)
+        if not (hair[er] & head_px[er] & past).any():
+            for y in range(er - 1, max(-1, er - trim - 1), -1):       # upwards from the brow row
+                xs = np.nonzero(head[y] & past)[0]
+                if len(xs) and (xs != one).any():
+                    break                                            # the crown: wider than the face
+                cut[y, xs] = True
+        if cut.any():
+            a[cut, 3] = 0
+            around = cut | near(cut) | near(near(cut))
+            line = (a[..., 3] > 0) & (a[..., :3] == pal.outline).all(-1)
+            solid = (a[..., 3] > 0) & ~line
+            a[around & line & ~near(solid), 3] = 0              # the old outline past the cut
+            ring = around & (a[..., 3] == 0) & near(solid)
+            a[ring, :3] = pal.outline
+            a[ring, 3] = 255
+
+
+def scarf_neck(a, head_px, cell, pal, colour, min_facing, dy=-1):
+    """Body skin within two pixels of the face's skin, below the eye row, in `colour`: the neck League
+    shows under the chin made Yasuo's face a row longer (the user: a horse face); his scarf covers it."""
+    if "face" not in cell or abs(cell.get("tilt", 0)) >= 45 or cell["face"][2] < min_facing:
+        return
+    idx = sorted(set(pal.ramps["head:skin"][0]) | set(pal.ramps.get("skin", ([], []))[0]))
+    c = a[..., :3].astype(np.int64)
+    key = np.where(a[..., 3] > 0, (c[..., 0] << 16) | (c[..., 1] << 8) | c[..., 2], -1)
+    skin = np.isin(key, [(int(r) << 16) | (int(g) << 8) | int(b) for r, g, b in pal.rgb[idx]])
+    face = head_px & skin
+    neck = skin & ~head_px & (near(face) | near(near(face)))
+    neck[:int(np.floor(cell["face"][1] + 0.5)) + dy + 1] = False
+    a[neck, :3] = colour
 
 
 def main():
@@ -333,12 +388,15 @@ def main():
         if "rect" in fs:
             rx, ry, rw, rh = fs["rect"]
             late = {(p[0], p[1]): p[2:] for p in fs.get("late", [])}
+            skip = {tuple(p) for p in fs.get("skip", [])}
             feats = [(x - ax, y - ay, design[y, x, :3], late.get((x, y), [0.0])[0],
                       np.array(rgb(late[(x, y)][1]), np.uint8) if len(late.get((x, y), [])) > 1 else None)
-                     for y in range(ry, ry + rh) for x in range(rx, rx + rw) if design[y, x, 3]]
+                     for y in range(ry, ry + rh) for x in range(rx, rx + rw) if design[y, x, 3] and (x, y) not in skip]
         else:
-            feats = [(p[0] - ax, p[1] - ay, design[p[1], p[0], :3], p[2] if len(p) > 2 else 0.0, None)
-                     for p in fs["pixels"]]
+            feats = []
+        feats += [(p[0] - ax, p[1] - ay, np.array(rgb(p[3]), np.uint8) if len(p) > 3 else design[p[1], p[0], :3],
+                   p[2] if len(p) > 2 else 0.0, None) for p in fs.get("pixels", [])]
+        neck = np.array(rgb(fs["neck"]), np.uint8) if "neck" in fs else None
     else:
         x0, y0, hw, hh = rs["head"]["rect"]
         cut = {tuple(p) for p in rs["head"].get("cut", [])}
@@ -368,7 +426,10 @@ def main():
             if isinstance(turn, dict):         # per tag, "*" for the rest
                 turn = turn.get(tag, turn.get("*", TURN))
             if voted:
-                paste_face(a, weapon, head_px, feats, cell, pal, fs.get("min_facing", 0.05))
+                paste_face(a, weapon, head_px, feats, cell, pal, fs.get("min_facing", 0.05), trim=fs.get("trim_front", 0),
+                           hair_above=fs.get("hair_above", 0))
+                if neck is not None:
+                    scarf_neck(a, head_px, cell, pal, neck, fs.get("min_facing", 0.05))
             else:
                 paste_head(a, weapon, head, (cell["head"][0], cell["head"][1], jx, jy), cell.get("tilt", 0), turn,
                            rs["head"].get("dy", 0))

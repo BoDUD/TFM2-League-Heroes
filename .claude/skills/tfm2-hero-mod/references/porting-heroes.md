@@ -297,8 +297,24 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
     side from the head joint's up / forward axes). Pasting only the brow and eye squares let the
     fringe swallow the brows and the mouth land on the cheek - the user found eyes and mouth strange.
     The frames no rule fits (bowed: downcast eye lines; profile: brow, eye, mouth on the front edge;
-    lying: closed eyes; a tie that flickered) are retouched by hand in `yasuo_retouch.json` (20
-    frames, 80 squares). Check every frame's face at 12x before sending a GIF.
+    lying: closed eyes; a tie that flickered) are retouched by hand in `yasuo_retouch.json` (14
+    frames, 35 squares). Check every frame's face at 12x before sending a GIF.
+  - Shrinking a hero: the user found Yasuo a size bigger than the others and chose, of three
+    options (all 80%, body 80% with the head kept, all 88%), the body at 80% with the head kept
+    (`"height"` 30, `"chibi"` head 2.4 and hair 0.417: the head's pixel size unchanged). The same
+    face block on that head read as a horse face with its right side cut flat, a crooked mouth, and
+    a far eye that merged with the hair into one dark line (one-eyed, the user said). What fixed it,
+    in the block and three `"features"` keys: the fringe covers the forehead but for two squares;
+    the chin's front corner steps in with an outline under the chin; `"neck"` recolours body skin
+    within two squares of the face, below the eye row, to the scarf (the neck under the chin made
+    the face a row longer); the far eye gets its white on the inner side, so both eyes look ahead;
+    the one-square mouth sits between the two eyes (with a pupil and a white each, the middle falls
+    on a column). `"trim_front": 4` cuts a one-square bump of League's fringe past the face's front
+    edge above the eyes and redraws the outline (not when hair covers the face in the eye row: cut
+    there, ult 7 got a notch); `"hair_above": 2` turns the forehead skin above the drawn fringe
+    into hair. `"skip"` leaves pixels of the `"rect"` out, and `"pixels"` entries may carry a colour
+    (`[x, y, least facing, "hex"]`). Show the user the face at 12x next to the base heroes' faces
+    before redrawing all frames: base chibi faces have no mouth and a 2 x 2 near eye, 1 x 2 far eye.
   - `"hide"` per tag: the drawn sword has no track in the death clip and stood upright beside the
     body. `"chibi": {"scale": {"L_Rope_Back1": 0.6, ...}}` shortens the rope tails that flew out as a
     big gold fan in the run.

@@ -1,5 +1,5 @@
 {
-  "about": "Yasuo's heads are League's own (restyle_native.py votes them frame by frame, so they turn, bow and lie down with the body) with the design's face block pasted where native_pose.py tracks the face. Where that could not work these edits draw the face by hand: bowed heads (attack 2-3, skill 4, ult 5, dead 2-4) get downcast eye lines under the fringe, profiles (q3 6-7) a brow, an eye and a mouth on the front edge, the turned faces of eq 1 and ult 3-4 the mirrored or narrowed block, the lying dead 6-7 closed eyes. Idle's hair tie is the design's two squares (light over dark) in all six frames; League's tie came out as one, two or three gold squares or none, and flickered. import_native.py applies these edits after cutting the frames and stops if a pixel no longer has the colour an edit expects.",
+  "about": "Yasuo's heads are League's own (restyle_native.py votes them frame by frame, so they turn, bow and lie down with the body) with the design's face block pasted where native_pose.py tracks the face. Where that could not work these edits draw the face by hand: the bowed head of attack 2 and the dying ones of dead 2-4 get downcast eye lines, the lying dead 6-7 closed eyes, the profiles of q3 6-7 a mouth (and in q3 7, turned too far for the block, a brow and an eye) on the front edge. Idle's hair tie is the design's two squares (light over dark) in all six frames; League's tie came out as one or two gold squares or none, and flickered. import_native.py applies these edits after cutting the frames and stops if a pixel no longer has the colour an edit expects.",
   "palette": {
     "O": "#141319",
     "h": "#2b1a1f",
@@ -23,70 +23,41 @@
     "m": "#77182b"
   },
   "frames": {
+    "idle": [
+      [[-2, -18, "G", "h"], [-1, -18, "h", "G"], [-1, -17, "h", "g"]],
+      [[-2, -18, "G", "h"], [-1, -17, "h", "g"]],
+      [[-1, -18, "h", "G"], [-1, -17, "h", "g"]],
+      [[-1, -17, "G", "g"]],
+      [[-1, -18, "h", "G"], [-1, -17, "h", "g"]],
+      [[-1, -19, "G", "h"], [-1, -17, "h", "g"]]
+    ],
+    "attack": [
+      [],
+      [[-4, -11, "T", "h"], [-3, -11, "T", "h"], [-1, -11, "S", "h"]],
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
     "q3": [
       [],
       [],
       [],
       [],
       [],
-      [[11, -19, "T", "h"], [11, -18, "T", "h"], [12, -18, "h", "T"], [11, -16, "T", "J"]],
-      [[10, -18, "T", "h"], [11, -18, "S", "h"], [11, -17, "S", "h"], [11, -15, "S", "J"]],
-      []
-    ],
-    "eq": [
-      [[-3, -24, "h", "T"], [-1, -24, "h", "T"], [0, -24, "h", "T"], [-1, -23, "T", "h"], [2, -23, "h", "S"], [-3, -22, "S", "h"], [0, -22, "T", "h"], [1, -22, "h", "4"], [2, -22, "h", "S"], [1, -21, "S", "T"], [-2, -20, "S", "T"], [-1, -20, "S", "T"], [0, -20, "S", "T"], [1, -20, "T", "S"], [2, -20, "T", "s"]],
-      [],
-      [],
-      [],
-      [],
-      [],
-      [],
-      []
-    ],
-    "ult": [
-      [],
-      [],
-      [[-1, -40, "s", "T"], [0, -40, "s", "T"], [1, -40, "S", "T"], [-1, -39, "s", "h"], [0, -39, "s", "h"], [1, -39, "S", "h"], [-2, -38, "T", "h"], [-1, -38, "s", "T"], [0, -38, "s", "h"], [1, -38, "s", "4"], [0, -37, "s", "T"], [1, -37, "s", "T"], [0, -36, "s", "T"], [1, -36, "s", "S"], [-2, -35, "J", "S"], [-1, -35, "S", "J"]],
-      [[6, -19, "h", "4"], [7, -19, "T", "h"]],
-      [[7, -24, "S", "h"], [8, -24, "T", "h"], [11, -24, "S", "h"]],
-      [],
-      [],
+      [[9, -11, "T", "m"]],
+      [[9, -14, "T", "h"], [10, -14, "S", "h"], [10, -13, "T", "h"], [10, -11, "T", "m"]],
       []
     ],
     "dead": [
       [],
-      [[9, -6, "T", "h"], [10, -6, "T", "h"], [12, -6, "T", "h"]],
-      [[9, -7, "T", "h"], [10, -7, "T", "h"], [13, -7, "S", "h"]],
-      [[7, -6, "T", "h"], [8, -6, "T", "h"], [10, -6, "S", "h"]],
+      [[8, -3, "T", "h"], [9, -3, "T", "h"], [11, -3, "T", "h"]],
+      [[8, -4, "T", "h"], [9, -4, "T", "h"], [11, -4, "S", "h"]],
+      [[6, -3, "T", "h"], [7, -3, "T", "h"], [9, -3, "T", "h"]],
       [],
-      [[-4, 7, "T", "h"], [-3, 7, "T", "h"], [-1, 7, "T", "h"]],
-      [[-5, 9, "T", "h"], [-4, 9, "T", "h"], [-2, 9, "T", "h"]]
-    ],
-    "attack": [
-      [],
-      [[-5, -16, "T", "h"], [-4, -16, "T", "h"], [-2, -16, "S", "h"]],
-      [[-5, -16, "T", "h"], [-4, -16, "T", "h"], [-2, -16, "S", "h"]],
-      [],
-      [],
-      [],
-      []
-    ],
-    "skill": [
-      [],
-      [],
-      [],
-      [[2, -19, "S", "h"], [3, -19, "T", "h"], [5, -19, "S", "T"], [6, -19, "S", "h"]],
-      [],
-      [],
-      []
-    ],
-    "idle": [
-      [[0, -23, "h", "G"], [0, -22, "h", "g"]],
-      [[0, -22, "G", "g"]],
-      [[-1, -23, "G", "h"], [-1, -22, "G", "h"], [0, -22, "h", "g"]],
-      [[-1, -22, "G", "h"], [0, -22, "G", "g"]],
-      [[-1, -23, "G", "h"], [0, -22, "h", "g"]],
-      [[0, -22, "O", "g"]]
+      [[-4, 6, "T", "h"], [-3, 6, "T", "h"], [-1, 6, "T", "h"]],
+      [[-5, 7, "S", "h"], [-4, 7, "S", "h"], [-2, 7, "S", "h"]]
     ]
   }
 }
