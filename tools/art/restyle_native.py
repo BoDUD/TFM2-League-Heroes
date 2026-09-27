@@ -283,9 +283,10 @@ def paste_face(a, weapon, head_px, feats, cell, pal, min_facing, dy=-1, trim=0, 
     edge in that row, the near eye two columns behind it (one on a narrow face). Placed by the 3D point
     alone, the eyes of a bowed head landed in the fringe and a face turned half away got none. Not on a
     head leaning past 45 degrees (lying down). `feats`: (dx, dy, colour, least facing) from the design's
-    anchor, the far eye. dy -1: the frame is lifted a row. `trim`: in that many rows above the eye row,
-    head pixels one square past the face's front edge are cut and the outline redrawn round the cut:
-    League's fringe stuck out a square past Yasuo's forehead in the idle, a bump the user found strange.
+    anchor, the far eye. dy -1: the frame is lifted a row. `trim`: in that many rows above the eye row
+    (and the three below it), head pixels one square past the face's front edge are cut and the outline
+    redrawn round the cut: League's fringe stuck out a square past Yasuo's forehead in the idle, a bump
+    the user found strange, and in idle 3 the jaw did, so the face changed shape as he breathed.
     `hair_above`: the head's skin more than that many rows above the eye row becomes hair (the ramp's
     darkest, the crown's own lower edge; the middle tone read as a lighter band that came and went
     in the idle): League's forehead showed as a band of skin over the design's fringe."""
