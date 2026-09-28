@@ -666,7 +666,7 @@
               "type": "ApAttack",
               "damage": 50,
               "attack_ratio": 40,
-              "hp_ratio": 3,
+              "hp_ratio": 2,
               "attack_effect_type": "Target"
             },
             {

@@ -174,7 +174,7 @@ laners) opened at +4.38 kills with 0.6 deaths a game (base fighter +0.93, Darius
 same seeds); four 432-game candidates, each cutting one side of the kit, showed where it came from: his
 tankiness (armour, the shield) -0.2, his damage -2.0, his crowd control (R's knock-up and cooldown, the slows)
 -1.6. The final kit keeps the tank and trims both, and its last step was the knock-up alone: 1.25 s gave +1.01
-where League's 1.5 s gave +1.80 (864 games each).
+where League's 1.5 s gave +1.80 (864 games each). Rerun on the strips' timings (his fist lands on tick 8, the shard leaves on 12, the slam on 11, the R's damage 4 ticks after he lands) it read +1.31 and +1.63 on two seed batches, the base fighter +0.93 and +1.08; Ground Slam's health ratio 3% -> 2% gave +0.91 and +1.02.
 
 ## League of Legends specifics
 
@@ -556,7 +556,13 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   shoulders' midpoint instead and turn it with the torso (pelvis to shoulders), and a contact count (head
   pixels touching the body, lowest 22) checked every frame. Camera yaw 35 unmirrored, legs 0.85, height 26
   (the head top is League's; 45 px with the spikes, the base ogre's 44), the R landing on the crit clip's
-  smash (League's `RunUlt` is only the charge), idle one frame breathing, 54 frames, 14 colours, face (4, -42).
+  smash (League's `RunUlt` is only the charge), idle one frame breathing, the run 40% toward the idle (the user's
+  pick from three looping runs: League's hunched charge made him look small), 54 frames, 14 colours, face (4, -42).
+  Codex's ten effects came as raw generations with a manifest (`assets[].frames[].rect` as [x, y, w, h], the
+  frames not all equally wide); `tools/art/import_malphite.py --raw` measures each strip's scale on the drawings
+  themselves (its widest drawing, or the tallest for the knock-up's eruption, brought to the kit's size) instead
+  of source sizes typed in: the slam's ring 72 px (radius 36000), the crater 64 px, the shield's ring of stones
+  50 px round his body, Thunderclap's two arcs 40 px apart at his fists.
 - **A face point under the hair.** `tfm2_ase.py face` and the lint find the crown at the top of
   the idle sprite, which for Yasuo is the ponytail's tip, 9 px above his head and to the left of
   it. Both now also look for the head from the face: the top two rows of skin-toned pixels and the

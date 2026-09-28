@@ -157,3 +157,10 @@ Layout: one horizontal row of 8 equal cells, each 2 wide to 1 tall, image size 2
 | `malphite_fx_r_slam.png` | 8 | 特效 `league_malphite_r_slam`（在落点，半径 30000，地面） | 8 × 70 |
 
 特效表：`league_malphite_fx`（hit、w_hit、q_shard、q_hit、e_hit、r_knockup、granite、thunder），`league_malphite_big`（e_slam、r_slam）。
+
+## 交付和导入结果（2026-09-28）
+
+- Codex 交了 10 张生图原稿（`malphite_fx_generated.zip`：2172×724、1983×793、1944×809 等画布，半透明边，58 帧），附 `manifest.json`（schema `malphite-vfx-raw-handoff-v1`，每帧的 `rect` 是 [x, y, 宽, 高]，帧宽不完全相等，另有每帧画面的 `content_bbox_local`）、`HANDOFF.md`、`PROMPTS_USED.json` 和 `preview.html`。原稿不进仓库。
+- `tools/art/import_malphite.py --raw <交付文件夹>` 按清单切帧，每张 16 色，每个游戏像素取覆盖它的原稿像素里最多的颜色，写成这里的 `malphite_fx_*.png`（8×8 方块的原尺寸条）和 `malphite_fx_anchors.json`。
+- 大小按技能范围，比例在画面上量（每条动画最宽的一帧，击飞石柱量最高的一帧）：普攻命中 14 px、雷霆拍击 26 px、Q 碎石连尾迹 16 px、Q 碎裂 22 px、E 敌人脚下 14 px、击飞石柱 32 px 高（照原宽度会有 39 px，比被击飞的人还高）、护盾石圈 50 px（包住他 43 px 宽的身体）、拳边两道电弧相距 40 px、E 冲击波 72 px 宽（半径 36000）、R 大坑 64 px 宽（半径 30000）。
+- 定位：Q 碎石按石头前端；命中、碎裂、雷霆拍击按格子中心（每帧画面自己的包围盒会随碎片漂移）；E 敌人脚下和击飞石柱按画面最下一行（地面）贴在脚底；护盾石圈和电弧按画面中间贴在他身体中间和拳头的高度；冲击波和大坑按画布 60% 高度处的椭圆中心贴在脚底。
