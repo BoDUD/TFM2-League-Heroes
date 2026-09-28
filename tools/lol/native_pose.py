@@ -130,7 +130,7 @@ class Champ:
     """A champion's base skin: mesh, skeleton, texture and clips, read from the local client."""
 
     def __init__(self, lol, champ, keep=None, weapon=r"^weapon$", hide=(), hair_part=False, crown=None, extra=(),
-                 hide_submeshes=False):
+                 hide_submeshes=False, submesh_textures=None):
         w = Wad(os.path.join(lol, "Game", "DATA", "FINAL", "Champions", f"{champ}.wad.client"))
         skin_bin = w.read_path(f"data/characters/{champ.lower()}/skins/skin0.bin")
         refs = lambda blob, ext: sorted(set(m.decode("latin1") for m in re.findall(rb"[A-Za-z0-9_/\.\-]+\." + ext, blob)))
@@ -141,13 +141,24 @@ class Champ:
         self.tris, self.verts = P.read_skn(skn_bytes)
         if hide_submeshes:   # the props the skin shows only in some clips (Teemo's mushroom and harmonica)
             subs = P.skn_submeshes(skn_bytes)
-            self.tris = P.drop_submeshes(self.tris, subs, P.hidden_submeshes(skin_bin, {s[0] for s in subs}))
+            # true: every submesh the skin hides at first; a list: exactly those submeshes (Yone's skin hides both
+            # swords at first, which his clips show again, and his demon, emote props and blade smears)
+            names = set(hide_submeshes) if isinstance(hide_submeshes, list) else P.hidden_submeshes(skin_bin, {s[0] for s in subs})
+            self.tris = P.drop_submeshes(self.tris, subs, names)
         self.joints, self.influences = P.read_skl(w.read_path(skl.lower()))
         self.influences, self.hair_re = P.keep_parts(self.joints, self.influences, self.verts, keep or {})
         for pat in hide:     # props the clips leave unanimated (Yasuo's flute floats beside him)
             gone = P.chain_vertices(self.joints, self.influences, self.verts, re.compile(pat, re.I))
             self.tris = self.tris[~gone[self.tris].any(1)]
         self.tex = P.read_tex(w.read_path(texs[0].lower()))
+        self.maps = None
+        if submesh_textures:   # {"Katana": "Swords_TX"}: submeshes coloured by another of the skin's maps
+            stems = list(dict.fromkeys(submesh_textures.values()))
+            paths = refs(skin_bin, rb"(?:tex|dds)")
+            self.maps = [self.tex] + [P.read_tex(w.read_path(next(q for q in paths if t.lower() in q.lower()).lower()))
+                                      for t in stems]
+            self.vmap = P.submesh_vertex_maps(skn_bytes, len(self.verts), [
+                ({n for n, t in submesh_textures.items() if t == stem}, k + 1) for k, stem in enumerate(stems)])
         bind = P.globals_(self.joints, [P.trs(j["t"], j["r"], j["s"]) for j in self.joints])
         self.bind_inv = [np.linalg.inv(m) for m in bind]
         anims = refs(w.read_path(f"data/characters/{champ.lower()}/animations/skin0.bin"), rb"anm")
@@ -272,15 +283,16 @@ def render(ch, pv, cam, scale, dy, tris=None, parts=False):
     yaw = cam["yaw"]
     tris = ch.tris if tris is None else tris
     uv, tex = ch.verts["uv"], ch.tex
+    tri_tex = (ch.vmap[tris[:, 0]], ch.maps) if ch.maps and not parts else None
     if parts:
         n = np.stack([(ch.part[tris] == k).sum(1) for k in range(len(ch.parts))], 1).argmax(1)
         pv, tris = pv[tris].reshape(-1, 3), np.arange(3 * len(tris)).reshape(-1, 3)
         uv, tex = np.c_[(np.repeat(n, 3) + 0.5) / len(ch.parts), np.full(len(pv), 0.5)], ch.part_tex
     if cam.get("mirror"):
         img = P.render_hq(pv, tris, uv, tex, -yaw, cam["pitch"], (W, H), scale,
-                          FEET_ROW * Z + dy, -shift).transpose(Image.FLIP_LEFT_RIGHT)
+                          FEET_ROW * Z + dy, -shift, tri_tex=tri_tex).transpose(Image.FLIP_LEFT_RIGHT)
     else:
-        img = P.render_hq(pv, tris, uv, tex, yaw, cam["pitch"], (W, H), scale, FEET_ROW * Z + dy, shift)
+        img = P.render_hq(pv, tris, uv, tex, yaw, cam["pitch"], (W, H), scale, FEET_ROW * Z + dy, shift, tri_tex=tri_tex)
     return np.asarray(img).astype(np.float32)
 
 
@@ -322,7 +334,8 @@ def main():
     keep = chibi.pop("keep", None)
     set_cell(*spec.get("cell", CELL))
     ch = Champ(args.lol, spec["champ"], keep, spec.get("weapon", r"^weapon$"), spec.get("hide", ()),
-               spec.get("hair_part", False), spec.get("crown"), spec.get("parts", ()), spec.get("hide_submeshes", False))
+               spec.get("hair_part", False), spec.get("crown"), spec.get("parts", ()), spec.get("hide_submeshes", False),
+               spec.get("submesh_textures"))
     rot = camera(cam)
     sign = -1.0 if cam.get("mirror") else 1.0
     os.makedirs(args.out, exist_ok=True)
