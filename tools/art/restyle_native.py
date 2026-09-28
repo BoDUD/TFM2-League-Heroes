@@ -38,6 +38,8 @@ no conditions takes the rest) - and "hair": ramp colours the hair part of a "hai
 (native_pose.py) by brightness, so the ponytail follows League's animation while the design's head
 is pasted over the head. "head": {"dy": -1} pastes that head a row higher: the frame is lifted a pixel
 for the outline under the soles, and a design drawn on the lifted body has its head a row up too.
+"dx" moves it sideways the same way: the head of league_teemo is drawn with its outline and ears a little
+past League's head part, so its block starts left of and above where League's head starts.
 A pasted head is a sticker: Yasuo's stayed upright while League's head bowed in the run, turned away in
 the spins and lay down in death, and the user saw a head apart from the body. "head": {"mode":
 "voted", "materials": [...], "features": {"anchor": [x, y], "pixels": [[x, y], ...], "min_facing": 0.2}}
@@ -283,15 +285,19 @@ def body(pal, hi, pa, w, h):
     return a, weapon, part == HEAD, head_px, body_px
 
 
-def paste_head(a, weapon, head, joint, tilt, turn=TURN, dy=0):
+def paste_head(a, weapon, head, joint, tilt, turn=TURN, dy=0, dx=0):
     """Paste the head grid (list of rows of hex or None) with League's head joint at joint[0] (x, y), given
     as the joint's place inside the upright head: joint = (x, y, jx, jy)."""
     x, y, jx, jy = joint
     g = np.array([[c or "" for c in row] for row in head], dtype=object)
     H, W = g.shape
     if tilt <= -turn:                      # lying on his back: the crown points left, the face up
+        # dx / dy move the block against the joint in the upright head: turn them with it, or the
+        # quarter-turned head lands beside the neck (league_teemo's death: 3 px left, 2 px up)
+        jx, jy = jx - dx, jy - dy
         g, (jx, jy) = np.rot90(g, 1), (jy, W - jx)
-    x0, y0 = int(round(x - jx)), int(round(y - jy)) + dy
+        dx = dy = 0
+    x0, y0 = int(round(x - jx)) + dx, int(round(y - jy)) + dy
     for j, row in enumerate(g):
         for i, c in enumerate(row):
             yy, xx = y0 + j, x0 + i
@@ -478,7 +484,7 @@ def main():
                     scarf_neck(a, head_px, cell, pal, neck, fs.get("min_facing", 0.05))
             else:
                 paste_head(a, weapon, head, (cell["head"][0], cell["head"][1], jx, jy), cell.get("tilt", 0), turn,
-                           rs["head"].get("dy", 0))
+                           rs["head"].get("dy", 0), rs["head"].get("dx", 0))
             sheet[k // cols * h:(k // cols + 1) * h, k % cols * w:(k % cols + 1) * w] = a
         Image.fromarray(np.repeat(np.repeat(sheet, Z, 0), Z, 1), "RGBA").save(G.lp(os.path.join(SRC, f"{hero}_{tag}.png")))
         colours = len(np.unique(sheet[sheet[..., 3] > 0][:, :3], axis=0))

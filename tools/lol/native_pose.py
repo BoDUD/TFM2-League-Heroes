@@ -42,6 +42,8 @@ without them, as without the hair.
 
 "rise" (per tag) keeps that share of League's height while the whole body is off the ground
 (Darius's Noxian Guillotine leaps about five metres, three times his chibi height: 0.3).
+"travel" (per tag) keeps that share of the root joint's way across the floor: Teemo's death throws him
+about 320 units back, out of the render (0.3 keeps him near the unit, as a sprite's death should stay).
 
 "weapon" is the regex naming the joint whose chain is the weapon part in --parts renders (default
 "^weapon$"; Yasuo's katana hangs from "Sword"). "hide" lists joint regexes whose chains are left out
@@ -111,14 +113,19 @@ def set_cell(w, h, feet=10):
 class Champ:
     """A champion's base skin: mesh, skeleton, texture and clips, read from the local client."""
 
-    def __init__(self, lol, champ, keep=None, weapon=r"^weapon$", hide=(), hair_part=False, crown=None, extra=()):
+    def __init__(self, lol, champ, keep=None, weapon=r"^weapon$", hide=(), hair_part=False, crown=None, extra=(),
+                 hide_submeshes=False):
         w = Wad(os.path.join(lol, "Game", "DATA", "FINAL", "Champions", f"{champ}.wad.client"))
         skin_bin = w.read_path(f"data/characters/{champ.lower()}/skins/skin0.bin")
         refs = lambda blob, ext: sorted(set(m.decode("latin1") for m in re.findall(rb"[A-Za-z0-9_/\.\-]+\." + ext, blob)))
         skn = [p for p in refs(skin_bin, rb"skn") if "/Base/" in p][0]
         skl = [p for p in refs(skin_bin, rb"skl") if "/Base/" in p][0]
-        texs = P.diffuse_textures(refs(skin_bin, rb"(?:tex|dds)"))
-        self.tris, self.verts = P.read_skn(w.read_path(skn.lower()))
+        texs = P.diffuse_textures(refs(skin_bin, rb"(?:tex|dds)"), skin_bin, skn)
+        skn_bytes = w.read_path(skn.lower())
+        self.tris, self.verts = P.read_skn(skn_bytes)
+        if hide_submeshes:   # the props the skin shows only in some clips (Teemo's mushroom and harmonica)
+            subs = P.skn_submeshes(skn_bytes)
+            self.tris = P.drop_submeshes(self.tris, subs, P.hidden_submeshes(skin_bin, {s[0] for s in subs}))
         self.joints, self.influences = P.read_skl(w.read_path(skl.lower()))
         self.influences, self.hair_re = P.keep_parts(self.joints, self.influences, self.verts, keep or {})
         for pat in hide:     # props the clips leave unanimated (Yasuo's flute floats beside him)
@@ -188,12 +195,14 @@ class Champ:
                 out[i] = (ti, quat(want.T @ unscaled(was[i][:3, :3])), si)
         return out
 
-    def posed(self, spec, chibi, turn=0.0, head_like=None, rise=1.0):
+    def posed(self, spec, chibi, turn=0.0, head_like=None, rise=1.0, travel=1.0):
         """World vertices of the chibi model in a pose, feet where League has them, and the chibi
         skeleton's global matrices; `turn` degrees about the vertical axis through the unit (a
         spin or a bent-over slam turned toward the camera so the chest shows, as animators cheat);
         `rise` the share of League's height above the floor kept when the whole body is off the
-        ground (Darius's Noxian Guillotine leaps five metres: 0.3 keeps it inside the cell)."""
+        ground (Darius's Noxian Guillotine leaps five metres: 0.3 keeps it inside the cell); `travel` the
+        share of the root joint's way across the floor kept (Teemo's death throws him 320 units back,
+        out of the render: 0.3)."""
         local = self.local(spec, head_like)
         glob = P.globals_(self.joints, [P.trs(*p) for p in P.chibi(self.joints, local, **chibi, hair_re=self.hair_re)])
         pv = P.skin(self.verts, self.influences, self.bind_inv, glob)
@@ -204,6 +213,10 @@ class Champ:
             drop = (1.0 - rise) * max(0.0, adult[self.legv, 1].min())
             pv[:, 1] -= drop
             glob = [np.vstack([np.c_[g[:3, :3], g[:3, 3] - np.array([0.0, drop, 0.0])], g[3]]) for g in glob]
+        if travel != 1.0:
+            away = (1.0 - travel) * np.array([glob[0][0, 3], 0.0, glob[0][2, 3]])
+            pv = pv - away
+            glob = [np.vstack([np.c_[g[:3, :3], g[:3, 3] - away], g[3]]) for g in glob]
         if turn:
             c, s = np.cos(np.radians(turn)), np.sin(np.radians(turn))
             r = np.array([[c, 0, s], [0, 1, 0], [-s, 0, c]])
@@ -293,7 +306,7 @@ def main():
     keep = chibi.pop("keep", None)
     set_cell(*spec.get("cell", CELL))
     ch = Champ(args.lol, spec["champ"], keep, spec.get("weapon", r"^weapon$"), spec.get("hide", ()),
-               spec.get("hair_part", False), spec.get("crown"), spec.get("parts", ()))
+               spec.get("hair_part", False), spec.get("crown"), spec.get("parts", ()), spec.get("hide_submeshes", False))
     rot = camera(cam)
     sign = -1.0 if cam.get("mirror") else 1.0
     os.makedirs(args.out, exist_ok=True)
@@ -339,8 +352,8 @@ def main():
     print(f"{hero}: {unit * 100:.3f} game px per 100 units; design pose {rows.max() - rows.min() + 1} px tall with "
           f"what hangs from the head, lowest point on row {rows.max()}, soles on row {soles}, offset {dy / Z:+.0f} px")
 
-    def cell(frame_spec, lunge, base, flat, turn=0.0, head_like=None, rise=1.0, hide=None):
-        pv, glob, _ = ch.posed(frame_spec, chibi, turn, head_like, rise)
+    def cell(frame_spec, lunge, base, flat, turn=0.0, head_like=None, rise=1.0, hide=None, travel=1.0):
+        pv, glob, _ = ch.posed(frame_spec, chibi, turn, head_like, rise, travel)
         tris = None
         if hide:           # a prop the clip leaves where it was bound (Yasuo's drawn sword stands up in death)
             gone = np.zeros(len(ch.verts), bool)
@@ -391,10 +404,11 @@ def main():
         t = spec["tags"][tag]
         base = ref_head
         if t.get("anchor", "design") == "first":
-            base = head_x(ch.posed(t["frames"][0][0], chibi, head_like=t.get("head_like"))[1])
+            base = head_x(ch.posed(t["frames"][0][0], chibi, head_like=t.get("head_like"), travel=t.get("travel", 1.0))[1])
         opt = lambda f: f[2] if len(f) > 2 else {}
         frames = [cell(f[0], t.get("lunge", 1.0), base, t.get("flat", False), opt(f).get("turn", 0.0),
-                       opt(f).get("head_like", t.get("head_like")), t.get("rise", 1.0), t.get("hide")) for f in t["frames"]]
+                       opt(f).get("head_like", t.get("head_like")), t.get("rise", 1.0), t.get("hide"),
+                       t.get("travel", 1.0)) for f in t["frames"]]
         cols, nrows = layout(len(frames))
         lo_img = Image.new("RGB", (cols * CELL[0], nrows * CELL[1]), BG)
         hi_img = Image.new("RGBA" if args.alpha else "RGB", (cols * CELL[0] * Z, nrows * CELL[1] * Z),
