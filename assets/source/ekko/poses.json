@@ -1,0 +1,106 @@
+{
+  "hero": "ekko",
+  "champ": "Ekko",
+  "camera": {"yaw": 45, "pitch": 25, "mirror": false},
+  "chibi": {"head": 2.0, "legs": 0.8, "hair": 1.0, "scale": {"F_Mohawk1": 0.6, "B_Mohawk1": 0.6}},
+  "weapon": "^weapon$",
+  "crown": 181,
+  "height": 28,
+  "cell": [88, 88, 12],
+  "parts": [
+    {"name": "zdrive", "joints": "^Weapon_Back", "outline": true, "materials": [
+      {"name": "blue", "hue": [190, 255], "sat": [0.18, 1], "ramp": [["1C3A6A", 0.35], ["2C5AA0", 0.5], ["4A82CC"]]},
+      {"name": "metal", "ramp": [["3A3E4A", 0.3], ["6A707E", 0.5], ["9AA2B0"]]}
+    ]}
+  ],
+  "design": "PunkGenius_Idle01@0",
+  "tags": {
+    "idle": {"head_like": "PunkGenius_Idle_In@0", "frames": [
+      ["PunkGenius_Idle01@0", 200],
+      ["PunkGenius_Idle01@0", 200],
+      ["PunkGenius_Idle01@0", 200],
+      ["PunkGenius_Idle01@0", 200],
+      ["PunkGenius_Idle01@0", 200],
+      ["PunkGenius_Idle01@0", 200]
+    ]},
+    "run": {"head_like": "PunkGenius_Idle_In@0", "flat": true, "frames": [
+      ["PunkGenius_Run1@0>PunkGenius_Idle01@0:0.6", 133],
+      ["PunkGenius_Run1@133>PunkGenius_Idle01@0:0.6", 133],
+      ["PunkGenius_Run1@267>PunkGenius_Idle01@0:0.6", 133],
+      ["PunkGenius_Run1@400>PunkGenius_Idle01@0:0.6", 133],
+      ["PunkGenius_Run1@533>PunkGenius_Idle01@0:0.6", 133],
+      ["PunkGenius_Run1@667>PunkGenius_Idle01@0:0.6", 133],
+      ["PunkGenius_Run1@800>PunkGenius_Idle01@0:0.6", 133],
+      ["PunkGenius_Run1@933>PunkGenius_Idle01@0:0.6", 133]
+    ]},
+    "attack": {"lunge": 0.7, "frames": [
+      ["PunkGenius_Idle01@0>PunkGenius_Attack1@150:0.5", 60],
+      ["PunkGenius_Attack1@220", 50],
+      ["PunkGenius_Attack1@260", 50],
+      ["PunkGenius_Attack1@300", 70],
+      ["PunkGenius_Attack1@400", 80],
+      ["PunkGenius_Attack1@650>PunkGenius_Idle01@0:0.5", 90]
+    ]},
+    "skill": {"lunge": 0.7, "frames": [
+      ["PunkGenius_Idle01@0>PunkGenius_Spell1@90:0.5", 60],
+      ["PunkGenius_Spell1@180", 60],
+      ["PunkGenius_Spell1@270", 70],
+      ["PunkGenius_Spell1@360", 80],
+      ["PunkGenius_Spell1@450", 80],
+      ["PunkGenius_Spell1@630>PunkGenius_Idle01@0:0.5", 90]
+    ]},
+    "skill2": {"lunge": 0.7, "frames": [
+      ["PunkGenius_Spell3@0", 60],
+      ["PunkGenius_Spell3@33", 60],
+      ["PunkGenius_Spell3_Attack@120", 60],
+      ["PunkGenius_Spell3_Attack@200", 60],
+      ["PunkGenius_Spell3_Attack@260", 80],
+      ["PunkGenius_Spell3_Attack@320", 80],
+      ["PunkGenius_Spell3_Attack@560>PunkGenius_Idle01@0:0.5", 90]
+    ]},
+    "ult": {"lunge": 0.7, "frames": [
+      ["PunkGenius_Idle01@0>PunkGenius_Spell4@0:0.5", 70],
+      ["PunkGenius_Spell4@0", 100],
+      ["PunkGenius_Spell4@40", 80],
+      ["PunkGenius_Spell4@80>PunkGenius_Idle01@0:0.5", 90]
+    ]},
+    "ult_arrive": {"lunge": 0.7, "rise": 0.4, "frames": [
+      ["PunkGenius_Spell4_end@600", 60],
+      ["PunkGenius_Spell4_end@700", 70],
+      ["PunkGenius_Spell4_end@800", 80],
+      ["PunkGenius_Spell4_end@950", 90],
+      ["PunkGenius_Spell4_end@1090>PunkGenius_Idle01@0:0.5", 100]
+    ]},
+    "hit": {"flat": true, "frames": [
+      ["PunkGenius_Idle01@0>punkgenius_death@100:0.35", 100],
+      ["PunkGenius_Idle01@0>punkgenius_death@100:0.15", 100]
+    ]},
+    "dead": {"anchor": "first", "lunge": 0.5, "flat": true, "travel": 0.3, "frames": [
+      ["punkgenius_death@0", 100],
+      ["punkgenius_death@200", 100, {"hide": ["^weapon$"]}],
+      ["punkgenius_death@400", 120, {"hide": ["^weapon$"]}],
+      ["punkgenius_death@700", 120, {"hide": ["^weapon$"]}],
+      ["punkgenius_death@1000", 150, {"hide": ["^weapon$"]}],
+      ["punkgenius_death@1400", 150, {"hide": ["^weapon$"]}],
+      ["punkgenius_death@2000", 400, {"hide": ["^weapon$"]}]
+    ]}
+  },
+  "restyle": {
+    "head": {"rect": [59, 66, 13, 17], "dx": -2, "dy": -5, "cut": [[59, 79], [59, 80], [59, 81], [60, 81], [59, 82], [60, 82], [61, 82]]},
+    "turn": 180,
+    "outline": "1A1420",
+    "cover": 0.4,
+    "weapon": [["1E1E2A", 0.2], ["34344A", 0.3], ["505068"]],
+    "weapon_materials": [
+      {"name": "glow", "hue": [140, 195], "sat": [0.3, 1], "ramp": [["2CB89C", 0.6], ["5CEACB", 0.85], ["A8FFE8"]]}
+    ],
+    "materials": [
+      {"name": "scarf", "hue": [338, 14], "sat": [0.55, 1], "val": [0.3, 1], "ramp": [["8C1A38", 0.5], ["C82850", 0.72], ["F04870"]]},
+      {"name": "skin", "hue": [295, 25], "sat": [0.18, 0.6], "val": [0.15, 0.8], "ramp": [["56322C", 0.4], ["76483C", 0.58], ["9A6450"]]},
+      {"name": "shirt", "hue": [45, 110], "sat": [0, 0.36], "val": [0.36, 1], "ramp": [["8C8A6C", 0.45], ["BDBA96", 0.62], ["E2DEBC"]]},
+      {"name": "pants", "hue": [34, 80], "sat": [0.28, 1], "ramp": [["3C3A1A", 0.2], ["5E5A28", 0.32], ["807A3A"]]},
+      {"name": "leather", "hue": [0, 40], "sat": [0.3, 1], "ramp": [["4A2A1C", 0.25], ["6E4028", 0.4], ["955A36"]]},
+      {"name": "dark", "ramp": [["241C30", 0.15], ["3A2E4A", 0.3], ["54466A"]]}
+    ]
+  }
+}
