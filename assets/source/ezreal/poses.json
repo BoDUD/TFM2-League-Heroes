@@ -1,0 +1,557 @@
+{
+  "hero": "ezreal",
+  "champ": "Ezreal",
+  "camera": {
+    "yaw": 40,
+    "pitch": 25,
+    "mirror": true
+  },
+  "chibi": {
+    "head": 2.3,
+    "legs": 0.75,
+    "hair": 0.45
+  },
+  "weapon": "^L_(Gauntlet|Elbow)$",
+  "height": 34,
+  "cell": [
+    96,
+    96,
+    14
+  ],
+  "design": "Ezreal_Idle@0",
+  "tags": {
+    "idle": {
+      "frames": [
+        [
+          "Ezreal_Idle@0",
+          200
+        ],
+        [
+          "Ezreal_Idle@0",
+          200
+        ],
+        [
+          "Ezreal_Idle@0",
+          200
+        ],
+        [
+          "Ezreal_Idle@0",
+          200
+        ],
+        [
+          "Ezreal_Idle@0",
+          200
+        ],
+        [
+          "Ezreal_Idle@0",
+          200
+        ]
+      ]
+    },
+    "run": {
+      "flat": true,
+      "frames": [
+        [
+          "ezreal_run@0",
+          80
+        ],
+        [
+          "ezreal_run@125",
+          80
+        ],
+        [
+          "ezreal_run@250",
+          80
+        ],
+        [
+          "ezreal_run@375",
+          80
+        ],
+        [
+          "ezreal_run@500",
+          80
+        ],
+        [
+          "ezreal_run@625",
+          80
+        ],
+        [
+          "ezreal_run@750",
+          80
+        ],
+        [
+          "ezreal_run@875",
+          80
+        ]
+      ]
+    },
+    "attack": {
+      "lunge": 0.7,
+      "frames": [
+        [
+          "Ezreal_Idle@0>ezreal_Attack2@264:0.5",
+          60
+        ],
+        [
+          "ezreal_Attack2@300",
+          60
+        ],
+        [
+          "ezreal_Attack2@330",
+          70
+        ],
+        [
+          "ezreal_Attack2@396",
+          70
+        ],
+        [
+          "ezreal_Attack2@462",
+          80
+        ],
+        [
+          "ezreal_Attack2@600>Ezreal_Idle@0:0.5",
+          90
+        ]
+      ]
+    },
+    "skill": {
+      "lunge": 0.7,
+      "frames": [
+        [
+          "Ezreal_Idle@0>ezreal_spell1@66:0.5",
+          60
+        ],
+        [
+          "ezreal_spell1@99",
+          60
+        ],
+        [
+          "ezreal_spell1@132",
+          70
+        ],
+        [
+          "ezreal_spell1@198",
+          80
+        ],
+        [
+          "ezreal_spell1@264",
+          80
+        ],
+        [
+          "ezreal_spell1@330>Ezreal_Idle@0:0.5",
+          90
+        ]
+      ]
+    },
+    "skill_w": {
+      "lunge": 0.7,
+      "frames": [
+        [
+          "Ezreal_Idle@0>ezreal_spell2@66:0.5",
+          60
+        ],
+        [
+          "ezreal_spell2@132",
+          60
+        ],
+        [
+          "ezreal_spell2@165",
+          60
+        ],
+        [
+          "ezreal_spell2@198",
+          70
+        ],
+        [
+          "ezreal_spell2@231>ezreal_spell1@66:0.5",
+          60
+        ],
+        [
+          "ezreal_spell1@99",
+          60
+        ],
+        [
+          "ezreal_spell1@132",
+          70
+        ],
+        [
+          "ezreal_spell1@198",
+          80
+        ],
+        [
+          "ezreal_spell1@330>Ezreal_Idle@0:0.5",
+          90
+        ]
+      ]
+    },
+    "skill2": {
+      "lunge": 0.7,
+      "rise": 0.5,
+      "frames": [
+        [
+          "Ezreal_Idle@0>Ezreal_Spell3_Generic@50:0.5",
+          50
+        ],
+        [
+          "Ezreal_Spell3_Generic@150",
+          50
+        ],
+        [
+          "Ezreal_Spell3_Generic@250",
+          50
+        ],
+        [
+          "Ezreal_Spell3_Exit@0",
+          60
+        ],
+        [
+          "ezreal_spell1@99",
+          60
+        ],
+        [
+          "ezreal_spell1@132",
+          70
+        ],
+        [
+          "ezreal_spell1@198",
+          80
+        ],
+        [
+          "ezreal_spell1@330>Ezreal_Idle@0:0.5",
+          90
+        ]
+      ]
+    },
+    "ult": {
+      "lunge": 0.7,
+      "rise": 0.4,
+      "frames": [
+        [
+          "Ezreal_Idle@0>ezreal_spell4@0:0.5",
+          120
+        ],
+        [
+          "ezreal_spell4@132",
+          140
+        ],
+        [
+          "ezreal_spell4@264",
+          160
+        ],
+        [
+          "ezreal_spell4@400",
+          160
+        ],
+        [
+          "ezreal_spell4@533",
+          160
+        ],
+        [
+          "ezreal_spell4@600",
+          110
+        ],
+        [
+          "ezreal_spell4@733",
+          120
+        ],
+        [
+          "ezreal_spell4@800",
+          120
+        ],
+        [
+          "ezreal_spell4@900",
+          100
+        ],
+        [
+          "ezreal_spell4@990>Ezreal_Idle@0:0.5",
+          120
+        ]
+      ]
+    },
+    "hit": {
+      "flat": true,
+      "frames": [
+        [
+          "Ezreal_Idle@0>ezreal_Death@100:0.35",
+          100
+        ],
+        [
+          "Ezreal_Idle@0>ezreal_Death@100:0.15",
+          100
+        ]
+      ]
+    },
+    "dead": {
+      "anchor": "first",
+      "lunge": 0.5,
+      "flat": true,
+      "travel": 0.3,
+      "frames": [
+        [
+          "ezreal_Death@0",
+          100
+        ],
+        [
+          "ezreal_Death@200",
+          100
+        ],
+        [
+          "ezreal_Death@400",
+          100
+        ],
+        [
+          "ezreal_Death@600",
+          100
+        ],
+        [
+          "ezreal_Death@800",
+          120
+        ],
+        [
+          "ezreal_Death@1000",
+          150
+        ],
+        [
+          "ezreal_Death@1333",
+          400
+        ]
+      ]
+    }
+  },
+  "restyle": {
+    "head": {
+      "rect": [
+        56,
+        64,
+        14,
+        14
+      ],
+      "dx": -2,
+      "dy": -2,
+      "cut": [
+        [
+          68,
+          76
+        ],
+        [
+          69,
+          76
+        ],
+        [
+          56,
+          77
+        ],
+        [
+          57,
+          77
+        ],
+        [
+          68,
+          77
+        ],
+        [
+          69,
+          77
+        ]
+      ]
+    },
+    "turn": {
+      "dead": 60,
+      "*": 180
+    },
+    "outline": "1A1420",
+    "weapon": [
+      [
+        "4E3412",
+        0.22
+      ],
+      [
+        "8C6020",
+        0.38
+      ],
+      [
+        "C8962E",
+        0.58
+      ],
+      [
+        "F0D070"
+      ]
+    ],
+    "weapon_materials": [
+      {
+        "name": "gem",
+        "hue": [
+          185,
+          225
+        ],
+        "sat": [
+          0.45,
+          1
+        ],
+        "ramp": [
+          [
+            "1A5AA0",
+            0.5
+          ],
+          [
+            "3AA0E0",
+            0.75
+          ],
+          [
+            "A8E8FF"
+          ]
+        ]
+      }
+    ],
+    "materials": [
+      {
+        "name": "scarf",
+        "hue": [
+          160,
+          200
+        ],
+        "sat": [
+          0.35,
+          1
+        ],
+        "ramp": [
+          [
+            "0E3A44",
+            0.18
+          ],
+          [
+            "1A5A68",
+            0.26
+          ],
+          [
+            "2A8090"
+          ]
+        ]
+      },
+      {
+        "name": "skin",
+        "hue": [
+          5,
+          35
+        ],
+        "sat": [
+          0.2,
+          0.55
+        ],
+        "val": [
+          0.5,
+          1
+        ],
+        "ramp": [
+          [
+            "C07C5C",
+            0.62
+          ],
+          [
+            "E6AA86",
+            0.8
+          ],
+          [
+            "F8D2B0"
+          ]
+        ]
+      },
+      {
+        "name": "shirt",
+        "hue": [
+          30,
+          90
+        ],
+        "sat": [
+          0,
+          0.35
+        ],
+        "val": [
+          0.33,
+          1
+        ],
+        "ramp": [
+          [
+            "9E9580",
+            0.5
+          ],
+          [
+            "D2CAB2",
+            0.68
+          ],
+          [
+            "F2EEDE"
+          ]
+        ]
+      },
+      {
+        "name": "jeans",
+        "hue": [
+          195,
+          260
+        ],
+        "sat": [
+          0.12,
+          0.75
+        ],
+        "ramp": [
+          [
+            "1C2440",
+            0.16
+          ],
+          [
+            "2C3A64",
+            0.24
+          ],
+          [
+            "41578C"
+          ]
+        ]
+      },
+      {
+        "name": "jacket",
+        "hue": [
+          10,
+          50
+        ],
+        "sat": [
+          0.35,
+          1
+        ],
+        "val": [
+          0.12,
+          1
+        ],
+        "ramp": [
+          [
+            "4A2812",
+            0.24
+          ],
+          [
+            "7A4620",
+            0.38
+          ],
+          [
+            "AC6E30",
+            0.6
+          ],
+          [
+            "D8A050"
+          ]
+        ]
+      },
+      {
+        "name": "dark",
+        "ramp": [
+          [
+            "2A1A1E",
+            0.16
+          ],
+          [
+            "463036"
+          ]
+        ]
+      }
+    ]
+  }
+}
