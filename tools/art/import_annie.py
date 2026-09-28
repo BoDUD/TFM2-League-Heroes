@@ -26,8 +26,11 @@ three strips share one 20-colour palette, so his fur and glow are the same colou
 The second step places every cell by its anchor: the fireballs fly with their nose on the projectile; the hits
 and the explosion on the chest; the cone's point 28 px behind the middle of the rectangle it is drawn on (a
 LineRangeProjectile's view is centred on the rectangle and turned to the cast direction); the stun stars round
-the head; the shield round her body; the flames, the ribbons, Tibbers and his ring with their ground row under
-the feet (a view played at a spot is drawn like one on a unit, 11 px above the ground). The stars are listed
+the head; the shield round her body; the flames, the ribbons and the ring with their ground row under the feet
+(a view played at a spot is drawn like one on a unit, 11 px above the ground). Tibbers follows the champion he
+lands on (his views play on that unit), so he stands 9 px behind it and towers over it, where on its feet he
+hid it: a view on a unit may be mirrored with the unit's facing (a CasterViewEffect is), and behind it he
+only turns round where beside it he would jump from side to side. The stars are listed
 twice (the 1 s stun). No palette or outline pass on the sheets. Writes league/effects/league_annie_fx (bolt,
 hit, q_ball, q_hit, burn, e_shield, pyro_ready, stun) and league/effects/league_annie_big (w_cone, tibbers_drop,
 tibbers, tibbers_vanish, r_ring).
@@ -55,6 +58,7 @@ FEET = (0, 11)
 CHEST = (0, -4)
 BODY = (0, -6)                         # the middle of a 34 px hero
 HEAD = (0, -20)                        # round the top of a 34 px hero's head
+TIB = (FEET[0], FEET[1] - 9)           # Tibbers just behind the champion he follows
 TIBBERS = 42 / 218                     # game px per source px for the bear of the standing loop
 
 # raw strip -> native: name: (frames, game px per source px (one, or across and down), x anchor, y anchor)
@@ -174,9 +178,9 @@ FX = {
     },
     "league_annie_big": {
         "w_cone": (6, (-28, 0), [65] * 6, 1),                # its point at the caster, 28 px behind the middle
-        "tibbers_drop": (6, FEET, [100, 60, 60, 60, 60, 60], 1),    # the impact on frame 2, 6 ticks in
-        "tibbers": (8, FEET, [125] * 8, 1),                  # one link of the standing chain: 60 ticks
-        "tibbers_vanish": (6, FEET, [85] * 6, 1),
+        "tibbers_drop": (6, TIB, [100, 60, 60, 60, 60, 60], 1),     # the impact on frame 2, 6 ticks in
+        "tibbers": (8, TIB, [125] * 8, 1),                   # one second of his stay: 60 ticks
+        "tibbers_vanish": (6, TIB, [85] * 6, 1),
         "r_ring": (8, FEET, [125] * 8, 1),
     },
 }
