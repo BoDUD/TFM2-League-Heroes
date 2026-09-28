@@ -61,7 +61,9 @@ ORDER = {("lux", "idle"): [0, 1, 2, 3, 5, 4],
          # and Annie, whose drawn head is pasted too
          ("annie", "idle"): [0, 0, 0, 0, 0, 0],
          # and Miss Fortune (a drawn head under a pasted tricorne)
-         ("missfortune", "idle"): [0, 0, 0, 0, 0, 0]}
+         ("missfortune", "idle"): [0, 0, 0, 0, 0, 0],
+         # and Malphite, whose drawn head sits on his shoulders (restyle "anchor")
+         ("malphite", "idle"): [0, 0, 0, 0, 0, 0]}
 # (hero, tag): (y, slots) - in those slots everything at or above pivot row y moves down a row (the row under
 # it is covered): one frame breathing, the face the same drawing throughout. Leona's shield covers her from
 # the chest to the ankles, so she sinks down to its tip and only the boots stay (a seam across the shield
@@ -74,7 +76,9 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        # Annie sinks down to her shins; the shoes and the lowest stripes of her leggings stay
        ("annie", "idle"): (6, [2, 3, 4]),
        # Miss Fortune's boots start four rows under the pivot: the seam runs through their shafts
-       ("missfortune", "idle"): (6, [2, 3, 4])}
+       ("missfortune", "idle"): (6, [2, 3, 4]),
+       # Malphite's short legs: the seam across his shins, his rock feet stay
+       ("malphite", "idle"): (6, [2, 3, 4])}
 CROWN = {"leesin"}              # heroes whose head template starts at the crown (a braid stands above it)
 PASTED = {"masteryi"}           # steadied on the head restyle_native pasted: his raised sword is the top of every frame
 
@@ -125,7 +129,9 @@ def head_of(frame, crown=False):
 def pasted_head(hero):
     """The head restyle_native.py pastes into every frame (the design sheet's head rect without its
     cut pixels), for a hero whose hair swings above it ("hair_part" in its poses.json: Yasuo's
-    ponytail is the top of every frame and changes each time); None for everyone else. A hero in PASTED
+    ponytail is the top of every frame and changes each time) or whose head is pasted on the torso
+    (restyle "anchor": Malphite's back spikes, voted anew each frame, are the top of every frame); None
+    for everyone else. A hero in PASTED
     is steadied on League's head joint, where its head was pasted (Master Yi's sword crosses his helmet
     in most run frames, so the helmet is not found whole)."""
     if hero in PASTED:
@@ -135,7 +141,7 @@ def pasted_head(hero):
         return None
     with open(path, encoding="utf-8") as f:
         spec = json.load(f)
-    if not spec.get("hair_part") or "restyle" not in spec:
+    if "restyle" not in spec or not (spec.get("hair_part") or spec["restyle"]["head"].get("anchor")):
         return None
     if spec["restyle"]["head"].get("mode") == "voted":
         return "joint"      # no two heads alike: steady on League's head joint from the cells table

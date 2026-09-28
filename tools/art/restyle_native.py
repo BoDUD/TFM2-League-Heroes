@@ -65,6 +65,13 @@ that changed every frame, so his head is pasted - drawn square by square after L
 the way he holds it in idle (League's head tilts within 20 degrees of that in almost every frame).
 "head": {"forward": true} also turns a pasted head a quarter the other way when the crown points forward
 past the limit: he falls on his face in death (tilt +63 to +80), where only lying on the back was turned.
+Malphite (league_malphite) has a tiny head hanging in front of his chest, under his shoulders and back spikes;
+voted or scaled up it melted into the chest's stone, so a drawn head (a horned rock snout) sits higher, between
+his shoulders. "head": {"under": [materials]} keeps League's head, voted by those materials, as part of the
+chest (dropped, it left a hole under the drawn head), and "anchor": true places the drawn head on native_pose's
+"anchor" point (his shoulders) instead of League's head joint and turns it with the torso ("atilt"): on the
+head joint, 19 rows below the drawn head, it floated off the body whenever League's head nodded or swung
+(the wind-up of his attack, the landing of his R, lying in death).
 """
 import argparse
 import json
@@ -114,7 +121,9 @@ class Palette:
         cols, self.ramps = [], {}
         self.materials = spec.get("materials")
         self.hair = "hair" in spec
-        self.head_materials = spec.get("head", {}).get("materials")
+        # "under": League's head stays, voted by these materials, below a drawn head pasted elsewhere
+        self.head_under = spec.get("head", {}).get("under") is not None
+        self.head_materials = spec.get("head", {}).get("under" if self.head_under else "materials")
         self.extra = list(parts)
         if self.materials is None:
             ramps = [(name, spec[name]) for name in ("weapon", "steel", "cloth", "skin")]
@@ -270,7 +279,7 @@ def body(pal, hi, pa, w, h):
     a[keep, :3] = pal.rgb[score.argmax(-1)[keep]]
     a[keep, 3] = 255
     a = lonely(a)
-    if voted:
+    if voted and not pal.head_under:
         a = clean_face(a, keep & (main == HEAD), pal)
         a = flat_face(a, keep & (main == HEAD), pal)
     weapon = keep & (main == WEAPON)
@@ -473,11 +482,13 @@ def main():
             sl = (slice(k // cols * h * Z, (k // cols + 1) * h * Z), slice(k % cols * w * Z, (k % cols + 1) * w * Z))
             yield (*body(pal, hi[sl], pa[sl], w, h), table["tags"][tag][k])
 
-    # where the drawn head starts from League's head joint: where League's head starts in the first idle frame
+    # where the drawn head starts from League's head joint: where League's head starts in the first idle frame.
+    # "anchor": true follows native_pose's "anchor" point (the torso) and turns with the torso ("atilt") instead
+    at, tilt_key = ("anchor", "atilt") if rs["head"].get("anchor") else ("head", "tilt")
     if not voted:
         _, _, league_head, _, _, first = next(frames("idle"))
         ys, xs = np.nonzero(league_head)
-        jx, jy = first["head"][0] - xs.min() // Z, first["head"][1] - ys.min() // Z
+        jx, jy = first[at][0] - xs.min() // Z, first[at][1] - ys.min() // Z
     for tag, rows in table["tags"].items():
         cols, nrows = layout(len(rows))
         sheet = np.zeros((nrows * h, cols * w, 4), np.uint8)
@@ -492,7 +503,7 @@ def main():
                 if neck is not None:
                     scarf_neck(a, head_px, cell, pal, neck, fs.get("min_facing", 0.05))
             else:
-                paste_head(a, weapon, head, (cell["head"][0], cell["head"][1], jx, jy), cell.get("tilt", 0), turn,
+                paste_head(a, weapon, head, (cell[at][0], cell[at][1], jx, jy), cell.get(tilt_key, 0), turn,
                            rs["head"].get("dy", 0), rs["head"].get("dx", 0), rs["head"].get("forward", False))
             sheet[k // cols * h:(k // cols + 1) * h, k % cols * w:(k % cols + 1) * w] = a
         Image.fromarray(np.repeat(np.repeat(sheet, Z, 0), Z, 1), "RGBA").save(G.lp(os.path.join(SRC, f"{hero}_{tag}.png")))
