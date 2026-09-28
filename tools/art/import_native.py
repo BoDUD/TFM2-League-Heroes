@@ -16,6 +16,8 @@ Two fixes for the loops, where every pixel of jitter shows:
     head is idle frame 1's top rows, found by exact match (Codex pasted one verified head into every
     frame); frames placed by their bounding box had it 1-2 px off.
   - ORDER: Lux's idle arrived breathing down, down, down, up, down, up; its frames 5 and 6 swap.
+    Master Yi's raised sword is the top of every frame, so he is steadied on League's head joint, where
+    his helmet was pasted (PASTED), and his one-frame idle on the frame it shows.
 Then <hero>_retouch.json, when there is one, retouches single pixels of the cut frames (Lee Sin's mouth,
 nose and face side; Lux's run, where her wand's gold end read as a gold foot): x, y from the pivot, the colour expected there and the new one. A pixel that no longer has
 the expected colour stops the import, so edits made for one version of the strips never land on another.
@@ -50,14 +52,18 @@ ORDER = {("lux", "idle"): [0, 1, 2, 3, 5, 4],
          # slot, breathing through BOB instead.
          ("yasuo", "idle"): [0, 0, 0, 0, 0, 0],
          # the same one drawing for Leona (her face is pasted, and League's idle barely moves)
-         ("leona", "idle"): [0, 0, 0, 0, 0, 0]}
+         ("leona", "idle"): [0, 0, 0, 0, 0, 0],
+         # and for Master Yi: one pasted helmet, and a body voted anew each frame would shimmer
+         ("masteryi", "idle"): [0, 0, 0, 0, 0, 0]}
 # (hero, tag): (y, slots) - in those slots everything at or above pivot row y moves down a row (the row under
 # it is covered): one frame breathing, the face the same drawing throughout. Leona's shield covers her from
 # the chest to the ankles, so she sinks down to its tip and only the boots stay (a seam across the shield
 # would cut it in two).
 BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
-       ("leona", "idle"): (8, [2, 3, 4])}
+       ("leona", "idle"): (8, [2, 3, 4]),
+       ("masteryi", "idle"): (1, [2, 3, 4])}
 CROWN = {"leesin"}              # heroes whose head template starts at the crown (a braid stands above it)
+PASTED = {"masteryi"}           # steadied on the head restyle_native pasted: his raised sword is the top of every frame
 
 
 def blocks(path):
@@ -106,7 +112,11 @@ def head_of(frame, crown=False):
 def pasted_head(hero):
     """The head restyle_native.py pastes into every frame (the design sheet's head rect without its
     cut pixels), for a hero whose hair swings above it ("hair_part" in its poses.json: Yasuo's
-    ponytail is the top of every frame and changes each time); None for everyone else."""
+    ponytail is the top of every frame and changes each time); None for everyone else. A hero in PASTED
+    is steadied on League's head joint, where its head was pasted (Master Yi's sword crosses his helmet
+    in most run frames, so the helmet is not found whole)."""
+    if hero in PASTED:
+        return "joint"
     path = os.path.join(ROOT, "assets", "source", hero, "poses.json")
     if not os.path.exists(path):
         return None
@@ -154,7 +164,9 @@ def build(hero):
             found = [find(f, head) for f in fr]
             hx = [x - r["pivot"][0] if s >= SURE else None for (s, x, _), r in zip(found, rows)]
         dx = [0] * len(fr)
-        sure = [h for h in hx if h is not None]
+        # a PASTED hero's idle is one frame (ORDER): steady on the frames shown, or it moves off its pivot
+        used = sorted(set(ORDER.get((hero, tag), range(len(fr))))) if hero in PASTED else range(len(fr))
+        sure = [hx[k] for k in used if hx[k] is not None]
         if tag in STEADY and sure:
             target = round(sum(sure) / len(sure))
             dx = [0 if h is None else target - h for h in hx]

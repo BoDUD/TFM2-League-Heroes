@@ -58,6 +58,11 @@ too little voted skin to place the face on: "features" "profile" (the facing bel
 turned into profile, instead of fewer than five squares of skin in the eye row), "chin" (the block's rows
 that far below the eye row may also paint over the body: her collar) and "fallback": "track" (the track's
 point is the far eye where too little skin is voted).
+Master Yi (league_masteryi) wears a rigid helmet: its voted gold trim and silver came out as a speckled blob
+that changed every frame, so his head is pasted - drawn square by square after League's 2013 model, tilted
+the way he holds it in idle (League's head tilts within 20 degrees of that in almost every frame).
+"head": {"forward": true} also turns a pasted head a quarter the other way when the crown points forward
+past the limit: he falls on his face in death (tilt +63 to +80), where only lying on the back was turned.
 """
 import argparse
 import json
@@ -283,14 +288,17 @@ def body(pal, hi, pa, w, h):
     return a, weapon, part == HEAD, head_px, body_px
 
 
-def paste_head(a, weapon, head, joint, tilt, turn=TURN, dy=0):
+def paste_head(a, weapon, head, joint, tilt, turn=TURN, dy=0, forward=False):
     """Paste the head grid (list of rows of hex or None) with League's head joint at joint[0] (x, y), given
-    as the joint's place inside the upright head: joint = (x, y, jx, jy)."""
+    as the joint's place inside the upright head: joint = (x, y, jx, jy). `forward`: also a quarter turn
+    the other way when the crown points forward past `turn` (lying on his face)."""
     x, y, jx, jy = joint
     g = np.array([[c or "" for c in row] for row in head], dtype=object)
     H, W = g.shape
     if tilt <= -turn:                      # lying on his back: the crown points left, the face up
         g, (jx, jy) = np.rot90(g, 1), (jy, W - jx)
+    elif forward and tilt >= turn:         # lying on his face: the crown points right
+        g, (jx, jy) = np.rot90(g, -1), (H - jy, jx)
     x0, y0 = int(round(x - jx)), int(round(y - jy)) + dy
     for j, row in enumerate(g):
         for i, c in enumerate(row):
@@ -478,7 +486,7 @@ def main():
                     scarf_neck(a, head_px, cell, pal, neck, fs.get("min_facing", 0.05))
             else:
                 paste_head(a, weapon, head, (cell["head"][0], cell["head"][1], jx, jy), cell.get("tilt", 0), turn,
-                           rs["head"].get("dy", 0))
+                           rs["head"].get("dy", 0), rs["head"].get("forward", False))
             sheet[k // cols * h:(k // cols + 1) * h, k % cols * w:(k % cols + 1) * w] = a
         Image.fromarray(np.repeat(np.repeat(sheet, Z, 0), Z, 1), "RGBA").save(G.lp(os.path.join(SRC, f"{hero}_{tag}.png")))
         colours = len(np.unique(sheet[sheet[..., 3] > 0][:, :3], axis=0))

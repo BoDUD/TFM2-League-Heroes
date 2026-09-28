@@ -367,6 +367,22 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   frames from the chest to the head, and lists the stun stars twice to cover the 1.75 s stun. Keep
   overhead marks and stun stars apart - the Sunlight mark 30 px above the pivot, the stars on a 34 px
   head's top (16 px) - or they merge into one clump.
+- **A helmet instead of a face (Master Yi, drawn by Claude, restyled, head pasted).** League's 2013
+  Yi hides his face under a helmet with a cluster of six green lenses. Voted like Leona's head, its thin
+  gold trim and silver came out as a speckled blob that changed every frame, so the helmet was drawn
+  square by square after an `--hq` render of the design pose (a 24x crop under a game-pixel grid), in
+  the tilt League gives it in idle, and pasted into every frame (`restyle_native.py` paste mode: the
+  rect's body pixels listed in `cut`; `dy -3`, one row for the frame's lift and two because the drawn
+  crest starts above League's head box). League's head stays within 20 degrees of that tilt in almost
+  every frame; in death he falls on his face, turned by `"forward": true`. The user saw three faces
+  (the lens cluster, two lenses like eyes on goggles, goggles over an open chin with a dark-red mouth)
+  and took the lens cluster, then had the gold chin guard cut to a small beak at its front: a gold bar
+  under the lenses read as a yellow mouth. Camera yaw 40 unmirrored (the attack lunges right), head 1.8
+  (38% of his height; 2.0 gave 41%, base heroes 36%), hair 1.0 (his `Hair1-4` chain is the helmet's
+  gold crest), the short swords on his legs hidden. Idle is one frame breathing (`ORDER`, `BOB` seam
+  just under the pivot: his back foot stands 5 rows above the front one, and a lower seam moved it);
+  the run is steadied on League's head joint (`PASTED` in `import_native.py`: the raised sword is the
+  top of every frame and crosses the helmet). 46 frames, 22 colours, 38% right-neighbour.
 - **A face point under the hair.** `tfm2_ase.py face` and the lint find the crown at the top of
   the idle sprite, which for Yasuo is the ponytail's tip, 9 px above his head and to the left of
   it. Both now also look for the head from the face: the top two rows of skin-toned pixels and the
