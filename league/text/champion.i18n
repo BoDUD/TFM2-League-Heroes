@@ -112,6 +112,13 @@
         "skill": "朝目标掷出一块碎石，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% 法术强度<>的<#a974ffff>魔法伤害<>并<#ef5350ff>减速<><#ffb900ff>25%<>，持续<#ffb900ff>3秒<>；墨菲特偷取这部分速度，<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移动速度提高25%<>，持续<#ffb900ff>3秒<>。",
         "skill2": "猛击地面，对周围敌人造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 法术强度<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>2% 自身最大生命值<>的<#a974ffff>魔法伤害<>，并使其<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻击速度降低20%<>，持续<#ffb900ff>3秒<>。随后 <#ff9028ff>雷霆拍击<>：<#ffb900ff>4秒<>内普攻额外对前方扇形区域的敌人造成<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>1% 自身最大生命值<>的<#ff9028ff>物理伤害<>。",
         "ult": "冲向一名敌方英雄，冲锋中免疫控制。落地时对周围敌人造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 法术强度<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>3% 自身最大生命值<>的<#a974ffff>魔法伤害<>，并<#ef5350ff>击飞<><#ffb900ff>1.25秒<>。"
+      },
+      "league_ekko": {
+        "name": "艾克",
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。被动 <#ff9028ff>Z型驱动共振<>：普攻、Q（去程和回程各一次）和 E 的闪击各记一层，第<#ffb900ff>3<>层额外造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法术强度<>的<#a974ffff>魔法伤害<>并<#ef5350ff>减速40%<>，持续<#ffb900ff>1.5秒<>；附近有敌方英雄时艾克<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移动速度提高40%<>，持续<#ffb900ff>2秒<>。",
+        "skill": "掷出装置，对路径上的敌人造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 法术强度<>的<#a974ffff>魔法伤害<>；装置在尽头展开力场，<#ef5350ff>减速40%<>其中的敌人<#ffb900ff>0.75秒<>，随后飞回艾克，沿途再造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 法术强度<>的<#a974ffff>魔法伤害<>。",
+        "skill2": "冲向目标并闪击，造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% 法术强度<>的<#a974ffff>魔法伤害<>。<#ff9028ff>时光交错<>（冷却<#ffb900ff>14秒<>）：在附近一名敌方英雄脚下投出时间球，<#ffb900ff>1.5秒<>后成形，持续<#ffb900ff>1.5秒<>并<#ef5350ff>减速40%<>；艾克在球内时引爆，<#ef5350ff>眩晕<>球内敌人<#ffb900ff>1秒<>，艾克获得<#e8d44dff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 法术强度<>的<#e8d44dff>护盾<>，持续<#ffb900ff>2秒<>。",
+        "ult": "在脚下留下时间锚点，<#ffb900ff>4秒<>后回到锚点，短暂无敌并回复<#6aff55ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 法术强度<>的<#6aff55ff>生命值<>，同时对落点周围的敌人造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% 法术强度<>的<#a974ffff>魔法伤害<>。期间阵亡则不会回溯。"
       }
     },
     "skill_name": {
@@ -194,6 +201,11 @@
         "skill1": "地震碎片",
         "skill2": "大地震颤",
         "ult": "势不可挡"
+      },
+      "league_ekko": {
+        "skill1": "时间卷曲器",
+        "skill2": "相位俯冲",
+        "ult": "时空断裂"
       }
     }
   },
@@ -310,6 +322,13 @@
         "skill": "朝目標擲出一塊碎石，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% 魔法強度<>的<#a974ffff>魔法傷害<>並<#ef5350ff>緩速<><#ffb900ff>25%<>，持續<#ffb900ff>3秒<>；墨菲特偷取這部分速度，<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度提高25%<>，持續<#ffb900ff>3秒<>。",
         "skill2": "猛擊地面，對周圍敵人造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 魔法強度<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>2% 自身最大生命<>的<#a974ffff>魔法傷害<>，並使其<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻擊速度降低20%<>，持續<#ffb900ff>3秒<>。隨後 <#ff9028ff>震雷之擊<>：<#ffb900ff>4秒<>內普攻額外對前方扇形區域的敵人造成<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>1% 自身最大生命<>的<#ff9028ff>物理傷害<>。",
         "ult": "衝向一名敵方英雄，衝鋒中免疫控制。落地時對周圍敵人造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 魔法強度<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>3% 自身最大生命<>的<#a974ffff>魔法傷害<>，並<#ef5350ff>擊飛<><#ffb900ff>1.25秒<>。"
+      },
+      "league_ekko": {
+        "name": "艾克",
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。被動 <#ff9028ff>共振驅動-Z<>：普攻、Q（去程和回程各一次）和 E 的閃擊各記一層，第<#ffb900ff>3<>層額外造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 魔法強度<>的<#a974ffff>魔法傷害<>並<#ef5350ff>緩速40%<>，持續<#ffb900ff>1.5秒<>；附近有敵方英雄時艾克<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度提高40%<>，持續<#ffb900ff>2秒<>。",
+        "skill": "擲出裝置，對路徑上的敵人造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 魔法強度<>的<#a974ffff>魔法傷害<>；裝置在盡頭展開力場，<#ef5350ff>緩速40%<>其中的敵人<#ffb900ff>0.75秒<>，隨後飛回艾克，沿途再造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 魔法強度<>的<#a974ffff>魔法傷害<>。",
+        "skill2": "衝向目標並閃擊，造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% 魔法強度<>的<#a974ffff>魔法傷害<>。<#ff9028ff>時空攔截<>（冷卻<#ffb900ff>14秒<>）：在附近一名敵方英雄腳下投出時間球，<#ffb900ff>1.5秒<>後成形，持續<#ffb900ff>1.5秒<>並<#ef5350ff>緩速40%<>；艾克在球內時引爆，<#ef5350ff>暈眩<>球內敵人<#ffb900ff>1秒<>，艾克獲得<#e8d44dff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 魔法強度<>的<#e8d44dff>護盾<>，持續<#ffb900ff>2秒<>。",
+        "ult": "在腳下留下時間錨點，<#ffb900ff>4秒<>後回到錨點，短暫無敵並回復<#6aff55ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 魔法強度<>的<#6aff55ff>生命值<>，同時對落點周圍的敵人造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% 魔法強度<>的<#a974ffff>魔法傷害<>。期間陣亡則不會回溯。"
       }
     },
     "skill_name": {
@@ -392,6 +411,11 @@
         "skill1": "地震碎片",
         "skill2": "大地震顫",
         "ult": "勢不可擋"
+      },
+      "league_ekko": {
+        "skill1": "時光樞紐",
+        "skill2": "相位轉移",
+        "ult": "計時開始"
       }
     }
   },
@@ -508,6 +532,13 @@
         "skill": "Malphite hurls a shard of the earth at an enemy, dealing <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% Ability Power<> <#a974ffff>magic damage<> and <#ef5350ff>slowing<> it by <#ffb900ff>25%<> for <#ffb900ff>3s<>. He steals that speed: <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>25% Move Speed<> for <#ffb900ff>3s<>.",
         "skill2": "Malphite slams the ground, dealing <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% Ability Power<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>2% of his max health<> <#a974ffff>magic damage<> to nearby enemies and cutting their <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>attack speed<> by <#ffb900ff>20%<> for <#ffb900ff>3s<>. Then <#ff9028ff>Thunderclap<>: for <#ffb900ff>4s<> his basic attacks also deal <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>1% of his max health<> <#ff9028ff>physical damage<> to the enemies in a cone ahead.",
         "ult": "Malphite charges at an enemy champion, immune to crowd control on the way. On landing he deals <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% Ability Power<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>3% of his max health<> <#a974ffff>magic damage<> to the enemies around him and <#ef5350ff>knocks them up<> for <#ffb900ff>1.25s<>."
+      },
+      "league_ekko": {
+        "name": "Ekko",
+        "attack": "Basic attacks deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. Passive <#ff9028ff>Z-Drive Resonance<>: basic attacks, each pass of Q (out and back) and E's strike add a stack; the <#ffb900ff>3rd<> deals an extra <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% Ability Power<> <#a974ffff>magic damage<> and <#ef5350ff>slows<> by 40% for <#ffb900ff>1.5s<>. With an enemy champion nearby, Ekko gains <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>40% Move Speed<> for <#ffb900ff>2s<>.",
+        "skill": "Ekko throws a device that deals <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% Ability Power<> <#a974ffff>magic damage<> to enemies in its path. At the end it expands into a field that <#ef5350ff>slows<> enemies inside by 40% for <#ffb900ff>0.75s<>, then rewinds to Ekko, dealing <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% Ability Power<> <#a974ffff>magic damage<> on the way back.",
+        "skill2": "Ekko dashes to his target and strikes for <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% Ability Power<> <#a974ffff>magic damage<>. <#ff9028ff>Parallel Convergence<> (every <#ffb900ff>14s<>): a time sphere forms under a nearby enemy champion after <#ffb900ff>1.5s<> and <#ef5350ff>slows<> by 40% for <#ffb900ff>1.5s<>; with Ekko inside it bursts, <#ef5350ff>stunning<> enemies in it for <#ffb900ff>1s<> and giving Ekko a <#e8d44dff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% Ability Power<> <#e8d44dff>shield<> for <#ffb900ff>2s<>.",
+        "ult": "Ekko leaves a time anchor at his feet. <#ffb900ff>4s<> later he snaps back to it, briefly invulnerable, heals <#6aff55ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% Ability Power<> <#6aff55ff>health<> and deals <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% Ability Power<> <#a974ffff>magic damage<> to enemies around his arrival point. No rewind if he dies first."
       }
     },
     "skill_name": {
@@ -590,6 +621,11 @@
         "skill1": "Seismic Shard",
         "skill2": "Ground Slam",
         "ult": "Unstoppable Force"
+      },
+      "league_ekko": {
+        "skill1": "Timewinder",
+        "skill2": "Phase Dive",
+        "ult": "Chronobreak"
       }
     }
   },
@@ -706,6 +742,13 @@
         "skill": "적에게 대지의 파편을 던져 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 50%<> <#a974ffff>마법 피해<>를 입히고 <#ffb900ff>3초<> 동안 <#ffb900ff>25%<> <#ef5350ff>둔화<>시킵니다. 빼앗은 속도로 <#ffb900ff>3초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도가 25%<> 증가합니다.",
         "skill2": "땅을 내리쳐 주변 적에게 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 40%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>자신의 최대 체력의 2%<> <#a974ffff>마법 피해<>를 입히고 <#ffb900ff>3초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>공격 속도를 20%<> 낮춥니다. 이후 <#ff9028ff>천둥소리<>: <#ffb900ff>4초<> 동안 기본 공격이 전방 부채꼴 범위의 적에게도 <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>자신의 최대 체력의 1%<> <#ff9028ff>물리 피해<>를 입힙니다.",
         "ult": "적 챔피언에게 돌진하며 그동안 군중 제어에 면역이 됩니다. 착지하면 주변 적에게 <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 60%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>자신의 최대 체력의 3%<> <#a974ffff>마법 피해<>를 입히고 <#ffb900ff>1.25초<> 동안 <#ef5350ff>공중으로 띄워 올립니다<>."
+      },
+      "league_ekko": {
+        "name": "에코",
+        "attack": "기본 공격으로 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다. 기본 지속 효과 <#ff9028ff>Z 드라이브 공진<>: 기본 공격, Q(왕복 각각), E의 일격마다 중첩이 쌓이며 <#ffb900ff>3<>번째 중첩은 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 70%<> <#a974ffff>마법 피해<>를 더 입히고 <#ffb900ff>1.5초<> 동안 <#ef5350ff>40% 둔화<>시킵니다. 주변에 적 챔피언이 있으면 <#ffb900ff>2초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도가 40% 증가<>합니다.",
+        "skill": "장치를 던져 경로상의 적에게 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 40%<> <#a974ffff>마법 피해<>를 입힙니다. 끝에서 시간 왜곡장을 펼쳐 안의 적을 <#ffb900ff>0.75초<> 동안 <#ef5350ff>40% 둔화<>시킨 뒤 에코에게 되돌아오며 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 60%<> <#a974ffff>마법 피해<>를 입힙니다.",
+        "skill2": "대상에게 돌진해 일격으로 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 50%<> <#a974ffff>마법 피해<>를 입힙니다. <#ff9028ff>평행 시간 교차<>(<#ffb900ff>14초<>마다): 주변 적 챔피언의 발밑에 <#ffb900ff>1.5초<> 후 시간 구체가 생겨 <#ffb900ff>1.5초<> 동안 <#ef5350ff>40% 둔화<>시킵니다. 에코가 구체 안에 있으면 폭발해 안의 적을 <#ffb900ff>1초<> 동안 <#ef5350ff>기절<>시키고, 에코는 <#ffb900ff>2초<> 동안 <#e8d44dff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 80%<> <#e8d44dff>보호막<>을 얻습니다.",
+        "ult": "발밑에 시간의 닻을 남기고 <#ffb900ff>4초<> 후 그곳으로 되돌아갑니다. 잠시 무적이 되며 <#6aff55ff>체력<>을 <#6aff55ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 80%<> 회복하고, 도착 지점 주변의 적에게 <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 100%<> <#a974ffff>마법 피해<>를 입힙니다. 그 전에 죽으면 되돌아가지 않습니다."
       }
     },
     "skill_name": {
@@ -788,6 +831,11 @@
         "skill1": "지진의 파편",
         "skill2": "지면 강타",
         "ult": "멈출 수 없는 힘"
+      },
+      "league_ekko": {
+        "skill1": "시간의 톱니바퀴",
+        "skill2": "시간 도약",
+        "ult": "시공간 붕괴"
       }
     }
   },
@@ -904,6 +952,13 @@
         "skill": "敵に岩の欠片を投げつけ、<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の50%<>の<#a974ffff>魔法ダメージ<>を与え、<#ffb900ff>3秒<>間<#ffb900ff>25%<>の<#ef5350ff>スロウ<>を付与する。奪った速度で<#ffb900ff>3秒<>間<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度が25%<>増加する。",
         "skill2": "地面を叩きつけ、周囲の敵に<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の40%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>自身の最大体力の2%<>の<#a974ffff>魔法ダメージ<>を与え、<#ffb900ff>3秒<>間<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻撃速度を20%<>低下させる。その後<#ff9028ff>サンダークラップ<>：<#ffb900ff>4秒<>間、通常攻撃が前方扇状の敵にも<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>自身の最大体力の1%<>の<#ff9028ff>物理ダメージ<>を与える。",
         "ult": "敵チャンピオンに突進し、その間は行動妨害を受けない。着地時に周囲の敵に<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の60%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>自身の最大体力の3%<>の<#a974ffff>魔法ダメージ<>を与え、<#ffb900ff>1.25秒<>間<#ef5350ff>ノックアップ<>させる。"
+      },
+      "league_ekko": {
+        "name": "エコー",
+        "attack": "通常攻撃は<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>を与える。パッシブ <#ff9028ff>ゼロ・ドライブ<>：通常攻撃、Qの往路と復路、Eの一撃でスタックが溜まり、<#ffb900ff>3<>スタック目は<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の70%<>の<#a974ffff>魔法ダメージ<>を追加し<#ffb900ff>1.5秒<>間<#ef5350ff>40%スロウ<>。近くに敵チャンピオンがいれば<#ffb900ff>2秒<>間<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度が40%増加<>。",
+        "skill": "装置を投げ、経路上の敵に<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の40%<>の<#a974ffff>魔法ダメージ<>を与える。端で力場を展開して中の敵に<#ffb900ff>0.75秒<>間<#ef5350ff>40%スロウ<>を与え、エコーの元へ戻りながら<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の60%<>の<#a974ffff>魔法ダメージ<>を与える。",
+        "skill2": "対象へ突進しワープして<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の50%<>の<#a974ffff>魔法ダメージ<>を与える。<#ff9028ff>パラレルトラップ<>（<#ffb900ff>14秒<>毎）：近くの敵チャンピオンの足元に<#ffb900ff>1.5秒<>後、時間の球体が<#ffb900ff>1.5秒<>間現れ<#ef5350ff>40%スロウ<>。エコーが中にいると炸裂し、中の敵を<#ffb900ff>1秒<>間<#ef5350ff>スタン<>させ、エコーは<#ffb900ff>2秒<>間<#e8d44dff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の80%<>の<#e8d44dff>シールド<>を得る。",
+        "ult": "足元に時間の錨を残し、<#ffb900ff>4秒<>後にそこへ戻る。一瞬無敵になり<#6aff55ff>体力<>を<#6aff55ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の80%<>回復し、到着地点周囲の敵に<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の100%<>の<#a974ffff>魔法ダメージ<>を与える。その前に倒れると戻らない。"
       }
     },
     "skill_name": {
@@ -986,6 +1041,11 @@
         "skill1": "サイズミックシャード",
         "skill2": "グラウンドスラム",
         "ult": "アンストッパブル・フォース"
+      },
+      "league_ekko": {
+        "skill1": "タイムワインダー",
+        "skill2": "フェイズダイブ",
+        "ult": "クロノブレイク"
       }
     }
   }

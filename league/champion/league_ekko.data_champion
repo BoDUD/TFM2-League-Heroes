@@ -1,0 +1,3823 @@
+{
+  "id": "league_ekko",
+  "category": "Assassin",
+  "tags": [
+    "AP",
+    "Magic",
+    "Melee",
+    "CC",
+    "Shield"
+  ],
+  "sprite": "asset/league/champions/league_ekko",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/league/icons/league_ekko_skill",
+    "asset/league/icons/league_ekko_skill2",
+    "asset/league/icons/league_ekko_ult"
+  ],
+  "stat": {
+    "attack": 80,
+    "magic_power": 50,
+    "hp": 920,
+    "defence": 28,
+    "magic_resistance": 20,
+    "move_speed": 1100,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 10,
+    "magic_power": 20,
+    "hp": 90,
+    "defence": 7,
+    "magic_resistance": 4,
+    "move_speed": 12,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.league_ekko.attack",
+    "duration": 24,
+    "cooltime": 55,
+    "start_timing": 10,
+    "cancelable": true,
+    "range": 24000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Attack",
+          "damage": 0,
+          "attack_ratio": 100
+        },
+        {
+          "type": "ViewEffect",
+          "name": "league_ekko_hit"
+        },
+        {
+          "type": "TargetSfx",
+          "name": "league_ekko_attack_hit"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_ekko_z2",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "RemoveCasterBuff",
+                "name": "league_ekko_z2"
+              },
+              {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "ApAttack",
+                    "damage": 40,
+                    "attack_ratio": 70
+                  },
+                  {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "league_ekko_z_slow",
+                      "duration": {
+                        "Time": {
+                          "tick": 90
+                        }
+                      },
+                      "move_speed_mult": -40
+                    }
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "league_ekko_z_proc"
+                  },
+                  {
+                    "type": "TargetSfx",
+                    "name": "league_ekko_z_proc"
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_ekko_z_haste",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": []
+                    },
+                    "effect_none": {
+                      "type": "RandomTarget",
+                      "range": 40000,
+                      "casting_target": "EnemyChampion",
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_ekko_z_haste",
+                            "duration": {
+                              "Time": {
+                                "tick": 120
+                              }
+                            },
+                            "move_speed_mult": 40
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "SwitchByBuff",
+            "buff_name": "league_ekko_z1",
+            "effect_buff": {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_ekko_z1"
+                },
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_ekko_z2",
+                    "duration": {
+                      "Time": {
+                        "tick": 240
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                }
+              ]
+            },
+            "effect_none": {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_ekko_z1",
+                "duration": {
+                  "Time": {
+                    "tick": 240
+                  }
+                }
+              },
+              "only_to_enemy": false
+            }
+          }
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.league_ekko.skill",
+    "duration": 26,
+    "cooltime": 360,
+    "start_timing": 11,
+    "cancelable": false,
+    "range": 55000,
+    "casting_type": "Direction",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "league_ekko_q_cast"
+        },
+        {
+          "type": "LinearProjectile",
+          "name": "league_ekko_q_out",
+          "speed": 3500,
+          "range": 65000,
+          "penetrate": true,
+          "shape": {
+            "Circle": {
+              "radius": 9000
+            }
+          },
+          "applied_target": "EnemyWithoutTower",
+          "applied_effects": [
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "ApAttack",
+                    "damage": 60,
+                    "attack_ratio": 40
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "league_ekko_q_hit"
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_ekko_q_lock_out",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": []
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_ekko_q_lock_out",
+                            "duration": {
+                              "Time": {
+                                "tick": 30
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "TargetSfx",
+                          "name": "league_ekko_q_hit"
+                        },
+                        {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_ekko_z2",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_ekko_z2"
+                              },
+                              {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "ApAttack",
+                                    "damage": 40,
+                                    "attack_ratio": 70
+                                  },
+                                  {
+                                    "type": "AddBuff",
+                                    "buff_state": {
+                                      "name": "league_ekko_z_slow",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 90
+                                        }
+                                      },
+                                      "move_speed_mult": -40
+                                    }
+                                  },
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "league_ekko_z_proc"
+                                  },
+                                  {
+                                    "type": "TargetSfx",
+                                    "name": "league_ekko_z_proc"
+                                  },
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_ekko_z_haste",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    },
+                                    "effect_none": {
+                                      "type": "RandomTarget",
+                                      "range": 40000,
+                                      "casting_target": "EnemyChampion",
+                                      "effects": [
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_ekko_z_haste",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 120
+                                              }
+                                            },
+                                            "move_speed_mult": 40
+                                          },
+                                          "only_to_enemy": false
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_ekko_z1",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_ekko_z1"
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_ekko_z2",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 240
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_ekko_z1",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 240
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "end_effects": [
+            {
+              "type": "ViewEffect",
+              "name": "league_ekko_q_field"
+            },
+            {
+              "type": "Sfx",
+              "name": "league_ekko_q_field"
+            },
+            {
+              "type": "RangePeriodProjectile",
+              "name": "league_ekko_q_field_zone",
+              "shape": {
+                "Circle": {
+                  "radius": 22000
+                }
+              },
+              "tick": 45,
+              "period": 10,
+              "first_delay": 0,
+              "applied_target": "EnemyWithoutTower",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "league_ekko_q_slow",
+                      "duration": {
+                        "Time": {
+                          "tick": 10
+                        }
+                      },
+                      "move_speed_mult": -40
+                    }
+                  }
+                }
+              ],
+              "end_effects": []
+            },
+            {
+              "type": "Delayed",
+              "tick": 45,
+              "effects": [
+                {
+                  "type": "Sfx",
+                  "name": "league_ekko_q_return"
+                },
+                {
+                  "type": "BackToCasterLinearProjectile",
+                  "name": "league_ekko_q_back",
+                  "speed": 3500,
+                  "range": 400000,
+                  "penetrate": true,
+                  "shape": {
+                    "Circle": {
+                      "radius": 9000
+                    }
+                  },
+                  "applied_target": "EnemyWithoutTower",
+                  "applied_effects": [
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "ApAttack",
+                            "damage": 40,
+                            "attack_ratio": 60
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_ekko_q_hit"
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_ekko_q_lock_back",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": []
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_ekko_q_lock_back",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 30
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                {
+                                  "type": "TargetSfx",
+                                  "name": "league_ekko_q_hit"
+                                },
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_ekko_z2",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_ekko_z2"
+                                      },
+                                      {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "ApAttack",
+                                            "damage": 40,
+                                            "attack_ratio": 70
+                                          },
+                                          {
+                                            "type": "AddBuff",
+                                            "buff_state": {
+                                              "name": "league_ekko_z_slow",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 90
+                                                }
+                                              },
+                                              "move_speed_mult": -40
+                                            }
+                                          },
+                                          {
+                                            "type": "ViewEffect",
+                                            "name": "league_ekko_z_proc"
+                                          },
+                                          {
+                                            "type": "TargetSfx",
+                                            "name": "league_ekko_z_proc"
+                                          },
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_ekko_z_haste",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            },
+                                            "effect_none": {
+                                              "type": "RandomTarget",
+                                              "range": 40000,
+                                              "casting_target": "EnemyChampion",
+                                              "effects": [
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_ekko_z_haste",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 120
+                                                      }
+                                                    },
+                                                    "move_speed_mult": 40
+                                                  },
+                                                  "only_to_enemy": false
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  "effect_none": {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_ekko_z1",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_ekko_z1"
+                                        },
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_ekko_z2",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 240
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
+                                        }
+                                      ]
+                                    },
+                                    "effect_none": {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_ekko_z1",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 240
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "end_effects": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.league_ekko.skill2",
+    "duration": 29,
+    "cooltime": 420,
+    "start_timing": 2,
+    "cancelable": false,
+    "range": 45000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "league_ekko_e_cast"
+        },
+        {
+          "type": "CasterViewEffect",
+          "name": "league_ekko_e_dash"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_ekko_w_cd",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "RandomTarget",
+            "range": 60000,
+            "casting_target": "EnemyChampion",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_ekko_w_cd",
+                  "duration": {
+                    "Time": {
+                      "tick": 840
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "RemoveCasterBuff",
+                "name": "league_ekko_w_done"
+              },
+              {
+                "type": "RemoveCasterBuff",
+                "name": "league_ekko_w_boom"
+              },
+              {
+                "type": "RemoveCasterBuff",
+                "name": "league_ekko_w_pic"
+              },
+              {
+                "type": "Sfx",
+                "name": "league_ekko_w_cast"
+              },
+              {
+                "type": "ParabolicProjectile",
+                "name": "league_ekko_w_throw",
+                "travel_time": 90,
+                "range": 400000,
+                "range_effect_name": "league_ekko_w_forming",
+                "shape": {
+                  "Circle": {
+                    "radius": 1000
+                  }
+                },
+                "applied_target": "EnemyChampion",
+                "applied_effects": [],
+                "end_effects": [
+                  {
+                    "type": "Sfx",
+                    "name": "league_ekko_w_form"
+                  },
+                  {
+                    "type": "RangePeriodProjectile",
+                    "name": "league_ekko_w_check",
+                    "shape": {
+                      "Circle": {
+                        "radius": 40000
+                      }
+                    },
+                    "tick": 90,
+                    "period": 1,
+                    "first_delay": 0,
+                    "applied_target": "AllyChampion",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_ekko_w_done",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": []
+                          },
+                          "effect_none": {
+                            "type": "RandomTarget",
+                            "range": 40000,
+                            "casting_target": "AllyOnlySelf",
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_ekko_w_done",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 100
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_ekko_w_boom",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 3
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_ekko_w_pic",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 3
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "Shield",
+                                "amount": 80,
+                                "attack_ratio": 0,
+                                "ap_ratio": 80,
+                                "tick": 120
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_ekko_w_shield",
+                                  "duration": "WithShield"
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "league_ekko_w_boom"
+                              }
+                            ],
+                            "from_projectile": true
+                          }
+                        }
+                      }
+                    ],
+                    "end_effects": []
+                  },
+                  {
+                    "type": "RangePeriodProjectile",
+                    "name": "league_ekko_w_slow_zone",
+                    "shape": {
+                      "Circle": {
+                        "radius": 40000
+                      }
+                    },
+                    "tick": 90,
+                    "period": 10,
+                    "first_delay": 0,
+                    "applied_target": "EnemyWithoutTower",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_ekko_w_done",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": []
+                          },
+                          "effect_none": {
+                            "type": "AddBuff",
+                            "buff_state": {
+                              "name": "league_ekko_w_slow",
+                              "duration": {
+                                "Time": {
+                                  "tick": 10
+                                }
+                              },
+                              "move_speed_mult": -40
+                            }
+                          }
+                        }
+                      }
+                    ],
+                    "end_effects": []
+                  },
+                  {
+                    "type": "RangePeriodProjectile",
+                    "name": "league_ekko_w_stun_zone",
+                    "shape": {
+                      "Circle": {
+                        "radius": 40000
+                      }
+                    },
+                    "tick": 94,
+                    "period": 1,
+                    "first_delay": 0,
+                    "applied_target": "EnemyWithoutTower",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_ekko_w_boom",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "Stun",
+                                "duration": 60
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "league_ekko_w_stun"
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 1,
+                                "effects": [
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_ekko_w_boom"
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": []
+                          }
+                        }
+                      }
+                    ],
+                    "end_effects": []
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 0,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_done",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": []
+                        },
+                        "effect_none": {
+                          "type": "ViewEffect",
+                          "name": "league_ekko_w_sphere"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 15,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_done",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": []
+                        },
+                        "effect_none": {
+                          "type": "ViewEffect",
+                          "name": "league_ekko_w_sphere"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 30,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_done",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": []
+                        },
+                        "effect_none": {
+                          "type": "ViewEffect",
+                          "name": "league_ekko_w_sphere"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 45,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_done",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": []
+                        },
+                        "effect_none": {
+                          "type": "ViewEffect",
+                          "name": "league_ekko_w_sphere"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 60,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_done",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": []
+                        },
+                        "effect_none": {
+                          "type": "ViewEffect",
+                          "name": "league_ekko_w_sphere"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 75,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_done",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": []
+                        },
+                        "effect_none": {
+                          "type": "ViewEffect",
+                          "name": "league_ekko_w_sphere"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 1,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 2,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 3,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 4,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 5,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 6,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 7,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 8,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 9,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 10,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 11,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 12,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 13,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 14,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 15,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 16,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 17,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 18,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 19,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 20,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 21,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 22,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 23,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 24,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 25,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 26,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 27,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 28,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 29,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 30,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 31,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 32,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 33,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 34,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 35,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 36,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 37,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 38,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 39,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 40,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 41,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 42,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 43,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 44,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 45,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 46,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 47,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 48,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 49,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 50,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 51,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 52,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 53,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 54,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 55,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 56,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 57,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 58,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 59,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 60,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 61,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 62,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 63,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 64,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 65,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 66,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 67,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 68,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 69,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 70,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 71,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 72,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 73,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 74,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 75,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 76,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 77,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 78,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 79,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 80,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 81,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 82,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 83,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 84,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 85,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 86,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 87,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 88,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 89,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 90,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 91,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ekko_w_pic",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ekko_w_pic"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_ekko_w_shatter"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "type": "MoveTo",
+          "speed": 4000,
+          "range": 45000,
+          "end_effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "ApAttack",
+                  "damage": 50,
+                  "attack_ratio": 50
+                },
+                {
+                  "type": "ViewEffect",
+                  "name": "league_ekko_e_hit"
+                },
+                {
+                  "type": "TargetSfx",
+                  "name": "league_ekko_e_hit"
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_ekko_z2",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_ekko_z2"
+                      },
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "ApAttack",
+                            "damage": 40,
+                            "attack_ratio": 70
+                          },
+                          {
+                            "type": "AddBuff",
+                            "buff_state": {
+                              "name": "league_ekko_z_slow",
+                              "duration": {
+                                "Time": {
+                                  "tick": 90
+                                }
+                              },
+                              "move_speed_mult": -40
+                            }
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_ekko_z_proc"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "league_ekko_z_proc"
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_ekko_z_haste",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": []
+                            },
+                            "effect_none": {
+                              "type": "RandomTarget",
+                              "range": 40000,
+                              "casting_target": "EnemyChampion",
+                              "effects": [
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_ekko_z_haste",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 120
+                                      }
+                                    },
+                                    "move_speed_mult": 40
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_ekko_z1",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_ekko_z1"
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_ekko_z2",
+                            "duration": {
+                              "Time": {
+                                "tick": 240
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_ekko_z1",
+                        "duration": {
+                          "Time": {
+                            "tick": 240
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.league_ekko.ult",
+    "duration": 20,
+    "cooltime": 3600,
+    "start_timing": 4,
+    "cancelable": false,
+    "range": 30000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "league_ekko_r_cast"
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_ekko_chrono",
+            "duration": {
+              "Time": {
+                "tick": 250
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "CasterViewEffect",
+          "name": "league_ekko_r_ghost"
+        },
+        {
+          "type": "LinearProjectile",
+          "name": "league_ekko_r_anchor",
+          "speed": 1,
+          "range": 1,
+          "y_offset": 5000,
+          "penetrate": true,
+          "shape": {
+            "Circle": {
+              "radius": 1000
+            }
+          },
+          "applied_target": "EnemyChampion",
+          "applied_effects": [],
+          "end_effects": [
+            {
+              "type": "Delayed",
+              "tick": 239,
+              "effects": [
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_ekko_chrono",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_ekko_chrono"
+                      },
+                      {
+                        "type": "CasterViewEffect",
+                        "name": "league_ekko_r_depart"
+                      },
+                      {
+                        "type": "Teleport"
+                      },
+                      {
+                        "type": "CasterAnimation",
+                        "name": "ult_arrive",
+                        "tick": 24
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_ekko_r_phase",
+                          "duration": {
+                            "Time": {
+                              "tick": 20
+                            }
+                          },
+                          "damaged_reduce": 100,
+                          "cc_immune": true
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "CasterViewEffect",
+                        "name": "league_ekko_r_arrive"
+                      },
+                      {
+                        "type": "Sfx",
+                        "name": "league_ekko_r_rewind"
+                      },
+                      {
+                        "type": "Heal",
+                        "amount": 150,
+                        "attack_ratio": 0,
+                        "ap_ratio": 80,
+                        "heal_type": "Caster"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 35000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "ApAttack",
+                            "damage": 150,
+                            "attack_ratio": 100
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_ekko_r_hit"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "league_ekko_q_out",
+      "anim": "asset/league/effects/league_ekko_fx",
+      "tag": "q_device",
+      "repeat": true,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_ekko_q_back",
+      "anim": "asset/league/effects/league_ekko_fx",
+      "tag": "q_device",
+      "repeat": true,
+      "z": 1
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "league_ekko_hit",
+      "anim": "asset/league/effects/league_ekko_fx",
+      "tag": "hit",
+      "z": 1
+    },
+    {
+      "type": "Animation",
+      "name": "league_ekko_z_proc",
+      "anim": "asset/league/effects/league_ekko_fx",
+      "tag": "z_proc",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_ekko_q_hit",
+      "anim": "asset/league/effects/league_ekko_fx",
+      "tag": "q_hit",
+      "z": 1
+    },
+    {
+      "type": "Animation",
+      "name": "league_ekko_q_field",
+      "anim": "asset/league/effects/league_ekko_big",
+      "tag": "q_field",
+      "z": -1
+    },
+    {
+      "type": "Animation",
+      "name": "league_ekko_e_dash",
+      "anim": "asset/league/effects/league_ekko_fx",
+      "tag": "e_dash",
+      "z": 0
+    },
+    {
+      "type": "Animation",
+      "name": "league_ekko_e_hit",
+      "anim": "asset/league/effects/league_ekko_fx",
+      "tag": "e_hit",
+      "z": 1
+    },
+    {
+      "type": "Animation",
+      "name": "league_ekko_w_forming",
+      "anim": "asset/league/effects/league_ekko_big",
+      "tag": "w_forming",
+      "z": -1
+    },
+    {
+      "type": "Animation",
+      "name": "league_ekko_w_sphere",
+      "anim": "asset/league/effects/league_ekko_big",
+      "tag": "w_sphere",
+      "z": -1
+    },
+    {
+      "type": "Animation",
+      "name": "league_ekko_w_shatter",
+      "anim": "asset/league/effects/league_ekko_big",
+      "tag": "w_shatter",
+      "z": 1
+    },
+    {
+      "type": "Animation",
+      "name": "league_ekko_w_stun",
+      "anim": "asset/league/effects/league_ekko_fx",
+      "tag": "w_stun",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_ekko_r_ghost",
+      "anim": "asset/league/effects/league_ekko_big",
+      "tag": "r_ghost",
+      "z": 0
+    },
+    {
+      "type": "Animation",
+      "name": "league_ekko_r_depart",
+      "anim": "asset/league/effects/league_ekko_big",
+      "tag": "r_depart",
+      "z": 1
+    },
+    {
+      "type": "Animation",
+      "name": "league_ekko_r_arrive",
+      "anim": "asset/league/effects/league_ekko_big",
+      "tag": "r_arrive",
+      "z": 1
+    },
+    {
+      "type": "Animation",
+      "name": "league_ekko_r_hit",
+      "anim": "asset/league/effects/league_ekko_fx",
+      "tag": "r_hit",
+      "z": 1,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "league_ekko_w_shield",
+      "anim": "asset/league/effects/league_ekko_fx",
+      "tag": "w_shield",
+      "z": 1
+    }
+  ]
+}
