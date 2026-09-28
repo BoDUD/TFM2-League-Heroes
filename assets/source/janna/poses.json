@@ -12,10 +12,10 @@
     "idle": {"frames": [["Janna_Idle1@0", 200], ["Janna_Idle1@0", 200], ["Janna_Idle1@0", 200],
                         ["Janna_Idle1@0", 200], ["Janna_Idle1@0", 200], ["Janna_Idle1@0", 200]]},
     "run": {"rise": 0.0, "flat": true, "frames": [
-      ["Janna_Run@0>Janna_Idle1@0:0.3", 125], ["Janna_Run@125>Janna_Idle1@0:0.3", 125],
-      ["Janna_Run@250>Janna_Idle1@0:0.3", 125], ["Janna_Run@375>Janna_Idle1@0:0.3", 125],
-      ["Janna_Run@500>Janna_Idle1@0:0.3", 125], ["Janna_Run@625>Janna_Idle1@0:0.3", 125],
-      ["Janna_Run@750>Janna_Idle1@0:0.3", 125], ["Janna_Run@875>Janna_Idle1@0:0.3", 125]]},
+      ["Janna_Run@0>Janna_Idle1@0:0.85", 125], ["Janna_Run@125>Janna_Idle1@0:0.85", 125],
+      ["Janna_Run@250>Janna_Idle1@0:0.85", 125], ["Janna_Run@375>Janna_Idle1@0:0.85", 125],
+      ["Janna_Run@500>Janna_Idle1@0:0.85", 125], ["Janna_Run@625>Janna_Idle1@0:0.85", 125],
+      ["Janna_Run@750>Janna_Idle1@0:0.85", 125], ["Janna_Run@875>Janna_Idle1@0:0.85", 125]]},
     "attack": {"lunge": 0.7, "frames": [
       ["Janna_Idle1@0>Janna_attack1@100:0.5", 70], ["Janna_attack1@180", 70], ["Janna_attack1@280", 80],
       ["Janna_attack1@360", 100], ["Janna_attack1@480", 100], ["Janna_Idle1@0>Janna_attack1@600:0.5", 100]]},

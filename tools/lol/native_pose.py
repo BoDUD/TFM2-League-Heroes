@@ -50,7 +50,8 @@ the ground in game (the base ghost floats about 6 px); a frame's (or tag's) "sin
 again, for the frames that come to the ground (her death: 1, 2, then 3 px as she lands). League's Janna floats
 12 to 39 units above the floor in idle and glides along it in the run, which rises and falls 47 units over its 2 s
 cycle: the run keeps "rise": 0 with "flat" (the lowest point of her legs on the feet line in every frame) and so
-hovers the same 3 px as the idle drawing.
+hovers the same 3 px as the idle drawing. Its frames are blended 85% toward the idle pose: League's glide leans
+her body forward, and under her upright pasted head the user saw the body move while the head stayed put.
 
 "weapon" is the regex naming the joint whose chain is the weapon part in --parts renders (default
 "^weapon$"; Yasuo's katana hangs from "Sword"). "hide" lists joint regexes whose chains are left out
