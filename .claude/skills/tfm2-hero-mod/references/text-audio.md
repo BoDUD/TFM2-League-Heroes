@@ -83,7 +83,10 @@ pass; the rest are a mount, the ogre, the werewolf, two big hats and the strongm
 shipped with -38, above his hair (the portrait showed hair and air); a small head fails this check
 too, because its crown is found at the shoulders. Now: league_garen (-1, -35), league_ashe (0, -33),
 league_lux (1, -31) (both re-measured after the native-size redraw), league_leesin (0, -34) (the
-crown rule skips the braid standing above his head; a blindfold, not eyes, is what must read).
+crown rule skips the braid standing above his head; a blindfold, not eyes, is what must read),
+league_masteryi (0, -35): his sword stands 20 rows above his helmet, so the top 12 rows are all thin
+and the crown rule measures the top 32 rows instead (no other hero's result changed); the point sits
+4 px ahead of the helmet's crown so the portrait keeps the lenses on its right.
 
 ## Sounds (sound/sfx)
 

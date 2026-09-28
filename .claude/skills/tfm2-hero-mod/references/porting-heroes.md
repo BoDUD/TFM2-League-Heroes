@@ -74,10 +74,14 @@ OK = direct, ~ = approximate, X = not possible in data-only mods.
 | Shield up now, burst later (Leona W) | `AddCasterBuff` damage reduction + a `Delayed` burst wrapped in `SwitchByBuff` on that buff (no burst after she dies); a hit re-adds the reduction once per cast behind a short lock buff | ~ |
 | Allies' hits on a marked enemy deal more (Leona's Sunlight) | `damaged_amplify` 10% for 1.5 s on every enemy a spell hits: all damage, not an ally's next hit | ~ |
 | Circle with a stronger centre (Leona R: slowed in it, stunned in the middle) | two `RangeProjectile`s on the same spot with the same `delay` / `apply`, radius 36000 and 16000 (champion-data "Telegraphed AoE") | OK |
-| Stealth | `Invisible` / `CasterInvisible` | OK |
+| Stealth | `Invisible` / `CasterInvisible`: hidden from the enemy team's vision, but enemies next to the unit see and target it (champion-data section 4) | ~ |
+| Untargetable blink strikes on the target and enemies near it (Master Yi Q) | invulnerable instead: `CasterInvisible` + a `damaged_reduce` 100 / `cc_immune` caster buff for the whole Q, `Teleport` + strike, then `Delayed` `RandomTarget` bounces; repeats on one target possible (champion-data "Invulnerable blink strikes"). A self-`Banish` between the strikes made the monsters and enemies around him vanish for his team | ~ |
+| Channelled self-heal cast when hurt (Master Yi W) | the AI casts a heal on itself whenever it is ready, at any health (champion-data section 3): a short channel with damage reduction and a heal over time, cast as a fight starts, folded with a steroid (Wuju Style) | ~ |
+| Immune to slows (Master Yi R) | no field: slows are buffs, `cc_immune` / `toughness` only touch CC; a big `move_speed_mult` offsets them | X |
+| Takedowns refund cooldowns (Master Yi R) | no cooldown reset: `skill_cooldown_mult` (recharge speed) while the ult lasts | ~ |
 | 2-3 stage recast | `cooltime_use_count` or recast buff + `SwitchByBuff` | ~ (AI timing) |
 | Cone / fan of projectiles (Ashe W) | no angle field on any projectile (base harpooner's fan is `Native`): a `LineRangeProjectile` rectangle cast by `Direction`, drawn as a fan sprite centred on it (champion-data "Cone / fan"); the hit area stays a rectangle | ~ |
-| Untargetable / invulnerable | `Invisible` on self + `cc_immune` / `damaged_reduce` buff | ~ |
+| Untargetable / invulnerable | `Banish` on self (`WithSelf`; it also makes the unit invisible, puts a CC state on it, stops the caster's own `RandomTarget` finding units and takes away its team's vision around it - only for a caster leaving the fight); in a fight `CasterInvisible` + a `damaged_reduce` 100 / `cc_immune` buff: targetable, but every hit deals 1 | ~ |
 | Execute / missing-HP scaling | `FixedAttack target_hp_ratio` (a share of *max* health; no effect reads missing health), flat bonus | ~ |
 | Effect scaling with distance / charge time | fixed middle value | ~ |
 | Summons, clones, turrets | zones/projectiles that deal the damage (LoL Reborn's Azir) | ~ |
@@ -388,6 +392,28 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   that did not grow out of the body. The run is now 60% League's run and 40% the idle
   (`Run@t>Idle@0:0.4`, picked from a side-by-side of 0, 40 and 60%) with `"flat": true`, the feet back
   on the ground; a pasted head wants a body that stays roughly upright under it.
+- **A helmet instead of a face (Master Yi, drawn by Claude, restyled, head pasted).** League's 2013
+  Yi hides his face under a helmet with a cluster of six green lenses. Voted like Leona's head, its thin
+  gold trim and silver came out as a speckled blob that changed every frame, so the helmet was drawn
+  square by square after an `--hq` render of the design pose (a 24x crop under a game-pixel grid), in
+  the tilt League gives it in idle, and pasted into every frame (`restyle_native.py` paste mode: the
+  rect's body pixels listed in `cut`; `dy -3`, one row for the frame's lift and two because the drawn
+  crest starts above League's head box). League's head stays within 20 degrees of that tilt in almost
+  every frame; in death he falls on his face, turned by `"forward": true` (unlike Teemo's quarter turn
+  onto his back, the `dy` stays on the screen: his death frames were checked that way). The user saw three faces
+  (the lens cluster, two lenses like eyes on goggles, goggles over an open chin with a dark-red mouth)
+  and took the lens cluster, then had the gold chin guard cut to a small beak at its front: a gold bar
+  under the lenses read as a yellow mouth. Camera yaw 40 unmirrored (the attack lunges right), head 1.8
+  (38% of his height; 2.0 gave 41%, base heroes 36%), hair 1.0 (his `Hair1-4` chain is the helmet's
+  gold crest), the short swords on his legs hidden. Idle is one frame breathing (`ORDER`, `BOB` seam
+  just under the pivot: his back foot stands 5 rows above the front one, and a lower seam moved it);
+  the run is steadied on League's head joint (`PASTED` in `import_native.py`: the raised sword is the
+  top of every frame and crosses the helmet). 46 frames, 22 colours, 38% right-neighbour. His nine
+  effects came from Codex as raw generations, like Leona's: `tools/art/import_masteryi.py --raw` cuts
+  Alpha Strike's strip into equal cells (its burst touches the frame after it, so no empty column parts
+  them), anchors the looping auras (Wuju, Highlander) on their equal cell's centre so they do not jitter,
+  and scales the effects drawn round an empty figure (the Wuju wisps, the meditation, the Highlander
+  burst) so that figure is his height.
 - **A face point under the hair.** `tfm2_ase.py face` and the lint find the crown at the top of
   the idle sprite, which for Yasuo is the ponytail's tip, 9 px above his head and to the left of
   it. Both now also look for the head from the face: the top two rows of skin-toned pixels and the

@@ -331,11 +331,15 @@ FACE_BASE = ("archer", "knight", "priest", "fighter")   # heroes drawn next to y
 def head_of(sp, tag="idle"):
     """On the tag's first frame: (feet row, crown row, head centre x from the canvas centre).
     The crown is the first row at least half as wide as the widest of the top 12 rows, so a hair
-    bun, a hat tip or a pointed hood does not count as the head."""
+    bun, a hat tip or a pointed hood does not count as the head. When all of those 12 rows are thin
+    (under 6 px), a weapon is raised above the head (league_masteryi's sword stands 20 rows over his
+    helmet) and the top 32 rows are measured instead."""
     f = sp.frames[(sp.tag_frames(tag) or [0])[0]].convert("RGBA")
     px, W = f.load(), f.width
     bb = f.getbbox()
     widths = [sum(1 for x in range(W) if px[x, y][3]) for y in range(bb[1], min(bb[1] + 12, bb[3]))]
+    if max(widths) < 6:
+        widths = [sum(1 for x in range(W) if px[x, y][3]) for y in range(bb[1], min(bb[1] + 32, bb[3]))]
     crown = bb[1] + next(i for i, w in enumerate(widths) if w >= 0.5 * max(widths))
     xs = [x for y in range(crown, min(crown + 6, bb[3])) for x in range(W) if px[x, y][3]]
     return bb[3], crown, sum(xs) / len(xs) - W / 2.0
