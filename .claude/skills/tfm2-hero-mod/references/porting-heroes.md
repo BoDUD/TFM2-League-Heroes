@@ -92,6 +92,10 @@ OK = direct, ~ = approximate, X = not possible in data-only mods.
 | Shield an ally (Janna E) | a shield scores its full amount on anyone, so on an ally target the AI shields on cooldown, out of fights too (champion-data section 3); league_janna casts E on an enemy champion with W's gust folded in and shields the ally beside her, herself when alone (champion-data "Shield the ally beside her") | ~ |
 | Cooldown refunded when she slows or knocks up champions (Janna E) | no effect resets a cooldown | X |
 | Knock enemies away, then channel a heal (Janna R) | `Knockback` in a `RangeEffect` around her, then a buff-guarded channel of `Delayed` heals that crowd control or death breaks (champion-data "Knock them away, then channel a heal"); moving cannot end it | OK |
+| Shield that returns after 10 s unhurt (Malphite's Granite Shield) | a `WithShield` buff tells whether it still holds; the next action after it broke starts a 10 s timer and the first action after that shields again (champion-data "A shield that comes back after it breaks"); a `Shield` cannot scale with max health: flat + `ap_ratio` | ~ |
+| Armour-scaled damage (Malphite E, W) | no effect reads armour: `hp_ratio`, a share of the caster's max health, is the tank stat the data has | ~ |
+| Attacks splash in a cone for a few seconds (Malphite W) | a caster window buff; while it lasts the attack adds a `RangeEffect` `Forward` + `DirDot` cone toward its target | OK |
+| Unstoppable charge, knock-up where he lands (Malphite R) | `MoveToTarget` onto an enemy champion under a `cc_immune` buff, the knock-up circle in the dash's `end_effects` (champion-data "Charge onto a champion") | OK |
 | 2-3 stage recast | `cooltime_use_count` or recast buff + `SwitchByBuff` | ~ (AI timing) |
 | Cone / fan of projectiles (Ashe W) | no angle field on any projectile (base harpooner's fan is `Native`): a `LineRangeProjectile` rectangle cast by `Direction`, drawn as a fan sprite centred on it (champion-data "Cone / fan"); the hit area stays a rectangle | ~ |
 | Untargetable / invulnerable | `Banish` on self (a `RangeEffect` on `AllyOnlySelf`; it also makes the unit invisible, puts a CC state on it, stops the caster's own `RandomTarget` finding units and takes away its team's vision around it - only for a caster leaving the fight); in a fight `CasterInvisible` + a `damaged_reduce` 100 / `cc_immune` buff: targetable, but every hit deals 1 | ~ |
@@ -164,6 +168,13 @@ One batch is noisy: the same league_annie 0.13.0 kit gave +1.49 on seeds 1-24 an
 14 + 8% +1.57, with damage 12682 below 12843). Compare candidates on two batches of different seeds and
 read the damage dealt next to the kill difference; the simulator is deterministic, so a kit rerun on the
 same seeds gives the same numbers and the old kit need not be rerun on seeds it already played.
+
+When a first draft is far off, take it apart before tuning. league_malphite (top, against the six base top
+laners) opened at +4.38 kills with 0.6 deaths a game (base fighter +0.93, Darius +1.43, Teemo +1.18 on the
+same seeds); four 432-game candidates, each cutting one side of the kit, showed where it came from: his
+tankiness (armour, the shield) -0.2, his damage -2.0, his crowd control (R's knock-up and cooldown, the slows)
+-1.6. The final kit keeps the tank and trims both, and its last step was the knock-up alone: 1.25 s gave +1.01
+where League's 1.5 s gave +1.80 (864 games each). Rerun on the strips' timings (his fist lands on tick 8, the shard leaves on 12, the slam on 11, the R's damage 4 ticks after he lands) it read +1.31 and +1.63 on two seed batches, the base fighter +0.93 and +1.08; Ground Slam's health ratio 3% -> 2% gave +0.91 and +1.02.
 
 ## League of Legends specifics
 
@@ -527,6 +538,31 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   centre, its hitbox. A projectile's picture turns with the cast direction, so Howling Gale was asked for as a
   vortex seen from above, not a funnel that would fly upside down to the left. The storm shield is a
   `ThreePhase` buff picture (champion-data section 6).
+- **A monster whose head hangs in front of its chest (Malphite, drawn by Claude, restyled, head pasted on
+  the shoulders).** League's Malphite is a mountain of stone plates over crimson flesh with a crest of pale
+  spikes; his head (the `head` part of a `--parts` render) is a rhino-like snout with one huge horn and a
+  small glowing eye, 6 px wide in the middle of his chest at game size. Scaled up (`chibi` head 1.6-2.6) or
+  voted by materials it melted into the chest's stone, so the head is drawn and pasted. What the user
+  rejected, three faces at once: a smooth round ball with a face on it (glowing slits, round eyes with a
+  mouth, a magma mouth) read as a mascot, pale like a sticker, its thin horn an ear, and it broke the "small
+  head, huge body" read. What was accepted (V12a): the head as League builds it, seen from the side like
+  oppi's Alistar and Sion in LoL Reborn - a dark stone snout pointing right with a thick pale horn rising from
+  it, standing in the empty air in front of the spike crest (placed right of the crest so the horn is not
+  lost against the spikes), one glowing eye under a heavy brow, pale plate tops, cracks and a dark collar
+  round the horn's base. League's head stays in the frame, voted as chest stone (`"under"`), so the drawn
+  head leaves no hole. Pasted on League's head joint (19 rows above it) it floated off the body in 9 of 55
+  frames, wherever the small head nodded or swung apart from the shoulders (the attack's wind-up, the ult's
+  landing, the death); `"anchor"` (native_pose) and `"head": {"anchor": true}` (restyle) put it on the
+  shoulders' midpoint instead and turn it with the torso (pelvis to shoulders), and a contact count (head
+  pixels touching the body, lowest 22) checked every frame. Camera yaw 35 unmirrored, legs 0.85, height 26
+  (the head top is League's; 45 px with the spikes, the base ogre's 44), the R landing on the crit clip's
+  smash (League's `RunUlt` is only the charge), idle one frame breathing, the run 40% toward the idle (the user's
+  pick from three looping runs: League's hunched charge made him look small), 54 frames, 14 colours, face (4, -42).
+  Codex's ten effects came as raw generations with a manifest (`assets[].frames[].rect` as [x, y, w, h], the
+  frames not all equally wide); `tools/art/import_malphite.py --raw` measures each strip's scale on the drawings
+  themselves (its widest drawing, or the tallest for the knock-up's eruption, brought to the kit's size) instead
+  of source sizes typed in: the slam's ring 72 px (radius 36000), the crater 64 px, the shield's ring of stones
+  50 px round his body, Thunderclap's two arcs 40 px apart at his fists.
 - **A face point under the hair.** `tfm2_ase.py face` and the lint find the crown at the top of
   the idle sprite, which for Yasuo is the ponytail's tip, 9 px above his head and to the left of
   it. Both now also look for the head from the face: the top two rows of skin-toned pixels and the

@@ -64,6 +64,12 @@ restyle_native.py can colour them frame by frame while the design's head is past
 colours (cyan, magenta) in --parts renders, for restyle_native.py to vote and outline apart from the body
 (Leona's shield, a mesh on its own root joint, read as one gold mass with her armour and cloth).
 
+"anchor": {"joints": ["<joint>", ...], "base": "<joint>"} adds "anchor": [x, y] to every frame in the cells table,
+the mean of those joints where "head" is League's head joint, and "atilt", where the line from the base joint to
+that point leans on screen (like "tilt", only past 45 degrees): Malphite's drawn head sits between his shoulders
+(joints L_shoulder, R_shoulder, base pelvis) while League's small head hangs and nods in front of his chest, and
+restyle_native.py's "head": {"anchor": true} pastes it there.
+
 "crown": <y> measures the crown from the head's vertices at or below that height in the bind pose (League
 units): Leona's crown spikes stand about 12 units above her hair, which doubled with the head and, counted
 as the crown, shrank everything else (height 34 left her face six rows); with "crown": 165 the hair's top is
@@ -331,6 +337,14 @@ def main():
         return sign * (rot @ g[ch.head][:3, 3])[0] * unit
 
     ref_head = head_x(glob)
+    # "anchor": {"joints": [...], "base": "<joint>"} - a drawn head that sits on the torso rather than where
+    # League's head is (Malphite's hangs in front of his chest, the drawn one sits between his shoulders)
+    # follows the mean of these joints; "atilt" is where the torso points on screen (base joint to that mean)
+    anchor = spec.get("anchor")
+    if anchor:
+        by_name = {j["name"].lower(): i for i, j in enumerate(ch.joints)}
+        anc = [by_name[n.lower()] for n in anchor["joints"]]
+        anc_base = by_name[anchor["base"].lower()]
 
     def face_axes(g):
         """The head's up and forward axes in camera space (scaled like the chibi head)."""
@@ -409,7 +423,15 @@ def main():
             fz = face_axes(glob)[1]
             fz = fz / np.linalg.norm(fz)
             face = (CELL[0] + 0.5 + hx - x0 + off[0], head_y + off[1], float(fz[2]), float(np.sign(sign * fz[0]) or 1.0))
-        return lo, hi, (pivot - x0, PIVOT_ROW), hx - ref_head, clipped, (CELL[0] + 0.5 + hx - x0, head_y, tilt), pa, face
+        anc_xy = None
+        if anchor:
+            ap = np.mean([glob[i][:3, 3] for i in anc], axis=0)
+            sp = rot @ ap
+            d = rot @ (ap - glob[anc_base][:3, 3])
+            anc_xy = (CELL[0] + 0.5 + sign * sp[0] * unit - x0, FEET_ROW + dy / Z + down - sp[1] * unit,
+                      np.degrees(np.arctan2(sign * d[0], d[1])))
+        return lo, hi, (pivot - x0, PIVOT_ROW), hx - ref_head, clipped, (CELL[0] + 0.5 + hx - x0, head_y, tilt), pa, face, \
+            anc_xy
 
     table = {}
     tags = args.tag or list(spec["tags"])
@@ -440,8 +462,10 @@ def main():
             pa_img.save(os.path.join(args.out, f"{hero}_parts_{tag}.png"))
         table[tag] = [{"pivot": list(map(int, p)), "ms": int(ms), "head": [round(float(h[0]), 1), round(float(h[1]), 1)],
                        "tilt": int(round(float(h[2]))),
-                       **({"face": [round(float(fc[0]), 1), round(float(fc[1]), 1), round(float(fc[2]), 2), int(fc[3])]} if fc else {})}
-                      for (_, _, p, _, _, h, _, fc), (_, ms, *_) in zip(frames, t["frames"])]
+                       **({"face": [round(float(fc[0]), 1), round(float(fc[1]), 1), round(float(fc[2]), 2), int(fc[3])]} if fc else {}),
+                       **({"anchor": [round(float(an[0]), 1), round(float(an[1]), 1)], "atilt": int(round(float(an[2])))}
+                          if an else {})}
+                      for (_, _, p, _, _, h, _, fc, an), (_, ms, *_) in zip(frames, t["frames"])]
         colours = len(np.unique(np.concatenate([lo[lo[..., 3] > 0][:, :3] for lo, *_ in frames]), axis=0))
         print(f"{hero}_native_{tag}.png  {len(frames)} frames, {cols}x{nrows} cells, {colours} colours; head x from the "
               f"design pose " + " ".join(f"{fr[3]:+.1f}" for fr in frames) +
@@ -467,7 +491,9 @@ def main():
         lines = [f'  "{tag}": [' + ", ".join(f'{{"pivot": [{r["pivot"][0]}, {r["pivot"][1]}], "ms": {r["ms"]}, '
                                              f'"head": [{r["head"][0]}, {r["head"][1]}]' +
                                              (f', "tilt": {r["tilt"]}' if abs(r["tilt"]) >= 45 else "") +
-                                             (f', "face": {r["face"]}' if "face" in r else "") + "}"
+                                             (f', "face": {r["face"]}' if "face" in r else "") +
+                                             (f', "anchor": {r["anchor"]}' if "anchor" in r else "") +
+                                             (f', "atilt": {r["atilt"]}' if abs(r.get("atilt", 0)) >= 45 else "") + "}"
                                              for r in rows_) + "]" for tag, rows_ in table.items()]
         text = f'{{"cell": [{CELL[0]}, {CELL[1]}], "scale": {Z}, "tags": {{\n' + ",\n".join(lines) + "\n}}\n"
         json.loads(text)

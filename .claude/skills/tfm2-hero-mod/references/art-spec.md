@@ -184,6 +184,14 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   at most), seat the chin on the shoulders with `"dy"`, and where a pose turns the torso thin under a big
   head, widen the rows under the chin (`restyle_native.py` `"shoulders"`). Check the ult and every
   side-on pose at game size, not only the idle the design was drawn on.
+- **A monster's face is built from the source's features, not from a chibi face.** For a rock giant the
+  base rule (a big round head, three-row eyes) gave a smooth ball with eyes and a mouth, and the user
+  rejected all three variants at once as a mascot. oppi's creatures in LoL Reborn (Alistar, Sion) show the
+  head from the side: the snout points the way the hero faces, one small eye glows in a dark socket under a
+  brow, and the head's mass joins the shoulders. league_malphite's head followed that and League's model
+  (a dark stone snout, a thick pale horn standing clear of the spike crest, pale plate tops and cracks).
+  Measure where the head meets the body in every frame of every tag (a count of head pixels touching the
+  body) before showing a GIF: a pasted head far from the joint it follows floats off in the swings.
 - **A prop touching a limb becomes part of it.** In Lux's run, League's wand swings upright
   behind her, and its gold end hangs by her back foot. At game size the end (gold, white and
   skin pixels, no outline between) merged with the leg and read as a gold foot: the user saw

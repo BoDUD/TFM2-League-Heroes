@@ -1,0 +1,60 @@
+{
+  "hero": "malphite",
+  "champ": "Malphite",
+  "camera": {"yaw": 35, "pitch": 25, "mirror": false},
+  "chibi": {"head": 1.0, "legs": 0.85},
+  "weapon": "^nothing$",
+  "height": 26,
+  "cell": [96, 96, 12],
+  "design": "Malphite_Idle1@0",
+  "anchor": {"joints": ["L_shoulder", "R_shoulder"], "base": "pelvis"},
+  "restyle": {
+    "head": {"rect": [63, 54, 16, 17], "dx": -1, "dy": -19, "anchor": true,
+             "cut": [[65, 55], [64, 56], [65, 56], [66, 56], [63, 57], [64, 57], [65, 57], [66, 57], [67, 57], [63, 58],
+             [64, 58], [65, 58], [66, 58], [67, 58], [63, 59], [64, 59], [65, 59], [66, 59], [67, 59], [68, 59],
+             [63, 60], [64, 60], [65, 60], [66, 60], [67, 60], [68, 60], [69, 60], [63, 61], [64, 61], [63, 62],
+             [77, 68], [63, 69], [76, 69], [77, 69], [63, 70], [64, 70], [75, 70], [76, 70], [77, 70]],
+             "under": [{"name": "stone", "val": [0.3, 1], "ramp": [["6A5664", 0.42], ["8E7886"]]},
+                       {"name": "dark", "ramp": [["2E2230", 0.18], ["4A3A48"]]}]},
+    "turn": {"dead": 40, "*": 180},
+    "outline": "1A1218",
+    "weapon": [["4A3A48", 0.3], ["8E7886"]],
+    "materials": [
+      {"name": "spike", "sat": [0, 0.2], "val": [0.5, 1], "ramp": [["A8949C", 0.62], ["D4C4C8"]]},
+      {"name": "flesh", "hue": [330, 20], "sat": [0.38, 1], "ramp": [["5E1C2A", 0.22], ["8E2C3C", 0.34], ["C04A58"]]},
+      {"name": "stone", "val": [0.3, 1], "ramp": [["6A5664", 0.4], ["8E7886", 0.55], ["B4A0AC"]]},
+      {"name": "dark", "ramp": [["2E2230", 0.18], ["4A3A48"]]}
+    ]
+  },
+  "tags": {
+    "idle": {"frames": [
+      ["Malphite_Idle1@0", 200], ["Malphite_Idle1@333", 200], ["Malphite_Idle1@667", 200],
+      ["Malphite_Idle1@1000", 200], ["Malphite_Idle1@1333", 200], ["Malphite_Idle1@1667", 200]]},
+    "run": {"head_like": "Malphite_Idle1@0", "flat": true, "frames": [
+      ["Malphite_Run@0>Malphite_Idle1@0:0.4", 100], ["Malphite_Run@104>Malphite_Idle1@0:0.4", 100], ["Malphite_Run@208>Malphite_Idle1@0:0.4", 100],
+      ["Malphite_Run@312>Malphite_Idle1@0:0.4", 100], ["Malphite_Run@416>Malphite_Idle1@0:0.4", 100], ["Malphite_Run@520>Malphite_Idle1@0:0.4", 100],
+      ["Malphite_Run@624>Malphite_Idle1@0:0.4", 100], ["Malphite_Run@728>Malphite_Idle1@0:0.4", 100]]},
+    "attack": {"lunge": 0.7, "frames": [
+      ["Malphite_Idle1@0>Malphite_Attack1@109:0.5", 60], ["Malphite_Attack1@218", 60], ["Malphite_Attack1@300", 70],
+      ["Malphite_Attack1@380", 70], ["Malphite_Attack1@480", 80], ["Malphite_Attack1@600>Malphite_Idle1@0:0.5", 80]]},
+    "skill": {"lunge": 0.7, "frames": [
+      ["Malphite_Idle1@0>malphite_spell1@109:0.5", 60], ["malphite_spell1@218", 70], ["malphite_spell1@327", 80],
+      ["malphite_spell1@420", 70], ["malphite_spell1@520", 80], ["malphite_spell1@660>Malphite_Idle1@0:0.5", 80]]},
+    "skill2": {"lunge": 0.7, "frames": [
+      ["Malphite_Idle1@0>malphite_spell2@77:0.5", 60], ["malphite_spell2@153", 70], ["malphite_spell2@230", 60],
+      ["malphite_spell2@300", 90], ["malphite_spell2@400", 80], ["malphite_spell2@520>Malphite_Idle1@0:0.5", 80]]},
+    "ult": {"lunge": 0.7, "frames": [
+      ["Malphite_RunUlt@0", 80], ["Malphite_RunUlt@81", 80], ["Malphite_RunUlt@161", 80],
+      ["Malphite_RunUlt@242", 80], ["Malphite_RunUlt@323", 80], ["Malphite_RunUlt@403", 80],
+      ["Malphite_RunUlt@484", 80], ["Malphite_RunUlt@565", 80]]},
+    "ult_slam": {"lunge": 0.7, "frames": [
+      ["Malphite_Attack3@327", 60], ["Malphite_Attack3@435", 110], ["Malphite_Attack3@544", 100],
+      ["Malphite_Attack3@653", 100], ["Malphite_Attack3@760>Malphite_Idle1@0:0.5", 100]]},
+    "hit": {"flat": true, "frames": [
+      ["Malphite_Idle1@0>Malphite_Death@150:0.3", 120], ["Malphite_Idle1@0>Malphite_Death@150:0.12", 120]]},
+    "dead": {"lunge": 0.65, "flat": true, "travel": 0.4, "frames": [
+      ["Malphite_Death@0", 100], ["Malphite_Death@150", 100], ["Malphite_Death@300", 100],
+      ["Malphite_Death@450", 120], ["Malphite_Death@600", 150], ["Malphite_Death@800", 150],
+      ["Malphite_Death@1000", 500]]}
+  }
+}
