@@ -1,0 +1,76 @@
+{
+  "hero": "yone",
+  "champ": "Yone",
+  "camera": {"yaw": 35, "pitch": 25, "mirror": true},
+  "chibi": {"head": 2.0, "legs": 0.8, "hair": 0.5},
+  "weapon": "^sword$",
+  "parts": [{"name": "ghost", "joints": "^ghostsword$", "outline": true, "materials": [
+    {"name": "gred", "hue": [330, 30], "sat": [0.45, 1], "val": [0.3, 1], "ramp": [["9E1026", 0.55], ["E8203E"]]},
+    {"name": "gdark", "ramp": [["1A0A10", 0.18], ["3A1420"]]}]}],
+  "hide_submeshes": ["Azakana", "Sushi", "Fish", "Instrument", "Bow_Smear", "Katana_Smear", "GhostKatana_Smear", "Sheath", "Skirt_Inner"],
+  "submesh_textures": {"Katana": "Swords_TX", "GhostKatana": "Swords_TX"},
+  "hair_part": true,
+  "height": 34,
+  "cell": [112, 96, 14],
+  "design": "Yone_Idle01@0",
+  "restyle": {
+    "head": {"rect": [51, 59, 16, 17], "dx": -4, "dy": -5, "cut": [[52, 73], [52, 74], [53, 74], [63, 74], [64, 74], [52, 75], [53, 75], [54, 75], [59, 75], [60, 75], [61, 75], [63, 75]]},
+    "turn": 180,
+    "outline": "120C12",
+    "weapon": [["3E5A60", 0.35], ["7FA6AA", 0.55], ["BEE0E0", 0.8], ["F0FFFF"]],
+    "hair": [["140E1A", 0.13], ["2A2036", 0.2], ["443656"]],
+    "materials": [
+      {"name": "red", "hue": [330, 20], "sat": [0.45, 1], "val": [0.2, 1], "ramp": [["6A0E22", 0.3], ["A8162E", 0.55], ["E02844"]]},
+      {"name": "skin", "hue": [226, 45], "sat": [0, 0.32], "val": [0.3, 1], "ramp": [["9A7888", 0.5], ["C8A6B2", 0.72], ["F0DCE2"]]},
+      {"name": "bandage", "hue": [140, 225], "sat": [0, 0.45], "val": [0.45, 1], "ramp": [["6E9296", 0.6], ["A2C2C4", 0.8], ["D8ECEC"]]},
+      {"name": "teal", "hue": [165, 255], "sat": [0.15, 1], "val": [0.1, 0.5], "ramp": [["142430", 0.2], ["213A4A", 0.3], ["2F5264"]]},
+      {"name": "dark", "ramp": [["101218", 0.14], ["1E2230"]]}
+    ]
+  },
+  "tags": {
+    "idle": {"frames": [
+      ["Yone_Idle01@0", 250], ["Yone_Idle01@494", 250], ["Yone_Idle01@989", 250],
+      ["Yone_Idle01@1483", 250], ["Yone_Idle01@1978", 250], ["Yone_Idle01@2472", 250]]},
+    "run": {"head_like": "Yone_Idle01@0", "flat": true, "frames": [
+      ["Yone_Run01@0", 80], ["Yone_Run01@100", 80],
+      ["Yone_Run01@200", 80], ["Yone_Run01@300", 80],
+      ["Yone_Run01@400", 80], ["Yone_Run01@500", 80],
+      ["Yone_Run01@600", 80], ["Yone_Run01@700", 80]]},
+    "attack": {"lunge": 0.7, "frames": [
+      ["Yone_Idle01@0>Yone_Attack01@0:0.5", 50], ["Yone_Attack01@100", 50], ["Yone_Attack01@200", 60],
+      ["Yone_Attack01@300", 60], ["Yone_Attack01_toIdle01@60", 70], ["Yone_Attack01_toIdle01@200", 80],
+      ["Yone_Attack01_toIdle01@400>Yone_Idle01@0:0.5", 80]]},
+    "attack2": {"lunge": 0.7, "frames": [
+      ["Yone_Idle01@0>Yone_Attack02@0:0.5", 50], ["Yone_Attack02@100", 50], ["Yone_Attack02@200", 60],
+      ["Yone_Attack02@300", 60], ["Yone_Attack02_toIdle01@60", 70], ["Yone_Attack02_toIdle01@200", 80],
+      ["Yone_Attack02_toIdle01@400>Yone_Idle01@0:0.5", 80]]},
+    "skill": {"lunge": 0.7, "frames": [
+      ["Yone_Idle01@0>Yone_Spell1_A_01@0:0.5", 50], ["Yone_Spell1_A_01@117", 50], ["Yone_Spell1_A_01@194", 50],
+      ["Yone_Spell1_A_02@0>Yone_Idle01@0:0.35", 60], ["Yone_Spell1_A_02@117>Yone_Idle01@0:0.35", 70], ["Yone_Spell1_A_02@300>Yone_Idle01@0:0.3", 80],
+      ["Yone_Spell1_A_02@600>Yone_Idle01@0:0.5", 80]]},
+    "q3": {"lunge": 0.0, "frames": [
+      ["Yone_Idle01@0>Yone_Spell1C_in@0:0.5", 50], ["Yone_Spell1C_in@133", 50], ["Yone_Spell1C_in@300", 50],
+      ["Yone_Spell1C_dash@0>Yone_Idle01@0:0.4", 60], ["Yone_Spell1C_dash@156>Yone_Idle01@0:0.4", 60], ["Yone_Spell1C_dash@311>Yone_Idle01@0:0.4", 70],
+      ["Yone_Spell1C_toIdle@100", 80], ["Yone_Spell1C_toIdle@400>Yone_Idle01@0:0.5", 80]]},
+    "skill2": {"lunge": 0.7, "rise": 0.2, "frames": [
+      ["Yone_Idle01@0>Yone_Spell2@0:0.5", 50], ["Yone_Spell2@83>Yone_Idle01@0:0.35", 50], ["Yone_Spell2@167>Yone_Idle01@0:0.35", 60],
+      ["Yone_Spell2@250>Yone_Idle01@0:0.35", 60], ["Yone_Spell2@333>Yone_Idle01@0:0.35", 70], ["Yone_Spell2_toIdle@100", 80],
+      ["Yone_Spell2_toIdle@500>Yone_Idle01@0:0.5", 80]]},
+    "e_dash": {"lunge": 0.0, "frames": [
+      ["Yone_Spell3_spiritIn@0>Yone_Idle01@0:0.3", 60], ["Yone_Spell3_spiritIn@80>Yone_Idle01@0:0.3", 60], ["Yone_Spell3_spiritIn@160>Yone_Idle01@0:0.3", 60],
+      ["Yone_Spell3_spiritIn_toIdle@150", 80], ["Yone_Spell3_spiritIn_toIdle@400>Yone_Idle01@0:0.5", 80]]},
+    "ult": {"lunge": 0.3, "frames": [
+      ["Yone_Idle01@0>Yone_Spell4_in@200:0.5", 60], ["Yone_Spell4_in@400", 60], ["Yone_Spell4_in@900>Yone_Idle01@0:0.35", 70],
+      ["Yone_Spell4_in@1450>Yone_Idle01@0:0.35", 70], ["Yone_Spell4_out_moving@0", 60], ["Yone_Spell4_out_moving@150", 60],
+      ["Yone_Spell4_out_moving@400", 80], ["Yone_Spell4_out_notMoving@200", 90],
+      ["Yone_Spell4_out_toIdle@300>Yone_Idle01@0:0.5", 100]]},
+    "e_body": {"frames": [
+      ["Yone_Spell3_bodyLoop@0", 2000], ["Yone_Spell3_bodyLoop@1000", 2000]]},
+    "hit": {"flat": true, "frames": [
+      ["Yone_Idle01@0>Yone_Death01@150:0.3", 120], ["Yone_Idle01@0>Yone_Death01@150:0.12", 120]]},
+    "dead": {"lunge": 0.65, "flat": true, "frames": [
+      ["Yone_Death01@0", 100], ["Yone_Death01@200", 100], ["Yone_Death01@400", 100],
+      ["Yone_Death01@600", 120], ["Yone_Death01@800", 150], ["Yone_Death01@1100", 150],
+      ["Yone_Death01@1566", 500]]}
+  }
+}
