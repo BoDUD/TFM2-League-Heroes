@@ -65,6 +65,19 @@ that changed every frame, so his head is pasted - drawn square by square after L
 the way he holds it in idle (League's head tilts within 20 degrees of that in almost every frame).
 "head": {"forward": true} also turns a pasted head a quarter the other way when the crown points forward
 past the limit: he falls on his face in death (tilt +63 to +80), where only lying on the back was turned.
+Janna (league_janna) is slender: at 28 px her arms, legs and the cloth strips of her skirt are one or two pixels
+wide, and the outline drawn around each of them cut her into dark stripes (as many outline pixels as body
+pixels). "cover": 0.3 makes a block opaque from 30% of its pixels instead of half (her limbs a pixel thicker,
+the skirt one white shape); "close": <rounds> fills empty pixels between two body pixels (left and right, or
+above and below) with the colour beside them before the outline. "weapon_materials": [...] votes weapon pixels
+by hue like "materials" before the brightness ramp takes the rest: her staff is blue, its gems orange.
+Her pasted head first carried two rows of the design's neck, drawn on the idle body with an outline down its
+middle, and in Monsoon League turns her torso side-on, three pixels wide: in game the user saw a head on a pipe.
+The rect now ends a row under the chin, "paint": [[x, y, "<hex>"], ...] recolours design pixels of the block
+(that row's neck one piece of skin), "dy" puts the chin on the shoulders, and "shoulders": {"x": <column>,
+"widths": [...]} widens the body under the block before the head goes on: row by row from the row under it,
+round the block's column x (the neck), to at least those widths, each new pixel the colour of the nearest body
+pixel in its row, the outline drawn round the new pixels. Not on a turned (lying) head.
 Malphite (league_malphite) has a tiny head hanging in front of his chest, under his shoulders and back spikes;
 voted or scaled up it melted into the chest's stone, so a drawn head (a horned rock snout) sits higher, between
 his shoulders. "head": {"under": [materials]} keeps League's head, voted by those materials, as part of the
@@ -124,11 +137,16 @@ class Palette:
         # "under": League's head stays, voted by these materials, below a drawn head pasted elsewhere
         self.head_under = spec.get("head", {}).get("under") is not None
         self.head_materials = spec.get("head", {}).get("under" if self.head_under else "materials")
+        self.weapon_materials = spec.get("weapon_materials")
+        self.close = int(spec.get("close", 0))
+        self.cover = float(spec.get("cover", 0.5))
         self.extra = list(parts)
         if self.materials is None:
             ramps = [(name, spec[name]) for name in ("weapon", "steel", "cloth", "skin")]
         else:
-            ramps = [("weapon", spec["weapon"])] + ([("hair", spec["hair"])] if self.hair else []) + \
+            ramps = [("weapon", spec["weapon"])] + \
+                    [("weapon:" + m["name"], m["ramp"]) for m in (self.weapon_materials or [])] + \
+                    ([("hair", spec["hair"])] if self.hair else []) + \
                     [(m["name"], m["ramp"]) for m in self.materials] + \
                     [("head:" + m["name"], m["ramp"]) for m in (self.head_materials or [])] + \
                     [(f"part{k}:" + m["name"], m["ramp"]) for k, ex in enumerate(self.extra) for m in ex["materials"]]
@@ -172,6 +190,8 @@ class Palette:
         out = np.full(v.shape, -1, np.int32)
         w = part == WEAPON
         out[w] = self.ramp("weapon", v[w])
+        if self.weapon_materials:        # colours of the weapon apart from its ramp (Janna's orange gems)
+            self.classify(h, s, v, out, w, self.weapon_materials, "weapon:")
         if self.materials is not None:
             if self.head_materials is not None:       # a voted head: head and hair by their own classes
                 self.classify(h, s, v, out, (part == HEAD) | (part == HAIR), self.head_materials, "head:")
@@ -209,6 +229,27 @@ def lonely(a, rounds=2):
         v = n[0][swap]
         a[swap, 0], a[swap, 1], a[swap, 2] = (v >> 16) & 255, (v >> 8) & 255, v & 255
     return a
+
+
+def close_gaps(a, solid, rounds=1):
+    """Fill empty pixels between two `solid` pixels (left and right, or above and below) with the colour of
+    the left or upper one, `rounds` times: league_janna's skirt is thin cloth strips a pixel apart, and an
+    outline drawn into every gap cut it into dark stripes. Returns the frame and the filled pixels."""
+    filled = np.zeros(solid.shape, bool)
+    for _ in range(rounds):
+        s = solid | filled
+        p = np.pad(s, 1)
+        lr = p[1:-1, :-2] & p[1:-1, 2:]
+        ud = p[:-2, 1:-1] & p[2:, 1:-1]
+        new = ~s & (a[..., 3] == 0) & (lr | ud)
+        if not new.any():
+            break
+        src = np.pad(a, ((1, 1), (1, 1), (0, 0)))
+        left, up = src[1:-1, :-2], src[:-2, 1:-1]
+        a[new & lr] = left[new & lr]
+        a[new & ~lr] = up[new & ~lr]
+        filled |= new
+    return a, filled
 
 
 def near(m):
@@ -272,12 +313,16 @@ def body(pal, hi, pa, w, h):
     count = np.stack([(bp == k).sum(-1) for k in (HEAD, WEAPON, BODY, HAIR) + EXTRA[:len(pal.extra)]], -1)
     main = count.argmax(-1)
     score = np.stack([(bv == k).sum(-1) * pal.weight[k] for k in range(len(pal.rgb))], -1)
-    on = ((bp >= 0).mean(-1) >= 0.5) | ((main == WEAPON) & (count[..., WEAPON] >= 20))
+    on = ((bp >= 0).mean(-1) >= pal.cover) | ((main == WEAPON) & (count[..., WEAPON] >= 20))
     voted = pal.head_materials is not None
     keep = on if voted else on & (main != HEAD)
     a = np.zeros((h, w, 4), np.uint8)
     a[keep, :3] = pal.rgb[score.argmax(-1)[keep]]
     a[keep, 3] = 255
+    if pal.close:          # one-pixel gaps between thin cloth strips filled, so no outline runs through the skirt
+        a, filled = close_gaps(a, keep & (main != WEAPON), pal.close)
+        keep = keep | filled
+        main = np.where(filled, BODY, main)
     a = lonely(a)
     if voted and not pal.head_under:
         a = clean_face(a, keep & (main == HEAD), pal)
@@ -321,6 +366,33 @@ def paste_head(a, weapon, head, joint, tilt, turn=TURN, dy=0, dx=0, forward=Fals
             yy, xx = y0 + j, x0 + i
             if c and 0 <= yy < a.shape[0] and 0 <= xx < a.shape[1] and not weapon[yy, xx]:
                 a[yy, xx] = rgb(c) + (255,)
+
+
+def shoulders(a, weapon, cx, top, widths, outline):
+    """The body under a pasted head at least `widths` wide, row by row from `top` (the row under the head
+    block), round column cx: a new pixel takes the colour of the nearest body pixel in its row, the outline
+    goes round the new pixels. league_janna's torso is three pixels wide in Monsoon, under a 14 px head."""
+    h, w = a.shape[:2]
+    body = (a[..., 3] > 0) & ~(a[..., :3] == outline).all(-1) & ~weapon
+    grown = np.zeros(body.shape, bool)
+    for r, width in enumerate(widths):
+        y = top + r
+        if not 0 <= y < h:
+            continue
+        span = [x for x in range(int(cx) - 5, int(cx) + 6) if 0 <= x < w and body[y, x]]
+        if not span:
+            continue
+        need = max(0, width - (max(span) - min(span) + 1))
+        for x in range(max(0, min(span) - (need + 1) // 2), min(w, max(span) + need // 2 + 1)):
+            if body[y, x] or weapon[y, x]:
+                continue
+            src = min(span, key=lambda s: (abs(x - s), s))
+            a[y, x] = a[y, src]
+            grown[y, x] = True
+    solid = (a[..., 3] > 0) & ~(a[..., :3] == outline).all(-1)
+    ring = near(grown) & ~solid
+    a[ring, :3] = outline
+    a[ring, 3] = 255
 
 
 def paste_face(a, weapon, head_px, feats, cell, pal, min_facing, dy=-1, trim=0, hair_above=0, profile=None,
@@ -469,8 +541,9 @@ def main():
     else:
         x0, y0, hw, hh = rs["head"]["rect"]
         cut = {tuple(p) for p in rs["head"].get("cut", [])}
-        head = [["%02X%02X%02X" % tuple(design[y0 + j, x0 + i, :3])
-                 if design[y0 + j, x0 + i, 3] and (x0 + i, y0 + j) not in cut else None for i in range(hw)]
+        paint = {(p[0], p[1]): p[2] for p in rs["head"].get("paint", [])}
+        head = [[paint.get((x0 + i, y0 + j)) or ("%02X%02X%02X" % tuple(design[y0 + j, x0 + i, :3])
+                 if design[y0 + j, x0 + i, 3] and (x0 + i, y0 + j) not in cut else None) for i in range(hw)]
                 for j in range(hh)]
 
     def frames(tag):
@@ -503,7 +576,12 @@ def main():
                 if neck is not None:
                     scarf_neck(a, head_px, cell, pal, neck, fs.get("min_facing", 0.05))
             else:
-                paste_head(a, weapon, head, (cell[at][0], cell[at][1], jx, jy), cell.get(tilt_key, 0), turn,
+                tilt, sh = cell.get(tilt_key, 0), rs["head"].get("shoulders")
+                if sh and -turn < tilt and not (rs["head"].get("forward", False) and tilt >= turn):
+                    top = int(round(cell[at][1] - jy)) + rs["head"].get("dy", 0) + len(head)
+                    left = int(round(cell[at][0] - jx)) + rs["head"].get("dx", 0)
+                    shoulders(a, weapon, left + sh["x"], top, sh["widths"], pal.outline)
+                paste_head(a, weapon, head, (cell[at][0], cell[at][1], jx, jy), tilt, turn,
                            rs["head"].get("dy", 0), rs["head"].get("dx", 0), rs["head"].get("forward", False))
             sheet[k // cols * h:(k // cols + 1) * h, k % cols * w:(k % cols + 1) * w] = a
         Image.fromarray(np.repeat(np.repeat(sheet, Z, 0), Z, 1), "RGBA").save(G.lp(os.path.join(SRC, f"{hero}_{tag}.png")))

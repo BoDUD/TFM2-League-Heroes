@@ -118,6 +118,15 @@ also means minions and monsters: a non-penetrating skillshot on it stops on the 
   means "lowest health": base Priest's ult finds that ally in hard-coded logic
   (`lowest_hp_ally_in_range`). Heal, RangeEffect, Combine, Delayed, WithSelf and the projectiles
   all report their expected heal, so a heal nested in them still counts.
+- **A shield is worth its full amount on anyone** *(read from the SDK's game_core,
+  `ShieldEffect::expected_shield`: the amount plus its ratio parts, nothing about the target; measured
+  in the SDK simulation for league_janna E)*. Unlike a heal, a shield's score ignores the target's
+  health and whether any enemy is near, so a shield on an ally target goes out whenever it is ready:
+  league_janna's first E (`Targeting AllyChampion`, 7 s) was cast on cooldown, mostly on herself, often
+  at full health with no enemy champion within 100000; on `AllyNotSelf` with a 5 s cooldown it went
+  out 46 times in 10 minutes, most of them out of any fight, and her team did worse (kill difference
+  -1.32) than with the same shield cast on an enemy champion and handed to an ally from there (+0.29,
+  section 7 "Shield the ally beside her, only in a fight").
 - Self-buffs that should fire "in combat" work best as `casting_type: None` +
   `casting_target: EnemyChampion` + a `range` (cast when an enemy champion is that close) - this
   is how Nocturne's shroud is wired. `AllyOnlySelf` + range 0 also exists (Aatrox ult).
@@ -128,7 +137,7 @@ also means minions and monsters: a non-penetrating skillshot on it stops on the 
   missing-health score above did not hold it back. On `EnemyWithoutTower` within melee range it goes
   off as a fight starts. So give a self-heal something worth having at full health too:
   league_masteryi meditates for 0.75 s (40% less damage taken, a heal over 2 s) and then gets Wuju
-  Style.
+  Style. (Until 0.15.0 that heal sat in a `WithSelf` of a `None` action and never ran, section 4.)
 - `action_name` may be any tag: `ult_cast`, `skill2_dash`... Base uses this heavily.
 - `can_use_with_move` lets the unit cast without stopping. No base skill uses it (LoL Reborn
   does), and it does not let the unit walk during a `CasterAnimation`.
@@ -149,7 +158,7 @@ Every effect is `{"type": "<Type>", ...fields}`. Counts = uses across base + 52 
 |---|---|---|
 | Combine | effects[] | run all, in order |
 | Delayed | tick, effects[] | run after `tick` |
-| WithSelf | effects[] | apply to the caster *(inferred)* |
+| WithSelf | effects[] | the caster, **and again the action's target** when that is another unit; nobody when the action has no unit target (below) |
 | SwitchByBuff | buff_name, effect_buff, effect_none | branch on whether the **caster** has the buff |
 | SwitchByLevel3 | effect_start, effect_level3 | level-based branch, seen once *(semantics unverified)* |
 | RandomTarget | range, casting_target, from_projectile, effects[] | pick a random valid unit in range, apply effects to it |
@@ -187,10 +196,27 @@ list of casted effects each time, so repeated hits stack, each with its own time
 the count. `Bleed` is the base Inquisitor's bleed (league_darius uses it for Hemorrhage).
 
 `attack_effect_type` on the three attack effects: `Target` (every pack writes it) hits the
-effect's own target with no team check, so `WithSelf` + `FixedAttack` damages the caster;
+effect's own target with no team check, so a `FixedAttack` given to the caster alone (a `RangeEffect` on
+`AllyOnlySelf`, below) damages the caster;
 the engine's other kinds are `EnemyTarget` (skips the caster's team) and `EnemyAll {..}`.
 `FixedAttack` with only `target_hp_ratio` has an expected damage of 0 for the AI (it is
 estimated from the caster's stats), which keeps a health cost out of the skill's score.
+
+**`WithSelf` is not "the caster only"** *(read from the SDK's game_core, `WithSelfEffect::apply`, and
+measured in the SDK simulation for league_janna, 2026-09-28)*. When the action's target is a unit other
+than the caster, it applies its effects to the caster and then **again to that target**; when the target
+is the caster, or the action has no unit target (a `None`, `Direction` or `Position` cast), it applies them
+once, to that target - so to nobody. A `WithSelf {FixedAttack 77}` in a basic attack hit the attacker 30
+times and the enemy champion she attacked 7 times; the same wrapper in a `None` skill hit no one. Every self
+effect written this way misfired until 0.15.0: league_soraka W's 6% health cost also hit the ally she healed
+(a fighter lost 89 = 6% of 1490), her Q's Rejuvenation hung a second heal over time on the enemy champion hit,
+league_annie W's Molten Shield also shielded the enemy it was cast on, league_yasuo's Flow shielded the enemy
+he attacked or dashed through (and nothing when Q set it off), and league_masteryi's Meditate never healed.
+For the caster alone use `RangeEffect {shape: {Circle: {radius: 1000}}, target: AllyOnlySelf, apply_type:
+AroundCaster, effects: [...]}`: it reached the caster only, in `Targeting` and `None` actions and in a
+projectile's `applied_effects` alike. `lint_mod.py` warns about a `WithSelf` around an effect on a unit.
+Wrappers that only touch the caster's own buffs (the kill checks of league_jinx and league_missfortune,
+league_jinx's trap lock, league_annie's Pyromania, league_teemo's trap flags) run twice with the same result.
 
 **Critical strikes follow the action's `attack_type`** *(read from the SDK's game_core,
 `apply_attack_inner`)*. In an action with `attack_type: BaseAttack`, every `Attack` (in projectiles
@@ -229,7 +255,8 @@ ticks of `CasterInvisible` after each blink, enemy champions still started about
 on him per game inside those windows. `Banish` sets the unit's block-target timer as well
 (`EntityCanTarget { can_target: false }`), and `CastingTarget::check` refuses a target that has one,
 so nobody can pick it; it also adds a CC state and makes it invisible. The Touhou pack banishes its
-caster this way (Koishi's ult, `RangeEffect` on `AllyOnlySelf`; `WithSelf` works too). While the
+caster this way (Koishi's ult, `RangeEffect` on `AllyOnlySelf`; a `WithSelf` would banish the action's
+target as well, section 4). While the
 caster is banished its own `RandomTarget` finds no unit at all, but effects on the action's target,
 `Teleport` and queued `Delayed` effects still run.
 
@@ -378,7 +405,7 @@ the caster for `tick`; the caster stays in place meanwhile, so move it from the 
 
 `duration`: `{"Time": {"tick": N}}` | `"Permanent"` | `"WithShield"` (lasts while the shield
 holds). Some pack buffs omit it - set it explicitly. *(seen in the SDK simulation, league_annie E:
-a `WithShield` caster buff added right after `WithSelf {Shield {tick: 180}}` was gone 180 ticks later
+a `WithShield` caster buff added right after her own `Shield {tick: 180}` was gone 180 ticks later
 when nobody hit her, and 89 ticks after the cast when enemies broke the shield first.)*
 
 **Death clears a mod's buffs** *(seen in the SDK simulation, a probe hero on league_teemo)*: a
@@ -434,6 +461,10 @@ the same champion file.
 - `view_projectiles` <- the `name` of any projectile/zone effect. Also `{"type": "Sprite", "name", "sprite"}` for a static image.
 - `view_effects` <- `ViewEffect` / `CasterViewEffect` names (and `range_effect_name`).
 - `view_buffs` <- `buff_state.name`. `{"type": "ThreePhase", "pre_tag", "loop_tag", "remove_tag"}` gives an intro/loop/outro buff.
+  All three tags are required (without `remove_tag` the SDK's parser refuses the kit: `sdk_probe` "missing field
+  `remove_tag`"). league_janna's storm shield plays Eye of the Storm's forming as `pre_tag`, the storm while the
+  shield holds as `loop_tag` and the forming played backwards as `remove_tag`: a separate `ViewEffect` for the
+  intro would play on top of the buff's loop.
 - `z` < 0 draws under units (ground decals, zones); `is_follow` makes an effect follow its unit.
 - The whole schema (serde names in the SDK's `game_core` metadata): `view_effects` are `Animation` or
   `LoopAnimation`, each `{name, anim, tag, z, is_follow}`; `view_projectiles` are `Animated
@@ -530,8 +561,8 @@ centred vertically in its canvas (an offset would flip when she fires to the lef
 
 **Burn / poison.** `AddCasted {casted_type: Fire, duration, period, effects: [ApAttack]}`.
 
-**Untargetable window.** Only `Banish` makes a unit untargetable (`WithSelf {Banish {duration}}` or
-a `RangeEffect` on `AllyOnlySelf`), and a banished unit sees nothing for its team (section 4): fine
+**Untargetable window.** Only `Banish` makes a unit untargetable (in a `RangeEffect` on `AllyOnlySelf`;
+a `WithSelf` would banish the action's target too), and a banished unit sees nothing for its team (section 4): fine
 for a caster that leaves the fight, not for one in the middle of it. `Invisible` only hides the unit
 from afar. For a caster who stays among enemies: `CasterInvisible` plus a caster buff with
 `damaged_reduce: 100` and `cc_immune` - enemies next to it still pick it and swing, but every hit
@@ -639,15 +670,18 @@ landing spot. *(inferred: Knockback pushes away from the caster at a constant sp
 
 **Heal an ally at a health cost (league_soraka W).** `Targeting` + `AllyNotSelf`: `Heal
 {heal_type: Ally}` on the target, then a 3-tick caster buff with `undying: true` and
-`WithSelf {FixedAttack {damage: 0, target_hp_ratio: 6, attack_effect_type: Target}}` - 6% of her
-own max health that can never kill her (League forbids the cast below 5% health). Under
+`FixedAttack {damage: 0, target_hp_ratio: 6, attack_effect_type: Target}` in a `RangeEffect` on
+`AllyOnlySelf` - 6% of her own max health that can never kill her (League forbids the cast below 5%
+health). Until 0.15.0 it was a `WithSelf`, and the ally she healed lost 6% of its maximum health too
+(section 4). Under
 Rejuvenation the cost is skipped and the target gets Rejuvenation too, as in League. *(inferred
 from the engine code; not yet seen in game)*
 
 **Heal over time (league_soraka Rejuvenation).** `AddCasted {casted_type: Heal, duration: 150,
 period: 30, effects: [Heal {amount: 15, ap_ratio: 6, heal_type: Ally}]}` on the target heals it
-5 times (75 + 30% AP over 2.5 s); for the caster itself wrap it in `WithSelf` with `heal_type:
-Caster`. Every cast adds another instance. *(seen in the SDK simulation: the caster's heal and
+5 times (75 + 30% AP over 2.5 s); for the caster itself put it in a `RangeEffect` on `AllyOnlySelf`
+with `heal_type: Caster` (the `WithSelf` used until 0.15.0 inside the star's `applied_effects` also hung a
+copy on the enemy champion hit, which healed her again while it lived). Every cast adds another instance. *(seen in the SDK simulation: the caster's heal and
 self-heal statistics rose with it; not yet seen in game)*
 
 **What a heal is worth to the AI.** Heals score `min(heal, missing health)` (section 3), and the
@@ -659,6 +693,37 @@ Rejuvenation passed to the target did (+50% in 10 simulated minutes, near base P
 (base Priest's ult range) and `RangeEffect {radius: 960000, target: AllyChampion}` around the
 caster. Cast as `None` on `AllyOnlySelf` (Touhou Reimu, LoL Reborn Alistar) the AI fires it as soon
 as it is ready, full health or not; a target lets the heal score above (0 at full health) decide.
+
+**Shield the ally beside her, only in a fight (league_janna E, Eye of the Storm with Zephyr).** A
+shield scores its full amount on anyone (section 3), so the cast goes on an enemy champion instead:
+`Targeting` + `EnemyChampion` (range 90000) fires Zephyr at it (a `TargetProjectile`: damage and a 2 s
+slow), then `RandomTarget {range: 50000, casting_target: AllyNotSelf}` from Janna adds a 3-tick lock
+buff to her and gives the picked ally the shield, a `WithShield` buff (`attack_mult` 15: the bonus
+lasts while the shield holds - 4.0 s on an ally nobody hit, in the simulation) and its view; a
+`Delayed {tick: 1}` then checks the lock and, when nobody stood beside her, shields herself through
+`RangeEffect {target: AllyOnlySelf}` (a `WithSelf` there would also shield the enemy, section 4). In
+10 simulated minutes every cast came in a fight: the shield went 4 times each to the ADC and the mid
+laner, once each to top and jungle, and 4 times to herself. `RandomTarget`'s `casting_target` counts
+from the caster's team even inside a projectile's `applied_effects`; shielding an ally next to the
+enemy the gust hit (`from_projectile: true`, 30000) found nobody most of the time, because she casts
+from 85000 away and her lane partner stands beside her.
+
+**Knock them away, then channel a heal (league_janna R, Monsoon).** A `RangeEffect` around her on
+`EnemyWithoutTower` with `Knockback {speed: 2000, tick: 15}` pushes every enemy in it straight away from
+her *(measured in the simulation: from 28000 to 70000 and from 22000 to 39000 units)*. The channel is a
+200-tick caster buff and `CasterAnimation ult_loop` for as long (the forced tag loops, like league_garen's
+400 ms spin for 3 s), and four `Delayed` heal pulses 60 ticks apart, each first a
+`RandomTarget {range: 1, casting_target: AllyChampionInCC}` that finds only herself, and only while she
+is crowd-controlled (it removes the buff and the animation), then `SwitchByBuff` on the buff, which her
+death clears as well. Keep every pulse inside the buff: the first draft's fourth pulse came at tick 202
+of a 190-tick buff and never healed. Cast on `Targeting AllyChampion` (range 40000, so the heal's score
+decides) she used it 3.5 times in 10 minutes, some of them at full health; as `None` on `EnemyChampion`
+within 30000 only 1.2 times, and her team did worse (-1.67 against -1.16). Without the knockback the
+result hardly changed (-1.25), so it stays: it also sets up league_yasuo's R.
+Timing the casts to her animation (attack and Q on tick 13, E on 11, the knockback on 20 instead of 10) took
+her from +0.29 to -0.42 against the five base supports; the kit shipped with the storm shield at 150 + 75% AP
+and each Monsoon pulse at 130 + 50% AP: +0.11, with league_soraka -0.07, league_leona +0.78 and the base
+priest +1.10 in the same batch (either raise alone: -0.20 / -0.15).
 
 **Fold an ability that has its own, longer cooldown into another (league_soraka E on Q).** The
 host skill starts with `SwitchByBuff` on a hidden caster buff that lasts the folded ability's
@@ -728,7 +793,9 @@ and whose cooldown is up is cast as soon as the dash's action ends.
 
 **A shield that waits for combat (league_yasuo Flow).** There is no "took damage" trigger, so every
 action (basic attack, both skills) starts with `SwitchByBuff flow_cd`: without it, add `flow_cd`
-(12 s) and `WithSelf {Shield}` (a `Shield` in a `Targeting` action would shield the enemy). The first
+(12 s) and the shield on himself through a `RangeEffect` on `AllyOnlySelf` (a bare `Shield` in a
+`Targeting` action shields the enemy, and so did the `WithSelf {Shield}` used until 0.15.0, which gave him
+nothing when Q, a `Direction` cast, set it off). The first
 action of a fight shields him; the ult removes `flow_cd` to refill it.
 
 **A projectile wall does not port (league_yasuo Wind Wall, removed).** Nothing blocks projectiles
@@ -747,6 +814,10 @@ heroes (Darius E pull, Amumu Q/R stuns, Ashe R, Lux Q root); his own whirlwind m
 minions, since his Q is cast on anything. **When a new hero brings knock-ups or other hard CC
 (Malphite, Alistar, Nautilus...), rerun that simulation with Yasuo on its team and revisit his R**
 (its range, or letting it take a few more CC kinds) - the user asked for this.
+Supports measured that way (2026-09-28, Yasuo top, the support on his team, 24 seeds a side): he cast it
+0.92 times a game beside league_janna (Howling Gale's knock-up, Monsoon's knockback), 1.85 beside
+league_leona, 0.54 beside league_soraka and 0.48 beside the base priest - Janna sits between the
+supports without hard CC and Leona, and his R stayed as it was.
 
 **Kill trigger (league_jinx Get Excited!).** No effect fires on a kill, but section 4's facts make one:
 1. Next to the damaging projectile, fire an invisible twin with the same speed and path and
@@ -754,7 +825,8 @@ minions, since his Q is cast on anything. **When a new hero brings knock-ups or 
    `TargetSplashProjectile` with the same `range` next to a splash), so only champions are checked.
 2. In the twin's `applied_effects`: `AddCasterBuff flag` (a few ticks), an `AddCasted {duration: 3,
    period: 1}` on the target whose effect is `RemoveCasterBuff flag`, and `WithSelf {Delayed {tick: 4,
-   SwitchByBuff flag -> reward}}`.
+   SwitchByBuff flag -> reward}}` (the `WithSelf` queues the check twice, on the caster and on the target;
+   the first run removes the flag before its reward, so the reward comes once).
 3. A living target runs the casted effect and clears the flag; a dead one drops it, and the flag is
    still there when the delayed check reads it.
 
@@ -848,8 +920,9 @@ then adds nothing). Three rules keep it League's:
 In 10 simulated minutes she stunned 14 champions; a Q, W or R cast in flight when the next spell starts
 could carry a second stun, but each of her actions lasts longer than its projectile's flight.
 
-**A shield that burns back (league_annie Molten Shield, folded into W).** `WithSelf {Shield}` (a shield in
-a `Targeting` action on an enemy would shield the enemy) followed by `AddCasterBuff` of a `WithShield`
+**A shield that burns back (league_annie Molten Shield, folded into W).** A `Shield` on her through a
+`RangeEffect` on `AllyOnlySelf` (until 0.15.0 a `WithSelf {Shield}`, which shielded the enemy W was cast on
+as well) followed by `AddCasterBuff` of a `WithShield`
 buff with `damage_reflect` 20 (and its `view_buffs` picture): the reflect and the picture end when the
 shield breaks or runs out (section 5). League's E returns a flat hit once per attacker; the engine only
 has the percentage. `damage_reflect` sends that share of every hit the unit takes - basic attacks and

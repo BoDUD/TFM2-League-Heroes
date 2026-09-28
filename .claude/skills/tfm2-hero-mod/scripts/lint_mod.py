@@ -295,6 +295,31 @@ def untargeted_moves(node, under_random=False):
     return 0
 
 
+# effects that act on the unit they are applied to (not the caster's own buffs, sounds or pictures)
+UNIT_EFFECTS = {"Shield", "Heal", "FixedAttack", "Attack", "ApAttack", "AddCasted", "AddBuff", "Stun", "Bind",
+                "Airborne", "Banish", "Knockback", "Pull", "Grab", "Taunt", "Charm", "Fear", "BlockAttack",
+                "BlockSkill", "BlockMoveSkill", "Invisible"}
+
+
+def withself_unit_effects(node, inside=False):
+    """Types of unit effects under a WithSelf (not under a RangeEffect / RandomTarget / projectile, which pick
+    their own targets). The engine applies WithSelf's effects to the caster and again to the action's target
+    when that is another unit, and to nobody in an action without a unit target (WithSelfEffect::apply)."""
+    found = set()
+    if isinstance(node, dict):
+        t = node.get("type")
+        if inside and t in UNIT_EFFECTS:
+            found.add(t)
+        if t in ("RangeEffect", "RandomTarget") or (t in PROJECTILE_EFFECTS):
+            inside = False
+        for k, v in node.items():
+            found |= withself_unit_effects(v, inside or t == "WithSelf")
+    elif isinstance(node, list):
+        for v in node:
+            found |= withself_unit_effects(v, inside)
+    return found
+
+
 def check_face(rep, where, sprite_stem, face):
     """champion_view `face` against the sprite's idle head (tfm2_ase.suggest_face: base champions
     put it at the crown, ~1.5 px ahead of the head centre). A point above the head makes every
@@ -610,6 +635,12 @@ def main(argv=None):
             if a.get("casting_type") == "None" and untargeted_moves(a.get("effect")):
                 rep.warn(WA, "MoveToTarget in a casting_type None action has no target and will not move - "
                              "cast as Targeting or wrap it in RandomTarget")
+            bad = withself_unit_effects(a.get("effect"))
+            if bad:
+                rep.warn(WA, f"WithSelf around {', '.join(sorted(bad))}: the engine applies it to the caster AND again to "
+                             "the action's target when that is another unit, and to nobody when the action has no unit "
+                             "target (None, Direction, Position) - for the caster alone use RangeEffect {shape Circle "
+                             "1000, target AllyOnlySelf, apply_type AroundCaster}")
             if slot == "attack" and f"{cid}_attack" in sfx_names(a.get("effect")):
                 rep.warn(WA, f"Sfx '{cid}_attack': the engine already plays <id>_attack on every basic attack, "
                              f"so it sounds twice - rename it (e.g. {cid}_attack_hit)")

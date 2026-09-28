@@ -56,6 +56,10 @@ Sin's first idle, fixed in `leesin_retouch.json`).
   per pack, keep it identical for every frame, and verify in-game by standing the hero next to a
   base champion; adjust the canvas (not the art) until the feet line up.
 - Never let the character drift between frames: keep the feet row fixed in idle/attack/skills.
+- A hovering hero floats a few pixels above that line: the base ghost's lowest pixel is about 6 px above
+  where feet would be. league_janna floats 3 px (`native_pose.py` `"hover"`: the pivot moves down, so every
+  frame stands that high; her idle floats a row up and down as one drawing, and her death `"sink"`s back to the
+  ground). Draw the ground line on the loops when you check them.
 
 ## Aseprite file conventions (what the game loads)
 
@@ -173,6 +177,13 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   --hq`) scowls under slanted brows with stubble; the user kept the base game's two-row eyes and
   took a heavy three-square brow, a furrow before the far brow and stubble on the chin. A changed
   design face is pasted into every frame on the next `restyle_native.py` run; nothing else moves.
+- **A pasted head sits on the shoulders, with no neck of its own.** league_janna's head block ended two
+  rows under her chin, on the neck drawn for the idle body (an outline down its middle). Stamped on every
+  frame, it met League's slender torso, side-on and three pixels wide in Monsoon, and in game the user saw
+  the head apart from the body, joined by a pipe. End the block at the chin (a row of plain skin under it
+  at most), seat the chin on the shoulders with `"dy"`, and where a pose turns the torso thin under a big
+  head, widen the rows under the chin (`restyle_native.py` `"shoulders"`). Check the ult and every
+  side-on pose at game size, not only the idle the design was drawn on.
 - **A monster's face is built from the source's features, not from a chibi face.** For a rock giant the
   base rule (a big round head, three-row eyes) gave a smooth ball with eyes and a mouth, and the user
   rejected all three variants at once as a mascot. oppi's creatures in LoL Reborn (Alistar, Sion) show the

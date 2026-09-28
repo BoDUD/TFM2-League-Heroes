@@ -261,8 +261,8 @@
                     "casting_type": "Targeting",
                     "effect": {
                       "type": "ApAttack",
-                      "damage": 80,
-                      "attack_ratio": 75,
+                      "damage": 70,
+                      "attack_ratio": 65,
                       "hp_ratio": 0,
                       "attack_effect_type": "Target"
                     }
@@ -294,7 +294,7 @@
                     "casting_type": "Targeting",
                     "effect": {
                       "type": "Stun",
-                      "duration": 60
+                      "duration": 45
                     }
                   },
                   {
@@ -344,8 +344,8 @@
                     "casting_type": "Targeting",
                     "effect": {
                       "type": "ApAttack",
-                      "damage": 80,
-                      "attack_ratio": 75,
+                      "damage": 70,
+                      "attack_ratio": 65,
                       "hp_ratio": 0,
                       "attack_effect_type": "Target"
                     }
@@ -573,8 +573,8 @@
                     "effects": [
                       {
                         "type": "ApAttack",
-                        "damage": 80,
-                        "attack_ratio": 85,
+                        "damage": 60,
+                        "attack_ratio": 65,
                         "hp_ratio": 0,
                         "attack_effect_type": "Target"
                       },
@@ -601,7 +601,7 @@
                     "effects": [
                       {
                         "type": "Stun",
-                        "duration": 60
+                        "duration": 45
                       },
                       {
                         "type": "ViewEffect",
@@ -660,8 +660,8 @@
                     "effects": [
                       {
                         "type": "ApAttack",
-                        "damage": 80,
-                        "attack_ratio": 85,
+                        "damage": 60,
+                        "attack_ratio": 65,
                         "hp_ratio": 0,
                         "attack_effect_type": "Target"
                       },
@@ -847,7 +847,14 @@
           }
         },
         {
-          "type": "WithSelf",
+          "type": "RangeEffect",
+          "shape": {
+            "Circle": {
+              "radius": 1000
+            }
+          },
+          "target": "AllyOnlySelf",
+          "apply_type": "AroundCaster",
           "effects": [
             {
               "type": "Shield",
@@ -1106,7 +1113,7 @@
                             "casting_type": "Targeting",
                             "effect": {
                               "type": "Stun",
-                              "duration": 60
+                              "duration": 45
                             }
                           },
                           {
