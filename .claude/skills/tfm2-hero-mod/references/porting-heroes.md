@@ -52,12 +52,16 @@ OK = direct, ~ = approximate, X = not possible in data-only mods.
 | Reset / refresh on kill (Darius R, Katarina) | the kill can be detected (row above), but no effect resets a cooldown (`ult_cooldown_mult` untested) | X |
 | Weapon swap the player chooses (Jinx Q) | automatic by distance: the long weapon's range on the attack, the short one while an enemy is close (champion-data "Weapon picked by distance") | ~ |
 | Trap that lasts and springs once (Jinx E) | a chain of short links, each checking once; a bite locks the chain (champion-data "A trap that waits and snaps once") | ~ |
+| Trap that waits long, several at once (Teemo R) | flat `Delayed` links of a `Position` cast, a trigger zone and a damage zone per trap, one set of flags per slot (champion-data "A trap that lasts, with three at once"); 12 s instead of minutes, gone when the caster dies | ~ |
+| On-hit poison over time (Teemo E) | `AddCasted Poison` in the attack's projectile: every hit adds its own 4 s poison (League refreshes one), so the numbers count on the stack | ~ |
+| Blind (Teemo Q) | `BlockAttack`: the target cannot basic attack; the game shows a disarm icon | OK |
+| Invisible while standing still (Teemo's Guerrilla Warfare) | nothing reads stillness: `CasterInvisible` for 1.5 s with the move-speed skill, the attack-speed bonus beside it | ~ |
 | Toggled aura (Amumu W) | on while fighting: every action starts a guarded train of `Delayed` pulses around the caster (champion-data "Aura that runs while he fights") | ~ |
 | %-max-health magic damage (Amumu W) | `ApAttack` has no `target_hp_ratio`: the % part becomes `FixedAttack` (true), whole percents only | ~ |
 | Amplify one damage type (Amumu's Curse: +10% of magic damage as true) | no per-type amplify field: `damaged_amplify` on all damage, re-applied so it never stacks | ~ |
 | Hook that pulls the caster in (Amumu Q) | `LinearProjectile` on `EnemyChampion` + `MoveToTarget` in `applied_effects` | OK |
 | Cooldown reduced when hit (Amumu E) | no "was hit" trigger: a shorter fixed cooldown | X |
-| Charges (Amumu Q: 2) | `cooltime_use_count` is "up to N times in succession" (base Nightmare's text); the AI would throw both at once *(inferred)*, so league_amumu keeps 1 and a shorter cooldown | ~ |
+| Charges (Amumu Q: 2, Teemo R: 3) | `cooltime_use_count: N`: N charges, each refilled in `cooltime / N`, one after the other (champion-data "Recast / charges", measured). league_amumu keeps 1 and a shorter cooldown (chosen before this was known); league_teemo R has 3 of 20 s, spent as targets come | OK |
 | Ability treated as a basic attack (Yasuo Q: crits, on-hit) | the action's `attack_type: BaseAttack` (champion-data "Critical strikes") | OK |
 | Crit chance up, crit damage down (Yasuo, Yone passive) | a flat `crit_chance` stat or buff; a crit is always 2x and the chance cannot be multiplied | ~ |
 | Third cast changes (Yasuo Q3) | two hidden stack buffs + `SwitchByBuff` (champion-data "Third cast is different") | OK |
@@ -367,6 +371,27 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   frames from the chest to the head, and lists the stun stars twice to cover the 1.75 s stun. Keep
   overhead marks and stun stars apart - the Sunlight mark 30 px above the pivot, the stars on a 34 px
   head's top (16 px) - or they merge into one clump.
+- **A head bigger than the body (Teemo, drawn by Claude, restyled).** A yordle is chibi already: League's
+  own proportions give Teemo a head (hat and ears) of 56% of his height, so `chibi` stays 1.0 and only his
+  feather (0.6) and backpack (0.7; full size it read as a pair of wings) shrink; `"crown": 115` measures
+  34 px from the hat's top, the feather standing above it. His skin has three colour maps (body,
+  harmonica, mushroom) and the harmonica's sorted first, turning the whole model brass:
+  `pose_ref.diffuse_textures` now takes the map the skin bin names right after the mesh (every earlier
+  hero keeps its map), and `"hide_submeshes": true` leaves out the submeshes the skin hides until a clip
+  shows them (his mushroom and harmonica; the bin's initialSubmeshToHide). A voted head (Yasuo, Leona)
+  came out as red goggles over broken bits of green hat; with the head the biggest part of him, it was
+  drawn once, square by square, and is pasted on League's head joint (Darius, Amumu) while the voted body
+  keeps League's motion. The block starts left of and above League's head part (its outline and the far
+  ear), so the spec gives `"dx"` beside `"dy"`; for lying frames, turned a quarter, the two are folded into
+  the joint's place before the turn, or the head lands beside the neck (the user saw it come off his body
+  in death). His death throws him 320 units back, out of the render: a tag's `"travel"` keeps that share of
+  the root's way across the floor (0.3). Frames where League flips him (R's backflip, the death's tumble)
+  are left out: a pasted head is upright or a quarter turned, nothing between. The same holds for
+  a lean: League's run throws him forward (spine and neck bent toward the ground, legs kicked back so
+  the feet float 1-8 px at the camera's pitch), and under the upright pasted head the user saw a head
+  that did not grow out of the body. The run is now 60% League's run and 40% the idle
+  (`Run@t>Idle@0:0.4`, picked from a side-by-side of 0, 40 and 60%) with `"flat": true`, the feet back
+  on the ground; a pasted head wants a body that stays roughly upright under it.
 - **A helmet instead of a face (Master Yi, drawn by Claude, restyled, head pasted).** League's 2013
   Yi hides his face under a helmet with a cluster of six green lenses. Voted like Leona's head, its thin
   gold trim and silver came out as a speckled blob that changed every frame, so the helmet was drawn
@@ -374,7 +399,8 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   the tilt League gives it in idle, and pasted into every frame (`restyle_native.py` paste mode: the
   rect's body pixels listed in `cut`; `dy -3`, one row for the frame's lift and two because the drawn
   crest starts above League's head box). League's head stays within 20 degrees of that tilt in almost
-  every frame; in death he falls on his face, turned by `"forward": true`. The user saw three faces
+  every frame; in death he falls on his face, turned by `"forward": true` (unlike Teemo's quarter turn
+  onto his back, the `dy` stays on the screen: his death frames were checked that way). The user saw three faces
   (the lens cluster, two lenses like eyes on goggles, goggles over an open chin with a dark-red mouth)
   and took the lens cluster, then had the gold chin guard cut to a small beak at its front: a gold bar
   under the lenses read as a yellow mouth. Camera yaw 40 unmirrored (the attack lunges right), head 1.8

@@ -212,16 +212,25 @@ cannot exist); `ShrinkingBarrier` is a closing ring that hits units at its edge.
 `Invisible {tick}` (Nocturne ult applies it to allies), `CasterInvisible {tick}` (base Nightmare).
 
 **Invisible is not untargetable; Banish is** *(read from the SDK's game_core and measured in the
-5v5 simulation for league_masteryi)*. `Invisible` and `CasterInvisible` set the same timer on the unit
-(the longer one wins; `CasterInvisible` also sends the client an "invisibled" event). It only takes
-the unit out of the enemy team's vision (`World::build_visible_map`), and enemies next to it see it
-again: with 300 ticks of `CasterInvisible` after each blink, enemy champions still started about 20
-attacks and skills on Master Yi per game inside those windows. `Banish` sets the unit's block-target
-timer as well (`EntityCanTarget { can_target: false }`), and `CastingTarget::check` refuses a target
-that has one, so nobody can pick it; it also adds a CC state and makes it invisible. The Touhou pack
-banishes its caster this way (Koishi's ult, `RangeEffect` on `AllyOnlySelf`; `WithSelf` works too).
-While the caster is banished its own `RandomTarget` finds no unit at all, but effects on the action's
-target, `Teleport` and queued `Delayed` effects still run - see "Untargetable blink strikes".
+5v5 simulation for league_teemo and league_masteryi)*. `Invisible` and `CasterInvisible` set the same
+timer on the unit (the longer one wins; `CasterInvisible` also sends the client an "invisibled"
+event). It only takes the unit out of the enemy team's vision (`World::build_visible_map`), and
+enemies next to it see it again. Teemo's W hides him as he runs off (90 ticks): the `EntityInvisibled`
+event turns on 4 ticks into the action and off exactly `tick` later, his attacks meanwhile do not end
+it, and enemy champions stopped choosing him as a target - two of about twenty enemy actions in the
+windows still did, both right at the start. Master Yi blinks into the enemy team instead: with 300
+ticks of `CasterInvisible` after each blink, enemy champions still started about 20 attacks and skills
+on him per game inside those windows. `Banish` sets the unit's block-target timer as well
+(`EntityCanTarget { can_target: false }`), and `CastingTarget::check` refuses a target that has one,
+so nobody can pick it; it also adds a CC state and makes it invisible. The Touhou pack banishes its
+caster this way (Koishi's ult, `RangeEffect` on `AllyOnlySelf`; `WithSelf` works too). While the
+caster is banished its own `RandomTarget` finds no unit at all, but effects on the action's target,
+`Teleport` and queued `Delayed` effects still run - see "Untargetable blink strikes".
+
+What the game shows by itself: an `AddCasted` of `casted_type: Poison` puts a `poison` status icon on
+the target, `BlockAttack` a `buff_disable` one, a `move_speed_mult` buff `movement+buff` /
+`movement+debuff` and an `attack_speed_mult` buff `attack_speed+buff` (the `status_icons` of the
+`EntityInfo` events), so a poison or a blind needs no effect of its own to be readable.
 
 **Pull vs Grab** *(read from the SDK's game_core, `Entity::pull` / `Entity::grab`)*. Both move the
 target in a straight line at `speed` units per tick for their duration (tenacity shortens it) and
@@ -417,7 +426,13 @@ his skill2 adds `ds_3` directly, so the attack after it strikes twice.
 **Skill empowers the next attack.** The skill adds `x_ready` (Time buff); `attack` starts with
 `SwitchByBuff x_ready` -> empowered effect + `RemoveCasterBuff x_ready`.
 
-**Recast / charges.** `cooltime_use_count: N` on the action (base Nightmare fires 3 shards).
+**Recast / charges.** `cooltime_use_count: N` on the action (base Nightmare fires 3 shards) makes N
+charges that come back one at a time *(measured in the SDK simulation for league_teemo R, from the
+`EntityUltCooldown` events)*: every use adds `cooltime / N` (shortened by cooldown reduction) to a
+cooldown pool that drains a tick at a time, and the action can be used while the pool is at most
+`cooltime - cooltime / N`. So `cooltime` 3600 with 3 uses is League's three charges refilled every
+20 s, not three uses a minute. The AI spends them as targets come (league_teemo threw three mushrooms
+within 3-6 s, at different spots), not all on one tick.
 For different 1st/2nd casts, add a short `x_recast` buff on first cast and `SwitchByBuff` on it.
 
 **Dash then hit.** `MoveTo` (direction) or `MoveToTarget` (unit) with `end_effects:
@@ -675,6 +690,30 @@ the trap is a chain of short links, each started where the thrown `ParabolicProj
 The first link only arms (no check). 20 links make 5 s; after a bite the next link never starts, so the
 trap vanishes a tick after it snaps. The lock lives on the caster and is shorter than the cooldown, so
 it never blocks the next throw. In simulation 77 throws: 46 bit a champion, 31 ran out.
+
+**A trap that lasts, with three at once (league_teemo Noxious Trap).** league_jinx E's links are
+projectiles nested in each other's `end_effects`: its file is 119 levels deep, and serde_json stops at
+128, so that chain cannot run much past its 20 links (5 s). A `Position` cast keeps its cast point for
+every effect it runs, `Delayed` ones included (league_soraka's Equinox; every `RangeProjectile` and
+`ViewEffect` of league_teemo R appeared on the mushroom's spot in the simulation), so the links can sit
+side by side in the ult's own `Combine` (19 levels deep, 292 KB for three mushrooms of 12 s):
+- the throw: a `ParabolicProjectile` with only a view (20 ticks), then the arming `ViewEffect` at tick 20;
+- at tick 80, a `RangePeriodProjectile` trigger (radius 8000, `period` 1, the mushroom's life) whose
+  applied effect, while the caster has `alive`, swaps `alive` for a `boom` flag; and a
+  `RangePeriodProjectile` damage zone (radius 30000, `period` 2) whose applied effect, while `fire` is on,
+  poisons and slows and puts `fire` out a tick later - every unit in the cloud is hit on that one
+  application, and the next one comes after `fire` is gone;
+- a picture link every 15 ticks: `SwitchByBuff alive` -> the lying mushroom (a 250 ms view), else
+  `SwitchByBuff boom` -> drop `boom`, light `fire` (3 ticks), play the cloud's view and its sound. The
+  burst comes at most a quarter second after the trigger.
+
+Flags on the caster are shared by every copy of the cast, so three mushrooms at once need three slots:
+the cast takes the first slot whose `busy` buff (the whole life) is gone and uses that slot's `alive`,
+`boom` and `fire`. `busy` must outlast every pending link of its mushroom, or a new mushroom in the slot
+would wake the old one's links; with charges of 20 s a slot comes back after its third throw at the
+earliest, so a 12 s life is safe even with a third off the cooldown. When the caster dies his buffs go
+and the mushrooms with them *(inferred: death clears buffs)*; League's last for minutes and outlive
+Teemo. In simulation 5 of 6 mushrooms burst, most within a second or two of arming.
 
 **Weapon picked by distance (league_jinx Switcheroo!).** The attack's `range` is the long weapon's
 (rockets, 64500). At `start_timing: 1` a `RandomTarget {range: 52500, casting_target:
