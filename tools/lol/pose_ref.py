@@ -258,6 +258,25 @@ def hidden_submeshes(skin_bin, names):
     return hide
 
 
+def submesh_vertex_maps(b, n_verts, named):
+    """Index of each vertex's colour map: 0 for the skin's own, k for the vertices of the submeshes in
+    `named` [(submesh names, k)] - Yone's Katana and GhostKatana use his swords' map. Every submesh has a
+    vertex range of its own, so a triangle's map is its first corner's (vmap[tris[:, 0]])."""
+    vmap = np.zeros(n_verts, int)
+    magic, major, _minor = struct.unpack_from("<IHH", b, 0)
+    if magic != 0x00112233 or major == 0:
+        return vmap
+    (nsub,) = struct.unpack_from("<I", b, 8)
+    for i in range(nsub):
+        p = 12 + 80 * i
+        name = b[p:p + 64].split(b"\0")[0].decode("latin1")
+        sv, vc, _si, _ic = struct.unpack_from("<IIII", b, p + 64)
+        for names, k in named:
+            if name in names:
+                vmap[sv:sv + vc] = k
+    return vmap
+
+
 def drop_submeshes(tris, subs, hide):
     """The triangles outside the named submeshes."""
     keep = np.ones(len(tris), bool)
@@ -419,7 +438,9 @@ def skin(v, influences, bind_inv, glob):
 
 
 # ----------------------------------------------------------------------------- render
-def render(verts, tris, uv, tex, yaw, pitch, size, scale, ground, shift=0.0):
+def render(verts, tris, uv, tex, yaw, pitch, size, scale, ground, shift=0.0, tri_tex=None):
+    """tri_tex = (index per triangle, [textures]): the colour map of each triangle, index 0 being `tex`
+    (Yone's swords have their own map); None textures the whole model with `tex`."""
     cy, sy = np.cos(np.radians(yaw)), np.sin(np.radians(yaw))
     cp, sp = np.cos(np.radians(pitch)), np.sin(np.radians(pitch))
     ry = np.array([[cy, 0, sy], [0, 1, 0], [-sy, 0, cy]])
@@ -436,12 +457,17 @@ def render(verts, tris, uv, tex, yaw, pitch, size, scale, ground, shift=0.0):
     light = np.array([-0.4, 0.6, 0.7])
     light /= np.linalg.norm(light)
     shade = 0.75 + 0.75 * np.abs(n @ light)            # diffuse maps are dark without the game's lighting
-    tw, th = tex.size
-    texa = np.asarray(tex.convert("RGB")).astype(np.float32)
     c = uv[tris].mean(1)
-    px = np.clip((c[:, 0] % 1.0) * tw, 0, tw - 1).astype(int)
-    py = np.clip((c[:, 1] % 1.0) * th, 0, th - 1).astype(int)
-    col = np.clip(texa[py, px] * shade[:, None], 0, 255).astype(np.uint8)
+    idx, maps = tri_tex if tri_tex is not None else (np.zeros(len(tris), int), [tex])
+    col = np.zeros((len(tris), 3), np.float32)
+    for k, t in enumerate(maps):
+        tw, th = t.size
+        texa = np.asarray(t.convert("RGB")).astype(np.float32)
+        sel = idx == k
+        px = np.clip((c[sel, 0] % 1.0) * tw, 0, tw - 1).astype(int)
+        py = np.clip((c[sel, 1] % 1.0) * th, 0, th - 1).astype(int)
+        col[sel] = texa[py, px]
+    col = np.clip(col * shade[:, None], 0, 255).astype(np.uint8)
     order = np.argsort(z[tris].mean(1))                     # far first (camera looks down -z)
     img = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     d = ImageDraw.Draw(img)
@@ -451,7 +477,7 @@ def render(verts, tris, uv, tex, yaw, pitch, size, scale, ground, shift=0.0):
     return img.resize(size, Image.LANCZOS)
 
 
-def render_hq(verts, tris, uv, tex, yaw, pitch, size, scale, ground, shift=0.0):
+def render_hq(verts, tris, uv, tex, yaw, pitch, size, scale, ground, shift=0.0, tri_tex=None):
     """Like render(), but z-buffered and textured per pixel: faces, hair and trim stay readable."""
     cy, sy = np.cos(np.radians(yaw)), np.sin(np.radians(yaw))
     cp, sp = np.cos(np.radians(pitch)), np.sin(np.radians(pitch))
@@ -469,8 +495,8 @@ def render_hq(verts, tris, uv, tex, yaw, pitch, size, scale, ground, shift=0.0):
     light = np.array([-0.35, 0.55, 0.75])
     light /= np.linalg.norm(light)
     shade = 0.8 + 0.55 * np.abs(n @ light)
-    texa = np.asarray(tex.convert("RGBA")).astype(np.float32)
-    th, tw = texa.shape[:2]
+    idx, maps = tri_tex if tri_tex is not None else (None, [tex])
+    texas = [np.asarray(t.convert("RGBA")).astype(np.float32) for t in maps]
     uv = uv.astype(np.float64)
     img = np.zeros((H, W, 4), np.float32)
     zbuf = np.full((H, W), -np.inf)
@@ -492,6 +518,8 @@ def render_hq(verts, tris, uv, tex, yaw, pitch, size, scale, ground, shift=0.0):
             continue
         u = (l0 * uv[i0, 0] + l1 * uv[i1, 0] + l2 * uv[i2, 0]) % 1.0
         vv = (l0 * uv[i0, 1] + l1 * uv[i1, 1] + l2 * uv[i2, 1]) % 1.0
+        texa = texas[0 if idx is None else idx[i]]
+        th, tw = texa.shape[:2]
         col = texa[np.clip((vv * th).astype(int), 0, th - 1), np.clip((u * tw).astype(int), 0, tw - 1)]
         m &= col[..., 3] >= 40                                # cut-out texels (hair tips, fringes)
         zb[m] = zz[m]
@@ -553,6 +581,12 @@ def main():
     ap.add_argument("--track-ref", metavar="CLIP@MS", help="pose whose height is PX (default: the first --frame)")
     ap.add_argument("--hide-submeshes", action="store_true",
                     help="leave out the submeshes the skin hides until an animation shows them (Teemo's mushroom and harmonica)")
+    ap.add_argument("--hide-submesh", action="append", default=[], metavar="NAME",
+                    help="leave out this submesh (repeatable; Yone's skin hides both swords at first, so name his demon, "
+                         "emote props and smears instead)")
+    ap.add_argument("--submesh-texture", action="append", default=[], metavar="SUBMESH=TEXTURE",
+                    help="colour a submesh with another of the skin's maps, named by a part of its file name "
+                         "(repeatable; Yone: Katana=Swords_TX, GhostKatana=Swords_TX)")
     ap.add_argument("--out", required=True)
     args = ap.parse_args()
     if args.frame and not args.name:
@@ -570,9 +604,20 @@ def main():
     if args.hide_submeshes:
         subs = skn_submeshes(skn_bytes)
         tris = drop_submeshes(tris, subs, hidden_submeshes(skin_bin, {s[0] for s in subs}))
+    if args.hide_submesh:
+        tris = drop_submeshes(tris, skn_submeshes(skn_bytes), set(args.hide_submesh))
     joints, influences = read_skl(w.read_path(skl.lower()))
     influences, hair_re = keep_parts(joints, influences, verts, {k: float(r) for k, r in (x.split(":") for x in args.keep)})
     tex = read_tex(w.read_path(texs[0].lower())) if texs else Image.new("RGB", (4, 4), (180, 180, 180))
+    tri_tex = None
+    if args.submesh_texture:
+        pairs = [x.split("=", 1) for x in args.submesh_texture]
+        stems = list(dict.fromkeys(t for _, t in pairs))
+        paths = refs(skin_bin, rb"(?:tex|dds)")
+        maps = [tex] + [read_tex(w.read_path(next(q for q in paths if t.lower() in q.lower()).lower())) for t in stems]
+        vmap = submesh_vertex_maps(skn_bytes, len(verts), [({n for n, t in pairs if t == stem}, k + 1)
+                                                           for k, stem in enumerate(stems)])
+        tri_tex = (vmap[tris[:, 0]], maps)
     bind = globals_(joints, [trs(j["t"], j["r"], j["s"]) for j in joints])
     bind_inv = [np.linalg.inv(m) for m in bind]
     anims = refs(w.read_path(f"data/characters/{champ.lower()}/animations/skin0.bin"), rb"anm")
@@ -600,8 +645,8 @@ def main():
         size = (int(args.size * args.width), args.size)
         if args.mirror:
             return draw(pv, tris, verts["uv"], tex, -args.yaw, args.pitch, size, scale, ground,
-                        -args.shift).transpose(Image.FLIP_LEFT_RIGHT)
-        return draw(pv, tris, verts["uv"], tex, args.yaw, args.pitch, size, scale, ground, args.shift)
+                        -args.shift, tri_tex=tri_tex).transpose(Image.FLIP_LEFT_RIGHT)
+        return draw(pv, tris, verts["uv"], tex, args.yaw, args.pitch, size, scale, ground, args.shift, tri_tex=tri_tex)
 
     def save(cells, labels, name):
         cw, chh = cells[0].size
