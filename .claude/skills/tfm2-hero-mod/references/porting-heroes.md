@@ -36,7 +36,7 @@ OK = direct, ~ = approximate, X = not possible in data-only mods.
 | Stun, knock-up, root, slow, silence, disarm, fear, charm, taunt, knockback, pull | `Stun`, `Airborne`, `Bind`, buff `move_speed_mult`, `BlockSkill`, `BlockAttack`, `Fear`, `Charm`, `Taunt`, `Knockback`, `Pull` | OK |
 | Shield, heal, lifesteal, burn/poison | `Shield`, `Heal`, buff `vamp`, `AddCasted` | OK |
 | Heal the ally who needs it (Soraka W) | `Targeting` + `AllyNotSelf`; the AI scores a heal by the target's missing health (champion-data "Which ally gets an ally skill") | ~ (AI choice) |
-| Health cost (Soraka W) | `WithSelf` + `FixedAttack target_hp_ratio`, a short `undying` caster buff first | ~ |
+| Health cost (Soraka W) | `FixedAttack target_hp_ratio` in a `RangeEffect` on `AllyOnlySelf` (a `WithSelf` also hits the healed ally, champion-data section 4), a short `undying` caster buff first | ~ |
 | Global heal (Soraka R) | `Targeting AllyChampion` range 960000 + `RangeEffect` 960000 on `AllyChampion`; no bonus on low-health targets | ~ |
 | Move faster toward low-health allies (Soraka passive) | no move direction or ally health in data: a move-speed caster buff after the ally heal | ~ |
 | Passive stacks, every Nth attack | `SwitchByBuff` chain on hidden buffs | OK |
@@ -81,7 +81,7 @@ OK = direct, ~ = approximate, X = not possible in data-only mods.
 | Takedowns refund cooldowns (Master Yi R) | no cooldown reset: `skill_cooldown_mult` (recharge speed) while the ult lasts | ~ |
 | Every Nth spell stuns (Annie's Pyromania) | hidden caster buffs count casts (a folded spell counts twice); the cast decides it carries the stun, a hidden champion-only twin of its projectile or area stuns and uses it up a tick later, so minions never waste it (champion-data "Every fourth spell stuns") | OK |
 | Spawns with a charge ready (Annie's Pyromania) | death clears a mod's buffs (champion-data section 5): a `Permanent` flag every action checks first fires once per life | OK |
-| Shield that hurts attackers (Annie E) | `WithSelf {Shield}` + a `WithShield` buff with `damage_reflect` (a share of every hit, basic attacks and skills, not League's flat hit once per attacker) | ~ |
+| Shield that hurts attackers (Annie E) | a `Shield` on her through a `RangeEffect` on `AllyOnlySelf` + a `WithShield` buff with `damage_reflect` (a share of every hit, basic attacks and skills, not League's flat hit once per attacker) | ~ |
 | Summon that fights (Tibbers) | cannot walk or attack in data, but can ride on the unit he is cast on: a `Targeting` cast, an `AddCasted` on the target plays his pictures on it (`is_follow`) and lobs a one-tick burn circle round it every second, the target's death ends him (champion-data "A summon that follows its target"). He cannot pick a new target or chase one of his own | ~ |
 | Refund on a kill (Annie Q) | detectable (kill trigger) and a short `skill_cooldown_mult` burst would speed the recharge, but it speeds every skill; league_annie leaves it out and keeps League's 4 s cooldown | X |
 | Bonus on the first hit on a new target (Miss Fortune's Love Tap) | no "same target" test: the bonus comes when her last hit killed its target (kill check) or she has not fired for 1.25 s (champion-data "Bonus on a new target"); a switch while the old target lives gets none | ~ |
@@ -94,7 +94,7 @@ OK = direct, ~ = approximate, X = not possible in data-only mods.
 | Knock enemies away, then channel a heal (Janna R) | `Knockback` in a `RangeEffect` around her, then a buff-guarded channel of `Delayed` heals that crowd control or death breaks (champion-data "Knock them away, then channel a heal"); moving cannot end it | OK |
 | 2-3 stage recast | `cooltime_use_count` or recast buff + `SwitchByBuff` | ~ (AI timing) |
 | Cone / fan of projectiles (Ashe W) | no angle field on any projectile (base harpooner's fan is `Native`): a `LineRangeProjectile` rectangle cast by `Direction`, drawn as a fan sprite centred on it (champion-data "Cone / fan"); the hit area stays a rectangle | ~ |
-| Untargetable / invulnerable | `Banish` on self (`WithSelf`; it also makes the unit invisible, puts a CC state on it, stops the caster's own `RandomTarget` finding units and takes away its team's vision around it - only for a caster leaving the fight); in a fight `CasterInvisible` + a `damaged_reduce` 100 / `cc_immune` buff: targetable, but every hit deals 1 | ~ |
+| Untargetable / invulnerable | `Banish` on self (a `RangeEffect` on `AllyOnlySelf`; it also makes the unit invisible, puts a CC state on it, stops the caster's own `RandomTarget` finding units and takes away its team's vision around it - only for a caster leaving the fight); in a fight `CasterInvisible` + a `damaged_reduce` 100 / `cc_immune` buff: targetable, but every hit deals 1 | ~ |
 | Execute / missing-HP scaling | `FixedAttack target_hp_ratio` (a share of *max* health; no effect reads missing health), flat bonus | ~ |
 | Effect scaling with distance / charge time | fixed middle value | ~ |
 | Summons, clones, turrets | zones/projectiles that deal the damage (LoL Reborn's Azir) | ~ |
@@ -491,6 +491,42 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   The rain first played as its zone's view, which is turned with the cast: cast leftward (the user saw it
   in the mid lane, cast one way along it) the bullets fell upward. It now plays as a `ViewEffect` on the
   cast point, never turned, and the zone has no view (champion-data section 6).
+- **A floating support with a flame of hair (Janna, drawn by Claude, restyled, head pasted).** League's Janna
+  floats: 12 to 39 units above the floor in idle, a glide in the run that rises and falls 47 units over its 2 s
+  cycle, 64 units up in Monsoon. `"hover": 3` keeps every frame 3 px above the ground (the user's pick of 0 / 3
+  / 6 px; the base ghost floats about 6), the run keeps `"rise": 0` with `"flat"` (League's float gone, the
+  legs' lowest point on the feet line), the ult `"rise": 0.4`, and the death `"sink"`s 1-3 px as she lands.
+  The run first kept 70% of League's glide: her body leaned forward with the legs trailing, the lean changed
+  from frame to frame under the upright pasted head, and in game the user saw the body move under a head
+  that stayed put ("头像脱节了一样"). Of runs blended 45 / 60 / 85% toward the idle pose (a looping GIF side
+  by side with the old one) the user took 85%: she floats along nearly in her idle pose, skirt and legs
+  trailing a little, like the base ghost.
+  Proportions (the user picked D of four at game size): 28 px crown to soles, chibi head 2.0, hair 0.5, legs
+  0.8; her swept-up hair stands 7 px above the crown, so she is 33 px tall (the base priest 35). At that size
+  her arms, legs and cloth strips are one or two pixels wide, and the outline drawn round each cut her into dark
+  stripes (as many outline pixels as body pixels): restyle's `"cover": 0.3` (a block opaque from 30% of its
+  pixels) and `"close": 1` (a gap between two body pixels filled) made her skirt one white shape, and
+  `"weapon_materials"` keeps the staff's orange gems apart from its blue. League's own face at head 2.0 was four
+  by three pixels under the hair, so the head was drawn square by square: the swept-up flame from League's head
+  voted at game size (a clean wedge, given three tips and streaks so it reads as hair and not a witch's hat), a
+  round chibi face after the base spirit caller's (6 wide, base eyes with blue irises), the blue diadem and its
+  crystal, the pointed ear behind. Of three faces the user took B, one dark-red mouth square. Camera yaw 45,
+  mirrored (unmirrored, her staff crossed her face). Her death lies at tilt -47 to -65, so `"turn": {"dead":
+  45, "*": 180}` quarter-turns the head in the lying frames only. In game the user then saw her head apart
+  from the body in Monsoon, joined by "a pipe": the pasted block carried two rows of the design's neck
+  (drawn on the idle body, an outline down its middle), and Monsoon turns her torso side-on, three pixels
+  wide under the 14 px head. Of three fixes at 11x and in game size (a clean one-row neck; that and a wider
+  chest; no neck and a wider chest) the user took the last: the block ends a row under the chin, that row
+  painted one piece of skin (`"paint"`), `"dy": -2` seats the chin on the shoulders (it was -4), and
+  `"shoulders": {"x": 10.5, "widths": [7, 6, 6]}` widens the three rows under the block before the head
+  goes on (art-spec). The face point moved down with the head (-31 to -29). 52 frames, 27 colours, 30%
+  right-neighbour.
+  Codex's eleven effects came as raw generations (manifest `janna-fx-raw-handoff-v1`, `assets[].frames[].rect`
+  as {x, y, w, h}); `tools/art/import_janna.py --raw` scales them to the kit (the vortex 26 px, both Monsoon
+  rings 84 px wide, the ground storm squeezed from 1.47:1 to 2:1) and anchors the tornado on its vortex's
+  centre, its hitbox. A projectile's picture turns with the cast direction, so Howling Gale was asked for as a
+  vortex seen from above, not a funnel that would fly upside down to the left. The storm shield is a
+  `ThreePhase` buff picture (champion-data section 6).
 - **A face point under the hair.** `tfm2_ase.py face` and the lint find the crown at the top of
   the idle sprite, which for Yasuo is the ponytail's tip, 9 px above his head and to the left of
   it. Both now also look for the head from the face: the top two rows of skin-toned pixels and the

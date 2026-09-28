@@ -79,19 +79,26 @@
                   "name": "league_yasuo_flow_cd",
                   "duration": {
                     "Time": {
-                      "tick": 720
+                      "tick": 900
                     }
                   }
                 },
                 "only_to_enemy": false
               },
               {
-                "type": "WithSelf",
+                "type": "RangeEffect",
+                "shape": {
+                  "Circle": {
+                    "radius": 1000
+                  }
+                },
+                "target": "AllyOnlySelf",
+                "apply_type": "AroundCaster",
                 "effects": [
                   {
                     "type": "Shield",
-                    "amount": 60,
-                    "attack_ratio": 60,
+                    "amount": 40,
+                    "attack_ratio": 40,
                     "ap_ratio": 0,
                     "tick": 120
                   }
@@ -141,19 +148,26 @@
                   "name": "league_yasuo_flow_cd",
                   "duration": {
                     "Time": {
-                      "tick": 720
+                      "tick": 900
                     }
                   }
                 },
                 "only_to_enemy": false
               },
               {
-                "type": "WithSelf",
+                "type": "RangeEffect",
+                "shape": {
+                  "Circle": {
+                    "radius": 1000
+                  }
+                },
+                "target": "AllyOnlySelf",
+                "apply_type": "AroundCaster",
                 "effects": [
                   {
                     "type": "Shield",
-                    "amount": 60,
-                    "attack_ratio": 60,
+                    "amount": 40,
+                    "attack_ratio": 40,
                     "ap_ratio": 0,
                     "tick": 120
                   }
@@ -576,19 +590,26 @@
                   "name": "league_yasuo_flow_cd",
                   "duration": {
                     "Time": {
-                      "tick": 720
+                      "tick": 900
                     }
                   }
                 },
                 "only_to_enemy": false
               },
               {
-                "type": "WithSelf",
+                "type": "RangeEffect",
+                "shape": {
+                  "Circle": {
+                    "radius": 1000
+                  }
+                },
+                "target": "AllyOnlySelf",
+                "apply_type": "AroundCaster",
                 "effects": [
                   {
                     "type": "Shield",
-                    "amount": 60,
-                    "attack_ratio": 60,
+                    "amount": 40,
+                    "attack_ratio": 40,
                     "ap_ratio": 0,
                     "tick": 120
                   }
