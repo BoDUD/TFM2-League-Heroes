@@ -50,13 +50,18 @@ ORDER = {("lux", "idle"): [0, 1, 2, 3, 5, 4],
          # slot, breathing through BOB instead.
          ("yasuo", "idle"): [0, 0, 0, 0, 0, 0],
          # the same one drawing for Leona (her face is pasted, and League's idle barely moves)
-         ("leona", "idle"): [0, 0, 0, 0, 0, 0]}
+         ("leona", "idle"): [0, 0, 0, 0, 0, 0],
+         # and for Teemo: his pasted head rode League's breath a row up and down while the body under it was
+         # voted anew each frame (100-480 pixels changed between idle frames)
+         ("teemo", "idle"): [0, 0, 0, 0, 0, 0]}
 # (hero, tag): (y, slots) - in those slots everything at or above pivot row y moves down a row (the row under
 # it is covered): one frame breathing, the face the same drawing throughout. Leona's shield covers her from
 # the chest to the ankles, so she sinks down to its tip and only the boots stay (a seam across the shield
 # would cut it in two).
 BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
-       ("leona", "idle"): (8, [2, 3, 4])}
+       ("leona", "idle"): (8, [2, 3, 4]),
+       # Teemo's boots are seven rows: the lowest five stay, the rest of him sinks (seam in the shins)
+       ("teemo", "idle"): (6, [2, 3, 4])}
 CROWN = {"leesin"}              # heroes whose head template starts at the crown (a braid stands above it)
 
 

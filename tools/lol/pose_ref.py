@@ -210,14 +210,60 @@ def read_tex(b):
     return Image.open(io.BytesIO(hdr + b[-size:])).convert("RGBA")
 
 
-def diffuse_textures(paths):
+def diffuse_textures(paths, skin_bin=None, skn=None):
     """The base skin's colour texture among the texture paths a skin bin names: `*_TX_CM` / `*_CM_TX`
     (Garen, Lux), else the base textures that are not a load screen or an icon (Amumu's is a plain
     `SadMummy.tex`). A weapon trail's texture is named like a colour map too (Yasuo's
-    `Yasuo_Weapon_Trail_TX_CM` sorts before `Yasuo_base_TX_CM`, and its alpha cut holes in the model)."""
+    `Yasuo_Weapon_Trail_TX_CM` sorts before `Yasuo_base_TX_CM`, and its alpha cut holes in the model).
+    Given the bin and the skin's .skn path, the skin's own texture comes first: the bin names it right
+    after the mesh. Teemo's skin has three colour maps, and the harmonica's (`Teemo_Base_Harmonica_TX_CM`,
+    for a submesh that is hidden) sorted first and turned the whole model brass; for every earlier hero
+    the texture after the mesh is the one the name rules picked."""
     base = [p for p in paths if "/Base/" in p]
     named = [p for p in base if re.search(r"_tx_cm|_cm_tx", p, re.I) and not re.search(r"trail", p, re.I)]
-    return named or [p for p in base if not re.search(r"loadscreen|square|circle|icon|/particles/", p, re.I)]
+    found = named or [p for p in base if not re.search(r"loadscreen|square|circle|icon|/particles/", p, re.I)]
+    if skin_bin is not None and skn is not None:
+        at = skin_bin.find(skn.encode("latin1"))
+        m = re.search(rb"[A-Za-z0-9_/\.\-]+\.(?:tex|dds)", skin_bin[at + len(skn):at + len(skn) + 400]) if at >= 0 else None
+        own = m.group(0).decode("latin1") if m else None
+        if own in found:
+            found = [own] + [p for p in found if p != own]
+    return found
+
+
+def skn_submeshes(b):
+    """A SKN's submeshes: (name, first index, index count)."""
+    magic, major, _minor = struct.unpack_from("<IHH", b, 0)
+    if magic != 0x00112233 or major == 0:
+        return []
+    (nsub,) = struct.unpack_from("<I", b, 8)
+    out = []
+    for i in range(nsub):
+        p = 12 + 80 * i
+        name = b[p:p + 64].split(b"\0")[0].decode("latin1")
+        _sv, _vc, si, ic = struct.unpack_from("<IIII", b, p + 64)
+        out.append((name, si, ic))
+    return out
+
+
+def hidden_submeshes(skin_bin, names):
+    """The submeshes the skin hides until an animation shows them (the bin's initialSubmeshToHide: one
+    string of submesh names, e.g. Teemo's "Mushroom Harmonica")."""
+    hide = set()
+    for m in re.finditer(rb"[A-Za-z0-9_ ,]{3,}", skin_bin):
+        words = [w for w in re.split(r"[ ,]+", m.group(0).decode("latin1")) if w]
+        if words and all(w in names for w in words):
+            hide.update(words)
+    return hide
+
+
+def drop_submeshes(tris, subs, hide):
+    """The triangles outside the named submeshes."""
+    keep = np.ones(len(tris), bool)
+    for name, si, ic in subs:
+        if name in hide:
+            keep[si // 3:(si + ic) // 3] = False
+    return tris[keep]
 
 
 # ----------------------------------------------------------------------------- pose
@@ -503,6 +549,8 @@ def main():
                          "PX px tall (head top to soles) in the pose of --track-ref, instead of rendering (the "
                          "importers' head tracks; same camera, --mirror, --head and --legs as the references)")
     ap.add_argument("--track-ref", metavar="CLIP@MS", help="pose whose height is PX (default: the first --frame)")
+    ap.add_argument("--hide-submeshes", action="store_true",
+                    help="leave out the submeshes the skin hides until an animation shows them (Teemo's mushroom and harmonica)")
     ap.add_argument("--out", required=True)
     args = ap.parse_args()
     if args.frame and not args.name:
@@ -514,8 +562,12 @@ def main():
     refs = lambda blob, ext: sorted(set(m.decode("latin1") for m in re.findall(rb"[A-Za-z0-9_/\.\-]+\." + ext, blob)))
     skn = [p for p in refs(skin_bin, rb"skn") if "/Base/" in p][0]
     skl = [p for p in refs(skin_bin, rb"skl") if "/Base/" in p][0]
-    texs = diffuse_textures(refs(skin_bin, rb"(?:tex|dds)"))
-    tris, verts = read_skn(w.read_path(skn.lower()))
+    texs = diffuse_textures(refs(skin_bin, rb"(?:tex|dds)"), skin_bin, skn)
+    skn_bytes = w.read_path(skn.lower())
+    tris, verts = read_skn(skn_bytes)
+    if args.hide_submeshes:
+        subs = skn_submeshes(skn_bytes)
+        tris = drop_submeshes(tris, subs, hidden_submeshes(skin_bin, {s[0] for s in subs}))
     joints, influences = read_skl(w.read_path(skl.lower()))
     influences, hair_re = keep_parts(joints, influences, verts, {k: float(r) for k, r in (x.split(":") for x in args.keep)})
     tex = read_tex(w.read_path(texs[0].lower())) if texs else Image.new("RGB", (4, 4), (180, 180, 180))

@@ -249,10 +249,10 @@
   "ult": {
     "action_name": "ult",
     "description": "#asset/base/text/champion?description.league_teemo.ult",
-    "duration": 24,
+    "duration": 26,
     "cooltime": 3600,
     "cooltime_use_count": 3,
-    "start_timing": 10,
+    "start_timing": 15,
     "cancelable": false,
     "range": 75000,
     "casting_type": "Position",
