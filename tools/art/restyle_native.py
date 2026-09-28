@@ -71,6 +71,13 @@ pixels). "cover": 0.3 makes a block opaque from 30% of its pixels instead of hal
 the skirt one white shape); "close": <rounds> fills empty pixels between two body pixels (left and right, or
 above and below) with the colour beside them before the outline. "weapon_materials": [...] votes weapon pixels
 by hue like "materials" before the brightness ramp takes the rest: her staff is blue, its gems orange.
+Her pasted head first carried two rows of the design's neck, drawn on the idle body with an outline down its
+middle, and in Monsoon League turns her torso side-on, three pixels wide: in game the user saw a head on a pipe.
+The rect now ends a row under the chin, "paint": [[x, y, "<hex>"], ...] recolours design pixels of the block
+(that row's neck one piece of skin), "dy" puts the chin on the shoulders, and "shoulders": {"x": <column>,
+"widths": [...]} widens the body under the block before the head goes on: row by row from the row under it,
+round the block's column x (the neck), to at least those widths, each new pixel the colour of the nearest body
+pixel in its row, the outline drawn round the new pixels. Not on a turned (lying) head.
 """
 import argparse
 import json
@@ -352,6 +359,33 @@ def paste_head(a, weapon, head, joint, tilt, turn=TURN, dy=0, dx=0, forward=Fals
                 a[yy, xx] = rgb(c) + (255,)
 
 
+def shoulders(a, weapon, cx, top, widths, outline):
+    """The body under a pasted head at least `widths` wide, row by row from `top` (the row under the head
+    block), round column cx: a new pixel takes the colour of the nearest body pixel in its row, the outline
+    goes round the new pixels. league_janna's torso is three pixels wide in Monsoon, under a 14 px head."""
+    h, w = a.shape[:2]
+    body = (a[..., 3] > 0) & ~(a[..., :3] == outline).all(-1) & ~weapon
+    grown = np.zeros(body.shape, bool)
+    for r, width in enumerate(widths):
+        y = top + r
+        if not 0 <= y < h:
+            continue
+        span = [x for x in range(int(cx) - 5, int(cx) + 6) if 0 <= x < w and body[y, x]]
+        if not span:
+            continue
+        need = max(0, width - (max(span) - min(span) + 1))
+        for x in range(max(0, min(span) - (need + 1) // 2), min(w, max(span) + need // 2 + 1)):
+            if body[y, x] or weapon[y, x]:
+                continue
+            src = min(span, key=lambda s: (abs(x - s), s))
+            a[y, x] = a[y, src]
+            grown[y, x] = True
+    solid = (a[..., 3] > 0) & ~(a[..., :3] == outline).all(-1)
+    ring = near(grown) & ~solid
+    a[ring, :3] = outline
+    a[ring, 3] = 255
+
+
 def paste_face(a, weapon, head_px, feats, cell, pal, min_facing, dy=-1, trim=0, hair_above=0, profile=None,
                body_px=None, chin=None, fallback=None):
     """The design's brows, eyes and mouth on the face this frame shows. native_pose's track (cells "face":
@@ -498,8 +532,9 @@ def main():
     else:
         x0, y0, hw, hh = rs["head"]["rect"]
         cut = {tuple(p) for p in rs["head"].get("cut", [])}
-        head = [["%02X%02X%02X" % tuple(design[y0 + j, x0 + i, :3])
-                 if design[y0 + j, x0 + i, 3] and (x0 + i, y0 + j) not in cut else None for i in range(hw)]
+        paint = {(p[0], p[1]): p[2] for p in rs["head"].get("paint", [])}
+        head = [[paint.get((x0 + i, y0 + j)) or ("%02X%02X%02X" % tuple(design[y0 + j, x0 + i, :3])
+                 if design[y0 + j, x0 + i, 3] and (x0 + i, y0 + j) not in cut else None) for i in range(hw)]
                 for j in range(hh)]
 
     def frames(tag):
@@ -530,7 +565,12 @@ def main():
                 if neck is not None:
                     scarf_neck(a, head_px, cell, pal, neck, fs.get("min_facing", 0.05))
             else:
-                paste_head(a, weapon, head, (cell["head"][0], cell["head"][1], jx, jy), cell.get("tilt", 0), turn,
+                tilt, sh = cell.get("tilt", 0), rs["head"].get("shoulders")
+                if sh and -turn < tilt and not (rs["head"].get("forward", False) and tilt >= turn):
+                    top = int(round(cell["head"][1] - jy)) + rs["head"].get("dy", 0) + len(head)
+                    left = int(round(cell["head"][0] - jx)) + rs["head"].get("dx", 0)
+                    shoulders(a, weapon, left + sh["x"], top, sh["widths"], pal.outline)
+                paste_head(a, weapon, head, (cell["head"][0], cell["head"][1], jx, jy), tilt, turn,
                            rs["head"].get("dy", 0), rs["head"].get("dx", 0), rs["head"].get("forward", False))
             sheet[k // cols * h:(k // cols + 1) * h, k % cols * w:(k % cols + 1) * w] = a
         Image.fromarray(np.repeat(np.repeat(sheet, Z, 0), Z, 1), "RGBA").save(G.lp(os.path.join(SRC, f"{hero}_{tag}.png")))
