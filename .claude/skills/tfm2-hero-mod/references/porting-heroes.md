@@ -96,6 +96,12 @@ OK = direct, ~ = approximate, X = not possible in data-only mods.
 | Armour-scaled damage (Malphite E, W) | no effect reads armour: `hp_ratio`, a share of the caster's max health, is the tank stat the data has | ~ |
 | Attacks splash in a cone for a few seconds (Malphite W) | a caster window buff; while it lasts the attack adds a `RangeEffect` `Forward` + `DirDot` cone toward its target | OK |
 | Unstoppable charge, knock-up where he lands (Malphite R) | `MoveToTarget` onto an enemy champion under a `cc_immune` buff, the knock-up circle in the dash's `end_effects` (champion-data "Charge onto a champion") | OK |
+| Every third hit on the same target (Ekko's Z-Drive Resonance) | the caster counts his own hits (attacks, each Q pass, the E strike) on two 4 s buffs; the third procs on whatever it hit; the speed burst when an enemy champion is within 40000. No "same target" and no 5 s lockout per target | ~ |
+| Device that flies out, holds a field, flies back (Ekko Q) | a penetrating `LinearProjectile` whose `end_effects` start the field and, after it, a `BackToCasterLinearProjectile` from that point back to him (champion-data "Out and back"); it always flies its full range | ~ |
+| Bonus damage to low-health targets (Ekko W passive) | nothing reads current or missing health: dropped | X |
+| Delayed sphere that bursts when the caster enters (Ekko W) | a lobbed hidden projectile starts the zones where an enemy champion stood; a zone checks every tick whether the caster is inside (`RandomTarget {AllyOnlySelf, from_projectile}`) and bursts once (champion-data "A sphere that bursts once the caster steps in"); folded into E with its own cooldown | OK |
+| Dash, then the next attack blinks to the target (Ekko E) | one action: `MoveTo` onto the target (it goes all the way) and the strike in its `end_effects` | ~ |
+| Rewind to where he was 4 s ago (Ekko R) | no position memory: an anchor dropped at the cast (a range-1 projectile's `end_effects` keep the spot) and a `Delayed` `Teleport` back there 4 s later, with the heal and the burst (champion-data "Back to where he stood"); the rewind's moment is fixed at cast + 4 s, and the heal cannot scale with the damage taken | ~ |
 | 2-3 stage recast | `cooltime_use_count` or recast buff + `SwitchByBuff` | ~ (AI timing) |
 | Cone / fan of projectiles (Ashe W) | no angle field on any projectile (base harpooner's fan is `Native`): a `LineRangeProjectile` rectangle cast by `Direction`, drawn as a fan sprite centred on it (champion-data "Cone / fan"); the hit area stays a rectangle | ~ |
 | Untargetable / invulnerable | `Banish` on self (a `RangeEffect` on `AllyOnlySelf`; it also makes the unit invisible, puts a CC state on it, stops the caster's own `RandomTarget` finding units and takes away its team's vision around it - only for a caster leaving the fight); in a fight `CasterInvisible` + a `damaged_reduce` 100 / `cc_immune` buff: targetable, but every hit deals 1 | ~ |
@@ -563,6 +569,25 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   themselves (its widest drawing, or the tallest for the knock-up's eruption, brought to the kit's size) instead
   of source sizes typed in: the slam's ring 72 px (radius 36000), the crater 64 px, the shield's ring of stones
   50 px round his body, Thunderclap's two arcs 40 px apart at his fists.
+- **A crouching boy with a mohawk (Ekko, drawn by Claude, restyled, head pasted).** League's Ekko idles in a
+  deep crouch with his bat pointing forward and his head bowed; the user picked his crouch at 90% (B of four:
+  the crouch, the crouch at 90%, half upright, upright - `"height"` 28 from the skull to the soles, 34 with the
+  crest, about 500 px of body next to the base swordman's 472) over the more upright poses. His mohawk hangs on
+  `F_Mohawk1` / `B_Mohawk1`, which the hair rule (`hair|braid|ponytail`) misses, so `"chibi": {"scale":
+  {"F_Mohawk1": 0.6, "B_Mohawk1": 0.6}}` shrinks it and `"crown": 181` measures the height from the skull.
+  The lit render turns his dark brown skin mauve-pink: League's texture has it at `#63383C`, and the restyle
+  ramps take the texture's colours. The head: three first faces drawn from scratch (a round head, a flat face,
+  a white crest on a grey-green cap like a helmet, a paint streak read as a third eye) were all rejected as
+  strange and low in quality, and a game-size vote of League's head was mush (the face 9 px wide under the tall
+  crest). Accepted: the head drawn square by square on the base swordman's head - white spiky hair seen 3/4
+  right, 12 wide - with its two-tone strands and three-row eyes, the hairline down to the brows (a five-row
+  face), the crest leaning forward like League's, the shaved sides a mid tone with two shave lines, one
+  dark-red mouth square (B of three; League's white face paint was left out). Pasted on League's head joint,
+  upright in every frame (`"turn": 180`: his death throws the head back past 60 degrees while he still stands).
+  Camera yaw 45 unmirrored, the Z-drive on his back a part of its own (`^Weapon_Back`, blue and steel), the
+  run 60% toward the idle, idle one frame breathing; 51 frames, 40 colours, face (10, -32) - he crouches
+  forward, so the head is 8 px ahead of the pivot. Chronobreak's hologram at the anchor is his idle drawing in
+  the rewind skin's mint with scan lines, made by `tools/art/import_ekko.py` rather than by Codex.
 - **A face point under the hair.** `tfm2_ase.py face` and the lint find the crown at the top of
   the idle sprite, which for Yasuo is the ponytail's tip, 9 px above his head and to the left of
   it. Both now also look for the head from the face: the top two rows of skin-toned pixels and the

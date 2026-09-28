@@ -79,8 +79,8 @@
                 "effects": [
                   {
                     "type": "ApAttack",
-                    "damage": 40,
-                    "attack_ratio": 70
+                    "damage": 60,
+                    "attack_ratio": 80
                   },
                   {
                     "type": "AddBuff",
@@ -213,8 +213,8 @@
                 "effects": [
                   {
                     "type": "ApAttack",
-                    "damage": 60,
-                    "attack_ratio": 40
+                    "damage": 70,
+                    "attack_ratio": 50
                   },
                   {
                     "type": "ViewEffect",
@@ -261,8 +261,8 @@
                                 "effects": [
                                   {
                                     "type": "ApAttack",
-                                    "damage": 40,
-                                    "attack_ratio": 70
+                                    "damage": 60,
+                                    "attack_ratio": 80
                                   },
                                   {
                                     "type": "AddBuff",
@@ -429,7 +429,7 @@
                         "effects": [
                           {
                             "type": "ApAttack",
-                            "damage": 40,
+                            "damage": 50,
                             "attack_ratio": 60
                           },
                           {
@@ -477,8 +477,8 @@
                                         "effects": [
                                           {
                                             "type": "ApAttack",
-                                            "damage": 40,
-                                            "attack_ratio": 70
+                                            "damage": 60,
+                                            "attack_ratio": 80
                                           },
                                           {
                                             "type": "AddBuff",
@@ -3425,8 +3425,8 @@
               "effects": [
                 {
                   "type": "ApAttack",
-                  "damage": 50,
-                  "attack_ratio": 50
+                  "damage": 60,
+                  "attack_ratio": 60
                 },
                 {
                   "type": "ViewEffect",
@@ -3451,8 +3451,8 @@
                         "effects": [
                           {
                             "type": "ApAttack",
-                            "damage": 40,
-                            "attack_ratio": 70
+                            "damage": 60,
+                            "attack_ratio": 80
                           },
                           {
                             "type": "AddBuff",
