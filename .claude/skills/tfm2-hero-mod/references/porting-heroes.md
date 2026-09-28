@@ -382,7 +382,12 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   the joint's place before the turn, or the head lands beside the neck (the user saw it come off his body
   in death). His death throws him 320 units back, out of the render: a tag's `"travel"` keeps that share of
   the root's way across the floor (0.3). Frames where League flips him (R's backflip, the death's tumble)
-  are left out: a pasted head is upright or a quarter turned, nothing between.
+  are left out: a pasted head is upright or a quarter turned, nothing between. The same holds for
+  a lean: League's run throws him forward (spine and neck bent toward the ground, legs kicked back so
+  the feet float 1-8 px at the camera's pitch), and under the upright pasted head the user saw a head
+  that did not grow out of the body. The run is now 60% League's run and 40% the idle
+  (`Run@t>Idle@0:0.4`, picked from a side-by-side of 0, 40 and 60%) with `"flat": true`, the feet back
+  on the ground; a pasted head wants a body that stays roughly upright under it.
 - **A face point under the hair.** `tfm2_ase.py face` and the lint find the crown at the top of
   the idle sprite, which for Yasuo is the ponytail's tip, 9 px above his head and to the left of
   it. Both now also look for the head from the face: the top two rows of skin-toned pixels and the

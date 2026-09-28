@@ -6,8 +6,8 @@ load).
 
   league_teemo_frames.png    every animation, frame by frame, 3x on the arena colour
   league_teemo_effects.png   every effect animation, 3x
-  league_teemo_showcase.gif  a scripted fight against Darius and Garen, timed like the kit: the Blinding
-                             Dart splashes on Darius and wraps his eyes in smoke, Toxic Shot darts poison
+  league_teemo_showcase.gif  a scripted fight against Darius and Garen, timed like the kit: Teemo runs in,
+                             the Blinding Dart splashes on Darius and wraps his eyes in smoke, Toxic Shot darts poison
                              him, Move Quick kicks up dust and a whirl of leaves as Darius closes in and
                              Teemo fades into Camouflage (his darts come faster), a Noxious Trap is thrown
                              onto Garen's way in - it lands, arms, hides in the grass and bursts into a
@@ -75,7 +75,11 @@ def showcase(out, z=3, step=40):
         d.flinches.append(arrive)
         return arrive
 
-    a("idle", 400, loop=True)
+    # he runs in (the run's head on his shoulders, the feet on the ground)
+    run_in = Anim(frames_of(teemo, "run"), 0.0, x - 34, gy, loop=True, until=632 * 1.5, x1=x)
+    body.append(run_in)
+    t = run_in.until
+    a("idle", 300, loop=True)
     # Blinding Dart: fired on tick 12 at 5.5 px a tick; the splash on his head and 1.5 s of smoke over his eyes
     start = t
     hit = dart(start, speed=5.5, tag="q_dart", hit="q_hit")
