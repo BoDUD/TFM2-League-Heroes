@@ -357,7 +357,16 @@ the caster for `tick`; the caster stays in place meanwhile, so move it from the 
 ```
 
 `duration`: `{"Time": {"tick": N}}` | `"Permanent"` | `"WithShield"` (lasts while the shield
-holds). Some pack buffs omit it - set it explicitly.
+holds). Some pack buffs omit it - set it explicitly. *(seen in the SDK simulation, league_annie E:
+a `WithShield` caster buff added right after `WithSelf {Shield {tick: 180}}` was gone 180 ticks later
+when nobody hit her, and 89 ticks after the cast when enemies broke the shield first.)*
+
+**Death clears a mod's buffs** *(seen in the SDK simulation, a probe hero on league_teemo)*: a
+`Permanent` caster buff added by his first attack was missing from his buff list after he died and
+respawned, until his next action added it again; so were league_teemo R's slot buffs. Item buffs and
+the serpent's permanent buff stayed. So a `Permanent` "init" flag that every action checks first
+fires once after each spawn: league_annie starts the game and every life with Pyromania's stun ready,
+as League's Annie does (section 7).
 
 `hp_regen` is health per second (the base UI: "HP Regen per Second"). `undying: true` keeps the
 unit alive while the buff lasts (Touhou Mokou's ult, LoL Reborn Sion's R).
@@ -654,7 +663,7 @@ starts a train unless one runs: `SwitchByBuff train` -> `AddCasterBuff train {ti
 `Delayed` pulses at 0/60/120/180, each a `RangeEffect` around the caster plus a `CasterViewEffect`.
 The train buff outlasts the last pulse, so a new train never doubles one; the gap at a restart is at
 most one attack. Each pulse checks the train buff again, so the aura should stop when he dies
-*(inferred: death clears buffs)*. A sound on the start of a train is gated by its own 600-tick buff.
+(death clears buffs, section 5). A sound on the start of a train is gated by its own 600-tick buff.
 
 **A debuff that must not stack (league_amumu's Curse).** Same-name buffs add up (section 5), so a
 3 s `damaged_amplify` on every hit would reach +30%. Re-apply it from a pulse with a duration equal
@@ -765,7 +774,7 @@ the cast takes the first slot whose `busy` buff (the whole life) is gone and use
 `boom` and `fire`. `busy` must outlast every pending link of its mushroom, or a new mushroom in the slot
 would wake the old one's links; with charges of 20 s a slot comes back after its third throw at the
 earliest, so a 12 s life is safe even with a third off the cooldown. When the caster dies his buffs go
-and the mushrooms with them *(inferred: death clears buffs)*; League's last for minutes and outlive
+and the mushrooms with them (death clears buffs, section 5); League's last for minutes and outlive
 Teemo. In simulation 5 of 6 mushrooms burst, most within a second or two of arming.
 
 **Weapon picked by distance (league_jinx Switcheroo!).** The attack's `range` is the long weapon's
@@ -780,6 +789,46 @@ attacks.
 and a projectile cannot start a zone from its hit, so league_jinx fires three together at one speed:
 the visible `TargetProjectile` (its hit plays the explosion), a hidden `TargetSplashProjectile` for
 the damage and the hidden champion twin of the kill trigger.
+
+**Every fourth spell stuns, and only champions use it up (league_annie Pyromania).** Hidden permanent
+caster buffs `pyro_1`..`pyro_3` count casts, walked from the top like the Darius chain; the fourth
+removes them and adds `pyro_ready` (and a 3 s glow buff with a `view_buffs` entry, refreshed - removed
+and added again - by every action while the stun is ready, so the glow stays on while she fights and
+is gone within 3 s of her death). Q and R count one cast each; skill2 is W with E folded in and counts
+two (a second counter call guarded by `SwitchByBuff pyro_ready`, so W can make the stun ready and E
+then adds nothing). Three rules keep it League's:
+- the cast decides: `SwitchByBuff pyro_ready` at cast time picks the stunning version, so the fourth
+  cast's own fireball does not stun even though `pyro_ready` is on when it lands;
+- only champions use it up: the stunning version fires the normal damage plus a hidden twin on
+  `EnemyChampion` (a `TargetProjectile`, a `RangeEffect` cone, a `RangeProjectile` circle) whose effects
+  are `Stun`, the stars and `WithSelf {Delayed {tick: 1, RemoveCasterBuff pyro_ready}}` - every champion
+  the cast reaches on that tick is stunned before the buff goes, and a fireball on a minion keeps it
+  (the AI throws Q at whatever is in range; League's players save the stun for champions);
+- it is back after death: every action first checks a `Permanent` `pyro_init` flag, and without it adds
+  the flag and `pyro_ready` (death clears buffs, section 5).
+In 10 simulated minutes she stunned 14 champions; a Q, W or R cast in flight when the next spell starts
+could carry a second stun, but each of her actions lasts longer than its projectile's flight.
+
+**A shield that burns back (league_annie Molten Shield, folded into W).** `WithSelf {Shield}` (a shield in
+a `Targeting` action on an enemy would shield the enemy) followed by `AddCasterBuff` of a `WithShield`
+buff with `damage_reflect` 20 (and its `view_buffs` picture): the reflect and the picture end when the
+shield breaks or runs out (section 5). League's E returns a flat hit once per attacker; the engine only
+has the percentage. `damage_reflect` sends that share of every hit the unit takes - basic attacks and
+skills alike - back to whoever dealt it on the same tick, as `BaseAttack` physical damage *(seen in the
+SDK simulation from the `Damaged` events, with 30: while shielded she took 57 / 93 / 127 (a skill) /
+192 / 308 and her attackers 17 / 27 / 38 / 57 / 92 on those ticks)*. Lowering it from 30% to 20% (with
+Q's ratio at League's 75%) took her team from +1.83 to +1.42 kills over 10 simulated minutes.
+
+**A summon that lands, stands and burns (league_annie Tibbers).** Summons cannot walk or attack in data,
+so Tibbers is a `Position` cast of effects on the spot (a `Position` cast keeps its point, Teemo's traps):
+a `RangeProjectile` pair landing 6 ticks after the cast, on the drop picture's impact frame (`delay` =
+`apply` = 7: the damage on `EnemyWithoutTower`, the Pyromania twin on `EnemyChampion`), a
+`RangePeriodProjectile` burning every 60 ticks for 6 s from the landing, and his pictures as flat
+`Delayed` `ViewEffect`s on the spot: the 400 ms drop at the cast, then a 1 s standing loop and his ring of
+fire every 60 ticks, and the vanishing puff at the end.
+A `ViewEffect` is not turned like a projectile's view, so an upright bear can stand in it. The pictures
+go under the units (`z` -1, the ring -2): he lands on the target's spot, and drawn over it he hid the
+champions he had just stunned. Nothing ties the pictures to Annie's life, as League's Tibbers outlives her.
 
 ## 8. Gotchas
 

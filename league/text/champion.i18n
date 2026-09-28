@@ -85,6 +85,13 @@
         "skill2": "先<#ff9028ff>冥想<><#ffb900ff>0.75秒<>：<#ffb900ff>1秒<>内受到的伤害降低<#ffb900ff>40%<>，<#ffb900ff>2秒<>内回复<#6aff55ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40% 攻击力<>的<#6aff55ff>生命值<>。随后<#ffb900ff>5秒<>内普攻附加<#f5f5f5ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20% 攻击力<>的<#f5f5f5ff>真实伤害<>（<#ff9028ff>阿尔法突袭<>每击<#ffb900ff>75%<>），下一次普攻必定触发<#ff9028ff>双重打击<>。",
         "ult": "<#ffb900ff>7秒<>内获得<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>45% 攻击速度<>和<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>45% 移动速度<>，<#ff9028ff>阿尔法突袭<>和<#ff9028ff>无极剑道<>的冷却加快<#ffb900ff>40%<>。"
       },
+      "league_annie": {
+        "name": "安妮",
+        "attack": "普攻扔出小火球，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。被动 <#ff9028ff>嗜火<>：每施放<#ffb900ff>4<>次技能（焚烧、熔岩护盾各算一次）后，下一个伤害技能<#ef5350ff>眩晕<>命中的英雄<#ffb900ff>1秒<>，小兵和野怪不会消耗它。出生和复活时自带眩晕。",
+        "skill": "扔出火球，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75% 法术强度<>的<#a974ffff>魔法伤害<>。",
+        "skill2": "向前方喷出扇形火焰，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85% 法术强度<>的<#a974ffff>魔法伤害<>。同时施放 <#ff9028ff>熔岩护盾<>：获得<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 法术强度<>的<#e8d44dff>护盾<>，持续<#ffb900ff>3秒<>，护盾存在时反弹<#ffb900ff>20%<>所受伤害，并<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移动速度提高30%<>，持续<#ffb900ff>1.5秒<>。",
+        "ult": "召唤提伯斯砸向敌方英雄，对周围敌人造成<#a974ffff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法术强度<>的<#a974ffff>魔法伤害<>。提伯斯原地停留<#ffb900ff>6秒<>，每秒灼烧周围敌人，造成<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12% 法术强度<>的<#a974ffff>魔法伤害<>。"
+      },
       "league_missfortune": {
         "name": "厄运小姐",
         "attack": "双枪射击，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。被动<#ff9028ff>厄运的眷顾<>：对新目标的第一枪（她击杀上一个目标后，或<#ffb900ff>1.25秒<>没开枪后）额外造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% 攻击力<>的<#ff9028ff>物理伤害<>。",
@@ -153,6 +160,11 @@
         "skill1": "阿尔法突袭",
         "skill2": "无极剑道",
         "ult": "高原血统"
+      },
+      "league_annie": {
+        "skill1": "碎裂之火",
+        "skill2": "焚烧",
+        "ult": "提伯斯之怒"
       },
       "league_missfortune": {
         "skill1": "一箭双雕",
@@ -247,6 +259,13 @@
         "skill2": "先<#ff9028ff>冥想<><#ffb900ff>0.75秒<>：<#ffb900ff>1秒<>內受到的傷害降低<#ffb900ff>40%<>，<#ffb900ff>2秒<>內回復<#6aff55ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40% 攻擊力<>的<#6aff55ff>生命<>。隨後<#ffb900ff>5秒<>內普攻附加<#f5f5f5ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20% 攻擊力<>的<#f5f5f5ff>真實傷害<>（<#ff9028ff>先聲奪人<>每擊<#ffb900ff>75%<>），下一次普攻必定觸發<#ff9028ff>雙重打擊<>。",
         "ult": "<#ffb900ff>7秒<>內獲得<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>45% 攻擊速度<>和<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>45% 移動速度<>，<#ff9028ff>先聲奪人<>和<#ff9028ff>無極劍道<>的冷卻加快<#ffb900ff>40%<>。"
       },
+      "league_annie": {
+        "name": "安妮",
+        "attack": "普攻扔出小火球，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。被動 <#ff9028ff>嗜火<>：每施放<#ffb900ff>4<>次技能（烈焰衝擊、熔炎護盾各算一次）後，下一個傷害技能<#ef5350ff>暈眩<>命中的英雄<#ffb900ff>1秒<>，小兵和野怪不會消耗它。出生和復活時自帶暈眩。",
+        "skill": "扔出火球，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75% 魔法強度<>的<#a974ffff>魔法傷害<>。",
+        "skill2": "向前方噴出扇形火焰，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85% 魔法強度<>的<#a974ffff>魔法傷害<>。同時施放 <#ff9028ff>熔炎護盾<>：獲得<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 魔法強度<>的<#e8d44dff>護盾<>，持續<#ffb900ff>3秒<>，護盾存在時反彈<#ffb900ff>20%<>所受傷害，並<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度提高30%<>，持續<#ffb900ff>1.5秒<>。",
+        "ult": "召喚泰貝爾砸向敵方英雄，對周圍敵人造成<#a974ffff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 魔法強度<>的<#a974ffff>魔法傷害<>。泰貝爾原地停留<#ffb900ff>6秒<>，每秒灼燒周圍敵人，造成<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12% 魔法強度<>的<#a974ffff>魔法傷害<>。"
+      },
       "league_missfortune": {
         "name": "好運姐",
         "attack": "雙槍射擊，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。被動<#ff9028ff>愛的拍拍<>：對新目標的第一槍（她擊殺上一個目標後，或<#ffb900ff>1.25秒<>沒開槍後）額外造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% 攻擊力<>的<#ff9028ff>物理傷害<>。",
@@ -315,6 +334,11 @@
         "skill1": "先聲奪人",
         "skill2": "無極劍道",
         "ult": "高原血統"
+      },
+      "league_annie": {
+        "skill1": "瓦解怒焰",
+        "skill2": "烈焰衝擊",
+        "ult": "召喚：泰貝爾"
       },
       "league_missfortune": {
         "skill1": "彈射",
@@ -409,6 +433,13 @@
         "skill2": "Master Yi first <#ff9028ff>meditates<> for <#ffb900ff>0.75s<>: he takes <#ffb900ff>40%<> less damage for <#ffb900ff>1s<> and restores <#6aff55ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40% AD<> <#6aff55ff>health<> over <#ffb900ff>2s<>. Then for <#ffb900ff>5s<> his basic attacks deal <#f5f5f5ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20% AD<> bonus <#f5f5f5ff>true damage<> (<#ffb900ff>75%<> on <#ff9028ff>Alpha Strike<>'s strikes), and his next basic attack is a <#ff9028ff>Double Strike<>.",
         "ult": "For <#ffb900ff>7s<> Master Yi gains <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>45% attack speed<> and <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>45% move speed<>, and <#ff9028ff>Alpha Strike<> and <#ff9028ff>Wuju Style<> recharge <#ffb900ff>40%<> faster."
       },
+      "league_annie": {
+        "name": "Annie",
+        "attack": "Basic attacks throw a small fireball for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. Passive <#ff9028ff>Pyromania<>: after <#ffb900ff>4<> spell casts (Incinerate and Molten Shield count as two), her next damaging spell <#ef5350ff>stuns<> the champions it hits for <#ffb900ff>1s<>; minions and monsters never use it up. She spawns and respawns with it ready.",
+        "skill": "Annie hurls a fireball that deals <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75% Ability Power<> <#a974ffff>magic damage<>.",
+        "skill2": "Annie casts a cone of fire, dealing <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85% Ability Power<> <#a974ffff>magic damage<>. She also casts <#ff9028ff>Molten Shield<> on herself: a <#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% Ability Power<> <#e8d44dff>shield<> for <#ffb900ff>3s<>; while it holds, <#ffb900ff>20%<> of the damage she takes is reflected, and she gains <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>30% Move Speed<> for <#ffb900ff>1.5s<>.",
+        "ult": "Annie summons Tibbers onto an enemy champion, dealing <#a974ffff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% Ability Power<> <#a974ffff>magic damage<> around him. Tibbers stays for <#ffb900ff>6s<> and burns nearby enemies for <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12% Ability Power<> <#a974ffff>magic damage<> every second."
+      },
       "league_missfortune": {
         "name": "Miss Fortune",
         "attack": "Miss Fortune fires her pistols for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. Passive <#ff9028ff>Love Tap<>: her first shot at a new target (after she kills her last one, or when she has not fired for <#ffb900ff>1.25s<>) deals <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% AD<> bonus <#ff9028ff>physical damage<>.",
@@ -477,6 +508,11 @@
         "skill1": "Alpha Strike",
         "skill2": "Wuju Style",
         "ult": "Highlander"
+      },
+      "league_annie": {
+        "skill1": "Disintegrate",
+        "skill2": "Incinerate",
+        "ult": "Summon: Tibbers"
       },
       "league_missfortune": {
         "skill1": "Double Up",
@@ -571,6 +607,13 @@
         "skill2": "먼저 <#ffb900ff>0.75초<> 동안 <#ff9028ff>명상<>합니다. <#ffb900ff>1초<> 동안 받는 피해가 <#ffb900ff>40%<> 감소하고 <#ffb900ff>2초<>에 걸쳐 <#6aff55ff>체력<>을 <#6aff55ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 40%<> 회복합니다. 이후 <#ffb900ff>5초<> 동안 기본 공격이 <#f5f5f5ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 20%<> <#f5f5f5ff>고정 피해<>를 추가로 입히고(<#ff9028ff>일격 필살<>은 타격당 <#ffb900ff>75%<>), 다음 기본 공격은 반드시 <#ff9028ff>2연속 공격<>이 됩니다.",
         "ult": "<#ffb900ff>7초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>공격 속도가 45%<>, <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도가 45%<> 증가하고 <#ff9028ff>일격 필살<>과 <#ff9028ff>우주류 검술<>의 재사용 대기시간이 <#ffb900ff>40%<> 빠르게 돌아옵니다."
       },
+      "league_annie": {
+        "name": "애니",
+        "attack": "기본 공격으로 작은 불덩이를 던져 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다. 기본 지속 효과 <#ff9028ff>방화광<>: 스킬을 <#ffb900ff>4<>번 사용하면(소각과 용암 방패는 각각 한 번) 다음 피해 스킬이 적중한 챔피언을 <#ffb900ff>1초<> 동안 <#ef5350ff>기절<>시킵니다. 미니언과 몬스터에게는 소모되지 않으며, 부활할 때 준비된 상태로 시작합니다.",
+        "skill": "불덩이를 던져 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 75%<> <#a974ffff>마법 피해<>를 입힙니다.",
+        "skill2": "원뿔 모양으로 불길을 뿜어 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 85%<> <#a974ffff>마법 피해<>를 입힙니다. 동시에 <#ff9028ff>용암 방패<>를 사용해 <#ffb900ff>3초<> 동안 <#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 40%<> <#e8d44dff>보호막<>을 얻고, 보호막이 유지되는 동안 받는 피해의 <#ffb900ff>20%<>를 되돌려주며, <#ffb900ff>1.5초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도가 30%<> 증가합니다.",
+        "ult": "티버를 적 챔피언에게 떨어뜨려 주변 적에게 <#a974ffff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 70%<> <#a974ffff>마법 피해<>를 입힙니다. 티버는 <#ffb900ff>6초<> 동안 머무르며 매초 주변 적을 불태워 <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 12%<> <#a974ffff>마법 피해<>를 입힙니다."
+      },
       "league_missfortune": {
         "name": "미스 포츈",
         "attack": "쌍권총으로 쏘아 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다. 기본 지속 효과 <#ff9028ff>사랑의 한 방<>: 새 대상에게 쏘는 첫 발(직전 대상을 처치했거나 <#ffb900ff>1.25초<> 동안 쏘지 않았을 때)은 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 60%<> <#ff9028ff>물리 피해<>를 추가로 입힙니다.",
@@ -639,6 +682,11 @@
         "skill1": "일격 필살",
         "skill2": "우주류 검술",
         "ult": "최후의 전사"
+      },
+      "league_annie": {
+        "skill1": "붕괴",
+        "skill2": "소각",
+        "ult": "소환: 티버"
       },
       "league_missfortune": {
         "skill1": "한 발에 두 놈",
@@ -733,6 +781,13 @@
         "skill2": "まず<#ffb900ff>0.75秒<>間<#ff9028ff>明鏡止水<>：<#ffb900ff>1秒<>間受けるダメージが<#ffb900ff>40%<>減少し、<#ffb900ff>2秒<>で<#6aff55ff>体力<>を<#6aff55ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の40%<>回復。その後<#ffb900ff>5秒<>間、通常攻撃に<#f5f5f5ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の20%<>の<#f5f5f5ff>確定ダメージ<>を追加（<#ff9028ff>アルファストライク<>は<#ffb900ff>75%<>）し、次の通常攻撃は必ず<#ff9028ff>ダブルストライク<>になる。",
         "ult": "<#ffb900ff>7秒<>間<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻撃速度が45%<>、<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度が45%<>増加し、<#ff9028ff>アルファストライク<>と<#ff9028ff>ウージュースタイル<>のクールダウンの回復が<#ffb900ff>40%<>速くなる。"
       },
+      "league_annie": {
+        "name": "アニー",
+        "attack": "通常攻撃は小さな火の玉を投げ、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>を与える。パッシブ <#ff9028ff>火遊びだいすき<>：スキルを<#ffb900ff>4<>回使う（バーニングファイアとモルテンシールドは1回ずつ）と、次のダメージスキルが命中したチャンピオンを<#ffb900ff>1秒<>間<#ef5350ff>スタン<>させる。ミニオンやモンスターには消費されず、復活時は準備済み。",
+        "skill": "火の玉を投げ、<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の75%<>の<#a974ffff>魔法ダメージ<>を与える。",
+        "skill2": "扇状に炎を放ち、<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の85%<>の<#a974ffff>魔法ダメージ<>を与える。同時に<#ff9028ff>モルテンシールド<>を発動し、<#ffb900ff>3秒<>間<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の40%<>の<#e8d44dff>シールド<>を得る。シールドがある間は受けたダメージの<#ffb900ff>20%<>を反射し、<#ffb900ff>1.5秒<>間<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度が30%<>増加する。",
+        "ult": "ティバーズを敵チャンピオンに落とし、周囲の敵に<#a974ffff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の70%<>の<#a974ffff>魔法ダメージ<>を与える。ティバーズは<#ffb900ff>6秒<>間その場に留まり、毎秒周囲の敵を燃やして<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の12%<>の<#a974ffff>魔法ダメージ<>を与える。"
+      },
       "league_missfortune": {
         "name": "ミス・フォーチュン",
         "attack": "二丁拳銃で撃ち、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>を与える。自動効果<#ff9028ff>ラブタップ<>：新しい対象への最初の一発（前の対象を倒した後か、<#ffb900ff>1.25秒<>撃っていない時）は<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の60%<>の<#ff9028ff>物理ダメージ<>を追加で与える。",
@@ -801,6 +856,11 @@
         "skill1": "アルファストライク",
         "skill2": "ウージュースタイル",
         "ult": "ハイランダー"
+      },
+      "league_annie": {
+        "skill1": "ファイアボール",
+        "skill2": "バーニングファイア",
+        "ult": "やっちゃえ！ティバーズ！"
       },
       "league_missfortune": {
         "skill1": "ダブルアップ",

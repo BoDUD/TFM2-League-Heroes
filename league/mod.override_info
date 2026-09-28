@@ -1151,6 +1151,110 @@
     "remapping": "asset/league/sound/sfx/league_masteryi_vo_r",
     "type": "override"
   },
+  "asset/base/sound/sfx/league_annie_attack_cast": {
+    "remapping": "asset/league/sound/sfx/league_annie_attack_cast",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_annie_attack_hit": {
+    "remapping": "asset/league/sound/sfx/league_annie_attack_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_annie_q_cast": {
+    "remapping": "asset/league/sound/sfx/league_annie_q_cast",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_annie_q_hit": {
+    "remapping": "asset/league/sound/sfx/league_annie_q_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_annie_w_cast": {
+    "remapping": "asset/league/sound/sfx/league_annie_w_cast",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_annie_w_hit": {
+    "remapping": "asset/league/sound/sfx/league_annie_w_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_annie_e_cast": {
+    "remapping": "asset/league/sound/sfx/league_annie_e_cast",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_annie_pyro_ready": {
+    "remapping": "asset/league/sound/sfx/league_annie_pyro_ready",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_annie_r_cast": {
+    "remapping": "asset/league/sound/sfx/league_annie_r_cast",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_annie_r_hit": {
+    "remapping": "asset/league/sound/sfx/league_annie_r_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_annie_r_swipe": {
+    "remapping": "asset/league/sound/sfx/league_annie_r_swipe",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_annie_r_vanish": {
+    "remapping": "asset/league/sound/sfx/league_annie_r_vanish",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_annie_sfx_attack_cast": {
+    "remapping": "asset/league/sound/sfx/league_annie_sfx_attack_cast",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_annie_sfx_attack_hit": {
+    "remapping": "asset/league/sound/sfx/league_annie_sfx_attack_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_annie_sfx_q_cast": {
+    "remapping": "asset/league/sound/sfx/league_annie_sfx_q_cast",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_annie_vo_q": {
+    "remapping": "asset/league/sound/sfx/league_annie_vo_q",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_annie_sfx_q_hit": {
+    "remapping": "asset/league/sound/sfx/league_annie_sfx_q_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_annie_sfx_w_cast": {
+    "remapping": "asset/league/sound/sfx/league_annie_sfx_w_cast",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_annie_sfx_w_hit": {
+    "remapping": "asset/league/sound/sfx/league_annie_sfx_w_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_annie_sfx_e_cast": {
+    "remapping": "asset/league/sound/sfx/league_annie_sfx_e_cast",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_annie_sfx_pyro_ready": {
+    "remapping": "asset/league/sound/sfx/league_annie_sfx_pyro_ready",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_annie_sfx_r_cast": {
+    "remapping": "asset/league/sound/sfx/league_annie_sfx_r_cast",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_annie_vo_r": {
+    "remapping": "asset/league/sound/sfx/league_annie_vo_r",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_annie_sfx_r_hit": {
+    "remapping": "asset/league/sound/sfx/league_annie_sfx_r_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_annie_sfx_r_swipe": {
+    "remapping": "asset/league/sound/sfx/league_annie_sfx_r_swipe",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_annie_sfx_r_vanish": {
+    "remapping": "asset/league/sound/sfx/league_annie_sfx_r_vanish",
+    "type": "override"
+  },
   "asset/base/sound/sfx/league_missfortune_attack_shot": {
     "remapping": "asset/league/sound/sfx/league_missfortune_attack_shot",
     "type": "override"
