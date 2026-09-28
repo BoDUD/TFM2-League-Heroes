@@ -70,10 +70,14 @@ OK = direct, ~ = approximate, X = not possible in data-only mods.
 | Shield up now, burst later (Leona W) | `AddCasterBuff` damage reduction + a `Delayed` burst wrapped in `SwitchByBuff` on that buff (no burst after she dies); a hit re-adds the reduction once per cast behind a short lock buff | ~ |
 | Allies' hits on a marked enemy deal more (Leona's Sunlight) | `damaged_amplify` 10% for 1.5 s on every enemy a spell hits: all damage, not an ally's next hit | ~ |
 | Circle with a stronger centre (Leona R: slowed in it, stunned in the middle) | two `RangeProjectile`s on the same spot with the same `delay` / `apply`, radius 36000 and 16000 (champion-data "Telegraphed AoE") | OK |
-| Stealth | `Invisible` / `CasterInvisible` | OK |
+| Stealth | `Invisible` / `CasterInvisible`: hidden from the enemy team's vision, but enemies next to the unit see and target it (champion-data section 4) | ~ |
+| Untargetable blink strikes on the target and enemies near it (Master Yi Q) | `Teleport` + strike, then `Delayed` `RandomTarget` bounces, each ending in a self-`Banish` one tick shorter than the gap (a banished caster's `RandomTarget` finds nobody); repeats on one target possible (champion-data "Untargetable blink strikes") | ~ |
+| Channelled self-heal cast when hurt (Master Yi W) | the AI casts a heal on itself whenever it is ready, at any health (champion-data section 3): a short channel with damage reduction and a heal over time, cast as a fight starts, folded with a steroid (Wuju Style) | ~ |
+| Immune to slows (Master Yi R) | no field: slows are buffs, `cc_immune` / `toughness` only touch CC; a big `move_speed_mult` offsets them | X |
+| Takedowns refund cooldowns (Master Yi R) | no cooldown reset: `skill_cooldown_mult` (recharge speed) while the ult lasts | ~ |
 | 2-3 stage recast | `cooltime_use_count` or recast buff + `SwitchByBuff` | ~ (AI timing) |
 | Cone / fan of projectiles (Ashe W) | no angle field on any projectile (base harpooner's fan is `Native`): a `LineRangeProjectile` rectangle cast by `Direction`, drawn as a fan sprite centred on it (champion-data "Cone / fan"); the hit area stays a rectangle | ~ |
-| Untargetable / invulnerable | `Invisible` on self + `cc_immune` / `damaged_reduce` buff | ~ |
+| Untargetable / invulnerable | `Banish` on self (`WithSelf`; it also makes the unit invisible and puts a CC state on it, and the caster's own `RandomTarget` stops finding units); a `damaged_reduce` 100 + `cc_immune` buff keeps it targetable | ~ |
 | Execute / missing-HP scaling | `FixedAttack target_hp_ratio` (a share of *max* health; no effect reads missing health), flat bonus | ~ |
 | Effect scaling with distance / charge time | fixed middle value | ~ |
 | Summons, clones, turrets | zones/projectiles that deal the damage (LoL Reborn's Azir) | ~ |
