@@ -82,7 +82,7 @@ OK = direct, ~ = approximate, X = not possible in data-only mods.
 | Every Nth spell stuns (Annie's Pyromania) | hidden caster buffs count casts (a folded spell counts twice); the cast decides it carries the stun, a hidden champion-only twin of its projectile or area stuns and uses it up a tick later, so minions never waste it (champion-data "Every fourth spell stuns") | OK |
 | Spawns with a charge ready (Annie's Pyromania) | death clears a mod's buffs (champion-data section 5): a `Permanent` flag every action checks first fires once per life | OK |
 | Shield that hurts attackers (Annie E) | `WithSelf {Shield}` + a `WithShield` buff with `damage_reflect` (a share of every hit, basic attacks and skills, not League's flat hit once per attacker) | ~ |
-| Summon that fights (Tibbers) | cannot walk or attack in data: a `Position` cast lands his damage, a zone burns every second, his pictures (drop, standing loop, vanish) are `Delayed` `ViewEffect`s on the spot (champion-data "A summon that lands, stands and burns") | ~ |
+| Summon that fights (Tibbers) | cannot walk or attack in data, but can ride on the unit he is cast on: a `Targeting` cast, an `AddCasted` on the target plays his pictures on it (`is_follow`) and lobs a one-tick burn circle round it every second, the target's death ends him (champion-data "A summon that follows its target"). He cannot pick a new target or chase one of his own | ~ |
 | Refund on a kill (Annie Q) | detectable (kill trigger) and a short `skill_cooldown_mult` burst would speed the recharge, but it speeds every skill; league_annie leaves it out and keeps League's 4 s cooldown | X |
 | 2-3 stage recast | `cooltime_use_count` or recast buff + `SwitchByBuff` | ~ (AI timing) |
 | Cone / fan of projectiles (Ashe W) | no angle field on any projectile (base harpooner's fan is `Native`): a `LineRangeProjectile` rectangle cast by `Direction`, drawn as a fan sprite centred on it (champion-data "Cone / fan"); the hit area stays a rectangle | ~ |
@@ -145,6 +145,13 @@ lineup) with placeholder timings; aligning her casts with her strips (the fireba
 instead of 18, a shorter attack) and landing Tibbers on his picture's impact frame (6 ticks after the
 cast instead of 18, so fewer targets walk out) lifted the same numbers to +1.95, and the final
 tuning was done on those timings (+1.49).
+
+One batch is noisy: the same league_annie 0.13.0 kit gave +1.49 on seeds 1-24 and +2.22 on seeds 25-48
+(720 games each, 5 opponents x 3 lineups x 2 sides), while its damage dealt moved only from 12512 to
+12629. A candidate ranked by one batch can come out upside down (her 0.13.1 burn: 10 + 6% +1.91 above
+14 + 8% +1.57, with damage 12682 below 12843). Compare candidates on two batches of different seeds and
+read the damage dealt next to the kill difference; the simulator is deterministic, so a kit rerun on the
+same seeds gives the same numbers and the old kit need not be rerun on seeds it already played.
 
 ## League of Legends specifics
 

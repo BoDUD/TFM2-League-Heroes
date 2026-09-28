@@ -895,7 +895,7 @@
     "start_timing": 12,
     "cancelable": false,
     "range": 62500,
-    "casting_type": "Position",
+    "casting_type": "Targeting",
     "casting_target": "EnemyChampion",
     "attack_type": "Skill",
     "effect": {
@@ -955,124 +955,67 @@
           "name": "league_annie_tibbers_drop"
         },
         {
-          "type": "Delayed",
-          "tick": 24,
-          "effects": [
-            {
-              "type": "ViewEffect",
-              "name": "league_annie_r_ring"
-            },
-            {
-              "type": "ViewEffect",
-              "name": "league_annie_tibbers"
-            },
-            {
-              "type": "Sfx",
-              "name": "league_annie_r_swipe"
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_annie_tib_ok",
+            "duration": {
+              "Time": {
+                "tick": 25
+              }
             }
-          ]
+          },
+          "only_to_enemy": false
         },
         {
-          "type": "Delayed",
-          "tick": 84,
-          "effects": [
-            {
-              "type": "ViewEffect",
-              "name": "league_annie_r_ring"
-            },
-            {
-              "type": "ViewEffect",
-              "name": "league_annie_tibbers"
-            },
-            {
-              "type": "Sfx",
-              "name": "league_annie_r_swipe"
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_annie_tib_on",
+            "duration": {
+              "Time": {
+                "tick": 354
+              }
             }
-          ]
+          },
+          "only_to_enemy": false
         },
         {
-          "type": "Delayed",
-          "tick": 144,
-          "effects": [
-            {
-              "type": "ViewEffect",
-              "name": "league_annie_r_ring"
-            },
-            {
-              "type": "ViewEffect",
-              "name": "league_annie_tibbers"
-            },
-            {
-              "type": "Sfx",
-              "name": "league_annie_r_swipe"
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_annie_tib_start",
+            "duration": {
+              "Time": {
+                "tick": 10
+              }
             }
-          ]
+          },
+          "only_to_enemy": false
         },
         {
-          "type": "Delayed",
-          "tick": 204,
+          "type": "AddCasted",
+          "casted_type": "Fire",
+          "duration": 384,
+          "period": 383,
           "effects": [
             {
-              "type": "ViewEffect",
-              "name": "league_annie_r_ring"
-            },
-            {
-              "type": "ViewEffect",
-              "name": "league_annie_tibbers"
-            },
-            {
-              "type": "Sfx",
-              "name": "league_annie_r_swipe"
-            }
-          ]
-        },
-        {
-          "type": "Delayed",
-          "tick": 264,
-          "effects": [
-            {
-              "type": "ViewEffect",
-              "name": "league_annie_r_ring"
-            },
-            {
-              "type": "ViewEffect",
-              "name": "league_annie_tibbers"
-            },
-            {
-              "type": "Sfx",
-              "name": "league_annie_r_swipe"
-            }
-          ]
-        },
-        {
-          "type": "Delayed",
-          "tick": 324,
-          "effects": [
-            {
-              "type": "ViewEffect",
-              "name": "league_annie_r_ring"
-            },
-            {
-              "type": "ViewEffect",
-              "name": "league_annie_tibbers"
-            },
-            {
-              "type": "Sfx",
-              "name": "league_annie_r_swipe"
-            }
-          ]
-        },
-        {
-          "type": "Delayed",
-          "tick": 384,
-          "effects": [
-            {
-              "type": "ViewEffect",
-              "name": "league_annie_tibbers_vanish"
-            },
-            {
-              "type": "Sfx",
-              "name": "league_annie_r_vanish"
+              "type": "SwitchByBuff",
+              "buff_name": "league_annie_tib_start",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "ViewEffect",
+                    "name": "league_annie_tibbers_vanish"
+                  },
+                  {
+                    "type": "TargetSfx",
+                    "name": "league_annie_r_vanish"
+                  }
+                ]
+              }
             }
           ]
         },
@@ -1099,83 +1042,105 @@
                 "only_to_enemy": false
               },
               {
-                "type": "RangeProjectile",
-                "name": "league_annie_r_drop",
-                "shape": {
-                  "Circle": {
-                    "radius": 30000
-                  }
-                },
-                "delay": 7,
-                "apply": 7,
-                "applied_target": "EnemyWithoutTower",
-                "applied_effects": [
+                "type": "Delayed",
+                "tick": 5,
+                "effects": [
                   {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "ApAttack",
-                      "damage": 130,
-                      "attack_ratio": 70,
-                      "hp_ratio": 0,
-                      "attack_effect_type": "Target"
-                    }
-                  },
-                  {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "ViewEffect",
-                      "name": "league_annie_burn"
-                    }
-                  }
-                ]
-              },
-              {
-                "type": "RangeProjectile",
-                "name": "league_annie_r_stun",
-                "shape": {
-                  "Circle": {
-                    "radius": 30000
-                  }
-                },
-                "delay": 7,
-                "apply": 7,
-                "applied_target": "EnemyChampion",
-                "applied_effects": [
-                  {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "Stun",
-                      "duration": 60
-                    }
-                  },
-                  {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "ViewEffect",
-                      "name": "league_annie_stun"
-                    }
-                  },
-                  {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "WithSelf",
-                      "effects": [
-                        {
-                          "type": "Delayed",
-                          "tick": 1,
-                          "effects": [
-                            {
-                              "type": "RemoveCasterBuff",
-                              "name": "league_annie_pyro_ready"
-                            },
-                            {
-                              "type": "RemoveCasterBuff",
-                              "name": "league_annie_pyro_glow"
+                    "type": "ParabolicProjectile",
+                    "name": "league_annie_r_lob",
+                    "travel_time": 1,
+                    "range": 1000000,
+                    "range_effect_name": "",
+                    "shape": {
+                      "Circle": {
+                        "radius": 1
+                      }
+                    },
+                    "applied_target": "EnemyChampion",
+                    "applied_effects": [],
+                    "end_effects": [
+                      {
+                        "type": "RangeProjectile",
+                        "name": "league_annie_r_drop",
+                        "shape": {
+                          "Circle": {
+                            "radius": 30000
+                          }
+                        },
+                        "delay": 1,
+                        "apply": 1,
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ApAttack",
+                              "damage": 130,
+                              "attack_ratio": 70,
+                              "hp_ratio": 0,
+                              "attack_effect_type": "Target"
                             }
-                          ]
-                        }
-                      ]
-                    }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ViewEffect",
+                              "name": "league_annie_burn"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "type": "RangeProjectile",
+                        "name": "league_annie_r_stun",
+                        "shape": {
+                          "Circle": {
+                            "radius": 30000
+                          }
+                        },
+                        "delay": 1,
+                        "apply": 1,
+                        "applied_target": "EnemyChampion",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Stun",
+                              "duration": 60
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ViewEffect",
+                              "name": "league_annie_stun"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "WithSelf",
+                              "effects": [
+                                {
+                                  "type": "Delayed",
+                                  "tick": 1,
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_annie_pyro_ready"
+                                    },
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_annie_pyro_glow"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    ]
                   }
                 ]
               }
@@ -1185,33 +1150,55 @@
             "type": "Combine",
             "effects": [
               {
-                "type": "RangeProjectile",
-                "name": "league_annie_r_drop",
-                "shape": {
-                  "Circle": {
-                    "radius": 30000
-                  }
-                },
-                "delay": 7,
-                "apply": 7,
-                "applied_target": "EnemyWithoutTower",
-                "applied_effects": [
+                "type": "Delayed",
+                "tick": 5,
+                "effects": [
                   {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "ApAttack",
-                      "damage": 130,
-                      "attack_ratio": 70,
-                      "hp_ratio": 0,
-                      "attack_effect_type": "Target"
-                    }
-                  },
-                  {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "ViewEffect",
-                      "name": "league_annie_burn"
-                    }
+                    "type": "ParabolicProjectile",
+                    "name": "league_annie_r_lob",
+                    "travel_time": 1,
+                    "range": 1000000,
+                    "range_effect_name": "",
+                    "shape": {
+                      "Circle": {
+                        "radius": 1
+                      }
+                    },
+                    "applied_target": "EnemyChampion",
+                    "applied_effects": [],
+                    "end_effects": [
+                      {
+                        "type": "RangeProjectile",
+                        "name": "league_annie_r_drop",
+                        "shape": {
+                          "Circle": {
+                            "radius": 30000
+                          }
+                        },
+                        "delay": 1,
+                        "apply": 1,
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ApAttack",
+                              "damage": 130,
+                              "attack_ratio": 70,
+                              "hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ViewEffect",
+                              "name": "league_annie_burn"
+                            }
+                          }
+                        ]
+                      }
+                    ]
                   }
                 ]
               },
@@ -1304,41 +1291,637 @@
           "tick": 6,
           "effects": [
             {
-              "type": "Sfx",
+              "type": "TargetSfx",
               "name": "league_annie_r_hit"
-            },
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 24,
+          "effects": [
             {
-              "type": "RangePeriodProjectile",
-              "name": "league_annie_r_burn",
-              "shape": {
-                "Circle": {
-                  "radius": 30000
-                }
-              },
-              "tick": 360,
+              "type": "AddCasted",
+              "casted_type": "Fire",
+              "duration": 301,
               "period": 60,
-              "first_delay": 30,
-              "applied_target": "EnemyWithoutTower",
-              "applied_effects": [
+              "effects": [
                 {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "ApAttack",
-                    "damage": 20,
-                    "attack_ratio": 12,
-                    "hp_ratio": 0,
-                    "attack_effect_type": "Target"
-                  }
+                  "type": "ViewEffect",
+                  "name": "league_annie_r_ring"
                 },
                 {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "ViewEffect",
-                    "name": "league_annie_burn"
+                  "type": "ViewEffect",
+                  "name": "league_annie_tibbers"
+                },
+                {
+                  "type": "TargetSfx",
+                  "name": "league_annie_r_swipe"
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_annie_tib_on",
+                  "effect_buff": {
+                    "type": "ParabolicProjectile",
+                    "name": "league_annie_r_lob",
+                    "travel_time": 1,
+                    "range": 1000000,
+                    "range_effect_name": "",
+                    "shape": {
+                      "Circle": {
+                        "radius": 1
+                      }
+                    },
+                    "applied_target": "EnemyChampion",
+                    "applied_effects": [],
+                    "end_effects": [
+                      {
+                        "type": "RangeProjectile",
+                        "name": "league_annie_r_burn",
+                        "shape": {
+                          "Circle": {
+                            "radius": 30000
+                          }
+                        },
+                        "delay": 1,
+                        "apply": 1,
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ApAttack",
+                              "damage": 14,
+                              "attack_ratio": 8,
+                              "hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ViewEffect",
+                              "name": "league_annie_burn"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "ApAttack",
+                        "damage": 14,
+                        "attack_ratio": 8,
+                        "hp_ratio": 0,
+                        "attack_effect_type": "Target"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "league_annie_burn"
+                      }
+                    ]
                   }
                 }
-              ],
-              "end_effects": []
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 23,
+          "effects": [
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_annie_tib_alive",
+                "duration": {
+                  "Time": {
+                    "tick": 2
+                  }
+                }
+              },
+              "only_to_enemy": false
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 24,
+          "effects": [
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_annie_tib_alive",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_annie_tib_ok"
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_annie_tib_ok",
+                      "duration": {
+                        "Time": {
+                          "tick": 61
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_annie_tib_ok",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_annie_tib_ok"
+                    },
+                    {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "ViewEffect",
+                          "name": "league_annie_tibbers_vanish"
+                        },
+                        {
+                          "type": "TargetSfx",
+                          "name": "league_annie_r_vanish"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": []
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 83,
+          "effects": [
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_annie_tib_alive",
+                "duration": {
+                  "Time": {
+                    "tick": 2
+                  }
+                }
+              },
+              "only_to_enemy": false
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 84,
+          "effects": [
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_annie_tib_alive",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_annie_tib_ok"
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_annie_tib_ok",
+                      "duration": {
+                        "Time": {
+                          "tick": 61
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_annie_tib_ok",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_annie_tib_ok"
+                    },
+                    {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "ViewEffect",
+                          "name": "league_annie_tibbers_vanish"
+                        },
+                        {
+                          "type": "TargetSfx",
+                          "name": "league_annie_r_vanish"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": []
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 143,
+          "effects": [
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_annie_tib_alive",
+                "duration": {
+                  "Time": {
+                    "tick": 2
+                  }
+                }
+              },
+              "only_to_enemy": false
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 144,
+          "effects": [
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_annie_tib_alive",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_annie_tib_ok"
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_annie_tib_ok",
+                      "duration": {
+                        "Time": {
+                          "tick": 61
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_annie_tib_ok",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_annie_tib_ok"
+                    },
+                    {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "ViewEffect",
+                          "name": "league_annie_tibbers_vanish"
+                        },
+                        {
+                          "type": "TargetSfx",
+                          "name": "league_annie_r_vanish"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": []
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 203,
+          "effects": [
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_annie_tib_alive",
+                "duration": {
+                  "Time": {
+                    "tick": 2
+                  }
+                }
+              },
+              "only_to_enemy": false
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 204,
+          "effects": [
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_annie_tib_alive",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_annie_tib_ok"
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_annie_tib_ok",
+                      "duration": {
+                        "Time": {
+                          "tick": 61
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_annie_tib_ok",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_annie_tib_ok"
+                    },
+                    {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "ViewEffect",
+                          "name": "league_annie_tibbers_vanish"
+                        },
+                        {
+                          "type": "TargetSfx",
+                          "name": "league_annie_r_vanish"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": []
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 263,
+          "effects": [
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_annie_tib_alive",
+                "duration": {
+                  "Time": {
+                    "tick": 2
+                  }
+                }
+              },
+              "only_to_enemy": false
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 264,
+          "effects": [
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_annie_tib_alive",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_annie_tib_ok"
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_annie_tib_ok",
+                      "duration": {
+                        "Time": {
+                          "tick": 61
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_annie_tib_ok",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_annie_tib_ok"
+                    },
+                    {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "ViewEffect",
+                          "name": "league_annie_tibbers_vanish"
+                        },
+                        {
+                          "type": "TargetSfx",
+                          "name": "league_annie_r_vanish"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": []
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 323,
+          "effects": [
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_annie_tib_alive",
+                "duration": {
+                  "Time": {
+                    "tick": 2
+                  }
+                }
+              },
+              "only_to_enemy": false
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 324,
+          "effects": [
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_annie_tib_alive",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_annie_tib_ok"
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_annie_tib_ok",
+                      "duration": {
+                        "Time": {
+                          "tick": 61
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_annie_tib_ok",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_annie_tib_ok"
+                    },
+                    {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "ViewEffect",
+                          "name": "league_annie_tibbers_vanish"
+                        },
+                        {
+                          "type": "TargetSfx",
+                          "name": "league_annie_r_vanish"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": []
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 383,
+          "effects": [
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_annie_tib_alive",
+                "duration": {
+                  "Time": {
+                    "tick": 2
+                  }
+                }
+              },
+              "only_to_enemy": false
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 384,
+          "effects": [
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_annie_tib_alive",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_annie_tib_ok",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_annie_tib_ok"
+                    },
+                    {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "ViewEffect",
+                          "name": "league_annie_tibbers_vanish"
+                        },
+                        {
+                          "type": "TargetSfx",
+                          "name": "league_annie_r_vanish"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": []
+                }
+              }
             }
           ]
         }
@@ -1408,14 +1991,16 @@
       "name": "league_annie_tibbers_drop",
       "anim": "asset/league/effects/league_annie_big",
       "tag": "tibbers_drop",
-      "z": -1
+      "z": -1,
+      "is_follow": true
     },
     {
       "type": "Animation",
       "name": "league_annie_tibbers",
       "anim": "asset/league/effects/league_annie_big",
       "tag": "tibbers",
-      "z": -1
+      "z": -1,
+      "is_follow": true
     },
     {
       "type": "Animation",
@@ -1429,7 +2014,8 @@
       "name": "league_annie_r_ring",
       "anim": "asset/league/effects/league_annie_big",
       "tag": "r_ring",
-      "z": -2
+      "z": -2,
+      "is_follow": true
     }
   ],
   "view_buffs": [

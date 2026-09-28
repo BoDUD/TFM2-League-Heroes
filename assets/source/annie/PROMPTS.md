@@ -188,10 +188,10 @@ Layout: one horizontal row of 8 equal cells, each twice as wide as tall (2:1), i
 | `annie_fx_e_shield.png` | 6 | buff `league_annie_e_shield`（护盾在时循环） | 6 × 90 循环 |
 | `annie_fx_pyro_ready.png` | 6 | buff `league_annie_pyro_glow`（眩晕就绪时循环） | 6 × 110 循环 |
 | `annie_fx_stun.png` | 6 | 特效 `league_annie_stun`（跟随目标，1 秒） | 6 × 85，重复两遍 |
-| `annie_fx_tibbers_drop.png` | 6 | 特效 `league_annie_tibbers_drop`（落点，第 2 帧砸中 = 施放后 0.1 秒结算伤害） | 100，60，60，60，60，60 |
-| `annie_fx_tibbers.png` | 8 | 特效 `league_annie_tibbers`（落点，每秒一段，共 6 段） | 8 × 125 |
-| `annie_fx_tibbers_vanish.png` | 6 | 特效 `league_annie_tibbers_vanish`（落点） | 6 × 85 |
-| `annie_fx_r_ring.png` | 8 | 特效 `league_annie_r_ring`（落点，地面，每秒一段，半径 30000） | 8 × 125 |
+| `annie_fx_tibbers_drop.png` | 6 | 特效 `league_annie_tibbers_drop`（落点；0.13.1 起跟随目标，第 2 帧砸中 = 施放后 0.1 秒结算伤害） | 100，60，60，60，60，60 |
+| `annie_fx_tibbers.png` | 8 | 特效 `league_annie_tibbers`（落点；0.13.1 起跟随目标，每秒一段，共 6 段） | 8 × 125 |
+| `annie_fx_tibbers_vanish.png` | 6 | 特效 `league_annie_tibbers_vanish`（落点；0.13.1 起在目标身边） | 6 × 85 |
+| `annie_fx_r_ring.png` | 8 | 特效 `league_annie_r_ring`（落点；0.13.1 起跟随目标，地面，每秒一段，半径 30000） | 8 × 125 |
 
 特效表：`league_annie_fx`（bolt、hit、q_ball、q_hit、burn、e_shield、pyro_ready、stun），`league_annie_big`（w_cone、tibbers_drop、tibbers、tibbers_vanish、r_ring）。
 
@@ -201,3 +201,4 @@ Layout: one horizontal row of 8 equal cells, each twice as wide as tall (2:1), i
 - `tools/art/import_annie.py --raw <交付文件夹>` 按 manifest 切帧、每张 16 色（提伯斯三张共用 20 色）、每个游戏像素取覆盖它的原稿像素里最多的颜色，写成这里的 `annie_fx_*.png`（8×8 方块的原尺寸条）和 `annie_fx_anchors.json`（每张的格子和锚点）。
 - 大小按技能范围：普攻火球 12 px、命中 16 px、碎裂之火 20 px、爆炸 28 px、灼烧 16 px 宽、熔岩护盾 42 px 高、嗜火火光 30 px 高、眩晕星 16 px、火圈 60 px 宽。焚烧的扇形 Codex 画得比 50° 宽，横竖分别缩放到技能的 56 × 50 矩形，尖端在格子左边。提伯斯三张里熊的大小不一（235、218、约 270 原稿像素），各自缩放到耳朵到脚底 42 px。
 - 提伯斯的三张画在单位下层（`z` −1，火圈 −2）：他落在目标脚下，画在上面会挡住刚被眩晕的英雄。
+- 0.13.1 起提伯斯跟着被大招砸中的英雄走：三张图挂在那个英雄身上（`is_follow`），熊站在他身后 9 px，比英雄高，从身后露出头和双臂，英雄始终在他前面。原稿不用重画，只改导入时的锚点（`import_annie.py` 的 `TIB`）。
