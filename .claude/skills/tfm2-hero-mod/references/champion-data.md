@@ -241,8 +241,8 @@ and airborne also cancels the target's dash.
 | LinearProjectile | speed, range, shape, penetrate, end_effects, y_offset | skillshot |
 | BackToCasterLinearProjectile | speed, range, shape, penetrate, end_effects | boomerang |
 | ParabolicProjectile | travel_time, range, shape, range_effect_name, end_effects | lobbed to a spot |
-| LineRangeProjectile | width, length, delay, apply | line/rectangle telegraph, hits after `delay` |
-| RangeProjectile | shape, delay, apply, end_effects | circle at target spot after `delay` |
+| LineRangeProjectile | width, length, delay, apply | line/rectangle: hits once `apply - 1` ticks after it appears, gone after `delay - 1` |
+| RangeProjectile | shape, delay, apply | circle at the target spot, timed like the line; it has no `end_effects` |
 | RangePeriodProjectile | shape, tick, period, first_delay, end_effects | persistent zone ticking every `period` |
 | ApplyInProjectile | shape, tick, follow_caster | aura / zone that can follow the caster |
 
@@ -256,8 +256,19 @@ How they behave *(measured in the SDK simulation for league_jinx, 3-12 ten-minut
   projectiles can start there (LoL Reborn Jinx's rocket splash, league_ashe R).
 - `RangePeriodProjectile`'s `end_effects` are applied effects (`{casting_type, effect}`), run on each
   unit in the area when it ends (LoL Reborn Viktor stuns with them), not once at its position.
-- `RangeProjectile` hits what is inside at `delay` and is gone: one with `delay: 30, apply: 270` was
-  removed 30 ticks after it appeared, every time. It is not a lasting trap.
+- `RangeProjectile` and `LineRangeProjectile` hit once and are gone: `apply` is when, `delay` is how long
+  they last *(measured for league_leona, 2026-09-28: a probe `ViewEffect` in `applied_effects`, a radius
+  large enough that nobody walks out)*. Counting the tick it appears as 0, the hit comes at `apply - 1` and
+  the projectile is removed at `delay - 1` (delay 38: apply 1 hit at 0, apply 20 at 19, apply 38 at 37 on
+  the removal tick; apply 39 and apply 270 never hit). `delay: 1, apply: 1` hits the tick it appears. It is
+  not a lasting trap. Until then this file read `delay` as the moment: league_soraka's star (delay 24,
+  apply 10) hit 0.15 s after it appeared while its picture lands at 0.4 s (now delay 35, apply 25: the hit
+  on the landing frame, gone with the 570 ms picture); league_lux R's damage line and league_ashe W had
+  apply 3 and hit at tick 2, before the beam and the arrows (both now timed by `apply`, section 7).
+- `RangeProjectile` has no `end_effects` (game_core reads name, delay, apply, shape, applied_target and
+  applied_effects; `lint_mod.py` now knows the fields of every effect type from the SDK). league_soraka's
+  Equinox field sat in the star's `end_effects` from her first version and never appeared; it now starts
+  from a `Delayed {tick: 24}` in the same cast (a `Position` cast's effects keep the cast point).
 - `TargetSplashProjectile` homes on its target and hits every unit within `range` of itself on the way,
   the target included; with `range` 20000 at speed 4500 the target is hit about 5 ticks before the
   projectile reaches it.
@@ -381,9 +392,12 @@ For different 1st/2nd casts, add a short `x_recast` buff on first cast and `Swit
 
 **Telegraphed AoE.** `RangeProjectile {delay, apply}` / `LineRangeProjectile {width, length,
 delay, apply}` / `ParabolicProjectile {travel_time}`; or `ViewEffect warning` + `Delayed {tick}
-RangeEffect`. `apply` was read as how many ticks the area stays live after `delay` (base spellbreaker
-Q: delay 8, apply 3, one hit per its tooltip), but a `RangeProjectile` with `delay: 30, apply: 270`
-vanished at tick 30 in the simulation (section 4): count on one hit at `delay`.
+RangeEffect`. The two range projectiles hit once, `apply - 1` ticks after they appear, and last
+`delay - 1` ticks (section 4): set `apply` to the frame of the picture that lands, and `delay` to at
+least `apply`, or to the picture's length (a view appears to end with its projectile, *inferred*).
+league_leona R: a `Position` cast on an
+enemy champion, two circles (damage and slow; the stun in a smaller centre) with delay 60 and apply 38,
+so the flare hits 0.62 s after it appears (League's 0.625 s) and its 1 s picture plays out.
 
 **Cone / fan (Ashe W).** No projectile takes an angle, but `LineRangeProjectile` in a
 `casting_type: Direction` action is a rectangle from the caster toward the target, and its view
@@ -391,7 +405,8 @@ sprite is centred on the rectangle and turned to the cast direction: drawn point
 x = -length/2 to +length/2 (measured on LoL Reborn's Swain Q fan, Lux R and Jhin W sprites). So a
 fan sprite with its apex at x = -length/2 starts at the caster. The hit area stays a rectangle;
 draw the fan a little wider than `width` (oppi's Swain does). league_ashe W: width 45000, length
-80000, delay 14, apply 3, 9 arrows over +-28 deg, 7 frames x 40 ms, view `repeat: false`.
+80000, delay 17, apply 14 (the hit at tick 13, when the arrows have flown out; until 0.10.0 delay 14,
+apply 3 hit at tick 2, as the fan appeared), 9 arrows over +-28 deg, 7 frames x 40 ms, view `repeat: false`.
 
 **Zone / aura.** `RangePeriodProjectile {tick, period}` for a placed field;
 `ApplyInProjectile {follow_caster: true, tick}` for an aura around the hero.
@@ -407,8 +422,10 @@ authors match a zone's view length to its lifetime (Gragas 1767/1750 ms, Utsuho 
 
 **Long laser with a telegraph (Marisa, Lux R).** Split the look from the damage: one
 `LineRangeProjectile` with empty `applied_effects` and a long `delay` carries the view (thin
-line, charge, beam, fade), a second one with the same shape and a shorter `delay` deals the damage
-(Touhou Marisa: visual delay 120; league_lux R: visual delay 55, damage delay 28, 240000 x 16000).
+line, charge, beam, fade), a second one with the same shape whose `apply` is the frame the beam fires
+deals the damage (Touhou Marisa: visual delay 120; league_lux R: visual delay 55, damage delay 29 and
+apply 29 - the hit at tick 28 with the beam and its sound; until 0.10.0 apply 3 hit at tick 2, 0.43 s
+before the beam showed - 240000 x 16000).
 The view is drawn at the unit's pivot height and turned to the cast direction, so keep the beam
 centred vertically in its canvas (an offset would flip when she fires to the left) *(inferred)*.
 
@@ -602,7 +619,8 @@ so a survivor's check can hide the other's death. The same check could build oth
 **A trap that waits and snaps once (league_jinx E).** One zone cannot last and hit once (section 4), so
 the trap is a chain of short links, each started where the thrown `ParabolicProjectile` landed:
 - a `ViewEffect` of the lying trap for the link's length (15 ticks);
-- a `RangeProjectile` with `delay` 14 on `EnemyChampion`, whose effects (skipped under a lock) bite:
+- a `RangeProjectile` with `delay` 14 and `apply` 1 on `EnemyChampion` (it checks on the link's first
+  tick, section 4), whose effects (skipped under a lock) bite:
   `Bind`, damage, a `ViewEffect` on the victim, and `WithSelf {Delayed {tick: 1, AddCasterBuff lock}}`,
   so every champion inside at that check is bitten before the lock falls;
 - a hidden `ParabolicProjectile` of `travel_time` 15 aimed at the same spot, whose `end_effects` start

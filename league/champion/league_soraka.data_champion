@@ -117,8 +117,8 @@
                 "radius": 30000
               }
             },
-            "delay": 24,
-            "apply": 10,
+            "delay": 35,
+            "apply": 25,
             "applied_target": "EnemyWithoutTower",
             "applied_effects": [
               {
@@ -144,8 +144,7 @@
                   }
                 }
               }
-            ],
-            "end_effects": []
+            ]
           },
           "effect_none": {
             "type": "Combine",
@@ -171,8 +170,8 @@
                     "radius": 30000
                   }
                 },
-                "delay": 24,
-                "apply": 10,
+                "delay": 35,
+                "apply": 25,
                 "applied_target": "EnemyWithoutTower",
                 "applied_effects": [
                   {
@@ -198,8 +197,12 @@
                       }
                     }
                   }
-                ],
-                "end_effects": [
+                ]
+              },
+              {
+                "type": "Delayed",
+                "tick": 24,
+                "effects": [
                   {
                     "type": "Sfx",
                     "name": "league_soraka_e_cast"
@@ -288,8 +291,8 @@
               "radius": 30000
             }
           },
-          "delay": 24,
-          "apply": 10,
+          "delay": 35,
+          "apply": 25,
           "applied_target": "EnemyChampion",
           "applied_effects": [
             {
@@ -361,8 +364,7 @@
                 }
               }
             }
-          ],
-          "end_effects": []
+          ]
         },
         {
           "type": "Delayed",

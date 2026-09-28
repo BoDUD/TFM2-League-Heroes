@@ -32,7 +32,7 @@
     "idle": {"frames": [
       ["Yasuo_Idle1@0", 278], ["Yasuo_Idle1@278", 278], ["Yasuo_Idle1@556", 278],
       ["Yasuo_Idle1@833", 278], ["Yasuo_Idle1@1111", 278], ["Yasuo_Idle1@1389", 278]]},
-    "run": {"frames": [
+    "run": {"head_like": "Yasuo_Idle1@0", "frames": [
       ["Yasuo_Run1@0", 112], ["Yasuo_Run1@112", 112], ["Yasuo_Run1@225", 112], ["Yasuo_Run1@337", 112],
       ["Yasuo_Run1@450", 112], ["Yasuo_Run1@562", 112], ["Yasuo_Run1@675", 112], ["Yasuo_Run1@787", 112]]},
     "attack": {"lunge": 0.7, "frames": [

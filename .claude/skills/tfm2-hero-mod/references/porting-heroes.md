@@ -66,6 +66,10 @@ OK = direct, ~ = approximate, X = not possible in data-only mods.
 | Blocks projectiles (Yasuo W, Braum E, Samira W) | nothing can block a projectile. league_yasuo tried a picture of the wall + `base_attack_damaged_reduce` on allied champions around the caster; the user found it odd in this game and had it removed - leave such skills out | X |
 | Only on airborne enemies (Yasuo R) | `EnemyChampionInCC`, which also counts stun, root, fear and charm | ~ |
 | Shield when damaged (Yasuo Flow) | a hidden cooldown buff; the next action after it ends shields him | ~ |
+| Skillshot that roots the first champion and pulls the caster to it (Leona E) | a penetrating damage `LinearProjectile` on `EnemyWithoutTower` plus a hidden non-penetrating twin on `EnemyChampion` whose `applied_effects` hold `Bind`, the root's view, `MoveToTarget` and `CasterAnimation` (the dash) | OK |
+| Shield up now, burst later (Leona W) | `AddCasterBuff` damage reduction + a `Delayed` burst wrapped in `SwitchByBuff` on that buff (no burst after she dies); a hit re-adds the reduction once per cast behind a short lock buff | ~ |
+| Allies' hits on a marked enemy deal more (Leona's Sunlight) | `damaged_amplify` 10% for 1.5 s on every enemy a spell hits: all damage, not an ally's next hit | ~ |
+| Circle with a stronger centre (Leona R: slowed in it, stunned in the middle) | two `RangeProjectile`s on the same spot with the same `delay` / `apply`, radius 36000 and 16000 (champion-data "Telegraphed AoE") | OK |
 | Stealth | `Invisible` / `CasterInvisible` | OK |
 | 2-3 stage recast | `cooltime_use_count` or recast buff + `SwitchByBuff` | ~ (AI timing) |
 | Cone / fan of projectiles (Ashe W) | no angle field on any projectile (base harpooner's fan is `Native`): a `LineRangeProjectile` rectangle cast by `Direction`, drawn as a fan sprite centred on it (champion-data "Cone / fan"); the hit area stays a rectangle | ~ |
@@ -328,12 +332,37 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
     into hair. `"skip"` leaves pixels of the `"rect"` out, and `"pixels"` entries may carry a colour
     (`[x, y, least facing, "hex"]`). Show the user the face at 12x next to the base heroes' faces
     before redrawing all frames: base chibi faces have no mouth and a 2 x 2 near eye, 1 x 2 far eye.
+  - The run (0.10.0): League's run bows his head until the face turns into profile (facing 0.25-0.36,
+    under the mouth's 0.45), and the block's lower rows landed differently in each frame - the chin
+    line over skin read as an open mouth in some frames and not in others (the user: a mouth that
+    comes and goes). `"head_like": "Yasuo_Idle1@0"` on the run keeps the idle's head: the same face
+    in all eight frames, mouth included; the one skin square left under the chin in run 1 goes to
+    the scarf (`yasuo_retouch.json`). Check a run's faces for a steady mouth, not just its eyes.
   - `"hide"` per tag: the drawn sword has no track in the death clip and stood upright beside the
     body. `"chibi": {"scale": {"L_Rope_Back1": 0.6, ...}}` shortens the rope tails that flew out as a
     big gold fan in the run.
   What Yasuo holds at his hip in idle is the sheath (League's weapon part there is only the hilt);
   the drawn blade appears in attacks next to it. `import_native.py` steadies idle and run on
   League's head joint for a voted head.
+- **A shield, a crown and a face under thick hair (Leona, drawn by Claude, restyled).** The spec's
+  top-level `"parts"` paints her shield (a mesh on its own root joint) and her cloth in part colours of
+  their own in `--parts` renders; `restyle_native.py` votes each by its own materials and, with
+  `"outline": true`, outlines what touches the shield, which otherwise came out as one gold mass with
+  her armour. `"crown": 165` measures the chibi crown from the hair (the spikes stand 12 units above
+  it and, counted as the crown, shrank everything else). Next to the base knight she stood 29 px
+  hair to soles, so `"height"` went to 39 (33 px hair to soles, 42 with the crown). Her small face
+  gave too little voted skin to place the block: `"features"` `"profile"` (a facing below which only
+  the block's front four columns go on), `"chin"` (rows that far below the eyes may paint over the
+  collar) and `"fallback": "track"` (the tracked point is the far eye where too little skin is voted).
+  The run bowed her head behind the shield: `"head_like"` keeps the idle's head (Yasuo's run got the
+  same fix later). Idle is one drawing (`ORDER`) with a breath (`BOB`) down to the shield's tip. Her
+  ten effects came from Codex as raw generations like Jinx's: `tools/art/import_leona.py --raw`
+  reuses `import_jinx.split` (the Eclipse burst's flaming rings nearly touch: its cut columns are
+  written out), scales each effect to the kit (burst ring 70 px, flare ring 72 px, both drawn at half
+  and enlarged 2x), anchors rings on the ground row Codex drew them on, moves the shield bash's star
+  frames from the chest to the head, and lists the stun stars twice to cover the 1.75 s stun. Keep
+  overhead marks and stun stars apart - the Sunlight mark 30 px above the pivot, the stars on a 34 px
+  head's top (16 px) - or they merge into one clump.
 - **A face point under the hair.** `tfm2_ase.py face` and the lint find the crown at the top of
   the idle sprite, which for Yasuo is the ponytail's tip, 9 px above his head and to the left of
   it. Both now also look for the head from the face: the top two rows of skin-toned pixels and the

@@ -1,0 +1,73 @@
+{
+  "hero": "leona",
+  "champ": "Leona",
+  "camera": {"yaw": 20, "pitch": 25, "mirror": false},
+  "chibi": {"head": 2.6, "legs": 0.8, "hair": 0.385, "scale": {"shield": 0.8}},
+  "crown": 165,
+  "hair_part": true,
+  "parts": [
+    {"name": "shield", "joints": "^shield$", "outline": true, "materials": [
+      {"name": "magenta", "hue": [290, 345], "sat": [0.45, 1], "val": [0.04, 1], "ramp": [["3A0A26", 0.2], ["701544", 0.3], ["A6286A"]]},
+      {"name": "maroon", "hue": [345, 15], "sat": [0.4, 1], "val": [0.04, 0.5], "ramp": [["3A0A26", 0.22], ["701544"]]},
+      {"name": "gold", "hue": [25, 62], "sat": [0.3, 1], "val": [0.1, 1], "ramp": [["9A6A26", 0.36], ["CFA23E", 0.56], ["F2D675"]]},
+      {"name": "silver", "sat": [0, 0.3], "val": [0.45, 1], "ramp": [["DCD4C0", 0.8], ["FBF6E6"]]},
+      {"name": "dark", "ramp": [["3A0A26"]]}]},
+    {"name": "cloth", "joints": "^(b|f|l|r)_cloth", "materials": [
+      {"name": "magenta", "hue": [290, 345], "sat": [0.45, 1], "val": [0.04, 1], "ramp": [["3A0A26", 0.22], ["701544"]]},
+      {"name": "gold", "hue": [8, 62], "sat": [0.25, 1], "val": [0.04, 1], "ramp": [["5E3F16", 0.3], ["7A5520", 0.45], ["9A6A26"]]},
+      {"name": "dark", "ramp": [["5E3F16"]]}]}
+  ],
+  "face_track": {"offset": [3.0, 2.7]},
+  "height": 39,
+  "cell": [96, 104, 12],
+  "design": "leona_idle1@0",
+  "restyle": {
+    "head": {"mode": "voted", "materials": [
+      {"name": "gold", "hue": [36, 62], "sat": [0.35, 1], "val": [0.2, 1], "ramp": [["9A6A26", 0.45], ["CFA23E", 0.68], ["F2D675"]]},
+      {"name": "skin", "hue": [0, 42], "sat": [0.12, 0.55], "val": [0.35, 1], "ramp": [["C9876A", 0.55], ["E9B28E", 0.75], ["F8D8BC"]]},
+      {"name": "hair", "ramp": [["7A2A10", 0.33], ["C24A18", 0.58], ["EE7A2C"]]}],
+      "features": {"anchor": [62, 74], "rect": [56, 71, 8, 7],
+                   "skip": [[56, 71], [63, 71], [56, 72], [56, 75], [56, 76], [56, 77], [57, 77], [63, 77]],
+                   "min_facing": 0.05, "profile": 0.45, "chin": 1, "fallback": "track"}},
+    "outline": "1E1216",
+    "weapon": [["5E3F16", 0.28], ["9A6A26", 0.48], ["F2D675", 0.72], ["FBF6E6"]],
+    "hair": [["7A2A10", 0.33], ["C24A18", 0.58], ["EE7A2C"]],
+    "materials": [
+      {"name": "magenta", "hue": [290, 345], "sat": [0.45, 1], "val": [0.04, 1], "ramp": [["3A0A26", 0.22], ["701544", 0.32], ["A6286A"]]},
+      {"name": "maroon", "hue": [345, 15], "sat": [0.4, 1], "val": [0.04, 0.5], "ramp": [["3A0A26", 0.25], ["701544"]]},
+      {"name": "gold", "hue": [28, 62], "sat": [0.3, 1], "val": [0.12, 1], "ramp": [["5E3F16", 0.24], ["9A6A26", 0.38], ["CFA23E", 0.58], ["F2D675"]]},
+      {"name": "brown", "hue": [8, 28], "sat": [0.3, 1], "val": [0.04, 1], "ramp": [["5E3F16", 0.28], ["9A6A26"]]},
+      {"name": "silver", "sat": [0, 0.3], "val": [0.55, 1], "ramp": [["DCD4C0", 0.85], ["FBF6E6"]]},
+      {"name": "dark", "ramp": [["5E3F16"]]}
+    ]
+  },
+  "tags": {
+    "idle": {"frames": [
+      ["leona_idle1@0", 200], ["leona_idle1@200", 200], ["leona_idle1@400", 200],
+      ["leona_idle1@600", 200], ["leona_idle1@800", 200], ["leona_idle1@1000", 200]]},
+    "run": {"head_like": "leona_idle1@0", "frames": [
+      ["leona_run@0", 121], ["leona_run@121", 121], ["leona_run@242", 121], ["leona_run@363", 121],
+      ["leona_run@484", 121], ["leona_run@605", 121], ["leona_run@726", 121], ["leona_run@847", 121]]},
+    "attack": {"lunge": 0.7, "frames": [
+      ["leona_idle1@0>leona_attack2@280:0.5", 60], ["leona_attack2@350", 70], ["leona_attack2@420", 90],
+      ["leona_attack2@490", 80], ["leona_attack2@560>leona_idle1@0:0.5", 100]]},
+    "skill": {"lunge": 0.7, "frames": [
+      ["leona_spell1@70", 60], ["leona_spell1@140", 60], ["leona_spell1@210", 60], ["leona_spell1@280", 80],
+      ["leona_spell1@350", 60], ["leona_spell1@490", 60], ["leona_spell1@630>leona_idle1@0:0.5", 60]]},
+    "skill2": {"lunge": 0.7, "frames": [
+      ["leona_spell3@70", 70], ["leona_spell3@140", 70], ["leona_spell3@210", 80], ["leona_spell3@280", 80],
+      ["leona_spell3@420", 100], ["leona_spell3@560>leona_idle1@0:0.5", 110]]},
+    "e_dash": {"lunge": 0.7, "frames": [
+      ["leona_spell3@210", 130], ["leona_spell3@280", 130]]},
+    "ult": {"lunge": 0.7, "frames": [
+      ["leona_spell4@70", 60], ["leona_spell4@140", 60], ["leona_spell4@210", 70], ["leona_spell4@280", 90],
+      ["leona_spell4@420", 120], ["leona_spell4@560", 120], ["leona_spell4@700>leona_idle1@0:0.5", 150]]},
+    "hit": {"flat": true, "frames": [
+      ["leona_idle1@0>leona_death_60fps@150:0.3", 120],
+      ["leona_idle1@0>leona_death_60fps@150:0.12", 120]]},
+    "dead": {"lunge": 0.65, "flat": true, "frames": [
+      ["leona_death_60fps@0", 100], ["leona_death_60fps@300", 100], ["leona_death_60fps@600", 120],
+      ["leona_death_60fps@1000", 120], ["leona_death_60fps@1500", 150], ["leona_death_60fps@2200", 150],
+      ["leona_death_60fps@3000", 150], ["leona_death_60fps@3900", 400]]}
+  }
+}

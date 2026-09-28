@@ -422,8 +422,8 @@
           "name": "league_lux_r_hit",
           "width": 40000,
           "length": 340000,
-          "delay": 28,
-          "apply": 3,
+          "delay": 29,
+          "apply": 29,
           "applied_target": "EnemyWithoutTower",
           "applied_effects": [
             {

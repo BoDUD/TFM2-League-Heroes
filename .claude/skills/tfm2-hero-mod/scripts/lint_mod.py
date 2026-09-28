@@ -56,14 +56,69 @@ HEAL_TYPES = {"Caster", "Ally", "Any", "AllyAll"}
 CASTED_TYPES = {"Fire", "Poison", "Bleed", "Heal"}
 SHAPES = {"Circle", "Line", "Rect", "DirDot"}
 RANGE_APPLY_TYPES = {"AroundCaster", "Forward"}
-# The fields the engine reads for the effects whose numbers matter; the parser skips any other key
-# silently (league_garen's Q shield once wrote hp_ratio, which a Shield does not have).
+# The fields the engine reads on every effect (game_core's DataEffectDef, printed by scripts/sdk_probe.rs); the
+# parser skips any other key silently. league_garen's Q shield once wrote hp_ratio, which a Shield does not have,
+# and league_soraka's Equinox sat in a RangeProjectile's end_effects, which a RangeProjectile does not have: the
+# field never appeared in game.
 EFFECT_FIELDS = {
-    "Attack": {"damage", "attack_ratio", "hp_ratio", "target_hp_ratio", "attack_effect_type"},
-    "ApAttack": {"damage", "attack_ratio", "hp_ratio", "attack_effect_type", "can_crit"},
-    "FixedAttack": {"damage", "attack_ratio", "hp_ratio", "target_hp_ratio", "attack_effect_type"},
-    "Heal": {"amount", "attack_ratio", "ap_ratio", "heal_type"},
-    "Shield": {"amount", "attack_ratio", "ap_ratio", "tick"},
+    "AddBuff": {"buff_state"},
+    "AddCasted": {"casted_type", "duration", "effects", "period"},
+    "AddCasterBuff": {"buff_state", "only_to_enemy"},
+    "Airborne": {"duration"},
+    "ApAttack": {"attack_effect_type", "attack_ratio", "can_crit", "damage", "hp_ratio"},
+    "ApplyInProjectile": {"applied_effects", "applied_target", "follow_caster", "name", "shape", "tick"},
+    "Attack": {"attack_effect_type", "attack_ratio", "damage", "hp_ratio", "target_hp_ratio"},
+    "AutoTargetProjectile": {"applied_effects", "applied_target", "name", "range", "speed", "y_offset"},
+    "BackToCasterLinearProjectile": {"applied_effects", "applied_target", "end_effects", "name", "penetrate", "range",
+                                     "shape", "speed"},
+    "Banish": {"duration", "end_effect_name", "lock_effect_name"},
+    "Bind": {"duration"},
+    "BlockAttack": {"tick"},
+    "BlockMoveSkill": {"tick"},
+    "BlockSkill": {"tick"},
+    "CasterAnimation": {"name", "tick"},
+    "CasterInvisible": {"tick"},
+    "CasterViewEffect": {"name"},
+    "Charm": {"tick"},
+    "Combine": {"effects"},
+    "Delayed": {"effects", "tick"},
+    "DirTeleport": {"moved"},
+    "Fear": {"tick"},
+    "FixedAttack": {"attack_effect_type", "attack_ratio", "damage", "hp_ratio", "target_hp_ratio"},
+    "Grab": {"speed", "tick"},
+    "Heal": {"amount", "ap_ratio", "attack_ratio", "heal_type"},
+    "Invisible": {"tick"},
+    "Knockback": {"speed", "tick"},
+    "LineRangeProjectile": {"applied_effects", "applied_target", "apply", "delay", "length", "name", "width"},
+    "LinearProjectile": {"applied_effects", "applied_target", "end_effects", "name", "penetrate", "range", "shape",
+                         "speed", "y_offset"},
+    "MoveBack": {"speed", "tick"},
+    "MoveTo": {"end_effects", "range", "speed"},
+    "MoveToTarget": {"end_effects", "range", "speed"},
+    "ParabolicProjectile": {"applied_effects", "applied_target", "end_effects", "name", "range", "range_effect_name",
+                            "shape", "travel_time"},
+    "Pull": {"speed", "tick"},
+    "RandomTarget": {"casting_target", "effects", "from_projectile", "range"},
+    "RangeEffect": {"apply_type", "effects", "shape", "target"},
+    "RangePeriodProjectile": {"applied_effects", "applied_target", "end_effects", "first_delay", "name", "period",
+                              "shape", "tick"},
+    "RangeProjectile": {"applied_effects", "applied_target", "apply", "delay", "name", "shape"},
+    "RemoveCasterAnimation": {"name"},
+    "RemoveCasterBuff": {"name"},
+    "RushMoveToBack": {"applied_effects", "speed"},
+    "RushTime": {"applied_effects", "casting_target", "penetrate", "range", "speed", "tick"},
+    "Sfx": {"name"},
+    "Shield": {"amount", "ap_ratio", "attack_ratio", "tick"},
+    "Stun": {"duration"},
+    "SwitchByBuff": {"buff_name", "effect_buff", "effect_none"},
+    "SwitchByLevel3": {"effect_level3", "effect_start"},
+    "TargetProjectile": {"applied_effects", "applied_target", "name", "speed", "y_offset"},
+    "TargetSfx": {"name"},
+    "TargetSplashProjectile": {"applied_effects", "applied_target", "name", "range", "speed", "y_offset"},
+    "Taunt": {"duration"},
+    "Teleport": set(),
+    "ViewEffect": {"name", "radius", "range", "speed", "time"},
+    "WithSelf": {"effects"},
 }
 STAT_KEYS = ["attack", "magic_power", "hp", "defence", "magic_resistance", "move_speed", "hp_regen", "stack",
              "crit_chance"]
@@ -297,6 +352,8 @@ def walk_effects(node, out):
                 out["ignored"] += [(t, k) for k in node if k != "type" and k not in EFFECT_FIELDS[t]]
                 if t in ("Attack", "ApAttack", "FixedAttack") and "attack_ratio" not in node:
                     out["no_ratio"].add(t)
+            if t == "RangeProjectile" and isinstance(node.get("delay"), int) and isinstance(node.get("apply"), int)                     and node["apply"] > node["delay"]:
+                out["never"].add((node.get("name"), node["delay"], node["apply"]))
             if t == "AddCasted" and node.get("casted_type") not in CASTED_TYPES:
                 out["bad_enum"].append((t, "casted_type", node.get("casted_type")))
             shape = node.get("shape")
@@ -507,7 +564,8 @@ def main(argv=None):
 
         # actions + effects
         found = dict(types=[], projectiles=set(), view_effects=set(), anims=set(), sfx=set(), switch_buffs=set(),
-                     removed_buffs=set(), buffs=set(), bad_enum=[], no_duration=set(), ignored=[], no_ratio=set())
+                     removed_buffs=set(), buffs=set(), bad_enum=[], no_duration=set(), ignored=[], no_ratio=set(),
+                     never=set())
         for slot in ACTIONS:
             a = d.get(slot)
             if not isinstance(a, dict):
@@ -568,6 +626,9 @@ def main(argv=None):
                         f"{', '.join(sorted(EFFECT_FIELDS[t]))})")
         for t in sorted(found["no_ratio"]):
             rep.warn(W, f"{t} without attack_ratio: the engine then uses 100 (100% AD or AP) - write it, even as 0")
+        for nm, dl, ap in sorted(found["never"], key=str):
+            rep.warn(W, f"RangeProjectile '{nm}': apply {ap} > delay {dl} - it would hit apply - 1 ticks after it "
+                        f"appears but is gone after delay - 1, so it never hits")
         for nm in sorted(found["no_duration"]):
             rep.info(W, f"buff '{nm}' has no duration (shipped packs do this; set Permanent or Time explicitly)")
         if isinstance(tags, list):
