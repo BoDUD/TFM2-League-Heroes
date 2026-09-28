@@ -48,10 +48,15 @@ ORDER = {("lux", "idle"): [0, 1, 2, 3, 5, 4],
          # League leans his upper body a square forward in idle 4-5 and back in 6, and every frame's head
          # is voted anew, so the face swung and changed shape as he breathed (the user). Frame 1 in every
          # slot, breathing through BOB instead.
-         ("yasuo", "idle"): [0, 0, 0, 0, 0, 0]}
+         ("yasuo", "idle"): [0, 0, 0, 0, 0, 0],
+         # the same one drawing for Leona (her face is pasted, and League's idle barely moves)
+         ("leona", "idle"): [0, 0, 0, 0, 0, 0]}
 # (hero, tag): (y, slots) - in those slots everything at or above pivot row y moves down a row (the row under
-# it is covered): one frame breathing, the face the same drawing throughout
-BOB = {("yasuo", "idle"): (-2, [2, 3, 4])}
+# it is covered): one frame breathing, the face the same drawing throughout. Leona's shield covers her from
+# the chest to the ankles, so she sinks down to its tip and only the boots stay (a seam across the shield
+# would cut it in two).
+BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
+       ("leona", "idle"): (8, [2, 3, 4])}
 CROWN = {"leesin"}              # heroes whose head template starts at the crown (a braid stands above it)
 
 

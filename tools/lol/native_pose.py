@@ -50,6 +50,15 @@ clips, where it floats beside him at full size. "hair_part": true paints the hai
 pose_ref HAIR joints below the head: Yasuo's ponytail) yellow in --parts renders instead of red, so
 restyle_native.py can colour them frame by frame while the design's head is pasted over the rest.
 
+"parts": [{"name", "joints": "<regex>", ...}] paints up to two more joint chains of the body in their own
+colours (cyan, magenta) in --parts renders, for restyle_native.py to vote and outline apart from the body
+(Leona's shield, a mesh on its own root joint, read as one gold mass with her armour and cloth).
+
+"crown": <y> measures the crown from the head's vertices at or below that height in the bind pose (League
+units): Leona's crown spikes stand about 12 units above her hair, which doubled with the head and, counted
+as the crown, shrank everything else (height 34 left her face six rows); with "crown": 165 the hair's top is
+the crown and the spikes stand above it like a hat.
+
 "face_track": {"offset": [dx, dy]} adds "face": [x, y, facing, side] to every frame in the cells table: the
 point dx, dy game px from League's head joint in the design pose (the design's face), carried on the
 head's up / forward plane through every pose, how far the face turns to the camera (1 straight at it,
@@ -84,6 +93,7 @@ from riot import Wad  # noqa: E402
 BG = (225, 225, 225)
 PARTS = [(0, 0, 255), (255, 0, 0), (0, 255, 0)]          # --parts colours: body, head (with its hair), weapon
 HAIR_PART = (255, 255, 0)                                 # with "hair_part": the hair chains apart from the head
+EXTRA_PARTS = [(0, 255, 255), (255, 0, 255)]              # the spec's "parts", in order: cyan, magenta
 PART_TEX = Image.new("RGBA", (len(PARTS), 1))
 for _k, _c in enumerate(PARTS):
     PART_TEX.putpixel((_k, 0), _c + (255,))
@@ -101,7 +111,7 @@ def set_cell(w, h, feet=10):
 class Champ:
     """A champion's base skin: mesh, skeleton, texture and clips, read from the local client."""
 
-    def __init__(self, lol, champ, keep=None, weapon=r"^weapon$", hide=(), hair_part=False):
+    def __init__(self, lol, champ, keep=None, weapon=r"^weapon$", hide=(), hair_part=False, crown=None, extra=()):
         w = Wad(os.path.join(lol, "Game", "DATA", "FINAL", "Champions", f"{champ}.wad.client"))
         skin_bin = w.read_path(f"data/characters/{champ.lower()}/skins/skin0.bin")
         refs = lambda blob, ext: sorted(set(m.decode("latin1") for m in re.findall(rb"[A-Za-z0-9_/\.\-]+\." + ext, blob)))
@@ -124,6 +134,8 @@ class Champ:
         head = P.chain_vertices(self.joints, self.influences, self.verts, re.compile(r"^head$", re.I))
         hair = P.chain_vertices(self.joints, self.influences, self.verts, self.hair_re)
         self.headv = head & ~hair
+        if crown is not None:      # spikes on the head (Leona's crown) do not count as its top
+            self.headv &= self.verts["pos"][:, 1] <= crown
         self.head = next(i for i, j in enumerate(self.joints) if j["name"].lower() == "head")
         on = lambda pat: P.chain_vertices(self.joints, self.influences, self.verts, re.compile(pat, re.I))
         up = np.linalg.inv(bind[self.head][:3, :3]) @ np.array([0.0, 1.0, 0.0])
@@ -136,6 +148,14 @@ class Champ:
         if hair_part:      # Yasuo's ponytail swings on its own: a part of its own, voted like the body
             self.part = np.where((self.part == 1) & hair, 3, self.part)
             self.parts = PARTS + [HAIR_PART]
+            self.part_tex = Image.new("RGBA", (len(self.parts), 1))
+            for k, c in enumerate(self.parts):
+                self.part_tex.putpixel((k, 0), c + (255,))
+        if extra:          # Leona's shield: a prop of its own on the body, voted and outlined apart from it
+            self.parts = list(self.parts)
+            for k, ex in enumerate(extra):
+                self.part = np.where(on(ex["joints"]) & (self.part == 0), len(self.parts), self.part)
+                self.parts.append(EXTRA_PARTS[k])
             self.part_tex = Image.new("RGBA", (len(self.parts), 1))
             for k, c in enumerate(self.parts):
                 self.part_tex.putpixel((k, 0), c + (255,))
@@ -273,7 +293,7 @@ def main():
     keep = chibi.pop("keep", None)
     set_cell(*spec.get("cell", CELL))
     ch = Champ(args.lol, spec["champ"], keep, spec.get("weapon", r"^weapon$"), spec.get("hide", ()),
-               spec.get("hair_part", False))
+               spec.get("hair_part", False), spec.get("crown"), spec.get("parts", ()))
     rot = camera(cam)
     sign = -1.0 if cam.get("mirror") else 1.0
     os.makedirs(args.out, exist_ok=True)
