@@ -39,7 +39,7 @@
     "description": "#asset/base/text/champion?description.league_ezreal.attack",
     "duration": 24,
     "cooltime": 60,
-    "start_timing": 10,
+    "start_timing": 7,
     "cancelable": true,
     "range": 55000,
     "casting_type": "Targeting",
@@ -135,100 +135,148 @@
     "description": "#asset/base/text/champion?description.league_ezreal.skill",
     "duration": 26,
     "cooltime": 300,
-    "start_timing": 10,
+    "start_timing": 1,
     "cancelable": false,
     "range": 100000,
     "casting_type": "Direction",
     "casting_target": "EnemyWithoutTower",
     "attack_type": "BaseAttack",
     "effect": {
-      "type": "Combine",
-      "effects": [
-        {
-          "type": "Sfx",
-          "name": "league_ezreal_q_cast"
-        },
-        {
-          "type": "SwitchByBuff",
-          "buff_name": "league_ezreal_w_cd",
-          "effect_buff": {
-            "type": "Combine",
-            "effects": [
+      "type": "SwitchByBuff",
+      "buff_name": "league_ezreal_w_cd",
+      "effect_buff": {
+        "type": "Delayed",
+        "tick": 7,
+        "effects": [
+          {
+            "type": "Sfx",
+            "name": "league_ezreal_q_cast"
+          },
+          {
+            "type": "LinearProjectile",
+            "name": "league_ezreal_q",
+            "speed": 8000,
+            "range": 120000,
+            "shape": {
+              "Circle": {
+                "radius": 6000
+              }
+            },
+            "penetrate": false,
+            "applied_target": "EnemyWithoutTower",
+            "applied_effects": [
               {
-                "type": "LinearProjectile",
-                "name": "league_ezreal_q",
-                "speed": 8000,
-                "range": 120000,
-                "shape": {
-                  "Circle": {
-                    "radius": 6000
-                  }
-                },
-                "penetrate": false,
-                "applied_target": "EnemyWithoutTower",
-                "applied_effects": [
-                  {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_ezreal_q_now",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
+                "casting_type": "Targeting",
+                "effect": {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_ezreal_q_now",
+                    "duration": {
+                      "Time": {
+                        "tick": 1
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                }
+              },
+              {
+                "casting_type": "Targeting",
+                "effect": {
+                  "type": "Attack",
+                  "damage": 40,
+                  "attack_ratio": 140,
+                  "attack_effect_type": "Target"
+                }
+              },
+              {
+                "casting_type": "Targeting",
+                "effect": {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_ezreal_cdr",
+                    "duration": {
+                      "Time": {
+                        "tick": 2
+                      }
+                    },
+                    "skill_cooldown_mult": 50
+                  },
+                  "only_to_enemy": false
+                }
+              },
+              {
+                "casting_type": "Targeting",
+                "effect": {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_ezreal_rsf_5",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_ezreal_rsf_5"
                       },
-                      "only_to_enemy": false
-                    }
-                  },
-                  {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "Attack",
-                      "damage": 40,
-                      "attack_ratio": 140,
-                      "attack_effect_type": "Target"
-                    }
-                  },
-                  {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_ezreal_cdr",
-                        "duration": {
-                          "Time": {
-                            "tick": 2
-                          }
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_ezreal_rsf_5",
+                          "duration": {
+                            "Time": {
+                              "tick": 360
+                            }
+                          },
+                          "attack_speed_mult": 60
                         },
-                        "skill_cooldown_mult": 50
-                      },
-                      "only_to_enemy": false
-                    }
+                        "only_to_enemy": false
+                      }
+                    ]
                   },
-                  {
-                    "casting_type": "Targeting",
-                    "effect": {
+                  "effect_none": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_ezreal_rsf_4",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_ezreal_rsf_4"
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_ezreal_rsf_5",
+                            "duration": {
+                              "Time": {
+                                "tick": 360
+                              }
+                            },
+                            "attack_speed_mult": 60
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    },
+                    "effect_none": {
                       "type": "SwitchByBuff",
-                      "buff_name": "league_ezreal_rsf_5",
+                      "buff_name": "league_ezreal_rsf_3",
                       "effect_buff": {
                         "type": "Combine",
                         "effects": [
                           {
                             "type": "RemoveCasterBuff",
-                            "name": "league_ezreal_rsf_5"
+                            "name": "league_ezreal_rsf_3"
                           },
                           {
                             "type": "AddCasterBuff",
                             "buff_state": {
-                              "name": "league_ezreal_rsf_5",
+                              "name": "league_ezreal_rsf_4",
                               "duration": {
                                 "Time": {
                                   "tick": 360
                                 }
                               },
-                              "attack_speed_mult": 60
+                              "attack_speed_mult": 48
                             },
                             "only_to_enemy": false
                           }
@@ -236,24 +284,24 @@
                       },
                       "effect_none": {
                         "type": "SwitchByBuff",
-                        "buff_name": "league_ezreal_rsf_4",
+                        "buff_name": "league_ezreal_rsf_2",
                         "effect_buff": {
                           "type": "Combine",
                           "effects": [
                             {
                               "type": "RemoveCasterBuff",
-                              "name": "league_ezreal_rsf_4"
+                              "name": "league_ezreal_rsf_2"
                             },
                             {
                               "type": "AddCasterBuff",
                               "buff_state": {
-                                "name": "league_ezreal_rsf_5",
+                                "name": "league_ezreal_rsf_3",
                                 "duration": {
                                   "Time": {
                                     "tick": 360
                                   }
                                 },
-                                "attack_speed_mult": 60
+                                "attack_speed_mult": 36
                               },
                               "only_to_enemy": false
                             }
@@ -261,208 +309,167 @@
                         },
                         "effect_none": {
                           "type": "SwitchByBuff",
-                          "buff_name": "league_ezreal_rsf_3",
+                          "buff_name": "league_ezreal_rsf_1",
                           "effect_buff": {
                             "type": "Combine",
                             "effects": [
                               {
                                 "type": "RemoveCasterBuff",
-                                "name": "league_ezreal_rsf_3"
+                                "name": "league_ezreal_rsf_1"
                               },
                               {
                                 "type": "AddCasterBuff",
                                 "buff_state": {
-                                  "name": "league_ezreal_rsf_4",
+                                  "name": "league_ezreal_rsf_2",
                                   "duration": {
                                     "Time": {
                                       "tick": 360
                                     }
                                   },
-                                  "attack_speed_mult": 48
+                                  "attack_speed_mult": 24
                                 },
                                 "only_to_enemy": false
                               }
                             ]
                           },
                           "effect_none": {
-                            "type": "SwitchByBuff",
-                            "buff_name": "league_ezreal_rsf_2",
-                            "effect_buff": {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_ezreal_rsf_2"
-                                },
-                                {
-                                  "type": "AddCasterBuff",
-                                  "buff_state": {
-                                    "name": "league_ezreal_rsf_3",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 360
-                                      }
-                                    },
-                                    "attack_speed_mult": 36
-                                  },
-                                  "only_to_enemy": false
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_ezreal_rsf_1",
+                              "duration": {
+                                "Time": {
+                                  "tick": 360
                                 }
-                              ]
-                            },
-                            "effect_none": {
-                              "type": "SwitchByBuff",
-                              "buff_name": "league_ezreal_rsf_1",
-                              "effect_buff": {
-                                "type": "Combine",
-                                "effects": [
-                                  {
-                                    "type": "RemoveCasterBuff",
-                                    "name": "league_ezreal_rsf_1"
-                                  },
-                                  {
-                                    "type": "AddCasterBuff",
-                                    "buff_state": {
-                                      "name": "league_ezreal_rsf_2",
-                                      "duration": {
-                                        "Time": {
-                                          "tick": 360
-                                        }
-                                      },
-                                      "attack_speed_mult": 24
-                                    },
-                                    "only_to_enemy": false
-                                  }
-                                ]
                               },
-                              "effect_none": {
-                                "type": "AddCasterBuff",
-                                "buff_state": {
-                                  "name": "league_ezreal_rsf_1",
-                                  "duration": {
-                                    "Time": {
-                                      "tick": 360
-                                    }
-                                  },
-                                  "attack_speed_mult": 12
-                                },
-                                "only_to_enemy": false
-                              }
-                            }
+                              "attack_speed_mult": 12
+                            },
+                            "only_to_enemy": false
                           }
                         }
                       }
                     }
-                  },
-                  {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "ViewEffect",
-                      "name": "league_ezreal_q_hit"
-                    }
-                  },
-                  {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "TargetSfx",
-                      "name": "league_ezreal_q_hit"
-                    }
                   }
-                ],
-                "end_effects": []
+                }
               },
               {
-                "type": "LinearProjectile",
-                "name": "league_ezreal_q_twin",
-                "speed": 8000,
-                "range": 120000,
-                "shape": {
-                  "Circle": {
-                    "radius": 6000
-                  }
-                },
-                "penetrate": false,
-                "applied_target": "EnemyChampion",
-                "applied_effects": [
-                  {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "SwitchByBuff",
-                      "buff_name": "league_ezreal_q_now",
-                      "effect_buff": {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_ezreal_w_mark",
-                        "effect_buff": {
-                          "type": "Combine",
-                          "effects": [
-                            {
-                              "type": "RemoveCasterBuff",
-                              "name": "league_ezreal_w_mark"
-                            },
-                            {
-                              "type": "Attack",
-                              "damage": 90,
-                              "attack_ratio": 90,
-                              "attack_effect_type": "Target"
-                            },
-                            {
-                              "type": "ViewEffect",
-                              "name": "league_ezreal_w_boom"
-                            },
-                            {
-                              "type": "TargetSfx",
-                              "name": "league_ezreal_w_boom"
-                            }
-                          ]
-                        },
-                        "effect_none": {
-                          "type": "Combine",
-                          "effects": []
-                        }
-                      },
-                      "effect_none": {
-                        "type": "Combine",
-                        "effects": []
-                      }
-                    }
-                  }
-                ],
-                "end_effects": []
+                "casting_type": "Targeting",
+                "effect": {
+                  "type": "ViewEffect",
+                  "name": "league_ezreal_q_hit"
+                }
+              },
+              {
+                "casting_type": "Targeting",
+                "effect": {
+                  "type": "TargetSfx",
+                  "name": "league_ezreal_q_hit"
+                }
               }
-            ]
+            ],
+            "end_effects": []
           },
-          "effect_none": {
-            "type": "Combine",
+          {
+            "type": "LinearProjectile",
+            "name": "league_ezreal_q_twin",
+            "speed": 8000,
+            "range": 120000,
+            "shape": {
+              "Circle": {
+                "radius": 6000
+              }
+            },
+            "penetrate": false,
+            "applied_target": "EnemyChampion",
+            "applied_effects": [
+              {
+                "casting_type": "Targeting",
+                "effect": {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_ezreal_q_now",
+                  "effect_buff": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_ezreal_w_mark",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_ezreal_w_mark"
+                        },
+                        {
+                          "type": "Attack",
+                          "damage": 90,
+                          "attack_ratio": 90,
+                          "attack_effect_type": "Target"
+                        },
+                        {
+                          "type": "ViewEffect",
+                          "name": "league_ezreal_w_boom"
+                        },
+                        {
+                          "type": "TargetSfx",
+                          "name": "league_ezreal_w_boom"
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                }
+              }
+            ],
+            "end_effects": []
+          }
+        ]
+      },
+      "effect_none": {
+        "type": "Combine",
+        "effects": [
+          {
+            "type": "RandomTarget",
+            "range": 110000,
+            "casting_target": "EnemyChampion",
+            "from_projectile": false,
             "effects": [
               {
-                "type": "RandomTarget",
-                "range": 110000,
-                "casting_target": "EnemyChampion",
-                "from_projectile": false,
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_ezreal_w_cd",
+                  "duration": {
+                    "Time": {
+                      "tick": 360
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_ezreal_w_thrown",
+                  "duration": {
+                    "Time": {
+                      "tick": 1
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "CasterAnimation",
+                "name": "skill_w",
+                "tick": 25
+              },
+              {
+                "type": "Delayed",
+                "tick": 10,
                 "effects": [
-                  {
-                    "type": "AddCasterBuff",
-                    "buff_state": {
-                      "name": "league_ezreal_w_cd",
-                      "duration": {
-                        "Time": {
-                          "tick": 360
-                        }
-                      }
-                    },
-                    "only_to_enemy": false
-                  },
-                  {
-                    "type": "AddCasterBuff",
-                    "buff_state": {
-                      "name": "league_ezreal_w_thrown",
-                      "duration": {
-                        "Time": {
-                          "tick": 1
-                        }
-                      }
-                    },
-                    "only_to_enemy": false
-                  },
                   {
                     "type": "Sfx",
                     "name": "league_ezreal_w_cast"
@@ -1414,324 +1421,91 @@
                       }
                     ],
                     "end_effects": []
-                  },
-                  {
-                    "type": "Delayed",
-                    "tick": 4,
-                    "effects": [
-                      {
-                        "type": "LinearProjectile",
-                        "name": "league_ezreal_q",
-                        "speed": 8000,
-                        "range": 120000,
-                        "shape": {
-                          "Circle": {
-                            "radius": 6000
-                          }
-                        },
-                        "penetrate": false,
-                        "applied_target": "EnemyChampion",
-                        "applied_effects": [
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "Attack",
-                              "damage": 40,
-                              "attack_ratio": 140,
-                              "attack_effect_type": "Target"
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "AddCasterBuff",
-                              "buff_state": {
-                                "name": "league_ezreal_cdr",
-                                "duration": {
-                                  "Time": {
-                                    "tick": 2
-                                  }
-                                },
-                                "skill_cooldown_mult": 50
-                              },
-                              "only_to_enemy": false
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "SwitchByBuff",
-                              "buff_name": "league_ezreal_rsf_5",
-                              "effect_buff": {
-                                "type": "Combine",
-                                "effects": [
-                                  {
-                                    "type": "RemoveCasterBuff",
-                                    "name": "league_ezreal_rsf_5"
-                                  },
-                                  {
-                                    "type": "AddCasterBuff",
-                                    "buff_state": {
-                                      "name": "league_ezreal_rsf_5",
-                                      "duration": {
-                                        "Time": {
-                                          "tick": 360
-                                        }
-                                      },
-                                      "attack_speed_mult": 60
-                                    },
-                                    "only_to_enemy": false
-                                  }
-                                ]
-                              },
-                              "effect_none": {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_ezreal_rsf_4",
-                                "effect_buff": {
-                                  "type": "Combine",
-                                  "effects": [
-                                    {
-                                      "type": "RemoveCasterBuff",
-                                      "name": "league_ezreal_rsf_4"
-                                    },
-                                    {
-                                      "type": "AddCasterBuff",
-                                      "buff_state": {
-                                        "name": "league_ezreal_rsf_5",
-                                        "duration": {
-                                          "Time": {
-                                            "tick": 360
-                                          }
-                                        },
-                                        "attack_speed_mult": 60
-                                      },
-                                      "only_to_enemy": false
-                                    }
-                                  ]
-                                },
-                                "effect_none": {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "league_ezreal_rsf_3",
-                                  "effect_buff": {
-                                    "type": "Combine",
-                                    "effects": [
-                                      {
-                                        "type": "RemoveCasterBuff",
-                                        "name": "league_ezreal_rsf_3"
-                                      },
-                                      {
-                                        "type": "AddCasterBuff",
-                                        "buff_state": {
-                                          "name": "league_ezreal_rsf_4",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 360
-                                            }
-                                          },
-                                          "attack_speed_mult": 48
-                                        },
-                                        "only_to_enemy": false
-                                      }
-                                    ]
-                                  },
-                                  "effect_none": {
-                                    "type": "SwitchByBuff",
-                                    "buff_name": "league_ezreal_rsf_2",
-                                    "effect_buff": {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "RemoveCasterBuff",
-                                          "name": "league_ezreal_rsf_2"
-                                        },
-                                        {
-                                          "type": "AddCasterBuff",
-                                          "buff_state": {
-                                            "name": "league_ezreal_rsf_3",
-                                            "duration": {
-                                              "Time": {
-                                                "tick": 360
-                                              }
-                                            },
-                                            "attack_speed_mult": 36
-                                          },
-                                          "only_to_enemy": false
-                                        }
-                                      ]
-                                    },
-                                    "effect_none": {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_ezreal_rsf_1",
-                                      "effect_buff": {
-                                        "type": "Combine",
-                                        "effects": [
-                                          {
-                                            "type": "RemoveCasterBuff",
-                                            "name": "league_ezreal_rsf_1"
-                                          },
-                                          {
-                                            "type": "AddCasterBuff",
-                                            "buff_state": {
-                                              "name": "league_ezreal_rsf_2",
-                                              "duration": {
-                                                "Time": {
-                                                  "tick": 360
-                                                }
-                                              },
-                                              "attack_speed_mult": 24
-                                            },
-                                            "only_to_enemy": false
-                                          }
-                                        ]
-                                      },
-                                      "effect_none": {
-                                        "type": "AddCasterBuff",
-                                        "buff_state": {
-                                          "name": "league_ezreal_rsf_1",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 360
-                                            }
-                                          },
-                                          "attack_speed_mult": 12
-                                        },
-                                        "only_to_enemy": false
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "ViewEffect",
-                              "name": "league_ezreal_q_hit"
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "TargetSfx",
-                              "name": "league_ezreal_q_hit"
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "SwitchByBuff",
-                              "buff_name": "league_ezreal_w_mark",
-                              "effect_buff": {
-                                "type": "Combine",
-                                "effects": [
-                                  {
-                                    "type": "RemoveCasterBuff",
-                                    "name": "league_ezreal_w_mark"
-                                  },
-                                  {
-                                    "type": "Attack",
-                                    "damage": 90,
-                                    "attack_ratio": 90,
-                                    "attack_effect_type": "Target"
-                                  },
-                                  {
-                                    "type": "ViewEffect",
-                                    "name": "league_ezreal_w_boom"
-                                  },
-                                  {
-                                    "type": "TargetSfx",
-                                    "name": "league_ezreal_w_boom"
-                                  }
-                                ]
-                              },
-                              "effect_none": {
-                                "type": "Combine",
-                                "effects": []
-                              }
-                            }
-                          }
-                        ],
-                        "end_effects": []
-                      }
-                    ]
                   }
                 ]
               },
               {
-                "type": "SwitchByBuff",
-                "buff_name": "league_ezreal_w_thrown",
-                "effect_buff": {
-                  "type": "Combine",
-                  "effects": []
-                },
-                "effect_none": {
-                  "type": "Combine",
-                  "effects": [
-                    {
-                      "type": "LinearProjectile",
-                      "name": "league_ezreal_q",
-                      "speed": 8000,
-                      "range": 120000,
-                      "shape": {
-                        "Circle": {
-                          "radius": 6000
+                "type": "Delayed",
+                "tick": 21,
+                "effects": [
+                  {
+                    "type": "Sfx",
+                    "name": "league_ezreal_q_cast"
+                  },
+                  {
+                    "type": "LinearProjectile",
+                    "name": "league_ezreal_q",
+                    "speed": 8000,
+                    "range": 120000,
+                    "shape": {
+                      "Circle": {
+                        "radius": 6000
+                      }
+                    },
+                    "penetrate": false,
+                    "applied_target": "EnemyChampion",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "Attack",
+                          "damage": 40,
+                          "attack_ratio": 140,
+                          "attack_effect_type": "Target"
                         }
                       },
-                      "penetrate": false,
-                      "applied_target": "EnemyWithoutTower",
-                      "applied_effects": [
-                        {
-                          "casting_type": "Targeting",
-                          "effect": {
-                            "type": "AddCasterBuff",
-                            "buff_state": {
-                              "name": "league_ezreal_q_now",
-                              "duration": {
-                                "Time": {
-                                  "tick": 1
-                                }
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_ezreal_cdr",
+                            "duration": {
+                              "Time": {
+                                "tick": 2
                               }
                             },
-                            "only_to_enemy": false
-                          }
-                        },
-                        {
-                          "casting_type": "Targeting",
-                          "effect": {
-                            "type": "Attack",
-                            "damage": 40,
-                            "attack_ratio": 140,
-                            "attack_effect_type": "Target"
-                          }
-                        },
-                        {
-                          "casting_type": "Targeting",
-                          "effect": {
-                            "type": "AddCasterBuff",
-                            "buff_state": {
-                              "name": "league_ezreal_cdr",
-                              "duration": {
-                                "Time": {
-                                  "tick": 2
-                                }
+                            "skill_cooldown_mult": 50
+                          },
+                          "only_to_enemy": false
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_ezreal_rsf_5",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_ezreal_rsf_5"
                               },
-                              "skill_cooldown_mult": 50
-                            },
-                            "only_to_enemy": false
-                          }
-                        },
-                        {
-                          "casting_type": "Targeting",
-                          "effect": {
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_ezreal_rsf_5",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 360
+                                    }
+                                  },
+                                  "attack_speed_mult": 60
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          },
+                          "effect_none": {
                             "type": "SwitchByBuff",
-                            "buff_name": "league_ezreal_rsf_5",
+                            "buff_name": "league_ezreal_rsf_4",
                             "effect_buff": {
                               "type": "Combine",
                               "effects": [
                                 {
                                   "type": "RemoveCasterBuff",
-                                  "name": "league_ezreal_rsf_5"
+                                  "name": "league_ezreal_rsf_4"
                                 },
                                 {
                                   "type": "AddCasterBuff",
@@ -1750,24 +1524,24 @@
                             },
                             "effect_none": {
                               "type": "SwitchByBuff",
-                              "buff_name": "league_ezreal_rsf_4",
+                              "buff_name": "league_ezreal_rsf_3",
                               "effect_buff": {
                                 "type": "Combine",
                                 "effects": [
                                   {
                                     "type": "RemoveCasterBuff",
-                                    "name": "league_ezreal_rsf_4"
+                                    "name": "league_ezreal_rsf_3"
                                   },
                                   {
                                     "type": "AddCasterBuff",
                                     "buff_state": {
-                                      "name": "league_ezreal_rsf_5",
+                                      "name": "league_ezreal_rsf_4",
                                       "duration": {
                                         "Time": {
                                           "tick": 360
                                         }
                                       },
-                                      "attack_speed_mult": 60
+                                      "attack_speed_mult": 48
                                     },
                                     "only_to_enemy": false
                                   }
@@ -1775,24 +1549,24 @@
                               },
                               "effect_none": {
                                 "type": "SwitchByBuff",
-                                "buff_name": "league_ezreal_rsf_3",
+                                "buff_name": "league_ezreal_rsf_2",
                                 "effect_buff": {
                                   "type": "Combine",
                                   "effects": [
                                     {
                                       "type": "RemoveCasterBuff",
-                                      "name": "league_ezreal_rsf_3"
+                                      "name": "league_ezreal_rsf_2"
                                     },
                                     {
                                       "type": "AddCasterBuff",
                                       "buff_state": {
-                                        "name": "league_ezreal_rsf_4",
+                                        "name": "league_ezreal_rsf_3",
                                         "duration": {
                                           "Time": {
                                             "tick": 360
                                           }
                                         },
-                                        "attack_speed_mult": 48
+                                        "attack_speed_mult": 36
                                       },
                                       "only_to_enemy": false
                                     }
@@ -1800,155 +1574,397 @@
                                 },
                                 "effect_none": {
                                   "type": "SwitchByBuff",
-                                  "buff_name": "league_ezreal_rsf_2",
+                                  "buff_name": "league_ezreal_rsf_1",
                                   "effect_buff": {
                                     "type": "Combine",
                                     "effects": [
                                       {
                                         "type": "RemoveCasterBuff",
-                                        "name": "league_ezreal_rsf_2"
+                                        "name": "league_ezreal_rsf_1"
                                       },
                                       {
                                         "type": "AddCasterBuff",
                                         "buff_state": {
-                                          "name": "league_ezreal_rsf_3",
+                                          "name": "league_ezreal_rsf_2",
                                           "duration": {
                                             "Time": {
                                               "tick": 360
                                             }
                                           },
-                                          "attack_speed_mult": 36
+                                          "attack_speed_mult": 24
                                         },
                                         "only_to_enemy": false
                                       }
                                     ]
                                   },
                                   "effect_none": {
-                                    "type": "SwitchByBuff",
-                                    "buff_name": "league_ezreal_rsf_1",
-                                    "effect_buff": {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "RemoveCasterBuff",
-                                          "name": "league_ezreal_rsf_1"
-                                        },
-                                        {
-                                          "type": "AddCasterBuff",
-                                          "buff_state": {
-                                            "name": "league_ezreal_rsf_2",
-                                            "duration": {
-                                              "Time": {
-                                                "tick": 360
-                                              }
-                                            },
-                                            "attack_speed_mult": 24
-                                          },
-                                          "only_to_enemy": false
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_ezreal_rsf_1",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 360
                                         }
-                                      ]
-                                    },
-                                    "effect_none": {
-                                      "type": "AddCasterBuff",
-                                      "buff_state": {
-                                        "name": "league_ezreal_rsf_1",
-                                        "duration": {
-                                          "Time": {
-                                            "tick": 360
-                                          }
-                                        },
-                                        "attack_speed_mult": 12
                                       },
-                                      "only_to_enemy": false
-                                    }
+                                      "attack_speed_mult": 12
+                                    },
+                                    "only_to_enemy": false
                                   }
                                 }
                               }
                             }
                           }
-                        },
-                        {
-                          "casting_type": "Targeting",
-                          "effect": {
-                            "type": "ViewEffect",
-                            "name": "league_ezreal_q_hit"
-                          }
-                        },
-                        {
-                          "casting_type": "Targeting",
-                          "effect": {
-                            "type": "TargetSfx",
-                            "name": "league_ezreal_q_hit"
-                          }
-                        }
-                      ],
-                      "end_effects": []
-                    },
-                    {
-                      "type": "LinearProjectile",
-                      "name": "league_ezreal_q_twin",
-                      "speed": 8000,
-                      "range": 120000,
-                      "shape": {
-                        "Circle": {
-                          "radius": 6000
                         }
                       },
-                      "penetrate": false,
-                      "applied_target": "EnemyChampion",
-                      "applied_effects": [
-                        {
-                          "casting_type": "Targeting",
-                          "effect": {
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ViewEffect",
+                          "name": "league_ezreal_q_hit"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "TargetSfx",
+                          "name": "league_ezreal_q_hit"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_ezreal_w_mark",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_ezreal_w_mark"
+                              },
+                              {
+                                "type": "Attack",
+                                "damage": 90,
+                                "attack_ratio": 90,
+                                "attack_effect_type": "Target"
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "league_ezreal_w_boom"
+                              },
+                              {
+                                "type": "TargetSfx",
+                                "name": "league_ezreal_w_boom"
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": []
+                          }
+                        }
+                      }
+                    ],
+                    "end_effects": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "SwitchByBuff",
+            "buff_name": "league_ezreal_w_thrown",
+            "effect_buff": {
+              "type": "Combine",
+              "effects": []
+            },
+            "effect_none": {
+              "type": "Delayed",
+              "tick": 7,
+              "effects": [
+                {
+                  "type": "Sfx",
+                  "name": "league_ezreal_q_cast"
+                },
+                {
+                  "type": "LinearProjectile",
+                  "name": "league_ezreal_q",
+                  "speed": 8000,
+                  "range": 120000,
+                  "shape": {
+                    "Circle": {
+                      "radius": 6000
+                    }
+                  },
+                  "penetrate": false,
+                  "applied_target": "EnemyWithoutTower",
+                  "applied_effects": [
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_ezreal_q_now",
+                          "duration": {
+                            "Time": {
+                              "tick": 1
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "Attack",
+                        "damage": 40,
+                        "attack_ratio": 140,
+                        "attack_effect_type": "Target"
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_ezreal_cdr",
+                          "duration": {
+                            "Time": {
+                              "tick": 2
+                            }
+                          },
+                          "skill_cooldown_mult": 50
+                        },
+                        "only_to_enemy": false
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ezreal_rsf_5",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_ezreal_rsf_5"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_ezreal_rsf_5",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 360
+                                  }
+                                },
+                                "attack_speed_mult": 60
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_ezreal_rsf_4",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_ezreal_rsf_4"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_ezreal_rsf_5",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 360
+                                    }
+                                  },
+                                  "attack_speed_mult": 60
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          },
+                          "effect_none": {
                             "type": "SwitchByBuff",
-                            "buff_name": "league_ezreal_q_now",
+                            "buff_name": "league_ezreal_rsf_3",
                             "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_ezreal_rsf_3"
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_ezreal_rsf_4",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 360
+                                      }
+                                    },
+                                    "attack_speed_mult": 48
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              ]
+                            },
+                            "effect_none": {
                               "type": "SwitchByBuff",
-                              "buff_name": "league_ezreal_w_mark",
+                              "buff_name": "league_ezreal_rsf_2",
                               "effect_buff": {
                                 "type": "Combine",
                                 "effects": [
                                   {
                                     "type": "RemoveCasterBuff",
-                                    "name": "league_ezreal_w_mark"
+                                    "name": "league_ezreal_rsf_2"
                                   },
                                   {
-                                    "type": "Attack",
-                                    "damage": 90,
-                                    "attack_ratio": 90,
-                                    "attack_effect_type": "Target"
-                                  },
-                                  {
-                                    "type": "ViewEffect",
-                                    "name": "league_ezreal_w_boom"
-                                  },
-                                  {
-                                    "type": "TargetSfx",
-                                    "name": "league_ezreal_w_boom"
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_ezreal_rsf_3",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 360
+                                        }
+                                      },
+                                      "attack_speed_mult": 36
+                                    },
+                                    "only_to_enemy": false
                                   }
                                 ]
                               },
                               "effect_none": {
-                                "type": "Combine",
-                                "effects": []
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_ezreal_rsf_1",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_ezreal_rsf_1"
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_ezreal_rsf_2",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 360
+                                          }
+                                        },
+                                        "attack_speed_mult": 24
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                },
+                                "effect_none": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_ezreal_rsf_1",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 360
+                                      }
+                                    },
+                                    "attack_speed_mult": 12
+                                  },
+                                  "only_to_enemy": false
+                                }
                               }
-                            },
-                            "effect_none": {
-                              "type": "Combine",
-                              "effects": []
                             }
                           }
                         }
-                      ],
-                      "end_effects": []
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "ViewEffect",
+                        "name": "league_ezreal_q_hit"
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "TargetSfx",
+                        "name": "league_ezreal_q_hit"
+                      }
                     }
-                  ]
+                  ],
+                  "end_effects": []
+                },
+                {
+                  "type": "LinearProjectile",
+                  "name": "league_ezreal_q_twin",
+                  "speed": 8000,
+                  "range": 120000,
+                  "shape": {
+                    "Circle": {
+                      "radius": 6000
+                    }
+                  },
+                  "penetrate": false,
+                  "applied_target": "EnemyChampion",
+                  "applied_effects": [
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_ezreal_q_now",
+                        "effect_buff": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_ezreal_w_mark",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_ezreal_w_mark"
+                              },
+                              {
+                                "type": "Attack",
+                                "damage": 90,
+                                "attack_ratio": 90,
+                                "attack_effect_type": "Target"
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "league_ezreal_w_boom"
+                              },
+                              {
+                                "type": "TargetSfx",
+                                "name": "league_ezreal_w_boom"
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": []
+                          }
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    }
+                  ],
+                  "end_effects": []
                 }
-              }
-            ]
+              ]
+            }
           }
-        }
-      ]
+        ]
+      }
     }
   },
   "skill2": {
@@ -1956,7 +1972,7 @@
     "description": "#asset/base/text/champion?description.league_ezreal.skill2",
     "duration": 24,
     "cooltime": 840,
-    "start_timing": 2,
+    "start_timing": 3,
     "cancelable": false,
     "range": 40000,
     "casting_type": "Targeting",
@@ -1990,7 +2006,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 6,
+          "tick": 11,
           "effects": [
             {
               "type": "TargetProjectile",
@@ -2237,7 +2253,7 @@
             "name": "league_ezreal_r_chan",
             "duration": {
               "Time": {
-                "tick": 60
+                "tick": 58
               }
             }
           },
@@ -2245,7 +2261,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 58,
+          "tick": 56,
           "effects": [
             {
               "type": "SwitchByBuff",
