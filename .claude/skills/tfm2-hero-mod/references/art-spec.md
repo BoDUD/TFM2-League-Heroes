@@ -213,6 +213,17 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   marches: upright, 0.93 s a cycle. Prompted as a run, he came out leaning into a sprint at
   0.54 s and the user saw "running, not walking". Say WALK (upright, one foot always down) when
   the clip is a walk, and take the frame times from it (Garen: 8 frames x 117 ms).
+- **Time the run by its planted foot.** In game a unit crosses the ground at its `move_speed` (units
+  per tick: 1100 is about 1.1 px a tick, 66 px a second) whatever its run shows, so the foot on the
+  ground should move back under the body at about that speed. Measure it on the sprite (the lowest
+  rows of each frame, relative to the pivot). League's Ekko run at game size moves the planted foot
+  back about 2.8 px a frame: 35 px a second at 80 ms a frame, 21 at League's own 133 ms (some slide
+  is normal, the base ninja slides too). Blended 60% toward his crouched idle to keep his shape,
+  the planted foot hardly moved at all: the legs stayed spread, the body glided over them, and in
+  game the user saw a slide, "像僵尸步". Do not calm a run by blending it toward a crouched or
+  wide-legged idle, which takes the stride with it; keep League's stride and time it like the base
+  game (8 x 80 ms: the user's pick of 1.06 / 0.8 / 0.64 s a cycle, shown running over marked ground
+  at the game's speed).
 - **Render the side that shows the chest.** Every base champion faces right with its front to the
   viewer. League's Garen idles with his chest toward his own right, so a right-front camera
   shows his back - round 2 came out as a back view and the user rejected it at once. Render his
