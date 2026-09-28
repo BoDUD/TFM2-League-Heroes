@@ -171,7 +171,7 @@ Every effect is `{"type": "<Type>", ...fields}`. Counts = uses across base + 52 
 | ApAttack | damage, attack_ratio, hp_ratio, can_crit | magic: damage + attack_ratio% **AP** |
 | FixedAttack | damage, attack_ratio, hp_ratio, target_hp_ratio | true damage: damage + ratio% AD + hp_ratio% of the caster's and target_hp_ratio% of the target's **max** health |
 | Heal | amount, attack_ratio, ap_ratio, heal_type: Caster\|Ally\|Any\|AllyAll | heal (`Caster` heals the caster even inside a projectile that hit an enemy; `Ally` the allied target). No field scales with the target's missing health |
-| Shield | amount, attack_ratio, ap_ratio, tick | shield for `tick` |
+| Shield | amount, attack_ratio, ap_ratio, tick | shield for `tick`; separate shields add up (league_yone W) |
 | AddCasted | casted_type: Fire\|Poison\|Bleed\|Heal, duration, period, effects[] | damage-over-time: run effects every `period`; every cast adds another instance (see below) |
 
 Defaults *(read from the SDK's game_core)*: `attack_ratio` of Attack, ApAttack and FixedAttack is
@@ -1027,6 +1027,30 @@ position to the unit (jumps of 30000 to 216000 units - TFM2 heroes walk a quarte
 blast caught about 0.3 champions a cast whatever its range, radius or delay, so the ult is worth its heal and
 its escape.
 
+**Leave the body, fight as a spirit, snap back (league_yone E, Soul Unbound folded into W).** Every 15 s (a
+caster cooldown buff), when a `RandomTarget` finds an enemy champion within 50000 (it sets a 2-tick flag the
+next `SwitchByBuff` reads), W opens with Soul Unbound; otherwise it is a plain W. The body stays: Ekko's anchor
+(a `LinearProjectile` with `speed` 1, `range` 1, `y_offset` 5000) plays the body left behind in its
+`end_effects` - a `ViewEffect` bound to the sprite's own `e_body` tag (League's `Spell3_bodyLoop`, 2 x 2000 ms,
+`z` 0, not following) - and 239 ticks later pulls him back with `Teleport` if the spirit buff is still there
+(death clears it). The spirit (a caster buff with `move_speed_mult` 25 and a `view_buffs` aura) dashes onto a
+champion (`RandomTarget` + `MoveToTarget`) and cleaves there.
+League repeats a share of the damage dealt meanwhile; nothing reads the damage dealt, so every damaging hit
+has a champion-only twin (the attack's `TargetProjectile`, twins of Q's, Q3's and R's lines, W's champion cone)
+that, in spirit form, queues a `FixedAttack` of 25% of that hit's own numbers. The pop must land after the
+return, whenever the hit came: the cast adds a ladder of caster buffs (b1..b11, 20, 40 ... 220 ticks) and a
+binary search of `SwitchByBuff` over them finds the first still present, the hit's 20-tick bucket k; the pop
+is a `Delayed` of 240 - 20k + 2 ticks, landing 2-22 ticks after the return, and checks a caster buff that
+outlives the spirit by 32 ticks (no pops once he died). The mark on the enemy is an `AddBuff` on the target
+with that same wait as its duration and a `ThreePhase` picture (intro, loop, a dimmed last frame): in the
+simulation it came on with the hit and went off the tick before the burst. Two engine facts from it *(seen in
+the SDK simulation)*: a `Delayed` `FixedAttack` on a unit Yone's team could not see (its `EntityIsVisible` for
+his team false - it had walked into the fog) dealt no damage, so an echo is lost on a champion that fled out
+of sight; and `Shield` effects add up - W's champion cone holds a `Shield` through a `RangeEffect` on
+`AllyOnlySelf` (a `WithSelf` would shield the target too, section 4), and two champions hit gave two shields
+at once, with the picture and sound once per cast behind a 3-tick caster lock. Eight twins with twelve leaves
+each make the kit 325 KB (league_jinx and league_teemo are as large).
+
 ## 8. Gotchas
 
 - `action_name` / `CasterAnimation.name` must be real sprite tags. Two LoL Reborn heroes use
@@ -1039,6 +1063,8 @@ its escape.
   (see `text-audio.md`).
 - The engine plays `<champion id>_attack` on every basic attack by itself; never play that name
   from the effect tree too (see `text-audio.md`).
+- A `Delayed` `FixedAttack` on a unit the caster's team cannot see (fog) dealt no damage in the
+  simulation: late hits are lost on a target that fled out of sight (league_yone's echo, section 7).
 - A buff's view can outlive its unit: Garen died mid-spin and the whirl of his 3 s caster buff
   stayed on the body (no view_buffs option covers death). For a purely visual timed effect,
   play `CasterViewEffect` on a timer instead (one per `Delayed` pulse, `is_follow: true` in

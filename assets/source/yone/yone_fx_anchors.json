@@ -1,0 +1,18 @@
+{
+  "hit": {"cell": [17, 17], "anchor": [8, 8]},
+  "hit2": {"cell": [21, 21], "anchor": [10, 10]},
+  "q_thrust": {"cell": [87, 11], "anchor": [43, 5]},
+  "q_hit": {"cell": [19, 19], "anchor": [9, 9]},
+  "q_ready": {"cell": [39, 75], "anchor": [19, 37]},
+  "q3_wave": {"cell": [47, 31], "anchor": [23, 15]},
+  "knockup": {"cell": [19, 55], "anchor": [9, 27]},
+  "w_cone": {"cell": [93, 67], "anchor": [46, 33]},
+  "w_hit": {"cell": [19, 19], "anchor": [9, 9]},
+  "shield": {"cell": [37, 49], "anchor": [18, 24]},
+  "e_cast": {"cell": [19, 75], "anchor": [9, 37]},
+  "spirit": {"cell": [43, 87], "anchor": [21, 43]},
+  "e_mark": {"cell": [21, 21], "anchor": [10, 10]},
+  "e_pop": {"cell": [27, 23], "anchor": [13, 11]},
+  "e_return": {"cell": [35, 71], "anchor": [17, 35]},
+  "r_line": {"cell": [93, 45], "anchor": [46, 22]}
+}

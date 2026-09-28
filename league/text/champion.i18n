@@ -119,6 +119,13 @@
         "skill": "掷出装置，对路径上的敌人造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% 法术强度<>的<#a974ffff>魔法伤害<>；装置在尽头展开力场，<#ef5350ff>减速40%<>其中的敌人<#ffb900ff>0.75秒<>，随后飞回艾克，沿途再造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 法术强度<>的<#a974ffff>魔法伤害<>。",
         "skill2": "冲向目标并闪击，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 法术强度<>的<#a974ffff>魔法伤害<>。<#ff9028ff>时光交错<>（冷却<#ffb900ff>14秒<>）：在附近一名敌方英雄脚下投出时间球，<#ffb900ff>1.5秒<>后成形，持续<#ffb900ff>1.5秒<>并<#ef5350ff>减速40%<>；艾克在球内时引爆，<#ef5350ff>眩晕<>球内敌人<#ffb900ff>1秒<>，艾克获得<#e8d44dff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 法术强度<>的<#e8d44dff>护盾<>，持续<#ffb900ff>2秒<>。",
         "ult": "在脚下留下时间锚点，<#ffb900ff>4秒<>后回到锚点，短暂无敌并回复<#6aff55ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 法术强度<>的<#6aff55ff>生命值<>，同时对落点周围的敌人造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% 法术强度<>的<#a974ffff>魔法伤害<>。期间阵亡则不会回溯。"
+      },
+      "league_yone": {
+        "name": "永恩",
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。被动 <#ff9028ff>狩人之道<>：<#ffb900ff>20%<>暴击几率，暴击造成双倍伤害；每第二次普攻换用恶魔刀，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50% 攻击力<>的<#ff9028ff>物理伤害<>和<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40% 攻击力<>的<#f5f5f5ff>真实伤害<>。",
+        "skill": "向前出剑，对直线上的敌人造成<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>，视为普攻，可以暴击。命中后获得一层<#ff9028ff>风暴聚集<>，满<#ffb900ff>2<>层时下一次改为向前冲刺，带着旋风<#ef5350ff>击飞<>路径上的敌人<#ffb900ff>1秒<>。",
+        "skill2": "向前顺劈，造成<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25% 攻击力<>的<#ff9028ff>物理伤害<>和<#f5f5f5ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>15% 攻击力<>的<#f5f5f5ff>真实伤害<>（英雄另受<#f5f5f5ff>5% 最大生命值<>），每命中一名英雄得<#e8d44dff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35% 攻击力<><#e8d44dff>护盾<>。每<#ffb900ff>15秒<>先施放<#ff9028ff>破障之锋<>：灵体冲向英雄，<#ffb900ff>4秒<>后归位，以<#f5f5f5ff>真实伤害<>重现期间对英雄伤害的<#ffb900ff>25%<>。",
+        "ult": "对一条直线上的所有敌人造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50% 攻击力<>的<#ff9028ff>物理伤害<>和<#f5f5f5ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35% 攻击力<>的<#f5f5f5ff>真实伤害<>并<#ef5350ff>击飞<><#ffb900ff>0.75秒<>，永恩冲到目标身后。"
       }
     },
     "skill_name": {
@@ -206,6 +213,11 @@
         "skill1": "时间卷曲器",
         "skill2": "相位俯冲",
         "ult": "时空断裂"
+      },
+      "league_yone": {
+        "skill1": "错玉切",
+        "skill2": "凛神斩",
+        "ult": "封尘绝念斩"
       }
     }
   },
@@ -329,6 +341,13 @@
         "skill": "擲出裝置，對路徑上的敵人造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% 魔法強度<>的<#a974ffff>魔法傷害<>；裝置在盡頭展開力場，<#ef5350ff>緩速40%<>其中的敵人<#ffb900ff>0.75秒<>，隨後飛回艾克，沿途再造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 魔法強度<>的<#a974ffff>魔法傷害<>。",
         "skill2": "衝向目標並閃擊，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 魔法強度<>的<#a974ffff>魔法傷害<>。<#ff9028ff>時空攔截<>（冷卻<#ffb900ff>14秒<>）：在附近一名敵方英雄腳下投出時間球，<#ffb900ff>1.5秒<>後成形，持續<#ffb900ff>1.5秒<>並<#ef5350ff>緩速40%<>；艾克在球內時引爆，<#ef5350ff>暈眩<>球內敵人<#ffb900ff>1秒<>，艾克獲得<#e8d44dff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 魔法強度<>的<#e8d44dff>護盾<>，持續<#ffb900ff>2秒<>。",
         "ult": "在腳下留下時間錨點，<#ffb900ff>4秒<>後回到錨點，短暫無敵並回復<#6aff55ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 魔法強度<>的<#6aff55ff>生命值<>，同時對落點周圍的敵人造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% 魔法強度<>的<#a974ffff>魔法傷害<>。期間陣亡則不會回溯。"
+      },
+      "league_yone": {
+        "name": "犽凝",
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。被動 <#ff9028ff>獵人之道<>：<#ffb900ff>20%<>暴擊率，暴擊造成雙倍傷害；每第二次普攻換用惡魔刀，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50% 攻擊力<>的<#ff9028ff>物理傷害<>和<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40% 攻擊力<>的<#f5f5f5ff>真實傷害<>。",
+        "skill": "向前突刺，對直線上的敵人造成<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>，視為普攻，可以暴擊。命中後獲得一層<#ff9028ff>天寒地凍<>，滿<#ffb900ff>2<>層時下一次改為向前衝刺，帶著旋風<#ef5350ff>擊飛<>路徑上的敵人<#ffb900ff>1秒<>。",
+        "skill2": "向前劈斬，造成<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25% 攻擊力<>的<#ff9028ff>物理傷害<>和<#f5f5f5ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>15% 攻擊力<>的<#f5f5f5ff>真實傷害<>（英雄另受<#f5f5f5ff>5% 最大生命<>），每命中一名英雄得<#e8d44dff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35% 攻擊力<><#e8d44dff>護盾<>。每<#ffb900ff>15秒<>先施放<#ff9028ff>釋魂之刃<>：靈體衝向英雄，<#ffb900ff>4秒<>後歸位，以<#f5f5f5ff>真實傷害<>重現期間對英雄傷害的<#ffb900ff>25%<>。",
+        "ult": "對一條直線上的所有敵人造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50% 攻擊力<>的<#ff9028ff>物理傷害<>和<#f5f5f5ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35% 攻擊力<>的<#f5f5f5ff>真實傷害<>並<#ef5350ff>擊飛<><#ffb900ff>0.75秒<>，犽凝衝到目標身後。"
       }
     },
     "skill_name": {
@@ -416,6 +435,11 @@
         "skill1": "時光樞紐",
         "skill2": "相位轉移",
         "ult": "計時開始"
+      },
+      "league_yone": {
+        "skill1": "鋼鐵凡志",
+        "skill2": "滅魂斬",
+        "ult": "二刀流奧義 ─ 封‧命‧斬"
       }
     }
   },
@@ -539,6 +563,13 @@
         "skill": "Ekko throws a device that deals <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% Ability Power<> <#a974ffff>magic damage<> to enemies in its path. At the end it expands into a field that <#ef5350ff>slows<> enemies inside by 40% for <#ffb900ff>0.75s<>, then rewinds to Ekko, dealing <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% Ability Power<> <#a974ffff>magic damage<> on the way back.",
         "skill2": "Ekko dashes to his target and strikes for <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% Ability Power<> <#a974ffff>magic damage<>. <#ff9028ff>Parallel Convergence<> (every <#ffb900ff>14s<>): a time sphere forms under a nearby enemy champion after <#ffb900ff>1.5s<> and <#ef5350ff>slows<> by 40% for <#ffb900ff>1.5s<>; with Ekko inside it bursts, <#ef5350ff>stunning<> enemies in it for <#ffb900ff>1s<> and giving Ekko a <#e8d44dff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% Ability Power<> <#e8d44dff>shield<> for <#ffb900ff>2s<>.",
         "ult": "Ekko leaves a time anchor at his feet. <#ffb900ff>4s<> later he snaps back to it, briefly invulnerable, heals <#6aff55ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% Ability Power<> <#6aff55ff>health<> and deals <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% Ability Power<> <#a974ffff>magic damage<> to enemies around his arrival point. No rewind if he dies first."
+      },
+      "league_yone": {
+        "name": "Yone",
+        "attack": "Basic attacks deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. Passive <#ff9028ff>Way of the Hunter<>: <#ffb900ff>20%<> critical strike chance; crits deal double damage. Every second attack strikes with the demon blade for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50% AD<> <#ff9028ff>physical damage<> and <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40% AD<> <#f5f5f5ff>true damage<>.",
+        "skill": "Thrusts forward, dealing <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<> to enemies in a line. It is treated as a basic attack and can critically strike. On hit Yone gains a stack of <#ff9028ff>Gathering Storm<>; at <#ffb900ff>2<> stacks the next cast dashes him forward with a gust of wind that <#ef5350ff>knocks up<> enemies in its path for <#ffb900ff>1s<>.",
+        "skill2": "Cleaves a cone for <#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25% AD<> <#ff9028ff>physical damage<> and <#f5f5f5ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>15% AD<> <#f5f5f5ff>true damage<> (champions also take <#f5f5f5ff>5% of their max health<>); each champion hit shields Yone for <#e8d44dff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35% AD<>. Every <#ffb900ff>15s<> it opens with <#ff9028ff>Soul Unbound<>: his spirit dashes at a champion, returns <#ffb900ff>4s<> later and repeats <#ffb900ff>25%<> of its damage to champions as <#f5f5f5ff>true damage<>.",
+        "ult": "Strikes all enemies in a line for <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50% AD<> <#ff9028ff>physical damage<> and <#f5f5f5ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35% AD<> <#f5f5f5ff>true damage<> and <#ef5350ff>knocks them up<> for <#ffb900ff>0.75s<>; Yone appears behind his target."
       }
     },
     "skill_name": {
@@ -626,6 +657,11 @@
         "skill1": "Timewinder",
         "skill2": "Phase Dive",
         "ult": "Chronobreak"
+      },
+      "league_yone": {
+        "skill1": "Mortal Steel",
+        "skill2": "Spirit Cleave",
+        "ult": "Fate Sealed"
       }
     }
   },
@@ -749,6 +785,13 @@
         "skill": "장치를 던져 경로상의 적에게 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 50%<> <#a974ffff>마법 피해<>를 입힙니다. 끝에서 시간 왜곡장을 펼쳐 안의 적을 <#ffb900ff>0.75초<> 동안 <#ef5350ff>40% 둔화<>시킨 뒤 에코에게 되돌아오며 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 60%<> <#a974ffff>마법 피해<>를 입힙니다.",
         "skill2": "대상에게 돌진해 일격으로 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 60%<> <#a974ffff>마법 피해<>를 입힙니다. <#ff9028ff>평행 시간 교차<>(<#ffb900ff>14초<>마다): 주변 적 챔피언의 발밑에 <#ffb900ff>1.5초<> 후 시간 구체가 생겨 <#ffb900ff>1.5초<> 동안 <#ef5350ff>40% 둔화<>시킵니다. 에코가 구체 안에 있으면 폭발해 안의 적을 <#ffb900ff>1초<> 동안 <#ef5350ff>기절<>시키고, 에코는 <#ffb900ff>2초<> 동안 <#e8d44dff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 80%<> <#e8d44dff>보호막<>을 얻습니다.",
         "ult": "발밑에 시간의 닻을 남기고 <#ffb900ff>4초<> 후 그곳으로 되돌아갑니다. 잠시 무적이 되며 <#6aff55ff>체력<>을 <#6aff55ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 80%<> 회복하고, 도착 지점 주변의 적에게 <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 100%<> <#a974ffff>마법 피해<>를 입힙니다. 그 전에 죽으면 되돌아가지 않습니다."
+      },
+      "league_yone": {
+        "name": "요네",
+        "attack": "기본 공격으로 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다. 기본 지속 효과 <#ff9028ff>사냥꾼의 길<>: 치명타 확률 <#ffb900ff>20%<>, 치명타 피해 2배. 두 번째 공격마다 악마의 검으로 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 50%<> <#ff9028ff>물리 피해<>와 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 40%<> <#f5f5f5ff>고정 피해<>를 입힙니다.",
+        "skill": "전방으로 검을 내질러 일직선상의 적에게 <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다. 기본 공격으로 간주되어 치명타가 적용됩니다. 적중 시 <#ff9028ff>폭풍 구름<>이 1회 중첩되며, <#ffb900ff>2<>회 중첩되면 다음 사용 시 전방으로 돌진하며 돌풍으로 경로의 적을 <#ffb900ff>1초<> 동안 <#ef5350ff>공중으로 띄워 올립니다<>.",
+        "skill2": "전방을 베어 <#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 25%<> <#ff9028ff>물리 피해<>와 <#f5f5f5ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 15%<> <#f5f5f5ff>고정 피해<>를 입히고(챔피언은 <#f5f5f5ff>최대 체력의 5%<> 추가), 적중한 챔피언마다 <#e8d44dff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 35%<> <#e8d44dff>보호막<>을 얻습니다. <#ffb900ff>15초<>마다 <#ff9028ff>영혼해방<>: 영혼이 챔피언에게 돌진하고 <#ffb900ff>4초<> 후 돌아와 그동안 챔피언에게 입힌 피해의 <#ffb900ff>25%<>를 <#f5f5f5ff>고정 피해<>로 입힙니다.",
+        "ult": "일직선상의 모든 적에게 <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 50%<> <#ff9028ff>물리 피해<>와 <#f5f5f5ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 35%<> <#f5f5f5ff>고정 피해<>를 입히고 <#ffb900ff>0.75초<> 동안 <#ef5350ff>공중으로 띄워 올리며<>, 요네는 대상 뒤로 이동합니다."
       }
     },
     "skill_name": {
@@ -836,6 +879,11 @@
         "skill1": "시간의 톱니바퀴",
         "skill2": "시간 도약",
         "ult": "시공간 붕괴"
+      },
+      "league_yone": {
+        "skill1": "필멸의 검",
+        "skill2": "영혼 가르기",
+        "ult": "운명봉인"
       }
     }
   },
@@ -959,6 +1007,13 @@
         "skill": "装置を投げ、経路上の敵に<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の50%<>の<#a974ffff>魔法ダメージ<>を与える。端で力場を展開して中の敵に<#ffb900ff>0.75秒<>間<#ef5350ff>40%スロウ<>を与え、エコーの元へ戻りながら<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の60%<>の<#a974ffff>魔法ダメージ<>を与える。",
         "skill2": "対象へ突進しワープして<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の60%<>の<#a974ffff>魔法ダメージ<>を与える。<#ff9028ff>パラレルトラップ<>（<#ffb900ff>14秒<>毎）：近くの敵チャンピオンの足元に<#ffb900ff>1.5秒<>後、時間の球体が<#ffb900ff>1.5秒<>間現れ<#ef5350ff>40%スロウ<>。エコーが中にいると炸裂し、中の敵を<#ffb900ff>1秒<>間<#ef5350ff>スタン<>させ、エコーは<#ffb900ff>2秒<>間<#e8d44dff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の80%<>の<#e8d44dff>シールド<>を得る。",
         "ult": "足元に時間の錨を残し、<#ffb900ff>4秒<>後にそこへ戻る。一瞬無敵になり<#6aff55ff>体力<>を<#6aff55ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の80%<>回復し、到着地点周囲の敵に<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の100%<>の<#a974ffff>魔法ダメージ<>を与える。その前に倒れると戻らない。"
+      },
+      "league_yone": {
+        "name": "ヨネ",
+        "attack": "通常攻撃は<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>を与える。パッシブ <#ff9028ff>狩鬼道<>：クリティカル率<#ffb900ff>20%<>、クリティカルで2倍ダメージ。通常攻撃2回ごとに鬼の刀で<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の50%<>の<#ff9028ff>物理ダメージ<>と<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の40%<>の<#f5f5f5ff>確定ダメージ<>を与える。",
+        "skill": "前方に突きを放ち、直線上の敵に<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>を与える。通常攻撃扱いでクリティカルが発生する。命中すると<#ff9028ff>つむじ風<>のスタックを得て、<#ffb900ff>2<>スタックで次の発動時に前方へダッシュし、風で進路上の敵を<#ffb900ff>1秒<>間<#ef5350ff>ノックアップ<>させる。",
+        "skill2": "前方を斬り、<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の25%<>の<#ff9028ff>物理ダメージ<>と<#f5f5f5ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の15%<>の<#f5f5f5ff>確定ダメージ<>（チャンピオンには<#f5f5f5ff>最大体力の5%<>も）、チャンピオン1体につき<#e8d44dff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の35%<>の<#e8d44dff>シールド<>。<#ffb900ff>15秒<>ごとに先に<#ff9028ff>縛魂の解放<>：霊魂が突進し<#ffb900ff>4秒<>後に戻り、その間のダメージの<#ffb900ff>25%<>を<#f5f5f5ff>確定ダメージ<>で与える。",
+        "ult": "直線上の敵すべてに<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の50%<>の<#ff9028ff>物理ダメージ<>と<#f5f5f5ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の35%<>の<#f5f5f5ff>確定ダメージ<>を与えて<#ffb900ff>0.75秒<>間<#ef5350ff>ノックアップ<>させ、ヨネは対象の背後に現れる。"
       }
     },
     "skill_name": {
@@ -1046,6 +1101,11 @@
         "skill1": "タイムワインダー",
         "skill2": "フェイズダイブ",
         "ult": "クロノブレイク"
+      },
+      "league_yone": {
+        "skill1": "斬命刀",
+        "skill2": "霊断刀",
+        "ult": "冥封一閃"
       }
     }
   }

@@ -102,6 +102,10 @@ OK = direct, ~ = approximate, X = not possible in data-only mods.
 | Delayed sphere that bursts when the caster enters (Ekko W) | a lobbed hidden projectile starts the zones where an enemy champion stood; a zone checks every tick whether the caster is inside (`RandomTarget {AllyOnlySelf, from_projectile}`) and bursts once (champion-data "A sphere that bursts once the caster steps in"); folded into E with its own cooldown | OK |
 | Dash, then the next attack blinks to the target (Ekko E) | one action: `MoveTo` onto the target (it goes all the way) and the strike in its `end_effects` | ~ |
 | Rewind to where he was 4 s ago (Ekko R) | no position memory: an anchor dropped at the cast (a range-1 projectile's `end_effects` keep the spot) and a `Delayed` `Teleport` back there 4 s later, with the heal and the burst (champion-data "Back to where he stood"); the rewind's moment is fixed at cast + 4 s, and the heal cannot scale with the damage taken | ~ |
+| Mixed damage on an AD hero (Yone's Way of the Hunter, W, R: part magic) | the engine's magic damage scales with ability power only and Yone has none: the magic part is `FixedAttack` (true) with an `attack_ratio`, at a lower ratio (the demon blade 50% physical + 40% true) | ~ |
+| Leave the body, fight as a spirit, repeat the damage when pulled back (Yone E) | Ekko's anchor for the return, the body a `ViewEffect` of the sprite's own tag; champion-only twins of every hit queue a true-damage pop of a fixed share of that hit (nothing reads damage dealt), timed after the return by a ladder of caster buffs; the mark an `AddBuff` on the target lasting until its pop (champion-data "Leave the body"); folded into W every 15 s | ~ |
+| Shield for each champion hit (Yone W) | a `Shield` among the champion cone's effects through a `RangeEffect` on `AllyOnlySelf`; shields add up | OK |
+| Line that knocks up everyone on it, the caster ends behind the target (Yone R) | a `LineRangeProjectile` with `Airborne` after a 15-tick wind-up, then `RushMoveToBack`: he stops behind the chosen champion, not League's last champion hit, and does not pull them to him | ~ |
 | 2-3 stage recast | `cooltime_use_count` or recast buff + `SwitchByBuff` | ~ (AI timing) |
 | Cone / fan of projectiles (Ashe W) | no angle field on any projectile (base harpooner's fan is `Native`): a `LineRangeProjectile` rectangle cast by `Direction`, drawn as a fan sprite centred on it (champion-data "Cone / fan"); the hit area stays a rectangle | ~ |
 | Untargetable / invulnerable | `Banish` on self (a `RangeEffect` on `AllyOnlySelf`; it also makes the unit invisible, puts a CC state on it, stops the caster's own `RandomTarget` finding units and takes away its team's vision around it - only for a caster leaving the fight); in a fight `CasterInvisible` + a `damaged_reduce` 100 / `cc_immune` buff: targetable, but every hit deals 1 | ~ |
@@ -590,6 +594,32 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   frames, 40 colours, face (10, -32) - he crouches
   forward, so the head is 8 px ahead of the pivot. Chronobreak's hologram at the anchor is his idle drawing in
   the rewind skin's mint with scan lines, made by `tools/art/import_ekko.py` rather than by Codex.
+- **A masked swordsman with two blades (Yone, drawn by Claude, restyled, head pasted).** League's Yone skin
+  carries submeshes his base look never shows (the Azakana, props, the blades' smear trails, the sheath, an
+  inner skirt) and his two katanas take a texture of their own, `Swords_TX`. `pose_ref.py` / `native_pose.py`
+  gained two options for that, off by default (every other hero renders byte-identical):
+  `"hide_submeshes"` as a list of names (`--hide-submesh NAME`) and `"submesh_textures"` (`--submesh-texture
+  Katana=Swords_TX`). The steel katana is the `weapon` (`^sword$`), the red demon blade a part of its own
+  (`^ghostsword$`). Three heads at 12x; the user took A, League's own: the red V mask over the upper face, two
+  horns (one swept back, one up), glowing violet eyes under it (the near one 2 px, the far one 1), the long
+  black hair tied back with a lock by the cheek, the pale lower face without a mouth. 41 px with the horns
+  (37 without), about 500 px of body - the base swordman 472, the dual blades 503, league_yasuo 602. Pasted on
+  League's head joint, the big head hid the body in the crouched frames (Mortal Steel's thrust, the Q3 dash,
+  Spirit Cleave, Fate Sealed's wind-up), so those blend 30-40% toward the idle; the death's second frame turned
+  the head a quarter round (`"turn": 180`), Spirit Cleave's hop is lifted 0.2 (`"rise"`). Camera yaw 35
+  mirrored, head 2.0, legs 0.8, hair 0.5; the second attack is League's
+  `Attack02` with the demon blade as its own tag (`attack2`); the body left behind in Soul Unbound is
+  `Spell3_bodyLoop` as a tag (`e_body`, 2 x 2000 ms); the run League's own at 8 x 80 ms (the user's pick of
+  three timings drawn at his game speed, see art-spec "Time the run by its planted foot"); idle one frame
+  breathing; 75 frames, 30 colours, face (-1, -39).
+  Codex's sixteen effects came as raw generations on near-black opaque canvases (manifest rects [x, y, w, h];
+  Mortal Steel's five frames unequally wide). `tools/art/import_yone.py --raw` keys the black by the brightest
+  channel (League's dark ink `#1E1648` survives), samples on pixel centres and mirrors the upper half of the four
+  line pictures (the thrust, the gust, the fan, the slash) so the game can turn them over, anchors the thrust
+  on each frame's tail (its last frame's streaks at the full lance's tip), rides the gust on his dash with its
+  front 22 px ahead, and cuts the mark into an intro, a loop and a dimmed end for a `ThreePhase` buff that lasts
+  on the enemy until the burst. The auras round his body sit 2-3 px left of the pivot: his katana hangs on the
+  right, so his body's middle is 3 px left when he faces right.
 - **A face point under the hair.** `tfm2_ase.py face` and the lint find the crown at the top of
   the idle sprite, which for Yasuo is the ponytail's tip, 9 px above his head and to the left of
   it. Both now also look for the head from the face: the top two rows of skin-toned pixels and the
