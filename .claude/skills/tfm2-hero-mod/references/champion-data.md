@@ -175,6 +175,12 @@ it became 60 + 50% AD. `lint_mod.py` warns about both (unknown fields, a missing
 Despair) cannot be magic: league_amumu deals that part as `FixedAttack` (true damage). All the ratio
 fields are whole percents (`usize` in the SDK; `0.5` is a parse error), so a pulse every second can
 take no less than 1% of max health.
+`hp_ratio` on the three attack effects is a share of the **caster's** maximum health *(measured in the
+SDK simulation for league_malphite E: 60 + 50% of 75 ability power + 5% of his 1460 health = 170, and the
+fighter it hit took 128 after 32 magic resistance)*. No effect reads armour, so League's armour ratios
+(Malphite's Ground Slam, Thunderclap) become `hp_ratio`, the tank stat the data can read, as the base
+ogre's skill and LoL Reborn's Galio, Sion and K'Sante do. A `Shield` has no `hp_ratio`: a shield of "10%
+of max health" is a flat amount plus `ap_ratio` (league_malphite's Granite Shield, section 7).
 
 `AddCasted` never refreshes or replaces: `AddCastedEffect::apply` pushes a new entry on the target's
 list of casted effects each time, so repeated hits stack, each with its own timer, and nothing caps
@@ -874,6 +880,32 @@ it. The pictures go under the units (`z` -1, the ring -2), the bear 9 px behind 
 stays in front of him: a view on a unit may be mirrored with the unit's facing like a `CasterViewEffect`
 *(inferred)*, and behind it he would only turn round, where beside it he would jump from side to side.
 Up to 0.13.0 he was a `Position` cast that stood where he landed, and targets walked out of his ring.
+
+**A shield that comes back after it breaks (league_malphite Granite Shield).** League's shield returns after
+10 s without taking damage; nothing reads "not damaged", but a `WithShield` buff says whether a shield still
+holds (section 5). Every action (attack, both skills, the ult) starts with the same `SwitchByBuff` ladder:
+- the `granite` buff (duration `WithShield`) is there: the shield holds, nothing to do;
+- no `granite_init` flag (`Permanent`, cleared by death): the first action of a life shields him at once and
+  adds the flag;
+- `granite_cd` (600 ticks) is running: it is recharging;
+- a `granite_wait` flag (`Permanent`) is there: the timer ran out - shield him again, drop the flag;
+- otherwise the shield just broke: start `granite_cd` and set `granite_wait`.
+The shield itself is a `RangeEffect {Circle 1000, AllyOnlySelf}` holding `Shield {amount 60, ap_ratio 60,
+tick 36000}` (a `Shield` has no `hp_ratio`; 60 + 60% AP tracks League's 10% of max health over the levels),
+added before `granite` so the `WithShield` buff finds it. `granite` also carries `defence_mult` (Thunderclap's
+armour, higher while the shield holds) and its `view_buffs` picture, both gone the tick the shield breaks
+*(measured in the SDK simulation: shield 104 at level 1, broken, the 10 s timer started at his next action,
+shielded again at the first action after it)*. So the shield returns 10 s after it broke rather than after 10
+s unhurt: in a long fight it comes back about every 10 s.
+
+**Charge onto a champion and knock up where you land (league_malphite R).** `Targeting` on `EnemyChampion`:
+a 60-tick `cc_immune` caster buff (unstoppable), `CasterAnimation` of the charge, and `MoveToTarget {speed:
+4000}` whose `end_effects` play the landing (`CasterAnimation ult_slam`) and, after a `Delayed` of 4 ticks
+(the strip's impact frame), the crater (`CasterViewEffect`, not turned), the sound and a `RangeEffect` around
+the caster (radius 30000, plus both units' radii) with the damage and `Airborne`. A `Position` cast would land
+on the spot the target left; homing puts every knock-up on the chosen champion, and whoever stands near him
+goes up too. The landing takes 5-27 ticks depending on the distance, so the slam comes from the dash's end
+rather than from the action's own animation.
 
 ## 8. Gotchas
 
