@@ -435,6 +435,12 @@ the same champion file.
   field: how a view is placed depends on what plays it.
 - A projectile's view is turned to its direction (a `LineRangeProjectile` rectangle: drawn pointing
   right, see "Cone / fan"), so cast upward it lies across the screen and cast left it is upside down.
+  That includes a ground zone's view: a `RangePeriodProjectile` on a `Position` cast gets a direction of
+  (1, 0) or (-1, 0) *(SDK simulation log)*, and league_missfortune E's falling rain, drawn as the zone's view,
+  rained upward whenever she cast it leftward (seen in-game in the mid lane). A picture that must stay
+  upright goes in a `ViewEffect` next to the zone in the cast's `Combine` instead (no view for the zone):
+  on a `Position` cast it plays on the cast point in the same tick, unturned (an `Animation` plays its tag
+  once, so its frames cover the zone's lifetime).
   A `CasterViewEffect` is not turned: it is drawn at the caster's pivot, mirrored when the caster
   faces left (the base gunner's backward-run dust is drawn only behind him), and stays where it was
   played unless `is_follow`. An `Animation` plays its tag once, so a view that must stand for
@@ -556,15 +562,26 @@ the cast, as in League): per wave a `RangeEffect` with `Forward {offset: 1000}` 
 `LineRangeProjectile` (100000 x 36000, delay 15, turned to the cast point) for the picture.
 
 **The target and the next one behind it (league_missfortune Q, Double Up).** League's bounce goes to an
-enemy behind the first target; `RandomTarget` from the hit point would pick the first target itself again.
-One `LinearProjectile` with `penetrate: true` (speed 12000, radius 5000) toward the target, its applied
-effect wrapped in two caster locks: the first unit it touches takes the shot and adds `q_first` (40 ticks,
-the whole flight) and `q_window` (4 ticks, about 48000 units of flight); a unit touched while `q_window`
-lasts takes the bounce and removes it; later ones nothing. The first hit carries the kill check (section
-7) whose flag outlives the window, and the bounce's damage waits 4 ticks in a `Delayed` so it can read it:
-a first shot that killed makes the bounce crit (double). At speed 7000 the AI sidestepped 15% of the shots
-(the target walked out of the line during the 11 ticks of flight); at 12000 every cast hit, and about half
-found a second unit.
+enemy behind the first target; `RandomTarget` from the hit point would pick the first target itself again,
+and so would a cone (`RangeProjectile` + `DirDot`) placed where a non-penetrating bullet stopped: an area
+applies to its units in entity-id order (champions first), not nearest first, and the first target always
+stands in it *(measured in the SDK simulation)*. Two `LinearProjectile`s at the same speed (12000) toward
+the target, both `penetrate: true`, their applied effects behind caster locks. The narrow visible bullet
+(radius 5000) makes the first hit: the first unit it touches takes the shot and adds `q_first` (40 ticks,
+the whole flight, so it hits nothing else), `q_window` (7 ticks) and `q_wait` (1 tick). An invisible wide
+twin (radius 20000, no view, spawned first) makes the bounce: a unit it touches while `q_window` lasts and
+`q_wait` does not takes the bounce and removes `q_window`; before the first hit it does nothing. Without
+`q_wait` the twin, overlapping the first target in the tick the window opened, bounced onto it at close
+range (12 of 162 bounces); a 2-tick wait also skipped units standing right behind (bounces fell from 65%
+to 38% of casts). The first hit carries the kill check (section 7) whose flag outlives the window, and
+the bounce's damage waits 4 ticks in a `Delayed` so it can read it: a first shot that killed makes the
+bounce crit (double). At speed 7000 the AI sidestepped 15% of the shots (the target walked out of the line
+during the 11 ticks of flight); at 12000 every cast hit.
+The first version was the narrow bullet alone, penetrating with the 4-tick window: a second unit had to
+stand on the bullet's line, and in game Q "never reached a second target" (the user). Over the same six
+games that version bounced on 57% of casts but onto a champion 14 times, mostly onto a minion overlapping
+the first (median 10600 units apart); the twin bounces on 65%, onto a champion 46 times, median 32000 and
+up to 88000 units behind the first target, never onto the first target itself.
 
 **Spin that keeps chasing.** The forced animation holds the caster still (seen in-game: a 3 s
 spin with only `can_use_with_move` stood in place), so give every `Delayed` pulse a short dash next

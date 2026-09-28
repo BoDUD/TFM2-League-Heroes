@@ -175,7 +175,7 @@ Layout: one horizontal row of 4 equal cells, each 4 wide to 3 tall, image size 1
 | `missfortune_fx_q_crit.png` | 7 | 特效 `league_missfortune_q_crit`（跟随目标） | 7 × 50 |
 | `missfortune_fx_r_hit.png` | 4 | 特效 `league_missfortune_r_hit`（跟随目标，每波一次） | 4 × 50 |
 | `missfortune_fx_strut.png` | 7 | 特效 `league_missfortune_strut`（跟随厄运小姐） | 7 × 70 |
-| `missfortune_fx_e_rain.png` | 8 | 投射物 `league_missfortune_e_rain`（半径 30000 的区域，地面，循环 2 秒） | 8 × 125 循环 |
+| `missfortune_fx_e_rain.png` | 8 | 特效 `league_missfortune_e_rain`（在施法点播放、不旋转；半径 30000 的区域，地面，2 秒） | 8 × 125，列两遍 |
 | `missfortune_fx_r_wave.png` | 4 | 投射物 `league_missfortune_r_wave`（100000 × 36000，朝施法方向转，每波 0.25 秒） | 4 × 62 |
 
 特效表：`league_missfortune_fx`（bullet、bullet_lt、hit、lovetap、q_bullet、q_hit、q_bounce、q_crit、r_hit、strut），`league_missfortune_big`（e_rain、r_wave）。
@@ -186,3 +186,4 @@ Layout: one horizontal row of 4 equal cells, each 4 wide to 3 tall, image size 1
 - `tools/art/import_missfortune.py --raw <交付文件夹>` 按 manifest 切帧，黑底按亮度转透明，每张 16 色，每个游戏像素取覆盖它的原稿像素里最多的颜色，写成这里的 `missfortune_fx_*.png`（8×8 方块的原尺寸条）和 `missfortune_fx_anchors.json`。
 - 大小按技能范围：普攻子弹 12 px、红心子弹 14 px、命中 14 px、红心爆开 18 px、Q 子弹 20 px、Q 命中 22 px、弹射命中 24 px、暴击 32 px、R 火花 10 px、大步流星的地圈 20 px、弹雨地圈 60 px 宽（半径 30000；Codex 画得比 2:1 更扁，约 3:1）。R 的一波横竖分开缩放到 100 × 72 px（长 100000 的矩形、±20°），锚点固定在每格同一列（第 1 帧的枪口），这样七发子弹逐帧往前飞。
 - 命中、红心和星芒按格子中心定位（Codex 每帧都画在格子正中，画面自己的包围盒会随散开的火花漂移）；大步流星和弹雨按 Codex 画的地圈中心行贴在脚下；弹雨 1 秒一循环，列两遍覆盖 2 秒。
+- 游戏里测出来：弹雨原先是弹雨区域（投射物）的画面，投射物画面会转向施法方向，在中路往左放时子弹往上飞。改成在施法点播放的特效（`ViewEffect`，同一条动画），不再旋转。

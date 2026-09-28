@@ -450,12 +450,12 @@
         },
         {
           "type": "LinearProjectile",
-          "name": "league_missfortune_q_bullet",
+          "name": "league_missfortune_q_seek",
           "speed": 12000,
           "range": 130000,
           "shape": {
             "Circle": {
-              "radius": 5000
+              "radius": 20000
             }
           },
           "penetrate": true,
@@ -465,8 +465,12 @@
               "casting_type": "Targeting",
               "effect": {
                 "type": "SwitchByBuff",
-                "buff_name": "league_missfortune_q_first",
+                "buff_name": "league_missfortune_q_wait",
                 "effect_buff": {
+                  "type": "Combine",
+                  "effects": []
+                },
+                "effect_none": {
                   "type": "SwitchByBuff",
                   "buff_name": "league_missfortune_q_window",
                   "effect_buff": {
@@ -534,10 +538,49 @@
                     "type": "Combine",
                     "effects": []
                   }
+                }
+              }
+            }
+          ],
+          "end_effects": []
+        },
+        {
+          "type": "LinearProjectile",
+          "name": "league_missfortune_q_bullet",
+          "speed": 12000,
+          "range": 130000,
+          "shape": {
+            "Circle": {
+              "radius": 5000
+            }
+          },
+          "penetrate": true,
+          "applied_target": "EnemyWithoutTower",
+          "applied_effects": [
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_missfortune_q_first",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": []
                 },
                 "effect_none": {
                   "type": "Combine",
                   "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "only_to_enemy": false,
+                      "buff_state": {
+                        "name": "league_missfortune_q_wait",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      }
+                    },
                     {
                       "type": "AddCasterBuff",
                       "buff_state": {
@@ -556,7 +599,7 @@
                         "name": "league_missfortune_q_window",
                         "duration": {
                           "Time": {
-                            "tick": 4
+                            "tick": 7
                           }
                         }
                       },
@@ -584,7 +627,7 @@
                         "name": "league_missfortune_q_kill",
                         "duration": {
                           "Time": {
-                            "tick": 13
+                            "tick": 16
                           }
                         }
                       },
@@ -668,7 +711,7 @@
         },
         {
           "type": "RangePeriodProjectile",
-          "name": "league_missfortune_e_rain",
+          "name": "league_missfortune_e_zone",
           "shape": {
             "Circle": {
               "radius": 30000
@@ -707,6 +750,10 @@
             }
           ],
           "end_effects": []
+        },
+        {
+          "type": "ViewEffect",
+          "name": "league_missfortune_e_rain"
         },
         {
           "type": "AddCasterBuff",
@@ -1744,14 +1791,6 @@
     },
     {
       "type": "Animated",
-      "name": "league_missfortune_e_rain",
-      "anim": "asset/league/effects/league_missfortune_big",
-      "tag": "e_rain",
-      "repeat": true,
-      "z": -1
-    },
-    {
-      "type": "Animated",
       "name": "league_missfortune_r_wave",
       "anim": "asset/league/effects/league_missfortune_big",
       "tag": "r_wave",
@@ -1815,6 +1854,14 @@
       "tag": "strut",
       "z": 1,
       "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_missfortune_e_rain",
+      "anim": "asset/league/effects/league_missfortune_big",
+      "tag": "e_rain",
+      "z": -1,
+      "is_follow": false
     }
   ],
   "view_buffs": []

@@ -176,7 +176,7 @@ FX = {
         "strut": (7, FEET, [70] * 7, 1),
     },
     "league_missfortune_big": {
-        "e_rain": (8, FEET, [125] * 8, 2),                   # the zone: 2 s, its view repeats
+        "e_rain": (8, FEET, [125] * 8, 2),                   # the zone's 2 s, played once on the cast point (unturned)
         "r_wave": (4, (-50, 0), [62] * 4, 1),                # the muzzle at the caster, 50 px behind the middle
     },
 }
