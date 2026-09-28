@@ -242,6 +242,11 @@ What the game shows by itself: an `AddCasted` of `casted_type: Poison` puts a `p
 the target, `BlockAttack` a `buff_disable` one, a `move_speed_mult` buff `movement+buff` /
 `movement+debuff` and an `attack_speed_mult` buff `attack_speed+buff` (the `status_icons` of the
 `EntityInfo` events), so a poison or a blind needs no effect of its own to be readable.
+Every `casted_type` has its icon, and those four are all the engine accepts (an unknown variant lists
+`Bleed`, `Poison`, `Fire`, `Heal`): `Bleed` shows `bleeding`, `Fire` `burn`, `Heal` `heal` *(measured in
+the SDK simulation for league_missfortune)*. So an `AddCasted` kept on a target as a hidden marker shows
+the wrong icon for as long as it lasts (a 75-tick "is my last target alive" mark put a heal icon over
+every enemy she shot); a 3-tick check (the kill trigger in section 7) only blinks one.
 
 **Pull vs Grab** *(read from the SDK's game_core, `Entity::pull` / `Entity::grab`)*. Both move the
 target in a straight line at `speed` units per tick for their duration (tenacity shortens it) and
@@ -512,6 +517,30 @@ re-issues `CasterAnimation skill`.
 **Channel with its own animation.** `CasterAnimation {name, tick}` + `Delayed` hits +
 `RemoveCasterAnimation` at the end (Nocturne ult, Marisa laser).
 
+**A channel that crowd control breaks (league_missfortune R, Bullet Time).** Queued `Delayed` effects run
+whatever happens to the caster: a 1 s stun at the sixth of her twelve waves left the other six firing, and
+`WithSelf {Stun}` did not stun her at all *(measured in the SDK simulation)*. Death does stop them once
+each wave checks a caster buff (`SwitchByBuff bullet_time`; death clears buffs: a death at 156 ticks
+ended her waves after 144). For crowd control, each wave first runs `RandomTarget {range: 1,
+casting_target: AllyChampionInCC}` whose effects remove that buff and the `CasterAnimation`: range 1 plus
+both radii finds the caster herself while she is stunned, rooted, airborne, pulled, feared or charmed
+(section 3), so the channel ends at the next wave (at most 15 ticks late); an allied champion in crowd
+control standing against her would end it too. The waves are a `Position` cast (the direction is fixed at
+the cast, as in League): per wave a `RangeEffect` with `Forward {offset: 1000}` and `DirDot {radius:
+100000, range: 940}` (a 40 degree cone toward the cast point) for the damage and a view-only
+`LineRangeProjectile` (100000 x 36000, delay 15, turned to the cast point) for the picture.
+
+**The target and the next one behind it (league_missfortune Q, Double Up).** League's bounce goes to an
+enemy behind the first target; `RandomTarget` from the hit point would pick the first target itself again.
+One `LinearProjectile` with `penetrate: true` (speed 12000, radius 5000) toward the target, its applied
+effect wrapped in two caster locks: the first unit it touches takes the shot and adds `q_first` (40 ticks,
+the whole flight) and `q_window` (4 ticks, about 48000 units of flight); a unit touched while `q_window`
+lasts takes the bounce and removes it; later ones nothing. The first hit carries the kill check (section
+7) whose flag outlives the window, and the bounce's damage waits 4 ticks in a `Delayed` so it can read it:
+a first shot that killed makes the bounce crit (double). At speed 7000 the AI sidestepped 15% of the shots
+(the target walked out of the line during the 11 ticks of flight); at 12000 every cast hit, and about half
+found a second unit.
+
 **Spin that keeps chasing.** The forced animation holds the caster still (seen in-game: a 3 s
 spin with only `can_use_with_move` stood in place), so give every `Delayed` pulse a short dash next
 to its `RangeEffect`: `RandomTarget {range: 60000, casting_target: EnemyChampion, effects:
@@ -690,6 +719,16 @@ valid that tick), a `Delayed` effect on the target (it runs on the dead), and on
 (a minion dying next to an enemy champion set it off). A splash hitting two champions shares one flag,
 so a survivor's check can hide the other's death. The same check could build other takedown effects
 (Darius's Noxian Guillotine reset).
+
+**Bonus on a new target (league_missfortune Love Tap).** Nothing tells whether an attack's target is the
+last one (`SwitchByBuff` reads the caster, and a lasting `AddCasted` marker shows an icon, section 4). What
+can be known is when her last target is surely gone: an attack is Love Tap when her previous hit killed
+its target (the kill check above on every attack and on Q's first shot sets `lt_ready`) or when she has
+not fired for 75 ticks (each attack renews a 75-tick `fight` buff; without it the fight is new). In the
+simulation (3 games, 535 attacks) 98 of her 134 target switches came after the old target died, 91 of
+those deaths by her own hit; 180 of the 207 attacks after a pause of more than 75 ticks were on a new
+target. What the check misses is the AI changing targets while the old one lives (36 of 134). About 55%
+of her attacks carry it.
 
 **A trap that waits and snaps once (league_jinx E).** One zone cannot last and hit once (section 4), so
 the trap is a chain of short links, each started where the thrown `ParabolicProjectile` landed:

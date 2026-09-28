@@ -84,6 +84,13 @@
         "skill": "消失并免疫伤害和控制，<#ffb900ff>0.6秒<>内闪击<#ffb900ff>4<>次：先对目标造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% 攻击力<>的<#ff9028ff>物理伤害<>，再随机斩击附近的敌人<#ffb900ff>3<>次（可重复），每次<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25% 攻击力<>。可以暴击。",
         "skill2": "先<#ff9028ff>冥想<><#ffb900ff>0.75秒<>：<#ffb900ff>1秒<>内受到的伤害降低<#ffb900ff>40%<>，<#ffb900ff>2秒<>内回复<#6aff55ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40% 攻击力<>的<#6aff55ff>生命值<>。随后<#ffb900ff>5秒<>内普攻附加<#f5f5f5ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20% 攻击力<>的<#f5f5f5ff>真实伤害<>（<#ff9028ff>阿尔法突袭<>每击<#ffb900ff>75%<>），下一次普攻必定触发<#ff9028ff>双重打击<>。",
         "ult": "<#ffb900ff>7秒<>内获得<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>45% 攻击速度<>和<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>45% 移动速度<>，<#ff9028ff>阿尔法突袭<>和<#ff9028ff>无极剑道<>的冷却加快<#ffb900ff>40%<>。"
+      },
+      "league_missfortune": {
+        "name": "厄运小姐",
+        "attack": "双枪射击，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。被动<#ff9028ff>厄运的眷顾<>：对新目标的第一枪（她击杀上一个目标后，或<#ffb900ff>1.25秒<>没开枪后）额外造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% 攻击力<>的<#ff9028ff>物理伤害<>。",
+        "skill": "射出一发子弹，对命中的第一个敌人造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>，子弹继续飞，对其身后的下一个敌人造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160% 攻击力<>的<#ff9028ff>物理伤害<>（含<#ff9028ff>厄运的眷顾<>）。第一发击杀目标时，第二发<#ff9028ff>暴击<>，伤害翻倍。",
+        "skill2": "向目标区域倾泻<#ffb900ff>2秒<>弹雨，每<#ffb900ff>0.25秒<>对区域内的敌人造成<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>15% 攻击力<>的<#ff9028ff>物理伤害<>（共<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120% 攻击力<>）并<#ef5350ff>减速<><#ffb900ff>40%<>。随后<#ff9028ff>大步流星<>：<#ffb900ff>4秒<>内获得<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>40% 攻击速度<>和<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>20% 移动速度<>。",
+        "ult": "原地引导<#ffb900ff>3秒<>，向前方锥形区域连射<#ffb900ff>12<>波子弹，每波对其中的敌人造成<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45% 攻击力<>的<#ff9028ff>物理伤害<>，可以暴击。她受到<#ef5350ff>眩晕<>、<#ef5350ff>禁锢<>、<#ef5350ff>击飞<>等控制或阵亡时引导中断。"
       }
     },
     "skill_name": {
@@ -146,6 +153,11 @@
         "skill1": "阿尔法突袭",
         "skill2": "无极剑道",
         "ult": "高原血统"
+      },
+      "league_missfortune": {
+        "skill1": "一箭双雕",
+        "skill2": "枪林弹雨",
+        "ult": "弹幕时间"
       }
     }
   },
@@ -234,6 +246,13 @@
         "skill": "消失並免疫傷害和控制，<#ffb900ff>0.6秒<>內閃擊<#ffb900ff>4<>次：先對目標造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% 攻擊力<>的<#ff9028ff>物理傷害<>，再隨機斬擊附近的敵人<#ffb900ff>3<>次（可重複），每次<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25% 攻擊力<>。可以暴擊。",
         "skill2": "先<#ff9028ff>冥想<><#ffb900ff>0.75秒<>：<#ffb900ff>1秒<>內受到的傷害降低<#ffb900ff>40%<>，<#ffb900ff>2秒<>內回復<#6aff55ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40% 攻擊力<>的<#6aff55ff>生命<>。隨後<#ffb900ff>5秒<>內普攻附加<#f5f5f5ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20% 攻擊力<>的<#f5f5f5ff>真實傷害<>（<#ff9028ff>先聲奪人<>每擊<#ffb900ff>75%<>），下一次普攻必定觸發<#ff9028ff>雙重打擊<>。",
         "ult": "<#ffb900ff>7秒<>內獲得<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>45% 攻擊速度<>和<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>45% 移動速度<>，<#ff9028ff>先聲奪人<>和<#ff9028ff>無極劍道<>的冷卻加快<#ffb900ff>40%<>。"
+      },
+      "league_missfortune": {
+        "name": "好運姐",
+        "attack": "雙槍射擊，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。被動<#ff9028ff>愛的拍拍<>：對新目標的第一槍（她擊殺上一個目標後，或<#ffb900ff>1.25秒<>沒開槍後）額外造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% 攻擊力<>的<#ff9028ff>物理傷害<>。",
+        "skill": "射出一發子彈，對命中的第一個敵人造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>，子彈繼續飛，對其身後的下一個敵人造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160% 攻擊力<>的<#ff9028ff>物理傷害<>（含<#ff9028ff>愛的拍拍<>）。第一發擊殺目標時，第二發<#ff9028ff>爆擊<>，傷害加倍。",
+        "skill2": "向目標區域傾瀉<#ffb900ff>2秒<>彈雨，每<#ffb900ff>0.25秒<>對區域內的敵人造成<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>15% 攻擊力<>的<#ff9028ff>物理傷害<>（共<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120% 攻擊力<>）並<#ef5350ff>緩速<><#ffb900ff>40%<>。隨後<#ff9028ff>趾高氣揚<>：<#ffb900ff>4秒<>內獲得<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>40% 攻擊速度<>和<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>20% 移動速度<>。",
+        "ult": "原地引導<#ffb900ff>3秒<>，向前方錐形區域連射<#ffb900ff>12<>波子彈，每波對其中的敵人造成<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45% 攻擊力<>的<#ff9028ff>物理傷害<>，可以爆擊。她受到<#ef5350ff>暈眩<>、<#ef5350ff>束縛<>、<#ef5350ff>擊飛<>等控制或陣亡時引導中斷。"
       }
     },
     "skill_name": {
@@ -296,6 +315,11 @@
         "skill1": "先聲奪人",
         "skill2": "無極劍道",
         "ult": "高原血統"
+      },
+      "league_missfortune": {
+        "skill1": "彈射",
+        "skill2": "槍林彈雨",
+        "ult": "彈幕"
       }
     }
   },
@@ -384,6 +408,13 @@
         "skill": "Master Yi vanishes, immune to damage and crowd control, striking <#ffb900ff>4<> times in <#ffb900ff>0.6s<>: the target for <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% AD<> <#ff9028ff>physical damage<>, then random nearby enemies <#ffb900ff>3<> times (repeats possible) for <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25% AD<> each. Can critically strike.",
         "skill2": "Master Yi first <#ff9028ff>meditates<> for <#ffb900ff>0.75s<>: he takes <#ffb900ff>40%<> less damage for <#ffb900ff>1s<> and restores <#6aff55ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40% AD<> <#6aff55ff>health<> over <#ffb900ff>2s<>. Then for <#ffb900ff>5s<> his basic attacks deal <#f5f5f5ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20% AD<> bonus <#f5f5f5ff>true damage<> (<#ffb900ff>75%<> on <#ff9028ff>Alpha Strike<>'s strikes), and his next basic attack is a <#ff9028ff>Double Strike<>.",
         "ult": "For <#ffb900ff>7s<> Master Yi gains <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>45% attack speed<> and <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>45% move speed<>, and <#ff9028ff>Alpha Strike<> and <#ff9028ff>Wuju Style<> recharge <#ffb900ff>40%<> faster."
+      },
+      "league_missfortune": {
+        "name": "Miss Fortune",
+        "attack": "Miss Fortune fires her pistols for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. Passive <#ff9028ff>Love Tap<>: her first shot at a new target (after she kills her last one, or when she has not fired for <#ffb900ff>1.25s<>) deals <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% AD<> bonus <#ff9028ff>physical damage<>.",
+        "skill": "Fires a bullet that deals <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<> to the first enemy hit, then flies on into the next enemy behind it for <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160% AD<> <#ff9028ff>physical damage<> (<#ff9028ff>Love Tap<> included). If the first shot kills, the second one <#ff9028ff>crits<> for double damage.",
+        "skill2": "Rains bullets on an area for <#ffb900ff>2s<>: every <#ffb900ff>0.25s<> enemies inside take <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>15% AD<> <#ff9028ff>physical damage<> (<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120% AD<> in all) and are <#ef5350ff>slowed<> by <#ffb900ff>40%<>. Then she <#ff9028ff>Struts<>: <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>40% attack speed<> and <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>20% move speed<> for <#ffb900ff>4s<>.",
+        "ult": "Channels for <#ffb900ff>3s<>, firing <#ffb900ff>12<> waves of bullets in a cone ahead. Each wave deals <#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45% AD<> <#ff9028ff>physical damage<> to the enemies in it and can crit. Being <#ef5350ff>stunned<>, <#ef5350ff>rooted<>, <#ef5350ff>knocked up<> or killed ends the channel."
       }
     },
     "skill_name": {
@@ -446,6 +477,11 @@
         "skill1": "Alpha Strike",
         "skill2": "Wuju Style",
         "ult": "Highlander"
+      },
+      "league_missfortune": {
+        "skill1": "Double Up",
+        "skill2": "Make It Rain",
+        "ult": "Bullet Time"
       }
     }
   },
@@ -534,6 +570,13 @@
         "skill": "사라져 피해와 군중 제어에 면역이 되어 <#ffb900ff>0.6초<> 동안 <#ffb900ff>4<>번 벱니다. 대상에게 <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 60%<> <#ff9028ff>물리 피해<>를 입힌 뒤 주변의 무작위 적을 <#ffb900ff>3<>번(중복 가능) 베어 각각 <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 25%<>의 피해를 입힙니다. 치명타가 적용됩니다.",
         "skill2": "먼저 <#ffb900ff>0.75초<> 동안 <#ff9028ff>명상<>합니다. <#ffb900ff>1초<> 동안 받는 피해가 <#ffb900ff>40%<> 감소하고 <#ffb900ff>2초<>에 걸쳐 <#6aff55ff>체력<>을 <#6aff55ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 40%<> 회복합니다. 이후 <#ffb900ff>5초<> 동안 기본 공격이 <#f5f5f5ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 20%<> <#f5f5f5ff>고정 피해<>를 추가로 입히고(<#ff9028ff>일격 필살<>은 타격당 <#ffb900ff>75%<>), 다음 기본 공격은 반드시 <#ff9028ff>2연속 공격<>이 됩니다.",
         "ult": "<#ffb900ff>7초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>공격 속도가 45%<>, <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도가 45%<> 증가하고 <#ff9028ff>일격 필살<>과 <#ff9028ff>우주류 검술<>의 재사용 대기시간이 <#ffb900ff>40%<> 빠르게 돌아옵니다."
+      },
+      "league_missfortune": {
+        "name": "미스 포츈",
+        "attack": "쌍권총으로 쏘아 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다. 기본 지속 효과 <#ff9028ff>사랑의 한 방<>: 새 대상에게 쏘는 첫 발(직전 대상을 처치했거나 <#ffb900ff>1.25초<> 동안 쏘지 않았을 때)은 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 60%<> <#ff9028ff>물리 피해<>를 추가로 입힙니다.",
+        "skill": "총알을 쏘아 처음 맞은 적에게 <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입히고, 총알이 계속 날아가 그 뒤의 다음 적에게 <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 160%<> <#ff9028ff>물리 피해<>(<#ff9028ff>사랑의 한 방<> 포함)를 입힙니다. 첫 발로 처치하면 두 번째 발은 <#ff9028ff>치명타<>로 2배 피해를 입힙니다.",
+        "skill2": "지역에 <#ffb900ff>2초<> 동안 총알 비를 퍼부어 <#ffb900ff>0.25초<>마다 안의 적에게 <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 15%<> <#ff9028ff>물리 피해<>(총 <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 120%<>)를 입히고 <#ffb900ff>40%<> <#ef5350ff>둔화<>시킵니다. 이후 <#ff9028ff>활보<>: <#ffb900ff>4초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>공격 속도 40%<>와 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도 20%<>.",
+        "ult": "제자리에서 <#ffb900ff>3초<> 동안 정신을 집중해 앞쪽 부채꼴로 총알을 <#ffb900ff>12<>번 퍼붓습니다. 한 번마다 안의 적에게 <#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 45%<> <#ff9028ff>물리 피해<>를 입히며 치명타가 터질 수 있습니다. <#ef5350ff>기절<>, <#ef5350ff>속박<>, <#ef5350ff>에어본<> 등에 걸리거나 죽으면 중단됩니다."
       }
     },
     "skill_name": {
@@ -596,6 +639,11 @@
         "skill1": "일격 필살",
         "skill2": "우주류 검술",
         "ult": "최후의 전사"
+      },
+      "league_missfortune": {
+        "skill1": "한 발에 두 놈",
+        "skill2": "총알은 비를 타고",
+        "ult": "쌍권총 난사"
       }
     }
   },
@@ -684,6 +732,13 @@
         "skill": "姿を消してダメージと行動妨害を受けなくなり、<#ffb900ff>0.6秒<>で<#ffb900ff>4<>回斬る。対象に<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の60%<>の<#ff9028ff>物理ダメージ<>、続いて近くのランダムな敵を<#ffb900ff>3<>回（重複あり）斬り、それぞれ<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の25%<>を与える。クリティカルが発生する。",
         "skill2": "まず<#ffb900ff>0.75秒<>間<#ff9028ff>明鏡止水<>：<#ffb900ff>1秒<>間受けるダメージが<#ffb900ff>40%<>減少し、<#ffb900ff>2秒<>で<#6aff55ff>体力<>を<#6aff55ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の40%<>回復。その後<#ffb900ff>5秒<>間、通常攻撃に<#f5f5f5ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の20%<>の<#f5f5f5ff>確定ダメージ<>を追加（<#ff9028ff>アルファストライク<>は<#ffb900ff>75%<>）し、次の通常攻撃は必ず<#ff9028ff>ダブルストライク<>になる。",
         "ult": "<#ffb900ff>7秒<>間<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻撃速度が45%<>、<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度が45%<>増加し、<#ff9028ff>アルファストライク<>と<#ff9028ff>ウージュースタイル<>のクールダウンの回復が<#ffb900ff>40%<>速くなる。"
+      },
+      "league_missfortune": {
+        "name": "ミス・フォーチュン",
+        "attack": "二丁拳銃で撃ち、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>を与える。自動効果<#ff9028ff>ラブタップ<>：新しい対象への最初の一発（前の対象を倒した後か、<#ffb900ff>1.25秒<>撃っていない時）は<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の60%<>の<#ff9028ff>物理ダメージ<>を追加で与える。",
+        "skill": "弾を撃ち、最初に当たった敵に<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>。弾はその背後の次の敵にも当たり、<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の160%<>の<#ff9028ff>物理ダメージ<>（<#ff9028ff>ラブタップ<>込み）。最初の一発で倒すと二発目は<#ff9028ff>クリティカル<>で2倍。",
+        "skill2": "範囲に<#ffb900ff>2秒<>間弾丸の雨を降らせ、<#ffb900ff>0.25秒<>ごとに範囲内の敵に<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の15%<>の<#ff9028ff>物理ダメージ<>（計<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の120%<>）を与え<#ffb900ff>40%<><#ef5350ff>スロウ<>。その後<#ff9028ff>ストラット<>：<#ffb900ff>4秒<>間<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻撃速度40%<>と<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度20%<>。",
+        "ult": "その場で<#ffb900ff>3秒<>間詠唱し、前方の扇状範囲に弾丸を<#ffb900ff>12<>回撃つ。1回ごとに範囲内の敵に<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の45%<>の<#ff9028ff>物理ダメージ<>（クリティカルあり）。<#ef5350ff>スタン<>・<#ef5350ff>スネア<>・<#ef5350ff>ノックアップ<>などを受けるか倒れると中断。"
       }
     },
     "skill_name": {
@@ -746,6 +801,11 @@
         "skill1": "アルファストライク",
         "skill2": "ウージュースタイル",
         "ult": "ハイランダー"
+      },
+      "league_missfortune": {
+        "skill1": "ダブルアップ",
+        "skill2": "レイニングバレット",
+        "ult": "バレットタイム"
       }
     }
   }
