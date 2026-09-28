@@ -396,8 +396,8 @@ RangeEffect`. The two range projectiles hit once, `apply - 1` ticks after they a
 `delay - 1` ticks (section 4): set `apply` to the frame of the picture that lands, and `delay` to at
 least `apply`, or to the picture's length (a view appears to end with its projectile, *inferred*).
 league_leona R: a `Position` cast on an
-enemy champion, two circles (damage and slow; the stun in a smaller centre) with delay 40 and apply 38,
-so the flare hits 0.62 s after it appears, League's 0.625 s.
+enemy champion, two circles (damage and slow; the stun in a smaller centre) with delay 60 and apply 38,
+so the flare hits 0.62 s after it appears (League's 0.625 s) and its 1 s picture plays out.
 
 **Cone / fan (Ashe W).** No projectile takes an angle, but `LineRangeProjectile` in a
 `casting_type: Direction` action is a rectangle from the caster toward the target, and its view
