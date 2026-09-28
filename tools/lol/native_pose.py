@@ -45,6 +45,13 @@ without them, as without the hair.
 "travel" (per tag) keeps that share of the root joint's way across the floor: Teemo's death throws him
 about 320 units back, out of the render (0.3 keeps him near the unit, as a sprite's death should stay).
 
+"hover": <px> (Janna floats) moves the pivot that many rows down, so the whole sprite stands that high above
+the ground in game (the base ghost floats about 6 px); a frame's (or tag's) "sink": <px> moves that frame down
+again, for the frames that come to the ground (her death: 1, 2, then 3 px as she lands). League's Janna floats
+12 to 39 units above the floor in idle and glides along it in the run, which rises and falls 47 units over its 2 s
+cycle: the run keeps "rise": 0 with "flat" (the lowest point of her legs on the feet line in every frame) and so
+hovers the same 3 px as the idle drawing.
+
 "weapon" is the regex naming the joint whose chain is the weapon part in --parts renders (default
 "^weapon$"; Yasuo's katana hangs from "Sword"). "hide" lists joint regexes whose chains are left out
 of every render: Yasuo's flute is scaled to nothing in idle but has no track in his attack and death
@@ -350,11 +357,13 @@ def main():
     legs = np.zeros(len(pv), bool)
     legs[ch.legv] = True
     soles = np.nonzero(blocks(render(ch, pv, cam, scale, dy, ch.tris[legs[ch.tris].all(1)]))[..., 3].any(1))[0].max()
-    PIVOT_ROW = int(soles) + 1 - 12
+    # "hover": the whole sprite floats that many px above the ground in game (the pivot moves down)
+    PIVOT_ROW = int(soles) + 1 - 12 + int(spec.get("hover", 0))
     print(f"{hero}: {unit * 100:.3f} game px per 100 units; design pose {rows.max() - rows.min() + 1} px tall with "
-          f"what hangs from the head, lowest point on row {rows.max()}, soles on row {soles}, offset {dy / Z:+.0f} px")
+          f"what hangs from the head, lowest point on row {rows.max()}, soles on row {soles}, offset {dy / Z:+.0f} px"
+          + (f", hovering {spec['hover']} px" if spec.get("hover") else ""))
 
-    def cell(frame_spec, lunge, base, flat, turn=0.0, head_like=None, rise=1.0, hide=None, travel=1.0):
+    def cell(frame_spec, lunge, base, flat, turn=0.0, head_like=None, rise=1.0, hide=None, travel=1.0, sink=0):
         pv, glob, _ = ch.posed(frame_spec, chibi, turn, head_like, rise, travel)
         tris = None
         if hide:           # a prop the clip leaves where it was bound (Yasuo's drawn sword stands up in death)
@@ -368,9 +377,10 @@ def main():
         if flat:   # lowest point as high above the feet line as it is above League's floor
             lift = int(round(max(0.0, pv[:, 1].min()) * unit * np.cos(np.radians(cam["pitch"]))))
             down = (FEET_ROW - 1 - lift) - np.nonzero(lo[..., 3].any(1))[0].max()
-            if down:
-                hi = render(ch, pv, cam, scale, dy + down * Z, tris)
-                lo = blocks(hi)
+        down += int(sink)  # a hovering hero's frames that come down to the ground (Janna's death)
+        if down:
+            hi = render(ch, pv, cam, scale, dy + down * Z, tris)
+            lo = blocks(hi)
         hx = head_x(glob)
         head_y = FEET_ROW + dy / Z + down - (rot @ glob[ch.head][:3, 3])[1] * unit
         su = rot @ (glob[ch.head][:3, :3] @ ch.head_up)
@@ -410,7 +420,7 @@ def main():
         opt = lambda f: f[2] if len(f) > 2 else {}
         frames = [cell(f[0], t.get("lunge", 1.0), base, t.get("flat", False), opt(f).get("turn", 0.0),
                        opt(f).get("head_like", t.get("head_like")), t.get("rise", 1.0), opt(f).get("hide", t.get("hide")),
-                       t.get("travel", 1.0)) for f in t["frames"]]
+                       t.get("travel", 1.0), opt(f).get("sink", t.get("sink", 0))) for f in t["frames"]]
         cols, nrows = layout(len(frames))
         lo_img = Image.new("RGB", (cols * CELL[0], nrows * CELL[1]), BG)
         hi_img = Image.new("RGBA" if args.alpha else "RGB", (cols * CELL[0] * Z, nrows * CELL[1] * Z),

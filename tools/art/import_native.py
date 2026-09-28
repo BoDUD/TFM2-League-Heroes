@@ -59,7 +59,9 @@ ORDER = {("lux", "idle"): [0, 1, 2, 3, 5, 4],
          # and for Master Yi: one pasted helmet, and a body voted anew each frame would shimmer
          ("masteryi", "idle"): [0, 0, 0, 0, 0, 0],
          # and Annie, whose drawn head is pasted too
-         ("annie", "idle"): [0, 0, 0, 0, 0, 0]}
+         ("annie", "idle"): [0, 0, 0, 0, 0, 0],
+         # and Janna (pasted head, a body restyled from League's idle)
+         ("janna", "idle"): [0, 0, 0, 0, 0, 0]}
 # (hero, tag): (y, slots) - in those slots everything at or above pivot row y moves down a row (the row under
 # it is covered): one frame breathing, the face the same drawing throughout. Leona's shield covers her from
 # the chest to the ankles, so she sinks down to its tip and only the boots stay (a seam across the shield
@@ -70,9 +72,11 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        ("teemo", "idle"): (6, [2, 3, 4]),
        ("masteryi", "idle"): (1, [2, 3, 4]),
        # Annie sinks down to her shins; the shoes and the lowest stripes of her leggings stay
-       ("annie", "idle"): (6, [2, 3, 4])}
+       ("annie", "idle"): (6, [2, 3, 4]),
+       # Janna floats: all of her, down to the soles 3 px above the ground, sinks a row and rises again
+       ("janna", "idle"): (12, [2, 3, 4])}
 CROWN = {"leesin"}              # heroes whose head template starts at the crown (a braid stands above it)
-PASTED = {"masteryi"}           # steadied on the head restyle_native pasted: his raised sword is the top of every frame
+PASTED = {"masteryi", "janna"}  # steadied on the head restyle_native pasted: his raised sword is the top of every frame
 
 
 def blocks(path):

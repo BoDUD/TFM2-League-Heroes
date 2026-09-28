@@ -65,6 +65,12 @@ that changed every frame, so his head is pasted - drawn square by square after L
 the way he holds it in idle (League's head tilts within 20 degrees of that in almost every frame).
 "head": {"forward": true} also turns a pasted head a quarter the other way when the crown points forward
 past the limit: he falls on his face in death (tilt +63 to +80), where only lying on the back was turned.
+Janna (league_janna) is slender: at 28 px her arms, legs and the cloth strips of her skirt are one or two pixels
+wide, and the outline drawn around each of them cut her into dark stripes (as many outline pixels as body
+pixels). "cover": 0.3 makes a block opaque from 30% of its pixels instead of half (her limbs a pixel thicker,
+the skirt one white shape); "close": <rounds> fills empty pixels between two body pixels (left and right, or
+above and below) with the colour beside them before the outline. "weapon_materials": [...] votes weapon pixels
+by hue like "materials" before the brightness ramp takes the rest: her staff is blue, its gems orange.
 """
 import argparse
 import json
@@ -115,11 +121,16 @@ class Palette:
         self.materials = spec.get("materials")
         self.hair = "hair" in spec
         self.head_materials = spec.get("head", {}).get("materials")
+        self.weapon_materials = spec.get("weapon_materials")
+        self.close = int(spec.get("close", 0))
+        self.cover = float(spec.get("cover", 0.5))
         self.extra = list(parts)
         if self.materials is None:
             ramps = [(name, spec[name]) for name in ("weapon", "steel", "cloth", "skin")]
         else:
-            ramps = [("weapon", spec["weapon"])] + ([("hair", spec["hair"])] if self.hair else []) + \
+            ramps = [("weapon", spec["weapon"])] + \
+                    [("weapon:" + m["name"], m["ramp"]) for m in (self.weapon_materials or [])] + \
+                    ([("hair", spec["hair"])] if self.hair else []) + \
                     [(m["name"], m["ramp"]) for m in self.materials] + \
                     [("head:" + m["name"], m["ramp"]) for m in (self.head_materials or [])] + \
                     [(f"part{k}:" + m["name"], m["ramp"]) for k, ex in enumerate(self.extra) for m in ex["materials"]]
@@ -163,6 +174,8 @@ class Palette:
         out = np.full(v.shape, -1, np.int32)
         w = part == WEAPON
         out[w] = self.ramp("weapon", v[w])
+        if self.weapon_materials:        # colours of the weapon apart from its ramp (Janna's orange gems)
+            self.classify(h, s, v, out, w, self.weapon_materials, "weapon:")
         if self.materials is not None:
             if self.head_materials is not None:       # a voted head: head and hair by their own classes
                 self.classify(h, s, v, out, (part == HEAD) | (part == HAIR), self.head_materials, "head:")
@@ -200,6 +213,27 @@ def lonely(a, rounds=2):
         v = n[0][swap]
         a[swap, 0], a[swap, 1], a[swap, 2] = (v >> 16) & 255, (v >> 8) & 255, v & 255
     return a
+
+
+def close_gaps(a, solid, rounds=1):
+    """Fill empty pixels between two `solid` pixels (left and right, or above and below) with the colour of
+    the left or upper one, `rounds` times: league_janna's skirt is thin cloth strips a pixel apart, and an
+    outline drawn into every gap cut it into dark stripes. Returns the frame and the filled pixels."""
+    filled = np.zeros(solid.shape, bool)
+    for _ in range(rounds):
+        s = solid | filled
+        p = np.pad(s, 1)
+        lr = p[1:-1, :-2] & p[1:-1, 2:]
+        ud = p[:-2, 1:-1] & p[2:, 1:-1]
+        new = ~s & (a[..., 3] == 0) & (lr | ud)
+        if not new.any():
+            break
+        src = np.pad(a, ((1, 1), (1, 1), (0, 0)))
+        left, up = src[1:-1, :-2], src[:-2, 1:-1]
+        a[new & lr] = left[new & lr]
+        a[new & ~lr] = up[new & ~lr]
+        filled |= new
+    return a, filled
 
 
 def near(m):
@@ -263,12 +297,16 @@ def body(pal, hi, pa, w, h):
     count = np.stack([(bp == k).sum(-1) for k in (HEAD, WEAPON, BODY, HAIR) + EXTRA[:len(pal.extra)]], -1)
     main = count.argmax(-1)
     score = np.stack([(bv == k).sum(-1) * pal.weight[k] for k in range(len(pal.rgb))], -1)
-    on = ((bp >= 0).mean(-1) >= 0.5) | ((main == WEAPON) & (count[..., WEAPON] >= 20))
+    on = ((bp >= 0).mean(-1) >= pal.cover) | ((main == WEAPON) & (count[..., WEAPON] >= 20))
     voted = pal.head_materials is not None
     keep = on if voted else on & (main != HEAD)
     a = np.zeros((h, w, 4), np.uint8)
     a[keep, :3] = pal.rgb[score.argmax(-1)[keep]]
     a[keep, 3] = 255
+    if pal.close:          # one-pixel gaps between thin cloth strips filled, so no outline runs through the skirt
+        a, filled = close_gaps(a, keep & (main != WEAPON), pal.close)
+        keep = keep | filled
+        main = np.where(filled, BODY, main)
     a = lonely(a)
     if voted:
         a = clean_face(a, keep & (main == HEAD), pal)
