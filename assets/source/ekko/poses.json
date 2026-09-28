@@ -24,14 +24,14 @@
       ["PunkGenius_Idle01@0", 200]
     ]},
     "run": {"head_like": "PunkGenius_Idle_In@0", "flat": true, "frames": [
-      ["PunkGenius_Run1@0>PunkGenius_Idle01@0:0.6", 133],
-      ["PunkGenius_Run1@133>PunkGenius_Idle01@0:0.6", 133],
-      ["PunkGenius_Run1@267>PunkGenius_Idle01@0:0.6", 133],
-      ["PunkGenius_Run1@400>PunkGenius_Idle01@0:0.6", 133],
-      ["PunkGenius_Run1@533>PunkGenius_Idle01@0:0.6", 133],
-      ["PunkGenius_Run1@667>PunkGenius_Idle01@0:0.6", 133],
-      ["PunkGenius_Run1@800>PunkGenius_Idle01@0:0.6", 133],
-      ["PunkGenius_Run1@933>PunkGenius_Idle01@0:0.6", 133]
+      ["PunkGenius_Run1@0", 80],
+      ["PunkGenius_Run1@133", 80],
+      ["PunkGenius_Run1@267", 80],
+      ["PunkGenius_Run1@400", 80],
+      ["PunkGenius_Run1@533", 80],
+      ["PunkGenius_Run1@667", 80],
+      ["PunkGenius_Run1@800", 80],
+      ["PunkGenius_Run1@933", 80]
     ]},
     "attack": {"lunge": 0.7, "frames": [
       ["PunkGenius_Idle01@0>PunkGenius_Attack1@150:0.5", 60],

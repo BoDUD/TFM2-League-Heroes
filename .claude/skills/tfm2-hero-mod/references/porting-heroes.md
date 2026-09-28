@@ -585,7 +585,9 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   dark-red mouth square (B of three; League's white face paint was left out). Pasted on League's head joint,
   upright in every frame (`"turn": 180`: his death throws the head back past 60 degrees while he still stands).
   Camera yaw 45 unmirrored, the Z-drive on his back a part of its own (`^Weapon_Back`, blue and steel), the
-  run 60% toward the idle, idle one frame breathing; 51 frames, 40 colours, face (10, -32) - he crouches
+  run League's own at 8 x 80 ms (first blended 60% toward the crouch at 1.06 s a cycle: in game the user saw
+  him slide, "像僵尸步" - see art-spec "Time the run by its planted foot"), idle one frame breathing; 51
+  frames, 40 colours, face (10, -32) - he crouches
   forward, so the head is 8 px ahead of the pivot. Chronobreak's hologram at the anchor is his idle drawing in
   the rewind skin's mint with scan lines, made by `tools/art/import_ekko.py` rather than by Codex.
 - **A face point under the hair.** `tfm2_ase.py face` and the lint find the crown at the top of
