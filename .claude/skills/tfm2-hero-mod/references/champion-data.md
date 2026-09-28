@@ -308,6 +308,9 @@ the target unit's coordinates (`Targeting`) or the cast point (`Position`) onto 
 nothing for `Direction`. `Airborne` on a unit that is already airborne keeps the longer of the two
 remaining times; every CC's duration is cut by the target's `toughness` (x (100 - toughness) / 100),
 and airborne also cancels the target's dash.
+`MoveTo` in a `Targeting` action dashes all the way to where the target stood when the dash began: its
+`range` does not cap the distance *(measured in the SDK simulation for league_ekko E: speed 3000, range
+15000, dashes of 12500 to 54000 units that each ended on the target's spot)*.
 
 **Projectiles and zones** (all take `name` -> bound in `view_projectiles`; `applied_effects` items are `{"casting_type": "Targeting", "effect": {...}}`)
 | Type | Extra fields | Meaning |
@@ -350,7 +353,19 @@ How they behave *(measured in the SDK simulation for league_jinx, 3-12 ten-minut
   the target included; with `range` 20000 at speed 4500 the target is hit about 5 ticks before the
   projectile reaches it.
 - `RandomTarget {from_projectile: true}` measures its `range` from the projectile (the hit point)
-  instead of the caster.
+  instead of the caster. With `casting_target: AllyOnlySelf` in a zone's `applied_effects` it asks "is the
+  caster inside this zone": it finds the caster only while he stands within `range` (plus his radius) of the
+  zone's centre, whichever allied unit set the application off *(measured for league_ekko W, every tick of a
+  `period: 1` zone on `AllyChampion`)*.
+- `end_effects` of a `LinearProjectile` or `ParabolicProjectile` run on a position (the stop or landing
+  point), and a `Delayed` among them keeps it, like a `Position` cast: a `ViewEffect` there plays on that
+  point, a zone or another projectile starts there, and a `Teleport` puts the caster there *(measured for
+  league_ekko)*. A `BackToCasterLinearProjectile` started from them flies from that point back to the
+  caster, wherever he has walked meanwhile, hits what it passes and runs its own `end_effects` on the caster
+  when it reaches him (league_ekko Q; Reimu, Draven and Swain chain it the same way).
+- A `ParabolicProjectile`'s `range_effect_name` plays on the landing point the tick it is fired (a
+  telegraph for the whole `travel_time`), and the projectile lands where its target stood when it was fired
+  *(measured for league_ekko W)*.
 - A unit killed by an effect still counts as a valid target for the rest of that tick; a `Delayed` effect
   queued on it still runs after it died, but only its pictures and sounds: a `ViewEffect` or `TargetSfx`
   still plays on the body while an `AddCasterBuff` from it is skipped *(league_annie R, 2026-09-28: a
@@ -979,6 +994,38 @@ the caster (radius 30000, plus both units' radii) with the damage and `Airborne`
 on the spot the target left; homing puts every knock-up on the chosen champion, and whoever stands near him
 goes up too. The landing takes 5-27 ticks depending on the distance, so the slam comes from the dash's end
 rather than from the action's own animation.
+
+**Out and back (league_ekko Q, Timewinder).** A `Direction` cast fires a penetrating `LinearProjectile` (the
+device); its `end_effects` play the field's picture (a `ViewEffect` on the stop point, unturned), start the slow
+zone there and, in a `Delayed` as long as the field lasts, a `BackToCasterLinearProjectile` that flies from the
+stop point back to Ekko and hits everything on the way home (section 4). Both passes hit every unit they touch;
+the first unit of each pass also counts a Z-Drive Resonance hit behind a 30-tick caster lock per pass (the
+Soraka "once per cast" lock). League's device stops on the first champion and expands there; this one always
+flies its full range first.
+
+**A sphere that bursts once the caster steps in (league_ekko W, Parallel Convergence folded into E).** A
+hidden `ParabolicProjectile` with `travel_time` 90 is lobbed at an enemy champion (a `RandomTarget` on
+`EnemyChampion` within 60000 picks it, so camps never spend the 14 s cooldown); its `range_effect_name` is the
+forming rings on the landing point, and its `end_effects` start three zones there: a check zone (`period` 1,
+`AllyChampion`) whose `RandomTarget {AllyOnlySelf, from_projectile: true}` finds Ekko only inside the sphere
+(section 4) and then sets a `done` lock, a 3-tick `boom` flag and the shield; a slow zone (`period` 10, a
+10-tick slow while `done` is off); and a stun zone (`period` 1) that stuns every enemy in it while `boom` is on
+and removes `boom` a tick later. The picture is a chain of `Delayed` `ViewEffect`s in the same `end_effects`:
+a 250 ms dome every 15 ticks until `done`, and a check every tick that plays the shatter once. In the
+simulation (14 games) 73% of the spheres burst, most on their first tick, because Ekko has just dived onto
+their target; a radius of 40000 instead of 30000 stunned 2.3 champions a game instead of 1.4.
+
+**Back to where he stood (league_ekko R, Chronobreak).** Nothing remembers a unit's past position, so the
+anchor is dropped at the cast and the rewind comes 4 s later: a `LinearProjectile` with `speed` 1, `range` 1
+and `y_offset` 5000 (a linear projectile otherwise starts 5000 above the caster's feet; the 永恩 session
+measured it for Yone's E) ends the tick it appears, its `end_effects` hold the cast position, and a `Delayed
+{tick: 239}` there runs `Teleport` (to that position), a 20-tick `damaged_reduce` 100 / `cc_immune` buff, the
+arrival animation, the heal and a `RangeEffect` around him (now the arrival point). The pending rewind checks
+a 250-tick caster buff first, so death (which clears buffs) cancels it. The hologram left at the anchor is a
+`CasterViewEffect` without `is_follow`, played at the cast. In the simulation every rewind landed on the cast
+position to the unit (jumps of 30000 to 216000 units - TFM2 heroes walk a quarter of the map in 4 s); the
+blast caught about 0.3 champions a cast whatever its range, radius or delay, so the ult is worth its heal and
+its escape.
 
 ## 8. Gotchas
 

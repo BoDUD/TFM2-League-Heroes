@@ -1,0 +1,16 @@
+{
+  "hit": {"cell": [18, 18], "anchor": [9, 9]},
+  "z_proc": {"cell": [28, 28], "anchor": [14, 14]},
+  "q_device": {"cell": [26, 12], "anchor": [13, 6]},
+  "q_field": {"cell": [48, 36], "anchor": [24, 18]},
+  "e_dash": {"cell": [34, 44], "anchor": [17, 22]},
+  "e_hit": {"cell": [32, 38], "anchor": [16, 19]},
+  "w_forming": {"cell": [94, 64], "anchor": [47, 32]},
+  "w_sphere": {"cell": [84, 104], "anchor": [42, 52]},
+  "w_shatter": {"cell": [96, 182], "anchor": [48, 91]},
+  "w_stun": {"cell": [20, 14], "anchor": [10, 7]},
+  "w_shield": {"cell": [48, 46], "anchor": [24, 23]},
+  "r_depart": {"cell": [26, 70], "anchor": [13, 35]},
+  "r_arrive": {"cell": [72, 56], "anchor": [36, 28]},
+  "r_hit": {"cell": [26, 26], "anchor": [13, 13]}
+}
