@@ -262,7 +262,7 @@
                     "effect": {
                       "type": "ApAttack",
                       "damage": 80,
-                      "attack_ratio": 80,
+                      "attack_ratio": 75,
                       "hp_ratio": 0,
                       "attack_effect_type": "Target"
                     }
@@ -345,7 +345,7 @@
                     "effect": {
                       "type": "ApAttack",
                       "damage": 80,
-                      "attack_ratio": 80,
+                      "attack_ratio": 75,
                       "hp_ratio": 0,
                       "attack_effect_type": "Target"
                     }
@@ -863,7 +863,7 @@
           "buff_state": {
             "name": "league_annie_e_shield",
             "duration": "WithShield",
-            "damage_reflect": 30
+            "damage_reflect": 20
           },
           "only_to_enemy": false
         },
@@ -956,15 +956,15 @@
         },
         {
           "type": "Delayed",
-          "tick": 20,
+          "tick": 24,
           "effects": [
             {
               "type": "ViewEffect",
-              "name": "league_annie_tibbers"
+              "name": "league_annie_r_ring"
             },
             {
               "type": "ViewEffect",
-              "name": "league_annie_r_ring"
+              "name": "league_annie_tibbers"
             },
             {
               "type": "Sfx",
@@ -974,15 +974,15 @@
         },
         {
           "type": "Delayed",
-          "tick": 80,
+          "tick": 84,
           "effects": [
             {
               "type": "ViewEffect",
-              "name": "league_annie_tibbers"
+              "name": "league_annie_r_ring"
             },
             {
               "type": "ViewEffect",
-              "name": "league_annie_r_ring"
+              "name": "league_annie_tibbers"
             },
             {
               "type": "Sfx",
@@ -992,15 +992,15 @@
         },
         {
           "type": "Delayed",
-          "tick": 140,
+          "tick": 144,
           "effects": [
             {
               "type": "ViewEffect",
-              "name": "league_annie_tibbers"
+              "name": "league_annie_r_ring"
             },
             {
               "type": "ViewEffect",
-              "name": "league_annie_r_ring"
+              "name": "league_annie_tibbers"
             },
             {
               "type": "Sfx",
@@ -1010,15 +1010,15 @@
         },
         {
           "type": "Delayed",
-          "tick": 200,
+          "tick": 204,
           "effects": [
             {
               "type": "ViewEffect",
-              "name": "league_annie_tibbers"
+              "name": "league_annie_r_ring"
             },
             {
               "type": "ViewEffect",
-              "name": "league_annie_r_ring"
+              "name": "league_annie_tibbers"
             },
             {
               "type": "Sfx",
@@ -1028,15 +1028,15 @@
         },
         {
           "type": "Delayed",
-          "tick": 260,
+          "tick": 264,
           "effects": [
             {
               "type": "ViewEffect",
-              "name": "league_annie_tibbers"
+              "name": "league_annie_r_ring"
             },
             {
               "type": "ViewEffect",
-              "name": "league_annie_r_ring"
+              "name": "league_annie_tibbers"
             },
             {
               "type": "Sfx",
@@ -1046,15 +1046,15 @@
         },
         {
           "type": "Delayed",
-          "tick": 320,
+          "tick": 324,
           "effects": [
             {
               "type": "ViewEffect",
-              "name": "league_annie_tibbers"
+              "name": "league_annie_r_ring"
             },
             {
               "type": "ViewEffect",
-              "name": "league_annie_r_ring"
+              "name": "league_annie_tibbers"
             },
             {
               "type": "Sfx",
@@ -1064,7 +1064,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 380,
+          "tick": 384,
           "effects": [
             {
               "type": "ViewEffect",
@@ -1106,16 +1106,16 @@
                     "radius": 30000
                   }
                 },
-                "delay": 19,
-                "apply": 19,
+                "delay": 7,
+                "apply": 7,
                 "applied_target": "EnemyWithoutTower",
                 "applied_effects": [
                   {
                     "casting_type": "Targeting",
                     "effect": {
                       "type": "ApAttack",
-                      "damage": 150,
-                      "attack_ratio": 75,
+                      "damage": 130,
+                      "attack_ratio": 70,
                       "hp_ratio": 0,
                       "attack_effect_type": "Target"
                     }
@@ -1137,8 +1137,8 @@
                     "radius": 30000
                   }
                 },
-                "delay": 19,
-                "apply": 19,
+                "delay": 7,
+                "apply": 7,
                 "applied_target": "EnemyChampion",
                 "applied_effects": [
                   {
@@ -1192,16 +1192,16 @@
                     "radius": 30000
                   }
                 },
-                "delay": 19,
-                "apply": 19,
+                "delay": 7,
+                "apply": 7,
                 "applied_target": "EnemyWithoutTower",
                 "applied_effects": [
                   {
                     "casting_type": "Targeting",
                     "effect": {
                       "type": "ApAttack",
-                      "damage": 150,
-                      "attack_ratio": 75,
+                      "damage": 130,
+                      "attack_ratio": 70,
                       "hp_ratio": 0,
                       "attack_effect_type": "Target"
                     }
@@ -1301,7 +1301,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 18,
+          "tick": 6,
           "effects": [
             {
               "type": "Sfx",
@@ -1324,8 +1324,8 @@
                   "casting_type": "Targeting",
                   "effect": {
                     "type": "ApAttack",
-                    "damage": 30,
-                    "attack_ratio": 15,
+                    "damage": 20,
+                    "attack_ratio": 12,
                     "hp_ratio": 0,
                     "attack_effect_type": "Target"
                   }
@@ -1408,28 +1408,28 @@
       "name": "league_annie_tibbers_drop",
       "anim": "asset/league/effects/league_annie_big",
       "tag": "tibbers_drop",
-      "z": 1
+      "z": -1
     },
     {
       "type": "Animation",
       "name": "league_annie_tibbers",
       "anim": "asset/league/effects/league_annie_big",
       "tag": "tibbers",
-      "z": 1
+      "z": -1
     },
     {
       "type": "Animation",
       "name": "league_annie_tibbers_vanish",
       "anim": "asset/league/effects/league_annie_big",
       "tag": "tibbers_vanish",
-      "z": 1
+      "z": -1
     },
     {
       "type": "Animation",
       "name": "league_annie_r_ring",
       "anim": "asset/league/effects/league_annie_big",
       "tag": "r_ring",
-      "z": -1
+      "z": -2
     }
   ],
   "view_buffs": [

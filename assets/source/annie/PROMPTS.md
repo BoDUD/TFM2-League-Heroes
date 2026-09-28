@@ -131,7 +131,7 @@ Effect: STUNNED by fire, 6 frames, a seamless loop: three small four-pointed sta
 Layout: one horizontal row of 6 equal square cells, image size 1536x256; the ellipse centered in every cell, about 60% of the cell wide, no gaps, no borders, no labels. Transparent background (if not possible: pure black #000000).
 ```
 
-### 10. `annie_fx_tibbers_drop.png`：提伯斯砸下来（落点），6 帧（约 0.35 秒）
+### 10. `annie_fx_tibbers_drop.png`：提伯斯砸下来（落点），6 帧（0.4 秒）
 
 一团火从天而降，砸在地上炸开，提伯斯从火里站起来。提伯斯是一只巨大的棕色泰迪熊（见 `tibbers_ref_*.png`）：比安妮高得多（约 44 格），面朝右，弓着背，两只长手臂垂在身前、爪子深色，肚子上一块浅褐色的补丁，缝着三个 X 形针脚，中间一道发光的橙色裂缝（像岩浆），手臂上也有几道发光的裂缝，一双发光的橙色眼睛，龇着尖牙。
 
@@ -188,9 +188,16 @@ Layout: one horizontal row of 8 equal cells, each twice as wide as tall (2:1), i
 | `annie_fx_e_shield.png` | 6 | buff `league_annie_e_shield`（护盾在时循环） | 6 × 90 循环 |
 | `annie_fx_pyro_ready.png` | 6 | buff `league_annie_pyro_glow`（眩晕就绪时循环） | 6 × 110 循环 |
 | `annie_fx_stun.png` | 6 | 特效 `league_annie_stun`（跟随目标，1 秒） | 6 × 85，重复两遍 |
-| `annie_fx_tibbers_drop.png` | 6 | 特效 `league_annie_tibbers_drop`（落点，0.3 秒后砸中） | 60，60，60，60，50，50 |
+| `annie_fx_tibbers_drop.png` | 6 | 特效 `league_annie_tibbers_drop`（落点，第 2 帧砸中 = 施放后 0.1 秒结算伤害） | 100，60，60，60，60，60 |
 | `annie_fx_tibbers.png` | 8 | 特效 `league_annie_tibbers`（落点，每秒一段，共 6 段） | 8 × 125 |
 | `annie_fx_tibbers_vanish.png` | 6 | 特效 `league_annie_tibbers_vanish`（落点） | 6 × 85 |
 | `annie_fx_r_ring.png` | 8 | 特效 `league_annie_r_ring`（落点，地面，每秒一段，半径 30000） | 8 × 125 |
 
 特效表：`league_annie_fx`（bolt、hit、q_ball、q_hit、burn、e_shield、pyro_ready、stun），`league_annie_big`（w_cone、tibbers_drop、tibbers、tibbers_vanish、r_ring）。
+
+## 交付和导入结果（2026-09-28）
+
+- Codex 交了 13 张生图原稿（`annie_fx_delivery.zip`：2172×724 等画布、半透明边），附 `manifest.json`（每帧的切图矩形）、`HANDOFF.md` 和 `preview.html`。原稿不进仓库。
+- `tools/art/import_annie.py --raw <交付文件夹>` 按 manifest 切帧、每张 16 色（提伯斯三张共用 20 色）、每个游戏像素取覆盖它的原稿像素里最多的颜色，写成这里的 `annie_fx_*.png`（8×8 方块的原尺寸条）和 `annie_fx_anchors.json`（每张的格子和锚点）。
+- 大小按技能范围：普攻火球 12 px、命中 16 px、碎裂之火 20 px、爆炸 28 px、灼烧 16 px 宽、熔岩护盾 42 px 高、嗜火火光 30 px 高、眩晕星 16 px、火圈 60 px 宽。焚烧的扇形 Codex 画得比 50° 宽，横竖分别缩放到技能的 56 × 50 矩形，尖端在格子左边。提伯斯三张里熊的大小不一（235、218、约 270 原稿像素），各自缩放到耳朵到脚底 42 px。
+- 提伯斯的三张画在单位下层（`z` −1，火圈 −2）：他落在目标脚下，画在上面会挡住刚被眩晕的英雄。

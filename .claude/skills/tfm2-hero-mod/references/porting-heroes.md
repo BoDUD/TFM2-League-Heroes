@@ -79,6 +79,11 @@ OK = direct, ~ = approximate, X = not possible in data-only mods.
 | Channelled self-heal cast when hurt (Master Yi W) | the AI casts a heal on itself whenever it is ready, at any health (champion-data section 3): a short channel with damage reduction and a heal over time, cast as a fight starts, folded with a steroid (Wuju Style) | ~ |
 | Immune to slows (Master Yi R) | no field: slows are buffs, `cc_immune` / `toughness` only touch CC; a big `move_speed_mult` offsets them | X |
 | Takedowns refund cooldowns (Master Yi R) | no cooldown reset: `skill_cooldown_mult` (recharge speed) while the ult lasts | ~ |
+| Every Nth spell stuns (Annie's Pyromania) | hidden caster buffs count casts (a folded spell counts twice); the cast decides it carries the stun, a hidden champion-only twin of its projectile or area stuns and uses it up a tick later, so minions never waste it (champion-data "Every fourth spell stuns") | OK |
+| Spawns with a charge ready (Annie's Pyromania) | death clears a mod's buffs (champion-data section 5): a `Permanent` flag every action checks first fires once per life | OK |
+| Shield that hurts attackers (Annie E) | `WithSelf {Shield}` + a `WithShield` buff with `damage_reflect` (a share of every hit, basic attacks and skills, not League's flat hit once per attacker) | ~ |
+| Summon that fights (Tibbers) | cannot walk or attack in data: a `Position` cast lands his damage, a zone burns every second, his pictures (drop, standing loop, vanish) are `Delayed` `ViewEffect`s on the spot (champion-data "A summon that lands, stands and burns") | ~ |
+| Refund on a kill (Annie Q) | detectable (kill trigger) and a short `skill_cooldown_mult` burst would speed the recharge, but it speeds every skill; league_annie leaves it out and keeps League's 4 s cooldown | X |
 | 2-3 stage recast | `cooltime_use_count` or recast buff + `SwitchByBuff` | ~ (AI timing) |
 | Cone / fan of projectiles (Ashe W) | no angle field on any projectile (base harpooner's fan is `Native`): a `LineRangeProjectile` rectangle cast by `Direction`, drawn as a fan sprite centred on it (champion-data "Cone / fan"); the hit area stays a rectangle | ~ |
 | Untargetable / invulnerable | `Banish` on self (`WithSelf`; it also makes the unit invisible, puts a CC state on it, stops the caster's own `RandomTarget` finding units and takes away its team's vision around it - only for a caster leaving the fight); in a fight `CasterInvisible` + a `damaged_reduce` 100 / `cc_immune` buff: targetable, but every hit deals 1 | ~ |
@@ -414,6 +419,29 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   them), anchors the looping auras (Wuju, Highlander) on their equal cell's centre so they do not jitter,
   and scales the effects drawn round an empty figure (the Wuju wisps, the meditation, the Highlander
   burst) so that figure is his height.
+- **A child with her teddy (Annie, drawn by Claude, restyled, head pasted).** League's proportions give
+  Annie a head of 29% of her height (the head part of a `--parts` render of the design pose); the user
+  picked 1.3 (35%) from 1.0 / 1.3 / 1.5 shown at game size next to base heroes. Her skin has one mesh and
+  one colour map, nothing hidden. Camera yaw 35, mirrored: the face, the pinafore and the teddy in her
+  near hand. The head (cat-ear headband with pointed ears, magenta bob with a fringe, green eyes built like
+  base heroes' - lashes, highlight + pupil, white + iris, the far eye one square) was drawn square by
+  square and pasted (`dx 1, dy -2`: the ears start a row above League's head box, plus the frame's lift);
+  of three faces the user took B, with a one-square dark-red mouth. The teddy is the weapon part
+  (`"weapon": "^R_Teddy$"`, a root joint of its own): voted on a brown ramp by brightness and outlined
+  apart from her. A frame's `"hide"` (native_pose) removes it once it leaves her hand - held up to become
+  Tibbers from the fourth ult frame on, thrown away as she dies - a bear flying off across the cell or
+  held over her face read as clutter at game size. Attack and Q frames are turned 40-60 degrees toward
+  the camera (League shows her back and backpack as she throws); the death skips League's 1.5 s of
+  standing with her back turned and falls straight after the throw, the head turned by `"forward"`. Idle
+  is one drawing breathing down to the shins; the run is 60% League's hopping run, 40% idle, `"flat"`.
+  47 frames, 30 colours, 37% right-neighbour. Tibbers himself is an effect drawn by Codex from renders of
+  his own model: a summon is a character of its own in its champion's WAD (`pose_ref.py --champ
+  AnnieTibbers --wad Annie`, with his spawn, idle, claw swipes and death). Codex drew the bear at three
+  sizes in his three strips (landing, standing, vanishing: 235, 218 and about 270 source px), so
+  `tools/art/import_annie.py --raw` scales each to 42 px from his ears to his feet and gives the three one
+  shared palette (per-strip median cuts would tint his fur differently in each); it reads the delivery's
+  `assets[].frames[].rect` manifest, and squeezes Incinerate's cone, drawn wider than 50 degrees, into the
+  kit's 56 x 50 rectangle with its point on the cell's left edge.
 - **A face point under the hair.** `tfm2_ase.py face` and the lint find the crown at the top of
   the idle sprite, which for Yasuo is the ponytail's tip, 9 px above his head and to the left of
   it. Both now also look for the head from the face: the top two rows of skin-toned pixels and the
