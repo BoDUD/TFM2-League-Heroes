@@ -31,7 +31,7 @@ the head; the shield round her body; the flames, the ribbons and the ring with t
 lands on (his views play on that unit), so he stands 9 px behind it and towers over it, where on its feet he
 hid it: a view on a unit may be mirrored with the unit's facing (a CasterViewEffect is), and behind it he
 only turns round where beside it he would jump from side to side. The stars are listed
-twice (the 1 s stun). No palette or outline pass on the sheets. Writes league/effects/league_annie_fx (bolt,
+twice (the 0.75 s stun). No palette or outline pass on the sheets. Writes league/effects/league_annie_fx (bolt,
 hit, q_ball, q_hit, burn, e_shield, pyro_ready, stun) and league/effects/league_annie_big (w_cone, tibbers_drop,
 tibbers, tibbers_vanish, r_ring).
 """
@@ -174,7 +174,7 @@ FX = {
         "burn": (5, FEET, [70] * 5, 1),
         "e_shield": (6, BODY, [90] * 6, 1),
         "pyro_ready": (6, (0, 10), [110] * 6, 1),
-        "stun": (6, HEAD, [85] * 6, 2),                      # the stun: 1 s
+        "stun": (6, HEAD, [63] * 6, 2),                      # the stun: 0.75 s (12 x 63 ms)
     },
     "league_annie_big": {
         "w_cone": (6, (-28, 0), [65] * 6, 1),                # its point at the caster, 28 px behind the middle

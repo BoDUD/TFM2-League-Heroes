@@ -124,8 +124,8 @@ def showcase(out, z=3, step=40):
 
     for foe in (d, g):
         fx_at("league_annie_fx", "burn", land, *foe.pos(land))
-        fx_at("league_annie_fx", "stun", land, *foe.pos(land), until=land + tick(60), loop=True)
-        foe.holds.append((land, land + tick(60)))
+        fx_at("league_annie_fx", "stun", land, *foe.pos(land), until=land + tick(45), loop=True)
+        foe.holds.append((land, land + tick(45)))
         foe.flinches.append(land)
         for k in range(6):                            # the burn every second, round Garen wherever he is
             burn = stand + tick(60 * k + 1)
