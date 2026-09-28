@@ -168,3 +168,12 @@ Layout: one horizontal row of 8 equal cells, each twice as wide as tall (2:1), i
 | `janna_fx_r_storm.png` | 8 | 特效 `league_janna_r_storm`（跟随迦娜，地面，每秒一段，半径 40000） | 8 × 125 |
 
 特效表：`league_janna_fx`（bolt、hit、knockup、w_gust、w_hit、e_cast、storm、r_heal），`league_janna_big`（tornado、r_gale、r_storm）。
+
+## 交付和导入结果（2026-09-28）
+
+- Codex 交了 11 张生图原稿（`janna_fx_delivery.zip`：2172×724、1983×793 画布，半透明边），附 `manifest.json`（格式 `janna-fx-raw-handoff-v1`，每帧的切图矩形 `assets[].frames[].rect` 是 {x, y, w, h}）、`HANDOFF.md` 和 `PREVIEW.html`。原稿不进仓库。季风爆发的 6 个矩形宽度不等，按清单切。
+- `tools/art/import_janna.py --raw <交付文件夹>` 按清单切帧、每张 16 色、每个游戏像素取覆盖它的原稿像素里最多的颜色，写成这里的 `janna_fx_*.png`（8×8 方块的原尺寸条）和 `janna_fx_anchors.json`。
+- 大小按技能范围和身高：普攻风弹 12 px、命中 16 px、风元素 14 px、和风命中 18 px、龙卷风的旋涡 26 px（加尾流 34 px）、击飞的旋风和治疗按 34 px 的英雄、护盾椭圆高 36 px（风暴之眼最后一帧缩到同样大小，接上循环不跳）、季风爆发 84 px 宽（半径 40000）、季风引导原稿是 1.47:1，横竖分开缩成 84 × 42 的地面椭圆。
+- 锚点：风弹和风元素在前端；龙卷风在旋涡中心（投射物的判定点），尾流拖在后面；命中在胸口；击飞、护盾、治疗和两个季风圈在脚下的地面。
+- 护盾的画面是一个三段式 buff（`ThreePhase`）：风暴之眼的生成作开场，护盾在时循环，破掉或到时间时把生成倒着放一遍（闪光、螺旋、风翼飞散，`storm_end`），不用再画。
+

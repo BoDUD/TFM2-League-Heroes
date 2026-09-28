@@ -42,7 +42,7 @@
     "description": "#asset/base/text/champion?description.league_janna.attack",
     "duration": 30,
     "cooltime": 90,
-    "start_timing": 15,
+    "start_timing": 13,
     "cancelable": true,
     "range": 60000,
     "casting_type": "Targeting",
@@ -291,7 +291,7 @@
     "description": "#asset/base/text/champion?description.league_janna.skill",
     "duration": 30,
     "cooltime": 540,
-    "start_timing": 12,
+    "start_timing": 13,
     "cancelable": false,
     "range": 75000,
     "casting_type": "Direction",
@@ -546,9 +546,9 @@
   "skill2": {
     "action_name": "skill2",
     "description": "#asset/base/text/champion?description.league_janna.skill2",
-    "duration": 24,
+    "duration": 30,
     "cooltime": 300,
-    "start_timing": 12,
+    "start_timing": 11,
     "cancelable": false,
     "range": 90000,
     "casting_type": "Targeting",
@@ -840,10 +840,6 @@
                 "duration": "WithShield",
                 "attack_mult": 15
               }
-            },
-            {
-              "type": "ViewEffect",
-              "name": "league_janna_e_cast"
             }
           ]
         },
@@ -882,10 +878,6 @@
                       "duration": "WithShield",
                       "attack_mult": 15
                     }
-                  },
-                  {
-                    "type": "ViewEffect",
-                    "name": "league_janna_e_cast"
                   }
                 ]
               }
@@ -898,9 +890,9 @@
   "ult": {
     "action_name": "ult",
     "description": "#asset/base/text/champion?description.league_janna.ult",
-    "duration": 210,
+    "duration": 220,
     "cooltime": 3000,
-    "start_timing": 10,
+    "start_timing": 20,
     "cancelable": false,
     "range": 40000,
     "casting_type": "Targeting",
@@ -1260,14 +1252,6 @@
     },
     {
       "type": "Animation",
-      "name": "league_janna_e_cast",
-      "anim": "asset/league/effects/league_janna_fx",
-      "tag": "e_cast",
-      "z": 1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
       "name": "league_janna_r_heal",
       "anim": "asset/league/effects/league_janna_fx",
       "tag": "r_heal",
@@ -1292,10 +1276,12 @@
   ],
   "view_buffs": [
     {
-      "type": "Animated",
+      "type": "ThreePhase",
       "name": "league_janna_e_storm",
       "anim": "asset/league/effects/league_janna_fx",
-      "tag": "storm",
+      "pre_tag": "e_cast",
+      "loop_tag": "storm",
+      "remove_tag": "storm_end",
       "z": 1
     }
   ]
