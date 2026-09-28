@@ -179,3 +179,10 @@ Layout: one horizontal row of 4 equal cells, each 4 wide to 3 tall, image size 1
 | `missfortune_fx_r_wave.png` | 4 | 投射物 `league_missfortune_r_wave`（100000 × 36000，朝施法方向转，每波 0.25 秒） | 4 × 62 |
 
 特效表：`league_missfortune_fx`（bullet、bullet_lt、hit、lovetap、q_bullet、q_hit、q_bounce、q_crit、r_hit、strut），`league_missfortune_big`（e_rain、r_wave）。
+
+## 交付和导入结果（2026-09-28）
+
+- Codex 交了 12 张生图原稿（`missfortune_fx_delivery.zip`：2172×724、1983×793、1659×948 等画布，半透明边），附 `manifest.json`（schema `missfortune-vfx-raw-v1`，每帧的 `source_rect`）、`HANDOFF.md`、`GENERATION_PROMPTS.json` 和 `PREVIEW.html`。R 的一波是黑底，其余 11 张透明。原稿不进仓库。
+- `tools/art/import_missfortune.py --raw <交付文件夹>` 按 manifest 切帧，黑底按亮度转透明，每张 16 色，每个游戏像素取覆盖它的原稿像素里最多的颜色，写成这里的 `missfortune_fx_*.png`（8×8 方块的原尺寸条）和 `missfortune_fx_anchors.json`。
+- 大小按技能范围：普攻子弹 12 px、红心子弹 14 px、命中 14 px、红心爆开 18 px、Q 子弹 20 px、Q 命中 22 px、弹射命中 24 px、暴击 32 px、R 火花 10 px、大步流星的地圈 20 px、弹雨地圈 60 px 宽（半径 30000；Codex 画得比 2:1 更扁，约 3:1）。R 的一波横竖分开缩放到 100 × 72 px（长 100000 的矩形、±20°），锚点固定在每格同一列（第 1 帧的枪口），这样七发子弹逐帧往前飞。
+- 命中、红心和星芒按格子中心定位（Codex 每帧都画在格子正中，画面自己的包围盒会随散开的火花漂移）；大步流星和弹雨按 Codex 画的地圈中心行贴在脚下；弹雨 1 秒一循环，列两遍覆盖 2 秒。

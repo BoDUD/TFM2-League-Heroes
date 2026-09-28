@@ -37,9 +37,9 @@
   "attack": {
     "action_name": "attack",
     "description": "#asset/base/text/champion?description.league_missfortune.attack",
-    "duration": 20,
+    "duration": 22,
     "cooltime": 60,
-    "start_timing": 12,
+    "start_timing": 8,
     "cancelable": true,
     "range": 55000,
     "casting_type": "Targeting",
@@ -74,7 +74,7 @@
                     "effect": {
                       "type": "Attack",
                       "damage": 0,
-                      "attack_ratio": 160,
+                      "attack_ratio": 140,
                       "hp_ratio": 0,
                       "target_hp_ratio": 0,
                       "attack_effect_type": "Target"
@@ -300,7 +300,7 @@
                       "effect": {
                         "type": "Attack",
                         "damage": 0,
-                        "attack_ratio": 160,
+                        "attack_ratio": 140,
                         "hp_ratio": 0,
                         "target_hp_ratio": 0,
                         "attack_effect_type": "Target"
@@ -421,9 +421,9 @@
   "skill": {
     "action_name": "skill",
     "description": "#asset/base/text/champion?description.league_missfortune.skill",
-    "duration": 24,
+    "duration": 26,
     "cooltime": 360,
-    "start_timing": 10,
+    "start_timing": 8,
     "cancelable": false,
     "range": 60000,
     "casting_type": "Targeting",
@@ -489,7 +489,7 @@
                                 {
                                   "type": "Attack",
                                   "damage": 40,
-                                  "attack_ratio": 320,
+                                  "attack_ratio": 280,
                                   "hp_ratio": 0,
                                   "target_hp_ratio": 0,
                                   "attack_effect_type": "Target"
@@ -510,7 +510,7 @@
                                 {
                                   "type": "Attack",
                                   "damage": 20,
-                                  "attack_ratio": 160,
+                                  "attack_ratio": 140,
                                   "hp_ratio": 0,
                                   "target_hp_ratio": 0,
                                   "attack_effect_type": "Target"
@@ -651,9 +651,9 @@
   "skill2": {
     "action_name": "skill2",
     "description": "#asset/base/text/champion?description.league_missfortune.skill2",
-    "duration": 24,
-    "cooltime": 540,
-    "start_timing": 10,
+    "duration": 26,
+    "cooltime": 600,
+    "start_timing": 8,
     "cancelable": false,
     "range": 70000,
     "casting_type": "Position",

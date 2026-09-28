@@ -527,8 +527,10 @@ re-issues `CasterAnimation skill`.
 `RemoveCasterAnimation` at the end (Nocturne ult, Marisa laser).
 
 **A channel that crowd control breaks (league_missfortune R, Bullet Time).** Queued `Delayed` effects run
-whatever happens to the caster: a 1 s stun at the sixth of her twelve waves left the other six firing, and
-`WithSelf {Stun}` did not stun her at all *(measured in the SDK simulation)*. Death does stop them once
+whatever happens to the caster: a 1 s stun at the sixth of her twelve waves left the other six firing
+*(measured in the SDK simulation)*. A test `WithSelf {Stun}` in the ult stunned no one: `WithSelf` applies
+its effects to the caster and then again to the action's target unit, and a `Position` cast has no target
+unit, so it reaches nobody (the league_janna session's reading of `WithSelfEffect::apply`, 2026-09-28). Death does stop them once
 each wave checks a caster buff (`SwitchByBuff bullet_time`; death clears buffs: a death at 156 ticks
 ended her waves after 144). For crowd control, each wave first runs `RandomTarget {range: 1,
 casting_target: AllyChampionInCC}` whose effects remove that buff and the `CasterAnimation`: range 1 plus
