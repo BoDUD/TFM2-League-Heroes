@@ -1747,7 +1747,7 @@
       "name": "league_missfortune_e_rain",
       "anim": "asset/league/effects/league_missfortune_big",
       "tag": "e_rain",
-      "repeat": false,
+      "repeat": true,
       "z": -1
     },
     {

@@ -132,7 +132,7 @@
     },
     "league_missfortune": {
       "face": {
-        "x": 0,
+        "x": 1,
         "y": -34
       },
       "center": {
