@@ -68,8 +68,8 @@
               "effects": [
                 {
                   "type": "FixedAttack",
-                  "damage": 10,
-                  "attack_ratio": 20
+                  "damage": 8,
+                  "attack_ratio": 16
                 },
                 {
                   "type": "ViewEffect",
@@ -128,8 +128,8 @@
                   "effects": [
                     {
                       "type": "FixedAttack",
-                      "damage": 10,
-                      "attack_ratio": 20
+                      "damage": 8,
+                      "attack_ratio": 16
                     },
                     {
                       "type": "ViewEffect",
@@ -173,8 +173,8 @@
                 "effects": [
                   {
                     "type": "FixedAttack",
-                    "damage": 10,
-                    "attack_ratio": 20
+                    "damage": 8,
+                    "attack_ratio": 16
                   },
                   {
                     "type": "ViewEffect",
@@ -232,8 +232,8 @@
                   "effects": [
                     {
                       "type": "FixedAttack",
-                      "damage": 10,
-                      "attack_ratio": 20
+                      "damage": 8,
+                      "attack_ratio": 16
                     },
                     {
                       "type": "ViewEffect",
@@ -288,8 +288,8 @@
                   "effects": [
                     {
                       "type": "FixedAttack",
-                      "damage": 10,
-                      "attack_ratio": 20
+                      "damage": 8,
+                      "attack_ratio": 16
                     },
                     {
                       "type": "ViewEffect",
@@ -393,8 +393,8 @@
             "effects": [
               {
                 "type": "FixedAttack",
-                "damage": 7,
-                "attack_ratio": 15
+                "damage": 6,
+                "attack_ratio": 12
               },
               {
                 "type": "ViewEffect",
@@ -446,8 +446,8 @@
                     "effects": [
                       {
                         "type": "FixedAttack",
-                        "damage": 7,
-                        "attack_ratio": 15
+                        "damage": 6,
+                        "attack_ratio": 12
                       },
                       {
                         "type": "ViewEffect",
@@ -503,8 +503,8 @@
                     "effects": [
                       {
                         "type": "FixedAttack",
-                        "damage": 7,
-                        "attack_ratio": 15
+                        "damage": 6,
+                        "attack_ratio": 12
                       },
                       {
                         "type": "ViewEffect",
@@ -560,8 +560,8 @@
                     "effects": [
                       {
                         "type": "FixedAttack",
-                        "damage": 7,
-                        "attack_ratio": 15
+                        "damage": 6,
+                        "attack_ratio": 12
                       },
                       {
                         "type": "ViewEffect",
@@ -630,7 +630,14 @@
           "only_to_enemy": false
         },
         {
-          "type": "WithSelf",
+          "type": "RangeEffect",
+          "shape": {
+            "Circle": {
+              "radius": 1000
+            }
+          },
+          "target": "AllyOnlySelf",
+          "apply_type": "AroundCaster",
           "effects": [
             {
               "type": "AddCasted",
@@ -640,8 +647,8 @@
               "effects": [
                 {
                   "type": "Heal",
-                  "amount": 20,
-                  "attack_ratio": 10,
+                  "amount": 5,
+                  "attack_ratio": 3,
                   "ap_ratio": 0,
                   "heal_type": "Caster"
                 }

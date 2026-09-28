@@ -1,0 +1,13 @@
+{
+  "bolt": {"cell": [28, 10], "anchor": [14, 5]},
+  "hit": {"cell": [18, 20], "anchor": [9, 10]},
+  "tornado": {"cell": [46, 30], "anchor": [23, 15]},
+  "knockup": {"cell": [30, 98], "anchor": [15, 49]},
+  "w_gust": {"cell": [32, 12], "anchor": [16, 6]},
+  "w_hit": {"cell": [20, 20], "anchor": [10, 10]},
+  "e_cast": {"cell": [36, 84], "anchor": [18, 42]},
+  "storm": {"cell": [28, 76], "anchor": [14, 38]},
+  "r_heal": {"cell": [20, 96], "anchor": [10, 48]},
+  "r_gale": {"cell": [88, 40], "anchor": [44, 20]},
+  "r_storm": {"cell": [86, 46], "anchor": [43, 23]}
+}
