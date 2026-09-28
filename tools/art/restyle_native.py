@@ -292,7 +292,11 @@ def paste_head(a, weapon, head, joint, tilt, turn=TURN, dy=0, dx=0):
     g = np.array([[c or "" for c in row] for row in head], dtype=object)
     H, W = g.shape
     if tilt <= -turn:                      # lying on his back: the crown points left, the face up
+        # dx / dy move the block against the joint in the upright head: turn them with it, or the
+        # quarter-turned head lands beside the neck (league_teemo's death: 3 px left, 2 px up)
+        jx, jy = jx - dx, jy - dy
         g, (jx, jy) = np.rot90(g, 1), (jy, W - jx)
+        dx = dy = 0
     x0, y0 = int(round(x - jx)) + dx, int(round(y - jy)) + dy
     for j, row in enumerate(g):
         for i, c in enumerate(row):
