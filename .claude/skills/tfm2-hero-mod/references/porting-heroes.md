@@ -382,7 +382,12 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   gold crest), the short swords on his legs hidden. Idle is one frame breathing (`ORDER`, `BOB` seam
   just under the pivot: his back foot stands 5 rows above the front one, and a lower seam moved it);
   the run is steadied on League's head joint (`PASTED` in `import_native.py`: the raised sword is the
-  top of every frame and crosses the helmet). 46 frames, 22 colours, 38% right-neighbour.
+  top of every frame and crosses the helmet). 46 frames, 22 colours, 38% right-neighbour. His nine
+  effects came from Codex as raw generations, like Leona's: `tools/art/import_masteryi.py --raw` cuts
+  Alpha Strike's strip into equal cells (its burst touches the frame after it, so no empty column parts
+  them), anchors the looping auras (Wuju, Highlander) on their equal cell's centre so they do not jitter,
+  and scales the effects drawn round an empty figure (the Wuju wisps, the meditation, the Highlander
+  burst) so that figure is his height.
 - **A face point under the hair.** `tfm2_ase.py face` and the lint find the crown at the top of
   the idle sprite, which for Yasuo is the ponytail's tip, 9 px above his head and to the left of
   it. Both now also look for the head from the face: the top two rows of skin-toned pixels and the
