@@ -91,6 +91,13 @@
         "skill": "扔出火球，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75% 法术强度<>的<#a974ffff>魔法伤害<>。",
         "skill2": "向前方喷出扇形火焰，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85% 法术强度<>的<#a974ffff>魔法伤害<>。同时施放 <#ff9028ff>熔岩护盾<>：获得<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 法术强度<>的<#e8d44dff>护盾<>，持续<#ffb900ff>3秒<>，护盾存在时反弹<#ffb900ff>20%<>所受伤害，并<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移动速度提高30%<>，持续<#ffb900ff>1.5秒<>。",
         "ult": "召唤提伯斯砸向敌方英雄，对周围敌人造成<#a974ffff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法术强度<>的<#a974ffff>魔法伤害<>。提伯斯紧跟该英雄<#ffb900ff>6秒<>，每秒灼烧其周围敌人，造成<#a974ffff>14<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8% 法术强度<>的<#a974ffff>魔法伤害<>；该英雄阵亡时提伯斯随之离场。"
+      },
+      "league_missfortune": {
+        "name": "厄运小姐",
+        "attack": "双枪射击，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。被动<#ff9028ff>厄运的眷顾<>：对新目标的第一枪（她击杀上一个目标后，或<#ffb900ff>1.25秒<>没开枪后）额外造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40% 攻击力<>的<#ff9028ff>物理伤害<>。",
+        "skill": "射出一发子弹，对命中的第一个敌人造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>，子弹继续飞，对其身后的下一个敌人造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140% 攻击力<>的<#ff9028ff>物理伤害<>（含<#ff9028ff>厄运的眷顾<>）。第一发击杀目标时，第二发<#ff9028ff>暴击<>，伤害翻倍。",
+        "skill2": "向目标区域倾泻<#ffb900ff>2秒<>弹雨，每<#ffb900ff>0.25秒<>对区域内的敌人造成<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>15% 攻击力<>的<#ff9028ff>物理伤害<>（共<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120% 攻击力<>）并<#ef5350ff>减速<><#ffb900ff>40%<>。随后<#ff9028ff>大步流星<>：<#ffb900ff>4秒<>内获得<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>40% 攻击速度<>和<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>20% 移动速度<>。",
+        "ult": "原地引导<#ffb900ff>3秒<>，向前方锥形区域连射<#ffb900ff>12<>波子弹，每波对其中的敌人造成<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45% 攻击力<>的<#ff9028ff>物理伤害<>，可以暴击。她受到<#ef5350ff>眩晕<>、<#ef5350ff>禁锢<>、<#ef5350ff>击飞<>等控制或阵亡时引导中断。"
       }
     },
     "skill_name": {
@@ -158,6 +165,11 @@
         "skill1": "碎裂之火",
         "skill2": "焚烧",
         "ult": "提伯斯之怒"
+      },
+      "league_missfortune": {
+        "skill1": "一箭双雕",
+        "skill2": "枪林弹雨",
+        "ult": "弹幕时间"
       }
     }
   },
@@ -253,6 +265,13 @@
         "skill": "扔出火球，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75% 魔法強度<>的<#a974ffff>魔法傷害<>。",
         "skill2": "向前方噴出扇形火焰，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85% 魔法強度<>的<#a974ffff>魔法傷害<>。同時施放 <#ff9028ff>熔炎護盾<>：獲得<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 魔法強度<>的<#e8d44dff>護盾<>，持續<#ffb900ff>3秒<>，護盾存在時反彈<#ffb900ff>20%<>所受傷害，並<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度提高30%<>，持續<#ffb900ff>1.5秒<>。",
         "ult": "召喚泰貝爾砸向敵方英雄，對周圍敵人造成<#a974ffff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 魔法強度<>的<#a974ffff>魔法傷害<>。泰貝爾緊跟該英雄<#ffb900ff>6秒<>，每秒灼燒其周圍敵人，造成<#a974ffff>14<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8% 魔法強度<>的<#a974ffff>魔法傷害<>；該英雄陣亡時泰貝爾隨之離場。"
+      },
+      "league_missfortune": {
+        "name": "好運姐",
+        "attack": "雙槍射擊，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。被動<#ff9028ff>愛的拍拍<>：對新目標的第一槍（她擊殺上一個目標後，或<#ffb900ff>1.25秒<>沒開槍後）額外造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40% 攻擊力<>的<#ff9028ff>物理傷害<>。",
+        "skill": "射出一發子彈，對命中的第一個敵人造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>，子彈繼續飛，對其身後的下一個敵人造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140% 攻擊力<>的<#ff9028ff>物理傷害<>（含<#ff9028ff>愛的拍拍<>）。第一發擊殺目標時，第二發<#ff9028ff>爆擊<>，傷害加倍。",
+        "skill2": "向目標區域傾瀉<#ffb900ff>2秒<>彈雨，每<#ffb900ff>0.25秒<>對區域內的敵人造成<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>15% 攻擊力<>的<#ff9028ff>物理傷害<>（共<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120% 攻擊力<>）並<#ef5350ff>緩速<><#ffb900ff>40%<>。隨後<#ff9028ff>趾高氣揚<>：<#ffb900ff>4秒<>內獲得<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>40% 攻擊速度<>和<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>20% 移動速度<>。",
+        "ult": "原地引導<#ffb900ff>3秒<>，向前方錐形區域連射<#ffb900ff>12<>波子彈，每波對其中的敵人造成<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45% 攻擊力<>的<#ff9028ff>物理傷害<>，可以爆擊。她受到<#ef5350ff>暈眩<>、<#ef5350ff>束縛<>、<#ef5350ff>擊飛<>等控制或陣亡時引導中斷。"
       }
     },
     "skill_name": {
@@ -320,6 +339,11 @@
         "skill1": "瓦解怒焰",
         "skill2": "烈焰衝擊",
         "ult": "召喚：泰貝爾"
+      },
+      "league_missfortune": {
+        "skill1": "彈射",
+        "skill2": "槍林彈雨",
+        "ult": "彈幕"
       }
     }
   },
@@ -415,6 +439,13 @@
         "skill": "Annie hurls a fireball that deals <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75% Ability Power<> <#a974ffff>magic damage<>.",
         "skill2": "Annie casts a cone of fire, dealing <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85% Ability Power<> <#a974ffff>magic damage<>. She also casts <#ff9028ff>Molten Shield<> on herself: a <#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% Ability Power<> <#e8d44dff>shield<> for <#ffb900ff>3s<>; while it holds, <#ffb900ff>20%<> of the damage she takes is reflected, and she gains <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>30% Move Speed<> for <#ffb900ff>1.5s<>.",
         "ult": "Annie summons Tibbers onto an enemy champion, dealing <#a974ffff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% Ability Power<> <#a974ffff>magic damage<> around him. For <#ffb900ff>6s<> Tibbers follows that champion and burns enemies around him for <#a974ffff>14<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8% Ability Power<> <#a974ffff>magic damage<> every second; he leaves when the champion dies."
+      },
+      "league_missfortune": {
+        "name": "Miss Fortune",
+        "attack": "Miss Fortune fires her pistols for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. Passive <#ff9028ff>Love Tap<>: her first shot at a new target (after she kills her last one, or when she has not fired for <#ffb900ff>1.25s<>) deals <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40% AD<> bonus <#ff9028ff>physical damage<>.",
+        "skill": "Fires a bullet that deals <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<> to the first enemy hit, then flies on into the next enemy behind it for <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140% AD<> <#ff9028ff>physical damage<> (<#ff9028ff>Love Tap<> included). If the first shot kills, the second one <#ff9028ff>crits<> for double damage.",
+        "skill2": "Rains bullets on an area for <#ffb900ff>2s<>: every <#ffb900ff>0.25s<> enemies inside take <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>15% AD<> <#ff9028ff>physical damage<> (<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120% AD<> in all) and are <#ef5350ff>slowed<> by <#ffb900ff>40%<>. Then she <#ff9028ff>Struts<>: <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>40% attack speed<> and <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>20% move speed<> for <#ffb900ff>4s<>.",
+        "ult": "Channels for <#ffb900ff>3s<>, firing <#ffb900ff>12<> waves of bullets in a cone ahead. Each wave deals <#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45% AD<> <#ff9028ff>physical damage<> to the enemies in it and can crit. Being <#ef5350ff>stunned<>, <#ef5350ff>rooted<>, <#ef5350ff>knocked up<> or killed ends the channel."
       }
     },
     "skill_name": {
@@ -482,6 +513,11 @@
         "skill1": "Disintegrate",
         "skill2": "Incinerate",
         "ult": "Summon: Tibbers"
+      },
+      "league_missfortune": {
+        "skill1": "Double Up",
+        "skill2": "Make It Rain",
+        "ult": "Bullet Time"
       }
     }
   },
@@ -577,6 +613,13 @@
         "skill": "불덩이를 던져 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 75%<> <#a974ffff>마법 피해<>를 입힙니다.",
         "skill2": "원뿔 모양으로 불길을 뿜어 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 85%<> <#a974ffff>마법 피해<>를 입힙니다. 동시에 <#ff9028ff>용암 방패<>를 사용해 <#ffb900ff>3초<> 동안 <#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 40%<> <#e8d44dff>보호막<>을 얻고, 보호막이 유지되는 동안 받는 피해의 <#ffb900ff>20%<>를 되돌려주며, <#ffb900ff>1.5초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도가 30%<> 증가합니다.",
         "ult": "티버를 적 챔피언에게 떨어뜨려 주변 적에게 <#a974ffff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 70%<> <#a974ffff>마법 피해<>를 입힙니다. 티버는 <#ffb900ff>6초<> 동안 그 챔피언을 따라다니며 매초 주변 적을 불태워 <#a974ffff>14<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 8%<> <#a974ffff>마법 피해<>를 입힙니다. 그 챔피언이 죽으면 티버도 사라집니다."
+      },
+      "league_missfortune": {
+        "name": "미스 포츈",
+        "attack": "쌍권총으로 쏘아 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다. 기본 지속 효과 <#ff9028ff>사랑의 한 방<>: 새 대상에게 쏘는 첫 발(직전 대상을 처치했거나 <#ffb900ff>1.25초<> 동안 쏘지 않았을 때)은 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 40%<> <#ff9028ff>물리 피해<>를 추가로 입힙니다.",
+        "skill": "총알을 쏘아 처음 맞은 적에게 <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입히고, 총알이 계속 날아가 그 뒤의 다음 적에게 <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 140%<> <#ff9028ff>물리 피해<>(<#ff9028ff>사랑의 한 방<> 포함)를 입힙니다. 첫 발로 처치하면 두 번째 발은 <#ff9028ff>치명타<>로 2배 피해를 입힙니다.",
+        "skill2": "지역에 <#ffb900ff>2초<> 동안 총알 비를 퍼부어 <#ffb900ff>0.25초<>마다 안의 적에게 <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 15%<> <#ff9028ff>물리 피해<>(총 <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 120%<>)를 입히고 <#ffb900ff>40%<> <#ef5350ff>둔화<>시킵니다. 이후 <#ff9028ff>활보<>: <#ffb900ff>4초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>공격 속도 40%<>와 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도 20%<>.",
+        "ult": "제자리에서 <#ffb900ff>3초<> 동안 정신을 집중해 앞쪽 부채꼴로 총알을 <#ffb900ff>12<>번 퍼붓습니다. 한 번마다 안의 적에게 <#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 45%<> <#ff9028ff>물리 피해<>를 입히며 치명타가 터질 수 있습니다. <#ef5350ff>기절<>, <#ef5350ff>속박<>, <#ef5350ff>에어본<> 등에 걸리거나 죽으면 중단됩니다."
       }
     },
     "skill_name": {
@@ -644,6 +687,11 @@
         "skill1": "붕괴",
         "skill2": "소각",
         "ult": "소환: 티버"
+      },
+      "league_missfortune": {
+        "skill1": "한 발에 두 놈",
+        "skill2": "총알은 비를 타고",
+        "ult": "쌍권총 난사"
       }
     }
   },
@@ -739,6 +787,13 @@
         "skill": "火の玉を投げ、<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の75%<>の<#a974ffff>魔法ダメージ<>を与える。",
         "skill2": "扇状に炎を放ち、<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の85%<>の<#a974ffff>魔法ダメージ<>を与える。同時に<#ff9028ff>モルテンシールド<>を発動し、<#ffb900ff>3秒<>間<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の40%<>の<#e8d44dff>シールド<>を得る。シールドがある間は受けたダメージの<#ffb900ff>20%<>を反射し、<#ffb900ff>1.5秒<>間<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度が30%<>増加する。",
         "ult": "ティバーズを敵チャンピオンに落とし、周囲の敵に<#a974ffff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の70%<>の<#a974ffff>魔法ダメージ<>を与える。ティバーズは<#ffb900ff>6秒<>間そのチャンピオンを追いかけ、毎秒周囲の敵を燃やして<#a974ffff>14<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の8%<>の<#a974ffff>魔法ダメージ<>を与える。そのチャンピオンが倒れるとティバーズも去る。"
+      },
+      "league_missfortune": {
+        "name": "ミス・フォーチュン",
+        "attack": "二丁拳銃で撃ち、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>を与える。自動効果<#ff9028ff>ラブタップ<>：新しい対象への最初の一発（前の対象を倒した後か、<#ffb900ff>1.25秒<>撃っていない時）は<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の40%<>の<#ff9028ff>物理ダメージ<>を追加で与える。",
+        "skill": "弾を撃ち、最初に当たった敵に<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>。弾はその背後の次の敵にも当たり、<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の140%<>の<#ff9028ff>物理ダメージ<>（<#ff9028ff>ラブタップ<>込み）。最初の一発で倒すと二発目は<#ff9028ff>クリティカル<>で2倍。",
+        "skill2": "範囲に<#ffb900ff>2秒<>間弾丸の雨を降らせ、<#ffb900ff>0.25秒<>ごとに範囲内の敵に<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の15%<>の<#ff9028ff>物理ダメージ<>（計<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の120%<>）を与え<#ffb900ff>40%<><#ef5350ff>スロウ<>。その後<#ff9028ff>ストラット<>：<#ffb900ff>4秒<>間<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻撃速度40%<>と<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度20%<>。",
+        "ult": "その場で<#ffb900ff>3秒<>間詠唱し、前方の扇状範囲に弾丸を<#ffb900ff>12<>回撃つ。1回ごとに範囲内の敵に<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の45%<>の<#ff9028ff>物理ダメージ<>（クリティカルあり）。<#ef5350ff>スタン<>・<#ef5350ff>スネア<>・<#ef5350ff>ノックアップ<>などを受けるか倒れると中断。"
       }
     },
     "skill_name": {
@@ -806,6 +861,11 @@
         "skill1": "ファイアボール",
         "skill2": "バーニングファイア",
         "ult": "やっちゃえ！ティバーズ！"
+      },
+      "league_missfortune": {
+        "skill1": "ダブルアップ",
+        "skill2": "レイニングバレット",
+        "ult": "バレットタイム"
       }
     }
   }
