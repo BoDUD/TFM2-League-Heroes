@@ -263,7 +263,8 @@ How they behave *(measured in the SDK simulation for league_jinx, 3-12 ten-minut
   the removal tick; apply 39 and apply 270 never hit). `delay: 1, apply: 1` hits the tick it appears. It is
   not a lasting trap. Until then this file read `delay` as the moment: league_soraka's star (delay 24,
   apply 10) hit 0.15 s after it appeared while its picture lands at 0.4 s (now delay 35, apply 25: the hit
-  on the landing frame, gone with the 570 ms picture).
+  on the landing frame, gone with the 570 ms picture); league_lux R's damage line and league_ashe W had
+  apply 3 and hit at tick 2, before the beam and the arrows (both now timed by `apply`, section 7).
 - `RangeProjectile` has no `end_effects` (game_core reads name, delay, apply, shape, applied_target and
   applied_effects; `lint_mod.py` now knows the fields of every effect type from the SDK). league_soraka's
   Equinox field sat in the star's `end_effects` from her first version and never appeared; it now starts
@@ -404,7 +405,8 @@ sprite is centred on the rectangle and turned to the cast direction: drawn point
 x = -length/2 to +length/2 (measured on LoL Reborn's Swain Q fan, Lux R and Jhin W sprites). So a
 fan sprite with its apex at x = -length/2 starts at the caster. The hit area stays a rectangle;
 draw the fan a little wider than `width` (oppi's Swain does). league_ashe W: width 45000, length
-80000, delay 14, apply 3, 9 arrows over +-28 deg, 7 frames x 40 ms, view `repeat: false`.
+80000, delay 17, apply 14 (the hit at tick 13, when the arrows have flown out; until 0.10.0 delay 14,
+apply 3 hit at tick 2, as the fan appeared), 9 arrows over +-28 deg, 7 frames x 40 ms, view `repeat: false`.
 
 **Zone / aura.** `RangePeriodProjectile {tick, period}` for a placed field;
 `ApplyInProjectile {follow_caster: true, tick}` for an aura around the hero.
@@ -420,8 +422,10 @@ authors match a zone's view length to its lifetime (Gragas 1767/1750 ms, Utsuho 
 
 **Long laser with a telegraph (Marisa, Lux R).** Split the look from the damage: one
 `LineRangeProjectile` with empty `applied_effects` and a long `delay` carries the view (thin
-line, charge, beam, fade), a second one with the same shape and a shorter `delay` deals the damage
-(Touhou Marisa: visual delay 120; league_lux R: visual delay 55, damage delay 28, 240000 x 16000).
+line, charge, beam, fade), a second one with the same shape whose `apply` is the frame the beam fires
+deals the damage (Touhou Marisa: visual delay 120; league_lux R: visual delay 55, damage delay 29 and
+apply 29 - the hit at tick 28 with the beam and its sound; until 0.10.0 apply 3 hit at tick 2, 0.43 s
+before the beam showed - 240000 x 16000).
 The view is drawn at the unit's pivot height and turned to the cast direction, so keep the beam
 centred vertically in its canvas (an offset would flip when she fires to the left) *(inferred)*.
 

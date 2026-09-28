@@ -310,8 +310,8 @@
           "name": "league_ashe_volley",
           "width": 45000,
           "length": 80000,
-          "delay": 14,
-          "apply": 3,
+          "delay": 17,
+          "apply": 14,
           "applied_target": "EnemyWithoutTower",
           "applied_effects": [
             {
