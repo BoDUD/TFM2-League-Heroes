@@ -77,6 +77,13 @@
         "skill": "吹出致盲飞镖，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法术强度<>的<#a974ffff>魔法伤害<>，并<#ef5350ff>致盲<>目标<#ffb900ff>1.5秒<>，期间无法普攻。",
         "skill2": "敌方英雄靠近时拔腿就跑：<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移动速度提高40%<>，持续<#ffb900ff>3秒<>，并<#ffb900ff>伪装<>（隐身）<#ffb900ff>1.5秒<>。被动 <#ff9028ff>游击队军备<>：同时获得<#ff9028ff>出奇制胜<>，<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻击速度提高40%<>，持续<#ffb900ff>4.5秒<>。",
         "ult": "向敌方英雄脚下扔出蘑菇，<#ffb900ff>1秒<>后布好并潜伏<#ffb900ff>12秒<>。敌人踩中时爆出毒云，使周围敌人<#78e85cff>中毒<><#ffb900ff>4秒<>，共受到<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>48% 法术强度<>的<#a974ffff>魔法伤害<>，并<#ef5350ff>减速<><#ffb900ff>40%<>，持续<#ffb900ff>2秒<>。可储存<#ffb900ff>3<>个蘑菇。"
+      },
+      "league_annie": {
+        "name": "安妮",
+        "attack": "普攻扔出小火球，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。被动 <#ff9028ff>嗜火<>：每施放<#ffb900ff>4<>次技能（焚烧、熔岩护盾各算一次）后，下一个伤害技能<#ef5350ff>眩晕<>命中的英雄<#ffb900ff>1秒<>，小兵和野怪不会消耗它。出生和复活时自带眩晕。",
+        "skill": "扔出火球，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 法术强度<>的<#a974ffff>魔法伤害<>。",
+        "skill2": "向前方喷出扇形火焰，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85% 法术强度<>的<#a974ffff>魔法伤害<>。同时施放 <#ff9028ff>熔岩护盾<>：获得<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 法术强度<>的<#e8d44dff>护盾<>，持续<#ffb900ff>3秒<>，护盾存在时反弹<#ffb900ff>30%<>所受伤害，并<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移动速度提高30%<>，持续<#ffb900ff>1.5秒<>。",
+        "ult": "召唤提伯斯砸向敌方英雄，对周围敌人造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75% 法术强度<>的<#a974ffff>魔法伤害<>。提伯斯原地停留<#ffb900ff>6秒<>，每秒灼烧周围敌人，造成<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15% 法术强度<>的<#a974ffff>魔法伤害<>。"
       }
     },
     "skill_name": {
@@ -134,6 +141,11 @@
         "skill1": "致盲吹箭",
         "skill2": "小莫快跑",
         "ult": "种蘑菇"
+      },
+      "league_annie": {
+        "skill1": "碎裂之火",
+        "skill2": "焚烧",
+        "ult": "提伯斯之怒"
       }
     }
   },
@@ -215,6 +227,13 @@
         "skill": "吹出致盲飛鏢，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 魔法強度<>的<#a974ffff>魔法傷害<>，並<#ef5350ff>致盲<>目標<#ffb900ff>1.5秒<>，期間無法普攻。",
         "skill2": "敵方英雄靠近時拔腿就跑：<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>跑速提高40%<>，持續<#ffb900ff>3秒<>，並<#ffb900ff>隱形<><#ffb900ff>1.5秒<>。被動 <#ff9028ff>約德爾游擊隊<>：同時獲得<#ff9028ff>出奇制勝<>，<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻擊速度提高40%<>，持續<#ffb900ff>4.5秒<>。",
         "ult": "向敵方英雄腳下擲出蘑菇，<#ffb900ff>1秒<>後布好並潛伏<#ffb900ff>12秒<>。敵人踩中時釋放毒霧，使周圍敵人<#78e85cff>中毒<><#ffb900ff>4秒<>，共承受<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>48% 魔法強度<>的<#a974ffff>魔法傷害<>，並<#ef5350ff>緩速<><#ffb900ff>40%<>，持續<#ffb900ff>2秒<>。可儲存<#ffb900ff>3<>朵蘑菇。"
+      },
+      "league_annie": {
+        "name": "安妮",
+        "attack": "普攻扔出小火球，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。被動 <#ff9028ff>嗜火<>：每施放<#ffb900ff>4<>次技能（烈焰衝擊、熔炎護盾各算一次）後，下一個傷害技能<#ef5350ff>暈眩<>命中的英雄<#ffb900ff>1秒<>，小兵和野怪不會消耗它。出生和復活時自帶暈眩。",
+        "skill": "扔出火球，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 魔法強度<>的<#a974ffff>魔法傷害<>。",
+        "skill2": "向前方噴出扇形火焰，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85% 魔法強度<>的<#a974ffff>魔法傷害<>。同時施放 <#ff9028ff>熔炎護盾<>：獲得<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 魔法強度<>的<#e8d44dff>護盾<>，持續<#ffb900ff>3秒<>，護盾存在時反彈<#ffb900ff>30%<>所受傷害，並<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度提高30%<>，持續<#ffb900ff>1.5秒<>。",
+        "ult": "召喚泰貝爾砸向敵方英雄，對周圍敵人造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75% 魔法強度<>的<#a974ffff>魔法傷害<>。泰貝爾原地停留<#ffb900ff>6秒<>，每秒灼燒周圍敵人，造成<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15% 魔法強度<>的<#a974ffff>魔法傷害<>。"
       }
     },
     "skill_name": {
@@ -272,6 +291,11 @@
         "skill1": "致盲吹箭",
         "skill2": "衝刺",
         "ult": "毒性陷阱"
+      },
+      "league_annie": {
+        "skill1": "瓦解怒焰",
+        "skill2": "烈焰衝擊",
+        "ult": "召喚：泰貝爾"
       }
     }
   },
@@ -353,6 +377,13 @@
         "skill": "Teemo shoots a blinding dart that deals <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% Ability Power<> <#a974ffff>magic damage<> and <#ef5350ff>blinds<> the target for <#ffb900ff>1.5s<>: it cannot basic attack.",
         "skill2": "When an enemy champion comes close, Teemo sprints: <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>40% Move Speed<> for <#ffb900ff>3s<>, and <#ffb900ff>Camouflage<> (invisible) for <#ffb900ff>1.5s<>. Passive <#ff9028ff>Guerrilla Warfare<>: he also gains <#ff9028ff>Element of Surprise<>, <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>40% attack speed<> for <#ffb900ff>4.5s<>.",
         "ult": "Teemo throws a mushroom at an enemy champion's feet. It arms after <#ffb900ff>1s<> and hides for up to <#ffb900ff>12s<>. When an enemy steps on it, it bursts into a toxic cloud: enemies around are <#78e85cff>poisoned<>, taking <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>48% Ability Power<> <#a974ffff>magic damage<> over <#ffb900ff>4s<>, and <#ef5350ff>slowed<> by <#ffb900ff>40%<> for <#ffb900ff>2s<>. Holds up to <#ffb900ff>3<> mushrooms."
+      },
+      "league_annie": {
+        "name": "Annie",
+        "attack": "Basic attacks throw a small fireball for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. Passive <#ff9028ff>Pyromania<>: after <#ffb900ff>4<> spell casts (Incinerate and Molten Shield count as two), her next damaging spell <#ef5350ff>stuns<> the champions it hits for <#ffb900ff>1s<>; minions and monsters never use it up. She spawns and respawns with it ready.",
+        "skill": "Annie hurls a fireball that deals <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% Ability Power<> <#a974ffff>magic damage<>.",
+        "skill2": "Annie casts a cone of fire, dealing <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85% Ability Power<> <#a974ffff>magic damage<>. She also casts <#ff9028ff>Molten Shield<> on herself: a <#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% Ability Power<> <#e8d44dff>shield<> for <#ffb900ff>3s<>; while it holds, <#ffb900ff>30%<> of the damage she takes is reflected, and she gains <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>30% Move Speed<> for <#ffb900ff>1.5s<>.",
+        "ult": "Annie summons Tibbers onto an enemy champion, dealing <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75% Ability Power<> <#a974ffff>magic damage<> around him. Tibbers stays for <#ffb900ff>6s<> and burns nearby enemies for <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15% Ability Power<> <#a974ffff>magic damage<> every second."
       }
     },
     "skill_name": {
@@ -410,6 +441,11 @@
         "skill1": "Blinding Dart",
         "skill2": "Move Quick",
         "ult": "Noxious Trap"
+      },
+      "league_annie": {
+        "skill1": "Disintegrate",
+        "skill2": "Incinerate",
+        "ult": "Summon: Tibbers"
       }
     }
   },
@@ -491,6 +527,13 @@
         "skill": "실명 다트를 쏘아 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 70%<> <#a974ffff>마법 피해<>를 입히고 대상을 <#ffb900ff>1.5초<> 동안 <#ef5350ff>실명<>시켜 기본 공격을 할 수 없게 합니다.",
         "skill2": "적 챔피언이 다가오면 달아납니다: <#ffb900ff>3초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도 40%<> 증가, <#ffb900ff>1.5초<> 동안 <#ffb900ff>투명<>. 기본 지속 효과 <#ff9028ff>유격 전투<>: 동시에 <#ff9028ff>기습공격<>으로 <#ffb900ff>4.5초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>공격 속도 40%<> 증가.",
         "ult": "적 챔피언의 발밑에 버섯을 던집니다. 버섯은 <#ffb900ff>1초<> 후 설치되어 최대 <#ffb900ff>12초<> 동안 숨어 있습니다. 적이 밟으면 독 구름이 터져 주변 적을 <#78e85cff>중독<>시켜 <#ffb900ff>4초<>에 걸쳐 <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 48%<> <#a974ffff>마법 피해<>를 입히고 <#ffb900ff>2초<> 동안 <#ffb900ff>40%<> <#ef5350ff>둔화<>시킵니다. 버섯은 최대 <#ffb900ff>3<>개까지 보관합니다."
+      },
+      "league_annie": {
+        "name": "애니",
+        "attack": "기본 공격으로 작은 불덩이를 던져 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다. 기본 지속 효과 <#ff9028ff>방화광<>: 스킬을 <#ffb900ff>4<>번 사용하면(소각과 용암 방패는 각각 한 번) 다음 피해 스킬이 적중한 챔피언을 <#ffb900ff>1초<> 동안 <#ef5350ff>기절<>시킵니다. 미니언과 몬스터에게는 소모되지 않으며, 부활할 때 준비된 상태로 시작합니다.",
+        "skill": "불덩이를 던져 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 80%<> <#a974ffff>마법 피해<>를 입힙니다.",
+        "skill2": "원뿔 모양으로 불길을 뿜어 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 85%<> <#a974ffff>마법 피해<>를 입힙니다. 동시에 <#ff9028ff>용암 방패<>를 사용해 <#ffb900ff>3초<> 동안 <#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 40%<> <#e8d44dff>보호막<>을 얻고, 보호막이 유지되는 동안 받는 피해의 <#ffb900ff>30%<>를 되돌려주며, <#ffb900ff>1.5초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도가 30%<> 증가합니다.",
+        "ult": "티버를 적 챔피언에게 떨어뜨려 주변 적에게 <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 75%<> <#a974ffff>마법 피해<>를 입힙니다. 티버는 <#ffb900ff>6초<> 동안 머무르며 매초 주변 적을 불태워 <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 15%<> <#a974ffff>마법 피해<>를 입힙니다."
       }
     },
     "skill_name": {
@@ -548,6 +591,11 @@
         "skill1": "실명 다트",
         "skill2": "신속한 이동",
         "ult": "유독성 함정"
+      },
+      "league_annie": {
+        "skill1": "붕괴",
+        "skill2": "소각",
+        "ult": "소환: 티버"
       }
     }
   },
@@ -629,6 +677,13 @@
         "skill": "目つぶしの矢で<#a974ffff>80<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の70%<>の<#a974ffff>魔法ダメージ<>を与え、<#ffb900ff>1.5秒<>間<#ef5350ff>ブラインド<>状態にして通常攻撃を封じる。",
         "skill2": "敵チャンピオンが近づくと駆け出す：<#ffb900ff>3秒<>間<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度40%<>増加、<#ffb900ff>1.5秒<>間<#ffb900ff>インビジブル<>。パッシブ<#ff9028ff>やぶからヨードル<>：同時に<#ff9028ff>奇襲モード<>で<#ffb900ff>4.5秒<>間<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻撃速度40%<>増加。",
         "ult": "敵チャンピオンの足元に毒キノコを投げる。<#ffb900ff>1秒<>後に設置され、最大<#ffb900ff>12秒<>潜む。敵が踏むと毒霧が広がり、周囲の敵を<#ffb900ff>4秒<>間<#78e85cff>毒<>にして計<#a974ffff>100<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の48%<>の<#a974ffff>魔法ダメージ<>を与え、<#ffb900ff>2秒<>間<#ffb900ff>40%<><#ef5350ff>スロウ<>。最大<#ffb900ff>3<>個まで持てる。"
+      },
+      "league_annie": {
+        "name": "アニー",
+        "attack": "通常攻撃は小さな火の玉を投げ、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>を与える。パッシブ <#ff9028ff>火遊びだいすき<>：スキルを<#ffb900ff>4<>回使う（バーニングファイアとモルテンシールドは1回ずつ）と、次のダメージスキルが命中したチャンピオンを<#ffb900ff>1秒<>間<#ef5350ff>スタン<>させる。ミニオンやモンスターには消費されず、復活時は準備済み。",
+        "skill": "火の玉を投げ、<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の80%<>の<#a974ffff>魔法ダメージ<>を与える。",
+        "skill2": "扇状に炎を放ち、<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の85%<>の<#a974ffff>魔法ダメージ<>を与える。同時に<#ff9028ff>モルテンシールド<>を発動し、<#ffb900ff>3秒<>間<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の40%<>の<#e8d44dff>シールド<>を得る。シールドがある間は受けたダメージの<#ffb900ff>30%<>を反射し、<#ffb900ff>1.5秒<>間<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度が30%<>増加する。",
+        "ult": "ティバーズを敵チャンピオンに落とし、周囲の敵に<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の75%<>の<#a974ffff>魔法ダメージ<>を与える。ティバーズは<#ffb900ff>6秒<>間その場に留まり、毎秒周囲の敵を燃やして<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の15%<>の<#a974ffff>魔法ダメージ<>を与える。"
       }
     },
     "skill_name": {
@@ -686,6 +741,11 @@
         "skill1": "目つぶしダーツ",
         "skill2": "駆け足！",
         "ult": "毒キノコ"
+      },
+      "league_annie": {
+        "skill1": "ファイアボール",
+        "skill2": "バーニングファイア",
+        "ult": "やっちゃえ！ティバーズ！"
       }
     }
   }
