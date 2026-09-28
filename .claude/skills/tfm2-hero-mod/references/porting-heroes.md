@@ -140,6 +140,12 @@ cs_jungle, kills, deaths, assists): the numbers players read after a match. Ten 
 take ~4 s, so average 12-16 seeds per lineup and change one thing at a time; the same lineup
 varies about 10% between batches. The simulator and the extracted settings stay local.
 
+Rerun it once the art has set the timings. league_annie was balanced at +1.24 kills (24 seeds a
+lineup) with placeholder timings; aligning her casts with her strips (the fireball thrown on tick 12
+instead of 18, a shorter attack) and landing Tibbers on his picture's impact frame (6 ticks after the
+cast instead of 18, so fewer targets walk out) lifted the same numbers to +1.95, and the final
+tuning was done on those timings (+1.49).
+
 ## League of Legends specifics
 
 How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slots:
