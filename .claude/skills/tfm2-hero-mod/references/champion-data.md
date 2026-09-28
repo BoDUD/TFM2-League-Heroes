@@ -251,6 +251,11 @@ What the game shows by itself: an `AddCasted` of `casted_type: Poison` puts a `p
 the target, `BlockAttack` a `buff_disable` one, a `move_speed_mult` buff `movement+buff` /
 `movement+debuff` and an `attack_speed_mult` buff `attack_speed+buff` (the `status_icons` of the
 `EntityInfo` events), so a poison or a blind needs no effect of its own to be readable.
+Every `casted_type` has its icon, and those four are all the engine accepts (an unknown variant lists
+`Bleed`, `Poison`, `Fire`, `Heal`): `Bleed` shows `bleeding`, `Fire` `burn`, `Heal` `heal` *(measured in
+the SDK simulation for league_missfortune)*. So an `AddCasted` kept on a target as a hidden marker shows
+the wrong icon for as long as it lasts (a 75-tick "is my last target alive" mark put a heal icon over
+every enemy she shot); a 3-tick check (the kill trigger in section 7) only blinks one.
 
 **Pull vs Grab** *(read from the SDK's game_core, `Entity::pull` / `Entity::grab`)*. Both move the
 target in a straight line at `speed` units per tick for their duration (tenacity shortens it) and
@@ -439,6 +444,12 @@ the same champion file.
   field: how a view is placed depends on what plays it.
 - A projectile's view is turned to its direction (a `LineRangeProjectile` rectangle: drawn pointing
   right, see "Cone / fan"), so cast upward it lies across the screen and cast left it is upside down.
+  That includes a ground zone's view: a `RangePeriodProjectile` on a `Position` cast gets a direction of
+  (1, 0) or (-1, 0) *(SDK simulation log)*, and league_missfortune E's falling rain, drawn as the zone's view,
+  rained upward whenever she cast it leftward (seen in-game in the mid lane). A picture that must stay
+  upright goes in a `ViewEffect` next to the zone in the cast's `Combine` instead (no view for the zone):
+  on a `Position` cast it plays on the cast point in the same tick, unturned (an `Animation` plays its tag
+  once, so its frames cover the zone's lifetime).
   A `CasterViewEffect` is not turned: it is drawn at the caster's pivot, mirrored when the caster
   faces left (the base gunner's backward-run dust is drawn only behind him), and stays where it was
   played unless `is_follow`. An `Animation` plays its tag once, so a view that must stand for
@@ -543,6 +554,43 @@ re-issues `CasterAnimation skill`.
 
 **Channel with its own animation.** `CasterAnimation {name, tick}` + `Delayed` hits +
 `RemoveCasterAnimation` at the end (Nocturne ult, Marisa laser).
+
+**A channel that crowd control breaks (league_missfortune R, Bullet Time).** Queued `Delayed` effects run
+whatever happens to the caster: a 1 s stun at the sixth of her twelve waves left the other six firing
+*(measured in the SDK simulation)*. A test `WithSelf {Stun}` in the ult stunned no one: `WithSelf` applies
+its effects to the caster and then again to the action's target unit, and a `Position` cast has no target
+unit, so it reaches nobody (the league_janna session's reading of `WithSelfEffect::apply`, 2026-09-28). Death does stop them once
+each wave checks a caster buff (`SwitchByBuff bullet_time`; death clears buffs: a death at 156 ticks
+ended her waves after 144). For crowd control, each wave first runs `RandomTarget {range: 1,
+casting_target: AllyChampionInCC}` whose effects remove that buff and the `CasterAnimation`: range 1 plus
+both radii finds the caster herself while she is stunned, rooted, airborne, pulled, feared or charmed
+(section 3), so the channel ends at the next wave (at most 15 ticks late); an allied champion in crowd
+control standing against her would end it too. The waves are a `Position` cast (the direction is fixed at
+the cast, as in League): per wave a `RangeEffect` with `Forward {offset: 1000}` and `DirDot {radius:
+100000, range: 940}` (a 40 degree cone toward the cast point) for the damage and a view-only
+`LineRangeProjectile` (100000 x 36000, delay 15, turned to the cast point) for the picture.
+
+**The target and the next one behind it (league_missfortune Q, Double Up).** League's bounce goes to an
+enemy behind the first target; `RandomTarget` from the hit point would pick the first target itself again,
+and so would a cone (`RangeProjectile` + `DirDot`) placed where a non-penetrating bullet stopped: an area
+applies to its units in entity-id order (champions first), not nearest first, and the first target always
+stands in it *(measured in the SDK simulation)*. Two `LinearProjectile`s at the same speed (12000) toward
+the target, both `penetrate: true`, their applied effects behind caster locks. The narrow visible bullet
+(radius 5000) makes the first hit: the first unit it touches takes the shot and adds `q_first` (40 ticks,
+the whole flight, so it hits nothing else), `q_window` (7 ticks) and `q_wait` (1 tick). An invisible wide
+twin (radius 20000, no view, spawned first) makes the bounce: a unit it touches while `q_window` lasts and
+`q_wait` does not takes the bounce and removes `q_window`; before the first hit it does nothing. Without
+`q_wait` the twin, overlapping the first target in the tick the window opened, bounced onto it at close
+range (12 of 162 bounces); a 2-tick wait also skipped units standing right behind (bounces fell from 65%
+to 38% of casts). The first hit carries the kill check (section 7) whose flag outlives the window, and
+the bounce's damage waits 4 ticks in a `Delayed` so it can read it: a first shot that killed makes the
+bounce crit (double). At speed 7000 the AI sidestepped 15% of the shots (the target walked out of the line
+during the 11 ticks of flight); at 12000 every cast hit.
+The first version was the narrow bullet alone, penetrating with the 4-tick window: a second unit had to
+stand on the bullet's line, and in game Q "never reached a second target" (the user). Over the same six
+games that version bounced on 57% of casts but onto a champion 14 times, mostly onto a minion overlapping
+the first (median 10600 units apart); the twin bounces on 65%, onto a champion 46 times, median 32000 and
+up to 88000 units behind the first target, never onto the first target itself.
 
 **Spin that keeps chasing.** The forced animation holds the caster still (seen in-game: a 3 s
 spin with only `can_use_with_move` stood in place), so give every `Delayed` pulse a short dash next
@@ -749,6 +797,16 @@ valid that tick), a `Delayed` effect on the target (it runs on the dead), and on
 (a minion dying next to an enemy champion set it off). A splash hitting two champions shares one flag,
 so a survivor's check can hide the other's death. The same check could build other takedown effects
 (Darius's Noxian Guillotine reset).
+
+**Bonus on a new target (league_missfortune Love Tap).** Nothing tells whether an attack's target is the
+last one (`SwitchByBuff` reads the caster, and a lasting `AddCasted` marker shows an icon, section 4). What
+can be known is when her last target is surely gone: an attack is Love Tap when her previous hit killed
+its target (the kill check above on every attack and on Q's first shot sets `lt_ready`) or when she has
+not fired for 75 ticks (each attack renews a 75-tick `fight` buff; without it the fight is new). In the
+simulation (3 games, 535 attacks) 98 of her 134 target switches came after the old target died, 91 of
+those deaths by her own hit; 180 of the 207 attacks after a pause of more than 75 ticks were on a new
+target. What the check misses is the AI changing targets while the old one lives (36 of 134). About 55%
+of her attacks carry it.
 
 **A trap that waits and snaps once (league_jinx E).** One zone cannot last and hit once (section 4), so
 the trap is a chain of short links, each started where the thrown `ParabolicProjectile` landed:

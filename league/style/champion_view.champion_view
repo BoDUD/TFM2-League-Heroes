@@ -130,6 +130,16 @@
         "y": -12
       }
     },
+    "league_missfortune": {
+      "face": {
+        "x": 1,
+        "y": -34
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
     "league_janna": {
       "face": {
         "x": -1,

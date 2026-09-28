@@ -84,6 +84,9 @@ OK = direct, ~ = approximate, X = not possible in data-only mods.
 | Shield that hurts attackers (Annie E) | `WithSelf {Shield}` + a `WithShield` buff with `damage_reflect` (a share of every hit, basic attacks and skills, not League's flat hit once per attacker) | ~ |
 | Summon that fights (Tibbers) | cannot walk or attack in data, but can ride on the unit he is cast on: a `Targeting` cast, an `AddCasted` on the target plays his pictures on it (`is_follow`) and lobs a one-tick burn circle round it every second, the target's death ends him (champion-data "A summon that follows its target"). He cannot pick a new target or chase one of his own | ~ |
 | Refund on a kill (Annie Q) | detectable (kill trigger) and a short `skill_cooldown_mult` burst would speed the recharge, but it speeds every skill; league_annie leaves it out and keeps League's 4 s cooldown | X |
+| Bonus on the first hit on a new target (Miss Fortune's Love Tap) | no "same target" test: the bonus comes when her last hit killed its target (kill check) or she has not fired for 1.25 s (champion-data "Bonus on a new target"); a switch while the old target lives gets none | ~ |
+| Shot that bounces to an enemy behind the target (Miss Fortune Q) | two penetrating `LinearProjectile`s at one speed behind caster locks: the narrow visible bullet's first unit takes the shot, then the first unit an invisible wide twin touches within 7 ticks, after a 1-tick wait, takes the bounce (a narrow bullet alone rarely found a second champion); a kill check on the first makes the bounce crit (champion-data "The target and the next one behind it") | ~ |
+| Channel broken by crowd control (Miss Fortune R) | queued `Delayed` waves run through a stun: each wave first looks for `AllyChampionInCC` within range 1 (the caster) and ends the channel; death ends it through a caster buff (champion-data "A channel that crowd control breaks") | ~ |
 | Allies moving toward her go faster (Janna's Tailwind) | nothing reads which way a unit moves: while she fights, every action starts a guarded train of 1 s `move_speed_mult` buffs on `AllyChampion` around her (the Amumu aura) | ~ |
 | Tornado charged up to 3 s (Janna Q) | the middle value: one penetrating `LinearProjectile` with `Airborne` 0.75 s | ~ |
 | Shield an ally (Janna E) | a shield scores its full amount on anyone, so on an ally target the AI shields on cooldown, out of fights too (champion-data section 3); league_janna casts E on an enemy champion with W's gust folded in and shields the ally beside her, herself when alone (champion-data "Shield the ally beside her") | ~ |
@@ -149,7 +152,11 @@ Rerun it once the art has set the timings. league_annie was balanced at +1.24 ki
 lineup) with placeholder timings; aligning her casts with her strips (the fireball thrown on tick 12
 instead of 18, a shorter attack) and landing Tibbers on his picture's impact frame (6 ticks after the
 cast instead of 18, so fewer targets walk out) lifted the same numbers to +1.95, and the final
-tuning was done on those timings (+1.49).
+tuning was done on those timings (+1.49). league_missfortune the same way: +3.99 with placeholder timings
+(24 seeds a lineup), +5.50 (36 seeds, two kills above the best base marksman) once her shot, Double Up,
+Make It Rain and Bullet Time fired on tick 8 of their strips instead of 10-12; her nerf was chosen on
+the final timings. A mechanic fix gets the same rerun: Double Up's wide twin (three times the bounces
+onto champions) came out at +4.39 against +4.41 on the same seeds, so no numbers moved.
 
 One batch is noisy: the same league_annie 0.13.0 kit gave +1.49 on seeds 1-24 and +2.22 on seeds 25-48
 (720 games each, 5 opponents x 3 lineups x 2 sides), while its damage dealt moved only from 12512 to
@@ -460,6 +467,30 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   shared palette (per-strip median cuts would tint his fur differently in each); it reads the delivery's
   `assets[].frames[].rect` manifest, and squeezes Incinerate's cone, drawn wider than 50 degrees, into the
   kit's 56 x 50 rectangle with its point on the cell's left edge.
+- **A tricorne over a drawn face (Miss Fortune, drawn by Claude, restyled, head pasted).** Her `Hat` joint
+  hangs under `Head`, so `--head` grows the hat with the face: at head 1.7 the tricorne took ten of her 35
+  rows and the face four. `"chibi": {"head": 2.1, "scale": {"Hat": 0.75}}` gives a face big enough for
+  three-row eyes under a hat that still reads as a tricorne (legs 0.65, hair 0.5; camera yaw 35, not
+  mirrored, both pistols as the weapon part `^[lr]_weapon$`). Her 36 px count the hat, like the base gambler
+  (36) and gunner (37), whose face points sit just under their hat tops; hers is (1, -34). The head was drawn
+  over the design pose voted whole - hat, hair and skin by materials - then square by square: a wider hat
+  with two points and a gold band, a fringe, blue eyes, a dark-red lip, and the far side's hair puffing past
+  the cheek (a straight edge there reads as half a head on the dark card). Of three faces the user took C
+  (three-row eyes with a winged lash row, the lip), then called that lash row a black clump: outline-black
+  squares right under the fringe merge into one bar. Dark red-brown lashes without the wing fixed it (C1).
+  League's death throws both pistols away and ends face down with her legs kicked up over her head: the guns
+  are hidden per frame once they leave her hands, the pasted head stays upright (`"turn": {"dead": 180}` in
+  the restyle spec), and the strip stops at 3.4 s, lying on her stomach with her head up - past that, a
+  quarter-turned head or an upright one sat on top of the raised legs. 49 frames, 23 colours, 35%
+  right-neighbour. Her twelve effects came from Codex as raw generations with a manifest
+  (`assets[].frames[].source_rect`); Bullet Time's wave came on black, so `tools/art/import_missfortune.py
+  --raw` takes its alpha from the brightness, and anchors the wave on one fixed column of every cell (the
+  muzzle of frame 1): anchored on each frame's own left edge, the seven bullets would stand still instead
+  of flying out. The wave is squeezed to the kit's 100 x 72 px (a 40 degree fan over the 100000-long
+  rectangle, its muzzle 50 px behind the rectangle's middle); the rain's ring is 60 px wide (radius 30000).
+  The rain first played as its zone's view, which is turned with the cast: cast leftward (the user saw it
+  in the mid lane, cast one way along it) the bullets fell upward. It now plays as a `ViewEffect` on the
+  cast point, never turned, and the zone has no view (champion-data section 6).
 - **A face point under the hair.** `tfm2_ase.py face` and the lint find the crown at the top of
   the idle sprite, which for Yasuo is the ponytail's tip, 9 px above his head and to the left of
   it. Both now also look for the head from the face: the top two rows of skin-toned pixels and the

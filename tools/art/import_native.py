@@ -60,6 +60,8 @@ ORDER = {("lux", "idle"): [0, 1, 2, 3, 5, 4],
          ("masteryi", "idle"): [0, 0, 0, 0, 0, 0],
          # and Annie, whose drawn head is pasted too
          ("annie", "idle"): [0, 0, 0, 0, 0, 0],
+         # and Miss Fortune (a drawn head under a pasted tricorne)
+         ("missfortune", "idle"): [0, 0, 0, 0, 0, 0],
          # and Janna (pasted head, a body restyled from League's idle)
          ("janna", "idle"): [0, 0, 0, 0, 0, 0]}
 # (hero, tag): (y, slots) - in those slots everything at or above pivot row y moves down a row (the row under
@@ -73,6 +75,8 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        ("masteryi", "idle"): (1, [2, 3, 4]),
        # Annie sinks down to her shins; the shoes and the lowest stripes of her leggings stay
        ("annie", "idle"): (6, [2, 3, 4]),
+       # Miss Fortune's boots start four rows under the pivot: the seam runs through their shafts
+       ("missfortune", "idle"): (6, [2, 3, 4]),
        # Janna floats: all of her, down to the soles 3 px above the ground, sinks a row and rises again
        ("janna", "idle"): (12, [2, 3, 4])}
 CROWN = {"leesin"}              # heroes whose head template starts at the crown (a braid stands above it)
