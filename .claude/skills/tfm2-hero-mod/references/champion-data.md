@@ -118,6 +118,15 @@ also means minions and monsters: a non-penetrating skillshot on it stops on the 
   means "lowest health": base Priest's ult finds that ally in hard-coded logic
   (`lowest_hp_ally_in_range`). Heal, RangeEffect, Combine, Delayed, WithSelf and the projectiles
   all report their expected heal, so a heal nested in them still counts.
+- **A shield is worth its full amount on anyone** *(read from the SDK's game_core,
+  `ShieldEffect::expected_shield`: the amount plus its ratio parts, nothing about the target; measured
+  in the SDK simulation for league_janna E)*. Unlike a heal, a shield's score ignores the target's
+  health and whether any enemy is near, so a shield on an ally target goes out whenever it is ready:
+  league_janna's first E (`Targeting AllyChampion`, 7 s) was cast on cooldown, mostly on herself, often
+  at full health with no enemy champion within 100000; on `AllyNotSelf` with a 5 s cooldown it went
+  out 46 times in 10 minutes, most of them out of any fight, and her team did worse (kill difference
+  -1.32) than with the same shield cast on an enemy champion and handed to an ally from there (+0.29,
+  section 7 "Shield the ally beside her, only in a fight").
 - Self-buffs that should fire "in combat" work best as `casting_type: None` +
   `casting_target: EnemyChampion` + a `range` (cast when an enemy champion is that close) - this
   is how Nocturne's shroud is wired. `AllyOnlySelf` + range 0 also exists (Aatrox ult).
@@ -591,6 +600,33 @@ Rejuvenation passed to the target did (+50% in 10 simulated minutes, near base P
 (base Priest's ult range) and `RangeEffect {radius: 960000, target: AllyChampion}` around the
 caster. Cast as `None` on `AllyOnlySelf` (Touhou Reimu, LoL Reborn Alistar) the AI fires it as soon
 as it is ready, full health or not; a target lets the heal score above (0 at full health) decide.
+
+**Shield the ally beside her, only in a fight (league_janna E, Eye of the Storm with Zephyr).** A
+shield scores its full amount on anyone (section 3), so the cast goes on an enemy champion instead:
+`Targeting` + `EnemyChampion` (range 90000) fires Zephyr at it (a `TargetProjectile`: damage and a 2 s
+slow), then `RandomTarget {range: 50000, casting_target: AllyNotSelf}` from Janna adds a 3-tick lock
+buff to her and gives the picked ally the shield, a `WithShield` buff (`attack_mult` 15: the bonus
+lasts while the shield holds - 4.0 s on an ally nobody hit, in the simulation) and its view; a
+`Delayed {tick: 1}` then checks the lock and, when nobody stood beside her, shields herself through
+`RangeEffect {target: AllyOnlySelf}` (a `WithSelf` there would also shield the enemy, section 4). In
+10 simulated minutes every cast came in a fight: the shield went 4 times each to the ADC and the mid
+laner, once each to top and jungle, and 4 times to herself. `RandomTarget`'s `casting_target` counts
+from the caster's team even inside a projectile's `applied_effects`; shielding an ally next to the
+enemy the gust hit (`from_projectile: true`, 30000) found nobody most of the time, because she casts
+from 85000 away and her lane partner stands beside her.
+
+**Knock them away, then channel a heal (league_janna R, Monsoon).** A `RangeEffect` around her on
+`EnemyWithoutTower` with `Knockback {speed: 2000, tick: 15}` pushes every enemy in it straight away from
+her *(measured in the simulation: from 28000 to 70000 and from 22000 to 39000 units)*. The channel is a
+200-tick caster buff and `CasterAnimation ult_loop` for as long (the forced tag loops, like league_garen's
+400 ms spin for 3 s), and four `Delayed` heal pulses 60 ticks apart, each first a
+`RandomTarget {range: 1, casting_target: AllyChampionInCC}` that finds only herself, and only while she
+is crowd-controlled (it removes the buff and the animation), then `SwitchByBuff` on the buff, which her
+death clears as well. Keep every pulse inside the buff: the first draft's fourth pulse came at tick 202
+of a 190-tick buff and never healed. Cast on `Targeting AllyChampion` (range 40000, so the heal's score
+decides) she used it 3.5 times in 10 minutes, some of them at full health; as `None` on `EnemyChampion`
+within 30000 only 1.2 times, and her team did worse (-1.67 against -1.16). Without the knockback the
+result hardly changed (-1.25), so it stays: it also sets up league_yasuo's R.
 
 **Fold an ability that has its own, longer cooldown into another (league_soraka E on Q).** The
 host skill starts with `SwitchByBuff` on a hidden caster buff that lasts the folded ability's

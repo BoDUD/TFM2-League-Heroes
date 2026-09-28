@@ -1,0 +1,1302 @@
+{
+  "id": "league_janna",
+  "category": "Util",
+  "tags": [
+    "AP",
+    "Magic",
+    "CC",
+    "Shield",
+    "Heal"
+  ],
+  "sprite": "asset/league/champions/league_janna",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/league/icons/league_janna_skill",
+    "asset/league/icons/league_janna_skill2",
+    "asset/league/icons/league_janna_ult"
+  ],
+  "stat": {
+    "attack": 80,
+    "magic_power": 30,
+    "hp": 900,
+    "defence": 20,
+    "magic_resistance": 20,
+    "move_speed": 1000,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 6,
+    "magic_power": 15,
+    "hp": 80,
+    "defence": 8,
+    "magic_resistance": 4,
+    "move_speed": 10,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.league_janna.attack",
+    "duration": 30,
+    "cooltime": 90,
+    "start_timing": 15,
+    "cancelable": true,
+    "range": 60000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_janna_tailwind_train",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_janna_tailwind_train",
+                  "duration": {
+                    "Time": {
+                      "tick": 240
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "Delayed",
+                "tick": 0,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_janna_tailwind_train",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "Circle": {
+                              "radius": 40000
+                            }
+                          },
+                          "target": "AllyChampion",
+                          "apply_type": "AroundCaster",
+                          "effects": [
+                            {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "league_janna_tailwind",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 60
+                                  }
+                                },
+                                "move_speed_mult": 8
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "Delayed",
+                "tick": 60,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_janna_tailwind_train",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "Circle": {
+                              "radius": 40000
+                            }
+                          },
+                          "target": "AllyChampion",
+                          "apply_type": "AroundCaster",
+                          "effects": [
+                            {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "league_janna_tailwind",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 60
+                                  }
+                                },
+                                "move_speed_mult": 8
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "Delayed",
+                "tick": 120,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_janna_tailwind_train",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "Circle": {
+                              "radius": 40000
+                            }
+                          },
+                          "target": "AllyChampion",
+                          "apply_type": "AroundCaster",
+                          "effects": [
+                            {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "league_janna_tailwind",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 60
+                                  }
+                                },
+                                "move_speed_mult": 8
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "Delayed",
+                "tick": 180,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_janna_tailwind_train",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "Circle": {
+                              "radius": 40000
+                            }
+                          },
+                          "target": "AllyChampion",
+                          "apply_type": "AroundCaster",
+                          "effects": [
+                            {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "league_janna_tailwind",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 60
+                                  }
+                                },
+                                "move_speed_mult": 8
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "type": "Sfx",
+          "name": "league_janna_attack_cast"
+        },
+        {
+          "type": "TargetProjectile",
+          "name": "league_janna_bolt",
+          "speed": 5000,
+          "y_offset": 2000,
+          "applied_target": "Enemy",
+          "applied_effects": [
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "Attack",
+                "damage": 0,
+                "attack_ratio": 100
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "ViewEffect",
+                "name": "league_janna_hit"
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "TargetSfx",
+                "name": "league_janna_attack_hit"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.league_janna.skill",
+    "duration": 30,
+    "cooltime": 540,
+    "start_timing": 12,
+    "cancelable": false,
+    "range": 75000,
+    "casting_type": "Direction",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_janna_tailwind_train",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_janna_tailwind_train",
+                  "duration": {
+                    "Time": {
+                      "tick": 240
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "Delayed",
+                "tick": 0,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_janna_tailwind_train",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "Circle": {
+                              "radius": 40000
+                            }
+                          },
+                          "target": "AllyChampion",
+                          "apply_type": "AroundCaster",
+                          "effects": [
+                            {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "league_janna_tailwind",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 60
+                                  }
+                                },
+                                "move_speed_mult": 8
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "Delayed",
+                "tick": 60,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_janna_tailwind_train",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "Circle": {
+                              "radius": 40000
+                            }
+                          },
+                          "target": "AllyChampion",
+                          "apply_type": "AroundCaster",
+                          "effects": [
+                            {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "league_janna_tailwind",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 60
+                                  }
+                                },
+                                "move_speed_mult": 8
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "Delayed",
+                "tick": 120,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_janna_tailwind_train",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "Circle": {
+                              "radius": 40000
+                            }
+                          },
+                          "target": "AllyChampion",
+                          "apply_type": "AroundCaster",
+                          "effects": [
+                            {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "league_janna_tailwind",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 60
+                                  }
+                                },
+                                "move_speed_mult": 8
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "Delayed",
+                "tick": 180,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_janna_tailwind_train",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "Circle": {
+                              "radius": 40000
+                            }
+                          },
+                          "target": "AllyChampion",
+                          "apply_type": "AroundCaster",
+                          "effects": [
+                            {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "league_janna_tailwind",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 60
+                                  }
+                                },
+                                "move_speed_mult": 8
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "type": "Sfx",
+          "name": "league_janna_q_cast"
+        },
+        {
+          "type": "LinearProjectile",
+          "name": "league_janna_q_tornado",
+          "speed": 2500,
+          "range": 85000,
+          "shape": {
+            "Circle": {
+              "radius": 10000
+            }
+          },
+          "penetrate": true,
+          "y_offset": 0,
+          "applied_target": "EnemyWithoutTower",
+          "applied_effects": [
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "ApAttack",
+                "damage": 80,
+                "attack_ratio": 60
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "Airborne",
+                "duration": 45
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "ViewEffect",
+                "name": "league_janna_knockup"
+              }
+            }
+          ],
+          "end_effects": []
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.league_janna.skill2",
+    "duration": 24,
+    "cooltime": 300,
+    "start_timing": 12,
+    "cancelable": false,
+    "range": 90000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_janna_tailwind_train",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_janna_tailwind_train",
+                  "duration": {
+                    "Time": {
+                      "tick": 240
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "Delayed",
+                "tick": 0,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_janna_tailwind_train",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "Circle": {
+                              "radius": 40000
+                            }
+                          },
+                          "target": "AllyChampion",
+                          "apply_type": "AroundCaster",
+                          "effects": [
+                            {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "league_janna_tailwind",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 60
+                                  }
+                                },
+                                "move_speed_mult": 8
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "Delayed",
+                "tick": 60,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_janna_tailwind_train",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "Circle": {
+                              "radius": 40000
+                            }
+                          },
+                          "target": "AllyChampion",
+                          "apply_type": "AroundCaster",
+                          "effects": [
+                            {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "league_janna_tailwind",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 60
+                                  }
+                                },
+                                "move_speed_mult": 8
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "Delayed",
+                "tick": 120,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_janna_tailwind_train",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "Circle": {
+                              "radius": 40000
+                            }
+                          },
+                          "target": "AllyChampion",
+                          "apply_type": "AroundCaster",
+                          "effects": [
+                            {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "league_janna_tailwind",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 60
+                                  }
+                                },
+                                "move_speed_mult": 8
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "Delayed",
+                "tick": 180,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_janna_tailwind_train",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "Circle": {
+                              "radius": 40000
+                            }
+                          },
+                          "target": "AllyChampion",
+                          "apply_type": "AroundCaster",
+                          "effects": [
+                            {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "league_janna_tailwind",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 60
+                                  }
+                                },
+                                "move_speed_mult": 8
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "type": "Sfx",
+          "name": "league_janna_e_cast"
+        },
+        {
+          "type": "Sfx",
+          "name": "league_janna_w_cast"
+        },
+        {
+          "type": "TargetProjectile",
+          "name": "league_janna_w_gust",
+          "speed": 5000,
+          "y_offset": 2000,
+          "applied_target": "EnemyChampion",
+          "applied_effects": [
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "ApAttack",
+                "damage": 60,
+                "attack_ratio": 40
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "AddBuff",
+                "buff_state": {
+                  "name": "league_janna_w_slow",
+                  "duration": {
+                    "Time": {
+                      "tick": 120
+                    }
+                  },
+                  "move_speed_mult": -30
+                }
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "ViewEffect",
+                "name": "league_janna_w_hit"
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "TargetSfx",
+                "name": "league_janna_w_hit"
+              }
+            }
+          ]
+        },
+        {
+          "type": "RandomTarget",
+          "range": 50000,
+          "casting_target": "AllyNotSelf",
+          "from_projectile": false,
+          "effects": [
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_janna_e_lock",
+                "duration": {
+                  "Time": {
+                    "tick": 3
+                  }
+                }
+              },
+              "only_to_enemy": false
+            },
+            {
+              "type": "Shield",
+              "amount": 120,
+              "attack_ratio": 0,
+              "ap_ratio": 60,
+              "tick": 240
+            },
+            {
+              "type": "AddBuff",
+              "buff_state": {
+                "name": "league_janna_e_storm",
+                "duration": "WithShield",
+                "attack_mult": 15
+              }
+            },
+            {
+              "type": "ViewEffect",
+              "name": "league_janna_e_cast"
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 1,
+          "effects": [
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_janna_e_lock",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "RangeEffect",
+                "shape": {
+                  "Circle": {
+                    "radius": 1000
+                  }
+                },
+                "target": "AllyOnlySelf",
+                "apply_type": "AroundCaster",
+                "effects": [
+                  {
+                    "type": "Shield",
+                    "amount": 120,
+                    "attack_ratio": 0,
+                    "ap_ratio": 60,
+                    "tick": 240
+                  },
+                  {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "league_janna_e_storm",
+                      "duration": "WithShield",
+                      "attack_mult": 15
+                    }
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "league_janna_e_cast"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.league_janna.ult",
+    "duration": 210,
+    "cooltime": 3000,
+    "start_timing": 10,
+    "cancelable": false,
+    "range": 40000,
+    "casting_type": "Targeting",
+    "casting_target": "AllyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "league_janna_r_cast"
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_janna_monsoon",
+            "duration": {
+              "Time": {
+                "tick": 200
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "CasterAnimation",
+          "name": "ult_loop",
+          "tick": 200
+        },
+        {
+          "type": "CasterViewEffect",
+          "name": "league_janna_r_gale"
+        },
+        {
+          "type": "RangeEffect",
+          "shape": {
+            "Circle": {
+              "radius": 40000
+            }
+          },
+          "target": "EnemyWithoutTower",
+          "apply_type": "AroundCaster",
+          "effects": [
+            {
+              "type": "Knockback",
+              "speed": 2000,
+              "tick": 15
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 15,
+          "effects": [
+            {
+              "type": "RandomTarget",
+              "range": 1,
+              "casting_target": "AllyChampionInCC",
+              "from_projectile": false,
+              "effects": [
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_janna_monsoon"
+                },
+                {
+                  "type": "RemoveCasterAnimation",
+                  "name": "ult_loop"
+                }
+              ]
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_janna_monsoon",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "CasterViewEffect",
+                    "name": "league_janna_r_storm"
+                  },
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 40000
+                      }
+                    },
+                    "target": "AllyChampion",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
+                        "type": "Heal",
+                        "amount": 100,
+                        "ap_ratio": 40,
+                        "heal_type": "Ally"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "league_janna_r_heal"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": []
+              }
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 75,
+          "effects": [
+            {
+              "type": "RandomTarget",
+              "range": 1,
+              "casting_target": "AllyChampionInCC",
+              "from_projectile": false,
+              "effects": [
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_janna_monsoon"
+                },
+                {
+                  "type": "RemoveCasterAnimation",
+                  "name": "ult_loop"
+                }
+              ]
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_janna_monsoon",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "CasterViewEffect",
+                    "name": "league_janna_r_storm"
+                  },
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 40000
+                      }
+                    },
+                    "target": "AllyChampion",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
+                        "type": "Heal",
+                        "amount": 100,
+                        "ap_ratio": 40,
+                        "heal_type": "Ally"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "league_janna_r_heal"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": []
+              }
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 135,
+          "effects": [
+            {
+              "type": "RandomTarget",
+              "range": 1,
+              "casting_target": "AllyChampionInCC",
+              "from_projectile": false,
+              "effects": [
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_janna_monsoon"
+                },
+                {
+                  "type": "RemoveCasterAnimation",
+                  "name": "ult_loop"
+                }
+              ]
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_janna_monsoon",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "CasterViewEffect",
+                    "name": "league_janna_r_storm"
+                  },
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 40000
+                      }
+                    },
+                    "target": "AllyChampion",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
+                        "type": "Heal",
+                        "amount": 100,
+                        "ap_ratio": 40,
+                        "heal_type": "Ally"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "league_janna_r_heal"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": []
+              }
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 195,
+          "effects": [
+            {
+              "type": "RandomTarget",
+              "range": 1,
+              "casting_target": "AllyChampionInCC",
+              "from_projectile": false,
+              "effects": [
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_janna_monsoon"
+                },
+                {
+                  "type": "RemoveCasterAnimation",
+                  "name": "ult_loop"
+                }
+              ]
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_janna_monsoon",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "CasterViewEffect",
+                    "name": "league_janna_r_storm"
+                  },
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 40000
+                      }
+                    },
+                    "target": "AllyChampion",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
+                        "type": "Heal",
+                        "amount": 100,
+                        "ap_ratio": 40,
+                        "heal_type": "Ally"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "league_janna_r_heal"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": []
+              }
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 200,
+          "effects": [
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_janna_monsoon"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "league_janna_bolt",
+      "anim": "asset/league/effects/league_janna_fx",
+      "tag": "bolt",
+      "repeat": true,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_janna_q_tornado",
+      "anim": "asset/league/effects/league_janna_big",
+      "tag": "tornado",
+      "repeat": true,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_janna_w_gust",
+      "anim": "asset/league/effects/league_janna_fx",
+      "tag": "w_gust",
+      "repeat": true,
+      "z": 1
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "league_janna_hit",
+      "anim": "asset/league/effects/league_janna_fx",
+      "tag": "hit",
+      "z": 1
+    },
+    {
+      "type": "Animation",
+      "name": "league_janna_knockup",
+      "anim": "asset/league/effects/league_janna_fx",
+      "tag": "knockup",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_janna_w_hit",
+      "anim": "asset/league/effects/league_janna_fx",
+      "tag": "w_hit",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_janna_e_cast",
+      "anim": "asset/league/effects/league_janna_fx",
+      "tag": "e_cast",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_janna_r_heal",
+      "anim": "asset/league/effects/league_janna_fx",
+      "tag": "r_heal",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_janna_r_gale",
+      "anim": "asset/league/effects/league_janna_big",
+      "tag": "r_gale",
+      "z": -1
+    },
+    {
+      "type": "Animation",
+      "name": "league_janna_r_storm",
+      "anim": "asset/league/effects/league_janna_big",
+      "tag": "r_storm",
+      "z": -1,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "league_janna_e_storm",
+      "anim": "asset/league/effects/league_janna_fx",
+      "tag": "storm",
+      "z": 1
+    }
+  ]
+}

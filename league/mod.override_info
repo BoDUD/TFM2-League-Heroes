@@ -1254,5 +1254,65 @@
   "asset/base/sound/sfx/league_annie_sfx_r_vanish": {
     "remapping": "asset/league/sound/sfx/league_annie_sfx_r_vanish",
     "type": "override"
+  },
+  "asset/base/sound/sfx/league_janna_attack_cast": {
+    "remapping": "asset/league/sound/sfx/league_janna_attack_cast",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_janna_attack_hit": {
+    "remapping": "asset/league/sound/sfx/league_janna_attack_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_janna_q_cast": {
+    "remapping": "asset/league/sound/sfx/league_janna_q_cast",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_janna_w_cast": {
+    "remapping": "asset/league/sound/sfx/league_janna_w_cast",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_janna_w_hit": {
+    "remapping": "asset/league/sound/sfx/league_janna_w_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_janna_e_cast": {
+    "remapping": "asset/league/sound/sfx/league_janna_e_cast",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_janna_r_cast": {
+    "remapping": "asset/league/sound/sfx/league_janna_r_cast",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_janna_sfx_attack_cast": {
+    "remapping": "asset/league/sound/sfx/league_janna_sfx_attack_cast",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_janna_sfx_attack_hit": {
+    "remapping": "asset/league/sound/sfx/league_janna_sfx_attack_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_janna_sfx_q_cast": {
+    "remapping": "asset/league/sound/sfx/league_janna_sfx_q_cast",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_janna_sfx_w_cast": {
+    "remapping": "asset/league/sound/sfx/league_janna_sfx_w_cast",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_janna_sfx_w_hit": {
+    "remapping": "asset/league/sound/sfx/league_janna_sfx_w_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_janna_sfx_e_cast": {
+    "remapping": "asset/league/sound/sfx/league_janna_sfx_e_cast",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_janna_sfx_r_cast": {
+    "remapping": "asset/league/sound/sfx/league_janna_sfx_r_cast",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_janna_vo_r": {
+    "remapping": "asset/league/sound/sfx/league_janna_vo_r",
+    "type": "override"
   }
 }
