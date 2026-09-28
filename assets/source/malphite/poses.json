@@ -30,10 +30,10 @@
     "idle": {"frames": [
       ["Malphite_Idle1@0", 200], ["Malphite_Idle1@333", 200], ["Malphite_Idle1@667", 200],
       ["Malphite_Idle1@1000", 200], ["Malphite_Idle1@1333", 200], ["Malphite_Idle1@1667", 200]]},
-    "run": {"head_like": "Malphite_Idle1@0", "frames": [
-      ["Malphite_Run@0", 100], ["Malphite_Run@104", 100], ["Malphite_Run@208", 100],
-      ["Malphite_Run@312", 100], ["Malphite_Run@416", 100], ["Malphite_Run@520", 100],
-      ["Malphite_Run@624", 100], ["Malphite_Run@728", 100]]},
+    "run": {"head_like": "Malphite_Idle1@0", "flat": true, "frames": [
+      ["Malphite_Run@0>Malphite_Idle1@0:0.4", 100], ["Malphite_Run@104>Malphite_Idle1@0:0.4", 100], ["Malphite_Run@208>Malphite_Idle1@0:0.4", 100],
+      ["Malphite_Run@312>Malphite_Idle1@0:0.4", 100], ["Malphite_Run@416>Malphite_Idle1@0:0.4", 100], ["Malphite_Run@520>Malphite_Idle1@0:0.4", 100],
+      ["Malphite_Run@624>Malphite_Idle1@0:0.4", 100], ["Malphite_Run@728>Malphite_Idle1@0:0.4", 100]]},
     "attack": {"lunge": 0.7, "frames": [
       ["Malphite_Idle1@0>Malphite_Attack1@109:0.5", 60], ["Malphite_Attack1@218", 60], ["Malphite_Attack1@300", 70],
       ["Malphite_Attack1@380", 70], ["Malphite_Attack1@480", 80], ["Malphite_Attack1@600>Malphite_Idle1@0:0.5", 80]]},
