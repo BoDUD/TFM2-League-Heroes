@@ -314,8 +314,22 @@ How they behave *(measured in the SDK simulation for league_jinx, 3-12 ten-minut
 - `RandomTarget {from_projectile: true}` measures its `range` from the projectile (the hit point)
   instead of the caster.
 - A unit killed by an effect still counts as a valid target for the rest of that tick; a `Delayed` effect
-  queued on it still runs after it died; an `AddCasted` on it stops once it is dead. "Kill trigger" in
-  section 7 is built on the last two.
+  queued on it still runs after it died, but only its pictures and sounds: a `ViewEffect` or `TargetSfx`
+  still plays on the body while an `AddCasterBuff` from it is skipped *(league_annie R, 2026-09-28: a
+  2-tick caster flag added from such a `Delayed` was there a tick later on every living target and on no
+  dead one, 24 games)*; an `AddCasted` on it stops once it is dead. "Kill trigger" and "A summon that
+  follows its target" in section 7 are built on these.
+- A `RangeProjectile` straight in a `Targeting` cast (or in a `Delayed` of one) never spawns: a zone needs
+  a point, as in a projectile's `applied_effects`. A hidden `ParabolicProjectile` with `travel_time: 1`
+  lands on the target unit's current position the tick it is fired and its `end_effects` start the zone
+  there, which hits the next tick - an area round a unit wherever it walks (league_annie R). A dead caster
+  fires no projectile, this one included.
+- An `AddCasted` runs its effects a tick after it is added from an action's effect tree, the same tick when
+  added from a `Delayed` effect, then every `period` ticks while fewer than `duration` have passed
+  (duration 301, period 60: six runs, 0 to 300 ticks after it was added). Its effects play on the target:
+  `ViewEffect`s on the unit, projectiles from the caster. The target's death clears it; the caster's does
+  not (its views and a plain `ApAttack` go on). Damage from inside it counts as `attack_type: Dot`, even
+  through a zone it started, and a `Fire` one shows a `burn` status icon on the target.
 `ApplyInProjectile` has no `period` and `RangePeriodProjectile` no `follow_caster` (SDK), so an aura
 that ticks while it follows the hero is built from `Delayed` pulses of a `RangeEffect` around the
 caster (section 7, "Aura that runs while he fights").
@@ -780,16 +794,28 @@ SDK simulation from the `Damaged` events, with 30: while shielded she took 57 / 
 192 / 308 and her attackers 17 / 27 / 38 / 57 / 92 on those ticks)*. Lowering it from 30% to 20% (with
 Q's ratio at League's 75%) took her team from +1.83 to +1.42 kills over 10 simulated minutes.
 
-**A summon that lands, stands and burns (league_annie Tibbers).** Summons cannot walk or attack in data,
-so Tibbers is a `Position` cast of effects on the spot (a `Position` cast keeps its point, Teemo's traps):
-a `RangeProjectile` pair landing 6 ticks after the cast, on the drop picture's impact frame (`delay` =
-`apply` = 7: the damage on `EnemyWithoutTower`, the Pyromania twin on `EnemyChampion`), a
-`RangePeriodProjectile` burning every 60 ticks for 6 s from the landing, and his pictures as flat
-`Delayed` `ViewEffect`s on the spot: the 400 ms drop at the cast, then a 1 s standing loop and his ring of
-fire every 60 ticks, and the vanishing puff at the end.
-A `ViewEffect` is not turned like a projectile's view, so an upright bear can stand in it. The pictures
-go under the units (`z` -1, the ring -2): he lands on the target's spot, and drawn over it he hid the
-champions he had just stunned. Nothing ties the pictures to Annie's life, as League's Tibbers outlives her.
+**A summon that follows its target and burns (league_annie Tibbers).** Summons cannot walk or attack in
+data, so Tibbers is a `Targeting` cast on an enemy champion whose pictures and burns ride on that champion
+(section 4's facts on `Targeting` zones, `AddCasted` and dead targets):
+- the drop: the 400 ms drop picture as a `ViewEffect` (`is_follow`) at the cast, and at tick 5 a hidden
+  one-tick `ParabolicProjectile` whose `end_effects` start the damage circle (and the Pyromania twin on
+  `EnemyChampion`) round the target's spot, hitting at tick 6 on the picture's impact frame;
+- his stay: at tick 24 an `AddCasted` (`Fire`, duration 301, period 60) on the target, six runs 60 ticks
+  apart, each playing his ring and 1 s standing loop (`ViewEffect`s with `is_follow`, so they walk with the
+  target), his swipe (`TargetSfx`) and a one-tick lob that starts the burn circle round the target; the
+  target's death clears it, so he stops with the target;
+- his end: a second `AddCasted` (duration 384, period 383) added at the cast runs at ticks 1 and 384 and
+  plays the vanishing puff once a 10-tick start flag is gone - only if the target lived;
+- a death he leaves at: a tick before each second's boundary a `Delayed` effect adds a 2-tick caster flag,
+  which the engine skips once the target is dead; at the boundary a missing flag means the target died in
+  the last second, and the puff plays there, once (a flag refreshed at every living boundary allows it).
+Annie's death does not end him - a casted effect goes on without its caster, as League's Tibbers outlives
+her - but a dead caster cannot lob, so the stay's burn checks a caster flag her death clears and then burns
+the target alone. A `ViewEffect` is not turned like a projectile's view, so an upright bear can stand in
+it. The pictures go under the units (`z` -1, the ring -2), the bear 9 px behind the target so the target
+stays in front of him: a view on a unit may be mirrored with the unit's facing like a `CasterViewEffect`
+*(inferred)*, and behind it he would only turn round, where beside it he would jump from side to side.
+Up to 0.13.0 he was a `Position` cast that stood where he landed, and targets walked out of his ring.
 
 ## 8. Gotchas
 
