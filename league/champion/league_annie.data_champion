@@ -39,9 +39,9 @@
   "attack": {
     "action_name": "attack",
     "description": "#asset/base/text/champion?description.league_annie.attack",
-    "duration": 30,
+    "duration": 26,
     "cooltime": 90,
-    "start_timing": 18,
+    "start_timing": 12,
     "cancelable": true,
     "range": 60000,
     "casting_type": "Targeting",
@@ -170,7 +170,7 @@
     "description": "#asset/base/text/champion?description.league_annie.skill",
     "duration": 30,
     "cooltime": 240,
-    "start_timing": 14,
+    "start_timing": 12,
     "cancelable": false,
     "range": 62500,
     "casting_type": "Targeting",
@@ -456,11 +456,11 @@
   "skill2": {
     "action_name": "skill2",
     "description": "#asset/base/text/champion?description.league_annie.skill2",
-    "duration": 32,
+    "duration": 34,
     "cooltime": 420,
-    "start_timing": 10,
+    "start_timing": 8,
     "cancelable": false,
-    "range": 56000,
+    "range": 50000,
     "casting_type": "Targeting",
     "casting_target": "EnemyWithoutTower",
     "attack_type": "Skill",
@@ -550,7 +550,7 @@
               },
               {
                 "type": "Delayed",
-                "tick": 6,
+                "tick": 4,
                 "effects": [
                   {
                     "type": "Sfx",
@@ -637,7 +637,7 @@
             "effects": [
               {
                 "type": "Delayed",
-                "tick": 6,
+                "tick": 4,
                 "effects": [
                   {
                     "type": "Sfx",
@@ -890,7 +890,7 @@
   "ult": {
     "action_name": "ult",
     "description": "#asset/base/text/champion?description.league_annie.ult",
-    "duration": 40,
+    "duration": 36,
     "cooltime": 3600,
     "start_timing": 12,
     "cancelable": false,

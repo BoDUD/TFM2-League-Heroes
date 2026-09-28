@@ -66,13 +66,15 @@ point dx, dy game px from League's head joint in the design pose (the design's f
 head's up / forward plane through every pose, how far the face turns to the camera (1 straight at it,
 below 0 turned away) and whether it looks to the screen's right (+1) or left (-1); restyle_native.py
 draws the design's eyes and mouth there. A tag's "hide" leaves chains out of that tag only (Yasuo's
-drawn sword has no track in his death clip and stands upright beside him).
+drawn sword has no track in his death clip and stands upright beside him), and a frame's "hide" out of that
+frame only: Annie throws her teddy away as she dies and holds it up to summon Tibbers, and a bear flying
+off across the cell, or held over her face, read as clutter at game size - it is gone once it leaves her.
 
 Spec (JSON): {"hero", "champ", "camera": {"yaw", "pitch", "mirror"}, "chibi": {"head", "legs",
 "hair", "keep": {"<joint>": <radius>}, "scale": {"<joint>": <factor>}}, "height", "cell": [w, h] or [w, h, feet] (optional, default 56x64, feet line 10 px above the bottom), "design": "<clip@ms>", "tags": {"<tag>": {"lunge": 1.0, "rise": 1.0, "anchor": "design",
 "flat": false, "head_like": null, "frames": [["<clip@ms or clipA@ms>clipB@ms:w>", <ms>, {"turn": <deg>,
-"head_like": "<clip@ms>"}], ...]}}} (the third item is optional; its "head_like" overrides the tag's for
-that frame, null turns it off). The renders show
+"head_like": "<clip@ms>", "hide": ["<joint regex>"]}], ...]}}} (the third item is optional; its "head_like"
+and "hide" override the tag's for that frame, null turns them off). The renders show
 Riot's model: keep them local, never commit them (the spec and the cells table are fine).
 """
 import argparse
@@ -407,7 +409,7 @@ def main():
             base = head_x(ch.posed(t["frames"][0][0], chibi, head_like=t.get("head_like"), travel=t.get("travel", 1.0))[1])
         opt = lambda f: f[2] if len(f) > 2 else {}
         frames = [cell(f[0], t.get("lunge", 1.0), base, t.get("flat", False), opt(f).get("turn", 0.0),
-                       opt(f).get("head_like", t.get("head_like")), t.get("rise", 1.0), t.get("hide"),
+                       opt(f).get("head_like", t.get("head_like")), t.get("rise", 1.0), opt(f).get("hide", t.get("hide")),
                        t.get("travel", 1.0)) for f in t["frames"]]
         cols, nrows = layout(len(frames))
         lo_img = Image.new("RGB", (cols * CELL[0], nrows * CELL[1]), BG)

@@ -18,7 +18,8 @@ A frame is <clip>@<ms> or <clipA>@<ms>><clipB>@<ms>:<weight of B>; <clip> is the
 without extension (case-insensitive).
 
 Reads (read-only) Champions/<Champ>.wad.client: the skin bin (-> .skn/.skl/texture), the
-animation bin (-> .anm list). Formats handled: SKN 1.x-4.x, SKL (0x22FD4FC3), compressed ANM
+animation bin (-> .anm list). A summon lives in its champion's WAD as a character of its own:
+--champ AnnieTibbers --wad Annie renders Tibbers (his spawn, idle, claw swipes and death). Formats handled: SKN 1.x-4.x, SKL (0x22FD4FC3), compressed ANM
 ("r3d2canm" v1-3) and uncompressed "r3d2anmd" v3 (named tracks, Lux's clips), v4 and v5, TEX
 (DXT1/DXT5/BGRA8). Needs numpy + Pillow.
 """
@@ -513,6 +514,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--lol", default=r"D:\WeGameApps\lol", help="League install folder")
     ap.add_argument("--champ", default="Garen")
+    ap.add_argument("--wad", help="champion WAD holding --champ, for a summon (default: --champ)")
     ap.add_argument("--anim", action="append", default=[], help="substring of the .anm file name (repeatable)")
     ap.add_argument("--frames", type=int, default=6)
     ap.add_argument("--t0", type=float, default=0.0, help="start of the sampled window, seconds")
@@ -556,7 +558,7 @@ def main():
     if args.frame and not args.name:
         ap.error("--frame needs --name")
     champ = args.champ
-    wad_path = os.path.join(args.lol, "Game", "DATA", "FINAL", "Champions", f"{champ}.wad.client")
+    wad_path = os.path.join(args.lol, "Game", "DATA", "FINAL", "Champions", f"{args.wad or champ}.wad.client")
     w = Wad(wad_path)
     skin_bin = w.read_path(f"data/characters/{champ.lower()}/skins/skin0.bin")
     refs = lambda blob, ext: sorted(set(m.decode("latin1") for m in re.findall(rb"[A-Za-z0-9_/\.\-]+\." + ext, blob)))
