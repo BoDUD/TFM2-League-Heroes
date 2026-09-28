@@ -126,6 +126,13 @@
         "skill": "向前出剑，对直线上的敌人造成<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>，视为普攻，可以暴击。命中后获得一层<#ff9028ff>风暴聚集<>，满<#ffb900ff>2<>层时下一次改为向前冲刺，带着旋风<#ef5350ff>击飞<>路径上的敌人<#ffb900ff>1秒<>。",
         "skill2": "向前顺劈，造成<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25% 攻击力<>的<#ff9028ff>物理伤害<>和<#f5f5f5ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>15% 攻击力<>的<#f5f5f5ff>真实伤害<>（英雄另受<#f5f5f5ff>5% 最大生命值<>），每命中一名英雄得<#e8d44dff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35% 攻击力<><#e8d44dff>护盾<>。每<#ffb900ff>15秒<>先施放<#ff9028ff>破障之锋<>：灵体冲向英雄，<#ffb900ff>4秒<>后归位，以<#f5f5f5ff>真实伤害<>重现期间对英雄伤害的<#ffb900ff>25%<>。",
         "ult": "对一条直线上的所有敌人造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50% 攻击力<>的<#ff9028ff>物理伤害<>和<#f5f5f5ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35% 攻击力<>的<#f5f5f5ff>真实伤害<>并<#ef5350ff>击飞<><#ffb900ff>0.75秒<>，永恩冲到目标身后。"
+      },
+      "league_ezreal": {
+        "name": "伊泽瑞尔",
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。被动<#ff9028ff>咒能高涨<>：技能每打中一个目标，<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻击速度提高12%<>，持续<#ffb900ff>6秒<>，最多叠加<#ffb900ff>5<>层，再次打中时刷新。",
+        "skill": "能量箭对命中的第一个敌人造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140% 攻击力<>的<#ff9028ff>物理伤害<>（视为普攻，可暴击），命中后各技能冷却最多剩<#ffb900ff>2/3<>。<#ff9028ff>精华跃动<>（冷却<#ffb900ff>6秒<>）：先向附近敌方英雄射出精华，粘住<#ffb900ff>4秒<>，下次普攻或技能命中英雄时引爆，造成<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90% 攻击力<>的<#ff9028ff>物理伤害<>。",
+        "skill2": "敌方英雄靠近时，朝远离他的方向闪现，再向他射出追踪魔法箭，造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% 攻击力<>的<#ff9028ff>物理伤害<>，也会引爆<#ff9028ff>精华跃动<>。",
+        "ult": "蓄力<#ffb900ff>1秒<>后射出横贯全图的能量波，对路径上的敌方英雄造成<#ff9028ff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130% 攻击力<>的<#ff9028ff>物理伤害<>，对小兵和野怪伤害减半。"
       }
     },
     "skill_name": {
@@ -218,6 +225,11 @@
         "skill1": "错玉切",
         "skill2": "凛神斩",
         "ult": "封尘绝念斩"
+      },
+      "league_ezreal": {
+        "skill1": "秘术射击",
+        "skill2": "奥术跃迁",
+        "ult": "精准弹幕"
       }
     }
   },
@@ -348,6 +360,13 @@
         "skill": "向前突刺，對直線上的敵人造成<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>，視為普攻，可以暴擊。命中後獲得一層<#ff9028ff>天寒地凍<>，滿<#ffb900ff>2<>層時下一次改為向前衝刺，帶著旋風<#ef5350ff>擊飛<>路徑上的敵人<#ffb900ff>1秒<>。",
         "skill2": "向前劈斬，造成<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25% 攻擊力<>的<#ff9028ff>物理傷害<>和<#f5f5f5ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>15% 攻擊力<>的<#f5f5f5ff>真實傷害<>（英雄另受<#f5f5f5ff>5% 最大生命<>），每命中一名英雄得<#e8d44dff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35% 攻擊力<><#e8d44dff>護盾<>。每<#ffb900ff>15秒<>先施放<#ff9028ff>釋魂之刃<>：靈體衝向英雄，<#ffb900ff>4秒<>後歸位，以<#f5f5f5ff>真實傷害<>重現期間對英雄傷害的<#ffb900ff>25%<>。",
         "ult": "對一條直線上的所有敵人造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50% 攻擊力<>的<#ff9028ff>物理傷害<>和<#f5f5f5ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35% 攻擊力<>的<#f5f5f5ff>真實傷害<>並<#ef5350ff>擊飛<><#ffb900ff>0.75秒<>，犽凝衝到目標身後。"
+      },
+      "league_ezreal": {
+        "name": "伊澤瑞爾",
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。被動<#ff9028ff>咒能高漲<>：技能每擊中一個目標，<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻擊速度提高12%<>，持續<#ffb900ff>6秒<>，最多疊加<#ffb900ff>5<>層，再次擊中時刷新。",
+        "skill": "能量箭對擊中的第一個敵人造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140% 攻擊力<>的<#ff9028ff>物理傷害<>（視為普攻，可暴擊），擊中後各技能冷卻最多剩<#ffb900ff>2/3<>。<#ff9028ff>精華躍動<>（冷卻<#ffb900ff>6秒<>）：先向附近敵方英雄射出精華，黏住<#ffb900ff>4秒<>，下次普攻或技能擊中英雄時引爆，造成<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90% 攻擊力<>的<#ff9028ff>物理傷害<>。",
+        "skill2": "敵方英雄靠近時，朝遠離他的方向閃現，再向他射出追蹤魔法箭，造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% 攻擊力<>的<#ff9028ff>物理傷害<>，也會引爆<#ff9028ff>精華躍動<>。",
+        "ult": "蓄力<#ffb900ff>1秒<>後射出橫貫全圖的能量波，對路徑上的敵方英雄造成<#ff9028ff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130% 攻擊力<>的<#ff9028ff>物理傷害<>，對小兵和野怪傷害減半。"
       }
     },
     "skill_name": {
@@ -440,6 +459,11 @@
         "skill1": "鋼鐵凡志",
         "skill2": "滅魂斬",
         "ult": "二刀流奧義 ─ 封‧命‧斬"
+      },
+      "league_ezreal": {
+        "skill1": "祕術射擊",
+        "skill2": "奧術躍遷",
+        "ult": "精準彈幕"
       }
     }
   },
@@ -570,6 +594,13 @@
         "skill": "Thrusts forward, dealing <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<> to enemies in a line. It is treated as a basic attack and can critically strike. On hit Yone gains a stack of <#ff9028ff>Gathering Storm<>; at <#ffb900ff>2<> stacks the next cast dashes him forward with a gust of wind that <#ef5350ff>knocks up<> enemies in its path for <#ffb900ff>1s<>.",
         "skill2": "Cleaves a cone for <#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25% AD<> <#ff9028ff>physical damage<> and <#f5f5f5ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>15% AD<> <#f5f5f5ff>true damage<> (champions also take <#f5f5f5ff>5% of their max health<>); each champion hit shields Yone for <#e8d44dff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35% AD<>. Every <#ffb900ff>15s<> it opens with <#ff9028ff>Soul Unbound<>: his spirit dashes at a champion, returns <#ffb900ff>4s<> later and repeats <#ffb900ff>25%<> of its damage to champions as <#f5f5f5ff>true damage<>.",
         "ult": "Strikes all enemies in a line for <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50% AD<> <#ff9028ff>physical damage<> and <#f5f5f5ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35% AD<> <#f5f5f5ff>true damage<> and <#ef5350ff>knocks them up<> for <#ffb900ff>0.75s<>; Yone appears behind his target."
+      },
+      "league_ezreal": {
+        "name": "Ezreal",
+        "attack": "Basic attacks deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. Passive <#ff9028ff>Rising Spell Force<>: each target his abilities hit grants <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>12% attack speed<> for <#ffb900ff>6s<>, stacking up to <#ffb900ff>5<> times; a new hit refreshes it.",
+        "skill": "A bolt deals <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140% AD<> <#ff9028ff>physical damage<> to the first enemy hit (a basic attack: it can crit); on hit, all cooldowns drop to at most <#ffb900ff>2/3<> of their length. <#ff9028ff>Essence Flux<> (every <#ffb900ff>6s<>): first an orb sticks to a nearby enemy champion for <#ffb900ff>4s<>; his next attack or ability on an enemy champion detonates it for <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90% AD<> <#ff9028ff>physical damage<>.",
+        "skill2": "When an enemy champion comes close, Ezreal blinks away from it, then fires a homing bolt at it for <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% AD<> <#ff9028ff>physical damage<>. The bolt also detonates <#ff9028ff>Essence Flux<>.",
+        "ult": "After a <#ffb900ff>1s<> charge, fires an energy wave across the map that deals <#ff9028ff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130% AD<> <#ff9028ff>physical damage<> to enemy champions in its path; minions and monsters take half."
       }
     },
     "skill_name": {
@@ -662,6 +693,11 @@
         "skill1": "Mortal Steel",
         "skill2": "Spirit Cleave",
         "ult": "Fate Sealed"
+      },
+      "league_ezreal": {
+        "skill1": "Mystic Shot",
+        "skill2": "Arcane Shift",
+        "ult": "Trueshot Barrage"
       }
     }
   },
@@ -792,6 +828,13 @@
         "skill": "전방으로 검을 내질러 일직선상의 적에게 <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다. 기본 공격으로 간주되어 치명타가 적용됩니다. 적중 시 <#ff9028ff>폭풍 구름<>이 1회 중첩되며, <#ffb900ff>2<>회 중첩되면 다음 사용 시 전방으로 돌진하며 돌풍으로 경로의 적을 <#ffb900ff>1초<> 동안 <#ef5350ff>공중으로 띄워 올립니다<>.",
         "skill2": "전방을 베어 <#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 25%<> <#ff9028ff>물리 피해<>와 <#f5f5f5ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 15%<> <#f5f5f5ff>고정 피해<>를 입히고(챔피언은 <#f5f5f5ff>최대 체력의 5%<> 추가), 적중한 챔피언마다 <#e8d44dff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 35%<> <#e8d44dff>보호막<>을 얻습니다. <#ffb900ff>15초<>마다 <#ff9028ff>영혼해방<>: 영혼이 챔피언에게 돌진하고 <#ffb900ff>4초<> 후 돌아와 그동안 챔피언에게 입힌 피해의 <#ffb900ff>25%<>를 <#f5f5f5ff>고정 피해<>로 입힙니다.",
         "ult": "일직선상의 모든 적에게 <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 50%<> <#ff9028ff>물리 피해<>와 <#f5f5f5ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 35%<> <#f5f5f5ff>고정 피해<>를 입히고 <#ffb900ff>0.75초<> 동안 <#ef5350ff>공중으로 띄워 올리며<>, 요네는 대상 뒤로 이동합니다."
+      },
+      "league_ezreal": {
+        "name": "이즈리얼",
+        "attack": "기본 공격은 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다. 기본 지속 효과 <#ff9028ff>끓어오르는 주문의 힘<>: 스킬이 대상을 맞힐 때마다 <#ffb900ff>6초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>공격 속도 12%<> 증가(최대 <#ffb900ff>5<>회), 다시 맞히면 갱신됩니다.",
+        "skill": "화살이 처음 맞은 적에게 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 140%<> <#ff9028ff>물리 피해<>(기본 공격 취급, 치명타 가능). 적중 시 모든 스킬의 남은 대기시간이 최대 <#ffb900ff>2/3<>로 줄어듭니다. <#ff9028ff>정수의 흐름<>(<#ffb900ff>6초<>마다): 먼저 근처 적 챔피언에게 정수를 <#ffb900ff>4초<> 동안 붙이고, 다음 공격이나 스킬이 적 챔피언을 맞히면 폭발해 <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 90%<> <#ff9028ff>물리 피해<>.",
+        "skill2": "적 챔피언이 가까이 오면 반대 방향으로 순간이동한 뒤 그 챔피언에게 유도 화살을 쏘아 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 60%<> <#ff9028ff>물리 피해<>를 입힙니다. 이 화살도 <#ff9028ff>정수의 흐름<>을 폭발시킵니다.",
+        "ult": "<#ffb900ff>1초<> 동안 힘을 모은 뒤 맵을 가로지르는 에너지 파동을 쏘아 경로상의 적 챔피언에게 <#ff9028ff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 130%<> <#ff9028ff>물리 피해<>를 입힙니다. 미니언과 몬스터는 절반의 피해를 받습니다."
       }
     },
     "skill_name": {
@@ -884,6 +927,11 @@
         "skill1": "필멸의 검",
         "skill2": "영혼 가르기",
         "ult": "운명봉인"
+      },
+      "league_ezreal": {
+        "skill1": "신비한 화살",
+        "skill2": "비전 이동",
+        "ult": "정조준 일격"
       }
     }
   },
@@ -1014,6 +1062,13 @@
         "skill": "前方に突きを放ち、直線上の敵に<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>を与える。通常攻撃扱いでクリティカルが発生する。命中すると<#ff9028ff>つむじ風<>のスタックを得て、<#ffb900ff>2<>スタックで次の発動時に前方へダッシュし、風で進路上の敵を<#ffb900ff>1秒<>間<#ef5350ff>ノックアップ<>させる。",
         "skill2": "前方を斬り、<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の25%<>の<#ff9028ff>物理ダメージ<>と<#f5f5f5ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の15%<>の<#f5f5f5ff>確定ダメージ<>（チャンピオンには<#f5f5f5ff>最大体力の5%<>も）、チャンピオン1体につき<#e8d44dff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の35%<>の<#e8d44dff>シールド<>。<#ffb900ff>15秒<>ごとに先に<#ff9028ff>縛魂の解放<>：霊魂が突進し<#ffb900ff>4秒<>後に戻り、その間のダメージの<#ffb900ff>25%<>を<#f5f5f5ff>確定ダメージ<>で与える。",
         "ult": "直線上の敵すべてに<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の50%<>の<#ff9028ff>物理ダメージ<>と<#f5f5f5ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の35%<>の<#f5f5f5ff>確定ダメージ<>を与えて<#ffb900ff>0.75秒<>間<#ef5350ff>ノックアップ<>させ、ヨネは対象の背後に現れる。"
+      },
+      "league_ezreal": {
+        "name": "エズリアル",
+        "attack": "通常攻撃は<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>を与える。自動効果<#ff9028ff>ライジングスペルフォース<>：スキルが対象に命中するたび<#ffb900ff>6秒<>間<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻撃速度12%<>（最大<#ffb900ff>5<>回）、再命中で更新。",
+        "skill": "光弾が最初に当たった敵に<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の140%<>の<#ff9028ff>物理ダメージ<>（通常攻撃扱い、クリティカルあり）。命中で全スキルの残りCDが最大<#ffb900ff>2/3<>に。<#ff9028ff>エッセンスフラックス<>（<#ffb900ff>6秒<>ごと）：先に近くの敵チャンピオンへ光球を<#ffb900ff>4秒<>付着、次の攻撃かスキルが当たると爆発し<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の90%<>の<#ff9028ff>物理ダメージ<>。",
+        "skill2": "敵チャンピオンが近づくと反対方向へテレポートし、その敵に追尾する矢を放って<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の60%<>の<#ff9028ff>物理ダメージ<>を与える。矢は<#ff9028ff>エッセンスフラックス<>も起爆する。",
+        "ult": "<#ffb900ff>1秒<>チャージした後、マップを横断するエネルギー波を放ち、通過した敵チャンピオンに<#ff9028ff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の130%<>の<#ff9028ff>物理ダメージ<>を与える。ミニオンとモンスターへのダメージは半分。"
       }
     },
     "skill_name": {
@@ -1106,6 +1161,11 @@
         "skill1": "斬命刀",
         "skill2": "霊断刀",
         "ult": "冥封一閃"
+      },
+      "league_ezreal": {
+        "skill1": "ミスティックショット",
+        "skill2": "アーケインシフト",
+        "ult": "トゥルーショットバラージ"
       }
     }
   }
