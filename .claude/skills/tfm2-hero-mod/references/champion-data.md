@@ -225,7 +225,18 @@ on him per game inside those windows. `Banish` sets the unit's block-target time
 so nobody can pick it; it also adds a CC state and makes it invisible. The Touhou pack banishes its
 caster this way (Koishi's ult, `RangeEffect` on `AllyOnlySelf`; `WithSelf` works too). While the
 caster is banished its own `RandomTarget` finds no unit at all, but effects on the action's target,
-`Teleport` and queued `Delayed` effects still run - see "Untargetable blink strikes".
+`Teleport` and queued `Delayed` effects still run.
+
+**A banished unit gives its team no vision** *(seen in game by the user and measured in the 5v5
+simulation for league_masteryi)*. The client hides every unit its team does not see (the
+`EntityIsVisible { is_visible: [team 0, team 1] }` events), and while a unit is banished it stops
+counting for its team's vision. Master Yi, banishing himself between Alpha Strike's blinks, made the
+jungle monsters and enemy champions around him vanish from the screen at every blink whenever no ally
+stood near: 1053 such drops inside his Q in 8 simulated games, 280 once the banish was gone (the fog's
+ordinary comings and goings, the same as with invisibility alone). Invisibility does not do this. The
+engine also has a plain `BlockTargetEffect` (untargetable, nothing else), but the data format does
+not reach it (`sdk_probe` lists the accepted effect types) and `Native` needs game code, so a mod
+hero cannot be untargetable and keep his vision - see "Untargetable window".
 
 What the game shows by itself: an `AddCasted` of `casted_type: Poison` puts a `poison` status icon on
 the target, `BlockAttack` a `buff_disable` one, a `move_speed_mult` buff `movement+buff` /
@@ -479,21 +490,24 @@ centred vertically in its canvas (an offset would flip when she fires to the lef
 
 **Burn / poison.** `AddCasted {casted_type: Fire, duration, period, effects: [ApAttack]}`.
 
-**Untargetable window.** `WithSelf {Banish {duration}}` (or a `RangeEffect` on `AllyOnlySelf`):
-`Invisible` only hides the unit from afar (section 4). A caster buff with `damaged_reduce: 100` and
-`cc_immune` leaves it targetable: enemies keep swinging at it for nothing.
+**Untargetable window.** Only `Banish` makes a unit untargetable (`WithSelf {Banish {duration}}` or
+a `RangeEffect` on `AllyOnlySelf`), and a banished unit sees nothing for its team (section 4): fine
+for a caster that leaves the fight, not for one in the middle of it. `Invisible` only hides the unit
+from afar. For a caster who stays among enemies: `CasterInvisible` plus a caster buff with
+`damaged_reduce: 100` and `cc_immune` - enemies next to it still pick it and swing, but every hit
+deals 1 damage (the engine's minimum; a fountain's fixed damage still lands).
 
-**Untargetable blink strikes (league_masteryi Q, Alpha Strike).** `Targeting` on `EnemyWithoutTower`:
-`Teleport` onto the target and strike it, then three `Delayed` bounces 12 ticks apart, each a
-`RandomTarget {range: 35000, casting_target: EnemyWithoutTower}` whose effects are `Teleport`, the
-strike and `WithSelf {Banish {duration: 11}}`; a last `Delayed` `Teleport` puts him back on the first
-target. A banished caster's `RandomTarget` finds nobody, so the banish ends one tick before each
-bounce picks its target: in the simulation 3.8 strikes landed per cast, and inside the 48-tick windows
-he took 359 damage in three games (7540 with `CasterInvisible`) while enemy champions started 3
-actions on him (43). `RandomTarget` may pick the same unit again (League's repeat strikes on one
-target deal 25%): the bounces deal less than the first strike. Each strike re-issues
-`CasterAnimation skill`; whether the client hides a banished unit (League's Yi vanishes) is not yet
-seen in game.
+**Invulnerable blink strikes (league_masteryi Q, Alpha Strike).** `Targeting` on `EnemyWithoutTower`:
+`CasterInvisible {tick: 48}` and a 48-tick caster buff (`damaged_reduce: 100`, `cc_immune: true`)
+first, `Teleport` onto the target and strike it, then three `Delayed` bounces 12 ticks apart, each a
+`RandomTarget {range: 35000, casting_target: EnemyWithoutTower}` whose effects are `Teleport` and the
+strike; a last `Delayed` `Teleport` puts him back on the first target. In the simulation (8 games
+each) 3.9 strikes landed per cast; inside the 48-tick windows he took 1235 damage while enemy
+champions started 51 actions on him (nearly every hit 1 damage, plus one enemy fountain's 600),
+against 1368 and 9 with an 11-tick self-`Banish` after each strike (which blinded his team, section 4)
+and 15256 and 62 with `CasterInvisible` alone. `RandomTarget` may pick the same unit again (League's
+repeat strikes on one target deal 25%): the bounces deal less than the first strike. Each strike
+re-issues `CasterAnimation skill`.
 
 **Channel with its own animation.** `CasterAnimation {name, tick}` + `Delayed` hits +
 `RemoveCasterAnimation` at the end (Nocturne ult, Marisa laser).

@@ -78,7 +78,7 @@ def showcase(out, z=3, step=40):
     a("idle", 500, loop=True)
     # Alpha Strike, cast on Darius 72 px away: the effects start on tick 2 - he vanishes where he stood,
     # blinks onto Darius (strike 1), then onto a random foe near him every 12 ticks (Garen, Ashe, Darius),
-    # banished between the strikes, and back beside Darius on tick 48, where he reappears
+    # invisible and invulnerable throughout, and back beside Darius on tick 48, where he reappears
     start = t
     fx_at("league_masteryi_fx", "q_vanish", start + tick(2), x, gy)
     body.append(Anim(frames_of(yi, "skill")[:1], start, x, gy, until=start + tick(2)))

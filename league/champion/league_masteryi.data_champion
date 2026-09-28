@@ -347,6 +347,24 @@
           "name": "league_masteryi_q_vanish"
         },
         {
+          "type": "CasterInvisible",
+          "tick": 48
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_masteryi_alpha",
+            "duration": {
+              "Time": {
+                "tick": 48
+              }
+            },
+            "damaged_reduce": 100,
+            "cc_immune": true
+          },
+          "only_to_enemy": false
+        },
+        {
           "type": "Teleport"
         },
         {
@@ -388,15 +406,6 @@
             "type": "Combine",
             "effects": []
           }
-        },
-        {
-          "type": "WithSelf",
-          "effects": [
-            {
-              "type": "Banish",
-              "duration": 11
-            }
-          ]
         },
         {
           "type": "Delayed",
@@ -450,15 +459,6 @@
                     "type": "Combine",
                     "effects": []
                   }
-                },
-                {
-                  "type": "WithSelf",
-                  "effects": [
-                    {
-                      "type": "Banish",
-                      "duration": 11
-                    }
-                  ]
                 }
               ]
             }
@@ -516,15 +516,6 @@
                     "type": "Combine",
                     "effects": []
                   }
-                },
-                {
-                  "type": "WithSelf",
-                  "effects": [
-                    {
-                      "type": "Banish",
-                      "duration": 11
-                    }
-                  ]
                 }
               ]
             }
@@ -582,15 +573,6 @@
                     "type": "Combine",
                     "effects": []
                   }
-                },
-                {
-                  "type": "WithSelf",
-                  "effects": [
-                    {
-                      "type": "Banish",
-                      "duration": 11
-                    }
-                  ]
                 }
               ]
             }
