@@ -42,7 +42,7 @@
     "description": "#asset/base/text/champion?description.league_leona.attack",
     "duration": 24,
     "cooltime": 80,
-    "start_timing": 12,
+    "start_timing": 8,
     "cancelable": true,
     "range": 25000,
     "casting_type": "Targeting",
@@ -72,7 +72,7 @@
     "description": "#asset/base/text/champion?description.league_leona.skill",
     "duration": 26,
     "cooltime": 300,
-    "start_timing": 14,
+    "start_timing": 11,
     "cancelable": false,
     "range": 26000,
     "casting_type": "Targeting",
@@ -125,9 +125,9 @@
   "skill2": {
     "action_name": "skill2",
     "description": "#asset/base/text/champion?description.league_leona.skill2",
-    "duration": 40,
+    "duration": 36,
     "cooltime": 480,
-    "start_timing": 12,
+    "start_timing": 9,
     "cancelable": false,
     "range": 60000,
     "casting_type": "Direction",
@@ -366,7 +366,7 @@
     "description": "#asset/base/text/champion?description.league_leona.ult",
     "duration": 40,
     "cooltime": 3600,
-    "start_timing": 18,
+    "start_timing": 12,
     "cancelable": false,
     "range": 80000,
     "casting_type": "Position",
@@ -387,7 +387,7 @@
               "radius": 36000
             }
           },
-          "delay": 40,
+          "delay": 60,
           "apply": 38,
           "applied_target": "EnemyWithoutTower",
           "applied_effects": [
@@ -439,7 +439,7 @@
               "radius": 16000
             }
           },
-          "delay": 40,
+          "delay": 60,
           "apply": 38,
           "applied_target": "EnemyWithoutTower",
           "applied_effects": [
