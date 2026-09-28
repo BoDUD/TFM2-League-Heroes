@@ -828,9 +828,9 @@
             },
             {
               "type": "Shield",
-              "amount": 120,
+              "amount": 150,
               "attack_ratio": 0,
-              "ap_ratio": 60,
+              "ap_ratio": 75,
               "tick": 240
             },
             {
@@ -866,9 +866,9 @@
                 "effects": [
                   {
                     "type": "Shield",
-                    "amount": 120,
+                    "amount": 150,
                     "attack_ratio": 0,
-                    "ap_ratio": 60,
+                    "ap_ratio": 75,
                     "tick": 240
                   },
                   {
@@ -985,8 +985,8 @@
                     "effects": [
                       {
                         "type": "Heal",
-                        "amount": 100,
-                        "ap_ratio": 40,
+                        "amount": 130,
+                        "ap_ratio": 50,
                         "heal_type": "Ally"
                       },
                       {
@@ -1046,8 +1046,8 @@
                     "effects": [
                       {
                         "type": "Heal",
-                        "amount": 100,
-                        "ap_ratio": 40,
+                        "amount": 130,
+                        "ap_ratio": 50,
                         "heal_type": "Ally"
                       },
                       {
@@ -1107,8 +1107,8 @@
                     "effects": [
                       {
                         "type": "Heal",
-                        "amount": 100,
-                        "ap_ratio": 40,
+                        "amount": 130,
+                        "ap_ratio": 50,
                         "heal_type": "Ally"
                       },
                       {
@@ -1168,8 +1168,8 @@
                     "effects": [
                       {
                         "type": "Heal",
-                        "amount": 100,
-                        "ap_ratio": 40,
+                        "amount": 130,
+                        "ap_ratio": 50,
                         "heal_type": "Ally"
                       },
                       {

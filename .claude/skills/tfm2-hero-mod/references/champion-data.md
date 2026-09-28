@@ -714,6 +714,10 @@ of a 190-tick buff and never healed. Cast on `Targeting AllyChampion` (range 400
 decides) she used it 3.5 times in 10 minutes, some of them at full health; as `None` on `EnemyChampion`
 within 30000 only 1.2 times, and her team did worse (-1.67 against -1.16). Without the knockback the
 result hardly changed (-1.25), so it stays: it also sets up league_yasuo's R.
+Timing the casts to her animation (attack and Q on tick 13, E on 11, the knockback on 20 instead of 10) took
+her from +0.29 to -0.42 against the five base supports; the kit shipped with the storm shield at 150 + 75% AP
+and each Monsoon pulse at 130 + 50% AP: +0.11, with league_soraka -0.07, league_leona +0.78 and the base
+priest +1.10 in the same batch (either raise alone: -0.20 / -0.15).
 
 **Fold an ability that has its own, longer cooldown into another (league_soraka E on Q).** The
 host skill starts with `SwitchByBuff` on a hidden caster buff that lasts the folded ability's
