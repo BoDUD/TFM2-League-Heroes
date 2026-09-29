@@ -1,0 +1,1832 @@
+﻿{
+    "schema_version":  1,
+    "coordinate_system":  "pixels; bbox [left,top,right_exclusive,bottom_exclusive]; rect [x,y,width,height]; pivot local to frame; bbox global to sheet",
+    "assets":  [
+                   {
+                       "source_prompt":  "MODEL_PROMPTS.md ﾂｧ1; simplified second generation",
+                       "kind":  "design",
+                       "loop":  false,
+                       "qa":  {
+                                  "width":  1024,
+                                  "height":  1024,
+                                  "colors":  23,
+                                  "alpha_values":  [
+                                                       0,
+                                                       255
+                                                   ],
+                                  "aligned_8px_grid":  true,
+                                  "bbox":  [
+                                               424,
+                                               496,
+                                               600,
+                                               800
+                                           ],
+                                  "eye_center":  [
+                                                     537.33333333333337,
+                                                     593.33333333333337
+                                                 ]
+                              },
+                       "raw_file":  "raw/lucian_design_A.png",
+                       "frame_count":  1,
+                       "frames":  [
+                                      {
+                                          "rect":  [
+                                                       0,
+                                                       0,
+                                                       1024,
+                                                       1024
+                                                   ],
+                                          "pivot":  [
+                                                        512,
+                                                        704
+                                                    ],
+                                          "duration_ms":  null,
+                                          "bbox":  [
+                                                       424,
+                                                       496,
+                                                       600,
+                                                       800
+                                                   ],
+                                          "index":  0
+                                      }
+                                  ],
+                       "status":  "review_candidate",
+                       "file":  "lucian_design_A.png"
+                   },
+                   {
+                       "source_prompt":  "MODEL_PROMPTS.md ﾂｧ1; simplified second generation",
+                       "kind":  "design",
+                       "loop":  false,
+                       "qa":  {
+                                  "width":  1024,
+                                  "height":  1024,
+                                  "colors":  22,
+                                  "alpha_values":  [
+                                                       0,
+                                                       255
+                                                   ],
+                                  "aligned_8px_grid":  true,
+                                  "bbox":  [
+                                               416,
+                                               504,
+                                               608,
+                                               800
+                                           ],
+                                  "eye_center":  [
+                                                     537.33333333333337,
+                                                     601.33333333333337
+                                                 ]
+                              },
+                       "raw_file":  "raw/lucian_design_B.png",
+                       "frame_count":  1,
+                       "frames":  [
+                                      {
+                                          "rect":  [
+                                                       0,
+                                                       0,
+                                                       1024,
+                                                       1024
+                                                   ],
+                                          "pivot":  [
+                                                        512,
+                                                        704
+                                                    ],
+                                          "duration_ms":  null,
+                                          "bbox":  [
+                                                       416,
+                                                       504,
+                                                       608,
+                                                       800
+                                                   ],
+                                          "index":  0
+                                      }
+                                  ],
+                       "status":  "review_candidate",
+                       "file":  "lucian_design_B.png"
+                   },
+                   {
+                       "source_prompt":  "MODEL_PROMPTS.md ﾂｧ1; simplified second generation",
+                       "kind":  "design",
+                       "loop":  false,
+                       "qa":  {
+                                  "width":  1024,
+                                  "height":  1024,
+                                  "colors":  22,
+                                  "alpha_values":  [
+                                                       0,
+                                                       255
+                                                   ],
+                                  "aligned_8px_grid":  true,
+                                  "bbox":  [
+                                               400,
+                                               496,
+                                               624,
+                                               800
+                                           ],
+                                  "eye_center":  [
+                                                     545.33333333333337,
+                                                     609.33333333333337
+                                                 ]
+                              },
+                       "raw_file":  "raw/lucian_design_C.png",
+                       "frame_count":  1,
+                       "frames":  [
+                                      {
+                                          "rect":  [
+                                                       0,
+                                                       0,
+                                                       1024,
+                                                       1024
+                                                   ],
+                                          "pivot":  [
+                                                        512,
+                                                        704
+                                                    ],
+                                          "duration_ms":  null,
+                                          "bbox":  [
+                                                       400,
+                                                       496,
+                                                       624,
+                                                       800
+                                                   ],
+                                          "index":  0
+                                      }
+                                  ],
+                       "status":  "review_candidate",
+                       "file":  "lucian_design_C.png"
+                   },
+                   {
+                       "source_prompt":  "PROMPTS.md ﾂｧ1",
+                       "kind":  "fx",
+                       "loop":  true,
+                       "qa":  {
+                                  "width":  1024,
+                                  "height":  86,
+                                  "colors":  5,
+                                  "alpha_values":  [
+                                                       0,
+                                                       255
+                                                   ],
+                                  "aligned_8px_grid":  false,
+                                  "bbox":  [
+                                               128,
+                                               29,
+                                               984,
+                                               57
+                                           ],
+                                  "eye_center":  null
+                              },
+                       "raw_file":  "raw/lucian_fx_bullet.png",
+                       "frame_count":  4,
+                       "frames":  [
+                                      {
+                                          "rect":  [
+                                                       0,
+                                                       0,
+                                                       256,
+                                                       86
+                                                   ],
+                                          "pivot":  [
+                                                        128,
+                                                        43
+                                                    ],
+                                          "duration_ms":  50,
+                                          "bbox":  [
+                                                       128,
+                                                       29,
+                                                       216,
+                                                       57
+                                                   ],
+                                          "index":  0
+                                      },
+                                      {
+                                          "rect":  [
+                                                       256,
+                                                       0,
+                                                       256,
+                                                       86
+                                                   ],
+                                          "pivot":  [
+                                                        128,
+                                                        43
+                                                    ],
+                                          "duration_ms":  50,
+                                          "bbox":  [
+                                                       360,
+                                                       29,
+                                                       472,
+                                                       57
+                                                   ],
+                                          "index":  1
+                                      },
+                                      {
+                                          "rect":  [
+                                                       512,
+                                                       0,
+                                                       256,
+                                                       86
+                                                   ],
+                                          "pivot":  [
+                                                        128,
+                                                        43
+                                                    ],
+                                          "duration_ms":  50,
+                                          "bbox":  [
+                                                       616,
+                                                       29,
+                                                       728,
+                                                       57
+                                                   ],
+                                          "index":  2
+                                      },
+                                      {
+                                          "rect":  [
+                                                       768,
+                                                       0,
+                                                       256,
+                                                       86
+                                                   ],
+                                          "pivot":  [
+                                                        128,
+                                                        43
+                                                    ],
+                                          "duration_ms":  50,
+                                          "bbox":  [
+                                                       896,
+                                                       29,
+                                                       984,
+                                                       57
+                                                   ],
+                                          "index":  3
+                                      }
+                                  ],
+                       "status":  "review_candidate",
+                       "file":  "lucian_fx_bullet.png"
+                   },
+                   {
+                       "source_prompt":  "PROMPTS.md ﾂｧ2",
+                       "kind":  "fx",
+                       "loop":  true,
+                       "qa":  {
+                                  "width":  1024,
+                                  "height":  86,
+                                  "colors":  4,
+                                  "alpha_values":  [
+                                                       0,
+                                                       255
+                                                   ],
+                                  "aligned_8px_grid":  false,
+                                  "bbox":  [
+                                               104,
+                                               29,
+                                               992,
+                                               57
+                                           ],
+                                  "eye_center":  null
+                              },
+                       "raw_file":  "raw/lucian_fx_bullet2.png",
+                       "frame_count":  4,
+                       "frames":  [
+                                      {
+                                          "rect":  [
+                                                       0,
+                                                       0,
+                                                       256,
+                                                       86
+                                                   ],
+                                          "pivot":  [
+                                                        128,
+                                                        43
+                                                    ],
+                                          "duration_ms":  50,
+                                          "bbox":  [
+                                                       104,
+                                                       29,
+                                                       232,
+                                                       57
+                                                   ],
+                                          "index":  0
+                                      },
+                                      {
+                                          "rect":  [
+                                                       256,
+                                                       0,
+                                                       256,
+                                                       86
+                                                   ],
+                                          "pivot":  [
+                                                        128,
+                                                        43
+                                                    ],
+                                          "duration_ms":  50,
+                                          "bbox":  [
+                                                       360,
+                                                       29,
+                                                       488,
+                                                       57
+                                                   ],
+                                          "index":  1
+                                      },
+                                      {
+                                          "rect":  [
+                                                       512,
+                                                       0,
+                                                       256,
+                                                       86
+                                                   ],
+                                          "pivot":  [
+                                                        128,
+                                                        43
+                                                    ],
+                                          "duration_ms":  50,
+                                          "bbox":  [
+                                                       608,
+                                                       29,
+                                                       736,
+                                                       57
+                                                   ],
+                                          "index":  2
+                                      },
+                                      {
+                                          "rect":  [
+                                                       768,
+                                                       0,
+                                                       256,
+                                                       86
+                                                   ],
+                                          "pivot":  [
+                                                        128,
+                                                        43
+                                                    ],
+                                          "duration_ms":  50,
+                                          "bbox":  [
+                                                       912,
+                                                       29,
+                                                       992,
+                                                       57
+                                                   ],
+                                          "index":  3
+                                      }
+                                  ],
+                       "status":  "review_candidate",
+                       "file":  "lucian_fx_bullet2.png"
+                   },
+                   {
+                       "source_prompt":  "PROMPTS.md ﾂｧ3",
+                       "kind":  "fx",
+                       "loop":  false,
+                       "qa":  {
+                                  "width":  1280,
+                                  "height":  256,
+                                  "colors":  4,
+                                  "alpha_values":  [
+                                                       0,
+                                                       255
+                                                   ],
+                                  "aligned_8px_grid":  true,
+                                  "bbox":  [
+                                               112,
+                                               40,
+                                               1224,
+                                               216
+                                           ],
+                                  "eye_center":  null
+                              },
+                       "raw_file":  "raw/lucian_fx_hit.png",
+                       "frame_count":  5,
+                       "frames":  [
+                                      {
+                                          "rect":  [
+                                                       0,
+                                                       0,
+                                                       256,
+                                                       256
+                                                   ],
+                                          "pivot":  [
+                                                        128,
+                                                        128
+                                                    ],
+                                          "duration_ms":  40,
+                                          "bbox":  [
+                                                       112,
+                                                       112,
+                                                       144,
+                                                       144
+                                                   ],
+                                          "index":  0
+                                      },
+                                      {
+                                          "rect":  [
+                                                       256,
+                                                       0,
+                                                       256,
+                                                       256
+                                                   ],
+                                          "pivot":  [
+                                                        128,
+                                                        128
+                                                    ],
+                                          "duration_ms":  40,
+                                          "bbox":  [
+                                                       304,
+                                                       64,
+                                                       464,
+                                                       192
+                                                   ],
+                                          "index":  1
+                                      },
+                                      {
+                                          "rect":  [
+                                                       512,
+                                                       0,
+                                                       256,
+                                                       256
+                                                   ],
+                                          "pivot":  [
+                                                        128,
+                                                        128
+                                                    ],
+                                          "duration_ms":  40,
+                                          "bbox":  [
+                                                       528,
+                                                       40,
+                                                       744,
+                                                       216
+                                                   ],
+                                          "index":  2
+                                      },
+                                      {
+                                          "rect":  [
+                                                       768,
+                                                       0,
+                                                       256,
+                                                       256
+                                                   ],
+                                          "pivot":  [
+                                                        128,
+                                                        128
+                                                    ],
+                                          "duration_ms":  40,
+                                          "bbox":  [
+                                                       824,
+                                                       56,
+                                                       976,
+                                                       200
+                                                   ],
+                                          "index":  3
+                                      },
+                                      {
+                                          "rect":  [
+                                                       1024,
+                                                       0,
+                                                       256,
+                                                       256
+                                                   ],
+                                          "pivot":  [
+                                                        128,
+                                                        128
+                                                    ],
+                                          "duration_ms":  40,
+                                          "bbox":  [
+                                                       1104,
+                                                       72,
+                                                       1224,
+                                                       200
+                                                   ],
+                                          "index":  4
+                                      }
+                                  ],
+                       "status":  "review_candidate",
+                       "file":  "lucian_fx_hit.png"
+                   },
+                   {
+                       "source_prompt":  "PROMPTS.md ﾂｧ4",
+                       "kind":  "fx",
+                       "loop":  false,
+                       "qa":  {
+                                  "width":  1280,
+                                  "height":  256,
+                                  "colors":  6,
+                                  "alpha_values":  [
+                                                       0,
+                                                       255
+                                                   ],
+                                  "aligned_8px_grid":  true,
+                                  "bbox":  [
+                                               104,
+                                               24,
+                                               1232,
+                                               232
+                                           ],
+                                  "eye_center":  null
+                              },
+                       "raw_file":  "raw/lucian_fx_vig_hit.png",
+                       "frame_count":  5,
+                       "frames":  [
+                                      {
+                                          "rect":  [
+                                                       0,
+                                                       0,
+                                                       256,
+                                                       256
+                                                   ],
+                                          "pivot":  [
+                                                        128,
+                                                        128
+                                                    ],
+                                          "duration_ms":  50,
+                                          "bbox":  [
+                                                       104,
+                                                       96,
+                                                       160,
+                                                       160
+                                                   ],
+                                          "index":  0
+                                      },
+                                      {
+                                          "rect":  [
+                                                       256,
+                                                       0,
+                                                       256,
+                                                       256
+                                                   ],
+                                          "pivot":  [
+                                                        128,
+                                                        128
+                                                    ],
+                                          "duration_ms":  50,
+                                          "bbox":  [
+                                                       304,
+                                                       56,
+                                                       464,
+                                                       208
+                                                   ],
+                                          "index":  1
+                                      },
+                                      {
+                                          "rect":  [
+                                                       512,
+                                                       0,
+                                                       256,
+                                                       256
+                                                   ],
+                                          "pivot":  [
+                                                        128,
+                                                        128
+                                                    ],
+                                          "duration_ms":  50,
+                                          "bbox":  [
+                                                       528,
+                                                       24,
+                                                       752,
+                                                       232
+                                                   ],
+                                          "index":  2
+                                      },
+                                      {
+                                          "rect":  [
+                                                       768,
+                                                       0,
+                                                       256,
+                                                       256
+                                                   ],
+                                          "pivot":  [
+                                                        128,
+                                                        128
+                                                    ],
+                                          "duration_ms":  50,
+                                          "bbox":  [
+                                                       800,
+                                                       32,
+                                                       1000,
+                                                       216
+                                                   ],
+                                          "index":  3
+                                      },
+                                      {
+                                          "rect":  [
+                                                       1024,
+                                                       0,
+                                                       256,
+                                                       256
+                                                   ],
+                                          "pivot":  [
+                                                        128,
+                                                        128
+                                                    ],
+                                          "duration_ms":  50,
+                                          "bbox":  [
+                                                       1080,
+                                                       40,
+                                                       1232,
+                                                       200
+                                                   ],
+                                          "index":  4
+                                      }
+                                  ],
+                       "status":  "review_candidate",
+                       "file":  "lucian_fx_vig_hit.png"
+                   },
+                   {
+                       "source_prompt":  "PROMPTS.md ﾂｧ5",
+                       "kind":  "fx",
+                       "loop":  true,
+                       "qa":  {
+                                  "width":  1024,
+                                  "height":  192,
+                                  "colors":  5,
+                                  "alpha_values":  [
+                                                       0,
+                                                       255
+                                                   ],
+                                  "aligned_8px_grid":  true,
+                                  "bbox":  [
+                                               16,
+                                               40,
+                                               1000,
+                                               144
+                                           ],
+                                  "eye_center":  null
+                              },
+                       "raw_file":  "raw/lucian_fx_vig_glow.png",
+                       "frame_count":  4,
+                       "frames":  [
+                                      {
+                                          "rect":  [
+                                                       0,
+                                                       0,
+                                                       256,
+                                                       192
+                                                   ],
+                                          "pivot":  [
+                                                        128,
+                                                        96
+                                                    ],
+                                          "duration_ms":  80,
+                                          "bbox":  [
+                                                       16,
+                                                       56,
+                                                       240,
+                                                       144
+                                                   ],
+                                          "index":  0
+                                      },
+                                      {
+                                          "rect":  [
+                                                       256,
+                                                       0,
+                                                       256,
+                                                       192
+                                                   ],
+                                          "pivot":  [
+                                                        128,
+                                                        96
+                                                    ],
+                                          "duration_ms":  80,
+                                          "bbox":  [
+                                                       280,
+                                                       40,
+                                                       496,
+                                                       144
+                                                   ],
+                                          "index":  1
+                                      },
+                                      {
+                                          "rect":  [
+                                                       512,
+                                                       0,
+                                                       256,
+                                                       192
+                                                   ],
+                                          "pivot":  [
+                                                        128,
+                                                        96
+                                                    ],
+                                          "duration_ms":  80,
+                                          "bbox":  [
+                                                       528,
+                                                       56,
+                                                       744,
+                                                       144
+                                                   ],
+                                          "index":  2
+                                      },
+                                      {
+                                          "rect":  [
+                                                       768,
+                                                       0,
+                                                       256,
+                                                       192
+                                                   ],
+                                          "pivot":  [
+                                                        128,
+                                                        96
+                                                    ],
+                                          "duration_ms":  80,
+                                          "bbox":  [
+                                                       784,
+                                                       40,
+                                                       1000,
+                                                       144
+                                                   ],
+                                          "index":  3
+                                      }
+                                  ],
+                       "status":  "review_candidate",
+                       "file":  "lucian_fx_vig_glow.png"
+                   },
+                   {
+                       "source_prompt":  "PROMPTS.md ﾂｧ6",
+                       "kind":  "fx",
+                       "loop":  false,
+                       "qa":  {
+                                  "width":  3072,
+                                  "height":  64,
+                                  "colors":  5,
+                                  "alpha_values":  [
+                                                       0,
+                                                       255
+                                                   ],
+                                  "aligned_8px_grid":  true,
+                                  "bbox":  [
+                                               56,
+                                               8,
+                                               2616,
+                                               56
+                                           ],
+                                  "eye_center":  null
+                              },
+                       "raw_file":  "raw/lucian_fx_q_beam.png",
+                       "frame_count":  6,
+                       "frames":  [
+                                      {
+                                          "rect":  [
+                                                       0,
+                                                       0,
+                                                       512,
+                                                       64
+                                                   ],
+                                          "pivot":  [
+                                                        256,
+                                                        32
+                                                    ],
+                                          "duration_ms":  40,
+                                          "bbox":  [
+                                                       56,
+                                                       24,
+                                                       88,
+                                                       40
+                                                   ],
+                                          "index":  0
+                                      },
+                                      {
+                                          "rect":  [
+                                                       512,
+                                                       0,
+                                                       512,
+                                                       64
+                                                   ],
+                                          "pivot":  [
+                                                        256,
+                                                        32
+                                                    ],
+                                          "duration_ms":  40,
+                                          "bbox":  [
+                                                       536,
+                                                       8,
+                                                       1008,
+                                                       56
+                                                   ],
+                                          "index":  1
+                                      },
+                                      {
+                                          "rect":  [
+                                                       1024,
+                                                       0,
+                                                       512,
+                                                       64
+                                                   ],
+                                          "pivot":  [
+                                                        256,
+                                                        32
+                                                    ],
+                                          "duration_ms":  40,
+                                          "bbox":  [
+                                                       1032,
+                                                       8,
+                                                       1520,
+                                                       56
+                                                   ],
+                                          "index":  2
+                                      },
+                                      {
+                                          "rect":  [
+                                                       1536,
+                                                       0,
+                                                       512,
+                                                       64
+                                                   ],
+                                          "pivot":  [
+                                                        256,
+                                                        32
+                                                    ],
+                                          "duration_ms":  40,
+                                          "bbox":  [
+                                                       1552,
+                                                       8,
+                                                       2032,
+                                                       56
+                                                   ],
+                                          "index":  3
+                                      },
+                                      {
+                                          "rect":  [
+                                                       2048,
+                                                       0,
+                                                       512,
+                                                       64
+                                                   ],
+                                          "pivot":  [
+                                                        256,
+                                                        32
+                                                    ],
+                                          "duration_ms":  40,
+                                          "bbox":  [
+                                                       2072,
+                                                       24,
+                                                       2112,
+                                                       40
+                                                   ],
+                                          "index":  4
+                                      },
+                                      {
+                                          "rect":  [
+                                                       2560,
+                                                       0,
+                                                       512,
+                                                       64
+                                                   ],
+                                          "pivot":  [
+                                                        256,
+                                                        32
+                                                    ],
+                                          "duration_ms":  40,
+                                          "bbox":  [
+                                                       2600,
+                                                       24,
+                                                       2616,
+                                                       40
+                                                   ],
+                                          "index":  5
+                                      }
+                                  ],
+                       "status":  "review_candidate",
+                       "file":  "lucian_fx_q_beam.png"
+                   },
+                   {
+                       "source_prompt":  "PROMPTS.md ﾂｧ7",
+                       "kind":  "fx",
+                       "loop":  false,
+                       "qa":  {
+                                  "width":  640,
+                                  "height":  256,
+                                  "colors":  4,
+                                  "alpha_values":  [
+                                                       0,
+                                                       255
+                                                   ],
+                                  "aligned_8px_grid":  true,
+                                  "bbox":  [
+                                               56,
+                                               32,
+                                               608,
+                                               224
+                                           ],
+                                  "eye_center":  null
+                              },
+                       "raw_file":  "raw/lucian_fx_q_hit.png",
+                       "frame_count":  5,
+                       "frames":  [
+                                      {
+                                          "rect":  [
+                                                       0,
+                                                       0,
+                                                       128,
+                                                       256
+                                                   ],
+                                          "pivot":  [
+                                                        64,
+                                                        128
+                                                    ],
+                                          "duration_ms":  40,
+                                          "bbox":  [
+                                                       56,
+                                                       112,
+                                                       80,
+                                                       144
+                                                   ],
+                                          "index":  0
+                                      },
+                                      {
+                                          "rect":  [
+                                                       128,
+                                                       0,
+                                                       128,
+                                                       256
+                                                   ],
+                                          "pivot":  [
+                                                        64,
+                                                        128
+                                                    ],
+                                          "duration_ms":  40,
+                                          "bbox":  [
+                                                       176,
+                                                       56,
+                                                       208,
+                                                       200
+                                                   ],
+                                          "index":  1
+                                      },
+                                      {
+                                          "rect":  [
+                                                       256,
+                                                       0,
+                                                       128,
+                                                       256
+                                                   ],
+                                          "pivot":  [
+                                                        64,
+                                                        128
+                                                    ],
+                                          "duration_ms":  40,
+                                          "bbox":  [
+                                                       288,
+                                                       32,
+                                                       352,
+                                                       224
+                                                   ],
+                                          "index":  2
+                                      },
+                                      {
+                                          "rect":  [
+                                                       384,
+                                                       0,
+                                                       128,
+                                                       256
+                                                   ],
+                                          "pivot":  [
+                                                        64,
+                                                        128
+                                                    ],
+                                          "duration_ms":  40,
+                                          "bbox":  [
+                                                       416,
+                                                       40,
+                                                       488,
+                                                       208
+                                                   ],
+                                          "index":  3
+                                      },
+                                      {
+                                          "rect":  [
+                                                       512,
+                                                       0,
+                                                       128,
+                                                       256
+                                                   ],
+                                          "pivot":  [
+                                                        64,
+                                                        128
+                                                    ],
+                                          "duration_ms":  40,
+                                          "bbox":  [
+                                                       552,
+                                                       120,
+                                                       608,
+                                                       136
+                                                   ],
+                                          "index":  4
+                                      }
+                                  ],
+                       "status":  "review_candidate",
+                       "file":  "lucian_fx_q_hit.png"
+                   },
+                   {
+                       "source_prompt":  "PROMPTS.md ﾂｧ8",
+                       "kind":  "fx",
+                       "loop":  false,
+                       "qa":  {
+                                  "width":  1536,
+                                  "height":  192,
+                                  "colors":  7,
+                                  "alpha_values":  [
+                                                       0,
+                                                       255
+                                                   ],
+                                  "aligned_8px_grid":  true,
+                                  "bbox":  [
+                                               32,
+                                               16,
+                                               1480,
+                                               184
+                                           ],
+                                  "eye_center":  null
+                              },
+                       "raw_file":  "raw/lucian_fx_e_dash.png",
+                       "frame_count":  6,
+                       "frames":  [
+                                      {
+                                          "rect":  [
+                                                       0,
+                                                       0,
+                                                       256,
+                                                       192
+                                                   ],
+                                          "pivot":  [
+                                                        128,
+                                                        163
+                                                    ],
+                                          "duration_ms":  50,
+                                          "bbox":  [
+                                                       32,
+                                                       144,
+                                                       224,
+                                                       184
+                                                   ],
+                                          "index":  0
+                                      },
+                                      {
+                                          "rect":  [
+                                                       256,
+                                                       0,
+                                                       256,
+                                                       192
+                                                   ],
+                                          "pivot":  [
+                                                        128,
+                                                        163
+                                                    ],
+                                          "duration_ms":  50,
+                                          "bbox":  [
+                                                       304,
+                                                       24,
+                                                       456,
+                                                       184
+                                                   ],
+                                          "index":  1
+                                      },
+                                      {
+                                          "rect":  [
+                                                       512,
+                                                       0,
+                                                       256,
+                                                       192
+                                                   ],
+                                          "pivot":  [
+                                                        128,
+                                                        163
+                                                    ],
+                                          "duration_ms":  50,
+                                          "bbox":  [
+                                                       536,
+                                                       16,
+                                                       752,
+                                                       184
+                                                   ],
+                                          "index":  2
+                                      },
+                                      {
+                                          "rect":  [
+                                                       768,
+                                                       0,
+                                                       256,
+                                                       192
+                                                   ],
+                                          "pivot":  [
+                                                        128,
+                                                        163
+                                                    ],
+                                          "duration_ms":  50,
+                                          "bbox":  [
+                                                       784,
+                                                       32,
+                                                       1008,
+                                                       184
+                                                   ],
+                                          "index":  3
+                                      },
+                                      {
+                                          "rect":  [
+                                                       1024,
+                                                       0,
+                                                       256,
+                                                       192
+                                                   ],
+                                          "pivot":  [
+                                                        128,
+                                                        163
+                                                    ],
+                                          "duration_ms":  50,
+                                          "bbox":  [
+                                                       1056,
+                                                       48,
+                                                       1248,
+                                                       176
+                                                   ],
+                                          "index":  4
+                                      },
+                                      {
+                                          "rect":  [
+                                                       1280,
+                                                       0,
+                                                       256,
+                                                       192
+                                                   ],
+                                          "pivot":  [
+                                                        128,
+                                                        163
+                                                    ],
+                                          "duration_ms":  50,
+                                          "bbox":  [
+                                                       1336,
+                                                       160,
+                                                       1480,
+                                                       176
+                                                   ],
+                                          "index":  5
+                                      }
+                                  ],
+                       "status":  "review_candidate",
+                       "file":  "lucian_fx_e_dash.png"
+                   },
+                   {
+                       "source_prompt":  "PROMPTS.md ﾂｧ9",
+                       "kind":  "fx",
+                       "loop":  true,
+                       "qa":  {
+                                  "width":  1024,
+                                  "height":  128,
+                                  "colors":  6,
+                                  "alpha_values":  [
+                                                       0,
+                                                       255
+                                                   ],
+                                  "aligned_8px_grid":  true,
+                                  "bbox":  [
+                                               72,
+                                               40,
+                                               984,
+                                               88
+                                           ],
+                                  "eye_center":  null
+                              },
+                       "raw_file":  "raw/lucian_fx_w_bolt.png",
+                       "frame_count":  4,
+                       "frames":  [
+                                      {
+                                          "rect":  [
+                                                       0,
+                                                       0,
+                                                       256,
+                                                       128
+                                                   ],
+                                          "pivot":  [
+                                                        128,
+                                                        64
+                                                    ],
+                                          "duration_ms":  50,
+                                          "bbox":  [
+                                                       72,
+                                                       40,
+                                                       224,
+                                                       88
+                                                   ],
+                                          "index":  0
+                                      },
+                                      {
+                                          "rect":  [
+                                                       256,
+                                                       0,
+                                                       256,
+                                                       128
+                                                   ],
+                                          "pivot":  [
+                                                        128,
+                                                        64
+                                                    ],
+                                          "duration_ms":  50,
+                                          "bbox":  [
+                                                       312,
+                                                       40,
+                                                       472,
+                                                       88
+                                                   ],
+                                          "index":  1
+                                      },
+                                      {
+                                          "rect":  [
+                                                       512,
+                                                       0,
+                                                       256,
+                                                       128
+                                                   ],
+                                          "pivot":  [
+                                                        128,
+                                                        64
+                                                    ],
+                                          "duration_ms":  50,
+                                          "bbox":  [
+                                                       568,
+                                                       40,
+                                                       736,
+                                                       88
+                                                   ],
+                                          "index":  2
+                                      },
+                                      {
+                                          "rect":  [
+                                                       768,
+                                                       0,
+                                                       256,
+                                                       128
+                                                   ],
+                                          "pivot":  [
+                                                        128,
+                                                        64
+                                                    ],
+                                          "duration_ms":  50,
+                                          "bbox":  [
+                                                       816,
+                                                       40,
+                                                       984,
+                                                       88
+                                                   ],
+                                          "index":  3
+                                      }
+                                  ],
+                       "status":  "review_candidate",
+                       "file":  "lucian_fx_w_bolt.png"
+                   },
+                   {
+                       "source_prompt":  "PROMPTS.md ﾂｧ10",
+                       "kind":  "fx",
+                       "loop":  false,
+                       "qa":  {
+                                  "width":  1792,
+                                  "height":  128,
+                                  "colors":  8,
+                                  "alpha_values":  [
+                                                       0,
+                                                       255
+                                                   ],
+                                  "aligned_8px_grid":  true,
+                                  "bbox":  [
+                                               80,
+                                               8,
+                                               1664,
+                                               120
+                                           ],
+                                  "eye_center":  null
+                              },
+                       "raw_file":  "raw/lucian_fx_w_burst.png",
+                       "frame_count":  7,
+                       "frames":  [
+                                      {
+                                          "rect":  [
+                                                       0,
+                                                       0,
+                                                       256,
+                                                       128
+                                                   ],
+                                          "pivot":  [
+                                                        128,
+                                                        64
+                                                    ],
+                                          "duration_ms":  50,
+                                          "bbox":  [
+                                                       80,
+                                                       32,
+                                                       192,
+                                                       96
+                                                   ],
+                                          "index":  0
+                                      },
+                                      {
+                                          "rect":  [
+                                                       256,
+                                                       0,
+                                                       256,
+                                                       128
+                                                   ],
+                                          "pivot":  [
+                                                        128,
+                                                        64
+                                                    ],
+                                          "duration_ms":  50,
+                                          "bbox":  [
+                                                       312,
+                                                       32,
+                                                       464,
+                                                       104
+                                                   ],
+                                          "index":  1
+                                      },
+                                      {
+                                          "rect":  [
+                                                       512,
+                                                       0,
+                                                       256,
+                                                       128
+                                                   ],
+                                          "pivot":  [
+                                                        128,
+                                                        64
+                                                    ],
+                                          "duration_ms":  50,
+                                          "bbox":  [
+                                                       544,
+                                                       8,
+                                                       744,
+                                                       120
+                                                   ],
+                                          "index":  2
+                                      },
+                                      {
+                                          "rect":  [
+                                                       768,
+                                                       0,
+                                                       256,
+                                                       128
+                                                   ],
+                                          "pivot":  [
+                                                        128,
+                                                        64
+                                                    ],
+                                          "duration_ms":  50,
+                                          "bbox":  [
+                                                       800,
+                                                       24,
+                                                       992,
+                                                       112
+                                                   ],
+                                          "index":  3
+                                      },
+                                      {
+                                          "rect":  [
+                                                       1024,
+                                                       0,
+                                                       256,
+                                                       128
+                                                   ],
+                                          "pivot":  [
+                                                        128,
+                                                        64
+                                                    ],
+                                          "duration_ms":  50,
+                                          "bbox":  [
+                                                       1048,
+                                                       8,
+                                                       1256,
+                                                       120
+                                                   ],
+                                          "index":  4
+                                      },
+                                      {
+                                          "rect":  [
+                                                       1280,
+                                                       0,
+                                                       256,
+                                                       128
+                                                   ],
+                                          "pivot":  [
+                                                        128,
+                                                        64
+                                                    ],
+                                          "duration_ms":  50,
+                                          "bbox":  [
+                                                       1312,
+                                                       24,
+                                                       1504,
+                                                       112
+                                                   ],
+                                          "index":  5
+                                      },
+                                      {
+                                          "rect":  [
+                                                       1536,
+                                                       0,
+                                                       256,
+                                                       128
+                                                   ],
+                                          "pivot":  [
+                                                        128,
+                                                        64
+                                                    ],
+                                          "duration_ms":  50,
+                                          "bbox":  [
+                                                       1640,
+                                                       24,
+                                                       1664,
+                                                       72
+                                                   ],
+                                          "index":  6
+                                      }
+                                  ],
+                       "status":  "review_candidate",
+                       "file":  "lucian_fx_w_burst.png"
+                   },
+                   {
+                       "source_prompt":  "PROMPTS.md ﾂｧ11",
+                       "kind":  "fx",
+                       "loop":  true,
+                       "qa":  {
+                                  "width":  1024,
+                                  "height":  128,
+                                  "colors":  7,
+                                  "alpha_values":  [
+                                                       0,
+                                                       255
+                                                   ],
+                                  "aligned_8px_grid":  true,
+                                  "bbox":  [
+                                               40,
+                                               24,
+                                               984,
+                                               104
+                                           ],
+                                  "eye_center":  null
+                              },
+                       "raw_file":  "raw/lucian_fx_w_mark.png",
+                       "frame_count":  4,
+                       "frames":  [
+                                      {
+                                          "rect":  [
+                                                       0,
+                                                       0,
+                                                       256,
+                                                       128
+                                                   ],
+                                          "pivot":  [
+                                                        128,
+                                                        64
+                                                    ],
+                                          "duration_ms":  120,
+                                          "bbox":  [
+                                                       40,
+                                                       24,
+                                                       216,
+                                                       104
+                                                   ],
+                                          "index":  0
+                                      },
+                                      {
+                                          "rect":  [
+                                                       256,
+                                                       0,
+                                                       256,
+                                                       128
+                                                   ],
+                                          "pivot":  [
+                                                        128,
+                                                        64
+                                                    ],
+                                          "duration_ms":  120,
+                                          "bbox":  [
+                                                       296,
+                                                       24,
+                                                       472,
+                                                       104
+                                                   ],
+                                          "index":  1
+                                      },
+                                      {
+                                          "rect":  [
+                                                       512,
+                                                       0,
+                                                       256,
+                                                       128
+                                                   ],
+                                          "pivot":  [
+                                                        128,
+                                                        64
+                                                    ],
+                                          "duration_ms":  120,
+                                          "bbox":  [
+                                                       552,
+                                                       24,
+                                                       728,
+                                                       104
+                                                   ],
+                                          "index":  2
+                                      },
+                                      {
+                                          "rect":  [
+                                                       768,
+                                                       0,
+                                                       256,
+                                                       128
+                                                   ],
+                                          "pivot":  [
+                                                        128,
+                                                        64
+                                                    ],
+                                          "duration_ms":  120,
+                                          "bbox":  [
+                                                       808,
+                                                       24,
+                                                       984,
+                                                       104
+                                                   ],
+                                          "index":  3
+                                      }
+                                  ],
+                       "status":  "review_candidate",
+                       "file":  "lucian_fx_w_mark.png"
+                   },
+                   {
+                       "source_prompt":  "PROMPTS.md ﾂｧ12",
+                       "kind":  "fx",
+                       "loop":  true,
+                       "qa":  {
+                                  "width":  1280,
+                                  "height":  128,
+                                  "colors":  5,
+                                  "alpha_values":  [
+                                                       0,
+                                                       255
+                                                   ],
+                                  "aligned_8px_grid":  true,
+                                  "bbox":  [
+                                               96,
+                                               40,
+                                               1176,
+                                               88
+                                           ],
+                                  "eye_center":  null
+                              },
+                       "raw_file":  "raw/lucian_fx_w_haste.png",
+                       "frame_count":  4,
+                       "frames":  [
+                                      {
+                                          "rect":  [
+                                                       0,
+                                                       0,
+                                                       320,
+                                                       128
+                                                   ],
+                                          "pivot":  [
+                                                        160,
+                                                        64
+                                                    ],
+                                          "duration_ms":  60,
+                                          "bbox":  [
+                                                       96,
+                                                       48,
+                                                       216,
+                                                       88
+                                                   ],
+                                          "index":  0
+                                      },
+                                      {
+                                          "rect":  [
+                                                       320,
+                                                       0,
+                                                       320,
+                                                       128
+                                                   ],
+                                          "pivot":  [
+                                                        160,
+                                                        64
+                                                    ],
+                                          "duration_ms":  60,
+                                          "bbox":  [
+                                                       368,
+                                                       48,
+                                                       536,
+                                                       88
+                                                   ],
+                                          "index":  1
+                                      },
+                                      {
+                                          "rect":  [
+                                                       640,
+                                                       0,
+                                                       320,
+                                                       128
+                                                   ],
+                                          "pivot":  [
+                                                        160,
+                                                        64
+                                                    ],
+                                          "duration_ms":  60,
+                                          "bbox":  [
+                                                       704,
+                                                       40,
+                                                       856,
+                                                       88
+                                                   ],
+                                          "index":  2
+                                      },
+                                      {
+                                          "rect":  [
+                                                       960,
+                                                       0,
+                                                       320,
+                                                       128
+                                                   ],
+                                          "pivot":  [
+                                                        160,
+                                                        64
+                                                    ],
+                                          "duration_ms":  60,
+                                          "bbox":  [
+                                                       1000,
+                                                       40,
+                                                       1176,
+                                                       88
+                                                   ],
+                                          "index":  3
+                                      }
+                                  ],
+                       "status":  "review_candidate",
+                       "file":  "lucian_fx_w_haste.png"
+                   },
+                   {
+                       "source_prompt":  "PROMPTS.md ﾂｧ13",
+                       "kind":  "fx",
+                       "loop":  true,
+                       "qa":  {
+                                  "width":  960,
+                                  "height":  64,
+                                  "colors":  4,
+                                  "alpha_values":  [
+                                                       0,
+                                                       255
+                                                   ],
+                                  "aligned_8px_grid":  true,
+                                  "bbox":  [
+                                               40,
+                                               24,
+                                               928,
+                                               40
+                                           ],
+                                  "eye_center":  null
+                              },
+                       "raw_file":  "raw/lucian_fx_r_bullet.png",
+                       "frame_count":  3,
+                       "frames":  [
+                                      {
+                                          "rect":  [
+                                                       0,
+                                                       0,
+                                                       320,
+                                                       64
+                                                   ],
+                                          "pivot":  [
+                                                        160,
+                                                        32
+                                                    ],
+                                          "duration_ms":  40,
+                                          "bbox":  [
+                                                       40,
+                                                       24,
+                                                       288,
+                                                       40
+                                                   ],
+                                          "index":  0
+                                      },
+                                      {
+                                          "rect":  [
+                                                       320,
+                                                       0,
+                                                       320,
+                                                       64
+                                                   ],
+                                          "pivot":  [
+                                                        160,
+                                                        32
+                                                    ],
+                                          "duration_ms":  40,
+                                          "bbox":  [
+                                                       360,
+                                                       24,
+                                                       608,
+                                                       40
+                                                   ],
+                                          "index":  1
+                                      },
+                                      {
+                                          "rect":  [
+                                                       640,
+                                                       0,
+                                                       320,
+                                                       64
+                                                   ],
+                                          "pivot":  [
+                                                        160,
+                                                        32
+                                                    ],
+                                          "duration_ms":  40,
+                                          "bbox":  [
+                                                       752,
+                                                       24,
+                                                       928,
+                                                       40
+                                                   ],
+                                          "index":  2
+                                      }
+                                  ],
+                       "status":  "review_candidate",
+                       "file":  "lucian_fx_r_bullet.png"
+                   },
+                   {
+                       "source_prompt":  "PROMPTS.md ﾂｧ14",
+                       "kind":  "fx",
+                       "loop":  false,
+                       "qa":  {
+                                  "width":  384,
+                                  "height":  128,
+                                  "colors":  3,
+                                  "alpha_values":  [
+                                                       0,
+                                                       255
+                                                   ],
+                                  "aligned_8px_grid":  true,
+                                  "bbox":  [
+                                               64,
+                                               40,
+                                               328,
+                                               88
+                                           ],
+                                  "eye_center":  null
+                              },
+                       "raw_file":  "raw/lucian_fx_r_hit.png",
+                       "frame_count":  3,
+                       "frames":  [
+                                      {
+                                          "rect":  [
+                                                       0,
+                                                       0,
+                                                       128,
+                                                       128
+                                                   ],
+                                          "pivot":  [
+                                                        64,
+                                                        64
+                                                    ],
+                                          "duration_ms":  40,
+                                          "bbox":  [
+                                                       64,
+                                                       56,
+                                                       80,
+                                                       80
+                                                   ],
+                                          "index":  0
+                                      },
+                                      {
+                                          "rect":  [
+                                                       128,
+                                                       0,
+                                                       128,
+                                                       128
+                                                   ],
+                                          "pivot":  [
+                                                        64,
+                                                        64
+                                                    ],
+                                          "duration_ms":  40,
+                                          "bbox":  [
+                                                       184,
+                                                       40,
+                                                       200,
+                                                       88
+                                                   ],
+                                          "index":  1
+                                      },
+                                      {
+                                          "rect":  [
+                                                       256,
+                                                       0,
+                                                       128,
+                                                       128
+                                                   ],
+                                          "pivot":  [
+                                                        64,
+                                                        64
+                                                    ],
+                                          "duration_ms":  40,
+                                          "bbox":  [
+                                                       296,
+                                                       48,
+                                                       328,
+                                                       88
+                                                   ],
+                                          "index":  2
+                                      }
+                                  ],
+                       "status":  "review_candidate",
+                       "file":  "lucian_fx_r_hit.png"
+                   }
+               ],
+    "stage":  "round_1_design_selection"
+}

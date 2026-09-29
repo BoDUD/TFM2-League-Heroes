@@ -658,7 +658,34 @@ deals the damage (Touhou Marisa: visual delay 120; league_lux R: visual delay 55
 apply 29 - the hit at tick 28 with the beam and its sound; until 0.10.0 apply 3 hit at tick 2, 0.43 s
 before the beam showed - 240000 x 16000).
 The view is drawn at the unit's pivot height and turned to the cast direction, so keep the beam
-centred vertically in its canvas (an offset would flip when she fires to the left) *(inferred)*.
+centred vertically in its canvas (an offset would flip when she fires to the left) *(inferred)*. To draw
+it from a raised weapon instead, see "A beam from a raised weapon" below.
+
+**A beam from a raised weapon (league_lucian Q).** A picture turned with a direction cannot carry a
+height of its own (an offset in its canvas turns upside down with a leftward cast), and every direction the
+engine gives is taken between points at pivot height, so a raised start tilts it *(all SDK simulation logs,
+2026-09-29)*:
+- a `LinearProjectile` starts `5000 - y_offset` units north (-y) of the caster (default 0: 5000; 12000: 7000
+  south; -7000: 12000 north) and heads for the caster's spot plus the cast direction times its `range` (a
+  `Direction` cast) or for the target's spot (`Targeting`), and is removed when it gets there. Raised 12000
+  with the line's `range` it leaned 7 degrees onto the line's end (the user: "放出来的技能怎么是歪的");
+  with `range` 15 it pointed nearly straight down; with `range` 1000000 its goal was cut to the map
+  (x at 960000), which turned it further;
+- `y_offset` on a `LineRangeProjectile` is ignored (the line does not move);
+- a `LineRangeProjectile` started in a projectile's `end_effects` is drawn at that point but points from the
+  caster to it (from a point above him: straight north);
+- a `TargetProjectile` (and a `TargetSplashProjectile`) stays at the caster's pivot in the logic - its
+  `y_offset` only lifts the picture, `5000 - y_offset` above the pivot like a `LinearProjectile`'s start
+  *(inferred: the base heroes' 1200, 1500, -3000 and -4000)* - and points at its target from there, so its
+  picture runs level with a line cast at the same target. But it goes the tick its target dies.
+Lucian's Q is therefore a `Targeting` cast (on `EnemyWithoutTower`; a `LineRangeProjectile` in a
+`Targeting` cast points at the target, as league_yone's W and R): the damage stays on the line, with no
+picture, and `q_ray`, a `TargetProjectile` at the target with `speed` 1000 and `y_offset` -8000 (between
+the two muzzles of the firing frame; -7000 on the first model), carries the beam: an `Animated` view (`repeat: false`) of one frame a tick,
+each drawn 1 px further back than the last (league_thresh Q's chain), so the beam stands still from the
+muzzle, then an empty frame while it creeps on to the target. Minions the Q kills took the picture with
+them after two ticks, so the line hits 6 ticks after it appears (`apply` 7), at the end of the beam's full
+glow: then only the fading goes with a killed target.
 
 **Burn / poison.** `AddCasted {casted_type: Fire, duration, period, effects: [ApAttack]}`.
 
@@ -1342,6 +1369,57 @@ spell starts with `SwitchByBuff et_ready`: it swaps the flag for a heal window (
 spell's hits come: Q 80 ticks, E 40, R 40), and while the window lasts each hit runs `Heal {heal_type:
 Caster}` instead of counting (the heal picture and sound once, behind a 20-tick lock). A Q through a wave
 heals once per unit it passes on each pass, as League's did.
+
+**Two shots after a spell, the second weaker on champions (league_lucian Lightslinger).** Every spell adds a
+180-tick caster charge (Q and R `ls_1`; E+W, two spells, `ls_1` and `ls_2`). The attack (`start_timing` 1) runs
+`SwitchByBuff ls_2` -> remove it and fire the double, else `SwitchByBuff ls_1` -> the same, else the single shot
+(`Delayed` to tick 7). The double plays its own animation (`CasterAnimation passive`, 26 ticks, as long as the
+attack) and fires on ticks 6 and 13. League's second shot deals less to champions only; beside it flies a
+champion-only twin (`TargetProjectile` on `EnemyChampion`, the same speed and `y_offset`, so both land on one
+tick) that gives the caster a 2-tick flag, and the real shot deals 50% at once and, `Delayed 1`, the other 50%
+unless the flag is there - minions and monsters take both halves *(inferred from league_ezreal Q's measured
+twin: the order two projectiles land in within a tick does not matter)*. Make it seen: the user found no
+double shot in game while the simulation had 45 a game - both bullets left one point on one line 7 ticks
+apart. Each now leaves the pistol that fires it in the double-shot animation (a `TargetProjectile`'s
+`y_offset` lifts only its picture: -21000 for the upper one, -7000 for the lower; -15000 and -4000 on the
+first model) as a thick tracer, blue
+then gold, bigger than the plain attack's bullet (a gold light on the pistols while a charge waited was
+tried and rejected: "我只要被动的两发子弹看起来明显就行了"). `y_offset` did move a bullet's arrival by a
+tick in the simulation, so it is not purely a picture setting.
+
+**Bonus on the next two attacks when a champion near him is crowd-controlled (league_lucian Vigilance).**
+League's Vigilance follows an ally's immobilising; nothing tells who applied a state, so any counts. The attack's
+first effect is `RandomTarget {range: 60000, casting_target: EnemyChampionInCC}` -> `SwitchByBuff vig_lock`
+(nothing) else a 90-tick lock, two 240-tick charges and the glow on his hands (a caster buff with a view). Each
+shot then spends one charge (`vig_b` first) on a hidden `TargetProjectile` beside it carrying the `FixedAttack`
+and the spark picture, so the arming attack is the first of the two.
+
+**Dash away, hop back or chase into range (league_lucian E, Relentless Pursuit, with W folded in).** League's E
+goes wherever the player clicks. One `Targeting` action on `EnemyWithoutTower` (range 80000) picks by the
+situation, league_ezreal E's way with three branches: `RandomTarget {range: 30000, casting_target:
+EnemyChampion}` holds a 1-tick flag, `CasterAnimation skill2_back` (31 ticks) and `MoveBack {speed: 6000, tick:
+5}` (away from that champion); without the flag a `RandomTarget` at his attack range (55000) on
+`EnemyWithoutTower` sets a second flag that chooses a hop (`skill2_back`, `MoveBack` 5000 x 3) over the chase:
+an invisible non-penetrating `LinearProjectile` on `EnemyWithoutTower` (speed 6000, range 30000, radius 40000,
+`end_effects: [Teleport]`) that drops him about 40000 short of the first enemy it meets. The chase keeps the
+action's own animation (`skill2`, League's forward `Spell2`). Ardent Blaze is `Delayed` to tick 14 and leaves
+from wherever he landed. In 12 simulated games: 95 chases (50 cast at champions), 162 hops, 4 dashes away
+*(SDK simulation, 2026-09-29)*.
+
+**Hits speed him up while the mark lasts (league_lucian W, Ardent Blaze).** The bolt's burst (`RangeProjectile`
+in its `end_effects`) marks what it hits (`AddBuff` with the picture, 6 s) and gives the caster a 6-s flag. Every
+hit's `applied_effects` (the attack's bullets, Q's beam) run `SwitchByBuff` on the flag -> `RemoveCasterBuff` and
+`AddCasterBuff` of a 60-tick `move_speed_mult` 25 (one instance, refreshed). League speeds him up only for hits on
+the marked enemy; nothing reads a buff on the target, so here any hit counts.
+
+**Shots at the nearest champion, through minions (league_lucian R, The Culling).** League sprays one aimed
+direction and minions block it. `RandomTarget` picks at random among the units in its range, so each of the 20
+`Delayed` shots (9 ticks apart from tick 10, each first running the crowd-control check and `SwitchByBuff` on the
+channel buff) tries rings: `RandomTarget {range: 40000, casting_target: EnemyChampion}` sets a 1-tick flag and
+fires; without the flag the same at 75000, then 110000; nothing further, no shot. The bullet is a
+non-penetrating `LinearProjectile` on `EnemyChampion` toward the picked champion: it flies through minions and
+stops on the first champion. Of its shots 58% hit at speed 8000 and 85% at 12000, the champions walking out of
+the line *(SDK simulation, 2026-09-29)*.
 
 **Root the first champion, hurt everything on the way, at a champion when one is in reach (league_morgana Q,
 Dark Binding, with W folded in).** A `Direction` cast on `EnemyWithoutTower` (range 80000), so it also goes to

@@ -399,6 +399,31 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   colour for the eyes alone, so `import_native.py` steadies the idle and the move on it (`EYES`, as for
   Fiddlesticks); and puts the body's lowest row back on the replaced frame's (the move's float had sunk 3-13 rows).
   Sideways it keeps Codex's place: the bigger design's head sits ahead of League's head joint.
+- **A slim move under a stocky design (league_lucian).** Codex drew League's run silhouette at the design's size:
+  about two thirds of the other strips' opaque pixels (339 a frame against 460-566), legs one or two pixels wide,
+  the head too big for the body. Stretching whole frames across ran the two dark trouser legs into one mass;
+  the first model's `tools/art/tidy_lucian.py` stretched only the chest to the hips (x1.3 about the body's middle
+  column, eased in and out over 3 rows), left the head, the raised gun arm and the legs as drawn, and redrew the
+  1-pixel outline (outline pixels between two body pixels, the seams, stayed); the redesign's run needed none. Compare every strip's opaque pixels a frame against
+  idle before importing.
+- **A beam fired from a raised weapon (league_lucian Q).** The picture of a `LineRangeProjectile` is drawn at the
+  pivot's height (his waist). Lucian's pack asked Codex for the pistols at belt height in the firing frames to
+  meet it; the user rejected that ("怎么Q技能在腰部释放的啊 和英雄联盟不一样"): League fires from the pistols
+  held out at shoulder height. Draw the League pose and let a carrier with a lifted picture draw the beam
+  (champion-data "A beam from a raised weapon"): the beam's frames are cut per tick, each drawn the carrier's
+  creep further back, so the beam stands still from the muzzle, level with the line (`tools/art/import_lucian.py`
+  `Q_RAY`). A first carrier started raised in the logic leaned the beam 7 degrees; the user saw it crooked.
+- **A nose that sticks out (league_lucian).** A head traced from League in 3/4 view keeps the nose tip one pixel
+  out of the cheek line; at game size it reads as a lump beside the face (the user asked what it was). Base heroes'
+  faces have a clean edge: flatten it (the first model's `tools/art/tidy_lucian.py` `nose()`, by the far iris).
+- **Brows and a mouth on a stern face (league_lucian redesign).** Codex's design laid each brow on its eye as
+  a flat near-black bar with one square bumped up over the pupil: it read as a raised brow ("眉毛画的不对").
+  Thin V brows (one square thick, the outer ends a row up) fixed the shape, but two skin-shadow squares at the
+  jaw's corners, a row above the chin line, joined it into a grin ("嘴翘起来"). The face the user took, edited
+  in their Codex session: the thin brows in the hair's dark browns instead of the outline's near-black, the far
+  cheek closed by the outline, a closed mouth of two shadow squares over the chin, and no shadow square joining
+  the jaw corners to the chin line. Look at the whole face - brows, eyes, mouth, jaw - at 6x and 12x next to the
+  source picture before sending any face.
 - **Whole raw sheets: one scale per sheet, paste only the face.** Codex's league_morgana animations (design A)
   came as eight raw sheets (3x2 cells of 512 px, 4x2 of about 443 px and 2x1 of 887, on a magenta key), each at a
   scale of its own (a game pixel 4.4-7.2 source px). `tools/art/tidy_morgana.py` takes one scale per sheet from its
