@@ -46,7 +46,8 @@ EYE_COLOURS = {"thresh": [(13, 200, 78), (4, 71, 29)],
                # assets/source/native folder as the delivery
                "fiddlesticks": [(200, 224, 96)], "kayle": [(226, 138, 8)],
                "leona": [(186, 88, 30)], "janna": [(3, 51, 207)],
-               "ekko": [(213, 125, 34)], "darius": [(255, 247, 238)]}
+               "ekko": [(213, 125, 34)], "darius": [(255, 247, 238)],
+               "leesin": [(212, 34, 50)]}
 # heroes whose delivered faces were drawn anew in every frame (Codex: "not a pixel copy of the head"): the design's
 # face - eyes, brows, cheeks and the fringe right round them - goes back into every frame where the head is found.
 # head: the design's head box on its 128x128 canvas (<hero>_native.png), matched in every frame by colour; patch: the
@@ -54,13 +55,16 @@ EYE_COLOURS = {"thresh": [(13, 200, 78), (4, 71, 29)],
 # steadies the head on it; the design's iris is also on the hair)
 FACES = {"leona": {"head": (42, 58, 66, 74), "patch": (53, 68, 61, 73), "iris": ((184, 86, 28), (186, 88, 30))},
          # Darius's eye white is already an eye-only shade in the design (#FFF7EE)
-         "darius": {"head": (52, 55, 65, 66), "patch": (55, 60, 64, 65), "iris": ((255, 247, 238), (255, 247, 238))}}
+         "darius": {"head": (52, 55, 65, 66), "patch": (55, 60, 64, 65), "iris": ((255, 247, 238), (255, 247, 238))},
+         # Lee Sin's eyes are under the blindfold: the skull top, the band across the face (its own red #D42232 in the
+         # design) and the face under it go back; matched on that face alone (his braid knot changes every frame)
+         "leesin": {"head": (57, 62, 69, 72), "patch": (57, 63, 69, 72), "iris": ((212, 34, 50), (212, 34, 50))}}
 FACE_OK = 120                   # mean colour distance over the head box above which a frame's head is not found
 # deliveries whose frames Codex centred in their cells (its manifest's atlas pivot) instead of standing them on our
 # pivots: every frame whose face is found goes sideways so that its eyes stand on League's head joint of that frame
 # (the cells table's "head"), as in the design; a frame without a face keeps Codex's place round the atlas pivot,
 # moved to ours. Up and down stay Codex's: the soles are on the feet line already.
-PLACE_BY_HEAD = {"darius"}
+PLACE_BY_HEAD = {"darius", "leesin"}
 
 
 def blocks(path):

@@ -120,14 +120,15 @@ PASTED = {"masteryi",            # steadied on the head restyle_native pasted: h
 # Codex's step-2 redraw (model_strips_18, tidied by tidy_codex18.py): the approved design's head (or face) is in every
 # frame, so they are steadied on idle frame 1's head like the round-1 heroes - or on their eyes when they are in
 # EYES - whatever their poses.json says
-REDRAWN = {"thresh", "leona", "janna", "ekko", "darius"}
+REDRAWN = {"thresh", "leona", "janna", "ekko", "darius", "leesin"}
 # heroes steadied on their eyes: (R, G, B) of a colour only the eyes use; the head column is the eyes' middle
 EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade is the top of every frame
         "kayle": (226, 138, 8),           # Codex's redraw: her wings rise above her head, the amber is the eyes'
         "leona": (186, 88, 30),           # the design's face pasted back by tidy_codex18.py, its iris an eye-only shade
         "janna": (3, 51, 207),            # Codex pasted one face block into every frame: her blue iris
         "ekko": (213, 125, 34),           # the same for Ekko: the one amber square of his near eye
-        "darius": (255, 247, 238)}        # the design face pasted back by tidy_codex18.py: his eye white
+        "darius": (255, 247, 238),        # the design face pasted back by tidy_codex18.py: his eye white
+        "leesin": (212, 34, 50)}          # the same for Lee Sin: the blindfold band across his face
 
 
 def blocks(path):
