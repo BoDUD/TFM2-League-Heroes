@@ -146,20 +146,21 @@ def showcase(out, z=3, step=40):
     boom = blaze(e1, d)
     marked = [(boom, boom + 6000, d)]
     flag = [(boom, boom + 6000)]                       # w_ms on him: every hit speeds him up for a second
-    # the two charged attacks, then Piercing Light (on tick 12 the carrier starts 12 px above him, at the muzzle
-    # of frame 4, and flies to the line's end 100 px ahead at his waist's height, 7 px a tick; the hit a tick
-    # later), its double shot, a single bullet
+    # the two charged attacks, then Piercing Light (on tick 12 the carrier creeps from him at Darius, 1 px a tick,
+    # its picture 12 px up at the muzzle of frame 4, level with the line; the hit 6 ticks later, at the end of the
+    # full glow), its double shot, a single bullet
     nxt = double(d)
     idle_to(nxt)
     nxt = double(d)
     idle_to(nxt - 480)
     q0 = t
-    over.append(Ray(frames_of(fx, "q_ray"), q0 + tick(12), lx, gy - 12, lx + 100, gy, 7.0))
+    dx0, dy0 = d.pos(q0 + tick(12))
+    over.append(Ray(frames_of(fx, "q_ray"), q0 + tick(12), lx, gy - 12, dx0, dy0 - 12, 1.0))
     for foe in (d, g):
         if foe.pos(q0 + tick(12))[0] - lx <= 104:
-            fx_at("q_hit", q0 + tick(13), *foe.pos(q0 + tick(13)))
-            foe.flinches.append(q0 + tick(13))
-            hits.append(q0 + tick(13))
+            fx_at("q_hit", q0 + tick(18), *foe.pos(q0 + tick(18)))
+            foe.flinches.append(q0 + tick(18))
+            hits.append(q0 + tick(18))
     a("skill")
     idle_to(nxt)
     nxt = double(d)

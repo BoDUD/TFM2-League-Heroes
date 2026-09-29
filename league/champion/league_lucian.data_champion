@@ -911,7 +911,7 @@
     "start_timing": 12,
     "cancelable": false,
     "range": 70000,
-    "casting_type": "Direction",
+    "casting_type": "Targeting",
     "casting_target": "EnemyWithoutTower",
     "attack_type": "Skill",
     "effect": {
@@ -939,15 +939,15 @@
           "width": 12000,
           "length": 100000,
           "delay": 14,
-          "apply": 2,
+          "apply": 7,
           "applied_target": "EnemyWithoutTower",
           "applied_effects": [
             {
               "casting_type": "Targeting",
               "effect": {
                 "type": "Attack",
-                "damage": 75,
-                "attack_ratio": 150,
+                "damage": 65,
+                "attack_ratio": 130,
                 "attack_effect_type": "Target"
               }
             },
@@ -1001,20 +1001,12 @@
           ]
         },
         {
-          "type": "LinearProjectile",
+          "type": "TargetProjectile",
           "name": "league_lucian_q_ray",
-          "speed": 7000,
-          "range": 100000,
+          "speed": 1000,
           "y_offset": -7000,
-          "shape": {
-            "Circle": {
-              "radius": 1
-            }
-          },
-          "penetrate": true,
-          "applied_target": "EnemyChampion",
-          "applied_effects": [],
-          "end_effects": []
+          "applied_target": "Enemy",
+          "applied_effects": []
         }
       ]
     }

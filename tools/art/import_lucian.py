@@ -50,12 +50,15 @@ FEET = (0, 11)
 HIT = (0, -8)                          # a hit on the upper body
 CHEST = (0, -6)
 HANDS = (0, -10)                       # his hands, the pistols in them
-# Piercing Light's picture rides q_ray, a LinearProjectile raised to the muzzle that flies 7 px a tick to the line's
-# end (the kit): one frame a tick, each drawing the beam 7 px further back, so it stands from the muzzle, 21 px ahead
-# of where the carrier started, to the end. Codex's frame 0 (a spark before the beam) is left out - his own frame 4
-# flashes at the muzzle - so the whole beam is there on the tick it hits: 1 (coming on), 2 (full), 3 (thinning), 4-5
-RAY_AHEAD, RAY_LEN, RAY_SPEED = 21, 80, 7
-RAY_FRAMES = [1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 5, 5]
+# Piercing Light's picture rides q_ray, a TargetProjectile creeping 1 px a tick from his pivot at the target, its
+# picture lifted to the muzzle (the kit): one frame a tick, each drawing the beam 1 px further back, so it stands from
+# the muzzle, 21 px ahead of where the carrier started, for the line's length; then one empty frame until the carrier
+# reaches the target. Codex's frames 0-1 (a spark, the beam coming on) are left out - his own frame 4 flashes at the
+# muzzle - so the full beam (2) shows at once for 5 ticks, then thins (3) and fades (4-5); the hit comes at the end
+# of the full glow (the kit's apply 7), so a target it kills, which takes the carrier along, still had the beam
+RAY_AHEAD, RAY_LEN, RAY_SPEED = 21, 80, 1
+RAY_FRAMES = [2, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 5, 5]
+RAY_AFTER = 2000                       # ms of nothing: the carrier creeps on to the target (70000 at 1000 a tick: 1.2 s)
 Q_RAY = [(f, (RAY_AHEAD + RAY_LEN // 2 - RAY_SPEED * i, 0), 1000 / 60) for i, f in enumerate(RAY_FRAMES)]
 
 # raw strip -> native (keys as in tools/art/import_fiddlesticks.py RAW; x / y "pivot": the frame's pivot in Codex's
@@ -253,6 +256,8 @@ def build():
             strip = cells(src, RAW[src]["n"] if src in RAW else len(TRACER))
             spots = spot if isinstance(spot, list) else [spot] * len(ms)       # one spot, or one a frame
             out[tag] = [(G.centre_frame(strip[k], sx - ax, sy - ay), m) for k, (sx, sy), m in zip(used, spots, ms)]
+            if tag == "q_ray":
+                out[tag].append((np.zeros((1, 1, 4), np.uint8), RAY_AFTER))
         sheets[sprite] = out
     return sheets
 

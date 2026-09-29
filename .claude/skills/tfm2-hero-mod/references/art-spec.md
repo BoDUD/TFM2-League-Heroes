@@ -382,9 +382,13 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
 - **A beam fired from a raised weapon (league_lucian Q).** The picture of a `LineRangeProjectile` is drawn at the
   pivot's height (his waist). Lucian's pack asked Codex for the pistols at belt height in the firing frames to
   meet it; the user rejected that ("怎么Q技能在腰部释放的啊 和英雄联盟不一样"): League fires from the pistols
-  held out at shoulder height. Draw the League pose and let a raised carrier draw the beam (champion-data "A beam
-  from a raised weapon"): the beam's frames are cut per tick, each drawn the carrier's flight further back, so the
-  beam stands still from the muzzle to the line's end (`tools/art/import_lucian.py` `Q_RAY`).
+  held out at shoulder height. Draw the League pose and let a carrier with a lifted picture draw the beam
+  (champion-data "A beam from a raised weapon"): the beam's frames are cut per tick, each drawn the carrier's
+  creep further back, so the beam stands still from the muzzle, level with the line (`tools/art/import_lucian.py`
+  `Q_RAY`). A first carrier started raised in the logic leaned the beam 7 degrees; the user saw it crooked.
+- **A nose that sticks out (league_lucian).** A head traced from League in 3/4 view keeps the nose tip one pixel
+  out of the cheek line; at game size it reads as a lump beside the face (the user asked what it was). Base heroes'
+  faces have a clean edge: flatten it (`tools/art/tidy_lucian.py` `nose()`, by the far iris).
 - **Effect anchors.** Effect and buff frames are drawn centred on the unit's pivot, 11.5 px above
   the feet (base: `levelup_effect` ring at +9..+16, `shield_receive_effect` bubble -22..+13).
   Ground rings at about +10, hits and shields at -3..-6, overhead marks around -25. Time the

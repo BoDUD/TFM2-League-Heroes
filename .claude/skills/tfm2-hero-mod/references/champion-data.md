@@ -639,20 +639,31 @@ The view is drawn at the unit's pivot height and turned to the cast direction, s
 centred vertically in its canvas (an offset would flip when she fires to the left) *(inferred)*. To draw
 it from a raised weapon instead, see "A beam from a raised weapon" below.
 
-**A beam from a raised weapon (league_lucian Q).** A `LinearProjectile` starts `5000 - y_offset` units
-north (-y) of the caster: the default 0 puts it 5000 north, y_offset 12000 put it 7000 south, -7000 puts it
-12000 north *(SDK simulation log)* - above the pivot on screen *(inferred: the base crossbowman's bolts use
-1200, 3800 north, the harpooner's thrown attack -3000)*. In a `Direction` cast it heads for the caster's
-spot plus the direction times its `range`, not along the direction from where it starts, and is removed
-when it gets there: raised 12000 it converges on the damage line's end, and with `range` 15 (meant as a
-still picture) it pointed nearly straight down at his own spot *(SDK simulation log: `dir` = the
-LineRangeProjectile's end minus the spawn; removed after 12-13 ticks at 7000 a tick)*. Lucian's Q keeps the
-damage on a `LineRangeProjectile` with no picture and adds
-`q_ray`: a `LinearProjectile` with `y_offset` -7000 (the muzzle in the firing frame), `range` = the line's
-length, `speed` 7000, penetrating, `applied_target: EnemyChampion` with no effects. Its `Animated` view
-(`repeat: false`) has one frame a tick, each drawing the beam 7 px further back than the last, so the beam
-stands still from the muzzle to the line's end, tilted onto it (about 7 degrees for a level cast); the
-technique is league_thresh Q's chain.
+**A beam from a raised weapon (league_lucian Q).** A picture turned with a direction cannot carry a
+height of its own (an offset in its canvas turns upside down with a leftward cast), and every direction the
+engine gives is taken between points at pivot height, so a raised start tilts it *(all SDK simulation logs,
+2026-09-29)*:
+- a `LinearProjectile` starts `5000 - y_offset` units north (-y) of the caster (default 0: 5000; 12000: 7000
+  south; -7000: 12000 north) and heads for the caster's spot plus the cast direction times its `range` (a
+  `Direction` cast) or for the target's spot (`Targeting`), and is removed when it gets there. Raised 12000
+  with the line's `range` it leaned 7 degrees onto the line's end (the user: "放出来的技能怎么是歪的");
+  with `range` 15 it pointed nearly straight down; with `range` 1000000 its goal was cut to the map
+  (x at 960000), which turned it further;
+- `y_offset` on a `LineRangeProjectile` is ignored (the line does not move);
+- a `LineRangeProjectile` started in a projectile's `end_effects` is drawn at that point but points from the
+  caster to it (from a point above him: straight north);
+- a `TargetProjectile` (and a `TargetSplashProjectile`) stays at the caster's pivot in the logic - its
+  `y_offset` only lifts the picture, `5000 - y_offset` above the pivot like a `LinearProjectile`'s start
+  *(inferred: the base heroes' 1200, 1500, -3000 and -4000)* - and points at its target from there, so its
+  picture runs level with a line cast at the same target. But it goes the tick its target dies.
+Lucian's Q is therefore a `Targeting` cast (on `EnemyWithoutTower`; a `LineRangeProjectile` in a
+`Targeting` cast points at the target, as league_yone's W and R): the damage stays on the line, with no
+picture, and `q_ray`, a `TargetProjectile` at the target with `speed` 1000 and `y_offset` -7000 (the
+muzzle of the firing frame), carries the beam: an `Animated` view (`repeat: false`) of one frame a tick,
+each drawn 1 px further back than the last (league_thresh Q's chain), so the beam stands still from the
+muzzle, then an empty frame while it creeps on to the target. Minions the Q kills took the picture with
+them after two ticks, so the line hits 6 ticks after it appears (`apply` 7), at the end of the beam's full
+glow: then only the fading goes with a killed target.
 
 **Burn / poison.** `AddCasted {casted_type: Fire, duration, period, effects: [ApAttack]}`.
 

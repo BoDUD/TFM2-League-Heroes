@@ -20,6 +20,10 @@ here, on the game pixels, before the strips are written to assets/source/native/
     20 px ahead of the pivot and 11-13 px above it), placed on their own pivots; frame 4 keeps its muzzle flash,
     moved from the lowered pistol to that muzzle. The beam's picture now rides a projectile raised to the muzzle
     (the kit's q_ray).
+  - the nose: U3's nose tip stood one pixel out of the cheek on the eye row (two pixels right of the far iris, its
+    outline one further), a lump beside the face at game size (the user: "脸旁边怎么凸起来一块像素"), in some frames
+    joined to the raised arm's outline. In every frame where that shape sits by the far iris - the design and all
+    upright frames, where the head is the same drawing - the tip becomes outline and its own outline goes.
 The rest is used as delivered. Then run import_native.py --hero lucian (EYES steadies idle and run on the green
 irises, the one colour nothing else uses).
 """
@@ -105,6 +109,32 @@ def widen(cell, pivot, factor):
     return joined
 
 
+IRIS = (78, 154, 92)
+SKIN = (138, 90, 66)                   # the nose tip's colour
+
+
+def nose(cell):
+    """The nose tip beside the far (rightmost) iris flattened into the cheek; True when it was there."""
+    ys, xs = np.nonzero((cell[..., :3] == IRIS).all(-1) & (cell[..., 3] > 0))
+    if not len(xs):
+        return False
+    k = xs.argmax()
+    y, x = ys[k], xs[k]
+    if x + 3 >= cell.shape[1] or y < 1 or y + 1 >= cell.shape[0]:
+        return False
+
+    def is_(yy, xx, col):
+        return cell[yy, xx, 3] > 0 and tuple(int(v) for v in cell[yy, xx, :3]) == col
+
+    if not (is_(y, x + 2, SKIN) and is_(y - 1, x + 2, OUTLINE) and is_(y + 1, x + 2, OUTLINE)
+            and is_(y, x + 3, OUTLINE)):
+        return False
+    cell[y, x + 2, :3], cell[y, x + 2, 3] = OUTLINE, 255
+    if cell[y - 1, x + 3, 3] == 0 and cell[y + 1, x + 3, 3] == 0:
+        cell[y, x + 3] = 0
+    return True
+
+
 def cell_of(a, frames, k):
     cols = layout(len(frames))
     cx, cy = (k % cols) * CELL, (k // cols) * CELL
@@ -159,6 +189,12 @@ def main():
                   f"{before:.0f} -> {(a[..., 3] > 0).sum() / len(frames):.0f} opaque pixels a frame")
         if name == "skill":
             a = q_aim(a, cells[name])
+        if name == "native":
+            fixed = [nose(a)]
+        else:
+            frames = cells[name]
+            fixed = [nose(cell_of(a, frames, k)) for k in range(len(frames))]
+        print(f"lucian_{name}.png: nose flattened in {sum(fixed)} of {len(fixed)} frames")
         Image.fromarray(np.repeat(np.repeat(a, Z, 0), Z, 1), "RGBA").save(G.lp(os.path.join(SRC, f"lucian_{name}.png")))
     print("wrote", len(TAGS) + 1, "images to assets/source/native/")
 
