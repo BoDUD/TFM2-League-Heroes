@@ -112,10 +112,10 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        ("fiddlesticks", "idle"): (6, [2, 3, 4])}
 CROWN = {"leesin"}              # heroes whose head template starts at the crown (a braid stands above it)
 PASTED = {"masteryi", "janna", "ekko",   # steadied on the head restyle_native pasted: his raised sword is the top of every frame
-          "thresh",  # his hand-drawn head, pasted on League's head joint: steadied there
-          "kayle"}   # hers too (her wings rise above it)
+          "thresh"}  # his hand-drawn head, pasted on League's head joint: steadied there
 # heroes steadied on their eyes: (R, G, B) of a colour only the eyes use; the head column is the eyes' middle
-EYES = {"fiddlesticks": (200, 224, 96)}   # Codex's design B: the scythe's blade is the top of every frame
+EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade is the top of every frame
+        "kayle": (226, 138, 8)}           # Codex's redraw: her wings rise above her head, the amber is the eyes'
 
 
 def blocks(path):

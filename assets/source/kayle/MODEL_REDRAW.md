@@ -104,3 +104,20 @@ ANIMATION: <from the table>
 - 只用上表的 21 种颜色。
 - 每一帧最低的那一行和 `now/` 里同名那张一样（±1 格），横向位置对得上；待机 6 帧就是造型图本身。
 - 每一帧的头都是造型图那个头；剑是一条干净的直刃，移动时在身后。
+
+## 导入（已完成）
+
+Codex 交回 63 帧（交接说明在 [`codex_model/`](codex_model/)）：待机 6 帧是造型图本身，另外 57 帧是生图原稿（948×1659、半透明边缘、每张两三万种颜色、像素块 11–16 px 宽且各帧不同，头和位置每帧不一样），它自己说明还没有规整。Claude 用 [`tools/art/tidy_kayle.py`](../../../tools/art/tidy_kayle.py) 整理：
+
+1. 每个游戏像素取原稿里它中心的颜色，映射到 21 色（整格合并会在块宽对不上时重复出一列描边）。
+2. 受击和倒地以外的 48 帧擦掉画的头，贴上造型图的头：两只眼睛对上画的眼睛，找不到时按头顶和脸的位置。每帧同一张脸，循环时头不"沸腾"。
+3. 琥珀色只留在眼睛上；竖直方向按身体最低一行对齐原来那一帧（移动恢复原版的上下浮动）；横向保持 Codex 画的位置，待机和移动在导入时按眼睛对齐（`import_native.py` 的 `EYES`）。
+4. 清掉孤立的杂点。
+
+```bash
+python tools/art/tidy_kayle.py <Codex 的交付文件夹> --out <文件夹>
+python tools/art/native_frames.py join --hero kayle --src <文件夹>
+python tools/art/import_native.py --hero kayle
+```
+
+每帧对齐用的目标（原来那一帧的身体最低行）第一次运行时从被替换的动作条量出，存在 `codex_model/kayle_targets.json`，之后重跑读它。结果：21 色，和右边像素同色的比例 37%，头像截取点 (−2, −40)。

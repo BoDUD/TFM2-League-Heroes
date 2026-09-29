@@ -362,6 +362,16 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   the middle column and the cell's pivot row), `join` puts the redrawn canvases back round each frame's pivot
   (any whole scale, each block read by its majority colour, magenta or low alpha as clear); split then join
   gives the strips back byte for byte (assets/source/kayle/MODEL_REDRAW.md).
+- **Frames straight from an image model: sample the centre, paste one head.** Codex's frames for league_kayle came
+  as raw generations (948x1659 per 64x112 canvas, soft edges, tens of thousands of colours, "pixels" 11-16 px wide,
+  different in every frame, the head and the place wandering). Taking the majority colour of each 14.8-px target
+  cell doubled an outline column wherever the drawn squares ran narrower than the cells (a black line down one move
+  frame); taking each game pixel's colour at its centre never doubles one and only drops a row or column now and
+  then. `tools/art/tidy_kayle.py` then erases the drawn hair and face and pastes the approved design's head - its
+  eyes on the drawn eyes, else its crown and face on the drawn ones - so a loop does not "boil"; keeps the eye
+  colour for the eyes alone, so `import_native.py` steadies the idle and the move on it (`EYES`, as for
+  Fiddlesticks); and puts the body's lowest row back on the replaced frame's (the move's float had sunk 3-13 rows).
+  Sideways it keeps Codex's place: the bigger design's head sits ahead of League's head joint.
 - **Effect anchors.** Effect and buff frames are drawn centred on the unit's pivot, 11.5 px above
   the feet (base: `levelup_effect` ring at +9..+16, `shield_receive_effect` bubble -22..+13).
   Ground rings at about +10, hits and shields at -3..-6, overhead marks around -25. Time the

@@ -682,7 +682,12 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   sword that plants itself upright through her face and the ground is hidden once it leaves her hand.
   Codex's fourteen effects (raw, alpha, a manifest) went in with `tools/art/import_kayle.py --raw`; the heal
   column and the Exalted flames came thinner and taller than asked and are sized by height (42, 40 px). 63
-  frames, 42 colours, face (1, -36).
+  frames, 42 colours, face (1, -36). In game players found this model "too abstract" (the restyled body a mush
+  of gold and grey-green, the wings a few lines): Codex redrew it (`assets/source/kayle/MODEL_REDRAW.md`) - the
+  design first, set on the game grid by its own pixel edges and approved; then the 63 frames, one 64x112 canvas
+  each (`tools/art/native_frames.py`), delivered raw and tidied by `tools/art/tidy_kayle.py` (art-spec "Frames
+  straight from an image model"). 40 px crown to soles, 21 colours, 37% right-neighbour, face (-2, -40) measured
+  without the wings, which rise above her head.
 - **A scarecrow with a sack head, stilts and a scythe (Fiddlesticks, drawn by Claude, restyled, hand-drawn head
   pasted).** Of three cameras the user took B (yaw 30, pitch 25, not mirrored: the scythe trails behind him
   and the two stilts stand apart); head 2.0, legs 0.75, height 28. The skin's demon arms, lantern and tongue
