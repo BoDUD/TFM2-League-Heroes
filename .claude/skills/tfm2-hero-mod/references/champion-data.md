@@ -101,6 +101,8 @@ also means minions and monsters: a non-penetrating skillshot on it stops on the 
   fear and charm. Disarm (`BlockAttack`), silence (`BlockSkill`), `BlockMoveSkill`, taunt and slows
   (slows are buffs) do not count, and no target narrows it to knock-ups only: league_yasuo's R, cast on
   `EnemyChampionInCC`, also fires on stunned or rooted champions. No base champion's data uses it.
+  As a projectile's `applied_target` it is tested when the projectile hits (league_fiddlesticks Q,
+  section 7).
 - **Damaging basic abilities go on `EnemyWithoutTower`** *(reported by players; measured in a 5v5
   simulation on the SDK)*. The AI only casts an action while a unit matching `casting_target` is
   within `range`, so a skill on `EnemyChampion` is never used on minions or jungle monsters: the
@@ -1139,6 +1141,47 @@ behind, League's hook-and-flay; otherwise a `RandomTarget {range: 16000, casting
 him. `RandomTarget`'s range also counts the target's body, so "right on him" reaches about 28000 between the
 centres (a champion pushed from 28550 in the simulation); minions and monsters, with no champion near, are
 pulled together. The first version pulled 1500 x 10 (15000): the user could not see Flay do anything.
+
+**Frighten on the first hit out of combat (league_fiddlesticks A Harmless Scarecrow).** League's passive places
+an effigy; nothing placed can act here, so the scarecrow is Fiddlesticks himself standing still. Every action
+first runs `SwitchByBuff fight` with an empty branch for the buff and, without it, `AddCasterBuff ambush` (40
+ticks), then replaces `fight` (`RemoveCasterBuff` + a 180-tick `AddCasterBuff`: one instance, section 5). The
+attack fires a champion-only twin of its bolt (`TargetProjectile` on `EnemyChampion`) and Reap a champion-only
+circle beside its damage; both hold `SwitchByBuff ambush` -> `Fear` (60 ticks), its picture and sound and the
+flag's removal a tick later, so every champion reached on that tick is frightened first. In the simulation he
+mostly opens with Terrify, which outranges both, so the passive fires rarely (one of 18 champion fears in a
+sampled game).
+
+**Double damage on a champion already in crowd control (league_fiddlesticks Q, Terrify).** League doubles
+Terrify on a target already feared. Two `TargetProjectile`s leave together at the same speed: the crow on
+`EnemyWithoutTower` (damage, picture, sound and a `Delayed 1 {Fear 75, the fear picture}`) and a twin on
+`EnemyChampionInCC` holding a second copy of the damage. A projectile's `applied_target` is tested when it
+hits, not at the cast *(measured with a probe kit in the SDK simulation: of five casts on stunned champions all
+five dealt the damage twice, of five on free ones none did)*, and the crow's own fear waits a tick so that the
+twin, hitting on the same tick, never counts it. Any of the six crowd-control states of section 3 doubles it
+(a stun, a knock-up, a root, a fear...), not only fear.
+
+**Strike, then drain everyone around him (league_fiddlesticks skill2: Reap with Bountiful Harvest).** A
+`Position` cast on `EnemyWithoutTower` (range 40000). Three `RangeProjectile`s on the cast point with the same
+`delay` 24 and `apply` 6 (the hit 5 ticks after they appear, section 4): Reap's damage and 40% slow on
+`EnemyWithoutTower` in 30000, the passive's fear on `EnemyChampion` in 30000, and `BlockSkill` (75 ticks, the
+silence) with its picture on `EnemyChampion` in a 14000 core. Twelve ticks later the channel: a caster buff for
+its length and `CasterAnimation w_loop` (120 ticks), then eight `Delayed` pulses 15 ticks apart, each first
+running the crowd-control check of "A channel that crowd control breaks" and then `SwitchByBuff` on the channel
+buff: a `CasterViewEffect` (the souls round him), a `RangeEffect` (40000) on `EnemyWithoutTower` with the
+damage, a small `Heal {heal_type: Caster}` and the drained-soul picture - every unit drained heals him - and one
+on `EnemyChampion` with a larger heal for each champion. League's tethers that break when a target walks away
+are left out: the drain reaches whoever stands within 40000 at each pulse.
+
+**Channel, vanish in crows, land in a storm (league_fiddlesticks R, Crowstorm).** A `Position` cast on
+`EnemyChampion` (range 80000, `start_timing` 1): a caster buff `r_ch` (61 ticks), `CasterAnimation ult` (60),
+the landing mark as a `ViewEffect` (a `Position` cast plays it on the cast point, `z` -1), and at ticks 15, 30
+and 45 the crowd-control check removing `r_ch` and the animation. At tick 60 a `SwitchByBuff r_ch` does the
+rest only if the channel held: a `CasterViewEffect` of the burst of crows where he stands (not following, so it
+stays behind), `Teleport` (to the cast point), `CasterAnimation ult_land` (30) and a 302-tick `storm` buff. Ten
+`Delayed` pulses 30 ticks apart each run `SwitchByBuff storm`: the circling crows (`CasterViewEffect`,
+following) and a `RangeEffect` (45000) of damage; the first also fears the champions around him for 60 ticks.
+Death clears the storm buff (section 5), so the storm ends with him.
 
 ## 8. Gotchas
 

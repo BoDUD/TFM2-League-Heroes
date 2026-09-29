@@ -140,6 +140,13 @@
         "skill": "掷出镰刀，钩住直线上第一个敌方英雄（穿过小兵），造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 法术强度<>的<#a974ffff>魔法伤害<>，<#ef5350ff>眩晕<><#ffb900ff>1秒<>并把它拉到身前。<#ff9028ff>魂引之灯<>：每<#ffb900ff>14秒<>同时掷出灯笼，为自己和身边一名友方英雄提供<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 法术强度<>的<#e8d44dff>护盾<>，持续<#ffb900ff>2.5秒<>。",
         "skill2": "挥动锁链横扫身边，对敌人造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 法术强度<>的<#a974ffff>魔法伤害<>并<#ef5350ff>减速40%<>，持续<#ffb900ff>1秒<>。刚钩中英雄或没有敌方英雄贴身时，把敌人<#ef5350ff>拉向并越过<>锤石；有敌方英雄贴身时把敌人<#ef5350ff>推开<>。",
         "ult": "在脚下立起幽冥监牢，持续<#ffb900ff>5秒<>。第一个碰到监牢的敌方英雄受到<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 法术强度<>的<#a974ffff>魔法伤害<>并被<#ef5350ff>减速99%<>，持续<#ffb900ff>2秒<>；之后碰到的敌方英雄不受伤害，减速时间减半。"
+      },
+      "league_fiddlesticks": {
+        "name": "费德提克",
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。被动 <#ff9028ff>巫骇草人<>：<#ffb900ff>3秒<>未行动时伪装成草人，之后第一次普攻或<#ff9028ff>夜割<>使命中的英雄<#ef5350ff>恐惧<><#ffb900ff>1秒<>。",
+        "skill": "放出乌鸦恐吓目标，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 法术强度<>的<#a974ffff>魔法伤害<>并使其<#ef5350ff>恐惧<><#ffb900ff>1.25秒<>；目标英雄正处于控制中时伤害翻倍。",
+        "skill2": "先挥出<#ff9028ff>夜割<>，造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% 法术强度<>的<#a974ffff>魔法伤害<>并<#ef5350ff>减速40%<><#ffb900ff>1.25秒<>，中心的英雄同时被<#ef5350ff>沉默<>。随后引导<#ffb900ff>2秒<>吸取周围敌人，共造成<#a974ffff>136<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>136% 法术强度<>的<#a974ffff>魔法伤害<>；每吸取一名英雄回复<#6aff55ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>64%<><#6aff55ff>生命值<>，小兵和野怪<#6aff55ff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<>。",
+        "ult": "引导<#ffb900ff>1秒<>后传送到目标位置，鸦群环绕自身<#ffb900ff>5秒<>，每<#ffb900ff>0.5秒<>对周围敌人造成<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20% 法术强度<>的<#a974ffff>魔法伤害<>，落地时使周围英雄<#ef5350ff>恐惧<><#ffb900ff>1秒<>。引导时受到控制会被打断。"
       }
     },
     "skill_name": {
@@ -242,6 +249,11 @@
         "skill1": "死亡判决",
         "skill2": "厄运钟摆",
         "ult": "幽冥监牢"
+      },
+      "league_fiddlesticks": {
+        "skill1": "恐惧",
+        "skill2": "五骨丰登",
+        "ult": "群鸦风暴"
       }
     }
   },
@@ -386,6 +398,13 @@
         "skill": "擲出鐮刀，鉤住直線上第一個敵方英雄（穿過小兵），造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 魔法強度<>的<#a974ffff>魔法傷害<>，<#ef5350ff>暈眩<><#ffb900ff>1秒<>並把它拉到身前。<#ff9028ff>鬼影燈籠<>：每<#ffb900ff>14秒<>同時擲出燈籠，為自己和身邊一名友方英雄提供<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 魔法強度<>的<#e8d44dff>護盾<>，持續<#ffb900ff>2.5秒<>。",
         "skill2": "揮動鎖鏈橫掃身邊，對敵人造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 魔法強度<>的<#a974ffff>魔法傷害<>並<#ef5350ff>緩速40%<>，持續<#ffb900ff>1秒<>。剛鉤中英雄或沒有敵方英雄貼身時，把敵人<#ef5350ff>拉向並越過<>瑟雷西；有敵方英雄貼身時把敵人<#ef5350ff>推開<>。",
         "ult": "在腳下立起惡靈領域，持續<#ffb900ff>5秒<>。第一個碰到它的敵方英雄受到<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 魔法強度<>的<#a974ffff>魔法傷害<>並被<#ef5350ff>緩速99%<>，持續<#ffb900ff>2秒<>；之後碰到的敵方英雄不受傷害，緩速時間減半。"
+      },
+      "league_fiddlesticks": {
+        "name": "費德提克",
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。被動 <#ff9028ff>無害稻草人<>：<#ffb900ff>3秒<>未行動時偽裝成稻草人，之後第一次普攻或<#ff9028ff>駭懼收割<>使命中的英雄<#ef5350ff>恐懼<><#ffb900ff>1秒<>。",
+        "skill": "放出烏鴉恐嚇目標，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 魔法強度<>的<#a974ffff>魔法傷害<>並使其<#ef5350ff>恐懼<><#ffb900ff>1.25秒<>；目標英雄正處於控制中時傷害加倍。",
+        "skill2": "先揮出<#ff9028ff>駭懼收割<>，造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% 魔法強度<>的<#a974ffff>魔法傷害<>並<#ef5350ff>緩速40%<><#ffb900ff>1.25秒<>，中心的英雄同時被<#ef5350ff>沉默<>。隨後引導<#ffb900ff>2秒<>吸取周圍敵人，共造成<#a974ffff>136<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>136% 魔法強度<>的<#a974ffff>魔法傷害<>；每吸取一名英雄回復<#6aff55ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>64%<><#6aff55ff>生命值<>，小兵和野怪<#6aff55ff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<>。",
+        "ult": "引導<#ffb900ff>1秒<>後傳送到目標位置，鴉群環繞自身<#ffb900ff>5秒<>，每<#ffb900ff>0.5秒<>對周圍敵人造成<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20% 魔法強度<>的<#a974ffff>魔法傷害<>，落地時使周圍英雄<#ef5350ff>恐懼<><#ffb900ff>1秒<>。引導時受到控制會被打斷。"
       }
     },
     "skill_name": {
@@ -488,6 +507,11 @@
         "skill1": "死亡宣告",
         "skill2": "懾魂掃蕩",
         "ult": "惡靈領域"
+      },
+      "league_fiddlesticks": {
+        "skill1": "恐懼",
+        "skill2": "豐收之魘",
+        "ult": "群鴉風暴"
       }
     }
   },
@@ -632,6 +656,13 @@
         "skill": "Thresh throws his scythe at the first enemy champion in a line (it passes minions), dealing <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% Ability Power<> <#a974ffff>magic damage<>, <#ef5350ff>stunning<> it for <#ffb900ff>1s<> and pulling it to him. <#ff9028ff>Dark Passage<>: every <#ffb900ff>14s<> he also throws his lantern, giving himself and a nearby allied champion a <#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% Ability Power<> <#e8d44dff>shield<> for <#ffb900ff>2.5s<>.",
         "skill2": "Thresh sweeps his chain around him, dealing <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% Ability Power<> <#a974ffff>magic damage<> to enemies and <#ef5350ff>slowing<> them by 40% for <#ffb900ff>1s<>. With an enemy champion right on him he <#ef5350ff>knocks them away<>; otherwise, and always right after a hook, he <#ef5350ff>pulls them toward and past him<>.",
         "ult": "Thresh raises a prison of spectral walls where he stands for <#ffb900ff>5s<>. The first enemy champion to touch it takes <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% Ability Power<> <#a974ffff>magic damage<> and is <#ef5350ff>slowed<> by 99% for <#ffb900ff>2s<>; later ones take no damage and are slowed for half as long."
+      },
+      "league_fiddlesticks": {
+        "name": "Fiddlesticks",
+        "attack": "Basic attacks deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. Passive <#ff9028ff>A Harmless Scarecrow<>: after <#ffb900ff>3s<> without acting he poses as a scarecrow; his next basic attack or <#ff9028ff>Reap<> <#ef5350ff>fears<> the champions it hits for <#ffb900ff>1s<>.",
+        "skill": "Fiddlesticks sends a crow at his target, dealing <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% Ability Power<> <#a974ffff>magic damage<> and <#ef5350ff>fearing<> it for <#ffb900ff>1.25s<>. Double damage to a champion already under crowd control.",
+        "skill2": "<#ff9028ff>Reap<> first: <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% Ability Power<> <#a974ffff>magic damage<> in the target area, <#ef5350ff>slowing<> by 40% for <#ffb900ff>1.25s<> and <#ef5350ff>silencing<> champions in its centre for as long. Then he channels for <#ffb900ff>2s<>, draining nearby enemies for <#a974ffff>136<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>136% Ability Power<> <#a974ffff>magic damage<> in total, and heals <#6aff55ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>64%<> per champion drained (<#6aff55ff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<> per minion or monster).",
+        "ult": "Fiddlesticks channels for <#ffb900ff>1s<>, then teleports to the target area. A murder of crows surrounds him for <#ffb900ff>5s<>, dealing <#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20% Ability Power<> <#a974ffff>magic damage<> to nearby enemies every <#ffb900ff>0.5s<>; champions caught as he lands are <#ef5350ff>feared<> for <#ffb900ff>1s<>. Crowd control interrupts the channel."
       }
     },
     "skill_name": {
@@ -734,6 +765,11 @@
         "skill1": "Death Sentence",
         "skill2": "Flay",
         "ult": "The Box"
+      },
+      "league_fiddlesticks": {
+        "skill1": "Terrify",
+        "skill2": "Bountiful Harvest",
+        "ult": "Crowstorm"
       }
     }
   },
@@ -878,6 +914,13 @@
         "skill": "낫을 던져 일직선상의 첫 적 챔피언을 낚아채(미니언 통과) <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 60%<> <#a974ffff>마법 피해<>를 입히고 <#ffb900ff>1초<> 동안 <#ef5350ff>기절<>시키며 앞으로 끌어옵니다. <#ff9028ff>어둠의 통로<>: <#ffb900ff>14초<>마다 등불도 던져 자신과 주변 아군 챔피언 하나에게 <#ffb900ff>2.5초<> 동안 <#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 40%<> <#e8d44dff>보호막<>을 씌웁니다.",
         "skill2": "사슬로 주변을 휩쓸어 적에게 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 40%<> <#a974ffff>마법 피해<>를 입히고 <#ffb900ff>1초<> 동안 <#ef5350ff>40% 둔화<>시킵니다. 적 챔피언이 바짝 붙어 있으면 적을 <#ef5350ff>밀쳐내고<>, 아니면(갈고리 적중 직후에는 항상) 자신 쪽으로 <#ef5350ff>끌어당겨 넘깁니다<>.",
         "ult": "선 자리에 <#ffb900ff>5초<> 동안 영혼 감옥을 세웁니다. 처음 닿은 적 챔피언은 <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 80%<> <#a974ffff>마법 피해<>를 입고 <#ffb900ff>2초<> 동안 <#ef5350ff>99% 둔화<>됩니다. 이후 닿은 적 챔피언은 피해 없이 절반 동안 둔화됩니다."
+      },
+      "league_fiddlesticks": {
+        "name": "피들스틱",
+        "attack": "기본 공격으로 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다. 기본 지속 효과 <#ff9028ff>무해한 허수아비<>: <#ffb900ff>3초<> 동안 아무 행동도 하지 않으면 허수아비로 위장하며, 다음 기본 공격이나 <#ff9028ff>수확<>에 맞은 챔피언은 <#ffb900ff>1초<> 동안 <#ef5350ff>공포<>에 빠집니다.",
+        "skill": "대상에게 까마귀를 날려 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 60%<> <#a974ffff>마법 피해<>를 입히고 <#ffb900ff>1.25초<> 동안 <#ef5350ff>공포<>에 빠뜨립니다. 이미 군중 제어 상태인 챔피언에게는 두 배의 피해를 입힙니다.",
+        "skill2": "<#ff9028ff>수확<>으로 대상 지역에 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 50%<> <#a974ffff>마법 피해<>를 입히고 <#ffb900ff>1.25초<> 동안 <#ef5350ff>40% 둔화<>시키며 중심의 챔피언은 <#ef5350ff>침묵<>시킵니다. 이어서 <#ffb900ff>2초<> 동안 주변 적의 영혼을 흡수해 총 <#a974ffff>136<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 136%<> <#a974ffff>마법 피해<>를 입히고, 챔피언 하나당 <#6aff55ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>64%<>, 미니언과 몬스터 하나당 <#6aff55ff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<>의 <#6aff55ff>체력<>을 회복합니다.",
+        "ult": "<#ffb900ff>1초<> 동안 정신을 집중한 뒤 대상 지역으로 순간이동합니다. 까마귀 떼가 <#ffb900ff>5초<> 동안 주위를 맴돌며 <#ffb900ff>0.5초<>마다 주변 적에게 <#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 20%<> <#a974ffff>마법 피해<>를 입히고, 착지할 때 주변 챔피언을 <#ffb900ff>1초<> 동안 <#ef5350ff>공포<>에 빠뜨립니다. 정신 집중 중 군중 제어를 받으면 끊깁니다."
       }
     },
     "skill_name": {
@@ -980,6 +1023,11 @@
         "skill1": "사형 선고",
         "skill2": "사슬 채찍",
         "ult": "영혼 감옥"
+      },
+      "league_fiddlesticks": {
+        "skill1": "공포",
+        "skill2": "풍작",
+        "ult": "까마귀 폭풍"
       }
     }
   },
@@ -1124,6 +1172,13 @@
         "skill": "鎌を投げ、直線上で最初の敵チャンピオン（ミニオンは貫通）に<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の60%<>の<#a974ffff>魔法ダメージ<>を与え、<#ffb900ff>1秒<>間<#ef5350ff>スタン<>させて引き寄せる。<#ff9028ff>嘆きの魂灯<>：<#ffb900ff>14秒<>ごとにランタンも投げ、自身と近くの味方チャンピオン1体に<#ffb900ff>2.5秒<>間<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の40%<>の<#e8d44dff>シールド<>を付与する。",
         "skill2": "鎖で周囲を薙ぎ払い、敵に<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の40%<>の<#a974ffff>魔法ダメージ<>と<#ffb900ff>1秒<>間の<#ef5350ff>40%スロウ<>を与える。敵チャンピオンが密着していれば<#ef5350ff>ノックバック<>し、そうでなければ（フック命中直後は常に）自身の向こう側まで<#ef5350ff>引き寄せる<>。",
         "ult": "足元に<#ffb900ff>5秒<>間魂の牢獄を築く。最初に触れた敵チャンピオンは<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の80%<>の<#a974ffff>魔法ダメージ<>と<#ffb900ff>2秒<>間の<#ef5350ff>99%スロウ<>を受ける。後から触れた敵チャンピオンはダメージを受けず、スロウは半分の時間になる。"
+      },
+      "league_fiddlesticks": {
+        "name": "フィドルスティックス",
+        "attack": "通常攻撃は<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>を与える。パッシブ <#ff9028ff>無害なカカシ<>：<#ffb900ff>3秒<>間行動しないとカカシに化け、次の通常攻撃か<#ff9028ff>刈り取り<>が当たったチャンピオンを<#ffb900ff>1秒<>間<#ef5350ff>恐怖<>させる。",
+        "skill": "対象にカラスを放ち<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の60%<>の<#a974ffff>魔法ダメージ<>を与え、<#ffb900ff>1.25秒<>間<#ef5350ff>恐怖<>させる。行動妨害中のチャンピオンにはダメージが2倍。",
+        "skill2": "まず<#ff9028ff>刈り取り<>で対象範囲に<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の50%<>の<#a974ffff>魔法ダメージ<>を与え<#ffb900ff>1.25秒<>間<#ef5350ff>40%スロウ<>、中心のチャンピオンは同時に<#ef5350ff>沈黙<>する。続けて<#ffb900ff>2秒<>間詠唱し周囲の敵から合計<#a974ffff>136<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の136%<>の<#a974ffff>魔法ダメージ<>を吸い取る。チャンピオン1体につき<#6aff55ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>64%<>の<#6aff55ff>体力<>を回復する。",
+        "ult": "<#ffb900ff>1秒<>詠唱後、対象地点へテレポート。カラスの群れが<#ffb900ff>5秒<>間周囲を舞い、<#ffb900ff>0.5秒<>毎に周囲の敵に<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の20%<>の<#a974ffff>魔法ダメージ<>を与え、着地時に周囲のチャンピオンを<#ffb900ff>1秒<>間<#ef5350ff>恐怖<>させる。詠唱中に行動妨害を受けると中断。"
       }
     },
     "skill_name": {
@@ -1226,6 +1281,11 @@
         "skill1": "死の宣告",
         "skill2": "絶望の鎖",
         "ult": "魂の牢獄"
+      },
+      "league_fiddlesticks": {
+        "skill1": "テラー",
+        "skill2": "豊かな収穫",
+        "ult": "クロウストーム"
       }
     }
   }
