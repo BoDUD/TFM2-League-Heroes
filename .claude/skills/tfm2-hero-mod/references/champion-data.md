@@ -122,6 +122,18 @@ also means minions and monsters: a non-penetrating skillshot on it stops on the 
   means "lowest health": base Priest's ult finds that ally in hard-coded logic
   (`lowest_hp_ally_in_range`). Heal, RangeEffect, Combine, Delayed, WithSelf and the projectiles
   all report their expected heal, so a heal nested in them still counts.
+  **In the simulation the health does not steer it** *(SDK simulation and disassembly, league_kayle,
+  2026-09-29)*: `battle_ally_action` is called only by the legacy poke / hunt sub-plans (serpent, epic
+  monster); the battle sub-plan's `base_battle_action` checks the casting target and range and scores
+  damage (`expected_damage_target`), not heals, and `lowest_hp_ally_in_range` belongs to base Priest's
+  native ult runner. league_soraka W (`Targeting AllyNotSelf`, a heal) went out every 4 s, often on
+  allies at full health (archer 1260/1260, pyromancer 1500/1500) while others were hurt; a probe ult
+  on `AllyChampion` (invulnerability, with or without a 150 or 2000 heal) was cast on cooldown, the
+  receiver at 84-94% health on average, the most injured champion in reach skipped (a ninja at 48%
+  while a 74% pyromancer got it). No effect a mod can use reads a unit's current health either
+  (`Heal`, the attack effects and the buff fields know only maximum health; base-only `Native` and
+  `AddStatScaledBuff` aside), so "save the one about to die" cannot be written - see section 7 "An ult
+  that waits for danger" for what can.
 - **A shield is worth its full amount on anyone** *(read from the SDK's game_core,
   `ShieldEffect::expected_shield`: the amount plus its ratio parts, nothing about the target; measured
   in the SDK simulation for league_janna E)*. Unlike a heal, a shield's score ignores the target's
@@ -1152,6 +1164,29 @@ amplification would fake a level. Each life's first action re-reads the stages s
 then an action at most every 2 s tries the next one, with the ascent's picture and voice. In 12 simulated
 games no stage came early; they came 2-4 s after the level-up (median).
 
+**An ult that waits for danger (league_kayle R, Divine Judgment).** League gives the invulnerability to whoever
+is about to die; nothing in a mod reads current health (section 3 "Which ally gets an ally skill"), so the rule
+the user picked uses the danger the data can see: an allied champion in crowd control within 50000 gets it at
+once (`RandomTarget` `AllyChampionInCC`), else Kayle herself when two or more enemy champions stand within 30000
+of her, else nothing. Two engine facts shape it *(SDK simulation, 2026-09-29)*:
+- The AI picks an ult slot cast on `EnemyChampion` while it closes in (the nearest enemy champion 60000 or more
+  away at 78 of 87 casts, mostly 60000-100000), seldom once the fight is on. A 3-tick check cast in the slot itself, refunded when
+  nobody needed it, ran about every second on the approach and found nobody in 10 minutes. So the slot only
+  arms the ult: a 3-tick action on the `idle` tag adds a 900-tick `r_armed` caster buff, and every attack, Q and
+  E runs the check while it lasts (her attacks keep coming all fight). A save removes `r_armed` (on the same
+  tick for an ally, so a check a tick later cannot save a second one), forces `CasterAnimation ult` for 44 ticks
+  and plays the voice; an unused window ends with a 3-tick `ult_cooldown_mult` buff that caps the cooldown at
+  60 ticks (section 5), and the AI arms it again on the next approach.
+- Counting enemies: a `RangeEffect` on `EnemyChampion` round her whose per-target effect is
+  `SwitchByBuff n1 ? AddCasterBuff n2 : AddCasterBuff n1` (3-tick flags) leaves `n2` on her from the second
+  enemy on - a buff added for one target of a `RangeEffect` is seen by the next target's `SwitchByBuff` on the
+  same tick. A `Delayed {tick: 1}` then reads `n2`.
+Against this pack's crowd-controlling heroes the ult went out 1-3 times a game, the receiver at 66% health on
+average (the old "an enemy champion in range: a crowd-controlled ally or herself" went 68 times of 71 to Kayle
+herself, at 93%); against base teams, with little crowd control, less than once. It made her stronger in the
+balance runs (+1.03 / +1.78 against +0.84 / +1.12 with the same numbers): the old ult spent itself on a full-health
+Kayle as each fight began. Her Q and E went back from 70 / 50 to 60 / 40 damage: +0.89 / +1.30.
+
 **Push or pull by the situation (league_thresh E, Flay).** League lets the player sweep either way; the AI
 needs a rule, checked on the hit tick (a `Delayed` in the cast): within 2 s of a hook (a caster buff the hook's
 `applied_effects` add) it pulls - the hooked champion is dragged next to him and a pull throws him through and
@@ -1167,10 +1202,11 @@ pulled together. The first version pulled 1500 x 10 (15000): the user could not 
 - `action_name` / `CasterAnimation.name` must be real sprite tags. Two LoL Reborn heroes use
   `action_name: "skill"` while their sprites only have `skill1`.
 - `SwitchByBuff` checks the caster; the buff must be added somewhere in the same kit.
-- An `ult` with `Targeting` on `EnemyChampion` is cast in nearly every fight (league_kayle R: about 5.6 times
-  a game in the simulation, against 0.25 for a probe ult cast on `AllyChampionInCC` with base teammates); its
-  effect can then pick an ally (`RandomTarget` `AllyChampionInCC`, else the caster). An ally-targeted ult waits
-  for the AI's own heal / shield valuation instead.
+- An `ult` with `Targeting` on `EnemyChampion` is cast in nearly every fight, as the hero closes in (league_kayle
+  R: about 5.6 times a game in the simulation, against 0.25 for a probe ult cast on `AllyChampionInCC` with base
+  teammates); its effect can then pick an ally (`RandomTarget` `AllyChampionInCC`). An ally-targeted ult is cast
+  whenever it is ready, on whoever the AI picks - not the most injured (section 3). To wait for a moment in the
+  fight, arm it and check from the attacks (section 7 "An ult that waits for danger").
 - Keep `start_timing <= duration`; long channels need a long `duration` (or `Delayed` effects).
 - Use namespaced names for every buff/projectile/effect (`league_garen_*`) - names are global-ish
   and collisions with other mods are hard to debug.

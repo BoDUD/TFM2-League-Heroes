@@ -2660,6 +2660,291 @@
               }
             ]
           }
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_kayle_r_armed",
+          "effect_buff": {
+            "type": "SwitchByBuff",
+            "buff_name": "league_kayle_r_busy",
+            "effect_buff": {
+              "type": "Combine",
+              "effects": []
+            },
+            "effect_none": {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_kayle_r_busy",
+                    "duration": {
+                      "Time": {
+                        "tick": 3
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_kayle_r_n1"
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_kayle_r_n2"
+                },
+                {
+                  "type": "RandomTarget",
+                  "range": 50000,
+                  "casting_target": "AllyChampionInCC",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_kayle_r_lock",
+                        "duration": {
+                          "Time": {
+                            "tick": 3
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_kayle_r_armed"
+                    },
+                    {
+                      "type": "AddBuff",
+                      "buff_state": {
+                        "name": "league_kayle_r_invuln",
+                        "duration": {
+                          "Time": {
+                            "tick": 150
+                          }
+                        },
+                        "damaged_reduce": 100,
+                        "cc_immune": true
+                      }
+                    },
+                    {
+                      "type": "Delayed",
+                      "tick": 150,
+                      "effects": [
+                        {
+                          "type": "ParabolicProjectile",
+                          "name": "league_kayle_r_lob",
+                          "travel_time": 1,
+                          "range": 1000000,
+                          "range_effect_name": "",
+                          "shape": {
+                            "Circle": {
+                              "radius": 1
+                            }
+                          },
+                          "applied_target": "EnemyChampion",
+                          "applied_effects": [],
+                          "end_effects": [
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_kayle_r_blades"
+                            },
+                            {
+                              "type": "Sfx",
+                              "name": "league_kayle_r_hit"
+                            },
+                            {
+                              "type": "RangeProjectile",
+                              "name": "league_kayle_r_purge",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 40000
+                                }
+                              },
+                              "delay": 1,
+                              "apply": 1,
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": [
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ApAttack",
+                                    "damage": 200,
+                                    "attack_ratio": 80,
+                                    "hp_ratio": 0,
+                                    "attack_effect_type": "Target"
+                                  }
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 1,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_kayle_r_lock",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Sfx",
+                            "name": "league_kayle_r_cast"
+                          },
+                          {
+                            "type": "CasterAnimation",
+                            "name": "ult",
+                            "tick": 44
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RangeEffect",
+                            "shape": {
+                              "Circle": {
+                                "radius": 30000
+                              }
+                            },
+                            "target": "EnemyChampion",
+                            "apply_type": "AroundCaster",
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_kayle_r_n1",
+                                "effect_buff": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_kayle_r_n2",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 3
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                "effect_none": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_kayle_r_n1",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 3
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 1,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_kayle_r_n2",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_kayle_r_armed"
+                                        },
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_kayle_r_invuln",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 150
+                                              }
+                                            },
+                                            "damaged_reduce": 100,
+                                            "cc_immune": true
+                                          },
+                                          "only_to_enemy": false
+                                        },
+                                        {
+                                          "type": "Delayed",
+                                          "tick": 150,
+                                          "effects": [
+                                            {
+                                              "type": "CasterViewEffect",
+                                              "name": "league_kayle_r_blades"
+                                            },
+                                            {
+                                              "type": "Sfx",
+                                              "name": "league_kayle_r_hit"
+                                            },
+                                            {
+                                              "type": "RangeEffect",
+                                              "shape": {
+                                                "Circle": {
+                                                  "radius": 40000
+                                                }
+                                              },
+                                              "target": "EnemyWithoutTower",
+                                              "apply_type": "AroundCaster",
+                                              "effects": [
+                                                {
+                                                  "type": "ApAttack",
+                                                  "damage": 200,
+                                                  "attack_ratio": 80,
+                                                  "hp_ratio": 0,
+                                                  "attack_effect_type": "Target"
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "Sfx",
+                                      "name": "league_kayle_r_cast"
+                                    },
+                                    {
+                                      "type": "CasterAnimation",
+                                      "name": "ult",
+                                      "tick": 44
+                                    }
+                                  ]
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": []
+          }
         }
       ]
     }
@@ -4669,6 +4954,291 @@
           }
         },
         {
+          "type": "SwitchByBuff",
+          "buff_name": "league_kayle_r_armed",
+          "effect_buff": {
+            "type": "SwitchByBuff",
+            "buff_name": "league_kayle_r_busy",
+            "effect_buff": {
+              "type": "Combine",
+              "effects": []
+            },
+            "effect_none": {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_kayle_r_busy",
+                    "duration": {
+                      "Time": {
+                        "tick": 3
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_kayle_r_n1"
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_kayle_r_n2"
+                },
+                {
+                  "type": "RandomTarget",
+                  "range": 50000,
+                  "casting_target": "AllyChampionInCC",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_kayle_r_lock",
+                        "duration": {
+                          "Time": {
+                            "tick": 3
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_kayle_r_armed"
+                    },
+                    {
+                      "type": "AddBuff",
+                      "buff_state": {
+                        "name": "league_kayle_r_invuln",
+                        "duration": {
+                          "Time": {
+                            "tick": 150
+                          }
+                        },
+                        "damaged_reduce": 100,
+                        "cc_immune": true
+                      }
+                    },
+                    {
+                      "type": "Delayed",
+                      "tick": 150,
+                      "effects": [
+                        {
+                          "type": "ParabolicProjectile",
+                          "name": "league_kayle_r_lob",
+                          "travel_time": 1,
+                          "range": 1000000,
+                          "range_effect_name": "",
+                          "shape": {
+                            "Circle": {
+                              "radius": 1
+                            }
+                          },
+                          "applied_target": "EnemyChampion",
+                          "applied_effects": [],
+                          "end_effects": [
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_kayle_r_blades"
+                            },
+                            {
+                              "type": "Sfx",
+                              "name": "league_kayle_r_hit"
+                            },
+                            {
+                              "type": "RangeProjectile",
+                              "name": "league_kayle_r_purge",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 40000
+                                }
+                              },
+                              "delay": 1,
+                              "apply": 1,
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": [
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ApAttack",
+                                    "damage": 200,
+                                    "attack_ratio": 80,
+                                    "hp_ratio": 0,
+                                    "attack_effect_type": "Target"
+                                  }
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 1,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_kayle_r_lock",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Sfx",
+                            "name": "league_kayle_r_cast"
+                          },
+                          {
+                            "type": "CasterAnimation",
+                            "name": "ult",
+                            "tick": 44
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RangeEffect",
+                            "shape": {
+                              "Circle": {
+                                "radius": 30000
+                              }
+                            },
+                            "target": "EnemyChampion",
+                            "apply_type": "AroundCaster",
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_kayle_r_n1",
+                                "effect_buff": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_kayle_r_n2",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 3
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                "effect_none": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_kayle_r_n1",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 3
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 1,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_kayle_r_n2",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_kayle_r_armed"
+                                        },
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_kayle_r_invuln",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 150
+                                              }
+                                            },
+                                            "damaged_reduce": 100,
+                                            "cc_immune": true
+                                          },
+                                          "only_to_enemy": false
+                                        },
+                                        {
+                                          "type": "Delayed",
+                                          "tick": 150,
+                                          "effects": [
+                                            {
+                                              "type": "CasterViewEffect",
+                                              "name": "league_kayle_r_blades"
+                                            },
+                                            {
+                                              "type": "Sfx",
+                                              "name": "league_kayle_r_hit"
+                                            },
+                                            {
+                                              "type": "RangeEffect",
+                                              "shape": {
+                                                "Circle": {
+                                                  "radius": 40000
+                                                }
+                                              },
+                                              "target": "EnemyWithoutTower",
+                                              "apply_type": "AroundCaster",
+                                              "effects": [
+                                                {
+                                                  "type": "ApAttack",
+                                                  "damage": 200,
+                                                  "attack_ratio": 80,
+                                                  "hp_ratio": 0,
+                                                  "attack_effect_type": "Target"
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "Sfx",
+                                      "name": "league_kayle_r_cast"
+                                    },
+                                    {
+                                      "type": "CasterAnimation",
+                                      "name": "ult",
+                                      "tick": 44
+                                    }
+                                  ]
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": []
+          }
+        },
+        {
           "type": "Sfx",
           "name": "league_kayle_q_cast"
         },
@@ -4711,7 +5281,7 @@
                   "casting_type": "Targeting",
                   "effect": {
                     "type": "ApAttack",
-                    "damage": 70,
+                    "damage": 60,
                     "attack_ratio": 60,
                     "hp_ratio": 0,
                     "attack_effect_type": "Target"
@@ -6760,6 +7330,291 @@
           }
         },
         {
+          "type": "SwitchByBuff",
+          "buff_name": "league_kayle_r_armed",
+          "effect_buff": {
+            "type": "SwitchByBuff",
+            "buff_name": "league_kayle_r_busy",
+            "effect_buff": {
+              "type": "Combine",
+              "effects": []
+            },
+            "effect_none": {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_kayle_r_busy",
+                    "duration": {
+                      "Time": {
+                        "tick": 3
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_kayle_r_n1"
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_kayle_r_n2"
+                },
+                {
+                  "type": "RandomTarget",
+                  "range": 50000,
+                  "casting_target": "AllyChampionInCC",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_kayle_r_lock",
+                        "duration": {
+                          "Time": {
+                            "tick": 3
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_kayle_r_armed"
+                    },
+                    {
+                      "type": "AddBuff",
+                      "buff_state": {
+                        "name": "league_kayle_r_invuln",
+                        "duration": {
+                          "Time": {
+                            "tick": 150
+                          }
+                        },
+                        "damaged_reduce": 100,
+                        "cc_immune": true
+                      }
+                    },
+                    {
+                      "type": "Delayed",
+                      "tick": 150,
+                      "effects": [
+                        {
+                          "type": "ParabolicProjectile",
+                          "name": "league_kayle_r_lob",
+                          "travel_time": 1,
+                          "range": 1000000,
+                          "range_effect_name": "",
+                          "shape": {
+                            "Circle": {
+                              "radius": 1
+                            }
+                          },
+                          "applied_target": "EnemyChampion",
+                          "applied_effects": [],
+                          "end_effects": [
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_kayle_r_blades"
+                            },
+                            {
+                              "type": "Sfx",
+                              "name": "league_kayle_r_hit"
+                            },
+                            {
+                              "type": "RangeProjectile",
+                              "name": "league_kayle_r_purge",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 40000
+                                }
+                              },
+                              "delay": 1,
+                              "apply": 1,
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": [
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ApAttack",
+                                    "damage": 200,
+                                    "attack_ratio": 80,
+                                    "hp_ratio": 0,
+                                    "attack_effect_type": "Target"
+                                  }
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 1,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_kayle_r_lock",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Sfx",
+                            "name": "league_kayle_r_cast"
+                          },
+                          {
+                            "type": "CasterAnimation",
+                            "name": "ult",
+                            "tick": 44
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RangeEffect",
+                            "shape": {
+                              "Circle": {
+                                "radius": 30000
+                              }
+                            },
+                            "target": "EnemyChampion",
+                            "apply_type": "AroundCaster",
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_kayle_r_n1",
+                                "effect_buff": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_kayle_r_n2",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 3
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                "effect_none": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_kayle_r_n1",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 3
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 1,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_kayle_r_n2",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_kayle_r_armed"
+                                        },
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_kayle_r_invuln",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 150
+                                              }
+                                            },
+                                            "damaged_reduce": 100,
+                                            "cc_immune": true
+                                          },
+                                          "only_to_enemy": false
+                                        },
+                                        {
+                                          "type": "Delayed",
+                                          "tick": 150,
+                                          "effects": [
+                                            {
+                                              "type": "CasterViewEffect",
+                                              "name": "league_kayle_r_blades"
+                                            },
+                                            {
+                                              "type": "Sfx",
+                                              "name": "league_kayle_r_hit"
+                                            },
+                                            {
+                                              "type": "RangeEffect",
+                                              "shape": {
+                                                "Circle": {
+                                                  "radius": 40000
+                                                }
+                                              },
+                                              "target": "EnemyWithoutTower",
+                                              "apply_type": "AroundCaster",
+                                              "effects": [
+                                                {
+                                                  "type": "ApAttack",
+                                                  "damage": 200,
+                                                  "attack_ratio": 80,
+                                                  "hp_ratio": 0,
+                                                  "attack_effect_type": "Target"
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "Sfx",
+                                      "name": "league_kayle_r_cast"
+                                    },
+                                    {
+                                      "type": "CasterAnimation",
+                                      "name": "ult",
+                                      "tick": 44
+                                    }
+                                  ]
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": []
+          }
+        },
+        {
           "type": "Sfx",
           "name": "league_kayle_e_cast"
         },
@@ -6811,7 +7666,7 @@
                     "casting_type": "Targeting",
                     "effect": {
                       "type": "ApAttack",
-                      "damage": 50,
+                      "damage": 40,
                       "attack_ratio": 50,
                       "hp_ratio": 0,
                       "attack_effect_type": "Target"
@@ -6832,7 +7687,7 @@
                 "casting_type": "Targeting",
                 "effect": {
                   "type": "ApAttack",
-                  "damage": 50,
+                  "damage": 40,
                   "attack_ratio": 50,
                   "hp_ratio": 0,
                   "attack_effect_type": "Target"
@@ -6975,11 +7830,11 @@
     }
   },
   "ult": {
-    "action_name": "ult",
+    "action_name": "idle",
     "description": "#asset/base/text/champion?description.league_kayle.ult",
-    "duration": 44,
+    "duration": 3,
     "cooltime": 3600,
-    "start_timing": 20,
+    "start_timing": 1,
     "cancelable": false,
     "range": 50000,
     "casting_type": "Targeting",
@@ -7637,158 +8492,334 @@
           }
         },
         {
-          "type": "Sfx",
-          "name": "league_kayle_r_cast"
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_kayle_r_armed",
+            "duration": {
+              "Time": {
+                "tick": 900
+              }
+            }
+          },
+          "only_to_enemy": false
         },
         {
-          "type": "RandomTarget",
-          "range": 50000,
-          "casting_target": "AllyChampionInCC",
-          "from_projectile": false,
-          "effects": [
-            {
-              "type": "AddCasterBuff",
-              "buff_state": {
-                "name": "league_kayle_r_lock",
-                "duration": {
-                  "Time": {
-                    "tick": 3
-                  }
-                }
-              },
-              "only_to_enemy": false
+          "type": "SwitchByBuff",
+          "buff_name": "league_kayle_r_armed",
+          "effect_buff": {
+            "type": "SwitchByBuff",
+            "buff_name": "league_kayle_r_busy",
+            "effect_buff": {
+              "type": "Combine",
+              "effects": []
             },
-            {
-              "type": "AddBuff",
-              "buff_state": {
-                "name": "league_kayle_r_invuln",
-                "duration": {
-                  "Time": {
-                    "tick": 150
-                  }
-                },
-                "damaged_reduce": 100,
-                "cc_immune": true
-              }
-            },
-            {
-              "type": "Delayed",
-              "tick": 150,
+            "effect_none": {
+              "type": "Combine",
               "effects": [
                 {
-                  "type": "ParabolicProjectile",
-                  "name": "league_kayle_r_lob",
-                  "travel_time": 1,
-                  "range": 1000000,
-                  "range_effect_name": "",
-                  "shape": {
-                    "Circle": {
-                      "radius": 1
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_kayle_r_busy",
+                    "duration": {
+                      "Time": {
+                        "tick": 3
+                      }
                     }
                   },
-                  "applied_target": "EnemyChampion",
-                  "applied_effects": [],
-                  "end_effects": [
+                  "only_to_enemy": false
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_kayle_r_n1"
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_kayle_r_n2"
+                },
+                {
+                  "type": "RandomTarget",
+                  "range": 50000,
+                  "casting_target": "AllyChampionInCC",
+                  "from_projectile": false,
+                  "effects": [
                     {
-                      "type": "ViewEffect",
-                      "name": "league_kayle_r_blades"
-                    },
-                    {
-                      "type": "Sfx",
-                      "name": "league_kayle_r_hit"
-                    },
-                    {
-                      "type": "RangeProjectile",
-                      "name": "league_kayle_r_purge",
-                      "shape": {
-                        "Circle": {
-                          "radius": 40000
-                        }
-                      },
-                      "delay": 1,
-                      "apply": 1,
-                      "applied_target": "EnemyWithoutTower",
-                      "applied_effects": [
-                        {
-                          "casting_type": "Targeting",
-                          "effect": {
-                            "type": "ApAttack",
-                            "damage": 200,
-                            "attack_ratio": 80,
-                            "hp_ratio": 0,
-                            "attack_effect_type": "Target"
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_kayle_r_lock",
+                        "duration": {
+                          "Time": {
+                            "tick": 3
                           }
                         }
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_kayle_r_armed"
+                    },
+                    {
+                      "type": "AddBuff",
+                      "buff_state": {
+                        "name": "league_kayle_r_invuln",
+                        "duration": {
+                          "Time": {
+                            "tick": 150
+                          }
+                        },
+                        "damaged_reduce": 100,
+                        "cc_immune": true
+                      }
+                    },
+                    {
+                      "type": "Delayed",
+                      "tick": 150,
+                      "effects": [
+                        {
+                          "type": "ParabolicProjectile",
+                          "name": "league_kayle_r_lob",
+                          "travel_time": 1,
+                          "range": 1000000,
+                          "range_effect_name": "",
+                          "shape": {
+                            "Circle": {
+                              "radius": 1
+                            }
+                          },
+                          "applied_target": "EnemyChampion",
+                          "applied_effects": [],
+                          "end_effects": [
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_kayle_r_blades"
+                            },
+                            {
+                              "type": "Sfx",
+                              "name": "league_kayle_r_hit"
+                            },
+                            {
+                              "type": "RangeProjectile",
+                              "name": "league_kayle_r_purge",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 40000
+                                }
+                              },
+                              "delay": 1,
+                              "apply": 1,
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": [
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ApAttack",
+                                    "damage": 200,
+                                    "attack_ratio": 80,
+                                    "hp_ratio": 0,
+                                    "attack_effect_type": "Target"
+                                  }
+                                }
+                              ]
+                            }
+                          ]
+                        }
                       ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 1,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_kayle_r_lock",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Sfx",
+                            "name": "league_kayle_r_cast"
+                          },
+                          {
+                            "type": "CasterAnimation",
+                            "name": "ult",
+                            "tick": 44
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RangeEffect",
+                            "shape": {
+                              "Circle": {
+                                "radius": 30000
+                              }
+                            },
+                            "target": "EnemyChampion",
+                            "apply_type": "AroundCaster",
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_kayle_r_n1",
+                                "effect_buff": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_kayle_r_n2",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 3
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                "effect_none": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_kayle_r_n1",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 3
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 1,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_kayle_r_n2",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_kayle_r_armed"
+                                        },
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_kayle_r_invuln",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 150
+                                              }
+                                            },
+                                            "damaged_reduce": 100,
+                                            "cc_immune": true
+                                          },
+                                          "only_to_enemy": false
+                                        },
+                                        {
+                                          "type": "Delayed",
+                                          "tick": 150,
+                                          "effects": [
+                                            {
+                                              "type": "CasterViewEffect",
+                                              "name": "league_kayle_r_blades"
+                                            },
+                                            {
+                                              "type": "Sfx",
+                                              "name": "league_kayle_r_hit"
+                                            },
+                                            {
+                                              "type": "RangeEffect",
+                                              "shape": {
+                                                "Circle": {
+                                                  "radius": 40000
+                                                }
+                                              },
+                                              "target": "EnemyWithoutTower",
+                                              "apply_type": "AroundCaster",
+                                              "effects": [
+                                                {
+                                                  "type": "ApAttack",
+                                                  "damage": 200,
+                                                  "attack_ratio": 80,
+                                                  "hp_ratio": 0,
+                                                  "attack_effect_type": "Target"
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "Sfx",
+                                      "name": "league_kayle_r_cast"
+                                    },
+                                    {
+                                      "type": "CasterAnimation",
+                                      "name": "ult",
+                                      "tick": 44
+                                    }
+                                  ]
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
                     }
                   ]
                 }
               ]
             }
-          ]
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": []
+          }
         },
         {
           "type": "Delayed",
-          "tick": 1,
+          "tick": 899,
           "effects": [
             {
               "type": "SwitchByBuff",
-              "buff_name": "league_kayle_r_lock",
+              "buff_name": "league_kayle_r_armed",
               "effect_buff": {
-                "type": "Combine",
-                "effects": []
-              },
-              "effect_none": {
                 "type": "Combine",
                 "effects": [
                   {
-                    "type": "AddCasterBuff",
-                    "buff_state": {
-                      "name": "league_kayle_r_invuln",
-                      "duration": {
-                        "Time": {
-                          "tick": 150
-                        }
-                      },
-                      "damaged_reduce": 100,
-                      "cc_immune": true
-                    },
-                    "only_to_enemy": false
+                    "type": "RemoveCasterBuff",
+                    "name": "league_kayle_r_armed"
                   },
                   {
-                    "type": "Delayed",
-                    "tick": 149,
-                    "effects": [
-                      {
-                        "type": "CasterViewEffect",
-                        "name": "league_kayle_r_blades"
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_kayle_r_retry",
+                      "duration": {
+                        "Time": {
+                          "tick": 3
+                        }
                       },
-                      {
-                        "type": "Sfx",
-                        "name": "league_kayle_r_hit"
-                      },
-                      {
-                        "type": "RangeEffect",
-                        "shape": {
-                          "Circle": {
-                            "radius": 40000
-                          }
-                        },
-                        "target": "EnemyWithoutTower",
-                        "apply_type": "AroundCaster",
-                        "effects": [
-                          {
-                            "type": "ApAttack",
-                            "damage": 200,
-                            "attack_ratio": 80,
-                            "hp_ratio": 0,
-                            "attack_effect_type": "Target"
-                          }
-                        ]
-                      }
-                    ]
+                      "ult_cooldown_mult": 5900
+                    },
+                    "only_to_enemy": false
                   }
                 ]
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": []
               }
             }
           ]
