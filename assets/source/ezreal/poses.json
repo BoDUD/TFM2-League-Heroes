@@ -50,38 +50,39 @@
     },
     "run": {
       "flat": true,
+      "head_like": "Ezreal_Idle@0",
       "frames": [
         [
           "ezreal_run@0",
-          80
+          125
         ],
         [
           "ezreal_run@125",
-          80
+          125
         ],
         [
           "ezreal_run@250",
-          80
+          125
         ],
         [
           "ezreal_run@375",
-          80
+          125
         ],
         [
           "ezreal_run@500",
-          80
+          125
         ],
         [
           "ezreal_run@625",
-          80
+          125
         ],
         [
           "ezreal_run@750",
-          80
+          125
         ],
         [
           "ezreal_run@875",
-          80
+          125
         ]
       ]
     },
