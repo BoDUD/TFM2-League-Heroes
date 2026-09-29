@@ -144,13 +144,12 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        # shading (8 squares); the hem and the train's lowest rows stay
        ("morgana", "idle"): (6, [2, 3, 4])}
 CROWN = {"leesin"}              # heroes whose head template starts at the crown (a braid stands above it)
-PASTED = {"masteryi",            # steadied on the head restyle_native pasted: his raised sword is the top of every frame
-          "ahri"}    # her drawn head with the fox ears, pasted on League's head joint: steadied there
+PASTED = {"masteryi"}            # steadied on the head restyle_native pasted: his raised sword is the top of every frame
 # Codex's step-2 redraw (model_strips_18, tidied by tidy_codex18.py): the approved design's head (or face) is in every
 # frame, so they are steadied on idle frame 1's head like the round-1 heroes - or on their eyes when they are in
 # EYES - whatever their poses.json says
 REDRAWN = {"thresh", "leona", "janna", "ekko", "darius", "leesin", "soraka", "malphite", "annie", "amumu", "yasuo",
-           "jinx", "missfortune", "yone", "garen", "ashe"}
+           "jinx", "missfortune", "yone", "garen", "ashe", "ahri"}
 # heroes steadied on their eyes: (R, G, B) of a colour only the eyes use; the head column is the eyes' middle
 EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade is the top of every frame
         "kayle": (226, 138, 8),           # Codex's redraw: her wings rise above her head, the amber is the eyes'
@@ -169,6 +168,7 @@ EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade
         "yone": (70, 52, 94),             # the same for Yone (no eyes under the mask): the purple strand over his face
         "garen": (31, 62, 200),           # the same for Garen: his near eye's blue iris, in an eye-only shade
         "ashe": (59, 174, 240),           # the same for Ashe: her cyan eyes (the bow is cyan too), eye-only shade
+        "ahri": (233, 162, 34),           # the same for Ahri: her amber eyes (her outfit has the amber too), eye-only
         "lucian": (63, 106, 116),         # the redesign: his raised pistol is the top of every idle frame
         "morgana": (200, 60, 166)}        # the redesign A: only her face is pasted, its pink-violet is the eyes'
 
