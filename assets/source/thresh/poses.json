@@ -16,9 +16,7 @@
   "cell": [112, 96, 14],
   "design": "Thresh_idle1@0",
   "restyle": {
-    "head": {"mode": "voted", "features": {"anchor": [0, 0], "pixels": []}, "under": [
-      {"name": "hglow", "hue": [80, 185], "sat": [0.25, 1], "val": [0.25, 1], "ramp": [["1F5A4A", 0.45], ["3FB08A", 0.7], ["9CF5C8"]]},
-      {"name": "hdark", "ramp": [["100C16", 0.14], ["2A2236", 0.25], ["4A3E5C"]]}]},
+    "head": {"rect": [50, 61, 18, 16], "cut": [[66, 74], [67, 74], [65, 75], [66, 75], [67, 75], [63, 76], [64, 76], [65, 76], [66, 76], [67, 76]], "dx": -4, "dy": -5, "turn": 180},
     "outline": "0A070E",
     "weapon": [["3E2E34", 0.3], ["6E5458", 0.45], ["9C807C"]],
     "weapon_materials": [
@@ -34,8 +32,8 @@
       ["Thresh_idle1@0", 250], ["Thresh_idle1@555", 250], ["Thresh_idle1@1110", 250],
       ["Thresh_idle1@1665", 250], ["Thresh_idle1@2220", 250], ["Thresh_idle1@2775", 250]]},
     "run": {"flat": true, "frames": [
-      ["Thresh_run@0", 80], ["Thresh_run@125", 80], ["Thresh_run@250", 80], ["Thresh_run@375", 80],
-      ["Thresh_run@500", 80], ["Thresh_run@625", 80], ["Thresh_run@750", 80], ["Thresh_run@875", 80]]},
+      ["Thresh_run@0", 125], ["Thresh_run@125", 125], ["Thresh_run@250", 125], ["Thresh_run@375", 125],
+      ["Thresh_run@500", 125], ["Thresh_run@625", 125], ["Thresh_run@750", 125], ["Thresh_run@875", 125]]},
     "attack": {"lunge": 0.7, "frames": [
       ["Thresh_idle1@0>Thresh_attack1_mid@0:0.5", 50], ["Thresh_attack1_mid@150", 60], ["Thresh_attack1_mid@300", 60],
       ["Thresh_attack1_mid@400", 60], ["Thresh_attack1_mid@450", 70], ["Thresh_attack1_mid@600", 80],
