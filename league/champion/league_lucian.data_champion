@@ -1308,7 +1308,7 @@
                       {
                         "type": "LinearProjectile",
                         "name": "league_lucian_r_bullet",
-                        "speed": 8000,
+                        "speed": 12000,
                         "range": 120000,
                         "shape": {
                           "Circle": {
@@ -1369,7 +1369,7 @@
                             {
                               "type": "LinearProjectile",
                               "name": "league_lucian_r_bullet",
-                              "speed": 8000,
+                              "speed": 12000,
                               "range": 120000,
                               "shape": {
                                 "Circle": {
@@ -1415,7 +1415,7 @@
                               {
                                 "type": "LinearProjectile",
                                 "name": "league_lucian_r_bullet",
-                                "speed": 8000,
+                                "speed": 12000,
                                 "range": 120000,
                                 "shape": {
                                   "Circle": {
@@ -1505,7 +1505,7 @@
                       {
                         "type": "LinearProjectile",
                         "name": "league_lucian_r_bullet",
-                        "speed": 8000,
+                        "speed": 12000,
                         "range": 120000,
                         "shape": {
                           "Circle": {
@@ -1566,7 +1566,7 @@
                             {
                               "type": "LinearProjectile",
                               "name": "league_lucian_r_bullet",
-                              "speed": 8000,
+                              "speed": 12000,
                               "range": 120000,
                               "shape": {
                                 "Circle": {
@@ -1612,7 +1612,7 @@
                               {
                                 "type": "LinearProjectile",
                                 "name": "league_lucian_r_bullet",
-                                "speed": 8000,
+                                "speed": 12000,
                                 "range": 120000,
                                 "shape": {
                                   "Circle": {
@@ -1702,7 +1702,7 @@
                       {
                         "type": "LinearProjectile",
                         "name": "league_lucian_r_bullet",
-                        "speed": 8000,
+                        "speed": 12000,
                         "range": 120000,
                         "shape": {
                           "Circle": {
@@ -1763,7 +1763,7 @@
                             {
                               "type": "LinearProjectile",
                               "name": "league_lucian_r_bullet",
-                              "speed": 8000,
+                              "speed": 12000,
                               "range": 120000,
                               "shape": {
                                 "Circle": {
@@ -1809,7 +1809,7 @@
                               {
                                 "type": "LinearProjectile",
                                 "name": "league_lucian_r_bullet",
-                                "speed": 8000,
+                                "speed": 12000,
                                 "range": 120000,
                                 "shape": {
                                   "Circle": {
@@ -1899,7 +1899,7 @@
                       {
                         "type": "LinearProjectile",
                         "name": "league_lucian_r_bullet",
-                        "speed": 8000,
+                        "speed": 12000,
                         "range": 120000,
                         "shape": {
                           "Circle": {
@@ -1960,7 +1960,7 @@
                             {
                               "type": "LinearProjectile",
                               "name": "league_lucian_r_bullet",
-                              "speed": 8000,
+                              "speed": 12000,
                               "range": 120000,
                               "shape": {
                                 "Circle": {
@@ -2006,7 +2006,7 @@
                               {
                                 "type": "LinearProjectile",
                                 "name": "league_lucian_r_bullet",
-                                "speed": 8000,
+                                "speed": 12000,
                                 "range": 120000,
                                 "shape": {
                                   "Circle": {
@@ -2096,7 +2096,7 @@
                       {
                         "type": "LinearProjectile",
                         "name": "league_lucian_r_bullet",
-                        "speed": 8000,
+                        "speed": 12000,
                         "range": 120000,
                         "shape": {
                           "Circle": {
@@ -2157,7 +2157,7 @@
                             {
                               "type": "LinearProjectile",
                               "name": "league_lucian_r_bullet",
-                              "speed": 8000,
+                              "speed": 12000,
                               "range": 120000,
                               "shape": {
                                 "Circle": {
@@ -2203,7 +2203,7 @@
                               {
                                 "type": "LinearProjectile",
                                 "name": "league_lucian_r_bullet",
-                                "speed": 8000,
+                                "speed": 12000,
                                 "range": 120000,
                                 "shape": {
                                   "Circle": {
@@ -2293,7 +2293,7 @@
                       {
                         "type": "LinearProjectile",
                         "name": "league_lucian_r_bullet",
-                        "speed": 8000,
+                        "speed": 12000,
                         "range": 120000,
                         "shape": {
                           "Circle": {
@@ -2354,7 +2354,7 @@
                             {
                               "type": "LinearProjectile",
                               "name": "league_lucian_r_bullet",
-                              "speed": 8000,
+                              "speed": 12000,
                               "range": 120000,
                               "shape": {
                                 "Circle": {
@@ -2400,7 +2400,7 @@
                               {
                                 "type": "LinearProjectile",
                                 "name": "league_lucian_r_bullet",
-                                "speed": 8000,
+                                "speed": 12000,
                                 "range": 120000,
                                 "shape": {
                                   "Circle": {
@@ -2490,7 +2490,7 @@
                       {
                         "type": "LinearProjectile",
                         "name": "league_lucian_r_bullet",
-                        "speed": 8000,
+                        "speed": 12000,
                         "range": 120000,
                         "shape": {
                           "Circle": {
@@ -2551,7 +2551,7 @@
                             {
                               "type": "LinearProjectile",
                               "name": "league_lucian_r_bullet",
-                              "speed": 8000,
+                              "speed": 12000,
                               "range": 120000,
                               "shape": {
                                 "Circle": {
@@ -2597,7 +2597,7 @@
                               {
                                 "type": "LinearProjectile",
                                 "name": "league_lucian_r_bullet",
-                                "speed": 8000,
+                                "speed": 12000,
                                 "range": 120000,
                                 "shape": {
                                   "Circle": {
@@ -2687,7 +2687,7 @@
                       {
                         "type": "LinearProjectile",
                         "name": "league_lucian_r_bullet",
-                        "speed": 8000,
+                        "speed": 12000,
                         "range": 120000,
                         "shape": {
                           "Circle": {
@@ -2748,7 +2748,7 @@
                             {
                               "type": "LinearProjectile",
                               "name": "league_lucian_r_bullet",
-                              "speed": 8000,
+                              "speed": 12000,
                               "range": 120000,
                               "shape": {
                                 "Circle": {
@@ -2794,7 +2794,7 @@
                               {
                                 "type": "LinearProjectile",
                                 "name": "league_lucian_r_bullet",
-                                "speed": 8000,
+                                "speed": 12000,
                                 "range": 120000,
                                 "shape": {
                                   "Circle": {
@@ -2884,7 +2884,7 @@
                       {
                         "type": "LinearProjectile",
                         "name": "league_lucian_r_bullet",
-                        "speed": 8000,
+                        "speed": 12000,
                         "range": 120000,
                         "shape": {
                           "Circle": {
@@ -2945,7 +2945,7 @@
                             {
                               "type": "LinearProjectile",
                               "name": "league_lucian_r_bullet",
-                              "speed": 8000,
+                              "speed": 12000,
                               "range": 120000,
                               "shape": {
                                 "Circle": {
@@ -2991,7 +2991,7 @@
                               {
                                 "type": "LinearProjectile",
                                 "name": "league_lucian_r_bullet",
-                                "speed": 8000,
+                                "speed": 12000,
                                 "range": 120000,
                                 "shape": {
                                   "Circle": {
@@ -3081,7 +3081,7 @@
                       {
                         "type": "LinearProjectile",
                         "name": "league_lucian_r_bullet",
-                        "speed": 8000,
+                        "speed": 12000,
                         "range": 120000,
                         "shape": {
                           "Circle": {
@@ -3142,7 +3142,7 @@
                             {
                               "type": "LinearProjectile",
                               "name": "league_lucian_r_bullet",
-                              "speed": 8000,
+                              "speed": 12000,
                               "range": 120000,
                               "shape": {
                                 "Circle": {
@@ -3188,7 +3188,7 @@
                               {
                                 "type": "LinearProjectile",
                                 "name": "league_lucian_r_bullet",
-                                "speed": 8000,
+                                "speed": 12000,
                                 "range": 120000,
                                 "shape": {
                                   "Circle": {
@@ -3278,7 +3278,7 @@
                       {
                         "type": "LinearProjectile",
                         "name": "league_lucian_r_bullet",
-                        "speed": 8000,
+                        "speed": 12000,
                         "range": 120000,
                         "shape": {
                           "Circle": {
@@ -3339,7 +3339,7 @@
                             {
                               "type": "LinearProjectile",
                               "name": "league_lucian_r_bullet",
-                              "speed": 8000,
+                              "speed": 12000,
                               "range": 120000,
                               "shape": {
                                 "Circle": {
@@ -3385,7 +3385,7 @@
                               {
                                 "type": "LinearProjectile",
                                 "name": "league_lucian_r_bullet",
-                                "speed": 8000,
+                                "speed": 12000,
                                 "range": 120000,
                                 "shape": {
                                   "Circle": {
@@ -3475,7 +3475,7 @@
                       {
                         "type": "LinearProjectile",
                         "name": "league_lucian_r_bullet",
-                        "speed": 8000,
+                        "speed": 12000,
                         "range": 120000,
                         "shape": {
                           "Circle": {
@@ -3536,7 +3536,7 @@
                             {
                               "type": "LinearProjectile",
                               "name": "league_lucian_r_bullet",
-                              "speed": 8000,
+                              "speed": 12000,
                               "range": 120000,
                               "shape": {
                                 "Circle": {
@@ -3582,7 +3582,7 @@
                               {
                                 "type": "LinearProjectile",
                                 "name": "league_lucian_r_bullet",
-                                "speed": 8000,
+                                "speed": 12000,
                                 "range": 120000,
                                 "shape": {
                                   "Circle": {
@@ -3672,7 +3672,7 @@
                       {
                         "type": "LinearProjectile",
                         "name": "league_lucian_r_bullet",
-                        "speed": 8000,
+                        "speed": 12000,
                         "range": 120000,
                         "shape": {
                           "Circle": {
@@ -3733,7 +3733,7 @@
                             {
                               "type": "LinearProjectile",
                               "name": "league_lucian_r_bullet",
-                              "speed": 8000,
+                              "speed": 12000,
                               "range": 120000,
                               "shape": {
                                 "Circle": {
@@ -3779,7 +3779,7 @@
                               {
                                 "type": "LinearProjectile",
                                 "name": "league_lucian_r_bullet",
-                                "speed": 8000,
+                                "speed": 12000,
                                 "range": 120000,
                                 "shape": {
                                   "Circle": {
@@ -3869,7 +3869,7 @@
                       {
                         "type": "LinearProjectile",
                         "name": "league_lucian_r_bullet",
-                        "speed": 8000,
+                        "speed": 12000,
                         "range": 120000,
                         "shape": {
                           "Circle": {
@@ -3930,7 +3930,7 @@
                             {
                               "type": "LinearProjectile",
                               "name": "league_lucian_r_bullet",
-                              "speed": 8000,
+                              "speed": 12000,
                               "range": 120000,
                               "shape": {
                                 "Circle": {
@@ -3976,7 +3976,7 @@
                               {
                                 "type": "LinearProjectile",
                                 "name": "league_lucian_r_bullet",
-                                "speed": 8000,
+                                "speed": 12000,
                                 "range": 120000,
                                 "shape": {
                                   "Circle": {
@@ -4066,7 +4066,7 @@
                       {
                         "type": "LinearProjectile",
                         "name": "league_lucian_r_bullet",
-                        "speed": 8000,
+                        "speed": 12000,
                         "range": 120000,
                         "shape": {
                           "Circle": {
@@ -4127,7 +4127,7 @@
                             {
                               "type": "LinearProjectile",
                               "name": "league_lucian_r_bullet",
-                              "speed": 8000,
+                              "speed": 12000,
                               "range": 120000,
                               "shape": {
                                 "Circle": {
@@ -4173,7 +4173,7 @@
                               {
                                 "type": "LinearProjectile",
                                 "name": "league_lucian_r_bullet",
-                                "speed": 8000,
+                                "speed": 12000,
                                 "range": 120000,
                                 "shape": {
                                   "Circle": {
@@ -4263,7 +4263,7 @@
                       {
                         "type": "LinearProjectile",
                         "name": "league_lucian_r_bullet",
-                        "speed": 8000,
+                        "speed": 12000,
                         "range": 120000,
                         "shape": {
                           "Circle": {
@@ -4324,7 +4324,7 @@
                             {
                               "type": "LinearProjectile",
                               "name": "league_lucian_r_bullet",
-                              "speed": 8000,
+                              "speed": 12000,
                               "range": 120000,
                               "shape": {
                                 "Circle": {
@@ -4370,7 +4370,7 @@
                               {
                                 "type": "LinearProjectile",
                                 "name": "league_lucian_r_bullet",
-                                "speed": 8000,
+                                "speed": 12000,
                                 "range": 120000,
                                 "shape": {
                                   "Circle": {
@@ -4460,7 +4460,7 @@
                       {
                         "type": "LinearProjectile",
                         "name": "league_lucian_r_bullet",
-                        "speed": 8000,
+                        "speed": 12000,
                         "range": 120000,
                         "shape": {
                           "Circle": {
@@ -4521,7 +4521,7 @@
                             {
                               "type": "LinearProjectile",
                               "name": "league_lucian_r_bullet",
-                              "speed": 8000,
+                              "speed": 12000,
                               "range": 120000,
                               "shape": {
                                 "Circle": {
@@ -4567,7 +4567,7 @@
                               {
                                 "type": "LinearProjectile",
                                 "name": "league_lucian_r_bullet",
-                                "speed": 8000,
+                                "speed": 12000,
                                 "range": 120000,
                                 "shape": {
                                   "Circle": {
@@ -4657,7 +4657,7 @@
                       {
                         "type": "LinearProjectile",
                         "name": "league_lucian_r_bullet",
-                        "speed": 8000,
+                        "speed": 12000,
                         "range": 120000,
                         "shape": {
                           "Circle": {
@@ -4718,7 +4718,7 @@
                             {
                               "type": "LinearProjectile",
                               "name": "league_lucian_r_bullet",
-                              "speed": 8000,
+                              "speed": 12000,
                               "range": 120000,
                               "shape": {
                                 "Circle": {
@@ -4764,7 +4764,7 @@
                               {
                                 "type": "LinearProjectile",
                                 "name": "league_lucian_r_bullet",
-                                "speed": 8000,
+                                "speed": 12000,
                                 "range": 120000,
                                 "shape": {
                                   "Circle": {
@@ -4854,7 +4854,7 @@
                       {
                         "type": "LinearProjectile",
                         "name": "league_lucian_r_bullet",
-                        "speed": 8000,
+                        "speed": 12000,
                         "range": 120000,
                         "shape": {
                           "Circle": {
@@ -4915,7 +4915,7 @@
                             {
                               "type": "LinearProjectile",
                               "name": "league_lucian_r_bullet",
-                              "speed": 8000,
+                              "speed": 12000,
                               "range": 120000,
                               "shape": {
                                 "Circle": {
@@ -4961,7 +4961,7 @@
                               {
                                 "type": "LinearProjectile",
                                 "name": "league_lucian_r_bullet",
-                                "speed": 8000,
+                                "speed": 12000,
                                 "range": 120000,
                                 "shape": {
                                   "Circle": {
@@ -5051,7 +5051,7 @@
                       {
                         "type": "LinearProjectile",
                         "name": "league_lucian_r_bullet",
-                        "speed": 8000,
+                        "speed": 12000,
                         "range": 120000,
                         "shape": {
                           "Circle": {
@@ -5112,7 +5112,7 @@
                             {
                               "type": "LinearProjectile",
                               "name": "league_lucian_r_bullet",
-                              "speed": 8000,
+                              "speed": 12000,
                               "range": 120000,
                               "shape": {
                                 "Circle": {
@@ -5158,7 +5158,7 @@
                               {
                                 "type": "LinearProjectile",
                                 "name": "league_lucian_r_bullet",
-                                "speed": 8000,
+                                "speed": 12000,
                                 "range": 120000,
                                 "shape": {
                                   "Circle": {
