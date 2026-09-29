@@ -731,13 +731,13 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   (`EYES`, one colour only the eyes use). 65 frames, 15 colours, 25% right-neighbour, face still (9, -30).
 - **A fallen angel in a long gown (Morgana, drawn by Codex from the start).** The camera mirrored, yaw 20, pitch
   25 (League's idle stands turned, so the gown's train lies behind her); head 2.4, height 37; the open wings and
-  the flower are submeshes her base look hides at first (`"hide_submeshes"`). Codex's three designs came as raw
-  drafts (a 128-square picture stretched to 1254 px); the user took B, set on the game grid by
-  `tools/art/draft_to_grid.py` (art-spec "A design draft bigger than the game"). The eight animations came raw as
-  well and were tidied by `tools/art/tidy_morgana.py` (art-spec "Whole raw sheets"); the death's 4th frame (flat on
-  the ground) and 5th (on her hands) swap, so she goes down in one movement as League's head does. The idle is the
-  design six times, breathing on a seam four rows over the gown's hem. 50 frames, 20 colours, 45 px with the
-  crest, 39% right-neighbour, face (0, -36) at the hair's crown. Codex's eleven effects: `tools/art/import_morgana.py
+  the flower are submeshes her base look hides at first (`"hide_submeshes"`). Codex's first three designs came as
+  raw drafts (a 128-square picture stretched to 1254 px); the user took B (art-spec "A design draft bigger than
+  the game") and it was animated, then Morgana was redesigned from a splash the user gave (art-spec "A redesign
+  from the user's picture"): the eight animations drawn again on design A, raw, and tidied by
+  `tools/art/tidy_morgana.py` (art-spec "Whole raw sheets"). The idle is the design six times, breathing on a seam
+  five rows over the gown's hem; the move is steadied on her eyes (`EYES`). 50 frames, 26 colours, 45 px with the
+  horns, 40% right-neighbour, face (-2, -41) at the crown between the horns. Codex's eleven effects: `tools/art/import_morgana.py
   --raw`, anchors measured on the drawings (art-spec "Effect anchors"); the shackles play the 2 s root in one
   Animation, the pool its 4 s, the snap the chains breaking round the waist and then the stun sigil 40 px up.
 - **A face point under the hair.** `tfm2_ase.py face` and the lint find the crown at the top of

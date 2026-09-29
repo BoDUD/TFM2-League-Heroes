@@ -1,31 +1,36 @@
 #!/usr/bin/env python3
-"""Tidy Codex's Morgana frames (assets/source/morgana/MODEL_PROMPTS.md, 2-9) into the native strips.
+"""Tidy Codex's Morgana strips (assets/source/morgana/MODEL_REDESIGN_STRIPS.md, the redesign A) into the native
+strips.
 
-    python tools/art/tidy_morgana.py <Codex's delivery folder> [--review DIR]
+    python tools/art/tidy_morgana.py <Codex's delivery folder> [--out DIR] [--review DIR]
 
-Codex delivered the eight animations as raw image-model sheets (its HANDOFF.md and manifest.json say so): 3x2
-sheets of 1536x1024 on a magenta key, 4x2 and 2x1 sheets of 1774x887 with soft alpha, the frames in the manifest's
-rectangles, tens of thousands of colours, and each sheet drawn at a scale of its own (a game pixel is 7-11 source
-pixels) with the figure bigger than the cells asked for. On the game pixels of the 96x96 cells (the cells table,
-assets/source/native/morgana_cells.json, and the design, assets/source/native/morgana_native.png):
-  - the frames: the key and soft alpha cleared; every connected drawing goes to the rectangle holding its middle
-    (the 4x2 sheets' rows touch: a foot of the top row reaches into the rectangle below);
-  - the scale: per sheet, from the frames that stand (the design is 45 rows from the crest to the soles), so every
-    animation is the design's size;
-  - the ground: per sheet, the standing frames' lowest row goes on the cells' soles row (the pivot's row + 11), and
-    every frame of the sheet keeps its height above it (the ult's rise, the death's fall);
+Codex delivered the eight animations as raw image-model sheets on a magenta key (its HANDOFF.md and manifest.json,
+kept as codex_model/animations_A_*, say so): 3x2 sheets of 1536x1024, 4x2 and 2x1 sheets of 1774x887, the frames
+in the manifest's rectangles, tens of thousands of colours, each sheet drawn at a scale of its own (a game pixel is
+4.4-7.2 source pixels). On the game pixels of the 96x96 cells (the cells table, assets/source/native/
+morgana_cells.json, and the design, assets/source/native/morgana_native.png: 35x45 squares, 26 colours):
+  - the key: pixels near #FF00FF cleared (the wing tips' and the eyes' own magentas are darker and stay);
+  - the frames: every connected drawing goes to the rectangle holding its middle;
+  - the scale: per sheet, from the frames that stand (the design is 45 rows from the horn tips to the soles);
   - the grid: every game pixel takes the colour at its centre (the median of 3x3 source pixels), the nearest of the
-    design's 20 colours;
-  - the head: the design's head (rows 0-19 of the design: crest, horn, hair, ear, face) replaces the drawn one,
-    placed where it fits the drawn head best by material - one face in every frame; not for the hit's shut eyes
-    nor the death on the ground (LYING);
+    design's 26 colours;
+  - the face: the design's face (FACE: forehead, both lash rows, both eyes, cheeks, mouth, chin) pasted where it
+    fits the drawn one best, so every frame has the same face in the eye colour; Codex's hair and horns stay - they
+    move with the body (a whole pasted head floated over the shoulders in the first strips). The hit's jolt and the
+    death from her knees down get the face with the eyes shut (SHUT: two short lash-coloured lines), the death's
+    last frame (face down) keeps Codex's;
   - sideways: the eyes' middle on League's head joint of that frame (the cells table's "head"), so the lunges are
-    League's; frames without eyes keep the sheet's median offset;
-  - eye colour off the face becomes the gown's; lone squares go; an outline ring closes the silhouette; nothing
-    below the soles row except in death (2 rows);
-  - idle: the six frames are the design itself (tools/art/import_native.py adds the breath);
-  - death: Codex's 4th frame (flat on the ground) and 5th (on her hands) swap places, so she goes down in one
-    movement as League's head does (its 4th frame is higher than its 5th) instead of pushing up again.
+    League's; the hit and the death (PLANTED) take the sheet's median offset from each frame's pivot instead, as
+    import_native.py stands every frame on its pivot: the body stays where Codex put it and does not slide;
+  - the ground: the lowest row on the frame's target row (morgana_targets.json: the soles row, League's rise in the
+    ult and the move's bob, at most 2 rows lower on the ground in death);
+  - the dark purples of hair, wings and gown flattened as the design's were: a 3x3 majority (FLAT_NEED of the
+    window, FLAT_PASSES times; gold, skin, the magentas and the outline kept);
+  - clean-up: the eye colour only in the face; lone squares off; one outline ring; single walled-in holes filled;
+    then the one-outline rules of the 18 redraws (tools/art/tidy_codex18.py on the ahri branch, from the study of
+    oppi's packs): outline spurs off, the black ring inside the outline turned into the material's own dark shade,
+    lone pixels to the colour their neighbours share, the face kept;
+  - idle: the six frames are the design itself (tools/art/import_native.py adds the breath).
 Writes assets/source/native/morgana_<tag>.png (8x, native_refs.layout grids). Then:
 tools/art/import_native.py --hero morgana.
 """
@@ -43,18 +48,24 @@ sys.path.insert(0, HERE)
 from native_refs import layout  # noqa: E402
 
 NATIVE = os.path.join(ROOT, "assets", "source", "native")
-SPEC = os.path.join(ROOT, "assets", "source", "morgana", "morgana_design.json")
 DESIGN = os.path.join(NATIVE, "morgana_native.png")
 CELLS = os.path.join(NATIVE, "morgana_cells.json")
 TARGETS = os.path.join(ROOT, "assets", "source", "morgana", "morgana_targets.json")
 Z = 8
-DESIGN_ROWS = 45                          # the design: crest top to soles
-HEAD_ROWS = 20                            # its rows 0-19: crest, horn, hair, ear, face (row 19 the chin)
+DESIGN_ROWS = 45                          # the design: horn tips to soles
 STANDING = {"idle": None, "run": None, "attack": [0, 5], "skill": [0, 5], "skill2": [0, 5], "ult": [6, 7],
             "hit": [1], "dead": [0]}      # None: every frame
-LYING = {("hit", 0)} | {("dead", k) for k in range(3, 8)}   # no upright head: Codex's is kept
+LYING = {("hit", 0)} | {("dead", k) for k in range(3, 8)}   # no open-eyed upright face
+SHUT = {("hit", 0)} | {("dead", k) for k in range(3, 7)}    # the face with the eyes shut (not face down: dead 8)
 LIFTED = {"run", "ult"}
-FROM = {"dead": [0, 1, 2, 4, 3, 5, 6, 7]}   # Codex's frame in each cell (see the docstring)
+PLANTED = {"hit", "dead"}                 # one sideways offset from the pivot for the whole sheet: the body stays
+FLAT_NEED, FLAT_PASSES = 4, 3             # the dark purples: a 3x3 majority of at least 4, three times (the design: 4)
+EYE = (0xC8, 0x3C, 0xA6)                  # the eye colour: only in the eyes
+# the design's face, rows and columns from its top-left square (35x45): forehead, lashes, eyes, cheeks, mouth, chin
+FACE = {12: (21, 23), 13: (19, 25), 14: (18, 25), 15: (18, 25), 16: (18, 25), 17: (18, 25), 18: (19, 25), 19: (20, 24)}
+DARK = 40                                 # luma under this is black (outline, black shadow)
+N4 = ((0, 1), (0, -1), (1, 0), (-1, 0))
+N8 = N4 + ((1, 1), (1, -1), (-1, 1), (-1, -1))
 
 
 def lp(path):
@@ -62,22 +73,63 @@ def lp(path):
     return "\\\\?\\" + path if os.name == "nt" and not path.startswith("\\\\?\\") else path
 
 
-with open(lp(SPEC), encoding="utf-8") as _f:
-    _spec = json.load(_f)
-LETTERS = list(_spec["palette"])
-RGB = np.array([[int(_spec["palette"][c][i:i + 2], 16) for i in (0, 2, 4)] for c in LETTERS], float)
-L = {c: k for k, c in enumerate(LETTERS)}
-OUTLINE = L["#"]
-EYE = L["e"]
-SKIN = {L["s"], L["S"], L["k"]}
-HAIR = {L["h"], L["H"], L["V"]}
-FACE = SKIN | {L["e"], L["o"]}
+def design():
+    """(labels of the design on its canvas, palette RGB (k x 3), top, left) - one label per colour."""
+    a = np.asarray(Image.open(lp(DESIGN)).convert("RGBA"))[4::8, 4::8]
+    op = a[..., 3] > 0
+    pal = np.unique(a[op][:, :3], axis=0)
+    lab = np.full(op.shape, -1, int)
+    lab[op] = [int(np.flatnonzero((pal == c).all(1))[0]) for c in a[op][:, :3]]
+    ys, xs = np.nonzero(op)
+    return lab, pal.astype(float), ys.min(), xs.min()
+
+
+DLAB, PAL, DTOP, DLEFT = design()
+EYE_I = int(np.flatnonzero((PAL == np.array(EYE)).all(1))[0])
+LUMA = PAL @ np.array([0.299, 0.587, 0.114])
+SKIN = set(np.flatnonzero((LUMA > 150) & (PAL[:, 2] > PAL[:, 0] - 40)))                   # pink skin, white
+MAGENTA = set(np.flatnonzero((PAL[:, 0] > 140) & (PAL[:, 1] < 90) & (PAL[:, 2] > 110)))   # the eyes and wing tips
+
+
+def outline_colour():
+    """The design's outline: the commonest colour on the edge of its silhouette."""
+    op = DLAB >= 0
+    edge = op & ~(np.roll(op, 1, 0) & np.roll(op, -1, 0) & np.roll(op, 1, 1) & np.roll(op, -1, 1))
+    return int(np.bincount(DLAB[edge]).argmax())
+
+
+OUTLINE = outline_colour()
+# kept as drawn by the flattening (as for the design, work of the redesign): gold, skin, the magentas, the outline
+R_, G_, B_ = PAL[:, 0], PAL[:, 1], PAL[:, 2]
+FIXED = set(np.flatnonzero(((R_ > B_ + 20) & (LUMA > 70)) | (LUMA > 150) |
+                           ((R_ > 110) & (G_ < 70) & (B_ > 90) & (R_ > B_ - 30)))) | {OUTLINE}
+
+
+def face_patch():
+    """(rows, cols, labels) of the face in design coordinates, the same with the eyes shut (two short dark lines on
+    the eyes' upper row, the lashes gone), and the eyes' middle column."""
+    pts = [(r, c, DLAB[DTOP + r, DLEFT + c]) for r, (c0, c1) in FACE.items() for c in range(c0, c1)]
+    ex = [(r, c) for r, c, v in pts if v == EYE_I]
+    top = min(r for r, _ in ex)
+    skin = max(SKIN, key=lambda v: int((DLAB == v).sum()))
+    lash = DLAB[DTOP + top - 1, DLEFT + min(c for _, c in ex)]
+    eye_cols = {c for _, c in ex}
+    shut = []
+    for r, c, v in pts:
+        if top - 1 <= r <= top + 1 and c in eye_cols:
+            v = lash if r == top else skin
+        shut.append((r, c, v))
+    return pts, shut, (min(eye_cols) + max(eye_cols)) / 2.0
+
+
+FACE_PTS, SHUT_PTS, FACE_EYE_MID = face_patch()
 
 
 # ----------------------------------------------------------------------------- the raw sheets
 def load_sheet(path):
     a = np.asarray(Image.open(lp(path)).convert("RGBA")).astype(int)
-    key = (a[..., 0] > 200) & (a[..., 1] < 70) & (a[..., 2] > 200)
+    r, g, b = a[..., 0], a[..., 1], a[..., 2]
+    key = (r > 170) & (b > 170) & (g < 110) & (np.abs(r - b) < 70)
     return a, (a[..., 3] >= 128) & ~key
 
 
@@ -114,11 +166,7 @@ def frame_masks(fg, rects, step=4):
                 owner[k] = i
                 break
     full = np.kron(lab, np.ones((step, step), int))[:H, :W]
-    masks = []
-    for i in range(len(rects)):
-        ks = [k for k, o in owner.items() if o == i]
-        masks.append(fg & np.isin(full, ks))
-    return masks
+    return [fg & np.isin(full, [k for k, o in owner.items() if o == i]) for i in range(len(rects))]
 
 
 def snap(a, mask, s, ground, cx, rows=96, cols=96, soles=78):
@@ -137,204 +185,77 @@ def snap(a, mask, s, ground, cx, rows=96, cols=96, soles=78):
             m = mask[ry - 1:ry + 2, rx - 1:rx + 2]
             if m.sum() < 5:
                 continue
-            px = a[ry - 1:ry + 2, rx - 1:rx + 2][m][:, :3]
-            c = np.median(px, axis=0)
-            lab[gy, gx] = int(((RGB - c) ** 2).sum(1).argmin())
+            c = np.median(a[ry - 1:ry + 2, rx - 1:rx + 2][m][:, :3], axis=0)
+            lab[gy, gx] = int(((PAL - c) ** 2).sum(1).argmin())
     return lab
 
 
-# ----------------------------------------------------------------------------- the design and its head
-def design_labels():
-    a = np.asarray(Image.open(lp(DESIGN)).convert("RGBA"))[4::8, 4::8]
-    lab = np.full(a.shape[:2], -1, int)
-    op = a[..., 3] > 0
-    lab[op] = (((a[..., :3][op][:, None, :].astype(float) - RGB[None]) ** 2).sum(-1)).argmin(1)
+# ----------------------------------------------------------------------------- the face
+def kind(v):
+    """0 clear, 1 skin, 2 eye (any of the magentas), 3 dark, 4 other."""
+    if v < 0:
+        return 0
+    if v in SKIN:
+        return 1
+    if v in MAGENTA:
+        return 2
+    if LUMA[v] < 50:
+        return 3
+    return 4
+
+
+def find_face(lab, pts):
+    """(score, y, x): where the face `pts` (its top-left corner in design coordinates at y, x of the frame) fits
+    the drawn face best - eyes count most, then skin and dark; clear squares cost. For the shut face any eye or dark
+    square counts for its lines (Codex drew the shut eyes in either)."""
+    K = np.vectorize(kind)(lab)
+    shut = pts is SHUT_PTS
+    if shut:
+        K[K == 2] = 3
+    want = [(r, c, kind(v), {1: 1.0, 2: 3.0, 3: 3.0 if shut else 1.0}.get(kind(v), 0.5)) for r, c, v in pts]
+    best = (-1e9, 0, 0)
+    for y in range(-12, 60):
+        for x in range(-18, 96 - 25):
+            sc = 0.0
+            for r, c, k, w in want:
+                yy, xx = y + r, x + c
+                if not (0 <= yy < 96 and 0 <= xx < 96):
+                    sc -= 1.0
+                    continue
+                f = K[yy, xx]
+                sc += w if f == k else (-0.5 if f == 0 else 0.0)
+            if sc > best[0]:
+                best = (sc, y, x)
+    return best
+
+
+def paste_face(lab, pts, y, x):
+    for r, c, v in pts:
+        if 0 <= y + r < lab.shape[0] and 0 <= x + c < lab.shape[1]:
+            lab[y + r, x + c] = v
+
+
+def flatten(lab, keep):
+    """The dark purples of hair, wings and gown flattened as for the design: a square not of the FIXED colours takes
+    the colour at least FLAT_NEED of the 3x3 around it share (FIXED colours not counted), FLAT_PASSES times; `keep`
+    untouched."""
+    H, W = lab.shape
+    fixed = np.isin(lab, list(FIXED))
+    for _ in range(FLAT_PASSES):
+        new = lab.copy()
+        for y in range(1, H - 1):
+            for x in range(1, W - 1):
+                v = lab[y, x]
+                if v < 0 or fixed[y, x] or keep[y, x]:
+                    continue
+                win = lab[y - 1:y + 2, x - 1:x + 2][~fixed[y - 1:y + 2, x - 1:x + 2]]
+                win = win[win >= 0]
+                vals, cnt = np.unique(win, return_counts=True)
+                j = int(np.argmax(cnt))
+                if vals[j] != v and cnt[j] >= FLAT_NEED:
+                    new[y, x] = vals[j]
+        lab = new
     return lab
-
-
-def design_head(dl):
-    """(block, mask, eye row, eyes' middle column) of the design's head, cut from its top HEAD_ROWS rows."""
-    ys, xs = np.nonzero(dl >= 0)
-    top = ys.min()
-    block = dl[top:top + HEAD_ROWS]
-    cols = np.nonzero((block >= 0).any(0))[0]
-    block = block[:, cols.min():cols.max() + 1].copy()
-    mask = block >= 0
-    ey, ex = np.nonzero(block == EYE)
-    return block, mask, int(ey.max()), (ex.min() + ex.max()) / 2.0
-
-
-CLASS = {"#": 1, "h": 2, "H": 2, "V": 2, "s": 3, "S": 3, "k": 3, "o": 3, "y": 4, "Y": 4, "r": 5, "e": 6}
-WEIGHT = {1: 0.5, 2: 1.0, 3: 1.5, 4: 2.0, 5: 2.0, 6: 3.0}
-
-
-def classes(lab):
-    """Label -> material class (0 clear, 7 body: gown, hem, wings, stole)."""
-    table = np.array([CLASS.get(c, 7) for c in LETTERS])
-    out = np.zeros(lab.shape, int)
-    op = lab >= 0
-    out[op] = table[lab[op]]
-    return out
-
-
-def find_head(lab, head, mask, rows=(0, 70)):
-    """Where the design's head best fits the drawn one: the offset (y, x) that matches most of its squares by
-    material (eyes, gold and the crest's red count most, the outline least), a square over clear ground costing."""
-    fc = classes(lab)
-    hc = classes(head)
-    h, w = head.shape
-    best, at = -1e9, None
-    wts = np.vectorize(lambda c: WEIGHT.get(c, 0.0))(hc) * mask
-    for y in range(rows[0], min(rows[1], lab.shape[0] - h)):
-        for x in range(0, lab.shape[1] - w):
-            win = fc[y:y + h, x:x + w]
-            score = (wts * (win == hc)).sum() - 0.5 * (mask & (win == 0)).sum()
-            if score > best:
-                best, at = score, (y, x)
-    return at, best / max(1.0, wts.sum())
-
-
-def skin_from_outside(lab, box):
-    """Skin squares inside `box` that reach skin outside it (an arm coming in from the shoulder)."""
-    y0, y1, x0, x1 = box
-    skin = np.isin(lab, list(SKIN))
-    keep = np.zeros_like(skin)
-    todo = [(y, x) for y, x in zip(*np.nonzero(skin)) if not (y0 <= y < y1 and x0 <= x < x1)]
-    for y, x in todo:
-        keep[y, x] = True
-    while todo:
-        y, x = todo.pop()
-        for ny, nx in ((y + 1, x), (y - 1, x), (y, x + 1), (y, x - 1)):
-            if 0 <= ny < lab.shape[0] and 0 <= nx < lab.shape[1] and skin[ny, nx] and not keep[ny, nx]:
-                keep[ny, nx] = True
-                todo.append((ny, nx))
-    return keep
-
-
-def arms(lab, top, bottom):
-    """Skin reaching into the head's rows from below (a hand raised beside the head, Black Shield's cast): skin
-    groups with squares both in rows top..bottom and under them, plus the gold (bracelets) and outline squares
-    touching them in those rows. A bracelet (gold with skin at most two rows above and two below) joins the hand
-    to its forearm."""
-    skin = np.isin(lab, list(SKIN))
-    above = np.zeros_like(skin)
-    below = np.zeros_like(skin)
-    for d in (1, 2):
-        above[d:] |= skin[:-d]
-        below[:-d] |= skin[d:]
-    skin |= np.isin(lab, [L["y"], L["Y"]]) & above & below
-    out = np.zeros_like(skin)
-    seen = np.zeros_like(skin)
-    for y0, x0 in zip(*np.nonzero(skin[top:bottom])):
-        y0 += top
-        if seen[y0, x0]:
-            continue
-        todo, g = [(y0, x0)], []
-        seen[y0, x0] = True
-        while todo:
-            y, x = todo.pop()
-            g.append((y, x))
-            for ny, nx in ((y + 1, x), (y - 1, x), (y, x + 1), (y, x - 1)):
-                if 0 <= ny < lab.shape[0] and 0 <= nx < lab.shape[1] and skin[ny, nx] and not seen[ny, nx]:
-                    seen[ny, nx] = True
-                    todo.append((ny, nx))
-        if any(y >= bottom for y, _ in g) and any(y < bottom - 2 for y, _ in g):
-            for y, x in g:
-                if y < bottom:
-                    out[y, x] = True
-    grow = np.zeros_like(out)
-    for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1)):
-        grow |= np.roll(np.roll(out, dy, 0), dx, 1)
-    extra = grow & np.isin(lab, [L["y"], L["Y"], OUTLINE])
-    extra[:top] = False
-    extra[bottom:] = False
-    return out | extra
-
-
-def paste_head(lab, head, mask, at):
-    """The drawn head cleared round `at`, then the design's head pasted there. Cleared: the head's colours on the
-    design's head and one square round it (skin coming in from outside below the chin stays: the shoulders), and
-    the ones joined to them above the chin (Codex's heads are often bigger: an ear or crest sticking out); a hand
-    raised beside the head stays, in front of the pasted head."""
-    y, x = at
-    h, w = head.shape
-    box = (max(0, y - 1), min(lab.shape[0], y + h + 1), max(0, x - 2), min(lab.shape[1], x + w + 2))
-    keep = skin_from_outside(lab, box)
-    keep[:y + h - 2] = False
-    near_head = np.zeros(lab.shape, bool)
-    for dy in (-1, 0, 1):
-        for dx in (-1, 0, 1):
-            ys, xs = np.nonzero(mask)
-            ny, nx = ys + y + dy, xs + x + dx
-            ok = (ny >= 0) & (ny < lab.shape[0]) & (nx >= 0) & (nx < lab.shape[1])
-            near_head[ny[ok], nx[ok]] = True
-    kinds = np.isin(lab, list(HAIR | FACE) + [L["r"], L["y"], L["Y"], L["D"], L["G"]])   # D, G: the hair's shade too
-    kill = near_head & (kinds | (lab == OUTLINE)) & ~keep
-    above = np.zeros(lab.shape, bool)
-    above[:max(0, y + h - 2), max(0, x - 8):x + w + 8] = True
-    through = kinds | (lab == OUTLINE)       # the outline too: an ear's tip is walled off by it (clean() redraws it)
-    todo = list(zip(*np.nonzero(kill)))
-    while todo:
-        yy, xx = todo.pop()
-        for ny, nx in ((yy + 1, xx), (yy - 1, xx), (yy, xx + 1), (yy, xx - 1)):
-            if 0 <= ny < lab.shape[0] and 0 <= nx < lab.shape[1] and above[ny, nx] and through[ny, nx] \
-                    and not kill[ny, nx]:
-                kill[ny, nx] = True
-                todo.append((ny, nx))
-    box = (0, y + h + 1) + box[2:]
-    arm = arms(lab, y, y + h)
-    before = lab.copy()
-    lab[kill] = -1
-    sub = lab[y:y + h, x:x + w]
-    sub[mask] = head[mask]
-    lab[arm] = before[arm]          # a hand raised beside the head stays in front of it
-    # specks of one or two squares walled in by the outline round the head (an ear's shading)
-    col = (lab >= 0) & (lab != OUTLINE)
-    pasted = np.zeros(lab.shape, bool)
-    pasted[y:y + h, x:x + w] = mask
-    seen = np.zeros_like(col)
-    for y0, x0 in zip(*np.nonzero(col & above)):
-        if seen[y0, x0]:
-            continue
-        todo, g = [(y0, x0)], []
-        seen[y0, x0] = True
-        while todo:
-            yy, xx = todo.pop()
-            g.append((yy, xx))
-            for ny, nx in ((yy + 1, xx), (yy - 1, xx), (yy, xx + 1), (yy, xx - 1)):
-                if 0 <= ny < lab.shape[0] and 0 <= nx < lab.shape[1] and col[ny, nx] and not seen[ny, nx]:
-                    seen[ny, nx] = True
-                    todo.append((ny, nx))
-        if len(g) <= 2 and not any(pasted[p] or arm[p] for p in g):
-            for p in g:
-                lab[p] = -1
-    # outline squares left with no colour beside them
-    col = (lab >= 0) & (lab != OUTLINE)
-    near = np.zeros_like(col)
-    for dy in (-1, 0, 1):
-        for dx in (-1, 0, 1):
-            near |= np.roll(np.roll(col, dy, 0), dx, 1)
-    lonely = (lab == OUTLINE) & ~near
-    lonely[:box[0]] = False
-    lonely[box[1]:] = False
-    lab[lonely] = -1
-
-
-def neck_gap(lab, head, at):
-    """Rows between the pasted head's lowest row and the body under it: rows that are mostly nothing or outline in
-    the columns where that lowest row has skin or hair (the chin, the hair strand, the ear's tip). The design has
-    1 (one outline row, then the collar and the hair strand going on)."""
-    y, x = at
-    h, w = head.shape
-    chin = y + h - 1
-    cols = [x + c for c in range(w) if head[h - 1, c] >= 0 and head[h - 1, c] != OUTLINE]
-    gap = 0
-    for r in range(chin + 1, min(chin + 9, lab.shape[0])):
-        vals = lab[r, cols]
-        if 2 * ((vals < 0) | (vals == OUTLINE)).sum() <= len(cols):
-            break
-        gap += 1
-    return gap
 
 
 # ----------------------------------------------------------------------------- clean-up
@@ -347,50 +268,90 @@ def shift(lab, dx, dy=0):
     return out
 
 
-def clean(lab, head_box=None, floor=78):
+def clean(lab, face, floor):
+    """face: a mask of the pasted face (the eye colour allowed only there)."""
     lab = lab.copy()
-    # eye colour only on the face
-    inside = np.zeros_like(lab, bool)
-    if head_box is not None:
-        y, x, h, w = head_box
-        inside[max(0, y):y + h, max(0, x):x + w] = True
-    lab[(lab == EYE) & ~inside] = L["g"]
-    # nothing under the floor
+    # the eye colour off the face: the colour most of its non-eye neighbours have
+    for yy, xx in zip(*np.nonzero((lab == EYE_I) & ~face)):
+        n = [lab[yy + dy, xx + dx] for dy, dx in N8 if 0 <= yy + dy < lab.shape[0] and 0 <= xx + dx < lab.shape[1]]
+        n = [v for v in n if v >= 0 and v != EYE_I]
+        lab[yy, xx] = max(set(n), key=n.count) if n else -1
     lab[floor + 1:] = -1
     # lone squares
     op = lab >= 0
     nb = np.zeros_like(op, int)
     nb[1:] += op[:-1]; nb[:-1] += op[1:]; nb[:, 1:] += op[:, :-1]; nb[:, :-1] += op[:, 1:]
     lab[op & (nb == 0)] = -1
-    # a square of a colour none of its four neighbours has, inside a patch: the neighbours' majority
-    for yy, xx in zip(*np.nonzero(op & (nb == 4))):
-        c = lab[yy, xx]
-        n4 = [lab[yy - 1, xx], lab[yy + 1, xx], lab[yy, xx - 1], lab[yy, xx + 1]]
-        if c not in n4 and c not in (EYE, L["o"], OUTLINE):
-            vals, cnt = np.unique(n4, return_counts=True)
-            if cnt.max() >= 3:
-                lab[yy, xx] = vals[cnt.argmax()]
     # one outline ring
     col = (lab >= 0) & (lab != OUTLINE)
     ring = np.zeros_like(col)
     ring[1:] |= col[:-1]; ring[:-1] |= col[1:]; ring[:, 1:] |= col[:, :-1]; ring[:, :-1] |= col[:, 1:]
     lab[ring & (lab < 0)] = OUTLINE
-    # a single clear square walled in on all four sides (a hole the background shows through): the walls' majority
+    # a single clear square walled in on all four sides: the walls' majority
     op = lab >= 0
     for yy, xx in zip(*np.nonzero(~op[1:-1, 1:-1])):
         yy, xx = yy + 1, xx + 1
         n4 = [lab[yy - 1, xx], lab[yy + 1, xx], lab[yy, xx - 1], lab[yy, xx + 1]]
         if min(n4) >= 0:
-            vals, cnt = np.unique(n4, return_counts=True)
-            lab[yy, xx] = vals[cnt.argmax()]
+            lab[yy, xx] = max(set(n4), key=n4.count)
     lab[floor + 1:] = -1
-    return lab
+    return one_outline(lab, face)
+
+
+def shifted(m, dy, dx):
+    out = np.zeros_like(m)
+    H, W = m.shape
+    ys, yd = (slice(0, H - dy), slice(dy, H)) if dy >= 0 else (slice(-dy, H), slice(0, H + dy))
+    xs, xd = (slice(0, W - dx), slice(dx, W)) if dx >= 0 else (slice(-dx, W), slice(0, W + dx))
+    out[yd, xd] = m[ys, xs]
+    return out
+
+
+def one_outline(lab, keep):
+    """The one-outline rules of the 18 redraws on labels: outline spurs off (a black square with at most one
+    neighbour), the black ring right inside the outline turned into the darkest of its brighter neighbours (the
+    material's own dark shade), lone squares to the colour 3 of their 4 neighbours share; `keep` untouched."""
+    lab = lab.copy()
+    L = np.where(lab >= 0, LUMA[np.maximum(lab, 0)], 255)
+    for _ in range(2):
+        op = lab >= 0
+        cnt = sum(shifted(op, dy, dx).astype(int) for dy, dx in N4)
+        lab[op & (L < DARK) & (cnt <= 1) & ~keep] = -1
+    op = lab >= 0
+    edge = np.zeros_like(op)
+    for dy, dx in N4:
+        edge |= op & ~shifted(op, dy, dx)
+    ring2 = np.zeros_like(op)
+    for dy, dx in N4:
+        ring2 |= shifted(edge, dy, dx)
+    ring2 &= op & ~edge & (L < DARK) & ~keep
+    out = lab.copy()
+    H, W = lab.shape
+    for y, x in zip(*np.nonzero(ring2)):
+        n = [lab[y + dy, x + dx] for dy, dx in N8
+             if 0 <= y + dy < H and 0 <= x + dx < W and lab[y + dy, x + dx] >= 0 and L[y + dy, x + dx] >= DARK]
+        if len(n) >= 2:
+            out[y, x] = min(n, key=lambda v: (LUMA[v], -n.count(v)))
+    lab = out
+    op = lab >= 0
+    out = lab.copy()
+    for y in range(1, H - 1):
+        for x in range(1, W - 1):
+            if not op[y, x] or keep[y, x]:
+                continue
+            n4 = [lab[y + dy, x + dx] for dy, dx in N4]
+            if lab[y, x] in n4 or min(n4) < 0:
+                continue
+            best = max(set(n4), key=n4.count)
+            if n4.count(best) >= 3:
+                out[y, x] = best
+    return out
 
 
 def to_rgba(lab):
     out = np.zeros(lab.shape + (4,), np.uint8)
     op = lab >= 0
-    out[op, :3] = RGB[lab[op]].astype(np.uint8)
+    out[op, :3] = PAL[lab[op]].astype(np.uint8)
     out[op, 3] = 255
     return out
 
@@ -433,7 +394,7 @@ def load_targets(cells, renders=None):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("delivery")
-    ap.add_argument("--review", help="also write every frame at 4x here, with the feet line")
+    ap.add_argument("--review", help="also write every strip at 4x here")
     ap.add_argument("--out", default=NATIVE)
     ap.add_argument("--renders", help="native_pose's output folder: measure morgana_targets.json from it (once)")
     args = ap.parse_args()
@@ -443,12 +404,9 @@ def main():
     with open(lp(CELLS), encoding="utf-8") as f:
         cells = json.load(f)
     targets = load_targets(cells, args.renders)
-    dl = design_labels()
-    head, hmask, eye_row, eye_mid = design_head(dl)
-    ys, xs = np.nonzero(dl >= 0)
-    d_top, d_left = ys.min(), xs.min()
-    d_eyes = np.nonzero(dl == EYE)
-    design_eye_mid = (d_eyes[1].min() + d_eyes[1].max()) / 2.0
+    ys, xs = np.nonzero(DLAB >= 0)
+    d_top, d_bot, d_left, d_right = ys.min(), ys.max(), xs.min(), xs.max()
+    block = DLAB[d_top:d_bot + 1, d_left:d_right + 1]
     cw, ch = cells["cell"]
     for tag, rows in cells["tags"].items():
         soles = rows[0]["pivot"][1] + 11
@@ -456,9 +414,8 @@ def main():
         if tag == "idle":
             for r in rows:
                 lab = np.full((ch, cw), -1, int)
-                y0 = soles - (ys.max() - d_top)
-                x0 = int(round(r["head"][0] - (design_eye_mid - d_left)))
-                block = dl[d_top:ys.max() + 1, d_left:xs.max() + 1]
+                y0 = soles - (d_bot - d_top)
+                x0 = int(round(r["head"][0] - FACE_EYE_MID))
                 sub = lab[y0:y0 + block.shape[0], x0:x0 + block.shape[1]]
                 sub[block >= 0] = block[block >= 0]
                 frames.append((lab, "the design"))
@@ -467,8 +424,6 @@ def main():
             img, fg = load_sheet(os.path.join(args.delivery, a["file"]))
             rects = [fr["rect"] for fr in a["frames"]]
             masks = frame_masks(fg, rects)
-            order = FROM.get(tag, range(len(rects)))
-            rects, masks = [rects[i] for i in order], [masks[i] for i in order]
             stand = STANDING[tag] if STANDING[tag] is not None else range(len(rects))
             hs, gs = [], []
             for k in stand:
@@ -477,42 +432,42 @@ def main():
                 gs.append(yy.max() - rects[k][1])
             s = float(np.median(hs)) / DESIGN_ROWS
             ground = float(np.median(gs))
-            offsets = []
-            snapped = []
+            snapped, offsets = [], []
             for k, (x, y, w, h) in enumerate(rects):
                 lab = snap(img, masks[k], s, y + ground, x + w / 2.0, ch, cw, soles)
-                note = []
-                box = None
-                if (tag, k) not in LYING:
-                    raw = lab.copy()
-                    at, fit = find_head(lab, head, hmask)
-                    paste_head(lab, head, hmask, at)
-                    gap = neck_gap(lab, head, at)
-                    if gap > 1:                  # the head floats over the shoulders: seat it on them
-                        lab = raw
-                        at = (at[0] + gap - 1, at[1])
-                        paste_head(lab, head, hmask, at)
-                        note.append(f"seated {gap - 1} lower")
-                    eyes_x = at[1] + eye_mid
-                    dx = int(round(rows[k]["head"][0] - eyes_x))
-                    offsets.append(dx)
-                    note.append(f"head at ({at[1]},{at[0]}) fit {fit:.2f}, moved {dx:+d}")
-                    lab = shift(lab, dx)
-                    box = (at[0], at[1] + dx, head.shape[0], head.shape[1])
-                snapped.append((lab, box, note))
+                note, face, dx = [], None, None
+                pts = SHUT_PTS if (tag, k) in SHUT else None if (tag, k) in LYING else FACE_PTS
+                if pts is not None:
+                    sc, fy, fx = find_face(lab, pts)
+                    paste_face(lab, pts, fy, fx)
+                    face = (fy, fx)
+                    note.append(f"{'shut ' if pts is SHUT_PTS else ''}face at ({fx},{fy}) score {sc:.0f}")
+                    if pts is FACE_PTS:
+                        dx = int(round(rows[k]["head"][0] - (fx + FACE_EYE_MID)))
+                        offsets.append(dx - rows[k]["pivot"][0])
+                else:
+                    note.append("face down: as drawn")
+                snapped.append((lab, face, dx, note))
             med = int(np.median(offsets)) if offsets else 0
-            for k, (lab, box, note) in enumerate(snapped):
-                if box is None:
-                    lab = shift(lab, med)
-                    note.append(f"kept as drawn, moved {med:+d} (the sheet's median)")
-                floor = soles + (2 if tag == "dead" else 0)
+            for k, (lab, face, dx, note) in enumerate(snapped):
+                if dx is None or tag in PLANTED:       # the game stands every frame on its pivot
+                    dx = med + rows[k]["pivot"][0]
+                    note.append(f"moved {dx:+d} (the sheet's median from the pivot)")
+                else:
+                    note.append(f"moved {dx:+d} (the eyes on League's head)")
+                lab = shift(lab, dx)
+                floor = max(soles, targets[tag][k])     # on the ground in death: down to its target row
                 low = int(np.nonzero((lab >= 0).any(1))[0].max())
                 dy = targets[tag][k] - low
                 lab = shift(lab, 0, dy)
-                if box is not None:
-                    box = (box[0] + dy, box[1], box[2], box[3])
+                keep = np.zeros(lab.shape, bool)
+                if face is not None:
+                    for r, c, _ in FACE_PTS:
+                        yy, xx = face[0] + dy + r, face[1] + dx + c
+                        if 0 <= yy < ch and 0 <= xx < cw:
+                            keep[yy, xx] = True
                 note.append(f"lowest row {low} -> {targets[tag][k]}")
-                frames.append((clean(lab, box, floor), "; ".join(note)))
+                frames.append((clean(flatten(lab, keep), keep, floor), "; ".join(note)))
             print(f"{tag}: scale {s:.2f} source px a game pixel, ground {ground:.0f} px into the cells")
         n = len(frames)
         gc, gr = layout(n)

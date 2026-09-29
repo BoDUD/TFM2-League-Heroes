@@ -1,5 +1,7 @@
 # 堕落天使 莫甘娜：角色模型（给 Codex 的提示词）
 
+> **第一版的记录，已被重做取代。** 用户后来给了一张新立绘，造型按 [`MODEL_REDESIGN.md`](MODEL_REDESIGN.md) 重做（选了方案 A），8 张动作图按 [`MODEL_REDESIGN_STRIPS.md`](MODEL_REDESIGN_STRIPS.md) 重画。这一份和 `codex_model/designs_*`、`codex_model/animations_*`（不带 `_A`）是造型 B 那一版的提示词和交付记录。
+
 > **这一轮 Codex 画莫甘娜的全部角色图（造型图 + 8 张动作图），特效在同一个压缩包的 `PROMPTS.md` 里，可以同一轮一起画。**
 > - 目标：一眼认出是英雄联盟的莫甘娜（附 `lol_ref_model.png`：原版模型，和我们同一个镜头），画成团战经理2 原版英雄那样干净的像素画（附 `tfm2_style_ref_mage.png`、`tfm2_style_ref_healer.png`）。
 > - **先只做造型图**（A / B / C 三个方案，只有比例不同），交回给用户挑；选定后再同一批做 8 张动作图。
