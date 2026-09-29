@@ -17,8 +17,8 @@ assets/source/native/morgana_cells.json, and the design, assets/source/native/mo
   - the grid: every game pixel takes the colour at its centre (the median of 3x3 source pixels), the nearest of the
     design's 20 colours;
   - the head: the design's head (rows 0-19 of the design: crest, horn, hair, ear, face) replaces the drawn one,
-    placed on the drawn eyes when two are found, else on the drawn hair's top and the face's middle - one face in
-    every frame; not for the hit's shut eyes nor the death on the ground;
+    placed where it fits the drawn head best by material - one face in every frame; not for the hit's shut eyes
+    nor the death on the ground (LYING);
   - sideways: the eyes' middle on League's head joint of that frame (the cells table's "head"), so the lunges are
     League's; frames without eyes keep the sheet's median offset;
   - eye colour off the face becomes the gown's; lone squares go; an outline ring closes the silhouette; nothing
@@ -52,7 +52,7 @@ DESIGN_ROWS = 45                          # the design: crest top to soles
 HEAD_ROWS = 20                            # its rows 0-19: crest, horn, hair, ear, face (row 19 the chin)
 STANDING = {"idle": None, "run": None, "attack": [0, 5], "skill": [0, 5], "skill2": [0, 5], "ult": [6, 7],
             "hit": [1], "dead": [0]}      # None: every frame
-KEEP_HEAD = {("hit", 0)} | {("dead", k) for k in range(3, 8)}
+LYING = {("hit", 0)} | {("dead", k) for k in range(3, 8)}   # no upright head: Codex's is kept
 LIFTED = {"run", "ult"}
 FROM = {"dead": [0, 1, 2, 4, 3, 5, 6, 7]}   # Codex's frame in each cell (see the docstring)
 
@@ -320,6 +320,23 @@ def paste_head(lab, head, mask, at):
     lab[lonely] = -1
 
 
+def neck_gap(lab, head, at):
+    """Rows between the pasted head's lowest row and the body under it: rows that are mostly nothing or outline in
+    the columns where that lowest row has skin or hair (the chin, the hair strand, the ear's tip). The design has
+    1 (one outline row, then the collar and the hair strand going on)."""
+    y, x = at
+    h, w = head.shape
+    chin = y + h - 1
+    cols = [x + c for c in range(w) if head[h - 1, c] >= 0 and head[h - 1, c] != OUTLINE]
+    gap = 0
+    for r in range(chin + 1, min(chin + 9, lab.shape[0])):
+        vals = lab[r, cols]
+        if 2 * ((vals < 0) | (vals == OUTLINE)).sum() <= len(cols):
+            break
+        gap += 1
+    return gap
+
+
 # ----------------------------------------------------------------------------- clean-up
 def shift(lab, dx, dy=0):
     out = np.full_like(lab, -1)
@@ -358,6 +375,14 @@ def clean(lab, head_box=None, floor=78):
     ring = np.zeros_like(col)
     ring[1:] |= col[:-1]; ring[:-1] |= col[1:]; ring[:, 1:] |= col[:, :-1]; ring[:, :-1] |= col[:, 1:]
     lab[ring & (lab < 0)] = OUTLINE
+    # a single clear square walled in on all four sides (a hole the background shows through): the walls' majority
+    op = lab >= 0
+    for yy, xx in zip(*np.nonzero(~op[1:-1, 1:-1])):
+        yy, xx = yy + 1, xx + 1
+        n4 = [lab[yy - 1, xx], lab[yy + 1, xx], lab[yy, xx - 1], lab[yy, xx + 1]]
+        if min(n4) >= 0:
+            vals, cnt = np.unique(n4, return_counts=True)
+            lab[yy, xx] = vals[cnt.argmax()]
     lab[floor + 1:] = -1
     return lab
 
@@ -394,7 +419,7 @@ def load_targets(cells, renders=None):
             ys = np.nonzero(fig[r * ch:(r + 1) * ch, c * cw:(c + 1) * cw].any(1))[0]
             if tag in LIFTED:                  # League's rise (the ult) and the walk's bob
                 lows.append(int(min(ys.max(), soles)))
-            elif (tag, k) in KEEP_HEAD and tag == "dead":   # on the ground: may dip two rows
+            elif (tag, k) in LYING and tag == "dead":   # on the ground: may dip two rows
                 lows.append(int(min(ys.max(), soles + 2)))
             else:                              # Codex drew her standing: on the soles row
                 lows.append(soles)
@@ -458,9 +483,16 @@ def main():
                 lab = snap(img, masks[k], s, y + ground, x + w / 2.0, ch, cw, soles)
                 note = []
                 box = None
-                if (tag, k) not in KEEP_HEAD:
+                if (tag, k) not in LYING:
+                    raw = lab.copy()
                     at, fit = find_head(lab, head, hmask)
                     paste_head(lab, head, hmask, at)
+                    gap = neck_gap(lab, head, at)
+                    if gap > 1:                  # the head floats over the shoulders: seat it on them
+                        lab = raw
+                        at = (at[0] + gap - 1, at[1])
+                        paste_head(lab, head, hmask, at)
+                        note.append(f"seated {gap - 1} lower")
                     eyes_x = at[1] + eye_mid
                     dx = int(round(rows[k]["head"][0] - eyes_x))
                     offsets.append(dx)

@@ -353,7 +353,8 @@ and airborne also cancels the target's dash.
 
 How they behave *(measured in the SDK simulation for league_jinx, 3-12 ten-minute games each)*:
 - A projectile placed in another projectile's `applied_effects` is never spawned (a `RangeProjectile`
-  there: 116 hits, no zone). `end_effects` of `LinearProjectile` and `ParabolicProjectile` are plain
+  there: 116 hits, no zone). A `TargetProjectile` inside a `Delayed` there does fly, from the caster at the unit
+  hit (league_morgana R chains nine of them, section 7). `end_effects` of `LinearProjectile` and `ParabolicProjectile` are plain
   effects run once where the projectile stopped or landed, so zones, `ViewEffect`s and further
   projectiles can start there (LoL Reborn Jinx's rocket splash, league_ashe R).
 - `RangePeriodProjectile`'s `end_effects` are applied effects (`{casting_type, effect}`), run on each
@@ -378,7 +379,9 @@ How they behave *(measured in the SDK simulation for league_jinx, 3-12 ten-minut
   instead of the caster. With `casting_target: AllyOnlySelf` in a zone's `applied_effects` it asks "is the
   caster inside this zone": it finds the caster only while he stands within `range` (plus his radius) of the
   zone's centre, whichever allied unit set the application off *(measured for league_ekko W, every tick of a
-  `period: 1` zone on `AllyChampion`)*.
+  `period: 1` zone on `AllyChampion`)*. In a `TargetProjectile`'s `applied_effects` it asks "is the caster
+  within `range` of the unit it hit" (both bodies add about 18000); in a plain `Delayed` on a unit, with no
+  projectile, it finds nobody *(measured for league_morgana R, 2026-09-29)*.
 - `end_effects` of a `LinearProjectile` or `ParabolicProjectile` run on a position (the stop or landing
   point), and a `Delayed` among them keeps it, like a `Position` cast: a `ViewEffect` there plays on that
   point, a zone or another projectile starts there, and a `Teleport` puts the caster there *(measured for
@@ -1272,14 +1275,23 @@ unit works like the caster's own *(SDK simulation, a probe counting the `Stun` /
 event landed on a champion under Black Shield (about 15,600 champion-ticks with it), against 538-606 a game on all
 champions.
 
-**Chains that snap after 3 s (league_morgana R, Soul Shackles).** A `Targeting` cast on `EnemyChampion` (range
-45000): a `RangeEffect` (radius 50000) on `EnemyChampion` round her deals the damage, heals her, and adds a 180-tick
-20% slow whose `view_buffs` picture is the chain; she gets 20% move speed for as long; a `Delayed {tick: 180}` then
-runs a wider `RangeEffect` (70000, League's leash) on `EnemyChampion` with the damage again and a 90-tick `Stun`. A
-dying caster's pending `Delayed` effects stop (section 5), so her death breaks the chains as in League. What the
-data cannot tell is which champions were chained: the snap stuns every enemy champion within 70000 at that moment,
-also one that walked in meanwhile. The AI casts the ult as soon as one enemy champion is within reach: in four
-simulated games it chained 1.0 champion a cast on average (13 casts), and the snap found somebody 7 times.
+**Tethers that break out of reach and snap after 3 s (league_morgana R, Soul Shackles).** A `Targeting` cast on
+`EnemyChampion` (range 45000): a `RangeEffect` (radius 50000) on `EnemyChampion` round her deals the damage and heals
+her; she gets 20% move speed for 3 s. Each champion it reaches gets a tether of its own, a chain of pulses written
+out nine deep in that `RangeEffect`'s effects: a 21-tick 20% slow whose `view_buffs` picture is the chain, then a
+`Delayed {tick: 20}` firing a hidden `TargetProjectile` (speed 100000, no view) from her at the champion, whose
+`applied_effects` run `RandomTarget {range: 84000, casting_target: AllyOnlySelf, from_projectile: true}` -> a 1-tick
+caster flag, `SwitchByBuff` on it -> the next pulse (the ninth: the damage again, a 90-tick `Stun` and the snap's
+picture), and `RemoveCasterBuff` for the next champion's check. One check out of reach and that champion's tether is
+over - no more slow, no stun - as in League, where it breaks at 1050 against a 625 cast radius (84000 = 1.68 x
+50000). The check measures from the projectile's hit point to her, and both bodies add about 18000 (with range 70000
+a tether held at 86137 and broke at 90877). The same `RandomTarget` in a plain `Delayed` on the champion never finds
+her (every check failed, one at 9287). A `TargetProjectile` inside a `Delayed` in another one's `applied_effects`
+does spawn (nine levels here). Her death stops the pulses (a dead caster fires no projectile). Until 0.25.0's review
+a single `Delayed {tick: 180}` `RangeEffect` (70000) stunned every enemy champion near her then, also one that had
+run off and come back or had never been chained (the user: "脱离了大招的线就不应该眩晕了吧"). In 16 simulated games
+62 champions were chained: about 36 died within the 3 s, 12-19 ran out of reach and 0-3 were stunned, at check
+ranges of 60000 to 105000 alike - a champion walks about 1.2 cast radii a second here, against 0.56 in League.
 
 ## 8. Gotchas
 

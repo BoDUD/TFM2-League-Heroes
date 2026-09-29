@@ -31,7 +31,8 @@ a spot is drawn like one on a unit, 11 px above the ground); the chain's ring ro
 breaking frames round the waist and the sigil over the head (40 px above the ground). The shackles play 2 s in one
 Animation (three frames binding, the four held ones four times, two breaking: the root), the pool 4 s (its zone's
 time: two spreading, the four pulsing nine times, two shrinking), the snap 1.5 s (the stun: the sigil's four frames
-three times); the shield is the buff's three phases (rising, held, shattering).
+three times); the shield is the buff's three phases (rising, held, shattering); the chain loops once in 333 ms, the
+tether's pulse (its buff is added again every 20 ticks while the champion stays in reach).
 No palette or outline pass on the sheets. Writes league/effects/league_morgana_fx (bolt, q_orb, hit, q_hit,
 q_bind, e_shield_in, e_shield, e_shield_out, r_hit, r_chain, r_snap) and league/effects/league_morgana_big (w_pool,
 r_cast).
@@ -312,7 +313,7 @@ FX = {
         "e_shield": [("e_shield", range(3, 7), FEET, [100] * 4)],
         "e_shield_out": [("e_shield", range(7, 10), FEET, [70] * 3)],
         "r_hit": [("r_hit", range(5), BODY, [60] * 5)],
-        "r_chain": [("r_chain", range(4), WAIST, [100] * 4)],
+        "r_chain": [("r_chain", range(4), WAIST, [83, 83, 84, 83])],
         "r_snap": [("r_snap", range(3), WAIST, [80] * 3), ("r_stun", STUN, OVERHEAD, STUN_MS)],
     },
     "league_morgana_big": {
