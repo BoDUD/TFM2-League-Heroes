@@ -147,6 +147,13 @@
         "skill": "放出乌鸦恐吓目标，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 法术强度<>的<#a974ffff>魔法伤害<>并使其<#ef5350ff>恐惧<><#ffb900ff>1.25秒<>；目标英雄正处于控制中时伤害翻倍。",
         "skill2": "先挥出<#ff9028ff>夜割<>，造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% 法术强度<>的<#a974ffff>魔法伤害<>并<#ef5350ff>减速40%<><#ffb900ff>1.25秒<>，中心的英雄同时被<#ef5350ff>沉默<>。随后引导<#ffb900ff>2秒<>吸取周围敌人，共造成<#a974ffff>136<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>136% 法术强度<>的<#a974ffff>魔法伤害<>；每吸取一名英雄回复<#6aff55ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>64%<><#6aff55ff>生命值<>，小兵和野怪<#6aff55ff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<>。",
         "ult": "引导<#ffb900ff>1秒<>后传送到目标位置，鸦群环绕自身<#ffb900ff>5秒<>，每<#ffb900ff>0.5秒<>对周围敌人造成<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20% 法术强度<>的<#a974ffff>魔法伤害<>，落地时使周围英雄<#ef5350ff>恐惧<><#ffb900ff>1秒<>。引导时受到控制会被打断。"
+      },
+      "league_lucian": {
+        "name": "卢锡安",
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。被动<#ff9028ff>圣光银弹<>：每放一个技能，下次普攻连开两枪，第二枪<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50% 攻击力<>（对小兵、野怪100%）。<#ff9028ff>警惕<>：附近敌方英雄被定身后，接下来两次普攻额外造成<#f5f5f5ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20% 攻击力<>的<#f5f5f5ff>真实伤害<>。",
+        "skill": "射出穿透目标的光束，对直线上的敌人造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120% 攻击力<>的<#ff9028ff>物理伤害<>。",
+        "skill2": "冲刺：敌方英雄贴近时后撤，射程内有敌人时后跳，否则追到射程内。接着射出<#ff9028ff>热诚烈弹<>，爆炸造成<#f5f5f5ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50% 攻击力<>的<#f5f5f5ff>真实伤害<>并标记<#ffb900ff>6秒<>，期间每次命中<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移动速度+25%<>，持续<#ffb900ff>1秒<>。之后两次普攻都连开两枪。",
+        "ult": "原地引导<#ffb900ff>3秒<>，连射<#ffb900ff>20<>发子弹，每发射向最近的敌方英雄（穿过小兵），造成<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25% 攻击力<>的<#ff9028ff>物理伤害<>。受到<#ef5350ff>眩晕<>、<#ef5350ff>禁锢<>、<#ef5350ff>击飞<>等控制或阵亡时中断。"
       }
     },
     "skill_name": {
@@ -254,6 +261,11 @@
         "skill1": "恐惧",
         "skill2": "五骨丰登",
         "ult": "群鸦风暴"
+      },
+      "league_lucian": {
+        "skill1": "透体圣光",
+        "skill2": "冷酷追击",
+        "ult": "圣枪洗礼"
       }
     }
   },
@@ -405,6 +417,13 @@
         "skill": "放出烏鴉恐嚇目標，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 魔法強度<>的<#a974ffff>魔法傷害<>並使其<#ef5350ff>恐懼<><#ffb900ff>1.25秒<>；目標英雄正處於控制中時傷害加倍。",
         "skill2": "先揮出<#ff9028ff>駭懼收割<>，造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% 魔法強度<>的<#a974ffff>魔法傷害<>並<#ef5350ff>緩速40%<><#ffb900ff>1.25秒<>，中心的英雄同時被<#ef5350ff>沉默<>。隨後引導<#ffb900ff>2秒<>吸取周圍敵人，共造成<#a974ffff>136<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>136% 魔法強度<>的<#a974ffff>魔法傷害<>；每吸取一名英雄回復<#6aff55ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>64%<><#6aff55ff>生命值<>，小兵和野怪<#6aff55ff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<>。",
         "ult": "引導<#ffb900ff>1秒<>後傳送到目標位置，鴉群環繞自身<#ffb900ff>5秒<>，每<#ffb900ff>0.5秒<>對周圍敵人造成<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20% 魔法強度<>的<#a974ffff>魔法傷害<>，落地時使周圍英雄<#ef5350ff>恐懼<><#ffb900ff>1秒<>。引導時受到控制會被打斷。"
+      },
+      "league_lucian": {
+        "name": "路西恩",
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。被動<#ff9028ff>光之獵手<>：每施放一個技能，下次普攻連開兩槍，第二槍<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50% 攻擊力<>（對小兵、野怪100%）。<#ff9028ff>警惕<>：附近敵方英雄被定身後，接下來兩次普攻額外造成<#f5f5f5ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20% 攻擊力<>的<#f5f5f5ff>真實傷害<>。",
+        "skill": "射出穿透目標的光束，對直線上的敵人造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120% 攻擊力<>的<#ff9028ff>物理傷害<>。",
+        "skill2": "衝刺：敵方英雄貼近時後撤，射程內有敵人時後跳，否則追到射程內。接著射出<#ff9028ff>烈炎鐵血<>，爆炸造成<#f5f5f5ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50% 攻擊力<>的<#f5f5f5ff>真實傷害<>並標記<#ffb900ff>6秒<>，期間每次擊中<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>跑速+25%<>，持續<#ffb900ff>1秒<>。之後兩次普攻都連開兩槍。",
+        "ult": "原地引導<#ffb900ff>3秒<>，連射<#ffb900ff>20<>發子彈，每發射向最近的敵方英雄（穿過小兵），造成<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25% 攻擊力<>的<#ff9028ff>物理傷害<>。受到<#ef5350ff>暈眩<>、<#ef5350ff>定身<>、<#ef5350ff>擊飛<>等控制或陣亡時中斷。"
       }
     },
     "skill_name": {
@@ -512,6 +531,11 @@
         "skill1": "恐懼",
         "skill2": "豐收之魘",
         "ult": "群鴉風暴"
+      },
+      "league_lucian": {
+        "skill1": "鋒芒貫穿",
+        "skill2": "冷酷進擊",
+        "ult": "赤色屠戮"
       }
     }
   },
@@ -663,6 +687,13 @@
         "skill": "Fiddlesticks sends a crow at his target, dealing <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% Ability Power<> <#a974ffff>magic damage<> and <#ef5350ff>fearing<> it for <#ffb900ff>1.25s<>. Double damage to a champion already under crowd control.",
         "skill2": "<#ff9028ff>Reap<> first: <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% Ability Power<> <#a974ffff>magic damage<> in the target area, <#ef5350ff>slowing<> by 40% for <#ffb900ff>1.25s<> and <#ef5350ff>silencing<> champions in its centre for as long. Then he channels for <#ffb900ff>2s<>, draining nearby enemies for <#a974ffff>136<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>136% Ability Power<> <#a974ffff>magic damage<> in total, and heals <#6aff55ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>64%<> per champion drained (<#6aff55ff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<> per minion or monster).",
         "ult": "Fiddlesticks channels for <#ffb900ff>1s<>, then teleports to the target area. A murder of crows surrounds him for <#ffb900ff>5s<>, dealing <#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20% Ability Power<> <#a974ffff>magic damage<> to nearby enemies every <#ffb900ff>0.5s<>; champions caught as he lands are <#ef5350ff>feared<> for <#ffb900ff>1s<>. Crowd control interrupts the channel."
+      },
+      "league_lucian": {
+        "name": "Lucian",
+        "attack": "Basic attacks deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. Passive <#ff9028ff>Lightslinger<>: after each ability his next attack fires twice; the second shot deals <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50% AD<> (100% to minions and monsters). <#ff9028ff>Vigilance<>: when a nearby enemy champion is immobilized, his next 2 attacks deal an extra <#f5f5f5ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20% AD<> <#f5f5f5ff>true damage<>.",
+        "skill": "Lucian fires a beam of light through his target, dealing <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120% AD<> <#ff9028ff>physical damage<> to every enemy in the line.",
+        "skill2": "A dash: away from an enemy champion on him, a hop back when an enemy is in range, else toward his target until it is in range. Then <#ff9028ff>Ardent Blaze<> bursts on the first enemy hit for <#f5f5f5ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50% AD<> <#f5f5f5ff>true damage<> and marks them for <#ffb900ff>6s<>; meanwhile each hit gives him <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>25% move speed<> for <#ffb900ff>1s<>. His next 2 attacks both fire twice.",
+        "ult": "Lucian stands and fires <#ffb900ff>20<> shots over <#ffb900ff>3s<>, each at the nearest enemy champion (through minions), dealing <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25% AD<> <#ff9028ff>physical damage<>. A stun, root, knock-up or other crowd control, or his death, ends it."
       }
     },
     "skill_name": {
@@ -770,6 +801,11 @@
         "skill1": "Terrify",
         "skill2": "Bountiful Harvest",
         "ult": "Crowstorm"
+      },
+      "league_lucian": {
+        "skill1": "Piercing Light",
+        "skill2": "Relentless Pursuit",
+        "ult": "The Culling"
       }
     }
   },
@@ -921,6 +957,13 @@
         "skill": "대상에게 까마귀를 날려 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 60%<> <#a974ffff>마법 피해<>를 입히고 <#ffb900ff>1.25초<> 동안 <#ef5350ff>공포<>에 빠뜨립니다. 이미 군중 제어 상태인 챔피언에게는 두 배의 피해를 입힙니다.",
         "skill2": "<#ff9028ff>수확<>으로 대상 지역에 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 50%<> <#a974ffff>마법 피해<>를 입히고 <#ffb900ff>1.25초<> 동안 <#ef5350ff>40% 둔화<>시키며 중심의 챔피언은 <#ef5350ff>침묵<>시킵니다. 이어서 <#ffb900ff>2초<> 동안 주변 적의 영혼을 흡수해 총 <#a974ffff>136<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 136%<> <#a974ffff>마법 피해<>를 입히고, 챔피언 하나당 <#6aff55ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>64%<>, 미니언과 몬스터 하나당 <#6aff55ff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<>의 <#6aff55ff>체력<>을 회복합니다.",
         "ult": "<#ffb900ff>1초<> 동안 정신을 집중한 뒤 대상 지역으로 순간이동합니다. 까마귀 떼가 <#ffb900ff>5초<> 동안 주위를 맴돌며 <#ffb900ff>0.5초<>마다 주변 적에게 <#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 20%<> <#a974ffff>마법 피해<>를 입히고, 착지할 때 주변 챔피언을 <#ffb900ff>1초<> 동안 <#ef5350ff>공포<>에 빠뜨립니다. 정신 집중 중 군중 제어를 받으면 끊깁니다."
+      },
+      "league_lucian": {
+        "name": "루시안",
+        "attack": "기본 공격은 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다. 기본 지속 효과 <#ff9028ff>빛의 사수<>: 스킬을 쓸 때마다 다음 기본 공격이 2연발이 되며, 두 번째 발은 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 50%<>(미니언·몬스터 100%). 근처 적 챔피언이 이동 불가 상태가 되면 다음 기본 공격 2회가 <#f5f5f5ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 20%<> <#f5f5f5ff>고정 피해<>를 추가로 입힙니다.",
+        "skill": "대상을 관통하는 빛줄기를 쏘아 직선상의 적에게 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 120%<> <#ff9028ff>물리 피해<>를 입힙니다.",
+        "skill2": "돌진: 적 챔피언이 붙으면 뒤로, 사거리 안에 적이 있으면 살짝 뒤로, 없으면 사거리까지 앞으로. 이어서 <#ff9028ff>타는 불길<>이 폭발해 <#f5f5f5ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 50%<> <#f5f5f5ff>고정 피해<>를 입히고 <#ffb900ff>6초<> 동안 표식을 남기며, 그동안 적중할 때마다 <#ffb900ff>1초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도 25%<>. 다음 기본 공격 2회는 모두 2연발.",
+        "ult": "제자리에서 <#ffb900ff>3초<> 동안 총알 <#ffb900ff>20<>발을 가장 가까운 적 챔피언에게 (미니언 관통) 쏘아 한 발마다 <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 25%<> <#ff9028ff>물리 피해<>를 입힙니다. <#ef5350ff>기절<>, <#ef5350ff>속박<>, <#ef5350ff>에어본<> 등에 걸리거나 죽으면 중단됩니다."
       }
     },
     "skill_name": {
@@ -1028,6 +1071,11 @@
         "skill1": "공포",
         "skill2": "풍작",
         "ult": "까마귀 폭풍"
+      },
+      "league_lucian": {
+        "skill1": "꿰뚫는 빛",
+        "skill2": "끈질긴 추격",
+        "ult": "빛의 심판"
       }
     }
   },
@@ -1179,6 +1227,13 @@
         "skill": "対象にカラスを放ち<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の60%<>の<#a974ffff>魔法ダメージ<>を与え、<#ffb900ff>1.25秒<>間<#ef5350ff>恐怖<>させる。行動妨害中のチャンピオンにはダメージが2倍。",
         "skill2": "まず<#ff9028ff>刈り取り<>で対象範囲に<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の50%<>の<#a974ffff>魔法ダメージ<>を与え<#ffb900ff>1.25秒<>間<#ef5350ff>40%スロウ<>、中心のチャンピオンは同時に<#ef5350ff>沈黙<>する。続けて<#ffb900ff>2秒<>間詠唱し周囲の敵から合計<#a974ffff>136<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の136%<>の<#a974ffff>魔法ダメージ<>を吸い取る。チャンピオン1体につき<#6aff55ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>64%<>の<#6aff55ff>体力<>を回復する。",
         "ult": "<#ffb900ff>1秒<>詠唱後、対象地点へテレポート。カラスの群れが<#ffb900ff>5秒<>間周囲を舞い、<#ffb900ff>0.5秒<>毎に周囲の敵に<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の20%<>の<#a974ffff>魔法ダメージ<>を与え、着地時に周囲のチャンピオンを<#ffb900ff>1秒<>間<#ef5350ff>恐怖<>させる。詠唱中に行動妨害を受けると中断。"
+      },
+      "league_lucian": {
+        "name": "ルシアン",
+        "attack": "通常攻撃は<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>。自動効果<#ff9028ff>二挺拳銃<>：スキル使用後の次の攻撃は2連射、2発目は<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の50%<>（ミニオン・モンスターには100%）。近くの敵チャンピオンが移動不能になると、次の2回の攻撃が<#f5f5f5ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の20%<>の<#f5f5f5ff>確定ダメージ<>を追加。",
+        "skill": "対象を貫く光線を放ち、直線上の敵に<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の120%<>の<#ff9028ff>物理ダメージ<>を与える。",
+        "skill2": "移動：敵チャンピオンが近ければ後退、射程内に敵がいれば小さく後退、いなければ射程内まで前進。続けて<#ff9028ff>アーデントブレイズ<>が爆発し<#f5f5f5ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の50%<>の<#f5f5f5ff>確定ダメージ<>、<#ffb900ff>6秒<>の印。その間の命中で<#ffb900ff>1秒<><i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度25%<>。次の2回の攻撃はどちらも2連射。",
+        "ult": "その場で<#ffb900ff>3秒<>間、最も近い敵チャンピオンへ弾丸を<#ffb900ff>20<>発連射（ミニオンを貫通）、1発ごとに<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の25%<>の<#ff9028ff>物理ダメージ<>。スタン、スネア、ノックアップなどを受けるか倒されると中断。"
       }
     },
     "skill_name": {
@@ -1286,6 +1341,11 @@
         "skill1": "テラー",
         "skill2": "豊かな収穫",
         "ult": "クロウストーム"
+      },
+      "league_lucian": {
+        "skill1": "ピアシングライト",
+        "skill2": "スライド",
+        "ult": "二挺掃射"
       }
     }
   }

@@ -1,0 +1,334 @@
+{
+  "hero": "lucian",
+  "champ": "Lucian",
+  "camera": {
+    "yaw": 45,
+    "pitch": 25,
+    "mirror": false
+  },
+  "chibi": {
+    "head": 2.3,
+    "legs": 0.75,
+    "hair": 0.45
+  },
+  "weapon": "^(LightGun|DarkGun)$",
+  "height": 34,
+  "cell": [
+    96,
+    96,
+    14
+  ],
+  "design": "Lucian_idle_ready@0",
+  "tags": {
+    "idle": {
+      "frames": [
+        [
+          "Lucian_idle_ready@0",
+          200
+        ],
+        [
+          "Lucian_idle_ready@0",
+          200
+        ],
+        [
+          "Lucian_idle_ready@0",
+          200
+        ],
+        [
+          "Lucian_idle_ready@0",
+          200
+        ],
+        [
+          "Lucian_idle_ready@0",
+          200
+        ],
+        [
+          "Lucian_idle_ready@0",
+          200
+        ]
+      ]
+    },
+    "run": {
+      "flat": true,
+      "head_like": "Lucian_idle_ready@0",
+      "frames": [
+        [
+          "Lucian_Run1@0",
+          117
+        ],
+        [
+          "Lucian_Run1@117",
+          117
+        ],
+        [
+          "Lucian_Run1@233",
+          117
+        ],
+        [
+          "Lucian_Run1@350",
+          117
+        ],
+        [
+          "Lucian_Run1@467",
+          117
+        ],
+        [
+          "Lucian_Run1@583",
+          117
+        ],
+        [
+          "Lucian_Run1@700",
+          117
+        ],
+        [
+          "Lucian_Run1@817",
+          117
+        ]
+      ]
+    },
+    "attack": {
+      "lunge": 0.7,
+      "frames": [
+        [
+          "Lucian_idle_ready@0>Lucian_Attack1@100:0.5",
+          60
+        ],
+        [
+          "Lucian_Attack1@200",
+          60
+        ],
+        [
+          "Lucian_Attack1@233",
+          70
+        ],
+        [
+          "Lucian_Attack1@300",
+          70
+        ],
+        [
+          "Lucian_Attack1@367",
+          80
+        ],
+        [
+          "Lucian_Attack1@533>Lucian_idle_ready@0:0.5",
+          90
+        ]
+      ]
+    },
+    "passive": {
+      "lunge": 0.7,
+      "frames": [
+        [
+          "Lucian_idle_ready@0>Lucian_Passive@100:0.5",
+          50
+        ],
+        [
+          "Lucian_Passive@200",
+          50
+        ],
+        [
+          "Lucian_Passive@267",
+          60
+        ],
+        [
+          "Lucian_Passive@333",
+          60
+        ],
+        [
+          "Lucian_Passive@433",
+          60
+        ],
+        [
+          "Lucian_Passive@500",
+          70
+        ],
+        [
+          "Lucian_Passive@700>Lucian_idle_ready@0:0.5",
+          90
+        ]
+      ]
+    },
+    "skill": {
+      "lunge": 0.7,
+      "frames": [
+        [
+          "Lucian_idle_ready@0>Lucian_Spell1@0:0.5",
+          60
+        ],
+        [
+          "Lucian_Spell1@100",
+          60
+        ],
+        [
+          "Lucian_Spell1@233",
+          70
+        ],
+        [
+          "Lucian_Spell1@400",
+          70
+        ],
+        [
+          "Lucian_Spell1@500",
+          80
+        ],
+        [
+          "Lucian_Spell1@700",
+          80
+        ],
+        [
+          "Lucian_Spell1@900>Lucian_idle_ready@0:0.5",
+          90
+        ]
+      ]
+    },
+    "skill2": {
+      "lunge": 0.7,
+      "rise": 0.25,
+      "frames": [
+        [
+          "Lucian_idle_ready@0>Lucian_Spell2@0:0.3",
+          50
+        ],
+        [
+          "Lucian_Spell2@67",
+          50
+        ],
+        [
+          "Lucian_Spell2@200",
+          50
+        ],
+        [
+          "Lucian_Spell2@533>Lucian_idle_ready@0:0.7",
+          60
+        ],
+        [
+          "Lucian_idle_ready@0>Lucian_Spell3@0:0.8",
+          60
+        ],
+        [
+          "Lucian_Spell3@150",
+          70
+        ],
+        [
+          "Lucian_Spell3@350",
+          80
+        ],
+        [
+          "Lucian_Spell3@700>Lucian_idle_ready@0:0.5",
+          90
+        ]
+      ]
+    },
+    "skill2_back": {
+      "lunge": 0.7,
+      "rise": 0.25,
+      "frames": [
+        [
+          "Lucian_idle_ready@0>Lucian_Spell2_180@0:0.3",
+          50
+        ],
+        [
+          "Lucian_Spell2_180@100",
+          50
+        ],
+        [
+          "Lucian_Spell2_180@300",
+          50
+        ],
+        [
+          "Lucian_Spell2_180@600>Lucian_idle_ready@0:0.7",
+          60
+        ],
+        [
+          "Lucian_idle_ready@0>Lucian_Spell3@0:0.8",
+          60
+        ],
+        [
+          "Lucian_Spell3@150",
+          70
+        ],
+        [
+          "Lucian_Spell3@350",
+          80
+        ],
+        [
+          "Lucian_Spell3@700>Lucian_idle_ready@0:0.5",
+          90
+        ]
+      ]
+    },
+    "ult": {
+      "frames": [
+        [
+          "Lucian_Spell4_Idle_0@0",
+          75
+        ],
+        [
+          "Lucian_Spell4_Idle_0@200",
+          75
+        ],
+        [
+          "Lucian_Spell4_Idle_0@400",
+          75
+        ],
+        [
+          "Lucian_Spell4_Idle_0@600",
+          75
+        ]
+      ]
+    },
+    "hit": {
+      "flat": true,
+      "frames": [
+        [
+          "Lucian_idle_ready@0>Lucian_Death@100:0.35",
+          100
+        ],
+        [
+          "Lucian_idle_ready@0>Lucian_Death@100:0.15",
+          100
+        ]
+      ]
+    },
+    "dead": {
+      "anchor": "first",
+      "lunge": 0.5,
+      "flat": true,
+      "travel": 0.3,
+      "frames": [
+        [
+          "Lucian_Death@0",
+          100
+        ],
+        [
+          "Lucian_Death@200",
+          100
+        ],
+        [
+          "Lucian_Death@400",
+          100
+        ],
+        [
+          "Lucian_Death@600",
+          100
+        ],
+        [
+          "Lucian_Death@800",
+          120
+        ],
+        [
+          "Lucian_Death@1000",
+          150
+        ],
+        [
+          "Lucian_Death@1300",
+          150
+        ],
+        [
+          "Lucian_Death@1700",
+          400
+        ]
+      ]
+    }
+  }
+}
