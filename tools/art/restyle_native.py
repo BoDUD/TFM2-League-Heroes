@@ -85,6 +85,10 @@ chest (dropped, it left a hole under the drawn head), and "anchor": true places 
 "anchor" point (his shoulders) instead of League's head joint and turns it with the torso ("atilt"): on the
 head joint, 19 rows below the drawn head, it floated off the body whenever League's head nodded or swung
 (the wind-up of his attack, the landing of his R, lying in death).
+Kayle (league_kayle) floats with her near arm held away from her waist, and at game size the gap between them
+was a few empty pixels in an outline ring: a black hole in her armour. "fill_holes": <pixels> fills every empty
+region the frame's edge cannot reach, up to that size, and its inner outline with the body colours beside it,
+before the head goes on.
 """
 import argparse
 import json
@@ -395,6 +399,57 @@ def shoulders(a, weapon, cx, top, widths, outline):
     a[ring, 3] = 255
 
 
+def fill_holes(a, weapon, outline, max_area):
+    """Fill every empty region the frame's edge cannot reach, of at most `max_area` pixels, and the outline
+    pixels round it, with the body colours beside them (the most common of the four neighbours, repeated
+    inwards). league_kayle's idle holds her near arm away from her waist: at game size the gap between them
+    was three empty pixels in an outline ring, a black hole in the middle of her armour."""
+    h, w = a.shape[:2]
+    empty = a[..., 3] == 0
+    seen = np.zeros((h, w), bool)
+    ol = np.array(outline, np.uint8)
+    is_ol = lambda y, x: bool((a[y, x, :3] == ol).all()) and a[y, x, 3] > 0  # noqa: E731
+    for y in range(h):
+        for x in range(w):
+            if not empty[y, x] or seen[y, x]:
+                continue
+            stack, region, edge = [(y, x)], [], False
+            seen[y, x] = True
+            while stack:
+                cy, cx = stack.pop()
+                region.append((cy, cx))
+                edge |= cy in (0, h - 1) or cx in (0, w - 1)
+                for ny, nx in ((cy - 1, cx), (cy + 1, cx), (cy, cx - 1), (cy, cx + 1)):
+                    if 0 <= ny < h and 0 <= nx < w and empty[ny, nx] and not seen[ny, nx]:
+                        seen[ny, nx] = True
+                        stack.append((ny, nx))
+            if edge or len(region) > max_area:
+                continue
+            todo = set(region)
+            for cy, cx in region:
+                for ny, nx in ((cy - 1, cx), (cy + 1, cx), (cy, cx - 1), (cy, cx + 1)):
+                    if (ny, nx) not in todo and is_ol(ny, nx):
+                        todo.add((ny, nx))
+            while todo:
+                done = set()
+                for cy, cx in sorted(todo):
+                    votes = {}
+                    for ny, nx in ((cy - 1, cx), (cy + 1, cx), (cy, cx - 1), (cy, cx + 1)):
+                        if (ny, nx) in todo or not (0 <= ny < h and 0 <= nx < w):
+                            continue
+                        if a[ny, nx, 3] and not is_ol(ny, nx) and not weapon[ny, nx]:
+                            k = tuple(int(v) for v in a[ny, nx, :3])
+                            votes[k] = votes.get(k, 0) + 1
+                    if votes:
+                        a[cy, cx, :3] = max(votes, key=lambda k: (votes[k], k))
+                        a[cy, cx, 3] = 255
+                        done.add((cy, cx))
+                if not done:
+                    break
+                todo -= done
+    return a
+
+
 def paste_face(a, weapon, head_px, feats, cell, pal, min_facing, dy=-1, trim=0, hair_above=0, profile=None,
                body_px=None, chin=None, fallback=None):
     """The design's brows, eyes and mouth on the face this frame shows. native_pose's track (cells "face":
@@ -569,6 +624,8 @@ def main():
             turn = rs.get("turn", TURN)
             if isinstance(turn, dict):         # per tag, "*" for the rest
                 turn = turn.get(tag, turn.get("*", TURN))
+            if rs.get("fill_holes"):           # small gaps inside the body (league_kayle's arm and waist)
+                a = fill_holes(a, weapon, pal.outline, rs["fill_holes"])
             if voted:
                 paste_face(a, weapon, head_px, feats, cell, pal, fs.get("min_facing", 0.05), profile=fs.get("profile"),
                            body_px=body_px, chin=fs.get("chin"), fallback=fs.get("fallback"), trim=fs.get("trim_front", 0),

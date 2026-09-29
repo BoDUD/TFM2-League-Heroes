@@ -2,9 +2,9 @@
   "hero": "janna",
   "champ": "Janna",
   "camera": {"yaw": 45, "pitch": 25, "mirror": true},
-  "chibi": {"head": 2.0, "legs": 0.8, "hair": 0.5},
+  "chibi": {"head": 1.6, "legs": 0.8, "hair": 0.5},
   "weapon": "^weapon$",
-  "height": 28,
+  "height": 30,
   "hover": 3,
   "cell": [88, 88, 10],
   "design": "Janna_Idle1@0",
@@ -17,15 +17,15 @@
       ["Janna_Run@500>Janna_Idle1@0:0.85", 125], ["Janna_Run@625>Janna_Idle1@0:0.85", 125],
       ["Janna_Run@750>Janna_Idle1@0:0.85", 125], ["Janna_Run@875>Janna_Idle1@0:0.85", 125]]},
     "attack": {"lunge": 0.7, "frames": [
-      ["Janna_Idle1@0>Janna_attack1@100:0.5", 70], ["Janna_attack1@180", 70], ["Janna_attack1@280", 80],
-      ["Janna_attack1@360", 100], ["Janna_attack1@480", 100], ["Janna_Idle1@0>Janna_attack1@600:0.5", 100]]},
+      ["Janna_Idle1@0>Janna_attack1@100:0.5", 70], ["Janna_attack1@180>Janna_Idle1@0:0.35", 70], ["Janna_attack1@280>Janna_Idle1@0:0.35", 80],
+      ["Janna_attack1@360>Janna_Idle1@0:0.35", 100], ["Janna_attack1@480>Janna_Idle1@0:0.35", 100], ["Janna_Idle1@0>Janna_attack1@600:0.5", 100]]},
     "skill": {"lunge": 0.7, "frames": [
-      ["Janna_Idle1@0>Janna_Spell1@120:0.5", 70], ["Janna_Spell1@220", 70, {"turn": 30}],
-      ["Janna_Spell1@480", 80], ["Janna_Spell1@560", 90], ["Janna_Spell1@660", 100],
+      ["Janna_Idle1@0>Janna_Spell1@120:0.5", 70], ["Janna_Spell1@220>Janna_Idle1@0:0.35", 70, {"turn": 30}],
+      ["Janna_Spell1@480>Janna_Idle1@0:0.35", 80], ["Janna_Spell1@560>Janna_Idle1@0:0.35", 90], ["Janna_Spell1@660>Janna_Idle1@0:0.35", 100],
       ["Janna_Idle1@0>Janna_Spell1@800:0.5", 100]]},
     "skill2": {"lunge": 0.7, "frames": [
-      ["Janna_Idle1@0>Janna_Spell2@125:0.5", 70], ["Janna_Spell2@250", 70], ["Janna_Spell2@375", 80],
-      ["Janna_Spell2@450", 100], ["Janna_Spell2@600", 100], ["Janna_Idle1@0>Janna_Spell2@750:0.5", 100]]},
+      ["Janna_Idle1@0>Janna_Spell2@125:0.5", 70], ["Janna_Spell2@250>Janna_Idle1@0:0.35", 70], ["Janna_Spell2@375>Janna_Idle1@0:0.35", 80],
+      ["Janna_Spell2@450>Janna_Idle1@0:0.35", 100], ["Janna_Spell2@600>Janna_Idle1@0:0.35", 100], ["Janna_Idle1@0>Janna_Spell2@750:0.5", 100]]},
     "ult": {"lunge": 0.7, "rise": 0.4, "frames": [
       ["Janna_Idle1@0>Janna_Spell4_windup@145:0.5", 70], ["Janna_Spell4_windup@290", 70],
       ["Janna_Spell4_windup@435", 70], ["Janna_Spell4_windup@580", 70], ["Janna_Spell4_windup@725", 70],
@@ -42,8 +42,7 @@
       ["Janna_Death@1800", 400, {"hide": ["^weapon$"], "sink": 3}]]}
   },
   "restyle": {
-    "head": {"rect": [54, 61, 18, 19], "cut": [[71, 73], [71, 74], [71, 75], [71, 76], [71, 77], [71, 78], [61, 79], [66, 79], [71, 79]], "dx": -5, "dy": -2,
-             "paint": [[63, 79, "F2CCA8"], [64, 79, "F2CCA8"], [65, 79, "F2CCA8"]], "shoulders": {"x": 10.5, "widths": [7, 6, 6]}},
+    "head": {"rect": [51, 57, 21, 23], "dx": -8, "dy": -8, "shoulders": {"x": 13.5, "widths": [7, 6, 6]}},
     "outline": "1E1A2C",
     "close": 1,
     "cover": 0.3,
@@ -56,8 +55,8 @@
       {"name": "gold", "hue": [36, 62], "sat": [0.34, 1], "val": [0.55, 1],
        "ramp": [["B8862E", 0.75], ["E8C050", 0.92], ["FFEC98"]]},
       {"name": "skin", "hue": [345, 42], "sat": [0.14, 0.85], "val": [0.22, 1],
-       "ramp": [["8E5440", 0.42], ["BC7C60", 0.6], ["DCA482", 0.8], ["F2CCA8"]]},
-      {"name": "cloth", "ramp": [["5A6680", 0.42], ["8E9CB6", 0.6], ["BFCADC", 0.8], ["EAF0F8"]]}
+       "ramp": [["B87858", 0.35], ["DCA482", 0.6], ["F2CCA8"]]},
+      {"name": "cloth", "ramp": [["7C88A4", 0.38], ["A8B4CC", 0.58], ["D0DAEA", 0.78], ["F4F8FC"]]}
     ]
   }
 }
