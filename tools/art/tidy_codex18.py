@@ -52,7 +52,10 @@ EYE_COLOURS = {"thresh": [(13, 200, 78), (4, 71, 29)],
                "malphite": [(245, 166, 8), (184, 78, 5), (150, 76, 29)],
                "annie": [(51, 32, 63)],
                "amumu": [(243, 224, 80), (247, 214, 65), (204, 141, 33), (153, 88, 24), (87, 46, 21)],
-               "yasuo": [(80, 46, 32)], "jinx": [(209, 46, 128)], "missfortune": [(44, 129, 226)]}
+               "yasuo": [(80, 46, 32)], "jinx": [(209, 46, 128)], "missfortune": [(44, 129, 226)],
+               # the user's new Ezreal and Teemo (重缩 A, model_strips_et): his middle eye blue; Teemo's eyes are
+               # closed arcs in the outline's colours - his goggle lens and the cream fur round them keep his face
+               "ezreal": [(1, 112, 181)], "teemo": [(180, 189, 212), (252, 238, 211)]}
 # heroes whose delivered faces were drawn anew in every frame (Codex: "not a pixel copy of the head"): the design's
 # face - eyes, brows, cheeks and the fringe right round them - goes back into every frame where the head is found.
 # head: the design's head box on its 128x128 canvas (<hero>_native.png), matched in every frame by colour; patch: the
