@@ -8,10 +8,10 @@
   league_ezreal_showcase.gif  a scripted fight against Darius and Garen, timed like the kit: he runs in, a bolt
                               from the gauntlet, Mystic Shot; with a champion in range Essence Flux goes first,
                               sticks to Darius and marks him, and the Mystic Shot that follows detonates it; two
-                              more bolts fill Rising Spell Force (the aura); Darius closes in, Arcane Shift blinks
-                              Ezreal away (the flash where he leaves and where he lands) and its homing bolt hits
-                              Darius; Trueshot Barrage charges on the gauntlet for a second and its wave sweeps
-                              through Darius, who falls, and Garen walking up behind him; 3x
+                              more bolts fill Rising Spell Force (the aura); Darius backs off out of reach and
+                              Arcane Shift blinks Ezreal after him (the flash where he leaves and where he lands),
+                              its homing bolt hits Darius; Trueshot Barrage charges on the gauntlet for a second and
+                              its wave sweeps through Darius, who falls, and Garen walking up behind him; 3x
 """
 import argparse
 import os
@@ -32,15 +32,14 @@ FX = {n: os.path.join(LEAGUE, "effects", n) for n in ("league_ezreal_fx", "leagu
 
 
 class Hop(Anim):
-    """An animation whose unit moves from x to x1 between moments m0 and m1 (Arcane Shift's hop)."""
+    """An animation whose unit is at x until moment m, then at x1 (Arcane Shift's blink)."""
 
-    def __init__(self, *args, m0=0.0, m1=0.0, **kw):
+    def __init__(self, *args, m=0.0, **kw):
         super().__init__(*args, **kw)
-        self.m0, self.m1 = m0, m1
+        self.m = m
 
     def pos(self, t):
-        u = min(1.0, max(0.0, (t - self.m0) / (self.m1 - self.m0)))
-        return int(round(self.x + (self.x1 - self.x) * u)), self.y
+        return (self.x if t < self.m else self.x1), self.y
 
 
 def showcase(out, z=3, step=40):
@@ -107,13 +106,17 @@ def showcase(out, z=3, step=40):
         a("attack")
         a("idle", tick(60) - tick(26), loop=True)
     full = t - tick(60) + tick(26) + tick(7) + tick(8)
-    # Darius closes in to 30 px: Arcane Shift hops Ezreal 40 px away from him (tick 3 to 8), the homing bolt at 14
-    d.walks.append((t - 700, t, -25))
+    # Darius backs off to 100 px, out of reach: Arcane Shift blinks Ezreal after him (the invisible bolt that carries
+    # him leaves at tick 3, 6 px a tick, and stops 48 px short of Darius: he lands there at tick 11), the homing
+    # bolt at 14
+    d.walks.append((t - 700, t, 45))
     start = t
+    dx_, _ = d.pos(start)
+    jump = min(47, dx_ - 48 - ex)
     fx_at("league_ezreal_fx", "e_depart", start + tick(3), ex, gy)
-    body.append(Hop(frames_of(ez, "skill2"), start, ex, gy, x1=ex - 40, m0=start + tick(3), m1=start + tick(8)))
-    ex -= 40
-    fx_at("league_ezreal_fx", "e_arrive", start + tick(8), ex, gy)
+    body.append(Hop(frames_of(ez, "skill2"), start, ex, gy, x1=ex + jump, m=start + tick(11)))
+    ex += jump
+    fx_at("league_ezreal_fx", "e_arrive", start + tick(11), ex, gy)
     t = body[-1].until
     fly("e_bolt", start + tick(14), 6.0, hits=("e_hit",))
     a("idle", 900, loop=True)

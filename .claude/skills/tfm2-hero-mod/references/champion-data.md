@@ -688,6 +688,22 @@ first) with `Sfx`, the dash and `CasterAnimation q2` inside; the dash's `end_eff
 second hit. The action's `duration` covers wind-up, flight and delay (44 ticks). *(inferred
 from the pack; not yet seen in-game)*
 
+**Blink away from a diver or toward a runner (league_ezreal E).** No effect moves the caster part
+of the way to a unit: `MoveTo` and `MoveToTarget` in a `Targeting` cast both go all the way, and
+`DirTeleport` works only in `Direction` casts. So the E is cast on `EnemyChampionRecentlyAttacked`
+(in a fight) with a long `range` and picks its move inside: `RandomTarget {range: 40000,
+casting_target: EnemyChampion}` holds `MoveBack` (straight away from that champion: in every hop
+measured the AI had aimed the E at the same, nearest one), the bolt at it and a 1-tick flag; without
+the flag a second `RandomTarget`
+at his attack range decides between staying (only the bolt) and a blink toward the target: an
+invisible, non-penetrating `LinearProjectile` on `EnemyChampion` with a 45000 radius and 47500 range,
+`end_effects: [Teleport]`, so he lands where it stops, about 48000 short of the first champion it
+meets. A projectile checks for units only after its first tick of flight: at speed 20000 it went
+20000 units into a champion it already overlapped and dropped him at melee range; at 6000 it
+overshoots by at most 6000. `RandomTarget`'s range seems to count both units' radii like an action's
+(the hops came with the champion 45000-55000 units away, centre to centre) *(measured in the SDK
+simulation, 2026-09-29)*.
+
 **Kick it back into the others (league_leesin R).** `Targeting` on an enemy champion: `Attack` and
 `Knockback {speed: 3000, tick: 18}` on the target, plus a `LinearProjectile` toward it with
 `penetrate: true` at the same speed (LoL Reborn Nautilus R knocks up along a line this way). The

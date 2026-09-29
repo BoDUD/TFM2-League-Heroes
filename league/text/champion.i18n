@@ -131,7 +131,7 @@
         "name": "伊泽瑞尔",
         "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。被动<#ff9028ff>咒能高涨<>：技能每打中一个目标，<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻击速度提高12%<>，持续<#ffb900ff>6秒<>，最多叠加<#ffb900ff>5<>层，再次打中时刷新。",
         "skill": "能量箭对命中的第一个敌人造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140% 攻击力<>的<#ff9028ff>物理伤害<>（视为普攻，可暴击），命中后各技能冷却最多剩<#ffb900ff>2/3<>。<#ff9028ff>精华跃动<>（冷却<#ffb900ff>6秒<>）：先向附近敌方英雄射出精华，粘住<#ffb900ff>4秒<>，下次普攻或技能命中英雄时引爆，造成<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90% 攻击力<>的<#ff9028ff>物理伤害<>。",
-        "skill2": "敌方英雄靠近时，朝远离他的方向闪现，再向他射出追踪魔法箭，造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% 攻击力<>的<#ff9028ff>物理伤害<>，也会引爆<#ff9028ff>精华跃动<>。",
+        "skill2": "交战中：有敌方英雄贴近时朝远离他的方向闪现，目标在普攻射程外时朝他闪现，然后射出追踪魔法箭，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50% 攻击力<>的<#ff9028ff>物理伤害<>，也会引爆<#ff9028ff>精华跃动<>。",
         "ult": "蓄力<#ffb900ff>1秒<>后射出横贯全图的能量波，对路径上的敌方英雄造成<#ff9028ff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130% 攻击力<>的<#ff9028ff>物理伤害<>，对小兵和野怪伤害减半。"
       }
     },
@@ -365,7 +365,7 @@
         "name": "伊澤瑞爾",
         "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。被動<#ff9028ff>咒能高漲<>：技能每擊中一個目標，<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻擊速度提高12%<>，持續<#ffb900ff>6秒<>，最多疊加<#ffb900ff>5<>層，再次擊中時刷新。",
         "skill": "能量箭對擊中的第一個敵人造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140% 攻擊力<>的<#ff9028ff>物理傷害<>（視為普攻，可暴擊），擊中後各技能冷卻最多剩<#ffb900ff>2/3<>。<#ff9028ff>精華躍動<>（冷卻<#ffb900ff>6秒<>）：先向附近敵方英雄射出精華，黏住<#ffb900ff>4秒<>，下次普攻或技能擊中英雄時引爆，造成<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90% 攻擊力<>的<#ff9028ff>物理傷害<>。",
-        "skill2": "敵方英雄靠近時，朝遠離他的方向閃現，再向他射出追蹤魔法箭，造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% 攻擊力<>的<#ff9028ff>物理傷害<>，也會引爆<#ff9028ff>精華躍動<>。",
+        "skill2": "交戰中：有敵方英雄貼近時朝遠離他的方向閃現，目標在普攻射程外時朝他閃現，然後射出追蹤魔法箭，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50% 攻擊力<>的<#ff9028ff>物理傷害<>，也會引爆<#ff9028ff>精華躍動<>。",
         "ult": "蓄力<#ffb900ff>1秒<>後射出橫貫全圖的能量波，對路徑上的敵方英雄造成<#ff9028ff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130% 攻擊力<>的<#ff9028ff>物理傷害<>，對小兵和野怪傷害減半。"
       }
     },
@@ -599,7 +599,7 @@
         "name": "Ezreal",
         "attack": "Basic attacks deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. Passive <#ff9028ff>Rising Spell Force<>: each target his abilities hit grants <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>12% attack speed<> for <#ffb900ff>6s<>, stacking up to <#ffb900ff>5<> times; a new hit refreshes it.",
         "skill": "A bolt deals <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140% AD<> <#ff9028ff>physical damage<> to the first enemy hit (a basic attack: it can crit); on hit, all cooldowns drop to at most <#ffb900ff>2/3<> of their length. <#ff9028ff>Essence Flux<> (every <#ffb900ff>6s<>): first an orb sticks to a nearby enemy champion for <#ffb900ff>4s<>; his next attack or ability on an enemy champion detonates it for <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90% AD<> <#ff9028ff>physical damage<>.",
-        "skill2": "When an enemy champion comes close, Ezreal blinks away from it, then fires a homing bolt at it for <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% AD<> <#ff9028ff>physical damage<>. The bolt also detonates <#ff9028ff>Essence Flux<>.",
+        "skill2": "In a fight: with an enemy champion close, Ezreal blinks away from it; with his target out of attack range, he blinks toward it. Then he fires a homing bolt for <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50% AD<> <#ff9028ff>physical damage<>. The bolt also detonates <#ff9028ff>Essence Flux<>.",
         "ult": "After a <#ffb900ff>1s<> charge, fires an energy wave across the map that deals <#ff9028ff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130% AD<> <#ff9028ff>physical damage<> to enemy champions in its path; minions and monsters take half."
       }
     },
@@ -833,7 +833,7 @@
         "name": "이즈리얼",
         "attack": "기본 공격은 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다. 기본 지속 효과 <#ff9028ff>끓어오르는 주문의 힘<>: 스킬이 대상을 맞힐 때마다 <#ffb900ff>6초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>공격 속도 12%<> 증가(최대 <#ffb900ff>5<>회), 다시 맞히면 갱신됩니다.",
         "skill": "화살이 처음 맞은 적에게 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 140%<> <#ff9028ff>물리 피해<>(기본 공격 취급, 치명타 가능). 적중 시 모든 스킬의 남은 대기시간이 최대 <#ffb900ff>2/3<>로 줄어듭니다. <#ff9028ff>정수의 흐름<>(<#ffb900ff>6초<>마다): 먼저 근처 적 챔피언에게 정수를 <#ffb900ff>4초<> 동안 붙이고, 다음 공격이나 스킬이 적 챔피언을 맞히면 폭발해 <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 90%<> <#ff9028ff>물리 피해<>.",
-        "skill2": "적 챔피언이 가까이 오면 반대 방향으로 순간이동한 뒤 그 챔피언에게 유도 화살을 쏘아 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 60%<> <#ff9028ff>물리 피해<>를 입힙니다. 이 화살도 <#ff9028ff>정수의 흐름<>을 폭발시킵니다.",
+        "skill2": "교전 중: 적 챔피언이 가까우면 반대 방향으로, 대상이 사거리 밖이면 대상 쪽으로 순간이동한 뒤 유도 화살을 쏘아 <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 50%<> <#ff9028ff>물리 피해<>를 입힙니다. 이 화살도 <#ff9028ff>정수의 흐름<>을 폭발시킵니다.",
         "ult": "<#ffb900ff>1초<> 동안 힘을 모은 뒤 맵을 가로지르는 에너지 파동을 쏘아 경로상의 적 챔피언에게 <#ff9028ff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 130%<> <#ff9028ff>물리 피해<>를 입힙니다. 미니언과 몬스터는 절반의 피해를 받습니다."
       }
     },
@@ -1067,7 +1067,7 @@
         "name": "エズリアル",
         "attack": "通常攻撃は<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>を与える。自動効果<#ff9028ff>ライジングスペルフォース<>：スキルが対象に命中するたび<#ffb900ff>6秒<>間<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻撃速度12%<>（最大<#ffb900ff>5<>回）、再命中で更新。",
         "skill": "光弾が最初に当たった敵に<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の140%<>の<#ff9028ff>物理ダメージ<>（通常攻撃扱い、クリティカルあり）。命中で全スキルの残りCDが最大<#ffb900ff>2/3<>に。<#ff9028ff>エッセンスフラックス<>（<#ffb900ff>6秒<>ごと）：先に近くの敵チャンピオンへ光球を<#ffb900ff>4秒<>付着、次の攻撃かスキルが当たると爆発し<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の90%<>の<#ff9028ff>物理ダメージ<>。",
-        "skill2": "敵チャンピオンが近づくと反対方向へテレポートし、その敵に追尾する矢を放って<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の60%<>の<#ff9028ff>物理ダメージ<>を与える。矢は<#ff9028ff>エッセンスフラックス<>も起爆する。",
+        "skill2": "戦闘中：敵チャンピオンが近ければ反対方向へ、対象が射程外なら対象へ向かってテレポートし、追尾する矢を放って<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の50%<>の<#ff9028ff>物理ダメージ<>を与える。矢は<#ff9028ff>エッセンスフラックス<>も起爆する。",
         "ult": "<#ffb900ff>1秒<>チャージした後、マップを横断するエネルギー波を放ち、通過した敵チャンピオンに<#ff9028ff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の130%<>の<#ff9028ff>物理ダメージ<>を与える。ミニオンとモンスターへのダメージは半分。"
       }
     },
