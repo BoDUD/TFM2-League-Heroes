@@ -41,7 +41,7 @@
     "cooltime": 60,
     "start_timing": 1,
     "cancelable": true,
-    "range": 50000,
+    "range": 55000,
     "casting_type": "Targeting",
     "casting_target": "Enemy",
     "attack_type": "BaseAttack",
@@ -233,8 +233,8 @@
                                   "casting_type": "Targeting",
                                   "effect": {
                                     "type": "FixedAttack",
-                                    "damage": 15,
-                                    "attack_ratio": 20,
+                                    "damage": 20,
+                                    "attack_ratio": 25,
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 0,
                                     "attack_effect_type": "Target"
@@ -276,8 +276,8 @@
                                     "casting_type": "Targeting",
                                     "effect": {
                                       "type": "FixedAttack",
-                                      "damage": 15,
-                                      "attack_ratio": 20,
+                                      "damage": 20,
+                                      "attack_ratio": 25,
                                       "hp_ratio": 0,
                                       "target_hp_ratio": 0,
                                       "attack_effect_type": "Target"
@@ -540,8 +540,8 @@
                                     "casting_type": "Targeting",
                                     "effect": {
                                       "type": "FixedAttack",
-                                      "damage": 15,
-                                      "attack_ratio": 20,
+                                      "damage": 20,
+                                      "attack_ratio": 25,
                                       "hp_ratio": 0,
                                       "target_hp_ratio": 0,
                                       "attack_effect_type": "Target"
@@ -583,8 +583,8 @@
                                       "casting_type": "Targeting",
                                       "effect": {
                                         "type": "FixedAttack",
-                                        "damage": 15,
-                                        "attack_ratio": 20,
+                                        "damage": 20,
+                                        "attack_ratio": 25,
                                         "hp_ratio": 0,
                                         "target_hp_ratio": 0,
                                         "attack_effect_type": "Target"
@@ -829,8 +829,8 @@
                             "casting_type": "Targeting",
                             "effect": {
                               "type": "FixedAttack",
-                              "damage": 15,
-                              "attack_ratio": 20,
+                              "damage": 20,
+                              "attack_ratio": 25,
                               "hp_ratio": 0,
                               "target_hp_ratio": 0,
                               "attack_effect_type": "Target"
@@ -872,8 +872,8 @@
                               "casting_type": "Targeting",
                               "effect": {
                                 "type": "FixedAttack",
-                                "damage": 15,
-                                "attack_ratio": 20,
+                                "damage": 20,
+                                "attack_ratio": 25,
                                 "hp_ratio": 0,
                                 "target_hp_ratio": 0,
                                 "attack_effect_type": "Target"
@@ -910,7 +910,7 @@
     "cooltime": 360,
     "start_timing": 12,
     "cancelable": false,
-    "range": 50000,
+    "range": 70000,
     "casting_type": "Direction",
     "casting_target": "EnemyWithoutTower",
     "attack_type": "Skill",
@@ -946,8 +946,8 @@
               "casting_type": "Targeting",
               "effect": {
                 "type": "Attack",
-                "damage": 60,
-                "attack_ratio": 120,
+                "damage": 75,
+                "attack_ratio": 150,
                 "attack_effect_type": "Target"
               }
             },
@@ -1086,7 +1086,7 @@
             "effects": [
               {
                 "type": "RandomTarget",
-                "range": 50000,
+                "range": 55000,
                 "casting_target": "EnemyWithoutTower",
                 "from_projectile": false,
                 "effects": [
@@ -1173,8 +1173,8 @@
                       "casting_type": "Targeting",
                       "effect": {
                         "type": "FixedAttack",
-                        "damage": 50,
-                        "attack_ratio": 50,
+                        "damage": 60,
+                        "attack_ratio": 60,
                         "hp_ratio": 0,
                         "target_hp_ratio": 0,
                         "attack_effect_type": "Target"
@@ -1322,8 +1322,8 @@
                             "casting_type": "Targeting",
                             "effect": {
                               "type": "Attack",
-                              "damage": 10,
-                              "attack_ratio": 25,
+                              "damage": 12,
+                              "attack_ratio": 30,
                               "attack_effect_type": "Target"
                             }
                           },
@@ -1383,8 +1383,8 @@
                                   "casting_type": "Targeting",
                                   "effect": {
                                     "type": "Attack",
-                                    "damage": 10,
-                                    "attack_ratio": 25,
+                                    "damage": 12,
+                                    "attack_ratio": 30,
                                     "attack_effect_type": "Target"
                                   }
                                 },
@@ -1429,8 +1429,8 @@
                                     "casting_type": "Targeting",
                                     "effect": {
                                       "type": "Attack",
-                                      "damage": 10,
-                                      "attack_ratio": 25,
+                                      "damage": 12,
+                                      "attack_ratio": 30,
                                       "attack_effect_type": "Target"
                                     }
                                   },
@@ -1519,8 +1519,8 @@
                             "casting_type": "Targeting",
                             "effect": {
                               "type": "Attack",
-                              "damage": 10,
-                              "attack_ratio": 25,
+                              "damage": 12,
+                              "attack_ratio": 30,
                               "attack_effect_type": "Target"
                             }
                           },
@@ -1580,8 +1580,8 @@
                                   "casting_type": "Targeting",
                                   "effect": {
                                     "type": "Attack",
-                                    "damage": 10,
-                                    "attack_ratio": 25,
+                                    "damage": 12,
+                                    "attack_ratio": 30,
                                     "attack_effect_type": "Target"
                                   }
                                 },
@@ -1626,8 +1626,8 @@
                                     "casting_type": "Targeting",
                                     "effect": {
                                       "type": "Attack",
-                                      "damage": 10,
-                                      "attack_ratio": 25,
+                                      "damage": 12,
+                                      "attack_ratio": 30,
                                       "attack_effect_type": "Target"
                                     }
                                   },
@@ -1716,8 +1716,8 @@
                             "casting_type": "Targeting",
                             "effect": {
                               "type": "Attack",
-                              "damage": 10,
-                              "attack_ratio": 25,
+                              "damage": 12,
+                              "attack_ratio": 30,
                               "attack_effect_type": "Target"
                             }
                           },
@@ -1777,8 +1777,8 @@
                                   "casting_type": "Targeting",
                                   "effect": {
                                     "type": "Attack",
-                                    "damage": 10,
-                                    "attack_ratio": 25,
+                                    "damage": 12,
+                                    "attack_ratio": 30,
                                     "attack_effect_type": "Target"
                                   }
                                 },
@@ -1823,8 +1823,8 @@
                                     "casting_type": "Targeting",
                                     "effect": {
                                       "type": "Attack",
-                                      "damage": 10,
-                                      "attack_ratio": 25,
+                                      "damage": 12,
+                                      "attack_ratio": 30,
                                       "attack_effect_type": "Target"
                                     }
                                   },
@@ -1913,8 +1913,8 @@
                             "casting_type": "Targeting",
                             "effect": {
                               "type": "Attack",
-                              "damage": 10,
-                              "attack_ratio": 25,
+                              "damage": 12,
+                              "attack_ratio": 30,
                               "attack_effect_type": "Target"
                             }
                           },
@@ -1974,8 +1974,8 @@
                                   "casting_type": "Targeting",
                                   "effect": {
                                     "type": "Attack",
-                                    "damage": 10,
-                                    "attack_ratio": 25,
+                                    "damage": 12,
+                                    "attack_ratio": 30,
                                     "attack_effect_type": "Target"
                                   }
                                 },
@@ -2020,8 +2020,8 @@
                                     "casting_type": "Targeting",
                                     "effect": {
                                       "type": "Attack",
-                                      "damage": 10,
-                                      "attack_ratio": 25,
+                                      "damage": 12,
+                                      "attack_ratio": 30,
                                       "attack_effect_type": "Target"
                                     }
                                   },
@@ -2110,8 +2110,8 @@
                             "casting_type": "Targeting",
                             "effect": {
                               "type": "Attack",
-                              "damage": 10,
-                              "attack_ratio": 25,
+                              "damage": 12,
+                              "attack_ratio": 30,
                               "attack_effect_type": "Target"
                             }
                           },
@@ -2171,8 +2171,8 @@
                                   "casting_type": "Targeting",
                                   "effect": {
                                     "type": "Attack",
-                                    "damage": 10,
-                                    "attack_ratio": 25,
+                                    "damage": 12,
+                                    "attack_ratio": 30,
                                     "attack_effect_type": "Target"
                                   }
                                 },
@@ -2217,8 +2217,8 @@
                                     "casting_type": "Targeting",
                                     "effect": {
                                       "type": "Attack",
-                                      "damage": 10,
-                                      "attack_ratio": 25,
+                                      "damage": 12,
+                                      "attack_ratio": 30,
                                       "attack_effect_type": "Target"
                                     }
                                   },
@@ -2307,8 +2307,8 @@
                             "casting_type": "Targeting",
                             "effect": {
                               "type": "Attack",
-                              "damage": 10,
-                              "attack_ratio": 25,
+                              "damage": 12,
+                              "attack_ratio": 30,
                               "attack_effect_type": "Target"
                             }
                           },
@@ -2368,8 +2368,8 @@
                                   "casting_type": "Targeting",
                                   "effect": {
                                     "type": "Attack",
-                                    "damage": 10,
-                                    "attack_ratio": 25,
+                                    "damage": 12,
+                                    "attack_ratio": 30,
                                     "attack_effect_type": "Target"
                                   }
                                 },
@@ -2414,8 +2414,8 @@
                                     "casting_type": "Targeting",
                                     "effect": {
                                       "type": "Attack",
-                                      "damage": 10,
-                                      "attack_ratio": 25,
+                                      "damage": 12,
+                                      "attack_ratio": 30,
                                       "attack_effect_type": "Target"
                                     }
                                   },
@@ -2504,8 +2504,8 @@
                             "casting_type": "Targeting",
                             "effect": {
                               "type": "Attack",
-                              "damage": 10,
-                              "attack_ratio": 25,
+                              "damage": 12,
+                              "attack_ratio": 30,
                               "attack_effect_type": "Target"
                             }
                           },
@@ -2565,8 +2565,8 @@
                                   "casting_type": "Targeting",
                                   "effect": {
                                     "type": "Attack",
-                                    "damage": 10,
-                                    "attack_ratio": 25,
+                                    "damage": 12,
+                                    "attack_ratio": 30,
                                     "attack_effect_type": "Target"
                                   }
                                 },
@@ -2611,8 +2611,8 @@
                                     "casting_type": "Targeting",
                                     "effect": {
                                       "type": "Attack",
-                                      "damage": 10,
-                                      "attack_ratio": 25,
+                                      "damage": 12,
+                                      "attack_ratio": 30,
                                       "attack_effect_type": "Target"
                                     }
                                   },
@@ -2701,8 +2701,8 @@
                             "casting_type": "Targeting",
                             "effect": {
                               "type": "Attack",
-                              "damage": 10,
-                              "attack_ratio": 25,
+                              "damage": 12,
+                              "attack_ratio": 30,
                               "attack_effect_type": "Target"
                             }
                           },
@@ -2762,8 +2762,8 @@
                                   "casting_type": "Targeting",
                                   "effect": {
                                     "type": "Attack",
-                                    "damage": 10,
-                                    "attack_ratio": 25,
+                                    "damage": 12,
+                                    "attack_ratio": 30,
                                     "attack_effect_type": "Target"
                                   }
                                 },
@@ -2808,8 +2808,8 @@
                                     "casting_type": "Targeting",
                                     "effect": {
                                       "type": "Attack",
-                                      "damage": 10,
-                                      "attack_ratio": 25,
+                                      "damage": 12,
+                                      "attack_ratio": 30,
                                       "attack_effect_type": "Target"
                                     }
                                   },
@@ -2898,8 +2898,8 @@
                             "casting_type": "Targeting",
                             "effect": {
                               "type": "Attack",
-                              "damage": 10,
-                              "attack_ratio": 25,
+                              "damage": 12,
+                              "attack_ratio": 30,
                               "attack_effect_type": "Target"
                             }
                           },
@@ -2959,8 +2959,8 @@
                                   "casting_type": "Targeting",
                                   "effect": {
                                     "type": "Attack",
-                                    "damage": 10,
-                                    "attack_ratio": 25,
+                                    "damage": 12,
+                                    "attack_ratio": 30,
                                     "attack_effect_type": "Target"
                                   }
                                 },
@@ -3005,8 +3005,8 @@
                                     "casting_type": "Targeting",
                                     "effect": {
                                       "type": "Attack",
-                                      "damage": 10,
-                                      "attack_ratio": 25,
+                                      "damage": 12,
+                                      "attack_ratio": 30,
                                       "attack_effect_type": "Target"
                                     }
                                   },
@@ -3095,8 +3095,8 @@
                             "casting_type": "Targeting",
                             "effect": {
                               "type": "Attack",
-                              "damage": 10,
-                              "attack_ratio": 25,
+                              "damage": 12,
+                              "attack_ratio": 30,
                               "attack_effect_type": "Target"
                             }
                           },
@@ -3156,8 +3156,8 @@
                                   "casting_type": "Targeting",
                                   "effect": {
                                     "type": "Attack",
-                                    "damage": 10,
-                                    "attack_ratio": 25,
+                                    "damage": 12,
+                                    "attack_ratio": 30,
                                     "attack_effect_type": "Target"
                                   }
                                 },
@@ -3202,8 +3202,8 @@
                                     "casting_type": "Targeting",
                                     "effect": {
                                       "type": "Attack",
-                                      "damage": 10,
-                                      "attack_ratio": 25,
+                                      "damage": 12,
+                                      "attack_ratio": 30,
                                       "attack_effect_type": "Target"
                                     }
                                   },
@@ -3292,8 +3292,8 @@
                             "casting_type": "Targeting",
                             "effect": {
                               "type": "Attack",
-                              "damage": 10,
-                              "attack_ratio": 25,
+                              "damage": 12,
+                              "attack_ratio": 30,
                               "attack_effect_type": "Target"
                             }
                           },
@@ -3353,8 +3353,8 @@
                                   "casting_type": "Targeting",
                                   "effect": {
                                     "type": "Attack",
-                                    "damage": 10,
-                                    "attack_ratio": 25,
+                                    "damage": 12,
+                                    "attack_ratio": 30,
                                     "attack_effect_type": "Target"
                                   }
                                 },
@@ -3399,8 +3399,8 @@
                                     "casting_type": "Targeting",
                                     "effect": {
                                       "type": "Attack",
-                                      "damage": 10,
-                                      "attack_ratio": 25,
+                                      "damage": 12,
+                                      "attack_ratio": 30,
                                       "attack_effect_type": "Target"
                                     }
                                   },
@@ -3489,8 +3489,8 @@
                             "casting_type": "Targeting",
                             "effect": {
                               "type": "Attack",
-                              "damage": 10,
-                              "attack_ratio": 25,
+                              "damage": 12,
+                              "attack_ratio": 30,
                               "attack_effect_type": "Target"
                             }
                           },
@@ -3550,8 +3550,8 @@
                                   "casting_type": "Targeting",
                                   "effect": {
                                     "type": "Attack",
-                                    "damage": 10,
-                                    "attack_ratio": 25,
+                                    "damage": 12,
+                                    "attack_ratio": 30,
                                     "attack_effect_type": "Target"
                                   }
                                 },
@@ -3596,8 +3596,8 @@
                                     "casting_type": "Targeting",
                                     "effect": {
                                       "type": "Attack",
-                                      "damage": 10,
-                                      "attack_ratio": 25,
+                                      "damage": 12,
+                                      "attack_ratio": 30,
                                       "attack_effect_type": "Target"
                                     }
                                   },
@@ -3686,8 +3686,8 @@
                             "casting_type": "Targeting",
                             "effect": {
                               "type": "Attack",
-                              "damage": 10,
-                              "attack_ratio": 25,
+                              "damage": 12,
+                              "attack_ratio": 30,
                               "attack_effect_type": "Target"
                             }
                           },
@@ -3747,8 +3747,8 @@
                                   "casting_type": "Targeting",
                                   "effect": {
                                     "type": "Attack",
-                                    "damage": 10,
-                                    "attack_ratio": 25,
+                                    "damage": 12,
+                                    "attack_ratio": 30,
                                     "attack_effect_type": "Target"
                                   }
                                 },
@@ -3793,8 +3793,8 @@
                                     "casting_type": "Targeting",
                                     "effect": {
                                       "type": "Attack",
-                                      "damage": 10,
-                                      "attack_ratio": 25,
+                                      "damage": 12,
+                                      "attack_ratio": 30,
                                       "attack_effect_type": "Target"
                                     }
                                   },
@@ -3883,8 +3883,8 @@
                             "casting_type": "Targeting",
                             "effect": {
                               "type": "Attack",
-                              "damage": 10,
-                              "attack_ratio": 25,
+                              "damage": 12,
+                              "attack_ratio": 30,
                               "attack_effect_type": "Target"
                             }
                           },
@@ -3944,8 +3944,8 @@
                                   "casting_type": "Targeting",
                                   "effect": {
                                     "type": "Attack",
-                                    "damage": 10,
-                                    "attack_ratio": 25,
+                                    "damage": 12,
+                                    "attack_ratio": 30,
                                     "attack_effect_type": "Target"
                                   }
                                 },
@@ -3990,8 +3990,8 @@
                                     "casting_type": "Targeting",
                                     "effect": {
                                       "type": "Attack",
-                                      "damage": 10,
-                                      "attack_ratio": 25,
+                                      "damage": 12,
+                                      "attack_ratio": 30,
                                       "attack_effect_type": "Target"
                                     }
                                   },
@@ -4080,8 +4080,8 @@
                             "casting_type": "Targeting",
                             "effect": {
                               "type": "Attack",
-                              "damage": 10,
-                              "attack_ratio": 25,
+                              "damage": 12,
+                              "attack_ratio": 30,
                               "attack_effect_type": "Target"
                             }
                           },
@@ -4141,8 +4141,8 @@
                                   "casting_type": "Targeting",
                                   "effect": {
                                     "type": "Attack",
-                                    "damage": 10,
-                                    "attack_ratio": 25,
+                                    "damage": 12,
+                                    "attack_ratio": 30,
                                     "attack_effect_type": "Target"
                                   }
                                 },
@@ -4187,8 +4187,8 @@
                                     "casting_type": "Targeting",
                                     "effect": {
                                       "type": "Attack",
-                                      "damage": 10,
-                                      "attack_ratio": 25,
+                                      "damage": 12,
+                                      "attack_ratio": 30,
                                       "attack_effect_type": "Target"
                                     }
                                   },
@@ -4277,8 +4277,8 @@
                             "casting_type": "Targeting",
                             "effect": {
                               "type": "Attack",
-                              "damage": 10,
-                              "attack_ratio": 25,
+                              "damage": 12,
+                              "attack_ratio": 30,
                               "attack_effect_type": "Target"
                             }
                           },
@@ -4338,8 +4338,8 @@
                                   "casting_type": "Targeting",
                                   "effect": {
                                     "type": "Attack",
-                                    "damage": 10,
-                                    "attack_ratio": 25,
+                                    "damage": 12,
+                                    "attack_ratio": 30,
                                     "attack_effect_type": "Target"
                                   }
                                 },
@@ -4384,8 +4384,8 @@
                                     "casting_type": "Targeting",
                                     "effect": {
                                       "type": "Attack",
-                                      "damage": 10,
-                                      "attack_ratio": 25,
+                                      "damage": 12,
+                                      "attack_ratio": 30,
                                       "attack_effect_type": "Target"
                                     }
                                   },
@@ -4474,8 +4474,8 @@
                             "casting_type": "Targeting",
                             "effect": {
                               "type": "Attack",
-                              "damage": 10,
-                              "attack_ratio": 25,
+                              "damage": 12,
+                              "attack_ratio": 30,
                               "attack_effect_type": "Target"
                             }
                           },
@@ -4535,8 +4535,8 @@
                                   "casting_type": "Targeting",
                                   "effect": {
                                     "type": "Attack",
-                                    "damage": 10,
-                                    "attack_ratio": 25,
+                                    "damage": 12,
+                                    "attack_ratio": 30,
                                     "attack_effect_type": "Target"
                                   }
                                 },
@@ -4581,8 +4581,8 @@
                                     "casting_type": "Targeting",
                                     "effect": {
                                       "type": "Attack",
-                                      "damage": 10,
-                                      "attack_ratio": 25,
+                                      "damage": 12,
+                                      "attack_ratio": 30,
                                       "attack_effect_type": "Target"
                                     }
                                   },
@@ -4671,8 +4671,8 @@
                             "casting_type": "Targeting",
                             "effect": {
                               "type": "Attack",
-                              "damage": 10,
-                              "attack_ratio": 25,
+                              "damage": 12,
+                              "attack_ratio": 30,
                               "attack_effect_type": "Target"
                             }
                           },
@@ -4732,8 +4732,8 @@
                                   "casting_type": "Targeting",
                                   "effect": {
                                     "type": "Attack",
-                                    "damage": 10,
-                                    "attack_ratio": 25,
+                                    "damage": 12,
+                                    "attack_ratio": 30,
                                     "attack_effect_type": "Target"
                                   }
                                 },
@@ -4778,8 +4778,8 @@
                                     "casting_type": "Targeting",
                                     "effect": {
                                       "type": "Attack",
-                                      "damage": 10,
-                                      "attack_ratio": 25,
+                                      "damage": 12,
+                                      "attack_ratio": 30,
                                       "attack_effect_type": "Target"
                                     }
                                   },
@@ -4868,8 +4868,8 @@
                             "casting_type": "Targeting",
                             "effect": {
                               "type": "Attack",
-                              "damage": 10,
-                              "attack_ratio": 25,
+                              "damage": 12,
+                              "attack_ratio": 30,
                               "attack_effect_type": "Target"
                             }
                           },
@@ -4929,8 +4929,8 @@
                                   "casting_type": "Targeting",
                                   "effect": {
                                     "type": "Attack",
-                                    "damage": 10,
-                                    "attack_ratio": 25,
+                                    "damage": 12,
+                                    "attack_ratio": 30,
                                     "attack_effect_type": "Target"
                                   }
                                 },
@@ -4975,8 +4975,8 @@
                                     "casting_type": "Targeting",
                                     "effect": {
                                       "type": "Attack",
-                                      "damage": 10,
-                                      "attack_ratio": 25,
+                                      "damage": 12,
+                                      "attack_ratio": 30,
                                       "attack_effect_type": "Target"
                                     }
                                   },
@@ -5065,8 +5065,8 @@
                             "casting_type": "Targeting",
                             "effect": {
                               "type": "Attack",
-                              "damage": 10,
-                              "attack_ratio": 25,
+                              "damage": 12,
+                              "attack_ratio": 30,
                               "attack_effect_type": "Target"
                             }
                           },
@@ -5126,8 +5126,8 @@
                                   "casting_type": "Targeting",
                                   "effect": {
                                     "type": "Attack",
-                                    "damage": 10,
-                                    "attack_ratio": 25,
+                                    "damage": 12,
+                                    "attack_ratio": 30,
                                     "attack_effect_type": "Target"
                                   }
                                 },
@@ -5172,8 +5172,8 @@
                                     "casting_type": "Targeting",
                                     "effect": {
                                       "type": "Attack",
-                                      "damage": 10,
-                                      "attack_ratio": 25,
+                                      "damage": 12,
+                                      "attack_ratio": 30,
                                       "attack_effect_type": "Target"
                                     }
                                   },
