@@ -4711,7 +4711,7 @@
                   "casting_type": "Targeting",
                   "effect": {
                     "type": "ApAttack",
-                    "damage": 60,
+                    "damage": 70,
                     "attack_ratio": 60,
                     "hp_ratio": 0,
                     "attack_effect_type": "Target"
@@ -6811,7 +6811,7 @@
                     "casting_type": "Targeting",
                     "effect": {
                       "type": "ApAttack",
-                      "damage": 40,
+                      "damage": 50,
                       "attack_ratio": 50,
                       "hp_ratio": 0,
                       "attack_effect_type": "Target"
@@ -6832,7 +6832,7 @@
                 "casting_type": "Targeting",
                 "effect": {
                   "type": "ApAttack",
-                  "damage": 40,
+                  "damage": 50,
                   "attack_ratio": 50,
                   "hp_ratio": 0,
                   "attack_effect_type": "Target"

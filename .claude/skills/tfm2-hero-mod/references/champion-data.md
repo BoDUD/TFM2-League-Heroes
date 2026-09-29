@@ -90,6 +90,10 @@ also means minions and monsters: a non-penetrating skillshot on it stops on the 
 }
 ```
 
+- Levels gate the slots *(read from the SDK's game_core `Entity::run`, league_kayle)*: the attack and `skill`
+  from level 1, `skill2` from level 3, `ult` from level 5.
+- A `range` caster buff (attack range) also stretches the distance at which the AI starts attacking
+  *(SDK simulation, league_kayle Arisen: melee at levels 1-4, she fought from 52500 after it)*.
 - `casting_target`: `Enemy`, `EnemyWithoutTower`, `EnemyChampion`, `EnemyChampionInCC`,
   `EnemyChampionRecentlyAttacked`, `AllyOnlySelf`, `AllyChampion`, `AllyNotSelf`,
   `AllyChampionInCC`, `BothWithoutTower`, `BothChampion` (the engine also has `Ally`, `Both`, `None`).
@@ -160,7 +164,7 @@ Every effect is `{"type": "<Type>", ...fields}`. Counts = uses across base + 52 
 | Delayed | tick, effects[] | run after `tick` |
 | WithSelf | effects[] | the caster, **and again the action's target** when that is another unit; nobody when the action has no unit target (below) |
 | SwitchByBuff | buff_name, effect_buff, effect_none | branch on whether the **caster** has the buff |
-| SwitchByLevel3 | effect_start, effect_level3 | level-based branch, seen once *(semantics unverified)* |
+| SwitchByLevel3 | effect_start, effect_level3 | `effect_level3` when the **caster** is level 3 or higher, `effect_start` below - the only effect that reads a level *(read from the SDK's game_core: the entity's level field, written by `add_exp`; league_kayle)* |
 | RandomTarget | range, casting_target, from_projectile, effects[] | pick a random valid unit in range, apply effects to it |
 | RangeEffect | shape, target, apply_type:"AroundCaster", effects[] | instant area around the caster |
 
@@ -447,6 +451,12 @@ the caster for `tick`; the caster stays in place meanwhile, so move it from the 
 holds). Some pack buffs omit it - set it explicitly. *(seen in the SDK simulation, league_annie E:
 a `WithShield` caster buff added right after her own `Shield {tick: 180}` was gone 180 ticks later
 when nobody hit her, and 89 ticks after the cast when enemies broke the shield first.)*
+
+**`WithShield` to the tick** *(SDK simulation, league_kayle)*: a `WithShield` buff stays while any shield on
+the unit holds - also one an ally gave it - and is gone 2 ticks after the hit that breaks the shield, so read it
+with a `Delayed {tick: 2}`. A `FixedAttack` on yourself is scaled by `damaged_reduce` / `damaged_amplify` like any
+damage, and damage a shield absorbs does not count in the simulation's "tank" statistic. A dying caster's
+zones and pending `Delayed` effects stop; the respawned hero is a new entity with none of them.
 
 **Death clears a mod's buffs** *(seen in the SDK simulation, a probe hero on league_teemo)*: a
 `Permanent` caster buff added by his first attack was missing from his buff list after he died and
@@ -1130,6 +1140,18 @@ touches it (section 4). Its `applied_effects` are a `SwitchByBuff` on a caster b
 the champion gets the damage, the 99% slow for 120 ticks, and `AddCasterBuff r_broken` (330 ticks, longer
 than the zone); with it, only a 60-tick slow. The cast removes `r_broken` first, so every Box starts whole.
 
+**Stages at levels 5, 8 and 12 (league_kayle Divine Ascent).** Nothing reads a level but `SwitchByLevel3`, so
+her maximum health is the level table (900 + 95 a level): a 3-tick `Shield` of S on herself (a `RangeEffect`
+`AllyOnlySelf`), a `WithShield` flag, then `FixedAttack {hp_ratio: 10}` on herself - 10% of her maximum health
+breaks the shield only from the level whose health passes 10 x S (S = 123, 151, 189: halfway between two
+levels), and 2 ticks later `SwitchByBuff` on the flag gives the stage (a `Permanent` caster buff: range, the
+fire wave, Transcendent's speed). Absorbed, the hit costs no health; a 2-tick `undying` guards the rest. Before
+it, a `WithShield` flag added with no shield of her own says an ally's shield is on her (it would hold the
+flag): skip and try later. After it, a 100 shield against a 99 `FixedAttack` must break - any damage
+amplification would fake a level. Each life's first action re-reads the stages silently (death cleared them),
+then an action at most every 2 s tries the next one, with the ascent's picture and voice. In 12 simulated
+games no stage came early; they came 2-4 s after the level-up (median).
+
 **Push or pull by the situation (league_thresh E, Flay).** League lets the player sweep either way; the AI
 needs a rule, checked on the hit tick (a `Delayed` in the cast): within 2 s of a hook (a caster buff the hook's
 `applied_effects` add) it pulls - the hooked champion is dragged next to him and a pull throws him through and
@@ -1145,6 +1167,10 @@ pulled together. The first version pulled 1500 x 10 (15000): the user could not 
 - `action_name` / `CasterAnimation.name` must be real sprite tags. Two LoL Reborn heroes use
   `action_name: "skill"` while their sprites only have `skill1`.
 - `SwitchByBuff` checks the caster; the buff must be added somewhere in the same kit.
+- An `ult` with `Targeting` on `EnemyChampion` is cast in nearly every fight (league_kayle R: about 5.6 times
+  a game in the simulation, against 0.25 for a probe ult cast on `AllyChampionInCC` with base teammates); its
+  effect can then pick an ally (`RandomTarget` `AllyChampionInCC`, else the caster). An ally-targeted ult waits
+  for the AI's own heal / shield valuation instead.
 - Keep `start_timing <= duration`; long channels need a long `duration` (or `Delayed` effects).
 - Use namespaced names for every buff/projectile/effect (`league_garen_*`) - names are global-ish
   and collisions with other mods are hard to debug.
