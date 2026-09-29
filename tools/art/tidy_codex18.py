@@ -53,7 +53,7 @@ EYE_COLOURS = {"thresh": [(13, 200, 78), (4, 71, 29)],
                "annie": [(51, 32, 63)],
                "amumu": [(243, 224, 80), (247, 214, 65), (204, 141, 33), (153, 88, 24), (87, 46, 21)],
                "yasuo": [(80, 46, 32)], "jinx": [(209, 46, 128)], "missfortune": [(44, 129, 226)], "yone": [(70, 52, 94)],
-               "garen": [(31, 62, 200)]}
+               "garen": [(31, 62, 200)], "ashe": [(59, 174, 240)]}
 # heroes whose delivered faces were drawn anew in every frame (Codex: "not a pixel copy of the head"): the design's
 # face - eyes, brows, cheeks and the fringe right round them - goes back into every frame where the head is found.
 # head: the design's head box on its 128x128 canvas (<hero>_native.png), matched in every frame by colour; patch: the
@@ -100,13 +100,17 @@ FACES = {"leona": {"head": (42, 58, 66, 74), "patch": (53, 68, 61, 73), "iris": 
          # Garen: the near eye's lid, white and blue iris, the one grey pixel of the far eye, cheeks; the iris
          # #1E3CC6 (the pack's eye-only shade, which Codex then used on his armour too) becomes #1F3EC8
          "garen": {"head": (59, 69, 66, 73), "patch": (59, 69, 66, 72), "iris": ((30, 60, 198), (31, 62, 200)),
-                   "hidden": {"hit": (1,)}}}  # the flinch turns his head
+                   "hidden": {"hit": (1,)}},  # the flinch turns his head
+         # Ashe: dark pupils over cyan, cheeks and mouth; the cyan is also her crystal bow's, so the pasted
+         # eyes get an eye-only shade
+         "ashe": {"head": (58, 74, 63, 79), "patch": (58, 75, 62, 79), "iris": ((58, 172, 238), (59, 174, 240)),
+                  "hidden": {"dead": (3, 4, 5, 6)}}}  # falling: the head tilts
 FACE_OK = 120                   # mean colour distance over the head box above which a frame's head is not found
 # deliveries whose frames Codex centred in their cells (its manifest's atlas pivot) instead of standing them on our
 # pivots: every frame whose face is found goes sideways so that its eyes stand on League's head joint of that frame
 # (the cells table's "head"), as in the design; a frame without a face keeps Codex's place round the atlas pivot,
 # moved to ours. Up and down stay Codex's: the soles are on the feet line already.
-PLACE_BY_HEAD = {"darius", "leesin", "soraka", "annie", "amumu", "yasuo", "jinx", "missfortune", "yone", "garen"}
+PLACE_BY_HEAD = {"darius", "leesin", "soraka", "annie", "amumu", "yasuo", "jinx", "missfortune", "yone", "garen", "ashe"}
 
 
 def blocks(path):
