@@ -149,7 +149,7 @@
                       },
                       {
                         "type": "TargetProjectile",
-                        "name": "league_lucian_bullet",
+                        "name": "league_lucian_ls_shot",
                         "speed": 7000,
                         "y_offset": -15000,
                         "applied_target": "Enemy",
@@ -456,7 +456,7 @@
                         },
                         {
                           "type": "TargetProjectile",
-                          "name": "league_lucian_bullet",
+                          "name": "league_lucian_ls_shot",
                           "speed": 7000,
                           "y_offset": -15000,
                           "applied_target": "Enemy",
@@ -5273,9 +5273,17 @@
     },
     {
       "type": "Animated",
+      "name": "league_lucian_ls_shot",
+      "anim": "asset/league/effects/league_lucian_fx",
+      "tag": "ls_shot",
+      "repeat": true,
+      "z": 1
+    },
+    {
+      "type": "Animated",
       "name": "league_lucian_bullet2",
       "anim": "asset/league/effects/league_lucian_fx",
-      "tag": "bullet2",
+      "tag": "ls_shot2",
       "repeat": true,
       "z": 1
     },
@@ -5358,13 +5366,6 @@
       "name": "league_lucian_vig_glow",
       "anim": "asset/league/effects/league_lucian_fx",
       "tag": "vig_glow",
-      "z": 1
-    },
-    {
-      "type": "Animated",
-      "name": "league_lucian_ls_1",
-      "anim": "asset/league/effects/league_lucian_fx",
-      "tag": "ls_glow",
       "z": 1
     },
     {

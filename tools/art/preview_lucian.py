@@ -8,7 +8,7 @@
   league_lucian_showcase.gif  a scripted fight against Darius and Garen, timed like the kit (cooldowns kept): he
                               runs in and Darius, still out of his reach, gets Relentless Pursuit forward (the dust
                               where he leaves; he lands in range when the path stops) and Ardent Blaze's star
-                              cross, which marks him; the next two attacks fire twice (the second shot gold) and
+                              cross, which marks him; the next two attacks fire twice (two thick tracers, the second gold) and
                               every hit while the mark lasts speeds Lucian up (the lines at his feet); Piercing
                               Light, both pistols held out at shoulder height: the beam from the muzzle through
                               Darius, the double shot it gives, a single bullet; The Culling: three seconds of
@@ -80,7 +80,6 @@ def showcase(out, z=3, step=40):
     g.walks.append((0.0, 8600.0, -275))                # walks up behind Darius to 125
     body, under, over = [], [], []
     hits = []                                          # moments a hit lands (Ardent Blaze's haste)
-    doubles = []                                       # when each double shot starts (it spends a charge)
     t = 0.0
 
     def a(tag, dur=None, loop=False):
@@ -118,11 +117,10 @@ def showcase(out, z=3, step=40):
         return start + 1000
 
     def double(foe):
-        """Lightslinger: two shots, ticks 6 and 13 - the raised pistol, then the lower one, the second gold."""
+        """Lightslinger: two thick tracers, ticks 6 and 13 - the raised pistol, then the lower one, the second gold."""
         start = t
-        doubles.append(start)
-        hits.append(fly("bullet", start + tick(6), 7.0, foe, dx=13))
-        hits.append(fly("bullet2", start + tick(13), 7.0, foe, dy=-9, dx=16))
+        hits.append(fly("ls_shot", start + tick(6), 7.0, foe, dx=13))
+        hits.append(fly("ls_shot2", start + tick(13), 7.0, foe, dy=-9, dx=16))
         a("passive")
         return start + 1000
 
@@ -220,12 +218,6 @@ def showcase(out, z=3, step=40):
                 spans.append([h, h + 1000])
     for h0, h1 in spans:
         under.append(Follow(frames_of(fx, "w_haste"), h0, lx, gy, loop=True, until=min(h1, end), on=body))
-    # Lightslinger ready (the gold light on his pistols while ls_1 waits): the E's two charges last until the
-    # second double shot after it, Q's and R's one until the next; the last E's second charge is still waiting
-    ready = [(e1 + tick(1), doubles[1] + tick(1)), (q0 + tick(12), doubles[2] + tick(1)),
-             (r0 + tick(182), doubles[3] + tick(1)), (e2 + tick(1), end)]
-    for g0, g1 in ready:
-        over.append(Follow(frames_of(fx, "ls_glow"), g0, lx, gy, loop=True, until=g1, on=body))
 
     def place(img, f, px, py):
         img.alpha_composite(f, (px - f.width // 2, py - f.height // 2))

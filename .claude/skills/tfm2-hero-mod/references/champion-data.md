@@ -1278,8 +1278,10 @@ unless the flag is there - minions and monsters take both halves *(inferred from
 twin: the order two projectiles land in within a tick does not matter)*. Make it seen: the user found no
 double shot in game while the simulation had 45 a game - both bullets left one point on one line 7 ticks
 apart. Each now leaves the pistol that fires it in the double-shot animation (a `TargetProjectile`'s
-`y_offset` lifts only its picture: -15000 for the raised one, -4000 for the lower), the second is bigger
-and gold, and a `view_buffs` entry on `ls_1` lights both pistols while a charge waits.
+`y_offset` lifts only its picture: -15000 for the raised one, -4000 for the lower) as a thick tracer, blue
+then gold, bigger than the plain attack's bullet (a gold light on the pistols while a charge waited was
+tried and rejected: "我只要被动的两发子弹看起来明显就行了"). `y_offset` did move a bullet's arrival by a
+tick in the simulation, so it is not purely a picture setting.
 
 **Bonus on the next two attacks when a champion near him is crowd-controlled (league_lucian Vigilance).**
 League's Vigilance follows an ally's immobilising; nothing tells who applied a state, so any counts. The attack's

@@ -12,10 +12,11 @@ game pixel one flat 8x8 block, binary alpha, 16 colours by median cut, a frame t
 mostly in its rectangle). The pictures the game turns to their direction (the bullets, the beam, Ardent Blaze's
 bolt, The Culling's bullets) are made exactly symmetric about their middle row. Writes
 assets/source/lucian/lucian_fx_<name>.png plus lucian_fx_anchors.json.
-One scale per strip, set by the kit (1000 distance units a pixel) and measured on the drawings: the bullets 12 and
-14 px long; the Culling's hits 16 px (its bullet is tracer()'s: the user found the Culling's too small at 16 and 10
-px, League's are long bright tracers); Piercing Light's beam 80 px, from his muzzle 21 px ahead to the end of the
-100000-long line (Q_RAY);
+One scale per strip, set by the kit (1000 distance units a pixel) and measured on the drawings: the attack's bullet
+12 px long (Codex's gold second bullet, 14 px, is kept but unused); the Culling's hits 16 px. tracer() draws the
+Culling's bullet (the user found Codex's too small at 16 and 10 px; League's are long bright tracers) and the double
+shot's two (the user saw no double shot: both flew small on one line), blue then gold; Piercing Light's beam 80 px,
+from his muzzle 21 px ahead to the end of the 100000-long line (Q_RAY);
 Ardent Blaze's bolt 14 px, its star cross 52 px wide (the 20000 burst radius and the star's long arms), the mark
 under a marked foe 22 px; the dash's burst 32 px; the other hits 14-24 px; the Vigilance sparks 26 px across his
 hands, the haste lines 24 px at his feet.
@@ -65,7 +66,7 @@ Q_RAY = [(f, (RAY_AHEAD + RAY_LEN // 2 - RAY_SPEED * i, 0), 1000 / 60) for i, f 
 # manifest - the middle of a hit, the feet of a burst drawn round a figure, the middle line of a flying picture)
 RAW = {
     "bullet": dict(n=4, size=12, measure="w", x=("nose", -2), y="pivot", mirror=True),
-    "bullet2": dict(n=4, size=20, measure="w", x=("nose", -2), y="pivot", mirror=True),     # 14 until it had to show
+    "bullet2": dict(n=4, size=14, measure="w", x=("nose", -2), y="pivot", mirror=True),     # unused: ls_shot2
     "hit": dict(n=5, size=14, measure="w", x="pivot", y="pivot"),
     "vig_hit": dict(n=5, size=18, measure="w", x="pivot", y="pivot"),
     "vig_glow": dict(n=4, size=26, measure="w", x="pivot", y="pivot"),
@@ -99,48 +100,48 @@ TRACER = [
 ]
 TRACER_LEN, TRACER_H = 28, 3                     # px behind the nose (0-27); rows above and below the middle
 
+# Lightslinger's two shots, drawn the same way so they show (the user could not see the double shot): a 22 px tracer
+# 5 px thick, the first in the beam's blues from the raised pistol, the second in gold from the lower one
+SHOT = [
+    [(0, 0, 7, "white"), (0, 8, 13, "light"), (0, 14, 18, "blue"), (0, 19, 21, "dark"),
+     (1, 1, 6, "light"), (1, 7, 12, "blue"), (1, 13, 16, "dark"),
+     (2, 2, 5, "blue"), (2, 6, 9, "dark"), (2, 10, 11, "deep")],
+    [(0, 0, 9, "white"), (0, 10, 14, "light"), (0, 15, 19, "blue"), (0, 20, 21, "dark"),
+     (1, 1, 7, "light"), (1, 8, 13, "blue"), (1, 14, 17, "dark"),
+     (2, 2, 4, "blue"), (2, 5, 9, "dark")],
+    [(0, 0, 7, "white"), (0, 8, 13, "light"), (0, 14, 18, "blue"), (0, 19, 21, "dark"),
+     (1, 1, 6, "light"), (1, 7, 12, "blue"), (1, 13, 16, "dark"),
+     (2, 2, 6, "blue"), (2, 7, 10, "dark"), (2, 11, 12, "deep")],
+]
+GOLD_BEAM = {"deep": (110, 76, 24), "dark": (138, 100, 32), "blue": (200, 150, 46), "light": (240, 200, 90),
+             "white": (255, 246, 214)}
+DRAWN_SPEC = {"r_bullet": (TRACER, TRACER_LEN, TRACER_H, BEAM),
+              "ls_shot": (SHOT, 22, 2, BEAM), "ls_shot2": (SHOT, 22, 2, GOLD_BEAM)}
+DRAWN = {k: len(v[0]) for k, v in DRAWN_SPEC.items()}     # strips made here, not from Codex's raw: their cells
+
 
 def tracer():
-    """The Culling's bullet: a 28 px tracer 7 px thick at the head, thinning to its tail; the nose at the anchor."""
-    L, U = TRACER_LEN, TRACER_H + 1
-    tw, th = 2 * L + 1, 2 * U + 1
-    out = np.zeros((th, tw * len(TRACER), 4), np.uint8)
-    for k, rows in enumerate(TRACER):
-        for dy, x0, x1, name in rows:
-            for y in {U - dy, U + dy}:
-                out[y, k * tw + L - x1:k * tw + L - x0 + 1, :3] = BEAM[name]
-                out[y, k * tw + L - x1:k * tw + L - x0 + 1, 3] = 255
-    Image.fromarray(np.repeat(np.repeat(out, Z, 0), Z, 1), "RGBA").save(G.lp(os.path.join(SRC, "lucian_fx_r_bullet.png")))
+    """The drawn bullets: tracers thick at the head, thinning to the tail; the nose at the anchor."""
     path = os.path.join(SRC, "lucian_fx_anchors.json")
     with open(G.lp(path), encoding="utf-8") as f:
         anchors = json.load(f)
-    anchors["r_bullet"] = {"cell": [tw, th], "anchor": [L, U]}
+    for name, (rows_by_frame, length, half, pal) in DRAWN_SPEC.items():
+        L, U = length, half + 1
+        tw, th = 2 * L + 1, 2 * U + 1
+        out = np.zeros((th, tw * len(rows_by_frame), 4), np.uint8)
+        for k, rows in enumerate(rows_by_frame):
+            for dy, x0, x1, col in rows:
+                for y in {U - dy, U + dy}:
+                    out[y, k * tw + L - x1:k * tw + L - x0 + 1, :3] = pal[col]
+                    out[y, k * tw + L - x1:k * tw + L - x0 + 1, 3] = 255
+        Image.fromarray(np.repeat(np.repeat(out, Z, 0), Z, 1), "RGBA").save(
+            G.lp(os.path.join(SRC, f"lucian_fx_{name}.png")))
+        anchors[name] = {"cell": [tw, th], "anchor": [L, U]}
     write_anchors(anchors)
-
-
-# Lightslinger ready: Codex's Vigilance sparks on both pistols (vig_glow), its violets and blues turned to the
-# second shot's golds, so a waiting double shot shows (the user saw no passive at all)
-GOLD = {(58, 30, 140): (138, 100, 32), (122, 74, 232): (200, 150, 46), (79, 139, 255): (240, 200, 90),
-        (192, 168, 255): (255, 240, 184), (168, 204, 255): (255, 250, 230)}
-
-
-def gold_glow():
-    a = np.asarray(Image.open(G.lp(os.path.join(SRC, "lucian_fx_vig_glow.png"))).convert("RGBA")).copy()
-    for src, dst in GOLD.items():
-        a[(a[..., :3] == src).all(-1) & (a[..., 3] > 0), :3] = dst
-    Image.fromarray(a, "RGBA").save(G.lp(os.path.join(SRC, "lucian_fx_ls_glow.png")))
-    path = os.path.join(SRC, "lucian_fx_anchors.json")
-    with open(G.lp(path), encoding="utf-8") as f:
-        anchors = json.load(f)
-    anchors["ls_glow"] = dict(anchors["vig_glow"])
-    write_anchors(anchors)
-
-
-DRAWN = {"r_bullet": len(TRACER), "ls_glow": 4}   # strips made here, not from Codex's raw: their cell counts
 
 
 def write_anchors(anchors):
-    order = list(RAW)[:list(RAW).index("r_hit")] + ["r_bullet", "r_hit", "ls_glow"]
+    order = list(RAW)[:list(RAW).index("r_hit")] + ["r_bullet", "r_hit", "ls_shot", "ls_shot2"]
     anchors = {k: anchors[k] for k in order if k in anchors}
     text = "{\n" + ",\n".join(f'  "{k}": {json.dumps(v)}' for k, v in anchors.items()) + "\n}\n"
     with open(G.lp(os.path.join(SRC, "lucian_fx_anchors.json")), "w", encoding="utf-8", newline="\n") as f:
@@ -253,11 +254,11 @@ def cells(name, n):
 FX = {
     "league_lucian_fx": {
         "bullet": ("bullet", range(4), (0, 0), [50] * 4),
-        "bullet2": ("bullet2", range(4), (0, 0), [50] * 4),
+        "ls_shot": ("ls_shot", range(3), (0, 0), [40] * 3),              # the double shot's first
+        "ls_shot2": ("ls_shot2", range(3), (0, 0), [40] * 3),            # ... and its second, gold
         "hit": ("hit", range(5), HIT, [40] * 5),
         "vig_hit": ("vig_hit", range(5), HIT, [50] * 5),
         "vig_glow": ("vig_glow", range(4), HANDS, [80] * 4),
-        "ls_glow": ("ls_glow", range(4), HANDS, [80] * 4),
         "q_ray": ("q_beam", [f for f, _, _ in Q_RAY], [s for _, s, _ in Q_RAY], [m for _, _, m in Q_RAY]),
         "q_hit": ("q_hit", range(5), CHEST, [40] * 5),
         "e_dash": ("e_dash", range(6), FEET, [50] * 6),
@@ -296,7 +297,6 @@ def main():
     if args.raw:
         from_raw(args.raw, args.only)
     tracer()
-    gold_glow()
     for sprite, tags in build().items():
         w, h = G.write_sheet(os.path.join(MOD, "effects", sprite), tags)
         print(f"league/effects/{sprite}#sheet.png {w}x{h}: " + ", ".join(
