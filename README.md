@@ -2,9 +2,9 @@
 
 团战经理2（Teamfight Manager 2）的英雄联盟英雄 Mod，mod_id 是 `league`。纯数据 mod：不改游戏本体，不需要编译。
 
-英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克。
+英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、莫甘娜（`league_morgana`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、辅助莫甘娜。
 
-对敌人放的小技能，施放目标是「敌人（不含防御塔）」，清线、打野时也会放；只有大招、德莱厄斯的 E（拉人）、阿木木的 Q（绷带）和锤石的 Q（钩子）只对英雄放；提莫的 W 是给自己加速和伪装，也只在敌方英雄靠近时放。最早几个英雄的小技能只对英雄放，打野时一直平 A 野怪，按玩家反馈改了。
+对敌人放的小技能，施放目标是「敌人（不含防御塔）」，清线、打野时也会放；只有大招、德莱厄斯的 E（拉人）、阿木木的 Q（绷带）和锤石的 Q（钩子）只对英雄放（莫甘娜的 Q 对什么都放，但射程内有敌方英雄时朝英雄射）；提莫的 W 是给自己加速和伪装，也只在敌方英雄靠近时放。最早几个英雄的小技能只对英雄放，打野时一直平 A 野怪，按玩家反馈改了。
 
 ![盖伦演示：普攻、Q+W、强化普攻、E 旋转、R 德玛西亚正义](docs/preview/league_garen_showcase.gif?v=e40)
 
@@ -873,6 +873,29 @@ python tools/art/preview_kayle.py
 - 重画后的结果：21 色，和右边像素同色的比例 37%，头像截取点 (−2, −40)（去掉翅膀量的头顶）。Q 第 4 帧 Codex 画得小一圈，没有改。
 
 逐帧预览：[`docs/preview/league_kayle_frames.png`](docs/preview/league_kayle_frames.png)，特效：[`docs/preview/league_kayle_effects.png`](docs/preview/league_kayle_effects.png)。
+
+## 英雄：莫甘娜
+
+| 部分 | 内容 |
+|---|---|
+| 定位 | 辅助（Util），第五组的辅助，凯尔的妹妹；本包第五个辅助（索拉卡、蕾欧娜、迦娜、锤石之后），第一个给队友免疫控制的辅助 |
+| 普攻 | 射出一团暗影弹，100% 攻击力的物理伤害，射程 50000，攻击间隔 1.5 秒 |
+| 被动 | 「灵魂吸取」：Q、W、R 打中英雄时按伤害的约 15% 给自己回血（数据读不到实际伤害，按技能数值的 15% 写死：Q 10 + 9% 法术强度，W 每跳 2 + 1%，R 每段 18 + 9%） |
+| 技能1 | Q「暗之禁锢」，合并 W「折磨之影」（用户选的 A）：射出暗影弹核，穿过小兵和野怪，对沿途敌人造成 70 + 60% 法术强度的魔法伤害，停在第一个敌方英雄身上并禁锢 2 秒。两发同路径的弹：一发看不见、穿透的弹打伤害，一发可见、只认英雄的弹负责停下和禁锢；禁锢的下一 tick 起伤害弹不再伤人，被定住的英雄身后的单位不会挨打。每 12 秒同时在被定住的英雄脚下留下折磨之影，4 秒内共 80 + 40% 法术强度的魔法伤害。射程 80000，冷却 9 秒，也对小兵和野怪放；射程内有敌方英雄时朝英雄射（AI 对兵线放技能时一般瞄小兵，初版 39 次 Q 只定住 5 次英雄）。弹速 10000：英雄联盟的 Q 很慢，但这里英雄每 tick 走约 1000，弹速 3500 时 AI 躲掉九成，10000 时 36% 的 Q 定住英雄 |
+| 技能2 | E「黑暗之盾」（用户选的 A，迦娜 E 的规则）：对射程内的敌方英雄施法（所以只在打架时放），给身边（50000 内）一名友方英雄套上 150 + 70% 法术强度的护盾，持续 5 秒，护盾在时免疫控制；身边没有队友时给自己。护盾挡所有伤害（游戏的护盾不分类型），不像原版只挡魔法。实测免疫控制对队友有效：3 局里带盾的英雄只被控过 1 次。射程 90000，冷却 8 秒 |
+| 大招 | R「灵魂镣铐」（用户选的 A，原版规则）：身边有敌方英雄就放，锁住 50000 内所有敌方英雄，造成 120 + 60% 法术强度的魔法伤害并减速 20%，自己移速 +20%；3 秒后 70000 内的敌方英雄再受一次伤害并被眩晕 1.5 秒。她中途阵亡锁链就断。数据分不出谁被锁过，所以 3 秒时范围内的敌方英雄都会被眩晕。冷却 50 秒 |
+| 数值 | 攻击 75（+6）、法术强度 30（+16）、生命 900（+95）、护甲 22（+8）、魔抗 25（+4）、移速 1000（+10）。数值是自己设计的，用 SDK 对战模拟调：打辅助，对 5 个原版辅助（`priest`、`bard`、`enchanter`、`monk`、`taoist`），两边、三套队友阵容各 24 局，一批 720 局。初稿 -2.96（Q 几乎定不住英雄）；Q 改成朝英雄射、弹速 10000 后 -1.04；护盾 80 → 150、E 冷却 10 → 8 秒、R 半径 40000 → 50000 后 -0.11（12 局一组）；按动作帧定下出手时机（普攻第 8 tick、Q 第 9 tick、E 第 12 tick、R 第 10 tick）后两批 +0.54 / +0.32，同样两批迦娜 +0.11 / +0.31、锤石 +0.80 / +0.34、蕾欧娜 +0.78 / +1.23。莫甘娜每局放 Q 约 38 次（定住英雄 13–21 次，W 9–15 次）、E 约 19 次、R 约 3.5 次 |
+| 亚索联动 | Q 的禁锢和 R 的眩晕都能触发亚索的 R：莫甘娜在队里时亚索每局 R 到被控英雄 1.52 次（迦娜 0.94、原版牧师 0.65），在本包辅助的范围内，亚索不用调 |
+| 精灵图 | 待定 |
+| 特效 | 待定 |
+| 图标 | 官方技能图标（Q / E / R），64×64 |
+| 音频 | 从本地客户端提取的 10 条技能音效和 2 条中文语音（Q、R；E 没有施法语音，W 的语音会和 Q 叠在一起，不用）。不提交到仓库，按下面的命令在本地生成 |
+
+```bash
+python tools/lol/extract_morgana.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstream-cli.exe 路径>"
+python tools/lol/native_pose.py assets/source/morgana/poses.json --out <渲染文件夹> --alpha --parts
+python tools/art/draft_to_grid.py <Codex 的造型草稿 B> --spec assets/source/morgana/morgana_design.json --out assets/source/native/morgana_native.png
+```
 
 ## 修正（0.15.0）：`WithSelf` 不是"只给自己"
 
