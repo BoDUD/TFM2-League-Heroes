@@ -44,11 +44,11 @@ N8 = N4 + ((1, 1), (1, -1), (-1, 1), (-1, -1))
 EYE_COLOURS = {"thresh": [(13, 200, 78), (4, 71, 29)],
                # merged before the 18 (PRs #27 and #26), cleaned the same way in place: run with their own
                # assets/source/native folder as the delivery
-               "fiddlesticks": [(200, 224, 96)], "kayle": [(220, 148, 117)],
+               "fiddlesticks": [(200, 224, 96)], "kayle": [(226, 138, 8)],
                "leona": [(186, 88, 30)], "janna": [(3, 51, 207)],
                "ekko": [(213, 125, 34)], "darius": [(255, 247, 238)],
                "leesin": [(212, 34, 50)], "soraka": [(231, 174, 48)],
-               # the new designs (the user's moss-stone golem and winged angel): his orange eyes, her cheek pink
+               # the new design (the user's moss-stone golem): his orange eyes
                "malphite": [(245, 166, 8), (184, 78, 5), (150, 76, 29)]}
 # heroes whose delivered faces were drawn anew in every frame (Codex: "not a pixel copy of the head"): the design's
 # face - eyes, brows, cheeks and the fringe right round them - goes back into every frame where the head is found.
