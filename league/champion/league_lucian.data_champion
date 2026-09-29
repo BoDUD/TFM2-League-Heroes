@@ -37,7 +37,7 @@
   "attack": {
     "action_name": "attack",
     "description": "#asset/base/text/champion?description.league_lucian.attack",
-    "duration": 22,
+    "duration": 26,
     "cooltime": 60,
     "start_timing": 1,
     "cancelable": true,
@@ -137,7 +137,7 @@
                   {
                     "type": "CasterAnimation",
                     "name": "passive",
-                    "tick": 24
+                    "tick": 26
                   },
                   {
                     "type": "Delayed",
@@ -444,7 +444,7 @@
                     {
                       "type": "CasterAnimation",
                       "name": "passive",
-                      "tick": 24
+                      "tick": 26
                     },
                     {
                       "type": "Delayed",
@@ -906,7 +906,7 @@
   "skill": {
     "action_name": "skill",
     "description": "#asset/base/text/champion?description.league_lucian.skill",
-    "duration": 26,
+    "duration": 30,
     "cooltime": 360,
     "start_timing": 12,
     "cancelable": false,
@@ -1068,6 +1068,11 @@
               "only_to_enemy": false
             },
             {
+              "type": "CasterAnimation",
+              "name": "skill2_back",
+              "tick": 31
+            },
+            {
               "type": "MoveBack",
               "speed": 6000,
               "tick": 5
@@ -1108,9 +1113,19 @@
                 "type": "SwitchByBuff",
                 "buff_name": "league_lucian_e_in",
                 "effect_buff": {
-                  "type": "MoveBack",
-                  "speed": 5000,
-                  "tick": 3
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "CasterAnimation",
+                      "name": "skill2_back",
+                      "tick": 31
+                    },
+                    {
+                      "type": "MoveBack",
+                      "speed": 5000,
+                      "tick": 3
+                    }
+                  ]
                 },
                 "effect_none": {
                   "type": "LinearProjectile",
