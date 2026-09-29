@@ -1,0 +1,1884 @@
+{
+  "format_version": 1,
+  "delivery": "A_design_raw_animation_sheets",
+  "import_ready": false,
+  "total_sheets": 8,
+  "total_frames": 50,
+  "native_palette_color_count": 26,
+  "coordinates": "assets[].frames[].rect=[x,y,width,height] in delivered PNG. Bbox uses exclusive right/bottom. Reference and target fields are requested positions, not measured alignment.",
+  "bounds_method": "Alpha > 0 excluding R>210,G<50,B>210 for measurement only. Original PNGs unchanged.",
+  "assets": [
+    {
+      "tag": "idle",
+      "label": "待机",
+      "file": "morgana_idle.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "target_size": [
+        2304,
+        1536
+      ],
+      "layout": [
+        3,
+        2
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "duration_ms": 200,
+          "foreground_bbox_xyxy": [
+            150,
+            197,
+            356,
+            450
+          ],
+          "reference_pivot_game_pixels": [
+            51,
+            67
+          ],
+          "reference_head_game_pixels": [
+            51.6,
+            49.8
+          ],
+          "target_rect": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 632,
+          "measured_standing_point": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            512,
+            0,
+            512,
+            512
+          ],
+          "duration_ms": 200,
+          "foreground_bbox_xyxy": [
+            662,
+            197,
+            868,
+            450
+          ],
+          "reference_pivot_game_pixels": [
+            51,
+            67
+          ],
+          "reference_head_game_pixels": [
+            51.6,
+            49.8
+          ],
+          "target_rect": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 632,
+          "measured_standing_point": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            1024,
+            0,
+            512,
+            512
+          ],
+          "duration_ms": 200,
+          "foreground_bbox_xyxy": [
+            1174,
+            197,
+            1380,
+            450
+          ],
+          "reference_pivot_game_pixels": [
+            51,
+            67
+          ],
+          "reference_head_game_pixels": [
+            51.6,
+            49.8
+          ],
+          "target_rect": [
+            1536,
+            0,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 632,
+          "measured_standing_point": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            0,
+            512,
+            512,
+            512
+          ],
+          "duration_ms": 200,
+          "foreground_bbox_xyxy": [
+            150,
+            708,
+            356,
+            961
+          ],
+          "reference_pivot_game_pixels": [
+            51,
+            67
+          ],
+          "reference_head_game_pixels": [
+            51.6,
+            49.8
+          ],
+          "target_rect": [
+            0,
+            768,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 632,
+          "measured_standing_point": null
+        },
+        {
+          "index": 5,
+          "rect": [
+            512,
+            512,
+            512,
+            512
+          ],
+          "duration_ms": 200,
+          "foreground_bbox_xyxy": [
+            662,
+            708,
+            868,
+            961
+          ],
+          "reference_pivot_game_pixels": [
+            51,
+            67
+          ],
+          "reference_head_game_pixels": [
+            51.6,
+            49.8
+          ],
+          "target_rect": [
+            768,
+            768,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 632,
+          "measured_standing_point": null
+        },
+        {
+          "index": 6,
+          "rect": [
+            1024,
+            512,
+            512,
+            512
+          ],
+          "duration_ms": 200,
+          "foreground_bbox_xyxy": [
+            1174,
+            708,
+            1380,
+            961
+          ],
+          "reference_pivot_game_pixels": [
+            51,
+            67
+          ],
+          "reference_head_game_pixels": [
+            51.6,
+            49.8
+          ],
+          "target_rect": [
+            1536,
+            768,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 632,
+          "measured_standing_point": null
+        }
+      ],
+      "background": "magenta_color_key",
+      "requested_color_key": "#FF00FF",
+      "sha256": "6d3a86dee7228fb3038f64c12bffcc609ca878915c0f2e02a955fec2a260afc8",
+      "validation": {
+        "frame_count_visual_review": true,
+        "nonempty_frames": true,
+        "foreground_clear_of_cell_edges": true,
+        "target_dimensions": false,
+        "strict_8px_grid": false,
+        "visible_rgb_count": 77640,
+        "native_palette_only": false,
+        "exact_head_copy": false,
+        "feet_alignment": false,
+        "game_import_tested": false
+      }
+    },
+    {
+      "tag": "run",
+      "label": "移动",
+      "file": "morgana_run.png",
+      "size": [
+        1774,
+        887
+      ],
+      "target_size": [
+        3072,
+        1536
+      ],
+      "layout": [
+        4,
+        2
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            444,
+            444
+          ],
+          "duration_ms": 143,
+          "foreground_bbox_xyxy": [
+            136,
+            174,
+            288,
+            377
+          ],
+          "reference_pivot_game_pixels": [
+            51,
+            67
+          ],
+          "reference_head_game_pixels": [
+            51.9,
+            49.6
+          ],
+          "target_rect": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 632,
+          "measured_standing_point": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            444,
+            0,
+            443,
+            444
+          ],
+          "duration_ms": 143,
+          "foreground_bbox_xyxy": [
+            574,
+            175,
+            730,
+            377
+          ],
+          "reference_pivot_game_pixels": [
+            50,
+            67
+          ],
+          "reference_head_game_pixels": [
+            51.1,
+            50.2
+          ],
+          "target_rect": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 632,
+          "measured_standing_point": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            887,
+            0,
+            443,
+            444
+          ],
+          "duration_ms": 143,
+          "foreground_bbox_xyxy": [
+            1015,
+            175,
+            1172,
+            377
+          ],
+          "reference_pivot_game_pixels": [
+            50,
+            67
+          ],
+          "reference_head_game_pixels": [
+            51.7,
+            48.8
+          ],
+          "target_rect": [
+            1536,
+            0,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 632,
+          "measured_standing_point": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            1330,
+            0,
+            444,
+            444
+          ],
+          "duration_ms": 143,
+          "foreground_bbox_xyxy": [
+            1469,
+            175,
+            1620,
+            377
+          ],
+          "reference_pivot_game_pixels": [
+            51,
+            67
+          ],
+          "reference_head_game_pixels": [
+            52.8,
+            48.3
+          ],
+          "target_rect": [
+            2304,
+            0,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 632,
+          "measured_standing_point": null
+        },
+        {
+          "index": 5,
+          "rect": [
+            0,
+            444,
+            444,
+            443
+          ],
+          "duration_ms": 143,
+          "foreground_bbox_xyxy": [
+            136,
+            617,
+            288,
+            820
+          ],
+          "reference_pivot_game_pixels": [
+            53,
+            67
+          ],
+          "reference_head_game_pixels": [
+            54.5,
+            49.5
+          ],
+          "target_rect": [
+            0,
+            768,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 632,
+          "measured_standing_point": null
+        },
+        {
+          "index": 6,
+          "rect": [
+            444,
+            444,
+            443,
+            443
+          ],
+          "duration_ms": 143,
+          "foreground_bbox_xyxy": [
+            574,
+            617,
+            730,
+            820
+          ],
+          "reference_pivot_game_pixels": [
+            53,
+            67
+          ],
+          "reference_head_game_pixels": [
+            53.5,
+            50.9
+          ],
+          "target_rect": [
+            768,
+            768,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 632,
+          "measured_standing_point": null
+        },
+        {
+          "index": 7,
+          "rect": [
+            887,
+            444,
+            443,
+            443
+          ],
+          "duration_ms": 143,
+          "foreground_bbox_xyxy": [
+            1015,
+            617,
+            1172,
+            820
+          ],
+          "reference_pivot_game_pixels": [
+            52,
+            67
+          ],
+          "reference_head_game_pixels": [
+            52.5,
+            48.9
+          ],
+          "target_rect": [
+            1536,
+            768,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 632,
+          "measured_standing_point": null
+        },
+        {
+          "index": 8,
+          "rect": [
+            1330,
+            444,
+            444,
+            443
+          ],
+          "duration_ms": 143,
+          "foreground_bbox_xyxy": [
+            1459,
+            617,
+            1617,
+            820
+          ],
+          "reference_pivot_game_pixels": [
+            52,
+            67
+          ],
+          "reference_head_game_pixels": [
+            52.8,
+            48.5
+          ],
+          "target_rect": [
+            2304,
+            768,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 632,
+          "measured_standing_point": null
+        }
+      ],
+      "background": "magenta_color_key",
+      "requested_color_key": "#FF00FF",
+      "sha256": "b4fea6acc600e6501eaed8ea9bddec0e4e0181e5fdcb203d7157b1d4c2e2a7bb",
+      "validation": {
+        "frame_count_visual_review": true,
+        "nonempty_frames": true,
+        "foreground_clear_of_cell_edges": true,
+        "target_dimensions": false,
+        "strict_8px_grid": false,
+        "visible_rgb_count": 83050,
+        "native_palette_only": false,
+        "exact_head_copy": false,
+        "feet_alignment": false,
+        "game_import_tested": false
+      }
+    },
+    {
+      "tag": "attack",
+      "label": "普攻",
+      "file": "morgana_attack.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "target_size": [
+        2304,
+        1536
+      ],
+      "layout": [
+        3,
+        2
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "duration_ms": 60,
+          "foreground_bbox_xyxy": [
+            172,
+            248,
+            352,
+            464
+          ],
+          "reference_pivot_game_pixels": [
+            51,
+            67
+          ],
+          "reference_head_game_pixels": [
+            53.2,
+            53.0
+          ],
+          "target_rect": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 632,
+          "measured_standing_point": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            512,
+            0,
+            512,
+            512
+          ],
+          "duration_ms": 70,
+          "foreground_bbox_xyxy": [
+            655,
+            248,
+            854,
+            465
+          ],
+          "reference_pivot_game_pixels": [
+            47,
+            67
+          ],
+          "reference_head_game_pixels": [
+            49.2,
+            57.7
+          ],
+          "target_rect": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 632,
+          "measured_standing_point": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            1024,
+            0,
+            512,
+            512
+          ],
+          "duration_ms": 80,
+          "foreground_bbox_xyxy": [
+            1167,
+            248,
+            1380,
+            465
+          ],
+          "reference_pivot_game_pixels": [
+            45,
+            67
+          ],
+          "reference_head_game_pixels": [
+            48.9,
+            55.1
+          ],
+          "target_rect": [
+            1536,
+            0,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 632,
+          "measured_standing_point": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            0,
+            512,
+            512,
+            512
+          ],
+          "duration_ms": 90,
+          "foreground_bbox_xyxy": [
+            155,
+            708,
+            367,
+            925
+          ],
+          "reference_pivot_game_pixels": [
+            44,
+            67
+          ],
+          "reference_head_game_pixels": [
+            46.1,
+            52.3
+          ],
+          "target_rect": [
+            0,
+            768,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 632,
+          "measured_standing_point": null
+        },
+        {
+          "index": 5,
+          "rect": [
+            512,
+            512,
+            512,
+            512
+          ],
+          "duration_ms": 100,
+          "foreground_bbox_xyxy": [
+            665,
+            708,
+            850,
+            926
+          ],
+          "reference_pivot_game_pixels": [
+            41,
+            67
+          ],
+          "reference_head_game_pixels": [
+            42.5,
+            50.9
+          ],
+          "target_rect": [
+            768,
+            768,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 632,
+          "measured_standing_point": null
+        },
+        {
+          "index": 6,
+          "rect": [
+            1024,
+            512,
+            512,
+            512
+          ],
+          "duration_ms": 100,
+          "foreground_bbox_xyxy": [
+            1172,
+            707,
+            1354,
+            925
+          ],
+          "reference_pivot_game_pixels": [
+            45,
+            67
+          ],
+          "reference_head_game_pixels": [
+            45.8,
+            50.5
+          ],
+          "target_rect": [
+            1536,
+            768,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 632,
+          "measured_standing_point": null
+        }
+      ],
+      "background": "magenta_color_key",
+      "requested_color_key": "#FF00FF",
+      "sha256": "7b526b8120de0ca6d453d2f1fc1d8676c485d325c30876d5f78793543643de26",
+      "validation": {
+        "frame_count_visual_review": true,
+        "nonempty_frames": true,
+        "foreground_clear_of_cell_edges": true,
+        "target_dimensions": false,
+        "strict_8px_grid": false,
+        "visible_rgb_count": 68348,
+        "native_palette_only": false,
+        "exact_head_copy": false,
+        "feet_alignment": false,
+        "game_import_tested": false
+      }
+    },
+    {
+      "tag": "skill",
+      "label": "Q 暗之禁锢",
+      "file": "morgana_skill.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "target_size": [
+        2304,
+        1536
+      ],
+      "layout": [
+        3,
+        2
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "duration_ms": 70,
+          "foreground_bbox_xyxy": [
+            159,
+            238,
+            320,
+            435
+          ],
+          "reference_pivot_game_pixels": [
+            49,
+            67
+          ],
+          "reference_head_game_pixels": [
+            50.6,
+            52.2
+          ],
+          "target_rect": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 632,
+          "measured_standing_point": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            512,
+            0,
+            512,
+            512
+          ],
+          "duration_ms": 70,
+          "foreground_bbox_xyxy": [
+            671,
+            234,
+            865,
+            438
+          ],
+          "reference_pivot_game_pixels": [
+            48,
+            67
+          ],
+          "reference_head_game_pixels": [
+            50.3,
+            56.8
+          ],
+          "target_rect": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 632,
+          "measured_standing_point": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            1024,
+            0,
+            512,
+            512
+          ],
+          "duration_ms": 80,
+          "foreground_bbox_xyxy": [
+            1182,
+            237,
+            1362,
+            438
+          ],
+          "reference_pivot_game_pixels": [
+            44,
+            67
+          ],
+          "reference_head_game_pixels": [
+            45.7,
+            53.8
+          ],
+          "target_rect": [
+            1536,
+            0,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 632,
+          "measured_standing_point": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            0,
+            512,
+            512,
+            512
+          ],
+          "duration_ms": 90,
+          "foreground_bbox_xyxy": [
+            143,
+            710,
+            328,
+            915
+          ],
+          "reference_pivot_game_pixels": [
+            41,
+            67
+          ],
+          "reference_head_game_pixels": [
+            42.6,
+            51.0
+          ],
+          "target_rect": [
+            0,
+            768,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 632,
+          "measured_standing_point": null
+        },
+        {
+          "index": 5,
+          "rect": [
+            512,
+            512,
+            512,
+            512
+          ],
+          "duration_ms": 110,
+          "foreground_bbox_xyxy": [
+            657,
+            711,
+            851,
+            915
+          ],
+          "reference_pivot_game_pixels": [
+            40,
+            67
+          ],
+          "reference_head_game_pixels": [
+            41.6,
+            49.8
+          ],
+          "target_rect": [
+            768,
+            768,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 632,
+          "measured_standing_point": null
+        },
+        {
+          "index": 6,
+          "rect": [
+            1024,
+            512,
+            512,
+            512
+          ],
+          "duration_ms": 150,
+          "foreground_bbox_xyxy": [
+            1173,
+            712,
+            1338,
+            915
+          ],
+          "reference_pivot_game_pixels": [
+            40,
+            67
+          ],
+          "reference_head_game_pixels": [
+            41.8,
+            49.7
+          ],
+          "target_rect": [
+            1536,
+            768,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 632,
+          "measured_standing_point": null
+        }
+      ],
+      "background": "magenta_color_key",
+      "requested_color_key": "#FF00FF",
+      "sha256": "76fc951988e1a52a9ee91158db7aac180b5ecae987fc680d6700586c057ca836",
+      "validation": {
+        "frame_count_visual_review": true,
+        "nonempty_frames": true,
+        "foreground_clear_of_cell_edges": true,
+        "target_dimensions": false,
+        "strict_8px_grid": false,
+        "visible_rgb_count": 66169,
+        "native_palette_only": false,
+        "exact_head_copy": false,
+        "feet_alignment": false,
+        "game_import_tested": false
+      }
+    },
+    {
+      "tag": "skill2",
+      "label": "E 黑暗之盾",
+      "file": "morgana_skill2.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "target_size": [
+        2304,
+        1536
+      ],
+      "layout": [
+        3,
+        2
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "duration_ms": 60,
+          "foreground_bbox_xyxy": [
+            159,
+            188,
+            363,
+            449
+          ],
+          "reference_pivot_game_pixels": [
+            52,
+            67
+          ],
+          "reference_head_game_pixels": [
+            52.2,
+            48.2
+          ],
+          "target_rect": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 632,
+          "measured_standing_point": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            512,
+            0,
+            512,
+            512
+          ],
+          "duration_ms": 60,
+          "foreground_bbox_xyxy": [
+            659,
+            188,
+            862,
+            449
+          ],
+          "reference_pivot_game_pixels": [
+            47,
+            67
+          ],
+          "reference_head_game_pixels": [
+            48.9,
+            44.9
+          ],
+          "target_rect": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 632,
+          "measured_standing_point": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            1024,
+            0,
+            512,
+            512
+          ],
+          "duration_ms": 80,
+          "foreground_bbox_xyxy": [
+            1157,
+            189,
+            1359,
+            449
+          ],
+          "reference_pivot_game_pixels": [
+            46,
+            67
+          ],
+          "reference_head_game_pixels": [
+            47.9,
+            45.0
+          ],
+          "target_rect": [
+            1536,
+            0,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 632,
+          "measured_standing_point": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            0,
+            512,
+            512,
+            512
+          ],
+          "duration_ms": 100,
+          "foreground_bbox_xyxy": [
+            158,
+            648,
+            362,
+            909
+          ],
+          "reference_pivot_game_pixels": [
+            45,
+            67
+          ],
+          "reference_head_game_pixels": [
+            46.9,
+            45.7
+          ],
+          "target_rect": [
+            0,
+            768,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 632,
+          "measured_standing_point": null
+        },
+        {
+          "index": 5,
+          "rect": [
+            512,
+            512,
+            512,
+            512
+          ],
+          "duration_ms": 100,
+          "foreground_bbox_xyxy": [
+            659,
+            648,
+            862,
+            909
+          ],
+          "reference_pivot_game_pixels": [
+            45,
+            67
+          ],
+          "reference_head_game_pixels": [
+            46.9,
+            48.4
+          ],
+          "target_rect": [
+            768,
+            768,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 632,
+          "measured_standing_point": null
+        },
+        {
+          "index": 6,
+          "rect": [
+            1024,
+            512,
+            512,
+            512
+          ],
+          "duration_ms": 100,
+          "foreground_bbox_xyxy": [
+            1158,
+            650,
+            1364,
+            909
+          ],
+          "reference_pivot_game_pixels": [
+            51,
+            67
+          ],
+          "reference_head_game_pixels": [
+            52.4,
+            49.0
+          ],
+          "target_rect": [
+            1536,
+            768,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 632,
+          "measured_standing_point": null
+        }
+      ],
+      "background": "magenta_color_key",
+      "requested_color_key": "#FF00FF",
+      "sha256": "45e15ae2288eb6e00b4d6e76080d9b6bad493f42dd0782853cabfe4b0138cbb7",
+      "validation": {
+        "frame_count_visual_review": true,
+        "nonempty_frames": true,
+        "foreground_clear_of_cell_edges": true,
+        "target_dimensions": false,
+        "strict_8px_grid": false,
+        "visible_rgb_count": 89025,
+        "native_palette_only": false,
+        "exact_head_copy": false,
+        "feet_alignment": false,
+        "game_import_tested": false
+      }
+    },
+    {
+      "tag": "ult",
+      "label": "R 灵魂镣铐",
+      "file": "morgana_ult.png",
+      "size": [
+        1774,
+        887
+      ],
+      "target_size": [
+        3072,
+        1536
+      ],
+      "layout": [
+        4,
+        2
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            444,
+            444
+          ],
+          "duration_ms": 80,
+          "foreground_bbox_xyxy": [
+            115,
+            184,
+            312,
+            402
+          ],
+          "reference_pivot_game_pixels": [
+            46,
+            67
+          ],
+          "reference_head_game_pixels": [
+            47.3,
+            46.5
+          ],
+          "target_rect": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 632,
+          "measured_standing_point": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            444,
+            0,
+            443,
+            444
+          ],
+          "duration_ms": 80,
+          "foreground_bbox_xyxy": [
+            559,
+            142,
+            767,
+            402
+          ],
+          "reference_pivot_game_pixels": [
+            44,
+            67
+          ],
+          "reference_head_game_pixels": [
+            44.8,
+            44.1
+          ],
+          "target_rect": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 632,
+          "measured_standing_point": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            887,
+            0,
+            443,
+            444
+          ],
+          "duration_ms": 80,
+          "foreground_bbox_xyxy": [
+            965,
+            142,
+            1222,
+            402
+          ],
+          "reference_pivot_game_pixels": [
+            42,
+            67
+          ],
+          "reference_head_game_pixels": [
+            42.6,
+            44.8
+          ],
+          "target_rect": [
+            1536,
+            0,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 632,
+          "measured_standing_point": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            1330,
+            0,
+            444,
+            444
+          ],
+          "duration_ms": 90,
+          "foreground_bbox_xyxy": [
+            1421,
+            142,
+            1683,
+            402
+          ],
+          "reference_pivot_game_pixels": [
+            42,
+            67
+          ],
+          "reference_head_game_pixels": [
+            42.2,
+            44.8
+          ],
+          "target_rect": [
+            2304,
+            0,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 632,
+          "measured_standing_point": null
+        },
+        {
+          "index": 5,
+          "rect": [
+            0,
+            444,
+            444,
+            443
+          ],
+          "duration_ms": 100,
+          "foreground_bbox_xyxy": [
+            110,
+            586,
+            318,
+            813
+          ],
+          "reference_pivot_game_pixels": [
+            44,
+            67
+          ],
+          "reference_head_game_pixels": [
+            44.1,
+            45.1
+          ],
+          "target_rect": [
+            0,
+            768,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 632,
+          "measured_standing_point": null
+        },
+        {
+          "index": 6,
+          "rect": [
+            444,
+            444,
+            443,
+            443
+          ],
+          "duration_ms": 100,
+          "foreground_bbox_xyxy": [
+            563,
+            586,
+            782,
+            818
+          ],
+          "reference_pivot_game_pixels": [
+            48,
+            67
+          ],
+          "reference_head_game_pixels": [
+            48.4,
+            45.4
+          ],
+          "target_rect": [
+            768,
+            768,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 632,
+          "measured_standing_point": null
+        },
+        {
+          "index": 7,
+          "rect": [
+            887,
+            444,
+            443,
+            443
+          ],
+          "duration_ms": 110,
+          "foreground_bbox_xyxy": [
+            991,
+            585,
+            1196,
+            808
+          ],
+          "reference_pivot_game_pixels": [
+            51,
+            67
+          ],
+          "reference_head_game_pixels": [
+            52.2,
+            46.6
+          ],
+          "target_rect": [
+            1536,
+            768,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 632,
+          "measured_standing_point": null
+        },
+        {
+          "index": 8,
+          "rect": [
+            1330,
+            444,
+            444,
+            443
+          ],
+          "duration_ms": 120,
+          "foreground_bbox_xyxy": [
+            1445,
+            585,
+            1646,
+            808
+          ],
+          "reference_pivot_game_pixels": [
+            52,
+            67
+          ],
+          "reference_head_game_pixels": [
+            53.1,
+            48.5
+          ],
+          "target_rect": [
+            2304,
+            768,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 632,
+          "measured_standing_point": null
+        }
+      ],
+      "background": "magenta_color_key",
+      "requested_color_key": "#FF00FF",
+      "sha256": "ab33f028f382cbfce24c2eb4067871b98732b55457a75177b4f2899efcb03579",
+      "validation": {
+        "frame_count_visual_review": true,
+        "nonempty_frames": true,
+        "foreground_clear_of_cell_edges": true,
+        "target_dimensions": false,
+        "strict_8px_grid": false,
+        "visible_rgb_count": 103008,
+        "native_palette_only": false,
+        "exact_head_copy": false,
+        "feet_alignment": false,
+        "game_import_tested": false
+      }
+    },
+    {
+      "tag": "hit",
+      "label": "受击",
+      "file": "morgana_hit.png",
+      "size": [
+        1774,
+        887
+      ],
+      "target_size": [
+        1536,
+        768
+      ],
+      "layout": [
+        2,
+        1
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            887,
+            887
+          ],
+          "duration_ms": 120,
+          "foreground_bbox_xyxy": [
+            310,
+            393,
+            565,
+            719
+          ],
+          "reference_pivot_game_pixels": [
+            50,
+            67
+          ],
+          "reference_head_game_pixels": [
+            50.5,
+            49.9
+          ],
+          "target_rect": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 632,
+          "measured_standing_point": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            887,
+            0,
+            887,
+            887
+          ],
+          "duration_ms": 120,
+          "foreground_bbox_xyxy": [
+            1184,
+            393,
+            1445,
+            719
+          ],
+          "reference_pivot_game_pixels": [
+            51,
+            67
+          ],
+          "reference_head_game_pixels": [
+            51.6,
+            49.8
+          ],
+          "target_rect": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 632,
+          "measured_standing_point": null
+        }
+      ],
+      "background": "magenta_color_key",
+      "requested_color_key": "#FF00FF",
+      "sha256": "c91bb657cc7fb14a7e5206acf96e671d7e42475654469e0153db942f92a8bddc",
+      "validation": {
+        "frame_count_visual_review": true,
+        "nonempty_frames": true,
+        "foreground_clear_of_cell_edges": true,
+        "target_dimensions": false,
+        "strict_8px_grid": false,
+        "visible_rgb_count": 50429,
+        "native_palette_only": false,
+        "exact_head_copy": false,
+        "feet_alignment": false,
+        "game_import_tested": false
+      }
+    },
+    {
+      "tag": "dead",
+      "label": "死亡",
+      "file": "morgana_dead.png",
+      "size": [
+        1774,
+        887
+      ],
+      "target_size": [
+        3072,
+        1536
+      ],
+      "layout": [
+        4,
+        2
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            444,
+            444
+          ],
+          "duration_ms": 100,
+          "foreground_bbox_xyxy": [
+            110,
+            167,
+            295,
+            416
+          ],
+          "reference_pivot_game_pixels": [
+            51,
+            67
+          ],
+          "reference_head_game_pixels": [
+            51.7,
+            49.5
+          ],
+          "target_rect": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 632,
+          "measured_standing_point": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            444,
+            0,
+            443,
+            444
+          ],
+          "duration_ms": 100,
+          "foreground_bbox_xyxy": [
+            552,
+            183,
+            758,
+            416
+          ],
+          "reference_pivot_game_pixels": [
+            49,
+            67
+          ],
+          "reference_head_game_pixels": [
+            50.2,
+            53.4
+          ],
+          "target_rect": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 632,
+          "measured_standing_point": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            887,
+            0,
+            443,
+            444
+          ],
+          "duration_ms": 120,
+          "foreground_bbox_xyxy": [
+            1021,
+            215,
+            1200,
+            416
+          ],
+          "reference_pivot_game_pixels": [
+            47,
+            67
+          ],
+          "reference_head_game_pixels": [
+            48.4,
+            52.5
+          ],
+          "target_rect": [
+            1536,
+            0,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 632,
+          "measured_standing_point": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            1330,
+            0,
+            444,
+            444
+          ],
+          "duration_ms": 120,
+          "foreground_bbox_xyxy": [
+            1466,
+            248,
+            1641,
+            417
+          ],
+          "reference_pivot_game_pixels": [
+            47,
+            67
+          ],
+          "reference_head_game_pixels": [
+            48.7,
+            65.8
+          ],
+          "target_rect": [
+            2304,
+            0,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 648,
+          "measured_standing_point": null
+        },
+        {
+          "index": 5,
+          "rect": [
+            0,
+            444,
+            444,
+            443
+          ],
+          "duration_ms": 120,
+          "foreground_bbox_xyxy": [
+            123,
+            669,
+            310,
+            817
+          ],
+          "reference_pivot_game_pixels": [
+            49,
+            67
+          ],
+          "reference_head_game_pixels": [
+            51.7,
+            70.6
+          ],
+          "target_rect": [
+            0,
+            768,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 648,
+          "measured_standing_point": null
+        },
+        {
+          "index": 6,
+          "rect": [
+            444,
+            444,
+            443,
+            443
+          ],
+          "duration_ms": 150,
+          "foreground_bbox_xyxy": [
+            549,
+            675,
+            773,
+            818
+          ],
+          "reference_pivot_game_pixels": [
+            49,
+            67
+          ],
+          "reference_head_game_pixels": [
+            51.7,
+            70.0
+          ],
+          "target_rect": [
+            768,
+            768,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 648,
+          "measured_standing_point": null
+        },
+        {
+          "index": 7,
+          "rect": [
+            887,
+            444,
+            443,
+            443
+          ],
+          "duration_ms": 150,
+          "foreground_bbox_xyxy": [
+            982,
+            692,
+            1227,
+            821
+          ],
+          "reference_pivot_game_pixels": [
+            49,
+            67
+          ],
+          "reference_head_game_pixels": [
+            51.8,
+            69.9
+          ],
+          "target_rect": [
+            1536,
+            768,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 648,
+          "measured_standing_point": null
+        },
+        {
+          "index": 8,
+          "rect": [
+            1330,
+            444,
+            444,
+            443
+          ],
+          "duration_ms": 500,
+          "foreground_bbox_xyxy": [
+            1419,
+            721,
+            1697,
+            818
+          ],
+          "reference_pivot_game_pixels": [
+            46,
+            67
+          ],
+          "reference_head_game_pixels": [
+            48.8,
+            74.6
+          ],
+          "target_rect": [
+            2304,
+            768,
+            768,
+            768
+          ],
+          "target_feet_bottom_exclusive": 648,
+          "measured_standing_point": null
+        }
+      ],
+      "background": "magenta_color_key",
+      "requested_color_key": "#FF00FF",
+      "sha256": "ceb6c4d0ee2110b81ac1cf496198f7f9a38661efa2b5709b11603d987bdd0de2",
+      "validation": {
+        "frame_count_visual_review": true,
+        "nonempty_frames": true,
+        "foreground_clear_of_cell_edges": true,
+        "target_dimensions": false,
+        "strict_8px_grid": false,
+        "visible_rgb_count": 81409,
+        "native_palette_only": false,
+        "exact_head_copy": false,
+        "feet_alignment": false,
+        "game_import_tested": false
+      }
+    }
+  ]
+}

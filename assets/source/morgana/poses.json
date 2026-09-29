@@ -1,0 +1,37 @@
+{
+  "hero": "morgana",
+  "champ": "Morgana",
+  "camera": {"yaw": 20, "pitch": 25, "mirror": true},
+  "chibi": {"head": 2.4, "legs": 0.8, "hair": 0.5},
+  "hide_submeshes": ["wings_open", "flower"],
+  "height": 37,
+  "cell": [96, 96, 14],
+  "design": "morgana_idle1@0",
+  "tags": {
+    "idle": {"frames": [["morgana_idle1@0", 200], ["morgana_idle1@0", 200], ["morgana_idle1@0", 200],
+                        ["morgana_idle1@0", 200], ["morgana_idle1@0", 200], ["morgana_idle1@0", 200]]},
+    "run": {"head_like": "morgana_idle1@0", "frames": [
+      ["morgana_run@0", 143, {"turn": -30}], ["morgana_run@167", 143, {"turn": -30}],
+      ["morgana_run@333", 143, {"turn": -30}], ["morgana_run@500", 143, {"turn": -30}],
+      ["morgana_run@667", 143, {"turn": -30}], ["morgana_run@833", 143, {"turn": -30}],
+      ["morgana_run@1000", 143, {"turn": -30}], ["morgana_run@1167", 143, {"turn": -30}]]},
+    "attack": {"lunge": 0.7, "frames": [
+      ["morgana_idle1@0>morgana_attack2@330:0.5", 60], ["morgana_attack2@350", 70], ["morgana_attack2@400", 80],
+      ["morgana_attack2@450", 90], ["morgana_attack2@500>morgana_idle1@0:0.35", 100],
+      ["morgana_attack2@550>morgana_idle1@0:0.65", 100]]},
+    "skill": {"lunge": 0.7, "frames": [
+      ["morgana_idle1@0>Morgana_Spell1_0@300:0.5", 70], ["Morgana_Spell1_0@330", 70], ["Morgana_Spell1_0@380", 80],
+      ["Morgana_Spell1_0@440", 90], ["Morgana_Spell1_0@540", 110], ["Morgana_Spell1_0@660>morgana_idle1@0:0.4", 150]]},
+    "skill2": {"lunge": 0.7, "frames": [
+      ["morgana_idle1@0>morgana_spell3@0:0.5", 60], ["morgana_spell3@60", 60], ["morgana_spell3@130", 80],
+      ["morgana_spell3@200", 100], ["morgana_spell3@266", 100], ["morgana_spell3@266>morgana_idle1@0:0.5", 100]]},
+    "ult": {"lunge": 0.5, "rise": 0.35, "frames": [
+      ["morgana_idle1@0>Morgana_Spell4@90:0.5", 80], ["Morgana_Spell4@90", 80], ["Morgana_Spell4@150", 80],
+      ["Morgana_Spell4@190", 90], ["Morgana_Spell4@230", 100], ["Morgana_Spell4@270", 100],
+      ["Morgana_Spell4@300>morgana_idle1@0:0.4", 110], ["Morgana_Spell4@330>morgana_idle1@0:0.75", 120]]},
+    "hit": {"frames": [["morgana_idle1@0>morgana_death@500:0.3", 120], ["morgana_idle1@0>morgana_death@500:0.12", 120]]},
+    "dead": {"anchor": "first", "lunge": 0.4, "flat": true, "travel": 0.3, "frames": [
+      ["morgana_death@0", 100], ["morgana_death@600", 100], ["morgana_death@1100", 120], ["morgana_death@1500", 120],
+      ["morgana_death@1750", 120], ["morgana_death@2000", 150], ["morgana_death@2500", 150], ["morgana_death@3600", 500]]}
+  }
+}

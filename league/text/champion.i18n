@@ -161,6 +161,13 @@
         "skill": "射出穿透目标的光束，对直线上的敌人造成<#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130% 攻击力<>的<#ff9028ff>物理伤害<>。",
         "skill2": "冲刺：敌方英雄贴近时后撤，射程内有敌人时后跳，否则追到射程内。接着射出<#ff9028ff>热诚烈弹<>，爆炸造成<#f5f5f5ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% 攻击力<>的<#f5f5f5ff>真实伤害<>并标记<#ffb900ff>6秒<>，期间每次命中<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移动速度+25%<>，持续<#ffb900ff>1秒<>。之后两次普攻都连开两枪。",
         "ult": "原地引导<#ffb900ff>3秒<>，连射<#ffb900ff>20<>发子弹，每发射向最近的敌方英雄（穿过小兵），造成<#ff9028ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30% 攻击力<>的<#ff9028ff>物理伤害<>。受到<#ef5350ff>眩晕<>、<#ef5350ff>禁锢<>、<#ef5350ff>击飞<>等控制或阵亡时中断。"
+      },
+      "league_morgana": {
+        "name": "莫甘娜",
+        "attack": "普攻射出一团暗影，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。被动 <#ff9028ff>灵魂吸取<>：技能对英雄造成伤害时，为自己回复约为伤害15%的<#6aff55ff>生命值<>。",
+        "skill": "射出暗之禁锢，穿过小兵和野怪，对沿途敌人造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 法术强度<>的<#a974ffff>魔法伤害<>，停在第一个敌方英雄身上并将其<#ef5350ff>禁锢<><#ffb900ff>2秒<>。每<#ffb900ff>12秒<>同时在其脚下留下<#ff9028ff>折磨之影<>，<#ffb900ff>4秒<>内共造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 法术强度<>的<#a974ffff>魔法伤害<>。",
+        "skill2": "对敌方英雄施法，为身边一名友方英雄套上<#e8d44dff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法术强度<>的<#e8d44dff>护盾<>，持续<#ffb900ff>5秒<>，护盾存在时<#ef5350ff>免疫控制<>。身边没有队友时护住自己。",
+        "ult": "锁住身边所有敌方英雄，造成<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 法术强度<>的<#a974ffff>魔法伤害<>并<#ef5350ff>减速20%<>，自身<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移动速度提高20%<>。跑出锁链范围的敌人会挣断锁链；<#ffb900ff>3秒<>后仍被锁住的敌方英雄再受到一次伤害并被<#ef5350ff>眩晕<><#ffb900ff>1.5秒<>。"
       }
     },
     "skill_name": {
@@ -278,6 +285,11 @@
         "skill1": "透体圣光",
         "skill2": "冷酷追击",
         "ult": "圣枪洗礼"
+      },
+      "league_morgana": {
+        "skill1": "暗之禁锢",
+        "skill2": "黑暗之盾",
+        "ult": "灵魂镣铐"
       }
     }
   },
@@ -443,6 +455,13 @@
         "skill": "射出穿透目標的光束，對直線上的敵人造成<#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130% 攻擊力<>的<#ff9028ff>物理傷害<>。",
         "skill2": "衝刺：敵方英雄貼近時後撤，射程內有敵人時後跳，否則追到射程內。接著射出<#ff9028ff>烈炎鐵血<>，爆炸造成<#f5f5f5ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% 攻擊力<>的<#f5f5f5ff>真實傷害<>並標記<#ffb900ff>6秒<>，期間每次擊中<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>跑速+25%<>，持續<#ffb900ff>1秒<>。之後兩次普攻都連開兩槍。",
         "ult": "原地引導<#ffb900ff>3秒<>，連射<#ffb900ff>20<>發子彈，每發射向最近的敵方英雄（穿過小兵），造成<#ff9028ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30% 攻擊力<>的<#ff9028ff>物理傷害<>。受到<#ef5350ff>暈眩<>、<#ef5350ff>定身<>、<#ef5350ff>擊飛<>等控制或陣亡時中斷。"
+      },
+      "league_morgana": {
+        "name": "魔甘娜",
+        "attack": "普攻射出一團暗影，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。被動 <#ff9028ff>靈魂虹吸<>：技能對英雄造成傷害時，為自己回復約為傷害15%的<#6aff55ff>生命值<>。",
+        "skill": "射出暗影禁錮，穿過小兵和野怪，對沿途敵人造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 魔法強度<>的<#a974ffff>魔法傷害<>，停在第一個敵方英雄身上並將其<#ef5350ff>禁錮<><#ffb900ff>2秒<>。每<#ffb900ff>12秒<>同時在其腳下留下<#ff9028ff>痛苦腐蝕<>，<#ffb900ff>4秒<>內共造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 魔法強度<>的<#a974ffff>魔法傷害<>。",
+        "skill2": "對敵方英雄施法，為身邊一名友方英雄套上<#e8d44dff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 魔法強度<>的<#e8d44dff>護盾<>，持續<#ffb900ff>5秒<>，護盾存在時<#ef5350ff>免疫控制<>。身邊沒有隊友時保護自己。",
+        "ult": "鎖住身邊所有敵方英雄，造成<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 魔法強度<>的<#a974ffff>魔法傷害<>並<#ef5350ff>緩速20%<>，自身<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度提高20%<>。跑出鎖鏈範圍的敵人會掙斷鎖鏈；<#ffb900ff>3秒<>後仍被鎖住的敵方英雄再受到一次傷害並被<#ef5350ff>暈眩<><#ffb900ff>1.5秒<>。"
       }
     },
     "skill_name": {
@@ -560,6 +579,11 @@
         "skill1": "鋒芒貫穿",
         "skill2": "冷酷進擊",
         "ult": "赤色屠戮"
+      },
+      "league_morgana": {
+        "skill1": "暗影禁錮",
+        "skill2": "黑暗之盾",
+        "ult": "靈魂枷鎖"
       }
     }
   },
@@ -725,6 +749,13 @@
         "skill": "Lucian fires a beam of light through his target, dealing <#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130% AD<> <#ff9028ff>physical damage<> to every enemy in the line.",
         "skill2": "A dash: away from an enemy champion on him, a hop back when an enemy is in range, else toward his target until it is in range. Then <#ff9028ff>Ardent Blaze<> bursts on the first enemy hit for <#f5f5f5ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% AD<> <#f5f5f5ff>true damage<> and marks them for <#ffb900ff>6s<>; meanwhile each hit gives him <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>25% move speed<> for <#ffb900ff>1s<>. His next 2 attacks both fire twice.",
         "ult": "Lucian stands and fires <#ffb900ff>20<> shots over <#ffb900ff>3s<>, each at the nearest enemy champion (through minions), dealing <#ff9028ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30% AD<> <#ff9028ff>physical damage<>. A stun, root, knock-up or other crowd control, or his death, ends it."
+      },
+      "league_morgana": {
+        "name": "Morgana",
+        "attack": "Basic attacks hurl a bolt of shadow that deals <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. Passive <#ff9028ff>Soul Siphon<>: her spells heal her for about 15% of the damage they deal to champions.",
+        "skill": "<#ff9028ff>Dark Binding<> flies through minions and monsters, dealing <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% Ability Power<> <#a974ffff>magic damage<> to every enemy it passes, and stops on the first enemy champion, <#ef5350ff>rooting<> it for <#ffb900ff>2s<>. Every <#ffb900ff>12s<> it also leaves <#ff9028ff>Tormented Shadow<> under that champion: <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% Ability Power<> <#a974ffff>magic damage<> over <#ffb900ff>4s<>.",
+        "skill2": "Cast at an enemy champion: <#ff9028ff>Black Shield<> gives a nearby allied champion a <#e8d44dff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% Ability Power<> <#e8d44dff>shield<> for <#ffb900ff>5s<>; while it holds they are <#ef5350ff>immune to crowd control<>. With no ally nearby she shields herself.",
+        "ult": "Morgana chains every nearby enemy champion, dealing <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% Ability Power<> <#a974ffff>magic damage<> and <#ef5350ff>slowing<> them by 20%, and gains <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>20% Move Speed<>. Enemies that move too far away break free. After <#ffb900ff>3s<>, champions still chained take the damage again and are <#ef5350ff>stunned<> for <#ffb900ff>1.5s<>."
       }
     },
     "skill_name": {
@@ -842,6 +873,11 @@
         "skill1": "Piercing Light",
         "skill2": "Relentless Pursuit",
         "ult": "The Culling"
+      },
+      "league_morgana": {
+        "skill1": "Dark Binding",
+        "skill2": "Black Shield",
+        "ult": "Soul Shackles"
       }
     }
   },
@@ -1007,6 +1043,13 @@
         "skill": "대상을 관통하는 빛줄기를 쏘아 직선상의 적에게 <#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 130%<> <#ff9028ff>물리 피해<>를 입힙니다.",
         "skill2": "돌진: 적 챔피언이 붙으면 뒤로, 사거리 안에 적이 있으면 살짝 뒤로, 없으면 사거리까지 앞으로. 이어서 <#ff9028ff>타는 불길<>이 폭발해 <#f5f5f5ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 60%<> <#f5f5f5ff>고정 피해<>를 입히고 <#ffb900ff>6초<> 동안 표식을 남기며, 그동안 적중할 때마다 <#ffb900ff>1초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도 25%<>. 다음 기본 공격 2회는 모두 2연발.",
         "ult": "제자리에서 <#ffb900ff>3초<> 동안 총알 <#ffb900ff>20<>발을 가장 가까운 적 챔피언에게 (미니언 관통) 쏘아 한 발마다 <#ff9028ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 30%<> <#ff9028ff>물리 피해<>를 입힙니다. <#ef5350ff>기절<>, <#ef5350ff>속박<>, <#ef5350ff>에어본<> 등에 걸리거나 죽으면 중단됩니다."
+      },
+      "league_morgana": {
+        "name": "모르가나",
+        "attack": "기본 공격으로 어둠의 구체를 날려 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다. 기본 지속 효과 <#ff9028ff>영혼 흡수<>: 스킬로 챔피언에게 피해를 입히면 피해량의 약 15%만큼 <#6aff55ff>체력<>을 회복합니다.",
+        "skill": "<#ff9028ff>어둠의 속박<>이 미니언과 몬스터를 관통하며 지나가는 모든 적에게 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 60%<> <#a974ffff>마법 피해<>를 입히고, 처음 맞은 적 챔피언에게서 멈춰 <#ffb900ff>2초<> 동안 <#ef5350ff>속박<>합니다. <#ffb900ff>12초<>마다 그 발밑에 <#ff9028ff>고통의 그림자<>를 남겨 <#ffb900ff>4초<>에 걸쳐 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 40%<> <#a974ffff>마법 피해<>를 입힙니다.",
+        "skill2": "적 챔피언에게 시전하면 <#ff9028ff>칠흑의 방패<>로 주변 아군 챔피언 하나에게 <#ffb900ff>5초<> 동안 <#e8d44dff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 70%<> <#e8d44dff>보호막<>을 씌우며, 보호막이 유지되는 동안 <#ef5350ff>군중 제어에 면역<>이 됩니다. 주변에 아군이 없으면 자신에게 씌웁니다.",
+        "ult": "주변의 모든 적 챔피언을 사슬로 묶어 <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 80%<> <#a974ffff>마법 피해<>를 입히고 <#ef5350ff>20% 둔화<>시키며, 자신은 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도가 20% 증가<>합니다. 너무 멀리 벗어난 적은 사슬을 끊습니다. <#ffb900ff>3초<> 후 여전히 묶여 있는 적 챔피언은 같은 피해를 다시 받고 <#ffb900ff>1.5초<> 동안 <#ef5350ff>기절<>합니다."
       }
     },
     "skill_name": {
@@ -1124,6 +1167,11 @@
         "skill1": "꿰뚫는 빛",
         "skill2": "끈질긴 추격",
         "ult": "빛의 심판"
+      },
+      "league_morgana": {
+        "skill1": "어둠의 속박",
+        "skill2": "칠흑의 방패",
+        "ult": "영혼의 족쇄"
       }
     }
   },
@@ -1289,6 +1337,13 @@
         "skill": "対象を貫く光線を放ち、直線上の敵に<#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の130%<>の<#ff9028ff>物理ダメージ<>を与える。",
         "skill2": "移動：敵チャンピオンが近ければ後退、射程内に敵がいれば小さく後退、いなければ射程内まで前進。続けて<#ff9028ff>アーデントブレイズ<>が爆発し<#f5f5f5ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の60%<>の<#f5f5f5ff>確定ダメージ<>、<#ffb900ff>6秒<>の印。その間の命中で<#ffb900ff>1秒<><i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度25%<>。次の2回の攻撃はどちらも2連射。",
         "ult": "その場で<#ffb900ff>3秒<>間、最も近い敵チャンピオンへ弾丸を<#ffb900ff>20<>発連射（ミニオンを貫通）、1発ごとに<#ff9028ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の30%<>の<#ff9028ff>物理ダメージ<>。スタン、スネア、ノックアップなどを受けるか倒されると中断。"
+      },
+      "league_morgana": {
+        "name": "モルガナ",
+        "attack": "通常攻撃は闇の弾を放ち、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>を与える。パッシブ <#ff9028ff>ソウルサイフォン<>：スキルがチャンピオンに与えたダメージの約15%、<#6aff55ff>体力<>を回復する。",
+        "skill": "<#ff9028ff>ダークバインド<>はミニオンとモンスターを貫通し、通過した敵に<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の60%<>の<#a974ffff>魔法ダメージ<>を与え、最初の敵チャンピオンで止まって<#ffb900ff>2秒<>間<#ef5350ff>スネア<>する。<#ffb900ff>12秒<>毎にその足元に<#ff9028ff>苦悶の影<>を残し、<#ffb900ff>4秒<>で<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の40%<>の<#a974ffff>魔法ダメージ<>を与える。",
+        "skill2": "敵チャンピオンに詠唱すると、<#ff9028ff>ブラックシールド<>で近くの味方チャンピオン1体に<#ffb900ff>5秒<>間<#e8d44dff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の70%<>の<#e8d44dff>シールド<>を付与し、その間<#ef5350ff>行動妨害無効<>になる。味方がいなければ自身に付与。",
+        "ult": "周囲の敵チャンピオン全員を鎖で繋ぎ、<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の80%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>20%スロウ<>を与え、自身の<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度が20%増加<>する。離れすぎた敵は鎖を断ち切る。<#ffb900ff>3秒<>後、まだ繋がれている敵チャンピオンは再度ダメージを受け<#ffb900ff>1.5秒<>間<#ef5350ff>スタン<>する。"
       }
     },
     "skill_name": {
@@ -1406,6 +1461,11 @@
         "skill1": "ピアシングライト",
         "skill2": "スライド",
         "ult": "二挺掃射"
+      },
+      "league_morgana": {
+        "skill1": "ダークバインド",
+        "skill2": "ブラックシールド",
+        "ult": "魂の足枷"
       }
     }
   }
