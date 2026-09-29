@@ -1,0 +1,169 @@
+[
+  {
+    "id": 1,
+    "file": "morgana_fx_bolt.png",
+    "tool": "image_gen.imagegen",
+    "history": [
+      {
+        "stage": "initial",
+        "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, a shadow-violet ramp (#FFFFFF, #EAD6FF, #B478F0, #7A3AD0, #4A1C90, #24104A).\nEffect: a DARK MAGIC BOLT flying to the RIGHT, 4 frames, a seamless loop, SYMMETRIC above and below the middle line: a bright white-violet core (a small round orb) at 80% of the cell width, wrapped in violet flame tongues, a tapering tail of violet and dark violet wisps streaming to the left behind it over 70% of the cell width, the wisps flickering differently in each frame.\nLayout: one horizontal row of 4 equal cells, each 2 wide to 1 tall, image size 1024x128 (each cell 256x128); the bolt on the middle line of every cell, no gaps, no borders, no labels. Transparent background (if not possible: pure black #000000).\nREFERENCE ROLE: attached image is a reference atlas for the original Morgana effects. Borrow only the specified effect shapes and colors, not its photographic soft glow, layout, text or labels. Create NEW coarse pixel art, broad flat color clusters, crisp squared steps, no black contour strokes, no soft lighting or gradient halo. Draw NO character, NO person, NO humanoid outline, NO faces, NO hands, NO silhouettes. Transparent empty background. Exactly 4 frames in ONE SINGLE HORIZONTAL ROW, each frame occupies its own equal-width cell from left to right. Even the first tiny point and last fading fragments have their own full equal-width cells: do not skip, merge or center-pack those cells. Never wrap onto another row. Full effect including fragments stays within its own cell. Do not write frame numbers, names, captions, guide lines or dividers.",
+        "reference": "refs/lol_fx_ref.png",
+        "transparent_background": true
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "file": "morgana_fx_hit.png",
+    "tool": "image_gen.imagegen",
+    "history": [
+      {
+        "stage": "initial",
+        "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, a shadow-violet ramp (#FFFFFF, #EAD6FF, #B478F0, #7A3AD0, #4A1C90, #24104A).\nEffect: a SHADOW MAGIC IMPACT, 5 frames: 1 a small white-violet point at the center; 2 a round burst of violet energy about 40% of the cell wide, white core; 3 the burst at full size, dark violet smoke curls spreading out of it; 4 the burst gone, the smoke curls drifting outward and darkening; 5 a few faint dark violet specks.\nLayout: one horizontal row of 5 equal square cells, image size 1280x256; the impact centered in every cell, no gaps, no borders, no labels. Transparent background (if not possible: pure black #000000).\nREFERENCE ROLE: attached image is a reference atlas for the original Morgana effects. Borrow only the specified effect shapes and colors, not its photographic soft glow, layout, text or labels. Create NEW coarse pixel art, broad flat color clusters, crisp squared steps, no black contour strokes, no soft lighting or gradient halo. Draw NO character, NO person, NO humanoid outline, NO faces, NO hands, NO silhouettes. Transparent empty background. Exactly 5 frames in ONE SINGLE HORIZONTAL ROW, each frame occupies its own equal-width cell from left to right. Even the first tiny point and last fading fragments have their own full equal-width cells: do not skip, merge or center-pack those cells. Never wrap onto another row. Full effect including fragments stays within its own cell. Do not write frame numbers, names, captions, guide lines or dividers.",
+        "reference": "refs/lol_fx_ref.png",
+        "transparent_background": true
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "file": "morgana_fx_q_orb.png",
+    "tool": "image_gen.imagegen",
+    "history": [
+      {
+        "stage": "initial",
+        "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, a shadow-violet ramp (#FFFFFF, #EAD6FF, #B478F0, #7A3AD0, #4A1C90) with an icy cyan core (#FFFFFF, #A8FAFF, #40C8EC).\nEffect: a DARK BINDING ORB flying to the RIGHT, 4 frames, a seamless loop, SYMMETRIC above and below the middle line: a round orb at 75% of the cell width with a bright cyan-white core, surrounded by a ring of sharp violet spikes of light (like a spiky star, turning a little each frame); behind it a trail shaped like a chain of violet energy links (small diamond links joined in a row) streaming to the left edge of the cell, fading to dark violet, with a few violet sparks.\nLayout: one horizontal row of 4 equal cells, each 2 wide to 1 tall, image size 1024x128 (each cell 256x128); the orb on the middle line of every cell, no gaps, no borders, no labels. Transparent background (if not possible: pure black #000000).\nREFERENCE ROLE: attached image is a reference atlas for the original Morgana effects. Borrow only the specified effect shapes and colors, not its photographic soft glow, layout, text or labels. Create NEW coarse pixel art, broad flat color clusters, crisp squared steps, no black contour strokes, no soft lighting or gradient halo. Draw NO character, NO person, NO humanoid outline, NO faces, NO hands, NO silhouettes. Transparent empty background. Exactly 4 frames in ONE SINGLE HORIZONTAL ROW, each frame occupies its own equal-width cell from left to right. Even the first tiny point and last fading fragments have their own full equal-width cells: do not skip, merge or center-pack those cells. Never wrap onto another row. Full effect including fragments stays within its own cell. Do not write frame numbers, names, captions, guide lines or dividers.\nThe cyan spiky projectile core is on the RIGHT of EACH of the four frames; diamond chain-link trail is to its LEFT. Keep identical core size and center height across all four frames, mirrored top/bottom flame shapes, only chain brightness and a few sparks vary. IMPORTANT leave a narrow transparent gap between neighboring frames so no chain or spark crosses a cell boundary.",
+        "reference": "refs/lol_fx_ref.png",
+        "transparent_background": true
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "file": "morgana_fx_q_hit.png",
+    "tool": "image_gen.imagegen",
+    "history": [
+      {
+        "stage": "initial",
+        "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, a shadow-violet ramp (#FFFFFF, #EAD6FF, #B478F0, #7A3AD0, #4A1C90) with a touch of cyan (#A8FAFF).\nEffect: a PIERCING SHADOW FLARE, 5 frames: 1 a thin white-violet diagonal streak through the center; 2 a sharp four-pointed star flash, white core, violet points, about 50% of the cell wide; 3 the star at full size with small violet sparks flying off; 4 the star shrinks into a small violet cross, the sparks fade to dark violet; 5 two faint dark violet specks.\nLayout: one horizontal row of 5 equal square cells, image size 1280x256; the flash centered in every cell, no gaps, no borders, no labels. Transparent background (if not possible: pure black #000000).\nREFERENCE ROLE: attached image is a reference atlas for the original Morgana effects. Borrow only the specified effect shapes and colors, not its photographic soft glow, layout, text or labels. Create NEW coarse pixel art, broad flat color clusters, crisp squared steps, no black contour strokes, no soft lighting or gradient halo. Draw NO character, NO person, NO humanoid outline, NO faces, NO hands, NO silhouettes. Transparent empty background. Exactly 5 frames in ONE SINGLE HORIZONTAL ROW, each frame occupies its own equal-width cell from left to right. Even the first tiny point and last fading fragments have their own full equal-width cells: do not skip, merge or center-pack those cells. Never wrap onto another row. Full effect including fragments stays within its own cell. Do not write frame numbers, names, captions, guide lines or dividers.\nKeep each effect centered on its cell center (10%,30%,50%,70%,90% of total image width). Largest star and ALL sparks must occupy no more than 80% of the width of their own cell, leaving gaps between the five frames. Only FIVE cells.",
+        "reference": "refs/lol_fx_ref.png",
+        "transparent_background": true
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "file": "morgana_fx_q_bind.png",
+    "tool": "image_gen.imagegen",
+    "history": [
+      {
+        "stage": "initial",
+        "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, a shadow-violet ramp (#FFFFFF, #EAD6FF, #B478F0, #7A3AD0, #4A1C90, #24104A) with icy cyan glints (#A8FAFF, #40C8EC).\nEffect: DARK SHACKLES binding a standing figure (leave a figure-shaped empty space in the middle of the cell, about 60% of the cell width and 80% of the cell height, feet at 85% of the cell height - do NOT draw the figure), 9 frames: 1 a glowing violet ring appears flat on the ground at the feet (an ellipse twice as wide as tall); 2 three dark violet energy chains of small diamond links shoot up from the ring; 3 the chains wrap around the empty figure's legs and waist in diagonal bands, bright cyan glints on the links; 4-7 a seamless loop: the chains pulse and their links shift one step each frame, violet wisps rise from the ring; 8 the chains crack into loose links; 9 faint dark violet links and specks fading.\nLayout: one horizontal row of 9 equal cells, each 4 wide to 5 tall, image size 2304x320 (each cell 256x320); the ring centered horizontally at 85% of the cell height, no gaps, no borders, no labels. Transparent background (if not possible: pure black #000000).\nREFERENCE ROLE: attached image is a reference atlas for the original Morgana effects. Borrow only the specified effect shapes and colors, not its photographic soft glow, layout, text or labels. Create NEW coarse pixel art, broad flat color clusters, crisp squared steps, no black contour strokes, no soft lighting or gradient halo. Draw NO character, NO person, NO humanoid outline, NO faces, NO hands, NO silhouettes. Transparent empty background. Exactly 9 frames in ONE SINGLE HORIZONTAL ROW, each frame occupies its own equal-width cell from left to right. Even the first tiny point and last fading fragments have their own full equal-width cells: do not skip, merge or center-pack those cells. Never wrap onto another row. Full effect including fragments stays within its own cell. Do not write frame numbers, names, captions, guide lines or dividers.\nNine equal cells, not eight. Each ring remains an isolated horizontal ground ellipse beneath an INVISIBLE absent person. No head, torso, legs, clothing or mannequin, including translucent ones. Chains are narrow loops around the outside of the empty space, NOT dense cages. Upper center reserved completely empty for face. Do not make a continuous chain connecting adjacent cells. Frame 9 still occupies its own full cell with tiny fading fragments.",
+        "reference": "refs/lol_fx_ref.png",
+        "transparent_background": true
+      },
+      {
+        "stage": "revision",
+        "prompt": "Revise attached NINE-FRAME pixel-art magical binding sprite sheet. Keep exactly 9 equally wide cells in one horizontal row, same order and purple/cyan palette. The current chains are too thick and make a dense cage. REDUCE EVERY CHAIN to a thin strand of small HOLLOW DIAMOND LINKS, one native pixel thick. Only three sparse chains total per frame, mostly at OUTER LEFT AND RIGHT edges and near feet. Leave the central 60% of each cell width entirely transparent from top down to 60% cell height, a plain EMPTY RECTANGULAR region (not a cutout person silhouette). The central lower body should also be largely empty, with only ONE narrow diagonal chain crossing waist level and one near ankles. No filled purple slabs, no tall purple ribbons, no pillars or shell. Foot ring a THIN VIOLET ELLIPSE 2:1 width:height at 85% of cell height. F1 only thin foot ring; F2 three thin chains begin rising; F3 chains wrap; F4 F5 F6 F7 four separate sparse looping states; F8 chains break into few detached links; F9 ONLY 3-5 TINY DARK VIOLET specks with NO bright intact foot ring. NO PEOPLE OR BODY OUTLINES. Each entire effect uses at most 75% of its own cell width, leaving clear empty gaps between cells. Simple coarse pixel art, 6 purple tones and sparse cyan highlights, no anti-aliasing, no haze, no smooth glow, no black outlines. Transparent background, no text, no grid. Target single row 2304x320; preserve nine separate readable frames even if canvas dimensions differ.",
+        "reference": "initial generated morgana_fx_q_bind.png",
+        "transparent_background": true
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "file": "morgana_fx_w_pool.png",
+    "tool": "image_gen.imagegen",
+    "history": [
+      {
+        "stage": "initial",
+        "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, seen from a slightly top-down game camera, a tar ramp (#3A1A4E, #24102F, #12081A) with magenta glow (#FFD0F2, #FF6AD8, #D02CA8, #7A1060) and violet wisps (#B478F0, #7A3AD0).\nEffect: a CURSED POOL OF SHADOW on the ground, 8 frames: 1 a small dark ellipse of black-violet tar appears at the center (an ellipse twice as wide as tall); 2 it spreads to 90% of the cell width, its surface broken into dark cracked plates with glowing magenta cracks between them; 3-6 a seamless loop: the magenta cracks pulse brighter and darker, small magenta sparks and dark violet smoke wisps rise from the pool in different places each frame, a faint dark swirl turns in the middle; 7 the pool shrinks, the cracks dim; 8 a small fading dark patch with two magenta specks.\nLayout: one horizontal row of 8 equal cells, each 2 wide to 1 tall, image size 2048x128 (each cell 256x128); the pool centered in every cell, the rising wisps may reach the top of the cell, no gaps, no borders, no labels. Transparent background (if not possible: pure black #000000).\nREFERENCE ROLE: attached image is a reference atlas for the original Morgana effects. Borrow only the specified effect shapes and colors, not its photographic soft glow, layout, text or labels. Create NEW coarse pixel art, broad flat color clusters, crisp squared steps, no black contour strokes, no soft lighting or gradient halo. Draw NO character, NO person, NO humanoid outline, NO faces, NO hands, NO silhouettes. Transparent empty background. Exactly 8 frames in ONE SINGLE HORIZONTAL ROW, each frame occupies its own equal-width cell from left to right. Even the first tiny point and last fading fragments have their own full equal-width cells: do not skip, merge or center-pack those cells. Never wrap onto another row. Full effect including fragments stays within its own cell. Do not write frame numbers, names, captions, guide lines or dividers.\nAll eight ground pools are FLAT horizontal ellipses, width exactly twice depth, not spherical fireballs or vertical flames. Exactly 8 cells. Same camera all frames. F1 small, F2 grown, F3-F6 four full-sized slightly different pools, F7 smaller, F8 tiny. Violet smoke stays sparse and low so the cracked tar and magenta fissures remain visible. Keep complete effects within cell boundaries, no pool touches the next.",
+        "reference": "refs/lol_fx_ref.png",
+        "transparent_background": true
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "file": "morgana_fx_e_shield.png",
+    "tool": "image_gen.imagegen",
+    "history": [
+      {
+        "stage": "initial",
+        "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, a shadow-violet ramp (#EAD6FF, #B478F0, #7A3AD0, #4A1C90, #24104A) with an icy blue lower rim (#A8FAFF, #40C8EC, #2466C8).\nEffect: a BLACK SHIELD sphere around a standing figure (leave the inside of the sphere EMPTY so the figure shows through - do NOT draw the figure or fill the sphere), 10 frames: 1 a flat violet ring on the ground at the feet (an ellipse); 2 the ring rises into the lower half of a sphere, dark violet smoke curling up its sides; 3 the sphere closes over the top: a violet outline ring 2-3 squares thick, its lower edge glowing icy blue, a small band of hexagon links across its top; 4-7 a seamless loop: the sphere holds, a bright glint slides around the ring a quarter turn each frame, the hexagons and a few dark smoke wisps flicker; 8 the ring cracks into curved shards; 9 the shards fly outward; 10 faint violet specks fading.\nLayout: one horizontal row of 10 equal cells, each 5 wide to 6 tall, image size 3200x384 (each cell 320x384); the sphere centered horizontally, its bottom at 90% of the cell height, no gaps, no borders, no labels. Transparent background (if not possible: pure black #000000).\nREFERENCE ROLE: attached image is a reference atlas for the original Morgana effects. Borrow only the specified effect shapes and colors, not its photographic soft glow, layout, text or labels. Create NEW coarse pixel art, broad flat color clusters, crisp squared steps, no black contour strokes, no soft lighting or gradient halo. Draw NO character, NO person, NO humanoid outline, NO faces, NO hands, NO silhouettes. Transparent empty background. Exactly 10 frames in ONE SINGLE HORIZONTAL ROW, each frame occupies its own equal-width cell from left to right. Even the first tiny point and last fading fragments have their own full equal-width cells: do not skip, merge or center-pack those cells. Never wrap onto another row. Full effect including fragments stays within its own cell. Do not write frame numbers, names, captions, guide lines or dividers.\nTen separate frames ONE ROW, not 8 or 9. Every sphere is a THIN RIM ONLY, most of interior fully empty alpha=0. No colored glass filling, no gradient across interior, no person. The first frame is low ground ellipse; second half dome; third complete tall oval; frames 4,5,6,7 four separate matching full oval shields with moving glint; eighth broken outline; ninth flying shards; tenth a few tiny specks. Keep a transparent gap between cells. Fine hexagonal motifs restricted to top rim, not inside center.",
+        "reference": "refs/lol_fx_ref.png",
+        "transparent_background": true
+      },
+      {
+        "stage": "revision",
+        "prompt": "Edit the supplied ten-frame purple/icy-blue shield sprite sheet. Preserve EXACTLY 10 frames in ONE HORIZONTAL ROW and the animation order. Make the sphere RIM MUCH THINNER: a delicate single contour of purple pixel light only 2 native pixels thick, cyan along bottom, sparse small hexagons on the top rim. The interior must be a large simple EMPTY OVAL, not a human-shaped opening, NOT a portal with thick walls, no filled glass or haze. The empty oval occupies at least 80% of shield diameter. Keep small smoke wisps outside rim only. Frame1 low thin ground ellipse. Frame2 thin open upper arc growing from lower half. Frames3,4,5,6,7 full tall oval thin rings with moving tiny white-violet glint. Frame8 ring breaks into curved fragments. Frame9 just few scattered shards. Frame10 just 3 tiny faint purple squares. At least 15% cell-width transparent margin on both left/right of each effect including shards, so adjacent frames NEVER touch. DO NOT ADD PEOPLE. No body/head silhouettes. No black outlines, no background glow. Hard square coarse pixel art limited purple/cyan flat palette, transparent background. Single row 3200x384 target, each cell 320x384. Do not add captions or grid.",
+        "reference": "initial generated morgana_fx_e_shield.png",
+        "transparent_background": true
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "file": "morgana_fx_r_cast.png",
+    "tool": "image_gen.imagegen",
+    "history": [
+      {
+        "stage": "initial",
+        "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, seen from a slightly top-down game camera, a shadow-violet ramp (#FFFFFF, #EAD6FF, #B478F0, #7A3AD0, #4A1C90, #24104A) with magenta glints (#FF6AD8, #D02CA8).\nEffect: SOUL SHACKLES BURST on the ground around the caster (the caster stands at the center - leave a small empty space for her feet), 7 frames: 1 a bright violet flash at the center; 2 a flat ring of violet light (an ellipse twice as wide as tall) bursts outward to 40% of the cell width, spiky rays of light pointing outward along its edge; 3 the ring at 70%, dark chain-link shapes running around it; 4 the ring at 95% of the cell width, thinner, magenta glints on its links; 5 the ring fades to dark violet, a dim shadow circle left on the ground inside it; 6 broken dark ring segments; 7 the last faint specks.\nLayout: one horizontal row of 7 equal cells, each 2 wide to 1 tall, image size 3584x256 (each cell 512x256); the burst centered in every cell, no gaps, no borders, no labels. Transparent background (if not possible: pure black #000000).\nREFERENCE ROLE: attached image is a reference atlas for the original Morgana effects. Borrow only the specified effect shapes and colors, not its photographic soft glow, layout, text or labels. Create NEW coarse pixel art, broad flat color clusters, crisp squared steps, no black contour strokes, no soft lighting or gradient halo. Draw NO character, NO person, NO humanoid outline, NO faces, NO hands, NO silhouettes. Transparent empty background. Exactly 7 frames in ONE SINGLE HORIZONTAL ROW, each frame occupies its own equal-width cell from left to right. Even the first tiny point and last fading fragments have their own full equal-width cells: do not skip, merge or center-pack those cells. Never wrap onto another row. Full effect including fragments stays within its own cell. Do not write frame numbers, names, captions, guide lines or dividers.\nSeven frames exactly: tiny start, 40% ring,70% ring,95% ring,dim ring,broken segments,sparse fading points. Ring expands WITHIN each same-size cell, not across multiple cells. All seven centers at equal spacing and same y. Every ground ring ellipse width twice its height, never a standing vertical shield. Center empty except tiny initial flash. No chains extending into neighboring cells.",
+        "reference": "refs/lol_fx_ref.png",
+        "transparent_background": true
+      },
+      {
+        "stage": "revision",
+        "prompt": "Fix layout of attached 7-frame ground burst pixel sprite sheet. Keep all SEVEN effects in ONE horizontal row with equal-width cells, same purple/magenta effects, same progression and centers. Scale DOWN all seven effects uniformly to 70% of their current size around their own cell centers, so there is a generous transparent gap between adjacent effects, including longest spikes. No part of any frame may touch or connect the next. Especially separate frames 2,3,4,5, currently touching. Ground ellipses should be distinctly FLAT: width twice height, all centers at same y. Frame1 flash, frame2 small ring,frame3 medium ring,frame4 largest ring,frame5 dark ring and faint ground shadow,frame6 broken segments,frame7 tiny points. No characters. Transparent background. Coarse squared pixel art, hard flat color clusters, no blur, no soft glow or black outlines. No labels or dividers. Target357? Use exact target 3584x256 if possible; prioritise 7 isolated equal-spaced frames.",
+        "reference": "initial generated morgana_fx_r_cast.png",
+        "transparent_background": true
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "file": "morgana_fx_r_hit.png",
+    "tool": "image_gen.imagegen",
+    "history": [
+      {
+        "stage": "initial",
+        "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, a shadow-violet ramp (#FFFFFF, #EAD6FF, #B478F0, #7A3AD0, #4A1C90) with magenta glints (#FF6AD8, #D02CA8).\nEffect: a SHADOW CHAIN LATCHING onto an enemy, 5 frames: 1 a short dark violet chain of diamond links whips in from the left edge toward the center; 2 its end snaps shut at the center with a bright violet-white flash; 3 the flash spreads into a ring of violet sparks, the chain glowing magenta; 4 the chain dims, the sparks fly out; 5 faint dark violet links fading.\nLayout: one horizontal row of 5 equal square cells, image size 1280x256; the latch point centered in every cell, no gaps, no borders, no labels. Transparent background (if not possible: pure black #000000).\nREFERENCE ROLE: attached image is a reference atlas for the original Morgana effects. Borrow only the specified effect shapes and colors, not its photographic soft glow, layout, text or labels. Create NEW coarse pixel art, broad flat color clusters, crisp squared steps, no black contour strokes, no soft lighting or gradient halo. Draw NO character, NO person, NO humanoid outline, NO faces, NO hands, NO silhouettes. Transparent empty background. Exactly 5 frames in ONE SINGLE HORIZONTAL ROW, each frame occupies its own equal-width cell from left to right. Even the first tiny point and last fading fragments have their own full equal-width cells: do not skip, merge or center-pack those cells. Never wrap onto another row. Full effect including fragments stays within its own cell. Do not write frame numbers, names, captions, guide lines or dividers.\nExactly five separate centered events at equally spaced cell centers. In each cell the chain originates at the LEFT of THAT CELL and ends at THAT CELL CENTER; it never forms a continuous strand across frames. Transparent space between all five frames. Dark link fade in final cell, not a second bright explosion.",
+        "reference": "refs/lol_fx_ref.png",
+        "transparent_background": true
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "file": "morgana_fx_r_chain.png",
+    "tool": "image_gen.imagegen",
+    "history": [
+      {
+        "stage": "initial",
+        "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, a shadow-violet ramp (#EAD6FF, #B478F0, #7A3AD0, #4A1C90, #24104A) with magenta glow (#FFD0F2, #FF6AD8, #D02CA8).\nEffect: a SOUL CHAIN on a standing figure (leave a figure-shaped empty space in the middle of the cell, about 60% of the cell width and 85% of the cell height - do NOT draw the figure), 4 frames, a seamless loop: a ring of dark violet chain links around the figure's waist (an ellipse, the front links in front of the empty figure, the back links behind), and one length of chain hanging from the ring out to the left edge of the cell, pulled taut; magenta light runs along the links, shifting one link each frame; a few violet wisps rise from the ring.\nLayout: one horizontal row of 4 equal square cells, image size 1024x256; the ring centered horizontally at 55% of the cell height, no gaps, no borders, no labels. Transparent background (if not possible: pure black #000000).\nREFERENCE ROLE: attached image is a reference atlas for the original Morgana effects. Borrow only the specified effect shapes and colors, not its photographic soft glow, layout, text or labels. Create NEW coarse pixel art, broad flat color clusters, crisp squared steps, no black contour strokes, no soft lighting or gradient halo. Draw NO character, NO person, NO humanoid outline, NO faces, NO hands, NO silhouettes. Transparent empty background. Exactly 4 frames in ONE SINGLE HORIZONTAL ROW, each frame occupies its own equal-width cell from left to right. Even the first tiny point and last fading fragments have their own full equal-width cells: do not skip, merge or center-pack those cells. Never wrap onto another row. Full effect including fragments stays within its own cell. Do not write frame numbers, names, captions, guide lines or dividers.\nFour equal cells with one isolated waist ring in each. The ring is just ONE THIN chain of small hollow diamond links; empty inside. A single matching thin tether extends LEFT within that cell. Leave the upper half of each cell entirely empty so the face and shoulders stay visible. No lower cage, no column, no chains above head. No ghost person. All four loops same shape with brightness traveling along links. Clear gaps between frames.",
+        "reference": "refs/lol_fx_ref.png",
+        "transparent_background": true
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "file": "morgana_fx_r_snap.png",
+    "tool": "image_gen.imagegen",
+    "history": [
+      {
+        "stage": "initial",
+        "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, a shadow-violet ramp (#FFFFFF, #EAD6FF, #B478F0, #7A3AD0, #4A1C90) with magenta glints (#FF6AD8, #D02CA8).\nEffect: SHACKLES SNAP and STUN on a standing figure (leave a figure-shaped empty space in the middle of the cell, about 55% of the cell width and 75% of the cell height, feet at 90% of the cell height - do NOT draw the figure), 8 frames: 1 a bright violet-white flash bursts at the figure's waist; 2 the flash spreads into a ring, broken chain links flying outward in all directions; 3 the links scatter and fade, violet sparks; 4-7 a seamless loop above the figure's head (at 12% of the cell height): a small flat ornate circle of violet light with four sharp points (an ellipse, like a magic sigil) turning a quarter each frame, three small violet stars circling on it; 8 the sigil fades to a few specks.\nLayout: one horizontal row of 8 equal cells, each 4 wide to 5 tall, image size 2048x320 (each cell 256x320); centered horizontally, no gaps, no borders, no labels. Transparent background (if not possible: pure black #000000).\nREFERENCE ROLE: attached image is a reference atlas for the original Morgana effects. Borrow only the specified effect shapes and colors, not its photographic soft glow, layout, text or labels. Create NEW coarse pixel art, broad flat color clusters, crisp squared steps, no black contour strokes, no soft lighting or gradient halo. Draw NO character, NO person, NO humanoid outline, NO faces, NO hands, NO silhouettes. Transparent empty background. Exactly 8 frames in ONE SINGLE HORIZONTAL ROW, each frame occupies its own equal-width cell from left to right. Even the first tiny point and last fading fragments have their own full equal-width cells: do not skip, merge or center-pack those cells. Never wrap onto another row. Full effect including fragments stays within its own cell. Do not write frame numbers, names, captions, guide lines or dividers.\nEXACTLY EIGHT CELLS in ONE ROW. Cells 1,2,3 contain waist-height break effects at 55% cell height. Cells 4,5,6,7 each contain a single small FOUR-POINTED horizontal elliptical magic sigil with exactly THREE little stars, ABOVE empty space at 12% cell height, leaving everything below the sigil EMPTY. Cell 8 only tiny fading points also at 12% cell height. Keep the different vertical positions: first three effects near waist, next five effects at top. No effect ring surrounding a head or body at the waist in cells 4-8. No person, head, shoulders or ghost.",
+        "reference": "refs/lol_fx_ref.png",
+        "transparent_background": true
+      },
+      {
+        "stage": "revision",
+        "prompt": "Correct the supplied 8-frame snap-and-stun pixel-art atlas. Keep exactly EIGHT equal-width cells in ONE HORIZONTAL ROW and same purple/magenta colors. There are touching effects in the first three cells. Make the complete effects in cells 1,2,3 SMALLER: every spike, broken chain link and particle lies within central 65% of its own cell width. Mandatory completely transparent vertical separators between all cells, at least 15% cell width on either side. Do not draw separator lines. Preserve each cell's center x and waist effect y. Cells1,2,3: small burst, expanding broken chain ring, scattered links fading. Cells4,5,6,7: four small flat horizontal FOUR-POINTED MAGIC SIGILS at head-top height (near top of cell), all ellipse width twice height viewed from above, exactly three tiny stars circling each. Rotate the star positions, but keep each ground-plane ellipse flat, do not rotate its oval outline into a vertical diamond. Cell8 tiny fading specks at that same head-top height. NO PEOPLE, NO HUMAN OUTLINES. Middle/lower space below sigils completely empty. No glow haze, no black outlines, hard chunky pixel art. Transparent background. Target 2048x320 single-row sheet, eight cells of 256x320, preserve count if dimensions differ. No labels.",
+        "reference": "initial generated morgana_fx_r_snap.png",
+        "transparent_background": true
+      }
+    ]
+  }
+]

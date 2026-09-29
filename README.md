@@ -886,8 +886,8 @@ python tools/art/preview_kayle.py
 | 大招 | R「灵魂镣铐」（用户选的 A，原版规则）：身边有敌方英雄就放，锁住 50000 内所有敌方英雄，造成 120 + 60% 法术强度的魔法伤害并减速 20%，自己移速 +20%；3 秒后 70000 内的敌方英雄再受一次伤害并被眩晕 1.5 秒。她中途阵亡锁链就断。数据分不出谁被锁过，所以 3 秒时范围内的敌方英雄都会被眩晕。冷却 50 秒 |
 | 数值 | 攻击 75（+6）、法术强度 30（+16）、生命 900（+95）、护甲 22（+8）、魔抗 25（+4）、移速 1000（+10）。数值是自己设计的，用 SDK 对战模拟调：打辅助，对 5 个原版辅助（`priest`、`bard`、`enchanter`、`monk`、`taoist`），两边、三套队友阵容各 24 局，一批 720 局。初稿 -2.96（Q 几乎定不住英雄）；Q 改成朝英雄射、弹速 10000 后 -1.04；护盾 80 → 150、E 冷却 10 → 8 秒、R 半径 40000 → 50000 后 -0.11（12 局一组）；按动作帧定下出手时机（普攻第 8 tick、Q 第 9 tick、E 第 12 tick、R 第 10 tick）后两批 +0.54 / +0.32，同样两批迦娜 +0.11 / +0.31、锤石 +0.80 / +0.34、蕾欧娜 +0.78 / +1.23。莫甘娜每局放 Q 约 38 次（定住英雄 13–21 次，W 9–15 次）、E 约 19 次、R 约 3.5 次 |
 | 亚索联动 | Q 的禁锢和 R 的眩晕都能触发亚索的 R：莫甘娜在队里时亚索每局 R 到被控英雄 1.52 次（迦娜 0.94、原版牧师 0.65），在本包辅助的范围内，亚索不用调 |
-| 精灵图 | 待定 |
-| 特效 | 待定 |
+| 精灵图 | 8 个动作 50 帧：待机、移动、普攻、Q、E、R、受击、死亡。Codex 按造型 B 画：Q 版大头，头顶羽冠、一侧长耳，暗紫长裙拖着粉色裙摆，背后收着黑翅；羽冠到脚底 45 px、34 px 宽，20 色。每帧的时机和站位照英雄联盟原版动画渲染的参考帧 |
+| 特效 | 暗影弹和命中、Q 暗影弹核（冰蓝核心、锁链尾迹）和穿透命中的星芒、禁锢（脚下光环，两股锁链缠上身）、W 焦油地（裂纹透洋红光、冒紫烟）、E 黑暗之盾（紫色罩子、冰蓝下沿）、R 出手爆环（扩到大招范围）、锁链扣中、持续锁链（腰上一圈、一段拉向左边）、锁链崩断和头顶的眩晕法阵 |
 | 图标 | 官方技能图标（Q / E / R），64×64 |
 | 音频 | 从本地客户端提取的 10 条技能音效和 2 条中文语音（Q、R；E 没有施法语音，W 的语音会和 Q 叠在一起，不用）。不提交到仓库，按下面的命令在本地生成 |
 
@@ -895,7 +895,22 @@ python tools/art/preview_kayle.py
 python tools/lol/extract_morgana.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstream-cli.exe 路径>"
 python tools/lol/native_pose.py assets/source/morgana/poses.json --out <渲染文件夹> --alpha --parts
 python tools/art/draft_to_grid.py <Codex 的造型草稿 B> --spec assets/source/morgana/morgana_design.json --out assets/source/native/morgana_native.png
+python tools/art/tidy_morgana.py <Codex 的动作交付文件夹>   # 角色图：整理 Codex 的动作原稿，写进 assets/source/native/
+python tools/art/import_native.py --hero morgana
+python tools/art/import_morgana.py      # 特效；--raw <Codex 的特效交付文件夹> 先把原始图转成原尺寸条
+python tools/art/preview_morgana.py
 ```
+
+美术（模型的提示词见 [`assets/source/morgana/MODEL_PROMPTS.md`](assets/source/morgana/MODEL_PROMPTS.md)，特效的见 [`PROMPTS.md`](assets/source/morgana/PROMPTS.md)；Codex 三次交付的交接说明、清单和实际用的提示词在 [`codex_model/`](assets/source/morgana/codex_model/)）：
+- 分工：模型和特效都由 Codex 画（从卢锡安起的分工），Claude 写提示词包、整理和导入。
+- 造型：Codex 先交 A / B / C 三个造型草稿（生图原稿：每张是约 128 格的图拉伸到 1254 px，人物 67–118 格高）。用户选 B，采用 Claude 的精修版：`draft_to_grid.py` 按草稿自己的像素网格逐格取色、映射到 20 色，每三行（列）去掉一行（列）缩到游戏尺寸（不按颜色投票，投票会把脸糊掉），再手修 25 处、补一圈描边；`morgana_design.json` 记下这些步骤，重跑逐字节得到同一张 `morgana_native.png`。34×45 px、20 色，眼睛的 #C890FF 只用在眼睛上。
+- 动作参考：镜头镜像、yaw 20、pitch 25（英雄联盟的待机是侧身站，这样拖尾落在身后），头放大到 2.4 倍，隐藏展开的翅膀和花；96×96 的格子，脚底在站位点下 11 行（`native/morgana_cells.json`）。给 Codex 的参考包：现在的动作 8 倍、英雄联盟同一帧的渲染、对位图（渲染只在本地）。
+- 整理（`tidy_morgana.py`）：交回的 8 张动作图是生图原稿（50 帧，品红底或半透明边，几万种颜色，每张比例不同：一个游戏像素 7–11 个原稿像素，人物也比格子要求的大）。在游戏像素上整理：每张按站着的帧定比例（造型从羽冠到脚底 45 行），每个像素取原稿中心 3×3 的中位色、映射到 20 色；受击闭眼和倒地的 6 帧以外，擦掉画的头、贴上造型的头（按材质匹配位置），Codex 画大了的耳朵和羽冠一起擦掉，每帧同一张脸；E 抬到头侧的手（和前臂隔着金手镯）留在贴上的头前面；眼睛对到英雄联盟那一帧头的位置（普攻、Q 的前倾照原版）；最低一行对齐脚底（R 照原版离地，移动有上下起伏，倒地的帧可低 2 行，`morgana_targets.json`）；死亡第 4、5 帧对调（原稿是先趴平、再撑起、再趴下）。
+- 导入：待机 6 帧用造型本身，第 3–5 帧裙摆下沿往上 4 行以上下沉一格呼吸（`BOB`）；头像截取点 (0, −36)，在发顶（羽冠尖和长耳不算）。
+- 特效用 Codex 画的 11 张（生图原稿，真透明，69 帧）：`import_morgana.py --raw` 按交付清单切帧，每张 16 色、硬透明。R 爆环和命中的切线挪进了图形之间的空隙，格子不等宽，所以锚点都量在图上：弹和命中量白色亮核，禁锢量脚下光环，焦油地量椭圆（上面的烟不算），护盾量下沿，持续锁链量腰环（左边拉出的锁链和上面的烟不算），眩晕量法阵。按技能范围定大小：暗影弹 14 px 长，Q 弹核连锁链尾迹 28 px（带刺的球约 14 px，弹的判定半径 7000），命中 14–20 px，禁锢从光环到锁链顶 36 px（到 35 px 英雄的头顶），焦油地的椭圆 44 px 宽（半径 22000），护盾 42 px 高，R 爆环的圆环 100 px（半径 50000），腰环 22 px，崩断 28 px，法阵 24 px。暗影弹和 Q 弹核以亮核为中心上下镜像成严格对称（游戏按方向转，朝左时整张转 180°）。禁锢一次播 2 秒（缠上 3 帧、循环 4 帧 ×4、断开 2 帧），焦油地 4 秒，崩断加眩晕 1.5 秒（崩断在腰上，法阵在头顶，离地 40 px），护盾是 buff 的三段（升起、保持、碎开）。
+- 结果：20 色，和右边像素同色的比例 39%（原版英雄 18%–46%）。
+
+逐帧预览：[`docs/preview/league_morgana_frames.png`](docs/preview/league_morgana_frames.png)，特效：[`docs/preview/league_morgana_effects.png`](docs/preview/league_morgana_effects.png)。
 
 ## 修正（0.15.0）：`WithSelf` 不是"只给自己"
 

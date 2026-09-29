@@ -387,6 +387,18 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   colour for the eyes alone, so `import_native.py` steadies the idle and the move on it (`EYES`, as for
   Fiddlesticks); and puts the body's lowest row back on the replaced frame's (the move's float had sunk 3-13 rows).
   Sideways it keeps Codex's place: the bigger design's head sits ahead of League's head joint.
+- **Whole raw sheets: one scale per sheet, and clear the drawn head beyond the pasted one.** Codex's league_morgana
+  animations came as eight raw sheets (3x2 cells of 512 px on a magenta key, or 4x2 of about 443 px with soft
+  alpha), each at a scale of its own (a game pixel 7-11 source px) and bigger than asked. `tools/art/tidy_morgana.py`
+  takes one scale per sheet from its standing frames (the design is 45 rows crest to soles) and grounds their
+  lowest row on the soles row, samples each game pixel's centre (3x3 median) into the design's 20 colours, and
+  pastes the design's head where it fits best by material (eyes, gold and the crest's red weigh most, the outline
+  least). The drawn heads were bigger: clearing only the pasted head's squares and one round them left an ear's
+  tip and a crest's outline beside it, so the clearing also floods from there through the head's colours and the
+  outline above the chin, and specks of one or two squares walled in by outline go. A hand raised beside the
+  head (Black Shield) stays in front of the pasted head: skin reaching into the head's rows from below, a gold
+  bracelet counted as skin so the hand joins its forearm. Sideways each frame goes by its eyes onto League's head
+  joint of that frame; the hit's shut eyes and the frames on the ground keep Codex's heads.
 - **Effect anchors.** Effect and buff frames are drawn centred on the unit's pivot, 11.5 px above
   the feet (base: `levelup_effect` ring at +9..+16, `shield_receive_effect` bubble -22..+13).
   Ground rings at about +10, hits and shields at -3..-6, overhead marks around -25. Time the
@@ -398,6 +410,11 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   offset across, and one height for the strip. A single anchor in strip coordinates puts every
   frame at its own cell's distance from the pivot (Lux's first import: the hit walked 5 cells).
   Projectiles keep a per-frame anchor on their head (arrow tip, orb).
+  A manifest's rectangles are not always equal: Codex moved league_morgana's cut lines into the gaps between
+  drawings (the burst's 188-234 px wide), so `tools/art/import_morgana.py` measures every anchor on the drawing
+  (`Frames`): the white core for projectiles, hits and flashes (the drawing's middle once the core has faded), a
+  ground ellipse by the rows at least half as wide as its widest (the smoke rising above left out), a waist ring by
+  its own columns (the chain pulled out to one side left out), a shield by its lowest row.
 - **Review before shipping.** Per-strip sheets with the idle silhouette overlaid, `metrics`,
   a side-by-side with base champions at 1x and 3x, and a scripted showcase against a dummy.
 

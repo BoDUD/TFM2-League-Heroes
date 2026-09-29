@@ -729,6 +729,17 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   of the sack's front at eye height (moved 5 rows down to come out from under the sack). His run drifted 12 px
   about the pivot and the blade is the top of every frame, so `import_native.py` steadies him on his eyes
   (`EYES`, one colour only the eyes use). 65 frames, 15 colours, 25% right-neighbour, face still (9, -30).
+- **A fallen angel in a long gown (Morgana, drawn by Codex from the start).** The camera mirrored, yaw 20, pitch
+  25 (League's idle stands turned, so the gown's train lies behind her); head 2.4, height 37; the open wings and
+  the flower are submeshes her base look hides at first (`"hide_submeshes"`). Codex's three designs came as raw
+  drafts (a 128-square picture stretched to 1254 px); the user took B, set on the game grid by
+  `tools/art/draft_to_grid.py` (art-spec "A design draft bigger than the game"). The eight animations came raw as
+  well and were tidied by `tools/art/tidy_morgana.py` (art-spec "Whole raw sheets"); the death's 4th frame (flat on
+  the ground) and 5th (on her hands) swap, so she goes down in one movement as League's head does. The idle is the
+  design six times, breathing on a seam four rows over the gown's hem. 50 frames, 20 colours, 45 px with the
+  crest, 39% right-neighbour, face (0, -36) at the hair's crown. Codex's eleven effects: `tools/art/import_morgana.py
+  --raw`, anchors measured on the drawings (art-spec "Effect anchors"); the shackles play the 2 s root in one
+  Animation, the pool its 4 s, the snap the chains breaking round the waist and then the stun sigil 40 px up.
 - **A face point under the hair.** `tfm2_ase.py face` and the lint find the crown at the top of
   the idle sprite, which for Yasuo is the ponytail's tip, 9 px above his head and to the left of
   it. Both now also look for the head from the face: the top two rows of skin-toned pixels and the
