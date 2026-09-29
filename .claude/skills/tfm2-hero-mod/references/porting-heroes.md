@@ -636,9 +636,11 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   skull 11 wide, V-shaped brows running down to the nose, two glowing green eyes, three fangs (the outer two
   long) over a green-lit maw, and two chains with teal joints arching back from the crown to a hook. Pasted on
   League's head joint and kept upright (`"turn": 180`); `import_native.py` steadies him on that joint
-  (`PASTED`). The walk is League's own: his animation graph plays `Thresh_run` - a slow walk, one 1 s cycle
-  repeated in a 2 s file - below 375 move speed and `run_fast` above; the user asked for "一模一样在游戏里的走路
-  姿势" (the first version read as a run) and set the pace at 8 x 125 ms, unblended.
+  (`PASTED`). The move is League's walk: the graph's `Run` plays `run_base` = `Thresh_run` (after
+  `Thresh_run_in`) at base speed and `run_fast` only from move speed 375 (`anim_graph.py Thresh --grep run`);
+  the 2 s file holds the same 1 s walk cycle twice. The user asked for "一模一样在游戏里的走路姿势" (the first
+  version read as a run) and set 8 x 125 ms, one cycle a second - League's pace (art-spec "The move is
+  League's movement clip at League's pace") - unblended.
   Idle one frame breathing (the robe's hem moves, the boots stay), 55 frames, 35 colours, face (-4, -33): the
   chains arch back, so the tool's head centre (x -9) sits behind the face.
   Codex's fourteen effects came as raw generations with real alpha and a manifest. `tools/art/import_thresh.py
