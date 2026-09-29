@@ -193,6 +193,22 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   at most), seat the chin on the shoulders with `"dy"`, and where a pose turns the torso thin under a big
   head, widen the rows under the chin (`restyle_native.py` `"shoulders"`). Check the ult and every
   side-on pose at game size, not only the idle the design was drawn on.
+- **A big pasted head needs a body under it, not a pipe.** In the 0.21.0 pass the user still saw league_janna's
+  neck and body apart: her drawn head is ~15 squares wide over a body League renders 5 squares wide at head 2.0,
+  and in the attack and spells League turns her side-on and throws her legs back, so the little body hung off
+  a corner of the head. Two fixes the user accepted: render League's own head smaller (`"chibi"` head 2.0 ->
+  1.6, height 28 -> 30), so the body gets more of the height and fills out under the drawn head (then re-seat
+  the head: `jx`/`jy` follow League's head size, move `"dx"`/`"dy"` by the change), and blend the lunging frames
+  35% toward idle so the body stays under the head (the arm and the staff still move). Measure the torso's lean
+  (pelvis to neck on screen) per frame before choosing which frames to calm.
+- **Trace the original** (the user's rule, 2026-09-29: "我让你修的英雄如果你感觉奇怪都要用 描原版"). When a
+  head, hair or body part looks off, do not redraw it from imagination: render League's model at the sprite's
+  scale (or the head a little bigger), vote each 8x8 block into the hero's palette by class, outline it, and
+  draw only the features (eyes, brows, mouth) on the traced shape. Freehand Darius heads were rejected one
+  after another (a chibi-round face: "诺手的脸有这么胖吗"; a spike crown, a combed-back dome: "发型也不及格"),
+  while the trace showed what League's head is at 10 px - a dark hair mass combed back to the nape and a narrow
+  long face, the proportions the approved sprite already had. A trace of League's head part carries the neck:
+  end the block at the chin, or a lump of skin hangs under the face ("脸下那块肉看起来不怪吗").
 - **A monster's face is built from the source's features, not from a chibi face.** For a rock giant the
   base rule (a big round head, three-row eyes) gave a smooth ball with eyes and a mouth, and the user
   rejected all three variants at once as a mascot. oppi's creatures in LoL Reborn (Alistar, Sion) show the
@@ -237,7 +253,9 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   slide, were both set back to League's pace when the user saw them differ from League. Never calm a
   run by blending it toward a crouched or wide-legged idle, which takes the stride with it (Ekko's first
   run, 60% toward his crouch, glided: "像僵尸步"). This is for new heroes and for a merged hero the user
-  names; the approved heroes' runs stay as they are unless the user asks.
+  names; the approved heroes' runs stay as they are unless the user asks. A floater's move keeps League's float: league_kayle's glide rises and
+  sinks 16 px over its 4.27 s (`Kayle_Run1`, one cycle whose halves differ, 16 x 267 ms); the user took it as League
+  has it over a halved and a flat float, lifted only until its lowest frame's feet touch the ground (`"sink"`).
 - **Render the side that shows the chest.** Every base champion faces right with its front to the
   viewer. League's Garen idles with his chest toward his own right, so a right-front camera
   shows his back - round 2 came out as a back view and the user rejected it at once. Render his
@@ -329,6 +347,33 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   and shrink by that before importing (`tools/art/fit_native.py`: a 1.4x shrink by colour vote
   stays clean; 37% right-neighbour, 16 colours) - importing as delivered would make him grow
   whenever he moves.
+- **Close small holes inside the body.** At game size a gap between a limb and the body (league_kayle's near arm
+  held off her waist) is a few empty pixels in an outline ring: a black hole in the armour. `restyle_native.py`
+  `"fill_holes": <pixels>` fills every empty region the frame's edge cannot reach, up to that size, and its inner
+  outline with the body colours beside it; left out, every other hero's output is byte-identical.
+- **A weapon pointing at the camera vanishes.** League's Kayle glides with her sword held out at her side and
+  trailing down and back; through the 45-degree camera it points almost straight at the viewer, and the 20-px
+  blade drew as a 5-9 px stub ("走路的时候剑缩小了 几乎看不到了"). Measure the weapon's length on screen against
+  its length in depth per frame before blaming its scale. `native_pose.py` `"weapon_yaw": <degrees>` (per tag or
+  frame) turns only the weapon chain about the vertical axis through its grip, the body untouched: 45 shows
+  the blade trailing behind her as League's own side view does. Left out, every other hero's render is
+  byte-identical.
+- **Big frames are redrawn one canvas at a time.** A redraw at 8x (NATIVE_REDRAW.md) draws over whole strips;
+  league_kayle's 112x112 cells make her 16-frame move a 3584x3584 image, too big for an image model.
+  `tools/art/native_frames.py split` cuts every frame out on a canvas of its own (64 x cell height, the pivot at
+  the middle column and the cell's pivot row), `join` puts the redrawn canvases back round each frame's pivot
+  (any whole scale, each block read by its majority colour, magenta or low alpha as clear); split then join
+  gives the strips back byte for byte (assets/source/kayle/MODEL_REDRAW.md).
+- **Frames straight from an image model: sample the centre, paste one head.** Codex's frames for league_kayle came
+  as raw generations (948x1659 per 64x112 canvas, soft edges, tens of thousands of colours, "pixels" 11-16 px wide,
+  different in every frame, the head and the place wandering). Taking the majority colour of each 14.8-px target
+  cell doubled an outline column wherever the drawn squares ran narrower than the cells (a black line down one move
+  frame); taking each game pixel's colour at its centre never doubles one and only drops a row or column now and
+  then. `tools/art/tidy_kayle.py` then erases the drawn hair and face and pastes the approved design's head - its
+  eyes on the drawn eyes, else its crown and face on the drawn ones - so a loop does not "boil"; keeps the eye
+  colour for the eyes alone, so `import_native.py` steadies the idle and the move on it (`EYES`, as for
+  Fiddlesticks); and puts the body's lowest row back on the replaced frame's (the move's float had sunk 3-13 rows).
+  Sideways it keeps Codex's place: the bigger design's head sits ahead of League's head joint.
 - **Effect anchors.** Effect and buff frames are drawn centred on the unit's pivot, 11.5 px above
   the feet (base: `levelup_effect` ring at +9..+16, `shield_receive_effect` bubble -22..+13).
   Ground rings at about +10, hits and shields at -3..-6, overhead marks around -25. Time the

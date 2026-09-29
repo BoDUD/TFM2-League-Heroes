@@ -76,6 +76,8 @@ ORDER = {("lux", "idle"): [0, 1, 2, 3, 5, 4],
          ("ezreal", "idle"): [0, 0, 0, 0, 0, 0],
          # and Thresh (a drawn skull pasted on a body restyled from League's idle)
          ("thresh", "idle"): [0, 0, 0, 0, 0, 0],
+         # and Kayle (a drawn head pasted on League's hovering idle)
+         ("kayle", "idle"): [0, 0, 0, 0, 0, 0],
          # and Fiddlesticks (Codex's redraw, design B: the six idle frames are one drawing)
          ("fiddlesticks", "idle"): [0, 0, 0, 0, 0, 0],
          # and Ahri (a drawn head with fox ears pasted on a body restyled from League's idle)
@@ -105,6 +107,9 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        ("ezreal", "idle"): (6, [2, 3, 4]),
        # Thresh's robe hangs to his shins: the seam across its hem, his boots stay
        ("thresh", "idle"): (6, [2, 3, 4]),
+       # Kayle floats 3 px up like Janna and sinks a row down to her soles; only her sword's tip, on the
+       # ground line, stays
+       ("kayle", "idle"): (10, [2, 3, 4]),
        # Fiddlesticks: the seam across his stilts, the claw feet stay
        ("fiddlesticks", "idle"): (6, [2, 3, 4]),
        # Ahri: the seam across her boots' shafts; her soles and the tips of her tails stay
@@ -114,7 +119,8 @@ PASTED = {"masteryi", "janna", "ekko",   # steadied on the head restyle_native p
           "thresh",  # his hand-drawn head, pasted on League's head joint: steadied there
           "ahri"}    # her drawn head with the fox ears, pasted the same way
 # heroes steadied on their eyes: (R, G, B) of a colour only the eyes use; the head column is the eyes' middle
-EYES = {"fiddlesticks": (200, 224, 96)}   # Codex's design B: the scythe's blade is the top of every frame
+EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade is the top of every frame
+        "kayle": (226, 138, 8)}           # Codex's redraw: her wings rise above her head, the amber is the eyes'
 
 
 def blocks(path):

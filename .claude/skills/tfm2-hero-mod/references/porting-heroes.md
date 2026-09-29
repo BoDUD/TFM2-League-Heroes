@@ -115,6 +115,9 @@ OK = direct, ~ = approximate, X = not possible in data-only mods.
 | Walls round the caster, the one broken hurts most (Thresh R) | no walls round a caster (`Line` takes map coordinates): one circle, an `ApplyInProjectile` that hits each champion once; the first champion takes the damage and the long slow, a caster flag leaves the rest a short slow; the picture a `CasterViewEffect` (a `ViewEffect` on his own spot never showed in game) (champion-data "A prison that hurts only the first champion in it") | ~ |
 | Push or pull by the cast direction (Thresh E) | the AI picks: pull within 2 s of a hook (League's hook-and-flay), else push (`Knockback`) when a champion is right on him and pull (`Pull`) when not, a `RandomTarget` flag read by `SwitchByBuff` (champion-data "Push or pull by the situation") | ~ |
 | Souls picked up for armour and ability power (Thresh's Damnation) | nothing to pick up: armour and ability power growth per level | ~ |
+| Ranks that unlock at levels (Kayle's Divine Ascent) | nothing reads a level but `SwitchByLevel3` (level 3): her maximum health is the level table, read with a 3-tick shield and a 10% max-health hit on herself; each rank a `Permanent` caster buff (champion-data "Stages at levels 5, 8 and 12") | ~ |
+| Melee that turns ranged (Kayle's Arisen) | a `range` caster buff from that rank on, the attack's effect switched on the rank buff: a hit in melee, a `TargetProjectile` after | ✓ |
+| Invulnerability on the one about to die (Kayle R) | no current health anywhere in the data, and the AI casts ally ults on cooldown on anyone: the slot (cast on an enemy champion as she closes in) arms it for 15 s and her attacks, Q and E check - a crowd-controlled ally within 50000 (`RandomTarget` `AllyChampionInCC`) first, else herself when two enemy champions are within 30000 (a two-flag count), else wait; unused, the cooldown is refunded. `damaged_reduce` 100 + `cc_immune` for 2.5 s, then the swords' damage round him (champion-data "An ult that waits for danger") | ~ |
 | Orb out and back, true damage on the return (Ahri Q) | Ekko's out and back; every hit of the return first adds a 1-tick caster buff with `magic_resistance_penetration: 100`, so its `ApAttack` ignores magic resistance (`FixedAttack` cannot scale with ability power; champion-data section 4, "True damage that scales with ability power") | ~ |
 | Fires that seek charmed champions first (Ahri W) | per fire three `RandomTarget` tiers - `EnemyChampionInCC`, `EnemyChampion`, `EnemyWithoutTower` - each leaving a 1-tick caster flag that skips the next tier (champion-data "Fox-fires, charmed champions first"); folded into Q on its own cooldown | ~ |
 | Charm (Ahri E) | `Charm {tick}`: the target walks to the caster at its own move speed; crowd control for `EnemyChampionInCC` | OK |
@@ -672,6 +675,30 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   is laid along its flight and mirrored top to bottom (art-spec: a projectile flying left is turned upside
   down). The Box's ground was drawn at 1.6:1 and is squeezed toward the game's 2:1, anchored 2 px below the
   drawing's middle (a pentagon's centre lies below its box's).
+- **An angel with a sword, wings and a floating glide (Kayle, drawn by Claude, restyled, hand-drawn head
+  pasted).** League's Kayle carries every rank's model at once: the level-1 helmet (`level1`), the level-11
+  face and white hair (`level11`), three pairs of wings (`wings_up`, `wings_mid`, `wings_bot`) and two swords
+  (`sword_*`, `sword_*_combined`). The user took C: the level-11 head, only the upper wings, the combined sword
+  (`"hide_submeshes"`; `"submesh_textures"` maps `level11` and the swords and wings to their own maps). Head 3.0,
+  legs 0.7, hair 0.5, wings 0.9, sword 0.65, height 32, hovering 3 px; the wings a part of their own
+  (`^Wing_Up`, lilac / blue / ice, outlined). The first three faces were rejected ("都不及格 头部细节做的太差");
+  drawn square by square on base heads the user took K5 (fair skin, glowing amber eyes, red lip). Her near arm
+  held away from her waist left a hole in the armour at game size: `restyle_native.py` `"fill_holes"` (art-spec).
+  The move: the graph's `Run` plays `Kayle_Run1` / `Kayle_Run2` (half each) under 490 move speed, a 4.27 s glide
+  whose two halves differ (the arms and feet by 5-7 px), leaning, flapping, floating 16 px up and down. The
+  user ("要和英雄联盟里面一模一样") took A of three floats shown against League's own: `Kayle_Run1` whole, 16 x
+  267 ms, the float kept and only lifted until the lowest frame's feet touch the ground (`"sink": -8`). The
+  death: League's tumble back (legs in the air under an upright pasted head read as a head on legs) is left out
+  for its second half - kneel, rise, fall forward, lie on her face (`"forward": true` turns the head) - and the
+  sword that plants itself upright through her face and the ground is hidden once it leaves her hand.
+  Codex's fourteen effects (raw, alpha, a manifest) went in with `tools/art/import_kayle.py --raw`; the heal
+  column and the Exalted flames came thinner and taller than asked and are sized by height (42, 40 px). 63
+  frames, 42 colours, face (1, -36). In game players found this model "too abstract" (the restyled body a mush
+  of gold and grey-green, the wings a few lines): Codex redrew it (`assets/source/kayle/MODEL_REDRAW.md`) - the
+  design first, set on the game grid by its own pixel edges and approved; then the 63 frames, one 64x112 canvas
+  each (`tools/art/native_frames.py`), delivered raw and tidied by `tools/art/tidy_kayle.py` (art-spec "Frames
+  straight from an image model"). 40 px crown to soles, 21 colours, 37% right-neighbour, face (-2, -40) measured
+  without the wings, which rise above her head.
 - **A scarecrow with a sack head, stilts and a scythe (Fiddlesticks, drawn by Claude, restyled, hand-drawn head
   pasted).** Of three cameras the user took B (yaw 30, pitch 25, not mirrored: the scythe trails behind him
   and the two stilts stand apart); head 2.0, legs 0.75, height 28. The skin's demon arms, lantern and tongue
@@ -762,5 +789,10 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   installed, read Riot's public Data Dragon
   (`ddragon.leagueoflegends.com/cdn/<version>/data/<ja_JP|ko_KR|zh_TW>/champion/<Champ>.json`):
   Lee Sin's Japanese names (練気, 響掌/共鳴撃, 破風/縛脚) were nothing like a guess.
+  Names that live only in the in-game tooltips (Kayle's rank names 狂熱 / 轉生 / 熾烈 / 超然, 열광 / 비상 /
+  작열 / 승천, ゼレス / アライズン / アフレイム / トランセンデント) are not in Data Dragon or in CommunityDragon's
+  champion JSON: read the locale's whole string table from CommunityDragon
+  (`raw.communitydragon.org/latest/game/<zh_tw|ko_kr|ja_jp>/data/menu/en_us/lol.stringtable`, 21-24 MB, RST v5)
+  at the key the local en_US table gives for the tooltip.
 - Riot allows non-commercial fan content; keep extracted audio out of public repos anyway
   (re-extract with the tool) and add the disclaimer (League of Legends (c) Riot Games).

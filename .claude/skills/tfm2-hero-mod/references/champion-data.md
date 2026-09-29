@@ -90,6 +90,10 @@ also means minions and monsters: a non-penetrating skillshot on it stops on the 
 }
 ```
 
+- Levels gate the slots *(read from the SDK's game_core `Entity::run`, league_kayle)*: the attack and `skill`
+  from level 1, `skill2` from level 3, `ult` from level 5.
+- A `range` caster buff (attack range) also stretches the distance at which the AI starts attacking
+  *(SDK simulation, league_kayle Arisen: melee at levels 1-4, she fought from 52500 after it)*.
 - `casting_target`: `Enemy`, `EnemyWithoutTower`, `EnemyChampion`, `EnemyChampionInCC`,
   `EnemyChampionRecentlyAttacked`, `AllyOnlySelf`, `AllyChampion`, `AllyNotSelf`,
   `AllyChampionInCC`, `BothWithoutTower`, `BothChampion` (the engine also has `Ally`, `Both`, `None`).
@@ -120,6 +124,18 @@ also means minions and monsters: a non-penetrating skillshot on it stops on the 
   means "lowest health": base Priest's ult finds that ally in hard-coded logic
   (`lowest_hp_ally_in_range`). Heal, RangeEffect, Combine, Delayed, WithSelf and the projectiles
   all report their expected heal, so a heal nested in them still counts.
+  **In the simulation the health does not steer it** *(SDK simulation and disassembly, league_kayle,
+  2026-09-29)*: `battle_ally_action` is called only by the legacy poke / hunt sub-plans (serpent, epic
+  monster); the battle sub-plan's `base_battle_action` checks the casting target and range and scores
+  damage (`expected_damage_target`), not heals, and `lowest_hp_ally_in_range` belongs to base Priest's
+  native ult runner. league_soraka W (`Targeting AllyNotSelf`, a heal) went out every 4 s, often on
+  allies at full health (archer 1260/1260, pyromancer 1500/1500) while others were hurt; a probe ult
+  on `AllyChampion` (invulnerability, with or without a 150 or 2000 heal) was cast on cooldown, the
+  receiver at 84-94% health on average, the most injured champion in reach skipped (a ninja at 48%
+  while a 74% pyromancer got it). No effect a mod can use reads a unit's current health either
+  (`Heal`, the attack effects and the buff fields know only maximum health; base-only `Native` and
+  `AddStatScaledBuff` aside), so "save the one about to die" cannot be written - see section 7 "An ult
+  that waits for danger" for what can.
 - **A shield is worth its full amount on anyone** *(read from the SDK's game_core,
   `ShieldEffect::expected_shield`: the amount plus its ratio parts, nothing about the target; measured
   in the SDK simulation for league_janna E)*. Unlike a heal, a shield's score ignores the target's
@@ -162,7 +178,7 @@ Every effect is `{"type": "<Type>", ...fields}`. Counts = uses across base + 52 
 | Delayed | tick, effects[] | run after `tick` |
 | WithSelf | effects[] | the caster, **and again the action's target** when that is another unit; nobody when the action has no unit target (below) |
 | SwitchByBuff | buff_name, effect_buff, effect_none | branch on whether the **caster** has the buff |
-| SwitchByLevel3 | effect_start, effect_level3 | level-based branch, seen once *(semantics unverified)* |
+| SwitchByLevel3 | effect_start, effect_level3 | `effect_level3` when the **caster** is level 3 or higher, `effect_start` below - the only effect that reads a level *(read from the SDK's game_core: the entity's level field, written by `add_exp`; league_kayle)* |
 | RandomTarget | range, casting_target, from_projectile, effects[] | pick a random valid unit in range, apply effects to it |
 | RangeEffect | shape, target, apply_type:"AroundCaster", effects[] | instant area around the caster |
 
@@ -465,6 +481,12 @@ the caster for `tick`; the caster stays in place meanwhile, so move it from the 
 holds). Some pack buffs omit it - set it explicitly. *(seen in the SDK simulation, league_annie E:
 a `WithShield` caster buff added right after her own `Shield {tick: 180}` was gone 180 ticks later
 when nobody hit her, and 89 ticks after the cast when enemies broke the shield first.)*
+
+**`WithShield` to the tick** *(SDK simulation, league_kayle)*: a `WithShield` buff stays while any shield on
+the unit holds - also one an ally gave it - and is gone 2 ticks after the hit that breaks the shield, so read it
+with a `Delayed {tick: 2}`. A `FixedAttack` on yourself is scaled by `damaged_reduce` / `damaged_amplify` like any
+damage, and damage a shield absorbs does not count in the simulation's "tank" statistic. A dying caster's
+zones and pending `Delayed` effects stop; the respawned hero is a new entity with none of them.
 
 **Death clears a mod's buffs** *(seen in the SDK simulation, a probe hero on league_teemo)*: a
 `Permanent` caster buff added by his first attack was missing from his buff list after he died and
@@ -1148,6 +1170,41 @@ touches it (section 4). Its `applied_effects` are a `SwitchByBuff` on a caster b
 the champion gets the damage, the 99% slow for 120 ticks, and `AddCasterBuff r_broken` (330 ticks, longer
 than the zone); with it, only a 60-tick slow. The cast removes `r_broken` first, so every Box starts whole.
 
+**Stages at levels 5, 8 and 12 (league_kayle Divine Ascent).** Nothing reads a level but `SwitchByLevel3`, so
+her maximum health is the level table (900 + 95 a level): a 3-tick `Shield` of S on herself (a `RangeEffect`
+`AllyOnlySelf`), a `WithShield` flag, then `FixedAttack {hp_ratio: 10}` on herself - 10% of her maximum health
+breaks the shield only from the level whose health passes 10 x S (S = 123, 151, 189: halfway between two
+levels), and 2 ticks later `SwitchByBuff` on the flag gives the stage (a `Permanent` caster buff: range, the
+fire wave, Transcendent's speed). Absorbed, the hit costs no health; a 2-tick `undying` guards the rest. Before
+it, a `WithShield` flag added with no shield of her own says an ally's shield is on her (it would hold the
+flag): skip and try later. After it, a 100 shield against a 99 `FixedAttack` must break - any damage
+amplification would fake a level. Each life's first action re-reads the stages silently (death cleared them),
+then an action at most every 2 s tries the next one, with the ascent's picture and voice. In 12 simulated
+games no stage came early; they came 2-4 s after the level-up (median).
+
+**An ult that waits for danger (league_kayle R, Divine Judgment).** League gives the invulnerability to whoever
+is about to die; nothing in a mod reads current health (section 3 "Which ally gets an ally skill"), so the rule
+the user picked uses the danger the data can see: an allied champion in crowd control within 50000 gets it at
+once (`RandomTarget` `AllyChampionInCC`), else Kayle herself when two or more enemy champions stand within 30000
+of her, else nothing. Two engine facts shape it *(SDK simulation, 2026-09-29)*:
+- The AI picks an ult slot cast on `EnemyChampion` while it closes in (the nearest enemy champion 60000 or more
+  away at 78 of 87 casts, mostly 60000-100000), seldom once the fight is on. A 3-tick check cast in the slot itself, refunded when
+  nobody needed it, ran about every second on the approach and found nobody in 10 minutes. So the slot only
+  arms the ult: a 3-tick action on the `idle` tag adds a 900-tick `r_armed` caster buff, and every attack, Q and
+  E runs the check while it lasts (her attacks keep coming all fight). A save removes `r_armed` (on the same
+  tick for an ally, so a check a tick later cannot save a second one), forces `CasterAnimation ult` for 44 ticks
+  and plays the voice; an unused window ends with a 3-tick `ult_cooldown_mult` buff that caps the cooldown at
+  60 ticks (section 5), and the AI arms it again on the next approach.
+- Counting enemies: a `RangeEffect` on `EnemyChampion` round her whose per-target effect is
+  `SwitchByBuff n1 ? AddCasterBuff n2 : AddCasterBuff n1` (3-tick flags) leaves `n2` on her from the second
+  enemy on - a buff added for one target of a `RangeEffect` is seen by the next target's `SwitchByBuff` on the
+  same tick. A `Delayed {tick: 1}` then reads `n2`.
+Against this pack's crowd-controlling heroes the ult went out 1-3 times a game, the receiver at 66% health on
+average (the old "an enemy champion in range: a crowd-controlled ally or herself" went 68 times of 71 to Kayle
+herself, at 93%); against base teams, with little crowd control, less than once. It made her stronger in the
+balance runs (+1.03 / +1.78 against +0.84 / +1.12 with the same numbers): the old ult spent itself on a full-health
+Kayle as each fight began. Her Q and E went back from 70 / 50 to 60 / 40 damage: +0.89 / +1.30.
+
 **Push or pull by the situation (league_thresh E, Flay).** League lets the player sweep either way; the AI
 needs a rule, checked on the hit tick (a `Delayed` in the cast): within 2 s of a hook (a caster buff the hook's
 `applied_effects` add) it pulls - the hooked champion is dragged next to him and a pull throws him through and
@@ -1241,6 +1298,11 @@ heals once per unit it passes on each pass, as League's did.
 - `action_name` / `CasterAnimation.name` must be real sprite tags. Two LoL Reborn heroes use
   `action_name: "skill"` while their sprites only have `skill1`.
 - `SwitchByBuff` checks the caster; the buff must be added somewhere in the same kit.
+- An `ult` with `Targeting` on `EnemyChampion` is cast in nearly every fight, as the hero closes in (league_kayle
+  R: about 5.6 times a game in the simulation, against 0.25 for a probe ult cast on `AllyChampionInCC` with base
+  teammates); its effect can then pick an ally (`RandomTarget` `AllyChampionInCC`). An ally-targeted ult is cast
+  whenever it is ready, on whoever the AI picks - not the most injured (section 3). To wait for a moment in the
+  fight, arm it and check from the attacks (section 7 "An ult that waits for danger").
 - Keep `start_timing <= duration`; long channels need a long `duration` (or `Delayed` effects).
 - Use namespaced names for every buff/projectile/effect (`league_garen_*`) - names are global-ish
   and collisions with other mods are hard to debug.

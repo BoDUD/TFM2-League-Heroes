@@ -148,6 +148,13 @@
         "skill2": "先挥出<#ff9028ff>夜割<>，造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% 法术强度<>的<#a974ffff>魔法伤害<>并<#ef5350ff>减速40%<><#ffb900ff>1.25秒<>，中心的英雄同时被<#ef5350ff>沉默<>。随后引导<#ffb900ff>2秒<>吸取周围敌人，共造成<#a974ffff>136<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>136% 法术强度<>的<#a974ffff>魔法伤害<>；每吸取一名英雄回复<#6aff55ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>64%<><#6aff55ff>生命值<>，小兵和野怪<#6aff55ff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<>。",
         "ult": "引导<#ffb900ff>1秒<>后传送到目标位置，鸦群环绕自身<#ffb900ff>5秒<>，每<#ffb900ff>0.5秒<>对周围敌人造成<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20% 法术强度<>的<#a974ffff>魔法伤害<>，落地时使周围英雄<#ef5350ff>恐惧<><#ffb900ff>1秒<>。引导时受到控制会被打断。"
       },
+      "league_kayle": {
+        "name": "凯尔",
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>，附带<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20% 法术强度<>的<#a974ffff>魔法伤害<>。<#ff9028ff>狂热<>：每次攻击<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻速+6%<>（5层），满层<#ff9028ff>昂扬<><#ffffffff>移速+10%<>。<#ffb900ff>5级<><#ff9028ff>升腾<>：<i#asset/base/ui/banpick/champion_stat_icon:range_0><#ff86c2ff>远程<>；<#ffb900ff>8级<><#ff9028ff>炽诚<>：昂扬攻击射出焰浪，造成<#a974ffff>20<> + <#a974ffff>25% 法术强度<>魔法伤害；<#ffb900ff>12级<><#ff9028ff>超然<>：永久昂扬，射程更远。",
+        "skill": "发射星界之剑，停在第一个敌人处爆开，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 法术强度<>的<#a974ffff>魔法伤害<>，<#ef5350ff>减速<><#ffb900ff>30%<>持续<#ffb900ff>2秒<>，并降低<#ffdd8eff>护甲<>和<#88ccffff>魔抗<><#ffb900ff>15%<>，持续<#ffb900ff>4秒<>。",
+        "skill2": "射出星火，造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% 法术强度<>的<#a974ffff>魔法伤害<>，对英雄另造成其<#ffb900ff>3%<>最大生命值的<#f5f5f5ff>真实伤害<>；8级起命中后爆炸。每<#ffb900ff>12秒<>附带<#ff9028ff>星界恩典<>：为自己和身边一名友方英雄回复<#6aff55ff>60<> + <#6aff55ff>30% 法术强度<>生命值，<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移速+25%<>持续<#ffb900ff>2秒<>。",
+        "ult": "交战时：身边有被控制的友方英雄时立即使其<#ffb900ff>免疫伤害<>和控制<#ffb900ff>2.5秒<>；没有则在自己被两名以上敌方英雄包围时给自己。随后在其周围降下圣剑，造成<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 法术强度<>的<#a974ffff>魔法伤害<>。"
+      },
       "league_ahri": {
         "name": "阿狸",
         "attack": "普攻发射妖力球，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。被动 <#ff9028ff>摄魂夺魄<>：技能每次施放命中敌人积攒<#ffb900ff>1<>层，满<#ffb900ff>3<>层后下一个技能每命中一个敌人为阿狸回复<#6aff55ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8% 法术强度<>的<#6aff55ff>生命值<>。",
@@ -261,6 +268,11 @@
         "skill1": "恐惧",
         "skill2": "五骨丰登",
         "ult": "群鸦风暴"
+      },
+      "league_kayle": {
+        "skill1": "耀焰冲击",
+        "skill2": "星火符刃",
+        "ult": "圣裁之刻"
       },
       "league_ahri": {
         "skill1": "欺诈宝珠",
@@ -418,6 +430,13 @@
         "skill2": "先揮出<#ff9028ff>駭懼收割<>，造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% 魔法強度<>的<#a974ffff>魔法傷害<>並<#ef5350ff>緩速40%<><#ffb900ff>1.25秒<>，中心的英雄同時被<#ef5350ff>沉默<>。隨後引導<#ffb900ff>2秒<>吸取周圍敵人，共造成<#a974ffff>136<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>136% 魔法強度<>的<#a974ffff>魔法傷害<>；每吸取一名英雄回復<#6aff55ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>64%<><#6aff55ff>生命值<>，小兵和野怪<#6aff55ff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<>。",
         "ult": "引導<#ffb900ff>1秒<>後傳送到目標位置，鴉群環繞自身<#ffb900ff>5秒<>，每<#ffb900ff>0.5秒<>對周圍敵人造成<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20% 魔法強度<>的<#a974ffff>魔法傷害<>，落地時使周圍英雄<#ef5350ff>恐懼<><#ffb900ff>1秒<>。引導時受到控制會被打斷。"
       },
+      "league_kayle": {
+        "name": "凱爾",
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>，附帶<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20% 魔法強度<>的<#a974ffff>魔法傷害<>。<#ff9028ff>狂熱<>：每次普攻<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻速+6%<>（5層），滿層<#ff9028ff>聖頌<><#ffffffff>跑速+10%<>。<#ffb900ff>5級<><#ff9028ff>轉生<>：<i#asset/base/ui/banpick/champion_stat_icon:range_0><#ff86c2ff>遠程<>；<#ffb900ff>8級<><#ff9028ff>熾烈<>：聖頌普攻發射聖焰，造成<#a974ffff>20<> + <#a974ffff>25% 魔法強度<>魔法傷害；<#ffb900ff>12級<><#ff9028ff>超然<>：永久聖頌，射程更遠。",
+        "skill": "發射星體之劍，停在第一個敵人處爆開，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 魔法強度<>的<#a974ffff>魔法傷害<>，<#ef5350ff>緩速<><#ffb900ff>30%<>持續<#ffb900ff>2秒<>，並降低<#ffdd8eff>物理防禦<>和<#88ccffff>魔法防禦<><#ffb900ff>15%<>，持續<#ffb900ff>4秒<>。",
+        "skill2": "射出星火，造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% 魔法強度<>的<#a974ffff>魔法傷害<>，對英雄另造成其<#ffb900ff>3%<>最大生命的<#f5f5f5ff>真實傷害<>；8級起命中後爆炸。每<#ffb900ff>12秒<>附帶<#ff9028ff>天賜聖典<>：為自己和身邊一名友方英雄回復<#6aff55ff>60<> + <#6aff55ff>30% 魔法強度<>生命，<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>跑速+25%<>持續<#ffb900ff>2秒<>。",
+        "ult": "交戰時：身邊有被控制的友方英雄時立即使其<#ffb900ff>免疫傷害<>和控制<#ffb900ff>2.5秒<>；沒有則在自己被兩名以上敵方英雄包圍時給自己。隨後在其周圍降下聖劍，造成<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 魔法強度<>的<#a974ffff>魔法傷害<>。"
+      },
       "league_ahri": {
         "name": "阿璃",
         "attack": "普攻發射妖力球，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。被動 <#ff9028ff>銷魂<>：技能每次施放命中敵人累積<#ffb900ff>1<>層，滿<#ffb900ff>3<>層後下一個技能每命中一個敵人為阿璃回復<#6aff55ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8% 魔法強度<>的<#6aff55ff>生命值<>。",
@@ -531,6 +550,11 @@
         "skill1": "恐懼",
         "skill2": "豐收之魘",
         "ult": "群鴉風暴"
+      },
+      "league_kayle": {
+        "skill1": "聖光衝擊波",
+        "skill2": "星火熾刃",
+        "ult": "聖劍審判"
       },
       "league_ahri": {
         "skill1": "幻玉",
@@ -688,6 +712,13 @@
         "skill2": "<#ff9028ff>Reap<> first: <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% Ability Power<> <#a974ffff>magic damage<> in the target area, <#ef5350ff>slowing<> by 40% for <#ffb900ff>1.25s<> and <#ef5350ff>silencing<> champions in its centre for as long. Then he channels for <#ffb900ff>2s<>, draining nearby enemies for <#a974ffff>136<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>136% Ability Power<> <#a974ffff>magic damage<> in total, and heals <#6aff55ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>64%<> per champion drained (<#6aff55ff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<> per minion or monster).",
         "ult": "Fiddlesticks channels for <#ffb900ff>1s<>, then teleports to the target area. A murder of crows surrounds him for <#ffb900ff>5s<>, dealing <#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20% Ability Power<> <#a974ffff>magic damage<> to nearby enemies every <#ffb900ff>0.5s<>; champions caught as he lands are <#ef5350ff>feared<> for <#ffb900ff>1s<>. Crowd control interrupts the channel."
       },
+      "league_kayle": {
+        "name": "Kayle",
+        "attack": "Attacks deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<> + <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20% AP<> <#a974ffff>magic damage<>. <#ff9028ff>Zealous<>: each attack grants <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>6% attack speed<> (5 stacks); at 5 she is <#ff9028ff>Exalted<>: <#ffffffff>10% Move Speed<>. <#ffb900ff>Level 5<> <#ff9028ff>Arisen<>: <i#asset/base/ui/banpick/champion_stat_icon:range_0><#ff86c2ff>ranged<>. <#ffb900ff>Level 8<> <#ff9028ff>Aflame<>: Exalted attacks launch a fire wave, <#a974ffff>20<> + <#a974ffff>25% AP<> magic damage. <#ffb900ff>Level 12<> <#ff9028ff>Transcendent<>: always Exalted, longer range.",
+        "skill": "Kayle fires a celestial sword that stops on the first enemy and bursts: <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% Ability Power<> <#a974ffff>magic damage<>, <#ef5350ff>slowed<> by <#ffb900ff>30%<> for <#ffb900ff>2s<> and <#ffb900ff>15%<> less <#ffdd8eff>Armor<> and <#88ccffff>Magic Resist<> for <#ffb900ff>4s<> to the enemies around.",
+        "skill2": "Kayle hurls starfire for <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% Ability Power<> <#a974ffff>magic damage<>, plus <#ffb900ff>3%<> of a champion's max health as <#f5f5f5ff>true damage<>; from level 8 it explodes around the target. Every <#ffb900ff>12s<> it also casts <#ff9028ff>Celestial Blessing<>: Kayle and an allied champion nearby heal <#6aff55ff>60<> + <#6aff55ff>30% Ability Power<> and gain <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>25% Move Speed<> for <#ffb900ff>2s<>.",
+        "ult": "In a fight, a crowd-controlled allied champion nearby becomes <#ffb900ff>immune to damage<> and crowd control for <#ffb900ff>2.5s<> at once; with none, Kayle does when two or more enemy champions close in on her. Then swords fall around them for <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% Ability Power<> <#a974ffff>magic damage<>."
+      },
       "league_ahri": {
         "name": "Ahri",
         "attack": "Basic attacks fire a fox-magic orb for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. Passive <#ff9028ff>Essence Theft<>: each spell cast that hits an enemy grants a charge; at <#ffb900ff>3<> charges her next spell restores <#6aff55ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8% Ability Power<> <#6aff55ff>health<> for every enemy it hits.",
@@ -801,6 +832,11 @@
         "skill1": "Terrify",
         "skill2": "Bountiful Harvest",
         "ult": "Crowstorm"
+      },
+      "league_kayle": {
+        "skill1": "Radiant Blast",
+        "skill2": "Starfire Spellblade",
+        "ult": "Divine Judgment"
       },
       "league_ahri": {
         "skill1": "Orb of Deception",
@@ -958,6 +994,13 @@
         "skill2": "<#ff9028ff>수확<>으로 대상 지역에 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 50%<> <#a974ffff>마법 피해<>를 입히고 <#ffb900ff>1.25초<> 동안 <#ef5350ff>40% 둔화<>시키며 중심의 챔피언은 <#ef5350ff>침묵<>시킵니다. 이어서 <#ffb900ff>2초<> 동안 주변 적의 영혼을 흡수해 총 <#a974ffff>136<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 136%<> <#a974ffff>마법 피해<>를 입히고, 챔피언 하나당 <#6aff55ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>64%<>, 미니언과 몬스터 하나당 <#6aff55ff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<>의 <#6aff55ff>체력<>을 회복합니다.",
         "ult": "<#ffb900ff>1초<> 동안 정신을 집중한 뒤 대상 지역으로 순간이동합니다. 까마귀 떼가 <#ffb900ff>5초<> 동안 주위를 맴돌며 <#ffb900ff>0.5초<>마다 주변 적에게 <#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 20%<> <#a974ffff>마법 피해<>를 입히고, 착지할 때 주변 챔피언을 <#ffb900ff>1초<> 동안 <#ef5350ff>공포<>에 빠뜨립니다. 정신 집중 중 군중 제어를 받으면 끊깁니다."
       },
+      "league_kayle": {
+        "name": "케일",
+        "attack": "기본 공격: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<> + <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 20%<> <#a974ffff>마법 피해<>. <#ff9028ff>열광<>: 공격마다 <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>공격 속도 6%<>(5회 중첩), 최대 중첩 시 <#ff9028ff>희열<>: <#ffffffff>이동 속도 10%<>. <#ffb900ff>5레벨<> <#ff9028ff>비상<>: <i#asset/base/ui/banpick/champion_stat_icon:range_0><#ff86c2ff>원거리<>. <#ffb900ff>8레벨<> <#ff9028ff>작열<>: 희열 공격 시 화염파로 <#a974ffff>20<> + <#a974ffff>주문력의 25%<> 마법 피해. <#ffb900ff>12레벨<> <#ff9028ff>승천<>: 영구히 희열 상태, 사거리 증가.",
+        "skill": "천상의 검을 발사해 처음 적중한 적에게서 폭발하며 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 60%<> <#a974ffff>마법 피해<>를 입히고 <#ffb900ff>2초<> 동안 <#ef5350ff>30% 둔화<>시키며 <#ffb900ff>4초<> 동안 <#ffdd8eff>방어력<>과 <#88ccffff>마법 저항력<>을 <#ffb900ff>15%<> 낮춥니다.",
+        "skill2": "천상의 화염으로 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 50%<> <#a974ffff>마법 피해<>를 입히고 챔피언에게는 <#f5f5f5ff>최대 체력의 3%<> <#f5f5f5ff>고정 피해<>를 추가로 입힙니다. 8레벨부터 적중 시 폭발합니다. <#ffb900ff>12초<>마다 <#ff9028ff>천상의 축복<>: 케일과 가까운 아군 챔피언 하나가 <#6aff55ff>체력을 60<> + <#6aff55ff>주문력의 30%<> 회복하고 <#ffb900ff>2초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도 25%<> 증가.",
+        "ult": "교전 중: 근처의 군중 제어에 걸린 아군 챔피언이 즉시 <#ffb900ff>2.5초<> 동안 <#ffb900ff>피해와 군중 제어에 면역<>이 되고, 없으면 적 챔피언 둘 이상에게 둘러싸였을 때 케일 자신이 면역이 됩니다. 이후 주변에 신성한 검이 떨어져 <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 80%<> <#a974ffff>마법 피해<>를 입힙니다."
+      },
       "league_ahri": {
         "name": "아리",
         "attack": "기본 공격으로 여우 구슬을 날려 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다. 기본 지속 효과 <#ff9028ff>정기 흡수<>: 스킬이 적에게 적중하면 사용당 한 번 충전되며, <#ffb900ff>3<>회 충전되면 다음 스킬이 적중한 적 하나마다 <#6aff55ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 8%<> <#6aff55ff>체력<>을 회복합니다.",
@@ -1071,6 +1114,11 @@
         "skill1": "공포",
         "skill2": "풍작",
         "ult": "까마귀 폭풍"
+      },
+      "league_kayle": {
+        "skill1": "광휘의 일격",
+        "skill2": "화염주문검",
+        "ult": "신성한 심판"
       },
       "league_ahri": {
         "skill1": "현혹의 구슬",
@@ -1228,6 +1276,13 @@
         "skill2": "まず<#ff9028ff>刈り取り<>で対象範囲に<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の50%<>の<#a974ffff>魔法ダメージ<>を与え<#ffb900ff>1.25秒<>間<#ef5350ff>40%スロウ<>、中心のチャンピオンは同時に<#ef5350ff>沈黙<>する。続けて<#ffb900ff>2秒<>間詠唱し周囲の敵から合計<#a974ffff>136<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の136%<>の<#a974ffff>魔法ダメージ<>を吸い取る。チャンピオン1体につき<#6aff55ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>64%<>の<#6aff55ff>体力<>を回復する。",
         "ult": "<#ffb900ff>1秒<>詠唱後、対象地点へテレポート。カラスの群れが<#ffb900ff>5秒<>間周囲を舞い、<#ffb900ff>0.5秒<>毎に周囲の敵に<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の20%<>の<#a974ffff>魔法ダメージ<>を与え、着地時に周囲のチャンピオンを<#ffb900ff>1秒<>間<#ef5350ff>恐怖<>させる。詠唱中に行動妨害を受けると中断。"
       },
+      "league_kayle": {
+        "name": "ケイル",
+        "attack": "通常攻撃は<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>と<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の20%<>の<#a974ffff>魔法ダメージ<>。<#ff9028ff>ゼレス<>：攻撃ごとに<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻撃速度6%<>（5回）、最大で<#ff9028ff>崇高<>：<#ffffffff>移動速度10%<>。<#ffb900ff>Lv5<><#ff9028ff>アライズン<>：<i#asset/base/ui/banpick/champion_stat_icon:range_0><#ff86c2ff>遠隔<>。<#ffb900ff>Lv8<><#ff9028ff>アフレイム<>：崇高の攻撃で炎の波動<#a974ffff>20<> + <#a974ffff>魔力の25%<>。<#ffb900ff>Lv12<><#ff9028ff>トランセンデント<>：常に崇高、射程延長。",
+        "skill": "天界の剣を放ち、最初に当たった敵の位置で炸裂して<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の60%<>の<#a974ffff>魔法ダメージ<>を与え、<#ffb900ff>2秒<>間<#ef5350ff>30%スロウ<>、<#ffb900ff>4秒<>間<#ffdd8eff>物理防御<>と<#88ccffff>魔法防御<>を<#ffb900ff>15%<>低下させる。",
+        "skill2": "星炎を放ち<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の50%<>の<#a974ffff>魔法ダメージ<>、チャンピオンには<#f5f5f5ff>最大体力の3%<>の<#f5f5f5ff>確定ダメージ<>を追加。Lv8以降は命中時に爆発。<#ffb900ff>12秒<>ごとに<#ff9028ff>天の祝福<>：自身と近くの味方チャンピオン1体の<#6aff55ff>体力を60<> + <#6aff55ff>魔力の30%<>回復し、<#ffb900ff>2秒<>間<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度25%<>増加。",
+        "ult": "戦闘中：近くの行動妨害を受けた味方チャンピオンを即座に<#ffb900ff>2.5秒<>間<#ffb900ff>ダメージと行動妨害無効<>にし、いなければ敵チャンピオン2体以上に囲まれた時に自身に発動。その後周囲に聖なる剣を降らせて<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の80%<>の<#a974ffff>魔法ダメージ<>を与える。"
+      },
       "league_ahri": {
         "name": "アーリ",
         "attack": "通常攻撃は妖力の玉を放ち、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>を与える。パッシブ <#ff9028ff>生気吸引<>：スキルが敵に命中すると使用ごとに1チャージ、<#ffb900ff>3<>チャージで次のスキルが命中した敵1体ごとに<#6aff55ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の8%<>の<#6aff55ff>体力<>を回復する。",
@@ -1341,6 +1396,11 @@
         "skill1": "テラー",
         "skill2": "豊かな収穫",
         "ult": "クロウストーム"
+      },
+      "league_kayle": {
+        "skill1": "裁きの射光",
+        "skill2": "星炎の刃",
+        "ult": "聖なる審判"
       },
       "league_ahri": {
         "skill1": "幻惑のオーブ",
