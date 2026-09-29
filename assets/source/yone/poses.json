@@ -32,10 +32,10 @@
       ["Yone_Idle01@0", 250], ["Yone_Idle01@494", 250], ["Yone_Idle01@989", 250],
       ["Yone_Idle01@1483", 250], ["Yone_Idle01@1978", 250], ["Yone_Idle01@2472", 250]]},
     "run": {"head_like": "Yone_Idle01@0", "flat": true, "frames": [
-      ["Yone_Run01@0", 80], ["Yone_Run01@100", 80],
-      ["Yone_Run01@200", 80], ["Yone_Run01@300", 80],
-      ["Yone_Run01@400", 80], ["Yone_Run01@500", 80],
-      ["Yone_Run01@600", 80], ["Yone_Run01@700", 80]]},
+      ["Yone_Walk01@0", 136], ["Yone_Walk01@158", 136],
+      ["Yone_Walk01@317", 135], ["Yone_Walk01@475", 136],
+      ["Yone_Walk01@634", 136], ["Yone_Walk01@792", 135],
+      ["Yone_Walk01@950", 136], ["Yone_Walk01@1109", 136]]},
     "attack": {"lunge": 0.7, "frames": [
       ["Yone_Idle01@0>Yone_Attack01@0:0.5", 50], ["Yone_Attack01@100", 50], ["Yone_Attack01@200", 60],
       ["Yone_Attack01@300", 60], ["Yone_Attack01_toIdle01@60", 70], ["Yone_Attack01_toIdle01@200", 80],
