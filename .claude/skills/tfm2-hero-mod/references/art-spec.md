@@ -267,6 +267,13 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   League's travel around idle's head, like the round the user approved. Get the tracks with
   `pose_ref.py --frame ... --track <hero px> --track-ref <idle clip@0>` (same camera, `--mirror`,
   `--head`, `--legs` as the references); it reproduces the tracks measured by hand before.
+- **Blends and props on a root joint.** A frame blended toward the idle (`"clipA@ms>clipB@ms:w"` in
+  `native_pose.py`) lerps every joint's local transform. A prop on a root joint of its own that the clips move
+  along with a hand (Fiddlesticks's scythe: `Scythe` with `Scythe_Snap`) is lerped straight while the hand at
+  the end of the blended arm goes elsewhere, and it floats off the arm (the user saw "an arm missing"):
+  `"glue": {"joint": ..., "to": ...}` puts it back at its place against the holding joint in the pose that
+  weighs more. League also stretches blades into motion smears for a frame or two (Fiddlesticks's Reap at
+  400 ms, a slab at game size): pick the frames around them.
 - **One look per hero.** Strips from different generation rounds disagree on proportions (round
   1 Garen: big head, broad shoulders; round 3: smaller head for the same height). No scale hides
   it - in-game he visibly grew and shrank between animations. When the look changes, regenerate

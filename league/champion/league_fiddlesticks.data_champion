@@ -39,9 +39,9 @@
   "attack": {
     "action_name": "attack",
     "description": "#asset/base/text/champion?description.league_fiddlesticks.attack",
-    "duration": 24,
+    "duration": 26,
     "cooltime": 90,
-    "start_timing": 10,
+    "start_timing": 8,
     "cancelable": true,
     "range": 50000,
     "casting_type": "Targeting",
@@ -182,9 +182,9 @@
   "skill": {
     "action_name": "skill",
     "description": "#asset/base/text/champion?description.league_fiddlesticks.skill",
-    "duration": 24,
+    "duration": 32,
     "cooltime": 420,
-    "start_timing": 10,
+    "start_timing": 13,
     "cancelable": false,
     "range": 57500,
     "casting_type": "Targeting",
@@ -284,9 +284,9 @@
   "skill2": {
     "action_name": "skill2",
     "description": "#asset/base/text/champion?description.league_fiddlesticks.skill2",
-    "duration": 144,
+    "duration": 147,
     "cooltime": 480,
-    "start_timing": 12,
+    "start_timing": 13,
     "cancelable": false,
     "range": 40000,
     "casting_type": "Position",
@@ -344,7 +344,7 @@
             }
           },
           "delay": 24,
-          "apply": 3,
+          "apply": 6,
           "applied_target": "EnemyWithoutTower",
           "applied_effects": [
             {
@@ -388,7 +388,7 @@
             }
           },
           "delay": 24,
-          "apply": 3,
+          "apply": 6,
           "applied_target": "EnemyChampion",
           "applied_effects": [
             {
@@ -445,7 +445,7 @@
             }
           },
           "delay": 24,
-          "apply": 3,
+          "apply": 6,
           "applied_target": "EnemyChampion",
           "applied_effects": [
             {
@@ -466,7 +466,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 10,
+          "tick": 12,
           "effects": [
             {
               "type": "AddCasterBuff",
@@ -493,7 +493,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 25,
+          "tick": 27,
           "effects": [
             {
               "type": "RandomTarget",
@@ -579,7 +579,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 40,
+          "tick": 42,
           "effects": [
             {
               "type": "RandomTarget",
@@ -665,7 +665,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 55,
+          "tick": 57,
           "effects": [
             {
               "type": "RandomTarget",
@@ -751,7 +751,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 70,
+          "tick": 72,
           "effects": [
             {
               "type": "RandomTarget",
@@ -837,7 +837,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 85,
+          "tick": 87,
           "effects": [
             {
               "type": "RandomTarget",
@@ -923,7 +923,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 100,
+          "tick": 102,
           "effects": [
             {
               "type": "RandomTarget",
@@ -1009,7 +1009,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 115,
+          "tick": 117,
           "effects": [
             {
               "type": "RandomTarget",
@@ -1095,7 +1095,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 130,
+          "tick": 132,
           "effects": [
             {
               "type": "RandomTarget",
