@@ -70,6 +70,11 @@ that point leans on screen (like "tilt", only past 45 degrees): Malphite's drawn
 (joints L_shoulder, R_shoulder, base pelvis) while League's small head hangs and nods in front of his chest, and
 restyle_native.py's "head": {"anchor": true} pastes it there.
 
+"glue": {"joint": "<joint>", "to": "<joint>"} keeps a prop that hangs on a root joint of its own with the joint that
+holds it in blended frames ("clipA@ms>clipB@ms:w"): Fiddlesticks's scythe is the root joint Scythe, which his clips
+move along with Scythe_Snap under his hand, and a blend lerps it on its own while the hand at the end of the arm's
+blended rotations goes elsewhere (in the half-way frames to and from the idle the scythe floated off his arm).
+
 "crown": <y> measures the crown from the head's vertices at or below that height in the bind pose (League
 units): Leona's crown spikes stand about 12 units above her hair, which doubled with the head and, counted
 as the crown, shrank everything else (height 34 left her face six rows); with "crown": 165 the hair's top is
@@ -130,7 +135,7 @@ class Champ:
     """A champion's base skin: mesh, skeleton, texture and clips, read from the local client."""
 
     def __init__(self, lol, champ, keep=None, weapon=r"^weapon$", hide=(), hair_part=False, crown=None, extra=(),
-                 hide_submeshes=False, submesh_textures=None):
+                 hide_submeshes=False, submesh_textures=None, glue=None):
         w = Wad(os.path.join(lol, "Game", "DATA", "FINAL", "Champions", f"{champ}.wad.client"))
         skin_bin = w.read_path(f"data/characters/{champ.lower()}/skins/skin0.bin")
         refs = lambda blob, ext: sorted(set(m.decode("latin1") for m in re.findall(rb"[A-Za-z0-9_/\.\-]+\." + ext, blob)))
@@ -171,6 +176,8 @@ class Champ:
         if crown is not None:      # spikes on the head (Leona's crown) do not count as its top
             self.headv &= self.verts["pos"][:, 1] <= crown
         self.head = next(i for i, j in enumerate(self.joints) if j["name"].lower() == "head")
+        by_name = {j["name"].lower(): i for i, j in enumerate(self.joints)}
+        self.glue = (by_name[glue["joint"].lower()], by_name[glue["to"].lower()]) if glue else None
         on = lambda pat: P.chain_vertices(self.joints, self.influences, self.verts, re.compile(pat, re.I))
         up = np.linalg.inv(bind[self.head][:3, :3]) @ np.array([0.0, 1.0, 0.0])
         self.head_up = up / np.linalg.norm(up)          # the head joint's axis that points up in the bind pose
@@ -204,8 +211,27 @@ class Champ:
     def local(self, spec, head_like=None):
         a, ta, b, tb, wgt = P.parse_frame(spec)
         local = P.local_pose(self.joints, self.clip(a), ta)
-        local = P.blend_pose(local, P.local_pose(self.joints, self.clip(b), tb), wgt) if b else local
+        if b:
+            other = P.local_pose(self.joints, self.clip(b), tb)
+            blended = P.blend_pose(local, other, wgt)
+            local = self.glued(blended, other if wgt >= 0.5 else local) if self.glue else blended
         return self.head_turned(local, head_like) if head_like else local
+
+    def glued(self, local, src):
+        """`local` with the glued joint (a prop on a root joint of its own: Fiddlesticks's scythe) put back where
+        the joint holding it (his Scythe_Snap, under the hand) has it in `src`, the pose weighing more. Blended
+        on its own, a root joint's straight lerp parts from a hand at the end of a chain of blended rotations:
+        in the half-way frames to and from the idle his scythe floated a hand's length from his arm."""
+        j, to = self.glue
+        gs = P.globals_(self.joints, [P.trs(*p) for p in src])
+        gl = P.globals_(self.joints, [P.trs(*p) for p in local])
+        want = gl[to] @ np.linalg.inv(gs[to]) @ gs[j]
+        par = self.joints[j]["parent"]
+        m = want if par < 0 else np.linalg.inv(gl[par]) @ want
+        s = np.linalg.norm(m[:3, :3], axis=0)
+        out = list(local)
+        out[j] = (m[:3, 3].copy(), quat(m[:3, :3] / s), s)
+        return out
 
     def head_turned(self, local, spec):
         """`local` with the head joint turned to its world orientation in pose `spec`. The hair
@@ -335,7 +361,7 @@ def main():
     set_cell(*spec.get("cell", CELL))
     ch = Champ(args.lol, spec["champ"], keep, spec.get("weapon", r"^weapon$"), spec.get("hide", ()),
                spec.get("hair_part", False), spec.get("crown"), spec.get("parts", ()), spec.get("hide_submeshes", False),
-               spec.get("submesh_textures"))
+               spec.get("submesh_textures"), spec.get("glue"))
     rot = camera(cam)
     sign = -1.0 if cam.get("mirror") else 1.0
     os.makedirs(args.out, exist_ok=True)
