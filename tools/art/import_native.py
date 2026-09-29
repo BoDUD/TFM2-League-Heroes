@@ -116,8 +116,10 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        ("ahri", "idle"): (6, [2, 3, 4])}
 CROWN = {"leesin"}              # heroes whose head template starts at the crown (a braid stands above it)
 PASTED = {"masteryi", "janna", "ekko",   # steadied on the head restyle_native pasted: his raised sword is the top of every frame
-          "thresh",  # his hand-drawn head, pasted on League's head joint: steadied there
-          "ahri"}    # her drawn head with the fox ears, pasted the same way
+          "ahri"}    # her drawn head with the fox ears, pasted on League's head joint: steadied there
+# Codex's step-2 redraw (model_strips_18, tidied by tidy_codex18.py): the approved design's head is pasted into every
+# frame, so they are steadied on idle frame 1's head like the round-1 heroes, whatever their poses.json says
+REDRAWN = {"thresh"}
 # heroes steadied on their eyes: (R, G, B) of a colour only the eyes use; the head column is the eyes' middle
 EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade is the top of every frame
         "kayle": (226, 138, 8)}           # Codex's redraw: her wings rise above her head, the amber is the eyes'
@@ -176,6 +178,8 @@ def pasted_head(hero):
     in most run frames, so the helmet is not found whole)."""
     if hero in PASTED:
         return "joint"
+    if hero in REDRAWN:
+        return None
     path = os.path.join(ROOT, "assets", "source", hero, "poses.json")
     if not os.path.exists(path):
         return None
