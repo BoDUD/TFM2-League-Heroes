@@ -155,6 +155,13 @@
         "skill2": "射出星火，造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% 法术强度<>的<#a974ffff>魔法伤害<>，对英雄另造成其<#ffb900ff>3%<>最大生命值的<#f5f5f5ff>真实伤害<>；8级起命中后爆炸。每<#ffb900ff>12秒<>附带<#ff9028ff>星界恩典<>：为自己和身边一名友方英雄回复<#6aff55ff>60<> + <#6aff55ff>30% 法术强度<>生命值，<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移速+25%<>持续<#ffb900ff>2秒<>。",
         "ult": "交战时：身边有被控制的友方英雄时立即使其<#ffb900ff>免疫伤害<>和控制<#ffb900ff>2.5秒<>；没有则在自己被两名以上敌方英雄包围时给自己。随后在其周围降下圣剑，造成<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 法术强度<>的<#a974ffff>魔法伤害<>。"
       },
+      "league_lucian": {
+        "name": "卢锡安",
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。被动<#ff9028ff>圣光银弹<>：每放一个技能，下次普攻连开两枪，第二枪<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50% 攻击力<>（对小兵、野怪100%）。<#ff9028ff>警惕<>：附近敌方英雄被定身后，接下来两次普攻额外造成<#f5f5f5ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25% 攻击力<>的<#f5f5f5ff>真实伤害<>。",
+        "skill": "射出穿透目标的光束，对直线上的敌人造成<#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130% 攻击力<>的<#ff9028ff>物理伤害<>。",
+        "skill2": "冲刺：敌方英雄贴近时后撤，射程内有敌人时后跳，否则追到射程内。接着射出<#ff9028ff>热诚烈弹<>，爆炸造成<#f5f5f5ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% 攻击力<>的<#f5f5f5ff>真实伤害<>并标记<#ffb900ff>6秒<>，期间每次命中<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移动速度+25%<>，持续<#ffb900ff>1秒<>。之后两次普攻都连开两枪。",
+        "ult": "原地引导<#ffb900ff>3秒<>，连射<#ffb900ff>20<>发子弹，每发射向最近的敌方英雄（穿过小兵），造成<#ff9028ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30% 攻击力<>的<#ff9028ff>物理伤害<>。受到<#ef5350ff>眩晕<>、<#ef5350ff>禁锢<>、<#ef5350ff>击飞<>等控制或阵亡时中断。"
+      },
       "league_morgana": {
         "name": "莫甘娜",
         "attack": "普攻射出一团暗影，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。被动 <#ff9028ff>灵魂吸取<>：技能对英雄造成伤害时，为自己回复约为伤害15%的<#6aff55ff>生命值<>。",
@@ -273,6 +280,11 @@
         "skill1": "耀焰冲击",
         "skill2": "星火符刃",
         "ult": "圣裁之刻"
+      },
+      "league_lucian": {
+        "skill1": "透体圣光",
+        "skill2": "冷酷追击",
+        "ult": "圣枪洗礼"
       },
       "league_morgana": {
         "skill1": "暗之禁锢",
@@ -437,6 +449,13 @@
         "skill2": "射出星火，造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% 魔法強度<>的<#a974ffff>魔法傷害<>，對英雄另造成其<#ffb900ff>3%<>最大生命的<#f5f5f5ff>真實傷害<>；8級起命中後爆炸。每<#ffb900ff>12秒<>附帶<#ff9028ff>天賜聖典<>：為自己和身邊一名友方英雄回復<#6aff55ff>60<> + <#6aff55ff>30% 魔法強度<>生命，<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>跑速+25%<>持續<#ffb900ff>2秒<>。",
         "ult": "交戰時：身邊有被控制的友方英雄時立即使其<#ffb900ff>免疫傷害<>和控制<#ffb900ff>2.5秒<>；沒有則在自己被兩名以上敵方英雄包圍時給自己。隨後在其周圍降下聖劍，造成<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 魔法強度<>的<#a974ffff>魔法傷害<>。"
       },
+      "league_lucian": {
+        "name": "路西恩",
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。被動<#ff9028ff>光之獵手<>：每施放一個技能，下次普攻連開兩槍，第二槍<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50% 攻擊力<>（對小兵、野怪100%）。<#ff9028ff>警惕<>：附近敵方英雄被定身後，接下來兩次普攻額外造成<#f5f5f5ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25% 攻擊力<>的<#f5f5f5ff>真實傷害<>。",
+        "skill": "射出穿透目標的光束，對直線上的敵人造成<#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130% 攻擊力<>的<#ff9028ff>物理傷害<>。",
+        "skill2": "衝刺：敵方英雄貼近時後撤，射程內有敵人時後跳，否則追到射程內。接著射出<#ff9028ff>烈炎鐵血<>，爆炸造成<#f5f5f5ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% 攻擊力<>的<#f5f5f5ff>真實傷害<>並標記<#ffb900ff>6秒<>，期間每次擊中<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>跑速+25%<>，持續<#ffb900ff>1秒<>。之後兩次普攻都連開兩槍。",
+        "ult": "原地引導<#ffb900ff>3秒<>，連射<#ffb900ff>20<>發子彈，每發射向最近的敵方英雄（穿過小兵），造成<#ff9028ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30% 攻擊力<>的<#ff9028ff>物理傷害<>。受到<#ef5350ff>暈眩<>、<#ef5350ff>定身<>、<#ef5350ff>擊飛<>等控制或陣亡時中斷。"
+      },
       "league_morgana": {
         "name": "魔甘娜",
         "attack": "普攻射出一團暗影，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。被動 <#ff9028ff>靈魂虹吸<>：技能對英雄造成傷害時，為自己回復約為傷害15%的<#6aff55ff>生命值<>。",
@@ -555,6 +574,11 @@
         "skill1": "聖光衝擊波",
         "skill2": "星火熾刃",
         "ult": "聖劍審判"
+      },
+      "league_lucian": {
+        "skill1": "鋒芒貫穿",
+        "skill2": "冷酷進擊",
+        "ult": "赤色屠戮"
       },
       "league_morgana": {
         "skill1": "暗影禁錮",
@@ -719,6 +743,13 @@
         "skill2": "Kayle hurls starfire for <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% Ability Power<> <#a974ffff>magic damage<>, plus <#ffb900ff>3%<> of a champion's max health as <#f5f5f5ff>true damage<>; from level 8 it explodes around the target. Every <#ffb900ff>12s<> it also casts <#ff9028ff>Celestial Blessing<>: Kayle and an allied champion nearby heal <#6aff55ff>60<> + <#6aff55ff>30% Ability Power<> and gain <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>25% Move Speed<> for <#ffb900ff>2s<>.",
         "ult": "In a fight, a crowd-controlled allied champion nearby becomes <#ffb900ff>immune to damage<> and crowd control for <#ffb900ff>2.5s<> at once; with none, Kayle does when two or more enemy champions close in on her. Then swords fall around them for <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% Ability Power<> <#a974ffff>magic damage<>."
       },
+      "league_lucian": {
+        "name": "Lucian",
+        "attack": "Basic attacks deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. Passive <#ff9028ff>Lightslinger<>: after each ability his next attack fires twice; the second shot deals <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50% AD<> (100% to minions and monsters). <#ff9028ff>Vigilance<>: when a nearby enemy champion is immobilized, his next 2 attacks deal an extra <#f5f5f5ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25% AD<> <#f5f5f5ff>true damage<>.",
+        "skill": "Lucian fires a beam of light through his target, dealing <#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130% AD<> <#ff9028ff>physical damage<> to every enemy in the line.",
+        "skill2": "A dash: away from an enemy champion on him, a hop back when an enemy is in range, else toward his target until it is in range. Then <#ff9028ff>Ardent Blaze<> bursts on the first enemy hit for <#f5f5f5ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% AD<> <#f5f5f5ff>true damage<> and marks them for <#ffb900ff>6s<>; meanwhile each hit gives him <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>25% move speed<> for <#ffb900ff>1s<>. His next 2 attacks both fire twice.",
+        "ult": "Lucian stands and fires <#ffb900ff>20<> shots over <#ffb900ff>3s<>, each at the nearest enemy champion (through minions), dealing <#ff9028ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30% AD<> <#ff9028ff>physical damage<>. A stun, root, knock-up or other crowd control, or his death, ends it."
+      },
       "league_morgana": {
         "name": "Morgana",
         "attack": "Basic attacks hurl a bolt of shadow that deals <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. Passive <#ff9028ff>Soul Siphon<>: her spells heal her for about 15% of the damage they deal to champions.",
@@ -837,6 +868,11 @@
         "skill1": "Radiant Blast",
         "skill2": "Starfire Spellblade",
         "ult": "Divine Judgment"
+      },
+      "league_lucian": {
+        "skill1": "Piercing Light",
+        "skill2": "Relentless Pursuit",
+        "ult": "The Culling"
       },
       "league_morgana": {
         "skill1": "Dark Binding",
@@ -1001,6 +1037,13 @@
         "skill2": "천상의 화염으로 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 50%<> <#a974ffff>마법 피해<>를 입히고 챔피언에게는 <#f5f5f5ff>최대 체력의 3%<> <#f5f5f5ff>고정 피해<>를 추가로 입힙니다. 8레벨부터 적중 시 폭발합니다. <#ffb900ff>12초<>마다 <#ff9028ff>천상의 축복<>: 케일과 가까운 아군 챔피언 하나가 <#6aff55ff>체력을 60<> + <#6aff55ff>주문력의 30%<> 회복하고 <#ffb900ff>2초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도 25%<> 증가.",
         "ult": "교전 중: 근처의 군중 제어에 걸린 아군 챔피언이 즉시 <#ffb900ff>2.5초<> 동안 <#ffb900ff>피해와 군중 제어에 면역<>이 되고, 없으면 적 챔피언 둘 이상에게 둘러싸였을 때 케일 자신이 면역이 됩니다. 이후 주변에 신성한 검이 떨어져 <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 80%<> <#a974ffff>마법 피해<>를 입힙니다."
       },
+      "league_lucian": {
+        "name": "루시안",
+        "attack": "기본 공격은 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다. 기본 지속 효과 <#ff9028ff>빛의 사수<>: 스킬을 쓸 때마다 다음 기본 공격이 2연발이 되며, 두 번째 발은 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 50%<>(미니언·몬스터 100%). 근처 적 챔피언이 이동 불가 상태가 되면 다음 기본 공격 2회가 <#f5f5f5ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 25%<> <#f5f5f5ff>고정 피해<>를 추가로 입힙니다.",
+        "skill": "대상을 관통하는 빛줄기를 쏘아 직선상의 적에게 <#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 130%<> <#ff9028ff>물리 피해<>를 입힙니다.",
+        "skill2": "돌진: 적 챔피언이 붙으면 뒤로, 사거리 안에 적이 있으면 살짝 뒤로, 없으면 사거리까지 앞으로. 이어서 <#ff9028ff>타는 불길<>이 폭발해 <#f5f5f5ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 60%<> <#f5f5f5ff>고정 피해<>를 입히고 <#ffb900ff>6초<> 동안 표식을 남기며, 그동안 적중할 때마다 <#ffb900ff>1초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도 25%<>. 다음 기본 공격 2회는 모두 2연발.",
+        "ult": "제자리에서 <#ffb900ff>3초<> 동안 총알 <#ffb900ff>20<>발을 가장 가까운 적 챔피언에게 (미니언 관통) 쏘아 한 발마다 <#ff9028ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 30%<> <#ff9028ff>물리 피해<>를 입힙니다. <#ef5350ff>기절<>, <#ef5350ff>속박<>, <#ef5350ff>에어본<> 등에 걸리거나 죽으면 중단됩니다."
+      },
       "league_morgana": {
         "name": "모르가나",
         "attack": "기본 공격으로 어둠의 구체를 날려 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다. 기본 지속 효과 <#ff9028ff>영혼 흡수<>: 스킬로 챔피언에게 피해를 입히면 피해량의 약 15%만큼 <#6aff55ff>체력<>을 회복합니다.",
@@ -1119,6 +1162,11 @@
         "skill1": "광휘의 일격",
         "skill2": "화염주문검",
         "ult": "신성한 심판"
+      },
+      "league_lucian": {
+        "skill1": "꿰뚫는 빛",
+        "skill2": "끈질긴 추격",
+        "ult": "빛의 심판"
       },
       "league_morgana": {
         "skill1": "어둠의 속박",
@@ -1283,6 +1331,13 @@
         "skill2": "星炎を放ち<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の50%<>の<#a974ffff>魔法ダメージ<>、チャンピオンには<#f5f5f5ff>最大体力の3%<>の<#f5f5f5ff>確定ダメージ<>を追加。Lv8以降は命中時に爆発。<#ffb900ff>12秒<>ごとに<#ff9028ff>天の祝福<>：自身と近くの味方チャンピオン1体の<#6aff55ff>体力を60<> + <#6aff55ff>魔力の30%<>回復し、<#ffb900ff>2秒<>間<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度25%<>増加。",
         "ult": "戦闘中：近くの行動妨害を受けた味方チャンピオンを即座に<#ffb900ff>2.5秒<>間<#ffb900ff>ダメージと行動妨害無効<>にし、いなければ敵チャンピオン2体以上に囲まれた時に自身に発動。その後周囲に聖なる剣を降らせて<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の80%<>の<#a974ffff>魔法ダメージ<>を与える。"
       },
+      "league_lucian": {
+        "name": "ルシアン",
+        "attack": "通常攻撃は<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>。自動効果<#ff9028ff>二挺拳銃<>：スキル使用後の次の攻撃は2連射、2発目は<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の50%<>（ミニオン・モンスターには100%）。近くの敵チャンピオンが移動不能になると、次の2回の攻撃が<#f5f5f5ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の25%<>の<#f5f5f5ff>確定ダメージ<>を追加。",
+        "skill": "対象を貫く光線を放ち、直線上の敵に<#ff9028ff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の130%<>の<#ff9028ff>物理ダメージ<>を与える。",
+        "skill2": "移動：敵チャンピオンが近ければ後退、射程内に敵がいれば小さく後退、いなければ射程内まで前進。続けて<#ff9028ff>アーデントブレイズ<>が爆発し<#f5f5f5ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の60%<>の<#f5f5f5ff>確定ダメージ<>、<#ffb900ff>6秒<>の印。その間の命中で<#ffb900ff>1秒<><i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度25%<>。次の2回の攻撃はどちらも2連射。",
+        "ult": "その場で<#ffb900ff>3秒<>間、最も近い敵チャンピオンへ弾丸を<#ffb900ff>20<>発連射（ミニオンを貫通）、1発ごとに<#ff9028ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の30%<>の<#ff9028ff>物理ダメージ<>。スタン、スネア、ノックアップなどを受けるか倒されると中断。"
+      },
       "league_morgana": {
         "name": "モルガナ",
         "attack": "通常攻撃は闇の弾を放ち、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>を与える。パッシブ <#ff9028ff>ソウルサイフォン<>：スキルがチャンピオンに与えたダメージの約15%、<#6aff55ff>体力<>を回復する。",
@@ -1401,6 +1456,11 @@
         "skill1": "裁きの射光",
         "skill2": "星炎の刃",
         "ult": "聖なる審判"
+      },
+      "league_lucian": {
+        "skill1": "ピアシングライト",
+        "skill2": "スライド",
+        "ult": "二挺掃射"
       },
       "league_morgana": {
         "skill1": "ダークバインド",

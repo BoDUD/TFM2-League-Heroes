@@ -220,6 +220,16 @@
         "y": -12
       }
     },
+    "league_lucian": {
+      "face": {
+        "x": -3,
+        "y": -41
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
     "league_morgana": {
       "face": {
         "x": -2,
