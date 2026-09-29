@@ -1,0 +1,15 @@
+{
+  "bolt": {"cell": [25, 13], "anchor": [12, 6]},
+  "hit": {"cell": [21, 19], "anchor": [10, 9]},
+  "q_crow": {"cell": [25, 25], "anchor": [12, 12]},
+  "q_hit": {"cell": [23, 49], "anchor": [11, 24]},
+  "fear": {"cell": [23, 27], "anchor": [11, 13]},
+  "silence": {"cell": [21, 9], "anchor": [10, 4]},
+  "w_drain": {"cell": [11, 53], "anchor": [5, 26]},
+  "w_final": {"cell": [23, 47], "anchor": [11, 23]},
+  "e_reap": {"cell": [31, 51], "anchor": [15, 25]},
+  "w_souls": {"cell": [47, 93], "anchor": [23, 46]},
+  "r_mark": {"cell": [93, 61], "anchor": [46, 30]},
+  "r_depart": {"cell": [39, 103], "anchor": [19, 51]},
+  "r_storm": {"cell": [89, 125], "anchor": [44, 62]}
+}

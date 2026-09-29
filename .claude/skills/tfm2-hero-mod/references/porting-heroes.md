@@ -108,6 +108,10 @@ OK = direct, ~ = approximate, X = not possible in data-only mods.
 | Line that knocks up everyone on it, the caster ends behind the target (Yone R) | a `LineRangeProjectile` with `Airborne` after a 15-tick wind-up, then `RushMoveToBack`: he stops behind the chosen champion, not League's last champion hit, and does not pull them to him | ~ |
 | Hook that stuns the first champion and drags him in (Thresh Q) | a non-penetrating `LinearProjectile` on `EnemyChampion` with `Stun` and `Grab` (no `tick`) in its `applied_effects`: the stunned champion is dragged to the caster; League's recast that flies Thresh to him is left out (champion-data "Hook the first champion and drag him in") | ~ |
 | Lantern an ally clicks to be pulled in (Thresh W) | nothing can click: the lantern shields him and a random allied champion within 50000, folded into Q on its own cooldown | ~ |
+| Fear on the first hit after standing still (Fiddlesticks passive; League places an effigy) | every action refreshes a 3 s combat buff; a cast without it arms a flag that the attack's champion-only twin and Reap's champion circle spend on a `Fear` (champion-data "Frighten on the first hit out of combat"); no effigy | ~ |
+| Double damage on a feared target (Fiddlesticks Q) | a twin `TargetProjectile` on `EnemyChampionInCC` beside the crow carries the second hit: any crowd control counts, tested when it hits; the crow's own fear lands a tick later (champion-data "Double damage on a champion already in crowd control") | ~ |
+| Drain tethered to every enemy near him, broken by distance (Fiddlesticks W) | a buff-guarded channel of `Delayed` pulses on everyone within 40000, each healing him through `Heal {heal_type: Caster}`; crowd control ends it; no tether to walk out of (champion-data "Strike, then drain everyone around him") | ~ |
+| Channel, then fly to a point and storm around the caster (Fiddlesticks R) | a buff-guarded 1 s channel that crowd control breaks, `Teleport` to the cast point, then 5 s of `Delayed` pulses around him behind a buff his death clears (champion-data "Channel, vanish in crows, land in a storm") | OK |
 | Walls round the caster, the one broken hurts most (Thresh R) | no walls round a caster (`Line` takes map coordinates): one circle, an `ApplyInProjectile` that hits each champion once; the first champion takes the damage and the long slow, a caster flag leaves the rest a short slow; the picture a `CasterViewEffect` (a `ViewEffect` on his own spot never showed in game) (champion-data "A prison that hurts only the first champion in it") | ~ |
 | Push or pull by the cast direction (Thresh E) | the AI picks: pull within 2 s of a hook (League's hook-and-flay), else push (`Knockback`) when a champion is right on him and pull (`Pull`) when not, a `RandomTarget` flag read by `SwitchByBuff` (champion-data "Push or pull by the situation") | ~ |
 | Souls picked up for armour and ability power (Thresh's Damnation) | nothing to pick up: armour and ability power growth per level | ~ |
@@ -668,6 +672,42 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   is laid along its flight and mirrored top to bottom (art-spec: a projectile flying left is turned upside
   down). The Box's ground was drawn at 1.6:1 and is squeezed toward the game's 2:1, anchored 2 px below the
   drawing's middle (a pentagon's centre lies below its box's).
+- **A scarecrow with a sack head, stilts and a scythe (Fiddlesticks, drawn by Claude, restyled, hand-drawn head
+  pasted).** Of three cameras the user took B (yaw 30, pitch 25, not mirrored: the scythe trails behind him
+  and the two stilts stand apart); head 2.0, legs 0.75, height 28. The skin's demon arms, lantern and tongue
+  are submeshes his base look never shows (`"hide_submeshes"` as a list); the scythe has a map of its own
+  (`"submesh_textures": {"Weapon": "Weapon_TX"}`) and is the `weapon` (`^Scythe$`, the blade voted by hue
+  onto a rust ramp); the back leg is a part of its own (`^L_Hip$`, darker and outlined apart, so the two
+  stilts read). The sack is drawn square by square; of three heads the user took H4: an egg-shaped burlap sack
+  leaning back, a tied top with dark purple quills, one red eye and a grin of triangular teeth, pasted on
+  League's head joint and kept upright (`"turn": 180`, `PASTED`). His scythe hangs on a root joint of its own
+  (`Scythe`) that the clips move along with `Scythe_Snap` under his hand; a frame blended toward the idle lerps
+  it on its own, and in Reap's swing the user saw "an arm missing": the scythe had floated off his arm.
+  `native_pose.py`'s `"glue": {"joint": "Scythe", "to": "Scythe_Snap"}` puts it back at its place against the
+  hand in the pose that weighs more (art-spec "Blends and props on a root joint"). Reap skips the frame where
+  League stretches the blade into a smear (400 ms); Terrify's lunge is blended 40-50% toward the idle so the
+  big head stays above the ground; the death leaves out League's lift into the air after 2 s and hides the
+  scythe once it leaves his hand. The move is `run_base` = `Fiddlesticks_Run` at League's pace (8 frames,
+  0.867 s), head like the idle. 65 frames, 29 colours, 36% right-neighbour, face (9, -30).
+  Codex's thirteen effects came as raw generations with real alpha and a manifest (`frame_regions`);
+  `tools/art/import_fiddlesticks.py --raw` gives each frame the connected drawings lying mostly in its
+  rectangle (two crows of the burst crossed into the next cell, and cutting by the rectangles left half a crow
+  on one side and a wing tip on the other), mirrors the bolt, the crow and Reap's crescent top to bottom, and
+  sizes them to the kit: Crowstorm's mark 90 px wide (radius 45000), its crows round an 84 px ellipse with the
+  height squeezed to 0.8 (Codex's cell came square, not 3:2), Reap's crescent 48 px tall - a slash through the
+  foes in its 60 px circle - centred on the cast point (a picture turned half round for a cast to the left
+  would move an off-centre crescent down).
+  In game the user found the scythe's blade, hanging below his soles in the idle, hidden under the health bar,
+  and the whole model ugly ("稻草人的模型做的太丑 让codex重做一下吧"): Codex redrew it
+  (`assets/source/fiddlesticks/MODEL_PROMPTS.md`). Three designs first - A League's proportions, B chibi, C the
+  scythe on the shoulder - and the user had Claude choose: B (the sack a third of his height, the scythe held
+  upright behind him, its blade arching over his head: the clearest face and reaper outline, all of it above the
+  health bar). The ten strips followed on the reference cells with the same frame timing, nothing under the feet
+  line. `tools/art/tidy_fiddlesticks.py` fixes three things on the game pixels: eyes run together into a bar
+  (redrawn as the idle's staggered pair), eye green on Reap's scythe pole, and the attack's claw arm stretched out
+  of the sack's front at eye height (moved 5 rows down to come out from under the sack). His run drifted 12 px
+  about the pivot and the blade is the top of every frame, so `import_native.py` steadies him on his eyes
+  (`EYES`, one colour only the eyes use). 65 frames, 15 colours, 25% right-neighbour, face still (9, -30).
 - **A fox girl with nine tails (Ahri, drawn by Claude, restyled, head pasted).** Her skin has four submeshes
   (Body, Eyes, Tails, Tail_Large) and two colour maps: the nine tails take `Ahri_Base_Tails_TX_CM`
   (`"submesh_textures": {"Tails": "Tails_TX"}`; on the body's map they came out as red sleeves), and

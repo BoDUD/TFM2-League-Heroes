@@ -17,7 +17,9 @@ Two fixes for the loops, where every pixel of jitter shows:
     frame); frames placed by their bounding box had it 1-2 px off.
   - ORDER: Lux's idle arrived breathing down, down, down, up, down, up; its frames 5 and 6 swap.
     Master Yi's raised sword is the top of every frame, so he is steadied on League's head joint, where
-    his helmet was pasted (PASTED), and his one-frame idle on the frame it shows.
+    his helmet was pasted (PASTED), and his one-frame idle on the frame it shows. Codex's Fiddlesticks
+    (design B) holds his scythe over his head and redrew the head in every run frame: he is steadied on
+    his eyes, the one colour nothing else uses (EYES; his run's eyes wandered 12 px about the pivot).
 Then <hero>_retouch.json, when there is one, retouches single pixels of the cut frames (Lee Sin's mouth,
 nose and face side; Lux's run, where her wand's gold end read as a gold foot): x, y from the pivot, the colour expected there and the new one. A pixel that no longer has
 the expected colour stops the import, so edits made for one version of the strips never land on another.
@@ -74,6 +76,8 @@ ORDER = {("lux", "idle"): [0, 1, 2, 3, 5, 4],
          ("ezreal", "idle"): [0, 0, 0, 0, 0, 0],
          # and Thresh (a drawn skull pasted on a body restyled from League's idle)
          ("thresh", "idle"): [0, 0, 0, 0, 0, 0],
+         # and Fiddlesticks (Codex's redraw, design B: the six idle frames are one drawing)
+         ("fiddlesticks", "idle"): [0, 0, 0, 0, 0, 0],
          # and Ahri (a drawn head with fox ears pasted on a body restyled from League's idle)
          ("ahri", "idle"): [0, 0, 0, 0, 0, 0]}
 # (hero, tag): (y, slots) - in those slots everything at or above pivot row y moves down a row (the row under
@@ -101,12 +105,16 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        ("ezreal", "idle"): (6, [2, 3, 4]),
        # Thresh's robe hangs to his shins: the seam across its hem, his boots stay
        ("thresh", "idle"): (6, [2, 3, 4]),
+       # Fiddlesticks: the seam across his stilts, the claw feet stay
+       ("fiddlesticks", "idle"): (6, [2, 3, 4]),
        # Ahri: the seam across her boots' shafts; her soles and the tips of her tails stay
        ("ahri", "idle"): (6, [2, 3, 4])}
 CROWN = {"leesin"}              # heroes whose head template starts at the crown (a braid stands above it)
 PASTED = {"masteryi", "janna", "ekko",   # steadied on the head restyle_native pasted: his raised sword is the top of every frame
           "thresh",  # his hand-drawn head, pasted on League's head joint: steadied there
           "ahri"}    # her drawn head with the fox ears, pasted the same way
+# heroes steadied on their eyes: (R, G, B) of a colour only the eyes use; the head column is the eyes' middle
+EYES = {"fiddlesticks": (200, 224, 96)}   # Codex's design B: the scythe's blade is the top of every frame
 
 
 def blocks(path):
@@ -178,6 +186,13 @@ def pasted_head(hero):
     return tpl
 
 
+def eye_column(frame, rgb):
+    """The middle column of the pixels of colour rgb (a hero's eyes), rounded; None when there are none."""
+    m = (frame[..., 3] > 0) & (frame[..., :3] == np.array(rgb, np.uint8)).all(-1)
+    xs = np.nonzero(m)[1]
+    return int(np.floor(xs.mean() + 0.5)) if len(xs) else None
+
+
 def find(frame, tpl):
     """(share of tpl's pixels matched exactly, x, y) at the best spot."""
     th, tw = tpl.shape[:2]
@@ -198,13 +213,16 @@ def build(hero):
     table, cell = spec["tags"], tuple(spec.get("cell", CELL))
     head = pasted_head(hero)
     joint = isinstance(head, str)
-    if head is None:
+    if head is None and hero not in EYES:
         head = head_of(cells(hero, "idle", len(table["idle"]), cell)[0], crown=hero in CROWN)
     sheet, report = {}, {}
     for tag, rows in table.items():
         fr = cells(hero, tag, len(rows), cell)
         if joint:
             hx = [int(np.floor(r["head"][0] + 0.5)) - r["pivot"][0] for r in rows]
+        elif hero in EYES:
+            cols = [eye_column(f, EYES[hero]) for f in fr]
+            hx = [None if c is None else c - r["pivot"][0] for c, r in zip(cols, rows)]
         else:
             found = [find(f, head) for f in fr]
             hx = [x - r["pivot"][0] if s >= SURE else None for (s, x, _), r in zip(found, rows)]

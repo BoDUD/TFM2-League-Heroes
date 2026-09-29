@@ -200,6 +200,16 @@
         "y": -12
       }
     },
+    "league_fiddlesticks": {
+      "face": {
+        "x": 9,
+        "y": -30
+      },
+      "center": {
+        "x": 2,
+        "y": -14
+      }
+    },
     "league_ahri": {
       "face": {
         "x": 1,
