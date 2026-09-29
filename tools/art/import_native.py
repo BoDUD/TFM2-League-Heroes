@@ -72,6 +72,8 @@ ORDER = {("lux", "idle"): [0, 1, 2, 3, 5, 4],
          ("yone", "idle"): [0, 0, 0, 0, 0, 0],
          # and Ezreal (a drawn head with goggles, a body restyled from League's idle)
          ("ezreal", "idle"): [0, 0, 0, 0, 0, 0],
+         # and Thresh (a drawn skull pasted on a body restyled from League's idle)
+         ("thresh", "idle"): [0, 0, 0, 0, 0, 0],
          # and Kayle (a drawn head pasted on League's hovering idle)
          ("kayle", "idle"): [0, 0, 0, 0, 0, 0]}
 # (hero, tag): (y, slots) - in those slots everything at or above pivot row y moves down a row (the row under
@@ -97,11 +99,15 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        ("yone", "idle"): (6, [2, 3, 4]),
        # Ezreal: the seam across his shins, the boots stay
        ("ezreal", "idle"): (6, [2, 3, 4]),
+       # Thresh's robe hangs to his shins: the seam across its hem, his boots stay
+       ("thresh", "idle"): (6, [2, 3, 4]),
        # Kayle floats 3 px up like Janna and sinks a row down to her soles; only her sword's tip, on the
        # ground line, stays
        ("kayle", "idle"): (10, [2, 3, 4])}
 CROWN = {"leesin"}              # heroes whose head template starts at the crown (a braid stands above it)
-PASTED = {"masteryi", "janna", "ekko", "kayle"}  # steadied on the head restyle_native pasted: his raised sword is the top of every frame
+PASTED = {"masteryi", "janna", "ekko",   # steadied on the head restyle_native pasted: his raised sword is the top of every frame
+          "thresh",  # his hand-drawn head, pasted on League's head joint: steadied there
+          "kayle"}   # hers too (her wings rise above it)
 
 
 def blocks(path):
