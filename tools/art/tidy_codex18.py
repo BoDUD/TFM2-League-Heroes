@@ -45,7 +45,8 @@ EYE_COLOURS = {"thresh": [(13, 200, 78), (4, 71, 29)],
                # merged before the 18 (PRs #27 and #26), cleaned the same way in place: run with their own
                # assets/source/native folder as the delivery
                "fiddlesticks": [(200, 224, 96)], "kayle": [(226, 138, 8)],
-               "leona": [(186, 88, 30)], "janna": [(3, 51, 207)]}
+               "leona": [(186, 88, 30)], "janna": [(3, 51, 207)],
+               "ekko": [(213, 125, 34)]}
 # heroes whose delivered faces were drawn anew in every frame (Codex: "not a pixel copy of the head"): the design's
 # face - eyes, brows, cheeks and the fringe right round them - goes back into every frame where the head is found.
 # head: the design's head box on its 128x128 canvas (<hero>_native.png), matched in every frame by colour; patch: the
