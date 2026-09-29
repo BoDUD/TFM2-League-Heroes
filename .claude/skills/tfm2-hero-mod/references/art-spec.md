@@ -372,6 +372,14 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   colour for the eyes alone, so `import_native.py` steadies the idle and the move on it (`EYES`, as for
   Fiddlesticks); and puts the body's lowest row back on the replaced frame's (the move's float had sunk 3-13 rows).
   Sideways it keeps Codex's place: the bigger design's head sits ahead of League's head joint.
+- **A slim move under a stocky design (league_lucian).** Codex drew League's run silhouette at the design's size:
+  about two thirds of the other strips' opaque pixels (339 a frame against 460-566), legs one or two pixels wide,
+  the head too big for the body. Stretching whole frames across ran the two dark trouser legs into one mass;
+  `tools/art/tidy_lucian.py` stretches only the chest to the hips (x1.3 about the body's middle column, eased in
+  and out over 3 rows), leaves the head, the raised gun arm and the legs as drawn, and redraws the 1-pixel outline
+  (outline pixels between two body pixels, the seams, stay). Compare every strip's opaque pixels a frame against
+  idle before importing. Also ask for weapons at belt height in a beam's frames: the picture of a
+  `LineRangeProjectile` is drawn at the pivot's height (champion-data section 4).
 - **Effect anchors.** Effect and buff frames are drawn centred on the unit's pivot, 11.5 px above
   the feet (base: `levelup_effect` ring at +9..+16, `shield_receive_effect` bubble -22..+13).
   Ground rings at about +10, hits and shields at -3..-6, overhead marks around -25. Time the

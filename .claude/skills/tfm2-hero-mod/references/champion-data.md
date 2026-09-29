@@ -1240,6 +1240,50 @@ stays behind), `Teleport` (to the cast point), `CasterAnimation ult_land` (30) a
 following) and a `RangeEffect` (45000) of damage; the first also fears the champions around him for 60 ticks.
 Death clears the storm buff (section 5), so the storm ends with him.
 
+**Two shots after a spell, the second weaker on champions (league_lucian Lightslinger).** Every spell adds a
+180-tick caster charge (Q and R `ls_1`; E+W, two spells, `ls_1` and `ls_2`). The attack (`start_timing` 1) runs
+`SwitchByBuff ls_2` -> remove it and fire the double, else `SwitchByBuff ls_1` -> the same, else the single shot
+(`Delayed` to tick 7). The double plays its own animation (`CasterAnimation passive`, 26 ticks, as long as the
+attack) and fires on ticks 6 and 13. League's second shot deals less to champions only; beside it flies a
+champion-only twin (`TargetProjectile` on `EnemyChampion`, the same speed and `y_offset`, so both land on one
+tick) that gives the caster a 2-tick flag, and the real shot deals 50% at once and, `Delayed 1`, the other 50%
+unless the flag is there - minions and monsters take both halves *(inferred from league_ezreal Q's measured
+twin: the order two projectiles land in within a tick does not matter)*.
+
+**Bonus on the next two attacks when a champion near him is crowd-controlled (league_lucian Vigilance).**
+League's Vigilance follows an ally's immobilising; nothing tells who applied a state, so any counts. The attack's
+first effect is `RandomTarget {range: 60000, casting_target: EnemyChampionInCC}` -> `SwitchByBuff vig_lock`
+(nothing) else a 90-tick lock, two 240-tick charges and the glow on his hands (a caster buff with a view). Each
+shot then spends one charge (`vig_b` first) on a hidden `TargetProjectile` beside it carrying the `FixedAttack`
+and the spark picture, so the arming attack is the first of the two.
+
+**Dash away, hop back or chase into range (league_lucian E, Relentless Pursuit, with W folded in).** League's E
+goes wherever the player clicks. One `Targeting` action on `EnemyWithoutTower` (range 80000) picks by the
+situation, league_ezreal E's way with three branches: `RandomTarget {range: 30000, casting_target:
+EnemyChampion}` holds a 1-tick flag, `CasterAnimation skill2_back` (31 ticks) and `MoveBack {speed: 6000, tick:
+5}` (away from that champion); without the flag a `RandomTarget` at his attack range (55000) on
+`EnemyWithoutTower` sets a second flag that chooses a hop (`skill2_back`, `MoveBack` 5000 x 3) over the chase:
+an invisible non-penetrating `LinearProjectile` on `EnemyWithoutTower` (speed 6000, range 30000, radius 40000,
+`end_effects: [Teleport]`) that drops him about 40000 short of the first enemy it meets. The chase keeps the
+action's own animation (`skill2`, League's forward `Spell2`). Ardent Blaze is `Delayed` to tick 14 and leaves
+from wherever he landed. In 12 simulated games: 95 chases (50 cast at champions), 162 hops, 4 dashes away
+*(SDK simulation, 2026-09-29)*.
+
+**Hits speed him up while the mark lasts (league_lucian W, Ardent Blaze).** The bolt's burst (`RangeProjectile`
+in its `end_effects`) marks what it hits (`AddBuff` with the picture, 6 s) and gives the caster a 6-s flag. Every
+hit's `applied_effects` (the attack's bullets, Q's beam) run `SwitchByBuff` on the flag -> `RemoveCasterBuff` and
+`AddCasterBuff` of a 60-tick `move_speed_mult` 25 (one instance, refreshed). League speeds him up only for hits on
+the marked enemy; nothing reads a buff on the target, so here any hit counts.
+
+**Shots at the nearest champion, through minions (league_lucian R, The Culling).** League sprays one aimed
+direction and minions block it. `RandomTarget` picks at random among the units in its range, so each of the 20
+`Delayed` shots (9 ticks apart from tick 10, each first running the crowd-control check and `SwitchByBuff` on the
+channel buff) tries rings: `RandomTarget {range: 40000, casting_target: EnemyChampion}` sets a 1-tick flag and
+fires; without the flag the same at 75000, then 110000; nothing further, no shot. The bullet is a
+non-penetrating `LinearProjectile` on `EnemyChampion` toward the picked champion: it flies through minions and
+stops on the first champion. Of its shots 58% hit at speed 8000 and 85% at 12000, the champions walking out of
+the line *(SDK simulation, 2026-09-29)*.
+
 ## 8. Gotchas
 
 - `action_name` / `CasterAnimation.name` must be real sprite tags. Two LoL Reborn heroes use
