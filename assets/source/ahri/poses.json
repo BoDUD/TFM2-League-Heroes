@@ -1,0 +1,60 @@
+{
+  "hero": "ahri",
+  "champ": "Ahri",
+  "camera": {"yaw": 35, "pitch": 25, "mirror": false},
+  "chibi": {"head": 2.0, "legs": 0.8, "hair": 0.5, "scale": {"Tail_Master": 0.6}},
+  "crown": 194,
+  "hide_submeshes": ["Tail_Large"],
+  "submesh_textures": {"Tails": "Tails_TX"},
+  "hair_part": true,
+  "parts": [
+    {"name": "tails", "joints": "^(tail_master|main_tail\\d+|[lr]_[a-d]_tail\\d+)$", "outline": true, "materials": [
+      {"name": "tailtip", "hue": [250, 330], "sat": [0.22, 1], "val": [0.2, 1], "ramp": [["8E6AA8", 0.55], ["B89AD0"]]},
+      {"name": "fur", "ramp": [["9A8CB4", 0.62], ["C8BEDC", 0.8], ["ECE6F6"]]}]}],
+  "height": 32,
+  "cell": [72, 64, 10],
+  "design": "Idle1@0",
+  "restyle": {
+    "head": {"rect": [61, 62, 15, 15], "cut": [[75, 72], [75, 73], [63, 76]], "dx": -2, "dy": -1, "forward": true},
+    "turn": {"ult": 60, "dead": 60, "*": 180},
+    "outline": "120A14",
+    "weapon": [["3A2A40", 0.3], ["6A5070", 0.5], ["A088A8"]],
+    "hair": [["141428", 0.22], ["232848", 0.4], ["3A4270"]],
+    "materials": [
+      {"name": "violet", "hue": [230, 300], "sat": [0.3, 1], "val": [0.2, 1], "ramp": [["3C2A78", 0.45], ["5E48B0", 0.7], ["8E7AE0"]]},
+      {"name": "gold", "hue": [36, 62], "sat": [0.4, 1], "val": [0.35, 1], "ramp": [["9A6A24", 0.6], ["D4A844", 0.8], ["F4DC80"]]},
+      {"name": "red", "hue": [330, 18], "sat": [0.42, 1], "val": [0.12, 1], "ramp": [["5A1024", 0.3], ["8E1C34", 0.48], ["C23048", 0.7], ["E4546A"]]},
+      {"name": "skin", "hue": [340, 40], "sat": [0.1, 0.42], "val": [0.35, 1], "ramp": [["C98670", 0.55], ["E8AE94", 0.8], ["F8D0B8"]]},
+      {"name": "boot", "hue": [300, 60], "val": [0, 0.35], "ramp": [["2A1418", 0.18], ["4A2226"]]},
+      {"name": "white", "ramp": [["6E6478", 0.35], ["B4AAB8", 0.62], ["E2DCE4", 0.8], ["FFFAF8"]]}],
+    "weights": {"5A1024": 1.3, "8E1C34": 1.3, "C23048": 1.3, "E4546A": 1.3, "C98670": 1.15, "E8AE94": 1.15, "F8D0B8": 1.15},
+    "cover": 0.4,
+    "close": 1
+  },
+  "tags": {
+    "idle": {"frames": [
+      ["Idle1@0", 250], ["Idle1@555", 250], ["Idle1@1110", 250],
+      ["Idle1@1665", 250], ["Idle1@2220", 250], ["Idle1@2775", 250]]},
+    "run": {"flat": true, "frames": [
+      ["Run@0", 125], ["Run@125", 125], ["Run@250", 125], ["Run@375", 125],
+      ["Run@500", 125], ["Run@625", 125], ["Run@750", 125], ["Run@875", 125]]},
+    "attack": {"lunge": 0.7, "frames": [
+      ["Idle1@0>Attack1@0:0.5", 60], ["Attack1@92", 60], ["Attack1@183", 60], ["Attack1@275", 60],
+      ["Attack1@321", 70], ["Attack1@367", 80], ["Attack1@367>Idle1@0:0.5", 80]]},
+    "skill": {"lunge": 0.7, "rise": 0.5, "frames": [
+      ["Idle1@0>Spell1@108:0.5", 50], ["Spell1@108", 50], ["Spell1@163", 60], ["Spell1@217", 60],
+      ["Spell1@271", 60], ["Spell1@325", 70], ["Spell1@325>Idle1@0:0.4", 70], ["Spell1@433>Idle1@0:0.6", 80]]},
+    "skill2": {"lunge": 0.7, "frames": [
+      ["Idle1@0>Spell3_east@0:0.5", 60], ["Spell3_east@115", 60], ["Spell3_east@231", 70], ["Spell3_east@346", 70],
+      ["Spell3_east@461", 80], ["Spell3_east@692", 80], ["Spell3_east@922>Idle1@0:0.5", 90]]},
+    "ult": {"lunge": 0.5, "rise": 0.5, "frames": [
+      ["Idle1@0>Spell4@0:0.4", 50], ["Spell4@50>Run@375:0.65", 50], ["Spell4@100>Run@375:0.65", 50],
+      ["Spell4@150>Run@375:0.65", 50], ["Spell4@200>Run@375:0.6", 50], ["Spell4@250>Run@375:0.5", 60],
+      ["Spell4@300", 70], ["Spell4@350", 80], ["Spell4@350>Idle1@0:0.5", 100]]},
+    "hit": {"flat": true, "frames": [
+      ["Idle1@0>Death@403:0.3", 120], ["Idle1@0>Death@403:0.12", 120]]},
+    "dead": {"lunge": 0.65, "flat": true, "frames": [
+      ["Death@0", 100], ["Death@403", 120], ["Death@807", 120], ["Death@1210", 150],
+      ["Death@1613", 150], ["Death@2420", 200], ["Death@3227", 200], ["Death@3630", 500]]}
+  }
+}
