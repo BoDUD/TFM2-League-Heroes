@@ -98,9 +98,9 @@ def showcase(out, z=3, step=40):
         (under if z_under else over).append(an)
         return an
 
-    def fly(tag, at, speed, foe, hit="hit", dy=-20, dx=12):
+    def fly(tag, at, speed, foe, hit="hit", dy=-26, dx=12):
         """A shot from a pistol at `speed` px a tick onto `foe`: a TargetProjectile runs from pivot to pivot, its
-        picture lifted by its y_offset all the way (dy: 20 px for the raised pistol, 9 for the lower one)."""
+        picture lifted by its y_offset all the way (dy: 26 px for the upper muzzle, 12 for the lower one)."""
         x0, y0 = lx + dx, gy + dy
         fx_, fy = foe.pos(at)
         arrive = at + tick(max(1.0, (fx_ - 4 - x0) / speed))
@@ -117,10 +117,10 @@ def showcase(out, z=3, step=40):
         return start + 1000
 
     def double(foe):
-        """Lightslinger: two thick tracers, ticks 6 and 13 - the raised pistol, then the lower one, the second gold."""
+        """Lightslinger: two thick tracers, ticks 6 and 13 - the upper pistol, then the lower one, the second gold."""
         start = t
         hits.append(fly("ls_shot", start + tick(6), 7.0, foe, dx=13))
-        hits.append(fly("ls_shot2", start + tick(13), 7.0, foe, dy=-9, dx=16))
+        hits.append(fly("ls_shot2", start + tick(13), 7.0, foe, dy=-12, dx=16))
         a("passive")
         return start + 1000
 
@@ -148,7 +148,7 @@ def showcase(out, z=3, step=40):
     marked = [(boom, boom + 6000, d)]
     flag = [(boom, boom + 6000)]                       # w_ms on him: every hit speeds him up for a second
     # the two charged attacks, then Piercing Light (on tick 12 the carrier creeps from him at Darius, 1 px a tick,
-    # its picture 12 px up at the muzzle of frame 4, level with the line; the hit 6 ticks later, at the end of the
+    # its picture 13 px up at the muzzles of frame 4, level with the line; the hit 6 ticks later, at the end of the
     # full glow), its double shot, a single bullet
     nxt = double(d)
     idle_to(nxt)
@@ -156,7 +156,7 @@ def showcase(out, z=3, step=40):
     idle_to(nxt - 480)
     q0 = t
     dx0, dy0 = d.pos(q0 + tick(12))
-    over.append(Ray(frames_of(fx, "q_ray"), q0 + tick(12), lx, gy - 12, dx0, dy0 - 12, 1.0))
+    over.append(Ray(frames_of(fx, "q_ray"), q0 + tick(12), lx, gy - 13, dx0, dy0 - 13, 1.0))
     for foe in (d, g):
         if foe.pos(q0 + tick(12))[0] - lx <= 104:
             fx_at("q_hit", q0 + tick(18), *foe.pos(q0 + tick(18)))

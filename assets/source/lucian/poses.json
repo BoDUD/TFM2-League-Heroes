@@ -12,7 +12,7 @@
     "hair": 0.45
   },
   "weapon": "^(LightGun|DarkGun)$",
-  "height": 34,
+  "height": 41,
   "cell": [
     96,
     96,

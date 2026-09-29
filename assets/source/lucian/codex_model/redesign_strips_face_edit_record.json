@@ -1,0 +1,106 @@
+{
+  "tool": "built-in imagegen",
+  "source": "lucian_strips_pack.zip/lucian_native.png",
+  "palette": [
+    "#181118",
+    "#2d2327",
+    "#28272f",
+    "#2f2d36",
+    "#432541",
+    "#423536",
+    "#4f352c",
+    "#3a3a42",
+    "#562e48",
+    "#77532d",
+    "#3f6a74",
+    "#955f44",
+    "#66717c",
+    "#b48d3e",
+    "#cba04b",
+    "#a29690",
+    "#cfc1b4",
+    "#f3e6d1",
+    "#f4f2ea"
+  ],
+  "head_anchor_logical": [
+    64,
+    66
+  ],
+  "head_mask_first_row": 59,
+  "head_mask_rows": [
+    [
+      61,
+      66
+    ],
+    [
+      60,
+      68
+    ],
+    [
+      59,
+      69
+    ],
+    [
+      58,
+      70
+    ],
+    [
+      58,
+      70
+    ],
+    [
+      57,
+      71
+    ],
+    [
+      57,
+      71
+    ],
+    [
+      57,
+      71
+    ],
+    [
+      57,
+      71
+    ],
+    [
+      57,
+      70
+    ],
+    [
+      58,
+      70
+    ],
+    [
+      58,
+      70
+    ],
+    [
+      61,
+      69
+    ],
+    [
+      62,
+      69
+    ],
+    [
+      62,
+      68
+    ],
+    [
+      65,
+      68
+    ]
+  ],
+  "changed_logical_pixels": 10,
+  "body_outside_mask": "copied exactly",
+  "generated_head_grid": {
+    "origin": [
+      350,
+      149
+    ],
+    "step": 25
+  },
+  "goal": "Thin calm eyebrows and a discreet closed mouth; original body and palette retained."
+}

@@ -1,0 +1,190 @@
+{
+  "file": "lucian_native.png",
+  "artifact_status": "generated_design_source_not_import_ready",
+  "generator": "image_gen.imagegen",
+  "dimensions": {
+    "height": 1254,
+    "width": 1254
+  },
+  "coordinates": "zero-based output image pixels; bbox endpoints inclusive",
+  "requested": {
+    "width": 1024,
+    "height": 1024,
+    "maximum_colors": 24,
+    "standing_point": [
+      512,
+      799
+    ],
+    "head_height_pixels": [
+      11,
+      12
+    ],
+    "sole_rows": [
+      792,
+      799
+    ],
+    "logical_grid": 128,
+    "pixel_block": 8,
+    "raised_gun_extra_pixels": 5,
+    "body_height_pixels": 36
+  },
+  "actual": {
+    "fully_opaque_pixels": 1719,
+    "standing_point_method": "mean x in bottom 8 rows of alpha>=128 silhouette; approximate image anchor, not verified engine anchor",
+    "bounding_boxes": {
+      "opaque": [
+        414,
+        529,
+        912,
+        1018
+      ],
+      "nonzero": [
+        59,
+        53,
+        1191,
+        1227
+      ],
+      "alpha128": [
+        412,
+        528,
+        913,
+        1019
+      ]
+    },
+    "sole_row_estimate_alpha128": 1019,
+    "standing_point_estimate": [
+      638.38,
+      1019
+    ],
+    "nonzero_alpha_pixels": 117131,
+    "top24_rgb_at_alpha128": [
+      {
+        "pixel_count": 805,
+        "hex": "#161017"
+      },
+      {
+        "pixel_count": 755,
+        "hex": "#171118"
+      },
+      {
+        "pixel_count": 744,
+        "hex": "#150F16"
+      },
+      {
+        "pixel_count": 521,
+        "hex": "#171017"
+      },
+      {
+        "pixel_count": 483,
+        "hex": "#181219"
+      },
+      {
+        "pixel_count": 475,
+        "hex": "#150F15"
+      },
+      {
+        "pixel_count": 466,
+        "hex": "#161016"
+      },
+      {
+        "pixel_count": 443,
+        "hex": "#181118"
+      },
+      {
+        "pixel_count": 411,
+        "hex": "#191219"
+      },
+      {
+        "pixel_count": 389,
+        "hex": "#140E15"
+      },
+      {
+        "pixel_count": 388,
+        "hex": "#160F16"
+      },
+      {
+        "pixel_count": 377,
+        "hex": "#171117"
+      },
+      {
+        "pixel_count": 372,
+        "hex": "#181119"
+      },
+      {
+        "pixel_count": 367,
+        "hex": "#19121A"
+      },
+      {
+        "pixel_count": 352,
+        "hex": "#171018"
+      },
+      {
+        "pixel_count": 341,
+        "hex": "#140F15"
+      },
+      {
+        "pixel_count": 311,
+        "hex": "#151016"
+      },
+      {
+        "pixel_count": 309,
+        "hex": "#1A131B"
+      },
+      {
+        "pixel_count": 308,
+        "hex": "#140E14"
+      },
+      {
+        "pixel_count": 291,
+        "hex": "#130E14"
+      },
+      {
+        "pixel_count": 285,
+        "hex": "#19131A"
+      },
+      {
+        "pixel_count": 254,
+        "hex": "#1A131A"
+      },
+      {
+        "pixel_count": 240,
+        "hex": "#181218"
+      },
+      {
+        "pixel_count": 233,
+        "hex": "#161018"
+      }
+    ],
+    "visible_rgb_colors": 31387,
+    "eye_center_method": "blue/teal color filter in manually selected face ROI x595..700,y675..710, split at x650; visual estimates only",
+    "eye_color_centers_estimated": {
+      "far": [
+        677.97,
+        695.48
+      ],
+      "near": [
+        627.61,
+        695.54
+      ]
+    },
+    "requested_eye_color_counts": {
+      "#152B35": 0,
+      "#F3F4EF": 0
+    },
+    "pixels_below_y799_at_alpha128": 47240,
+    "semitransparent_pixels": 115412,
+    "transparent_pixels": 1455385
+  },
+  "validation": {
+    "live_game_readability": "not_tested",
+    "maximum_24_colors": false,
+    "one_pixel_outline": "not_verified",
+    "exact_8px_grid": "not_verified",
+    "dimensions_1024": false,
+    "eye_colors_exclusive": "not_verified",
+    "binary_alpha": false,
+    "exact_three_row_eyes": "not_verified",
+    "no_content_below_y799": false,
+    "both_eyes_visible": "visual_check_pass"
+  }
+}

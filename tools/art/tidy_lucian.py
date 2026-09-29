@@ -1,35 +1,23 @@
 #!/usr/bin/env python3
-"""Tidy Codex's round-2 strips of Lucian (assets/source/lucian/MODEL_PROMPTS.md) into the native strips.
+"""Check Codex's strips of Lucian's redesign and write them to the native strips.
 
     python tools/art/tidy_lucian.py <Codex's delivery folder>
 
-Codex delivered lucian_native.png (the approved design B with the head traced from League, U3) and ten strips on
-the reference cells (96x96 game pixels, every pixel an 8x8 block, 25-26 colours, the design's head copied into
-every upright frame, nothing under the feet line but the dive and the fall). One thing read wrong and is fixed
-here, on the game pixels, before the strips are written to assets/source/native/:
-  - the move: Codex drew League's slim run silhouette under the stocky design, so while he ran the body was about
-    two thirds of every other strip's (339 opaque pixels a frame against 460-566; legs one or two pixels wide,
-    the torso six) and the head read too big for it. From WIDEN_FROM rows above the pivot down, every row is
-    stretched across about the body's middle column, the stretch growing over RAMP rows to WIDEN and easing off
-    again over the hips toward WIDEN_TO (the gun arm and the head above, and the legs below, stay as drawn: the
-    dark trousers, stretched too, ran into one mass), and a fresh 1-pixel outline is drawn round the result
-    (outline pixels inside the body, the seams between legs and coat, stay).
-  - Piercing Light: the pack asked for the pistols at belt height in frames 4-5 (a LineRangeProjectile's picture
-    sits at the pivot's height), so he fired from the waist; the user: League fires it from the pistols held out at
-    shoulder height. Frames 4 and 5 become frame 3 (Codex's League pose: both pistols forward, the front muzzle
-    20 px ahead of the pivot and 11-13 px above it), placed on their own pivots; frame 4 keeps its muzzle flash,
-    moved from the lowered pistol to that muzzle. The beam's picture now rides a projectile raised to the muzzle
-    (the kit's q_ray).
-  - the nose: U3's nose tip stood one pixel out of the cheek on the eye row (two pixels right of the far iris, its
-    outline one further), a lump beside the face at game size (the user: "脸旁边怎么凸起来一块像素"), in some frames
-    joined to the raised arm's outline. In every frame where that shape sits by the far iris - the design and all
-    upright frames, where the head is the same drawing - the tip becomes outline and its own outline goes.
-The rest is used as delivered. Then run import_native.py --hero lucian (EYES steadies idle and run on the green
-irises, the one colour nothing else uses).
+The redesign follows the user's picture: Codex drew the design at game size (assets/source/lucian/MODEL_REDESIGN.md),
+Claude regridded and tidied it (near-twin colours merged into 19, the eyes in colours of their own - white #F4F2EA,
+iris #3F6A74 - one outline), then Codex drew the ten strips from it (MODEL_REDESIGN_STRIPS.md) on the reference
+cells: 96x96 game pixels, every pixel an 8x8 block, the design's head copied into every frame. The face was refined
+in the user's Codex session before the strips (thin brows in the hair's browns, a closed mouth of two squares;
+codex_model/redesign_strips_face_edit_record.json). The strips are used as delivered; this checks them - flat
+blocks, alpha 0 or 255, only the design's colours, both irises in every frame, nothing under the feet line (the
+fall may reach two rows under it) - and writes the design, the ten strips and the cells to assets/source/native/.
+(The first model's fixes - its run widened, its Q frames re-aimed, its nose flattened - went with it.)
+Then run import_native.py --hero lucian (EYES steadies idle and run on the irises).
 """
 import argparse
 import json
 import os
+import shutil
 import sys
 
 import numpy as np
@@ -43,15 +31,8 @@ import strips as G  # noqa: E402
 SRC = os.path.join(ROOT, "assets", "source", "native")
 Z, CELL = 8, 96
 TAGS = ["idle", "run", "attack", "passive", "skill", "skill2", "skill2_back", "ult", "hit", "dead"]
-OUTLINE = (20, 14, 18)
-WIDEN = {"run": 1.3}           # tag: the stretch across, reached RAMP rows under WIDEN_FROM
-WIDEN_FROM = -6                # rows from the pivot: the chest, under the arm that holds the pistols forward
-WIDEN_TO = 3                   # ... down to the hips; the legs under it stay as drawn (stretched they ran together)
-RAMP = 3
-Q_AIM = 3                      # the Q frame with the pistols forward at shoulder height (1-based)
-Q_FIRE = {4: True, 5: False}   # frames redrawn from it: True keeps the frame's own muzzle flash
-FLASH_FROM = 6                 # in Codex's frame 4 everything from 6 px ahead of the pivot is the flash
-MUZZLE = (21, -12)             # where the flash starts: just ahead of frame 3's front muzzle, from the pivot
+IRIS = (0x3F, 0x6A, 0x74)
+FALL = {"dead": 2}             # rows a frame may reach under the feet line
 
 
 def blocks(path):
@@ -59,6 +40,8 @@ def blocks(path):
     b = a.reshape(a.shape[0] // Z, Z, a.shape[1] // Z, Z, 4)
     if not (b == b[:, :1, :, :1]).all():
         sys.exit(f"{path}: not made of flat {Z}x{Z} blocks")
+    if not np.isin(a[..., 3], [0, 255]).all():
+        sys.exit(f"{path}: semi-transparent pixels")
     return b[:, 0, :, 0].copy()
 
 
@@ -66,137 +49,41 @@ def layout(n):
     return {1: 1, 2: 2, 3: 3, 4: 4, 5: 3, 6: 3}.get(n, 4)
 
 
-def dilate(m):
-    out = m.copy()
-    out[1:] |= m[:-1]
-    out[:-1] |= m[1:]
-    out[:, 1:] |= m[:, :-1]
-    out[:, :-1] |= m[:, 1:]
-    return out
-
-
-def widen(cell, pivot, factor):
-    """The cell with its rows from WIDEN_FROM down stretched across about the body's middle column."""
-    px, py = pivot
-    y0 = py + WIDEN_FROM
-    a = cell.copy()
-    body = a[y0:]
-    xs = np.nonzero((body[..., 3] > 0).any(0))[0]
-    mid = (xs.min() + xs.max()) / 2
-    new = np.zeros_like(body)
-    for r in range(body.shape[0]):
-        y = WIDEN_FROM + r
-        f = 1 + (factor - 1) * max(0.0, min(1.0, (r + 1) / RAMP, (WIDEN_TO - y) / RAMP))
-        for x in range(body.shape[1]):
-            sx = int(round(mid + (x - mid) / f))
-            if 0 <= sx < body.shape[1]:
-                new[r, x] = body[r, sx]
-    ink = (new[..., :3] == OUTLINE).all(-1) & (new[..., 3] > 0)
-    solid = (new[..., 3] > 0) & ~ink
-    seam = np.zeros_like(solid)
-    seam[:, 1:-1] |= solid[:, :-2] & solid[:, 2:]
-    seam[1:-1] |= solid[:-2] & solid[2:]
-    keep = solid | (ink & seam)
-    out = np.zeros_like(new)
-    out[keep] = new[keep]
-    ring = dilate(keep) & ~keep
-    ring[0] = False                           # the row that meets the untouched part above keeps its pixels
-    out[ring, :3] = OUTLINE
-    out[ring, 3] = 255
-    top = a[:y0]
-    joined = np.concatenate([top, out], 0)
-    # the untouched row above keeps an outline only where the widened body leaves it open below
-    return joined
-
-
-IRIS = (78, 154, 92)
-SKIN = (138, 90, 66)                   # the nose tip's colour
-
-
-def nose(cell):
-    """The nose tip beside the far (rightmost) iris flattened into the cheek; True when it was there."""
-    ys, xs = np.nonzero((cell[..., :3] == IRIS).all(-1) & (cell[..., 3] > 0))
-    if not len(xs):
-        return False
-    k = xs.argmax()
-    y, x = ys[k], xs[k]
-    if x + 3 >= cell.shape[1] or y < 1 or y + 1 >= cell.shape[0]:
-        return False
-
-    def is_(yy, xx, col):
-        return cell[yy, xx, 3] > 0 and tuple(int(v) for v in cell[yy, xx, :3]) == col
-
-    if not (is_(y, x + 2, SKIN) and is_(y - 1, x + 2, OUTLINE) and is_(y + 1, x + 2, OUTLINE)
-            and is_(y, x + 3, OUTLINE)):
-        return False
-    cell[y, x + 2, :3], cell[y, x + 2, 3] = OUTLINE, 255
-    if cell[y - 1, x + 3, 3] == 0 and cell[y + 1, x + 3, 3] == 0:
-        cell[y, x + 3] = 0
-    return True
-
-
-def cell_of(a, frames, k):
-    cols = layout(len(frames))
-    cx, cy = (k % cols) * CELL, (k // cols) * CELL
-    return a[cy:cy + CELL, cx:cx + CELL]
-
-
-def q_aim(a, frames):
-    """Frames Q_FIRE redrawn as frame Q_AIM on their own pivots, frame 4's flash moved to the raised muzzle."""
-    src = cell_of(a, frames, Q_AIM - 1).copy()
-    sx, sy = frames[Q_AIM - 1]["pivot"]
-    for f, flash in Q_FIRE.items():
-        cell = cell_of(a, frames, f - 1)
-        px, py = frames[f - 1]["pivot"]
-        old = cell.copy()
-        cell[:] = 0
-        dx, dy = px - sx, py - sy
-        ys, xs = np.nonzero(src[..., 3] > 0)
-        ty, tx = ys + dy, xs + dx
-        ok = (ty >= 0) & (ty < CELL) & (tx >= 0) & (tx < CELL)
-        if not ok.all():
-            sys.exit(f"skill frame {f}: frame {Q_AIM} does not fit round its pivot")
-        cell[ty, tx] = src[ys, xs]
-        if flash:
-            ys, xs = np.nonzero(old[..., 3] > 0)
-            keep = xs >= px + FLASH_FROM
-            fy, fx = ys[keep], xs[keep]
-            ox, oy = px + MUZZLE[0] - fx.min(), py + MUZZLE[1] - int(round((fy.min() + fy.max()) / 2))
-            cell[fy + oy, fx + ox] = old[fy, fx]
-            print(f"lucian_skill.png: frame {f} = frame {Q_AIM} + its flash ({len(fx)} pixels) at the muzzle")
-        else:
-            print(f"lucian_skill.png: frame {f} = frame {Q_AIM}")
-    return a
+def colours(a):
+    return {tuple(int(v) for v in p) for p in a[a[..., 3] > 0][:, :3]}
 
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("delivery", help="Codex's delivery folder (lucian_<tag>.png, lucian_native.png)")
+    ap.add_argument("delivery", help="Codex's delivery folder (lucian_<tag>.png, lucian_native.png, lucian_cells.json)")
     args = ap.parse_args()
-    with open(G.lp(os.path.join(SRC, "lucian_cells.json")), encoding="utf-8") as f:
+    with open(G.lp(os.path.join(args.delivery, "lucian_cells.json")), encoding="utf-8") as f:
         cells = json.load(f)["tags"]
+    design = blocks(os.path.join(args.delivery, "lucian_native.png"))
+    palette = colours(design)
     for name in ["native"] + TAGS:
-        src = os.path.join(args.delivery, f"lucian_{name}.png")
-        a = blocks(src)
-        if name in WIDEN:
+        a = blocks(os.path.join(args.delivery, f"lucian_{name}.png"))
+        extra = colours(a) - palette
+        if extra:
+            sys.exit(f"lucian_{name}.png: colours not in the design: {sorted(extra)}")
+        if name != "native":
             frames = cells[name]
             cols = layout(len(frames))
             for k, fr in enumerate(frames):
                 cx, cy = (k % cols) * CELL, (k // cols) * CELL
-                a[cy:cy + CELL, cx:cx + CELL] = widen(a[cy:cy + CELL, cx:cx + CELL], fr["pivot"], WIDEN[name])
-            before = (blocks(src)[..., 3] > 0).sum() / len(frames)
-            print(f"lucian_{name}.png: rows from {WIDEN_FROM} widened x{WIDEN[name]}: "
-                  f"{before:.0f} -> {(a[..., 3] > 0).sum() / len(frames):.0f} opaque pixels a frame")
-        if name == "skill":
-            a = q_aim(a, cells[name])
-        if name == "native":
-            fixed = [nose(a)]
-        else:
-            frames = cells[name]
-            fixed = [nose(cell_of(a, frames, k)) for k in range(len(frames))]
-        print(f"lucian_{name}.png: nose flattened in {sum(fixed)} of {len(fixed)} frames")
-        Image.fromarray(np.repeat(np.repeat(a, Z, 0), Z, 1), "RGBA").save(G.lp(os.path.join(SRC, f"lucian_{name}.png")))
-    print("wrote", len(TAGS) + 1, "images to assets/source/native/")
+                c = a[cy:cy + CELL, cx:cx + CELL]
+                px, py = fr["pivot"]
+                low = int(np.nonzero((c[..., 3] > 0).any(1))[0].max()) - (py + 11)
+                iris = int(((c[..., :3] == IRIS).all(-1) & (c[..., 3] > 0)).sum())
+                if low > FALL.get(name, 0):
+                    sys.exit(f"lucian_{name}.png frame {k + 1}: {low} rows under the feet line")
+                if iris != 2:
+                    sys.exit(f"lucian_{name}.png frame {k + 1}: {iris} iris pixels, not the two eyes")
+        shutil.copyfile(G.lp(os.path.join(args.delivery, f"lucian_{name}.png")),
+                        G.lp(os.path.join(SRC, f"lucian_{name}.png")))
+        print(f"lucian_{name}.png: {len(colours(a))} colours, checked")
+    shutil.copyfile(G.lp(os.path.join(args.delivery, "lucian_cells.json")), G.lp(os.path.join(SRC, "lucian_cells.json")))
+    print("wrote", len(TAGS) + 1, "images and lucian_cells.json to assets/source/native/")
 
 
 if __name__ == "__main__":

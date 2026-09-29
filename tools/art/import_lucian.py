@@ -50,7 +50,7 @@ Z = 8
 FEET = (0, 11)
 HIT = (0, -8)                          # a hit on the upper body
 CHEST = (0, -6)
-HANDS = (0, -10)                       # his hands, the pistols in them
+HANDS = (1, -16)                       # between his hands (the redesign's idle), the pistols in them
 # Piercing Light's picture rides q_ray, a TargetProjectile creeping 1 px a tick from his pivot at the target, its
 # picture lifted to the muzzle (the kit): one frame a tick, each drawing the beam 1 px further back, so it stands from
 # the muzzle, 21 px ahead of where the carrier started, for the line's length; then one empty frame until the carrier

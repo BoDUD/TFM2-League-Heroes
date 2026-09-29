@@ -661,8 +661,8 @@ engine gives is taken between points at pivot height, so a raised start tilts it
   picture runs level with a line cast at the same target. But it goes the tick its target dies.
 Lucian's Q is therefore a `Targeting` cast (on `EnemyWithoutTower`; a `LineRangeProjectile` in a
 `Targeting` cast points at the target, as league_yone's W and R): the damage stays on the line, with no
-picture, and `q_ray`, a `TargetProjectile` at the target with `speed` 1000 and `y_offset` -7000 (the
-muzzle of the firing frame), carries the beam: an `Animated` view (`repeat: false`) of one frame a tick,
+picture, and `q_ray`, a `TargetProjectile` at the target with `speed` 1000 and `y_offset` -8000 (between
+the two muzzles of the firing frame; -7000 on the first model), carries the beam: an `Animated` view (`repeat: false`) of one frame a tick,
 each drawn 1 px further back than the last (league_thresh Q's chain), so the beam stands still from the
 muzzle, then an empty frame while it creeps on to the target. Minions the Q kills took the picture with
 them after two ticks, so the line hits 6 ticks after it appears (`apply` 7), at the end of the beam's full
@@ -1283,7 +1283,8 @@ unless the flag is there - minions and monsters take both halves *(inferred from
 twin: the order two projectiles land in within a tick does not matter)*. Make it seen: the user found no
 double shot in game while the simulation had 45 a game - both bullets left one point on one line 7 ticks
 apart. Each now leaves the pistol that fires it in the double-shot animation (a `TargetProjectile`'s
-`y_offset` lifts only its picture: -15000 for the raised one, -4000 for the lower) as a thick tracer, blue
+`y_offset` lifts only its picture: -21000 for the upper one, -7000 for the lower; -15000 and -4000 on the
+first model) as a thick tracer, blue
 then gold, bigger than the plain attack's bullet (a gold light on the pistols while a charge waited was
 tried and rejected: "我只要被动的两发子弹看起来明显就行了"). `y_offset` did move a bullet's arrival by a
 tick in the simulation, so it is not purely a picture setting.
