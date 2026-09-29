@@ -83,7 +83,9 @@ ORDER = {("lux", "idle"): [0, 1, 2, 3, 5, 4],
          # and Ahri (a drawn head with fox ears pasted on a body restyled from League's idle)
          ("ahri", "idle"): [0, 0, 0, 0, 0, 0],
          # and Soraka (her step-2 idle is the design itself; Codex's six redrawn idle frames are not used)
-         ("soraka", "idle"): [0, 0, 0, 0, 0, 0]}
+         ("soraka", "idle"): [0, 0, 0, 0, 0, 0],
+         # and Morgana (the redesign A, which tools/art/tidy_morgana.py writes into all six)
+         ("morgana", "idle"): [0, 0, 0, 0, 0, 0]}
 # (hero, tag): (y, slots) - in those slots everything at or above pivot row y moves down a row (the row under
 # it is covered): one frame breathing, the face the same drawing throughout. Leona's shield covers her from
 # the chest to the ankles, so she sinks down to its tip and only the boots stay (a seam across the shield
@@ -117,7 +119,10 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        # Ahri: the seam across her boots' shafts; her soles and the tips of her tails stay
        ("ahri", "idle"): (6, [2, 3, 4]),
        # Soraka: the seam across her robe's hem, her hooves stay
-       ("soraka", "idle"): (6, [2, 3, 4])}
+       ("soraka", "idle"): (6, [2, 3, 4]),
+       # Morgana's gown reaches the ground: the seam five rows over its hem, where two rows differ only in
+       # shading (8 squares); the hem and the train's lowest rows stay
+       ("morgana", "idle"): (6, [2, 3, 4])}
 CROWN = {"leesin"}              # heroes whose head template starts at the crown (a braid stands above it)
 PASTED = {"masteryi",            # steadied on the head restyle_native pasted: his raised sword is the top of every frame
           "ahri"}    # her drawn head with the fox ears, pasted on League's head joint: steadied there
@@ -134,7 +139,8 @@ EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade
         "darius": (255, 247, 238),        # the design face pasted back by tidy_codex18.py: his eye white
         "leesin": (212, 34, 50),          # the same for Lee Sin: the blindfold band across his face
         "soraka": (231, 174, 48),         # the same for Soraka: her amber eye (the face Codex refined), eye-only shade
-        "malphite": (245, 166, 8)}        # his new design (the moss-stone golem): the bright orange of his eyes
+        "malphite": (245, 166, 8),        # his new design (the moss-stone golem): the bright orange of his eyes
+        "morgana": (200, 60, 166)}        # the redesign A: only her face is pasted, its pink-violet is the eyes'
 
 
 def blocks(path):

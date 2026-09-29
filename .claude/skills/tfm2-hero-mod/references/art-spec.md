@@ -302,6 +302,31 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   (`import_native.py` `EYES`, the eyes' colour), and `tfm2_ase.py face` finds the head from the face's skin
   (skin saturation up to 0.6 - his blade's rust is 0.63 - and the crown only as far as the silhouette runs
   unbroken up from the forehead).
+- **A design draft bigger than the game: find its grid, then drop lines, never average.** Codex's Morgana designs
+  (four drafts of 1254x1254) were each a 128x128-square picture stretched by 9.797: the edges of colour fall on that
+  grid (72-79% of them), and the figure was 67 (B) to 118 squares tall, two to three times the game's size. Taking
+  each square's majority colour (the middle of it, clear of the soft edges) gives a clean 52x67 picture; the way
+  down to the game's 45 rows decides whether the face survives. A colour vote per game pixel (even with the eyes
+  weighted up) let the dark outline swallow the thin mid-tones: 57% near-black, no eyes, "very blurry" up close
+  though it read at 1x. Uniform nearest sampling kept the colours crisp but dropped one-square features at random.
+  What kept them: in every run of three rows drop the one most like its neighbour, the same for the columns (the
+  proportions of a uniform 2/3 scale, the eyes, mouth, gold trim and outline kept), trying the nine start offsets
+  and taking the best (`tools/art/draft_to_grid.py` with its spec `assets/source/morgana/morgana_design.json`, in
+  the history up to 314e2c9: the grid, the palette, the offset and the hand fixes, so that design was rebuilt from
+  Codex's draft byte for byte; Morgana was redesigned later, next point). Dropping the most redundant lines
+  anywhere, not one in three, squashed the tall thin crest and changed the proportions. Then by hand: the face
+  (base eyes: near 2 squares, far 1, a lash row over the iris, one skin square between, the mouth on the middle
+  line), colours the palette mapped wrongly (the crest's red on the mouth colour), and one outline ring wherever the
+  silhouette had none. 20 colours; the user took it ("用精修版吧").
+- **A redesign from the user's picture: the draft's own grid, the dark areas flattened, then lines dropped.** The
+  user later gave a new Morgana splash; Codex's two redesign drafts (1254 px, ~48k colours, soft alpha) were
+  tidied on the draft's own grid (the squares' edges at the peaks of colour change, each square the median of its
+  middle 3x3: 59x76 squares, 24 colours), the dark purples of hair, wings and gown flattened by a 3x3 majority (at
+  least 4 of the window, 4 passes; the face, gold, skin, the magenta tips and the outline as drawn), then shrunk to
+  44 rows by dropping the most redundant line of each group (the seam shrink of the 18 redraws), an outline put
+  outside and the one-outline rules applied. A far eye of one square read as "one eye" ("怎么就一个眼睛"): both
+  eyes 2x2 on the same rows, a highlight at the top left, two skin squares between them, the face widened to 7
+  squares so the eyes clear the hair. 35x45 with the horns, 26 colours, the eye colour in the 6 eye squares only.
 - **One look per hero.** Strips from different generation rounds disagree on proportions (round
   1 Garen: big head, broad shoulders; round 3: smaller head for the same height). No scale hides
   it - in-game he visibly grew and shrank between animations. When the look changes, regenerate
@@ -374,6 +399,24 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   colour for the eyes alone, so `import_native.py` steadies the idle and the move on it (`EYES`, as for
   Fiddlesticks); and puts the body's lowest row back on the replaced frame's (the move's float had sunk 3-13 rows).
   Sideways it keeps Codex's place: the bigger design's head sits ahead of League's head joint.
+- **Whole raw sheets: one scale per sheet, paste only the face.** Codex's league_morgana animations (design A)
+  came as eight raw sheets (3x2 cells of 512 px, 4x2 of about 443 px and 2x1 of 887, on a magenta key), each at a
+  scale of its own (a game pixel 4.4-7.2 source px). `tools/art/tidy_morgana.py` takes one scale per sheet from its
+  standing frames (the design is 45 rows from the horn tips to the soles), samples each game pixel's centre (3x3
+  median) into the design's 26 colours and pastes only the design's face (forehead, lashes, both eyes, cheeks,
+  mouth, chin: 8 rows of 7) where it fits the drawn one best (the eyes weigh most); hair and horns stay Codex's and
+  move with the body. The first design's strips had the whole head pasted (found by material, the bigger drawn
+  head flooded away round it), and in the ult's jump it floated over the shoulders ("头和身体像分离"). The hit and
+  the death get the face with the eyes shut (two short lash-coloured lines; any dark or eye square counts when
+  fitting it), the face-down frame keeps Codex's. Sideways each frame goes by its eyes onto League's head joint of
+  that frame; the hit and the death take one offset from each frame's pivot for the whole sheet, as
+  `import_native.py` stands every frame on its pivot (one offset in the cell slid the dying body 2-5 px in game).
+  The dark purples are flattened as the design's were (3x3 majority of at least 4, 3 passes; gold, skin, the
+  magentas and the outline kept). Then the outline: the drawn line stays where it is, in the design's outline
+  colour (the palette spread it over several near-blacks), and a ring goes only outside coloured edge squares,
+  where the sampling lost it. A ring round every square not of the outline colour doubled the drawn line: every
+  frame a square fatter all round than the design's idle (10-20% more area), so she grew whenever she cast
+  ("放技能就变大一下"). Compare every strip's area with the idle's after a tidy.
 - **Effect anchors.** Effect and buff frames are drawn centred on the unit's pivot, 11.5 px above
   the feet (base: `levelup_effect` ring at +9..+16, `shield_receive_effect` bubble -22..+13).
   Ground rings at about +10, hits and shields at -3..-6, overhead marks around -25. Time the
@@ -385,6 +428,11 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   offset across, and one height for the strip. A single anchor in strip coordinates puts every
   frame at its own cell's distance from the pivot (Lux's first import: the hit walked 5 cells).
   Projectiles keep a per-frame anchor on their head (arrow tip, orb).
+  A manifest's rectangles are not always equal: Codex moved league_morgana's cut lines into the gaps between
+  drawings (the burst's 188-234 px wide), so `tools/art/import_morgana.py` measures every anchor on the drawing
+  (`Frames`): the white core for projectiles, hits and flashes (the drawing's middle once the core has faded), a
+  ground ellipse by the rows at least half as wide as its widest (the smoke rising above left out), a waist ring by
+  its own columns (the chain pulled out to one side left out), a shield by its lowest row.
 - **Review before shipping.** Per-strip sheets with the idle silhouette overlaid, `metrics`,
   a side-by-side with base champions at 1x and 3x, and a scripted showcase against a dummy.
 

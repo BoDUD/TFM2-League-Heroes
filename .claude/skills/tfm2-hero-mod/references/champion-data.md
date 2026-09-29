@@ -372,7 +372,8 @@ and airborne also cancels the target's dash.
 
 How they behave *(measured in the SDK simulation for league_jinx, 3-12 ten-minute games each)*:
 - A projectile placed in another projectile's `applied_effects` is never spawned (a `RangeProjectile`
-  there: 116 hits, no zone). `end_effects` of `LinearProjectile` and `ParabolicProjectile` are plain
+  there: 116 hits, no zone). A `TargetProjectile` inside a `Delayed` there does fly, from the caster at the unit
+  hit (league_morgana R chains nine of them, section 7). `end_effects` of `LinearProjectile` and `ParabolicProjectile` are plain
   effects run once where the projectile stopped or landed, so zones, `ViewEffect`s and further
   projectiles can start there (LoL Reborn Jinx's rocket splash, league_ashe R).
 - `RangePeriodProjectile`'s `end_effects` are applied effects (`{casting_type, effect}`), run on each
@@ -397,7 +398,9 @@ How they behave *(measured in the SDK simulation for league_jinx, 3-12 ten-minut
   instead of the caster. With `casting_target: AllyOnlySelf` in a zone's `applied_effects` it asks "is the
   caster inside this zone": it finds the caster only while he stands within `range` (plus his radius) of the
   zone's centre, whichever allied unit set the application off *(measured for league_ekko W, every tick of a
-  `period: 1` zone on `AllyChampion`)*.
+  `period: 1` zone on `AllyChampion`)*. In a `TargetProjectile`'s `applied_effects` it asks "is the caster
+  within `range` of the unit it hit" (both bodies add about 18000); in a plain `Delayed` on a unit, with no
+  projectile, it finds nobody *(measured for league_morgana R, 2026-09-29)*.
 - `end_effects` of a `LinearProjectile` or `ParabolicProjectile` run on a position (the stop or landing
   point), and a `Delayed` among them keeps it, like a `Position` cast: a `ViewEffect` there plays on that
   point, a zone or another projectile starts there, and a `Teleport` puts the caster there *(measured for
@@ -965,7 +968,9 @@ minions, since his Q is cast on anything. **When a new hero brings knock-ups or 
 Supports measured that way (2026-09-28, Yasuo top, the support on his team, 24 seeds a side): he cast it
 0.92 times a game beside league_janna (Howling Gale's knock-up, Monsoon's knockback), 1.85 beside
 league_leona, 0.54 beside league_soraka and 0.48 beside the base priest - Janna sits between the
-supports without hard CC and Leona, and his R stayed as it was.
+supports without hard CC and Leona, and his R stayed as it was. league_morgana (2026-09-29, Dark Binding's
+2 s root and Soul Shackles' stun): 1.52 a game, league_janna 0.94 and the base priest 0.65 in the same batch - no
+change either.
 
 **Kill trigger (league_jinx Get Excited!).** No effect fires on a kill, but section 4's facts make one:
 1. Next to the damaging projectile, fire an invisible twin with the same speed and path and
@@ -1337,6 +1342,54 @@ spell starts with `SwitchByBuff et_ready`: it swaps the flag for a heal window (
 spell's hits come: Q 80 ticks, E 40, R 40), and while the window lasts each hit runs `Heal {heal_type:
 Caster}` instead of counting (the heal picture and sound once, behind a 20-tick lock). A Q through a wave
 heals once per unit it passes on each pass, as League's did.
+
+**Root the first champion, hurt everything on the way, at a champion when one is in reach (league_morgana Q,
+Dark Binding, with W folded in).** A `Direction` cast on `EnemyWithoutTower` (range 80000), so it also goes to
+waves and camps. Two `LinearProjectile`s on one path at one speed: an invisible penetrating one on
+`EnemyWithoutTower` whose hit (damage, a small picture) is skipped under a caster flag `q_bound`, and the visible
+orb, `penetrate: false` on `EnemyChampion` (it flies through minions and monsters), whose hit binds (`Bind` 120),
+heals her (Soul Siphon, a `Heal {heal_type: Caster}` of a share of the damage) and adds `q_bound` from a `Delayed
+{tick: 1}` - the orb and the damage hit the bound champion on the same tick, and from the next one nothing behind
+him is hurt. The cast removes `q_bound` first. W's pool sits in the orb's `end_effects` (where it stopped): a
+`Delayed {tick: 2}` checks `q_bound` (no pool when nothing was bound) and W's own 12 s caster cooldown, then starts
+two `RangePeriodProjectile`s (the damage on `EnemyWithoutTower`, a heal-only twin on `EnemyChampion`) and the
+pool's picture as a `ViewEffect` on the point. Two engine facts *(SDK simulation, 2026-09-29)*:
+- **A slow skillshot is dodged.** Champions move about 1000 units a tick and sidestep: a bind orb at 3500 a tick
+  (League's slow Q) bound a champion on 10% of 102 casts, 6000 and 8000 on about 25%, 10000 on 36% (three games
+  each).
+- **Aim at a champion, cast at anything.** The AI casts a `Direction` skill on `EnemyWithoutTower` at whatever unit
+  it picked, in lane mostly a minion. The orbs therefore sit twice in the cast: inside a `RandomTarget {range:
+  75000, casting_target: EnemyChampion}` (whose effects also add a 1-tick `q_aim` flag), where a `LinearProjectile`
+  flies toward the picked champion, and in a `SwitchByBuff q_aim` that fires them the cast's way only when no
+  champion was in reach. The picked champion must be inside the orb's reach (75000 plus the radii against a range of
+  80000). With both, 38% of her Qs bound a champion (13-21 a game) and the first draft's -2.96 kills became -1.04.
+
+**Crowd-control immunity for an ally (league_morgana E, Black Shield).** league_janna E's pattern (cast on an enemy
+champion, the shield to a random `AllyNotSelf` within 50000, herself when nobody stands beside her) with
+`AddBuff {duration: "WithShield", cc_immune: true}` next to the `Shield` (150 + 70% AP, 300 ticks; a `Shield`
+takes every kind of damage, where League's Black Shield takes only magic). A `cc_immune` buff given to another
+unit works like the caster's own *(SDK simulation, a probe counting the `Stun` / `Bind` / `Airborne` / `Knockback` /
+`Pull` / `Grab` / `Fear` / `Charm` events on champions holding the buff, 2026-09-29)*: in three games 1 crowd-control
+event landed on a champion under Black Shield (about 15,600 champion-ticks with it), against 538-606 a game on all
+champions.
+
+**Tethers that break out of reach and snap after 3 s (league_morgana R, Soul Shackles).** A `Targeting` cast on
+`EnemyChampion` (range 45000): a `RangeEffect` (radius 50000) on `EnemyChampion` round her deals the damage and heals
+her; she gets 20% move speed for 3 s. Each champion it reaches gets a tether of its own, a chain of pulses written
+out nine deep in that `RangeEffect`'s effects: a 21-tick 20% slow whose `view_buffs` picture is the chain, then a
+`Delayed {tick: 20}` firing a hidden `TargetProjectile` (speed 100000, no view) from her at the champion, whose
+`applied_effects` run `RandomTarget {range: 84000, casting_target: AllyOnlySelf, from_projectile: true}` -> a 1-tick
+caster flag, `SwitchByBuff` on it -> the next pulse (the ninth: the damage again, a 90-tick `Stun` and the snap's
+picture), and `RemoveCasterBuff` for the next champion's check. One check out of reach and that champion's tether is
+over - no more slow, no stun - as in League, where it breaks at 1050 against a 625 cast radius (84000 = 1.68 x
+50000). The check measures from the projectile's hit point to her, and both bodies add about 18000 (with range 70000
+a tether held at 86137 and broke at 90877). The same `RandomTarget` in a plain `Delayed` on the champion never finds
+her (every check failed, one at 9287). A `TargetProjectile` inside a `Delayed` in another one's `applied_effects`
+does spawn (nine levels here). Her death stops the pulses (a dead caster fires no projectile). Until 0.25.0's review
+a single `Delayed {tick: 180}` `RangeEffect` (70000) stunned every enemy champion near her then, also one that had
+run off and come back or had never been chained (the user: "脱离了大招的线就不应该眩晕了吧"). In 16 simulated games
+62 champions were chained: about 36 died within the 3 s, 12-19 ran out of reach and 0-3 were stunned, at check
+ranges of 60000 to 105000 alike - a champion walks about 1.2 cast radii a second here, against 0.56 in League.
 
 ## 8. Gotchas
 

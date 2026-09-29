@@ -115,6 +115,11 @@ OK = direct, ~ = approximate, X = not possible in data-only mods.
 | Walls round the caster, the one broken hurts most (Thresh R) | no walls round a caster (`Line` takes map coordinates): one circle, an `ApplyInProjectile` that hits each champion once; the first champion takes the damage and the long slow, a caster flag leaves the rest a short slow; the picture a `CasterViewEffect` (a `ViewEffect` on his own spot never showed in game) (champion-data "A prison that hurts only the first champion in it") | ~ |
 | Push or pull by the cast direction (Thresh E) | the AI picks: pull within 2 s of a hook (League's hook-and-flay), else push (`Knockback`) when a champion is right on him and pull (`Pull`) when not, a `RandomTarget` flag read by `SwitchByBuff` (champion-data "Push or pull by the situation") | ~ |
 | Souls picked up for armour and ability power (Thresh's Damnation) | nothing to pick up: armour and ability power growth per level | ~ |
+| Skillshot blocked by the first unit, rooting it (Morgana Q) | the AI cannot aim round minions: a penetrating damage orb on `EnemyWithoutTower` plus a non-penetrating binding orb on `EnemyChampion` on one path; the bind's flag, a tick later, switches the damage off behind the bound champion; inside a `RandomTarget EnemyChampion` so it flies at a champion when one is in reach, and fast (10000 a tick: at League's slow speed the AI dodges 90%) (champion-data "Root the first champion") | ~ |
+| Pool dropped on the rooted target (Morgana W after Q) | the zone in the binding orb's `end_effects` (where it stopped), behind a flag set by the bind and W's own cooldown; the "more damage to low health" part cannot be read | ~ |
+| Spell shield with crowd-control immunity on an ally (Morgana E) | Janna's rule (cast on an enemy champion, the shield to the ally beside her) plus a `WithShield` buff with `cc_immune`: measured to block crowd control on the ally; the shield takes every damage type, not only magic | OK |
+| Tethers that break out of reach and stun after 3 s (Morgana R) | every chained champion its own chain of 20-tick pulses: a hidden `TargetProjectile` from her, on its hit point `RandomTarget AllyOnlySelf from_projectile` (84000 = 1.68 x the cast radius, League's ratio) sets a flag that lets the slow, the chain picture and the next pulse go on; the ninth stuns; out of reach once, no stun; her death stops it (champion-data "Tethers that break out of reach") | OK |
+| Heal from spell damage (Morgana's Soul Siphon) | no "damage dealt" to read: a `Heal {heal_type: Caster}` of a fixed share of each spell's numbers on every champion hit | ~ |
 | Ranks that unlock at levels (Kayle's Divine Ascent) | nothing reads a level but `SwitchByLevel3` (level 3): her maximum health is the level table, read with a 3-tick shield and a 10% max-health hit on herself; each rank a `Permanent` caster buff (champion-data "Stages at levels 5, 8 and 12") | ~ |
 | Melee that turns ranged (Kayle's Arisen) | a `range` caster buff from that rank on, the attack's effect switched on the rank buff: a hit in melee, a `TargetProjectile` after | ✓ |
 | Invulnerability on the one about to die (Kayle R) | no current health anywhere in the data, and the AI casts ally ults on cooldown on anyone: the slot (cast on an enemy champion as she closes in) arms it for 15 s and her attacks, Q and E check - a crowd-controlled ally within 50000 (`RandomTarget` `AllyChampionInCC`) first, else herself when two enemy champions are within 30000 (a two-flag count), else wait; unused, the cooldown is refunded. `damaged_reduce` 100 + `cc_immune` for 2.5 s, then the swords' damage round him (champion-data "An ult that waits for danger") | ~ |
@@ -756,6 +761,17 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   sequence of `Run.anm` and then a selector of `Run.anm` (50%), `Run_Var1` and `Run_Var2` (25% each), so the
   run is `Run.anm` at League's 1 s cycle (8 x 125 ms). 55 frames, 32 colours, 37% right-neighbour, 38 px with
   the ears, face (1, -35).
+- **A fallen angel in a long gown (Morgana, drawn by Codex from the start).** The camera mirrored, yaw 20, pitch
+  25 (League's idle stands turned, so the gown's train lies behind her); head 2.4, height 37; the open wings and
+  the flower are submeshes her base look hides at first (`"hide_submeshes"`). Codex's first three designs came as
+  raw drafts (a 128-square picture stretched to 1254 px); the user took B (art-spec "A design draft bigger than
+  the game") and it was animated, then Morgana was redesigned from a splash the user gave (art-spec "A redesign
+  from the user's picture"): the eight animations drawn again on design A, raw, and tidied by
+  `tools/art/tidy_morgana.py` (art-spec "Whole raw sheets"). The idle is the design six times, breathing on a seam
+  five rows over the gown's hem; the move is steadied on her eyes (`EYES`). 50 frames, 26 colours, 45 px with the
+  horns, 40% right-neighbour, face (-2, -41) at the crown between the horns. Codex's eleven effects: `tools/art/import_morgana.py
+  --raw`, anchors measured on the drawings (art-spec "Effect anchors"); the shackles play the 2 s root in one
+  Animation, the pool its 4 s, the snap the chains breaking round the waist and then the stun sigil 40 px up.
 - **A face point under the hair.** `tfm2_ase.py face` and the lint find the crown at the top of
   the idle sprite, which for Yasuo is the ponytail's tip, 9 px above his head and to the left of
   it. Both now also look for the head from the face: the top two rows of skin-toned pixels and the
