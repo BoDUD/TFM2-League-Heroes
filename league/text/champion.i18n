@@ -154,6 +154,13 @@
         "skill": "发射星界之剑，停在第一个敌人处爆开，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 法术强度<>的<#a974ffff>魔法伤害<>，<#ef5350ff>减速<><#ffb900ff>30%<>持续<#ffb900ff>2秒<>，并降低<#ffdd8eff>护甲<>和<#88ccffff>魔抗<><#ffb900ff>15%<>，持续<#ffb900ff>4秒<>。",
         "skill2": "射出星火，造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% 法术强度<>的<#a974ffff>魔法伤害<>，对英雄另造成其<#ffb900ff>3%<>最大生命值的<#f5f5f5ff>真实伤害<>；8级起命中后爆炸。每<#ffb900ff>12秒<>附带<#ff9028ff>星界恩典<>：为自己和身边一名友方英雄回复<#6aff55ff>60<> + <#6aff55ff>30% 法术强度<>生命值，<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移速+25%<>持续<#ffb900ff>2秒<>。",
         "ult": "交战时：身边有被控制的友方英雄时立即使其<#ffb900ff>免疫伤害<>和控制<#ffb900ff>2.5秒<>；没有则在自己被两名以上敌方英雄包围时给自己。随后在其周围降下圣剑，造成<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 法术强度<>的<#a974ffff>魔法伤害<>。"
+      },
+      "league_morgana": {
+        "name": "莫甘娜",
+        "attack": "普攻射出一团暗影，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。被动 <#ff9028ff>灵魂吸取<>：技能对英雄造成伤害时，为自己回复约为伤害15%的<#6aff55ff>生命值<>。",
+        "skill": "射出暗之禁锢，穿过小兵和野怪，对沿途敌人造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 法术强度<>的<#a974ffff>魔法伤害<>，停在第一个敌方英雄身上并将其<#ef5350ff>禁锢<><#ffb900ff>2秒<>。每<#ffb900ff>12秒<>同时在其脚下留下<#ff9028ff>折磨之影<>，<#ffb900ff>4秒<>内共造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 法术强度<>的<#a974ffff>魔法伤害<>。",
+        "skill2": "对敌方英雄施法，为身边一名友方英雄套上<#e8d44dff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法术强度<>的<#e8d44dff>护盾<>，持续<#ffb900ff>5秒<>，护盾存在时<#ef5350ff>免疫控制<>。身边没有队友时护住自己。",
+        "ult": "锁住身边所有敌方英雄，造成<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 法术强度<>的<#a974ffff>魔法伤害<>并<#ef5350ff>减速20%<>，自身<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移动速度提高20%<>。跑出锁链范围的敌人会挣断锁链；<#ffb900ff>3秒<>后仍被锁住的敌方英雄再受到一次伤害并被<#ef5350ff>眩晕<><#ffb900ff>1.5秒<>。"
       }
     },
     "skill_name": {
@@ -266,6 +273,11 @@
         "skill1": "耀焰冲击",
         "skill2": "星火符刃",
         "ult": "圣裁之刻"
+      },
+      "league_morgana": {
+        "skill1": "暗之禁锢",
+        "skill2": "黑暗之盾",
+        "ult": "灵魂镣铐"
       }
     }
   },
@@ -424,6 +436,13 @@
         "skill": "發射星體之劍，停在第一個敵人處爆開，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 魔法強度<>的<#a974ffff>魔法傷害<>，<#ef5350ff>緩速<><#ffb900ff>30%<>持續<#ffb900ff>2秒<>，並降低<#ffdd8eff>物理防禦<>和<#88ccffff>魔法防禦<><#ffb900ff>15%<>，持續<#ffb900ff>4秒<>。",
         "skill2": "射出星火，造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% 魔法強度<>的<#a974ffff>魔法傷害<>，對英雄另造成其<#ffb900ff>3%<>最大生命的<#f5f5f5ff>真實傷害<>；8級起命中後爆炸。每<#ffb900ff>12秒<>附帶<#ff9028ff>天賜聖典<>：為自己和身邊一名友方英雄回復<#6aff55ff>60<> + <#6aff55ff>30% 魔法強度<>生命，<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>跑速+25%<>持續<#ffb900ff>2秒<>。",
         "ult": "交戰時：身邊有被控制的友方英雄時立即使其<#ffb900ff>免疫傷害<>和控制<#ffb900ff>2.5秒<>；沒有則在自己被兩名以上敵方英雄包圍時給自己。隨後在其周圍降下聖劍，造成<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 魔法強度<>的<#a974ffff>魔法傷害<>。"
+      },
+      "league_morgana": {
+        "name": "魔甘娜",
+        "attack": "普攻射出一團暗影，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。被動 <#ff9028ff>靈魂虹吸<>：技能對英雄造成傷害時，為自己回復約為傷害15%的<#6aff55ff>生命值<>。",
+        "skill": "射出暗影禁錮，穿過小兵和野怪，對沿途敵人造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 魔法強度<>的<#a974ffff>魔法傷害<>，停在第一個敵方英雄身上並將其<#ef5350ff>禁錮<><#ffb900ff>2秒<>。每<#ffb900ff>12秒<>同時在其腳下留下<#ff9028ff>痛苦腐蝕<>，<#ffb900ff>4秒<>內共造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 魔法強度<>的<#a974ffff>魔法傷害<>。",
+        "skill2": "對敵方英雄施法，為身邊一名友方英雄套上<#e8d44dff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 魔法強度<>的<#e8d44dff>護盾<>，持續<#ffb900ff>5秒<>，護盾存在時<#ef5350ff>免疫控制<>。身邊沒有隊友時保護自己。",
+        "ult": "鎖住身邊所有敵方英雄，造成<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 魔法強度<>的<#a974ffff>魔法傷害<>並<#ef5350ff>緩速20%<>，自身<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度提高20%<>。跑出鎖鏈範圍的敵人會掙斷鎖鏈；<#ffb900ff>3秒<>後仍被鎖住的敵方英雄再受到一次傷害並被<#ef5350ff>暈眩<><#ffb900ff>1.5秒<>。"
       }
     },
     "skill_name": {
@@ -536,6 +555,11 @@
         "skill1": "聖光衝擊波",
         "skill2": "星火熾刃",
         "ult": "聖劍審判"
+      },
+      "league_morgana": {
+        "skill1": "暗影禁錮",
+        "skill2": "黑暗之盾",
+        "ult": "靈魂枷鎖"
       }
     }
   },
@@ -694,6 +718,13 @@
         "skill": "Kayle fires a celestial sword that stops on the first enemy and bursts: <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% Ability Power<> <#a974ffff>magic damage<>, <#ef5350ff>slowed<> by <#ffb900ff>30%<> for <#ffb900ff>2s<> and <#ffb900ff>15%<> less <#ffdd8eff>Armor<> and <#88ccffff>Magic Resist<> for <#ffb900ff>4s<> to the enemies around.",
         "skill2": "Kayle hurls starfire for <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% Ability Power<> <#a974ffff>magic damage<>, plus <#ffb900ff>3%<> of a champion's max health as <#f5f5f5ff>true damage<>; from level 8 it explodes around the target. Every <#ffb900ff>12s<> it also casts <#ff9028ff>Celestial Blessing<>: Kayle and an allied champion nearby heal <#6aff55ff>60<> + <#6aff55ff>30% Ability Power<> and gain <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>25% Move Speed<> for <#ffb900ff>2s<>.",
         "ult": "In a fight, a crowd-controlled allied champion nearby becomes <#ffb900ff>immune to damage<> and crowd control for <#ffb900ff>2.5s<> at once; with none, Kayle does when two or more enemy champions close in on her. Then swords fall around them for <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% Ability Power<> <#a974ffff>magic damage<>."
+      },
+      "league_morgana": {
+        "name": "Morgana",
+        "attack": "Basic attacks hurl a bolt of shadow that deals <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. Passive <#ff9028ff>Soul Siphon<>: her spells heal her for about 15% of the damage they deal to champions.",
+        "skill": "<#ff9028ff>Dark Binding<> flies through minions and monsters, dealing <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% Ability Power<> <#a974ffff>magic damage<> to every enemy it passes, and stops on the first enemy champion, <#ef5350ff>rooting<> it for <#ffb900ff>2s<>. Every <#ffb900ff>12s<> it also leaves <#ff9028ff>Tormented Shadow<> under that champion: <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% Ability Power<> <#a974ffff>magic damage<> over <#ffb900ff>4s<>.",
+        "skill2": "Cast at an enemy champion: <#ff9028ff>Black Shield<> gives a nearby allied champion a <#e8d44dff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% Ability Power<> <#e8d44dff>shield<> for <#ffb900ff>5s<>; while it holds they are <#ef5350ff>immune to crowd control<>. With no ally nearby she shields herself.",
+        "ult": "Morgana chains every nearby enemy champion, dealing <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% Ability Power<> <#a974ffff>magic damage<> and <#ef5350ff>slowing<> them by 20%, and gains <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>20% Move Speed<>. Enemies that move too far away break free. After <#ffb900ff>3s<>, champions still chained take the damage again and are <#ef5350ff>stunned<> for <#ffb900ff>1.5s<>."
       }
     },
     "skill_name": {
@@ -806,6 +837,11 @@
         "skill1": "Radiant Blast",
         "skill2": "Starfire Spellblade",
         "ult": "Divine Judgment"
+      },
+      "league_morgana": {
+        "skill1": "Dark Binding",
+        "skill2": "Black Shield",
+        "ult": "Soul Shackles"
       }
     }
   },
@@ -964,6 +1000,13 @@
         "skill": "천상의 검을 발사해 처음 적중한 적에게서 폭발하며 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 60%<> <#a974ffff>마법 피해<>를 입히고 <#ffb900ff>2초<> 동안 <#ef5350ff>30% 둔화<>시키며 <#ffb900ff>4초<> 동안 <#ffdd8eff>방어력<>과 <#88ccffff>마법 저항력<>을 <#ffb900ff>15%<> 낮춥니다.",
         "skill2": "천상의 화염으로 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 50%<> <#a974ffff>마법 피해<>를 입히고 챔피언에게는 <#f5f5f5ff>최대 체력의 3%<> <#f5f5f5ff>고정 피해<>를 추가로 입힙니다. 8레벨부터 적중 시 폭발합니다. <#ffb900ff>12초<>마다 <#ff9028ff>천상의 축복<>: 케일과 가까운 아군 챔피언 하나가 <#6aff55ff>체력을 60<> + <#6aff55ff>주문력의 30%<> 회복하고 <#ffb900ff>2초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도 25%<> 증가.",
         "ult": "교전 중: 근처의 군중 제어에 걸린 아군 챔피언이 즉시 <#ffb900ff>2.5초<> 동안 <#ffb900ff>피해와 군중 제어에 면역<>이 되고, 없으면 적 챔피언 둘 이상에게 둘러싸였을 때 케일 자신이 면역이 됩니다. 이후 주변에 신성한 검이 떨어져 <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 80%<> <#a974ffff>마법 피해<>를 입힙니다."
+      },
+      "league_morgana": {
+        "name": "모르가나",
+        "attack": "기본 공격으로 어둠의 구체를 날려 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다. 기본 지속 효과 <#ff9028ff>영혼 흡수<>: 스킬로 챔피언에게 피해를 입히면 피해량의 약 15%만큼 <#6aff55ff>체력<>을 회복합니다.",
+        "skill": "<#ff9028ff>어둠의 속박<>이 미니언과 몬스터를 관통하며 지나가는 모든 적에게 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 60%<> <#a974ffff>마법 피해<>를 입히고, 처음 맞은 적 챔피언에게서 멈춰 <#ffb900ff>2초<> 동안 <#ef5350ff>속박<>합니다. <#ffb900ff>12초<>마다 그 발밑에 <#ff9028ff>고통의 그림자<>를 남겨 <#ffb900ff>4초<>에 걸쳐 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 40%<> <#a974ffff>마법 피해<>를 입힙니다.",
+        "skill2": "적 챔피언에게 시전하면 <#ff9028ff>칠흑의 방패<>로 주변 아군 챔피언 하나에게 <#ffb900ff>5초<> 동안 <#e8d44dff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 70%<> <#e8d44dff>보호막<>을 씌우며, 보호막이 유지되는 동안 <#ef5350ff>군중 제어에 면역<>이 됩니다. 주변에 아군이 없으면 자신에게 씌웁니다.",
+        "ult": "주변의 모든 적 챔피언을 사슬로 묶어 <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 80%<> <#a974ffff>마법 피해<>를 입히고 <#ef5350ff>20% 둔화<>시키며, 자신은 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도가 20% 증가<>합니다. 너무 멀리 벗어난 적은 사슬을 끊습니다. <#ffb900ff>3초<> 후 여전히 묶여 있는 적 챔피언은 같은 피해를 다시 받고 <#ffb900ff>1.5초<> 동안 <#ef5350ff>기절<>합니다."
       }
     },
     "skill_name": {
@@ -1076,6 +1119,11 @@
         "skill1": "광휘의 일격",
         "skill2": "화염주문검",
         "ult": "신성한 심판"
+      },
+      "league_morgana": {
+        "skill1": "어둠의 속박",
+        "skill2": "칠흑의 방패",
+        "ult": "영혼의 족쇄"
       }
     }
   },
@@ -1234,6 +1282,13 @@
         "skill": "天界の剣を放ち、最初に当たった敵の位置で炸裂して<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の60%<>の<#a974ffff>魔法ダメージ<>を与え、<#ffb900ff>2秒<>間<#ef5350ff>30%スロウ<>、<#ffb900ff>4秒<>間<#ffdd8eff>物理防御<>と<#88ccffff>魔法防御<>を<#ffb900ff>15%<>低下させる。",
         "skill2": "星炎を放ち<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の50%<>の<#a974ffff>魔法ダメージ<>、チャンピオンには<#f5f5f5ff>最大体力の3%<>の<#f5f5f5ff>確定ダメージ<>を追加。Lv8以降は命中時に爆発。<#ffb900ff>12秒<>ごとに<#ff9028ff>天の祝福<>：自身と近くの味方チャンピオン1体の<#6aff55ff>体力を60<> + <#6aff55ff>魔力の30%<>回復し、<#ffb900ff>2秒<>間<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度25%<>増加。",
         "ult": "戦闘中：近くの行動妨害を受けた味方チャンピオンを即座に<#ffb900ff>2.5秒<>間<#ffb900ff>ダメージと行動妨害無効<>にし、いなければ敵チャンピオン2体以上に囲まれた時に自身に発動。その後周囲に聖なる剣を降らせて<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の80%<>の<#a974ffff>魔法ダメージ<>を与える。"
+      },
+      "league_morgana": {
+        "name": "モルガナ",
+        "attack": "通常攻撃は闇の弾を放ち、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>を与える。パッシブ <#ff9028ff>ソウルサイフォン<>：スキルがチャンピオンに与えたダメージの約15%、<#6aff55ff>体力<>を回復する。",
+        "skill": "<#ff9028ff>ダークバインド<>はミニオンとモンスターを貫通し、通過した敵に<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の60%<>の<#a974ffff>魔法ダメージ<>を与え、最初の敵チャンピオンで止まって<#ffb900ff>2秒<>間<#ef5350ff>スネア<>する。<#ffb900ff>12秒<>毎にその足元に<#ff9028ff>苦悶の影<>を残し、<#ffb900ff>4秒<>で<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の40%<>の<#a974ffff>魔法ダメージ<>を与える。",
+        "skill2": "敵チャンピオンに詠唱すると、<#ff9028ff>ブラックシールド<>で近くの味方チャンピオン1体に<#ffb900ff>5秒<>間<#e8d44dff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の70%<>の<#e8d44dff>シールド<>を付与し、その間<#ef5350ff>行動妨害無効<>になる。味方がいなければ自身に付与。",
+        "ult": "周囲の敵チャンピオン全員を鎖で繋ぎ、<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の80%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>20%スロウ<>を与え、自身の<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度が20%増加<>する。離れすぎた敵は鎖を断ち切る。<#ffb900ff>3秒<>後、まだ繋がれている敵チャンピオンは再度ダメージを受け<#ffb900ff>1.5秒<>間<#ef5350ff>スタン<>する。"
       }
     },
     "skill_name": {
@@ -1346,6 +1401,11 @@
         "skill1": "裁きの射光",
         "skill2": "星炎の刃",
         "ult": "聖なる審判"
+      },
+      "league_morgana": {
+        "skill1": "ダークバインド",
+        "skill2": "ブラックシールド",
+        "ult": "魂の足枷"
       }
     }
   }
