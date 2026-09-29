@@ -69,9 +69,19 @@ Before finishing, check: about 34 squares from the top of the head to the soles,
 
 中括号里是三个方案各自的一段，每张只保留自己那一段。
 
-## 选定
+## 选定：方案 B + 重画的头 U3
 
-（第一轮交回后由用户挑，写在这里，附对动作图的改进要求。）
+Codex 第一轮交回 A / B / C 三张（`lucian_round1.zip`，严格 8×8 方块、22–23 色）。选 **B**：头约占身高 1/3，比例和动作参考条一致（参考条就是按这个比例渲染的）；A 头小腿长，C 脸上有金色杂块、身体杂色多。三张的脸都有同一个问题：眼睛连成一条白绿横杠，脸像戴了面具。Claude 照英雄联盟原版的头在同一比例下逐格描出形状，再画五官，给用户看了三个脸，用户选了 **U3**：
+- 头顶往后梳的深色头发（带发缝），左侧剃短的一块和耳朵，远眼贴着脸的右缘，鼻尖凸出一格；
+- 浓眉（外端高、内端低，皱着眉）；
+- 原版英雄的三行眼睛：近眼 2 格（上一行眉毛、中间一行"眼白 + 黑瞳孔"、下一行"眼白 + 绿虹膜"），远眼 1 格（黑、绿）；没有嘴。
+
+改好的造型图就是附件 `lucian_native.png`（1024×1024，8×8 方块，脚底在第 99 行、y=792–799，26 色：Codex 的 22 色加上脸的提亮肤色和发缝的高光）。第二轮的动作图一起注意：
+
+1. **头部每帧照 `lucian_native.png` 复制**：头发的形状和发缝、剃短的侧边、耳朵、浓眉、三行眼睛、鼻尖都和造型图一样，只随动作整体移动或倾斜，不重新画；眼睛的绿色 `#4E9A5C` 只用在眼睛上。
+2. **身体照 B**：白色高领长外套（金边、深灰护胸、一边金色肩甲）、深色裤子和护腿、腰前暗红布、双枪（深灰枪身、枪口青色晶体）；身上不要零散的杂色点。
+3. **透体圣光第 4、5 帧**：两把枪平举在腰带的高度往前推（游戏里的光束从他腰部的高度射出，枪口太高会和光束对不上）。
+4. 其余照下面第 2–11 节的说明。
 
 ---
 
@@ -84,7 +94,7 @@ Before finishing, check: about 34 squares from the top of the head to the soles,
 ```text
 Three attached images. FIRST: the approved clean pixel-art design of this character at 8x (every pixel an 8x8 block) - copy his colors, shapes, head, coat, pistols and pixel style exactly, the head the same size in every frame. SECOND: a game-size reference of the animation at 8x, frames in a grid of cells read left to right, top to bottom - copy the number of frames, each frame's timing (which frame is the wind-up, the shot, the recoil, the recovery) and where he stands in his cell, but NOT its look (it is a blurry average of a 3D render). THIRD: the original 3D animation at the same frames, in the same grid and the same places - copy the motion of the body from it.
 Task: draw every frame as clean pixel art in the style of the FIRST image, at EXACTLY the same pixel size (about 34 pixels from the top of the head to the soles when standing), every pixel one crisp 8x8 square on a single 8-px grid, nothing smaller than one square, no anti-aliasing, no blur, no semi-transparency.
-Pixel rules (most important): at most 24 colors (those of the FIRST image); big flat areas, 2-3 shades per material; no dithering, no noise, no lone square of a different color inside an area; a 1-square near-black outline around the silhouette.
+Pixel rules (most important): only the 26 colors of the FIRST image, no new ones; big flat areas, 2-3 shades per material; no dithering, no noise, no lone square of a different color inside an area; a 1-square near-black outline around the silhouette.
 Head and face: copy the head of the FIRST image into every frame - the same outline, hair and face, only moved or tilted with the body, never redrawn; the eyes exactly as in the FIRST image in every frame where the face shows (never merged into a bar or a line), and the eye colors used nowhere else. Arms and pistols come from the shoulders and the chest and never cover the face. Both pistols stay clear shapes with their cyan crystals. 3/4 FRONT view facing right, never his back.
 Feet line: in every cell the lowest row of his soles is the row 11 squares below that frame's standing point (lucian_cells.json), the same ground in every frame; NOTHING below it - not a pistol, not the coat - because the game draws the health bar there. His place across the cell follows the SECOND image.
 [animation]
@@ -97,7 +107,7 @@ Layout: exactly like the SECOND image - [grid], each cell 96x96 squares (768x768
 | 3 | `lucian_run.png` | 8 × 117 | 4 列 × 2 行，3072×1536 | `Animation: MOVE loop, 8 frames, one second like the original: his combat run from the THIRD image - a running stride with both pistols held forward at chest height, the coat tails flying behind; frames 1-4 one stride, 5-8 the other; the head stays in the same place across the cell in every frame (at most 1 square up or down), facing right like in the FIRST image; the feet touch the ground line in the stride frames.` |
 | 4 | `lucian_attack.png` | 6 帧：60 60 70 70 80 90 | 3 列 × 2 行，2304×1536 | `Animation: BASIC ATTACK, 6 frames, one shot with the front pistol (the bullet is a separate effect - do not draw it): 1 the front arm swinging down from the raised pose toward the target, 2 the arm straight, aiming right, 3 THE SHOT: the pistol kicks up with a small cyan-white muzzle flash (2-3 squares), 4 the recoil held, 5 the arm lowering, 6 back toward the idle pose. The other pistol stays raised beside his head.` |
 | 5 | `lucian_passive.png` | 7 帧：50 50 60 60 60 70 90 | 4 列 × 2 行，最后一格空，3072×1536 | `Animation: DOUBLE SHOT, 7 frames: he turns a little side-on with BOTH pistols forward at shoulder height, one above the other; 3 the upper pistol fires (kicks up, small muzzle flash), 4 it comes back level, 5 the lower pistol fires (kicks up, small muzzle flash), 6 both level, 7 back toward the idle pose. Keep his face visible.` |
-| 6 | `lucian_skill.png` | 7 帧：60 60 70 70 80 80 90 | 4 列 × 2 行，最后一格空，3072×1536 | `Animation: PIERCING LIGHT, 7 frames: 1-3 he turns side-on and braces, both pistols pushed forward together, a faint glow gathering at the crystals, 4 THE BEAM: a bright white-cyan flash at both muzzles (the beam itself is a separate effect), 5 a strong recoil - both pistols kicked up, he leans back, 6 recovering, 7 back toward the idle pose. Keep his face visible.` |
+| 6 | `lucian_skill.png` | 7 帧：60 60 70 70 80 80 90 | 4 列 × 2 行，最后一格空，3072×1536 | `Animation: PIERCING LIGHT, 7 frames: 1-3 he turns side-on and braces, both pistols pushed forward together, a faint glow gathering at the crystals, 4 THE BEAM: both pistols held level at the height of his belt, a bright white-cyan flash at both muzzles (the beam itself is a separate effect and comes out at his waist), 5 a strong recoil - both pistols kicked up, he leans back, 6 recovering, 7 back toward the idle pose. Keep his face visible.` |
 | 7 | `lucian_skill2.png` | 8 帧：50 50 50 60 60 70 80 90 | 4 列 × 2 行，3072×1536 | `Animation: DASH FORWARD then ARDENT BLAZE, 8 frames: 1 he crouches into the dash, 2-3 a low flat dive forward to the RIGHT, the body nearly horizontal, both pistols pointing forward, the coat streaming behind (off the ground, never below the feet line), 4 landing in a crouch on the ground line, 5 rising, the front arm reaching toward the target, 6 THE SHOT: the front pistol fires with a golden muzzle flash, 7 the recoil, the other pistol raised, 8 back toward the idle pose.` |
 | 8 | `lucian_skill2_back.png` | 8 帧：50 50 50 60 60 70 80 90 | 4 列 × 2 行，3072×1536 | `Animation: DASH BACKWARD then ARDENT BLAZE, 8 frames: 1 he pushes off, 2-3 he leaps BACKWARD to the LEFT while still facing right, the body leaning back, both pistols pointing forward at the enemy, the coat flying forward (above the feet line), 4 landing on the ground line, 5-8 exactly like frames 5-8 of the forward dash: the front arm reaching out, the shot with a golden muzzle flash, the recoil, back toward idle.` |
 | 9 | `lucian_ult.png` | 4 × 75（循环） | 4 列 × 1 行，3072×768 | `Animation: THE CULLING, 4 frames, a seamless fast loop: a planted wide stance, both pistols held forward at chest height, firing one after the other (the bullets are a separate effect): 1 the upper pistol kicks up with a small muzzle flash, 2 both level, 3 the lower pistol kicks up with a small muzzle flash, 4 both level. The legs, the body and the head do not move; only the pistols and the coat tails.` |
