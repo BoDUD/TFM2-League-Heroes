@@ -4,13 +4,13 @@
   "hit": {"cell": [17, 15], "anchor": [8, 7]},
   "vig_hit": {"cell": [21, 19], "anchor": [10, 9]},
   "vig_glow": {"cell": [29, 15], "anchor": [14, 7]},
-  "q_beam": {"cell": [105, 13], "anchor": [52, 6]},
+  "q_beam": {"cell": [85, 11], "anchor": [42, 5]},
   "q_hit": {"cell": [13, 27], "anchor": [6, 13]},
   "e_dash": {"cell": [35, 45], "anchor": [17, 22]},
   "w_bolt": {"cell": [27, 7], "anchor": [13, 3]},
   "w_burst": {"cell": [55, 31], "anchor": [27, 15]},
   "w_mark": {"cell": [25, 13], "anchor": [12, 6]},
   "w_haste": {"cell": [35, 9], "anchor": [17, 4]},
-  "r_bullet": {"cell": [33, 5], "anchor": [16, 2]},
-  "r_hit": {"cell": [17, 17], "anchor": [8, 8]}
+  "r_bullet": {"cell": [57, 9], "anchor": [28, 4]},
+  "r_hit": {"cell": [27, 27], "anchor": [13, 13]}
 }

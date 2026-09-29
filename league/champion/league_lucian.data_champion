@@ -999,6 +999,22 @@
               }
             }
           ]
+        },
+        {
+          "type": "LinearProjectile",
+          "name": "league_lucian_q_ray",
+          "speed": 7000,
+          "range": 100000,
+          "y_offset": -7000,
+          "shape": {
+            "Circle": {
+              "radius": 1
+            }
+          },
+          "penetrate": true,
+          "applied_target": "EnemyChampion",
+          "applied_effects": [],
+          "end_effects": []
         }
       ]
     }
@@ -5273,9 +5289,9 @@
     },
     {
       "type": "Animated",
-      "name": "league_lucian_q_beam",
+      "name": "league_lucian_q_ray",
       "anim": "asset/league/effects/league_lucian_fx",
-      "tag": "q_beam",
+      "tag": "q_ray",
       "repeat": false,
       "z": 1
     },

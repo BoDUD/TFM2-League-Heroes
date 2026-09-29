@@ -9,13 +9,15 @@
                               runs in and Darius, still out of his reach, gets Relentless Pursuit forward (the dust
                               where he leaves; he lands in range when the path stops) and Ardent Blaze's star
                               cross, which marks him; the next two attacks fire twice (the second shot gold) and
-                              every hit on while the mark lasts speeds Lucian up (the lines at his feet); Piercing
-                              Light's beam through Darius, the double shot it gives, a single bullet; The Culling:
-                              three seconds of bullets at the nearest champion - Darius falls, the rest go to Garen
-                              walking up; Garen reaches him, and nine seconds after the first the E dashes him
-                              back out of Garen's reach, the bolt bursts on Garen and the double shot follows; 3x
+                              every hit while the mark lasts speeds Lucian up (the lines at his feet); Piercing
+                              Light, both pistols held out at shoulder height: the beam from the muzzle through
+                              Darius, the double shot it gives, a single bullet; The Culling: three seconds of
+                              tracers at the nearest champion - Darius falls, the rest go to Garen walking up; Garen
+                              reaches him, and nine seconds after the first the E dashes him back out of Garen's
+                              reach, the bolt bursts on Garen and the double shot follows; 3x
 """
 import argparse
+import math
 import os
 import sys
 
@@ -48,6 +50,22 @@ class Slide(Anim):
             return self.x1, self.y1
         u = (t - self.m0) / (self.m1 - self.m0)
         return int(round(self.x + (self.x1 - self.x) * u)), self.y
+
+
+class Ray(Anim):
+    """Piercing Light's carrier as the game moves it: from (x, y) toward (x1, y1) at `speed` px a tick, its frames
+    turned to that direction (they draw the beam further back as it flies, so the beam stands still)."""
+
+    def __init__(self, fr, t0, x, y, x1, y1, speed):
+        ang = math.degrees(math.atan2(y1 - y, x1 - x))
+        turned = [(f.rotate(-ang, resample=Image.NEAREST, expand=True), ms) for f, ms in fr]
+        dist = math.hypot(x1 - x, y1 - y)
+        super().__init__(turned, t0, x, y, until=t0 + tick(dist / speed))
+        self.ux, self.uy, self.speed, self.x1, self.y1 = (x1 - x) / dist, (y1 - y) / dist, speed, x1, y1
+
+    def pos(self, t):
+        d = self.speed * math.floor(max(0.0, t - self.t0) * 60 / 1000.0 + 1e-6)      # it moves once a tick
+        return int(round(self.x + self.ux * d)), int(round(self.y + self.uy * d))
 
 
 def showcase(out, z=3, step=40):
@@ -128,14 +146,15 @@ def showcase(out, z=3, step=40):
     boom = blaze(e1, d)
     marked = [(boom, boom + 6000, d)]
     flag = [(boom, boom + 6000)]                       # w_ms on him: every hit speeds him up for a second
-    # the two charged attacks, then Piercing Light (the beam on tick 12, 100 px through Darius, the hit a tick
-    # later; the picture sits on the line's middle at his waist), its double shot, a single bullet
+    # the two charged attacks, then Piercing Light (on tick 12 the carrier starts 12 px above him, at the muzzle
+    # of frame 4, and flies to the line's end 100 px ahead at his waist's height, 7 px a tick; the hit a tick
+    # later), its double shot, a single bullet
     nxt = double(d)
     idle_to(nxt)
     nxt = double(d)
     idle_to(nxt - 480)
     q0 = t
-    fx_at("q_beam", q0 + tick(12), lx + 50, gy)
+    over.append(Ray(frames_of(fx, "q_ray"), q0 + tick(12), lx, gy - 12, lx + 100, gy, 7.0))
     for foe in (d, g):
         if foe.pos(q0 + tick(12))[0] - lx <= 104:
             fx_at("q_hit", q0 + tick(13), *foe.pos(q0 + tick(13)))
@@ -148,16 +167,17 @@ def showcase(out, z=3, step=40):
     nxt = attack(d)
     idle_to(nxt + 90)
     # The Culling: a standing channel (186 ticks), a shot every 9 ticks from tick 10 at the nearest champion
-    # (rings of 40, 75 and 110 px), 12 px a tick; Darius falls to the ninth, the rest go to Garen
+    # (rings of 40, 75 and 110 px), 12 px a tick from 5 px above him (a LinearProjectile's height, the lower
+    # pistol of the ult frames); Darius falls to the ninth, the rest go to Garen
     r0 = t
     a("ult", tick(186), loop=True)
     for k in range(20):
         at = r0 + tick(10 + 9 * k)
         foe = d if d.death is None else g
-        x0, y0 = lx + 13, gy - 10
+        x0, y0 = lx + 13, gy - 5
         fx_, fy = foe.pos(at)
         arrive = at + tick(max(1.0, (fx_ - 4 - x0) / 12.0))
-        fx_at("r_bullet", at, x0, y0, until=arrive, x1=fx_ - 4, y1=fy - 8)
+        fx_at("r_bullet", at, x0, y0, until=arrive, x1=fx_ - 4, y1=fy - 5)
         fx_at("r_hit", arrive, *foe.pos(arrive))
         if foe is d and k == 8:
             d.death = arrive

@@ -378,8 +378,13 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   `tools/art/tidy_lucian.py` stretches only the chest to the hips (x1.3 about the body's middle column, eased in
   and out over 3 rows), leaves the head, the raised gun arm and the legs as drawn, and redraws the 1-pixel outline
   (outline pixels between two body pixels, the seams, stay). Compare every strip's opaque pixels a frame against
-  idle before importing. Also ask for weapons at belt height in a beam's frames: the picture of a
-  `LineRangeProjectile` is drawn at the pivot's height (champion-data section 4).
+  idle before importing.
+- **A beam fired from a raised weapon (league_lucian Q).** The picture of a `LineRangeProjectile` is drawn at the
+  pivot's height (his waist). Lucian's pack asked Codex for the pistols at belt height in the firing frames to
+  meet it; the user rejected that ("怎么Q技能在腰部释放的啊 和英雄联盟不一样"): League fires from the pistols
+  held out at shoulder height. Draw the League pose and let a raised carrier draw the beam (champion-data "A beam
+  from a raised weapon"): the beam's frames are cut per tick, each drawn the carrier's flight further back, so the
+  beam stands still from the muzzle to the line's end (`tools/art/import_lucian.py` `Q_RAY`).
 - **Effect anchors.** Effect and buff frames are drawn centred on the unit's pivot, 11.5 px above
   the feet (base: `levelup_effect` ring at +9..+16, `shield_receive_effect` bubble -22..+13).
   Ground rings at about +10, hits and shields at -3..-6, overhead marks around -25. Time the

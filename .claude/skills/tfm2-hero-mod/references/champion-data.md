@@ -636,7 +636,23 @@ deals the damage (Touhou Marisa: visual delay 120; league_lux R: visual delay 55
 apply 29 - the hit at tick 28 with the beam and its sound; until 0.10.0 apply 3 hit at tick 2, 0.43 s
 before the beam showed - 240000 x 16000).
 The view is drawn at the unit's pivot height and turned to the cast direction, so keep the beam
-centred vertically in its canvas (an offset would flip when she fires to the left) *(inferred)*.
+centred vertically in its canvas (an offset would flip when she fires to the left) *(inferred)*. To draw
+it from a raised weapon instead, see "A beam from a raised weapon" below.
+
+**A beam from a raised weapon (league_lucian Q).** A `LinearProjectile` starts `5000 - y_offset` units
+north (-y) of the caster: the default 0 puts it 5000 north, y_offset 12000 put it 7000 south, -7000 puts it
+12000 north *(SDK simulation log)* - above the pivot on screen *(inferred: the base crossbowman's bolts use
+1200, 3800 north, the harpooner's thrown attack -3000)*. In a `Direction` cast it heads for the caster's
+spot plus the direction times its `range`, not along the direction from where it starts, and is removed
+when it gets there: raised 12000 it converges on the damage line's end, and with `range` 15 (meant as a
+still picture) it pointed nearly straight down at his own spot *(SDK simulation log: `dir` = the
+LineRangeProjectile's end minus the spawn; removed after 12-13 ticks at 7000 a tick)*. Lucian's Q keeps the
+damage on a `LineRangeProjectile` with no picture and adds
+`q_ray`: a `LinearProjectile` with `y_offset` -7000 (the muzzle in the firing frame), `range` = the line's
+length, `speed` 7000, penetrating, `applied_target: EnemyChampion` with no effects. Its `Animated` view
+(`repeat: false`) has one frame a tick, each drawing the beam 7 px further back than the last, so the beam
+stands still from the muzzle to the line's end, tilted onto it (about 7 degrees for a level cast); the
+technique is league_thresh Q's chain.
 
 **Burn / poison.** `AddCasted {casted_type: Fire, duration, period, effects: [ApAttack]}`.
 

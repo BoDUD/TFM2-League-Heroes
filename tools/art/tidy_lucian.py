@@ -14,6 +14,12 @@ here, on the game pixels, before the strips are written to assets/source/native/
     again over the hips toward WIDEN_TO (the gun arm and the head above, and the legs below, stay as drawn: the
     dark trousers, stretched too, ran into one mass), and a fresh 1-pixel outline is drawn round the result
     (outline pixels inside the body, the seams between legs and coat, stay).
+  - Piercing Light: the pack asked for the pistols at belt height in frames 4-5 (a LineRangeProjectile's picture
+    sits at the pivot's height), so he fired from the waist; the user: League fires it from the pistols held out at
+    shoulder height. Frames 4 and 5 become frame 3 (Codex's League pose: both pistols forward, the front muzzle
+    20 px ahead of the pivot and 11-13 px above it), placed on their own pivots; frame 4 keeps its muzzle flash,
+    moved from the lowered pistol to that muzzle. The beam's picture now rides a projectile raised to the muzzle
+    (the kit's q_ray).
 The rest is used as delivered. Then run import_native.py --hero lucian (EYES steadies idle and run on the green
 irises, the one colour nothing else uses).
 """
@@ -38,6 +44,10 @@ WIDEN = {"run": 1.3}           # tag: the stretch across, reached RAMP rows unde
 WIDEN_FROM = -6                # rows from the pivot: the chest, under the arm that holds the pistols forward
 WIDEN_TO = 3                   # ... down to the hips; the legs under it stay as drawn (stretched they ran together)
 RAMP = 3
+Q_AIM = 3                      # the Q frame with the pistols forward at shoulder height (1-based)
+Q_FIRE = {4: True, 5: False}   # frames redrawn from it: True keeps the frame's own muzzle flash
+FLASH_FROM = 6                 # in Codex's frame 4 everything from 6 px ahead of the pivot is the flash
+MUZZLE = (21, -12)             # where the flash starts: just ahead of frame 3's front muzzle, from the pivot
 
 
 def blocks(path):
@@ -95,6 +105,40 @@ def widen(cell, pivot, factor):
     return joined
 
 
+def cell_of(a, frames, k):
+    cols = layout(len(frames))
+    cx, cy = (k % cols) * CELL, (k // cols) * CELL
+    return a[cy:cy + CELL, cx:cx + CELL]
+
+
+def q_aim(a, frames):
+    """Frames Q_FIRE redrawn as frame Q_AIM on their own pivots, frame 4's flash moved to the raised muzzle."""
+    src = cell_of(a, frames, Q_AIM - 1).copy()
+    sx, sy = frames[Q_AIM - 1]["pivot"]
+    for f, flash in Q_FIRE.items():
+        cell = cell_of(a, frames, f - 1)
+        px, py = frames[f - 1]["pivot"]
+        old = cell.copy()
+        cell[:] = 0
+        dx, dy = px - sx, py - sy
+        ys, xs = np.nonzero(src[..., 3] > 0)
+        ty, tx = ys + dy, xs + dx
+        ok = (ty >= 0) & (ty < CELL) & (tx >= 0) & (tx < CELL)
+        if not ok.all():
+            sys.exit(f"skill frame {f}: frame {Q_AIM} does not fit round its pivot")
+        cell[ty, tx] = src[ys, xs]
+        if flash:
+            ys, xs = np.nonzero(old[..., 3] > 0)
+            keep = xs >= px + FLASH_FROM
+            fy, fx = ys[keep], xs[keep]
+            ox, oy = px + MUZZLE[0] - fx.min(), py + MUZZLE[1] - int(round((fy.min() + fy.max()) / 2))
+            cell[fy + oy, fx + ox] = old[fy, fx]
+            print(f"lucian_skill.png: frame {f} = frame {Q_AIM} + its flash ({len(fx)} pixels) at the muzzle")
+        else:
+            print(f"lucian_skill.png: frame {f} = frame {Q_AIM}")
+    return a
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("delivery", help="Codex's delivery folder (lucian_<tag>.png, lucian_native.png)")
@@ -113,6 +157,8 @@ def main():
             before = (blocks(src)[..., 3] > 0).sum() / len(frames)
             print(f"lucian_{name}.png: rows from {WIDEN_FROM} widened x{WIDEN[name]}: "
                   f"{before:.0f} -> {(a[..., 3] > 0).sum() / len(frames):.0f} opaque pixels a frame")
+        if name == "skill":
+            a = q_aim(a, cells[name])
         Image.fromarray(np.repeat(np.repeat(a, Z, 0), Z, 1), "RGBA").save(G.lp(os.path.join(SRC, f"lucian_{name}.png")))
     print("wrote", len(TAGS) + 1, "images to assets/source/native/")
 

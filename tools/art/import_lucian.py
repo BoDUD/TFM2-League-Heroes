@@ -13,14 +13,17 @@ mostly in its rectangle). The pictures the game turns to their direction (the bu
 bolt, The Culling's bullets) are made exactly symmetric about their middle row. Writes
 assets/source/lucian/lucian_fx_<name>.png plus lucian_fx_anchors.json.
 One scale per strip, set by the kit (1000 distance units a pixel) and measured on the drawings: the bullets 12 and
-14 px long, the Culling's 16 px; Piercing Light's beam 100 px (the 100000-long line, its picture centred on the
-line); Ardent Blaze's bolt 14 px, its star cross 52 px wide (the 20000 burst radius and the star's long arms), the
-mark under a marked foe 22 px; the dash's burst 32 px; the hits 10-24 px; the Vigilance sparks 26 px across his
+14 px long; the Culling's hits 16 px (its bullet is tracer()'s: the user found the Culling's too small at 16 and 10
+px, League's are long bright tracers); Piercing Light's beam 80 px, from his muzzle 21 px ahead to the end of the
+100000-long line (Q_RAY);
+Ardent Blaze's bolt 14 px, its star cross 52 px wide (the 20000 burst radius and the star's long arms), the mark
+under a marked foe 22 px; the dash's burst 32 px; the other hits 14-24 px; the Vigilance sparks 26 px across his
 hands, the haste lines 24 px at his feet.
 
 The second step places every cell by its anchor: the bullets, the bolt and the beam ride their projectiles (the
-bullets' noses a little ahead); the hits on the upper body; the dash's ring, the star cross, the mark and the haste
-lines on the feet (a picture on a point or on a unit is drawn at its pivot, 11 px above the soles). Writes
+bullets' noses a little ahead; the beam's carrier stands raised to the muzzle, so its picture starts 21 px ahead of
+it); the hits on the upper body; the dash's ring, the star cross, the mark and the haste lines on the feet (a
+picture on a point or on a unit is drawn at its pivot, 11 px above the soles). Writes
 league/effects/league_lucian_fx.
 """
 import argparse
@@ -47,6 +50,13 @@ FEET = (0, 11)
 HIT = (0, -8)                          # a hit on the upper body
 CHEST = (0, -6)
 HANDS = (0, -10)                       # his hands, the pistols in them
+# Piercing Light's picture rides q_ray, a LinearProjectile raised to the muzzle that flies 7 px a tick to the line's
+# end (the kit): one frame a tick, each drawing the beam 7 px further back, so it stands from the muzzle, 21 px ahead
+# of where the carrier started, to the end. Codex's frame 0 (a spark before the beam) is left out - his own frame 4
+# flashes at the muzzle - so the whole beam is there on the tick it hits: 1 (coming on), 2 (full), 3 (thinning), 4-5
+RAY_AHEAD, RAY_LEN, RAY_SPEED = 21, 80, 7
+RAY_FRAMES = [1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 5, 5]
+Q_RAY = [(f, (RAY_AHEAD + RAY_LEN // 2 - RAY_SPEED * i, 0), 1000 / 60) for i, f in enumerate(RAY_FRAMES)]
 
 # raw strip -> native (keys as in tools/art/import_fiddlesticks.py RAW; x / y "pivot": the frame's pivot in Codex's
 # manifest - the middle of a hit, the feet of a burst drawn round a figure, the middle line of a flying picture)
@@ -56,16 +66,57 @@ RAW = {
     "hit": dict(n=5, size=14, measure="w", x="pivot", y="pivot"),
     "vig_hit": dict(n=5, size=18, measure="w", x="pivot", y="pivot"),
     "vig_glow": dict(n=4, size=26, measure="w", x="pivot", y="pivot"),
-    "q_beam": dict(n=6, size=100, measure="w", x="pivot", y="pivot", mirror=True),
+    "q_beam": dict(n=6, size=80, measure="w", x="pivot", y="pivot", mirror=True),     # muzzle to the line's end
     "q_hit": dict(n=5, size=24, measure="h", x="pivot", y="pivot"),
     "e_dash": dict(n=6, size=32, measure="w", x="pivot", y="pivot"),                   # the pivot is his feet
     "w_bolt": dict(n=4, size=14, measure="w", x=("nose", -2), y="pivot", mirror=True),
     "w_burst": dict(n=7, size=52, measure="w", x="pivot", y="pivot"),
     "w_mark": dict(n=4, size=22, measure="w", x="pivot", y="pivot"),
     "w_haste": dict(n=4, size=24, measure="w", x="pivot", y="pivot"),                  # the pivot is his feet
-    "r_bullet": dict(n=3, size=16, measure="w", x=("nose", -1), y="pivot", mirror=True),
-    "r_hit": dict(n=3, size=10, measure="w", x="pivot", y="pivot"),
+    "r_hit": dict(n=3, size=16, measure="w", x="pivot", y="pivot"),
 }
+
+# The Culling's bullet is drawn here (tracer()), not taken from Codex: its drawing was a bar two pixels high, and
+# scaled to League's long bright tracer it stayed a thin stick. Piercing Light's five blues (Codex's) over a
+# profile: (row from the middle, first and last pixel behind the nose, colour) per frame; mirrored below.
+BEAM = {"deep": (16, 42, 140), "dark": (31, 79, 216), "blue": (79, 139, 255), "light": (168, 204, 255),
+        "white": (244, 250, 255)}
+TRACER = [
+    [(0, 0, 9, "white"), (0, 10, 17, "light"), (0, 18, 23, "blue"), (0, 24, 27, "dark"),
+     (1, 1, 8, "light"), (1, 9, 16, "blue"), (1, 17, 21, "dark"),
+     (2, 2, 6, "blue"), (2, 7, 12, "dark"), (2, 13, 15, "deep"),
+     (3, 3, 5, "dark"), (3, 6, 8, "deep")],
+    [(0, 0, 11, "white"), (0, 12, 18, "light"), (0, 19, 24, "blue"), (0, 25, 27, "dark"),
+     (1, 1, 9, "light"), (1, 10, 17, "blue"), (1, 18, 22, "dark"),
+     (2, 2, 7, "blue"), (2, 8, 13, "dark"), (2, 14, 16, "deep")],
+    [(0, 0, 9, "white"), (0, 10, 17, "light"), (0, 18, 23, "blue"), (0, 24, 27, "dark"),
+     (1, 1, 8, "light"), (1, 9, 16, "blue"), (1, 17, 21, "dark"),
+     (2, 2, 8, "blue"), (2, 9, 13, "dark"), (2, 14, 16, "deep"),
+     (3, 3, 4, "blue"), (3, 5, 9, "deep")],
+]
+TRACER_LEN, TRACER_H = 28, 3                     # px behind the nose (0-27); rows above and below the middle
+
+
+def tracer():
+    """The Culling's bullet: a 28 px tracer 7 px thick at the head, thinning to its tail; the nose at the anchor."""
+    L, U = TRACER_LEN, TRACER_H + 1
+    tw, th = 2 * L + 1, 2 * U + 1
+    out = np.zeros((th, tw * len(TRACER), 4), np.uint8)
+    for k, rows in enumerate(TRACER):
+        for dy, x0, x1, name in rows:
+            for y in {U - dy, U + dy}:
+                out[y, k * tw + L - x1:k * tw + L - x0 + 1, :3] = BEAM[name]
+                out[y, k * tw + L - x1:k * tw + L - x0 + 1, 3] = 255
+    Image.fromarray(np.repeat(np.repeat(out, Z, 0), Z, 1), "RGBA").save(G.lp(os.path.join(SRC, "lucian_fx_r_bullet.png")))
+    path = os.path.join(SRC, "lucian_fx_anchors.json")
+    with open(G.lp(path), encoding="utf-8") as f:
+        anchors = json.load(f)
+    anchors["r_bullet"] = {"cell": [tw, th], "anchor": [L, U]}
+    order = list(RAW)[:list(RAW).index("r_hit")] + ["r_bullet", "r_hit"]
+    anchors = {k: anchors[k] for k in order if k in anchors}
+    text = "{\n" + ",\n".join(f'  "{k}": {json.dumps(v)}' for k, v in anchors.items()) + "\n}\n"
+    with open(G.lp(path), "w", encoding="utf-8", newline="\n") as f:
+        f.write(text)
 
 
 def palette(a):
@@ -178,7 +229,7 @@ FX = {
         "hit": ("hit", range(5), HIT, [40] * 5),
         "vig_hit": ("vig_hit", range(5), HIT, [50] * 5),
         "vig_glow": ("vig_glow", range(4), HANDS, [80] * 4),
-        "q_beam": ("q_beam", range(6), (0, 0), [40] * 6),          # turned half round when cast left
+        "q_ray": ("q_beam", [f for f, _, _ in Q_RAY], [s for _, s, _ in Q_RAY], [m for _, _, m in Q_RAY]),
         "q_hit": ("q_hit", range(5), CHEST, [40] * 5),
         "e_dash": ("e_dash", range(6), FEET, [50] * 6),
         "w_bolt": ("w_bolt", range(4), (0, 0), [50] * 4),
@@ -197,10 +248,11 @@ def build():
     sheets = {}
     for sprite, tags in FX.items():
         out = {}
-        for tag, (src, used, (sx, sy), ms) in tags.items():
+        for tag, (src, used, spot, ms) in tags.items():
             ax, ay = anchors[src]["anchor"]
-            strip = cells(src, RAW[src]["n"])
-            out[tag] = [(G.centre_frame(strip[k], sx - ax, sy - ay), m) for k, m in zip(used, ms)]
+            strip = cells(src, RAW[src]["n"] if src in RAW else len(TRACER))
+            spots = spot if isinstance(spot, list) else [spot] * len(ms)       # one spot, or one a frame
+            out[tag] = [(G.centre_frame(strip[k], sx - ax, sy - ay), m) for k, (sx, sy), m in zip(used, spots, ms)]
         sheets[sprite] = out
     return sheets
 
@@ -212,6 +264,7 @@ def main():
     args = ap.parse_args()
     if args.raw:
         from_raw(args.raw, args.only)
+    tracer()
     for sprite, tags in build().items():
         w, h = G.write_sheet(os.path.join(MOD, "effects", sprite), tags)
         print(f"league/effects/{sprite}#sheet.png {w}x{h}: " + ", ".join(
