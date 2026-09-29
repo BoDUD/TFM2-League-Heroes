@@ -80,6 +80,7 @@ def showcase(out, z=3, step=40):
     g.walks.append((0.0, 8600.0, -275))                # walks up behind Darius to 125
     body, under, over = [], [], []
     hits = []                                          # moments a hit lands (Ardent Blaze's haste)
+    doubles = []                                       # when each double shot starts (it spends a charge)
     t = 0.0
 
     def a(tag, dur=None, loop=False):
@@ -98,12 +99,13 @@ def showcase(out, z=3, step=40):
         (under if z_under else over).append(an)
         return an
 
-    def fly(tag, at, speed, foe, hit="hit", dy=-11, dx=12):
-        """A shot from the pistols at `speed` px a tick onto `foe`'s chest, its hit picture on arrival."""
+    def fly(tag, at, speed, foe, hit="hit", dy=-20, dx=12):
+        """A shot from a pistol at `speed` px a tick onto `foe`: a TargetProjectile runs from pivot to pivot, its
+        picture lifted by its y_offset all the way (dy: 20 px for the raised pistol, 9 for the lower one)."""
         x0, y0 = lx + dx, gy + dy
         fx_, fy = foe.pos(at)
         arrive = at + tick(max(1.0, (fx_ - 4 - x0) / speed))
-        fx_at(tag, at, x0, y0, until=arrive, x1=fx_ - 4, y1=fy - 8)
+        fx_at(tag, at, x0, y0, until=arrive, x1=fx_ - 4, y1=fy + dy)
         fx_at(hit, arrive, *foe.pos(arrive))
         foe.flinches.append(arrive)
         return arrive
@@ -116,19 +118,20 @@ def showcase(out, z=3, step=40):
         return start + 1000
 
     def double(foe):
-        """Lightslinger: two shots, ticks 6 and 13, the second gold."""
+        """Lightslinger: two shots, ticks 6 and 13 - the raised pistol, then the lower one, the second gold."""
         start = t
-        hits.append(fly("bullet", start + tick(6), 7.0, foe))
-        hits.append(fly("bullet2", start + tick(13), 7.0, foe))
+        doubles.append(start)
+        hits.append(fly("bullet", start + tick(6), 7.0, foe, dx=13))
+        hits.append(fly("bullet2", start + tick(13), 7.0, foe, dy=-9, dx=16))
         a("passive")
         return start + 1000
 
     def blaze(start, foe):
         """Ardent Blaze on tick 14 of the E: the bolt to the first enemy, the star cross, the mark."""
-        x0, y0 = lx + 12, gy - 11
+        x0, y0 = lx + 12, gy - 5                        # a LinearProjectile starts 5 px above him
         fx_, fy = foe.pos(start + tick(14))
         boom = start + tick(14) + tick(max(1.0, (fx_ - x0) / 7.0))
-        fx_at("w_bolt", start + tick(14), x0, y0, until=boom, x1=fx_, y1=fy - 8)
+        fx_at("w_bolt", start + tick(14), x0, y0, until=boom, x1=fx_, y1=fy - 5)
         fx_at("w_burst", boom, *foe.pos(boom), z_under=True)
         foe.flinches.append(boom)
         return boom
@@ -217,6 +220,12 @@ def showcase(out, z=3, step=40):
                 spans.append([h, h + 1000])
     for h0, h1 in spans:
         under.append(Follow(frames_of(fx, "w_haste"), h0, lx, gy, loop=True, until=min(h1, end), on=body))
+    # Lightslinger ready (the gold light on his pistols while ls_1 waits): the E's two charges last until the
+    # second double shot after it, Q's and R's one until the next; the last E's second charge is still waiting
+    ready = [(e1 + tick(1), doubles[1] + tick(1)), (q0 + tick(12), doubles[2] + tick(1)),
+             (r0 + tick(182), doubles[3] + tick(1)), (e2 + tick(1), end)]
+    for g0, g1 in ready:
+        over.append(Follow(frames_of(fx, "ls_glow"), g0, lx, gy, loop=True, until=g1, on=body))
 
     def place(img, f, px, py):
         img.alpha_composite(f, (px - f.width // 2, py - f.height // 2))

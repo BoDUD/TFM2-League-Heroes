@@ -65,7 +65,7 @@ Q_RAY = [(f, (RAY_AHEAD + RAY_LEN // 2 - RAY_SPEED * i, 0), 1000 / 60) for i, f 
 # manifest - the middle of a hit, the feet of a burst drawn round a figure, the middle line of a flying picture)
 RAW = {
     "bullet": dict(n=4, size=12, measure="w", x=("nose", -2), y="pivot", mirror=True),
-    "bullet2": dict(n=4, size=14, measure="w", x=("nose", -2), y="pivot", mirror=True),
+    "bullet2": dict(n=4, size=20, measure="w", x=("nose", -2), y="pivot", mirror=True),     # 14 until it had to show
     "hit": dict(n=5, size=14, measure="w", x="pivot", y="pivot"),
     "vig_hit": dict(n=5, size=18, measure="w", x="pivot", y="pivot"),
     "vig_glow": dict(n=4, size=26, measure="w", x="pivot", y="pivot"),
@@ -115,10 +115,35 @@ def tracer():
     with open(G.lp(path), encoding="utf-8") as f:
         anchors = json.load(f)
     anchors["r_bullet"] = {"cell": [tw, th], "anchor": [L, U]}
-    order = list(RAW)[:list(RAW).index("r_hit")] + ["r_bullet", "r_hit"]
+    write_anchors(anchors)
+
+
+# Lightslinger ready: Codex's Vigilance sparks on both pistols (vig_glow), its violets and blues turned to the
+# second shot's golds, so a waiting double shot shows (the user saw no passive at all)
+GOLD = {(58, 30, 140): (138, 100, 32), (122, 74, 232): (200, 150, 46), (79, 139, 255): (240, 200, 90),
+        (192, 168, 255): (255, 240, 184), (168, 204, 255): (255, 250, 230)}
+
+
+def gold_glow():
+    a = np.asarray(Image.open(G.lp(os.path.join(SRC, "lucian_fx_vig_glow.png"))).convert("RGBA")).copy()
+    for src, dst in GOLD.items():
+        a[(a[..., :3] == src).all(-1) & (a[..., 3] > 0), :3] = dst
+    Image.fromarray(a, "RGBA").save(G.lp(os.path.join(SRC, "lucian_fx_ls_glow.png")))
+    path = os.path.join(SRC, "lucian_fx_anchors.json")
+    with open(G.lp(path), encoding="utf-8") as f:
+        anchors = json.load(f)
+    anchors["ls_glow"] = dict(anchors["vig_glow"])
+    write_anchors(anchors)
+
+
+DRAWN = {"r_bullet": len(TRACER), "ls_glow": 4}   # strips made here, not from Codex's raw: their cell counts
+
+
+def write_anchors(anchors):
+    order = list(RAW)[:list(RAW).index("r_hit")] + ["r_bullet", "r_hit", "ls_glow"]
     anchors = {k: anchors[k] for k in order if k in anchors}
     text = "{\n" + ",\n".join(f'  "{k}": {json.dumps(v)}' for k, v in anchors.items()) + "\n}\n"
-    with open(G.lp(path), "w", encoding="utf-8", newline="\n") as f:
+    with open(G.lp(os.path.join(SRC, "lucian_fx_anchors.json")), "w", encoding="utf-8", newline="\n") as f:
         f.write(text)
 
 
@@ -232,6 +257,7 @@ FX = {
         "hit": ("hit", range(5), HIT, [40] * 5),
         "vig_hit": ("vig_hit", range(5), HIT, [50] * 5),
         "vig_glow": ("vig_glow", range(4), HANDS, [80] * 4),
+        "ls_glow": ("ls_glow", range(4), HANDS, [80] * 4),
         "q_ray": ("q_beam", [f for f, _, _ in Q_RAY], [s for _, s, _ in Q_RAY], [m for _, _, m in Q_RAY]),
         "q_hit": ("q_hit", range(5), CHEST, [40] * 5),
         "e_dash": ("e_dash", range(6), FEET, [50] * 6),
@@ -253,7 +279,7 @@ def build():
         out = {}
         for tag, (src, used, spot, ms) in tags.items():
             ax, ay = anchors[src]["anchor"]
-            strip = cells(src, RAW[src]["n"] if src in RAW else len(TRACER))
+            strip = cells(src, RAW[src]["n"] if src in RAW else DRAWN[src])
             spots = spot if isinstance(spot, list) else [spot] * len(ms)       # one spot, or one a frame
             out[tag] = [(G.centre_frame(strip[k], sx - ax, sy - ay), m) for k, (sx, sy), m in zip(used, spots, ms)]
             if tag == "q_ray":
@@ -270,6 +296,7 @@ def main():
     if args.raw:
         from_raw(args.raw, args.only)
     tracer()
+    gold_glow()
     for sprite, tags in build().items():
         w, h = G.write_sheet(os.path.join(MOD, "effects", sprite), tags)
         print(f"league/effects/{sprite}#sheet.png {w}x{h}: " + ", ".join(

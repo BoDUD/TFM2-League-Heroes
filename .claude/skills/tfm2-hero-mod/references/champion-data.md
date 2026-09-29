@@ -1275,7 +1275,11 @@ attack) and fires on ticks 6 and 13. League's second shot deals less to champion
 champion-only twin (`TargetProjectile` on `EnemyChampion`, the same speed and `y_offset`, so both land on one
 tick) that gives the caster a 2-tick flag, and the real shot deals 50% at once and, `Delayed 1`, the other 50%
 unless the flag is there - minions and monsters take both halves *(inferred from league_ezreal Q's measured
-twin: the order two projectiles land in within a tick does not matter)*.
+twin: the order two projectiles land in within a tick does not matter)*. Make it seen: the user found no
+double shot in game while the simulation had 45 a game - both bullets left one point on one line 7 ticks
+apart. Each now leaves the pistol that fires it in the double-shot animation (a `TargetProjectile`'s
+`y_offset` lifts only its picture: -15000 for the raised one, -4000 for the lower), the second is bigger
+and gold, and a `view_buffs` entry on `ls_1` lights both pistols while a charge waits.
 
 **Bonus on the next two attacks when a champion near him is crowd-controlled (league_lucian Vigilance).**
 League's Vigilance follows an ally's immobilising; nothing tells who applied a state, so any counts. The attack's
