@@ -287,7 +287,11 @@ are blocked by `cc_immune`. `Pull {speed, tick}` heads for the caster, or for th
 position when it runs in a projectile's `applied_effects` (the Touhou Patchouli vortex), and does not
 stop there: a target closer than speed x tick is pulled through and out the other side. `Grab
 {speed, tick?}` always heads for the caster; with `tick` left out its duration is distance / speed,
-so the target stops at the caster wherever it started (league_darius E).
+so the target stops at the caster wherever it started (league_darius E). A `Stun` and a `Grab` from the
+same hit both hold: the stunned target is dragged in at 1500 units a tick until the bodies touch (about
+10000 between the centres); the drag heads for wherever the caster is, but its length was fixed when it
+started, so a caster who walks off meanwhile leaves the target short of him (20000 in one game) *(measured
+for league_thresh Q in the SDK simulation, 2026-09-29)*.
 
 **Movement**
 | Type | Fields | Meaning |
@@ -383,6 +387,12 @@ How they behave *(measured in the SDK simulation for league_jinx, 3-12 ten-minut
   `ViewEffect`s on the unit, projectiles from the caster. The target's death clears it; the caster's does
   not (its views and a plain `ApAttack` go on). Damage from inside it counts as `attack_type: Dot`, even
   through a zone it started, and a `Fire` one shows a `burn` status icon on the target.
+- An `ApplyInProjectile` applies its `applied_effects` once per unit for its whole `tick`: a unit it has
+  hit is never hit again by that zone, even after walking out and back in, and a unit that walks in later
+  is hit on the tick it touches the edge *(measured for league_thresh R, 2026-09-29)*. Where it starts:
+  `follow_caster: false` in a `None` cast never spawned, in a `Targeting` cast it spawns on the target; to
+  lay it where the caster stands, start it from the `end_effects` of Ekko's anchor (a `LinearProjectile`
+  with `speed` 1, `range` 1, section 7 "Back to where he stood").
 `ApplyInProjectile` has no `period` and `RangePeriodProjectile` no `follow_caster` (SDK), so an aura
 that ticks while it follows the hero is built from `Delayed` pulses of a `RangeEffect` around the
 caster (section 7, "Aura that runs while he fights").
@@ -391,7 +401,9 @@ Shapes *(`ProjectileShape::is_in` in the SDK's game_core; every radius and half-
 collision radius of the unit tested, and for RangeEffect the caster's too)*:
 - `{"Circle": {"radius": N}}`
 - `{"Rect": {"width": W, "height": H}}` - axis-aligned around the centre, never turned
-- `{"Line": {"width", "from_x", "from_y", "to_x", "to_y"}}` - a segment with fixed coordinates
+- `{"Line": {"width", "from_x", "from_y", "to_x", "to_y"}}` - a segment with fixed coordinates: they are
+  map positions, not offsets from the projectile, so no wall can be drawn round where a hero stands
+  (league_thresh R's five walls became one circle)
 - `{"DirDot": {"radius": N, "range": C}}` - a **cone**: within `radius` of the centre and at most
   acos(C / 1000) off the direction from the caster to the centre (`range` 600 = 53 degrees each side).
   Around the caster that direction is zero and the cone is a full circle, so use it with `Forward`.
@@ -497,6 +509,15 @@ the same champion file.
   faces left (the base gunner's backward-run dust is drawn only behind him), and stays where it was
   played unless `is_follow`. An `Animation` plays its tag once, so a view that must stand for
   seconds lists its loop frames again (a 4 s loop of 100 ms frames is 40 frames).
+  A thing with a top and a bottom that flies every way (league_thresh's lantern) is laid along its flight
+  and mirrored top to bottom, so every turn of it looks the same (art-spec).
+- A projectile's picture has one length, but its frames can follow the flight: an `Animated` view with
+  `repeat: false` plays its tag once from the moment the projectile appears. league_thresh Q's chain is
+  drawn frame by frame (a frame every 2 ticks, 11 px longer each, behind a hook flying 5500 a tick), so its
+  end stays on the spot he threw from instead of reaching out behind him; the hook coming back shortens it
+  (drawn for the distance most hooks catch at, 55 px in the simulation). The last frame is held longer than
+  any flight, so the tag never runs out (whether a finished view holds its last frame or vanishes is
+  untested).
 - Every `anim` + `tag` must exist. Name typos fail silently - LoL Reborn's Nocturne binds
   `nocturne_attack_hits` while the effect is `nocturne_attack_hit`, so that hit never shows.
 
@@ -1050,6 +1071,27 @@ of sight; and `Shield` effects add up - W's champion cone holds a `Shield` throu
 `AllyOnlySelf` (a `WithSelf` would shield the target too, section 4), and two champions hit gave two shields
 at once, with the picture and sound once per cast behind a 3-tick caster lock. Eight twins with twelve leaves
 each make the kit 325 KB (league_jinx and league_teemo are as large).
+
+**Hook the first champion and drag him in (league_thresh Q, Death Sentence, with W folded in).** A
+`Direction` cast on `EnemyChampion` fires a `LinearProjectile {penetrate: false, applied_target:
+EnemyChampion}` (it flies through minions) whose `applied_effects` hold the damage, a 60-tick `Stun` and a
+`Grab {speed: 1500}` with no `tick`: the stunned champion is dragged all the way to him (section 4, "Pull vs
+Grab"). Its `end_effects` start a `BackToCasterLinearProjectile` at the drag's speed for the hook coming back
+(on a miss it comes back from the end of its range). League's recast that flies Thresh to the target is left
+out. Dark Passage rides on the same cast behind its own 840-tick caster cooldown buff (`SwitchByBuff`, as in
+"Fold an ability that has its own, longer cooldown into another"): a `Shield` on him through a `RangeEffect`
+on `AllyOnlySelf`, and a `RandomTarget {casting_target: AllyNotSelf, range: 50000}` throwing the lantern (a
+`TargetProjectile` whose `applied_effects` shield that ally). League's lantern that pulls the ally who clicks
+it cannot be built.
+
+**A prison that hurts only the first champion in it (league_thresh R, The Box).** League's five walls cannot
+be placed round him (`Line` takes map coordinates, section 4), so the Box is one circle: an
+`ApplyInProjectile {follow_caster: false, tick: 300, shape: Circle 40000, applied_target: EnemyChampion}`
+started from Ekko's anchor (a `LinearProjectile` with `speed` 1, `range` 1, its `end_effects` on the spot he
+stands) together with the picture (a `ViewEffect`, `z` -1). The zone hits each champion once, whenever he
+touches it (section 4). Its `applied_effects` are a `SwitchByBuff` on a caster buff `r_broken`: without it,
+the champion gets the damage, the 99% slow for 120 ticks, and `AddCasterBuff r_broken` (330 ticks, longer
+than the zone); with it, only a 60-tick slow. The cast removes `r_broken` first, so every Box starts whole.
 
 ## 8. Gotchas
 

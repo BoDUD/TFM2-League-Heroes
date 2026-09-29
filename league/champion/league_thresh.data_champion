@@ -42,7 +42,7 @@
     "description": "#asset/base/text/champion?description.league_thresh.attack",
     "duration": 30,
     "cooltime": 90,
-    "start_timing": 13,
+    "start_timing": 14,
     "cancelable": true,
     "range": 48000,
     "casting_type": "Targeting",
@@ -348,7 +348,7 @@
     "description": "#asset/base/text/champion?description.league_thresh.skill2",
     "duration": 30,
     "cooltime": 360,
-    "start_timing": 12,
+    "start_timing": 8,
     "cancelable": false,
     "range": 30000,
     "casting_type": "Targeting",
@@ -366,44 +366,50 @@
           "name": "league_thresh_e_sweep"
         },
         {
-          "type": "RangeEffect",
-          "shape": {
-            "Circle": {
-              "radius": 32000
-            }
-          },
-          "target": "EnemyWithoutTower",
-          "apply_type": "AroundCaster",
+          "type": "Delayed",
+          "tick": 5,
           "effects": [
             {
-              "type": "ApAttack",
-              "damage": 60,
-              "attack_ratio": 40
-            },
-            {
-              "type": "AddBuff",
-              "buff_state": {
-                "name": "league_thresh_e_slow",
-                "duration": {
-                  "Time": {
-                    "tick": 60
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 32000
+                }
+              },
+              "target": "EnemyWithoutTower",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "ApAttack",
+                  "damage": 60,
+                  "attack_ratio": 40
+                },
+                {
+                  "type": "AddBuff",
+                  "buff_state": {
+                    "name": "league_thresh_e_slow",
+                    "duration": {
+                      "Time": {
+                        "tick": 60
+                      }
+                    },
+                    "move_speed_mult": -40
                   }
                 },
-                "move_speed_mult": -40
-              }
-            },
-            {
-              "type": "Pull",
-              "speed": 1500,
-              "tick": 10
-            },
-            {
-              "type": "ViewEffect",
-              "name": "league_thresh_e_hit"
-            },
-            {
-              "type": "TargetSfx",
-              "name": "league_thresh_e_hit"
+                {
+                  "type": "Pull",
+                  "speed": 1500,
+                  "tick": 10
+                },
+                {
+                  "type": "ViewEffect",
+                  "name": "league_thresh_e_hit"
+                },
+                {
+                  "type": "TargetSfx",
+                  "name": "league_thresh_e_hit"
+                }
+              ]
             }
           ]
         }
@@ -415,7 +421,7 @@
     "description": "#asset/base/text/champion?description.league_thresh.ult",
     "duration": 40,
     "cooltime": 3600,
-    "start_timing": 14,
+    "start_timing": 17,
     "cancelable": false,
     "range": 30000,
     "casting_type": "Targeting",
@@ -566,7 +572,7 @@
       "name": "league_thresh_q_hook",
       "anim": "asset/league/effects/league_thresh_fx",
       "tag": "q_hook",
-      "repeat": true,
+      "repeat": false,
       "z": 1
     },
     {
@@ -574,7 +580,7 @@
       "name": "league_thresh_q_return",
       "anim": "asset/league/effects/league_thresh_fx",
       "tag": "q_return",
-      "repeat": true,
+      "repeat": false,
       "z": 1
     },
     {

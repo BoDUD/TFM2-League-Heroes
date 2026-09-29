@@ -97,7 +97,7 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        ("thresh", "idle"): (6, [2, 3, 4])}
 CROWN = {"leesin"}              # heroes whose head template starts at the crown (a braid stands above it)
 PASTED = {"masteryi", "janna", "ekko",   # steadied on the head restyle_native pasted: his raised sword is the top of every frame
-          "thresh"}  # League's voted head, a new one in every frame: steadied on League's head joint instead
+          "thresh"}  # his hand-drawn head, pasted on League's head joint: steadied there
 
 
 def blocks(path):
