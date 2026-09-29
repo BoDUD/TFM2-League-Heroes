@@ -138,7 +138,7 @@ EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade
         "ekko": (213, 125, 34),           # the same for Ekko: the one amber square of his near eye
         "darius": (255, 247, 238),        # the design face pasted back by tidy_codex18.py: his eye white
         "leesin": (212, 34, 50),          # the same for Lee Sin: the blindfold band across his face
-        "soraka": (231, 174, 48),         # the same for Soraka: her amber eye (the face Codex refined), eye-only shade
+        "soraka": (231, 174, 48),         # the same for Soraka: her amber eye, in an eye-only shade
         "malphite": (245, 166, 8),        # his new design (the moss-stone golem): the bright orange of his eyes
         "morgana": (200, 60, 166)}        # the redesign A: only her face is pasted, its pink-violet is the eyes'
 

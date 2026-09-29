@@ -54,17 +54,19 @@ EYE_COLOURS = {"thresh": [(13, 200, 78), (4, 71, 29)],
 # face - eyes, brows, cheeks and the fringe right round them - goes back into every frame where the head is found.
 # head: the design's head box on its 128x128 canvas (<hero>_native.png), matched in every frame by colour; patch: the
 # face pasted there; iris: the eyes' colour and the eye-only shade it becomes in every frame (import_native.py's EYES
-# steadies the head on it; the design's iris is also on the hair)
+# steadies the head on it; the design's iris is also on the hair); hidden: frames (1-based, per strip) whose face is
+# turned away or covered, where a face would be "found" on something else
 FACES = {"leona": {"head": (42, 58, 66, 74), "patch": (53, 68, 61, 73), "iris": ((184, 86, 28), (186, 88, 30))},
          # Darius's eye white is already an eye-only shade in the design (#FFF7EE)
          "darius": {"head": (52, 55, 65, 66), "patch": (55, 60, 64, 65), "iris": ((255, 247, 238), (255, 247, 238))},
          # Lee Sin's eyes are under the blindfold: the skull top, the band across the face (its own red #D42232 in the
          # design) and the face under it go back; matched on that face alone (his braid knot changes every frame)
          "leesin": {"head": (57, 62, 69, 72), "patch": (57, 63, 69, 72), "iris": ((212, 34, 50), (212, 34, 50))},
-         # Soraka: the face Codex refined at the user's request (14 pixels of the design), its amber eye the marker in
-         # an eye-only shade (Codex's frames use the old eye amber on her gold trim);
-         # matched on the face alone (her white hair is drawn anew in every frame)
-         "soraka": {"head": (58, 68, 65, 75), "patch": (59, 69, 65, 75), "iris": ((230, 172, 46), (231, 174, 48))}}
+         # Soraka: the approved design's face (the user went back to it from the face Codex refined), its amber eye the
+         # marker in an eye-only shade (Codex's frames use the eye amber on her gold trim); matched on the face alone
+         # (her white hair is drawn anew in every frame); in Wish's deep bow her hair covers the face
+         "soraka": {"head": (58, 68, 65, 75), "patch": (59, 69, 65, 75), "iris": ((230, 172, 46), (231, 174, 48)),
+                    "hidden": {"ult": (4, 5)}}}
 FACE_OK = 120                   # mean colour distance over the head box above which a frame's head is not found
 # deliveries whose frames Codex centred in their cells (its manifest's atlas pivot) instead of standing them on our
 # pivots: every frame whose face is found goes sideways so that its eyes stand on League's head joint of that frame
@@ -236,7 +238,8 @@ def main():
             cell = out[y:y + ch, x:x + cw]
             if face:
                 ap = atlas[k] if atlas else fr["pivot"]
-                r = paste_face(cell, design, face, (ap[0] + off[0], ap[1] + off[1]))
+                hidden = k + 1 in face.get("hidden", {}).get(tag, ())
+                r = None if hidden else paste_face(cell, design, face, (ap[0] + off[0], ap[1] + off[1]))
                 found.append("-" if r is None else f"{r[0]:.0f}")
                 if place and tag != "idle":
                     ex = eye_x(cell, shade) if r is not None else None
