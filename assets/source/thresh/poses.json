@@ -1,0 +1,59 @@
+{
+  "hero": "thresh",
+  "champ": "Thresh",
+  "camera": {"yaw": 45, "pitch": 25, "mirror": true},
+  "chibi": {"head": 2.0, "legs": 0.8, "hair": 0.5},
+  "weapon": "^(weapon|weapon_tip|chain\\d)$",
+  "parts": [
+    {"name": "lantern", "joints": "^lan_chain\\d$", "outline": true, "materials": [
+      {"name": "lglass", "hue": [60, 185], "sat": [0.28, 1], "val": [0.45, 1], "ramp": [["4C8A2A", 0.62], ["8CD448", 0.82], ["D4FF8A"]]},
+      {"name": "lmetal", "ramp": [["3A2A30", 0.25], ["6A4E52", 0.42], ["9A7A74"]]}]},
+    {"name": "legs", "joints": "^[lr]_kneeupper$", "outline": true, "materials": [
+      {"name": "legmetal", "hue": [330, 60], "sat": [0.12, 0.6], "val": [0.3, 1], "ramp": [["5A4450", 0.45], ["7C5E60", 0.62], ["A88A84"]]},
+      {"name": "legglow", "hue": [90, 185], "sat": [0.2, 1], "val": [0.25, 1], "ramp": [["1F5A4A", 0.45], ["3FB08A"]]},
+      {"name": "legdark", "ramp": [["2E2640", 0.14], ["463A5E", 0.24], ["62547E"]]}]}],
+  "height": 30,
+  "cell": [112, 96, 14],
+  "design": "Thresh_idle1@0",
+  "restyle": {
+    "head": {"rect": [50, 61, 18, 16], "cut": [[66, 74], [67, 74], [65, 75], [66, 75], [67, 75], [63, 76], [64, 76], [65, 76], [66, 76], [67, 76]], "dx": -4, "dy": -5, "turn": 180},
+    "outline": "0A070E",
+    "weapon": [["3E2E34", 0.3], ["6E5458", 0.45], ["9C807C"]],
+    "weapon_materials": [
+      {"name": "blade", "hue": [90, 185], "sat": [0.2, 1], "val": [0.25, 1], "ramp": [["1F5A4A", 0.42], ["3FB08A", 0.62], ["8EEEC0"]]}],
+    "materials": [
+      {"name": "glow", "hue": [90, 185], "sat": [0.2, 1], "val": [0.25, 1], "ramp": [["1F5A4A", 0.42], ["2F9470", 0.6], ["6ADBA8", 0.8], ["C4FFE2"]]},
+      {"name": "metal", "hue": [330, 60], "sat": [0.12, 0.6], "val": [0.3, 1], "ramp": [["4E3840", 0.45], ["7C5E60", 0.62], ["A88A84"]]},
+      {"name": "cloth", "ramp": [["1A1424", 0.12], ["2E2440", 0.2], ["44385C", 0.3], ["5E5080"]]}],
+    "cover": 0.6
+  },
+  "tags": {
+    "idle": {"frames": [
+      ["Thresh_idle1@0", 250], ["Thresh_idle1@555", 250], ["Thresh_idle1@1110", 250],
+      ["Thresh_idle1@1665", 250], ["Thresh_idle1@2220", 250], ["Thresh_idle1@2775", 250]]},
+    "run": {"flat": true, "frames": [
+      ["Thresh_run@0", 125], ["Thresh_run@125", 125], ["Thresh_run@250", 125], ["Thresh_run@375", 125],
+      ["Thresh_run@500", 125], ["Thresh_run@625", 125], ["Thresh_run@750", 125], ["Thresh_run@875", 125]]},
+    "attack": {"lunge": 0.7, "frames": [
+      ["Thresh_idle1@0>Thresh_attack1_mid@0:0.5", 50], ["Thresh_attack1_mid@150", 60], ["Thresh_attack1_mid@300", 60],
+      ["Thresh_attack1_mid@400", 60], ["Thresh_attack1_mid@450", 70], ["Thresh_attack1_mid@600", 80],
+      ["Thresh_attack1_mid@800>Thresh_idle1@0:0.5", 80]]},
+    "skill": {"lunge": 0.7, "frames": [
+      ["Thresh_idle1@0>Thresh_spell1_in@0:0.5", 60], ["Thresh_spell1_in@150", 70], ["Thresh_spell1_in@300", 70],
+      ["Thresh_spell1_in@400", 70], ["Thresh_attack1_mid@450", 80], ["Thresh_spell1_grab@400", 100],
+      ["Thresh_spell1_grab@800", 100], ["Thresh_spell1_out@600>Thresh_idle1@0:0.5", 90]]},
+    "skill2": {"lunge": 0.7, "frames": [
+      ["Thresh_idle1@0>Thresh_spell3@0:0.5", 60], ["Thresh_spell3@133", 60], ["Thresh_spell3@267", 70],
+      ["Thresh_spell3@400", 60], ["Thresh_spell3@533", 70], ["Thresh_spell3@667", 70],
+      ["Thresh_spell3@800", 80], ["Thresh_spell3@1067>Thresh_idle1@0:0.5", 90]]},
+    "ult": {"lunge": 0.5, "frames": [
+      ["Thresh_idle1@0>Thresh_spell4@0:0.5", 60], ["Thresh_spell4@229", 70], ["Thresh_spell4@458", 80],
+      ["Thresh_spell4@688", 80], ["Thresh_spell4@917", 100], ["Thresh_spell4@1146", 100],
+      ["Thresh_spell4@1375>Thresh_idle1@0:0.4", 100], ["Thresh_spell4@1604>Thresh_idle1@0:0.6", 100]]},
+    "hit": {"flat": true, "frames": [
+      ["Thresh_idle1@0>Thresh_death@150:0.3", 120], ["Thresh_idle1@0>Thresh_death@150:0.12", 120]]},
+    "dead": {"lunge": 0.65, "flat": true, "frames": [
+      ["Thresh_death@0", 100], ["Thresh_death@250", 100], ["Thresh_death@500", 100], ["Thresh_death@750", 120],
+      ["Thresh_death@1083", 150], ["Thresh_death@1600", 150], ["Thresh_death@2167", 200], ["Thresh_death@4333", 500]]}
+  }
+}

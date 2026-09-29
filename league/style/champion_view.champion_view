@@ -190,6 +190,16 @@
         "y": -12
       }
     },
+    "league_thresh": {
+      "face": {
+        "x": -4,
+        "y": -33
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
     "league_fiddlesticks": {
       "face": {
         "x": 9,

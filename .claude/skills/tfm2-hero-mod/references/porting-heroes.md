@@ -106,6 +106,11 @@ OK = direct, ~ = approximate, X = not possible in data-only mods.
 | Leave the body, fight as a spirit, repeat the damage when pulled back (Yone E) | Ekko's anchor for the return, the body a `ViewEffect` of the sprite's own tag; champion-only twins of every hit queue a true-damage pop of a fixed share of that hit (nothing reads damage dealt), timed after the return by a ladder of caster buffs; the mark an `AddBuff` on the target lasting until its pop (champion-data "Leave the body"); folded into W every 15 s | ~ |
 | Shield for each champion hit (Yone W) | a `Shield` among the champion cone's effects through a `RangeEffect` on `AllyOnlySelf`; shields add up | OK |
 | Line that knocks up everyone on it, the caster ends behind the target (Yone R) | a `LineRangeProjectile` with `Airborne` after a 15-tick wind-up, then `RushMoveToBack`: he stops behind the chosen champion, not League's last champion hit, and does not pull them to him | ~ |
+| Hook that stuns the first champion and drags him in (Thresh Q) | a non-penetrating `LinearProjectile` on `EnemyChampion` with `Stun` and `Grab` (no `tick`) in its `applied_effects`: the stunned champion is dragged to the caster; League's recast that flies Thresh to him is left out (champion-data "Hook the first champion and drag him in") | ~ |
+| Lantern an ally clicks to be pulled in (Thresh W) | nothing can click: the lantern shields him and a random allied champion within 50000, folded into Q on its own cooldown | ~ |
+| Walls round the caster, the one broken hurts most (Thresh R) | no walls round a caster (`Line` takes map coordinates): one circle, an `ApplyInProjectile` that hits each champion once; the first champion takes the damage and the long slow, a caster flag leaves the rest a short slow; the picture a `CasterViewEffect` (a `ViewEffect` on his own spot never showed in game) (champion-data "A prison that hurts only the first champion in it") | ~ |
+| Push or pull by the cast direction (Thresh E) | the AI picks: pull within 2 s of a hook (League's hook-and-flay), else push (`Knockback`) when a champion is right on him and pull (`Pull`) when not, a `RandomTarget` flag read by `SwitchByBuff` (champion-data "Push or pull by the situation") | ~ |
+| Souls picked up for armour and ability power (Thresh's Damnation) | nothing to pick up: armour and ability power growth per level | ~ |
 | 2-3 stage recast | `cooltime_use_count` or recast buff + `SwitchByBuff` | ~ (AI timing) |
 | Cone / fan of projectiles (Ashe W) | no angle field on any projectile (base harpooner's fan is `Native`): a `LineRangeProjectile` rectangle cast by `Direction`, drawn as a fan sprite centred on it (champion-data "Cone / fan"); the hit area stays a rectangle | ~ |
 | Untargetable / invulnerable | `Banish` on self (a `RangeEffect` on `AllyOnlySelf`; it also makes the unit invisible, puts a CC state on it, stops the caster's own `RandomTarget` finding units and takes away its team's vision around it - only for a caster leaving the fight); in a fight `CasterInvisible` + a `damaged_reduce` 100 / `cc_immune` buff: targetable, but every hit deals 1 | ~ |
@@ -627,6 +632,31 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   front 22 px ahead, and cuts the mark into an intro, a loop and a dimmed end for a `ThreePhase` buff that lasts
   on the enemy until the burst. The auras round his body sit 2-3 px left of the pivot: his katana hangs on the
   right, so his body's middle is 3 px left when he faces right.
+- **A skull in a robe with a scythe and a lantern (Thresh, drawn by Claude, restyled, hand-drawn head
+  pasted).** The user took C30 of three proportions and two heights (head 2.0, legs 0.8, hair 0.5, height 30;
+  39 px with the chains on his head). The lantern is a part of its own (`^lan_chain\d$`, its glass voted by hue
+  60-185 onto a yellow-green soul-light ramp), the legs too (`^[lr]_kneeupper$`, dark purple, so the stride
+  shows under the robe), the scythe and its chain the `weapon`. The head took four rounds: three faces drawn
+  from scratch were rejected ("A B C 都不及格"; the user liked League's own head, voted, better); the voted head
+  was then "好模糊" at game size, and more detail in the vote stayed blurry ("细节还模糊 实在不行你就手画");
+  three skulls drawn square by square on League's structure followed, and the user took C: a dark purple
+  skull 11 wide, V-shaped brows running down to the nose, two glowing green eyes, three fangs (the outer two
+  long) over a green-lit maw, and two chains with teal joints arching back from the crown to a hook. Pasted on
+  League's head joint and kept upright (`"turn": 180`); `import_native.py` steadies him on that joint
+  (`PASTED`). The move is League's walk: the graph's `Run` plays `run_base` = `Thresh_run` (after
+  `Thresh_run_in`) at base speed and `run_fast` only from move speed 375 (`anim_graph.py Thresh --grep run`);
+  the 2 s file holds the same 1 s walk cycle twice. The user asked for "一模一样在游戏里的走路姿势" (the first
+  version read as a run) and set 8 x 125 ms, one cycle a second - League's pace (art-spec "The move is
+  League's movement clip at League's pace") - unblended.
+  Idle one frame breathing (the robe's hem moves, the boots stay), 55 frames, 35 colours, face (-4, -33): the
+  chains arch back, so the tool's head centre (x -9) sits behind the face.
+  Codex's fourteen effects came as raw generations with real alpha and a manifest. `tools/art/import_thresh.py
+  --raw` sizes them to the kit; three pictures needed more than a scale. The hook's chain is drawn link by link,
+  growing with the throw and shrinking with the pull (champion-data section 6: a fixed 48 px chain stuck out
+  behind him as it left his hand, and a fixed chain on the hook coming back would overshoot him). The lantern
+  is laid along its flight and mirrored top to bottom (art-spec: a projectile flying left is turned upside
+  down). The Box's ground was drawn at 1.6:1 and is squeezed toward the game's 2:1, anchored 2 px below the
+  drawing's middle (a pentagon's centre lies below its box's).
 - **A face point under the hair.** `tfm2_ase.py face` and the lint find the crown at the top of
   the idle sprite, which for Yasuo is the ponytail's tip, 9 px above his head and to the left of
   it. Both now also look for the head from the face: the top two rows of skin-toned pixels and the
