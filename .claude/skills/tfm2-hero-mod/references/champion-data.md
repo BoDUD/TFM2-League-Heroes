@@ -945,7 +945,10 @@ Supports measured that way (2026-09-28, Yasuo top, the support on his team, 24 s
 league_leona, 0.54 beside league_soraka and 0.48 beside the base priest - Janna sits between the
 supports without hard CC and Leona, and his R stayed as it was. league_morgana (2026-09-29, Dark Binding's
 2 s root and Soul Shackles' stun): 1.52 a game, league_janna 0.94 and the base priest 0.65 in the same batch - no
-change either.
+change either. league_riven (2026-09-30, top, Yasuo moved to mid; Broken Wings' third-cast knock-up and Ki Burst's
+stun, 24 seeds a side): 2.56 a game, the base fighter 1.94, the base knight 0.85, league_malphite 2.42 and
+league_darius 1.21 in the same batch - the range the knock-up heroes gave before (Yone 2.15, Annie 2.19-2.50, the
+base lightning mage 3.19), so no change.
 
 **Kill trigger (league_jinx Get Excited!).** No effect fires on a kill, but section 4's facts make one:
 1. Next to the damaging projectile, fire an invisible twin with the same speed and path and
@@ -1370,6 +1373,32 @@ a single `Delayed {tick: 180}` `RangeEffect` (70000) stunned every enemy champio
 run off and come back or had never been chained (the user: "脱离了大招的线就不应该眩晕了吧"). In 16 simulated games
 62 champions were chained: about 36 died within the 3 s, 12-19 ran out of reach and 0-3 were stunned, at check
 ranges of 60000 to 105000 alike - a champion walks about 1.2 cast radii a second here, against 0.56 in League.
+
+**Three charges, the third cast different (league_riven Q, Broken Wings).** `cooltime_use_count: 3` with cooltime 720
+(a charge back every 4 s). The casts count themselves, not their hits: the first adds a 240-tick `q_1` caster window,
+a cast during it swaps `q_1` for `q_2`, a cast during `q_2` removes it and leaps (League's 4 s recast window; left
+unused the chain starts over). Every cast hops onto its target (`MoveToTarget`) and slashes round her on arrival; the
+third knocks up round where she lands. The AI weaves the charges with basic attacks by itself - Q, attack, Q, attack,
+Q (about 70 casts a game in the SDK simulation), so each rune a cast gives is spent at once, as in League.
+
+**Runes the next attacks spend (league_riven Runic Blade).** Every spell adds a rune, at most three: caster buffs
+`rune_1`..`rune_3` of 360 ticks, and each gain removes all three and adds them again up to the new count, so they run
+out together as in League (separate timers would leave `rune_2` without `rune_1`); a buff added in a tick is seen by a
+`SwitchByBuff` later in the same tick, so E+W's two gains count two. The attack spends the highest rune for its bonus.
+
+**A self-buff ult armed on the way, started at the fight (league_riven R, Blade of the Exile).** The AI casts an ult
+slot on `EnemyChampion` while it closes in (league_kayle): cast as a plain buff, Riven's R went off with the nearest
+enemy champion 45000-110000 away and the 15 s often ran out on the walk (4 casts, 1 Wind Slash in a game). The slot is
+now a 3-tick action on the idle tag (`None` on `EnemyChampion`) that adds a 600-tick `r_armed` caster buff and starts
+the R at once when a `RandomTarget EnemyChampion` finds one within 35000 (44 of 45 casts in 12 games), else at her
+first attack with a champion that close; left unused, a 3-tick `ult_cooldown_mult` 4900 caps the cooldown at 60 ticks.
+Wind Slash, the recast, fires by itself: a 900-tick ready flag and a 300-tick wait; after the wait her attacks and a
+train of `Delayed` checks every 30 ticks from the cast fire it (`RandomTarget EnemyChampion` within 60000 -> a
+`LinearProjectile` toward the picked champion, 70000 long; the damage adds `target_hp_ratio` since nothing reads
+missing health). Per game over 12 seeds: 3.5 starts, 2.0 slashes, 1.7 champion hits; with the checks in her attacks
+only, 1.3 slashes; with a 90000 reach 1.9 slashes but 0.9 champion hits (the wave fell short of far champions).
+After the cast most fights were over within 5 s (she often walked off), which is why the wait is kept short of the
+buff and the checks run on their own.
 
 ## 8. Gotchas
 
