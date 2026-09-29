@@ -50,7 +50,8 @@ EYE_COLOURS = {"thresh": [(13, 200, 78), (4, 71, 29)],
                "leesin": [(212, 34, 50)], "soraka": [(231, 174, 48)],
                # the new design (the user's moss-stone golem): his orange eyes
                "malphite": [(245, 166, 8), (184, 78, 5), (150, 76, 29)],
-               "annie": [(51, 32, 63)]}
+               "annie": [(51, 32, 63)],
+               "amumu": [(243, 224, 80), (247, 214, 65), (204, 141, 33), (153, 88, 24), (87, 46, 21)]}
 # heroes whose delivered faces were drawn anew in every frame (Codex: "not a pixel copy of the head"): the design's
 # face - eyes, brows, cheeks and the fringe right round them - goes back into every frame where the head is found.
 # head: the design's head box on its 128x128 canvas (<hero>_native.png), matched in every frame by colour; patch: the
@@ -70,13 +71,20 @@ FACES = {"leona": {"head": (42, 58, 66, 74), "patch": (53, 68, 61, 73), "iris": 
                     "hidden": {"ult": (4, 5)}},
          # Annie: her face - the lids, the white-and-violet eyes (the pupils #33203F, an eye-only shade of #2A1A35
          # since the step-2 pack) and the cheeks - matched on the face alone (her hair is drawn anew every frame)
-         "annie": {"head": (60, 72, 65, 77), "patch": (60, 72, 65, 76), "iris": ((51, 32, 63), (51, 32, 63))}}
+         "annie": {"head": (60, 72, 65, 77), "patch": (60, 72, 65, 76), "iris": ((51, 32, 63), (51, 32, 63))},
+         # Amumu: the two yellow eyes in their dark sockets (his bandages are drawn anew every frame); the eye yellow
+         # #F2DF4E becomes an eye-only shade (Codex's frames use it for their own, bigger eyes)
+         "amumu": {"head": (70, 77, 82, 82), "patch": (71, 78, 81, 81), "iris": ((242, 223, 78), (243, 224, 80)),
+                   # Codex's own eyes were bigger in some frames: their yellows left round the pasted face go
+                   "scrub": {(242, 223, 78), (247, 214, 65), (204, 141, 33), (153, 88, 24), (87, 46, 21)},
+                   # lying in the death strip: the face is on the ground (a "face" was found on his body)
+                   "hidden": {"dead": (3, 4, 5, 6, 7)}}}
 FACE_OK = 120                   # mean colour distance over the head box above which a frame's head is not found
 # deliveries whose frames Codex centred in their cells (its manifest's atlas pivot) instead of standing them on our
 # pivots: every frame whose face is found goes sideways so that its eyes stand on League's head joint of that frame
 # (the cells table's "head"), as in the design; a frame without a face keeps Codex's place round the atlas pivot,
 # moved to ours. Up and down stay Codex's: the soles are on the feet line already.
-PLACE_BY_HEAD = {"darius", "leesin", "soraka", "annie"}
+PLACE_BY_HEAD = {"darius", "leesin", "soraka", "annie", "amumu"}
 
 
 def blocks(path):
@@ -199,7 +207,27 @@ def paste_face(frame, design, face, guess):
     win = frame[oy:oy + patch.shape[0], ox:ox + patch.shape[1]]
     m = patch[..., 3] > 0
     win[m] = patch[m]
+    if face.get("scrub"):
+        scrub(frame, (ox, oy, ox + patch.shape[1] - 1, oy + patch.shape[0] - 1), face["scrub"])
     return s, x, y
+
+
+def scrub(frame, box, colours, margin=3):
+    """The frame's own eyes where they stuck out of the pasted face: their colours (eye-only in the design) within
+    `margin` of the patch box take the commonest other colour round them."""
+    x0, y0, x1, y1 = box
+    H, W = frame.shape[:2]
+    bad = lambda p: p[3] > 0 and tuple(int(v) for v in p[:3]) in colours  # noqa: E731
+    for _ in range(2):
+        for y in range(max(0, y0 - margin), min(H, y1 + margin + 1)):
+            for x in range(max(0, x0 - margin), min(W, x1 + margin + 1)):
+                if x0 <= x <= x1 and y0 <= y <= y1 or not bad(frame[y, x]):
+                    continue
+                nb = [tuple(int(v) for v in frame[y + dy, x + dx]) for dy, dx in N8
+                      if 0 <= y + dy < H and 0 <= x + dx < W and frame[y + dy, x + dx, 3] > 0
+                      and not bad(frame[y + dy, x + dx])]
+                if nb:
+                    frame[y, x] = max(set(nb), key=nb.count)
 
 
 def main():

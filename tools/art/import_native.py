@@ -84,6 +84,8 @@ ORDER = {("lux", "idle"): [0, 1, 2, 3, 5, 4],
          ("ahri", "idle"): [0, 0, 0, 0, 0, 0],
          # and Soraka (her step-2 idle is the design itself; Codex's six redrawn idle frames are not used)
          ("soraka", "idle"): [0, 0, 0, 0, 0, 0],
+         # and Amumu (his step-2 idle is the design in all six)
+         ("amumu", "idle"): [0, 0, 0, 0, 0, 0],
          # and Morgana (the redesign A, which tools/art/tidy_morgana.py writes into all six)
          ("morgana", "idle"): [0, 0, 0, 0, 0, 0]}
 # (hero, tag): (y, slots) - in those slots everything at or above pivot row y moves down a row (the row under
@@ -120,6 +122,8 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        ("ahri", "idle"): (6, [2, 3, 4]),
        # Soraka: the seam across her robe's hem, her hooves stay
        ("soraka", "idle"): (6, [2, 3, 4]),
+       # Amumu: the seam across his shins, his feet stay
+       ("amumu", "idle"): (6, [2, 3, 4]),
        # Morgana's gown reaches the ground: the seam five rows over its hem, where two rows differ only in
        # shading (8 squares); the hem and the train's lowest rows stay
        ("morgana", "idle"): (6, [2, 3, 4])}
@@ -129,7 +133,7 @@ PASTED = {"masteryi",            # steadied on the head restyle_native pasted: h
 # Codex's step-2 redraw (model_strips_18, tidied by tidy_codex18.py): the approved design's head (or face) is in every
 # frame, so they are steadied on idle frame 1's head like the round-1 heroes - or on their eyes when they are in
 # EYES - whatever their poses.json says
-REDRAWN = {"thresh", "leona", "janna", "ekko", "darius", "leesin", "soraka", "malphite", "annie"}
+REDRAWN = {"thresh", "leona", "janna", "ekko", "darius", "leesin", "soraka", "malphite", "annie", "amumu"}
 # heroes steadied on their eyes: (R, G, B) of a colour only the eyes use; the head column is the eyes' middle
 EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade is the top of every frame
         "kayle": (226, 138, 8),           # Codex's redraw: her wings rise above her head, the amber is the eyes'
@@ -141,6 +145,7 @@ EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade
         "soraka": (231, 174, 48),         # the same for Soraka: her amber eye, in an eye-only shade
         "malphite": (245, 166, 8),        # his new design (the moss-stone golem): the bright orange of his eyes
         "annie": (51, 32, 63),            # the design face pasted back by tidy_codex18.py: her violet pupils
+        "amumu": (243, 224, 80),          # the same for Amumu: his eye yellow, in an eye-only shade
         "morgana": (200, 60, 166)}        # the redesign A: only her face is pasted, its pink-violet is the eyes'
 
 
