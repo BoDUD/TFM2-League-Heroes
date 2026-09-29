@@ -126,6 +126,13 @@
         "skill": "向前出剑，对直线上的敌人造成<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>，视为普攻，可以暴击。命中后获得一层<#ff9028ff>风暴聚集<>，满<#ffb900ff>2<>层时下一次改为向前冲刺，带着旋风<#ef5350ff>击飞<>路径上的敌人<#ffb900ff>1秒<>。",
         "skill2": "向前顺劈，造成<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25% 攻击力<>的<#ff9028ff>物理伤害<>和<#f5f5f5ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>15% 攻击力<>的<#f5f5f5ff>真实伤害<>（英雄另受<#f5f5f5ff>5% 最大生命值<>），每命中一名英雄得<#e8d44dff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35% 攻击力<><#e8d44dff>护盾<>。每<#ffb900ff>15秒<>先施放<#ff9028ff>破障之锋<>：灵体冲向英雄，<#ffb900ff>4秒<>后归位，以<#f5f5f5ff>真实伤害<>重现期间对英雄伤害的<#ffb900ff>25%<>。",
         "ult": "对一条直线上的所有敌人造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50% 攻击力<>的<#ff9028ff>物理伤害<>和<#f5f5f5ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35% 攻击力<>的<#f5f5f5ff>真实伤害<>并<#ef5350ff>击飞<><#ffb900ff>0.75秒<>，永恩冲到目标身后。"
+      },
+      "league_kayle": {
+        "name": "凯尔",
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>，附带<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20% 法术强度<>的<#a974ffff>魔法伤害<>。<#ff9028ff>狂热<>：每次攻击<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻速+6%<>（5层），满层<#ff9028ff>昂扬<><#ffffffff>移速+10%<>。<#ffb900ff>5级<><#ff9028ff>升腾<>：<i#asset/base/ui/banpick/champion_stat_icon:range_0><#ff86c2ff>远程<>；<#ffb900ff>8级<><#ff9028ff>炽诚<>：昂扬攻击射出焰浪，造成<#a974ffff>20<> + <#a974ffff>25% 法术强度<>魔法伤害；<#ffb900ff>12级<><#ff9028ff>超然<>：永久昂扬，射程更远。",
+        "skill": "发射星界之剑，停在第一个敌人处爆开，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 法术强度<>的<#a974ffff>魔法伤害<>，<#ef5350ff>减速<><#ffb900ff>30%<>持续<#ffb900ff>2秒<>，并降低<#ffdd8eff>护甲<>和<#88ccffff>魔抗<><#ffb900ff>15%<>，持续<#ffb900ff>4秒<>。",
+        "skill2": "射出星火，造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% 法术强度<>的<#a974ffff>魔法伤害<>，对英雄另造成其<#ffb900ff>3%<>最大生命值的<#f5f5f5ff>真实伤害<>；8级起命中后爆炸。每<#ffb900ff>12秒<>附带<#ff9028ff>星界恩典<>：为自己和身边一名友方英雄回复<#6aff55ff>60<> + <#6aff55ff>30% 法术强度<>生命值，<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移速+25%<>持续<#ffb900ff>2秒<>。",
+        "ult": "交战时施放：使身边一名被控制的友方英雄（没有则为自己）<#ffb900ff>免疫伤害<>和控制<#ffb900ff>2.5秒<>，随后在其周围降下圣剑，造成<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 法术强度<>的<#a974ffff>魔法伤害<>。"
       }
     },
     "skill_name": {
@@ -218,6 +225,11 @@
         "skill1": "错玉切",
         "skill2": "凛神斩",
         "ult": "封尘绝念斩"
+      },
+      "league_kayle": {
+        "skill1": "耀焰冲击",
+        "skill2": "星火符刃",
+        "ult": "圣裁之刻"
       }
     }
   },
@@ -348,6 +360,13 @@
         "skill": "向前突刺，對直線上的敵人造成<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>，視為普攻，可以暴擊。命中後獲得一層<#ff9028ff>天寒地凍<>，滿<#ffb900ff>2<>層時下一次改為向前衝刺，帶著旋風<#ef5350ff>擊飛<>路徑上的敵人<#ffb900ff>1秒<>。",
         "skill2": "向前劈斬，造成<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25% 攻擊力<>的<#ff9028ff>物理傷害<>和<#f5f5f5ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>15% 攻擊力<>的<#f5f5f5ff>真實傷害<>（英雄另受<#f5f5f5ff>5% 最大生命<>），每命中一名英雄得<#e8d44dff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35% 攻擊力<><#e8d44dff>護盾<>。每<#ffb900ff>15秒<>先施放<#ff9028ff>釋魂之刃<>：靈體衝向英雄，<#ffb900ff>4秒<>後歸位，以<#f5f5f5ff>真實傷害<>重現期間對英雄傷害的<#ffb900ff>25%<>。",
         "ult": "對一條直線上的所有敵人造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50% 攻擊力<>的<#ff9028ff>物理傷害<>和<#f5f5f5ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35% 攻擊力<>的<#f5f5f5ff>真實傷害<>並<#ef5350ff>擊飛<><#ffb900ff>0.75秒<>，犽凝衝到目標身後。"
+      },
+      "league_kayle": {
+        "name": "凱爾",
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>，附帶<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20% 魔法強度<>的<#a974ffff>魔法傷害<>。<#ff9028ff>狂熱<>：每次普攻<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻速+6%<>（5層），滿層<#ff9028ff>聖頌<><#ffffffff>跑速+10%<>。<#ffb900ff>5級<><#ff9028ff>轉生<>：<i#asset/base/ui/banpick/champion_stat_icon:range_0><#ff86c2ff>遠程<>；<#ffb900ff>8級<><#ff9028ff>熾烈<>：聖頌普攻發射聖焰，造成<#a974ffff>20<> + <#a974ffff>25% 魔法強度<>魔法傷害；<#ffb900ff>12級<><#ff9028ff>超然<>：永久聖頌，射程更遠。",
+        "skill": "發射星體之劍，停在第一個敵人處爆開，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 魔法強度<>的<#a974ffff>魔法傷害<>，<#ef5350ff>緩速<><#ffb900ff>30%<>持續<#ffb900ff>2秒<>，並降低<#ffdd8eff>物理防禦<>和<#88ccffff>魔法防禦<><#ffb900ff>15%<>，持續<#ffb900ff>4秒<>。",
+        "skill2": "射出星火，造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% 魔法強度<>的<#a974ffff>魔法傷害<>，對英雄另造成其<#ffb900ff>3%<>最大生命的<#f5f5f5ff>真實傷害<>；8級起命中後爆炸。每<#ffb900ff>12秒<>附帶<#ff9028ff>天賜聖典<>：為自己和身邊一名友方英雄回復<#6aff55ff>60<> + <#6aff55ff>30% 魔法強度<>生命，<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>跑速+25%<>持續<#ffb900ff>2秒<>。",
+        "ult": "交戰時施放：使身邊一名被控制的友方英雄（沒有則為自己）<#ffb900ff>免疫傷害<>和控制<#ffb900ff>2.5秒<>，隨後在其周圍降下聖劍，造成<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 魔法強度<>的<#a974ffff>魔法傷害<>。"
       }
     },
     "skill_name": {
@@ -440,6 +459,11 @@
         "skill1": "鋼鐵凡志",
         "skill2": "滅魂斬",
         "ult": "二刀流奧義 ─ 封‧命‧斬"
+      },
+      "league_kayle": {
+        "skill1": "聖光衝擊波",
+        "skill2": "星火熾刃",
+        "ult": "聖劍審判"
       }
     }
   },
@@ -570,6 +594,13 @@
         "skill": "Thrusts forward, dealing <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<> to enemies in a line. It is treated as a basic attack and can critically strike. On hit Yone gains a stack of <#ff9028ff>Gathering Storm<>; at <#ffb900ff>2<> stacks the next cast dashes him forward with a gust of wind that <#ef5350ff>knocks up<> enemies in its path for <#ffb900ff>1s<>.",
         "skill2": "Cleaves a cone for <#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25% AD<> <#ff9028ff>physical damage<> and <#f5f5f5ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>15% AD<> <#f5f5f5ff>true damage<> (champions also take <#f5f5f5ff>5% of their max health<>); each champion hit shields Yone for <#e8d44dff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35% AD<>. Every <#ffb900ff>15s<> it opens with <#ff9028ff>Soul Unbound<>: his spirit dashes at a champion, returns <#ffb900ff>4s<> later and repeats <#ffb900ff>25%<> of its damage to champions as <#f5f5f5ff>true damage<>.",
         "ult": "Strikes all enemies in a line for <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50% AD<> <#ff9028ff>physical damage<> and <#f5f5f5ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35% AD<> <#f5f5f5ff>true damage<> and <#ef5350ff>knocks them up<> for <#ffb900ff>0.75s<>; Yone appears behind his target."
+      },
+      "league_kayle": {
+        "name": "Kayle",
+        "attack": "Attacks deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<> + <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20% AP<> <#a974ffff>magic damage<>. <#ff9028ff>Zealous<>: each attack grants <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>6% attack speed<> (5 stacks); at 5 she is <#ff9028ff>Exalted<>: <#ffffffff>10% Move Speed<>. <#ffb900ff>Level 5<> <#ff9028ff>Arisen<>: <i#asset/base/ui/banpick/champion_stat_icon:range_0><#ff86c2ff>ranged<>. <#ffb900ff>Level 8<> <#ff9028ff>Aflame<>: Exalted attacks launch a fire wave, <#a974ffff>20<> + <#a974ffff>25% AP<> magic damage. <#ffb900ff>Level 12<> <#ff9028ff>Transcendent<>: always Exalted, longer range.",
+        "skill": "Kayle fires a celestial sword that stops on the first enemy and bursts: <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% Ability Power<> <#a974ffff>magic damage<>, <#ef5350ff>slowed<> by <#ffb900ff>30%<> for <#ffb900ff>2s<> and <#ffb900ff>15%<> less <#ffdd8eff>Armor<> and <#88ccffff>Magic Resist<> for <#ffb900ff>4s<> to the enemies around.",
+        "skill2": "Kayle hurls starfire for <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% Ability Power<> <#a974ffff>magic damage<>, plus <#ffb900ff>3%<> of a champion's max health as <#f5f5f5ff>true damage<>; from level 8 it explodes around the target. Every <#ffb900ff>12s<> it also casts <#ff9028ff>Celestial Blessing<>: Kayle and an allied champion nearby heal <#6aff55ff>60<> + <#6aff55ff>30% Ability Power<> and gain <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>25% Move Speed<> for <#ffb900ff>2s<>.",
+        "ult": "In a fight, Kayle makes a crowd-controlled allied champion nearby (or herself) <#ffb900ff>immune to damage<> and crowd control for <#ffb900ff>2.5s<>; then swords fall around them for <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% Ability Power<> <#a974ffff>magic damage<>."
       }
     },
     "skill_name": {
@@ -662,6 +693,11 @@
         "skill1": "Mortal Steel",
         "skill2": "Spirit Cleave",
         "ult": "Fate Sealed"
+      },
+      "league_kayle": {
+        "skill1": "Radiant Blast",
+        "skill2": "Starfire Spellblade",
+        "ult": "Divine Judgment"
       }
     }
   },
@@ -792,6 +828,13 @@
         "skill": "전방으로 검을 내질러 일직선상의 적에게 <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다. 기본 공격으로 간주되어 치명타가 적용됩니다. 적중 시 <#ff9028ff>폭풍 구름<>이 1회 중첩되며, <#ffb900ff>2<>회 중첩되면 다음 사용 시 전방으로 돌진하며 돌풍으로 경로의 적을 <#ffb900ff>1초<> 동안 <#ef5350ff>공중으로 띄워 올립니다<>.",
         "skill2": "전방을 베어 <#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 25%<> <#ff9028ff>물리 피해<>와 <#f5f5f5ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 15%<> <#f5f5f5ff>고정 피해<>를 입히고(챔피언은 <#f5f5f5ff>최대 체력의 5%<> 추가), 적중한 챔피언마다 <#e8d44dff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 35%<> <#e8d44dff>보호막<>을 얻습니다. <#ffb900ff>15초<>마다 <#ff9028ff>영혼해방<>: 영혼이 챔피언에게 돌진하고 <#ffb900ff>4초<> 후 돌아와 그동안 챔피언에게 입힌 피해의 <#ffb900ff>25%<>를 <#f5f5f5ff>고정 피해<>로 입힙니다.",
         "ult": "일직선상의 모든 적에게 <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 50%<> <#ff9028ff>물리 피해<>와 <#f5f5f5ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 35%<> <#f5f5f5ff>고정 피해<>를 입히고 <#ffb900ff>0.75초<> 동안 <#ef5350ff>공중으로 띄워 올리며<>, 요네는 대상 뒤로 이동합니다."
+      },
+      "league_kayle": {
+        "name": "케일",
+        "attack": "기본 공격: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<> + <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 20%<> <#a974ffff>마법 피해<>. <#ff9028ff>열광<>: 공격마다 <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>공격 속도 6%<>(5회 중첩), 최대 중첩 시 <#ff9028ff>희열<>: <#ffffffff>이동 속도 10%<>. <#ffb900ff>5레벨<> <#ff9028ff>비상<>: <i#asset/base/ui/banpick/champion_stat_icon:range_0><#ff86c2ff>원거리<>. <#ffb900ff>8레벨<> <#ff9028ff>작열<>: 희열 공격 시 화염파로 <#a974ffff>20<> + <#a974ffff>주문력의 25%<> 마법 피해. <#ffb900ff>12레벨<> <#ff9028ff>승천<>: 영구히 희열 상태, 사거리 증가.",
+        "skill": "천상의 검을 발사해 처음 적중한 적에게서 폭발하며 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 60%<> <#a974ffff>마법 피해<>를 입히고 <#ffb900ff>2초<> 동안 <#ef5350ff>30% 둔화<>시키며 <#ffb900ff>4초<> 동안 <#ffdd8eff>방어력<>과 <#88ccffff>마법 저항력<>을 <#ffb900ff>15%<> 낮춥니다.",
+        "skill2": "천상의 화염으로 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 50%<> <#a974ffff>마법 피해<>를 입히고 챔피언에게는 <#f5f5f5ff>최대 체력의 3%<> <#f5f5f5ff>고정 피해<>를 추가로 입힙니다. 8레벨부터 적중 시 폭발합니다. <#ffb900ff>12초<>마다 <#ff9028ff>천상의 축복<>: 케일과 가까운 아군 챔피언 하나가 <#6aff55ff>체력을 60<> + <#6aff55ff>주문력의 30%<> 회복하고 <#ffb900ff>2초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도 25%<> 증가.",
+        "ult": "교전 중 사용: 근처의 군중 제어에 걸린 아군 챔피언(없으면 케일 자신)이 <#ffb900ff>2.5초<> 동안 <#ffb900ff>피해와 군중 제어에 면역<>이 되고, 이후 주변에 신성한 검이 떨어져 <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 80%<> <#a974ffff>마법 피해<>를 입힙니다."
       }
     },
     "skill_name": {
@@ -884,6 +927,11 @@
         "skill1": "필멸의 검",
         "skill2": "영혼 가르기",
         "ult": "운명봉인"
+      },
+      "league_kayle": {
+        "skill1": "광휘의 일격",
+        "skill2": "화염주문검",
+        "ult": "신성한 심판"
       }
     }
   },
@@ -1014,6 +1062,13 @@
         "skill": "前方に突きを放ち、直線上の敵に<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>を与える。通常攻撃扱いでクリティカルが発生する。命中すると<#ff9028ff>つむじ風<>のスタックを得て、<#ffb900ff>2<>スタックで次の発動時に前方へダッシュし、風で進路上の敵を<#ffb900ff>1秒<>間<#ef5350ff>ノックアップ<>させる。",
         "skill2": "前方を斬り、<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の25%<>の<#ff9028ff>物理ダメージ<>と<#f5f5f5ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の15%<>の<#f5f5f5ff>確定ダメージ<>（チャンピオンには<#f5f5f5ff>最大体力の5%<>も）、チャンピオン1体につき<#e8d44dff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の35%<>の<#e8d44dff>シールド<>。<#ffb900ff>15秒<>ごとに先に<#ff9028ff>縛魂の解放<>：霊魂が突進し<#ffb900ff>4秒<>後に戻り、その間のダメージの<#ffb900ff>25%<>を<#f5f5f5ff>確定ダメージ<>で与える。",
         "ult": "直線上の敵すべてに<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の50%<>の<#ff9028ff>物理ダメージ<>と<#f5f5f5ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の35%<>の<#f5f5f5ff>確定ダメージ<>を与えて<#ffb900ff>0.75秒<>間<#ef5350ff>ノックアップ<>させ、ヨネは対象の背後に現れる。"
+      },
+      "league_kayle": {
+        "name": "ケイル",
+        "attack": "通常攻撃は<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>と<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の20%<>の<#a974ffff>魔法ダメージ<>。<#ff9028ff>ゼレス<>：攻撃ごとに<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻撃速度6%<>（5回）、最大で<#ff9028ff>崇高<>：<#ffffffff>移動速度10%<>。<#ffb900ff>Lv5<><#ff9028ff>アライズン<>：<i#asset/base/ui/banpick/champion_stat_icon:range_0><#ff86c2ff>遠隔<>。<#ffb900ff>Lv8<><#ff9028ff>アフレイム<>：崇高の攻撃で炎の波動<#a974ffff>20<> + <#a974ffff>魔力の25%<>。<#ffb900ff>Lv12<><#ff9028ff>トランセンデント<>：常に崇高、射程延長。",
+        "skill": "天界の剣を放ち、最初に当たった敵の位置で炸裂して<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の60%<>の<#a974ffff>魔法ダメージ<>を与え、<#ffb900ff>2秒<>間<#ef5350ff>30%スロウ<>、<#ffb900ff>4秒<>間<#ffdd8eff>物理防御<>と<#88ccffff>魔法防御<>を<#ffb900ff>15%<>低下させる。",
+        "skill2": "星炎を放ち<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の50%<>の<#a974ffff>魔法ダメージ<>、チャンピオンには<#f5f5f5ff>最大体力の3%<>の<#f5f5f5ff>確定ダメージ<>を追加。Lv8以降は命中時に爆発。<#ffb900ff>12秒<>ごとに<#ff9028ff>天の祝福<>：自身と近くの味方チャンピオン1体の<#6aff55ff>体力を60<> + <#6aff55ff>魔力の30%<>回復し、<#ffb900ff>2秒<>間<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度25%<>増加。",
+        "ult": "戦闘中に発動：近くの行動妨害を受けた味方チャンピオン（いなければ自身）を<#ffb900ff>2.5秒<>間<#ffb900ff>ダメージと行動妨害無効<>にし、その後周囲に聖なる剣を降らせて<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の80%<>の<#a974ffff>魔法ダメージ<>を与える。"
       }
     },
     "skill_name": {
@@ -1106,6 +1161,11 @@
         "skill1": "斬命刀",
         "skill2": "霊断刀",
         "ult": "冥封一閃"
+      },
+      "league_kayle": {
+        "skill1": "裁きの射光",
+        "skill2": "星炎の刃",
+        "ult": "聖なる審判"
       }
     }
   }
