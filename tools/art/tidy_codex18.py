@@ -46,14 +46,21 @@ EYE_COLOURS = {"thresh": [(13, 200, 78), (4, 71, 29)],
                # assets/source/native folder as the delivery
                "fiddlesticks": [(200, 224, 96)], "kayle": [(226, 138, 8)],
                "leona": [(186, 88, 30)], "janna": [(3, 51, 207)],
-               "ekko": [(213, 125, 34)]}
+               "ekko": [(213, 125, 34)], "darius": [(255, 247, 238)]}
 # heroes whose delivered faces were drawn anew in every frame (Codex: "not a pixel copy of the head"): the design's
 # face - eyes, brows, cheeks and the fringe right round them - goes back into every frame where the head is found.
 # head: the design's head box on its 128x128 canvas (<hero>_native.png), matched in every frame by colour; patch: the
 # face pasted there; iris: the eyes' colour and the eye-only shade it becomes in every frame (import_native.py's EYES
 # steadies the head on it; the design's iris is also on the hair)
-FACES = {"leona": {"head": (42, 58, 66, 74), "patch": (53, 68, 61, 73), "iris": ((184, 86, 28), (186, 88, 30))}}
+FACES = {"leona": {"head": (42, 58, 66, 74), "patch": (53, 68, 61, 73), "iris": ((184, 86, 28), (186, 88, 30))},
+         # Darius's eye white is already an eye-only shade in the design (#FFF7EE)
+         "darius": {"head": (52, 55, 65, 66), "patch": (55, 60, 64, 65), "iris": ((255, 247, 238), (255, 247, 238))}}
 FACE_OK = 120                   # mean colour distance over the head box above which a frame's head is not found
+# deliveries whose frames Codex centred in their cells (its manifest's atlas pivot) instead of standing them on our
+# pivots: every frame whose face is found goes sideways so that its eyes stand on League's head joint of that frame
+# (the cells table's "head"), as in the design; a frame without a face keeps Codex's place round the atlas pivot,
+# moved to ours. Up and down stay Codex's: the soles are on the feet line already.
+PLACE_BY_HEAD = {"darius"}
 
 
 def blocks(path):
@@ -198,26 +205,69 @@ def main():
         p0 = spec["tags"]["idle"][0]["pivot"]
         off = (hx - p0[0], hy - p0[1])          # the head box's corner from the standing point in the design
         print(f"{h}: design head in idle frame 1 at {hx},{hy} (distance {s:.1f})")
+    place = h in PLACE_BY_HEAD
+    if place:
+        shade = np.array(face["iris"][1], np.uint8)
+        eye_k = eye_x(idle, shade) - spec["tags"]["idle"][0]["head"][0]   # the eyes from League's head joint
     for tag, frames in spec["tags"].items():
         new = blocks(os.path.join(a.delivery, f"{h}_{tag}.png"))
         old = blocks(os.path.join(SRC, f"{h}_{tag}.png"))
         if new.shape != old.shape:
             sys.exit(f"{h}_{tag}.png: {new.shape[1]}x{new.shape[0]} game pixels, the cells need "
                      f"{old.shape[1]}x{old.shape[0]}")
+        atlas = atlas_pivots(a.delivery, h, tag) if place else None
         out = new.copy()
         cols = new.shape[1] // cw
-        found = []
+        found, moved = [], []
         for k, fr in enumerate(frames):
             y, x = (k // cols) * ch, (k % cols) * cw
             cell = out[y:y + ch, x:x + cw]
             if face:
-                r = paste_face(cell, design, face, (fr["pivot"][0] + off[0], fr["pivot"][1] + off[1]))
+                ap = atlas[k] if atlas else fr["pivot"]
+                r = paste_face(cell, design, face, (ap[0] + off[0], ap[1] + off[1]))
                 found.append("-" if r is None else f"{r[0]:.0f}")
+                if place and tag != "idle":
+                    ex = eye_x(cell, shade) if r is not None else None
+                    dx = (round(fr["head"][0] + eye_k - ex) if ex is not None
+                          else fr["pivot"][0] - (ap[0] if atlas else fr["pivot"][0]))
+                    cell[:], dx = slide(cell, dx), dx
+                    moved.append(f"{dx:+d}")
             out[y:y + ch, x:x + cw] = one_outline(cell, colours)
         n = int((out != new).any(-1).sum())
         Image.fromarray(np.repeat(np.repeat(out, Z, 0), Z, 1)).save(G.lp(os.path.join(SRC, f"{h}_{tag}.png")))
         print(f"{h}_{tag}.png: {n} pixels changed" + (f"; face pasted (head distance per frame, - = not found): "
-                                                     f"{' '.join(found)}" if face else ""))
+                                                     f"{' '.join(found)}" if face else "")
+              + (f"; moved sideways {' '.join(moved)}" if moved else ""))
+
+
+def eye_x(frame, shade):
+    """The middle column of the eye-only shade in a frame, or None."""
+    m = (frame[..., 3] > 0) & np.all(frame[..., :3] == shade, -1)
+    xs = np.nonzero(m)[1]
+    return float(xs.mean()) if len(xs) else None
+
+
+def atlas_pivots(delivery, h, tag):
+    """The per-frame pivots Codex's manifest gives for its centred frames, or None."""
+    p = os.path.join(delivery, f"{h}_{tag}_manifest.json")
+    if not os.path.exists(p):
+        return None
+    m = json.load(open(p, encoding="utf-8-sig"))
+    return [f["pivot"] for f in m.get("atlas", {}).get("frames", [])] or None
+
+
+def slide(cell, dx):
+    """The cell's content moved dx columns (no further than keeps it inside the cell)."""
+    xs = np.nonzero(cell[..., 3].any(0))[0]
+    if not len(xs):
+        return cell.copy()
+    dx = max(-int(xs[0]), min(int(dx), cell.shape[1] - 1 - int(xs[-1])))
+    out = np.zeros_like(cell)
+    if dx >= 0:
+        out[:, dx:] = cell[:, :cell.shape[1] - dx]
+    else:
+        out[:, :dx] = cell[:, -dx:]
+    return out
 
 
 if __name__ == "__main__":
