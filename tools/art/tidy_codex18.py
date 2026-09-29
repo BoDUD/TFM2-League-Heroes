@@ -52,7 +52,8 @@ EYE_COLOURS = {"thresh": [(13, 200, 78), (4, 71, 29)],
                "malphite": [(245, 166, 8), (184, 78, 5), (150, 76, 29)],
                "annie": [(51, 32, 63)],
                "amumu": [(243, 224, 80), (247, 214, 65), (204, 141, 33), (153, 88, 24), (87, 46, 21)],
-               "yasuo": [(80, 46, 32)], "jinx": [(209, 46, 128)], "missfortune": [(44, 129, 226)], "yone": [(70, 52, 94)]}
+               "yasuo": [(80, 46, 32)], "jinx": [(209, 46, 128)], "missfortune": [(44, 129, 226)], "yone": [(70, 52, 94)],
+               "garen": [(31, 62, 200)]}
 # heroes whose delivered faces were drawn anew in every frame (Codex: "not a pixel copy of the head"): the design's
 # face - eyes, brows, cheeks and the fringe right round them - goes back into every frame where the head is found.
 # head: the design's head box on its 128x128 canvas (<hero>_native.png), matched in every frame by colour; patch: the
@@ -95,13 +96,17 @@ FACES = {"leona": {"head": (42, 58, 66, 74), "patch": (53, 68, 61, 73), "iris": 
          # strand over it goes back; the strand's #45335C (Codex also uses it on the demon blade) becomes a
          # head-only shade to steady on
          "yone": {"head": (57, 61, 67, 72), "patch": (58, 62, 66, 72), "iris": ((69, 51, 92), (70, 52, 94)),
-                  "hidden": {"q3": (5, 6), "dead": (1, 2, 3, 4, 5, 6, 7)}}}  # the spin turns him away; he falls face down
+                  "hidden": {"q3": (5, 6), "dead": (1, 2, 3, 4, 5, 6, 7)}},  # the spin turns him away; he falls face down
+         # Garen: the near eye's lid, white and blue iris, the one grey pixel of the far eye, cheeks; the iris
+         # #1E3CC6 (the pack's eye-only shade, which Codex then used on his armour too) becomes #1F3EC8
+         "garen": {"head": (59, 69, 66, 73), "patch": (59, 69, 66, 72), "iris": ((30, 60, 198), (31, 62, 200)),
+                   "hidden": {"hit": (1,)}}}  # the flinch turns his head
 FACE_OK = 120                   # mean colour distance over the head box above which a frame's head is not found
 # deliveries whose frames Codex centred in their cells (its manifest's atlas pivot) instead of standing them on our
 # pivots: every frame whose face is found goes sideways so that its eyes stand on League's head joint of that frame
 # (the cells table's "head"), as in the design; a frame without a face keeps Codex's place round the atlas pivot,
 # moved to ours. Up and down stay Codex's: the soles are on the feet line already.
-PLACE_BY_HEAD = {"darius", "leesin", "soraka", "annie", "amumu", "yasuo", "jinx", "missfortune", "yone"}
+PLACE_BY_HEAD = {"darius", "leesin", "soraka", "annie", "amumu", "yasuo", "jinx", "missfortune", "yone", "garen"}
 
 
 def blocks(path):
@@ -338,7 +343,9 @@ def main():
                 r = None if hidden else paste_face(cell, design, face, (ap[0] + off[0], ap[1] + off[1]))
                 found.append("-" if r is None else f"{r[0]:.0f}")
                 if place and tag != "idle":
-                    ex = eye_x(cell, shade) if r is not None else None
+                    # a cells frame without "head" (Garen's round-1 table: his head is not found in a spin
+                    # seen from behind or a fall) goes by the pivot like a frame without a face
+                    ex = eye_x(cell, shade) if r is not None and "head" in fr else None
                     dx = (round(fr["head"][0] + eye_k - ex) if ex is not None
                           else fr["pivot"][0] - (ap[0] if atlas else fr["pivot"][0]))
                     cell[:], dx = slide(cell, dx), dx

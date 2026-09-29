@@ -88,6 +88,8 @@ ORDER = {("lux", "idle"): [0, 1, 2, 3, 5, 4],
          ("amumu", "idle"): [0, 0, 0, 0, 0, 0],
          # and Jinx (eight idle frames, all the design)
          ("jinx", "idle"): [0, 0, 0, 0, 0, 0, 0, 0],
+         # and Garen (moved into this pipeline by the step-2 redraw; the idle is the design in all six)
+         ("garen", "idle"): [0, 0, 0, 0, 0, 0],
          # and Lucian (his redesign: Codex's strips with the design's head copied into every frame)
          ("lucian", "idle"): [0, 0, 0, 0, 0, 0],
          # and Morgana (the redesign A, which tools/art/tidy_morgana.py writes into all six)
@@ -130,6 +132,8 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        ("amumu", "idle"): (6, [2, 3, 4]),
        # Jinx: the seam across her boots' shafts, her soles stay
        ("jinx", "idle"): (6, [2, 3, 4, 5]),
+       # Garen: the seam across his greaves, his sabatons stay
+       ("garen", "idle"): (6, [2, 3, 4]),
        # Lucian: the seam across his shins, where the outline hardly changes; the boots and the coat's tip stay
        ("lucian", "idle"): (4, [2, 3, 4]),
        # Morgana's gown reaches the ground: the seam five rows over its hem, where two rows differ only in
@@ -142,7 +146,7 @@ PASTED = {"masteryi",            # steadied on the head restyle_native pasted: h
 # frame, so they are steadied on idle frame 1's head like the round-1 heroes - or on their eyes when they are in
 # EYES - whatever their poses.json says
 REDRAWN = {"thresh", "leona", "janna", "ekko", "darius", "leesin", "soraka", "malphite", "annie", "amumu", "yasuo",
-           "jinx", "missfortune", "yone"}
+           "jinx", "missfortune", "yone", "garen"}
 # heroes steadied on their eyes: (R, G, B) of a colour only the eyes use; the head column is the eyes' middle
 EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade is the top of every frame
         "kayle": (226, 138, 8),           # Codex's redraw: her wings rise above her head, the amber is the eyes'
@@ -159,6 +163,7 @@ EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade
         "jinx": (209, 46, 128),           # the same for Jinx: her pink iris, in an eye-only shade
         "missfortune": (44, 129, 226),    # the same for Miss Fortune: her blue irises, in an eye-only shade
         "yone": (70, 52, 94),             # the same for Yone (no eyes under the mask): the purple strand over his face
+        "garen": (31, 62, 200),           # the same for Garen: his near eye's blue iris, in an eye-only shade
         "lucian": (63, 106, 116),         # the redesign: his raised pistol is the top of every idle frame
         "morgana": (200, 60, 166)}        # the redesign A: only her face is pasted, its pink-violet is the eyes'
 
