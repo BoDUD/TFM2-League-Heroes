@@ -119,10 +119,11 @@ PASTED = {"masteryi", "janna", "ekko",   # steadied on the head restyle_native p
           "ahri"}    # her drawn head with the fox ears, pasted on League's head joint: steadied there
 # Codex's step-2 redraw (model_strips_18, tidied by tidy_codex18.py): the approved design's head is pasted into every
 # frame, so they are steadied on idle frame 1's head like the round-1 heroes, whatever their poses.json says
-REDRAWN = {"thresh"}
+REDRAWN = {"thresh", "leona"}
 # heroes steadied on their eyes: (R, G, B) of a colour only the eyes use; the head column is the eyes' middle
 EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade is the top of every frame
-        "kayle": (226, 138, 8)}           # Codex's redraw: her wings rise above her head, the amber is the eyes'
+        "kayle": (226, 138, 8),           # Codex's redraw: her wings rise above her head, the amber is the eyes'
+        "leona": (186, 88, 30)}           # the design's face pasted back by tidy_codex18.py, its iris an eye-only shade
 
 
 def blocks(path):

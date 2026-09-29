@@ -44,7 +44,15 @@ N8 = N4 + ((1, 1), (1, -1), (-1, 1), (-1, -1))
 EYE_COLOURS = {"thresh": [(13, 200, 78), (4, 71, 29)],
                # merged before the 18 (PRs #27 and #26), cleaned the same way in place: run with their own
                # assets/source/native folder as the delivery
-               "fiddlesticks": [(200, 224, 96)], "kayle": [(226, 138, 8)]}
+               "fiddlesticks": [(200, 224, 96)], "kayle": [(226, 138, 8)],
+               "leona": [(186, 88, 30)]}
+# heroes whose delivered faces were drawn anew in every frame (Codex: "not a pixel copy of the head"): the design's
+# face - eyes, brows, cheeks and the fringe right round them - goes back into every frame where the head is found.
+# head: the design's head box on its 128x128 canvas (<hero>_native.png), matched in every frame by colour; patch: the
+# face pasted there; iris: the eyes' colour and the eye-only shade it becomes in every frame (import_native.py's EYES
+# steadies the head on it; the design's iris is also on the hair)
+FACES = {"leona": {"head": (42, 58, 66, 74), "patch": (53, 68, 61, 73), "iris": ((184, 86, 28), (186, 88, 30))}}
+FACE_OK = 120                   # mean colour distance over the head box above which a frame's head is not found
 
 
 def blocks(path):
@@ -134,6 +142,42 @@ def despeckle(a, keep):
     return out
 
 
+def find_head(frame, head, guess, reach=(16, 14)):
+    """(mean colour distance, x, y) of the best place for the design's head box in the frame near guess (x, y)."""
+    m = head[..., 3] > 0
+    hh, hw = head.shape[:2]
+    H, W = frame.shape[:2]
+    best = (1e9, 0, 0)
+    for y in range(max(0, guess[1] - reach[1]), min(H - hh, guess[1] + reach[1]) + 1):
+        for x in range(max(0, guess[0] - reach[0]), min(W - hw, guess[0] + reach[0]) + 1):
+            win = frame[y:y + hh, x:x + hw]
+            d = np.sqrt(((win[..., :3].astype(float) - head[..., :3]) ** 2).sum(-1))
+            d[win[..., 3] == 0] = 255
+            s = float(d[m].mean())
+            if s < best[0]:
+                best = (s, x, y)
+    return best
+
+
+def paste_face(frame, design, face, guess):
+    """The design's face patch pasted where the head is found, the iris in its eye-only shade; (score, x, y) or
+    None when the head is not found (turned away, lying)."""
+    x0, y0, x1, y1 = face["head"]
+    px0, py0, px1, py1 = face["patch"]
+    head = design[y0:y1 + 1, x0:x1 + 1]
+    s, x, y = find_head(frame, head, guess)
+    if s > FACE_OK:
+        return None
+    patch = design[py0:py1 + 1, px0:px1 + 1].copy()
+    iris, shade = face["iris"]
+    patch[np.all(patch[..., :3] == np.array(iris, np.uint8), -1) & (patch[..., 3] > 0), :3] = shade
+    ox, oy = x + px0 - x0, y + py0 - y0
+    win = frame[oy:oy + patch.shape[0], ox:ox + patch.shape[1]]
+    m = patch[..., 3] > 0
+    win[m] = patch[m]
+    return s, x, y
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("hero")
@@ -144,19 +188,35 @@ def main():
         spec = json.load(f)
     cw, ch = spec["cell"]
     colours = EYE_COLOURS.get(h, [])
-    for tag in spec["tags"]:
+    face = FACES.get(h)
+    if face:
+        design = blocks(os.path.join(SRC, f"{h}_native.png"))
+        idle = blocks(os.path.join(a.delivery, f"{h}_idle.png"))[:ch, :cw]
+        x0, y0, x1, y1 = face["head"]
+        s, hx, hy = find_head(idle, design[y0:y1 + 1, x0:x1 + 1], (cw // 2, ch // 2), (cw // 2, ch // 2))
+        p0 = spec["tags"]["idle"][0]["pivot"]
+        off = (hx - p0[0], hy - p0[1])          # the head box's corner from the standing point in the design
+        print(f"{h}: design head in idle frame 1 at {hx},{hy} (distance {s:.1f})")
+    for tag, frames in spec["tags"].items():
         new = blocks(os.path.join(a.delivery, f"{h}_{tag}.png"))
         old = blocks(os.path.join(SRC, f"{h}_{tag}.png"))
         if new.shape != old.shape:
             sys.exit(f"{h}_{tag}.png: {new.shape[1]}x{new.shape[0]} game pixels, the cells need "
                      f"{old.shape[1]}x{old.shape[0]}")
         out = new.copy()
-        for y in range(0, new.shape[0], ch):
-            for x in range(0, new.shape[1], cw):
-                out[y:y + ch, x:x + cw] = one_outline(new[y:y + ch, x:x + cw], colours)
+        cols = new.shape[1] // cw
+        found = []
+        for k, fr in enumerate(frames):
+            y, x = (k // cols) * ch, (k % cols) * cw
+            cell = out[y:y + ch, x:x + cw]
+            if face:
+                r = paste_face(cell, design, face, (fr["pivot"][0] + off[0], fr["pivot"][1] + off[1]))
+                found.append("-" if r is None else f"{r[0]:.0f}")
+            out[y:y + ch, x:x + cw] = one_outline(cell, colours)
         n = int((out != new).any(-1).sum())
         Image.fromarray(np.repeat(np.repeat(out, Z, 0), Z, 1)).save(G.lp(os.path.join(SRC, f"{h}_{tag}.png")))
-        print(f"{h}_{tag}.png: {n} pixels of the doubled outline changed")
+        print(f"{h}_{tag}.png: {n} pixels changed" + (f"; face pasted (head distance per frame, - = not found): "
+                                                     f"{' '.join(found)}" if face else ""))
 
 
 if __name__ == "__main__":
