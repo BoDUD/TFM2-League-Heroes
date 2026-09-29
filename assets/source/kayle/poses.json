@@ -39,7 +39,7 @@
   "tags": {
     "idle": {"frames": [["kayle_idle1@0", 200], ["kayle_idle1@0", 200], ["kayle_idle1@0", 200],
                         ["kayle_idle1@0", 200], ["kayle_idle1@0", 200], ["kayle_idle1@0", 200]]},
-    "run": {"head_like": "kayle_idle1@0", "sink": -8, "frames": [
+    "run": {"head_like": "kayle_idle1@0", "sink": -8, "weapon_yaw": 45, "frames": [
       ["Kayle_Run1@0", 267], ["Kayle_Run1@267", 267], ["Kayle_Run1@533", 267], ["Kayle_Run1@800", 267],
       ["Kayle_Run1@1067", 267], ["Kayle_Run1@1333", 267], ["Kayle_Run1@1600", 267], ["Kayle_Run1@1867", 267],
       ["Kayle_Run1@2133", 267], ["Kayle_Run1@2400", 267], ["Kayle_Run1@2667", 267], ["Kayle_Run1@2933", 267],

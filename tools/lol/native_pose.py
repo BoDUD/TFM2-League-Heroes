@@ -54,7 +54,10 @@ hovers the same 3 px as the idle drawing. Its frames are blended 85% toward the 
 her body forward, and under her upright pasted head the user saw the body move while the head stayed put.
 
 "weapon" is the regex naming the joint whose chain is the weapon part in --parts renders (default
-"^weapon$"; Yasuo's katana hangs from "Sword"). "hide" lists joint regexes whose chains are left out
+"^weapon$"; Yasuo's katana hangs from "Sword"). "weapon_yaw": <degrees> (per tag or frame) turns only that chain
+about the vertical axis through its joint (the grip), the body untouched: League's Kayle glides with her sword held
+at her side trailing down and back, which the 45-degree camera sees end-on (a 20-px blade drew 5-9 px); 45 shows it
+trailing behind her as League's side view does. "hide" lists joint regexes whose chains are left out
 of every render: Yasuo's flute is scaled to nothing in idle but has no track in his attack and death
 clips, where it floats beside him at full size. "hair_part": true paints the hair chains (the
 pose_ref HAIR joints below the head: Yasuo's ponytail) yellow in --parts renders instead of red, so
@@ -178,6 +181,8 @@ class Champ:
         fwd = fwd - fwd.dot(self.head_up) * self.head_up
         self.head_fwd = fwd / np.linalg.norm(fwd)       # and the one the face looks along (models face +Z)
         self.part = np.where(on(r"^head$"), 1, np.where(on(weapon), 2, 0))     # index into PARTS
+        # the weapon's own joint (its grip), which "weapon_yaw" turns the weapon about
+        self.weapon_joint = next((i for i, j in enumerate(self.joints) if re.search(weapon, j["name"], re.I)), None)
         self.parts, self.part_tex = PARTS, PART_TEX
         if hair_part:      # Yasuo's ponytail swings on its own: a part of its own, voted like the body
             self.part = np.where((self.part == 1) & hair, 3, self.part)
@@ -391,8 +396,16 @@ def main():
           f"what hangs from the head, lowest point on row {rows.max()}, soles on row {soles}, offset {dy / Z:+.0f} px"
           + (f", hovering {spec['hover']} px" if spec.get("hover") else ""))
 
-    def cell(frame_spec, lunge, base, flat, turn=0.0, head_like=None, rise=1.0, hide=None, travel=1.0, sink=0):
+    def cell(frame_spec, lunge, base, flat, turn=0.0, head_like=None, rise=1.0, hide=None, travel=1.0, sink=0,
+             weapon_yaw=0.0):
         pv, glob, _ = ch.posed(frame_spec, chibi, turn, head_like, rise, travel)
+        if weapon_yaw and ch.weapon_joint is not None:    # the weapon turned about its grip, the body untouched
+            c, s = np.cos(np.radians(weapon_yaw)), np.sin(np.radians(weapon_yaw))
+            r = np.array([[c, 0, s], [0, 1, 0], [-s, 0, c]])
+            grip = glob[ch.weapon_joint][:3, 3]
+            held = ch.part == 2
+            pv = pv.copy()
+            pv[held] = (pv[held] - grip) @ r.T + grip
         tris = None
         if hide:           # a prop the clip leaves where it was bound (Yasuo's drawn sword stands up in death)
             gone = np.zeros(len(ch.verts), bool)
@@ -456,7 +469,8 @@ def main():
         opt = lambda f: f[2] if len(f) > 2 else {}
         frames = [cell(f[0], t.get("lunge", 1.0), base, t.get("flat", False), opt(f).get("turn", 0.0),
                        opt(f).get("head_like", t.get("head_like")), t.get("rise", 1.0), opt(f).get("hide", t.get("hide")),
-                       t.get("travel", 1.0), opt(f).get("sink", t.get("sink", 0))) for f in t["frames"]]
+                       t.get("travel", 1.0), opt(f).get("sink", t.get("sink", 0)),
+                       opt(f).get("weapon_yaw", t.get("weapon_yaw", 0.0))) for f in t["frames"]]
         cols, nrows = layout(len(frames))
         lo_img = Image.new("RGB", (cols * CELL[0], nrows * CELL[1]), BG)
         hi_img = Image.new("RGBA" if args.alpha else "RGB", (cols * CELL[0] * Z, nrows * CELL[1] * Z),

@@ -334,6 +334,19 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   held off her waist) is a few empty pixels in an outline ring: a black hole in the armour. `restyle_native.py`
   `"fill_holes": <pixels>` fills every empty region the frame's edge cannot reach, up to that size, and its inner
   outline with the body colours beside it; left out, every other hero's output is byte-identical.
+- **A weapon pointing at the camera vanishes.** League's Kayle glides with her sword held out at her side and
+  trailing down and back; through the 45-degree camera it points almost straight at the viewer, and the 20-px
+  blade drew as a 5-9 px stub ("走路的时候剑缩小了 几乎看不到了"). Measure the weapon's length on screen against
+  its length in depth per frame before blaming its scale. `native_pose.py` `"weapon_yaw": <degrees>` (per tag or
+  frame) turns only the weapon chain about the vertical axis through its grip, the body untouched: 45 shows
+  the blade trailing behind her as League's own side view does. Left out, every other hero's render is
+  byte-identical.
+- **Big frames are redrawn one canvas at a time.** A redraw at 8x (NATIVE_REDRAW.md) draws over whole strips;
+  league_kayle's 112x112 cells make her 16-frame move a 3584x3584 image, too big for an image model.
+  `tools/art/native_frames.py split` cuts every frame out on a canvas of its own (64 x cell height, the pivot at
+  the middle column and the cell's pivot row), `join` puts the redrawn canvases back round each frame's pivot
+  (any whole scale, each block read by its majority colour, magenta or low alpha as clear); split then join
+  gives the strips back byte for byte (assets/source/kayle/MODEL_REDRAW.md).
 - **Effect anchors.** Effect and buff frames are drawn centred on the unit's pivot, 11.5 px above
   the feet (base: `levelup_effect` ring at +9..+16, `shield_receive_effect` bubble -22..+13).
   Ground rings at about +10, hits and shields at -3..-6, overhead marks around -25. Time the
