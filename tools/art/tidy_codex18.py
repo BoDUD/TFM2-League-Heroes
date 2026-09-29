@@ -47,7 +47,7 @@ EYE_COLOURS = {"thresh": [(13, 200, 78), (4, 71, 29)],
                "fiddlesticks": [(200, 224, 96)], "kayle": [(226, 138, 8)],
                "leona": [(186, 88, 30)], "janna": [(3, 51, 207)],
                "ekko": [(213, 125, 34)], "darius": [(255, 247, 238)],
-               "leesin": [(212, 34, 50)]}
+               "leesin": [(212, 34, 50)], "soraka": [(231, 174, 48)]}
 # heroes whose delivered faces were drawn anew in every frame (Codex: "not a pixel copy of the head"): the design's
 # face - eyes, brows, cheeks and the fringe right round them - goes back into every frame where the head is found.
 # head: the design's head box on its 128x128 canvas (<hero>_native.png), matched in every frame by colour; patch: the
@@ -58,13 +58,17 @@ FACES = {"leona": {"head": (42, 58, 66, 74), "patch": (53, 68, 61, 73), "iris": 
          "darius": {"head": (52, 55, 65, 66), "patch": (55, 60, 64, 65), "iris": ((255, 247, 238), (255, 247, 238))},
          # Lee Sin's eyes are under the blindfold: the skull top, the band across the face (its own red #D42232 in the
          # design) and the face under it go back; matched on that face alone (his braid knot changes every frame)
-         "leesin": {"head": (57, 62, 69, 72), "patch": (57, 63, 69, 72), "iris": ((212, 34, 50), (212, 34, 50))}}
+         "leesin": {"head": (57, 62, 69, 72), "patch": (57, 63, 69, 72), "iris": ((212, 34, 50), (212, 34, 50))},
+         # Soraka: the face Codex refined at the user's request (14 pixels of the design), its amber eye the marker in
+         # an eye-only shade (Codex's frames use the old eye amber on her gold trim);
+         # matched on the face alone (her white hair is drawn anew in every frame)
+         "soraka": {"head": (58, 68, 65, 75), "patch": (59, 69, 65, 75), "iris": ((230, 172, 46), (231, 174, 48))}}
 FACE_OK = 120                   # mean colour distance over the head box above which a frame's head is not found
 # deliveries whose frames Codex centred in their cells (its manifest's atlas pivot) instead of standing them on our
 # pivots: every frame whose face is found goes sideways so that its eyes stand on League's head joint of that frame
 # (the cells table's "head"), as in the design; a frame without a face keeps Codex's place round the atlas pivot,
 # moved to ours. Up and down stay Codex's: the soles are on the feet line already.
-PLACE_BY_HEAD = {"darius", "leesin"}
+PLACE_BY_HEAD = {"darius", "leesin", "soraka"}
 
 
 def blocks(path):
@@ -212,7 +216,9 @@ def main():
     place = h in PLACE_BY_HEAD
     if place:
         shade = np.array(face["iris"][1], np.uint8)
-        eye_k = eye_x(idle, shade) - spec["tags"]["idle"][0]["head"][0]   # the eyes from League's head joint
+        first = idle.copy()                   # the design's face (and its eye shade) pasted, as in every frame
+        paste_face(first, design, face, (p0[0] + off[0], p0[1] + off[1]))
+        eye_k = eye_x(first, shade) - spec["tags"]["idle"][0]["head"][0]   # the eyes from League's head joint
     for tag, frames in spec["tags"].items():
         new = blocks(os.path.join(a.delivery, f"{h}_{tag}.png"))
         old = blocks(os.path.join(SRC, f"{h}_{tag}.png"))
