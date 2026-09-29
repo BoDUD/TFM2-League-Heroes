@@ -298,10 +298,10 @@ for league_thresh Q in the SDK simulation, 2026-09-29)*.
 |---|---|---|
 | MoveTo | speed, range, end_effects[] | dash in cast direction/position, then end_effects |
 | MoveToTarget | speed, range, end_effects[] | dash onto the target, then end_effects |
-| MoveBack | speed, tick | hop backwards |
+| MoveBack | speed, tick | hop backwards: in a `Targeting` cast straight away from the target, speed x tick units; in a `Direction` cast nothing moves *(measured, league_ezreal E)* |
 | RushTime | speed, tick, range, casting_target, penetrate, applied_effects[] | charge for `tick`, hitting units passed |
 | RushMoveToBack | speed, applied_effects[] | dash through the target to 15000 units behind it, then applied_effects on it |
-| DirTeleport | moved | blink `moved` units in the cast direction |
+| DirTeleport | moved | blink `moved` units in the cast direction; only in `Direction` casts. `moved` is an unsigned 64-bit field: a negative value fails to parse and breaks the whole kit |
 | Teleport | - | put the caster on the target's (or the cast point's) position |
 
 *(read from the SDK's game_core)* `RushMoveToBack` aims at a point 15000 units (a fixed value) past
@@ -370,6 +370,11 @@ How they behave *(measured in the SDK simulation for league_jinx, 3-12 ten-minut
 - A `ParabolicProjectile`'s `range_effect_name` plays on the landing point the tick it is fired (a
   telegraph for the whole `travel_time`), and the projectile lands where its target stood when it was fired
   *(measured for league_ekko W)*.
+- A caster buff lasting 1 tick exists only in the tick it was added: a `SwitchByBuff` later in the same
+  tick sees it, the next tick nothing does. A projectile on `EnemyChampion` flying the same path as one on
+  `EnemyWithoutTower` (a champion-only twin) sees a 1-tick flag the real one set on the unit both hit that
+  tick, whichever was spawned first *(measured for league_ezreal Q: champion-only effects on a skill that
+  also clears waves)*.
 - A unit killed by an effect still counts as a valid target for the rest of that tick; a `Delayed` effect
   queued on it still runs after it died, but only its pictures and sounds: a `ViewEffect` or `TargetSfx`
   still plays on the body while an `AddCasterBuff` from it is skipped *(league_annie R, 2026-09-28: a
@@ -456,13 +461,19 @@ Fields seen (count across packs): `range` (attack range bonus, 278), `move_speed
 `skill_enemy_max_hp_damage`, `base_attack_damaged_reduce`, `skill_damaged_reduce` and
 `magic_resistance_penetration`.
 
-`skill_cooldown_mult` is a recharge speed in percent, not a shorter cooldown at cast *(read from the
-SDK's game_core, `Entity::cooldown_reduce`: a cooldown advances 100 + mult per 100 each tick, the
-ult's also by `ult_cooldown_mult`; measured in the simulation)*: +40 makes cooldowns run 1.4 times as
-fast while it lasts, and stacked instances add up (a permanent +100 added on every attack had
-league_masteryi cast Q 162 times in 10 minutes). LoL Reborn's Lucian and Ezreal refund cooldown with
-short bursts of it; league_masteryi's Highlander gives +40 for its 7 s in place of League's takedown
-refunds. No slow immunity exists: slows are buffs, and `cc_immune` and `toughness` only touch CC.
+`skill_cooldown_mult` does not make cooldowns run faster: every tick it caps each remaining cooldown
+at cooltime x 100 / (100 + mult), skills at 3 ticks or more, the ult with `ult_cooldown_mult` added
+*(measured in the SDK simulation for league_ezreal, 2026-09-29; this page used to read
+`Entity::cooldown_reduce` as "a cooldown advances 100 + mult per 100 each tick", which the probes
+disproved)*. So it works as a refund at the moment it appears: +40 cuts a skill with most of its
+cooldown left to 71% of the cooltime and then does nothing more while it lasts, +100 to half; a buff
+that lasts 1 tick changes nothing, 2 ticks are enough. Stacked instances add up, and each new one
+lowers the cap again (a permanent +100 added on every attack had league_masteryi cast Q 162 times in
+10 minutes). While it is active it also speeds the hero's skill actions (their speed multiplier, so
+`start_timing` comes sooner), but not the `Delayed` ticks inside them. LoL Reborn's Lucian and Ezreal
+refund cooldown with short bursts of it; league_masteryi's Highlander gives +40 for its 7 s in place
+of League's takedown refunds. No slow immunity exists: slows are buffs, and `cc_immune` and
+`toughness` only touch CC.
 
 **How buffs stack** *(read from the SDK's game_core, not yet seen in game)*. `is_hidden`,
 `can_stack` and `max_stack`, common in packs, are not buff fields at all: the engine's parser skips
@@ -686,7 +697,8 @@ in-game); LoL Reborn Jax Q wraps it in `RandomTarget {casting_target, range}` in
 **Multi-hit on random enemies.** Several `Delayed` blocks each holding a `RandomTarget`.
 
 **Projectiles at random enemies.** `RandomTarget {range, casting_target, effects:
-[TargetProjectile]}` fires from the caster at the picked unit (LoL Reborn Ezreal E). A unit can be
+[TargetProjectile]}` fires from the caster at the picked unit (LoL Reborn Ezreal E); a
+`LinearProjectile` in there flies toward the picked unit too (league_ezreal's W + Q combo). A unit can be
 picked more than once. league_ashe W started this way (one arrow at the target plus four random
 ones); the user saw homing arrows, not League's cone, so it became the fan above.
 
@@ -696,6 +708,22 @@ Nautilus Q pulls itself in this way). Lee Sin wraps it in `Delayed {tick: 12}` (
 first) with `Sfx`, the dash and `CasterAnimation q2` inside; the dash's `end_effects` deal the
 second hit. The action's `duration` covers wind-up, flight and delay (44 ticks). *(inferred
 from the pack; not yet seen in-game)*
+
+**Blink away from a diver or toward a runner (league_ezreal E).** No effect moves the caster part
+of the way to a unit: `MoveTo` and `MoveToTarget` in a `Targeting` cast both go all the way, and
+`DirTeleport` works only in `Direction` casts. So the E is cast on `EnemyChampionRecentlyAttacked`
+(in a fight) with a long `range` and picks its move inside: `RandomTarget {range: 40000,
+casting_target: EnemyChampion}` holds `MoveBack` (straight away from that champion: in every hop
+measured the AI had aimed the E at the same, nearest one), the bolt at it and a 1-tick flag; without
+the flag a second `RandomTarget`
+at his attack range decides between staying (only the bolt) and a blink toward the target: an
+invisible, non-penetrating `LinearProjectile` on `EnemyChampion` with a 45000 radius and 47500 range,
+`end_effects: [Teleport]`, so he lands where it stops, about 48000 short of the first champion it
+meets. A projectile checks for units only after its first tick of flight: at speed 20000 it went
+20000 units into a champion it already overlapped and dropped him at melee range; at 6000 it
+overshoots by at most 6000. `RandomTarget`'s range seems to count both units' radii like an action's
+(the hops came with the champion 45000-55000 units away, centre to centre) *(measured in the SDK
+simulation, 2026-09-29)*.
 
 **Kick it back into the others (league_leesin R).** `Targeting` on an enemy champion: `Attack` and
 `Knockback {speed: 3000, tick: 18}` on the target, plus a `LinearProjectile` toward it with

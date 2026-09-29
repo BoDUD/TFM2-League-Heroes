@@ -70,7 +70,9 @@ ORDER = {("lux", "idle"): [0, 1, 2, 3, 5, 4],
          ("ekko", "idle"): [0, 0, 0, 0, 0, 0],
          # and Yone (a drawn masked head, a body restyled from League's idle)
          ("yone", "idle"): [0, 0, 0, 0, 0, 0],
-         # and Thresh (League's own head voted with the body: a voted body would shimmer from frame to frame)
+         # and Ezreal (a drawn head with goggles, a body restyled from League's idle)
+         ("ezreal", "idle"): [0, 0, 0, 0, 0, 0],
+         # and Thresh (a drawn skull pasted on a body restyled from League's idle)
          ("thresh", "idle"): [0, 0, 0, 0, 0, 0]}
 # (hero, tag): (y, slots) - in those slots everything at or above pivot row y moves down a row (the row under
 # it is covered): one frame breathing, the face the same drawing throughout. Leona's shield covers her from
@@ -93,6 +95,8 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        ("ekko", "idle"): (6, [2, 3, 4]),
        # Yone's hakama reaches his ankles: the seam across its hem, his feet stay
        ("yone", "idle"): (6, [2, 3, 4]),
+       # Ezreal: the seam across his shins, the boots stay
+       ("ezreal", "idle"): (6, [2, 3, 4]),
        # Thresh's robe hangs to his shins: the seam across its hem, his boots stay
        ("thresh", "idle"): (6, [2, 3, 4])}
 CROWN = {"leesin"}              # heroes whose head template starts at the crown (a braid stands above it)

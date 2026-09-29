@@ -180,6 +180,16 @@
         "y": -12
       }
     },
+    "league_ezreal": {
+      "face": {
+        "x": 3,
+        "y": -35
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
     "league_thresh": {
       "face": {
         "x": -4,

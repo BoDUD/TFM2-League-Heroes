@@ -229,7 +229,10 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   it, so the sprite still faces right with its front showing.
 - **Which clip plays when.** The animation bin maps clip names to files as `FNV-1a(lowercase
   name) -> AtomicClipData { path }`; hash candidate names (`Run`, `Run2`, `Spell4`...) and read the
-  path that follows. Ashe: `Run` = `ashe_run_walk`, `Run2` = `ashe_run_jog`, `Run3` = `ashe_run`;
+  path that follows. `python tools/lol/anim_graph.py <Champ> [--grep run]` parses the whole bin and
+  prints every clip with its file, its cycle (frames x `mTickDuration`) and, for the logic clips, their
+  branches (Yone: `Run` = `run_homeguard` under the homeguard buff, else `run_base` = `Yone_Walk01`,
+  1.09 s; Ekko: `Run` = `run_base` = `PunkGenius_Run1`, 1.07 s, from move speed 315, `Run_Haste` from 535). Ashe: `Run` = `ashe_run_walk`, `Run2` = `ashe_run_jog`, `Run3` = `ashe_run`;
   `Spell4` (R) reuses `ashe_crit1`; Q is `Ashe_spell1_IN` then `ashe_spell1`. Newer champions
   route through logic clips: after the key hash comes the class hash (`FNV-1a` of
   `AtomicClipData`, `SequencerClipData`, `ConditionBoolClipData`, `ConditionFloatClipData`,
@@ -594,8 +597,10 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   dark-red mouth square (B of three; League's white face paint was left out). Pasted on League's head joint,
   upright in every frame (`"turn": 180`: his death throws the head back past 60 degrees while he still stands).
   Camera yaw 45 unmirrored, the Z-drive on his back a part of its own (`^Weapon_Back`, blue and steel), the
-  run League's own at 8 x 80 ms (first blended 60% toward the crouch at 1.06 s a cycle: in game the user saw
-  him slide, "像僵尸步" - see art-spec "Time the run by its planted foot"), idle one frame breathing; 51
+  run League's own `Run1` (his `run_base`) at League's pace, 8 x 133 ms = 1.07 s (first blended 60% toward the
+  crouch at 1.06 s a cycle: in game the user saw him slide, "像僵尸步"; then 8 x 80 ms against the slide, until
+  the user saw the pace differ from League's - see art-spec "The move is League's movement clip at League's
+  pace"), idle one frame breathing; 51
   frames, 40 colours, face (10, -32) - he crouches
   forward, so the head is 8 px ahead of the pivot. Chronobreak's hologram at the anchor is his idle drawing in
   the rewind skin's mint with scan lines, made by `tools/art/import_ekko.py` rather than by Codex.
@@ -614,9 +619,11 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   the head a quarter round (`"turn": 180`), Spirit Cleave's hop is lifted 0.2 (`"rise"`). Camera yaw 35
   mirrored, head 2.0, legs 0.8, hair 0.5; the second attack is League's
   `Attack02` with the demon blade as its own tag (`attack2`); the body left behind in Soul Unbound is
-  `Spell3_bodyLoop` as a tag (`e_body`, 2 x 2000 ms); the run League's own at 8 x 80 ms (the user's pick of
-  three timings drawn at his game speed, see art-spec "Time the run by its planted foot"); idle one frame
-  breathing; 75 frames, 30 colours, face (-1, -39).
+  `Spell3_bodyLoop` as a tag (`e_body`, 2 x 2000 ms); the move League's `Yone_Walk01`, his `run_base` (the
+  graph's `Run` plays it except under the homeguard buff; `Yone_Run01` is `run_fast`, not his move), 8 x
+  136 ms = 1.09 s, League's pace (38 frames at `mTickDuration` 1/35) - until the user saw the posture and the
+  pace differ from League's, it was `Run01` at 8 x 80 ms (see art-spec "The move is League's movement clip at
+  League's pace"); idle one frame breathing; 75 frames, 30 colours, face (-1, -39).
   Codex's sixteen effects came as raw generations on near-black opaque canvases (manifest rects [x, y, w, h];
   Mortal Steel's five frames unequally wide). `tools/art/import_yone.py --raw` keys the black by the brightest
   channel (League's dark ink `#1E1648` survives), samples on pixel centres and mirrors the upper half of the four
