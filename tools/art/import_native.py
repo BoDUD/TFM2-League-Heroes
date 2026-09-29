@@ -142,7 +142,7 @@ PASTED = {"masteryi",            # steadied on the head restyle_native pasted: h
 # frame, so they are steadied on idle frame 1's head like the round-1 heroes - or on their eyes when they are in
 # EYES - whatever their poses.json says
 REDRAWN = {"thresh", "leona", "janna", "ekko", "darius", "leesin", "soraka", "malphite", "annie", "amumu", "yasuo",
-           "jinx", "missfortune", "ezreal", "teemo"}
+           "jinx", "missfortune"}
 # heroes steadied on their eyes: (R, G, B) of a colour only the eyes use; the head column is the eyes' middle
 EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade is the top of every frame
         "kayle": (226, 138, 8),           # Codex's redraw: her wings rise above her head, the amber is the eyes'
@@ -158,8 +158,6 @@ EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade
         "yasuo": (80, 46, 32),            # the same for Yasuo: his brown iris (the eyes the user picked), eye-only
         "jinx": (209, 46, 128),           # the same for Jinx: her pink iris, in an eye-only shade
         "missfortune": (44, 129, 226),    # the same for Miss Fortune: her blue irises, in an eye-only shade
-        "ezreal": (1, 112, 181),          # his new design (重缩 A): the middle blue of his eyes, on nothing else
-        "teemo": (180, 189, 212),         # his new design (重缩 A): his eyes are closed arcs, the goggle lens is his
         "lucian": (63, 106, 116),         # the redesign: his raised pistol is the top of every idle frame
         "morgana": (200, 60, 166)}        # the redesign A: only her face is pasted, its pink-violet is the eyes'
 
