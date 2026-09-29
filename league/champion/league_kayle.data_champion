@@ -6977,7 +6977,7 @@
   "ult": {
     "action_name": "ult",
     "description": "#asset/base/text/champion?description.league_kayle.ult",
-    "duration": 40,
+    "duration": 44,
     "cooltime": 3600,
     "start_timing": 20,
     "cancelable": false,
