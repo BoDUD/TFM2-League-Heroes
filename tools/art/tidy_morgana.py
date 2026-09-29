@@ -26,10 +26,12 @@ morgana_cells.json, and the design, assets/source/native/morgana_native.png: 35x
     ult and the move's bob, at most 2 rows lower on the ground in death);
   - the dark purples of hair, wings and gown flattened as the design's were: a 3x3 majority (FLAT_NEED of the
     window, FLAT_PASSES times; gold, skin, the magentas and the outline kept);
-  - clean-up: the eye colour only in the face; lone squares off; one outline ring; single walled-in holes filled;
-    then the one-outline rules of the 18 redraws (tools/art/tidy_codex18.py on the ahri branch, from the study of
-    oppi's packs): outline spurs off, the black ring inside the outline turned into the material's own dark shade,
-    lone pixels to the colour their neighbours share, the face kept;
+  - clean-up: the eye colour only in the face; lone squares off; the drawn outline kept in the design's outline
+    colour, a ring only where the sampling lost it (a ring round everything made every frame a square fatter than
+    the idle); single walled-in holes filled; then the one-outline rules of the 18 redraws (tools/art/
+    tidy_codex18.py on the ahri branch, from the study of oppi's packs): outline spurs off, the black ring inside
+    the outline turned into the material's own dark shade, lone pixels to the colour their neighbours share, the
+    face kept;
   - idle: the six frames are the design itself (tools/art/import_native.py adds the breath).
 Writes assets/source/native/morgana_<tag>.png (8x, native_refs.layout grids). Then:
 tools/art/import_native.py --hero morgana.
@@ -268,25 +270,36 @@ def shift(lab, dx, dy=0):
     return out
 
 
-def clean(lab, face, floor):
-    """face: a mask of the pasted face (the eye colour allowed only there)."""
-    lab = lab.copy()
-    # the eye colour off the face: the colour most of its non-eye neighbours have
+def eyes_only(lab, face):
+    """The eye colour off the face: the colour most of its non-eye neighbours have."""
     for yy, xx in zip(*np.nonzero((lab == EYE_I) & ~face)):
         n = [lab[yy + dy, xx + dx] for dy, dx in N8 if 0 <= yy + dy < lab.shape[0] and 0 <= xx + dx < lab.shape[1]]
         n = [v for v in n if v >= 0 and v != EYE_I]
         lab[yy, xx] = max(set(n), key=n.count) if n else -1
+    return lab
+
+
+def clean(lab, face, floor):
+    """face: a mask of the pasted face (the eye colour allowed only there)."""
+    lab = eyes_only(lab.copy(), face)
     lab[floor + 1:] = -1
     # lone squares
     op = lab >= 0
     nb = np.zeros_like(op, int)
     nb[1:] += op[:-1]; nb[:-1] += op[1:]; nb[:, 1:] += op[:, :-1]; nb[:, :-1] += op[:, 1:]
     lab[op & (nb == 0)] = -1
-    # one outline ring
-    col = (lab >= 0) & (lab != OUTLINE)
+    # the outline: the drawn line is whatever near-black the palette gave its squares, so near-black edge squares
+    # take the design's outline colour, and a new ring goes only outside coloured edge squares (where the sampling
+    # lost the line). A ring round every square not of the outline colour doubled the drawn line: every frame a
+    # square fatter all round than the design, and she grew when she left the idle ("放技能就变大一下").
+    op = lab >= 0
+    dark = op & (LUMA[np.maximum(lab, 0)] < DARK)
+    inner = op & shifted(op, 1, 0) & shifted(op, -1, 0) & shifted(op, 0, 1) & shifted(op, 0, -1)
+    lab[op & ~inner & dark & ~face] = OUTLINE
+    col = op & ~dark
     ring = np.zeros_like(col)
     ring[1:] |= col[:-1]; ring[:-1] |= col[1:]; ring[:, 1:] |= col[:, :-1]; ring[:, :-1] |= col[:, 1:]
-    lab[ring & (lab < 0)] = OUTLINE
+    lab[ring & ~op] = OUTLINE
     # a single clear square walled in on all four sides: the walls' majority
     op = lab >= 0
     for yy, xx in zip(*np.nonzero(~op[1:-1, 1:-1])):
@@ -295,7 +308,7 @@ def clean(lab, face, floor):
         if min(n4) >= 0:
             lab[yy, xx] = max(set(n4), key=n4.count)
     lab[floor + 1:] = -1
-    return one_outline(lab, face)
+    return eyes_only(one_outline(lab, face), face)   # its dark shades may borrow an eye's colour
 
 
 def shifted(m, dy, dx):

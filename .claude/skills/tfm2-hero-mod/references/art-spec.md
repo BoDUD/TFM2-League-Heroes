@@ -410,7 +410,11 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   that frame; the hit and the death take one offset from each frame's pivot for the whole sheet, as
   `import_native.py` stands every frame on its pivot (one offset in the cell slid the dying body 2-5 px in game).
   The dark purples are flattened as the design's were (3x3 majority of at least 4, 3 passes; gold, skin, the
-  magentas and the outline kept), then one outline ring.
+  magentas and the outline kept). Then the outline: the drawn line stays where it is, in the design's outline
+  colour (the palette spread it over several near-blacks), and a ring goes only outside coloured edge squares,
+  where the sampling lost it. A ring round every square not of the outline colour doubled the drawn line: every
+  frame a square fatter all round than the design's idle (10-20% more area), so she grew whenever she cast
+  ("放技能就变大一下"). Compare every strip's area with the idle's after a tidy.
 - **Effect anchors.** Effect and buff frames are drawn centred on the unit's pivot, 11.5 px above
   the feet (base: `levelup_effect` ring at +9..+16, `shield_receive_effect` bubble -22..+13).
   Ground rings at about +10, hits and shields at -3..-6, overhead marks around -25. Time the
