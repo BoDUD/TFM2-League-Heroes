@@ -1,7 +1,7 @@
 # 堕落天使 莫甘娜：给 Codex 的特效提示词
 
-> **这一份是 11 张特效图。** 角色模型在同一个压缩包的 `MODEL_PROMPTS.md` 里（先出造型 A/B/C 给用户挑），两份可以同一轮一起画；特效不依赖选哪个造型。
-> - 参考图 `refs/lol_fx_ref.png` 是英雄联盟里莫甘娜自己的特效贴图（Q 的紫蓝星形弹核和锁链拖尾、W 的暗紫焦油地面和洋红碎光、E 的紫蓝护盾环和六边形纹、R 的锁链、爆环和眩晕法阵），只在本地用，不要提交。人物大小看 `design/morgana_league_chibi.png`（从头顶到脚底约 34 格）。
+> **这一份是 11 张特效图。** 模型和 8 个动作已经做完（造型 B，`MODEL_PROMPTS.md`，已导入游戏），这一轮只画特效。
+> - 参考图 `refs/lol_fx_ref.png` 是英雄联盟里莫甘娜自己的特效贴图（Q 的紫蓝星形弹核和锁链拖尾、W 的暗紫焦油地面和洋红碎光、E 的紫蓝护盾环和六边形纹、R 的锁链、爆环和眩晕法阵），只在本地用，不要提交。颜色和画风对照 `design/morgana_native.png`（定稿造型，8 倍）；大小对照 `design/morgana_ingame.png`（游戏里的 50 帧，4 倍，绿线是脚底和站位）：莫甘娜从羽冠到脚底 45 格，其他英雄约 35 格。
 > - 特效照下面第 1–11 条和"所有特效图的规则"画，每张一个 PNG，文件名和排版按每条写的来。
 > - 生图原稿（半透明边、格子比例不准）也可以交：Claude 会用 `tools/art/import_morgana.py --raw` 转成原尺寸条，再按技能范围定大小（交付里有 `manifest.json` 写明每帧区域 `assets[].frames[].rect` = [x, y, 宽, 高] 时按它切）。但每张请保持一行等宽的格子（比例按每条写的），不要标签、不要边框，背景透明（做不到就用纯黑 `#000000`）。
 > - 交回时附 `HANDOFF.md`（每张用了哪条提示词、画了几帧、有没有没做到的地方）。
@@ -106,7 +106,7 @@ Layout: one horizontal row of 10 equal cells, each 5 wide to 6 tall, image size 
 
 ### 8. `morgana_fx_r_cast.png`：灵魂镣铐出手（她脚下的地面），7 帧
 
-她张开双臂的一刻，从她身上炸开一圈暗紫色的冲击环贴着地面向外扩散到大招的范围（参考 R_Cas_BurstRing：一圈向外的尖刺光；R_Donut_normal：紫蓝色的圆环），环上有锁链的影子，地上留下一圈暗影。约 90 格宽、45 格高的椭圆（大招半径约 40000）。
+她张开双臂的一刻，从她身上炸开一圈暗紫色的冲击环贴着地面向外扩散到大招的范围（参考 R_Cas_BurstRing：一圈向外的尖刺光；R_Donut_normal：紫蓝色的圆环），环上有锁链的影子，地上留下一圈暗影。约 100 格宽、50 格高的椭圆（大招半径约 50000）。
 
 ```text
 Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, seen from a slightly top-down game camera, a shadow-violet ramp (#FFFFFF, #EAD6FF, #B478F0, #7A3AD0, #4A1C90, #24104A) with magenta glints (#FF6AD8, #D02CA8).
@@ -148,5 +148,5 @@ Layout: one horizontal row of 8 equal cells, each 4 wide to 5 tall, image size 2
 
 ## Claude 导入时的对应关系（给 Claude 看）
 
-- `tools/art/import_morgana.py --raw <交付文件夹>`：按 `manifest.json` 或等宽格子切帧，按技能范围缩放（Q 弹核半径 7000、W 地面半径 22000、R 半径 40000、人物约 34 像素高），合成 `league/effects/league_morgana_fx`（小特效）和 `league_morgana_big`（W 地面、R 爆环）两张图集；禁锢、W 地面、护盾、眩晕的循环帧重复到各自的时长（2 秒、4 秒、护盾循环、1.5 秒）。
+- `tools/art/import_morgana.py --raw <交付文件夹>`：按 `manifest.json` 或等宽格子切帧，按技能范围缩放（Q 弹核半径 7000、W 地面半径 22000、R 半径 50000、人物约 35 像素高，莫甘娜 45），合成 `league/effects/league_morgana_fx`（小特效）和 `league_morgana_big`（W 地面、R 爆环）两张图集；禁锢、W 地面、护盾、眩晕的循环帧重复到各自的时长（2 秒、4 秒、护盾循环、1.5 秒）。
 - 视图绑定在 `league_morgana.data_champion`：`view_projectiles` bolt / q_orb；`view_effects` hit / q_hit / q_bind / w_pool / r_cast / r_hit / r_snap；`view_buffs` e_shield（三段：e_shield_in / e_shield / e_shield_out）、r_chain。

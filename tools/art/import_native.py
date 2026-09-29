@@ -79,7 +79,9 @@ ORDER = {("lux", "idle"): [0, 1, 2, 3, 5, 4],
          # and Kayle (a drawn head pasted on League's hovering idle)
          ("kayle", "idle"): [0, 0, 0, 0, 0, 0],
          # and Fiddlesticks (Codex's redraw, design B: the six idle frames are one drawing)
-         ("fiddlesticks", "idle"): [0, 0, 0, 0, 0, 0]}
+         ("fiddlesticks", "idle"): [0, 0, 0, 0, 0, 0],
+         # and Morgana (Codex's design B, which tools/art/tidy_morgana.py writes into all six)
+         ("morgana", "idle"): [0, 0, 0, 0, 0, 0]}
 # (hero, tag): (y, slots) - in those slots everything at or above pivot row y moves down a row (the row under
 # it is covered): one frame breathing, the face the same drawing throughout. Leona's shield covers her from
 # the chest to the ankles, so she sinks down to its tip and only the boots stay (a seam across the shield
@@ -109,7 +111,10 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        # ground line, stays
        ("kayle", "idle"): (10, [2, 3, 4]),
        # Fiddlesticks: the seam across his stilts, the claw feet stay
-       ("fiddlesticks", "idle"): (6, [2, 3, 4])}
+       ("fiddlesticks", "idle"): (6, [2, 3, 4]),
+       # Morgana's gown reaches the ground: the seam four rows over its hem, where two rows differ only in
+       # shading; the hem and the train's lowest rows stay
+       ("morgana", "idle"): (7, [2, 3, 4])}
 CROWN = {"leesin"}              # heroes whose head template starts at the crown (a braid stands above it)
 PASTED = {"masteryi", "janna", "ekko",   # steadied on the head restyle_native pasted: his raised sword is the top of every frame
           "thresh"}  # his hand-drawn head, pasted on League's head joint: steadied there
