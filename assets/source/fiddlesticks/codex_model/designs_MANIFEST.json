@@ -1,0 +1,194 @@
+{
+  "schema": "fiddlesticks_model_design_handoff_v1",
+  "stage": "design_selection",
+  "approved_variant": null,
+  "generated_with": "Codex built-in image_gen",
+  "postprocess": "Required export normalization: area sampling to a logical pixel canvas, supplied limited palette, binary alpha, two 2x2 eye blocks, exact 8x nearest-neighbor block expansion, center and foot alignment.",
+  "design_baseline_note_zh": "造型图按第1节：1024高画布底部留224px，脚底基线y=800；动作图y=584规则仅适用于后续768px格子，不能套用到本轮造型图。",
+  "height_note_zh": "约36像素指锯盘/枝角至爪底的身体高度。抬高的镰刀使整幅剪影更高：A/B47像素、C42像素。",
+  "import_note_zh": "未选定，未提供fiddlesticks_native.png，未生成10张动作图，未改动游戏文件。选择后再按同一造型制作动作并接入导入脚本。此清单是独立说明格式。",
+  "assets": [
+    {
+      "file": "fiddlesticks_design_A.png",
+      "variant": "A",
+      "description_zh": "长腿驼背，镰刀竖持",
+      "size": [
+        1024,
+        1024
+      ],
+      "logical_canvas": [
+        128,
+        128
+      ],
+      "pixel_scale": 8,
+      "frame_count": 1,
+      "frames": [
+        {
+          "index": 0,
+          "x": 0,
+          "y": 0,
+          "w": 1024,
+          "h": 1024
+        }
+      ],
+      "content_bbox_xyxy": [
+        416,
+        424,
+        616,
+        800
+      ],
+      "feet_baseline_y": 800,
+      "lowest_opaque_row": 799,
+      "logical_feet_row": 99,
+      "nominal_body_height_logical": 36,
+      "total_silhouette_height_logical": 47,
+      "opaque_color_count": 15,
+      "palette": [
+        "#140A0E",
+        "#2C1A22",
+        "#4A2E36",
+        "#5A4448",
+        "#5E2220",
+        "#6E5A28",
+        "#8A7478",
+        "#943A2E",
+        "#946438",
+        "#A08A40",
+        "#B8A2A6",
+        "#C8644A",
+        "#C8985E",
+        "#C8E060",
+        "#EACB94"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "grid_8x8_verified": true,
+      "two_2x2_eyes_exported": true,
+      "sha256": "5a7955c7d2eccf7f52bd4823768c43e189baa7a735671d01c5eaf59f05c0a612"
+    },
+    {
+      "file": "fiddlesticks_design_B.png",
+      "variant": "B",
+      "description_zh": "较大麻袋头，较短腿，镰刀竖持",
+      "size": [
+        1024,
+        1024
+      ],
+      "logical_canvas": [
+        128,
+        128
+      ],
+      "pixel_scale": 8,
+      "frame_count": 1,
+      "frames": [
+        {
+          "index": 0,
+          "x": 0,
+          "y": 0,
+          "w": 1024,
+          "h": 1024
+        }
+      ],
+      "content_bbox_xyxy": [
+        400,
+        424,
+        624,
+        800
+      ],
+      "feet_baseline_y": 800,
+      "lowest_opaque_row": 799,
+      "logical_feet_row": 99,
+      "nominal_body_height_logical": 36,
+      "total_silhouette_height_logical": 47,
+      "opaque_color_count": 15,
+      "palette": [
+        "#140A0E",
+        "#2C1A22",
+        "#4A2E36",
+        "#5A4448",
+        "#5E2220",
+        "#6E5A28",
+        "#8A7478",
+        "#943A2E",
+        "#946438",
+        "#A08A40",
+        "#B8A2A6",
+        "#C8644A",
+        "#C8985E",
+        "#C8E060",
+        "#EACB94"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "grid_8x8_verified": true,
+      "two_2x2_eyes_exported": true,
+      "sha256": "5215cdfdc04dba5da72f76e91195a7d0589634cb9b8f3dfb0d0d8d167d9c646c"
+    },
+    {
+      "file": "fiddlesticks_design_C.png",
+      "variant": "C",
+      "description_zh": "中间比例，肩扛镰刀",
+      "size": [
+        1024,
+        1024
+      ],
+      "logical_canvas": [
+        128,
+        128
+      ],
+      "pixel_scale": 8,
+      "frame_count": 1,
+      "frames": [
+        {
+          "index": 0,
+          "x": 0,
+          "y": 0,
+          "w": 1024,
+          "h": 1024
+        }
+      ],
+      "content_bbox_xyxy": [
+        344,
+        464,
+        680,
+        800
+      ],
+      "feet_baseline_y": 800,
+      "lowest_opaque_row": 799,
+      "logical_feet_row": 99,
+      "nominal_body_height_logical": 36,
+      "total_silhouette_height_logical": 42,
+      "opaque_color_count": 16,
+      "palette": [
+        "#140A0E",
+        "#2C1A22",
+        "#4A2E36",
+        "#5A4448",
+        "#5E2220",
+        "#6E5A28",
+        "#8A7478",
+        "#943A2E",
+        "#946438",
+        "#A08A40",
+        "#B8A2A6",
+        "#C8644A",
+        "#C8985E",
+        "#C8E060",
+        "#D8CCC4",
+        "#EACB94"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "grid_8x8_verified": true,
+      "two_2x2_eyes_exported": true,
+      "sha256": "61fcb6e85d0171e432a7d840c7eba16808abca0c39fb3e271780a6dfb14b7ad8"
+    }
+  ],
+  "preview_file": "DESIGN_COMPARISON.png"
+}
