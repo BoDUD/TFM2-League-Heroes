@@ -354,11 +354,12 @@ def suggest_face(sp):
 
 def skin_head(sp, tag="idle"):
     """(feet row, crown row, head centre x) found from the face instead: the highest skin-toned
-    pixels (hue 5-45 degrees, saturation 0.2-0.65 - gold trim is more saturated - value 0.45 up; their
-    top two rows, the forehead: an ear lower down can sit under the hair),
-    the crown the top of the silhouette over their columns. For hair standing above the head:
-    league_yasuo's ponytail rises 9 px over his crown and is wider than his head, so head_of()
-    finds its tip. None when no skin shows (masks, undead)."""
+    pixels (hue 5-45 degrees, saturation 0.2-0.6 - gold trim and the rust of league_fiddlesticks's
+    scythe blade, 0.63, are more saturated - value 0.45 up; their top two rows, the forehead: an ear
+    lower down can sit under the hair), the crown the top of the silhouette over their columns, as far
+    as it runs unbroken up from the forehead (his scythe is held over his head with a gap under the
+    blade). For hair standing above the head: league_yasuo's ponytail rises 9 px over his crown and is
+    wider than his head, so head_of() finds its tip. None when no skin shows (masks, undead)."""
     import colorsys
     f = sp.frames[(sp.tag_frames(tag) or [0])[0]].convert("RGBA")
     px, W = f.load(), f.width
@@ -368,14 +369,20 @@ def skin_head(sp, tag="idle"):
         if not p[3]:
             return False
         h, s, v = colorsys.rgb_to_hsv(p[0] / 255.0, p[1] / 255.0, p[2] / 255.0)
-        return 5 <= h * 360 <= 45 and 0.2 <= s <= 0.65 and v >= 0.45
+        return 5 <= h * 360 <= 45 and 0.2 <= s <= 0.6 and v >= 0.45
 
     top = next((y for y in range(bb[1], bb[3]) if any(skin(px[x, y]) for x in range(bb[0], bb[2]))), None)
     if top is None:
         return None
     xs = [x for y in range(top, min(top + 2, bb[3])) for x in range(bb[0], bb[2]) if skin(px[x, y])]
     x0, x1 = min(xs), max(xs)
-    crown = min(next(y for y in range(bb[1], bb[3]) if px[x, y][3]) for x in range(x0, x1 + 1))
+    def run_top(x):
+        y = top
+        while y - 1 >= bb[1] and px[x, y - 1][3]:
+            y -= 1
+        return y
+
+    crown = min(run_top(x) for x in range(x0, x1 + 1))
     return bb[3], crown, (x0 + x1) / 2.0 - W / 2.0
 
 

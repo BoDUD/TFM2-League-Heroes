@@ -800,29 +800,30 @@ python tools/art/preview_thresh.py
 | 大招 | R「群鸦风暴」：80000 内有敌方英雄时对他的位置施放，冷却 60 秒。引导 1 秒（目标处的地上出现鸦群印记；期间被控制会打断，每 0.25 秒检查一次），然后化成一群乌鸦飞走，传送到目标位置，鸦群绕着他转 5 秒，每 0.5 秒对 45000 内的敌人造成 25 + 20% 法术强度的魔法伤害（共 10 次），落地那一下使周围的英雄恐惧 1 秒。他死了风暴就停 |
 | 数值 | 攻击 80（+6）、法术强度 40（+20）、生命 950（+100）、护甲 22（+7）、魔抗 20（+3）、移速 1000（+10）。数值是自己设计的，用 SDK 对战模拟调：打野，对 5 个原版打野（`demon`、`circus_blade`、`hunter`、`inquisitor`、`ninja`），两边、三套队友阵容各 24 局，一批 720 局。团队击杀差：出手时刻还是估的时候 +1.15 / +0.56（两批种子）；按美术定下的出手帧（普攻第 8 tick，Q 第 13 tick，夜割第 13 tick 出现、第 18 tick 命中，第 25 tick 起吸，R 引导 1 秒后传送）重跑 +0.33 / +0.65，在本包打野的中间，就用这一版。同样两批里：易 +1.39 / +0.68、艾克 +0.88 / +0.44、李青 −0.96 / −0.58、阿木木 −1.15 / −1.11。费德提克每局放 Q 约 51 次（对英雄 12 次）、技能2 约 30 次、R 4 次 |
 | 亚索联动 | Q、被动和 R 的恐惧都算亚索大招要的控制。亚索打上路、费德提克打野时，亚索每局放 R 2.81 次（打野换成原版 `ninja` 是 0.65；之前测过：李青 1.50、阿木木 1.69、艾克 1.12，永恩那次中路原版 `lightning_mage` 3.19）。没超过原版英雄带来的次数，亚索不用调 |
-| 精灵图 | 10 个动作 65 帧：待机、移动（英雄联盟里他平时移动的动作）、普攻、Q、技能2（夜割）、W 引导、R 引导、R 落地、受击、死亡。头上的羽刺到脚底 35 px（麻袋头顶到脚底 31 px），29 色，动作全部取自英雄联盟原版动画 |
+| 精灵图 | 10 个动作 65 帧：待机、移动、普攻、Q、技能2（夜割）、W 引导、R 引导、R 落地、受击、死亡。Codex 按方案 B 重画：麻袋头约占身高 1/3，镰刀竖着举在身后，刀刃弧在头顶上方；头上的枝角到脚底约 35 px，连举起的镰刀 47 px，15 色。每帧的时机和站位照英雄联盟原版动画渲染的参考帧 |
 | 特效 | 普攻弯刃和命中、Q 乌鸦和尖叫的幽灵稻草人、恐惧之眼（头顶）、沉默缝嘴（头顶）、夜割新月、吸魂引导（绕着他）、被吸出的魂、最后的收割、R 落点印记、化鸦飞走、鸦群风暴 |
 | 图标 | 官方技能图标（Q / W / R），64×64 |
 | 音频 | 从本地客户端提取的 11 条技能音效和 2 条中文语音（夜割、R）。不提交到仓库，按下面的命令在本地生成 |
 
 ```bash
 python tools/lol/extract_fiddlesticks.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstream-cli.exe 路径>"
-python tools/lol/native_pose.py assets/source/fiddlesticks/poses.json --out <渲染文件夹> --alpha --parts
-python tools/art/restyle_native.py assets/source/fiddlesticks/poses.json --renders <渲染文件夹>   # 角色图
+python tools/lol/native_pose.py assets/source/fiddlesticks/poses.json --out <渲染文件夹> --alpha --parts   # 动作参考帧
+python tools/art/tidy_fiddlesticks.py <Codex 的模型交付文件夹>   # 角色图：整理 Codex 的动作条，写进 assets/source/native/
 python tools/art/import_native.py --hero fiddlesticks
 python tools/art/import_fiddlesticks.py      # 特效；--raw <Codex 的交付文件夹> 先把原始图转成原尺寸条
 python tools/art/preview_fiddlesticks.py
 ```
 
-美术（提示词见 [`assets/source/fiddlesticks/PROMPTS.md`](assets/source/fiddlesticks/PROMPTS.md)）：
-- 分工：角色图由 Claude 画，Codex 只画特效。
-- 比例和镜头：三种镜头里用户选了 B：yaw 30、pitch 25、不镜像（镰刀拖在身后，两条高跷腿分得开），头 2.0、腿 0.75，高度 28。镰刀是武器（`^Scythe$`，刀刃按色相投成锈红），后腿是单独的部件（暗一档、单独描边）。英雄联盟皮肤里的恶魔手臂、提灯和舌头是基础造型看不到的子模型，隐藏（`"hide_submeshes"`）；镰刀用单独的贴图 `Weapon_TX`。
-- 头部：逐格手画后贴到每一帧英雄联盟头部关节的位置，每帧保持竖直（`"turn": 180`）。三版里用户选了 H4：往后仰的蛋形麻布袋，头顶扎口、竖着暗紫色的羽刺，一只红眼，一嘴三角形的尖牙。
-- 动作：移动用英雄联盟里他平时移动的动作：动画图里 `Run` 在基础移速下播 `run_base` = `Fiddlesticks_Run`，按原版节奏 8 帧、一圈 0.867 秒，头保持待机时的朝向（`head_like`）。待机 6 帧都用第 1 帧，第 3–5 帧小腿以上下沉一格呼吸。普攻 `Attack2_A`；Q `Spell1`，前扑的几帧往待机混合 40%–50%，免得大头钻到地下；技能2 `Spell3_mid`，跳过英雄联盟把刀刃拉成拖影的那一帧；W 引导 `Spell2_channel`；R 引导 `Spell4`、落地 `Spell4_NoMove`；死亡 `Death_v2`，去掉 2 秒后被吊到空中的一段，镰刀脱手后隐藏。
-- 镰刀黏在手上：英雄联盟里他的镰刀挂在单独的根骨骼上，动画让它跟着手下的 `Scythe_Snap` 走；往待机混合的帧里两边各混各的，镰刀离开了手臂（用户在夜割的动图里看到"手臂少了一块"）。`native_pose.py` 加了可选项 `"glue"`：混合的帧里把镰刀放回它在权重大的那个姿势里相对 `Scythe_Snap` 的位置。不开时其他英雄的输出完全不变。
+美术（模型重画的提示词见 [`assets/source/fiddlesticks/MODEL_PROMPTS.md`](assets/source/fiddlesticks/MODEL_PROMPTS.md)，特效的见 [`PROMPTS.md`](assets/source/fiddlesticks/PROMPTS.md)）：
+- 分工：第一版角色图由 Claude 画（英雄联盟原版动画投色，贴上逐格手画的麻袋头）。用户在游戏里看到镰刀的刀刃挂在脚下、被血条盖住，整体也嫌丑，改由 Codex 重画；从卢锡安起，模型和特效都交给 Codex。
+- 第一版：三种镜头里用户选了 B（yaw 30、pitch 25、不镜像，镰刀拖在身后）、麻袋头 H4。镰刀是单独根骨骼上的道具，往待机混合的帧里会离开手臂（用户看到"手臂少了一块"），`native_pose.py` 为此加了 `"glue"`。这套渲染现在是给 Codex 的动作参考（`poses.json`；`native/fiddlesticks_cells.json` 记着每帧的站位点和帧时长）。
+- 重画：`MODEL_PROMPTS.md` 先要三个造型：A 原版比例、B Q 版、C 镰刀扛在肩上。用户让 Claude 代选，选了 B：头约占身高 1/3，竖拿的大弯镰在头顶上方，三张里脸和镰刀最好认，也完全在血条上方。然后 Codex 照参考的格子、帧数和出手时机画了 10 条动作，脚底线以下什么都不画（游戏在脚下画血条）。给 Codex 的参考包：现在的动作 8 倍、英雄联盟同一帧的渲染、标好站位点和脚底线的对位图、原版英雄风格对照（渲染和对照图只在本地）。Codex 的交接说明在 [`codex_model/`](assets/source/fiddlesticks/codex_model/)。
+- 整理（`tidy_fiddlesticks.py`）：交回的动作条是严格的 8×8 方块、15 色，有三处看着不对，都在游戏像素上改：几帧里两只眼睛连成一条黄绿横杠，改成待机那样一高一低的两只眼；夜割最后一帧的镰刀柄上有眼睛的黄绿色，换成柄的颜色；普攻第 2–5 帧伸出的爪子接在麻袋正面眼睛那一行，像舌头，整只手臂往下挪 5 行，从麻袋下面的胸口伸出去，前臂接到身体，麻袋补上描边。
+- 导入：移动那 8 帧里头相对站位点左右差了 12 像素，跑起来会晃。镰刀举在头顶，原来"用待机最上面几行当头"会找到镰刀，所以 `import_native.py` 新增 `EYES`：按只有眼睛用的颜色定头的位置，移动的每帧挪到眼睛对齐（最多 6 像素）；移动的节奏照英雄联盟里他平时移动的 `Fiddlesticks_Run`（8 帧、一圈 0.867 秒）。待机 6 帧用同一张，第 3–5 帧小腿以上下沉一格呼吸。
+- 头像点：`tfm2_ase.py face` 和 lint 也把举起的镰刀当成了头顶。改了从脸找头的办法：锈红的刀刃（饱和度 0.63）不再算皮肤（上限 0.65 改为 0.6），头顶只从额头往上找到连着的部分为止。其他 20 个英雄的检查结果不变。头像截取点仍是 (9, −30)，在麻袋头顶。
 - 特效用 Codex 画的 13 张（生图原稿，真透明，69 帧）：`import_fiddlesticks.py --raw` 按交付清单的 `frame_regions` 切帧，每帧取大部分落在自己格子里的连通图形（化鸦飞走里两只乌鸦跨进了邻格，按格子切会切出半只），每张 16 色、硬透明，按技能范围定大小：普攻弯刃连烟 14 px、命中 16 px，Q 乌鸦翼展 22 px、幽灵稻草人 30 px 高，恐惧之眼连绕飞的乌鸦 16 px，缝嘴 17 px（三针各 3 px），被吸出的魂 26 px 高、收割 32 px，夜割新月 48 px 高（半径 30000 的圈直径 60 px；做成比英雄高一截、穿过圈里敌人的斩击），吸魂引导 44 px 宽，落点印记 90 px 宽（半径 45000，压成 2:1），化鸦的烟柱 44 px（比他的身高多一点），鸦群 84 px 宽、压到 0.8 高（原稿的格子是方的而不是 3:2，不压的话乌鸦飞到 90 px 高）。弯刃、乌鸦和新月上下镜像成严格对称（游戏按方向转，朝左时整张转 180°），新月的中心就放在施法点上，不上下偏。
 - 出手时刻和动画对齐：普攻第 8 tick（弯刃甩出的那一帧）、Q 第 13 tick（乌鸦出手）、技能2 第 13 tick 挥出夜割、5 tick 后（新月画满）命中，第 25 tick 起吸魂（`Spell2_channel`），R 引导 1 秒后传送。
-- 结果：29 色，和右边像素同色的比例 36%（原版英雄 18%–46%）。头像截取点 (9, −30)。
+- 结果：15 色，和右边像素同色的比例 25%（原版英雄 18%–46%）。
 
 逐帧预览：[`docs/preview/league_fiddlesticks_frames.png`](docs/preview/league_fiddlesticks_frames.png)，特效：[`docs/preview/league_fiddlesticks_effects.png`](docs/preview/league_fiddlesticks_effects.png)。
 

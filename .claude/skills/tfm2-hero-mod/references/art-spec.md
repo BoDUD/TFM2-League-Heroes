@@ -274,6 +274,14 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   `"glue": {"joint": ..., "to": ...}` puts it back at its place against the holding joint in the pose that
   weighs more. League also stretches blades into motion smears for a frame or two (Fiddlesticks's Reap at
   400 ms, a slab at game size): pick the frames around them.
+- **Nothing under the feet.** The game draws the health bar right under the soles: whatever hangs below
+  them is hidden in play (Fiddlesticks's first model held his scythe with the blade below his feet, and the
+  user saw no blade). Keep every pixel of idle and run on or above the feet line; a swing or a fall may dip
+  a row or two. Weapons carried high (Fiddlesticks B holds the scythe over his head) then top the frame, so a
+  head found from the top rows is the weapon: steady such a hero on something only the head has
+  (`import_native.py` `EYES`, the eyes' colour), and `tfm2_ase.py face` finds the head from the face's skin
+  (skin saturation up to 0.6 - his blade's rust is 0.63 - and the crown only as far as the silhouette runs
+  unbroken up from the forehead).
 - **One look per hero.** Strips from different generation rounds disagree on proportions (round
   1 Garen: big head, broad shoulders; round 3: smaller head for the same height). No scale hides
   it - in-game he visibly grew and shrank between animations. When the look changes, regenerate

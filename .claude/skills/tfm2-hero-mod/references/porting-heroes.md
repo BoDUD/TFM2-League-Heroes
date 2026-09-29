@@ -686,6 +686,17 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   height squeezed to 0.8 (Codex's cell came square, not 3:2), Reap's crescent 48 px tall - a slash through the
   foes in its 60 px circle - centred on the cast point (a picture turned half round for a cast to the left
   would move an off-centre crescent down).
+  In game the user found the scythe's blade, hanging below his soles in the idle, hidden under the health bar,
+  and the whole model ugly ("稻草人的模型做的太丑 让codex重做一下吧"): Codex redrew it
+  (`assets/source/fiddlesticks/MODEL_PROMPTS.md`). Three designs first - A League's proportions, B chibi, C the
+  scythe on the shoulder - and the user had Claude choose: B (the sack a third of his height, the scythe held
+  upright behind him, its blade arching over his head: the clearest face and reaper outline, all of it above the
+  health bar). The ten strips followed on the reference cells with the same frame timing, nothing under the feet
+  line. `tools/art/tidy_fiddlesticks.py` fixes three things on the game pixels: eyes run together into a bar
+  (redrawn as the idle's staggered pair), eye green on Reap's scythe pole, and the attack's claw arm stretched out
+  of the sack's front at eye height (moved 5 rows down to come out from under the sack). His run drifted 12 px
+  about the pivot and the blade is the top of every frame, so `import_native.py` steadies him on his eyes
+  (`EYES`, one colour only the eyes use). 65 frames, 15 colours, 25% right-neighbour, face still (9, -30).
 - **A face point under the hair.** `tfm2_ase.py face` and the lint find the crown at the top of
   the idle sprite, which for Yasuo is the ponytail's tip, 9 px above his head and to the left of
   it. Both now also look for the head from the face: the top two rows of skin-toned pixels and the
