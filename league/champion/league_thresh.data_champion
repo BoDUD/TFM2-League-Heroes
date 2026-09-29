@@ -211,6 +211,21 @@
             {
               "casting_type": "Targeting",
               "effect": {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_thresh_q_hooked",
+                  "duration": {
+                    "Time": {
+                      "tick": 120
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
                 "type": "ViewEffect",
                 "name": "league_thresh_q_hit"
               }
@@ -370,46 +385,163 @@
           "tick": 5,
           "effects": [
             {
-              "type": "RangeEffect",
-              "shape": {
-                "Circle": {
-                  "radius": 32000
-                }
-              },
-              "target": "EnemyWithoutTower",
-              "apply_type": "AroundCaster",
-              "effects": [
-                {
-                  "type": "ApAttack",
-                  "damage": 60,
-                  "attack_ratio": 40
-                },
-                {
-                  "type": "AddBuff",
-                  "buff_state": {
-                    "name": "league_thresh_e_slow",
-                    "duration": {
-                      "Time": {
-                        "tick": 60
-                      }
-                    },
-                    "move_speed_mult": -40
+              "type": "SwitchByBuff",
+              "buff_name": "league_thresh_q_hooked",
+              "effect_buff": {
+                "type": "RangeEffect",
+                "shape": {
+                  "Circle": {
+                    "radius": 32000
                   }
                 },
-                {
-                  "type": "Pull",
-                  "speed": 1500,
-                  "tick": 10
-                },
-                {
-                  "type": "ViewEffect",
-                  "name": "league_thresh_e_hit"
-                },
-                {
-                  "type": "TargetSfx",
-                  "name": "league_thresh_e_hit"
-                }
-              ]
+                "target": "EnemyWithoutTower",
+                "apply_type": "AroundCaster",
+                "effects": [
+                  {
+                    "type": "ApAttack",
+                    "damage": 60,
+                    "attack_ratio": 40
+                  },
+                  {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "league_thresh_e_slow",
+                      "duration": {
+                        "Time": {
+                          "tick": 60
+                        }
+                      },
+                      "move_speed_mult": -40
+                    }
+                  },
+                  {
+                    "type": "Pull",
+                    "speed": 2500,
+                    "tick": 12
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "league_thresh_e_hit"
+                  },
+                  {
+                    "type": "TargetSfx",
+                    "name": "league_thresh_e_hit"
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RandomTarget",
+                    "range": 16000,
+                    "casting_target": "EnemyChampion",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_thresh_e_push",
+                          "duration": {
+                            "Time": {
+                              "tick": 2
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_thresh_e_push",
+                    "effect_buff": {
+                      "type": "RangeEffect",
+                      "shape": {
+                        "Circle": {
+                          "radius": 32000
+                        }
+                      },
+                      "target": "EnemyWithoutTower",
+                      "apply_type": "AroundCaster",
+                      "effects": [
+                        {
+                          "type": "ApAttack",
+                          "damage": 60,
+                          "attack_ratio": 40
+                        },
+                        {
+                          "type": "AddBuff",
+                          "buff_state": {
+                            "name": "league_thresh_e_slow",
+                            "duration": {
+                              "Time": {
+                                "tick": 60
+                              }
+                            },
+                            "move_speed_mult": -40
+                          }
+                        },
+                        {
+                          "type": "Knockback",
+                          "speed": 2500,
+                          "tick": 12
+                        },
+                        {
+                          "type": "ViewEffect",
+                          "name": "league_thresh_e_hit"
+                        },
+                        {
+                          "type": "TargetSfx",
+                          "name": "league_thresh_e_hit"
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "RangeEffect",
+                      "shape": {
+                        "Circle": {
+                          "radius": 32000
+                        }
+                      },
+                      "target": "EnemyWithoutTower",
+                      "apply_type": "AroundCaster",
+                      "effects": [
+                        {
+                          "type": "ApAttack",
+                          "damage": 60,
+                          "attack_ratio": 40
+                        },
+                        {
+                          "type": "AddBuff",
+                          "buff_state": {
+                            "name": "league_thresh_e_slow",
+                            "duration": {
+                              "Time": {
+                                "tick": 60
+                              }
+                            },
+                            "move_speed_mult": -40
+                          }
+                        },
+                        {
+                          "type": "Pull",
+                          "speed": 2500,
+                          "tick": 12
+                        },
+                        {
+                          "type": "ViewEffect",
+                          "name": "league_thresh_e_hit"
+                        },
+                        {
+                          "type": "TargetSfx",
+                          "name": "league_thresh_e_hit"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
             }
           ]
         }
@@ -439,6 +571,10 @@
           "name": "league_thresh_r_broken"
         },
         {
+          "type": "CasterViewEffect",
+          "name": "league_thresh_r_box"
+        },
+        {
           "type": "LinearProjectile",
           "name": "league_thresh_r_anchor",
           "speed": 1,
@@ -453,10 +589,6 @@
           "applied_target": "EnemyChampion",
           "applied_effects": [],
           "end_effects": [
-            {
-              "type": "ViewEffect",
-              "name": "league_thresh_r_box"
-            },
             {
               "type": "ApplyInProjectile",
               "name": "league_thresh_r_walls",
@@ -637,7 +769,8 @@
       "name": "league_thresh_r_box",
       "anim": "asset/league/effects/league_thresh_big",
       "tag": "r_box",
-      "z": -1
+      "z": -1,
+      "is_follow": false
     },
     {
       "type": "Animation",

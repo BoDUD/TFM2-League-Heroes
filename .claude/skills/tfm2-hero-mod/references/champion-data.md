@@ -364,7 +364,15 @@ How they behave *(measured in the SDK simulation for league_jinx, 3-12 ten-minut
 - `end_effects` of a `LinearProjectile` or `ParabolicProjectile` run on a position (the stop or landing
   point), and a `Delayed` among them keeps it, like a `Position` cast: a `ViewEffect` there plays on that
   point, a zone or another projectile starts there, and a `Teleport` puts the caster there *(measured for
-  league_ekko)*. A `BackToCasterLinearProjectile` started from them flies from that point back to the
+  league_ekko)*. But a `ViewEffect` on a point where the caster himself stands did not show in game:
+  league_thresh R's Box, played in the `end_effects` of Ekko's anchor (which ends on his own spot), was
+  invisible (seen by the user, 2026-09-29), though the simulation logs the event
+  (`EffectApplyed { target: Pos, caster_id }`, the same as for a far point) and the binding reads back
+  normally (`is_follow` false by default). The view layer's effect system carries an `is_rot` flag, so it
+  probably turns a picture on a point toward it from the caster, which has no direction at zero distance
+  *(inferred)*. Play such a picture as a `CasterViewEffect` in the cast (not following), and keep
+  `ViewEffect`s for points away from the caster (Ekko's field, Teemo's and Jinx's traps). league_yone's body
+  left behind (`e_body` in his anchor's `end_effects`) is the same pattern and has not been seen in game. A `BackToCasterLinearProjectile` started from them flies from that point back to the
   caster, wherever he has walked meanwhile, hits what it passes and runs its own `end_effects` on the caster
   when it reaches him (league_ekko Q; Reimu, Draven and Swain chain it the same way).
 - A `ParabolicProjectile`'s `range_effect_name` plays on the landing point the tick it is fired (a
@@ -1116,10 +1124,21 @@ it cannot be built.
 be placed round him (`Line` takes map coordinates, section 4), so the Box is one circle: an
 `ApplyInProjectile {follow_caster: false, tick: 300, shape: Circle 40000, applied_target: EnemyChampion}`
 started from Ekko's anchor (a `LinearProjectile` with `speed` 1, `range` 1, its `end_effects` on the spot he
-stands) together with the picture (a `ViewEffect`, `z` -1). The zone hits each champion once, whenever he
+stands); the picture is a `CasterViewEffect` in the cast itself (`z` -1, not following) - as a `ViewEffect` in
+the anchor's `end_effects` it never showed in game (section 4). The zone hits each champion once, whenever he
 touches it (section 4). Its `applied_effects` are a `SwitchByBuff` on a caster buff `r_broken`: without it,
 the champion gets the damage, the 99% slow for 120 ticks, and `AddCasterBuff r_broken` (330 ticks, longer
 than the zone); with it, only a 60-tick slow. The cast removes `r_broken` first, so every Box starts whole.
+
+**Push or pull by the situation (league_thresh E, Flay).** League lets the player sweep either way; the AI
+needs a rule, checked on the hit tick (a `Delayed` in the cast): within 2 s of a hook (a caster buff the hook's
+`applied_effects` add) it pulls - the hooked champion is dragged next to him and a pull throws him through and
+behind, League's hook-and-flay; otherwise a `RandomTarget {range: 16000, casting_target: EnemyChampion}` sets a
+2-tick caster flag when a champion is right on him, and `SwitchByBuff` on that flag picks the push
+(`Knockback {speed: 2500, tick: 12}`) over the pull (`Pull` with the same numbers) in a `RangeEffect` around
+him. `RandomTarget`'s range also counts the target's body, so "right on him" reaches about 28000 between the
+centres (a champion pushed from 28550 in the simulation); minions and monsters, with no champion near, are
+pulled together. The first version pulled 1500 x 10 (15000): the user could not see Flay do anything.
 
 ## 8. Gotchas
 

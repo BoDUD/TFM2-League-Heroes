@@ -6,16 +6,17 @@
   league_thresh_frames.png    every animation, frame by frame, 3x on the arena colour
   league_thresh_effects.png   every effect animation, 3x
   league_thresh_showcase.gif  a scripted fight against Darius and Garen with Ashe behind him, timed like the kit:
-                              Thresh walks in past Ashe and lashes Darius, the first lash empowered by Flay's
-                              passive (he has not attacked for 2 s), the next one plain. Garen walks up; Death
+                              Thresh walks in past Ashe and Darius runs right up to him: Flay pushes him away,
+                              and an empowered lash (no attack for 2 s) follows. Garen walks up; Death
                               Sentence's hook flies at him, its chain growing out of Thresh's hand, and the
                               lantern flies to Ashe (Dark Passage: a shield on both). The hook catches Garen: the
-                              chains bind him, he is stunned and dragged in while the chain shortens. Flay sweeps
-                              round Thresh's feet and pulls both in; The Box rises round him: Darius, the first
-                              champion in it, is hit and shackled (99% slow, 2 s), Garen only slowed for 1 s;
-                              Darius falls. Garen backs off inside the walls, an empowered lash hits him, and the
-                              walls shatter after 5 s; 3x. Projectile pictures are turned to their direction like
-                              the game does (the lantern flies left to Ashe, the hook comes back leftward).
+                              chains bind him, he is stunned and dragged in while the chain shortens. The Box
+                              rises round Thresh: Garen, the first champion in it, is hit and shackled (99% slow,
+                              2 s), Darius only slowed for 1 s. Garen backs off toward the walls; the next Flay,
+                              with nobody right on Thresh, pulls both back in and Darius falls; an empowered lash
+                              hits Garen and the walls shatter after 5 s; 3x. Projectile pictures are turned to
+                              their direction like the game does (the lantern flies left to Ashe, the hook comes
+                              back leftward).
 """
 import argparse
 import math
@@ -87,9 +88,10 @@ def showcase(out, z=3, step=40):
     gy = 100                                          # the pivot row
     ashe = frames_of(load(os.path.join(LEAGUE, "champions", "league_ashe")), "idle")
     ax, ay = 78, gy - 16                              # Ashe, 44 px behind him (Dark Passage reaches 50000)
-    d = Held(load(os.path.join(LEAGUE, "champions", "league_darius")), 148, gy + 18)
+    d = Held(load(os.path.join(LEAGUE, "champions", "league_darius")), 200, gy + 10)
     g = Backing(load(os.path.join(LEAGUE, "champions", "league_garen")), 262, gy - 8)
-    g.walks.append((1600.0, 3300.0, -76))             # Garen walks up to 186
+    d.walks.append((400.0, 1400.0, -64))              # Darius runs up to 136, right on him
+    g.walks.append((1600.0, 3000.0, -76))             # Garen walks up to 186
     body, under, over = [], [], []
     t = 0.0
     x = 30
@@ -116,16 +118,28 @@ def showcase(out, z=3, step=40):
         arrive = fly(tag, start + tick(14), x, gy - 2, fx0 - 6, fy0 - 2, 6)
         hit(foe, arrive, view)
 
-    # he walks in past Ashe (60 px a second)
+    def flay(push, foes):
+        """Flay: the sweep from tick 8, the hit 5 ticks later (2.5 px a tick for 12 ticks) and a 1 s slow."""
+        start = t
+        over.append(Follow(frames_of(big, "e_sweep"), start + tick(8), x, gy, on=body, z=1))
+        swept = start + tick(13)
+        for foe, dx in foes:
+            hit(foe, swept, "e_hit")
+            foe.slides.append((swept, swept + tick(12), dx if push else -dx))
+        a("skill2", tick(30))
+        return swept
+
+    # he walks in past Ashe (60 px a second); Darius runs right up to him
     a("run", 1500, loop=True, way=[(0, 30), (1500, 120)])
     x = 120
-    # two attacks on Darius, 90 ticks apart: the first empowered (no attack for 2 s), the lash at tick 14
+    # Flay with a champion right on him: pushed away (30 px)
+    flay(True, [(d, 30)])
+    a("idle", 50, loop=True)
+    # an empowered lash (no attack for 2 s) at tick 14; Darius walks back in, 34 px off
     lash("lash_flay", "flay_hit", d, t)
+    d.walks.append((2600.0, 3400.0, -14))
     a("attack", tick(30))
-    a("idle", tick(60), loop=True)
-    lash("lash", "hit", d, t)
-    a("attack", tick(30))
-    a("idle", 67, loop=True)
+    a("idle", 3100 - t, loop=True)
     # Death Sentence at Garen (tick 16): the hook at 5.5 px a tick, its chain growing; the lantern to Ashe at 5
     start = t
     go = start + tick(16)
@@ -144,34 +158,26 @@ def showcase(out, z=3, step=40):
     g.slides.append((caught, caught + tick(pull / 1.5), -pull))
     fly("q_return", caught, hx, hy, x, gy - 2, 1.5, loop=False)
     a("skill", tick(40))
-    a("idle", 400, loop=True)
-    # Flay: the sweep from tick 8, the hit 5 ticks later pulls both in (1.5 px a tick for 10 ticks) and slows them
-    start = t
-    over.append(Follow(frames_of(big, "e_sweep"), start + tick(8), x, gy, on=body, z=1))
-    swept = start + tick(13)
-    for foe, dx in ((d, -10), (g, -6)):
-        hit(foe, swept, "e_hit")
-        foe.slides.append((swept, swept + tick(10), dx))
-    a("skill2", tick(30))
-    a("idle", 350, loop=True)
-    # The Box at tick 17: 5 s on the ground round him; Darius first (hit, 99% slow for 2 s), Garen half (1 s)
+    a("idle", 4200 - t, loop=True)
+    # The Box at tick 17 (a caster view where he stands, 5 s): Garen first (hit, 99% slow for 2 s), Darius half (1 s)
     start = t
     box = start + tick(17)
     under.append(Anim(frames_of(big, "r_box"), box, x, gy, z=-1))
-    for foe, slow in ((d, 120), (g, 60)):
+    for foe, slow in ((g, 120), (d, 60)):
         over.append(OnFoe(frames_of(small, "r_hit"), box, foe, z=2))
         over.append(OnFoeFor(frames_of(small, "r_slow"), box, foe, box + tick(slow), z=1))
-    d.flinches.append(box)
-    d.death = box + 500
-    g.holds.append((box, box + tick(60)))
+        foe.holds.append((box, box + tick(slow)))
     a("ult", tick(40))
-    a("idle", 700, loop=True)
-    # Garen backs off inside the walls; an empowered lash (no attack for 2 s) catches him
-    g.backs.append((box + tick(60) + 200, box + tick(60) + 1400, 30))
-    start = t
-    lash("lash_flay", "flay_hit", g, start)
+    # Garen, free again, backs off toward the walls; Flay with nobody right on him pulls both back in (and Darius
+    # through), and Darius falls; an empowered lash catches Garen; the walls shatter
+    g.backs.append((box + tick(120) + 100, box + tick(120) + 800, 22))
+    a("idle", 1500 + 6000 - t, loop=True)
+    swept = flay(False, [(g, 30), (d, 26)])
+    d.death = swept + 300
+    a("idle", 300, loop=True)
+    lash("lash_flay", "flay_hit", g, t)
     a("attack", tick(30))
-    a("idle", box + 5000 + 400 - t, loop=True)
+    a("idle", box + 5000 + 300 - t, loop=True)
     end = t
 
     def place(img, f, px, py):

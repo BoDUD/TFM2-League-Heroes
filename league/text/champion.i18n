@@ -138,7 +138,7 @@
         "name": "锤石",
         "attack": "普攻甩出锁链，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。被动 <#ff9028ff>厄运钟摆<>：超过<#ffb900ff>2秒<>没有普攻时，下一次普攻额外造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% 法术强度<>的<#a974ffff>魔法伤害<>。<#ff9028ff>地狱诅咒<>：收割的灵魂化为每级成长的护甲与法术强度。",
         "skill": "掷出镰刀，钩住直线上第一个敌方英雄（穿过小兵），造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 法术强度<>的<#a974ffff>魔法伤害<>，<#ef5350ff>眩晕<><#ffb900ff>1秒<>并把它拉到身前。<#ff9028ff>魂引之灯<>：每<#ffb900ff>14秒<>同时掷出灯笼，为自己和身边一名友方英雄提供<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 法术强度<>的<#e8d44dff>护盾<>，持续<#ffb900ff>2.5秒<>。",
-        "skill2": "挥动锁链横扫身边，对敌人造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 法术强度<>的<#a974ffff>魔法伤害<>，把它们拉向并越过锤石，<#ef5350ff>减速40%<>，持续<#ffb900ff>1秒<>。",
+        "skill2": "挥动锁链横扫身边，对敌人造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 法术强度<>的<#a974ffff>魔法伤害<>并<#ef5350ff>减速40%<>，持续<#ffb900ff>1秒<>。刚钩中英雄或没有敌方英雄贴身时，把敌人<#ef5350ff>拉向并越过<>锤石；有敌方英雄贴身时把敌人<#ef5350ff>推开<>。",
         "ult": "在脚下立起幽冥监牢，持续<#ffb900ff>5秒<>。第一个碰到监牢的敌方英雄受到<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 法术强度<>的<#a974ffff>魔法伤害<>并被<#ef5350ff>减速99%<>，持续<#ffb900ff>2秒<>；之后碰到的敌方英雄不受伤害，减速时间减半。"
       }
     },
@@ -384,7 +384,7 @@
         "name": "瑟雷西",
         "attack": "普攻甩出鎖鏈，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。被動 <#ff9028ff>懾魂掃蕩<>：超過<#ffb900ff>2秒<>沒有普攻時，下一次普攻額外造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% 魔法強度<>的<#a974ffff>魔法傷害<>。<#ff9028ff>靈魂饗宴<>：收割的靈魂化為每級成長的護甲與魔法強度。",
         "skill": "擲出鐮刀，鉤住直線上第一個敵方英雄（穿過小兵），造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 魔法強度<>的<#a974ffff>魔法傷害<>，<#ef5350ff>暈眩<><#ffb900ff>1秒<>並把它拉到身前。<#ff9028ff>鬼影燈籠<>：每<#ffb900ff>14秒<>同時擲出燈籠，為自己和身邊一名友方英雄提供<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 魔法強度<>的<#e8d44dff>護盾<>，持續<#ffb900ff>2.5秒<>。",
-        "skill2": "揮動鎖鏈橫掃身邊，對敵人造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 魔法強度<>的<#a974ffff>魔法傷害<>，把它們拉向並越過瑟雷西，<#ef5350ff>緩速40%<>，持續<#ffb900ff>1秒<>。",
+        "skill2": "揮動鎖鏈橫掃身邊，對敵人造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 魔法強度<>的<#a974ffff>魔法傷害<>並<#ef5350ff>緩速40%<>，持續<#ffb900ff>1秒<>。剛鉤中英雄或沒有敵方英雄貼身時，把敵人<#ef5350ff>拉向並越過<>瑟雷西；有敵方英雄貼身時把敵人<#ef5350ff>推開<>。",
         "ult": "在腳下立起惡靈領域，持續<#ffb900ff>5秒<>。第一個碰到它的敵方英雄受到<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 魔法強度<>的<#a974ffff>魔法傷害<>並被<#ef5350ff>緩速99%<>，持續<#ffb900ff>2秒<>；之後碰到的敵方英雄不受傷害，緩速時間減半。"
       }
     },
@@ -630,7 +630,7 @@
         "name": "Thresh",
         "attack": "Thresh lashes his chain for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. Passive <#ff9028ff>Flay<>: after <#ffb900ff>2s<> without attacking, his next attack deals <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% Ability Power<> bonus <#a974ffff>magic damage<>. <#ff9028ff>Damnation<>: the souls he reaps become his Armor and Ability Power growth.",
         "skill": "Thresh throws his scythe at the first enemy champion in a line (it passes minions), dealing <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% Ability Power<> <#a974ffff>magic damage<>, <#ef5350ff>stunning<> it for <#ffb900ff>1s<> and pulling it to him. <#ff9028ff>Dark Passage<>: every <#ffb900ff>14s<> he also throws his lantern, giving himself and a nearby allied champion a <#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% Ability Power<> <#e8d44dff>shield<> for <#ffb900ff>2.5s<>.",
-        "skill2": "Thresh sweeps his chain around him, dealing <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% Ability Power<> <#a974ffff>magic damage<> to enemies, pulling them toward and past him and <#ef5350ff>slowing<> them by 40% for <#ffb900ff>1s<>.",
+        "skill2": "Thresh sweeps his chain around him, dealing <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% Ability Power<> <#a974ffff>magic damage<> to enemies and <#ef5350ff>slowing<> them by 40% for <#ffb900ff>1s<>. With an enemy champion right on him he <#ef5350ff>knocks them away<>; otherwise, and always right after a hook, he <#ef5350ff>pulls them toward and past him<>.",
         "ult": "Thresh raises a prison of spectral walls where he stands for <#ffb900ff>5s<>. The first enemy champion to touch it takes <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% Ability Power<> <#a974ffff>magic damage<> and is <#ef5350ff>slowed<> by 99% for <#ffb900ff>2s<>; later ones take no damage and are slowed for half as long."
       }
     },
@@ -876,7 +876,7 @@
         "name": "쓰레쉬",
         "attack": "기본 공격으로 사슬을 휘둘러 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다. 기본 지속 효과 <#ff9028ff>사슬 채찍<>: <#ffb900ff>2초<> 동안 기본 공격을 하지 않으면 다음 기본 공격이 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 50%<> <#a974ffff>마법 피해<>를 추가로 입힙니다. <#ff9028ff>지옥살이<>: 거둔 영혼이 레벨당 방어력과 주문력 성장이 됩니다.",
         "skill": "낫을 던져 일직선상의 첫 적 챔피언을 낚아채(미니언 통과) <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 60%<> <#a974ffff>마법 피해<>를 입히고 <#ffb900ff>1초<> 동안 <#ef5350ff>기절<>시키며 앞으로 끌어옵니다. <#ff9028ff>어둠의 통로<>: <#ffb900ff>14초<>마다 등불도 던져 자신과 주변 아군 챔피언 하나에게 <#ffb900ff>2.5초<> 동안 <#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 40%<> <#e8d44dff>보호막<>을 씌웁니다.",
-        "skill2": "사슬로 주변을 휩쓸어 적에게 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 40%<> <#a974ffff>마법 피해<>를 입히고, 자신 쪽으로 끌어당겨 넘기며 <#ffb900ff>1초<> 동안 <#ef5350ff>40% 둔화<>시킵니다.",
+        "skill2": "사슬로 주변을 휩쓸어 적에게 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 40%<> <#a974ffff>마법 피해<>를 입히고 <#ffb900ff>1초<> 동안 <#ef5350ff>40% 둔화<>시킵니다. 적 챔피언이 바짝 붙어 있으면 적을 <#ef5350ff>밀쳐내고<>, 아니면(갈고리 적중 직후에는 항상) 자신 쪽으로 <#ef5350ff>끌어당겨 넘깁니다<>.",
         "ult": "선 자리에 <#ffb900ff>5초<> 동안 영혼 감옥을 세웁니다. 처음 닿은 적 챔피언은 <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 80%<> <#a974ffff>마법 피해<>를 입고 <#ffb900ff>2초<> 동안 <#ef5350ff>99% 둔화<>됩니다. 이후 닿은 적 챔피언은 피해 없이 절반 동안 둔화됩니다."
       }
     },
@@ -1122,7 +1122,7 @@
         "name": "スレッシュ",
         "attack": "通常攻撃は鎖を振るい、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>を与える。パッシブ <#ff9028ff>絶望の鎖<>：<#ffb900ff>2秒<>間通常攻撃しないと、次の通常攻撃が<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の50%<>の<#a974ffff>魔法ダメージ<>を追加で与える。<#ff9028ff>魂の束縛<>：刈り取った魂が物理防御と魔力の成長になる。",
         "skill": "鎌を投げ、直線上で最初の敵チャンピオン（ミニオンは貫通）に<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の60%<>の<#a974ffff>魔法ダメージ<>を与え、<#ffb900ff>1秒<>間<#ef5350ff>スタン<>させて引き寄せる。<#ff9028ff>嘆きの魂灯<>：<#ffb900ff>14秒<>ごとにランタンも投げ、自身と近くの味方チャンピオン1体に<#ffb900ff>2.5秒<>間<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の40%<>の<#e8d44dff>シールド<>を付与する。",
-        "skill2": "鎖で周囲を薙ぎ払い、敵に<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の40%<>の<#a974ffff>魔法ダメージ<>を与え、自身の向こう側まで引き寄せて<#ffb900ff>1秒<>間<#ef5350ff>40%スロウ<>を付与する。",
+        "skill2": "鎖で周囲を薙ぎ払い、敵に<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の40%<>の<#a974ffff>魔法ダメージ<>と<#ffb900ff>1秒<>間の<#ef5350ff>40%スロウ<>を与える。敵チャンピオンが密着していれば<#ef5350ff>ノックバック<>し、そうでなければ（フック命中直後は常に）自身の向こう側まで<#ef5350ff>引き寄せる<>。",
         "ult": "足元に<#ffb900ff>5秒<>間魂の牢獄を築く。最初に触れた敵チャンピオンは<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の80%<>の<#a974ffff>魔法ダメージ<>と<#ffb900ff>2秒<>間の<#ef5350ff>99%スロウ<>を受ける。後から触れた敵チャンピオンはダメージを受けず、スロウは半分の時間になる。"
       }
     },
