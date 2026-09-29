@@ -230,6 +230,15 @@ damage cannot be changed, the chance can only be added to (no multiplier), and t
 not show it, so write it in the text. `defence_penetration` is a percent: the target's armour counts
 as armour x (100 - penetration) / 100 (`utils::get_damage`).
 
+**True damage that scales with ability power** *(measured in the SDK simulation for league_ahri Q,
+2026-09-29)*. `FixedAttack` reads the caster's attack damage and health, never ability power, so a
+spell's true damage in AP terms is an `ApAttack` that ignores magic resistance: put `AddCasterBuff
+{duration: 1 tick, magic_resistance_penetration: 100}` right before it in the same applied effects. The
+buff counts for the hit in the tick it is added (the same 55 + 45% AP dealt 140 through a lightning
+mage's magic resistance and 190 with the buff), and it is gone the next tick; other damage the caster
+deals in that very tick gets it too. Reductions that are not armour or magic resistance
+(`damaged_reduce`, `skill_damaged_reduce`, shields) still apply, as they do to `FixedAttack`.
+
 No effect and no buff field blocks, reflects or destroys a projectile (a wall like Yasuo W or Braum E
 cannot exist); `ShrinkingBarrier` is a closing ring that hits units at its edge.
 
@@ -242,6 +251,13 @@ cannot exist); `ShrinkingBarrier` is a closing ring that hits units at its edge.
 `Charm {tick}`, `Fear {tick}`, `Knockback {speed, tick}`, `Pull {speed, tick}`, `Grab {speed, tick}`,
 `BlockAttack {tick}` (disarm), `BlockSkill {tick}` (silence), `BlockMoveSkill {tick}` (no dashes),
 `Invisible {tick}` (Nocturne ult applies it to allies), `CasterInvisible {tick}` (base Nightmare).
+
+**Charm walks the target to the caster** *(measured in the SDK simulation for league_ahri E,
+2026-09-29)*. For `tick` ticks the charmed unit walks straight toward the caster at its own move speed
+(a lightning mage 79000 units away came about 460 units closer every tick, and turned away the tick the
+charm ended), then goes back to what it was doing. It is crowd control for `EnemyChampionInCC`
+(league_yasuo's R fires on it, section 3). The simulation's frames carry no charm event of their own
+(`Stun` and `Airborne` have one), so a logger sees it only in the target's movement.
 
 **Invisible is not untargetable; Banish is** *(read from the SDK's game_core and measured in the
 5v5 simulation for league_teemo and league_masteryi)*. `Invisible` and `CasterInvisible` set the same
@@ -1139,6 +1155,43 @@ behind, League's hook-and-flay; otherwise a `RandomTarget {range: 16000, casting
 him. `RandomTarget`'s range also counts the target's body, so "right on him" reaches about 28000 between the
 centres (a champion pushed from 28550 in the simulation); minions and monsters, with no champion near, are
 pulled together. The first version pulled 1500 x 10 (15000): the user could not see Flay do anything.
+
+**Out and back, the return true damage (league_ahri Q, Orb of Deception).** Ekko's out and back without the
+field: the penetrating `LinearProjectile` on `EnemyWithoutTower` turns into a `BackToCasterLinearProjectile`
+in its `end_effects` at once. Each hit of the return starts with `AddCasterBuff` of a 1-tick
+`magic_resistance_penetration: 100` buff, then the `ApAttack` (section 4, "True damage that scales with
+ability power"). A buff laid on at the turn for the whole flight home (30 ticks) worked too, but also let
+the fox-fires hitting meanwhile through magic resistance. The hit sound plays once a pass (a 30-tick lock).
+
+**Fox-fires, charmed champions first (league_ahri W, folded into Q).** Q starts with `SwitchByBuff` on a
+9 s cooldown buff (Soraka's fold); without it W adds the buff, two move speed buffs (+20% for 1.5 s and +20%
+for 0.75 s: 40% decaying) and a caster picture of the fires circling her, and queues three fires 4 ticks
+apart. Each fire picks in tiers: `RandomTarget {casting_target: EnemyChampionInCC}` fires a
+`TargetProjectile` at a crowd-controlled champion (the charmed one, or anyone's stun) and adds a 1-tick
+caster flag; `SwitchByBuff` on the flag skips the next tier, `RandomTarget {EnemyChampion}` (the same way), and
+last `RandomTarget {EnemyWithoutTower}`. One flag name per fire, so two fires in one tick cannot see each
+other's. In the simulation the fires went to minions in the lane and to the champion as soon as one stood
+within 60000 (all three onto the same champion when he was the only one: `RandomTarget` may repeat).
+
+**Three dashes with bolts (league_ahri R, Spirit Rush).** The ult has `cooltime_use_count: 3` (section 7,
+"Recast / charges"): cast on an enemy champion within range, the AI casts it again as soon as the action
+ends, so the three dashes came within about 1.5 s in the simulation, and one charge returns every
+`cooltime / 3`. Each cast first sets a 1-tick flag with `RandomTarget {EnemyChampion}` at a short range and
+branches: with a champion that close, `MoveBack` (away from the target, speed x tick); otherwise
+`RushTime` in the `Targeting` cast, which moves speed x tick toward the target (2000 x 12 = 24000, measured)
+and stops there - unlike `MoveTo` and `MoveToTarget`, which go all the way to the target (section 4). After
+the dash a `Delayed` fires three bolts, each a `TargetProjectile` from a `RandomTarget` on `EnemyChampion`,
+else on `EnemyWithoutTower` (the flag tiers above). The dash's picture is a `CasterViewEffect` left where she
+started (not following), drawn round rather than pointing, since she dashes either way.
+
+**Heal on the hits of every fourth spell (league_ahri Essence Theft).** League's old passive (nine spell
+hits, then the next spell heals per enemy hit) as casts: each spell's hits count the cast once behind a
+per-skill caster lock (Q 60 ticks, the fires 60, E 40, each R dash 24) on permanent caster buffs `et1`,
+`et2`, and the third adds `et_ready` (permanent, with a `view_buffs` picture; death clears it, section 5). Every
+spell starts with `SwitchByBuff et_ready`: it swaps the flag for a heal window (`et_heal`, as long as the
+spell's hits come: Q 80 ticks, E 40, R 40), and while the window lasts each hit runs `Heal {heal_type:
+Caster}` instead of counting (the heal picture and sound once, behind a 20-tick lock). A Q through a wave
+heals once per unit it passes on each pass, as League's did.
 
 ## 8. Gotchas
 

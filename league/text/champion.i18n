@@ -144,9 +144,9 @@
       "league_ahri": {
         "name": "阿狸",
         "attack": "普攻发射妖力球，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。被动 <#ff9028ff>摄魂夺魄<>：技能每次施放命中敌人积攒<#ffb900ff>1<>层，满<#ffb900ff>3<>层后下一个技能每命中一个敌人为阿狸回复<#6aff55ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8% 法术强度<>的<#6aff55ff>生命值<>。",
-        "skill": "掷出宝珠再收回，往返各对路径上的敌人造成<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45% 法术强度<>的<#a974ffff>魔法伤害<>，回程无视<#88ccffff>魔法抗性<>。同时施放 <#ff9028ff>妖异狐火<>（冷却<#ffb900ff>9秒<>）：<#ffb900ff>3<>团狐火追击附近敌人，优先被<#ef5350ff>魅惑<>的英雄，每团造成<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25% 法术强度<>的<#a974ffff>魔法伤害<>，并<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移动速度提高40%<>，<#ffb900ff>1.5秒<>内递减。",
-        "skill2": "献出飞吻，对命中的第一个敌方英雄造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 法术强度<>的<#a974ffff>魔法伤害<>并<#ef5350ff>魅惑<>其<#ffb900ff>1.25秒<>，使其走向阿狸；该英雄<#ffb900ff>2秒<>内受到的伤害提高<#ffb900ff>15%<>。",
-        "ult": "可连续施放<#ffb900ff>3<>次，每<#ffb900ff>25秒<>恢复<#ffb900ff>1<>次。每次冲刺一段距离（离敌方英雄太近时向后冲），再向附近敌人射出<#ffb900ff>3<>枚精魄弹，优先英雄，每枚造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30% 法术强度<>的<#a974ffff>魔法伤害<>。"
+        "skill": "掷出宝珠再收回，往返各对路径上的敌人造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55% 法术强度<>的<#a974ffff>魔法伤害<>，回程无视<#88ccffff>魔法抗性<>。同时施放 <#ff9028ff>妖异狐火<>（冷却<#ffb900ff>9秒<>）：<#ffb900ff>3<>团狐火追击附近敌人，优先被<#ef5350ff>魅惑<>的英雄，每团造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30% 法术强度<>的<#a974ffff>魔法伤害<>，并<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移动速度提高40%<>，<#ffb900ff>1.5秒<>内递减。",
+        "skill2": "献出飞吻，对命中的第一个敌方英雄造成<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75% 法术强度<>的<#a974ffff>魔法伤害<>并<#ef5350ff>魅惑<>其<#ffb900ff>1.25秒<>，使其走向阿狸；该英雄<#ffb900ff>2秒<>内受到的伤害提高<#ffb900ff>15%<>。",
+        "ult": "可连续施放<#ffb900ff>3<>次，每<#ffb900ff>25秒<>恢复<#ffb900ff>1<>次。每次冲刺一段距离（离敌方英雄太近时向后冲），再向附近敌人射出<#ffb900ff>3<>枚精魄弹，优先英雄，每枚造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 法术强度<>的<#a974ffff>魔法伤害<>。"
       }
     },
     "skill_name": {
@@ -402,9 +402,9 @@
       "league_ahri": {
         "name": "阿璃",
         "attack": "普攻發射妖力球，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。被動 <#ff9028ff>銷魂<>：技能每次施放命中敵人累積<#ffb900ff>1<>層，滿<#ffb900ff>3<>層後下一個技能每命中一個敵人為阿璃回復<#6aff55ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8% 魔法強度<>的<#6aff55ff>生命值<>。",
-        "skill": "擲出幻玉再收回，往返各對路徑上的敵人造成<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45% 魔法強度<>的<#a974ffff>魔法傷害<>，回程無視<#88ccffff>魔法抗性<>。同時施放 <#ff9028ff>魅火<>（冷卻<#ffb900ff>9秒<>）：<#ffb900ff>3<>團狐火追擊附近敵人，優先被<#ef5350ff>魅惑<>的英雄，每團造成<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25% 魔法強度<>的<#a974ffff>魔法傷害<>，並<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度提高40%<>，<#ffb900ff>1.5秒<>內遞減。",
-        "skill2": "獻出飛吻，對命中的第一個敵方英雄造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 魔法強度<>的<#a974ffff>魔法傷害<>並<#ef5350ff>魅惑<>其<#ffb900ff>1.25秒<>，使其走向阿璃；該英雄<#ffb900ff>2秒<>內受到的傷害提高<#ffb900ff>15%<>。",
-        "ult": "可連續施放<#ffb900ff>3<>次，每<#ffb900ff>25秒<>恢復<#ffb900ff>1<>次。每次衝刺一段距離（離敵方英雄太近時向後衝），再向附近敵人射出<#ffb900ff>3<>枚精魄彈，優先英雄，每枚造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30% 魔法強度<>的<#a974ffff>魔法傷害<>。"
+        "skill": "擲出幻玉再收回，往返各對路徑上的敵人造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55% 魔法強度<>的<#a974ffff>魔法傷害<>，回程無視<#88ccffff>魔法抗性<>。同時施放 <#ff9028ff>魅火<>（冷卻<#ffb900ff>9秒<>）：<#ffb900ff>3<>團狐火追擊附近敵人，優先被<#ef5350ff>魅惑<>的英雄，每團造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30% 魔法強度<>的<#a974ffff>魔法傷害<>，並<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度提高40%<>，<#ffb900ff>1.5秒<>內遞減。",
+        "skill2": "獻出飛吻，對命中的第一個敵方英雄造成<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75% 魔法強度<>的<#a974ffff>魔法傷害<>並<#ef5350ff>魅惑<>其<#ffb900ff>1.25秒<>，使其走向阿璃；該英雄<#ffb900ff>2秒<>內受到的傷害提高<#ffb900ff>15%<>。",
+        "ult": "可連續施放<#ffb900ff>3<>次，每<#ffb900ff>25秒<>恢復<#ffb900ff>1<>次。每次衝刺一段距離（離敵方英雄太近時向後衝），再向附近敵人射出<#ffb900ff>3<>枚精魄彈，優先英雄，每枚造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 魔法強度<>的<#a974ffff>魔法傷害<>。"
       }
     },
     "skill_name": {
@@ -660,9 +660,9 @@
       "league_ahri": {
         "name": "Ahri",
         "attack": "Basic attacks fire a fox-magic orb for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. Passive <#ff9028ff>Essence Theft<>: each spell cast that hits an enemy grants a charge; at <#ffb900ff>3<> charges her next spell restores <#6aff55ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>8% Ability Power<> <#6aff55ff>health<> for every enemy it hits.",
-        "skill": "Ahri's orb flies out and back, dealing <#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45% Ability Power<> <#a974ffff>magic damage<> to enemies it passes each way; the return ignores <#88ccffff>magic resistance<>. Also <#ff9028ff>Fox-Fire<> (<#ffb900ff>9s<> cooldown): <#ffb900ff>3<> fox-fires seek nearby enemies (charmed champions first), each dealing <#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25% Ability Power<> <#a974ffff>magic damage<>; she gains <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>40% Move Speed<>, decaying over <#ffb900ff>1.5s<>.",
-        "skill2": "Ahri blows a kiss that deals <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% Ability Power<> <#a974ffff>magic damage<> to the first enemy champion hit and <#ef5350ff>charms<> it for <#ffb900ff>1.25s<>, making it walk toward her. It takes <#ffb900ff>15%<> more damage for <#ffb900ff>2s<>.",
-        "ult": "Up to <#ffb900ff>3<> casts in a row; one comes back every <#ffb900ff>25s<>. Each cast Ahri dashes (away from an enemy champion that is too close, otherwise toward her target), then fires <#ffb900ff>3<> essence bolts at nearby enemies, champions first, each dealing <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30% Ability Power<> <#a974ffff>magic damage<>."
+        "skill": "Ahri's orb flies out and back, dealing <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55% Ability Power<> <#a974ffff>magic damage<> to enemies it passes each way; the return ignores <#88ccffff>magic resistance<>. Also <#ff9028ff>Fox-Fire<> (<#ffb900ff>9s<> cooldown): <#ffb900ff>3<> fox-fires seek nearby enemies (charmed champions first), each dealing <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30% Ability Power<> <#a974ffff>magic damage<>; she gains <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>40% Move Speed<>, decaying over <#ffb900ff>1.5s<>.",
+        "skill2": "Ahri blows a kiss that deals <#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75% Ability Power<> <#a974ffff>magic damage<> to the first enemy champion hit and <#ef5350ff>charms<> it for <#ffb900ff>1.25s<>, making it walk toward her. It takes <#ffb900ff>15%<> more damage for <#ffb900ff>2s<>.",
+        "ult": "Up to <#ffb900ff>3<> casts in a row; one comes back every <#ffb900ff>25s<>. Each cast Ahri dashes (away from an enemy champion that is too close, otherwise toward her target), then fires <#ffb900ff>3<> essence bolts at nearby enemies, champions first, each dealing <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% Ability Power<> <#a974ffff>magic damage<>."
       }
     },
     "skill_name": {
@@ -918,9 +918,9 @@
       "league_ahri": {
         "name": "아리",
         "attack": "기본 공격으로 여우 구슬을 날려 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다. 기본 지속 효과 <#ff9028ff>정기 흡수<>: 스킬이 적에게 적중하면 사용당 한 번 충전되며, <#ffb900ff>3<>회 충전되면 다음 스킬이 적중한 적 하나마다 <#6aff55ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 8%<> <#6aff55ff>체력<>을 회복합니다.",
-        "skill": "구슬을 던졌다 되돌려 받아 오가며 적에게 각각 <#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 45%<> <#a974ffff>마법 피해<>를 입힙니다. 돌아올 때는 <#88ccffff>마법 저항력<>을 무시합니다. 동시에 <#ff9028ff>여우불<>(<#ffb900ff>9초<>): 여우불 <#ffb900ff>3<>개가 주변 적(매혹된 챔피언 우선)을 쫓아 각각 <#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 25%<> <#a974ffff>마법 피해<>를 입히고, <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도 40%<> 증가(<#ffb900ff>1.5초<>에 걸쳐 감소).",
-        "skill2": "키스를 날려 처음 맞은 적 챔피언에게 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 60%<> <#a974ffff>마법 피해<>를 입히고 <#ffb900ff>1.25초<> 동안 <#ef5350ff>매혹<>시켜 아리에게 걸어오게 합니다. 대상은 <#ffb900ff>2초<> 동안 받는 피해가 <#ffb900ff>15%<> 증가합니다.",
-        "ult": "최대 <#ffb900ff>3<>번 연속 사용할 수 있고 <#ffb900ff>25초<>마다 1회 충전됩니다. 사용할 때마다 돌진한 뒤(적 챔피언이 너무 가까우면 뒤로) 주변 적에게 정기 구슬 <#ffb900ff>3<>개를 쏩니다(챔피언 우선). 구슬마다 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 30%<> <#a974ffff>마법 피해<>를 입힙니다."
+        "skill": "구슬을 던졌다 되돌려 받아 오가며 적에게 각각 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 55%<> <#a974ffff>마법 피해<>를 입힙니다. 돌아올 때는 <#88ccffff>마법 저항력<>을 무시합니다. 동시에 <#ff9028ff>여우불<>(<#ffb900ff>9초<>): 여우불 <#ffb900ff>3<>개가 주변 적(매혹된 챔피언 우선)을 쫓아 각각 <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 30%<> <#a974ffff>마법 피해<>를 입히고, <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도 40%<> 증가(<#ffb900ff>1.5초<>에 걸쳐 감소).",
+        "skill2": "키스를 날려 처음 맞은 적 챔피언에게 <#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 75%<> <#a974ffff>마법 피해<>를 입히고 <#ffb900ff>1.25초<> 동안 <#ef5350ff>매혹<>시켜 아리에게 걸어오게 합니다. 대상은 <#ffb900ff>2초<> 동안 받는 피해가 <#ffb900ff>15%<> 증가합니다.",
+        "ult": "최대 <#ffb900ff>3<>번 연속 사용할 수 있고 <#ffb900ff>25초<>마다 1회 충전됩니다. 사용할 때마다 돌진한 뒤(적 챔피언이 너무 가까우면 뒤로) 주변 적에게 정기 구슬 <#ffb900ff>3<>개를 쏩니다(챔피언 우선). 구슬마다 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 40%<> <#a974ffff>마법 피해<>를 입힙니다."
       }
     },
     "skill_name": {
@@ -1176,9 +1176,9 @@
       "league_ahri": {
         "name": "アーリ",
         "attack": "通常攻撃は妖力の玉を放ち、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>を与える。パッシブ <#ff9028ff>生気吸引<>：スキルが敵に命中すると使用ごとに1チャージ、<#ffb900ff>3<>チャージで次のスキルが命中した敵1体ごとに<#6aff55ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の8%<>の<#6aff55ff>体力<>を回復する。",
-        "skill": "オーブを投げて引き戻し、往復で通過した敵にそれぞれ<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の45%<>の<#a974ffff>魔法ダメージ<>。戻りは<#88ccffff>魔法防御<>を無視。同時に<#ff9028ff>フォックスファイア<>（<#ffb900ff>9秒<>）：狐火<#ffb900ff>3<>つが近くの敵（魅了中のチャンピオン優先）を追い各<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の25%<>の<#a974ffff>魔法ダメージ<>、<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度40%<>増加（<#ffb900ff>1.5秒<>で減衰）。",
-        "skill2": "投げキッスを放ち、最初に当たった敵チャンピオンに<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の60%<>の<#a974ffff>魔法ダメージ<>を与え、<#ffb900ff>1.25秒<>間<#ef5350ff>魅了<>してアーリの方へ歩かせる。対象は<#ffb900ff>2秒<>間受けるダメージが<#ffb900ff>15%<>増加する。",
-        "ult": "最大<#ffb900ff>3<>回連続で使え、<#ffb900ff>25秒<>ごとに1回分回復。使うたびにダッシュし（敵チャンピオンが近すぎれば後方へ）、近くの敵に精気弾を<#ffb900ff>3<>発放つ（チャンピオン優先）。1発ごとに<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の30%<>の<#a974ffff>魔法ダメージ<>。"
+        "skill": "オーブを投げて引き戻し、往復で通過した敵にそれぞれ<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の55%<>の<#a974ffff>魔法ダメージ<>。戻りは<#88ccffff>魔法防御<>を無視。同時に<#ff9028ff>フォックスファイア<>（<#ffb900ff>9秒<>）：狐火<#ffb900ff>3<>つが近くの敵（魅了中のチャンピオン優先）を追い各<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の30%<>の<#a974ffff>魔法ダメージ<>、<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度40%<>増加（<#ffb900ff>1.5秒<>で減衰）。",
+        "skill2": "投げキッスを放ち、最初に当たった敵チャンピオンに<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の75%<>の<#a974ffff>魔法ダメージ<>を与え、<#ffb900ff>1.25秒<>間<#ef5350ff>魅了<>してアーリの方へ歩かせる。対象は<#ffb900ff>2秒<>間受けるダメージが<#ffb900ff>15%<>増加する。",
+        "ult": "最大<#ffb900ff>3<>回連続で使え、<#ffb900ff>25秒<>ごとに1回分回復。使うたびにダッシュし（敵チャンピオンが近すぎれば後方へ）、近くの敵に精気弾を<#ffb900ff>3<>発放つ（チャンピオン優先）。1発ごとに<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の40%<>の<#a974ffff>魔法ダメージ<>。"
       }
     },
     "skill_name": {

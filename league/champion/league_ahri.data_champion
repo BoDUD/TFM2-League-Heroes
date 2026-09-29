@@ -231,8 +231,8 @@
                               "effects": [
                                 {
                                   "type": "ApAttack",
-                                  "damage": 35,
-                                  "attack_ratio": 25
+                                  "damage": 45,
+                                  "attack_ratio": 30
                                 },
                                 {
                                   "type": "ViewEffect",
@@ -423,8 +423,8 @@
                                     "effects": [
                                       {
                                         "type": "ApAttack",
-                                        "damage": 35,
-                                        "attack_ratio": 25
+                                        "damage": 45,
+                                        "attack_ratio": 30
                                       },
                                       {
                                         "type": "ViewEffect",
@@ -600,8 +600,8 @@
                                       "effects": [
                                         {
                                           "type": "ApAttack",
-                                          "damage": 35,
-                                          "attack_ratio": 25
+                                          "damage": 45,
+                                          "attack_ratio": 30
                                         },
                                         {
                                           "type": "ViewEffect",
@@ -792,8 +792,8 @@
                               "effects": [
                                 {
                                   "type": "ApAttack",
-                                  "damage": 35,
-                                  "attack_ratio": 25
+                                  "damage": 45,
+                                  "attack_ratio": 30
                                 },
                                 {
                                   "type": "ViewEffect",
@@ -984,8 +984,8 @@
                                     "effects": [
                                       {
                                         "type": "ApAttack",
-                                        "damage": 35,
-                                        "attack_ratio": 25
+                                        "damage": 45,
+                                        "attack_ratio": 30
                                       },
                                       {
                                         "type": "ViewEffect",
@@ -1161,8 +1161,8 @@
                                       "effects": [
                                         {
                                           "type": "ApAttack",
-                                          "damage": 35,
-                                          "attack_ratio": 25
+                                          "damage": 45,
+                                          "attack_ratio": 30
                                         },
                                         {
                                           "type": "ViewEffect",
@@ -1353,8 +1353,8 @@
                               "effects": [
                                 {
                                   "type": "ApAttack",
-                                  "damage": 35,
-                                  "attack_ratio": 25
+                                  "damage": 45,
+                                  "attack_ratio": 30
                                 },
                                 {
                                   "type": "ViewEffect",
@@ -1545,8 +1545,8 @@
                                     "effects": [
                                       {
                                         "type": "ApAttack",
-                                        "damage": 35,
-                                        "attack_ratio": 25
+                                        "damage": 45,
+                                        "attack_ratio": 30
                                       },
                                       {
                                         "type": "ViewEffect",
@@ -1722,8 +1722,8 @@
                                       "effects": [
                                         {
                                           "type": "ApAttack",
-                                          "damage": 35,
-                                          "attack_ratio": 25
+                                          "damage": 45,
+                                          "attack_ratio": 30
                                         },
                                         {
                                           "type": "ViewEffect",
@@ -1901,8 +1901,8 @@
                 "effects": [
                   {
                     "type": "ApAttack",
-                    "damage": 55,
-                    "attack_ratio": 45
+                    "damage": 70,
+                    "attack_ratio": 55
                   },
                   {
                     "type": "ViewEffect",
@@ -2111,8 +2111,8 @@
                       },
                       {
                         "type": "ApAttack",
-                        "damage": 55,
-                        "attack_ratio": 45
+                        "damage": 70,
+                        "attack_ratio": 55
                       },
                       {
                         "type": "ViewEffect",
@@ -2357,8 +2357,8 @@
                 "effects": [
                   {
                     "type": "ApAttack",
-                    "damage": 60,
-                    "attack_ratio": 60
+                    "damage": 75,
+                    "attack_ratio": 75
                   },
                   {
                     "type": "Charm",
@@ -2687,8 +2687,8 @@
                             "effects": [
                               {
                                 "type": "ApAttack",
-                                "damage": 50,
-                                "attack_ratio": 30
+                                "damage": 60,
+                                "attack_ratio": 40
                               },
                               {
                                 "type": "ViewEffect",
@@ -2864,8 +2864,8 @@
                               "effects": [
                                 {
                                   "type": "ApAttack",
-                                  "damage": 50,
-                                  "attack_ratio": 30
+                                  "damage": 60,
+                                  "attack_ratio": 40
                                 },
                                 {
                                   "type": "ViewEffect",
@@ -3052,8 +3052,8 @@
                             "effects": [
                               {
                                 "type": "ApAttack",
-                                "damage": 50,
-                                "attack_ratio": 30
+                                "damage": 60,
+                                "attack_ratio": 40
                               },
                               {
                                 "type": "ViewEffect",
@@ -3229,8 +3229,8 @@
                               "effects": [
                                 {
                                   "type": "ApAttack",
-                                  "damage": 50,
-                                  "attack_ratio": 30
+                                  "damage": 60,
+                                  "attack_ratio": 40
                                 },
                                 {
                                   "type": "ViewEffect",
@@ -3417,8 +3417,8 @@
                             "effects": [
                               {
                                 "type": "ApAttack",
-                                "damage": 50,
-                                "attack_ratio": 30
+                                "damage": 60,
+                                "attack_ratio": 40
                               },
                               {
                                 "type": "ViewEffect",
@@ -3594,8 +3594,8 @@
                               "effects": [
                                 {
                                   "type": "ApAttack",
-                                  "damage": 50,
-                                  "attack_ratio": 30
+                                  "damage": 60,
+                                  "attack_ratio": 40
                                 },
                                 {
                                   "type": "ViewEffect",

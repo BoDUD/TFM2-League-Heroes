@@ -11,7 +11,10 @@ FNV-1a hash; names are matched against common ones and the .anm file names), its
     a cycle takes (frames - 1) x mTickDuration;
   - for a ParametricClipData / ConditionFloatClipData its children and their values (Ekko's `Run`:
     run_base from move speed 315, Run_Haste from 535), for a ConditionBoolClipData its true / false clips
-    (Yone's `Run`: run_homeguard when the homeguard buff runs, run_base otherwise).
+    (Yone's `Run`: run_homeguard when the homeguard buff runs, run_base otherwise), for a SelectorClipData
+    its clips and their chances, for a SequencerClipData the clips it plays one after the other (Ahri's
+    run_base: Run.anm once, then a selector of Run.anm 50%, Run_Var1 25%, Run_Var2 25%).
+A clip whose name is not known shows its hash and, when it plays a file, the file (#cc7e3fac=Run.anm).
 The move tag of a sprite is what `Run` plays at base move speed: follow it to `run_base` (Yone's is
 Yone_Walk01, a walk; his Yone_Run01 is `run_fast`, not his move).
 """
@@ -142,9 +145,15 @@ def main():
         if "_" in stem:
             names.append(stem.split("_", 1)[1])
     cands = {fnv1a(n): n for n in names}
-    clipname = lambda h: cands.get(h, f"#{h:08x}") if isinstance(h, int) else str(h)
+    entries = parse_prop(b)
+    files = {key: os.path.basename(clip["mAnimationResourceData"]["mAnimationFilePath"])
+             for _cls, fields in entries for key, clip in fields.get("mClipDataMap") or []
+             if isinstance(clip, dict) and isinstance(clip.get("mAnimationResourceData"), dict)
+             and clip["mAnimationResourceData"].get("mAnimationFilePath")}
+    clipname = lambda h: (cands[h] if h in cands else f"#{h:08x}" + (f"={files[h]}" if h in files else "")) \
+        if isinstance(h, int) else str(h)
     lengths = {}
-    for _cls, fields in parse_prop(b):
+    for _cls, fields in entries:
         for key, clip in fields.get("mClipDataMap") or []:
             c = clip or {}
             line = f"{clipname(key):28s} {c.get('__class', '?'):24s}"
@@ -172,6 +181,8 @@ def main():
             if "mTrueConditionClipName" in c:
                 line += (f"  true: {clipname(c['mTrueConditionClipName'])}, "
                          f"false: {clipname(c.get('mFalseConditionClipName'))}")
+            if c.get("mClipNameList"):          # a sequence: these clips one after the other (Ahri's run_base)
+                line += "  then: " + ", ".join(clipname(h) for h in c["mClipNameList"])
             if a.grep and a.grep.lower() not in line.lower():
                 continue
             print(line)

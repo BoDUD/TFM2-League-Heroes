@@ -111,6 +111,11 @@ OK = direct, ~ = approximate, X = not possible in data-only mods.
 | Walls round the caster, the one broken hurts most (Thresh R) | no walls round a caster (`Line` takes map coordinates): one circle, an `ApplyInProjectile` that hits each champion once; the first champion takes the damage and the long slow, a caster flag leaves the rest a short slow; the picture a `CasterViewEffect` (a `ViewEffect` on his own spot never showed in game) (champion-data "A prison that hurts only the first champion in it") | ~ |
 | Push or pull by the cast direction (Thresh E) | the AI picks: pull within 2 s of a hook (League's hook-and-flay), else push (`Knockback`) when a champion is right on him and pull (`Pull`) when not, a `RandomTarget` flag read by `SwitchByBuff` (champion-data "Push or pull by the situation") | ~ |
 | Souls picked up for armour and ability power (Thresh's Damnation) | nothing to pick up: armour and ability power growth per level | ~ |
+| Orb out and back, true damage on the return (Ahri Q) | Ekko's out and back; every hit of the return first adds a 1-tick caster buff with `magic_resistance_penetration: 100`, so its `ApAttack` ignores magic resistance (`FixedAttack` cannot scale with ability power; champion-data section 4, "True damage that scales with ability power") | ~ |
+| Fires that seek charmed champions first (Ahri W) | per fire three `RandomTarget` tiers - `EnemyChampionInCC`, `EnemyChampion`, `EnemyWithoutTower` - each leaving a 1-tick caster flag that skips the next tier (champion-data "Fox-fires, charmed champions first"); folded into Q on its own cooldown | ~ |
+| Charm (Ahri E) | `Charm {tick}`: the target walks to the caster at its own move speed; crowd control for `EnemyChampionInCC` | OK |
+| Three dashes, each firing bolts (Ahri R) | `cooltime_use_count: 3` on the ult (the AI spends the three within about 1.5 s in a fight); each cast dashes a fixed way - away (`MoveBack`) when an enemy champion is close, else toward its target (`RushTime`) - and fires three homing bolts, champions first (champion-data "Three dashes with bolts") | ~ |
+| Heal on every hit after some spells (Ahri's Essence Theft, the pre-2022 one) | spells that hit count on caster buffs (one per cast behind a lock), the third charges a flag; the next spell turns it into a heal window and each of its hits heals the caster (champion-data "Heal on the hits of every fourth spell"). The current passive (heal on minion kills and champion takedowns) would need a kill check on every damage source and misses assists | ~ |
 | 2-3 stage recast | `cooltime_use_count` or recast buff + `SwitchByBuff` | ~ (AI timing) |
 | Cone / fan of projectiles (Ashe W) | no angle field on any projectile (base harpooner's fan is `Native`): a `LineRangeProjectile` rectangle cast by `Direction`, drawn as a fan sprite centred on it (champion-data "Cone / fan"); the hit area stays a rectangle | ~ |
 | Untargetable / invulnerable | `Banish` on self (a `RangeEffect` on `AllyOnlySelf`; it also makes the unit invisible, puts a CC state on it, stops the caster's own `RandomTarget` finding units and takes away its team's vision around it - only for a caster leaving the fight); in a fight `CasterInvisible` + a `damaged_reduce` 100 / `cc_immune` buff: targetable, but every hit deals 1 | ~ |
@@ -182,7 +187,10 @@ One batch is noisy: the same league_annie 0.13.0 kit gave +1.49 on seeds 1-24 an
 12629. A candidate ranked by one batch can come out upside down (her 0.13.1 burn: 10 + 6% +1.91 above
 14 + 8% +1.57, with damage 12682 below 12843). Compare candidates on two batches of different seeds and
 read the damage dealt next to the kill difference; the simulator is deterministic, so a kit rerun on the
-same seeds gives the same numbers and the old kit need not be rerun on seeds it already played.
+same seeds gives the same numbers and the old kit need not be rerun on seeds it already played. But any
+change reshuffles the games: league_ahri's R bolts at 38% of ability power gave +2.07 on seeds 1-24, at 40%
+(nothing else changed) +3.04 on the same seeds (damage 12984 -> 13916) - as far apart as two seed batches of
+one kit. Judge the shipped kit on both batches (hers +3.04 / +2.27) rather than on the candidate it came from.
 
 When a first draft is far off, take it apart before tuning. league_malphite (top, against the six base top
 laners) opened at +4.38 kills with 0.6 deaths a game (base fighter +0.93, Darius +1.43, Teemo +1.18 on the
@@ -232,7 +240,10 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   path that follows. `python tools/lol/anim_graph.py <Champ> [--grep run]` parses the whole bin and
   prints every clip with its file, its cycle (frames x `mTickDuration`) and, for the logic clips, their
   branches (Yone: `Run` = `run_homeguard` under the homeguard buff, else `run_base` = `Yone_Walk01`,
-  1.09 s; Ekko: `Run` = `run_base` = `PunkGenius_Run1`, 1.07 s, from move speed 315, `Run_Haste` from 535). Ashe: `Run` = `ashe_run_walk`, `Run2` = `ashe_run_jog`, `Run3` = `ashe_run`;
+  1.09 s; Ekko: `Run` = `run_base` = `PunkGenius_Run1`, 1.07 s, from move speed 315, `Run_Haste` from 535;
+  Ahri: `run_base` is a sequence, `Run.anm` once and then a selector of `Run.anm` 50%, `Run_Var1` and
+  `Run_Var2` 25% each - the tool prints a sequence's clips and a selector's chances, and an unnamed clip as its
+  hash with its file, `#cc7e3fac=Run.anm`). Ashe: `Run` = `ashe_run_walk`, `Run2` = `ashe_run_jog`, `Run3` = `ashe_run`;
   `Spell4` (R) reuses `ashe_crit1`; Q is `Ashe_spell1_IN` then `ashe_spell1`. Newer champions
   route through logic clips: after the key hash comes the class hash (`FNV-1a` of
   `AtomicClipData`, `SequencerClipData`, `ConditionBoolClipData`, `ConditionFloatClipData`,
@@ -657,6 +668,27 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   is laid along its flight and mirrored top to bottom (art-spec: a projectile flying left is turned upside
   down). The Box's ground was drawn at 1.6:1 and is squeezed toward the game's 2:1, anchored 2 px below the
   drawing's middle (a pentagon's centre lies below its box's).
+- **A fox girl with nine tails (Ahri, drawn by Claude, restyled, head pasted).** Her skin has four submeshes
+  (Body, Eyes, Tails, Tail_Large) and two colour maps: the nine tails take `Ahri_Base_Tails_TX_CM`
+  (`"submesh_textures": {"Tails": "Tails_TX"}`; on the body's map they came out as red sleeves), and
+  `Tail_Large`, the one big tail of her R, is left out (`"hide_submeshes": ["Tail_Large"]`). The tails hang on
+  `Tail_Master` under the pelvis, so `--head` does not grow them; at League's size they fanned out wider than
+  her body at game size, and the user took proportion A of four (head 2.0, legs 0.8, hair 0.5, tails 0.6 through
+  `"chibi": {"scale": {"Tail_Master": 0.6}}`, height 32). They are a part of their own (`"parts"`: the tail
+  joints, a lavender-white fur ramp, outlined), the braid and front locks are voted frame by frame
+  (`"hair_part"`), and `"crown": 194` measures the height under the fox ears. League lights her skin pink (hue
+  340-357 on the thighs), so the skin class wraps the hue (340-40, saturation 0.1-0.42) after the red cloth
+  (saturation from 0.42); before that her legs were voted grey. The head is drawn square by square on League's
+  traced silhouette at game size (ears dark outside and pink inside over the crown, the blue-black hair mass
+  behind, the face on the right) with the face widened to base-hero size - League's own face at head 2.0 is
+  four pixels wide - base three-row eyes with amber irises and no mouth (face A of three), and pasted on League's
+  head joint (`"dx": -2, "dy": -1`). Spirit Rush's clip flies head first, lying flat (the head joint's tilt
+  107-137 degrees); turned a quarter, the pasted head sat on a jumble of limbs, so those frames are blended
+  50-65% toward the run's forward lean (`Spell4@t>Run@375:0.65`) and the head stays upright. Orb of Deception's
+  mid-air flip (tails over the head) is left out. The move: `Run` plays `run_base` below 451 move speed, a
+  sequence of `Run.anm` and then a selector of `Run.anm` (50%), `Run_Var1` and `Run_Var2` (25% each), so the
+  run is `Run.anm` at League's 1 s cycle (8 x 125 ms). 55 frames, 32 colours, 37% right-neighbour, 38 px with
+  the ears, face (1, -35).
 - **A face point under the hair.** `tfm2_ase.py face` and the lint find the crown at the top of
   the idle sprite, which for Yasuo is the ponytail's tip, 9 px above his head and to the left of
   it. Both now also look for the head from the face: the top two rows of skin-toned pixels and the
