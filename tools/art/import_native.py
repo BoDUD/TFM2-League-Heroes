@@ -129,7 +129,7 @@ PASTED = {"masteryi",            # steadied on the head restyle_native pasted: h
 # Codex's step-2 redraw (model_strips_18, tidied by tidy_codex18.py): the approved design's head (or face) is in every
 # frame, so they are steadied on idle frame 1's head like the round-1 heroes - or on their eyes when they are in
 # EYES - whatever their poses.json says
-REDRAWN = {"thresh", "leona", "janna", "ekko", "darius", "leesin", "soraka", "malphite"}
+REDRAWN = {"thresh", "leona", "janna", "ekko", "darius", "leesin", "soraka", "malphite", "annie"}
 # heroes steadied on their eyes: (R, G, B) of a colour only the eyes use; the head column is the eyes' middle
 EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade is the top of every frame
         "kayle": (226, 138, 8),           # Codex's redraw: her wings rise above her head, the amber is the eyes'
@@ -140,6 +140,7 @@ EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade
         "leesin": (212, 34, 50),          # the same for Lee Sin: the blindfold band across his face
         "soraka": (231, 174, 48),         # the same for Soraka: her amber eye, in an eye-only shade
         "malphite": (245, 166, 8),        # his new design (the moss-stone golem): the bright orange of his eyes
+        "annie": (51, 32, 63),            # the design face pasted back by tidy_codex18.py: her violet pupils
         "morgana": (200, 60, 166)}        # the redesign A: only her face is pasted, its pink-violet is the eyes'
 
 

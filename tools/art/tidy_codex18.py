@@ -49,7 +49,8 @@ EYE_COLOURS = {"thresh": [(13, 200, 78), (4, 71, 29)],
                "ekko": [(213, 125, 34)], "darius": [(255, 247, 238)],
                "leesin": [(212, 34, 50)], "soraka": [(231, 174, 48)],
                # the new design (the user's moss-stone golem): his orange eyes
-               "malphite": [(245, 166, 8), (184, 78, 5), (150, 76, 29)]}
+               "malphite": [(245, 166, 8), (184, 78, 5), (150, 76, 29)],
+               "annie": [(51, 32, 63)]}
 # heroes whose delivered faces were drawn anew in every frame (Codex: "not a pixel copy of the head"): the design's
 # face - eyes, brows, cheeks and the fringe right round them - goes back into every frame where the head is found.
 # head: the design's head box on its 128x128 canvas (<hero>_native.png), matched in every frame by colour; patch: the
@@ -66,13 +67,16 @@ FACES = {"leona": {"head": (42, 58, 66, 74), "patch": (53, 68, 61, 73), "iris": 
          # marker in an eye-only shade (Codex's frames use the eye amber on her gold trim); matched on the face alone
          # (her white hair is drawn anew in every frame); in Wish's deep bow her hair covers the face
          "soraka": {"head": (58, 68, 65, 75), "patch": (59, 69, 65, 75), "iris": ((230, 172, 46), (231, 174, 48)),
-                    "hidden": {"ult": (4, 5)}}}
+                    "hidden": {"ult": (4, 5)}},
+         # Annie: her face - the lids, the white-and-violet eyes (the pupils #33203F, an eye-only shade of #2A1A35
+         # since the step-2 pack) and the cheeks - matched on the face alone (her hair is drawn anew every frame)
+         "annie": {"head": (60, 72, 65, 77), "patch": (60, 72, 65, 76), "iris": ((51, 32, 63), (51, 32, 63))}}
 FACE_OK = 120                   # mean colour distance over the head box above which a frame's head is not found
 # deliveries whose frames Codex centred in their cells (its manifest's atlas pivot) instead of standing them on our
 # pivots: every frame whose face is found goes sideways so that its eyes stand on League's head joint of that frame
 # (the cells table's "head"), as in the design; a frame without a face keeps Codex's place round the atlas pivot,
 # moved to ours. Up and down stay Codex's: the soles are on the feet line already.
-PLACE_BY_HEAD = {"darius", "leesin", "soraka"}
+PLACE_BY_HEAD = {"darius", "leesin", "soraka", "annie"}
 
 
 def blocks(path):
