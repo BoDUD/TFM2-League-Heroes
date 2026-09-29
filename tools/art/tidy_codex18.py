@@ -51,7 +51,8 @@ EYE_COLOURS = {"thresh": [(13, 200, 78), (4, 71, 29)],
                # the new design (the user's moss-stone golem): his orange eyes
                "malphite": [(245, 166, 8), (184, 78, 5), (150, 76, 29)],
                "annie": [(51, 32, 63)],
-               "amumu": [(243, 224, 80), (247, 214, 65), (204, 141, 33), (153, 88, 24), (87, 46, 21)]}
+               "amumu": [(243, 224, 80), (247, 214, 65), (204, 141, 33), (153, 88, 24), (87, 46, 21)],
+               "yasuo": [(80, 46, 32)]}
 # heroes whose delivered faces were drawn anew in every frame (Codex: "not a pixel copy of the head"): the design's
 # face - eyes, brows, cheeks and the fringe right round them - goes back into every frame where the head is found.
 # head: the design's head box on its 128x128 canvas (<hero>_native.png), matched in every frame by colour; patch: the
@@ -78,13 +79,18 @@ FACES = {"leona": {"head": (42, 58, 66, 74), "patch": (53, 68, 61, 73), "iris": 
                    # Codex's own eyes were bigger in some frames: their yellows left round the pasted face go
                    "scrub": {(242, 223, 78), (247, 214, 65), (204, 141, 33), (153, 88, 24), (87, 46, 21)},
                    # lying in the death strip: the face is on the ground (a "face" was found on his body)
-                   "hidden": {"dead": (3, 4, 5, 6, 7)}}}
+                   "hidden": {"dead": (3, 4, 5, 6, 7)}},
+         # Yasuo: the approved design's face (the user went back to it from Codex's refined one) with its eyes
+         # redrawn (the user's pick A: two-pixel lids over white and a brown iris #502E20, an eye-only shade);
+         # Codex's faces drift far from the pose, so the search starts from the face's own skin
+         "yasuo": {"head": (60, 59, 69, 64), "patch": (61, 60, 68, 63), "iris": ((80, 46, 32), (80, 46, 32)),
+                   "skin": [(248, 194, 152), (189, 114, 81)], "hidden": {"dead": (6, 7), "ult": (3,)}}}
 FACE_OK = 120                   # mean colour distance over the head box above which a frame's head is not found
 # deliveries whose frames Codex centred in their cells (its manifest's atlas pivot) instead of standing them on our
 # pivots: every frame whose face is found goes sideways so that its eyes stand on League's head joint of that frame
 # (the cells table's "head"), as in the design; a frame without a face keeps Codex's place round the atlas pivot,
 # moved to ours. Up and down stay Codex's: the soles are on the feet line already.
-PLACE_BY_HEAD = {"darius", "leesin", "soraka", "annie", "amumu"}
+PLACE_BY_HEAD = {"darius", "leesin", "soraka", "annie", "amumu", "yasuo"}
 
 
 def blocks(path):
@@ -191,13 +197,60 @@ def find_head(frame, head, guess, reach=(16, 14)):
     return best
 
 
+def skin_blobs(frame, skin, least=8):
+    """(size, centre x, centre y) of every 4-connected patch of the skin colours with at least `least` pixels."""
+    m = (frame[..., 3] > 0) & np.isin(frame[..., :3].astype(np.int32) @ np.array([65536, 256, 1]),
+                                      [r * 65536 + g * 256 + b for r, g, b in skin])
+    seen = np.zeros_like(m)
+    H, W = m.shape
+    out = []
+    for sy, sx in zip(*np.nonzero(m)):
+        if seen[sy, sx]:
+            continue
+        stack, pts = [(sy, sx)], []
+        seen[sy, sx] = True
+        while stack:
+            y, x = stack.pop()
+            pts.append((y, x))
+            for dy, dx in N4:
+                yy, xx = y + dy, x + dx
+                if 0 <= yy < H and 0 <= xx < W and m[yy, xx] and not seen[yy, xx]:
+                    seen[yy, xx] = True
+                    stack.append((yy, xx))
+        if len(pts) >= least:
+            ys, xs = zip(*pts)
+            out.append((len(pts), sum(xs) / len(xs), sum(ys) / len(ys)))
+    return out
+
+
+def locate(frame, design, face, head, guess):
+    """(score, x, y) of the head box in the frame. With "skin" in the hero's FACES entry the face is the frame's
+    largest patch of skin (at least `skin_least` pixels; hands and arms are smaller) and the colour search only looks
+    `reach` round it: Codex's faces drift too far from the pose for a wide search, which then settles on hair or
+    armour, and they differ too much from the design for its distance to judge them - the skin patch is the
+    evidence, so a frame without one is "not found" and one with it is found whatever the distance."""
+    if not face.get("skin"):
+        return find_head(frame, head, guess)
+    x0, y0 = face["head"][:2]
+    if "_off" not in face:
+        own = min(skin_blobs(design, face["skin"]), key=lambda b: abs(b[1] - x0) + abs(b[2] - y0))
+        face["_off"] = (x0 - own[1], y0 - own[2])
+    ox, oy = face["_off"]
+    blobs = [b for b in skin_blobs(frame, face["skin"]) if b[0] >= face.get("skin_least", 12)]
+    if not blobs:
+        return (1e9, 0, 0)
+    big = max(blobs)
+    s, x, y = find_head(frame, head, (round(big[1] + ox), round(big[2] + oy)), face.get("reach", (2, 2)))
+    return (min(s, FACE_OK), x, y)
+
+
 def paste_face(frame, design, face, guess):
     """The design's face patch pasted where the head is found, the iris in its eye-only shade; (score, x, y) or
     None when the head is not found (turned away, lying)."""
     x0, y0, x1, y1 = face["head"]
     px0, py0, px1, py1 = face["patch"]
     head = design[y0:y1 + 1, x0:x1 + 1]
-    s, x, y = find_head(frame, head, guess)
+    s, x, y = locate(frame, design, face, head, guess)
     if s > FACE_OK:
         return None
     patch = design[py0:py1 + 1, px0:px1 + 1].copy()
