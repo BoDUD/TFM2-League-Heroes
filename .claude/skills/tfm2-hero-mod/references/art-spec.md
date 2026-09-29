@@ -300,6 +300,21 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   (`import_native.py` `EYES`, the eyes' colour), and `tfm2_ase.py face` finds the head from the face's skin
   (skin saturation up to 0.6 - his blade's rust is 0.63 - and the crown only as far as the silhouette runs
   unbroken up from the forehead).
+- **A design draft bigger than the game: find its grid, then drop lines, never average.** Codex's Morgana designs
+  (four drafts of 1254x1254) were each a 128x128-square picture stretched by 9.797: the edges of colour fall on that
+  grid (72-79% of them), and the figure was 67 (B) to 118 squares tall, two to three times the game's size. Taking
+  each square's majority colour (the middle of it, clear of the soft edges) gives a clean 52x67 picture; the way
+  down to the game's 45 rows decides whether the face survives. A colour vote per game pixel (even with the eyes
+  weighted up) let the dark outline swallow the thin mid-tones: 57% near-black, no eyes, "very blurry" up close
+  though it read at 1x. Uniform nearest sampling kept the colours crisp but dropped one-square features at random.
+  What kept them: in every run of three rows drop the one most like its neighbour, the same for the columns (the
+  proportions of a uniform 2/3 scale, the eyes, mouth, gold trim and outline kept), trying the nine start offsets
+  and taking the best (`tools/art/draft_to_grid.py` with `assets/source/morgana/morgana_design.json`: the grid,
+  the palette, the offset and the hand fixes, so the design is rebuilt from Codex's draft byte for byte). Dropping the most redundant lines
+  anywhere, not one in three, squashed the tall thin crest and changed the proportions. Then by hand: the face
+  (base eyes: near 2 squares, far 1, a lash row over the iris, one skin square between, the mouth on the middle
+  line), colours the palette mapped wrongly (the crest's red on the mouth colour), and one outline ring wherever the
+  silhouette had none. 20 colours; the user took it ("用精修版吧").
 - **One look per hero.** Strips from different generation rounds disagree on proportions (round
   1 Garen: big head, broad shoulders; round 3: smaller head for the same height). No scale hides
   it - in-game he visibly grew and shrank between animations. When the look changes, regenerate

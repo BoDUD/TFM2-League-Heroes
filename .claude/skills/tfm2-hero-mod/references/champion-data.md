@@ -913,7 +913,9 @@ minions, since his Q is cast on anything. **When a new hero brings knock-ups or 
 Supports measured that way (2026-09-28, Yasuo top, the support on his team, 24 seeds a side): he cast it
 0.92 times a game beside league_janna (Howling Gale's knock-up, Monsoon's knockback), 1.85 beside
 league_leona, 0.54 beside league_soraka and 0.48 beside the base priest - Janna sits between the
-supports without hard CC and Leona, and his R stayed as it was.
+supports without hard CC and Leona, and his R stayed as it was. league_morgana (2026-09-29, Dark Binding's
+2 s root and Soul Shackles' stun): 1.52 a game, league_janna 0.94 and the base priest 0.65 in the same batch - no
+change either.
 
 **Kill trigger (league_jinx Get Excited!).** No effect fires on a kill, but section 4's facts make one:
 1. Next to the damaging projectile, fire an invisible twin with the same speed and path and
@@ -1239,6 +1241,45 @@ stays behind), `Teleport` (to the cast point), `CasterAnimation ult_land` (30) a
 `Delayed` pulses 30 ticks apart each run `SwitchByBuff storm`: the circling crows (`CasterViewEffect`,
 following) and a `RangeEffect` (45000) of damage; the first also fears the champions around him for 60 ticks.
 Death clears the storm buff (section 5), so the storm ends with him.
+
+**Root the first champion, hurt everything on the way, at a champion when one is in reach (league_morgana Q,
+Dark Binding, with W folded in).** A `Direction` cast on `EnemyWithoutTower` (range 80000), so it also goes to
+waves and camps. Two `LinearProjectile`s on one path at one speed: an invisible penetrating one on
+`EnemyWithoutTower` whose hit (damage, a small picture) is skipped under a caster flag `q_bound`, and the visible
+orb, `penetrate: false` on `EnemyChampion` (it flies through minions and monsters), whose hit binds (`Bind` 120),
+heals her (Soul Siphon, a `Heal {heal_type: Caster}` of a share of the damage) and adds `q_bound` from a `Delayed
+{tick: 1}` - the orb and the damage hit the bound champion on the same tick, and from the next one nothing behind
+him is hurt. The cast removes `q_bound` first. W's pool sits in the orb's `end_effects` (where it stopped): a
+`Delayed {tick: 2}` checks `q_bound` (no pool when nothing was bound) and W's own 12 s caster cooldown, then starts
+two `RangePeriodProjectile`s (the damage on `EnemyWithoutTower`, a heal-only twin on `EnemyChampion`) and the
+pool's picture as a `ViewEffect` on the point. Two engine facts *(SDK simulation, 2026-09-29)*:
+- **A slow skillshot is dodged.** Champions move about 1000 units a tick and sidestep: a bind orb at 3500 a tick
+  (League's slow Q) bound a champion on 10% of 102 casts, 6000 and 8000 on about 25%, 10000 on 36% (three games
+  each).
+- **Aim at a champion, cast at anything.** The AI casts a `Direction` skill on `EnemyWithoutTower` at whatever unit
+  it picked, in lane mostly a minion. The orbs therefore sit twice in the cast: inside a `RandomTarget {range:
+  75000, casting_target: EnemyChampion}` (whose effects also add a 1-tick `q_aim` flag), where a `LinearProjectile`
+  flies toward the picked champion, and in a `SwitchByBuff q_aim` that fires them the cast's way only when no
+  champion was in reach. The picked champion must be inside the orb's reach (75000 plus the radii against a range of
+  80000). With both, 38% of her Qs bound a champion (13-21 a game) and the first draft's -2.96 kills became -1.04.
+
+**Crowd-control immunity for an ally (league_morgana E, Black Shield).** league_janna E's pattern (cast on an enemy
+champion, the shield to a random `AllyNotSelf` within 50000, herself when nobody stands beside her) with
+`AddBuff {duration: "WithShield", cc_immune: true}` next to the `Shield` (150 + 70% AP, 300 ticks; a `Shield`
+takes every kind of damage, where League's Black Shield takes only magic). A `cc_immune` buff given to another
+unit works like the caster's own *(SDK simulation, a probe counting the `Stun` / `Bind` / `Airborne` / `Knockback` /
+`Pull` / `Grab` / `Fear` / `Charm` events on champions holding the buff, 2026-09-29)*: in three games 1 crowd-control
+event landed on a champion under Black Shield (about 15,600 champion-ticks with it), against 538-606 a game on all
+champions.
+
+**Chains that snap after 3 s (league_morgana R, Soul Shackles).** A `Targeting` cast on `EnemyChampion` (range
+45000): a `RangeEffect` (radius 50000) on `EnemyChampion` round her deals the damage, heals her, and adds a 180-tick
+20% slow whose `view_buffs` picture is the chain; she gets 20% move speed for as long; a `Delayed {tick: 180}` then
+runs a wider `RangeEffect` (70000, League's leash) on `EnemyChampion` with the damage again and a 90-tick `Stun`. A
+dying caster's pending `Delayed` effects stop (section 5), so her death breaks the chains as in League. What the
+data cannot tell is which champions were chained: the snap stuns every enemy champion within 70000 at that moment,
+also one that walked in meanwhile. The AI casts the ult as soon as one enemy champion is within reach: in four
+simulated games it chained 1.0 champion a cast on average (13 casts), and the snap found somebody 7 times.
 
 ## 8. Gotchas
 
