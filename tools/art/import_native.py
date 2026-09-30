@@ -60,7 +60,7 @@ NECK = {("nami", "run"): (-21, [0, 1, 2, 3])}
 # heroes whose outline strips.complete_outline closes on the finished frames (the skill's art-spec "Close the
 # outline": every hero from Nami on; the user: "后面英雄都要用的"). Nothing goes under the soles row; a frame that
 # already reaches lower (lying down) keeps its own bottom.
-COMPLETE = {"nami"}
+COMPLETE = {"nami", "jax"}
 ORDER = {("lux", "idle"): [0, 0, 0, 0, 0, 0],   # the step-2 idle is the design in all six (was 0 1 2 3 5 4)
          # League leans his upper body a square forward in idle 4-5 and back in 6, and every frame's head
          # is voted anew, so the face swung and changed shape as he breathed (the user). Frame 1 in every
@@ -115,7 +115,9 @@ ORDER = {("lux", "idle"): [0, 0, 0, 0, 0, 0],   # the step-2 idle is the design 
          ("vayne", "idle"): [0, 0, 0, 0, 0, 0],
          # and Akali (Codex's strips of the game-size redesign, the design's head copied into every upright frame)
          ("akali", "idle"): [0, 0, 0, 0, 0, 0],
-         ("nami", "idle"): [0, 0, 0, 0, 0, 0]}
+         ("nami", "idle"): [0, 0, 0, 0, 0, 0],
+         # and Jax (Codex's game-size design A41: the pack's idle is the design in all six)
+         ("jax", "idle"): [0, 0, 0, 0, 0, 0]}
 # (hero, tag): (y, slots) - in those slots everything at or above pivot row y moves down a row (the row under
 # it is covered): one frame breathing, the face the same drawing throughout. Leona's shield covers her from
 # the chest to the ankles, so she sinks down to its tip and only the boots stay (a seam across the shield
@@ -177,7 +179,10 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        ("akali", "idle"): (8, [2, 3, 4]),
        # Nami (on the ground since SINK): all of her but the fin's tip and the staff's foot sinks a row and rises
        # again, as when she floated; the seam where two rows differ least (4 squares)
-       ("nami", "idle"): (8, [2, 3, 4])}
+       ("nami", "idle"): (8, [2, 3, 4]),
+       # Jax: the lantern of his lamppost hangs in the same rows as his legs, so every seam cuts both; at 4 (low in
+       # the shins) the legs change in 18 squares with 2 of the outline and the lantern in 4 with none
+       ("jax", "idle"): (4, [2, 3, 4])}
 CROWN = {"leesin"}              # heroes whose head template starts at the crown (a braid stands above it)
 PASTED = {"masteryi"}            # steadied on the head restyle_native pasted: his raised sword is the top of every frame
 # Codex's step-2 redraw (model_strips_18, tidied by tidy_codex18.py): the approved design's head (or face) is in every
@@ -209,7 +214,8 @@ EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade
         "briar": (240, 252, 255),         # the pillory's gem is the top of every frame; the ice-white is the eyes'
         "vayne": (248, 48, 60),           # the crossbow on her back tops the frame; the lenses' red is used nowhere else
         "akali": (113, 65, 41),           # her ponytail tops every frame; the brown iris is the eyes'
-        "nami": (242, 178, 51)}           # her staff's orb is the top of most frames; the amber is only in her eyes
+        "nami": (242, 178, 51),           # her staff's orb is the top of most frames; the amber is only in her eyes
+        "jax": (70, 240, 255)}            # the four cyan lights on his mask; his plume or lamppost tops the frames
 
 
 def blocks(path):

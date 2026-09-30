@@ -210,6 +210,13 @@
         "skill": "<#ff9028ff>冲击之潮<>：水流冲击敌人，造成<#a974ffff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45% 法术强度<>的<#a974ffff>魔法伤害<>，弹向附近友方英雄回复<#6aff55ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35% 法术强度<>的<#6aff55ff>生命值<>，再弹向另一名敌方英雄造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 法术强度<>伤害。<#ff9028ff>唤潮之佑<>：被治疗者<#ffb900ff>4秒<>内攻击力和法术强度提高15%，被击中者<#ef5350ff>减速25%<>。",
         "skill2": "<#ff9028ff>碧波之牢<>：向敌人（优先敌方英雄）扔出水泡，落地时对范围内的敌人造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 法术强度<>的<#a974ffff>魔法伤害<>，并将其困在水泡中<#ef5350ff>击飞<><#ffb900ff>1.25秒<>。",
         "ult": "<#ff9028ff>怒涛之啸<>：召唤一道巨浪朝敌方英雄推进，对沿途敌人造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法术强度<>的<#a974ffff>魔法伤害<>，<#ef5350ff>击飞<><#ffb900ff>0.5秒<>并<#ef5350ff>减速60%<>，巨浪走得越远减速越久（<#ffb900ff>2<>至<#ffb900ff>3秒<>）。经过的友方英雄获得双倍<#ff9028ff>踏浪之行<>加速。"
+      },
+      "league_jax": {
+        "name": "贾克斯",
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。被动 <#ff9028ff>无情连打<>：每次普攻<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>+7% 攻速<>，持续<#ffb900ff>2.5秒<>，最多<#ffb900ff>8<>层，逐层消失。<#ffb900ff>2.5秒<>内的第<#ffb900ff>3<>次普攻额外造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 法术强度<>的<#a974ffff>魔法伤害<>。",
+        "skill": "跳向目标，造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110% 攻击力<>的<#ff9028ff>物理伤害<>。<#ff9028ff>蓄力一击<>（冷却<#ffb900ff>5秒<>）：就绪时，下一次普攻或跳斩额外造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% 法术强度<>的<#a974ffff>魔法伤害<>。",
+        "skill2": "进入<#ffb900ff>1.5秒<>防御姿态（照常行动）：躲闪所有普攻，受到的技能伤害降低<#ffb900ff>25%<>。然后对周围敌人造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% 法术强度<>的<#a974ffff>魔法伤害<>并<#ef5350ff>眩晕<><#ffb900ff>1秒<>，英雄另受<#f5f5f5ff>4% 最大生命值<>的<#f5f5f5ff>真实伤害<>。",
+        "ult": "砸下灯柱，对周围敌人造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>150% 法术强度<>的<#a974ffff>魔法伤害<>。命中英雄则<#ffb900ff>8秒<>内获得<i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>40 护甲<>和魔抗，每多命中一名英雄再<#ffdd8eff>+15<>；期间每第<#ffb900ff>2<>次普攻就触发被动的魔法伤害。"
       }
     },
     "skill_name": {
@@ -362,6 +369,11 @@
         "skill1": "冲击之潮",
         "skill2": "碧波之牢",
         "ult": "怒涛之啸"
+      },
+      "league_jax": {
+        "skill1": "跳斩",
+        "skill2": "反击风暴",
+        "ult": "武器大师"
       }
     }
   },
@@ -576,6 +588,13 @@
         "skill": "<#ff9028ff>跳躍水柱<>：水柱衝擊敵人，造成<#a974ffff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45% 魔法強度<>的<#a974ffff>魔法傷害<>，彈向附近友方英雄回復<#6aff55ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35% 魔法強度<>的<#6aff55ff>生命<>，再彈向另一名敵方英雄造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 魔法強度<>傷害。<#ff9028ff>深海恩賜<>：被治療者<#ffb900ff>4秒<>內攻擊力和魔法強度提高15%，被擊中者<#ef5350ff>緩速25%<>。",
         "skill2": "<#ff9028ff>禁錮水牢<>：向敵人（優先敵方英雄）拋出水泡，落地時對範圍內的敵人造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 魔法強度<>的<#a974ffff>魔法傷害<>，並將其困在水泡中<#ef5350ff>擊飛<><#ffb900ff>1.25秒<>。",
         "ult": "<#ff9028ff>驚滔駭浪<>：召喚一道巨浪朝敵方英雄推進，對沿途敵人造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 魔法強度<>的<#a974ffff>魔法傷害<>，<#ef5350ff>擊飛<><#ffb900ff>0.5秒<>並<#ef5350ff>緩速60%<>，巨浪走得越遠緩速越久（<#ffb900ff>2<>至<#ffb900ff>3秒<>）。經過的友方英雄獲得雙倍<#ff9028ff>疾速波濤<>加速。"
+      },
+      "league_jax": {
+        "name": "賈克斯",
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。被動 <#ff9028ff>無情突擊<>：每次普攻<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>+7% 攻速<>，持續<#ffb900ff>2.5秒<>，最多<#ffb900ff>8<>層，逐層消失。<#ffb900ff>2.5秒<>內的第<#ffb900ff>3<>次普攻額外造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 魔法強度<>的<#a974ffff>魔法傷害<>。",
+        "skill": "躍向目標，造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110% 攻擊力<>的<#ff9028ff>物理傷害<>。<#ff9028ff>蓄力一擊<>（冷卻<#ffb900ff>5秒<>）：就緒時，下一次普攻或跳斬額外造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% 魔法強度<>的<#a974ffff>魔法傷害<>。",
+        "skill2": "進入<#ffb900ff>1.5秒<>防禦架勢（照常行動）：閃避所有普攻，受到的技能傷害降低<#ffb900ff>25%<>。然後對周圍敵人造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% 魔法強度<>的<#a974ffff>魔法傷害<>並<#ef5350ff>暈眩<><#ffb900ff>1秒<>，英雄另受<#f5f5f5ff>4% 最大生命值<>的<#f5f5f5ff>真實傷害<>。",
+        "ult": "砸下燈柱，對周圍敵人造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>150% 魔法強度<>的<#a974ffff>魔法傷害<>。命中英雄則<#ffb900ff>8秒<>內獲得<i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>40 物理防禦<>和魔法防禦，每多命中一名英雄再<#ffdd8eff>+15<>；期間每第<#ffb900ff>2<>次普攻就觸發被動的魔法傷害。"
       }
     },
     "skill_name": {
@@ -728,6 +747,11 @@
         "skill1": "跳躍水柱",
         "skill2": "禁錮水牢",
         "ult": "驚滔駭浪"
+      },
+      "league_jax": {
+        "skill1": "跳斬",
+        "skill2": "反擊風暴",
+        "ult": "武器宗師"
       }
     }
   },
@@ -942,6 +966,13 @@
         "skill": "<#ff9028ff>Ebb and Flow<>: water hits an enemy for <#a974ffff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45% Ability Power<> <#a974ffff>magic damage<>, bounces to a nearby allied champion, healing <#6aff55ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35% Ability Power<>, then to another enemy champion near that ally for <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% Ability Power<>. <#ff9028ff>Tidecaller's Blessing<>: the healed ally gains 15% attack and Ability Power for <#ffb900ff>4s<>; enemies hit are <#ef5350ff>slowed<> by 25%.",
         "skill2": "<#ff9028ff>Aqua Prison<>: Nami throws a bubble at an enemy (champions first). Where it lands, enemies take <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% Ability Power<> <#a974ffff>magic damage<> and are trapped and <#ef5350ff>knocked up<> for <#ffb900ff>1.25s<>.",
         "ult": "<#ff9028ff>Tidal Wave<>: a huge wave rolls toward an enemy champion, dealing <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% Ability Power<> <#a974ffff>magic damage<> to enemies in its path, <#ef5350ff>knocking them up<> for <#ffb900ff>0.5s<> and <#ef5350ff>slowing<> them by 60% for <#ffb900ff>2s<> (<#ffb900ff>3s<> once it has rolled far). Allied champions it passes gain double <#ff9028ff>Surging Tides<>."
+      },
+      "league_jax": {
+        "name": "Jax",
+        "attack": "Basic attacks deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. Passive <#ff9028ff>Relentless Assault<>: each attack grants <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>7% Attack Speed<> for <#ffb900ff>2.5s<>, up to <#ffb900ff>8<> stacks that fall off one by one. Every <#ffb900ff>third<> attack within <#ffb900ff>2.5s<> deals <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% Ability Power<> bonus <#a974ffff>magic damage<>.",
+        "skill": "Jax leaps to his target for <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110% AD<> <#ff9028ff>physical damage<>. <#ff9028ff>Empower<> (<#ffb900ff>5s<> cooldown): when ready, his next attack or Leap Strike deals <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% Ability Power<> bonus <#a974ffff>magic damage<>.",
+        "skill2": "Jax takes a defensive stance for <#ffb900ff>1.5s<> while he keeps fighting: he dodges all basic attacks and takes <#ffb900ff>25%<> less damage from abilities. Then he strikes nearby enemies for <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% Ability Power<> <#a974ffff>magic damage<>, <#ef5350ff>stunning<> them for <#ffb900ff>1s<>; champions also take <#f5f5f5ff>4% of their max health<> as <#f5f5f5ff>true damage<>.",
+        "ult": "Jax slams his lamppost down for <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>150% Ability Power<> <#a974ffff>magic damage<> around him. If he hits a champion he gains <i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>40 armor<> and magic resist for <#ffb900ff>8s<>, <#ffdd8eff>+15<> per extra champion hit; meanwhile every <#ffb900ff>second<> attack deals the passive's bonus magic damage."
       }
     },
     "skill_name": {
@@ -1094,6 +1125,11 @@
         "skill1": "Ebb and Flow",
         "skill2": "Aqua Prison",
         "ult": "Tidal Wave"
+      },
+      "league_jax": {
+        "skill1": "Leap Strike",
+        "skill2": "Counter Strike",
+        "ult": "Grandmaster-at-Arms"
       }
     }
   },
@@ -1308,6 +1344,13 @@
         "skill": "<#ff9028ff>밀물 썰물<>: 물줄기가 적에게 <#a974ffff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 45%<> <#a974ffff>마법 피해<>를 입히고, 주변 아군 챔피언에게 튕겨 <#6aff55ff>체력을 70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 35%<> 회복한 뒤, 다른 적 챔피언에게 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 40%<> 피해를 입힙니다. <#ff9028ff>파도 소환사의 축복<>: 회복된 아군은 <#ffb900ff>4초<> 동안 공격력과 주문력이 15% 증가하고, 맞은 적은 <#ef5350ff>25% 둔화<>됩니다.",
         "skill2": "<#ff9028ff>물의 감옥<>: 적(챔피언 우선)에게 물방울을 던져 떨어진 곳의 적에게 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 60%<> <#a974ffff>마법 피해<>를 입히고 <#ffb900ff>1.25초<> 동안 가두어 <#ef5350ff>공중으로 띄워 올립니다<>.",
         "ult": "<#ff9028ff>해일<>: 거대한 파도를 적 챔피언 쪽으로 보내 경로의 적에게 <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 70%<> <#a974ffff>마법 피해<>를 입히고 <#ffb900ff>0.5초<> 동안 <#ef5350ff>공중으로 띄우며<> <#ef5350ff>60% 둔화<>시킵니다(<#ffb900ff>2초<>, 멀리 간 파도는 <#ffb900ff>3초<>). 파도가 지나간 아군 챔피언은 <#ff9028ff>밀려오는 파도<> 효과를 두 배로 받습니다."
+      },
+      "league_jax": {
+        "name": "잭스",
+        "attack": "기본 공격은 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다. 기본 지속 효과 <#ff9028ff>가차없는 맹공<>: 기본 공격마다 <#ffb900ff>2.5초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>공격 속도 7%<> (최대 <#ffb900ff>8<>중첩, 하나씩 사라짐). <#ffb900ff>2.5초<> 안의 <#ffb900ff>3<>번째 공격마다 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 60%<> <#a974ffff>추가 마법 피해<>.",
+        "skill": "대상에게 도약해 <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 110%<> <#ff9028ff>물리 피해<>. <#ff9028ff>무기 강화<>(재사용 <#ffb900ff>5초<>): 준비되면 다음 기본 공격이나 도약 공격이 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 100%<> <#a974ffff>추가 마법 피해<>.",
+        "skill2": "<#ffb900ff>1.5초<> 동안 방어 태세(행동 가능): 모든 기본 공격을 회피하고 스킬 피해를 <#ffb900ff>25%<> 덜 받습니다. 이후 주변 적에게 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 100%<> <#a974ffff>마법 피해<>, <#ffb900ff>1초<> <#ef5350ff>기절<>; 챔피언은 <#f5f5f5ff>최대 체력의 4%<> <#f5f5f5ff>고정 피해<>를 추가로 받습니다.",
+        "ult": "가로등을 내리찍어 주변 적에게 <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 150%<> <#a974ffff>마법 피해<>. 챔피언 적중 시 <#ffb900ff>8초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>방어력 40<>·마법 저항력, 추가 챔피언당 <#ffdd8eff>+15<>; 그동안 <#ffb900ff>2<>번째 공격마다 추가 마법 피해."
       }
     },
     "skill_name": {
@@ -1460,6 +1503,11 @@
         "skill1": "밀물 썰물",
         "skill2": "물의 감옥",
         "ult": "해일"
+      },
+      "league_jax": {
+        "skill1": "도약 공격",
+        "skill2": "반격",
+        "ult": "무기의 달인"
       }
     }
   },
@@ -1674,6 +1722,13 @@
         "skill": "<#ff9028ff>潮の流れ<>：水流が敵に<#a974ffff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の45%<>の<#a974ffff>魔法ダメージ<>、跳ねて近くの味方チャンピオンの<#6aff55ff>体力を70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の35%<>回復、さらに別の敵チャンピオンに<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の40%<>。<#ff9028ff>潮使いの祝福<>：回復した味方は<#ffb900ff>4秒<>間攻撃力と魔力15%増加、当たった敵は<#ef5350ff>25%スロウ<>。",
         "skill2": "<#ff9028ff>水の牢獄<>：敵（チャンピオン優先）に泡を投げ、着弾地点の敵に<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の60%<>の<#a974ffff>魔法ダメージ<>を与え、<#ffb900ff>1.25秒<>間閉じ込めて<#ef5350ff>ノックアップ<>させる。",
         "ult": "<#ff9028ff>海神の舞<>：巨大な波を敵チャンピオンの方へ放ち、通過した敵に<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の70%<>の<#a974ffff>魔法ダメージ<>、<#ffb900ff>0.5秒<>間<#ef5350ff>ノックアップ<>と<#ef5350ff>60%スロウ<>（<#ffb900ff>2秒<>、遠くまで進んだ波は<#ffb900ff>3秒<>）を与える。波が通過した味方チャンピオンは<#ff9028ff>さざなみの後押し<>が2倍。"
+      },
+      "league_jax": {
+        "name": "ジャックス",
+        "attack": "通常攻撃は<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>。パッシブ <#ff9028ff>アサルトアタック<>：通常攻撃ごとに<#ffb900ff>2.5秒<><i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻撃速度+7%<>（最大<#ffb900ff>8<>スタック、1つずつ消える）。<#ffb900ff>2.5秒<>内の<#ffb900ff>3<>回目の攻撃は<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の60%<>の<#a974ffff>追加魔法ダメージ<>。",
+        "skill": "対象に跳びかかり<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の110%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>パワーバッシュ<>（CD<#ffb900ff>5秒<>）：準備できると次の通常攻撃かリープストライクが<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の100%<>の<#a974ffff>追加魔法ダメージ<>。",
+        "skill2": "<#ffb900ff>1.5秒<>防御の構え（行動可能）：通常攻撃をすべて回避し、スキルの被ダメージ<#ffb900ff>25%<>軽減。その後周囲の敵に<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の100%<>の<#a974ffff>魔法ダメージ<>と<#ffb900ff>1秒<><#ef5350ff>スタン<>、チャンピオンには<#f5f5f5ff>最大体力の4%<>の<#f5f5f5ff>確定ダメージ<>。",
+        "ult": "街灯を叩きつけ周囲に<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の150%<>の<#a974ffff>魔法ダメージ<>。チャンピオンに当たると<#ffb900ff>8秒<><i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>物理防御40<>と魔法防御、追加1体ごとに<#ffdd8eff>+15<>；その間<#ffb900ff>2<>回目ごとの攻撃で追加魔法ダメージ。"
       }
     },
     "skill_name": {
@@ -1826,6 +1881,11 @@
         "skill1": "潮の流れ",
         "skill2": "水の牢獄",
         "ult": "海神の舞"
+      },
+      "league_jax": {
+        "skill1": "リープストライク",
+        "skill2": "カウンターストライク",
+        "ult": "ウェポングランドマスター"
       }
     }
   }
