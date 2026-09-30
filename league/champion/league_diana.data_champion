@@ -40,9 +40,9 @@
   "attack": {
     "action_name": "attack",
     "description": "#asset/base/text/champion?description.league_diana.attack",
-    "duration": 24,
+    "duration": 26,
     "cooltime": 55,
-    "start_timing": 10,
+    "start_timing": 1,
     "cancelable": true,
     "range": 24000,
     "casting_type": "Targeting",
@@ -63,52 +63,63 @@
             "name": "league_diana_ms_1"
           },
           {
-            "type": "Attack",
-            "damage": 0,
-            "attack_ratio": 100,
-            "attack_effect_type": "Target"
+            "type": "CasterAnimation",
+            "name": "attack_p",
+            "tick": 28
           },
           {
-            "type": "ViewEffect",
-            "name": "league_diana_hit"
-          },
-          {
-            "type": "TargetSfx",
-            "name": "league_diana_attack_hit"
-          },
-          {
-            "type": "RangeEffect",
-            "shape": {
-              "Circle": {
-                "radius": 18000
-              }
-            },
-            "target": "EnemyWithoutTower",
-            "apply_type": {
-              "Forward": {
-                "offset": 18000
-              }
-            },
+            "type": "Delayed",
+            "tick": 13,
             "effects": [
               {
-                "type": "ApAttack",
-                "damage": 70,
-                "attack_ratio": 70,
+                "type": "Attack",
+                "damage": 0,
+                "attack_ratio": 100,
                 "attack_effect_type": "Target"
               },
               {
                 "type": "ViewEffect",
-                "name": "league_diana_p_hit"
+                "name": "league_diana_hit"
+              },
+              {
+                "type": "TargetSfx",
+                "name": "league_diana_attack_hit"
+              },
+              {
+                "type": "RangeEffect",
+                "shape": {
+                  "Circle": {
+                    "radius": 18000
+                  }
+                },
+                "target": "EnemyWithoutTower",
+                "apply_type": {
+                  "Forward": {
+                    "offset": 18000
+                  }
+                },
+                "effects": [
+                  {
+                    "type": "ApAttack",
+                    "damage": 70,
+                    "attack_ratio": 70,
+                    "attack_effect_type": "Target"
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "league_diana_p_hit"
+                  }
+                ]
+              },
+              {
+                "type": "CasterViewEffect",
+                "name": "league_diana_p_cleave"
+              },
+              {
+                "type": "Sfx",
+                "name": "league_diana_p_cleave"
               }
             ]
-          },
-          {
-            "type": "CasterViewEffect",
-            "name": "league_diana_p_cleave"
-          },
-          {
-            "type": "Sfx",
-            "name": "league_diana_p_cleave"
           }
         ]
       },
@@ -135,18 +146,24 @@
               "only_to_enemy": false
             },
             {
-              "type": "Attack",
-              "damage": 0,
-              "attack_ratio": 100,
-              "attack_effect_type": "Target"
-            },
-            {
-              "type": "ViewEffect",
-              "name": "league_diana_hit"
-            },
-            {
-              "type": "TargetSfx",
-              "name": "league_diana_attack_hit"
+              "type": "Delayed",
+              "tick": 10,
+              "effects": [
+                {
+                  "type": "Attack",
+                  "damage": 0,
+                  "attack_ratio": 100,
+                  "attack_effect_type": "Target"
+                },
+                {
+                  "type": "ViewEffect",
+                  "name": "league_diana_hit"
+                },
+                {
+                  "type": "TargetSfx",
+                  "name": "league_diana_attack_hit"
+                }
+              ]
             }
           ]
         },
@@ -166,18 +183,24 @@
               "only_to_enemy": false
             },
             {
-              "type": "Attack",
-              "damage": 0,
-              "attack_ratio": 100,
-              "attack_effect_type": "Target"
-            },
-            {
-              "type": "ViewEffect",
-              "name": "league_diana_hit"
-            },
-            {
-              "type": "TargetSfx",
-              "name": "league_diana_attack_hit"
+              "type": "Delayed",
+              "tick": 10,
+              "effects": [
+                {
+                  "type": "Attack",
+                  "damage": 0,
+                  "attack_ratio": 100,
+                  "attack_effect_type": "Target"
+                },
+                {
+                  "type": "ViewEffect",
+                  "name": "league_diana_hit"
+                },
+                {
+                  "type": "TargetSfx",
+                  "name": "league_diana_attack_hit"
+                }
+              ]
             }
           ]
         }
@@ -187,9 +210,9 @@
   "skill": {
     "action_name": "skill",
     "description": "#asset/base/text/champion?description.league_diana.skill",
-    "duration": 26,
+    "duration": 28,
     "cooltime": 360,
-    "start_timing": 10,
+    "start_timing": 11,
     "cancelable": false,
     "range": 55000,
     "casting_type": "Direction",
@@ -440,7 +463,7 @@
   "skill2": {
     "action_name": "skill2",
     "description": "#asset/base/text/champion?description.league_diana.skill2",
-    "duration": 30,
+    "duration": 26,
     "cooltime": 480,
     "start_timing": 2,
     "cancelable": false,
@@ -509,7 +532,7 @@
         {
           "type": "CasterAnimation",
           "name": "skill2",
-          "tick": 20
+          "tick": 23
         },
         {
           "type": "MoveToTarget",
@@ -551,6 +574,11 @@
                       }
                     },
                     "only_to_enemy": false
+                  },
+                  {
+                    "type": "CasterAnimation",
+                    "name": "skill2_w",
+                    "tick": 24
                   },
                   {
                     "type": "Sfx",
@@ -3364,7 +3392,7 @@
                               {
                                 "type": "CasterAnimation",
                                 "name": "skill2",
-                                "tick": 20
+                                "tick": 23
                               },
                               {
                                 "type": "MoveToTarget",
@@ -3405,7 +3433,7 @@
                                 {
                                   "type": "CasterAnimation",
                                   "name": "skill2",
-                                  "tick": 20
+                                  "tick": 23
                                 },
                                 {
                                   "type": "MoveToTarget",
@@ -3452,7 +3480,7 @@
     "description": "#asset/base/text/champion?description.league_diana.ult",
     "duration": 40,
     "cooltime": 3000,
-    "start_timing": 6,
+    "start_timing": 16,
     "cancelable": false,
     "range": 30000,
     "casting_type": "Targeting",
