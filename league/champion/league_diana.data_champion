@@ -92,8 +92,8 @@
             "effects": [
               {
                 "type": "ApAttack",
-                "damage": 40,
-                "attack_ratio": 50,
+                "damage": 70,
+                "attack_ratio": 70,
                 "attack_effect_type": "Target"
               },
               {
@@ -263,8 +263,8 @@
                     "effects": [
                       {
                         "type": "ApAttack",
-                        "damage": 70,
-                        "attack_ratio": 60,
+                        "damage": 90,
+                        "attack_ratio": 80,
                         "attack_effect_type": "Target"
                       },
                       {
@@ -363,8 +363,8 @@
                   "effects": [
                     {
                       "type": "ApAttack",
-                      "damage": 70,
-                      "attack_ratio": 60,
+                      "damage": 90,
+                      "attack_ratio": 80,
                       "attack_effect_type": "Target"
                     },
                     {
@@ -518,8 +518,8 @@
           "end_effects": [
             {
               "type": "ApAttack",
-              "damage": 50,
-              "attack_ratio": 40,
+              "damage": 70,
+              "attack_ratio": 60,
               "attack_effect_type": "Target"
             },
             {
@@ -572,9 +572,9 @@
                     "effects": [
                       {
                         "type": "Shield",
-                        "amount": 50,
+                        "amount": 70,
                         "attack_ratio": 0,
-                        "ap_ratio": 40,
+                        "ap_ratio": 50,
                         "tick": 300
                       }
                     ]
@@ -646,8 +646,8 @@
                                     "effects": [
                                       {
                                         "type": "ApAttack",
-                                        "damage": 25,
-                                        "attack_ratio": 20,
+                                        "damage": 35,
+                                        "attack_ratio": 30,
                                         "attack_effect_type": "Target"
                                       },
                                       {
@@ -734,9 +734,9 @@
                                       "effects": [
                                         {
                                           "type": "Shield",
-                                          "amount": 50,
+                                          "amount": 70,
                                           "attack_ratio": 0,
-                                          "ap_ratio": 40,
+                                          "ap_ratio": 50,
                                           "tick": 294
                                         }
                                       ]
@@ -781,8 +781,8 @@
                                     "effects": [
                                       {
                                         "type": "ApAttack",
-                                        "damage": 25,
-                                        "attack_ratio": 20,
+                                        "damage": 35,
+                                        "attack_ratio": 30,
                                         "attack_effect_type": "Target"
                                       },
                                       {
@@ -869,9 +869,9 @@
                                       "effects": [
                                         {
                                           "type": "Shield",
-                                          "amount": 50,
+                                          "amount": 70,
                                           "attack_ratio": 0,
-                                          "ap_ratio": 40,
+                                          "ap_ratio": 50,
                                           "tick": 279
                                         }
                                       ]
@@ -916,8 +916,8 @@
                                     "effects": [
                                       {
                                         "type": "ApAttack",
-                                        "damage": 25,
-                                        "attack_ratio": 20,
+                                        "damage": 35,
+                                        "attack_ratio": 30,
                                         "attack_effect_type": "Target"
                                       },
                                       {
@@ -1004,9 +1004,9 @@
                                       "effects": [
                                         {
                                           "type": "Shield",
-                                          "amount": 50,
+                                          "amount": 70,
                                           "attack_ratio": 0,
-                                          "ap_ratio": 40,
+                                          "ap_ratio": 50,
                                           "tick": 264
                                         }
                                       ]
@@ -1051,8 +1051,8 @@
                                     "effects": [
                                       {
                                         "type": "ApAttack",
-                                        "damage": 25,
-                                        "attack_ratio": 20,
+                                        "damage": 35,
+                                        "attack_ratio": 30,
                                         "attack_effect_type": "Target"
                                       },
                                       {
@@ -1139,9 +1139,9 @@
                                       "effects": [
                                         {
                                           "type": "Shield",
-                                          "amount": 50,
+                                          "amount": 70,
                                           "attack_ratio": 0,
-                                          "ap_ratio": 40,
+                                          "ap_ratio": 50,
                                           "tick": 249
                                         }
                                       ]
@@ -1186,8 +1186,8 @@
                                     "effects": [
                                       {
                                         "type": "ApAttack",
-                                        "damage": 25,
-                                        "attack_ratio": 20,
+                                        "damage": 35,
+                                        "attack_ratio": 30,
                                         "attack_effect_type": "Target"
                                       },
                                       {
@@ -1274,9 +1274,9 @@
                                       "effects": [
                                         {
                                           "type": "Shield",
-                                          "amount": 50,
+                                          "amount": 70,
                                           "attack_ratio": 0,
-                                          "ap_ratio": 40,
+                                          "ap_ratio": 50,
                                           "tick": 234
                                         }
                                       ]
@@ -1321,8 +1321,8 @@
                                     "effects": [
                                       {
                                         "type": "ApAttack",
-                                        "damage": 25,
-                                        "attack_ratio": 20,
+                                        "damage": 35,
+                                        "attack_ratio": 30,
                                         "attack_effect_type": "Target"
                                       },
                                       {
@@ -1409,9 +1409,9 @@
                                       "effects": [
                                         {
                                           "type": "Shield",
-                                          "amount": 50,
+                                          "amount": 70,
                                           "attack_ratio": 0,
-                                          "ap_ratio": 40,
+                                          "ap_ratio": 50,
                                           "tick": 219
                                         }
                                       ]
@@ -1456,8 +1456,8 @@
                                     "effects": [
                                       {
                                         "type": "ApAttack",
-                                        "damage": 25,
-                                        "attack_ratio": 20,
+                                        "damage": 35,
+                                        "attack_ratio": 30,
                                         "attack_effect_type": "Target"
                                       },
                                       {
@@ -1544,9 +1544,9 @@
                                       "effects": [
                                         {
                                           "type": "Shield",
-                                          "amount": 50,
+                                          "amount": 70,
                                           "attack_ratio": 0,
-                                          "ap_ratio": 40,
+                                          "ap_ratio": 50,
                                           "tick": 204
                                         }
                                       ]
@@ -1591,8 +1591,8 @@
                                     "effects": [
                                       {
                                         "type": "ApAttack",
-                                        "damage": 25,
-                                        "attack_ratio": 20,
+                                        "damage": 35,
+                                        "attack_ratio": 30,
                                         "attack_effect_type": "Target"
                                       },
                                       {
@@ -1679,9 +1679,9 @@
                                       "effects": [
                                         {
                                           "type": "Shield",
-                                          "amount": 50,
+                                          "amount": 70,
                                           "attack_ratio": 0,
-                                          "ap_ratio": 40,
+                                          "ap_ratio": 50,
                                           "tick": 189
                                         }
                                       ]
@@ -1726,8 +1726,8 @@
                                     "effects": [
                                       {
                                         "type": "ApAttack",
-                                        "damage": 25,
-                                        "attack_ratio": 20,
+                                        "damage": 35,
+                                        "attack_ratio": 30,
                                         "attack_effect_type": "Target"
                                       },
                                       {
@@ -1814,9 +1814,9 @@
                                       "effects": [
                                         {
                                           "type": "Shield",
-                                          "amount": 50,
+                                          "amount": 70,
                                           "attack_ratio": 0,
-                                          "ap_ratio": 40,
+                                          "ap_ratio": 50,
                                           "tick": 174
                                         }
                                       ]
@@ -1861,8 +1861,8 @@
                                     "effects": [
                                       {
                                         "type": "ApAttack",
-                                        "damage": 25,
-                                        "attack_ratio": 20,
+                                        "damage": 35,
+                                        "attack_ratio": 30,
                                         "attack_effect_type": "Target"
                                       },
                                       {
@@ -1949,9 +1949,9 @@
                                       "effects": [
                                         {
                                           "type": "Shield",
-                                          "amount": 50,
+                                          "amount": 70,
                                           "attack_ratio": 0,
-                                          "ap_ratio": 40,
+                                          "ap_ratio": 50,
                                           "tick": 159
                                         }
                                       ]
@@ -1996,8 +1996,8 @@
                                     "effects": [
                                       {
                                         "type": "ApAttack",
-                                        "damage": 25,
-                                        "attack_ratio": 20,
+                                        "damage": 35,
+                                        "attack_ratio": 30,
                                         "attack_effect_type": "Target"
                                       },
                                       {
@@ -2084,9 +2084,9 @@
                                       "effects": [
                                         {
                                           "type": "Shield",
-                                          "amount": 50,
+                                          "amount": 70,
                                           "attack_ratio": 0,
-                                          "ap_ratio": 40,
+                                          "ap_ratio": 50,
                                           "tick": 144
                                         }
                                       ]
@@ -2131,8 +2131,8 @@
                                     "effects": [
                                       {
                                         "type": "ApAttack",
-                                        "damage": 25,
-                                        "attack_ratio": 20,
+                                        "damage": 35,
+                                        "attack_ratio": 30,
                                         "attack_effect_type": "Target"
                                       },
                                       {
@@ -2219,9 +2219,9 @@
                                       "effects": [
                                         {
                                           "type": "Shield",
-                                          "amount": 50,
+                                          "amount": 70,
                                           "attack_ratio": 0,
-                                          "ap_ratio": 40,
+                                          "ap_ratio": 50,
                                           "tick": 129
                                         }
                                       ]
@@ -2266,8 +2266,8 @@
                                     "effects": [
                                       {
                                         "type": "ApAttack",
-                                        "damage": 25,
-                                        "attack_ratio": 20,
+                                        "damage": 35,
+                                        "attack_ratio": 30,
                                         "attack_effect_type": "Target"
                                       },
                                       {
@@ -2354,9 +2354,9 @@
                                       "effects": [
                                         {
                                           "type": "Shield",
-                                          "amount": 50,
+                                          "amount": 70,
                                           "attack_ratio": 0,
-                                          "ap_ratio": 40,
+                                          "ap_ratio": 50,
                                           "tick": 114
                                         }
                                       ]
@@ -2401,8 +2401,8 @@
                                     "effects": [
                                       {
                                         "type": "ApAttack",
-                                        "damage": 25,
-                                        "attack_ratio": 20,
+                                        "damage": 35,
+                                        "attack_ratio": 30,
                                         "attack_effect_type": "Target"
                                       },
                                       {
@@ -2489,9 +2489,9 @@
                                       "effects": [
                                         {
                                           "type": "Shield",
-                                          "amount": 50,
+                                          "amount": 70,
                                           "attack_ratio": 0,
-                                          "ap_ratio": 40,
+                                          "ap_ratio": 50,
                                           "tick": 99
                                         }
                                       ]
@@ -2536,8 +2536,8 @@
                                     "effects": [
                                       {
                                         "type": "ApAttack",
-                                        "damage": 25,
-                                        "attack_ratio": 20,
+                                        "damage": 35,
+                                        "attack_ratio": 30,
                                         "attack_effect_type": "Target"
                                       },
                                       {
@@ -2624,9 +2624,9 @@
                                       "effects": [
                                         {
                                           "type": "Shield",
-                                          "amount": 50,
+                                          "amount": 70,
                                           "attack_ratio": 0,
-                                          "ap_ratio": 40,
+                                          "ap_ratio": 50,
                                           "tick": 84
                                         }
                                       ]
@@ -2671,8 +2671,8 @@
                                     "effects": [
                                       {
                                         "type": "ApAttack",
-                                        "damage": 25,
-                                        "attack_ratio": 20,
+                                        "damage": 35,
+                                        "attack_ratio": 30,
                                         "attack_effect_type": "Target"
                                       },
                                       {
@@ -2759,9 +2759,9 @@
                                       "effects": [
                                         {
                                           "type": "Shield",
-                                          "amount": 50,
+                                          "amount": 70,
                                           "attack_ratio": 0,
-                                          "ap_ratio": 40,
+                                          "ap_ratio": 50,
                                           "tick": 69
                                         }
                                       ]
@@ -2806,8 +2806,8 @@
                                     "effects": [
                                       {
                                         "type": "ApAttack",
-                                        "damage": 25,
-                                        "attack_ratio": 20,
+                                        "damage": 35,
+                                        "attack_ratio": 30,
                                         "attack_effect_type": "Target"
                                       },
                                       {
@@ -2894,9 +2894,9 @@
                                       "effects": [
                                         {
                                           "type": "Shield",
-                                          "amount": 50,
+                                          "amount": 70,
                                           "attack_ratio": 0,
-                                          "ap_ratio": 40,
+                                          "ap_ratio": 50,
                                           "tick": 54
                                         }
                                       ]
@@ -2941,8 +2941,8 @@
                                     "effects": [
                                       {
                                         "type": "ApAttack",
-                                        "damage": 25,
-                                        "attack_ratio": 20,
+                                        "damage": 35,
+                                        "attack_ratio": 30,
                                         "attack_effect_type": "Target"
                                       },
                                       {
@@ -3029,9 +3029,9 @@
                                       "effects": [
                                         {
                                           "type": "Shield",
-                                          "amount": 50,
+                                          "amount": 70,
                                           "attack_ratio": 0,
-                                          "ap_ratio": 40,
+                                          "ap_ratio": 50,
                                           "tick": 39
                                         }
                                       ]
@@ -3076,8 +3076,8 @@
                                     "effects": [
                                       {
                                         "type": "ApAttack",
-                                        "damage": 25,
-                                        "attack_ratio": 20,
+                                        "damage": 35,
+                                        "attack_ratio": 30,
                                         "attack_effect_type": "Target"
                                       },
                                       {
@@ -3164,9 +3164,9 @@
                                       "effects": [
                                         {
                                           "type": "Shield",
-                                          "amount": 50,
+                                          "amount": 70,
                                           "attack_ratio": 0,
-                                          "ap_ratio": 40,
+                                          "ap_ratio": 50,
                                           "tick": 24
                                         }
                                       ]
@@ -3211,8 +3211,8 @@
                                     "effects": [
                                       {
                                         "type": "ApAttack",
-                                        "damage": 25,
-                                        "attack_ratio": 20,
+                                        "damage": 35,
+                                        "attack_ratio": 30,
                                         "attack_effect_type": "Target"
                                       },
                                       {
@@ -3299,9 +3299,9 @@
                                       "effects": [
                                         {
                                           "type": "Shield",
-                                          "amount": 50,
+                                          "amount": 70,
                                           "attack_ratio": 0,
-                                          "ap_ratio": 40,
+                                          "ap_ratio": 50,
                                           "tick": 9
                                         }
                                       ]
@@ -3373,8 +3373,8 @@
                                 "end_effects": [
                                   {
                                     "type": "ApAttack",
-                                    "damage": 50,
-                                    "attack_ratio": 40,
+                                    "damage": 70,
+                                    "attack_ratio": 60,
                                     "attack_effect_type": "Target"
                                   },
                                   {
@@ -3414,8 +3414,8 @@
                                   "end_effects": [
                                     {
                                       "type": "ApAttack",
-                                      "damage": 50,
-                                      "attack_ratio": 40,
+                                      "damage": 70,
+                                      "attack_ratio": 60,
                                       "attack_effect_type": "Target"
                                     },
                                     {
@@ -3622,8 +3622,8 @@
                       "effects": [
                         {
                           "type": "ApAttack",
-                          "damage": 255,
-                          "attack_ratio": 119,
+                          "damage": 340,
+                          "attack_ratio": 153,
                           "attack_effect_type": "Target"
                         },
                         {
@@ -3647,8 +3647,8 @@
                         "effects": [
                           {
                             "type": "ApAttack",
-                            "damage": 202,
-                            "attack_ratio": 94,
+                            "damage": 270,
+                            "attack_ratio": 121,
                             "attack_effect_type": "Target"
                           },
                           {
@@ -3669,8 +3669,8 @@
                         "effects": [
                           {
                             "type": "ApAttack",
-                            "damage": 150,
-                            "attack_ratio": 70,
+                            "damage": 200,
+                            "attack_ratio": 90,
                             "attack_effect_type": "Target"
                           },
                           {
