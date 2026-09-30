@@ -998,8 +998,8 @@ league_leona, 0.54 beside league_soraka and 0.48 beside the base priest - Janna 
 supports without hard CC and Leona, and his R stayed as it was. league_morgana (2026-09-29, Dark Binding's
 2 s root and Soul Shackles' stun): 1.52 a game, league_janna 0.94 and the base priest 0.65 in the same batch - no
 change either. league_riven (2026-09-30, top, Yasuo moved to mid; Broken Wings' third-cast knock-up and Ki Burst's
-stun, 24 seeds a side): 2.56 a game, the base fighter 1.94, the base knight 0.85, league_malphite 2.42 and
-league_darius 1.21 in the same batch - the range the knock-up heroes gave before (Yone 2.15, Annie 2.19-2.50, the
+stun, 24 seeds a side): 2.12 a game with the kit timed to her strips (2.56 before), the base fighter 1.94, the base
+knight 0.85, league_malphite 2.42 and league_darius 1.21 on the same seeds - the range the knock-up heroes gave before (Yone 2.15, Annie 2.19-2.50, the
 base lightning mage 3.19), so no change.
 
 **Kill trigger (league_jinx Get Excited!).** No effect fires on a kill, but section 4's facts make one:

@@ -18,6 +18,10 @@ assets/source/riven/riven_fx_<set>_<back|front>.png (1x, the delivery's cell lay
 The sheets: every frame cut round its cell's standing point (strips.centre_frame, as import_native cuts the body),
 so a CasterViewEffect played with the action's CasterAnimation (both on the action's first tick, `is_follow`)
 lands on her frame for frame; the back layers are bound with z -1 (under the units), the front ones with z 1.
+Drawn at her own scale they are not resized: Ki Burst's ring reaches 41-42 px to either side and Q3's crack 28-39,
+which is where a unit's standing point is still hit - a RangeEffect's radius (25000 and 26000) plus the collision
+radii of the caster and the unit tested, about 17000 together (league_garen E began 45 px from its target at a range
+of 28000). The rings of the heroes before her were drawn at the bare radius (2 px a 1000).
 Two pictures are made from Codex's own drawings, unscaled:
   - r_wave, Wind Slash's flying wave: the crescent of the slash's front layer (frames 3 and 4, a two-frame loop)
     cut round the point 15 px over the standing point - the projectile carries it with y_offset -15000 - so on the

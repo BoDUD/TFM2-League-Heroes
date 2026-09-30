@@ -364,7 +364,7 @@
                   {
                     "type": "Attack",
                     "damage": 0,
-                    "attack_ratio": 140,
+                    "attack_ratio": 135,
                     "hp_ratio": 0,
                     "target_hp_ratio": 0,
                     "attack_effect_type": "Target"
@@ -397,7 +397,7 @@
                     {
                       "type": "Attack",
                       "damage": 0,
-                      "attack_ratio": 140,
+                      "attack_ratio": 135,
                       "hp_ratio": 0,
                       "target_hp_ratio": 0,
                       "attack_effect_type": "Target"
@@ -430,7 +430,7 @@
                       {
                         "type": "Attack",
                         "damage": 0,
-                        "attack_ratio": 140,
+                        "attack_ratio": 135,
                         "hp_ratio": 0,
                         "target_hp_ratio": 0,
                         "attack_effect_type": "Target"

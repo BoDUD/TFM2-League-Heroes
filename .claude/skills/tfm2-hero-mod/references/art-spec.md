@@ -458,6 +458,18 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   (`Frames`): the white core for projectiles, hits and flashes (the drawing's middle once the core has faded), a
   ground ellipse by the rows at least half as wide as its widest (the smoke rising above left out), a waist ring by
   its own columns (the chain pulled out to one side left out), a shield by its lowest row.
+- **Effects drawn on the hero's own strips (league_riven, oppi's way).** Codex drew Riven's seven effect sets frame
+  for frame on her action cells (the cells, standing points and frame times of `native/riven_cells.json`), each
+  split into a layer behind her and one in front (the head's area only behind, so nothing covers the face).
+  `tools/art/import_riven.py` cuts every frame round its cell's standing point as the body is cut and binds the
+  layers as `CasterViewEffect`s with `is_follow` on the action's first tick (z -1 and z 1): they land on her frame
+  for frame and are mirrored with her. Codex ringed every shape in its darkest shade (#183A2A on 67% of Q1's
+  edge); effects carry no outline (the user: "记得清理描边"), so `--raw` drops an edge pixel of that shade when two
+  lighter neighbours hold the shape and gives it the next shade otherwise (thin strokes stay whole). Nothing is
+  resized: drawn at her scale, Ki Burst's ring reaches 41-42 px to either side - its radius 25000 plus the caster's
+  and the target's collision radii (about 17000 together), where a standing point is still hit. A piece that
+  flies on (Wind Slash's crescent) is cut from the slash's own frames round the point the projectile's
+  `y_offset` lifts its picture to, and mirrored top to bottom.
 - **Review before shipping.** Per-strip sheets with the idle silhouette overlaid, `metrics`,
   a side-by-side with base champions at 1x and 3x, and a scripted showcase against a dummy.
 
