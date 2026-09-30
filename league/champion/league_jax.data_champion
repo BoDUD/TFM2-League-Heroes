@@ -1,0 +1,1790 @@
+{
+  "id": "league_jax",
+  "category": "Melee",
+  "tags": [
+    "AD",
+    "Melee",
+    "CC"
+  ],
+  "sprite": "asset/league/champions/league_jax",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/league/icons/league_jax_skill",
+    "asset/league/icons/league_jax_skill2",
+    "asset/league/icons/league_jax_ult"
+  ],
+  "stat": {
+    "attack": 108,
+    "magic_power": 30,
+    "hp": 1120,
+    "defence": 36,
+    "magic_resistance": 30,
+    "move_speed": 1050,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 20,
+    "magic_power": 10,
+    "hp": 100,
+    "defence": 8,
+    "magic_resistance": 4,
+    "move_speed": 11,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.league_jax.attack",
+    "duration": 25,
+    "cooltime": 64,
+    "start_timing": 1,
+    "cancelable": true,
+    "range": 25000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_jax_w_cd",
+          "effect_buff": {
+            "type": "SwitchByBuff",
+            "buff_name": "league_jax_r_on",
+            "effect_buff": {
+              "type": "CasterAnimation",
+              "name": "attack_r",
+              "tick": 25
+            },
+            "effect_none": {
+              "type": "SwitchByBuff",
+              "buff_name": "league_jax_e_on",
+              "effect_buff": {
+                "type": "CasterAnimation",
+                "name": "attack_e",
+                "tick": 25
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": []
+              }
+            }
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_jax_w_cd",
+                  "duration": {
+                    "Time": {
+                      "tick": 300
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_jax_w_hit",
+                  "duration": {
+                    "Time": {
+                      "tick": 12
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "CasterAnimation",
+                "name": "attack_w",
+                "tick": 25
+              },
+              {
+                "type": "Sfx",
+                "name": "league_jax_w_cast"
+              },
+              {
+                "type": "SwitchByBuff",
+                "buff_name": "league_jax_w_vo_cd",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": []
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_jax_w_vo_cd",
+                        "duration": {
+                          "Time": {
+                            "tick": 600
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "Sfx",
+                      "name": "league_jax_w_vo"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "Delayed",
+          "tick": 9,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "Attack",
+                  "damage": 0,
+                  "attack_ratio": 100,
+                  "attack_effect_type": "Target"
+                },
+                {
+                  "type": "ViewEffect",
+                  "name": "league_jax_hit"
+                },
+                {
+                  "type": "TargetSfx",
+                  "name": "league_jax_attack_hit"
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_jax_w_hit",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_jax_w_hit"
+                      },
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "ApAttack",
+                            "damage": 50,
+                            "attack_ratio": 100,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_jax_w_hit"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "league_jax_w_hit"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_jax_r_on",
+                  "effect_buff": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_jax_gm_2",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_jax_gm_1"
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_jax_gm_2"
+                        },
+                        {
+                          "type": "ApAttack",
+                          "damage": 40,
+                          "attack_ratio": 60,
+                          "attack_effect_type": "Target"
+                        },
+                        {
+                          "type": "ViewEffect",
+                          "name": "league_jax_r_proc"
+                        },
+                        {
+                          "type": "TargetSfx",
+                          "name": "league_jax_r_proc"
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_jax_gm_1",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_jax_gm_1"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_jax_gm_2"
+                          },
+                          {
+                            "type": "ApAttack",
+                            "damage": 40,
+                            "attack_ratio": 60,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_jax_r_proc"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "league_jax_r_proc"
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_jax_gm_1",
+                          "duration": {
+                            "Time": {
+                              "tick": 150
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      }
+                    }
+                  },
+                  "effect_none": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_jax_gm_2",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_jax_gm_1"
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_jax_gm_2"
+                        },
+                        {
+                          "type": "ApAttack",
+                          "damage": 40,
+                          "attack_ratio": 60,
+                          "attack_effect_type": "Target"
+                        },
+                        {
+                          "type": "ViewEffect",
+                          "name": "league_jax_r_proc"
+                        },
+                        {
+                          "type": "TargetSfx",
+                          "name": "league_jax_r_proc"
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_jax_gm_1",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_jax_gm_1"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_jax_gm_2",
+                              "duration": {
+                                "Time": {
+                                  "tick": 150
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_jax_gm_1",
+                          "duration": {
+                            "Time": {
+                              "tick": 150
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_jax_ra_8",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_jax_ra_1"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_jax_ra_2"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_jax_ra_3"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_jax_ra_4"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_jax_ra_5"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_jax_ra_6"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_jax_ra_7"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_jax_ra_8"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_jax_ra_1",
+                          "duration": {
+                            "Time": {
+                              "tick": 255
+                            }
+                          },
+                          "attack_speed_mult": 7
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_jax_ra_2",
+                          "duration": {
+                            "Time": {
+                              "tick": 240
+                            }
+                          },
+                          "attack_speed_mult": 7
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_jax_ra_3",
+                          "duration": {
+                            "Time": {
+                              "tick": 225
+                            }
+                          },
+                          "attack_speed_mult": 7
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_jax_ra_4",
+                          "duration": {
+                            "Time": {
+                              "tick": 210
+                            }
+                          },
+                          "attack_speed_mult": 7
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_jax_ra_5",
+                          "duration": {
+                            "Time": {
+                              "tick": 195
+                            }
+                          },
+                          "attack_speed_mult": 7
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_jax_ra_6",
+                          "duration": {
+                            "Time": {
+                              "tick": 180
+                            }
+                          },
+                          "attack_speed_mult": 7
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_jax_ra_7",
+                          "duration": {
+                            "Time": {
+                              "tick": 165
+                            }
+                          },
+                          "attack_speed_mult": 7
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_jax_ra_8",
+                          "duration": {
+                            "Time": {
+                              "tick": 150
+                            }
+                          },
+                          "attack_speed_mult": 7
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_jax_ra_7",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_jax_ra_1"
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_jax_ra_2"
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_jax_ra_3"
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_jax_ra_4"
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_jax_ra_5"
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_jax_ra_6"
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_jax_ra_7"
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_jax_ra_8"
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_jax_ra_1",
+                            "duration": {
+                              "Time": {
+                                "tick": 255
+                              }
+                            },
+                            "attack_speed_mult": 7
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_jax_ra_2",
+                            "duration": {
+                              "Time": {
+                                "tick": 240
+                              }
+                            },
+                            "attack_speed_mult": 7
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_jax_ra_3",
+                            "duration": {
+                              "Time": {
+                                "tick": 225
+                              }
+                            },
+                            "attack_speed_mult": 7
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_jax_ra_4",
+                            "duration": {
+                              "Time": {
+                                "tick": 210
+                              }
+                            },
+                            "attack_speed_mult": 7
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_jax_ra_5",
+                            "duration": {
+                              "Time": {
+                                "tick": 195
+                              }
+                            },
+                            "attack_speed_mult": 7
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_jax_ra_6",
+                            "duration": {
+                              "Time": {
+                                "tick": 180
+                              }
+                            },
+                            "attack_speed_mult": 7
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_jax_ra_7",
+                            "duration": {
+                              "Time": {
+                                "tick": 165
+                              }
+                            },
+                            "attack_speed_mult": 7
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_jax_ra_8",
+                            "duration": {
+                              "Time": {
+                                "tick": 150
+                              }
+                            },
+                            "attack_speed_mult": 7
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_jax_ra_6",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_jax_ra_1"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_jax_ra_2"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_jax_ra_3"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_jax_ra_4"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_jax_ra_5"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_jax_ra_6"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_jax_ra_7"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_jax_ra_8"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_jax_ra_1",
+                              "duration": {
+                                "Time": {
+                                  "tick": 240
+                                }
+                              },
+                              "attack_speed_mult": 7
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_jax_ra_2",
+                              "duration": {
+                                "Time": {
+                                  "tick": 225
+                                }
+                              },
+                              "attack_speed_mult": 7
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_jax_ra_3",
+                              "duration": {
+                                "Time": {
+                                  "tick": 210
+                                }
+                              },
+                              "attack_speed_mult": 7
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_jax_ra_4",
+                              "duration": {
+                                "Time": {
+                                  "tick": 195
+                                }
+                              },
+                              "attack_speed_mult": 7
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_jax_ra_5",
+                              "duration": {
+                                "Time": {
+                                  "tick": 180
+                                }
+                              },
+                              "attack_speed_mult": 7
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_jax_ra_6",
+                              "duration": {
+                                "Time": {
+                                  "tick": 165
+                                }
+                              },
+                              "attack_speed_mult": 7
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_jax_ra_7",
+                              "duration": {
+                                "Time": {
+                                  "tick": 150
+                                }
+                              },
+                              "attack_speed_mult": 7
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_jax_ra_5",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_jax_ra_1"
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_jax_ra_2"
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_jax_ra_3"
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_jax_ra_4"
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_jax_ra_5"
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_jax_ra_6"
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_jax_ra_7"
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_jax_ra_8"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_jax_ra_1",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 225
+                                  }
+                                },
+                                "attack_speed_mult": 7
+                              },
+                              "only_to_enemy": false
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_jax_ra_2",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 210
+                                  }
+                                },
+                                "attack_speed_mult": 7
+                              },
+                              "only_to_enemy": false
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_jax_ra_3",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 195
+                                  }
+                                },
+                                "attack_speed_mult": 7
+                              },
+                              "only_to_enemy": false
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_jax_ra_4",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 180
+                                  }
+                                },
+                                "attack_speed_mult": 7
+                              },
+                              "only_to_enemy": false
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_jax_ra_5",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 165
+                                  }
+                                },
+                                "attack_speed_mult": 7
+                              },
+                              "only_to_enemy": false
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_jax_ra_6",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 150
+                                  }
+                                },
+                                "attack_speed_mult": 7
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_jax_ra_4",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_jax_ra_1"
+                              },
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_jax_ra_2"
+                              },
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_jax_ra_3"
+                              },
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_jax_ra_4"
+                              },
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_jax_ra_5"
+                              },
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_jax_ra_6"
+                              },
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_jax_ra_7"
+                              },
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_jax_ra_8"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_jax_ra_1",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 210
+                                    }
+                                  },
+                                  "attack_speed_mult": 7
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_jax_ra_2",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 195
+                                    }
+                                  },
+                                  "attack_speed_mult": 7
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_jax_ra_3",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 180
+                                    }
+                                  },
+                                  "attack_speed_mult": 7
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_jax_ra_4",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 165
+                                    }
+                                  },
+                                  "attack_speed_mult": 7
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_jax_ra_5",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 150
+                                    }
+                                  },
+                                  "attack_speed_mult": 7
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_jax_ra_3",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_jax_ra_1"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_jax_ra_2"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_jax_ra_3"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_jax_ra_4"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_jax_ra_5"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_jax_ra_6"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_jax_ra_7"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_jax_ra_8"
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_jax_ra_1",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 195
+                                      }
+                                    },
+                                    "attack_speed_mult": 7
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_jax_ra_2",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 180
+                                      }
+                                    },
+                                    "attack_speed_mult": 7
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_jax_ra_3",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 165
+                                      }
+                                    },
+                                    "attack_speed_mult": 7
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_jax_ra_4",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 150
+                                      }
+                                    },
+                                    "attack_speed_mult": 7
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_jax_ra_2",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_jax_ra_1"
+                                  },
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_jax_ra_2"
+                                  },
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_jax_ra_3"
+                                  },
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_jax_ra_4"
+                                  },
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_jax_ra_5"
+                                  },
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_jax_ra_6"
+                                  },
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_jax_ra_7"
+                                  },
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_jax_ra_8"
+                                  },
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_jax_ra_1",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 180
+                                        }
+                                      },
+                                      "attack_speed_mult": 7
+                                    },
+                                    "only_to_enemy": false
+                                  },
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_jax_ra_2",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 165
+                                        }
+                                      },
+                                      "attack_speed_mult": 7
+                                    },
+                                    "only_to_enemy": false
+                                  },
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_jax_ra_3",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 150
+                                        }
+                                      },
+                                      "attack_speed_mult": 7
+                                    },
+                                    "only_to_enemy": false
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_jax_ra_1",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_jax_ra_1"
+                                    },
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_jax_ra_2"
+                                    },
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_jax_ra_3"
+                                    },
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_jax_ra_4"
+                                    },
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_jax_ra_5"
+                                    },
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_jax_ra_6"
+                                    },
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_jax_ra_7"
+                                    },
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_jax_ra_8"
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_jax_ra_1",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 165
+                                          }
+                                        },
+                                        "attack_speed_mult": 7
+                                      },
+                                      "only_to_enemy": false
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_jax_ra_2",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 150
+                                          }
+                                        },
+                                        "attack_speed_mult": 7
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_jax_ra_1"
+                                    },
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_jax_ra_2"
+                                    },
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_jax_ra_3"
+                                    },
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_jax_ra_4"
+                                    },
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_jax_ra_5"
+                                    },
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_jax_ra_6"
+                                    },
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_jax_ra_7"
+                                    },
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_jax_ra_8"
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_jax_ra_1",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 150
+                                          }
+                                        },
+                                        "attack_speed_mult": 7
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.league_jax.skill",
+    "duration": 31,
+    "cooltime": 420,
+    "start_timing": 3,
+    "cancelable": false,
+    "range": 50000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "league_jax_q_cast"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_jax_q_vo_cd",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_jax_q_vo_cd",
+                  "duration": {
+                    "Time": {
+                      "tick": 600
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "Sfx",
+                "name": "league_jax_q_vo"
+              }
+            ]
+          }
+        },
+        {
+          "type": "CasterAnimation",
+          "name": "skill",
+          "tick": 31
+        },
+        {
+          "type": "MoveToTarget",
+          "speed": 4000,
+          "range": 100000,
+          "end_effects": [
+            {
+              "type": "Attack",
+              "damage": 70,
+              "attack_ratio": 110,
+              "attack_effect_type": "Target"
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_jax_w_cd",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_jax_w_cd",
+                      "duration": {
+                        "Time": {
+                          "tick": 300
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "ApAttack",
+                        "damage": 50,
+                        "attack_ratio": 100,
+                        "attack_effect_type": "Target"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "league_jax_w_hit"
+                      },
+                      {
+                        "type": "TargetSfx",
+                        "name": "league_jax_w_hit"
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "type": "ViewEffect",
+              "name": "league_jax_q_hit"
+            },
+            {
+              "type": "TargetSfx",
+              "name": "league_jax_q_hit"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.league_jax.skill2",
+    "duration": 22,
+    "cooltime": 480,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 25000,
+    "casting_type": "None",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "league_jax_e_cast"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_jax_e_vo_cd",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_jax_e_vo_cd",
+                  "duration": {
+                    "Time": {
+                      "tick": 600
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "Sfx",
+                "name": "league_jax_e_vo"
+              }
+            ]
+          }
+        },
+        {
+          "type": "CasterAnimation",
+          "name": "skill2",
+          "tick": 22
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_jax_e_on",
+            "duration": {
+              "Time": {
+                "tick": 92
+              }
+            },
+            "base_attack_damaged_reduce": 100,
+            "skill_damaged_reduce": 25
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "Delayed",
+          "tick": 90,
+          "effects": [
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_jax_e_on",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_jax_e_on"
+                  },
+                  {
+                    "type": "CasterAnimation",
+                    "name": "skill2_burst",
+                    "tick": 26
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 4,
+                    "effects": [
+                      {
+                        "type": "CasterViewEffect",
+                        "name": "league_jax_e_burst"
+                      },
+                      {
+                        "type": "Sfx",
+                        "name": "league_jax_e_burst"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 32000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "ApAttack",
+                            "damage": 60,
+                            "attack_ratio": 100,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "Stun",
+                            "duration": 60
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_jax_stun"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 32000
+                          }
+                        },
+                        "target": "EnemyChampion",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "FixedAttack",
+                            "damage": 0,
+                            "attack_ratio": 0,
+                            "target_hp_ratio": 4,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "league_jax_e_hit"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": []
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.league_jax.ult",
+    "duration": 31,
+    "cooltime": 2400,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 30000,
+    "casting_type": "None",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "CasterAnimation",
+          "name": "ult",
+          "tick": 31
+        },
+        {
+          "type": "Sfx",
+          "name": "league_jax_r_cast"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_jax_r_vo_cd",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_jax_r_vo_cd",
+                  "duration": {
+                    "Time": {
+                      "tick": 600
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "Sfx",
+                "name": "league_jax_r_vo"
+              }
+            ]
+          }
+        },
+        {
+          "type": "Delayed",
+          "tick": 14,
+          "effects": [
+            {
+              "type": "CasterViewEffect",
+              "name": "league_jax_r_slam"
+            },
+            {
+              "type": "Sfx",
+              "name": "league_jax_r_slam"
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 35000
+                }
+              },
+              "target": "EnemyWithoutTower",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "ApAttack",
+                  "damage": 100,
+                  "attack_ratio": 150,
+                  "attack_effect_type": "Target"
+                },
+                {
+                  "type": "ViewEffect",
+                  "name": "league_jax_r_hit"
+                }
+              ]
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 35000
+                }
+              },
+              "target": "EnemyChampion",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_jax_r_on",
+                  "effect_buff": {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_jax_r_extra",
+                      "duration": {
+                        "Time": {
+                          "tick": 480
+                        }
+                      },
+                      "defence": 15,
+                      "magic_resistance": 15
+                    },
+                    "only_to_enemy": false
+                  },
+                  "effect_none": {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_jax_r_on",
+                      "duration": {
+                        "Time": {
+                          "tick": 480
+                        }
+                      },
+                      "defence": 40,
+                      "magic_resistance": 40
+                    },
+                    "only_to_enemy": false
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "league_jax_hit",
+      "anim": "asset/league/effects/league_jax_fx",
+      "tag": "hit",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_jax_w_hit",
+      "anim": "asset/league/effects/league_jax_fx",
+      "tag": "w_hit",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_jax_r_proc",
+      "anim": "asset/league/effects/league_jax_fx",
+      "tag": "r_proc",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_jax_q_hit",
+      "anim": "asset/league/effects/league_jax_fx",
+      "tag": "q_hit",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_jax_stun",
+      "anim": "asset/league/effects/league_jax_fx",
+      "tag": "stun",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_jax_e_burst",
+      "anim": "asset/league/effects/league_jax_big",
+      "tag": "e_burst",
+      "z": -1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_jax_r_slam",
+      "anim": "asset/league/effects/league_jax_big",
+      "tag": "r_slam",
+      "z": -1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_jax_r_hit",
+      "anim": "asset/league/effects/league_jax_fx",
+      "tag": "r_hit",
+      "z": 1,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "league_jax_e_on",
+      "anim": "asset/league/effects/league_jax_fx",
+      "tag": "e_stance",
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_jax_r_on",
+      "anim": "asset/league/effects/league_jax_big",
+      "tag": "r_aura",
+      "z": -1
+    }
+  ]
+}

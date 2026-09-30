@@ -1780,6 +1780,53 @@ drew 92% but the AI cast it a quarter less often (one batch +0.01 against +0.44)
 is crowd control for league_yasuo's R (section 7 "Blink to a crowd-controlled champion"): beside her he cast it 1.23
 times a game.
 
+**Attack speed that stacks and falls off one stack at a time (league_jax Relentless Assault).** League gives a stack
+per attack for 2.5 s, eight at most, and loses them one by one once he stops. Every attack runs a `SwitchByBuff`
+chain from `ra_8` down: the highest stack present is the count (the lower ones always outlast it), then all are
+removed and `ra_1`..`ra_n` added again, one more than before and at most eight, each an `attack_speed_mult` 7
+caster buff whose duration grows toward the bottom - the top one 150 ticks, every lower one 15 more - so
+after his last attack they end one at a time a quarter second apart. Separate names keep the count readable
+(same-name buffs add up too, section 5, but `SwitchByBuff` cannot count them).
+
+**An ability folded in on its own cooldown, spent by whichever comes first (league_jax Empower, W in Q).** W's
+cooldown is a caster buff (`w_cd`, 300 ticks); W is ready while it is absent. The basic attack picks its animation
+on tick 1 (`start_timing: 1`, the hit in a `Delayed` of 9 ticks, league_riven's way): with W ready it adds `w_cd` and a
+flag that lasts until the hit (`w_hit`) and plays League's Crit smash (`attack_w`), and the hit spends the flag on the
+bonus `ApAttack`; else `attack_r` while the ult's buff lasts, `attack_e` in Counter Strike's stance, or the plain
+swing. Q's landing (`MoveToTarget`'s `end_effects`) checks `w_cd` as well and spends W the same way, so Empower rides
+the leap when it is ready (League's W then Q) and otherwise the next attack.
+
+**A leap that opens waves and camps too, on the AI's own target (league_jax Q, Leap Strike).** A `Targeting` cast on
+`EnemyWithoutTower` (range 50000) with `MoveToTarget` onto the cast target. league_briar's aim - a `RandomTarget
+EnemyChampion` in reach first, the cast target only when none is found - made Jax worse by more than a kill a game
+(the same kit: -1.25 against -0.09 on the same seeds): the random champion was often the back line, and he leapt into
+the whole team. The AI already picks champions for a `Targeting` skill when they are in reach (about 13 of 41 leaps
+a game), so the plain cast target is kept; champion-only casts (+0.45) would never touch waves or camps.
+
+**Dodge basic attacks while he keeps fighting, then stun round him (league_jax E, Counter Strike).** A short `None`
+cast on `EnemyWithoutTower` (range 25000, 22 ticks of `CasterAnimation skill2`: the lamppost spun over his head) adds
+a caster buff for the stance (90 ticks + 2) with `base_attack_damaged_reduce: 100` and `skill_damaged_reduce:
+25`: basic attacks on him dealt 0 while it lasted *(SDK simulation, 2026-09-30)*, and he walks and attacks as
+usual (his attacks pick `attack_e`, League's Spell3 attacks). A `Delayed {tick: 90}` checks the buff (death
+clears it) and fires the counter: `CasterAnimation skill2_burst`, 4 ticks later a circle (32000) of `ApAttack` and
+a 60-tick `Stun` on `EnemyWithoutTower`, and a 4% max-health `FixedAttack` on `EnemyChampion` only (the
+epic monster would melt, section 2). League's +20% damage per dodged attack cannot be counted - no effect fires when
+he is hit - so the damage is fixed; the recast that ends the stance early is dropped (the AI cannot press it), and the
+stance is 1.5 s instead of 2 so the stun comes before the fight has moved on.
+
+**Armour for every champion the slam hits (league_jax R, Grandmaster-at-Arms).** A `None` cast on `EnemyChampion`
+(range 30000). On the slam frame a circle (35000) of `ApAttack` on `EnemyWithoutTower`, and a second circle on
+`EnemyChampion` whose effects are `SwitchByBuff r_on` -> `AddCasterBuff r_extra` (15 armour and magic
+resistance), else `AddCasterBuff r_on` (40 each, 480 ticks): a `RangeEffect` runs its effects once per unit,
+so the first champion gives the base buff and every other one an extra instance (same-name buffs add up, section 5).
+While `r_on` lasts R's passive procs on every second attack instead of every third and the attacks play League's
+reversed-grip thrust (`attack_r`).
+
+**Every third attack, every second one while a buff lasts (league_jax R's passive).** Two caster counters of
+150 ticks (`gm_1`, `gm_2`), refreshed by every attack: without `r_on`, `gm_2` -> the proc (the bonus
+`ApAttack`, both counters removed), `gm_1` -> swapped for `gm_2`, neither -> `gm_1`; with `r_on`, either counter -> the
+proc. The counters' duration is League's 2.5 s window. It works from level 1 (nothing reads level 5).
+
 **Ability power that stays until he dies (league_veigar Phenomenal Evil Power).** No native passive of game 0.6 stacks
 ability power (`ghost` adds attack and attack speed, `dancer` only counts kills), so every stack is one more instance of
 a `Permanent` caster buff with `magic_power: 1` - instances add up (section 5) and nothing needs to count them. A spell
