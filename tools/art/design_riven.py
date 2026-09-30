@@ -206,6 +206,39 @@ def outline_out(idx, line):
     return res
 
 
+def outline_rgba(a, feet=None, keep=None, colour=None):
+    """outline_out on an RGBA picture: every clear square with a coloured 4-neighbour that is not dark (lum >= DARK)
+    becomes the outline colour (by default the commonest dark colour on the silhouette's edge); under row `feet`
+    the edge square itself is darkened instead (nothing may go under the feet line); `keep` squares never change."""
+    a = a.copy()
+    op = a[..., 3] > 0
+    L = lum(a[..., :3])
+    light = op & (L >= DARK)
+    H, W = op.shape
+    if colour is None:
+        edge = np.zeros_like(op)
+        for dy, dx in N4:
+            edge |= op & ~shifted(op, dy, dx)
+        dark = [tuple(int(v) for v in p) for p in a[edge & ~light][:, :3]]
+        colour = max(set(dark), key=dark.count) if dark else (0x1E, 0x13, 0x19)
+    keep = np.zeros_like(op) if keep is None else keep
+    touch = np.zeros_like(op)
+    for dy, dx in N4:
+        touch |= shifted(light, dy, dx)
+    add = ~op & touch & ~keep
+    if feet is not None:
+        below = np.zeros_like(op)
+        below[feet + 1:] = True
+        # an edge square whose clear neighbour lies under the feet line is darkened itself
+        for dy, dx in N4:
+            src = shifted(add & below, -dy, -dx) & light & ~below & ~keep
+            a[src, :3] = colour
+        add &= ~below
+    a[add, :3] = colour
+    a[add, 3] = 255
+    return a
+
+
 def render(idx, pal):
     img = np.zeros(idx.shape + (4,), np.uint8)
     m = idx >= 0
@@ -342,7 +375,9 @@ def smaller(a):
     fr = [rows.index(r) for r in FACE_ROWS]
     fc = [keep_cols.index(c) for c in FACE_COLS]
     keep[fr[0]:fr[-1] + 1, fc[0]:fc[-1] + 1] = True
-    return one_outline(out, keep)
+    # deleting a row or column that held the outline left a fill colour on the edge: the outline completed as in
+    # step 3 (the review found the idle's edge 82% dark, 100% at 46 rows)
+    return outline_rgba(one_outline(out, keep), feet=out.shape[0] - 1)
 
 
 def design():

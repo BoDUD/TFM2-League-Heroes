@@ -4,7 +4,8 @@
     python tools/art/tidy_riven.py <Codex's strips delivery>     # 1. the ten strips (riven_strips40_complete)
     python tools/art/tidy_riven.py --redo <Codex's redo delivery>   # 2. frames redrawn after League (riven_redo18b)
     python tools/art/tidy_riven.py --neck                          # 3. the one-square necks widened
-    python tools/art/tidy_riven.py --blade                         # 4. the energy blade while R lasts
+    python tools/art/tidy_riven.py --outline                       # 4. the outline the 40-row shrink lost
+    python tools/art/tidy_riven.py --blade                         # 5. the energy blade while R lasts
 
 1. Codex drew the strips from the approved design on the reference cells (96x96 game pixels,
 assets/source/native/riven_cells.json): every game pixel one flat 8x8 block, only the design's 27 colours, alpha 0 or
@@ -27,9 +28,17 @@ ours square for square, and its records replace the redrawn frames' in riven_fra
 3. --neck: under the pasted chin the shrink left a one-square neck ('h p h' with clear squares beside it, two rows)
 in many frames; widened to the design's ('h p x r h' on the first row under the chin, 'h p x h' on the second). A
 frame whose neck is already wide is left as it is, so the step can run again.
-4. --blade: the user's pick for the R ("照示意图"): a big energy blade drawn under every frame that has a sword record,
-along it, wrapping the broken blade (League's R), and the blade's rune green lit where the energy runs; the ult's
-first ULT_BROKEN frames keep the broken blade. It writes the `_r` strips (attack_r ... skill2_r: the actions while R
+4. --outline: the shrink to 40 rows deleted whole rows and columns, and where one held the near-black outline a fill
+colour became the silhouette's edge (the idle's edge 82% dark, 100% at 46 rows; tfm2_ase.py metrics). Every clear
+square touching a coloured, not dark square becomes outline (design_riven.outline_rgba, the design's own step 3
+rule, also run on the design and the idle), except under the feet line, where the edge square itself is darkened.
+5. --blade: the user's pick for the R ("照示意图"): a big energy blade drawn under every frame that has a sword record,
+wrapping the broken blade (League's R), and the blade's rune green lit where the energy runs; the ult's first
+ULT_BROKEN frames keep the broken blade. The records are Codex's estimates (the round-2 reused swords' were a few
+squares off), so the blade's axis, its broken end and its length come from the sword's own squares: the design's
+blade colours within 6 squares of the record's line, outside the pasted head, their principal axis (fit_blade).
+The energy runs from the guard to REFORGE_TIP past the broken end (a tip pointing down ends over the feet line),
+and keeps 2 squares off the pasted head (its outline, not a box round the eyes) and off everything under the feet. It writes the `_r` strips (attack_r ... skill2_r: the actions while R
 lasts) and redraws riven_ult.png and riven_r_slash.png in place (only clear squares are filled, so it can run again).
 Then run import_native.py --hero riven (EYES steadies idle and run on the eyes' green).
 """
@@ -65,30 +74,36 @@ REFORGE_HALF = 5.5
 REFORGE_TIP = 14
 REFORGE_HILT = 19
 FRAMES = os.path.join(SRC, "riven_frames40.json")
+# the design's broken blade: its greys, its dark back and its rune green (fit_blade looks for these)
+BLADE_COLS = {(0xF6, 0xEA, 0xDB), (0xD0, 0xBF, 0xB0), (0xBB, 0xAA, 0x9C), (0xA8, 0x95, 0x88), (0x86, 0x74, 0x69),
+              (0x43, 0x4A, 0x46), (0x27, 0x27, 0x20), (0x42, 0x6E, 0x3B)}
+HEAD_GAP = 2                    # squares the energy keeps off the pasted head
 # --neck: the neck's squares
 NECK_H, NECK_P, NECK_X, NECK_R = (0x49, 0x33, 0x28), (0xA8, 0x64, 0x3F), (0xFB, 0xC6, 0x97), (0xCB, 0x80, 0x53)
 RIM2, BODY2, INNER2, CORE2, HOT2 = ((0x2D, 0x69, 0x40), (0x4B, 0xA8, 0x5A), (0x87, 0xD4, 0x6A), (0xC9, 0xEF, 0x9A),
                                     (0xF6, 0xEA, 0xDB))
 
 
-def reforge(c, axis, keep):
+def reforge(c, axis, keep, hilt=REFORGE_HILT, feet=None):
     """The energy blade under one frame's squares (never over them, never on `keep`): along the axis from the
     broken end (x0, y0) in direction (ux, uy); it widens from the hilt over 4 squares, holds REFORGE_HALF and comes
-    to a point over its last 9; a #2D6940 rim, #4BA85A inside it, #87D46A down the middle, a #C9EF9A line past the
+    to a point over its last 9 past the broken end (fewer when the cell's edge or the feet line is nearer); a #2D6940 rim, #4BA85A inside it, #87D46A down the middle, a #C9EF9A line past the
     break that turns #F6EADB near the point."""
     x0, y0, ux, uy = axis[:4]
     n = float(np.hypot(ux, uy))
     ux, uy = ux / n, uy / n
     H, W = c.shape[:2]
-    room = min((W - 1 - x0) / ux if ux > 0 else 1e9, x0 / -ux if ux < 0 else 1e9, y0 / -uy if uy < 0 else 1e9)
-    e = min(REFORGE_TIP, room - 1)
+    room = min((W - 1 - x0) / ux if ux > 0 else 1e9, x0 / -ux if ux < 0 else 1e9, y0 / -uy if uy < 0 else 1e9,
+               (feet - y0) / uy if feet is not None and uy > 0.05 else 1e9)
+    e = max(0.0, min(REFORGE_TIP, room - 1))
+    t0 = max(0.0, e - 9)                # the point tapers past the broken end only: along the blade it is full width
     yy, xx = np.mgrid[0:H, 0:W]
     dx, dy = xx - x0, yy - y0
     s = dx * ux + dy * uy
     d = np.abs(-dx * uy + dy * ux)
-    w = np.where(s < -REFORGE_HILT + 4, 2.5 + (s + REFORGE_HILT) * 0.75,
-                 np.where(s > e - 9, REFORGE_HALF * np.clip((e - s) / 9.0, 0, None), REFORGE_HALF))
-    inside = (s >= -REFORGE_HILT) & (s <= e) & (d <= w) & (c[..., 3] == 0) & ~keep
+    w = np.where(s < -hilt + 4, 2.5 + (s + hilt) * 0.75,
+                 np.where(s > t0, REFORGE_HALF * np.clip((e - s) / max(e - t0, 1e-6), 0, None), REFORGE_HALF))
+    inside = (s >= -hilt) & (s <= e) & (d <= w) & (c[..., 3] == 0) & ~keep
     out = c.copy()
     col = np.zeros((H, W, 3), np.uint8)
     col[:] = BODY2
@@ -136,6 +151,57 @@ def head(shape, master, origin, rotation):
     return grown
 
 
+def fit_blade(c, rec, head):
+    """The sword's own axis: the design's blade colours within 6 squares of the record's line (from 24 squares
+    behind its broken end to 3 past it), outside the head; their principal axis, turned the record's way. Returns
+    (broken end x, y, ux, uy, length) or None when there are too few squares or they do not lie along a line."""
+    x0, y0 = rec["broken_end"]
+    ux, uy = rec["direction"]
+    n = float(np.hypot(ux, uy))
+    ux, uy = ux / n, uy / n
+    H, W = c.shape[:2]
+    yy, xx = np.mgrid[0:H, 0:W]
+    along = (xx - x0) * ux + (yy - y0) * uy
+    across = -(xx - x0) * uy + (yy - y0) * ux
+    rgb = c[..., :3].astype(np.int32) @ np.array([65536, 256, 1])
+    m = ((c[..., 3] > 0) & np.isin(rgb, [r * 65536 + g * 256 + b for r, g, b in BLADE_COLS])
+         & (np.abs(across) <= 6) & (along >= -24) & (along <= 3) & ~head)
+    if m.sum() < 12:
+        return None
+    pts = np.stack([xx[m], yy[m]], 1).astype(float)
+    cen = pts.mean(0)
+    val, vec = np.linalg.eigh(np.cov((pts - cen).T))
+    if val[1] < 2.5 * max(val[0], 1e-6):
+        return None
+    d = vec[:, 1]
+    if d @ np.array([ux, uy]) < 0:
+        d = -d
+    proj = (pts - cen) @ d
+    end = cen + d * proj.max()
+    return float(end[0]), float(end[1]), float(d[0]), float(d[1]), float(proj.max() - proj.min())
+
+
+def head_mask(shape, rec, master):
+    """The pasted head's squares (the record's origin and rotation), grown by HEAD_GAP."""
+    rot = rec["head_rotation_clockwise"]
+    hm = np.rot90(master, k=-(rot // 90)) if rot else master
+    m = np.zeros(shape, bool)
+    x, y = rec["head_origin"]
+    h, w = hm.shape[:2]
+    m[y:y + h, x:x + w] = hm[..., 3] > 0
+    for _ in range(HEAD_GAP):
+        g = m.copy()
+        for dy, dx in D.N8:
+            g |= D.shifted(m, dy, dx)
+        m = g
+    return m
+
+
+def outline(a, feet=None, keep=None):
+    """--outline: design_riven.outline_rgba, then under the feet line the edge square itself darkened instead."""
+    return D.outline_rgba(a, feet=feet, keep=keep)
+
+
 def load_frames():
     with open(D.lp(FRAMES), encoding="utf-8") as f:
         return json.load(f)
@@ -153,7 +219,9 @@ def blade():
     with open(D.lp(os.path.join(SRC, "riven_cells.json")), encoding="utf-8") as f:
         cells = json.load(f)
     table = load_frames()
+    master = np.asarray(Image.open(D.lp(os.path.join(SRC, "riven_head_master.png"))).convert("RGBA"))
     cw, ch = cells["cell"][:2]
+    fits = {}
     for tag, base in BLADE.items():
         a = blocks(os.path.join(SRC, f"riven_{base}.png"))
         rows = cells["tags"][base]
@@ -166,22 +234,23 @@ def blade():
             if rec is None or (base == "ult" and i < ULT_BROKEN):
                 per.append(0)
                 continue
-            eye = np.zeros(c.shape[:2], bool)
-            for e in EYES[1:]:
-                eye |= (c[..., 3] > 0) & np.all(c[..., :3] == np.array(e, np.uint8), -1)
-            ys, xs = np.nonzero(eye)
-            keep = np.zeros(c.shape[:2], bool)             # the head round the eyes, and everything under the feet
-            keep[max(0, ys.min() - 12):ys.max() + 8, max(0, xs.min() - 8):xs.max() + 9] = True
-            keep[f["pivot"][1] + 12:] = True
-            axis = list(rec["broken_end"]) + list(rec["direction"])
-            t = reforge(c, axis, keep)
+            feet = f["pivot"][1] + 11
+            keep = head_mask(c.shape[:2], table[base][i], master)     # the pasted head, and everything under the feet
+            keep[feet + 1:] = True
+            fit = fit_blade(c, rec, keep)
+            if fit is None:
+                axis, hilt = list(rec["broken_end"]) + list(rec["direction"]), REFORGE_HILT
+            else:
+                axis, hilt = list(fit[:4]), min(REFORGE_HILT, fit[4] + 1)
+            fits[(base, i)] = fit
+            t = reforge(c, axis, keep, hilt, feet)
             # the broken blade's rune green lit where the energy runs (the band behind the broken end)
             x, y, ux, uy = axis
             yy, xx = np.mgrid[0:ch, 0:cw]
             along = (xx - x) * ux + (yy - y) * uy
             across = np.abs(-(xx - x) * uy + (yy - y) * ux)
             rune = (np.all(t[..., :3] == np.array(BLADE_RUNE, np.uint8), -1) & (t[..., 3] > 0) & (across <= 2.5)
-                    & (along <= 1) & (along >= -REFORGE_HILT) & ~keep)
+                    & (along <= 1) & (along >= -hilt) & ~keep)
             t[rune, :3] = INNER2
             per.append(int(np.any(t != c, -1).sum()))
             a[y0:y0 + ch, x0:x0 + cw] = t
@@ -189,7 +258,11 @@ def blade():
         big.save(D.lp(os.path.join(SRC, f"riven_{tag}.png")))
         if tag != base:
             cells["tags"][tag] = rows
-        print(f"riven_{tag}.png  over riven_{base}.png, squares added or lit per frame {per}")
+        moved = [i + 1 for i in range(len(rows)) if fits.get((base, i)) and np.hypot(
+            fits[(base, i)][0] - table[base][i]["sword"]["broken_end"][0],
+            fits[(base, i)][1] - table[base][i]["sword"]["broken_end"][1]) > 1.5]
+        print(f"riven_{tag}.png  over riven_{base}.png, squares added or lit per frame {per}; broken end refitted "
+              f"more than 1.5 squares in frames {moved}")
     with open(D.lp(os.path.join(SRC, "riven_cells.json")), "w", encoding="utf-8", newline="\n") as f:
         f.write(cells_text(cells))
 
@@ -240,6 +313,29 @@ def redo(folder):
         big.save(D.lp(os.path.join(SRC, f"riven_{tag}.png")))
         print(f"riven_{tag}.png  frames {sorted(recs)} redrawn")
     save_frames(table)
+
+
+def outline_step():
+    """--outline: the outline completed in every strip (the design and the idle are done by design_riven.py)."""
+    with open(D.lp(os.path.join(SRC, "riven_cells.json")), encoding="utf-8") as f:
+        cells = json.load(f)
+    table = load_frames()
+    master = np.asarray(Image.open(D.lp(os.path.join(SRC, "riven_head_master.png"))).convert("RGBA"))
+    cw, ch = cells["cell"][:2]
+    for tag in ["idle"] + TAGS:
+        a = blocks(os.path.join(SRC, f"riven_{tag}.png"))
+        rows = cells["tags"][tag]
+        cols = layout(len(rows))
+        added = []
+        for i, f in enumerate(rows):
+            x0, y0 = (i % cols) * cw, (i // cols) * ch
+            c = a[y0:y0 + ch, x0:x0 + cw]
+            t = outline(c, feet=f["pivot"][1] + 11)
+            added.append(int(np.any(t != c, -1).sum()))
+            a[y0:y0 + ch, x0:x0 + cw] = t
+        big = Image.fromarray(a).resize((a.shape[1] * Z, a.shape[0] * Z), Image.NEAREST)
+        big.save(D.lp(os.path.join(SRC, f"riven_{tag}.png")))
+        print(f"riven_{tag}.png  outline squares added per frame {added}")
 
 
 def neck():
@@ -305,15 +401,18 @@ def main():
     ap.add_argument("delivery", nargs="?", help="Codex's strips delivery (riven_strips40_complete)")
     ap.add_argument("--redo", help="Codex's redo delivery (riven_redo18b_complete): its strips and records")
     ap.add_argument("--neck", action="store_true", help="widen the one-square necks")
+    ap.add_argument("--outline", action="store_true", help="complete the outline the shrink lost")
     ap.add_argument("--blade", action="store_true", help="the energy blade while R lasts")
     args = ap.parse_args()
     if args.redo:
         redo(args.redo)
     if args.neck:
         neck()
+    if args.outline:
+        outline_step()
     if args.blade:
         blade()
-    if args.redo or args.neck or args.blade:
+    if args.redo or args.neck or args.outline or args.blade:
         return
     if not args.delivery:
         ap.error("a delivery folder, --redo, --neck or --blade")
@@ -330,6 +429,7 @@ def main():
     manifest = {k: [(fr["head_origin"], fr["head_rotation_clockwise"]) for fr in v["frames"]] for k, v in anims.items()}
     save_frames({k: [{"head_origin": fr["head_origin"], "head_rotation_clockwise": fr["head_rotation_clockwise"],
                       "sword": fr["sword"]} for fr in anims[k]["frames"]] for k in TAGS})
+    Image.fromarray(master).save(D.lp(os.path.join(SRC, "riven_head_master.png")))
     idle = np.asarray(Image.open(D.lp(os.path.join(args.delivery, "reference", "riven_idle.png"))).convert("RGBA"))
     Image.fromarray(idle).save(D.lp(os.path.join(SRC, "riven_idle.png")))
     for tag in TAGS:
