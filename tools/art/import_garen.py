@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Import Garen's generated source art (assets/source/garen; prompts in ../CHIBI_REDRAW.md) into game sprites.
 
-    python tools/art/import_garen.py [--review DIR]
+    python tools/art/import_garen.py [--body] [--review DIR]
 
 Writes (exported sheet format: name#sheet.png + name#anim.fanim, frames centred on the unit)
   league/champions/league_garen       idle run attack q_attack skill spin ult hit dead
@@ -21,6 +21,9 @@ the spin's lean) comes out as in the game. Pixels: area downscale, hard alpha, o
 1 px dark outline.
 Effects: own palette each, no outline, anchored on their impact point / ring centre.
 --review DIR writes one alignment sheet per strip (pivot + feet lines, idle silhouette in red).
+
+Since the step-2 redraw (Codex's strips, tools/art/tidy_codex18.py + import_native.py) the body comes from
+import_native.py like the other redrawn heroes: this writes the round-1 chibi body only with --body.
 """
 import argparse
 import os
@@ -313,14 +316,18 @@ def review(char, out_dir, z=4):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--review", help="write alignment review sheets to this folder")
+    ap.add_argument("--body", action="store_true", help="also write the round-1 body (replaced by the redraw)")
     args = ap.parse_args()
-    strips = load_char()
-    for tag, st in strips.items():
-        print(f"{tag:9s} scale {st['s']:.4f}  {len(st['frames'])} frames")
-    char = build_char(strips)
-    w, h = G.write_sheet(os.path.join(MOD, "champions", "league_garen"), char)
-    print(f"league/champions/league_garen#sheet.png {w}x{h}, "
-          f"{sum(len(v) for v in char.values())} frames")
+    char = None
+    if args.body or args.review:
+        strips = load_char()
+        for tag, st in strips.items():
+            print(f"{tag:9s} scale {st['s']:.4f}  {len(st['frames'])} frames")
+        char = build_char(strips)
+    if args.body:
+        w, h = G.write_sheet(os.path.join(MOD, "champions", "league_garen"), char)
+        print(f"league/champions/league_garen#sheet.png {w}x{h}, "
+              f"{sum(len(v) for v in char.values())} frames")
     for sprite, tags in build_fx().items():
         w, h = G.write_sheet(os.path.join(MOD, "effects", sprite), tags)
         print(f"league/effects/{sprite}#sheet.png {w}x{h}: " +

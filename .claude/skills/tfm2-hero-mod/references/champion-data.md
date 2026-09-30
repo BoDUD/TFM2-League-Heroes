@@ -248,6 +248,15 @@ damage cannot be changed, the chance can only be added to (no multiplier), and t
 not show it, so write it in the text. `defence_penetration` is a percent: the target's armour counts
 as armour x (100 - penetration) / 100 (`utils::get_damage`).
 
+**True damage that scales with ability power** *(measured in the SDK simulation for league_ahri Q,
+2026-09-29)*. `FixedAttack` reads the caster's attack damage and health, never ability power, so a
+spell's true damage in AP terms is an `ApAttack` that ignores magic resistance: put `AddCasterBuff
+{duration: 1 tick, magic_resistance_penetration: 100}` right before it in the same applied effects. The
+buff counts for the hit in the tick it is added (the same 55 + 45% AP dealt 140 through a lightning
+mage's magic resistance and 190 with the buff), and it is gone the next tick; other damage the caster
+deals in that very tick gets it too. Reductions that are not armour or magic resistance
+(`damaged_reduce`, `skill_damaged_reduce`, shields) still apply, as they do to `FixedAttack`.
+
 No effect and no buff field blocks, reflects or destroys a projectile (a wall like Yasuo W or Braum E
 cannot exist); `ShrinkingBarrier` is a closing ring that hits units at its edge.
 
@@ -260,6 +269,13 @@ cannot exist); `ShrinkingBarrier` is a closing ring that hits units at its edge.
 `Charm {tick}`, `Fear {tick}`, `Knockback {speed, tick}`, `Pull {speed, tick}`, `Grab {speed, tick}`,
 `BlockAttack {tick}` (disarm), `BlockSkill {tick}` (silence), `BlockMoveSkill {tick}` (no dashes),
 `Invisible {tick}` (Nocturne ult applies it to allies), `CasterInvisible {tick}` (base Nightmare).
+
+**Charm walks the target to the caster** *(measured in the SDK simulation for league_ahri E,
+2026-09-29)*. For `tick` ticks the charmed unit walks straight toward the caster at its own move speed
+(a lightning mage 79000 units away came about 460 units closer every tick, and turned away the tick the
+charm ended), then goes back to what it was doing. It is crowd control for `EnemyChampionInCC`
+(league_yasuo's R fires on it, section 3). The simulation's frames carry no charm event of their own
+(`Stun` and `Airborne` have one), so a logger sees it only in the target's movement.
 
 **Invisible is not untargetable; Banish is** *(read from the SDK's game_core and measured in the
 5v5 simulation for league_teemo and league_masteryi)*. `Invisible` and `CasterInvisible` set the same
@@ -318,14 +334,17 @@ for league_thresh Q in the SDK simulation, 2026-09-29)*.
 | MoveToTarget | speed, range, end_effects[] | dash onto the target, then end_effects |
 | MoveBack | speed, tick | hop backwards: in a `Targeting` cast straight away from the target, speed x tick units; in a `Direction` cast nothing moves *(measured, league_ezreal E)* |
 | RushTime | speed, tick, range, casting_target, penetrate, applied_effects[] | charge for `tick`, hitting units passed |
-| RushMoveToBack | speed, applied_effects[] | dash through the target to 15000 units behind it, then applied_effects on it |
+| RushMoveToBack | speed, applied_effects[] | dash through the target to 15000 units behind it; applied_effects run on it when the caster reaches it (not behind it) |
 | DirTeleport | moved | blink `moved` units in the cast direction; only in `Direction` casts. `moved` is an unsigned 64-bit field: a negative value fails to parse and breaks the whole kit |
 | Teleport | - | put the caster on the target's (or the cast point's) position |
 
 *(read from the SDK's game_core)* `RushMoveToBack` aims at a point 15000 units (a fixed value) past
 the target on the line from the caster, clamped to the map, and schedules `applied_effects` (plain
-effects, no `casting_type` wrappers) on the target for when it arrives: a dash *through* an enemy
-(LoL Reborn Fizz Q, Touhou Sakuya, league_yasuo E), where `MoveToTarget` stops on it. `Teleport` copies
+effects, no `casting_type` wrappers) on the target: a dash *through* an enemy (LoL Reborn Fizz Q,
+Touhou Sakuya, league_yasuo E), where `MoveToTarget` stops on it. The point is fixed where the target
+stood when the rush started, and `applied_effects` fire when the caster first touches the target,
+still about 13000 short of its centre, not once he is behind it *(measured in the SDK simulation with a
+marker effect, league_leesin R, 2026-09-29)*. `Teleport` copies
 the target unit's coordinates (`Targeting`) or the cast point (`Position`) onto the caster and does
 nothing for `Direction`. `Airborne` on a unit that is already airborne keeps the longer of the two
 remaining times; every CC's duration is cut by the target's `toughness` (x (100 - toughness) / 100),
@@ -794,6 +813,32 @@ projectile starts at the caster, a melee range behind the flying target, so it k
 hits (`Airborne`, damage) only what the target flies past; its range stops the circle short of the
 landing spot. *(inferred: Knockback pushes away from the caster at a constant speed)*
 
+**Get behind him and kick him back (league_leesin R, the insec).** The same kick, but first
+`Delayed {7: RushMoveToBack {speed: 8000, applied_effects: []}}`, and the kick keeps its own
+`Delayed 17` (the animation's kick frame): Lee flies through the target during the leap and spin and
+kicks from behind, so `Knockback` (away from the caster) sends the target back the way Lee came. The
+kick can't sit in the rush's `applied_effects`: they fire when Lee touches the target, still in front
+of it (far side 5/126); a `Delayed` inside them got behind but the AI then cast R half as often. A
+rush from the cast tick at 4500 left Lee behind only 65% of the time (fleeing targets walk
+20000-28000 in 19 ticks); starting late and fast aims at a fresh position: behind 337/356, pushed
+within 90 degrees of the way back to Lee's start 294/322 (the old forward kick: 1/400, median 176
+degrees). The dragon (`LinearProjectile`) waits 4 ticks and flies at 2500 for 35000 so it trails the
+target instead of hitting it at once (it still catches it about a third of the time, when the flight
+is cut short). R is cast about 20% less often than the forward kick. Balance at lane 1 with the W
+below: +0.53 / +0.86 (the old kit -0.96 / -0.58) *(measured in the SDK simulation, 2026-09-29)*.
+
+**Dash to an ally in trouble and shield both (league_leesin W, Safeguard).** No casting target means
+"ally under attack", and all four slots were taken, so W is a check at the end of the attack, Q and E
+behind its own caster buff (`league_leesin_w_cd`, 720 ticks, set first in every branch). Three tiers:
+a `RandomTarget {AllyChampionInCC}`; then one random ally with 2+ enemy champions near him (a hidden
+1-tick `ParabolicProjectile` lobbed onto the ally, its `end_effects` a `RangeProjectile` on
+`EnemyChampion` counting with a caster flag, and a `RandomTarget {from_projectile: true}` re-finding the
+ally); then any ally with an enemy champion close (a zone that hits a tick later, so tier 2 wins). The
+pick shields the ally (a bare `Shield`) and Lee (a self-only `RangeEffect`) on the same tick, then
+`MoveToTarget` dashes Lee there; shields in the dash's `end_effects` would be lost to a stun. About 3
+dashes a game, 52/53 reach the ally. Checking every ally in one tick with reset zones does not work:
+the zones are not processed in spawn order and one enemy was counted by two allies' zones.
+
 **Heal an ally at a health cost (league_soraka W).** `Targeting` + `AllyNotSelf`: `Heal
 {heal_type: Ally}` on the target, then a 3-tick caster buff with `undying: true` and
 `FixedAttack {damage: 0, target_hp_ratio: 6, attack_effect_type: Target}` in a `RangeEffect` on
@@ -875,6 +920,13 @@ many the target carries, so Noxian Might counts Darius's own hits instead: hidde
 hit removing them all and adding `might` (`attack_mult`), skipped while `might` runs so it never
 stacks. Noxian Guillotine reads the same chain as a ladder of six `FixedAttack`s (+20% per buff,
 double under `might`). The chain sits in the basic attack, the empowered attack and Q.
+Only champion hits count (the user: minions and monsters must not give Noxian Might): the bleed rides an
+invisible twin projectile on `EnemyWithoutTower` (towers take no bleed) and the chain a second one on
+`EnemyChampion` (speed 20000, `y_offset` 0; its `applied_effects` run only on a matching target); Q's
+chain moved into its `EnemyChampion` `RangeEffect` behind a 6-tick caster lock so a Q through three
+champions still counts once. Balance at lane 0 went +0.74 / +1.08 -> +1.33 / +1.30 together with
+Apprehend's slow (`AddBuff {move_speed_mult: -40, 60 ticks}` after the `Grab`, about +1.0 on its own)
+*(measured in the SDK simulation, 2026-09-29)*.
 
 **Pull a cone to you (league_darius E).** A `Targeting` action whose `RangeEffect` uses
 `apply_type {"Forward": {"offset": 1000}}` and `shape {"DirDot": {"radius": 46000, "range": 600}}`
@@ -1140,6 +1192,15 @@ position to the unit (jumps of 30000 to 216000 units - TFM2 heroes walk a quarte
 blast caught about 0.3 champions a cast whatever its range, radius or delay, so the ult is worth its heal and
 its escape.
 
+**Z-Drive Resonance with a rest and the ult counting (league_ekko).** The user asked for League's rule: R's
+blast counts a Z-Drive hit and the passive has a cooldown. League's is 5 s per target, but `SwitchByBuff`
+reads only the caster's buffs, so the rest is a caster buff (`league_ekko_z_cd`) started on every proc and
+checked before every ladder (attack, both passes of Q, E): while it runs no hit adds a stack. R's blast adds
+one stack (two `RangeEffect`s, champion first, behind a 2-tick `r_zlock`). A 5 s caster-wide rest cost too
+much (lane 1: +0.82 / +0.09 -> -0.29 / -0.35, and a bigger proc did not win it back: 140 -0.24 / -0.24, 170
+-0.81 / -0.25); 3 s with the proc at 100 AP came closest (+0.12 / -0.23), 2 s with 110 about the same (+0.16 /
+-0.29), so the kit uses 180 ticks *(measured in the SDK simulation, 2026-09-29)*.
+
 **Leave the body, fight as a spirit, snap back (league_yone E, Soul Unbound folded into W).** Every 15 s (a
 caster cooldown buff), when a `RandomTarget` finds an enemy champion within 50000 (it sets a 2-tick flag the
 next `SwitchByBuff` reads), W opens with Soul Unbound; otherwise it is a plain W. The body stays: Ekko's anchor
@@ -1271,6 +1332,43 @@ stays behind), `Teleport` (to the cast point), `CasterAnimation ult_land` (30) a
 `Delayed` pulses 30 ticks apart each run `SwitchByBuff storm`: the circling crows (`CasterViewEffect`,
 following) and a `RangeEffect` (45000) of damage; the first also fears the champions around him for 60 ticks.
 Death clears the storm buff (section 5), so the storm ends with him.
+
+**Out and back, the return true damage (league_ahri Q, Orb of Deception).** Ekko's out and back without the
+field: the penetrating `LinearProjectile` on `EnemyWithoutTower` turns into a `BackToCasterLinearProjectile`
+in its `end_effects` at once. Each hit of the return starts with `AddCasterBuff` of a 1-tick
+`magic_resistance_penetration: 100` buff, then the `ApAttack` (section 4, "True damage that scales with
+ability power"). A buff laid on at the turn for the whole flight home (30 ticks) worked too, but also let
+the fox-fires hitting meanwhile through magic resistance. The hit sound plays once a pass (a 30-tick lock).
+
+**Fox-fires, charmed champions first (league_ahri W, folded into Q).** Q starts with `SwitchByBuff` on a
+9 s cooldown buff (Soraka's fold); without it W adds the buff, two move speed buffs (+20% for 1.5 s and +20%
+for 0.75 s: 40% decaying) and a caster picture of the fires circling her, and queues three fires 4 ticks
+apart. Each fire picks in tiers: `RandomTarget {casting_target: EnemyChampionInCC}` fires a
+`TargetProjectile` at a crowd-controlled champion (the charmed one, or anyone's stun) and adds a 1-tick
+caster flag; `SwitchByBuff` on the flag skips the next tier, `RandomTarget {EnemyChampion}` (the same way), and
+last `RandomTarget {EnemyWithoutTower}`. One flag name per fire, so two fires in one tick cannot see each
+other's. In the simulation the fires went to minions in the lane and to the champion as soon as one stood
+within 60000 (all three onto the same champion when he was the only one: `RandomTarget` may repeat).
+
+**Three dashes with bolts (league_ahri R, Spirit Rush).** The ult has `cooltime_use_count: 3` (section 7,
+"Recast / charges"): cast on an enemy champion within range, the AI casts it again as soon as the action
+ends, so the three dashes came within about 1.5 s in the simulation, and one charge returns every
+`cooltime / 3`. Each cast first sets a 1-tick flag with `RandomTarget {EnemyChampion}` at a short range and
+branches: with a champion that close, `MoveBack` (away from the target, speed x tick); otherwise
+`RushTime` in the `Targeting` cast, which moves speed x tick toward the target (2000 x 12 = 24000, measured)
+and stops there - unlike `MoveTo` and `MoveToTarget`, which go all the way to the target (section 4). After
+the dash a `Delayed` fires three bolts, each a `TargetProjectile` from a `RandomTarget` on `EnemyChampion`,
+else on `EnemyWithoutTower` (the flag tiers above). The dash's picture is a `CasterViewEffect` left where she
+started (not following), drawn round rather than pointing, since she dashes either way.
+
+**Heal on the hits of every fourth spell (league_ahri Essence Theft).** League's old passive (nine spell
+hits, then the next spell heals per enemy hit) as casts: each spell's hits count the cast once behind a
+per-skill caster lock (Q 60 ticks, the fires 60, E 40, each R dash 24) on permanent caster buffs `et1`,
+`et2`, and the third adds `et_ready` (permanent, with a `view_buffs` picture; death clears it, section 5). Every
+spell starts with `SwitchByBuff et_ready`: it swaps the flag for a heal window (`et_heal`, as long as the
+spell's hits come: Q 80 ticks, E 40, R 40), and while the window lasts each hit runs `Heal {heal_type:
+Caster}` instead of counting (the heal picture and sound once, behind a 20-tick lock). A Q through a wave
+heals once per unit it passes on each pass, as League's did.
 
 **Two shots after a spell, the second weaker on champions (league_lucian Lightslinger).** Every spell adds a
 180-tick caster charge (Q and R `ls_1`; E+W, two spells, `ls_1` and `ls_2`). The attack (`start_timing` 1) runs

@@ -88,7 +88,9 @@ Sin's first idle, fixed in `leesin_retouch.json`).
   44 px was too small to shield him. A projectile that has an up and down but must fly (league_thresh's
   lantern, thrown to an ally anywhere) is laid along its flight instead: `import_thresh.py` turns Codex's
   upright lantern a quarter, ring toward its trail, and mirrors it top to bottom, so it reads the same
-  flying left, right, up or down. Blades and hooks on chains are mirrored the same way.
+  flying left, right, up or down. Blades and hooks on chains are mirrored the same way. Asking for it that way
+  saves the turn: league_ahri's kiss was prompted as a heart lying on its side, its point toward the flight, and
+  only needed the mirror.
 - **A chain from the hand to a flying hook grows frame by frame.** A projectile's picture is one length:
   drawn 48 px long, league_thresh's hook stuck out 43 px behind him as it left his hand. Its chain is drawn
   by the importer link by link, one frame every two ticks, as long as the hook has flown (champion-data
