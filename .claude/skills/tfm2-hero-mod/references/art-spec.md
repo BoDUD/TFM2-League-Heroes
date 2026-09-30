@@ -327,6 +327,28 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   outside and the one-outline rules applied. A far eye of one square read as "one eye" ("怎么就一个眼睛"): both
   eyes 2x2 on the same rows, a highlight at the top left, two skin squares between them, the face widened to 7
   squares so the eyes clear the hair. 35x45 with the horns, 26 colours, the eye colour in the 6 eye squares only.
+- **A design drawn at game size: have the image model draw the sprite itself, then only read it back (league_lucian's
+  redesign, league_vayne).** The way to take a hero from the user's picture to the game without losing detail - the
+  user's words for it: "细节好 不模糊". Do not ask for a bigger drawing to shrink: league_vayne's first pack asked
+  Codex for 72 squares crown to soles (1.7x), it drew 96 (A) and 76 (B), and every way down to the game's ~42 rows -
+  dropping the most redundant lines, an area vote with salient colours, a colour majority first with the lens rows and
+  columns protected - broke the red lenses, silver trims and armour into specks. Asked for the game size itself (about
+  36-38 squares crown to soles), the image model draws coarse squares of about 10 px on its 1254 px canvas, and the
+  draft's own grid reads back one square to one game pixel: league_lucian's redesign came back as 47x46.
+  The pack, four images in this order (`assets/source/lucian/MODEL_REDESIGN.md`, `assets/source/vayne/MODEL_PROMPTS.md`):
+  the user's picture ("copy the look from it"); base heroes of the hero's kind at 8x for the pixel size and cleanliness
+  (for a marksman the nine base ranged heroes' idle frames, built with `tfm2_ase.load_sprite`); a pack hero's game sprite
+  on the same 1024x1024 canvas with the soles on block row 99, y 792-799 ("ONLY for the size and the ground line"); the
+  user's picture shrunk straight to game size on that canvas and ground ("ONLY to see what fits where; it is blurry,
+  do not copy its look"). The rules to write out: every pixel one 8x8 square on one grid, at most 24 colours, 2-3 flat
+  shades per material (list the materials), one outline and no black ring inside it, the face in squares (eye or lens
+  widths, both on the same rows, the eye colour used nowhere else, the mouth on the face's middle line, no shadow joining
+  the jaw's corners to the chin, the fringe off the eyes), each prop's least size in squares and the outline between it
+  and the body, nothing below the soles, 3/4 front facing right, and two versions - A the picture's proportions with
+  the head big enough for the face, B the base heroes' chibi head (a third of the height). Leave the hero's name out
+  of the prompt (image models may refuse named characters) and ask for a HANDOFF and a manifest. Back from the model:
+  `scripts/regrid.py` (square edges at the peaks of colour change, each square the median of its middle 3x3), then the
+  palette, one outline and the face by hand - never a resampling.
 - **One look per hero.** Strips from different generation rounds disagree on proportions (round
   1 Garen: big head, broad shoulders; round 3: smaller head for the same height). No scale hides
   it - in-game he visibly grew and shrank between animations. When the look changes, regenerate
