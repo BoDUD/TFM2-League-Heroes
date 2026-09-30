@@ -53,6 +53,14 @@ STEADY = ("idle", "run")
 # line) she sat high; the user: "整体下移 3 格、去掉浮空". Frames already on the ground stay (R's landing, her death).
 SINK = {"nami": 3}
 SOLES = 11
+# (hero, tag): (y, slots) like BOB, for a neck drawn too long under the pasted head: in those slots everything at or
+# above pivot row y moves down a row. Codex drew Nami's swimming body a row lower under the head in run 1-4 than
+# in 5-8 and the design, so her neck stretched and shrank as she swam (the user: "一上一下的时候感觉身体要分离一样").
+NECK = {("nami", "run"): (-21, [0, 1, 2, 3])}
+# heroes whose outline strips.complete_outline closes on the finished frames (the skill's art-spec "Close the
+# outline": every hero from Nami on; the user: "后面英雄都要用的"). Nothing goes under the soles row; a frame that
+# already reaches lower (lying down) keeps its own bottom.
+COMPLETE = {"nami"}
 ORDER = {("lux", "idle"): [0, 0, 0, 0, 0, 0],   # the step-2 idle is the design in all six (was 0 1 2 3 5 4)
          # League leans his upper body a square forward in idle 4-5 and back in 6, and every frame's head
          # is voted anew, so the face swung and changed shape as he breathed (the user). Frame 1 in every
@@ -363,9 +371,9 @@ def touch_up(hero, sheet):
 
 
 def breathe(hero, sheet):
-    """BOB: move the upper body of the listed slots down a row (after the retouch, which is drawn on the frame
-    before it moves)."""
-    for (h, tag), (y0, slots) in BOB.items():
+    """BOB and NECK: move the upper body of the listed slots down a row (after the retouch, which is drawn on the
+    frame before it moves)."""
+    for (h, tag), (y0, slots) in list(BOB.items()) + list(NECK.items()):
         if h != hero or tag not in sheet:
             continue
         for k in slots:
@@ -375,6 +383,29 @@ def breathe(hero, sheet):
             b[1:cut + 1] = a[0:cut]
             b[0] = 0
             sheet[tag][k] = (b, ms)
+
+
+def close_outline(hero, sheet):
+    """COMPLETE: strips.complete_outline on every frame, in idle frame 1's outline colour; (added, darkened)."""
+    if hero not in COMPLETE:
+        return 0, 0
+    first = sheet["idle"][0][0]
+    op = first[..., 3] > 0
+    p = np.pad(op, 1)
+    edge = op & ~(p[:-2, 1:-1] & p[2:, 1:-1] & p[1:-1, :-2] & p[1:-1, 2:])
+    dark = [tuple(int(v) for v in c) for c in first[edge & (G.lum(first[..., :3]) < 70)][:, :3]]   # the commonest
+    colour = max(set(dark), key=dark.count)
+    added = darkened = 0
+    for tag, frames in sheet.items():
+        for k, (a, ms) in enumerate(frames):
+            b = np.pad(a, ((1, 1), (1, 1), (0, 0)))              # room for an outline round the widest pixel
+            c = b.shape[0] // 2
+            low = int(np.nonzero(b[..., 3].any(1))[0].max())
+            b, n, d = G.complete_outline(b, color=colour, feet=max(c + SOLES, low))
+            frames[k] = (G.centre_frame(b, -(b.shape[1] // 2), -c), ms)
+            added += n
+            darkened += d
+    return added, darkened
 
 
 def flatness(frames):
@@ -420,6 +451,9 @@ def main():
         if touched:
             print(f"{hero}_retouch.json: {touched} pixels retouched")
         breathe(hero, sheet)
+        added, darkened = close_outline(hero, sheet)
+        if added or darkened:
+            print(f"{hero}: outline closed with {added} pixels added, {darkened} darkened on the feet line")
         w, h = G.write_sheet(os.path.join(MOD, "champions", f"league_{hero}"), sheet)
         frames = [a for fr in sheet.values() for a, _ in fr]
         colours = len(np.unique(np.concatenate([a[a[..., 3] > 0][:, :3] for a in frames]), axis=0))

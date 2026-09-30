@@ -15,6 +15,10 @@ TFM2-League-Heroes repo); see references/art-spec.md "Generated art". Needs nump
   Palette       one shared palette per sprite (median cut), nearest-colour mapping
   median_cut    median-cut colours of a pixel list (build a palette per colour class)
   outline       1 px near-black silhouette outline (glowing pixels, and a `keep` mask, are left alone)
+  complete_outline
+                close the outline of game-size art where the drawing left it open: added outside,
+                nothing repainted, one-pixel lines open at their sides, nothing under the feet
+                (every hero's finished frames; art-spec "Close the outline")
   centre_frame  trim to an odd size centred on the pivot (the exported-sheet convention)
   write_sheet   pack frames into name#sheet.png + name#anim.fanim
 """
@@ -329,6 +333,44 @@ def outline(f, color=OUTLINE, glow=205, keep=None):
         edge &= ~keep
     out[edge, :3] = color
     return out
+
+
+def complete_outline(f, color=None, dark=70, feet=None, keep=None):
+    """Close the outline of game-size art where the drawing left it open: every clear pixel 4-next to an
+    opaque pixel that is not dark (luminance >= `dark`) becomes `color` (default: the commonest dark colour on
+    the silhouette's edge). Nothing drawn is repainted, except under the feet: a clear pixel below row `feet`
+    stays clear and the light pixel above it takes the colour instead. A one-pixel line seen across (a staff,
+    a bow, a strand of hair: base draws them without an outline) is left open at its sides; its ends get one.
+    `keep` pixels never change. Returns (picture, pixels added, pixels darkened)."""
+    out = f.copy()
+    op = f[..., 3] > 0
+    light = op & (lum(f[..., :3]) >= dark)
+    H, W = op.shape
+    keep = np.zeros_like(op) if keep is None else keep
+    if color is None:
+        p = np.pad(op, 1)
+        edge = op & ~(p[:-2, 1:-1] & p[2:, 1:-1] & p[1:-1, :-2] & p[1:-1, 2:])
+        dk = [tuple(int(v) for v in c) for c in f[edge & ~light][:, :3]]
+        color = max(set(dk), key=dk.count) if dk else OUTLINE
+    rows = np.arange(H)[:, None] + np.zeros((1, W), int)
+    pl, po = np.pad(light & ~keep, 2), np.pad(op, 2)
+    add = np.zeros_like(op)
+    dark_it = np.zeros_like(op)
+    for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+        q = pl[2 + dy:2 + dy + H, 2 + dx:2 + dx + W]                      # the light pixel next to (y, x)
+        beyond = po[2 + 2 * dy:2 + 2 * dy + H, 2 + 2 * dx:2 + 2 * dx + W]   # the pixel past it
+        cand = ~op & ~keep & q & beyond
+        if feet is not None:
+            low = cand & (rows > feet)
+            cand &= rows <= feet
+            ys, xs = np.nonzero(low)
+            dark_it[ys + dy, xs + dx] = True
+        add |= cand
+    out[add, :3] = color
+    out[add, 3] = 255
+    dark_it &= ~add & light & ~keep
+    out[dark_it, :3] = color
+    return out, int(add.sum()), int(dark_it.sum())
 
 
 def drop_lonely(f):
