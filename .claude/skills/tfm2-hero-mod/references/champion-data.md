@@ -1485,11 +1485,14 @@ flat 40 on the bolt's tick and 6% of a priest's maximum health (54) a tick later
 *(SDK simulation, 2026-09-30)*. Condemn's bolt flies only at champions, so its ladder carries both parts itself.
 
 **Tumble by the situation, the next attack stronger (league_vayne Q, Tumble).** league_lucian E's three ways with a
-roll in place of the blink: `MoveBack` (6000 x 4) away from a champion within 30000, a small hop back (5000 x 2)
-when anything is within her attack range, else `RushTime` (2500 x 10, `penetrate`, no applied effects) toward the
-target - a fixed distance, where `MoveTo` would run onto the unit. A 420-tick caster buff turns the next attack into
-a stronger bolt; League's auto-attack reset is not there (the attack's own cooldown runs on). Hopping back costs her
-attacks: a 15000 hop gave -0.6 kills against none (12 seeds a variant); the user's pick keeps a hop, cut to 10000.
+roll in place of the blink: `MoveBack` (6000 x 5) away from a champion within 30000, a hop back (5000 x 6) when
+anything is within her attack range, else `RushTime` (3000 x 10, `penetrate`, no applied effects) toward the target -
+a fixed distance, where `MoveTo` would run onto the unit. A 420-tick caster buff turns the next attack into a stronger
+bolt; League's auto-attack reset is not there (the attack's own cooldown runs on). Hopping back costs her attacks: a
+15000 hop gave -0.6 kills against none (12 seeds a variant) and the first version kept a 10000 hop (24000 away, 25000
+forward); players found the dash too short ("vn的位移太短了", 2026-09-30) - the in-range hop is the one they see most - so
+all three are 30000 now (League's 300 against her 550 range): +2.15 / +2.08 against +2.57 / +2.39 before in the same
+batches, the hop often leaving her out of range to walk back in.
 While Final Hour runs each Tumble adds `CasterInvisible {tick: 60}`.
 
 **Knock back, then stun where it lands (league_vayne E, Condemn).** A `TargetProjectile` on `EnemyChampion` whose hit
