@@ -41,7 +41,7 @@
     "description": "#asset/base/text/champion?description.league_riven.attack",
     "duration": 26,
     "cooltime": 62,
-    "start_timing": 11,
+    "start_timing": 1,
     "cancelable": true,
     "range": 25000,
     "casting_type": "Targeting",
@@ -52,38 +52,363 @@
       "effects": [
         {
           "type": "SwitchByBuff",
-          "buff_name": "league_riven_r_armed",
+          "buff_name": "league_riven_r",
           "effect_buff": {
-            "type": "RandomTarget",
-            "range": 35000,
-            "casting_target": "EnemyChampion",
-            "from_projectile": false,
-            "effects": [
-              {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_riven_r_armed"
+            "type": "CasterAnimation",
+            "name": "attack_r",
+            "tick": 26
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": []
+          }
+        },
+        {
+          "type": "Delayed",
+          "tick": 10,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_riven_r_armed",
+                  "effect_buff": {
+                    "type": "RandomTarget",
+                    "range": 35000,
+                    "casting_target": "EnemyChampion",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_riven_r_armed"
+                          },
+                          {
+                            "type": "CasterAnimation",
+                            "name": "ult",
+                            "tick": 31
+                          },
+                          {
+                            "type": "CasterViewEffect",
+                            "name": "league_riven_r_on_back"
+                          },
+                          {
+                            "type": "CasterViewEffect",
+                            "name": "league_riven_r_on_front"
+                          },
+                          {
+                            "type": "Sfx",
+                            "name": "league_riven_r_cast"
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_riven_rune_2",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_riven_rune_1"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_riven_rune_2"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_riven_rune_3"
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_riven_rune_1",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 360
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_riven_rune_2",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 360
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_riven_rune_3",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 360
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_riven_rune_1",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_riven_rune_1"
+                                  },
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_riven_rune_2"
+                                  },
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_riven_rune_3"
+                                  },
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_riven_rune_1",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 360
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  },
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_riven_rune_2",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 360
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_riven_rune_1"
+                                  },
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_riven_rune_2"
+                                  },
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_riven_rune_3"
+                                  },
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_riven_rune_1",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 360
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_riven_r",
+                              "duration": {
+                                "Time": {
+                                  "tick": 900
+                                }
+                              },
+                              "attack_mult": 20,
+                              "range": 8000
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_riven_r_slash_ready",
+                              "duration": {
+                                "Time": {
+                                  "tick": 900
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_riven_r_wait",
+                              "duration": {
+                                "Time": {
+                                  "tick": 300
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      }
+                    ]
                   },
-                  {
-                    "type": "CasterAnimation",
-                    "name": "ult",
-                    "tick": 31
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_riven_r_slash_ready",
+                  "effect_buff": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_riven_r_wait",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": []
+                    },
+                    "effect_none": {
+                      "type": "RandomTarget",
+                      "range": 60000,
+                      "casting_target": "EnemyChampion",
+                      "from_projectile": false,
+                      "effects": [
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_riven_r_slash_ready"
+                            },
+                            {
+                              "type": "CasterAnimation",
+                              "name": "r_slash",
+                              "tick": 29
+                            },
+                            {
+                              "type": "CasterViewEffect",
+                              "name": "league_riven_r_slash_back"
+                            },
+                            {
+                              "type": "Sfx",
+                              "name": "league_riven_r_slash"
+                            },
+                            {
+                              "type": "Delayed",
+                              "tick": 8,
+                              "effects": [
+                                {
+                                  "type": "LinearProjectile",
+                                  "name": "league_riven_r_wave",
+                                  "speed": 4000,
+                                  "range": 70000,
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 16000
+                                    }
+                                  },
+                                  "penetrate": true,
+                                  "y_offset": -15000,
+                                  "applied_target": "EnemyWithoutTower",
+                                  "applied_effects": [
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "Attack",
+                                        "damage": 100,
+                                        "attack_ratio": 100,
+                                        "hp_ratio": 0,
+                                        "target_hp_ratio": 8,
+                                        "attack_effect_type": "Target"
+                                      }
+                                    },
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "ViewEffect",
+                                        "name": "league_riven_r_hit"
+                                      }
+                                    },
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "TargetSfx",
+                                        "name": "league_riven_r_hit"
+                                      }
+                                    }
+                                  ],
+                                  "end_effects": []
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
                   },
-                  {
-                    "type": "CasterViewEffect",
-                    "name": "league_riven_r_on_back"
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_riven_rune_3",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_riven_rune_3"
+                      },
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Attack",
+                            "damage": 0,
+                            "attack_ratio": 135,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_riven_rune_hit"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "league_riven_rune_hit"
+                          }
+                        ]
+                      }
+                    ]
                   },
-                  {
-                    "type": "CasterViewEffect",
-                    "name": "league_riven_r_on_front"
-                  },
-                  {
-                    "type": "Sfx",
-                    "name": "league_riven_r_cast"
-                  },
-                  {
+                  "effect_none": {
                     "type": "SwitchByBuff",
                     "buff_name": "league_riven_rune_2",
                     "effect_buff": {
@@ -91,51 +416,28 @@
                       "effects": [
                         {
                           "type": "RemoveCasterBuff",
-                          "name": "league_riven_rune_1"
-                        },
-                        {
-                          "type": "RemoveCasterBuff",
                           "name": "league_riven_rune_2"
                         },
                         {
-                          "type": "RemoveCasterBuff",
-                          "name": "league_riven_rune_3"
-                        },
-                        {
-                          "type": "AddCasterBuff",
-                          "buff_state": {
-                            "name": "league_riven_rune_1",
-                            "duration": {
-                              "Time": {
-                                "tick": 360
-                              }
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "Attack",
+                              "damage": 0,
+                              "attack_ratio": 135,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_riven_rune_hit"
+                            },
+                            {
+                              "type": "TargetSfx",
+                              "name": "league_riven_rune_hit"
                             }
-                          },
-                          "only_to_enemy": false
-                        },
-                        {
-                          "type": "AddCasterBuff",
-                          "buff_state": {
-                            "name": "league_riven_rune_2",
-                            "duration": {
-                              "Time": {
-                                "tick": 360
-                              }
-                            }
-                          },
-                          "only_to_enemy": false
-                        },
-                        {
-                          "type": "AddCasterBuff",
-                          "buff_state": {
-                            "name": "league_riven_rune_3",
-                            "duration": {
-                              "Time": {
-                                "tick": 360
-                              }
-                            }
-                          },
-                          "only_to_enemy": false
+                          ]
                         }
                       ]
                     },
@@ -150,36 +452,25 @@
                             "name": "league_riven_rune_1"
                           },
                           {
-                            "type": "RemoveCasterBuff",
-                            "name": "league_riven_rune_2"
-                          },
-                          {
-                            "type": "RemoveCasterBuff",
-                            "name": "league_riven_rune_3"
-                          },
-                          {
-                            "type": "AddCasterBuff",
-                            "buff_state": {
-                              "name": "league_riven_rune_1",
-                              "duration": {
-                                "Time": {
-                                  "tick": 360
-                                }
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "Attack",
+                                "damage": 0,
+                                "attack_ratio": 135,
+                                "hp_ratio": 0,
+                                "target_hp_ratio": 0,
+                                "attack_effect_type": "Target"
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "league_riven_rune_hit"
+                              },
+                              {
+                                "type": "TargetSfx",
+                                "name": "league_riven_rune_hit"
                               }
-                            },
-                            "only_to_enemy": false
-                          },
-                          {
-                            "type": "AddCasterBuff",
-                            "buff_state": {
-                              "name": "league_riven_rune_2",
-                              "duration": {
-                                "Time": {
-                                  "tick": 360
-                                }
-                              }
-                            },
-                            "only_to_enemy": false
+                            ]
                           }
                         ]
                       },
@@ -187,285 +478,29 @@
                         "type": "Combine",
                         "effects": [
                           {
-                            "type": "RemoveCasterBuff",
-                            "name": "league_riven_rune_1"
+                            "type": "Attack",
+                            "damage": 0,
+                            "attack_ratio": 100,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
                           },
                           {
-                            "type": "RemoveCasterBuff",
-                            "name": "league_riven_rune_2"
+                            "type": "ViewEffect",
+                            "name": "league_riven_hit"
                           },
                           {
-                            "type": "RemoveCasterBuff",
-                            "name": "league_riven_rune_3"
-                          },
-                          {
-                            "type": "AddCasterBuff",
-                            "buff_state": {
-                              "name": "league_riven_rune_1",
-                              "duration": {
-                                "Time": {
-                                  "tick": 360
-                                }
-                              }
-                            },
-                            "only_to_enemy": false
+                            "type": "TargetSfx",
+                            "name": "league_riven_attack_hit"
                           }
                         ]
                       }
                     }
-                  },
-                  {
-                    "type": "AddCasterBuff",
-                    "buff_state": {
-                      "name": "league_riven_r",
-                      "duration": {
-                        "Time": {
-                          "tick": 900
-                        }
-                      },
-                      "attack_mult": 20,
-                      "range": 8000
-                    },
-                    "only_to_enemy": false
-                  },
-                  {
-                    "type": "AddCasterBuff",
-                    "buff_state": {
-                      "name": "league_riven_r_slash_ready",
-                      "duration": {
-                        "Time": {
-                          "tick": 900
-                        }
-                      }
-                    },
-                    "only_to_enemy": false
-                  },
-                  {
-                    "type": "AddCasterBuff",
-                    "buff_state": {
-                      "name": "league_riven_r_wait",
-                      "duration": {
-                        "Time": {
-                          "tick": 300
-                        }
-                      }
-                    },
-                    "only_to_enemy": false
                   }
-                ]
-              }
-            ]
-          },
-          "effect_none": {
-            "type": "Combine",
-            "effects": []
-          }
-        },
-        {
-          "type": "SwitchByBuff",
-          "buff_name": "league_riven_r_slash_ready",
-          "effect_buff": {
-            "type": "SwitchByBuff",
-            "buff_name": "league_riven_r_wait",
-            "effect_buff": {
-              "type": "Combine",
-              "effects": []
-            },
-            "effect_none": {
-              "type": "RandomTarget",
-              "range": 60000,
-              "casting_target": "EnemyChampion",
-              "from_projectile": false,
-              "effects": [
-                {
-                  "type": "Combine",
-                  "effects": [
-                    {
-                      "type": "RemoveCasterBuff",
-                      "name": "league_riven_r_slash_ready"
-                    },
-                    {
-                      "type": "CasterAnimation",
-                      "name": "r_slash",
-                      "tick": 29
-                    },
-                    {
-                      "type": "CasterViewEffect",
-                      "name": "league_riven_r_slash_back"
-                    },
-                    {
-                      "type": "Sfx",
-                      "name": "league_riven_r_slash"
-                    },
-                    {
-                      "type": "Delayed",
-                      "tick": 8,
-                      "effects": [
-                        {
-                          "type": "LinearProjectile",
-                          "name": "league_riven_r_wave",
-                          "speed": 4000,
-                          "range": 70000,
-                          "shape": {
-                            "Circle": {
-                              "radius": 16000
-                            }
-                          },
-                          "penetrate": true,
-                          "y_offset": -15000,
-                          "applied_target": "EnemyWithoutTower",
-                          "applied_effects": [
-                            {
-                              "casting_type": "Targeting",
-                              "effect": {
-                                "type": "Attack",
-                                "damage": 100,
-                                "attack_ratio": 100,
-                                "hp_ratio": 0,
-                                "target_hp_ratio": 8,
-                                "attack_effect_type": "Target"
-                              }
-                            },
-                            {
-                              "casting_type": "Targeting",
-                              "effect": {
-                                "type": "TargetSfx",
-                                "name": "league_riven_r_hit"
-                              }
-                            }
-                          ],
-                          "end_effects": []
-                        }
-                      ]
-                    }
-                  ]
                 }
               ]
             }
-          },
-          "effect_none": {
-            "type": "Combine",
-            "effects": []
-          }
-        },
-        {
-          "type": "SwitchByBuff",
-          "buff_name": "league_riven_rune_3",
-          "effect_buff": {
-            "type": "Combine",
-            "effects": [
-              {
-                "type": "RemoveCasterBuff",
-                "name": "league_riven_rune_3"
-              },
-              {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "Attack",
-                    "damage": 0,
-                    "attack_ratio": 135,
-                    "hp_ratio": 0,
-                    "target_hp_ratio": 0,
-                    "attack_effect_type": "Target"
-                  },
-                  {
-                    "type": "ViewEffect",
-                    "name": "league_riven_rune_hit"
-                  },
-                  {
-                    "type": "TargetSfx",
-                    "name": "league_riven_rune_hit"
-                  }
-                ]
-              }
-            ]
-          },
-          "effect_none": {
-            "type": "SwitchByBuff",
-            "buff_name": "league_riven_rune_2",
-            "effect_buff": {
-              "type": "Combine",
-              "effects": [
-                {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_riven_rune_2"
-                },
-                {
-                  "type": "Combine",
-                  "effects": [
-                    {
-                      "type": "Attack",
-                      "damage": 0,
-                      "attack_ratio": 135,
-                      "hp_ratio": 0,
-                      "target_hp_ratio": 0,
-                      "attack_effect_type": "Target"
-                    },
-                    {
-                      "type": "ViewEffect",
-                      "name": "league_riven_rune_hit"
-                    },
-                    {
-                      "type": "TargetSfx",
-                      "name": "league_riven_rune_hit"
-                    }
-                  ]
-                }
-              ]
-            },
-            "effect_none": {
-              "type": "SwitchByBuff",
-              "buff_name": "league_riven_rune_1",
-              "effect_buff": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_riven_rune_1"
-                  },
-                  {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "Attack",
-                        "damage": 0,
-                        "attack_ratio": 135,
-                        "hp_ratio": 0,
-                        "target_hp_ratio": 0,
-                        "attack_effect_type": "Target"
-                      },
-                      {
-                        "type": "ViewEffect",
-                        "name": "league_riven_rune_hit"
-                      },
-                      {
-                        "type": "TargetSfx",
-                        "name": "league_riven_rune_hit"
-                      }
-                    ]
-                  }
-                ]
-              },
-              "effect_none": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "Attack",
-                    "damage": 0,
-                    "attack_ratio": 100,
-                    "hp_ratio": 0,
-                    "target_hp_ratio": 0,
-                    "attack_effect_type": "Target"
-                  },
-                  {
-                    "type": "TargetSfx",
-                    "name": "league_riven_attack_hit"
-                  }
-                ]
-              }
-            }
-          }
+          ]
         }
       ]
     }
@@ -492,9 +527,18 @@
             "name": "league_riven_q_2"
           },
           {
-            "type": "CasterAnimation",
-            "name": "q3",
-            "tick": 31
+            "type": "SwitchByBuff",
+            "buff_name": "league_riven_r",
+            "effect_buff": {
+              "type": "CasterAnimation",
+              "name": "q3_r",
+              "tick": 31
+            },
+            "effect_none": {
+              "type": "CasterAnimation",
+              "name": "q3",
+              "tick": 31
+            }
           },
           {
             "type": "CasterViewEffect",
@@ -685,6 +729,14 @@
                       "duration": 45
                     },
                     {
+                      "type": "ViewEffect",
+                      "name": "league_riven_knockup"
+                    },
+                    {
+                      "type": "ViewEffect",
+                      "name": "league_riven_q_hit"
+                    },
+                    {
                       "type": "TargetSfx",
                       "name": "league_riven_q_hit"
                     }
@@ -711,6 +763,14 @@
                     {
                       "type": "Airborne",
                       "duration": 45
+                    },
+                    {
+                      "type": "ViewEffect",
+                      "name": "league_riven_knockup"
+                    },
+                    {
+                      "type": "ViewEffect",
+                      "name": "league_riven_q_hit"
                     },
                     {
                       "type": "TargetSfx",
@@ -746,9 +806,18 @@
               "only_to_enemy": false
             },
             {
-              "type": "CasterAnimation",
-              "name": "q2",
-              "tick": 28
+              "type": "SwitchByBuff",
+              "buff_name": "league_riven_r",
+              "effect_buff": {
+                "type": "CasterAnimation",
+                "name": "q2_r",
+                "tick": 28
+              },
+              "effect_none": {
+                "type": "CasterAnimation",
+                "name": "q2",
+                "tick": 28
+              }
             },
             {
               "type": "CasterViewEffect",
@@ -931,6 +1000,10 @@
                         "attack_effect_type": "Target"
                       },
                       {
+                        "type": "ViewEffect",
+                        "name": "league_riven_q_hit"
+                      },
+                      {
                         "type": "TargetSfx",
                         "name": "league_riven_q_hit"
                       }
@@ -953,6 +1026,10 @@
                         "hp_ratio": 0,
                         "target_hp_ratio": 0,
                         "attack_effect_type": "Target"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "league_riven_q_hit"
                       },
                       {
                         "type": "TargetSfx",
@@ -981,9 +1058,18 @@
               "only_to_enemy": false
             },
             {
-              "type": "CasterAnimation",
-              "name": "skill",
-              "tick": 28
+              "type": "SwitchByBuff",
+              "buff_name": "league_riven_r",
+              "effect_buff": {
+                "type": "CasterAnimation",
+                "name": "skill_r",
+                "tick": 28
+              },
+              "effect_none": {
+                "type": "CasterAnimation",
+                "name": "skill",
+                "tick": 28
+              }
             },
             {
               "type": "CasterViewEffect",
@@ -1166,6 +1252,10 @@
                         "attack_effect_type": "Target"
                       },
                       {
+                        "type": "ViewEffect",
+                        "name": "league_riven_q_hit"
+                      },
+                      {
                         "type": "TargetSfx",
                         "name": "league_riven_q_hit"
                       }
@@ -1188,6 +1278,10 @@
                         "hp_ratio": 0,
                         "target_hp_ratio": 0,
                         "attack_effect_type": "Target"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "league_riven_q_hit"
                       },
                       {
                         "type": "TargetSfx",
@@ -1234,13 +1328,29 @@
               "attack_ratio": 70,
               "ap_ratio": 0,
               "tick": 90
+            },
+            {
+              "type": "AddBuff",
+              "buff_state": {
+                "name": "league_riven_e_shield",
+                "duration": "WithShield"
+              }
             }
           ]
         },
         {
-          "type": "CasterAnimation",
-          "name": "skill2",
-          "tick": 33
+          "type": "SwitchByBuff",
+          "buff_name": "league_riven_r",
+          "effect_buff": {
+            "type": "CasterAnimation",
+            "name": "skill2_r",
+            "tick": 33
+          },
+          "effect_none": {
+            "type": "CasterAnimation",
+            "name": "skill2",
+            "tick": 33
+          }
         },
         {
           "type": "CasterViewEffect",
@@ -1570,6 +1680,10 @@
                     "duration": 45
                   },
                   {
+                    "type": "ViewEffect",
+                    "name": "league_riven_stun"
+                  },
+                  {
                     "type": "TargetSfx",
                     "name": "league_riven_w_hit"
                   }
@@ -1596,6 +1710,10 @@
                   {
                     "type": "Stun",
                     "duration": 45
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "league_riven_stun"
                   },
                   {
                     "type": "TargetSfx",
@@ -1946,6 +2064,13 @@
                                 {
                                   "casting_type": "Targeting",
                                   "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_riven_r_hit"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
                                     "type": "TargetSfx",
                                     "name": "league_riven_r_hit"
                                   }
@@ -2034,6 +2159,13 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -2132,6 +2264,13 @@
                                 {
                                   "casting_type": "Targeting",
                                   "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_riven_r_hit"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
                                     "type": "TargetSfx",
                                     "name": "league_riven_r_hit"
                                   }
@@ -2220,6 +2359,13 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -2318,6 +2464,13 @@
                                 {
                                   "casting_type": "Targeting",
                                   "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_riven_r_hit"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
                                     "type": "TargetSfx",
                                     "name": "league_riven_r_hit"
                                   }
@@ -2406,6 +2559,13 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -2504,6 +2664,13 @@
                                 {
                                   "casting_type": "Targeting",
                                   "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_riven_r_hit"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
                                     "type": "TargetSfx",
                                     "name": "league_riven_r_hit"
                                   }
@@ -2592,6 +2759,13 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -2690,6 +2864,13 @@
                                 {
                                   "casting_type": "Targeting",
                                   "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_riven_r_hit"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
                                     "type": "TargetSfx",
                                     "name": "league_riven_r_hit"
                                   }
@@ -2778,6 +2959,13 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -2876,6 +3064,13 @@
                                 {
                                   "casting_type": "Targeting",
                                   "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_riven_r_hit"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
                                     "type": "TargetSfx",
                                     "name": "league_riven_r_hit"
                                   }
@@ -2964,6 +3159,13 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -3062,6 +3264,13 @@
                                 {
                                   "casting_type": "Targeting",
                                   "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_riven_r_hit"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
                                     "type": "TargetSfx",
                                     "name": "league_riven_r_hit"
                                   }
@@ -3150,6 +3359,13 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -3248,6 +3464,13 @@
                                 {
                                   "casting_type": "Targeting",
                                   "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_riven_r_hit"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
                                     "type": "TargetSfx",
                                     "name": "league_riven_r_hit"
                                   }
@@ -3336,6 +3559,13 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -3434,6 +3664,13 @@
                                 {
                                   "casting_type": "Targeting",
                                   "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_riven_r_hit"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
                                     "type": "TargetSfx",
                                     "name": "league_riven_r_hit"
                                   }
@@ -3522,6 +3759,13 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -3620,6 +3864,13 @@
                                 {
                                   "casting_type": "Targeting",
                                   "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_riven_r_hit"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
                                     "type": "TargetSfx",
                                     "name": "league_riven_r_hit"
                                   }
@@ -3708,6 +3959,13 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -3806,6 +4064,13 @@
                                 {
                                   "casting_type": "Targeting",
                                   "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_riven_r_hit"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
                                     "type": "TargetSfx",
                                     "name": "league_riven_r_hit"
                                   }
@@ -3894,6 +4159,13 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -3992,6 +4264,13 @@
                                 {
                                   "casting_type": "Targeting",
                                   "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_riven_r_hit"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
                                     "type": "TargetSfx",
                                     "name": "league_riven_r_hit"
                                   }
@@ -4080,6 +4359,13 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -4178,6 +4464,13 @@
                                 {
                                   "casting_type": "Targeting",
                                   "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_riven_r_hit"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
                                     "type": "TargetSfx",
                                     "name": "league_riven_r_hit"
                                   }
@@ -4266,6 +4559,13 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -4364,6 +4664,13 @@
                                 {
                                   "casting_type": "Targeting",
                                   "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_riven_r_hit"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
                                     "type": "TargetSfx",
                                     "name": "league_riven_r_hit"
                                   }
@@ -4452,6 +4759,13 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -4550,6 +4864,13 @@
                                 {
                                   "casting_type": "Targeting",
                                   "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_riven_r_hit"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
                                     "type": "TargetSfx",
                                     "name": "league_riven_r_hit"
                                   }
@@ -4638,6 +4959,13 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -4736,6 +5064,13 @@
                                 {
                                   "casting_type": "Targeting",
                                   "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_riven_r_hit"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
                                     "type": "TargetSfx",
                                     "name": "league_riven_r_hit"
                                   }
@@ -4824,6 +5159,13 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -4922,6 +5264,13 @@
                                 {
                                   "casting_type": "Targeting",
                                   "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_riven_r_hit"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
                                     "type": "TargetSfx",
                                     "name": "league_riven_r_hit"
                                   }
@@ -5010,6 +5359,13 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -5108,6 +5464,13 @@
                                 {
                                   "casting_type": "Targeting",
                                   "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_riven_r_hit"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
                                     "type": "TargetSfx",
                                     "name": "league_riven_r_hit"
                                   }
@@ -5196,6 +5559,13 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -5294,6 +5664,13 @@
                                 {
                                   "casting_type": "Targeting",
                                   "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_riven_r_hit"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
                                     "type": "TargetSfx",
                                     "name": "league_riven_r_hit"
                                   }
@@ -5382,6 +5759,13 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -5480,6 +5864,13 @@
                                 {
                                   "casting_type": "Targeting",
                                   "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_riven_r_hit"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
                                     "type": "TargetSfx",
                                     "name": "league_riven_r_hit"
                                   }
@@ -5568,6 +5959,13 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -5714,11 +6112,94 @@
     },
     {
       "type": "Animation",
+      "name": "league_riven_hit",
+      "anim": "asset/league/effects/league_riven_fx",
+      "tag": "hit",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
       "name": "league_riven_rune_hit",
       "anim": "asset/league/effects/league_riven_fx",
       "tag": "rune_hit",
-      "z": 1
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_riven_q_hit",
+      "anim": "asset/league/effects/league_riven_fx",
+      "tag": "q_hit",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_riven_r_hit",
+      "anim": "asset/league/effects/league_riven_fx",
+      "tag": "r_hit",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_riven_knockup",
+      "anim": "asset/league/effects/league_riven_fx",
+      "tag": "knockup",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_riven_stun",
+      "anim": "asset/league/effects/league_riven_fx",
+      "tag": "stun",
+      "z": 1,
+      "is_follow": true
     }
   ],
-  "view_buffs": []
+  "view_buffs": [
+    {
+      "type": "ThreePhase",
+      "name": "league_riven_e_shield",
+      "anim": "asset/league/effects/league_riven_big",
+      "pre_tag": "shield_in",
+      "loop_tag": "shield",
+      "remove_tag": "shield_out",
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_riven_rune_1",
+      "anim": "asset/league/effects/league_riven_fx",
+      "tag": "rune_1",
+      "repeat": true,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_riven_rune_2",
+      "anim": "asset/league/effects/league_riven_fx",
+      "tag": "rune_2",
+      "repeat": true,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_riven_rune_3",
+      "anim": "asset/league/effects/league_riven_fx",
+      "tag": "rune_3",
+      "repeat": true,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_riven_r",
+      "anim": "asset/league/effects/league_riven_big",
+      "tag": "r_aura",
+      "repeat": true,
+      "z": -1
+    }
+  ]
 }

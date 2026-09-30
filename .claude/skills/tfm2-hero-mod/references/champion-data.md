@@ -1498,6 +1498,16 @@ only, 1.3 slashes; with a 90000 reach 1.9 slashes but 0.9 champion hits (the wav
 After the cast most fights were over within 5 s (she often walked off), which is why the wait is kept short of the
 buff and the checks run on their own.
 
+**The weapon reforged while the ult lasts (league_riven R, the user's option B).** The engine plays `idle` and `run`
+by itself, so they cannot change with a buff; every action can. Her strips that show the sword have `_r` twins with
+the reforged blade (`attack_r`, `skill_r`, `q2_r`, `q3_r`, `skill2_r`; the ult and Wind Slash, which only happen
+inside R, were redrawn in place), and each action picks one by `SwitchByBuff league_riven_r`: Q and E+W in their
+`CasterAnimation`, the basic attack at `start_timing` 1 (`CasterAnimation attack_r` or nothing) with its hit in a
+`Delayed` to tick 11, where it landed before (league_yone's second slash is picked the same way). While she stands
+or walks the broken blade shows, under an aura bound to the same buff (`view_buffs`, z -1). Her E shield shows as
+a `ThreePhase` picture on an `AddBuff` of duration `WithShield` next to the `Shield` (league_morgana's E), and the
+runes as one `view_buffs` glyph each on `rune_1`..`rune_3`, so as many glyphs light over her head as she holds.
+
 ## 8. Gotchas
 
 - `action_name` / `CasterAnimation.name` must be real sprite tags. Two LoL Reborn heroes use

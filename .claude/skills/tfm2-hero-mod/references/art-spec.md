@@ -470,6 +470,13 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   and the target's collision radii (about 17000 together), where a standing point is still hit. A piece that
   flies on (Wind Slash's crescent) is cut from the slash's own frames round the point the projectile's
   `y_offset` lifts its picture to, and mirrored top to bottom.
+  Effects that sit on a unit rather than on her strips (her second pack, `PROMPTS_FX2.md`) were asked for in fixed
+  cells with an anchor each (`fx2_cells.json`: 24x24 for a hit, 48x56 round her for the shield) and a guide per
+  effect showing the unit's standing point, feet line and silhouette; they are cut round the unit's standing point
+  the anchor is drawn from (a hit 8 px over it, a stun ring 28 px, her rune glyphs 40 px). A weapon changed for an
+  ult (her reforged blade) was drawn over the finished strips with the body pixel for pixel kept:
+  `tools/art/tidy_riven.py --blade` diffs each against the strip it came from (only empty squares filled and the
+  blade's own rune green lit, nothing removed, nothing round the eyes, nothing under the feet line).
 - **Review before shipping.** Per-strip sheets with the idle silhouette overlaid, `metrics`,
   a side-by-side with base champions at 1x and 3x, and a scripted showcase against a dummy.
 
