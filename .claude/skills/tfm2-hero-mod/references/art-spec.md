@@ -500,6 +500,13 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   per-frame table of which leg is planted, passing or kicked back (`assets/source/vayne/MODEL_RUN_REDO.md`). Codex's
   redraw from it came back right in one round: the near leg planted in frames 8, 1, 2, the far one in 4, 5, 6, the
   knees crossing in 2-3 and 6-7, the near leg told apart by its brighter knee guard.
+- **A picture round the hero goes under her, not round a hole (league_vayne).** Asked to "leave a figure-shaped empty
+  space", Codex also cleared a rectangle in the middle of every Final Hour cell of its export (x 22.5-77.5%, y
+  17-89%): the flare's rays, the refresh's ring and most of the aura's motes went. Its raw sheets still had them; drawn
+  under the units (`z` -1 on the view) the hero's own body covers the middle, whatever her pose. Its exports also put
+  one game pixel on every 8x8 block of the layout canvas (a basic bolt 29 px long, a hit 20): the size comes from the
+  kit, so `import_vayne.py --raw` samples the raw sheets (`rawRect` per frame) to it, x and y apart where the tool
+  squeezed a strip's frames into its fixed canvas.
 - **Effect anchors.** Effect and buff frames are drawn centred on the unit's pivot, 11.5 px above
   the feet (base: `levelup_effect` ring at +9..+16, `shield_receive_effect` bubble -22..+13).
   Ground rings at about +10, hits and shields at -3..-6, overhead marks around -25. Time the

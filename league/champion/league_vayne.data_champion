@@ -1491,7 +1491,7 @@
       "name": "league_vayne_q_roll",
       "anim": "asset/league/effects/league_vayne_fx",
       "tag": "q_roll",
-      "z": 1,
+      "z": -1,
       "is_follow": false
     },
     {
@@ -1515,7 +1515,7 @@
       "name": "league_vayne_r_cast",
       "anim": "asset/league/effects/league_vayne_fx",
       "tag": "r_cast",
-      "z": 1,
+      "z": -1,
       "is_follow": true
     },
     {
@@ -1523,7 +1523,7 @@
       "name": "league_vayne_r_refresh",
       "anim": "asset/league/effects/league_vayne_fx",
       "tag": "r_refresh",
-      "z": 1,
+      "z": -1,
       "is_follow": true
     }
   ],
@@ -1533,7 +1533,7 @@
       "name": "league_vayne_r",
       "anim": "asset/league/effects/league_vayne_fx",
       "tag": "r_aura",
-      "z": 1
+      "z": -1
     }
   ]
 }
