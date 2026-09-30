@@ -48,6 +48,11 @@ MOD = os.path.join(ROOT, "league")
 HEAD_ROWS = 12                  # idle frame 1's top rows: the head
 SURE = 0.9                      # share of the head's pixels that must match exactly
 STEADY = ("idle", "run")
+# hero: rows every frame moves down, but never past the soles row (SOLES under the pivot): a hero drawn floating
+# who should stand on the ground. Nami floated 3 px like Janna, so in the collection grid (every hero's feet on one
+# line) she sat high; the user: "整体下移 3 格、去掉浮空". Frames already on the ground stay (R's landing, her death).
+SINK = {"nami": 3}
+SOLES = 11
 ORDER = {("lux", "idle"): [0, 0, 0, 0, 0, 0],   # the step-2 idle is the design in all six (was 0 1 2 3 5 4)
          # League leans his upper body a square forward in idle 4-5 and back in 6, and every frame's head
          # is voted anew, so the face swung and changed shape as he breathed (the user). Frame 1 in every
@@ -157,8 +162,9 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        ("briar", "idle"): (5, [2, 3, 4]),
        # Vayne: the seam across her shins, where the silhouette changes by 4 squares; her boots stay
        ("vayne", "idle"): (5, [2, 3, 4]),
-       # Nami floats like Janna: all of her, down to the fin 3 px above the ground, sinks a row and rises again
-       ("nami", "idle"): (12, [2, 3, 4])}
+       # Nami (on the ground since SINK): all of her but the fin's tip and the staff's foot sinks a row and rises
+       # again, as when she floated; the seam where two rows differ least (4 squares)
+       ("nami", "idle"): (8, [2, 3, 4])}
 CROWN = {"leesin"}              # heroes whose head template starts at the crown (a braid stands above it)
 PASTED = {"masteryi"}            # steadied on the head restyle_native pasted: his raised sword is the top of every frame
 # Codex's step-2 redraw (model_strips_18, tidied by tidy_codex18.py): the approved design's head (or face) is in every
@@ -311,10 +317,20 @@ def build(hero):
             target = round(sum(sure) / len(sure))
             dx = [0 if h is None else target - h for h in hx]
         order = ORDER.get((hero, tag), range(len(fr)))
-        sheet[tag] = [(G.centre_frame(fr[k], dx[k] - rows[k]["pivot"][0], -rows[k]["pivot"][1]), rows[slot]["ms"])
-                      for slot, k in enumerate(order)]
+        sheet[tag] = [(G.centre_frame(fr[k], dx[k] - rows[k]["pivot"][0], sunk(hero, fr[k], rows[k]["pivot"][1])),
+                       rows[slot]["ms"]) for slot, k in enumerate(order)]
         report[tag] = [(None if hx[k] is None else hx[k] + dx[k], dx[k]) for k in order]
     return sheet, report
+
+
+def sunk(hero, frame, py):
+    """The frame's row offset for centre_frame: -py, plus the rows SINK moves it down (as far as the soles row lets
+    its lowest pixel go)."""
+    n = SINK.get(hero, 0)
+    ys = np.nonzero(frame[..., 3].any(1))[0]
+    if n and len(ys):
+        n = max(0, min(n, SOLES - (ys[-1] - py)))
+    return -py + n
 
 
 def touch_up(hero, sheet):

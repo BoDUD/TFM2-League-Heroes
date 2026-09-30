@@ -38,6 +38,10 @@
       "center": {
         "x": 0,
         "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -7
       }
     },
     "league_soraka": {
@@ -48,6 +52,10 @@
       "center": {
         "x": 0,
         "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
       }
     },
     "league_darius": {
@@ -58,6 +66,10 @@
       "center": {
         "x": 0,
         "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -9
       }
     },
     "league_amumu": {
@@ -98,6 +110,10 @@
       "center": {
         "x": 0,
         "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
       }
     },
     "league_teemo": {
@@ -118,6 +134,10 @@
       "center": {
         "x": 0,
         "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": 5
       }
     },
     "league_annie": {
@@ -148,6 +168,10 @@
       "center": {
         "x": 0,
         "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -2
       }
     },
     "league_malphite": {
@@ -158,6 +182,10 @@
       "center": {
         "x": 0,
         "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -4
       }
     },
     "league_ekko": {
@@ -178,6 +206,10 @@
       "center": {
         "x": 0,
         "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -9
       }
     },
     "league_ezreal": {
@@ -198,6 +230,10 @@
       "center": {
         "x": 0,
         "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
       }
     },
     "league_fiddlesticks": {
@@ -208,6 +244,10 @@
       "center": {
         "x": 2,
         "y": -14
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -4
       }
     },
     "league_kayle": {
@@ -242,6 +282,10 @@
       "center": {
         "x": 0,
         "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -6
       }
     },
     "league_lucian": {
@@ -252,6 +296,10 @@
       "center": {
         "x": 0,
         "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -5
       }
     },
     "league_briar": {
@@ -262,6 +310,10 @@
       "center": {
         "x": 0,
         "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -5
       }
     },
     "league_riven": {
@@ -295,7 +347,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": 2
+        "y": -1
       }
     }
   }

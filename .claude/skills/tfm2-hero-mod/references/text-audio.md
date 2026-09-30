@@ -82,7 +82,8 @@ the sprite is clipped to the canvas** (shield_bearer loses its shield top, execu
 foot row); without it the sprite may stick out above the card (league_lucian, league_malphite).
 The canvas holds ~40 px: a hero whose idle reaches higher than -28 sticks out, and base's answer
 for its tall ones is y = -39 - (highest idle row), head 1 px under the canvas top and the feet
-hidden by the name band (league_nami 2, league_kayle 0). The collection grid
+hidden by the name band; every League hero whose idle reaches above -28 has it (league_masteryi +5
+for his sword, league_kayle 0, league_nami -1 ... league_thresh -10). The collection grid
 (`new_game_component/custom_champion_slot`) ignores it: every hero's feet sit on the image bottom
 there (executioner's -10 too), so a hover shows as sitting higher. The tier-list card
 (`champion_info_component/champion_slot`, 85x93 image) cut league_nami's crown as well; how it

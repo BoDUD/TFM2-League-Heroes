@@ -78,7 +78,7 @@ def showcase(out, z=3, step=40):
         fx_at(small, tag, launch, x0, y0, until=arrive, x1=tx, y1=ty - 8)
         return arrive
 
-    orb = (x + 16, gy - 20)                           # the staff's orb when she thrusts it
+    orb = (x + 16, gy - 17)                           # the staff's orb when she thrusts it
     # she swims in; Garen walks up behind Darius
     run_in = Anim(frames_of(nami, "run"), 0.0, x - 44, gy, loop=True, until=1000, x1=x)
     body.append(run_in)
