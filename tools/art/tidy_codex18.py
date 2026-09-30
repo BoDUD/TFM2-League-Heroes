@@ -385,6 +385,8 @@ def atlas_pivots(delivery, h, tag):
     if not os.path.exists(p):
         return None
     m = json.load(open(p, encoding="utf-8-sig"))
+    if not isinstance(m, dict):             # a plain list of frames: drawn at our pivots already (Darius's redo)
+        return None
     return [f["pivot"] for f in m.get("atlas", {}).get("frames", [])] or None
 
 
