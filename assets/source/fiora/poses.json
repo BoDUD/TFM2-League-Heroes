@@ -1,0 +1,294 @@
+{
+ "hero": "fiora",
+ "champ": "Fiora",
+ "camera": {
+  "yaw": 45,
+  "pitch": 25,
+  "mirror": false
+ },
+ "chibi": {
+  "head": 2.3,
+  "legs": 0.8,
+  "hair": 0.6,
+  "scale": {
+   "Weapon": 2.0
+  }
+ },
+ "weapon": "^Weapon$",
+ "glue": {
+  "joint": "Weapon",
+  "to": "R_Hand"
+ },
+ "height": 40,
+ "cell": [
+  120,
+  112,
+  14
+ ],
+ "design": "Fiora_Idle1@0",
+ "tags": {
+  "idle": {
+   "frames": [
+    [
+     "Fiora_Idle1@0",
+     200
+    ],
+    [
+     "Fiora_Idle1@0",
+     200
+    ],
+    [
+     "Fiora_Idle1@0",
+     200
+    ],
+    [
+     "Fiora_Idle1@0",
+     200
+    ],
+    [
+     "Fiora_Idle1@0",
+     200
+    ],
+    [
+     "Fiora_Idle1@0",
+     200
+    ]
+   ]
+  },
+  "run": {
+   "flat": true,
+   "head_like": "Fiora_Idle1@0",
+   "frames": [
+    [
+     "fiora_runwalk@0",
+     114
+    ],
+    [
+     "fiora_runwalk@125",
+     114
+    ],
+    [
+     "fiora_runwalk@250",
+     114
+    ],
+    [
+     "fiora_runwalk@375",
+     114
+    ],
+    [
+     "fiora_runwalk@500",
+     114
+    ],
+    [
+     "fiora_runwalk@625",
+     114
+    ],
+    [
+     "fiora_runwalk@750",
+     114
+    ],
+    [
+     "fiora_runwalk@875",
+     114
+    ]
+   ]
+  },
+  "attack": {
+   "lunge": 0.7,
+   "frames": [
+    [
+     "Fiora_Idle1@0>fiora_attack1@100:0.5",
+     60
+    ],
+    [
+     "fiora_attack1@200",
+     60
+    ],
+    [
+     "fiora_attack1@300",
+     50
+    ],
+    [
+     "fiora_attack1@390",
+     70
+    ],
+    [
+     "fiora_attack1@500",
+     80
+    ],
+    [
+     "fiora_attack1@700>Fiora_Idle1@0:0.6",
+     90
+    ]
+   ]
+  },
+  "attack_e": {
+   "lunge": 0.7,
+   "frames": [
+    [
+     "Fiora_Idle1@0>fiora_crit@60:0.5",
+     60
+    ],
+    [
+     "fiora_crit@150",
+     60
+    ],
+    [
+     "fiora_crit@250",
+     50
+    ],
+    [
+     "fiora_crit@340",
+     70
+    ],
+    [
+     "fiora_crit@500",
+     80
+    ],
+    [
+     "fiora_crit@800>Fiora_Idle1@0:0.6",
+     90
+    ]
+   ]
+  },
+  "skill": {
+   "lunge": 0.7,
+   "frames": [
+    [
+     "Fiora_Idle1@0>fiora_spell1@0:0.5",
+     60
+    ],
+    [
+     "fiora_spell1@130",
+     60
+    ],
+    [
+     "fiora_spell1@260",
+     60
+    ],
+    [
+     "fiora_crit@300",
+     60
+    ],
+    [
+     "fiora_crit@380",
+     90
+    ],
+    [
+     "fiora_crit@650>Fiora_Idle1@0:0.5",
+     100
+    ]
+   ]
+  },
+  "skill2": {
+   "lunge": 0.6,
+   "frames": [
+    [
+     "Fiora_Idle1@0>fiora_spell2_in@100:0.6",
+     250
+    ],
+    [
+     "fiora_spell2_in@350",
+     250
+    ],
+    [
+     "fiora_spell2_in@650",
+     250
+    ],
+    [
+     "fiora_spell2@0",
+     80
+    ],
+    [
+     "fiora_spell2@90",
+     80
+    ],
+    [
+     "fiora_spell2@180",
+     80
+    ],
+    [
+     "fiora_spell2@300>Fiora_Idle1@0:0.4",
+     80
+    ]
+   ]
+  },
+  "ult": {
+   "frames": [
+    [
+     "Fiora_Idle1@0>fiora_taunt@300:0.6",
+     80
+    ],
+    [
+     "fiora_taunt@600",
+     80
+    ],
+    [
+     "fiora_taunt@900",
+     100
+    ],
+    [
+     "fiora_taunt@1300",
+     120
+    ],
+    [
+     "fiora_taunt@2100>Fiora_Idle1@0:0.5",
+     120
+    ]
+   ]
+  },
+  "hit": {
+   "flat": true,
+   "frames": [
+    [
+     "Fiora_Idle1@0>fiora_death@120:0.3",
+     100
+    ],
+    [
+     "Fiora_Idle1@0>fiora_death@120:0.12",
+     100
+    ]
+   ]
+  },
+  "dead": {
+   "anchor": "first",
+   "lunge": 0.5,
+   "flat": true,
+   "travel": 0.3,
+   "frames": [
+    [
+     "fiora_death@0",
+     100
+    ],
+    [
+     "fiora_death@300",
+     100
+    ],
+    [
+     "fiora_death@800",
+     100
+    ],
+    [
+     "fiora_death@1600",
+     120
+    ],
+    [
+     "fiora_death@2700",
+     120
+    ],
+    [
+     "fiora_death@2900",
+     120
+    ],
+    [
+     "fiora_death@3100",
+     150
+    ],
+    [
+     "fiora_death@3700",
+     400
+    ]
+   ]
+  }
+ }
+}
