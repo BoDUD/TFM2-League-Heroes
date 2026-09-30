@@ -1038,6 +1038,8 @@ a game; league_fiddlesticks 2.81, league_leesin 1.71, league_amumu 1.69, league_
 in the same batch - no change.
 league_vayne (bottom, 2026-09-30, Condemn's knockback and 1 s stun): 1.75 a game; the base archer 0.65, league_ashe
 0.65 and league_lucian 0.44 in the same batch - no change.
+league_veigar (mid, 2026-09-30, Event Horizon's cage: a 1 s stun on every champion it catches): 2.40 a game; the base
+lightning mage 3.19 and pyromancer 0.65 in the same batch - no change.
 
 **Kill trigger (league_jinx Get Excited!).** No effect fires on a kill, but section 4's facts make one:
 1. Next to the damaging projectile, fire an invisible twin with the same speed and path and
@@ -1778,6 +1780,42 @@ reversed-grip thrust (`attack_r`).
 150 ticks (`gm_1`, `gm_2`), refreshed by every attack: without `r_on`, `gm_2` -> the proc (the bonus
 `ApAttack`, both counters removed), `gm_1` -> swapped for `gm_2`, neither -> `gm_1`; with `r_on`, either counter -> the
 proc. The counters' duration is League's 2.5 s window. It works from level 1 (nothing reads level 5).
+
+**Ability power that stays until he dies (league_veigar Phenomenal Evil Power).** No native passive of game 0.6 stacks
+ability power (`ghost` adds attack and attack speed, `dancer` only counts kills), so every stack is one more instance of
+a `Permanent` caster buff with `magic_power: 1` - instances add up (section 5) and nothing needs to count them. A spell
+hit on an enemy champion adds one: Q through a champion-only `TargetProjectile` fired a tick after each of its first two
+hits (league_akali's twin), the cage through a second `ApplyInProjectile` on `EnemyChampion`, W through a champion twin
+of its `RangeProjectile`, R on its own hit. A unit Q kills adds one (the kill trigger on each of Q's first two hits,
+a flag each), a champion he kills five (the kill trigger on champion-only twins of the attack, Q and W, and on R's
+bolt). Death clears them all (section 5): in one simulated game he had 92 by 7.8 minutes and none after he died at 7.9.
+
+**A bolt through the first two (league_veigar Q, Baleful Strike).** A `Direction` cast on `EnemyWithoutTower` fires a
+penetrating `LinearProjectile`; its applied effects walk two caster flags from the top - with `q_n2` nothing, with
+`q_n1` the second hit (the damage, then `q_n2`), else the first (the damage, then `q_n1`). The flags last 20 ticks (the
+flight takes 14) and the cast clears them first. In 72 casts of one game 39 hit two units, 25 one, 8 none, none three.
+
+**A cage that stuns whoever touches it, Dark Matter on its centre (league_veigar E with W folded in).** A `Targeting`
+cast on `EnemyChampion`; 24 ticks after the release a hidden `ParabolicProjectile` (`travel_time` 1, league_annie R)
+lands on the champion's spot and its `end_effects` start everything there: the cage's picture and W's two (the target
+ellipse, shockwave and scorch at `z` -1 under the units, the sphere and its burst over them) as `ViewEffect`s on the
+point (away from the caster, so they show - league_thresh R); two `ApplyInProjectile` (tick
+180, circle 28000) - one on `EnemyWithoutTower` with `Stun` 60, which reaches every unit once, one walking in
+later on the tick it touches the edge (section 4), and a twin on `EnemyChampion` for the stack and R's ladder; and W as
+two `RangeProjectile`s (circle 22000, `delay` = `apply` = 45) on the same centre: the damage on
+`EnemyWithoutTower`, its champion twin the stack, the ladder and the kill trigger. League stuns only a unit that
+crosses the cage's edge; a zone is a disc, so whoever stands inside when it forms is stunned at once. W lands
+0.75 s after the cage forms, inside the stun. In one game of the first draft 17 casts stunned 26 champions and 22
+minions (the stun was 1.5 s then; 1 s since the balance pass).
+
+**R stronger for every spell hit in a row (league_veigar R, Primordial Burst).** League adds up to 100% against the
+target's missing health; nothing reads health (section 3), so it counts his own work like league_akali R2: every spell
+hit on a champion walks the rungs `r_s1`..`r_s4` from the top and re-adds all of them with a fresh 240 ticks (remove,
+then add), so the ladder lasts 4 s after the last hit rather than the first and never has a gap. R's bolt reads it from
+the top when it hits (+25% a rung) and clears it. The action starts on tick 2 - a caster view gathers the orb at the
+staff he raises as he leaps - and fires the bolt from a `Delayed` 10 ticks later (league_akali E's shuriken), so the
+orb flashes as the bolt leaves at the top of the leap; the bolt's `y_offset` -15000 lifts its picture 20 px over the
+pivot (5000 - `y_offset`, see "A beam from a raised weapon"), level with his shoulders rather than his waist.
 
 ## 8. Gotchas
 
