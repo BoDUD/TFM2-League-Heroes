@@ -11,7 +11,8 @@
                                     runs off. Terrify's crow flies at Garen: the ghost screams out of him and he
                                     flees for 1.25 s. Both come back; Fiddlesticks steps up and Reap slashes
                                     through them (Darius, in its middle, silenced), then Bountiful Harvest pulls
-                                    their souls for 2 s, the harvest ripping them out at the end. They back off;
+                                    their souls for 2 s along soul chains (a link from each of them back to him
+                                    every 0.25 s), the harvest ripping them out at the end. They back off;
                                     Crowstorm marks the ground between them for 1 s, he bursts into crows and lands
                                     there, both flee in fear from the storm, and Darius falls in it; 3x.
                                     Projectile pictures are turned to their direction like the game does.
@@ -105,6 +106,14 @@ def showcase(out, z=3, step=40):
                          x1=x1, y1=y1, z=1))
         return t1
 
+    def chain(t0, foe):
+        """W's soul chain: one link from the foe back to him at 1.6 px a tick, over the units (the game's z 1)."""
+        fx0, fy0 = foe.pos(t0)
+        x0, y0, x1, y1 = fx0, fy0 - 5, x, y - 5
+        t1 = t0 + tick(math.hypot(x1 - x0, y1 - y0) / 1.6)
+        over.append(Anim(turned(frames_of(small, "w_chain"), x1 - x0, y1 - y0), t0, x0, y0, loop=True, until=t1,
+                          x1=x1, y1=y1, z=1))
+
     def bolt(foe, start):
         """An attack: the bolt leaves at tick 8 (5 px a tick) and hits; returns the hit's time."""
         fx0, fy0 = foe.pos(start + tick(8))
@@ -162,6 +171,7 @@ def showcase(out, z=3, step=40):
         over.append(Follow(frames_of(big, "w_souls"), pulse, x, y, on=body, z=1))
         for foe in (d, g):
             over.append(OnFoe(frames_of(small, "w_drain" if k < 7 else "w_final"), pulse, foe, z=1))
+            chain(pulse + tick(1), foe)                   # the soul chain leaves the foe a tick later
     for foe in (d, g):
         foe.flinches.append(start + tick(25 + 15 * 7))
     a("w_loop", tick(122))

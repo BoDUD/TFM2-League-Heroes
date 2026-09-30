@@ -104,14 +104,14 @@ def showcase(out, z=3, step=40):
             a("attack", tick(26))
         return start + 1000, land
 
-    def tumble_back(px):
-        """Tumble with a champion in her reach: the hop back (px over the move's ticks from tick 1), the smoke on
-        the ground where she left."""
+    def tumble_back(px, ticks):
+        """Tumble with a champion in her reach: back px over the move's ticks from tick 1 (the hop 5 px a tick,
+        the roll away from a champion 6), the smoke on the ground where she left."""
         nonlocal t, vx
         start = t
         under.append(Anim(frames_of(fx, "q_roll"), start + tick(1), vx, gy))
         body.append(Slide(frames_of(va, "skill_back"), start, vx, gy, x1=vx - px, m0=start + tick(1),
-                          m1=start + tick(1 + (2 if px <= 10 else 4))))
+                          m1=start + tick(1 + ticks)))
         vx -= px
         t = body[-1].until
         return start
@@ -120,8 +120,10 @@ def showcase(out, z=3, step=40):
     a("run", 1200, loop=True, to=90)
     nxt, _ = attack(d)
     idle_to(t + 120)
-    # Tumble (Darius in her reach: the hop back, 10 px), then the Tumble shot
-    tumble_back(10)
+    # Tumble (Darius in her reach: the hop back, 30 px - the players found the old 10 too short), which leaves him
+    # just out of reach (80 px against 55 and the two bodies), so she steps 8 px back in for the Tumble shot
+    tumble_back(30, 6)
+    a("run", 150, loop=True, to=vx + 8)
     idle_to(nxt)
     nxt, _ = attack(d, tumble=True)
     idle_to(nxt)
@@ -150,10 +152,10 @@ def showcase(out, z=3, step=40):
     d.death = land
     under.append(Follow(frames_of(fx, "r_refresh"), land, vx, gy, on=body))
     aura_end = land + 8000
-    # Garen walks up to her; she Tumbles away from him (within 30 px: 24 px back), unseen for a second
+    # Garen walks up to her; she Tumbles away from him (within 30 px: 30 px back), unseen for a second
     g.walks.append((r0, land + 900, -255))
     idle_to(land + 900)
-    q2 = tumble_back(24)
+    q2 = tumble_back(30, 5)
     unseen.append((q2 + tick(1), q2 + tick(1) + 1000))
     idle_to(q2 + 700)
     rings["n"] = 0
