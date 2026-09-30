@@ -1487,6 +1487,53 @@ run off and come back or had never been chained (the user: "脱离了大招的�
 62 champions were chained: about 36 died within the 3 s, 12-19 ran out of reach and 0-3 were stunned, at check
 ranges of 60000 to 105000 alike - a champion walks about 1.2 cast radii a second here, against 0.56 in League.
 
+**A stream that bounces enemy - ally - enemy (league_nami W, Ebb and Flow, with E Tidecaller's Blessing folded in).**
+Every projectile leaves from the caster, whatever starts it *(SDK simulation, 2026-09-30: the spawn events' x and y)*:
+a `LinearProjectile`, `TargetProjectile` or `ParabolicProjectile` started in another projectile's `end_effects`, or in
+a `RandomTarget` there, left from where Nami stood, not from the stop point. Only a `BackToCasterLinearProjectile` in
+plain `end_effects` leaves from the point (league_ekko Q), and it flies back to the caster (inside a `RandomTarget`
+it was not spawned at all). So no stream can fly from one champion to the next; the bounce is searches round the hit
+points and pictures on the units, 9 ticks apart:
+- the stream: a `Targeting` cast on `EnemyWithoutTower` (range 60000) fires a `TargetProjectile` at an enemy champion
+  in reach (`RandomTarget {EnemyChampion}` with a 1-tick `w_aim` flag, league_morgana Q's aim), else at the cast target;
+- its hit: the damage and the Blessing's slow, then `RandomTarget {from_projectile: true, range: 50000, casting_target:
+  AllyNotSelf}` - a search round the unit hit - whose effects set a 3-tick `w_other` flag, heal and bless that ally in
+  a `Delayed {tick: 9}` (its heal picture is the bounce) and lob a hidden `ParabolicProjectile` at it (`travel_time` 8,
+  from a `Delayed {tick: 1}`: a projectile placed straight in `applied_effects` never spawns) whose `end_effects`
+  look for the last target round the ally's spot;
+- nobody else there (`SwitchByBuff w_other` finds no flag): a hidden `ParabolicProjectile` with `travel_time` 1 lands
+  on the unit hit, its `end_effects` check that Nami stands within 50000 of it (`RandomTarget {AllyOnlySelf,
+  from_projectile: true}` -> a 2-tick flag) and start a `BackToCasterLinearProjectile` there, the stream visibly
+  flying back to her; its `end_effects`, run on her when it arrives, heal her (`Heal {heal_type: Caster}`), bless her
+  (a `RangeEffect` on `AllyOnlySelf`) and look for the last target round her.
+Nothing marks a unit already hit, and the ally was found next to the first target, so a plain `RandomTarget
+{EnemyChampion}` round the ally picked the first target again for 9.5 of the 10.5 last hits a game (a search radius
+of 15000 instead of 50000 still 1.8 of 2.5). The last hit therefore counts first: a champion-only twin of the stream
+(`applied_target: EnemyChampion`, the same speed) sets a `w_t1c` flag when the first target is a champion, a
+`RangeProjectile` (`delay` 2, `apply` 1) on `EnemyChampion` round the hop's landing spot counts with the Kayle flags
+`w_n1` / `w_n2`, and a second hop (`travel_time` 2, the same spot) reads them: after a champion the last hit needs two
+enemy champions there, after a minion or a monster one. Then 0.5 last hits a game fell on the first target and 1.3
+on another champion *(6 simulated games each)*. League's Blessing empowers the ally's next three attacks and spells
+and their hits slow; nothing runs on another unit's attacks, so here it is `attack_mult` and `magic_power_mult` 15 on
+the healed ally for 4 s, and the slow rides on W's own damage hits.
+
+**A bubble lobbed at a champion in reach (league_nami Q, Aqua Prison).** A `Position` cast on `EnemyWithoutTower`
+(range 70000) with league_morgana Q's aim: a `RandomTarget {EnemyChampion}` throws the bubble at a champion in reach
+and sets a 1-tick flag, else it goes to the cast point. The bubble is a `ParabolicProjectile` (`travel_time` 24; its
+`range_effect_name` is the landing ring, shown for the whole flight) whose `end_effects` play the burst on the point
+and start a `RangeProjectile` (`delay` 1, `apply` 1, radius 22000) with the damage, `Airborne` 75 (League's
+suspension; crowd control for `EnemyChampionInCC`) and the prison picture on each unit (`is_follow`). In the
+simulation 39% of her Qs caught a champion, 1.45 champions each.
+
+**A wave whose slow grows with the distance it rolled (league_nami R, Tidal Wave).** A `Direction` cast on
+`EnemyChampion` (range 90000): a caster buff `r_near` for 32 ticks and a penetrating `LinearProjectile` (speed 2500,
+range 160000, radius 32000, `y_offset` 5000 so it rolls from her feet) whose hits deal the damage, `Airborne` 30 and a
+60% slow for 120 ticks while `r_near` lasts, 180 after it (League's slow grows from 2 to 4 s with the distance). A
+wave of radius 26000 caught 1.1 champions a cast, 32000 about 1.6 (League's wave is as wide as an attack range);
+faster waves did not catch more. An invisible twin on the same path with `applied_target: AllyChampion` gives every
+ally it passes the passive's haste twice over (League doubles Surging Tides for allies the wave touches); it passes
+Nami as it starts, so she gets it too.
+
 **A bleed that heals the caster, one stack a second from attacks (league_briar Crimson Curse).** Every hit runs
 `AddCasted {casted_type: Bleed, duration: 301, period: 60}` whose effects are the damage (`Attack` 2 + 3% attack) and
 `Heal {amount: 1, attack_ratio: 1, heal_type: Caster}`: a caster heal inside a casted's periodic effects heals the
