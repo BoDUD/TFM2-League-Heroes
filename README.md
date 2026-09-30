@@ -883,7 +883,7 @@ python tools/art/preview_kayle.py
 - 原来那版的结果：42 色，和右边像素同色的比例 31%（原版英雄 18%–46%），头像截取点 (1, −36)。
 - 重画：玩家反映模型"太抽象"，用户让 Codex 按游戏原尺寸重画全部 63 帧，做法和提示词见 [`assets/source/kayle/MODEL_REDRAW.md`](assets/source/kayle/MODEL_REDRAW.md)。凯尔的格子是 112×112，16 帧的移动整张图 3584×3584，所以每帧单独一张 64×112 格的画布（`tools/art/native_frames.py split`，锚点都在 (32, 86)，拆开再合回逐字节不变）；参考图包含英雄联盟模型渲染，只在本地。交回后 `native_frames.py join` 把每帧按锚点放回格子，再 `import_native.py` 导入。
 - 重画的整理（用户："Codex不合格的地方学稻草人会话的处理方式 麻烦你兜底处理"）：Codex 先交造型图（生图原稿 948×1659、像素块宽 14–16 px 不等），Claude 按它自己的像素边缘逐格取色、整理成 21 色，用户通过（[`kayle_model_design.png`](assets/source/kayle/kayle_model_design.png)）。63 帧里待机 6 帧就是造型图，另外 57 帧仍是生图原稿：半透明边缘、每张两三万种颜色、像素块 11–16 px 宽且各帧不同，头的细节、人的位置也每帧不一样（Codex 的交接说明见 [`codex_model/`](assets/source/kayle/codex_model/)）。`tools/art/tidy_kayle.py` 在游戏像素上整理：每个像素取原稿里它中心的颜色（整格合并会在块宽对不上时重复出一列描边，移动第 11 帧中间多了一条黑线），映射到 21 色；受击和倒地以外的 48 帧擦掉画的头、贴上造型图的头（两只眼睛对上画的眼睛，找不到时按头顶和脸的位置），每帧同一张脸，循环时头不"沸腾"；琥珀色只留在眼睛上；竖直方向按身体最低一行对齐原来那一帧，移动恢复了原版的上下浮动（原稿里低了 3–13 行）；横向保持 Codex 画的位置，待机和移动按眼睛对齐（`import_native.py` 的 `EYES`，和费德提克一样，凯尔从 `PASTED` 移过去）。
-- 重画后的结果：21 色，和右边像素同色的比例 37%，头像截取点 (−2, −40)（去掉翅膀量的头顶）。Q 第 4 帧 Codex 画得小一圈，没有改。
+- 重画后的结果：21 色，和右边像素同色的比例 37%，头像截取点 (−2, −40)（去掉翅膀量的头顶）。选人卡片：她到头顶 50 px 又浮空，按默认点会切掉头顶、显得偏上（用户在游戏里看到），设 `banpick_center` (0, −9)，卡片里的立绘往下放 3 px，大致居中（原版高个英雄食人魔 −7、死灵法师 −9、骑兵 −10）。Q 第 4 帧 Codex 画得小一圈，没有改。
 
 逐帧预览：[`docs/preview/league_kayle_frames.png`](docs/preview/league_kayle_frames.png)，特效：[`docs/preview/league_kayle_effects.png`](docs/preview/league_kayle_effects.png)。
 
