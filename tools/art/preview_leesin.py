@@ -10,8 +10,11 @@ load).
                               allied Garen; Lee Sin runs in and casts Q Sonic Wave, and at its end
                               Safeguard (W) shields him and Garen on the same tick and dashes him to
                               Garen; Resonating Strike takes him to the marked enemy, two Flurry punches;
-                              Dragon's Rage (R) rushes him through the enemy and kicks it from behind,
-                              back toward Garen, who finishes it; 3x
+                              Dragon's Rage (R): nobody stands behind the fleeing enemy, so he rushes
+                              through it and kicks it from behind, back toward Garen, who finishes it;
+                              then a second scene: an enemy Yasuo with Jinx on the line behind him - the
+                              forward kick: he dashes to Yasuo's front and kicks him into Jinx, and the
+                              dragon trailing him knocks her up; 3x
 """
 import argparse
 import os
@@ -87,6 +90,17 @@ class Foe:
             if f is not None:
                 return self.flip(f)
         return self.flip(self.pick(self.idle, t % sum(ms for _, ms in self.idle)))
+
+
+class Follow2(Anim):
+    """An effect played on a foe wherever it is (a knock-up marker rides the hop)."""
+
+    def __init__(self, fr, t0, foe, z=1):
+        super().__init__(fr, t0, 0, 0, z=z)
+        self.foe = foe
+
+    def pos(self, t):
+        return self.foe.pos(t)
 
 
 def skip(fr, ms):
@@ -205,6 +219,33 @@ def showcase(out, z=3, step=40):
     foe.death = land + 60 + tick(12)
     t, x = start + tick(44), behind
     a("idle", 1500, loop=True, flip=True)
+    # second scene (a cut): the forward kick. Yasuo stands in front with Jinx on the line behind him, so the probe
+    # counts two champions: at tick 7 he dashes to Yasuo's front (8000/tick), the kick at tick 19 sends Yasuo 54 px
+    # on, and the dragon trails him from Lee's foot at the kick's speed (3000/tick for 63000), knocking Jinx up
+    # (0.75 s) as it reaches her
+    cut = t
+    yasuo = Foe(load(os.path.join(LEAGUE, "champions", "league_yasuo")), 138, gy)
+    jinx = Foe(load(os.path.join(LEAGUE, "champions", "league_jinx")), 180, gy - 10)   # a step back: Yasuo flies past
+    t, x = cut + 160, 70
+    a("idle", 500, loop=True)
+    start = t
+    front = yasuo.x - 22
+    body.append(Anim(frames_of(lee, "ult"), start, x, gy, until=start + tick(7)))
+    ult = Anim(frames_of(lee, "ult"), start, x, gy, until=start + tick(44), x1=front)
+    ult.until_move, ult.move0 = start + tick(7) + tick((front - x) / 8.0), start + tick(7)
+    body.append(ult)
+    kick = start + tick(19)
+    fx_at("kick", kick, yasuo.x, gy - 4, sprite="league_leesin_r")
+    yasuo.slides.append((kick, kick + tick(18), 54))
+    yasuo.flinches.append(kick)
+    shots.append(Anim(frames_of(fx["league_leesin_r"], "dragon"), kick, front, gy - 2, loop=True,
+                      until=kick + tick(63 / 3.0), x1=front + 63, y1=gy - 2, z=1))
+    reach = kick + tick(max(0.0, (jinx.x - 20 - front) / 3.0))   # the dragon's circle (14000) on her body
+    jinx.hops.append((reach, reach + tick(45), 10))
+    jinx.flinches.append(reach)
+    effects.append(Follow2(frames_of(fx["league_leesin_fx"], "knockup"), reach, jinx))
+    t, x = start + tick(44), front
+    a("idle", 1200, loop=True)
     end = t
 
     def place(img, f, px, py):
@@ -224,7 +265,11 @@ def showcase(out, z=3, step=40):
             f = an.frame(tt)
             if f is not None and an.z < 0:
                 place(img, f, *an.pos(tt))
-        for fo in (ally, foe):
+        if cut <= tt < cut + 160:                     # the cut: an empty arena between the scenes
+            frames.append(img.resize((W * z, H * z), Image.NEAREST).convert("RGB"))
+            tt += step
+            continue
+        for fo in ((ally, foe) if tt < cut else (jinx, yasuo)):
             place(img, fo.frame(tt), *fo.pos(tt))
         for an in body:
             f = an.frame(tt)
