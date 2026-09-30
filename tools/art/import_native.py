@@ -105,6 +105,8 @@ ORDER = {("lux", "idle"): [0, 0, 0, 0, 0, 0],   # the step-2 idle is the design 
          ("briar", "idle"): [0, 0, 0, 0, 0, 0],
          # and Vayne (the design drawn by Codex at game size: the pack's idle is the design in all six)
          ("vayne", "idle"): [0, 0, 0, 0, 0, 0],
+         # and Akali (Codex's strips of the game-size redesign, the design's head copied into every upright frame)
+         ("akali", "idle"): [0, 0, 0, 0, 0, 0],
          ("nami", "idle"): [0, 0, 0, 0, 0, 0]}
 # (hero, tag): (y, slots) - in those slots everything at or above pivot row y moves down a row (the row under
 # it is covered): one frame breathing, the face the same drawing throughout. Leona's shield covers her from
@@ -162,6 +164,9 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        ("briar", "idle"): (5, [2, 3, 4]),
        # Vayne: the seam across her shins, where the silhouette changes by 4 squares; her boots stay
        ("vayne", "idle"): (5, [2, 3, 4]),
+       # Akali (the game-size redesign): the seam low in her shin wraps, the two rows there differ in 4 squares
+       # (the knees' row, the old 6, changed the silhouette in 9); the ankles and the shoes stay
+       ("akali", "idle"): (8, [2, 3, 4]),
        # Nami (on the ground since SINK): all of her but the fin's tip and the staff's foot sinks a row and rises
        # again, as when she floated; the seam where two rows differ least (4 squares)
        ("nami", "idle"): (8, [2, 3, 4])}
@@ -195,6 +200,7 @@ EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade
         "riven": (62, 142, 72),           # the design's green eyes (#3E8E48), used nowhere else
         "briar": (240, 252, 255),         # the pillory's gem is the top of every frame; the ice-white is the eyes'
         "vayne": (248, 48, 60),           # the crossbow on her back tops the frame; the lenses' red is used nowhere else
+        "akali": (113, 65, 41),           # her ponytail tops every frame; the brown iris is the eyes'
         "nami": (242, 178, 51)}           # her staff's orb is the top of most frames; the amber is only in her eyes
 
 

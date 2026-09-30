@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_akali_sfx_w_cast",
+      "volume": 0.7
+    },
+    {
+      "delay": 0.05,
+      "clip": "league_akali_vo_q",
+      "volume": 0.9
+    }
+  ]
+}

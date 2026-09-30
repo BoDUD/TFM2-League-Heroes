@@ -157,8 +157,7 @@
                     "Time": {
                       "tick": 960
                     }
-                  },
-                  "is_hidden": true
+                  }
                 },
                 "only_to_enemy": false
               },
@@ -315,8 +314,7 @@
                           "Time": {
                             "tick": 20
                           }
-                        },
-                        "is_hidden": true
+                        }
                       },
                       "only_to_enemy": false
                     },
@@ -423,8 +421,7 @@
                 "tick": 3
               }
             },
-            "undying": true,
-            "is_hidden": true
+            "undying": true
           },
           "only_to_enemy": false
         },

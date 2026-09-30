@@ -199,8 +199,7 @@
                                         "Time": {
                                           "tick": 1200
                                         }
-                                      },
-                                      "is_hidden": true
+                                      }
                                     },
                                     "only_to_enemy": false
                                   },
@@ -274,8 +273,7 @@
                                 "Time": {
                                   "tick": 300
                                 }
-                              },
-                              "is_hidden": true
+                              }
                             },
                             "only_to_enemy": false
                           },
@@ -290,8 +288,7 @@
                                   "Time": {
                                     "tick": 300
                                   }
-                                },
-                                "is_hidden": true
+                                }
                               },
                               "only_to_enemy": false
                             },
@@ -306,8 +303,7 @@
                                     "Time": {
                                       "tick": 300
                                     }
-                                  },
-                                  "is_hidden": true
+                                  }
                                 },
                                 "only_to_enemy": false
                               },
@@ -319,8 +315,7 @@
                                     "Time": {
                                       "tick": 300
                                     }
-                                  },
-                                  "is_hidden": true
+                                  }
                                 },
                                 "only_to_enemy": false
                               }
@@ -460,8 +455,7 @@
                                     "Time": {
                                       "tick": 1200
                                     }
-                                  },
-                                  "is_hidden": true
+                                  }
                                 },
                                 "only_to_enemy": false
                               },
@@ -535,8 +529,7 @@
                             "Time": {
                               "tick": 300
                             }
-                          },
-                          "is_hidden": true
+                          }
                         },
                         "only_to_enemy": false
                       },
@@ -551,8 +544,7 @@
                               "Time": {
                                 "tick": 300
                               }
-                            },
-                            "is_hidden": true
+                            }
                           },
                           "only_to_enemy": false
                         },
@@ -567,8 +559,7 @@
                                 "Time": {
                                   "tick": 300
                                 }
-                              },
-                              "is_hidden": true
+                              }
                             },
                             "only_to_enemy": false
                           },
@@ -580,8 +571,7 @@
                                 "Time": {
                                   "tick": 300
                                 }
-                              },
-                              "is_hidden": true
+                              }
                             },
                             "only_to_enemy": false
                           }
@@ -704,8 +694,7 @@
                             "Time": {
                               "tick": 6
                             }
-                          },
-                          "is_hidden": true
+                          }
                         },
                         "only_to_enemy": false
                       },
@@ -773,8 +762,7 @@
                                           "Time": {
                                             "tick": 1200
                                           }
-                                        },
-                                        "is_hidden": true
+                                        }
                                       },
                                       "only_to_enemy": false
                                     },
@@ -848,8 +836,7 @@
                                   "Time": {
                                     "tick": 300
                                   }
-                                },
-                                "is_hidden": true
+                                }
                               },
                               "only_to_enemy": false
                             },
@@ -864,8 +851,7 @@
                                     "Time": {
                                       "tick": 300
                                     }
-                                  },
-                                  "is_hidden": true
+                                  }
                                 },
                                 "only_to_enemy": false
                               },
@@ -880,8 +866,7 @@
                                       "Time": {
                                         "tick": 300
                                       }
-                                    },
-                                    "is_hidden": true
+                                    }
                                   },
                                   "only_to_enemy": false
                                 },
@@ -893,8 +878,7 @@
                                       "Time": {
                                         "tick": 300
                                       }
-                                    },
-                                    "is_hidden": true
+                                    }
                                   },
                                   "only_to_enemy": false
                                 }

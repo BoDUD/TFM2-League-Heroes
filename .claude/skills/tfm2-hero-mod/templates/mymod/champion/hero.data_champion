@@ -97,8 +97,7 @@
                   "type": "AddCasterBuff",
                   "buff_state": {
                     "name": "mymod_hero_stack_2",
-                    "duration": "Permanent",
-                    "is_hidden": true
+                    "duration": "Permanent"
                   },
                   "only_to_enemy": false
                 }
@@ -116,8 +115,7 @@
                   "type": "AddCasterBuff",
                   "buff_state": {
                     "name": "mymod_hero_stack_1",
-                    "duration": "Permanent",
-                    "is_hidden": true
+                    "duration": "Permanent"
                   },
                   "only_to_enemy": false
                 }
@@ -218,7 +216,6 @@
           "amount": 100,
           "attack_ratio": 50,
           "ap_ratio": 0,
-          "hp_ratio": 0,
           "tick": 180
         },
         {

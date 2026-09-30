@@ -152,6 +152,10 @@ OK = direct, ~ = approximate, X = not possible in data-only mods.
 | Dash with a shield, then a stun round her (Riven E into W) | one `Targeting` action: the `Shield` through a `RangeEffect` on `AllyOnlySelf`, `MoveToTarget`, the damage and `Stun` circle in its `end_effects` | OK |
 | Self-buff ult with a recast (Riven R, Wind Slash) | the slot arms it on the approach and it starts at the fight (a champion near the cast, else her first attack near one), refunded when unused; the recast fires by itself 5 s later at a champion in reach, `target_hp_ratio` for the missing-health part (champion-data "A self-buff ult armed on the way") | ~ |
 | Weapon transformed while the ult lasts (Riven's reforged blade) | `_r` twins of the strips that show the weapon; every action picks its strip by `SwitchByBuff` on the ult's buff (the attack at `start_timing` 1 with its hit delayed); idle and run are the engine's and keep the old weapon, so an aura on the ult's buff marks it there (champion-data "The weapon reforged while the ult lasts") | ~ |
+| Twilight Shroud (Akali W) | folded into E on its own cooldown, armed at the cast when an enemy champion is near: smoke where she lands and a fixed 2 s `CasterInvisible`, so she dashes back hidden; enemies next to her still see her. Invisible only inside a zone also works (Ekko's anchor, pulses renewing a short `CasterInvisible`), used while W rode Q (champion-data "Hidden for a fixed time on landing") | ~ |
+| Flip back, mark, recast to dash to the mark (Akali E) | `MoveBack` in a `Targeting` cast, a skillshot from the landing spot, and the dash automatic 0.5 s after the hit (Lee Sin Q2's `Delayed` `MoveToTarget` in the projectile's effects), skipped under crowd control | ~ |
+| Second dash that executes by missing health (Akali R2) | nothing reads health: the second dash, 2.5 s after the first, deals +25% per champion hit she landed in between (max +200%), at the first target when it lives and is within reach, else at another champion near her (champion-data "Two dashes") | ~ |
+| Leave the ring to empower the next attack (Akali passive) | a champion hit by a spell arms a `range` + move speed caster buff for 4 s; the next attack from double range consumes it | ~ |
 | 2-3 stage recast | `cooltime_use_count` or recast buff + `SwitchByBuff` | ~ (AI timing) |
 | Cone / fan of projectiles (Ashe W) | no angle field on any projectile (base harpooner's fan is `Native`): a `LineRangeProjectile` rectangle cast by `Direction`, drawn as a fan sprite centred on it (champion-data "Cone / fan"); the hit area stays a rectangle | ~ |
 | Untargetable / invulnerable | `Banish` on self (a `RangeEffect` on `AllyOnlySelf`; it also makes the unit invisible, puts a CC state on it, stops the caster's own `RandomTarget` finding units and takes away its team's vision around it - only for a caster leaving the fight); in a fight `CasterInvisible` + a `damaged_reduce` 100 / `cc_immune` buff: targetable, but every hit deals 1 | ~ |
@@ -207,6 +211,9 @@ target (`EntityEvent` / `Action`) and `PlayerStatistics` (deal, tank, heal, self
 cs_jungle, kills, deaths, assists): the numbers players read after a match. Ten game minutes
 take ~4 s, so average 12-16 seeds per lineup and change one thing at a time; the same lineup
 varies about 10% between batches. The simulator and the extracted settings stay local.
+Since game 0.6 the classic SDK is no longer shipped, so the simulator links game_core 0.5.1, the last one; the
+settings and the champion sheet it loads are the 0.6.2 bundle's, byte for byte, but whatever the engine's code
+changed after 0.5.1 is not in it (champion-data section 9): check a close call in game.
 
 Rerun it once the art has set the timings. league_annie was balanced at +1.24 kills (24 seeds a
 lineup) with placeholder timings; aligning her casts with her strips (the fireball thrown on tick 12
