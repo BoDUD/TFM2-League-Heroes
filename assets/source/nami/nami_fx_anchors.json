@@ -1,0 +1,15 @@
+{
+  "bolt": {"cell": [33, 13], "anchor": [16, 6], "frames": 4},
+  "hit": {"cell": [21, 23], "anchor": [10, 11], "frames": 5},
+  "w_stream": {"cell": [45, 17], "anchor": [22, 8], "frames": 4},
+  "w_hit": {"cell": [27, 27], "anchor": [13, 13], "frames": 5},
+  "w_heal": {"cell": [29, 43], "anchor": [14, 21], "frames": 5},
+  "e_blessing": {"cell": [31, 37], "anchor": [15, 18], "frames": 4},
+  "q_bubble": {"cell": [29, 29], "anchor": [14, 14], "frames": 4},
+  "q_mark": {"cell": [47, 25], "anchor": [23, 12], "frames": 4},
+  "q_burst": {"cell": [29, 59], "anchor": [14, 29], "frames": 6},
+  "q_prison": {"cell": [39, 49], "anchor": [19, 24], "frames": 8},
+  "r_wave": {"cell": [55, 69], "anchor": [27, 34], "frames": 4},
+  "r_hit": {"cell": [35, 91], "anchor": [17, 45], "frames": 5},
+  "p_haste": {"cell": [35, 25], "anchor": [17, 12], "frames": 4}
+}

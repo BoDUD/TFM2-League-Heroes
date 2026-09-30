@@ -1762,6 +1762,13 @@
       "anim": "asset/league/effects/league_nami_fx",
       "tag": "e_blessing",
       "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_nami_p_haste",
+      "anim": "asset/league/effects/league_nami_fx",
+      "tag": "p_haste",
+      "z": -1
     }
   ]
 }
