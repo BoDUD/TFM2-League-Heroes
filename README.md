@@ -12,7 +12,7 @@
 
 ![拉克丝演示：跑步、普攻、Q 光之束缚和护盾、被动引爆、E 透光奇点、R 终极闪光](docs/preview/league_lux_showcase.gif?v=0930)
 
-![李青演示：跑步、Q 天音波和回音击、疾风骤雨普攻、E 天雷破和金钟罩；R 猛龙摆尾：逃开的德莱厄斯身后没人，回旋踢把他踢回盖伦那边；第二段亚索身后站着金克丝，正面踢把他踢进金克丝，金龙撞飞她](docs/preview/league_leesin_showcase.gif?v=0930d)
+![李青演示：跑步、Q 天音波和回音击、疾风骤雨普攻、E 天雷破和金钟罩；R 猛龙摆尾：逃开的德莱厄斯身后没人，回旋踢把他踢回盖伦那边；第二段亚索身后站着金克丝，正面踢把他踢进金克丝，金龙撞飞她](docs/preview/league_leesin_showcase.gif?v=0930ys)
 
 ![索拉卡演示：跑步、普攻、Q 流星坠落和星体结界、W 星之灌注、R 祈愿](docs/preview/league_soraka_showcase.gif?v=0930)
 
@@ -20,7 +20,7 @@
 
 ![阿木木演示：跑步、Q 绷带牵引、绝望光环和诅咒、R 木乃伊之咒、E 阿木木的愤怒、普攻](docs/preview/league_amumu_showcase.gif?v=0930c)
 
-![亚索演示：跑步、普攻触发剑意护盾、Q 斩钢闪两次叠出旋风、Q3 旋风击飞两人、R 狂风绝息斩、E 踏前斩接 EQ 环形斩](docs/preview/league_yasuo_showcase.gif?v=0930c)
+![亚索演示：跑步、普攻触发剑意护盾、Q 斩钢闪两次叠出旋风、Q3 旋风击飞两人、R 狂风绝息斩、E 踏前斩接 EQ 环形斩](docs/preview/league_yasuo_showcase.gif?v=0930ys)
 
 ![金克丝演示：机枪砰砰和 W 震荡电磁波击杀德莱厄斯、罪恶快感、R 超究极死神飞弹、E 嚼火者手雷咬住盖伦、鱼骨头火箭](docs/preview/league_jinx_showcase.gif?v=0930c)
 
@@ -349,6 +349,7 @@ python tools/art/preview_yasuo.py
 - 特效用 Codex 画的 11 张：`import_yasuo.py --raw` 把原始图（半透明、格子比例不对）转成原尺寸条，再按技能范围定大小：Q 突刺 45 px 长，旋风 24 px 宽，EQ 的圈 50 px 宽（半径 25000，画一半大再放大 2 倍）。
 - 风墙：先后试过 Codex 画的风柱（被看成龙卷风）和照英雄联盟地面青线画的风幕，最后用户觉得风墙在这个游戏里不合适，整个技能删掉了。
 - 出手时刻和动画对齐：普攻第 11 tick 命中，Q 第 8 tick 命中，Q3 旋风每 tick 飞 2.5 px，R 第 24 tick 落刀。
+- 还原（0.27.1）：Codex 按定稿重画过一版动作条（第二步，换成用户选的眼睛，头像点挪到 (1, −39)），之后又试了重画头和马尾，用户觉得亚索的脸越做越离谱，要回到没做新美术的这一版：动作条、定稿、贴图、帧表、头像点和导入工具的表都回到 9248421 之前，重新导入的贴图和帧表与那时逐字节相同；展示动图重新渲染（对手是现在的德莱厄斯和盖伦），李青的展示里也有亚索，一起重渲染。
 - 结果：20 色，和右边像素同色的比例 46%（原版英雄 18%–46%）。头像截取点 (4, −33)：`tfm2_ase.py face` 按最高点把马尾尖当成了头顶，它和 lint 会再按脸的肤色找一次头，(4, −33) 就在头顶上（缩小前是 (5, −34)）。
 
 逐帧预览：[`docs/preview/league_yasuo_frames.png`](docs/preview/league_yasuo_frames.png)，特效：[`docs/preview/league_yasuo_effects.png`](docs/preview/league_yasuo_effects.png)。
