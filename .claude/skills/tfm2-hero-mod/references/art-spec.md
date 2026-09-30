@@ -523,6 +523,14 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   (`Frames`): the white core for projectiles, hits and flashes (the drawing's middle once the core has faded), a
   ground ellipse by the rows at least half as wide as its widest (the smoke rising above left out), a waist ring by
   its own columns (the chain pulled out to one side left out), a shield by its lowest row.
+- **Pictures that wander or hand over (league_fiora's effects).** Image-model loops drift: Fiora's parry crescent
+  moved 35 source px across its four cells and her slow's ground ring rose in two of six, so `tools/art/import_fiora.py`
+  anchors the crescent on its biggest piece's right edge and the ring on its widest rows, not on the cell. Two
+  pictures that follow each other on the same spot must land on each other: the challenge's four crests were drawn
+  wider apart than the remaining-Vital loop's, so the challenge is squeezed across (72/84) and shifted 4 source px
+  to meet it. Snap each strip only to the ramps its prompt named (a blue flash picked up a mint speck from the whole
+  pack's palette), and lift a fill that turns heavy at game size (her navy rose, whose petal lines are thinner than
+  a pixel at 30 px, one shade up).
 - **Effects drawn on the hero's own strips (league_riven, oppi's way).** Codex drew Riven's seven effect sets frame
   for frame on her action cells (the cells, standing points and frame times of `native/riven_cells.json`), each
   split into a layer behind her and one in front (the head's area only behind, so nothing covers the face).
@@ -552,6 +560,9 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   edge pixel there takes the colour itself. Run it on the finished frames, after any sink, breathing seam or neck fix
   (`tools/art/import_native.py` `COMPLETE`; league_riven and league_akali did the same in their tidy scripts): Nami's
   frames went to 94-100%, the colour count unchanged, `metrics` from WARN to PASS.
+  A mid-dark edge colour is not outline to `metrics` (luminance under 40) yet stays unringed at the threshold 70:
+  league_fiora's teal leggings (~58) and wine cape (~44) left her Q frames at 83-89%; `import_native.py` `DARK` sets
+  the threshold per hero (hers 40: 98-100%, the bare rapier aside).
 - **Keep the neck the same in every frame.** With the design's head pasted into redrawn frames, align a loop's frames
   on the head and check that the shoulders sit the same number of rows under the chin. Codex drew league_nami's
   swimming body a row lower under the head in four of the eight run frames: her neck stretched and shrank as she bobbed

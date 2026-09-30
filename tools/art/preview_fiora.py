@@ -11,9 +11,12 @@
                              the Vital (the shatter, the speed lines at her heels), the second is the critical thrust
                              (the glint goes), then a plain one; Riposte: the parry crescent for 0.75 s, Darius's swing
                              into it, the thrust down the line and Darius stunned for 1 s - the stab also reveals the
-                             next Vital (3 s since the last was struck); Grand Challenge: the salute, the ring of four
-                             Vitals round him, one struck by each attack (the gold shatter, one crest fewer at the next
-                             piece), the fourth leaves the victory zone under him; Darius falls. 3x
+                             next Vital (3 s since the last was struck); Grand Challenge, its pace following the fight:
+                             the salute, the ring of four Vitals round him and Bladework's two quick attacks (Vitals 1
+                             and 2, the gold shatter, one crest fewer at the next piece); Lunge is back and stabs the
+                             third, which caps its cooldown at half; Darius backs off and she follows, slower, until
+                             that Lunge is back and catches him: the fourth leaves the victory zone under him; he
+                             falls. 3x
 """
 import argparse
 import os
@@ -33,26 +36,49 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 LEAGUE = os.path.join(ROOT, "league")
 CHAMP = os.path.join(LEAGUE, "champions", "league_fiora")
 FX = {n: os.path.join(LEAGUE, "effects", n) for n in ("league_fiora_fx", "league_fiora_big")}
-SPEED = 63.0                          # move speed 1050: 63 px a second
 ATK_CD, ATK_DUR, ATK_HIT = 62, 24, 9  # ticks between attacks, the action, its hit
 E_AS = 1.5                            # Bladework: +50% attack speed until the critical thrust
-Q_DUR, Q_SPEED = 26, 4                # Lunge: the action, px a tick from its first tick
+Q_CD, Q_DUR, Q_SPEED = 330, 26, 4     # Lunge: cooldown, the action, px a tick from its first tick
 W_PARRY, W_STAB, W_DUR = 45, 47, 64   # Riposte: the parry, the stab's tick, the action
 STUN = 60                             # the stun of a parried Riposte
 R_ANIM, R_FIRST, R_LINK = 18, 22, 20  # Grand Challenge: the salute; the remaining Vitals' first piece, piece length
+R_CAP = 0.5                           # a Vital struck in the challenge caps Q's and W's cooldowns at half
 V_LINK, V_CD, V_MS = 20, 180, 90      # a Vital's pieces, the wait for the next, the speed lines
+REACH = 24                            # where a Lunge stops, px off the target
+
+
+class Duelist(Held):
+    """Darius: can also back off (turned away, running right) by dx px between t0 and t1."""
+
+    def __init__(self, sp, x, y):
+        super().__init__(sp, x, y)
+        self.backs = []
+
+    def pos(self, t):
+        x, y = super().pos(t)
+        for t0, t1, dx in self.backs:
+            if t >= t0:
+                x += int(round(dx * min(1.0, (t - t0) / (t1 - t0))))
+        return x, y
+
+    def frame(self, t):
+        if self.death is None or t < self.death:
+            for t0, t1, _ in self.backs:
+                if t0 <= t < t1:
+                    return self.pick(self.run, (t - t0) % sum(ms for _, ms in self.run))
+        return super().frame(t)
 
 
 def showcase(out, z=3, step=40):
     fiora = load(CHAMP)
     fx = {k: load(v) for k, v in FX.items()}
     small, big = fx["league_fiora_fx"], fx["league_fiora_big"]
-    W, H = 250, 120
+    W, H = 330, 120
     gy = 84                                           # the pivot row
-    d = Held(load(os.path.join(LEAGUE, "champions", "league_darius")), 192, gy)
+    d = Duelist(load(os.path.join(LEAGUE, "champions", "league_darius")), 172, gy)
     body, under, over = [], [], []
     t = 0.0
-    x = 48
+    x = 28
     speed_lines = []
 
     def a(tag, dur=None, loop=False, way=None):
@@ -89,16 +115,22 @@ def showcase(out, z=3, step=40):
         a("idle", tick(cd - ATK_DUR), loop=True)
         return start, hit
 
+    def lunge(to):
+        """Lunge from here to `to` (4 px a tick from its first tick): the dust where she set off, the stab on arrival."""
+        nonlocal x
+        start = t
+        arrive = start + tick(1 + abs(to - x) / Q_SPEED)
+        under.append(Anim(frames_of(small, "q_dash"), start + tick(1), x, gy, z=-1))
+        a("skill", tick(Q_DUR), way=[(start + tick(1), x), (arrive, to)])
+        x = to
+        d.flinches.append(arrive)
+        on_foe("q_hit", arrive)
+        return start, arrive
+
     # she walks in and Lunges onto him from 80 px: the dust where she set off, the stab on arrival
-    a("run", 1016, loop=True, way=[(0, x), (1016, 112)])
-    x, reach = 112, 158                               # 34 px off Darius: attack range 25000 and his size
-    start = t
-    arrive = start + tick(1 + (reach - x) / Q_SPEED)
-    under.append(Anim(frames_of(small, "q_dash"), start + tick(1), x, gy, z=-1))
-    a("skill", tick(Q_DUR), way=[(start + tick(1), x), (arrive, reach)])
-    x = reach
-    d.flinches.append(arrive)
-    on_foe("q_hit", arrive)
+    a("run", 1016, loop=True, way=[(0, x), (1016, 92)])
+    x = 92
+    q1, arrive = lunge(138)                           # 34 px off Darius: attack range 25000 and his size
     # the stab reveals a Vital and folds Bladework in: the glint round her until the critical thrust starts
     glint = arrive
     _, h1 = attack("first", ATK_CD / E_AS)             # the slow, and the Vital struck
@@ -121,16 +153,32 @@ def showcase(out, z=3, step=40):
     d.holds.append((stun, stun + tick(STUN)))
     on_foe("w_stun", stun, z=4)
     revealed = stun if stun - struck >= tick(V_CD) else None
-    # Grand Challenge: the salute, the challenge on him; the passive's Vital goes
+    # Grand Challenge: the salute, the challenge on him (the passive's Vital goes), Bladework's two quick attacks
     start = t
     a("ult", tick(R_ANIM))
     if revealed is not None:
         vital(revealed, start)
     on_foe("r_on", start)
-    a("idle", tick(ATK_CD - R_ANIM - ATK_DUR), loop=True)
-    hits = [attack()[1] for _ in range(4)]
+    _, v1 = attack("first", ATK_CD / E_AS)
+    crit, v2 = attack("crit", ATK_CD / E_AS)
+    over.append(Follow(frames_of(small, "e_glint"), start, x, gy, loop=True, until=crit, on=body, z=1))
+    # Lunge is back: its stab strikes the third, and that Vital caps Lunge's new cooldown at half
+    ready = q1 + tick(Q_CD)
+    if t < ready:
+        a("idle", ready - t, loop=True)
+    q2, v3 = lunge(x + 34 - REACH)
+    ready = v3 + tick(Q_CD * R_CAP)
+    # he backs off and she follows, slower, out of her attack range, until that Lunge is back and catches him
+    back = v3 + 120
+    d.backs.append((back, ready - 100, 100))
+    chase_to = d.x + 100 - 42                          # 42 px off: Lunge's reach
+    a("run", ready - t, loop=True, way=[(t, x), (ready, chase_to)])
+    x = chase_to
+    _, v4 = lunge(d.x + 100 - REACH)
+    hits = [v1, v2, v3, v4]
     for h in hits:
         strike(h, "r_hit")
+    a("idle", 900, loop=True)
     # the remaining Vitals, a piece every 20 ticks showing how many were left when it started
     k = 0
     while True:
@@ -141,10 +189,10 @@ def showcase(out, z=3, step=40):
         on_foe(f"r_m{left}", p0)
         k += 1
     # the fourth: the victory zone where he stands (a lob landing the next tick); he falls
-    zone = hits[-1] + tick(2)
+    zone = v4 + tick(2)
     under.append(Anim(frames_of(big, "r_zone"), zone, *d.pos(zone), z=-2))
-    d.death = hits[-1] + tick(14)
-    end = t + 700
+    d.death = v4 + tick(14)
+    end = t
 
     def place(img, f, px, py):
         img.alpha_composite(f, (int(px) - f.width // 2, int(py) - f.height // 2))
@@ -178,7 +226,7 @@ def showcase(out, z=3, step=40):
     pal = strip.quantize(colors=255, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE)
     q = [f.quantize(palette=pal, dither=Image.Dither.NONE) for f in frames]
     q[0].save(T.long_path(out), save_all=True, append_images=q[1:], duration=step, loop=0, optimize=False)
-    return len(frames), round(end / 1000.0, 1)
+    return len(frames), round(end / 1000.0, 1), [round(h / 1000.0, 2) for h in hits]
 
 
 def main():
@@ -193,7 +241,7 @@ def main():
         sp = load(path)
         rows += [(sp, t["name"], f"{name[13:]}:{t['name']}") for t in sp.tags]
     print("effects", contact(rows, os.path.join(args.out, "league_fiora_effects.png")))
-    print("showcase frames/seconds", showcase(os.path.join(args.out, "league_fiora_showcase.gif")))
+    print("showcase frames/seconds/Vitals", showcase(os.path.join(args.out, "league_fiora_showcase.gif")))
 
 
 if __name__ == "__main__":

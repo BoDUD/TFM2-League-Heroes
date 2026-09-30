@@ -1040,6 +1040,8 @@ league_vayne (bottom, 2026-09-30, Condemn's knockback and 1 s stun): 1.75 a game
 0.65 and league_lucian 0.44 in the same batch - no change.
 league_veigar (mid, 2026-09-30, Event Horizon's cage: a 1 s stun on every champion it catches): 2.40 a game; the base
 lightning mage 3.19 and pyromancer 0.65 in the same batch - no change.
+league_fiora (top, 2026-10-01, Riposte's 1 s stun when the parry blocked a hit): 1.23 a game; the base fighter 1.94
+and league_riven 2.42 in the same batch - no change.
 
 **Kill trigger (league_jinx Get Excited!).** No effect fires on a kill, but section 4's facts make one:
 1. Next to the damaging projectile, fire an invisible twin with the same speed and path and
@@ -1830,6 +1832,62 @@ the top when it hits (+25% a rung) and clears it. The action starts on tick 2 - 
 staff he raises as he leaps - and fires the bolt from a `Delayed` 10 ticks later (league_akali E's shuriken), so the
 orb flashes as the bolt leaves at the top of the leap; the bolt's `y_offset` -15000 lifts its picture 20 px over the
 pivot (5000 - `y_offset`, see "A beam from a raised weapon"), level with his shoulders rather than his waist.
+
+**A weak spot on the target without state on the target (league_fiora Duelist's Dance).** League shows a Vital on one
+of four sides of a champion and strikes it with a hit from that side; nothing reads a direction or keeps state on
+another unit, so her own caster flags decide. `v_cd` (180 ticks) starts when a Vital is struck; while neither `v_cd`
+nor `v_on` is on her, her next hit on an enemy champion reveals one (`v_on`, 180 ticks, the chime); while `v_on`
+lasts, her next champion hit strikes it: a `FixedAttack` of 20 + 10% attack + 4% of the target's max health
+(`target_hp_ratio`), a `Heal` on her and two move-speed buffs (+30% for 90 ticks, +30% for 45: +60% that fades in
+two steps). Every hit reaches the hook through a champion-only twin `TargetProjectile` (see "Kill trigger"); the
+attack's and Q's damage ride a carrier of the same speed, so the twin lands the same tick. The mark is a
+`ViewEffect` on the champion every 20 ticks while `v_on` lasts, each piece behind an alive gate: a `Delayed` on a dead
+unit still plays its pictures but skips `AddCasterBuff`, so a 2-tick caster flag added the tick before each piece
+says the unit lived (league_annie's Tibbers).
+
+**A dash-stab that arms the next two attacks (league_fiora Q with E folded in).** A `Targeting` cast on
+`EnemyWithoutTower` (42000): a `RandomTarget EnemyChampion` in reach first (it sets `q_aim`), else the cast target,
+gets `MoveToTarget` (4000 a tick) whose `end_effects` stab: a carrier of the damage, the champion twin, and E. E's
+cooldown is its own caster buff (`e_cd`, 480 ticks); when it is absent the stab adds `e_1` and `e_as` (+50% attack
+speed, 240 ticks). The attack picks on tick 1: `e_2` -> the critical thrust (`CasterAnimation attack_e`, `Attack`
+at 160% attack, `e_2` and `e_as` removed), `e_1` -> the slowed first hit (30% for 60 ticks; `e_1` becomes `e_2`),
+else the plain thrust.
+
+**Parry, then a stab that stuns only if the parry blocked a hit (league_fiora W, Riposte).** A `Targeting` cast on
+`EnemyWithoutTower` (45000, 64 ticks). A caster buff `w_parry` (45 ticks) with `damaged_reduce` 100 and `cc_immune`
+(hits then deal 1); a 1-point `Shield` on herself (a self-only `RangeEffect`, 60 ticks) and `AddCasterBuff w_guard`
+of duration `WithShield`: the first hit breaks the shield and `w_guard` goes 2 ticks later (section 5). The stab is
+queued on her own unit (a self-only `Delayed` of 47 ticks), so it comes even when the cast target died during the
+parry: a `RandomTarget EnemyChampion` within 55000, else an `EnemyWithoutTower` one, gets a `LineRangeProjectile`
+(55000 x 16000, `delay` 12, `apply` 2: the hit on tick 1, gone on tick 11, which is how long its picture lasts) and
+a champion-only, non-penetrating `LinearProjectile` (20000 a tick, radius 8000) for the first champion: `w_guard`
+still on -> a 50% slow for 90 ticks, gone (she blocked something) -> a 60-tick `Stun`. League stuns when the parry
+blocked crowd control; nothing tells a blocked stun from a blocked hit, so any blocked damage counts.
+
+**A challenge whose pace follows the fight (league_fiora R, Grand Challenge).** The AI casts an ult slot on
+`EnemyChampion` while it walks in (65000-235000 away here), so the slot is a 3-tick `idle` action with `casting_type:
+None` that only arms it for 600 ticks (`r_armed`, league_riven's R): a `RandomTarget EnemyChampion` within 35000 starts
+it at once, else the champion twin of her next attack does; left unused, a 3-tick `ult_cooldown_mult` 4900 refunds
+it. The start (effects on the champion): `CasterAnimation ult` (18 ticks, the salute), the passive's Vital removed,
+`r_on` and four rung flags `r_v4`..`r_v1` (480 ticks), +20% move speed, and Bladework armed (`e_1`, `e_as`; E's own
+cooldown untouched). While `r_on` lasts the hook takes the top rung instead of the passive: the passive's strike with
+the gold picture and a 3-tick `skill_cooldown_mult` 100 (removed first, so two never stack), which caps Q's and W's
+remaining cooldowns at half - League's Lunge refund, spread to both since no field speeds one skill alone. The user
+asked for the pace to follow the fight ("破阵速度 你要时快时慢啊", "根据战场情况"): on the target, the two quick attacks
+and a Lunge strike three Vitals in about 1.3 s; when the target gets away or she is held, only the halved cooldowns
+bring her back. The remaining Vitals show as `r_m4`..`r_m1` (a `SwitchByBuff` ladder on the rungs) in 20-tick pieces
+behind the alive gate, from tick 22: the challenge's own picture covers the first piece, its four crests landing
+where the loop's stand.
+
+**A healing zone where the duel was won, also when someone else took the kill (league_fiora R's Victory Zone).** The
+fourth Vital lobs a `ParabolicProjectile` (`travel_time` 1) from a 1-tick `Delayed` (a projectile placed straight in
+a projectile's applied effects never spawns) that lands on the champion; its `end_effects` place a
+`RangePeriodProjectile` (tick 180, period 30, circle 35000, `Heal` on `AllyChampion`) and its picture as a
+`ViewEffect`. A target that dies after at least one Vital (`r_struck`), by anyone's hand, is found from her side: the
+target's picture pieces add the 2-tick `r_alive` caster flag the tick before each piece, so a self-only `Delayed` every
+60 ticks (a multiple of the pieces' 20) that finds it missing while `r_on` lasts means the target died, and the zone
+lands on her own spot (its picture a `CasterViewEffect`: a `ViewEffect` on her own spot never showed, league_thresh
+R). Checks every 20 ticks made the file 972 KB (every hook carries the whole ladder); every 60 keeps it near 580 KB.
 
 ## 8. Gotchas
 

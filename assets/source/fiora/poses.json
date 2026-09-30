@@ -217,23 +217,23 @@
    "frames": [
     [
      "Fiora_Idle1@0>fiora_taunt@300:0.6",
-     80
+     50
     ],
     [
      "fiora_taunt@600",
-     80
+     50
     ],
     [
      "fiora_taunt@900",
-     100
+     60
     ],
     [
      "fiora_taunt@1300",
-     120
+     70
     ],
     [
      "fiora_taunt@2100>Fiora_Idle1@0:0.5",
-     120
+     70
     ]
    ]
   },
