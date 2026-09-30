@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "tool": "built-in image_gen",
-  "status": "technical_checks_passed_visual_limitations_documented",
+  "status": "revised_and_locally_checked_not_in_game_tested",
   "scale": 8,
   "cell": [
     96,
@@ -13,7 +13,7 @@
   ],
   "file": "diana_run.png",
   "native_file": "native/diana_run_1x.png",
-  "raw_file": "raw/run.png",
+  "raw_file": "raw/whole_revision.png",
   "frames": [
     {
       "frame": 1,
@@ -39,14 +39,24 @@
         46,
         48
       ],
-      "raw_leg_rect": [
-        137,
-        301,
-        161,
-        142
-      ],
       "baseline": 79,
-      "upper_rows_0_61_unchanged": true
+      "upper_rows_0_61_unchanged": true,
+      "source_leg_rect": [
+        152,
+        54,
+        193,
+        279
+      ],
+      "source_file": "raw/legs.png",
+      "replacement_native_size": [
+        12,
+        18
+      ],
+      "placement": [
+        35,
+        62
+      ],
+      "detached_lower_pixels_removed": []
     },
     {
       "frame": 2,
@@ -72,14 +82,24 @@
         47,
         48
       ],
-      "raw_leg_rect": [
-        583,
-        302,
-        193,
-        141
-      ],
       "baseline": 79,
-      "upper_rows_0_61_unchanged": true
+      "upper_rows_0_61_unchanged": true,
+      "source_leg_rect": [
+        648,
+        44,
+        231,
+        289
+      ],
+      "source_file": "raw/legs.png",
+      "replacement_native_size": [
+        13,
+        18
+      ],
+      "placement": [
+        37,
+        62
+      ],
+      "detached_lower_pixels_removed": []
     },
     {
       "frame": 3,
@@ -105,14 +125,29 @@
         47,
         49
       ],
-      "raw_leg_rect": [
-        1033,
-        300,
-        162,
-        143
-      ],
       "baseline": 79,
-      "upper_rows_0_61_unchanged": true
+      "upper_rows_0_61_unchanged": true,
+      "source_leg_rect": [
+        1176,
+        45,
+        208,
+        288
+      ],
+      "source_file": "raw/legs.png",
+      "replacement_native_size": [
+        13,
+        18
+      ],
+      "placement": [
+        37,
+        62
+      ],
+      "detached_lower_pixels_removed": [
+        [
+          31,
+          62
+        ]
+      ]
     },
     {
       "frame": 4,
@@ -131,21 +166,76 @@
       "bbox": [
         19,
         37,
-        60,
+        57,
         80
       ],
       "eye_mark": [
         47,
         48
       ],
-      "raw_leg_rect": [
-        1442,
-        299,
-        275,
-        144
-      ],
       "baseline": 79,
-      "upper_rows_0_61_unchanged": true
+      "upper_rows_0_61_unchanged": true,
+      "source_leg_rect": [
+        1716,
+        55,
+        140,
+        265
+      ],
+      "source_file": "raw/legs.png",
+      "replacement_native_size": [
+        10,
+        18
+      ],
+      "placement": [
+        40,
+        62
+      ],
+      "detached_lower_pixels_removed": [
+        [
+          27,
+          70
+        ],
+        [
+          27,
+          71
+        ],
+        [
+          27,
+          72
+        ],
+        [
+          27,
+          73
+        ],
+        [
+          50,
+          63
+        ],
+        [
+          51,
+          64
+        ],
+        [
+          50,
+          64
+        ],
+        [
+          28,
+          76
+        ],
+        [
+          28,
+          77
+        ],
+        [
+          28,
+          78
+        ],
+        [
+          31,
+          62
+        ]
+      ]
     },
     {
       "frame": 5,
@@ -171,14 +261,24 @@
         46,
         48
       ],
-      "raw_leg_rect": [
-        132,
-        706,
-        178,
-        141
-      ],
       "baseline": 79,
-      "upper_rows_0_61_unchanged": true
+      "upper_rows_0_61_unchanged": true,
+      "source_leg_rect": [
+        160,
+        417,
+        200,
+        265
+      ],
+      "source_file": "raw/legs.png",
+      "replacement_native_size": [
+        13,
+        18
+      ],
+      "placement": [
+        37,
+        62
+      ],
+      "detached_lower_pixels_removed": []
     },
     {
       "frame": 6,
@@ -204,14 +304,24 @@
         46,
         48
       ],
-      "raw_leg_rect": [
-        574,
-        706,
-        201,
-        141
-      ],
       "baseline": 79,
-      "upper_rows_0_61_unchanged": true
+      "upper_rows_0_61_unchanged": true,
+      "source_leg_rect": [
+        649,
+        419,
+        261,
+        275
+      ],
+      "source_file": "raw/legs.png",
+      "replacement_native_size": [
+        13,
+        18
+      ],
+      "placement": [
+        36,
+        62
+      ],
+      "detached_lower_pixels_removed": []
     },
     {
       "frame": 7,
@@ -237,14 +347,24 @@
         45,
         48
       ],
-      "raw_leg_rect": [
-        1051,
-        705,
-        161,
-        142
-      ],
       "baseline": 79,
-      "upper_rows_0_61_unchanged": true
+      "upper_rows_0_61_unchanged": true,
+      "source_leg_rect": [
+        1169,
+        419,
+        235,
+        273
+      ],
+      "source_file": "raw/legs.png",
+      "replacement_native_size": [
+        13,
+        18
+      ],
+      "placement": [
+        36,
+        62
+      ],
+      "detached_lower_pixels_removed": []
     },
     {
       "frame": 8,
@@ -263,24 +383,99 @@
       "bbox": [
         17,
         38,
-        59,
+        56,
         80
       ],
       "eye_mark": [
         45,
         48
       ],
-      "raw_leg_rect": [
-        1444,
-        704,
-        276,
-        143
-      ],
       "baseline": 79,
-      "upper_rows_0_61_unchanged": true
+      "upper_rows_0_61_unchanged": true,
+      "source_leg_rect": [
+        1532,
+        714,
+        124,
+        112
+      ],
+      "source_file": "raw/whole_revision.png",
+      "replacement_native_size": [
+        13,
+        18
+      ],
+      "placement": [
+        36,
+        62
+      ],
+      "detached_lower_pixels_removed": [
+        [
+          28,
+          72
+        ],
+        [
+          28,
+          73
+        ],
+        [
+          28,
+          74
+        ],
+        [
+          28,
+          75
+        ],
+        [
+          28,
+          76
+        ],
+        [
+          28,
+          77
+        ],
+        [
+          28,
+          78
+        ],
+        [
+          27,
+          77
+        ],
+        [
+          27,
+          76
+        ],
+        [
+          27,
+          75
+        ],
+        [
+          27,
+          74
+        ],
+        [
+          27,
+          73
+        ],
+        [
+          25,
+          69
+        ],
+        [
+          25,
+          70
+        ],
+        [
+          25,
+          71
+        ],
+        [
+          25,
+          72
+        ]
+      ]
     }
   ],
-  "method": "AI-generated whole sprites, lower-body ROIs normalized to palette and composited into existing run within leg region; untouched head, torso and weapon; no head paste",
+  "method": "AI regenerated lower limbs, nearest-neighbor normalization to supplied palette, per-material skirt preservation; unchanged head and torso; no head paste",
   "palette": [
     "#0A0412",
     "#0C0516",

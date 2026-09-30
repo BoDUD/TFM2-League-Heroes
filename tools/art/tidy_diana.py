@@ -20,10 +20,15 @@ keep is the face: its eyes change size and place from frame to frame (one eye, t
      the unit would stand at her heel;
   4. the blade and the hair (see BLADE): the idle's blade 2 squares back, clear of the hair; elsewhere a line of
      outline where they touch.
-The run came back a second time (diana_run_redo.zip, kept in codex_run/; the prompt:
-assets/source/diana/RUN_REDO.md): Codex's first run had the same legs in all 8 frames; the redo swaps the planted
-leg (near in 1-4, far in 5-8, strides opposite in 4 and 8) with the hips up kept square for square and the soles on
-the ground. --run takes the run from it (its flat manifest).
+The run came back a second time (diana_run_redo.zip; the prompt: assets/source/diana/RUN_REDO.md): Codex's first
+run had the same legs in all 8 frames; the redo swaps the planted leg (near in 1-4, far in 5-8, strides opposite in 4
+and 8) with the hips up kept square for square and the soles on the ground. In game its legs were still wrong (the
+user: "戴安娜走路的时候出现上下身体分割", "有一半腿露在身体外面"): frames 4 and 8 split 23-25 squares wide, kicked
+legs with no thigh, a light band across the waist. The third run (diana_run_redo2.zip, kept in codex_run/; the
+prompt: assets/source/diana/RUN_REDO2.md) redraws only the legs below row 62 after League's run: the feet at most
+10 squares apart, thighs out from under the skirt, the band gone. --run takes the run from it (its flat manifest).
+In the run, the legs' squares in the blade's pale cyan (frame 8's near shin, RUN_GREAVE) take the idle's greave
+silver, so the shin does not flash white once a stride.
 Writes assets/source/native/diana_<tag>.png (8x blocks) and diana_cells.json; the idle strip is the design's.
 --check compares with the files there instead of writing.
 """
@@ -60,6 +65,8 @@ HAIR = {(0xF2, 0xE6, 0xCF), (0xC7, 0xB8, 0xA2), (0x55, 0x47, 0x43)}
 LINE = {(0x0A, 0x04, 0x12), (0x0C, 0x05, 0x16)}
 INK = (0x0A, 0x04, 0x12)
 BLADE_BACK = 2
+RUN_HIPS, RUN_LEGS_X = 62, 30                # the run's legs: below its hips row, right of the blade's tip
+RUN_GREAVE = {(0xD0, 0xF6, 0xEE): (0xB8, 0xBF, 0xC7)}  # the blade's pale cyan -> the idle's greave silver
 N4 = ((1, 0), (-1, 0), (0, 1), (0, -1))
 
 
@@ -169,6 +176,17 @@ def line_between(f):
     return out, n
 
 
+def greave(f):
+    """The run's legs: squares in the blade's pale cyan below the hips, right of the blade, take the greave silver."""
+    out, n = f.copy(), 0
+    for y, x in zip(*np.nonzero(f[RUN_HIPS:, RUN_LEGS_X:, 3] > 0)):
+        c = key(f[RUN_HIPS + y, RUN_LEGS_X + x])
+        if c in RUN_GREAVE:
+            out[RUN_HIPS + y, RUN_LEGS_X + x, :3] = RUN_GREAVE[c]
+            n += 1
+    return out, n
+
+
 def move_blade(f, d=BLADE_BACK):
     """The biggest blade piece and its own outline d squares back (left), behind anything already there; the edges
     it uncovers get outline."""
@@ -234,6 +252,10 @@ def main():
             x0, y0 = (k % cols) * cw, (k // cols) * ch
             f = strip[y0:y0 + ch, x0:x0 + cw]
             if tag != "idle":
+                if tag == "run":
+                    f, n = greave(f)
+                    if n:
+                        notes.append(f"{k + 1}:greave{n}")
                 if (tag, k) not in NO_FACE and fr.get("eye_mark"):
                     s, dx, dy, f = paste_face(f, patch, fr["eye_mark"])
                     notes.append(f"{k + 1}:face{s}({dx:+d},{dy:+d})")
