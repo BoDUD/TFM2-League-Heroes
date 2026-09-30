@@ -1,0 +1,23 @@
+{
+  "tool": "image_gen.imagegen",
+  "transparent_background": true,
+  "scope": "Riven reduced-size A/B static models; same 46px workflow as EZ/Teemo.",
+  "references_A": [
+    "ezreal-teemo-small/comparison.png for pixel-art style",
+    "lucian-redo/lucian_native.png for small canvas placement"
+  ],
+  "reference_B": "Generated A via num_last_images_to_include=1",
+  "attempts": [
+    {
+      "id": "riven_A",
+      "source": "exec-d58fc935-e8d9-406a-b396-cef9c9f6da50.png",
+      "prompt": "Create ONE SMALL static Riven (锐雯, League of Legends CLASSIC BASE SKIN) game sprite in the same series as the references. Image ONE is a comparison sheet showing the approved coarse pixel-art rendering ONLY, do NOT copy its labels, layout or characters. Image TWO shows approved small character size and lower-center placement on a mostly empty transparent square. ONE Riven alone, whole figure including sword only about 36-40% of canvas height, feet about 80% down canvas, huge empty transparent margins. Draw a genuinely low-resolution approximately 46-pixel-tall full-body model, enlarged as crisp square pixels, not detailed illustration. Version A: compact 3-head-tall athletic ADULT woman warrior, fair skin, short windswept white/platinum hair with a small tied-back tuft, TWO clear green eyes visible under side-swept fringe, determined expression. Recognizable classic outfit: dark forest-green sleeveless wrap/tunic, muted brown belts and shorts/skirt panels, asymmetric weathered bronze shoulder armor on one shoulder, pale cloth bandages around the opposite upper arm and forearm, brown leather gloves and sturdy brown boots with simple pale wraps. Her signature weapon MUST be a HUGE BROKEN BROADSWORD: a thick broad pale-gray blade fragment with an unmistakable jagged snapped-off end, dark hilt, muted green runic inset. Clearly a heavy short broken blade, NOT a thin complete sword, NOT a spear and NOT an intact glowing sword. Hold the broken sword compactly diagonally downward toward image RIGHT beside the body, entirely above boot soles, clear separation between blade and legs. Balanced ready stance, 3/4 FRONT view facing right, both feet and both hands visible. Keep weapon short and thick within battle-safe compact silhouette. Simple large flat color clusters, 3-4 shades per material, maximum32-color target, single dark outer outline, colored shadows. No magic trail, aura, glow, background, ground plane, shadow, particles, text, grid, extra poses or props. Genuine alpha transparency. TWO eyes visible, readable white hair/green outfit/jagged broken sword. SMALL sprite at the same scale as the approved references; do not fill the canvas."
+    },
+    {
+      "id": "riven_B",
+      "source": "exec-6d0778ac-7f36-421a-aacd-f4245e557603.png",
+      "prompt": "Make a slightly more chibi B variant of this exact SMALL Riven pixel sprite. Preserve same total sprite height, lower-center canvas position, foot baseline and huge transparent margins. Enlarge her HEAD and FACE about 12 percent, slightly shorten torso/legs to compensate. Preserve her identity: windswept white hair with short tied-back tuft, TWO visible green eyes at same height, determined expression, dark green tunic, brown belts and boots, pale bandages on arms and legs, asymmetric bronze shoulder armor. Keep both eyes clear of hair; simplify hair spikes and belt decoration into bigger flat pixel clusters. Preserve the thick BROKEN broadsword with jagged snapped-off tip and green rune, held diagonally down toward image right; shorten it slightly so its lowest point has at least two native pixel rows of clearance above the boot soles. Never turn it into an intact sword or skinny blade. No glow, no effects, no background or shadow, no text/grid. Genuine transparent alpha. Keep coarse low-resolution 46-pixel character style and 32-color target. No enlargement of the figure to fill the canvas. Same standing pose, just slightly larger readable face and compact proportions."
+    }
+  ],
+  "postprocess": "export_grid.py"
+}

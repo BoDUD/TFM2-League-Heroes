@@ -1,0 +1,174 @@
+{
+  "scale_override": "User explicitly requested reduced-size sprites using the previous 46px workflow.",
+  "output_canvas": [
+    1024,
+    1024
+  ],
+  "native_canvas": [
+    128,
+    128
+  ],
+  "scale": 8,
+  "target_actor_height": 46,
+  "sole_row_native": 99,
+  "sole_rows_8x": [
+    792,
+    799
+  ],
+  "sprites": {
+    "riven_A": {
+      "source_file": "exec-d58fc935-e8d9-406a-b396-cef9c9f6da50.png",
+      "source_dimensions": [
+        1254,
+        1254
+      ],
+      "source_bbox_alpha128": [
+        471,
+        554,
+        921,
+        1058
+      ],
+      "file_8x": "riven_design_A.png",
+      "file_1x": "riven_design_A_1x.png",
+      "bbox_1x_exclusive": [
+        43,
+        54,
+        84,
+        100
+      ],
+      "bbox_8x_exclusive": [
+        344,
+        432,
+        672,
+        800
+      ],
+      "actor_height": 46,
+      "palette_color_count": 29,
+      "palette": [
+        "#1F131A",
+        "#23161C",
+        "#291B1F",
+        "#2F2021",
+        "#332727",
+        "#3D2823",
+        "#442F29",
+        "#46533B",
+        "#4A362C",
+        "#4C3D34",
+        "#4C4A3D",
+        "#5F3E2D",
+        "#625045",
+        "#677550",
+        "#684630",
+        "#6E5E48",
+        "#776958",
+        "#7C5136",
+        "#847C66",
+        "#A1704C",
+        "#A39287",
+        "#A6846B",
+        "#BAAB9B",
+        "#BD9574",
+        "#D9BFA7",
+        "#DBAE88",
+        "#E6CCB1",
+        "#EED6BC",
+        "#EEE2D3"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "verified": {
+        "exact_8px_grid": true,
+        "max32colors": true,
+        "binary_alpha": true,
+        "no_pixels_below_y799": true
+      },
+      "not_certified": [
+        "All details at least 2 pixels wide",
+        "Single-pixel outline throughout",
+        "Eye colors exclusive",
+        "Game runtime crop/readability"
+      ]
+    },
+    "riven_B": {
+      "source_file": "exec-6d0778ac-7f36-421a-aacd-f4245e557603.png",
+      "source_dimensions": [
+        1254,
+        1254
+      ],
+      "source_bbox_alpha128": [
+        482,
+        566,
+        889,
+        1055
+      ],
+      "file_8x": "riven_design_B.png",
+      "file_1x": "riven_design_B_1x.png",
+      "bbox_1x_exclusive": [
+        45,
+        54,
+        83,
+        100
+      ],
+      "bbox_8x_exclusive": [
+        360,
+        432,
+        664,
+        800
+      ],
+      "actor_height": 46,
+      "palette_color_count": 31,
+      "palette": [
+        "#1F131A",
+        "#23161C",
+        "#291B1F",
+        "#2F2021",
+        "#332727",
+        "#3D2823",
+        "#3F682D",
+        "#442F29",
+        "#46533B",
+        "#4A362C",
+        "#4C3D34",
+        "#4C4A3D",
+        "#5F3E2D",
+        "#625045",
+        "#677550",
+        "#684630",
+        "#6E5E48",
+        "#776958",
+        "#7C5136",
+        "#847C66",
+        "#A1704C",
+        "#A39287",
+        "#A6846B",
+        "#BAAB9B",
+        "#BD9574",
+        "#D9BFA7",
+        "#DBAE88",
+        "#E6CCB1",
+        "#EED6BC",
+        "#EEE2D3",
+        "#F8DEC0"
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "verified": {
+        "exact_8px_grid": true,
+        "max32colors": true,
+        "binary_alpha": true,
+        "no_pixels_below_y799": true
+      },
+      "not_certified": [
+        "All details at least 2 pixels wide",
+        "Single-pixel outline throughout",
+        "Eye colors exclusive",
+        "Game runtime crop/readability"
+      ]
+    }
+  }
+}
