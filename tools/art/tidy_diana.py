@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 """Diana's strips from Codex's delivery (assets/source/diana/MODEL_STRIPS.md) into assets/source/native/.
 
-    python tools/art/tidy_diana.py <delivery folder> [--tags run,attack,...] [--check]
+    python tools/art/tidy_diana.py assets/source/diana/codex_strips --run assets/source/diana/codex_run
+                                   [--tags run,attack,...] [--check]
 
-The delivery (diana_animation_candidates.zip: native/diana_<tag>_1x.png in 96x96 cells, manifest.json with an
-eye_mark per frame) is already on the grid and in the design's 26 colours; Codex drew every frame whole - no head
-paste, no erase round the head, as the pack asked. What it could not keep is the face: its eyes change size and
-place from frame to frame (one eye, two, a heavy brow). Per frame:
+The delivery (diana_animation_candidates.zip, kept in codex_strips/: native/diana_<tag>_1x.png in 96x96 cells,
+manifest.json with an eye_mark per frame, the pack's diana_cells.json) is already on the grid and in the design's 26
+colours; Codex drew every frame whole - no head paste, no erase round the head, as the pack asked. What it could not
+keep is the face: its eyes change size and place from frame to frame (one eye, two, a heavy brow). Per frame:
   1. face: the design's face - the moon disc, the lashes, both eyes, the cheeks (FACE_ROWS x FACE_COLS of the idle
      cell, 6x7 squares) - goes where Codex's own face is: searched within 3 squares of the manifest's eye mark,
      scored by the design's eye squares falling on Codex's eye squares and its skin on skin; only over opaque squares,
@@ -17,6 +18,10 @@ place from frame to frame (one eye, two, a heavy brow). Per frame:
   3. place: the cells' pivots move 9 squares left - the design's feet stand 9 squares left of the pivot the pack's
      idle strip was laid on (its blade on the left pulled it across the League silhouette, as with Vayne), so in game
      the unit would stand at her heel.
+The run came back a second time (diana_run_redo.zip, kept in codex_run/; the prompt:
+assets/source/diana/RUN_REDO.md): Codex's first run had the same legs in all 8 frames; the redo swaps the planted
+leg (near in 1-4, far in 5-8, strides opposite in 4 and 8) with the hips up kept square for square and the soles on
+the ground. --run takes the run from it (its flat manifest).
 Writes assets/source/native/diana_<tag>.png (8x blocks) and diana_cells.json; the idle strip is the design's.
 --check compares with the files there instead of writing.
 """
@@ -110,19 +115,22 @@ def ground(f, py):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("delivery")
+    ap.add_argument("--run", help="the run redo delivery (its native/diana_run_1x.png and manifest.json)")
     ap.add_argument("--tags", default="run,attack,attack_p,skill,skill2,skill2_w,ult,hit,dead")
     ap.add_argument("--check", action="store_true")
     o = ap.parse_args()
-    man = json.load(open(os.path.join(o.delivery, "manifest.json"), encoding="utf-8"))
-    cells = json.load(open(os.path.join(o.delivery, "diana_cells.json"), encoding="utf-8"))
+    man = json.load(open(lp(os.path.join(o.delivery, "manifest.json")), encoding="utf-8"))
+    cells = json.load(open(lp(os.path.join(o.delivery, "diana_cells.json")), encoding="utf-8"))
     cw, ch = cells["cell"]
-    idle = np.asarray(Image.open(os.path.join(o.delivery, "native", "diana_idle_1x.png")).convert("RGBA")).copy()
+    idle = np.asarray(Image.open(lp(os.path.join(o.delivery, "native", "diana_idle_1x.png"))).convert("RGBA")).copy()
     patch = face_patch(idle[:ch, :cw])
     tags = ["idle"] + o.tags.split(",")
     same = True
     for tag in tags:
-        an = man["animations"][tag]
-        strip = np.asarray(Image.open(os.path.join(o.delivery, an["native_file"])).convert("RGBA")).copy()
+        root, an = o.delivery, man["animations"][tag]
+        if tag == "run" and o.run:
+            root, an = o.run, json.load(open(lp(os.path.join(o.run, "manifest.json")), encoding="utf-8"))
+        strip = np.asarray(Image.open(lp(os.path.join(root, an["native_file"]))).convert("RGBA")).copy()
         strip[strip[..., 3] < 128] = 0
         strip[strip[..., 3] > 0, 3] = 255
         cols = strip.shape[1] // cw

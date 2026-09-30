@@ -1,0 +1,312 @@
+{
+  "schema_version": 1,
+  "tool": "built-in image_gen",
+  "status": "technical_checks_passed_visual_limitations_documented",
+  "scale": 8,
+  "cell": [
+    96,
+    96
+  ],
+  "grid": [
+    4,
+    2
+  ],
+  "file": "diana_run.png",
+  "native_file": "native/diana_run_1x.png",
+  "raw_file": "raw/run.png",
+  "frames": [
+    {
+      "frame": 1,
+      "ms": 125,
+      "rect": [
+        0,
+        0,
+        96,
+        96
+      ],
+      "rect_format": "left,top,right,bottom; logical; exclusive",
+      "pivot": [
+        52,
+        68
+      ],
+      "bbox": [
+        18,
+        38,
+        54,
+        80
+      ],
+      "eye_mark": [
+        46,
+        48
+      ],
+      "raw_leg_rect": [
+        137,
+        301,
+        161,
+        142
+      ],
+      "baseline": 79,
+      "upper_rows_0_61_unchanged": true
+    },
+    {
+      "frame": 2,
+      "ms": 125,
+      "rect": [
+        96,
+        0,
+        192,
+        96
+      ],
+      "rect_format": "left,top,right,bottom; logical; exclusive",
+      "pivot": [
+        53,
+        68
+      ],
+      "bbox": [
+        20,
+        37,
+        56,
+        80
+      ],
+      "eye_mark": [
+        47,
+        48
+      ],
+      "raw_leg_rect": [
+        583,
+        302,
+        193,
+        141
+      ],
+      "baseline": 79,
+      "upper_rows_0_61_unchanged": true
+    },
+    {
+      "frame": 3,
+      "ms": 125,
+      "rect": [
+        192,
+        0,
+        288,
+        96
+      ],
+      "rect_format": "left,top,right,bottom; logical; exclusive",
+      "pivot": [
+        53,
+        68
+      ],
+      "bbox": [
+        19,
+        38,
+        55,
+        80
+      ],
+      "eye_mark": [
+        47,
+        49
+      ],
+      "raw_leg_rect": [
+        1033,
+        300,
+        162,
+        143
+      ],
+      "baseline": 79,
+      "upper_rows_0_61_unchanged": true
+    },
+    {
+      "frame": 4,
+      "ms": 125,
+      "rect": [
+        288,
+        0,
+        384,
+        96
+      ],
+      "rect_format": "left,top,right,bottom; logical; exclusive",
+      "pivot": [
+        53,
+        68
+      ],
+      "bbox": [
+        19,
+        37,
+        60,
+        80
+      ],
+      "eye_mark": [
+        47,
+        48
+      ],
+      "raw_leg_rect": [
+        1442,
+        299,
+        275,
+        144
+      ],
+      "baseline": 79,
+      "upper_rows_0_61_unchanged": true
+    },
+    {
+      "frame": 5,
+      "ms": 125,
+      "rect": [
+        0,
+        96,
+        96,
+        192
+      ],
+      "rect_format": "left,top,right,bottom; logical; exclusive",
+      "pivot": [
+        52,
+        68
+      ],
+      "bbox": [
+        18,
+        37,
+        53,
+        80
+      ],
+      "eye_mark": [
+        46,
+        48
+      ],
+      "raw_leg_rect": [
+        132,
+        706,
+        178,
+        141
+      ],
+      "baseline": 79,
+      "upper_rows_0_61_unchanged": true
+    },
+    {
+      "frame": 6,
+      "ms": 125,
+      "rect": [
+        96,
+        96,
+        192,
+        192
+      ],
+      "rect_format": "left,top,right,bottom; logical; exclusive",
+      "pivot": [
+        52,
+        68
+      ],
+      "bbox": [
+        18,
+        38,
+        54,
+        80
+      ],
+      "eye_mark": [
+        46,
+        48
+      ],
+      "raw_leg_rect": [
+        574,
+        706,
+        201,
+        141
+      ],
+      "baseline": 79,
+      "upper_rows_0_61_unchanged": true
+    },
+    {
+      "frame": 7,
+      "ms": 125,
+      "rect": [
+        192,
+        96,
+        288,
+        192
+      ],
+      "rect_format": "left,top,right,bottom; logical; exclusive",
+      "pivot": [
+        51,
+        68
+      ],
+      "bbox": [
+        17,
+        37,
+        53,
+        80
+      ],
+      "eye_mark": [
+        45,
+        48
+      ],
+      "raw_leg_rect": [
+        1051,
+        705,
+        161,
+        142
+      ],
+      "baseline": 79,
+      "upper_rows_0_61_unchanged": true
+    },
+    {
+      "frame": 8,
+      "ms": 125,
+      "rect": [
+        288,
+        96,
+        384,
+        192
+      ],
+      "rect_format": "left,top,right,bottom; logical; exclusive",
+      "pivot": [
+        51,
+        68
+      ],
+      "bbox": [
+        17,
+        38,
+        59,
+        80
+      ],
+      "eye_mark": [
+        45,
+        48
+      ],
+      "raw_leg_rect": [
+        1444,
+        704,
+        276,
+        143
+      ],
+      "baseline": 79,
+      "upper_rows_0_61_unchanged": true
+    }
+  ],
+  "method": "AI-generated whole sprites, lower-body ROIs normalized to palette and composited into existing run within leg region; untouched head, torso and weapon; no head paste",
+  "palette": [
+    "#0A0412",
+    "#0C0516",
+    "#1F5057",
+    "#22233C",
+    "#264648",
+    "#333B63",
+    "#492B5B",
+    "#505169",
+    "#505945",
+    "#554743",
+    "#60637E",
+    "#7211B0",
+    "#7BB2B9",
+    "#818768",
+    "#865744",
+    "#9676AC",
+    "#A7804A",
+    "#A950D9",
+    "#B8BFC7",
+    "#B9B690",
+    "#C7B8A2",
+    "#D0F6EE",
+    "#F2BA94",
+    "#F2E6CF",
+    "#F3D98D",
+    "#F9F7FB"
+  ]
+}

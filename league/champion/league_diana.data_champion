@@ -41,7 +41,7 @@
     "action_name": "attack",
     "description": "#asset/base/text/champion?description.league_diana.attack",
     "duration": 26,
-    "cooltime": 55,
+    "cooltime": 50,
     "start_timing": 1,
     "cancelable": true,
     "range": 24000,
@@ -101,8 +101,8 @@
                 "effects": [
                   {
                     "type": "ApAttack",
-                    "damage": 70,
-                    "attack_ratio": 70,
+                    "damage": 80,
+                    "attack_ratio": 80,
                     "attack_effect_type": "Target"
                   },
                   {
@@ -286,8 +286,8 @@
                     "effects": [
                       {
                         "type": "ApAttack",
-                        "damage": 90,
-                        "attack_ratio": 80,
+                        "damage": 100,
+                        "attack_ratio": 90,
                         "attack_effect_type": "Target"
                       },
                       {
@@ -386,8 +386,8 @@
                   "effects": [
                     {
                       "type": "ApAttack",
-                      "damage": 90,
-                      "attack_ratio": 80,
+                      "damage": 100,
+                      "attack_ratio": 90,
                       "attack_effect_type": "Target"
                     },
                     {
@@ -541,8 +541,8 @@
           "end_effects": [
             {
               "type": "ApAttack",
-              "damage": 70,
-              "attack_ratio": 60,
+              "damage": 80,
+              "attack_ratio": 70,
               "attack_effect_type": "Target"
             },
             {
@@ -3401,8 +3401,8 @@
                                 "end_effects": [
                                   {
                                     "type": "ApAttack",
-                                    "damage": 70,
-                                    "attack_ratio": 60,
+                                    "damage": 80,
+                                    "attack_ratio": 70,
                                     "attack_effect_type": "Target"
                                   },
                                   {
@@ -3442,8 +3442,8 @@
                                   "end_effects": [
                                     {
                                       "type": "ApAttack",
-                                      "damage": 70,
-                                      "attack_ratio": 60,
+                                      "damage": 80,
+                                      "attack_ratio": 70,
                                       "attack_effect_type": "Target"
                                     },
                                     {
@@ -3482,7 +3482,7 @@
     "cooltime": 3000,
     "start_timing": 16,
     "cancelable": false,
-    "range": 30000,
+    "range": 25000,
     "casting_type": "Targeting",
     "casting_target": "EnemyChampion",
     "attack_type": "Skill",
@@ -3535,7 +3535,7 @@
           "type": "RangeEffect",
           "shape": {
             "Circle": {
-              "radius": 32000
+              "radius": 40000
             }
           },
           "target": "EnemyChampion",
@@ -3785,7 +3785,7 @@
       "name": "league_diana_w_cast",
       "anim": "asset/league/effects/league_diana_fx",
       "tag": "w_cast",
-      "z": 1,
+      "z": -1,
       "is_follow": true
     },
     {
@@ -3810,7 +3810,7 @@
       "anim": "asset/league/effects/league_diana_big",
       "tag": "r_moon",
       "z": 1,
-      "is_follow": false
+      "is_follow": true
     },
     {
       "type": "Animation",
@@ -3855,7 +3855,7 @@
       "name": "league_diana_w_shield",
       "anim": "asset/league/effects/league_diana_fx",
       "tag": "w_shield",
-      "z": 1
+      "z": -1
     }
   ]
 }
