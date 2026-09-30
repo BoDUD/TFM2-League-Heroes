@@ -97,7 +97,9 @@ ORDER = {("lux", "idle"): [0, 0, 0, 0, 0, 0],   # the step-2 idle is the design 
          # and Morgana (the redesign A, which tools/art/tidy_morgana.py writes into all six)
          ("morgana", "idle"): [0, 0, 0, 0, 0, 0],
          # and Briar (the design B: Codex's strips with the design's head copied into every frame)
-         ("briar", "idle"): [0, 0, 0, 0, 0, 0]}
+         ("briar", "idle"): [0, 0, 0, 0, 0, 0],
+         # and Vayne (the design drawn by Codex at game size: the pack's idle is the design in all six)
+         ("vayne", "idle"): [0, 0, 0, 0, 0, 0]}
 # (hero, tag): (y, slots) - in those slots everything at or above pivot row y moves down a row (the row under
 # it is covered): one frame breathing, the face the same drawing throughout. Leona's shield covers her from
 # the chest to the ankles, so she sinks down to its tip and only the boots stay (a seam across the shield
@@ -150,7 +152,9 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        # shading (8 squares); the hem and the train's lowest rows stay
        ("morgana", "idle"): (6, [2, 3, 4]),
        # Briar: the seam across her shins, under the knees' gold bands; the shackle bands and the feet stay
-       ("briar", "idle"): (5, [2, 3, 4])}
+       ("briar", "idle"): (5, [2, 3, 4]),
+       # Vayne: the seam across her shins, where the silhouette changes by 4 squares; her boots stay
+       ("vayne", "idle"): (5, [2, 3, 4])}
 CROWN = {"leesin"}              # heroes whose head template starts at the crown (a braid stands above it)
 PASTED = {"masteryi"}            # steadied on the head restyle_native pasted: his raised sword is the top of every frame
 # Codex's step-2 redraw (model_strips_18, tidied by tidy_codex18.py): the approved design's head (or face) is in every
@@ -180,7 +184,8 @@ EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade
         "lux": (45, 111, 184),            # the same for Lux: her blue eyes (the pair the user picked), eye-only shade
         "lucian": (63, 106, 116),         # the redesign: his raised pistol is the top of every idle frame
         "morgana": (200, 60, 166),        # the redesign A: only her face is pasted, its pink-violet is the eyes'
-        "briar": (240, 252, 255)}         # the pillory's gem is the top of every frame; the ice-white is the eyes'
+        "briar": (240, 252, 255),         # the pillory's gem is the top of every frame; the ice-white is the eyes'
+        "vayne": (248, 48, 60)}           # the crossbow on her back tops the frame; the lenses' red is used nowhere else
 
 
 def blocks(path):

@@ -478,6 +478,26 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   near-black takes the outline colour - inside the silhouette, so no frame grows (compare areas with the idle) - and
   `tidy_codex18.py`'s `one_outline` follows (spurs, the inner black ring, specks); 96-99% of the edge is outline
   afterwards and 2-4% of the ring inside it black.
+- **Codex's own export cut the head off at the neck (league_vayne).** Its exporter (VayneExport.cs) cleared every
+  hair, skin and bodysuit square round the eyes - 30 rows above them, 6 below, so the neck and the high collar under
+  the chin too - and pasted the design's whole head: the head sat on the body like a sticker ("头和身体有点分离"
+  "不协调"), and where its eye marks were off (up to 10 squares: Condemn's shot, the fall) on the wrong part of it,
+  with the drawn head's leftovers beside it; its erase box also took the forearm in front of the face (a wrist crossbow
+  "flying" off the hand). `tools/art/export_vayne.py` redoes the export from its raw sheets square for square (the
+  same pitch, boxes, placement, 3x3 median, palette without the lens reds, specks, feet line - checked: 0-2 squares
+  apart outside the head) but clears nothing and pastes only the design's face (glasses, skin, profile, mouth: 9 x 8)
+  where Codex's own face is, found by colour within 10 squares of the mark (the design's face with its lenses in the
+  cape red that the drawn lenses snap to) - a face pasted at the mark itself left two faces side by side. Frames whose
+  head is thrown back keep the drawn face. In the next pack ask for no erase and no head paste at all, and for the raw
+  sheets and eye marks with the delivery.
+- **A run's legs must change (league_vayne).** Codex drew all 8 run frames with the same legs - the near leg planted,
+  the far one kicked up behind - so she hopped on one foot ("走路没有交叉步"); the pack's run guide had only the
+  standing points and the feet line, and "frames 1-4 one stride, 5-8 the other" was not enough. Check every run
+  against League's: the planted leg swaps every half cycle and the knees pass each other under the body in between.
+  A guide that shows it: `native_pose.py --parts` with the spec's `"parts": [{"joints": "^l_thigh$"}, {"joints":
+  "^r_thigh$"}]` paints the two legs apart (the near one is drawn over the far one where they overlap); give them to
+  Codex in two colours (near orange, far blue, the rest grey) at 8x and at game size on the run's guide, with a
+  per-frame table of which leg is planted, passing or kicked back.
 - **Effect anchors.** Effect and buff frames are drawn centred on the unit's pivot, 11.5 px above
   the feet (base: `levelup_effect` ring at +9..+16, `shield_receive_effect` bubble -22..+13).
   Ground rings at about +10, hits and shields at -3..-6, overhead marks around -25. Time the
