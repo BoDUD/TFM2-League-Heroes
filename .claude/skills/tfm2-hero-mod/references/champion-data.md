@@ -1040,6 +1040,9 @@ league_vayne (bottom, 2026-09-30, Condemn's knockback and 1 s stun): 1.75 a game
 0.65 and league_lucian 0.44 in the same batch - no change.
 league_veigar (mid, 2026-09-30, Event Horizon's cage: a 1 s stun on every champion it catches): 2.40 a game; the base
 lightning mage 3.19 and pyromancer 0.65 in the same batch - no change.
+league_taric (support, 2026-10-01, Dazzle's 1.25 s stun on a line bursting 0.75 s after the cast, and round a linked
+ally): 1.02 a game; league_nami 1.90 and league_leona 1.88 in the same batch - a late-bursting line catches fewer
+champions than knock-ups or circles, no change.
 
 **Kill trigger (league_jinx Get Excited!).** No effect fires on a kill, but section 4's facts make one:
 1. Next to the damaging projectile, fire an invisible twin with the same speed and path and
