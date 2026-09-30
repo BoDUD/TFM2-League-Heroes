@@ -19,12 +19,14 @@ on a failure), then:
     the 40-row one stands on it);
   - every frame's head placement and sword (the manifest's `sword`: the broken end's middle and the unit vector from
     the hilt to it, null when the blade faces the camera) go to assets/source/native/riven_frames40.json.
-2. --redo: the 40-row delivery (a nearest-neighbour shrink of the 46-row strips) kept the 46-row poses, and 18 of
+2. --redo (round 2, then round 3): the 40-row delivery (a nearest-neighbour shrink of the 46-row strips) kept the 46-row poses, and 18 of
 them put the sword over the head with the arm hidden behind it, or apart from the hand (the user: "脖子拉伸 手看起来
 脱节？", "各种身体脱节", "还有无影手了？"). Codex redrew those after League's frames at the 40-row scale (round 1:
 REDO18.md; round 2, REDO18B.md: arms as thick as the design's, swords reused from untouched frames or redrawn square
-by square, never rotated). The redo's strips replace ours after the same checks; every frame it did not list must be
-ours square for square, and its records replace the redrawn frames' in riven_frames40.json.
+by square, never rotated; round 3, REDO18C.md, after an independent review: forearms to the free hands, Q3's leap
+back, four more frames with a sword and no hand or a line for an arm, narrower upright swords, two stalk necks). Each
+redo's strips replace ours after the same checks; every frame it did not list must be ours square for square, and
+its records (and its metadata_only_corrections) replace the redrawn frames' in riven_frames40.json.
 3. --neck: under the pasted chin the shrink left a one-square neck ('h p h' with clear squares beside it, two rows)
 in many frames; widened to the design's ('h p x r h' on the first row under the chin, 'h p x h' on the second). A
 frame whose neck is already wide is left as it is, so the step can run again.
@@ -272,7 +274,8 @@ def redo(folder):
     with open(D.lp(os.path.join(SRC, "riven_cells.json")), encoding="utf-8") as f:
         cells = json.load(f)
     with open(D.lp(os.path.join(folder, "manifest.json")), encoding="utf-8") as f:
-        anims = json.load(f)["animations"]
+        manifest = json.load(f)
+    anims = manifest["animations"]
     master = np.asarray(Image.open(D.lp(os.path.join(folder, "reference", "head_master_1x.png"))).convert("RGBA"))
     palette = colours(blocks(os.path.join(SRC, "riven_native.png")))
     table = load_frames()
@@ -312,6 +315,10 @@ def redo(folder):
         big = Image.fromarray(a).resize((a.shape[1] * Z, a.shape[0] * Z), Image.NEAREST)
         big.save(D.lp(os.path.join(SRC, f"riven_{tag}.png")))
         print(f"riven_{tag}.png  frames {sorted(recs)} redrawn")
+    # a record measured again with the picture unchanged (round 3: Q2 frame 5's reused sword)
+    for fix in manifest.get("metadata_only_corrections", []):
+        table[fix["action"]][fix["frame"] - 1]["sword"] = fix["sword"]
+        print(f"riven_{fix['action']}.png  frame {fix['frame']}: sword record measured again")
     save_frames(table)
 
 
