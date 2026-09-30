@@ -29,6 +29,11 @@ layer (frames 3 and 4, a two-frame loop) cut round the point 15 px over the stan
 it with y_offset -15000 - so on the release tick it stands where the slash drew it (11-42 px ahead of her) and then
 flies on; made exactly symmetric about its middle row (the game turns a projectile's picture to its flight: leftward
 it is turned 180 degrees). The front layer itself is not bound (it would stay behind as a second crescent).
+The user then asked for a bigger wave ("锐雯的大招效果最后放出去的波浪帮我做大一点"): it is drawn WAVE_SCALE times
+bigger - 31 px tall -> 46, about the band the projectile really hits (its 16000 radius plus the target's own, some
+24 px to either side) - by level sets: its greens ordered dark to light as levels, the level field resized smoothly
+and cut back into the same greens, so the bands keep clean edges and no pixel is stretched; the rim that makes on
+the edge goes as in --raw, and the crescent's middle stays where the slash drew it.
 The second delivery (assets/source/riven/PROMPTS_FX2.md, the effects the first one left out) came as effects drawn
 in their own cells, each with an anchor (the manifest's `cell`, `anchor`, `ms`): --fx2 checks them the same way
 (8x blocks, alpha, the effects' palette plus Q3's two rock browns for the knock-up, the frames and times the pack
@@ -65,6 +70,8 @@ PALETTE = {RIM, NEXT, (0x4B, 0xA8, 0x5A), (0x87, 0xD4, 0x6A), (0xC9, 0xEF, 0x9A)
 SETS = {"q1": "skill", "q2": "q2", "q3": "q3", "e": "skill2", "w": "skill2", "r_on": "ult", "r_slash": "r_slash"}
 SHEETS = {"league_riven_fx": ["q1", "q2", "q3"], "league_riven_big": ["e", "w", "r_on"]}
 WAVE_LIFT = 15                  # px: the projectile's y_offset -15000 lifts its picture this far
+WAVE_SCALE = 1.5                # the flying wave drawn this much bigger than Codex's crescent (the user)
+GREENS = [RIM, NEXT, (0x4B, 0xA8, 0x5A), (0x87, 0xD4, 0x6A), (0xC9, 0xEF, 0x9A), (0xF6, 0xEA, 0xDB)]  # dark to light
 # the second delivery: sheet, where the unit's standing point is from the anchor, the shield's phases
 FX2 = {"hit": ("league_riven_fx", (0, 8)), "rune_hit": ("league_riven_fx", (0, 8)),
        "q_hit": ("league_riven_fx", (0, 8)), "r_hit": ("league_riven_fx", (0, 8)),
@@ -196,6 +203,29 @@ def symmetric(fr):
     return fr
 
 
+def enlarge(fr, k):
+    """The centred wave frame k times bigger about the crescent's middle, by level sets (see the docstring)."""
+    ys, xs = np.nonzero(fr[..., 3] > 0)
+    c = np.pad(fr[ys.min():ys.max() + 1, xs.min():xs.max() + 1], ((1, 1), (1, 1), (0, 0)))
+    lv = np.zeros(c.shape[:2], np.float32)
+    for y, x in zip(*np.nonzero(c[..., 3] > 0)):
+        col = tuple(int(v) for v in c[y, x, :3])
+        lv[y, x] = GREENS.index(col) + 1 if col in GREENS else 1
+    h, w = round(c.shape[0] * k), round(c.shape[1] * k)
+    q = np.clip(np.floor(np.asarray(Image.fromarray(lv, "F").resize((w, h), Image.BICUBIC)) + 0.5), 0, len(GREENS))
+    big = np.zeros((h, w, 4), np.uint8)
+    for i, col in enumerate(GREENS):
+        big[q == i + 1] = col + (255,)
+    big = unrim(big)
+    # the crescent's middle where it was, relative to the frame's centre (the projectile's point)
+    cy, cx = (ys.min() + ys.max()) / 2 - fr.shape[0] // 2, (xs.min() + xs.max()) / 2 - fr.shape[1] // 2
+    y0, x0 = int(round(cy - (h - 1) / 2)), int(round(cx - (w - 1) / 2))
+    r = max(abs(y0), abs(y0 + h), abs(x0), abs(x0 + w)) + 1
+    out = np.zeros((2 * r + 1, 2 * r + 1, 4), np.uint8)
+    out[r + y0:r + y0 + h, r + x0:r + x0 + w] = big
+    return symmetric(out)
+
+
 def build():
     with open(G.lp(os.path.join(NATIVE, "riven_cells.json")), encoding="utf-8") as f:
         cells = json.load(f)
@@ -212,8 +242,8 @@ def build():
     front = strip_cells("r_slash", "front", len(rows))
     fx = sheets["league_riven_fx"]
     fx["r_slash_back"] = [(G.centre_frame(c, -r["pivot"][0], -r["pivot"][1]), r["ms"]) for c, r in zip(back, rows)]
-    fx["r_wave"] = [(symmetric(G.centre_frame(front[k], -rows[k]["pivot"][0], -(rows[k]["pivot"][1] - WAVE_LIFT))),
-                     rows[k]["ms"]) for k in (2, 3)]
+    fx["r_wave"] = [(enlarge(symmetric(G.centre_frame(front[k], -rows[k]["pivot"][0], -(rows[k]["pivot"][1] - WAVE_LIFT))),
+                             WAVE_SCALE), rows[k]["ms"]) for k in (2, 3)]
     with open(G.lp(os.path.join(SRC, "riven_fx2_cells.json")), encoding="utf-8") as f:
         table = json.load(f)
     for name, (sheet, _) in FX2.items():
