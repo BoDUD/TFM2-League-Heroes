@@ -1472,6 +1472,17 @@ unit works like the caster's own *(SDK simulation, a probe counting the `Stun` /
 event landed on a champion under Black Shield (about 15,600 champion-ticks with it), against 538-606 a game on all
 champions.
 
+**A hook a crowd-control shield stops (league_thresh Q against league_morgana E; Blitzcrank's Rocket Grab later).**
+The hook's `Stun` and `Grab` are blocked by `cc_immune` *(SDK simulation, 2026-09-30: a probe on every hook end,
+Morgana and Thresh on opposite sides, 48 games: 0 of 23 hooks on a champion under Black Shield stunned or dragged,
+against 244 and 217 of 309 hook ends near an unshielded one)*. Everything else in the hook's `applied_effects` is no
+crowd control and still lands: the chain-wrap picture played on 18 of the 23, and the `q_hooked` caster flag that
+turns Flay into a pull was set 18 times. So what should follow only a landed hook rides an invisible twin fired right
+after it (same speed, range, shape and path, no view, `penetrate: false`) with `applied_target: EnemyChampionInCC`:
+it hits the hooked champion in the same tick once the hook's stun holds, and passes a shielded one. With the twin
+carrying the flag and the picture: 0 of 22 on shielded champions, 262 of 332 otherwise. A grab built from `Grab` /
+`Pull` / `Stun` is stopped by the shield for free; one built from `MoveToTarget` or `Teleport` on the target is not.
+
 **Tethers that break out of reach and snap after 3 s (league_morgana R, Soul Shackles).** A `Targeting` cast on
 `EnemyChampion` (range 45000): a `RangeEffect` (radius 50000) on `EnemyChampion` round her deals the damage and heals
 her; she gets 20% move speed for 3 s. Each champion it reaches gets a tether of its own, a chain of pulses written
