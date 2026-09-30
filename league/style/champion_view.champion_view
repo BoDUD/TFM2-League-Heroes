@@ -72,8 +72,8 @@
     },
     "league_yasuo": {
       "face": {
-        "x": 4,
-        "y": -33
+        "x": 1,
+        "y": -39
       },
       "center": {
         "x": 0,
@@ -220,10 +220,10 @@
         "y": -12
       }
     },
-    "league_lucian": {
+    "league_ahri": {
       "face": {
-        "x": -3,
-        "y": -41
+        "x": 1,
+        "y": -35
       },
       "center": {
         "x": 0,
@@ -233,6 +233,16 @@
     "league_morgana": {
       "face": {
         "x": -2,
+        "y": -41
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
+    "league_lucian": {
+      "face": {
+        "x": -3,
         "y": -41
       },
       "center": {

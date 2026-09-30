@@ -6,10 +6,12 @@ load).
 
   league_leesin_frames.png    every animation, frame by frame, 3x on the arena colour
   league_leesin_effects.png   every effect animation, 3x
-  league_leesin_showcase.gif  a scripted fight against two mirrored Lee Sins, timed like the kit (run
-                              in, Q Sonic Wave + the Resonating Strike dash, two Flurry punches,
-                              E Tempest + Safeguard, R Dragon's Rage kicking the target into the one
-                              behind it, death), 3x
+  league_leesin_showcase.gif  a scripted fight, timed like the kit: an enemy Darius keeps hitting an
+                              allied Garen; Lee Sin runs in and casts Q Sonic Wave, and at its end
+                              Safeguard (W) shields him and Garen on the same tick and dashes him to
+                              Garen; Resonating Strike takes him to the marked enemy, two Flurry punches;
+                              Dragon's Rage (R) rushes him through the enemy and kicks it from behind,
+                              back toward Garen, who finishes it; 3x
 """
 import argparse
 import os
@@ -29,15 +31,21 @@ FX = {n: os.path.join(LEAGUE, "effects", n) for n in ("league_leesin_fx", "leagu
 
 
 class Foe:
-    """A mirrored Lee Sin standing at x: idle, flinches, a knock-back slide, a knock-up hop, death."""
+    """A unit standing at x (mirrored to face left unless mirror=False): idle, attacks, flinches, a
+    knock-back slide, a knock-up hop, death."""
 
-    def __init__(self, lee, x, y):
-        self.idle, self.hit, self.dead = frames_of(lee, "idle"), frames_of(lee, "hit"), frames_of(lee, "dead")
-        self.x, self.y = x, y
-        self.flinches, self.slides, self.hops, self.death = [], [], [], None
+    def __init__(self, sprite, x, y, mirror=True):
+        self.idle, self.hit, self.dead = frames_of(sprite, "idle"), frames_of(sprite, "hit"), frames_of(sprite, "dead")
+        self.attack = frames_of(sprite, "attack")
+        self.run = frames_of(sprite, "run")
+        self.x, self.y, self.mirrored = x, y, mirror
+        self.flinches, self.slides, self.hops, self.attacks, self.death = [], [], [], [], None
+        self.runs = []                                # (t0, t1): running away to the right, unmirrored
         self.mirror = {}
 
     def flip(self, f):
+        if not self.mirrored:
+            return f
         if id(f) not in self.mirror:
             self.mirror[id(f)] = f.transpose(Image.FLIP_LEFT_RIGHT)
         return self.mirror[id(f)]
@@ -64,6 +72,9 @@ class Foe:
     def frame(self, t):
         if self.death is not None and t >= self.death:
             return self.flip(self.pick(self.dead, t - self.death, hold=True))
+        for t0, t1 in self.runs:
+            if t0 <= t < t1:
+                return self.pick(self.run, (t - t0) % sum(ms for _, ms in self.run))
         for t0, t1, _ in self.slides + self.hops:
             if t0 <= t < t1:
                 return self.flip(self.hit[0][0])
@@ -71,36 +82,60 @@ class Foe:
             f = self.pick(self.hit, t - t0) if t >= t0 else None
             if f is not None:
                 return self.flip(f)
+        for t0 in self.attacks:
+            f = self.pick(self.attack, t - t0) if t >= t0 else None
+            if f is not None:
+                return self.flip(f)
         return self.flip(self.pick(self.idle, t % sum(ms for _, ms in self.idle)))
+
+
+def skip(fr, ms):
+    """The frames of an animation after its first ms milliseconds."""
+    out = []
+    for f, d in fr:
+        if ms >= d:
+            ms -= d
+            continue
+        out.append((f, d - ms))
+        ms = 0
+    return out or fr[-1:]
 
 
 def showcase(out, z=3, step=40):
     lee = load(CHAMP)
+    garen = load(os.path.join(LEAGUE, "champions", "league_garen"))
+    darius = load(os.path.join(LEAGUE, "champions", "league_darius"))
     fx = {k: load(v) for k, v in FX.items()}
     W, H = 320, 104
     gy = 62                                           # pivot row
-    foe, back = Foe(lee, 150, gy), Foe(lee, 200, gy)  # the target, and one behind it for the R
+    ally = Foe(garen, 66, gy - 10, mirror=False)      # Garen, facing right, a step further back on the field
+    foe = Foe(darius, 100, gy)                        # the enemy (Darius) hitting him, facing left
     body, effects, shots = [], [], []
     t = 0.0
-    x = 20                                            # Lee Sin's x
+    x = 12                                            # Lee Sin's x
 
-    def a(tag, dur=None, loop=False, x1=None):
+    def a(tag, dur=None, loop=False, x1=None, flip=False):
         nonlocal t, x
-        an = Anim(frames_of(lee, tag), t, x, gy, loop=loop, until=(t + dur) if dur else None, x1=x1)
+        an = Anim(frames_of(lee, tag), t, x, gy, loop=loop, until=(t + dur) if dur else None, x1=x1, flip=flip)
         body.append(an)
         t = an.until
         if x1 is not None:
             x = x1
 
-    def fx_at(tag, at, fx_x, fy=None, sprite="league_leesin_fx", z_=1, follow=None):
+    def fx_at(tag, at, fx_x, fy=None, sprite="league_leesin_fx", z_=1):
         effects.append(Anim(frames_of(fx[sprite], tag), at, fx_x, gy if fy is None else fy, z=z_))
 
-    # run in (move_speed 1100 ~ 1.1 px a tick)
-    body.append(Anim(frames_of(lee, "run"), t, x - 50, gy, loop=True, until=t + 760, x1=x + 30))
+    # the enemy keeps hitting Garen: an attack every 700 ms, Garen flinches on the hit (tick 12)
+    for k in range(4):
+        t0 = 150 + k * 700
+        foe.attacks.append(t0)
+        ally.flinches.append(t0 + tick(12))
+    # Lee Sin runs in (move_speed 1100 ~ 1.1 px a tick)
+    body.append(Anim(frames_of(lee, "run"), t, x - 50, gy, loop=True, until=t + 760, x1=x))
     t += 760
-    x += 30
-    a("idle", 300, loop=True)
-    # Q: the wave leaves at tick 16 (4500/tick), the mark on the hit; 12 ticks later the dash (5000/tick)
+    a("idle", 200, loop=True)
+    # Q: the wave leaves at tick 16 (4500/tick). Safeguard's check runs with Q: Garen has an enemy champion
+    # on him, so both get the shield on that tick and Lee Sin dashes to him (q2 pose, 5000/tick)
     start = t
     a("skill")
     at = start + tick(16)
@@ -109,19 +144,26 @@ def showcase(out, z=3, step=40):
                       until=arrive, x1=foe.x - 6, y1=gy - 2, z=1))
     fx_at("q_mark", arrive, foe.x)
     foe.flinches.append(arrive)
-    dash0 = arrive + tick(12)
-    dest = foe.x - 22                                  # melee range
-    dash1 = dash0 + tick((dest - x) / 5.0)
+    fx_at("shield", at, ally.x, fy=ally.y)
+    wdest = ally.x - 12                               # right behind Garen
+    land = at + tick((wdest - x) / 5.0)
+    shield = frames_of(fx["league_leesin_fx"], "shield")   # his own shield rides the dash with him
+    effects.append(Anim(shield, at, x, gy, until=land, x1=wdest, z=1))
+    effects.append(Anim(skip(shield, land - at), land, wdest, gy, z=1))
+    body[-1].until = at                               # the dash cuts Q's pose short
+    body.append(Anim(frames_of(lee, "q2"), at, x, gy, until=at + tick(20), x1=wdest))
+    body[-1].until_move = land
+    t, x = at + tick(20), wdest
+    # Resonating Strike: 12 ticks after the wave hits, the dash to the marked enemy
+    dash0 = max(t, arrive + tick(12))
     if t < dash0:
         a("idle", dash0 - t, loop=True)
-    else:
-        t = dash0
+    dest = foe.x - 22                                 # melee range
     body.append(Anim(frames_of(lee, "q2"), dash0, x, gy, until=dash0 + tick(31), x1=dest))
-    body[-1].until_move = dash1
-    fx_at("q2_hit", dash1, foe.x)
-    foe.flinches.append(dash1)
-    t = dash0 + tick(31)
-    x = dest
+    body[-1].until_move = dash0 + tick(max(1, (dest - x) / 5.0))
+    fx_at("q2_hit", body[-1].until_move, foe.x)
+    foe.flinches.append(body[-1].until_move)
+    t, x = dash0 + tick(31), dest
 
     def punch():
         nonlocal t
@@ -133,27 +175,36 @@ def showcase(out, z=3, step=40):
 
     punch()
     punch()
-    # E: the slam at tick 17 - the ring on the ground, the shield on Lee Sin
+    # the enemy runs away to the right (44 px in 40 ticks)
+    flee0, flee1 = t, t + tick(40)
+    foe.runs.append((flee0, flee1))
+    foe.slides.append((flee0, flee1, 44))
+    a("idle", tick(40), loop=True)
+    fx_ = foe.x + 44
+    # R, the insec: at tick 7 he rushes through the target (8000/tick) and stops 15 px behind it; the kick
+    # at tick 19 sends it back the way he came, 54 px in 18 ticks, toward Garen; the dragon follows 4 ticks
+    # later at 2500/tick for 35 px. Facing left from the rush on.
     start = t
-    a("skill2")
-    fx_at("e_wave", start + tick(17), x, z_=-1)
-    fx_at("shield", start + tick(17), x)
-    foe.flinches.append(start + tick(17))
-    a("idle", 300, loop=True)
-    punch()
-    # R: the kick at tick 18 - 54 px knock-back in 18 ticks, the dragon behind it at the same speed
-    start = t
-    a("ult")
-    kick = start + tick(18)
-    fx_at("kick", kick, foe.x, gy - 4, sprite="league_leesin_r")
-    foe.slides.append((kick, kick + tick(18), 54))
-    shots.append(Anim(frames_of(fx["league_leesin_r"], "dragon"), kick, x, gy - 2, loop=True,
-                      until=kick + tick(63 / 3.0), x1=x + 63, y1=gy - 2, z=1))
-    hit_back = kick + tick((back.x - 14 - x) / 3.0)   # the dragon's circle reaches the one behind
-    fx_at("knockup", hit_back, back.x)
-    back.hops.append((hit_back, hit_back + tick(45), 12))
-    foe.death = kick + tick(18)
-    a("idle", tick(18) + 1600, loop=True)
+    behind = fx_ + 15
+    body.append(Anim(frames_of(lee, "ult"), start, x, gy, until=start + tick(7)))
+    rush0, rush1 = start + tick(7), start + tick(7) + tick((behind - x) / 8.0)
+    ult = Anim(frames_of(lee, "ult"), start, x, gy, until=start + tick(44), x1=behind, flip=True)
+    ult.until_move, ult.move0 = rush1, rush0
+    body.append(ult)
+    kick = start + tick(19)
+    fx_at("kick", kick, fx_, gy - 4, sprite="league_leesin_r")
+    foe.slides.append((kick, kick + tick(18), -54))
+    foe.flinches.append(kick)
+    dragon = [(f.transpose(Image.FLIP_LEFT_RIGHT), ms) for f, ms in frames_of(fx["league_leesin_r"], "dragon")]
+    shots.append(Anim(dragon, kick + tick(4), behind, gy - 2, loop=True, until=kick + tick(4) + tick(35 / 2.5),
+                      x1=behind - 35, y1=gy - 2, z=1))
+    # Garen finishes it where it lands
+    land = kick + tick(18)
+    ally.attacks.append(land + 60)
+    fx_at("hit", land + 60 + tick(12), fx_ - 54 - 4, gy - 4)
+    foe.death = land + 60 + tick(12)
+    t, x = start + tick(44), behind
+    a("idle", 1500, loop=True, flip=True)
     end = t
 
     def place(img, f, px, py):
@@ -162,7 +213,8 @@ def showcase(out, z=3, step=40):
     def body_pos(an, tt):
         if getattr(an, "until_move", None) is None:
             return an.pos(tt)
-        u = min(1.0, max(0.0, (tt - an.t0) / (an.until_move - an.t0)))
+        m0 = getattr(an, "move0", an.t0)              # the R rush starts 7 ticks into the cast
+        u = min(1.0, max(0.0, (tt - m0) / max(1e-6, an.until_move - m0)))
         return int(round(an.x + (an.x1 - an.x) * u)), an.y
 
     frames, tt = [], 0.0
@@ -172,7 +224,7 @@ def showcase(out, z=3, step=40):
             f = an.frame(tt)
             if f is not None and an.z < 0:
                 place(img, f, *an.pos(tt))
-        for fo in (back, foe):
+        for fo in (ally, foe):
             place(img, fo.frame(tt), *fo.pos(tt))
         for an in body:
             f = an.frame(tt)
