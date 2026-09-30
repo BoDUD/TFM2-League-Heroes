@@ -1,0 +1,17 @@
+{
+  "orb": {"cell": [17, 9], "anchor": [8, 4]},
+  "hit": {"cell": [15, 15], "anchor": [7, 7]},
+  "q_orb": {"cell": [35, 17], "anchor": [17, 8]},
+  "q_hit": {"cell": [19, 19], "anchor": [9, 9]},
+  "q_true": {"cell": [19, 19], "anchor": [9, 9]},
+  "w_orbit": {"cell": [35, 27], "anchor": [17, 13]},
+  "w_fire": {"cell": [21, 9], "anchor": [10, 4]},
+  "w_hit": {"cell": [17, 19], "anchor": [8, 9]},
+  "e_kiss": {"cell": [29, 15], "anchor": [14, 7]},
+  "e_charm": {"cell": [21, 33], "anchor": [10, 16]},
+  "r_dash": {"cell": [25, 33], "anchor": [12, 16]},
+  "r_bolt": {"cell": [25, 11], "anchor": [12, 5]},
+  "r_hit": {"cell": [17, 19], "anchor": [8, 9]},
+  "heal": {"cell": [35, 41], "anchor": [17, 20]},
+  "essence": {"cell": [29, 13], "anchor": [14, 6]}
+}
