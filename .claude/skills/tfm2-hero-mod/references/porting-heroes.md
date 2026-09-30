@@ -44,7 +44,7 @@ OK = direct, ~ = approximate, X = not possible in data-only mods.
 | Mark on the target that the next attack detonates (Lux's Illumination) | `SwitchByBuff` only sees the caster's buffs and no effect removes a target's buff, so skill hits add a hidden caster ready-buff (the next attack on any enemy detonates it) and play a short mark `ViewEffect` on the hit target | ~ |
 | Skillshot that stops after N targets (Lux Q: two) | `LinearProjectile` only has `penetrate` true/false; the mod SDK's `LinearProjectileEffect` has no hit-count field | ~ |
 | Skillshot, then dash to the unit it hit (Lee Sin Q2, Blitz/Naut hooks) | `MoveToTarget` inside the projectile's `applied_effects` (LoL Reborn Nautilus Q); a `Delayed` there keeps the hit unit as target; no recast, it dashes by itself | ~ |
-| Kick back + collision (Lee Sin R) | `Targeting`: `Attack` + `Knockback` on the target, plus a penetrating `LinearProjectile` toward it at the knockback's speed that knocks up what it passes (LoL Reborn Nautilus R) | ~ |
+| Kick into the ones behind, or get behind and kick back (Lee Sin R) | `Targeting`: `Attack` + `Knockback` on the target, plus a penetrating `LinearProjectile` toward it that knocks up what it passes (LoL Reborn Nautilus R); a hidden probe toward the target counts the champions on the line on the cast tick: someone behind it -> `MoveToTarget` to its front and the kick sends it into them; nobody -> `RushMoveToBack` and the kick from behind sends it back toward his side (champion-data "Pick the kick") | ~ |
 | Stacking bleed (Darius passive) | `AddCasted {casted_type: Bleed}` on every hit: each cast is its own instance, so the target's stacks are real (no cap) | OK |
 | Bonus at N stacks on the target (Noxian Might; Darius R +20% per stack) | `SwitchByBuff` cannot read the target, so count the caster's own hits with hidden buffs and branch on those (champion-data "Bleed that stacks") | ~ |
 | Cone pull to self (Darius E) | `RangeEffect` `Forward` + `DirDot` cone + `Grab` without `tick` (stops at the caster; `Pull` overshoots close targets) | OK |
@@ -120,6 +120,10 @@ OK = direct, ~ = approximate, X = not possible in data-only mods.
 | Spell shield with crowd-control immunity on an ally (Morgana E) | Janna's rule (cast on an enemy champion, the shield to the ally beside her) plus a `WithShield` buff with `cc_immune`: measured to block crowd control on the ally; the shield takes every damage type, not only magic | OK |
 | Tethers that break out of reach and stun after 3 s (Morgana R) | every chained champion its own chain of 20-tick pulses: a hidden `TargetProjectile` from her, on its hit point `RandomTarget AllyOnlySelf from_projectile` (84000 = 1.68 x the cast radius, League's ratio) sets a flag that lets the slow, the chain picture and the next pulse go on; the ninth stuns; out of reach once, no stun; her death stops it (champion-data "Tethers that break out of reach") | OK |
 | Heal from spell damage (Morgana's Soul Siphon) | no "damage dealt" to read: a `Heal {heal_type: Caster}` of a fixed share of each spell's numbers on every champion hit | ~ |
+| Bleed that heals the caster, stacks capped (Briar's Crimson Curse) | `AddCasted Bleed` whose periodic effects hold a `Heal {heal_type: Caster}`: every tick of every stack heals her; the attack adds a stack at most once a second (a 60-tick caster lock), about five on one target; "heals more at low health" and the 5%-of-current-health cost cannot be read: dropped | ~ |
+| Leap that stuns, then a frenzy with a recast bite (Briar Q with W) | one action: `MoveToTarget` onto a champion in reach (a `RandomTarget EnemyChampion` first, else the cast target, so it opens camps), the stun, the shred and a bleed in its `end_effects`, then a frenzy caster buff; the attack switches on it (60% on the target plus a 40% circle at `Forward` 18000 that holds the target); nothing presses the recast, so Snack Attack is the first attack 2 s into each frenzy (champion-data "Leap, stun, then a frenzy") | ~ |
+| Scream that stuns whoever it knocks into a wall (Briar E) | no walls: a 1 s charge (a `damaged_reduce` caster buff, self-only heals), then a `DirDot` cone with `Knockback`, and on champions a `Stun` 16 ticks later when the knockback ends (the user's pick) | ~ |
+| Kick that marks the first champion, fly to it, fear the others (Briar R) | a non-penetrating `LinearProjectile` on `EnemyChampion` (through minions) whose hit marks the prey and runs `MoveToTarget`; the landing gives the prey a 2-tick `cc_immune` buff before the fear circle, so only the others are feared (measured); the global range and "until one dies" became 120000 and 6 s (champion-data "Kick at the first champion") | ~ |
 | Ranks that unlock at levels (Kayle's Divine Ascent) | nothing reads a level but `SwitchByLevel3` (level 3): her maximum health is the level table, read with a 3-tick shield and a 10% max-health hit on herself; each rank a `Permanent` caster buff (champion-data "Stages at levels 5, 8 and 12") | ~ |
 | Melee that turns ranged (Kayle's Arisen) | a `range` caster buff from that rank on, the attack's effect switched on the rank buff: a hit in melee, a `TargetProjectile` after | ✓ |
 | Invulnerability on the one about to die (Kayle R) | no current health anywhere in the data, and the AI casts ally ults on cooldown on anyone: the slot (cast on an enemy champion as she closes in) arms it for 15 s and her attacks, Q and E check - a crowd-controlled ally within 50000 (`RandomTarget` `AllyChampionInCC`) first, else herself when two enemy champions are within 30000 (a two-flag count), else wait; unused, the cooldown is refunded. `damaged_reduce` 100 + `cc_immune` for 2.5 s, then the swords' damage round him (champion-data "An ult that waits for danger") | ~ |
@@ -782,6 +786,20 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   horns, 40% right-neighbour, face (-2, -41) at the crown between the horns. Codex's eleven effects: `tools/art/import_morgana.py
   --raw`, anchors measured on the drawings (art-spec "Effect anchors"); the shackles play the 2 s root in one
   Animation, the pool its 4 s, the snap the chains breaking round the waist and then the stun sigil 40 px up.
+- **A girl locked in a pillory (Briar, drawn by Codex from the user's picture).** The picture was an earlier Codex
+  image on an irregular 7-px grid (59 x 71 squares): cut to game size by rows and columns it lost the hair, the eyes
+  and the gold trim, and Codex's own area-averaged 46-row copy blurred the face, so Codex redrew it about 76 squares
+  tall (1.7x the game size), A in the picture's proportions and B chibi (art-spec "A redesign from the user's
+  picture"). Claude cut it to 46 rows from the gem to the soles by deleting whole rows and columns, kept one outline,
+  added a lash row, made both eyes 2x2 on one row in an ice-white used nowhere else and redrew three mouths on the
+  face's middle line (the cut had dropped Codex's); the user took B with mouth 3. The camera yaw 45, pitch 25, head
+  2.3, legs 0.8, hair 0.6, height 35; the move is League's `Run1` (8 x 125 ms). Codex pasted the head into every
+  strip frame as its whole rectangle and left a window round it, which `tools/art/tidy_briar.py` closes (art-spec
+  "A pasted head's rectangle cuts a window"). The pillory's gem is the top of every frame, so the idle and the move
+  are steadied on her eyes (`EYES`). 61 frames, 23 colours, 46 px with the gem, 35% right-neighbour, face (-3, -34)
+  at the crown (`tfm2_ase.py face` suggests the gem). Codex's fifteen effects: `tools/art/import_briar.py --raw`,
+  anchors measured on the drawings; the frenzy's ground line, a flat 15x2 bar at 44 px, is cut (it read as a second
+  health bar).
 - **A face point under the hair.** `tfm2_ase.py face` and the lint find the crown at the top of
   the idle sprite, which for Yasuo is the ponytail's tip, 9 px above his head and to the left of
   it. Both now also look for the head from the face: the top two rows of skin-toned pixels and the

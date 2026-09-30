@@ -1800,13 +1800,81 @@
           "only_to_enemy": false
         },
         {
+          "type": "RemoveCasterBuff",
+          "name": "league_leesin_r_one"
+        },
+        {
+          "type": "RemoveCasterBuff",
+          "name": "league_leesin_r_front"
+        },
+        {
+          "type": "LinearProjectile",
+          "name": "league_leesin_r_probe",
+          "speed": 30000,
+          "range": 90000,
+          "shape": {
+            "Circle": {
+              "radius": 14000
+            }
+          },
+          "penetrate": true,
+          "y_offset": 0,
+          "applied_target": "EnemyChampion",
+          "applied_effects": [
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_leesin_r_one",
+                "effect_buff": {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_leesin_r_front",
+                    "duration": {
+                      "Time": {
+                        "tick": 30
+                      }
+                    },
+                    "is_hidden": true
+                  },
+                  "only_to_enemy": false
+                },
+                "effect_none": {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_leesin_r_one",
+                    "duration": {
+                      "Time": {
+                        "tick": 30
+                      }
+                    },
+                    "is_hidden": true
+                  },
+                  "only_to_enemy": false
+                }
+              }
+            }
+          ],
+          "end_effects": []
+        },
+        {
           "type": "Delayed",
           "tick": 7,
           "effects": [
             {
-              "type": "RushMoveToBack",
-              "speed": 8000,
-              "applied_effects": []
+              "type": "SwitchByBuff",
+              "buff_name": "league_leesin_r_front",
+              "effect_buff": {
+                "type": "MoveToTarget",
+                "speed": 8000,
+                "range": 100000,
+                "end_effects": []
+              },
+              "effect_none": {
+                "type": "RushMoveToBack",
+                "speed": 8000,
+                "applied_effects": []
+              }
             }
           ]
         },
@@ -1833,56 +1901,106 @@
               "name": "league_leesin_r_hit"
             },
             {
-              "type": "Delayed",
-              "tick": 4,
-              "effects": [
-                {
-                  "type": "LinearProjectile",
-                  "name": "league_leesin_r_dragon",
-                  "speed": 2500,
-                  "range": 35000,
-                  "shape": {
-                    "Circle": {
-                      "radius": 14000
+              "type": "SwitchByBuff",
+              "buff_name": "league_leesin_r_front",
+              "effect_buff": {
+                "type": "LinearProjectile",
+                "name": "league_leesin_r_dragon",
+                "speed": 3000,
+                "range": 63000,
+                "shape": {
+                  "Circle": {
+                    "radius": 14000
+                  }
+                },
+                "penetrate": true,
+                "y_offset": 2000,
+                "applied_target": "EnemyWithoutTower",
+                "applied_effects": [
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "Attack",
+                      "damage": 80,
+                      "attack_ratio": 80
                     }
                   },
-                  "penetrate": true,
-                  "y_offset": 2000,
-                  "applied_target": "EnemyWithoutTower",
-                  "applied_effects": [
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "Attack",
-                        "damage": 80,
-                        "attack_ratio": 80
-                      }
-                    },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "Airborne",
-                        "duration": 45
-                      }
-                    },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "ViewEffect",
-                        "name": "league_leesin_knockup"
-                      }
-                    },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "TargetSfx",
-                        "name": "league_leesin_r_collide"
-                      }
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "Airborne",
+                      "duration": 45
                     }
-                  ],
-                  "end_effects": []
-                }
-              ]
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "ViewEffect",
+                      "name": "league_leesin_knockup"
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "TargetSfx",
+                      "name": "league_leesin_r_collide"
+                    }
+                  }
+                ],
+                "end_effects": []
+              },
+              "effect_none": {
+                "type": "Delayed",
+                "tick": 4,
+                "effects": [
+                  {
+                    "type": "LinearProjectile",
+                    "name": "league_leesin_r_dragon",
+                    "speed": 2500,
+                    "range": 35000,
+                    "shape": {
+                      "Circle": {
+                        "radius": 14000
+                      }
+                    },
+                    "penetrate": true,
+                    "y_offset": 2000,
+                    "applied_target": "EnemyWithoutTower",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "Attack",
+                          "damage": 80,
+                          "attack_ratio": 80
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "Airborne",
+                          "duration": 45
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ViewEffect",
+                          "name": "league_leesin_knockup"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "TargetSfx",
+                          "name": "league_leesin_r_collide"
+                        }
+                      }
+                    ],
+                    "end_effects": []
+                  }
+                ]
+              }
             }
           ]
         }
