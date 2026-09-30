@@ -76,32 +76,31 @@ is not above the feet (quadrupeds, big weapons).
 
 `banpick_center` (optional; base sets it on 8 heroes, ogre -7 to shield_bearer -12) is read only by the
 ban/pick grid card (`ui/layout/banpick/champion_slot`), measured on 36 cards of a 1920x1080 screenshot:
-the card's top 131x88 is a canvas, the idle plays at ~2.2x with the pivot 88 + 2.2 * y px under the
-card top (no banpick_center: placed like -12, feet on the canvas bottom). **With banpick_center set
-the sprite is clipped to the canvas** (shield_bearer loses its shield top, executioner its last
-foot row); without it the sprite may stick out above the card (league_lucian, league_malphite).
-The canvas holds ~40 px: a hero whose idle reaches higher than -28 sticks out, and base's answer
-for its tall ones is y = -39 - (highest idle row), head 1 px under the canvas top and the feet
-hidden by the name band; every League hero whose idle reaches above -28 has it (league_masteryi +5
-for his sword, league_kayle 0, league_nami -1 ... league_thresh -10). The collection grid
-(`new_game_component/custom_champion_slot`) ignores it: every hero's feet sit on the image bottom
-there (executioner's -10 too), so a hover shows as sitting higher. The tier-list card
-(`champion_info_component/champion_slot`, 85x93 image) cut league_nami's crown as well; how it
-places heroes is not measured yet.
-Measure it, don't guess: `python scripts/tfm2_ase.py face <sprite> [--view <champion_view>]`
-prints the point the base game would use and `--out x.png` draws your hero next to base champions
-with every face point marked. On all 68 base champions `face` sits at the **crown** - the first
-row of idle frame 0 at least half as wide as the head (so buns, hat tips and pointed hoods don't
-count; median 0 px below it) - and ~1.5 px ahead of the head centre. `lint_mod.py` warns when a
-face point is more than 4 px above the crown, 10 below or 8 aside (62 of the 68 base champions
-pass; the rest are a mount, the ogre, the werewolf, two big hats and the strongman). league_garen
-shipped with -38, above his hair (the portrait showed hair and air); a small head fails this check
-too, because its crown is found at the shoulders. Now: league_garen (-1, -35), league_ashe (0, -33),
-league_lux (1, -31) (both re-measured after the native-size redraw), league_leesin (0, -34) (the
+the card's top 131x88 is a canvas, the idle plays at ~2.2x with the pivot 88 + 2.2 * y px under the card
+top (no banpick_center: placed like -12, feet on the canvas bottom). **With banpick_center set the sprite
+is clipped to the canvas** (shield_bearer loses its shield top, executioner its last foot row); without
+it the sprite may stick out above the card (league_lucian, league_malphite). The canvas holds ~40 px: a
+hero whose idle reaches higher than -28 sticks out, and base's answer for its tall ones is y = -39 -
+(highest idle row), head 1 px under the canvas top and the feet hidden by the name band; every League
+hero whose idle reaches above -28 has it (league_masteryi -4 by his helmet - +5 by his sword tip, the
+only positive value, showed him at 1x in the default place -, league_kayle 0, league_nami -1 ...
+league_thresh -10). The collection grid (`new_game_component/custom_champion_slot`) ignores it: every
+hero's feet sit on the image bottom there (executioner's -10 too), so a hover shows as sitting higher.
+The tier-list card (`champion_info_component/champion_slot`, 85x93 image) cut league_nami's crown as
+well; how it places heroes is not measured yet. Measure it, don't guess: `python scripts/tfm2_ase.py face
+<sprite> [--view <champion_view>]` prints the point the base game would use and `--out x.png` draws your
+hero next to base champions with every face point marked. On all 68 base champions `face` sits at the
+**crown** - the first row of idle frame 0 at least half as wide as the head (so buns, hat tips and
+pointed hoods don't count; median 0 px below it) - and ~1.5 px ahead of the head centre. `lint_mod.py`
+warns when a face point is more than 4 px above the crown, 10 below or 8 aside (62 of the 68 base
+champions pass; the rest are a mount, the ogre, the werewolf, two big hats and the strongman).
+league_garen shipped with -38, above his hair (the portrait showed hair and air); a small head fails this
+check too, because its crown is found at the shoulders. Now: league_garen (-1, -35), league_ashe (0,
+-33), league_lux (1, -31) (both re-measured after the native-size redraw), league_leesin (0, -34) (the
 crown rule skips the braid standing above his head; a blindfold, not eyes, is what must read),
-league_masteryi (0, -35): his sword stands 20 rows above his helmet, so the top 12 rows are all thin
-and the crown rule measures the top 32 rows instead (no other hero's result changed); the point sits
-4 px ahead of the helmet's crown so the portrait keeps the lenses on its right.
+league_masteryi (0, -35): his sword stands 20 rows above his helmet, so the top 12 rows are all thin and
+the crown rule measures the top 32 rows instead (no other hero's result changed); the point sits 4 px
+ahead of the helmet's crown so the portrait keeps the lenses on its right.
 
 ## Sounds (sound/sfx)
 
