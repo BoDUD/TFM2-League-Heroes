@@ -144,8 +144,8 @@
       "league_fiddlesticks": {
         "name": "费德提克",
         "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。被动 <#ff9028ff>巫骇草人<>：<#ffb900ff>3秒<>未行动时伪装成草人，之后第一次普攻或<#ff9028ff>夜割<>使命中的英雄<#ef5350ff>恐惧<><#ffb900ff>1秒<>。",
-        "skill": "放出乌鸦恐吓目标，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 法术强度<>的<#a974ffff>魔法伤害<>并使其<#ef5350ff>恐惧<><#ffb900ff>1.25秒<>；目标英雄正处于控制中时伤害翻倍。",
-        "skill2": "先挥出<#ff9028ff>夜割<>，造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% 法术强度<>的<#a974ffff>魔法伤害<>并<#ef5350ff>减速40%<><#ffb900ff>1.25秒<>，中心的英雄同时被<#ef5350ff>沉默<>。随后引导<#ffb900ff>2秒<>吸取周围敌人，共造成<#a974ffff>136<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>136% 法术强度<>的<#a974ffff>魔法伤害<>；每吸取一名英雄回复<#6aff55ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>64%<><#6aff55ff>生命值<>，小兵和野怪<#6aff55ff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<>。",
+        "skill": "放出乌鸦恐吓目标，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 法术强度<>的<#a974ffff>魔法伤害<>并使其<#ef5350ff>恐惧<><#ffb900ff>1.25秒<>；目标英雄正处于控制中时伤害翻倍。",
+        "skill2": "先挥出<#ff9028ff>夜割<>，造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% 法术强度<>的<#a974ffff>魔法伤害<>并<#ef5350ff>减速40%<><#ffb900ff>1.25秒<>，中心的英雄同时被<#ef5350ff>沉默<>。随后引导<#ffb900ff>2秒<>吸取周围敌人，共造成<#a974ffff>178<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>136% 法术强度<>的<#a974ffff>魔法伤害<>；每吸取一名英雄回复<#6aff55ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>64%<><#6aff55ff>生命值<>，小兵和野怪<#6aff55ff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<>。",
         "ult": "引导<#ffb900ff>1秒<>后传送到目标位置，鸦群环绕自身<#ffb900ff>5秒<>，每<#ffb900ff>0.5秒<>对周围敌人造成<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20% 法术强度<>的<#a974ffff>魔法伤害<>，落地时使周围英雄<#ef5350ff>恐惧<><#ffb900ff>1秒<>。引导时受到控制会被打断。"
       },
       "league_kayle": {
@@ -546,8 +546,8 @@
       "league_fiddlesticks": {
         "name": "費德提克",
         "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。被動 <#ff9028ff>無害稻草人<>：<#ffb900ff>3秒<>未行動時偽裝成稻草人，之後第一次普攻或<#ff9028ff>駭懼收割<>使命中的英雄<#ef5350ff>恐懼<><#ffb900ff>1秒<>。",
-        "skill": "放出烏鴉恐嚇目標，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 魔法強度<>的<#a974ffff>魔法傷害<>並使其<#ef5350ff>恐懼<><#ffb900ff>1.25秒<>；目標英雄正處於控制中時傷害加倍。",
-        "skill2": "先揮出<#ff9028ff>駭懼收割<>，造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% 魔法強度<>的<#a974ffff>魔法傷害<>並<#ef5350ff>緩速40%<><#ffb900ff>1.25秒<>，中心的英雄同時被<#ef5350ff>沉默<>。隨後引導<#ffb900ff>2秒<>吸取周圍敵人，共造成<#a974ffff>136<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>136% 魔法強度<>的<#a974ffff>魔法傷害<>；每吸取一名英雄回復<#6aff55ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>64%<><#6aff55ff>生命值<>，小兵和野怪<#6aff55ff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<>。",
+        "skill": "放出烏鴉恐嚇目標，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 魔法強度<>的<#a974ffff>魔法傷害<>並使其<#ef5350ff>恐懼<><#ffb900ff>1.25秒<>；目標英雄正處於控制中時傷害加倍。",
+        "skill2": "先揮出<#ff9028ff>駭懼收割<>，造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% 魔法強度<>的<#a974ffff>魔法傷害<>並<#ef5350ff>緩速40%<><#ffb900ff>1.25秒<>，中心的英雄同時被<#ef5350ff>沉默<>。隨後引導<#ffb900ff>2秒<>吸取周圍敵人，共造成<#a974ffff>178<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>136% 魔法強度<>的<#a974ffff>魔法傷害<>；每吸取一名英雄回復<#6aff55ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>64%<><#6aff55ff>生命值<>，小兵和野怪<#6aff55ff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<>。",
         "ult": "引導<#ffb900ff>1秒<>後傳送到目標位置，鴉群環繞自身<#ffb900ff>5秒<>，每<#ffb900ff>0.5秒<>對周圍敵人造成<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20% 魔法強度<>的<#a974ffff>魔法傷害<>，落地時使周圍英雄<#ef5350ff>恐懼<><#ffb900ff>1秒<>。引導時受到控制會被打斷。"
       },
       "league_kayle": {
@@ -948,8 +948,8 @@
       "league_fiddlesticks": {
         "name": "Fiddlesticks",
         "attack": "Basic attacks deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. Passive <#ff9028ff>A Harmless Scarecrow<>: after <#ffb900ff>3s<> without acting he poses as a scarecrow; his next basic attack or <#ff9028ff>Reap<> <#ef5350ff>fears<> the champions it hits for <#ffb900ff>1s<>.",
-        "skill": "Fiddlesticks sends a crow at his target, dealing <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% Ability Power<> <#a974ffff>magic damage<> and <#ef5350ff>fearing<> it for <#ffb900ff>1.25s<>. Double damage to a champion already under crowd control.",
-        "skill2": "<#ff9028ff>Reap<> first: <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% Ability Power<> <#a974ffff>magic damage<> in the target area, <#ef5350ff>slowing<> by 40% for <#ffb900ff>1.25s<> and <#ef5350ff>silencing<> champions in its centre for as long. Then he channels for <#ffb900ff>2s<>, draining nearby enemies for <#a974ffff>136<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>136% Ability Power<> <#a974ffff>magic damage<> in total, and heals <#6aff55ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>64%<> per champion drained (<#6aff55ff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<> per minion or monster).",
+        "skill": "Fiddlesticks sends a crow at his target, dealing <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% Ability Power<> <#a974ffff>magic damage<> and <#ef5350ff>fearing<> it for <#ffb900ff>1.25s<>. Double damage to a champion already under crowd control.",
+        "skill2": "<#ff9028ff>Reap<> first: <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% Ability Power<> <#a974ffff>magic damage<> in the target area, <#ef5350ff>slowing<> by 40% for <#ffb900ff>1.25s<> and <#ef5350ff>silencing<> champions in its centre for as long. Then he channels for <#ffb900ff>2s<>, draining nearby enemies for <#a974ffff>178<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>136% Ability Power<> <#a974ffff>magic damage<> in total, and heals <#6aff55ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>64%<> per champion drained (<#6aff55ff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<> per minion or monster).",
         "ult": "Fiddlesticks channels for <#ffb900ff>1s<>, then teleports to the target area. A murder of crows surrounds him for <#ffb900ff>5s<>, dealing <#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20% Ability Power<> <#a974ffff>magic damage<> to nearby enemies every <#ffb900ff>0.5s<>; champions caught as he lands are <#ef5350ff>feared<> for <#ffb900ff>1s<>. Crowd control interrupts the channel."
       },
       "league_kayle": {
@@ -1350,8 +1350,8 @@
       "league_fiddlesticks": {
         "name": "피들스틱",
         "attack": "기본 공격으로 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다. 기본 지속 효과 <#ff9028ff>무해한 허수아비<>: <#ffb900ff>3초<> 동안 아무 행동도 하지 않으면 허수아비로 위장하며, 다음 기본 공격이나 <#ff9028ff>수확<>에 맞은 챔피언은 <#ffb900ff>1초<> 동안 <#ef5350ff>공포<>에 빠집니다.",
-        "skill": "대상에게 까마귀를 날려 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 60%<> <#a974ffff>마법 피해<>를 입히고 <#ffb900ff>1.25초<> 동안 <#ef5350ff>공포<>에 빠뜨립니다. 이미 군중 제어 상태인 챔피언에게는 두 배의 피해를 입힙니다.",
-        "skill2": "<#ff9028ff>수확<>으로 대상 지역에 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 50%<> <#a974ffff>마법 피해<>를 입히고 <#ffb900ff>1.25초<> 동안 <#ef5350ff>40% 둔화<>시키며 중심의 챔피언은 <#ef5350ff>침묵<>시킵니다. 이어서 <#ffb900ff>2초<> 동안 주변 적의 영혼을 흡수해 총 <#a974ffff>136<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 136%<> <#a974ffff>마법 피해<>를 입히고, 챔피언 하나당 <#6aff55ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>64%<>, 미니언과 몬스터 하나당 <#6aff55ff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<>의 <#6aff55ff>체력<>을 회복합니다.",
+        "skill": "대상에게 까마귀를 날려 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 60%<> <#a974ffff>마법 피해<>를 입히고 <#ffb900ff>1.25초<> 동안 <#ef5350ff>공포<>에 빠뜨립니다. 이미 군중 제어 상태인 챔피언에게는 두 배의 피해를 입힙니다.",
+        "skill2": "<#ff9028ff>수확<>으로 대상 지역에 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 50%<> <#a974ffff>마법 피해<>를 입히고 <#ffb900ff>1.25초<> 동안 <#ef5350ff>40% 둔화<>시키며 중심의 챔피언은 <#ef5350ff>침묵<>시킵니다. 이어서 <#ffb900ff>2초<> 동안 주변 적의 영혼을 흡수해 총 <#a974ffff>178<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 136%<> <#a974ffff>마법 피해<>를 입히고, 챔피언 하나당 <#6aff55ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>64%<>, 미니언과 몬스터 하나당 <#6aff55ff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<>의 <#6aff55ff>체력<>을 회복합니다.",
         "ult": "<#ffb900ff>1초<> 동안 정신을 집중한 뒤 대상 지역으로 순간이동합니다. 까마귀 떼가 <#ffb900ff>5초<> 동안 주위를 맴돌며 <#ffb900ff>0.5초<>마다 주변 적에게 <#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 20%<> <#a974ffff>마법 피해<>를 입히고, 착지할 때 주변 챔피언을 <#ffb900ff>1초<> 동안 <#ef5350ff>공포<>에 빠뜨립니다. 정신 집중 중 군중 제어를 받으면 끊깁니다."
       },
       "league_kayle": {
@@ -1399,7 +1399,7 @@
       "league_vayne": {
         "name": "베인",
         "attack": "기본 공격은 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다. 기본 지속 효과 <#ff9028ff>어둠 사냥꾼<>: 근처에 적 챔피언이 있으면 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도 8%<>. <#ff9028ff>은화살<>: <#ffb900ff>3.5초<> 안에 연속 <#ffb900ff>3<>번째 적중(기본 공격·스킬)마다 <#f5f5f5ff>50<> <#f5f5f5ff>고정 피해<>, 챔피언에게는 최대 체력의 <#f5f5f5ff>7%<> 추가.",
-        "skill": "구르기: 적 챔피언이 붙으면 뒤로, 사거리 안에 적이 있으면 살짝 뒤로, 없으면 사거리까지 앞으로. <#ffb900ff>7초<> 안의 다음 기본 공격이 <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 80%<> <#ff9028ff>물리 피해<>를 추가로 입힙니다.",
+        "skill": "구르기: 적 챔피언이 붙으면 뒤로, 사거리 안에 적이 있으면 뒤로, 없으면 사거리까지 앞으로. <#ffb900ff>7초<> 안의 다음 기본 공격이 <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 80%<> <#ff9028ff>물리 피해<>를 추가로 입힙니다.",
         "skill2": "큰 석궁으로 무거운 화살을 쏴 적 챔피언에게 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 70%<> <#ff9028ff>물리 피해<>를 입히고 <#ef5350ff>밀쳐냅니다<>. 떨어진 곳에서 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 35%<> <#ff9028ff>물리 피해<>를 더 입고 <#ffb900ff>1초<> <#ef5350ff>기절<>.",
         "ult": "<#ffb900ff>8초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력 25%<> 증가, 스킬 재사용 대기시간 <#ffb900ff>50%<> 감소, <#ff9028ff>구르기<> 후 <#ffb900ff>1초<> <#ffb900ff>투명<>, 어둠 사냥꾼 이동 속도 <#ffb900ff>3배<>. 그동안 직접 챔피언을 처치하면 <#ffb900ff>8초<>로 초기화."
       },
@@ -1752,8 +1752,8 @@
       "league_fiddlesticks": {
         "name": "フィドルスティックス",
         "attack": "通常攻撃は<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>を与える。パッシブ <#ff9028ff>無害なカカシ<>：<#ffb900ff>3秒<>間行動しないとカカシに化け、次の通常攻撃か<#ff9028ff>刈り取り<>が当たったチャンピオンを<#ffb900ff>1秒<>間<#ef5350ff>恐怖<>させる。",
-        "skill": "対象にカラスを放ち<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の60%<>の<#a974ffff>魔法ダメージ<>を与え、<#ffb900ff>1.25秒<>間<#ef5350ff>恐怖<>させる。行動妨害中のチャンピオンにはダメージが2倍。",
-        "skill2": "まず<#ff9028ff>刈り取り<>で対象範囲に<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の50%<>の<#a974ffff>魔法ダメージ<>を与え<#ffb900ff>1.25秒<>間<#ef5350ff>40%スロウ<>、中心のチャンピオンは同時に<#ef5350ff>沈黙<>する。続けて<#ffb900ff>2秒<>間詠唱し周囲の敵から合計<#a974ffff>136<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の136%<>の<#a974ffff>魔法ダメージ<>を吸い取る。チャンピオン1体につき<#6aff55ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>64%<>の<#6aff55ff>体力<>を回復する。",
+        "skill": "対象にカラスを放ち<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の60%<>の<#a974ffff>魔法ダメージ<>を与え、<#ffb900ff>1.25秒<>間<#ef5350ff>恐怖<>させる。行動妨害中のチャンピオンにはダメージが2倍。",
+        "skill2": "まず<#ff9028ff>刈り取り<>で対象範囲に<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の50%<>の<#a974ffff>魔法ダメージ<>を与え<#ffb900ff>1.25秒<>間<#ef5350ff>40%スロウ<>、中心のチャンピオンは同時に<#ef5350ff>沈黙<>する。続けて<#ffb900ff>2秒<>間詠唱し周囲の敵から合計<#a974ffff>178<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の136%<>の<#a974ffff>魔法ダメージ<>を吸い取る。チャンピオン1体につき<#6aff55ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>64%<>の<#6aff55ff>体力<>を回復する。",
         "ult": "<#ffb900ff>1秒<>詠唱後、対象地点へテレポート。カラスの群れが<#ffb900ff>5秒<>間周囲を舞い、<#ffb900ff>0.5秒<>毎に周囲の敵に<#a974ffff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の20%<>の<#a974ffff>魔法ダメージ<>を与え、着地時に周囲のチャンピオンを<#ffb900ff>1秒<>間<#ef5350ff>恐怖<>させる。詠唱中に行動妨害を受けると中断。"
       },
       "league_kayle": {
@@ -1801,7 +1801,7 @@
       "league_vayne": {
         "name": "ヴェイン",
         "attack": "通常攻撃は<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>。パッシブ <#ff9028ff>ナイトハンター<>：近くに敵チャンピオンがいると<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度8%<>。<#ff9028ff>シルバーボルト<>：<#ffb900ff>3.5秒<>以内の連続<#ffb900ff>3<>回目の命中ごとに<#f5f5f5ff>50<>の<#f5f5f5ff>確定ダメージ<>、チャンピオンには最大体力の<#f5f5f5ff>7%<>を追加。",
-        "skill": "転がる：敵チャンピオンが近ければ後ろへ、射程内に敵がいれば小さく後ろへ、いなければ射程内まで前へ。<#ffb900ff>7秒<>以内の次の攻撃が<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の80%<>の<#ff9028ff>物理ダメージ<>を追加。",
+        "skill": "転がる：敵チャンピオンが近ければ後ろへ、射程内に敵がいれば後ろへ、いなければ射程内まで前へ。<#ffb900ff>7秒<>以内の次の攻撃が<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の80%<>の<#ff9028ff>物理ダメージ<>を追加。",
         "skill2": "大型クロスボウの重い矢で敵チャンピオンに<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の70%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>ノックバック<>。着地で<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の35%<>の<#ff9028ff>物理ダメージ<>、<#ffb900ff>1秒<><#ef5350ff>スタン<>。",
         "ult": "<#ffb900ff>8秒<>間<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力25%<>増加、スキルのクールダウン<#ffb900ff>50%<>短縮、<#ff9028ff>タンブル<>で<#ffb900ff>1秒<><#ffb900ff>インビジブル<>、ナイトハンターの速度<#ffb900ff>3倍<>。その間に自らチャンピオンを倒すと<#ffb900ff>8秒<>に戻る。"
       },

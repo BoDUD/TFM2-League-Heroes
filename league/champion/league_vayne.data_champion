@@ -829,7 +829,7 @@
             {
               "type": "MoveBack",
               "speed": 6000,
-              "tick": 4
+              "tick": 5
             }
           ]
         },
@@ -877,15 +877,15 @@
                     {
                       "type": "MoveBack",
                       "speed": 5000,
-                      "tick": 2
+                      "tick": 6
                     }
                   ]
                 },
                 "effect_none": {
                   "type": "RushTime",
-                  "speed": 2500,
+                  "speed": 3000,
                   "tick": 10,
-                  "range": 25000,
+                  "range": 30000,
                   "casting_target": "EnemyWithoutTower",
                   "penetrate": true,
                   "applied_effects": []

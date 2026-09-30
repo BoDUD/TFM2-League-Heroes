@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Import Fiddlesticks' effects (assets/source/fiddlesticks/PROMPTS.md, 1-13) as game sheets.
+"""Import Fiddlesticks' effects (assets/source/fiddlesticks/PROMPTS.md, 1-14) as game sheets.
 
     python tools/art/import_fiddlesticks.py --raw <Codex's delivery folder>   # once: raw PNGs -> native strips
     python tools/art/import_fiddlesticks.py                                   # native strips -> effect sheets
@@ -31,9 +31,11 @@ few pixels ahead, the crescent with its middle on the cast point; the hit, the g
 root and the harvest's flash on the body; the fear eye and the stitched mouth over the head; the souls' ground
 ring, the smoke column's foot and the storm's ring on his feet (caster views); the landing mark's ellipse on the
 ground where he will land. The fear eye plays its six frames twice (1.2 s, the 1.25 s fear), the mouth its four
-three times (1.25 s, the silence). No palette or outline pass on the sheets. Writes
-league/effects/league_fiddlesticks_fx (bolt, hit, q_crow, q_hit, fear, silence, w_drain, w_final) and
-league/effects/league_fiddlesticks_big (e_reap, w_souls, r_mark, r_depart, r_storm).
+three times (1.25 s, the silence). No palette or outline pass on the sheets.
+The soul chain (14, added after players missed League's tethers on the drain) came later and at game size: Codex's
+1x strip (codex_fx_chain/, four 24 x 8 cells, anchored on their middle) is used as it came, so --raw leaves it be.
+Writes league/effects/league_fiddlesticks_fx (bolt, hit, q_crow, q_hit, fear, silence, w_drain, w_final, w_chain)
+and league/effects/league_fiddlesticks_big (e_reap, w_souls, r_mark, r_depart, r_storm).
 """
 import argparse
 import json
@@ -80,6 +82,8 @@ RAW = {
     "r_mark": dict(n=8, size=90, measure="w", x=("col", 135), y=("row", 359), sy=0.95),
     "r_depart": dict(n=6, size=44 / 508, x=("col", 166), y=("row", 649)),            # the column 508 px, its foot
     "r_storm": dict(n=6, size=84, measure="w", x=("col", 172), y=("row", 500), sy=0.8),  # the ring's middle
+    # 14, the soul chain (codex_fx_chain/): Codex drew it at game size, 24 x 8 a frame - its 1x strip as it came
+    "w_chain": dict(n=4, native=True),
 }
 
 
@@ -155,11 +159,11 @@ def from_raw(folder, only=None):
     manifest = load_manifest(folder)
     path = os.path.join(SRC, "fiddlesticks_fx_anchors.json")
     anchors = {}
-    if only and os.path.exists(G.lp(path)):
+    if os.path.exists(G.lp(path)):
         with open(G.lp(path), encoding="utf-8") as f:
             anchors = json.load(f)
     for name, spec in RAW.items():
-        if only and name not in only:
+        if (only and name not in only) or spec.get("native"):
             continue
         n = spec["n"]
         fn = f"fiddlesticks_fx_{name}.png"
@@ -245,6 +249,7 @@ FX = {
         "silence": ("silence", list(range(4)) * 3, (0, -27), [104] * 12),
         "w_drain": ("w_drain", range(4), CHEST, [62] * 4),
         "w_final": ("w_final", range(6), CHEST, [60] * 6),
+        "w_chain": ("w_chain", range(4), (0, 0), [60] * 4),       # rides its projectile, turned to its way
     },
     "league_fiddlesticks_big": {
         "e_reap": ("e_reap", range(6), (0, 0), [66] * 6),          # turned half round when cast left

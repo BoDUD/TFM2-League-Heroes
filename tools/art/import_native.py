@@ -60,7 +60,7 @@ NECK = {("nami", "run"): (-21, [0, 1, 2, 3])}
 # heroes whose outline strips.complete_outline closes on the finished frames (the skill's art-spec "Close the
 # outline": every hero from Nami on; the user: "后面英雄都要用的"). Nothing goes under the soles row; a frame that
 # already reaches lower (lying down) keeps its own bottom.
-COMPLETE = {"nami", "veigar", "jax", "fiora"}
+COMPLETE = {"nami", "veigar", "jax", "ahri", "fiora"}
 # hero: the luminance from which an edge pixel gets the outline (complete_outline's `dark`, default 70). Fiora's teal
 # leggings (luminance ~58) and wine cape (~44) edge many action frames without black: tfm2_ase.py metrics counts only
 # luminance < 40 as outline, so at 70 her Q frames read 83-89% (the bare rapier aside); at 40 they close too.
