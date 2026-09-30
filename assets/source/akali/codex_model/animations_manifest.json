@@ -1,0 +1,2566 @@
+{
+  "version": 2,
+  "character": "Akali",
+  "eye_style": "sharp almond eyes",
+  "cell": [
+    96,
+    96
+  ],
+  "scale": 8,
+  "palette": [
+    "#11131D",
+    "#223A35",
+    "#232632",
+    "#343646",
+    "#355247",
+    "#373440",
+    "#404956",
+    "#484956",
+    "#4C654B",
+    "#514856",
+    "#5B5C66",
+    "#657183",
+    "#687C47",
+    "#6A3823",
+    "#72552E",
+    "#84945C",
+    "#97A7B6",
+    "#A2977D",
+    "#A48142",
+    "#BD8157",
+    "#C1B496",
+    "#C9D5DD",
+    "#CCAA5B",
+    "#DDA372",
+    "#DED0B1",
+    "#F4BF8B",
+    "#FFF7E5"
+  ],
+  "animations": {
+    "idle": {
+      "file": "akali_idle.png",
+      "native": "native/akali_idle_1x.png",
+      "columns": 3,
+      "rows": 2,
+      "size": [
+        2304,
+        1536
+      ],
+      "loop": true,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "rect_native": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "duration_ms": 200,
+          "pivot": [
+            41,
+            70
+          ],
+          "pivot_px": [
+            328,
+            560
+          ],
+          "bbox": [
+            22,
+            28,
+            61,
+            82
+          ],
+          "head_rect": [
+            35,
+            35,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        },
+        {
+          "index": 2,
+          "rect": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "rect_native": [
+            96,
+            0,
+            96,
+            96
+          ],
+          "duration_ms": 200,
+          "pivot": [
+            41,
+            70
+          ],
+          "pivot_px": [
+            328,
+            560
+          ],
+          "bbox": [
+            22,
+            28,
+            61,
+            82
+          ],
+          "head_rect": [
+            35,
+            35,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        },
+        {
+          "index": 3,
+          "rect": [
+            1536,
+            0,
+            768,
+            768
+          ],
+          "rect_native": [
+            192,
+            0,
+            96,
+            96
+          ],
+          "duration_ms": 200,
+          "pivot": [
+            41,
+            70
+          ],
+          "pivot_px": [
+            328,
+            560
+          ],
+          "bbox": [
+            22,
+            29,
+            61,
+            82
+          ],
+          "head_rect": [
+            35,
+            36,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        },
+        {
+          "index": 4,
+          "rect": [
+            0,
+            768,
+            768,
+            768
+          ],
+          "rect_native": [
+            0,
+            96,
+            96,
+            96
+          ],
+          "duration_ms": 200,
+          "pivot": [
+            41,
+            70
+          ],
+          "pivot_px": [
+            328,
+            560
+          ],
+          "bbox": [
+            22,
+            29,
+            61,
+            82
+          ],
+          "head_rect": [
+            35,
+            36,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        },
+        {
+          "index": 5,
+          "rect": [
+            768,
+            768,
+            768,
+            768
+          ],
+          "rect_native": [
+            96,
+            96,
+            96,
+            96
+          ],
+          "duration_ms": 200,
+          "pivot": [
+            41,
+            70
+          ],
+          "pivot_px": [
+            328,
+            560
+          ],
+          "bbox": [
+            22,
+            29,
+            61,
+            82
+          ],
+          "head_rect": [
+            35,
+            36,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        },
+        {
+          "index": 6,
+          "rect": [
+            1536,
+            768,
+            768,
+            768
+          ],
+          "rect_native": [
+            192,
+            96,
+            96,
+            96
+          ],
+          "duration_ms": 200,
+          "pivot": [
+            41,
+            70
+          ],
+          "pivot_px": [
+            328,
+            560
+          ],
+          "bbox": [
+            22,
+            28,
+            61,
+            82
+          ],
+          "head_rect": [
+            35,
+            35,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        }
+      ]
+    },
+    "run": {
+      "file": "akali_run.png",
+      "native": "native/akali_run_1x.png",
+      "columns": 4,
+      "rows": 2,
+      "size": [
+        3072,
+        1536
+      ],
+      "loop": true,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "rect_native": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "duration_ms": 105,
+          "pivot": [
+            47,
+            70
+          ],
+          "pivot_px": [
+            376,
+            560
+          ],
+          "bbox": [
+            23,
+            27,
+            66,
+            82
+          ],
+          "head_rect": [
+            41,
+            36,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        },
+        {
+          "index": 2,
+          "rect": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "rect_native": [
+            96,
+            0,
+            96,
+            96
+          ],
+          "duration_ms": 105,
+          "pivot": [
+            47,
+            70
+          ],
+          "pivot_px": [
+            376,
+            560
+          ],
+          "bbox": [
+            24,
+            28,
+            69,
+            82
+          ],
+          "head_rect": [
+            41,
+            37,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        },
+        {
+          "index": 3,
+          "rect": [
+            1536,
+            0,
+            768,
+            768
+          ],
+          "rect_native": [
+            192,
+            0,
+            96,
+            96
+          ],
+          "duration_ms": 105,
+          "pivot": [
+            47,
+            70
+          ],
+          "pivot_px": [
+            376,
+            560
+          ],
+          "bbox": [
+            23,
+            28,
+            67,
+            82
+          ],
+          "head_rect": [
+            41,
+            37,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        },
+        {
+          "index": 4,
+          "rect": [
+            2304,
+            0,
+            768,
+            768
+          ],
+          "rect_native": [
+            288,
+            0,
+            96,
+            96
+          ],
+          "duration_ms": 105,
+          "pivot": [
+            48,
+            70
+          ],
+          "pivot_px": [
+            384,
+            560
+          ],
+          "bbox": [
+            23,
+            27,
+            66,
+            82
+          ],
+          "head_rect": [
+            42,
+            36,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        },
+        {
+          "index": 5,
+          "rect": [
+            0,
+            768,
+            768,
+            768
+          ],
+          "rect_native": [
+            0,
+            96,
+            96,
+            96
+          ],
+          "duration_ms": 105,
+          "pivot": [
+            48,
+            70
+          ],
+          "pivot_px": [
+            384,
+            560
+          ],
+          "bbox": [
+            23,
+            28,
+            67,
+            82
+          ],
+          "head_rect": [
+            42,
+            36,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        },
+        {
+          "index": 6,
+          "rect": [
+            768,
+            768,
+            768,
+            768
+          ],
+          "rect_native": [
+            96,
+            96,
+            96,
+            96
+          ],
+          "duration_ms": 105,
+          "pivot": [
+            48,
+            70
+          ],
+          "pivot_px": [
+            384,
+            560
+          ],
+          "bbox": [
+            22,
+            28,
+            67,
+            82
+          ],
+          "head_rect": [
+            42,
+            37,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        },
+        {
+          "index": 7,
+          "rect": [
+            1536,
+            768,
+            768,
+            768
+          ],
+          "rect_native": [
+            192,
+            96,
+            96,
+            96
+          ],
+          "duration_ms": 105,
+          "pivot": [
+            48,
+            70
+          ],
+          "pivot_px": [
+            384,
+            560
+          ],
+          "bbox": [
+            25,
+            28,
+            69,
+            82
+          ],
+          "head_rect": [
+            42,
+            37,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        },
+        {
+          "index": 8,
+          "rect": [
+            2304,
+            768,
+            768,
+            768
+          ],
+          "rect_native": [
+            288,
+            96,
+            96,
+            96
+          ],
+          "duration_ms": 105,
+          "pivot": [
+            47,
+            70
+          ],
+          "pivot_px": [
+            376,
+            560
+          ],
+          "bbox": [
+            22,
+            27,
+            65,
+            82
+          ],
+          "head_rect": [
+            41,
+            36,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        }
+      ]
+    },
+    "attack": {
+      "file": "akali_attack.png",
+      "native": "native/akali_attack_1x.png",
+      "columns": 3,
+      "rows": 2,
+      "size": [
+        2304,
+        1536
+      ],
+      "loop": false,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "rect_native": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "duration_ms": 60,
+          "pivot": [
+            51,
+            70
+          ],
+          "pivot_px": [
+            408,
+            560
+          ],
+          "bbox": [
+            29,
+            29,
+            71,
+            82
+          ],
+          "head_rect": [
+            44,
+            35,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        },
+        {
+          "index": 2,
+          "rect": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "rect_native": [
+            96,
+            0,
+            96,
+            96
+          ],
+          "duration_ms": 60,
+          "pivot": [
+            56,
+            70
+          ],
+          "pivot_px": [
+            448,
+            560
+          ],
+          "bbox": [
+            24,
+            28,
+            70,
+            82
+          ],
+          "head_rect": [
+            46,
+            35,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        },
+        {
+          "index": 3,
+          "rect": [
+            1536,
+            0,
+            768,
+            768
+          ],
+          "rect_native": [
+            192,
+            0,
+            96,
+            96
+          ],
+          "duration_ms": 70,
+          "pivot": [
+            28,
+            70
+          ],
+          "pivot_px": [
+            224,
+            560
+          ],
+          "bbox": [
+            7,
+            33,
+            66,
+            82
+          ],
+          "head_rect": [
+            31,
+            40,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        },
+        {
+          "index": 4,
+          "rect": [
+            0,
+            768,
+            768,
+            768
+          ],
+          "rect_native": [
+            0,
+            96,
+            96,
+            96
+          ],
+          "duration_ms": 70,
+          "pivot": [
+            31,
+            70
+          ],
+          "pivot_px": [
+            248,
+            560
+          ],
+          "bbox": [
+            13,
+            33,
+            69,
+            82
+          ],
+          "head_rect": [
+            36,
+            42,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        },
+        {
+          "index": 5,
+          "rect": [
+            768,
+            768,
+            768,
+            768
+          ],
+          "rect_native": [
+            96,
+            96,
+            96,
+            96
+          ],
+          "duration_ms": 80,
+          "pivot": [
+            44,
+            70
+          ],
+          "pivot_px": [
+            352,
+            560
+          ],
+          "bbox": [
+            22,
+            28,
+            68,
+            82
+          ],
+          "head_rect": [
+            40,
+            35,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        },
+        {
+          "index": 6,
+          "rect": [
+            1536,
+            768,
+            768,
+            768
+          ],
+          "rect_native": [
+            192,
+            96,
+            96,
+            96
+          ],
+          "duration_ms": 80,
+          "pivot": [
+            45,
+            70
+          ],
+          "pivot_px": [
+            360,
+            560
+          ],
+          "bbox": [
+            26,
+            28,
+            65,
+            82
+          ],
+          "head_rect": [
+            39,
+            35,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        }
+      ],
+      "release_frame": 3,
+      "release_tick": 7
+    },
+    "attack_p": {
+      "file": "akali_attack_p.png",
+      "native": "native/akali_attack_p_1x.png",
+      "columns": 3,
+      "rows": 2,
+      "size": [
+        2304,
+        1536
+      ],
+      "loop": false,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "rect_native": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "duration_ms": 60,
+          "pivot": [
+            46,
+            70
+          ],
+          "pivot_px": [
+            368,
+            560
+          ],
+          "bbox": [
+            21,
+            25,
+            65,
+            82
+          ],
+          "head_rect": [
+            40,
+            34,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        },
+        {
+          "index": 2,
+          "rect": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "rect_native": [
+            96,
+            0,
+            96,
+            96
+          ],
+          "duration_ms": 70,
+          "pivot": [
+            45,
+            70
+          ],
+          "pivot_px": [
+            360,
+            560
+          ],
+          "bbox": [
+            8,
+            29,
+            63,
+            82
+          ],
+          "head_rect": [
+            44,
+            42,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        },
+        {
+          "index": 3,
+          "rect": [
+            1536,
+            0,
+            768,
+            768
+          ],
+          "rect_native": [
+            192,
+            0,
+            96,
+            96
+          ],
+          "duration_ms": 80,
+          "pivot": [
+            24,
+            70
+          ],
+          "pivot_px": [
+            192,
+            560
+          ],
+          "bbox": [
+            1,
+            34,
+            92,
+            82
+          ],
+          "head_rect": [
+            31,
+            44,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        },
+        {
+          "index": 4,
+          "rect": [
+            0,
+            768,
+            768,
+            768
+          ],
+          "rect_native": [
+            0,
+            96,
+            96,
+            96
+          ],
+          "duration_ms": 80,
+          "pivot": [
+            31,
+            70
+          ],
+          "pivot_px": [
+            248,
+            560
+          ],
+          "bbox": [
+            1,
+            33,
+            78,
+            82
+          ],
+          "head_rect": [
+            27,
+            43,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        },
+        {
+          "index": 5,
+          "rect": [
+            768,
+            768,
+            768,
+            768
+          ],
+          "rect_native": [
+            96,
+            96,
+            96,
+            96
+          ],
+          "duration_ms": 90,
+          "pivot": [
+            44,
+            70
+          ],
+          "pivot_px": [
+            352,
+            560
+          ],
+          "bbox": [
+            15,
+            29,
+            70,
+            82
+          ],
+          "head_rect": [
+            39,
+            37,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        },
+        {
+          "index": 6,
+          "rect": [
+            1536,
+            768,
+            768,
+            768
+          ],
+          "rect_native": [
+            192,
+            96,
+            96,
+            96
+          ],
+          "duration_ms": 100,
+          "pivot": [
+            42,
+            70
+          ],
+          "pivot_px": [
+            336,
+            560
+          ],
+          "bbox": [
+            23,
+            28,
+            62,
+            82
+          ],
+          "head_rect": [
+            36,
+            35,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        }
+      ],
+      "release_frame": 3,
+      "release_tick": 8
+    },
+    "skill": {
+      "file": "akali_skill.png",
+      "native": "native/akali_skill_1x.png",
+      "columns": 3,
+      "rows": 2,
+      "size": [
+        2304,
+        1536
+      ],
+      "loop": false,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "rect_native": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "duration_ms": 50,
+          "pivot": [
+            40,
+            70
+          ],
+          "pivot_px": [
+            320,
+            560
+          ],
+          "bbox": [
+            16,
+            26,
+            60,
+            82
+          ],
+          "head_rect": [
+            32,
+            32,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        },
+        {
+          "index": 2,
+          "rect": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "rect_native": [
+            96,
+            0,
+            96,
+            96
+          ],
+          "duration_ms": 50,
+          "pivot": [
+            56,
+            70
+          ],
+          "pivot_px": [
+            448,
+            560
+          ],
+          "bbox": [
+            29,
+            25,
+            75,
+            82
+          ],
+          "head_rect": [
+            46,
+            33,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        },
+        {
+          "index": 3,
+          "rect": [
+            1536,
+            0,
+            768,
+            768
+          ],
+          "rect_native": [
+            192,
+            0,
+            96,
+            96
+          ],
+          "duration_ms": 60,
+          "pivot": [
+            56,
+            70
+          ],
+          "pivot_px": [
+            448,
+            560
+          ],
+          "bbox": [
+            28,
+            24,
+            74,
+            82
+          ],
+          "head_rect": [
+            46,
+            34,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        },
+        {
+          "index": 4,
+          "rect": [
+            0,
+            768,
+            768,
+            768
+          ],
+          "rect_native": [
+            0,
+            96,
+            96,
+            96
+          ],
+          "duration_ms": 70,
+          "pivot": [
+            55,
+            70
+          ],
+          "pivot_px": [
+            440,
+            560
+          ],
+          "bbox": [
+            27,
+            28,
+            79,
+            82
+          ],
+          "head_rect": [
+            49,
+            35,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        },
+        {
+          "index": 5,
+          "rect": [
+            768,
+            768,
+            768,
+            768
+          ],
+          "rect_native": [
+            96,
+            96,
+            96,
+            96
+          ],
+          "duration_ms": 80,
+          "pivot": [
+            55,
+            70
+          ],
+          "pivot_px": [
+            440,
+            560
+          ],
+          "bbox": [
+            25,
+            28,
+            79,
+            82
+          ],
+          "head_rect": [
+            48,
+            35,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        },
+        {
+          "index": 6,
+          "rect": [
+            1536,
+            768,
+            768,
+            768
+          ],
+          "rect_native": [
+            192,
+            96,
+            96,
+            96
+          ],
+          "duration_ms": 100,
+          "pivot": [
+            48,
+            70
+          ],
+          "pivot_px": [
+            384,
+            560
+          ],
+          "bbox": [
+            29,
+            28,
+            68,
+            82
+          ],
+          "head_rect": [
+            42,
+            35,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        }
+      ],
+      "release_frame": 4,
+      "release_tick": 10
+    },
+    "skill2": {
+      "file": "akali_skill2.png",
+      "native": "native/akali_skill2_1x.png",
+      "columns": 3,
+      "rows": 2,
+      "size": [
+        2304,
+        1536
+      ],
+      "loop": false,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "rect_native": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "duration_ms": 50,
+          "pivot": [
+            48,
+            70
+          ],
+          "pivot_px": [
+            384,
+            560
+          ],
+          "bbox": [
+            22,
+            36,
+            64,
+            82
+          ],
+          "head_rect": [
+            42,
+            45,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        },
+        {
+          "index": 2,
+          "rect": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "rect_native": [
+            96,
+            0,
+            96,
+            96
+          ],
+          "duration_ms": 60,
+          "pivot": [
+            42,
+            70
+          ],
+          "pivot_px": [
+            336,
+            560
+          ],
+          "bbox": [
+            18,
+            19,
+            66,
+            82
+          ],
+          "head_rect": [
+            35,
+            28,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        },
+        {
+          "index": 3,
+          "rect": [
+            1536,
+            0,
+            768,
+            768
+          ],
+          "rect_native": [
+            192,
+            0,
+            96,
+            96
+          ],
+          "duration_ms": 60,
+          "pivot": [
+            43,
+            70
+          ],
+          "pivot_px": [
+            344,
+            560
+          ],
+          "bbox": [
+            17,
+            39,
+            56,
+            82
+          ],
+          "head_rect": [
+            38,
+            49,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        },
+        {
+          "index": 4,
+          "rect": [
+            0,
+            768,
+            768,
+            768
+          ],
+          "rect_native": [
+            0,
+            96,
+            96,
+            96
+          ],
+          "duration_ms": 60,
+          "pivot": [
+            46,
+            70
+          ],
+          "pivot_px": [
+            368,
+            560
+          ],
+          "bbox": [
+            19,
+            28,
+            62,
+            82
+          ],
+          "head_rect": [
+            40,
+            36,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        },
+        {
+          "index": 5,
+          "rect": [
+            768,
+            768,
+            768,
+            768
+          ],
+          "rect_native": [
+            96,
+            96,
+            96,
+            96
+          ],
+          "duration_ms": 70,
+          "pivot": [
+            46,
+            70
+          ],
+          "pivot_px": [
+            368,
+            560
+          ],
+          "bbox": [
+            19,
+            27,
+            68,
+            82
+          ],
+          "head_rect": [
+            40,
+            36,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        },
+        {
+          "index": 6,
+          "rect": [
+            1536,
+            768,
+            768,
+            768
+          ],
+          "rect_native": [
+            192,
+            96,
+            96,
+            96
+          ],
+          "duration_ms": 90,
+          "pivot": [
+            49,
+            70
+          ],
+          "pivot_px": [
+            392,
+            560
+          ],
+          "bbox": [
+            30,
+            28,
+            69,
+            82
+          ],
+          "head_rect": [
+            43,
+            35,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        }
+      ],
+      "release_frame": 5,
+      "release_tick": 14
+    },
+    "skill2_dash": {
+      "file": "akali_skill2_dash.png",
+      "native": "native/akali_skill2_dash_1x.png",
+      "columns": 3,
+      "rows": 2,
+      "size": [
+        2304,
+        1536
+      ],
+      "loop": false,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "rect_native": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "duration_ms": 50,
+          "pivot": [
+            58,
+            70
+          ],
+          "pivot_px": [
+            464,
+            560
+          ],
+          "bbox": [
+            18,
+            35,
+            84,
+            82
+          ],
+          "head_rect": [
+            52,
+            46,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        },
+        {
+          "index": 2,
+          "rect": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "rect_native": [
+            96,
+            0,
+            96,
+            96
+          ],
+          "duration_ms": 50,
+          "pivot": [
+            57,
+            70
+          ],
+          "pivot_px": [
+            456,
+            560
+          ],
+          "bbox": [
+            19,
+            34,
+            84,
+            82
+          ],
+          "head_rect": [
+            52,
+            46,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        },
+        {
+          "index": 3,
+          "rect": [
+            1536,
+            0,
+            768,
+            768
+          ],
+          "rect_native": [
+            192,
+            0,
+            96,
+            96
+          ],
+          "duration_ms": 60,
+          "pivot": [
+            56,
+            70
+          ],
+          "pivot_px": [
+            448,
+            560
+          ],
+          "bbox": [
+            28,
+            33,
+            75,
+            82
+          ],
+          "head_rect": [
+            51,
+            41,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        },
+        {
+          "index": 4,
+          "rect": [
+            0,
+            768,
+            768,
+            768
+          ],
+          "rect_native": [
+            0,
+            96,
+            96,
+            96
+          ],
+          "duration_ms": 70,
+          "pivot": [
+            51,
+            70
+          ],
+          "pivot_px": [
+            408,
+            560
+          ],
+          "bbox": [
+            23,
+            20,
+            66,
+            82
+          ],
+          "head_rect": [
+            45,
+            35,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        },
+        {
+          "index": 5,
+          "rect": [
+            768,
+            768,
+            768,
+            768
+          ],
+          "rect_native": [
+            96,
+            96,
+            96,
+            96
+          ],
+          "duration_ms": 90,
+          "pivot": [
+            47,
+            70
+          ],
+          "pivot_px": [
+            376,
+            560
+          ],
+          "bbox": [
+            28,
+            28,
+            67,
+            82
+          ],
+          "head_rect": [
+            41,
+            35,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        }
+      ],
+      "release_frame": 4,
+      "release_tick": 10
+    },
+    "ult": {
+      "file": "akali_ult.png",
+      "native": "native/akali_ult_1x.png",
+      "columns": 3,
+      "rows": 2,
+      "size": [
+        2304,
+        1536
+      ],
+      "loop": false,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "rect_native": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "duration_ms": 60,
+          "pivot": [
+            59,
+            70
+          ],
+          "pivot_px": [
+            472,
+            560
+          ],
+          "bbox": [
+            26,
+            32,
+            75,
+            82
+          ],
+          "head_rect": [
+            54,
+            46,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        },
+        {
+          "index": 2,
+          "rect": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "rect_native": [
+            96,
+            0,
+            96,
+            96
+          ],
+          "duration_ms": 50,
+          "pivot": [
+            51,
+            70
+          ],
+          "pivot_px": [
+            408,
+            560
+          ],
+          "bbox": [
+            10,
+            35,
+            78,
+            82
+          ],
+          "head_rect": [
+            43,
+            48,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        },
+        {
+          "index": 3,
+          "rect": [
+            1536,
+            0,
+            768,
+            768
+          ],
+          "rect_native": [
+            192,
+            0,
+            96,
+            96
+          ],
+          "duration_ms": 50,
+          "pivot": [
+            49,
+            70
+          ],
+          "pivot_px": [
+            392,
+            560
+          ],
+          "bbox": [
+            12,
+            39,
+            70,
+            82
+          ],
+          "head_rect": [
+            42,
+            52,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        },
+        {
+          "index": 4,
+          "rect": [
+            0,
+            768,
+            768,
+            768
+          ],
+          "rect_native": [
+            0,
+            96,
+            96,
+            96
+          ],
+          "duration_ms": 80,
+          "pivot": [
+            42,
+            70
+          ],
+          "pivot_px": [
+            336,
+            560
+          ],
+          "bbox": [
+            25,
+            24,
+            74,
+            82
+          ],
+          "head_rect": [
+            36,
+            42,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        },
+        {
+          "index": 5,
+          "rect": [
+            768,
+            768,
+            768,
+            768
+          ],
+          "rect_native": [
+            96,
+            96,
+            96,
+            96
+          ],
+          "duration_ms": 90,
+          "pivot": [
+            44,
+            70
+          ],
+          "pivot_px": [
+            352,
+            560
+          ],
+          "bbox": [
+            12,
+            30,
+            73,
+            82
+          ],
+          "head_rect": [
+            38,
+            48,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        },
+        {
+          "index": 6,
+          "rect": [
+            1536,
+            768,
+            768,
+            768
+          ],
+          "rect_native": [
+            192,
+            96,
+            96,
+            96
+          ],
+          "duration_ms": 100,
+          "pivot": [
+            46,
+            70
+          ],
+          "pivot_px": [
+            368,
+            560
+          ],
+          "bbox": [
+            27,
+            28,
+            66,
+            82
+          ],
+          "head_rect": [
+            40,
+            35,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        }
+      ],
+      "release_frame": 2,
+      "release_tick": 4
+    },
+    "ult2": {
+      "file": "akali_ult2.png",
+      "native": "native/akali_ult2_1x.png",
+      "columns": 3,
+      "rows": 2,
+      "size": [
+        2304,
+        1536
+      ],
+      "loop": false,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "rect_native": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "duration_ms": 50,
+          "pivot": [
+            59,
+            70
+          ],
+          "pivot_px": [
+            472,
+            560
+          ],
+          "bbox": [
+            26,
+            31,
+            71,
+            82
+          ],
+          "head_rect": [
+            50,
+            41,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        },
+        {
+          "index": 2,
+          "rect": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "rect_native": [
+            96,
+            0,
+            96,
+            96
+          ],
+          "duration_ms": 50,
+          "pivot": [
+            57,
+            70
+          ],
+          "pivot_px": [
+            456,
+            560
+          ],
+          "bbox": [
+            19,
+            36,
+            69,
+            82
+          ],
+          "head_rect": [
+            49,
+            46,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        },
+        {
+          "index": 3,
+          "rect": [
+            1536,
+            0,
+            768,
+            768
+          ],
+          "rect_native": [
+            192,
+            0,
+            96,
+            96
+          ],
+          "duration_ms": 50,
+          "pivot": [
+            50,
+            70
+          ],
+          "pivot_px": [
+            400,
+            560
+          ],
+          "bbox": [
+            3,
+            39,
+            74,
+            82
+          ],
+          "head_rect": [
+            43,
+            49,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        },
+        {
+          "index": 4,
+          "rect": [
+            0,
+            768,
+            768,
+            768
+          ],
+          "rect_native": [
+            0,
+            96,
+            96,
+            96
+          ],
+          "duration_ms": 70,
+          "pivot": [
+            49,
+            70
+          ],
+          "pivot_px": [
+            392,
+            560
+          ],
+          "bbox": [
+            10,
+            38,
+            86,
+            82
+          ],
+          "head_rect": [
+            43,
+            48,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        },
+        {
+          "index": 5,
+          "rect": [
+            768,
+            768,
+            768,
+            768
+          ],
+          "rect_native": [
+            96,
+            96,
+            96,
+            96
+          ],
+          "duration_ms": 90,
+          "pivot": [
+            46,
+            70
+          ],
+          "pivot_px": [
+            368,
+            560
+          ],
+          "bbox": [
+            27,
+            28,
+            66,
+            82
+          ],
+          "head_rect": [
+            40,
+            35,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        }
+      ],
+      "release_frame": 4,
+      "release_tick": 9
+    },
+    "hit": {
+      "file": "akali_hit.png",
+      "native": "native/akali_hit_1x.png",
+      "columns": 2,
+      "rows": 1,
+      "size": [
+        1536,
+        768
+      ],
+      "loop": false,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "rect_native": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "duration_ms": 120,
+          "pivot": [
+            32,
+            70
+          ],
+          "pivot_px": [
+            256,
+            560
+          ],
+          "bbox": [
+            14,
+            26,
+            73,
+            82
+          ],
+          "head_rect": [
+            31,
+            31,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        },
+        {
+          "index": 2,
+          "rect": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "rect_native": [
+            96,
+            0,
+            96,
+            96
+          ],
+          "duration_ms": 120,
+          "pivot": [
+            39,
+            70
+          ],
+          "pivot_px": [
+            312,
+            560
+          ],
+          "bbox": [
+            20,
+            28,
+            59,
+            82
+          ],
+          "head_rect": [
+            33,
+            35,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        }
+      ]
+    },
+    "dead": {
+      "file": "akali_dead.png",
+      "native": "native/akali_dead_1x.png",
+      "columns": 4,
+      "rows": 2,
+      "size": [
+        3072,
+        1536
+      ],
+      "loop": false,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "rect_native": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "duration_ms": 100,
+          "pivot": [
+            41,
+            70
+          ],
+          "pivot_px": [
+            328,
+            560
+          ],
+          "bbox": [
+            26,
+            35,
+            74,
+            82
+          ],
+          "head_rect": [
+            35,
+            32,
+            22,
+            23
+          ],
+          "head_rotation": 25
+        },
+        {
+          "index": 2,
+          "rect": [
+            768,
+            0,
+            768,
+            768
+          ],
+          "rect_native": [
+            96,
+            0,
+            96,
+            96
+          ],
+          "duration_ms": 100,
+          "pivot": [
+            34,
+            70
+          ],
+          "pivot_px": [
+            272,
+            560
+          ],
+          "bbox": [
+            16,
+            27,
+            55,
+            82
+          ],
+          "head_rect": [
+            33,
+            38,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        },
+        {
+          "index": 3,
+          "rect": [
+            1536,
+            0,
+            768,
+            768
+          ],
+          "rect_native": [
+            192,
+            0,
+            96,
+            96
+          ],
+          "duration_ms": 120,
+          "pivot": [
+            33,
+            70
+          ],
+          "pivot_px": [
+            264,
+            560
+          ],
+          "bbox": [
+            16,
+            32,
+            54,
+            82
+          ],
+          "head_rect": [
+            30,
+            41,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        },
+        {
+          "index": 4,
+          "rect": [
+            2304,
+            0,
+            768,
+            768
+          ],
+          "rect_native": [
+            288,
+            0,
+            96,
+            96
+          ],
+          "duration_ms": 120,
+          "pivot": [
+            36,
+            70
+          ],
+          "pivot_px": [
+            288,
+            560
+          ],
+          "bbox": [
+            22,
+            34,
+            58,
+            82
+          ],
+          "head_rect": [
+            34,
+            41,
+            16,
+            17
+          ],
+          "head_rotation": 0
+        },
+        {
+          "index": 5,
+          "rect": [
+            0,
+            768,
+            768,
+            768
+          ],
+          "rect_native": [
+            0,
+            96,
+            96,
+            96
+          ],
+          "duration_ms": 120,
+          "pivot": [
+            42,
+            70
+          ],
+          "pivot_px": [
+            336,
+            560
+          ],
+          "bbox": [
+            28,
+            39,
+            69,
+            82
+          ],
+          "head_rect": [
+            41,
+            48,
+            20,
+            21
+          ],
+          "head_rotation": -10
+        },
+        {
+          "index": 6,
+          "rect": [
+            768,
+            768,
+            768,
+            768
+          ],
+          "rect_native": [
+            96,
+            96,
+            96,
+            96
+          ],
+          "duration_ms": 150,
+          "pivot": [
+            47,
+            70
+          ],
+          "pivot_px": [
+            376,
+            560
+          ],
+          "bbox": [
+            21,
+            50,
+            78,
+            82
+          ],
+          "head_rect": [
+            48,
+            57,
+            24,
+            25
+          ],
+          "head_rotation": -40
+        },
+        {
+          "index": 7,
+          "rect": [
+            1536,
+            768,
+            768,
+            768
+          ],
+          "rect_native": [
+            192,
+            96,
+            96,
+            96
+          ],
+          "duration_ms": 150,
+          "pivot": [
+            43,
+            70
+          ],
+          "pivot_px": [
+            344,
+            560
+          ],
+          "bbox": [
+            14,
+            54,
+            73,
+            82
+          ],
+          "head_rect": [
+            44,
+            63,
+            17,
+            16
+          ],
+          "head_rotation": -90
+        },
+        {
+          "index": 8,
+          "rect": [
+            2304,
+            768,
+            768,
+            768
+          ],
+          "rect_native": [
+            288,
+            96,
+            96,
+            96
+          ],
+          "duration_ms": 500,
+          "pivot": [
+            39,
+            70
+          ],
+          "pivot_px": [
+            312,
+            560
+          ],
+          "bbox": [
+            4,
+            59,
+            66,
+            82
+          ],
+          "head_rect": [
+            39,
+            60,
+            17,
+            16
+          ],
+          "head_rotation": -90
+        }
+      ]
+    }
+  }
+}

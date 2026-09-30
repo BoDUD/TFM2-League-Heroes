@@ -32,19 +32,21 @@ KNOWN_EFFECTS = {
     # crowd control / states
     "Stun", "Airborne", "Bind", "Taunt", "Charm", "Fear", "Banish", "Knockback", "Pull", "Grab",
     "BlockAttack", "BlockSkill", "BlockMoveSkill", "Invisible", "CasterInvisible",
-    # movement
-    "MoveTo", "MoveToTarget", "MoveBack", "RushTime", "RushMoveToBack", "Teleport", "DirTeleport",
+    # movement (Rush: a data effect since game 0.6, the official data-champion schema)
+    "MoveTo", "MoveToTarget", "MoveBack", "Rush", "RushTime", "RushMoveToBack", "Teleport", "DirTeleport",
     # projectiles / zones
     "TargetProjectile", "AutoTargetProjectile", "TargetSplashProjectile", "LinearProjectile",
     "BackToCasterLinearProjectile", "ParabolicProjectile", "LineRangeProjectile", "RangeProjectile",
-    "RangePeriodProjectile", "ApplyInProjectile",
+    "RangePeriodProjectile", "ApplyInProjectile", "TargetProjectileFromProjectile", "ShrinkingBarrier",
     # presentation
     "ViewEffect", "CasterViewEffect", "CasterAnimation", "RemoveCasterAnimation", "Sfx", "TargetSfx",
 }
-BASE_ONLY_EFFECTS = {"Native", "ShrinkingBarrier", "AddStatScaledBuff", "Rush"}
+# Rush and ShrinkingBarrier were base-only in the classic SDK (game 0.5); the 0.6 schema lists them as data effects
+BASE_ONLY_EFFECTS = {"Native", "AddStatScaledBuff"}
 PROJECTILE_EFFECTS = {"TargetProjectile", "AutoTargetProjectile", "TargetSplashProjectile", "LinearProjectile",
                       "BackToCasterLinearProjectile", "ParabolicProjectile", "LineRangeProjectile",
-                      "RangeProjectile", "RangePeriodProjectile", "ApplyInProjectile"}
+                      "RangeProjectile", "RangePeriodProjectile", "ApplyInProjectile",
+                      "TargetProjectileFromProjectile", "ShrinkingBarrier"}
 CATEGORIES = {"Melee", "Range", "Magician", "Util", "Assassin"}
 CASTING_TYPES = {"Targeting", "Direction", "Position", "None"}
 CASTING_TARGETS = {"Enemy", "EnemyWithoutTower", "EnemyChampion", "EnemyChampionInCC", "EnemyChampionRecentlyAttacked",
@@ -105,14 +107,18 @@ EFFECT_FIELDS = {
     "RangeProjectile": {"applied_effects", "applied_target", "apply", "delay", "name", "shape"},
     "RemoveCasterAnimation": {"name"},
     "RemoveCasterBuff": {"name"},
+    "Rush": {"applied_effects", "casting_target", "move_speed_ratio", "penetrate", "range", "speed"},
     "RushMoveToBack": {"applied_effects", "speed"},
     "RushTime": {"applied_effects", "casting_target", "penetrate", "range", "speed", "tick"},
     "Sfx": {"name"},
     "Shield": {"amount", "ap_ratio", "attack_ratio", "tick"},
+    "ShrinkingBarrier": {"applied_effects", "edge_thickness", "end_radius", "name", "shrink_per_tick", "start_radius",
+                         "tick"},
     "Stun": {"duration"},
     "SwitchByBuff": {"buff_name", "effect_buff", "effect_none"},
     "SwitchByLevel3": {"effect_level3", "effect_start"},
     "TargetProjectile": {"applied_effects", "applied_target", "name", "speed", "y_offset"},
+    "TargetProjectileFromProjectile": {"applied_effects", "applied_target", "name", "speed", "y_offset"},
     "TargetSfx": {"name"},
     "TargetSplashProjectile": {"applied_effects", "applied_target", "name", "range", "speed", "y_offset"},
     "Taunt": {"duration"},
@@ -120,6 +126,18 @@ EFFECT_FIELDS = {
     "ViewEffect": {"name", "radius", "range", "speed", "time"},
     "WithSelf": {"effects"},
 }
+# The last three came from the 0.6 schema (docs/data-champion-schema/effects.md in teamsamoyed/TeamfightManager2Mod),
+# the classic SDK's game_core (0.5.1, the last one shipped) not having them as data effects; every other entry is
+# the same in both.
+# Named native passives (game 0.6.0+; the schema's passives.md): passive_ref -> its params, all required - a missing
+# or negative one, or an unknown name, makes the game log one warning and skip the passive (the champion still loads)
+PASSIVES = {"ogre": {"hit_hp"}, "dancer": {"vamp"}, "ghost": {"heal", "add_attack", "add_attack_speed"},
+            "circus_blade": {"charge_count"}, "gunner": {"move_speed_up", "move_speed_up_duration"},
+            "hunter": {"recast_duration", "kill_extend_count"},
+            "berserker": {"cooltime_reduction", "max_cooltime_reduction"},
+            "poison_dart_hunter": {"add_move_speed", "range"}, "swordman": set(), "vampire": set()}
+# keys packs write into buff_state that are no buff fields (the game binary does not contain them): ignored
+DEAD_BUFF_KEYS = ("is_hidden", "can_stack", "max_stack")
 STAT_KEYS = ["attack", "magic_power", "hp", "defence", "magic_resistance", "move_speed", "hp_regen", "stack",
              "crit_chance"]
 STAT_ICONS = {"ad_0", "ap_0", "attack_speed_0", "speed_0", "hp_0", "range_0", "armor_0", "magic resistance_0"}
@@ -397,6 +415,7 @@ def walk_effects(node, out):
                 out["no_duration"].add(bs["name"])
             elif not (d in ("Permanent", "WithShield") or (isinstance(d, dict) and "Time" in d)):
                 out["bad_enum"].append(("buff_state", "duration", json.dumps(d)))
+            out["dead_buff"] |= {(bs["name"], k) for k in DEAD_BUFF_KEYS if k in bs}
         for v in node.values():
             walk_effects(v, out)
     elif isinstance(node, list):
@@ -550,6 +569,28 @@ def main(argv=None):
             if missing:
                 rep.error(W, f"{block} missing {missing}")
 
+        # named native passives (game 0.6.0+)
+        for slot in ("passive", "passive_skill2", "passive_ult"):
+            p = d.get(slot)
+            if p is None:
+                continue
+            ref = p.get("passive_ref") if isinstance(p, dict) else None
+            params = (p.get("params") or {}) if isinstance(p, dict) else {}
+            if not ref:
+                rep.error(W, f"{slot} has no passive_ref")
+            elif ":" in ref:
+                rep.info(W, f"{slot} '{ref}' is registered by a native mod: no passive while that mod is off")
+            elif ref not in PASSIVES:
+                rep.error(W, f"{slot} '{ref}' is not a registered passive{hint(ref, PASSIVES)} - the game skips it")
+            else:
+                missing = sorted(PASSIVES[ref] - set(params))
+                bad = sorted(k for k, v in params.items() if not isinstance(v, int) or v < 0)
+                if missing or bad:
+                    rep.error(W, f"{slot} '{ref}': params missing {missing}, not a non-negative integer {bad} - "
+                                 f"the game skips the passive")
+        if "stack_skill_index" in d and d["stack_skill_index"] not in (0, 1, 2):
+            rep.error(W, "stack_skill_index must be 0 (skill), 1 (skill2) or 2 (ult)")
+
         # sprite
         sprite = d.get("sprite")
         tags = mod.sprite_tags(sprite) if sprite else None
@@ -590,7 +631,7 @@ def main(argv=None):
         # actions + effects
         found = dict(types=[], projectiles=set(), view_effects=set(), anims=set(), sfx=set(), switch_buffs=set(),
                      removed_buffs=set(), buffs=set(), bad_enum=[], no_duration=set(), ignored=[], no_ratio=set(),
-                     never=set())
+                     never=set(), dead_buff=set())
         for slot in ACTIONS:
             a = d.get(slot)
             if not isinstance(a, dict):
@@ -660,6 +701,8 @@ def main(argv=None):
         for nm, dl, ap in sorted(found["never"], key=str):
             rep.warn(W, f"RangeProjectile '{nm}': apply {ap} > delay {dl} - it would hit apply - 1 ticks after it "
                         f"appears but is gone after delay - 1, so it never hits")
+        for nm, k in sorted(found["dead_buff"]):
+            rep.warn(W, f"buff '{nm}': '{k}' is not a buff field - the game has no such name and ignores it")
         for nm in sorted(found["no_duration"]):
             rep.info(W, f"buff '{nm}' has no duration (shipped packs do this; set Permanent or Time explicitly)")
         if isinstance(tags, list):

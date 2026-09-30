@@ -67,7 +67,8 @@ empty tooltip). That is why the linter exists - run it after every edit.
 5. **Text and sound** - `references/text-audio.md` (colour codes, icon ids, sound overrides).
 6. **Validate** - `python scripts/lint_mod.py <mod folder>` (add `--game <TFM2 folder>` if the
    game is not in a standard Steam path) until 0 errors; read every WARN.
-7. **Play-test** - a 5v5 simulation on the mod SDK first shows every cast with its target kind and
+7. **Play-test** - a 5v5 simulation on the classic mod SDK's engine (game_core 0.5.1, the last one shipped;
+   champion-data section 9) first shows every cast with its target kind and
    the end-of-game statistics (porting-heroes.md "Balance check"). Then
    copy to `<game>/mods/<mod_id>/`, enable in the Mods menu, watch each action,
    compare the hero's height with a base champion. Details: `references/mod-structure.md`.
@@ -102,7 +103,7 @@ empty tooltip). That is why the linter exists - run it after every edit.
 | `scripts/strips.py` | library for importing generated sprite strips: frame split, leg alignment, pixelize, palette, outline, sheet export (needs numpy) |
 | `scripts/regrid.py` | read an image model's game-size "pixel art" (soft edges, uneven ~10 px squares) back on its own grid, one pixel per drawn square (needs numpy) |
 | `scripts/bundle_tool.py` | list / cat / extract base assets, list base sound names |
-| `scripts/sdk_probe.rs` | parse a kit or single effects with the engine's own types from the game's mod SDK: accepted enum values, fields the engine ignores, defaults (champion-data section 9) |
+| `scripts/sdk_probe.rs` | parse a kit or single effects with the engine's own types from the classic mod SDK (game_core 0.5.1; since game 0.6 only the stable-ABI SDK ships, no engine): accepted enum values, fields the engine ignores, defaults (champion-data section 9; for 0.6 additions use the official data-champion schema) |
 | `templates/mymod/` | skeleton mod: manifest, override_info, one hero, 4-language text, champion_view, icons |
 
 Scripts need Python 3.9+ and Pillow (`pip install pillow`; `strips.py` also numpy). They only

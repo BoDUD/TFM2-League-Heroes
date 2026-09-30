@@ -1,0 +1,117 @@
+{
+  "frames": 64,
+  "run_head_fixed_x": true,
+  "run_head_y_range": 1,
+  "checks": [
+    {
+      "tag": "idle",
+      "frames": 6,
+      "palette": true,
+      "binary_alpha": true,
+      "8x_grid": true,
+      "empty_cells": true,
+      "feet_limit": true,
+      "head_copy": true
+    },
+    {
+      "tag": "run",
+      "frames": 8,
+      "palette": true,
+      "binary_alpha": true,
+      "8x_grid": true,
+      "empty_cells": true,
+      "feet_limit": true,
+      "head_copy": true
+    },
+    {
+      "tag": "attack",
+      "frames": 6,
+      "palette": true,
+      "binary_alpha": true,
+      "8x_grid": true,
+      "empty_cells": true,
+      "feet_limit": true,
+      "head_copy": true
+    },
+    {
+      "tag": "attack_p",
+      "frames": 6,
+      "palette": true,
+      "binary_alpha": true,
+      "8x_grid": true,
+      "empty_cells": true,
+      "feet_limit": true,
+      "head_copy": true
+    },
+    {
+      "tag": "skill",
+      "frames": 6,
+      "palette": true,
+      "binary_alpha": true,
+      "8x_grid": true,
+      "empty_cells": true,
+      "feet_limit": true,
+      "head_copy": true
+    },
+    {
+      "tag": "skill2",
+      "frames": 6,
+      "palette": true,
+      "binary_alpha": true,
+      "8x_grid": true,
+      "empty_cells": true,
+      "feet_limit": true,
+      "head_copy": true
+    },
+    {
+      "tag": "skill2_dash",
+      "frames": 5,
+      "palette": true,
+      "binary_alpha": true,
+      "8x_grid": true,
+      "empty_cells": true,
+      "feet_limit": true,
+      "head_copy": true
+    },
+    {
+      "tag": "ult",
+      "frames": 6,
+      "palette": true,
+      "binary_alpha": true,
+      "8x_grid": true,
+      "empty_cells": true,
+      "feet_limit": true,
+      "head_copy": true
+    },
+    {
+      "tag": "ult2",
+      "frames": 5,
+      "palette": true,
+      "binary_alpha": true,
+      "8x_grid": true,
+      "empty_cells": true,
+      "feet_limit": true,
+      "head_copy": true
+    },
+    {
+      "tag": "hit",
+      "frames": 2,
+      "palette": true,
+      "binary_alpha": true,
+      "8x_grid": true,
+      "empty_cells": true,
+      "feet_limit": true,
+      "head_copy": true
+    },
+    {
+      "tag": "dead",
+      "frames": 8,
+      "palette": true,
+      "binary_alpha": true,
+      "8x_grid": true,
+      "empty_cells": true,
+      "feet_limit": true,
+      "head_copy": true
+    }
+  ]
+}

@@ -196,6 +196,13 @@
         "skill": "翻滚：敌方英雄贴近时往后滚，射程内有敌人时后跳，否则滚进射程。<#ffb900ff>7秒<>内的下一次普攻额外造成<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80% 攻击力<>的<#ff9028ff>物理伤害<>。",
         "skill2": "用大弩射出重箭，对敌方英雄造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70% 攻击力<>的<#ff9028ff>物理伤害<>并<#ef5350ff>击退<>，落地时再受到<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35% 攻击力<>的<#ff9028ff>物理伤害<>并<#ef5350ff>眩晕<><#ffb900ff>1秒<>。",
         "ult": "<#ffb900ff>8秒<>内<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻击力+25%<>，技能冷却缩短<#ffb900ff>50%<>，<#ff9028ff>闪避突袭<>附带<#ffb900ff>1秒<><#ffb900ff>隐身<>，暗夜猎手的移速变为<#ffb900ff>3倍<>。期间她亲手击杀英雄时，终极时刻刷新为<#ffb900ff>8秒<>。"
+      },
+      "league_akali": {
+        "name": "阿卡丽",
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。被动 <#ff9028ff>我流忍法！潜龙印<>：技能命中敌方英雄后<#ffb900ff>4秒<>内，下一次普攻<i#asset/base/ui/banpick/champion_stat_icon:range_0><#ff86c2ff>射程翻倍<>并额外造成<#a974ffff>54<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法术强度<>的<#a974ffff>魔法伤害<>，期间<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移动速度提高30%<>。",
+        "skill": "向前方扇形掷出苦无，造成<#a974ffff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>76% 法术强度<>的<#a974ffff>魔法伤害<>和<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30% 攻击力<>的<#ff9028ff>物理伤害<>，末端敌人<#ef5350ff>减速50%<>。",
+        "skill2": "向后翻身并掷出手里剑，对首个命中的敌人造成<#a974ffff>54<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>54% 法术强度<>的<#a974ffff>魔法伤害<>并标记它，<#ffb900ff>0.5秒<>后冲到它身边，造成<#a974ffff>97<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>97% 法术强度<>的<#a974ffff>魔法伤害<>。附近有敌方英雄时落地施放 <#ff9028ff>我流奥义！霞阵<>（冷却<#ffb900ff>18秒<>）：放出烟雾，<#ef5350ff>隐身<><#ffb900ff>2秒<>，<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移动速度提高40%<>并递减。",
+        "ult": "穿过目标英雄，对路径上的敌人造成<#a974ffff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法术强度<>的<#a974ffff>魔法伤害<>；<#ffb900ff>2.5秒<>后再次穿过它（它已阵亡或跑远则换附近的英雄），造成<#a974ffff>86<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>43% 法术强度<>的<#a974ffff>魔法伤害<>，两段之间她每命中英雄一次伤害提高<#ffb900ff>25%<>（最多<#ffb900ff>200%<>）。"
       }
     },
     "skill_name": {
@@ -338,6 +345,11 @@
         "skill1": "闪避突袭",
         "skill2": "恶魔审判",
         "ult": "终极时刻"
+      },
+      "league_akali": {
+        "skill1": "我流奥义！寒影",
+        "skill2": "我流奥义！隼舞",
+        "ult": "我流秘奥义！表里杀缭乱"
       }
     }
   },
@@ -538,6 +550,13 @@
         "skill": "翻滾：敵方英雄貼近時往後滾，射程內有敵人時後跳，否則滾進射程。<#ffb900ff>7秒<>內的下一次普攻額外造成<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80% 攻擊力<>的<#ff9028ff>物理傷害<>。",
         "skill2": "用大弩射出重箭，對敵方英雄造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70% 攻擊力<>的<#ff9028ff>物理傷害<>並<#ef5350ff>擊退<>，落地時再受到<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35% 攻擊力<>的<#ff9028ff>物理傷害<>並<#ef5350ff>暈眩<><#ffb900ff>1秒<>。",
         "ult": "<#ffb900ff>8秒<>內<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻擊力+25%<>，技能冷卻縮短<#ffb900ff>50%<>，<#ff9028ff>翻滾瞄準<>附帶<#ffb900ff>1秒<><#ffb900ff>隱形<>，夜之狩獵的跑速變為<#ffb900ff>3倍<>。期間她親手擊殺英雄時，死亡通緝刷新為<#ffb900ff>8秒<>。"
+      },
+      "league_akali": {
+        "name": "阿卡莉",
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。被動 <#ff9028ff>刺客印記<>：技能命中敵方英雄後<#ffb900ff>4秒<>內，下一次普攻<i#asset/base/ui/banpick/champion_stat_icon:range_0><#ff86c2ff>射程加倍<>並額外造成<#a974ffff>54<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 魔法強度<>的<#a974ffff>魔法傷害<>，期間<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度提高30%<>。",
+        "skill": "向前方扇形擲出苦無，造成<#a974ffff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>76% 魔法強度<>的<#a974ffff>魔法傷害<>和<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30% 攻擊力<>的<#ff9028ff>物理傷害<>，末端敵人<#ef5350ff>緩速50%<>。",
+        "skill2": "向後翻身並擲出手裡劍，對命中的第一個敵人造成<#a974ffff>54<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>54% 魔法強度<>的<#a974ffff>魔法傷害<>並標記它，<#ffb900ff>0.5秒<>後衝到它身邊，造成<#a974ffff>97<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>97% 魔法強度<>的<#a974ffff>魔法傷害<>。附近有敵方英雄時落地施放 <#ff9028ff>暮光朦影<>（冷卻<#ffb900ff>18秒<>）：放出煙霧，<#ef5350ff>隱形<><#ffb900ff>2秒<>，<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度提高40%<>並遞減。",
+        "ult": "穿過目標英雄，對路徑上的敵人造成<#a974ffff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 魔法強度<>的<#a974ffff>魔法傷害<>；<#ffb900ff>2.5秒<>後再次穿過它（它已陣亡或跑遠則換附近的英雄），造成<#a974ffff>86<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>43% 魔法強度<>的<#a974ffff>魔法傷害<>，兩段之間她每命中英雄一次傷害提高<#ffb900ff>25%<>（最多<#ffb900ff>200%<>）。"
       }
     },
     "skill_name": {
@@ -680,6 +699,11 @@
         "skill1": "翻滾瞄準",
         "skill2": "重型弩箭",
         "ult": "死亡通緝"
+      },
+      "league_akali": {
+        "skill1": "落擲苦無",
+        "skill2": "離群手裡劍",
+        "ult": "無瑕追擊"
       }
     }
   },
@@ -880,6 +904,13 @@
         "skill": "Vayne tumbles: away from an enemy champion on her, a hop back when an enemy is in range, else toward her target until it is in range. Her next attack within <#ffb900ff>7s<> deals <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80% AD<> <#ff9028ff>physical damage<> more.",
         "skill2": "A heavy bolt from her great crossbow deals <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70% AD<> <#ff9028ff>physical damage<> to an enemy champion and <#ef5350ff>knocks it back<>; where it lands it takes <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35% AD<> <#ff9028ff>physical damage<> more and is <#ef5350ff>stunned<> for <#ffb900ff>1s<>.",
         "ult": "For <#ffb900ff>8s<> Vayne gains <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25% AD<>, her ability cooldowns are <#ffb900ff>50%<> shorter, <#ff9028ff>Tumble<> makes her <#ffb900ff>invisible<> for <#ffb900ff>1s<> and Night Hunter's speed is <#ffb900ff>3x<>. A champion killed by her own hit meanwhile resets Final Hour to <#ffb900ff>8s<>."
+      },
+      "league_akali": {
+        "name": "Akali",
+        "attack": "Basic attacks deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. Passive <#ff9028ff>Assassin's Mark<>: after a spell hits an enemy champion, for <#ffb900ff>4s<> her next attack has <i#asset/base/ui/banpick/champion_stat_icon:range_0><#ff86c2ff>double range<> and deals <#a974ffff>54<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% Ability Power<> bonus <#a974ffff>magic damage<>; meanwhile she has <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>30% Move Speed<>.",
+        "skill": "Akali throws kunai in a cone, dealing <#a974ffff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>76% Ability Power<> <#a974ffff>magic damage<> plus <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30% AD<> <#ff9028ff>physical damage<>; enemies at the tip are <#ef5350ff>slowed by 50%<>.",
+        "skill2": "Akali flips back and throws a shuriken that deals <#a974ffff>54<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>54% Ability Power<> <#a974ffff>magic damage<> to the first enemy hit and marks it; <#ffb900ff>0.5s<> later she dashes to it for <#a974ffff>97<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>97% Ability Power<> <#a974ffff>magic damage<>. Near an enemy champion she also casts <#ff9028ff>Twilight Shroud<> (<#ffb900ff>18s<> cooldown) on landing: smoke, <#ef5350ff>invisible<> for <#ffb900ff>2s<> and <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>40% Move Speed<>, decaying.",
+        "ult": "Akali dashes through the target champion, dealing <#a974ffff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% Ability Power<> <#a974ffff>magic damage<> to enemies in her path. <#ffb900ff>2.5s<> later she dashes through it again (another champion nearby if it died or fled) for <#a974ffff>86<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>43% Ability Power<> <#a974ffff>magic damage<>, +<#ffb900ff>25%<> for each champion hit she landed in between (up to +<#ffb900ff>200%<>)."
       }
     },
     "skill_name": {
@@ -1022,6 +1053,11 @@
         "skill1": "Tumble",
         "skill2": "Condemn",
         "ult": "Final Hour"
+      },
+      "league_akali": {
+        "skill1": "Five Point Strike",
+        "skill2": "Shuriken Flip",
+        "ult": "Perfect Execution"
       }
     }
   },
@@ -1222,6 +1258,13 @@
         "skill": "구르기: 적 챔피언이 붙으면 뒤로, 사거리 안에 적이 있으면 살짝 뒤로, 없으면 사거리까지 앞으로. <#ffb900ff>7초<> 안의 다음 기본 공격이 <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 80%<> <#ff9028ff>물리 피해<>를 추가로 입힙니다.",
         "skill2": "큰 석궁으로 무거운 화살을 쏴 적 챔피언에게 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 70%<> <#ff9028ff>물리 피해<>를 입히고 <#ef5350ff>밀쳐냅니다<>. 떨어진 곳에서 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 35%<> <#ff9028ff>물리 피해<>를 더 입고 <#ffb900ff>1초<> <#ef5350ff>기절<>.",
         "ult": "<#ffb900ff>8초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력 25%<> 증가, 스킬 재사용 대기시간 <#ffb900ff>50%<> 감소, <#ff9028ff>구르기<> 후 <#ffb900ff>1초<> <#ffb900ff>투명<>, 어둠 사냥꾼 이동 속도 <#ffb900ff>3배<>. 그동안 직접 챔피언을 처치하면 <#ffb900ff>8초<>로 초기화."
+      },
+      "league_akali": {
+        "name": "아칼리",
+        "attack": "기본 공격은 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다. 기본 지속 효과 <#ff9028ff>암살자의 표식<>: 스킬이 적 챔피언에게 적중하면 <#ffb900ff>4초<> 동안 다음 기본 공격의 <i#asset/base/ui/banpick/champion_stat_icon:range_0><#ff86c2ff>사거리가 두 배<>가 되고 <#a974ffff>54<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 70%<>의 추가 <#a974ffff>마법 피해<>를 입히며, 그동안 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도가 30%<> 증가합니다.",
+        "skill": "부채꼴로 쿠나이를 던져 <#a974ffff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 76%<>의 <#a974ffff>마법 피해<>와 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 30%<> <#ff9028ff>물리 피해<>를 입히고, 끝부분의 적을 <#ef5350ff>50% 둔화<>시킵니다.",
+        "skill2": "뒤로 공중제비를 돌며 표창을 던져 처음 맞은 적에게 <#a974ffff>54<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 54%<>의 <#a974ffff>마법 피해<>를 입히고 표식을 남깁니다. <#ffb900ff>0.5초<> 뒤 대상에게 돌진해 <#a974ffff>97<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 97%<>의 <#a974ffff>마법 피해<>를 입힙니다. 적 챔피언이 근처면 착지 시 <#ff9028ff>황혼의 장막<>(<#ffb900ff>18초<>)도 사용: 연막을 펼쳐 <#ffb900ff>2초<> 동안 <#ef5350ff>투명<>해지고 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도가 40%<> 증가(점차 감소).",
+        "ult": "대상 챔피언을 관통해 돌진하며 경로의 적에게 <#a974ffff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 70%<>의 <#a974ffff>마법 피해<>를 입힙니다. <#ffb900ff>2.5초<> 뒤 다시 관통하며(대상이 죽었거나 멀어지면 근처의 다른 챔피언) <#a974ffff>86<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 43%<>의 <#a974ffff>마법 피해<>를 입히고, 그 사이 챔피언에게 적중할 때마다 피해가 <#ffb900ff>25%<>씩 증가합니다(최대 <#ffb900ff>200%<>)."
       }
     },
     "skill_name": {
@@ -1364,6 +1407,11 @@
         "skill1": "구르기",
         "skill2": "선고",
         "ult": "결전의 시간"
+      },
+      "league_akali": {
+        "skill1": "오연투척검",
+        "skill2": "표창곡예",
+        "ult": "무결처형"
       }
     }
   },
@@ -1564,6 +1612,13 @@
         "skill": "転がる：敵チャンピオンが近ければ後ろへ、射程内に敵がいれば小さく後ろへ、いなければ射程内まで前へ。<#ffb900ff>7秒<>以内の次の攻撃が<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の80%<>の<#ff9028ff>物理ダメージ<>を追加。",
         "skill2": "大型クロスボウの重い矢で敵チャンピオンに<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の70%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>ノックバック<>。着地で<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の35%<>の<#ff9028ff>物理ダメージ<>、<#ffb900ff>1秒<><#ef5350ff>スタン<>。",
         "ult": "<#ffb900ff>8秒<>間<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力25%<>増加、スキルのクールダウン<#ffb900ff>50%<>短縮、<#ff9028ff>タンブル<>で<#ffb900ff>1秒<><#ffb900ff>インビジブル<>、ナイトハンターの速度<#ffb900ff>3倍<>。その間に自らチャンピオンを倒すと<#ffb900ff>8秒<>に戻る。"
+      },
+      "league_akali": {
+        "name": "アカリ",
+        "attack": "通常攻撃は<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>。パッシブ <#ff9028ff>刺客の刻印<>：スキルが敵チャンピオンに命中すると<#ffb900ff>4秒<>間、次の通常攻撃の<i#asset/base/ui/banpick/champion_stat_icon:range_0><#ff86c2ff>射程が2倍<>になり<#a974ffff>54<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の70%<>の<#a974ffff>魔法ダメージ<>を追加、その間<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度30%<>増加。",
+        "skill": "扇状に苦無を投げ<#a974ffff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の76%<>の<#a974ffff>魔法ダメージ<>と<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の30%<>の<#ff9028ff>物理ダメージ<>、先端の敵を<#ef5350ff>50%スロウ<>。",
+        "skill2": "後方へ宙返りして手裏剣を投げ、最初に当たった敵に<#a974ffff>54<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の54%<>の<#a974ffff>魔法ダメージ<>を与えてマークし、<#ffb900ff>0.5秒<>後にその敵へダッシュして<#a974ffff>97<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の97%<>の<#a974ffff>魔法ダメージ<>。敵チャンピオンが近くなら着地時に<#ff9028ff>黄昏の帳<>（<#ffb900ff>18秒<>）も発動：煙幕、<#ffb900ff>2秒<><#ef5350ff>インビジブル<>、<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度40%<>増加（減衰）。",
+        "ult": "対象のチャンピオンを突き抜け、通過した敵に<#a974ffff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の70%<>の<#a974ffff>魔法ダメージ<>。<#ffb900ff>2.5秒<>後に再び突き抜け（倒れたか離れたら近くの別のチャンピオン）<#a974ffff>86<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の43%<>の<#a974ffff>魔法ダメージ<>、その間にチャンピオンへ命中するごとに<#ffb900ff>25%<>増加（最大<#ffb900ff>200%<>）。"
       }
     },
     "skill_name": {
@@ -1706,6 +1761,11 @@
         "skill1": "タンブル",
         "skill2": "パニッシュメント",
         "ult": "ファイナルアワー"
+      },
+      "league_akali": {
+        "skill1": "五連苦無",
+        "skill2": "翻身手裏剣",
+        "ult": "完遂"
       }
     }
   }

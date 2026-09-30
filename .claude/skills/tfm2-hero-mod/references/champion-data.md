@@ -29,10 +29,19 @@ Contents
 | `attack` `skill` `skill2` `ult` | the four actions (section 3) |
 | `view_projectiles` `view_effects` `view_buffs` | bindings from effect names to animations (section 6) |
 
-The game binary also names `passive`, `passive_skill2`, `passive_ult`, `stack_skill_index` and
-`name`, but the mod SDK's `DataChampionInfo` (what a mod's file is parsed into) has none of them:
-its fields are exactly the ones above plus `skill_icon`. There is no "on spawn" hook either, so build
-passives with buffs (section 7); a permanent one goes on at the first action (league_amumu's Tantrum
+**Named native passives (game 0.6.0+).** `passive` (from spawn), `passive_skill2` (once skill2 is learned) and
+`passive_ult` (once the ult is) each take `{"passive_ref": "<name>", "params": {...}}`: one of the base game's own
+passives run by its native code - `ogre` (`hit_hp`), `dancer` (`vamp`), `ghost` (`heal`, `add_attack`,
+`add_attack_speed`), `circus_blade` (`charge_count`), `gunner` (`move_speed_up`, `move_speed_up_duration`), `hunter`
+(`recast_duration`, `kill_extend_count`), `berserker` (`cooltime_reduction`, `max_cooltime_reduction`),
+`poison_dart_hunter` (`add_move_speed`, `range`), `swordman`, `vampire` - or a name a native mod registered
+(`my_mod:frenzy`). Every param is required and a non-negative integer: a missing one, or an unknown name, makes the
+game log one warning and skip the passive (the champion still loads). Stacks live on the player and survive death;
+`stack_skill_index` (0 skill, 1 skill2, 2 ult) picks the icon that shows the stack counter. Source: the official
+schema (teamsamoyed/TeamfightManager2Mod, docs/data-champion-schema/passives.md); the classic SDK's
+`DataChampionInfo` (0.5.1, the last one with the engine, section 9) has none of these fields, so the simulator
+cannot run them and no hero of this pack uses them yet. There is no "on spawn" hook, so a passive of our own is
+still built with buffs (section 7); a permanent one goes on at the first action (league_amumu's Tantrum
 armour: `SwitchByBuff` on itself, then `AddCasterBuff` with `"duration": "Permanent"`).
 
 ## 2. Units and balance ranges
@@ -474,8 +483,16 @@ the caster for `tick`; the caster stays in place meanwhile, so move it from the 
 `MoveToTarget` / `MoveTo` / `RushTime`), `RemoveCasterAnimation {name}`, `Sfx {name}` (at caster),
 `TargetSfx {name}` (at target). Base `ViewEffect` entries sometimes carry `range/speed/time/radius`.
 
-**Base only - do not use in mods:** `Native` (calls hard-coded logic via `effect_ref`),
-`ShrinkingBarrier`, `AddStatScaledBuff`, `Rush`.
+**Base only - do not use in mods:** `Native` (calls hard-coded logic via `effect_ref`), `AddStatScaledBuff`.
+
+**Data effects since game 0.6** (the official schema's effects.md; the classic SDK's parser does not have them,
+so they cannot be simulated, and no hero of this pack uses them yet): `Rush {speed, range, move_speed_ratio,
+casting_target, penetrate, applied_effects}` - the caster rushes toward the position input, hitting what matches
+`casting_target` on the way (defaults: `casting_target` Ally, `range` 0); `ShrinkingBarrier {name, start_radius,
+end_radius, shrink_per_tick, tick, edge_thickness, applied_effects}` - a ring round the target that follows it and
+closes, applying at its edge; `TargetProjectileFromProjectile {name, speed, y_offset, applied_target,
+applied_effects}` - a homing projectile spawned where the current projectile is (only inside a projectile's
+`applied_effects` / `end_effects`).
 
 ## 5. buff_state
 
@@ -1620,6 +1637,53 @@ Then Hemomania, the frenzy of Head Rush with more attack and move speed plus `de
 and `vamp` 10, for 360 ticks. League's range is global and the frenzy lasts until she or the prey dies; with the
 AI casting it on any champion in range a global kick would send her alone across the map, so it reaches a bit
 more than a screen and lasts 6 s (the user's pick).
+**Hidden for a fixed time on landing, armed as she casts (league_akali W, Twilight Shroud folded into E).** E (every
+8 s) runs W behind W's own 18 s caster cooldown buff (Soraka's fold), armed at the cast: `RandomTarget {range: 40000,
+casting_target: EnemyChampion}` adds a flag buff that lasts past the landing (`MoveBack` 7 ticks + 2), and a
+`Delayed` 7 on landing fires only under that flag (`SwitchByBuff`, the flag removed): the smoke as a `CasterViewEffect`
+(not following: it stays where she landed - a `ViewEffect` on her own spot would not show, league_thresh R), a plain
+`CasterInvisible {tick: 120}` in the effect list, and the decaying move-speed buffs. Checking on landing instead missed
+the champion she was fighting: the flip puts her 21000 further back (24000 + 21000 > 40000). In the simulation W went
+off 3-6 times a 10-minute game and each `EntityInvisibled` window lasted 1.98 s, over the dash back.
+The first build folded W into Q as a zone, hidden only while she stood inside - still a working way to tie
+invisibility to an area: Ekko's anchor (a `LinearProjectile` with `speed` 1, `range` 1, `y_offset` 5000) whose
+`end_effects` start a `RangePeriodProjectile` (radius 30000, 300 ticks, `period` 6, `applied_target: AllyChampion`)
+applying `RandomTarget {range: 30000, casting_target: AllyOnlySelf, from_projectile: true}` -> `CasterInvisible {tick:
+8}`: each pulse renews it while she is inside, it ends at most 8 ticks after she steps out (and flickers at the edge).
+The user moved W to E; there she leaves the cloud 0.5 s later on the dash, so a fixed duration fits.
+
+**Flip back, throw, dash to what the throw hit (league_akali E, Shuriken Flip).** A `Targeting` cast on
+`EnemyWithoutTower`: `MoveBack {speed: 5000, tick: 4}` (20000 straight away from the target), then from a
+`Delayed {tick: 4}` - so it leaves from where she landed - a non-penetrating `LinearProjectile` at the target that
+stops on the first unit. Its `applied_effects`: the damage, the mark (`AddBuff` whose `view_buffs` entry is the
+shuriken on the unit, as long as the wait), a `Delayed {tick: 1}` champion-only `TargetProjectile` (the passive and
+the ult's counter count champions only; aimed at a minion it is removed the tick it spawns without applying), and
+`Delayed {tick: 30}` with the dash: the crowd-control check of "A channel that crowd control breaks" (no dash while
+she is stunned), `CasterAnimation skill2_dash`, `MoveToTarget` (6000 a tick) and the second hit in its
+`end_effects` (league_leesin Q2). A unit that died meanwhile gets no dash (a `Delayed` on a dead unit only plays its
+pictures and sounds, section 4).
+
+**Two dashes, the second stronger for every hit in between (league_akali R, Perfect Execution).** League's second
+cast deals more to targets missing health; nothing reads health, so it counts her own work instead. The cast
+(`Targeting` on `EnemyChampion`) clears the rungs `r_s1`..`r_s8`, adds a 180-tick `r_window` buff and dashes with
+`RushTime {speed: 8000, tick: 9, penetrate: true}` (72000 toward the target, through it) whose `applied_effects` hit
+every unit it passes. While `r_window` lasts, every champion hit (a champion-only twin on the attack, a champion-only
+cone in Q, the twins of E) climbs one rung (`SwitchByBuff` from the top, as league_darius counts Hemorrhage). 150
+ticks after the cast a hidden `TargetProjectile` goes to the first target with `RandomTarget {range: 70000,
+casting_target: AllyOnlySelf, from_projectile: true}` in its effects (league_morgana's reach check): a 3-tick flag
+when she is within reach of it; a projectile at a dead target spawns and is gone the next tick without hitting. Two
+ticks later the second `RushTime` goes at the first target when the flag is there, otherwise at a `RandomTarget
+{range: 70000, casting_target: EnemyChampion}` (a `RushTime` inside it heads for the picked unit), otherwise not at
+all; its damage reads the ladder from the top (+25% a rung, +200% at eight). Crowd control at that moment cancels the
+second dash, death cancels it (it clears `r_window`). Over 6 games 27 ults: the second dash went 11 times at the first
+target, 7 times at another champion, 9 times nowhere (nobody within reach) and was lost twice to crowd control.
+
+**Double range on the attack after a spell (league_akali Assassin's Mark).** League empowers her next attack once she
+leaves the ring round the champion her spell hit; nothing reads positions, so a champion hit (Q's champion cone once
+per cast, E's twins, the ult) adds a 240-tick caster buff with `range` 24000 (her own 24000 again) and
+`move_speed_mult` 30, replaced rather than stacked (`RemoveCasterBuff` first: two `range` buffs would add up). A
+`range` buff also stretches the distance the AI starts attacking from (section 3): the next attack began 65000 from a
+pyromancer (48000 plus both bodies) and the attack consumes the buff (bonus magic damage, its own slash).
 
 ## 8. Gotchas
 
@@ -1647,6 +1711,22 @@ more than a screen and lasts 6 s (the user's pick).
 - Run `python scripts/lint_mod.py <mod>` after every edit.
 
 ## 9. Checking a fact against the engine
+
+**Which SDK (game 0.6.2, 2026-09-30).** The classic SDK, the one that ships the engine, ended with game 0.5: the
+official docs (teamsamoyed/TeamfightManager2Mod) call it deprecated, "supported through game version 0.5 only, and
+no longer shipped or updated from 0.6". The game folder keeps `mod-sdk` (its `base_version.txt` says 0.5.0, but its
+game_core is the 0.5.1 build, the same file as in `mod-sdk-0.5.1-package`) and, since 0.6, `mod-sdk-stable` (0.6.2):
+the stable-ABI API for native DLL mods (`mod-api-stable`, plain Rust with no engine inside; its `sim.rs` only reads
+the match the game is running). A data-only mod needs no SDK at all. So the probe below and the simulator
+(porting-heroes "Balance check") stay on game_core 0.5.1, the newest engine a program can link. The data they
+load from bundle.game_data (champion sheet, game / item / map settings, macro weights) was compared byte for byte
+with the 0.6.2 bundle: identical. Engine code changed after 0.5.1 is not in them; for what the 0.6.2 loader accepts
+use the official schema (docs/data-champion-schema) together with the probe. Every effect type and field this pack
+writes is in that schema or named in the 0.6.2 binary (`CasterInvisible`, the `cooltime_use_count` action field and
+`LinearProjectile.y_offset` are undocumented there but still read); the one dead key it wrote, `is_hidden` (35 buff
+states in league_darius, league_leesin, league_lux, league_soraka and the template), is gone, and `lint_mod.py`
+warns about it and knows the 0.6 additions (named passives, `Rush`, `ShrinkingBarrier`,
+`TargetProjectileFromProjectile`).
 
 The mod SDK in the game folder ships the engine itself: `mod-sdk*/deps/libgame_core-*.rlib` (+
 `.rmeta`, serde_json next to it) built with the toolchain pinned in its `rust-toolchain.toml`
