@@ -157,7 +157,7 @@ PASTED = {"masteryi"}            # steadied on the head restyle_native pasted: h
 # frame, so they are steadied on idle frame 1's head like the round-1 heroes - or on their eyes when they are in
 # EYES - whatever their poses.json says
 REDRAWN = {"thresh", "leona", "janna", "ekko", "darius", "leesin", "soraka", "malphite", "annie", "amumu",
-           "jinx", "yone", "garen", "ashe", "ahri", "lux"}
+           "jinx", "missfortune", "yone", "garen", "ashe", "ahri", "lux"}
 # heroes steadied on their eyes: (R, G, B) of a colour only the eyes use; the head column is the eyes' middle
 EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade is the top of every frame
         "kayle": (226, 138, 8),           # Codex's redraw: her wings rise above her head, the amber is the eyes'
@@ -171,6 +171,7 @@ EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade
         "annie": (51, 32, 63),            # the design face pasted back by tidy_codex18.py: her violet pupils
         "amumu": (243, 224, 80),          # the same for Amumu: his eye yellow, in an eye-only shade
         "jinx": (209, 46, 128),           # the same for Jinx: her pink iris, in an eye-only shade
+        "missfortune": (44, 129, 226),    # the same for Miss Fortune: her blue irises, in an eye-only shade
         "yone": (70, 52, 94),             # the same for Yone (no eyes under the mask): the purple strand over his face
         "garen": (31, 62, 200),           # the same for Garen: his near eye's blue iris, in an eye-only shade
         "ashe": (59, 174, 240),           # the same for Ashe: her cyan eyes (the bow is cyan too), eye-only shade
