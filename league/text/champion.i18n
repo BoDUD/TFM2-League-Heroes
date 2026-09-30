@@ -183,6 +183,13 @@
         "skill2": "蓄力<#ffb900ff>1秒<>，期间受到的伤害降低<#ffb900ff>15%<>并回复<#6aff55ff>24<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>16% 攻击力<>的<#6aff55ff>生命值<>；然后向前尖啸，造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90% 攻击力<>的<#ff9028ff>物理伤害<>，<#ef5350ff>减速<><#ffb900ff>80%<>并<#ef5350ff>击退<>，被击退的英雄<#ef5350ff>眩晕<><#ffb900ff>1秒<>。",
         "ult": "踢出血石，标记命中的第一个英雄（穿过小兵）并飞向它，落地对周围敌人造成<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% 攻击力<>的<#ff9028ff>物理伤害<>，<#ef5350ff>恐惧<>猎物以外的敌人<#ffb900ff>1.5秒<>。随后<#ffb900ff>6秒<>进入<#ff9028ff>彻底血狂<>：获得血莽的效果、<i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>20 护甲<>和魔抗、<#6aff55ff>10% 吸血<>、额外<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>25% 移速<>。"
       },
+      "league_riven": {
+        "name": "锐雯",
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。被动 <#ff9028ff>符文之刃<>：每放一次技能（<#ff9028ff>折翼之舞<>每一段、<#ff9028ff>勇往直前<>、<#ff9028ff>震魂怒吼<>、<#ff9028ff>放逐之锋<>）获得一层符文，最多<#ffb900ff>3<>层，持续<#ffb900ff>6秒<>；普攻消耗一层，额外造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35% 攻击力<>的<#ff9028ff>物理伤害<>。",
+        "skill": "向目标跃斩，对周围敌人造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45% 攻击力<>的<#ff9028ff>物理伤害<>。有<#ffb900ff>3<>次充能，每<#ffb900ff>4秒<>恢复一次；<#ffb900ff>4秒<>内第三次施放改为跃起砸地，并<#ef5350ff>击飞<>周围敌人<#ffb900ff>0.75秒<>。",
+        "skill2": "<#ff9028ff>勇往直前<>：冲到目标身边，获得<#e8d44dff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70% 攻击力<>的<#e8d44dff>护盾<>，持续<#ffb900ff>1.5秒<>。落地施放<#ff9028ff>震魂怒吼<>，对周围敌人造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80% 攻击力<>的<#ff9028ff>物理伤害<>并<#ef5350ff>眩晕<><#ffb900ff>0.75秒<>。",
+        "ult": "身边有敌方英雄时开启，持续<#ffb900ff>15秒<>：攻击力提高<#ffb900ff>20%<>，攻击距离变长，<#ff9028ff>折翼之舞<>和<#ff9028ff>震魂怒吼<>范围扩大<#ffb900ff>25%<>。开启<#ffb900ff>5秒<>后向身边的敌方英雄放出<#ff9028ff>疾风斩<>，对直线上的敌人造成<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<> + <#ff9028ff>8% 最大生命值<>的<#ff9028ff>物理伤害<>。"
+      },
       "league_nami": {
         "name": "娜美",
         "attack": "普攻射出一颗水弹，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。被动 <#ff9028ff>踏浪之行<>：技能命中友方英雄时，使其<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移动速度提高20%<>，持续<#ffb900ff>1.5秒<>。",
@@ -321,6 +328,11 @@
         "skill1": "冲头",
         "skill2": "惊吼",
         "ult": "毙除"
+      },
+      "league_riven": {
+        "skill1": "折翼之舞",
+        "skill2": "勇往直前",
+        "ult": "放逐之锋"
       },
       "league_nami": {
         "skill1": "冲击之潮",
@@ -513,6 +525,13 @@
         "skill2": "蓄力<#ffb900ff>1秒<>，期間受到的傷害降低<#ffb900ff>15%<>並回復<#6aff55ff>24<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>16% 攻擊力<>的<#6aff55ff>生命<>；然後向前尖嘯，造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90% 攻擊力<>的<#ff9028ff>物理傷害<>，<#ef5350ff>緩速<><#ffb900ff>80%<>並<#ef5350ff>擊退<>，被擊退的英雄<#ef5350ff>暈眩<><#ffb900ff>1秒<>。",
         "ult": "踢出血色石，標記命中的第一名英雄（穿過小兵）並衝向對方，落地對周圍敵人造成<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% 攻擊力<>的<#ff9028ff>物理傷害<>，<#ef5350ff>恐懼<>獵物以外的敵人<#ffb900ff>1.5秒<>。隨後<#ffb900ff>6秒<>進入<#ff9028ff>嗜血如命<>：獲得嗜血狂熱的效果、<i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>20 護甲<>和魔防、<#6aff55ff>10% 吸血<>、額外<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>25% 跑速<>。"
       },
+      "league_riven": {
+        "name": "雷玟",
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 物理攻擊<>的<#ff9028ff>物理傷害<>。被動 <#ff9028ff>符文破刃<>：每施放一次技能（<#ff9028ff>斷罪之翼<>每一段、<#ff9028ff>勇者無敵<>、<#ff9028ff>符文衝擊<>、<#ff9028ff>放逐之刃<>）獲得一層符文，最多<#ffb900ff>3<>層，持續<#ffb900ff>6秒<>；普攻消耗一層，額外造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35% 物理攻擊<>的<#ff9028ff>物理傷害<>。",
+        "skill": "向目標躍斬，對周圍敵人造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45% 物理攻擊<>的<#ff9028ff>物理傷害<>。有<#ffb900ff>3<>次充能，每<#ffb900ff>4秒<>恢復一次；<#ffb900ff>4秒<>內第三次施放改為躍起砸地，並<#ef5350ff>擊飛<>周圍敵人<#ffb900ff>0.75秒<>。",
+        "skill2": "<#ff9028ff>勇者無敵<>：衝到目標身邊，獲得<#e8d44dff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70% 物理攻擊<>的<#e8d44dff>護盾<>，持續<#ffb900ff>1.5秒<>。落地施放<#ff9028ff>符文衝擊<>，對周圍敵人造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80% 物理攻擊<>的<#ff9028ff>物理傷害<>並<#ef5350ff>暈眩<><#ffb900ff>0.75秒<>。",
+        "ult": "身邊有敵方英雄時啟動，持續<#ffb900ff>15秒<>：物理攻擊提高<#ffb900ff>20%<>，攻擊距離變長，<#ff9028ff>斷罪之翼<>和<#ff9028ff>符文衝擊<>範圍擴大<#ffb900ff>25%<>。啟動<#ffb900ff>5秒<>後向身邊的敵方英雄發射<#ff9028ff>疾風斬<>，對直線上的敵人造成<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 物理攻擊<> + <#ff9028ff>8% 最大生命<>的<#ff9028ff>物理傷害<>。"
+      },
       "league_nami": {
         "name": "娜米",
         "attack": "普攻射出一顆水彈，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。被動 <#ff9028ff>疾速波濤<>：技能命中友方英雄時，使其<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度提高20%<>，持續<#ffb900ff>1.5秒<>。",
@@ -651,6 +670,11 @@
         "skill1": "沖昏頭",
         "skill2": "破膽尖嘯",
         "ult": "必死無疑"
+      },
+      "league_riven": {
+        "skill1": "斷罪之翼",
+        "skill2": "勇者無敵",
+        "ult": "放逐之刃"
       },
       "league_nami": {
         "skill1": "跳躍水柱",
@@ -843,6 +867,13 @@
         "skill2": "<#ff9028ff>Chilling Scream<>: Briar charges for <#ffb900ff>1s<>, taking <#ffb900ff>15%<> less damage and healing <#6aff55ff>24<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>16% AD<>, then screams forward for <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90% AD<> <#ff9028ff>physical damage<>, <#ef5350ff>slowing<> by <#ffb900ff>80%<> and <#ef5350ff>knocking back<>; champions knocked back are <#ef5350ff>stunned<> for <#ffb900ff>1s<>.",
         "ult": "<#ff9028ff>Certain Death<>: Briar kicks her hemolith, marking the first champion hit (it passes minions), and flies to it. Landing deals <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% AD<> <#ff9028ff>physical damage<> around her and <#ef5350ff>fears<> other enemies for <#ffb900ff>1.5s<>. For <#ffb900ff>6s<> she is in <#ff9028ff>Hemomania<>: Blood Frenzy plus <i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>20 armor<> and magic resist, <#6aff55ff>10% life steal<> and <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>25% more Move Speed<>."
       },
+      "league_riven": {
+        "name": "Riven",
+        "attack": "Basic attacks deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. Passive <#ff9028ff>Runic Blade<>: each spell (<#ff9028ff>Broken Wings<> every cast, <#ff9028ff>Valor<>, <#ff9028ff>Ki Burst<>, <#ff9028ff>Blade of the Exile<>) grants a rune, up to <#ffb900ff>3<>, for <#ffb900ff>6s<>; each basic attack spends one to deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35% AD<> bonus <#ff9028ff>physical damage<>.",
+        "skill": "Riven lunges at her target and slashes, dealing <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45% AD<> <#ff9028ff>physical damage<> to enemies around her. <#ffb900ff>3<> charges, one back every <#ffb900ff>4s<>; the third cast within <#ffb900ff>4s<> is a leap that <#ef5350ff>knocks up<> enemies around her landing for <#ffb900ff>0.75s<>.",
+        "skill2": "<#ff9028ff>Valor<>: Riven dashes to her target and gains a <#e8d44dff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70% AD<> <#e8d44dff>shield<> for <#ffb900ff>1.5s<>. On arrival she casts <#ff9028ff>Ki Burst<>, dealing <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80% AD<> <#ff9028ff>physical damage<> to enemies around her and <#ef5350ff>stunning<> them for <#ffb900ff>0.75s<>.",
+        "ult": "Starts when an enemy champion is near her and lasts <#ffb900ff>15s<>: <#ffb900ff>20%<> more AD, longer attack range and <#ffb900ff>25%<> larger <#ff9028ff>Broken Wings<> and <#ff9028ff>Ki Burst<>. After <#ffb900ff>5s<> she fires <#ff9028ff>Wind Slash<> at an enemy champion near her, dealing <#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> + <#ff9028ff>8% max health<> <#ff9028ff>physical damage<> to enemies in a line."
+      },
       "league_nami": {
         "name": "Nami",
         "attack": "Basic attacks fire a bolt of water that deals <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. Passive <#ff9028ff>Surging Tides<>: allied champions her spells reach gain <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>20% Move Speed<> for <#ffb900ff>1.5s<>.",
@@ -981,6 +1012,11 @@
         "skill1": "Head Rush",
         "skill2": "Chilling Scream",
         "ult": "Certain Death"
+      },
+      "league_riven": {
+        "skill1": "Broken Wings",
+        "skill2": "Valor",
+        "ult": "Blade of the Exile"
       },
       "league_nami": {
         "skill1": "Ebb and Flow",
@@ -1173,6 +1209,13 @@
         "skill2": "<#ff9028ff>오싹한 비명<>: <#ffb900ff>1초<> 동안 충전하며 받는 피해 <#ffb900ff>15%<> 감소, 체력 <#6aff55ff>24<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 16%<> 회복. 이후 앞으로 비명을 질러 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 90%<> <#ff9028ff>물리 피해<>, <#ef5350ff>둔화<> <#ffb900ff>80%<>, <#ef5350ff>넉백<>; 밀려난 챔피언은 <#ffb900ff>1초<> <#ef5350ff>기절<>.",
         "ult": "<#ff9028ff>불가항력적 죽음<>: 혈석을 차 처음 맞힌 챔피언(미니언 통과)을 표시하고 날아갑니다. 착지 시 주변에 <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 60%<> <#ff9028ff>물리 피해<>, 먹잇감 외의 적 <#ffb900ff>1.5초<> <#ef5350ff>공포<>. <#ffb900ff>6초<> 동안 피의 갈증: 핏빛 광분 효과, <i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>방어력 20<>·마저, <#6aff55ff>생명력 흡수 10%<>, <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도 25%<> 추가."
       },
+      "league_riven": {
+        "name": "리븐",
+        "attack": "기본 공격으로 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다. 기본 지속 효과 <#ff9028ff>룬 검<>: 스킬(<#ff9028ff>부러진 날개<> 매 사용, <#ff9028ff>용맹<>, <#ff9028ff>기 폭발<>, <#ff9028ff>추방자의 검<>)을 사용할 때마다 룬을 <#ffb900ff>6초<> 동안 얻습니다(최대 <#ffb900ff>3<>개). 기본 공격 시 하나를 소모해 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 35%<> <#ff9028ff>물리 피해<>를 추가로 입힙니다.",
+        "skill": "대상에게 뛰어들어 베어 주변 적에게 <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 45%<> <#ff9028ff>물리 피해<>를 입힙니다. 충전 <#ffb900ff>3<>회, <#ffb900ff>4초<>마다 1회 충전됩니다. <#ffb900ff>4초<> 안에 세 번째로 사용하면 도약해 착지 지점 주변의 적을 <#ffb900ff>0.75초<> 동안 <#ef5350ff>공중으로 띄워 올립니다<>.",
+        "skill2": "<#ff9028ff>용맹<>: 대상에게 돌진하며 <#ffb900ff>1.5초<> 동안 <#e8d44dff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 70%<> <#e8d44dff>보호막<>을 얻습니다. 도착하면 <#ff9028ff>기 폭발<>로 주변 적에게 <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 80%<> <#ff9028ff>물리 피해<>를 입히고 <#ffb900ff>0.75초<> 동안 <#ef5350ff>기절<>시킵니다.",
+        "ult": "주변에 적 챔피언이 있을 때 발동하여 <#ffb900ff>15초<> 동안 공격력이 <#ffb900ff>20%<> 증가하고 공격 사거리가 늘어나며 <#ff9028ff>부러진 날개<>와 <#ff9028ff>기 폭발<>의 범위가 <#ffb900ff>25%<> 커집니다. <#ffb900ff>5초<> 후 주변의 적 챔피언에게 <#ff9028ff>바람 가르기<>를 날려 일직선 상의 적에게 <#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> + <#ff9028ff>최대 체력의 8%<> <#ff9028ff>물리 피해<>를 입힙니다."
+      },
       "league_nami": {
         "name": "나미",
         "attack": "기본 공격으로 물방울을 쏘아 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다. 기본 지속 효과 <#ff9028ff>밀려오는 파도<>: 스킬이 아군 챔피언에게 닿으면 <#ffb900ff>1.5초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도가 20%<> 증가합니다.",
@@ -1311,6 +1354,11 @@
         "skill1": "짜릿한 돌격",
         "skill2": "오싹한 비명",
         "ult": "불가항력적 죽음"
+      },
+      "league_riven": {
+        "skill1": "부러진 날개",
+        "skill2": "용맹",
+        "ult": "추방자의 검"
       },
       "league_nami": {
         "skill1": "밀물 썰물",
@@ -1503,6 +1551,13 @@
         "skill2": "<#ff9028ff>呪福の叫び<>：<#ffb900ff>1秒<>溜めて被ダメージ<#ffb900ff>15%<>軽減、体力<#6aff55ff>24<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の16%<>回復。前方に叫び<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の90%<>の<#ff9028ff>物理ダメージ<>、<#ef5350ff>スロウ<><#ffb900ff>80%<>と<#ef5350ff>ノックバック<>、飛ばされたチャンピオンは<#ffb900ff>1秒<><#ef5350ff>スタン<>。",
         "ult": "<#ff9028ff>迫りくる死<>：魔石を蹴り、最初に当たったチャンピオン（ミニオン貫通）へ飛ぶ。着地で周囲に<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の60%<>の<#ff9028ff>物理ダメージ<>、獲物以外に<#ffb900ff>1.5秒<><#ef5350ff>フィアー<>。<#ffb900ff>6秒<>渇血状態：血の狂乱、<i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>物理防御20<>と魔防、<#6aff55ff>ライフスティール10%<>、<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度25%<>追加。"
       },
+      "league_riven": {
+        "name": "リヴェン",
+        "attack": "通常攻撃は<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>を与える。パッシブ <#ff9028ff>ルーンブレード<>：スキル使用ごとにルーンを得る（最大<#ffb900ff>3<>、<#ffb900ff>6秒<>）。通常攻撃で1つ消費し、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の35%<>の<#ff9028ff>物理ダメージ<>を追加で与える。",
+        "skill": "対象に跳び込んで斬り、周囲の敵に<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の45%<>の<#ff9028ff>物理ダメージ<>を与える。チャージ<#ffb900ff>3<>回（<#ffb900ff>4秒<>ごとに回復）。<#ffb900ff>4秒<>以内の3回目は跳躍し、着地点周囲の敵を<#ffb900ff>0.75秒<>間<#ef5350ff>ノックアップ<>させる。",
+        "skill2": "<#ff9028ff>勇躍<>：対象へダッシュし、<#ffb900ff>1.5秒<>間<#e8d44dff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の70%<>の<#e8d44dff>シールド<>を得る。到着時に<#ff9028ff>気功破<>で周囲の敵に<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の80%<>の<#ff9028ff>物理ダメージ<>を与え、<#ffb900ff>0.75秒<>間<#ef5350ff>スタン<>させる。",
+        "ult": "近くに敵チャンピオンがいると発動し、<#ffb900ff>15秒<>間攻撃力<#ffb900ff>20%<>増加、射程が伸び、<#ff9028ff>折れた翼<>と<#ff9028ff>気功破<>の範囲が<#ffb900ff>25%<>拡大。<#ffb900ff>5秒<>後、近くの敵チャンピオンへ<#ff9028ff>ウィンドスラッシュ<>を放ち、直線上の敵に<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<> + <#ff9028ff>最大体力の8%<>の<#ff9028ff>物理ダメージ<>を与える。"
+      },
       "league_nami": {
         "name": "ナミ",
         "attack": "通常攻撃は水の弾を放ち、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>を与える。パッシブ <#ff9028ff>さざなみの後押し<>：スキルが味方チャンピオンに届くと<#ffb900ff>1.5秒<>間<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度が20%<>増加する。",
@@ -1641,6 +1696,11 @@
         "skill1": "ヘッドラッシュ",
         "skill2": "呪福の叫び",
         "ult": "迫りくる死"
+      },
+      "league_riven": {
+        "skill1": "折れた翼",
+        "skill2": "勇躍",
+        "ult": "追放者の剣"
       },
       "league_nami": {
         "skill1": "潮の流れ",

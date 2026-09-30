@@ -94,6 +94,8 @@ ORDER = {("lux", "idle"): [0, 0, 0, 0, 0, 0],   # the step-2 idle is the design 
          ("lucian", "idle"): [0, 0, 0, 0, 0, 0],
          # and Morgana (the redesign A, which tools/art/tidy_morgana.py writes into all six)
          ("morgana", "idle"): [0, 0, 0, 0, 0, 0],
+         # and Riven (the idle strip is the approved design on every pivot)
+         ("riven", "idle"): [0, 0, 0, 0, 0, 0],
          # and Briar (the design B: Codex's strips with the design's head copied into every frame)
          ("briar", "idle"): [0, 0, 0, 0, 0, 0],
          ("nami", "idle"): [0, 0, 0, 0, 0, 0]}
@@ -146,6 +148,9 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        # Morgana's gown reaches the ground: the seam five rows over its hem, where two rows differ only in
        # shading (8 squares); the hem and the train's lowest rows stay
        ("morgana", "idle"): (6, [2, 3, 4]),
+       # Riven: the seam across her shins, seven rows over the soles, where two rows differ least (18 squares);
+       # her boots and the broken blade's tip stay
+       ("riven", "idle"): (4, [2, 3, 4]),
        # Briar: the seam across her shins, under the knees' gold bands; the shackle bands and the feet stay
        ("briar", "idle"): (5, [2, 3, 4]),
        # Nami floats like Janna: all of her, down to the fin 3 px above the ground, sinks a row and rises again
@@ -177,6 +182,7 @@ EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade
         "lux": (45, 111, 184),            # the same for Lux: her blue eyes (the pair the user picked), eye-only shade
         "lucian": (63, 106, 116),         # the redesign: his raised pistol is the top of every idle frame
         "morgana": (200, 60, 166),        # the redesign A: only her face is pasted, its pink-violet is the eyes'
+        "riven": (62, 142, 72),           # the design's green eyes (#3E8E48), used nowhere else
         "briar": (240, 252, 255),         # the pillory's gem is the top of every frame; the ice-white is the eyes'
         "nami": (242, 178, 51)}           # her staff's orb is the top of most frames; the amber is only in her eyes
 
