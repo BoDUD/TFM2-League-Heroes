@@ -38,27 +38,33 @@
   "attack": {
     "action_name": "attack",
     "description": "#asset/base/text/champion?description.league_akali.attack",
-    "duration": 24,
+    "duration": 25,
     "cooltime": 55,
-    "start_timing": 10,
+    "start_timing": 1,
     "cancelable": true,
     "range": 24000,
     "casting_type": "Targeting",
     "casting_target": "Enemy",
     "attack_type": "BaseAttack",
     "effect": {
-      "type": "Combine",
-      "effects": [
-        {
-          "type": "SwitchByBuff",
-          "buff_name": "league_akali_p_ready",
-          "effect_buff": {
-            "type": "Combine",
+      "type": "SwitchByBuff",
+      "buff_name": "league_akali_p_ready",
+      "effect_buff": {
+        "type": "Combine",
+        "effects": [
+          {
+            "type": "RemoveCasterBuff",
+            "name": "league_akali_p_ready"
+          },
+          {
+            "type": "CasterAnimation",
+            "name": "attack_p",
+            "tick": 29
+          },
+          {
+            "type": "Delayed",
+            "tick": 7,
             "effects": [
-              {
-                "type": "RemoveCasterBuff",
-                "name": "league_akali_p_ready"
-              },
               {
                 "type": "Attack",
                 "damage": 0,
@@ -67,8 +73,8 @@
               },
               {
                 "type": "ApAttack",
-                "damage": 50,
-                "attack_ratio": 65
+                "damage": 54,
+                "attack_ratio": 70
               },
               {
                 "type": "ViewEffect",
@@ -77,100 +83,33 @@
               {
                 "type": "TargetSfx",
                 "name": "league_akali_p_hit"
-              }
-            ]
-          },
-          "effect_none": {
-            "type": "Combine",
-            "effects": [
-              {
-                "type": "Attack",
-                "damage": 0,
-                "attack_ratio": 100,
-                "attack_effect_type": "Target"
               },
               {
-                "type": "ViewEffect",
-                "name": "league_akali_hit"
-              },
-              {
-                "type": "TargetSfx",
-                "name": "league_akali_attack_hit"
-              }
-            ]
-          }
-        },
-        {
-          "type": "SwitchByBuff",
-          "buff_name": "league_akali_r_window",
-          "effect_buff": {
-            "type": "TargetProjectile",
-            "name": "league_akali_a_twin",
-            "speed": 100000,
-            "y_offset": 0,
-            "applied_target": "EnemyChampion",
-            "applied_effects": [
-              {
-                "casting_type": "Targeting",
-                "effect": {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_akali_r_s8",
-                  "effect_buff": {
-                    "type": "Combine",
-                    "effects": []
-                  },
-                  "effect_none": {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_akali_r_s7",
-                    "effect_buff": {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_akali_r_s8",
-                        "duration": {
-                          "Time": {
-                            "tick": 190
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    "effect_none": {
-                      "type": "SwitchByBuff",
-                      "buff_name": "league_akali_r_s6",
-                      "effect_buff": {
-                        "type": "AddCasterBuff",
-                        "buff_state": {
-                          "name": "league_akali_r_s7",
-                          "duration": {
-                            "Time": {
-                              "tick": 190
-                            }
-                          }
-                        },
-                        "only_to_enemy": false
-                      },
-                      "effect_none": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_akali_r_window",
+                "effect_buff": {
+                  "type": "TargetProjectile",
+                  "name": "league_akali_a_twin",
+                  "speed": 100000,
+                  "y_offset": 0,
+                  "applied_target": "EnemyChampion",
+                  "applied_effects": [
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
                         "type": "SwitchByBuff",
-                        "buff_name": "league_akali_r_s5",
+                        "buff_name": "league_akali_r_s8",
                         "effect_buff": {
-                          "type": "AddCasterBuff",
-                          "buff_state": {
-                            "name": "league_akali_r_s6",
-                            "duration": {
-                              "Time": {
-                                "tick": 190
-                              }
-                            }
-                          },
-                          "only_to_enemy": false
+                          "type": "Combine",
+                          "effects": []
                         },
                         "effect_none": {
                           "type": "SwitchByBuff",
-                          "buff_name": "league_akali_r_s4",
+                          "buff_name": "league_akali_r_s7",
                           "effect_buff": {
                             "type": "AddCasterBuff",
                             "buff_state": {
-                              "name": "league_akali_r_s5",
+                              "name": "league_akali_r_s8",
                               "duration": {
                                 "Time": {
                                   "tick": 190
@@ -181,11 +120,11 @@
                           },
                           "effect_none": {
                             "type": "SwitchByBuff",
-                            "buff_name": "league_akali_r_s3",
+                            "buff_name": "league_akali_r_s6",
                             "effect_buff": {
                               "type": "AddCasterBuff",
                               "buff_state": {
-                                "name": "league_akali_r_s4",
+                                "name": "league_akali_r_s7",
                                 "duration": {
                                   "Time": {
                                     "tick": 190
@@ -196,11 +135,11 @@
                             },
                             "effect_none": {
                               "type": "SwitchByBuff",
-                              "buff_name": "league_akali_r_s2",
+                              "buff_name": "league_akali_r_s5",
                               "effect_buff": {
                                 "type": "AddCasterBuff",
                                 "buff_state": {
-                                  "name": "league_akali_r_s3",
+                                  "name": "league_akali_r_s6",
                                   "duration": {
                                     "Time": {
                                       "tick": 190
@@ -211,11 +150,11 @@
                               },
                               "effect_none": {
                                 "type": "SwitchByBuff",
-                                "buff_name": "league_akali_r_s1",
+                                "buff_name": "league_akali_r_s4",
                                 "effect_buff": {
                                   "type": "AddCasterBuff",
                                   "buff_state": {
-                                    "name": "league_akali_r_s2",
+                                    "name": "league_akali_r_s5",
                                     "duration": {
                                       "Time": {
                                         "tick": 190
@@ -225,9 +164,201 @@
                                   "only_to_enemy": false
                                 },
                                 "effect_none": {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_akali_r_s3",
+                                  "effect_buff": {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_akali_r_s4",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 190
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  },
+                                  "effect_none": {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_akali_r_s2",
+                                    "effect_buff": {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_akali_r_s3",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 190
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    },
+                                    "effect_none": {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_akali_r_s1",
+                                      "effect_buff": {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_akali_r_s2",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 190
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      },
+                                      "effect_none": {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_akali_r_s1",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 190
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": []
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "effect_none": {
+        "type": "Delayed",
+        "tick": 6,
+        "effects": [
+          {
+            "type": "Attack",
+            "damage": 0,
+            "attack_ratio": 100,
+            "attack_effect_type": "Target"
+          },
+          {
+            "type": "ViewEffect",
+            "name": "league_akali_hit"
+          },
+          {
+            "type": "TargetSfx",
+            "name": "league_akali_attack_hit"
+          },
+          {
+            "type": "SwitchByBuff",
+            "buff_name": "league_akali_r_window",
+            "effect_buff": {
+              "type": "TargetProjectile",
+              "name": "league_akali_a_twin",
+              "speed": 100000,
+              "y_offset": 0,
+              "applied_target": "EnemyChampion",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_akali_r_s8",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": []
+                    },
+                    "effect_none": {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_akali_r_s7",
+                      "effect_buff": {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_akali_r_s8",
+                          "duration": {
+                            "Time": {
+                              "tick": 190
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      },
+                      "effect_none": {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_akali_r_s6",
+                        "effect_buff": {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_akali_r_s7",
+                            "duration": {
+                              "Time": {
+                                "tick": 190
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        },
+                        "effect_none": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_akali_r_s5",
+                          "effect_buff": {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_akali_r_s6",
+                              "duration": {
+                                "Time": {
+                                  "tick": 190
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          },
+                          "effect_none": {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_akali_r_s4",
+                            "effect_buff": {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_akali_r_s5",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 190
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            },
+                            "effect_none": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_akali_r_s3",
+                              "effect_buff": {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_akali_r_s4",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 190
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              },
+                              "effect_none": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_akali_r_s2",
+                                "effect_buff": {
                                   "type": "AddCasterBuff",
                                   "buff_state": {
-                                    "name": "league_akali_r_s1",
+                                    "name": "league_akali_r_s3",
                                     "duration": {
                                       "Time": {
                                         "tick": 190
@@ -235,6 +366,34 @@
                                     }
                                   },
                                   "only_to_enemy": false
+                                },
+                                "effect_none": {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_akali_r_s1",
+                                  "effect_buff": {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_akali_r_s2",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 190
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  },
+                                  "effect_none": {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_akali_r_s1",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 190
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  }
                                 }
                               }
                             }
@@ -244,23 +403,23 @@
                     }
                   }
                 }
-              }
-            ]
-          },
-          "effect_none": {
-            "type": "Combine",
-            "effects": []
+              ]
+            },
+            "effect_none": {
+              "type": "Combine",
+              "effects": []
+            }
           }
-        }
-      ]
+        ]
+      }
     }
   },
   "skill": {
     "action_name": "skill",
     "description": "#asset/base/text/champion?description.league_akali.skill",
-    "duration": 24,
+    "duration": 25,
     "cooltime": 180,
-    "start_timing": 8,
+    "start_timing": 10,
     "cancelable": false,
     "range": 38000,
     "casting_type": "Targeting",
@@ -440,8 +599,8 @@
           "effects": [
             {
               "type": "ApAttack",
-              "damage": 60,
-              "attack_ratio": 70
+              "damage": 65,
+              "attack_ratio": 76
             },
             {
               "type": "Attack",
@@ -707,9 +866,9 @@
   "skill2": {
     "action_name": "skill2",
     "description": "#asset/base/text/champion?description.league_akali.skill2",
-    "duration": 30,
+    "duration": 23,
     "cooltime": 480,
-    "start_timing": 2,
+    "start_timing": 3,
     "cancelable": false,
     "range": 45000,
     "casting_type": "Targeting",
@@ -724,12 +883,12 @@
         },
         {
           "type": "MoveBack",
-          "speed": 5000,
-          "tick": 4
+          "speed": 3000,
+          "tick": 7
         },
         {
           "type": "Delayed",
-          "tick": 4,
+          "tick": 11,
           "effects": [
             {
               "type": "LinearProjectile",
@@ -749,8 +908,8 @@
                   "casting_type": "Targeting",
                   "effect": {
                     "type": "ApAttack",
-                    "damage": 50,
-                    "attack_ratio": 50
+                    "damage": 54,
+                    "attack_ratio": 54
                   }
                 },
                 {
@@ -1042,7 +1201,7 @@
                             {
                               "type": "CasterAnimation",
                               "name": "skill2_dash",
-                              "tick": 16
+                              "tick": 19
                             },
                             {
                               "type": "CasterViewEffect",
@@ -1055,8 +1214,8 @@
                               "end_effects": [
                                 {
                                   "type": "ApAttack",
-                                  "damage": 90,
-                                  "attack_ratio": 90
+                                  "damage": 97,
+                                  "attack_ratio": 97
                                 },
                                 {
                                   "type": "ViewEffect",
@@ -1300,7 +1459,7 @@
   "ult": {
     "action_name": "ult",
     "description": "#asset/base/text/champion?description.league_akali.ult",
-    "duration": 40,
+    "duration": 26,
     "cooltime": 3000,
     "start_timing": 1,
     "cancelable": false,
@@ -1364,44 +1523,50 @@
           "only_to_enemy": false
         },
         {
-          "type": "CasterViewEffect",
-          "name": "league_akali_r_dash"
-        },
-        {
-          "type": "RushTime",
-          "speed": 8000,
-          "tick": 9,
-          "range": 15000,
-          "casting_target": "EnemyWithoutTower",
-          "penetrate": true,
-          "applied_effects": [
+          "type": "Delayed",
+          "tick": 2,
+          "effects": [
             {
-              "casting_type": "Targeting",
-              "effect": {
-                "type": "ApAttack",
-                "damage": 130,
-                "attack_ratio": 65
-              }
+              "type": "CasterViewEffect",
+              "name": "league_akali_r_dash"
             },
             {
-              "casting_type": "Targeting",
-              "effect": {
-                "type": "ViewEffect",
-                "name": "league_akali_r1_hit"
-              }
-            },
-            {
-              "casting_type": "Targeting",
-              "effect": {
-                "type": "TargetSfx",
-                "name": "league_akali_r1_hit"
-              }
+              "type": "RushTime",
+              "speed": 8000,
+              "tick": 9,
+              "range": 15000,
+              "casting_target": "EnemyWithoutTower",
+              "penetrate": true,
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ApAttack",
+                    "damage": 140,
+                    "attack_ratio": 70
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ViewEffect",
+                    "name": "league_akali_r1_hit"
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "TargetSfx",
+                    "name": "league_akali_r1_hit"
+                  }
+                }
+              ]
             }
           ]
         },
         {
           "type": "Delayed",
-          "tick": 9,
+          "tick": 11,
           "effects": [
             {
               "type": "Combine",
@@ -1556,7 +1721,7 @@
                     {
                       "type": "CasterAnimation",
                       "name": "ult2",
-                      "tick": 14
+                      "tick": 19
                     },
                     {
                       "type": "CasterViewEffect",
@@ -1580,8 +1745,8 @@
                               "effects": [
                                 {
                                   "type": "ApAttack",
-                                  "damage": 240,
-                                  "attack_ratio": 120
+                                  "damage": 258,
+                                  "attack_ratio": 129
                                 },
                                 {
                                   "type": "ViewEffect",
@@ -1601,8 +1766,8 @@
                                 "effects": [
                                   {
                                     "type": "ApAttack",
-                                    "damage": 220,
-                                    "attack_ratio": 110
+                                    "damage": 236,
+                                    "attack_ratio": 118
                                   },
                                   {
                                     "type": "ViewEffect",
@@ -1622,8 +1787,8 @@
                                   "effects": [
                                     {
                                       "type": "ApAttack",
-                                      "damage": 200,
-                                      "attack_ratio": 100
+                                      "damage": 215,
+                                      "attack_ratio": 108
                                     },
                                     {
                                       "type": "ViewEffect",
@@ -1643,8 +1808,8 @@
                                     "effects": [
                                       {
                                         "type": "ApAttack",
-                                        "damage": 180,
-                                        "attack_ratio": 90
+                                        "damage": 194,
+                                        "attack_ratio": 97
                                       },
                                       {
                                         "type": "ViewEffect",
@@ -1664,8 +1829,8 @@
                                       "effects": [
                                         {
                                           "type": "ApAttack",
-                                          "damage": 160,
-                                          "attack_ratio": 80
+                                          "damage": 172,
+                                          "attack_ratio": 86
                                         },
                                         {
                                           "type": "ViewEffect",
@@ -1685,8 +1850,8 @@
                                         "effects": [
                                           {
                                             "type": "ApAttack",
-                                            "damage": 140,
-                                            "attack_ratio": 70
+                                            "damage": 150,
+                                            "attack_ratio": 75
                                           },
                                           {
                                             "type": "ViewEffect",
@@ -1706,8 +1871,8 @@
                                           "effects": [
                                             {
                                               "type": "ApAttack",
-                                              "damage": 120,
-                                              "attack_ratio": 60
+                                              "damage": 129,
+                                              "attack_ratio": 64
                                             },
                                             {
                                               "type": "ViewEffect",
@@ -1727,8 +1892,8 @@
                                             "effects": [
                                               {
                                                 "type": "ApAttack",
-                                                "damage": 100,
-                                                "attack_ratio": 50
+                                                "damage": 108,
+                                                "attack_ratio": 54
                                               },
                                               {
                                                 "type": "ViewEffect",
@@ -1745,8 +1910,8 @@
                                             "effects": [
                                               {
                                                 "type": "ApAttack",
-                                                "damage": 80,
-                                                "attack_ratio": 40
+                                                "damage": 86,
+                                                "attack_ratio": 43
                                               },
                                               {
                                                 "type": "ViewEffect",
@@ -1802,7 +1967,7 @@
                             {
                               "type": "CasterAnimation",
                               "name": "ult2",
-                              "tick": 14
+                              "tick": 19
                             },
                             {
                               "type": "CasterViewEffect",
@@ -1826,8 +1991,8 @@
                                       "effects": [
                                         {
                                           "type": "ApAttack",
-                                          "damage": 240,
-                                          "attack_ratio": 120
+                                          "damage": 258,
+                                          "attack_ratio": 129
                                         },
                                         {
                                           "type": "ViewEffect",
@@ -1847,8 +2012,8 @@
                                         "effects": [
                                           {
                                             "type": "ApAttack",
-                                            "damage": 220,
-                                            "attack_ratio": 110
+                                            "damage": 236,
+                                            "attack_ratio": 118
                                           },
                                           {
                                             "type": "ViewEffect",
@@ -1868,8 +2033,8 @@
                                           "effects": [
                                             {
                                               "type": "ApAttack",
-                                              "damage": 200,
-                                              "attack_ratio": 100
+                                              "damage": 215,
+                                              "attack_ratio": 108
                                             },
                                             {
                                               "type": "ViewEffect",
@@ -1889,8 +2054,8 @@
                                             "effects": [
                                               {
                                                 "type": "ApAttack",
-                                                "damage": 180,
-                                                "attack_ratio": 90
+                                                "damage": 194,
+                                                "attack_ratio": 97
                                               },
                                               {
                                                 "type": "ViewEffect",
@@ -1910,8 +2075,8 @@
                                               "effects": [
                                                 {
                                                   "type": "ApAttack",
-                                                  "damage": 160,
-                                                  "attack_ratio": 80
+                                                  "damage": 172,
+                                                  "attack_ratio": 86
                                                 },
                                                 {
                                                   "type": "ViewEffect",
@@ -1931,8 +2096,8 @@
                                                 "effects": [
                                                   {
                                                     "type": "ApAttack",
-                                                    "damage": 140,
-                                                    "attack_ratio": 70
+                                                    "damage": 150,
+                                                    "attack_ratio": 75
                                                   },
                                                   {
                                                     "type": "ViewEffect",
@@ -1952,8 +2117,8 @@
                                                   "effects": [
                                                     {
                                                       "type": "ApAttack",
-                                                      "damage": 120,
-                                                      "attack_ratio": 60
+                                                      "damage": 129,
+                                                      "attack_ratio": 64
                                                     },
                                                     {
                                                       "type": "ViewEffect",
@@ -1973,8 +2138,8 @@
                                                     "effects": [
                                                       {
                                                         "type": "ApAttack",
-                                                        "damage": 100,
-                                                        "attack_ratio": 50
+                                                        "damage": 108,
+                                                        "attack_ratio": 54
                                                       },
                                                       {
                                                         "type": "ViewEffect",
@@ -1991,8 +2156,8 @@
                                                     "effects": [
                                                       {
                                                         "type": "ApAttack",
-                                                        "damage": 80,
-                                                        "attack_ratio": 40
+                                                        "damage": 86,
+                                                        "attack_ratio": 43
                                                       },
                                                       {
                                                         "type": "ViewEffect",
