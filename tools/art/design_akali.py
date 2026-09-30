@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Rebuild Akali's design (the user's pick "①", 2026-09-30) from Codex's drawing, byte for byte.
 
-    python tools/art/design_akali.py [--out assets/source/native/akali_native.png] [--check] [--search]
+    python tools/art/design_akali.py [--out assets/source/akali/native47/akali_native.png] [--check] [--search]
 
 Step 1 was redone at game size (assets/source/akali/MODEL_PROMPTS.md) after the user found the first design too
 flat next to the heroes on main. Codex drew the user's picture as pixel art on its own grid of 13 px squares, 66
@@ -18,7 +18,8 @@ squares from the ponytail's tip to the soles (codex_model/design3_generated_A.pn
    iris; one square of skin; the far eye white, iris). The soles' outline row, which the search dropped, is kept
    under the feet instead (47 rows, 43 from the crown).
 4. The outline ring completed outside clear colours (luma >= 60), never under the soles.
-The result sits on a 128x128 canvas at 8x with the soles on row 99 and the feet's middle on column 64.
+The result sits on a 128x128 canvas at 8x with the soles on row 99 and the feet's middle on column 64. The game uses it
+cut to 40 rows (the user, after Riven and Vayne were cut: tools/art/shrink_akali.py, never through the face).
 """
 import argparse
 import json
@@ -33,7 +34,7 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 CM = os.path.join(ROOT, "assets", "source", "akali", "codex_model")
 SRC = os.path.join(CM, "design3_generated_A.png")
 PALETTE = os.path.join(CM, "design3_palette.json")
-OUT = os.path.join(ROOT, "assets", "source", "native", "akali_native.png")
+OUT = os.path.join(ROOT, "assets", "source", "akali", "native47", "akali_native.png")
 SQUARE = 13.0                   # px per square in Codex's drawing (the commonest gap between colour-change peaks)
 EYE_ROWS, LINER = (21, 22), 20  # on the 53x66 grid
 EYE_X = (26, 34)

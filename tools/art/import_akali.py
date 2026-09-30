@@ -10,8 +10,8 @@ binary alpha, Codex's own colours, each game pixel the majority colour of the so
 third of them are; manifest.json's `assets[].frames[].rect` gives the frames). Writes
 assets/source/akali/akali_fx_<name>.png plus akali_fx_anchors.json.
 One scale per strip, set by the kit (1000 distance units a pixel): the kama hit 16 px, the empowered crescent 28,
-the mark's ground ring 36 wide, the ready motes' cell 34 wide round her 43 px body (the prompt's 34x32; its table
-still said 24x30), Q's fan 45 long (its cone's radius 45000: the view is centred on the line, the apex at the left
+the mark's ground ring 36 wide, the ready motes' cell 28 wide round her 36 px body (34 round the 43 px one before
+she was cut to 40 rows; the prompt's 34x32, its table still said 24x30), Q's fan 45 long (its cone's radius 45000: the view is centred on the line, the apex at the left
 end), its hit 12, the smoke 70 wide (drawn for Q's 30000 zone; Twilight Shroud now rides E and hides her 2 s wherever
 she goes, so it only marks where she landed), the shuriken 12 tall (its tail trails left), its hit
 16, the mark over the head 12, E's dash streak 48 long, its slash 20, R's streak 64 long (the rush covers 72000), its
@@ -47,7 +47,7 @@ MOD = os.path.join(ROOT, "league")
 Z = 8
 HIT = (0, -8)                          # a hit on the upper body of a 35 px hero
 GROUND = (0, 10)                       # the middle of a ring round a unit's feet (the soles 11 px under the pivot)
-HERS = (0, -10)                        # the middle of Akali (43 px from the crown to the soles)
+HERS = (0, -7)                         # the middle of Akali (36 px from the crown to the soles)
 OVERHEAD = (0, -31)                    # over a 35 px hero's crown
 
 # raw strip -> native (see import_morgana.RAW for the measures and anchors; ("left", frames) is the drawing's left
@@ -56,7 +56,7 @@ RAW = {
     "hit": dict(n=5, size=16, measure="w", x="centre", y="centre"),
     "p_hit": dict(n=6, size=28, measure="w", x=("frame", [1, 2]), y=("frame", [1, 2])),
     "p_ring": dict(n=6, size=36, measure="w", x=("frame", [1, 2, 3]), y=("frame", [1, 2, 3])),
-    "p_ready": dict(n=4, size=34, measure="cellw", x="cell", y="cell"),
+    "p_ready": dict(n=4, size=28, measure="cellw", x="cell", y="cell"),
     "q_fan": dict(n=6, size=45, measure="cellw", x="cell", y="cell"),
     "q_hit": dict(n=4, size=12, measure="w", x="centre", y="centre"),
     "w_smoke": dict(n=10, size=70, measure="w", x=("frame", [3, 4, 5, 6]), y=("frame", [3, 4, 5, 6])),
