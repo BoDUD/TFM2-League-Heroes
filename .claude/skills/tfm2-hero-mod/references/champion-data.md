@@ -1469,6 +1469,52 @@ run off and come back or had never been chained (the user: "脱离了大招的�
 62 champions were chained: about 36 died within the 3 s, 12-19 ran out of reach and 0-3 were stunned, at check
 ranges of 60000 to 105000 alike - a champion walks about 1.2 cast radii a second here, against 0.56 in League.
 
+**Invisible while she stands in her smoke (league_akali W, Twilight Shroud folded into Q).** Ekko's check "is the
+caster inside this zone" (section 4) keeps her hidden only inside the cloud: Q (every 3 s) runs W behind W's own
+18 s caster cooldown buff (Soraka's fold) and only when `RandomTarget {range: 40000, casting_target: EnemyChampion}`
+sets a 1-tick flag, so camps and waves never spend it. W is Ekko's anchor (a `LinearProjectile` with `speed` 1,
+`range` 1, `y_offset` 5000) whose `end_effects` start a `RangePeriodProjectile` (radius 30000, 300 ticks, `period`
+6, `applied_target: AllyChampion`) on her spot; its applied effect is `RandomTarget {range: 30000, casting_target:
+AllyOnlySelf, from_projectile: true}` -> `CasterInvisible {tick: 8}`, so each pulse renews the invisibility while
+she is inside and it runs out at most 8 ticks after she steps out, whichever ally set the pulse off. The cloud is a
+`CasterViewEffect` (not following) in the cast - a `ViewEffect` on her own spot would not show (league_thresh R).
+In the simulation the `EntityInvisibled` event came 6 ticks after the cast (the first pulse), went off 0.4-2 s later
+as she walked out after her target, and flickered on and off at the cloud's edge; over one 10-minute game she was
+invisible 12 times (720 ticks) and 4 of the 141 enemy actions aimed at her fell in those windows.
+
+**Flip back, throw, dash to what the throw hit (league_akali E, Shuriken Flip).** A `Targeting` cast on
+`EnemyWithoutTower`: `MoveBack {speed: 5000, tick: 4}` (20000 straight away from the target), then from a
+`Delayed {tick: 4}` - so it leaves from where she landed - a non-penetrating `LinearProjectile` at the target that
+stops on the first unit. Its `applied_effects`: the damage, the mark (`AddBuff` whose `view_buffs` entry is the
+shuriken on the unit, as long as the wait), a `Delayed {tick: 1}` champion-only `TargetProjectile` (the passive and
+the ult's counter count champions only; aimed at a minion it is removed the tick it spawns without applying), and
+`Delayed {tick: 30}` with the dash: the crowd-control check of "A channel that crowd control breaks" (no dash while
+she is stunned), `CasterAnimation skill2_dash`, `MoveToTarget` (6000 a tick) and the second hit in its
+`end_effects` (league_leesin Q2). A unit that died meanwhile gets no dash (a `Delayed` on a dead unit only plays its
+pictures and sounds, section 4).
+
+**Two dashes, the second stronger for every hit in between (league_akali R, Perfect Execution).** League's second
+cast deals more to targets missing health; nothing reads health, so it counts her own work instead. The cast
+(`Targeting` on `EnemyChampion`) clears the rungs `r_s1`..`r_s8`, adds a 180-tick `r_window` buff and dashes with
+`RushTime {speed: 8000, tick: 9, penetrate: true}` (72000 toward the target, through it) whose `applied_effects` hit
+every unit it passes. While `r_window` lasts, every champion hit (a champion-only twin on the attack, a champion-only
+cone in Q, the twins of E) climbs one rung (`SwitchByBuff` from the top, as league_darius counts Hemorrhage). 150
+ticks after the cast a hidden `TargetProjectile` goes to the first target with `RandomTarget {range: 70000,
+casting_target: AllyOnlySelf, from_projectile: true}` in its effects (league_morgana's reach check): a 3-tick flag
+when she is within reach of it; a projectile at a dead target spawns and is gone the next tick without hitting. Two
+ticks later the second `RushTime` goes at the first target when the flag is there, otherwise at a `RandomTarget
+{range: 70000, casting_target: EnemyChampion}` (a `RushTime` inside it heads for the picked unit), otherwise not at
+all; its damage reads the ladder from the top (+25% a rung, +200% at eight). Crowd control at that moment cancels the
+second dash, death cancels it (it clears `r_window`). Over 6 games 27 ults: the second dash went 11 times at the first
+target, 7 times at another champion, 9 times nowhere (nobody within reach) and was lost twice to crowd control.
+
+**Double range on the attack after a spell (league_akali Assassin's Mark).** League empowers her next attack once she
+leaves the ring round the champion her spell hit; nothing reads positions, so a champion hit (Q's champion cone once
+per cast, E's twins, the ult) adds a 240-tick caster buff with `range` 24000 (her own 24000 again) and
+`move_speed_mult` 30, replaced rather than stacked (`RemoveCasterBuff` first: two `range` buffs would add up). A
+`range` buff also stretches the distance the AI starts attacking from (section 3): the next attack began 65000 from a
+pyromancer (48000 plus both bodies) and the attack consumes the buff (bonus magic damage, its own slash).
+
 ## 8. Gotchas
 
 - `action_name` / `CasterAnimation.name` must be real sprite tags. Two LoL Reborn heroes use

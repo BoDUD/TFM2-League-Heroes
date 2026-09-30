@@ -1,0 +1,19 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_akali_sfx_e_cast",
+      "volume": 0.6
+    },
+    {
+      "delay": 0.07,
+      "clip": "league_akali_sfx_e_throw",
+      "volume": 0.4
+    },
+    {
+      "delay": 0.0,
+      "clip": "league_akali_vo_e",
+      "volume": 0.9
+    }
+  ]
+}
