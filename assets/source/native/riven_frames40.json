@@ -1,0 +1,87 @@
+{
+  "run": [
+    {"head_origin": [35, 44], "head_rotation_clockwise": 0, "sword": {"broken_end": [69.689, 73.779], "direction": [0.932568, 0.360994]}},
+    {"head_origin": [37, 43], "head_rotation_clockwise": 0, "sword": {"broken_end": [71.319, 72.261], "direction": [0.932568, 0.360994]}},
+    {"head_origin": [35, 44], "head_rotation_clockwise": 0, "sword": {"broken_end": [68.0, 72.304], "direction": [0.932568, 0.360994]}},
+    {"head_origin": [33, 45], "head_rotation_clockwise": 0, "sword": {"broken_end": [65.059, 73.806], "direction": [0.932568, 0.360994]}},
+    {"head_origin": [33, 44], "head_rotation_clockwise": 0, "sword": {"broken_end": [65.98, 72.57], "direction": [0.932568, 0.360994]}},
+    {"head_origin": [35, 43], "head_rotation_clockwise": 0, "sword": {"broken_end": [67.928, 71.69], "direction": [0.932568, 0.360994]}},
+    {"head_origin": [33, 44], "head_rotation_clockwise": 0, "sword": {"broken_end": [65.261, 72.565], "direction": [0.932568, 0.360994]}},
+    {"head_origin": [32, 45], "head_rotation_clockwise": 0, "sword": {"broken_end": [66.166, 74.783], "direction": [0.932568, 0.360994]}}
+  ],
+  "attack": [
+    {"head_origin": [34, 43], "head_rotation_clockwise": 0, "sword": {"broken_end": [63.833, 41.925], "direction": [0.219038, -0.975716]}},
+    {"head_origin": [32, 44], "head_rotation_clockwise": 0, "sword": {"broken_end": [56.604, 42.556], "direction": [-0.079745, -0.996815]}},
+    {"head_origin": [36, 43], "head_rotation_clockwise": 0, "sword": {"broken_end": [69.89, 77.324], "direction": [0.882075, 0.471108]}},
+    {"head_origin": [36, 45], "head_rotation_clockwise": 0, "sword": {"broken_end": [73.55, 76.637], "direction": [0.953583, 0.301131]}},
+    {"head_origin": [36, 42], "head_rotation_clockwise": 0, "sword": {"broken_end": [73.628, 74.493], "direction": [0.902304, 0.431101]}},
+    {"head_origin": [32, 42], "head_rotation_clockwise": 0, "sword": {"broken_end": [66.857, 77.429], "direction": [0.910229, 0.414104]}}
+  ],
+  "skill": [
+    {"head_origin": [32, 51], "head_rotation_clockwise": 0, "sword": {"broken_end": [66.478, 78.152], "direction": [0.940376, 0.340136]}},
+    {"head_origin": [34, 43], "head_rotation_clockwise": 0, "sword": {"broken_end": [21.761, 56.37], "direction": [-0.996751, 0.080546]}},
+    {"head_origin": [33, 47], "head_rotation_clockwise": 0, "sword": {"broken_end": [65.023, 61.083], "direction": [0.998752, -0.049938]}},
+    {"head_origin": [36, 51], "head_rotation_clockwise": 0, "sword": {"broken_end": [68.289, 77.601], "direction": [0.925705, 0.378245]}},
+    {"head_origin": [36, 47], "head_rotation_clockwise": 0, "sword": {"broken_end": [77.898, 70.537], "direction": [0.984183, 0.177153]}},
+    {"head_origin": [38, 48], "head_rotation_clockwise": 0, "sword": {"broken_end": [80.294, 65.683], "direction": [0.99955, 0.029987]}},
+    {"head_origin": [33, 42], "head_rotation_clockwise": 0, "sword": {"broken_end": [67.857, 77.429], "direction": [0.910229, 0.414104]}}
+  ],
+  "q2": [
+    {"head_origin": [34, 55], "head_rotation_clockwise": 0, "sword": {"broken_end": [71.652, 78.37], "direction": [0.911734, 0.410781]}},
+    {"head_origin": [32, 41], "head_rotation_clockwise": 0, "sword": null},
+    {"head_origin": [31, 46], "head_rotation_clockwise": 0, "sword": {"broken_end": [62.27, 45.312], "direction": [0.301131, -0.953583]}},
+    {"head_origin": [29, 59], "head_rotation_clockwise": 0, "sword": {"broken_end": [65.652, 78.0], "direction": [0.929164, 0.369667]}},
+    {"head_origin": [32, 51], "head_rotation_clockwise": 0, "sword": {"broken_end": [72.898, 73.537], "direction": [0.984183, 0.177153]}},
+    {"head_origin": [32, 51], "head_rotation_clockwise": 0, "sword": {"broken_end": [71.652, 77.0], "direction": [0.929164, 0.369667]}},
+    {"head_origin": [33, 42], "head_rotation_clockwise": 0, "sword": {"broken_end": [67.857, 77.429], "direction": [0.910229, 0.414104]}}
+  ],
+  "q3": [
+    {"head_origin": [33, 54], "head_rotation_clockwise": 0, "sword": {"broken_end": [67.5, 78.152], "direction": [0.947681, 0.319219]}},
+    {"head_origin": [36, 47], "head_rotation_clockwise": 0, "sword": {"broken_end": [70.5, 76.0], "direction": [0.6, 0.8]}},
+    {"head_origin": [36, 47], "head_rotation_clockwise": 0, "sword": {"broken_end": [71.374, 75.299], "direction": [0.649968, 0.759962]}},
+    {"head_origin": [32, 42], "head_rotation_clockwise": 0, "sword": {"broken_end": [56.428, 75.986], "direction": [0.019996, 0.9998]}},
+    {"head_origin": [38, 45], "head_rotation_clockwise": 0, "sword": {"broken_end": [61.428, 77.986], "direction": [0.019996, 0.9998]}},
+    {"head_origin": [36, 49], "head_rotation_clockwise": 0, "sword": {"broken_end": [58.975, 77.954], "direction": [0.019996, 0.9998]}},
+    {"head_origin": [28, 42], "head_rotation_clockwise": 0, "sword": {"broken_end": [62.857, 77.429], "direction": [0.910229, 0.414104]}}
+  ],
+  "skill2": [
+    {"head_origin": [36, 49], "head_rotation_clockwise": 0, "sword": {"broken_end": [68.609, 78.152], "direction": [0.940376, 0.340136]}},
+    {"head_origin": [30, 48], "head_rotation_clockwise": 0, "sword": {"broken_end": [8.174, 67.37], "direction": [-0.983547, 0.180652]}},
+    {"head_origin": [33, 49], "head_rotation_clockwise": 0, "sword": {"broken_end": [15.478, 69.696], "direction": [-0.983547, 0.180652]}},
+    {"head_origin": [35, 47], "head_rotation_clockwise": 0, "sword": {"broken_end": [68.522, 78.522], "direction": [0.940376, 0.340136]}},
+    {"head_origin": [35, 44], "head_rotation_clockwise": 0, "sword": {"broken_end": [61.0, 42.5], "direction": [0.0, -1.0]}},
+    {"head_origin": [38, 44], "head_rotation_clockwise": 0, "sword": {"broken_end": [64.0, 42.5], "direction": [0.0, -1.0]}},
+    {"head_origin": [37, 44], "head_rotation_clockwise": 0, "sword": {"broken_end": [61.952, 42.531], "direction": [-0.059892, -0.998205]}},
+    {"head_origin": [34, 42], "head_rotation_clockwise": 0, "sword": {"broken_end": [68.857, 77.429], "direction": [0.910229, 0.414104]}}
+  ],
+  "ult": [
+    {"head_origin": [32, 44], "head_rotation_clockwise": 0, "sword": {"broken_end": [75.294, 60.683], "direction": [0.99955, 0.029987]}},
+    {"head_origin": [31, 43], "head_rotation_clockwise": 0, "sword": {"broken_end": [73.5, 65.152], "direction": [0.947681, 0.319219]}},
+    {"head_origin": [31, 40], "head_rotation_clockwise": 0, "sword": {"broken_end": [70.89, 64.324], "direction": [0.882075, 0.471108]}},
+    {"head_origin": [31, 42], "head_rotation_clockwise": 0, "sword": {"broken_end": [66.314, 78.164], "direction": [0.920691, 0.390293]}},
+    {"head_origin": [30, 46], "head_rotation_clockwise": 0, "sword": {"broken_end": [74.898, 78.537], "direction": [0.984183, 0.177153]}},
+    {"head_origin": [34, 42], "head_rotation_clockwise": 0, "sword": {"broken_end": [68.857, 77.429], "direction": [0.910229, 0.414104]}}
+  ],
+  "r_slash": [
+    {"head_origin": [34, 44], "head_rotation_clockwise": 0, "sword": {"broken_end": [77.294, 61.683], "direction": [0.99955, 0.029987]}},
+    {"head_origin": [38, 44], "head_rotation_clockwise": 0, "sword": {"broken_end": [30.333, 46.412], "direction": [-0.55238, -0.833592]}},
+    {"head_origin": [32, 45], "head_rotation_clockwise": 0, "sword": {"broken_end": [75.294, 64.683], "direction": [0.99955, 0.029987]}},
+    {"head_origin": [40, 42], "head_rotation_clockwise": 0, "sword": {"broken_end": [79.377, 72.102], "direction": [0.882075, 0.471108]}},
+    {"head_origin": [36, 41], "head_rotation_clockwise": 0, "sword": {"broken_end": [72.668, 77.944], "direction": [0.882075, 0.471108]}},
+    {"head_origin": [35, 42], "head_rotation_clockwise": 0, "sword": {"broken_end": [69.857, 77.429], "direction": [0.910229, 0.414104]}}
+  ],
+  "hit": [
+    {"head_origin": [33, 43], "head_rotation_clockwise": 0, "sword": {"broken_end": [79.657, 77.391], "direction": [0.920691, 0.390293]}},
+    {"head_origin": [35, 42], "head_rotation_clockwise": 0, "sword": {"broken_end": [69.857, 77.429], "direction": [0.910229, 0.414104]}}
+  ],
+  "dead": [
+    {"head_origin": [32, 44], "head_rotation_clockwise": 0, "sword": {"broken_end": [68.087, 79.087], "direction": [0.898384, 0.43921]}},
+    {"head_origin": [38, 46], "head_rotation_clockwise": 0, "sword": {"broken_end": [68.102, 78.333], "direction": [0.547786, 0.836619]}},
+    {"head_origin": [35, 51], "head_rotation_clockwise": 0, "sword": {"broken_end": [63.68, 77.47], "direction": [0.932568, 0.360994]}},
+    {"head_origin": [36, 57], "head_rotation_clockwise": 0, "sword": {"broken_end": [68.348, 79.319], "direction": [0.932568, 0.360994]}},
+    {"head_origin": [36, 60], "head_rotation_clockwise": 90, "sword": {"broken_end": [72.739, 77.609], "direction": [0.995037, -0.099504]}},
+    {"head_origin": [39, 60], "head_rotation_clockwise": 90, "sword": {"broken_end": [75.478, 77.609], "direction": [0.995037, -0.099504]}},
+    {"head_origin": [44, 60], "head_rotation_clockwise": 90, "sword": {"broken_end": [80.348, 77.609], "direction": [0.995037, -0.099504]}},
+    {"head_origin": [42, 60], "head_rotation_clockwise": 90, "sword": {"broken_end": [78.348, 77.609], "direction": [0.995037, -0.099504]}}
+  ]
+}

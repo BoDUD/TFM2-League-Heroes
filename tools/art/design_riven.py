@@ -22,6 +22,9 @@ averaging turn the face to mush):
   5. the eyes, the user's version 1 (2026-09-30): both 2x2 on one row with two skin columns between and a
      cheek column before - lashes over each, a white catch-light and dark green on top, green below, in three
      colours (#FFFFFF, #163A22, #3E8E48) used nowhere else; no mouth;
+  7. the size (the user, after seeing her in game: 46 rows stood a head over Garen's 37): 40 rows, the user's pick
+     of 40 / 42 - rows and columns deleted as in step 3 but never through the face, which stays square for square,
+     then step 4's outline pass again;
   6. on the 128x128 canvas, soles on row 99, the middle of the feet on column 64, shown at 8x.
 --check compares the result with the committed riven_native.png instead of writing it.
 """
@@ -37,6 +40,9 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 PICTURE = os.path.join(ROOT, "assets", "source", "riven", "codex_model", "design_riven_A_generated.png")
 OUT = os.path.join(ROOT, "assets", "source", "native", "riven_native.png")
 HEIGHT, K = 46, 24
+SMALL = 40                      # step 7: the height the user picked for the game
+FACE_ROWS = range(12, 17)       # the 46-row design's lashes, eyes and cheeks (rows from its top) ...
+FACE_COLS = range(11, 20)       # ... and its cheek, eyes, skin between and the cheek beyond (columns)
 DARK = 40
 N4 = ((0, 1), (0, -1), (1, 0), (-1, 0))
 N8 = N4 + ((1, 1), (1, -1), (-1, 1), (-1, -1))
@@ -290,6 +296,55 @@ def eyes(a):
     return a
 
 
+# ----------------------------------------------------------------------------- 7. the size the user picked
+def keep_axis(lines, target, protect):
+    """Which lines stay: the protected run whole, the deletions shared in proportion by the parts before and after
+    it, each part shrunk by pick() at the offset that loses least."""
+    n = len(lines)
+    lo, hi = min(protect), max(protect) + 1
+    parts = [list(range(0, lo)), list(range(hi, n))]
+    drop = n - target
+    q0 = round(drop * len(parts[0]) / (len(parts[0]) + len(parts[1])))
+    kept = []
+    for part, q in zip(parts, (q0, drop - q0)):
+        sub = [lines[i] for i in part]
+        best = None
+        for off in range(3):
+            k, lost = pick(sub, len(part) - q, off)
+            if k is not None and (best is None or lost < best[1]):
+                best = (k, lost)
+        kept.append([part[i] for i in best[0]])
+    return kept[0] + list(range(lo, hi)) + kept[1]
+
+
+def smaller(a):
+    """46 rows looked too big beside the other heroes (the user, 2026-09-30: "锐雯的整体体型在游戏里做的有点大了吧";
+    Garen 37, Ahri 38, Darius 42); the user picked SMALL rows. Whole rows and columns are deleted as in step 3,
+    never the face's (rows FACE_ROWS, columns FACE_COLS of the 46-row design stay whole), width in proportion, then
+    the outline pass again with the face kept."""
+    H, W = a.shape[:2]
+    cols = sorted({tuple(int(v) for v in p[:3]) for p in a[a[..., 3] > 0]})
+    lut = {c: i for i, c in enumerate(cols)}
+    idx = np.full((H, W), -1, int)
+    op = a[..., 3] > 0
+    for y, x in zip(*np.nonzero(op)):
+        idx[y, x] = lut[tuple(int(v) for v in a[y, x, :3])]
+    rows = keep_axis([idx[y] for y in range(H)], SMALL, FACE_ROWS)
+    sub = idx[rows]
+    keep_cols = keep_axis([sub[:, x] for x in range(W)], round(W * SMALL / H), FACE_COLS)
+    small = idx[np.ix_(rows, keep_cols)]
+    pal = np.array(cols, np.uint8)
+    out = np.zeros(small.shape + (4,), np.uint8)
+    m = small >= 0
+    out[m, :3] = pal[small[m]]
+    out[m, 3] = 255
+    keep = np.zeros(m.shape, bool)
+    fr = [rows.index(r) for r in FACE_ROWS]
+    fc = [keep_cols.index(c) for c in FACE_COLS]
+    keep[fr[0]:fr[-1] + 1, fc[0]:fc[-1] + 1] = True
+    return one_outline(out, keep)
+
+
 def design():
     src = np.asarray(Image.open(lp(PICTURE)).convert("RGBA"))
     grid = regrid(src)
@@ -305,7 +360,7 @@ def design():
     keep[12:18, 11:21] = True                 # the face (x 11-20, y 12-17) is left to step 5
     a = eyes(one_outline(a, keep))
     ys, xs = np.nonzero(a[..., 3] > 0)
-    a = a[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
+    a = smaller(a[ys.min():ys.max() + 1, xs.min():xs.max() + 1])
     H, W = a.shape[:2]
     feet = [x for x in range(W) if (a[H - 3:, x, 3] > 0).any() and x < W * 2 // 3]
     x0 = int(round(64 - (feet[0] + feet[-1]) / 2))

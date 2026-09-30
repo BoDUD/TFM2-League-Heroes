@@ -1,22 +1,37 @@
 #!/usr/bin/env python3
-"""Check Codex's ten Riven strips, tidy them and write them to the native strips.
+"""Check Codex's Riven strips, tidy them and write them to the native strips.
 
-    python tools/art/tidy_riven.py <Codex's delivery folder>     # riven_animation_pack/ of the 65-frame delivery
-    python tools/art/tidy_riven.py --blade <Codex's second delivery>   # riven_fx2_complete/: the reforged sword
+    python tools/art/tidy_riven.py <Codex's strips delivery>     # 1. the ten strips (riven_strips40_complete)
+    python tools/art/tidy_riven.py --redo <Codex's redo delivery>   # 2. frames redrawn after League (riven_redo18b)
+    python tools/art/tidy_riven.py --neck                          # 3. the one-square necks widened
+    python tools/art/tidy_riven.py --blade                         # 4. the energy blade while R lasts
 
-Codex drew the strips from the approved design (assets/source/riven/MODEL_STRIPS.md) on the reference cells
-(96x96 game pixels, assets/source/native/riven_cells.json): every game pixel one flat 8x8 block, only the design's
-27 colours, alpha 0 or 255, the design's head copied into every frame (two 2x2 eyes on one row), the last frame of
-every action the design itself. That is checked here (the script stops on a failure), then two fixes:
+1. Codex drew the strips from the approved design on the reference cells (96x96 game pixels,
+assets/source/native/riven_cells.json): every game pixel one flat 8x8 block, only the design's 27 colours, alpha 0 or
+255, the design's head pasted into every frame (its manifest's head_origin and rotation, reference/head_master_1x.png;
+two 2x2 eyes on one row), the last frame of every action the design itself. That is checked here (the script stops
+on a failure), then:
   - one outline: the black just inside the outline turned into the material's own darkest shade, outline spurs
-    and lone specks off (tools/art/tidy_codex18.py's one_outline, here design_riven.one_outline); the head Codex
-    pasted (its manifest's head_origin and rotation, reference/head_master_1x.png) and the ring round it are left
-    alone, so every frame keeps the design's head, and frames that are the design itself are not touched;
-  - the run floated: its soles stood 3-5 rows over the feet line in all eight frames (League's run, which the
-    references showed, plants a foot in four). The whole strip moves down RUN_DROP rows, which puts the soles of
-    frames 4 and 7 on the line and keeps the head's one-row bob.
-Writes assets/source/native/riven_<tag>.png (8x) and riven_idle.png (the design on the idle pivots, from the pack),
-then run import_native.py --hero riven (EYES steadies idle and run on the eyes' green).
+    and lone specks off (design_riven.one_outline); the pasted head and the ring round it are left alone, and frames
+    that are the design itself are not touched;
+  - a run that floats goes down as far as its lowest sole allows (the 46-row run stood 3 rows over the feet line;
+    the 40-row one stands on it);
+  - every frame's head placement and sword (the manifest's `sword`: the broken end's middle and the unit vector from
+    the hilt to it, null when the blade faces the camera) go to assets/source/native/riven_frames40.json.
+2. --redo: the 40-row delivery (a nearest-neighbour shrink of the 46-row strips) kept the 46-row poses, and 18 of
+them put the sword over the head with the arm hidden behind it, or apart from the hand (the user: "脖子拉伸 手看起来
+脱节？", "各种身体脱节", "还有无影手了？"). Codex redrew those after League's frames at the 40-row scale (round 1:
+REDO18.md; round 2, REDO18B.md: arms as thick as the design's, swords reused from untouched frames or redrawn square
+by square, never rotated). The redo's strips replace ours after the same checks; every frame it did not list must be
+ours square for square, and its records replace the redrawn frames' in riven_frames40.json.
+3. --neck: under the pasted chin the shrink left a one-square neck ('h p h' with clear squares beside it, two rows)
+in many frames; widened to the design's ('h p x r h' on the first row under the chin, 'h p x h' on the second). A
+frame whose neck is already wide is left as it is, so the step can run again.
+4. --blade: the user's pick for the R ("照示意图"): a big energy blade drawn under every frame that has a sword record,
+along it, wrapping the broken blade (League's R), and the blade's rune green lit where the energy runs; the ult's
+first ULT_BROKEN frames keep the broken blade. It writes the `_r` strips (attack_r ... skill2_r: the actions while R
+lasts) and redraws riven_ult.png and riven_r_slash.png in place (only clear squares are filled, so it can run again).
+Then run import_native.py --hero riven (EYES steadies idle and run on the eyes' green).
 """
 import argparse
 import json
@@ -36,7 +51,6 @@ Z = 8
 TAGS = ["run", "attack", "skill", "q2", "q3", "skill2", "ult", "r_slash", "hit", "dead"]
 EYES = [(0xFF, 0xFF, 0xFF), (0x16, 0x3A, 0x22), (0x3E, 0x8E, 0x48)]
 FALL = {"dead": 2}              # rows a frame may reach under the feet line
-RUN_DROP = 3
 # --blade: the reforged sword (the user's option B) - each strip and the strip it is drawn over
 BLADE = {"ult": "ult", "r_slash": "r_slash", "attack_r": "attack", "skill_r": "skill", "q2_r": "q2", "q3_r": "q3",
          "skill2_r": "skill2"}
@@ -46,14 +60,18 @@ ULT_BROKEN = 2                          # the ult's first frames keep the broken
 # the user's pick after the first delivery ("开大时 刀没变大？" -> the mock "照示意图"): a big energy blade drawn under
 # the frame along Codex's blade axis, wrapping the whole broken blade (League's R); half its width, how far it runs
 # past the broken end (less where Codex shortened its tip, never out of the cell) and back toward the hilt
-REFORGE_HALF = 6.5
-REFORGE_TIP = 16
-REFORGE_HILT = 22
+# (drawn for 46 rows at 6.5 / 16 / 22; scaled to the 40-row sprite)
+REFORGE_HALF = 5.5
+REFORGE_TIP = 14
+REFORGE_HILT = 19
+FRAMES = os.path.join(SRC, "riven_frames40.json")
+# --neck: the neck's squares
+NECK_H, NECK_P, NECK_X, NECK_R = (0x49, 0x33, 0x28), (0xA8, 0x64, 0x3F), (0xFB, 0xC6, 0x97), (0xCB, 0x80, 0x53)
 RIM2, BODY2, INNER2, CORE2, HOT2 = ((0x2D, 0x69, 0x40), (0x4B, 0xA8, 0x5A), (0x87, 0xD4, 0x6A), (0xC9, 0xEF, 0x9A),
                                     (0xF6, 0xEA, 0xDB))
 
 
-def reforge(c, axis, ext, keep):
+def reforge(c, axis, keep):
     """The energy blade under one frame's squares (never over them, never on `keep`): along the axis from the
     broken end (x0, y0) in direction (ux, uy); it widens from the hilt over 4 squares, holds REFORGE_HALF and comes
     to a point over its last 9; a #2D6940 rim, #4BA85A inside it, #87D46A down the middle, a #C9EF9A line past the
@@ -63,7 +81,7 @@ def reforge(c, axis, ext, keep):
     ux, uy = ux / n, uy / n
     H, W = c.shape[:2]
     room = min((W - 1 - x0) / ux if ux > 0 else 1e9, x0 / -ux if ux < 0 else 1e9, y0 / -uy if uy < 0 else 1e9)
-    e = min(REFORGE_TIP if ext >= 12 else ext, room - 1)
+    e = min(REFORGE_TIP, room - 1)
     yy, xx = np.mgrid[0:H, 0:W]
     dx, dy = xx - x0, yy - y0
     s = dx * ux + dy * uy
@@ -118,61 +136,55 @@ def head(shape, master, origin, rotation):
     return grown
 
 
-def blade(folder):
-    """--blade: the reforged sword drawn over the strips (Codex's second delivery). Checked against the strips it
-    was drawn over (the delivery's reference/original_riven_<tag>.png, which must be ours for the strips that stay):
-    only transparent squares filled and the blade's rune green lit, all in the effects' greens, nothing removed,
-    nothing in the face box round the eyes, nothing under the feet line, the ult's broken-blade frames untouched.
-    Then every reforged frame gets the big energy blade under it (reforge(), the user's pick of the mock), and the
-    face and feet checks are made again. Writes assets/source/native/riven_<tag>.png and the `_r` tags into
-    riven_cells.json (the rows of the strip they are drawn over)."""
+def load_frames():
+    with open(D.lp(FRAMES), encoding="utf-8") as f:
+        return json.load(f)
+
+
+def save_frames(table):
+    with open(D.lp(FRAMES), "w", encoding="utf-8", newline="\n") as f:
+        f.write("{\n" + ",\n".join(f"  {json.dumps(t)}: [\n" + ",\n".join(f"    {json.dumps(r)}" for r in rows)
+                                  + "\n  ]" for t, rows in table.items()) + "\n}\n")
+
+
+def blade():
+    """--blade: the energy blade under every frame with a sword record (riven_frames40.json), the rune green lit
+    inside it; nothing drawn in the box round the eyes or under the feet line."""
     with open(D.lp(os.path.join(SRC, "riven_cells.json")), encoding="utf-8") as f:
         cells = json.load(f)
-    with open(D.lp(os.path.join(folder, "manifest.json")), encoding="utf-8") as f:
-        records = {k: v["records"] for k, v in json.load(f)["strips"].items()}
+    table = load_frames()
     cw, ch = cells["cell"][:2]
     for tag, base in BLADE.items():
-        ref = np.asarray(Image.open(D.lp(os.path.join(folder, "reference", f"original_riven_{base}.png"))).convert("RGBA"))
-        if tag != base and not (ref == blocks(os.path.join(SRC, f"riven_{base}.png"))).all():
-            sys.exit(f"{tag}: reference/original_riven_{base}.png is not our riven_{base}.png")
-        a = blocks(os.path.join(folder, "strips", f"riven_{tag}.png"))
-        if a.shape != ref.shape:
-            sys.exit(f"{tag}: {a.shape[1]}x{a.shape[0]}, not {ref.shape[1]}x{ref.shape[0]}")
-        diff = np.any(a != ref, -1)
-        if (diff & (a[..., 3] == 0)).any():
-            sys.exit(f"{tag}: squares removed")
-        lit = diff & (ref[..., 3] > 0)
-        was = colours(ref[lit][None]) if lit.any() else set()
-        if was - {BLADE_RUNE}:
-            sys.exit(f"{tag}: squares other than the blade's rune green {BLADE_RUNE} recoloured: {sorted(was)}")
-        now = colours(a[diff][None]) if diff.any() else set()
-        if now - BLADE_GREENS:
-            sys.exit(f"{tag}: colours outside the effects' greens: {sorted(now - BLADE_GREENS)}")
+        a = blocks(os.path.join(SRC, f"riven_{base}.png"))
         rows = cells["tags"][base]
         cols = layout(len(rows))
         per = []
         for i, f in enumerate(rows):
             x0, y0 = (i % cols) * cw, (i // cols) * ch
-            d = diff[y0:y0 + ch, x0:x0 + cw]
-            c = ref[y0:y0 + ch, x0:x0 + cw]
-            eye = np.zeros(d.shape, bool)
+            c = a[y0:y0 + ch, x0:x0 + cw]
+            rec = table[base][i]["sword"]
+            if rec is None or (base == "ult" and i < ULT_BROKEN):
+                per.append(0)
+                continue
+            eye = np.zeros(c.shape[:2], bool)
             for e in EYES[1:]:
                 eye |= (c[..., 3] > 0) & np.all(c[..., :3] == np.array(e, np.uint8), -1)
             ys, xs = np.nonzero(eye)
-            if d[max(0, ys.min() - 4):ys.max() + 6, max(0, xs.min() - 3):xs.max() + 4].any():
-                sys.exit(f"{tag} frame {i + 1}: the face changed")
-            if (a[y0 + f["pivot"][1] + 12:y0 + ch, x0:x0 + cw, 3] > 0).any():
-                sys.exit(f"{tag} frame {i + 1}: squares under the feet line")
-            if tag == "ult" and i < ULT_BROKEN and d.any():
-                sys.exit(f"ult frame {i + 1}: the broken blade changed")
-            rec = records[f"riven_{tag}.png"][i]
-            if rec["blade_axis"]:
-                keep = np.zeros(d.shape, bool)             # the head round the eyes, and everything under the feet
-                keep[max(0, ys.min() - 12):ys.max() + 8, max(0, xs.min() - 8):xs.max() + 9] = True
-                keep[f["pivot"][1] + 12:] = True
-                a[y0:y0 + ch, x0:x0 + cw] = reforge(a[y0:y0 + ch, x0:x0 + cw], rec["blade_axis"], rec["extension_px"],
-                                                    keep)
-            per.append(int(np.any(a[y0:y0 + ch, x0:x0 + cw] != c, -1).sum()))
+            keep = np.zeros(c.shape[:2], bool)             # the head round the eyes, and everything under the feet
+            keep[max(0, ys.min() - 12):ys.max() + 8, max(0, xs.min() - 8):xs.max() + 9] = True
+            keep[f["pivot"][1] + 12:] = True
+            axis = list(rec["broken_end"]) + list(rec["direction"])
+            t = reforge(c, axis, keep)
+            # the broken blade's rune green lit where the energy runs (the band behind the broken end)
+            x, y, ux, uy = axis
+            yy, xx = np.mgrid[0:ch, 0:cw]
+            along = (xx - x) * ux + (yy - y) * uy
+            across = np.abs(-(xx - x) * uy + (yy - y) * ux)
+            rune = (np.all(t[..., :3] == np.array(BLADE_RUNE, np.uint8), -1) & (t[..., 3] > 0) & (across <= 2.5)
+                    & (along <= 1) & (along >= -REFORGE_HILT) & ~keep)
+            t[rune, :3] = INNER2
+            per.append(int(np.any(t != c, -1).sum()))
+            a[y0:y0 + ch, x0:x0 + cw] = t
         big = Image.fromarray(a).resize((a.shape[1] * Z, a.shape[0] * Z), Image.NEAREST)
         big.save(D.lp(os.path.join(SRC, f"riven_{tag}.png")))
         if tag != base:
@@ -180,6 +192,105 @@ def blade(folder):
         print(f"riven_{tag}.png  over riven_{base}.png, squares added or lit per frame {per}")
     with open(D.lp(os.path.join(SRC, "riven_cells.json")), "w", encoding="utf-8", newline="\n") as f:
         f.write(cells_text(cells))
+
+
+def redo(folder):
+    """--redo: the strips of Codex's redo delivery in place of ours, after the checks; the redrawn frames' records."""
+    with open(D.lp(os.path.join(SRC, "riven_cells.json")), encoding="utf-8") as f:
+        cells = json.load(f)
+    with open(D.lp(os.path.join(folder, "manifest.json")), encoding="utf-8") as f:
+        anims = json.load(f)["animations"]
+    master = np.asarray(Image.open(D.lp(os.path.join(folder, "reference", "head_master_1x.png"))).convert("RGBA"))
+    palette = colours(blocks(os.path.join(SRC, "riven_native.png")))
+    table = load_frames()
+    cw, ch = cells["cell"][:2]
+    for tag, v in anims.items():
+        a = blocks(os.path.join(folder, "strips", f"riven_{tag}.png"))
+        ours = blocks(os.path.join(SRC, f"riven_{tag}.png"))
+        if a.shape != ours.shape:
+            sys.exit(f"{tag}: {a.shape[1]}x{a.shape[0]}, not {ours.shape[1]}x{ours.shape[0]}")
+        extra = colours(a) - palette
+        if extra:
+            sys.exit(f"{tag}: colours not in the design: {sorted(extra)}")
+        recs = {r["frame"]: r for r in v["frames"]}
+        rows = cells["tags"][tag]
+        cols = layout(len(rows))
+        for i, f in enumerate(rows):
+            x0, y0 = (i % cols) * cw, (i // cols) * ch
+            c, o = a[y0:y0 + ch, x0:x0 + cw], ours[y0:y0 + ch, x0:x0 + cw]
+            if i + 1 not in recs:
+                if not (c == o).all():
+                    sys.exit(f"{tag} frame {i + 1}: changed but not listed")
+                continue
+            r = recs[i + 1]
+            rot = r["head_rotation_clockwise"]
+            hm = np.rot90(master, k=-(rot // 90)) if rot else master
+            x, y = r["head_origin"]
+            pasted = c[y:y + hm.shape[0], x:x + hm.shape[1]]
+            if not (pasted[hm[..., 3] > 0] == hm[hm[..., 3] > 0]).all():
+                sys.exit(f"{tag} frame {i + 1}: the head is not the design's at {(x, y)}")
+            op = c[..., 3] > 0
+            eyes = sum(int((op & np.all(c[..., :3] == np.array(e, np.uint8), -1)).sum()) for e in EYES[1:])
+            if eyes != 6:
+                sys.exit(f"{tag} frame {i + 1}: {eyes} eye squares, not 6")
+            if int(np.nonzero(op)[0].max()) > f["pivot"][1] + 11 + FALL.get(tag, 0):
+                sys.exit(f"{tag} frame {i + 1}: squares under the feet line")
+            table[tag][i] = {"head_origin": r["head_origin"], "head_rotation_clockwise": rot, "sword": r["sword"]}
+        big = Image.fromarray(a).resize((a.shape[1] * Z, a.shape[0] * Z), Image.NEAREST)
+        big.save(D.lp(os.path.join(SRC, f"riven_{tag}.png")))
+        print(f"riven_{tag}.png  frames {sorted(recs)} redrawn")
+    save_frames(table)
+
+
+def neck():
+    """--neck: every frame's one-square neck under the pasted chin widened to the design's."""
+    with open(D.lp(os.path.join(SRC, "riven_cells.json")), encoding="utf-8") as f:
+        cells = json.load(f)
+    table = load_frames()
+    cw, ch = cells["cell"][:2]
+    for tag in TAGS:
+        a = blocks(os.path.join(SRC, f"riven_{tag}.png"))
+        rows = cells["tags"][tag]
+        cols = layout(len(rows))
+        done = []
+        for i in range(len(rows)):
+            rec = table[tag][i]
+            if rec["head_rotation_clockwise"]:
+                continue
+            x0, y0 = (i % cols) * cw, (i // cols) * ch
+            c = a[y0:y0 + ch, x0:x0 + cw]
+            ox, oy = rec["head_origin"]
+            y = oy + 16
+
+            def col(yy, xx):
+                return tuple(int(v) for v in c[yy, xx, :3]) if c[yy, xx, 3] else None
+
+            def put(yy, xx, rgb, only_clear=False):
+                if not (only_clear and c[yy, xx, 3]):
+                    c[yy, xx, :3] = rgb
+                    c[yy, xx, 3] = 255
+            for n in range(ox + 10, ox + 18):
+                if (col(y, n) == NECK_P and col(y, n - 1) == NECK_H and col(y, n + 1) == NECK_H
+                        and (col(y, n - 2) is None or col(y, n + 2) is None)):
+                    break
+            else:
+                continue
+            second = col(y + 1, n) == NECK_P
+            put(y, n - 2, NECK_H, True)
+            put(y, n - 1, NECK_P)
+            put(y, n, NECK_X)
+            put(y, n + 1, NECK_R)
+            put(y, n + 2, NECK_H, True)
+            if second:
+                put(y + 1, n - 2, NECK_H, True)
+                put(y + 1, n - 1, NECK_P)
+                put(y + 1, n, NECK_X)
+                put(y + 1, n + 1, NECK_H)
+            done.append(i + 1)
+        if done:
+            big = Image.fromarray(a).resize((a.shape[1] * Z, a.shape[0] * Z), Image.NEAREST)
+            big.save(D.lp(os.path.join(SRC, f"riven_{tag}.png")))
+        print(f"riven_{tag}.png  necks widened in frames {done}")
 
 
 def cells_text(cells):
@@ -191,14 +302,21 @@ def cells_text(cells):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("delivery", nargs="?", help="Codex's strips delivery (riven_animation_pack)")
-    ap.add_argument("--blade", help="Codex's second delivery (riven_fx2_complete): the reforged-sword strips")
+    ap.add_argument("delivery", nargs="?", help="Codex's strips delivery (riven_strips40_complete)")
+    ap.add_argument("--redo", help="Codex's redo delivery (riven_redo18b_complete): its strips and records")
+    ap.add_argument("--neck", action="store_true", help="widen the one-square necks")
+    ap.add_argument("--blade", action="store_true", help="the energy blade while R lasts")
     args = ap.parse_args()
+    if args.redo:
+        redo(args.redo)
+    if args.neck:
+        neck()
     if args.blade:
-        blade(args.blade)
+        blade()
+    if args.redo or args.neck or args.blade:
         return
     if not args.delivery:
-        ap.error("a delivery folder or --blade")
+        ap.error("a delivery folder, --redo, --neck or --blade")
     with open(D.lp(os.path.join(SRC, "riven_cells.json")), encoding="utf-8") as f:
         cells = json.load(f)
     design = blocks(os.path.join(SRC, "riven_native.png"))
@@ -208,12 +326,17 @@ def main():
     cw, ch = cells["cell"][:2]
     master = np.asarray(Image.open(D.lp(os.path.join(args.delivery, "reference", "head_master_1x.png"))).convert("RGBA"))
     with open(D.lp(os.path.join(args.delivery, "manifest.json")), encoding="utf-8") as f:
-        manifest = {k: [(fr["head_origin"], fr["head_rotation_clockwise"]) for fr in v["frames"]]
-                    for k, v in json.load(f)["animations"].items()}
+        anims = json.load(f)["animations"]
+    manifest = {k: [(fr["head_origin"], fr["head_rotation_clockwise"]) for fr in v["frames"]] for k, v in anims.items()}
+    save_frames({k: [{"head_origin": fr["head_origin"], "head_rotation_clockwise": fr["head_rotation_clockwise"],
+                      "sword": fr["sword"]} for fr in anims[k]["frames"]] for k in TAGS})
     idle = np.asarray(Image.open(D.lp(os.path.join(args.delivery, "reference", "riven_idle.png"))).convert("RGBA"))
     Image.fromarray(idle).save(D.lp(os.path.join(SRC, "riven_idle.png")))
     for tag in TAGS:
-        a = blocks(os.path.join(args.delivery, f"riven_{tag}.png"))
+        path = os.path.join(args.delivery, f"riven_{tag}.png")
+        if not os.path.exists(D.lp(path)):
+            path = os.path.join(args.delivery, "strips", f"riven_{tag}.png")      # the 40-row delivery's layout
+        a = blocks(path)
         extra = colours(a) - palette
         if extra:
             sys.exit(f"{tag}: colours not in the design: {sorted(extra)}")
@@ -221,6 +344,12 @@ def main():
         cols = layout(len(fr))
         out = a.copy()
         changed = []
+        drop = 0
+        if tag == "run":                          # a run that floats goes down as far as its lowest sole allows
+            gaps = [f["pivot"][1] + 11 - int(np.nonzero(a[(i // cols) * ch:(i // cols + 1) * ch,
+                                                             (i % cols) * cw:(i % cols + 1) * cw, 3] > 0)[0].max())
+                    for i, f in enumerate(fr)]
+            drop = max(0, min(gaps))
         for i, f in enumerate(fr):
             x0, y0 = (i % cols) * cw, (i // cols) * ch
             c = a[y0:y0 + ch, x0:x0 + cw]
@@ -241,8 +370,8 @@ def main():
                 sys.exit(f"{tag} frame {i + 1}: the head is not the design's at {origin}")
             t = D.one_outline(c, head(c.shape[:2], master, origin, rotation))
             changed.append(int(np.any(t != c, -1).sum()))
-            if tag == "run":
-                t = np.concatenate([np.zeros((RUN_DROP, cw, 4), np.uint8), t[:ch - RUN_DROP]])
+            if drop:
+                t = np.concatenate([np.zeros((drop, cw, 4), np.uint8), t[:ch - drop]])
             low = int(np.nonzero(t[..., 3] > 0)[0].max()) - (f["pivot"][1] + 11)
             if low > FALL.get(tag, 0):
                 sys.exit(f"{tag} frame {i + 1}: {low} rows under the feet line")

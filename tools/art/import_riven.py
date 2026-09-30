@@ -2,6 +2,7 @@
 """Import Riven's effects (Codex's riven_vfx_pack and riven_fx2_complete) as game sheets.
 
     python tools/art/import_riven.py --raw <Codex's delivery folder>   # once: the delivery's layers -> native strips
+                                                                       # (layers/ or effects/, e.g. riven_redo18b)
     python tools/art/import_riven.py --fx2 <Codex's second delivery>   # once: its effects -> native strips
     python tools/art/import_riven.py                                   # native strips -> effect sheets
 
@@ -69,8 +70,9 @@ FX2 = {"hit": ("league_riven_fx", (0, 8)), "rune_hit": ("league_riven_fx", (0, 8
        "q_hit": ("league_riven_fx", (0, 8)), "r_hit": ("league_riven_fx", (0, 8)),
        "knockup": ("league_riven_fx", (0, 0)), "stun": ("league_riven_fx", (0, 28)),
        "shield": ("league_riven_big", (0, 0)),
-       "rune_1": ("league_riven_fx", (8, 40)), "rune_2": ("league_riven_fx", (0, 40)),
-       "rune_3": ("league_riven_fx", (-8, 40)),
+       # the rune glyphs float over her head: 40 px over the standing point at 46 rows, 34 at 40 rows
+       "rune_1": ("league_riven_fx", (8, 34)), "rune_2": ("league_riven_fx", (0, 34)),
+       "rune_3": ("league_riven_fx", (-8, 34)),
        "r_aura": ("league_riven_big", (0, 0))}
 PHASES = {"shield": {"shield_in": (0, 2), "shield": (2, 6), "shield_out": (6, 8)}}
 ROCKS = {(0x86, 0x74, 0x69), (0x49, 0x33, 0x28)}
@@ -124,21 +126,27 @@ def from_raw(folder):
         cells = json.load(f)
     with open(G.lp(os.path.join(folder, "manifest.json")), encoding="utf-8") as f:
         manifest = json.load(f)["effects"]
+    layers = "layers" if os.path.isdir(G.lp(os.path.join(folder, "layers"))) else "effects"   # the redo deliveries
     for name, tag in SETS.items():
         frames = manifest[name]["frames"]
-        want = [(tuple(f["pivot"]), f["duration_ms"]) for f in frames]
-        have = [(tuple(f["pivot"]), f["ms"]) for f in cells["tags"][tag]]
-        if want != have:
-            sys.exit(f"{name}: frames differ from the {tag} cells")
+        rows = cells["tags"][tag]
+        if all("pivot" in f for f in frames):
+            want = [(tuple(f["pivot"]), f.get("duration_ms", f.get("ms"))) for f in frames]
+            if want != [(tuple(f["pivot"]), f["ms"]) for f in rows]:
+                sys.exit(f"{name}: frames differ from the {tag} cells")
+        cols = layout(len(rows))
+        size = (-(-len(rows) // cols) * CELL, cols * CELL)
         for layer in ("back", "front"):
-            a = load_blocks(os.path.join(folder, "layers", f"riven_fx_{name}_{layer}.png"))
+            a = load_blocks(os.path.join(folder, layers, f"riven_fx_{name}_{layer}.png"))
+            if a.shape[:2] != size:
+                sys.exit(f"{name} {layer}: {a.shape[1]}x{a.shape[0]}, not the {tag} strip's {size[1]}x{size[0]}")
             extra = {tuple(int(v) for v in c) for c in a[a[..., 3] > 0][:, :3]} - PALETTE
             if extra:
                 sys.exit(f"{name} {layer}: colours outside the effects' palette: {sorted(extra)}")
             b = unrim(a)
             Image.fromarray(b).save(G.lp(os.path.join(SRC, f"riven_fx_{name}_{layer}.png")))
             rim = lambda x: int((np.all(x[..., :3] == np.array(RIM, np.uint8), -1) & (x[..., 3] > 0)).sum())  # noqa: E731
-            print(f"riven_fx_{name}_{layer}.png: {len(frames)} frames, dark green {rim(a)} -> {rim(b)} px")
+            print(f"riven_fx_{name}_{layer}.png: {len(rows)} frames, dark green {rim(a)} -> {rim(b)} px")
 
 
 def from_fx2(folder):
