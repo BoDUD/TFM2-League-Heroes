@@ -1,4 +1,6 @@
 // Parse TFM2 champion data with the engine's own types (the game's mod SDK ships game_core).
+// Only the classic SDK does, and it ended with game 0.5 (game_core 0.5.1 in `mod-sdk`); since 0.6 the game ships
+// just the stable-ABI `mod-sdk-stable`, no engine inside - see champion-data section 9 for what that leaves out.
 //
 //     sdk_probe champ <file.data_champion>    whole kit through game_core::DataChampionInfo
 //     sdk_probe effects <file>                one effect JSON per line through game_core::DataEffectDef;

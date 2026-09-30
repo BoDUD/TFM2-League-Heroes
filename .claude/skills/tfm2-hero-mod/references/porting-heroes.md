@@ -207,6 +207,9 @@ target (`EntityEvent` / `Action`) and `PlayerStatistics` (deal, tank, heal, self
 cs_jungle, kills, deaths, assists): the numbers players read after a match. Ten game minutes
 take ~4 s, so average 12-16 seeds per lineup and change one thing at a time; the same lineup
 varies about 10% between batches. The simulator and the extracted settings stay local.
+Since game 0.6 the classic SDK is no longer shipped, so the simulator links game_core 0.5.1, the last one; the
+settings and the champion sheet it loads are the 0.6.2 bundle's, byte for byte, but whatever the engine's code
+changed after 0.5.1 is not in it (champion-data section 9): check a close call in game.
 
 Rerun it once the art has set the timings. league_annie was balanced at +1.24 kills (24 seeds a
 lineup) with placeholder timings; aligning her casts with her strips (the fireball thrown on tick 12

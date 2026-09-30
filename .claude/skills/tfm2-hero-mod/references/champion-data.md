@@ -29,10 +29,19 @@ Contents
 | `attack` `skill` `skill2` `ult` | the four actions (section 3) |
 | `view_projectiles` `view_effects` `view_buffs` | bindings from effect names to animations (section 6) |
 
-The game binary also names `passive`, `passive_skill2`, `passive_ult`, `stack_skill_index` and
-`name`, but the mod SDK's `DataChampionInfo` (what a mod's file is parsed into) has none of them:
-its fields are exactly the ones above plus `skill_icon`. There is no "on spawn" hook either, so build
-passives with buffs (section 7); a permanent one goes on at the first action (league_amumu's Tantrum
+**Named native passives (game 0.6.0+).** `passive` (from spawn), `passive_skill2` (once skill2 is learned) and
+`passive_ult` (once the ult is) each take `{"passive_ref": "<name>", "params": {...}}`: one of the base game's own
+passives run by its native code - `ogre` (`hit_hp`), `dancer` (`vamp`), `ghost` (`heal`, `add_attack`,
+`add_attack_speed`), `circus_blade` (`charge_count`), `gunner` (`move_speed_up`, `move_speed_up_duration`), `hunter`
+(`recast_duration`, `kill_extend_count`), `berserker` (`cooltime_reduction`, `max_cooltime_reduction`),
+`poison_dart_hunter` (`add_move_speed`, `range`), `swordman`, `vampire` - or a name a native mod registered
+(`my_mod:frenzy`). Every param is required and a non-negative integer: a missing one, or an unknown name, makes the
+game log one warning and skip the passive (the champion still loads). Stacks live on the player and survive death;
+`stack_skill_index` (0 skill, 1 skill2, 2 ult) picks the icon that shows the stack counter. Source: the official
+schema (teamsamoyed/TeamfightManager2Mod, docs/data-champion-schema/passives.md); the classic SDK's
+`DataChampionInfo` (0.5.1, the last one with the engine, section 9) has none of these fields, so the simulator
+cannot run them and no hero of this pack uses them yet. There is no "on spawn" hook, so a passive of our own is
+still built with buffs (section 7); a permanent one goes on at the first action (league_amumu's Tantrum
 armour: `SwitchByBuff` on itself, then `AddCasterBuff` with `"duration": "Permanent"`).
 
 ## 2. Units and balance ranges
@@ -474,8 +483,16 @@ the caster for `tick`; the caster stays in place meanwhile, so move it from the 
 `MoveToTarget` / `MoveTo` / `RushTime`), `RemoveCasterAnimation {name}`, `Sfx {name}` (at caster),
 `TargetSfx {name}` (at target). Base `ViewEffect` entries sometimes carry `range/speed/time/radius`.
 
-**Base only - do not use in mods:** `Native` (calls hard-coded logic via `effect_ref`),
-`ShrinkingBarrier`, `AddStatScaledBuff`, `Rush`.
+**Base only - do not use in mods:** `Native` (calls hard-coded logic via `effect_ref`), `AddStatScaledBuff`.
+
+**Data effects since game 0.6** (the official schema's effects.md; the classic SDK's parser does not have them,
+so they cannot be simulated, and no hero of this pack uses them yet): `Rush {speed, range, move_speed_ratio,
+casting_target, penetrate, applied_effects}` - the caster rushes toward the position input, hitting what matches
+`casting_target` on the way (defaults: `casting_target` Ally, `range` 0); `ShrinkingBarrier {name, start_radius,
+end_radius, shrink_per_tick, tick, edge_thickness, applied_effects}` - a ring round the target that follows it and
+closes, applying at its edge; `TargetProjectileFromProjectile {name, speed, y_offset, applied_target,
+applied_effects}` - a homing projectile spawned where the current projectile is (only inside a projectile's
+`applied_effects` / `end_effects`).
 
 ## 5. buff_state
 
@@ -1694,6 +1711,22 @@ pyromancer (48000 plus both bodies) and the attack consumes the buff (bonus magi
 - Run `python scripts/lint_mod.py <mod>` after every edit.
 
 ## 9. Checking a fact against the engine
+
+**Which SDK (game 0.6.2, 2026-09-30).** The classic SDK, the one that ships the engine, ended with game 0.5: the
+official docs (teamsamoyed/TeamfightManager2Mod) call it deprecated, "supported through game version 0.5 only, and
+no longer shipped or updated from 0.6". The game folder keeps `mod-sdk` (its `base_version.txt` says 0.5.0, but its
+game_core is the 0.5.1 build, the same file as in `mod-sdk-0.5.1-package`) and, since 0.6, `mod-sdk-stable` (0.6.2):
+the stable-ABI API for native DLL mods (`mod-api-stable`, plain Rust with no engine inside; its `sim.rs` only reads
+the match the game is running). A data-only mod needs no SDK at all. So the probe below and the simulator
+(porting-heroes "Balance check") stay on game_core 0.5.1, the newest engine a program can link. The data they
+load from bundle.game_data (champion sheet, game / item / map settings, macro weights) was compared byte for byte
+with the 0.6.2 bundle: identical. Engine code changed after 0.5.1 is not in them; for what the 0.6.2 loader accepts
+use the official schema (docs/data-champion-schema) together with the probe. Every effect type and field this pack
+writes is in that schema or named in the 0.6.2 binary (`CasterInvisible`, the `cooltime_use_count` action field and
+`LinearProjectile.y_offset` are undocumented there but still read); the one dead key it wrote, `is_hidden` (35 buff
+states in league_darius, league_leesin, league_lux, league_soraka and the template), is gone, and `lint_mod.py`
+warns about it and knows the 0.6 additions (named passives, `Rush`, `ShrinkingBarrier`,
+`TargetProjectileFromProjectile`).
 
 The mod SDK in the game folder ships the engine itself: `mod-sdk*/deps/libgame_core-*.rlib` (+
 `.rmeta`, serde_json next to it) built with the toolchain pinned in its `rust-toolchain.toml`
