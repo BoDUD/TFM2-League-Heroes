@@ -542,12 +542,32 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   ult (her reforged blade) was drawn over the finished strips with the body pixel for pixel kept:
   `tools/art/tidy_riven.py --blade` diffs each against the strip it came from (only empty squares filled and the
   blade's own rune green lit, nothing removed, nothing round the eyes, nothing under the feet line).
+- **Close the outline on every frame (every hero; the user's rule).** A game-size drawing from an image model leaves
+  the outline open where a light colour meets the air: league_nami's design had 85% of its silhouette edge near-black,
+  her action frames 68-91% (hair ends, fingers, the belt, the tail's edge); the user asked "黑边处理了吗" and for the
+  fix to go to every hero after her ("后面英雄都要用的"). `strips.complete_outline(frame, color, feet=<soles row>)`:
+  every clear pixel next to a light pixel (luminance >= 70) becomes the outline colour (the commonest dark colour on
+  the edge); nothing drawn is repainted. A one-pixel line seen across (her staff's shaft, a bow, a strand) stays open
+  at its sides, as base draws thin weapons, and gets its ends closed; under the soles row nothing is added, the light
+  edge pixel there takes the colour itself. Run it on the finished frames, after any sink, breathing seam or neck fix
+  (`tools/art/import_native.py` `COMPLETE`; league_riven and league_akali did the same in their tidy scripts): Nami's
+  frames went to 94-100%, the colour count unchanged, `metrics` from WARN to PASS.
+- **Keep the neck the same in every frame.** With the design's head pasted into redrawn frames, align a loop's frames
+  on the head and check that the shoulders sit the same number of rows under the chin. Codex drew league_nami's
+  swimming body a row lower under the head in four of the eight run frames: her neck stretched and shrank as she bobbed
+  and at game size the head seemed to come off ("一上一下的时候感觉身体要分离一样"; league_riven's "脖子拉伸" before
+  her). Move everything above a neck row down a row in the long-necked frames (`import_native.py` `NECK`, the breathing
+  seam's mechanism) rather than the head alone, which would leave its old place empty.
 - **Review before shipping.** Per-strip sheets with the idle silhouette overlaid, `metrics`,
   a side-by-side with base champions at 1x and 3x, and a scripted showcase against a dummy.
 
 ## QA checklist
 
 - [ ] `metrics` passes: height, outline, 0 semi-alpha, colour count
+- [ ] outline closed on every frame with `strips.complete_outline` (only one-pixel lines left open)
+- [ ] a pasted head: the shoulders the same number of rows under the chin in every frame of a loop
+- [ ] stands on the soles row unless a float is wanted: the collection grid lines every hero's feet up and a
+      float reads as sitting high (league_nami's 3 px went: `import_native.py` `SINK`)
 - [ ] `idle`, `run`, plus every `action_name` and `CasterAnimation` name exists as a tag
       (`lint_mod.py` checks this against the data); `hit` and `dead` recommended
 - [ ] feet stay on the same row in all frames; hero stands level with base champions in-game

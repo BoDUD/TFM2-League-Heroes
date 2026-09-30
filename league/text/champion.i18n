@@ -204,6 +204,13 @@
         "skill2": "向后翻身并掷出手里剑，对首个命中的敌人造成<#a974ffff>54<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>54% 法术强度<>的<#a974ffff>魔法伤害<>并标记它，<#ffb900ff>0.5秒<>后冲到它身边，造成<#a974ffff>97<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>97% 法术强度<>的<#a974ffff>魔法伤害<>。附近有敌方英雄时落地施放 <#ff9028ff>我流奥义！霞阵<>（冷却<#ffb900ff>18秒<>）：放出烟雾，<#ef5350ff>隐身<><#ffb900ff>2秒<>，<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移动速度提高40%<>并递减。",
         "ult": "穿过目标英雄，对路径上的敌人造成<#a974ffff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法术强度<>的<#a974ffff>魔法伤害<>；<#ffb900ff>2.5秒<>后再次穿过它（它已阵亡或跑远则换附近的英雄），造成<#a974ffff>86<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>43% 法术强度<>的<#a974ffff>魔法伤害<>，两段之间她每命中英雄一次伤害提高<#ffb900ff>25%<>（最多<#ffb900ff>200%<>）。"
       },
+      "league_nami": {
+        "name": "娜美",
+        "attack": "普攻射出一颗水弹，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。被动 <#ff9028ff>踏浪之行<>：技能命中友方英雄时，使其<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移动速度提高20%<>，持续<#ffb900ff>1.5秒<>。",
+        "skill": "<#ff9028ff>冲击之潮<>：水流冲击敌人，造成<#a974ffff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45% 法术强度<>的<#a974ffff>魔法伤害<>，弹向附近友方英雄回复<#6aff55ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35% 法术强度<>的<#6aff55ff>生命值<>，再弹向另一名敌方英雄造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 法术强度<>伤害。<#ff9028ff>唤潮之佑<>：被治疗者<#ffb900ff>4秒<>内攻击力和法术强度提高15%，被击中者<#ef5350ff>减速25%<>。",
+        "skill2": "<#ff9028ff>碧波之牢<>：向敌人（优先敌方英雄）扔出水泡，落地时对范围内的敌人造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 法术强度<>的<#a974ffff>魔法伤害<>，并将其困在水泡中<#ef5350ff>击飞<><#ffb900ff>1.25秒<>。",
+        "ult": "<#ff9028ff>怒涛之啸<>：召唤一道巨浪朝敌方英雄推进，对沿途敌人造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法术强度<>的<#a974ffff>魔法伤害<>，<#ef5350ff>击飞<><#ffb900ff>0.5秒<>并<#ef5350ff>减速60%<>，巨浪走得越远减速越久（<#ffb900ff>2<>至<#ffb900ff>3秒<>）。经过的友方英雄获得双倍<#ff9028ff>踏浪之行<>加速。"
+      },
       "league_diana": {
         "name": "黛安娜",
         "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。被动 <#a974ffff>月银之刃<>：每第<#ffb900ff>3<>次普攻顺劈目标周围的敌人，额外造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% 法术强度<>的<#a974ffff>魔法伤害<>；每次施放技能后<#ffb900ff>3秒<>内<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻速提高40%<>。",
@@ -357,6 +364,11 @@
         "skill1": "我流奥义！寒影",
         "skill2": "我流奥义！隼舞",
         "ult": "我流秘奥义！表里杀缭乱"
+      },
+      "league_nami": {
+        "skill1": "冲击之潮",
+        "skill2": "碧波之牢",
+        "ult": "怒涛之啸"
       },
       "league_diana": {
         "skill1": "新月打击",
@@ -570,6 +582,13 @@
         "skill2": "向後翻身並擲出手裡劍，對命中的第一個敵人造成<#a974ffff>54<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>54% 魔法強度<>的<#a974ffff>魔法傷害<>並標記它，<#ffb900ff>0.5秒<>後衝到它身邊，造成<#a974ffff>97<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>97% 魔法強度<>的<#a974ffff>魔法傷害<>。附近有敵方英雄時落地施放 <#ff9028ff>暮光朦影<>（冷卻<#ffb900ff>18秒<>）：放出煙霧，<#ef5350ff>隱形<><#ffb900ff>2秒<>，<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度提高40%<>並遞減。",
         "ult": "穿過目標英雄，對路徑上的敵人造成<#a974ffff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 魔法強度<>的<#a974ffff>魔法傷害<>；<#ffb900ff>2.5秒<>後再次穿過它（它已陣亡或跑遠則換附近的英雄），造成<#a974ffff>86<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>43% 魔法強度<>的<#a974ffff>魔法傷害<>，兩段之間她每命中英雄一次傷害提高<#ffb900ff>25%<>（最多<#ffb900ff>200%<>）。"
       },
+      "league_nami": {
+        "name": "娜米",
+        "attack": "普攻射出一顆水彈，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。被動 <#ff9028ff>疾速波濤<>：技能命中友方英雄時，使其<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度提高20%<>，持續<#ffb900ff>1.5秒<>。",
+        "skill": "<#ff9028ff>跳躍水柱<>：水柱衝擊敵人，造成<#a974ffff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45% 魔法強度<>的<#a974ffff>魔法傷害<>，彈向附近友方英雄回復<#6aff55ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35% 魔法強度<>的<#6aff55ff>生命<>，再彈向另一名敵方英雄造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 魔法強度<>傷害。<#ff9028ff>深海恩賜<>：被治療者<#ffb900ff>4秒<>內攻擊力和魔法強度提高15%，被擊中者<#ef5350ff>緩速25%<>。",
+        "skill2": "<#ff9028ff>禁錮水牢<>：向敵人（優先敵方英雄）拋出水泡，落地時對範圍內的敵人造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 魔法強度<>的<#a974ffff>魔法傷害<>，並將其困在水泡中<#ef5350ff>擊飛<><#ffb900ff>1.25秒<>。",
+        "ult": "<#ff9028ff>驚滔駭浪<>：召喚一道巨浪朝敵方英雄推進，對沿途敵人造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 魔法強度<>的<#a974ffff>魔法傷害<>，<#ef5350ff>擊飛<><#ffb900ff>0.5秒<>並<#ef5350ff>緩速60%<>，巨浪走得越遠緩速越久（<#ffb900ff>2<>至<#ffb900ff>3秒<>）。經過的友方英雄獲得雙倍<#ff9028ff>疾速波濤<>加速。"
+      },
       "league_diana": {
         "name": "黛安娜",
         "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。被動 <#a974ffff>銀月之刃<>：每第<#ffb900ff>3<>次普攻劈斬目標周圍的敵人，額外造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% 魔法攻擊<>的<#a974ffff>魔法傷害<>；每次施放技能後<#ffb900ff>3秒<>內<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻速提高40%<>。",
@@ -723,6 +742,11 @@
         "skill1": "落擲苦無",
         "skill2": "離群手裡劍",
         "ult": "無瑕追擊"
+      },
+      "league_nami": {
+        "skill1": "跳躍水柱",
+        "skill2": "禁錮水牢",
+        "ult": "驚滔駭浪"
       },
       "league_diana": {
         "skill1": "月牙衝擊",
@@ -936,6 +960,13 @@
         "skill2": "Akali flips back and throws a shuriken that deals <#a974ffff>54<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>54% Ability Power<> <#a974ffff>magic damage<> to the first enemy hit and marks it; <#ffb900ff>0.5s<> later she dashes to it for <#a974ffff>97<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>97% Ability Power<> <#a974ffff>magic damage<>. Near an enemy champion she also casts <#ff9028ff>Twilight Shroud<> (<#ffb900ff>18s<> cooldown) on landing: smoke, <#ef5350ff>invisible<> for <#ffb900ff>2s<> and <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>40% Move Speed<>, decaying.",
         "ult": "Akali dashes through the target champion, dealing <#a974ffff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% Ability Power<> <#a974ffff>magic damage<> to enemies in her path. <#ffb900ff>2.5s<> later she dashes through it again (another champion nearby if it died or fled) for <#a974ffff>86<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>43% Ability Power<> <#a974ffff>magic damage<>, +<#ffb900ff>25%<> for each champion hit she landed in between (up to +<#ffb900ff>200%<>)."
       },
+      "league_nami": {
+        "name": "Nami",
+        "attack": "Basic attacks fire a bolt of water that deals <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. Passive <#ff9028ff>Surging Tides<>: allied champions her spells reach gain <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>20% Move Speed<> for <#ffb900ff>1.5s<>.",
+        "skill": "<#ff9028ff>Ebb and Flow<>: water hits an enemy for <#a974ffff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45% Ability Power<> <#a974ffff>magic damage<>, bounces to a nearby allied champion, healing <#6aff55ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35% Ability Power<>, then to another enemy champion near that ally for <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% Ability Power<>. <#ff9028ff>Tidecaller's Blessing<>: the healed ally gains 15% attack and Ability Power for <#ffb900ff>4s<>; enemies hit are <#ef5350ff>slowed<> by 25%.",
+        "skill2": "<#ff9028ff>Aqua Prison<>: Nami throws a bubble at an enemy (champions first). Where it lands, enemies take <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% Ability Power<> <#a974ffff>magic damage<> and are trapped and <#ef5350ff>knocked up<> for <#ffb900ff>1.25s<>.",
+        "ult": "<#ff9028ff>Tidal Wave<>: a huge wave rolls toward an enemy champion, dealing <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% Ability Power<> <#a974ffff>magic damage<> to enemies in its path, <#ef5350ff>knocking them up<> for <#ffb900ff>0.5s<> and <#ef5350ff>slowing<> them by 60% for <#ffb900ff>2s<> (<#ffb900ff>3s<> once it has rolled far). Allied champions it passes gain double <#ff9028ff>Surging Tides<>."
+      },
       "league_diana": {
         "name": "Diana",
         "attack": "Basic attacks deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. Passive <#a974ffff>Moonsilver Blade<>: every <#ffb900ff>third<> attack cleaves enemies around its target for <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% AP<> <#a974ffff>magic damage<>; after each spell she gains <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>40% Attack Speed<> for <#ffb900ff>3s<>.",
@@ -1089,6 +1120,11 @@
         "skill1": "Five Point Strike",
         "skill2": "Shuriken Flip",
         "ult": "Perfect Execution"
+      },
+      "league_nami": {
+        "skill1": "Ebb and Flow",
+        "skill2": "Aqua Prison",
+        "ult": "Tidal Wave"
       },
       "league_diana": {
         "skill1": "Crescent Strike",
@@ -1302,6 +1338,13 @@
         "skill2": "뒤로 공중제비를 돌며 표창을 던져 처음 맞은 적에게 <#a974ffff>54<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 54%<>의 <#a974ffff>마법 피해<>를 입히고 표식을 남깁니다. <#ffb900ff>0.5초<> 뒤 대상에게 돌진해 <#a974ffff>97<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 97%<>의 <#a974ffff>마법 피해<>를 입힙니다. 적 챔피언이 근처면 착지 시 <#ff9028ff>황혼의 장막<>(<#ffb900ff>18초<>)도 사용: 연막을 펼쳐 <#ffb900ff>2초<> 동안 <#ef5350ff>투명<>해지고 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도가 40%<> 증가(점차 감소).",
         "ult": "대상 챔피언을 관통해 돌진하며 경로의 적에게 <#a974ffff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 70%<>의 <#a974ffff>마법 피해<>를 입힙니다. <#ffb900ff>2.5초<> 뒤 다시 관통하며(대상이 죽었거나 멀어지면 근처의 다른 챔피언) <#a974ffff>86<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 43%<>의 <#a974ffff>마법 피해<>를 입히고, 그 사이 챔피언에게 적중할 때마다 피해가 <#ffb900ff>25%<>씩 증가합니다(최대 <#ffb900ff>200%<>)."
       },
+      "league_nami": {
+        "name": "나미",
+        "attack": "기본 공격으로 물방울을 쏘아 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다. 기본 지속 효과 <#ff9028ff>밀려오는 파도<>: 스킬이 아군 챔피언에게 닿으면 <#ffb900ff>1.5초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도가 20%<> 증가합니다.",
+        "skill": "<#ff9028ff>밀물 썰물<>: 물줄기가 적에게 <#a974ffff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 45%<> <#a974ffff>마법 피해<>를 입히고, 주변 아군 챔피언에게 튕겨 <#6aff55ff>체력을 70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 35%<> 회복한 뒤, 다른 적 챔피언에게 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 40%<> 피해를 입힙니다. <#ff9028ff>파도 소환사의 축복<>: 회복된 아군은 <#ffb900ff>4초<> 동안 공격력과 주문력이 15% 증가하고, 맞은 적은 <#ef5350ff>25% 둔화<>됩니다.",
+        "skill2": "<#ff9028ff>물의 감옥<>: 적(챔피언 우선)에게 물방울을 던져 떨어진 곳의 적에게 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 60%<> <#a974ffff>마법 피해<>를 입히고 <#ffb900ff>1.25초<> 동안 가두어 <#ef5350ff>공중으로 띄워 올립니다<>.",
+        "ult": "<#ff9028ff>해일<>: 거대한 파도를 적 챔피언 쪽으로 보내 경로의 적에게 <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 70%<> <#a974ffff>마법 피해<>를 입히고 <#ffb900ff>0.5초<> 동안 <#ef5350ff>공중으로 띄우며<> <#ef5350ff>60% 둔화<>시킵니다(<#ffb900ff>2초<>, 멀리 간 파도는 <#ffb900ff>3초<>). 파도가 지나간 아군 챔피언은 <#ff9028ff>밀려오는 파도<> 효과를 두 배로 받습니다."
+      },
       "league_diana": {
         "name": "다이애나",
         "attack": "기본 공격은 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>. 기본 지속 효과 <#a974ffff>서늘한 달빛 검<>: <#ffb900ff>3번째<> 공격마다 대상 주변 적에게 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 50%<> <#a974ffff>마법 피해<>. 스킬 사용 후 <#ffb900ff>3초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>공격 속도 40%<>.",
@@ -1455,6 +1498,11 @@
         "skill1": "오연투척검",
         "skill2": "표창곡예",
         "ult": "무결처형"
+      },
+      "league_nami": {
+        "skill1": "밀물 썰물",
+        "skill2": "물의 감옥",
+        "ult": "해일"
       },
       "league_diana": {
         "skill1": "초승달 검기",
@@ -1668,6 +1716,13 @@
         "skill2": "後方へ宙返りして手裏剣を投げ、最初に当たった敵に<#a974ffff>54<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の54%<>の<#a974ffff>魔法ダメージ<>を与えてマークし、<#ffb900ff>0.5秒<>後にその敵へダッシュして<#a974ffff>97<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の97%<>の<#a974ffff>魔法ダメージ<>。敵チャンピオンが近くなら着地時に<#ff9028ff>黄昏の帳<>（<#ffb900ff>18秒<>）も発動：煙幕、<#ffb900ff>2秒<><#ef5350ff>インビジブル<>、<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度40%<>増加（減衰）。",
         "ult": "対象のチャンピオンを突き抜け、通過した敵に<#a974ffff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の70%<>の<#a974ffff>魔法ダメージ<>。<#ffb900ff>2.5秒<>後に再び突き抜け（倒れたか離れたら近くの別のチャンピオン）<#a974ffff>86<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の43%<>の<#a974ffff>魔法ダメージ<>、その間にチャンピオンへ命中するごとに<#ffb900ff>25%<>増加（最大<#ffb900ff>200%<>）。"
       },
+      "league_nami": {
+        "name": "ナミ",
+        "attack": "通常攻撃は水の弾を放ち、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>を与える。パッシブ <#ff9028ff>さざなみの後押し<>：スキルが味方チャンピオンに届くと<#ffb900ff>1.5秒<>間<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度が20%<>増加する。",
+        "skill": "<#ff9028ff>潮の流れ<>：水流が敵に<#a974ffff>65<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の45%<>の<#a974ffff>魔法ダメージ<>、跳ねて近くの味方チャンピオンの<#6aff55ff>体力を70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の35%<>回復、さらに別の敵チャンピオンに<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の40%<>。<#ff9028ff>潮使いの祝福<>：回復した味方は<#ffb900ff>4秒<>間攻撃力と魔力15%増加、当たった敵は<#ef5350ff>25%スロウ<>。",
+        "skill2": "<#ff9028ff>水の牢獄<>：敵（チャンピオン優先）に泡を投げ、着弾地点の敵に<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の60%<>の<#a974ffff>魔法ダメージ<>を与え、<#ffb900ff>1.25秒<>間閉じ込めて<#ef5350ff>ノックアップ<>させる。",
+        "ult": "<#ff9028ff>海神の舞<>：巨大な波を敵チャンピオンの方へ放ち、通過した敵に<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の70%<>の<#a974ffff>魔法ダメージ<>、<#ffb900ff>0.5秒<>間<#ef5350ff>ノックアップ<>と<#ef5350ff>60%スロウ<>（<#ffb900ff>2秒<>、遠くまで進んだ波は<#ffb900ff>3秒<>）を与える。波が通過した味方チャンピオンは<#ff9028ff>さざなみの後押し<>が2倍。"
+      },
       "league_diana": {
         "name": "ダイアナ",
         "attack": "通常攻撃は<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>。パッシブ <#a974ffff>繊月の刃<>：通常攻撃<#ffb900ff>3回<>ごとに対象の周囲に<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の50%<>の<#a974ffff>魔法ダメージ<>。スキル使用後<#ffb900ff>3秒<>間<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻撃速度40%<>。",
@@ -1821,6 +1876,11 @@
         "skill1": "五連苦無",
         "skill2": "翻身手裏剣",
         "ult": "完遂"
+      },
+      "league_nami": {
+        "skill1": "潮の流れ",
+        "skill2": "水の牢獄",
+        "ult": "海神の舞"
       },
       "league_diana": {
         "skill1": "月影",

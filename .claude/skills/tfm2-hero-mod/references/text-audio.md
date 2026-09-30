@@ -71,8 +71,23 @@ Pattern: `<#ff9028ff>Skill Name<>: what it does, <#ff9028ff>150<> + <i#...:ad_0>
 
 Offsets in sprite pixels measured **up from the feet** (negative y = higher). `center` is the
 body centre (base default y -12, where hits/health bar anchor); `face` is the head centre
-(~ -(height - 2); -34 for a 35-37 px hero, -45 to -54 for giants). Base also has an optional
-`banpick_center`. Adjust `face.x` when the head is not above the feet (quadrupeds, big weapons).
+(~ -(height - 2); -34 for a 35-37 px hero, -45 to -54 for giants). Adjust `face.x` when the head
+is not above the feet (quadrupeds, big weapons).
+
+`banpick_center` (optional; base sets it on 8 heroes, ogre -7 to shield_bearer -12) is read only by the
+ban/pick grid card (`ui/layout/banpick/champion_slot`), measured on 36 cards of a 1920x1080 screenshot:
+the card's top 131x88 is a canvas, the idle plays at ~2.2x with the pivot 88 + 2.2 * y px under the
+card top (no banpick_center: placed like -12, feet on the canvas bottom). **With banpick_center set
+the sprite is clipped to the canvas** (shield_bearer loses its shield top, executioner its last
+foot row); without it the sprite may stick out above the card (league_lucian, league_malphite).
+The canvas holds ~40 px: a hero whose idle reaches higher than -28 sticks out, and base's answer
+for its tall ones is y = -39 - (highest idle row), head 1 px under the canvas top and the feet
+hidden by the name band; every League hero whose idle reaches above -28 has it (league_masteryi +5
+for his sword, league_kayle 0, league_nami -1 ... league_thresh -10). The collection grid
+(`new_game_component/custom_champion_slot`) ignores it: every hero's feet sit on the image bottom
+there (executioner's -10 too), so a hover shows as sitting higher. The tier-list card
+(`champion_info_component/champion_slot`, 85x93 image) cut league_nami's crown as well; how it
+places heroes is not measured yet.
 Measure it, don't guess: `python scripts/tfm2_ase.py face <sprite> [--view <champion_view>]`
 prints the point the base game would use and `--out x.png` draws your hero next to base champions
 with every face point marked. On all 68 base champions `face` sits at the **crown** - the first
