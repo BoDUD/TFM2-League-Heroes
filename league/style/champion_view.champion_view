@@ -221,7 +221,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -9
+        "y": 0
       }
     },
     "league_ahri": {
@@ -285,7 +285,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -8
+        "y": 2
       }
     }
   }
