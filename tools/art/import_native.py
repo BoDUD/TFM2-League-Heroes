@@ -48,7 +48,7 @@ MOD = os.path.join(ROOT, "league")
 HEAD_ROWS = 12                  # idle frame 1's top rows: the head
 SURE = 0.9                      # share of the head's pixels that must match exactly
 STEADY = ("idle", "run")
-ORDER = {("lux", "idle"): [0, 1, 2, 3, 5, 4],
+ORDER = {("lux", "idle"): [0, 0, 0, 0, 0, 0],   # the step-2 idle is the design in all six (was 0 1 2 3 5 4)
          # League leans his upper body a square forward in idle 4-5 and back in 6, and every frame's head
          # is voted anew, so the face swung and changed shape as he breathed (the user). Frame 1 in every
          # slot, breathing through BOB instead.
@@ -138,6 +138,8 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        ("garen", "idle"): (6, [2, 3, 4]),
        # Ashe: the seam across her boots' shafts, her soles stay
        ("ashe", "idle"): (6, [2, 3, 4]),
+       # Lux: the seam across her boots' shafts, her soles stay
+       ("lux", "idle"): (6, [2, 3, 4]),
        # Lucian: the seam across his shins, where the outline hardly changes; the boots and the coat's tip stay
        ("lucian", "idle"): (4, [2, 3, 4]),
        # Morgana's gown reaches the ground: the seam five rows over its hem, where two rows differ only in
@@ -149,7 +151,7 @@ PASTED = {"masteryi"}            # steadied on the head restyle_native pasted: h
 # frame, so they are steadied on idle frame 1's head like the round-1 heroes - or on their eyes when they are in
 # EYES - whatever their poses.json says
 REDRAWN = {"thresh", "leona", "janna", "ekko", "darius", "leesin", "soraka", "malphite", "annie", "amumu", "yasuo",
-           "jinx", "missfortune", "yone", "garen", "ashe", "ahri"}
+           "jinx", "missfortune", "yone", "garen", "ashe", "ahri", "lux"}
 # heroes steadied on their eyes: (R, G, B) of a colour only the eyes use; the head column is the eyes' middle
 EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade is the top of every frame
         "kayle": (226, 138, 8),           # Codex's redraw: her wings rise above her head, the amber is the eyes'
@@ -169,6 +171,7 @@ EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade
         "garen": (31, 62, 200),           # the same for Garen: his near eye's blue iris, in an eye-only shade
         "ashe": (59, 174, 240),           # the same for Ashe: her cyan eyes (the bow is cyan too), eye-only shade
         "ahri": (233, 162, 34),           # the same for Ahri: her amber eyes (her outfit has the amber too), eye-only
+        "lux": (45, 111, 184),            # the same for Lux: her blue eyes (the pair the user picked), eye-only shade
         "lucian": (63, 106, 116),         # the redesign: his raised pistol is the top of every idle frame
         "morgana": (200, 60, 166)}        # the redesign A: only her face is pasted, its pink-violet is the eyes'
 
