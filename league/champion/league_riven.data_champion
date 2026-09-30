@@ -72,18 +72,16 @@
                     "tick": 31
                   },
                   {
-                    "type": "Sfx",
-                    "name": "league_riven_r_cast"
+                    "type": "CasterViewEffect",
+                    "name": "league_riven_r_on_back"
                   },
                   {
-                    "type": "Delayed",
-                    "tick": 8,
-                    "effects": [
-                      {
-                        "type": "CasterViewEffect",
-                        "name": "league_riven_r_cast"
-                      }
-                    ]
+                    "type": "CasterViewEffect",
+                    "name": "league_riven_r_on_front"
+                  },
+                  {
+                    "type": "Sfx",
+                    "name": "league_riven_r_cast"
                   },
                   {
                     "type": "SwitchByBuff",
@@ -292,6 +290,10 @@
                       "tick": 29
                     },
                     {
+                      "type": "CasterViewEffect",
+                      "name": "league_riven_r_slash_back"
+                    },
+                    {
                       "type": "Sfx",
                       "name": "league_riven_r_slash"
                     },
@@ -310,7 +312,7 @@
                             }
                           },
                           "penetrate": true,
-                          "y_offset": 0,
+                          "y_offset": -15000,
                           "applied_target": "EnemyWithoutTower",
                           "applied_effects": [
                             {
@@ -322,13 +324,6 @@
                                 "hp_ratio": 0,
                                 "target_hp_ratio": 8,
                                 "attack_effect_type": "Target"
-                              }
-                            },
-                            {
-                              "casting_type": "Targeting",
-                              "effect": {
-                                "type": "ViewEffect",
-                                "name": "league_riven_r_hit"
                               }
                             },
                             {
@@ -464,10 +459,6 @@
                     "attack_effect_type": "Target"
                   },
                   {
-                    "type": "ViewEffect",
-                    "name": "league_riven_hit"
-                  },
-                  {
                     "type": "TargetSfx",
                     "name": "league_riven_attack_hit"
                   }
@@ -504,6 +495,14 @@
             "type": "CasterAnimation",
             "name": "q3",
             "tick": 31
+          },
+          {
+            "type": "CasterViewEffect",
+            "name": "league_riven_q3_back"
+          },
+          {
+            "type": "CasterViewEffect",
+            "name": "league_riven_q3_front"
           },
           {
             "type": "Sfx",
@@ -657,10 +656,6 @@
             "tick": 14,
             "effects": [
               {
-                "type": "CasterViewEffect",
-                "name": "league_riven_q3_slam"
-              },
-              {
                 "type": "Sfx",
                 "name": "league_riven_q3_slam"
               },
@@ -690,14 +685,6 @@
                       "duration": 45
                     },
                     {
-                      "type": "ViewEffect",
-                      "name": "league_riven_knockup"
-                    },
-                    {
-                      "type": "ViewEffect",
-                      "name": "league_riven_q_hit"
-                    },
-                    {
                       "type": "TargetSfx",
                       "name": "league_riven_q_hit"
                     }
@@ -724,14 +711,6 @@
                     {
                       "type": "Airborne",
                       "duration": 45
-                    },
-                    {
-                      "type": "ViewEffect",
-                      "name": "league_riven_knockup"
-                    },
-                    {
-                      "type": "ViewEffect",
-                      "name": "league_riven_q_hit"
                     },
                     {
                       "type": "TargetSfx",
@@ -770,6 +749,14 @@
               "type": "CasterAnimation",
               "name": "q2",
               "tick": 28
+            },
+            {
+              "type": "CasterViewEffect",
+              "name": "league_riven_q2_back"
+            },
+            {
+              "type": "CasterViewEffect",
+              "name": "league_riven_q2_front"
             },
             {
               "type": "SwitchByBuff",
@@ -923,10 +910,6 @@
                   "name": "league_riven_q2"
                 },
                 {
-                  "type": "CasterViewEffect",
-                  "name": "league_riven_q2_slash"
-                },
-                {
                   "type": "SwitchByBuff",
                   "buff_name": "league_riven_r",
                   "effect_buff": {
@@ -946,10 +929,6 @@
                         "hp_ratio": 0,
                         "target_hp_ratio": 0,
                         "attack_effect_type": "Target"
-                      },
-                      {
-                        "type": "ViewEffect",
-                        "name": "league_riven_q_hit"
                       },
                       {
                         "type": "TargetSfx",
@@ -974,10 +953,6 @@
                         "hp_ratio": 0,
                         "target_hp_ratio": 0,
                         "attack_effect_type": "Target"
-                      },
-                      {
-                        "type": "ViewEffect",
-                        "name": "league_riven_q_hit"
                       },
                       {
                         "type": "TargetSfx",
@@ -1009,6 +984,14 @@
               "type": "CasterAnimation",
               "name": "skill",
               "tick": 28
+            },
+            {
+              "type": "CasterViewEffect",
+              "name": "league_riven_q1_back"
+            },
+            {
+              "type": "CasterViewEffect",
+              "name": "league_riven_q1_front"
             },
             {
               "type": "SwitchByBuff",
@@ -1162,10 +1145,6 @@
                   "name": "league_riven_q1"
                 },
                 {
-                  "type": "CasterViewEffect",
-                  "name": "league_riven_q1_slash"
-                },
-                {
                   "type": "SwitchByBuff",
                   "buff_name": "league_riven_r",
                   "effect_buff": {
@@ -1185,10 +1164,6 @@
                         "hp_ratio": 0,
                         "target_hp_ratio": 0,
                         "attack_effect_type": "Target"
-                      },
-                      {
-                        "type": "ViewEffect",
-                        "name": "league_riven_q_hit"
                       },
                       {
                         "type": "TargetSfx",
@@ -1213,10 +1188,6 @@
                         "hp_ratio": 0,
                         "target_hp_ratio": 0,
                         "attack_effect_type": "Target"
-                      },
-                      {
-                        "type": "ViewEffect",
-                        "name": "league_riven_q_hit"
                       },
                       {
                         "type": "TargetSfx",
@@ -1267,17 +1238,25 @@
           ]
         },
         {
-          "type": "AddCasterBuff",
-          "buff_state": {
-            "name": "league_riven_e_shield",
-            "duration": "WithShield"
-          },
-          "only_to_enemy": false
-        },
-        {
           "type": "CasterAnimation",
           "name": "skill2",
           "tick": 33
+        },
+        {
+          "type": "CasterViewEffect",
+          "name": "league_riven_e_back"
+        },
+        {
+          "type": "CasterViewEffect",
+          "name": "league_riven_e_front"
+        },
+        {
+          "type": "CasterViewEffect",
+          "name": "league_riven_w_back"
+        },
+        {
+          "type": "CasterViewEffect",
+          "name": "league_riven_w_front"
         },
         {
           "type": "Sfx",
@@ -1430,10 +1409,6 @@
           "type": "Delayed",
           "tick": 12,
           "effects": [
-            {
-              "type": "CasterViewEffect",
-              "name": "league_riven_w_burst"
-            },
             {
               "type": "Sfx",
               "name": "league_riven_w"
@@ -1595,10 +1570,6 @@
                     "duration": 45
                   },
                   {
-                    "type": "ViewEffect",
-                    "name": "league_riven_stun"
-                  },
-                  {
                     "type": "TargetSfx",
                     "name": "league_riven_w_hit"
                   }
@@ -1625,10 +1596,6 @@
                   {
                     "type": "Stun",
                     "duration": 45
-                  },
-                  {
-                    "type": "ViewEffect",
-                    "name": "league_riven_stun"
                   },
                   {
                     "type": "TargetSfx",
@@ -1687,18 +1654,16 @@
                   "tick": 31
                 },
                 {
-                  "type": "Sfx",
-                  "name": "league_riven_r_cast"
+                  "type": "CasterViewEffect",
+                  "name": "league_riven_r_on_back"
                 },
                 {
-                  "type": "Delayed",
-                  "tick": 8,
-                  "effects": [
-                    {
-                      "type": "CasterViewEffect",
-                      "name": "league_riven_r_cast"
-                    }
-                  ]
+                  "type": "CasterViewEffect",
+                  "name": "league_riven_r_on_front"
+                },
+                {
+                  "type": "Sfx",
+                  "name": "league_riven_r_cast"
                 },
                 {
                   "type": "SwitchByBuff",
@@ -1942,6 +1907,10 @@
                           "tick": 29
                         },
                         {
+                          "type": "CasterViewEffect",
+                          "name": "league_riven_r_slash_back"
+                        },
+                        {
                           "type": "Sfx",
                           "name": "league_riven_r_slash"
                         },
@@ -1960,7 +1929,7 @@
                                 }
                               },
                               "penetrate": true,
-                              "y_offset": 0,
+                              "y_offset": -15000,
                               "applied_target": "EnemyWithoutTower",
                               "applied_effects": [
                                 {
@@ -1972,13 +1941,6 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -2038,6 +2000,10 @@
                           "tick": 29
                         },
                         {
+                          "type": "CasterViewEffect",
+                          "name": "league_riven_r_slash_back"
+                        },
+                        {
                           "type": "Sfx",
                           "name": "league_riven_r_slash"
                         },
@@ -2056,7 +2022,7 @@
                                 }
                               },
                               "penetrate": true,
-                              "y_offset": 0,
+                              "y_offset": -15000,
                               "applied_target": "EnemyWithoutTower",
                               "applied_effects": [
                                 {
@@ -2068,13 +2034,6 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -2134,6 +2093,10 @@
                           "tick": 29
                         },
                         {
+                          "type": "CasterViewEffect",
+                          "name": "league_riven_r_slash_back"
+                        },
+                        {
                           "type": "Sfx",
                           "name": "league_riven_r_slash"
                         },
@@ -2152,7 +2115,7 @@
                                 }
                               },
                               "penetrate": true,
-                              "y_offset": 0,
+                              "y_offset": -15000,
                               "applied_target": "EnemyWithoutTower",
                               "applied_effects": [
                                 {
@@ -2164,13 +2127,6 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -2230,6 +2186,10 @@
                           "tick": 29
                         },
                         {
+                          "type": "CasterViewEffect",
+                          "name": "league_riven_r_slash_back"
+                        },
+                        {
                           "type": "Sfx",
                           "name": "league_riven_r_slash"
                         },
@@ -2248,7 +2208,7 @@
                                 }
                               },
                               "penetrate": true,
-                              "y_offset": 0,
+                              "y_offset": -15000,
                               "applied_target": "EnemyWithoutTower",
                               "applied_effects": [
                                 {
@@ -2260,13 +2220,6 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -2326,6 +2279,10 @@
                           "tick": 29
                         },
                         {
+                          "type": "CasterViewEffect",
+                          "name": "league_riven_r_slash_back"
+                        },
+                        {
                           "type": "Sfx",
                           "name": "league_riven_r_slash"
                         },
@@ -2344,7 +2301,7 @@
                                 }
                               },
                               "penetrate": true,
-                              "y_offset": 0,
+                              "y_offset": -15000,
                               "applied_target": "EnemyWithoutTower",
                               "applied_effects": [
                                 {
@@ -2356,13 +2313,6 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -2422,6 +2372,10 @@
                           "tick": 29
                         },
                         {
+                          "type": "CasterViewEffect",
+                          "name": "league_riven_r_slash_back"
+                        },
+                        {
                           "type": "Sfx",
                           "name": "league_riven_r_slash"
                         },
@@ -2440,7 +2394,7 @@
                                 }
                               },
                               "penetrate": true,
-                              "y_offset": 0,
+                              "y_offset": -15000,
                               "applied_target": "EnemyWithoutTower",
                               "applied_effects": [
                                 {
@@ -2452,13 +2406,6 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -2518,6 +2465,10 @@
                           "tick": 29
                         },
                         {
+                          "type": "CasterViewEffect",
+                          "name": "league_riven_r_slash_back"
+                        },
+                        {
                           "type": "Sfx",
                           "name": "league_riven_r_slash"
                         },
@@ -2536,7 +2487,7 @@
                                 }
                               },
                               "penetrate": true,
-                              "y_offset": 0,
+                              "y_offset": -15000,
                               "applied_target": "EnemyWithoutTower",
                               "applied_effects": [
                                 {
@@ -2548,13 +2499,6 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -2614,6 +2558,10 @@
                           "tick": 29
                         },
                         {
+                          "type": "CasterViewEffect",
+                          "name": "league_riven_r_slash_back"
+                        },
+                        {
                           "type": "Sfx",
                           "name": "league_riven_r_slash"
                         },
@@ -2632,7 +2580,7 @@
                                 }
                               },
                               "penetrate": true,
-                              "y_offset": 0,
+                              "y_offset": -15000,
                               "applied_target": "EnemyWithoutTower",
                               "applied_effects": [
                                 {
@@ -2644,13 +2592,6 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -2710,6 +2651,10 @@
                           "tick": 29
                         },
                         {
+                          "type": "CasterViewEffect",
+                          "name": "league_riven_r_slash_back"
+                        },
+                        {
                           "type": "Sfx",
                           "name": "league_riven_r_slash"
                         },
@@ -2728,7 +2673,7 @@
                                 }
                               },
                               "penetrate": true,
-                              "y_offset": 0,
+                              "y_offset": -15000,
                               "applied_target": "EnemyWithoutTower",
                               "applied_effects": [
                                 {
@@ -2740,13 +2685,6 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -2806,6 +2744,10 @@
                           "tick": 29
                         },
                         {
+                          "type": "CasterViewEffect",
+                          "name": "league_riven_r_slash_back"
+                        },
+                        {
                           "type": "Sfx",
                           "name": "league_riven_r_slash"
                         },
@@ -2824,7 +2766,7 @@
                                 }
                               },
                               "penetrate": true,
-                              "y_offset": 0,
+                              "y_offset": -15000,
                               "applied_target": "EnemyWithoutTower",
                               "applied_effects": [
                                 {
@@ -2836,13 +2778,6 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -2902,6 +2837,10 @@
                           "tick": 29
                         },
                         {
+                          "type": "CasterViewEffect",
+                          "name": "league_riven_r_slash_back"
+                        },
+                        {
                           "type": "Sfx",
                           "name": "league_riven_r_slash"
                         },
@@ -2920,7 +2859,7 @@
                                 }
                               },
                               "penetrate": true,
-                              "y_offset": 0,
+                              "y_offset": -15000,
                               "applied_target": "EnemyWithoutTower",
                               "applied_effects": [
                                 {
@@ -2932,13 +2871,6 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -2998,6 +2930,10 @@
                           "tick": 29
                         },
                         {
+                          "type": "CasterViewEffect",
+                          "name": "league_riven_r_slash_back"
+                        },
+                        {
                           "type": "Sfx",
                           "name": "league_riven_r_slash"
                         },
@@ -3016,7 +2952,7 @@
                                 }
                               },
                               "penetrate": true,
-                              "y_offset": 0,
+                              "y_offset": -15000,
                               "applied_target": "EnemyWithoutTower",
                               "applied_effects": [
                                 {
@@ -3028,13 +2964,6 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -3094,6 +3023,10 @@
                           "tick": 29
                         },
                         {
+                          "type": "CasterViewEffect",
+                          "name": "league_riven_r_slash_back"
+                        },
+                        {
                           "type": "Sfx",
                           "name": "league_riven_r_slash"
                         },
@@ -3112,7 +3045,7 @@
                                 }
                               },
                               "penetrate": true,
-                              "y_offset": 0,
+                              "y_offset": -15000,
                               "applied_target": "EnemyWithoutTower",
                               "applied_effects": [
                                 {
@@ -3124,13 +3057,6 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -3190,6 +3116,10 @@
                           "tick": 29
                         },
                         {
+                          "type": "CasterViewEffect",
+                          "name": "league_riven_r_slash_back"
+                        },
+                        {
                           "type": "Sfx",
                           "name": "league_riven_r_slash"
                         },
@@ -3208,7 +3138,7 @@
                                 }
                               },
                               "penetrate": true,
-                              "y_offset": 0,
+                              "y_offset": -15000,
                               "applied_target": "EnemyWithoutTower",
                               "applied_effects": [
                                 {
@@ -3220,13 +3150,6 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -3286,6 +3209,10 @@
                           "tick": 29
                         },
                         {
+                          "type": "CasterViewEffect",
+                          "name": "league_riven_r_slash_back"
+                        },
+                        {
                           "type": "Sfx",
                           "name": "league_riven_r_slash"
                         },
@@ -3304,7 +3231,7 @@
                                 }
                               },
                               "penetrate": true,
-                              "y_offset": 0,
+                              "y_offset": -15000,
                               "applied_target": "EnemyWithoutTower",
                               "applied_effects": [
                                 {
@@ -3316,13 +3243,6 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -3382,6 +3302,10 @@
                           "tick": 29
                         },
                         {
+                          "type": "CasterViewEffect",
+                          "name": "league_riven_r_slash_back"
+                        },
+                        {
                           "type": "Sfx",
                           "name": "league_riven_r_slash"
                         },
@@ -3400,7 +3324,7 @@
                                 }
                               },
                               "penetrate": true,
-                              "y_offset": 0,
+                              "y_offset": -15000,
                               "applied_target": "EnemyWithoutTower",
                               "applied_effects": [
                                 {
@@ -3412,13 +3336,6 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -3478,6 +3395,10 @@
                           "tick": 29
                         },
                         {
+                          "type": "CasterViewEffect",
+                          "name": "league_riven_r_slash_back"
+                        },
+                        {
                           "type": "Sfx",
                           "name": "league_riven_r_slash"
                         },
@@ -3496,7 +3417,7 @@
                                 }
                               },
                               "penetrate": true,
-                              "y_offset": 0,
+                              "y_offset": -15000,
                               "applied_target": "EnemyWithoutTower",
                               "applied_effects": [
                                 {
@@ -3508,13 +3429,6 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -3574,6 +3488,10 @@
                           "tick": 29
                         },
                         {
+                          "type": "CasterViewEffect",
+                          "name": "league_riven_r_slash_back"
+                        },
+                        {
                           "type": "Sfx",
                           "name": "league_riven_r_slash"
                         },
@@ -3592,7 +3510,7 @@
                                 }
                               },
                               "penetrate": true,
-                              "y_offset": 0,
+                              "y_offset": -15000,
                               "applied_target": "EnemyWithoutTower",
                               "applied_effects": [
                                 {
@@ -3604,13 +3522,6 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -3670,6 +3581,10 @@
                           "tick": 29
                         },
                         {
+                          "type": "CasterViewEffect",
+                          "name": "league_riven_r_slash_back"
+                        },
+                        {
                           "type": "Sfx",
                           "name": "league_riven_r_slash"
                         },
@@ -3688,7 +3603,7 @@
                                 }
                               },
                               "penetrate": true,
-                              "y_offset": 0,
+                              "y_offset": -15000,
                               "applied_target": "EnemyWithoutTower",
                               "applied_effects": [
                                 {
@@ -3700,13 +3615,6 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -3766,6 +3674,10 @@
                           "tick": 29
                         },
                         {
+                          "type": "CasterViewEffect",
+                          "name": "league_riven_r_slash_back"
+                        },
+                        {
                           "type": "Sfx",
                           "name": "league_riven_r_slash"
                         },
@@ -3784,7 +3696,7 @@
                                 }
                               },
                               "penetrate": true,
-                              "y_offset": 0,
+                              "y_offset": -15000,
                               "applied_target": "EnemyWithoutTower",
                               "applied_effects": [
                                 {
@@ -3796,13 +3708,6 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -3862,6 +3767,10 @@
                           "tick": 29
                         },
                         {
+                          "type": "CasterViewEffect",
+                          "name": "league_riven_r_slash_back"
+                        },
+                        {
                           "type": "Sfx",
                           "name": "league_riven_r_slash"
                         },
@@ -3880,7 +3789,7 @@
                                 }
                               },
                               "penetrate": true,
-                              "y_offset": 0,
+                              "y_offset": -15000,
                               "applied_target": "EnemyWithoutTower",
                               "applied_effects": [
                                 {
@@ -3892,13 +3801,6 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -3958,6 +3860,10 @@
                           "tick": 29
                         },
                         {
+                          "type": "CasterViewEffect",
+                          "name": "league_riven_r_slash_back"
+                        },
+                        {
                           "type": "Sfx",
                           "name": "league_riven_r_slash"
                         },
@@ -3976,7 +3882,7 @@
                                 }
                               },
                               "penetrate": true,
-                              "y_offset": 0,
+                              "y_offset": -15000,
                               "applied_target": "EnemyWithoutTower",
                               "applied_effects": [
                                 {
@@ -3988,13 +3894,6 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -4054,6 +3953,10 @@
                           "tick": 29
                         },
                         {
+                          "type": "CasterViewEffect",
+                          "name": "league_riven_r_slash_back"
+                        },
+                        {
                           "type": "Sfx",
                           "name": "league_riven_r_slash"
                         },
@@ -4072,7 +3975,7 @@
                                 }
                               },
                               "penetrate": true,
-                              "y_offset": 0,
+                              "y_offset": -15000,
                               "applied_target": "EnemyWithoutTower",
                               "applied_effects": [
                                 {
@@ -4084,13 +3987,6 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -4150,6 +4046,10 @@
                           "tick": 29
                         },
                         {
+                          "type": "CasterViewEffect",
+                          "name": "league_riven_r_slash_back"
+                        },
+                        {
                           "type": "Sfx",
                           "name": "league_riven_r_slash"
                         },
@@ -4168,7 +4068,7 @@
                                 }
                               },
                               "penetrate": true,
-                              "y_offset": 0,
+                              "y_offset": -15000,
                               "applied_target": "EnemyWithoutTower",
                               "applied_effects": [
                                 {
@@ -4180,13 +4080,6 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -4246,6 +4139,10 @@
                           "tick": 29
                         },
                         {
+                          "type": "CasterViewEffect",
+                          "name": "league_riven_r_slash_back"
+                        },
+                        {
                           "type": "Sfx",
                           "name": "league_riven_r_slash"
                         },
@@ -4264,7 +4161,7 @@
                                 }
                               },
                               "penetrate": true,
-                              "y_offset": 0,
+                              "y_offset": -15000,
                               "applied_target": "EnemyWithoutTower",
                               "applied_effects": [
                                 {
@@ -4276,13 +4173,6 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -4342,6 +4232,10 @@
                           "tick": 29
                         },
                         {
+                          "type": "CasterViewEffect",
+                          "name": "league_riven_r_slash_back"
+                        },
+                        {
                           "type": "Sfx",
                           "name": "league_riven_r_slash"
                         },
@@ -4360,7 +4254,7 @@
                                 }
                               },
                               "penetrate": true,
-                              "y_offset": 0,
+                              "y_offset": -15000,
                               "applied_target": "EnemyWithoutTower",
                               "applied_effects": [
                                 {
@@ -4372,13 +4266,6 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -4438,6 +4325,10 @@
                           "tick": 29
                         },
                         {
+                          "type": "CasterViewEffect",
+                          "name": "league_riven_r_slash_back"
+                        },
+                        {
                           "type": "Sfx",
                           "name": "league_riven_r_slash"
                         },
@@ -4456,7 +4347,7 @@
                                 }
                               },
                               "penetrate": true,
-                              "y_offset": 0,
+                              "y_offset": -15000,
                               "applied_target": "EnemyWithoutTower",
                               "applied_effects": [
                                 {
@@ -4468,13 +4359,6 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -4534,6 +4418,10 @@
                           "tick": 29
                         },
                         {
+                          "type": "CasterViewEffect",
+                          "name": "league_riven_r_slash_back"
+                        },
+                        {
                           "type": "Sfx",
                           "name": "league_riven_r_slash"
                         },
@@ -4552,7 +4440,7 @@
                                 }
                               },
                               "penetrate": true,
-                              "y_offset": 0,
+                              "y_offset": -15000,
                               "applied_target": "EnemyWithoutTower",
                               "applied_effects": [
                                 {
@@ -4564,13 +4452,6 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -4630,6 +4511,10 @@
                           "tick": 29
                         },
                         {
+                          "type": "CasterViewEffect",
+                          "name": "league_riven_r_slash_back"
+                        },
+                        {
                           "type": "Sfx",
                           "name": "league_riven_r_slash"
                         },
@@ -4648,7 +4533,7 @@
                                 }
                               },
                               "penetrate": true,
-                              "y_offset": 0,
+                              "y_offset": -15000,
                               "applied_target": "EnemyWithoutTower",
                               "applied_effects": [
                                 {
@@ -4660,13 +4545,6 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -4726,6 +4604,10 @@
                           "tick": 29
                         },
                         {
+                          "type": "CasterViewEffect",
+                          "name": "league_riven_r_slash_back"
+                        },
+                        {
                           "type": "Sfx",
                           "name": "league_riven_r_slash"
                         },
@@ -4744,7 +4626,7 @@
                                 }
                               },
                               "penetrate": true,
-                              "y_offset": 0,
+                              "y_offset": -15000,
                               "applied_target": "EnemyWithoutTower",
                               "applied_effects": [
                                 {
@@ -4756,13 +4638,6 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -4822,6 +4697,10 @@
                           "tick": 29
                         },
                         {
+                          "type": "CasterViewEffect",
+                          "name": "league_riven_r_slash_back"
+                        },
+                        {
                           "type": "Sfx",
                           "name": "league_riven_r_slash"
                         },
@@ -4840,7 +4719,7 @@
                                 }
                               },
                               "penetrate": true,
-                              "y_offset": 0,
+                              "y_offset": -15000,
                               "applied_target": "EnemyWithoutTower",
                               "applied_effects": [
                                 {
@@ -4852,13 +4731,6 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -4918,6 +4790,10 @@
                           "tick": 29
                         },
                         {
+                          "type": "CasterViewEffect",
+                          "name": "league_riven_r_slash_back"
+                        },
+                        {
                           "type": "Sfx",
                           "name": "league_riven_r_slash"
                         },
@@ -4936,7 +4812,7 @@
                                 }
                               },
                               "penetrate": true,
-                              "y_offset": 0,
+                              "y_offset": -15000,
                               "applied_target": "EnemyWithoutTower",
                               "applied_effects": [
                                 {
@@ -4948,13 +4824,6 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -5014,6 +4883,10 @@
                           "tick": 29
                         },
                         {
+                          "type": "CasterViewEffect",
+                          "name": "league_riven_r_slash_back"
+                        },
+                        {
                           "type": "Sfx",
                           "name": "league_riven_r_slash"
                         },
@@ -5032,7 +4905,7 @@
                                 }
                               },
                               "penetrate": true,
-                              "y_offset": 0,
+                              "y_offset": -15000,
                               "applied_target": "EnemyWithoutTower",
                               "applied_effects": [
                                 {
@@ -5044,13 +4917,6 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -5110,6 +4976,10 @@
                           "tick": 29
                         },
                         {
+                          "type": "CasterViewEffect",
+                          "name": "league_riven_r_slash_back"
+                        },
+                        {
                           "type": "Sfx",
                           "name": "league_riven_r_slash"
                         },
@@ -5128,7 +4998,7 @@
                                 }
                               },
                               "penetrate": true,
-                              "y_offset": 0,
+                              "y_offset": -15000,
                               "applied_target": "EnemyWithoutTower",
                               "applied_effects": [
                                 {
@@ -5140,13 +5010,6 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -5206,6 +5069,10 @@
                           "tick": 29
                         },
                         {
+                          "type": "CasterViewEffect",
+                          "name": "league_riven_r_slash_back"
+                        },
+                        {
                           "type": "Sfx",
                           "name": "league_riven_r_slash"
                         },
@@ -5224,7 +5091,7 @@
                                 }
                               },
                               "penetrate": true,
-                              "y_offset": 0,
+                              "y_offset": -15000,
                               "applied_target": "EnemyWithoutTower",
                               "applied_effects": [
                                 {
@@ -5236,13 +5103,6 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -5302,6 +5162,10 @@
                           "tick": 29
                         },
                         {
+                          "type": "CasterViewEffect",
+                          "name": "league_riven_r_slash_back"
+                        },
+                        {
                           "type": "Sfx",
                           "name": "league_riven_r_slash"
                         },
@@ -5320,7 +5184,7 @@
                                 }
                               },
                               "penetrate": true,
-                              "y_offset": 0,
+                              "y_offset": -15000,
                               "applied_target": "EnemyWithoutTower",
                               "applied_effects": [
                                 {
@@ -5332,13 +5196,6 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -5398,6 +5255,10 @@
                           "tick": 29
                         },
                         {
+                          "type": "CasterViewEffect",
+                          "name": "league_riven_r_slash_back"
+                        },
+                        {
                           "type": "Sfx",
                           "name": "league_riven_r_slash"
                         },
@@ -5416,7 +5277,7 @@
                                 }
                               },
                               "penetrate": true,
-                              "y_offset": 0,
+                              "y_offset": -15000,
                               "applied_target": "EnemyWithoutTower",
                               "applied_effects": [
                                 {
@@ -5428,13 +5289,6 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -5494,6 +5348,10 @@
                           "tick": 29
                         },
                         {
+                          "type": "CasterViewEffect",
+                          "name": "league_riven_r_slash_back"
+                        },
+                        {
                           "type": "Sfx",
                           "name": "league_riven_r_slash"
                         },
@@ -5512,7 +5370,7 @@
                                 }
                               },
                               "penetrate": true,
-                              "y_offset": 0,
+                              "y_offset": -15000,
                               "applied_target": "EnemyWithoutTower",
                               "applied_effects": [
                                 {
@@ -5524,13 +5382,6 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -5590,6 +5441,10 @@
                           "tick": 29
                         },
                         {
+                          "type": "CasterViewEffect",
+                          "name": "league_riven_r_slash_back"
+                        },
+                        {
                           "type": "Sfx",
                           "name": "league_riven_r_slash"
                         },
@@ -5608,7 +5463,7 @@
                                 }
                               },
                               "penetrate": true,
-                              "y_offset": 0,
+                              "y_offset": -15000,
                               "applied_target": "EnemyWithoutTower",
                               "applied_effects": [
                                 {
@@ -5620,13 +5475,6 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -5686,6 +5534,10 @@
                           "tick": 29
                         },
                         {
+                          "type": "CasterViewEffect",
+                          "name": "league_riven_r_slash_back"
+                        },
+                        {
                           "type": "Sfx",
                           "name": "league_riven_r_slash"
                         },
@@ -5704,7 +5556,7 @@
                                 }
                               },
                               "penetrate": true,
-                              "y_offset": 0,
+                              "y_offset": -15000,
                               "applied_target": "EnemyWithoutTower",
                               "applied_effects": [
                                 {
@@ -5716,13 +5568,6 @@
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 8,
                                     "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "ViewEffect",
-                                    "name": "league_riven_r_hit"
                                   }
                                 },
                                 {
@@ -5756,7 +5601,7 @@
     {
       "type": "Animated",
       "name": "league_riven_r_wave",
-      "anim": "asset/league/effects/league_riven_big",
+      "anim": "asset/league/effects/league_riven_fx",
       "tag": "r_wave",
       "repeat": true,
       "z": 1
@@ -5765,10 +5610,107 @@
   "view_effects": [
     {
       "type": "Animation",
-      "name": "league_riven_hit",
+      "name": "league_riven_q1_back",
       "anim": "asset/league/effects/league_riven_fx",
-      "tag": "hit",
-      "z": 1
+      "tag": "q1_back",
+      "z": -1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_riven_q1_front",
+      "anim": "asset/league/effects/league_riven_fx",
+      "tag": "q1_front",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_riven_q2_back",
+      "anim": "asset/league/effects/league_riven_fx",
+      "tag": "q2_back",
+      "z": -1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_riven_q2_front",
+      "anim": "asset/league/effects/league_riven_fx",
+      "tag": "q2_front",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_riven_q3_back",
+      "anim": "asset/league/effects/league_riven_fx",
+      "tag": "q3_back",
+      "z": -1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_riven_q3_front",
+      "anim": "asset/league/effects/league_riven_fx",
+      "tag": "q3_front",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_riven_e_back",
+      "anim": "asset/league/effects/league_riven_big",
+      "tag": "e_back",
+      "z": -1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_riven_e_front",
+      "anim": "asset/league/effects/league_riven_big",
+      "tag": "e_front",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_riven_w_back",
+      "anim": "asset/league/effects/league_riven_big",
+      "tag": "w_back",
+      "z": -1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_riven_w_front",
+      "anim": "asset/league/effects/league_riven_big",
+      "tag": "w_front",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_riven_r_on_back",
+      "anim": "asset/league/effects/league_riven_big",
+      "tag": "r_on_back",
+      "z": -1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_riven_r_on_front",
+      "anim": "asset/league/effects/league_riven_big",
+      "tag": "r_on_front",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_riven_r_slash_back",
+      "anim": "asset/league/effects/league_riven_fx",
+      "tag": "r_slash_back",
+      "z": -1,
+      "is_follow": true
     },
     {
       "type": "Animation",
@@ -5776,96 +5718,7 @@
       "anim": "asset/league/effects/league_riven_fx",
       "tag": "rune_hit",
       "z": 1
-    },
-    {
-      "type": "Animation",
-      "name": "league_riven_q_hit",
-      "anim": "asset/league/effects/league_riven_fx",
-      "tag": "q_hit",
-      "z": 1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_riven_knockup",
-      "anim": "asset/league/effects/league_riven_fx",
-      "tag": "knockup",
-      "z": 1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_riven_stun",
-      "anim": "asset/league/effects/league_riven_fx",
-      "tag": "stun",
-      "z": 1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_riven_r_hit",
-      "anim": "asset/league/effects/league_riven_fx",
-      "tag": "r_hit",
-      "z": 1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_riven_q1_slash",
-      "anim": "asset/league/effects/league_riven_big",
-      "tag": "q1_slash",
-      "z": 1
-    },
-    {
-      "type": "Animation",
-      "name": "league_riven_q2_slash",
-      "anim": "asset/league/effects/league_riven_big",
-      "tag": "q2_slash",
-      "z": 1
-    },
-    {
-      "type": "Animation",
-      "name": "league_riven_q3_slam",
-      "anim": "asset/league/effects/league_riven_big",
-      "tag": "q3_slam",
-      "z": -1
-    },
-    {
-      "type": "Animation",
-      "name": "league_riven_w_burst",
-      "anim": "asset/league/effects/league_riven_big",
-      "tag": "w_burst",
-      "z": 1
-    },
-    {
-      "type": "Animation",
-      "name": "league_riven_r_cast",
-      "anim": "asset/league/effects/league_riven_big",
-      "tag": "r_cast",
-      "z": 1
     }
   ],
-  "view_buffs": [
-    {
-      "type": "Animated",
-      "name": "league_riven_e_shield",
-      "anim": "asset/league/effects/league_riven_fx",
-      "tag": "shield",
-      "z": 1
-    },
-    {
-      "type": "Animated",
-      "name": "league_riven_r",
-      "anim": "asset/league/effects/league_riven_fx",
-      "tag": "r_aura",
-      "z": 1
-    },
-    {
-      "type": "Animated",
-      "name": "league_riven_rune_1",
-      "anim": "asset/league/effects/league_riven_fx",
-      "tag": "rune",
-      "z": 1
-    }
-  ]
+  "view_buffs": []
 }
