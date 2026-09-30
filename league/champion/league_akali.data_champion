@@ -433,146 +433,6 @@
           "name": "league_akali_q_cast"
         },
         {
-          "type": "SwitchByBuff",
-          "buff_name": "league_akali_w_cd",
-          "effect_buff": {
-            "type": "Combine",
-            "effects": []
-          },
-          "effect_none": {
-            "type": "Combine",
-            "effects": [
-              {
-                "type": "RandomTarget",
-                "range": 40000,
-                "casting_target": "EnemyChampion",
-                "from_projectile": false,
-                "effects": [
-                  {
-                    "type": "AddCasterBuff",
-                    "buff_state": {
-                      "name": "league_akali_w_go",
-                      "duration": {
-                        "Time": {
-                          "tick": 1
-                        }
-                      }
-                    },
-                    "only_to_enemy": false
-                  }
-                ]
-              },
-              {
-                "type": "SwitchByBuff",
-                "buff_name": "league_akali_w_go",
-                "effect_buff": {
-                  "type": "Combine",
-                  "effects": [
-                    {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_akali_w_cd",
-                        "duration": {
-                          "Time": {
-                            "tick": 1080
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    },
-                    {
-                      "type": "Sfx",
-                      "name": "league_akali_w_cast"
-                    },
-                    {
-                      "type": "CasterViewEffect",
-                      "name": "league_akali_w_smoke"
-                    },
-                    {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_akali_w_ms1",
-                        "duration": {
-                          "Time": {
-                            "tick": 120
-                          }
-                        },
-                        "move_speed_mult": 20
-                      },
-                      "only_to_enemy": false
-                    },
-                    {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_akali_w_ms2",
-                        "duration": {
-                          "Time": {
-                            "tick": 60
-                          }
-                        },
-                        "move_speed_mult": 20
-                      },
-                      "only_to_enemy": false
-                    },
-                    {
-                      "type": "LinearProjectile",
-                      "name": "league_akali_w_anchor",
-                      "speed": 1,
-                      "range": 1,
-                      "y_offset": 5000,
-                      "penetrate": true,
-                      "shape": {
-                        "Circle": {
-                          "radius": 1000
-                        }
-                      },
-                      "applied_target": "EnemyChampion",
-                      "applied_effects": [],
-                      "end_effects": [
-                        {
-                          "type": "RangePeriodProjectile",
-                          "name": "league_akali_w_zone",
-                          "shape": {
-                            "Circle": {
-                              "radius": 30000
-                            }
-                          },
-                          "tick": 300,
-                          "period": 6,
-                          "first_delay": 0,
-                          "applied_target": "AllyChampion",
-                          "applied_effects": [
-                            {
-                              "casting_type": "Targeting",
-                              "effect": {
-                                "type": "RandomTarget",
-                                "range": 30000,
-                                "casting_target": "AllyOnlySelf",
-                                "from_projectile": true,
-                                "effects": [
-                                  {
-                                    "type": "CasterInvisible",
-                                    "tick": 8
-                                  }
-                                ]
-                              }
-                            }
-                          ],
-                          "end_effects": []
-                        }
-                      ]
-                    }
-                  ]
-                },
-                "effect_none": {
-                  "type": "Combine",
-                  "effects": []
-                }
-              }
-            ]
-          }
-        },
-        {
           "type": "LineRangeProjectile",
           "name": "league_akali_q_fan",
           "width": 45000,
@@ -885,6 +745,107 @@
           "type": "MoveBack",
           "speed": 3000,
           "tick": 7
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_akali_w_cd",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "RandomTarget",
+            "range": 40000,
+            "casting_target": "EnemyChampion",
+            "from_projectile": false,
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_akali_w_go",
+                  "duration": {
+                    "Time": {
+                      "tick": 9
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              }
+            ]
+          }
+        },
+        {
+          "type": "Delayed",
+          "tick": 7,
+          "effects": [
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_akali_w_go",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_akali_w_go"
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_akali_w_cd",
+                      "duration": {
+                        "Time": {
+                          "tick": 1080
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "Sfx",
+                    "name": "league_akali_w_cast"
+                  },
+                  {
+                    "type": "CasterViewEffect",
+                    "name": "league_akali_w_smoke"
+                  },
+                  {
+                    "type": "CasterInvisible",
+                    "tick": 120
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_akali_w_ms1",
+                      "duration": {
+                        "Time": {
+                          "tick": 120
+                        }
+                      },
+                      "move_speed_mult": 20
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_akali_w_ms2",
+                      "duration": {
+                        "Time": {
+                          "tick": 60
+                        }
+                      },
+                      "move_speed_mult": 20
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": []
+              }
+            }
+          ]
         },
         {
           "type": "Delayed",

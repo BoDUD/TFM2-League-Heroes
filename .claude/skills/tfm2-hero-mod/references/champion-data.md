@@ -1534,18 +1534,20 @@ Then Hemomania, the frenzy of Head Rush with more attack and move speed plus `de
 and `vamp` 10, for 360 ticks. League's range is global and the frenzy lasts until she or the prey dies; with the
 AI casting it on any champion in range a global kick would send her alone across the map, so it reaches a bit
 more than a screen and lasts 6 s (the user's pick).
-**Invisible while she stands in her smoke (league_akali W, Twilight Shroud folded into Q).** Ekko's check "is the
-caster inside this zone" (section 4) keeps her hidden only inside the cloud: Q (every 3 s) runs W behind W's own
-18 s caster cooldown buff (Soraka's fold) and only when `RandomTarget {range: 40000, casting_target: EnemyChampion}`
-sets a 1-tick flag, so camps and waves never spend it. W is Ekko's anchor (a `LinearProjectile` with `speed` 1,
-`range` 1, `y_offset` 5000) whose `end_effects` start a `RangePeriodProjectile` (radius 30000, 300 ticks, `period`
-6, `applied_target: AllyChampion`) on her spot; its applied effect is `RandomTarget {range: 30000, casting_target:
-AllyOnlySelf, from_projectile: true}` -> `CasterInvisible {tick: 8}`, so each pulse renews the invisibility while
-she is inside and it runs out at most 8 ticks after she steps out, whichever ally set the pulse off. The cloud is a
-`CasterViewEffect` (not following) in the cast - a `ViewEffect` on her own spot would not show (league_thresh R).
-In the simulation the `EntityInvisibled` event came 6 ticks after the cast (the first pulse), went off 0.4-2 s later
-as she walked out after her target, and flickered on and off at the cloud's edge; over one 10-minute game she was
-invisible 12 times (720 ticks) and 4 of the 141 enemy actions aimed at her fell in those windows.
+**Hidden for a fixed time on landing, armed as she casts (league_akali W, Twilight Shroud folded into E).** E (every
+8 s) runs W behind W's own 18 s caster cooldown buff (Soraka's fold), armed at the cast: `RandomTarget {range: 40000,
+casting_target: EnemyChampion}` adds a flag buff that lasts past the landing (`MoveBack` 7 ticks + 2), and a
+`Delayed` 7 on landing fires only under that flag (`SwitchByBuff`, the flag removed): the smoke as a `CasterViewEffect`
+(not following: it stays where she landed - a `ViewEffect` on her own spot would not show, league_thresh R), a plain
+`CasterInvisible {tick: 120}` in the effect list, and the decaying move-speed buffs. Checking on landing instead missed
+the champion she was fighting: the flip puts her 21000 further back (24000 + 21000 > 40000). In the simulation W went
+off 3-6 times a 10-minute game and each `EntityInvisibled` window lasted 1.98 s, over the dash back.
+The first build folded W into Q as a zone, hidden only while she stood inside - still a working way to tie
+invisibility to an area: Ekko's anchor (a `LinearProjectile` with `speed` 1, `range` 1, `y_offset` 5000) whose
+`end_effects` start a `RangePeriodProjectile` (radius 30000, 300 ticks, `period` 6, `applied_target: AllyChampion`)
+applying `RandomTarget {range: 30000, casting_target: AllyOnlySelf, from_projectile: true}` -> `CasterInvisible {tick:
+8}`: each pulse renews it while she is inside, it ends at most 8 ticks after she steps out (and flickers at the edge).
+The user moved W to E; there she leaves the cloud 0.5 s later on the dash, so a fixed duration fits.
 
 **Flip back, throw, dash to what the throw hit (league_akali E, Shuriken Flip).** A `Targeting` cast on
 `EnemyWithoutTower`: `MoveBack {speed: 5000, tick: 4}` (20000 straight away from the target), then from a

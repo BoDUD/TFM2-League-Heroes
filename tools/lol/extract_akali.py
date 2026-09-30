@@ -54,7 +54,7 @@ CLIPS = {
     "league_akali_vo_r": ("Play_vo_Akali_AkaliR_cast3D", 1085450652, 0.7, -2),
     "league_akali_vo_r2": ("Play_vo_Akali_AkaliRb_cast3D", 311353754, 1.0, -2),
 }
-ICONS = {  # TFM2 slot -> Riot icon (Twilight Shroud rides on Five Point Strike, Assassin's Mark on the attack)
+ICONS = {  # TFM2 slot -> Riot icon (Twilight Shroud rides on Shuriken Flip, Assassin's Mark on the attack)
     "league_akali_skill": "ASSETS/Characters/Akali/HUD/Icons2D/Akali_Q.dds",
     "league_akali_skill2": "ASSETS/Characters/Akali/HUD/Icons2D/Akali_E.dds",
     "league_akali_ult": "ASSETS/Characters/Akali/HUD/Icons2D/Akali_R.dds",

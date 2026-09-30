@@ -12,7 +12,8 @@ assets/source/akali/akali_fx_<name>.png plus akali_fx_anchors.json.
 One scale per strip, set by the kit (1000 distance units a pixel): the kama hit 16 px, the empowered crescent 28,
 the mark's ground ring 36 wide, the ready motes' cell 34 wide round her 43 px body (the prompt's 34x32; its table
 still said 24x30), Q's fan 45 long (its cone's radius 45000: the view is centred on the line, the apex at the left
-end), its hit 12, the smoke 70 wide (its zone's radius 30000), the shuriken 12 tall (its tail trails left), its hit
+end), its hit 12, the smoke 70 wide (drawn for Q's 30000 zone; Twilight Shroud now rides E and hides her 2 s wherever
+she goes, so it only marks where she landed), the shuriken 12 tall (its tail trails left), its hit
 16, the mark over the head 12, E's dash streak 48 long, its slash 20, R's streak 64 long (the rush covers 72000), its
 pass-through slash 22 and the execution's X 30.
 Anchors, measured on each drawing: hits on their white core (or the drawing's middle once it has faded); the ring and
@@ -20,7 +21,7 @@ the smoke on their middle; the ready motes and the fan on their cell's middle; t
 mark on its middle; the two dash streaks on their left end (where she starts) at their middle height, so the streak
 lies along the path she runs.
 The second step places every cell by its anchor and times each view by the kit: the fan over its 14-tick line, the
-smoke over the zone's 5 s (open 1-3, frames 4-7 eleven times, fade 8-10), the buff views loop (the ready motes for
+smoke over the 2 s of invisibility (open 1-3, frames 4-7 three times, fade 8-10), the buff views loop (the ready motes for
 the 4 s window, the mark for its 0.7 s). No palette or outline pass on the sheets. Writes league/effects/league_akali_fx
 and league/effects/league_akali_big (q_fan, w_smoke, e_dash, r_dash).
 """
@@ -165,8 +166,8 @@ def cells(name, n):
     return [a[:, k * w:(k + 1) * w] for k in range(n)]
 
 
-# the smoke for the zone's 5 s: opening, the four-frame loop eleven times, fading
-SMOKE = [0, 1, 2] + [3, 4, 5, 6] * 11 + [7, 8, 9]
+# the smoke for the 2 s of invisibility: opening, the four-frame loop three times, fading (18 frames of 111 ms)
+SMOKE = [0, 1, 2] + [3, 4, 5, 6] * 3 + [7, 8, 9]
 
 # sprite: {tag: [(strip, its frames used, spot of the anchor from the pivot, ms per frame), ...]}
 FX = {
@@ -185,7 +186,7 @@ FX = {
     },
     "league_akali_big": {
         "q_fan": [("q_fan", range(6), (0, 0), [40, 40, 40, 40, 37, 36])],
-        "w_smoke": [("w_smoke", SMOKE, GROUND, [100] * len(SMOKE))],
+        "w_smoke": [("w_smoke", SMOKE, GROUND, [111] * len(SMOKE))],
         "e_dash": [("e_dash", range(5), HERS, [60] * 5)],
         "r_dash": [("r_dash", range(6), HERS, [60] * 6)],
     },

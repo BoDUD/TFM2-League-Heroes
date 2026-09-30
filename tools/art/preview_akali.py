@@ -7,12 +7,12 @@
   league_akali_effects.png   every effect animation, 3x
   league_akali_showcase.gif  a scripted fight, timed like the kit: Akali runs in and throws Five Point Strike at
                              Darius - the kunai fan hits him, the Assassin's Mark ring opens under his feet and her
-                             motes light up; Twilight Shroud (folded into Q) spreads its smoke at her feet and she
-                             fades in it; she flings the kama from twice her range, closes in and slashes twice;
-                             Shuriken Flip: she flips back, the shuriken hits and marks him, half a second later
-                             she dashes in and cuts; the mark again, the long-reach strike; Perfect Execution: she
-                             rushes through him, turns, strikes twice more and 2.5 s after the first rush rushes
-                             back through him for the execution; 3x
+                             motes light up; she flings the kama from twice her range, closes in and slashes twice;
+                             Shuriken Flip: she flips back and, landing, Twilight Shroud (folded into E) leaves its
+                             smoke on the spot and hides her for 2 s; the shuriken hits and marks him, half a second
+                             later she dashes in, still hidden, and cuts; the mark again, the long-reach strike;
+                             Perfect Execution: she rushes through him, turns, strikes twice more and 2.5 s after the
+                             first rush rushes back through him for the execution; 3x
 """
 import argparse
 import os
@@ -33,8 +33,8 @@ LEAGUE = os.path.join(ROOT, "league")
 CHAMP = os.path.join(LEAGUE, "champions", "league_akali")
 FX = {n: os.path.join(LEAGUE, "effects", n) for n in ("league_akali_fx", "league_akali_big")}
 SPEED = 66.0                                          # move speed 1100: 66 px a second
-SMOKE_R = 30                                          # the shroud's radius (30000)
-FADED = 0.45                                          # her opacity while the smoke hides her
+HIDDEN = 2000                                         # Twilight Shroud's invisibility, ms
+FADED = 0.45                                          # her opacity while she is invisible
 
 
 def showcase(out, z=3, step=40):
@@ -47,7 +47,7 @@ def showcase(out, z=3, step=40):
     body, under, over = [], [], []
     t = 0.0
     x = 60
-    smoke = []                                        # (t0, t1, x): where the shroud hides her
+    hidden = []                                       # (t0, t1): Twilight Shroud hides her
 
     def a(tag, dur=None, loop=False, way=None, flip=False):
         nonlocal t
@@ -91,15 +91,13 @@ def showcase(out, z=3, step=40):
     # she runs in to Q's range (38000)
     run_to(d.x - 38)
     # Five Point Strike: the fan leaves on tick 10 (a 14-tick line, its view on the line's middle); the cone hits him
-    # there; W folded in: a champion within 40000, so the shroud spreads at her feet for 5 s
+    # there
     q = t
     fan = q + tick(10)
     fx_at(big, "q_fan", fan, x + 22, gy - 6)
     over.append(OnFoe(frames_of(small, "q_hit"), fan, d, z=2))
     d.flinches.append(fan)
     mark(fan)
-    fx_at(big, "w_smoke", fan, x, gy, until=fan + 5000, loop=False)
-    smoke.append((fan, fan + 5000, x))
     a("skill", tick(25))
     # the long-reach strike: twice her range (48000), the kama flung out, the hit on tick 8
     use_mark(t)
@@ -111,11 +109,15 @@ def showcase(out, z=3, step=40):
         strike("hit", "attack", 25, 7)
         a("idle", tick(30), loop=True)
     # Shuriken Flip: back 3000 a tick for 7 ticks from tick 3, the shuriken on tick 14 (6000 a tick), then 30 ticks
-    # later the dash to the marked foe (6000 a tick) and the cut
+    # later the dash to the marked foe (6000 a tick) and the cut; W folded in (a champion within 40000 as she casts):
+    # on landing the smoke on the spot and 2 s of invisibility, so she dashes back hidden
     e = t
     back_to = x - 21
     a("skill2", tick(23), way=[(e + tick(3), x), (e + tick(10), back_to)])
     x = back_to
+    land = e + tick(10)
+    fx_at(big, "w_smoke", land, x, gy, loop=False)
+    hidden.append((land, land + HIDDEN))
     throw = e + tick(14)
     hand = (x + 8, gy - 8)
     arrive = throw + tick((d.x - 6 - hand[0]) / 6.0)
@@ -168,8 +170,8 @@ def showcase(out, z=3, step=40):
         over.append(Follow(frames_of(small, "p_ready"), r[0], x, gy, loop=True, until=r[1], on=body, z=1))
 
     def faded(f, bx, tt):
-        for t0, t1, sx in smoke:
-            if t0 <= tt < t1 and abs(bx - sx) <= SMOKE_R:
+        for t0, t1 in hidden:
+            if t0 <= tt < t1:
                 g = f.copy()
                 g.putalpha(g.getchannel("A").point(lambda v: int(v * FADED)))
                 return g
