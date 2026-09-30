@@ -39,9 +39,9 @@
   "attack": {
     "action_name": "attack",
     "description": "#asset/base/text/champion?description.league_riven.attack",
-    "duration": 22,
+    "duration": 26,
     "cooltime": 62,
-    "start_timing": 10,
+    "start_timing": 11,
     "cancelable": true,
     "range": 25000,
     "casting_type": "Targeting",
@@ -69,15 +69,21 @@
                   {
                     "type": "CasterAnimation",
                     "name": "ult",
-                    "tick": 40
+                    "tick": 31
                   },
                   {
                     "type": "Sfx",
                     "name": "league_riven_r_cast"
                   },
                   {
-                    "type": "CasterViewEffect",
-                    "name": "league_riven_r_cast"
+                    "type": "Delayed",
+                    "tick": 8,
+                    "effects": [
+                      {
+                        "type": "CasterViewEffect",
+                        "name": "league_riven_r_cast"
+                      }
+                    ]
                   },
                   {
                     "type": "SwitchByBuff",
@@ -283,7 +289,7 @@
                     {
                       "type": "CasterAnimation",
                       "name": "r_slash",
-                      "tick": 30
+                      "tick": 29
                     },
                     {
                       "type": "Sfx",
@@ -291,7 +297,7 @@
                     },
                     {
                       "type": "Delayed",
-                      "tick": 10,
+                      "tick": 8,
                       "effects": [
                         {
                           "type": "LinearProjectile",
@@ -476,7 +482,7 @@
   "skill": {
     "action_name": "skill",
     "description": "#asset/base/text/champion?description.league_riven.skill",
-    "duration": 22,
+    "duration": 28,
     "cooltime": 720,
     "start_timing": 1,
     "cancelable": false,
@@ -497,7 +503,7 @@
           {
             "type": "CasterAnimation",
             "name": "q3",
-            "tick": 30
+            "tick": 31
           },
           {
             "type": "Sfx",
@@ -635,99 +641,104 @@
             }
           },
           {
-            "type": "MoveToTarget",
-            "speed": 3000,
-            "range": 50000,
-            "end_effects": [
+            "type": "Delayed",
+            "tick": 2,
+            "effects": [
               {
-                "type": "Delayed",
-                "tick": 4,
-                "effects": [
-                  {
-                    "type": "CasterViewEffect",
-                    "name": "league_riven_q3_slam"
-                  },
-                  {
-                    "type": "Sfx",
-                    "name": "league_riven_q3_slam"
-                  },
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_riven_r",
-                    "effect_buff": {
-                      "type": "RangeEffect",
-                      "shape": {
-                        "Circle": {
-                          "radius": 32500
-                        }
-                      },
-                      "target": "EnemyWithoutTower",
-                      "apply_type": "AroundCaster",
-                      "effects": [
-                        {
-                          "type": "Attack",
-                          "damage": 20,
-                          "attack_ratio": 45,
-                          "hp_ratio": 0,
-                          "target_hp_ratio": 0,
-                          "attack_effect_type": "Target"
-                        },
-                        {
-                          "type": "Airborne",
-                          "duration": 45
-                        },
-                        {
-                          "type": "ViewEffect",
-                          "name": "league_riven_knockup"
-                        },
-                        {
-                          "type": "ViewEffect",
-                          "name": "league_riven_q_hit"
-                        },
-                        {
-                          "type": "TargetSfx",
-                          "name": "league_riven_q_hit"
-                        }
-                      ]
-                    },
-                    "effect_none": {
-                      "type": "RangeEffect",
-                      "shape": {
-                        "Circle": {
-                          "radius": 26000
-                        }
-                      },
-                      "target": "EnemyWithoutTower",
-                      "apply_type": "AroundCaster",
-                      "effects": [
-                        {
-                          "type": "Attack",
-                          "damage": 20,
-                          "attack_ratio": 45,
-                          "hp_ratio": 0,
-                          "target_hp_ratio": 0,
-                          "attack_effect_type": "Target"
-                        },
-                        {
-                          "type": "Airborne",
-                          "duration": 45
-                        },
-                        {
-                          "type": "ViewEffect",
-                          "name": "league_riven_knockup"
-                        },
-                        {
-                          "type": "ViewEffect",
-                          "name": "league_riven_q_hit"
-                        },
-                        {
-                          "type": "TargetSfx",
-                          "name": "league_riven_q_hit"
-                        }
-                      ]
+                "type": "MoveToTarget",
+                "speed": 3000,
+                "range": 50000,
+                "end_effects": []
+              }
+            ]
+          },
+          {
+            "type": "Delayed",
+            "tick": 14,
+            "effects": [
+              {
+                "type": "CasterViewEffect",
+                "name": "league_riven_q3_slam"
+              },
+              {
+                "type": "Sfx",
+                "name": "league_riven_q3_slam"
+              },
+              {
+                "type": "SwitchByBuff",
+                "buff_name": "league_riven_r",
+                "effect_buff": {
+                  "type": "RangeEffect",
+                  "shape": {
+                    "Circle": {
+                      "radius": 32500
                     }
-                  }
-                ]
+                  },
+                  "target": "EnemyWithoutTower",
+                  "apply_type": "AroundCaster",
+                  "effects": [
+                    {
+                      "type": "Attack",
+                      "damage": 20,
+                      "attack_ratio": 45,
+                      "hp_ratio": 0,
+                      "target_hp_ratio": 0,
+                      "attack_effect_type": "Target"
+                    },
+                    {
+                      "type": "Airborne",
+                      "duration": 45
+                    },
+                    {
+                      "type": "ViewEffect",
+                      "name": "league_riven_knockup"
+                    },
+                    {
+                      "type": "ViewEffect",
+                      "name": "league_riven_q_hit"
+                    },
+                    {
+                      "type": "TargetSfx",
+                      "name": "league_riven_q_hit"
+                    }
+                  ]
+                },
+                "effect_none": {
+                  "type": "RangeEffect",
+                  "shape": {
+                    "Circle": {
+                      "radius": 26000
+                    }
+                  },
+                  "target": "EnemyWithoutTower",
+                  "apply_type": "AroundCaster",
+                  "effects": [
+                    {
+                      "type": "Attack",
+                      "damage": 20,
+                      "attack_ratio": 45,
+                      "hp_ratio": 0,
+                      "target_hp_ratio": 0,
+                      "attack_effect_type": "Target"
+                    },
+                    {
+                      "type": "Airborne",
+                      "duration": 45
+                    },
+                    {
+                      "type": "ViewEffect",
+                      "name": "league_riven_knockup"
+                    },
+                    {
+                      "type": "ViewEffect",
+                      "name": "league_riven_q_hit"
+                    },
+                    {
+                      "type": "TargetSfx",
+                      "name": "league_riven_q_hit"
+                    }
+                  ]
+                }
               }
             ]
           }
@@ -758,11 +769,7 @@
             {
               "type": "CasterAnimation",
               "name": "q2",
-              "tick": 22
-            },
-            {
-              "type": "Sfx",
-              "name": "league_riven_q2"
+              "tick": 28
             },
             {
               "type": "SwitchByBuff",
@@ -896,79 +903,88 @@
               }
             },
             {
-              "type": "MoveToTarget",
-              "speed": 3000,
-              "range": 50000,
-              "end_effects": [
+              "type": "Delayed",
+              "tick": 2,
+              "effects": [
                 {
-                  "type": "Delayed",
-                  "tick": 2,
-                  "effects": [
-                    {
-                      "type": "CasterViewEffect",
-                      "name": "league_riven_q2_slash"
-                    },
-                    {
-                      "type": "SwitchByBuff",
-                      "buff_name": "league_riven_r",
-                      "effect_buff": {
-                        "type": "RangeEffect",
-                        "shape": {
-                          "Circle": {
-                            "radius": 27500
-                          }
-                        },
-                        "target": "EnemyWithoutTower",
-                        "apply_type": "AroundCaster",
-                        "effects": [
-                          {
-                            "type": "Attack",
-                            "damage": 20,
-                            "attack_ratio": 45,
-                            "hp_ratio": 0,
-                            "target_hp_ratio": 0,
-                            "attack_effect_type": "Target"
-                          },
-                          {
-                            "type": "ViewEffect",
-                            "name": "league_riven_q_hit"
-                          },
-                          {
-                            "type": "TargetSfx",
-                            "name": "league_riven_q_hit"
-                          }
-                        ]
-                      },
-                      "effect_none": {
-                        "type": "RangeEffect",
-                        "shape": {
-                          "Circle": {
-                            "radius": 22000
-                          }
-                        },
-                        "target": "EnemyWithoutTower",
-                        "apply_type": "AroundCaster",
-                        "effects": [
-                          {
-                            "type": "Attack",
-                            "damage": 20,
-                            "attack_ratio": 45,
-                            "hp_ratio": 0,
-                            "target_hp_ratio": 0,
-                            "attack_effect_type": "Target"
-                          },
-                          {
-                            "type": "ViewEffect",
-                            "name": "league_riven_q_hit"
-                          },
-                          {
-                            "type": "TargetSfx",
-                            "name": "league_riven_q_hit"
-                          }
-                        ]
+                  "type": "MoveToTarget",
+                  "speed": 6000,
+                  "range": 50000,
+                  "end_effects": []
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 12,
+              "effects": [
+                {
+                  "type": "Sfx",
+                  "name": "league_riven_q2"
+                },
+                {
+                  "type": "CasterViewEffect",
+                  "name": "league_riven_q2_slash"
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_riven_r",
+                  "effect_buff": {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 27500
                       }
-                    }
-                  ]
+                    },
+                    "target": "EnemyWithoutTower",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
+                        "type": "Attack",
+                        "damage": 20,
+                        "attack_ratio": 45,
+                        "hp_ratio": 0,
+                        "target_hp_ratio": 0,
+                        "attack_effect_type": "Target"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "league_riven_q_hit"
+                      },
+                      {
+                        "type": "TargetSfx",
+                        "name": "league_riven_q_hit"
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 22000
+                      }
+                    },
+                    "target": "EnemyWithoutTower",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
+                        "type": "Attack",
+                        "damage": 20,
+                        "attack_ratio": 45,
+                        "hp_ratio": 0,
+                        "target_hp_ratio": 0,
+                        "attack_effect_type": "Target"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "league_riven_q_hit"
+                      },
+                      {
+                        "type": "TargetSfx",
+                        "name": "league_riven_q_hit"
+                      }
+                    ]
+                  }
                 }
               ]
             }
@@ -992,11 +1008,7 @@
             {
               "type": "CasterAnimation",
               "name": "skill",
-              "tick": 22
-            },
-            {
-              "type": "Sfx",
-              "name": "league_riven_q1"
+              "tick": 28
             },
             {
               "type": "SwitchByBuff",
@@ -1130,79 +1142,88 @@
               }
             },
             {
-              "type": "MoveToTarget",
-              "speed": 3000,
-              "range": 50000,
-              "end_effects": [
+              "type": "Delayed",
+              "tick": 2,
+              "effects": [
                 {
-                  "type": "Delayed",
-                  "tick": 2,
-                  "effects": [
-                    {
-                      "type": "CasterViewEffect",
-                      "name": "league_riven_q1_slash"
-                    },
-                    {
-                      "type": "SwitchByBuff",
-                      "buff_name": "league_riven_r",
-                      "effect_buff": {
-                        "type": "RangeEffect",
-                        "shape": {
-                          "Circle": {
-                            "radius": 27500
-                          }
-                        },
-                        "target": "EnemyWithoutTower",
-                        "apply_type": "AroundCaster",
-                        "effects": [
-                          {
-                            "type": "Attack",
-                            "damage": 20,
-                            "attack_ratio": 45,
-                            "hp_ratio": 0,
-                            "target_hp_ratio": 0,
-                            "attack_effect_type": "Target"
-                          },
-                          {
-                            "type": "ViewEffect",
-                            "name": "league_riven_q_hit"
-                          },
-                          {
-                            "type": "TargetSfx",
-                            "name": "league_riven_q_hit"
-                          }
-                        ]
-                      },
-                      "effect_none": {
-                        "type": "RangeEffect",
-                        "shape": {
-                          "Circle": {
-                            "radius": 22000
-                          }
-                        },
-                        "target": "EnemyWithoutTower",
-                        "apply_type": "AroundCaster",
-                        "effects": [
-                          {
-                            "type": "Attack",
-                            "damage": 20,
-                            "attack_ratio": 45,
-                            "hp_ratio": 0,
-                            "target_hp_ratio": 0,
-                            "attack_effect_type": "Target"
-                          },
-                          {
-                            "type": "ViewEffect",
-                            "name": "league_riven_q_hit"
-                          },
-                          {
-                            "type": "TargetSfx",
-                            "name": "league_riven_q_hit"
-                          }
-                        ]
+                  "type": "MoveToTarget",
+                  "speed": 6000,
+                  "range": 50000,
+                  "end_effects": []
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 12,
+              "effects": [
+                {
+                  "type": "Sfx",
+                  "name": "league_riven_q1"
+                },
+                {
+                  "type": "CasterViewEffect",
+                  "name": "league_riven_q1_slash"
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_riven_r",
+                  "effect_buff": {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 27500
                       }
-                    }
-                  ]
+                    },
+                    "target": "EnemyWithoutTower",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
+                        "type": "Attack",
+                        "damage": 20,
+                        "attack_ratio": 45,
+                        "hp_ratio": 0,
+                        "target_hp_ratio": 0,
+                        "attack_effect_type": "Target"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "league_riven_q_hit"
+                      },
+                      {
+                        "type": "TargetSfx",
+                        "name": "league_riven_q_hit"
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 22000
+                      }
+                    },
+                    "target": "EnemyWithoutTower",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
+                        "type": "Attack",
+                        "damage": 20,
+                        "attack_ratio": 45,
+                        "hp_ratio": 0,
+                        "target_hp_ratio": 0,
+                        "attack_effect_type": "Target"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "league_riven_q_hit"
+                      },
+                      {
+                        "type": "TargetSfx",
+                        "name": "league_riven_q_hit"
+                      }
+                    ]
+                  }
                 }
               ]
             }
@@ -1215,7 +1236,7 @@
   "skill2": {
     "action_name": "skill2",
     "description": "#asset/base/text/champion?description.league_riven.skill2",
-    "duration": 34,
+    "duration": 33,
     "cooltime": 540,
     "start_timing": 1,
     "cancelable": false,
@@ -1256,7 +1277,7 @@
         {
           "type": "CasterAnimation",
           "name": "skill2",
-          "tick": 34
+          "tick": 33
         },
         {
           "type": "Sfx",
@@ -1394,222 +1415,227 @@
           }
         },
         {
-          "type": "MoveToTarget",
-          "speed": 3000,
-          "range": 55000,
-          "end_effects": [
+          "type": "Delayed",
+          "tick": 1,
+          "effects": [
             {
-              "type": "Delayed",
-              "tick": 4,
-              "effects": [
-                {
-                  "type": "CasterViewEffect",
-                  "name": "league_riven_w_burst"
-                },
-                {
-                  "type": "Sfx",
-                  "name": "league_riven_w"
-                },
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_riven_rune_2",
-                  "effect_buff": {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_riven_rune_1"
-                      },
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_riven_rune_2"
-                      },
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_riven_rune_3"
-                      },
-                      {
-                        "type": "AddCasterBuff",
-                        "buff_state": {
-                          "name": "league_riven_rune_1",
-                          "duration": {
-                            "Time": {
-                              "tick": 360
-                            }
-                          }
-                        },
-                        "only_to_enemy": false
-                      },
-                      {
-                        "type": "AddCasterBuff",
-                        "buff_state": {
-                          "name": "league_riven_rune_2",
-                          "duration": {
-                            "Time": {
-                              "tick": 360
-                            }
-                          }
-                        },
-                        "only_to_enemy": false
-                      },
-                      {
-                        "type": "AddCasterBuff",
-                        "buff_state": {
-                          "name": "league_riven_rune_3",
-                          "duration": {
-                            "Time": {
-                              "tick": 360
-                            }
-                          }
-                        },
-                        "only_to_enemy": false
-                      }
-                    ]
+              "type": "MoveToTarget",
+              "speed": 5000,
+              "range": 55000,
+              "end_effects": []
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 12,
+          "effects": [
+            {
+              "type": "CasterViewEffect",
+              "name": "league_riven_w_burst"
+            },
+            {
+              "type": "Sfx",
+              "name": "league_riven_w"
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_riven_rune_2",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_riven_rune_1"
                   },
-                  "effect_none": {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_riven_rune_1",
-                    "effect_buff": {
-                      "type": "Combine",
-                      "effects": [
-                        {
-                          "type": "RemoveCasterBuff",
-                          "name": "league_riven_rune_1"
-                        },
-                        {
-                          "type": "RemoveCasterBuff",
-                          "name": "league_riven_rune_2"
-                        },
-                        {
-                          "type": "RemoveCasterBuff",
-                          "name": "league_riven_rune_3"
-                        },
-                        {
-                          "type": "AddCasterBuff",
-                          "buff_state": {
-                            "name": "league_riven_rune_1",
-                            "duration": {
-                              "Time": {
-                                "tick": 360
-                              }
-                            }
-                          },
-                          "only_to_enemy": false
-                        },
-                        {
-                          "type": "AddCasterBuff",
-                          "buff_state": {
-                            "name": "league_riven_rune_2",
-                            "duration": {
-                              "Time": {
-                                "tick": 360
-                              }
-                            }
-                          },
-                          "only_to_enemy": false
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_riven_rune_2"
+                  },
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_riven_rune_3"
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_riven_rune_1",
+                      "duration": {
+                        "Time": {
+                          "tick": 360
                         }
-                      ]
+                      }
                     },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": [
-                        {
-                          "type": "RemoveCasterBuff",
-                          "name": "league_riven_rune_1"
-                        },
-                        {
-                          "type": "RemoveCasterBuff",
-                          "name": "league_riven_rune_2"
-                        },
-                        {
-                          "type": "RemoveCasterBuff",
-                          "name": "league_riven_rune_3"
-                        },
-                        {
-                          "type": "AddCasterBuff",
-                          "buff_state": {
-                            "name": "league_riven_rune_1",
-                            "duration": {
-                              "Time": {
-                                "tick": 360
-                              }
-                            }
-                          },
-                          "only_to_enemy": false
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_riven_rune_2",
+                      "duration": {
+                        "Time": {
+                          "tick": 360
                         }
-                      ]
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_riven_rune_3",
+                      "duration": {
+                        "Time": {
+                          "tick": 360
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_riven_rune_1",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_riven_rune_1"
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_riven_rune_2"
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_riven_rune_3"
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_riven_rune_1",
+                        "duration": {
+                          "Time": {
+                            "tick": 360
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_riven_rune_2",
+                        "duration": {
+                          "Time": {
+                            "tick": 360
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
                     }
+                  ]
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_riven_rune_1"
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_riven_rune_2"
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_riven_rune_3"
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_riven_rune_1",
+                        "duration": {
+                          "Time": {
+                            "tick": 360
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_riven_r",
+              "effect_buff": {
+                "type": "RangeEffect",
+                "shape": {
+                  "Circle": {
+                    "radius": 31250
                   }
                 },
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_riven_r",
-                  "effect_buff": {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 31250
-                      }
-                    },
-                    "target": "EnemyWithoutTower",
-                    "apply_type": "AroundCaster",
-                    "effects": [
-                      {
-                        "type": "Attack",
-                        "damage": 50,
-                        "attack_ratio": 80,
-                        "hp_ratio": 0,
-                        "target_hp_ratio": 0,
-                        "attack_effect_type": "Target"
-                      },
-                      {
-                        "type": "Stun",
-                        "duration": 45
-                      },
-                      {
-                        "type": "ViewEffect",
-                        "name": "league_riven_stun"
-                      },
-                      {
-                        "type": "TargetSfx",
-                        "name": "league_riven_w_hit"
-                      }
-                    ]
+                "target": "EnemyWithoutTower",
+                "apply_type": "AroundCaster",
+                "effects": [
+                  {
+                    "type": "Attack",
+                    "damage": 50,
+                    "attack_ratio": 80,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 0,
+                    "attack_effect_type": "Target"
                   },
-                  "effect_none": {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 25000
-                      }
-                    },
-                    "target": "EnemyWithoutTower",
-                    "apply_type": "AroundCaster",
-                    "effects": [
-                      {
-                        "type": "Attack",
-                        "damage": 50,
-                        "attack_ratio": 80,
-                        "hp_ratio": 0,
-                        "target_hp_ratio": 0,
-                        "attack_effect_type": "Target"
-                      },
-                      {
-                        "type": "Stun",
-                        "duration": 45
-                      },
-                      {
-                        "type": "ViewEffect",
-                        "name": "league_riven_stun"
-                      },
-                      {
-                        "type": "TargetSfx",
-                        "name": "league_riven_w_hit"
-                      }
-                    ]
+                  {
+                    "type": "Stun",
+                    "duration": 45
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "league_riven_stun"
+                  },
+                  {
+                    "type": "TargetSfx",
+                    "name": "league_riven_w_hit"
                   }
-                }
-              ]
+                ]
+              },
+              "effect_none": {
+                "type": "RangeEffect",
+                "shape": {
+                  "Circle": {
+                    "radius": 25000
+                  }
+                },
+                "target": "EnemyWithoutTower",
+                "apply_type": "AroundCaster",
+                "effects": [
+                  {
+                    "type": "Attack",
+                    "damage": 50,
+                    "attack_ratio": 80,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 0,
+                    "attack_effect_type": "Target"
+                  },
+                  {
+                    "type": "Stun",
+                    "duration": 45
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "league_riven_stun"
+                  },
+                  {
+                    "type": "TargetSfx",
+                    "name": "league_riven_w_hit"
+                  }
+                ]
+              }
             }
           ]
         }
@@ -1658,15 +1684,21 @@
                 {
                   "type": "CasterAnimation",
                   "name": "ult",
-                  "tick": 40
+                  "tick": 31
                 },
                 {
                   "type": "Sfx",
                   "name": "league_riven_r_cast"
                 },
                 {
-                  "type": "CasterViewEffect",
-                  "name": "league_riven_r_cast"
+                  "type": "Delayed",
+                  "tick": 8,
+                  "effects": [
+                    {
+                      "type": "CasterViewEffect",
+                      "name": "league_riven_r_cast"
+                    }
+                  ]
                 },
                 {
                   "type": "SwitchByBuff",
@@ -1907,7 +1939,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "r_slash",
-                          "tick": 30
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -1915,7 +1947,7 @@
                         },
                         {
                           "type": "Delayed",
-                          "tick": 10,
+                          "tick": 8,
                           "effects": [
                             {
                               "type": "LinearProjectile",
@@ -2003,7 +2035,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "r_slash",
-                          "tick": 30
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -2011,7 +2043,7 @@
                         },
                         {
                           "type": "Delayed",
-                          "tick": 10,
+                          "tick": 8,
                           "effects": [
                             {
                               "type": "LinearProjectile",
@@ -2099,7 +2131,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "r_slash",
-                          "tick": 30
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -2107,7 +2139,7 @@
                         },
                         {
                           "type": "Delayed",
-                          "tick": 10,
+                          "tick": 8,
                           "effects": [
                             {
                               "type": "LinearProjectile",
@@ -2195,7 +2227,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "r_slash",
-                          "tick": 30
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -2203,7 +2235,7 @@
                         },
                         {
                           "type": "Delayed",
-                          "tick": 10,
+                          "tick": 8,
                           "effects": [
                             {
                               "type": "LinearProjectile",
@@ -2291,7 +2323,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "r_slash",
-                          "tick": 30
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -2299,7 +2331,7 @@
                         },
                         {
                           "type": "Delayed",
-                          "tick": 10,
+                          "tick": 8,
                           "effects": [
                             {
                               "type": "LinearProjectile",
@@ -2387,7 +2419,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "r_slash",
-                          "tick": 30
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -2395,7 +2427,7 @@
                         },
                         {
                           "type": "Delayed",
-                          "tick": 10,
+                          "tick": 8,
                           "effects": [
                             {
                               "type": "LinearProjectile",
@@ -2483,7 +2515,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "r_slash",
-                          "tick": 30
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -2491,7 +2523,7 @@
                         },
                         {
                           "type": "Delayed",
-                          "tick": 10,
+                          "tick": 8,
                           "effects": [
                             {
                               "type": "LinearProjectile",
@@ -2579,7 +2611,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "r_slash",
-                          "tick": 30
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -2587,7 +2619,7 @@
                         },
                         {
                           "type": "Delayed",
-                          "tick": 10,
+                          "tick": 8,
                           "effects": [
                             {
                               "type": "LinearProjectile",
@@ -2675,7 +2707,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "r_slash",
-                          "tick": 30
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -2683,7 +2715,7 @@
                         },
                         {
                           "type": "Delayed",
-                          "tick": 10,
+                          "tick": 8,
                           "effects": [
                             {
                               "type": "LinearProjectile",
@@ -2771,7 +2803,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "r_slash",
-                          "tick": 30
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -2779,7 +2811,7 @@
                         },
                         {
                           "type": "Delayed",
-                          "tick": 10,
+                          "tick": 8,
                           "effects": [
                             {
                               "type": "LinearProjectile",
@@ -2867,7 +2899,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "r_slash",
-                          "tick": 30
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -2875,7 +2907,7 @@
                         },
                         {
                           "type": "Delayed",
-                          "tick": 10,
+                          "tick": 8,
                           "effects": [
                             {
                               "type": "LinearProjectile",
@@ -2963,7 +2995,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "r_slash",
-                          "tick": 30
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -2971,7 +3003,7 @@
                         },
                         {
                           "type": "Delayed",
-                          "tick": 10,
+                          "tick": 8,
                           "effects": [
                             {
                               "type": "LinearProjectile",
@@ -3059,7 +3091,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "r_slash",
-                          "tick": 30
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -3067,7 +3099,7 @@
                         },
                         {
                           "type": "Delayed",
-                          "tick": 10,
+                          "tick": 8,
                           "effects": [
                             {
                               "type": "LinearProjectile",
@@ -3155,7 +3187,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "r_slash",
-                          "tick": 30
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -3163,7 +3195,7 @@
                         },
                         {
                           "type": "Delayed",
-                          "tick": 10,
+                          "tick": 8,
                           "effects": [
                             {
                               "type": "LinearProjectile",
@@ -3251,7 +3283,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "r_slash",
-                          "tick": 30
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -3259,7 +3291,7 @@
                         },
                         {
                           "type": "Delayed",
-                          "tick": 10,
+                          "tick": 8,
                           "effects": [
                             {
                               "type": "LinearProjectile",
@@ -3347,7 +3379,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "r_slash",
-                          "tick": 30
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -3355,7 +3387,7 @@
                         },
                         {
                           "type": "Delayed",
-                          "tick": 10,
+                          "tick": 8,
                           "effects": [
                             {
                               "type": "LinearProjectile",
@@ -3443,7 +3475,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "r_slash",
-                          "tick": 30
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -3451,7 +3483,7 @@
                         },
                         {
                           "type": "Delayed",
-                          "tick": 10,
+                          "tick": 8,
                           "effects": [
                             {
                               "type": "LinearProjectile",
@@ -3539,7 +3571,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "r_slash",
-                          "tick": 30
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -3547,7 +3579,7 @@
                         },
                         {
                           "type": "Delayed",
-                          "tick": 10,
+                          "tick": 8,
                           "effects": [
                             {
                               "type": "LinearProjectile",
@@ -3635,7 +3667,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "r_slash",
-                          "tick": 30
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -3643,7 +3675,7 @@
                         },
                         {
                           "type": "Delayed",
-                          "tick": 10,
+                          "tick": 8,
                           "effects": [
                             {
                               "type": "LinearProjectile",
@@ -3731,7 +3763,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "r_slash",
-                          "tick": 30
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -3739,7 +3771,7 @@
                         },
                         {
                           "type": "Delayed",
-                          "tick": 10,
+                          "tick": 8,
                           "effects": [
                             {
                               "type": "LinearProjectile",
@@ -3827,7 +3859,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "r_slash",
-                          "tick": 30
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -3835,7 +3867,7 @@
                         },
                         {
                           "type": "Delayed",
-                          "tick": 10,
+                          "tick": 8,
                           "effects": [
                             {
                               "type": "LinearProjectile",
@@ -3923,7 +3955,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "r_slash",
-                          "tick": 30
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -3931,7 +3963,7 @@
                         },
                         {
                           "type": "Delayed",
-                          "tick": 10,
+                          "tick": 8,
                           "effects": [
                             {
                               "type": "LinearProjectile",
@@ -4019,7 +4051,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "r_slash",
-                          "tick": 30
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -4027,7 +4059,7 @@
                         },
                         {
                           "type": "Delayed",
-                          "tick": 10,
+                          "tick": 8,
                           "effects": [
                             {
                               "type": "LinearProjectile",
@@ -4115,7 +4147,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "r_slash",
-                          "tick": 30
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -4123,7 +4155,7 @@
                         },
                         {
                           "type": "Delayed",
-                          "tick": 10,
+                          "tick": 8,
                           "effects": [
                             {
                               "type": "LinearProjectile",
@@ -4211,7 +4243,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "r_slash",
-                          "tick": 30
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -4219,7 +4251,7 @@
                         },
                         {
                           "type": "Delayed",
-                          "tick": 10,
+                          "tick": 8,
                           "effects": [
                             {
                               "type": "LinearProjectile",
@@ -4307,7 +4339,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "r_slash",
-                          "tick": 30
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -4315,7 +4347,7 @@
                         },
                         {
                           "type": "Delayed",
-                          "tick": 10,
+                          "tick": 8,
                           "effects": [
                             {
                               "type": "LinearProjectile",
@@ -4403,7 +4435,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "r_slash",
-                          "tick": 30
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -4411,7 +4443,7 @@
                         },
                         {
                           "type": "Delayed",
-                          "tick": 10,
+                          "tick": 8,
                           "effects": [
                             {
                               "type": "LinearProjectile",
@@ -4499,7 +4531,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "r_slash",
-                          "tick": 30
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -4507,7 +4539,7 @@
                         },
                         {
                           "type": "Delayed",
-                          "tick": 10,
+                          "tick": 8,
                           "effects": [
                             {
                               "type": "LinearProjectile",
@@ -4595,7 +4627,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "r_slash",
-                          "tick": 30
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -4603,7 +4635,7 @@
                         },
                         {
                           "type": "Delayed",
-                          "tick": 10,
+                          "tick": 8,
                           "effects": [
                             {
                               "type": "LinearProjectile",
@@ -4691,7 +4723,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "r_slash",
-                          "tick": 30
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -4699,7 +4731,7 @@
                         },
                         {
                           "type": "Delayed",
-                          "tick": 10,
+                          "tick": 8,
                           "effects": [
                             {
                               "type": "LinearProjectile",
@@ -4787,7 +4819,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "r_slash",
-                          "tick": 30
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -4795,7 +4827,7 @@
                         },
                         {
                           "type": "Delayed",
-                          "tick": 10,
+                          "tick": 8,
                           "effects": [
                             {
                               "type": "LinearProjectile",
@@ -4883,7 +4915,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "r_slash",
-                          "tick": 30
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -4891,7 +4923,7 @@
                         },
                         {
                           "type": "Delayed",
-                          "tick": 10,
+                          "tick": 8,
                           "effects": [
                             {
                               "type": "LinearProjectile",
@@ -4979,7 +5011,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "r_slash",
-                          "tick": 30
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -4987,7 +5019,7 @@
                         },
                         {
                           "type": "Delayed",
-                          "tick": 10,
+                          "tick": 8,
                           "effects": [
                             {
                               "type": "LinearProjectile",
@@ -5075,7 +5107,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "r_slash",
-                          "tick": 30
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -5083,7 +5115,7 @@
                         },
                         {
                           "type": "Delayed",
-                          "tick": 10,
+                          "tick": 8,
                           "effects": [
                             {
                               "type": "LinearProjectile",
@@ -5171,7 +5203,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "r_slash",
-                          "tick": 30
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -5179,7 +5211,7 @@
                         },
                         {
                           "type": "Delayed",
-                          "tick": 10,
+                          "tick": 8,
                           "effects": [
                             {
                               "type": "LinearProjectile",
@@ -5267,7 +5299,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "r_slash",
-                          "tick": 30
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -5275,7 +5307,7 @@
                         },
                         {
                           "type": "Delayed",
-                          "tick": 10,
+                          "tick": 8,
                           "effects": [
                             {
                               "type": "LinearProjectile",
@@ -5363,7 +5395,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "r_slash",
-                          "tick": 30
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -5371,7 +5403,7 @@
                         },
                         {
                           "type": "Delayed",
-                          "tick": 10,
+                          "tick": 8,
                           "effects": [
                             {
                               "type": "LinearProjectile",
@@ -5459,7 +5491,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "r_slash",
-                          "tick": 30
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -5467,7 +5499,7 @@
                         },
                         {
                           "type": "Delayed",
-                          "tick": 10,
+                          "tick": 8,
                           "effects": [
                             {
                               "type": "LinearProjectile",
@@ -5555,7 +5587,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "r_slash",
-                          "tick": 30
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -5563,7 +5595,7 @@
                         },
                         {
                           "type": "Delayed",
-                          "tick": 10,
+                          "tick": 8,
                           "effects": [
                             {
                               "type": "LinearProjectile",
@@ -5651,7 +5683,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "r_slash",
-                          "tick": 30
+                          "tick": 29
                         },
                         {
                           "type": "Sfx",
@@ -5659,7 +5691,7 @@
                         },
                         {
                           "type": "Delayed",
-                          "tick": 10,
+                          "tick": 8,
                           "effects": [
                             {
                               "type": "LinearProjectile",
