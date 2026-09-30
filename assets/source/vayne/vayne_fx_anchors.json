@@ -11,7 +11,7 @@
   "e_hit": {"cell": [29, 29], "anchor": [14, 14], "frames": 5},
   "e_stun": {"cell": [25, 27], "anchor": [12, 13], "frames": 4},
   "e_stars": {"cell": [19, 9], "anchor": [9, 4], "frames": 4},
-  "r_cast": {"cell": [49, 119], "anchor": [24, 59], "frames": 7},
-  "r_refresh": {"cell": [43, 105], "anchor": [21, 52], "frames": 5},
-  "r_aura": {"cell": [49, 119], "anchor": [24, 59], "frames": 4}
+  "r_cast": {"cell": [41, 99], "anchor": [20, 49], "frames": 7},
+  "r_refresh": {"cell": [35, 87], "anchor": [17, 43], "frames": 5},
+  "r_aura": {"cell": [41, 99], "anchor": [20, 49], "frames": 4}
 }

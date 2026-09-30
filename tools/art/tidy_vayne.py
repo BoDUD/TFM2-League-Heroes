@@ -235,7 +235,7 @@ def main():
     cells = json.load(open(os.path.join(o.delivery, "vayne_cells.json"), encoding="utf-8"))
     cw, ch = cells["cell"][0], cells["cell"][1]
     fig0 = design()
-    face = X.face_patch(X.design_canvas())
+    face = X.face_patch(X.Design())
     pal = {col(fig0, y, x) for y, x in zip(*np.nonzero(fig0[..., 3] > 0))}
     darea = int((fig0[..., 3] > 0).sum())
     bad = []

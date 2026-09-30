@@ -19,9 +19,10 @@ game, so they are made exactly symmetric about their core's row. Final Hour's pi
 drawn under the units (z -1, the kit), so her own body covers what is behind it. The tool packed their 7 and 5
 frames into its fixed canvas (frames 0.40 and 0.56 as wide as tall, the pack asked 0.75), so they are sampled back
 into 3:4 cells, x and y each to its own scale.
-Sizes (game px): the bolt 16 with its trail (12 left a 4 px arrow), Tumble's bolt 18, Condemn's 24 (long); the hits 12, 20 and 24; Silver Bolts' rings
-16 and 18 across, the burst 26; the roll's smoke 28 wide; the slam 20 and its stars 16; Final Hour's cast and aura
-48 x 64 cells, the refresh 42 x 56 (her figure is 48 tall with the ponytail).
+Sizes (game px): the bolt 16 with its trail (12 left a 4 px arrow), Tumble's bolt 18, Condemn's 24 (long); the hits
+12, 20 and 24; Silver Bolts' rings 16 and 18 across, the burst 26; the roll's smoke 28 wide; the slam 20 and its stars
+16; Final Hour's cast and aura 40 x 53 cells, the refresh 35 x 47 (her figure is 40 tall with the ponytail; they were
+48 x 64 and 42 x 56 round the first, 48-row design).
 Anchors, measured on each drawing: the bolts on their white core (their head); the hits and the burst on their core
 or the first full frame's middle; the rings on their middle; the smoke on its lowest row; the slam on its middle,
 its stars on theirs; Final Hour's cells on the point 92% down their middle, where the pack put her feet.
@@ -78,9 +79,9 @@ RAW = {
     "e_stun": dict(n=8, frames=[0, 1, 2, 3], size=20, measure="w", x=("frame", [1]), y=("frame", [1])),
     "e_stars": dict(src="e_stun", n=8, frames=[4, 5, 6, 7], size=16, measure="w", x=("frame", [4, 5, 6, 7]),
                     y=("frame", [4, 5, 6, 7])),
-    "r_cast": dict(n=7, cell=(48, 64), x=("cellfrac", 0.5, 0.92), y=("cellfrac", 0.5, 0.92)),
-    "r_refresh": dict(n=5, cell=(42, 56), x=("cellfrac", 0.5, 0.92), y=("cellfrac", 0.5, 0.92)),
-    "r_aura": dict(n=4, cell=(48, 64), x=("cellfrac", 0.5, 0.92), y=("cellfrac", 0.5, 0.92)),
+    "r_cast": dict(n=7, cell=(40, 53), x=("cellfrac", 0.5, 0.92), y=("cellfrac", 0.5, 0.92)),
+    "r_refresh": dict(n=5, cell=(35, 47), x=("cellfrac", 0.5, 0.92), y=("cellfrac", 0.5, 0.92)),
+    "r_aura": dict(n=4, cell=(40, 53), x=("cellfrac", 0.5, 0.92), y=("cellfrac", 0.5, 0.92)),
 }
 
 
