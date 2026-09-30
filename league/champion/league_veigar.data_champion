@@ -1,0 +1,2317 @@
+{
+  "id": "league_veigar",
+  "category": "Magician",
+  "tags": [
+    "AP",
+    "Magic",
+    "Range",
+    "CC"
+  ],
+  "sprite": "asset/league/champions/league_veigar",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/league/icons/league_veigar_skill",
+    "asset/league/icons/league_veigar_skill2",
+    "asset/league/icons/league_veigar_ult"
+  ],
+  "stat": {
+    "attack": 75,
+    "magic_power": 30,
+    "hp": 850,
+    "defence": 20,
+    "magic_resistance": 20,
+    "move_speed": 900,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 6,
+    "magic_power": 18,
+    "hp": 95,
+    "defence": 7,
+    "magic_resistance": 3,
+    "move_speed": 9,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.league_veigar.attack",
+    "duration": 28,
+    "cooltime": 90,
+    "start_timing": 12,
+    "cancelable": true,
+    "range": 55000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "league_veigar_attack_shot"
+        },
+        {
+          "type": "TargetProjectile",
+          "name": "league_veigar_orb",
+          "speed": 4500,
+          "y_offset": 1200,
+          "applied_target": "Enemy",
+          "applied_effects": [
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "Attack",
+                    "damage": 0,
+                    "attack_ratio": 100,
+                    "attack_effect_type": "Target"
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "league_veigar_hit"
+                  },
+                  {
+                    "type": "TargetSfx",
+                    "name": "league_veigar_attack_hit"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "TargetProjectile",
+          "name": "league_veigar_a_twin",
+          "speed": 4500,
+          "y_offset": 1200,
+          "applied_target": "EnemyChampion",
+          "applied_effects": [
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_veigar_a_kc",
+                      "duration": {
+                        "Time": {
+                          "tick": 7
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "AddCasted",
+                    "casted_type": "Poison",
+                    "duration": 3,
+                    "period": 1,
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_veigar_a_kc"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "WithSelf",
+                    "effects": [
+                      {
+                        "type": "Delayed",
+                        "tick": 4,
+                        "effects": [
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_veigar_a_kc",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_veigar_a_kc"
+                                },
+                                {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_veigar_p_stack",
+                                        "duration": "Permanent",
+                                        "magic_power": 5
+                                      },
+                                      "only_to_enemy": false
+                                    },
+                                    {
+                                      "type": "CasterViewEffect",
+                                      "name": "league_veigar_p_gain"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.league_veigar.skill",
+    "duration": 29,
+    "cooltime": 240,
+    "start_timing": 12,
+    "cancelable": false,
+    "range": 75000,
+    "casting_type": "Direction",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "league_veigar_q_cast"
+        },
+        {
+          "type": "RemoveCasterBuff",
+          "name": "league_veigar_q_n1"
+        },
+        {
+          "type": "RemoveCasterBuff",
+          "name": "league_veigar_q_n2"
+        },
+        {
+          "type": "LinearProjectile",
+          "name": "league_veigar_q_bolt",
+          "speed": 7000,
+          "range": 95000,
+          "shape": {
+            "Circle": {
+              "radius": 7000
+            }
+          },
+          "penetrate": true,
+          "y_offset": 1200,
+          "applied_target": "EnemyWithoutTower",
+          "applied_effects": [
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_veigar_q_n2",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": []
+                },
+                "effect_none": {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_veigar_q_n1",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_veigar_q_n2",
+                          "duration": {
+                            "Time": {
+                              "tick": 20
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "ApAttack",
+                        "damage": 60,
+                        "attack_ratio": 50
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "league_veigar_q_hit"
+                      },
+                      {
+                        "type": "TargetSfx",
+                        "name": "league_veigar_q_hit"
+                      },
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_veigar_q_k2",
+                              "duration": {
+                                "Time": {
+                                  "tick": 7
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "AddCasted",
+                            "casted_type": "Poison",
+                            "duration": 3,
+                            "period": 1,
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_veigar_q_k2"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "WithSelf",
+                            "effects": [
+                              {
+                                "type": "Delayed",
+                                "tick": 4,
+                                "effects": [
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_veigar_q_k2",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_veigar_q_k2"
+                                        },
+                                        {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_veigar_p_stack",
+                                                "duration": "Permanent",
+                                                "magic_power": 1
+                                              },
+                                              "only_to_enemy": false
+                                            },
+                                            {
+                                              "type": "CasterViewEffect",
+                                              "name": "league_veigar_p_gain"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Delayed",
+                        "tick": 1,
+                        "effects": [
+                          {
+                            "type": "TargetProjectile",
+                            "name": "league_veigar_q_c2",
+                            "speed": 100000,
+                            "y_offset": 0,
+                            "applied_target": "EnemyChampion",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_veigar_p_stack",
+                                            "duration": "Permanent",
+                                            "magic_power": 1
+                                          },
+                                          "only_to_enemy": false
+                                        },
+                                        {
+                                          "type": "CasterViewEffect",
+                                          "name": "league_veigar_p_gain"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_veigar_r_s4",
+                                      "effect_buff": {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_veigar_r_s1"
+                                          },
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_veigar_r_s2"
+                                          },
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_veigar_r_s3"
+                                          },
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_veigar_r_s4"
+                                          },
+                                          {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_veigar_r_s1",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 240
+                                                }
+                                              }
+                                            },
+                                            "only_to_enemy": false
+                                          },
+                                          {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_veigar_r_s2",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 240
+                                                }
+                                              }
+                                            },
+                                            "only_to_enemy": false
+                                          },
+                                          {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_veigar_r_s3",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 240
+                                                }
+                                              }
+                                            },
+                                            "only_to_enemy": false
+                                          },
+                                          {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_veigar_r_s4",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 240
+                                                }
+                                              }
+                                            },
+                                            "only_to_enemy": false
+                                          }
+                                        ]
+                                      },
+                                      "effect_none": {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_veigar_r_s3",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_veigar_r_s1"
+                                            },
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_veigar_r_s2"
+                                            },
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_veigar_r_s3"
+                                            },
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_veigar_r_s4"
+                                            },
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_veigar_r_s1",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 240
+                                                  }
+                                                }
+                                              },
+                                              "only_to_enemy": false
+                                            },
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_veigar_r_s2",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 240
+                                                  }
+                                                }
+                                              },
+                                              "only_to_enemy": false
+                                            },
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_veigar_r_s3",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 240
+                                                  }
+                                                }
+                                              },
+                                              "only_to_enemy": false
+                                            },
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_veigar_r_s4",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 240
+                                                  }
+                                                }
+                                              },
+                                              "only_to_enemy": false
+                                            }
+                                          ]
+                                        },
+                                        "effect_none": {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_veigar_r_s2",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_veigar_r_s1"
+                                              },
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_veigar_r_s2"
+                                              },
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_veigar_r_s3"
+                                              },
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_veigar_r_s1",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 240
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
+                                              },
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_veigar_r_s2",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 240
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
+                                              },
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_veigar_r_s3",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 240
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
+                                              }
+                                            ]
+                                          },
+                                          "effect_none": {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_veigar_r_s1",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_veigar_r_s1"
+                                                },
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_veigar_r_s2"
+                                                },
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_veigar_r_s1",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 240
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                },
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_veigar_r_s2",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 240
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_veigar_r_s1"
+                                                },
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_veigar_r_s1",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 240
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_veigar_q_n1",
+                          "duration": {
+                            "Time": {
+                              "tick": 20
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "ApAttack",
+                        "damage": 60,
+                        "attack_ratio": 50
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "league_veigar_q_hit"
+                      },
+                      {
+                        "type": "TargetSfx",
+                        "name": "league_veigar_q_hit"
+                      },
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_veigar_q_k1",
+                              "duration": {
+                                "Time": {
+                                  "tick": 7
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "AddCasted",
+                            "casted_type": "Poison",
+                            "duration": 3,
+                            "period": 1,
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_veigar_q_k1"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "WithSelf",
+                            "effects": [
+                              {
+                                "type": "Delayed",
+                                "tick": 4,
+                                "effects": [
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_veigar_q_k1",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_veigar_q_k1"
+                                        },
+                                        {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_veigar_p_stack",
+                                                "duration": "Permanent",
+                                                "magic_power": 1
+                                              },
+                                              "only_to_enemy": false
+                                            },
+                                            {
+                                              "type": "CasterViewEffect",
+                                              "name": "league_veigar_p_gain"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Delayed",
+                        "tick": 1,
+                        "effects": [
+                          {
+                            "type": "TargetProjectile",
+                            "name": "league_veigar_q_c1",
+                            "speed": 100000,
+                            "y_offset": 0,
+                            "applied_target": "EnemyChampion",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_veigar_p_stack",
+                                            "duration": "Permanent",
+                                            "magic_power": 1
+                                          },
+                                          "only_to_enemy": false
+                                        },
+                                        {
+                                          "type": "CasterViewEffect",
+                                          "name": "league_veigar_p_gain"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_veigar_r_s4",
+                                      "effect_buff": {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_veigar_r_s1"
+                                          },
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_veigar_r_s2"
+                                          },
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_veigar_r_s3"
+                                          },
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_veigar_r_s4"
+                                          },
+                                          {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_veigar_r_s1",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 240
+                                                }
+                                              }
+                                            },
+                                            "only_to_enemy": false
+                                          },
+                                          {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_veigar_r_s2",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 240
+                                                }
+                                              }
+                                            },
+                                            "only_to_enemy": false
+                                          },
+                                          {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_veigar_r_s3",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 240
+                                                }
+                                              }
+                                            },
+                                            "only_to_enemy": false
+                                          },
+                                          {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_veigar_r_s4",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 240
+                                                }
+                                              }
+                                            },
+                                            "only_to_enemy": false
+                                          }
+                                        ]
+                                      },
+                                      "effect_none": {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_veigar_r_s3",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_veigar_r_s1"
+                                            },
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_veigar_r_s2"
+                                            },
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_veigar_r_s3"
+                                            },
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_veigar_r_s4"
+                                            },
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_veigar_r_s1",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 240
+                                                  }
+                                                }
+                                              },
+                                              "only_to_enemy": false
+                                            },
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_veigar_r_s2",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 240
+                                                  }
+                                                }
+                                              },
+                                              "only_to_enemy": false
+                                            },
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_veigar_r_s3",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 240
+                                                  }
+                                                }
+                                              },
+                                              "only_to_enemy": false
+                                            },
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_veigar_r_s4",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 240
+                                                  }
+                                                }
+                                              },
+                                              "only_to_enemy": false
+                                            }
+                                          ]
+                                        },
+                                        "effect_none": {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_veigar_r_s2",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_veigar_r_s1"
+                                              },
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_veigar_r_s2"
+                                              },
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_veigar_r_s3"
+                                              },
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_veigar_r_s1",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 240
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
+                                              },
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_veigar_r_s2",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 240
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
+                                              },
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_veigar_r_s3",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 240
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
+                                              }
+                                            ]
+                                          },
+                                          "effect_none": {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_veigar_r_s1",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_veigar_r_s1"
+                                                },
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_veigar_r_s2"
+                                                },
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_veigar_r_s1",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 240
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                },
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_veigar_r_s2",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 240
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_veigar_r_s1"
+                                                },
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_veigar_r_s1",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 240
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          ],
+          "end_effects": []
+        },
+        {
+          "type": "LinearProjectile",
+          "name": "league_veigar_q_twin",
+          "speed": 7000,
+          "range": 95000,
+          "shape": {
+            "Circle": {
+              "radius": 7000
+            }
+          },
+          "penetrate": true,
+          "y_offset": 1200,
+          "applied_target": "EnemyChampion",
+          "applied_effects": [
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_veigar_q_kc",
+                      "duration": {
+                        "Time": {
+                          "tick": 7
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "AddCasted",
+                    "casted_type": "Poison",
+                    "duration": 3,
+                    "period": 1,
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_veigar_q_kc"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "WithSelf",
+                    "effects": [
+                      {
+                        "type": "Delayed",
+                        "tick": 4,
+                        "effects": [
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_veigar_q_kc",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_veigar_q_kc"
+                                },
+                                {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_veigar_p_stack",
+                                        "duration": "Permanent",
+                                        "magic_power": 5
+                                      },
+                                      "only_to_enemy": false
+                                    },
+                                    {
+                                      "type": "CasterViewEffect",
+                                      "name": "league_veigar_p_gain"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ],
+          "end_effects": []
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.league_veigar.skill2",
+    "duration": 33,
+    "cooltime": 780,
+    "start_timing": 12,
+    "cancelable": false,
+    "range": 65000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "league_veigar_e_cast"
+        },
+        {
+          "type": "Delayed",
+          "tick": 24,
+          "effects": [
+            {
+              "type": "ParabolicProjectile",
+              "name": "league_veigar_e_anchor",
+              "travel_time": 1,
+              "range": 1000000,
+              "range_effect_name": "",
+              "shape": {
+                "Circle": {
+                  "radius": 1
+                }
+              },
+              "applied_target": "EnemyChampion",
+              "applied_effects": [],
+              "end_effects": [
+                {
+                  "type": "ViewEffect",
+                  "name": "league_veigar_e_cage"
+                },
+                {
+                  "type": "ViewEffect",
+                  "name": "league_veigar_w_mark"
+                },
+                {
+                  "type": "ViewEffect",
+                  "name": "league_veigar_w_fall"
+                },
+                {
+                  "type": "Sfx",
+                  "name": "league_veigar_e_form"
+                },
+                {
+                  "type": "ApplyInProjectile",
+                  "name": "league_veigar_e_zone",
+                  "follow_caster": false,
+                  "tick": 180,
+                  "shape": {
+                    "Circle": {
+                      "radius": 28000
+                    }
+                  },
+                  "applied_target": "EnemyWithoutTower",
+                  "applied_effects": [
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "Stun",
+                        "duration": 60
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "ViewEffect",
+                        "name": "league_veigar_e_stun"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "ApplyInProjectile",
+                  "name": "league_veigar_e_zone_champ",
+                  "follow_caster": false,
+                  "tick": 180,
+                  "shape": {
+                    "Circle": {
+                      "radius": 28000
+                    }
+                  },
+                  "applied_target": "EnemyChampion",
+                  "applied_effects": [
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "TargetSfx",
+                        "name": "league_veigar_e_stun"
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_veigar_p_stack",
+                                  "duration": "Permanent",
+                                  "magic_power": 1
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "CasterViewEffect",
+                                "name": "league_veigar_p_gain"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_veigar_r_s4",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_veigar_r_s1"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_veigar_r_s2"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_veigar_r_s3"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_veigar_r_s4"
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_veigar_r_s1",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 240
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_veigar_r_s2",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 240
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_veigar_r_s3",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 240
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_veigar_r_s4",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 240
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_veigar_r_s3",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_veigar_r_s1"
+                                  },
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_veigar_r_s2"
+                                  },
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_veigar_r_s3"
+                                  },
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_veigar_r_s4"
+                                  },
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_veigar_r_s1",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 240
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  },
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_veigar_r_s2",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 240
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  },
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_veigar_r_s3",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 240
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  },
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_veigar_r_s4",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 240
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_veigar_r_s2",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_veigar_r_s1"
+                                    },
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_veigar_r_s2"
+                                    },
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_veigar_r_s3"
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_veigar_r_s1",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 240
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_veigar_r_s2",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 240
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_veigar_r_s3",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 240
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                },
+                                "effect_none": {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_veigar_r_s1",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_veigar_r_s1"
+                                      },
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_veigar_r_s2"
+                                      },
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_veigar_r_s1",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 240
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      },
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_veigar_r_s2",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 240
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      }
+                                    ]
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_veigar_r_s1"
+                                      },
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_veigar_r_s1",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 240
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "RangeProjectile",
+                  "name": "league_veigar_w_blast",
+                  "shape": {
+                    "Circle": {
+                      "radius": 22000
+                    }
+                  },
+                  "delay": 45,
+                  "apply": 45,
+                  "applied_target": "EnemyWithoutTower",
+                  "applied_effects": [
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "ApAttack",
+                        "damage": 75,
+                        "attack_ratio": 65
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "ViewEffect",
+                        "name": "league_veigar_w_hit"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "RangeProjectile",
+                  "name": "league_veigar_w_blast_champ",
+                  "shape": {
+                    "Circle": {
+                      "radius": 22000
+                    }
+                  },
+                  "delay": 45,
+                  "apply": 45,
+                  "applied_target": "EnemyChampion",
+                  "applied_effects": [
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_veigar_p_stack",
+                                  "duration": "Permanent",
+                                  "magic_power": 1
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "CasterViewEffect",
+                                "name": "league_veigar_p_gain"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_veigar_r_s4",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_veigar_r_s1"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_veigar_r_s2"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_veigar_r_s3"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_veigar_r_s4"
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_veigar_r_s1",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 240
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_veigar_r_s2",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 240
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_veigar_r_s3",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 240
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_veigar_r_s4",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 240
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_veigar_r_s3",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_veigar_r_s1"
+                                  },
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_veigar_r_s2"
+                                  },
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_veigar_r_s3"
+                                  },
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_veigar_r_s4"
+                                  },
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_veigar_r_s1",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 240
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  },
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_veigar_r_s2",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 240
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  },
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_veigar_r_s3",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 240
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  },
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_veigar_r_s4",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 240
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_veigar_r_s2",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_veigar_r_s1"
+                                    },
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_veigar_r_s2"
+                                    },
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_veigar_r_s3"
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_veigar_r_s1",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 240
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_veigar_r_s2",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 240
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_veigar_r_s3",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 240
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                },
+                                "effect_none": {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_veigar_r_s1",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_veigar_r_s1"
+                                      },
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_veigar_r_s2"
+                                      },
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_veigar_r_s1",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 240
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      },
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_veigar_r_s2",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 240
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      }
+                                    ]
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_veigar_r_s1"
+                                      },
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_veigar_r_s1",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 240
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_veigar_w_kc",
+                              "duration": {
+                                "Time": {
+                                  "tick": 7
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "AddCasted",
+                            "casted_type": "Poison",
+                            "duration": 3,
+                            "period": 1,
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_veigar_w_kc"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "WithSelf",
+                            "effects": [
+                              {
+                                "type": "Delayed",
+                                "tick": 4,
+                                "effects": [
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_veigar_w_kc",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_veigar_w_kc"
+                                        },
+                                        {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_veigar_p_stack",
+                                                "duration": "Permanent",
+                                                "magic_power": 5
+                                              },
+                                              "only_to_enemy": false
+                                            },
+                                            {
+                                              "type": "CasterViewEffect",
+                                              "name": "league_veigar_p_gain"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 44,
+                  "effects": [
+                    {
+                      "type": "Sfx",
+                      "name": "league_veigar_w_hit"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.league_veigar.ult",
+    "duration": 34,
+    "cooltime": 3000,
+    "start_timing": 2,
+    "cancelable": false,
+    "range": 65000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "league_veigar_r_cast"
+        },
+        {
+          "type": "CasterViewEffect",
+          "name": "league_veigar_r_cast"
+        },
+        {
+          "type": "Delayed",
+          "tick": 10,
+          "effects": [
+            {
+              "type": "TargetProjectile",
+              "name": "league_veigar_r_bolt",
+              "speed": 5000,
+              "y_offset": -15000,
+              "applied_target": "EnemyChampion",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_veigar_r_s4",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "ApAttack",
+                              "damage": 320,
+                              "attack_ratio": 140
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_veigar_r_s3",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "ApAttack",
+                                "damage": 280,
+                                "attack_ratio": 122
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_veigar_r_s2",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "ApAttack",
+                                  "damage": 240,
+                                  "attack_ratio": 105
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_veigar_r_s1",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "ApAttack",
+                                    "damage": 200,
+                                    "attack_ratio": 88
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "ApAttack",
+                                    "damage": 160,
+                                    "attack_ratio": 70
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_veigar_r_s1"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_veigar_r_s2"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_veigar_r_s3"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_veigar_r_s4"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "league_veigar_r_hit"
+                      },
+                      {
+                        "type": "TargetSfx",
+                        "name": "league_veigar_r_hit"
+                      },
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_veigar_p_stack",
+                              "duration": "Permanent",
+                              "magic_power": 1
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "CasterViewEffect",
+                            "name": "league_veigar_p_gain"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_veigar_r_kc",
+                              "duration": {
+                                "Time": {
+                                  "tick": 7
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "AddCasted",
+                            "casted_type": "Poison",
+                            "duration": 3,
+                            "period": 1,
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_veigar_r_kc"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "WithSelf",
+                            "effects": [
+                              {
+                                "type": "Delayed",
+                                "tick": 4,
+                                "effects": [
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_veigar_r_kc",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_veigar_r_kc"
+                                        },
+                                        {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_veigar_p_stack",
+                                                "duration": "Permanent",
+                                                "magic_power": 5
+                                              },
+                                              "only_to_enemy": false
+                                            },
+                                            {
+                                              "type": "CasterViewEffect",
+                                              "name": "league_veigar_p_gain"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "league_veigar_orb",
+      "anim": "asset/league/effects/league_veigar_fx",
+      "tag": "orb",
+      "repeat": true,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_veigar_q_bolt",
+      "anim": "asset/league/effects/league_veigar_fx",
+      "tag": "q_bolt",
+      "repeat": true,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_veigar_r_bolt",
+      "anim": "asset/league/effects/league_veigar_fx",
+      "tag": "r_bolt",
+      "repeat": true,
+      "z": 1
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "league_veigar_hit",
+      "anim": "asset/league/effects/league_veigar_fx",
+      "tag": "hit",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_veigar_q_hit",
+      "anim": "asset/league/effects/league_veigar_fx",
+      "tag": "q_hit",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_veigar_p_gain",
+      "anim": "asset/league/effects/league_veigar_fx",
+      "tag": "p_gain",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_veigar_e_cage",
+      "anim": "asset/league/effects/league_veigar_big",
+      "tag": "e_cage",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_veigar_e_stun",
+      "anim": "asset/league/effects/league_veigar_fx",
+      "tag": "e_stun",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_veigar_w_mark",
+      "anim": "asset/league/effects/league_veigar_big",
+      "tag": "w_mark",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_veigar_w_fall",
+      "anim": "asset/league/effects/league_veigar_big",
+      "tag": "w_fall",
+      "z": 1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_veigar_w_hit",
+      "anim": "asset/league/effects/league_veigar_fx",
+      "tag": "w_hit",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_veigar_r_cast",
+      "anim": "asset/league/effects/league_veigar_fx",
+      "tag": "r_cast",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_veigar_r_hit",
+      "anim": "asset/league/effects/league_veigar_big",
+      "tag": "r_hit",
+      "z": 1,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": []
+}

@@ -1,0 +1,19 @@
+{
+  "hero": "veigar",
+  "champ": "Veigar",
+  "camera": {"yaw": 40, "pitch": 25, "mirror": false},
+  "chibi": {"head": 1.0, "legs": 1.0, "hair": 1.0},
+  "height": 40,
+  "cell": [96, 96, 14],
+  "design": "veigar_idle1@0",
+  "tags": {
+    "idle": {"frames": [["veigar_idle1@0", 200], ["veigar_idle1@0", 200], ["veigar_idle1@0", 200], ["veigar_idle1@0", 200], ["veigar_idle1@0", 200], ["veigar_idle1@0", 200]]},
+    "run": {"flat": true, "head_like": "veigar_idle1@0", "frames": [["veigar_run@0", 104], ["veigar_run@125", 104], ["veigar_run@250", 104], ["veigar_run@375", 104], ["veigar_run@500", 104], ["veigar_run@625", 104], ["veigar_run@750", 104], ["veigar_run@875", 105]]},
+    "attack": {"lunge": 0.5, "frames": [["veigar_idle1@0>veigar_attack1@88:0.6", 60], ["veigar_attack1@175", 60], ["veigar_attack1@263", 70], ["veigar_attack1@350", 80], ["veigar_attack1@438", 90], ["veigar_attack1@525>veigar_idle1@0:0.5", 100]]},
+    "skill": {"lunge": 0.5, "frames": [["veigar_idle1@0>veigar_attack2@88:0.6", 60], ["veigar_attack2@175", 70], ["veigar_attack2@263", 70], ["veigar_attack2@350", 80], ["veigar_attack2@438", 90], ["veigar_attack2@525>veigar_idle1@0:0.5", 110]]},
+    "skill2": {"lunge": 0.4, "frames": [["veigar_idle1@0>veigar_spell3@121:0.6", 60], ["veigar_spell3@242", 60], ["veigar_spell3@363", 70], ["veigar_spell3@424", 80], ["veigar_spell3@605", 90], ["veigar_spell3@726", 90], ["veigar_spell3@847>veigar_idle1@0:0.5", 100]]},
+    "ult": {"lunge": 0.4, "rise": 0.5, "frames": [["veigar_idle1@0>veigar_spell2@121:0.6", 60], ["veigar_spell2@242", 60], ["veigar_spell2@363", 70], ["veigar_spell2@454", 90], ["veigar_spell2@605", 90], ["veigar_spell2@726", 90], ["veigar_spell2@847>veigar_idle1@0:0.5", 100]]},
+    "hit": {"frames": [["veigar_idle1@0>veigar_death@200:0.35", 120], ["veigar_idle1@0>veigar_death@200:0.15", 120]]},
+    "dead": {"anchor": "first", "lunge": 0.4, "flat": true, "travel": 0.3, "frames": [["veigar_death@0", 100], ["veigar_death@208", 100], ["veigar_death@417", 110], ["veigar_death@625", 110], ["veigar_death@833", 120], ["veigar_death@1042", 130], ["veigar_death@1250", 150], ["veigar_death@1458", 500]]}
+  }
+}

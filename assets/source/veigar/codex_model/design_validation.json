@@ -1,0 +1,136 @@
+{
+  "A": {
+    "canvas_1x": [
+      128,
+      128
+    ],
+    "canvas_8x": [
+      1024,
+      1024
+    ],
+    "visible_bbox_1x": [
+      45,
+      60,
+      82,
+      100
+    ],
+    "visible_size_1x": [
+      37,
+      40
+    ],
+    "hat_rows": 18,
+    "hat_fraction": 0.45,
+    "bottom_row_zero_based": 99,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "opaque_color_count": 23,
+    "strict_8x8_grid": true,
+    "eyes": "matching 2x2 L-shapes; 1 black cell gap; unique yellow/core colors",
+    "eyes_top_left_1x": [
+      62,
+      78
+    ],
+    "connected_component_sizes": [
+      737
+    ],
+    "source_native_grid": [
+      47,
+      50
+    ],
+    "manual_removed_source_rows": [
+      4,
+      9,
+      12,
+      19,
+      21,
+      24,
+      26,
+      28,
+      32,
+      42
+    ],
+    "manual_removed_source_columns": [
+      12,
+      15,
+      18,
+      20,
+      22,
+      25,
+      27,
+      30,
+      35,
+      39
+    ],
+    "workflow_deviation": "Source generation did not meet 40 rows. Explicit pixel-grid proportion retouch removed selected rows/columns; this is not strict one-source-cell-to-one-output-cell extraction.",
+    "in_game_validation": false
+  },
+  "B": {
+    "canvas_1x": [
+      128,
+      128
+    ],
+    "canvas_8x": [
+      1024,
+      1024
+    ],
+    "visible_bbox_1x": [
+      45,
+      60,
+      82,
+      100
+    ],
+    "visible_size_1x": [
+      37,
+      40
+    ],
+    "hat_rows": 14,
+    "hat_fraction": 0.35,
+    "bottom_row_zero_based": 99,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "opaque_color_count": 23,
+    "strict_8x8_grid": true,
+    "eyes": "matching 2x2 L-shapes; 1 black cell gap; unique yellow/core colors",
+    "eyes_top_left_1x": [
+      62,
+      75
+    ],
+    "connected_component_sizes": [
+      786
+    ],
+    "source_native_grid": [
+      47,
+      50
+    ],
+    "manual_removed_source_rows": [
+      2,
+      4,
+      7,
+      9,
+      11,
+      12,
+      17,
+      19,
+      21,
+      24
+    ],
+    "manual_removed_source_columns": [
+      12,
+      15,
+      18,
+      20,
+      22,
+      25,
+      27,
+      30,
+      35,
+      39
+    ],
+    "workflow_deviation": "Source generation did not meet 40 rows. Explicit pixel-grid proportion retouch removed selected rows/columns; this is not strict one-source-cell-to-one-output-cell extraction.",
+    "in_game_validation": false
+  }
+}
