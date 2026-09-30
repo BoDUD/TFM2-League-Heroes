@@ -1,0 +1,19 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_riven_sfx_r_slash",
+      "volume": 0.8
+    },
+    {
+      "delay": 0.0,
+      "clip": "league_riven_vo_r_slash",
+      "volume": 0.9
+    },
+    {
+      "delay": 0.15,
+      "clip": "league_riven_sfx_r_wave",
+      "volume": 0.7
+    }
+  ]
+}

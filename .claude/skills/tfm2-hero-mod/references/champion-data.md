@@ -1012,7 +1012,10 @@ Supports measured that way (2026-09-28, Yasuo top, the support on his team, 24 s
 league_leona, 0.54 beside league_soraka and 0.48 beside the base priest - Janna sits between the
 supports without hard CC and Leona, and his R stayed as it was. league_morgana (2026-09-29, Dark Binding's
 2 s root and Soul Shackles' stun): 1.52 a game, league_janna 0.94 and the base priest 0.65 in the same batch - no
-change either.
+change either. league_riven (2026-09-30, top, Yasuo moved to mid; Broken Wings' third-cast knock-up and Ki Burst's
+stun, 24 seeds a side): 2.12 a game with the kit timed to her strips (2.56 before), the base fighter 1.94, the base
+knight 0.85, league_malphite 2.42 and league_darius 1.21 on the same seeds - the range the knock-up heroes gave
+before (Yone 2.15, Annie 2.19-2.50, the base lightning mage 3.19), so no change.
 league_briar (jungle, 2026-09-30, Head Rush's 0.5 s stun, Chilling Scream's 1 s stun, Certain Death's fear): 2.27
 a game; league_fiddlesticks 2.81, league_leesin 1.71, league_amumu 1.69, league_ekko 0.90 and the base ninja 0.65
 in the same batch - no change.
@@ -1469,6 +1472,17 @@ unit works like the caster's own *(SDK simulation, a probe counting the `Stun` /
 event landed on a champion under Black Shield (about 15,600 champion-ticks with it), against 538-606 a game on all
 champions.
 
+**A hook a crowd-control shield stops (league_thresh Q against league_morgana E; Blitzcrank's Rocket Grab later).**
+The hook's `Stun` and `Grab` are blocked by `cc_immune` *(SDK simulation, 2026-09-30: a probe on every hook end,
+Morgana and Thresh on opposite sides, 48 games: 0 of 23 hooks on a champion under Black Shield stunned or dragged,
+against 244 and 217 of 309 hook ends near an unshielded one)*. Everything else in the hook's `applied_effects` is no
+crowd control and still lands: the chain-wrap picture played on 18 of the 23, and the `q_hooked` caster flag that
+turns Flay into a pull was set 18 times. So what should follow only a landed hook rides an invisible twin fired right
+after it (same speed, range, shape and path, no view, `penetrate: false`) with `applied_target: EnemyChampionInCC`:
+it hits the hooked champion in the same tick once the hook's stun holds, and passes a shielded one. With the twin
+carrying the flag and the picture: 0 of 22 on shielded champions, 262 of 332 otherwise. A grab built from `Grab` /
+`Pull` / `Stun` is stopped by the shield for free; one built from `MoveToTarget` or `Teleport` on the target is not.
+
 **Tethers that break out of reach and snap after 3 s (league_morgana R, Soul Shackles).** A `Targeting` cast on
 `EnemyChampion` (range 45000): a `RangeEffect` (radius 50000) on `EnemyChampion` round her deals the damage and heals
 her; she gets 20% move speed for 3 s. Each champion it reaches gets a tether of its own, a chain of pulses written
@@ -1486,6 +1500,42 @@ a single `Delayed {tick: 180}` `RangeEffect` (70000) stunned every enemy champio
 run off and come back or had never been chained (the user: "脱离了大招的线就不应该眩晕了吧"). In 16 simulated games
 62 champions were chained: about 36 died within the 3 s, 12-19 ran out of reach and 0-3 were stunned, at check
 ranges of 60000 to 105000 alike - a champion walks about 1.2 cast radii a second here, against 0.56 in League.
+
+**Three charges, the third cast different (league_riven Q, Broken Wings).** `cooltime_use_count: 3` with cooltime 720
+(a charge back every 4 s). The casts count themselves, not their hits: the first adds a 240-tick `q_1` caster window,
+a cast during it swaps `q_1` for `q_2`, a cast during `q_2` removes it and leaps (League's 4 s recast window; left
+unused the chain starts over). Every cast hops onto its target (`MoveToTarget`) and slashes round her on arrival; the
+third knocks up round where she lands. The AI weaves the charges with basic attacks by itself - Q, attack, Q, attack,
+Q (about 70 casts a game in the SDK simulation), so each rune a cast gives is spent at once, as in League.
+
+**Runes the next attacks spend (league_riven Runic Blade).** Every spell adds a rune, at most three: caster buffs
+`rune_1`..`rune_3` of 360 ticks, and each gain removes all three and adds them again up to the new count, so they run
+out together as in League (separate timers would leave `rune_2` without `rune_1`); a buff added in a tick is seen by a
+`SwitchByBuff` later in the same tick, so E+W's two gains count two. The attack spends the highest rune for its bonus.
+
+**A self-buff ult armed on the way, started at the fight (league_riven R, Blade of the Exile).** The AI casts an ult
+slot on `EnemyChampion` while it closes in (league_kayle): cast as a plain buff, Riven's R went off with the nearest
+enemy champion 45000-110000 away and the 15 s often ran out on the walk (4 casts, 1 Wind Slash in a game). The slot is
+now a 3-tick action on the idle tag (`None` on `EnemyChampion`) that adds a 600-tick `r_armed` caster buff and starts
+the R at once when a `RandomTarget EnemyChampion` finds one within 35000 (44 of 45 casts in 12 games), else at her
+first attack with a champion that close; left unused, a 3-tick `ult_cooldown_mult` 4900 caps the cooldown at 60 ticks.
+Wind Slash, the recast, fires by itself: a 900-tick ready flag and a 300-tick wait; after the wait her attacks and a
+train of `Delayed` checks every 30 ticks from the cast fire it (`RandomTarget EnemyChampion` within 60000 -> a
+`LinearProjectile` toward the picked champion, 70000 long; the damage adds `target_hp_ratio` since nothing reads
+missing health). Per game over 12 seeds: 3.5 starts, 2.0 slashes, 1.7 champion hits; with the checks in her attacks
+only, 1.3 slashes; with a 90000 reach 1.9 slashes but 0.9 champion hits (the wave fell short of far champions).
+After the cast most fights were over within 5 s (she often walked off), which is why the wait is kept short of the
+buff and the checks run on their own.
+
+**The weapon reforged while the ult lasts (league_riven R, the user's option B).** The engine plays `idle` and `run`
+by itself, so they cannot change with a buff; every action can. Her strips that show the sword have `_r` twins with
+the reforged blade (`attack_r`, `skill_r`, `q2_r`, `q3_r`, `skill2_r`; the ult and Wind Slash, which only happen
+inside R, were redrawn in place), and each action picks one by `SwitchByBuff league_riven_r`: Q and E+W in their
+`CasterAnimation`, the basic attack at `start_timing` 1 (`CasterAnimation attack_r` or nothing) with its hit in a
+`Delayed` to tick 11, where it landed before (league_yone's second slash is picked the same way). While she stands
+or walks the broken blade shows, under an aura bound to the same buff (`view_buffs`, z -1). Her E shield shows as
+a `ThreePhase` picture on an `AddBuff` of duration `WithShield` next to the `Shield` (league_morgana's E), and the
+runes as one `view_buffs` glyph each on `rune_1`..`rune_3`, so as many glyphs light over her head as she holds.
 
 **A bleed that heals the caster, one stack a second from attacks (league_briar Crimson Curse).** Every hit runs
 `AddCasted {casted_type: Bleed, duration: 301, period: 60}` whose effects are the damage (`Attack` 2 + 3% attack) and
