@@ -1,0 +1,17 @@
+{
+  "hit": {"cell": [23, 19], "anchor": [11, 9], "frames": 5},
+  "p_hit": {"cell": [31, 33], "anchor": [15, 16], "frames": 6},
+  "p_ring": {"cell": [41, 21], "anchor": [20, 10], "frames": 6},
+  "p_ready": {"cell": [35, 41], "anchor": [17, 20], "frames": 4},
+  "q_fan": {"cell": [47, 41], "anchor": [23, 20], "frames": 6},
+  "q_hit": {"cell": [15, 15], "anchor": [7, 7], "frames": 4},
+  "w_smoke": {"cell": [73, 41], "anchor": [36, 20], "frames": 10},
+  "e_shuriken": {"cell": [17, 15], "anchor": [8, 7], "frames": 4},
+  "e_hit": {"cell": [21, 23], "anchor": [10, 11], "frames": 5},
+  "e_mark": {"cell": [15, 15], "anchor": [7, 7], "frames": 4},
+  "e_dash": {"cell": [89, 17], "anchor": [44, 8], "frames": 5},
+  "e2_hit": {"cell": [29, 37], "anchor": [14, 18], "frames": 5},
+  "r_dash": {"cell": [117, 21], "anchor": [58, 10], "frames": 6},
+  "r1_hit": {"cell": [33, 15], "anchor": [16, 7], "frames": 5},
+  "r2_hit": {"cell": [35, 35], "anchor": [17, 17], "frames": 6}
+}
