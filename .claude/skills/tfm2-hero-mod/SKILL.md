@@ -60,7 +60,8 @@ empty tooltip). That is why the linter exists - run it after every edit.
    art"). From a picture of the hero, have the image model draw the sprite at game size (about
    36-38 squares crown to soles, 8x blocks) and read it back square for square with
    `scripts/regrid.py` - never ask for a bigger drawing to shrink, the details break up (art-spec
-   "A design drawn at game size"). Check with `python scripts/tfm2_ase.py metrics <sprite>` and preview with `render`.
+   "A design drawn at game size"). Close the outline on every finished frame with
+   `strips.complete_outline` (art-spec "Close the outline", every hero). Check with `python scripts/tfm2_ase.py metrics <sprite>` and preview with `render`.
    Then `python scripts/tfm2_ase.py face <sprite> --out face.png` and look at it: next to base
    champions at 1x, is the head about a third of the height and can you see the eyes? Put the
    `face` point it suggests into `style/champion_view` (portraits crop around it).

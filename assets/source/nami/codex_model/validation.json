@@ -1,0 +1,18 @@
+[
+  {
+    "variant": "A",
+    "colors": 20,
+    "partial_alpha_pixels": 0,
+    "pixels_on_or_below_ground": 0,
+    "amber_pixels": 4,
+    "native_50px_requirement_passed": false
+  },
+  {
+    "variant": "B",
+    "colors": 20,
+    "partial_alpha_pixels": 0,
+    "pixels_on_or_below_ground": 0,
+    "amber_pixels": 4,
+    "native_50px_requirement_passed": false
+  }
+]

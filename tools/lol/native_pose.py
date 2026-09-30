@@ -78,6 +78,10 @@ holds it in blended frames ("clipA@ms>clipB@ms:w"): Fiddlesticks's scythe is the
 move along with Scythe_Snap under his hand, and a blend lerps it on its own while the hand at the end of the arm's
 blended rotations goes elsewhere (in the half-way frames to and from the idle the scythe floated off his arm).
 
+"legs": "<regex>" names the joints whose chains stand in for the legs (default: hip / thigh, pose_ref.LEG): the soles,
+the height and the feet on League's floor are measured on them. Nami has no legs: her tail (Tail1) is what she
+stands on.
+
 "crown": <y> measures the crown from the head's vertices at or below that height in the bind pose (League
 units): Leona's crown spikes stand about 12 units above her hair, which doubled with the head and, counted
 as the crown, shrank everything else (height 34 left her face six rows); with "crown": 165 the hair's top is
@@ -138,7 +142,7 @@ class Champ:
     """A champion's base skin: mesh, skeleton, texture and clips, read from the local client."""
 
     def __init__(self, lol, champ, keep=None, weapon=r"^weapon$", hide=(), hair_part=False, crown=None, extra=(),
-                 hide_submeshes=False, submesh_textures=None, glue=None):
+                 hide_submeshes=False, submesh_textures=None, glue=None, legs=None):
         w = Wad(os.path.join(lol, "Game", "DATA", "FINAL", "Champions", f"{champ}.wad.client"))
         skin_bin = w.read_path(f"data/characters/{champ.lower()}/skins/skin0.bin")
         refs = lambda blob, ext: sorted(set(m.decode("latin1") for m in re.findall(rb"[A-Za-z0-9_/\.\-]+\." + ext, blob)))
@@ -172,7 +176,8 @@ class Champ:
         anims = refs(w.read_path(f"data/characters/{champ.lower()}/animations/skin0.bin"), rb"anm")
         self.by_name = {os.path.splitext(os.path.basename(a))[0].lower(): a for a in anims}
         self.wad, self.loaded = w, {}
-        self.legv = P.leg_vertices(self.joints, self.influences, self.verts)
+        self.legv = P.chain_vertices(self.joints, self.influences, self.verts, re.compile(legs, re.I)) if legs else \
+            P.leg_vertices(self.joints, self.influences, self.verts)
         head = P.chain_vertices(self.joints, self.influences, self.verts, re.compile(r"^head$", re.I))
         hair = P.chain_vertices(self.joints, self.influences, self.verts, self.hair_re)
         self.headv = head & ~hair
@@ -366,7 +371,7 @@ def main():
     set_cell(*spec.get("cell", CELL))
     ch = Champ(args.lol, spec["champ"], keep, spec.get("weapon", r"^weapon$"), spec.get("hide", ()),
                spec.get("hair_part", False), spec.get("crown"), spec.get("parts", ()), spec.get("hide_submeshes", False),
-               spec.get("submesh_textures"), spec.get("glue"))
+               spec.get("submesh_textures"), spec.get("glue"), spec.get("legs"))
     rot = camera(cam)
     sign = -1.0 if cam.get("mirror") else 1.0
     os.makedirs(args.out, exist_ok=True)
@@ -443,7 +448,12 @@ def main():
         down = 0
         if flat:   # lowest point as high above the feet line as it is above League's floor
             lift = int(round(max(0.0, pv[:, 1].min()) * unit * np.cos(np.radians(cam["pitch"]))))
-            down = (FEET_ROW - 1 - lift) - np.nonzero(lo[..., 3].any(1))[0].max()
+            for _ in range(4):     # a body reaching out of the render's bottom (Nami's planted staff, her face
+                low = np.nonzero(lo[..., 3].any(1))[0].max()      # down in death) is measured again inside it
+                down += (FEET_ROW - 1 - lift) - low
+                if low < lo.shape[0] - 1:
+                    break
+                lo = blocks(render(ch, pv, cam, scale, dy + down * Z, tris))
         down += int(sink)  # a hovering hero's frames that come down to the ground (Janna's death)
         if down:
             hi = render(ch, pv, cam, scale, dy + down * Z, tris)
