@@ -827,6 +827,21 @@ target instead of hitting it at once (it still catches it about a third of the t
 is cut short). R is cast about 20% less often than the forward kick. Balance at lane 1 with the W
 below: +0.53 / +0.86 (the old kit -0.96 / -0.58) *(measured in the SDK simulation, 2026-09-29)*.
 
+**Pick the kick: into the ones behind, else the insec (league_leesin R, 0.27.0).** The user wanted both kicks, chosen by
+the situation. On the cast tick a hidden probe - a penetrating `LinearProjectile` on `EnemyChampion` (speed 30000,
+range 90000, radius 14000; its name is bound to no view, so nothing is drawn) - flies toward the target and counts
+the champions on that line with two caster flags (`SwitchByBuff r_one` -> add `r_front`, else add `r_one`; both
+removed first, 30 ticks). The target is one, so `r_front` means another champion stands on the line behind it. At
+action tick 7 `r_front` runs `MoveToTarget {speed: 8000}` - he stops at the target's front, touching it - and the
+kick at tick 17 sends the target into them, the dragon at the kick's speed (3000 for 63000, the old forward kick's)
+trailing it from his foot; without the flag the insec above (`RushMoveToBack`, the late slow dragon). A first try
+counted with two fixed circles ahead of him (`RangeEffect` at `Forward` 34000 and 66000): the AI casts this
+30000-range ult from up to 48700 centre to centre (both bodies count) and the target often flees on (56600 at tick
+7), so it sat in both circles, was counted twice and every cast took the forward kick. With the probe 8 of 62 casts
+in 17 games kicked forward, knocking up about 1.9 champions each (13 in 7), an insec 0.36 *(SDK simulation,
+2026-09-30)*. Lane 1: +0.79 / +0.87, the insec alone +0.53 / +0.86 in the same two batches. league_yasuo's R
+beside him: 1.52 a game (the insec alone 1.71) - no change.
+
 **Dash to an ally in trouble and shield both (league_leesin W, Safeguard).** No casting target means
 "ally under attack", and all four slots were taken, so W is a check at the end of the attack, Q and E
 behind its own caster buff (`league_leesin_w_cd`, 720 ticks, set first in every branch). Three tiers:
