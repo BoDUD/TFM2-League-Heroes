@@ -1,0 +1,23 @@
+{
+  "hero": "akali",
+  "champ": "Akali",
+  "camera": {"yaw": 45, "pitch": 25, "mirror": true},
+  "chibi": {"head": 2.2, "legs": 0.8, "hair": 0.7},
+  "height": 46,
+  "cell": [96, 96, 14],
+  "design": "Akali_Base_Idle1@0",
+  "hide_submeshes": ["recall", "chopsticks", "ramen", "ramen_noodles"],
+  "tags": {
+    "idle": {"frames": [["Akali_Base_Idle1@0", 200], ["Akali_Base_Idle1@0", 200], ["Akali_Base_Idle1@0", 200], ["Akali_Base_Idle1@0", 200], ["Akali_Base_Idle1@0", 200], ["Akali_Base_Idle1@0", 200]]},
+    "run": {"flat": true, "head_like": "Akali_Base_Idle1@0", "frames": [["Akali_Base_Run@0", 105], ["Akali_Base_Run@133", 105], ["Akali_Base_Run@267", 105], ["Akali_Base_Run@400", 105], ["Akali_Base_Run@533", 105], ["Akali_Base_Run@667", 105], ["Akali_Base_Run@800", 105], ["Akali_Base_Run@933", 105]]},
+    "attack": {"lunge": 0.7, "frames": [["Akali_Base_Idle1@0>Akali_Base_Attack1@150:0.6", 60], ["Akali_Base_Attack1@200", 60], ["Akali_Base_Attack1@300", 70], ["Akali_Base_Attack1@350", 70], ["Akali_Base_Attack1@450>Akali_Base_Idle1@0:0.35", 80], ["Akali_Base_Attack1@600>Akali_Base_Idle1@0:0.65", 80]]},
+    "attack_p": {"lunge": 0.7, "frames": [["Akali_Base_Idle1@0>Akali_Attack_Passive@134:0.5", 60], ["Akali_Attack_Passive@268", 70], ["Akali_Attack_Passive@402", 80], ["Akali_Attack_Passive@469", 80], ["Akali_Attack_Passive@603>Akali_Base_Idle1@0:0.4", 90], ["Akali_Attack_Passive@737>Akali_Base_Idle1@0:0.7", 100]]},
+    "skill": {"lunge": 0.6, "frames": [["Akali_Base_Idle1@0>Akali_Base_Spell1@100:0.6", 50], ["Akali_Base_Spell1@150", 50], ["Akali_Base_Spell1@200", 60], ["Akali_Base_Spell1@500", 70], ["Akali_Base_Spell1@600", 80], ["Akali_Base_Spell1@700>Akali_Base_Idle1@0:0.5", 100]]},
+    "skill2": {"lunge": 0.1, "frames": [["Akali_Base_Idle1@0>Akali_Base_Spell3@50:0.5", 50], ["Akali_Base_Spell3@100", 60], ["Akali_Base_Spell3@450", 60], ["Akali_Base_Spell3@550", 60], ["Akali_Base_Spell3@650", 70], ["Akali_Base_Spell3@750>Akali_Base_Idle1@0:0.5", 90]]},
+    "skill2_dash": {"lunge": 0.1, "frames": [["Akali_Base_Spell3_Dash@0", 50], ["Akali_Base_Spell3_Dash@134", 50], ["Akali_Base_Spell3_Dash_Attack@99", 60], ["Akali_Base_Spell3_Dash_Attack@165", 70], ["Akali_Base_Spell3_Dash_Attack@231>Akali_Base_Idle1@0:0.5", 90]]},
+    "ult": {"lunge": 0.1, "rise": 0.35, "frames": [["Akali_Base_Spell4@0", 60], ["Akali_Base_Spell4_Dash2@300", 50], ["Akali_Base_Spell4_Dash2@450", 50], ["Akali_Base_Spell4_Dash1_Hit@400", 80], ["Akali_Base_Spell4_Dash1_Hit@450", 90], ["Akali_Base_Spell4_Dash1_Hit@500>Akali_Base_Idle1@0:0.5", 100]]},
+    "ult2": {"lunge": 0.1, "frames": [["Akali_Base_Spell4_Dash2@0", 50], ["Akali_Base_Spell4_Dash2@200", 50], ["Akali_Base_Spell4_Dash2@400", 50], ["Akali_Base_Spell4_Dash2@600", 70], ["Akali_Base_Spell4_Dash2@700>Akali_Base_Idle1@0:0.5", 90]]},
+    "hit": {"frames": [["Akali_Base_Idle1@0>Akali_Base_Death@200:0.35", 120], ["Akali_Base_Idle1@0>Akali_Base_Death@200:0.15", 120]]},
+    "dead": {"anchor": "first", "lunge": 0.4, "flat": true, "travel": 0.3, "frames": [["Akali_Base_Death@0", 100], ["Akali_Base_Death@200", 100], ["Akali_Base_Death@400", 120], ["Akali_Base_Death@3000", 120], ["Akali_Base_Death@3200", 120], ["Akali_Base_Death@3300", 150], ["Akali_Base_Death@3400", 150], ["Akali_Base_Death@3800", 500]]}
+  }
+}
