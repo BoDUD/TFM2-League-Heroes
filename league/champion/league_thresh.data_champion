@@ -211,28 +211,6 @@
             {
               "casting_type": "Targeting",
               "effect": {
-                "type": "AddCasterBuff",
-                "buff_state": {
-                  "name": "league_thresh_q_hooked",
-                  "duration": {
-                    "Time": {
-                      "tick": 120
-                    }
-                  }
-                },
-                "only_to_enemy": false
-              }
-            },
-            {
-              "casting_type": "Targeting",
-              "effect": {
-                "type": "ViewEffect",
-                "name": "league_thresh_q_hit"
-              }
-            },
-            {
-              "casting_type": "Targeting",
-              "effect": {
                 "type": "TargetSfx",
                 "name": "league_thresh_q_hit"
               }
@@ -255,6 +233,45 @@
               "end_effects": []
             }
           ]
+        },
+        {
+          "type": "LinearProjectile",
+          "name": "league_thresh_q_bind",
+          "speed": 5500,
+          "range": 72000,
+          "shape": {
+            "Circle": {
+              "radius": 6000
+            }
+          },
+          "penetrate": false,
+          "y_offset": 2000,
+          "applied_target": "EnemyChampionInCC",
+          "applied_effects": [
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_thresh_q_hooked",
+                  "duration": {
+                    "Time": {
+                      "tick": 120
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "ViewEffect",
+                "name": "league_thresh_q_hit"
+              }
+            }
+          ],
+          "end_effects": []
         },
         {
           "type": "SwitchByBuff",

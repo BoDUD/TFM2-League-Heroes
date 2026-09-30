@@ -1,0 +1,2504 @@
+{
+  "version": 2,
+  "scale": 8,
+  "alpha": [
+    0,
+    255
+  ],
+  "effect_palette": [
+    "#F6EADB",
+    "#C9EF9A",
+    "#87D46A",
+    "#4BA85A",
+    "#2D6940",
+    "#867469",
+    "#493328"
+  ],
+  "coordinate_system": "Logical pixels, 0-based; frames 1-based; bbox right/bottom exclusive",
+  "generator": "built-in image_gen + authorized pixel cleanup, phase registration and masked sword compositing",
+  "effects": {
+    "riven_fx_hit.png": {
+      "frames": 5,
+      "ms": [
+        50,
+        50,
+        60,
+        60,
+        80
+      ],
+      "cell": [
+        24,
+        24
+      ],
+      "anchor": [
+        12,
+        12
+      ],
+      "image": [
+        960,
+        192
+      ],
+      "in_game": "view_effects hit: the anchor 8 px over the target's standing point (its chest)",
+      "file": "effects/riven_fx_hit.png",
+      "native_file": "native_1x/effects/riven_fx_hit.png",
+      "grid": [
+        5,
+        1
+      ],
+      "loop": false,
+      "prompt": "prompts/hit.txt",
+      "opaque_areas": [
+        7,
+        39,
+        28,
+        27,
+        3
+      ]
+    },
+    "riven_fx_rune_hit.png": {
+      "frames": 6,
+      "ms": [
+        50,
+        50,
+        60,
+        60,
+        70,
+        80
+      ],
+      "cell": [
+        32,
+        32
+      ],
+      "anchor": [
+        16,
+        16
+      ],
+      "image": [
+        1536,
+        256
+      ],
+      "in_game": "view_effects rune_hit: the anchor 8 px over the target's standing point",
+      "file": "effects/riven_fx_rune_hit.png",
+      "native_file": "native_1x/effects/riven_fx_rune_hit.png",
+      "grid": [
+        6,
+        1
+      ],
+      "loop": false,
+      "prompt": "prompts/rune_hit.txt",
+      "opaque_areas": [
+        9,
+        97,
+        180,
+        254,
+        181,
+        5
+      ]
+    },
+    "riven_fx_q_hit.png": {
+      "frames": 5,
+      "ms": [
+        50,
+        50,
+        60,
+        70,
+        80
+      ],
+      "cell": [
+        24,
+        24
+      ],
+      "anchor": [
+        12,
+        12
+      ],
+      "image": [
+        960,
+        192
+      ],
+      "in_game": "view_effects q_hit: the anchor 8 px over the target's standing point",
+      "file": "effects/riven_fx_q_hit.png",
+      "native_file": "native_1x/effects/riven_fx_q_hit.png",
+      "grid": [
+        5,
+        1
+      ],
+      "loop": false,
+      "prompt": "prompts/q_hit.txt",
+      "opaque_areas": [
+        8,
+        46,
+        63,
+        29,
+        3
+      ]
+    },
+    "riven_fx_r_hit.png": {
+      "frames": 6,
+      "ms": [
+        50,
+        60,
+        60,
+        70,
+        80,
+        90
+      ],
+      "cell": [
+        32,
+        32
+      ],
+      "anchor": [
+        16,
+        16
+      ],
+      "image": [
+        1536,
+        256
+      ],
+      "in_game": "view_effects r_hit: the anchor 8 px over the target's standing point",
+      "file": "effects/riven_fx_r_hit.png",
+      "native_file": "native_1x/effects/riven_fx_r_hit.png",
+      "grid": [
+        6,
+        1
+      ],
+      "loop": false,
+      "prompt": "prompts/r_hit.txt",
+      "opaque_areas": [
+        8,
+        66,
+        102,
+        134,
+        74,
+        4
+      ]
+    },
+    "riven_fx_knockup.png": {
+      "frames": 6,
+      "ms": [
+        100,
+        120,
+        130,
+        130,
+        130,
+        140
+      ],
+      "cell": [
+        48,
+        48
+      ],
+      "anchor": [
+        24,
+        32
+      ],
+      "image": [
+        2304,
+        384
+      ],
+      "in_game": "view_effects knockup: the anchor on the target's standing point",
+      "file": "effects/riven_fx_knockup.png",
+      "native_file": "native_1x/effects/riven_fx_knockup.png",
+      "grid": [
+        6,
+        1
+      ],
+      "loop": false,
+      "prompt": "prompts/knockup.txt",
+      "opaque_areas": [
+        54,
+        162,
+        254,
+        219,
+        121,
+        22
+      ]
+    },
+    "riven_fx_stun.png": {
+      "frames": 6,
+      "ms": [
+        125,
+        125,
+        125,
+        125,
+        125,
+        125
+      ],
+      "cell": [
+        24,
+        12
+      ],
+      "anchor": [
+        12,
+        6
+      ],
+      "image": [
+        1152,
+        96
+      ],
+      "in_game": "view_effects stun: the anchor 28 px over the target's standing point",
+      "file": "effects/riven_fx_stun.png",
+      "native_file": "native_1x/effects/riven_fx_stun.png",
+      "grid": [
+        6,
+        1
+      ],
+      "loop": true,
+      "prompt": "prompts/stun.txt",
+      "opaque_areas": [
+        61,
+        62,
+        62,
+        61,
+        62,
+        62
+      ]
+    },
+    "riven_fx_shield.png": {
+      "frames": 8,
+      "ms": [
+        60,
+        60,
+        100,
+        100,
+        100,
+        100,
+        70,
+        90
+      ],
+      "cell": [
+        48,
+        56
+      ],
+      "anchor": [
+        24,
+        40
+      ],
+      "image": [
+        3072,
+        448
+      ],
+      "phases": {
+        "in": [
+          1,
+          2
+        ],
+        "loop": [
+          3,
+          4,
+          5,
+          6
+        ],
+        "out": [
+          7,
+          8
+        ]
+      },
+      "in_game": "view_buffs e_shield ThreePhase (in 1-2, loop 3-6, out 7-8), z 1, on her standing point",
+      "file": "effects/riven_fx_shield.png",
+      "native_file": "native_1x/effects/riven_fx_shield.png",
+      "grid": [
+        8,
+        1
+      ],
+      "loop": false,
+      "prompt": "prompts/shield.txt",
+      "opaque_areas": [
+        68,
+        193,
+        198,
+        202,
+        197,
+        198,
+        173,
+        51
+      ]
+    },
+    "riven_fx_rune_1.png": {
+      "frames": 4,
+      "ms": [
+        150,
+        150,
+        150,
+        150
+      ],
+      "cell": [
+        12,
+        12
+      ],
+      "anchor": [
+        6,
+        6
+      ],
+      "image": [
+        384,
+        96
+      ],
+      "in_game": "view_buffs rune_1: the anchor 40 px over her standing point, 8 px to the left",
+      "file": "effects/riven_fx_rune_1.png",
+      "native_file": "native_1x/effects/riven_fx_rune_1.png",
+      "grid": [
+        4,
+        1
+      ],
+      "loop": true,
+      "prompt": "prompts/rune_1.txt",
+      "opaque_areas": [
+        25,
+        25,
+        25,
+        25
+      ]
+    },
+    "riven_fx_rune_2.png": {
+      "frames": 4,
+      "ms": [
+        150,
+        150,
+        150,
+        150
+      ],
+      "cell": [
+        12,
+        12
+      ],
+      "anchor": [
+        6,
+        6
+      ],
+      "image": [
+        384,
+        96
+      ],
+      "in_game": "view_buffs rune_2: the anchor 40 px over her standing point",
+      "file": "effects/riven_fx_rune_2.png",
+      "native_file": "native_1x/effects/riven_fx_rune_2.png",
+      "grid": [
+        4,
+        1
+      ],
+      "loop": true,
+      "prompt": "prompts/rune_2.txt",
+      "opaque_areas": [
+        20,
+        20,
+        20,
+        20
+      ]
+    },
+    "riven_fx_rune_3.png": {
+      "frames": 4,
+      "ms": [
+        150,
+        150,
+        150,
+        150
+      ],
+      "cell": [
+        12,
+        12
+      ],
+      "anchor": [
+        6,
+        6
+      ],
+      "image": [
+        384,
+        96
+      ],
+      "in_game": "view_buffs rune_3: the anchor 40 px over her standing point, 8 px to the right",
+      "file": "effects/riven_fx_rune_3.png",
+      "native_file": "native_1x/effects/riven_fx_rune_3.png",
+      "grid": [
+        4,
+        1
+      ],
+      "loop": true,
+      "prompt": "prompts/rune_3.txt",
+      "opaque_areas": [
+        19,
+        19,
+        19,
+        19
+      ]
+    },
+    "riven_fx_r_aura.png": {
+      "frames": 6,
+      "ms": [
+        100,
+        100,
+        100,
+        100,
+        100,
+        100
+      ],
+      "cell": [
+        56,
+        64
+      ],
+      "anchor": [
+        28,
+        46
+      ],
+      "image": [
+        2688,
+        512
+      ],
+      "in_game": "view_buffs r (the R buff): Animated loop, z -1 (under her), on her standing point",
+      "file": "effects/riven_fx_r_aura.png",
+      "native_file": "native_1x/effects/riven_fx_r_aura.png",
+      "grid": [
+        6,
+        1
+      ],
+      "loop": true,
+      "prompt": "prompts/r_aura.txt",
+      "opaque_areas": [
+        144,
+        144,
+        143,
+        144,
+        143,
+        144
+      ]
+    }
+  },
+  "strips": {
+    "riven_ult.png": {
+      "file": "strips/riven_ult.png",
+      "native_file": "native_1x/strips/riven_ult.png",
+      "source": "strips/riven_ult.png",
+      "frames": 6,
+      "grid": [
+        3,
+        2
+      ],
+      "cell": [
+        96,
+        96
+      ],
+      "image": [
+        2304,
+        1536
+      ],
+      "records": [
+        {
+          "pivot": [
+            44,
+            70
+          ],
+          "ms": 60,
+          "head": [
+            43.8,
+            54.7
+          ],
+          "frame": 1,
+          "cell": [
+            0,
+            0
+          ],
+          "face_box": [
+            40,
+            47,
+            52,
+            58
+          ],
+          "blade_axis": null,
+          "extension_px": 0,
+          "added_pixels": 0,
+          "added_bbox": null,
+          "brightened_blade_rune_pixels": 0,
+          "unchanged_body_and_metal": true
+        },
+        {
+          "pivot": [
+            41,
+            70
+          ],
+          "ms": 70,
+          "head": [
+            43.7,
+            54.1
+          ],
+          "frame": 2,
+          "cell": [
+            1,
+            0
+          ],
+          "face_box": [
+            40,
+            47,
+            52,
+            58
+          ],
+          "blade_axis": null,
+          "extension_px": 0,
+          "added_pixels": 0,
+          "added_bbox": null,
+          "brightened_blade_rune_pixels": 0,
+          "unchanged_body_and_metal": true
+        },
+        {
+          "pivot": [
+            41,
+            70
+          ],
+          "ms": 80,
+          "head": [
+            44.4,
+            49.4
+          ],
+          "frame": 3,
+          "cell": [
+            2,
+            0
+          ],
+          "face_box": [
+            40,
+            46,
+            52,
+            57
+          ],
+          "blade_axis": [
+            69,
+            33,
+            1,
+            0.08,
+            8,
+            12
+          ],
+          "extension_px": 12,
+          "added_pixels": 64,
+          "added_bbox": [
+            68,
+            27,
+            83,
+            40
+          ],
+          "brightened_blade_rune_pixels": 1,
+          "unchanged_body_and_metal": true
+        },
+        {
+          "pivot": [
+            41,
+            70
+          ],
+          "ms": 90,
+          "head": [
+            44.5,
+            49.3
+          ],
+          "frame": 4,
+          "cell": [
+            0,
+            1
+          ],
+          "face_box": [
+            40,
+            45,
+            52,
+            56
+          ],
+          "blade_axis": [
+            70,
+            75,
+            0.92,
+            0.39,
+            8,
+            12
+          ],
+          "extension_px": 12,
+          "added_pixels": 52,
+          "added_bbox": [
+            71,
+            72,
+            81,
+            81
+          ],
+          "brightened_blade_rune_pixels": 9,
+          "unchanged_body_and_metal": true
+        },
+        {
+          "pivot": [
+            42,
+            70
+          ],
+          "ms": 100,
+          "head": [
+            42.7,
+            52.7
+          ],
+          "frame": 5,
+          "cell": [
+            1,
+            1
+          ],
+          "face_box": [
+            39,
+            50,
+            51,
+            61
+          ],
+          "blade_axis": [
+            79,
+            75,
+            1,
+            0.18,
+            8,
+            12
+          ],
+          "extension_px": 12,
+          "added_pixels": 50,
+          "added_bbox": [
+            80,
+            72,
+            91,
+            80
+          ],
+          "brightened_blade_rune_pixels": 1,
+          "unchanged_body_and_metal": true
+        },
+        {
+          "pivot": [
+            45,
+            70
+          ],
+          "ms": 110,
+          "head": [
+            45.3,
+            54.4
+          ],
+          "frame": 6,
+          "cell": [
+            2,
+            1
+          ],
+          "face_box": [
+            41,
+            45,
+            53,
+            56
+          ],
+          "blade_axis": [
+            74,
+            74,
+            0.94,
+            0.34,
+            8,
+            12
+          ],
+          "extension_px": 12,
+          "added_pixels": 67,
+          "added_bbox": [
+            73,
+            70,
+            86,
+            80
+          ],
+          "brightened_blade_rune_pixels": 8,
+          "unchanged_body_and_metal": true
+        }
+      ]
+    },
+    "riven_r_slash.png": {
+      "file": "strips/riven_r_slash.png",
+      "native_file": "native_1x/strips/riven_r_slash.png",
+      "source": "strips/riven_r_slash.png",
+      "frames": 6,
+      "grid": [
+        3,
+        2
+      ],
+      "cell": [
+        96,
+        96
+      ],
+      "image": [
+        2304,
+        1536
+      ],
+      "records": [
+        {
+          "pivot": [
+            46,
+            70
+          ],
+          "ms": 60,
+          "head": [
+            46.3,
+            54.4
+          ],
+          "frame": 1,
+          "cell": [
+            0,
+            0
+          ],
+          "face_box": [
+            42,
+            48,
+            54,
+            59
+          ],
+          "blade_axis": [
+            20,
+            34,
+            -0.8,
+            -0.6,
+            6,
+            12
+          ],
+          "extension_px": 12,
+          "added_pixels": 41,
+          "added_bbox": [
+            11,
+            27,
+            20,
+            37
+          ],
+          "brightened_blade_rune_pixels": 0,
+          "unchanged_body_and_metal": true
+        },
+        {
+          "pivot": [
+            51,
+            70
+          ],
+          "ms": 70,
+          "head": [
+            49.6,
+            55.2
+          ],
+          "frame": 2,
+          "cell": [
+            1,
+            0
+          ],
+          "face_box": [
+            46,
+            49,
+            58,
+            60
+          ],
+          "blade_axis": [
+            22,
+            24,
+            -0.65,
+            -0.76,
+            8,
+            12
+          ],
+          "extension_px": 12,
+          "added_pixels": 54,
+          "added_bbox": [
+            15,
+            16,
+            28,
+            26
+          ],
+          "brightened_blade_rune_pixels": 7,
+          "unchanged_body_and_metal": true
+        },
+        {
+          "pivot": [
+            40,
+            70
+          ],
+          "ms": 70,
+          "head": [
+            44.9,
+            57.3
+          ],
+          "frame": 3,
+          "cell": [
+            2,
+            0
+          ],
+          "face_box": [
+            41,
+            49,
+            53,
+            60
+          ],
+          "blade_axis": [
+            81,
+            61,
+            1,
+            0.03,
+            8,
+            12
+          ],
+          "extension_px": 12,
+          "added_pixels": 56,
+          "added_bbox": [
+            81,
+            57,
+            93,
+            66
+          ],
+          "brightened_blade_rune_pixels": 5,
+          "unchanged_body_and_metal": true
+        },
+        {
+          "pivot": [
+            48,
+            70
+          ],
+          "ms": 80,
+          "head": [
+            53.3,
+            57.1
+          ],
+          "frame": 4,
+          "cell": [
+            0,
+            1
+          ],
+          "face_box": [
+            49,
+            45,
+            61,
+            56
+          ],
+          "blade_axis": [
+            84,
+            69,
+            0.88,
+            0.47,
+            8,
+            12
+          ],
+          "extension_px": 12,
+          "added_pixels": 51,
+          "added_bbox": [
+            85,
+            67,
+            95,
+            76
+          ],
+          "brightened_blade_rune_pixels": 6,
+          "unchanged_body_and_metal": true
+        },
+        {
+          "pivot": [
+            45,
+            70
+          ],
+          "ms": 90,
+          "head": [
+            48.6,
+            56.2
+          ],
+          "frame": 5,
+          "cell": [
+            1,
+            1
+          ],
+          "face_box": [
+            45,
+            44,
+            57,
+            55
+          ],
+          "blade_axis": [
+            77,
+            74,
+            0.88,
+            0.47,
+            8,
+            12
+          ],
+          "extension_px": 12,
+          "added_pixels": 57,
+          "added_bbox": [
+            76,
+            69,
+            88,
+            81
+          ],
+          "brightened_blade_rune_pixels": 5,
+          "unchanged_body_and_metal": true
+        },
+        {
+          "pivot": [
+            46,
+            70
+          ],
+          "ms": 110,
+          "head": [
+            45.1,
+            53.3
+          ],
+          "frame": 6,
+          "cell": [
+            2,
+            1
+          ],
+          "face_box": [
+            42,
+            45,
+            54,
+            56
+          ],
+          "blade_axis": [
+            75,
+            74,
+            0.94,
+            0.34,
+            8,
+            12
+          ],
+          "extension_px": 12,
+          "added_pixels": 67,
+          "added_bbox": [
+            74,
+            70,
+            87,
+            80
+          ],
+          "brightened_blade_rune_pixels": 8,
+          "unchanged_body_and_metal": true
+        }
+      ]
+    },
+    "riven_attack_r.png": {
+      "file": "strips/riven_attack_r.png",
+      "native_file": "native_1x/strips/riven_attack_r.png",
+      "source": "strips/riven_attack.png",
+      "frames": 6,
+      "grid": [
+        3,
+        2
+      ],
+      "cell": [
+        96,
+        96
+      ],
+      "image": [
+        2304,
+        1536
+      ],
+      "records": [
+        {
+          "pivot": [
+            46,
+            70
+          ],
+          "ms": 60,
+          "head": [
+            46.0,
+            54.0
+          ],
+          "frame": 1,
+          "cell": [
+            0,
+            0
+          ],
+          "face_box": [
+            42,
+            45,
+            54,
+            56
+          ],
+          "blade_axis": [
+            59,
+            28,
+            0.55,
+            -0.84,
+            8,
+            12
+          ],
+          "extension_px": 12,
+          "added_pixels": 62,
+          "added_bbox": [
+            54,
+            19,
+            66,
+            30
+          ],
+          "brightened_blade_rune_pixels": 5,
+          "unchanged_body_and_metal": true
+        },
+        {
+          "pivot": [
+            42,
+            70
+          ],
+          "ms": 60,
+          "head": [
+            45.1,
+            55.4
+          ],
+          "frame": 2,
+          "cell": [
+            1,
+            0
+          ],
+          "face_box": [
+            41,
+            46,
+            53,
+            57
+          ],
+          "blade_axis": [
+            44,
+            26,
+            0.76,
+            -0.65,
+            7,
+            12
+          ],
+          "extension_px": 12,
+          "added_pixels": 45,
+          "added_bbox": [
+            44,
+            19,
+            53,
+            29
+          ],
+          "brightened_blade_rune_pixels": 3,
+          "unchanged_body_and_metal": true
+        },
+        {
+          "pivot": [
+            43,
+            70
+          ],
+          "ms": 70,
+          "head": [
+            48.9,
+            58.6
+          ],
+          "frame": 3,
+          "cell": [
+            2,
+            0
+          ],
+          "face_box": [
+            45,
+            47,
+            57,
+            58
+          ],
+          "blade_axis": [
+            74,
+            75,
+            0.88,
+            0.47,
+            8,
+            12
+          ],
+          "extension_px": 12,
+          "added_pixels": 54,
+          "added_bbox": [
+            73,
+            70,
+            85,
+            82
+          ],
+          "brightened_blade_rune_pixels": 6,
+          "unchanged_body_and_metal": true
+        },
+        {
+          "pivot": [
+            43,
+            70
+          ],
+          "ms": 70,
+          "head": [
+            48.9,
+            59.0
+          ],
+          "frame": 4,
+          "cell": [
+            0,
+            1
+          ],
+          "face_box": [
+            45,
+            49,
+            57,
+            60
+          ],
+          "blade_axis": [
+            78,
+            74,
+            0.95,
+            0.3,
+            8,
+            12
+          ],
+          "extension_px": 12,
+          "added_pixels": 52,
+          "added_bbox": [
+            80,
+            71,
+            89,
+            80
+          ],
+          "brightened_blade_rune_pixels": 9,
+          "unchanged_body_and_metal": true
+        },
+        {
+          "pivot": [
+            43,
+            70
+          ],
+          "ms": 80,
+          "head": [
+            48.8,
+            59.0
+          ],
+          "frame": 5,
+          "cell": [
+            1,
+            1
+          ],
+          "face_box": [
+            45,
+            46,
+            57,
+            57
+          ],
+          "blade_axis": [
+            78,
+            71,
+            0.9,
+            0.43,
+            8,
+            12
+          ],
+          "extension_px": 12,
+          "added_pixels": 51,
+          "added_bbox": [
+            80,
+            68,
+            89,
+            77
+          ],
+          "brightened_blade_rune_pixels": 7,
+          "unchanged_body_and_metal": true
+        },
+        {
+          "pivot": [
+            43,
+            70
+          ],
+          "ms": 90,
+          "head": [
+            43.9,
+            56.0
+          ],
+          "frame": 6,
+          "cell": [
+            2,
+            1
+          ],
+          "face_box": [
+            39,
+            45,
+            51,
+            56
+          ],
+          "blade_axis": [
+            72,
+            74,
+            0.95,
+            0.31,
+            8,
+            12
+          ],
+          "extension_px": 12,
+          "added_pixels": 67,
+          "added_bbox": [
+            71,
+            70,
+            83,
+            80
+          ],
+          "brightened_blade_rune_pixels": 9,
+          "unchanged_body_and_metal": true
+        }
+      ]
+    },
+    "riven_skill_r.png": {
+      "file": "strips/riven_skill_r.png",
+      "native_file": "native_1x/strips/riven_skill_r.png",
+      "source": "strips/riven_skill.png",
+      "frames": 7,
+      "grid": [
+        4,
+        2
+      ],
+      "cell": [
+        96,
+        96
+      ],
+      "image": [
+        3072,
+        1536
+      ],
+      "records": [
+        {
+          "pivot": [
+            43,
+            70
+          ],
+          "ms": 50,
+          "head": [
+            45.3,
+            52.1
+          ],
+          "frame": 1,
+          "cell": [
+            0,
+            0
+          ],
+          "face_box": [
+            41,
+            56,
+            53,
+            67
+          ],
+          "blade_axis": [
+            69,
+            75,
+            0.94,
+            0.34,
+            8,
+            12
+          ],
+          "extension_px": 12,
+          "added_pixels": 51,
+          "added_bbox": [
+            69,
+            71,
+            81,
+            81
+          ],
+          "brightened_blade_rune_pixels": 8,
+          "unchanged_body_and_metal": true
+        },
+        {
+          "pivot": [
+            46,
+            70
+          ],
+          "ms": 50,
+          "head": [
+            47.0,
+            53.0
+          ],
+          "frame": 2,
+          "cell": [
+            1,
+            0
+          ],
+          "face_box": [
+            43,
+            47,
+            55,
+            58
+          ],
+          "blade_axis": [
+            18,
+            50,
+            -0.99,
+            0.08,
+            5,
+            12
+          ],
+          "extension_px": 12,
+          "added_pixels": 39,
+          "added_bbox": [
+            7,
+            48,
+            21,
+            53
+          ],
+          "brightened_blade_rune_pixels": 4,
+          "unchanged_body_and_metal": true
+        },
+        {
+          "pivot": [
+            47,
+            70
+          ],
+          "ms": 60,
+          "head": [
+            44.8,
+            51.6
+          ],
+          "frame": 3,
+          "cell": [
+            2,
+            0
+          ],
+          "face_box": [
+            41,
+            51,
+            53,
+            62
+          ],
+          "blade_axis": [
+            68,
+            59,
+            1,
+            -0.05,
+            7,
+            12
+          ],
+          "extension_px": 12,
+          "added_pixels": 50,
+          "added_bbox": [
+            68,
+            56,
+            80,
+            63
+          ],
+          "brightened_blade_rune_pixels": 2,
+          "unchanged_body_and_metal": true
+        },
+        {
+          "pivot": [
+            49,
+            70
+          ],
+          "ms": 60,
+          "head": [
+            48.0,
+            52.2
+          ],
+          "frame": 4,
+          "cell": [
+            3,
+            0
+          ],
+          "face_box": [
+            44,
+            56,
+            56,
+            67
+          ],
+          "blade_axis": [
+            72,
+            75,
+            0.93,
+            0.38,
+            8,
+            12
+          ],
+          "extension_px": 12,
+          "added_pixels": 68,
+          "added_bbox": [
+            70,
+            70,
+            83,
+            81
+          ],
+          "brightened_blade_rune_pixels": 5,
+          "unchanged_body_and_metal": true
+        },
+        {
+          "pivot": [
+            45,
+            70
+          ],
+          "ms": 70,
+          "head": [
+            48.6,
+            56.7
+          ],
+          "frame": 5,
+          "cell": [
+            0,
+            1
+          ],
+          "face_box": [
+            45,
+            55,
+            57,
+            66
+          ],
+          "blade_axis": [
+            88,
+            58,
+            1,
+            0.03,
+            8,
+            12
+          ],
+          "extension_px": 8,
+          "added_pixels": 39,
+          "added_bbox": [
+            85,
+            54,
+            96,
+            63
+          ],
+          "brightened_blade_rune_pixels": 14,
+          "unchanged_body_and_metal": true
+        },
+        {
+          "pivot": [
+            46,
+            70
+          ],
+          "ms": 80,
+          "head": [
+            51.3,
+            57.7
+          ],
+          "frame": 6,
+          "cell": [
+            1,
+            1
+          ],
+          "face_box": [
+            47,
+            56,
+            59,
+            67
+          ],
+          "blade_axis": [
+            91,
+            60,
+            1,
+            0.04,
+            8,
+            12
+          ],
+          "extension_px": 5,
+          "added_pixels": 30,
+          "added_bbox": [
+            88,
+            56,
+            96,
+            65
+          ],
+          "brightened_blade_rune_pixels": 9,
+          "unchanged_body_and_metal": true
+        },
+        {
+          "pivot": [
+            44,
+            70
+          ],
+          "ms": 90,
+          "head": [
+            46.1,
+            55.6
+          ],
+          "frame": 7,
+          "cell": [
+            2,
+            1
+          ],
+          "face_box": [
+            40,
+            45,
+            52,
+            56
+          ],
+          "blade_axis": [
+            73,
+            74,
+            0.94,
+            0.34,
+            8,
+            12
+          ],
+          "extension_px": 12,
+          "added_pixels": 67,
+          "added_bbox": [
+            72,
+            70,
+            85,
+            80
+          ],
+          "brightened_blade_rune_pixels": 8,
+          "unchanged_body_and_metal": true
+        }
+      ]
+    },
+    "riven_q2_r.png": {
+      "file": "strips/riven_q2_r.png",
+      "native_file": "native_1x/strips/riven_q2_r.png",
+      "source": "strips/riven_q2.png",
+      "frames": 7,
+      "grid": [
+        4,
+        2
+      ],
+      "cell": [
+        96,
+        96
+      ],
+      "image": [
+        3072,
+        1536
+      ],
+      "records": [
+        {
+          "pivot": [
+            46,
+            70
+          ],
+          "ms": 50,
+          "head": [
+            46.6,
+            53.5
+          ],
+          "frame": 1,
+          "cell": [
+            0,
+            0
+          ],
+          "face_box": [
+            43,
+            60,
+            55,
+            71
+          ],
+          "blade_axis": [
+            76,
+            75,
+            0.91,
+            0.41,
+            8,
+            12
+          ],
+          "extension_px": 12,
+          "added_pixels": 61,
+          "added_bbox": [
+            74,
+            70,
+            87,
+            81
+          ],
+          "brightened_blade_rune_pixels": 5,
+          "unchanged_body_and_metal": true
+        },
+        {
+          "pivot": [
+            44,
+            70
+          ],
+          "ms": 50,
+          "head": [
+            44.6,
+            54.2
+          ],
+          "frame": 2,
+          "cell": [
+            1,
+            0
+          ],
+          "face_box": [
+            41,
+            45,
+            53,
+            56
+          ],
+          "blade_axis": [
+            24,
+            37,
+            -0.22,
+            -0.97,
+            3,
+            8
+          ],
+          "extension_px": 8,
+          "added_pixels": 17,
+          "added_bbox": [
+            22,
+            31,
+            26,
+            40
+          ],
+          "brightened_blade_rune_pixels": 0,
+          "unchanged_body_and_metal": true
+        },
+        {
+          "pivot": [
+            43,
+            70
+          ],
+          "ms": 60,
+          "head": [
+            43.3,
+            55.6
+          ],
+          "frame": 3,
+          "cell": [
+            2,
+            0
+          ],
+          "face_box": [
+            39,
+            55,
+            51,
+            66
+          ],
+          "blade_axis": [
+            76,
+            67,
+            0.95,
+            0.31,
+            8,
+            12
+          ],
+          "extension_px": 12,
+          "added_pixels": 69,
+          "added_bbox": [
+            75,
+            63,
+            87,
+            73
+          ],
+          "brightened_blade_rune_pixels": 1,
+          "unchanged_body_and_metal": true
+        },
+        {
+          "pivot": [
+            42,
+            70
+          ],
+          "ms": 60,
+          "head": [
+            40.6,
+            60.4
+          ],
+          "frame": 4,
+          "cell": [
+            3,
+            0
+          ],
+          "face_box": [
+            37,
+            65,
+            49,
+            76
+          ],
+          "blade_axis": [
+            70,
+            76,
+            0.93,
+            0.37,
+            8,
+            12
+          ],
+          "extension_px": 12,
+          "added_pixels": 65,
+          "added_bbox": [
+            70,
+            72,
+            81,
+            82
+          ],
+          "brightened_blade_rune_pixels": 4,
+          "unchanged_body_and_metal": true
+        },
+        {
+          "pivot": [
+            44,
+            70
+          ],
+          "ms": 70,
+          "head": [
+            44.5,
+            64.2
+          ],
+          "frame": 5,
+          "cell": [
+            0,
+            1
+          ],
+          "face_box": [
+            40,
+            54,
+            52,
+            65
+          ],
+          "blade_axis": [
+            81,
+            70,
+            0.94,
+            0.34,
+            8,
+            12
+          ],
+          "extension_px": 12,
+          "added_pixels": 59,
+          "added_bbox": [
+            81,
+            66,
+            93,
+            76
+          ],
+          "brightened_blade_rune_pixels": 0,
+          "unchanged_body_and_metal": true
+        },
+        {
+          "pivot": [
+            44,
+            70
+          ],
+          "ms": 80,
+          "head": [
+            44.8,
+            63.0
+          ],
+          "frame": 6,
+          "cell": [
+            1,
+            1
+          ],
+          "face_box": [
+            41,
+            56,
+            53,
+            67
+          ],
+          "blade_axis": [
+            74,
+            68,
+            0.94,
+            0.34,
+            8,
+            12
+          ],
+          "extension_px": 12,
+          "added_pixels": 62,
+          "added_bbox": [
+            73,
+            64,
+            86,
+            74
+          ],
+          "brightened_blade_rune_pixels": 1,
+          "unchanged_body_and_metal": true
+        },
+        {
+          "pivot": [
+            44,
+            70
+          ],
+          "ms": 90,
+          "head": [
+            44.8,
+            55.2
+          ],
+          "frame": 7,
+          "cell": [
+            2,
+            1
+          ],
+          "face_box": [
+            40,
+            45,
+            52,
+            56
+          ],
+          "blade_axis": [
+            73,
+            74,
+            0.94,
+            0.34,
+            8,
+            12
+          ],
+          "extension_px": 12,
+          "added_pixels": 67,
+          "added_bbox": [
+            72,
+            70,
+            85,
+            80
+          ],
+          "brightened_blade_rune_pixels": 8,
+          "unchanged_body_and_metal": true
+        }
+      ]
+    },
+    "riven_q3_r.png": {
+      "file": "strips/riven_q3_r.png",
+      "native_file": "native_1x/strips/riven_q3_r.png",
+      "source": "strips/riven_q3.png",
+      "frames": 7,
+      "grid": [
+        4,
+        2
+      ],
+      "cell": [
+        96,
+        96
+      ],
+      "image": [
+        3072,
+        1536
+      ],
+      "records": [
+        {
+          "pivot": [
+            45,
+            70
+          ],
+          "ms": 50,
+          "head": [
+            44.6,
+            54.5
+          ],
+          "frame": 1,
+          "cell": [
+            0,
+            0
+          ],
+          "face_box": [
+            41,
+            59,
+            53,
+            70
+          ],
+          "blade_axis": [
+            71,
+            75,
+            0.95,
+            0.32,
+            8,
+            12
+          ],
+          "extension_px": 12,
+          "added_pixels": 53,
+          "added_bbox": [
+            73,
+            72,
+            82,
+            81
+          ],
+          "brightened_blade_rune_pixels": 6,
+          "unchanged_body_and_metal": true
+        },
+        {
+          "pivot": [
+            47,
+            70
+          ],
+          "ms": 60,
+          "head": [
+            49.2,
+            56.4
+          ],
+          "tilt": -53,
+          "frame": 2,
+          "cell": [
+            1,
+            0
+          ],
+          "face_box": [
+            45,
+            39,
+            57,
+            50
+          ],
+          "blade_axis": [
+            24,
+            14,
+            -0.84,
+            -0.54,
+            9,
+            12
+          ],
+          "extension_px": 12,
+          "added_pixels": 49,
+          "added_bbox": [
+            15,
+            8,
+            25,
+            17
+          ],
+          "brightened_blade_rune_pixels": 0,
+          "unchanged_body_and_metal": true
+        },
+        {
+          "pivot": [
+            47,
+            70
+          ],
+          "ms": 80,
+          "head": [
+            49.2,
+            56.4
+          ],
+          "tilt": -53,
+          "frame": 3,
+          "cell": [
+            2,
+            0
+          ],
+          "face_box": [
+            45,
+            35,
+            57,
+            46
+          ],
+          "blade_axis": [
+            26,
+            14,
+            -0.84,
+            -0.54,
+            9,
+            12
+          ],
+          "extension_px": 12,
+          "added_pixels": 54,
+          "added_bbox": [
+            17,
+            8,
+            29,
+            17
+          ],
+          "brightened_blade_rune_pixels": 3,
+          "unchanged_body_and_metal": true
+        },
+        {
+          "pivot": [
+            44,
+            70
+          ],
+          "ms": 60,
+          "head": [
+            44.3,
+            50.6
+          ],
+          "frame": 4,
+          "cell": [
+            3,
+            0
+          ],
+          "face_box": [
+            40,
+            40,
+            52,
+            51
+          ],
+          "blade_axis": [
+            23,
+            16,
+            -0.84,
+            -0.54,
+            9,
+            12
+          ],
+          "extension_px": 12,
+          "added_pixels": 48,
+          "added_bbox": [
+            14,
+            10,
+            24,
+            19
+          ],
+          "brightened_blade_rune_pixels": 1,
+          "unchanged_body_and_metal": true
+        },
+        {
+          "pivot": [
+            52,
+            70
+          ],
+          "ms": 70,
+          "head": [
+            50.1,
+            70.7
+          ],
+          "frame": 5,
+          "cell": [
+            0,
+            1
+          ],
+          "face_box": [
+            46,
+            49,
+            58,
+            60
+          ],
+          "blade_axis": [
+            62,
+            78,
+            0.02,
+            1,
+            8,
+            3
+          ],
+          "extension_px": 3,
+          "added_pixels": 0,
+          "added_bbox": null,
+          "brightened_blade_rune_pixels": 1,
+          "unchanged_body_and_metal": true
+        },
+        {
+          "pivot": [
+            49,
+            70
+          ],
+          "ms": 90,
+          "head": [
+            47.6,
+            72.5
+          ],
+          "frame": 6,
+          "cell": [
+            1,
+            1
+          ],
+          "face_box": [
+            44,
+            54,
+            56,
+            65
+          ],
+          "blade_axis": [
+            62,
+            78,
+            0.02,
+            1,
+            8,
+            3
+          ],
+          "extension_px": 3,
+          "added_pixels": 4,
+          "added_bbox": [
+            62,
+            78,
+            67,
+            81
+          ],
+          "brightened_blade_rune_pixels": 1,
+          "unchanged_body_and_metal": true
+        },
+        {
+          "pivot": [
+            39,
+            70
+          ],
+          "ms": 100,
+          "head": [
+            41.6,
+            55.9
+          ],
+          "frame": 7,
+          "cell": [
+            2,
+            1
+          ],
+          "face_box": [
+            35,
+            45,
+            47,
+            56
+          ],
+          "blade_axis": [
+            67,
+            74,
+            0.95,
+            0.31,
+            8,
+            12
+          ],
+          "extension_px": 12,
+          "added_pixels": 58,
+          "added_bbox": [
+            67,
+            70,
+            78,
+            80
+          ],
+          "brightened_blade_rune_pixels": 9,
+          "unchanged_body_and_metal": true
+        }
+      ]
+    },
+    "riven_skill2_r.png": {
+      "file": "strips/riven_skill2_r.png",
+      "native_file": "native_1x/strips/riven_skill2_r.png",
+      "source": "strips/riven_skill2.png",
+      "frames": 8,
+      "grid": [
+        4,
+        2
+      ],
+      "cell": [
+        96,
+        96
+      ],
+      "image": [
+        3072,
+        1536
+      ],
+      "records": [
+        {
+          "pivot": [
+            46,
+            70
+          ],
+          "ms": 50,
+          "head": [
+            49.2,
+            54.5
+          ],
+          "frame": 1,
+          "cell": [
+            0,
+            0
+          ],
+          "face_box": [
+            45,
+            54,
+            57,
+            65
+          ],
+          "blade_axis": [
+            71,
+            75,
+            0.94,
+            0.34,
+            8,
+            12
+          ],
+          "extension_px": 12,
+          "added_pixels": 56,
+          "added_bbox": [
+            69,
+            71,
+            83,
+            81
+          ],
+          "brightened_blade_rune_pixels": 10,
+          "unchanged_body_and_metal": true
+        },
+        {
+          "pivot": [
+            41,
+            70
+          ],
+          "ms": 50,
+          "head": [
+            42.7,
+            58.3
+          ],
+          "frame": 2,
+          "cell": [
+            1,
+            0
+          ],
+          "face_box": [
+            39,
+            52,
+            51,
+            63
+          ],
+          "blade_axis": [
+            3,
+            64,
+            -0.98,
+            0.18,
+            7,
+            12
+          ],
+          "extension_px": 3,
+          "added_pixels": 9,
+          "added_bbox": [
+            1,
+            61,
+            4,
+            66
+          ],
+          "brightened_blade_rune_pixels": 8,
+          "unchanged_body_and_metal": true
+        },
+        {
+          "pivot": [
+            44,
+            70
+          ],
+          "ms": 50,
+          "head": [
+            45.7,
+            61.2
+          ],
+          "frame": 3,
+          "cell": [
+            2,
+            0
+          ],
+          "face_box": [
+            42,
+            54,
+            54,
+            65
+          ],
+          "blade_axis": [
+            11,
+            67,
+            -0.98,
+            0.18,
+            8,
+            12
+          ],
+          "extension_px": 11,
+          "added_pixels": 55,
+          "added_bbox": [
+            1,
+            63,
+            12,
+            72
+          ],
+          "brightened_blade_rune_pixels": 5,
+          "unchanged_body_and_metal": true
+        },
+        {
+          "pivot": [
+            46,
+            70
+          ],
+          "ms": 60,
+          "head": [
+            48.0,
+            60.7
+          ],
+          "frame": 4,
+          "cell": [
+            3,
+            0
+          ],
+          "face_box": [
+            44,
+            51,
+            56,
+            62
+          ],
+          "blade_axis": [
+            72,
+            75,
+            0.94,
+            0.34,
+            8,
+            12
+          ],
+          "extension_px": 12,
+          "added_pixels": 62,
+          "added_bbox": [
+            70,
+            71,
+            84,
+            81
+          ],
+          "brightened_blade_rune_pixels": 7,
+          "unchanged_body_and_metal": true
+        },
+        {
+          "pivot": [
+            47,
+            70
+          ],
+          "ms": 70,
+          "head": [
+            47.2,
+            56.0
+          ],
+          "frame": 5,
+          "cell": [
+            0,
+            1
+          ],
+          "face_box": [
+            43,
+            46,
+            55,
+            57
+          ],
+          "blade_axis": [
+            52,
+            17,
+            -0.05,
+            -1,
+            8,
+            12
+          ],
+          "extension_px": 12,
+          "added_pixels": 52,
+          "added_bbox": [
+            48,
+            6,
+            56,
+            16
+          ],
+          "brightened_blade_rune_pixels": 10,
+          "unchanged_body_and_metal": true
+        },
+        {
+          "pivot": [
+            52,
+            70
+          ],
+          "ms": 80,
+          "head": [
+            50.0,
+            56.0
+          ],
+          "frame": 6,
+          "cell": [
+            1,
+            1
+          ],
+          "face_box": [
+            46,
+            47,
+            58,
+            58
+          ],
+          "blade_axis": [
+            54,
+            17,
+            -0.05,
+            -1,
+            8,
+            12
+          ],
+          "extension_px": 12,
+          "added_pixels": 53,
+          "added_bbox": [
+            50,
+            6,
+            59,
+            19
+          ],
+          "brightened_blade_rune_pixels": 14,
+          "unchanged_body_and_metal": true
+        },
+        {
+          "pivot": [
+            51,
+            70
+          ],
+          "ms": 90,
+          "head": [
+            49.0,
+            56.3
+          ],
+          "frame": 7,
+          "cell": [
+            2,
+            1
+          ],
+          "face_box": [
+            45,
+            53,
+            57,
+            64
+          ],
+          "blade_axis": [
+            49,
+            29,
+            -0.68,
+            -0.73,
+            8,
+            12
+          ],
+          "extension_px": 12,
+          "added_pixels": 42,
+          "added_bbox": [
+            41,
+            21,
+            51,
+            30
+          ],
+          "brightened_blade_rune_pixels": 8,
+          "unchanged_body_and_metal": true
+        },
+        {
+          "pivot": [
+            45,
+            70
+          ],
+          "ms": 100,
+          "head": [
+            44.5,
+            54.7
+          ],
+          "frame": 8,
+          "cell": [
+            3,
+            1
+          ],
+          "face_box": [
+            41,
+            45,
+            53,
+            56
+          ],
+          "blade_axis": [
+            72,
+            74,
+            0.94,
+            0.34,
+            8,
+            12
+          ],
+          "extension_px": 12,
+          "added_pixels": 49,
+          "added_bbox": [
+            74,
+            71,
+            84,
+            80
+          ],
+          "brightened_blade_rune_pixels": 9,
+          "unchanged_body_and_metal": true
+        }
+      ]
+    }
+  },
+  "shortened_sword_frames": [
+    {
+      "file": "riven_skill_r.png",
+      "frame": 5,
+      "extension_px": 8,
+      "reason": "feet/cell clearance or end-on narrow blade"
+    },
+    {
+      "file": "riven_skill_r.png",
+      "frame": 6,
+      "extension_px": 5,
+      "reason": "feet/cell clearance or end-on narrow blade"
+    },
+    {
+      "file": "riven_q2_r.png",
+      "frame": 2,
+      "extension_px": 8,
+      "reason": "feet/cell clearance or end-on narrow blade"
+    },
+    {
+      "file": "riven_q3_r.png",
+      "frame": 5,
+      "extension_px": 3,
+      "reason": "feet/cell clearance or end-on narrow blade"
+    },
+    {
+      "file": "riven_q3_r.png",
+      "frame": 6,
+      "extension_px": 3,
+      "reason": "feet/cell clearance or end-on narrow blade"
+    },
+    {
+      "file": "riven_skill2_r.png",
+      "frame": 2,
+      "extension_px": 3,
+      "reason": "feet/cell clearance or end-on narrow blade"
+    },
+    {
+      "file": "riven_skill2_r.png",
+      "frame": 3,
+      "extension_px": 11,
+      "reason": "feet/cell clearance or end-on narrow blade"
+    }
+  ]
+}

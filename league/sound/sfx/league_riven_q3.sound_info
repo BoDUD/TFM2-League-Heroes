@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_riven_sfx_q3",
+      "volume": 0.8
+    },
+    {
+      "delay": 0.0,
+      "clip": "league_riven_vo_q3",
+      "volume": 0.9
+    }
+  ]
+}
