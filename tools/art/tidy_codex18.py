@@ -52,7 +52,7 @@ EYE_COLOURS = {"thresh": [(13, 200, 78), (4, 71, 29)],
                "malphite": [(245, 166, 8), (184, 78, 5), (150, 76, 29)],
                "annie": [(51, 32, 63)],
                "amumu": [(243, 224, 80), (247, 214, 65), (204, 141, 33), (153, 88, 24), (87, 46, 21)],
-               "jinx": [(209, 46, 128)], "missfortune": [(44, 129, 226)], "yone": [(70, 52, 94)],
+               "jinx": [(209, 46, 128)], "yone": [(70, 52, 94)],
                "garen": [(31, 62, 200)], "ashe": [(59, 174, 240)], "ahri": [(233, 162, 34)],
                "lux": [(45, 111, 184)]}
 # heroes whose delivered faces were drawn anew in every frame (Codex: "not a pixel copy of the head"): the design's
@@ -85,9 +85,6 @@ FACES = {"leona": {"head": (42, 58, 66, 74), "patch": (53, 68, 61, 73), "iris": 
          # Jinx: lids, the blue-and-pink eyes and the mouth; the pink iris #D02C7E becomes an eye-only shade
          # (Codex's frames use it on her guns); matched on the face alone (her hair and braids are drawn anew)
          "jinx": {"head": (55, 69, 63, 73), "patch": (56, 70, 62, 73), "iris": ((208, 44, 126), (209, 46, 128))},
-         # Miss Fortune: black lashes over blue irises, cheeks and mouth; the blue becomes an eye-only shade
-         "missfortune": {"head": (59, 73, 63, 78), "patch": (59, 74, 63, 78), "iris": ((43, 127, 224), (44, 129, 226)),
-                         "hidden": {"dead": (4, 5)}},  # falling: the head tilts
          # Yone: no eyes (the mask's red V and a dark strand cover them) - the masked face with the purple hair
          # strand over it goes back; the strand's #45335C (Codex also uses it on the demon blade) becomes a
          # head-only shade to steady on
@@ -115,7 +112,7 @@ FACE_OK = 120                   # mean colour distance over the head box above w
 # pivots: every frame whose face is found goes sideways so that its eyes stand on League's head joint of that frame
 # (the cells table's "head"), as in the design; a frame without a face keeps Codex's place round the atlas pivot,
 # moved to ours. Up and down stay Codex's: the soles are on the feet line already.
-PLACE_BY_HEAD = {"darius", "leesin", "soraka", "annie", "amumu", "jinx", "missfortune", "yone", "garen", "ashe", "ahri", "lux"}
+PLACE_BY_HEAD = {"darius", "leesin", "soraka", "annie", "amumu", "jinx", "yone", "garen", "ashe", "ahri", "lux"}
 
 
 def blocks(path):
