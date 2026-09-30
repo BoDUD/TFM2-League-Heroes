@@ -16,7 +16,9 @@ the soles (the blade's tip 4 more) - bigger than the 39 asked, as Codex's drafts
      whole rows and columns deleted (tools/art/design_riven.py's keep_axis: in each group the line most like its
      neighbour goes), never through the face (the moon disc, lashes, eyes, cheeks, chin), the width in proportion;
   4. one outline (design_riven.one_outline, the face kept) and the ring completed where a deleted line held it;
-  5. on the 128x128 canvas, soles on row 99, the middle of the feet on column 64, shown at 8x.
+  5. the blade 2 squares back, clear of the hair (tools/art/tidy_diana.py's move_blade; the user, after the strips:
+     "皎月的武器和头发重叠了", and of the variants picked "待机 A2" - this is the idle's frame);
+  6. on the 128x128 canvas, soles on row 99, the middle of the feet on column 64, shown at 8x.
 --check compares the result with the committed file instead of writing it.
 """
 import argparse
@@ -32,6 +34,7 @@ sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scripts"))
 import design_riven as R  # noqa: E402
 from regrid import regrid  # noqa: E402
+from tidy_diana import BLADE_BACK, move_blade  # noqa: E402
 
 DRAFT = os.path.join(ROOT, "assets", "source", "diana", "codex_model", "diana_design_{}.png")
 OUT = os.path.join(ROOT, "assets", "source", "native", "diana_native.png")
@@ -143,7 +146,10 @@ def design(version="A", height=40):
     a = np.asarray(Image.open(R.lp(DRAFT.format(version))).convert("RGBA"))
     one, _, _ = regrid(a)
     q = quantise(one, eye_mask(one, d["eyes"]))
-    return shrink(q, d["crown"], d["rows"], d["cols"], height)
+    fig = shrink(q, d["crown"], d["rows"], d["cols"], height)
+    moved = move_blade(np.pad(fig, ((0, 0), (BLADE_BACK, 0), (0, 0))))
+    ys, xs = np.nonzero(moved[..., 3] > 0)
+    return moved[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
 
 
 def main():
