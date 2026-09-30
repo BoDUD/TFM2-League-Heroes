@@ -189,6 +189,13 @@
         "skill": "向目标跃斩，对周围敌人造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45% 攻击力<>的<#ff9028ff>物理伤害<>。有<#ffb900ff>3<>次充能，每<#ffb900ff>4秒<>恢复一次；<#ffb900ff>4秒<>内第三次施放改为跃起砸地，并<#ef5350ff>击飞<>周围敌人<#ffb900ff>0.75秒<>。",
         "skill2": "<#ff9028ff>勇往直前<>：冲到目标身边，获得<#e8d44dff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70% 攻击力<>的<#e8d44dff>护盾<>，持续<#ffb900ff>1.5秒<>。落地施放<#ff9028ff>震魂怒吼<>，对周围敌人造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80% 攻击力<>的<#ff9028ff>物理伤害<>并<#ef5350ff>眩晕<><#ffb900ff>0.75秒<>。",
         "ult": "身边有敌方英雄时开启，持续<#ffb900ff>15秒<>：攻击力提高<#ffb900ff>20%<>，攻击距离变长，<#ff9028ff>折翼之舞<>和<#ff9028ff>震魂怒吼<>范围扩大<#ffb900ff>25%<>。开启<#ffb900ff>5秒<>后向身边的敌方英雄放出<#ff9028ff>疾风斩<>，对直线上的敌人造成<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<> + <#ff9028ff>8% 最大生命值<>的<#ff9028ff>物理伤害<>。"
+      },
+      "league_vayne": {
+        "name": "薇恩",
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。被动 <#ff9028ff>暗夜猎手<>：附近有敌方英雄时<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移动速度+8%<>。<#ff9028ff>圣银弩箭<>：<#ffb900ff>3.5秒<>内连续第<#ffb900ff>3<>次命中（普攻、技能都算）额外造成<#f5f5f5ff>50<>的<#f5f5f5ff>真实伤害<>，对英雄再加<#f5f5f5ff>7%<>最大生命值。",
+        "skill": "翻滚：敌方英雄贴近时往后滚，射程内有敌人时后跳，否则滚进射程。<#ffb900ff>7秒<>内的下一次普攻额外造成<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80% 攻击力<>的<#ff9028ff>物理伤害<>。",
+        "skill2": "用大弩射出重箭，对敌方英雄造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70% 攻击力<>的<#ff9028ff>物理伤害<>并<#ef5350ff>击退<>，落地时再受到<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35% 攻击力<>的<#ff9028ff>物理伤害<>并<#ef5350ff>眩晕<><#ffb900ff>1秒<>。",
+        "ult": "<#ffb900ff>8秒<>内<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻击力+25%<>，技能冷却缩短<#ffb900ff>50%<>，<#ff9028ff>闪避突袭<>附带<#ffb900ff>1秒<><#ffb900ff>隐身<>，暗夜猎手的移速变为<#ffb900ff>3倍<>。期间她亲手击杀英雄时，终极时刻刷新为<#ffb900ff>8秒<>。"
       }
     },
     "skill_name": {
@@ -326,6 +333,11 @@
         "skill1": "折翼之舞",
         "skill2": "勇往直前",
         "ult": "放逐之锋"
+      },
+      "league_vayne": {
+        "skill1": "闪避突袭",
+        "skill2": "恶魔审判",
+        "ult": "终极时刻"
       }
     }
   },
@@ -519,6 +531,13 @@
         "skill": "向目標躍斬，對周圍敵人造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45% 物理攻擊<>的<#ff9028ff>物理傷害<>。有<#ffb900ff>3<>次充能，每<#ffb900ff>4秒<>恢復一次；<#ffb900ff>4秒<>內第三次施放改為躍起砸地，並<#ef5350ff>擊飛<>周圍敵人<#ffb900ff>0.75秒<>。",
         "skill2": "<#ff9028ff>勇者無敵<>：衝到目標身邊，獲得<#e8d44dff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70% 物理攻擊<>的<#e8d44dff>護盾<>，持續<#ffb900ff>1.5秒<>。落地施放<#ff9028ff>符文衝擊<>，對周圍敵人造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80% 物理攻擊<>的<#ff9028ff>物理傷害<>並<#ef5350ff>暈眩<><#ffb900ff>0.75秒<>。",
         "ult": "身邊有敵方英雄時啟動，持續<#ffb900ff>15秒<>：物理攻擊提高<#ffb900ff>20%<>，攻擊距離變長，<#ff9028ff>斷罪之翼<>和<#ff9028ff>符文衝擊<>範圍擴大<#ffb900ff>25%<>。啟動<#ffb900ff>5秒<>後向身邊的敵方英雄發射<#ff9028ff>疾風斬<>，對直線上的敵人造成<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 物理攻擊<> + <#ff9028ff>8% 最大生命<>的<#ff9028ff>物理傷害<>。"
+      },
+      "league_vayne": {
+        "name": "汎",
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。被動 <#ff9028ff>夜之狩獵<>：附近有敵方英雄時<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>跑速+8%<>。<#ff9028ff>神聖銀箭<>：<#ffb900ff>3.5秒<>內連續第<#ffb900ff>3<>次命中（普攻、技能都算）額外造成<#f5f5f5ff>50<>的<#f5f5f5ff>真實傷害<>，對英雄再加<#f5f5f5ff>7%<>最大生命。",
+        "skill": "翻滾：敵方英雄貼近時往後滾，射程內有敵人時後跳，否則滾進射程。<#ffb900ff>7秒<>內的下一次普攻額外造成<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80% 攻擊力<>的<#ff9028ff>物理傷害<>。",
+        "skill2": "用大弩射出重箭，對敵方英雄造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70% 攻擊力<>的<#ff9028ff>物理傷害<>並<#ef5350ff>擊退<>，落地時再受到<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35% 攻擊力<>的<#ff9028ff>物理傷害<>並<#ef5350ff>暈眩<><#ffb900ff>1秒<>。",
+        "ult": "<#ffb900ff>8秒<>內<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻擊力+25%<>，技能冷卻縮短<#ffb900ff>50%<>，<#ff9028ff>翻滾瞄準<>附帶<#ffb900ff>1秒<><#ffb900ff>隱形<>，夜之狩獵的跑速變為<#ffb900ff>3倍<>。期間她親手擊殺英雄時，死亡通緝刷新為<#ffb900ff>8秒<>。"
       }
     },
     "skill_name": {
@@ -656,6 +675,11 @@
         "skill1": "斷罪之翼",
         "skill2": "勇者無敵",
         "ult": "放逐之刃"
+      },
+      "league_vayne": {
+        "skill1": "翻滾瞄準",
+        "skill2": "重型弩箭",
+        "ult": "死亡通緝"
       }
     }
   },
@@ -849,6 +873,13 @@
         "skill": "Riven lunges at her target and slashes, dealing <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45% AD<> <#ff9028ff>physical damage<> to enemies around her. <#ffb900ff>3<> charges, one back every <#ffb900ff>4s<>; the third cast within <#ffb900ff>4s<> is a leap that <#ef5350ff>knocks up<> enemies around her landing for <#ffb900ff>0.75s<>.",
         "skill2": "<#ff9028ff>Valor<>: Riven dashes to her target and gains a <#e8d44dff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70% AD<> <#e8d44dff>shield<> for <#ffb900ff>1.5s<>. On arrival she casts <#ff9028ff>Ki Burst<>, dealing <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80% AD<> <#ff9028ff>physical damage<> to enemies around her and <#ef5350ff>stunning<> them for <#ffb900ff>0.75s<>.",
         "ult": "Starts when an enemy champion is near her and lasts <#ffb900ff>15s<>: <#ffb900ff>20%<> more AD, longer attack range and <#ffb900ff>25%<> larger <#ff9028ff>Broken Wings<> and <#ff9028ff>Ki Burst<>. After <#ffb900ff>5s<> she fires <#ff9028ff>Wind Slash<> at an enemy champion near her, dealing <#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> + <#ff9028ff>8% max health<> <#ff9028ff>physical damage<> to enemies in a line."
+      },
+      "league_vayne": {
+        "name": "Vayne",
+        "attack": "Basic attacks deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. Passive <#ff9028ff>Night Hunter<>: <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>8% Move Speed<> while an enemy champion is near. <#ff9028ff>Silver Bolts<>: every <#ffb900ff>3<>rd hit in a row within <#ffb900ff>3.5s<> (attacks and abilities) deals <#f5f5f5ff>50<> <#f5f5f5ff>true damage<> more, plus <#f5f5f5ff>7%<> of a champion's max health.",
+        "skill": "Vayne tumbles: away from an enemy champion on her, a hop back when an enemy is in range, else toward her target until it is in range. Her next attack within <#ffb900ff>7s<> deals <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80% AD<> <#ff9028ff>physical damage<> more.",
+        "skill2": "A heavy bolt from her great crossbow deals <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70% AD<> <#ff9028ff>physical damage<> to an enemy champion and <#ef5350ff>knocks it back<>; where it lands it takes <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35% AD<> <#ff9028ff>physical damage<> more and is <#ef5350ff>stunned<> for <#ffb900ff>1s<>.",
+        "ult": "For <#ffb900ff>8s<> Vayne gains <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25% AD<>, her ability cooldowns are <#ffb900ff>50%<> shorter, <#ff9028ff>Tumble<> makes her <#ffb900ff>invisible<> for <#ffb900ff>1s<> and Night Hunter's speed is <#ffb900ff>3x<>. A champion killed by her own hit meanwhile resets Final Hour to <#ffb900ff>8s<>."
       }
     },
     "skill_name": {
@@ -986,6 +1017,11 @@
         "skill1": "Broken Wings",
         "skill2": "Valor",
         "ult": "Blade of the Exile"
+      },
+      "league_vayne": {
+        "skill1": "Tumble",
+        "skill2": "Condemn",
+        "ult": "Final Hour"
       }
     }
   },
@@ -1179,6 +1215,13 @@
         "skill": "대상에게 뛰어들어 베어 주변 적에게 <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 45%<> <#ff9028ff>물리 피해<>를 입힙니다. 충전 <#ffb900ff>3<>회, <#ffb900ff>4초<>마다 1회 충전됩니다. <#ffb900ff>4초<> 안에 세 번째로 사용하면 도약해 착지 지점 주변의 적을 <#ffb900ff>0.75초<> 동안 <#ef5350ff>공중으로 띄워 올립니다<>.",
         "skill2": "<#ff9028ff>용맹<>: 대상에게 돌진하며 <#ffb900ff>1.5초<> 동안 <#e8d44dff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 70%<> <#e8d44dff>보호막<>을 얻습니다. 도착하면 <#ff9028ff>기 폭발<>로 주변 적에게 <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 80%<> <#ff9028ff>물리 피해<>를 입히고 <#ffb900ff>0.75초<> 동안 <#ef5350ff>기절<>시킵니다.",
         "ult": "주변에 적 챔피언이 있을 때 발동하여 <#ffb900ff>15초<> 동안 공격력이 <#ffb900ff>20%<> 증가하고 공격 사거리가 늘어나며 <#ff9028ff>부러진 날개<>와 <#ff9028ff>기 폭발<>의 범위가 <#ffb900ff>25%<> 커집니다. <#ffb900ff>5초<> 후 주변의 적 챔피언에게 <#ff9028ff>바람 가르기<>를 날려 일직선 상의 적에게 <#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> + <#ff9028ff>최대 체력의 8%<> <#ff9028ff>물리 피해<>를 입힙니다."
+      },
+      "league_vayne": {
+        "name": "베인",
+        "attack": "기본 공격은 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다. 기본 지속 효과 <#ff9028ff>어둠 사냥꾼<>: 근처에 적 챔피언이 있으면 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도 8%<>. <#ff9028ff>은화살<>: <#ffb900ff>3.5초<> 안에 연속 <#ffb900ff>3<>번째 적중(기본 공격·스킬)마다 <#f5f5f5ff>50<> <#f5f5f5ff>고정 피해<>, 챔피언에게는 최대 체력의 <#f5f5f5ff>7%<> 추가.",
+        "skill": "구르기: 적 챔피언이 붙으면 뒤로, 사거리 안에 적이 있으면 살짝 뒤로, 없으면 사거리까지 앞으로. <#ffb900ff>7초<> 안의 다음 기본 공격이 <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 80%<> <#ff9028ff>물리 피해<>를 추가로 입힙니다.",
+        "skill2": "큰 석궁으로 무거운 화살을 쏴 적 챔피언에게 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 70%<> <#ff9028ff>물리 피해<>를 입히고 <#ef5350ff>밀쳐냅니다<>. 떨어진 곳에서 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 35%<> <#ff9028ff>물리 피해<>를 더 입고 <#ffb900ff>1초<> <#ef5350ff>기절<>.",
+        "ult": "<#ffb900ff>8초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력 25%<> 증가, 스킬 재사용 대기시간 <#ffb900ff>50%<> 감소, <#ff9028ff>구르기<> 후 <#ffb900ff>1초<> <#ffb900ff>투명<>, 어둠 사냥꾼 이동 속도 <#ffb900ff>3배<>. 그동안 직접 챔피언을 처치하면 <#ffb900ff>8초<>로 초기화."
       }
     },
     "skill_name": {
@@ -1316,6 +1359,11 @@
         "skill1": "부러진 날개",
         "skill2": "용맹",
         "ult": "추방자의 검"
+      },
+      "league_vayne": {
+        "skill1": "구르기",
+        "skill2": "선고",
+        "ult": "결전의 시간"
       }
     }
   },
@@ -1509,6 +1557,13 @@
         "skill": "対象に跳び込んで斬り、周囲の敵に<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の45%<>の<#ff9028ff>物理ダメージ<>を与える。チャージ<#ffb900ff>3<>回（<#ffb900ff>4秒<>ごとに回復）。<#ffb900ff>4秒<>以内の3回目は跳躍し、着地点周囲の敵を<#ffb900ff>0.75秒<>間<#ef5350ff>ノックアップ<>させる。",
         "skill2": "<#ff9028ff>勇躍<>：対象へダッシュし、<#ffb900ff>1.5秒<>間<#e8d44dff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の70%<>の<#e8d44dff>シールド<>を得る。到着時に<#ff9028ff>気功破<>で周囲の敵に<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の80%<>の<#ff9028ff>物理ダメージ<>を与え、<#ffb900ff>0.75秒<>間<#ef5350ff>スタン<>させる。",
         "ult": "近くに敵チャンピオンがいると発動し、<#ffb900ff>15秒<>間攻撃力<#ffb900ff>20%<>増加、射程が伸び、<#ff9028ff>折れた翼<>と<#ff9028ff>気功破<>の範囲が<#ffb900ff>25%<>拡大。<#ffb900ff>5秒<>後、近くの敵チャンピオンへ<#ff9028ff>ウィンドスラッシュ<>を放ち、直線上の敵に<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<> + <#ff9028ff>最大体力の8%<>の<#ff9028ff>物理ダメージ<>を与える。"
+      },
+      "league_vayne": {
+        "name": "ヴェイン",
+        "attack": "通常攻撃は<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>。パッシブ <#ff9028ff>ナイトハンター<>：近くに敵チャンピオンがいると<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度8%<>。<#ff9028ff>シルバーボルト<>：<#ffb900ff>3.5秒<>以内の連続<#ffb900ff>3<>回目の命中ごとに<#f5f5f5ff>50<>の<#f5f5f5ff>確定ダメージ<>、チャンピオンには最大体力の<#f5f5f5ff>7%<>を追加。",
+        "skill": "転がる：敵チャンピオンが近ければ後ろへ、射程内に敵がいれば小さく後ろへ、いなければ射程内まで前へ。<#ffb900ff>7秒<>以内の次の攻撃が<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の80%<>の<#ff9028ff>物理ダメージ<>を追加。",
+        "skill2": "大型クロスボウの重い矢で敵チャンピオンに<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の70%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>ノックバック<>。着地で<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の35%<>の<#ff9028ff>物理ダメージ<>、<#ffb900ff>1秒<><#ef5350ff>スタン<>。",
+        "ult": "<#ffb900ff>8秒<>間<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力25%<>増加、スキルのクールダウン<#ffb900ff>50%<>短縮、<#ff9028ff>タンブル<>で<#ffb900ff>1秒<><#ffb900ff>インビジブル<>、ナイトハンターの速度<#ffb900ff>3倍<>。その間に自らチャンピオンを倒すと<#ffb900ff>8秒<>に戻る。"
       }
     },
     "skill_name": {
@@ -1646,6 +1701,11 @@
         "skill1": "折れた翼",
         "skill2": "勇躍",
         "ult": "追放者の剣"
+      },
+      "league_vayne": {
+        "skill1": "タンブル",
+        "skill2": "パニッシュメント",
+        "ult": "ファイナルアワー"
       }
     }
   }

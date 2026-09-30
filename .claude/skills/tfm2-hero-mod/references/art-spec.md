@@ -327,6 +327,28 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   outside and the one-outline rules applied. A far eye of one square read as "one eye" ("怎么就一个眼睛"): both
   eyes 2x2 on the same rows, a highlight at the top left, two skin squares between them, the face widened to 7
   squares so the eyes clear the hair. 35x45 with the horns, 26 colours, the eye colour in the 6 eye squares only.
+- **A design drawn at game size: have the image model draw the sprite itself, then only read it back (league_lucian's
+  redesign, league_vayne).** The way to take a hero from the user's picture to the game without losing detail - the
+  user's words for it: "细节好 不模糊". Do not ask for a bigger drawing to shrink: league_vayne's first pack asked
+  Codex for 72 squares crown to soles (1.7x), it drew 96 (A) and 76 (B), and every way down to the game's ~42 rows -
+  dropping the most redundant lines, an area vote with salient colours, a colour majority first with the lens rows and
+  columns protected - broke the red lenses, silver trims and armour into specks. Asked for the game size itself (about
+  36-38 squares crown to soles), the image model draws coarse squares of about 10 px on its 1254 px canvas, and the
+  draft's own grid reads back one square to one game pixel: league_lucian's redesign came back as 47x46.
+  The pack, four images in this order (`assets/source/lucian/MODEL_REDESIGN.md`, `assets/source/vayne/MODEL_PROMPTS.md`):
+  the user's picture ("copy the look from it"); base heroes of the hero's kind at 8x for the pixel size and cleanliness
+  (for a marksman the nine base ranged heroes' idle frames, built with `tfm2_ase.load_sprite`); a pack hero's game sprite
+  on the same 1024x1024 canvas with the soles on block row 99, y 792-799 ("ONLY for the size and the ground line"); the
+  user's picture shrunk straight to game size on that canvas and ground ("ONLY to see what fits where; it is blurry,
+  do not copy its look"). The rules to write out: every pixel one 8x8 square on one grid, at most 24 colours, 2-3 flat
+  shades per material (list the materials), one outline and no black ring inside it, the face in squares (eye or lens
+  widths, both on the same rows, the eye colour used nowhere else, the mouth on the face's middle line, no shadow joining
+  the jaw's corners to the chin, the fringe off the eyes), each prop's least size in squares and the outline between it
+  and the body, nothing below the soles, 3/4 front facing right, and two versions - A the picture's proportions with
+  the head big enough for the face, B the base heroes' chibi head (a third of the height). Leave the hero's name out
+  of the prompt (image models may refuse named characters) and ask for a HANDOFF and a manifest. Back from the model:
+  `scripts/regrid.py` (square edges at the peaks of colour change, each square the median of its middle 3x3), then the
+  palette, one outline and the face by hand - never a resampling.
 - **One look per hero.** Strips from different generation rounds disagree on proportions (round
   1 Garen: big head, broad shoulders; round 3: smaller head for the same height). No scale hides
   it - in-game he visibly grew and shrank between animations. When the look changes, regenerate
@@ -456,6 +478,35 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   near-black takes the outline colour - inside the silhouette, so no frame grows (compare areas with the idle) - and
   `tidy_codex18.py`'s `one_outline` follows (spurs, the inner black ring, specks); 96-99% of the edge is outline
   afterwards and 2-4% of the ring inside it black.
+- **Codex's own export cut the head off at the neck (league_vayne).** Its exporter (VayneExport.cs) cleared every
+  hair, skin and bodysuit square round the eyes - 30 rows above them, 6 below, so the neck and the high collar under
+  the chin too - and pasted the design's whole head: the head sat on the body like a sticker ("头和身体有点分离"
+  "不协调"), and where its eye marks were off (up to 10 squares: Condemn's shot, the fall) on the wrong part of it,
+  with the drawn head's leftovers beside it; its erase box also took the forearm in front of the face (a wrist crossbow
+  "flying" off the hand). `tools/art/export_vayne.py` redoes the export from its raw sheets square for square (the
+  same pitch, boxes, placement, 3x3 median, palette without the lens reds, specks, feet line - checked: 0-2 squares
+  apart outside the head) but clears nothing and pastes only the design's face (glasses, skin, profile, mouth: 9 x 8)
+  where Codex's own face is, found by colour within 10 squares of the mark (the design's face with its lenses in the
+  cape red that the drawn lenses snap to) - a face pasted at the mark itself left two faces side by side. Frames whose
+  head is thrown back keep the drawn face. In the next pack ask for no erase and no head paste at all, and for the raw
+  sheets and eye marks with the delivery.
+- **A run's legs must change (league_vayne).** Codex drew all 8 run frames with the same legs - the near leg planted,
+  the far one kicked up behind - so she hopped on one foot ("走路没有交叉步"); the pack's run guide had only the
+  standing points and the feet line, and "frames 1-4 one stride, 5-8 the other" was not enough. Check every run
+  against League's: the planted leg swaps every half cycle and the knees pass each other under the body in between.
+  A guide that shows it: `native_pose.py --parts` with the spec's `"parts": [{"joints": "^l_thigh$"}, {"joints":
+  "^r_thigh$"}]` paints the two legs apart (the near one is drawn over the far one where they overlap); give them to
+  Codex in two colours (near orange, far blue, the rest grey) at 8x and at game size on the run's guide, with a
+  per-frame table of which leg is planted, passing or kicked back (`assets/source/vayne/MODEL_RUN_REDO.md`). Codex's
+  redraw from it came back right in one round: the near leg planted in frames 8, 1, 2, the far one in 4, 5, 6, the
+  knees crossing in 2-3 and 6-7, the near leg told apart by its brighter knee guard.
+- **A picture round the hero goes under her, not round a hole (league_vayne).** Asked to "leave a figure-shaped empty
+  space", Codex also cleared a rectangle in the middle of every Final Hour cell of its export (x 22.5-77.5%, y
+  17-89%): the flare's rays, the refresh's ring and most of the aura's motes went. Its raw sheets still had them; drawn
+  under the units (`z` -1 on the view) the hero's own body covers the middle, whatever her pose. Its exports also put
+  one game pixel on every 8x8 block of the layout canvas (a basic bolt 29 px long, a hit 20): the size comes from the
+  kit, so `import_vayne.py --raw` samples the raw sheets (`rawRect` per frame) to it, x and y apart where the tool
+  squeezed a strip's frames into its fixed canvas.
 - **Effect anchors.** Effect and buff frames are drawn centred on the unit's pivot, 11.5 px above
   the feet (base: `levelup_effect` ring at +9..+16, `shield_receive_effect` bubble -22..+13).
   Ground rings at about +10, hits and shields at -3..-6, overhead marks around -25. Time the
