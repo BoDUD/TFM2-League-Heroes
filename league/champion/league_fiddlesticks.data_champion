@@ -224,7 +224,7 @@
               "casting_type": "Targeting",
               "effect": {
                 "type": "ApAttack",
-                "damage": 60,
+                "damage": 80,
                 "attack_ratio": 60
               }
             }
@@ -241,7 +241,7 @@
               "casting_type": "Targeting",
               "effect": {
                 "type": "ApAttack",
-                "damage": 60,
+                "damage": 80,
                 "attack_ratio": 60
               }
             },
@@ -351,7 +351,7 @@
               "casting_type": "Targeting",
               "effect": {
                 "type": "ApAttack",
-                "damage": 50,
+                "damage": 70,
                 "attack_ratio": 50
               }
             },
@@ -533,7 +533,7 @@
                     "effects": [
                       {
                         "type": "ApAttack",
-                        "damage": 12,
+                        "damage": 16,
                         "attack_ratio": 12
                       },
                       {
@@ -546,6 +546,47 @@
                       {
                         "type": "ViewEffect",
                         "name": "league_fiddlesticks_w_drain"
+                      },
+                      {
+                        "type": "TargetProjectile",
+                        "name": "league_fiddlesticks_w_link",
+                        "speed": 100000,
+                        "y_offset": 0,
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ParabolicProjectile",
+                              "name": "league_fiddlesticks_w_spot",
+                              "travel_time": 1,
+                              "range": 400000,
+                              "shape": {
+                                "Circle": {
+                                  "radius": 0
+                                }
+                              },
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": [],
+                              "end_effects": [
+                                {
+                                  "type": "BackToCasterLinearProjectile",
+                                  "name": "league_fiddlesticks_w_chain",
+                                  "speed": 1600,
+                                  "range": 120000,
+                                  "penetrate": true,
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 0
+                                    }
+                                  },
+                                  "applied_target": "EnemyWithoutTower",
+                                  "applied_effects": []
+                                }
+                              ]
+                            }
+                          }
+                        ]
                       }
                     ]
                   },
@@ -619,7 +660,7 @@
                     "effects": [
                       {
                         "type": "ApAttack",
-                        "damage": 12,
+                        "damage": 16,
                         "attack_ratio": 12
                       },
                       {
@@ -632,6 +673,47 @@
                       {
                         "type": "ViewEffect",
                         "name": "league_fiddlesticks_w_drain"
+                      },
+                      {
+                        "type": "TargetProjectile",
+                        "name": "league_fiddlesticks_w_link",
+                        "speed": 100000,
+                        "y_offset": 0,
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ParabolicProjectile",
+                              "name": "league_fiddlesticks_w_spot",
+                              "travel_time": 1,
+                              "range": 400000,
+                              "shape": {
+                                "Circle": {
+                                  "radius": 0
+                                }
+                              },
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": [],
+                              "end_effects": [
+                                {
+                                  "type": "BackToCasterLinearProjectile",
+                                  "name": "league_fiddlesticks_w_chain",
+                                  "speed": 1600,
+                                  "range": 120000,
+                                  "penetrate": true,
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 0
+                                    }
+                                  },
+                                  "applied_target": "EnemyWithoutTower",
+                                  "applied_effects": []
+                                }
+                              ]
+                            }
+                          }
+                        ]
                       }
                     ]
                   },
@@ -705,7 +787,7 @@
                     "effects": [
                       {
                         "type": "ApAttack",
-                        "damage": 12,
+                        "damage": 16,
                         "attack_ratio": 12
                       },
                       {
@@ -718,6 +800,47 @@
                       {
                         "type": "ViewEffect",
                         "name": "league_fiddlesticks_w_drain"
+                      },
+                      {
+                        "type": "TargetProjectile",
+                        "name": "league_fiddlesticks_w_link",
+                        "speed": 100000,
+                        "y_offset": 0,
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ParabolicProjectile",
+                              "name": "league_fiddlesticks_w_spot",
+                              "travel_time": 1,
+                              "range": 400000,
+                              "shape": {
+                                "Circle": {
+                                  "radius": 0
+                                }
+                              },
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": [],
+                              "end_effects": [
+                                {
+                                  "type": "BackToCasterLinearProjectile",
+                                  "name": "league_fiddlesticks_w_chain",
+                                  "speed": 1600,
+                                  "range": 120000,
+                                  "penetrate": true,
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 0
+                                    }
+                                  },
+                                  "applied_target": "EnemyWithoutTower",
+                                  "applied_effects": []
+                                }
+                              ]
+                            }
+                          }
+                        ]
                       }
                     ]
                   },
@@ -791,7 +914,7 @@
                     "effects": [
                       {
                         "type": "ApAttack",
-                        "damage": 12,
+                        "damage": 16,
                         "attack_ratio": 12
                       },
                       {
@@ -804,6 +927,47 @@
                       {
                         "type": "ViewEffect",
                         "name": "league_fiddlesticks_w_drain"
+                      },
+                      {
+                        "type": "TargetProjectile",
+                        "name": "league_fiddlesticks_w_link",
+                        "speed": 100000,
+                        "y_offset": 0,
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ParabolicProjectile",
+                              "name": "league_fiddlesticks_w_spot",
+                              "travel_time": 1,
+                              "range": 400000,
+                              "shape": {
+                                "Circle": {
+                                  "radius": 0
+                                }
+                              },
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": [],
+                              "end_effects": [
+                                {
+                                  "type": "BackToCasterLinearProjectile",
+                                  "name": "league_fiddlesticks_w_chain",
+                                  "speed": 1600,
+                                  "range": 120000,
+                                  "penetrate": true,
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 0
+                                    }
+                                  },
+                                  "applied_target": "EnemyWithoutTower",
+                                  "applied_effects": []
+                                }
+                              ]
+                            }
+                          }
+                        ]
                       }
                     ]
                   },
@@ -877,7 +1041,7 @@
                     "effects": [
                       {
                         "type": "ApAttack",
-                        "damage": 12,
+                        "damage": 16,
                         "attack_ratio": 12
                       },
                       {
@@ -890,6 +1054,47 @@
                       {
                         "type": "ViewEffect",
                         "name": "league_fiddlesticks_w_drain"
+                      },
+                      {
+                        "type": "TargetProjectile",
+                        "name": "league_fiddlesticks_w_link",
+                        "speed": 100000,
+                        "y_offset": 0,
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ParabolicProjectile",
+                              "name": "league_fiddlesticks_w_spot",
+                              "travel_time": 1,
+                              "range": 400000,
+                              "shape": {
+                                "Circle": {
+                                  "radius": 0
+                                }
+                              },
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": [],
+                              "end_effects": [
+                                {
+                                  "type": "BackToCasterLinearProjectile",
+                                  "name": "league_fiddlesticks_w_chain",
+                                  "speed": 1600,
+                                  "range": 120000,
+                                  "penetrate": true,
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 0
+                                    }
+                                  },
+                                  "applied_target": "EnemyWithoutTower",
+                                  "applied_effects": []
+                                }
+                              ]
+                            }
+                          }
+                        ]
                       }
                     ]
                   },
@@ -963,7 +1168,7 @@
                     "effects": [
                       {
                         "type": "ApAttack",
-                        "damage": 12,
+                        "damage": 16,
                         "attack_ratio": 12
                       },
                       {
@@ -976,6 +1181,47 @@
                       {
                         "type": "ViewEffect",
                         "name": "league_fiddlesticks_w_drain"
+                      },
+                      {
+                        "type": "TargetProjectile",
+                        "name": "league_fiddlesticks_w_link",
+                        "speed": 100000,
+                        "y_offset": 0,
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ParabolicProjectile",
+                              "name": "league_fiddlesticks_w_spot",
+                              "travel_time": 1,
+                              "range": 400000,
+                              "shape": {
+                                "Circle": {
+                                  "radius": 0
+                                }
+                              },
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": [],
+                              "end_effects": [
+                                {
+                                  "type": "BackToCasterLinearProjectile",
+                                  "name": "league_fiddlesticks_w_chain",
+                                  "speed": 1600,
+                                  "range": 120000,
+                                  "penetrate": true,
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 0
+                                    }
+                                  },
+                                  "applied_target": "EnemyWithoutTower",
+                                  "applied_effects": []
+                                }
+                              ]
+                            }
+                          }
+                        ]
                       }
                     ]
                   },
@@ -1049,7 +1295,7 @@
                     "effects": [
                       {
                         "type": "ApAttack",
-                        "damage": 12,
+                        "damage": 16,
                         "attack_ratio": 12
                       },
                       {
@@ -1062,6 +1308,47 @@
                       {
                         "type": "ViewEffect",
                         "name": "league_fiddlesticks_w_drain"
+                      },
+                      {
+                        "type": "TargetProjectile",
+                        "name": "league_fiddlesticks_w_link",
+                        "speed": 100000,
+                        "y_offset": 0,
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ParabolicProjectile",
+                              "name": "league_fiddlesticks_w_spot",
+                              "travel_time": 1,
+                              "range": 400000,
+                              "shape": {
+                                "Circle": {
+                                  "radius": 0
+                                }
+                              },
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": [],
+                              "end_effects": [
+                                {
+                                  "type": "BackToCasterLinearProjectile",
+                                  "name": "league_fiddlesticks_w_chain",
+                                  "speed": 1600,
+                                  "range": 120000,
+                                  "penetrate": true,
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 0
+                                    }
+                                  },
+                                  "applied_target": "EnemyWithoutTower",
+                                  "applied_effects": []
+                                }
+                              ]
+                            }
+                          }
+                        ]
                       }
                     ]
                   },
@@ -1135,7 +1422,7 @@
                     "effects": [
                       {
                         "type": "ApAttack",
-                        "damage": 12,
+                        "damage": 16,
                         "attack_ratio": 12
                       },
                       {
@@ -1151,12 +1438,53 @@
                       },
                       {
                         "type": "ApAttack",
-                        "damage": 40,
+                        "damage": 50,
                         "attack_ratio": 40
                       },
                       {
                         "type": "ViewEffect",
                         "name": "league_fiddlesticks_w_final"
+                      },
+                      {
+                        "type": "TargetProjectile",
+                        "name": "league_fiddlesticks_w_link",
+                        "speed": 100000,
+                        "y_offset": 0,
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ParabolicProjectile",
+                              "name": "league_fiddlesticks_w_spot",
+                              "travel_time": 1,
+                              "range": 400000,
+                              "shape": {
+                                "Circle": {
+                                  "radius": 0
+                                }
+                              },
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": [],
+                              "end_effects": [
+                                {
+                                  "type": "BackToCasterLinearProjectile",
+                                  "name": "league_fiddlesticks_w_chain",
+                                  "speed": 1600,
+                                  "range": 120000,
+                                  "penetrate": true,
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 0
+                                    }
+                                  },
+                                  "applied_target": "EnemyWithoutTower",
+                                  "applied_effects": []
+                                }
+                              ]
+                            }
+                          }
+                        ]
                       }
                     ]
                   },
@@ -1837,6 +2165,14 @@
       "anim": "asset/league/effects/league_fiddlesticks_big",
       "tag": "e_reap",
       "repeat": false,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_fiddlesticks_w_chain",
+      "anim": "asset/league/effects/league_fiddlesticks_fx",
+      "tag": "w_chain",
+      "repeat": true,
       "z": 1
     }
   ],

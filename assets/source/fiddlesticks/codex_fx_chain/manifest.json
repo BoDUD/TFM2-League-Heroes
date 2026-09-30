@@ -1,0 +1,191 @@
+{
+  "schema": "fiddlesticks_raw_handoff_v1",
+  "status": "normalized_with_raw_alternative",
+  "generator": "built-in image_gen with deterministic pixel export",
+  "asset_count": 1,
+  "total_frames": 4,
+  "coordinate_convention": "Top-left origin. Rectangles use x,y,w,h. Source cells are equal and form one row.",
+  "import_note_zh": "独立交接格式，未验证项目导入器是否直接识别。推荐版和 raw 变体择一导入。",
+  "assets": [
+    {
+      "file": "fiddlesticks_fx_w_chain.png",
+      "name_zh": "五骨丰登魂链",
+      "projectile_id": "league_fiddlesticks_w_chain",
+      "frame_count": 4,
+      "frame_duration_ms": 60,
+      "loop": true,
+      "source_size": [
+        1536,
+        128
+      ],
+      "frame_regions": [
+        {
+          "index": 0,
+          "x": 0,
+          "y": 0,
+          "w": 384,
+          "h": 128,
+          "duration_ms": 60
+        },
+        {
+          "index": 1,
+          "x": 384,
+          "y": 0,
+          "w": 384,
+          "h": 128,
+          "duration_ms": 60
+        },
+        {
+          "index": 2,
+          "x": 768,
+          "y": 0,
+          "w": 384,
+          "h": 128,
+          "duration_ms": 60
+        },
+        {
+          "index": 3,
+          "x": 1152,
+          "y": 0,
+          "w": 384,
+          "h": 128,
+          "duration_ms": 60
+        }
+      ],
+      "target_frame_size": [
+        24,
+        8
+      ],
+      "target_sheet_size": [
+        96,
+        8
+      ],
+      "anchor_logical": [
+        12,
+        4
+      ],
+      "direction": "right",
+      "vertical_mirror_symmetric": true,
+      "variants": [
+        {
+          "file": "fiddlesticks_fx_w_chain_1x.png",
+          "size": [
+            96,
+            8
+          ],
+          "frame_regions": [
+            {
+              "index": 0,
+              "x": 0,
+              "y": 0,
+              "w": 24,
+              "h": 8,
+              "duration_ms": 60
+            },
+            {
+              "index": 1,
+              "x": 24,
+              "y": 0,
+              "w": 24,
+              "h": 8,
+              "duration_ms": 60
+            },
+            {
+              "index": 2,
+              "x": 48,
+              "y": 0,
+              "w": 24,
+              "h": 8,
+              "duration_ms": 60
+            },
+            {
+              "index": 3,
+              "x": 72,
+              "y": 0,
+              "w": 24,
+              "h": 8,
+              "duration_ms": 60
+            }
+          ]
+        },
+        {
+          "file": "fiddlesticks_fx_w_chain_raw.png",
+          "size": [
+            1536,
+            128
+          ],
+          "frame_regions": [
+            {
+              "index": 0,
+              "x": 0,
+              "y": 0,
+              "w": 384,
+              "h": 128,
+              "duration_ms": 60
+            },
+            {
+              "index": 1,
+              "x": 384,
+              "y": 0,
+              "w": 384,
+              "h": 128,
+              "duration_ms": 60
+            },
+            {
+              "index": 2,
+              "x": 768,
+              "y": 0,
+              "w": 384,
+              "h": 128,
+              "duration_ms": 60
+            },
+            {
+              "index": 3,
+              "x": 1152,
+              "y": 0,
+              "w": 384,
+              "h": 128,
+              "duration_ms": 60
+            }
+          ],
+          "status": "raw_requires_import_cleanup",
+          "source_crop": [
+            0,
+            448,
+            1536,
+            128
+          ]
+        }
+      ]
+    }
+  ],
+  "qa": {
+    "sheet_dimensions": true,
+    "equal_cells": true,
+    "binary_alpha": true,
+    "exact_16px_blocks": true,
+    "palette_only": true,
+    "opaque_colors": [
+      "4E0E14",
+      "8A1A1E",
+      "D8D0A8",
+      "F4F0DC",
+      "FF4A30"
+    ],
+    "exact_vertical_symmetry": true,
+    "continuous_two_pixel_core": true,
+    "four_distinct_frames": true,
+    "one_pixel_phase_step_modulo_four": true,
+    "game_integration_tested": false
+  },
+  "known_limitations_zh": [
+    "24×8 版合并了部分灵魂内芯和碎点细节。",
+    "魂体固定形状，链条纹理移动；原稿保留生成时的细节变化。",
+    "尚未验证游戏导入、弹道距离和多段首尾相接的实际观感。"
+  ],
+  "sha256": {
+    "fiddlesticks_fx_w_chain.png": "02ffc1033ba44ab08d85c6aa46a8e0097a02c69f3e38d7a581de189de39c0130",
+    "fiddlesticks_fx_w_chain_1x.png": "92a2d25dc754354393d9d6a76eaa16a068e6677976be930858ffb8f100867f79",
+    "fiddlesticks_fx_w_chain_raw.png": "5bd0bf7ee7e44ed351bf60a88e0bf9f15ddb2d489146ba21bfa5cc4f5077521f"
+  }
+}

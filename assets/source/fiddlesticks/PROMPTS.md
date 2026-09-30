@@ -166,6 +166,16 @@ Effect: CROWSTORM, a murder of crows circling around an EMPTY person-sized space
 Layout: one horizontal row of 6 equal cells, each 3 wide to 2 tall, image size 1536x341 (each cell 256x171); the feet at 85% of the cell height, centered across every cell, no gaps, no borders, no labels. Transparent background (if not possible: pure black #000000).
 ```
 
+### 14. `fiddlesticks_fx_w_chain.png`：五骨丰登的魂链（飞行，朝右画，上下对称），4 帧循环
+
+后来补的一张（玩家反馈吸取时看不到连到敌人身上的链条；Codex 的交接在 `codex_fx_chain/`）。引导的 2 秒里，每 0.25 秒从每个被吸的敌人身上飞出一段，飞回费德提克，几段首尾相接就是一条从敌人拉向他的链。一条暗红的触须横贯整个格子，像绳子一样扭转（每帧往右挪一步，4 帧转一圈）；右端（朝费德提克的一头）挂着一缕灵魂白的魂，后面拖几颗淡白碎点；左端平切。导入后 24 格长、8 格高。
+
+```text
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, soul whites (#F4F0DC, #D8D0A8, #A89C74), a dark red ramp (#4E0E14, #8A1A1E, #C42A22, #FF4A30), tar darks (#24141E, #3A2230).
+Effect: SOUL CHAIN, one link of the tether that drains an enemy's soul back to the caster, drawn FLYING TO THE RIGHT and mirror-symmetric top to bottom, 4 frames, a seamless loop: a dark red tendril (2 squares thick, a darker #4E0E14 edge above and below, one or two tiny thorn nubs on both sides) runs across the whole cell width, from the left edge to the right edge, along the cell's middle row, gently twisting like a rope (the twist moves one step to the right every frame, so four frames make one full turn); at the right end a small pale soul wisp is caught on the tendril: a flame-like teardrop pointing right, about one third of the cell height, soul whites with a #A89C74 core line, symmetric top to bottom, a few pale specks trailing behind it to the left. The left end of the tendril is cut straight so that many cells laid end to end make one continuous chain.
+Layout: one horizontal row of 4 equal cells, each 3 wide to 1 tall, image size 1536x128 (each cell 384x128); the tendril exactly on the middle row of every cell, no gaps, no borders, no labels. Transparent background (if not possible: pure black #000000).
+```
+
 ---
 
 ## Claude 导入时的对应关系（给 Claude 看）
@@ -187,5 +197,6 @@ Layout: one horizontal row of 6 equal cells, each 3 wide to 2 tall, image size 1
 | `fiddlesticks_fx_r_mark.png` | 8 | 特效 `league_fiddlesticks_r_mark`（落点，地面，1 秒） | 8 × 125 |
 | `fiddlesticks_fx_r_depart.png` | 6 | 特效 `league_fiddlesticks_r_depart`（起点，不跟随） | 6 × 70 |
 | `fiddlesticks_fx_r_storm.png` | 6 | 特效 `league_fiddlesticks_r_storm`（每 0.5 秒一次，跟随费德提克，半径 45000） | 6 × 83 循环 |
+| `fiddlesticks_fx_w_chain.png` | 4 | 投射物 `league_fiddlesticks_w_chain`（从被吸的敌人飞回费德提克，朝飞行方向转，画在单位上面（画在下面时贴近的敌人几乎把整条链挡住）；24 格一段、每 tick 1600，0.25 秒一段首尾相接；Codex 的 1 倍图原样用） | 4 × 60 循环 |
 
-特效表：`league_fiddlesticks_fx`（bolt、hit、q_crow、q_hit、fear、silence、w_drain、w_final），`league_fiddlesticks_big`（e_reap、w_souls、r_mark、r_depart、r_storm）。
+特效表：`league_fiddlesticks_fx`（bolt、hit、q_crow、q_hit、fear、silence、w_drain、w_final、w_chain），`league_fiddlesticks_big`（e_reap、w_souls、r_mark、r_depart、r_storm）。
