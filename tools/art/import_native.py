@@ -82,8 +82,6 @@ ORDER = {("lux", "idle"): [0, 0, 0, 0, 0, 0],   # the step-2 idle is the design 
          ("fiddlesticks", "idle"): [0, 0, 0, 0, 0, 0],
          # and Ahri (a drawn head with fox ears pasted on a body restyled from League's idle)
          ("ahri", "idle"): [0, 0, 0, 0, 0, 0],
-         # and Soraka (her step-2 idle is the design itself; Codex's six redrawn idle frames are not used)
-         ("soraka", "idle"): [0, 0, 0, 0, 0, 0],
          # and Amumu (his step-2 idle is the design in all six)
          ("amumu", "idle"): [0, 0, 0, 0, 0, 0],
          # and Jinx (eight idle frames, all the design)
@@ -131,8 +129,6 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        ("fiddlesticks", "idle"): (6, [2, 3, 4]),
        # Ahri: the seam across her boots' shafts; her soles and the tips of her tails stay
        ("ahri", "idle"): (6, [2, 3, 4]),
-       # Soraka: the seam across her robe's hem, her hooves stay
-       ("soraka", "idle"): (6, [2, 3, 4]),
        # Amumu: the seam across his shins, his feet stay
        ("amumu", "idle"): (6, [2, 3, 4]),
        # Jinx: the seam across her boots' shafts, her soles stay
@@ -159,7 +155,7 @@ PASTED = {"masteryi"}            # steadied on the head restyle_native pasted: h
 # Codex's step-2 redraw (model_strips_18, tidied by tidy_codex18.py): the approved design's head (or face) is in every
 # frame, so they are steadied on idle frame 1's head like the round-1 heroes - or on their eyes when they are in
 # EYES - whatever their poses.json says
-REDRAWN = {"thresh", "leona", "janna", "ekko", "darius", "leesin", "soraka", "malphite", "annie", "amumu", "yasuo",
+REDRAWN = {"thresh", "leona", "janna", "ekko", "darius", "leesin", "malphite", "annie", "amumu",
            "jinx", "missfortune", "yone", "garen", "ashe", "ahri", "lux"}
 # heroes steadied on their eyes: (R, G, B) of a colour only the eyes use; the head column is the eyes' middle
 EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade is the top of every frame
@@ -169,11 +165,9 @@ EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade
         "ekko": (213, 125, 34),           # the same for Ekko: the one amber square of his near eye
         "darius": (255, 247, 238),        # the design face pasted back by tidy_codex18.py: his eye white
         "leesin": (212, 34, 50),          # the same for Lee Sin: the blindfold band across his face
-        "soraka": (231, 174, 48),         # the same for Soraka: her amber eye, in an eye-only shade
         "malphite": (245, 166, 8),        # his new design (the moss-stone golem): the bright orange of his eyes
         "annie": (51, 32, 63),            # the design face pasted back by tidy_codex18.py: her violet pupils
         "amumu": (243, 224, 80),          # the same for Amumu: his eye yellow, in an eye-only shade
-        "yasuo": (80, 46, 32),            # the same for Yasuo: his brown iris (the eyes the user picked), eye-only
         "jinx": (209, 46, 128),           # the same for Jinx: her pink iris, in an eye-only shade
         "missfortune": (44, 129, 226),    # the same for Miss Fortune: her blue irises, in an eye-only shade
         "yone": (70, 52, 94),             # the same for Yone (no eyes under the mask): the purple strand over his face
