@@ -11,5 +11,6 @@
   "w_souls": {"cell": [47, 93], "anchor": [23, 46]},
   "r_mark": {"cell": [93, 61], "anchor": [46, 30]},
   "r_depart": {"cell": [39, 103], "anchor": [19, 51]},
-  "r_storm": {"cell": [89, 125], "anchor": [44, 62]}
+  "r_storm": {"cell": [89, 125], "anchor": [44, 62]},
+  "w_chain": {"cell": [24, 8], "anchor": [12, 4]}
 }

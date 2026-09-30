@@ -1365,6 +1365,17 @@ damage, a small `Heal {heal_type: Caster}` and the drained-soul picture - every 
 on `EnemyChampion` with a larger heal for each champion. League's tethers that break when a target walks away
 are left out: the drain reaches whoever stands within 40000 at each pulse.
 
+**A tether picture on a range drain (league_fiddlesticks W, the soul chain).** Players missed League's tethers
+("w吸血看不到链条", 2026-09-30), so every pulse also sends each drained unit a link: a hidden `TargetProjectile` (speed
+100000) at the unit, a hidden `ParabolicProjectile {travel_time: 1}` from its hit onto the unit's spot, and from that
+lob's `end_effects` a `BackToCasterLinearProjectile` (`w_chain`: 1600 a tick, radius 0, no effects) flying from the
+unit back to him. The same `BackToCasterLinearProjectile` placed straight in the `TargetProjectile`'s
+`applied_effects` never appeared (0 of 119 in a 5-minute SDK game): it starts only from a projectile's end, as
+league_nami W's return and league_ekko Q's. Each link flew exactly distance / 1600 ticks and went on reaching him.
+Links 24 px long (Codex drew the chain at game size) and 1600 x 15 ticks = 24000 apart make one continuous chain; `z`
+1 draws them over the units - under them (-1) a foe standing next to him hid nearly all of it. The drain itself is
+unchanged: still by range, no tether to walk out of.
+
 **Channel, vanish in crows, land in a storm (league_fiddlesticks R, Crowstorm).** A `Position` cast on
 `EnemyChampion` (range 80000, `start_timing` 1): a caster buff `r_ch` (61 ticks), `CasterAnimation ult` (60),
 the landing mark as a `ViewEffect` (a `Position` cast plays it on the cast point, `z` -1), and at ticks 15, 30
