@@ -1365,6 +1365,17 @@ damage, a small `Heal {heal_type: Caster}` and the drained-soul picture - every 
 on `EnemyChampion` with a larger heal for each champion. League's tethers that break when a target walks away
 are left out: the drain reaches whoever stands within 40000 at each pulse.
 
+**A tether picture on a range drain (league_fiddlesticks W, the soul chain).** Players missed League's tethers
+("w吸血看不到链条", 2026-09-30), so every pulse also sends each drained unit a link: a hidden `TargetProjectile` (speed
+100000) at the unit, a hidden `ParabolicProjectile {travel_time: 1}` from its hit onto the unit's spot, and from that
+lob's `end_effects` a `BackToCasterLinearProjectile` (`w_chain`: 1600 a tick, radius 0, no effects) flying from the
+unit back to him. The same `BackToCasterLinearProjectile` placed straight in the `TargetProjectile`'s
+`applied_effects` never appeared (0 of 119 in a 5-minute SDK game): it starts only from a projectile's end, as
+league_nami W's return and league_ekko Q's. Each link flew exactly distance / 1600 ticks and went on reaching him.
+Links 24 px long (Codex drew the chain at game size) and 1600 x 15 ticks = 24000 apart make one continuous chain; `z`
+1 draws them over the units - under them (-1) a foe standing next to him hid nearly all of it. The drain itself is
+unchanged: still by range, no tether to walk out of.
+
 **Channel, vanish in crows, land in a storm (league_fiddlesticks R, Crowstorm).** A `Position` cast on
 `EnemyChampion` (range 80000, `start_timing` 1): a caster buff `r_ch` (61 ticks), `CasterAnimation ult` (60),
 the landing mark as a `ViewEffect` (a `Position` cast plays it on the cast point, `z` -1), and at ticks 15, 30
@@ -1474,11 +1485,14 @@ flat 40 on the bolt's tick and 6% of a priest's maximum health (54) a tick later
 *(SDK simulation, 2026-09-30)*. Condemn's bolt flies only at champions, so its ladder carries both parts itself.
 
 **Tumble by the situation, the next attack stronger (league_vayne Q, Tumble).** league_lucian E's three ways with a
-roll in place of the blink: `MoveBack` (6000 x 4) away from a champion within 30000, a small hop back (5000 x 2)
-when anything is within her attack range, else `RushTime` (2500 x 10, `penetrate`, no applied effects) toward the
-target - a fixed distance, where `MoveTo` would run onto the unit. A 420-tick caster buff turns the next attack into
-a stronger bolt; League's auto-attack reset is not there (the attack's own cooldown runs on). Hopping back costs her
-attacks: a 15000 hop gave -0.6 kills against none (12 seeds a variant); the user's pick keeps a hop, cut to 10000.
+roll in place of the blink: `MoveBack` (6000 x 5) away from a champion within 30000, a hop back (5000 x 6) when
+anything is within her attack range, else `RushTime` (3000 x 10, `penetrate`, no applied effects) toward the target -
+a fixed distance, where `MoveTo` would run onto the unit. A 420-tick caster buff turns the next attack into a stronger
+bolt; League's auto-attack reset is not there (the attack's own cooldown runs on). Hopping back costs her attacks: a
+15000 hop gave -0.6 kills against none (12 seeds a variant) and the first version kept a 10000 hop (24000 away, 25000
+forward); players found the dash too short ("vn的位移太短了", 2026-09-30) - the in-range hop is the one they see most - so
+all three are 30000 now (League's 300 against her 550 range): +2.15 / +2.08 against +2.57 / +2.39 before in the same
+batches, the hop often leaving her out of range to walk back in.
 While Final Hour runs each Tumble adds `CasterInvisible {tick: 60}`.
 
 **Knock back, then stun where it lands (league_vayne E, Condemn).** A `TargetProjectile` on `EnemyChampion` whose hit
