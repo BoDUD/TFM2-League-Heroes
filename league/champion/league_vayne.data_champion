@@ -1,0 +1,1517 @@
+{
+  "id": "league_vayne",
+  "category": "Range",
+  "tags": [
+    "AD",
+    "Range",
+    "CC"
+  ],
+  "sprite": "asset/league/champions/league_vayne",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/league/icons/league_vayne_skill",
+    "asset/league/icons/league_vayne_skill2",
+    "asset/league/icons/league_vayne_ult"
+  ],
+  "stat": {
+    "attack": 100,
+    "magic_power": 0,
+    "hp": 900,
+    "defence": 20,
+    "magic_resistance": 15,
+    "move_speed": 900,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 20,
+    "magic_power": 0,
+    "hp": 90,
+    "defence": 7,
+    "magic_resistance": 3,
+    "move_speed": 9,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.league_vayne.attack",
+    "duration": 24,
+    "cooltime": 60,
+    "start_timing": 8,
+    "cancelable": true,
+    "range": 55000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "RandomTarget",
+          "range": 70000,
+          "casting_target": "EnemyChampion",
+          "from_projectile": false,
+          "effects": [
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_vayne_nh"
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_vayne_r",
+              "effect_buff": {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_vayne_nh",
+                  "duration": {
+                    "Time": {
+                      "tick": 90
+                    }
+                  },
+                  "move_speed_mult": 24
+                },
+                "only_to_enemy": false
+              },
+              "effect_none": {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_vayne_nh",
+                  "duration": {
+                    "Time": {
+                      "tick": 90
+                    }
+                  },
+                  "move_speed_mult": 8
+                },
+                "only_to_enemy": false
+              }
+            }
+          ]
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_vayne_q_ready",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "RemoveCasterBuff",
+                "name": "league_vayne_q_ready"
+              },
+              {
+                "type": "Sfx",
+                "name": "league_vayne_q_shot"
+              },
+              {
+                "type": "TargetProjectile",
+                "name": "league_vayne_q_bolt",
+                "speed": 6000,
+                "y_offset": 1200,
+                "applied_target": "Enemy",
+                "applied_effects": [
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "Attack",
+                      "damage": 25,
+                      "attack_ratio": 180,
+                      "attack_effect_type": "Target"
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "TargetSfx",
+                      "name": "league_vayne_q_hit"
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "ViewEffect",
+                      "name": "league_vayne_q_hit"
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_vayne_sb2",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_vayne_sb2"
+                          },
+                          {
+                            "type": "FixedAttack",
+                            "damage": 40,
+                            "attack_ratio": 0,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_vayne_sb_proc",
+                              "duration": {
+                                "Time": {
+                                  "tick": 2
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_vayne_sb_proc"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "league_vayne_sb_proc"
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_vayne_sb1",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_vayne_sb1"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_vayne_sb2",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 210
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_vayne_sb_ring2"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_vayne_sb1",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 210
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_vayne_sb_ring1"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "TargetProjectile",
+                "name": "league_vayne_q_twin",
+                "speed": 6000,
+                "y_offset": 1200,
+                "applied_target": "EnemyChampion",
+                "applied_effects": [
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "Delayed",
+                      "tick": 1,
+                      "effects": [
+                        {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_vayne_sb_proc",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_vayne_sb_proc"
+                              },
+                              {
+                                "type": "FixedAttack",
+                                "damage": 0,
+                                "attack_ratio": 0,
+                                "hp_ratio": 0,
+                                "target_hp_ratio": 6,
+                                "attack_effect_type": "Target"
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": []
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_vayne_r",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_vayne_kc",
+                              "duration": {
+                                "Time": {
+                                  "tick": 7
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "AddCasted",
+                            "casted_type": "Poison",
+                            "duration": 3,
+                            "period": 1,
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_vayne_kc"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "WithSelf",
+                            "effects": [
+                              {
+                                "type": "Delayed",
+                                "tick": 4,
+                                "effects": [
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_vayne_kc",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_vayne_kc"
+                                        },
+                                        {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_vayne_r",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_vayne_r"
+                                              },
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_vayne_r",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 480
+                                                    }
+                                                  },
+                                                  "attack_mult": 25,
+                                                  "skill_cooldown_mult": 100
+                                                },
+                                                "only_to_enemy": false
+                                              },
+                                              {
+                                                "type": "CasterViewEffect",
+                                                "name": "league_vayne_r_refresh"
+                                              },
+                                              {
+                                                "type": "Sfx",
+                                                "name": "league_vayne_r_refresh"
+                                              }
+                                            ]
+                                          },
+                                          "effect_none": {
+                                            "type": "Combine",
+                                            "effects": []
+                                          }
+                                        }
+                                      ]
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "SwitchByBuff",
+                "buff_name": "league_vayne_r",
+                "effect_buff": {
+                  "type": "Sfx",
+                  "name": "league_vayne_r_shot"
+                },
+                "effect_none": {
+                  "type": "Sfx",
+                  "name": "league_vayne_attack_shot"
+                }
+              },
+              {
+                "type": "TargetProjectile",
+                "name": "league_vayne_bolt",
+                "speed": 6000,
+                "y_offset": 1200,
+                "applied_target": "Enemy",
+                "applied_effects": [
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "Attack",
+                      "damage": 0,
+                      "attack_ratio": 100,
+                      "attack_effect_type": "Target"
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "TargetSfx",
+                      "name": "league_vayne_attack_hit"
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "ViewEffect",
+                      "name": "league_vayne_hit"
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_vayne_sb2",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_vayne_sb2"
+                          },
+                          {
+                            "type": "FixedAttack",
+                            "damage": 40,
+                            "attack_ratio": 0,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_vayne_sb_proc",
+                              "duration": {
+                                "Time": {
+                                  "tick": 2
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_vayne_sb_proc"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "league_vayne_sb_proc"
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_vayne_sb1",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_vayne_sb1"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_vayne_sb2",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 210
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_vayne_sb_ring2"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_vayne_sb1",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 210
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_vayne_sb_ring1"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "TargetProjectile",
+                "name": "league_vayne_bolt_twin",
+                "speed": 6000,
+                "y_offset": 1200,
+                "applied_target": "EnemyChampion",
+                "applied_effects": [
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "Delayed",
+                      "tick": 1,
+                      "effects": [
+                        {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_vayne_sb_proc",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_vayne_sb_proc"
+                              },
+                              {
+                                "type": "FixedAttack",
+                                "damage": 0,
+                                "attack_ratio": 0,
+                                "hp_ratio": 0,
+                                "target_hp_ratio": 6,
+                                "attack_effect_type": "Target"
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": []
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_vayne_r",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_vayne_kc",
+                              "duration": {
+                                "Time": {
+                                  "tick": 7
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "AddCasted",
+                            "casted_type": "Poison",
+                            "duration": 3,
+                            "period": 1,
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_vayne_kc"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "WithSelf",
+                            "effects": [
+                              {
+                                "type": "Delayed",
+                                "tick": 4,
+                                "effects": [
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_vayne_kc",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_vayne_kc"
+                                        },
+                                        {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_vayne_r",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_vayne_r"
+                                              },
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_vayne_r",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 480
+                                                    }
+                                                  },
+                                                  "attack_mult": 25,
+                                                  "skill_cooldown_mult": 100
+                                                },
+                                                "only_to_enemy": false
+                                              },
+                                              {
+                                                "type": "CasterViewEffect",
+                                                "name": "league_vayne_r_refresh"
+                                              },
+                                              {
+                                                "type": "Sfx",
+                                                "name": "league_vayne_r_refresh"
+                                              }
+                                            ]
+                                          },
+                                          "effect_none": {
+                                            "type": "Combine",
+                                            "effects": []
+                                          }
+                                        }
+                                      ]
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.league_vayne.skill",
+    "duration": 24,
+    "cooltime": 300,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 75000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "RandomTarget",
+          "range": 70000,
+          "casting_target": "EnemyChampion",
+          "from_projectile": false,
+          "effects": [
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_vayne_nh"
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_vayne_r",
+              "effect_buff": {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_vayne_nh",
+                  "duration": {
+                    "Time": {
+                      "tick": 90
+                    }
+                  },
+                  "move_speed_mult": 24
+                },
+                "only_to_enemy": false
+              },
+              "effect_none": {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_vayne_nh",
+                  "duration": {
+                    "Time": {
+                      "tick": 90
+                    }
+                  },
+                  "move_speed_mult": 8
+                },
+                "only_to_enemy": false
+              }
+            }
+          ]
+        },
+        {
+          "type": "Sfx",
+          "name": "league_vayne_q_cast"
+        },
+        {
+          "type": "CasterViewEffect",
+          "name": "league_vayne_q_roll"
+        },
+        {
+          "type": "RemoveCasterBuff",
+          "name": "league_vayne_q_ready"
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_vayne_q_ready",
+            "duration": {
+              "Time": {
+                "tick": 420
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_vayne_r",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "CasterInvisible",
+                "tick": 60
+              },
+              {
+                "type": "Sfx",
+                "name": "league_vayne_q_stealth"
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": []
+          }
+        },
+        {
+          "type": "RandomTarget",
+          "range": 30000,
+          "casting_target": "EnemyChampion",
+          "from_projectile": false,
+          "effects": [
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_vayne_q_near",
+                "duration": {
+                  "Time": {
+                    "tick": 1
+                  }
+                }
+              },
+              "only_to_enemy": false
+            },
+            {
+              "type": "CasterAnimation",
+              "name": "skill_back",
+              "tick": 24
+            },
+            {
+              "type": "MoveBack",
+              "speed": 6000,
+              "tick": 4
+            }
+          ]
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_vayne_q_near",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "RandomTarget",
+                "range": 55000,
+                "casting_target": "EnemyWithoutTower",
+                "from_projectile": false,
+                "effects": [
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_vayne_q_in",
+                      "duration": {
+                        "Time": {
+                          "tick": 1
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              },
+              {
+                "type": "SwitchByBuff",
+                "buff_name": "league_vayne_q_in",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "CasterAnimation",
+                      "name": "skill_back",
+                      "tick": 24
+                    },
+                    {
+                      "type": "MoveBack",
+                      "speed": 5000,
+                      "tick": 2
+                    }
+                  ]
+                },
+                "effect_none": {
+                  "type": "RushTime",
+                  "speed": 2500,
+                  "tick": 10,
+                  "range": 25000,
+                  "casting_target": "EnemyWithoutTower",
+                  "penetrate": true,
+                  "applied_effects": []
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.league_vayne.skill2",
+    "duration": 30,
+    "cooltime": 600,
+    "start_timing": 12,
+    "cancelable": false,
+    "range": 55000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "RandomTarget",
+          "range": 70000,
+          "casting_target": "EnemyChampion",
+          "from_projectile": false,
+          "effects": [
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_vayne_nh"
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_vayne_r",
+              "effect_buff": {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_vayne_nh",
+                  "duration": {
+                    "Time": {
+                      "tick": 90
+                    }
+                  },
+                  "move_speed_mult": 24
+                },
+                "only_to_enemy": false
+              },
+              "effect_none": {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_vayne_nh",
+                  "duration": {
+                    "Time": {
+                      "tick": 90
+                    }
+                  },
+                  "move_speed_mult": 8
+                },
+                "only_to_enemy": false
+              }
+            }
+          ]
+        },
+        {
+          "type": "Sfx",
+          "name": "league_vayne_e_cast"
+        },
+        {
+          "type": "TargetProjectile",
+          "name": "league_vayne_e_bolt",
+          "speed": 7000,
+          "y_offset": 1200,
+          "applied_target": "EnemyChampion",
+          "applied_effects": [
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "Attack",
+                "damage": 60,
+                "attack_ratio": 70,
+                "attack_effect_type": "Target"
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "Knockback",
+                "speed": 3000,
+                "tick": 8
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "ViewEffect",
+                "name": "league_vayne_e_hit"
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "TargetSfx",
+                "name": "league_vayne_e_hit"
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_vayne_sb2",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_vayne_sb2"
+                    },
+                    {
+                      "type": "FixedAttack",
+                      "damage": 40,
+                      "attack_ratio": 0,
+                      "hp_ratio": 0,
+                      "target_hp_ratio": 0,
+                      "attack_effect_type": "Target"
+                    },
+                    {
+                      "type": "FixedAttack",
+                      "damage": 0,
+                      "attack_ratio": 0,
+                      "hp_ratio": 0,
+                      "target_hp_ratio": 6,
+                      "attack_effect_type": "Target"
+                    },
+                    {
+                      "type": "ViewEffect",
+                      "name": "league_vayne_sb_proc"
+                    },
+                    {
+                      "type": "TargetSfx",
+                      "name": "league_vayne_sb_proc"
+                    }
+                  ]
+                },
+                "effect_none": {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_vayne_sb1",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_vayne_sb1"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_vayne_sb2",
+                          "duration": {
+                            "Time": {
+                              "tick": 210
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "league_vayne_sb_ring2"
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_vayne_sb1",
+                          "duration": {
+                            "Time": {
+                              "tick": 210
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "league_vayne_sb_ring1"
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_vayne_r",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_vayne_kc",
+                        "duration": {
+                          "Time": {
+                            "tick": 7
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "AddCasted",
+                      "casted_type": "Poison",
+                      "duration": 3,
+                      "period": 1,
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_vayne_kc"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "WithSelf",
+                      "effects": [
+                        {
+                          "type": "Delayed",
+                          "tick": 4,
+                          "effects": [
+                            {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_vayne_kc",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_vayne_kc"
+                                  },
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_vayne_r",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_vayne_r"
+                                        },
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_vayne_r",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 480
+                                              }
+                                            },
+                                            "attack_mult": 25,
+                                            "skill_cooldown_mult": 100
+                                          },
+                                          "only_to_enemy": false
+                                        },
+                                        {
+                                          "type": "CasterViewEffect",
+                                          "name": "league_vayne_r_refresh"
+                                        },
+                                        {
+                                          "type": "Sfx",
+                                          "name": "league_vayne_r_refresh"
+                                        }
+                                      ]
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    }
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": []
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": []
+                }
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "Delayed",
+                "tick": 8,
+                "effects": [
+                  {
+                    "type": "Attack",
+                    "damage": 30,
+                    "attack_ratio": 35,
+                    "attack_effect_type": "Target"
+                  },
+                  {
+                    "type": "Stun",
+                    "duration": 60
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "league_vayne_e_stun"
+                  },
+                  {
+                    "type": "TargetSfx",
+                    "name": "league_vayne_e_slam"
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_vayne_r",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_vayne_kc",
+                            "duration": {
+                              "Time": {
+                                "tick": 8
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "Delayed",
+                          "tick": 1,
+                          "effects": [
+                            {
+                              "type": "AddCasted",
+                              "casted_type": "Poison",
+                              "duration": 3,
+                              "period": 1,
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_vayne_kc"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "WithSelf",
+                          "effects": [
+                            {
+                              "type": "Delayed",
+                              "tick": 5,
+                              "effects": [
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_vayne_kc",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_vayne_kc"
+                                      },
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_vayne_r",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_vayne_r"
+                                            },
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_vayne_r",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 480
+                                                  }
+                                                },
+                                                "attack_mult": 25,
+                                                "skill_cooldown_mult": 100
+                                              },
+                                              "only_to_enemy": false
+                                            },
+                                            {
+                                              "type": "CasterViewEffect",
+                                              "name": "league_vayne_r_refresh"
+                                            },
+                                            {
+                                              "type": "Sfx",
+                                              "name": "league_vayne_r_refresh"
+                                            }
+                                          ]
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  }
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.league_vayne.ult",
+    "duration": 30,
+    "cooltime": 3000,
+    "start_timing": 6,
+    "cancelable": false,
+    "range": 60000,
+    "casting_type": "None",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "league_vayne_r_cast"
+        },
+        {
+          "type": "CasterViewEffect",
+          "name": "league_vayne_r_cast"
+        },
+        {
+          "type": "RemoveCasterBuff",
+          "name": "league_vayne_r"
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_vayne_r",
+            "duration": {
+              "Time": {
+                "tick": 480
+              }
+            },
+            "attack_mult": 25,
+            "skill_cooldown_mult": 100
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "RandomTarget",
+          "range": 70000,
+          "casting_target": "EnemyChampion",
+          "from_projectile": false,
+          "effects": [
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_vayne_nh"
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_vayne_r",
+              "effect_buff": {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_vayne_nh",
+                  "duration": {
+                    "Time": {
+                      "tick": 90
+                    }
+                  },
+                  "move_speed_mult": 24
+                },
+                "only_to_enemy": false
+              },
+              "effect_none": {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_vayne_nh",
+                  "duration": {
+                    "Time": {
+                      "tick": 90
+                    }
+                  },
+                  "move_speed_mult": 8
+                },
+                "only_to_enemy": false
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "league_vayne_bolt",
+      "anim": "asset/league/effects/league_vayne_fx",
+      "tag": "bolt",
+      "repeat": true,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_vayne_q_bolt",
+      "anim": "asset/league/effects/league_vayne_fx",
+      "tag": "q_bolt",
+      "repeat": true,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_vayne_e_bolt",
+      "anim": "asset/league/effects/league_vayne_fx",
+      "tag": "e_bolt",
+      "repeat": true,
+      "z": 1
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "league_vayne_hit",
+      "anim": "asset/league/effects/league_vayne_fx",
+      "tag": "hit",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_vayne_q_hit",
+      "anim": "asset/league/effects/league_vayne_fx",
+      "tag": "q_hit",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_vayne_sb_ring1",
+      "anim": "asset/league/effects/league_vayne_fx",
+      "tag": "sb_ring1",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_vayne_sb_ring2",
+      "anim": "asset/league/effects/league_vayne_fx",
+      "tag": "sb_ring2",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_vayne_sb_proc",
+      "anim": "asset/league/effects/league_vayne_fx",
+      "tag": "sb_proc",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_vayne_q_roll",
+      "anim": "asset/league/effects/league_vayne_fx",
+      "tag": "q_roll",
+      "z": 1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_vayne_e_hit",
+      "anim": "asset/league/effects/league_vayne_fx",
+      "tag": "e_hit",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_vayne_e_stun",
+      "anim": "asset/league/effects/league_vayne_fx",
+      "tag": "e_stun",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_vayne_r_cast",
+      "anim": "asset/league/effects/league_vayne_fx",
+      "tag": "r_cast",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_vayne_r_refresh",
+      "anim": "asset/league/effects/league_vayne_fx",
+      "tag": "r_refresh",
+      "z": 1,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "league_vayne_r",
+      "anim": "asset/league/effects/league_vayne_fx",
+      "tag": "r_aura",
+      "z": 1
+    }
+  ]
+}

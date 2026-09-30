@@ -1016,6 +1016,8 @@ change either.
 league_briar (jungle, 2026-09-30, Head Rush's 0.5 s stun, Chilling Scream's 1 s stun, Certain Death's fear): 2.27
 a game; league_fiddlesticks 2.81, league_leesin 1.71, league_amumu 1.69, league_ekko 0.90 and the base ninja 0.65
 in the same batch - no change.
+league_vayne (bottom, 2026-09-30, Condemn's knockback and 1 s stun): 1.75 a game; the base archer 0.65, league_ashe
+0.65 and league_lucian 0.44 in the same batch - no change.
 
 **Kill trigger (league_jinx Get Excited!).** No effect fires on a kill, but section 4's facts make one:
 1. Next to the damaging projectile, fire an invisible twin with the same speed and path and
@@ -1438,6 +1440,40 @@ fires; without the flag the same at 75000, then 110000; nothing further, no shot
 non-penetrating `LinearProjectile` on `EnemyChampion` toward the picked champion: it flies through minions and
 stops on the first champion. Of its shots 58% hit at speed 8000 and 85% at 12000, the champions walking out of
 the line *(SDK simulation, 2026-09-29)*.
+
+**Every third hit deals true damage, the max-health part on champions only (league_vayne Silver Bolts).** League
+counts three hits in a row on one target; nothing tells which unit a hit is on (see "Bonus on a new target"), so her
+own hits count - the attack's bolt, the Tumble bolt and Condemn - on two 210-tick caster stacks (league_ekko's
+Z-Drive ladder, run in each bolt's `applied_effects`, so only hits count). The third deals a flat `FixedAttack` on
+whatever it hit and leaves a 2-tick caster flag; the bolt's champion-only twin (also the kill check's twin, below)
+reads the flag in a `Delayed {tick: 1}` and adds `FixedAttack {target_hp_ratio: 6}`, so minions and monsters take
+only the flat part (League caps the bolts on monsters, and the epic monster has 10000 health and more). Measured: the
+flat 40 on the bolt's tick and 6% of a priest's maximum health (54) a tick later, the percentage never on minions
+*(SDK simulation, 2026-09-30)*. Condemn's bolt flies only at champions, so its ladder carries both parts itself.
+
+**Tumble by the situation, the next attack stronger (league_vayne Q, Tumble).** league_lucian E's three ways with a
+roll in place of the blink: `MoveBack` (6000 x 4) away from a champion within 30000, a small hop back (5000 x 2)
+when anything is within her attack range, else `RushTime` (2500 x 10, `penetrate`, no applied effects) toward the
+target - a fixed distance, where `MoveTo` would run onto the unit. A 420-tick caster buff turns the next attack into
+a stronger bolt; League's auto-attack reset is not there (the attack's own cooldown runs on). Hopping back costs her
+attacks: a 15000 hop gave -0.6 kills against none (12 seeds a variant); the user's pick keeps a hop, cut to 10000.
+While Final Hour runs each Tumble adds `CasterInvisible {tick: 60}`.
+
+**Knock back, then stun where it lands (league_vayne E, Condemn).** A `TargetProjectile` on `EnemyChampion` whose hit
+deals the damage and `Knockback {speed: 3000, tick: 8}`; inside a projectile's `applied_effects` it pushes straight
+away from the caster (measured: 66439 to 102434 units off in 12 ticks at 3000 a tick). A `Delayed` as long as the
+knockback deals the slam and the stun wherever the target landed - League's wall, which TFM2 does not have, so it
+always comes. A long knockback costs her damage: at 36000 the target flew out of her 55000 attack range and her next
+attack came a median 77 ticks after the cast; 24000 gave +1.2 kills (12 seeds).
+
+**A steroid that her kills refresh (league_vayne R, Final Hour).** A `None` cast on `EnemyChampion` (range 60000):
+an 8 s caster buff with `attack_mult` 25 and `skill_cooldown_mult` 100 (both skills: no field speeds one skill
+alone), read by Tumble for the invisibility, by Night Hunter for the triple speed and by the attack for Final Hour's
+shot sound. League adds 4 s per takedown; here the kill check (see "Kill trigger") runs on every champion hit of hers
+while the buff lasts and removes and re-adds it, back to 8 s (one instance, so the stats never double). For a hit
+from a `Delayed` on the target (Condemn's slam) the clearing `AddCasted` is added one tick later from a `Delayed
+{tick: 1}` and the flag read at 5 ticks. Assists cannot be seen. In a simulated game both refreshes came 4 ticks
+after her hit killed a champion, one of them a Silver Bolts proc *(SDK simulation, 2026-09-30)*.
 
 **Root the first champion, hurt everything on the way, at a champion when one is in reach (league_morgana Q,
 Dark Binding, with W folded in).** A `Direction` cast on `EnemyWithoutTower` (range 80000), so it also goes to
