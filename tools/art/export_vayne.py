@@ -206,12 +206,11 @@ def export_cell(a, k, pal, bx, eye, pitch, tag, i, n, piv, target_x, design_c, f
     if tag in ("skill", "skill_back") and 1 <= i <= 3:
         target_bottom = 79
     target_ex = piv[0] - 7 if tag == "run" else round(target_x) - 9
-    target_ey = round(target_bottom - (bx[3] - 1 - ey) / pitch)
-    if tag == "run":
-        target_ey = 47 + (1 if i % 4 == 1 else 0)
-    tx, ty = target_ex - ex / pitch, target_ey - ey / pitch
-    if tag != "run":                    # every other body stands on the feet line
-        ty = target_bottom - (bx[3] - 1) / pitch
+    tx = target_ex - ex / pitch
+    # every body stands on the feet line - the run too since its redraw (vayne_run_redo): Codex's first export hung the
+    # run from its eyes (row 47, 48 in frames 2 and 6), and the redrawn run's head sits 1-2 rows higher over its soles,
+    # which that put under the feet line
+    ty = target_bottom - (bx[3] - 1) / pitch
     cell = np.zeros((96, 96, 4), np.uint8)
     for y in range(96):
         ry = (y - ty) * pitch

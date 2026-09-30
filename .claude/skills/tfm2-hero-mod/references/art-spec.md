@@ -497,7 +497,9 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   A guide that shows it: `native_pose.py --parts` with the spec's `"parts": [{"joints": "^l_thigh$"}, {"joints":
   "^r_thigh$"}]` paints the two legs apart (the near one is drawn over the far one where they overlap); give them to
   Codex in two colours (near orange, far blue, the rest grey) at 8x and at game size on the run's guide, with a
-  per-frame table of which leg is planted, passing or kicked back.
+  per-frame table of which leg is planted, passing or kicked back (`assets/source/vayne/MODEL_RUN_REDO.md`). Codex's
+  redraw from it came back right in one round: the near leg planted in frames 8, 1, 2, the far one in 4, 5, 6, the
+  knees crossing in 2-3 and 6-7, the near leg told apart by its brighter knee guard.
 - **Effect anchors.** Effect and buff frames are drawn centred on the unit's pivot, 11.5 px above
   the feet (base: `levelup_effect` ring at +9..+16, `shield_receive_effect` bubble -22..+13).
   Ground rings at about +10, hits and shields at -3..-6, overhead marks around -25. Time the
