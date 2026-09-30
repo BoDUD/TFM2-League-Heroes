@@ -998,6 +998,9 @@ league_leona, 0.54 beside league_soraka and 0.48 beside the base priest - Janna 
 supports without hard CC and Leona, and his R stayed as it was. league_morgana (2026-09-29, Dark Binding's
 2 s root and Soul Shackles' stun): 1.52 a game, league_janna 0.94 and the base priest 0.65 in the same batch - no
 change either.
+league_briar (jungle, 2026-09-30, Head Rush's 0.5 s stun, Chilling Scream's 1 s stun, Certain Death's fear): 2.27
+a game; league_fiddlesticks 2.81, league_leesin 1.71, league_amumu 1.69, league_ekko 0.90 and the base ninja 0.65
+in the same batch - no change.
 
 **Kill trigger (league_jinx Get Excited!).** No effect fires on a kill, but section 4's facts make one:
 1. Next to the damaging projectile, fire an invisible twin with the same speed and path and
@@ -1468,6 +1471,54 @@ a single `Delayed {tick: 180}` `RangeEffect` (70000) stunned every enemy champio
 run off and come back or had never been chained (the user: "脱离了大招的线就不应该眩晕了吧"). In 16 simulated games
 62 champions were chained: about 36 died within the 3 s, 12-19 ran out of reach and 0-3 were stunned, at check
 ranges of 60000 to 105000 alike - a champion walks about 1.2 cast radii a second here, against 0.56 in League.
+
+**A bleed that heals the caster, one stack a second from attacks (league_briar Crimson Curse).** Every hit runs
+`AddCasted {casted_type: Bleed, duration: 301, period: 60}` whose effects are the damage (`Attack` 2 + 3% attack) and
+`Heal {amount: 1, attack_ratio: 1, heal_type: Caster}`: a caster heal inside a casted's periodic effects heals the
+unit that applied it, on every tick of every instance *(SDK simulation, 2026-09-30)*, so each stack heals her
+six times over its 5 s. League's heal grows as she loses health and every ability costs 5% of her current health;
+nothing reads current health, both are dropped. The basic attack adds a stack only when a 60-tick caster lock is
+off (`SwitchByBuff bleed_lock` -> nothing, else the lock and the bleed), so one target carries about five of hers,
+League's cap; the skills always add one.
+
+**Leap, stun, then a frenzy whose first attack after 2 s is a heal bite (league_briar Head Rush with Blood Frenzy
+and Snack Attack).** A `Targeting` cast on `EnemyWithoutTower` (range 47500) so it also opens camps: a `RandomTarget
+{range: 47500, casting_target: EnemyChampion}` leaps at a champion in reach and adds a 1-tick `q_aim` flag, and
+`SwitchByBuff q_aim` leaps at the cast target only when no champion was found (league_morgana Q's aim). The leap is
+`CasterAnimation` + `MoveToTarget {speed: 3500}` whose `end_effects` hit, `Stun` 30, cut armour and magic resist
+(`AddBuff {defence_mult: -10, magic_resistance_mult: -10}`, 300 ticks), add a bleed and start the frenzy: remove and
+add the `frenzy` caster buff (300 ticks, `attack_speed_mult` 40, `move_speed_mult` 20, one instance) and restart the
+Snack timer (remove `snack_done` and `snack_wait`, add `snack_wait` for 120 ticks). The basic attack switches on
+`hema` (the ult's frenzy), then on `frenzy`: inside either, `SwitchByBuff snack_wait` -> a frenzied hit, else
+`SwitchByBuff snack_done` -> a frenzied hit, else Snack Attack (`Attack {damage: 30, attack_ratio: 130,
+target_hp_ratio: 4}`, a caster heal, and `snack_done` for the rest of the frenzy). A frenzied hit is `Attack` 60% on
+the target plus a `RangeEffect` (circle 16000 at `Forward {offset: 18000}`, `EnemyWithoutTower`) of 40%: the target
+stands in the circle, so it takes the full 100% and whoever is next to it the splash. League recasts W for the bite;
+nothing here can press it, so it is the first attack 2 s into each frenzy.
+
+**Charge behind a shell, then a cone that knocks back and stuns champions (league_briar E, Chilling Scream).** A
+`Targeting` cast on `EnemyWithoutTower` (range 40000, 80 ticks): `CasterAnimation skill2` for the 60-tick charge, an
+`e_guard` caster buff (`damaged_reduce` 15, 60 ticks, its `view_buffs` picture the shell) and four `Delayed` heals on
+her alone (`RangeEffect` + `AllyOnlySelf`); `Delayed {tick: 60}` plays `skill2_scream`, and 4 ticks later the scream:
+a view-only `LineRangeProjectile` (no effects, its picture the sound wave) and two `RangeEffect`s at `Forward
+{offset: 1000}` with `DirDot {radius: 50000, range: 800}` (37 degrees each side) - on `EnemyWithoutTower` the damage,
+an 80% slow for 30 ticks, `Knockback {speed: 2500, tick: 16}` (40000) and a bleed; on `EnemyChampion` a `Delayed
+{tick: 16}` `Stun` 60, so the stun starts when the knockback ends. League stuns only against a wall; there are no
+walls, so every champion knocked back counts as hitting one (the user's pick).
+
+**Kick at the first champion, fly to it, fear the others (league_briar R, Certain Death).** A `Direction` cast on
+`EnemyChampion` (range 120000): after 8 ticks a `LinearProjectile {penetrate: false, applied_target: EnemyChampion,
+speed: 9000, range: 130000}` (it flies through minions and monsters) whose hit marks the prey (a 420-tick buff with
+the mark picture), gives her a 60-tick `cc_immune` caster buff, plays `ult_fly` and runs `MoveToTarget {speed:
+5000}` - in a projectile's `applied_effects` it flies the caster to that projectile's target (league_leesin Q2). Its
+`end_effects` are the landing: `ult_land`, the blast picture, then `AddBuff {cc_immune: true}` for 2 ticks on the
+prey, a `RangeEffect` (35000) of damage and bleed on `EnemyWithoutTower` and a `RangeEffect` (40000) of `Fear` 90 on
+`EnemyWithoutTower`: the fear is blocked on the prey by the buff given just before it, the damage is not - League's
+"fears every enemy but the prey" *(SDK simulation, 2026-09-30: the prey never feared, the others near her were)*.
+Then Hemomania, the frenzy of Head Rush with more attack and move speed plus `defence` 20, `magic_resistance` 20
+and `vamp` 10, for 360 ticks. League's range is global and the frenzy lasts until she or the prey dies; with the
+AI casting it on any champion in range a global kick would send her alone across the map, so it reaches a bit
+more than a screen and lasts 6 s (the user's pick).
 
 ## 8. Gotchas
 

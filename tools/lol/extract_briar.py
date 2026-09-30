@@ -30,7 +30,8 @@ from riot import SoundBanks, Wad, bnk_media, parse_wpk  # noqa: E402
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..")
 MOD = os.path.join(ROOT, "league")
 SFX_BANK = "assets/sounds/wwise2016/sfx/characters/briar/skins/base/briar_base_sfx_"
-VO_BANK = "assets/sounds/wwise2016/vo/en_us/characters/briar/skins/base/briar_base_vo_"  # same path in every language WAD
+# the same path in every language WAD
+VO_BANK = "assets/sounds/wwise2016/vo/en_us/characters/briar/skins/base/briar_base_vo_"
 
 # clip name -> (event, media id picked among the event's random variants, max seconds, peak dBFS)
 CLIPS = {

@@ -8,12 +8,14 @@
   league_briar_showcase.gif  a scripted fight, timed like the kit: Briar runs in and Head Rushes onto Darius - the
                              headbutt stuns him and she lands in Blood Frenzy (the crimson aura), biting him fast;
                              2 s in, Snack Attack's jaws snap on him and heal her; Chilling Scream: she charges a
-                             second behind her shell, the scream knocks him back and stuns him; Garen walks in far
-                             away - Certain Death: she kicks the gem at him, flies to him and lands in a crimson
-                             blast, Darius (not her prey) runs off in fear, Garen carries the prey mark, and she
-                             bites him in Hemomania; Darius falls to the bleeds; 3x
+                             second behind her shell, the scream knocks him back and stuns him; he runs off -
+                             Certain Death: she kicks the gem, it stops on Darius and marks him her prey, she
+                             flies to him and lands in a crimson blast that hits him and Garen, walking in on the
+                             front row, and fears Garen (not her prey) off the field; in Hemomania she bites
+                             Darius until Snack Attack finishes him; 3x
 """
 import argparse
+import math
 import os
 import sys
 
@@ -33,14 +35,38 @@ CHAMP = os.path.join(LEAGUE, "champions", "league_briar")
 FX = {n: os.path.join(LEAGUE, "effects", n) for n in ("league_briar_fx", "league_briar_big")}
 
 
+class Prey(Held):
+    """A foe that also runs: moves (t0, t1, dx, dy) in League's run frames, facing the way it runs."""
+
+    def __init__(self, sp, x, y):
+        super().__init__(sp, x, y)
+        self.moves = []
+
+    def pos(self, t):
+        x, y = super().pos(t)
+        for t0, t1, dx, dy in self.moves:
+            if t >= t0:
+                u = min(1.0, (t - t0) / (t1 - t0))
+                x, y = x + int(round(dx * u)), y + int(round(dy * u))
+        return x, y
+
+    def frame(self, t):
+        if self.death is None or t < self.death:
+            for t0, t1, dx, _ in self.moves:
+                if t0 <= t < t1:
+                    f = self.pick(self.run, (t - t0) % sum(ms for _, ms in self.run))
+                    return self.flip(f) if dx < 0 else f
+        return super().frame(t)
+
+
 def showcase(out, z=3, step=40):
     briar = load(CHAMP)
     fx = {k: load(v) for k, v in FX.items()}
     small, big = fx["league_briar_fx"], fx["league_briar_big"]
-    W, H = 300, 150
-    gy = 104                                          # the pivot row: her pillory's gem stands 46 px tall
-    d = Held(load(os.path.join(LEAGUE, "champions", "league_darius")), 150, gy)
-    g = Held(load(os.path.join(LEAGUE, "champions", "league_garen")), 290, gy)
+    W, H = 300, 118
+    gy = 80                                           # the pivot row: her pillory's gem stands 46 px tall
+    d = Prey(load(os.path.join(LEAGUE, "champions", "league_darius")), 150, gy)
+    g = Prey(load(os.path.join(LEAGUE, "champions", "league_garen")), 330, gy + 10)     # off the right edge, in front
     body, under, over = [], [], []
     t = 0.0
     x = 30
@@ -61,15 +87,13 @@ def showcase(out, z=3, step=40):
     def on_her(tag, t0, until=None, loop=False, z=1):
         over.append(Follow(frames_of(small, tag), t0, x, gy, loop=loop, until=until, on=body, z=z))
 
-    def bites(n, foe, frenzy_start, snack_at=None, gap=43):
-        """n basic attacks on foe (the hit on tick 8, one every `gap` ticks in a frenzy); the first attack at or
-        after snack_at is Snack Attack."""
-        nonlocal t
-        snacked = False
+    def bites(n, foe, snack_at, gap):
+        """n basic attacks on foe (the hit on tick 8, one every `gap` ticks in a frenzy): the first one landing
+        2 s into the frenzy is Snack Attack; the time of the last hit."""
+        snacked, hit = False, None
         for _ in range(n):
-            start = t
-            hit = start + tick(8)
-            if snack_at is not None and not snacked and hit >= snack_at:
+            hit = t + tick(8)
+            if not snacked and hit >= snack_at:
                 over.append(OnFoe(frames_of(small, "snack"), hit, foe, z=2))
                 on_her("snack_heal", hit)
                 snacked = True
@@ -78,6 +102,7 @@ def showcase(out, z=3, step=40):
             foe.flinches.append(hit)
             a("attack", tick(25))
             a("idle", tick(max(1, gap - 25)), loop=True)
+        return hit
 
     # she runs in (move speed 1100: 66 px a second)
     a("run", 1200, loop=True, way=[(0, x), (1200, 100)])
@@ -91,7 +116,7 @@ def showcase(out, z=3, step=40):
     d.holds.append((land, land + 500))
     on_her("frenzy", land, until=land + 5000, loop=True, z=-1)
     # the frenzied bites (attack speed +40%: one every 43 ticks), Snack Attack 2 s in
-    bites(6, d, land, snack_at=land + 2000)
+    bites(6, d, land + 2000, 43)
     # Chilling Scream: 1 s charge behind her shell, the scream on tick 64 (knockback 40 px, then a 1 s stun)
     start = t
     on_her("e_guard", start, until=start + 1000, loop=True)
@@ -99,35 +124,42 @@ def showcase(out, z=3, step=40):
     fx_at(big, "e_wave", scream, x + 25, gy - 10)
     over.append(OnFoe(frames_of(small, "e_hit"), scream, d, z=2))
     d.slides.append((scream, scream + tick(16), 40))
-    d.holds.append((scream + tick(16), scream + tick(16) + 1000))
+    stun_end = scream + tick(16) + 1000
+    d.holds.append((scream + tick(16), stun_end))
     over.append(OnFoe(frames_of(small, "e_stun"), scream + tick(16), d, z=3))
     a("skill2", tick(60))
     a("skill2_scream", tick(20))
-    a("idle", 400, loop=True)
-    # Garen walks in; Certain Death: the kick (the gem leaves on tick 8), the flight, the landing blast
-    g.walks.append((t - 1500, t + 200, -60))
+    # Darius runs off, up and to the right, and turns round
+    d.moves.append((stun_end, stun_end + 900, 54, -18))
+    a("idle", stun_end + 800 - t, loop=True)
+    # Certain Death: the kick sends the gem on tick 8; it stops on the first champion, Darius, and marks him her
+    # prey; she flies to him (5 px a tick) and lands in a crimson blast that hits both and fears Garen, who was
+    # walking in on the front row (35 px from her as she lands)
     start = t
     kick = start + tick(8)
-    gx, gyy = g.pos(kick + 300)
-    arrive = kick + 300
-    fx_at(small, "r_gem", kick, x + 10, gy - 14, until=arrive, x1=gx - 8, y1=gyy - 14)
-    over.append(OnFoe(frames_of(small, "r_mark"), arrive, g, z=3))
-    over.append(OnFoeFor(frames_of(small, "r_mark"), arrive, g, arrive + 6000, z=3))
-    a("ult", tick(30))
-    fly_end = t + 400
-    a("ult_fly", 400, loop=True, way=[(t, x), (fly_end, gx - 26)])
-    x = gx - 26
+    dx_, dy_ = d.pos(kick)
+    arrive = kick + tick(math.hypot(dx_ - 8 - (x + 10), dy_ - gy) / 9.0)
+    fx_at(small, "r_gem", kick, x + 10, gy - 14, until=arrive, x1=dx_ - 8, y1=dy_ - 14)
+    mark = OnFoeFor(frames_of(small, "r_mark"), arrive, d, arrive + 6000, z=3)
+    over.append(mark)
+    a("ult", arrive - start)
+    to = dx_ - 22                                    # 28 px from him (he stands 18 px further back)
+    fly_end = t + tick((to - x) / 5.0)
+    a("ult_fly", fly_end - t, loop=True, way=[(t, x), (fly_end, to)])
+    x = to
     blast = t
+    g.moves.append((blast - 1600, blast, -74, 0))
     fx_at(big, "r_boom", blast, x, gy, ground=True)
-    for foe in (g, d):
+    for foe in (d, g):
         over.append(OnFoe(frames_of(small, "r_hit"), blast, foe, z=2))
         foe.flinches.append(blast)
-    over.append(OnFoe(frames_of(small, "r_fear"), blast, d, z=3))
-    d.walks.append((blast, blast + 1500, -50))
+    over.append(OnFoe(frames_of(small, "r_fear"), blast, g, z=3))
+    g.moves.append((blast + 240, blast + 1500, 80, 4))           # off the right edge (66 px a second)
     on_her("hema", blast, until=blast + 6000, loop=True, z=-1)
     a("ult_land", tick(26))
-    bites(5, g, blast, snack_at=blast + 2000)
-    d.death = blast + 1800
+    # Hemomania: a bite every 35 ticks (attack speed +70%), Snack Attack 2 s in finishes him
+    d.death = bites(4, d, blast + 2000, 35) + 150
+    mark.until = d.death                              # the buff view goes with him
     a("idle", 1500, loop=True)
     end = t
 
@@ -141,7 +173,7 @@ def showcase(out, z=3, step=40):
             f = an.frame(tt)
             if f is not None:
                 place(img, f, *an.pos(tt))
-        units = [(d.pos(tt)[1], d.frame(tt), d.pos(tt)), (g.pos(tt)[1] - 0.5, g.frame(tt), g.pos(tt))]
+        units = [(g.pos(tt)[1], g.frame(tt), g.pos(tt)), (d.pos(tt)[1], d.frame(tt), d.pos(tt))]
         for an in body:
             f = an.frame(tt)
             if f is not None:
@@ -173,7 +205,8 @@ def main():
     args = ap.parse_args()
     os.makedirs(T.long_path(args.out), exist_ok=True)
     s = load(CHAMP)
-    print("frames", contact([(s, t["name"], t["name"]) for t in s.tags], os.path.join(args.out, "league_briar_frames.png")))
+    print("frames", contact([(s, t["name"], t["name"]) for t in s.tags],
+                            os.path.join(args.out, "league_briar_frames.png")))
     if args.frames_only:
         return
     rows = []

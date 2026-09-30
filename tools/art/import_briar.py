@@ -19,7 +19,8 @@ on the line), its hit 16, the stun stars 18, the gem 20, the prey mark 14, the l
 Anchors, measured on each drawing: hits and bursts on their white core (or the drawing's middle once it has faded);
 the auras on their ground ring's middle, the lowest drawn row on the ground line; the stars, the mark and the fear
 icon on their own middle over the target's head; the gem on its core; the fan on the middle of its cell (the apex
-at the left end); the blast on the middle of its ellipse.
+at the left end); the blast on the middle of its ellipse. The frenzy's ground line is left out (cut): at 44 px
+it is a flat 15x2 bar under her feet that reads as a second HP bar.
 The second step places every cell by its anchor and times each view by the kit: Head Rush's stars loop for the 0.5 s
 stun after the impact, the scream's stars for the 1 s stun, the fear icon for 1.5 s; the auras loop (buff views).
 No palette or outline pass on the sheets. Writes league/effects/league_briar_fx and league/effects/league_briar_big
@@ -58,7 +59,7 @@ RAW = {
     "snack_heal": dict(n=5, size=30, measure="cellh", x="cell", y="cell"),
     "q_hit": dict(n=6, frames=[0, 1, 2, 3], size=24, measure="w", x=("core", [0, 1]), y=("core", [0, 1])),
     "q_stars": dict(src="q_hit", n=6, frames=[4, 5], size=18, measure="w", x=("frame", [4, 5]), y=("frame", [4, 5])),
-    "frenzy": dict(n=4, size=44, measure="h", x=("frame", [0, 1, 2, 3]), y=("bottom", 0)),
+    "frenzy": dict(n=4, size=44, measure="h", x=("frame", [0, 1, 2, 3]), y=("bottom", 0), cut=2),
     "hema": dict(n=4, size=48, measure="h", x=("frame", [0, 1, 2, 3]), y=("bottom", 0)),
     "e_guard": dict(n=4, size=40, measure="h", x=("frame", [0, 1, 2, 3]), y=("frame", [0, 1, 2, 3])),
     "e_wave": dict(n=5, size=50, measure="cellw", x="cell", y=("frame", [1, 2, 3])),
@@ -153,11 +154,14 @@ def from_raw(folder, only=None):
             if spec.get("mirror"):
                 cell = out[:, i * tw:(i + 1) * tw]
                 cell[U + 1:] = cell[:U][::-1]
+        if spec.get("cut"):                         # the lowest rows (the anchor row and those over it) go
+            out[U + 1 - spec["cut"]:U + 1] = 0
         Image.fromarray(np.repeat(np.repeat(out, Z, 0), Z, 1), "RGBA").save(
             G.lp(os.path.join(SRC, f"briar_fx_{name}.png")))
         anchors[name] = {"cell": [tw, th], "anchor": [L, U], "frames": len(used)}
         print(f"briar_fx_{name}.png  {len(used)} cells of {tw}x{th}, anchor {L},{U}, scale {s:.4f} "
-              f"({spec['size']} px over {ext} source px), {len(np.unique(out[out[..., 3] > 0][:, :3], axis=0))} colours")
+              f"({spec['size']} px over {ext} source px), "
+              f"{len(np.unique(out[out[..., 3] > 0][:, :3], axis=0))} colours")
     anchors = {k: anchors[k] for k in RAW if k in anchors}
     text = "{\n" + ",\n".join(f'  "{k}": {json.dumps(v)}' for k, v in anchors.items()) + "\n}\n"
     with open(G.lp(path), "w", encoding="utf-8", newline="\n") as f:

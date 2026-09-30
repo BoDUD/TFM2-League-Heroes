@@ -23,9 +23,9 @@ reference_design/briar_head_1x.png). Two fixes on the game pixels:
     fallback (the run's frames, where Codex also shortened the shins, and the falls);
   - the last frame of attack, skill, skill2_scream, ult, ult_land and hit is the design's stance (Codex's choice):
     the exact design is put back there (the window had cut it too).
-  - one outline, the Ahri session's outline fix (work/ah/outline_fix.py, tools/art/tidy_codex18.py): Codex drew
-    only 49-86% of each frame's silhouette edge dark (the design 99%), so every opaque edge square that is not
-    near-black becomes the outline colour (inside the silhouette: the frame does not grow), outline spurs go,
+  - one outline (tools/art/tidy_codex18.py's one_outline plus the outline completion the Ahri session's fix added):
+    Codex drew only 49-86% of each frame's silhouette edge dark (the design 99%), so every opaque edge square that
+    is not near-black becomes the outline colour (inside the silhouette: the frame does not grow), outline spurs go,
     a near-black square just inside the outline takes the darkest of its lighter neighbours (the material's own
     dark shade, never a second black ring) and lone specks take their area's colour; the eyes and the face
     round them are left alone, the design frames too.
@@ -429,7 +429,8 @@ def main():
             problems.append(f"briar_{name}.png: colours not in the design: {sorted(extra)[:6]}")
         out[name] = a
         print(f"briar_{name}.png: {len(colours(a))} colours, areas vs idle "
-              + " ".join(f"{v / idle_area:.2f}" for v in areas) + (f"; window fills {fills}" if fills else "") + (f"; outline squares {lines}" if lines else ""))
+              + " ".join(f"{v / idle_area:.2f}" for v in areas) + (f"; window fills {fills}" if fills else "")
+              + (f"; outline squares {lines}" if lines else ""))
     if problems:
         print("\n".join(problems))
         sys.exit(f"{len(problems)} problems - nothing written")
