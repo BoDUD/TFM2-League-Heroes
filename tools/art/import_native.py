@@ -98,6 +98,8 @@ ORDER = {("lux", "idle"): [0, 0, 0, 0, 0, 0],   # the step-2 idle is the design 
          ("riven", "idle"): [0, 0, 0, 0, 0, 0],
          # and Briar (the design B: Codex's strips with the design's head copied into every frame)
          ("briar", "idle"): [0, 0, 0, 0, 0, 0],
+         # and Vayne (the design drawn by Codex at game size: the pack's idle is the design in all six)
+         ("vayne", "idle"): [0, 0, 0, 0, 0, 0],
          # and Akali (Codex's strips of the game-size redesign, the design's head copied into every upright frame)
          ("akali", "idle"): [0, 0, 0, 0, 0, 0]}
 # (hero, tag): (y, slots) - in those slots everything at or above pivot row y moves down a row (the row under
@@ -154,6 +156,8 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        ("riven", "idle"): (4, [2, 3, 4]),
        # Briar: the seam across her shins, under the knees' gold bands; the shackle bands and the feet stay
        ("briar", "idle"): (5, [2, 3, 4]),
+       # Vayne: the seam across her shins, where the silhouette changes by 4 squares; her boots stay
+       ("vayne", "idle"): (5, [2, 3, 4]),
        # Akali (the game-size redesign): the seam low in her shin wraps, the two rows there differ in 4 squares
        # (the knees' row, the old 6, changed the silhouette in 9); the ankles and the shoes stay
        ("akali", "idle"): (8, [2, 3, 4])}
@@ -186,6 +190,7 @@ EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade
         "morgana": (200, 60, 166),        # the redesign A: only her face is pasted, its pink-violet is the eyes'
         "riven": (62, 142, 72),           # the design's green eyes (#3E8E48), used nowhere else
         "briar": (240, 252, 255),         # the pillory's gem is the top of every frame; the ice-white is the eyes'
+        "vayne": (248, 48, 60),           # the crossbow on her back tops the frame; the lenses' red is used nowhere else
         "akali": (113, 65, 41)}           # her ponytail tops every frame; the brown iris is the eyes'
 
 
