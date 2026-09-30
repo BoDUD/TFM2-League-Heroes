@@ -442,6 +442,20 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   where the sampling lost it. A ring round every square not of the outline colour doubled the drawn line: every
   frame a square fatter all round than the design's idle (10-20% more area), so she grew whenever she cast
   ("放技能就变大一下"). Compare every strip's area with the idle's after a tidy.
+- **A pasted head's rectangle cuts a window (league_briar).** Codex pasted the design's head into every strip frame
+  as its whole 16x15 rectangle: inside it everything but the head - and one square round it on the left, right and
+  top - came out transparent, so in play a square hole with straight edges framed the face and the pillory and the
+  body stopped round it. Ask for the head's mask to be pasted, not its box, and look for straight transparent edges
+  round the head in a delivery. `tools/art/tidy_briar.py` rebuilds such a frame from Codex's raw drawing (in the
+  delivery, drawn before the paste) when it matches the delivered frame outside the window - centre-sampled to the
+  frame's box and snapped to the design's colours, at least 92% of the squares the same within a 3-square shift -
+  and puts the head mask back on top; patching only the window from the raw drawing left seams. Where the raw
+  drawing does not match (the move, where Codex also shortened the shins; the fall) the window is filled from the
+  material just outside it, row by row and up from under the chin, keeping the pillory's real opening. Then one
+  outline: Codex drew 49-86% of each frame's silhouette edge dark (the design 99%), so every edge square that is not
+  near-black takes the outline colour - inside the silhouette, so no frame grows (compare areas with the idle) - and
+  `tidy_codex18.py`'s `one_outline` follows (spurs, the inner black ring, specks); 96-99% of the edge is outline
+  afterwards and 2-4% of the ring inside it black.
 - **Effect anchors.** Effect and buff frames are drawn centred on the unit's pivot, 11.5 px above
   the feet (base: `levelup_effect` ring at +9..+16, `shield_receive_effect` bubble -22..+13).
   Ground rings at about +10, hits and shields at -3..-6, overhead marks around -25. Time the

@@ -827,6 +827,21 @@ target instead of hitting it at once (it still catches it about a third of the t
 is cut short). R is cast about 20% less often than the forward kick. Balance at lane 1 with the W
 below: +0.53 / +0.86 (the old kit -0.96 / -0.58) *(measured in the SDK simulation, 2026-09-29)*.
 
+**Pick the kick: into the ones behind, else the insec (league_leesin R, 0.27.0).** The user wanted both kicks, chosen by
+the situation. On the cast tick a hidden probe - a penetrating `LinearProjectile` on `EnemyChampion` (speed 30000,
+range 90000, radius 14000; its name is bound to no view, so nothing is drawn) - flies toward the target and counts
+the champions on that line with two caster flags (`SwitchByBuff r_one` -> add `r_front`, else add `r_one`; both
+removed first, 30 ticks). The target is one, so `r_front` means another champion stands on the line behind it. At
+action tick 7 `r_front` runs `MoveToTarget {speed: 8000}` - he stops at the target's front, touching it - and the
+kick at tick 17 sends the target into them, the dragon at the kick's speed (3000 for 63000, the old forward kick's)
+trailing it from his foot; without the flag the insec above (`RushMoveToBack`, the late slow dragon). A first try
+counted with two fixed circles ahead of him (`RangeEffect` at `Forward` 34000 and 66000): the AI casts this
+30000-range ult from up to 48700 centre to centre (both bodies count) and the target often flees on (56600 at tick
+7), so it sat in both circles, was counted twice and every cast took the forward kick. With the probe 8 of 62 casts
+in 17 games kicked forward, knocking up about 1.9 champions each (13 in 7), an insec 0.36 *(SDK simulation,
+2026-09-30)*. Lane 1: +0.79 / +0.87, the insec alone +0.53 / +0.86 in the same two batches. league_yasuo's R
+beside him: 1.52 a game (the insec alone 1.71) - no change.
+
 **Dash to an ally in trouble and shield both (league_leesin W, Safeguard).** No casting target means
 "ally under attack", and all four slots were taken, so W is a check at the end of the attack, Q and E
 behind its own caster buff (`league_leesin_w_cd`, 720 ticks, set first in every branch). Three tiers:
@@ -999,8 +1014,11 @@ supports without hard CC and Leona, and his R stayed as it was. league_morgana (
 2 s root and Soul Shackles' stun): 1.52 a game, league_janna 0.94 and the base priest 0.65 in the same batch - no
 change either. league_riven (2026-09-30, top, Yasuo moved to mid; Broken Wings' third-cast knock-up and Ki Burst's
 stun, 24 seeds a side): 2.12 a game with the kit timed to her strips (2.56 before), the base fighter 1.94, the base
-knight 0.85, league_malphite 2.42 and league_darius 1.21 on the same seeds - the range the knock-up heroes gave before (Yone 2.15, Annie 2.19-2.50, the
-base lightning mage 3.19), so no change.
+knight 0.85, league_malphite 2.42 and league_darius 1.21 on the same seeds - the range the knock-up heroes gave
+before (Yone 2.15, Annie 2.19-2.50, the base lightning mage 3.19), so no change.
+league_briar (jungle, 2026-09-30, Head Rush's 0.5 s stun, Chilling Scream's 1 s stun, Certain Death's fear): 2.27
+a game; league_fiddlesticks 2.81, league_leesin 1.71, league_amumu 1.69, league_ekko 0.90 and the base ninja 0.65
+in the same batch - no change.
 
 **Kill trigger (league_jinx Get Excited!).** No effect fires on a kill, but section 4's facts make one:
 1. Next to the damaging projectile, fire an invisible twin with the same speed and path and
@@ -1507,6 +1525,54 @@ inside R, were redrawn in place), and each action picks one by `SwitchByBuff lea
 or walks the broken blade shows, under an aura bound to the same buff (`view_buffs`, z -1). Her E shield shows as
 a `ThreePhase` picture on an `AddBuff` of duration `WithShield` next to the `Shield` (league_morgana's E), and the
 runes as one `view_buffs` glyph each on `rune_1`..`rune_3`, so as many glyphs light over her head as she holds.
+
+**A bleed that heals the caster, one stack a second from attacks (league_briar Crimson Curse).** Every hit runs
+`AddCasted {casted_type: Bleed, duration: 301, period: 60}` whose effects are the damage (`Attack` 2 + 3% attack) and
+`Heal {amount: 1, attack_ratio: 1, heal_type: Caster}`: a caster heal inside a casted's periodic effects heals the
+unit that applied it, on every tick of every instance *(SDK simulation, 2026-09-30)*, so each stack heals her
+six times over its 5 s. League's heal grows as she loses health and every ability costs 5% of her current health;
+nothing reads current health, both are dropped. The basic attack adds a stack only when a 60-tick caster lock is
+off (`SwitchByBuff bleed_lock` -> nothing, else the lock and the bleed), so one target carries about five of hers,
+League's cap; the skills always add one.
+
+**Leap, stun, then a frenzy whose first attack after 2 s is a heal bite (league_briar Head Rush with Blood Frenzy
+and Snack Attack).** A `Targeting` cast on `EnemyWithoutTower` (range 47500) so it also opens camps: a `RandomTarget
+{range: 47500, casting_target: EnemyChampion}` leaps at a champion in reach and adds a 1-tick `q_aim` flag, and
+`SwitchByBuff q_aim` leaps at the cast target only when no champion was found (league_morgana Q's aim). The leap is
+`CasterAnimation` + `MoveToTarget {speed: 3500}` whose `end_effects` hit, `Stun` 30, cut armour and magic resist
+(`AddBuff {defence_mult: -10, magic_resistance_mult: -10}`, 300 ticks), add a bleed and start the frenzy: remove and
+add the `frenzy` caster buff (300 ticks, `attack_speed_mult` 40, `move_speed_mult` 20, one instance) and restart the
+Snack timer (remove `snack_done` and `snack_wait`, add `snack_wait` for 120 ticks). The basic attack switches on
+`hema` (the ult's frenzy), then on `frenzy`: inside either, `SwitchByBuff snack_wait` -> a frenzied hit, else
+`SwitchByBuff snack_done` -> a frenzied hit, else Snack Attack (`Attack {damage: 30, attack_ratio: 130,
+target_hp_ratio: 4}`, a caster heal, and `snack_done` for the rest of the frenzy). A frenzied hit is `Attack` 60% on
+the target plus a `RangeEffect` (circle 16000 at `Forward {offset: 18000}`, `EnemyWithoutTower`) of 40%: the target
+stands in the circle, so it takes the full 100% and whoever is next to it the splash. League recasts W for the bite;
+nothing here can press it, so it is the first attack 2 s into each frenzy.
+
+**Charge behind a shell, then a cone that knocks back and stuns champions (league_briar E, Chilling Scream).** A
+`Targeting` cast on `EnemyWithoutTower` (range 40000, 80 ticks): `CasterAnimation skill2` for the 60-tick charge, an
+`e_guard` caster buff (`damaged_reduce` 15, 60 ticks, its `view_buffs` picture the shell) and four `Delayed` heals on
+her alone (`RangeEffect` + `AllyOnlySelf`); `Delayed {tick: 60}` plays `skill2_scream`, and 4 ticks later the scream:
+a view-only `LineRangeProjectile` (no effects, its picture the sound wave) and two `RangeEffect`s at `Forward
+{offset: 1000}` with `DirDot {radius: 50000, range: 800}` (37 degrees each side) - on `EnemyWithoutTower` the damage,
+an 80% slow for 30 ticks, `Knockback {speed: 2500, tick: 16}` (40000) and a bleed; on `EnemyChampion` a `Delayed
+{tick: 16}` `Stun` 60, so the stun starts when the knockback ends. League stuns only against a wall; there are no
+walls, so every champion knocked back counts as hitting one (the user's pick).
+
+**Kick at the first champion, fly to it, fear the others (league_briar R, Certain Death).** A `Direction` cast on
+`EnemyChampion` (range 120000): after 8 ticks a `LinearProjectile {penetrate: false, applied_target: EnemyChampion,
+speed: 9000, range: 130000}` (it flies through minions and monsters) whose hit marks the prey (a 420-tick buff with
+the mark picture), gives her a 60-tick `cc_immune` caster buff, plays `ult_fly` and runs `MoveToTarget {speed:
+5000}` - in a projectile's `applied_effects` it flies the caster to that projectile's target (league_leesin Q2). Its
+`end_effects` are the landing: `ult_land`, the blast picture, then `AddBuff {cc_immune: true}` for 2 ticks on the
+prey, a `RangeEffect` (35000) of damage and bleed on `EnemyWithoutTower` and a `RangeEffect` (40000) of `Fear` 90 on
+`EnemyWithoutTower`: the fear is blocked on the prey by the buff given just before it, the damage is not - League's
+"fears every enemy but the prey" *(SDK simulation, 2026-09-30: the prey never feared, the others near her were)*.
+Then Hemomania, the frenzy of Head Rush with more attack and move speed plus `defence` 20, `magic_resistance` 20
+and `vamp` 10, for 360 ticks. League's range is global and the frenzy lasts until she or the prey dies; with the
+AI casting it on any champion in range a global kick would send her alone across the map, so it reaches a bit
+more than a screen and lasts 6 s (the user's pick).
 
 ## 8. Gotchas
 

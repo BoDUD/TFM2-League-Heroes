@@ -250,6 +250,16 @@
         "y": -12
       }
     },
+    "league_briar": {
+      "face": {
+        "x": -3,
+        "y": -34
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
     "league_riven": {
       "face": {
         "x": -3,
