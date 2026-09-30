@@ -138,8 +138,10 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        ("jinx", "idle"): (6, [2, 3, 4, 5]),
        # Garen: the seam across his greaves, his sabatons stay
        ("garen", "idle"): (6, [2, 3, 4]),
-       # Ashe: the seam across her boots' shafts, her soles stay
-       ("ashe", "idle"): (6, [2, 3, 4]),
+       # Ashe: the seam across her boots' shafts, her soles stay. Codex's redraw hangs the cloak down to 8 rows
+       # under the pivot and leaves 4 rows of boots: at 6 the seam cut the cloak's last row off her thighs and
+       # the legs seemed to come apart ("腿像分开了一样"); at 9 the outline does not change (6 squares of colour)
+       ("ashe", "idle"): (9, [2, 3, 4]),
        # Lux: the seam across her boots' shafts, her soles stay
        ("lux", "idle"): (6, [2, 3, 4]),
        # Lucian: the seam across his shins, where the outline hardly changes; the boots and the coat's tip stay

@@ -8,7 +8,7 @@
 
 ![盖伦演示：普攻、Q+W、强化普攻、E 旋转、R 德玛西亚正义](docs/preview/league_garen_showcase.gif?v=0930)
 
-![艾希演示：跑步、普攻、Q 连射、W 万箭齐发、R 魔法水晶箭](docs/preview/league_ashe_showcase.gif?v=0930)
+![艾希演示：跑步、普攻、Q 连射、W 万箭齐发、R 魔法水晶箭](docs/preview/league_ashe_showcase.gif?v=0930d)
 
 ![拉克丝演示：跑步、普攻、Q 光之束缚和护盾、被动引爆、E 透光奇点、R 终极闪光](docs/preview/league_lux_showcase.gif?v=0930)
 
@@ -134,6 +134,8 @@ python tools/art/preview_ashe.py
 ```
 
 第一轮的角色图（提示词见 [`CHIBI_REDRAW.md`](assets/source/CHIBI_REDRAW.md)）细节很多：细长的冰晶弓、黑兜帽上的白发。按面积平均缩小会糊成一片土黄色，所以当时每个游戏像素只从共享调色板里选一个颜色：覆盖面积最大的那个，冰蓝、白发、肤色、金色的权重加大（`strips.render_vote`）。即便这样，游戏里还是碎成杂色点，后来按游戏原尺寸重画了（见下文）。`import_ashe.py --body` 仍能写出第一轮的角色图。
+
+待机的呼吸（0.27.0 修正）：Codex 重画的造型披风垂到站位点下 8 行，靴子只剩最下面 4 行。呼吸的接缝原来在站位点下 6 行，正好切在披风最后一行和大腿的连接处，下沉时那一行被盖掉，靴子像和身体分开了（用户：腿像分开了一样）。接缝挪到站位点下 9 行的靴筒里：第 3–5 帧除鞋底那一行外整个人（披风、大腿、靴子上半截）一起下沉一格，轮廓不变，只有 6 格颜色不同。
 
 逐帧预览：[`docs/preview/league_ashe_frames.png`](docs/preview/league_ashe_frames.png)，特效：[`docs/preview/league_ashe_effects.png`](docs/preview/league_ashe_effects.png)。
 
