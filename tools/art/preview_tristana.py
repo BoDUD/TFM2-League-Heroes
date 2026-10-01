@@ -92,12 +92,12 @@ def showcase(out, z=3, step=40):
         return False
 
     def attack(foe, gap=1000):
-        """The cannon: the ball leaves on tick 8 of the 24-tick strip (6 px a tick, level with the pivot), the flash at
+        """The cannon: the ball leaves on tick 8 of the 24-tick strip (6 px a tick, 3 px over the pivot), the flash at
         the bell; the next shot `gap` ms later (1 s, 0.55 s in Rapid Fire)."""
         start = t
         fire = start + tick(8)
         mine(fx, "shot", fire)
-        land = fly("bolt", fire, foe, 6.0, 0)
+        land = fly("bolt", fire, foe, 6.0, 3)
         over.append(OnFoe(frames_of(fx, "hit"), land, foe, z=2))
         foe.flinches.append(land)
         a("attack", tick(24))
@@ -108,12 +108,12 @@ def showcase(out, z=3, step=40):
     x = 70
     nxt, _ = attack(d)
     idle_to(nxt)
-    # E + Q: the charge leaves the lowered barrel on tick 8 (4.5 px a tick, 8 px under the pivot) and sticks; the
+    # E + Q: the charge leaves the lowered barrel on tick 8 (4.5 px a tick, 4 px under the pivot) and sticks; the
     # barrel steams every second of Rapid Fire's 7 s
     e0 = t
     mine(fx, "e_shot", e0 + tick(8))
     mine(fx, "q_cast", e0 + tick(18))
-    stick = fly("e_charge", e0 + tick(8), d, 4.5, -8)
+    stick = fly("e_charge", e0 + tick(8), d, 4.5, -4)
     stacks["since"] = stick
     steam = [e0 + tick(k) for k in range(20, 420, 60)]
     a("skill", tick(18))
@@ -143,11 +143,11 @@ def showcase(out, z=3, step=40):
     # Garen comes up behind Darius
     g.walks.append((1500, nxt + 200, 172 - g.x))
     idle_to(nxt + 250)
-    # Buster Shot at Darius (the nearest champion): the blast on tick 9, the ball 7 px a tick 4 px under the pivot;
+    # Buster Shot at Darius (the nearest champion): the blast on tick 9, the ball 7 px a tick 1 px under the pivot;
     # the shockwave round him a tick after the hit knocks both 30 px away over 10 ticks, stunned 0.5 s where they land
     r0 = t
     mine(fx, "r_muzzle", r0 + tick(9))
-    hit = fly("r_ball", r0 + tick(9), d, 7.0, -4)
+    hit = fly("r_ball", r0 + tick(9), d, 7.0, -1)
     over.append(OnFoe(frames_of(fx, "r_hit"), hit, d, z=2))
     blast = hit + tick(1)
     under.append(Anim(frames_of(big, "r_blast"), blast, *d.pos(blast)))

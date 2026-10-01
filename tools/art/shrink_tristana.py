@@ -14,16 +14,17 @@ first run; every run starts from there, so a second run changes nothing and --ch
 1. The design: 7 rows and 10 columns go, found by dynamic programming (design_akali.dp_keep: never two neighbours, a
    deleted line costing its difference from the nearer neighbour; the amber eyes weigh 12, the mouth 6, the cannon's
    steel and brass 2) with the outline on top, the head from the hair's top down to the neck (rows 7-21), the feet
-   (rows 38-40), the head's columns but the left ear's tip (5-36) and the bell's rims (44, 45, 54, 55) kept: rows 1
-   (the goggles' cups), 22, 24, 27, 29 (the shoulders and the waist - through the cannon, which loses as many), 34, 37
-   (the legs); columns 1, 3 (the left ear's tip), 37, 39, 41, 43 (the brass barrel), 46, 48, 50, 52 (inside the
-   bell). 46x34. The user picked this smaller cannon ("炮可以调小一点", B) over the first 34-row cut, which kept the
+   (rows 38-40), the thighs and knees (rows 33-36), the head's columns but the left ear's tip (5-36) and the bell's
+   rims (44, 45, 54, 55) kept: rows 1 (the goggles' cups), 22, 24, 27, 29, 31 (the shoulders and the waist - through
+   the cannon, which loses as many), 37 (the boots); columns 1, 3 (the left ear's tip), 37, 39, 41, 43 (the brass
+   barrel), 46, 48, 50, 52 (inside the bell). 46x34. A first cut took a thigh row (34) and a boot row (37): the left
+   leg's slant from the thigh to the boot came out in steps (the user: "小炮缩放后左腿看起来像少了一块？"). The user picked this smaller cannon ("炮可以调小一点", B) over the first 34-row cut, which kept the
    cannon whole (50 wide), and one that only narrowed the bell (47).
 2. Every upright frame: the design's head (HEAD_BOX, the block Codex pasted in every frame; its eyes out of the search,
    closed in the hit) is found in it and the rows and columns the design loses inside that box go, so the head is the
    design's in every frame. The rest by zones round the head, with as many deletions as the design has there for its
    length: below the head down to the feet the design's 6 rows of its 20 (preferring its rows, counted from the
-   soles), the feet (3 rows over the soles) kept; right of the head 8 of the first 19 columns (the cannon held
+   soles; the thighs and knees in every frame are the design's rows 33-36 counted from the soles, kept), the feet (3 rows over the soles) kept; right of the head 8 of the first 19 columns (the cannon held
    forward); 10/56 of anything reaching further (the cannon raised over the head, swung behind her) - each zone by
    the same dynamic programming.
 3. The outline put back where a deleted line held it (a pixel whose outline neighbour went gets one on the new edge),
@@ -57,8 +58,9 @@ OUT = os.path.join(ROOT, "assets", "source", "native")
 SRC = os.path.join(ROOT, "assets", "source", "tristana", "native41")
 CELLS = os.path.join(OUT, "tristana_cells.json")
 HEIGHT = 34
-KEEP_ROWS = {0} | set(range(7, 22)) | {38, 39, 40}   # the design's: the outline on top (it would come back), the head
-                                                     # from the hair's top to the neck, the feet
+KEEP_ROWS = {0} | set(range(7, 22)) | set(range(33, 37)) | {38, 39, 40}   # the design's: the outline on top (it would
+    # come back), the head from the hair's top to the neck, the thighs and knees (a thigh row cut the left leg's slant
+    # into steps: "左腿看起来像少了一块"), the feet
 WIDTH = 46                                     # 10 columns: the left ear's tip, the brass barrel, inside the bell
 KEEP_COLS = {0} | set(range(5, 37)) | {44, 45, 54, 55}   # the outline at the ear's tip, the head but the ear's tip,
                                                          # the bell's rims
@@ -71,7 +73,8 @@ SOLES = 11                       # the soles' row under the pivot
 FURTHER = 10 / 56                # deletions per line of anything beyond the design's own reach
 PRIOR = 2.0                      # cost per line of distance from the design's own choice (steadies the strips)
 OUTLINE = (0x19, 0x14, 0x21)
-TAGS = ["idle", "run", "attack", "skill", "skill2", "ult", "hit", "dead"]
+TAGS = ["idle", "attack", "skill", "skill2", "ult", "hit", "dead"]   # not the run: Codex redrew it at 34 rows, the head
+# moving with the body (tristana_run.png comes from its redo, assets/source/tristana/codex_run_redo/)
 # frames turned whole from another frame (1-based): (source frame, turn)
 TURNED = {("skill2", 4): (3, "cw90"), ("skill2", 5): (3, "cw45")}
 # frames Codex turned a little as a whole (R's 5th about 24 degrees, the death's 4th about 25): the design's head is not
@@ -237,7 +240,8 @@ def frame_cuts(frame, fig, drow, dcol, pivot, pal, face_at=None):
     zone = (bottom + 1, soles - FEET)
     n = zone[1] - zone[0] + 1
     k = len(body) if n >= BODY else round(n * len(body) / BODY)
-    rows += zone_cuts(idx, w, 0, zone[0], zone[1], k, prefer_r, edge_r)
+    thighs = {soles - (H - 1 - r) for r in range(33, 37)}         # the design's thighs and knees over the soles
+    rows += zone_cuts(idx, w, 0, zone[0], zone[1], k, prefer_r, edge_r | thighs)
     up = extent(idx, 0, top - 1, 0)                                # over the goggles: the cannon raised
     rows += zone_cuts(idx, w, 0, top - up, top - 1, round(up * FURTHER), [], edge_r)
     lx = extent(idx, 1, left - 1, 0)                               # behind her: the cannon swung back

@@ -1913,11 +1913,15 @@ crowd control for league_yasuo's R: with her at bottom in his team he cast it on
 (league_vayne 1.92, the base archer 0.65 in the same batch; league_ahri 1.27, league_ekko 1.12 before) - no change.
 
 **Projectiles that leave the muzzle, not her belly (league_tristana).** A `TargetProjectile` starts at the caster's
-pivot; its `y_offset` lifts only the picture (`5000 - y_offset` over the pivot), so each picture is lifted to its firing
-frame's bell (the attack level with the pivot: 5000; E, the barrel lowered, 8 px under it: 13000; R 4 px under it:
-9000), and its view (`repeat: false`) starts with an empty frame for the ticks the ball needs from her pivot to the bell
-(3, 5 and 3 at 6000, 4500 and 7000 a tick), then loops, and holds a frame long enough to outlast any flight. The flashes
-at the bell are `CasterViewEffect`s (mirrored with her) played in the same tick.
+pivot; its `y_offset` lifts the picture (`5000 - y_offset` over the pivot), so each picture is lifted to about its
+firing frame's bell (the attack 3 px over the pivot: 2000; E, the barrel lowered, 4 px under it: 9000; R 1 px under
+it: 6000), and its view (`repeat: false`) starts with an empty frame for the ticks the ball needs from her pivot to
+the bell (3, 5 and 3 at 6000, 4500 and 7000 a tick), then loops, and holds a frame long enough to outlast any flight.
+The flashes at the bell are `CasterViewEffect`s (mirrored with her) played in the same tick. `y_offset` is not only the
+picture (league_lucian's double shot moved by a tick): when she was cut to 34 rows, 5000 / 13000 / 9000 (the new
+bells' middles) made the flights 1-2 ticks longer on average (the bolt 8.4 -> 9.4 ticks, the charge 13.1 -> 15.3 in
+one simulated game) and her kill difference fell from +2.06 to +1.33 on the same 24 seeds, so the tested values stay
+and the pictures fly 3-4 px over the bells' middles, still inside them.
 
 ## 8. Gotchas
 
