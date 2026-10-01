@@ -169,17 +169,20 @@ def showcase(out, z=3, step=40):
     nxt = attack(d)
     idle_to(nxt + 90)
     # The Culling: a standing channel (186 ticks), a shot every 9 ticks from tick 10 at the nearest champion
-    # (rings of 40, 75 and 110 px), 12 px a tick from 5 px above him (a LinearProjectile's height, the lower
-    # pistol of the ult frames); Darius falls to the ninth, the rest go to Garen
+    # (rings of 40, 75 and 110 px). The damage flies unseen, 12 px a tick from 5 px above him (a LinearProjectile,
+    # its 5 px radius hits 5 px short of the pivot); the picture rides a TargetProjectile beside it, 12 px a tick
+    # from his pivot lifted 8 px (the barrels' underside) at the target's pivot, so it slopes a little: its first
+    # move is the lift and a step, and it shows nothing that tick, then only what has left the muzzle
+    # (import_lucian.py R_IN). Darius falls to the ninth, the rest go to Garen
     r0 = t
     a("ult", tick(186), loop=True)
     for k in range(20):
         at = r0 + tick(10 + 9 * k)
         foe = d if d.death is None else g
-        x0, y0 = lx + 13, gy - 5
+        lift = 8
         fx_, fy = foe.pos(at)
-        arrive = at + tick(max(1.0, (fx_ - 4 - x0) / 12.0))
-        fx_at("r_bullet", at, x0, y0, until=arrive, x1=fx_ - 4, y1=fy - 5)
+        over.append(Ray(frames_of(fx, "r_bullet"), at, lx + 12, gy - lift, fx_, fy, 12.0))
+        arrive = at + tick(max(1.0, (fx_ - 5 - lx) / 12.0))
         fx_at("r_hit", arrive, *foe.pos(arrive))
         if foe is d and k == 8:
             d.death = arrive

@@ -3535,7 +3535,7 @@
           "type": "RangeEffect",
           "shape": {
             "Circle": {
-              "radius": 40000
+              "radius": 50000
             }
           },
           "target": "EnemyChampion",
@@ -3642,7 +3642,7 @@
                       "type": "RangeEffect",
                       "shape": {
                         "Circle": {
-                          "radius": 32000
+                          "radius": 40000
                         }
                       },
                       "target": "EnemyWithoutTower",
@@ -3667,7 +3667,7 @@
                         "type": "RangeEffect",
                         "shape": {
                           "Circle": {
-                            "radius": 32000
+                            "radius": 40000
                           }
                         },
                         "target": "EnemyWithoutTower",
@@ -3689,7 +3689,7 @@
                         "type": "RangeEffect",
                         "shape": {
                           "Circle": {
-                            "radius": 32000
+                            "radius": 40000
                           }
                         },
                         "target": "EnemyWithoutTower",

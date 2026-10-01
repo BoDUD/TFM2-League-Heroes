@@ -33,7 +33,7 @@ FX = {n: os.path.join(LEAGUE, "effects", n) for n in ("league_missfortune_fx", "
 def showcase(out, z=3, step=40):
     mf = load(CHAMP)
     fx = {k: load(v) for k, v in FX.items()}
-    W, H = 300, 130
+    W, H = 300, 142                                    # Bullet Time's +-25 degree wave reaches 47 px below her pivot
     gy = 92                                            # her pivot row
     x = 44
     d = Walker(load(os.path.join(LEAGUE, "champions", "league_darius")), 99, gy)        # 55 px: her range

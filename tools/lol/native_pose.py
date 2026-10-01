@@ -73,7 +73,7 @@ that point leans on screen (like "tilt", only past 45 degrees): Malphite's drawn
 (joints L_shoulder, R_shoulder, base pelvis) while League's small head hangs and nods in front of his chest, and
 restyle_native.py's "head": {"anchor": true} pastes it there.
 
-"glue": {"joint": "<joint>", "to": "<joint>"} keeps a prop that hangs on a root joint of its own with the joint that
+"glue": {"joint": "<joint>", "to": "<joint>"} (or a list of them: Shaco's two daggers) keeps a prop that hangs on a root joint of its own with the joint that
 holds it in blended frames ("clipA@ms>clipB@ms:w"): Fiddlesticks's scythe is the root joint Scythe, which his clips
 move along with Scythe_Snap under his hand, and a blend lerps it on its own while the hand at the end of the arm's
 blended rotations goes elsewhere (in the half-way frames to and from the idle the scythe floated off his arm).
@@ -185,7 +185,8 @@ class Champ:
             self.headv &= self.verts["pos"][:, 1] <= crown
         self.head = next(i for i, j in enumerate(self.joints) if j["name"].lower() == "head")
         by_name = {j["name"].lower(): i for i, j in enumerate(self.joints)}
-        self.glue = (by_name[glue["joint"].lower()], by_name[glue["to"].lower()]) if glue else None
+        glues = glue if isinstance(glue, list) else ([glue] if glue else [])
+        self.glue = [(by_name[g["joint"].lower()], by_name[g["to"].lower()]) for g in glues]
         on = lambda pat: P.chain_vertices(self.joints, self.influences, self.verts, re.compile(pat, re.I))
         up = np.linalg.inv(bind[self.head][:3, :3]) @ np.array([0.0, 1.0, 0.0])
         self.head_up = up / np.linalg.norm(up)          # the head joint's axis that points up in the bind pose
@@ -232,15 +233,15 @@ class Champ:
         the joint holding it (his Scythe_Snap, under the hand) has it in `src`, the pose weighing more. Blended
         on its own, a root joint's straight lerp parts from a hand at the end of a chain of blended rotations:
         in the half-way frames to and from the idle his scythe floated a hand's length from his arm."""
-        j, to = self.glue
         gs = P.globals_(self.joints, [P.trs(*p) for p in src])
         gl = P.globals_(self.joints, [P.trs(*p) for p in local])
-        want = gl[to] @ np.linalg.inv(gs[to]) @ gs[j]
-        par = self.joints[j]["parent"]
-        m = want if par < 0 else np.linalg.inv(gl[par]) @ want
-        s = np.linalg.norm(m[:3, :3], axis=0)
         out = list(local)
-        out[j] = (m[:3, 3].copy(), quat(m[:3, :3] / s), s)
+        for j, to in self.glue:               # one prop or several (Shaco's two daggers, each on a root joint)
+            want = gl[to] @ np.linalg.inv(gs[to]) @ gs[j]
+            par = self.joints[j]["parent"]
+            m = want if par < 0 else np.linalg.inv(gl[par]) @ want
+            s = np.linalg.norm(m[:3, :3], axis=0)
+            out[j] = (m[:3, 3].copy(), quat(m[:3, :3] / s), s)
         return out
 
     def head_turned(self, local, spec):

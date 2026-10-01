@@ -1,0 +1,19 @@
+{
+  "plays": [
+    {
+      "delay": 0.05,
+      "clip": "league_shaco_sfx_w_pop",
+      "volume": 0.45
+    },
+    {
+      "delay": 0.5,
+      "clip": "league_shaco_sfx_w_shot",
+      "volume": 0.3
+    },
+    {
+      "delay": 1.5,
+      "clip": "league_shaco_sfx_w_shot",
+      "volume": 0.3
+    }
+  ]
+}

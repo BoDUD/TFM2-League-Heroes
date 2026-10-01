@@ -1,0 +1,3804 @@
+{
+  "version": 2,
+  "purpose": "legs only repair",
+  "scale": 8,
+  "cell_size_1x": [
+    112,
+    96
+  ],
+  "animations": {
+    "run": {
+      "file": "shaco_run.png",
+      "native_file": "native/shaco_run_1x.png",
+      "grid": [
+        4,
+        2
+      ],
+      "size_px": [
+        3584,
+        1536
+      ],
+      "selected_frames": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "frames": [
+        {
+          "protected_nonleg_pixels_unchanged": true,
+          "protected_mask_count": 7240,
+          "feet": {
+            "far": {
+              "hip_1x": [
+                59,
+                64
+              ],
+              "knee_1x": [
+                61,
+                68
+              ],
+              "shoe_anchor_1x": [
+                53,
+                75
+              ],
+              "sole_row_1x": 76,
+              "grounded": false,
+              "shoe_bbox_1x": [
+                53,
+                72,
+                64,
+                76
+              ]
+            },
+            "near": {
+              "hip_1x": [
+                51,
+                64
+              ],
+              "knee_1x": [
+                53,
+                73
+              ],
+              "shoe_anchor_1x": [
+                53,
+                80
+              ],
+              "sole_row_1x": 81,
+              "grounded": true,
+              "shoe_bbox_1x": [
+                49,
+                79,
+                54,
+                81
+              ]
+            }
+          },
+          "visible_pantaloon_cells": {
+            "near": 42,
+            "far": 18
+          },
+          "waist_row": 64,
+          "frame": 1,
+          "edited": true,
+          "changed_cells": 248,
+          "duration_ms": 139,
+          "pivot_1x": [
+            56,
+            70
+          ],
+          "cell_rect_1x": [
+            0,
+            0,
+            112,
+            96
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "bbox_local_1x": [
+            38,
+            36,
+            75,
+            82
+          ],
+          "pixel_hash": "5ec7b02d11f0dfbdc168ba36f638348e9d3311ea4323f7e35464042653407898",
+          "component_sizes": [
+            833
+          ],
+          "upper_body_exact": true,
+          "pivot_px": [
+            448,
+            560
+          ],
+          "dark_checker_cells_before": 40,
+          "dark_checker_cells_after": 31,
+          "bbox_sheet_px": [
+            304,
+            288,
+            600,
+            656
+          ]
+        },
+        {
+          "protected_nonleg_pixels_unchanged": true,
+          "protected_mask_count": 7253,
+          "feet": {
+            "far": {
+              "hip_1x": [
+                58,
+                64
+              ],
+              "knee_1x": [
+                57,
+                68
+              ],
+              "shoe_anchor_1x": [
+                49,
+                75
+              ],
+              "sole_row_1x": 76,
+              "grounded": false,
+              "shoe_bbox_1x": [
+                49,
+                72,
+                60,
+                76
+              ]
+            },
+            "near": {
+              "hip_1x": [
+                50,
+                64
+              ],
+              "knee_1x": [
+                55,
+                73
+              ],
+              "shoe_anchor_1x": [
+                58,
+                80
+              ],
+              "sole_row_1x": 81,
+              "grounded": true,
+              "shoe_bbox_1x": [
+                54,
+                79,
+                59,
+                81
+              ]
+            }
+          },
+          "visible_pantaloon_cells": {
+            "near": 42,
+            "far": 9
+          },
+          "waist_row": 64,
+          "frame": 2,
+          "edited": true,
+          "changed_cells": 172,
+          "duration_ms": 139,
+          "pivot_1x": [
+            55,
+            70
+          ],
+          "cell_rect_1x": [
+            112,
+            0,
+            224,
+            96
+          ],
+          "cell_rect_px": [
+            896,
+            0,
+            1792,
+            768
+          ],
+          "bbox_local_1x": [
+            41,
+            36,
+            75,
+            82
+          ],
+          "pixel_hash": "a4a1e05084e1a8985bf9a0614354d09bc689b49020ff6cc8ee5bca4438ec4a2c",
+          "component_sizes": [
+            791
+          ],
+          "upper_body_exact": true,
+          "pivot_px": [
+            440,
+            560
+          ],
+          "dark_checker_cells_before": 23,
+          "dark_checker_cells_after": 25,
+          "bbox_sheet_px": [
+            1224,
+            288,
+            1496,
+            656
+          ]
+        },
+        {
+          "protected_nonleg_pixels_unchanged": true,
+          "protected_mask_count": 7261,
+          "feet": {
+            "far": {
+              "hip_1x": [
+                57,
+                64
+              ],
+              "knee_1x": [
+                60,
+                67
+              ],
+              "shoe_anchor_1x": [
+                61,
+                76
+              ],
+              "sole_row_1x": 77,
+              "grounded": false,
+              "shoe_bbox_1x": [
+                61,
+                72,
+                69,
+                77
+              ]
+            },
+            "near": {
+              "hip_1x": [
+                49,
+                64
+              ],
+              "knee_1x": [
+                51,
+                73
+              ],
+              "shoe_anchor_1x": [
+                51,
+                80
+              ],
+              "sole_row_1x": 81,
+              "grounded": true,
+              "shoe_bbox_1x": [
+                47,
+                79,
+                52,
+                81
+              ]
+            }
+          },
+          "visible_pantaloon_cells": {
+            "near": 33,
+            "far": 8
+          },
+          "waist_row": 64,
+          "frame": 3,
+          "edited": true,
+          "changed_cells": 264,
+          "duration_ms": 139,
+          "pivot_1x": [
+            54,
+            70
+          ],
+          "cell_rect_1x": [
+            224,
+            0,
+            336,
+            96
+          ],
+          "cell_rect_px": [
+            1792,
+            0,
+            2688,
+            768
+          ],
+          "bbox_local_1x": [
+            40,
+            36,
+            75,
+            82
+          ],
+          "pixel_hash": "5a499a6971cd873e65a595a55b22c331a336e1919952785add7790b07626e9f8",
+          "component_sizes": [
+            859
+          ],
+          "upper_body_exact": true,
+          "pivot_px": [
+            432,
+            560
+          ],
+          "dark_checker_cells_before": 19,
+          "dark_checker_cells_after": 21,
+          "bbox_sheet_px": [
+            2112,
+            288,
+            2392,
+            656
+          ]
+        },
+        {
+          "protected_nonleg_pixels_unchanged": true,
+          "protected_mask_count": 7498,
+          "feet": {
+            "far": {
+              "hip_1x": [
+                59,
+                66
+              ],
+              "knee_1x": [
+                63,
+                70
+              ],
+              "shoe_anchor_1x": [
+                66,
+                77
+              ],
+              "sole_row_1x": 78,
+              "grounded": false,
+              "shoe_bbox_1x": [
+                66,
+                74,
+                74,
+                78
+              ]
+            },
+            "near": {
+              "hip_1x": [
+                51,
+                66
+              ],
+              "knee_1x": [
+                49,
+                74
+              ],
+              "shoe_anchor_1x": [
+                48,
+                80
+              ],
+              "sole_row_1x": 81,
+              "grounded": true,
+              "shoe_bbox_1x": [
+                44,
+                79,
+                49,
+                81
+              ]
+            }
+          },
+          "visible_pantaloon_cells": {
+            "near": 25,
+            "far": 18
+          },
+          "waist_row": 66,
+          "frame": 4,
+          "edited": true,
+          "changed_cells": 304,
+          "duration_ms": 139,
+          "pivot_1x": [
+            56,
+            70
+          ],
+          "cell_rect_1x": [
+            336,
+            0,
+            448,
+            96
+          ],
+          "cell_rect_px": [
+            2688,
+            0,
+            3584,
+            768
+          ],
+          "bbox_local_1x": [
+            37,
+            38,
+            75,
+            82
+          ],
+          "pixel_hash": "07dd8af7344aee3f8506e042915081720cf61733040ef537d239047038a12db6",
+          "component_sizes": [
+            846
+          ],
+          "upper_body_exact": true,
+          "pivot_px": [
+            448,
+            560
+          ],
+          "dark_checker_cells_before": 32,
+          "dark_checker_cells_after": 20,
+          "bbox_sheet_px": [
+            2984,
+            304,
+            3288,
+            656
+          ]
+        },
+        {
+          "protected_nonleg_pixels_unchanged": true,
+          "protected_mask_count": 7299,
+          "feet": {
+            "far": {
+              "hip_1x": [
+                58,
+                64
+              ],
+              "knee_1x": [
+                61,
+                69
+              ],
+              "shoe_anchor_1x": [
+                64,
+                77
+              ],
+              "sole_row_1x": 78,
+              "grounded": false,
+              "shoe_bbox_1x": [
+                64,
+                73,
+                72,
+                78
+              ]
+            },
+            "near": {
+              "hip_1x": [
+                50,
+                64
+              ],
+              "knee_1x": [
+                46,
+                73
+              ],
+              "shoe_anchor_1x": [
+                43,
+                80
+              ],
+              "sole_row_1x": 81,
+              "grounded": true,
+              "shoe_bbox_1x": [
+                39,
+                79,
+                44,
+                81
+              ]
+            }
+          },
+          "visible_pantaloon_cells": {
+            "near": 29,
+            "far": 25
+          },
+          "waist_row": 64,
+          "frame": 5,
+          "edited": true,
+          "changed_cells": 304,
+          "duration_ms": 139,
+          "pivot_1x": [
+            55,
+            70
+          ],
+          "cell_rect_1x": [
+            0,
+            96,
+            112,
+            192
+          ],
+          "cell_rect_px": [
+            0,
+            768,
+            896,
+            1536
+          ],
+          "bbox_local_1x": [
+            32,
+            36,
+            73,
+            82
+          ],
+          "pixel_hash": "77def8223fa152896e51aa9e0f8845535accb33b2defbe737874ccd9707f1f4d",
+          "component_sizes": [
+            879
+          ],
+          "upper_body_exact": true,
+          "pivot_px": [
+            440,
+            560
+          ],
+          "dark_checker_cells_before": 32,
+          "dark_checker_cells_after": 30,
+          "bbox_sheet_px": [
+            256,
+            1056,
+            584,
+            1424
+          ]
+        },
+        {
+          "protected_nonleg_pixels_unchanged": true,
+          "protected_mask_count": 7300,
+          "feet": {
+            "far": {
+              "hip_1x": [
+                55,
+                64
+              ],
+              "knee_1x": [
+                58,
+                73
+              ],
+              "shoe_anchor_1x": [
+                62,
+                80
+              ],
+              "sole_row_1x": 81,
+              "grounded": true,
+              "shoe_bbox_1x": [
+                62,
+                77,
+                70,
+                81
+              ]
+            },
+            "near": {
+              "hip_1x": [
+                47,
+                64
+              ],
+              "knee_1x": [
+                42,
+                71
+              ],
+              "shoe_anchor_1x": [
+                40,
+                77
+              ],
+              "sole_row_1x": 78,
+              "grounded": false,
+              "shoe_bbox_1x": [
+                36,
+                76,
+                41,
+                78
+              ]
+            }
+          },
+          "visible_pantaloon_cells": {
+            "near": 12,
+            "far": 52
+          },
+          "waist_row": 64,
+          "frame": 6,
+          "edited": true,
+          "changed_cells": 247,
+          "duration_ms": 139,
+          "pivot_1x": [
+            52,
+            70
+          ],
+          "cell_rect_1x": [
+            112,
+            96,
+            224,
+            192
+          ],
+          "cell_rect_px": [
+            896,
+            768,
+            1792,
+            1536
+          ],
+          "bbox_local_1x": [
+            29,
+            36,
+            71,
+            82
+          ],
+          "pixel_hash": "955fabc2c75b512a4d40dfdbc77d965d60599a27a7f51372b55ef8dedb95767f",
+          "component_sizes": [
+            883
+          ],
+          "upper_body_exact": true,
+          "pivot_px": [
+            416,
+            560
+          ],
+          "dark_checker_cells_before": 24,
+          "dark_checker_cells_after": 34,
+          "bbox_sheet_px": [
+            1128,
+            1056,
+            1464,
+            1424
+          ]
+        },
+        {
+          "protected_nonleg_pixels_unchanged": true,
+          "protected_mask_count": 7296,
+          "feet": {
+            "far": {
+              "hip_1x": [
+                56,
+                64
+              ],
+              "knee_1x": [
+                60,
+                73
+              ],
+              "shoe_anchor_1x": [
+                65,
+                80
+              ],
+              "sole_row_1x": 81,
+              "grounded": true,
+              "shoe_bbox_1x": [
+                65,
+                77,
+                73,
+                81
+              ]
+            },
+            "near": {
+              "hip_1x": [
+                48,
+                64
+              ],
+              "knee_1x": [
+                56,
+                69
+              ],
+              "shoe_anchor_1x": [
+                52,
+                76
+              ],
+              "sole_row_1x": 77,
+              "grounded": false,
+              "shoe_bbox_1x": [
+                48,
+                75,
+                54,
+                77
+              ]
+            }
+          },
+          "visible_pantaloon_cells": {
+            "near": 20,
+            "far": 25
+          },
+          "waist_row": 64,
+          "frame": 7,
+          "edited": true,
+          "changed_cells": 290,
+          "duration_ms": 139,
+          "pivot_1x": [
+            53,
+            70
+          ],
+          "cell_rect_1x": [
+            224,
+            96,
+            336,
+            192
+          ],
+          "cell_rect_px": [
+            1792,
+            768,
+            2688,
+            1536
+          ],
+          "bbox_local_1x": [
+            31,
+            36,
+            74,
+            82
+          ],
+          "pixel_hash": "a01c7d4b067c7ee63527854594b70b94bbacbe63a738c4210772006a7cb025b6",
+          "component_sizes": [
+            871
+          ],
+          "upper_body_exact": true,
+          "pivot_px": [
+            424,
+            560
+          ],
+          "dark_checker_cells_before": 23,
+          "dark_checker_cells_after": 26,
+          "bbox_sheet_px": [
+            2040,
+            1056,
+            2384,
+            1424
+          ]
+        },
+        {
+          "protected_nonleg_pixels_unchanged": true,
+          "protected_mask_count": 7486,
+          "feet": {
+            "far": {
+              "hip_1x": [
+                63,
+                66
+              ],
+              "knee_1x": [
+                64,
+                70
+              ],
+              "shoe_anchor_1x": [
+                55,
+                77
+              ],
+              "sole_row_1x": 78,
+              "grounded": false,
+              "shoe_bbox_1x": [
+                55,
+                74,
+                67,
+                78
+              ]
+            },
+            "near": {
+              "hip_1x": [
+                55,
+                66
+              ],
+              "knee_1x": [
+                58,
+                74
+              ],
+              "shoe_anchor_1x": [
+                57,
+                80
+              ],
+              "sole_row_1x": 81,
+              "grounded": true,
+              "shoe_bbox_1x": [
+                53,
+                79,
+                58,
+                81
+              ]
+            }
+          },
+          "visible_pantaloon_cells": {
+            "near": 35,
+            "far": 19
+          },
+          "waist_row": 66,
+          "frame": 8,
+          "edited": true,
+          "changed_cells": 222,
+          "duration_ms": 139,
+          "pivot_1x": [
+            60,
+            70
+          ],
+          "cell_rect_1x": [
+            336,
+            96,
+            448,
+            192
+          ],
+          "cell_rect_px": [
+            2688,
+            768,
+            3584,
+            1536
+          ],
+          "bbox_local_1x": [
+            39,
+            38,
+            76,
+            82
+          ],
+          "pixel_hash": "674c1d72a70d0d735b7c2d6fe5495a22a78fadfc01ae3c613fa51f95773b2c29",
+          "component_sizes": [
+            804
+          ],
+          "upper_body_exact": true,
+          "pivot_px": [
+            480,
+            560
+          ],
+          "dark_checker_cells_before": 26,
+          "dark_checker_cells_after": 29,
+          "bbox_sheet_px": [
+            3000,
+            1072,
+            3296,
+            1424
+          ]
+        }
+      ]
+    },
+    "attack": {
+      "file": "shaco_attack.png",
+      "native_file": "native/shaco_attack_1x.png",
+      "grid": [
+        3,
+        2
+      ],
+      "size_px": [
+        2688,
+        1536
+      ],
+      "selected_frames": [
+        4
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "edited": false,
+          "changed_cells": 0,
+          "duration_ms": 60,
+          "pivot_1x": [
+            56,
+            70
+          ],
+          "cell_rect_1x": [
+            0,
+            0,
+            112,
+            96
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "bbox_local_1x": [
+            39,
+            36,
+            74,
+            82
+          ],
+          "pixel_hash": "9aa8f8fcf69e56c3bd859b2b01f2adb6ea01db6dcfe3a73b537830fdb190be93",
+          "component_sizes": [
+            892
+          ],
+          "feet": {
+            "near": {
+              "shoe_bbox_1x": [
+                47,
+                79,
+                52,
+                81
+              ],
+              "sole_row_1x": 81,
+              "position_source": "unchanged approved frame"
+            },
+            "far": {
+              "shoe_bbox_1x": [
+                59,
+                77,
+                67,
+                81
+              ],
+              "sole_row_1x": 81,
+              "position_source": "unchanged approved frame"
+            }
+          },
+          "upper_body_exact": true,
+          "pivot_px": [
+            448,
+            560
+          ],
+          "dark_checker_cells_before": 39,
+          "dark_checker_cells_after": 39,
+          "bbox_sheet_px": [
+            312,
+            288,
+            592,
+            656
+          ]
+        },
+        {
+          "frame": 2,
+          "edited": false,
+          "changed_cells": 0,
+          "duration_ms": 60,
+          "pivot_1x": [
+            57,
+            70
+          ],
+          "cell_rect_1x": [
+            112,
+            0,
+            224,
+            96
+          ],
+          "cell_rect_px": [
+            896,
+            0,
+            1792,
+            768
+          ],
+          "bbox_local_1x": [
+            33,
+            37,
+            70,
+            82
+          ],
+          "pixel_hash": "05b96da27d315d83ebb22be662d3cdde5e550b3fc0339b3e92b9541117a062fa",
+          "component_sizes": [
+            867
+          ],
+          "feet": {
+            "near": {
+              "shoe_bbox_1x": [
+                47,
+                79,
+                52,
+                81
+              ],
+              "sole_row_1x": 81,
+              "position_source": "unchanged approved frame"
+            },
+            "far": {
+              "shoe_bbox_1x": [
+                61,
+                77,
+                69,
+                81
+              ],
+              "sole_row_1x": 81,
+              "position_source": "unchanged approved frame"
+            }
+          },
+          "upper_body_exact": true,
+          "pivot_px": [
+            456,
+            560
+          ],
+          "dark_checker_cells_before": 28,
+          "dark_checker_cells_after": 28,
+          "bbox_sheet_px": [
+            1160,
+            296,
+            1456,
+            656
+          ]
+        },
+        {
+          "frame": 3,
+          "edited": false,
+          "changed_cells": 0,
+          "duration_ms": 60,
+          "pivot_1x": [
+            55,
+            70
+          ],
+          "cell_rect_1x": [
+            224,
+            0,
+            336,
+            96
+          ],
+          "cell_rect_px": [
+            1792,
+            0,
+            2688,
+            768
+          ],
+          "bbox_local_1x": [
+            30,
+            38,
+            84,
+            82
+          ],
+          "pixel_hash": "48e226fd8383a50d12e95374be6fcca716e3fbfc912fa8a72a0e42449c3c2821",
+          "component_sizes": [
+            912
+          ],
+          "feet": {
+            "near": {
+              "shoe_bbox_1x": [
+                44,
+                79,
+                49,
+                81
+              ],
+              "sole_row_1x": 81,
+              "position_source": "unchanged approved frame"
+            },
+            "far": {
+              "shoe_bbox_1x": [
+                60,
+                77,
+                68,
+                81
+              ],
+              "sole_row_1x": 81,
+              "position_source": "unchanged approved frame"
+            }
+          },
+          "upper_body_exact": true,
+          "pivot_px": [
+            440,
+            560
+          ],
+          "dark_checker_cells_before": 26,
+          "dark_checker_cells_after": 26,
+          "bbox_sheet_px": [
+            2032,
+            304,
+            2464,
+            656
+          ]
+        },
+        {
+          "protected_nonleg_pixels_unchanged": true,
+          "protected_mask_count": 7631,
+          "feet": {
+            "far": {
+              "hip_1x": [
+                61,
+                67
+              ],
+              "knee_1x": [
+                63,
+                74
+              ],
+              "shoe_anchor_1x": [
+                64,
+                80
+              ],
+              "sole_row_1x": 81,
+              "grounded": true,
+              "shoe_bbox_1x": [
+                64,
+                77,
+                72,
+                81
+              ]
+            },
+            "near": {
+              "hip_1x": [
+                53,
+                67
+              ],
+              "knee_1x": [
+                47,
+                74
+              ],
+              "shoe_anchor_1x": [
+                46,
+                80
+              ],
+              "sole_row_1x": 81,
+              "grounded": true,
+              "shoe_bbox_1x": [
+                42,
+                79,
+                47,
+                81
+              ]
+            }
+          },
+          "visible_pantaloon_cells": {
+            "near": 23,
+            "far": 20
+          },
+          "waist_row": 67,
+          "frame": 4,
+          "edited": true,
+          "changed_cells": 189,
+          "duration_ms": 60,
+          "pivot_1x": [
+            56,
+            70
+          ],
+          "cell_rect_1x": [
+            0,
+            96,
+            112,
+            192
+          ],
+          "cell_rect_px": [
+            0,
+            768,
+            896,
+            1536
+          ],
+          "bbox_local_1x": [
+            41,
+            39,
+            78,
+            82
+          ],
+          "pixel_hash": "85a15f2fcfeca5ce9b52f5013b207cf221b17fa973bb70087c5f15c9b91c7471",
+          "component_sizes": [
+            827
+          ],
+          "upper_body_exact": true,
+          "pivot_px": [
+            448,
+            560
+          ],
+          "dark_checker_cells_before": 11,
+          "dark_checker_cells_after": 22,
+          "bbox_sheet_px": [
+            328,
+            1080,
+            624,
+            1424
+          ]
+        },
+        {
+          "frame": 5,
+          "edited": false,
+          "changed_cells": 0,
+          "duration_ms": 70,
+          "pivot_1x": [
+            52,
+            70
+          ],
+          "cell_rect_1x": [
+            112,
+            96,
+            224,
+            192
+          ],
+          "cell_rect_px": [
+            896,
+            768,
+            1792,
+            1536
+          ],
+          "bbox_local_1x": [
+            37,
+            37,
+            75,
+            82
+          ],
+          "pixel_hash": "8e36a9d0d00aa556fe55922a31d036b07ff1e419a8142c57999699591fd88138",
+          "component_sizes": [
+            900
+          ],
+          "feet": {
+            "near": {
+              "shoe_bbox_1x": [
+                42,
+                79,
+                47,
+                81
+              ],
+              "sole_row_1x": 81,
+              "position_source": "unchanged approved frame"
+            },
+            "far": {
+              "shoe_bbox_1x": [
+                56,
+                77,
+                64,
+                81
+              ],
+              "sole_row_1x": 81,
+              "position_source": "unchanged approved frame"
+            }
+          },
+          "upper_body_exact": true,
+          "pivot_px": [
+            416,
+            560
+          ],
+          "dark_checker_cells_before": 30,
+          "dark_checker_cells_after": 30,
+          "bbox_sheet_px": [
+            1192,
+            1064,
+            1496,
+            1424
+          ]
+        },
+        {
+          "frame": 6,
+          "edited": false,
+          "changed_cells": 0,
+          "duration_ms": 80,
+          "pivot_1x": [
+            54,
+            70
+          ],
+          "cell_rect_1x": [
+            224,
+            96,
+            336,
+            192
+          ],
+          "cell_rect_px": [
+            1792,
+            768,
+            2688,
+            1536
+          ],
+          "bbox_local_1x": [
+            33,
+            36,
+            70,
+            82
+          ],
+          "pixel_hash": "97d81d3ee489c694d87102cffb7a6085f68ce3cda3d7cec92574ddc21b9db703",
+          "component_sizes": [
+            912
+          ],
+          "feet": {
+            "near": {
+              "shoe_bbox_1x": [
+                45,
+                79,
+                50,
+                81
+              ],
+              "sole_row_1x": 81,
+              "position_source": "unchanged approved frame"
+            },
+            "far": {
+              "shoe_bbox_1x": [
+                57,
+                77,
+                65,
+                81
+              ],
+              "sole_row_1x": 81,
+              "position_source": "unchanged approved frame"
+            }
+          },
+          "upper_body_exact": true,
+          "pivot_px": [
+            432,
+            560
+          ],
+          "dark_checker_cells_before": 44,
+          "dark_checker_cells_after": 44,
+          "bbox_sheet_px": [
+            2056,
+            1056,
+            2352,
+            1424
+          ]
+        }
+      ]
+    },
+    "attack_q": {
+      "file": "shaco_attack_q.png",
+      "native_file": "native/shaco_attack_q_1x.png",
+      "grid": [
+        3,
+        2
+      ],
+      "size_px": [
+        2688,
+        1536
+      ],
+      "selected_frames": [
+        3,
+        4,
+        5
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "edited": false,
+          "changed_cells": 0,
+          "duration_ms": 60,
+          "pivot_1x": [
+            56,
+            70
+          ],
+          "cell_rect_1x": [
+            0,
+            0,
+            112,
+            96
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "bbox_local_1x": [
+            30,
+            37,
+            78,
+            82
+          ],
+          "pixel_hash": "32225a56d420f4bd2e725b6fa0af497677fda0cba6e40d4dd250a6226fbe373a",
+          "component_sizes": [
+            925
+          ],
+          "feet": {
+            "near": {
+              "shoe_bbox_1x": [
+                45,
+                79,
+                50,
+                81
+              ],
+              "sole_row_1x": 81,
+              "position_source": "unchanged approved frame"
+            },
+            "far": {
+              "shoe_bbox_1x": [
+                61,
+                77,
+                69,
+                81
+              ],
+              "sole_row_1x": 81,
+              "position_source": "unchanged approved frame"
+            }
+          },
+          "upper_body_exact": true,
+          "pivot_px": [
+            448,
+            560
+          ],
+          "dark_checker_cells_before": 25,
+          "dark_checker_cells_after": 25,
+          "bbox_sheet_px": [
+            240,
+            296,
+            624,
+            656
+          ]
+        },
+        {
+          "frame": 2,
+          "edited": false,
+          "changed_cells": 0,
+          "duration_ms": 60,
+          "pivot_1x": [
+            56,
+            70
+          ],
+          "cell_rect_1x": [
+            112,
+            0,
+            224,
+            96
+          ],
+          "cell_rect_px": [
+            896,
+            0,
+            1792,
+            768
+          ],
+          "bbox_local_1x": [
+            29,
+            38,
+            79,
+            82
+          ],
+          "pixel_hash": "6691b603e607c52e3cea0edda900fd092dd6e266be4b298b5848c62aa18c4e58",
+          "component_sizes": [
+            918
+          ],
+          "feet": {
+            "near": {
+              "shoe_bbox_1x": [
+                44,
+                79,
+                49,
+                81
+              ],
+              "sole_row_1x": 81,
+              "position_source": "unchanged approved frame"
+            },
+            "far": {
+              "shoe_bbox_1x": [
+                62,
+                77,
+                70,
+                81
+              ],
+              "sole_row_1x": 81,
+              "position_source": "unchanged approved frame"
+            }
+          },
+          "upper_body_exact": true,
+          "pivot_px": [
+            448,
+            560
+          ],
+          "dark_checker_cells_before": 24,
+          "dark_checker_cells_after": 24,
+          "bbox_sheet_px": [
+            1128,
+            304,
+            1528,
+            656
+          ]
+        },
+        {
+          "protected_nonleg_pixels_unchanged": true,
+          "protected_mask_count": 7889,
+          "feet": {
+            "far": {
+              "hip_1x": [
+                58,
+                69
+              ],
+              "knee_1x": [
+                60,
+                74
+              ],
+              "shoe_anchor_1x": [
+                60,
+                80
+              ],
+              "sole_row_1x": 81,
+              "grounded": true,
+              "shoe_bbox_1x": [
+                60,
+                77,
+                68,
+                81
+              ]
+            },
+            "near": {
+              "hip_1x": [
+                50,
+                69
+              ],
+              "knee_1x": [
+                41,
+                74
+              ],
+              "shoe_anchor_1x": [
+                40,
+                80
+              ],
+              "sole_row_1x": 81,
+              "grounded": true,
+              "shoe_bbox_1x": [
+                36,
+                79,
+                41,
+                81
+              ]
+            }
+          },
+          "visible_pantaloon_cells": {
+            "near": 22,
+            "far": 22
+          },
+          "waist_row": 69,
+          "frame": 3,
+          "edited": true,
+          "changed_cells": 175,
+          "duration_ms": 60,
+          "pivot_1x": [
+            52,
+            70
+          ],
+          "cell_rect_1x": [
+            224,
+            0,
+            336,
+            96
+          ],
+          "cell_rect_px": [
+            1792,
+            0,
+            2688,
+            768
+          ],
+          "bbox_local_1x": [
+            35,
+            41,
+            74,
+            82
+          ],
+          "pixel_hash": "f58a62d577d448ede096a80a0649afbf7dd1cde588b5e5bc6202d3ce6d22a491",
+          "component_sizes": [
+            829
+          ],
+          "upper_body_exact": true,
+          "pivot_px": [
+            416,
+            560
+          ],
+          "dark_checker_cells_before": 12,
+          "dark_checker_cells_after": 23,
+          "bbox_sheet_px": [
+            2072,
+            328,
+            2384,
+            656
+          ]
+        },
+        {
+          "protected_nonleg_pixels_unchanged": true,
+          "protected_mask_count": 7991,
+          "feet": {
+            "far": {
+              "hip_1x": [
+                59,
+                70
+              ],
+              "knee_1x": [
+                62,
+                75
+              ],
+              "shoe_anchor_1x": [
+                62,
+                80
+              ],
+              "sole_row_1x": 81,
+              "grounded": true,
+              "shoe_bbox_1x": [
+                64,
+                78,
+                70,
+                81
+              ]
+            },
+            "near": {
+              "hip_1x": [
+                51,
+                70
+              ],
+              "knee_1x": [
+                42,
+                75
+              ],
+              "shoe_anchor_1x": [
+                41,
+                80
+              ],
+              "sole_row_1x": 81,
+              "grounded": true,
+              "shoe_bbox_1x": [
+                37,
+                79,
+                42,
+                81
+              ]
+            }
+          },
+          "visible_pantaloon_cells": {
+            "near": 23,
+            "far": 12
+          },
+          "waist_row": 70,
+          "frame": 4,
+          "edited": true,
+          "changed_cells": 171,
+          "duration_ms": 70,
+          "pivot_1x": [
+            53,
+            70
+          ],
+          "cell_rect_1x": [
+            0,
+            96,
+            112,
+            192
+          ],
+          "cell_rect_px": [
+            0,
+            768,
+            896,
+            1536
+          ],
+          "bbox_local_1x": [
+            36,
+            42,
+            75,
+            82
+          ],
+          "pixel_hash": "75bbd8947e03506da06e0db3bd4936f8994645e389ca5408ee7a1ce624911bd2",
+          "component_sizes": [
+            792
+          ],
+          "upper_body_exact": true,
+          "pivot_px": [
+            424,
+            560
+          ],
+          "dark_checker_cells_before": 10,
+          "dark_checker_cells_after": 19,
+          "bbox_sheet_px": [
+            288,
+            1104,
+            600,
+            1424
+          ]
+        },
+        {
+          "protected_nonleg_pixels_unchanged": true,
+          "protected_mask_count": 7790,
+          "feet": {
+            "far": {
+              "hip_1x": [
+                54,
+                68
+              ],
+              "knee_1x": [
+                57,
+                74
+              ],
+              "shoe_anchor_1x": [
+                57,
+                80
+              ],
+              "sole_row_1x": 81,
+              "grounded": true,
+              "shoe_bbox_1x": [
+                57,
+                77,
+                65,
+                81
+              ]
+            },
+            "near": {
+              "hip_1x": [
+                46,
+                68
+              ],
+              "knee_1x": [
+                40,
+                74
+              ],
+              "shoe_anchor_1x": [
+                39,
+                80
+              ],
+              "sole_row_1x": 81,
+              "grounded": true,
+              "shoe_bbox_1x": [
+                35,
+                79,
+                40,
+                81
+              ]
+            }
+          },
+          "visible_pantaloon_cells": {
+            "near": 15,
+            "far": 31
+          },
+          "waist_row": 68,
+          "frame": 5,
+          "edited": true,
+          "changed_cells": 202,
+          "duration_ms": 80,
+          "pivot_1x": [
+            49,
+            70
+          ],
+          "cell_rect_1x": [
+            112,
+            96,
+            224,
+            192
+          ],
+          "cell_rect_px": [
+            896,
+            768,
+            1792,
+            1536
+          ],
+          "bbox_local_1x": [
+            34,
+            40,
+            77,
+            82
+          ],
+          "pixel_hash": "5ae4525710b8e6280a4e6da36c0dfc39d8f8f71720634e9c4525d32182602114",
+          "component_sizes": [
+            854
+          ],
+          "upper_body_exact": true,
+          "pivot_px": [
+            392,
+            560
+          ],
+          "dark_checker_cells_before": 10,
+          "dark_checker_cells_after": 20,
+          "bbox_sheet_px": [
+            1168,
+            1088,
+            1512,
+            1424
+          ]
+        },
+        {
+          "frame": 6,
+          "edited": false,
+          "changed_cells": 0,
+          "duration_ms": 90,
+          "pivot_1x": [
+            57,
+            70
+          ],
+          "cell_rect_1x": [
+            224,
+            96,
+            336,
+            192
+          ],
+          "cell_rect_px": [
+            1792,
+            768,
+            2688,
+            1536
+          ],
+          "bbox_local_1x": [
+            36,
+            36,
+            73,
+            82
+          ],
+          "pixel_hash": "9c6d24eda845eb43105fbdeb2c33f155198f4a208445e2fe6ea979271fda28da",
+          "component_sizes": [
+            912
+          ],
+          "feet": {
+            "near": {
+              "shoe_bbox_1x": [
+                48,
+                79,
+                53,
+                81
+              ],
+              "sole_row_1x": 81,
+              "position_source": "unchanged approved frame"
+            },
+            "far": {
+              "shoe_bbox_1x": [
+                60,
+                77,
+                68,
+                81
+              ],
+              "sole_row_1x": 81,
+              "position_source": "unchanged approved frame"
+            }
+          },
+          "upper_body_exact": true,
+          "pivot_px": [
+            456,
+            560
+          ],
+          "dark_checker_cells_before": 44,
+          "dark_checker_cells_after": 44,
+          "bbox_sheet_px": [
+            2080,
+            1056,
+            2376,
+            1424
+          ]
+        }
+      ]
+    },
+    "attack_e": {
+      "file": "shaco_attack_e.png",
+      "native_file": "native/shaco_attack_e_1x.png",
+      "grid": [
+        3,
+        2
+      ],
+      "size_px": [
+        2688,
+        1536
+      ],
+      "selected_frames": [
+        4,
+        5
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "edited": false,
+          "changed_cells": 0,
+          "duration_ms": 60,
+          "pivot_1x": [
+            55,
+            70
+          ],
+          "cell_rect_1x": [
+            0,
+            0,
+            112,
+            96
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "bbox_local_1x": [
+            34,
+            36,
+            77,
+            82
+          ],
+          "pixel_hash": "0c77f0a7c5b036c813e26fcd7ed29262bf2e357ed6456eec692ac444ef31df42",
+          "component_sizes": [
+            932
+          ],
+          "feet": {
+            "near": {
+              "shoe_bbox_1x": [
+                46,
+                79,
+                51,
+                81
+              ],
+              "sole_row_1x": 81,
+              "position_source": "unchanged approved frame"
+            },
+            "far": {
+              "shoe_bbox_1x": [
+                58,
+                77,
+                66,
+                81
+              ],
+              "sole_row_1x": 81,
+              "position_source": "unchanged approved frame"
+            }
+          },
+          "upper_body_exact": true,
+          "pivot_px": [
+            440,
+            560
+          ],
+          "dark_checker_cells_before": 40,
+          "dark_checker_cells_after": 40,
+          "bbox_sheet_px": [
+            272,
+            288,
+            616,
+            656
+          ]
+        },
+        {
+          "frame": 2,
+          "edited": false,
+          "changed_cells": 0,
+          "duration_ms": 70,
+          "pivot_1x": [
+            56,
+            70
+          ],
+          "cell_rect_1x": [
+            112,
+            0,
+            224,
+            96
+          ],
+          "cell_rect_px": [
+            896,
+            0,
+            1792,
+            768
+          ],
+          "bbox_local_1x": [
+            31,
+            36,
+            74,
+            82
+          ],
+          "pixel_hash": "09533025d1b493e1280d623d8592ecdf1bc86e9658fd32fecd53d63560cc94de",
+          "component_sizes": [
+            943
+          ],
+          "feet": {
+            "near": {
+              "shoe_bbox_1x": [
+                47,
+                79,
+                52,
+                81
+              ],
+              "sole_row_1x": 81,
+              "position_source": "unchanged approved frame"
+            },
+            "far": {
+              "shoe_bbox_1x": [
+                59,
+                77,
+                67,
+                81
+              ],
+              "sole_row_1x": 81,
+              "position_source": "unchanged approved frame"
+            }
+          },
+          "upper_body_exact": true,
+          "pivot_px": [
+            448,
+            560
+          ],
+          "dark_checker_cells_before": 39,
+          "dark_checker_cells_after": 39,
+          "bbox_sheet_px": [
+            1144,
+            288,
+            1488,
+            656
+          ]
+        },
+        {
+          "frame": 3,
+          "edited": false,
+          "changed_cells": 0,
+          "duration_ms": 60,
+          "pivot_1x": [
+            57,
+            70
+          ],
+          "cell_rect_1x": [
+            224,
+            0,
+            336,
+            96
+          ],
+          "cell_rect_px": [
+            1792,
+            0,
+            2688,
+            768
+          ],
+          "bbox_local_1x": [
+            34,
+            36,
+            80,
+            82
+          ],
+          "pixel_hash": "94cce228c8a1f4396ef955739f1bee6b55302beb77d6f00900f1bedde08ce5d0",
+          "component_sizes": [
+            944
+          ],
+          "feet": {
+            "near": {
+              "shoe_bbox_1x": [
+                48,
+                79,
+                53,
+                81
+              ],
+              "sole_row_1x": 81,
+              "position_source": "unchanged approved frame"
+            },
+            "far": {
+              "shoe_bbox_1x": [
+                60,
+                77,
+                68,
+                81
+              ],
+              "sole_row_1x": 81,
+              "position_source": "unchanged approved frame"
+            }
+          },
+          "upper_body_exact": true,
+          "pivot_px": [
+            456,
+            560
+          ],
+          "dark_checker_cells_before": 39,
+          "dark_checker_cells_after": 39,
+          "bbox_sheet_px": [
+            2064,
+            288,
+            2432,
+            656
+          ]
+        },
+        {
+          "protected_nonleg_pixels_unchanged": true,
+          "protected_mask_count": 7651,
+          "feet": {
+            "far": {
+              "hip_1x": [
+                58,
+                67
+              ],
+              "knee_1x": [
+                60,
+                74
+              ],
+              "shoe_anchor_1x": [
+                61,
+                80
+              ],
+              "sole_row_1x": 81,
+              "grounded": true,
+              "shoe_bbox_1x": [
+                61,
+                77,
+                69,
+                81
+              ]
+            },
+            "near": {
+              "hip_1x": [
+                50,
+                67
+              ],
+              "knee_1x": [
+                43,
+                74
+              ],
+              "shoe_anchor_1x": [
+                42,
+                80
+              ],
+              "sole_row_1x": 81,
+              "grounded": true,
+              "shoe_bbox_1x": [
+                38,
+                79,
+                43,
+                81
+              ]
+            }
+          },
+          "visible_pantaloon_cells": {
+            "near": 26,
+            "far": 23
+          },
+          "waist_row": 67,
+          "frame": 4,
+          "edited": true,
+          "changed_cells": 226,
+          "duration_ms": 70,
+          "pivot_1x": [
+            52,
+            70
+          ],
+          "cell_rect_1x": [
+            0,
+            96,
+            112,
+            192
+          ],
+          "cell_rect_px": [
+            0,
+            768,
+            896,
+            1536
+          ],
+          "bbox_local_1x": [
+            37,
+            39,
+            77,
+            82
+          ],
+          "pixel_hash": "9727a72be26d3eabc4b02c1cca4a30fb33b1ca5bf08e84f250ac206411256dbf",
+          "component_sizes": [
+            838
+          ],
+          "upper_body_exact": true,
+          "pivot_px": [
+            416,
+            560
+          ],
+          "dark_checker_cells_before": 6,
+          "dark_checker_cells_after": 24,
+          "bbox_sheet_px": [
+            296,
+            1080,
+            616,
+            1424
+          ]
+        },
+        {
+          "protected_nonleg_pixels_unchanged": true,
+          "protected_mask_count": 7892,
+          "feet": {
+            "far": {
+              "hip_1x": [
+                57,
+                69
+              ],
+              "knee_1x": [
+                59,
+                74
+              ],
+              "shoe_anchor_1x": [
+                59,
+                80
+              ],
+              "sole_row_1x": 81,
+              "grounded": true,
+              "shoe_bbox_1x": [
+                59,
+                77,
+                67,
+                81
+              ]
+            },
+            "near": {
+              "hip_1x": [
+                49,
+                69
+              ],
+              "knee_1x": [
+                41,
+                74
+              ],
+              "shoe_anchor_1x": [
+                40,
+                80
+              ],
+              "sole_row_1x": 81,
+              "grounded": true,
+              "shoe_bbox_1x": [
+                36,
+                79,
+                41,
+                81
+              ]
+            }
+          },
+          "visible_pantaloon_cells": {
+            "near": 20,
+            "far": 10
+          },
+          "waist_row": 69,
+          "frame": 5,
+          "edited": true,
+          "changed_cells": 186,
+          "duration_ms": 80,
+          "pivot_1x": [
+            51,
+            70
+          ],
+          "cell_rect_1x": [
+            112,
+            96,
+            224,
+            192
+          ],
+          "cell_rect_px": [
+            896,
+            768,
+            1792,
+            1536
+          ],
+          "bbox_local_1x": [
+            35,
+            41,
+            72,
+            82
+          ],
+          "pixel_hash": "60528ba1acd20c48f016186fd8fedd3a76c1ae3ec7f964df42071d7b8df9d9be",
+          "component_sizes": [
+            799
+          ],
+          "upper_body_exact": true,
+          "pivot_px": [
+            408,
+            560
+          ],
+          "dark_checker_cells_before": 6,
+          "dark_checker_cells_after": 18,
+          "bbox_sheet_px": [
+            1176,
+            1096,
+            1472,
+            1424
+          ]
+        },
+        {
+          "frame": 6,
+          "edited": false,
+          "changed_cells": 0,
+          "duration_ms": 90,
+          "pivot_1x": [
+            56,
+            70
+          ],
+          "cell_rect_1x": [
+            224,
+            96,
+            336,
+            192
+          ],
+          "cell_rect_px": [
+            1792,
+            768,
+            2688,
+            1536
+          ],
+          "bbox_local_1x": [
+            35,
+            36,
+            72,
+            82
+          ],
+          "pixel_hash": "8e1e07668b78054c6b80bae63e1362dbe2376ce789e697df03080e57863ea488",
+          "component_sizes": [
+            912
+          ],
+          "feet": {
+            "near": {
+              "shoe_bbox_1x": [
+                47,
+                79,
+                52,
+                81
+              ],
+              "sole_row_1x": 81,
+              "position_source": "unchanged approved frame"
+            },
+            "far": {
+              "shoe_bbox_1x": [
+                59,
+                77,
+                67,
+                81
+              ],
+              "sole_row_1x": 81,
+              "position_source": "unchanged approved frame"
+            }
+          },
+          "upper_body_exact": true,
+          "pivot_px": [
+            448,
+            560
+          ],
+          "dark_checker_cells_before": 44,
+          "dark_checker_cells_after": 44,
+          "bbox_sheet_px": [
+            2072,
+            1056,
+            2368,
+            1424
+          ]
+        }
+      ]
+    },
+    "skill": {
+      "file": "shaco_skill.png",
+      "native_file": "native/shaco_skill_1x.png",
+      "grid": [
+        3,
+        2
+      ],
+      "size_px": [
+        2688,
+        1536
+      ],
+      "selected_frames": [
+        3,
+        4
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "edited": false,
+          "changed_cells": 0,
+          "duration_ms": 50,
+          "pivot_1x": [
+            56,
+            70
+          ],
+          "cell_rect_1x": [
+            0,
+            0,
+            112,
+            96
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "bbox_local_1x": [
+            36,
+            36,
+            72,
+            82
+          ],
+          "pixel_hash": "2a37c63981a99c730ea855845837a30d4cd94bee67bc2fef3139332f98aa8c05",
+          "component_sizes": [
+            899
+          ],
+          "feet": {
+            "near": {
+              "shoe_bbox_1x": [
+                47,
+                79,
+                52,
+                81
+              ],
+              "sole_row_1x": 81,
+              "position_source": "unchanged approved frame"
+            },
+            "far": {
+              "shoe_bbox_1x": [
+                59,
+                77,
+                67,
+                81
+              ],
+              "sole_row_1x": 81,
+              "position_source": "unchanged approved frame"
+            }
+          },
+          "upper_body_exact": true,
+          "pivot_px": [
+            448,
+            560
+          ],
+          "dark_checker_cells_before": 40,
+          "dark_checker_cells_after": 40,
+          "bbox_sheet_px": [
+            288,
+            288,
+            576,
+            656
+          ]
+        },
+        {
+          "frame": 2,
+          "edited": false,
+          "changed_cells": 0,
+          "duration_ms": 60,
+          "pivot_1x": [
+            57,
+            70
+          ],
+          "cell_rect_1x": [
+            112,
+            0,
+            224,
+            96
+          ],
+          "cell_rect_px": [
+            896,
+            0,
+            1792,
+            768
+          ],
+          "bbox_local_1x": [
+            30,
+            37,
+            84,
+            82
+          ],
+          "pixel_hash": "8586cb78ac6a5eed575dbf211472f9b9aad7fd02670f12d6e7712624d31b3696",
+          "component_sizes": [
+            971
+          ],
+          "feet": {
+            "near": {
+              "shoe_bbox_1x": [
+                46,
+                79,
+                51,
+                81
+              ],
+              "sole_row_1x": 81,
+              "position_source": "unchanged approved frame"
+            },
+            "far": {
+              "shoe_bbox_1x": [
+                62,
+                77,
+                70,
+                81
+              ],
+              "sole_row_1x": 81,
+              "position_source": "unchanged approved frame"
+            }
+          },
+          "upper_body_exact": true,
+          "pivot_px": [
+            456,
+            560
+          ],
+          "dark_checker_cells_before": 25,
+          "dark_checker_cells_after": 25,
+          "bbox_sheet_px": [
+            1136,
+            296,
+            1568,
+            656
+          ]
+        },
+        {
+          "protected_nonleg_pixels_unchanged": true,
+          "protected_mask_count": 7786,
+          "feet": {
+            "far": {
+              "hip_1x": [
+                56,
+                68
+              ],
+              "knee_1x": [
+                67,
+                74
+              ],
+              "shoe_anchor_1x": [
+                63,
+                80
+              ],
+              "sole_row_1x": 81,
+              "grounded": true,
+              "shoe_bbox_1x": [
+                63,
+                77,
+                73,
+                81
+              ]
+            },
+            "near": {
+              "hip_1x": [
+                48,
+                68
+              ],
+              "knee_1x": [
+                41,
+                74
+              ],
+              "shoe_anchor_1x": [
+                40,
+                80
+              ],
+              "sole_row_1x": 81,
+              "grounded": true,
+              "shoe_bbox_1x": [
+                36,
+                79,
+                41,
+                81
+              ]
+            }
+          },
+          "visible_pantaloon_cells": {
+            "near": 18,
+            "far": 11
+          },
+          "waist_row": 68,
+          "frame": 3,
+          "edited": true,
+          "changed_cells": 241,
+          "duration_ms": 70,
+          "pivot_1x": [
+            51,
+            70
+          ],
+          "cell_rect_1x": [
+            224,
+            0,
+            336,
+            96
+          ],
+          "cell_rect_px": [
+            1792,
+            0,
+            2688,
+            768
+          ],
+          "bbox_local_1x": [
+            35,
+            40,
+            74,
+            82
+          ],
+          "pixel_hash": "798f26620564316c1482e64d3465c59af81bdd3b7b1c6e4eeba22d889929de2f",
+          "component_sizes": [
+            831
+          ],
+          "upper_body_exact": true,
+          "pivot_px": [
+            408,
+            560
+          ],
+          "dark_checker_cells_before": 4,
+          "dark_checker_cells_after": 16,
+          "bbox_sheet_px": [
+            2072,
+            320,
+            2384,
+            656
+          ]
+        },
+        {
+          "protected_nonleg_pixels_unchanged": true,
+          "protected_mask_count": 7856,
+          "feet": {
+            "far": {
+              "hip_1x": [
+                56,
+                69
+              ],
+              "knee_1x": [
+                63,
+                74
+              ],
+              "shoe_anchor_1x": [
+                61,
+                80
+              ],
+              "sole_row_1x": 81,
+              "grounded": true,
+              "shoe_bbox_1x": [
+                61,
+                77,
+                70,
+                81
+              ]
+            },
+            "near": {
+              "hip_1x": [
+                48,
+                69
+              ],
+              "knee_1x": [
+                40,
+                74
+              ],
+              "shoe_anchor_1x": [
+                39,
+                80
+              ],
+              "sole_row_1x": 81,
+              "grounded": true,
+              "shoe_bbox_1x": [
+                35,
+                79,
+                40,
+                81
+              ]
+            }
+          },
+          "visible_pantaloon_cells": {
+            "near": 20,
+            "far": 12
+          },
+          "waist_row": 69,
+          "frame": 4,
+          "edited": true,
+          "changed_cells": 217,
+          "duration_ms": 80,
+          "pivot_1x": [
+            51,
+            70
+          ],
+          "cell_rect_1x": [
+            0,
+            96,
+            112,
+            192
+          ],
+          "cell_rect_px": [
+            0,
+            768,
+            896,
+            1536
+          ],
+          "bbox_local_1x": [
+            34,
+            41,
+            71,
+            82
+          ],
+          "pixel_hash": "94f2a03fbfd9d2db8084c6e981b448910e6322148cf42d418ae8f70d620464b9",
+          "component_sizes": [
+            792
+          ],
+          "upper_body_exact": true,
+          "pivot_px": [
+            408,
+            560
+          ],
+          "dark_checker_cells_before": 7,
+          "dark_checker_cells_after": 18,
+          "bbox_sheet_px": [
+            272,
+            1096,
+            568,
+            1424
+          ]
+        },
+        {
+          "frame": 5,
+          "edited": false,
+          "changed_cells": 0,
+          "duration_ms": 90,
+          "pivot_1x": [
+            58,
+            70
+          ],
+          "cell_rect_1x": [
+            112,
+            96,
+            224,
+            192
+          ],
+          "cell_rect_px": [
+            896,
+            768,
+            1792,
+            1536
+          ],
+          "bbox_local_1x": [
+            37,
+            36,
+            74,
+            82
+          ],
+          "pixel_hash": "b7723feab8b74f1eb5dd02e31b4ec71c1f56d4dd0d9fafb82d1f84be5e83b81a",
+          "component_sizes": [
+            912
+          ],
+          "feet": {
+            "near": {
+              "shoe_bbox_1x": [
+                49,
+                79,
+                54,
+                81
+              ],
+              "sole_row_1x": 81,
+              "position_source": "unchanged approved frame"
+            },
+            "far": {
+              "shoe_bbox_1x": [
+                61,
+                77,
+                69,
+                81
+              ],
+              "sole_row_1x": 81,
+              "position_source": "unchanged approved frame"
+            }
+          },
+          "upper_body_exact": true,
+          "pivot_px": [
+            464,
+            560
+          ],
+          "dark_checker_cells_before": 44,
+          "dark_checker_cells_after": 44,
+          "bbox_sheet_px": [
+            1192,
+            1056,
+            1488,
+            1424
+          ]
+        }
+      ]
+    },
+    "ult": {
+      "file": "shaco_ult.png",
+      "native_file": "native/shaco_ult_1x.png",
+      "grid": [
+        3,
+        2
+      ],
+      "size_px": [
+        2688,
+        1536
+      ],
+      "selected_frames": [
+        4
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "edited": false,
+          "changed_cells": 0,
+          "duration_ms": 70,
+          "pivot_1x": [
+            55,
+            70
+          ],
+          "cell_rect_1x": [
+            0,
+            0,
+            112,
+            96
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "bbox_local_1x": [
+            35,
+            36,
+            72,
+            82
+          ],
+          "pixel_hash": "516e1f819271894682da6609b4aa60736191f4dc78d67f702864ecddd2e9132e",
+          "component_sizes": [
+            957
+          ],
+          "feet": {
+            "near": {
+              "shoe_bbox_1x": [
+                46,
+                79,
+                51,
+                81
+              ],
+              "sole_row_1x": 81,
+              "position_source": "unchanged approved frame"
+            },
+            "far": {
+              "shoe_bbox_1x": [
+                58,
+                77,
+                66,
+                81
+              ],
+              "sole_row_1x": 81,
+              "position_source": "unchanged approved frame"
+            }
+          },
+          "upper_body_exact": true,
+          "pivot_px": [
+            440,
+            560
+          ],
+          "dark_checker_cells_before": 40,
+          "dark_checker_cells_after": 40,
+          "bbox_sheet_px": [
+            280,
+            288,
+            576,
+            656
+          ]
+        },
+        {
+          "frame": 2,
+          "edited": false,
+          "changed_cells": 0,
+          "duration_ms": 80,
+          "pivot_1x": [
+            52,
+            70
+          ],
+          "cell_rect_1x": [
+            112,
+            0,
+            224,
+            96
+          ],
+          "cell_rect_px": [
+            896,
+            0,
+            1792,
+            768
+          ],
+          "bbox_local_1x": [
+            32,
+            37,
+            81,
+            82
+          ],
+          "pixel_hash": "ecec2f8e635e639217a3994d42d7bac13ac3cfe95273c1cf31cf5b23ad189e40",
+          "component_sizes": [
+            942
+          ],
+          "feet": {
+            "near": {
+              "shoe_bbox_1x": [
+                43,
+                79,
+                48,
+                81
+              ],
+              "sole_row_1x": 81,
+              "position_source": "unchanged approved frame"
+            },
+            "far": {
+              "shoe_bbox_1x": [
+                55,
+                77,
+                63,
+                81
+              ],
+              "sole_row_1x": 81,
+              "position_source": "unchanged approved frame"
+            }
+          },
+          "upper_body_exact": true,
+          "pivot_px": [
+            416,
+            560
+          ],
+          "dark_checker_cells_before": 31,
+          "dark_checker_cells_after": 31,
+          "bbox_sheet_px": [
+            1152,
+            296,
+            1544,
+            656
+          ]
+        },
+        {
+          "frame": 3,
+          "edited": false,
+          "changed_cells": 0,
+          "duration_ms": 80,
+          "pivot_1x": [
+            56,
+            70
+          ],
+          "cell_rect_1x": [
+            224,
+            0,
+            336,
+            96
+          ],
+          "cell_rect_px": [
+            1792,
+            0,
+            2688,
+            768
+          ],
+          "bbox_local_1x": [
+            36,
+            37,
+            84,
+            82
+          ],
+          "pixel_hash": "5cc71a8aa93b70f75390dd4666767b5723ca7127db0d889f730613708e9fd0e4",
+          "component_sizes": [
+            937
+          ],
+          "feet": {
+            "near": {
+              "shoe_bbox_1x": [
+                47,
+                79,
+                52,
+                81
+              ],
+              "sole_row_1x": 81,
+              "position_source": "unchanged approved frame"
+            },
+            "far": {
+              "shoe_bbox_1x": [
+                59,
+                77,
+                67,
+                81
+              ],
+              "sole_row_1x": 81,
+              "position_source": "unchanged approved frame"
+            }
+          },
+          "upper_body_exact": true,
+          "pivot_px": [
+            448,
+            560
+          ],
+          "dark_checker_cells_before": 31,
+          "dark_checker_cells_after": 31,
+          "bbox_sheet_px": [
+            2080,
+            296,
+            2464,
+            656
+          ]
+        },
+        {
+          "protected_nonleg_pixels_unchanged": true,
+          "protected_mask_count": 7507,
+          "feet": {
+            "far": {
+              "hip_1x": [
+                55,
+                66
+              ],
+              "knee_1x": [
+                58,
+                74
+              ],
+              "shoe_anchor_1x": [
+                59,
+                80
+              ],
+              "sole_row_1x": 81,
+              "grounded": true,
+              "shoe_bbox_1x": [
+                59,
+                77,
+                67,
+                81
+              ]
+            },
+            "near": {
+              "hip_1x": [
+                47,
+                66
+              ],
+              "knee_1x": [
+                43,
+                74
+              ],
+              "shoe_anchor_1x": [
+                42,
+                80
+              ],
+              "sole_row_1x": 81,
+              "grounded": true,
+              "shoe_bbox_1x": [
+                38,
+                79,
+                43,
+                81
+              ]
+            }
+          },
+          "visible_pantaloon_cells": {
+            "near": 30,
+            "far": 33
+          },
+          "waist_row": 66,
+          "frame": 4,
+          "edited": true,
+          "changed_cells": 246,
+          "duration_ms": 90,
+          "pivot_1x": [
+            51,
+            70
+          ],
+          "cell_rect_1x": [
+            0,
+            96,
+            112,
+            192
+          ],
+          "cell_rect_px": [
+            0,
+            768,
+            896,
+            1536
+          ],
+          "bbox_local_1x": [
+            37,
+            38,
+            69,
+            82
+          ],
+          "pixel_hash": "a7c76acee244a6477823e180903af4c49048c909f6ddd54fd9869767f4b58589",
+          "component_sizes": [
+            844
+          ],
+          "upper_body_exact": true,
+          "pivot_px": [
+            408,
+            560
+          ],
+          "dark_checker_cells_before": 17,
+          "dark_checker_cells_after": 32,
+          "bbox_sheet_px": [
+            296,
+            1072,
+            552,
+            1424
+          ]
+        },
+        {
+          "frame": 5,
+          "edited": false,
+          "changed_cells": 0,
+          "duration_ms": 90,
+          "pivot_1x": [
+            54,
+            70
+          ],
+          "cell_rect_1x": [
+            112,
+            96,
+            224,
+            192
+          ],
+          "cell_rect_px": [
+            896,
+            768,
+            1792,
+            1536
+          ],
+          "bbox_local_1x": [
+            34,
+            37,
+            82,
+            82
+          ],
+          "pixel_hash": "0d5b53ae31c134474739e06e863d918079f9ff1ac83f4f0f8532a9287f52cdbb",
+          "component_sizes": [
+            936
+          ],
+          "feet": {
+            "near": {
+              "shoe_bbox_1x": [
+                45,
+                79,
+                50,
+                81
+              ],
+              "sole_row_1x": 81,
+              "position_source": "unchanged approved frame"
+            },
+            "far": {
+              "shoe_bbox_1x": [
+                57,
+                77,
+                65,
+                81
+              ],
+              "sole_row_1x": 81,
+              "position_source": "unchanged approved frame"
+            }
+          },
+          "upper_body_exact": true,
+          "pivot_px": [
+            432,
+            560
+          ],
+          "dark_checker_cells_before": 31,
+          "dark_checker_cells_after": 31,
+          "bbox_sheet_px": [
+            1168,
+            1064,
+            1552,
+            1424
+          ]
+        },
+        {
+          "frame": 6,
+          "edited": false,
+          "changed_cells": 0,
+          "duration_ms": 100,
+          "pivot_1x": [
+            55,
+            70
+          ],
+          "cell_rect_1x": [
+            224,
+            96,
+            336,
+            192
+          ],
+          "cell_rect_px": [
+            1792,
+            768,
+            2688,
+            1536
+          ],
+          "bbox_local_1x": [
+            34,
+            36,
+            71,
+            82
+          ],
+          "pixel_hash": "e72638016b8c1260f39c09d7baff9125f80a7700cd9ecd72cf281ab6ca033efe",
+          "component_sizes": [
+            912
+          ],
+          "feet": {
+            "near": {
+              "shoe_bbox_1x": [
+                46,
+                79,
+                51,
+                81
+              ],
+              "sole_row_1x": 81,
+              "position_source": "unchanged approved frame"
+            },
+            "far": {
+              "shoe_bbox_1x": [
+                58,
+                77,
+                66,
+                81
+              ],
+              "sole_row_1x": 81,
+              "position_source": "unchanged approved frame"
+            }
+          },
+          "upper_body_exact": true,
+          "pivot_px": [
+            440,
+            560
+          ],
+          "dark_checker_cells_before": 44,
+          "dark_checker_cells_after": 44,
+          "bbox_sheet_px": [
+            2064,
+            1056,
+            2360,
+            1424
+          ]
+        }
+      ]
+    },
+    "dead": {
+      "file": "shaco_dead.png",
+      "native_file": "native/shaco_dead_1x.png",
+      "grid": [
+        4,
+        2
+      ],
+      "size_px": [
+        3584,
+        1536
+      ],
+      "selected_frames": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "edited": false,
+          "changed_cells": 0,
+          "duration_ms": 100,
+          "pivot_1x": [
+            56,
+            70
+          ],
+          "cell_rect_1x": [
+            0,
+            0,
+            112,
+            96
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "bbox_local_1x": [
+            31,
+            36,
+            74,
+            82
+          ],
+          "pixel_hash": "1a57ceed22cf103e2ad4201109cb8d45f36aac44eba6ecc7f002b4e0d9dd4ac6",
+          "component_sizes": [
+            923
+          ],
+          "feet": {
+            "near": {
+              "shoe_bbox_1x": [
+                47,
+                79,
+                52,
+                81
+              ],
+              "sole_row_1x": 81,
+              "position_source": "unchanged approved frame"
+            },
+            "far": {
+              "shoe_bbox_1x": [
+                59,
+                77,
+                67,
+                81
+              ],
+              "sole_row_1x": 81,
+              "position_source": "unchanged approved frame"
+            }
+          },
+          "upper_body_exact": true,
+          "pivot_px": [
+            448,
+            560
+          ],
+          "dark_checker_cells_before": 39,
+          "dark_checker_cells_after": 39,
+          "bbox_sheet_px": [
+            248,
+            288,
+            592,
+            656
+          ]
+        },
+        {
+          "frame": 2,
+          "edited": false,
+          "changed_cells": 0,
+          "duration_ms": 100,
+          "pivot_1x": [
+            58,
+            70
+          ],
+          "cell_rect_1x": [
+            112,
+            0,
+            224,
+            96
+          ],
+          "cell_rect_px": [
+            896,
+            0,
+            1792,
+            768
+          ],
+          "bbox_local_1x": [
+            31,
+            36,
+            77,
+            82
+          ],
+          "pixel_hash": "5bea683e982c823a56a186f2be84299bc143d6ca508dff434626bdc8555207a8",
+          "component_sizes": [
+            937
+          ],
+          "feet": {
+            "near": {
+              "shoe_bbox_1x": [
+                49,
+                79,
+                54,
+                81
+              ],
+              "sole_row_1x": 81,
+              "position_source": "unchanged approved frame"
+            },
+            "far": {
+              "shoe_bbox_1x": [
+                61,
+                77,
+                69,
+                81
+              ],
+              "sole_row_1x": 81,
+              "position_source": "unchanged approved frame"
+            }
+          },
+          "upper_body_exact": true,
+          "pivot_px": [
+            464,
+            560
+          ],
+          "dark_checker_cells_before": 37,
+          "dark_checker_cells_after": 37,
+          "bbox_sheet_px": [
+            1144,
+            288,
+            1512,
+            656
+          ]
+        },
+        {
+          "frame": 3,
+          "edited": false,
+          "changed_cells": 0,
+          "duration_ms": 100,
+          "pivot_1x": [
+            54,
+            70
+          ],
+          "cell_rect_1x": [
+            224,
+            0,
+            336,
+            96
+          ],
+          "cell_rect_px": [
+            1792,
+            0,
+            2688,
+            768
+          ],
+          "bbox_local_1x": [
+            29,
+            36,
+            74,
+            82
+          ],
+          "pixel_hash": "3d0c2c97521cd7b49c47c60a68b98b056113e8e4134dce1727a19930234d1423",
+          "component_sizes": [
+            956
+          ],
+          "feet": {
+            "near": {
+              "shoe_bbox_1x": [
+                45,
+                79,
+                50,
+                81
+              ],
+              "sole_row_1x": 81,
+              "position_source": "unchanged approved frame"
+            },
+            "far": {
+              "shoe_bbox_1x": [
+                57,
+                77,
+                65,
+                81
+              ],
+              "sole_row_1x": 81,
+              "position_source": "unchanged approved frame"
+            }
+          },
+          "upper_body_exact": true,
+          "pivot_px": [
+            432,
+            560
+          ],
+          "dark_checker_cells_before": 39,
+          "dark_checker_cells_after": 39,
+          "bbox_sheet_px": [
+            2024,
+            288,
+            2384,
+            656
+          ]
+        },
+        {
+          "frame": 4,
+          "edited": false,
+          "changed_cells": 0,
+          "duration_ms": 120,
+          "pivot_1x": [
+            55,
+            70
+          ],
+          "cell_rect_1x": [
+            336,
+            0,
+            448,
+            96
+          ],
+          "cell_rect_px": [
+            2688,
+            0,
+            3584,
+            768
+          ],
+          "bbox_local_1x": [
+            33,
+            36,
+            79,
+            82
+          ],
+          "pixel_hash": "1394eb6cacfef00f5fad5a1adf46f9a61ea9417f33b90f3f1a45576d7f4a7843",
+          "component_sizes": [
+            969
+          ],
+          "feet": {
+            "near": {
+              "shoe_bbox_1x": [
+                46,
+                79,
+                51,
+                81
+              ],
+              "sole_row_1x": 81,
+              "position_source": "unchanged approved frame"
+            },
+            "far": {
+              "shoe_bbox_1x": [
+                58,
+                77,
+                66,
+                81
+              ],
+              "sole_row_1x": 81,
+              "position_source": "unchanged approved frame"
+            }
+          },
+          "upper_body_exact": true,
+          "pivot_px": [
+            440,
+            560
+          ],
+          "dark_checker_cells_before": 39,
+          "dark_checker_cells_after": 39,
+          "bbox_sheet_px": [
+            2952,
+            288,
+            3320,
+            656
+          ]
+        },
+        {
+          "protected_nonleg_pixels_unchanged": true,
+          "protected_mask_count": 7543,
+          "feet": {
+            "far": {
+              "hip_1x": [
+                58,
+                66
+              ],
+              "knee_1x": [
+                61,
+                74
+              ],
+              "shoe_anchor_1x": [
+                60,
+                80
+              ],
+              "sole_row_1x": 81,
+              "grounded": true,
+              "shoe_bbox_1x": [
+                60,
+                77,
+                68,
+                81
+              ]
+            },
+            "near": {
+              "hip_1x": [
+                50,
+                66
+              ],
+              "knee_1x": [
+                47,
+                74
+              ],
+              "shoe_anchor_1x": [
+                46,
+                80
+              ],
+              "sole_row_1x": 81,
+              "grounded": true,
+              "shoe_bbox_1x": [
+                42,
+                79,
+                47,
+                81
+              ]
+            }
+          },
+          "visible_pantaloon_cells": {
+            "near": 28,
+            "far": 15
+          },
+          "waist_row": 66,
+          "frame": 5,
+          "edited": true,
+          "changed_cells": 168,
+          "duration_ms": 120,
+          "pivot_1x": [
+            55,
+            70
+          ],
+          "cell_rect_1x": [
+            0,
+            96,
+            112,
+            192
+          ],
+          "cell_rect_px": [
+            0,
+            768,
+            896,
+            1536
+          ],
+          "bbox_local_1x": [
+            41,
+            38,
+            69,
+            82
+          ],
+          "pixel_hash": "39a8c4bfe756f76fa28a81927ce024629b04b50c34f7dcd9bec3577822d0df8c",
+          "component_sizes": [
+            815
+          ],
+          "upper_body_exact": true,
+          "pivot_px": [
+            440,
+            560
+          ],
+          "dark_checker_cells_before": 13,
+          "dark_checker_cells_after": 22,
+          "bbox_sheet_px": [
+            328,
+            1072,
+            552,
+            1424
+          ]
+        },
+        {
+          "protected_nonleg_pixels_unchanged": true,
+          "protected_mask_count": 7873,
+          "feet": {
+            "far": {
+              "hip_1x": [
+                61,
+                69
+              ],
+              "knee_1x": [
+                67,
+                74
+              ],
+              "shoe_anchor_1x": [
+                60,
+                80
+              ],
+              "sole_row_1x": 81,
+              "grounded": true,
+              "shoe_bbox_1x": [
+                60,
+                77,
+                72,
+                81
+              ]
+            },
+            "near": {
+              "hip_1x": [
+                53,
+                69
+              ],
+              "knee_1x": [
+                48,
+                74
+              ],
+              "shoe_anchor_1x": [
+                47,
+                80
+              ],
+              "sole_row_1x": 81,
+              "grounded": true,
+              "shoe_bbox_1x": [
+                43,
+                79,
+                48,
+                81
+              ]
+            }
+          },
+          "visible_pantaloon_cells": {
+            "near": 13,
+            "far": 8
+          },
+          "waist_row": 69,
+          "frame": 6,
+          "edited": true,
+          "changed_cells": 122,
+          "duration_ms": 120,
+          "pivot_1x": [
+            57,
+            70
+          ],
+          "cell_rect_1x": [
+            112,
+            96,
+            224,
+            192
+          ],
+          "cell_rect_px": [
+            896,
+            768,
+            1792,
+            1536
+          ],
+          "bbox_local_1x": [
+            42,
+            41,
+            73,
+            82
+          ],
+          "pixel_hash": "b9f79714e1a1f9c8eeac608aab01e7be860ef0be42154e0479931a07c55c752e",
+          "component_sizes": [
+            750
+          ],
+          "upper_body_exact": true,
+          "pivot_px": [
+            456,
+            560
+          ],
+          "dark_checker_cells_before": 5,
+          "dark_checker_cells_after": 11,
+          "bbox_sheet_px": [
+            1232,
+            1096,
+            1480,
+            1424
+          ]
+        },
+        {
+          "rotation_cw": 90,
+          "source_frame": 6,
+          "original_rotation_bbox_1x": [
+            42,
+            41,
+            72,
+            82
+          ],
+          "rotation_origin_translation_1x": [
+            34,
+            53
+          ],
+          "legacy_forearm_cells_preserved": 12,
+          "legs_rotated_from_fixed_frame6": true,
+          "frame": 7,
+          "edited": true,
+          "changed_cells": 122,
+          "duration_ms": 150,
+          "pivot_1x": [
+            55,
+            70
+          ],
+          "cell_rect_1x": [
+            224,
+            96,
+            336,
+            192
+          ],
+          "cell_rect_px": [
+            1792,
+            768,
+            2688,
+            1536
+          ],
+          "bbox_local_1x": [
+            34,
+            52,
+            75,
+            83
+          ],
+          "pixel_hash": "298128e4f201b9b0b2f8da7a3e5ce2e6cfb62e254299c2a38b1469a20920371d",
+          "component_sizes": [
+            752
+          ],
+          "feet": {
+            "far": {
+              "shoe_bbox_1x": [
+                35,
+                70,
+                39,
+                82
+              ],
+              "knee_1x": [
+                41,
+                77
+              ],
+              "shoe_anchor_1x": [
+                35,
+                70
+              ],
+              "position_source": "fixed frame6 leg rotated90deg"
+            },
+            "near": {
+              "shoe_bbox_1x": [
+                35,
+                53,
+                37,
+                58
+              ],
+              "knee_1x": [
+                41,
+                58
+              ],
+              "shoe_anchor_1x": [
+                35,
+                57
+              ],
+              "position_source": "fixed frame6 leg rotated90deg"
+            }
+          },
+          "upper_body_exact": true,
+          "pivot_px": [
+            440,
+            560
+          ],
+          "dark_checker_cells_before": 5,
+          "dark_checker_cells_after": 11,
+          "bbox_sheet_px": [
+            2064,
+            1184,
+            2392,
+            1432
+          ]
+        },
+        {
+          "rotation_cw": 90,
+          "source_frame": 6,
+          "original_rotation_bbox_1x": [
+            42,
+            41,
+            72,
+            82
+          ],
+          "rotation_origin_translation_1x": [
+            37,
+            54
+          ],
+          "legacy_forearm_cells_preserved": 12,
+          "legs_rotated_from_fixed_frame6": true,
+          "frame": 8,
+          "edited": true,
+          "changed_cells": 122,
+          "duration_ms": 400,
+          "pivot_1x": [
+            57,
+            70
+          ],
+          "cell_rect_1x": [
+            336,
+            96,
+            448,
+            192
+          ],
+          "cell_rect_px": [
+            2688,
+            768,
+            3584,
+            1536
+          ],
+          "bbox_local_1x": [
+            37,
+            53,
+            78,
+            84
+          ],
+          "pixel_hash": "af0764a55a49c3b068c60a93b21bfad03433c9d5a801207aa12d39975618353a",
+          "component_sizes": [
+            752
+          ],
+          "feet": {
+            "far": {
+              "shoe_bbox_1x": [
+                38,
+                71,
+                42,
+                83
+              ],
+              "knee_1x": [
+                44,
+                78
+              ],
+              "shoe_anchor_1x": [
+                38,
+                71
+              ],
+              "position_source": "fixed frame6 leg rotated90deg"
+            },
+            "near": {
+              "shoe_bbox_1x": [
+                38,
+                54,
+                40,
+                59
+              ],
+              "knee_1x": [
+                44,
+                59
+              ],
+              "shoe_anchor_1x": [
+                38,
+                58
+              ],
+              "position_source": "fixed frame6 leg rotated90deg"
+            }
+          },
+          "upper_body_exact": true,
+          "pivot_px": [
+            456,
+            560
+          ],
+          "dark_checker_cells_before": 5,
+          "dark_checker_cells_after": 11,
+          "bbox_sheet_px": [
+            2984,
+            1192,
+            3312,
+            1440
+          ]
+        }
+      ]
+    }
+  }
+}

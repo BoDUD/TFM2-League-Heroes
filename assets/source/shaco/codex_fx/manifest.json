@@ -1,0 +1,3632 @@
+{
+  "version": 1,
+  "rect_format": "[x,y,width,height] in delivered one-row PNG",
+  "asset_count": 16,
+  "total_frames": 95,
+  "source_route": "native imagegen plus lossless layout export",
+  "assets": [
+    {
+      "id": "shaco_fx_hit",
+      "name_zh": "普攻刀光",
+      "file": "shaco_fx_hit.png",
+      "frame_count": 5,
+      "size": [
+        3120,
+        624
+      ],
+      "cell_size": [
+        624,
+        624
+      ],
+      "requested_size": [
+        1280,
+        256
+      ],
+      "requested_cell_size": [
+        256,
+        256
+      ],
+      "raw_file": "raw/shaco_fx_hit.png",
+      "raw_size": [
+        1983,
+        793
+      ],
+      "raw_working_grid": [
+        5,
+        1
+      ],
+      "target_game_size": [
+        14,
+        14
+      ],
+      "binding": "view_effects league_shaco_hit",
+      "placement": "target-centered",
+      "frames": [
+        {
+          "index": 0,
+          "frame_1based": 1,
+          "rect": [
+            0,
+            0,
+            624,
+            624
+          ],
+          "source_rect": [
+            55,
+            215,
+            330,
+            252
+          ],
+          "source_offset_in_cell": [
+            169,
+            131
+          ],
+          "anchor_px": [
+            312,
+            312
+          ],
+          "bbox_local": [
+            169,
+            131,
+            499,
+            383
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 1,
+          "frame_1based": 2,
+          "rect": [
+            624,
+            0,
+            624,
+            624
+          ],
+          "source_rect": [
+            450,
+            151,
+            336,
+            478
+          ],
+          "source_offset_in_cell": [
+            167,
+            67
+          ],
+          "anchor_px": [
+            312,
+            312
+          ],
+          "bbox_local": [
+            167,
+            67,
+            503,
+            545
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 2,
+          "frame_1based": 3,
+          "rect": [
+            1248,
+            0,
+            624,
+            624
+          ],
+          "source_rect": [
+            803,
+            217,
+            386,
+            479
+          ],
+          "source_offset_in_cell": [
+            123,
+            133
+          ],
+          "anchor_px": [
+            312,
+            312
+          ],
+          "bbox_local": [
+            123,
+            133,
+            509,
+            612
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 3,
+          "frame_1based": 4,
+          "rect": [
+            1872,
+            0,
+            624,
+            624
+          ],
+          "source_rect": [
+            1190,
+            163,
+            390,
+            466
+          ],
+          "source_offset_in_cell": [
+            114,
+            79
+          ],
+          "anchor_px": [
+            312,
+            312
+          ],
+          "bbox_local": [
+            114,
+            79,
+            504,
+            545
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 4,
+          "frame_1based": 5,
+          "rect": [
+            2496,
+            0,
+            624,
+            624
+          ],
+          "source_rect": [
+            1597,
+            187,
+            307,
+            412
+          ],
+          "source_offset_in_cell": [
+            124,
+            103
+          ],
+          "anchor_px": [
+            312,
+            312
+          ],
+          "bbox_local": [
+            124,
+            103,
+            431,
+            515
+          ],
+          "artwork_rgba_preserved": true
+        }
+      ],
+      "stage": "generated source; final game pixel/palette conversion pending",
+      "requested_pixel_dimensions_met": false
+    },
+    {
+      "id": "shaco_fx_q_hit",
+      "name_zh": "Q暴击背刺",
+      "file": "shaco_fx_q_hit.png",
+      "frame_count": 6,
+      "size": [
+        4380,
+        730
+      ],
+      "cell_size": [
+        730,
+        730
+      ],
+      "requested_size": [
+        1536,
+        256
+      ],
+      "requested_cell_size": [
+        256,
+        256
+      ],
+      "raw_file": "raw/shaco_fx_q_hit.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "raw_working_grid": [
+        6,
+        1
+      ],
+      "target_game_size": [
+        26,
+        26
+      ],
+      "binding": "view_effects league_shaco_q_hit",
+      "placement": "target-centered",
+      "frames": [
+        {
+          "index": 0,
+          "frame_1based": 1,
+          "rect": [
+            0,
+            0,
+            730,
+            730
+          ],
+          "source_rect": [
+            23,
+            55,
+            339,
+            615
+          ],
+          "source_offset_in_cell": [
+            207,
+            58
+          ],
+          "anchor_px": [
+            365,
+            365
+          ],
+          "bbox_local": [
+            207,
+            58,
+            546,
+            673
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 1,
+          "frame_1based": 2,
+          "rect": [
+            730,
+            0,
+            730,
+            730
+          ],
+          "source_rect": [
+            363,
+            19,
+            344,
+            673
+          ],
+          "source_offset_in_cell": [
+            185,
+            22
+          ],
+          "anchor_px": [
+            365,
+            365
+          ],
+          "bbox_local": [
+            185,
+            22,
+            529,
+            695
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 2,
+          "frame_1based": 3,
+          "rect": [
+            1460,
+            0,
+            730,
+            730
+          ],
+          "source_rect": [
+            707,
+            9,
+            398,
+            699
+          ],
+          "source_offset_in_cell": [
+            167,
+            12
+          ],
+          "anchor_px": [
+            365,
+            365
+          ],
+          "bbox_local": [
+            167,
+            12,
+            565,
+            711
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 3,
+          "frame_1based": 4,
+          "rect": [
+            2190,
+            0,
+            730,
+            730
+          ],
+          "source_rect": [
+            1105,
+            25,
+            357,
+            683
+          ],
+          "source_offset_in_cell": [
+            203,
+            28
+          ],
+          "anchor_px": [
+            365,
+            365
+          ],
+          "bbox_local": [
+            203,
+            28,
+            560,
+            711
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 4,
+          "frame_1based": 5,
+          "rect": [
+            2920,
+            0,
+            730,
+            730
+          ],
+          "source_rect": [
+            1462,
+            39,
+            340,
+            637
+          ],
+          "source_offset_in_cell": [
+            198,
+            42
+          ],
+          "anchor_px": [
+            365,
+            365
+          ],
+          "bbox_local": [
+            198,
+            42,
+            538,
+            679
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 5,
+          "frame_1based": 6,
+          "rect": [
+            3650,
+            0,
+            730,
+            730
+          ],
+          "source_rect": [
+            1811,
+            77,
+            329,
+            579
+          ],
+          "source_offset_in_cell": [
+            185,
+            80
+          ],
+          "anchor_px": [
+            365,
+            365
+          ],
+          "bbox_local": [
+            185,
+            80,
+            514,
+            659
+          ],
+          "artwork_rgba_preserved": true
+        }
+      ],
+      "stage": "generated source; final game pixel/palette conversion pending",
+      "requested_pixel_dimensions_met": false
+    },
+    {
+      "id": "shaco_fx_bs_hit",
+      "name_zh": "被动背刺",
+      "file": "shaco_fx_bs_hit.png",
+      "frame_count": 5,
+      "size": [
+        3690,
+        738
+      ],
+      "cell_size": [
+        738,
+        738
+      ],
+      "requested_size": [
+        1280,
+        256
+      ],
+      "requested_cell_size": [
+        256,
+        256
+      ],
+      "raw_file": "raw/shaco_fx_bs_hit.png",
+      "raw_size": [
+        1983,
+        793
+      ],
+      "raw_working_grid": [
+        5,
+        1
+      ],
+      "target_game_size": [
+        18,
+        18
+      ],
+      "binding": "view_effects league_shaco_bs_hit",
+      "placement": "target-centered",
+      "frames": [
+        {
+          "index": 0,
+          "frame_1based": 1,
+          "rect": [
+            0,
+            0,
+            738,
+            738
+          ],
+          "source_rect": [
+            25,
+            248,
+            372,
+            391
+          ],
+          "source_offset_in_cell": [
+            196,
+            221
+          ],
+          "anchor_px": [
+            369,
+            369
+          ],
+          "bbox_local": [
+            196,
+            221,
+            568,
+            612
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 1,
+          "frame_1based": 2,
+          "rect": [
+            738,
+            0,
+            738,
+            738
+          ],
+          "source_rect": [
+            412,
+            54,
+            380,
+            699
+          ],
+          "source_offset_in_cell": [
+            186,
+            27
+          ],
+          "anchor_px": [
+            369,
+            369
+          ],
+          "bbox_local": [
+            186,
+            27,
+            566,
+            726
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 2,
+          "frame_1based": 3,
+          "rect": [
+            1476,
+            0,
+            738,
+            738
+          ],
+          "source_rect": [
+            793,
+            120,
+            392,
+            616
+          ],
+          "source_offset_in_cell": [
+            170,
+            93
+          ],
+          "anchor_px": [
+            369,
+            369
+          ],
+          "bbox_local": [
+            170,
+            93,
+            562,
+            709
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 3,
+          "frame_1based": 4,
+          "rect": [
+            2214,
+            0,
+            738,
+            738
+          ],
+          "source_rect": [
+            1192,
+            131,
+            386,
+            423
+          ],
+          "source_offset_in_cell": [
+            173,
+            104
+          ],
+          "anchor_px": [
+            369,
+            369
+          ],
+          "bbox_local": [
+            173,
+            104,
+            559,
+            527
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 4,
+          "frame_1based": 5,
+          "rect": [
+            2952,
+            0,
+            738,
+            738
+          ],
+          "source_rect": [
+            1611,
+            184,
+            268,
+            320
+          ],
+          "source_offset_in_cell": [
+            195,
+            157
+          ],
+          "anchor_px": [
+            369,
+            369
+          ],
+          "bbox_local": [
+            195,
+            157,
+            463,
+            477
+          ],
+          "artwork_rgba_preserved": true
+        }
+      ],
+      "stage": "generated source; final game pixel/palette conversion pending",
+      "requested_pixel_dimensions_met": false
+    },
+    {
+      "id": "shaco_fx_e_shiv",
+      "name_zh": "E飞行毒刃",
+      "file": "shaco_fx_e_shiv.png",
+      "frame_count": 4,
+      "size": [
+        5600,
+        700
+      ],
+      "cell_size": [
+        1400,
+        700
+      ],
+      "requested_size": [
+        2048,
+        256
+      ],
+      "requested_cell_size": [
+        512,
+        256
+      ],
+      "raw_file": "raw/shaco_fx_e_shiv.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "raw_working_grid": [
+        4,
+        1
+      ],
+      "target_game_size": [
+        12,
+        6
+      ],
+      "binding": "view_projectiles league_shaco_e_shiv",
+      "placement": "right-facing projectile",
+      "frames": [
+        {
+          "index": 0,
+          "frame_1based": 1,
+          "rect": [
+            0,
+            0,
+            1400,
+            700
+          ],
+          "source_rect": [
+            41,
+            66,
+            502,
+            602
+          ],
+          "source_offset_in_cell": [
+            469,
+            54
+          ],
+          "anchor_px": [
+            700,
+            350
+          ],
+          "bbox_local": [
+            469,
+            54,
+            971,
+            656
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 1,
+          "frame_1based": 2,
+          "rect": [
+            1400,
+            0,
+            1400,
+            700
+          ],
+          "source_rect": [
+            544,
+            83,
+            534,
+            585
+          ],
+          "source_offset_in_cell": [
+            430,
+            71
+          ],
+          "anchor_px": [
+            700,
+            350
+          ],
+          "bbox_local": [
+            430,
+            71,
+            964,
+            656
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 2,
+          "frame_1based": 3,
+          "rect": [
+            2800,
+            0,
+            1400,
+            700
+          ],
+          "source_rect": [
+            1093,
+            103,
+            532,
+            597
+          ],
+          "source_offset_in_cell": [
+            435,
+            91
+          ],
+          "anchor_px": [
+            700,
+            350
+          ],
+          "bbox_local": [
+            435,
+            91,
+            967,
+            688
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 3,
+          "frame_1based": 4,
+          "rect": [
+            4200,
+            0,
+            1400,
+            700
+          ],
+          "source_rect": [
+            1634,
+            77,
+            506,
+            567
+          ],
+          "source_offset_in_cell": [
+            434,
+            65
+          ],
+          "anchor_px": [
+            700,
+            350
+          ],
+          "bbox_local": [
+            434,
+            65,
+            940,
+            632
+          ],
+          "artwork_rgba_preserved": true
+        }
+      ],
+      "stage": "generated source; final game pixel/palette conversion pending",
+      "requested_pixel_dimensions_met": false
+    },
+    {
+      "id": "shaco_fx_e_hit",
+      "name_zh": "E毒液命中",
+      "file": "shaco_fx_e_hit.png",
+      "frame_count": 5,
+      "size": [
+        3870,
+        774
+      ],
+      "cell_size": [
+        774,
+        774
+      ],
+      "requested_size": [
+        1280,
+        256
+      ],
+      "requested_cell_size": [
+        256,
+        256
+      ],
+      "raw_file": "raw/shaco_fx_e_hit.png",
+      "raw_size": [
+        1983,
+        793
+      ],
+      "raw_working_grid": [
+        5,
+        1
+      ],
+      "target_game_size": [
+        16,
+        16
+      ],
+      "binding": "view_effects league_shaco_e_hit",
+      "placement": "target-centered",
+      "frames": [
+        {
+          "index": 0,
+          "frame_1based": 1,
+          "rect": [
+            0,
+            0,
+            774,
+            774
+          ],
+          "source_rect": [
+            0,
+            173,
+            397,
+            491
+          ],
+          "source_offset_in_cell": [
+            189,
+            164
+          ],
+          "anchor_px": [
+            387,
+            387
+          ],
+          "bbox_local": [
+            189,
+            164,
+            586,
+            655
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 1,
+          "frame_1based": 2,
+          "rect": [
+            774,
+            0,
+            774,
+            774
+          ],
+          "source_rect": [
+            398,
+            86,
+            394,
+            667
+          ],
+          "source_offset_in_cell": [
+            190,
+            77
+          ],
+          "anchor_px": [
+            387,
+            387
+          ],
+          "bbox_local": [
+            190,
+            77,
+            584,
+            744
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 2,
+          "frame_1based": 3,
+          "rect": [
+            1548,
+            0,
+            774,
+            774
+          ],
+          "source_rect": [
+            797,
+            27,
+            393,
+            744
+          ],
+          "source_offset_in_cell": [
+            192,
+            18
+          ],
+          "anchor_px": [
+            387,
+            387
+          ],
+          "bbox_local": [
+            192,
+            18,
+            585,
+            762
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 3,
+          "frame_1based": 4,
+          "rect": [
+            2322,
+            0,
+            774,
+            774
+          ],
+          "source_rect": [
+            1190,
+            52,
+            396,
+            715
+          ],
+          "source_offset_in_cell": [
+            189,
+            43
+          ],
+          "anchor_px": [
+            387,
+            387
+          ],
+          "bbox_local": [
+            189,
+            43,
+            585,
+            758
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 4,
+          "frame_1based": 5,
+          "rect": [
+            3096,
+            0,
+            774,
+            774
+          ],
+          "source_rect": [
+            1586,
+            145,
+            381,
+            606
+          ],
+          "source_offset_in_cell": [
+            188,
+            136
+          ],
+          "anchor_px": [
+            387,
+            387
+          ],
+          "bbox_local": [
+            188,
+            136,
+            569,
+            742
+          ],
+          "artwork_rgba_preserved": true
+        }
+      ],
+      "stage": "generated source; final game pixel/palette conversion pending",
+      "requested_pixel_dimensions_met": false
+    },
+    {
+      "id": "shaco_fx_fear",
+      "name_zh": "恐惧笑脸",
+      "file": "shaco_fx_fear.png",
+      "frame_count": 8,
+      "size": [
+        7424,
+        696
+      ],
+      "cell_size": [
+        928,
+        696
+      ],
+      "requested_size": [
+        2048,
+        192
+      ],
+      "requested_cell_size": [
+        256,
+        192
+      ],
+      "raw_file": "raw/shaco_fx_fear.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "raw_working_grid": [
+        8,
+        1
+      ],
+      "target_game_size": [
+        16,
+        12
+      ],
+      "binding": "view_effects league_shaco_fear",
+      "placement": "above head",
+      "frames": [
+        {
+          "index": 0,
+          "frame_1based": 1,
+          "rect": [
+            0,
+            0,
+            928,
+            696
+          ],
+          "source_rect": [
+            81,
+            296,
+            187,
+            118
+          ],
+          "source_offset_in_cell": [
+            409,
+            282
+          ],
+          "anchor_px": [
+            464,
+            348
+          ],
+          "bbox_local": [
+            409,
+            282,
+            596,
+            400
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 1,
+          "frame_1based": 2,
+          "rect": [
+            928,
+            0,
+            928,
+            696
+          ],
+          "source_rect": [
+            307,
+            118,
+            218,
+            323
+          ],
+          "source_offset_in_cell": [
+            364,
+            104
+          ],
+          "anchor_px": [
+            464,
+            348
+          ],
+          "bbox_local": [
+            364,
+            104,
+            582,
+            427
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 2,
+          "frame_1based": 3,
+          "rect": [
+            1856,
+            0,
+            928,
+            696
+          ],
+          "source_rect": [
+            560,
+            87,
+            254,
+            581
+          ],
+          "source_offset_in_cell": [
+            345,
+            73
+          ],
+          "anchor_px": [
+            464,
+            348
+          ],
+          "bbox_local": [
+            345,
+            73,
+            599,
+            654
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 3,
+          "frame_1based": 4,
+          "rect": [
+            2784,
+            0,
+            928,
+            696
+          ],
+          "source_rect": [
+            814,
+            95,
+            266,
+            531
+          ],
+          "source_offset_in_cell": [
+            328,
+            81
+          ],
+          "anchor_px": [
+            464,
+            348
+          ],
+          "bbox_local": [
+            328,
+            81,
+            594,
+            612
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 4,
+          "frame_1based": 5,
+          "rect": [
+            3712,
+            0,
+            928,
+            696
+          ],
+          "source_rect": [
+            1105,
+            127,
+            216,
+            571
+          ],
+          "source_offset_in_cell": [
+            347,
+            113
+          ],
+          "anchor_px": [
+            464,
+            348
+          ],
+          "bbox_local": [
+            347,
+            113,
+            563,
+            684
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 5,
+          "frame_1based": 6,
+          "rect": [
+            4640,
+            0,
+            928,
+            696
+          ],
+          "source_rect": [
+            1360,
+            103,
+            269,
+            525
+          ],
+          "source_offset_in_cell": [
+            331,
+            89
+          ],
+          "anchor_px": [
+            464,
+            348
+          ],
+          "bbox_local": [
+            331,
+            89,
+            600,
+            614
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 6,
+          "frame_1based": 7,
+          "rect": [
+            5568,
+            0,
+            928,
+            696
+          ],
+          "source_rect": [
+            1630,
+            110,
+            270,
+            530
+          ],
+          "source_offset_in_cell": [
+            329,
+            96
+          ],
+          "anchor_px": [
+            464,
+            348
+          ],
+          "bbox_local": [
+            329,
+            96,
+            599,
+            626
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 7,
+          "frame_1based": 8,
+          "rect": [
+            6496,
+            0,
+            928,
+            696
+          ],
+          "source_rect": [
+            1900,
+            295,
+            206,
+            292
+          ],
+          "source_offset_in_cell": [
+            328,
+            281
+          ],
+          "anchor_px": [
+            464,
+            348
+          ],
+          "bbox_local": [
+            328,
+            281,
+            534,
+            573
+          ],
+          "artwork_rgba_preserved": true
+        }
+      ],
+      "stage": "generated source; final game pixel/palette conversion pending",
+      "requested_pixel_dimensions_met": false,
+      "target_total_ticks": 60,
+      "target_total_seconds": 1
+    },
+    {
+      "id": "shaco_fx_shot_hit",
+      "name_zh": "魔盒弹命中",
+      "file": "shaco_fx_shot_hit.png",
+      "frame_count": 4,
+      "size": [
+        2608,
+        652
+      ],
+      "cell_size": [
+        652,
+        652
+      ],
+      "requested_size": [
+        1024,
+        256
+      ],
+      "requested_cell_size": [
+        256,
+        256
+      ],
+      "raw_file": "raw/shaco_fx_shot_hit.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "raw_working_grid": [
+        4,
+        1
+      ],
+      "target_game_size": [
+        10,
+        10
+      ],
+      "binding": "view_effects league_shaco_shot_hit",
+      "placement": "target-centered",
+      "frames": [
+        {
+          "index": 0,
+          "frame_1based": 1,
+          "rect": [
+            0,
+            0,
+            652,
+            652
+          ],
+          "source_rect": [
+            33,
+            91,
+            510,
+            400
+          ],
+          "source_offset_in_cell": [
+            87,
+            55
+          ],
+          "anchor_px": [
+            326,
+            326
+          ],
+          "bbox_local": [
+            87,
+            55,
+            597,
+            455
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 1,
+          "frame_1based": 2,
+          "rect": [
+            652,
+            0,
+            652,
+            652
+          ],
+          "source_rect": [
+            543,
+            57,
+            537,
+            568
+          ],
+          "source_offset_in_cell": [
+            55,
+            21
+          ],
+          "anchor_px": [
+            326,
+            326
+          ],
+          "bbox_local": [
+            55,
+            21,
+            592,
+            589
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 2,
+          "frame_1based": 3,
+          "rect": [
+            1304,
+            0,
+            652,
+            652
+          ],
+          "source_rect": [
+            1175,
+            239,
+            450,
+            437
+          ],
+          "source_offset_in_cell": [
+            143,
+            203
+          ],
+          "anchor_px": [
+            326,
+            326
+          ],
+          "bbox_local": [
+            143,
+            203,
+            593,
+            640
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 3,
+          "frame_1based": 4,
+          "rect": [
+            1956,
+            0,
+            652,
+            652
+          ],
+          "source_rect": [
+            1634,
+            302,
+            334,
+            255
+          ],
+          "source_offset_in_cell": [
+            60,
+            266
+          ],
+          "anchor_px": [
+            326,
+            326
+          ],
+          "bbox_local": [
+            60,
+            266,
+            394,
+            521
+          ],
+          "artwork_rgba_preserved": true
+        }
+      ],
+      "stage": "generated source; final game pixel/palette conversion pending",
+      "requested_pixel_dimensions_met": false
+    },
+    {
+      "id": "shaco_fx_q_vanish",
+      "name_zh": "Q消失烟雾",
+      "file": "shaco_fx_q_vanish.png",
+      "frame_count": 6,
+      "size": [
+        4116,
+        784
+      ],
+      "cell_size": [
+        686,
+        784
+      ],
+      "requested_size": [
+        2688,
+        512
+      ],
+      "requested_cell_size": [
+        448,
+        512
+      ],
+      "raw_file": "raw/shaco_fx_q_vanish.png",
+      "raw_size": [
+        2032,
+        774
+      ],
+      "raw_working_grid": [
+        6,
+        1
+      ],
+      "target_game_size": [
+        30,
+        34
+      ],
+      "binding": "view_effects league_shaco_q_vanish",
+      "placement": "ground, world position",
+      "frames": [
+        {
+          "index": 0,
+          "frame_1based": 1,
+          "rect": [
+            0,
+            0,
+            686,
+            784
+          ],
+          "source_rect": [
+            23,
+            21,
+            315,
+            753
+          ],
+          "source_offset_in_cell": [
+            197,
+            19
+          ],
+          "anchor_px": [
+            343,
+            772
+          ],
+          "bbox_local": [
+            197,
+            19,
+            512,
+            772
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 1,
+          "frame_1based": 2,
+          "rect": [
+            686,
+            0,
+            686,
+            784
+          ],
+          "source_rect": [
+            339,
+            130,
+            338,
+            644
+          ],
+          "source_offset_in_cell": [
+            174,
+            128
+          ],
+          "anchor_px": [
+            343,
+            772
+          ],
+          "bbox_local": [
+            174,
+            128,
+            512,
+            772
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 2,
+          "frame_1based": 3,
+          "rect": [
+            1372,
+            0,
+            686,
+            784
+          ],
+          "source_rect": [
+            677,
+            24,
+            339,
+            750
+          ],
+          "source_offset_in_cell": [
+            173,
+            22
+          ],
+          "anchor_px": [
+            343,
+            772
+          ],
+          "bbox_local": [
+            173,
+            22,
+            512,
+            772
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 3,
+          "frame_1based": 4,
+          "rect": [
+            2058,
+            0,
+            686,
+            784
+          ],
+          "source_rect": [
+            1016,
+            118,
+            339,
+            656
+          ],
+          "source_offset_in_cell": [
+            174,
+            116
+          ],
+          "anchor_px": [
+            343,
+            772
+          ],
+          "bbox_local": [
+            174,
+            116,
+            513,
+            772
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 4,
+          "frame_1based": 5,
+          "rect": [
+            2744,
+            0,
+            686,
+            784
+          ],
+          "source_rect": [
+            1355,
+            19,
+            338,
+            755
+          ],
+          "source_offset_in_cell": [
+            174,
+            17
+          ],
+          "anchor_px": [
+            343,
+            772
+          ],
+          "bbox_local": [
+            174,
+            17,
+            512,
+            772
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 5,
+          "frame_1based": 6,
+          "rect": [
+            3430,
+            0,
+            686,
+            784
+          ],
+          "source_rect": [
+            1693,
+            144,
+            323,
+            630
+          ],
+          "source_offset_in_cell": [
+            173,
+            142
+          ],
+          "anchor_px": [
+            343,
+            772
+          ],
+          "bbox_local": [
+            173,
+            142,
+            496,
+            772
+          ],
+          "artwork_rgba_preserved": true
+        }
+      ],
+      "stage": "generated source; final game pixel/palette conversion pending",
+      "requested_pixel_dimensions_met": false
+    },
+    {
+      "id": "shaco_fx_q_appear",
+      "name_zh": "Q现身烟雾",
+      "file": "shaco_fx_q_appear.png",
+      "frame_count": 5,
+      "size": [
+        3360,
+        784
+      ],
+      "cell_size": [
+        672,
+        784
+      ],
+      "requested_size": [
+        1920,
+        448
+      ],
+      "requested_cell_size": [
+        384,
+        448
+      ],
+      "raw_file": "raw/shaco_fx_q_appear.png",
+      "raw_size": [
+        1983,
+        793
+      ],
+      "raw_working_grid": [
+        5,
+        1
+      ],
+      "target_game_size": [
+        24,
+        28
+      ],
+      "binding": "view_effects league_shaco_q_appear",
+      "placement": "ground, world position",
+      "frames": [
+        {
+          "index": 0,
+          "frame_1based": 1,
+          "rect": [
+            0,
+            0,
+            672,
+            784
+          ],
+          "source_rect": [
+            25,
+            191,
+            362,
+            568
+          ],
+          "source_offset_in_cell": [
+            163,
+            170
+          ],
+          "anchor_px": [
+            336,
+            772
+          ],
+          "bbox_local": [
+            163,
+            170,
+            525,
+            738
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 1,
+          "frame_1based": 2,
+          "rect": [
+            672,
+            0,
+            672,
+            784
+          ],
+          "source_rect": [
+            400,
+            36,
+            392,
+            735
+          ],
+          "source_offset_in_cell": [
+            141,
+            15
+          ],
+          "anchor_px": [
+            336,
+            772
+          ],
+          "bbox_local": [
+            141,
+            15,
+            533,
+            750
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 2,
+          "frame_1based": 3,
+          "rect": [
+            1344,
+            0,
+            672,
+            784
+          ],
+          "source_rect": [
+            793,
+            55,
+            396,
+            706
+          ],
+          "source_offset_in_cell": [
+            137,
+            34
+          ],
+          "anchor_px": [
+            336,
+            772
+          ],
+          "bbox_local": [
+            137,
+            34,
+            533,
+            740
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 3,
+          "frame_1based": 4,
+          "rect": [
+            2016,
+            0,
+            672,
+            784
+          ],
+          "source_rect": [
+            1194,
+            197,
+            392,
+            556
+          ],
+          "source_offset_in_cell": [
+            142,
+            176
+          ],
+          "anchor_px": [
+            336,
+            772
+          ],
+          "bbox_local": [
+            142,
+            176,
+            534,
+            732
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 4,
+          "frame_1based": 5,
+          "rect": [
+            2688,
+            0,
+            672,
+            784
+          ],
+          "source_rect": [
+            1587,
+            193,
+            354,
+            567
+          ],
+          "source_offset_in_cell": [
+            138,
+            172
+          ],
+          "anchor_px": [
+            336,
+            772
+          ],
+          "bbox_local": [
+            138,
+            172,
+            492,
+            739
+          ],
+          "artwork_rgba_preserved": true
+        }
+      ],
+      "stage": "generated source; final game pixel/palette conversion pending",
+      "requested_pixel_dimensions_met": false
+    },
+    {
+      "id": "shaco_fx_r_poof",
+      "name_zh": "R施法烟雾",
+      "file": "shaco_fx_r_poof.png",
+      "frame_count": 6,
+      "size": [
+        3888,
+        729
+      ],
+      "cell_size": [
+        648,
+        729
+      ],
+      "requested_size": [
+        3072,
+        576
+      ],
+      "requested_cell_size": [
+        512,
+        576
+      ],
+      "raw_file": "raw/shaco_fx_r_poof.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "raw_working_grid": [
+        6,
+        1
+      ],
+      "target_game_size": [
+        32,
+        36
+      ],
+      "binding": "view_effects league_shaco_r_poof",
+      "placement": "ground, world position",
+      "frames": [
+        {
+          "index": 0,
+          "frame_1based": 1,
+          "rect": [
+            0,
+            0,
+            648,
+            729
+          ],
+          "source_rect": [
+            27,
+            21,
+            335,
+            659
+          ],
+          "source_offset_in_cell": [
+            170,
+            14
+          ],
+          "anchor_px": [
+            324,
+            717
+          ],
+          "bbox_local": [
+            170,
+            14,
+            505,
+            673
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 1,
+          "frame_1based": 2,
+          "rect": [
+            648,
+            0,
+            648,
+            729
+          ],
+          "source_rect": [
+            362,
+            71,
+            362,
+            621
+          ],
+          "source_offset_in_cell": [
+            143,
+            64
+          ],
+          "anchor_px": [
+            324,
+            717
+          ],
+          "bbox_local": [
+            143,
+            64,
+            505,
+            685
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 2,
+          "frame_1based": 3,
+          "rect": [
+            1296,
+            0,
+            648,
+            729
+          ],
+          "source_rect": [
+            725,
+            23,
+            361,
+            657
+          ],
+          "source_offset_in_cell": [
+            144,
+            16
+          ],
+          "anchor_px": [
+            324,
+            717
+          ],
+          "bbox_local": [
+            144,
+            16,
+            505,
+            673
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 3,
+          "frame_1based": 4,
+          "rect": [
+            1944,
+            0,
+            648,
+            729
+          ],
+          "source_rect": [
+            1086,
+            71,
+            350,
+            631
+          ],
+          "source_offset_in_cell": [
+            143,
+            64
+          ],
+          "anchor_px": [
+            324,
+            717
+          ],
+          "bbox_local": [
+            143,
+            64,
+            493,
+            695
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 4,
+          "frame_1based": 5,
+          "rect": [
+            2592,
+            0,
+            648,
+            729
+          ],
+          "source_rect": [
+            1457,
+            19,
+            348,
+            659
+          ],
+          "source_offset_in_cell": [
+            152,
+            12
+          ],
+          "anchor_px": [
+            324,
+            717
+          ],
+          "bbox_local": [
+            152,
+            12,
+            500,
+            671
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 5,
+          "frame_1based": 6,
+          "rect": [
+            3240,
+            0,
+            648,
+            729
+          ],
+          "source_rect": [
+            1829,
+            77,
+            323,
+            597
+          ],
+          "source_offset_in_cell": [
+            162,
+            70
+          ],
+          "anchor_px": [
+            324,
+            717
+          ],
+          "bbox_local": [
+            162,
+            70,
+            485,
+            667
+          ],
+          "artwork_rgba_preserved": true
+        }
+      ],
+      "stage": "generated source; final game pixel/palette conversion pending",
+      "requested_pixel_dimensions_met": false
+    },
+    {
+      "id": "shaco_fx_r_burn",
+      "name_zh": "R命中火焰",
+      "file": "shaco_fx_r_burn.png",
+      "frame_count": 5,
+      "size": [
+        4090,
+        818
+      ],
+      "cell_size": [
+        818,
+        818
+      ],
+      "requested_size": [
+        1280,
+        256
+      ],
+      "requested_cell_size": [
+        256,
+        256
+      ],
+      "raw_file": "raw/shaco_fx_r_burn.png",
+      "raw_size": [
+        1983,
+        793
+      ],
+      "raw_working_grid": [
+        5,
+        1
+      ],
+      "target_game_size": [
+        18,
+        18
+      ],
+      "binding": "view_effects league_shaco_r_burn",
+      "placement": "target-centered",
+      "frames": [
+        {
+          "index": 0,
+          "frame_1based": 1,
+          "rect": [
+            0,
+            0,
+            818,
+            818
+          ],
+          "source_rect": [
+            49,
+            225,
+            348,
+            511
+          ],
+          "source_offset_in_cell": [
+            260,
+            238
+          ],
+          "anchor_px": [
+            409,
+            409
+          ],
+          "bbox_local": [
+            260,
+            238,
+            608,
+            749
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 1,
+          "frame_1based": 2,
+          "rect": [
+            818,
+            0,
+            818,
+            818
+          ],
+          "source_rect": [
+            397,
+            136,
+            393,
+            615
+          ],
+          "source_offset_in_cell": [
+            211,
+            149
+          ],
+          "anchor_px": [
+            409,
+            409
+          ],
+          "bbox_local": [
+            211,
+            149,
+            604,
+            764
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 2,
+          "frame_1based": 3,
+          "rect": [
+            1636,
+            0,
+            818,
+            818
+          ],
+          "source_rect": [
+            817,
+            39,
+            354,
+            697
+          ],
+          "source_offset_in_cell": [
+            234,
+            52
+          ],
+          "anchor_px": [
+            409,
+            409
+          ],
+          "bbox_local": [
+            234,
+            52,
+            588,
+            749
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 3,
+          "frame_1based": 4,
+          "rect": [
+            2454,
+            0,
+            818,
+            818
+          ],
+          "source_rect": [
+            1200,
+            62,
+            384,
+            731
+          ],
+          "source_offset_in_cell": [
+            221,
+            75
+          ],
+          "anchor_px": [
+            409,
+            409
+          ],
+          "bbox_local": [
+            221,
+            75,
+            605,
+            806
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 4,
+          "frame_1based": 5,
+          "rect": [
+            3272,
+            0,
+            818,
+            818
+          ],
+          "source_rect": [
+            1587,
+            233,
+            301,
+            394
+          ],
+          "source_offset_in_cell": [
+            211,
+            246
+          ],
+          "anchor_px": [
+            409,
+            409
+          ],
+          "bbox_local": [
+            211,
+            246,
+            512,
+            640
+          ],
+          "artwork_rgba_preserved": true
+        }
+      ],
+      "stage": "generated source; final game pixel/palette conversion pending",
+      "requested_pixel_dimensions_met": false
+    },
+    {
+      "id": "shaco_fx_w_throw",
+      "name_zh": "W翻滚魔盒",
+      "file": "shaco_fx_w_throw.png",
+      "frame_count": 4,
+      "size": [
+        2544,
+        636
+      ],
+      "cell_size": [
+        636,
+        636
+      ],
+      "requested_size": [
+        1024,
+        256
+      ],
+      "requested_cell_size": [
+        256,
+        256
+      ],
+      "raw_file": "raw/shaco_fx_w_throw.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "raw_working_grid": [
+        4,
+        1
+      ],
+      "target_game_size": [
+        10,
+        10
+      ],
+      "binding": "view_projectiles league_shaco_w_throw",
+      "placement": "right-facing projectile",
+      "frames": [
+        {
+          "index": 0,
+          "frame_1based": 1,
+          "rect": [
+            0,
+            0,
+            636,
+            636
+          ],
+          "source_rect": [
+            33,
+            102,
+            441,
+            421
+          ],
+          "source_offset_in_cell": [
+            79,
+            58
+          ],
+          "anchor_px": [
+            318,
+            318
+          ],
+          "bbox_local": [
+            79,
+            58,
+            520,
+            479
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 1,
+          "frame_1based": 2,
+          "rect": [
+            636,
+            0,
+            636,
+            636
+          ],
+          "source_rect": [
+            566,
+            103,
+            426,
+            565
+          ],
+          "source_offset_in_cell": [
+            70,
+            59
+          ],
+          "anchor_px": [
+            318,
+            318
+          ],
+          "bbox_local": [
+            70,
+            59,
+            496,
+            624
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 2,
+          "frame_1based": 3,
+          "rect": [
+            1272,
+            0,
+            636,
+            636
+          ],
+          "source_rect": [
+            1157,
+            85,
+            448,
+            494
+          ],
+          "source_offset_in_cell": [
+            117,
+            41
+          ],
+          "anchor_px": [
+            318,
+            318
+          ],
+          "bbox_local": [
+            117,
+            41,
+            565,
+            535
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 3,
+          "frame_1based": 4,
+          "rect": [
+            1908,
+            0,
+            636,
+            636
+          ],
+          "source_rect": [
+            1634,
+            147,
+            504,
+            497
+          ],
+          "source_offset_in_cell": [
+            52,
+            103
+          ],
+          "anchor_px": [
+            318,
+            318
+          ],
+          "bbox_local": [
+            52,
+            103,
+            556,
+            600
+          ],
+          "artwork_rgba_preserved": true
+        }
+      ],
+      "stage": "generated source; final game pixel/palette conversion pending",
+      "requested_pixel_dimensions_met": false
+    },
+    {
+      "id": "shaco_fx_w_land",
+      "name_zh": "W魔盒落地",
+      "file": "shaco_fx_w_land.png",
+      "frame_count": 5,
+      "size": [
+        5235,
+        698
+      ],
+      "cell_size": [
+        1047,
+        698
+      ],
+      "requested_size": [
+        1920,
+        256
+      ],
+      "requested_cell_size": [
+        384,
+        256
+      ],
+      "raw_file": "raw/shaco_fx_w_land.png",
+      "raw_size": [
+        1983,
+        793
+      ],
+      "raw_working_grid": [
+        5,
+        1
+      ],
+      "target_game_size": [
+        24,
+        16
+      ],
+      "binding": "view_effects league_shaco_w_land",
+      "placement": "ground, world position",
+      "frames": [
+        {
+          "index": 0,
+          "frame_1based": 1,
+          "rect": [
+            0,
+            0,
+            1047,
+            698
+          ],
+          "source_rect": [
+            82,
+            148,
+            300,
+            524
+          ],
+          "source_offset_in_cell": [
+            407,
+            41
+          ],
+          "anchor_px": [
+            523,
+            686
+          ],
+          "bbox_local": [
+            407,
+            41,
+            707,
+            565
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 1,
+          "frame_1based": 2,
+          "rect": [
+            1047,
+            0,
+            1047,
+            698
+          ],
+          "source_rect": [
+            382,
+            120,
+            411,
+            618
+          ],
+          "source_offset_in_cell": [
+            310,
+            13
+          ],
+          "anchor_px": [
+            523,
+            686
+          ],
+          "bbox_local": [
+            310,
+            13,
+            721,
+            631
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 2,
+          "frame_1based": 3,
+          "rect": [
+            2094,
+            0,
+            1047,
+            698
+          ],
+          "source_rect": [
+            793,
+            375,
+            397,
+            313
+          ],
+          "source_offset_in_cell": [
+            324,
+            268
+          ],
+          "anchor_px": [
+            523,
+            686
+          ],
+          "bbox_local": [
+            324,
+            268,
+            721,
+            581
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 3,
+          "frame_1based": 4,
+          "rect": [
+            3141,
+            0,
+            1047,
+            698
+          ],
+          "source_rect": [
+            1190,
+            359,
+            378,
+            394
+          ],
+          "source_offset_in_cell": [
+            325,
+            252
+          ],
+          "anchor_px": [
+            523,
+            686
+          ],
+          "bbox_local": [
+            325,
+            252,
+            703,
+            646
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 4,
+          "frame_1based": 5,
+          "rect": [
+            4188,
+            0,
+            1047,
+            698
+          ],
+          "source_rect": [
+            1605,
+            247,
+            350,
+            441
+          ],
+          "source_offset_in_cell": [
+            343,
+            140
+          ],
+          "anchor_px": [
+            523,
+            686
+          ],
+          "bbox_local": [
+            343,
+            140,
+            693,
+            581
+          ],
+          "artwork_rgba_preserved": true
+        }
+      ],
+      "stage": "generated source; final game pixel/palette conversion pending",
+      "requested_pixel_dimensions_met": false
+    },
+    {
+      "id": "shaco_fx_w_box",
+      "name_zh": "W弹出与射击",
+      "file": "shaco_fx_w_box.png",
+      "frame_count": 10,
+      "size": [
+        3870,
+        516
+      ],
+      "cell_size": [
+        387,
+        516
+      ],
+      "requested_size": [
+        3840,
+        512
+      ],
+      "requested_cell_size": [
+        384,
+        512
+      ],
+      "raw_file": "raw/shaco_fx_w_box.png",
+      "raw_size": [
+        1717,
+        916
+      ],
+      "raw_working_grid": [
+        5,
+        2
+      ],
+      "target_game_size": [
+        24,
+        32
+      ],
+      "binding": "view_effects league_shaco_w_box",
+      "placement": "ground, world position",
+      "frames": [
+        {
+          "index": 0,
+          "frame_1based": 1,
+          "rect": [
+            0,
+            0,
+            387,
+            516
+          ],
+          "source_rect": [
+            69,
+            33,
+            264,
+            477
+          ],
+          "source_offset_in_cell": [
+            90,
+            27
+          ],
+          "anchor_px": [
+            193,
+            504
+          ],
+          "bbox_local": [
+            90,
+            27,
+            354,
+            504
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 1,
+          "frame_1based": 2,
+          "rect": [
+            387,
+            0,
+            387,
+            516
+          ],
+          "source_rect": [
+            346,
+            21,
+            308,
+            489
+          ],
+          "source_offset_in_cell": [
+            24,
+            15
+          ],
+          "anchor_px": [
+            193,
+            504
+          ],
+          "bbox_local": [
+            24,
+            15,
+            332,
+            504
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 2,
+          "frame_1based": 3,
+          "rect": [
+            774,
+            0,
+            387,
+            516
+          ],
+          "source_rect": [
+            691,
+            32,
+            316,
+            478
+          ],
+          "source_offset_in_cell": [
+            26,
+            26
+          ],
+          "anchor_px": [
+            193,
+            504
+          ],
+          "bbox_local": [
+            26,
+            26,
+            342,
+            504
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 3,
+          "frame_1based": 4,
+          "rect": [
+            1161,
+            0,
+            387,
+            516
+          ],
+          "source_rect": [
+            1050,
+            119,
+            314,
+            391
+          ],
+          "source_offset_in_cell": [
+            41,
+            113
+          ],
+          "anchor_px": [
+            193,
+            504
+          ],
+          "bbox_local": [
+            41,
+            113,
+            355,
+            504
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 4,
+          "frame_1based": 5,
+          "rect": [
+            1548,
+            0,
+            387,
+            516
+          ],
+          "source_rect": [
+            1426,
+            77,
+            252,
+            433
+          ],
+          "source_offset_in_cell": [
+            74,
+            71
+          ],
+          "anchor_px": [
+            193,
+            504
+          ],
+          "bbox_local": [
+            74,
+            71,
+            326,
+            504
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 5,
+          "frame_1based": 6,
+          "rect": [
+            1935,
+            0,
+            387,
+            516
+          ],
+          "source_rect": [
+            45,
+            510,
+            296,
+            374
+          ],
+          "source_offset_in_cell": [
+            66,
+            98
+          ],
+          "anchor_px": [
+            193,
+            504
+          ],
+          "bbox_local": [
+            66,
+            98,
+            362,
+            472
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 6,
+          "frame_1based": 7,
+          "rect": [
+            2322,
+            0,
+            387,
+            516
+          ],
+          "source_rect": [
+            344,
+            510,
+            332,
+            374
+          ],
+          "source_offset_in_cell": [
+            22,
+            98
+          ],
+          "anchor_px": [
+            193,
+            504
+          ],
+          "bbox_local": [
+            22,
+            98,
+            354,
+            472
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 7,
+          "frame_1based": 8,
+          "rect": [
+            2709,
+            0,
+            387,
+            516
+          ],
+          "source_rect": [
+            778,
+            510,
+            229,
+            374
+          ],
+          "source_offset_in_cell": [
+            113,
+            98
+          ],
+          "anchor_px": [
+            193,
+            504
+          ],
+          "bbox_local": [
+            113,
+            98,
+            342,
+            472
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 8,
+          "frame_1based": 9,
+          "rect": [
+            3096,
+            0,
+            387,
+            516
+          ],
+          "source_rect": [
+            1036,
+            510,
+            330,
+            382
+          ],
+          "source_offset_in_cell": [
+            27,
+            98
+          ],
+          "anchor_px": [
+            193,
+            504
+          ],
+          "bbox_local": [
+            27,
+            98,
+            357,
+            480
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 9,
+          "frame_1based": 10,
+          "rect": [
+            3483,
+            0,
+            387,
+            516
+          ],
+          "source_rect": [
+            1413,
+            510,
+            242,
+            322
+          ],
+          "source_offset_in_cell": [
+            61,
+            98
+          ],
+          "anchor_px": [
+            193,
+            504
+          ],
+          "bbox_local": [
+            61,
+            98,
+            303,
+            420
+          ],
+          "artwork_rgba_preserved": true
+        }
+      ],
+      "stage": "generated source; final game pixel/palette conversion pending",
+      "requested_pixel_dimensions_met": false,
+      "loop_frames_1based": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "loop_target_seconds": 5
+    },
+    {
+      "id": "shaco_fx_r_boom",
+      "name_zh": "R幻像爆炸",
+      "file": "shaco_fx_r_boom.png",
+      "frame_count": 7,
+      "size": [
+        3780,
+        405
+      ],
+      "cell_size": [
+        540,
+        405
+      ],
+      "requested_size": [
+        3584,
+        384
+      ],
+      "requested_cell_size": [
+        512,
+        384
+      ],
+      "raw_file": "raw/shaco_fx_r_boom.png",
+      "raw_size": [
+        2048,
+        768
+      ],
+      "raw_working_grid": [
+        4,
+        2
+      ],
+      "target_game_size": [
+        60,
+        44
+      ],
+      "binding": "view_effects league_shaco_r_boom",
+      "placement": "ground, world position",
+      "frames": [
+        {
+          "index": 0,
+          "frame_1based": 1,
+          "rect": [
+            0,
+            0,
+            540,
+            405
+          ],
+          "source_rect": [
+            63,
+            31,
+            449,
+            355
+          ],
+          "source_offset_in_cell": [
+            77,
+            36
+          ],
+          "anchor_px": [
+            270,
+            393
+          ],
+          "bbox_local": [
+            77,
+            36,
+            526,
+            391
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 1,
+          "frame_1based": 2,
+          "rect": [
+            540,
+            0,
+            540,
+            405
+          ],
+          "source_rect": [
+            519,
+            37,
+            491,
+            351
+          ],
+          "source_offset_in_cell": [
+            21,
+            42
+          ],
+          "anchor_px": [
+            270,
+            393
+          ],
+          "bbox_local": [
+            21,
+            42,
+            512,
+            393
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 2,
+          "frame_1based": 3,
+          "rect": [
+            1080,
+            0,
+            540,
+            405
+          ],
+          "source_rect": [
+            1071,
+            49,
+            435,
+            339
+          ],
+          "source_offset_in_cell": [
+            61,
+            54
+          ],
+          "anchor_px": [
+            270,
+            393
+          ],
+          "bbox_local": [
+            61,
+            54,
+            496,
+            393
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 3,
+          "frame_1based": 4,
+          "rect": [
+            1620,
+            0,
+            540,
+            405
+          ],
+          "source_rect": [
+            1537,
+            19,
+            479,
+            367
+          ],
+          "source_offset_in_cell": [
+            15,
+            24
+          ],
+          "anchor_px": [
+            270,
+            393
+          ],
+          "bbox_local": [
+            15,
+            24,
+            494,
+            391
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 4,
+          "frame_1based": 5,
+          "rect": [
+            2160,
+            0,
+            540,
+            405
+          ],
+          "source_rect": [
+            58,
+            399,
+            448,
+            331
+          ],
+          "source_offset_in_cell": [
+            72,
+            24
+          ],
+          "anchor_px": [
+            270,
+            393
+          ],
+          "bbox_local": [
+            72,
+            24,
+            520,
+            355
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 5,
+          "frame_1based": 6,
+          "rect": [
+            2700,
+            0,
+            540,
+            405
+          ],
+          "source_rect": [
+            557,
+            388,
+            463,
+            344
+          ],
+          "source_offset_in_cell": [
+            59,
+            13
+          ],
+          "anchor_px": [
+            270,
+            393
+          ],
+          "bbox_local": [
+            59,
+            13,
+            522,
+            357
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 6,
+          "frame_1based": 7,
+          "rect": [
+            3240,
+            0,
+            540,
+            405
+          ],
+          "source_rect": [
+            1025,
+            388,
+            511,
+            356
+          ],
+          "source_offset_in_cell": [
+            15,
+            13
+          ],
+          "anchor_px": [
+            270,
+            393
+          ],
+          "bbox_local": [
+            15,
+            13,
+            526,
+            369
+          ],
+          "artwork_rgba_preserved": true
+        }
+      ],
+      "stage": "generated source; final game pixel/palette conversion pending",
+      "requested_pixel_dimensions_met": false
+    },
+    {
+      "id": "shaco_fx_r_mini",
+      "name_zh": "R三个小魔盒",
+      "file": "shaco_fx_r_mini.png",
+      "frame_count": 10,
+      "size": [
+        5620,
+        281
+      ],
+      "cell_size": [
+        562,
+        281
+      ],
+      "requested_size": [
+        5120,
+        256
+      ],
+      "requested_cell_size": [
+        512,
+        256
+      ],
+      "raw_file": "raw/shaco_fx_r_mini.png",
+      "raw_size": [
+        2043,
+        770
+      ],
+      "raw_working_grid": [
+        4,
+        3
+      ],
+      "target_game_size": [
+        64,
+        32
+      ],
+      "binding": "view_effects league_shaco_r_mini",
+      "placement": "ground, world position",
+      "frames": [
+        {
+          "index": 0,
+          "frame_1based": 1,
+          "rect": [
+            0,
+            0,
+            562,
+            281
+          ],
+          "source_rect": [
+            25,
+            37,
+            470,
+            223
+          ],
+          "source_offset_in_cell": [
+            51,
+            41
+          ],
+          "anchor_px": [
+            281,
+            269
+          ],
+          "bbox_local": [
+            51,
+            41,
+            521,
+            264
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 1,
+          "frame_1based": 2,
+          "rect": [
+            562,
+            0,
+            562,
+            281
+          ],
+          "source_rect": [
+            512,
+            8,
+            510,
+            255
+          ],
+          "source_offset_in_cell": [
+            27,
+            12
+          ],
+          "anchor_px": [
+            281,
+            269
+          ],
+          "bbox_local": [
+            27,
+            12,
+            537,
+            267
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 2,
+          "frame_1based": 3,
+          "rect": [
+            1124,
+            0,
+            562,
+            281
+          ],
+          "source_rect": [
+            1022,
+            8,
+            510,
+            257
+          ],
+          "source_offset_in_cell": [
+            26,
+            12
+          ],
+          "anchor_px": [
+            281,
+            269
+          ],
+          "bbox_local": [
+            26,
+            12,
+            536,
+            269
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 3,
+          "frame_1based": 4,
+          "rect": [
+            1686,
+            0,
+            562,
+            281
+          ],
+          "source_rect": [
+            1606,
+            24,
+            360,
+            241
+          ],
+          "source_offset_in_cell": [
+            99,
+            28
+          ],
+          "anchor_px": [
+            281,
+            269
+          ],
+          "bbox_local": [
+            99,
+            28,
+            459,
+            269
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 4,
+          "frame_1based": 5,
+          "rect": [
+            2248,
+            0,
+            562,
+            281
+          ],
+          "source_rect": [
+            62,
+            282,
+            405,
+            231
+          ],
+          "source_offset_in_cell": [
+            88,
+            38
+          ],
+          "anchor_px": [
+            281,
+            269
+          ],
+          "bbox_local": [
+            88,
+            38,
+            493,
+            269
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 5,
+          "frame_1based": 6,
+          "rect": [
+            2810,
+            0,
+            562,
+            281
+          ],
+          "source_rect": [
+            514,
+            266,
+            508,
+            247
+          ],
+          "source_offset_in_cell": [
+            29,
+            22
+          ],
+          "anchor_px": [
+            281,
+            269
+          ],
+          "bbox_local": [
+            29,
+            22,
+            537,
+            269
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 6,
+          "frame_1based": 7,
+          "rect": [
+            3372,
+            0,
+            562,
+            281
+          ],
+          "source_rect": [
+            1022,
+            265,
+            506,
+            248
+          ],
+          "source_offset_in_cell": [
+            26,
+            21
+          ],
+          "anchor_px": [
+            281,
+            269
+          ],
+          "bbox_local": [
+            26,
+            21,
+            532,
+            269
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 7,
+          "frame_1based": 8,
+          "rect": [
+            3934,
+            0,
+            562,
+            281
+          ],
+          "source_rect": [
+            1607,
+            265,
+            372,
+            248
+          ],
+          "source_offset_in_cell": [
+            100,
+            21
+          ],
+          "anchor_px": [
+            281,
+            269
+          ],
+          "bbox_local": [
+            100,
+            21,
+            472,
+            269
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 8,
+          "frame_1based": 9,
+          "rect": [
+            4496,
+            0,
+            562,
+            281
+          ],
+          "source_rect": [
+            27,
+            513,
+            484,
+            233
+          ],
+          "source_offset_in_cell": [
+            53,
+            12
+          ],
+          "anchor_px": [
+            281,
+            269
+          ],
+          "bbox_local": [
+            53,
+            12,
+            537,
+            245
+          ],
+          "artwork_rgba_preserved": true
+        },
+        {
+          "index": 9,
+          "frame_1based": 10,
+          "rect": [
+            5058,
+            0,
+            562,
+            281
+          ],
+          "source_rect": [
+            511,
+            513,
+            511,
+            243
+          ],
+          "source_offset_in_cell": [
+            26,
+            12
+          ],
+          "anchor_px": [
+            281,
+            269
+          ],
+          "bbox_local": [
+            26,
+            12,
+            537,
+            255
+          ],
+          "artwork_rgba_preserved": true
+        }
+      ],
+      "stage": "generated source; final game pixel/palette conversion pending",
+      "requested_pixel_dimensions_met": false,
+      "loop_frames_1based": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "loop_target_seconds": 2.5
+    }
+  ],
+  "notes": [
+    "Use frames[].rect; root PNGs are one-row equal-aspect strips at source scale, not requested exact dimensions.",
+    "raw/ preserves selected native tool PNGs exactly.",
+    "Preview GIF timings are demonstrations only, except fear1second; use supplied game contract when importing.",
+    "LoL reference atlas excluded; clone hero art is not generated in this pack."
+  ]
+}

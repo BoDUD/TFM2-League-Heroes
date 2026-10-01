@@ -88,7 +88,7 @@ NECK_EYES = {("fiora", "hit", 0): (-19, 3)}
 # outline": every hero from Nami on; the user: "后面英雄都要用的"; and the older ones whose outline CLEAN tidies, which
 # needs it closed). Nothing goes under the soles row; a frame that already reaches lower (lying down) keeps its own
 # bottom.
-COMPLETE = {"nami", "veigar", "jax", "ahri", "taric", "tristana", "fiora", "diana", "leesin", "missfortune", "fizz",
+COMPLETE = {"nami", "veigar", "jax", "ahri", "taric", "tristana", "fiora", "diana", "leesin", "missfortune", "fizz", "shaco",
             "blitzcrank"}
 # hero: the luminance from which an edge pixel gets the outline (complete_outline's `dark`, default 70). Fiora's teal
 # leggings (luminance ~58) and wine cape (~44) edge many action frames without black: tfm2_ase.py metrics counts only
@@ -180,6 +180,8 @@ ORDER = {("lux", "idle"): [0, 0, 0, 0, 0, 0],   # the step-2 idle is the design 
          ("fiora", "idle"): [0, 0, 0, 0, 0, 0],
          # and Fizz (Codex's game-size design A read back, 32 rows: the pack's idle is the design in all six)
          ("fizz", "idle"): [0, 0, 0, 0, 0, 0],
+         # and Shaco (Codex's 46-row design v4 A with its ruff patch: the pack's idle is the design in all six)
+         ("shaco", "idle"): [0, 0, 0, 0, 0, 0],
          # and Blitzcrank (Codex's game-size design B2, fixed by hand: the pack's idle is the design in all six)
          ("blitzcrank", "idle"): [0, 0, 0, 0, 0, 0]}
 # (hero, tag): (y, slots) - in those slots everything at or above pivot row y moves down a row (the row under
@@ -263,6 +265,9 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        # 3 squares of outline and 4 of colour change and the boots stay
        ("fiora", "idle"): (8, [2, 3, 4]),
        ("fizz", "idle"): (8, [2, 3, 4]),      # ankles: the row under the seam is the one above it, one px wider
+       # Shaco (43 rows since shrink_shaco.py): the seam in the pantaloons' lowest band of checks (rows 91/92 under the
+       # pivot are one band: 5 squares differ); lower down every row is a gold band, the spikes or the shoes
+       ("shaco", "idle"): (3, [2, 3, 4]),
        # Blitzcrank: his fists hang down beside his feet, so every seam over the soles cuts them and the pistons; across
        # the feet (rows 9/10: the same outline, 16 squares of shading) the body, the fists and the ankles sink a row
        ("blitzcrank", "idle"): (9, [2, 3, 4])}
@@ -306,6 +311,7 @@ EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade
         "tristana": (246, 186, 48),       # the goggle cups top every frame; the amber is only in her eyes
         "fiora": (24, 180, 200),          # her raised rapier tops some frames; the teal is used only in her eyes
         "fizz": (32, 174, 86),            # the trident tops the attack, E and R frames; the green is only in his eyes
+        "shaco": (3, 167, 233),           # the hat's horns top every frame; the ice cyan is used only in his eyes
         "blitzcrank": (243, 164, 217)}    # the smokestacks and the raised fists top the frames; the pink is the eyes
 
 

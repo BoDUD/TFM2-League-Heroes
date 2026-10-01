@@ -124,7 +124,7 @@ def showcase(out, z=3, step=40):
     # Dazzle, on tick 12: the beam charges along the ground and bursts 44 ticks later on Darius (stunned 75 ticks);
     # round Ashe the link's burst starts 2 ticks later and hits on the same tick: Garen, beside her, is stunned too
     cast = t + tick(12)
-    fx_at(big, "e_beam", cast, x + 31, gy, ground=True)
+    fx_at(big, "e_beam", cast, x + 40, gy, ground=True)              # the middle of the 80000 line
     burst = cast + tick(44)
     fx_at(big, "e_ally", cast + tick(LINK), xa, ya, ground=True)
     for foe in (d, g):

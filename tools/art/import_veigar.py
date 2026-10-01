@@ -11,10 +11,10 @@ source pixels it covers, opaque when a third of them are solid, every colour sna
 energy ramp, the void darks, the evil gold). Writes assets/source/veigar/veigar_fx_<name>.png plus
 veigar_fx_anchors.json.
 One scale per strip, set by the kit (1000 distance units a pixel): the attack bolt 12 px long, its hit 12; Q's bolt
-22 long, its hit 16; the stack glow's cell 48 wide round his 37x40 body; the cage 64 wide (the zone's radius 28000,
+22 long, its hit 16; the stack glow's cell 48 wide round his 37x40 body; the cage 78 wide (the zone's radius 34000,
 the picture a little inside the reach it gets with the units' own radius) - Codex drew its bars as tall as the ring
-is wide (60 px at that scale, taller than Darius), so the rows over the ring's back edge (row 82 of the cell) are
-sampled 0.45 times as tall: walls of about 20 px, as the pack asked; the stun ring 16; Dark Matter's fall 48 at
+is wide (73 px at that scale, taller than Darius), so the rows over the ring's back edge (row 82 of the cell) are
+sampled 0.37 times as tall: walls of about 20 px, as the pack asked; the stun ring 16; Dark Matter's fall 48 at
 its widest (the blast circle 22000), its hit on a unit 16; the ult's gathering orb 20, its bolt 20 long, its
 explosion 30. The three bolts are drawn facing right and are mirrored top to bottom into exact symmetry (the game
 turns them to their flight; a lopsided bolt would wobble between directions).
@@ -69,7 +69,7 @@ RAW = {
     "p_gain": dict(n=5, size=48, measure="cellw", x="cell", y="cell"),
     "q_bolt": dict(n=4, size=22, measure="w", x=("core", None), y=("core", None), mirror=True),
     "q_hit": dict(n=5, size=16, measure="w", x="centre", y="centre"),
-    "e_cage": dict(n=10, size=64, measure="w", x=("frame", [0]), y=("frame", [0]), squash=(82, 0.45)),
+    "e_cage": dict(n=10, size=78, measure="w", x=("frame", [0]), y=("frame", [0]), squash=(82, 0.37)),
     "e_stun": dict(n=4, size=16, measure="w", x="cell", y="cell"),
     "w_fall": dict(n=9, size=48, measure="w", x=("lowest", [0, 1, 2, 3]), y=("lowest", [0, 1, 2, 3])),
     "w_hit": dict(n=5, size=16, measure="w", x="centre", y="centre"),

@@ -23,7 +23,8 @@ hands, the haste lines 24 px at his feet.
 
 The second step places every cell by its anchor: the bullets, the bolt and the beam ride their projectiles (the
 bullets' noses a little ahead; the beam's carrier stands raised to the muzzle, so its picture starts 21 px ahead of
-it); the hits on the upper body; the dash's ring, the star cross, the mark and the haste lines on the feet (a
+it; The Culling's raised carrier shows nothing on its first tick and then only what has left the barrel, R_IN); the
+hits on the upper body; the dash's ring, the star cross, the mark and the haste lines on the feet (a
 picture on a point or on a unit is drawn at its pivot, 11 px above the soles). Writes
 league/effects/league_lucian_fx.
 """
@@ -60,7 +61,12 @@ HANDS = (1, -16)                       # between his hands (the redesign's idle)
 RAY_AHEAD, RAY_LEN, RAY_SPEED = 21, 80, 1
 RAY_FRAMES = [2, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 5, 5]
 RAY_AFTER = 2000                       # ms of nothing: the carrier creeps on to the target (70000 at 1000 a tick: 1.2 s)
-Q_RAY = [(f, (RAY_AHEAD + RAY_LEN // 2 - RAY_SPEED * i, 0), 1000 / 60) for i, f in enumerate(RAY_FRAMES)]
+# Nothing on the carrier's first tick: a TargetProjectile is spawned at his pivot with no direction (0, 0) and its
+# first move, in that same tick, jumps the 13000 of its y_offset lift straight up (plus one 1000 step), so the game
+# turns its picture straight up for that tick - the whole beam flashed upward, then pointed at the target ("一道射在
+# 固定角度，再向目标射一道"). From the second tick every move is a 1000 step at the target.
+RAY_SKIP = 1
+Q_RAY = [(f, (RAY_AHEAD + RAY_LEN // 2 - RAY_SPEED * i, 0), 1000 / 60) for i, f in enumerate(RAY_FRAMES, RAY_SKIP)]
 
 # raw strip -> native (keys as in tools/art/import_fiddlesticks.py RAW; x / y "pivot": the frame's pivot in Codex's
 # manifest - the middle of a hit, the feet of a burst drawn round a figure, the middle line of a flying picture)
@@ -99,6 +105,20 @@ TRACER = [
      (3, 3, 4, "blue"), (3, 5, 9, "deep")],
 ]
 TRACER_LEN, TRACER_H = 28, 3                     # px behind the nose (0-27); rows above and below the middle
+# The Culling's picture rides a TargetProjectile lifted to the pistol that fires (the kit: league_lucian_r_bullet; the
+# damage is on an unseen LinearProjectile beside it). It starts at his pivot, and its first move, in its first tick,
+# is the lift plus a 12 px step, so nothing is drawn that tick (as on Piercing Light's carrier); the muzzles of the
+# ult frames are R_MUZZLE px ahead of his pivot, so the next two ticks draw only what has left the barrel (the nose 24
+# and 36 px ahead: 4 and 16 px of the first tracer), then the whole tracer - no streak from his hips across his back
+# (the user: "卢锡安开大时子弹不是从枪口里射出去的"). It plays once (the kit's view: repeat false), the last tracer held.
+R_SKIP, R_STEP, R_MUZZLE = 1, 12, 20
+R_IN = [R_STEP * (R_SKIP + 1 + i) - R_MUZZLE for i in range(2)]
+
+
+def front(rows, n):
+    """A drawn tracer frame cut to its first n px behind the nose."""
+    return [(dy, x0, min(x1, n - 1), col) for dy, x0, x1, col in rows if x0 < n]
+
 
 # Lightslinger's two shots, drawn the same way so they show (the user could not see the double shot): a 22 px tracer
 # 5 px thick, the first in the beam's blues from the raised pistol, the second in gold from the lower one
@@ -115,7 +135,7 @@ SHOT = [
 ]
 GOLD_BEAM = {"deep": (110, 76, 24), "dark": (138, 100, 32), "blue": (200, 150, 46), "light": (240, 200, 90),
              "white": (255, 246, 214)}
-DRAWN_SPEC = {"r_bullet": (TRACER, TRACER_LEN, TRACER_H, BEAM),
+DRAWN_SPEC = {"r_bullet": ([front(TRACER[0], n) for n in R_IN] + TRACER, TRACER_LEN, TRACER_H, BEAM),
               "ls_shot": (SHOT, 22, 2, BEAM), "ls_shot2": (SHOT, 22, 2, GOLD_BEAM)}
 DRAWN = {k: len(v[0]) for k, v in DRAWN_SPEC.items()}     # strips made here, not from Codex's raw: their cells
 
@@ -266,7 +286,7 @@ FX = {
         "w_burst": ("w_burst", range(7), FEET, [50] * 7),
         "w_mark": ("w_mark", range(4), FEET, [120] * 4),
         "w_haste": ("w_haste", range(4), FEET, [60] * 4),
-        "r_bullet": ("r_bullet", range(3), (0, 0), [40] * 3),
+        "r_bullet": ("r_bullet", [0, 1] + [2, 3, 4] * 3, (0, 0), [1000 / 60] * 2 + [40] * 8 + [1000]),
         "r_hit": ("r_hit", range(3), HIT, [40] * 3),
     },
 }
@@ -283,6 +303,9 @@ def build():
             strip = cells(src, RAW[src]["n"] if src in RAW else DRAWN[src])
             spots = spot if isinstance(spot, list) else [spot] * len(ms)       # one spot, or one a frame
             out[tag] = [(G.centre_frame(strip[k], sx - ax, sy - ay), m) for k, (sx, sy), m in zip(used, spots, ms)]
+            if tag in ("q_ray", "r_bullet"):
+                skip = RAY_SKIP if tag == "q_ray" else R_SKIP
+                out[tag].insert(0, (np.zeros((1, 1, 4), np.uint8), skip * 1000 / 60))
             if tag == "q_ray":
                 out[tag].append((np.zeros((1, 1, 4), np.uint8), RAY_AFTER))
         sheets[sprite] = out
