@@ -231,6 +231,13 @@
         "skill": "<#ff9028ff>炫光<>：朝敌人投射一道星光，<#ffb900ff>0.75秒<>后沿直线爆裂，造成<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>2% 最大生命值<>的<#a974ffff>魔法伤害<>并<#ef5350ff>晕眩<><#ffb900ff>1.25秒<>。",
         "skill2": "<#ff9028ff>星光之触<>：消耗全部层数（最多<#ffb900ff>3<>层），每层为自己和附近友方英雄回复<#6aff55ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<>的<#6aff55ff>生命值<>。<#ff9028ff>坚毅壁垒<>（<#ffb900ff>12秒<>）：给身边队友<#e8d44dff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>的<#e8d44dff>护盾<>和<i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>15护甲<>并相连，技能也会在他身边施放。",
         "ult": "<#ff9028ff>宇宙之辉<>：团战开始时召唤星光，<#ffb900ff>2.5秒<>后自己和附近的友方英雄（相连的队友身边也算）<#e8d44dff>免疫伤害<><#ffb900ff>2.5秒<>。"
+      },
+      "league_tristana": {
+        "name": "崔丝塔娜",
+        "attack": "普攻发射炮弹，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。被动 <#ff9028ff>瞄准<>：<#ffb900ff>3/6/9/12级<>时<i#asset/base/ui/banpick/champion_stat_icon:range_0><#ff86c2ff>射程<>各提高<#ffb900ff>4.5%<>。<#ff9028ff>爆炸火花<>：普攻击杀的敌人会爆炸，对周围敌人造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30% 攻击力<>的<#ff9028ff>物理伤害<>。",
+        "skill": "向目标投掷炸弹，<#ffb900ff>4秒<>后爆炸，对周围敌人造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80% 攻击力<>的<#ff9028ff>物理伤害<>；她每命中一次伤害 +<#ffb900ff>25%<>，第<#ffb900ff>4<>次立即引爆。同时<#ff9028ff>急速射击<>：<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻速+80%<>，持续<#ffb900ff>7秒<>。",
+        "skill2": "炮弹打中炸弹已叠<#ffb900ff>2<>层以上的敌方英雄时跳到他身边；开炮时有敌方英雄贴身则向后跳开。落地对周围敌人造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% 攻击力<>的<#ff9028ff>物理伤害<>并<#ef5350ff>减速40%<>，持续<#ffb900ff>2秒<>。冷却<#ffb900ff>18秒<>；她击杀敌方英雄或满层引爆英雄身上的炸弹时刷新。",
+        "ult": "对敌方英雄发射巨型炮弹（优先贴身的），对目标及周围敌人造成<#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120% 攻击力<>的<#ff9028ff>物理伤害<>，将他们<#ef5350ff>击退<>，落地后<#ef5350ff>眩晕<><#ffb900ff>0.5秒<>。"
       }
     },
     "skill_name": {
@@ -398,6 +405,11 @@
         "skill1": "炫光",
         "skill2": "星光之触",
         "ult": "宇宙之辉"
+      },
+      "league_tristana": {
+        "skill1": "爆炸火花",
+        "skill2": "火箭跳跃",
+        "ult": "毁灭射击"
       }
     }
   },
@@ -633,6 +645,13 @@
         "skill": "<#ff9028ff>失能眩光<>：朝敵人投射一道星光，<#ffb900ff>0.75秒<>後沿直線爆裂，造成<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>2% 最大生命<>的<#a974ffff>魔法傷害<>並<#ef5350ff>暈眩<><#ffb900ff>1.25秒<>。",
         "skill2": "<#ff9028ff>星光之觸<>：消耗全部層數（最多<#ffb900ff>3<>層），每層為自己和附近友方英雄回復<#6aff55ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<>的<#6aff55ff>生命<>。<#ff9028ff>雙星壁壘<>（<#ffb900ff>12秒<>）：給身邊隊友<#e8d44dff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>的<#e8d44dff>護盾<>和<i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>15護甲<>並相連，技能也會在他身邊施放。",
         "ult": "<#ff9028ff>宇宙光彩<>：團戰開始時召喚星光，<#ffb900ff>2.5秒<>後自己和附近的友方英雄（相連的隊友身邊也算）<#e8d44dff>免疫傷害<><#ffb900ff>2.5秒<>。"
+      },
+      "league_tristana": {
+        "name": "崔絲塔娜",
+        "attack": "普攻發射砲彈，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。被動 <#ff9028ff>校準射擊<>：<#ffb900ff>3/6/9/12級<>時<i#asset/base/ui/banpick/champion_stat_icon:range_0><#ff86c2ff>射程<>各提高<#ffb900ff>4.5%<>。<#ff9028ff>爆炸射擊<>：普攻擊殺的敵人會爆炸，對周圍敵人造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30% 攻擊力<>的<#ff9028ff>物理傷害<>。",
+        "skill": "向目標投擲炸彈，<#ffb900ff>4秒<>後爆炸，對周圍敵人造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80% 攻擊力<>的<#ff9028ff>物理傷害<>；她每命中一次傷害 +<#ffb900ff>25%<>，第<#ffb900ff>4<>次立即引爆。同時<#ff9028ff>急速射擊<>：<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻速+80%<>，持續<#ffb900ff>7秒<>。",
+        "skill2": "砲彈打中炸彈已疊<#ffb900ff>2<>層以上的敵方英雄時跳到他身邊；開砲時有敵方英雄貼身則向後跳開。落地對周圍敵人造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% 攻擊力<>的<#ff9028ff>物理傷害<>並<#ef5350ff>緩速40%<>，持續<#ffb900ff>2秒<>。冷卻<#ffb900ff>18秒<>；她擊殺敵方英雄或滿層引爆英雄身上的炸彈時重置。",
+        "ult": "對敵方英雄發射巨型砲彈（優先貼身的），對目標及周圍敵人造成<#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120% 攻擊力<>的<#ff9028ff>物理傷害<>，將他們<#ef5350ff>擊退<>，落地後<#ef5350ff>暈眩<><#ffb900ff>0.5秒<>。"
       }
     },
     "skill_name": {
@@ -800,6 +819,11 @@
         "skill1": "失能眩光",
         "skill2": "星光之觸",
         "ult": "宇宙光彩"
+      },
+      "league_tristana": {
+        "skill1": "爆炸射擊",
+        "skill2": "火箭跳躍",
+        "ult": "毀滅射擊"
       }
     }
   },
@@ -1035,6 +1059,13 @@
         "skill": "<#ff9028ff>Dazzle<>: Taric projects a beam of starlight at an enemy. After <#ffb900ff>0.75s<> it bursts, dealing <#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% AP<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>2% max Health<> <#a974ffff>magic damage<> and <#ef5350ff>stunning<> enemies on the line for <#ffb900ff>1.25s<>.",
         "skill2": "<#ff9028ff>Starlight's Touch<>: spends every stack (max <#ffb900ff>3<>; one every <#ffb900ff>5s<> and per Bravado hit) to heal him and nearby allied champions for <#6aff55ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12% AP<> per stack. <#ff9028ff>Bastion<> (every <#ffb900ff>12s<>): an ally beside him gets a <#e8d44dff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% AP<> <#e8d44dff>shield<> and <i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>15 Armor<> and is linked: his spells also go off around that ally.",
         "ult": "<#ff9028ff>Cosmic Radiance<>: as a fight begins Taric calls down the heavens; after <#ffb900ff>2.5s<> he and nearby allied champions (also around his linked ally) are <#e8d44dff>invulnerable<> for <#ffb900ff>2.5s<>."
+      },
+      "league_tristana": {
+        "name": "Tristana",
+        "attack": "Basic attacks fire a cannonball for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. Passive <#ff9028ff>Draw a Bead<>: <i#asset/base/ui/banpick/champion_stat_icon:range_0><#ff86c2ff>attack range<> +<#ffb900ff>4.5%<> at levels <#ffb900ff>3, 6, 9 and 12<>. <#ff9028ff>Explosive Charge<>: enemies her basic attacks kill explode, dealing <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30% AD<> <#ff9028ff>physical damage<> to enemies around.",
+        "skill": "Tristana throws a charge on the target that explodes after <#ffb900ff>4s<>, dealing <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80% AD<> <#ff9028ff>physical damage<> around it; each of her hits adds <#ffb900ff>25%<>, and the <#ffb900ff>4th<> detonates it at once. <#ff9028ff>Rapid Fire<>: she also gains <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>80% attack speed<> for <#ffb900ff>7s<>.",
+        "skill2": "When her cannonball hits an enemy champion whose charge holds <#ffb900ff>2<>+ stacks, Tristana jumps onto him; firing with an enemy champion on top of her, she jumps away. Landing deals <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% AD<> <#ff9028ff>physical damage<> around her and <#ef5350ff>slows<> by 40% for <#ffb900ff>2s<>. Cooldown <#ffb900ff>18s<>, reset when she kills an enemy champion or detonates a full charge on one.",
+        "ult": "Tristana fires a massive cannonball at an enemy champion (one close to her first), dealing <#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120% AD<> <#ff9028ff>physical damage<> to it and the enemies around, <#ef5350ff>knocking them back<> and <#ef5350ff>stunning<> them for <#ffb900ff>0.5s<> where they land."
       }
     },
     "skill_name": {
@@ -1202,6 +1233,11 @@
         "skill1": "Dazzle",
         "skill2": "Starlight's Touch",
         "ult": "Cosmic Radiance"
+      },
+      "league_tristana": {
+        "skill1": "Explosive Charge",
+        "skill2": "Rocket Jump",
+        "ult": "Buster Shot"
       }
     }
   },
@@ -1437,6 +1473,13 @@
         "skill": "<#ff9028ff>황홀한 강타<>: 적에게 별빛을 쏘아 <#ffb900ff>0.75초<> 뒤 직선으로 폭발시켜 <#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>최대 체력의 2%<>의 <#a974ffff>마법 피해<>를 입히고 <#ffb900ff>1.25초<> 동안 <#ef5350ff>기절<>시킵니다.",
         "skill2": "<#ff9028ff>별빛 손길<>: 모든 충전(최대 <#ffb900ff>3<>회)을 소모해 충전당 자신과 주변 아군 챔피언의 체력을 <#6aff55ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<> 회복합니다. <#ff9028ff>수호의 고리<>(<#ffb900ff>12초<>): 옆의 아군에게 <#e8d44dff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>의 <#e8d44dff>보호막<>과 <i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>방어력 15<>를 주고 연결되어, 스킬이 그 아군 주변에서도 발동합니다.",
         "ult": "<#ff9028ff>우주의 광휘<>: 교전이 시작되면 하늘의 빛을 불러 <#ffb900ff>2.5초<> 뒤 자신과 주변 아군 챔피언(연결된 아군 주변 포함)이 <#ffb900ff>2.5초<> 동안 <#e8d44dff>무적<>이 됩니다."
+      },
+      "league_tristana": {
+        "name": "트리스타나",
+        "attack": "기본 공격으로 포탄을 쏘아 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다. 기본 지속 효과 <#ff9028ff>정조준<>: <#ffb900ff>3/6/9/12레벨<>에 <i#asset/base/ui/banpick/champion_stat_icon:range_0><#ff86c2ff>사거리<>가 각각 <#ffb900ff>4.5%<> 증가합니다. <#ff9028ff>폭발 화약<>: 기본 공격으로 처치한 적이 폭발해 주변 적에게 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 30%<> <#ff9028ff>물리 피해<>를 입힙니다.",
+        "skill": "대상에게 화약을 붙여 <#ffb900ff>4초<> 후 폭발시켜 주변 적에게 <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 80%<> <#ff9028ff>물리 피해<>를 입힙니다. 적중할 때마다 피해량이 <#ffb900ff>25%<> 증가하며 <#ffb900ff>4<>번째에 즉시 폭발합니다. <#ff9028ff>속사<>: 동시에 <#ffb900ff>7초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>공격 속도가 80%<> 증가합니다.",
+        "skill2": "포탄이 화약 <#ffb900ff>2<>중첩 이상인 적 챔피언을 맞히면 그에게 뛰어들고, 적 챔피언이 붙어 있을 때 포를 쏘면 뒤로 뛰어 벗어납니다. 착지 시 주변 적에게 <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 60%<> <#ff9028ff>물리 피해<>를 입히고 <#ffb900ff>2초<> 동안 <#ef5350ff>40% 둔화<>시킵니다. 재사용 대기시간 <#ffb900ff>18초<>, 적 챔피언을 처치하거나 최대 중첩 화약을 터뜨리면 초기화됩니다.",
+        "ult": "적 챔피언(가까운 적 우선)에게 거대한 포탄을 발사해 대상과 주변 적에게 <#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 120%<> <#ff9028ff>물리 피해<>를 입히고 <#ef5350ff>뒤로 밀어내며<>, 떨어진 곳에서 <#ffb900ff>0.5초<> 동안 <#ef5350ff>기절<>시킵니다."
       }
     },
     "skill_name": {
@@ -1604,6 +1647,11 @@
         "skill1": "황홀한 강타",
         "skill2": "별빛 손길",
         "ult": "우주의 광휘"
+      },
+      "league_tristana": {
+        "skill1": "폭발 화약",
+        "skill2": "로켓 점프",
+        "ult": "대구경 탄환"
       }
     }
   },
@@ -1839,6 +1887,13 @@
         "skill": "<#ff9028ff>ダズル<>：敵に向けて星光を放ち、<#ffb900ff>0.75秒<>後に直線上で炸裂して<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>最大体力の2%<>の<#a974ffff>魔法ダメージ<>を与え、<#ffb900ff>1.25秒<>間<#ef5350ff>スタン<>させる。",
         "skill2": "<#ff9028ff>スターライトタッチ<>：チャージ（最大<#ffb900ff>3<>）を全て使い、1チャージごとに自身と周囲の味方の体力を<#6aff55ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<>回復。<#ff9028ff>バスティオン<>（<#ffb900ff>12秒<>）：近くの味方に<#e8d44dff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の<#e8d44dff>シールド<>と<i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>物理防御15<>を与えて連結し、スキルがその味方の周囲でも発動する。",
         "ult": "<#ff9028ff>コズミックレディアンス<>：集団戦の開始時に天の光を呼び、<#ffb900ff>2.5秒<>後に自身と周囲の味方（連結した味方の周囲も）が<#ffb900ff>2.5秒<>間<#e8d44dff>無敵<>になる。"
+      },
+      "league_tristana": {
+        "name": "トリスターナ",
+        "attack": "通常攻撃は砲弾を撃ち、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>を与える。パッシブ <#ff9028ff>ドロー＆グロー<>：<#ffb900ff>レベル3/6/9/12<>で<i#asset/base/ui/banpick/champion_stat_icon:range_0><#ff86c2ff>射程<>がそれぞれ<#ffb900ff>4.5%<>伸びる。<#ff9028ff>ヨードルグレネード<>：通常攻撃で倒した敵が爆発し、周囲の敵に<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の30%<>の<#ff9028ff>物理ダメージ<>。",
+        "skill": "対象に爆弾を付け、<#ffb900ff>4秒<>後に爆発して周囲の敵に<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の80%<>の<#ff9028ff>物理ダメージ<>。命中するたびにダメージ+<#ffb900ff>25%<>、<#ffb900ff>4<>回目で即爆発。<#ff9028ff>ラピッドファイア<>：同時に<#ffb900ff>7秒<>間<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻撃速度+80%<>。",
+        "skill2": "砲弾が爆弾<#ffb900ff>2<>スタック以上の敵チャンピオンに当たると跳び込み、密着されて撃つと後ろへ跳ぶ。着地時、周囲の敵に<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の60%<>の<#ff9028ff>物理ダメージ<>と<#ffb900ff>2秒<>間<#ef5350ff>40%スロウ<>。CD<#ffb900ff>18秒<>、敵チャンピオンを倒すか最大スタックの爆弾を爆発させるとリセット。",
+        "ult": "敵チャンピオン（近くの敵を優先）に巨大な砲弾を撃ち、対象と周囲の敵に<#ff9028ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の120%<>の<#ff9028ff>物理ダメージ<>を与えて<#ef5350ff>ノックバック<>し、着地後<#ffb900ff>0.5秒<>間<#ef5350ff>スタン<>させる。"
       }
     },
     "skill_name": {
@@ -2006,6 +2061,11 @@
         "skill1": "ダズル",
         "skill2": "スターライトタッチ",
         "ult": "コズミックレディアンス"
+      },
+      "league_tristana": {
+        "skill1": "ヨードルグレネード",
+        "skill2": "ロケットジャンプ",
+        "ult": "バスターショット"
       }
     }
   }

@@ -500,6 +500,14 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   per-frame table of which leg is planted, passing or kicked back (`assets/source/vayne/MODEL_RUN_REDO.md`). Codex's
   redraw from it came back right in one round: the near leg planted in frames 8, 1, 2, the far one in 4, 5, 6, the
   knees crossing in 2-3 and 6-7, the near leg told apart by its brighter knee guard.
+  Keep both legs in the idle's own materials (league_tristana): told "the near leg one shade lighter, the far leg a
+  shade darker", Codex painted both of her bare lilac legs as brown leather, light and dark, so the leg on the left
+  of the screen turned from light to dark brown every half cycle and matched neither of the idle's ("走路的时候左腿和
+  待机的不一样"), and black rows cut her shins from her feet ("清理一下黑边也别忘了 弄干净一点"). Name the idle's
+  materials per segment (thigh, wrap, foot) for both legs. `tools/art/fix_tristana_run.py` redrew her 8 frames'
+  legs that way on Codex's feet and knees, both legs alike, the leg in front the one whose outline cuts the other.
+  league_taric went the other way: with both legs alike his crossing did not read, so his far leg is a step darker
+  in his own armour's colours (`MODEL_RUN_LEGS2.md`) - a darker far leg, never another material.
 - **A picture round the hero goes under her, not round a hole (league_vayne).** Asked to "leave a figure-shaped empty
   space", Codex also cleared a rectangle in the middle of every Final Hour cell of its export (x 22.5-77.5%, y
   17-89%): the flare's rays, the refresh's ring and most of the aura's motes went. Its raw sheets still had them; drawn

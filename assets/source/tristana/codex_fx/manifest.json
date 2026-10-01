@@ -1,0 +1,2842 @@
+{
+  "schema_version": 1,
+  "status": "generated_source_art_for_import",
+  "generator": "built-in image_gen",
+  "rect_format": "[x,y,width,height], integer pixels in the delivered PNG; do not split the entire image uniformly",
+  "frame_order": "zero-based, left-to-right then next row; e_bomb uses four separate row tags",
+  "timing": "Only e_bomb specifies game timing (5 ticks/frame). All preview_duration_ms values are preview-only.",
+  "runtime_status": "not_imported_or_tested_in_game",
+  "reference_texture_included": false,
+  "asset_count": 19,
+  "total_frames": 102,
+  "target_palette": {
+    "fire": [
+      "FFFFFF",
+      "FFF6C8",
+      "FFD84A",
+      "FF9A1F",
+      "F2561B",
+      "B8260F",
+      "5E1208"
+    ],
+    "smoke": [
+      "E6E0D8",
+      "B9B0A6",
+      "857B72",
+      "574F4A",
+      "36302D"
+    ],
+    "iron": [
+      "1A1A22",
+      "34343F",
+      "585866",
+      "8A8A99"
+    ],
+    "brass": [
+      "87602E",
+      "C8994E",
+      "E6BF86"
+    ],
+    "red": [
+      "821D3F",
+      "D13845",
+      "FF6A6A"
+    ],
+    "gold": [
+      "FFFFFF",
+      "FFF6C8",
+      "FFD84A",
+      "C8994E"
+    ]
+  },
+  "assets": [
+    {
+      "id": "tristana_fx_bolt",
+      "file": "tristana_fx_bolt.png",
+      "title": "普攻炮弹（飞行），4 帧循环",
+      "prompt_section": 1,
+      "image_size": [
+        2172,
+        724
+      ],
+      "layout": {
+        "columns": 4,
+        "rows": 1,
+        "order": "row-major",
+        "source_cells_equal": true
+      },
+      "frame_count": 4,
+      "expected_cell_aspect": 2,
+      "rect_size": [
+        543,
+        272
+      ],
+      "target_game_size": [
+        12,
+        8
+      ],
+      "binding_kind": "projectile",
+      "loop": true,
+      "anchor_status": "authoring_hint_not_runtime_calibrated",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            218,
+            543,
+            272
+          ],
+          "bbox_alpha128_xyxy": [
+            82,
+            44,
+            514,
+            228
+          ],
+          "preview_duration_ms": 150,
+          "attachment_hint_px": [
+            272,
+            136
+          ],
+          "iron_center_hint_px": [
+            448,
+            138
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            218,
+            543,
+            272
+          ],
+          "bbox_alpha128_xyxy": [
+            66,
+            43,
+            487,
+            231
+          ],
+          "preview_duration_ms": 150,
+          "attachment_hint_px": [
+            272,
+            136
+          ],
+          "iron_center_hint_px": [
+            422,
+            138
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1086,
+            218,
+            543,
+            272
+          ],
+          "bbox_alpha128_xyxy": [
+            21,
+            56,
+            474,
+            228
+          ],
+          "preview_duration_ms": 150,
+          "attachment_hint_px": [
+            272,
+            136
+          ],
+          "iron_center_hint_px": [
+            408,
+            139
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            218,
+            543,
+            272
+          ],
+          "bbox_alpha128_xyxy": [
+            29,
+            44,
+            476,
+            228
+          ],
+          "preview_duration_ms": 150,
+          "attachment_hint_px": [
+            272,
+            136
+          ],
+          "iron_center_hint_px": [
+            410,
+            138
+          ]
+        }
+      ],
+      "notes": "铁弹朝右，火尾朝左；烟火上下不是逐像素镜像对称。",
+      "source_sha256": "47d7957c637e0fef6cd12eed41ead776e8b2b4459e3234ca220d209fda7b180a",
+      "binding_id": "league_tristana_bolt"
+    },
+    {
+      "id": "tristana_fx_shot",
+      "file": "tristana_fx_shot.png",
+      "title": "普攻炮口火光（她的炮口，朝右），5 帧",
+      "prompt_section": 2,
+      "image_size": [
+        1774,
+        887
+      ],
+      "layout": {
+        "columns": 3,
+        "rows": 2,
+        "order": "row-major",
+        "source_cells_equal": true
+      },
+      "frame_count": 5,
+      "expected_cell_aspect": 1.3333333333333333,
+      "rect_size": [
+        580,
+        424
+      ],
+      "target_game_size": [
+        18,
+        14
+      ],
+      "binding_kind": "muzzle",
+      "loop": false,
+      "anchor_status": "authoring_hint_not_runtime_calibrated",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            6,
+            4,
+            580,
+            424
+          ],
+          "bbox_alpha128_xyxy": [
+            13,
+            139,
+            263,
+            309
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            0,
+            212
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            597,
+            4,
+            580,
+            424
+          ],
+          "bbox_alpha128_xyxy": [
+            12,
+            43,
+            481,
+            397
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            0,
+            212
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1188,
+            4,
+            580,
+            424
+          ],
+          "bbox_alpha128_xyxy": [
+            12,
+            43,
+            474,
+            397
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            0,
+            212
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            6,
+            448,
+            580,
+            424
+          ],
+          "bbox_alpha128_xyxy": [
+            13,
+            52,
+            504,
+            376
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            0,
+            212
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            597,
+            448,
+            580,
+            424
+          ],
+          "bbox_alpha128_xyxy": [
+            12,
+            104,
+            403,
+            353
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            0,
+            212
+          ]
+        }
+      ],
+      "notes": "采用3列2行，第6格空。原稿格线有低透明度残影，manifest选区避开格线；左边裁掉约数像素的炮口溢出。建议导入时硬化alpha。",
+      "source_sha256": "32b443ade371be73343c34323d8db718cd781d41803356401d3d5b267176d0bb",
+      "binding_id": "league_tristana_shot"
+    },
+    {
+      "id": "tristana_fx_e_shot",
+      "file": "tristana_fx_e_shot.png",
+      "title": "E 炮口喷出炸弹的火光（炮口朝右下 45 度），4 帧",
+      "prompt_section": 3,
+      "image_size": [
+        2172,
+        724
+      ],
+      "layout": {
+        "columns": 4,
+        "rows": 1,
+        "order": "row-major",
+        "source_cells_equal": true
+      },
+      "frame_count": 4,
+      "expected_cell_aspect": 1,
+      "rect_size": [
+        543,
+        543
+      ],
+      "target_game_size": [
+        14,
+        14
+      ],
+      "binding_kind": "muzzle_down_right",
+      "loop": false,
+      "anchor_status": "authoring_hint_not_runtime_calibrated",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            88,
+            543,
+            543
+          ],
+          "bbox_alpha128_xyxy": [
+            30,
+            26,
+            288,
+            325
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            0,
+            0
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            88,
+            543,
+            543
+          ],
+          "bbox_alpha128_xyxy": [
+            30,
+            37,
+            464,
+            458
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            0,
+            0
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1086,
+            88,
+            543,
+            543
+          ],
+          "bbox_alpha128_xyxy": [
+            29,
+            37,
+            527,
+            518
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            0,
+            0
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            88,
+            543,
+            543
+          ],
+          "bbox_alpha128_xyxy": [
+            28,
+            37,
+            484,
+            478
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            0,
+            0
+          ]
+        }
+      ],
+      "notes": "右下45度方向；炮口距选区左上角仍有少量留白，挂点需校准。",
+      "source_sha256": "ca7e8fe4469d1c5c7042ca1dc46ad15515d1a1118d809f80bc96504b42e9a593",
+      "binding_id": "league_tristana_e_shot"
+    },
+    {
+      "id": "tristana_fx_e_charge",
+      "file": "tristana_fx_e_charge.png",
+      "title": "E 爆炸火花：炸弹（飞行），4 帧循环",
+      "prompt_section": 4,
+      "image_size": [
+        2172,
+        724
+      ],
+      "layout": {
+        "columns": 4,
+        "rows": 1,
+        "order": "row-major",
+        "source_cells_equal": true
+      },
+      "frame_count": 4,
+      "expected_cell_aspect": 2,
+      "rect_size": [
+        543,
+        280
+      ],
+      "target_game_size": [
+        10,
+        8
+      ],
+      "binding_kind": "projectile",
+      "loop": true,
+      "anchor_status": "authoring_hint_not_runtime_calibrated",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            206,
+            543,
+            280
+          ],
+          "bbox_alpha128_xyxy": [
+            41,
+            7,
+            471,
+            273
+          ],
+          "preview_duration_ms": 150,
+          "attachment_hint_px": [
+            272,
+            140
+          ],
+          "iron_center_hint_px": [
+            348,
+            139
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            206,
+            543,
+            280
+          ],
+          "bbox_alpha128_xyxy": [
+            34,
+            7,
+            471,
+            273
+          ],
+          "preview_duration_ms": 150,
+          "attachment_hint_px": [
+            272,
+            140
+          ],
+          "iron_center_hint_px": [
+            349,
+            138
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1086,
+            206,
+            543,
+            280
+          ],
+          "bbox_alpha128_xyxy": [
+            29,
+            7,
+            471,
+            273
+          ],
+          "preview_duration_ms": 150,
+          "attachment_hint_px": [
+            272,
+            140
+          ],
+          "iron_center_hint_px": [
+            348,
+            134
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            206,
+            543,
+            280
+          ],
+          "bbox_alpha128_xyxy": [
+            39,
+            7,
+            471,
+            273
+          ],
+          "preview_duration_ms": 150,
+          "attachment_hint_px": [
+            272,
+            140
+          ],
+          "iron_center_hint_px": [
+            350,
+            140
+          ]
+        }
+      ],
+      "notes": "引信朝左，与飞行轴一致；闪烁火花非逐像素对称。",
+      "source_sha256": "b69d6c6926f8218699322d79f95713a088e4b32e83af920eba3915b75f23595d",
+      "binding_id": "league_tristana_e_charge"
+    },
+    {
+      "id": "tristana_fx_e_bomb",
+      "file": "tristana_fx_e_bomb.png",
+      "title": "E 炸弹粘在目标身上（4 行：0–3 层），每行 2 帧闪烁",
+      "prompt_section": 5,
+      "image_size": [
+        887,
+        1774
+      ],
+      "layout": {
+        "columns": 2,
+        "rows": 4,
+        "order": "row-major",
+        "source_cells_equal": true
+      },
+      "frame_count": 8,
+      "expected_cell_aspect": 1,
+      "rect_size": [
+        443,
+        443
+      ],
+      "target_game_size": [
+        12,
+        12
+      ],
+      "binding_kind": "target_bomb",
+      "loop": true,
+      "anchor_status": "authoring_hint_not_runtime_calibrated",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            443,
+            443
+          ],
+          "bbox_alpha128_xyxy": [
+            109,
+            117,
+            371,
+            416
+          ],
+          "preview_duration_ms": 167,
+          "attachment_hint_px": [
+            222,
+            222
+          ],
+          "state": 0,
+          "duration_ticks": 5
+        },
+        {
+          "index": 1,
+          "rect": [
+            443,
+            0,
+            443,
+            443
+          ],
+          "bbox_alpha128_xyxy": [
+            109,
+            109,
+            372,
+            416
+          ],
+          "preview_duration_ms": 167,
+          "attachment_hint_px": [
+            222,
+            222
+          ],
+          "state": 0,
+          "duration_ticks": 5
+        },
+        {
+          "index": 2,
+          "rect": [
+            0,
+            443,
+            443,
+            443
+          ],
+          "bbox_alpha128_xyxy": [
+            109,
+            65,
+            371,
+            411
+          ],
+          "preview_duration_ms": 167,
+          "attachment_hint_px": [
+            222,
+            222
+          ],
+          "state": 1,
+          "duration_ticks": 5
+        },
+        {
+          "index": 3,
+          "rect": [
+            443,
+            443,
+            443,
+            443
+          ],
+          "bbox_alpha128_xyxy": [
+            109,
+            65,
+            372,
+            411
+          ],
+          "preview_duration_ms": 167,
+          "attachment_hint_px": [
+            222,
+            222
+          ],
+          "state": 1,
+          "duration_ticks": 5
+        },
+        {
+          "index": 4,
+          "rect": [
+            0,
+            886,
+            443,
+            443
+          ],
+          "bbox_alpha128_xyxy": [
+            109,
+            59,
+            371,
+            405
+          ],
+          "preview_duration_ms": 167,
+          "attachment_hint_px": [
+            222,
+            222
+          ],
+          "state": 2,
+          "duration_ticks": 5
+        },
+        {
+          "index": 5,
+          "rect": [
+            443,
+            886,
+            443,
+            443
+          ],
+          "bbox_alpha128_xyxy": [
+            109,
+            59,
+            372,
+            405
+          ],
+          "preview_duration_ms": 167,
+          "attachment_hint_px": [
+            222,
+            222
+          ],
+          "state": 2,
+          "duration_ticks": 5
+        },
+        {
+          "index": 6,
+          "rect": [
+            0,
+            1329,
+            443,
+            443
+          ],
+          "bbox_alpha128_xyxy": [
+            109,
+            55,
+            370,
+            400
+          ],
+          "preview_duration_ms": 167,
+          "attachment_hint_px": [
+            222,
+            222
+          ],
+          "state": 3,
+          "duration_ticks": 5
+        },
+        {
+          "index": 7,
+          "rect": [
+            443,
+            1329,
+            443,
+            443
+          ],
+          "bbox_alpha128_xyxy": [
+            109,
+            55,
+            372,
+            400
+          ],
+          "preview_duration_ms": 167,
+          "attachment_hint_px": [
+            222,
+            222
+          ],
+          "state": 3,
+          "duration_ticks": 5
+        }
+      ],
+      "notes": "4行分别0/1/2/3个浮动红灯，左暗右亮；正面固定红灯不计层数。每行独立循环，不能连续播8帧。",
+      "source_sha256": "460180b10d957f8dd19dd5b27ae139a2c7ca37f717b38be7ec990fbc9d5ab7dd",
+      "tags": [
+        {
+          "name": "league_tristana_e_bomb0",
+          "frames": [
+            0,
+            1
+          ],
+          "loop": true,
+          "duration_ticks_per_frame": 5
+        },
+        {
+          "name": "league_tristana_e_bomb1",
+          "frames": [
+            2,
+            3
+          ],
+          "loop": true,
+          "duration_ticks_per_frame": 5
+        },
+        {
+          "name": "league_tristana_e_bomb2",
+          "frames": [
+            4,
+            5
+          ],
+          "loop": true,
+          "duration_ticks_per_frame": 5
+        },
+        {
+          "name": "league_tristana_e_bomb3",
+          "frames": [
+            6,
+            7
+          ],
+          "loop": true,
+          "duration_ticks_per_frame": 5
+        }
+      ]
+    },
+    {
+      "id": "tristana_fx_e_stack",
+      "file": "tristana_fx_e_stack.png",
+      "title": "E 加一层时的火花（目标身上），3 帧",
+      "prompt_section": 6,
+      "image_size": [
+        2172,
+        724
+      ],
+      "layout": {
+        "columns": 3,
+        "rows": 1,
+        "order": "row-major",
+        "source_cells_equal": true
+      },
+      "frame_count": 3,
+      "expected_cell_aspect": 1,
+      "rect_size": [
+        724,
+        724
+      ],
+      "target_game_size": [
+        10,
+        10
+      ],
+      "binding_kind": "target",
+      "loop": false,
+      "anchor_status": "authoring_hint_not_runtime_calibrated",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            724,
+            724
+          ],
+          "bbox_alpha128_xyxy": [
+            235,
+            228,
+            492,
+            495
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            362,
+            362
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            724,
+            0,
+            724,
+            724
+          ],
+          "bbox_alpha128_xyxy": [
+            133,
+            122,
+            589,
+            586
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            362,
+            362
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1448,
+            0,
+            724,
+            724
+          ],
+          "bbox_alpha128_xyxy": [
+            209,
+            204,
+            496,
+            522
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            362,
+            362
+          ]
+        }
+      ],
+      "notes": "红白加层火花，3帧。",
+      "source_sha256": "d5691279366380992dfc4aa5bf7456d41a615f6c66733bd6c78a40fbad8157e6",
+      "binding_id": "league_tristana_e_stack"
+    },
+    {
+      "id": "tristana_fx_e_boom",
+      "file": "tristana_fx_e_boom.png",
+      "title": "E 炸弹爆炸（地面上，不跟随），8 帧",
+      "prompt_section": 7,
+      "image_size": [
+        1983,
+        793
+      ],
+      "layout": {
+        "columns": 4,
+        "rows": 2,
+        "order": "row-major",
+        "source_cells_equal": true
+      },
+      "frame_count": 8,
+      "expected_cell_aspect": 1.25,
+      "rect_size": [
+        495,
+        396
+      ],
+      "target_game_size": [
+        50,
+        40
+      ],
+      "binding_kind": "ground85",
+      "loop": false,
+      "anchor_status": "authoring_hint_not_runtime_calibrated",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            495,
+            396
+          ],
+          "bbox_alpha128_xyxy": [
+            124,
+            214,
+            376,
+            340
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            248,
+            337
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            495,
+            0,
+            495,
+            396
+          ],
+          "bbox_alpha128_xyxy": [
+            23,
+            138,
+            480,
+            350
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            248,
+            337
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            990,
+            0,
+            495,
+            396
+          ],
+          "bbox_alpha128_xyxy": [
+            37,
+            48,
+            481,
+            349
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            248,
+            337
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1485,
+            0,
+            495,
+            396
+          ],
+          "bbox_alpha128_xyxy": [
+            52,
+            47,
+            460,
+            343
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            248,
+            337
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            0,
+            396,
+            495,
+            396
+          ],
+          "bbox_alpha128_xyxy": [
+            48,
+            18,
+            452,
+            345
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            248,
+            337
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            495,
+            396,
+            495,
+            396
+          ],
+          "bbox_alpha128_xyxy": [
+            69,
+            55,
+            442,
+            351
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            248,
+            337
+          ]
+        },
+        {
+          "index": 6,
+          "rect": [
+            990,
+            396,
+            495,
+            396
+          ],
+          "bbox_alpha128_xyxy": [
+            83,
+            98,
+            444,
+            334
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            248,
+            337
+          ]
+        },
+        {
+          "index": 7,
+          "rect": [
+            1485,
+            396,
+            495,
+            396
+          ],
+          "bbox_alpha128_xyxy": [
+            120,
+            146,
+            392,
+            334
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            248,
+            337
+          ]
+        }
+      ],
+      "notes": "改成4列2行以分开8帧；最后一帧仍有可见烟丝。",
+      "source_sha256": "777689e41a76558476eb49c758e16019cc35f6ddfe60e6f7ef365efc05a857d3",
+      "binding_id": "league_tristana_e_boom"
+    },
+    {
+      "id": "tristana_fx_e_boom4",
+      "file": "tristana_fx_e_boom4.png",
+      "title": "E 满 4 层立即引爆（更大更亮），9 帧",
+      "prompt_section": 8,
+      "image_size": [
+        1402,
+        1122
+      ],
+      "layout": {
+        "columns": 3,
+        "rows": 3,
+        "order": "row-major",
+        "source_cells_equal": true
+      },
+      "frame_count": 9,
+      "expected_cell_aspect": 1.25,
+      "rect_size": [
+        467,
+        374
+      ],
+      "target_game_size": [
+        60,
+        48
+      ],
+      "binding_kind": "ground85",
+      "loop": false,
+      "anchor_status": "authoring_hint_not_runtime_calibrated",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            467,
+            374
+          ],
+          "bbox_alpha128_xyxy": [
+            64,
+            97,
+            404,
+            362
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            234,
+            318
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            467,
+            0,
+            467,
+            374
+          ],
+          "bbox_alpha128_xyxy": [
+            20,
+            85,
+            447,
+            363
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            234,
+            318
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            934,
+            0,
+            467,
+            374
+          ],
+          "bbox_alpha128_xyxy": [
+            6,
+            19,
+            454,
+            362
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            234,
+            318
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            0,
+            374,
+            467,
+            374
+          ],
+          "bbox_alpha128_xyxy": [
+            13,
+            76,
+            462,
+            367
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            234,
+            318
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            467,
+            374,
+            467,
+            374
+          ],
+          "bbox_alpha128_xyxy": [
+            15,
+            39,
+            456,
+            367
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            234,
+            318
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            934,
+            374,
+            467,
+            374
+          ],
+          "bbox_alpha128_xyxy": [
+            6,
+            91,
+            447,
+            373
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            234,
+            318
+          ]
+        },
+        {
+          "index": 6,
+          "rect": [
+            0,
+            748,
+            467,
+            374
+          ],
+          "bbox_alpha128_xyxy": [
+            16,
+            71,
+            465,
+            349
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            234,
+            318
+          ]
+        },
+        {
+          "index": 7,
+          "rect": [
+            467,
+            748,
+            467,
+            374
+          ],
+          "bbox_alpha128_xyxy": [
+            57,
+            58,
+            426,
+            340
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            234,
+            318
+          ]
+        },
+        {
+          "index": 8,
+          "rect": [
+            934,
+            748,
+            467,
+            374
+          ],
+          "bbox_alpha128_xyxy": [
+            91,
+            167,
+            396,
+            337
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            234,
+            318
+          ]
+        }
+      ],
+      "notes": "改成3列3行；明亮爆心和红环；大帧靠近边缘，导入缩放需留余量。",
+      "source_sha256": "567f31d3b333641fc9a0a8ef193d3d197978d971ba35cc30063a25d4c6cdb462",
+      "binding_id": "league_tristana_e_boom4"
+    },
+    {
+      "id": "tristana_fx_p_boom",
+      "file": "tristana_fx_p_boom.png",
+      "title": "爆炸火花被动：普攻击杀的敌人爆炸（地面，不跟随），6 帧",
+      "prompt_section": 9,
+      "image_size": [
+        1717,
+        916
+      ],
+      "layout": {
+        "columns": 3,
+        "rows": 2,
+        "order": "row-major",
+        "source_cells_equal": true
+      },
+      "frame_count": 6,
+      "expected_cell_aspect": 1.25,
+      "rect_size": [
+        572,
+        458
+      ],
+      "target_game_size": [
+        34,
+        28
+      ],
+      "binding_kind": "ground85",
+      "loop": false,
+      "anchor_status": "authoring_hint_not_runtime_calibrated",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            572,
+            458
+          ],
+          "bbox_alpha128_xyxy": [
+            151,
+            204,
+            426,
+            403
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            286,
+            389
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            572,
+            0,
+            572,
+            458
+          ],
+          "bbox_alpha128_xyxy": [
+            106,
+            187,
+            469,
+            409
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            286,
+            389
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1144,
+            0,
+            572,
+            458
+          ],
+          "bbox_alpha128_xyxy": [
+            61,
+            97,
+            489,
+            409
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            286,
+            389
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            0,
+            458,
+            572,
+            458
+          ],
+          "bbox_alpha128_xyxy": [
+            91,
+            79,
+            507,
+            376
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            286,
+            389
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            572,
+            458,
+            572,
+            458
+          ],
+          "bbox_alpha128_xyxy": [
+            99,
+            104,
+            496,
+            376
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            286,
+            389
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            1144,
+            458,
+            572,
+            458
+          ],
+          "bbox_alpha128_xyxy": [
+            127,
+            138,
+            461,
+            372
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            286,
+            389
+          ]
+        }
+      ],
+      "notes": "改成3列2行；尺寸按34x28导入，与E普通/满层区分。",
+      "source_sha256": "faf73c49f5ad26c53b3b142616626d4476350e9ed89e3c9bc4ab8440d0f7bfc1",
+      "binding_id": "league_tristana_p_boom"
+    },
+    {
+      "id": "tristana_fx_hit",
+      "file": "tristana_fx_hit.png",
+      "title": "普攻命中（目标身上），5 帧",
+      "prompt_section": 10,
+      "image_size": [
+        1983,
+        793
+      ],
+      "layout": {
+        "columns": 5,
+        "rows": 1,
+        "order": "row-major",
+        "source_cells_equal": true
+      },
+      "frame_count": 5,
+      "expected_cell_aspect": 1,
+      "rect_size": [
+        396,
+        396
+      ],
+      "target_game_size": [
+        14,
+        14
+      ],
+      "binding_kind": "target",
+      "loop": false,
+      "anchor_status": "authoring_hint_not_runtime_calibrated",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            208,
+            396,
+            396
+          ],
+          "bbox_alpha128_xyxy": [
+            125,
+            124,
+            295,
+            287
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            198,
+            198
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            396,
+            208,
+            396,
+            396
+          ],
+          "bbox_alpha128_xyxy": [
+            45,
+            40,
+            356,
+            355
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            198,
+            198
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            792,
+            208,
+            396,
+            396
+          ],
+          "bbox_alpha128_xyxy": [
+            49,
+            52,
+            360,
+            356
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            198,
+            198
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1188,
+            208,
+            396,
+            396
+          ],
+          "bbox_alpha128_xyxy": [
+            64,
+            68,
+            350,
+            322
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            198,
+            198
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1584,
+            208,
+            396,
+            396
+          ],
+          "bbox_alpha128_xyxy": [
+            110,
+            110,
+            300,
+            279
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            198,
+            198
+          ]
+        }
+      ],
+      "notes": "5帧居中命中火花；采用manifest去除上下大留白。",
+      "source_sha256": "5bd9a00ff2c287853e20f8746d3f5df0e3f3732b66c008e13742ab58ddff7d48",
+      "binding_id": "league_tristana_hit"
+    },
+    {
+      "id": "tristana_fx_q_cast",
+      "file": "tristana_fx_q_cast.png",
+      "title": "Q 急速射击开启（她身上，炮口），5 帧",
+      "prompt_section": 11,
+      "image_size": [
+        1681,
+        936
+      ],
+      "layout": {
+        "columns": 3,
+        "rows": 2,
+        "order": "row-major",
+        "source_cells_equal": true
+      },
+      "frame_count": 5,
+      "expected_cell_aspect": 1.2,
+      "rect_size": [
+        560,
+        468
+      ],
+      "target_game_size": [
+        24,
+        20
+      ],
+      "binding_kind": "hot_muzzle",
+      "loop": false,
+      "anchor_status": "authoring_hint_not_runtime_calibrated",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            560,
+            468
+          ],
+          "bbox_alpha128_xyxy": [
+            296,
+            225,
+            508,
+            436
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            420,
+            281
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            560,
+            0,
+            560,
+            468
+          ],
+          "bbox_alpha128_xyxy": [
+            96,
+            48,
+            488,
+            412
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            420,
+            281
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1120,
+            0,
+            560,
+            468
+          ],
+          "bbox_alpha128_xyxy": [
+            56,
+            23,
+            465,
+            388
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            420,
+            281
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            0,
+            468,
+            560,
+            468
+          ],
+          "bbox_alpha128_xyxy": [
+            101,
+            73,
+            452,
+            372
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            420,
+            281
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            560,
+            468,
+            560,
+            468
+          ],
+          "bbox_alpha128_xyxy": [
+            120,
+            85,
+            443,
+            372
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            420,
+            281
+          ]
+        }
+      ],
+      "notes": "改成3列2行，第6格空；后两帧仅烟丝，蒸汽起点需要按动作炮口对齐。",
+      "source_sha256": "6e3c9d254cdb3111f4c5c072c2ded605d5a19a5be7bac361efff9a79567e1b9c",
+      "binding_id": "league_tristana_q_cast"
+    },
+    {
+      "id": "tristana_fx_q_rapid",
+      "file": "tristana_fx_q_rapid.png",
+      "title": "Q 急速射击持续（她身上，7 秒循环），4 帧循环",
+      "prompt_section": 12,
+      "image_size": [
+        2172,
+        724
+      ],
+      "layout": {
+        "columns": 4,
+        "rows": 1,
+        "order": "row-major",
+        "source_cells_equal": true
+      },
+      "frame_count": 4,
+      "expected_cell_aspect": 1.2,
+      "rect_size": [
+        543,
+        452
+      ],
+      "target_game_size": [
+        24,
+        20
+      ],
+      "binding_kind": "hot_muzzle",
+      "loop": true,
+      "anchor_status": "authoring_hint_not_runtime_calibrated",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            88,
+            543,
+            452
+          ],
+          "bbox_alpha128_xyxy": [
+            267,
+            203,
+            449,
+            398
+          ],
+          "preview_duration_ms": 150,
+          "attachment_hint_px": [
+            407,
+            271
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            88,
+            543,
+            452
+          ],
+          "bbox_alpha128_xyxy": [
+            215,
+            138,
+            443,
+            399
+          ],
+          "preview_duration_ms": 150,
+          "attachment_hint_px": [
+            407,
+            271
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1086,
+            88,
+            543,
+            452
+          ],
+          "bbox_alpha128_xyxy": [
+            152,
+            82,
+            440,
+            399
+          ],
+          "preview_duration_ms": 150,
+          "attachment_hint_px": [
+            407,
+            271
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            88,
+            543,
+            452
+          ],
+          "bbox_alpha128_xyxy": [
+            149,
+            55,
+            445,
+            399
+          ],
+          "preview_duration_ms": 150,
+          "attachment_hint_px": [
+            407,
+            271
+          ]
+        }
+      ],
+      "notes": "稀疏蒸汽循环，4到1的高度回落仍需游戏中检查；底部热光更接近实心亮点而非完整空心环。",
+      "source_sha256": "a8f7b19495893a5adb9afd847b50e5830329c5c448d629f76bc6d7fc2fff70f1",
+      "binding_id": "league_tristana_q_rapid"
+    },
+    {
+      "id": "tristana_fx_w_land",
+      "file": "tristana_fx_w_land.png",
+      "title": "W 火箭跳跃落地（地面，画在人物下面），6 帧",
+      "prompt_section": 13,
+      "image_size": [
+        1926,
+        817
+      ],
+      "layout": {
+        "columns": 3,
+        "rows": 2,
+        "order": "row-major",
+        "source_cells_equal": true
+      },
+      "frame_count": 6,
+      "expected_cell_aspect": 1.5714285714285714,
+      "rect_size": [
+        642,
+        408
+      ],
+      "target_game_size": [
+        44,
+        28
+      ],
+      "binding_kind": "ground80",
+      "loop": false,
+      "anchor_status": "authoring_hint_not_runtime_calibrated",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            642,
+            408
+          ],
+          "bbox_alpha128_xyxy": [
+            223,
+            249,
+            446,
+            349
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            321,
+            326
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            642,
+            0,
+            642,
+            408
+          ],
+          "bbox_alpha128_xyxy": [
+            30,
+            155,
+            579,
+            368
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            321,
+            326
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1284,
+            0,
+            642,
+            408
+          ],
+          "bbox_alpha128_xyxy": [
+            2,
+            69,
+            626,
+            381
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            321,
+            326
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            0,
+            408,
+            642,
+            408
+          ],
+          "bbox_alpha128_xyxy": [
+            42,
+            123,
+            626,
+            354
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            321,
+            326
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            642,
+            408,
+            642,
+            408
+          ],
+          "bbox_alpha128_xyxy": [
+            64,
+            157,
+            599,
+            354
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            321,
+            326
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            1284,
+            408,
+            642,
+            408
+          ],
+          "bbox_alpha128_xyxy": [
+            66,
+            176,
+            577,
+            338
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            321,
+            326
+          ]
+        }
+      ],
+      "notes": "改成3列2行；椭圆火环含烟尘，z=-1；峰值火焰较高，需看人物遮挡效果。",
+      "source_sha256": "a7ff3b4d931fa5a4591e81a42baaed240ca908d33bfcb36d11b84d1065335903",
+      "binding_id": "league_tristana_w_land",
+      "z": -1
+    },
+    {
+      "id": "tristana_fx_w_ready",
+      "file": "tristana_fx_w_ready.png",
+      "title": "W 刷新提示（她头顶），5 帧",
+      "prompt_section": 14,
+      "image_size": [
+        1983,
+        793
+      ],
+      "layout": {
+        "columns": 5,
+        "rows": 1,
+        "order": "row-major",
+        "source_cells_equal": true
+      },
+      "frame_count": 5,
+      "expected_cell_aspect": 1,
+      "rect_size": [
+        396,
+        404
+      ],
+      "target_game_size": [
+        14,
+        14
+      ],
+      "binding_kind": "overhead",
+      "loop": false,
+      "anchor_status": "authoring_hint_not_runtime_calibrated",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            194,
+            396,
+            404
+          ],
+          "bbox_alpha128_xyxy": [
+            118,
+            131,
+            283,
+            306
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            198,
+            202
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            396,
+            194,
+            396,
+            404
+          ],
+          "bbox_alpha128_xyxy": [
+            116,
+            72,
+            276,
+            397
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            198,
+            202
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            792,
+            194,
+            396,
+            404
+          ],
+          "bbox_alpha128_xyxy": [
+            118,
+            6,
+            281,
+            398
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            198,
+            202
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1188,
+            194,
+            396,
+            404
+          ],
+          "bbox_alpha128_xyxy": [
+            62,
+            49,
+            344,
+            363
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            198,
+            202
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1584,
+            194,
+            396,
+            404
+          ],
+          "bbox_alpha128_xyxy": [
+            90,
+            85,
+            316,
+            333
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            198,
+            202
+          ]
+        }
+      ],
+      "notes": "金色火箭轮廓上跃后散成星火，5帧。",
+      "source_sha256": "a0ec24fac4d2e60bf26f7385497db68806214cb939c6d74bfcabeb1df7d1b8c2",
+      "binding_id": "league_tristana_w_ready"
+    },
+    {
+      "id": "tristana_fx_r_muzzle",
+      "file": "tristana_fx_r_muzzle.png",
+      "title": "R 毁灭射击炮口爆风（她的炮口，朝右），6 帧",
+      "prompt_section": 15,
+      "image_size": [
+        1717,
+        916
+      ],
+      "layout": {
+        "columns": 3,
+        "rows": 2,
+        "order": "row-major",
+        "source_cells_equal": true
+      },
+      "frame_count": 6,
+      "expected_cell_aspect": 1.25,
+      "rect_size": [
+        572,
+        458
+      ],
+      "target_game_size": [
+        30,
+        24
+      ],
+      "binding_kind": "muzzle",
+      "loop": false,
+      "anchor_status": "authoring_hint_not_runtime_calibrated",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            572,
+            458
+          ],
+          "bbox_alpha128_xyxy": [
+            3,
+            107,
+            301,
+            411
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            0,
+            229
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            572,
+            0,
+            572,
+            458
+          ],
+          "bbox_alpha128_xyxy": [
+            9,
+            100,
+            546,
+            407
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            0,
+            229
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1144,
+            0,
+            572,
+            458
+          ],
+          "bbox_alpha128_xyxy": [
+            8,
+            98,
+            554,
+            432
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            0,
+            229
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            0,
+            458,
+            572,
+            458
+          ],
+          "bbox_alpha128_xyxy": [
+            3,
+            69,
+            551,
+            396
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            0,
+            229
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            572,
+            458,
+            572,
+            458
+          ],
+          "bbox_alpha128_xyxy": [
+            9,
+            82,
+            555,
+            384
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            0,
+            229
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            1144,
+            458,
+            572,
+            458
+          ],
+          "bbox_alpha128_xyxy": [
+            17,
+            124,
+            553,
+            353
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            0,
+            229
+          ]
+        }
+      ],
+      "notes": "改成3列2行；炮口白色烟环和向右火锥，个别晚期帧仍有余火。",
+      "source_sha256": "5006dc6c4c4917701eea3ed0cae3be0f04aa38dbd8544bda308070744c13fc79",
+      "binding_id": "league_tristana_r_muzzle"
+    },
+    {
+      "id": "tristana_fx_r_ball",
+      "file": "tristana_fx_r_ball.png",
+      "title": "R 毁灭射击的大炮弹（飞行），4 帧循环",
+      "prompt_section": 16,
+      "image_size": [
+        1536,
+        1024
+      ],
+      "layout": {
+        "columns": 2,
+        "rows": 2,
+        "order": "row-major",
+        "source_cells_equal": true
+      },
+      "frame_count": 4,
+      "expected_cell_aspect": 1.5,
+      "rect_size": [
+        768,
+        512
+      ],
+      "target_game_size": [
+        18,
+        12
+      ],
+      "binding_kind": "projectile",
+      "loop": true,
+      "anchor_status": "authoring_hint_not_runtime_calibrated",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            768,
+            512
+          ],
+          "bbox_alpha128_xyxy": [
+            85,
+            108,
+            716,
+            429
+          ],
+          "preview_duration_ms": 150,
+          "attachment_hint_px": [
+            384,
+            256
+          ],
+          "iron_center_hint_px": [
+            405,
+            268
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            768,
+            0,
+            768,
+            512
+          ],
+          "bbox_alpha128_xyxy": [
+            40,
+            109,
+            686,
+            427
+          ],
+          "preview_duration_ms": 150,
+          "attachment_hint_px": [
+            384,
+            256
+          ],
+          "iron_center_hint_px": [
+            390,
+            268
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            0,
+            512,
+            768,
+            512
+          ],
+          "bbox_alpha128_xyxy": [
+            72,
+            94,
+            716,
+            428
+          ],
+          "preview_duration_ms": 150,
+          "attachment_hint_px": [
+            384,
+            256
+          ],
+          "iron_center_hint_px": [
+            420,
+            267
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            768,
+            512,
+            768,
+            512
+          ],
+          "bbox_alpha128_xyxy": [
+            48,
+            94,
+            686,
+            421
+          ],
+          "preview_duration_ms": 150,
+          "attachment_hint_px": [
+            384,
+            256
+          ],
+          "iron_center_hint_px": [
+            380,
+            264
+          ]
+        }
+      ],
+      "notes": "改成2列2行，4帧；原规格1152总宽与4x384冲突，按4帧和单格3:2处理。透明区RGB含光晕，必须按RGBA导入。上下非精确镜像，需最终飞行旋转检查。",
+      "source_sha256": "a92e8962de7ac1af9cbaaec678b7e5c289855de74c19ea19a97d748dd9a9e71f",
+      "binding_id": "league_tristana_r_ball"
+    },
+    {
+      "id": "tristana_fx_r_hit",
+      "file": "tristana_fx_r_hit.png",
+      "title": "R 大炮弹命中（目标身上），6 帧",
+      "prompt_section": 17,
+      "image_size": [
+        1536,
+        1024
+      ],
+      "layout": {
+        "columns": 3,
+        "rows": 2,
+        "order": "row-major",
+        "source_cells_equal": true
+      },
+      "frame_count": 6,
+      "expected_cell_aspect": 1,
+      "rect_size": [
+        512,
+        512
+      ],
+      "target_game_size": [
+        24,
+        24
+      ],
+      "binding_kind": "target",
+      "loop": false,
+      "anchor_status": "authoring_hint_not_runtime_calibrated",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "bbox_alpha128_xyxy": [
+            55,
+            77,
+            425,
+            461
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            512,
+            0,
+            512,
+            512
+          ],
+          "bbox_alpha128_xyxy": [
+            50,
+            84,
+            487,
+            456
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1024,
+            0,
+            512,
+            512
+          ],
+          "bbox_alpha128_xyxy": [
+            34,
+            69,
+            479,
+            469
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            0,
+            512,
+            512,
+            512
+          ],
+          "bbox_alpha128_xyxy": [
+            46,
+            39,
+            506,
+            433
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            512,
+            512,
+            512,
+            512
+          ],
+          "bbox_alpha128_xyxy": [
+            48,
+            64,
+            492,
+            433
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            256,
+            256
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            1024,
+            512,
+            512,
+            512
+          ],
+          "bbox_alpha128_xyxy": [
+            61,
+            91,
+            463,
+            408
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            256,
+            256
+          ]
+        }
+      ],
+      "notes": "改成3列2行，向右火星强调击退；透明区RGB含光晕，不能丢失alpha。",
+      "source_sha256": "4542011b485233fef3415e6e5e58e4ea0090d9a890181e09388fe9f6a3004e63",
+      "binding_id": "league_tristana_r_hit"
+    },
+    {
+      "id": "tristana_fx_r_blast",
+      "file": "tristana_fx_r_blast.png",
+      "title": "R 冲击波（地面，目标周围的人被击退），6 帧",
+      "prompt_section": 18,
+      "image_size": [
+        1881,
+        836
+      ],
+      "layout": {
+        "columns": 3,
+        "rows": 2,
+        "order": "row-major",
+        "source_cells_equal": true
+      },
+      "frame_count": 6,
+      "expected_cell_aspect": 1.5,
+      "rect_size": [
+        627,
+        418
+      ],
+      "target_game_size": [
+        40,
+        26
+      ],
+      "binding_kind": "ground80",
+      "loop": false,
+      "anchor_status": "authoring_hint_not_runtime_calibrated",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            627,
+            418
+          ],
+          "bbox_alpha128_xyxy": [
+            184,
+            218,
+            471,
+            362
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            314,
+            334
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            627,
+            0,
+            627,
+            418
+          ],
+          "bbox_alpha128_xyxy": [
+            90,
+            187,
+            548,
+            384
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            314,
+            334
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1254,
+            0,
+            627,
+            418
+          ],
+          "bbox_alpha128_xyxy": [
+            16,
+            166,
+            591,
+            384
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            314,
+            334
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            0,
+            418,
+            627,
+            418
+          ],
+          "bbox_alpha128_xyxy": [
+            36,
+            94,
+            598,
+            345
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            314,
+            334
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            627,
+            418,
+            627,
+            418
+          ],
+          "bbox_alpha128_xyxy": [
+            52,
+            123,
+            575,
+            338
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            314,
+            334
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            1254,
+            418,
+            627,
+            418
+          ],
+          "bbox_alpha128_xyxy": [
+            88,
+            166,
+            547,
+            338
+          ],
+          "preview_duration_ms": 100,
+          "attachment_hint_px": [
+            314,
+            334
+          ]
+        }
+      ],
+      "notes": "改成3列2行；白色冲击环转橙并散成灰尘，地面环不旋转。",
+      "source_sha256": "ef5ab650510f05315bdd7cfd20e34556b4476ce694f1db94bbea3b88d03e6b1d",
+      "binding_id": "league_tristana_r_blast"
+    },
+    {
+      "id": "tristana_fx_r_stun",
+      "file": "tristana_fx_r_stun.png",
+      "title": "R 眩晕的星星（头顶），4 帧循环",
+      "prompt_section": 19,
+      "image_size": [
+        2172,
+        724
+      ],
+      "layout": {
+        "columns": 4,
+        "rows": 1,
+        "order": "row-major",
+        "source_cells_equal": true
+      },
+      "frame_count": 4,
+      "expected_cell_aspect": 2,
+      "rect_size": [
+        543,
+        291
+      ],
+      "target_game_size": [
+        16,
+        8
+      ],
+      "binding_kind": "overhead",
+      "loop": true,
+      "anchor_status": "authoring_hint_not_runtime_calibrated",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            218,
+            543,
+            291
+          ],
+          "bbox_alpha128_xyxy": [
+            109,
+            75,
+            444,
+            285
+          ],
+          "preview_duration_ms": 150,
+          "attachment_hint_px": [
+            272,
+            146
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            218,
+            543,
+            291
+          ],
+          "bbox_alpha128_xyxy": [
+            135,
+            32,
+            485,
+            239
+          ],
+          "preview_duration_ms": 150,
+          "attachment_hint_px": [
+            272,
+            146
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1086,
+            218,
+            543,
+            291
+          ],
+          "bbox_alpha128_xyxy": [
+            104,
+            7,
+            440,
+            220
+          ],
+          "preview_duration_ms": 150,
+          "attachment_hint_px": [
+            272,
+            146
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            218,
+            543,
+            291
+          ],
+          "bbox_alpha128_xyxy": [
+            65,
+            32,
+            439,
+            239
+          ],
+          "preview_duration_ms": 150,
+          "attachment_hint_px": [
+            272,
+            146
+          ]
+        }
+      ],
+      "notes": "每格3颗四角星，4帧绕圈；前后亮度与位移为美术近似，需循环预览确认。",
+      "source_sha256": "16eee84cfaefe08d92becb3548ef86149196396d133adf17920d38c44260c6bf",
+      "binding_id": "league_tristana_r_stun"
+    }
+  ]
+}
