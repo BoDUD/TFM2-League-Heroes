@@ -6,8 +6,9 @@
 Codex's run (codex_strips, 2026-10-01) held the rifle level at arm's length like a bayonet charge on wide lunging
 strides; League's Caitlyn jogs with the rifle carried as in her idle (the stock at the hip, the barrel up and
 forward) on short steps under her body (the user: "这个走路姿势有点问题吧", "有点不自然"). Each frame here is
-- the idle's design frame from the skirt's gold hem up (rows to 2 under the pivot: head, hat, hair, rifle and skirt as
-  one block), lowered by League's step: 0, 1, 2, 1, 0, 1, 2, 1 rows (League's pelvis moves 1.7 px at her height,
+- the idle's frame (tools/art/fix_caitlyn_skirt.py: the strips' shorter skirt) from the skirt's lining up (rows to 2
+  under the pivot: head, hat, hair, rifle, skirt and its dark lining as one block; the lining's thigh tops turned to
+  lining, the run's legs come out under it), lowered by League's step: 0, 1, 2, 1, 0, 1, 2, 1 rows (League's pelvis moves 1.7 px at her height,
   run@0 and @467 highest, @233 and @700 lowest);
 - two legs in the idle's materials (navy tights, dark brown boots with a light back edge, the gold cuff and toe cap),
   three squares wide like the idle's, after League's run joints projected at game size through the reference camera
@@ -37,9 +38,10 @@ from native_refs import Z, layout  # noqa: E402
 
 NAT = os.path.join(ROOT, "assets", "source", "native")
 OUT = os.path.join(NAT, "caitlyn_run.png")
-HEM = 2                                   # the skirt's gold hem: the last row of the upper body under the pivot
+HEM = 2                                   # the skirt's lining: the last row of the upper body under the pivot
 DY = [0, 1, 2, 1, 0, 1, 2, 1]             # League's step
 PAL = {"c": "1D1C34", "f": "D7AE50", "m": "A07335", "i": "4E2D22", "e": "6F4434", "d": "301A28"}
+LINING = "23102D"
 RING = "100216"
 X0 = -8                                   # the legs' grids: columns from -8, rows from 3 to 10
 
@@ -252,7 +254,10 @@ def build():
     body = {}
     for y, x in zip(*np.nonzero(idle[..., 3])):
         if y - iy <= HEM:
-            body[(int(x - ix), int(y - iy))] = tuple(int(v) for v in idle[y, x, :3])
+            c = tuple(int(v) for v in idle[y, x, :3])
+            if y - iy == HEM and c == rgb(PAL["c"]):         # the idle's thigh tops in the lining row
+                c = rgb(LINING)
+            body[(int(x - ix), int(y - iy))] = c
     run = cells["tags"]["run"]
     frames = [frame(body, k, (cell[1], cell[0]), tuple(run[k]["pivot"])) for k in range(len(run))]
     cols, rows = layout(len(frames))

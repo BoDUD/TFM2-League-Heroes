@@ -13,11 +13,13 @@ frame count and ticks into caitlyn_fx_anchors.json.
 The second step places every cell by its anchor on a spot from the pivot (game px, x right, y down; a pixel's middle
 on whole numbers) and times it:
 - the muzzle flashes (anchored on their left edge's middle) just past the barrel's last pixel of her firing frames
-  (codex_strips/strips_HANDOFF.md: attack 3, Headshot 4, Q 7, E 3, R 7; MUZZLE below). A caster view follows her, not
-  her sprite (champion-data "Projectiles that leave the muzzle"), so the fire burns only while the barrel stays where
-  it was drawn, at base speed: the shot comes 8 ticks into an attack (133 ms) and its frame ends at 190 ms - 55 ms of
-  fire; the Headshot's fire 63 ms on its 4th frame and the rest on the 5th, where the barrel is 4 px lower; E's 67 ms;
-  Q's 100 ms (its whole 7th frame); R's 150 ms. The smoke after the fire stays where it was blown out;
+  (Q 7, E 3, R 7 as codex_strips/strips_HANDOFF.md has them; the attack and the Headshot fire from their lowered
+  barrel, frames 4 and 5 held in slots 3-4 and 4-5 by import_native's ORDER - Codex's shot frames threw the barrel up
+  and the bullets fell 12 degrees; MUZZLE below). A caster view follows her, not her sprite (champion-data
+  "Projectiles that leave the muzzle"), so the fire burns only while the barrel stays where it was drawn, at base
+  speed: the attack's shot comes 8 ticks in (133 ms) with the barrel still to 260 ms - Codex's 67 ms of fire; the
+  Headshot's 10 ticks in (167 ms), still to 300 ms - 130 ms; E's 67 ms; Q's 100 ms (its whole 7th frame); R's 150 ms.
+  The smoke after the fire stays where it was blown out;
 - the projectiles on their middle. A TargetProjectile is lifted `5000 - y_offset` over her pivot (a LinearProjectile
   starts there), so the kit's `y_offset`s put each at its muzzle's height (5000 - 1000 x the height; checked against
   the kit below), but each still starts over her pivot: its view (`repeat: false`) starts empty for the ticks it needs
@@ -27,6 +29,11 @@ on whole numbers) and times it:
   with their lowest row on the soles' row (11 px under the pivot), the crosshair on the chest;
 - Codex's ticks, except where the kit sets a length: the landing holds its last frame until the first lying picture
   (30 ticks after it lands), a lying picture and the fading trap are the 15-tick link of the kit.
+Piltover Peacemaker after League (the user: "Q的技能特效和LOL不一样"): Codex drew a cyan fireball; League's bolt is a
+blue dart - a white needle, two fins swept back from it (Caitlyn_Base_Q_FlameHead) and a long trail
+(Caitlyn_Base_Q_Trail). Q_BOLT draws it here at 36 x 9 (four frames, the trail flickering, the fins brightening),
+its middle row on the projectile and the head's back on its point, so the trail runs back over the barrel; Q's muzzle
+burst and hit keep Codex's shapes in the same blues (BLUE).
 Writes league/effects/league_caitlyn_fx.
 """
 import argparse
@@ -49,14 +56,56 @@ KIT = os.path.join(MOD, "champion", "league_caitlyn.data_champion")
 Z = 8
 TICK = 1000 / 60
 # the barrel's last pixel of each firing frame and the middle of the barrel's rows (.5: between two rows), measured on
-# league/champions/league_caitlyn's sheet; "passive5" is the Headshot's 5th frame, the barrel 4 px lower
-MUZZLE = {"attack": (33, -16.5), "passive": (28, -12), "passive5": (27, -8), "skill": (35, -7.5),
-          "e": (34, -11.5), "ult": (26, -9)}
+# league/champions/league_caitlyn's sheet: the attack's 4th frame, the Headshot's 5th, Q 7, E 3, R 7
+MUZZLE = {"attack": (30, -6.5), "passive": (27, -8), "skill": (35, -7.5), "e": (34, -11.5), "ult": (26, -9)}
 HIT = (0, -8)                          # a hit on the upper body of a 32-42 px unit
 SOLES = 11                             # the soles' row under the pivot
 # each projectile: the muzzle it leaves
 LEAVES = {"bolt": "attack", "hs_bolt": "passive", "hs_trap_bolt": "passive", "e_net": "e", "q_bolt": "skill",
           "r_bullet": "ult"}
+# Q in League's blues: Codex's cyan ramp -> blue (the cream and the white stay)
+BLUE = {"0E5A7A": "1A3A9C", "1E9FC4": "2E6BE0", "27CCE2": "4F95F5", "9FF3FF": "B5DCFF"}
+QPAL = {"d": "1A3A9C", "m": "2E6BE0", "l": "4F95F5", "p": "B5DCFF", "w": "FFFFFF"}
+Q_ANCHOR = (24, 4.5)                    # the head's back, the middle row
+
+
+def q_frame(core, glow, fin, w=36, h=9):
+    """One frame of the Q dart: fins swept back from the needle, the head's glow, the trail (runs of colour)."""
+    g = [["."] * w for _ in range(h)]
+
+    def put(x, y, c):
+        g[y][x] = c
+        g[h - 1 - y][x] = c
+
+    for y, row in ((0, ((23, "d"), (24, "m"), (25, "d"))), (1, ((25, "d"), (26, fin), (27, "m"), (28, "d"))),
+                   (2, ((27, "d"), (28, fin), (29, fin), (30, "m"), (31, "d")))):
+        for x, c in row:
+            put(x, y, c)
+    for x in range(24, 31):
+        put(x, 3, "p")
+    put(31, 3, "l")
+    put(32, 3, "l")
+    put(33, 3, "m")
+    for (x0, x1), c in glow:
+        for x in range(x0, x1):
+            put(x, 3, c)
+    for (x0, x1), c in core:
+        for x in range(x0, x1):
+            g[4][x] = c
+    for x in range(24, 35):
+        g[4][x] = "w"
+    g[4][35] = "l"
+    return ["".join(r) for r in g]
+
+
+Q_BOLT = [q_frame((((0, 4), "d"), ((4, 9), "m"), ((9, 15), "l"), ((15, 24), "p")),
+                  (((8, 12), "d"), ((12, 18), "m"), ((18, 24), "l")), "l"),
+          q_frame((((2, 6), "d"), ((6, 11), "m"), ((11, 16), "l"), ((16, 24), "p")),
+                  (((10, 14), "d"), ((14, 19), "m"), ((19, 24), "l")), "p"),
+          q_frame((((1, 5), "d"), ((5, 10), "m"), ((10, 15), "l"), ((15, 24), "p")),
+                  (((7, 11), "d"), ((11, 17), "m"), ((17, 24), "l")), "l"),
+          q_frame((((3, 7), "d"), ((7, 12), "m"), ((12, 17), "l"), ((17, 24), "p")),
+                  (((9, 13), "d"), ((13, 18), "m"), ((18, 24), "l")), "p")]
 
 
 def tip(name):
@@ -101,6 +150,32 @@ def cells(name, n):
     a = b[:, 0, :, 0].copy()
     w = a.shape[1] // n
     return [a[:, k * w:(k + 1) * w] for k in range(n)]
+
+
+def strip_of(name, anchors):
+    """A strip's cells and anchor: the Q dart drawn here, Q's burst and hit in BLUE, the rest as Codex drew them."""
+    if name == "q_bolt":
+        out = []
+        for f in Q_BOLT:
+            c = np.zeros((len(f), len(f[0]), 4), np.uint8)
+            for y, row in enumerate(f):
+                for x, ch in enumerate(row):
+                    if ch != ".":
+                        c[y, x, :3] = rgb(QPAL[ch])
+                        c[y, x, 3] = 255
+            out.append(c)
+        return out, Q_ANCHOR
+    strip = cells(name, anchors[name]["frames"])
+    if name in ("q_muzzle", "q_hit"):
+        for c in strip:
+            for old, new in BLUE.items():
+                m = (c[..., 3] > 0) & (c[..., :3] == rgb(old)).all(-1)
+                c[m, :3] = rgb(new)
+    return strip, tuple(anchors[name]["anchor"])
+
+
+def rgb(h):
+    return tuple(int(h[i:i + 2], 16) for i in (0, 2, 4))
 
 
 def kit_projectiles():
@@ -172,9 +247,8 @@ def build():
         "r_bullet": [("r_bullet", proj["r_bullet"], (0, 0), "point")],
         "e_net": [("e_net", net, (0, 0), "point")],
         "w_throw": [("w_throw", throw, (0, 0), "point")],
-        "shot": [("shot", [(0, 25), (1, 30), (2, 50), (3, 60)], tip("attack"), "point")],
-        "hs_shot": [("hs_shot", [(0, 30), (1, 33)], tip("passive"), "point"),
-                    ("hs_shot", [(2, 35), (3, 35), (4, 50)], tip("passive5"), "point")],
+        "shot": [("shot", own("shot"), tip("attack"), "point")],
+        "hs_shot": [("hs_shot", [(0, 30), (1, 30), (2, 33), (3, 40), (4, 50)], tip("passive"), "point")],
         "e_shot": [("e_shot", [(0, 30), (1, 37), (2, 50), (3, 60)], tip("e"), "point")],
         "q_muzzle": [("q_muzzle", [(k, 20) for k in range(5)], tip("skill"), "point")],
         "r_muzzle": [("r_muzzle", [(0, 30), (1, 40), (2, 40), (3, 40), (4, 70), (5, 80)], tip("ult"), "point")],
@@ -194,8 +268,7 @@ def build():
     for tag, parts in fx.items():
         out[tag] = []
         for src, frames, (sx, sy), how in parts:
-            ax, ay = anchors[src]["anchor"]
-            strip = cells(src, anchors[src]["frames"])
+            strip, (ax, ay) = strip_of(src, anchors)
             u0 = math.floor(1 - ax + sx)
             if how == "ground":
                 low = max(int(np.nonzero(c[..., 3].any(1))[0].max()) for c in strip)

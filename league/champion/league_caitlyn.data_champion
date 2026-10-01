@@ -235,7 +235,7 @@
                           "type": "TargetProjectile",
                           "name": "league_caitlyn_hs_trap_bolt",
                           "speed": 9000,
-                          "y_offset": -7000,
+                          "y_offset": -3000,
                           "applied_target": "Enemy",
                           "applied_effects": [
                             {
@@ -312,7 +312,7 @@
                             "type": "TargetProjectile",
                             "name": "league_caitlyn_hs_bolt",
                             "speed": 9000,
-                            "y_offset": -7000,
+                            "y_offset": -3000,
                             "applied_target": "Enemy",
                             "applied_effects": [
                               {
@@ -377,7 +377,7 @@
                               "type": "TargetProjectile",
                               "name": "league_caitlyn_hs_bolt",
                               "speed": 9000,
-                              "y_offset": -7000,
+                              "y_offset": -3000,
                               "applied_target": "Enemy",
                               "applied_effects": [
                                 {
@@ -445,7 +445,7 @@
                                 "type": "TargetProjectile",
                                 "name": "league_caitlyn_bolt",
                                 "speed": 7000,
-                                "y_offset": -11500,
+                                "y_offset": -1500,
                                 "applied_target": "Enemy",
                                 "applied_effects": [
                                   {
@@ -513,7 +513,7 @@
                                   "type": "TargetProjectile",
                                   "name": "league_caitlyn_bolt",
                                   "speed": 7000,
-                                  "y_offset": -11500,
+                                  "y_offset": -1500,
                                   "applied_target": "Enemy",
                                   "applied_effects": [
                                     {
@@ -581,7 +581,7 @@
                                     "type": "TargetProjectile",
                                     "name": "league_caitlyn_bolt",
                                     "speed": 7000,
-                                    "y_offset": -11500,
+                                    "y_offset": -1500,
                                     "applied_target": "Enemy",
                                     "applied_effects": [
                                       {
@@ -649,7 +649,7 @@
                                       "type": "TargetProjectile",
                                       "name": "league_caitlyn_bolt",
                                       "speed": 7000,
-                                      "y_offset": -11500,
+                                      "y_offset": -1500,
                                       "applied_target": "Enemy",
                                       "applied_effects": [
                                         {
@@ -710,7 +710,7 @@
                                       "type": "TargetProjectile",
                                       "name": "league_caitlyn_bolt",
                                       "speed": 7000,
-                                      "y_offset": -11500,
+                                      "y_offset": -1500,
                                       "applied_target": "Enemy",
                                       "applied_effects": [
                                         {

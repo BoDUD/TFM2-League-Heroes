@@ -2064,9 +2064,14 @@ picture (league_lucian's double shot moved by a tick): when she was cut to 34 ro
 bells' middles) made the flights 1-2 ticks longer on average (the bolt 8.4 -> 9.4 ticks, the charge 13.1 -> 15.3 in
 one simulated game) and her kill difference fell from +2.06 to +1.33 on the same 24 seeds, so the tested values stay
 and the pictures fly 3-4 px over the bells' middles, still inside them. The cost is not general: league_caitlyn's
-projectiles went from `y_offset` 3000 to their muzzles (-11500 for the rifle 16.5 px over the pivot, -7000 / -6500 /
+projectiles went from `y_offset` 3000 to their muzzles (-11500 for a rifle 16.5 px over the pivot, -7000 / -6500 /
 -2500 / -4000 for the Headshot, the net, Q and R; `tools/art/import_caitlyn.py` checks the kit against the measured
 muzzles and starts each view empty for ceil(muzzle x / speed) ticks) and her mean stayed +2.30 on the same 288 games.
+A high muzzle has another cost: the bullet flies at the target's pivot, so from 16.5 px up it fell 12 degrees over her
+70-85 px reach and its turned picture looked crooked (the user: "平A出去的子弹看起来是歪的"). League's Caitlyn fires
+from the hip; her attack and Headshot now fire on Codex's lowered-barrel frames (import_native `ORDER` holds them two
+slots and drops the frame that threw the barrel up; muzzles 6.5 and 8 px up, `y_offset` -1500 / -3000, about 5
+degrees). Keep a shot frame's muzzle within about 8 px of the pivot's height, or the shot tilts.
 
 **A weak spot on the target without state on the target (league_fiora Duelist's Dance).** League shows a Vital on one
 of four sides of a champion and strikes it with a hit from that side; nothing reads a direction or keeps state on
