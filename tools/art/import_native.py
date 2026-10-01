@@ -262,9 +262,9 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        # 3 squares of outline and 4 of colour change and the boots stay
        ("fiora", "idle"): (8, [2, 3, 4]),
        ("fizz", "idle"): (8, [2, 3, 4]),      # ankles: the row under the seam is the one above it, one px wider
-       # Shaco: the seam low in his boots (rows 93/94: a plain navy row under the silver spikes goes); the gold bands
-       # and the curled shoes stay. Through the pantaloons (+1) the 2x2 checks turned 3 rows tall
-       ("shaco", "idle"): (5, [2, 3, 4])}
+       # Shaco (43 rows since shrink_shaco.py): the seam in the pantaloons' lowest band of checks (rows 91/92 under the
+       # pivot are one band: 5 squares differ); lower down every row is a gold band, the spikes or the shoes
+       ("shaco", "idle"): (3, [2, 3, 4])}
 CROWN = {"leesin"}              # heroes whose head template starts at the crown (a braid stands above it)
 PASTED = {"masteryi"}            # steadied on the head restyle_native pasted: his raised sword is the top of every frame
 # Codex's step-2 redraw (model_strips_18, tidied by tidy_codex18.py): the approved design's head (or face) is in every

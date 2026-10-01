@@ -21,9 +21,11 @@ picture and stays for its 300 ticks of shots (the loop 4-7 repeated), the mini b
 league/effects/league_shaco_fx and league_shaco_big.
 The clone (league/effects/league_shaco_clone) is Shaco himself, cut from league/champions/league_shaco: his idle
 frame (clone_idle, replayed every 4 ticks by the kit while nothing strikes), his attack (clone_attack, 24 ticks: the
-kit's r_pic) and his idle coming out of Deceive's reappearing puff (clone_in). It stands 9 px behind the champion it
-rides, under him (league_annie's Tibbers: a view on a unit may be mirrored with its facing, so beside it he would jump
-from side to side), and its outline is the demon violet instead of near-black, a hint that it is not him.
+kit's r_pic) and his idle coming out of Deceive's reappearing puff (clone_in). It stands on the champion's ground line
+24 px to its left, facing it, drawn under it - first it stood 9 px behind (above) him like league_annie's Tibbers and
+read as hanging on him (the user: "大招的分身也有点奇怪 看起来像是挂在别人身上的"); if the game mirrors a view on a unit
+with the unit's facing, the clone keeps to his back - and its outline is the demon violet instead of near-black, a hint
+that it is not Shaco.
 """
 import argparse
 import json
@@ -50,7 +52,7 @@ HIT = (0, -8)                          # a hit on the upper body of a 35-40 px h
 OVERHEAD = (0, -31)                    # over a 35-40 px hero's crown (the fear)
 GROUND = (0, 10)                       # the middle of a ring round a unit's feet (the soles 11 px under its pivot)
 SOLES = (0, 11)                        # the soles' row: what stands on the ground stands here
-CLONE = (0, -9)                        # the clone's pivot: 9 px behind the champion it rides
+CLONE = (-24, 0)                       # the clone's pivot: beside the champion it rides, on its ground line
 CLONE_LINE = (0x5E, 0x24, 0x91)        # the clone's outline: the demon violet
 OUTLINE = (0x0F, 0x04, 0x19)
 # the pack's colours (PROMPTS_FX.md)

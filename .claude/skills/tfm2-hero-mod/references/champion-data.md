@@ -2189,7 +2189,7 @@ does not wait for someone to walk by: the AI would cast a trap anywhere, so it g
 
 **A clone that rides the target and blows up where it died (league_shaco R, Hallucinate).** A `Targeting` cast on
 `EnemyChampion`: he vanishes (60 ticks) and 12 ticks later an `AddCasted` (`Bleed`, period 4) on the champion carries
-the clone (league_annie's Tibbers). Every run plays the clone's idle frame on the target, or strikes (10 + 45%
+the clone (league_annie's Tibbers). Every run plays the clone's idle frame on the target, or strikes (10 + 40%
 attack, the backstab included, and its attack frames) when Shaco's own hits set `r_hit` (each of his hits adds the
 6-tick flag while `r_live` lasts) or after 60 ticks without one; a 24-tick `r_pic` flag lets the strike's picture
 play out before the idle frame comes back. After 300 ticks it explodes where the champion stands: 150 + 100%
@@ -2197,8 +2197,9 @@ ability power round it and three mini boxes (the W pop with 45 / 75-tick fears a
 champion dies first it explodes where he fell: every run refreshes a 5-tick caster flag `r_seen` and lobs a hidden
 `ParabolicProjectile` at him (`travel_time` 6); a lob that lands after the runs have stopped - `r_seen` gone, `r_live`
 still on - removes the flags and explodes there. Nothing can be started from a dead unit, so the spot is armed while
-he lives. In a logged game the clone struck for 92-124 a hit and exploded three times at the end of its time and once
-on a death.
+he lives. In a logged game the clone exploded three times at the end of its time and once on a death. When Shaco
+himself dies while it lives, its runs stop with him (4 such deaths in 28 logged games: no strike, picture or blast
+after them) - League's clone dies with Shaco too.
 
 ## 8. Gotchas
 
