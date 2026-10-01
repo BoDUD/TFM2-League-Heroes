@@ -9,11 +9,12 @@
                             runs in and throws Chum the Waters from 70 px - the fish flies 10 ticks, past both caster
                             windows, so it is the big shark: the fish on Darius's chest and the ring of teeth under
                             him for 2 s; Urchin Strike through him (the wake where he set off; Seastone Trident's
-                            strike rides the hit, W being ready), a jab from behind; the shark bursts where Darius
-                            stands and throws him up for 1 s; he lands and swings, Fizz has Playful held - the swing
-                            breaks the 1-point shield, the hop goes 4 ticks later: the splash where he stood, faded
-                            (invisible) for 38 ticks while he vaults onto Darius, the slam on tick 42 and Darius
-                            slowed; a last jab and Darius falls. 3x
+                            strike rides the hit, W being ready), Darius turns to him, two jabs; the shark bursts
+                            where Darius stands and throws him up for 1 s; he lands and swings, Fizz has Playful held -
+                            the swing breaks the 1-point shield, the hop goes 4 ticks later: the splash where he stood,
+                            faded (invisible) for 38 ticks while he vaults onto Darius, the slam on tick 42 and Darius
+                            slowed; a last jab and Darius falls. Fizz is drawn in front: the dash leaves him 15 px past
+                            Darius's centre, inside his sprite. 3x
 """
 import argparse
 import os
@@ -44,13 +45,25 @@ DARIUS_HIT = 12                               # Darius's swing lands 12 ticks af
 FADED = 0.45                                  # his opacity while he is invisible
 
 
+class Turning(Held):
+    """Darius: faces left (towards Fizz) until `turn`, then right - Urchin Strike leaves Fizz behind him."""
+
+    def __init__(self, sp, x, y):
+        super().__init__(sp, x, y)
+        self.turn = None
+
+    def frame(self, t):
+        self.mirrored = self.turn is None or t < self.turn
+        return super().frame(t)
+
+
 def showcase(out, z=3, step=40):
     fizz = load(CHAMP)
     fx = {k: load(v) for k, v in FX.items()}
     small, big = fx["league_fizz_fx"], fx["league_fizz_big"]
     W, H = 300, 120
     gy = 84                                   # the pivot row: the shark's fin rises 50 px over Darius's feet
-    d = Held(load(os.path.join(LEAGUE, "champions", "league_darius")), 180, gy)
+    d = Turning(load(os.path.join(LEAGUE, "champions", "league_darius")), 180, gy)
     body, under, over = [], [], []
     hidden = []                               # (t0, t1): Playful's hop hides him
     t = 0.0
@@ -109,6 +122,7 @@ def showcase(out, z=3, step=40):
     on_foe(small, "q_hit", passing + tick(1))
     on_foe(small, "w_hit", passing + tick(1), z=3)
     a("skill", tick(Q_DUR), way=[(go, x), (go + tick((to - x) / Q_SPEED), to)])
+    d.turn = go + tick((d.x - x) / Q_SPEED)          # he turns as Fizz passes his centre
     x = to
     # a jab from behind (turned to him), the next on the attack cooldown
     jab()
@@ -164,8 +178,8 @@ def showcase(out, z=3, step=40):
             if f is not None:
                 units.append((0, faded(f, tt), an.pos(tt)))
                 break
-        for _, f, p in sorted(units, key=lambda u: -u[2][0]):      # the farther right, the further back
-            if f is not None:
+        for _, f, p in sorted(units, key=lambda u: -u[0]):         # Fizz in front: Urchin Strike leaves him 15 px past
+            if f is not None:                                       # Darius's centre, inside his sprite
                 place(img, f, *p)
         for an in sorted(over, key=lambda o: o.z):
             f = an.frame(tt)

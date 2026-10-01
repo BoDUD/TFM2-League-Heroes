@@ -1,0 +1,184 @@
+{
+  "issues": [],
+  "assets": [
+    {
+      "name": "hit",
+      "frames": 5,
+      "exact_pixel_blocks": true,
+      "binary_alpha": true,
+      "palette_valid": true,
+      "used_colors": 5,
+      "all_frames_nonempty": true,
+      "crop_rects_valid": true,
+      "size_px": [
+        1280,
+        256
+      ],
+      "deepest_shade_on_external_edge": 0
+    },
+    {
+      "name": "w_hit",
+      "frames": 6,
+      "exact_pixel_blocks": true,
+      "binary_alpha": true,
+      "palette_valid": true,
+      "used_colors": 9,
+      "all_frames_nonempty": true,
+      "crop_rects_valid": true,
+      "size_px": [
+        1536,
+        256
+      ],
+      "deepest_shade_on_external_edge": 0
+    },
+    {
+      "name": "q_hit",
+      "frames": 5,
+      "exact_pixel_blocks": true,
+      "binary_alpha": true,
+      "palette_valid": true,
+      "used_colors": 5,
+      "all_frames_nonempty": true,
+      "crop_rects_valid": true,
+      "size_px": [
+        1280,
+        256
+      ],
+      "deepest_shade_on_external_edge": 0
+    },
+    {
+      "name": "q_dash",
+      "frames": 5,
+      "exact_pixel_blocks": true,
+      "binary_alpha": true,
+      "palette_valid": true,
+      "used_colors": 6,
+      "all_frames_nonempty": true,
+      "crop_rects_valid": true,
+      "size_px": [
+        2560,
+        192
+      ],
+      "deepest_shade_on_external_edge": 0
+    },
+    {
+      "name": "e_up",
+      "frames": 5,
+      "exact_pixel_blocks": true,
+      "binary_alpha": true,
+      "palette_valid": true,
+      "used_colors": 5,
+      "all_frames_nonempty": true,
+      "crop_rects_valid": true,
+      "size_px": [
+        3840,
+        384
+      ],
+      "deepest_shade_on_external_edge": 0
+    },
+    {
+      "name": "e_slam",
+      "frames": 7,
+      "exact_pixel_blocks": true,
+      "binary_alpha": true,
+      "palette_valid": true,
+      "used_colors": 6,
+      "all_frames_nonempty": true,
+      "crop_rects_valid": true,
+      "size_px": [
+        3584,
+        320
+      ],
+      "deepest_shade_on_external_edge": 0
+    },
+    {
+      "name": "e_slow",
+      "frames": 6,
+      "exact_pixel_blocks": true,
+      "binary_alpha": true,
+      "palette_valid": true,
+      "used_colors": 5,
+      "all_frames_nonempty": true,
+      "crop_rects_valid": true,
+      "size_px": [
+        1920,
+        384
+      ],
+      "deepest_shade_on_external_edge": 0
+    },
+    {
+      "name": "r_fish",
+      "frames": 4,
+      "exact_pixel_blocks": true,
+      "binary_alpha": true,
+      "palette_valid": true,
+      "used_colors": 9,
+      "all_frames_nonempty": true,
+      "crop_rects_valid": true,
+      "size_px": [
+        768,
+        128
+      ],
+      "rgba_vertical_symmetry": true
+    },
+    {
+      "name": "r_stuck",
+      "frames": 4,
+      "exact_pixel_blocks": true,
+      "binary_alpha": true,
+      "palette_valid": true,
+      "used_colors": 9,
+      "all_frames_nonempty": true,
+      "crop_rects_valid": true,
+      "size_px": [
+        1024,
+        256
+      ]
+    },
+    {
+      "name": "r_ring",
+      "frames": 4,
+      "exact_pixel_blocks": true,
+      "binary_alpha": true,
+      "palette_valid": true,
+      "used_colors": 4,
+      "all_frames_nonempty": true,
+      "crop_rects_valid": true,
+      "size_px": [
+        2048,
+        256
+      ],
+      "deepest_shade_on_external_edge": 0
+    },
+    {
+      "name": "r_fish_ground",
+      "frames": 4,
+      "exact_pixel_blocks": true,
+      "binary_alpha": true,
+      "palette_valid": true,
+      "used_colors": 10,
+      "all_frames_nonempty": true,
+      "crop_rects_valid": true,
+      "size_px": [
+        768,
+        128
+      ]
+    },
+    {
+      "name": "r_shark",
+      "frames": 24,
+      "exact_pixel_blocks": true,
+      "binary_alpha": true,
+      "palette_valid": true,
+      "used_colors": 15,
+      "all_frames_nonempty": true,
+      "crop_rects_valid": true,
+      "size_px": [
+        4608,
+        1536
+      ]
+    }
+  ],
+  "primary_sheet_count": 12,
+  "total_frames": 79
+}
