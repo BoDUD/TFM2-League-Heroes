@@ -1,0 +1,123 @@
+{
+  "A": {
+    "sprite_width": 37,
+    "sprite_height": 50,
+    "occupied_pixels": 984,
+    "opaque_colours": 21,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "canvas_1x": [
+      128,
+      128
+    ],
+    "canvas_8x": [
+      1024,
+      1024
+    ],
+    "tail_anchor": [
+      64,
+      99
+    ],
+    "tail_anchor_8x": [
+      512,
+      792
+    ],
+    "pixels_below_tail": 0,
+    "eight_neighbour_components": [
+      984
+    ],
+    "white_eye_cells_yx": [
+      [
+        64,
+        63
+      ],
+      [
+        64,
+        68
+      ],
+      [
+        65,
+        64
+      ],
+      [
+        65,
+        67
+      ]
+    ],
+    "target_width": 32,
+    "target_height": 44,
+    "size_target_met": false,
+    "source_cell_grid": "128x128 grid recovered from 1254x1254 generated source; centre-region median per cell"
+  },
+  "B": {
+    "sprite_width": 37,
+    "sprite_height": 46,
+    "occupied_pixels": 958,
+    "opaque_colours": 20,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "canvas_1x": [
+      128,
+      128
+    ],
+    "canvas_8x": [
+      1024,
+      1024
+    ],
+    "tail_anchor": [
+      64,
+      99
+    ],
+    "tail_anchor_8x": [
+      512,
+      792
+    ],
+    "pixels_below_tail": 0,
+    "eight_neighbour_components": [
+      958
+    ],
+    "white_eye_cells_yx": [
+      [
+        67,
+        63
+      ],
+      [
+        67,
+        64
+      ],
+      [
+        67,
+        67
+      ],
+      [
+        67,
+        68
+      ],
+      [
+        68,
+        63
+      ],
+      [
+        68,
+        64
+      ],
+      [
+        68,
+        67
+      ],
+      [
+        68,
+        68
+      ]
+    ],
+    "target_width": 32,
+    "target_height": 44,
+    "size_target_met": false,
+    "source_cell_grid": "128x128 grid recovered from 1254x1254 generated source; centre-region median per cell"
+  },
+  "status": "normalized drafts; geometry correction blocked by image-generation HTTP403"
+}

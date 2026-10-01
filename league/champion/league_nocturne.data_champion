@@ -1,0 +1,2965 @@
+{
+  "id": "league_nocturne",
+  "category": "Assassin",
+  "tags": [
+    "AD",
+    "Melee",
+    "CC"
+  ],
+  "sprite": "asset/league/champions/league_nocturne",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/league/icons/league_nocturne_skill",
+    "asset/league/icons/league_nocturne_skill2",
+    "asset/league/icons/league_nocturne_ult"
+  ],
+  "stat": {
+    "attack": 100,
+    "magic_power": 30,
+    "hp": 940,
+    "defence": 27,
+    "magic_resistance": 18,
+    "move_speed": 1100,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 24,
+    "magic_power": 10,
+    "hp": 90,
+    "defence": 8,
+    "magic_resistance": 4,
+    "move_speed": 13,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.league_nocturne.attack",
+    "duration": 22,
+    "cooltime": 48,
+    "start_timing": 1,
+    "cancelable": true,
+    "range": 23000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "SwitchByBuff",
+      "buff_name": "league_nocturne_p_cd",
+      "effect_buff": {
+        "type": "SwitchByBuff",
+        "buff_name": "league_nocturne_p_n3",
+        "effect_buff": {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_nocturne_p_n1"
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_nocturne_p_n2"
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_nocturne_p_n3"
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_nocturne_p_cd"
+            },
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_nocturne_p_cd",
+                "duration": {
+                  "Time": {
+                    "tick": 720
+                  }
+                }
+              },
+              "only_to_enemy": false
+            },
+            {
+              "type": "CasterAnimation",
+              "name": "attack_p",
+              "tick": 26
+            },
+            {
+              "type": "CasterViewEffect",
+              "name": "league_nocturne_p_spin"
+            },
+            {
+              "type": "Sfx",
+              "name": "league_nocturne_p_cast"
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 1000
+                }
+              },
+              "target": "AllyOnlySelf",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "Delayed",
+                  "tick": 12,
+                  "effects": [
+                    {
+                      "type": "RangeEffect",
+                      "shape": {
+                        "Circle": {
+                          "radius": 20000
+                        }
+                      },
+                      "target": "EnemyWithoutTower",
+                      "apply_type": "AroundCaster",
+                      "effects": [
+                        {
+                          "type": "Attack",
+                          "damage": 0,
+                          "attack_ratio": 120,
+                          "hp_ratio": 0,
+                          "target_hp_ratio": 0,
+                          "attack_effect_type": "Target"
+                        },
+                        {
+                          "type": "Heal",
+                          "amount": 15,
+                          "attack_ratio": 0,
+                          "ap_ratio": 20,
+                          "heal_type": "Caster"
+                        },
+                        {
+                          "type": "ViewEffect",
+                          "name": "league_nocturne_p_hit"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Sfx",
+                      "name": "league_nocturne_p_hit"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "effect_none": {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_nocturne_p_n2",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_nocturne_p_n2"
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_nocturne_p_n3",
+                      "duration": {
+                        "Time": {
+                          "tick": 720
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_nocturne_p_n1",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_nocturne_p_n1"
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_nocturne_p_n2",
+                        "duration": {
+                          "Time": {
+                            "tick": 720
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                "effect_none": {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_nocturne_p_n1",
+                    "duration": {
+                      "Time": {
+                        "tick": 720
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                }
+              }
+            },
+            {
+              "type": "Delayed",
+              "tick": 8,
+              "effects": [
+                {
+                  "type": "Attack",
+                  "damage": 0,
+                  "attack_ratio": 100,
+                  "hp_ratio": 0,
+                  "target_hp_ratio": 0,
+                  "attack_effect_type": "Target"
+                },
+                {
+                  "type": "ViewEffect",
+                  "name": "league_nocturne_hit"
+                },
+                {
+                  "type": "TargetSfx",
+                  "name": "league_nocturne_attack_hit"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "effect_none": {
+        "type": "Combine",
+        "effects": [
+          {
+            "type": "RemoveCasterBuff",
+            "name": "league_nocturne_p_n1"
+          },
+          {
+            "type": "RemoveCasterBuff",
+            "name": "league_nocturne_p_n2"
+          },
+          {
+            "type": "RemoveCasterBuff",
+            "name": "league_nocturne_p_n3"
+          },
+          {
+            "type": "RemoveCasterBuff",
+            "name": "league_nocturne_p_cd"
+          },
+          {
+            "type": "AddCasterBuff",
+            "buff_state": {
+              "name": "league_nocturne_p_cd",
+              "duration": {
+                "Time": {
+                  "tick": 720
+                }
+              }
+            },
+            "only_to_enemy": false
+          },
+          {
+            "type": "CasterAnimation",
+            "name": "attack_p",
+            "tick": 26
+          },
+          {
+            "type": "CasterViewEffect",
+            "name": "league_nocturne_p_spin"
+          },
+          {
+            "type": "Sfx",
+            "name": "league_nocturne_p_cast"
+          },
+          {
+            "type": "RangeEffect",
+            "shape": {
+              "Circle": {
+                "radius": 1000
+              }
+            },
+            "target": "AllyOnlySelf",
+            "apply_type": "AroundCaster",
+            "effects": [
+              {
+                "type": "Delayed",
+                "tick": 12,
+                "effects": [
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 20000
+                      }
+                    },
+                    "target": "EnemyWithoutTower",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
+                        "type": "Attack",
+                        "damage": 0,
+                        "attack_ratio": 120,
+                        "hp_ratio": 0,
+                        "target_hp_ratio": 0,
+                        "attack_effect_type": "Target"
+                      },
+                      {
+                        "type": "Heal",
+                        "amount": 15,
+                        "attack_ratio": 0,
+                        "ap_ratio": 20,
+                        "heal_type": "Caster"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "league_nocturne_p_hit"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Sfx",
+                    "name": "league_nocturne_p_hit"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.league_nocturne.skill",
+    "duration": 22,
+    "cooltime": 420,
+    "start_timing": 10,
+    "cancelable": false,
+    "range": 66000,
+    "casting_type": "Direction",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "league_nocturne_q_cast"
+        },
+        {
+          "type": "LinearProjectile",
+          "name": "league_nocturne_q_blade",
+          "speed": 4500,
+          "range": 66000,
+          "shape": {
+            "Circle": {
+              "radius": 7000
+            }
+          },
+          "penetrate": true,
+          "y_offset": 2000,
+          "applied_target": "EnemyWithoutTower",
+          "applied_effects": [
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "Attack",
+                "damage": 40,
+                "attack_ratio": 85,
+                "hp_ratio": 0,
+                "target_hp_ratio": 0,
+                "attack_effect_type": "Target"
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "ViewEffect",
+                "name": "league_nocturne_q_hit"
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_nocturne_q_snd",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": []
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_nocturne_q_snd",
+                        "duration": {
+                          "Time": {
+                            "tick": 20
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "TargetSfx",
+                      "name": "league_nocturne_q_hit"
+                    }
+                  ]
+                }
+              }
+            }
+          ],
+          "end_effects": []
+        },
+        {
+          "type": "LinearProjectile",
+          "name": "league_nocturne_q_mark",
+          "speed": 4500,
+          "range": 66000,
+          "shape": {
+            "Circle": {
+              "radius": 7000
+            }
+          },
+          "penetrate": true,
+          "y_offset": 2000,
+          "applied_target": "EnemyChampion",
+          "applied_effects": [
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "AddCasted",
+                "casted_type": "Bleed",
+                "duration": 300,
+                "period": 6,
+                "effects": [
+                  {
+                    "type": "TargetProjectile",
+                    "name": "league_nocturne_q_chk",
+                    "speed": 100000,
+                    "y_offset": 0,
+                    "applied_target": "EnemyChampion",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "RandomTarget",
+                          "range": 15000,
+                          "casting_target": "AllyOnlySelf",
+                          "from_projectile": true,
+                          "effects": [
+                            {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_nocturne_trail"
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_nocturne_trail",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 10
+                                      }
+                                    },
+                                    "move_speed_mult": 25,
+                                    "attack_mult": 15
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "AddBuff",
+                "buff_state": {
+                  "name": "league_nocturne_q_dusk",
+                  "duration": {
+                    "Time": {
+                      "tick": 300
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "end_effects": []
+        },
+        {
+          "type": "LineRangeProjectile",
+          "name": "league_nocturne_q_path",
+          "width": 9000,
+          "length": 66000,
+          "delay": 300,
+          "apply": 305,
+          "applied_target": "Ally",
+          "applied_effects": []
+        },
+        {
+          "type": "LinearProjectile",
+          "name": "league_nocturne_q_anchor",
+          "speed": 4500,
+          "range": 6000,
+          "shape": {
+            "Circle": {
+              "radius": 1000
+            }
+          },
+          "penetrate": true,
+          "y_offset": 5000,
+          "applied_target": "Ally",
+          "applied_effects": [],
+          "end_effects": [
+            {
+              "type": "RangePeriodProjectile",
+              "name": "league_nocturne_q_trail",
+              "shape": {
+                "Circle": {
+                  "radius": 9000
+                }
+              },
+              "tick": 300,
+              "period": 6,
+              "first_delay": 1,
+              "applied_target": "AllyChampion",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "RandomTarget",
+                    "range": 9000,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": true,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_nocturne_trail"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_nocturne_trail",
+                              "duration": {
+                                "Time": {
+                                  "tick": 10
+                                }
+                              },
+                              "move_speed_mult": 25,
+                              "attack_mult": 15
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ],
+              "end_effects": []
+            }
+          ]
+        },
+        {
+          "type": "LinearProjectile",
+          "name": "league_nocturne_q_anchor",
+          "speed": 4500,
+          "range": 18000,
+          "shape": {
+            "Circle": {
+              "radius": 1000
+            }
+          },
+          "penetrate": true,
+          "y_offset": 5000,
+          "applied_target": "Ally",
+          "applied_effects": [],
+          "end_effects": [
+            {
+              "type": "RangePeriodProjectile",
+              "name": "league_nocturne_q_trail",
+              "shape": {
+                "Circle": {
+                  "radius": 9000
+                }
+              },
+              "tick": 300,
+              "period": 6,
+              "first_delay": 1,
+              "applied_target": "AllyChampion",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "RandomTarget",
+                    "range": 9000,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": true,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_nocturne_trail"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_nocturne_trail",
+                              "duration": {
+                                "Time": {
+                                  "tick": 10
+                                }
+                              },
+                              "move_speed_mult": 25,
+                              "attack_mult": 15
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ],
+              "end_effects": []
+            }
+          ]
+        },
+        {
+          "type": "LinearProjectile",
+          "name": "league_nocturne_q_anchor",
+          "speed": 4500,
+          "range": 30000,
+          "shape": {
+            "Circle": {
+              "radius": 1000
+            }
+          },
+          "penetrate": true,
+          "y_offset": 5000,
+          "applied_target": "Ally",
+          "applied_effects": [],
+          "end_effects": [
+            {
+              "type": "RangePeriodProjectile",
+              "name": "league_nocturne_q_trail",
+              "shape": {
+                "Circle": {
+                  "radius": 9000
+                }
+              },
+              "tick": 300,
+              "period": 6,
+              "first_delay": 1,
+              "applied_target": "AllyChampion",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "RandomTarget",
+                    "range": 9000,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": true,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_nocturne_trail"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_nocturne_trail",
+                              "duration": {
+                                "Time": {
+                                  "tick": 10
+                                }
+                              },
+                              "move_speed_mult": 25,
+                              "attack_mult": 15
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ],
+              "end_effects": []
+            }
+          ]
+        },
+        {
+          "type": "LinearProjectile",
+          "name": "league_nocturne_q_anchor",
+          "speed": 4500,
+          "range": 42000,
+          "shape": {
+            "Circle": {
+              "radius": 1000
+            }
+          },
+          "penetrate": true,
+          "y_offset": 5000,
+          "applied_target": "Ally",
+          "applied_effects": [],
+          "end_effects": [
+            {
+              "type": "RangePeriodProjectile",
+              "name": "league_nocturne_q_trail",
+              "shape": {
+                "Circle": {
+                  "radius": 9000
+                }
+              },
+              "tick": 300,
+              "period": 6,
+              "first_delay": 1,
+              "applied_target": "AllyChampion",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "RandomTarget",
+                    "range": 9000,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": true,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_nocturne_trail"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_nocturne_trail",
+                              "duration": {
+                                "Time": {
+                                  "tick": 10
+                                }
+                              },
+                              "move_speed_mult": 25,
+                              "attack_mult": 15
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ],
+              "end_effects": []
+            }
+          ]
+        },
+        {
+          "type": "LinearProjectile",
+          "name": "league_nocturne_q_anchor",
+          "speed": 4500,
+          "range": 54000,
+          "shape": {
+            "Circle": {
+              "radius": 1000
+            }
+          },
+          "penetrate": true,
+          "y_offset": 5000,
+          "applied_target": "Ally",
+          "applied_effects": [],
+          "end_effects": [
+            {
+              "type": "RangePeriodProjectile",
+              "name": "league_nocturne_q_trail",
+              "shape": {
+                "Circle": {
+                  "radius": 9000
+                }
+              },
+              "tick": 300,
+              "period": 6,
+              "first_delay": 1,
+              "applied_target": "AllyChampion",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "RandomTarget",
+                    "range": 9000,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": true,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_nocturne_trail"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_nocturne_trail",
+                              "duration": {
+                                "Time": {
+                                  "tick": 10
+                                }
+                              },
+                              "move_speed_mult": 25,
+                              "attack_mult": 15
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ],
+              "end_effects": []
+            }
+          ]
+        },
+        {
+          "type": "LinearProjectile",
+          "name": "league_nocturne_q_anchor",
+          "speed": 4500,
+          "range": 66000,
+          "shape": {
+            "Circle": {
+              "radius": 1000
+            }
+          },
+          "penetrate": true,
+          "y_offset": 5000,
+          "applied_target": "Ally",
+          "applied_effects": [],
+          "end_effects": [
+            {
+              "type": "RangePeriodProjectile",
+              "name": "league_nocturne_q_trail",
+              "shape": {
+                "Circle": {
+                  "radius": 9000
+                }
+              },
+              "tick": 300,
+              "period": 6,
+              "first_delay": 1,
+              "applied_target": "AllyChampion",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "RandomTarget",
+                    "range": 9000,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": true,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_nocturne_trail"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_nocturne_trail",
+                              "duration": {
+                                "Time": {
+                                  "tick": 10
+                                }
+                              },
+                              "move_speed_mult": 25,
+                              "attack_mult": 15
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ],
+              "end_effects": []
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.league_nocturne.skill2",
+    "duration": 20,
+    "cooltime": 660,
+    "start_timing": 8,
+    "cancelable": false,
+    "range": 30000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "league_nocturne_e_cast"
+        },
+        {
+          "type": "ViewEffect",
+          "name": "league_nocturne_e_grip"
+        },
+        {
+          "type": "RemoveCasterBuff",
+          "name": "league_nocturne_w_done"
+        },
+        {
+          "type": "RemoveCasterBuff",
+          "name": "league_nocturne_w_guard"
+        },
+        {
+          "type": "RemoveCasterBuff",
+          "name": "league_nocturne_w_shroud"
+        },
+        {
+          "type": "RangeEffect",
+          "shape": {
+            "Circle": {
+              "radius": 1000
+            }
+          },
+          "target": "AllyOnlySelf",
+          "apply_type": "AroundCaster",
+          "effects": [
+            {
+              "type": "Shield",
+              "amount": 1,
+              "attack_ratio": 0,
+              "ap_ratio": 0,
+              "tick": 92
+            }
+          ]
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_nocturne_w_guard",
+            "duration": "WithShield"
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_nocturne_w_shroud",
+            "duration": {
+              "Time": {
+                "tick": 90
+              }
+            },
+            "skill_damaged_reduce": 100,
+            "cc_immune": true
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "CasterViewEffect",
+          "name": "league_nocturne_w_shroud"
+        },
+        {
+          "type": "Sfx",
+          "name": "league_nocturne_w_cast"
+        },
+        {
+          "type": "RangeEffect",
+          "shape": {
+            "Circle": {
+              "radius": 1000
+            }
+          },
+          "target": "AllyOnlySelf",
+          "apply_type": "AroundCaster",
+          "effects": [
+            {
+              "type": "Delayed",
+              "tick": 4,
+              "effects": [
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_nocturne_w_guard",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
+                  },
+                  "effect_none": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_nocturne_w_done",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": []
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_nocturne_w_done",
+                            "duration": {
+                              "Time": {
+                                "tick": 90
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_nocturne_w_as"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_nocturne_w_as",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 300
+                                  }
+                                },
+                                "attack_speed_mult": 40
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "CasterViewEffect",
+                          "name": "league_nocturne_w_proc"
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_nocturne_w_proc"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 10,
+              "effects": [
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_nocturne_w_guard",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
+                  },
+                  "effect_none": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_nocturne_w_done",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": []
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_nocturne_w_done",
+                            "duration": {
+                              "Time": {
+                                "tick": 90
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_nocturne_w_as"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_nocturne_w_as",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 300
+                                  }
+                                },
+                                "attack_speed_mult": 40
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "CasterViewEffect",
+                          "name": "league_nocturne_w_proc"
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_nocturne_w_proc"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 16,
+              "effects": [
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_nocturne_w_guard",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
+                  },
+                  "effect_none": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_nocturne_w_done",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": []
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_nocturne_w_done",
+                            "duration": {
+                              "Time": {
+                                "tick": 90
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_nocturne_w_as"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_nocturne_w_as",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 300
+                                  }
+                                },
+                                "attack_speed_mult": 40
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "CasterViewEffect",
+                          "name": "league_nocturne_w_proc"
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_nocturne_w_proc"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 22,
+              "effects": [
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_nocturne_w_guard",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
+                  },
+                  "effect_none": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_nocturne_w_done",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": []
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_nocturne_w_done",
+                            "duration": {
+                              "Time": {
+                                "tick": 90
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_nocturne_w_as"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_nocturne_w_as",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 300
+                                  }
+                                },
+                                "attack_speed_mult": 40
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "CasterViewEffect",
+                          "name": "league_nocturne_w_proc"
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_nocturne_w_proc"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 28,
+              "effects": [
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_nocturne_w_guard",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
+                  },
+                  "effect_none": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_nocturne_w_done",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": []
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_nocturne_w_done",
+                            "duration": {
+                              "Time": {
+                                "tick": 90
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_nocturne_w_as"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_nocturne_w_as",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 300
+                                  }
+                                },
+                                "attack_speed_mult": 40
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "CasterViewEffect",
+                          "name": "league_nocturne_w_proc"
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_nocturne_w_proc"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 34,
+              "effects": [
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_nocturne_w_guard",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
+                  },
+                  "effect_none": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_nocturne_w_done",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": []
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_nocturne_w_done",
+                            "duration": {
+                              "Time": {
+                                "tick": 90
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_nocturne_w_as"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_nocturne_w_as",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 300
+                                  }
+                                },
+                                "attack_speed_mult": 40
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "CasterViewEffect",
+                          "name": "league_nocturne_w_proc"
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_nocturne_w_proc"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 40,
+              "effects": [
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_nocturne_w_guard",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
+                  },
+                  "effect_none": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_nocturne_w_done",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": []
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_nocturne_w_done",
+                            "duration": {
+                              "Time": {
+                                "tick": 90
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_nocturne_w_as"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_nocturne_w_as",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 300
+                                  }
+                                },
+                                "attack_speed_mult": 40
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "CasterViewEffect",
+                          "name": "league_nocturne_w_proc"
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_nocturne_w_proc"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 46,
+              "effects": [
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_nocturne_w_guard",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
+                  },
+                  "effect_none": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_nocturne_w_done",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": []
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_nocturne_w_done",
+                            "duration": {
+                              "Time": {
+                                "tick": 90
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_nocturne_w_as"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_nocturne_w_as",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 300
+                                  }
+                                },
+                                "attack_speed_mult": 40
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "CasterViewEffect",
+                          "name": "league_nocturne_w_proc"
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_nocturne_w_proc"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 52,
+              "effects": [
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_nocturne_w_guard",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
+                  },
+                  "effect_none": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_nocturne_w_done",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": []
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_nocturne_w_done",
+                            "duration": {
+                              "Time": {
+                                "tick": 90
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_nocturne_w_as"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_nocturne_w_as",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 300
+                                  }
+                                },
+                                "attack_speed_mult": 40
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "CasterViewEffect",
+                          "name": "league_nocturne_w_proc"
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_nocturne_w_proc"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 58,
+              "effects": [
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_nocturne_w_guard",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
+                  },
+                  "effect_none": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_nocturne_w_done",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": []
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_nocturne_w_done",
+                            "duration": {
+                              "Time": {
+                                "tick": 90
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_nocturne_w_as"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_nocturne_w_as",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 300
+                                  }
+                                },
+                                "attack_speed_mult": 40
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "CasterViewEffect",
+                          "name": "league_nocturne_w_proc"
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_nocturne_w_proc"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 64,
+              "effects": [
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_nocturne_w_guard",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
+                  },
+                  "effect_none": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_nocturne_w_done",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": []
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_nocturne_w_done",
+                            "duration": {
+                              "Time": {
+                                "tick": 90
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_nocturne_w_as"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_nocturne_w_as",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 300
+                                  }
+                                },
+                                "attack_speed_mult": 40
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "CasterViewEffect",
+                          "name": "league_nocturne_w_proc"
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_nocturne_w_proc"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 70,
+              "effects": [
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_nocturne_w_guard",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
+                  },
+                  "effect_none": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_nocturne_w_done",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": []
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_nocturne_w_done",
+                            "duration": {
+                              "Time": {
+                                "tick": 90
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_nocturne_w_as"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_nocturne_w_as",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 300
+                                  }
+                                },
+                                "attack_speed_mult": 40
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "CasterViewEffect",
+                          "name": "league_nocturne_w_proc"
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_nocturne_w_proc"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 76,
+              "effects": [
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_nocturne_w_guard",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
+                  },
+                  "effect_none": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_nocturne_w_done",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": []
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_nocturne_w_done",
+                            "duration": {
+                              "Time": {
+                                "tick": 90
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_nocturne_w_as"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_nocturne_w_as",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 300
+                                  }
+                                },
+                                "attack_speed_mult": 40
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "CasterViewEffect",
+                          "name": "league_nocturne_w_proc"
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_nocturne_w_proc"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 82,
+              "effects": [
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_nocturne_w_guard",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
+                  },
+                  "effect_none": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_nocturne_w_done",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": []
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_nocturne_w_done",
+                            "duration": {
+                              "Time": {
+                                "tick": 90
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_nocturne_w_as"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_nocturne_w_as",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 300
+                                  }
+                                },
+                                "attack_speed_mult": 40
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "CasterViewEffect",
+                          "name": "league_nocturne_w_proc"
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_nocturne_w_proc"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 88,
+              "effects": [
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_nocturne_w_guard",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
+                  },
+                  "effect_none": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_nocturne_w_done",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": []
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_nocturne_w_done",
+                            "duration": {
+                              "Time": {
+                                "tick": 90
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_nocturne_w_as"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_nocturne_w_as",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 300
+                                  }
+                                },
+                                "attack_speed_mult": 40
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "CasterViewEffect",
+                          "name": "league_nocturne_w_proc"
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_nocturne_w_proc"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 1,
+          "effects": [
+            {
+              "type": "TargetProjectile",
+              "name": "league_nocturne_e_link",
+              "speed": 100000,
+              "y_offset": 0,
+              "applied_target": "EnemyWithoutTower",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ParabolicProjectile",
+                    "name": "league_nocturne_e_spot",
+                    "travel_time": 1,
+                    "range": 400000,
+                    "shape": {
+                      "Circle": {
+                        "radius": 0
+                      }
+                    },
+                    "applied_target": "EnemyWithoutTower",
+                    "applied_effects": [],
+                    "end_effects": [
+                      {
+                        "type": "BackToCasterLinearProjectile",
+                        "name": "league_nocturne_e_chain",
+                        "speed": 1600,
+                        "range": 120000,
+                        "penetrate": true,
+                        "shape": {
+                          "Circle": {
+                            "radius": 0
+                          }
+                        },
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": []
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 13,
+          "effects": [
+            {
+              "type": "TargetProjectile",
+              "name": "league_nocturne_e_link",
+              "speed": 100000,
+              "y_offset": 0,
+              "applied_target": "EnemyWithoutTower",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ParabolicProjectile",
+                    "name": "league_nocturne_e_spot",
+                    "travel_time": 1,
+                    "range": 400000,
+                    "shape": {
+                      "Circle": {
+                        "radius": 0
+                      }
+                    },
+                    "applied_target": "EnemyWithoutTower",
+                    "applied_effects": [],
+                    "end_effects": [
+                      {
+                        "type": "BackToCasterLinearProjectile",
+                        "name": "league_nocturne_e_chain",
+                        "speed": 1600,
+                        "range": 120000,
+                        "penetrate": true,
+                        "shape": {
+                          "Circle": {
+                            "radius": 0
+                          }
+                        },
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": []
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 25,
+          "effects": [
+            {
+              "type": "TargetProjectile",
+              "name": "league_nocturne_e_link",
+              "speed": 100000,
+              "y_offset": 0,
+              "applied_target": "EnemyWithoutTower",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ParabolicProjectile",
+                    "name": "league_nocturne_e_spot",
+                    "travel_time": 1,
+                    "range": 400000,
+                    "shape": {
+                      "Circle": {
+                        "radius": 0
+                      }
+                    },
+                    "applied_target": "EnemyWithoutTower",
+                    "applied_effects": [],
+                    "end_effects": [
+                      {
+                        "type": "BackToCasterLinearProjectile",
+                        "name": "league_nocturne_e_chain",
+                        "speed": 1600,
+                        "range": 120000,
+                        "penetrate": true,
+                        "shape": {
+                          "Circle": {
+                            "radius": 0
+                          }
+                        },
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": []
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 37,
+          "effects": [
+            {
+              "type": "TargetProjectile",
+              "name": "league_nocturne_e_link",
+              "speed": 100000,
+              "y_offset": 0,
+              "applied_target": "EnemyWithoutTower",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ParabolicProjectile",
+                    "name": "league_nocturne_e_spot",
+                    "travel_time": 1,
+                    "range": 400000,
+                    "shape": {
+                      "Circle": {
+                        "radius": 0
+                      }
+                    },
+                    "applied_target": "EnemyWithoutTower",
+                    "applied_effects": [],
+                    "end_effects": [
+                      {
+                        "type": "BackToCasterLinearProjectile",
+                        "name": "league_nocturne_e_chain",
+                        "speed": 1600,
+                        "range": 120000,
+                        "penetrate": true,
+                        "shape": {
+                          "Circle": {
+                            "radius": 0
+                          }
+                        },
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": []
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 49,
+          "effects": [
+            {
+              "type": "TargetProjectile",
+              "name": "league_nocturne_e_link",
+              "speed": 100000,
+              "y_offset": 0,
+              "applied_target": "EnemyWithoutTower",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ParabolicProjectile",
+                    "name": "league_nocturne_e_spot",
+                    "travel_time": 1,
+                    "range": 400000,
+                    "shape": {
+                      "Circle": {
+                        "radius": 0
+                      }
+                    },
+                    "applied_target": "EnemyWithoutTower",
+                    "applied_effects": [],
+                    "end_effects": [
+                      {
+                        "type": "BackToCasterLinearProjectile",
+                        "name": "league_nocturne_e_chain",
+                        "speed": 1600,
+                        "range": 120000,
+                        "penetrate": true,
+                        "shape": {
+                          "Circle": {
+                            "radius": 0
+                          }
+                        },
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": []
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 61,
+          "effects": [
+            {
+              "type": "TargetProjectile",
+              "name": "league_nocturne_e_link",
+              "speed": 100000,
+              "y_offset": 0,
+              "applied_target": "EnemyWithoutTower",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ParabolicProjectile",
+                    "name": "league_nocturne_e_spot",
+                    "travel_time": 1,
+                    "range": 400000,
+                    "shape": {
+                      "Circle": {
+                        "radius": 0
+                      }
+                    },
+                    "applied_target": "EnemyWithoutTower",
+                    "applied_effects": [],
+                    "end_effects": [
+                      {
+                        "type": "BackToCasterLinearProjectile",
+                        "name": "league_nocturne_e_chain",
+                        "speed": 1600,
+                        "range": 120000,
+                        "penetrate": true,
+                        "shape": {
+                          "Circle": {
+                            "radius": 0
+                          }
+                        },
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": []
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 73,
+          "effects": [
+            {
+              "type": "TargetProjectile",
+              "name": "league_nocturne_e_link",
+              "speed": 100000,
+              "y_offset": 0,
+              "applied_target": "EnemyWithoutTower",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ParabolicProjectile",
+                    "name": "league_nocturne_e_spot",
+                    "travel_time": 1,
+                    "range": 400000,
+                    "shape": {
+                      "Circle": {
+                        "radius": 0
+                      }
+                    },
+                    "applied_target": "EnemyWithoutTower",
+                    "applied_effects": [],
+                    "end_effects": [
+                      {
+                        "type": "BackToCasterLinearProjectile",
+                        "name": "league_nocturne_e_chain",
+                        "speed": 1600,
+                        "range": 120000,
+                        "penetrate": true,
+                        "shape": {
+                          "Circle": {
+                            "radius": 0
+                          }
+                        },
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": []
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 85,
+          "effects": [
+            {
+              "type": "TargetProjectile",
+              "name": "league_nocturne_e_link",
+              "speed": 100000,
+              "y_offset": 0,
+              "applied_target": "EnemyWithoutTower",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ParabolicProjectile",
+                    "name": "league_nocturne_e_spot",
+                    "travel_time": 1,
+                    "range": 400000,
+                    "shape": {
+                      "Circle": {
+                        "radius": 0
+                      }
+                    },
+                    "applied_target": "EnemyWithoutTower",
+                    "applied_effects": [],
+                    "end_effects": [
+                      {
+                        "type": "BackToCasterLinearProjectile",
+                        "name": "league_nocturne_e_chain",
+                        "speed": 1600,
+                        "range": 120000,
+                        "penetrate": true,
+                        "shape": {
+                          "Circle": {
+                            "radius": 0
+                          }
+                        },
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": []
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 97,
+          "effects": [
+            {
+              "type": "TargetProjectile",
+              "name": "league_nocturne_e_link",
+              "speed": 100000,
+              "y_offset": 0,
+              "applied_target": "EnemyWithoutTower",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ParabolicProjectile",
+                    "name": "league_nocturne_e_spot",
+                    "travel_time": 1,
+                    "range": 400000,
+                    "shape": {
+                      "Circle": {
+                        "radius": 0
+                      }
+                    },
+                    "applied_target": "EnemyWithoutTower",
+                    "applied_effects": [],
+                    "end_effects": [
+                      {
+                        "type": "BackToCasterLinearProjectile",
+                        "name": "league_nocturne_e_chain",
+                        "speed": 1600,
+                        "range": 120000,
+                        "penetrate": true,
+                        "shape": {
+                          "Circle": {
+                            "radius": 0
+                          }
+                        },
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": []
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 109,
+          "effects": [
+            {
+              "type": "TargetProjectile",
+              "name": "league_nocturne_e_link",
+              "speed": 100000,
+              "y_offset": 0,
+              "applied_target": "EnemyWithoutTower",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ParabolicProjectile",
+                    "name": "league_nocturne_e_spot",
+                    "travel_time": 1,
+                    "range": 400000,
+                    "shape": {
+                      "Circle": {
+                        "radius": 0
+                      }
+                    },
+                    "applied_target": "EnemyWithoutTower",
+                    "applied_effects": [],
+                    "end_effects": [
+                      {
+                        "type": "BackToCasterLinearProjectile",
+                        "name": "league_nocturne_e_chain",
+                        "speed": 1600,
+                        "range": 120000,
+                        "penetrate": true,
+                        "shape": {
+                          "Circle": {
+                            "radius": 0
+                          }
+                        },
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": []
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 15,
+          "effects": [
+            {
+              "type": "ApAttack",
+              "damage": 20,
+              "attack_ratio": 30,
+              "hp_ratio": 0,
+              "attack_effect_type": "Target"
+            },
+            {
+              "type": "ViewEffect",
+              "name": "league_nocturne_e_tick"
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 45,
+          "effects": [
+            {
+              "type": "ApAttack",
+              "damage": 20,
+              "attack_ratio": 30,
+              "hp_ratio": 0,
+              "attack_effect_type": "Target"
+            },
+            {
+              "type": "ViewEffect",
+              "name": "league_nocturne_e_tick"
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 75,
+          "effects": [
+            {
+              "type": "ApAttack",
+              "damage": 20,
+              "attack_ratio": 30,
+              "hp_ratio": 0,
+              "attack_effect_type": "Target"
+            },
+            {
+              "type": "ViewEffect",
+              "name": "league_nocturne_e_tick"
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 105,
+          "effects": [
+            {
+              "type": "ApAttack",
+              "damage": 20,
+              "attack_ratio": 30,
+              "hp_ratio": 0,
+              "attack_effect_type": "Target"
+            },
+            {
+              "type": "ViewEffect",
+              "name": "league_nocturne_e_tick"
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 120,
+          "effects": [
+            {
+              "type": "TargetProjectile",
+              "name": "league_nocturne_e_chk",
+              "speed": 100000,
+              "y_offset": 0,
+              "applied_target": "EnemyWithoutTower",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "RandomTarget",
+                    "range": 45000,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": true,
+                    "effects": [
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_nocturne_e_near",
+                          "duration": {
+                            "Time": {
+                              "tick": 3
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "Delayed",
+                    "tick": 1,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_nocturne_e_near",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_nocturne_e_near"
+                            },
+                            {
+                              "type": "Fear",
+                              "tick": 80
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_nocturne_e_fear"
+                            },
+                            {
+                              "type": "TargetSfx",
+                              "name": "league_nocturne_e_fear"
+                            },
+                            {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_nocturne_e_chase"
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_nocturne_e_chase",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 80
+                                      }
+                                    },
+                                    "move_speed_mult": 40
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.league_nocturne.ult",
+    "duration": 20,
+    "cooltime": 3000,
+    "start_timing": 8,
+    "cancelable": false,
+    "range": 110000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "league_nocturne_r_cast"
+        },
+        {
+          "type": "CasterViewEffect",
+          "name": "league_nocturne_r_burst"
+        },
+        {
+          "type": "RangeEffect",
+          "shape": {
+            "Circle": {
+              "radius": 2000000
+            }
+          },
+          "target": "AllyChampion",
+          "apply_type": "AroundCaster",
+          "effects": [
+            {
+              "type": "Invisible",
+              "tick": 240
+            },
+            {
+              "type": "ViewEffect",
+              "name": "league_nocturne_r_veil"
+            }
+          ]
+        },
+        {
+          "type": "RangeEffect",
+          "shape": {
+            "Circle": {
+              "radius": 2000000
+            }
+          },
+          "target": "EnemyChampion",
+          "apply_type": "AroundCaster",
+          "effects": [
+            {
+              "type": "AddBuff",
+              "buff_state": {
+                "name": "league_nocturne_r_dark",
+                "duration": {
+                  "Time": {
+                    "tick": 240
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_nocturne_r_fly"
+            },
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_nocturne_r_fly",
+                "duration": {
+                  "Time": {
+                    "tick": 45
+                  }
+                },
+                "cc_immune": true
+              },
+              "only_to_enemy": false
+            }
+          ]
+        },
+        {
+          "type": "CasterAnimation",
+          "name": "ult",
+          "tick": 45
+        },
+        {
+          "type": "MoveToTarget",
+          "speed": 3500,
+          "range": 400000,
+          "end_effects": [
+            {
+              "type": "Attack",
+              "damage": 120,
+              "attack_ratio": 120,
+              "hp_ratio": 0,
+              "target_hp_ratio": 0,
+              "attack_effect_type": "Target"
+            },
+            {
+              "type": "ViewEffect",
+              "name": "league_nocturne_r_hit"
+            },
+            {
+              "type": "TargetSfx",
+              "name": "league_nocturne_r_hit"
+            },
+            {
+              "type": "CasterAnimation",
+              "name": "ult_hit",
+              "tick": 20
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "league_nocturne_q_blade",
+      "anim": "asset/league/effects/league_nocturne_fx",
+      "tag": "q_blade",
+      "repeat": true,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_nocturne_q_path",
+      "anim": "asset/league/effects/league_nocturne_big",
+      "tag": "q_path",
+      "repeat": false,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_nocturne_e_chain",
+      "anim": "asset/league/effects/league_nocturne_fx",
+      "tag": "e_chain",
+      "repeat": true,
+      "z": 1
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "league_nocturne_hit",
+      "anim": "asset/league/effects/league_nocturne_fx",
+      "tag": "hit",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_nocturne_p_spin",
+      "anim": "asset/league/effects/league_nocturne_fx",
+      "tag": "p_spin",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_nocturne_p_hit",
+      "anim": "asset/league/effects/league_nocturne_fx",
+      "tag": "p_hit",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_nocturne_q_hit",
+      "anim": "asset/league/effects/league_nocturne_fx",
+      "tag": "q_hit",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_nocturne_e_grip",
+      "anim": "asset/league/effects/league_nocturne_fx",
+      "tag": "e_grip",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_nocturne_e_tick",
+      "anim": "asset/league/effects/league_nocturne_fx",
+      "tag": "e_tick",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_nocturne_e_fear",
+      "anim": "asset/league/effects/league_nocturne_fx",
+      "tag": "e_fear",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_nocturne_w_shroud",
+      "anim": "asset/league/effects/league_nocturne_fx",
+      "tag": "w_shroud",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_nocturne_w_proc",
+      "anim": "asset/league/effects/league_nocturne_fx",
+      "tag": "w_proc",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_nocturne_r_burst",
+      "anim": "asset/league/effects/league_nocturne_big",
+      "tag": "r_burst",
+      "z": 1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_nocturne_r_veil",
+      "anim": "asset/league/effects/league_nocturne_fx",
+      "tag": "r_veil",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_nocturne_r_hit",
+      "anim": "asset/league/effects/league_nocturne_big",
+      "tag": "r_hit",
+      "z": 1,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "league_nocturne_q_dusk",
+      "anim": "asset/league/effects/league_nocturne_fx",
+      "tag": "q_dusk",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "ThreePhase",
+      "name": "league_nocturne_r_dark",
+      "anim": "asset/league/effects/league_nocturne_fx",
+      "pre_tag": "r_dark_in",
+      "loop_tag": "r_dark",
+      "remove_tag": "r_dark_out",
+      "z": 2
+    }
+  ]
+}

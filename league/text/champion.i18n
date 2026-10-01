@@ -266,6 +266,13 @@
         "skill": "消失并闪到目标身后，<#ffb900ff>隐身1.5秒<>。下一次普攻是背刺：<#ff9028ff>必定暴击<>，造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85% 攻击力<>的<#ff9028ff>物理伤害<>（暴击后翻倍）。",
         "skill2": "向敌人脚下扔出惊吓魔盒，弹开时<#ef5350ff>恐惧<>周围敌方英雄<#ffb900ff>1秒<>（小兵和野怪<#ffb900ff>1.5秒<>），随后<#ffb900ff>5秒<>内每<#ffb900ff>0.5秒<>对周围所有敌人造成<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12% 法强<>的<#a974ffff>魔法伤害<>。",
         "ult": "短暂消失，在敌方英雄身后召出幻像，持续<#ffb900ff>5秒<>：萨科每次攻击时幻像同步背刺，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40% 攻击力<>的<#ff9028ff>物理伤害<>。结束或目标死亡时爆炸，造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% 法强<>的<#a974ffff>魔法伤害<>，并放出三个小魔盒<#ef5350ff>恐惧<>周围敌人。"
+      },
+      "league_nocturne": {
+        "name": "魔腾",
+        "attack": "暗刃斩击。被动 <#ff9028ff>暗影之刃<>：每<#ffb900ff>12秒<>或每第<#ffb900ff>4<>次普攻横扫周围所有敌人，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120% 攻击力<>的<#ff9028ff>物理伤害<>，每命中一个敌人回复<#6aff55ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>20% 法强<>生命值。",
+        "skill": "掷出暗影之刃，对路径上的敌人造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85% 攻击力<>的<#ff9028ff>物理伤害<>，留下<#ffb900ff>5秒<>影径，被击中的敌方英雄身后也拖着影径。魔腾在影径上获得<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>25% 移动速度<>和<#ff9028ff>15% 攻击力<>。",
+        "skill2": "用梦魇灵链拴住目标<#ffb900ff>2秒<>，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>120% 法强<>的<#a974ffff>魔法伤害<>，结束时目标仍在附近则被<#ef5350ff>恐惧1.33秒<>，魔腾追击时<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移速+40%<>。同时升起<#ff9028ff>黑暗庇护<><#ffb900ff>1.5秒<>：技能伤害降为1、免疫控制，期间受到攻击则<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻速+40%<><#ffb900ff>5秒<>。",
+        "ult": "黑暗降临：我方所有英雄<#ffb900ff>隐身4秒<>（敌人只能看见身边的单位），魔腾飞扑一名敌方英雄，落地造成<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120% 攻击力<>的<#ff9028ff>物理伤害<>，飞行中免疫控制。"
       }
     },
     "skill_name": {
@@ -458,6 +465,11 @@
         "skill1": "欺诈魔术",
         "skill2": "惊吓魔盒",
         "ult": "幻像"
+      },
+      "league_nocturne": {
+        "skill1": "梦魇之径",
+        "skill2": "无言恐惧",
+        "ult": "鬼影重重"
       }
     }
   },
@@ -728,6 +740,13 @@
         "skill": "消失並閃到目標身後，<#ffb900ff>隱形1.5秒<>。下一次普攻是背刺：<#ff9028ff>必定暴擊<>，造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85% 攻擊力<>的<#ff9028ff>物理傷害<>（暴擊後翻倍）。",
         "skill2": "向敵人腳下扔出驚嚇魔盒，彈開時<#ef5350ff>恐懼<>周圍敵方英雄<#ffb900ff>1秒<>（小兵和野怪<#ffb900ff>1.5秒<>），隨後<#ffb900ff>5秒<>內每<#ffb900ff>0.5秒<>對周圍所有敵人造成<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12% 法術強度<>的<#a974ffff>魔法傷害<>。",
         "ult": "短暫消失，在敵方英雄身後召出幻象，持續<#ffb900ff>5秒<>：薩科每次攻擊時幻象同步背刺，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40% 攻擊力<>的<#ff9028ff>物理傷害<>。結束或目標死亡時爆炸，造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% 法術強度<>的<#a974ffff>魔法傷害<>，並放出三個小魔盒<#ef5350ff>恐懼<>周圍敵人。"
+      },
+      "league_nocturne": {
+        "name": "夜曲",
+        "attack": "暗刃斬擊。被動 <#ff9028ff>闇影幽刃<>：每<#ffb900ff>12秒<>或每第<#ffb900ff>4<>次普攻橫掃周圍所有敵人，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120% 攻擊力<>的<#ff9028ff>物理傷害<>，每命中一個敵人回復<#6aff55ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>20% 法術強度<>生命值。",
+        "skill": "擲出闇影之刃，對路徑上的敵人造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85% 攻擊力<>的<#ff9028ff>物理傷害<>，留下<#ffb900ff>5秒<>黃昏之徑，被擊中的敵方英雄身後也拖著黃昏之徑。夜曲在徑上獲得<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>25% 移動速度<>和<#ff9028ff>15% 攻擊力<>。",
+        "skill2": "用夢魘鎖鏈拴住目標<#ffb900ff>2秒<>，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>120% 法術強度<>的<#a974ffff>魔法傷害<>，結束時目標仍在附近則被<#ef5350ff>恐懼1.33秒<>，夜曲追擊時<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移速+40%<>。同時升起<#ff9028ff>夜幕庇護<><#ffb900ff>1.5秒<>：技能傷害降為1、免疫控制，期間受到攻擊則<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻速+40%<><#ffb900ff>5秒<>。",
+        "ult": "黑暗降臨：我方所有英雄<#ffb900ff>隱形4秒<>（敵人只能看見身邊的單位），夜曲飛撲一名敵方英雄，落地造成<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120% 攻擊力<>的<#ff9028ff>物理傷害<>，飛行中免疫控制。"
       }
     },
     "skill_name": {
@@ -920,6 +939,11 @@
         "skill1": "欺詐魔術",
         "skill2": "驚嚇魔盒",
         "ult": "幻象"
+      },
+      "league_nocturne": {
+        "skill1": "黃昏渠道",
+        "skill2": "深宵斷魂",
+        "ult": "無盡夢魘"
       }
     }
   },
@@ -1190,6 +1214,13 @@
         "skill": "Shaco vanishes and blinks behind his target, <#ffb900ff>invisible for 1.5s<>. His next attack is a backstab that <#ff9028ff>always critically strikes<>: <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85% AD<> <#ff9028ff>physical damage<>, doubled by the crit.",
         "skill2": "Shaco throws a Jack-in-the-Box at an enemy's feet. It springs open, <#ef5350ff>fearing<> enemy champions around it for <#ffb900ff>1s<> (minions and monsters <#ffb900ff>1.5s<>), then fires at every enemy nearby every <#ffb900ff>0.5s<> for <#ffb900ff>5s<>, dealing <#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12% AP<> <#a974ffff>magic damage<> per shot.",
         "ult": "Shaco briefly vanishes and a clone appears behind an enemy champion for <#ffb900ff>5s<>, backstabbing it whenever Shaco attacks for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40% AD<> <#ff9028ff>physical damage<>. When it ends or the target dies it explodes for <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% AP<> <#a974ffff>magic damage<>, releasing three mini boxes that <#ef5350ff>fear<> nearby enemies."
+      },
+      "league_nocturne": {
+        "name": "Nocturne",
+        "attack": "Blade strikes. Passive <#ff9028ff>Umbra Blades<>: every <#ffb900ff>12s<> or every <#ffb900ff>4th<> attack, his attack cleaves all nearby enemies for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120% AD<> <#ff9028ff>physical damage<> and heals him for <#6aff55ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>20% AP<> per enemy hit.",
+        "skill": "Nocturne throws a shadow blade, dealing <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85% AD<> <#ff9028ff>physical damage<> to enemies in its path and leaving a Dusk Trail for <#ffb900ff>5s<>; enemy champions hit leave a trail too. On a trail he gains <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>25% Move Speed<> and <#ff9028ff>15% AD<>.",
+        "skill2": "Nocturne tethers his target for <#ffb900ff>2s<>, dealing <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>120% AP<> <#a974ffff>magic damage<>; if it is still near at the end it is <#ef5350ff>feared<> for <#ffb900ff>1.33s<> and he chases with <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>40% Move Speed<>. He also raises <#ff9028ff>Shroud of Darkness<> for <#ffb900ff>1.5s<>: ability damage drops to 1 and he is immune to crowd control; if he is hit meanwhile he gains <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>40% attack speed<> for <#ffb900ff>5s<>.",
+        "ult": "Darkness falls: every allied champion turns <#ffb900ff>invisible for 4s<> (enemies see only what is next to them), and Nocturne flies at an enemy champion, dealing <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120% AD<> <#ff9028ff>physical damage<> on landing. He is immune to crowd control in flight."
       }
     },
     "skill_name": {
@@ -1382,6 +1413,11 @@
         "skill1": "Deceive",
         "skill2": "Jack In The Box",
         "ult": "Hallucinate"
+      },
+      "league_nocturne": {
+        "skill1": "Duskbringer",
+        "skill2": "Unspeakable Horror",
+        "ult": "Paranoia"
       }
     }
   },
@@ -1652,6 +1688,13 @@
         "skill": "사라졌다가 대상의 뒤로 순간이동해 <#ffb900ff>1.5초<> 동안 <#ffb900ff>투명<> 상태가 됩니다. 다음 기본 공격은 <#ff9028ff>반드시 치명타<>로 적중하는 암습으로 <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 85%<> <#ff9028ff>물리 피해<>(치명타로 2배)를 입힙니다.",
         "skill2": "적의 발밑에 깜짝 상자를 던집니다. 상자가 열리며 주변 적 챔피언을 <#ffb900ff>1초<>(미니언과 몬스터 <#ffb900ff>1.5초<>) 동안 <#ef5350ff>공포<>에 빠뜨리고, <#ffb900ff>5초<> 동안 <#ffb900ff>0.5초<>마다 주변 모든 적에게 <#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 12%<> <#a974ffff>마법 피해<>를 입힙니다.",
         "ult": "잠시 사라졌다가 적 챔피언의 뒤에 <#ffb900ff>5초<> 동안 분신을 불러냅니다. 샤코가 공격할 때마다 분신이 함께 찔러 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 40%<> <#ff9028ff>물리 피해<>를 입힙니다. 끝나거나 대상이 죽으면 폭발해 <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 100%<> <#a974ffff>마법 피해<>를 입히고 작은 상자 세 개가 주변 적을 <#ef5350ff>공포<>에 빠뜨립니다."
+      },
+      "league_nocturne": {
+        "name": "녹턴",
+        "attack": "칼날로 벱니다. 기본 지속 효과 <#ff9028ff>그림자 칼날<>: <#ffb900ff>12초<>마다 또는 <#ffb900ff>4<>번째 기본 공격마다 주변 모든 적을 베어 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 120%<> <#ff9028ff>물리 피해<>를 입히고, 적중한 적 하나당 <#6aff55ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>주문력의 20%<>의 체력을 회복합니다.",
+        "skill": "그림자 칼날을 던져 경로의 적에게 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 85%<> <#ff9028ff>물리 피해<>를 입히고 <#ffb900ff>5초<> 동안 황혼의 길을 남깁니다. 맞은 적 챔피언도 길을 남깁니다. 길 위에서 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도 25%<>와 <#ff9028ff>공격력 15%<>가 증가합니다.",
+        "skill2": "대상을 <#ffb900ff>2초<> 동안 사슬로 묶어 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 120%<> <#a974ffff>마법 피해<>를 입히고, 끝날 때 가까이 있으면 <#ffb900ff>1.33초<> 동안 <#ef5350ff>공포<>에 빠뜨리며 추격 시 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도 40%<>. 동시에 <#ff9028ff>어둠의 장막<>을 <#ffb900ff>1.5초<> 동안 펼쳐 스킬 피해가 1이 되고 군중 제어에 면역이며, 그동안 공격받으면 <#ffb900ff>5초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>공격 속도 40%<>.",
+        "ult": "어둠이 내려 모든 아군 챔피언이 <#ffb900ff>4초<> 동안 <#ffb900ff>투명<> 상태가 되고(적은 바로 옆의 유닛만 봄), 녹턴이 적 챔피언에게 날아가 착지 시 <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 120%<> <#ff9028ff>물리 피해<>를 입힙니다. 비행 중 군중 제어에 면역입니다."
       }
     },
     "skill_name": {
@@ -1844,6 +1887,11 @@
         "skill1": "속임수",
         "skill2": "깜짝 상자",
         "ult": "환각"
+      },
+      "league_nocturne": {
+        "skill1": "황혼의 인도자",
+        "skill2": "말할 수 없는 공포",
+        "ult": "피해망상"
       }
     }
   },
@@ -2114,6 +2162,13 @@
         "skill": "姿を消して対象の背後に移動し、<#ffb900ff>1.5秒<>間<#ffb900ff>インビジブル<>。次の通常攻撃は<#ff9028ff>必ずクリティカル<>になるバックスタブで、<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の85%<>の<#ff9028ff>物理ダメージ<>（クリティカルで2倍）。",
         "skill2": "敵の足元にびっくり箱を投げる。開くと周囲の敵チャンピオンを<#ffb900ff>1秒<>（ミニオンとモンスターは<#ffb900ff>1.5秒<>）<#ef5350ff>フィアー<>状態にし、<#ffb900ff>5秒<>間<#ffb900ff>0.5秒<>ごとに周囲の全ての敵に<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の12%<>の<#a974ffff>魔法ダメージ<>。",
         "ult": "一瞬姿を消し、敵チャンピオンの背後に分身を<#ffb900ff>5秒<>間呼び出す。シャコが攻撃するたびに分身も刺し、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の40%<>の<#ff9028ff>物理ダメージ<>。終了時か対象の死亡時に爆発し<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の100%<>の<#a974ffff>魔法ダメージ<>、小さな箱3つが周囲の敵を<#ef5350ff>フィアー<>状態にする。"
+      },
+      "league_nocturne": {
+        "name": "ノクターン",
+        "attack": "刃で斬る。パッシブ <#ff9028ff>夢幻斬<>：<#ffb900ff>12秒<>ごとか<#ffb900ff>4<>回目の通常攻撃で周囲の全ての敵を薙ぎ払い、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の120%<>の<#ff9028ff>物理ダメージ<>、命中した敵1体ごとに<#6aff55ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>魔力の20%<>の体力を回復。",
+        "skill": "影の刃を投げ、通り道の敵に<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の85%<>の<#ff9028ff>物理ダメージ<>を与え、<#ffb900ff>5秒<>間闇の道を残す。命中した敵チャンピオンも道を残す。道の上で<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度25%<>と<#ff9028ff>攻撃力15%<>増加。",
+        "skill2": "対象を<#ffb900ff>2秒<>鎖で繋ぎ<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の120%<>の<#a974ffff>魔法ダメージ<>、最後に近くにいれば<#ffb900ff>1.33秒<><#ef5350ff>フィアー<>、追う時<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度40%<>。同時に<#ff9028ff>漆黒の帳<><#ffb900ff>1.5秒<>：スキルダメージ1、行動妨害無効、その間に攻撃されると<#ffb900ff>5秒<><i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻撃速度40%<>。",
+        "ult": "闇が訪れ、味方チャンピオン全員が<#ffb900ff>4秒<>間<#ffb900ff>インビジブル<>（敵はすぐ近くのユニットしか見えない）。敵チャンピオンへ飛びかかり、着地で<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の120%<>の<#ff9028ff>物理ダメージ<>。飛行中は行動妨害無効。"
       }
     },
     "skill_name": {
@@ -2306,6 +2361,11 @@
         "skill1": "幻惑",
         "skill2": "びっくり箱",
         "ult": "ハルシネイト"
+      },
+      "league_nocturne": {
+        "skill1": "闇の手",
+        "skill2": "底知れぬ恐怖",
+        "ult": "パラノイア"
       }
     }
   }
