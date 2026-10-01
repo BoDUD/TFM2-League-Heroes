@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Diana's strips from Codex's delivery (assets/source/diana/MODEL_STRIPS.md) into assets/source/native/.
 
-    python tools/art/tidy_diana.py assets/source/diana/codex_strips --run assets/source/diana/codex_run
+    python tools/art/tidy_diana.py assets/source/diana/codex_strips --run assets/source/diana/run_legs
                                    [--tags run,attack,...] [--check]
 
 The delivery (diana_animation_candidates.zip, kept in codex_strips/: native/diana_<tag>_1x.png in 96x96 cells,
@@ -31,8 +31,9 @@ user: "戴安娜的腿太细"). The fourth (diana_run_legs3.zip, kept in codex_r
 assets/source/diana/RUN_REDO3.md) keeps those poses and widens the legs square by square at 1x to the idle's 5
 squares with the outline, in the idle's materials. --run takes the run from it (its flat manifest).
 The fifth (diana_run_hips4, prompt RUN_REDO4.md) redrew the hips so the legs join the body (the skirt over the thigh
-tops), and Codex's align5 (kept in codex_run/ now) moved hips and legs 3 squares back under the torso; the hand
-leftovers it still had are cleared at import by assets/source/native/diana_retouch.json.
+tops), and Codex's align5 (kept in codex_run/ now) moved hips and legs 3 squares back under the torso. Its legs
+still looked unlike the idle's, so tools/art/diana_run_legs.py replaces them with the idle's legs on League's run
+poses and writes assets/source/diana/run_legs/, which --run takes now.
 In the run, the legs' squares in the blade's pale cyan (the third run's frame 8 shin, RUN_GREAVE) take the idle's
 greave silver, so a shin never flashes white once a stride.
 Writes assets/source/native/diana_<tag>.png (8x blocks) and diana_cells.json; the idle strip is the design's.
