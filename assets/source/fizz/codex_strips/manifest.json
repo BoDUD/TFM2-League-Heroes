@@ -1,0 +1,5083 @@
+{
+  "format": "fizz-native-strips-v1",
+  "scale": 8,
+  "cell_1x": [
+    112,
+    112
+  ],
+  "cell_8x": [
+    896,
+    896
+  ],
+  "palette": [
+    "#078e76",
+    "#0a5b4a",
+    "#0f3b3c",
+    "#121122",
+    "#1c3775",
+    "#20ae56",
+    "#23405e",
+    "#2651a5",
+    "#2d69bb",
+    "#3596c6",
+    "#39a1c6",
+    "#3d3223",
+    "#4c2029",
+    "#7b7d7a",
+    "#811c2c",
+    "#8a6431",
+    "#96b9c6",
+    "#aa4a36",
+    "#bbb798",
+    "#c59b4c",
+    "#ce5f37",
+    "#dedfd5",
+    "#e4ddc0"
+  ],
+  "approved_design": "fizz_design_1x.png",
+  "animations": {
+    "idle": {
+      "file": "fizz_idle.png",
+      "file_1x": "fizz_idle_1x.png",
+      "size_px": [
+        2688,
+        1792
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "frame_count": 6,
+      "duration_ms": 1200,
+      "frames": [
+        {
+          "index": 0,
+          "frame_number": 1,
+          "cell_rect_1x": [
+            0,
+            0,
+            112,
+            112
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            896,
+            896
+          ],
+          "pivot_1x": [
+            59,
+            86
+          ],
+          "pivot_px": [
+            472,
+            688
+          ],
+          "bbox_local_1x": [
+            33,
+            66,
+            88,
+            98
+          ],
+          "bbox_sheet_px": [
+            264,
+            528,
+            704,
+            784
+          ],
+          "source_pivot": [
+            59,
+            86
+          ],
+          "duration_ms": 200,
+          "head": {
+            "transform": "none"
+          },
+          "lowest_allowed_row": 97
+        },
+        {
+          "index": 1,
+          "frame_number": 2,
+          "cell_rect_1x": [
+            112,
+            0,
+            224,
+            112
+          ],
+          "cell_rect_px": [
+            896,
+            0,
+            1792,
+            896
+          ],
+          "pivot_1x": [
+            59,
+            86
+          ],
+          "pivot_px": [
+            472,
+            688
+          ],
+          "bbox_local_1x": [
+            33,
+            66,
+            88,
+            98
+          ],
+          "bbox_sheet_px": [
+            1160,
+            528,
+            1600,
+            784
+          ],
+          "source_pivot": [
+            59,
+            86
+          ],
+          "duration_ms": 200,
+          "head": {
+            "transform": "none"
+          },
+          "lowest_allowed_row": 97
+        },
+        {
+          "index": 2,
+          "frame_number": 3,
+          "cell_rect_1x": [
+            224,
+            0,
+            336,
+            112
+          ],
+          "cell_rect_px": [
+            1792,
+            0,
+            2688,
+            896
+          ],
+          "pivot_1x": [
+            59,
+            86
+          ],
+          "pivot_px": [
+            472,
+            688
+          ],
+          "bbox_local_1x": [
+            33,
+            66,
+            88,
+            98
+          ],
+          "bbox_sheet_px": [
+            2056,
+            528,
+            2496,
+            784
+          ],
+          "source_pivot": [
+            59,
+            86
+          ],
+          "duration_ms": 200,
+          "head": {
+            "transform": "none"
+          },
+          "lowest_allowed_row": 97
+        },
+        {
+          "index": 3,
+          "frame_number": 4,
+          "cell_rect_1x": [
+            0,
+            112,
+            112,
+            224
+          ],
+          "cell_rect_px": [
+            0,
+            896,
+            896,
+            1792
+          ],
+          "pivot_1x": [
+            59,
+            86
+          ],
+          "pivot_px": [
+            472,
+            688
+          ],
+          "bbox_local_1x": [
+            33,
+            66,
+            88,
+            98
+          ],
+          "bbox_sheet_px": [
+            264,
+            1424,
+            704,
+            1680
+          ],
+          "source_pivot": [
+            59,
+            86
+          ],
+          "duration_ms": 200,
+          "head": {
+            "transform": "none"
+          },
+          "lowest_allowed_row": 97
+        },
+        {
+          "index": 4,
+          "frame_number": 5,
+          "cell_rect_1x": [
+            112,
+            112,
+            224,
+            224
+          ],
+          "cell_rect_px": [
+            896,
+            896,
+            1792,
+            1792
+          ],
+          "pivot_1x": [
+            59,
+            86
+          ],
+          "pivot_px": [
+            472,
+            688
+          ],
+          "bbox_local_1x": [
+            33,
+            66,
+            88,
+            98
+          ],
+          "bbox_sheet_px": [
+            1160,
+            1424,
+            1600,
+            1680
+          ],
+          "source_pivot": [
+            59,
+            86
+          ],
+          "duration_ms": 200,
+          "head": {
+            "transform": "none"
+          },
+          "lowest_allowed_row": 97
+        },
+        {
+          "index": 5,
+          "frame_number": 6,
+          "cell_rect_1x": [
+            224,
+            112,
+            336,
+            224
+          ],
+          "cell_rect_px": [
+            1792,
+            896,
+            2688,
+            1792
+          ],
+          "pivot_1x": [
+            59,
+            86
+          ],
+          "pivot_px": [
+            472,
+            688
+          ],
+          "bbox_local_1x": [
+            33,
+            66,
+            88,
+            98
+          ],
+          "bbox_sheet_px": [
+            2056,
+            1424,
+            2496,
+            1680
+          ],
+          "source_pivot": [
+            59,
+            86
+          ],
+          "duration_ms": 200,
+          "head": {
+            "transform": "none"
+          },
+          "lowest_allowed_row": 97
+        }
+      ],
+      "release_frame": null,
+      "release_tick": null
+    },
+    "run": {
+      "file": "fizz_run.png",
+      "file_1x": "fizz_run_1x.png",
+      "size_px": [
+        3584,
+        1792
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "frame_count": 8,
+      "duration_ms": 857,
+      "frames": [
+        {
+          "index": 0,
+          "frame_number": 1,
+          "cell_rect_1x": [
+            0,
+            0,
+            112,
+            112
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            896,
+            896
+          ],
+          "pivot_1x": [
+            55,
+            86
+          ],
+          "pivot_px": [
+            440,
+            688
+          ],
+          "bbox_local_1x": [
+            32,
+            66,
+            84,
+            98
+          ],
+          "bbox_sheet_px": [
+            256,
+            528,
+            672,
+            784
+          ],
+          "source_pivot": [
+            55,
+            86
+          ],
+          "source_head": [
+            60.0,
+            73.6
+          ],
+          "head": {
+            "rect": [
+              39,
+              66,
+              68,
+              82
+            ],
+            "transform": "none",
+            "closed_eyes": false,
+            "actual_anchor": [
+              55,
+              79
+            ],
+            "template_sha256": "5605bac8c7244c03a15828a366c79265ee2d49ce8937677974025c1587e604a6"
+          },
+          "weapon": {
+            "bbox": [
+              30,
+              64,
+              87,
+              99
+            ],
+            "center": [
+              58.0,
+              81.0
+            ],
+            "angle": 21,
+            "grips": [
+              [
+                55.199258720508396,
+                79.9248961513641
+              ],
+              [
+                60.800741279491604,
+                82.0751038486359
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "upright",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 107
+        },
+        {
+          "index": 1,
+          "frame_number": 2,
+          "cell_rect_1x": [
+            112,
+            0,
+            224,
+            112
+          ],
+          "cell_rect_px": [
+            896,
+            0,
+            1792,
+            896
+          ],
+          "pivot_1x": [
+            56,
+            86
+          ],
+          "pivot_px": [
+            448,
+            688
+          ],
+          "bbox_local_1x": [
+            32,
+            67,
+            84,
+            98
+          ],
+          "bbox_sheet_px": [
+            1152,
+            536,
+            1568,
+            784
+          ],
+          "source_pivot": [
+            56,
+            86
+          ],
+          "source_head": [
+            60.1,
+            77.0
+          ],
+          "head": {
+            "rect": [
+              40,
+              67,
+              69,
+              83
+            ],
+            "transform": "none",
+            "closed_eyes": false,
+            "actual_anchor": [
+              56,
+              80
+            ],
+            "template_sha256": "5605bac8c7244c03a15828a366c79265ee2d49ce8937677974025c1587e604a6"
+          },
+          "weapon": {
+            "bbox": [
+              30,
+              64,
+              87,
+              99
+            ],
+            "center": [
+              58.0,
+              81.0
+            ],
+            "angle": 21,
+            "grips": [
+              [
+                55.199258720508396,
+                79.9248961513641
+              ],
+              [
+                60.800741279491604,
+                82.0751038486359
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "upright",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 107
+        },
+        {
+          "index": 2,
+          "frame_number": 3,
+          "cell_rect_1x": [
+            224,
+            0,
+            336,
+            112
+          ],
+          "cell_rect_px": [
+            1792,
+            0,
+            2688,
+            896
+          ],
+          "pivot_1x": [
+            59,
+            86
+          ],
+          "pivot_px": [
+            472,
+            688
+          ],
+          "bbox_local_1x": [
+            36,
+            66,
+            88,
+            98
+          ],
+          "bbox_sheet_px": [
+            2080,
+            528,
+            2496,
+            784
+          ],
+          "source_pivot": [
+            59,
+            86
+          ],
+          "source_head": [
+            61.4,
+            75.8
+          ],
+          "head": {
+            "rect": [
+              43,
+              66,
+              72,
+              82
+            ],
+            "transform": "none",
+            "closed_eyes": false,
+            "actual_anchor": [
+              59,
+              79
+            ],
+            "template_sha256": "5605bac8c7244c03a15828a366c79265ee2d49ce8937677974025c1587e604a6"
+          },
+          "weapon": {
+            "bbox": [
+              34,
+              64,
+              91,
+              99
+            ],
+            "center": [
+              62.0,
+              81.0
+            ],
+            "angle": 21,
+            "grips": [
+              [
+                59.199258720508396,
+                79.9248961513641
+              ],
+              [
+                64.8007412794916,
+                82.0751038486359
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "upright",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 107
+        },
+        {
+          "index": 3,
+          "frame_number": 4,
+          "cell_rect_1x": [
+            336,
+            0,
+            448,
+            112
+          ],
+          "cell_rect_px": [
+            2688,
+            0,
+            3584,
+            896
+          ],
+          "pivot_1x": [
+            60,
+            86
+          ],
+          "pivot_px": [
+            480,
+            688
+          ],
+          "bbox_local_1x": [
+            36,
+            65,
+            88,
+            98
+          ],
+          "bbox_sheet_px": [
+            2976,
+            520,
+            3392,
+            784
+          ],
+          "source_pivot": [
+            60,
+            86
+          ],
+          "source_head": [
+            60.9,
+            72.6
+          ],
+          "head": {
+            "rect": [
+              44,
+              65,
+              73,
+              81
+            ],
+            "transform": "none",
+            "closed_eyes": false,
+            "actual_anchor": [
+              60,
+              78
+            ],
+            "template_sha256": "5605bac8c7244c03a15828a366c79265ee2d49ce8937677974025c1587e604a6"
+          },
+          "weapon": {
+            "bbox": [
+              34,
+              64,
+              91,
+              99
+            ],
+            "center": [
+              62.0,
+              81.0
+            ],
+            "angle": 21,
+            "grips": [
+              [
+                59.199258720508396,
+                79.9248961513641
+              ],
+              [
+                64.8007412794916,
+                82.0751038486359
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "upright",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 107
+        },
+        {
+          "index": 4,
+          "frame_number": 5,
+          "cell_rect_1x": [
+            0,
+            112,
+            112,
+            224
+          ],
+          "cell_rect_px": [
+            0,
+            896,
+            896,
+            1792
+          ],
+          "pivot_1x": [
+            61,
+            86
+          ],
+          "pivot_px": [
+            488,
+            688
+          ],
+          "bbox_local_1x": [
+            38,
+            66,
+            90,
+            98
+          ],
+          "bbox_sheet_px": [
+            304,
+            1424,
+            720,
+            1680
+          ],
+          "source_pivot": [
+            61,
+            86
+          ],
+          "source_head": [
+            60.9,
+            74.7
+          ],
+          "head": {
+            "rect": [
+              45,
+              66,
+              74,
+              82
+            ],
+            "transform": "none",
+            "closed_eyes": false,
+            "actual_anchor": [
+              61,
+              79
+            ],
+            "template_sha256": "5605bac8c7244c03a15828a366c79265ee2d49ce8937677974025c1587e604a6"
+          },
+          "weapon": {
+            "bbox": [
+              36,
+              64,
+              93,
+              99
+            ],
+            "center": [
+              64.0,
+              81.0
+            ],
+            "angle": 21,
+            "grips": [
+              [
+                61.199258720508396,
+                79.9248961513641
+              ],
+              [
+                66.8007412794916,
+                82.0751038486359
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "upright",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 107
+        },
+        {
+          "index": 5,
+          "frame_number": 6,
+          "cell_rect_1x": [
+            112,
+            112,
+            224,
+            224
+          ],
+          "cell_rect_px": [
+            896,
+            896,
+            1792,
+            1792
+          ],
+          "pivot_1x": [
+            59,
+            86
+          ],
+          "pivot_px": [
+            472,
+            688
+          ],
+          "bbox_local_1x": [
+            36,
+            67,
+            88,
+            98
+          ],
+          "bbox_sheet_px": [
+            1184,
+            1432,
+            1600,
+            1680
+          ],
+          "source_pivot": [
+            59,
+            86
+          ],
+          "source_head": [
+            59.2,
+            77.8
+          ],
+          "head": {
+            "rect": [
+              43,
+              67,
+              72,
+              83
+            ],
+            "transform": "none",
+            "closed_eyes": false,
+            "actual_anchor": [
+              59,
+              80
+            ],
+            "template_sha256": "5605bac8c7244c03a15828a366c79265ee2d49ce8937677974025c1587e604a6"
+          },
+          "weapon": {
+            "bbox": [
+              34,
+              64,
+              91,
+              99
+            ],
+            "center": [
+              62.0,
+              81.0
+            ],
+            "angle": 21,
+            "grips": [
+              [
+                59.199258720508396,
+                79.9248961513641
+              ],
+              [
+                64.8007412794916,
+                82.0751038486359
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "upright",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 107
+        },
+        {
+          "index": 6,
+          "frame_number": 7,
+          "cell_rect_1x": [
+            224,
+            112,
+            336,
+            224
+          ],
+          "cell_rect_px": [
+            1792,
+            896,
+            2688,
+            1792
+          ],
+          "pivot_1x": [
+            56,
+            86
+          ],
+          "pivot_px": [
+            448,
+            688
+          ],
+          "bbox_local_1x": [
+            32,
+            66,
+            84,
+            98
+          ],
+          "bbox_sheet_px": [
+            2048,
+            1424,
+            2464,
+            1680
+          ],
+          "source_pivot": [
+            56,
+            86
+          ],
+          "source_head": [
+            58.4,
+            75.0
+          ],
+          "head": {
+            "rect": [
+              40,
+              66,
+              69,
+              82
+            ],
+            "transform": "none",
+            "closed_eyes": false,
+            "actual_anchor": [
+              56,
+              79
+            ],
+            "template_sha256": "5605bac8c7244c03a15828a366c79265ee2d49ce8937677974025c1587e604a6"
+          },
+          "weapon": {
+            "bbox": [
+              30,
+              64,
+              87,
+              99
+            ],
+            "center": [
+              58.0,
+              81.0
+            ],
+            "angle": 21,
+            "grips": [
+              [
+                55.199258720508396,
+                79.9248961513641
+              ],
+              [
+                60.800741279491604,
+                82.0751038486359
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "upright",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 107
+        },
+        {
+          "index": 7,
+          "frame_number": 8,
+          "cell_rect_1x": [
+            336,
+            112,
+            448,
+            224
+          ],
+          "cell_rect_px": [
+            2688,
+            896,
+            3584,
+            1792
+          ],
+          "pivot_1x": [
+            55,
+            86
+          ],
+          "pivot_px": [
+            440,
+            688
+          ],
+          "bbox_local_1x": [
+            32,
+            65,
+            84,
+            98
+          ],
+          "bbox_sheet_px": [
+            2944,
+            1416,
+            3360,
+            1680
+          ],
+          "source_pivot": [
+            55,
+            86
+          ],
+          "source_head": [
+            58.9,
+            70.0
+          ],
+          "head": {
+            "rect": [
+              39,
+              65,
+              68,
+              81
+            ],
+            "transform": "none",
+            "closed_eyes": false,
+            "actual_anchor": [
+              55,
+              78
+            ],
+            "template_sha256": "5605bac8c7244c03a15828a366c79265ee2d49ce8937677974025c1587e604a6"
+          },
+          "weapon": {
+            "bbox": [
+              30,
+              64,
+              87,
+              99
+            ],
+            "center": [
+              58.0,
+              81.0
+            ],
+            "angle": 21,
+            "grips": [
+              [
+                55.199258720508396,
+                79.9248961513641
+              ],
+              [
+                60.800741279491604,
+                82.0751038486359
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "upright",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 108
+        }
+      ],
+      "release_frame": null,
+      "release_tick": null
+    },
+    "attack": {
+      "file": "fizz_attack.png",
+      "file_1x": "fizz_attack_1x.png",
+      "size_px": [
+        2688,
+        1792
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "frame_count": 6,
+      "duration_ms": 400,
+      "frames": [
+        {
+          "index": 0,
+          "frame_number": 1,
+          "cell_rect_1x": [
+            0,
+            0,
+            112,
+            112
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            896,
+            896
+          ],
+          "pivot_1x": [
+            58,
+            86
+          ],
+          "pivot_px": [
+            464,
+            688
+          ],
+          "bbox_local_1x": [
+            26,
+            66,
+            81,
+            98
+          ],
+          "bbox_sheet_px": [
+            208,
+            528,
+            648,
+            784
+          ],
+          "source_pivot": [
+            58,
+            86
+          ],
+          "source_head": [
+            57.3,
+            78.8
+          ],
+          "head": {
+            "rect": [
+              41,
+              66,
+              70,
+              82
+            ],
+            "transform": "none",
+            "closed_eyes": false,
+            "actual_anchor": [
+              57,
+              79
+            ],
+            "template_sha256": "5605bac8c7244c03a15828a366c79265ee2d49ce8937677974025c1587e604a6"
+          },
+          "weapon": {
+            "bbox": [
+              26,
+              78,
+              81,
+              93
+            ],
+            "center": [
+              53.0,
+              85.0
+            ],
+            "angle": 0,
+            "grips": [
+              [
+                50.0,
+                85.0
+              ],
+              [
+                56.0,
+                85.0
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "upright",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 70
+        },
+        {
+          "index": 1,
+          "frame_number": 2,
+          "cell_rect_1x": [
+            112,
+            0,
+            224,
+            112
+          ],
+          "cell_rect_px": [
+            896,
+            0,
+            1792,
+            896
+          ],
+          "pivot_1x": [
+            57,
+            86
+          ],
+          "pivot_px": [
+            456,
+            688
+          ],
+          "bbox_local_1x": [
+            24,
+            67,
+            79,
+            98
+          ],
+          "bbox_sheet_px": [
+            1088,
+            536,
+            1528,
+            784
+          ],
+          "source_pivot": [
+            57,
+            86
+          ],
+          "source_head": [
+            60.7,
+            81.2
+          ],
+          "head": {
+            "rect": [
+              45,
+              67,
+              74,
+              83
+            ],
+            "transform": "none",
+            "closed_eyes": false,
+            "actual_anchor": [
+              61,
+              80
+            ],
+            "template_sha256": "5605bac8c7244c03a15828a366c79265ee2d49ce8937677974025c1587e604a6"
+          },
+          "weapon": {
+            "bbox": [
+              24,
+              78,
+              79,
+              93
+            ],
+            "center": [
+              51.0,
+              85.0
+            ],
+            "angle": 0,
+            "grips": [
+              [
+                48.0,
+                85.0
+              ],
+              [
+                54.0,
+                85.0
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "upright",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 70
+        },
+        {
+          "index": 2,
+          "frame_number": 3,
+          "cell_rect_1x": [
+            224,
+            0,
+            336,
+            112
+          ],
+          "cell_rect_px": [
+            1792,
+            0,
+            2688,
+            896
+          ],
+          "pivot_1x": [
+            48,
+            86
+          ],
+          "pivot_px": [
+            384,
+            688
+          ],
+          "bbox_local_1x": [
+            32,
+            69,
+            87,
+            98
+          ],
+          "bbox_sheet_px": [
+            2048,
+            552,
+            2488,
+            784
+          ],
+          "source_pivot": [
+            48,
+            86
+          ],
+          "source_head": [
+            53.9,
+            87.4
+          ],
+          "head": {
+            "rect": [
+              38,
+              69,
+              67,
+              85
+            ],
+            "transform": "none",
+            "closed_eyes": false,
+            "actual_anchor": [
+              54,
+              82
+            ],
+            "template_sha256": "5605bac8c7244c03a15828a366c79265ee2d49ce8937677974025c1587e604a6"
+          },
+          "weapon": {
+            "bbox": [
+              32,
+              78,
+              87,
+              93
+            ],
+            "center": [
+              59.0,
+              85.0
+            ],
+            "angle": 0,
+            "grips": [
+              [
+                56.0,
+                85.0
+              ],
+              [
+                62.0,
+                85.0
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "upright",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 60
+        },
+        {
+          "index": 3,
+          "frame_number": 4,
+          "cell_rect_1x": [
+            0,
+            112,
+            112,
+            224
+          ],
+          "cell_rect_px": [
+            0,
+            896,
+            896,
+            1792
+          ],
+          "pivot_1x": [
+            51,
+            86
+          ],
+          "pivot_px": [
+            408,
+            688
+          ],
+          "bbox_local_1x": [
+            34,
+            69,
+            89,
+            98
+          ],
+          "bbox_sheet_px": [
+            272,
+            1448,
+            712,
+            1680
+          ],
+          "source_pivot": [
+            51,
+            86
+          ],
+          "source_head": [
+            56.2,
+            88.1
+          ],
+          "head": {
+            "rect": [
+              40,
+              69,
+              69,
+              85
+            ],
+            "transform": "none",
+            "closed_eyes": false,
+            "actual_anchor": [
+              56,
+              82
+            ],
+            "template_sha256": "5605bac8c7244c03a15828a366c79265ee2d49ce8937677974025c1587e604a6"
+          },
+          "weapon": {
+            "bbox": [
+              34,
+              78,
+              89,
+              93
+            ],
+            "center": [
+              61.0,
+              85.0
+            ],
+            "angle": 0,
+            "grips": [
+              [
+                58.0,
+                85.0
+              ],
+              [
+                64.0,
+                85.0
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "upright",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 60
+        },
+        {
+          "index": 4,
+          "frame_number": 5,
+          "cell_rect_1x": [
+            112,
+            112,
+            224,
+            224
+          ],
+          "cell_rect_px": [
+            896,
+            896,
+            1792,
+            1792
+          ],
+          "pivot_1x": [
+            50,
+            86
+          ],
+          "pivot_px": [
+            400,
+            688
+          ],
+          "bbox_local_1x": [
+            28,
+            68,
+            83,
+            98
+          ],
+          "bbox_sheet_px": [
+            1120,
+            1440,
+            1560,
+            1680
+          ],
+          "source_pivot": [
+            50,
+            86
+          ],
+          "source_head": [
+            54.5,
+            84.9
+          ],
+          "head": {
+            "rect": [
+              38,
+              68,
+              67,
+              84
+            ],
+            "transform": "none",
+            "closed_eyes": false,
+            "actual_anchor": [
+              54,
+              81
+            ],
+            "template_sha256": "5605bac8c7244c03a15828a366c79265ee2d49ce8937677974025c1587e604a6"
+          },
+          "weapon": {
+            "bbox": [
+              28,
+              78,
+              83,
+              93
+            ],
+            "center": [
+              55.0,
+              85.0
+            ],
+            "angle": 0,
+            "grips": [
+              [
+                52.0,
+                85.0
+              ],
+              [
+                58.0,
+                85.0
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "upright",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 70
+        },
+        {
+          "index": 5,
+          "frame_number": 6,
+          "cell_rect_1x": [
+            224,
+            112,
+            336,
+            224
+          ],
+          "cell_rect_px": [
+            1792,
+            896,
+            2688,
+            1792
+          ],
+          "pivot_1x": [
+            56,
+            86
+          ],
+          "pivot_px": [
+            448,
+            688
+          ],
+          "bbox_local_1x": [
+            30,
+            66,
+            85,
+            98
+          ],
+          "bbox_sheet_px": [
+            2032,
+            1424,
+            2472,
+            1680
+          ],
+          "source_pivot": [
+            56,
+            86
+          ],
+          "source_head": [
+            56.5,
+            80.1
+          ],
+          "head": {
+            "rect": [
+              40,
+              66,
+              69,
+              82
+            ],
+            "transform": "none",
+            "closed_eyes": false,
+            "actual_anchor": [
+              56,
+              79
+            ],
+            "template_sha256": "5605bac8c7244c03a15828a366c79265ee2d49ce8937677974025c1587e604a6"
+          },
+          "weapon": {
+            "bbox": [
+              30,
+              78,
+              85,
+              93
+            ],
+            "center": [
+              57.0,
+              85.0
+            ],
+            "angle": 0,
+            "grips": [
+              [
+                54.0,
+                85.0
+              ],
+              [
+                60.0,
+                85.0
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "upright",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 70
+        }
+      ],
+      "release_frame": 3,
+      "release_tick": 8
+    },
+    "attack_w": {
+      "file": "fizz_attack_w.png",
+      "file_1x": "fizz_attack_w_1x.png",
+      "size_px": [
+        3584,
+        1792
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "frame_count": 7,
+      "duration_ms": 500,
+      "frames": [
+        {
+          "index": 0,
+          "frame_number": 1,
+          "cell_rect_1x": [
+            0,
+            0,
+            112,
+            112
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            896,
+            896
+          ],
+          "pivot_1x": [
+            57,
+            86
+          ],
+          "pivot_px": [
+            456,
+            688
+          ],
+          "bbox_local_1x": [
+            30,
+            68,
+            85,
+            98
+          ],
+          "bbox_sheet_px": [
+            240,
+            544,
+            680,
+            784
+          ],
+          "source_pivot": [
+            57,
+            86
+          ],
+          "source_head": [
+            56.2,
+            79.5
+          ],
+          "head": {
+            "rect": [
+              40,
+              68,
+              69,
+              84
+            ],
+            "transform": "none",
+            "closed_eyes": false,
+            "actual_anchor": [
+              56,
+              81
+            ],
+            "template_sha256": "5605bac8c7244c03a15828a366c79265ee2d49ce8937677974025c1587e604a6"
+          },
+          "weapon": {
+            "bbox": [
+              30,
+              80,
+              85,
+              95
+            ],
+            "center": [
+              57.0,
+              87.0
+            ],
+            "angle": 0,
+            "grips": [
+              [
+                54.0,
+                87.0
+              ],
+              [
+                60.0,
+                87.0
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "upright",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 60
+        },
+        {
+          "index": 1,
+          "frame_number": 2,
+          "cell_rect_1x": [
+            112,
+            0,
+            224,
+            112
+          ],
+          "cell_rect_px": [
+            896,
+            0,
+            1792,
+            896
+          ],
+          "pivot_1x": [
+            57,
+            86
+          ],
+          "pivot_px": [
+            456,
+            688
+          ],
+          "bbox_local_1x": [
+            36,
+            52,
+            83,
+            93
+          ],
+          "bbox_sheet_px": [
+            1184,
+            416,
+            1560,
+            744
+          ],
+          "source_pivot": [
+            57,
+            86
+          ],
+          "source_head": [
+            56.1,
+            67.2
+          ],
+          "head": {
+            "rect": [
+              40,
+              62,
+              69,
+              78
+            ],
+            "transform": "none",
+            "closed_eyes": false,
+            "actual_anchor": [
+              56,
+              75
+            ],
+            "template_sha256": "5605bac8c7244c03a15828a366c79265ee2d49ce8937677974025c1587e604a6"
+          },
+          "weapon": {
+            "bbox": [
+              32,
+              48,
+              87,
+              93
+            ],
+            "center": [
+              59.0,
+              70.0
+            ],
+            "angle": -35,
+            "grips": [
+              [
+                56.54254386713303,
+                71.72072930905314
+              ],
+              [
+                61.45745613286697,
+                68.27927069094686
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "upright",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 60
+        },
+        {
+          "index": 2,
+          "frame_number": 3,
+          "cell_rect_1x": [
+            224,
+            0,
+            336,
+            112
+          ],
+          "cell_rect_px": [
+            1792,
+            0,
+            2688,
+            896
+          ],
+          "pivot_1x": [
+            56,
+            86
+          ],
+          "pivot_px": [
+            448,
+            688
+          ],
+          "bbox_local_1x": [
+            39,
+            37,
+            76,
+            91
+          ],
+          "bbox_sheet_px": [
+            2104,
+            296,
+            2400,
+            728
+          ],
+          "source_pivot": [
+            56,
+            86
+          ],
+          "source_head": [
+            54.9,
+            62.7
+          ],
+          "head": {
+            "rect": [
+              39,
+              58,
+              68,
+              74
+            ],
+            "transform": "none",
+            "closed_eyes": false,
+            "actual_anchor": [
+              55,
+              71
+            ],
+            "template_sha256": "5605bac8c7244c03a15828a366c79265ee2d49ce8937677974025c1587e604a6"
+          },
+          "weapon": {
+            "bbox": [
+              36,
+              34,
+              79,
+              89
+            ],
+            "center": [
+              57.0,
+              61.0
+            ],
+            "angle": -58,
+            "grips": [
+              [
+                55.410242207300385,
+                63.544144288469276
+              ],
+              [
+                58.589757792699615,
+                58.455855711530724
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "upright",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 70
+        },
+        {
+          "index": 3,
+          "frame_number": 4,
+          "cell_rect_1x": [
+            336,
+            0,
+            448,
+            112
+          ],
+          "cell_rect_px": [
+            2688,
+            0,
+            3584,
+            896
+          ],
+          "pivot_1x": [
+            55,
+            86
+          ],
+          "pivot_px": [
+            440,
+            688
+          ],
+          "bbox_local_1x": [
+            37,
+            46,
+            81,
+            92
+          ],
+          "bbox_sheet_px": [
+            2984,
+            368,
+            3336,
+            736
+          ],
+          "source_pivot": [
+            55,
+            86
+          ],
+          "source_head": [
+            54.8,
+            64.6
+          ],
+          "head": {
+            "rect": [
+              39,
+              59,
+              68,
+              75
+            ],
+            "transform": "none",
+            "closed_eyes": false,
+            "actual_anchor": [
+              55,
+              72
+            ],
+            "template_sha256": "5605bac8c7244c03a15828a366c79265ee2d49ce8937677974025c1587e604a6"
+          },
+          "weapon": {
+            "bbox": [
+              32,
+              42,
+              85,
+              89
+            ],
+            "center": [
+              58.0,
+              65.0
+            ],
+            "angle": -40,
+            "grips": [
+              [
+                55.701866670643064,
+                66.92836282905962
+              ],
+              [
+                60.298133329356936,
+                63.071637170940384
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "upright",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 70
+        },
+        {
+          "index": 4,
+          "frame_number": 5,
+          "cell_rect_1x": [
+            0,
+            112,
+            112,
+            224
+          ],
+          "cell_rect_px": [
+            0,
+            896,
+            896,
+            1792
+          ],
+          "pivot_1x": [
+            57,
+            86
+          ],
+          "pivot_px": [
+            456,
+            688
+          ],
+          "bbox_local_1x": [
+            41,
+            67,
+            92,
+            98
+          ],
+          "bbox_sheet_px": [
+            328,
+            1432,
+            736,
+            1680
+          ],
+          "source_pivot": [
+            57,
+            86
+          ],
+          "source_head": [
+            57.2,
+            77.7
+          ],
+          "head": {
+            "rect": [
+              41,
+              67,
+              70,
+              83
+            ],
+            "transform": "none",
+            "closed_eyes": false,
+            "actual_anchor": [
+              57,
+              80
+            ],
+            "template_sha256": "5605bac8c7244c03a15828a366c79265ee2d49ce8937677974025c1587e604a6"
+          },
+          "weapon": {
+            "bbox": [
+              38,
+              63,
+              95,
+              100
+            ],
+            "center": [
+              66.0,
+              81.0
+            ],
+            "angle": 25,
+            "grips": [
+              [
+                63.28107663889005,
+                79.7321452147779
+              ],
+              [
+                68.71892336110994,
+                82.2678547852221
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "upright",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 80
+        },
+        {
+          "index": 5,
+          "frame_number": 6,
+          "cell_rect_1x": [
+            112,
+            112,
+            224,
+            224
+          ],
+          "cell_rect_px": [
+            896,
+            896,
+            1792,
+            1792
+          ],
+          "pivot_1x": [
+            59,
+            86
+          ],
+          "pivot_px": [
+            472,
+            688
+          ],
+          "bbox_local_1x": [
+            37,
+            69,
+            92,
+            98
+          ],
+          "bbox_sheet_px": [
+            1192,
+            1448,
+            1632,
+            1680
+          ],
+          "source_pivot": [
+            59,
+            86
+          ],
+          "source_head": [
+            58.4,
+            81.6
+          ],
+          "head": {
+            "rect": [
+              42,
+              69,
+              71,
+              85
+            ],
+            "transform": "none",
+            "closed_eyes": false,
+            "actual_anchor": [
+              58,
+              82
+            ],
+            "template_sha256": "5605bac8c7244c03a15828a366c79265ee2d49ce8937677974025c1587e604a6"
+          },
+          "weapon": {
+            "bbox": [
+              36,
+              76,
+              93,
+              99
+            ],
+            "center": [
+              64.0,
+              87.0
+            ],
+            "angle": 8,
+            "grips": [
+              [
+                61.02919579377529,
+                86.5824806971198
+              ],
+              [
+                66.97080420622471,
+                87.4175193028802
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "upright",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 80
+        },
+        {
+          "index": 6,
+          "frame_number": 7,
+          "cell_rect_1x": [
+            224,
+            112,
+            336,
+            224
+          ],
+          "cell_rect_px": [
+            1792,
+            896,
+            2688,
+            1792
+          ],
+          "pivot_1x": [
+            59,
+            86
+          ],
+          "pivot_px": [
+            472,
+            688
+          ],
+          "bbox_local_1x": [
+            32,
+            66,
+            87,
+            98
+          ],
+          "bbox_sheet_px": [
+            2048,
+            1424,
+            2488,
+            1680
+          ],
+          "source_pivot": [
+            59,
+            86
+          ],
+          "source_head": [
+            58.7,
+            79.1
+          ],
+          "head": {
+            "rect": [
+              43,
+              66,
+              72,
+              82
+            ],
+            "transform": "none",
+            "closed_eyes": false,
+            "actual_anchor": [
+              59,
+              79
+            ],
+            "template_sha256": "5605bac8c7244c03a15828a366c79265ee2d49ce8937677974025c1587e604a6"
+          },
+          "weapon": {
+            "bbox": [
+              32,
+              78,
+              87,
+              93
+            ],
+            "center": [
+              59.0,
+              85.0
+            ],
+            "angle": 0,
+            "grips": [
+              [
+                56.0,
+                85.0
+              ],
+              [
+                62.0,
+                85.0
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "upright",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 80
+        }
+      ],
+      "release_frame": 5,
+      "release_tick": 16
+    },
+    "skill": {
+      "file": "fizz_skill.png",
+      "file_1x": "fizz_skill_1x.png",
+      "size_px": [
+        3584,
+        1792
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "frame_count": 7,
+      "duration_ms": 367,
+      "frames": [
+        {
+          "index": 0,
+          "frame_number": 1,
+          "cell_rect_1x": [
+            0,
+            0,
+            112,
+            112
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            896,
+            896
+          ],
+          "pivot_1x": [
+            59,
+            86
+          ],
+          "pivot_px": [
+            472,
+            688
+          ],
+          "bbox_local_1x": [
+            32,
+            68,
+            87,
+            98
+          ],
+          "bbox_sheet_px": [
+            256,
+            544,
+            696,
+            784
+          ],
+          "source_pivot": [
+            59,
+            86
+          ],
+          "source_head": [
+            60.3,
+            80.8
+          ],
+          "head": {
+            "rect": [
+              44,
+              68,
+              73,
+              84
+            ],
+            "transform": "none",
+            "closed_eyes": false,
+            "actual_anchor": [
+              60,
+              81
+            ],
+            "template_sha256": "5605bac8c7244c03a15828a366c79265ee2d49ce8937677974025c1587e604a6"
+          },
+          "weapon": {
+            "bbox": [
+              32,
+              80,
+              87,
+              95
+            ],
+            "center": [
+              59.0,
+              87.0
+            ],
+            "angle": 0,
+            "grips": [
+              [
+                56.0,
+                87.0
+              ],
+              [
+                62.0,
+                87.0
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "upright",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 50
+        },
+        {
+          "index": 1,
+          "frame_number": 2,
+          "cell_rect_1x": [
+            112,
+            0,
+            224,
+            112
+          ],
+          "cell_rect_px": [
+            896,
+            0,
+            1792,
+            896
+          ],
+          "pivot_1x": [
+            56,
+            86
+          ],
+          "pivot_px": [
+            448,
+            688
+          ],
+          "bbox_local_1x": [
+            33,
+            65,
+            88,
+            96
+          ],
+          "bbox_sheet_px": [
+            1160,
+            520,
+            1600,
+            768
+          ],
+          "source_pivot": [
+            56,
+            86
+          ],
+          "source_head": [
+            58.4,
+            88.9
+          ],
+          "head": {
+            "rect": [
+              42,
+              65,
+              58,
+              94
+            ],
+            "transform": "quarter_1",
+            "closed_eyes": false,
+            "actual_anchor": [
+              55,
+              77
+            ],
+            "template_sha256": "3c7e0f385490c7e1b834ff1697eef89aac1ec4828cc24d599679c51c26ff4e64"
+          },
+          "weapon": {
+            "bbox": [
+              32,
+              76,
+              89,
+              101
+            ],
+            "center": [
+              60.0,
+              88.0
+            ],
+            "angle": -10,
+            "grips": [
+              [
+                57.04557674096338,
+                88.52094453300079
+              ],
+              [
+                62.95442325903662,
+                87.47905546699921
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "roll",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 50
+        },
+        {
+          "index": 2,
+          "frame_number": 3,
+          "cell_rect_1x": [
+            224,
+            0,
+            336,
+            112
+          ],
+          "cell_rect_px": [
+            1792,
+            0,
+            2688,
+            896
+          ],
+          "pivot_1x": [
+            54,
+            86
+          ],
+          "pivot_px": [
+            432,
+            688
+          ],
+          "bbox_local_1x": [
+            34,
+            51,
+            89,
+            93
+          ],
+          "bbox_sheet_px": [
+            2064,
+            408,
+            2504,
+            744
+          ],
+          "source_pivot": [
+            54,
+            86
+          ],
+          "source_head": [
+            55.9,
+            92.8
+          ],
+          "head": {
+            "rect": [
+              40,
+              69,
+              69,
+              85
+            ],
+            "transform": "quarter_2",
+            "closed_eyes": false,
+            "actual_anchor": [
+              52,
+              71
+            ],
+            "template_sha256": "bfa4d8bd94e24f141e43116060051b5fdfbb1b2dddbff74add9935e9d256edc3"
+          },
+          "weapon": {
+            "bbox": [
+              34,
+              78,
+              89,
+              93
+            ],
+            "center": [
+              61.0,
+              85.0
+            ],
+            "angle": 0,
+            "grips": [
+              [
+                58.0,
+                85.0
+              ],
+              [
+                64.0,
+                85.0
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "roll",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 50
+        },
+        {
+          "index": 3,
+          "frame_number": 4,
+          "cell_rect_1x": [
+            336,
+            0,
+            448,
+            112
+          ],
+          "cell_rect_px": [
+            2688,
+            0,
+            3584,
+            896
+          ],
+          "pivot_1x": [
+            51,
+            86
+          ],
+          "pivot_px": [
+            408,
+            688
+          ],
+          "bbox_local_1x": [
+            17,
+            67,
+            87,
+            96
+          ],
+          "bbox_sheet_px": [
+            2824,
+            536,
+            3384,
+            768
+          ],
+          "source_pivot": [
+            51,
+            86
+          ],
+          "source_head": [
+            51.8,
+            94.3
+          ],
+          "head": {
+            "rect": [
+              36,
+              67,
+              52,
+              96
+            ],
+            "transform": "quarter_3",
+            "closed_eyes": false,
+            "actual_anchor": [
+              38,
+              83
+            ],
+            "template_sha256": "ef37f42fc322d31721736575f90843d850b17c3de1ac37b096c1d7036d0fc95e"
+          },
+          "weapon": {
+            "bbox": [
+              32,
+              76,
+              87,
+              91
+            ],
+            "center": [
+              59.0,
+              83.0
+            ],
+            "angle": 0,
+            "grips": [
+              [
+                56.0,
+                83.0
+              ],
+              [
+                62.0,
+                83.0
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "roll",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 50
+        },
+        {
+          "index": 4,
+          "frame_number": 5,
+          "cell_rect_1x": [
+            0,
+            112,
+            112,
+            224
+          ],
+          "cell_rect_px": [
+            0,
+            896,
+            896,
+            1792
+          ],
+          "pivot_1x": [
+            54,
+            86
+          ],
+          "pivot_px": [
+            432,
+            688
+          ],
+          "bbox_local_1x": [
+            33,
+            64,
+            88,
+            98
+          ],
+          "bbox_sheet_px": [
+            264,
+            1408,
+            704,
+            1680
+          ],
+          "source_pivot": [
+            54,
+            86
+          ],
+          "source_head": [
+            54.5,
+            90.0
+          ],
+          "head": {
+            "rect": [
+              38,
+              64,
+              67,
+              80
+            ],
+            "transform": "quarter_0",
+            "closed_eyes": false,
+            "actual_anchor": [
+              54,
+              77
+            ],
+            "template_sha256": "5605bac8c7244c03a15828a366c79265ee2d49ce8937677974025c1587e604a6"
+          },
+          "weapon": {
+            "bbox": [
+              32,
+              74,
+              89,
+              99
+            ],
+            "center": [
+              60.0,
+              86.0
+            ],
+            "angle": 10,
+            "grips": [
+              [
+                57.04557674096338,
+                85.47905546699921
+              ],
+              [
+                62.95442325903662,
+                86.52094453300079
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "roll",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 50
+        },
+        {
+          "index": 5,
+          "frame_number": 6,
+          "cell_rect_1x": [
+            112,
+            112,
+            224,
+            224
+          ],
+          "cell_rect_px": [
+            896,
+            896,
+            1792,
+            1792
+          ],
+          "pivot_1x": [
+            58,
+            86
+          ],
+          "pivot_px": [
+            464,
+            688
+          ],
+          "bbox_local_1x": [
+            34,
+            69,
+            89,
+            98
+          ],
+          "bbox_sheet_px": [
+            1168,
+            1448,
+            1608,
+            1680
+          ],
+          "source_pivot": [
+            58,
+            86
+          ],
+          "source_head": [
+            59.0,
+            84.7
+          ],
+          "head": {
+            "rect": [
+              43,
+              69,
+              72,
+              85
+            ],
+            "transform": "none",
+            "closed_eyes": false,
+            "actual_anchor": [
+              59,
+              82
+            ],
+            "template_sha256": "5605bac8c7244c03a15828a366c79265ee2d49ce8937677974025c1587e604a6"
+          },
+          "weapon": {
+            "bbox": [
+              34,
+              80,
+              89,
+              95
+            ],
+            "center": [
+              61.0,
+              87.0
+            ],
+            "angle": 0,
+            "grips": [
+              [
+                58.0,
+                87.0
+              ],
+              [
+                64.0,
+                87.0
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "upright",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 60
+        },
+        {
+          "index": 6,
+          "frame_number": 7,
+          "cell_rect_1x": [
+            224,
+            112,
+            336,
+            224
+          ],
+          "cell_rect_px": [
+            1792,
+            896,
+            2688,
+            1792
+          ],
+          "pivot_1x": [
+            58,
+            86
+          ],
+          "pivot_px": [
+            464,
+            688
+          ],
+          "bbox_local_1x": [
+            32,
+            66,
+            87,
+            98
+          ],
+          "bbox_sheet_px": [
+            2048,
+            1424,
+            2488,
+            1680
+          ],
+          "source_pivot": [
+            58,
+            86
+          ],
+          "source_head": [
+            59.7,
+            80.3
+          ],
+          "head": {
+            "rect": [
+              44,
+              66,
+              73,
+              82
+            ],
+            "transform": "none",
+            "closed_eyes": false,
+            "actual_anchor": [
+              60,
+              79
+            ],
+            "template_sha256": "5605bac8c7244c03a15828a366c79265ee2d49ce8937677974025c1587e604a6"
+          },
+          "weapon": {
+            "bbox": [
+              32,
+              78,
+              87,
+              93
+            ],
+            "center": [
+              59.0,
+              85.0
+            ],
+            "angle": 0,
+            "grips": [
+              [
+                56.0,
+                85.0
+              ],
+              [
+                62.0,
+                85.0
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "upright",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 57
+        }
+      ],
+      "release_frame": 4,
+      "release_tick": 9
+    },
+    "skill2": {
+      "file": "fizz_skill2.png",
+      "file_1x": "fizz_skill2_1x.png",
+      "size_px": [
+        3584,
+        1792
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "frame_count": 8,
+      "duration_ms": 833,
+      "frames": [
+        {
+          "index": 0,
+          "frame_number": 1,
+          "cell_rect_1x": [
+            0,
+            0,
+            112,
+            112
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            896,
+            896
+          ],
+          "pivot_1x": [
+            59,
+            86
+          ],
+          "pivot_px": [
+            472,
+            688
+          ],
+          "bbox_local_1x": [
+            32,
+            68,
+            87,
+            98
+          ],
+          "bbox_sheet_px": [
+            256,
+            544,
+            696,
+            784
+          ],
+          "source_pivot": [
+            59,
+            86
+          ],
+          "source_head": [
+            58.6,
+            80.9
+          ],
+          "head": {
+            "rect": [
+              43,
+              68,
+              72,
+              84
+            ],
+            "transform": "none",
+            "closed_eyes": false,
+            "actual_anchor": [
+              59,
+              81
+            ],
+            "template_sha256": "5605bac8c7244c03a15828a366c79265ee2d49ce8937677974025c1587e604a6"
+          },
+          "weapon": {
+            "bbox": [
+              32,
+              78,
+              87,
+              93
+            ],
+            "center": [
+              59.0,
+              85.0
+            ],
+            "angle": 0,
+            "grips": [
+              [
+                56.0,
+                85.0
+              ],
+              [
+                62.0,
+                85.0
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "upright",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 50
+        },
+        {
+          "index": 1,
+          "frame_number": 2,
+          "cell_rect_1x": [
+            112,
+            0,
+            224,
+            112
+          ],
+          "cell_rect_px": [
+            896,
+            0,
+            1792,
+            896
+          ],
+          "pivot_1x": [
+            60,
+            86
+          ],
+          "pivot_px": [
+            480,
+            688
+          ],
+          "bbox_local_1x": [
+            37,
+            47,
+            88,
+            90
+          ],
+          "bbox_sheet_px": [
+            1192,
+            376,
+            1600,
+            720
+          ],
+          "source_pivot": [
+            60,
+            86
+          ],
+          "source_head": [
+            60.3,
+            65.1
+          ],
+          "head": {
+            "rect": [
+              44,
+              56,
+              73,
+              72
+            ],
+            "transform": "none",
+            "closed_eyes": false,
+            "actual_anchor": [
+              60,
+              69
+            ],
+            "template_sha256": "5605bac8c7244c03a15828a366c79265ee2d49ce8937677974025c1587e604a6"
+          },
+          "weapon": {
+            "bbox": [
+              34,
+              44,
+              91,
+              81
+            ],
+            "center": [
+              62.0,
+              62.0
+            ],
+            "angle": -25,
+            "grips": [
+              [
+                59.28107663889005,
+                63.2678547852221
+              ],
+              [
+                64.71892336110994,
+                60.7321452147779
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "upright",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 70
+        },
+        {
+          "index": 2,
+          "frame_number": 3,
+          "cell_rect_1x": [
+            224,
+            0,
+            336,
+            112
+          ],
+          "cell_rect_px": [
+            1792,
+            0,
+            2688,
+            896
+          ],
+          "pivot_1x": [
+            55,
+            86
+          ],
+          "pivot_px": [
+            440,
+            688
+          ],
+          "bbox_local_1x": [
+            38,
+            8,
+            73,
+            97
+          ],
+          "bbox_sheet_px": [
+            2096,
+            64,
+            2376,
+            776
+          ],
+          "source_pivot": [
+            55,
+            86
+          ],
+          "source_head": [
+            54.9,
+            29.0
+          ],
+          "head": {
+            "rect": [
+              38,
+              27,
+              67,
+              43
+            ],
+            "transform": "flip_vertical",
+            "closed_eyes": false,
+            "actual_anchor": [
+              54,
+              29
+            ],
+            "template_sha256": "8402cda5dd20dca2967d1d774a0d8b7358025226c9f09195a3ddd79eb5f135df"
+          },
+          "weapon": {
+            "bbox": [
+              58,
+              42,
+              73,
+              97
+            ],
+            "center": [
+              65.0,
+              69.0
+            ],
+            "angle": 90,
+            "grips": [
+              [
+                65.0,
+                66.0
+              ],
+              [
+                65.0,
+                72.0
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "handstand",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 100
+        },
+        {
+          "index": 3,
+          "frame_number": 4,
+          "cell_rect_1x": [
+            336,
+            0,
+            448,
+            112
+          ],
+          "cell_rect_px": [
+            2688,
+            0,
+            3584,
+            896
+          ],
+          "pivot_1x": [
+            57,
+            86
+          ],
+          "pivot_px": [
+            456,
+            688
+          ],
+          "bbox_local_1x": [
+            40,
+            14,
+            75,
+            97
+          ],
+          "bbox_sheet_px": [
+            3008,
+            112,
+            3288,
+            776
+          ],
+          "source_pivot": [
+            57,
+            86
+          ],
+          "source_head": [
+            56.6,
+            42.5
+          ],
+          "head": {
+            "rect": [
+              40,
+              33,
+              69,
+              49
+            ],
+            "transform": "flip_vertical",
+            "closed_eyes": false,
+            "actual_anchor": [
+              56,
+              35
+            ],
+            "template_sha256": "8402cda5dd20dca2967d1d774a0d8b7358025226c9f09195a3ddd79eb5f135df"
+          },
+          "weapon": {
+            "bbox": [
+              60,
+              42,
+              75,
+              97
+            ],
+            "center": [
+              67.0,
+              69.0
+            ],
+            "angle": 90,
+            "grips": [
+              [
+                67.0,
+                66.0
+              ],
+              [
+                67.0,
+                72.0
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "handstand",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 200
+        },
+        {
+          "index": 4,
+          "frame_number": 5,
+          "cell_rect_1x": [
+            0,
+            112,
+            112,
+            224
+          ],
+          "cell_rect_px": [
+            0,
+            896,
+            896,
+            1792
+          ],
+          "pivot_1x": [
+            57,
+            86
+          ],
+          "pivot_px": [
+            456,
+            688
+          ],
+          "bbox_local_1x": [
+            40,
+            14,
+            75,
+            97
+          ],
+          "bbox_sheet_px": [
+            320,
+            1008,
+            600,
+            1672
+          ],
+          "source_pivot": [
+            57,
+            86
+          ],
+          "source_head": [
+            56.5,
+            43.1
+          ],
+          "head": {
+            "rect": [
+              40,
+              33,
+              69,
+              49
+            ],
+            "transform": "flip_vertical",
+            "closed_eyes": false,
+            "actual_anchor": [
+              56,
+              35
+            ],
+            "template_sha256": "8402cda5dd20dca2967d1d774a0d8b7358025226c9f09195a3ddd79eb5f135df"
+          },
+          "weapon": {
+            "bbox": [
+              60,
+              42,
+              75,
+              97
+            ],
+            "center": [
+              67.0,
+              69.0
+            ],
+            "angle": 90,
+            "grips": [
+              [
+                67.0,
+                66.0
+              ],
+              [
+                67.0,
+                72.0
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "handstand",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 200
+        },
+        {
+          "index": 5,
+          "frame_number": 6,
+          "cell_rect_1x": [
+            112,
+            112,
+            224,
+            224
+          ],
+          "cell_rect_px": [
+            896,
+            896,
+            1792,
+            1792
+          ],
+          "pivot_1x": [
+            58,
+            86
+          ],
+          "pivot_px": [
+            464,
+            688
+          ],
+          "bbox_local_1x": [
+            31,
+            25,
+            84,
+            71
+          ],
+          "bbox_sheet_px": [
+            1144,
+            1096,
+            1568,
+            1464
+          ],
+          "source_pivot": [
+            58,
+            86
+          ],
+          "source_head": [
+            57.5,
+            23.1
+          ],
+          "head": {
+            "rect": [
+              50,
+              25,
+              66,
+              54
+            ],
+            "transform": "quarter_3",
+            "closed_eyes": false,
+            "actual_anchor": [
+              52,
+              41
+            ],
+            "template_sha256": "ef37f42fc322d31721736575f90843d850b17c3de1ac37b096c1d7036d0fc95e"
+          },
+          "weapon": {
+            "bbox": [
+              28,
+              44,
+              87,
+              73
+            ],
+            "center": [
+              57.0,
+              58.0
+            ],
+            "angle": 15,
+            "grips": [
+              [
+                54.102222521132795,
+                57.22354286469244
+              ],
+              [
+                59.897777478867205,
+                58.77645713530756
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "roll",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 80
+        },
+        {
+          "index": 6,
+          "frame_number": 7,
+          "cell_rect_1x": [
+            224,
+            112,
+            336,
+            224
+          ],
+          "cell_rect_px": [
+            1792,
+            896,
+            2688,
+            1792
+          ],
+          "pivot_1x": [
+            56,
+            86
+          ],
+          "pivot_px": [
+            448,
+            688
+          ],
+          "bbox_local_1x": [
+            40,
+            61,
+            87,
+            98
+          ],
+          "bbox_sheet_px": [
+            2112,
+            1384,
+            2488,
+            1680
+          ],
+          "source_pivot": [
+            56,
+            86
+          ],
+          "source_head": [
+            55.6,
+            48.5
+          ],
+          "head": {
+            "rect": [
+              40,
+              66,
+              69,
+              82
+            ],
+            "transform": "none",
+            "closed_eyes": false,
+            "actual_anchor": [
+              56,
+              79
+            ],
+            "template_sha256": "5605bac8c7244c03a15828a366c79265ee2d49ce8937677974025c1587e604a6"
+          },
+          "weapon": {
+            "bbox": [
+              36,
+              56,
+              91,
+              101
+            ],
+            "center": [
+              63.0,
+              78.0
+            ],
+            "angle": 35,
+            "grips": [
+              [
+                60.54254386713303,
+                76.27927069094686
+              ],
+              [
+                65.45745613286698,
+                79.72072930905314
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "upright",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 60
+        },
+        {
+          "index": 7,
+          "frame_number": 8,
+          "cell_rect_1x": [
+            336,
+            112,
+            448,
+            224
+          ],
+          "cell_rect_px": [
+            2688,
+            896,
+            3584,
+            1792
+          ],
+          "pivot_1x": [
+            60,
+            86
+          ],
+          "pivot_px": [
+            480,
+            688
+          ],
+          "bbox_local_1x": [
+            34,
+            66,
+            89,
+            98
+          ],
+          "bbox_sheet_px": [
+            2960,
+            1424,
+            3400,
+            1680
+          ],
+          "source_pivot": [
+            60,
+            86
+          ],
+          "source_head": [
+            59.6,
+            78.8
+          ],
+          "head": {
+            "rect": [
+              44,
+              66,
+              73,
+              82
+            ],
+            "transform": "none",
+            "closed_eyes": false,
+            "actual_anchor": [
+              60,
+              79
+            ],
+            "template_sha256": "5605bac8c7244c03a15828a366c79265ee2d49ce8937677974025c1587e604a6"
+          },
+          "weapon": {
+            "bbox": [
+              34,
+              78,
+              89,
+              93
+            ],
+            "center": [
+              61.0,
+              85.0
+            ],
+            "angle": 0,
+            "grips": [
+              [
+                58.0,
+                85.0
+              ],
+              [
+                64.0,
+                85.0
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "upright",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 73
+        }
+      ],
+      "release_frame": 7,
+      "release_tick": 42
+    },
+    "ult": {
+      "file": "fizz_ult.png",
+      "file_1x": "fizz_ult_1x.png",
+      "size_px": [
+        3584,
+        1792
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "frame_count": 7,
+      "duration_ms": 500,
+      "frames": [
+        {
+          "index": 0,
+          "frame_number": 1,
+          "cell_rect_1x": [
+            0,
+            0,
+            112,
+            112
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            896,
+            896
+          ],
+          "pivot_1x": [
+            56,
+            86
+          ],
+          "pivot_px": [
+            448,
+            688
+          ],
+          "bbox_local_1x": [
+            30,
+            66,
+            85,
+            98
+          ],
+          "bbox_sheet_px": [
+            240,
+            528,
+            680,
+            784
+          ],
+          "source_pivot": [
+            56,
+            86
+          ],
+          "source_head": [
+            53.8,
+            79.6
+          ],
+          "head": {
+            "rect": [
+              38,
+              66,
+              67,
+              82
+            ],
+            "transform": "none",
+            "closed_eyes": false,
+            "actual_anchor": [
+              54,
+              79
+            ],
+            "template_sha256": "5605bac8c7244c03a15828a366c79265ee2d49ce8937677974025c1587e604a6"
+          },
+          "weapon": {
+            "bbox": [
+              30,
+              78,
+              85,
+              93
+            ],
+            "center": [
+              57.0,
+              85.0
+            ],
+            "angle": 0,
+            "grips": [
+              [
+                54.0,
+                85.0
+              ],
+              [
+                60.0,
+                85.0
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "upright",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 60
+        },
+        {
+          "index": 1,
+          "frame_number": 2,
+          "cell_rect_1x": [
+            112,
+            0,
+            224,
+            112
+          ],
+          "cell_rect_px": [
+            896,
+            0,
+            1792,
+            896
+          ],
+          "pivot_1x": [
+            55,
+            86
+          ],
+          "pivot_px": [
+            440,
+            688
+          ],
+          "bbox_local_1x": [
+            28,
+            61,
+            75,
+            98
+          ],
+          "bbox_sheet_px": [
+            1120,
+            488,
+            1496,
+            784
+          ],
+          "source_pivot": [
+            55,
+            86
+          ],
+          "source_head": [
+            55.2,
+            81.0
+          ],
+          "head": {
+            "rect": [
+              39,
+              67,
+              68,
+              83
+            ],
+            "transform": "none",
+            "closed_eyes": false,
+            "actual_anchor": [
+              55,
+              80
+            ],
+            "template_sha256": "5605bac8c7244c03a15828a366c79265ee2d49ce8937677974025c1587e604a6"
+          },
+          "weapon": {
+            "bbox": [
+              24,
+              56,
+              79,
+              101
+            ],
+            "center": [
+              51.0,
+              78.0
+            ],
+            "angle": 35,
+            "grips": [
+              [
+                48.54254386713303,
+                76.27927069094686
+              ],
+              [
+                53.45745613286697,
+                79.72072930905314
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "upright",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 60
+        },
+        {
+          "index": 2,
+          "frame_number": 3,
+          "cell_rect_1x": [
+            224,
+            0,
+            336,
+            112
+          ],
+          "cell_rect_px": [
+            1792,
+            0,
+            2688,
+            896
+          ],
+          "pivot_1x": [
+            53,
+            86
+          ],
+          "pivot_px": [
+            424,
+            688
+          ],
+          "bbox_local_1x": [
+            29,
+            59,
+            75,
+            98
+          ],
+          "bbox_sheet_px": [
+            2024,
+            472,
+            2392,
+            784
+          ],
+          "source_pivot": [
+            53,
+            86
+          ],
+          "source_head": [
+            56.7,
+            80.9
+          ],
+          "head": {
+            "rect": [
+              41,
+              67,
+              70,
+              83
+            ],
+            "transform": "none",
+            "closed_eyes": false,
+            "actual_anchor": [
+              57,
+              80
+            ],
+            "template_sha256": "5605bac8c7244c03a15828a366c79265ee2d49ce8937677974025c1587e604a6"
+          },
+          "weapon": {
+            "bbox": [
+              24,
+              54,
+              77,
+              101
+            ],
+            "center": [
+              50.0,
+              77.0
+            ],
+            "angle": 40,
+            "grips": [
+              [
+                47.701866670643064,
+                75.07163717094038
+              ],
+              [
+                52.298133329356936,
+                78.92836282905962
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "upright",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 50
+        },
+        {
+          "index": 3,
+          "frame_number": 4,
+          "cell_rect_1x": [
+            336,
+            0,
+            448,
+            112
+          ],
+          "cell_rect_px": [
+            2688,
+            0,
+            3584,
+            896
+          ],
+          "pivot_1x": [
+            55,
+            86
+          ],
+          "pivot_px": [
+            440,
+            688
+          ],
+          "bbox_local_1x": [
+            28,
+            61,
+            77,
+            98
+          ],
+          "bbox_sheet_px": [
+            2912,
+            488,
+            3304,
+            784
+          ],
+          "source_pivot": [
+            55,
+            86
+          ],
+          "source_head": [
+            58.7,
+            81.2
+          ],
+          "head": {
+            "rect": [
+              43,
+              67,
+              72,
+              83
+            ],
+            "transform": "none",
+            "closed_eyes": false,
+            "actual_anchor": [
+              59,
+              80
+            ],
+            "template_sha256": "5605bac8c7244c03a15828a366c79265ee2d49ce8937677974025c1587e604a6"
+          },
+          "weapon": {
+            "bbox": [
+              24,
+              56,
+              79,
+              101
+            ],
+            "center": [
+              51.0,
+              78.0
+            ],
+            "angle": 35,
+            "grips": [
+              [
+                48.54254386713303,
+                76.27927069094686
+              ],
+              [
+                53.45745613286697,
+                79.72072930905314
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "upright",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 70
+        },
+        {
+          "index": 4,
+          "frame_number": 5,
+          "cell_rect_1x": [
+            0,
+            112,
+            112,
+            224
+          ],
+          "cell_rect_px": [
+            0,
+            896,
+            896,
+            1792
+          ],
+          "pivot_1x": [
+            56,
+            86
+          ],
+          "pivot_px": [
+            448,
+            688
+          ],
+          "bbox_local_1x": [
+            27,
+            67,
+            78,
+            98
+          ],
+          "bbox_sheet_px": [
+            216,
+            1432,
+            624,
+            1680
+          ],
+          "source_pivot": [
+            56,
+            86
+          ],
+          "source_head": [
+            59.6,
+            81.5
+          ],
+          "head": {
+            "rect": [
+              44,
+              67,
+              73,
+              83
+            ],
+            "transform": "none",
+            "closed_eyes": false,
+            "actual_anchor": [
+              60,
+              80
+            ],
+            "template_sha256": "5605bac8c7244c03a15828a366c79265ee2d49ce8937677974025c1587e604a6"
+          },
+          "weapon": {
+            "bbox": [
+              24,
+              63,
+              81,
+              100
+            ],
+            "center": [
+              52.0,
+              81.0
+            ],
+            "angle": 25,
+            "grips": [
+              [
+                49.28107663889005,
+                79.7321452147779
+              ],
+              [
+                54.71892336110995,
+                82.2678547852221
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "upright",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 80
+        },
+        {
+          "index": 5,
+          "frame_number": 6,
+          "cell_rect_1x": [
+            112,
+            112,
+            224,
+            224
+          ],
+          "cell_rect_px": [
+            896,
+            896,
+            1792,
+            1792
+          ],
+          "pivot_1x": [
+            62,
+            86
+          ],
+          "pivot_px": [
+            496,
+            688
+          ],
+          "bbox_local_1x": [
+            35,
+            66,
+            90,
+            98
+          ],
+          "bbox_sheet_px": [
+            1176,
+            1424,
+            1616,
+            1680
+          ],
+          "source_pivot": [
+            62,
+            86
+          ],
+          "source_head": [
+            64.6,
+            80.9
+          ],
+          "head": {
+            "rect": [
+              49,
+              66,
+              78,
+              82
+            ],
+            "transform": "none",
+            "closed_eyes": false,
+            "actual_anchor": [
+              65,
+              79
+            ],
+            "template_sha256": "5605bac8c7244c03a15828a366c79265ee2d49ce8937677974025c1587e604a6"
+          },
+          "weapon": {
+            "bbox": [
+              34,
+              74,
+              91,
+              99
+            ],
+            "center": [
+              62.0,
+              86.0
+            ],
+            "angle": 10,
+            "grips": [
+              [
+                59.04557674096338,
+                85.47905546699921
+              ],
+              [
+                64.95442325903663,
+                86.52094453300079
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "upright",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 90
+        },
+        {
+          "index": 6,
+          "frame_number": 7,
+          "cell_rect_1x": [
+            224,
+            112,
+            336,
+            224
+          ],
+          "cell_rect_px": [
+            1792,
+            896,
+            2688,
+            1792
+          ],
+          "pivot_1x": [
+            58,
+            86
+          ],
+          "pivot_px": [
+            464,
+            688
+          ],
+          "bbox_local_1x": [
+            32,
+            66,
+            87,
+            98
+          ],
+          "bbox_sheet_px": [
+            2048,
+            1424,
+            2488,
+            1680
+          ],
+          "source_pivot": [
+            58,
+            86
+          ],
+          "source_head": [
+            58.7,
+            79.1
+          ],
+          "head": {
+            "rect": [
+              43,
+              66,
+              72,
+              82
+            ],
+            "transform": "none",
+            "closed_eyes": false,
+            "actual_anchor": [
+              59,
+              79
+            ],
+            "template_sha256": "5605bac8c7244c03a15828a366c79265ee2d49ce8937677974025c1587e604a6"
+          },
+          "weapon": {
+            "bbox": [
+              32,
+              78,
+              87,
+              93
+            ],
+            "center": [
+              59.0,
+              85.0
+            ],
+            "angle": 0,
+            "grips": [
+              [
+                56.0,
+                85.0
+              ],
+              [
+                62.0,
+                85.0
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "upright",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 90
+        }
+      ],
+      "release_frame": 3,
+      "release_tick": 7
+    },
+    "hit": {
+      "file": "fizz_hit.png",
+      "file_1x": "fizz_hit_1x.png",
+      "size_px": [
+        1792,
+        896
+      ],
+      "grid": [
+        2,
+        1
+      ],
+      "frame_count": 2,
+      "duration_ms": 240,
+      "frames": [
+        {
+          "index": 0,
+          "frame_number": 1,
+          "cell_rect_1x": [
+            0,
+            0,
+            112,
+            112
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            896,
+            896
+          ],
+          "pivot_1x": [
+            60,
+            86
+          ],
+          "pivot_px": [
+            480,
+            688
+          ],
+          "bbox_local_1x": [
+            31,
+            63,
+            85,
+            98
+          ],
+          "bbox_sheet_px": [
+            248,
+            504,
+            680,
+            784
+          ],
+          "source_pivot": [
+            60,
+            86
+          ],
+          "source_head": [
+            57.1,
+            71.3
+          ],
+          "head": {
+            "rect": [
+              40,
+              63,
+              69,
+              79
+            ],
+            "transform": "none",
+            "closed_eyes": true,
+            "actual_anchor": [
+              56,
+              76
+            ],
+            "template_sha256": "feb41adb7bf5c931fb58cde435ba6fecb50242cfb3a1249ca0723cefb7ad0d0f"
+          },
+          "weapon": {
+            "bbox": [
+              30,
+              70,
+              87,
+              97
+            ],
+            "center": [
+              58.0,
+              83.0
+            ],
+            "angle": 12,
+            "grips": [
+              [
+                55.06555719779858,
+                82.37626492754673
+              ],
+              [
+                60.93444280220142,
+                83.62373507245327
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "upright",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 120
+        },
+        {
+          "index": 1,
+          "frame_number": 2,
+          "cell_rect_1x": [
+            112,
+            0,
+            224,
+            112
+          ],
+          "cell_rect_px": [
+            896,
+            0,
+            1792,
+            896
+          ],
+          "pivot_1x": [
+            60,
+            86
+          ],
+          "pivot_px": [
+            480,
+            688
+          ],
+          "bbox_local_1x": [
+            32,
+            66,
+            87,
+            98
+          ],
+          "bbox_sheet_px": [
+            1152,
+            528,
+            1592,
+            784
+          ],
+          "source_pivot": [
+            60,
+            86
+          ],
+          "source_head": [
+            58.5,
+            75.3
+          ],
+          "head": {
+            "rect": [
+              42,
+              66,
+              71,
+              82
+            ],
+            "transform": "none",
+            "closed_eyes": false,
+            "actual_anchor": [
+              58,
+              79
+            ],
+            "template_sha256": "5605bac8c7244c03a15828a366c79265ee2d49ce8937677974025c1587e604a6"
+          },
+          "weapon": {
+            "bbox": [
+              32,
+              76,
+              87,
+              91
+            ],
+            "center": [
+              59.0,
+              83.0
+            ],
+            "angle": 0,
+            "grips": [
+              [
+                56.0,
+                83.0
+              ],
+              [
+                62.0,
+                83.0
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "upright",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 120
+        }
+      ],
+      "release_frame": null,
+      "release_tick": null
+    },
+    "dead": {
+      "file": "fizz_dead.png",
+      "file_1x": "fizz_dead_1x.png",
+      "size_px": [
+        3584,
+        1792
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "frame_count": 8,
+      "duration_ms": 1460,
+      "frames": [
+        {
+          "index": 0,
+          "frame_number": 1,
+          "cell_rect_1x": [
+            0,
+            0,
+            112,
+            112
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            896,
+            896
+          ],
+          "pivot_1x": [
+            59,
+            86
+          ],
+          "pivot_px": [
+            472,
+            688
+          ],
+          "bbox_local_1x": [
+            33,
+            67,
+            88,
+            98
+          ],
+          "bbox_sheet_px": [
+            264,
+            536,
+            704,
+            784
+          ],
+          "source_pivot": [
+            59,
+            86
+          ],
+          "source_head": [
+            59.3,
+            79.1
+          ],
+          "head": {
+            "rect": [
+              43,
+              67,
+              72,
+              83
+            ],
+            "transform": "none",
+            "closed_eyes": false,
+            "actual_anchor": [
+              59,
+              80
+            ],
+            "template_sha256": "5605bac8c7244c03a15828a366c79265ee2d49ce8937677974025c1587e604a6"
+          },
+          "weapon": {
+            "bbox": [
+              32,
+              74,
+              89,
+              99
+            ],
+            "center": [
+              60.0,
+              86.0
+            ],
+            "angle": 10,
+            "grips": [
+              [
+                57.04557674096338,
+                85.47905546699921
+              ],
+              [
+                62.95442325903662,
+                86.52094453300079
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "upright",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 100
+        },
+        {
+          "index": 1,
+          "frame_number": 2,
+          "cell_rect_1x": [
+            112,
+            0,
+            224,
+            112
+          ],
+          "cell_rect_px": [
+            896,
+            0,
+            1792,
+            896
+          ],
+          "pivot_1x": [
+            62,
+            86
+          ],
+          "pivot_px": [
+            496,
+            688
+          ],
+          "bbox_local_1x": [
+            44,
+            63,
+            107,
+            97
+          ],
+          "bbox_sheet_px": [
+            1248,
+            504,
+            1752,
+            776
+          ],
+          "source_pivot": [
+            62,
+            86
+          ],
+          "source_head": [
+            62.0,
+            50.3
+          ],
+          "head": {
+            "rect": [
+              44,
+              63,
+              60,
+              92
+            ],
+            "transform": "quarter_1",
+            "closed_eyes": false,
+            "actual_anchor": [
+              57,
+              75
+            ],
+            "template_sha256": "3c7e0f385490c7e1b834ff1697eef89aac1ec4828cc24d599679c51c26ff4e64"
+          },
+          "weapon": {
+            "bbox": [
+              52,
+              82,
+              107,
+              97
+            ],
+            "center": [
+              79.0,
+              89.0
+            ],
+            "angle": 0,
+            "grips": [
+              [
+                76.0,
+                89.0
+              ],
+              [
+                82.0,
+                89.0
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "roll",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 100
+        },
+        {
+          "index": 2,
+          "frame_number": 3,
+          "cell_rect_1x": [
+            224,
+            0,
+            336,
+            112
+          ],
+          "cell_rect_px": [
+            1792,
+            0,
+            2688,
+            896
+          ],
+          "pivot_1x": [
+            64,
+            86
+          ],
+          "pivot_px": [
+            512,
+            688
+          ],
+          "bbox_local_1x": [
+            46,
+            54,
+            109,
+            97
+          ],
+          "bbox_sheet_px": [
+            2160,
+            432,
+            2664,
+            776
+          ],
+          "source_pivot": [
+            64,
+            86
+          ],
+          "source_head": [
+            60.9,
+            36.7
+          ],
+          "head": {
+            "rect": [
+              46,
+              72,
+              75,
+              88
+            ],
+            "transform": "quarter_2",
+            "closed_eyes": false,
+            "actual_anchor": [
+              58,
+              74
+            ],
+            "template_sha256": "bfa4d8bd94e24f141e43116060051b5fdfbb1b2dddbff74add9935e9d256edc3"
+          },
+          "weapon": {
+            "bbox": [
+              54,
+              82,
+              109,
+              97
+            ],
+            "center": [
+              81.0,
+              89.0
+            ],
+            "angle": 0,
+            "grips": [
+              [
+                78.0,
+                89.0
+              ],
+              [
+                84.0,
+                89.0
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "roll",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 110
+        },
+        {
+          "index": 3,
+          "frame_number": 4,
+          "cell_rect_1x": [
+            336,
+            0,
+            448,
+            112
+          ],
+          "cell_rect_px": [
+            2688,
+            0,
+            3584,
+            896
+          ],
+          "pivot_1x": [
+            68,
+            86
+          ],
+          "pivot_px": [
+            544,
+            688
+          ],
+          "bbox_local_1x": [
+            31,
+            60,
+            109,
+            97
+          ],
+          "bbox_sheet_px": [
+            2936,
+            480,
+            3560,
+            776
+          ],
+          "source_pivot": [
+            68,
+            86
+          ],
+          "source_head": [
+            65.2,
+            55.4
+          ],
+          "head": {
+            "rect": [
+              50,
+              60,
+              66,
+              89
+            ],
+            "transform": "quarter_3",
+            "closed_eyes": false,
+            "actual_anchor": [
+              52,
+              76
+            ],
+            "template_sha256": "ef37f42fc322d31721736575f90843d850b17c3de1ac37b096c1d7036d0fc95e"
+          },
+          "weapon": {
+            "bbox": [
+              54,
+              82,
+              109,
+              97
+            ],
+            "center": [
+              81.0,
+              89.0
+            ],
+            "angle": 0,
+            "grips": [
+              [
+                78.0,
+                89.0
+              ],
+              [
+                84.0,
+                89.0
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "roll",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 120
+        },
+        {
+          "index": 4,
+          "frame_number": 5,
+          "cell_rect_1x": [
+            0,
+            112,
+            112,
+            224
+          ],
+          "cell_rect_px": [
+            0,
+            896,
+            896,
+            1792
+          ],
+          "pivot_1x": [
+            69,
+            86
+          ],
+          "pivot_px": [
+            552,
+            688
+          ],
+          "bbox_local_1x": [
+            51,
+            60,
+            109,
+            97
+          ],
+          "bbox_sheet_px": [
+            408,
+            1376,
+            872,
+            1672
+          ],
+          "source_pivot": [
+            69,
+            86
+          ],
+          "source_head": [
+            65.7,
+            74.0
+          ],
+          "head": {
+            "rect": [
+              51,
+              78,
+              80,
+              94
+            ],
+            "transform": "quarter_2",
+            "closed_eyes": false,
+            "actual_anchor": [
+              63,
+              80
+            ],
+            "template_sha256": "bfa4d8bd94e24f141e43116060051b5fdfbb1b2dddbff74add9935e9d256edc3"
+          },
+          "weapon": {
+            "bbox": [
+              54,
+              82,
+              109,
+              97
+            ],
+            "center": [
+              81.0,
+              89.0
+            ],
+            "angle": 0,
+            "grips": [
+              [
+                78.0,
+                89.0
+              ],
+              [
+                84.0,
+                89.0
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "roll",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 130
+        },
+        {
+          "index": 5,
+          "frame_number": 6,
+          "cell_rect_1x": [
+            112,
+            112,
+            224,
+            224
+          ],
+          "cell_rect_px": [
+            896,
+            896,
+            1792,
+            1792
+          ],
+          "pivot_1x": [
+            63,
+            86
+          ],
+          "pivot_px": [
+            504,
+            688
+          ],
+          "bbox_local_1x": [
+            45,
+            68,
+            109,
+            97
+          ],
+          "bbox_sheet_px": [
+            1256,
+            1440,
+            1768,
+            1672
+          ],
+          "source_pivot": [
+            63,
+            86
+          ],
+          "source_head": [
+            60.1,
+            65.7
+          ],
+          "head": {
+            "rect": [
+              45,
+              68,
+              61,
+              97
+            ],
+            "transform": "quarter_1",
+            "closed_eyes": false,
+            "actual_anchor": [
+              58,
+              80
+            ],
+            "template_sha256": "3c7e0f385490c7e1b834ff1697eef89aac1ec4828cc24d599679c51c26ff4e64"
+          },
+          "weapon": {
+            "bbox": [
+              54,
+              82,
+              109,
+              97
+            ],
+            "center": [
+              81.0,
+              89.0
+            ],
+            "angle": 0,
+            "grips": [
+              [
+                78.0,
+                89.0
+              ],
+              [
+                84.0,
+                89.0
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "roll",
+          "baseline": 97,
+          "lowest_allowed_row": 97,
+          "duration_ms": 150
+        },
+        {
+          "index": 6,
+          "frame_number": 7,
+          "cell_rect_1x": [
+            224,
+            112,
+            336,
+            224
+          ],
+          "cell_rect_px": [
+            1792,
+            896,
+            2688,
+            1792
+          ],
+          "pivot_1x": [
+            65,
+            86
+          ],
+          "pivot_px": [
+            520,
+            688
+          ],
+          "bbox_local_1x": [
+            22,
+            82,
+            111,
+            100
+          ],
+          "bbox_sheet_px": [
+            1968,
+            1552,
+            2680,
+            1696
+          ],
+          "source_pivot": [
+            65,
+            86
+          ],
+          "source_head": [
+            62.2,
+            67.9
+          ],
+          "head": {
+            "rect": [
+              29,
+              89,
+              56,
+              100
+            ],
+            "transform": "prone_redraw",
+            "closed_eyes": true,
+            "death_exception": true,
+            "actual_anchor": [
+              43,
+              94
+            ]
+          },
+          "weapon": {
+            "bbox": [
+              56,
+              82,
+              111,
+              97
+            ],
+            "center": [
+              83.0,
+              89.0
+            ],
+            "angle": 0,
+            "grips": [
+              [
+                80.0,
+                89.0
+              ],
+              [
+                86.0,
+                89.0
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "prone",
+          "baseline": 97,
+          "lowest_allowed_row": 99,
+          "duration_ms": 250
+        },
+        {
+          "index": 7,
+          "frame_number": 8,
+          "cell_rect_1x": [
+            336,
+            112,
+            448,
+            224
+          ],
+          "cell_rect_px": [
+            2688,
+            896,
+            3584,
+            1792
+          ],
+          "pivot_1x": [
+            64,
+            86
+          ],
+          "pivot_px": [
+            512,
+            688
+          ],
+          "bbox_local_1x": [
+            21,
+            82,
+            111,
+            100
+          ],
+          "bbox_sheet_px": [
+            2856,
+            1552,
+            3576,
+            1696
+          ],
+          "source_pivot": [
+            64,
+            86
+          ],
+          "source_head": [
+            61.0,
+            68.3
+          ],
+          "head": {
+            "rect": [
+              28,
+              89,
+              55,
+              100
+            ],
+            "transform": "prone_redraw",
+            "closed_eyes": true,
+            "death_exception": true,
+            "actual_anchor": [
+              42,
+              94
+            ]
+          },
+          "weapon": {
+            "bbox": [
+              56,
+              82,
+              111,
+              97
+            ],
+            "center": [
+              83.0,
+              89.0
+            ],
+            "angle": 0,
+            "grips": [
+              [
+                80.0,
+                89.0
+              ],
+              [
+                86.0,
+                89.0
+              ]
+            ],
+            "length_cells": 55
+          },
+          "posture": "prone",
+          "baseline": 97,
+          "lowest_allowed_row": 99,
+          "duration_ms": 500
+        }
+      ],
+      "release_frame": null,
+      "release_tick": null
+    }
+  }
+}

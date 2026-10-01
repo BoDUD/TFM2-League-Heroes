@@ -1,0 +1,96 @@
+{
+  "mode": "builtin_image_gen_then_user_authorized_pixel_processing",
+  "approved_design": "fizz_strips_pack.zip/design/fizz_design_1x.png",
+  "idle": "copied unchanged from input pack",
+  "postprocessing": "Direct logical-pixel structural cleanup and pose reconstruction; approved head and weapon components copied; no generated head redesign retained.",
+  "animations": {
+    "run": {
+      "prompt": "Three reference images: 1 APPROVED FINAL Fizz pixel sprite (copy identity and coarse game pixel style; DO NOT use the later redrawn character),2 original sampled animation strip (frame count, timing, pivots and grid layout),3 exact 3D poses (motion only). Draw ONE animation sheet. Every standing body32 game pixels high. One logical pixel=8x8 flat screen pixels, strict grid; no tiny illustrative details. Only23 colors from approved sprite: #121122 #0F3B3C #3D3223 #4C2029 #0A5B4A #23405E #1C3775 #811C2C #078E76 #2651A5 #8A6431 #20AE56 #AA4A36 #2D69BB #CE5F37 #7B7D7A #3596C6 #39A1C6 #C59B4C #BBB798 #96B9C6 #E4DDC0 #DEDFD5. Head copied EXACTLY, both green eyes visible, floppy blue/orange fins, pale spots, small grin. Green#20AE56 ONLY eyes. Cream throat4rows below bottom eyes. No neck gap. Body blue, lowerlegs navy, webbed feet. Long55pixel trident eachframe, crimson shaft1pixel+dark outline above/below total3rows, straight/unbroken, jade three prongs, steel edges/bluegem, goldringbutt. Both hands2x2minimum joined to >=3pixel wide arms. One connected character, no floating parts. Three-quarter FRONT facing RIGHT. All non-death pixels AT/ABOVE logicalfeetbaseline97 per112x112cell. Truealpha0/255, no backdrop/glow/shadows/grid/borders/numbers/text/effects. Preserve coarse PIXEL art not highdetail illustration. Layout 4 columns x2rows, exactly8frames rowmajor, eachcell896x896screen pixels/112x112gamepixels, total3584x1792. Sprite small within eachcell like reference2, unusedcells empty. RUN LOOP: 8 distinct poses. Alternating legs: frames1-4 first stride,5-8 opposite stride, knees cross in passing poses. Trident diagonally across front, butt high behind LEFT shoulder, prongs low RIGHT. Same head x relative to pivot every frame, head bob no more than1 game pixel. First/last seamless.",
+      "references": [
+        "design/fizz_design.png",
+        "now/fizz_now_run.png",
+        "pose/lol_pose_run.png"
+      ],
+      "raw_generated_source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a0f5e9-e695-7420-94f5-11e9d4fd5d85\\exec-8b47cc9c-44eb-4f06-aa29-ce70f2a67e00.png",
+      "raw_in_pack": "drafts/fizz_run_raw.png",
+      "final_file": "fizz_run.png"
+    },
+    "attack": {
+      "prompt": "Three reference images: 1 APPROVED FINAL Fizz pixel sprite (copy identity and coarse game pixel style; DO NOT use the later redrawn character),2 original sampled animation strip (frame count, timing, pivots and grid layout),3 exact 3D poses (motion only). Draw ONE animation sheet. Every standing body32 game pixels high. One logical pixel=8x8 flat screen pixels, strict grid; no tiny illustrative details. Only23 colors from approved sprite: #121122 #0F3B3C #3D3223 #4C2029 #0A5B4A #23405E #1C3775 #811C2C #078E76 #2651A5 #8A6431 #20AE56 #AA4A36 #2D69BB #CE5F37 #7B7D7A #3596C6 #39A1C6 #C59B4C #BBB798 #96B9C6 #E4DDC0 #DEDFD5. Head copied EXACTLY, both green eyes visible, floppy blue/orange fins, pale spots, small grin. Green#20AE56 ONLY eyes. Cream throat4rows below bottom eyes. No neck gap. Body blue, lowerlegs navy, webbed feet. Long55pixel trident eachframe, crimson shaft1pixel+dark outline above/below total3rows, straight/unbroken, jade three prongs, steel edges/bluegem, goldringbutt. Both hands2x2minimum joined to >=3pixel wide arms. One connected character, no floating parts. Three-quarter FRONT facing RIGHT. All non-death pixels AT/ABOVE logicalfeetbaseline97 per112x112cell. Truealpha0/255, no backdrop/glow/shadows/grid/borders/numbers/text/effects. Preserve coarse PIXEL art not highdetail illustration. Layout 3 columns x2rows, exactly6frames rowmajor, eachcell896x896screen pixels/112x112gamepixels, total2688x1792. Sprite small within eachcell like reference2, unusedcells empty. BASIC TRIDENT JAB. Frames1 wind up by drawing pole left;2 cocked;3 RELEASE lunge and horizontal waist-high thrust RIGHT;4 hold thrust;5 retract;6 idle recovery. Frame3 is impact.",
+      "references": [
+        "design/fizz_design.png",
+        "now/fizz_now_attack.png",
+        "pose/lol_pose_attack.png"
+      ],
+      "raw_generated_source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a0f5e9-e695-7420-94f5-11e9d4fd5d85\\exec-092d8805-8d0f-4760-9aa5-cb7f2a6d7c29.png",
+      "raw_in_pack": "drafts/fizz_attack_raw.png",
+      "final_file": "fizz_attack.png"
+    },
+    "attack_w": {
+      "prompt": "Three reference images: 1 APPROVED FINAL Fizz pixel sprite (copy identity and coarse game pixel style; DO NOT use the later redrawn character),2 original sampled animation strip (frame count, timing, pivots and grid layout),3 exact 3D poses (motion only). Draw ONE animation sheet. Every standing body32 game pixels high. One logical pixel=8x8 flat screen pixels, strict grid; no tiny illustrative details. Only23 colors from approved sprite: #121122 #0F3B3C #3D3223 #4C2029 #0A5B4A #23405E #1C3775 #811C2C #078E76 #2651A5 #8A6431 #20AE56 #AA4A36 #2D69BB #CE5F37 #7B7D7A #3596C6 #39A1C6 #C59B4C #BBB798 #96B9C6 #E4DDC0 #DEDFD5. Head copied EXACTLY, both green eyes visible, floppy blue/orange fins, pale spots, small grin. Green#20AE56 ONLY eyes. Cream throat4rows below bottom eyes. No neck gap. Body blue, lowerlegs navy, webbed feet. Long55pixel trident eachframe, crimson shaft1pixel+dark outline above/below total3rows, straight/unbroken, jade three prongs, steel edges/bluegem, goldringbutt. Both hands2x2minimum joined to >=3pixel wide arms. One connected character, no floating parts. Three-quarter FRONT facing RIGHT. All non-death pixels AT/ABOVE logicalfeetbaseline97 per112x112cell. Truealpha0/255, no backdrop/glow/shadows/grid/borders/numbers/text/effects. Preserve coarse PIXEL art not highdetail illustration. Layout 4columns x2rows, exactly7frames rowmajor, eachcell896x896 /112x112gamepixels, total3584x1792. Sprite small within eachcell exactly like reference2, unused8thcell EMPTY. EMPOWERED STRIKE. 1crouch,2hop with weapon swinging up,3top of hop6–8 pixels above ground with raised trident,4descend raised pole,5IMPACT drive pole down and forward RIGHT, feet land on baseline;6landed crouch;7recover idle. Last8th cell EMPTY.",
+      "references": [
+        "design/fizz_design.png",
+        "now/fizz_now_attack_w.png",
+        "pose/lol_pose_attack_w.png"
+      ],
+      "raw_generated_source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a0f5e9-e695-7420-94f5-11e9d4fd5d85\\exec-c7d30d15-f30c-4c05-95b7-92a3c8ee8385.png",
+      "raw_in_pack": "drafts/fizz_attack_w_raw.png",
+      "final_file": "fizz_attack_w.png"
+    },
+    "skill": {
+      "prompt": "Three reference images: 1 APPROVED FINAL Fizz pixel sprite (copy identity and coarse game pixel style; DO NOT use the later redrawn character),2 original sampled animation strip (frame count, timing, pivots and grid layout),3 exact 3D poses (motion only). Draw ONE animation sheet. Every standing body32 game pixels high. One logical pixel=8x8 flat screen pixels, strict grid; no tiny illustrative details. Only23 colors from approved sprite: #121122 #0F3B3C #3D3223 #4C2029 #0A5B4A #23405E #1C3775 #811C2C #078E76 #2651A5 #8A6431 #20AE56 #AA4A36 #2D69BB #CE5F37 #7B7D7A #3596C6 #39A1C6 #C59B4C #BBB798 #96B9C6 #E4DDC0 #DEDFD5. Head copied EXACTLY, both green eyes visible, floppy blue/orange fins, pale spots, small grin. Green#20AE56 ONLY eyes. Cream throat4rows below bottom eyes. No neck gap. Body blue, lowerlegs navy, webbed feet. Long55pixel trident eachframe, crimson shaft1pixel+dark outline above/below total3rows, straight/unbroken, jade three prongs, steel edges/bluegem, goldringbutt. Both hands2x2minimum joined to >=3pixel wide arms. One connected character, no floating parts. Three-quarter FRONT facing RIGHT. All non-death pixels AT/ABOVE logicalfeetbaseline97 per112x112cell. Truealpha0/255, no backdrop/glow/shadows/grid/borders/numbers/text/effects. Preserve coarse PIXEL art not highdetail illustration. Layout 4columns x2rows, exactly7frames rowmajor, eachcell896x896 /112x112gamepixels, total3584x1792. Sprite small within eachcell exactly like reference2, unused8thcell EMPTY. DASH SOMERSAULT. 1crouch pole back;2launch leaning far forward;3upside-down tumble;4quarter turn later is IMPACT dash-through with trident forward;5unroll to feet;6landing crouch;7near idle. Head quarter-turns only 0/90/180/270. Last8th cell EMPTY.",
+      "references": [
+        "design/fizz_design.png",
+        "now/fizz_now_skill.png",
+        "pose/lol_pose_skill.png"
+      ],
+      "raw_generated_source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a0f5e9-e695-7420-94f5-11e9d4fd5d85\\exec-5574f9b2-ca7e-4018-8386-b403144f949a.png",
+      "raw_in_pack": "drafts/fizz_skill_raw.png",
+      "final_file": "fizz_skill.png"
+    },
+    "skill2": {
+      "prompt": "Three reference images: 1 APPROVED FINAL Fizz pixel sprite (copy identity and coarse game pixel style; DO NOT use the later redrawn character),2 original sampled animation strip (frame count, timing, pivots and grid layout),3 exact 3D poses (motion only). Draw ONE animation sheet. Every standing body32 game pixels high. One logical pixel=8x8 flat screen pixels, strict grid; no tiny illustrative details. Only23 colors from approved sprite: #121122 #0F3B3C #3D3223 #4C2029 #0A5B4A #23405E #1C3775 #811C2C #078E76 #2651A5 #8A6431 #20AE56 #AA4A36 #2D69BB #CE5F37 #7B7D7A #3596C6 #39A1C6 #C59B4C #BBB798 #96B9C6 #E4DDC0 #DEDFD5. Head copied EXACTLY, both green eyes visible, floppy blue/orange fins, pale spots, small grin. Green#20AE56 ONLY eyes. Cream throat4rows below bottom eyes. No neck gap. Body blue, lowerlegs navy, webbed feet. Long55pixel trident eachframe, crimson shaft1pixel+dark outline above/below total3rows, straight/unbroken, jade three prongs, steel edges/bluegem, goldringbutt. Both hands2x2minimum joined to >=3pixel wide arms. One connected character, no floating parts. Three-quarter FRONT facing RIGHT. All non-death pixels AT/ABOVE logicalfeetbaseline97 per112x112cell. Truealpha0/255, no backdrop/glow/shadows/grid/borders/numbers/text/effects. Preserve coarse PIXEL art not highdetail illustration. Layout4columns x2rows, exactly8frames rowmajor, eachcell896x896 /112x112gamepixels, total3584x1792. Sprite small within eachcell like reference2. TRIDENT HANDSTAND. 1crouch;2jump;3plant FULL55pixel trident vertically with prongs DOWN touching baseline97 and butt TOP, character upside down one-handed handstand on top;4–5balance upside-down;6flip off pulling trident;7IMPACT landing slam down/right;8near idle. Inverted head vertical flip only (face still right). Tall planted pole must stay55pixels long.",
+      "references": [
+        "design/fizz_design.png",
+        "now/fizz_now_skill2.png",
+        "pose/lol_pose_skill2.png"
+      ],
+      "raw_generated_source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a0f5e9-e695-7420-94f5-11e9d4fd5d85\\exec-ff25690a-79f5-4496-a927-8d9d296cc367.png",
+      "raw_in_pack": "drafts/fizz_skill2_raw.png",
+      "final_file": "fizz_skill2.png"
+    },
+    "ult": {
+      "prompt": "Three reference images: 1 APPROVED FINAL Fizz pixel sprite (copy identity and coarse game pixel style; DO NOT use the later redrawn character),2 original sampled animation strip (frame count, timing, pivots and grid layout),3 exact 3D poses (motion only). Draw ONE animation sheet. Every standing body32 game pixels high. One logical pixel=8x8 flat screen pixels, strict grid; no tiny illustrative details. Only23 colors from approved sprite: #121122 #0F3B3C #3D3223 #4C2029 #0A5B4A #23405E #1C3775 #811C2C #078E76 #2651A5 #8A6431 #20AE56 #AA4A36 #2D69BB #CE5F37 #7B7D7A #3596C6 #39A1C6 #C59B4C #BBB798 #96B9C6 #E4DDC0 #DEDFD5. Head copied EXACTLY, both green eyes visible, floppy blue/orange fins, pale spots, small grin. Green#20AE56 ONLY eyes. Cream throat4rows below bottom eyes. No neck gap. Body blue, lowerlegs navy, webbed feet. Long55pixel trident eachframe, crimson shaft1pixel+dark outline above/below total3rows, straight/unbroken, jade three prongs, steel edges/bluegem, goldringbutt. Both hands2x2minimum joined to >=3pixel wide arms. One connected character, no floating parts. Three-quarter FRONT facing RIGHT. All non-death pixels AT/ABOVE logicalfeetbaseline97 per112x112cell. Truealpha0/255, no backdrop/glow/shadows/grid/borders/numbers/text/effects. Preserve coarse PIXEL art not highdetail illustration. Layout4columns x2rows, exactly7frames rowmajor, eachcell896x896 /112x112gamepixels, total3584x1792. Sprite small within eachcell like reference2. THROWING GESTURE, no fish or other effects. 1windup pole near hand;2free arm behind;3RELEASE fling open hand RIGHT;4–5arm extended right follow-through;6–7recover horizontal pole idle. Last8th cell EMPTY.",
+      "references": [
+        "design/fizz_design.png",
+        "now/fizz_now_ult.png",
+        "pose/lol_pose_ult.png"
+      ],
+      "raw_generated_source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a0f5e9-e695-7420-94f5-11e9d4fd5d85\\exec-e54906ad-64b8-4683-bf6d-4a1e8807b931.png",
+      "raw_in_pack": "drafts/fizz_ult_raw.png",
+      "final_file": "fizz_ult.png"
+    },
+    "hit": {
+      "prompt": "Three reference images: 1 APPROVED FINAL Fizz pixel sprite (copy identity and coarse game pixel style; DO NOT use the later redrawn character),2 original sampled animation strip (frame count, timing, pivots and grid layout),3 exact 3D poses (motion only). Draw ONE animation sheet. Every standing body32 game pixels high. One logical pixel=8x8 flat screen pixels, strict grid; no tiny illustrative details. Only23 colors from approved sprite: #121122 #0F3B3C #3D3223 #4C2029 #0A5B4A #23405E #1C3775 #811C2C #078E76 #2651A5 #8A6431 #20AE56 #AA4A36 #2D69BB #CE5F37 #7B7D7A #3596C6 #39A1C6 #C59B4C #BBB798 #96B9C6 #E4DDC0 #DEDFD5. Head copied EXACTLY, both green eyes visible, floppy blue/orange fins, pale spots, small grin. Green#20AE56 ONLY eyes. Cream throat4rows below bottom eyes. No neck gap. Body blue, lowerlegs navy, webbed feet. Long55pixel trident eachframe, crimson shaft1pixel+dark outline above/below total3rows, straight/unbroken, jade three prongs, steel edges/bluegem, goldringbutt. Both hands2x2minimum joined to >=3pixel wide arms. One connected character, no floating parts. Three-quarter FRONT facing RIGHT. All non-death pixels AT/ABOVE logicalfeetbaseline97 per112x112cell. Truealpha0/255, no backdrop/glow/shadows/grid/borders/numbers/text/effects. Preserve coarse PIXEL art not highdetail illustration. Layout2columns x1rows, exactly2frames rowmajor, eachcell896x896 /112x112gamepixels, total1792x896. Sprite small within eachcell like reference2. HIT REACTION: frame1 recoils head/shoulders pushed back, both eyes closed as short dark horizontal lines; frame2 recovers toward idle. Trident remains held.",
+      "references": [
+        "design/fizz_design.png",
+        "now/fizz_now_hit.png",
+        "pose/lol_pose_hit.png"
+      ],
+      "raw_generated_source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a0f5e9-e695-7420-94f5-11e9d4fd5d85\\exec-5fa0dc22-809e-405d-a293-0ae2fa78d925.png",
+      "raw_in_pack": "drafts/fizz_hit_raw.png",
+      "final_file": "fizz_hit.png"
+    },
+    "dead": {
+      "prompt": "Three reference images: 1 APPROVED FINAL Fizz pixel sprite (copy identity and coarse game pixel style; DO NOT use the later redrawn character),2 original sampled animation strip (frame count, timing, pivots and grid layout),3 exact 3D poses (motion only). Draw ONE animation sheet. Every standing body32 game pixels high. One logical pixel=8x8 flat screen pixels, strict grid; no tiny illustrative details. Only23 colors from approved sprite: #121122 #0F3B3C #3D3223 #4C2029 #0A5B4A #23405E #1C3775 #811C2C #078E76 #2651A5 #8A6431 #20AE56 #AA4A36 #2D69BB #CE5F37 #7B7D7A #3596C6 #39A1C6 #C59B4C #BBB798 #96B9C6 #E4DDC0 #DEDFD5. Head copied EXACTLY, both green eyes visible, floppy blue/orange fins, pale spots, small grin. Green#20AE56 ONLY eyes. Cream throat4rows below bottom eyes. No neck gap. Body blue, lowerlegs navy, webbed feet. Long55pixel trident eachframe, crimson shaft1pixel+dark outline above/below total3rows, straight/unbroken, jade three prongs, steel edges/bluegem, goldringbutt. Both hands2x2minimum joined to >=3pixel wide arms. One connected character, no floating parts. Three-quarter FRONT facing RIGHT. All non-death pixels AT/ABOVE logicalfeetbaseline97 per112x112cell. Truealpha0/255, no backdrop/glow/shadows/grid/borders/numbers/text/effects. Preserve coarse PIXEL art not highdetail illustration. Layout4columns x2rows, exactly8frames rowmajor, eachcell896x896 /112x112gamepixels, total3584x1792. Sprite small within eachcell like reference2. DEATH:1struck;2thrown up and drops pole;3–4tumble airborne at most10pixels;5–6fall;7–8lie belly-down and still, ears spread. Fromframe2 trident lies horizontally on ground in front as ONLY detached part. Final prone frames can extend max2pixels below baseline97.",
+      "references": [
+        "design/fizz_design.png",
+        "now/fizz_now_dead.png",
+        "pose/lol_pose_dead.png"
+      ],
+      "raw_generated_source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a0f5e9-e695-7420-94f5-11e9d4fd5d85\\exec-ccd372c2-ae51-4c13-a7e4-231d1d744ede.png",
+      "raw_in_pack": "drafts/fizz_dead_raw.png",
+      "final_file": "fizz_dead.png"
+    }
+  }
+}
