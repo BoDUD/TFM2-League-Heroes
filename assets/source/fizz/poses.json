@@ -1,0 +1,310 @@
+{
+ "hero": "fizz",
+ "champ": "Fizz",
+ "camera": {
+  "yaw": 30,
+  "pitch": 20,
+  "mirror": true
+ },
+ "chibi": {
+  "head": 1.0,
+  "legs": 1.0,
+  "hair": 1.0
+ },
+ "height": 32,
+ "cell": [
+  112,
+  112,
+  14
+ ],
+ "design": "fizz_idle1@0",
+ "tags": {
+  "idle": {
+   "frames": [
+    [
+     "fizz_idle1@0",
+     200
+    ],
+    [
+     "fizz_idle1@0",
+     200
+    ],
+    [
+     "fizz_idle1@0",
+     200
+    ],
+    [
+     "fizz_idle1@0",
+     200
+    ],
+    [
+     "fizz_idle1@0",
+     200
+    ],
+    [
+     "fizz_idle1@0",
+     200
+    ]
+   ]
+  },
+  "run": {
+   "flat": true,
+   "head_like": "fizz_idle1@0",
+   "frames": [
+    [
+     "fizz_run@0",
+     107
+    ],
+    [
+     "fizz_run@125",
+     107
+    ],
+    [
+     "fizz_run@250",
+     107
+    ],
+    [
+     "fizz_run@375",
+     107
+    ],
+    [
+     "fizz_run@500",
+     107
+    ],
+    [
+     "fizz_run@625",
+     107
+    ],
+    [
+     "fizz_run@750",
+     107
+    ],
+    [
+     "fizz_run@875",
+     108
+    ]
+   ]
+  },
+  "attack": {
+   "lunge": 0.5,
+   "frames": [
+    [
+     "fizz_idle1@0>fizz_attack1@150:0.6",
+     70
+    ],
+    [
+     "fizz_attack1@280",
+     70
+    ],
+    [
+     "fizz_attack1@360",
+     60
+    ],
+    [
+     "fizz_attack1@450",
+     60
+    ],
+    [
+     "fizz_attack1@600",
+     70
+    ],
+    [
+     "fizz_attack1@750>fizz_idle1@0:0.5",
+     70
+    ]
+   ]
+  },
+  "attack_w": {
+   "lunge": 0.5,
+   "rise": 0.35,
+   "frames": [
+    [
+     "fizz_idle1@0>fizz_crit@120:0.6",
+     60
+    ],
+    [
+     "fizz_crit@300",
+     60
+    ],
+    [
+     "fizz_crit@450",
+     70
+    ],
+    [
+     "fizz_crit@650",
+     70
+    ],
+    [
+     "fizz_crit@820",
+     80
+    ],
+    [
+     "fizz_crit@900",
+     80
+    ],
+    [
+     "fizz_crit@980>fizz_idle1@0:0.5",
+     80
+    ]
+   ]
+  },
+  "skill": {
+   "lunge": 0.3,
+   "rise": 0.5,
+   "frames": [
+    [
+     "fizz_idle1@0>fizz_spell1@40:0.6",
+     50
+    ],
+    [
+     "fizz_spell1@90",
+     50
+    ],
+    [
+     "fizz_spell1@140",
+     50
+    ],
+    [
+     "fizz_spell1@190",
+     50
+    ],
+    [
+     "fizz_spell1@240",
+     50
+    ],
+    [
+     "fizz_spell1@320",
+     60
+    ],
+    [
+     "fizz_spell1@420>fizz_idle1@0:0.5",
+     57
+    ]
+   ]
+  },
+  "skill2": {
+   "lunge": 0.0,
+   "frames": [
+    [
+     "fizz_idle1@0>fizz_spell3a@80:0.6",
+     50
+    ],
+    [
+     "fizz_spell3a@200",
+     70
+    ],
+    [
+     "fizz_spell3a@600",
+     100
+    ],
+    [
+     "fizz_spell3a_idle@0",
+     200
+    ],
+    [
+     "fizz_spell3a_idle@400",
+     200
+    ],
+    [
+     "fizz_spell3b@300",
+     80
+    ],
+    [
+     "fizz_spell3b@550",
+     60
+    ],
+    [
+     "fizz_spell3b@700>fizz_idle1@0:0.5",
+     73
+    ]
+   ]
+  },
+  "ult": {
+   "lunge": 0.5,
+   "frames": [
+    [
+     "fizz_idle1@0>fizz_spell4@100:0.6",
+     60
+    ],
+    [
+     "fizz_spell4@200",
+     60
+    ],
+    [
+     "fizz_spell4@280",
+     50
+    ],
+    [
+     "fizz_spell4@350",
+     70
+    ],
+    [
+     "fizz_spell4@450",
+     80
+    ],
+    [
+     "fizz_spell4@600",
+     90
+    ],
+    [
+     "fizz_spell4@800>fizz_idle1@0:0.5",
+     90
+    ]
+   ]
+  },
+  "hit": {
+   "flat": true,
+   "frames": [
+    [
+     "fizz_idle1@0>fizz_death@150:0.35",
+     120
+    ],
+    [
+     "fizz_idle1@0>fizz_death@150:0.15",
+     120
+    ]
+   ]
+  },
+  "dead": {
+   "anchor": "first",
+   "lunge": 0.5,
+   "flat": true,
+   "travel": 0.3,
+   "frames": [
+    [
+     "fizz_death@0",
+     100
+    ],
+    [
+     "fizz_death@150",
+     100
+    ],
+    [
+     "fizz_death@300",
+     110
+    ],
+    [
+     "fizz_death@450",
+     120
+    ],
+    [
+     "fizz_death@600",
+     130
+    ],
+    [
+     "fizz_death@800",
+     150
+    ],
+    [
+     "fizz_death@1100",
+     250
+    ],
+    [
+     "fizz_death@1500",
+     500
+    ]
+   ],
+   "rise": 0.3
+  }
+ }
+}
