@@ -1,0 +1,362 @@
+[
+  {
+    "index": 1,
+    "name": "fiora_fx_hit",
+    "frames": 5,
+    "cell": [
+      256,
+      256
+    ],
+    "source_grid": [
+      3,
+      2
+    ],
+    "final_grid": [
+      5,
+      1
+    ],
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline, colours only from a steel ramp (#FFFFFF, #E6E8F0, #B8D8F8, #6FA8E8, #3A6FC0).\nEffect: a RAPIER HIT, 5 frames: 1 a small white flash at the center; 2 a thin bright diagonal slash of light (a long narrow diamond, white core, pale-blue edge) across the center from lower left to upper right; 3 the slash at full length with 4-5 thin spark lines flying outward; 4 the slash thins and the sparks fly further, turning blue; 5 a few blue specks.\nLayout: one horizontal row of 5 equal square cells, image size 1280x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline, colours only from a steel ramp (#FFFFFF, #E6E8F0, #B8D8F8, #6FA8E8, #3A6FC0).\nEffect: a RAPIER HIT, 5 frames: 1 a small white flash at the center; 2 a thin bright diagonal slash of light (a long narrow diamond, white core, pale-blue edge) across the center from lower left to upper right; 3 the slash at full length with 4-5 thin spark lines flying outward; 4 the slash thins and the sparks fly further, turning blue; 5 a few blue specks.\n\nPRODUCTION LAYOUT: exactly 3 columns by 2 rows of equal cells. Read frames left to right, then top to bottom. Each cell aspect 256:256. Exactly 5 frames; any remaining cells completely transparent. No visible grid, numbers, text, labels or border. Keep artwork strictly inside its own cell, with a 6% safety inset. Use the ENTIRE canvas as the regular grid, with no outside margins.\nAsset: fiora_fx_hit.png. This is isolated pixel-art VFX, never draw a character or weapon object. Actual transparent background. LARGE CRISP SQUARE PIXELS, small tactical RPG scale. Sparse bold readable forms. NO dark contour around bright shapes, NO black outlines, NO painted glow blur. Light is represented using flat stepped color bands. Reference 1 is the approved character ONLY to judge coarse pixel scale and palette harmony. Reference 2 is an effect mood and rose-motif guide only; do not copy its text, background or atlas.\n",
+    "extra_vital_reference": false
+  },
+  {
+    "index": 2,
+    "name": "fiora_fx_e_hit",
+    "frames": 5,
+    "cell": [
+      256,
+      256
+    ],
+    "source_grid": [
+      3,
+      2
+    ],
+    "final_grid": [
+      5,
+      1
+    ],
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline, colours only from a steel ramp (#FFFFFF, #E6E8F0, #B8D8F8, #6FA8E8, #3A6FC0) with the vital blue (#FFFFFF, #CFF4FF, #7FDFFF, #2FB0F0, #1470C8, #0B3F86).\nEffect: a CHILLING THRUST HIT, 5 frames: 1 a white flash at the center; 2 a straight horizontal thrust of light from the left edge to the center, bright white core with a blue glow; 3 a burst of small pale-blue ice-like shards around the center, a thin blue ring; 4 the shards drift outward and down, the ring widens; 5 a few blue specks.\nLayout: one horizontal row of 5 equal square cells, image size 1280x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline, colours only from a steel ramp (#FFFFFF, #E6E8F0, #B8D8F8, #6FA8E8, #3A6FC0) with the vital blue (#FFFFFF, #CFF4FF, #7FDFFF, #2FB0F0, #1470C8, #0B3F86).\nEffect: a CHILLING THRUST HIT, 5 frames: 1 a white flash at the center; 2 a straight horizontal thrust of light from the left edge to the center, bright white core with a blue glow; 3 a burst of small pale-blue ice-like shards around the center, a thin blue ring; 4 the shards drift outward and down, the ring widens; 5 a few blue specks.\n\nPRODUCTION LAYOUT: exactly 3 columns by 2 rows of equal cells. Read frames left to right, then top to bottom. Each cell aspect 256:256. Exactly 5 frames; any remaining cells completely transparent. No visible grid, numbers, text, labels or border. Keep artwork strictly inside its own cell, with a 6% safety inset. Use the ENTIRE canvas as the regular grid, with no outside margins.\nAsset: fiora_fx_e_hit.png. This is isolated pixel-art VFX, never draw a character or weapon object. Actual transparent background. LARGE CRISP SQUARE PIXELS, small tactical RPG scale. Sparse bold readable forms. NO dark contour around bright shapes, NO black outlines, NO painted glow blur. Light is represented using flat stepped color bands. Reference 1 is the approved character ONLY to judge coarse pixel scale and palette harmony. Reference 2 is an effect mood and rose-motif guide only; do not copy its text, background or atlas.\n",
+    "extra_vital_reference": false
+  },
+  {
+    "index": 3,
+    "name": "fiora_fx_e_crit",
+    "frames": 6,
+    "cell": [
+      256,
+      256
+    ],
+    "source_grid": [
+      3,
+      2
+    ],
+    "final_grid": [
+      6,
+      1
+    ],
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline, colours only from a steel ramp (#FFFFFF, #E6E8F0, #B8D8F8, #6FA8E8, #3A6FC0) with gold (#FFFFFF, #FFF4C0, #FCD87A, #F9C740, #C99631, #784C17).\nEffect: a CRITICAL STRIKE, 6 frames: 1 a bright white flash at the center; 2 a big X-shaped cross of light (two long narrow diamonds, white cores, gold edges) filling 80% of the cell; 3 the X at full size with a pale-blue glow ring and 6-8 gold and blue sparks flying outward; 4 the X shrinks, the sparks fly further; 5 the ring fades to blue, sparks scatter; 6 a few gold specks.\nLayout: one horizontal row of 6 equal square cells, image size 1536x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline, colours only from a steel ramp (#FFFFFF, #E6E8F0, #B8D8F8, #6FA8E8, #3A6FC0) with gold (#FFFFFF, #FFF4C0, #FCD87A, #F9C740, #C99631, #784C17).\nEffect: a CRITICAL STRIKE, 6 frames: 1 a bright white flash at the center; 2 a big X-shaped cross of light (two long narrow diamonds, white cores, gold edges) filling 80% of the cell; 3 the X at full size with a pale-blue glow ring and 6-8 gold and blue sparks flying outward; 4 the X shrinks, the sparks fly further; 5 the ring fades to blue, sparks scatter; 6 a few gold specks.\n\nPRODUCTION LAYOUT: exactly 3 columns by 2 rows of equal cells. Read frames left to right, then top to bottom. Each cell aspect 256:256. Exactly 6 frames; any remaining cells completely transparent. No visible grid, numbers, text, labels or border. Keep artwork strictly inside its own cell, with a 6% safety inset. Use the ENTIRE canvas as the regular grid, with no outside margins.\nAsset: fiora_fx_e_crit.png. This is isolated pixel-art VFX, never draw a character or weapon object. Actual transparent background. LARGE CRISP SQUARE PIXELS, small tactical RPG scale. Sparse bold readable forms. NO dark contour around bright shapes, NO black outlines, NO painted glow blur. Light is represented using flat stepped color bands. Reference 1 is the approved character ONLY to judge coarse pixel scale and palette harmony. Reference 2 is an effect mood and rose-motif guide only; do not copy its text, background or atlas.\n",
+    "extra_vital_reference": false
+  },
+  {
+    "index": 4,
+    "name": "fiora_fx_q_hit",
+    "frames": 5,
+    "cell": [
+      256,
+      256
+    ],
+    "source_grid": [
+      3,
+      2
+    ],
+    "final_grid": [
+      5,
+      1
+    ],
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline, colours only from a steel ramp (#FFFFFF, #E6E8F0, #B8D8F8, #6FA8E8, #3A6FC0) with gold (#FFFFFF, #FFF4C0, #FCD87A, #F9C740, #C99631, #784C17).\nEffect: a LUNGE STAB HIT, 5 frames: 1 a long thin horizontal streak of white light entering from the left edge to the center; 2 a bright four-pointed star flash (white core, pale-gold rays) at the center where the streak ends; 3 the star at full size, the streak fading, small sparks; 4 the star shrinks, sparks fly outward; 5 a few pale-gold specks.\nLayout: one horizontal row of 5 equal square cells, image size 1280x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline, colours only from a steel ramp (#FFFFFF, #E6E8F0, #B8D8F8, #6FA8E8, #3A6FC0) with gold (#FFFFFF, #FFF4C0, #FCD87A, #F9C740, #C99631, #784C17).\nEffect: a LUNGE STAB HIT, 5 frames: 1 a long thin horizontal streak of white light entering from the left edge to the center; 2 a bright four-pointed star flash (white core, pale-gold rays) at the center where the streak ends; 3 the star at full size, the streak fading, small sparks; 4 the star shrinks, sparks fly outward; 5 a few pale-gold specks.\n\nPRODUCTION LAYOUT: exactly 3 columns by 2 rows of equal cells. Read frames left to right, then top to bottom. Each cell aspect 256:256. Exactly 5 frames; any remaining cells completely transparent. No visible grid, numbers, text, labels or border. Keep artwork strictly inside its own cell, with a 6% safety inset. Use the ENTIRE canvas as the regular grid, with no outside margins.\nAsset: fiora_fx_q_hit.png. This is isolated pixel-art VFX, never draw a character or weapon object. Actual transparent background. LARGE CRISP SQUARE PIXELS, small tactical RPG scale. Sparse bold readable forms. NO dark contour around bright shapes, NO black outlines, NO painted glow blur. Light is represented using flat stepped color bands. Reference 1 is the approved character ONLY to judge coarse pixel scale and palette harmony. Reference 2 is an effect mood and rose-motif guide only; do not copy its text, background or atlas.\n",
+    "extra_vital_reference": false
+  },
+  {
+    "index": 5,
+    "name": "fiora_fx_q_dash",
+    "frames": 5,
+    "cell": [
+      512,
+      384
+    ],
+    "source_grid": [
+      3,
+      2
+    ],
+    "final_grid": [
+      5,
+      1
+    ],
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline, colours only from a steel ramp (#FFFFFF, #E6E8F0, #B8D8F8, #6FA8E8, #3A6FC0) with dust (#C8BCA8, #9A8C78, #6E6252).\nEffect: a DASH START on the ground (a figure dashes to the RIGHT from the left part of the cell; do NOT draw the figure), 5 frames: 1 a small flat puff of dust at the bottom left; 2 the dust spreads flat along the ground and two or three long thin white-blue wind streaks stretch from it to the right; 3 the streaks reach the right side, the dust rolls; 4 the streaks thin and break; 5 faint dust.\nLayout: one horizontal row of 5 equal cells, each 8 wide to 3 tall, image size 2560x384 (each cell 512x384); the ground line near the bottom of every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline, colours only from a steel ramp (#FFFFFF, #E6E8F0, #B8D8F8, #6FA8E8, #3A6FC0) with dust (#C8BCA8, #9A8C78, #6E6252).\nEffect: a DASH START on the ground (a figure dashes to the RIGHT from the left part of the cell; do NOT draw the figure), 5 frames: 1 a small flat puff of dust at the bottom left; 2 the dust spreads flat along the ground and two or three long thin white-blue wind streaks stretch from it to the right; 3 the streaks reach the right side, the dust rolls; 4 the streaks thin and break; 5 faint dust.\n\nPRODUCTION LAYOUT: exactly 3 columns by 2 rows of equal cells. Read frames left to right, then top to bottom. Each cell aspect 512:384. Exactly 5 frames; any remaining cells completely transparent. No visible grid, numbers, text, labels or border. Keep artwork strictly inside its own cell, with a 6% safety inset. Use the ENTIRE canvas as the regular grid, with no outside margins.\nAsset: fiora_fx_q_dash.png. This is isolated pixel-art VFX, never draw a character or weapon object. Actual transparent background. LARGE CRISP SQUARE PIXELS, small tactical RPG scale. Sparse bold readable forms. NO dark contour around bright shapes, NO black outlines, NO painted glow blur. Light is represented using flat stepped color bands. Reference 1 is the approved character ONLY to judge coarse pixel scale and palette harmony. Reference 2 is an effect mood and rose-motif guide only; do not copy its text, background or atlas.\n",
+    "extra_vital_reference": false
+  },
+  {
+    "index": 6,
+    "name": "fiora_fx_vital_mark",
+    "frames": 4,
+    "cell": [
+      256,
+      256
+    ],
+    "source_grid": [
+      2,
+      2
+    ],
+    "final_grid": [
+      4,
+      1
+    ],
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline, colours only from the vital blue (#FFFFFF, #CFF4FF, #7FDFFF, #2FB0F0, #1470C8, #0B3F86).\nEffect: a VITAL MARK, 4 frames, a seamless loop: a glowing diamond-shaped crest (taller than wide, about 60% of the cell) with a simple rose pattern of pale lines inside (a small circle with petals), a bright white-blue border, a thin halo around it; it pulses: frame 1 normal, 2 brighter and a pixel bigger halo, 3 brightest, 4 back to normal.\nLayout: one horizontal row of 4 equal square cells, image size 1024x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline, colours only from the vital blue (#FFFFFF, #CFF4FF, #7FDFFF, #2FB0F0, #1470C8, #0B3F86).\nEffect: a VITAL MARK, 4 frames, a seamless loop: a glowing diamond-shaped crest (taller than wide, about 60% of the cell) with a simple rose pattern of pale lines inside (a small circle with petals), a bright white-blue border, a thin halo around it; it pulses: frame 1 normal, 2 brighter and a pixel bigger halo, 3 brightest, 4 back to normal.\n\nPRODUCTION LAYOUT: exactly 2 columns by 2 rows of equal cells. Read frames left to right, then top to bottom. Each cell aspect 256:256. Exactly 4 frames; any remaining cells completely transparent. No visible grid, numbers, text, labels or border. Keep artwork strictly inside its own cell, with a 6% safety inset. Use the ENTIRE canvas as the regular grid, with no outside margins.\nAsset: fiora_fx_vital_mark.png. This is isolated pixel-art VFX, never draw a character or weapon object. Actual transparent background. LARGE CRISP SQUARE PIXELS, small tactical RPG scale. Sparse bold readable forms. NO dark contour around bright shapes, NO black outlines, NO painted glow blur. Light is represented using flat stepped color bands. Reference 1 is the approved character ONLY to judge coarse pixel scale and palette harmony. Reference 2 is an effect mood and rose-motif guide only; do not copy its text, background or atlas.\n",
+    "extra_vital_reference": false
+  },
+  {
+    "index": 7,
+    "name": "fiora_fx_vital_hit",
+    "frames": 6,
+    "cell": [
+      256,
+      256
+    ],
+    "source_grid": [
+      3,
+      2
+    ],
+    "final_grid": [
+      6,
+      1
+    ],
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline, colours only from the vital blue (#FFFFFF, #CFF4FF, #7FDFFF, #2FB0F0, #1470C8, #0B3F86).\nEffect: a VITAL STRUCK, 6 frames: 1 the diamond crest at the center flashes white; 2 it shatters: 6-8 small blue crystal shards fly outward and a round rose-pattern emblem of light (a circle of petals, pale blue lines) flashes behind; 3 the emblem expands to fill the cell, the shards fly further; 4 the emblem thins to an outline, the shards spin; 5 the emblem fades, the shards dim to deep blue; 6 a few blue specks.\nLayout: one horizontal row of 6 equal square cells, image size 1536x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline, colours only from the vital blue (#FFFFFF, #CFF4FF, #7FDFFF, #2FB0F0, #1470C8, #0B3F86).\nEffect: a VITAL STRUCK, 6 frames: 1 the diamond crest at the center flashes white; 2 it shatters: 6-8 small blue crystal shards fly outward and a round rose-pattern emblem of light (a circle of petals, pale blue lines) flashes behind; 3 the emblem expands to fill the cell, the shards fly further; 4 the emblem thins to an outline, the shards spin; 5 the emblem fades, the shards dim to deep blue; 6 a few blue specks.\n\nPRODUCTION LAYOUT: exactly 3 columns by 2 rows of equal cells. Read frames left to right, then top to bottom. Each cell aspect 256:256. Exactly 6 frames; any remaining cells completely transparent. No visible grid, numbers, text, labels or border. Keep artwork strictly inside its own cell, with a 6% safety inset. Use the ENTIRE canvas as the regular grid, with no outside margins.\nAsset: fiora_fx_vital_hit.png. This is isolated pixel-art VFX, never draw a character or weapon object. Actual transparent background. LARGE CRISP SQUARE PIXELS, small tactical RPG scale. Sparse bold readable forms. NO dark contour around bright shapes, NO black outlines, NO painted glow blur. Light is represented using flat stepped color bands. Reference 1 is the approved character ONLY to judge coarse pixel scale and palette harmony. Reference 2 is an effect mood and rose-motif guide only; do not copy its text, background or atlas.\n\nReference 3 is the generated vital mark: keep its diamond-and-rose motif for the initial crest.",
+    "extra_vital_reference": true
+  },
+  {
+    "index": 8,
+    "name": "fiora_fx_w_parry",
+    "frames": 4,
+    "cell": [
+      256,
+      384
+    ],
+    "source_grid": [
+      4,
+      1
+    ],
+    "final_grid": [
+      4,
+      1
+    ],
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline, colours only from the vital blue (#FFFFFF, #CFF4FF, #7FDFFF, #2FB0F0, #1470C8, #0B3F86) with steel (#FFFFFF, #E6E8F0, #B8D8F8, #6FA8E8, #3A6FC0).\nEffect: a PARRY GUARD in front of a standing figure facing right (leave the figure's place empty on the left 60% of the cell; do NOT draw the figure), 4 frames, a seamless loop: a tall crescent of blue-white light (a curved vertical blade of light, bowed to the right, as tall as the cell) in the right part of the cell, a bright white line flowing along it from top to bottom each frame, a few white-blue sparkles around it.\nLayout: one horizontal row of 4 equal cells, each 2 wide to 3 tall, image size 1024x384 (each cell 256x384); the crescent in the right half of every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline, colours only from the vital blue (#FFFFFF, #CFF4FF, #7FDFFF, #2FB0F0, #1470C8, #0B3F86) with steel (#FFFFFF, #E6E8F0, #B8D8F8, #6FA8E8, #3A6FC0).\nEffect: a PARRY GUARD in front of a standing figure facing right (leave the figure's place empty on the left 60% of the cell; do NOT draw the figure), 4 frames, a seamless loop: a tall crescent of blue-white light (a curved vertical blade of light, bowed to the right, as tall as the cell) in the right part of the cell, a bright white line flowing along it from top to bottom each frame, a few white-blue sparkles around it.\n\nPRODUCTION LAYOUT: exactly 4 columns by 1 rows of equal cells. Read frames left to right, then top to bottom. Each cell aspect 256:384. Exactly 4 frames; any remaining cells completely transparent. No visible grid, numbers, text, labels or border. Keep artwork strictly inside its own cell, with a 6% safety inset. Use the ENTIRE canvas as the regular grid, with no outside margins.\nAsset: fiora_fx_w_parry.png. This is isolated pixel-art VFX, never draw a character or weapon object. Actual transparent background. LARGE CRISP SQUARE PIXELS, small tactical RPG scale. Sparse bold readable forms. NO dark contour around bright shapes, NO black outlines, NO painted glow blur. Light is represented using flat stepped color bands. Reference 1 is the approved character ONLY to judge coarse pixel scale and palette harmony. Reference 2 is an effect mood and rose-motif guide only; do not copy its text, background or atlas.\n",
+    "extra_vital_reference": false
+  },
+  {
+    "index": 9,
+    "name": "fiora_fx_w_line",
+    "frames": 4,
+    "cell": [
+      448,
+      128
+    ],
+    "source_grid": [
+      1,
+      4
+    ],
+    "final_grid": [
+      4,
+      1
+    ],
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline, colours only from the vital blue (#FFFFFF, #CFF4FF, #7FDFFF, #2FB0F0, #1470C8, #0B3F86) with steel (#FFFFFF, #E6E8F0, #B8D8F8, #6FA8E8, #3A6FC0).\nEffect: a PIERCING THRUST WAVE flying to the RIGHT, 4 frames, SYMMETRIC above and below the middle line: 1 a thin bright line of white-blue light from the left edge to the middle; 2 the thrust reaches the right edge: a long narrow spear of light (white core, blue glow) ending in a sharp point at the right, two thin streaks along its sides; 3 at full length, the glow widening a little, small sparks along it; 4 the thrust fades from the left, only the point bright.\nLayout: one horizontal row of 4 equal cells, each 7 wide to 2 tall, image size 1792x128 (each cell 448x128); the thrust on the middle line of every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline, colours only from the vital blue (#FFFFFF, #CFF4FF, #7FDFFF, #2FB0F0, #1470C8, #0B3F86) with steel (#FFFFFF, #E6E8F0, #B8D8F8, #6FA8E8, #3A6FC0).\nEffect: a PIERCING THRUST WAVE flying to the RIGHT, 4 frames, SYMMETRIC above and below the middle line: 1 a thin bright line of white-blue light from the left edge to the middle; 2 the thrust reaches the right edge: a long narrow spear of light (white core, blue glow) ending in a sharp point at the right, two thin streaks along its sides; 3 at full length, the glow widening a little, small sparks along it; 4 the thrust fades from the left, only the point bright.\n\nPRODUCTION LAYOUT: exactly 1 columns by 4 rows of equal cells. Read frames left to right, then top to bottom. Each cell aspect 448:128. Exactly 4 frames; any remaining cells completely transparent. No visible grid, numbers, text, labels or border. Keep artwork strictly inside its own cell, with a 6% safety inset. Use the ENTIRE canvas as the regular grid, with no outside margins.\nAsset: fiora_fx_w_line.png. This is isolated pixel-art VFX, never draw a character or weapon object. Actual transparent background. LARGE CRISP SQUARE PIXELS, small tactical RPG scale. Sparse bold readable forms. NO dark contour around bright shapes, NO black outlines, NO painted glow blur. Light is represented using flat stepped color bands. Reference 1 is the approved character ONLY to judge coarse pixel scale and palette harmony. Reference 2 is an effect mood and rose-motif guide only; do not copy its text, background or atlas.\nAbsolute critical: EVERY frame must be exactly mirror symmetric vertically around its center horizontal axis, with one perfectly STRAIGHT HORIZONTAL white core. No tilted, arcing, bent or stepped shaft. Four rows, ONE long projectile per row.\n",
+    "extra_vital_reference": false
+  },
+  {
+    "index": 10,
+    "name": "fiora_fx_w_hit",
+    "frames": 5,
+    "cell": [
+      256,
+      256
+    ],
+    "source_grid": [
+      3,
+      2
+    ],
+    "final_grid": [
+      5,
+      1
+    ],
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline, colours only from the vital blue (#FFFFFF, #CFF4FF, #7FDFFF, #2FB0F0, #1470C8, #0B3F86) with steel (#FFFFFF, #E6E8F0, #B8D8F8, #6FA8E8, #3A6FC0).\nEffect: a THRUST HIT, 5 frames: 1 a white flash at the center; 2 a horizontal line of blue-white light pierces through the center from left to right; 3 a small round blue burst at the center, the line at full length; 4 the burst breaks into sparks, the line thins; 5 a few blue specks.\nLayout: one horizontal row of 5 equal square cells, image size 1280x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline, colours only from the vital blue (#FFFFFF, #CFF4FF, #7FDFFF, #2FB0F0, #1470C8, #0B3F86) with steel (#FFFFFF, #E6E8F0, #B8D8F8, #6FA8E8, #3A6FC0).\nEffect: a THRUST HIT, 5 frames: 1 a white flash at the center; 2 a horizontal line of blue-white light pierces through the center from left to right; 3 a small round blue burst at the center, the line at full length; 4 the burst breaks into sparks, the line thins; 5 a few blue specks.\n\nPRODUCTION LAYOUT: exactly 3 columns by 2 rows of equal cells. Read frames left to right, then top to bottom. Each cell aspect 256:256. Exactly 5 frames; any remaining cells completely transparent. No visible grid, numbers, text, labels or border. Keep artwork strictly inside its own cell, with a 6% safety inset. Use the ENTIRE canvas as the regular grid, with no outside margins.\nAsset: fiora_fx_w_hit.png. This is isolated pixel-art VFX, never draw a character or weapon object. Actual transparent background. LARGE CRISP SQUARE PIXELS, small tactical RPG scale. Sparse bold readable forms. NO dark contour around bright shapes, NO black outlines, NO painted glow blur. Light is represented using flat stepped color bands. Reference 1 is the approved character ONLY to judge coarse pixel scale and palette harmony. Reference 2 is an effect mood and rose-motif guide only; do not copy its text, background or atlas.\n",
+    "extra_vital_reference": false
+  },
+  {
+    "index": 11,
+    "name": "fiora_fx_w_slow",
+    "frames": 6,
+    "cell": [
+      320,
+      384
+    ],
+    "source_grid": [
+      3,
+      2
+    ],
+    "final_grid": [
+      6,
+      1
+    ],
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline, colours only from the vital blue (#FFFFFF, #CFF4FF, #7FDFFF, #2FB0F0, #1470C8, #0B3F86).\nEffect: a SLOW on a standing figure (do NOT draw the figure), 6 frames: 1 a flat pale-blue ring appears on the ground at the bottom middle (an ellipse twice as wide as tall); 2-3 the ring spreads, 3-4 short blue lines fall down around the figure's place like heavy rain; 4-5 the lines reach the ground, the ring pulses; 6 faint blue specks.\nLayout: one horizontal row of 6 equal cells, each 5 wide to 6 tall, image size 1920x384 (each cell 320x384); the ground line near the bottom of every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline, colours only from the vital blue (#FFFFFF, #CFF4FF, #7FDFFF, #2FB0F0, #1470C8, #0B3F86).\nEffect: a SLOW on a standing figure (do NOT draw the figure), 6 frames: 1 a flat pale-blue ring appears on the ground at the bottom middle (an ellipse twice as wide as tall); 2-3 the ring spreads, 3-4 short blue lines fall down around the figure's place like heavy rain; 4-5 the lines reach the ground, the ring pulses; 6 faint blue specks.\n\nPRODUCTION LAYOUT: exactly 3 columns by 2 rows of equal cells. Read frames left to right, then top to bottom. Each cell aspect 320:384. Exactly 6 frames; any remaining cells completely transparent. No visible grid, numbers, text, labels or border. Keep artwork strictly inside its own cell, with a 6% safety inset. Use the ENTIRE canvas as the regular grid, with no outside margins.\nAsset: fiora_fx_w_slow.png. This is isolated pixel-art VFX, never draw a character or weapon object. Actual transparent background. LARGE CRISP SQUARE PIXELS, small tactical RPG scale. Sparse bold readable forms. NO dark contour around bright shapes, NO black outlines, NO painted glow blur. Light is represented using flat stepped color bands. Reference 1 is the approved character ONLY to judge coarse pixel scale and palette harmony. Reference 2 is an effect mood and rose-motif guide only; do not copy its text, background or atlas.\n",
+    "extra_vital_reference": false
+  },
+  {
+    "index": 12,
+    "name": "fiora_fx_w_stun",
+    "frames": 8,
+    "cell": [
+      256,
+      128
+    ],
+    "source_grid": [
+      4,
+      2
+    ],
+    "final_grid": [
+      8,
+      1
+    ],
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline, colours only from gold (#FFFFFF, #FFF4C0, #FCD87A, #F9C740, #C99631, #784C17) with the vital blue (#FFFFFF, #CFF4FF, #7FDFFF, #2FB0F0, #1470C8, #0B3F86).\nEffect: STUN STARS circling above a head, 8 frames, a seamless loop: an ellipse (twice as wide as tall) of 3 small bright gold four-pointed stars and a thin blue-white ring, the stars moving an eighth of the way around the ellipse each frame (the ones at the back smaller and dimmer).\nLayout: one horizontal row of 8 equal cells, each 2 wide to 1 tall, image size 2048x128 (each cell 256x128); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline, colours only from gold (#FFFFFF, #FFF4C0, #FCD87A, #F9C740, #C99631, #784C17) with the vital blue (#FFFFFF, #CFF4FF, #7FDFFF, #2FB0F0, #1470C8, #0B3F86).\nEffect: STUN STARS circling above a head, 8 frames, a seamless loop: an ellipse (twice as wide as tall) of 3 small bright gold four-pointed stars and a thin blue-white ring, the stars moving an eighth of the way around the ellipse each frame (the ones at the back smaller and dimmer).\n\nPRODUCTION LAYOUT: exactly 4 columns by 2 rows of equal cells. Read frames left to right, then top to bottom. Each cell aspect 256:128. Exactly 8 frames; any remaining cells completely transparent. No visible grid, numbers, text, labels or border. Keep artwork strictly inside its own cell, with a 6% safety inset. Use the ENTIRE canvas as the regular grid, with no outside margins.\nAsset: fiora_fx_w_stun.png. This is isolated pixel-art VFX, never draw a character or weapon object. Actual transparent background. LARGE CRISP SQUARE PIXELS, small tactical RPG scale. Sparse bold readable forms. NO dark contour around bright shapes, NO black outlines, NO painted glow blur. Light is represented using flat stepped color bands. Reference 1 is the approved character ONLY to judge coarse pixel scale and palette harmony. Reference 2 is an effect mood and rose-motif guide only; do not copy its text, background or atlas.\n\nEach of the 8 frames has exactly THREE tiny four-point gold stars, never four. Orbit phases 0,45,90,135,180,225,270,315 degrees. Keep the blue elliptical orbit in exactly the same position and size for all frames.",
+    "extra_vital_reference": false
+  },
+  {
+    "index": 13,
+    "name": "fiora_fx_r_on",
+    "frames": 6,
+    "cell": [
+      256,
+      256
+    ],
+    "source_grid": [
+      3,
+      2
+    ],
+    "final_grid": [
+      6,
+      1
+    ],
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline, colours only from gold (#FFFFFF, #FFF4C0, #FCD87A, #F9C740, #C99631, #784C17) with the vital blue (#FFFFFF, #CFF4FF, #7FDFFF, #2FB0F0, #1470C8, #0B3F86).\nEffect: a CHALLENGE on a standing figure (leave the figure's place empty in the middle; do NOT draw it), 6 frames: 1 a bright gold-white ring flashes around the figure at waist height (an ellipse twice as wide as tall); 2 the ring spreads and four small blue diamond crests light up on it at its left, right, front (lower) and back (upper) points; 3 the crests at full brightness, the ring glowing gold; 4-5 the ring fades, the crests stay; 6 only the four crests, dimmer.\nLayout: one horizontal row of 6 equal square cells, image size 1536x256; the ring centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline, colours only from gold (#FFFFFF, #FFF4C0, #FCD87A, #F9C740, #C99631, #784C17) with the vital blue (#FFFFFF, #CFF4FF, #7FDFFF, #2FB0F0, #1470C8, #0B3F86).\nEffect: a CHALLENGE on a standing figure (leave the figure's place empty in the middle; do NOT draw it), 6 frames: 1 a bright gold-white ring flashes around the figure at waist height (an ellipse twice as wide as tall); 2 the ring spreads and four small blue diamond crests light up on it at its left, right, front (lower) and back (upper) points; 3 the crests at full brightness, the ring glowing gold; 4-5 the ring fades, the crests stay; 6 only the four crests, dimmer.\n\nPRODUCTION LAYOUT: exactly 3 columns by 2 rows of equal cells. Read frames left to right, then top to bottom. Each cell aspect 256:256. Exactly 6 frames; any remaining cells completely transparent. No visible grid, numbers, text, labels or border. Keep artwork strictly inside its own cell, with a 6% safety inset. Use the ENTIRE canvas as the regular grid, with no outside margins.\nAsset: fiora_fx_r_on.png. This is isolated pixel-art VFX, never draw a character or weapon object. Actual transparent background. LARGE CRISP SQUARE PIXELS, small tactical RPG scale. Sparse bold readable forms. NO dark contour around bright shapes, NO black outlines, NO painted glow blur. Light is represented using flat stepped color bands. Reference 1 is the approved character ONLY to judge coarse pixel scale and palette harmony. Reference 2 is an effect mood and rose-motif guide only; do not copy its text, background or atlas.\n\nReference 3 is the generated vital mark. Use that SAME diamond-and-rose design for ALL four small crests. Keep a large central transparent area for a character.",
+    "extra_vital_reference": true
+  },
+  {
+    "index": 14,
+    "name": "fiora_fx_r_marks",
+    "frames": 16,
+    "cell": [
+      256,
+      256
+    ],
+    "source_grid": [
+      4,
+      4
+    ],
+    "final_grid": [
+      4,
+      4
+    ],
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline, colours only from the vital blue (#FFFFFF, #CFF4FF, #7FDFFF, #2FB0F0, #1470C8, #0B3F86).\nEffect: the REMAINING VITALS around a standing figure (the figure is NOT drawn), 4 rows x 4 frames: each row is a seamless 4-frame loop (pulse: normal, brighter, brightest, normal) of small glowing blue diamond crests (the same design as a vital mark: a pale rose pattern inside, a white-blue border, about 10 squares tall) placed on an ellipse around the figure's waist: row 1 FOUR crests at the left, right, front (lower middle) and back (upper middle) points; row 2 the same without the left one (THREE); row 3 only the front and back ones (TWO); row 4 only the back one (ONE). The crests stay exactly in the same places in every row.\nLayout: a grid of 4 columns x 4 rows of equal square cells, image size 1024x1024 (each cell 256x256); the ellipse centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline, colours only from the vital blue (#FFFFFF, #CFF4FF, #7FDFFF, #2FB0F0, #1470C8, #0B3F86).\nEffect: the REMAINING VITALS around a standing figure (the figure is NOT drawn), 4 rows x 4 frames: each row is a seamless 4-frame loop (pulse: normal, brighter, brightest, normal) of small glowing blue diamond crests (the same design as a vital mark: a pale rose pattern inside, a white-blue border, about 10 squares tall) placed on an ellipse around the figure's waist: row 1 FOUR crests at the left, right, front (lower middle) and back (upper middle) points; row 2 the same without the left one (THREE); row 3 only the front and back ones (TWO); row 4 only the back one (ONE). The crests stay exactly in the same places in every row.\n\nPRODUCTION LAYOUT: exactly 4 columns by 4 rows of equal cells. Read frames left to right, then top to bottom. Each cell aspect 256:256. Exactly 16 frames; any remaining cells completely transparent. No visible grid, numbers, text, labels or border. Keep artwork strictly inside its own cell, with a 6% safety inset. Use the ENTIRE canvas as the regular grid, with no outside margins.\nAsset: fiora_fx_r_marks.png. This is isolated pixel-art VFX, never draw a character or weapon object. Actual transparent background. LARGE CRISP SQUARE PIXELS, small tactical RPG scale. Sparse bold readable forms. NO dark contour around bright shapes, NO black outlines, NO painted glow blur. Light is represented using flat stepped color bands. Reference 1 is the approved character ONLY to judge coarse pixel scale and palette harmony. Reference 2 is an effect mood and rose-motif guide only; do not copy its text, background or atlas.\nCritical exact count across the 4 rows: 4, 3, 2, 1. Positions absolutely fixed. LEFT mark disappears in row 2, RIGHT mark disappears in row 3, LOWER mark disappears in row 4. Central character-shaped region transparent.\n\nReference 3 is the exact diamond-and-rose vital-mark motif to reuse. CRITICAL: all 16 grid cells contain FOUR fixed anchor slots (left at 20% x/50% y; right at 80% x/50% y; top at 50% x/20% y; bottom at 50% x/80% y). Each crest is only 20% of cell height. Row1 fill all FOUR slots. Row2 fill RIGHT TOP BOTTOM only (3). Row3 fill TOP BOTTOM only (2). Row4 fill TOP only (1). Empty slots TRANSPARENT. No rings. Four columns ONLY vary brightness, NEVER change positions or counts. Total 40 visible crests in the whole sheet. Large transparent central hole.",
+    "extra_vital_reference": true
+  },
+  {
+    "index": 15,
+    "name": "fiora_fx_r_hit",
+    "frames": 6,
+    "cell": [
+      256,
+      256
+    ],
+    "source_grid": [
+      3,
+      2
+    ],
+    "final_grid": [
+      6,
+      1
+    ],
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline, colours only from the vital blue (#FFFFFF, #CFF4FF, #7FDFFF, #2FB0F0, #1470C8, #0B3F86) with gold (#FFFFFF, #FFF4C0, #FCD87A, #F9C740, #C99631, #784C17).\nEffect: a GRAND VITAL STRUCK, 6 frames: 1 a white flash at the center; 2 a blue diamond crest shatters into 8-10 blue crystal shards flying outward and a large round rose-pattern emblem of GOLD light flashes behind; 3 the emblem fills the cell, shards further out; 4 the emblem thins to a gold outline; 5 it fades, the shards dim; 6 a few gold and blue specks.\nLayout: one horizontal row of 6 equal square cells, image size 1536x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline, colours only from the vital blue (#FFFFFF, #CFF4FF, #7FDFFF, #2FB0F0, #1470C8, #0B3F86) with gold (#FFFFFF, #FFF4C0, #FCD87A, #F9C740, #C99631, #784C17).\nEffect: a GRAND VITAL STRUCK, 6 frames: 1 a white flash at the center; 2 a blue diamond crest shatters into 8-10 blue crystal shards flying outward and a large round rose-pattern emblem of GOLD light flashes behind; 3 the emblem fills the cell, shards further out; 4 the emblem thins to a gold outline; 5 it fades, the shards dim; 6 a few gold and blue specks.\n\nPRODUCTION LAYOUT: exactly 3 columns by 2 rows of equal cells. Read frames left to right, then top to bottom. Each cell aspect 256:256. Exactly 6 frames; any remaining cells completely transparent. No visible grid, numbers, text, labels or border. Keep artwork strictly inside its own cell, with a 6% safety inset. Use the ENTIRE canvas as the regular grid, with no outside margins.\nAsset: fiora_fx_r_hit.png. This is isolated pixel-art VFX, never draw a character or weapon object. Actual transparent background. LARGE CRISP SQUARE PIXELS, small tactical RPG scale. Sparse bold readable forms. NO dark contour around bright shapes, NO black outlines, NO painted glow blur. Light is represented using flat stepped color bands. Reference 1 is the approved character ONLY to judge coarse pixel scale and palette harmony. Reference 2 is an effect mood and rose-motif guide only; do not copy its text, background or atlas.\n\nReference 3 establishes the same diamond crest and rose motif. Make the expanding rose emblem GOLD, with BLUE flying crystal shards; do not add a solid filled disk behind it.",
+    "extra_vital_reference": true
+  },
+  {
+    "index": 16,
+    "name": "fiora_fx_r_zone",
+    "frames": 8,
+    "cell": [
+      576,
+      288
+    ],
+    "source_grid": [
+      2,
+      4
+    ],
+    "final_grid": [
+      8,
+      1
+    ],
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline, colours only from gold (#FFFFFF, #FFF4C0, #FCD87A, #F9C740, #C99631, #784C17) with a mint healing glow (#FFFFFF, #E4FFF4, #8CF7C8, #36D99A).\nEffect: a VICTORY ZONE on the ground (seen from above at an angle: an ellipse twice as wide as tall filling the cell), 8 frames: 1 a bright gold-white ring appears small at the center; 2 it opens to the full ellipse, a large rose emblem (a circle of petals in gold lines) drawn on the ground inside it; 3-6 a seamless loop: the ring and the emblem glow, small mint-green and gold sparkles rise from inside the zone and fade (different sparkles each frame); 7 the emblem fades, the ring thins; 8 a faint gold ring.\nLayout: one horizontal row of 8 equal cells, each 2 wide to 1 tall, image size 4608x288 (each cell 576x288); the ellipse centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline, colours only from gold (#FFFFFF, #FFF4C0, #FCD87A, #F9C740, #C99631, #784C17) with a mint healing glow (#FFFFFF, #E4FFF4, #8CF7C8, #36D99A).\nEffect: a VICTORY ZONE on the ground (seen from above at an angle: an ellipse twice as wide as tall filling the cell), 8 frames: 1 a bright gold-white ring appears small at the center; 2 it opens to the full ellipse, a large rose emblem (a circle of petals in gold lines) drawn on the ground inside it; 3-6 a seamless loop: the ring and the emblem glow, small mint-green and gold sparkles rise from inside the zone and fade (different sparkles each frame); 7 the emblem fades, the ring thins; 8 a faint gold ring.\n\nPRODUCTION LAYOUT: exactly 2 columns by 4 rows of equal cells. Read frames left to right, then top to bottom. Each cell aspect 576:288. Exactly 8 frames; any remaining cells completely transparent. No visible grid, numbers, text, labels or border. Keep artwork strictly inside its own cell, with a 6% safety inset. Use the ENTIRE canvas as the regular grid, with no outside margins.\nAsset: fiora_fx_r_zone.png. This is isolated pixel-art VFX, never draw a character or weapon object. Actual transparent background. LARGE CRISP SQUARE PIXELS, small tactical RPG scale. Sparse bold readable forms. NO dark contour around bright shapes, NO black outlines, NO painted glow blur. Light is represented using flat stepped color bands. Reference 1 is the approved character ONLY to judge coarse pixel scale and palette harmony. Reference 2 is an effect mood and rose-motif guide only; do not copy its text, background or atlas.\n\nExactly TWO COLUMNS and FOUR ROWS. Eight WIDE elliptical ground effects. The rose lies flat in perspective INSIDE each ellipse, never upright. Frame 3,4,5,6 keep identical ring geometry and differ only in rising small mint/gold sparkles. The central ground remains largely transparent between thin gold lines. No filled golden disk. No vertical pillar.",
+    "extra_vital_reference": false
+  },
+  {
+    "index": 17,
+    "name": "fiora_fx_e_glint",
+    "frames": 4,
+    "cell": [
+      288,
+      320
+    ],
+    "source_grid": [
+      2,
+      2
+    ],
+    "final_grid": [
+      4,
+      1
+    ],
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline, colours only from the vital blue (#FFFFFF, #CFF4FF, #7FDFFF, #2FB0F0, #1470C8, #0B3F86) with steel (#FFFFFF, #E6E8F0, #B8D8F8, #6FA8E8, #3A6FC0).\nEffect: a BLADE-WORK AURA around a standing figure (leave the figure's place empty in the middle, about 60% of the cell width and 85% of its height; do NOT draw it and do not cover it), 4 frames, a seamless loop: 3-4 thin short streaks of blue-white light and small sparkles rising around the figure's sides and in front of its chest, each frame moving up a little and fading at the top while new ones appear at the bottom.\nLayout: one horizontal row of 4 equal cells, each 9 wide to 10 tall, image size 1152x320 (each cell 288x320); centered horizontally. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline, colours only from the vital blue (#FFFFFF, #CFF4FF, #7FDFFF, #2FB0F0, #1470C8, #0B3F86) with steel (#FFFFFF, #E6E8F0, #B8D8F8, #6FA8E8, #3A6FC0).\nEffect: a BLADE-WORK AURA around a standing figure (leave the figure's place empty in the middle, about 60% of the cell width and 85% of its height; do NOT draw it and do not cover it), 4 frames, a seamless loop: 3-4 thin short streaks of blue-white light and small sparkles rising around the figure's sides and in front of its chest, each frame moving up a little and fading at the top while new ones appear at the bottom.\n\nPRODUCTION LAYOUT: exactly 2 columns by 2 rows of equal cells. Read frames left to right, then top to bottom. Each cell aspect 288:320. Exactly 4 frames; any remaining cells completely transparent. No visible grid, numbers, text, labels or border. Keep artwork strictly inside its own cell, with a 6% safety inset. Use the ENTIRE canvas as the regular grid, with no outside margins.\nAsset: fiora_fx_e_glint.png. This is isolated pixel-art VFX, never draw a character or weapon object. Actual transparent background. LARGE CRISP SQUARE PIXELS, small tactical RPG scale. Sparse bold readable forms. NO dark contour around bright shapes, NO black outlines, NO painted glow blur. Light is represented using flat stepped color bands. Reference 1 is the approved character ONLY to judge coarse pixel scale and palette harmony. Reference 2 is an effect mood and rose-motif guide only; do not copy its text, background or atlas.\n\nKeep the entire central 60% width completely transparent, especially chest and face positions. Place the 3-4 thin short light streaks ONLY on the two outer sides; tiny sparkles may be near the lower corners. The aura must not form a solid ring or barrier. Four frames, two columns two rows.",
+    "extra_vital_reference": false
+  },
+  {
+    "index": 18,
+    "name": "fiora_fx_v_ms",
+    "frames": 4,
+    "cell": [
+      320,
+      128
+    ],
+    "source_grid": [
+      2,
+      2
+    ],
+    "final_grid": [
+      4,
+      1
+    ],
+    "original_prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline, colours only from the vital blue (#FFFFFF, #CFF4FF, #7FDFFF, #2FB0F0, #1470C8, #0B3F86) with steel (#FFFFFF, #E6E8F0, #B8D8F8, #6FA8E8, #3A6FC0).\nEffect: SPEED LINES at a figure's feet (the figure is NOT drawn), 4 frames, a seamless loop: two or three long thin streaks of blue-white wind trailing to the LEFT from the bottom middle of the cell (the figure runs right), and a small puff of pale dust at the heel; the streaks flicker and shift each frame.\nLayout: one horizontal row of 4 equal cells, each 5 wide to 2 tall, image size 1280x128 (each cell 320x128); at the bottom middle of every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline, colours only from the vital blue (#FFFFFF, #CFF4FF, #7FDFFF, #2FB0F0, #1470C8, #0B3F86) with steel (#FFFFFF, #E6E8F0, #B8D8F8, #6FA8E8, #3A6FC0).\nEffect: SPEED LINES at a figure's feet (the figure is NOT drawn), 4 frames, a seamless loop: two or three long thin streaks of blue-white wind trailing to the LEFT from the bottom middle of the cell (the figure runs right), and a small puff of pale dust at the heel; the streaks flicker and shift each frame.\n\nPRODUCTION LAYOUT: exactly 2 columns by 2 rows of equal cells. Read frames left to right, then top to bottom. Each cell aspect 320:128. Exactly 4 frames; any remaining cells completely transparent. No visible grid, numbers, text, labels or border. Keep artwork strictly inside its own cell, with a 6% safety inset. Use the ENTIRE canvas as the regular grid, with no outside margins.\nAsset: fiora_fx_v_ms.png. This is isolated pixel-art VFX, never draw a character or weapon object. Actual transparent background. LARGE CRISP SQUARE PIXELS, small tactical RPG scale. Sparse bold readable forms. NO dark contour around bright shapes, NO black outlines, NO painted glow blur. Light is represented using flat stepped color bands. Reference 1 is the approved character ONLY to judge coarse pixel scale and palette harmony. Reference 2 is an effect mood and rose-motif guide only; do not copy its text, background or atlas.\n\nExactly four frames in 2 columns x 2 rows. The heel origin is at 70% of the cell width, the thin parallel horizontal streaks trail to the LEFT, fading at their LEFT ends. Keep all effects in the lower half and no circles, no large flare. Each frame has exactly 2 or 3 slender horizontal blue-white lines.",
+    "extra_vital_reference": false
+  }
+]

@@ -193,6 +193,12 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   at most), seat the chin on the shoulders with `"dy"`, and where a pose turns the torso thin under a big
   head, widen the rows under the chin (`restyle_native.py` `"shoulders"`). Check the ult and every
   side-on pose at game size, not only the idle the design was drawn on.
+  The exception: a design that has its own neck or collar between the chin and the chest keeps those rows in
+  every frame. league_fiora's strips prompt said "no neck under the chin", so Codex seated her pasted head on the
+  shirt in every action frame and her short neck and tall gold collar were gone (eyes 4-5 rows above the white
+  shirt against 8 in the design; the user: "剑姬放技能的时候脖子又消失 没修复吗？", "还是漏了" - only the walk had
+  been fixed). Write the design's eye-to-chest distance into the strips prompt, and before shipping measure it in
+  every frame of every action against the idle, not only in the strip the user pointed at.
 - **A big pasted head needs a body under it, not a pipe.** In the 0.21.0 pass the user still saw league_janna's
   neck and body apart: her drawn head is ~15 squares wide over a body League renders 5 squares wide at head 2.0,
   and in the attack and spells League turns her side-on and throws her legs back, so the little body hung off
@@ -531,6 +537,14 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   (`Frames`): the white core for projectiles, hits and flashes (the drawing's middle once the core has faded), a
   ground ellipse by the rows at least half as wide as its widest (the smoke rising above left out), a waist ring by
   its own columns (the chain pulled out to one side left out), a shield by its lowest row.
+- **Pictures that wander or hand over (league_fiora's effects).** Image-model loops drift: Fiora's parry crescent
+  moved 35 source px across its four cells and her slow's ground ring rose in two of six, so `tools/art/import_fiora.py`
+  anchors the crescent on its biggest piece's right edge and the ring on its widest rows, not on the cell. Two
+  pictures that follow each other on the same spot must land on each other: the challenge's four crests were drawn
+  wider apart than the remaining-Vital loop's, so the challenge is squeezed across (72/84) and shifted 4 source px
+  to meet it. Snap each strip only to the ramps its prompt named (a blue flash picked up a mint speck from the whole
+  pack's palette), and lift a fill that turns heavy at game size (her navy rose, whose petal lines are thinner than
+  a pixel at 30 px, one shade up).
 - **Effects drawn on the hero's own strips (league_riven, oppi's way).** Codex drew Riven's seven effect sets frame
   for frame on her action cells (the cells, standing points and frame times of `native/riven_cells.json`), each
   split into a layer behind her and one in front (the head's area only behind, so nothing covers the face).
@@ -560,12 +574,35 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   edge pixel there takes the colour itself. Run it on the finished frames, after any sink, breathing seam or neck fix
   (`tools/art/import_native.py` `COMPLETE`; league_riven and league_akali did the same in their tidy scripts): Nami's
   frames went to 94-100%, the colour count unchanged, `metrics` from WARN to PASS.
+  A mid-dark edge colour is not outline to `metrics` (luminance under 40) yet stays unringed at the threshold 70:
+  league_fiora's teal leggings (~58) and wine cape (~44) left her Q frames at 83-89%; `import_native.py` `DARK` sets
+  the threshold per hero (hers 40: 98-100%, the bare rapier aside).
+  Then tidy it (`strips.clean_outline`, `import_native.py` `CLEAN`; the user on Fiora: "黑色描边处理一下 弄干净点"):
+  an edge pixel in a material's near-black shade becomes the outline colour (one black ring, not black here and dark
+  teal there), a black pixel doubling the ring from inside and a lone black crumb take their neighbours' colour, the
+  outer pixel of a doubled diagonal staircase goes; the face box stays. A blade drawn as a bare one-pixel line
+  breaks into runs of two or three when slanted, and complete_outline caps both ends of every run: a dashed black-
+  and-white line. `BARE` names the blade colour and clean_outline clears every black pixel that touches only it.
+  A slanted blade must also step evenly (the user: "这两个剑也应该是直线的吧"): Codex's ran 3, 2, 3, 2, 4, and even an
+  exact line at 7 rows over 18 columns mixes runs of 2 and 3 and wobbles. `strips.straighten_lines` snaps each long
+  blade's slope to the nearest clean pixel-art ratio (level, 1:4, 1:3, 1:2, 2:3, 1:1) and redraws it from the hilt.
 - **Keep the neck the same in every frame.** With the design's head pasted into redrawn frames, align a loop's frames
   on the head and check that the shoulders sit the same number of rows under the chin. Codex drew league_nami's
   swimming body a row lower under the head in four of the eight run frames: her neck stretched and shrank as she bobbed
   and at game size the head seemed to come off ("一上一下的时候感觉身体要分离一样"; league_riven's "脖子拉伸" before
   her). Move everything above a neck row down a row in the long-necked frames (`import_native.py` `NECK`, the breathing
   seam's mechanism) rather than the head alone, which would leave its old place empty.
+  A pasted idle head can also sit too low on a whole strip: league_fiora's en-garde idle stands 3 rows lower than her
+  upright walk, and Codex pasted the head at the idle's height, so her chin sat on the collar and the shoulders rose
+  and fell under a still head (the user: "头和身体不协调"). Raising the pasted head alone by pixels and padding the
+  idle's neck under it still read odd ("还是有点怪"); the fix is a redraw pack that has Codex draw the head, neck,
+  collar, shoulders, upper sword arm and cape top as one figure (head copied square for square, the idle's
+  eye-to-shirt rows in every frame, legs and weapon kept). Then check the walk's bob against League: the redrawn
+  block stood still over the striding legs, while League's walk dips the whole upper body at the landing (both feet
+  widest) and carries it highest just after. `import_native.py` `STEP` moves everything above the hip row down a
+  count per frame, laid over the leg tops, and a cape crossing that row goes along whole (picked by its colours; cut
+  at the seam it folds into a 3-4 px step); follow League's head and body centre (about 2 px on a 40-row chibi), not
+  its hip (3 px, a one-frame 3-px snap reads bouncy).
 - **Review before shipping.** Per-strip sheets with the idle silhouette overlaid, `metrics`,
   a side-by-side with base champions at 1x and 3x, and a scripted showcase against a dummy.
 
