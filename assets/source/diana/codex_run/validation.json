@@ -1,0 +1,179 @@
+{
+  "size_correct": true,
+  "exact_8x8": true,
+  "binary_alpha": true,
+  "palette_subset_of_idle": true,
+  "frames": [
+    {
+      "frame": 1,
+      "upper_0_61_unchanged": true,
+      "sole_row79": true,
+      "below79_empty": true,
+      "detached_lower_components": 0,
+      "foot_anchor_separation": 4,
+      "no_cyan_on_legs": true,
+      "near_widths": {
+        "knee": 5,
+        "shin": 5,
+        "boot": 5,
+        "sole": 5
+      },
+      "far_widths": {
+        "knee": 5,
+        "shin": 5,
+        "boot": 5,
+        "sole": 5
+      }
+    },
+    {
+      "frame": 2,
+      "upper_0_61_unchanged": true,
+      "sole_row79": true,
+      "below79_empty": true,
+      "detached_lower_components": 0,
+      "foot_anchor_separation": 9,
+      "no_cyan_on_legs": true,
+      "near_widths": {
+        "knee": 5,
+        "shin": 5,
+        "boot": 5,
+        "sole": 5
+      },
+      "far_widths": {
+        "knee": 5,
+        "shin": 5,
+        "boot": 5,
+        "sole": 5
+      }
+    },
+    {
+      "frame": 3,
+      "upper_0_61_unchanged": true,
+      "sole_row79": true,
+      "below79_empty": true,
+      "detached_lower_components": 0,
+      "foot_anchor_separation": 9,
+      "no_cyan_on_legs": true,
+      "near_widths": {
+        "knee": 5,
+        "shin": 5,
+        "boot": 5,
+        "sole": 5
+      },
+      "far_widths": {
+        "knee": 5,
+        "shin": 5,
+        "boot": 5,
+        "sole": 5
+      }
+    },
+    {
+      "frame": 4,
+      "upper_0_61_unchanged": true,
+      "sole_row79": true,
+      "below79_empty": true,
+      "detached_lower_components": 0,
+      "foot_anchor_separation": 4,
+      "no_cyan_on_legs": true,
+      "near_widths": {
+        "knee": 5,
+        "shin": 5,
+        "boot": 5,
+        "sole": 5
+      },
+      "far_widths": {
+        "knee": 5,
+        "shin": 5,
+        "boot": 5,
+        "sole": 5
+      }
+    },
+    {
+      "frame": 5,
+      "upper_0_61_unchanged": true,
+      "sole_row79": true,
+      "below79_empty": true,
+      "detached_lower_components": 0,
+      "foot_anchor_separation": 7,
+      "no_cyan_on_legs": true,
+      "near_widths": {
+        "knee": 5,
+        "shin": 5,
+        "boot": 5,
+        "sole": 5
+      },
+      "far_widths": {
+        "knee": 5,
+        "shin": 5,
+        "boot": 5,
+        "sole": 5
+      }
+    },
+    {
+      "frame": 6,
+      "upper_0_61_unchanged": true,
+      "sole_row79": true,
+      "below79_empty": true,
+      "detached_lower_components": 0,
+      "foot_anchor_separation": 10,
+      "no_cyan_on_legs": true,
+      "near_widths": {
+        "knee": 5,
+        "shin": 5,
+        "boot": 5,
+        "sole": 5
+      },
+      "far_widths": {
+        "knee": 5,
+        "shin": 5,
+        "boot": 5,
+        "sole": 5
+      }
+    },
+    {
+      "frame": 7,
+      "upper_0_61_unchanged": true,
+      "sole_row79": true,
+      "below79_empty": true,
+      "detached_lower_components": 0,
+      "foot_anchor_separation": 9,
+      "no_cyan_on_legs": true,
+      "near_widths": {
+        "knee": 5,
+        "shin": 5,
+        "boot": 5,
+        "sole": 5
+      },
+      "far_widths": {
+        "knee": 5,
+        "shin": 5,
+        "boot": 5,
+        "sole": 5
+      }
+    },
+    {
+      "frame": 8,
+      "upper_0_61_unchanged": true,
+      "sole_row79": true,
+      "below79_empty": true,
+      "detached_lower_components": 0,
+      "foot_anchor_separation": 7,
+      "no_cyan_on_legs": true,
+      "near_widths": {
+        "knee": 5,
+        "shin": 5,
+        "boot": 5,
+        "sole": 5
+      },
+      "far_widths": {
+        "knee": 5,
+        "shin": 5,
+        "boot": 5,
+        "sole": 5
+      }
+    }
+  ],
+  "width_note": "Section construction width5 includes outlines, measured before overlap. Angled joints/overlapping legs have larger projected row spans; near leg occludes far leg.",
+  "pose_note": "Hip/knee/ankle/foot anchors manually read from supplied native sprite; integer quantization can differ from former colored-highlight centroids. No wide-stride redesign.",
+  "game_tested": false
+}

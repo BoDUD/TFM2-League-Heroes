@@ -24,11 +24,14 @@ The run came back a second time (diana_run_redo.zip; the prompt: assets/source/d
 run had the same legs in all 8 frames; the redo swaps the planted leg (near in 1-4, far in 5-8, strides opposite in 4
 and 8) with the hips up kept square for square and the soles on the ground. In game its legs were still wrong (the
 user: "戴安娜走路的时候出现上下身体分割", "有一半腿露在身体外面"): frames 4 and 8 split 23-25 squares wide, kicked
-legs with no thigh, a light band across the waist. The third run (diana_run_redo2.zip, kept in codex_run/; the
-prompt: assets/source/diana/RUN_REDO2.md) redraws only the legs below row 62 after League's run: the feet at most
-10 squares apart, thighs out from under the skirt, the band gone. --run takes the run from it (its flat manifest).
-In the run, the legs' squares in the blade's pale cyan (frame 8's near shin, RUN_GREAVE) take the idle's greave
-silver, so the shin does not flash white once a stride.
+legs with no thigh, a light band across the waist. The third run (diana_run_redo2.zip; the prompt:
+assets/source/diana/RUN_REDO2.md) redrew only the legs below row 62 after League's run: the feet at most 10 squares
+apart, thighs out from under the skirt, the band gone - but shrunk from big generated legs, 2-3 squares wide (the
+user: "戴安娜的腿太细"). The fourth (diana_run_legs3.zip, kept in codex_run/; the prompt:
+assets/source/diana/RUN_REDO3.md) keeps those poses and widens the legs square by square at 1x to the idle's 5
+squares with the outline, in the idle's materials. --run takes the run from it (its flat manifest).
+In the run, the legs' squares in the blade's pale cyan (the third run's frame 8 shin, RUN_GREAVE) take the idle's
+greave silver, so a shin never flashes white once a stride.
 Writes assets/source/native/diana_<tag>.png (8x blocks) and diana_cells.json; the idle strip is the design's.
 --check compares with the files there instead of writing.
 """

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "tool": "built-in image_gen",
-  "status": "revised_and_locally_checked_not_in_game_tested",
+  "tool": "native pixel editing (Python/Pillow), explicitly requested by supplied brief",
+  "status": "native_pixel_revision",
   "scale": 8,
   "cell": [
     96,
@@ -13,7 +13,7 @@
   ],
   "file": "diana_run.png",
   "native_file": "native/diana_run_1x.png",
-  "raw_file": "raw/whole_revision.png",
+  "raw_file": null,
   "frames": [
     {
       "frame": 1,
@@ -41,22 +41,52 @@
       ],
       "baseline": 79,
       "upper_rows_0_61_unchanged": true,
-      "source_leg_rect": [
-        152,
-        54,
-        193,
-        279
-      ],
-      "source_file": "raw/legs.png",
-      "replacement_native_size": [
-        12,
-        18
-      ],
-      "placement": [
-        35,
-        62
-      ],
-      "detached_lower_pixels_removed": []
+      "native_leg_anchors": {
+        "near": [
+          [
+            44,
+            64
+          ],
+          [
+            43,
+            69
+          ],
+          [
+            40,
+            75
+          ],
+          [
+            40,
+            79
+          ]
+        ],
+        "far": [
+          [
+            42,
+            64
+          ],
+          [
+            39,
+            68
+          ],
+          [
+            36,
+            69
+          ],
+          [
+            36,
+            72
+          ]
+        ]
+      },
+      "construction_widths": {
+        "thigh": 5,
+        "knee": 5,
+        "shin": 5,
+        "boot": 5,
+        "sole": 5
+      },
+      "method": "native-pixel centerline widening; no generative rescaling"
     },
     {
       "frame": 2,
@@ -84,22 +114,52 @@
       ],
       "baseline": 79,
       "upper_rows_0_61_unchanged": true,
-      "source_leg_rect": [
-        648,
-        44,
-        231,
-        289
-      ],
-      "source_file": "raw/legs.png",
-      "replacement_native_size": [
-        13,
-        18
-      ],
-      "placement": [
-        37,
-        62
-      ],
-      "detached_lower_pixels_removed": []
+      "native_leg_anchors": {
+        "near": [
+          [
+            46,
+            64
+          ],
+          [
+            47,
+            70
+          ],
+          [
+            47,
+            76
+          ],
+          [
+            47,
+            79
+          ]
+        ],
+        "far": [
+          [
+            43,
+            64
+          ],
+          [
+            43,
+            68
+          ],
+          [
+            38,
+            70
+          ],
+          [
+            38,
+            73
+          ]
+        ]
+      },
+      "construction_widths": {
+        "thigh": 5,
+        "knee": 5,
+        "shin": 5,
+        "boot": 5,
+        "sole": 5
+      },
+      "method": "native-pixel centerline widening; no generative rescaling"
     },
     {
       "frame": 3,
@@ -127,27 +187,52 @@
       ],
       "baseline": 79,
       "upper_rows_0_61_unchanged": true,
-      "source_leg_rect": [
-        1176,
-        45,
-        208,
-        288
-      ],
-      "source_file": "raw/legs.png",
-      "replacement_native_size": [
-        13,
-        18
-      ],
-      "placement": [
-        37,
-        62
-      ],
-      "detached_lower_pixels_removed": [
-        [
-          31,
-          62
+      "native_leg_anchors": {
+        "near": [
+          [
+            46,
+            64
+          ],
+          [
+            47,
+            70
+          ],
+          [
+            46,
+            76
+          ],
+          [
+            47,
+            79
+          ]
+        ],
+        "far": [
+          [
+            43,
+            64
+          ],
+          [
+            41,
+            69
+          ],
+          [
+            38,
+            69
+          ],
+          [
+            38,
+            71
+          ]
         ]
-      ]
+      },
+      "construction_widths": {
+        "thigh": 5,
+        "knee": 5,
+        "shin": 5,
+        "boot": 5,
+        "sole": 5
+      },
+      "method": "native-pixel centerline widening; no generative rescaling"
     },
     {
       "frame": 4,
@@ -175,67 +260,52 @@
       ],
       "baseline": 79,
       "upper_rows_0_61_unchanged": true,
-      "source_leg_rect": [
-        1716,
-        55,
-        140,
-        265
-      ],
-      "source_file": "raw/legs.png",
-      "replacement_native_size": [
-        10,
-        18
-      ],
-      "placement": [
-        40,
-        62
-      ],
-      "detached_lower_pixels_removed": [
-        [
-          27,
-          70
+      "native_leg_anchors": {
+        "near": [
+          [
+            44,
+            65
+          ],
+          [
+            44,
+            70
+          ],
+          [
+            42,
+            76
+          ],
+          [
+            43,
+            79
+          ]
         ],
-        [
-          27,
-          71
-        ],
-        [
-          27,
-          72
-        ],
-        [
-          27,
-          73
-        ],
-        [
-          50,
-          63
-        ],
-        [
-          51,
-          64
-        ],
-        [
-          50,
-          64
-        ],
-        [
-          28,
-          76
-        ],
-        [
-          28,
-          77
-        ],
-        [
-          28,
-          78
-        ],
-        [
-          31,
-          62
+        "far": [
+          [
+            46,
+            64
+          ],
+          [
+            47,
+            67
+          ],
+          [
+            48,
+            70
+          ],
+          [
+            47,
+            72
+          ]
         ]
-      ]
+      },
+      "construction_widths": {
+        "thigh": 5,
+        "knee": 5,
+        "shin": 5,
+        "boot": 5,
+        "sole": 5
+      },
+      "method": "native-pixel centerline widening; no generative rescaling"
     },
     {
       "frame": 5,
@@ -263,22 +333,52 @@
       ],
       "baseline": 79,
       "upper_rows_0_61_unchanged": true,
-      "source_leg_rect": [
-        160,
-        417,
-        200,
-        265
-      ],
-      "source_file": "raw/legs.png",
-      "replacement_native_size": [
-        13,
-        18
-      ],
-      "placement": [
-        37,
-        62
-      ],
-      "detached_lower_pixels_removed": []
+      "native_leg_anchors": {
+        "near": [
+          [
+            43,
+            64
+          ],
+          [
+            42,
+            69
+          ],
+          [
+            39,
+            73
+          ],
+          [
+            40,
+            76
+          ]
+        ],
+        "far": [
+          [
+            45,
+            64
+          ],
+          [
+            48,
+            70
+          ],
+          [
+            46,
+            76
+          ],
+          [
+            47,
+            79
+          ]
+        ]
+      },
+      "construction_widths": {
+        "thigh": 5,
+        "knee": 5,
+        "shin": 5,
+        "boot": 5,
+        "sole": 5
+      },
+      "method": "native-pixel centerline widening; no generative rescaling"
     },
     {
       "frame": 6,
@@ -306,22 +406,52 @@
       ],
       "baseline": 79,
       "upper_rows_0_61_unchanged": true,
-      "source_leg_rect": [
-        649,
-        419,
-        261,
-        275
-      ],
-      "source_file": "raw/legs.png",
-      "replacement_native_size": [
-        13,
-        18
-      ],
-      "placement": [
-        36,
-        62
-      ],
-      "detached_lower_pixels_removed": []
+      "native_leg_anchors": {
+        "near": [
+          [
+            43,
+            64
+          ],
+          [
+            42,
+            69
+          ],
+          [
+            38,
+            68
+          ],
+          [
+            37,
+            72
+          ]
+        ],
+        "far": [
+          [
+            44,
+            64
+          ],
+          [
+            46,
+            70
+          ],
+          [
+            46,
+            76
+          ],
+          [
+            47,
+            79
+          ]
+        ]
+      },
+      "construction_widths": {
+        "thigh": 5,
+        "knee": 5,
+        "shin": 5,
+        "boot": 5,
+        "sole": 5
+      },
+      "method": "native-pixel centerline widening; no generative rescaling"
     },
     {
       "frame": 7,
@@ -349,22 +479,52 @@
       ],
       "baseline": 79,
       "upper_rows_0_61_unchanged": true,
-      "source_leg_rect": [
-        1169,
-        419,
-        235,
-        273
-      ],
-      "source_file": "raw/legs.png",
-      "replacement_native_size": [
-        13,
-        18
-      ],
-      "placement": [
-        36,
-        62
-      ],
-      "detached_lower_pixels_removed": []
+      "native_leg_anchors": {
+        "near": [
+          [
+            42,
+            64
+          ],
+          [
+            41,
+            69
+          ],
+          [
+            37,
+            67
+          ],
+          [
+            37,
+            69
+          ]
+        ],
+        "far": [
+          [
+            45,
+            64
+          ],
+          [
+            47,
+            70
+          ],
+          [
+            46,
+            76
+          ],
+          [
+            46,
+            79
+          ]
+        ]
+      },
+      "construction_widths": {
+        "thigh": 5,
+        "knee": 5,
+        "shin": 5,
+        "boot": 5,
+        "sole": 5
+      },
+      "method": "native-pixel centerline widening; no generative rescaling"
     },
     {
       "frame": 8,
@@ -392,90 +552,55 @@
       ],
       "baseline": 79,
       "upper_rows_0_61_unchanged": true,
-      "source_leg_rect": [
-        1532,
-        714,
-        124,
-        112
-      ],
-      "source_file": "raw/whole_revision.png",
-      "replacement_native_size": [
-        13,
-        18
-      ],
-      "placement": [
-        36,
-        62
-      ],
-      "detached_lower_pixels_removed": [
-        [
-          28,
-          72
+      "native_leg_anchors": {
+        "near": [
+          [
+            42,
+            64
+          ],
+          [
+            42,
+            67
+          ],
+          [
+            46,
+            76
+          ],
+          [
+            45,
+            79
+          ]
         ],
-        [
-          28,
-          73
-        ],
-        [
-          28,
-          74
-        ],
-        [
-          28,
-          75
-        ],
-        [
-          28,
-          76
-        ],
-        [
-          28,
-          77
-        ],
-        [
-          28,
-          78
-        ],
-        [
-          27,
-          77
-        ],
-        [
-          27,
-          76
-        ],
-        [
-          27,
-          75
-        ],
-        [
-          27,
-          74
-        ],
-        [
-          27,
-          73
-        ],
-        [
-          25,
-          69
-        ],
-        [
-          25,
-          70
-        ],
-        [
-          25,
-          71
-        ],
-        [
-          25,
-          72
+        "far": [
+          [
+            41,
+            64
+          ],
+          [
+            40,
+            70
+          ],
+          [
+            38,
+            76
+          ],
+          [
+            38,
+            79
+          ]
         ]
-      ]
+      },
+      "construction_widths": {
+        "thigh": 5,
+        "knee": 5,
+        "shin": 5,
+        "boot": 5,
+        "sole": 5
+      },
+      "method": "native-pixel centerline widening; no generative rescaling"
     }
   ],
-  "method": "AI regenerated lower limbs, nearest-neighbor normalization to supplied palette, per-material skirt preservation; unchanged head and torso; no head paste",
+  "method": "Direct native96x96 pixel editing per supplied brief, preserving input upper body. No image generation or downsampling.",
   "palette": [
     "#0A0412",
     "#0C0516",
