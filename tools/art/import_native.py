@@ -57,10 +57,50 @@ SOLES = 11
 # above pivot row y moves down a row. Codex drew Nami's swimming body a row lower under the head in run 1-4 than
 # in 5-8 and the design, so her neck stretched and shrank as she swam (the user: "一上一下的时候感觉身体要分离一样").
 NECK = {("nami", "run"): (-21, [0, 1, 2, 3])}
+# (hero, tag): (y, rows, cape), a walk's step: in frame k everything at or above pivot row y moves down rows[k] and is
+# laid over what is below, so the leg tops tuck under the hips; a cape that streams behind her across row y goes along
+# whole (below y: each row up to one past its last `cape` colour pixel, and the tip's runs hanging off that), or the
+# seam folds it into a step. Codex redrew Fiora's walk with the head, neck and shoulders as one block (her pasted head
+# had drifted a row off the body: "头和身体不协调"), but the block stood still over the striding legs. League's walk
+# dips the whole upper body at the landing (frame 4, both feet wide) and carries it highest at 5-6: League's head and
+# body centre move about 2 px at her size, its hip 3 (one 3-px snap from 4 to 5 read bouncy on a 40-px chibi). The
+# drawing already stands a row higher in 6-8.
+STEP = {("fiora", "run"): (-6, [1, 1, 0, 2, 0, 1, 2, 2], ["5C0522", "730928"])}
+# (hero, tag): per frame (rows, left, right[, "fill"]) or None, the pasted head put back on its neck: the design's
+# head moves up `rows` (the idle's head pixels round the eyes, down to the chin three rows under them) and the idle's
+# rows under its chin - the neck and the collar - go under it, `left`..`right` columns from the eyes, where the frame
+# is clear or had the head; "fill" also closes a clear gap under the chin with the idle's neck. Fiora's strips prompt
+# said "no neck under the chin", so Codex seated the head on the shirt in every action frame: eyes 4-5 rows above the
+# white shirt against the idle's 8, her short neck and tall gold collar gone (the user: "剑姬放技能的时候脖子又消失
+# 没修复吗？", "还是漏了"). Rows and widths per frame from a judge per strip: the wide collar (7) where the shoulders
+# are square to us, 5 where it would sit on a shoulder, cut on the side of a raised sword arm; the Q dash (2-3) stays
+# (League shows no neck there), as do the death frames whose head hangs ahead of the body (2-4).
+NECK_UP = {("fiora", "attack"): [(2, 7, 7), (1, 5, 4), (1, 5, 5, "fill"), (3, 7, 3), (3, 7, 3), None],
+           ("fiora", "attack_e"): [(3, 7, 7), (2, 7, 7), (3, 7, 7), (3, 7, 7), (3, 7, 7), (3, 7, 7)],
+           ("fiora", "skill"): [(3, 5, 5), None, None, (4, 5, 5), (4, 5, 5), (4, 5, 5)],
+           ("fiora", "skill2"): [(3, 5, 5)] * 6 + [(4, 5, 5)],
+           ("fiora", "ult"): [(4, 7, 7)] * 5,
+           ("fiora", "hit"): [(2, 7, 7), (2, 7, 7)],
+           ("fiora", "dead"): [(3, 7, 7), None, None, None, (4, 7, 7), (4, 7, 7), None, None]}
+# (hero, tag, frame): the eyes (pivot row, column) where the EYES colour is missing - her wince, eyes shut
+NECK_EYES = {("fiora", "hit", 0): (-19, 3)}
 # heroes whose outline strips.complete_outline closes on the finished frames (the skill's art-spec "Close the
 # outline": every hero from Nami on; the user: "后面英雄都要用的"). Nothing goes under the soles row; a frame that
 # already reaches lower (lying down) keeps its own bottom.
-COMPLETE = {"nami", "veigar", "jax", "ahri", "taric", "tristana", "diana"}
+COMPLETE = {"nami", "veigar", "jax", "ahri", "taric", "tristana", "fiora", "diana"}
+# hero: the luminance from which an edge pixel gets the outline (complete_outline's `dark`, default 70). Fiora's teal
+# leggings (luminance ~58) and wine cape (~44) edge many action frames without black: tfm2_ase.py metrics counts only
+# luminance < 40 as outline, so at 70 her Q frames read 83-89% (the bare rapier aside); at 40 they close too.
+DARK = {"fiora": 40}
+# heroes whose closed outline strips.clean_outline then tidies (one black ring, one pixel thick, no crumbs; the face
+# box round the EYES colour untouched). Fiora's Codex frames mixed black with her darkest teal, wine and brown on
+# the ring, doubled it inside and left loose black crumbs on the legs (the user: "黑色描边处理一下 弄干净点").
+CLEAN = {"fiora"}
+# hero: colours of a blade drawn as a bare one-pixel line; clean_outline clears the black caps complete_outline puts
+# on the ends of every run of a slanted one (Fiora's rapier in Q, the crit and the salute read as a dashed line),
+# and strips.straighten_lines redraws each long one as a straight pixel line from the hilt to the tip (Codex's
+# slanted runs of 3, 2, 3, 2, 4 read as bent: "这两个剑也应该是直线的吧", the user)
+BARE = {"fiora": [(0xE6, 0xE8, 0xF0)]}
 ORDER = {("lux", "idle"): [0, 0, 0, 0, 0, 0],   # the step-2 idle is the design in all six (was 0 1 2 3 5 4)
          # League leans his upper body a square forward in idle 4-5 and back in 6, and every frame's head
          # is voted anew, so the face swung and changed shape as he breathed (the user). Frame 1 in every
@@ -124,7 +164,9 @@ ORDER = {("lux", "idle"): [0, 0, 0, 0, 0, 0],   # the step-2 idle is the design 
          # and Taric (export_taric.py: Codex's idle frame, its face placed by hand, in all six)
          ("taric", "idle"): [0, 0, 0, 0, 0, 0],
          # and Tristana (Codex's game-size design A, 41 rows with the goggles)
-         ("tristana", "idle"): [0, 0, 0, 0, 0, 0]}
+         ("tristana", "idle"): [0, 0, 0, 0, 0, 0],
+         # and Fiora (Codex's game-size design B40: the pack's idle is the design in all six)
+         ("fiora", "idle"): [0, 0, 0, 0, 0, 0]}
 # (hero, tag): (y, slots) - in those slots everything at or above pivot row y moves down a row (the row under
 # it is covered): one frame breathing, the face the same drawing throughout. Leona's shield covers her from
 # the chest to the ankles, so she sinks down to its tip and only the boots stay (a seam across the shield
@@ -201,7 +243,10 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        ("taric", "idle"): (8, [2, 3, 4]),
        # Tristana: her cannon hangs to the hips, so the seam runs low in the shins (rows 96/97: 1 square of opacity and 4
        # of outline differ); only her feet stay
-       ("tristana", "idle"): (8, [2, 3, 4])}
+       ("tristana", "idle"): (8, [2, 3, 4]),
+       # Fiora: her lunge stance puts both legs on diagonals, so every row differs from the next; at 8 (the boot tops)
+       # 3 squares of outline and 4 of colour change and the boots stay
+       ("fiora", "idle"): (8, [2, 3, 4])}
 CROWN = {"leesin"}              # heroes whose head template starts at the crown (a braid stands above it)
 PASTED = {"masteryi"}            # steadied on the head restyle_native pasted: his raised sword is the top of every frame
 # Codex's step-2 redraw (model_strips_18, tidied by tidy_codex18.py): the approved design's head (or face) is in every
@@ -239,7 +284,8 @@ EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade
         "veigar": (255, 209, 50),         # his hat's tip leans with the pose; the yellow of the eyes is used nowhere else
         "jax": (70, 240, 255),            # the four cyan lights on his mask; his plume or lamppost tops the frames
         "taric": (24, 44, 176),           # export_taric.py sets both eyes to this blue; his raised mace tops some frames
-        "tristana": (246, 186, 48)}       # the goggle cups top every frame; the amber is only in her eyes
+        "tristana": (246, 186, 48),       # the goggle cups top every frame; the amber is only in her eyes
+        "fiora": (24, 180, 200)}          # her raised rapier tops some frames; the teal is used only in her eyes
 
 
 def blocks(path):
@@ -400,6 +446,130 @@ def touch_up(hero, sheet):
     return n
 
 
+def neck_up(hero, sheet):
+    """NECK_UP: the pasted head up its rows with the idle's neck and collar under it; the frames changed."""
+    changed = 0
+    if not any(h == hero for h, _ in NECK_UP):
+        return 0
+    eye = np.array(EYES[hero])
+    idle = sheet["idle"][0][0]
+    ys, xs = np.nonzero((idle[..., :3] == eye).all(-1) & (idle[..., 3] > 0))
+    iey, iex = int(ys.max()), int(round(xs.mean()))
+    head = [(y - iey, x - iex) for y, x in zip(*np.nonzero(idle[..., 3] > 0)) if y <= iey + 3 and abs(x - iex) <= 9]
+    for (h, tag), plan in NECK_UP.items():
+        if h != hero or tag not in sheet:
+            continue
+        for k, todo in enumerate(plan):
+            if not todo:
+                continue
+            rows, left, right = todo[:3]
+            a, ms = sheet[tag][k]
+            pad = rows + 16
+            c = np.pad(a, ((pad, pad), (pad, pad), (0, 0)))
+            cy, cx = c.shape[0] // 2, c.shape[1] // 2
+            if (hero, tag, k) in NECK_EYES:
+                dy, dx = NECK_EYES[(hero, tag, k)]
+                ey, ex = cy + dy, cx + dx
+            else:
+                ys, xs = np.nonzero((c[..., :3] == eye).all(-1) & (c[..., 3] > 0))
+                ey, ex = int(ys.max()), int(round(xs.mean()))
+            mine = [(dy, dx) for dy, dx in head if c[ey + dy, ex + dx, 3]
+                    and (c[ey + dy, ex + dx, :3] == idle[iey + dy, iex + dx, :3]).all()]
+            pix = {q: c[ey + q[0], ex + q[1]].copy() for q in mine}
+            for dy, dx in mine:
+                c[ey + dy, ex + dx] = 0
+            ney = ey - rows
+            for dy in range(4, 4 + rows):                       # the idle's neck and collar under the new chin
+                for dx in range(-left, right + 1):
+                    q = idle[iey + dy, iex + dx] if 0 <= iex + dx < idle.shape[1] else (0, 0, 0, 0)
+                    if q[3] and (c[ney + dy, ex + dx, 3] == 0 or ney + dy <= ey + 3):
+                        c[ney + dy, ex + dx] = q
+            for (dy, dx), p in pix.items():
+                c[ney + dy, ex + dx] = p
+            if "fill" in todo[3:]:                               # a clear gap under the chin: the idle's neck
+                for dy in range(4 + rows, 6 + rows):
+                    for dx in (-1, 0, 1):
+                        q = idle[iey + dy, iex + dx]
+                        if c[ney + dy, ex + dx, 3] == 0 and q[3]:
+                            c[ney + dy, ex + dx] = q
+            for dy, dx in mine:                                  # left open where the head was
+                y, x = ey + dy, ex + dx
+                if c[y, x, 3] == 0:
+                    near = [tuple(int(v) for v in c[y + yy, x + xx, :3]) for yy, xx in ((-1, 0), (1, 0), (0, -1), (0, 1))
+                            if c[y + yy, x + xx, 3]]
+                    if len(near) >= 3:
+                        c[y, x, :3] = max(set(near), key=near.count)
+                        c[y, x, 3] = 255
+            op = c[..., 3] > 0
+            pp = np.pad(op, 1)
+            shut = ~op & pp[:-2, 1:-1] & pp[2:, 1:-1] & pp[1:-1, :-2] & pp[1:-1, 2:]
+            shut[:max(0, ney - 14)] = False
+            shut[ney + 12:] = False
+            for y, x in zip(*np.nonzero(shut)):                  # clear pixels shut in on four sides
+                near = [tuple(int(v) for v in c[y + yy, x + xx, :3]) for yy, xx in ((-1, 0), (1, 0), (0, -1), (0, 1))]
+                c[y, x, :3] = max(set(near), key=near.count)
+                c[y, x, 3] = 255
+            sheet[tag][k] = (G.centre_frame(c, -cx, -cy), ms)
+            changed += 1
+    return changed
+
+
+def step(hero, sheet):
+    """STEP: move the upper body of each frame, with its cape, down its rows over the legs; the frames moved."""
+    moved = 0
+    for (h, tag), (y0, rows, cape) in STEP.items():
+        if h != hero or tag not in sheet:
+            continue
+        wine = np.array([[int(c[i:i + 2], 16) for i in (0, 2, 4)] for c in cape])
+        for k, d in enumerate(rows):
+            if not d:
+                continue
+            a, ms = sheet[tag][k]
+            cy = a.shape[0] // 2
+            cut = cy + y0 + 1                        # array rows before `cut` sit at pivot rows <= y0
+            op = a[..., 3] > 0
+            block = np.zeros(op.shape, bool)
+            block[:cut] = op[:cut]
+            for r in range(cut, a.shape[0]):         # the cape under the seam
+                cols = np.nonzero(op[r] & (a[r, :, None, :3] == wine).all(-1).any(-1))[0]
+                if len(cols):
+                    block[r, :cols.max() + 2] = op[r, :cols.max() + 2]
+                    continue
+                c, hang = 0, False
+                while c < a.shape[1]:                # its tip: the runs touching the cape in the row above
+                    if not op[r, c]:
+                        c += 1
+                        continue
+                    e = c
+                    while e < a.shape[1] and op[r, e]:
+                        e += 1
+                    if r > cut and block[r - 1, max(0, c - 1):e + 1].any() and (r - 1 >= cut):
+                        block[r, c:e] = True
+                        hang = True
+                    c = e
+                if not hang:
+                    break
+            b = np.pad(a, ((0, d), (0, 0), (0, 0)))
+            upper = np.zeros_like(b)
+            upper[d:a.shape[0] + d][block] = a[block]
+            b[:a.shape[0]][block] = 0
+            m = upper[..., 3] > 0
+            b[m] = upper[m]
+            # a clear pixel the move closes in on all four sides (the cape's edge come down beside a leg) takes its
+            # commonest neighbour
+            def shut(o):
+                p = np.pad(o, 1)
+                return ~o & p[:-2, 1:-1] & p[2:, 1:-1] & p[1:-1, :-2] & p[1:-1, 2:]
+            was = shut(np.pad(op, ((0, d), (0, 0))))
+            for y, x in zip(*np.nonzero(shut(b[..., 3] > 0) & ~was)):
+                near = [tuple(int(v) for v in b[y + dy, x + dx, :3]) for dy, dx in ((-1, 0), (1, 0), (0, -1), (0, 1))]
+                b[y, x, :3] = max(set(near), key=near.count)
+                b[y, x, 3] = 255
+            sheet[tag][k] = (G.centre_frame(b, -(b.shape[1] // 2), -cy), ms)
+            moved += 1
+    return moved
+
+
 def breathe(hero, sheet):
     """BOB and NECK: move the upper body of the listed slots down a row (after the retouch, which is drawn on the
     frame before it moves)."""
@@ -416,9 +586,10 @@ def breathe(hero, sheet):
 
 
 def close_outline(hero, sheet):
-    """COMPLETE: strips.complete_outline on every frame, in idle frame 1's outline colour; (added, darkened)."""
+    """COMPLETE: strips.complete_outline on every frame, in idle frame 1's outline colour, then CLEAN:
+    strips.clean_outline; (added, darkened, {clean rule: pixels})."""
     if hero not in COMPLETE:
-        return 0, 0
+        return 0, 0, {}
     first = sheet["idle"][0][0]
     op = first[..., 3] > 0
     p = np.pad(op, 1)
@@ -426,16 +597,29 @@ def close_outline(hero, sheet):
     dark = [tuple(int(v) for v in c) for c in first[edge & (G.lum(first[..., :3]) < 70)][:, :3]]   # the commonest
     colour = max(set(dark), key=dark.count)
     added = darkened = 0
+    tidy = {}
     for tag, frames in sheet.items():
         for k, (a, ms) in enumerate(frames):
             b = np.pad(a, ((1, 1), (1, 1), (0, 0)))              # room for an outline round the widest pixel
             c = b.shape[0] // 2
             low = int(np.nonzero(b[..., 3].any(1))[0].max())
-            b, n, d = G.complete_outline(b, color=colour, feet=max(c + SOLES, low))
+            b, n, d = G.complete_outline(b, color=colour, dark=DARK.get(hero, 70), feet=max(c + SOLES, low))
+            if hero in CLEAN:
+                face = np.zeros(b.shape[:2], bool)
+                ys, xs = np.nonzero((b[..., :3] == EYES[hero]).all(-1) & (b[..., 3] > 0))
+                if len(ys):
+                    cy, cx = int(ys.mean()), int(xs.mean())
+                    face[max(0, cy - 6):cy + 6, max(0, cx - 7):cx + 7] = True
+                b, counts = G.clean_outline(b, colour, dark=DARK.get(hero, 70), keep=face, bare=BARE.get(hero, ()))
+                for rule, v in counts.items():
+                    tidy[rule] = tidy.get(rule, 0) + v
+                if hero in BARE:
+                    b, m = G.straighten_lines(b, BARE[hero])
+                    tidy["straight"] = tidy.get("straight", 0) + m
             frames[k] = (G.centre_frame(b, -(b.shape[1] // 2), -c), ms)
             added += n
             darkened += d
-    return added, darkened
+    return added, darkened, tidy
 
 
 def flatness(frames):
@@ -477,13 +661,21 @@ def main():
                                  for p in glob.glob(os.path.join(SRC, "*_cells.json")))
     for hero in heroes:
         sheet, report = build(hero)
+        necks = neck_up(hero, sheet)
+        if necks:
+            print(f"{hero}: pasted head put back on its neck in {necks} frames")
         touched = touch_up(hero, sheet)
         if touched:
             print(f"{hero}_retouch.json: {touched} pixels retouched")
+        stepped = step(hero, sheet)
+        if stepped:
+            print(f"{hero}: walk step on {stepped} frames")
         breathe(hero, sheet)
-        added, darkened = close_outline(hero, sheet)
+        added, darkened, tidy = close_outline(hero, sheet)
         if added or darkened:
             print(f"{hero}: outline closed with {added} pixels added, {darkened} darkened on the feet line")
+        if tidy:
+            print(f"{hero}: outline tidied: " + ", ".join(f"{k} {v}" for k, v in tidy.items()))
         w, h = G.write_sheet(os.path.join(MOD, "champions", f"league_{hero}"), sheet)
         frames = [a for fr in sheet.values() for a, _ in fr]
         colours = len(np.unique(np.concatenate([a[a[..., 3] > 0][:, :3] for a in frames]), axis=0))

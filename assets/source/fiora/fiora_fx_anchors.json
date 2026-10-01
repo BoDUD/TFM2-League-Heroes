@@ -1,0 +1,20 @@
+{
+  "hit": {"cell": [21, 19], "anchor": [10, 9], "frames": 5},
+  "e_hit": {"cell": [23, 21], "anchor": [11, 10], "frames": 5},
+  "e_crit": {"cell": [31, 31], "anchor": [15, 15], "frames": 6},
+  "q_hit": {"cell": [25, 21], "anchor": [12, 10], "frames": 5},
+  "q_dash": {"cell": [59, 21], "anchor": [29, 10], "frames": 5},
+  "vital_mark": {"cell": [17, 19], "anchor": [8, 9], "frames": 4},
+  "vital_hit": {"cell": [35, 35], "anchor": [17, 17], "frames": 6},
+  "w_parry": {"cell": [33, 49], "anchor": [16, 24], "frames": 4},
+  "w_line": {"cell": [59, 15], "anchor": [29, 7], "frames": 4},
+  "w_hit": {"cell": [23, 15], "anchor": [11, 7], "frames": 5},
+  "w_slow": {"cell": [25, 33], "anchor": [12, 16], "frames": 6},
+  "w_stun": {"cell": [23, 11], "anchor": [11, 5], "frames": 8},
+  "r_on": {"cell": [47, 49], "anchor": [23, 24], "frames": 6},
+  "r_marks": {"cell": [49, 47], "anchor": [24, 23], "frames": 16},
+  "r_hit": {"cell": [37, 35], "anchor": [18, 17], "frames": 6},
+  "r_zone": {"cell": [75, 45], "anchor": [37, 22], "frames": 8},
+  "e_glint": {"cell": [35, 35], "anchor": [17, 17], "frames": 4},
+  "v_ms": {"cell": [49, 13], "anchor": [24, 6], "frames": 4}
+}
