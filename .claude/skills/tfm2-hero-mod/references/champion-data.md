@@ -2033,7 +2033,13 @@ it: 6000), and its view (`repeat: false`) starts with an empty frame for the tic
 the bell (3, 5 and 3 at 6000, 4500 and 7000 a tick), then loops, and holds a frame long enough to outlast any flight.
 The flashes at the bell are `CasterViewEffect`s played in the same tick, with `is_follow`: played without it, they
 stayed on the side they were played on and showed behind her once she turned ("小炮转身了那个火就在小炮的身后",
-2026-10-01). `y_offset` is not only the
+2026-10-01). Following her is not following her sprite: the view stays where it was put on her while the bell moves in
+the frames after the shot (R's flame burned on in front of her for ~300 ms after the recoil had thrown the cannon over
+her head: "枪口的火还是没跟着枪的方向 固定住了"). So the fire is timed to the frames whose bell stays put - the
+attack's shot frame and the next hold the bell still, R's flame burns out in its 90 ms shot frame - and a view's tag
+can be built from parts at different spots (E's fire moves a square back with its 4th frame); the smoke after the
+fire may stay where it was blown out. Attack speed shortens the attack's frames but not a view's, so keep that fire
+within the frames at base speed. `y_offset` is not only the
 picture (league_lucian's double shot moved by a tick): when she was cut to 34 rows, 5000 / 13000 / 9000 (the new
 bells' middles) made the flights 1-2 ticks longer on average (the bolt 8.4 -> 9.4 ticks, the charge 13.1 -> 15.3 in
 one simulated game) and her kill difference fell from +2.06 to +1.33 on the same 24 seeds, so the tested values stay
