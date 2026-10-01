@@ -1,0 +1,86 @@
+{
+  "A": {
+    "height": 46,
+    "occupied_bounds_1x": [
+      47,
+      54,
+      84,
+      100
+    ],
+    "last_occupied_row": 99,
+    "pixels_below_feet": 0,
+    "opaque_colors": 17,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "strict_8x8": true,
+    "mask_height": 9,
+    "eyes": {
+      "size": [
+        2,
+        2
+      ],
+      "same_rows": [
+        65,
+        66
+      ],
+      "white_bridge_cells": 1,
+      "dark_rim_cells_between": 2,
+      "cyan_pixels_each": 3,
+      "dark_upper_left_corner": true,
+      "bright_core_each": 1
+    },
+    "pants_rows_local": [
+      28,
+      36
+    ],
+    "boots_rows_local": [
+      37,
+      45
+    ],
+    "authoring": "direct colored cell placement; no source image resampling"
+  },
+  "B": {
+    "height": 46,
+    "occupied_bounds_1x": [
+      47,
+      54,
+      84,
+      100
+    ],
+    "last_occupied_row": 99,
+    "pixels_below_feet": 0,
+    "opaque_colors": 17,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "strict_8x8": true,
+    "mask_height": 11,
+    "eyes": {
+      "size": [
+        2,
+        2
+      ],
+      "same_rows": [
+        66,
+        67
+      ],
+      "white_bridge_cells": 1,
+      "dark_rim_cells_between": 2,
+      "cyan_pixels_each": 3,
+      "dark_upper_left_corner": true,
+      "bright_core_each": 1
+    },
+    "pants_rows_local": [
+      28,
+      36
+    ],
+    "boots_rows_local": [
+      37,
+      45
+    ],
+    "authoring": "direct colored cell placement; no source image resampling"
+  }
+}
