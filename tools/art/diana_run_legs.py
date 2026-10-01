@@ -190,12 +190,33 @@ def upper(f, dy):
     return up
 
 
-def skirt_ring(s):
-    """The outline round a skirt stamp: next to its colours only - where the idle's own dark line already edges it (the
-    hem over the knees, the cape's side) a second line would make a black band."""
+N4 = ((1, 0), (-1, 0), (0, 1), (0, -1))
+
+
+def skirt_outline(s, top):
+    """The skirt stamp with one outline all round. The idle's skirt has its own dark lines (folds, the line over the
+    knees, the cape's side); where one of them is the stamp's edge below the belt rows, an outline round it would be a
+    second black line (the hem two rows black, notches in it), so that edge square takes the colour next to it
+    inwards first."""
     op = s[..., 3] > 0
     ink = op & np.isin(s[..., 0], (0x0A, 0x0C)) & np.isin(s[..., 1], (0x04, 0x05)) & np.isin(s[..., 2], (0x12, 0x16))
-    return ring(op & ~ink) & ~op
+    h, w = op.shape
+    out = s.copy()
+    for y, x in zip(*np.nonzero(ink)):
+        if y < top + 2:
+            continue
+        open_sides = [(dx, dy) for dx, dy in N4 if not (0 <= y + dy < h and 0 <= x + dx < w and op[y + dy, x + dx])]
+        if not open_sides:
+            continue
+        cands = [(x - dx, y - dy) for dx, dy in open_sides] + [(x + dx, y + dy) for dx, dy in N4]
+        for cx, cy in cands:
+            if 0 <= cy < h and 0 <= cx < w and op[cy, cx] and not ink[cy, cx]:
+                out[y, x] = s[cy, cx]
+                break
+        else:
+            out[y, x] = NAVY_D
+    out[ring(op)] = INK
+    return out
 
 
 def skirt(idle, dx, dy, trail, lift):
@@ -212,8 +233,7 @@ def skirt(idle, dx, dy, trail, lift):
         s[y1 - 3:y1, x0 - 1:x0 + 4] = part
     if lift:                                   # the front of the hem row one row up
         s[y1 - 1, x1 - 5:x1] = 0
-    s[skirt_ring(s)] = INK
-    return shifted(s, dy, dx)
+    return shifted(skirt_outline(s, y0), dy, dx)
 
 
 def build(run, idle, poses):

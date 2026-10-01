@@ -10,13 +10,17 @@ dark legs, in Q and W only 1-2 squares wide. Per frame, assets/source/diana/acti
 and the legs are (read off Codex's own frame - its stance fits its upper body - or League's pose where Codex's legs
 were sticks); this tool then
   - drops Codex's pixels from the belt row down (cut) except the blade (its light pieces, as tidy_diana finds them),
-    the keep boxes (hands, the blade's hilt), the hair colours in the hair boxes (the ponytail) and anything the drop boxes do not take out above the cut (old skirt flaps);
+    the keep boxes (things in front of the new skirt: a hand on the hilt, the forearm across it) and the hair colours
+    in the hair boxes, then puts every other pixel of Codex's frame back wherever nothing new is drawn - hands, the
+    blade's dark edges, ponytail tips and the cape beside the skirt (a first version cleared the rows full width and
+    cut them: a review found floating blades and hands) - except its old legs (leg_zone: below the new skirt, across
+    the new legs' columns) and the drop boxes (old knees left beside the skirt);
   - stamps the idle's skirt (diana_run_legs.SKIRT_ROWS x SKIRT_COLS, the cape's purple turned navy) with its belt at
     belt=[x, y] (x = the skirt's middle column); len keeps the belt's 2 rows and the last len-2 rows (a crouch shortens
     it from the middle), lean moves the hem that many columns forward (rows in between in proportion);
-  - draws the legs with diana_run_legs.draw_leg / legs_layer: hips inside the skirt (belt + 2.5 rows, the near one
+  - draws the legs with diana_run_legs.draw_leg, one outline round both and one seam where they touch: hips inside the skirt (belt + 2.5 rows, the near one
     1.75 columns forward), knee and ankle per leg ("near" is drawn over "far"), the boot along toe (default forward);
-    an ankle on row 78 puts the boot's sole outline on the soles row 79;
+    an ankle on row 78 puts the boot's sole outline on the soles row 79; px sets single squares (palette letters);
   - dy first moves Codex's frame down (the hit frames stood on the blade's tip, their feet 3 rows up; what goes below
     the soles row is cut); "skirt": false keeps Codex's skirt (cut below it) and only redraws the legs;
   - frames listed nowhere, or with "keep_codex": true, stay Codex's;
@@ -43,6 +47,10 @@ CONFIG = os.path.join(SOURCE, "diana", "action_legs.json")
 HIP_DOWN, HIP_GAP = 2.5, 3.5
 BLADE_LEAST = 10                             # smaller pale pieces below the cut are Codex's shins, not the blade
 NARROW = [5, 8, 4, 9, 3]                     # the stamp's plain navy columns, the first to go in a narrow skirt
+PALETTE = {k: tuple(int(c[i:i + 2], 16) for i in (1, 3, 5)) for k, c in zip("0123456789abcdefghijklmnop", (
+    "#0A0412", "#0C0516", "#1F5057", "#22233C", "#264648", "#333B63", "#492B5B", "#505169", "#505945", "#554743",
+    "#60637E", "#7211B0", "#7BB2B9", "#818768", "#865744", "#9676AC", "#A7804A", "#A950D9", "#B8BFC7", "#B9B690",
+    "#C7B8A2", "#D0F6EE", "#F2BA94", "#F2E6CF", "#F3D98D", "#F9F7FB"))}     # the design's 26 colours, as work letters
 HAIRS = {(0xF2, 0xE6, 0xCF), (0xC7, 0xB8, 0xA2), (0x55, 0x47, 0x43), (0xB9, 0xB6, 0x90), (0x81, 0x87, 0x68)}
 lp = rl.lp
 
@@ -67,8 +75,7 @@ def skirt(idle, cx, y, n, lean, width=None):
         yy = y + i
         if 0 <= yy < s.shape[0]:
             s[yy, left + dx:left + dx + stamp.shape[1]] = stamp[r]
-    s[rl.skirt_ring(s)] = rl.INK
-    return s
+    return rl.skirt_outline(s, y)
 
 
 def boxes(shape, bs):
@@ -103,20 +110,48 @@ def leg(spec, hip):
     return hip, knee, ankle, toe
 
 
+def legs_layer(far_leg, near_leg):
+    """Far leg, near leg over it, one outline round both and a single seam where they touch or overlap (on the far
+    leg's side) - two legs side by side had two black lines between them."""
+    far, near = rl.draw_leg(*far_leg, far=True), rl.draw_leg(*near_leg, far=False)
+    fm, nm = far[..., 3] > 0, near[..., 3] > 0
+    out = np.zeros_like(far)
+    out[fm] = far[fm]
+    out[nm] = near[nm]
+    out[fm & ~nm & rl.ring(nm)] = rl.INK
+    out[rl.ring(fm | nm)] = rl.INK
+    return out
+
+
+def leg_zone(legs, top, pad=2):
+    """Where Codex's own legs were: below the new skirt, across the new legs' columns and pad more each side."""
+    m = np.zeros(legs.shape[:2], bool)
+    cols = np.nonzero((legs[top:, :, 3] > 0).any(0))[0]
+    if len(cols):
+        m[top:, max(0, cols.min() - pad):cols.max() + pad + 1] = True
+    return m
+
+
 def build_frame(f, cfg, idle):
     cx, by = cfg["belt"]
     hips = cfg.get("hips")
     near_hip = np.array(hips[0] if hips else [cx + HIP_GAP / 2, by + HIP_DOWN], float)
     far_hip = np.array(hips[1] if hips else [cx - HIP_GAP / 2, by + HIP_DOWN], float)
     out = np.zeros_like(f)
-    back = boxes(f.shape, cfg.get("back")) & (f[..., 3] > 0)         # Codex's cape and hair behind the legs
-    out[back] = f[back]
-    legs = rl.legs_layer(leg(cfg["far"], far_hip), leg(cfg["near"], near_hip))
+    legs = legs_layer(leg(cfg["far"], far_hip), leg(cfg["near"], near_hip))
     rl.over(out, legs)
+    n = cfg.get("len", 10)
     if cfg.get("skirt", True):
-        rl.over(out, skirt(idle, cx, by, cfg.get("len", 10), cfg.get("lean", 0), cfg.get("width")))
+        rl.over(out, skirt(idle, cx, by, n, cfg.get("lean", 0), cfg.get("width")))
     rl.over(out, upper(f, cfg.get("cut", by), cfg.get("keep"), cfg.get("drop"), cfg.get("blade_least", BLADE_LEAST),
                          cfg.get("hair")))
+    # everything else of Codex's frame comes back where nothing new is drawn (hands, the blade, the ponytail and the
+    # cape beside the skirt), except its old legs under the skirt and the drop boxes
+    back = (out[..., 3] == 0) & (f[..., 3] > 0) & ~leg_zone(legs, by + n) & ~boxes(f.shape, cfg.get("drop"))
+    back[rl.SOLES + 1:] = False
+    out[back] = f[back]
+    for x, y, c in cfg.get("px", []):                                  # single squares, palette letters ('.' clear)
+        out[y, x] = (0, 0, 0, 0) if c == "." else (*PALETTE[c], 255)
     return out
 
 
