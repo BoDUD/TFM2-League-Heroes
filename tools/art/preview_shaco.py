@@ -114,7 +114,8 @@ def showcase(out, z=3, step=40):
         foe.flinches.append(hit)
         if clone["on"]:
             clone["strikes"].append(hit + tick(2))
-        a("attack", tick(STAB))
+        a("attack")                                    # the strip's own 390 ms, then idle until the next stab
+        idle_to(start + tick(STAB))
         return hit
 
     # he runs in (move speed 1100: 66 px a second) to 34 px from Darius
@@ -128,7 +129,8 @@ def showcase(out, z=3, step=40):
     over.append(Anim(frames_of(fx, "e_shiv"), rel, x + 6, gy - 4, loop=True, until=arrive, x1=dx_, y1=dy_ - 4))
     on(fx, "e_hit", arrive, d)
     d.flinches.append(arrive)
-    a("attack_e", tick(STAB))
+    a("attack_e")
+    idle_to(e0 + tick(STAB))
     # Deceive: the puff and the vanish on tick 7, the rush 15 px a tick to 15 px past Darius, the second puff on
     # tick 11; then the backstab (attack_q, the crit on tick 9)
     q0 = t
@@ -218,6 +220,11 @@ def showcase(out, z=3, step=40):
 
     def place(img, f, px, py):
         img.alpha_composite(f, (px - f.width // 2, py - f.height // 2))
+
+    # he is on screen in every frame: a gap between two of his animations would drop him (the first cut did after
+    # every stab: the strip is 390 ms, the next stab 867 ms later)
+    gaps = [tt for tt in range(0, int(end), step) if not any(an.frame(tt) is not None for an in body)]
+    assert not gaps, f"Shaco missing at {gaps[:10]} ms"
 
     frames, tt = [], 0.0
     order = sorted((d, g), key=lambda f: f.y)          # the one further back first
