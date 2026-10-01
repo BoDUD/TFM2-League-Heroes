@@ -313,8 +313,8 @@
       "tag": "q_bolt",
       "title": "Q 和平使者的子弹（飞行），4 帧循环",
       "size": [
-        1536,
-        160
+        2048,
+        224
       ],
       "grid": [
         4,
@@ -327,8 +327,8 @@
           "rect": [
             0,
             0,
-            384,
-            160
+            512,
+            224
           ],
           "source_rect": [
             0,
@@ -337,10 +337,10 @@
             724
           ],
           "bbox": [
-            0,
-            8,
-            360,
-            152
+            24,
+            16,
+            488,
+            208
           ],
           "duration_ticks": 3,
           "duration_ms": 50.0
@@ -348,10 +348,10 @@
         {
           "index": 1,
           "rect": [
-            384,
+            512,
             0,
-            384,
-            160
+            512,
+            224
           ],
           "source_rect": [
             547,
@@ -360,10 +360,10 @@
             724
           ],
           "bbox": [
-            0,
-            8,
-            368,
-            152
+            16,
+            16,
+            496,
+            208
           ],
           "duration_ticks": 3,
           "duration_ms": 50.0
@@ -371,10 +371,10 @@
         {
           "index": 2,
           "rect": [
-            768,
+            1024,
             0,
-            384,
-            160
+            512,
+            224
           ],
           "source_rect": [
             1086,
@@ -383,10 +383,10 @@
             724
           ],
           "bbox": [
-            0,
-            8,
-            368,
-            152
+            16,
+            16,
+            496,
+            208
           ],
           "duration_ticks": 3,
           "duration_ms": 50.0
@@ -394,10 +394,10 @@
         {
           "index": 3,
           "rect": [
-            1152,
+            1536,
             0,
-            384,
-            160
+            512,
+            224
           ],
           "source_rect": [
             1632,
@@ -406,23 +406,23 @@
             724
           ],
           "bbox": [
-            0,
-            24,
-            344,
-            136
+            32,
+            40,
+            480,
+            184
           ],
           "duration_ticks": 3,
           "duration_ms": 50.0
         }
       ],
       "game_size_px": [
-        24,
-        10
+        32,
+        14
       ],
       "game_size_file": "game_size/caitlyn_fx_q_bolt.png",
       "anchor": [
-        192.0,
-        80.0
+        256.0,
+        112.0
       ],
       "anchor_normalized": [
         0.5,
@@ -451,11 +451,32 @@
         "follow_actor": false,
         "z": 0
       },
-      "sha256": "30eb54cf761b4a259e6d892f24b761de70222124abbbfa23ecfa14e991f3294f",
+      "sha256": "c52118546309f1c68f4a269085b9278cde036bbaefea79af247c7af9bd0e8e15",
       "source_native_size": [
         2172,
         724
-      ]
+      ],
+      "scale_revision": {
+        "revision": "q_larger_v2",
+        "requested_visible_scale": 1.3,
+        "actual_per_frame_scales": [
+          1.3,
+          1.3,
+          1.3,
+          1.3
+        ],
+        "frame_canvas_changed": true,
+        "old_game_size_px": [
+          24,
+          10
+        ],
+        "new_game_size_px": [
+          32,
+          14
+        ],
+        "anchor_changed": false,
+        "timing_changed": false
+      }
     },
     {
       "file": "caitlyn_fx_e_net.png",
@@ -605,7 +626,8 @@
       "source_native_size": [
         2172,
         724
-      ]
+      ],
+      "game_size_resampling": "nearest to retain thin ropes, mesh holes and separated speed lines"
     },
     {
       "file": "caitlyn_fx_w_throw.png",
@@ -1226,7 +1248,11 @@
         "#0E5A7A",
         "#1E9FC4",
         "#27CCE2",
-        "#9FF3FF"
+        "#9FF3FF",
+        "#E6E0D8",
+        "#B9B0A6",
+        "#857B72",
+        "#574F4A"
       ],
       "loop": false,
       "hold_last_frame": false,
@@ -1237,7 +1263,7 @@
         "follow_actor": true,
         "z": 0
       },
-      "sha256": "b519766bc33eaec3293873b7dcfb3b793d4b97a02a86f9cf23e7d376f30d1b28",
+      "sha256": "5f360637fc69a0a71c5ebceb4da434973c8480e77cada373d6c5ba09a904ce5e",
       "source_native_size": [
         1983,
         793
@@ -1402,8 +1428,8 @@
       "tag": "q_muzzle",
       "title": "Q 和平使者出膛（枪口爆风），5 帧",
       "size": [
-        1800,
-        280
+        2240,
+        352
       ],
       "grid": [
         5,
@@ -1416,20 +1442,20 @@
           "rect": [
             0,
             0,
-            360,
-            280
+            448,
+            352
           ],
           "source_rect": [
             0,
             0,
-            278,
+            296,
             772
           ],
           "bbox": [
             0,
-            48,
-            112,
-            232
+            56,
+            176,
+            288
           ],
           "duration_ticks": 2,
           "duration_ms": 33.333333333333336
@@ -1437,22 +1463,22 @@
         {
           "index": 1,
           "rect": [
-            360,
+            448,
             0,
-            360,
-            280
+            448,
+            352
           ],
           "source_rect": [
-            278,
+            296,
             0,
-            484,
+            465,
             772
           ],
           "bbox": [
             0,
             32,
-            256,
-            248
+            328,
+            312
           ],
           "duration_ticks": 2,
           "duration_ms": 33.333333333333336
@@ -1460,22 +1486,22 @@
         {
           "index": 2,
           "rect": [
-            720,
+            896,
             0,
-            360,
-            280
+            448,
+            352
           ],
           "source_rect": [
-            762,
+            761,
             0,
-            546,
+            530,
             772
           ],
           "bbox": [
             0,
-            8,
-            344,
-            264
+            16,
+            432,
+            336
           ],
           "duration_ticks": 2,
           "duration_ms": 33.333333333333336
@@ -1483,22 +1509,22 @@
         {
           "index": 3,
           "rect": [
-            1080,
+            1344,
             0,
-            360,
-            280
+            448,
+            352
           ],
           "source_rect": [
-            1308,
+            1291,
             0,
-            416,
+            429,
             772
           ],
           "bbox": [
             0,
-            40,
-            256,
-            240
+            56,
+            328,
+            296
           ],
           "duration_ticks": 2,
           "duration_ms": 33.333333333333336
@@ -1506,35 +1532,35 @@
         {
           "index": 4,
           "rect": [
-            1440,
+            1792,
             0,
-            360,
-            280
+            448,
+            352
           ],
           "source_rect": [
-            1724,
+            1720,
             0,
-            312,
+            316,
             772
           ],
           "bbox": [
             0,
-            64,
-            168,
-            208
+            96,
+            224,
+            248
           ],
           "duration_ticks": 2,
           "duration_ms": 33.333333333333336
         }
       ],
       "game_size_px": [
-        18,
-        14
+        24,
+        18
       ],
       "game_size_file": "game_size/caitlyn_fx_q_muzzle.png",
       "anchor": [
         0,
-        140.0
+        176.0
       ],
       "anchor_normalized": [
         0.0,
@@ -1563,11 +1589,33 @@
         "follow_actor": true,
         "z": 0
       },
-      "sha256": "9744b94e4520b82d4d04409a6947d787060d80728df7b7217ae7abda95e5c9bc",
+      "sha256": "a10e2da1992ef3ae1a50c6b97e165cda4e010130363e6b1b1732fc53d40b45c3",
       "source_native_size": [
         2036,
         772
-      ]
+      ],
+      "scale_revision": {
+        "revision": "q_larger_v2",
+        "requested_visible_scale": 1.25,
+        "actual_per_frame_scales": [
+          1.25,
+          1.25,
+          1.25,
+          1.25,
+          1.25
+        ],
+        "frame_canvas_changed": true,
+        "old_game_size_px": [
+          18,
+          14
+        ],
+        "new_game_size_px": [
+          24,
+          18
+        ],
+        "anchor_changed": false,
+        "timing_changed": false
+      }
     },
     {
       "file": "caitlyn_fx_r_muzzle.png",
@@ -1594,8 +1642,8 @@
           "source_rect": [
             0,
             0,
-            238,
-            774
+            264,
+            751
           ],
           "bbox": [
             0,
@@ -1615,16 +1663,16 @@
             288
           ],
           "source_rect": [
-            238,
+            264,
             0,
-            398,
-            774
+            399,
+            751
           ],
           "bbox": [
             0,
-            56,
-            376,
-            232
+            40,
+            344,
+            240
           ],
           "duration_ticks": 3,
           "duration_ms": 50.0
@@ -1638,10 +1686,10 @@
             288
           ],
           "source_rect": [
-            636,
+            663,
             0,
-            372,
-            774
+            408,
+            751
           ],
           "bbox": [
             0,
@@ -1661,16 +1709,16 @@
             288
           ],
           "source_rect": [
-            1008,
+            1071,
             0,
-            362,
-            774
+            387,
+            751
           ],
           "bbox": [
             0,
-            32,
-            392,
-            248
+            48,
+            352,
+            240
           ],
           "duration_ticks": 4,
           "duration_ms": 66.66666666666667
@@ -1684,16 +1732,16 @@
             288
           ],
           "source_rect": [
-            1370,
+            1458,
             0,
-            338,
-            774
+            360,
+            751
           ],
           "bbox": [
             0,
-            64,
-            360,
-            224
+            88,
+            296,
+            200
           ],
           "duration_ticks": 4,
           "duration_ms": 66.66666666666667
@@ -1707,16 +1755,16 @@
             288
           ],
           "source_rect": [
-            1708,
+            1818,
             0,
-            324,
-            774
+            277,
+            751
           ],
           "bbox": [
             0,
-            88,
-            336,
-            192
+            104,
+            184,
+            176
           ],
           "duration_ticks": 4,
           "duration_ms": 66.66666666666667
@@ -1766,10 +1814,10 @@
         "follow_actor": true,
         "z": 0
       },
-      "sha256": "b210aba22be5d1d18cd28ad203abe3c45ace9b523126a0755d4175bd50ffa405",
+      "sha256": "0a2771ca2c7de9b72f0f906ce26dec0ab7726e4b83a4a5f83eb75c867116e291",
       "source_native_size": [
-        2032,
-        774
+        2095,
+        751
       ]
     },
     {
@@ -2125,8 +2173,8 @@
       "tag": "q_hit",
       "title": "Q 命中（目标身上），5 帧",
       "size": [
-        1280,
-        256
+        1600,
+        320
       ],
       "grid": [
         5,
@@ -2139,8 +2187,8 @@
           "rect": [
             0,
             0,
-            256,
-            256
+            320,
+            320
           ],
           "source_rect": [
             0,
@@ -2149,10 +2197,10 @@
             793
           ],
           "bbox": [
-            72,
-            80,
-            176,
-            176
+            88,
+            96,
+            224,
+            224
           ],
           "duration_ticks": 2,
           "duration_ms": 33.333333333333336
@@ -2160,10 +2208,10 @@
         {
           "index": 1,
           "rect": [
-            256,
+            320,
             0,
-            256,
-            256
+            320,
+            320
           ],
           "source_rect": [
             354,
@@ -2174,8 +2222,8 @@
           "bbox": [
             16,
             8,
-            240,
-            240
+            304,
+            304
           ],
           "duration_ticks": 2,
           "duration_ms": 33.333333333333336
@@ -2183,10 +2231,10 @@
         {
           "index": 2,
           "rect": [
-            512,
+            640,
             0,
-            256,
-            256
+            320,
+            320
           ],
           "source_rect": [
             804,
@@ -2197,8 +2245,8 @@
           "bbox": [
             16,
             32,
-            232,
-            224
+            296,
+            280
           ],
           "duration_ticks": 3,
           "duration_ms": 50.0
@@ -2206,10 +2254,10 @@
         {
           "index": 3,
           "rect": [
-            768,
+            960,
             0,
-            256,
-            256
+            320,
+            320
           ],
           "source_rect": [
             1222,
@@ -2218,10 +2266,10 @@
             793
           ],
           "bbox": [
-            40,
-            56,
-            208,
-            200
+            48,
+            64,
+            264,
+            248
           ],
           "duration_ticks": 3,
           "duration_ms": 50.0
@@ -2229,10 +2277,10 @@
         {
           "index": 4,
           "rect": [
-            1024,
+            1280,
             0,
-            256,
-            256
+            320,
+            320
           ],
           "source_rect": [
             1627,
@@ -2241,23 +2289,23 @@
             793
           ],
           "bbox": [
-            88,
-            80,
-            160,
-            168
+            112,
+            104,
+            208,
+            216
           ],
           "duration_ticks": 3,
           "duration_ms": 50.0
         }
       ],
       "game_size_px": [
-        16,
-        16
+        22,
+        22
       ],
       "game_size_file": "game_size/caitlyn_fx_q_hit.png",
       "anchor": [
-        128.0,
-        128.0
+        160.0,
+        160.0
       ],
       "anchor_normalized": [
         0.5,
@@ -2286,11 +2334,33 @@
         "follow_actor": true,
         "z": 0
       },
-      "sha256": "e86d5cb1500eab6d19891b04f6b6910a4fb165dbf160cd57a7dc46eef592c94d",
+      "sha256": "e4845aa2dc0e2ad70ad5a29d3e65a294225a49fc06ad908da68f8f284f6989e8",
       "source_native_size": [
         1983,
         793
-      ]
+      ],
+      "scale_revision": {
+        "revision": "q_larger_v2",
+        "requested_visible_scale": 1.3,
+        "actual_per_frame_scales": [
+          1.3,
+          1.276,
+          1.3,
+          1.3,
+          1.3
+        ],
+        "frame_canvas_changed": true,
+        "old_game_size_px": [
+          16,
+          16
+        ],
+        "new_game_size_px": [
+          22,
+          22
+        ],
+        "anchor_changed": false,
+        "timing_changed": false
+      }
     },
     {
       "file": "caitlyn_fx_e_hit.png",
@@ -2419,7 +2489,11 @@
             232
           ],
           "duration_ticks": 6,
-          "duration_ms": 100.0
+          "duration_ms": 100.0,
+          "assembled_from": {
+            "same_asset_frame_index": 3,
+            "adjustment": "bottom gold weight palette brightness only"
+          }
         },
         {
           "index": 5,
@@ -2442,7 +2516,11 @@
             232
           ],
           "duration_ticks": 6,
-          "duration_ms": 100.0
+          "duration_ms": 100.0,
+          "assembled_from": {
+            "same_asset_frame_index": 3,
+            "adjustment": "bottom gold weight palette brightness only"
+          }
         },
         {
           "index": 6,
@@ -2465,7 +2543,11 @@
             232
           ],
           "duration_ticks": 6,
-          "duration_ms": 100.0
+          "duration_ms": 100.0,
+          "assembled_from": {
+            "same_asset_frame_index": 3,
+            "adjustment": "bottom gold weight palette brightness only"
+          }
         },
         {
           "index": 7,
@@ -2484,11 +2566,15 @@
           "bbox": [
             56,
             64,
-            200,
+            192,
             232
           ],
           "duration_ticks": 6,
-          "duration_ms": 100.0
+          "duration_ms": 100.0,
+          "assembled_from": {
+            "same_asset_frame_index": 3,
+            "adjustment": "bottom gold weight palette brightness only"
+          }
         },
         {
           "index": 8,
@@ -2511,7 +2597,11 @@
             232
           ],
           "duration_ticks": 6,
-          "duration_ms": 100.0
+          "duration_ms": 100.0,
+          "assembled_from": {
+            "same_asset_frame_index": 3,
+            "adjustment": "bottom gold weight palette brightness only"
+          }
         },
         {
           "index": 9,
@@ -2574,11 +2664,12 @@
         "follow_actor": true,
         "z": 0
       },
-      "sha256": "be5c2aa0324a3bbb1fa8e0c68030af1194fe9f30f93ec95319cccef8c4fb4970",
+      "sha256": "726c34f0a5738f70262b94fe703129bbd8371440bc3f641bdb5ad15a93ced74f",
       "source_native_size": [
         1983,
         793
-      ]
+      ],
+      "game_size_resampling": "nearest to retain thin ropes, mesh holes and separated speed lines"
     },
     {
       "file": "caitlyn_fx_r_hit.png",
@@ -2605,14 +2696,14 @@
           "source_rect": [
             0,
             0,
-            254,
-            777
+            264,
+            756
           ],
           "bbox": [
             72,
             72,
             176,
-            176
+            184
           ],
           "duration_ticks": 2,
           "duration_ms": 33.333333333333336
@@ -2626,13 +2717,13 @@
             256
           ],
           "source_rect": [
-            254,
+            264,
             0,
-            316,
-            777
+            319,
+            756
           ],
           "bbox": [
-            40,
+            48,
             32,
             208,
             224
@@ -2649,15 +2740,15 @@
             256
           ],
           "source_rect": [
-            570,
+            583,
             0,
-            297,
-            777
+            431,
+            756
           ],
           "bbox": [
-            40,
             16,
-            208,
+            8,
+            240,
             240
           ],
           "duration_ticks": 3,
@@ -2672,16 +2763,16 @@
             256
           ],
           "source_rect": [
-            867,
+            1014,
             0,
             290,
-            777
+            756
           ],
           "bbox": [
+            56,
             40,
-            8,
-            208,
-            240
+            200,
+            208
           ],
           "duration_ticks": 3,
           "duration_ms": 50.0
@@ -2695,16 +2786,16 @@
             256
           ],
           "source_rect": [
-            1157,
+            1304,
             0,
-            401,
-            777
+            276,
+            756
           ],
           "bbox": [
-            16,
+            56,
             48,
-            240,
-            208
+            192,
+            200
           ],
           "duration_ticks": 4,
           "duration_ms": 66.66666666666667
@@ -2718,16 +2809,16 @@
             256
           ],
           "source_rect": [
-            1558,
+            1580,
             0,
-            274,
-            777
+            280,
+            756
           ],
           "bbox": [
-            56,
             64,
-            192,
-            184
+            64,
+            184,
+            192
           ],
           "duration_ticks": 4,
           "duration_ms": 66.66666666666667
@@ -2741,10 +2832,10 @@
             256
           ],
           "source_rect": [
-            1832,
+            1860,
             0,
-            192,
-            777
+            219,
+            756
           ],
           "bbox": [
             96,
@@ -2800,10 +2891,10 @@
         "follow_actor": true,
         "z": 0
       },
-      "sha256": "9fa9dad77a7e5cad214148110e1097532bc86db95e100648df6c0bf140ba88ea",
+      "sha256": "aa4178d97f922a560ee2cb8b46c0e37ec4e3c9b36dda5c911251ac30a8290aba",
       "source_native_size": [
-        2024,
-        777
+        2079,
+        756
       ]
     },
     {
@@ -3013,12 +3104,17 @@
           ],
           "bbox": [
             16,
-            0,
-            232,
+            16,
+            240,
             128
           ],
           "duration_ticks": 7,
-          "duration_ms": 116.66666666666667
+          "duration_ms": 116.66666666666667,
+          "assembled_from": {
+            "file": "caitlyn_fx_w_land.png",
+            "frame_index": 4,
+            "adjustment": "cyan centre light palette dimming only"
+          }
         },
         {
           "index": 1,
@@ -3036,12 +3132,17 @@
           ],
           "bbox": [
             16,
-            0,
+            16,
             240,
             128
           ],
           "duration_ticks": 8,
-          "duration_ms": 133.33333333333334
+          "duration_ms": 133.33333333333334,
+          "assembled_from": {
+            "file": "caitlyn_fx_w_land.png",
+            "frame_index": 4,
+            "adjustment": "exact copy"
+          }
         }
       ],
       "game_size_px": [
@@ -3085,7 +3186,7 @@
         "follow_actor": false,
         "z": -1
       },
-      "sha256": "b42b2bb8d41fa38517b49d18fb73428ae5813fcfa326f98b0644056043de3b81",
+      "sha256": "99be56beb909bed75009228ebe65fc6f8fff83ab7edcf92cca41e399c50c9922",
       "source_native_size": [
         2172,
         724
@@ -3116,7 +3217,7 @@
           "source_rect": [
             0,
             0,
-            826,
+            772,
             724
           ],
           "bbox": [
@@ -3137,15 +3238,15 @@
             160
           ],
           "source_rect": [
-            826,
+            772,
             0,
-            602,
+            675,
             724
           ],
           "bbox": [
-            56,
-            40,
-            200,
+            32,
+            24,
+            224,
             128
           ],
           "duration_ticks": 3,
@@ -3160,15 +3261,15 @@
             160
           ],
           "source_rect": [
-            1428,
+            1447,
             0,
-            744,
+            725,
             724
           ],
           "bbox": [
-            64,
             40,
-            192,
+            32,
+            216,
             128
           ],
           "duration_ticks": 3,
@@ -3212,7 +3313,7 @@
         "follow_actor": false,
         "z": -1
       },
-      "sha256": "e2cdca708e7703e0033d4073285e55c0d65f52ed4de6fba3eff36bc6686609ee",
+      "sha256": "663857fc268ee78f828c522f839f3716c8ff1c99cc44e76146b9db7497ef1981",
       "source_native_size": [
         2172,
         724
@@ -3787,11 +3888,24 @@
       "source_native_size": [
         1983,
         793
-      ]
+      ],
+      "game_size_resampling": "nearest to retain thin ropes, mesh holes and separated speed lines"
     }
   ],
   "asset_count": 22,
   "frame_count": 107,
   "palette_and_alpha": "hard RGBA, per-effect declared palette",
-  "original_lol_texture_atlas_included": false
+  "original_lol_texture_atlas_included": false,
+  "revision": {
+    "name": "q_larger_v2",
+    "summary": "Caitlyn Q muzzle, projectile and impact visible artwork enlarged inside the original frame canvases.",
+    "changed_tags": [
+      "q_bolt",
+      "q_muzzle",
+      "q_hit"
+    ],
+    "frame_count_changed": false,
+    "frame_canvas_changed": true,
+    "bindings_changed": false
+  }
 }

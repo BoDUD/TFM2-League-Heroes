@@ -5,7 +5,10 @@
     python tools/art/import_caitlyn.py                                      # native strips -> the effect sheet
 
 The body comes from Codex's strips and tools/art/import_native.py. Codex delivered the effects finished at game size
-(outputs/caitlyn-fx, 2026-10-01; its HANDOFF, manifest and bindings in assets/source/caitlyn/codex_fx): `game_size/
+(outputs/caitlyn-fx-q-larger-v2, 2026-10-01: Q's bolt, burst and hit redrawn about 30% larger - 32 x 14, 24 x 18,
+22 x 22 - after the user found Q faint in game; the first import had also taken e_hit, hs_shot, r_hit, r_muzzle, w_trap,
+w_fade, e_net and e_slow while Codex was still rewriting them, so the whole pack is re-imported; its HANDOFF, manifest
+and bindings in assets/source/caitlyn/codex_fx): `game_size/
 caitlyn_fx_<tag>.png` in the pack's palettes, binary alpha, every cell `assets[].game_size_px` big on the strip's
 `grid` (columns, rows), an anchor per strip (`anchor_normalized`) and suggested ticks per frame. --native keeps every
 pixel: each cell is cut by the grid and copied 1:1 into assets/source/caitlyn/caitlyn_fx_<tag>.png (8x), its anchor,

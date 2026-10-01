@@ -1058,7 +1058,7 @@
           "passed": true
         }
       ],
-      "used_colors": 11
+      "used_colors": 14
     },
     {
       "tag": "e_shot",
@@ -1436,7 +1436,7 @@
           "passed": true
         }
       ],
-      "used_colors": 13
+      "used_colors": 14
     },
     {
       "tag": "hit",
@@ -2390,7 +2390,7 @@
           "passed": true
         }
       ],
-      "used_colors": 9
+      "used_colors": 12
     },
     {
       "tag": "w_fade",

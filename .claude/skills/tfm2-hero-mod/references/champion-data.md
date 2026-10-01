@@ -2276,9 +2276,9 @@ The user picked League's E as her escape: on tick 1 of an attack, with E ready (
 and from tick 7 hops her `MoveBack` 5000 x 6 straight away from that champion (inside `RandomTarget` the hop's target is
 the picked unit, league_ezreal E); `SwitchByBuff e_go` then skips the shot. About 2.5 nets a game.
 
-**Three traps on three spots, each biting one champion (league_caitlyn W, Yordle Snap Trap).** A `Direction` cast on
-`EnemyChampion` (range 80000) with `cooltime_use_count` 3 and cooltime 2160 (a charge every 12 s), on league_teemo R's
-slots: the first slot whose `busy` flag is gone takes the throw, a `LinearProjectile` with the trap's view whose
+**Three traps on three spots, none thrown at a champion they hold (league_caitlyn W, Yordle Snap Trap).** A `Direction`
+cast on `EnemyChampion` (range 80000) with `cooltime_use_count` 3 and cooltime 2160 (a charge every 12 s), on
+league_teemo R's slots: the first slot whose `busy` flag is gone takes the throw, a `LinearProjectile` with the trap's view whose
 `end_effects` land the trap where it stops - slot a non-penetrating on `EnemyChampion` (it stops on the first enemy
 champion on the line: his feet), b and c penetrating with `range` 35000 and 58000 (a `Direction` cast's projectile
 stops at caster + direction x range). Thrown at his feet every time (a `Position` cast, the first version) the AI
@@ -2291,7 +2291,12 @@ unit's check in the same tick, so one champion is bitten. Picture links every 15
 `alive` holds and the fading one as its last link. A zone from `end_effects` outlives its caster (section 5) and her
 frozen `alive` cannot be taken, so unguarded it bit every tick while she was dead (285 times in 16 games): the bite
 first asks `RandomTarget {range: 1, casting_target: AllyOnlySelf}` for a 1-tick `w_live` flag ("A dead caster").
-19 throws and 9-11 snaps a game: the AI's champions stand still while they attack.
+The AI's champions stand still while they attack, so most traps bite - and a snapped one stands still too: the AI
+threw her other charges straight at him, 4.6 throws a game within 2.25 s of a snap, each biting him again when the
+root ended (the user: "W敌人踩上去后会连放 这个要改一改 其他时候没问题"). The bite adds `w_hold` for the root and 60
+ticks more, and W's effect is `SwitchByBuff w_hold` with an empty branch: the AI scores the branch its buffs pick
+(section 3), finds nothing and keeps the charges - 0 such throws; 15 throws and 8.6 snaps a game against 19 and 11.
+One charge of 8 s instead ended every back-to-back throw but cost 0.46 kills a game: the AI then threw 10 traps.
 
 **A piercing round at where a champion stood, dodged by stepping aside (league_caitlyn Q, Piltover Peacemaker).** A
 `Direction` cast on `EnemyWithoutTower` (range 120000), so it also clears waves and camps; its sound plays on tick 1 and
