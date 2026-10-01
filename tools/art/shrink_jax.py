@@ -25,7 +25,8 @@ can tell).
    lantern's pixels on it and FOOT_PENALTY for the shoes', and preferring the lines the design loses (counted from the
    mask). The idle, the design on every idle pivot, loses exactly the design's lines. Lying in the death (no lights): the design's share of rows and columns over the whole
    figure. The frame's outermost rows and columns never go (the outline would come back for them).
-3. The outline put back where a deleted line held it (a pixel whose outline neighbour went gets one on the new edge,
+3. The colours of RECOLOUR (the user's pick of three; nothing else changes).
+4. The outline put back where a deleted line held it (a pixel whose outline neighbour went gets one on the new edge,
    in that neighbour's colour), never under the soles. Each frame stays on its pivot, the soles 11 rows under it.
 Writes assets/source/native/jax_native.png and jax_<tag>.png (8x, cells and pivots unchanged); then run
 tools/art/import_native.py --hero jax and tools/art/preview_jax.py. --check compares with the files instead of writing.
@@ -74,6 +75,12 @@ FOOT_PENALTY = 4
 SOLES = 11                               # the soles' row under the pivot
 TAGS = ["idle", "run", "attack", "attack_w", "attack_e", "attack_r", "skill", "skill2", "skill2_burst", "ult", "hit",
         "dead"]
+# the colours: players found the picture's hot magenta hood and bright blue plume ugly ("贾克斯的颜色太丑 能不能换个颜色
+# 模型没问题", 2026-10-01); the user picked "A 紫金" of three: the hood and cape a royal purple, the plume a deeper
+# blue, the skin a touch greyer so the bronze mask stands out. The model, the mask, the lamppost, the outline as drawn
+RECOLOUR = {"BB1E8E": "7E4FB5", "7E0260": "5C3389", "550343": "3E2263", "C62D57": "A27BD0",      # hood and cape
+            "242EB4": "2F4A9C", "1B2496": "233A7E", "12166B": "18285A",                         # plume
+            "8580BA": "8D86AE", "5D59AE": "65619A", "34195F": "3A2A5C"}                         # skin
 
 
 def index(a, pal):
@@ -242,6 +249,17 @@ def frame_cuts(frame, fig, box, drow, dcol, pivot, pal):
     return sorted(set(rows)), sorted(set(cols)), f"mask {share:4.0%} at ({hx:3d},{hy:3d})"
 
 
+def recolour(a):
+    """RECOLOUR on an RGBA picture (exact colours; the rest as it is)."""
+    out = a.copy()
+    op = a[..., 3] > 0
+    for src, dst in RECOLOUR.items():
+        s = np.array([int(src[i:i + 2], 16) for i in (0, 2, 4)], np.uint8)
+        m = op & (a[..., :3] == s).all(-1)
+        out[m, :3] = [int(dst[i:i + 2], 16) for i in (0, 2, 4)]
+    return out
+
+
 def cut(a, rows, cols, pivot):
     """The frame without those rows and columns, the outline put back where a deleted line held it, on its pivot."""
     H, W = a.shape[:2]
@@ -305,8 +323,8 @@ def main():
             canvas, sfig = ST.design_canvas(new[0], (corner[0] + sum(1 for c in dcol if c < mid),
                                                      corner[1] + len(drow)), big.shape[0])
             print(f"design at {HEIGHT}: {sfig.shape[1]}x{sfig.shape[0]}")
-            written.append(("jax_native.png", canvas))
-        written.append((f"jax_{tag}.png", ST.to_strip(new, grid, cell)))
+            written.append(("jax_native.png", recolour(canvas)))
+        written.append((f"jax_{tag}.png", recolour(ST.to_strip(new, grid, cell))))
         if o.review:
             ST.review(frames, new, os.path.join(o.review, f"jax_{tag}_36.png"))
     same = True
