@@ -117,7 +117,7 @@ ORDER = {("lux", "idle"): [0, 0, 0, 0, 0, 0],   # the step-2 idle is the design 
          ("briar", "idle"): [0, 0, 0, 0, 0, 0],
          # and Vayne (the design drawn by Codex at game size: the pack's idle is the design in all six)
          ("vayne", "idle"): [0, 0, 0, 0, 0, 0],
-         # and Akali (Codex's strips of the game-size redesign, the design's head copied into every upright frame)
+         # and Akali (the redo: the pack's idle is the design A40 in all six)
          ("akali", "idle"): [0, 0, 0, 0, 0, 0],
          ("nami", "idle"): [0, 0, 0, 0, 0, 0],
          # and Veigar (Codex's part rig on the approved design: the idle is the design in all six)
@@ -182,9 +182,10 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        ("briar", "idle"): (5, [2, 3, 4]),
        # Vayne: the seam across her shins, where the silhouette changes by 4 squares; her boots stay
        ("vayne", "idle"): (5, [2, 3, 4]),
-       # Akali (the game-size redesign): the seam low in her shin wraps, the two rows there differ in 4 squares
-       # (the knees' row, the old 6, changed the silhouette in 9); the ankles and the shoes stay
-       ("akali", "idle"): (8, [2, 3, 4]),
+       # Akali (the redo, design A40): her short legs are the trousers from +4 to +8 and the wrapped ankles and shoes
+       # under them; the seam across the trousers at the knees, where two rows differ least above the ankles (9
+       # squares, 2 of the silhouette: the kunai's tip); the ankles and the shoes stay
+       ("akali", "idle"): (5, [2, 3, 4]),
        # Nami (on the ground since SINK): all of her but the fin's tip and the staff's foot sinks a row and rises
        # again, as when she floated; the seam where two rows differ least (4 squares)
        ("nami", "idle"): (8, [2, 3, 4]),
@@ -227,7 +228,7 @@ EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade
         "riven": (62, 142, 72),           # the design's green eyes (#3E8E48), used nowhere else
         "briar": (240, 252, 255),         # the pillory's gem is the top of every frame; the ice-white is the eyes'
         "vayne": (248, 48, 60),           # the crossbow on her back tops the frame; the lenses' red is used nowhere else
-        "akali": (113, 65, 41),           # her ponytail tops every frame; the brown iris is the eyes'
+        "akali": (212, 106, 10),          # the redo A40: her ponytail tops every frame; the amber is only in the eyes
         "nami": (242, 178, 51),           # her staff's orb is the top of most frames; the amber is only in her eyes
         "veigar": (255, 209, 50),         # his hat's tip leans with the pose; the yellow of the eyes is used nowhere else
         "jax": (70, 240, 255),            # the four cyan lights on his mask; his plume or lamppost tops the frames
