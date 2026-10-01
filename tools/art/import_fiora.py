@@ -29,9 +29,9 @@ The second step places every cell by its anchor on the unit and times it by the 
 chest, the vital beside it, the stun over the crown, R's crests round the waist, the ground pieces on the soles'
 row; the vital mark and R's crests in 20-tick pieces (the kit replays them every 20 ticks while they last), the
 challenge over the 22 ticks before the first of them, the parry over its 45 ticks (a caster picture played once:
-the loop twice), the thrust inside its line's 11 ticks, the stun over its 1 s,
-the victory zone over its 3 s (opening 1-2, the loop 3-6 six times, fading 7-8). Writes
-league/effects/league_fiora_fx and league_fiora_big (r_zone).
+the loop twice), the speed lines over the burst's strong half (45 ticks, a caster picture too), the thrust inside
+its line's 11 ticks, the stun over its 1 s, the victory zone over its 3 s (opening 1-2, the loop 3-6 six times,
+fading 7-8). Writes league/effects/league_fiora_fx and league_fiora_big (r_zone).
 """
 import argparse
 import json
@@ -312,7 +312,7 @@ FX = {
         "r_m1": [("r_marks", range(12, 16), WAIST, PIECE)],
         "r_hit": [("r_hit", range(6), HIT, [60] * 6)],
         "e_glint": [("e_glint", range(4), MIDDLE, [100] * 4)],
-        "v_ms": [("v_ms", range(4), HEEL, [80] * 4)],
+        "v_ms": [("v_ms", [0, 1, 2, 3] * 2 + [0, 1], HEEL, [75] * 10)],
     },
     "league_fiora_big": {
         "r_zone": [("r_zone", ZONE, GROUND, ZONE_MS)],

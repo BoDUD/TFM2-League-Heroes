@@ -43,7 +43,7 @@ W_PARRY, W_STAB, W_DUR = 45, 47, 64   # Riposte: the parry, the stab's tick, the
 STUN = 60                             # the stun of a parried Riposte
 R_ANIM, R_FIRST, R_LINK = 18, 22, 20  # Grand Challenge: the salute; the remaining Vitals' first piece, piece length
 R_CAP = 0.5                           # a Vital struck in the challenge caps Q's and W's cooldowns at half
-V_LINK, V_CD, V_MS = 20, 180, 90      # a Vital's pieces, the wait for the next, the speed lines
+V_LINK, V_CD = 20, 180               # a Vital's pieces, the wait for the next
 REACH = 24                            # where a Lunge stops, px off the target
 
 
@@ -79,7 +79,6 @@ def showcase(out, z=3, step=40):
     body, under, over = [], [], []
     t = 0.0
     x = 28
-    speed_lines = []
 
     def a(tag, dur=None, loop=False, way=None):
         nonlocal t
@@ -100,11 +99,9 @@ def showcase(out, z=3, step=40):
         over.append(OnFoeFor(frames_of(small, "vital_mark"), at + tick(2), d, until, z=3))
 
     def strike(at, name="vital_hit"):
-        """A struck Vital: the shatter, the heal and the speed lines at her heels (the buff refreshed)."""
+        """A struck Vital: the shatter, the heal and the speed lines at her heels (a caster picture: each plays out)."""
         on_foe(name, at, z=4)
-        for an in speed_lines:
-            an.until = min(an.until, at)
-        speed_lines.append(on_her("v_ms", at, at + tick(V_MS), z=-1))
+        under.append(Follow(frames_of(small, "v_ms"), at, x, gy, on=body, z=-1))
 
     def attack(kind="plain", cd=ATK_CD):
         start = t

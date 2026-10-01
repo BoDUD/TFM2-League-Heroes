@@ -3055,6 +3055,10 @@
                               "only_to_enemy": false
                             },
                             {
+                              "type": "CasterViewEffect",
+                              "name": "league_fiora_v_ms_fx"
+                            },
+                            {
                               "type": "ViewEffect",
                               "name": "league_fiora_r_hit"
                             },
@@ -3151,6 +3155,10 @@
                                   "move_speed_mult": 30
                                 },
                                 "only_to_enemy": false
+                              },
+                              {
+                                "type": "CasterViewEffect",
+                                "name": "league_fiora_v_ms_fx"
                               },
                               {
                                 "type": "ViewEffect",
@@ -3251,6 +3259,10 @@
                                   "only_to_enemy": false
                                 },
                                 {
+                                  "type": "CasterViewEffect",
+                                  "name": "league_fiora_v_ms_fx"
+                                },
+                                {
                                   "type": "ViewEffect",
                                   "name": "league_fiora_r_hit"
                                 },
@@ -3347,6 +3359,10 @@
                                       "move_speed_mult": 30
                                     },
                                     "only_to_enemy": false
+                                  },
+                                  {
+                                    "type": "CasterViewEffect",
+                                    "name": "league_fiora_v_ms_fx"
                                   },
                                   {
                                     "type": "ViewEffect",
@@ -3541,6 +3557,10 @@
                                 "move_speed_mult": 30
                               },
                               "only_to_enemy": false
+                            },
+                            {
+                              "type": "CasterViewEffect",
+                              "name": "league_fiora_v_ms_fx"
                             },
                             {
                               "type": "ViewEffect",
@@ -4154,6 +4174,10 @@
                                     "only_to_enemy": false
                                   },
                                   {
+                                    "type": "CasterViewEffect",
+                                    "name": "league_fiora_v_ms_fx"
+                                  },
+                                  {
                                     "type": "ViewEffect",
                                     "name": "league_fiora_r_hit"
                                   },
@@ -4250,6 +4274,10 @@
                                         "move_speed_mult": 30
                                       },
                                       "only_to_enemy": false
+                                    },
+                                    {
+                                      "type": "CasterViewEffect",
+                                      "name": "league_fiora_v_ms_fx"
                                     },
                                     {
                                       "type": "ViewEffect",
@@ -4350,6 +4378,10 @@
                                         "only_to_enemy": false
                                       },
                                       {
+                                        "type": "CasterViewEffect",
+                                        "name": "league_fiora_v_ms_fx"
+                                      },
+                                      {
                                         "type": "ViewEffect",
                                         "name": "league_fiora_r_hit"
                                       },
@@ -4446,6 +4478,10 @@
                                             "move_speed_mult": 30
                                           },
                                           "only_to_enemy": false
+                                        },
+                                        {
+                                          "type": "CasterViewEffect",
+                                          "name": "league_fiora_v_ms_fx"
                                         },
                                         {
                                           "type": "ViewEffect",
@@ -4640,6 +4676,10 @@
                                       "move_speed_mult": 30
                                     },
                                     "only_to_enemy": false
+                                  },
+                                  {
+                                    "type": "CasterViewEffect",
+                                    "name": "league_fiora_v_ms_fx"
                                   },
                                   {
                                     "type": "ViewEffect",
@@ -5294,6 +5334,10 @@
                                   "only_to_enemy": false
                                 },
                                 {
+                                  "type": "CasterViewEffect",
+                                  "name": "league_fiora_v_ms_fx"
+                                },
+                                {
                                   "type": "ViewEffect",
                                   "name": "league_fiora_r_hit"
                                 },
@@ -5390,6 +5434,10 @@
                                       "move_speed_mult": 30
                                     },
                                     "only_to_enemy": false
+                                  },
+                                  {
+                                    "type": "CasterViewEffect",
+                                    "name": "league_fiora_v_ms_fx"
                                   },
                                   {
                                     "type": "ViewEffect",
@@ -5490,6 +5538,10 @@
                                       "only_to_enemy": false
                                     },
                                     {
+                                      "type": "CasterViewEffect",
+                                      "name": "league_fiora_v_ms_fx"
+                                    },
+                                    {
                                       "type": "ViewEffect",
                                       "name": "league_fiora_r_hit"
                                     },
@@ -5586,6 +5638,10 @@
                                           "move_speed_mult": 30
                                         },
                                         "only_to_enemy": false
+                                      },
+                                      {
+                                        "type": "CasterViewEffect",
+                                        "name": "league_fiora_v_ms_fx"
                                       },
                                       {
                                         "type": "ViewEffect",
@@ -5780,6 +5836,10 @@
                                     "move_speed_mult": 30
                                   },
                                   "only_to_enemy": false
+                                },
+                                {
+                                  "type": "CasterViewEffect",
+                                  "name": "league_fiora_v_ms_fx"
                                 },
                                 {
                                   "type": "ViewEffect",
@@ -6566,6 +6626,10 @@
                                             "only_to_enemy": false
                                           },
                                           {
+                                            "type": "CasterViewEffect",
+                                            "name": "league_fiora_v_ms_fx"
+                                          },
+                                          {
                                             "type": "ViewEffect",
                                             "name": "league_fiora_r_hit"
                                           },
@@ -6662,6 +6726,10 @@
                                                 "move_speed_mult": 30
                                               },
                                               "only_to_enemy": false
+                                            },
+                                            {
+                                              "type": "CasterViewEffect",
+                                              "name": "league_fiora_v_ms_fx"
                                             },
                                             {
                                               "type": "ViewEffect",
@@ -6762,6 +6830,10 @@
                                                 "only_to_enemy": false
                                               },
                                               {
+                                                "type": "CasterViewEffect",
+                                                "name": "league_fiora_v_ms_fx"
+                                              },
+                                              {
                                                 "type": "ViewEffect",
                                                 "name": "league_fiora_r_hit"
                                               },
@@ -6858,6 +6930,10 @@
                                                     "move_speed_mult": 30
                                                   },
                                                   "only_to_enemy": false
+                                                },
+                                                {
+                                                  "type": "CasterViewEffect",
+                                                  "name": "league_fiora_v_ms_fx"
                                                 },
                                                 {
                                                   "type": "ViewEffect",
@@ -7052,6 +7128,10 @@
                                               "move_speed_mult": 30
                                             },
                                             "only_to_enemy": false
+                                          },
+                                          {
+                                            "type": "CasterViewEffect",
+                                            "name": "league_fiora_v_ms_fx"
                                           },
                                           {
                                             "type": "ViewEffect",
@@ -7689,6 +7769,10 @@
                                               "only_to_enemy": false
                                             },
                                             {
+                                              "type": "CasterViewEffect",
+                                              "name": "league_fiora_v_ms_fx"
+                                            },
+                                            {
                                               "type": "ViewEffect",
                                               "name": "league_fiora_r_hit"
                                             },
@@ -7785,6 +7869,10 @@
                                                   "move_speed_mult": 30
                                                 },
                                                 "only_to_enemy": false
+                                              },
+                                              {
+                                                "type": "CasterViewEffect",
+                                                "name": "league_fiora_v_ms_fx"
                                               },
                                               {
                                                 "type": "ViewEffect",
@@ -7885,6 +7973,10 @@
                                                   "only_to_enemy": false
                                                 },
                                                 {
+                                                  "type": "CasterViewEffect",
+                                                  "name": "league_fiora_v_ms_fx"
+                                                },
+                                                {
                                                   "type": "ViewEffect",
                                                   "name": "league_fiora_r_hit"
                                                 },
@@ -7981,6 +8073,10 @@
                                                       "move_speed_mult": 30
                                                     },
                                                     "only_to_enemy": false
+                                                  },
+                                                  {
+                                                    "type": "CasterViewEffect",
+                                                    "name": "league_fiora_v_ms_fx"
                                                   },
                                                   {
                                                     "type": "ViewEffect",
@@ -8175,6 +8271,10 @@
                                                 "move_speed_mult": 30
                                               },
                                               "only_to_enemy": false
+                                            },
+                                            {
+                                              "type": "CasterViewEffect",
+                                              "name": "league_fiora_v_ms_fx"
                                             },
                                             {
                                               "type": "ViewEffect",
@@ -11545,6 +11645,14 @@
     },
     {
       "type": "Animation",
+      "name": "league_fiora_v_ms_fx",
+      "anim": "asset/league/effects/league_fiora_fx",
+      "tag": "v_ms",
+      "z": -1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
       "name": "league_fiora_w_hit",
       "anim": "asset/league/effects/league_fiora_fx",
       "tag": "w_hit",
@@ -11631,13 +11739,6 @@
       "anim": "asset/league/effects/league_fiora_fx",
       "tag": "e_glint",
       "z": 1
-    },
-    {
-      "type": "Animated",
-      "name": "league_fiora_v_ms1",
-      "anim": "asset/league/effects/league_fiora_fx",
-      "tag": "v_ms",
-      "z": -1
     }
   ]
 }
