@@ -37,7 +37,7 @@
       ],
       "eye_mark": [
         46,
-        48
+        50
       ],
       "baseline": 79,
       "native_leg_anchors": {
@@ -110,7 +110,7 @@
       ],
       "eye_mark": [
         47,
-        48
+        50
       ],
       "baseline": 79,
       "native_leg_anchors": {
@@ -183,7 +183,7 @@
       ],
       "eye_mark": [
         47,
-        49
+        52
       ],
       "baseline": 79,
       "native_leg_anchors": {
@@ -256,7 +256,7 @@
       ],
       "eye_mark": [
         47,
-        48
+        51
       ],
       "baseline": 79,
       "native_leg_anchors": {
@@ -329,7 +329,7 @@
       ],
       "eye_mark": [
         46,
-        48
+        50
       ],
       "baseline": 79,
       "native_leg_anchors": {
@@ -402,7 +402,7 @@
       ],
       "eye_mark": [
         46,
-        48
+        50
       ],
       "baseline": 79,
       "native_leg_anchors": {
@@ -475,7 +475,7 @@
       ],
       "eye_mark": [
         45,
-        48
+        51
       ],
       "baseline": 79,
       "native_leg_anchors": {
@@ -548,7 +548,7 @@
       ],
       "eye_mark": [
         45,
-        48
+        51
       ],
       "baseline": 79,
       "native_leg_anchors": {
@@ -629,5 +629,5 @@
     "#F3D98D",
     "#F9F7FB"
   ],
-  "note": "legs rebuilt by tools/art/diana_run_legs.py from the idle's legs on League's run poses"
+  "note": "waist down rebuilt by tools/art/diana_run_legs.py: the idle's skirt and legs on League's run"
 }
