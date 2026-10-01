@@ -511,6 +511,17 @@ with a `Delayed {tick: 2}`. A `FixedAttack` on yourself is scaled by `damaged_re
 damage, and damage a shield absorbs does not count in the simulation's "tank" statistic. A dying caster's
 zones and pending `Delayed` effects stop; the respawned hero is a new entity with none of them.
 
+**A dead caster** *(SDK simulation, league_jinx E, 2026-10-01)*: until he respawns (as a new entity) his buffs
+keep the state they had when he died - `SwitchByBuff` still reads them, nothing can be added to or taken from
+them (also straight in a projectile's effects, not only from a `Delayed`), and timed ones do not run out.
+Projectiles started from another projectile's `end_effects` still spawn and hit; a `Delayed` queued after the
+death still runs its effects, but a projectile it starts does not spawn (a dead caster fires no projectile).
+league_jinx E's links went on after her death and, with the lock never added, bit the champion they had rooted
+at every link (8 and 18 times in two of 24 games; players: "夹子反复触发"); now each check starts from a
+`Delayed {tick: 1}` and a dead Jinx's trap bites no one (0 in 51 games). A flag the trap puts on her while she
+lives and reads later cannot do it: any flag on when she dies stays on, and gates that are off when the AI decides
+cost casts (section 3: the AI scores the branch the caster's buffs pick).
+
 **Death clears a mod's buffs** *(seen in the SDK simulation, a probe hero on league_teemo)*: a
 `Permanent` caster buff added by his first attack was missing from his buff list after he died and
 respawned, until his next action added it again; so were league_teemo R's slot buffs. Item buffs and
@@ -704,10 +715,14 @@ engine gives is taken between points at pivot height, so a raised start tilts it
 - `y_offset` on a `LineRangeProjectile` is ignored (the line does not move);
 - a `LineRangeProjectile` started in a projectile's `end_effects` is drawn at that point but points from the
   caster to it (from a point above him: straight north);
-- a `TargetProjectile` (and a `TargetSplashProjectile`) stays at the caster's pivot in the logic - its
-  `y_offset` only lifts the picture, `5000 - y_offset` above the pivot like a `LinearProjectile`'s start
-  *(inferred: the base heroes' 1200, 1500, -3000 and -4000)* - and points at its target from there, so its
-  picture runs level with a line cast at the same target. But it goes the tick its target dies.
+- a `TargetProjectile` (and a `TargetSplashProjectile`) is lifted `5000 - y_offset` above the caster's pivot
+  and flies from there at its target's pivot *(its move events, league_lucian Q, 2026-10-01: 96 of 103 within 1
+  degree of that line; this file used to say it stays on the pivot)*, so its picture runs nearly level with a
+  line cast at the same target. But it goes the tick its target dies. It is spawned with no direction (0, 0)
+  and its first move, in the same tick, is the whole lift plus one step: the game turns a view by the change of
+  position, so for that tick the picture points nearly straight up - league_lucian's full 80 px beam flashed
+  upward for a tick on every Q (the user: "一道射在固定角度，再向目标射一道"). Start such a view with an empty
+  frame of one tick (`import_lucian.py` `RAY_SKIP`).
 Lucian's Q is therefore a `Targeting` cast (on `EnemyWithoutTower`; a `LineRangeProjectile` in a
 `Targeting` cast points at the target, as league_yone's W and R): the damage stays on the line, with no
 picture, and `q_ray`, a `TargetProjectile` at the target with `speed` 1000 and `y_offset` -8000 (between
@@ -1103,7 +1118,8 @@ the trap is a chain of short links, each started where the thrown `ParabolicProj
 - a `RangeProjectile` with `delay` 14 and `apply` 1 on `EnemyChampion` (it checks on the link's first
   tick, section 4), whose effects (skipped under a lock) bite:
   `Bind`, damage, a `ViewEffect` on the victim, and `WithSelf {Delayed {tick: 1, AddCasterBuff lock}}`,
-  so every champion inside at that check is bitten before the lock falls;
+  so every champion inside at that check is bitten before the lock falls; the `RangeProjectile` itself starts
+  from a `Delayed {tick: 1}`, so a dead Jinx's links bite no one (below);
 - a hidden `ParabolicProjectile` of `travel_time` 15 aimed at the same spot, whose `end_effects` start
   the next link unless the lock is on.
 
