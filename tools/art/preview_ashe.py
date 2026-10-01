@@ -61,7 +61,7 @@ class Anim:
 def showcase(out, z=3, step=40):
     ashe = load(CHAMP)
     fx = {k: load(v) for k, v in FX.items()}
-    W, H = 200, 100
+    W, H = 200, 116                   # 116: the W fan (13 arrows, +-50 px round the pivot row) fits
     ax, tx, gy = 56, 136, 60          # Ashe, target (80 px: attack range), pivot row
     bow = (ax + 9, gy - 3)            # where arrows leave (crossbowman's y_offset 1200 ~ 1 px up)
     body, flinch, effects, shots = [], [], [], []

@@ -19,7 +19,9 @@ while native/ has the 70 x 120 cells the pack asked for, the ground spot at 85% 
 Sizes (game px): the hit 12, the cleave's hit 16, the cleave sweep 44 wide (its circle: 18000 round a point 18000 in
 front), the crescent 22 tall (the bolt's 12000 radius plus a body), its hit 22, the Moonlight mark 10, the dash's ground
 mark 26, the orbs forming 40, a flying orb 8, its burst 16, the shield 36 (round her 40-row body), Moonfall's pull ring
-96 wide (radius 40000 plus both bodies), the moon's cells 70 x 120 (its ring about the crash radius), the moonlight strike 20.
+2 x (PULL / 1000 + 8) wide (the radius plus both bodies: 116 for 50000), the moon's cells 70 x 120 as Codex drew them for
+a 32000 crash, scaled by CRASH / 32000 round the ground spot, nearest pixel (87 x 150 for 40000), the moonlight strike 20.
+After changing PULL or CRASH run --raw again with --only r_draw --only r_moon.
 Anchors, measured on each drawing: the projectiles on their white core; the hits, the burst, the mark and the forming
 orbs on the fullest frame's middle; the sweep on its fullest frame's middle; the ground marks on their middle; the moon's
 cells on their ground spot (85% down the middle).
@@ -56,13 +58,15 @@ WAIST = (0, -1)                        # round Diana's waist (the orbs)
 BODY = (0, -9)                         # the middle of her 40-row body (the shield)
 SWEEP = (20, -4)                       # the cleave's sweep in front of her
 GROUND = (0, 11)                       # her feet line (the moon's ring)
+PULL = 50000                           # Moonfall's pull radius (the kit's ult: the RangeEffect with the Grab)
+CRASH = 40000                          # Moonfall's crash radius (the kit's ult: its three damage RangeEffects)
 # the pack's 11 colours: moonlight, lavender, dark violet (Codex's manifest palette)
 PAL = np.array([(0xFF, 0xFF, 0xFF), (0xEA, 0xF8, 0xFF), (0xBF, 0xE4, 0xF2), (0x8F, 0xC7, 0xD8), (0x5E, 0x97, 0xAE),
                 (0xE6, 0xD8, 0xFF), (0xB9, 0xA2, 0xF0), (0x8B, 0x6F, 0xD6), (0x5F, 0x46, 0xA8),
                 (0x3E, 0x2C, 0x74), (0x26, 0x18, 0x4A)], float)
 
 # raw strip -> native: n frames, size in game px over measure ("w" widest drawing, "h" tallest), anchors as
-# import_morgana.Frames.anchor; native=True takes native/ as it is (anchor = the cell's middle)
+# import_morgana.Frames.anchor; native=True takes native/ as it is (anchor = the cell's middle), scaled by `scale`
 RAW = {
     "hit": dict(n=5, size=12, measure="w", x=("frame", [2]), y=("frame", [2])),
     "p_cleave": dict(n=6, size=44, measure="w", x=("frame", [2]), y=("frame", [2])),
@@ -78,8 +82,9 @@ RAW = {
     "w_orb": dict(n=4, size=8, measure="w", x=("core", None), y=("core", None), mirror=True),
     "w_boom": dict(n=6, size=16, measure="w", x=("frame", [1]), y=("frame", [1])),
     "w_shield": dict(n=6, size=36, measure="w", x=("frame", [0]), y=("frame", [0])),
-    "r_draw": dict(n=8, size=96, measure="w", x=("frame", [0]), y=("frame", [0])),
-    "r_moon": dict(n=12, native=True, frac=(0.5, 0.85)),
+    "r_draw": dict(n=8, size=2 * (PULL // 1000 + 8), measure="w", x=("frame", [0]), y=("frame", [0])),
+    # Codex drew the moon's ring for a 32000 crash
+    "r_moon": dict(n=12, native=True, frac=(0.5, 0.85), scale=CRASH / 32000),
     "r_hit": dict(n=6, size=20, measure="w", x=("frame", [2]), y=("frame", [2])),
 }
 
@@ -102,6 +107,19 @@ def native_strip(folder, entry, n):
     return out, cw, ch
 
 
+def scale_cells(a, cw, ch, n, L, U, s):
+    """n cells of cw x ch scaled by s round the anchor (L, U), each game pixel the nearest source pixel (s >= 1: no
+    speck is lost or merged). Returns the strip, the new cell size and anchor."""
+    L2, U2 = round(L * s), round(U * s)
+    w2, h2 = L2 + round((cw - 1 - L) * s) + 1, U2 + round((ch - 1 - U) * s) + 1
+    ys = np.clip(U + np.floor((np.arange(h2) - U2) / s + 0.5).astype(int), 0, ch - 1)
+    xs = np.clip(L + np.floor((np.arange(w2) - L2) / s + 0.5).astype(int), 0, cw - 1)
+    out = np.zeros((h2, w2 * n, 4), np.uint8)
+    for k in range(n):
+        out[:, k * w2:(k + 1) * w2] = a[:, k * cw:(k + 1) * cw][ys[:, None], xs[None, :]]
+    return out, w2, h2, L2, U2
+
+
 def from_raw(folder, only=None):
     manifest = load_manifest(folder)
     path = os.path.join(SRC, "diana_fx_anchors.json")
@@ -118,6 +136,9 @@ def from_raw(folder, only=None):
             fx, fy = spec.get("frac", (0.5, 0.5))
             L, U = int(tw * fx), int(th * fy)
             scale = "native, as delivered"
+            if spec.get("scale", 1) != 1:
+                out, tw, th, L, U = scale_cells(out, tw, th, spec["n"], L, U, spec["scale"])
+                scale = f"native x {spec['scale']:.4g} (nearest pixel, round the anchor)"
         else:
             a = np.asarray(Image.open(G.lp(os.path.join(folder, entry["raw_file"])))).copy()
             if a.ndim == 2 or a.shape[2] == 3:

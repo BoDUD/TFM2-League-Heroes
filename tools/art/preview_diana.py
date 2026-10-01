@@ -38,8 +38,8 @@ def showcase(out, z=3, step=40):
     diana = load(CHAMP)
     fx = {k: load(v) for k, v in FX.items()}
     small, big = fx["league_diana_fx"], fx["league_diana_big"]
-    W, H = 300, 150
-    gy = 108                                          # the pivot row: the moon falls from 100 px over her feet
+    W, H = 300, 170
+    gy = 128                                          # the pivot row: the moon falls from 128 px over her feet
     d = Prey(load(os.path.join(LEAGUE, "champions", "league_darius")), 150, gy)
     g = Prey(load(os.path.join(LEAGUE, "champions", "league_garen")), 345, gy + 6)     # off the right edge
     body, under, over = [], [], []

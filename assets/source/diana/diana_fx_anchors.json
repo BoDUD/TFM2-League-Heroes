@@ -13,7 +13,7 @@
   "w_orb": {"cell": [13, 7], "anchor": [6, 3], "frames": 4},
   "w_boom": {"cell": [21, 21], "anchor": [10, 10], "frames": 6},
   "w_shield": {"cell": [39, 41], "anchor": [19, 20], "frames": 6},
-  "r_draw": {"cell": [99, 49], "anchor": [49, 24], "frames": 8},
-  "r_moon": {"cell": [70, 120], "anchor": [35, 102], "frames": 12},
+  "r_draw": {"cell": [119, 57], "anchor": [59, 28], "frames": 8},
+  "r_moon": {"cell": [87, 150], "anchor": [44, 128], "frames": 12},
   "r_hit": {"cell": [23, 45], "anchor": [11, 22], "frames": 6}
 }

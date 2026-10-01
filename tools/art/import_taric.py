@@ -8,7 +8,8 @@ The body comes from tools/art/export_taric.py and import_native.py. Codex drew t
 is 8x8 blocks of a 1x drawing in the cells PROMPTS.md asked for (the beam, the ally's burst and Q's circle in rows of
 four), only the pack's colours (starlight, gem violet, R's gold, the heal's mint), no half-transparent pixel. --raw
 checks that, reads the cells left to right, top to bottom and writes them as one row (assets/source/taric/
-taric_fx_<name>.png, 8x). No scaling, no palette pass and no outline (effects carry none).
+taric_fx_<name>.png, 8x). No scaling (but the beam's length, below), no palette pass and no outline (effects carry
+none).
 Placement: a point of the cell goes to a spot from the pivot (11 px over the soles), the same point in every frame
 (Codex drew each strip registered in its cells):
   - the hits (the basic attack's, Bravado's) on their cell's middle, on the upper body;
@@ -17,8 +18,10 @@ Placement: a point of the cell goes to a spot from the pivot (11 px over the sol
     column on the pivot;
   - the ground rings (Q's circle, the ally's Dazzle burst, the link's sigil) with their ellipse's middle 2 px over
     the soles (a ring round the feet);
-  - the beam, the picture of a LineRangeProjectile, centred on its 62000 rectangle and turned with it (champion-data
-    "Cone / fan"): the cell's middle on the rectangle's, its 62 drawn px from Taric to the line's end;
+  - the beam, the picture of a LineRangeProjectile, centred on its rectangle and turned with it (champion-data
+    "Cone / fan"): the cell's middle on the rectangle's. Codex drew it for a 62000 line (62 px from Taric to the
+    line's end); the sheet stretches it along the line to the kit's length (E_LENGTH, 1 px per 1000, each column
+    taken from the nearest drawn one), so it still reaches from Taric to the end;
   - the gem that flies to the ally on its violet stone (the trail behind it);
   - R's call with its cell's bottom middle on the soles (the halo high over the head).
 Durations follow the kit (league/champion/league_taric.data_champion): the beam charges in frames 1-8 for the 44
@@ -151,6 +154,16 @@ E_HIT = 44                             # the beam's hit: apply 45 - 1 ticks afte
 E_ALLY_HIT = 42                        # the ally's zone: apply 43 - 1, started 2 ticks after the beam
 STUN = 75                              # the stun's ticks
 R_WAIT = 150                           # R's call to the invulnerability
+E_DRAWN = 62000                        # the beam's length in Codex's drawing (64 px with its two end pixels)
+E_LENGTH = 80000                       # the beam's `length` in the kit
+
+
+def stretch_beam(frame):
+    """A beam frame drawn for E_DRAWN stretched along the line to E_LENGTH (1 px per 1000): each new column is the
+    nearest drawn one, so a few columns repeat and nothing is blended."""
+    w = frame.shape[1]
+    nw = w + round((E_LENGTH - E_DRAWN) / 1000)
+    return frame[:, ((np.arange(nw) + 0.5) * w / nw).astype(int)]
 
 # sprite: {tag: (strip, ms per frame)}
 FX = {
@@ -181,6 +194,8 @@ def build():
         out = {}
         for tag, (src, ms) in tags.items():
             fr = cells(src)
+            if src == "e_beam":
+                fr = [stretch_beam(f) for f in fr]
             if len(fr) != len(ms):
                 sys.exit(f"{src}: {len(fr)} frames, {len(ms)} durations")
             (ax, ay), (sx, sy) = spots(src, fr)
