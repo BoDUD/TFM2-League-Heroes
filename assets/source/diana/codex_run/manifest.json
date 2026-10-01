@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "tool": "native pixel editing (Python/Pillow), explicitly requested by supplied brief",
-  "status": "native_pixel_revision",
+  "status": "hips4_native_revision",
   "scale": 8,
   "cell": [
     96,
@@ -40,7 +40,6 @@
         48
       ],
       "baseline": 79,
-      "upper_rows_0_61_unchanged": true,
       "native_leg_anchors": {
         "near": [
           [
@@ -86,7 +85,17 @@
         "boot": 5,
         "sole": 5
       },
-      "method": "native-pixel centerline widening; no generative rescaling"
+      "method": "native-pixel hip/skirt redraw; rows68 onward unchanged",
+      "hip_edit_box": [
+        30,
+        54,
+        56,
+        68
+      ],
+      "front_plate_tip": [
+        43,
+        65
+      ]
     },
     {
       "frame": 2,
@@ -113,7 +122,6 @@
         48
       ],
       "baseline": 79,
-      "upper_rows_0_61_unchanged": true,
       "native_leg_anchors": {
         "near": [
           [
@@ -159,7 +167,17 @@
         "boot": 5,
         "sole": 5
       },
-      "method": "native-pixel centerline widening; no generative rescaling"
+      "method": "native-pixel hip/skirt redraw; rows68 onward unchanged",
+      "hip_edit_box": [
+        30,
+        54,
+        56,
+        68
+      ],
+      "front_plate_tip": [
+        46,
+        65
+      ]
     },
     {
       "frame": 3,
@@ -186,7 +204,6 @@
         49
       ],
       "baseline": 79,
-      "upper_rows_0_61_unchanged": true,
       "native_leg_anchors": {
         "near": [
           [
@@ -232,7 +249,17 @@
         "boot": 5,
         "sole": 5
       },
-      "method": "native-pixel centerline widening; no generative rescaling"
+      "method": "native-pixel hip/skirt redraw; rows68 onward unchanged",
+      "hip_edit_box": [
+        30,
+        54,
+        56,
+        68
+      ],
+      "front_plate_tip": [
+        46,
+        65
+      ]
     },
     {
       "frame": 4,
@@ -259,7 +286,6 @@
         48
       ],
       "baseline": 79,
-      "upper_rows_0_61_unchanged": true,
       "native_leg_anchors": {
         "near": [
           [
@@ -305,7 +331,17 @@
         "boot": 5,
         "sole": 5
       },
-      "method": "native-pixel centerline widening; no generative rescaling"
+      "method": "native-pixel hip/skirt redraw; rows68 onward unchanged",
+      "hip_edit_box": [
+        30,
+        54,
+        56,
+        68
+      ],
+      "front_plate_tip": [
+        44,
+        65
+      ]
     },
     {
       "frame": 5,
@@ -332,7 +368,6 @@
         48
       ],
       "baseline": 79,
-      "upper_rows_0_61_unchanged": true,
       "native_leg_anchors": {
         "near": [
           [
@@ -378,7 +413,17 @@
         "boot": 5,
         "sole": 5
       },
-      "method": "native-pixel centerline widening; no generative rescaling"
+      "method": "native-pixel hip/skirt redraw; rows68 onward unchanged",
+      "hip_edit_box": [
+        30,
+        54,
+        56,
+        68
+      ],
+      "front_plate_tip": [
+        42,
+        64
+      ]
     },
     {
       "frame": 6,
@@ -405,7 +450,6 @@
         48
       ],
       "baseline": 79,
-      "upper_rows_0_61_unchanged": true,
       "native_leg_anchors": {
         "near": [
           [
@@ -451,7 +495,17 @@
         "boot": 5,
         "sole": 5
       },
-      "method": "native-pixel centerline widening; no generative rescaling"
+      "method": "native-pixel hip/skirt redraw; rows68 onward unchanged",
+      "hip_edit_box": [
+        30,
+        54,
+        56,
+        68
+      ],
+      "front_plate_tip": [
+        41,
+        63
+      ]
     },
     {
       "frame": 7,
@@ -478,7 +532,6 @@
         48
       ],
       "baseline": 79,
-      "upper_rows_0_61_unchanged": true,
       "native_leg_anchors": {
         "near": [
           [
@@ -524,7 +577,17 @@
         "boot": 5,
         "sole": 5
       },
-      "method": "native-pixel centerline widening; no generative rescaling"
+      "method": "native-pixel hip/skirt redraw; rows68 onward unchanged",
+      "hip_edit_box": [
+        30,
+        54,
+        56,
+        68
+      ],
+      "front_plate_tip": [
+        40,
+        62
+      ]
     },
     {
       "frame": 8,
@@ -551,7 +614,6 @@
         48
       ],
       "baseline": 79,
-      "upper_rows_0_61_unchanged": true,
       "native_leg_anchors": {
         "near": [
           [
@@ -597,10 +659,20 @@
         "boot": 5,
         "sole": 5
       },
-      "method": "native-pixel centerline widening; no generative rescaling"
+      "method": "native-pixel hip/skirt redraw; rows68 onward unchanged",
+      "hip_edit_box": [
+        30,
+        54,
+        56,
+        68
+      ],
+      "front_plate_tip": [
+        42,
+        63
+      ]
     }
   ],
-  "method": "Direct native96x96 pixel editing per supplied brief, preserving input upper body. No image generation or downsampling.",
+  "method": "Native pixel redraw of waist, pelvis and overlapping skirt plates only. No resampling of artwork.",
   "palette": [
     "#0A0412",
     "#0C0516",
