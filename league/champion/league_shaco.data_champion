@@ -223,7 +223,7 @@
             },
             {
               "type": "Delayed",
-              "tick": 9,
+              "tick": 11,
               "effects": [
                 {
                   "type": "TargetProjectile",
@@ -339,7 +339,7 @@
     "description": "#asset/base/text/champion?description.league_shaco.skill",
     "duration": 18,
     "cooltime": 360,
-    "start_timing": 5,
+    "start_timing": 7,
     "cancelable": false,
     "range": 45000,
     "casting_type": "Targeting",
