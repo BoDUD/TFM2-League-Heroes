@@ -1515,9 +1515,11 @@ Its picture is not on that line: a `LinearProjectile` starts 5 px over the caste
 the tracer's nose on it and its tail behind, so for two or three ticks the shot streaked from his back across his
 hips (the user: "卢锡安开大时子弹不是从枪口里射出去的"). The line is now `league_lucian_r_line` (no view, unseen) and
 beside it, in the same effects, flies a `TargetProjectile` with the picture (`league_lucian_r_bullet`: the same
-speed and target, no `applied_effects`), lifted to the pistol that fires: the ult animation (4 frames of 75 ms) is
-on its 3rd frame on ticks 9, 27, ... - the lower pistol's flash, 11 px up, `y_offset` -6000 - and on its 1st on
-18, 36, ..., where the other pistol is held level 14 px up (-9000). Its view starts with an empty tick (the lift
+speed and target, no `applied_effects`), lifted 8 px (`y_offset` -3000). It flies at the target's pivot, so a
+lifted picture slopes down onto it (league_caitlyn: 16.5 px sloped 12 degrees, "子弹看起来是歪的"): lifted to the
+barrels' middles (11 and 14 px) it dived 15-19 degrees into a champion 40 px away; at 8 px the tracer's top rows
+leave the lower barrel, 6.5 degrees at 70 px and 11 at 40. Level and at the barrels needs the ult frames' pistols
+lower. Its view starts with an empty tick (the lift
 jump, see "A beam from a raised weapon") and then shows only what has left the muzzles 20 px ahead (4 and 16 px,
 `import_lucian.py` `R_IN`), and plays once. In the simulation each line spawned its twin on the same tick (the
 twin at the caster's own spot, the line 5000 north), the twin arrived 2 ticks after the line's hit (inside the
