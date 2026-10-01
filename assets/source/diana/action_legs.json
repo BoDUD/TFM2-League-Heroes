@@ -1,5 +1,5 @@
 {
- "_note": "tools/art/diana_action_legs.py: per tag and frame (1-based), in-game rows/columns of the 96x96 cell (frames grounded first). belt [middle column, belt top row] of the idle's skirt, len its rows (10 = the idle's), lean its hem columns forward; near/far legs: knee, ankle, toe direction (default [1, 0]); hips default to belt + 2.5 rows, 1.75 columns either side; cut (default the belt row): Codex's pixels from there down are dropped except the blade and keep boxes [x0, y0, x1, y1]; drop boxes are taken out anywhere.",
+ "_note": "tools/art/diana_action_legs.py: per tag and frame (1-based), in-game rows/columns of the 96x96 cell (frames grounded first). belt [middle column, belt top row] of the tassets (diana_run_legs.TASSET), lean their hem columns forward, width narrower for a side view; near/far legs: knee, ankle, toe direction (default [1, 0]); hips default to belt + 2.5 rows, 1.75 columns either side; cut (default the belt row): Codex's pixels from there down are dropped except the blade and keep boxes [x0, y0, x1, y1]; drop boxes are taken out anywhere.",
  "tags": {
   "attack": {
    "1": {
@@ -7,7 +7,6 @@
      32,
      65
     ],
-    "len": 7,
     "blade_least": 5,
     "keep": [
      [
@@ -75,7 +74,6 @@
      34,
      64
     ],
-    "len": 7,
     "keep": [
      [
       41,
@@ -118,7 +116,6 @@
      36,
      62
     ],
-    "len": 8,
     "keep": [
      [
       22,
@@ -153,7 +150,6 @@
      31,
      58
     ],
-    "len": 8,
     "keep": [
      [
       35,
@@ -200,7 +196,6 @@
      47,
      59
     ],
-    "len": 9,
     "keep": [
      [
       34,
@@ -247,7 +242,6 @@
      47,
      60
     ],
-    "len": 9,
     "far": {
      "knee": [
       44,
@@ -274,7 +268,6 @@
      47,
      62
     ],
-    "len": 9,
     "keep": [
      [
       52,
@@ -363,7 +356,6 @@
      41,
      62
     ],
-    "len": 9,
     "back": [
      [
       28,
@@ -398,7 +390,6 @@
      42,
      62
     ],
-    "len": 9,
     "back": [
      [
       29,
@@ -441,7 +432,6 @@
      27,
      64
     ],
-    "len": 7,
     "back": [
      [
       13,
@@ -484,7 +474,6 @@
      40,
      63
     ],
-    "len": 8,
     "lean": -3,
     "keep": [
      [
@@ -538,7 +527,6 @@
      45,
      63
     ],
-    "len": 8,
     "lean": -3,
     "keep": [
      [
@@ -773,7 +761,6 @@
      37,
      60
     ],
-    "len": 9,
     "lean": -2,
     "far": {
      "knee": [
@@ -927,7 +914,6 @@
      37,
      61
     ],
-    "len": 9,
     "back": [
      [
       17,
@@ -970,7 +956,6 @@
      38,
      61
     ],
-    "len": 9,
     "back": [
      [
       22,
@@ -1015,7 +1000,6 @@
      37,
      59
     ],
-    "len": 8,
     "keep": [
      [
       29,
@@ -1070,7 +1054,6 @@
      38,
      58
     ],
-    "len": 8,
     "keep": [
      [
       38,
@@ -1113,7 +1096,6 @@
      25,
      58
     ],
-    "len": 8,
     "lean": -2,
     "back": [
      [
@@ -1165,7 +1147,6 @@
      35,
      58
     ],
-    "len": 8,
     "back": [
      [
       18,
@@ -1216,7 +1197,6 @@
      37,
      59
     ],
-    "len": 8,
     "back": [
      [
       22,
@@ -1259,7 +1239,6 @@
      45,
      60
     ],
-    "len": 9,
     "keep": [
      [
       51,
@@ -1340,7 +1319,6 @@
      37,
      62
     ],
-    "len": 9,
     "back": [
      [
       28,
@@ -1389,7 +1367,6 @@
      35,
      55
     ],
-    "len": 8,
     "keep": [
      [
       36,
@@ -1440,7 +1417,6 @@
      34,
      47
     ],
-    "len": 9,
     "keep": [
      [
       37,
@@ -1483,7 +1459,6 @@
      40,
      62
     ],
-    "len": 9,
     "keep": [
      [
       20,

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Diana's actions from the waist down: the idle's skirt and legs (the run's pieces) under Codex's upper bodies.
+"""Diana's actions from the waist down: the tassets and the idle's legs (the run's pieces) under Codex's upper bodies.
 
     python tools/art/diana_action_legs.py [--src assets/source/diana/codex_strips] [--out assets/source/diana/action_legs]
                                           [--tags attack,skill,...]
@@ -15,9 +15,9 @@ were sticks); this tool then
     blade's dark edges, ponytail tips and the cape beside the skirt (a first version cleared the rows full width and
     cut them: a review found floating blades and hands) - except its old legs (leg_zone: below the new skirt, across
     the new legs' columns) and the drop boxes (old knees left beside the skirt);
-  - stamps the idle's skirt (diana_run_legs.SKIRT_ROWS x SKIRT_COLS, the cape's purple turned navy) with its belt at
-    belt=[x, y] (x = the skirt's middle column); len keeps the belt's 2 rows and the last len-2 rows (a crouch shortens
-    it from the middle), lean moves the hem that many columns forward (rows in between in proportion);
+  - puts the tassets (diana_run_legs.TASSET, the idle's since "按样稿换成短裙甲") with their belt at belt=[x, y] (x =
+    the stamp's middle column), lean moving the hem that many columns forward (rows in between in proportion); width
+    drops columns (NARROW) for a body seen from the side;
   - draws the legs with diana_run_legs.draw_leg, one outline round both and one seam where they touch: hips inside the skirt (belt + 2.5 rows, the near one
     1.75 columns forward), knee and ankle per leg ("near" is drawn over "far"), the boot along toe (default forward);
     an ankle on row 78 puts the boot's sole outline on the soles row 79; px sets single squares (palette letters);
@@ -46,36 +46,17 @@ SOURCE = os.path.join(ROOT, "assets", "source")
 CONFIG = os.path.join(SOURCE, "diana", "action_legs.json")
 HIP_DOWN, HIP_GAP = 2.5, 3.5
 BLADE_LEAST = 10                             # smaller pale pieces below the cut are Codex's shins, not the blade
-NARROW = [5, 8, 4, 9, 3]                     # the stamp's plain navy columns, the first to go in a narrow skirt
-PALETTE = {k: tuple(int(c[i:i + 2], 16) for i in (1, 3, 5)) for k, c in zip("0123456789abcdefghijklmnop", (
-    "#0A0412", "#0C0516", "#1F5057", "#22233C", "#264648", "#333B63", "#492B5B", "#505169", "#505945", "#554743",
-    "#60637E", "#7211B0", "#7BB2B9", "#818768", "#865744", "#9676AC", "#A7804A", "#A950D9", "#B8BFC7", "#B9B690",
-    "#C7B8A2", "#D0F6EE", "#F2BA94", "#F2E6CF", "#F3D98D", "#F9F7FB"))}     # the design's 26 colours, as work letters
+NARROW = [8, 4, 9]                           # the tassets' columns to go in a narrow skirt (the gaps, the side flap)
+PALETTE = rl.PALETTE
 HAIRS = {(0xF2, 0xE6, 0xCF), (0xC7, 0xB8, 0xA2), (0x55, 0x47, 0x43), (0xB9, 0xB6, 0x90), (0x81, 0x87, 0x68)}
 lp = rl.lp
 
 
-def skirt(idle, cx, y, n, lean, width=None):
-    """The idle's skirt: belt top row y, middle column cx, n rows (belt + the last n-2), hem lean columns forward;
-    width drops the plain navy columns in NARROW's order (a body seen from the side)."""
-    (y0, y1), (x0, x1) = rl.SKIRT_ROWS, rl.SKIRT_COLS
-    stamp = idle[y0:y1, x0:x1].copy()
-    for yy in range(stamp.shape[0]):
-        for xx in range(stamp.shape[1]):
-            if stamp[yy, xx, 3] and tuple(int(v) for v in stamp[yy, xx, :3]) in rl.STRAY:
-                stamp[yy, xx] = rl.NAVY_D
-    if width:
-        gone = NARROW[:stamp.shape[1] - width]
-        stamp = stamp[:, [c for c in range(stamp.shape[1]) if c not in gone]]
-    rows = list(range(2)) + list(range(stamp.shape[0] - (n - 2), stamp.shape[0]))
-    s = np.zeros_like(idle)
-    left = int(round(cx - (stamp.shape[1] - 1) / 2))
-    for i, r in enumerate(rows):
-        dx = int(round(lean * i / max(len(rows) - 1, 1)))
-        yy = y + i
-        if 0 <= yy < s.shape[0]:
-            s[yy, left + dx:left + dx + stamp.shape[1]] = stamp[r]
-    return rl.skirt_outline(s, y)
+def skirt(idle, cx, y, lean, width=None):
+    """The tassets (diana_run_legs.TASSET): belt top row y, middle column cx, the hem lean columns forward; width
+    drops columns in NARROW's order (a body seen from the side)."""
+    drop = NARROW[:len(rl.TASSET[0]) - width] if width else ()
+    return rl.place_tassets(cx, y, lean, drop=drop)
 
 
 def boxes(shape, bs):
@@ -140,9 +121,9 @@ def build_frame(f, cfg, idle):
     out = np.zeros_like(f)
     legs = legs_layer(leg(cfg["far"], far_hip), leg(cfg["near"], near_hip))
     rl.over(out, legs)
-    n = cfg.get("len", 10)
+    n = len(rl.TASSET)
     if cfg.get("skirt", True):
-        rl.over(out, skirt(idle, cx, by, n, cfg.get("lean", 0), cfg.get("width")))
+        rl.over(out, skirt(idle, cx, by, cfg.get("lean", 0), cfg.get("width")))
     rl.over(out, upper(f, cfg.get("cut", by), cfg.get("keep"), cfg.get("drop"), cfg.get("blade_least", BLADE_LEAST),
                          cfg.get("hair")))
     # everything else of Codex's frame comes back where nothing new is drawn (hands, the blade, the ponytail and the

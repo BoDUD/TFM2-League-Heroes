@@ -18,7 +18,9 @@ the soles (the blade's tip 4 more) - bigger than the 39 asked, as Codex's drafts
   4. one outline (design_riven.one_outline, the face kept) and the ring completed where a deleted line held it;
   5. the blade 2 squares back, clear of the hair (tools/art/tidy_diana.py's move_blade; the user, after the strips:
      "皎月的武器和头发重叠了", and of the variants picked "待机 A2" - this is the idle's frame);
-  6. on the 128x128 canvas, soles on row 99, the middle of the feet on column 64, shown at 8x.
+  6. League's short tassets and the legs under them in place of the long coat (diana_run_legs.idle_lower, in the idle
+     cell; the user: "戴安娜的腿部被包裹的感觉还是好奇怪", then "按样稿换成短裙甲");
+  7. on the 128x128 canvas, soles on row 99, the middle of the feet on column 64, shown at 8x.
 --check compares the result with the committed file instead of writing it.
 """
 import argparse
@@ -35,9 +37,11 @@ sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scr
 import design_riven as R  # noqa: E402
 from regrid import regrid  # noqa: E402
 from tidy_diana import BLADE_BACK, move_blade  # noqa: E402
+from diana_run_legs import idle_lower  # noqa: E402
 
 DRAFT = os.path.join(ROOT, "assets", "source", "diana", "codex_model", "diana_design_{}.png")
 OUT = os.path.join(ROOT, "assets", "source", "native", "diana_native.png")
+IDLE_AT = (24, 37)          # where the design (= the idle frame) stands in the idle's 96x96 cell: its top-left
 K, HUE_W, SEEDS = 26, 2.0, 6
 # per draft, on its regrid: the crown row (the hair's top), the face kept square for square, the eye boxes
 DRAFTS = {
@@ -149,7 +153,12 @@ def design(version="A", height=40):
     fig = shrink(q, d["crown"], d["rows"], d["cols"], height)
     moved = move_blade(np.pad(fig, ((0, 0), (BLADE_BACK, 0), (0, 0))))
     ys, xs = np.nonzero(moved[..., 3] > 0)
-    return moved[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
+    moved = moved[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
+    cell = np.zeros((96, 96, 4), np.uint8)                       # the idle's frame: the tassets as in the strips
+    cell[IDLE_AT[1]:IDLE_AT[1] + moved.shape[0], IDLE_AT[0]:IDLE_AT[0] + moved.shape[1]] = moved
+    cell = idle_lower(cell)
+    ys, xs = np.nonzero(cell[..., 3] > 0)
+    return cell[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
 
 
 def main():

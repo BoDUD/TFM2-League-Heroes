@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
-"""Diana's run from the waist down: the idle's skirt and legs on League's run, under Codex's upper body.
+"""Diana's run from the waist down: the tassets and the idle's legs on League's run, under Codex's upper body.
 
     python tools/art/diana_run_legs.py [--src assets/source/diana/codex_run] [--out assets/source/diana/run_legs]
 
 The user, after five Codex rounds on the run's legs: "你能好好做吗 待机的腿和跑步的腿都不一样", "要用待机的腿啊 跑步的
 腿在魔改吗？", "还有走路姿势和英雄联盟一样吗", then of a first rebuild "腰部和腿部还是很怪". Two rounds of independent
 visual critiques gave what this tool now does:
-  - skirt: the idle wears a long coat-skirt (belt rows 59-60, navy tabard with trim and a teal panel to row 68; only
-    knee guards, greaves and boots below it) - the run had a short teal skirt and long bare sticks. So the skirt is
-    the idle's own pixels (SKIRT_ROWS x SKIRT_COLS; the cape's purple and the olive specks at its cut edges turned
-    navy), outlined, in one column in every frame; its back hem trails a square while a leg kicks back and its front
-    hem lifts a row over a knee swinging forward;
+  - skirt: first the idle's own long coat-skirt (belt to row 68) in one column every frame; then the user, of the coat
+    in motion: "戴安娜的腿部被包裹的感觉还是好奇怪", and of a mock-up "按样稿换成短裙甲" - so League's short pointed
+    tassets (TASSET: the idle's belt rows, a teal back flap, the navy front tabard with a gold tip, a teal side flap,
+    down to the top of the thighs), outlined, in one column every frame, the idle too (idle_lower); the back flap
+    trails a square while a leg kicks back and the side flap's tip lifts over a knee swinging forward;
   - upper body: Codex's frame (codex_run/, its align5) above the belt, BODY_DOWN rows lower (it stood 2 rows taller
     than the idle), with its hands and the blade's arc; CLEAN first takes out leftovers that looked odd (frames 4, 6,
     8: a stick, specks and a cuff under the right hand; 4 and 8: a dark line under the left hand);
@@ -57,6 +57,28 @@ NAVY, NAVY_D, NAVY_L = (0x33, 0x3B, 0x63, 255), (0x22, 0x23, 0x3C, 255), (0x50, 
 SILVER, SILVER_D = (0xB8, 0xBF, 0xC7, 255), (0x60, 0x63, 0x7E, 255)
 GOLD, GOLD_D = (0xF3, 0xD9, 0x8D, 255), (0xA7, 0x80, 0x4A, 255)
 STRAY = {(0x49, 0x2B, 0x5B), (0x81, 0x87, 0x68), (0x50, 0x59, 0x45)}   # cape purple, olive specks: navy in the skirt
+PALETTE = {k: tuple(int(c[i:i + 2], 16) for i in (1, 3, 5)) for k, c in zip("0123456789abcdefghijklmnop", (
+    "#0A0412", "#0C0516", "#1F5057", "#22233C", "#264648", "#333B63", "#492B5B", "#505169", "#505945", "#554743",
+    "#60637E", "#7211B0", "#7BB2B9", "#818768", "#865744", "#9676AC", "#A7804A", "#A950D9", "#B8BFC7", "#B9B690",
+    "#C7B8A2", "#D0F6EE", "#F2BA94", "#F2E6CF", "#F3D98D", "#F9F7FB"))}     # the design's 26 colours, as work letters
+# League's tassets instead of the design's long coat (the user, of the coat in motion: "戴安娜的腿部被包裹的感觉还是好奇怪",
+# and of the mock-up: "按样稿换成短裙甲"): the idle's belt rows, then a teal back flap, the navy front tabard with a gold
+# tip and a teal side flap, pointed, to the top of the thighs; the legs show between and under them. SKIRT_COLS wide,
+# from the belt row (SKIRT_ROWS[0]) down
+TASSET = [
+    "660aa31o1351",
+    "61j270oog035",
+    "1244d30g0d1a",
+    "4442j333j441",
+    "442j.353.j24",
+    ".4j..3o3..j.",
+    "......g.....",
+]
+BACK_FLAP, SIDE_FLAP = (0, 4), (8, 12)       # columns of the back and the side flap (the front tabard between)
+# the idle's legs under the tassets (far knee, far ankle, near knee, near ankle; hips HIP_GAP apart, 2.5 under the
+# belt): where its knee guards and boots were under the coat
+IDLE_LEGS = ((35.5, 71.0), (33.0, 78.0), (45.5, 71.0), (45.0, 78.0))
+IDLE_CLEAR = ((35, 59, 47, 95), (29, 68, 52, 95))   # x0, y0, x1, y1: the coat and the old legs; the cape and the hand stay
 CLEAN = {4: [(54, 62), (55, 62), (56, 62), (28, 61), (29, 61), (27, 62), (28, 62), (27, 63), (28, 63), (27, 64), (28, 64),
              (27, 65), (27, 66)],
          6: [(53, 62)],
@@ -219,21 +241,63 @@ def skirt_outline(s, top):
     return out
 
 
+def tasset_stamp(trail=False, lift=False, drop=()):
+    """TASSET as pixels (the cape's purple navy); lift takes the side flap's tip off, drop takes those columns out (a
+    body seen from the side), trail puts the back flap a square back (the stamp a column wider on the left)."""
+    st = np.array([[(0, 0, 0, 0) if c == "." else (*(NAVY_D[:3] if PALETTE[c] in STRAY else PALETTE[c]), 255)
+                    for c in row] for row in TASSET], np.uint8)
+    if lift:
+        st[-2:, SIDE_FLAP[0]:SIDE_FLAP[1]] = 0
+    if drop:
+        st = st[:, [c for c in range(st.shape[1]) if c not in drop]]
+    if trail:
+        wide = np.zeros((st.shape[0], st.shape[1] + 1, 4), np.uint8)
+        wide[:, 1:] = st
+        part = st[3:, BACK_FLAP[0]:BACK_FLAP[1]].copy()
+        wide[3:, 1 + BACK_FLAP[0]:1 + BACK_FLAP[1]] = 0
+        wide[3:, BACK_FLAP[0]:BACK_FLAP[1]] = part
+        return wide, 1
+    return st, 0
+
+
+def place_tassets(cx, y, lean=0, trail=False, lift=False, drop=(), shape=(96, 96)):
+    """The tassets with the belt's top row at y and the stamp's middle column at cx, the rows lean columns forward
+    by the last one, outlined (skirt_outline)."""
+    st, wider = tasset_stamp(trail, lift, drop)
+    s = np.zeros((shape[0], shape[1], 4), np.uint8)
+    left = int(round(cx - (st.shape[1] - 1 - wider) / 2)) - wider
+    n = st.shape[0]
+    for i in range(n):
+        dx = int(round(lean * i / max(n - 1, 1)))
+        m = st[i, :, 3] > 0
+        row = s[y + i, left + dx:left + dx + st.shape[1]]
+        row[m] = st[i][m]
+    return skirt_outline(s, y)
+
+
 def skirt(idle, dx, dy, trail, lift):
-    s = np.zeros_like(idle)
-    (y0, y1), (x0, x1) = SKIRT_ROWS, SKIRT_COLS
-    s[y0:y1, x0:x1] = idle[y0:y1, x0:x1]
-    for y in range(y0, y1):
-        for x in range(x0, x1):
-            if s[y, x, 3] and tuple(int(v) for v in s[y, x, :3]) in STRAY:
-                s[y, x] = NAVY_D
-    if trail:                                  # the back of the last 3 rows one square back
-        part = s[y1 - 3:y1, x0:x0 + 5].copy()
-        s[y1 - 3:y1, x0:x0 + 5] = 0
-        s[y1 - 3:y1, x0 - 1:x0 + 4] = part
-    if lift:                                   # the front of the hem row one row up
-        s[y1 - 1, x1 - 5:x1] = 0
-    return shifted(skirt_outline(s, y0), dy, dx)
+    (y0, _), (x0, x1) = SKIRT_ROWS, SKIRT_COLS
+    return shifted(place_tassets((x0 + x1 - 1) / 2, y0, trail=trail, lift=lift), dy, dx)
+
+
+def idle_lower(f):
+    """The idle's frame (the design: Codex's idle strip with the blade moved back) with the tassets and standing legs
+    in place of the coat: IDLE_CLEAR goes, the legs (IDLE_LEGS) and the tassets go in, the rest of the frame (the cape
+    and the blade on the left, the hand on the right) over them."""
+    keep = f.copy()
+    for x0, y0, x1, y1 in IDLE_CLEAR:
+        keep[y0:y1 + 1, x0:x1 + 1] = 0
+    (x0, x1), y = SKIRT_COLS, SKIRT_ROWS[0]
+    cx = (x0 + x1 - 1) / 2
+    fk, fa, nk, na = (np.array(p) for p in IDLE_LEGS)
+    hy = y + 2.5
+    legs = legs_layer((np.array([cx - HIP_GAP / 2, hy]), fk, fa, np.array([1.0, 0.0])),
+                      (np.array([cx + HIP_GAP / 2, hy]), nk, na, np.array([1.0, 0.0])))
+    out = np.zeros_like(f)
+    over(out, legs)
+    over(out, place_tassets(cx, y, shape=f.shape[:2]))
+    over(out, keep)
+    return out
 
 
 def build(run, idle, poses):

@@ -21,6 +21,8 @@ keep is the face: its eyes change size and place from frame to frame (one eye, t
   4. the blade and the hair (see BLADE): the idle's blade 2 squares back, clear of the hair; elsewhere a line of
      outline where they touch;
   5. the outline one square thick (clean; the user: "清理一下黑边也别忘了 弄干净一点").
+The idle (the design's frame) wears League's short tassets and shows its legs (diana_run_legs.idle_lower; the user:
+"戴安娜的腿部被包裹的感觉还是好奇怪", then "按样稿换成短裙甲"), like the run and the actions.
 The run came back a second time (diana_run_redo.zip; the prompt: assets/source/diana/RUN_REDO.md): Codex's first
 run had the same legs in all 8 frames; the redo swaps the planted leg (near in 1-4, far in 5-8, strides opposite in 4
 and 8) with the hips up kept square for square and the soles on the ground. In game its legs were still wrong (the
@@ -50,6 +52,8 @@ import sys
 
 import numpy as np
 from PIL import Image
+
+import diana_run_legs as RL
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
@@ -330,8 +334,8 @@ def main():
                     notes[-1] += f" clean{n}"
                 f = c
             else:
-                f = move_blade(f)
-                notes.append(f"{k + 1}:blade back {BLADE_BACK}")
+                f = RL.idle_lower(move_blade(f))
+                notes.append(f"{k + 1}:blade back {BLADE_BACK}, tassets")
             strip[y0:y0 + ch, x0:x0 + cw] = f
         big = np.repeat(np.repeat(strip, Z, 0), Z, 1)
         out = os.path.join(SRC, f"diana_{tag}.png")
