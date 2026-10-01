@@ -1060,6 +1060,8 @@ league_tristana (bottom, 2026-10-01, Buster Shot's knockback and 0.5 s stun wher
 league_vayne 1.92 and the base archer 0.65 in the same batch - no change.
 league_fiora (top, 2026-10-01, Riposte's 1 s stun when the parry blocked a hit): 1.23 a game; the base fighter 1.94
 and league_riven 2.42 in the same batch - no change.
+league_fizz (mid, 2026-10-01, Chum the Waters' knock-up round the champion the fish stuck to, 2 s after the throw): 1.06 a
+game; the base lightning mage 3.19, pyromancer 0.65 and league_veigar 2.44 in the same batch - no change.
 
 **Kill trigger (league_jinx Get Excited!).** No effect fires on a kill, but section 4's facts make one:
 1. Next to the damaging projectile, fire an invisible twin with the same speed and path and
@@ -2048,6 +2050,49 @@ target's picture pieces add the 2-tick `r_alive` caster flag the tick before eac
 60 ticks (a multiple of the pieces' 20) that finds it missing while `r_on` lasts means the target died, and the zone
 lands on her own spot (its picture a `CasterViewEffect`: a `ViewEffect` on her own spot never showed, league_thresh
 R). Checks every 20 ticks made the file 972 KB (every hook carries the whole ladder); every 60 keeps it near 580 KB.
+
+**A hop held until the first hit, untargetable in the air (league_fizz E, Playful / Trickster).** The user wanted the
+E "灵活根据战场判断 有时候E可以躲技能 有时候可以直接砸" (sometimes dodging spells, sometimes a straight slam). Nothing tells
+that a spell is on its way, so the first hit on him is the signal. A `Targeting` cast on `EnemyWithoutTower` (range
+45000, a 3-tick action on the `idle` tag) hops at once when no enemy champion is within 50000 (waves, camps); with one
+near it holds the hop for up to 60 ticks: a 1-point `Shield` on himself (a self-only `RangeEffect`) and a `WithShield`
+guard flag - the first hit breaks the shield, the flag goes 2 ticks later (section 5) and the next pulse, 3 ticks
+apart, hops; nobody hits him, the hop comes at the end of the wait. The pulses ride one invisible `RangePeriodProjectile`
+(radius 150000, `period` 3, `applied_target: AllyChampion`) started from Ekko's anchor on his spot, each application
+asking `RandomTarget {AllyOnlySelf, from_projectile: true}` whether he is in it: the hop is written once instead of
+once per pulse (a `Delayed` per pulse made the kit 980 KB, the zone 100 KB); the first pulse that hops removes the
+armed flag, so a pulse per allied champion in the zone still hops once. The hop is self-only: `CasterAnimation skill2`
+(50 ticks), `CasterInvisible` and a `damaged_reduce` 100 / `cc_immune` caster buff for 38 ticks (League's
+untargetable; a self-`Banish` would blind his team, section 4), on tick 6 a `MoveToTarget` at 3000 a tick onto the
+nearest enemy (rings of `RandomTarget`: a champion within 20000, then 45000, then any unit) - the vault -, on tick 38 a
+second dash at 8000 onto the nearest again and on tick 42 (the strip's landing frame) the slam round him: damage and a
+2 s slow. A crowd-controlled Fizz does not hop (league_missfortune R's `AllyChampionInCC` within 1). In a simulated game
+about 26 hops, a third of them held, each 2-4 ticks after the hit that set it off; enemies mostly lose him while he is
+invisible, so few hits land on the hop itself.
+
+**A fish that sticks, the shark sized by its flight (league_fizz R, Chum the Waters).** A `Direction` cast on
+`EnemyChampion` (range 85000) throws a non-penetrating `LinearProjectile` on `EnemyChampion` (speed 6000, radius 10000:
+it passes minions). Two caster windows set at the throw (`r_t1` 3 ticks, `r_t2` 5) tell its flight time when it hits:
+within the first the small shark, within the second the medium one, after them the big one (League's three sizes by
+distance). The champion gets the fish's slow (40 / 60 / 80%) as a buff whose `view_buffs` picture is the fish, a second
+buff whose picture is the ring of shark teeth under him (`z` -1), and a `Delayed {tick: 120}` one-tick lob
+(`ParabolicProjectile`, league_annie R) onto his spot, whose `end_effects` play the shark and a `RangeProjectile`
+(radius 24000 / 30000 / 36000, `apply` 1) of damage, `Airborne` 60 and the slow - the shark follows the champion for
+the 2 s. A miss: the fish's `end_effects` (run where it stopped, on a hit as well) wait a tick and look for an
+`r_stuck` caster flag the hit sets; without it the fish lies there and the big shark bursts on that point 119 ticks
+later (a `Delayed` in `end_effects` keeps the point). At speed 3500 half the fish missed - the AI throws when the
+champion is 0-8 ticks of flight away and targets walked out of the line - at 6000 one in 22. The tiers are set on the
+flight the AI actually gives (about 22% small, 44% medium, 34% big), not on League's distances.
+
+**An empowered attack whose kill cuts its cooldown (league_fizz W, Seastone Trident, folded into Q).** W's cooldown is a
+caster buff `w_cd` (360 ticks); while it is absent the attack picks the strike at tick 1 (`CasterAnimation attack_w`,
+the hit on tick 16, the strip's stab) and Q's hit takes it too (League's W then Q). The strike's damage rides a
+carrier `TargetProjectile` with league_jinx's kill check on any unit (a minion it last-hits counts, as in League): the
+flag still there 4 ticks later swaps `w_cd` for a 60-tick one - in a simulated game 17 of 46 strikes killed, mostly
+minions. W's passive bleed is an `AddCasted Bleed` on every attack and Q hit (each its own instance), carried by a twin
+on `EnemyWithoutTower` so towers take none. The passive, Nimble Fighter, is a `Permanent` caster buff with
+`base_attack_damaged_reduce` 12 added by any action that finds it missing (death clears it); "ignores unit collision"
+has no field - BuffState's only movement flag is `ignore_wall` - and is left out.
 
 ## 8. Gotchas
 
