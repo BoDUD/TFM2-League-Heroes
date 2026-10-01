@@ -569,6 +569,9 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   outer pixel of a doubled diagonal staircase goes; the face box stays. A blade drawn as a bare one-pixel line
   breaks into runs of two or three when slanted, and complete_outline caps both ends of every run: a dashed black-
   and-white line. `BARE` names the blade colour and clean_outline clears every black pixel that touches only it.
+  A slanted blade must also step evenly (the user: "这两个剑也应该是直线的吧"): Codex's ran 3, 2, 3, 2, 4, and even an
+  exact line at 7 rows over 18 columns mixes runs of 2 and 3 and wobbles. `strips.straighten_lines` snaps each long
+  blade's slope to the nearest clean pixel-art ratio (level, 1:4, 1:3, 1:2, 2:3, 1:1) and redraws it from the hilt.
 - **Keep the neck the same in every frame.** With the design's head pasted into redrawn frames, align a loop's frames
   on the head and check that the shoulders sit the same number of rows under the chin. Codex drew league_nami's
   swimming body a row lower under the head in four of the eight run frames: her neck stretched and shrank as she bobbed

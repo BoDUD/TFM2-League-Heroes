@@ -470,6 +470,101 @@ def clean_outline(f, color, dark=40, keep=None, bare=()):
                "corner": int(corner.sum())}
 
 
+SLOPES = (0, 1 / 4, 1 / 3, 1 / 2, 2 / 3, 1)
+
+
+def straighten_lines(f, colours, min_len=12):
+    """Redraw every long thin run of a bare line colour (a rapier) as a straight pixel line of even steps: an image
+    model's slanted blade steps unevenly (runs of 3, 2, 3, 2, 4) and reads as bent, and even an exact line at an odd
+    angle (7 rows over 18 columns: runs of 2 and 3) wobbles. The slope (the run's principal axis, all its pixels) is
+    snapped to the nearest of SLOPES - level, 1:4, 1:3, 1:2, 2:3, 1:1 or their upright twins, the ratios pixel art
+    draws as clean lines - and the line drawn from the hilt end (the end touching other colours) over the run's
+    length, its minor offset (-1..1) and step phase picked to keep most of the old pixels, carried on towards the
+    hilt (up to 2 px) until it touches another colour. A run counts when it spans `min_len` px or more and has at
+    most 5 pixels more than its span (a line, not a patch of the same colour). Off-line pixels go unless two or more
+    other colours hold them in; the new line paints only clear pixels and the old line. Returns (picture, changed)."""
+    f = f.copy()
+    H, W = f.shape[:2]
+    changed = 0
+    for colour in colours:
+        c = np.array(colour, f.dtype)
+        line = (f[..., 3] > 0) & (f[..., :3] == c).all(-1)
+        seen = np.zeros((H, W), bool)
+        for y0, x0 in zip(*np.nonzero(line)):
+            if seen[y0, x0]:
+                continue
+            comp, todo = [], [(y0, x0)]
+            seen[y0, x0] = True
+            while todo:
+                y, x = todo.pop()
+                comp.append((y, x))
+                for dy in (-1, 0, 1):
+                    for dx in (-1, 0, 1):
+                        yy, xx = y + dy, x + dx
+                        if 0 <= yy < H and 0 <= xx < W and line[yy, xx] and not seen[yy, xx]:
+                            seen[yy, xx] = True
+                            todo.append((yy, xx))
+            p = np.array(comp)
+            sy, sx = int(np.ptp(p[:, 0])), int(np.ptp(p[:, 1]))
+            span = max(sy, sx)
+            if span < min_len or len(comp) > span + 5:
+                continue
+            major = 1 if sx >= sy else 0                      # 1: x runs along the blade
+            a, b = tuple(p[p[:, major].argmin()]), tuple(p[p[:, major].argmax()])
+
+            def touch(q):
+                return sum(1 for dy in (-1, 0, 1) for dx in (-1, 0, 1)
+                           if (dy or dx) and 0 <= q[0] + dy < H and 0 <= q[1] + dx < W and f[q[0] + dy, q[1] + dx, 3] > 0
+                           and not line[q[0] + dy, q[1] + dx])
+            base, tip = (a, b) if touch(a) >= touch(b) else (b, a)
+            centre = p.mean(0)
+            evals, evecs = np.linalg.eigh(np.cov((p - centre).T))
+            v = evecs[:, int(np.argmax(evals))]
+            est = abs(v[1 - major] / v[major]) if abs(v[major]) > 1e-9 else 1.0
+            m = min(SLOPES, key=lambda k: abs(k - est))
+            minor = 1 - major
+            length = abs(tip[major] - base[major])
+            s_maj = 1 if tip[major] >= base[major] else -1
+            s_min = 1 if tip[minor] >= base[minor] else -1
+            old = set(map(tuple, comp))
+
+            def draw(off, phase, t0=0):
+                pts = []
+                for t in range(t0, length + 1):
+                    q = [0, 0]
+                    q[major] = base[major] + s_maj * t
+                    q[minor] = base[minor] + off + s_min * (int(np.floor(m * (t + phase) + 1e-9)) -
+                                                             int(np.floor(m * phase + 1e-9)))
+                    pts.append(tuple(q))
+                return pts
+
+            best = max(((off, ph) for off in (0, -1, 1) for ph in range(4)),
+                       key=lambda op: len(set(draw(*op)) & old))
+            pts = draw(*best)
+            for t in (1, 2):                                  # on towards the hilt until it touches another colour
+                y, x = pts[0]
+                if any(0 <= y + dy < H and 0 <= x + dx < W and f[y + dy, x + dx, 3] > 0 and not line[y + dy, x + dx]
+                       for dy in (-1, 0, 1) for dx in (-1, 0, 1) if dy or dx):
+                    break
+                pts = draw(best[0], best[1], -t)[:1] + pts
+            new = set(pts)
+            if new == old:
+                continue
+            for y, x in old - new:
+                others = sum(1 for dy, dx in ((-1, 0), (1, 0), (0, -1), (0, 1))
+                             if 0 <= y + dy < H and 0 <= x + dx < W and f[y + dy, x + dx, 3] > 0
+                             and not line[y + dy, x + dx])
+                if others < 2:
+                    f[y, x] = 0
+                    changed += 1
+            for y, x in new - old:
+                if 0 <= y < H and 0 <= x < W and f[y, x, 3] == 0:
+                    f[y, x, :3] = c
+                    f[y, x, 3] = 255
+                    changed += 1
+    return f, changed
+
+
 # ----------------------------------------------------------------------------- output
 def centre_frame(arr, u0, r0):
     """Trim to the content and pad symmetrically so the pivot pixel is the exact centre (odd size)."""

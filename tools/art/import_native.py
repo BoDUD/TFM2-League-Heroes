@@ -70,7 +70,9 @@ DARK = {"fiora": 40}
 # the ring, doubled it inside and left loose black crumbs on the legs (the user: "黑色描边处理一下 弄干净点").
 CLEAN = {"fiora"}
 # hero: colours of a blade drawn as a bare one-pixel line; clean_outline clears the black caps complete_outline puts
-# on the ends of every run of a slanted one (Fiora's rapier in Q, the crit and the salute read as a dashed line)
+# on the ends of every run of a slanted one (Fiora's rapier in Q, the crit and the salute read as a dashed line),
+# and strips.straighten_lines redraws each long one as a straight pixel line from the hilt to the tip (Codex's
+# slanted runs of 3, 2, 3, 2, 4 read as bent: "这两个剑也应该是直线的吧", the user)
 BARE = {"fiora": [(0xE6, 0xE8, 0xF0)]}
 ORDER = {("lux", "idle"): [0, 0, 0, 0, 0, 0],   # the step-2 idle is the design in all six (was 0 1 2 3 5 4)
          # League leans his upper body a square forward in idle 4-5 and back in 6, and every frame's head
@@ -443,6 +445,9 @@ def close_outline(hero, sheet):
                 b, counts = G.clean_outline(b, colour, dark=DARK.get(hero, 70), keep=face, bare=BARE.get(hero, ()))
                 for rule, v in counts.items():
                     tidy[rule] = tidy.get(rule, 0) + v
+                if hero in BARE:
+                    b, m = G.straighten_lines(b, BARE[hero])
+                    tidy["straight"] = tidy.get("straight", 0) + m
             frames[k] = (G.centre_frame(b, -(b.shape[1] // 2), -c), ms)
             added += n
             darkened += d
