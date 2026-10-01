@@ -225,6 +225,13 @@
         "skill2": "进入<#ffb900ff>1.5秒<>防御姿态（照常行动）：躲闪所有普攻，受到的技能伤害降低<#ffb900ff>25%<>。然后对周围敌人造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% 法术强度<>的<#a974ffff>魔法伤害<>并<#ef5350ff>眩晕<><#ffb900ff>1秒<>，英雄另受<#f5f5f5ff>4% 最大生命值<>的<#f5f5f5ff>真实伤害<>。",
         "ult": "砸下灯柱，对周围敌人造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>150% 法术强度<>的<#a974ffff>魔法伤害<>。命中英雄则<#ffb900ff>8秒<>内获得<i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>40 护甲<>和魔抗，每多命中一名英雄再<#ffdd8eff>+15<>；期间每第<#ffb900ff>2<>次普攻就触发被动的魔法伤害。"
       },
+      "league_diana": {
+        "name": "黛安娜",
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。被动 <#a974ffff>月银之刃<>：每第<#ffb900ff>3<>次普攻顺劈目标周围的敌人，额外造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 法术强度<>的<#a974ffff>魔法伤害<>；每次施放技能后<#ffb900ff>3秒<>内<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻速提高40%<>。",
+        "skill": "射出一道新月（优先射向附近的敌方英雄），对路径上所有敌人造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90% 法术强度<>的<#a974ffff>魔法伤害<>并施加<#a974ffff>月光<>，持续<#ffb900ff>3秒<>。",
+        "skill2": "冲向目标，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法术强度<>的<#a974ffff>魔法伤害<>；有<#a974ffff>月光<>时立刻再冲一次（优先英雄）。<#a974ffff>苍白之瀑<>（<#ffb900ff>10秒<>一次）：冲到时获得<#e8d44dff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% 法术强度<>的<#e8d44dff>护盾<>，三颗法球依次撞向身边的敌人，各造成<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30% 法术强度<>的<#a974ffff>魔法伤害<>，三颗炸完护盾再加一层。",
+        "ult": "把身边的敌方英雄拉到身前并<#ef5350ff>减速<><#ffb900ff>40%<>，持续<#ffb900ff>2秒<>；<#ffb900ff>1秒<>后月光砸落，对周围敌人造成<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90% 法术强度<>的<#a974ffff>魔法伤害<>，每多拉到一名英雄伤害提高<#ffb900ff>35%<>（至多<#ffb900ff>70%<>）。"
+      },
       "league_taric": {
         "name": "塔里克",
         "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。被动 <#ff9028ff>正气凌人<>：施放技能后<#ffb900ff>4秒<>内的下<#ffb900ff>2<>次普攻<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻速+100%<>，额外造成<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>3% 最大生命值<>的<#a974ffff>魔法伤害<>，缩短基础技能冷却，并为<#ff9028ff>星光之触<>充能<#ffb900ff>1<>层。",
@@ -407,6 +414,11 @@
         "skill1": "跳斩",
         "skill2": "反击风暴",
         "ult": "武器大师"
+      },
+      "league_diana": {
+        "skill1": "新月打击",
+        "skill2": "月神冲刺",
+        "ult": "月之降临"
       },
       "league_taric": {
         "skill1": "炫光",
@@ -651,6 +663,13 @@
         "skill2": "進入<#ffb900ff>1.5秒<>防禦架勢（照常行動）：閃避所有普攻，受到的技能傷害降低<#ffb900ff>25%<>。然後對周圍敵人造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% 魔法強度<>的<#a974ffff>魔法傷害<>並<#ef5350ff>暈眩<><#ffb900ff>1秒<>，英雄另受<#f5f5f5ff>4% 最大生命值<>的<#f5f5f5ff>真實傷害<>。",
         "ult": "砸下燈柱，對周圍敵人造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>150% 魔法強度<>的<#a974ffff>魔法傷害<>。命中英雄則<#ffb900ff>8秒<>內獲得<i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>40 物理防禦<>和魔法防禦，每多命中一名英雄再<#ffdd8eff>+15<>；期間每第<#ffb900ff>2<>次普攻就觸發被動的魔法傷害。"
       },
+      "league_diana": {
+        "name": "黛安娜",
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。被動 <#a974ffff>銀月之刃<>：每第<#ffb900ff>3<>次普攻劈斬目標周圍的敵人，額外造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 魔法攻擊<>的<#a974ffff>魔法傷害<>；每次施放技能後<#ffb900ff>3秒<>內<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻速提高40%<>。",
+        "skill": "釋放一道月牙（優先射向附近的敵方英雄），對路徑上所有敵人造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90% 魔法攻擊<>的<#a974ffff>魔法傷害<>並附加<#a974ffff>月光精華<>，持續<#ffb900ff>3秒<>。",
+        "skill2": "衝向目標，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 魔法攻擊<>的<#a974ffff>魔法傷害<>；有<#a974ffff>月光精華<>時立刻再衝一次（優先英雄）。<#a974ffff>蒼白月瀑<>（<#ffb900ff>10秒<>一次）：衝到時獲得<#e8d44dff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% 魔法攻擊<>的<#e8d44dff>護盾<>，三個星體依次撞向身邊的敵人，各造成<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30% 魔法攻擊<>的<#a974ffff>魔法傷害<>，三個炸完護盾再加一層。",
+        "ult": "把身邊的敵方英雄拉到身前並<#ef5350ff>緩速<><#ffb900ff>40%<>，持續<#ffb900ff>2秒<>；<#ffb900ff>1秒<>後月光傾洩，對周圍敵人造成<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90% 魔法攻擊<>的<#a974ffff>魔法傷害<>，每多拉到一名英雄傷害提高<#ffb900ff>35%<>（至多<#ffb900ff>70%<>）。"
+      },
       "league_taric": {
         "name": "塔里克",
         "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。被動 <#ff9028ff>智勇雙全<>：施放技能後<#ffb900ff>4秒<>內的下<#ffb900ff>2<>次普攻<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻速+100%<>，額外造成<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>3% 最大生命<>的<#a974ffff>魔法傷害<>，縮短基礎技能冷卻，並為<#ff9028ff>星光之觸<>充能<#ffb900ff>1<>層。",
@@ -833,6 +852,11 @@
         "skill1": "跳斬",
         "skill2": "反擊風暴",
         "ult": "武器宗師"
+      },
+      "league_diana": {
+        "skill1": "月牙衝擊",
+        "skill2": "朔月幻步",
+        "ult": "月隕"
       },
       "league_taric": {
         "skill1": "失能眩光",
@@ -1077,6 +1101,13 @@
         "skill2": "Jax takes a defensive stance for <#ffb900ff>1.5s<> while he keeps fighting: he dodges all basic attacks and takes <#ffb900ff>25%<> less damage from abilities. Then he strikes nearby enemies for <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% Ability Power<> <#a974ffff>magic damage<>, <#ef5350ff>stunning<> them for <#ffb900ff>1s<>; champions also take <#f5f5f5ff>4% of their max health<> as <#f5f5f5ff>true damage<>.",
         "ult": "Jax slams his lamppost down for <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>150% Ability Power<> <#a974ffff>magic damage<> around him. If he hits a champion he gains <i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>40 armor<> and magic resist for <#ffb900ff>8s<>, <#ffdd8eff>+15<> per extra champion hit; meanwhile every <#ffb900ff>second<> attack deals the passive's bonus magic damage."
       },
+      "league_diana": {
+        "name": "Diana",
+        "attack": "Basic attacks deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. Passive <#a974ffff>Moonsilver Blade<>: every <#ffb900ff>third<> attack cleaves enemies around its target for <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% AP<> <#a974ffff>magic damage<>; after each spell she gains <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>40% Attack Speed<> for <#ffb900ff>3s<>.",
+        "skill": "<#a974ffff>Crescent Strike<>: Diana hurls a crescent (at a nearby enemy champion first) that deals <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90% AP<> <#a974ffff>magic damage<> to every enemy on its path and afflicts them with <#a974ffff>Moonlight<> for <#ffb900ff>3s<>.",
+        "skill2": "<#a974ffff>Lunar Rush<>: dash to the target for <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% AP<> <#a974ffff>magic damage<>; with <#a974ffff>Moonlight<> up she dashes again at once (champions first). <#a974ffff>Pale Cascade<> (every <#ffb900ff>10s<>): on arrival a <#e8d44dff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% AP<> <#e8d44dff>shield<> and three orbs that hit nearby enemies for <#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30% AP<> each; after the third the shield comes again.",
+        "ult": "<#a974ffff>Moonfall<>: Diana draws nearby enemy champions to her and <#ef5350ff>slows<> them by <#ffb900ff>40%<> for <#ffb900ff>2s<>. <#ffb900ff>1s<> later the moon crashes on her for <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90% AP<> <#a974ffff>magic damage<> around her, <#ffb900ff>+35%<> for each champion pulled beyond the first (up to <#ffb900ff>+70%<>)."
+      },
       "league_taric": {
         "name": "Taric",
         "attack": "Basic attacks deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. Passive <#ff9028ff>Bravado<>: after a spell, his next <#ffb900ff>2<> attacks within <#ffb900ff>4s<> gain <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>100% Attack Speed<>, deal <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20% AP<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>3% max Health<> bonus <#a974ffff>magic damage<>, cut his basic cooldowns and add a <#ff9028ff>Starlight's Touch<> stack.",
@@ -1259,6 +1290,11 @@
         "skill1": "Leap Strike",
         "skill2": "Counter Strike",
         "ult": "Grandmaster-at-Arms"
+      },
+      "league_diana": {
+        "skill1": "Crescent Strike",
+        "skill2": "Lunar Rush",
+        "ult": "Moonfall"
       },
       "league_taric": {
         "skill1": "Dazzle",
@@ -1503,6 +1539,13 @@
         "skill2": "<#ffb900ff>1.5초<> 동안 방어 태세(행동 가능): 모든 기본 공격을 회피하고 스킬 피해를 <#ffb900ff>25%<> 덜 받습니다. 이후 주변 적에게 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 100%<> <#a974ffff>마법 피해<>, <#ffb900ff>1초<> <#ef5350ff>기절<>; 챔피언은 <#f5f5f5ff>최대 체력의 4%<> <#f5f5f5ff>고정 피해<>를 추가로 받습니다.",
         "ult": "가로등을 내리찍어 주변 적에게 <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 150%<> <#a974ffff>마법 피해<>. 챔피언 적중 시 <#ffb900ff>8초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>방어력 40<>·마법 저항력, 추가 챔피언당 <#ffdd8eff>+15<>; 그동안 <#ffb900ff>2<>번째 공격마다 추가 마법 피해."
       },
+      "league_diana": {
+        "name": "다이애나",
+        "attack": "기본 공격은 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>. 기본 지속 효과 <#a974ffff>서늘한 달빛 검<>: <#ffb900ff>3번째<> 공격마다 대상 주변 적에게 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 80%<> <#a974ffff>마법 피해<>. 스킬 사용 후 <#ffb900ff>3초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>공격 속도 40%<>.",
+        "skill": "초승달을 날려(근처 적 챔피언 우선) 경로의 모든 적에게 <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 90%<> <#a974ffff>마법 피해<>를 입히고 <#ffb900ff>3초<> 동안 <#a974ffff>달빛<>을 남깁니다.",
+        "skill2": "대상에게 돌진해 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 70%<> <#a974ffff>마법 피해<>. <#a974ffff>달빛<>이 있으면 즉시 한 번 더 돌진(챔피언 우선). <#a974ffff>은빛 가호<>(<#ffb900ff>10초<>마다): <#e8d44dff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#e8d44dff>보호막<>, 구체 3개가 주변 적에게 각각 <#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> <#a974ffff>마법 피해<>; 3개 모두 터지면 보호막 한 번 더.",
+        "ult": "주변 적 챔피언을 끌어당겨 <#ffb900ff>2초<> 동안 <#ef5350ff>둔화<> <#ffb900ff>40%<>. <#ffb900ff>1초<> 뒤 달빛이 떨어져 주변 적에게 <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 90%<> <#a974ffff>마법 피해<>, 추가로 끌어당긴 챔피언마다 <#ffb900ff>+35%<>(최대 <#ffb900ff>+70%<>)."
+      },
       "league_taric": {
         "name": "타릭",
         "attack": "기본 공격은 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다. 기본 지속 효과 <#ff9028ff>담대함<>: 스킬 사용 후 <#ffb900ff>4초<> 안의 다음 기본 공격 <#ffb900ff>2<>회가 <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>공격 속도 +100%<>, <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>최대 체력의 3%<> 추가 <#a974ffff>마법 피해<>, 기본 스킬 재사용 대기시간 감소, <#ff9028ff>별빛 손길<> 1회 충전.",
@@ -1685,6 +1728,11 @@
         "skill1": "도약 공격",
         "skill2": "반격",
         "ult": "무기의 달인"
+      },
+      "league_diana": {
+        "skill1": "초승달 검기",
+        "skill2": "월광 쇄도",
+        "ult": "달빛 낙하"
       },
       "league_taric": {
         "skill1": "황홀한 강타",
@@ -1929,6 +1977,13 @@
         "skill2": "<#ffb900ff>1.5秒<>防御の構え（行動可能）：通常攻撃をすべて回避し、スキルの被ダメージ<#ffb900ff>25%<>軽減。その後周囲の敵に<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の100%<>の<#a974ffff>魔法ダメージ<>と<#ffb900ff>1秒<><#ef5350ff>スタン<>、チャンピオンには<#f5f5f5ff>最大体力の4%<>の<#f5f5f5ff>確定ダメージ<>。",
         "ult": "街灯を叩きつけ周囲に<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の150%<>の<#a974ffff>魔法ダメージ<>。チャンピオンに当たると<#ffb900ff>8秒<><i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>物理防御40<>と魔法防御、追加1体ごとに<#ffdd8eff>+15<>；その間<#ffb900ff>2<>回目ごとの攻撃で追加魔法ダメージ。"
       },
+      "league_diana": {
+        "name": "ダイアナ",
+        "attack": "通常攻撃は<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>。パッシブ <#a974ffff>繊月の刃<>：通常攻撃<#ffb900ff>3回<>ごとに対象の周囲に<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の80%<>の<#a974ffff>魔法ダメージ<>。スキル使用後<#ffb900ff>3秒<>間<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻撃速度40%<>。",
+        "skill": "三日月を放ち（近くの敵チャンピオン優先）、軌道上の全ての敵に<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の90%<>の<#a974ffff>魔法ダメージ<>と<#ffb900ff>3秒<>の<#a974ffff>月光<>。",
+        "skill2": "対象へダッシュし<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>。<#a974ffff>月光<>があればすぐもう一度（チャンピオン優先）。<#a974ffff>朧月の羽衣<>（<#ffb900ff>10秒<>毎）：到着時に<#e8d44dff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の<#e8d44dff>シールド<>、光の玉3つが周囲の敵に各<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>、3つ目でシールド再展開。",
+        "ult": "周囲の敵チャンピオンを引き寄せ<#ffb900ff>2秒<><#ef5350ff>スロウ<><#ffb900ff>40%<>。<#ffb900ff>1秒<>後に月光が降り周囲に<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の90%<>の<#a974ffff>魔法ダメージ<>、2体目以降1体ごとに<#ffb900ff>+35%<>（最大<#ffb900ff>+70%<>）。"
+      },
       "league_taric": {
         "name": "タリック",
         "attack": "通常攻撃は<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>。自動効果<#ff9028ff>ブラバド<>：スキル使用後<#ffb900ff>4秒<>以内の通常攻撃<#ffb900ff>2<>回が<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻撃速度+100%<>、<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>最大体力の3%<>の追加<#a974ffff>魔法ダメージ<>、スキルのCD短縮、<#ff9028ff>スターライトタッチ<>1チャージ。",
@@ -2111,6 +2166,11 @@
         "skill1": "リープストライク",
         "skill2": "カウンターストライク",
         "ult": "ウェポングランドマスター"
+      },
+      "league_diana": {
+        "skill1": "月影",
+        "skill2": "月下美刃",
+        "ult": "崩月"
       },
       "league_taric": {
         "skill1": "ダズル",

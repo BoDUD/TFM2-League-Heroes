@@ -1,0 +1,633 @@
+{
+  "schema_version": 1,
+  "tool": "native pixel editing (Python/Pillow), explicitly requested by supplied brief",
+  "status": "align5_candidate",
+  "scale": 8,
+  "cell": [
+    96,
+    96
+  ],
+  "grid": [
+    4,
+    2
+  ],
+  "file": "diana_run.png",
+  "native_file": "native/diana_run_1x.png",
+  "raw_file": null,
+  "frames": [
+    {
+      "frame": 1,
+      "ms": 125,
+      "rect": [
+        0,
+        0,
+        96,
+        96
+      ],
+      "rect_format": "left,top,right,bottom; logical; exclusive",
+      "pivot": [
+        52,
+        68
+      ],
+      "bbox": [
+        18,
+        38,
+        54,
+        80
+      ],
+      "eye_mark": [
+        46,
+        50
+      ],
+      "baseline": 79,
+      "native_leg_anchors": {
+        "near": [
+          [
+            41,
+            64
+          ],
+          [
+            40,
+            69
+          ],
+          [
+            37,
+            75
+          ],
+          [
+            37,
+            79
+          ]
+        ],
+        "far": [
+          [
+            39,
+            64
+          ],
+          [
+            36,
+            68
+          ],
+          [
+            33,
+            69
+          ],
+          [
+            33,
+            72
+          ]
+        ]
+      },
+      "construction_widths": {
+        "thigh": 5,
+        "knee": 5,
+        "shin": 5,
+        "boot": 5,
+        "sole": 5
+      },
+      "method": "Move pelvis and both legs backward together; native waist transition",
+      "lower_body_dx": -3
+    },
+    {
+      "frame": 2,
+      "ms": 125,
+      "rect": [
+        96,
+        0,
+        192,
+        96
+      ],
+      "rect_format": "left,top,right,bottom; logical; exclusive",
+      "pivot": [
+        53,
+        68
+      ],
+      "bbox": [
+        20,
+        37,
+        56,
+        80
+      ],
+      "eye_mark": [
+        47,
+        50
+      ],
+      "baseline": 79,
+      "native_leg_anchors": {
+        "near": [
+          [
+            43,
+            64
+          ],
+          [
+            44,
+            70
+          ],
+          [
+            44,
+            76
+          ],
+          [
+            44,
+            79
+          ]
+        ],
+        "far": [
+          [
+            40,
+            64
+          ],
+          [
+            40,
+            68
+          ],
+          [
+            35,
+            70
+          ],
+          [
+            35,
+            73
+          ]
+        ]
+      },
+      "construction_widths": {
+        "thigh": 5,
+        "knee": 5,
+        "shin": 5,
+        "boot": 5,
+        "sole": 5
+      },
+      "method": "Move pelvis and both legs backward together; native waist transition",
+      "lower_body_dx": -3
+    },
+    {
+      "frame": 3,
+      "ms": 125,
+      "rect": [
+        192,
+        0,
+        288,
+        96
+      ],
+      "rect_format": "left,top,right,bottom; logical; exclusive",
+      "pivot": [
+        53,
+        68
+      ],
+      "bbox": [
+        19,
+        38,
+        55,
+        80
+      ],
+      "eye_mark": [
+        47,
+        52
+      ],
+      "baseline": 79,
+      "native_leg_anchors": {
+        "near": [
+          [
+            43,
+            64
+          ],
+          [
+            44,
+            70
+          ],
+          [
+            43,
+            76
+          ],
+          [
+            44,
+            79
+          ]
+        ],
+        "far": [
+          [
+            40,
+            64
+          ],
+          [
+            38,
+            69
+          ],
+          [
+            35,
+            69
+          ],
+          [
+            35,
+            71
+          ]
+        ]
+      },
+      "construction_widths": {
+        "thigh": 5,
+        "knee": 5,
+        "shin": 5,
+        "boot": 5,
+        "sole": 5
+      },
+      "method": "Move pelvis and both legs backward together; native waist transition",
+      "lower_body_dx": -3
+    },
+    {
+      "frame": 4,
+      "ms": 125,
+      "rect": [
+        288,
+        0,
+        384,
+        96
+      ],
+      "rect_format": "left,top,right,bottom; logical; exclusive",
+      "pivot": [
+        53,
+        68
+      ],
+      "bbox": [
+        19,
+        37,
+        57,
+        80
+      ],
+      "eye_mark": [
+        47,
+        51
+      ],
+      "baseline": 79,
+      "native_leg_anchors": {
+        "near": [
+          [
+            41,
+            65
+          ],
+          [
+            41,
+            70
+          ],
+          [
+            39,
+            76
+          ],
+          [
+            40,
+            79
+          ]
+        ],
+        "far": [
+          [
+            43,
+            64
+          ],
+          [
+            44,
+            67
+          ],
+          [
+            45,
+            70
+          ],
+          [
+            44,
+            72
+          ]
+        ]
+      },
+      "construction_widths": {
+        "thigh": 5,
+        "knee": 5,
+        "shin": 5,
+        "boot": 5,
+        "sole": 5
+      },
+      "method": "Move pelvis and both legs backward together; native waist transition",
+      "lower_body_dx": -3
+    },
+    {
+      "frame": 5,
+      "ms": 125,
+      "rect": [
+        0,
+        96,
+        96,
+        192
+      ],
+      "rect_format": "left,top,right,bottom; logical; exclusive",
+      "pivot": [
+        52,
+        68
+      ],
+      "bbox": [
+        18,
+        37,
+        53,
+        80
+      ],
+      "eye_mark": [
+        46,
+        50
+      ],
+      "baseline": 79,
+      "native_leg_anchors": {
+        "near": [
+          [
+            40,
+            64
+          ],
+          [
+            39,
+            69
+          ],
+          [
+            36,
+            73
+          ],
+          [
+            37,
+            76
+          ]
+        ],
+        "far": [
+          [
+            42,
+            64
+          ],
+          [
+            45,
+            70
+          ],
+          [
+            43,
+            76
+          ],
+          [
+            44,
+            79
+          ]
+        ]
+      },
+      "construction_widths": {
+        "thigh": 5,
+        "knee": 5,
+        "shin": 5,
+        "boot": 5,
+        "sole": 5
+      },
+      "method": "Move pelvis and both legs backward together; native waist transition",
+      "lower_body_dx": -3
+    },
+    {
+      "frame": 6,
+      "ms": 125,
+      "rect": [
+        96,
+        96,
+        192,
+        192
+      ],
+      "rect_format": "left,top,right,bottom; logical; exclusive",
+      "pivot": [
+        52,
+        68
+      ],
+      "bbox": [
+        18,
+        38,
+        54,
+        80
+      ],
+      "eye_mark": [
+        46,
+        50
+      ],
+      "baseline": 79,
+      "native_leg_anchors": {
+        "near": [
+          [
+            40,
+            64
+          ],
+          [
+            39,
+            69
+          ],
+          [
+            35,
+            68
+          ],
+          [
+            34,
+            72
+          ]
+        ],
+        "far": [
+          [
+            41,
+            64
+          ],
+          [
+            43,
+            70
+          ],
+          [
+            43,
+            76
+          ],
+          [
+            44,
+            79
+          ]
+        ]
+      },
+      "construction_widths": {
+        "thigh": 5,
+        "knee": 5,
+        "shin": 5,
+        "boot": 5,
+        "sole": 5
+      },
+      "method": "Move pelvis and both legs backward together; native waist transition",
+      "lower_body_dx": -3
+    },
+    {
+      "frame": 7,
+      "ms": 125,
+      "rect": [
+        192,
+        96,
+        288,
+        192
+      ],
+      "rect_format": "left,top,right,bottom; logical; exclusive",
+      "pivot": [
+        51,
+        68
+      ],
+      "bbox": [
+        17,
+        37,
+        53,
+        80
+      ],
+      "eye_mark": [
+        45,
+        51
+      ],
+      "baseline": 79,
+      "native_leg_anchors": {
+        "near": [
+          [
+            39,
+            64
+          ],
+          [
+            38,
+            69
+          ],
+          [
+            34,
+            67
+          ],
+          [
+            34,
+            69
+          ]
+        ],
+        "far": [
+          [
+            42,
+            64
+          ],
+          [
+            44,
+            70
+          ],
+          [
+            43,
+            76
+          ],
+          [
+            43,
+            79
+          ]
+        ]
+      },
+      "construction_widths": {
+        "thigh": 5,
+        "knee": 5,
+        "shin": 5,
+        "boot": 5,
+        "sole": 5
+      },
+      "method": "Move pelvis and both legs backward together; native waist transition",
+      "lower_body_dx": -3
+    },
+    {
+      "frame": 8,
+      "ms": 125,
+      "rect": [
+        288,
+        96,
+        384,
+        192
+      ],
+      "rect_format": "left,top,right,bottom; logical; exclusive",
+      "pivot": [
+        51,
+        68
+      ],
+      "bbox": [
+        17,
+        38,
+        56,
+        80
+      ],
+      "eye_mark": [
+        45,
+        51
+      ],
+      "baseline": 79,
+      "native_leg_anchors": {
+        "near": [
+          [
+            40,
+            64
+          ],
+          [
+            40,
+            67
+          ],
+          [
+            44,
+            76
+          ],
+          [
+            43,
+            79
+          ]
+        ],
+        "far": [
+          [
+            39,
+            64
+          ],
+          [
+            38,
+            70
+          ],
+          [
+            36,
+            76
+          ],
+          [
+            36,
+            79
+          ]
+        ]
+      },
+      "construction_widths": {
+        "thigh": 5,
+        "knee": 5,
+        "shin": 5,
+        "boot": 5,
+        "sole": 5
+      },
+      "method": "Move pelvis and both legs backward together; native waist transition",
+      "lower_body_dx": -2
+    }
+  ],
+  "method": "Native pixel lower-body alignment: hips and legs shift back together; smooth waist transition",
+  "palette": [
+    "#0A0412",
+    "#0C0516",
+    "#1F5057",
+    "#22233C",
+    "#264648",
+    "#333B63",
+    "#492B5B",
+    "#505169",
+    "#505945",
+    "#554743",
+    "#60637E",
+    "#7211B0",
+    "#7BB2B9",
+    "#818768",
+    "#865744",
+    "#9676AC",
+    "#A7804A",
+    "#A950D9",
+    "#B8BFC7",
+    "#B9B690",
+    "#C7B8A2",
+    "#D0F6EE",
+    "#F2BA94",
+    "#F2E6CF",
+    "#F3D98D",
+    "#F9F7FB"
+  ],
+  "note": "waist down rebuilt by tools/art/diana_run_legs.py: the idle's skirt and legs on League's run"
+}

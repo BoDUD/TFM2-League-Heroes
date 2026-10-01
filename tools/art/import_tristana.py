@@ -32,12 +32,12 @@ burst and its wisp on their first frame's spark ring and ember, the same spot in
 The bomb gets a 1-px ring round its body, orange in the dark frame and gold in the bright one (a blink with the
 light): black iron on Darius's armour showed only its brass band. No other outline.
 The second step places every cell by its anchor - the projectiles on their point, the flashes on the muzzle of her
-firing frame (attack 3, E 3, R 3: the bells end at (22, 0), (20, 8) and (20, 4) from the pivot; the projectiles'
+firing frame (attack 3, E 3, R 3: the bells end at (28, 4), (20, 8) and (20, 4) from the pivot; the projectiles'
 `y_offset` lift them near those heights: 2000 / 9000 / 6000, 3-4 px over the bells' middles - larger values lengthened
 the flights and cost her 0.7 kills a game), Rapid Fire's burst on the idle's bell (25, 2) as E's strip ends and its
 wisp on the bell's top, the hits on the upper body, the bomb and its spark on the chest, the ground pictures 11 px
 under the pivot (the soles), the stars over the head, the rocket over her goggles - and times each view by the kit:
-the projectiles start empty for the ticks they spend inside her (her pivot to the bell: 3, 5 and 3 ticks at 6000, 4500
+the projectiles start empty for the ticks they spend inside her (her pivot to the bell: 5, 5 and 3 ticks at 6000, 4500
 and 7000 a tick), then loop, and hold their first frame after 1 s (`repeat: false`, so nothing shows over her body);
 the bomb's two frames last 10 ticks, its replay period; the stun stars last the 30-tick stun; the wisp is 1 s, played
 every second of Rapid Fire. Writes assets/source/tristana/tristana_fx_<name>.png plus tristana_fx_anchors.json, and
@@ -63,7 +63,7 @@ SRC = os.path.join(ROOT, "assets", "source", "tristana")
 MOD = os.path.join(ROOT, "league")
 Z = 8
 # her firing frames' muzzles (the bell's end, from the pivot; tools/art/import_native.py's sheet, facing right)
-MUZZLE_ATTACK = (22, 0)
+MUZZLE_ATTACK = (28, 4)                # the idle's bell moved with the attack's 3rd frame (shrink_tristana.ATTACK_PATH +3, +2)
 MUZZLE_E = (20, 8)
 MUZZLE_R = (20, 4)
 BELL = (25, 2)                         # the idle's bell: Rapid Fire's spark ring when E's strip ends, its steam
@@ -353,7 +353,7 @@ def seq(frames, ms):
 STARS = [0, 1, 2, 3]                    # the stun (30 ticks): the loop once, 125 ms a frame
 FX = {
     "league_tristana_fx": {
-        "bolt": [("bolt", flight(50), (0, 0))],
+        "bolt": [("bolt", flight(80), (0, 0))],
         "e_charge": [("e_charge", flight(80), (0, 0))],
         "r_ball": [("r_ball", flight(50), (0, 0))],
         "shot": [("shot", seq(range(5), [40, 40, 50, 60, 60]), MUZZLE_ATTACK)],
