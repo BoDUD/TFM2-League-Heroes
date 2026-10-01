@@ -1530,6 +1530,19 @@ fires; without the flag the same at 75000, then 110000; nothing further, no shot
 non-penetrating `LinearProjectile` on `EnemyChampion` toward the picked champion: it flies through minions and
 stops on the first champion. Of its shots 58% hit at speed 8000 and 85% at 12000, the champions walking out of
 the line *(SDK simulation, 2026-09-29)*.
+Its picture is not on that line: a `LinearProjectile` starts 5 px over the caster's pivot, at his pivot's x, with
+the tracer's nose on it and its tail behind, so for two or three ticks the shot streaked from his back across his
+hips (the user: "卢锡安开大时子弹不是从枪口里射出去的"). The line is now `league_lucian_r_line` (no view, unseen) and
+beside it, in the same effects, flies a `TargetProjectile` with the picture (`league_lucian_r_bullet`: the same
+speed and target, no `applied_effects`), lifted 8 px (`y_offset` -3000). It flies at the target's pivot, so a
+lifted picture slopes down onto it (league_caitlyn: 16.5 px sloped 12 degrees, "子弹看起来是歪的"): lifted to the
+barrels' middles (11 and 14 px) it dived 15-19 degrees into a champion 40 px away; at 8 px the tracer's top rows
+leave the lower barrel, 6.5 degrees at 70 px and 11 at 40. Level and at the barrels needs the ult frames' pistols
+lower. Its view starts with an empty tick (the lift
+jump, see "A beam from a raised weapon") and then shows only what has left the muzzles 20 px ahead (4 and 16 px,
+`import_lucian.py` `R_IN`), and plays once. In the simulation each line spawned its twin on the same tick (the
+twin at the caster's own spot, the line 5000 north), the twin arrived 2 ticks after the line's hit (inside the
+120 ms hit spark), and 85% of the shots hit before and after *(SDK simulation, 2026-10-01)*.
 
 **Every third hit deals true damage, the max-health part on champions only (league_vayne Silver Bolts).** League
 counts three hits in a row on one target; nothing tells which unit a hit is on (see "Bonus on a new target"), so her
