@@ -1,0 +1,16 @@
+{
+  "hit": {"cell": [17, 17], "anchor": [8, 8], "frames": 5},
+  "w_hit": {"cell": [25, 25], "anchor": [12, 12], "frames": 6},
+  "q_hit": {"cell": [23, 23], "anchor": [11, 11], "frames": 5},
+  "q_dash": {"cell": [55, 27], "anchor": [27, 13], "frames": 5},
+  "e_up": {"cell": [23, 27], "anchor": [11, 13], "frames": 5},
+  "e_slam": {"cell": [67, 51], "anchor": [33, 25], "frames": 7},
+  "e_slow": {"cell": [21, 39], "anchor": [10, 19], "frames": 6},
+  "r_fish": {"cell": [17, 13], "anchor": [8, 6], "frames": 4},
+  "r_stuck": {"cell": [19, 19], "anchor": [9, 9], "frames": 4},
+  "r_ring1": {"cell": [49, 25], "anchor": [24, 12], "frames": 4},
+  "r_ring2": {"cell": [61, 31], "anchor": [30, 15], "frames": 4},
+  "r_ring3": {"cell": [73, 37], "anchor": [36, 18], "frames": 4},
+  "r_fish_ground": {"cell": [19, 23], "anchor": [9, 11], "frames": 4},
+  "r_shark": {"cell": [75, 131], "anchor": [37, 65], "frames": 24}
+}

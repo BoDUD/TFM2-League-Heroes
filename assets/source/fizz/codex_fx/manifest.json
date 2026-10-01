@@ -1,0 +1,3980 @@
+{
+  "format": "fizz-vfx-v1",
+  "rect_format": "[x,y,width,height]",
+  "assets": [
+    {
+      "name": "hit",
+      "file": "fizz_fx_hit.png",
+      "file_1x": "logical/fizz_fx_hit_1x.png",
+      "frame_count": 5,
+      "layout": [
+        5,
+        1
+      ],
+      "cell_px": [
+        256,
+        256
+      ],
+      "size_px": [
+        1280,
+        256
+      ],
+      "logical_cell": [
+        16,
+        16
+      ],
+      "scale": 16,
+      "game_size": [
+        14,
+        14
+      ],
+      "loop": false,
+      "ground": false,
+      "palette": [
+        "#FFFFFF",
+        "#D8F8FF",
+        "#8CE6FF",
+        "#3CC0F0",
+        "#1A84D0",
+        "#0E4A94"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "phase": 1,
+          "cell_rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "rect": [
+            16,
+            16,
+            224,
+            224
+          ],
+          "rect_1x": [
+            1,
+            1,
+            14,
+            14
+          ],
+          "bbox_local_1x": [
+            6,
+            8,
+            10,
+            9
+          ],
+          "source_rect_raw": [
+            0,
+            0,
+            397,
+            793
+          ],
+          "normalization_rect_raw": [
+            62,
+            265,
+            336,
+            546
+          ],
+          "preview_ms": 100
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "phase": 2,
+          "cell_rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "rect": [
+            272,
+            16,
+            224,
+            224
+          ],
+          "rect_1x": [
+            17,
+            1,
+            14,
+            14
+          ],
+          "bbox_local_1x": [
+            5,
+            5,
+            12,
+            11
+          ],
+          "source_rect_raw": [
+            397,
+            0,
+            793,
+            793
+          ],
+          "normalization_rect_raw": [
+            62,
+            265,
+            336,
+            546
+          ],
+          "preview_ms": 100
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "phase": 3,
+          "cell_rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "rect": [
+            528,
+            16,
+            224,
+            224
+          ],
+          "rect_1x": [
+            33,
+            1,
+            14,
+            14
+          ],
+          "bbox_local_1x": [
+            2,
+            1,
+            14,
+            15
+          ],
+          "source_rect_raw": [
+            793,
+            0,
+            1190,
+            793
+          ],
+          "normalization_rect_raw": [
+            62,
+            265,
+            336,
+            546
+          ],
+          "preview_ms": 100
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "phase": 4,
+          "cell_rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "rect": [
+            784,
+            16,
+            224,
+            224
+          ],
+          "rect_1x": [
+            49,
+            1,
+            14,
+            14
+          ],
+          "bbox_local_1x": [
+            3,
+            2,
+            15,
+            14
+          ],
+          "source_rect_raw": [
+            1190,
+            0,
+            1586,
+            793
+          ],
+          "normalization_rect_raw": [
+            62,
+            265,
+            336,
+            546
+          ],
+          "preview_ms": 100
+        },
+        {
+          "index": 4,
+          "row": 0,
+          "column": 4,
+          "phase": 5,
+          "cell_rect": [
+            1024,
+            0,
+            256,
+            256
+          ],
+          "rect": [
+            1040,
+            16,
+            224,
+            224
+          ],
+          "rect_1x": [
+            65,
+            1,
+            14,
+            14
+          ],
+          "bbox_local_1x": [
+            5,
+            5,
+            12,
+            12
+          ],
+          "source_rect_raw": [
+            1586,
+            0,
+            1983,
+            793
+          ],
+          "normalization_rect_raw": [
+            62,
+            265,
+            336,
+            546
+          ],
+          "preview_ms": 100
+        }
+      ],
+      "generation_prompt_number": 1
+    },
+    {
+      "name": "w_hit",
+      "file": "fizz_fx_w_hit.png",
+      "file_1x": "logical/fizz_fx_w_hit_1x.png",
+      "frame_count": 6,
+      "layout": [
+        6,
+        1
+      ],
+      "cell_px": [
+        256,
+        256
+      ],
+      "size_px": [
+        1536,
+        256
+      ],
+      "logical_cell": [
+        32,
+        32
+      ],
+      "scale": 8,
+      "game_size": [
+        22,
+        22
+      ],
+      "loop": false,
+      "ground": false,
+      "palette": [
+        "#FFFFFF",
+        "#D8F8FF",
+        "#8CE6FF",
+        "#3CC0F0",
+        "#1A84D0",
+        "#0E4A94",
+        "#E8FFF6",
+        "#9EF2D8",
+        "#3FD0B0",
+        "#16947E",
+        "#0A5B4A"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "phase": 1,
+          "cell_rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "rect": [
+            40,
+            40,
+            176,
+            176
+          ],
+          "rect_1x": [
+            5,
+            5,
+            22,
+            22
+          ],
+          "bbox_local_1x": [
+            9,
+            13,
+            23,
+            23
+          ],
+          "source_rect_raw": [
+            0,
+            0,
+            362,
+            724
+          ],
+          "normalization_rect_raw": [
+            12,
+            198,
+            350,
+            552
+          ],
+          "preview_ms": 100
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "phase": 2,
+          "cell_rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "rect": [
+            296,
+            40,
+            176,
+            176
+          ],
+          "rect_1x": [
+            37,
+            5,
+            22,
+            22
+          ],
+          "bbox_local_1x": [
+            6,
+            9,
+            24,
+            26
+          ],
+          "source_rect_raw": [
+            362,
+            0,
+            724,
+            724
+          ],
+          "normalization_rect_raw": [
+            12,
+            198,
+            350,
+            552
+          ],
+          "preview_ms": 100
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "phase": 3,
+          "cell_rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "rect": [
+            552,
+            40,
+            176,
+            176
+          ],
+          "rect_1x": [
+            69,
+            5,
+            22,
+            22
+          ],
+          "bbox_local_1x": [
+            5,
+            5,
+            26,
+            27
+          ],
+          "source_rect_raw": [
+            724,
+            0,
+            1086,
+            724
+          ],
+          "normalization_rect_raw": [
+            12,
+            198,
+            350,
+            552
+          ],
+          "preview_ms": 100
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "phase": 4,
+          "cell_rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "rect": [
+            808,
+            40,
+            176,
+            176
+          ],
+          "rect_1x": [
+            101,
+            5,
+            22,
+            22
+          ],
+          "bbox_local_1x": [
+            6,
+            7,
+            27,
+            26
+          ],
+          "source_rect_raw": [
+            1086,
+            0,
+            1448,
+            724
+          ],
+          "normalization_rect_raw": [
+            12,
+            198,
+            350,
+            552
+          ],
+          "preview_ms": 100
+        },
+        {
+          "index": 4,
+          "row": 0,
+          "column": 4,
+          "phase": 5,
+          "cell_rect": [
+            1024,
+            0,
+            256,
+            256
+          ],
+          "rect": [
+            1064,
+            40,
+            176,
+            176
+          ],
+          "rect_1x": [
+            133,
+            5,
+            22,
+            22
+          ],
+          "bbox_local_1x": [
+            7,
+            8,
+            26,
+            27
+          ],
+          "source_rect_raw": [
+            1448,
+            0,
+            1810,
+            724
+          ],
+          "normalization_rect_raw": [
+            12,
+            198,
+            350,
+            552
+          ],
+          "preview_ms": 100
+        },
+        {
+          "index": 5,
+          "row": 0,
+          "column": 5,
+          "phase": 6,
+          "cell_rect": [
+            1280,
+            0,
+            256,
+            256
+          ],
+          "rect": [
+            1320,
+            40,
+            176,
+            176
+          ],
+          "rect_1x": [
+            165,
+            5,
+            22,
+            22
+          ],
+          "bbox_local_1x": [
+            10,
+            13,
+            22,
+            24
+          ],
+          "source_rect_raw": [
+            1810,
+            0,
+            2172,
+            724
+          ],
+          "normalization_rect_raw": [
+            12,
+            198,
+            350,
+            552
+          ],
+          "preview_ms": 100
+        }
+      ],
+      "generation_prompt_number": 2
+    },
+    {
+      "name": "q_hit",
+      "file": "fizz_fx_q_hit.png",
+      "file_1x": "logical/fizz_fx_q_hit_1x.png",
+      "frame_count": 5,
+      "layout": [
+        5,
+        1
+      ],
+      "cell_px": [
+        256,
+        256
+      ],
+      "size_px": [
+        1280,
+        256
+      ],
+      "logical_cell": [
+        32,
+        32
+      ],
+      "scale": 8,
+      "game_size": [
+        20,
+        20
+      ],
+      "loop": false,
+      "ground": false,
+      "palette": [
+        "#FFFFFF",
+        "#D8F8FF",
+        "#8CE6FF",
+        "#3CC0F0",
+        "#1A84D0",
+        "#0E4A94"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "phase": 1,
+          "cell_rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "rect": [
+            48,
+            48,
+            160,
+            160
+          ],
+          "rect_1x": [
+            6,
+            6,
+            20,
+            20
+          ],
+          "bbox_local_1x": [
+            13,
+            13,
+            26,
+            21
+          ],
+          "source_rect_raw": [
+            0,
+            0,
+            397,
+            793
+          ],
+          "normalization_rect_raw": [
+            0,
+            241,
+            397,
+            577
+          ],
+          "preview_ms": 100
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "phase": 2,
+          "cell_rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "rect": [
+            304,
+            48,
+            160,
+            160
+          ],
+          "rect_1x": [
+            38,
+            6,
+            20,
+            20
+          ],
+          "bbox_local_1x": [
+            6,
+            10,
+            25,
+            22
+          ],
+          "source_rect_raw": [
+            397,
+            0,
+            793,
+            793
+          ],
+          "normalization_rect_raw": [
+            0,
+            241,
+            397,
+            577
+          ],
+          "preview_ms": 100
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "phase": 3,
+          "cell_rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "rect": [
+            560,
+            48,
+            160,
+            160
+          ],
+          "rect_1x": [
+            70,
+            6,
+            20,
+            20
+          ],
+          "bbox_local_1x": [
+            8,
+            6,
+            26,
+            26
+          ],
+          "source_rect_raw": [
+            793,
+            0,
+            1190,
+            793
+          ],
+          "normalization_rect_raw": [
+            0,
+            241,
+            397,
+            577
+          ],
+          "preview_ms": 100
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "phase": 4,
+          "cell_rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "rect": [
+            816,
+            48,
+            160,
+            160
+          ],
+          "rect_1x": [
+            102,
+            6,
+            20,
+            20
+          ],
+          "bbox_local_1x": [
+            10,
+            8,
+            24,
+            25
+          ],
+          "source_rect_raw": [
+            1190,
+            0,
+            1586,
+            793
+          ],
+          "normalization_rect_raw": [
+            0,
+            241,
+            397,
+            577
+          ],
+          "preview_ms": 100
+        },
+        {
+          "index": 4,
+          "row": 0,
+          "column": 4,
+          "phase": 5,
+          "cell_rect": [
+            1024,
+            0,
+            256,
+            256
+          ],
+          "rect": [
+            1072,
+            48,
+            160,
+            160
+          ],
+          "rect_1x": [
+            134,
+            6,
+            20,
+            20
+          ],
+          "bbox_local_1x": [
+            11,
+            13,
+            23,
+            21
+          ],
+          "source_rect_raw": [
+            1586,
+            0,
+            1983,
+            793
+          ],
+          "normalization_rect_raw": [
+            0,
+            241,
+            397,
+            577
+          ],
+          "preview_ms": 100
+        }
+      ],
+      "generation_prompt_number": 3
+    },
+    {
+      "name": "q_dash",
+      "file": "fizz_fx_q_dash.png",
+      "file_1x": "logical/fizz_fx_q_dash_1x.png",
+      "frame_count": 5,
+      "layout": [
+        5,
+        1
+      ],
+      "cell_px": [
+        512,
+        192
+      ],
+      "size_px": [
+        2560,
+        192
+      ],
+      "logical_cell": [
+        32,
+        12
+      ],
+      "scale": 16,
+      "game_size": [
+        32,
+        12
+      ],
+      "loop": false,
+      "ground": true,
+      "palette": [
+        "#FFFFFF",
+        "#D8F8FF",
+        "#8CE6FF",
+        "#3CC0F0",
+        "#1A84D0",
+        "#0E4A94"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "phase": 1,
+          "cell_rect": [
+            0,
+            0,
+            512,
+            192
+          ],
+          "rect": [
+            0,
+            0,
+            512,
+            192
+          ],
+          "rect_1x": [
+            0,
+            0,
+            32,
+            12
+          ],
+          "bbox_local_1x": [
+            5,
+            1,
+            20,
+            11
+          ],
+          "source_rect_raw": [
+            0,
+            0,
+            397,
+            793
+          ],
+          "normalization_rect_raw": [
+            15,
+            372,
+            382,
+            492
+          ],
+          "preview_ms": 100
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "phase": 2,
+          "cell_rect": [
+            512,
+            0,
+            512,
+            192
+          ],
+          "rect": [
+            512,
+            0,
+            512,
+            192
+          ],
+          "rect_1x": [
+            32,
+            0,
+            32,
+            12
+          ],
+          "bbox_local_1x": [
+            1,
+            2,
+            31,
+            11
+          ],
+          "source_rect_raw": [
+            397,
+            0,
+            793,
+            793
+          ],
+          "normalization_rect_raw": [
+            15,
+            372,
+            382,
+            492
+          ],
+          "preview_ms": 100
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "phase": 3,
+          "cell_rect": [
+            1024,
+            0,
+            512,
+            192
+          ],
+          "rect": [
+            1024,
+            0,
+            512,
+            192
+          ],
+          "rect_1x": [
+            64,
+            0,
+            32,
+            12
+          ],
+          "bbox_local_1x": [
+            0,
+            0,
+            32,
+            11
+          ],
+          "source_rect_raw": [
+            793,
+            0,
+            1190,
+            793
+          ],
+          "normalization_rect_raw": [
+            15,
+            372,
+            382,
+            492
+          ],
+          "preview_ms": 100
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "phase": 4,
+          "cell_rect": [
+            1536,
+            0,
+            512,
+            192
+          ],
+          "rect": [
+            1536,
+            0,
+            512,
+            192
+          ],
+          "rect_1x": [
+            96,
+            0,
+            32,
+            12
+          ],
+          "bbox_local_1x": [
+            2,
+            3,
+            23,
+            11
+          ],
+          "source_rect_raw": [
+            1190,
+            0,
+            1586,
+            793
+          ],
+          "normalization_rect_raw": [
+            15,
+            372,
+            382,
+            492
+          ],
+          "preview_ms": 100
+        },
+        {
+          "index": 4,
+          "row": 0,
+          "column": 4,
+          "phase": 5,
+          "cell_rect": [
+            2048,
+            0,
+            512,
+            192
+          ],
+          "rect": [
+            2048,
+            0,
+            512,
+            192
+          ],
+          "rect_1x": [
+            128,
+            0,
+            32,
+            12
+          ],
+          "bbox_local_1x": [
+            0,
+            5,
+            14,
+            12
+          ],
+          "source_rect_raw": [
+            1586,
+            0,
+            1983,
+            793
+          ],
+          "normalization_rect_raw": [
+            15,
+            372,
+            382,
+            492
+          ],
+          "preview_ms": 100
+        }
+      ],
+      "generation_prompt_number": 4
+    },
+    {
+      "name": "e_up",
+      "file": "fizz_fx_e_up.png",
+      "file_1x": "logical/fizz_fx_e_up_1x.png",
+      "frame_count": 5,
+      "layout": [
+        5,
+        1
+      ],
+      "cell_px": [
+        768,
+        384
+      ],
+      "size_px": [
+        3840,
+        384
+      ],
+      "logical_cell": [
+        24,
+        12
+      ],
+      "scale": 32,
+      "game_size": [
+        24,
+        12
+      ],
+      "loop": false,
+      "ground": true,
+      "palette": [
+        "#FFFFFF",
+        "#D8F8FF",
+        "#8CE6FF",
+        "#3CC0F0",
+        "#1A84D0",
+        "#0E4A94"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "phase": 1,
+          "cell_rect": [
+            0,
+            0,
+            768,
+            384
+          ],
+          "rect": [
+            0,
+            0,
+            768,
+            384
+          ],
+          "rect_1x": [
+            0,
+            0,
+            24,
+            12
+          ],
+          "bbox_local_1x": [
+            4,
+            4,
+            20,
+            12
+          ],
+          "source_rect_raw": [
+            0,
+            0,
+            397,
+            793
+          ],
+          "normalization_rect_raw": [
+            28,
+            322,
+            363,
+            677
+          ],
+          "preview_ms": 100
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "phase": 2,
+          "cell_rect": [
+            768,
+            0,
+            768,
+            384
+          ],
+          "rect": [
+            768,
+            0,
+            768,
+            384
+          ],
+          "rect_1x": [
+            24,
+            0,
+            24,
+            12
+          ],
+          "bbox_local_1x": [
+            4,
+            3,
+            21,
+            12
+          ],
+          "source_rect_raw": [
+            397,
+            0,
+            793,
+            793
+          ],
+          "normalization_rect_raw": [
+            28,
+            322,
+            363,
+            677
+          ],
+          "preview_ms": 100
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "phase": 3,
+          "cell_rect": [
+            1536,
+            0,
+            768,
+            384
+          ],
+          "rect": [
+            1536,
+            0,
+            768,
+            384
+          ],
+          "rect_1x": [
+            48,
+            0,
+            24,
+            12
+          ],
+          "bbox_local_1x": [
+            2,
+            0,
+            21,
+            12
+          ],
+          "source_rect_raw": [
+            793,
+            0,
+            1190,
+            793
+          ],
+          "normalization_rect_raw": [
+            28,
+            322,
+            363,
+            677
+          ],
+          "preview_ms": 100
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "phase": 4,
+          "cell_rect": [
+            2304,
+            0,
+            768,
+            384
+          ],
+          "rect": [
+            2304,
+            0,
+            768,
+            384
+          ],
+          "rect_1x": [
+            72,
+            0,
+            24,
+            12
+          ],
+          "bbox_local_1x": [
+            4,
+            3,
+            21,
+            12
+          ],
+          "source_rect_raw": [
+            1190,
+            0,
+            1586,
+            793
+          ],
+          "normalization_rect_raw": [
+            28,
+            322,
+            363,
+            677
+          ],
+          "preview_ms": 100
+        },
+        {
+          "index": 4,
+          "row": 0,
+          "column": 4,
+          "phase": 5,
+          "cell_rect": [
+            3072,
+            0,
+            768,
+            384
+          ],
+          "rect": [
+            3072,
+            0,
+            768,
+            384
+          ],
+          "rect_1x": [
+            96,
+            0,
+            24,
+            12
+          ],
+          "bbox_local_1x": [
+            4,
+            4,
+            20,
+            12
+          ],
+          "source_rect_raw": [
+            1586,
+            0,
+            1983,
+            793
+          ],
+          "normalization_rect_raw": [
+            28,
+            322,
+            363,
+            677
+          ],
+          "preview_ms": 100
+        }
+      ],
+      "generation_prompt_number": 5
+    },
+    {
+      "name": "e_slam",
+      "file": "fizz_fx_e_slam.png",
+      "file_1x": "logical/fizz_fx_e_slam_1x.png",
+      "frame_count": 7,
+      "layout": [
+        7,
+        1
+      ],
+      "cell_px": [
+        512,
+        320
+      ],
+      "size_px": [
+        3584,
+        320
+      ],
+      "logical_cell": [
+        64,
+        40
+      ],
+      "scale": 8,
+      "game_size": [
+        64,
+        40
+      ],
+      "loop": false,
+      "ground": true,
+      "palette": [
+        "#FFFFFF",
+        "#D8F8FF",
+        "#8CE6FF",
+        "#3CC0F0",
+        "#1A84D0",
+        "#0E4A94"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "phase": 1,
+          "cell_rect": [
+            0,
+            0,
+            512,
+            320
+          ],
+          "rect": [
+            0,
+            0,
+            512,
+            320
+          ],
+          "rect_1x": [
+            0,
+            0,
+            64,
+            40
+          ],
+          "bbox_local_1x": [
+            9,
+            28,
+            54,
+            39
+          ],
+          "source_rect_raw": [
+            0,
+            0,
+            300,
+            749
+          ],
+          "normalization_rect_raw": [
+            12,
+            247,
+            290,
+            525
+          ],
+          "preview_ms": 100
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "phase": 2,
+          "cell_rect": [
+            512,
+            0,
+            512,
+            320
+          ],
+          "rect": [
+            512,
+            0,
+            512,
+            320
+          ],
+          "rect_1x": [
+            64,
+            0,
+            64,
+            40
+          ],
+          "bbox_local_1x": [
+            0,
+            8,
+            62,
+            39
+          ],
+          "source_rect_raw": [
+            300,
+            0,
+            599,
+            749
+          ],
+          "normalization_rect_raw": [
+            12,
+            247,
+            290,
+            525
+          ],
+          "preview_ms": 100
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "phase": 3,
+          "cell_rect": [
+            1024,
+            0,
+            512,
+            320
+          ],
+          "rect": [
+            1024,
+            0,
+            512,
+            320
+          ],
+          "rect_1x": [
+            128,
+            0,
+            64,
+            40
+          ],
+          "bbox_local_1x": [
+            2,
+            0,
+            64,
+            39
+          ],
+          "source_rect_raw": [
+            599,
+            0,
+            899,
+            749
+          ],
+          "normalization_rect_raw": [
+            12,
+            247,
+            290,
+            525
+          ],
+          "preview_ms": 100
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "phase": 4,
+          "cell_rect": [
+            1536,
+            0,
+            512,
+            320
+          ],
+          "rect": [
+            1536,
+            0,
+            512,
+            320
+          ],
+          "rect_1x": [
+            192,
+            0,
+            64,
+            40
+          ],
+          "bbox_local_1x": [
+            2,
+            6,
+            62,
+            39
+          ],
+          "source_rect_raw": [
+            899,
+            0,
+            1199,
+            749
+          ],
+          "normalization_rect_raw": [
+            12,
+            247,
+            290,
+            525
+          ],
+          "preview_ms": 100
+        },
+        {
+          "index": 4,
+          "row": 0,
+          "column": 4,
+          "phase": 5,
+          "cell_rect": [
+            2048,
+            0,
+            512,
+            320
+          ],
+          "rect": [
+            2048,
+            0,
+            512,
+            320
+          ],
+          "rect_1x": [
+            256,
+            0,
+            64,
+            40
+          ],
+          "bbox_local_1x": [
+            2,
+            8,
+            62,
+            39
+          ],
+          "source_rect_raw": [
+            1199,
+            0,
+            1499,
+            749
+          ],
+          "normalization_rect_raw": [
+            12,
+            247,
+            290,
+            525
+          ],
+          "preview_ms": 100
+        },
+        {
+          "index": 5,
+          "row": 0,
+          "column": 5,
+          "phase": 6,
+          "cell_rect": [
+            2560,
+            0,
+            512,
+            320
+          ],
+          "rect": [
+            2560,
+            0,
+            512,
+            320
+          ],
+          "rect_1x": [
+            320,
+            0,
+            64,
+            40
+          ],
+          "bbox_local_1x": [
+            2,
+            8,
+            62,
+            38
+          ],
+          "source_rect_raw": [
+            1499,
+            0,
+            1798,
+            749
+          ],
+          "normalization_rect_raw": [
+            12,
+            247,
+            290,
+            525
+          ],
+          "preview_ms": 100
+        },
+        {
+          "index": 6,
+          "row": 0,
+          "column": 6,
+          "phase": 7,
+          "cell_rect": [
+            3072,
+            0,
+            512,
+            320
+          ],
+          "rect": [
+            3072,
+            0,
+            512,
+            320
+          ],
+          "rect_1x": [
+            384,
+            0,
+            64,
+            40
+          ],
+          "bbox_local_1x": [
+            2,
+            8,
+            62,
+            38
+          ],
+          "source_rect_raw": [
+            1798,
+            0,
+            2098,
+            749
+          ],
+          "normalization_rect_raw": [
+            12,
+            247,
+            290,
+            525
+          ],
+          "preview_ms": 100
+        }
+      ],
+      "generation_prompt_number": 6
+    },
+    {
+      "name": "e_slow",
+      "file": "fizz_fx_e_slow.png",
+      "file_1x": "logical/fizz_fx_e_slow_1x.png",
+      "frame_count": 6,
+      "layout": [
+        6,
+        1
+      ],
+      "cell_px": [
+        320,
+        384
+      ],
+      "size_px": [
+        1920,
+        384
+      ],
+      "logical_cell": [
+        20,
+        24
+      ],
+      "scale": 16,
+      "game_size": [
+        18,
+        20
+      ],
+      "loop": false,
+      "ground": true,
+      "palette": [
+        "#FFFFFF",
+        "#D8F8FF",
+        "#8CE6FF",
+        "#3CC0F0",
+        "#1A84D0",
+        "#0E4A94"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "phase": 1,
+          "cell_rect": [
+            0,
+            0,
+            320,
+            384
+          ],
+          "rect": [
+            16,
+            64,
+            288,
+            320
+          ],
+          "rect_1x": [
+            1,
+            4,
+            18,
+            20
+          ],
+          "bbox_local_1x": [
+            2,
+            14,
+            18,
+            23
+          ],
+          "source_rect_raw": [
+            0,
+            0,
+            362,
+            724
+          ],
+          "normalization_rect_raw": [
+            28,
+            322,
+            335,
+            623
+          ],
+          "preview_ms": 100
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "phase": 2,
+          "cell_rect": [
+            320,
+            0,
+            320,
+            384
+          ],
+          "rect": [
+            336,
+            64,
+            288,
+            320
+          ],
+          "rect_1x": [
+            21,
+            4,
+            18,
+            20
+          ],
+          "bbox_local_1x": [
+            2,
+            5,
+            18,
+            24
+          ],
+          "source_rect_raw": [
+            362,
+            0,
+            724,
+            724
+          ],
+          "normalization_rect_raw": [
+            28,
+            322,
+            335,
+            623
+          ],
+          "preview_ms": 100
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "phase": 3,
+          "cell_rect": [
+            640,
+            0,
+            320,
+            384
+          ],
+          "rect": [
+            656,
+            64,
+            288,
+            320
+          ],
+          "rect_1x": [
+            41,
+            4,
+            18,
+            20
+          ],
+          "bbox_local_1x": [
+            1,
+            4,
+            19,
+            24
+          ],
+          "source_rect_raw": [
+            724,
+            0,
+            1086,
+            724
+          ],
+          "normalization_rect_raw": [
+            28,
+            322,
+            335,
+            623
+          ],
+          "preview_ms": 100
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "phase": 4,
+          "cell_rect": [
+            960,
+            0,
+            320,
+            384
+          ],
+          "rect": [
+            976,
+            64,
+            288,
+            320
+          ],
+          "rect_1x": [
+            61,
+            4,
+            18,
+            20
+          ],
+          "bbox_local_1x": [
+            1,
+            7,
+            19,
+            24
+          ],
+          "source_rect_raw": [
+            1086,
+            0,
+            1448,
+            724
+          ],
+          "normalization_rect_raw": [
+            28,
+            322,
+            335,
+            623
+          ],
+          "preview_ms": 100
+        },
+        {
+          "index": 4,
+          "row": 0,
+          "column": 4,
+          "phase": 5,
+          "cell_rect": [
+            1280,
+            0,
+            320,
+            384
+          ],
+          "rect": [
+            1296,
+            64,
+            288,
+            320
+          ],
+          "rect_1x": [
+            81,
+            4,
+            18,
+            20
+          ],
+          "bbox_local_1x": [
+            2,
+            8,
+            18,
+            24
+          ],
+          "source_rect_raw": [
+            1448,
+            0,
+            1810,
+            724
+          ],
+          "normalization_rect_raw": [
+            28,
+            322,
+            335,
+            623
+          ],
+          "preview_ms": 100
+        },
+        {
+          "index": 5,
+          "row": 0,
+          "column": 5,
+          "phase": 6,
+          "cell_rect": [
+            1600,
+            0,
+            320,
+            384
+          ],
+          "rect": [
+            1616,
+            64,
+            288,
+            320
+          ],
+          "rect_1x": [
+            101,
+            4,
+            18,
+            20
+          ],
+          "bbox_local_1x": [
+            4,
+            14,
+            14,
+            23
+          ],
+          "source_rect_raw": [
+            1810,
+            0,
+            2172,
+            724
+          ],
+          "normalization_rect_raw": [
+            28,
+            322,
+            335,
+            623
+          ],
+          "preview_ms": 100
+        }
+      ],
+      "generation_prompt_number": 7,
+      "empty_figure_rect_in_art_1x": [
+        6,
+        0,
+        6,
+        14
+      ]
+    },
+    {
+      "name": "r_fish",
+      "file": "fizz_fx_r_fish.png",
+      "file_1x": "logical/fizz_fx_r_fish_1x.png",
+      "frame_count": 4,
+      "layout": [
+        4,
+        1
+      ],
+      "cell_px": [
+        192,
+        128
+      ],
+      "size_px": [
+        768,
+        128
+      ],
+      "logical_cell": [
+        24,
+        16
+      ],
+      "scale": 8,
+      "game_size": [
+        14,
+        10
+      ],
+      "loop": true,
+      "ground": false,
+      "palette": [
+        "#FFFFFF",
+        "#D8F8FF",
+        "#8CE6FF",
+        "#3CC0F0",
+        "#1A84D0",
+        "#0E4A94",
+        "#FFF4E0",
+        "#FFC878",
+        "#FF8C34",
+        "#D85A18",
+        "#8C3412"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "phase": 1,
+          "cell_rect": [
+            0,
+            0,
+            192,
+            128
+          ],
+          "rect": [
+            40,
+            24,
+            112,
+            80
+          ],
+          "rect_1x": [
+            5,
+            3,
+            14,
+            10
+          ],
+          "bbox_local_1x": [
+            5,
+            3,
+            19,
+            13
+          ],
+          "source_rect_raw": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "normalization_rect_raw": [
+            63,
+            239,
+            453,
+            480
+          ],
+          "preview_ms": 100
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "phase": 2,
+          "cell_rect": [
+            192,
+            0,
+            192,
+            128
+          ],
+          "rect": [
+            232,
+            24,
+            112,
+            80
+          ],
+          "rect_1x": [
+            29,
+            3,
+            14,
+            10
+          ],
+          "bbox_local_1x": [
+            6,
+            3,
+            19,
+            13
+          ],
+          "source_rect_raw": [
+            543,
+            0,
+            1086,
+            724
+          ],
+          "normalization_rect_raw": [
+            63,
+            239,
+            453,
+            480
+          ],
+          "preview_ms": 100
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "phase": 3,
+          "cell_rect": [
+            384,
+            0,
+            192,
+            128
+          ],
+          "rect": [
+            424,
+            24,
+            112,
+            80
+          ],
+          "rect_1x": [
+            53,
+            3,
+            14,
+            10
+          ],
+          "bbox_local_1x": [
+            5,
+            3,
+            19,
+            13
+          ],
+          "source_rect_raw": [
+            1086,
+            0,
+            1629,
+            724
+          ],
+          "normalization_rect_raw": [
+            63,
+            239,
+            453,
+            480
+          ],
+          "preview_ms": 100
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "phase": 4,
+          "cell_rect": [
+            576,
+            0,
+            192,
+            128
+          ],
+          "rect": [
+            616,
+            24,
+            112,
+            80
+          ],
+          "rect_1x": [
+            77,
+            3,
+            14,
+            10
+          ],
+          "bbox_local_1x": [
+            6,
+            3,
+            19,
+            13
+          ],
+          "source_rect_raw": [
+            1629,
+            0,
+            2172,
+            724
+          ],
+          "normalization_rect_raw": [
+            63,
+            239,
+            453,
+            480
+          ],
+          "preview_ms": 100
+        }
+      ],
+      "generation_prompt_number": 8
+    },
+    {
+      "name": "r_stuck",
+      "file": "fizz_fx_r_stuck.png",
+      "file_1x": "logical/fizz_fx_r_stuck_1x.png",
+      "frame_count": 4,
+      "layout": [
+        4,
+        1
+      ],
+      "cell_px": [
+        256,
+        256
+      ],
+      "size_px": [
+        1024,
+        256
+      ],
+      "logical_cell": [
+        32,
+        32
+      ],
+      "scale": 8,
+      "game_size": [
+        16,
+        16
+      ],
+      "loop": true,
+      "ground": false,
+      "palette": [
+        "#FFFFFF",
+        "#D8F8FF",
+        "#8CE6FF",
+        "#3CC0F0",
+        "#1A84D0",
+        "#0E4A94",
+        "#FFF4E0",
+        "#FFC878",
+        "#FF8C34",
+        "#D85A18",
+        "#8C3412"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "phase": 1,
+          "cell_rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "rect": [
+            128,
+            64,
+            128,
+            128
+          ],
+          "rect_1x": [
+            16,
+            8,
+            16,
+            16
+          ],
+          "bbox_local_1x": [
+            22,
+            9,
+            32,
+            21
+          ],
+          "source_rect_raw": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "normalization_rect_raw": [
+            77,
+            206,
+            429,
+            574
+          ],
+          "preview_ms": 100
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "phase": 2,
+          "cell_rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "rect": [
+            384,
+            64,
+            128,
+            128
+          ],
+          "rect_1x": [
+            48,
+            8,
+            16,
+            16
+          ],
+          "bbox_local_1x": [
+            20,
+            8,
+            32,
+            21
+          ],
+          "source_rect_raw": [
+            543,
+            0,
+            1086,
+            724
+          ],
+          "normalization_rect_raw": [
+            77,
+            206,
+            429,
+            574
+          ],
+          "preview_ms": 100
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "phase": 3,
+          "cell_rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "rect": [
+            640,
+            64,
+            128,
+            128
+          ],
+          "rect_1x": [
+            80,
+            8,
+            16,
+            16
+          ],
+          "bbox_local_1x": [
+            22,
+            12,
+            32,
+            24
+          ],
+          "source_rect_raw": [
+            1086,
+            0,
+            1629,
+            724
+          ],
+          "normalization_rect_raw": [
+            77,
+            206,
+            429,
+            574
+          ],
+          "preview_ms": 100
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "phase": 4,
+          "cell_rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "rect": [
+            896,
+            64,
+            128,
+            128
+          ],
+          "rect_1x": [
+            112,
+            8,
+            16,
+            16
+          ],
+          "bbox_local_1x": [
+            21,
+            10,
+            31,
+            21
+          ],
+          "source_rect_raw": [
+            1629,
+            0,
+            2172,
+            724
+          ],
+          "normalization_rect_raw": [
+            77,
+            206,
+            429,
+            574
+          ],
+          "preview_ms": 100
+        }
+      ],
+      "generation_prompt_number": 9,
+      "suggested_offset_from_actor_center_game_px": [
+        10,
+        -14
+      ],
+      "empty_figure_rect_1x": [
+        11,
+        0,
+        9,
+        29
+      ]
+    },
+    {
+      "name": "r_ring",
+      "file": "fizz_fx_r_ring.png",
+      "file_1x": "logical/fizz_fx_r_ring_1x.png",
+      "frame_count": 4,
+      "layout": [
+        4,
+        1
+      ],
+      "cell_px": [
+        512,
+        256
+      ],
+      "size_px": [
+        2048,
+        256
+      ],
+      "logical_cell": [
+        64,
+        32
+      ],
+      "scale": 8,
+      "game_size": [
+        48,
+        24
+      ],
+      "loop": true,
+      "ground": true,
+      "palette": [
+        "#FFFFFF",
+        "#D8F8FF",
+        "#8CE6FF",
+        "#3CC0F0",
+        "#1A84D0",
+        "#0E4A94",
+        "#F0F6FA",
+        "#B4CCDC",
+        "#6E90AC",
+        "#3E5C7C",
+        "#22344C",
+        "#121C2C"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "phase": 1,
+          "cell_rect": [
+            0,
+            0,
+            512,
+            256
+          ],
+          "rect": [
+            64,
+            32,
+            384,
+            192
+          ],
+          "rect_1x": [
+            8,
+            4,
+            48,
+            24
+          ],
+          "bbox_local_1x": [
+            9,
+            5,
+            55,
+            27
+          ],
+          "source_rect_raw": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "normalization_rect_raw": [
+            26,
+            220,
+            524,
+            503
+          ],
+          "preview_ms": 100
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "phase": 2,
+          "cell_rect": [
+            512,
+            0,
+            512,
+            256
+          ],
+          "rect": [
+            576,
+            32,
+            384,
+            192
+          ],
+          "rect_1x": [
+            72,
+            4,
+            48,
+            24
+          ],
+          "bbox_local_1x": [
+            9,
+            5,
+            55,
+            27
+          ],
+          "source_rect_raw": [
+            543,
+            0,
+            1086,
+            724
+          ],
+          "normalization_rect_raw": [
+            26,
+            220,
+            524,
+            503
+          ],
+          "preview_ms": 100
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "phase": 3,
+          "cell_rect": [
+            1024,
+            0,
+            512,
+            256
+          ],
+          "rect": [
+            1088,
+            32,
+            384,
+            192
+          ],
+          "rect_1x": [
+            136,
+            4,
+            48,
+            24
+          ],
+          "bbox_local_1x": [
+            9,
+            5,
+            55,
+            27
+          ],
+          "source_rect_raw": [
+            1086,
+            0,
+            1629,
+            724
+          ],
+          "normalization_rect_raw": [
+            26,
+            220,
+            524,
+            503
+          ],
+          "preview_ms": 100
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "phase": 4,
+          "cell_rect": [
+            1536,
+            0,
+            512,
+            256
+          ],
+          "rect": [
+            1600,
+            32,
+            384,
+            192
+          ],
+          "rect_1x": [
+            200,
+            4,
+            48,
+            24
+          ],
+          "bbox_local_1x": [
+            9,
+            5,
+            55,
+            27
+          ],
+          "source_rect_raw": [
+            1629,
+            0,
+            2172,
+            724
+          ],
+          "normalization_rect_raw": [
+            26,
+            220,
+            524,
+            503
+          ],
+          "preview_ms": 100
+        }
+      ],
+      "generation_prompt_number": 10
+    },
+    {
+      "name": "r_fish_ground",
+      "file": "fizz_fx_r_fish_ground.png",
+      "file_1x": "logical/fizz_fx_r_fish_ground_1x.png",
+      "frame_count": 4,
+      "layout": [
+        4,
+        1
+      ],
+      "cell_px": [
+        192,
+        128
+      ],
+      "size_px": [
+        768,
+        128
+      ],
+      "logical_cell": [
+        24,
+        16
+      ],
+      "scale": 8,
+      "game_size": [
+        16,
+        10
+      ],
+      "loop": true,
+      "ground": true,
+      "palette": [
+        "#FFFFFF",
+        "#D8F8FF",
+        "#8CE6FF",
+        "#3CC0F0",
+        "#1A84D0",
+        "#0E4A94",
+        "#FFF4E0",
+        "#FFC878",
+        "#FF8C34",
+        "#D85A18",
+        "#8C3412"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "phase": 1,
+          "cell_rect": [
+            0,
+            0,
+            192,
+            128
+          ],
+          "rect": [
+            32,
+            48,
+            128,
+            80
+          ],
+          "rect_1x": [
+            4,
+            6,
+            16,
+            10
+          ],
+          "bbox_local_1x": [
+            6,
+            11,
+            20,
+            16
+          ],
+          "source_rect_raw": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "normalization_rect_raw": [
+            38,
+            255,
+            501,
+            568
+          ],
+          "preview_ms": 100
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "phase": 2,
+          "cell_rect": [
+            192,
+            0,
+            192,
+            128
+          ],
+          "rect": [
+            224,
+            48,
+            128,
+            80
+          ],
+          "rect_1x": [
+            28,
+            6,
+            16,
+            10
+          ],
+          "bbox_local_1x": [
+            5,
+            6,
+            20,
+            16
+          ],
+          "source_rect_raw": [
+            543,
+            0,
+            1086,
+            724
+          ],
+          "normalization_rect_raw": [
+            38,
+            255,
+            501,
+            568
+          ],
+          "preview_ms": 100
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "phase": 3,
+          "cell_rect": [
+            384,
+            0,
+            192,
+            128
+          ],
+          "rect": [
+            416,
+            48,
+            128,
+            80
+          ],
+          "rect_1x": [
+            52,
+            6,
+            16,
+            10
+          ],
+          "bbox_local_1x": [
+            5,
+            6,
+            18,
+            16
+          ],
+          "source_rect_raw": [
+            1086,
+            0,
+            1629,
+            724
+          ],
+          "normalization_rect_raw": [
+            38,
+            255,
+            501,
+            568
+          ],
+          "preview_ms": 100
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "phase": 4,
+          "cell_rect": [
+            576,
+            0,
+            192,
+            128
+          ],
+          "rect": [
+            608,
+            48,
+            128,
+            80
+          ],
+          "rect_1x": [
+            76,
+            6,
+            16,
+            10
+          ],
+          "bbox_local_1x": [
+            4,
+            12,
+            18,
+            16
+          ],
+          "source_rect_raw": [
+            1629,
+            0,
+            2172,
+            724
+          ],
+          "normalization_rect_raw": [
+            38,
+            255,
+            501,
+            568
+          ],
+          "preview_ms": 100
+        }
+      ],
+      "generation_prompt_number": 11
+    },
+    {
+      "name": "r_shark",
+      "file": "fizz_fx_r_shark.png",
+      "file_1x": "logical/fizz_fx_r_shark_1x.png",
+      "frame_count": 24,
+      "layout": [
+        8,
+        3
+      ],
+      "cell_px": [
+        576,
+        512
+      ],
+      "size_px": [
+        4608,
+        1536
+      ],
+      "logical_cell": [
+        72,
+        64
+      ],
+      "scale": 8,
+      "game_size": [
+        72,
+        64
+      ],
+      "loop": false,
+      "ground": true,
+      "palette": [
+        "#FFFFFF",
+        "#D8F8FF",
+        "#8CE6FF",
+        "#3CC0F0",
+        "#1A84D0",
+        "#0E4A94",
+        "#F0F6FA",
+        "#B4CCDC",
+        "#6E90AC",
+        "#3E5C7C",
+        "#22344C",
+        "#121C2C",
+        "#E8E0D0",
+        "#B03A48",
+        "#6A1828"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "phase": 1,
+          "cell_rect": [
+            0,
+            0,
+            576,
+            512
+          ],
+          "rect": [
+            96,
+            176,
+            384,
+            336
+          ],
+          "rect_1x": [
+            12,
+            22,
+            48,
+            42
+          ],
+          "bbox_local_1x": [
+            12,
+            40,
+            60,
+            64
+          ],
+          "source_rect_raw": [
+            0,
+            0,
+            272,
+            241
+          ],
+          "normalization_rect_raw": [
+            22,
+            47,
+            241,
+            207
+          ],
+          "preview_ms": 100,
+          "tier": "small"
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "phase": 2,
+          "cell_rect": [
+            576,
+            0,
+            576,
+            512
+          ],
+          "rect": [
+            672,
+            176,
+            384,
+            336
+          ],
+          "rect_1x": [
+            84,
+            22,
+            48,
+            42
+          ],
+          "bbox_local_1x": [
+            12,
+            40,
+            60,
+            64
+          ],
+          "source_rect_raw": [
+            272,
+            0,
+            543,
+            241
+          ],
+          "normalization_rect_raw": [
+            22,
+            47,
+            241,
+            207
+          ],
+          "preview_ms": 100,
+          "tier": "small"
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "phase": 3,
+          "cell_rect": [
+            1152,
+            0,
+            576,
+            512
+          ],
+          "rect": [
+            1248,
+            176,
+            384,
+            336
+          ],
+          "rect_1x": [
+            156,
+            22,
+            48,
+            42
+          ],
+          "bbox_local_1x": [
+            12,
+            22,
+            60,
+            64
+          ],
+          "source_rect_raw": [
+            543,
+            0,
+            814,
+            241
+          ],
+          "normalization_rect_raw": [
+            22,
+            47,
+            241,
+            207
+          ],
+          "preview_ms": 100,
+          "tier": "small"
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "phase": 4,
+          "cell_rect": [
+            1728,
+            0,
+            576,
+            512
+          ],
+          "rect": [
+            1824,
+            176,
+            384,
+            336
+          ],
+          "rect_1x": [
+            228,
+            22,
+            48,
+            42
+          ],
+          "bbox_local_1x": [
+            12,
+            26,
+            60,
+            64
+          ],
+          "source_rect_raw": [
+            814,
+            0,
+            1086,
+            241
+          ],
+          "normalization_rect_raw": [
+            22,
+            47,
+            241,
+            207
+          ],
+          "preview_ms": 100,
+          "tier": "small"
+        },
+        {
+          "index": 4,
+          "row": 0,
+          "column": 4,
+          "phase": 5,
+          "cell_rect": [
+            2304,
+            0,
+            576,
+            512
+          ],
+          "rect": [
+            2400,
+            176,
+            384,
+            336
+          ],
+          "rect_1x": [
+            300,
+            22,
+            48,
+            42
+          ],
+          "bbox_local_1x": [
+            12,
+            32,
+            60,
+            64
+          ],
+          "source_rect_raw": [
+            1086,
+            0,
+            1358,
+            241
+          ],
+          "normalization_rect_raw": [
+            22,
+            47,
+            241,
+            207
+          ],
+          "preview_ms": 100,
+          "tier": "small"
+        },
+        {
+          "index": 5,
+          "row": 0,
+          "column": 5,
+          "phase": 6,
+          "cell_rect": [
+            2880,
+            0,
+            576,
+            512
+          ],
+          "rect": [
+            2976,
+            176,
+            384,
+            336
+          ],
+          "rect_1x": [
+            372,
+            22,
+            48,
+            42
+          ],
+          "bbox_local_1x": [
+            12,
+            29,
+            60,
+            64
+          ],
+          "source_rect_raw": [
+            1358,
+            0,
+            1629,
+            241
+          ],
+          "normalization_rect_raw": [
+            22,
+            47,
+            241,
+            207
+          ],
+          "preview_ms": 100,
+          "tier": "small"
+        },
+        {
+          "index": 6,
+          "row": 0,
+          "column": 6,
+          "phase": 7,
+          "cell_rect": [
+            3456,
+            0,
+            576,
+            512
+          ],
+          "rect": [
+            3552,
+            176,
+            384,
+            336
+          ],
+          "rect_1x": [
+            444,
+            22,
+            48,
+            42
+          ],
+          "bbox_local_1x": [
+            12,
+            40,
+            60,
+            64
+          ],
+          "source_rect_raw": [
+            1629,
+            0,
+            1900,
+            241
+          ],
+          "normalization_rect_raw": [
+            22,
+            47,
+            241,
+            207
+          ],
+          "preview_ms": 100,
+          "tier": "small"
+        },
+        {
+          "index": 7,
+          "row": 0,
+          "column": 7,
+          "phase": 8,
+          "cell_rect": [
+            4032,
+            0,
+            576,
+            512
+          ],
+          "rect": [
+            4128,
+            176,
+            384,
+            336
+          ],
+          "rect_1x": [
+            516,
+            22,
+            48,
+            42
+          ],
+          "bbox_local_1x": [
+            12,
+            40,
+            60,
+            64
+          ],
+          "source_rect_raw": [
+            1900,
+            0,
+            2172,
+            241
+          ],
+          "normalization_rect_raw": [
+            22,
+            47,
+            241,
+            207
+          ],
+          "preview_ms": 100,
+          "tier": "small"
+        },
+        {
+          "index": 8,
+          "row": 1,
+          "column": 0,
+          "phase": 1,
+          "cell_rect": [
+            0,
+            512,
+            576,
+            512
+          ],
+          "rect": [
+            48,
+            600,
+            480,
+            424
+          ],
+          "rect_1x": [
+            6,
+            75,
+            60,
+            53
+          ],
+          "bbox_local_1x": [
+            6,
+            34,
+            66,
+            64
+          ],
+          "source_rect_raw": [
+            0,
+            241,
+            272,
+            483
+          ],
+          "normalization_rect_raw": [
+            21,
+            13,
+            255,
+            242
+          ],
+          "preview_ms": 100,
+          "tier": "medium"
+        },
+        {
+          "index": 9,
+          "row": 1,
+          "column": 1,
+          "phase": 2,
+          "cell_rect": [
+            576,
+            512,
+            576,
+            512
+          ],
+          "rect": [
+            624,
+            600,
+            480,
+            424
+          ],
+          "rect_1x": [
+            78,
+            75,
+            60,
+            53
+          ],
+          "bbox_local_1x": [
+            6,
+            29,
+            66,
+            64
+          ],
+          "source_rect_raw": [
+            272,
+            241,
+            543,
+            483
+          ],
+          "normalization_rect_raw": [
+            21,
+            13,
+            255,
+            242
+          ],
+          "preview_ms": 100,
+          "tier": "medium"
+        },
+        {
+          "index": 10,
+          "row": 1,
+          "column": 2,
+          "phase": 3,
+          "cell_rect": [
+            1152,
+            512,
+            576,
+            512
+          ],
+          "rect": [
+            1200,
+            600,
+            480,
+            424
+          ],
+          "rect_1x": [
+            150,
+            75,
+            60,
+            53
+          ],
+          "bbox_local_1x": [
+            6,
+            11,
+            66,
+            64
+          ],
+          "source_rect_raw": [
+            543,
+            241,
+            814,
+            483
+          ],
+          "normalization_rect_raw": [
+            21,
+            13,
+            255,
+            242
+          ],
+          "preview_ms": 100,
+          "tier": "medium"
+        },
+        {
+          "index": 11,
+          "row": 1,
+          "column": 3,
+          "phase": 4,
+          "cell_rect": [
+            1728,
+            512,
+            576,
+            512
+          ],
+          "rect": [
+            1776,
+            600,
+            480,
+            424
+          ],
+          "rect_1x": [
+            222,
+            75,
+            60,
+            53
+          ],
+          "bbox_local_1x": [
+            6,
+            15,
+            66,
+            64
+          ],
+          "source_rect_raw": [
+            814,
+            241,
+            1086,
+            483
+          ],
+          "normalization_rect_raw": [
+            21,
+            13,
+            255,
+            242
+          ],
+          "preview_ms": 100,
+          "tier": "medium"
+        },
+        {
+          "index": 12,
+          "row": 1,
+          "column": 4,
+          "phase": 5,
+          "cell_rect": [
+            2304,
+            512,
+            576,
+            512
+          ],
+          "rect": [
+            2352,
+            600,
+            480,
+            424
+          ],
+          "rect_1x": [
+            294,
+            75,
+            60,
+            53
+          ],
+          "bbox_local_1x": [
+            6,
+            23,
+            66,
+            64
+          ],
+          "source_rect_raw": [
+            1086,
+            241,
+            1358,
+            483
+          ],
+          "normalization_rect_raw": [
+            21,
+            13,
+            255,
+            242
+          ],
+          "preview_ms": 100,
+          "tier": "medium"
+        },
+        {
+          "index": 13,
+          "row": 1,
+          "column": 5,
+          "phase": 6,
+          "cell_rect": [
+            2880,
+            512,
+            576,
+            512
+          ],
+          "rect": [
+            2928,
+            600,
+            480,
+            424
+          ],
+          "rect_1x": [
+            366,
+            75,
+            60,
+            53
+          ],
+          "bbox_local_1x": [
+            6,
+            19,
+            66,
+            64
+          ],
+          "source_rect_raw": [
+            1358,
+            241,
+            1629,
+            483
+          ],
+          "normalization_rect_raw": [
+            21,
+            13,
+            255,
+            242
+          ],
+          "preview_ms": 100,
+          "tier": "medium"
+        },
+        {
+          "index": 14,
+          "row": 1,
+          "column": 6,
+          "phase": 7,
+          "cell_rect": [
+            3456,
+            512,
+            576,
+            512
+          ],
+          "rect": [
+            3504,
+            600,
+            480,
+            424
+          ],
+          "rect_1x": [
+            438,
+            75,
+            60,
+            53
+          ],
+          "bbox_local_1x": [
+            6,
+            34,
+            66,
+            64
+          ],
+          "source_rect_raw": [
+            1629,
+            241,
+            1900,
+            483
+          ],
+          "normalization_rect_raw": [
+            21,
+            13,
+            255,
+            242
+          ],
+          "preview_ms": 100,
+          "tier": "medium"
+        },
+        {
+          "index": 15,
+          "row": 1,
+          "column": 7,
+          "phase": 8,
+          "cell_rect": [
+            4032,
+            512,
+            576,
+            512
+          ],
+          "rect": [
+            4080,
+            600,
+            480,
+            424
+          ],
+          "rect_1x": [
+            510,
+            75,
+            60,
+            53
+          ],
+          "bbox_local_1x": [
+            6,
+            34,
+            66,
+            64
+          ],
+          "source_rect_raw": [
+            1900,
+            241,
+            2172,
+            483
+          ],
+          "normalization_rect_raw": [
+            21,
+            13,
+            255,
+            242
+          ],
+          "preview_ms": 100,
+          "tier": "medium"
+        },
+        {
+          "index": 16,
+          "row": 2,
+          "column": 0,
+          "phase": 1,
+          "cell_rect": [
+            0,
+            1024,
+            576,
+            512
+          ],
+          "rect": [
+            0,
+            1024,
+            576,
+            512
+          ],
+          "rect_1x": [
+            0,
+            128,
+            72,
+            64
+          ],
+          "bbox_local_1x": [
+            0,
+            28,
+            72,
+            64
+          ],
+          "source_rect_raw": [
+            0,
+            483,
+            272,
+            724
+          ],
+          "normalization_rect_raw": [
+            13,
+            0,
+            261,
+            214
+          ],
+          "preview_ms": 100,
+          "tier": "large"
+        },
+        {
+          "index": 17,
+          "row": 2,
+          "column": 1,
+          "phase": 2,
+          "cell_rect": [
+            576,
+            1024,
+            576,
+            512
+          ],
+          "rect": [
+            576,
+            1024,
+            576,
+            512
+          ],
+          "rect_1x": [
+            72,
+            128,
+            72,
+            64
+          ],
+          "bbox_local_1x": [
+            0,
+            23,
+            72,
+            64
+          ],
+          "source_rect_raw": [
+            272,
+            483,
+            543,
+            724
+          ],
+          "normalization_rect_raw": [
+            13,
+            0,
+            261,
+            214
+          ],
+          "preview_ms": 100,
+          "tier": "large"
+        },
+        {
+          "index": 18,
+          "row": 2,
+          "column": 2,
+          "phase": 3,
+          "cell_rect": [
+            1152,
+            1024,
+            576,
+            512
+          ],
+          "rect": [
+            1152,
+            1024,
+            576,
+            512
+          ],
+          "rect_1x": [
+            144,
+            128,
+            72,
+            64
+          ],
+          "bbox_local_1x": [
+            0,
+            0,
+            72,
+            64
+          ],
+          "source_rect_raw": [
+            543,
+            483,
+            814,
+            724
+          ],
+          "normalization_rect_raw": [
+            13,
+            0,
+            261,
+            214
+          ],
+          "preview_ms": 100,
+          "tier": "large"
+        },
+        {
+          "index": 19,
+          "row": 2,
+          "column": 3,
+          "phase": 4,
+          "cell_rect": [
+            1728,
+            1024,
+            576,
+            512
+          ],
+          "rect": [
+            1728,
+            1024,
+            576,
+            512
+          ],
+          "rect_1x": [
+            216,
+            128,
+            72,
+            64
+          ],
+          "bbox_local_1x": [
+            0,
+            3,
+            72,
+            64
+          ],
+          "source_rect_raw": [
+            814,
+            483,
+            1086,
+            724
+          ],
+          "normalization_rect_raw": [
+            13,
+            0,
+            261,
+            214
+          ],
+          "preview_ms": 100,
+          "tier": "large"
+        },
+        {
+          "index": 20,
+          "row": 2,
+          "column": 4,
+          "phase": 5,
+          "cell_rect": [
+            2304,
+            1024,
+            576,
+            512
+          ],
+          "rect": [
+            2304,
+            1024,
+            576,
+            512
+          ],
+          "rect_1x": [
+            288,
+            128,
+            72,
+            64
+          ],
+          "bbox_local_1x": [
+            0,
+            17,
+            72,
+            64
+          ],
+          "source_rect_raw": [
+            1086,
+            483,
+            1358,
+            724
+          ],
+          "normalization_rect_raw": [
+            13,
+            0,
+            261,
+            214
+          ],
+          "preview_ms": 100,
+          "tier": "large"
+        },
+        {
+          "index": 21,
+          "row": 2,
+          "column": 5,
+          "phase": 6,
+          "cell_rect": [
+            2880,
+            1024,
+            576,
+            512
+          ],
+          "rect": [
+            2880,
+            1024,
+            576,
+            512
+          ],
+          "rect_1x": [
+            360,
+            128,
+            72,
+            64
+          ],
+          "bbox_local_1x": [
+            0,
+            11,
+            72,
+            64
+          ],
+          "source_rect_raw": [
+            1358,
+            483,
+            1629,
+            724
+          ],
+          "normalization_rect_raw": [
+            13,
+            0,
+            261,
+            214
+          ],
+          "preview_ms": 100,
+          "tier": "large"
+        },
+        {
+          "index": 22,
+          "row": 2,
+          "column": 6,
+          "phase": 7,
+          "cell_rect": [
+            3456,
+            1024,
+            576,
+            512
+          ],
+          "rect": [
+            3456,
+            1024,
+            576,
+            512
+          ],
+          "rect_1x": [
+            432,
+            128,
+            72,
+            64
+          ],
+          "bbox_local_1x": [
+            0,
+            28,
+            72,
+            64
+          ],
+          "source_rect_raw": [
+            1629,
+            483,
+            1900,
+            724
+          ],
+          "normalization_rect_raw": [
+            13,
+            0,
+            261,
+            214
+          ],
+          "preview_ms": 100,
+          "tier": "large"
+        },
+        {
+          "index": 23,
+          "row": 2,
+          "column": 7,
+          "phase": 8,
+          "cell_rect": [
+            4032,
+            1024,
+            576,
+            512
+          ],
+          "rect": [
+            4032,
+            1024,
+            576,
+            512
+          ],
+          "rect_1x": [
+            504,
+            128,
+            72,
+            64
+          ],
+          "bbox_local_1x": [
+            0,
+            28,
+            72,
+            64
+          ],
+          "source_rect_raw": [
+            1900,
+            483,
+            2172,
+            724
+          ],
+          "normalization_rect_raw": [
+            13,
+            0,
+            261,
+            214
+          ],
+          "preview_ms": 100,
+          "tier": "large"
+        }
+      ],
+      "generation_prompt_number": 12,
+      "tiers": [
+        {
+          "name": "small",
+          "ring_width_game": 48,
+          "shark_height_approx": 36
+        },
+        {
+          "name": "medium",
+          "ring_width_game": 60,
+          "shark_height_approx": 46
+        },
+        {
+          "name": "large",
+          "ring_width_game": 72,
+          "shark_height_approx": 56
+        }
+      ]
+    }
+  ],
+  "pixel_art": "nearest-neighbor integer scale; binary alpha",
+  "preview_frame_ms": 100,
+  "preview_timing_is_not_game_timing": true,
+  "primary_sheet_count": 12,
+  "total_frames": 79
+}

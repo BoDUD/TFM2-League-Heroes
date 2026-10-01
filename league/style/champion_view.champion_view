@@ -428,6 +428,16 @@
         "y": -11
       }
     },
+    "league_fizz": {
+      "face": {
+        "x": 0,
+        "y": -31
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    },
     "league_shaco": {
       "face": {
         "x": -1,
