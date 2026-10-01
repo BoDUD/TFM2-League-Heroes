@@ -12,12 +12,13 @@ rows split at the widest empty band near each equal division, then the frames in
 of a native strip the way tools/art/import_veigar.py does it: each game pixel the majority colour of the source pixels
 it covers, opaque when a third of them are solid (alpha 100 and up), every colour snapped to the pack's 22 (fire,
 smoke, iron, brass, the bomb's red lights; the gold is the fire's and the brass's).
-One scale per strip, set by the kit (1000 distance units a pixel) and her cannon's bore (a 7-row bell): the
-cannonball 15 px long with its tail (the ball 5), the charge 12 with its fuse, Buster Shot's ball 20; the muzzle
-flashes 18 (attack), 14 (E, down and forward) and 30 (R); the hit 14, the stack spark 10, R's hit 24; the bomb on a
+One scale per strip, set by the kit (1000 distance units a pixel) and her cannon's bell (11 rows since she was cut
+to 34 rows; the sizes on her cannon went down by 0.8 with it): the cannonball 12 px long with its tail (the ball 4),
+the charge 10 with its fuse, Buster Shot's ball 16; the muzzle flashes 14 (attack), 11 (E, down and forward) and 24
+(R); the hit 14, the stack spark 10, R's hit 24; the bomb on a
 unit 13 wide with its fuse (10 was lost on a 35 px body); the explosions 48 (E, its circle 25000), 58 (four stacks)
-and 34 (a kill); W's landing 44 (its circle 22000) and R's blast 40 (20000); Rapid Fire's steam burst 16 wide and its
-wisp 12 tall; W's reset 14 tall; the stun stars 16 wide.
+and 34 (a kill); W's landing 44 (its circle 22000) and R's blast 40 (20000); Rapid Fire's steam burst 13 wide and its
+wisp 10 tall; W's reset 12 tall; the stun stars 16 wide.
 Anchors: the drafts place a drawing a little differently in each cell, so what must hold still is measured on every
 frame - the three projectiles on the iron ball's middle (their dark pixels in the front half of the drawing; the tail
 and the fuse trail behind), mirrored top to bottom into exact symmetry (the game turns them to their flight); the bomb
@@ -31,11 +32,11 @@ burst and its wisp on their first frame's spark ring and ember, the same spot in
 The bomb gets a 1-px ring round its body, orange in the dark frame and gold in the bright one (a blink with the
 light): black iron on Darius's armour showed only its brass band. No other outline.
 The second step places every cell by its anchor - the projectiles on their point, the flashes on the muzzle of her
-firing frame (attack 3, E 3, R 3: the bells end at (26, -3), (24, 6) and (25, 1) from the pivot; the projectiles'
-`y_offset` lift them to those heights), Rapid Fire's burst on the idle's bell (33, -1) as E's strip ends and its wisp
+firing frame (attack 3, E 3, R 3: the bells end at (22, 0), (20, 8) and (20, 4) from the pivot; the projectiles'
+`y_offset` put them at those heights), Rapid Fire's burst on the idle's bell (25, 2) as E's strip ends and its wisp
 on the bell's top, the hits on the upper body, the bomb and its spark on the chest, the ground pictures 11 px under
 the pivot (the soles), the stars over the head, the rocket over her goggles - and times each view by the kit: the
-projectiles start empty for the ticks they spend inside her (her pivot to the bell: 3, 4 and 3 ticks at 6000, 4500 and
+projectiles start empty for the ticks they spend inside her (her pivot to the bell: 3, 5 and 3 ticks at 6000, 4500 and
 7000 a tick), then loop, and hold their first frame after 1 s (`repeat: false`, so nothing shows over her body); the
 bomb's two frames last 10 ticks, its replay period; the stun stars last the 30-tick stun; the wisp is 1 s, played
 every second of Rapid Fire. Writes assets/source/tristana/tristana_fx_<name>.png plus tristana_fx_anchors.json, and
@@ -61,17 +62,17 @@ SRC = os.path.join(ROOT, "assets", "source", "tristana")
 MOD = os.path.join(ROOT, "league")
 Z = 8
 # her firing frames' muzzles (the bell's end, from the pivot; tools/art/import_native.py's sheet, facing right)
-MUZZLE_ATTACK = (26, -3)
-MUZZLE_E = (24, 6)
-MUZZLE_R = (25, 1)
-BELL = (33, -1)                        # the idle's bell: Rapid Fire's spark ring when E's strip ends, its steam
-STEAM = (30, -5)                       # the wisp's ember on the bell's top (it trails the bell in the shots' recoil)
+MUZZLE_ATTACK = (22, 0)
+MUZZLE_E = (20, 8)
+MUZZLE_R = (20, 4)
+BELL = (25, 2)                         # the idle's bell: Rapid Fire's spark ring when E's strip ends, its steam
+STEAM = (22, -2)                       # the wisp's ember on the bell's top (it trails the bell in the shots' recoil)
 HIT = (0, -8)                          # a hit on the upper body of a 35-41 px hero
 CHEST = (0, -8)                        # the bomb and its stack spark
 BODY = (0, -6)                         # R's hit on the middle of the body
 GROUND = (0, 11)                       # the soles: 11 px under a unit's pivot
 OVERHEAD = (0, -30)                    # over a 35-41 px hero's crown (the stun stars)
-HER_HEAD = (0, -36)                    # over her goggles (the idle's top row is -29): W's reset
+HER_HEAD = (0, -29)                    # over her goggles (the idle's top row is -22): W's reset
 # the pack's colours (PROMPTS.md): fire, smoke, iron, brass, red lights (the gold is the fire's and the brass's)
 PAL = np.array([(0xFF, 0xFF, 0xFF), (0xFF, 0xF6, 0xC8), (0xFF, 0xD8, 0x4A), (0xFF, 0x9A, 0x1F), (0xF2, 0x56, 0x1B),
                 (0xB8, 0x26, 0x0F), (0x5E, 0x12, 0x08),
@@ -86,12 +87,12 @@ PAL = np.array([(0xFF, 0xFF, 0xFF), (0xFF, 0xF6, 0xC8), (0xFF, 0xD8, 0x4A), (0xF
 # drawings keep their own motion); ("fixed", how, k): `how` measured on frame k, the same spot in every cell;
 # "mirror" for the projectiles
 RAW = {
-    "bolt": dict(n=4, grid=(4, 1), size=15, measure="w", anchor="head", mirror=True),
-    "e_charge": dict(n=4, grid=(4, 1), size=12, measure="w", anchor="head", mirror=True),
-    "r_ball": dict(n=4, grid=(2, 2), size=20, measure="w", anchor="head", mirror=True),
-    "shot": dict(n=5, grid=(3, 2), size=18, measure="w", anchor="left"),
-    "e_shot": dict(n=4, grid=(4, 1), size=14, measure="w", anchor="upleft"),
-    "r_muzzle": dict(n=6, grid=(3, 2), size=30, measure="w", anchor="left"),
+    "bolt": dict(n=4, grid=(4, 1), size=12, measure="w", anchor="head", mirror=True),
+    "e_charge": dict(n=4, grid=(4, 1), size=10, measure="w", anchor="head", mirror=True),
+    "r_ball": dict(n=4, grid=(2, 2), size=16, measure="w", anchor="head", mirror=True),
+    "shot": dict(n=5, grid=(3, 2), size=14, measure="w", anchor="left"),
+    "e_shot": dict(n=4, grid=(4, 1), size=11, measure="w", anchor="upleft"),
+    "r_muzzle": dict(n=6, grid=(3, 2), size=24, measure="w", anchor="left"),
     "hit": dict(n=5, grid=(5, 1), size=14, measure="w", anchor=("hint",)),
     "e_stack": dict(n=3, grid=(3, 1), size=10, measure="w", anchor=("hint",)),
     "r_hit": dict(n=6, grid=(3, 2), size=24, measure="w", anchor=("hint",)),
@@ -101,9 +102,9 @@ RAW = {
     "p_boom": dict(n=6, grid=(3, 2), size=34, measure="w", anchor=("ground", 1)),
     "w_land": dict(n=6, grid=(3, 2), size=44, measure="w", anchor=("ground", 2)),
     "r_blast": dict(n=6, grid=(3, 2), size=40, measure="w", anchor=("ground", 2)),
-    "q_cast": dict(n=5, grid=(3, 2), size=16, measure="w", anchor=("fixed", "centre", 0)),
-    "q_rapid": dict(n=4, grid=(4, 1), size=12, measure="h", anchor=("fixed", "lowest", 0)),
-    "w_ready": dict(n=5, grid=(5, 1), size=14, measure="h", anchor=("hint",)),
+    "q_cast": dict(n=5, grid=(3, 2), size=13, measure="w", anchor=("fixed", "centre", 0)),
+    "q_rapid": dict(n=4, grid=(4, 1), size=10, measure="h", anchor=("fixed", "lowest", 0)),
+    "w_ready": dict(n=5, grid=(5, 1), size=12, measure="h", anchor=("hint",)),
     "r_stun": dict(n=4, grid=(4, 1), size=16, measure="w", anchor=("hint",)),
 }
 
@@ -352,7 +353,7 @@ STARS = [0, 1, 2, 3]                    # the stun (30 ticks): the loop once, 12
 FX = {
     "league_tristana_fx": {
         "bolt": [("bolt", flight(50), (0, 0))],
-        "e_charge": [("e_charge", flight(67), (0, 0))],
+        "e_charge": [("e_charge", flight(80), (0, 0))],
         "r_ball": [("r_ball", flight(50), (0, 0))],
         "shot": [("shot", seq(range(5), [40, 40, 50, 60, 60]), MUZZLE_ATTACK)],
         "e_shot": [("e_shot", seq(range(4), [50] * 4), MUZZLE_E)],

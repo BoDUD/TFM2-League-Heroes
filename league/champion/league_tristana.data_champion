@@ -85,7 +85,7 @@
           "type": "TargetProjectile",
           "name": "league_tristana_bolt",
           "speed": 6000,
-          "y_offset": 2000,
+          "y_offset": 5000,
           "applied_target": "Enemy",
           "applied_effects": [
             {
@@ -300,7 +300,7 @@
           "type": "TargetProjectile",
           "name": "league_tristana_bolt_twin",
           "speed": 6000,
-          "y_offset": 2000,
+          "y_offset": 5000,
           "applied_target": "EnemyChampion",
           "applied_effects": [
             {
@@ -308,7 +308,7 @@
               "effect": {
                 "type": "AddCasterBuff",
                 "buff_state": {
-                  "name": "league_tristana_kc",
+                  "name": "league_tristana_kc_a",
                   "duration": {
                     "Time": {
                       "tick": 7
@@ -328,7 +328,7 @@
                 "effects": [
                   {
                     "type": "RemoveCasterBuff",
-                    "name": "league_tristana_kc"
+                    "name": "league_tristana_kc_a"
                   }
                 ]
               }
@@ -344,13 +344,13 @@
                     "effects": [
                       {
                         "type": "SwitchByBuff",
-                        "buff_name": "league_tristana_kc",
+                        "buff_name": "league_tristana_kc_a",
                         "effect_buff": {
                           "type": "Combine",
                           "effects": [
                             {
                               "type": "RemoveCasterBuff",
-                              "name": "league_tristana_kc"
+                              "name": "league_tristana_kc_a"
                             },
                             {
                               "type": "SwitchByBuff",
@@ -663,7 +663,7 @@
                                         {
                                           "type": "AddCasterBuff",
                                           "buff_state": {
-                                            "name": "league_tristana_kc",
+                                            "name": "league_tristana_kc_w",
                                             "duration": {
                                               "Time": {
                                                 "tick": 7
@@ -680,7 +680,7 @@
                                           "effects": [
                                             {
                                               "type": "RemoveCasterBuff",
-                                              "name": "league_tristana_kc"
+                                              "name": "league_tristana_kc_w"
                                             }
                                           ]
                                         },
@@ -693,13 +693,13 @@
                                               "effects": [
                                                 {
                                                   "type": "SwitchByBuff",
-                                                  "buff_name": "league_tristana_kc",
+                                                  "buff_name": "league_tristana_kc_w",
                                                   "effect_buff": {
                                                     "type": "Combine",
                                                     "effects": [
                                                       {
                                                         "type": "RemoveCasterBuff",
-                                                        "name": "league_tristana_kc"
+                                                        "name": "league_tristana_kc_w"
                                                       },
                                                       {
                                                         "type": "SwitchByBuff",
@@ -1003,7 +1003,7 @@
                                           {
                                             "type": "AddCasterBuff",
                                             "buff_state": {
-                                              "name": "league_tristana_kc",
+                                              "name": "league_tristana_kc_w",
                                               "duration": {
                                                 "Time": {
                                                   "tick": 7
@@ -1020,7 +1020,7 @@
                                             "effects": [
                                               {
                                                 "type": "RemoveCasterBuff",
-                                                "name": "league_tristana_kc"
+                                                "name": "league_tristana_kc_w"
                                               }
                                             ]
                                           },
@@ -1033,13 +1033,13 @@
                                                 "effects": [
                                                   {
                                                     "type": "SwitchByBuff",
-                                                    "buff_name": "league_tristana_kc",
+                                                    "buff_name": "league_tristana_kc_w",
                                                     "effect_buff": {
                                                       "type": "Combine",
                                                       "effects": [
                                                         {
                                                           "type": "RemoveCasterBuff",
-                                                          "name": "league_tristana_kc"
+                                                          "name": "league_tristana_kc_w"
                                                         },
                                                         {
                                                           "type": "SwitchByBuff",
@@ -1459,7 +1459,7 @@
                           {
                             "type": "AddCasterBuff",
                             "buff_state": {
-                              "name": "league_tristana_kc",
+                              "name": "league_tristana_kc_w",
                               "duration": {
                                 "Time": {
                                   "tick": 7
@@ -1476,7 +1476,7 @@
                             "effects": [
                               {
                                 "type": "RemoveCasterBuff",
-                                "name": "league_tristana_kc"
+                                "name": "league_tristana_kc_w"
                               }
                             ]
                           },
@@ -1489,13 +1489,13 @@
                                 "effects": [
                                   {
                                     "type": "SwitchByBuff",
-                                    "buff_name": "league_tristana_kc",
+                                    "buff_name": "league_tristana_kc_w",
                                     "effect_buff": {
                                       "type": "Combine",
                                       "effects": [
                                         {
                                           "type": "RemoveCasterBuff",
-                                          "name": "league_tristana_kc"
+                                          "name": "league_tristana_kc_w"
                                         },
                                         {
                                           "type": "SwitchByBuff",
@@ -2814,7 +2814,7 @@
           "type": "TargetProjectile",
           "name": "league_tristana_e_charge",
           "speed": 4500,
-          "y_offset": 9000,
+          "y_offset": 13000,
           "applied_target": "EnemyWithoutTower",
           "applied_effects": [
             {
@@ -2970,7 +2970,7 @@
                                   "effect": {
                                     "type": "AddCasterBuff",
                                     "buff_state": {
-                                      "name": "league_tristana_kc",
+                                      "name": "league_tristana_kc_e",
                                       "duration": {
                                         "Time": {
                                           "tick": 7
@@ -2990,7 +2990,7 @@
                                     "effects": [
                                       {
                                         "type": "RemoveCasterBuff",
-                                        "name": "league_tristana_kc"
+                                        "name": "league_tristana_kc_e"
                                       }
                                     ]
                                   }
@@ -3006,13 +3006,13 @@
                                         "effects": [
                                           {
                                             "type": "SwitchByBuff",
-                                            "buff_name": "league_tristana_kc",
+                                            "buff_name": "league_tristana_kc_e",
                                             "effect_buff": {
                                               "type": "Combine",
                                               "effects": [
                                                 {
                                                   "type": "RemoveCasterBuff",
-                                                  "name": "league_tristana_kc"
+                                                  "name": "league_tristana_kc_e"
                                                 },
                                                 {
                                                   "type": "SwitchByBuff",
@@ -3050,42 +3050,33 @@
                               ]
                             },
                             {
-                              "type": "RangeProjectile",
-                              "name": "league_tristana_e_full_c",
-                              "shape": {
-                                "Circle": {
-                                  "radius": 1000
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_tristana_e_champ",
+                              "effect_buff": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_tristana_w_cd",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_tristana_w_cd"
+                                    },
+                                    {
+                                      "type": "CasterViewEffect",
+                                      "name": "league_tristana_w_ready"
+                                    }
+                                  ]
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
                                 }
                               },
-                              "delay": 1,
-                              "apply": 1,
-                              "applied_target": "EnemyChampion",
-                              "applied_effects": [
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "SwitchByBuff",
-                                    "buff_name": "league_tristana_w_cd",
-                                    "effect_buff": {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "RemoveCasterBuff",
-                                          "name": "league_tristana_w_cd"
-                                        },
-                                        {
-                                          "type": "CasterViewEffect",
-                                          "name": "league_tristana_w_ready"
-                                        }
-                                      ]
-                                    },
-                                    "effect_none": {
-                                      "type": "Combine",
-                                      "effects": []
-                                    }
-                                  }
-                                }
-                              ]
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": []
+                              }
                             }
                           ]
                         }
@@ -3170,7 +3161,7 @@
                                         "effect": {
                                           "type": "AddCasterBuff",
                                           "buff_state": {
-                                            "name": "league_tristana_kc",
+                                            "name": "league_tristana_kc_e",
                                             "duration": {
                                               "Time": {
                                                 "tick": 7
@@ -3190,7 +3181,7 @@
                                           "effects": [
                                             {
                                               "type": "RemoveCasterBuff",
-                                              "name": "league_tristana_kc"
+                                              "name": "league_tristana_kc_e"
                                             }
                                           ]
                                         }
@@ -3206,13 +3197,13 @@
                                               "effects": [
                                                 {
                                                   "type": "SwitchByBuff",
-                                                  "buff_name": "league_tristana_kc",
+                                                  "buff_name": "league_tristana_kc_e",
                                                   "effect_buff": {
                                                     "type": "Combine",
                                                     "effects": [
                                                       {
                                                         "type": "RemoveCasterBuff",
-                                                        "name": "league_tristana_kc"
+                                                        "name": "league_tristana_kc_e"
                                                       },
                                                       {
                                                         "type": "SwitchByBuff",
@@ -3317,7 +3308,7 @@
                                           "effect": {
                                             "type": "AddCasterBuff",
                                             "buff_state": {
-                                              "name": "league_tristana_kc",
+                                              "name": "league_tristana_kc_e",
                                               "duration": {
                                                 "Time": {
                                                   "tick": 7
@@ -3337,7 +3328,7 @@
                                             "effects": [
                                               {
                                                 "type": "RemoveCasterBuff",
-                                                "name": "league_tristana_kc"
+                                                "name": "league_tristana_kc_e"
                                               }
                                             ]
                                           }
@@ -3353,13 +3344,13 @@
                                                 "effects": [
                                                   {
                                                     "type": "SwitchByBuff",
-                                                    "buff_name": "league_tristana_kc",
+                                                    "buff_name": "league_tristana_kc_e",
                                                     "effect_buff": {
                                                       "type": "Combine",
                                                       "effects": [
                                                         {
                                                           "type": "RemoveCasterBuff",
-                                                          "name": "league_tristana_kc"
+                                                          "name": "league_tristana_kc_e"
                                                         },
                                                         {
                                                           "type": "SwitchByBuff",
@@ -3464,7 +3455,7 @@
                                             "effect": {
                                               "type": "AddCasterBuff",
                                               "buff_state": {
-                                                "name": "league_tristana_kc",
+                                                "name": "league_tristana_kc_e",
                                                 "duration": {
                                                   "Time": {
                                                     "tick": 7
@@ -3484,7 +3475,7 @@
                                               "effects": [
                                                 {
                                                   "type": "RemoveCasterBuff",
-                                                  "name": "league_tristana_kc"
+                                                  "name": "league_tristana_kc_e"
                                                 }
                                               ]
                                             }
@@ -3500,13 +3491,13 @@
                                                   "effects": [
                                                     {
                                                       "type": "SwitchByBuff",
-                                                      "buff_name": "league_tristana_kc",
+                                                      "buff_name": "league_tristana_kc_e",
                                                       "effect_buff": {
                                                         "type": "Combine",
                                                         "effects": [
                                                           {
                                                             "type": "RemoveCasterBuff",
-                                                            "name": "league_tristana_kc"
+                                                            "name": "league_tristana_kc_e"
                                                           },
                                                           {
                                                             "type": "SwitchByBuff",
@@ -3608,7 +3599,7 @@
                                             "effect": {
                                               "type": "AddCasterBuff",
                                               "buff_state": {
-                                                "name": "league_tristana_kc",
+                                                "name": "league_tristana_kc_e",
                                                 "duration": {
                                                   "Time": {
                                                     "tick": 7
@@ -3628,7 +3619,7 @@
                                               "effects": [
                                                 {
                                                   "type": "RemoveCasterBuff",
-                                                  "name": "league_tristana_kc"
+                                                  "name": "league_tristana_kc_e"
                                                 }
                                               ]
                                             }
@@ -3644,13 +3635,13 @@
                                                   "effects": [
                                                     {
                                                       "type": "SwitchByBuff",
-                                                      "buff_name": "league_tristana_kc",
+                                                      "buff_name": "league_tristana_kc_e",
                                                       "effect_buff": {
                                                         "type": "Combine",
                                                         "effects": [
                                                           {
                                                             "type": "RemoveCasterBuff",
-                                                            "name": "league_tristana_kc"
+                                                            "name": "league_tristana_kc_e"
                                                           },
                                                           {
                                                             "type": "SwitchByBuff",
@@ -3777,7 +3768,7 @@
           "type": "TargetProjectile",
           "name": "league_tristana_e_charge_c",
           "speed": 4500,
-          "y_offset": 9000,
+          "y_offset": 13000,
           "applied_target": "EnemyChampion",
           "applied_effects": [
             {
@@ -5200,7 +5191,7 @@
                           {
                             "type": "AddCasterBuff",
                             "buff_state": {
-                              "name": "league_tristana_kc",
+                              "name": "league_tristana_kc_w",
                               "duration": {
                                 "Time": {
                                   "tick": 7
@@ -5217,7 +5208,7 @@
                             "effects": [
                               {
                                 "type": "RemoveCasterBuff",
-                                "name": "league_tristana_kc"
+                                "name": "league_tristana_kc_w"
                               }
                             ]
                           },
@@ -5230,13 +5221,13 @@
                                 "effects": [
                                   {
                                     "type": "SwitchByBuff",
-                                    "buff_name": "league_tristana_kc",
+                                    "buff_name": "league_tristana_kc_w",
                                     "effect_buff": {
                                       "type": "Combine",
                                       "effects": [
                                         {
                                           "type": "RemoveCasterBuff",
-                                          "name": "league_tristana_kc"
+                                          "name": "league_tristana_kc_w"
                                         },
                                         {
                                           "type": "SwitchByBuff",
@@ -5548,7 +5539,7 @@
                                     {
                                       "type": "AddCasterBuff",
                                       "buff_state": {
-                                        "name": "league_tristana_kc",
+                                        "name": "league_tristana_kc_w",
                                         "duration": {
                                           "Time": {
                                             "tick": 7
@@ -5565,7 +5556,7 @@
                                       "effects": [
                                         {
                                           "type": "RemoveCasterBuff",
-                                          "name": "league_tristana_kc"
+                                          "name": "league_tristana_kc_w"
                                         }
                                       ]
                                     },
@@ -5578,13 +5569,13 @@
                                           "effects": [
                                             {
                                               "type": "SwitchByBuff",
-                                              "buff_name": "league_tristana_kc",
+                                              "buff_name": "league_tristana_kc_w",
                                               "effect_buff": {
                                                 "type": "Combine",
                                                 "effects": [
                                                   {
                                                     "type": "RemoveCasterBuff",
-                                                    "name": "league_tristana_kc"
+                                                    "name": "league_tristana_kc_w"
                                                   },
                                                   {
                                                     "type": "SwitchByBuff",
@@ -5888,7 +5879,7 @@
                                       {
                                         "type": "AddCasterBuff",
                                         "buff_state": {
-                                          "name": "league_tristana_kc",
+                                          "name": "league_tristana_kc_w",
                                           "duration": {
                                             "Time": {
                                               "tick": 7
@@ -5905,7 +5896,7 @@
                                         "effects": [
                                           {
                                             "type": "RemoveCasterBuff",
-                                            "name": "league_tristana_kc"
+                                            "name": "league_tristana_kc_w"
                                           }
                                         ]
                                       },
@@ -5918,13 +5909,13 @@
                                             "effects": [
                                               {
                                                 "type": "SwitchByBuff",
-                                                "buff_name": "league_tristana_kc",
+                                                "buff_name": "league_tristana_kc_w",
                                                 "effect_buff": {
                                                   "type": "Combine",
                                                   "effects": [
                                                     {
                                                       "type": "RemoveCasterBuff",
-                                                      "name": "league_tristana_kc"
+                                                      "name": "league_tristana_kc_w"
                                                     },
                                                     {
                                                       "type": "SwitchByBuff",
@@ -6028,7 +6019,7 @@
               "type": "TargetProjectile",
               "name": "league_tristana_r_ball",
               "speed": 7000,
-              "y_offset": 6000,
+              "y_offset": 9000,
               "applied_target": "EnemyChampion",
               "applied_effects": [
                 {
@@ -6311,7 +6302,7 @@
                                 "effect": {
                                   "type": "AddCasterBuff",
                                   "buff_state": {
-                                    "name": "league_tristana_kc",
+                                    "name": "league_tristana_kc_r",
                                     "duration": {
                                       "Time": {
                                         "tick": 7
@@ -6331,7 +6322,7 @@
                                   "effects": [
                                     {
                                       "type": "RemoveCasterBuff",
-                                      "name": "league_tristana_kc"
+                                      "name": "league_tristana_kc_r"
                                     }
                                   ]
                                 }
@@ -6347,13 +6338,13 @@
                                       "effects": [
                                         {
                                           "type": "SwitchByBuff",
-                                          "buff_name": "league_tristana_kc",
+                                          "buff_name": "league_tristana_kc_r",
                                           "effect_buff": {
                                             "type": "Combine",
                                             "effects": [
                                               {
                                                 "type": "RemoveCasterBuff",
-                                                "name": "league_tristana_kc"
+                                                "name": "league_tristana_kc_r"
                                               },
                                               {
                                                 "type": "SwitchByBuff",
@@ -6410,7 +6401,7 @@
             "type": "TargetProjectile",
             "name": "league_tristana_r_ball",
             "speed": 7000,
-            "y_offset": 6000,
+            "y_offset": 9000,
             "applied_target": "EnemyChampion",
             "applied_effects": [
               {
@@ -6693,7 +6684,7 @@
                               "effect": {
                                 "type": "AddCasterBuff",
                                 "buff_state": {
-                                  "name": "league_tristana_kc",
+                                  "name": "league_tristana_kc_r",
                                   "duration": {
                                     "Time": {
                                       "tick": 7
@@ -6713,7 +6704,7 @@
                                 "effects": [
                                   {
                                     "type": "RemoveCasterBuff",
-                                    "name": "league_tristana_kc"
+                                    "name": "league_tristana_kc_r"
                                   }
                                 ]
                               }
@@ -6729,13 +6720,13 @@
                                     "effects": [
                                       {
                                         "type": "SwitchByBuff",
-                                        "buff_name": "league_tristana_kc",
+                                        "buff_name": "league_tristana_kc_r",
                                         "effect_buff": {
                                           "type": "Combine",
                                           "effects": [
                                             {
                                               "type": "RemoveCasterBuff",
-                                              "name": "league_tristana_kc"
+                                              "name": "league_tristana_kc_r"
                                             },
                                             {
                                               "type": "SwitchByBuff",
