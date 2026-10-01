@@ -1096,6 +1096,8 @@ game; the base lightning mage 3.19, pyromancer 0.65 and league_veigar 2.44 in th
 league_shaco (jungle, 2026-10-01, Jack In The Box's 1 s fear on champions and the 0.75 s fear of Hallucinate's
 three mini boxes): 2.42 a game; league_amumu 1.69, league_leesin 1.52, league_ekko 0.90 and the base ninja 0.65 in
 the same batch - fear counts as crowd control, the range the CC junglers gave before, no change.
+league_camille (top, 2026-10-02, Hookshot's 0.5 s stun on the champion the hook caught; Yasuo mid): 2.19 a game -
+the range of the CC heroes before, no change.
 
 **Kill trigger (league_jinx Get Excited!).** No effect fires on a kill, but section 4's facts make one:
 1. Next to the damaging projectile, fire an invisible twin with the same speed and path and
@@ -2242,6 +2244,37 @@ still on - removes the flags and explodes there. Nothing can be started from a d
 he lives. In a logged game the clone exploded three times at the end of its time and once on a death. When Shaco
 himself dies while it lives, its runs stop with him (4 such deaths in 28 logged games: no strike, picture or blast
 after them) - League's clone dies with Shaco too.
+
+**A leash round the caster (league_camille R, The Hextech Ultimatum).** A `Targeting` cast on `EnemyChampion`: a
+14-tick caster buff (`damaged_reduce` 100, `cc_immune`) for the leap and, from tick 5, `MoveToTarget {speed: 4000}`
+whose `end_effects` set a 180-tick caster flag `r_on`, knock the others back (`Knockback` round her; the target keeps
+its place through a 2-tick `cc_immune`) and 3 ticks later block the target's dashes (`BlockMoveSkill`) and start an
+`AddCasted` (`Bleed`, period 6) on it. Every run fires a hidden champion-only `TargetProjectile` at the target whose
+applied effects ask two `RandomTarget {casting_target: AllyOnlySelf, from_projectile: true}` (range 25000 and 60000)
+whether she is near - measured from the target, league_morgana R's tether check: within 25000 nothing happens; within
+60000 a 4-tick `Grab` (2500 a tick) drags the target back toward her with the wall's zap; farther, she has left the
+field and `r_on` goes (League ends the ult when Camille leaves it). While `r_on` lasts her hits on champions add true
+damage (10 + 3% of max health; nothing reads current health). The cast used to make her invisible in the air as well
+(`CasterInvisible`) when her sprite could not jump; with the leap drawn it only hides her picture, so it went.
+
+**Pictures on the action's clock (league_camille R).** The landing's `end_effects` come when the leap arrives: 1-3
+ticks after the jump onto a champion beside her, about 9 from 35000 away, so a burst played there showed in the middle
+of the strip's leap. The forming arena (`CasterViewEffect`, not following) plays on tick 14 of the action instead -
+the strip's landing frame; she is down by then from anywhere in range - and the standing arena (following her) every
+30 ticks after it, each behind a `SwitchByBuff r_on` inside an `AllyOnlySelf` zone, so they show only when the leap
+landed and only while the ult lasts.
+
+**Stun only the champion the hook caught (league_camille E, Hookshot).** The landing damages everything round her,
+but a stun round her stunned every champion near the landing: the first kit was far too strong (+4.8 kill
+difference; +1.1 with no stun at all). The landing fires a fast champion-only `TargetProjectile` (`applied_target:
+EnemyChampion`) at the unit the hook caught instead: a minion or a monster ends it unhurt, a champion is stunned -
+League's second E stuns the one champion it collides with.
+
+**A sweep's outer edge (league_camille W, Tactical Sweep).** No shape is a ring sector, so the outer edge is a disc
+ahead: next to the cone (`DirDot`, radius 46000, range 700 - about +-45 degrees) a `RangeEffect {Circle 4000,
+Forward offset 36000}` gives the units at the cone's rim the % max health damage, the slows and, on champions, her
+heal. The sweep's picture is a `LineRangeProjectile` (60000 long, nothing applied, 23 ticks) whose crescent is drawn
+with the fan's point 30 px behind the line's middle - the line starts at her.
 
 ## 8. Gotchas
 

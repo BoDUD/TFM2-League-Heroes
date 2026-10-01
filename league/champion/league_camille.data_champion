@@ -122,16 +122,16 @@
                   "effects": [
                     {
                       "type": "Attack",
-                      "damage": 10,
-                      "attack_ratio": 75,
+                      "damage": 12,
+                      "attack_ratio": 90,
                       "hp_ratio": 0,
                       "target_hp_ratio": 0,
                       "attack_effect_type": "Target"
                     },
                     {
                       "type": "FixedAttack",
-                      "damage": 10,
-                      "attack_ratio": 75,
+                      "damage": 8,
+                      "attack_ratio": 60,
                       "hp_ratio": 0,
                       "target_hp_ratio": 0,
                       "attack_effect_type": "Target"
@@ -361,7 +361,7 @@
                               "damage": 10,
                               "attack_ratio": 0,
                               "hp_ratio": 0,
-                              "target_hp_ratio": 3,
+                              "target_hp_ratio": 2,
                               "attack_effect_type": "Target"
                             },
                             {
