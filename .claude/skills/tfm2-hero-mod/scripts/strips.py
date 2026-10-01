@@ -384,7 +384,7 @@ def drop_lonely(f):
     return out
 
 
-def clean_outline(f, color, dark=40, keep=None, bare=()):
+def clean_outline(f, color, dark=40, keep=None, bare=(), strict=False, ink=15, added=None):
     """Tidy a closed outline (run after complete_outline): one black ring, one pixel thick, no crumbs.
       bare    a `color` pixel whose coloured 8-neighbours are all in a `bare` colour (a blade drawn as a bare
               one-pixel line) with one of them 4-next to it is cleared: a slanted line is runs of two or three
@@ -397,7 +397,18 @@ def clean_outline(f, color, dark=40, keep=None, bare=()):
       speck   an inner `color` pixel with at most one `color` 8-neighbour (a crumb) does the same;
       corner  a ring pixel with no coloured 4-neighbour whose `color` 8-neighbours stay joined without it (the
               outer pixel of a doubled diagonal staircase) is cleared.
-    `keep` pixels (the face) never change. Returns (picture, {rule: pixels})."""
+    `keep` pixels (the face) never change. Returns (picture, {rule: pixels}).
+    strict: for art whose outline is two or three near-blacks and whose materials run to the edge in their darkest
+    shades (Codex's older heroes; the rules above cut their boot soles to points, peeled Lee Sin's braid, blackened
+    gun muzzles and hair tips in place and broke interior lines drawn in the second near-black):
+      every pixel darker than `ink` counts as the outline; the ring rule only makes the ring's near-blacks `color`,
+      no coloured pixel goes black; thick and speck leave alone what complete_outline just `added` (a gap it closed
+      between two parts is not a bump), and a speck is an inner near-black with no near-black 8-neighbour at all
+      (a line's free end is not a crumb); a corner is cleared only where it doubles a staircase - no coloured
+      4-neighbour, a coloured diagonal one, three near-black 8-neighbours, not in a straight run - so square
+      corners, straight runs and solid dark shapes stay; loose pieces of 1-2 pixels go."""
+    if strict:
+        return _clean_strict(f, color, keep, ink, added)
     f = f.copy()
     col = np.array(color, f.dtype)
     H, W = f.shape[:2]
@@ -468,6 +479,92 @@ def clean_outline(f, color, dark=40, keep=None, bare=()):
             f[y, x] = 0
     return f, {"bare": int(caps.sum()), "ring": int(ring.sum()), "thick": int(thick.sum()), "speck": int(speck.sum()),
                "corner": int(corner.sum())}
+
+
+def _clean_strict(f, color, keep, ink, added):
+    """clean_outline(strict=True): see there."""
+    f = f.copy()
+    col = np.array(color, f.dtype)
+    H, W = f.shape[:2]
+    keep = np.zeros((H, W), bool) if keep is None else keep
+    added = np.zeros((H, W), bool) if added is None else added
+    op = f[..., 3] > 0
+    p = np.pad(op, 1)
+    edge = op & ~(p[:-2, 1:-1] & p[2:, 1:-1] & p[1:-1, :-2] & p[1:-1, 2:])
+    blk = op & ((lum(f[..., :3]) < ink) | (f[..., :3] == col).all(-1))
+    ring = edge & blk & ~(f[..., :3] == col).all(-1) & ~keep
+    f[ring, :3] = col
+
+    def count(m, n8):
+        q = np.pad(m, 1).astype(np.int8)
+        steps = [(dy, dx) for dy in (-1, 0, 1) for dx in (-1, 0, 1) if (dy or dx) and (n8 or not (dy and dx))]
+        return sum(q[1 + dy:H + 1 + dy, 1 + dx:W + 1 + dx] for dy, dx in steps)
+
+    inner = blk & ~edge & ~keep & ~added
+    thick = inner & (count(blk & edge, False) > 0) & (count(blk & ~edge, True) == 0)
+    speck = inner & ~thick & (count(blk, True) == 0)
+    for y, x in zip(*np.nonzero(thick | speck)):
+        votes = {}
+        for dy in (-1, 0, 1):
+            for dx in (-1, 0, 1):
+                yy, xx = y + dy, x + dx
+                if (dy or dx) and 0 <= yy < H and 0 <= xx < W and op[yy, xx] and not blk[yy, xx]:
+                    c = tuple(int(v) for v in f[yy, xx, :3])
+                    votes[c] = votes.get(c, 0) + (1 if dy and dx else 2)
+        if votes:
+            f[y, x, :3] = max(votes, key=votes.get)
+    blk = (f[..., 3] > 0) & ((lum(f[..., :3]) < ink) | (f[..., :3] == col).all(-1))
+    coloured = (f[..., 3] > 0) & ~blk
+    corner = np.zeros((H, W), bool)
+
+    def at(m, y, x):
+        return 0 <= y < H and 0 <= x < W and m[y, x]
+
+    for y, x in zip(*np.nonzero(blk & edge & ~keep)):
+        if any(at(coloured, y + dy, x + dx) for dy, dx in ((-1, 0), (1, 0), (0, -1), (0, 1))):
+            continue
+        if not any(at(coloured, y + dy, x + dx) for dy in (-1, 1) for dx in (-1, 1)):
+            continue
+        live = blk & ~corner
+        if (at(live, y, x - 1) and at(live, y, x + 1)) or (at(live, y - 1, x) and at(live, y + 1, x)):
+            continue
+        nb = [(dy, dx) for dy in (-1, 0, 1) for dx in (-1, 0, 1) if (dy or dx) and at(live, y + dy, x + dx)]
+        if len(nb) < 3:
+            continue
+        seen, todo = {nb[0]}, [nb[0]]
+        while todo:
+            cy, cx = todo.pop()
+            for n in nb:
+                if n not in seen and max(abs(n[0] - cy), abs(n[1] - cx)) == 1:
+                    seen.add(n)
+                    todo.append(n)
+        if len(seen) == len(nb):
+            corner[y, x] = True
+            f[y, x] = 0
+    # loose pieces of one or two pixels (8-connected), off the figure
+    op = f[..., 3] > 0
+    seen = np.zeros((H, W), bool)
+    loose = 0
+    for y, x in zip(*np.nonzero(op)):
+        if seen[y, x]:
+            continue
+        part, todo = [(y, x)], [(y, x)]
+        seen[y, x] = True
+        while todo:
+            cy, cx = todo.pop()
+            for dy in (-1, 0, 1):
+                for dx in (-1, 0, 1):
+                    ny, nx = cy + dy, cx + dx
+                    if 0 <= ny < H and 0 <= nx < W and op[ny, nx] and not seen[ny, nx]:
+                        seen[ny, nx] = True
+                        todo.append((ny, nx))
+                        part.append((ny, nx))
+        if len(part) <= 2 and not any(keep[py, px] for py, px in part):
+            for py, px in part:
+                f[py, px] = 0
+            loose += len(part)
+    return f, {"ring": int(ring.sum()), "thick": int(thick.sum()), "speck": int(speck.sum()),
+               "corner": int(corner.sum()), "loose": loose}
 
 
 SLOPES = (0, 1 / 4, 1 / 3, 1 / 2, 2 / 3, 1)
