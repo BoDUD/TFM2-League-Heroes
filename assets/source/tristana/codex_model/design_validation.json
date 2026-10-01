@@ -1,0 +1,68 @@
+{
+  "A": {
+    "source": "exec-f5f3fbbe-3f3e-4330-b353-5d0b296a513f.png",
+    "source_size": [
+      1484,
+      1060
+    ],
+    "source_grid_step": 20.8,
+    "source_grid_origin": [
+      137.0,
+      157.0
+    ],
+    "native_height": 41,
+    "canvas_origin": [
+      41,
+      59
+    ],
+    "opaque_colors": 26,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "bbox": [
+      41,
+      59,
+      97,
+      100
+    ],
+    "lowest_row": 99,
+    "strict_8x8": true,
+    "below_soles": 0,
+    "eyes_match": true,
+    "amber_only_eyes": true
+  },
+  "B": {
+    "source": "exec-cd28416d-55aa-4fe9-bd80-5293f91c236d.png",
+    "source_size": [
+      1484,
+      1060
+    ],
+    "source_grid_step": 20.8,
+    "source_grid_origin": [
+      137.0,
+      177.8
+    ],
+    "native_height": 40,
+    "canvas_origin": [
+      41,
+      60
+    ],
+    "opaque_colors": 26,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "bbox": [
+      41,
+      60,
+      97,
+      100
+    ],
+    "lowest_row": 99,
+    "strict_8x8": true,
+    "below_soles": 0,
+    "eyes_match": true,
+    "amber_only_eyes": true
+  }
+}

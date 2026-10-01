@@ -589,7 +589,9 @@ the same champion file.
   once, so its frames cover the zone's lifetime).
   A `CasterViewEffect` is not turned: it is drawn at the caster's pivot, mirrored when the caster
   faces left (the base gunner's backward-run dust is drawn only behind him), and stays where it was
-  played unless `is_follow`. An `Animation` plays its tag once, so a view that must stand for
+  played unless `is_follow`. A picture drawn off the pivot's side follows its caster: league_tristana's
+  flashes at the bell, 22 px in front of her pivot, played without `is_follow`, were seen behind her
+  after she turned (the user, 2026-10-01); with `is_follow` they turn with her, as league_riven's layers do. An `Animation` plays its tag once, so a view that must stand for
   seconds lists its loop frames again (a 4 s loop of 100 ms frames is 40 frames).
   A buff's picture (`view_buffs`) is not mirrored that way: league_fiora's parry crescent, drawn 17 px in front
   of her as the parry buff's picture, stood behind her whenever she faced left (the user, 2026-10-01: "W格挡会和
@@ -1054,6 +1056,8 @@ lightning mage 3.19 and pyromancer 0.65 in the same batch - no change.
 league_taric (support, 2026-10-01, Dazzle's 1.25 s stun on a line bursting 0.75 s after the cast, and round a linked
 ally): 1.02 a game; league_nami 1.90 and league_leona 1.88 in the same batch - a late-bursting line catches fewer
 champions than knock-ups or circles, no change.
+league_tristana (bottom, 2026-10-01, Buster Shot's knockback and 0.5 s stun where they land): 1.12 a game;
+league_vayne 1.92 and the base archer 0.65 in the same batch - no change.
 league_fiora (top, 2026-10-01, Riposte's 1 s stun when the parry blocked a hit): 1.23 a game; the base fighter 1.94
 and league_riven 2.42 in the same batch - no change.
 
@@ -1896,6 +1900,98 @@ control there; two enemies, or a held ally, start it: `CasterAnimation ult`, the
 `RangeEffect` on `AllyChampion` (radius 40000) adds a 150-tick buff with `damaged_reduce` 100 - every hit deals 1. Two
 such buffs (his circle and the link's overlapping) still take 1 a hit (measured). About 1.25 starts a game, 2.1
 champions made invulnerable each; a dead Taric's pending `Delayed` never lands.
+
+**Attack range at levels 3, 6, 9 and 12 (league_tristana Draw a Bead).** League adds range every level; nothing reads a
+level but `SwitchByLevel3`, so the stages are league_kayle's health probe (above, "Stages at levels 5, 8 and 12"): at level
+3 `SwitchByLevel3` alone adds the first `Permanent` caster buff (`range` +2500); for 6, 9 and 12 a 3-tick `Shield` of S on
+herself (S between 20% of her maximum health one level below and at the stage: 261, 315 and 369 for 900 + 90 a level), a
+`WithShield` flag and a `FixedAttack` on herself - the flag gone 2 ticks later means the hit broke the shield, so the
+level is there. Three things broke Kayle's probe on a marksman: (1) in the attack (`attack_type` `BaseAttack`) the
+probe's `FixedAttack` rolls her crit chance, and a crit (2x) broke the shield at any level - stage 12 at level 4 with
+25% crit from items - so the probes run only in her skill slots (E, and W's slot every 10 s), and the attack adds only
+the level-3 stage, which needs no probe; (2) an enemy hit landing in the probe's 2 ticks broke the shield too, so the
+probe runs under a 3-tick `damaged_reduce: 99` caster buff and its own hit is 100 times as big (`hp_ratio: 2000`, 20% of
+her maximum health after the reduction); (3) a hit the reduction does not cover (a tower's) can still break it, so in
+a fight a stage needs two passes in a row - the second within 60 s of the first (a 3600-tick `pass6`/`pass9`/`pass12`
+flag; E alone came every 40 s in some games) - while her first action of each life, away from the fight, re-reads
+every stage (death cleared them) in one pass and sets the 5 s `probe_cd` itself. Kayle's 99-against-100 check against
+damage amplification is left out: in a fight enemy hits broke it so often that a stage came minutes late. Every stage
+buff is added behind its own `SwitchByBuff` guard (two probes in one tick would have stacked it twice). Items with
+health move a stage earlier (her attack-damage and attack-speed items have none). In four simulated 10-minute games no
+stage came early: the level-3 stage within a second of the level, 6 10-36 s after it, 9 18-43 s, 12 18 s (the one game
+that reached it).
+
+**A charge that sticks, counts her hits and blows on the fourth (league_tristana E, Explosive Charge; Q Rapid Fire
+folded in).** The cast gives Rapid Fire's attack speed (a caster buff, one instance) and throws the charge, a
+`TargetProjectile` whose hit adds two `AddCasted {casted_type: Fire}` to the carrier: one polls every 2 ticks for 250
+ticks, one replays the bomb's picture every 10 ticks. The count lives on the caster (`e_1`..`e_3`, `e_live`, a 240-tick
+`e_timer`); her hits climb it - the attack's cannonball, W's landing and R's blast (the areas once per cast, behind a
+3-tick lock) - and nothing tells which unit a hit is on (league_vayne's Silver Bolts), so any of her hits counts. The
+fourth sets a 4-tick `e_boom` flag; the poll finds it within 2 ticks and detonates the charge on its carrier, wherever
+the fourth hit landed; without it, a poll that finds `e_live` but no `e_timer` (4 s gone) detonates it with the stacks
+held. A detonation is a one-tick hidden `ParabolicProjectile` from the casted effect (projectiles from an `AddCasted`
+fly from the caster to its target, league_annie's Tibbers) whose `end_effects` start the damage circle, +25% a stack,
+and a champion twin for the kill check; at full stacks W resets when the carrier is a champion (`e_champ`, a caster flag
+the charge's champion-only twin sets as it plants; a 1000-radius `EnemyChampion` circle round the blast caught a
+champion beside a minion carrying it). The picture casted chooses the view by the stack flags (the bomb with 0-3 red
+lights), so it follows the count, and the carrier's death clears both casted effects: no bomb floats over a body, and a
+carrier killed before 4 s drops its charge. A `Fire` casted shows a burn icon on the carrier while it lasts - fitting
+for a bomb - and damage from inside it counts as `Dot`. Rapid Fire's steam is not a buff view (a buff's picture stays on
+a body, league_garen's spin, and may not turn with her) but a 1 s `CasterViewEffect` with `is_follow`, played every
+second while the buff lasts (`Delayed` pulses behind a `SwitchByBuff` on it).
+
+**Units her basic attack kills explode (league_tristana, Explosive Charge's passive).** A projectile in another projectile's
+`applied_effects` never spawns, and a `Delayed` queued on a unit that died runs only its pictures, so the explosion cannot
+start from the killing hit. The attack fires, beside its cannonball, a hidden `ParabolicProjectile` that lands 10 ticks
+later where the target stood when she fired; its `end_effects` wait 8 ticks and read league_jinx's kill check, run here on
+every unit: the cannonball's hit adds a 24-tick caster flag `kx` and a 3-tick `AddCasted` on the target that removes it
+while the target lives. A flag still there means the unit died, and the explosion circle starts on the landing point. The
+flag has to outlast the check from the latest hit (the cannonball flies up to 12 ticks).
+
+**A jump her shots set off, its cooldown reset by her takedowns (league_tristana W, Rocket Jump).**
+`skill_cooldown_mult` caps every skill's cooldown at once (the ult's too, section 5), so a W reset through it would
+re-arm E+Q as well - a full-stack detonation would hand her the next charge at once. W keeps its cooldown as an 18 s
+caster buff `w_cd` instead, which her champion kills (the kill check on every damaging hit) and full-stack detonations
+on champions remove. Each source keeps its own kill-check flag (`kc_a`, `kc_e`, `kc_w`, `kc_r` for the attack, E, W and
+R): with one flag for all, a check whose target lived could read the flag another source had set a tick before that
+one's own removal ran - a W landing's check and the detonation its stack set off land three ticks apart. A slot of its
+own could not time the jump: cast every 1.5 s (a 3-tick action on the `idle` tag, league_kayle R's arming action) it
+jumped when it should but cost her about 0.7 kills a game in the simulation - her attacks waited for it - and cast every
+10 s it met the charge at two or three stacks once in ten minutes. So her shots set it off: the attack's champion-only
+twin (the kill check's) waits a tick after its hit - the cannonball's own hit has counted the stack by then - and,
+without `w_cd`, with the charge on a champion (`e_champ`) holding two or three stacks, jumps her onto the champion it
+hit: a `MoveToTarget` in a projectile's `applied_effects` moves the caster to the unit hit, and a `CasterAnimation`
+there plays on her (both in the simulation log). The landing adds the stack the next shot turns into the fourth. When
+she fires, the attack counts the enemy champions within 25000 (two 3-tick flags, league_kayle R's count) and with one of
+them jumps her away from it (`MoveBack` 3500 x 11; two, League's "surrounded", never came up). The slot stays, cast
+every 10 s on a champion within 80000, for the same escape and Draw a Bead's probes. A `CasterAnimation` holds the
+caster from acting while it plays (league_garen's 3 s spin), so the 32-tick jump strip is not cut by her next attack: 7
+ticks' crouch, the move from a `Delayed`, and the landing's damage, slow and stack where she comes down. In four
+simulated games she jumped 5-11 times a game - 19 times onto a champion, 10 away, often just after a full-stack
+detonation reset W (jump in, blow the charge, jump out) - and W was reset 18 times; the slot alone had jumped 0-1 times
+a game.
+
+**A cannonball that knocks back the target and those round it, stunned where they land (league_tristana R, Buster Shot).**
+A `Targeting` cast on `EnemyChampion` (60000), the nearest champion within 30000 first (league_lucian R's ring). The
+cannonball's hit only plays its pictures and, from a `Delayed {tick: 1}`, a one-tick hidden `ParabolicProjectile` whose
+`end_effects` start the blast: a circle on `EnemyWithoutTower` whose applied effects deal the damage, `Knockback {speed:
+3000, tick: 10}` (away from her, as league_vayne's Condemn measured) and, `Delayed` as long as the knockback, the stun where
+each unit lands - the target is in its own circle, so it is hit once, like the rest. The knockback and the stun count as
+crowd control for league_yasuo's R: with her at bottom in his team he cast it on champions 1.12 times a game
+(league_vayne 1.92, the base archer 0.65 in the same batch; league_ahri 1.27, league_ekko 1.12 before) - no change.
+
+**Projectiles that leave the muzzle, not her belly (league_tristana).** A `TargetProjectile` starts at the caster's
+pivot; its `y_offset` lifts the picture (`5000 - y_offset` over the pivot), so each picture is lifted to about its
+firing frame's bell (the attack 3 px over the pivot: 2000; E, the barrel lowered, 4 px under it: 9000; R 1 px under
+it: 6000), and its view (`repeat: false`) starts with an empty frame for the ticks the ball needs from her pivot to
+the bell (3, 5 and 3 at 6000, 4500 and 7000 a tick), then loops, and holds a frame long enough to outlast any flight.
+The flashes at the bell are `CasterViewEffect`s played in the same tick, with `is_follow`: played without it, they
+stayed on the side they were played on and showed behind her once she turned ("小炮转身了那个火就在小炮的身后",
+2026-10-01). `y_offset` is not only the
+picture (league_lucian's double shot moved by a tick): when she was cut to 34 rows, 5000 / 13000 / 9000 (the new
+bells' middles) made the flights 1-2 ticks longer on average (the bolt 8.4 -> 9.4 ticks, the charge 13.1 -> 15.3 in
+one simulated game) and her kill difference fell from +2.06 to +1.33 on the same 24 seeds, so the tested values stay
+and the pictures fly 3-4 px over the bells' middles, still inside them.
 
 **A weak spot on the target without state on the target (league_fiora Duelist's Dance).** League shows a Vital on one
 of four sides of a champion and strikes it with a hit from that side; nothing reads a direction or keeps state on

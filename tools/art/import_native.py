@@ -87,7 +87,7 @@ NECK_EYES = {("fiora", "hit", 0): (-19, 3)}
 # heroes whose outline strips.complete_outline closes on the finished frames (the skill's art-spec "Close the
 # outline": every hero from Nami on; the user: "后面英雄都要用的"). Nothing goes under the soles row; a frame that
 # already reaches lower (lying down) keeps its own bottom.
-COMPLETE = {"nami", "veigar", "jax", "ahri", "taric", "fiora"}
+COMPLETE = {"nami", "veigar", "jax", "ahri", "taric", "tristana", "fiora"}
 # hero: the luminance from which an edge pixel gets the outline (complete_outline's `dark`, default 70). Fiora's teal
 # leggings (luminance ~58) and wine cape (~44) edge many action frames without black: tfm2_ase.py metrics counts only
 # luminance < 40 as outline, so at 70 her Q frames read 83-89% (the bare rapier aside); at 40 they close too.
@@ -162,6 +162,8 @@ ORDER = {("lux", "idle"): [0, 0, 0, 0, 0, 0],   # the step-2 idle is the design 
          ("jax", "idle"): [0, 0, 0, 0, 0, 0],
          # and Taric (export_taric.py: Codex's idle frame, its face placed by hand, in all six)
          ("taric", "idle"): [0, 0, 0, 0, 0, 0],
+         # and Tristana (Codex's game-size design A, 41 rows with the goggles)
+         ("tristana", "idle"): [0, 0, 0, 0, 0, 0],
          # and Fiora (Codex's game-size design B40: the pack's idle is the design in all six)
          ("fiora", "idle"): [0, 0, 0, 0, 0, 0]}
 # (hero, tag): (y, slots) - in those slots everything at or above pivot row y moves down a row (the row under
@@ -236,6 +238,9 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        # Taric: his mace hangs by his side down to the knees; the seam low in the boots (two rows differing in 3
        # squares of outline and 12 of colour), the boots' lowest two rows stay
        ("taric", "idle"): (8, [2, 3, 4]),
+       # Tristana: her cannon hangs to the hips, so the seam runs low in the shins (rows 96/97: 1 square of opacity and 4
+       # of outline differ); only her feet stay
+       ("tristana", "idle"): (8, [2, 3, 4]),
        # Fiora: her lunge stance puts both legs on diagonals, so every row differs from the next; at 8 (the boot tops)
        # 3 squares of outline and 4 of colour change and the boots stay
        ("fiora", "idle"): (8, [2, 3, 4])}
@@ -274,6 +279,7 @@ EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade
         "veigar": (255, 209, 50),         # his hat's tip leans with the pose; the yellow of the eyes is used nowhere else
         "jax": (70, 240, 255),            # the four cyan lights on his mask; his plume or lamppost tops the frames
         "taric": (24, 44, 176),           # export_taric.py sets both eyes to this blue; his raised mace tops some frames
+        "tristana": (246, 186, 48),       # the goggle cups top every frame; the amber is only in her eyes
         "fiora": (24, 180, 200)}          # her raised rapier tops some frames; the teal is used only in her eyes
 
 
