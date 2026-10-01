@@ -465,7 +465,11 @@ collision radius of the unit tested, and for RangeEffect the caster's too)*:
 - `{"Rect": {"width": W, "height": H}}` - axis-aligned around the centre, never turned
 - `{"Line": {"width", "from_x", "from_y", "to_x", "to_y"}}` - a segment with fixed coordinates: they are
   map positions, not offsets from the projectile, so no wall can be drawn round where a hero stands
-  (league_thresh R's five walls became one circle)
+  (league_thresh R's five walls became one circle). It hits like a capsule: a champion whose centre is within
+  `width` + 15000 of the segment, round past both ends (behind the caster too). So `width` is a half-width, and a
+  picture of the whole band is 2 x `width` across *(SDK simulation, league_taric E, 2026-10-01: widths 1000, 6000,
+  18000 and 30000 hit every champion within 16000, 21000, 33000 and 45000 of the segment and none farther, up to
+  28 of 13000-39000 champion positions off)*
 - `{"DirDot": {"radius": N, "range": C}}` - a **cone**: within `radius` of the centre and at most
   acos(C / 1000) off the direction from the caster to the centre (`range` 600 = 53 degrees each side). The
   angle is the unit's centre's: the radii widen the distance only, so a big body half in the cone is missed
@@ -1970,10 +1974,16 @@ simulation 31.7 champion heals a game came from his own Q and 8.4 from the link,
 times a game. The casted shows a `heal` status icon on the ally while the link lasts.
 
 **A beam that bursts after a delay (league_taric E, Dazzle).** A `Targeting` cast on `EnemyWithoutTower` with league_morgana
-Q's aim (a random enemy champion in reach first, else the cast target): a `LineRangeProjectile` 62000 long whose hit is
+Q's aim (a random enemy champion in reach first, else the cast target): a `LineRangeProjectile` 80000 long whose hit is
 the damage and a 75-tick stun. Champions here walk out of a line in a second: with League's 1 s delay (`apply` 60) and
 width 12000, 24% of the casts aimed at a champion stunned one; `apply` 45 with width 18000 stunned in 65% (30 / 18000:
-96%). The beam's picture carries the 45-tick charge and the burst (`delay` 57).
+96%). The beam's picture carries the 45-tick charge and the burst (`delay` 57). Make the line as long as the AI casts
+it *(SDK simulation, 2026-10-01, after the user saw it miss every time in lane: "对线一次都晕不到")*: the line was 62000
+long at first, the AI casts at the 60000 `range` plus both bodies (median 73000, past the line's end), and the aimed
+champion, which had stood still for the 0.75 s before, backs off about 23000 while the beam charges, out past the end;
+almost none step aside. Checked cast by cast on the aimed champion, 29% were stunned in the first three minutes (34% over
+a game, 30% in the mid lane). 80000, about as far as the AI casts it, stunned 63% (59% over a game); 72000 48%, width
+30000 58%, `apply` 30 59%. The athletes' `skill_avoid` changed nothing (0 and 100 played the same games).
 
 **Team invulnerability 2.5 s after the call, started at the fight (league_taric R, Cosmic Radiance).** league_riven R's
 arming (the slot is a 3-tick `None` action on `EnemyChampion` that adds `r_armed` for 600 ticks; left unused, a 3-tick
