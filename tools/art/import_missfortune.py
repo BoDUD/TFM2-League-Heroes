@@ -27,7 +27,10 @@ The second step places every cell by its anchor: the bullets fly with their nose
 the heart and the crit on the body; Strut's ring and the rain's ring under the feet (a view played at a spot is
 drawn like one on a unit, 11 px above the ground); the wave's muzzle 50 px behind the middle of the rectangle
 it is drawn on (a LineRangeProjectile's view is centred on the rectangle and turned to the cast direction). The
-rain lists its 1 s loop twice (the zone lasts 2 s; its view repeats). No palette or outline pass on the sheets.
+rain lists its 1 s loop twice (the zone lasts 2 s; its view repeats). Before that the wave is fanned out from the
++-20 degrees Codex drew to the kit's cone (R_DIRDOT, +-25 degrees: 100 x 93 px): every bullet, the pixels within
+1 px of each other, moves away from the muzzle's row as one piece to R_SPREAD times its distance, so the seven
+bullets keep their shape and the outer two end on the cone's edges. No palette or outline pass on the sheets.
 Writes league/effects/league_missfortune_fx (bullet, bullet_lt, hit, lovetap, q_bullet, q_hit, q_bounce,
 q_crit, r_hit, strut) and league/effects/league_missfortune_big (e_rain, r_wave).
 """
@@ -181,6 +184,33 @@ FX = {
     },
 }
 
+R_DIRDOT = 906                         # Bullet Time's cone in the kit: DirDot range = cos(half angle) x 1000
+WAVE_HALF = 36                         # the wave strip's fan (--raw): 36 px either side of the muzzle's row at 100 px
+R_SPREAD = 100 * math.tan(math.acos(R_DIRDOT / 1000)) / WAVE_HALF      # 1.30: +-20 degrees -> +-25
+
+
+def fan_out(frames, row, k):
+    """Each bullet (the pixels within 1 px of each other) moved away from the muzzle's row as one piece, to k times
+    its distance. Returns the taller cells and the muzzle's row in them."""
+    pad = math.ceil(max(f.shape[0] for f in frames) / 2 * (k - 1)) + 1
+    out = []
+    for f in frames:
+        solid = f[..., 3] > 0
+        near = solid.copy()
+        near[1:] |= solid[:-1]
+        near[:-1] |= solid[1:]
+        wide = near.copy()
+        wide[:, 1:] |= near[:, :-1]
+        wide[:, :-1] |= near[:, 1:]
+        groups, n = G.label(wide)
+        g = np.zeros((f.shape[0] + 2 * pad, f.shape[1], 4), np.uint8)
+        for i in range(1, n + 1):
+            ys, xs = np.nonzero((groups == i) & solid)
+            dy = (ys.min() + ys.max()) / 2 - row
+            g[ys + pad + int(round(dy * k - dy)), xs] = f[ys, xs]
+        out.append(g)
+    return out, row + pad
+
 
 def build():
     with open(G.lp(os.path.join(SRC, "missfortune_fx_anchors.json")), encoding="utf-8") as f:
@@ -190,7 +220,10 @@ def build():
         out = {}
         for tag, (n, (sx, sy), ms, times) in tags.items():
             ax, ay = anchors[tag]["anchor"]
-            out[tag] = [(G.centre_frame(f, sx - ax, sy - ay), m) for f, m in list(zip(cells(tag, n), ms)) * times]
+            frames = cells(tag, n)
+            if tag == "r_wave":
+                frames, ay = fan_out(frames, ay, R_SPREAD)
+            out[tag] = [(G.centre_frame(f, sx - ax, sy - ay), m) for f, m in list(zip(frames, ms)) * times]
         sheets[sprite] = out
     return sheets
 

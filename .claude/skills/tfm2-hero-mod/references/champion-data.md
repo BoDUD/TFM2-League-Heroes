@@ -467,7 +467,9 @@ collision radius of the unit tested, and for RangeEffect the caster's too)*:
   map positions, not offsets from the projectile, so no wall can be drawn round where a hero stands
   (league_thresh R's five walls became one circle)
 - `{"DirDot": {"radius": N, "range": C}}` - a **cone**: within `radius` of the centre and at most
-  acos(C / 1000) off the direction from the caster to the centre (`range` 600 = 53 degrees each side).
+  acos(C / 1000) off the direction from the caster to the centre (`range` 600 = 53 degrees each side). The
+  angle is the unit's centre's: the radii widen the distance only, so a big body half in the cone is missed
+  *(SDK simulation, league_missfortune R)*.
   Around the caster that direction is zero and the cone is a full circle, so use it with `Forward`.
 
 RangeEffect `apply_type`: `"AroundCaster"` or `{"Forward": {"offset": N}}` - the centre N units from
@@ -672,13 +674,20 @@ enemy champion, two circles (damage and slow; the stun in a smaller centre) with
 so the flare hits 0.62 s after it appears (League's 0.625 s) and its 1 s picture plays out.
 
 **Cone / fan (Ashe W).** No projectile takes an angle, but `LineRangeProjectile` in a
-`casting_type: Direction` action is a rectangle from the caster toward the target, and its view
-sprite is centred on the rectangle and turned to the cast direction: drawn pointing right from
+`casting_type: Direction` action is a line from the caster toward the target, and its view
+sprite is centred on the line and turned to the cast direction: drawn pointing right from
 x = -length/2 to +length/2 (measured on LoL Reborn's Swain Q fan, Lux R and Jhin W sprites). So a
-fan sprite with its apex at x = -length/2 starts at the caster. The hit area stays a rectangle;
-draw the fan a little wider than `width` (oppi's Swain does). league_ashe W: width 45000, length
-80000, delay 17, apply 14 (the hit at tick 13, when the arrows have flown out; until 0.10.0 delay 14,
-apply 3 hit at tick 2, as the fan appeared), 9 arrows over +-28 deg, 7 frames x 40 ms, view `repeat: false`.
+fan sprite with its apex at x = -length/2 starts at the caster. The hit area is not a rectangle
+`width` wide *(SDK simulation, league_ashe W, 2026-10-01: a probe hit picture, every enemy unit's place
+along and across the line on the hit tick, 3 games per width)*: a unit is hit when its centre is within
+about `width` + 15000 of the segment from the caster to `length` ahead - a capsule, so `width` works as a
+half-width, and the round ends reach that far past the tip and behind the caster (champions hit up to
+59.6k from the segment and missed from 61.4k at width 45000, 73.1k / 74.7k at 60000, 102.7k / 107.1k at
+90000; minions and monsters the same). Draw the fan about as wide as that band. league_ashe W: width
+45000, length 80000, delay 17, apply 14 (the hit at tick 13, when the arrows have flown out; until 0.10.0
+delay 14, apply 3 hit at tick 2, as the fan appeared), 13 arrows 7 deg apart over +-42 deg (+-50 px at
+the tips; until 2026-10-01 9 arrows, League's count, over +-28 deg: +-35 px, found too narrow, against
+the +-60 px band it hits), 7 frames x 40 ms, view `repeat: false`.
 
 **Zone / aura.** `RangePeriodProjectile {tick, period}` for a placed field;
 `ApplyInProjectile {follow_caster: true, tick}` for an aura around the hero.
@@ -768,8 +777,11 @@ both radii finds the caster herself while she is stunned, rooted, airborne, pull
 (section 3), so the channel ends at the next wave (at most 15 ticks late); an allied champion in crowd
 control standing against her would end it too. The waves are a `Position` cast (the direction is fixed at
 the cast, as in League): per wave a `RangeEffect` with `Forward {offset: 1000}` and `DirDot {radius:
-100000, range: 940}` (a 40 degree cone toward the cast point) for the damage and a view-only
-`LineRangeProjectile` (100000 x 36000, delay 15, turned to the cast point) for the picture.
+100000, range: 906}` (a 50 degree cone toward the cast point; 940, 40 degrees, until 2026-10-01) for the damage
+and a view-only `LineRangeProjectile` (100000 x 36000, delay 15, turned to the cast point) for the picture, on
+`applied_target: Ally` so that the enemies do not sidestep it (section 8). The cone tests the angle of the
+target's centre only, the body's radius counts for the distance alone: "angle <= acos(range / 1000) and distance
+from the cone's centre <= radius + both bodies (120000)" matched 99.5% of 23498 logged champion-wave pairs.
 
 **The target and the next one behind it (league_missfortune Q, Double Up).** League's bounce goes to an
 enemy behind the first target; `RandomTarget` from the hit point would pick the first target itself again,
@@ -1819,18 +1831,22 @@ removes `w_live` and shields her again (shields add up). With enemies next to he
 nobody in reach the orbs wait. Measured: 23 casts a game, 2.9 orbs a cast.
 
 **Draw them in, then the moon crashes, harder for each champion (league_diana Moonfall).** A `Targeting` cast on
-`EnemyChampion` (range 25000): a `RangeEffect` (radius 40000) on `EnemyChampion` with `Grab {speed: 2500}` (no `tick`:
+`EnemyChampion` (range 25000): a `RangeEffect` (radius 50000) on `EnemyChampion` with `Grab {speed: 2500}` (no `tick`:
 each stops at her, section 4 "Pull vs Grab"), a 40% slow for 2 s and a count - league_kayle R's two-flag count taken
 to three (`SwitchByBuff r_n2 ? add r_n3 : SwitchByBuff r_n1 ? add r_n2 : add r_n1`, 70-tick flags). 60 ticks later a
 `Delayed` checks `r_n1` (no champion drawn: no crash) and picks one of three `RangeEffect`s by `r_n3` / `r_n2`: the
 damage +35% for each champion beyond the first. The falling moon is a `CasterViewEffect` played 20 ticks before the
-crash (radius 32000 round her). Keep the pull wider than the cast range: the AI casts from `range` plus both bodies
+crash (radius 40000 round her). Keep the pull wider than the cast range: the AI casts from `range` plus both bodies
 (league_garen E, league_leesin R above), so with League's proportions (range 30000, pull 32000) 20 of 42 casts came
 from 45000 or more centre to centre and 37% of the ults drew nobody - the ring on the ground and no moon. Range 20000
 drew 92% but the AI cast it a quarter less often (one batch +0.01 against +0.44); range 25000 with a 40000 pull drew
-84% (2.7 casts a game, 1.22 champions a cast that drew) and took lane 1 from +0.44 / +0.55 to +1.04 / +1.03. The grab
-is crowd control for league_yasuo's R (section 7 "Blink to a crowd-controlled champion"): beside her he cast it 1.23
-times a game.
+84% (2.7 casts a game, 1.22 champions a cast that drew) and took lane 1 from +0.44 / +0.55 to +1.04 / +1.03. The user
+then wanted it wider: a 50000 pull and a 40000 crash (from 40000 / 32000, the cast range kept) drew nobody on 4% of the
+ults instead of 9%, 1.21 champions a cast instead of 1.10, and put 0.86 champions under the moon instead of 0.74 (the
+same 1440 games): +1.25 / +1.16, paired +0.17 (standard error 0.11). The crash catches fewer than the pull because two
+in five drawn champions die before the moon lands; nine in ten of the living ones stand inside it (its radius plus
+about 20000 centre to centre). The grab is crowd control for league_yasuo's R (section 7
+"Blink to a crowd-controlled champion"): beside her he cast it 1.23 times a game (1.19 after the widening).
 
 **Attack speed that stacks and falls off one stack at a time (league_jax Relentless Assault).** League gives a stack
 per attack for 2.5 s, eight at most, and loses them one by one once he stops. Every attack runs a `SwitchByBuff`
@@ -1898,13 +1914,16 @@ cast on `EnemyChampion`; 24 ticks after the release a hidden `ParabolicProjectil
 lands on the champion's spot and its `end_effects` start everything there: the cage's picture and W's two (the target
 ellipse, shockwave and scorch at `z` -1 under the units, the sphere and its burst over them) as `ViewEffect`s on the
 point (away from the caster, so they show - league_thresh R); two `ApplyInProjectile` (tick
-180, circle 28000) - one on `EnemyWithoutTower` with `Stun` 60, which reaches every unit once, one walking in
+180, circle 34000) - one on `EnemyWithoutTower` with `Stun` 60, which reaches every unit once, one walking in
 later on the tick it touches the edge (section 4), and a twin on `EnemyChampion` for the stack and R's ladder; and W as
 two `RangeProjectile`s (circle 22000, `delay` = `apply` = 45) on the same centre: the damage on
 `EnemyWithoutTower`, its champion twin the stack, the ladder and the kill trigger. League stuns only a unit that
 crosses the cage's edge; a zone is a disc, so whoever stands inside when it forms is stunned at once. W lands
 0.75 s after the cage forms, inside the stun. In one game of the first draft 17 casts stunned 26 champions and 22
-minions (the stun was 1.5 s then; 1 s since the balance pass).
+minions (the stun was 1.5 s then; 1 s since the balance pass). The cage forms on its target, who is always caught, so
+widening it only adds the others: 28000 -> 34000 (players asked for a wider E) took the champions stunned per cast
+from 1.54 to 1.63 and the casts catching two or more from 33% to 39%; 36000 caught 1.64 (SDK simulation, mid against
+the five base mages, 120 games each, 2026-10-01).
 
 **R stronger for every spell hit in a row (league_veigar R, Primordial Burst).** League adds up to 100% against the
 target's missing health; nothing reads health (section 3), so it counts his own work like league_akali R2: every spell
@@ -2181,6 +2200,13 @@ has no field - BuffState's only movement flag is `ignore_wall` - and is left out
   from the effect tree too (see `text-audio.md`).
 - A `Delayed` `FixedAttack` on a unit the caster's team cannot see (fog) dealt no damage in the
   simulation: late hits are lost on a target that fled out of sight (league_yone's echo, section 7).
+- **A picture-only projectile still makes the enemy AI dodge** *(SDK simulation, league_missfortune R,
+  2026-10-01; 144 games a variant)*. Her wave picture is a `LineRangeProjectile` with no `applied_effects` that never
+  applies (100000 x 36000, delay 15, apply 65); on `EnemyWithoutTower` the enemy champions standing in it stepped
+  about 4100 units sideways each wave and out of her cone (4.75 champion hits a cast; 1000 wide 5.55, no rectangle
+  at all 6.40). On `applied_target: Ally` it draws the same and they moved 1800 (normal fighting), while her allies did
+  not start dodging it (1600 -> 1700): 7.12 hits a cast with the 50 degree cone, 5.06 with the same cone on
+  `EnemyWithoutTower`. Put a picture that stays while damage comes later on `Ally`.
 - A buff's view can outlive its unit: Garen died mid-spin and the whirl of his 3 s caster buff
   stayed on the body (no view_buffs option covers death). For a purely visual timed effect,
   play `CasterViewEffect` on a timer instead (one per `Delayed` pulse, `is_follow: true` in

@@ -244,8 +244,8 @@
                       },
                       {
                         "type": "ApAttack",
-                        "damage": 60,
-                        "attack_ratio": 50
+                        "damage": 70,
+                        "attack_ratio": 60
                       },
                       {
                         "type": "ViewEffect",
@@ -655,8 +655,8 @@
                       },
                       {
                         "type": "ApAttack",
-                        "damage": 60,
-                        "attack_ratio": 50
+                        "damage": 70,
+                        "attack_ratio": 60
                       },
                       {
                         "type": "ViewEffect",
@@ -1212,7 +1212,7 @@
                   "tick": 180,
                   "shape": {
                     "Circle": {
-                      "radius": 28000
+                      "radius": 34000
                     }
                   },
                   "applied_target": "EnemyWithoutTower",
@@ -1240,7 +1240,7 @@
                   "tick": 180,
                   "shape": {
                     "Circle": {
-                      "radius": 28000
+                      "radius": 34000
                     }
                   },
                   "applied_target": "EnemyChampion",
@@ -1561,8 +1561,8 @@
                       "casting_type": "Targeting",
                       "effect": {
                         "type": "ApAttack",
-                        "damage": 75,
-                        "attack_ratio": 65
+                        "damage": 90,
+                        "attack_ratio": 80
                       }
                     },
                     {

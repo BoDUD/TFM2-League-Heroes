@@ -276,19 +276,27 @@ def anchors_r_hit(frames):
     return [(bbox_centre(f)[0], 512.0) for f in frames]
 
 
-# W Volley as League draws it: 9 frost arrows fanning out in a cone. The kit casts it as a
-# LineRangeProjectile, whose sprite the game centres on the rectangle and turns to the cast
-# direction (oppi's Swain Q fan and Lux beam are laid out that way), so the fan's apex - Ashe -
-# sits half the rectangle's length behind the pivot.
-VOLLEY_ANGLES = [-28, -21, -14, -7, 0, 7, 14, 21, 28]   # degrees
+# W Volley: frost arrows fanning out in a cone. The kit casts it as a LineRangeProjectile, whose
+# sprite the game centres on the line and turns to the cast direction (oppi's Swain Q fan and Lux
+# beam are laid out that way), so the fan's apex - Ashe - sits half the line's length behind the
+# pivot. The line hits every unit whose centre is within width + ~15000 of the segment from Ashe to
+# `length` ahead (SDK simulation, 2026-10-01): with width 45000 that is ~60 px either side of the
+# middle arrow. The first fan, 9 arrows (League's count) over +-28 deg, spanned +-35 px at the tips
+# and looked narrow (feedback 2026-10-01: Volley should be wider), so it has 13 arrows, still 7 deg
+# apart, over +-42 deg: +-50 px at the tips.
+VOLLEY_ANGLES = [-42, -35, -28, -21, -14, -7, 0, 7, 14, 21, 28, 35, 42]   # degrees
+PALETTE_ANGLES = [-28, -21, -14, -7, 0, 7, 14, 21, 28]  # the first fan: the 32 colours all the effects
+                                                         # share are fit on it, so the wider fan left the
+                                                         # other effects' pixels as they were
 VOLLEY_RADII = [16, 26, 36, 46, 56, 66, 75]              # px from the apex to the arrow tips, per frame
                                                          # (the arrows are ~15 px: frame 0 leaves the bow)
 VOLLEY_LENGTH = 80                                       # px, = the LineRangeProjectile's length
 
 
-def fan_frames(strip, s, cut):
+def fan_frames(strip, s, cut, angles=None):
     """The frost arrow of `strip` rotated at source resolution (so the pixels come out clean) and
-    fanned out from the apex, one frame per radius."""
+    fanned out from the apex, one frame per radius; one arrow per angle (default VOLLEY_ANGLES)."""
+    angles = VOLLEY_ANGLES if angles is None else angles
     f = G.split_strip(G.load_rgba(src(strip)), 4, blob_thresh=0.05)[0]
     x0, y0, x1, y1 = biggest_blob_box(f)
     tipx, tipy = x1 - f.ox, (y0 + y1) / 2.0 - f.oy
@@ -299,12 +307,12 @@ def fan_frames(strip, s, cut):
     canvas[oy:oy + a8.shape[0], ox:ox + a8.shape[1]] = a8
     base = Image.fromarray(canvas, "RGBA")
     rots = {a: G.Frame(np.asarray(base.rotate(-a, resample=Image.BICUBIC)).astype(np.float32) / 255.0, 0, 0, 0)
-            for a in VOLLEY_ANGLES}                          # PIL turns counter-clockwise; +y is down
+            for a in angles}                                 # PIL turns counter-clockwise; +y is down
     apex = -VOLLEY_LENGTH / 2.0
     out = []
     for r in VOLLEY_RADII:
         layers = [G.render(rots[a], s, s, R, R, apex + r * np.cos(np.radians(a)), r * np.sin(np.radians(a)),
-                           cut=cut, keep=0.9) for a in VOLLEY_ANGLES]
+                           cut=cut, keep=0.9) for a in angles]
         u0, r0 = min(l[1] for l in layers), min(l[2] for l in layers)
         u1 = max(l[1] + l[0].shape[1] for l in layers)
         r1 = max(l[2] + l[0].shape[0] for l in layers)
@@ -339,10 +347,11 @@ FX_COLORS = 32
 def build_fx():
     sprites = {}
     for sprite, tags in FX.items():
-        raw = {}
+        raw, fit = {}, {}                # fit: frames the palette is fit on in place of raw (PALETTE_ANGLES)
         for tag, (strip, n, (sx, sy), rule, (X0, Y0), ms, cut, *mode) in tags.items():
             if mode == ["fan"]:
                 raw[tag] = list(zip(fan_frames(strip, sx, cut), ms))
+                fit[tag] = list(zip(fan_frames(strip, sx, cut, PALETTE_ANGLES), ms))
                 continue
             frames = G.split_strip(G.load_rgba(src(strip)), n, blob_thresh=0.05)
             if mode == ["vote"]:
@@ -355,7 +364,7 @@ def build_fx():
             else:
                 raw[tag] = [(G.render(f, sx, sy, ax, ay, X0, Y0, cut=cut, keep=0.9), m)
                             for f, (ax, ay), m in zip(frames, rule(frames), ms)]
-        pal = G.Palette([r[0][0] for rs in raw.values() for r in rs], colors=FX_COLORS, extra=())
+        pal = G.Palette([r[0][0] for rs in {**raw, **fit}.values() for r in rs], colors=FX_COLORS, extra=())
         sprites[sprite] = {tag: [(G.centre_frame(pal.apply(arr), u0, r0), m) for (arr, u0, r0), m in rs]
                            for tag, rs in raw.items()}
     return sprites
