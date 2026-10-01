@@ -1077,6 +1077,8 @@ league_fiora (top, 2026-10-01, Riposte's 1 s stun when the parry blocked a hit):
 and league_riven 2.42 in the same batch - no change.
 league_fizz (mid, 2026-10-01, Chum the Waters' knock-up round the champion the fish stuck to, 2 s after the throw): 1.06 a
 game; the base lightning mage 3.19, pyromancer 0.65 and league_veigar 2.44 in the same batch - no change.
+league_caitlyn (bottom, 2026-10-01, Yordle Snap Trap's 1.25 s root on the first champion to step on it): 0.75 a game;
+the base archer 0.65, league_vayne 1.92 and league_tristana 1.08 in the same batch - no change.
 
 **Kill trigger (league_jinx Get Excited!).** No effect fires on a kill, but section 4's facts make one:
 1. Next to the damaging projectile, fire an invisible twin with the same speed and path and
@@ -2061,7 +2063,10 @@ within the frames at base speed. `y_offset` is not only the
 picture (league_lucian's double shot moved by a tick): when she was cut to 34 rows, 5000 / 13000 / 9000 (the new
 bells' middles) made the flights 1-2 ticks longer on average (the bolt 8.4 -> 9.4 ticks, the charge 13.1 -> 15.3 in
 one simulated game) and her kill difference fell from +2.06 to +1.33 on the same 24 seeds, so the tested values stay
-and the pictures fly 3-4 px over the bells' middles, still inside them.
+and the pictures fly 3-4 px over the bells' middles, still inside them. The cost is not general: league_caitlyn's
+projectiles went from `y_offset` 3000 to their muzzles (-11500 for the rifle 16.5 px over the pivot, -7000 / -6500 /
+-2500 / -4000 for the Headshot, the net, Q and R; `tools/art/import_caitlyn.py` checks the kit against the measured
+muzzles and starts each view empty for ceil(muzzle x / speed) ticks) and her mean stayed +2.30 on the same 288 games.
 
 **A weak spot on the target without state on the target (league_fiora Duelist's Dance).** League shows a Vital on one
 of four sides of a champion and strikes it with a hit from that side; nothing reads a direction or keeps state on
@@ -2161,6 +2166,52 @@ minions. W's passive bleed is an `AddCasted Bleed` on every attack and Q hit (ea
 on `EnemyWithoutTower` so towers take none. The passive, Nimble Fighter, is a `Permanent` caster buff with
 `base_attack_damaged_reduce` 12 added by any action that finds it missing (death clears it); "ignores unit collision"
 has no field - BuffState's only movement flag is `ignore_wall` - and is left out.
+
+**Every sixth shot a Headshot, trapped champions first (league_caitlyn Headshot).** The attack decides on tick 1
+(league_jinx's way) and fires from a `Delayed` (7 ticks, 9 for a Headshot with its own `CasterAnimation passive`). Five
+`Permanent` counters `hs_1`..`hs_5`, walked from the top like league_masteryi's Double Strike, make every sixth shot a
+Headshot (170% AD; death clears the count, as League's); only plain shots count. While her trap holds a champion (the
+`hs_trap` caster flag, as long as the root) a `RandomTarget` on `EnemyChampionInCC` within 1.5x her range (77500: the
+radii add 20000) takes the shot instead of the AI's target - League's double-range Headshot on a trapped champion - with
+a trap bonus; nothing tells who put a champion in crowd control, so an ally's stun in that window counts too. A net hit
+leaves `hs_net` (108 ticks): the next shot is a Headshot. In ten simulated minutes about 29 counted Headshots and 8 on
+trapped champions.
+
+**A shot that becomes the net when a champion is on her (league_caitlyn E, 90 Caliber Net folded into the attack).**
+The user picked League's E as her escape: on tick 1 of an attack, with E ready (no `e_cd` caster buff, 720 ticks) a
+`RandomTarget {range: 25000, casting_target: EnemyChampion}` (about 45000 centre to centre) sets a 1-tick `e_go`, plays
+`CasterAnimation e`, fires the net (`TargetProjectile` on `EnemyChampion`: 60 + 60% AD, a 50% slow for 1 s, `hs_net`)
+and from tick 7 hops her `MoveBack` 5000 x 6 straight away from that champion (inside `RandomTarget` the hop's target is
+the picked unit, league_ezreal E); `SwitchByBuff e_go` then skips the shot. About 2.5 nets a game.
+
+**Three traps on three slots that each bite one champion (league_caitlyn W, Yordle Snap Trap).** A `Position` cast on
+`EnemyChampion` (range 80000) with `cooltime_use_count` 3 and cooltime 2160 (a charge every 12 s), on league_teemo R's
+slots: the first slot whose `busy` flag is gone takes the throw (a `ParabolicProjectile` with a view, 15 ticks), its
+`alive` flag lasts the life (30 ticks to arm, then 8 s), and `busy` outlasts every link, under the 12 s a slot takes to
+come back. Armed, a `RangePeriodProjectile` (radius 9000, `period` 1, the life) on `EnemyChampion` runs, while `alive`
+holds, `RemoveCasterBuff alive` first and then `Bind` 75, the snap picture and `hs_trap` on the champion it applies to:
+the removal comes before the next unit's check in the same tick, so one champion is bitten (league_jinx E bites every
+champion inside, its lock added a tick later). Picture links every 15 ticks show the lying trap while `alive` holds and
+the fading one as its last link. In simulated games 20 throws and 13 snaps a game: the AI's champions stand still
+while they attack. Her death needs no guard here (league_jinx E's chain of projectiles did, "A dead caster"): a dying
+caster's zones stop (section 5), and in 8 logged games with 13 deaths and 82 snaps none came while she was dead; a
+`Bind` moved into a `Delayed {tick: 1}` projectile was dropped again, since the AI scores a cast by the damage of the
+branch it can see when it decides.
+
+**A piercing round aimed at a champion, the first unit taking it all (league_caitlyn Q, Piltover Peacemaker).** A
+`Direction` cast on `EnemyWithoutTower` (range 120000), so it also clears waves and camps; its sound plays on tick 1 and
+the shot comes from a `Delayed` 23 ticks later - a `Delayed` keeps a `Direction` cast's direction (no bolt without one in
+the logs). Morgana Q's aim: `RandomTarget {range: 100000, casting_target: EnemyChampion}` fires a penetrating
+`LinearProjectile` (speed 10000) toward a champion in reach with a 1-tick flag, else the cast's way; the first unit hit
+takes 60 + 110% AD and sets `q_first` (40 ticks), the rest 60% of it. Started from tick 1 the shot comes even when her
+wind-up is cut short: the same kit with the shot on `start_timing` 24 was 0.6 kills weaker on the same seeds.
+
+**A channelled shot the first champion stops (league_caitlyn R, Ace in the Hole).** A `Targeting` cast on
+`EnemyChampion` with a long reach (200000): a crosshair buff on the target for the 1 s channel, league_missfortune R's
+crowd-control check every 10 ticks (`RandomTarget {range: 1, casting_target: AllyChampionInCC}` removes the channel
+flag), and at tick 61, if the flag holds, a non-penetrating `LinearProjectile` on `EnemyChampion` (speed 20000, radius
+8000) toward him: the first enemy champion on the line takes 250 + 150% AD, minions do not block. 4.5 of 5 casts a game
+hit a champion.
 
 ## 8. Gotchas
 

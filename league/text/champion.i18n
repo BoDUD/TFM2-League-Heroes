@@ -259,6 +259,13 @@
         "skill": "<#a974ffff>淘气打击<>：穿过目标冲刺，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>和<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65% 法术强度<>的<#a974ffff>魔法伤害<>，附带流血。<#a974ffff>海石三叉戟<>（每<#ffb900ff>6秒<>）：下一次普攻或淘气打击额外造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 法术强度<>的<#a974ffff>魔法伤害<>，击杀目标则冷却缩短为<#ffb900ff>1秒<>。",
         "skill2": "<#a974ffff>古灵精怪<>：跳上三叉戟<#ffb900ff>0.63秒<>（受到的伤害只有1点、免疫控制），再砸向最近的敌人，对周围造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 法术强度<>的<#a974ffff>魔法伤害<>并<#ef5350ff>减速40%<><#ffb900ff>2秒<>。附近有敌方英雄时先蓄着，挨打就跳起躲开后面的技能（最多等<#ffb900ff>1秒<>）。",
         "ult": "<#a974ffff>巨鲨强袭<>：扔出一条鱼粘在第一个敌方英雄身上并减速，<#ffb900ff>2秒<>后鲨鱼从它脚下冲出，<#ef5350ff>击飞<>周围敌人<#ffb900ff>1秒<>并造成<#a974ffff>魔法伤害<>。鱼飞得越远鲨鱼越大：<#a974ffff>150/220/300<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70/90/110% 法术强度<>，<#ef5350ff>减速40/60/80%<>。落空则在落点冲出大鲨鱼。"
+      },
+      "league_caitlyn": {
+        "name": "凯特琳",
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。被动 <#ff9028ff>爆头<>：每第<#ffb900ff>6<>枪造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>170% 攻击力<>；被夹住的英雄在<#ffb900ff>1.5倍<><i#asset/base/ui/banpick/champion_stat_icon:range_0>射程内优先爆头，再加<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>。<#ff9028ff>90口径绳网<>：英雄贴身时改射网，造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>并<#ef5350ff>减速50%<>，向后跳开，下一枪爆头（冷却<#ffb900ff>12秒<>）。",
+        "skill": "瞄准后射出穿透子弹（优先射向范围内的敌方英雄），对第一个命中的敌人造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110% 攻击力<>的<#ff9028ff>物理伤害<>，之后的敌人受到<#ffb900ff>60%<>。",
+        "skill2": "在敌方英雄脚下放置夹子（<#ffb900ff>3<>层充能，每层<#ffb900ff>12秒<>），夹子存在<#ffb900ff>8秒<>；第一个踩中的敌方英雄被<#ef5350ff>禁锢<><#ffb900ff>1.25秒<>，凯特琳会对他爆头。",
+        "ult": "瞄准一名敌方英雄<#ffb900ff>1秒<>（被控制会中断），然后开枪，对路上第一个敌方英雄造成<#ff9028ff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150% 攻击力<>的<#ff9028ff>物理伤害<>。"
       }
     },
     "skill_name": {
@@ -446,6 +453,11 @@
         "skill1": "淘气打击",
         "skill2": "古灵精怪",
         "ult": "巨鲨强袭"
+      },
+      "league_caitlyn": {
+        "skill1": "和平使者",
+        "skill2": "约德尔诱捕器",
+        "ult": "让子弹飞"
       }
     }
   },
@@ -709,6 +721,13 @@
         "skill": "<#a974ffff>現撈海膽<>：穿過目標衝刺，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>和<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65% 魔法攻擊<>的<#a974ffff>魔法傷害<>，附帶流血。<#a974ffff>海神三叉戟<>（每<#ffb900ff>6秒<>）：下一次普攻或現撈海膽額外造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 魔法攻擊<>的<#a974ffff>魔法傷害<>，擊殺目標則冷卻縮短為<#ffb900ff>1秒<>。",
         "skill2": "<#a974ffff>愛玩小飛<>：跳上三叉戟<#ffb900ff>0.63秒<>（受到的傷害只有1點、免疫控場），再砸向最近的敵人，對周圍造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 魔法攻擊<>的<#a974ffff>魔法傷害<>並<#ef5350ff>緩速40%<><#ffb900ff>2秒<>。附近有敵方英雄時先蓄著，挨打就跳起躲開後面的技能（最多等<#ffb900ff>1秒<>）。",
         "ult": "<#a974ffff>海之霸主<>：扔出一條魚黏在第一個敵方英雄身上並緩速，<#ffb900ff>2秒<>後鯊魚從牠腳下衝出，<#ef5350ff>擊飛<>周圍敵人<#ffb900ff>1秒<>並造成<#a974ffff>魔法傷害<>。魚飛得越遠鯊魚越大：<#a974ffff>150/220/300<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70/90/110% 魔法攻擊<>，<#ef5350ff>緩速40/60/80%<>。落空則在落點衝出大鯊魚。"
+      },
+      "league_caitlyn": {
+        "name": "凱特琳",
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。被動 <#ff9028ff>爆頭<>：每第<#ffb900ff>6<>槍造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>170% 攻擊力<>；被夾住的英雄在<#ffb900ff>1.5倍<><i#asset/base/ui/banpick/champion_stat_icon:range_0>射程內優先爆頭，再加<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>。<#ff9028ff>90口徑繩網<>：英雄貼身時改射網，造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>並<#ef5350ff>緩速50%<>，向後跳開，下一槍爆頭（冷卻<#ffb900ff>12秒<>）。",
+        "skill": "瞄準後射出穿透子彈（優先射向範圍內的敵方英雄），對第一個命中的敵人造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110% 攻擊力<>的<#ff9028ff>物理傷害<>，之後的敵人受到<#ffb900ff>60%<>。",
+        "skill2": "在敵方英雄腳下放置陷阱（<#ffb900ff>3<>層充能，每層<#ffb900ff>12秒<>），陷阱存在<#ffb900ff>8秒<>；第一個踩中的敵方英雄被<#ef5350ff>定身<><#ffb900ff>1.25秒<>，凱特琳會對他爆頭。",
+        "ult": "瞄準一名敵方英雄<#ffb900ff>1秒<>（被控制會中斷），然後開槍，對路上第一個敵方英雄造成<#ff9028ff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150% 攻擊力<>的<#ff9028ff>物理傷害<>。"
       }
     },
     "skill_name": {
@@ -896,6 +915,11 @@
         "skill1": "現撈海膽",
         "skill2": "愛玩小飛",
         "ult": "海之霸主"
+      },
+      "league_caitlyn": {
+        "skill1": "和平使者",
+        "skill2": "約德爾誘捕器",
+        "ult": "勝券在握"
       }
     }
   },
@@ -1159,6 +1183,13 @@
         "skill": "<#a974ffff>Urchin Strike<>: Fizz dashes through the target, dealing <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<> plus <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65% AP<> <#a974ffff>magic damage<> and the bleed. <#a974ffff>Seastone Trident<> (every <#ffb900ff>6s<>): his next basic attack or Urchin Strike deals <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% AP<> bonus <#a974ffff>magic damage<>; if it kills the target the cooldown drops to <#ffb900ff>1s<>.",
         "skill2": "<#a974ffff>Playful / Trickster<>: Fizz vaults onto his trident for <#ffb900ff>0.63s<> (hits deal him 1, immune to crowd control), then slams down on the nearest enemy, dealing <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% AP<> <#a974ffff>magic damage<> around him and <#ef5350ff>slowing by 40%<> for <#ffb900ff>2s<>. With enemy champions near he waits (up to <#ffb900ff>1s<>) and vaults the moment he is hit, dodging what follows.",
         "ult": "<#a974ffff>Chum the Waters<>: Fizz throws a fish that sticks to the first enemy champion and slows it; <#ffb900ff>2s<> later a shark bursts up under it, <#ef5350ff>knocking up<> nearby enemies for <#ffb900ff>1s<> and dealing <#a974ffff>magic damage<>. Farther fish, bigger shark: <#a974ffff>150/220/300<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70/90/110% AP<>, <#ef5350ff>slow 40/60/80%<>. A miss calls the big shark where the fish lands."
+      },
+      "league_caitlyn": {
+        "name": "Caitlyn",
+        "attack": "Basic attacks deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. <#ff9028ff>Headshot<>: every <#ffb900ff>6<>th shot deals <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>170% AD<>; a trapped champion within <#ffb900ff>1.5x<> <i#asset/base/ui/banpick/champion_stat_icon:range_0>range is shot first, +<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40% AD<>. <#ff9028ff>90 Caliber Net<>: an enemy champion on her gets a net instead: <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% AD<>, a <#ef5350ff>50% slow<>; she hops back and her next shot is a Headshot (<#ffb900ff>12s<> cooldown).",
+        "skill": "After aiming, Caitlyn fires a piercing round (at an enemy champion in reach first): <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110% AD<> <#ff9028ff>physical damage<> to the first enemy hit, <#ffb900ff>60%<> of it to the others.",
+        "skill2": "Caitlyn sets a trap at an enemy champion's feet (<#ffb900ff>3<> charges, one every <#ffb900ff>12s<>), lasting <#ffb900ff>8s<>. The first enemy champion to step on it is <#ef5350ff>rooted<> for <#ffb900ff>1.25s<> and Caitlyn headshots him.",
+        "ult": "Caitlyn lines up a shot on an enemy champion for <#ffb900ff>1s<> (crowd control breaks it), then fires: the first enemy champion in the bullet's path takes <#ff9028ff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150% AD<> <#ff9028ff>physical damage<>."
       }
     },
     "skill_name": {
@@ -1346,6 +1377,11 @@
         "skill1": "Urchin Strike",
         "skill2": "Playful / Trickster",
         "ult": "Chum the Waters"
+      },
+      "league_caitlyn": {
+        "skill1": "Piltover Peacemaker",
+        "skill2": "Yordle Snap Trap",
+        "ult": "Ace in the Hole"
       }
     }
   },
@@ -1609,6 +1645,13 @@
         "skill": "<#a974ffff>성게 찌르기<>: 대상을 관통해 돌진하며 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>와 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 65%<> <#a974ffff>마법 피해<>, 출혈 적용. <#a974ffff>심해석 삼지창<>(<#ffb900ff>6초<>마다): 다음 기본 공격이나 성게 찌르기가 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 60%<> 추가 <#a974ffff>마법 피해<>, 대상을 처치하면 재사용 대기시간이 <#ffb900ff>1초<>로 줄어듭니다.",
         "skill2": "<#a974ffff>장난치기 / 재간둥이<>: <#ffb900ff>0.63초<> 동안 삼지창 위로 뛰어올라(받는 피해 1, 군중 제어 면역) 가장 가까운 적에게 내려찍어 주변에 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 80%<> <#a974ffff>마법 피해<>를 입히고 <#ffb900ff>2초<> 동안 <#ef5350ff>40% 둔화<>. 근처에 적 챔피언이 있으면 기다렸다가(최대 <#ffb900ff>1초<>) 맞는 순간 뛰어올라 이어지는 스킬을 피합니다.",
         "ult": "<#a974ffff>미끼 뿌리기<>: 물고기를 던져 처음 맞힌 적 챔피언에게 붙여 둔화시키고, <#ffb900ff>2초<> 뒤 그 아래에서 상어가 솟아올라 주변 적을 <#ffb900ff>1초<> 동안 <#ef5350ff>공중에 띄우고<> <#a974ffff>마법 피해<>. 멀리 날아갈수록 큰 상어: <#a974ffff>150/220/300<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 70/90/110%<>, <#ef5350ff>둔화 40/60/80%<>. 빗나가면 떨어진 곳에서 큰 상어가 솟아오릅니다."
+      },
+      "league_caitlyn": {
+        "name": "케이틀린",
+        "attack": "기본 공격은 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>헤드샷<>: <#ffb900ff>6<>번째 공격마다 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 170%<>. 덫에 걸린 챔피언은 <i#asset/base/ui/banpick/champion_stat_icon:range_0>사거리 <#ffb900ff>1.5배<> 안에서 먼저 맞히고 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> 추가. <#ff9028ff>90구경 투망<>: 적 챔피언이 붙으면 그물로 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> 피해와 <#ef5350ff>50% 둔화<>, 뒤로 물러나고 다음 공격은 헤드샷(재사용 <#ffb900ff>12초<>).",
+        "skill": "조준 후 관통 탄환을 발사해(사거리 안의 적 챔피언 우선) 처음 맞힌 적에게 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 110%<> <#ff9028ff>물리 피해<>, 그 뒤의 적에게 <#ffb900ff>60%<>의 피해를 입힙니다.",
+        "skill2": "적 챔피언의 발밑에 덫을 놓습니다(충전 <#ffb900ff>3<>회, <#ffb900ff>12초<>마다 1회). 덫은 <#ffb900ff>8초<> 동안 남고, 처음 밟은 적 챔피언은 <#ffb900ff>1.25초<> 동안 <#ef5350ff>속박<>되며 케이틀린이 헤드샷을 날립니다.",
+        "ult": "적 챔피언을 <#ffb900ff>1초<> 동안 조준한 뒤(군중 제어로 끊김) 발사해, 탄환이 지나는 길의 첫 적 챔피언에게 <#ff9028ff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 150%<> <#ff9028ff>물리 피해<>를 입힙니다."
       }
     },
     "skill_name": {
@@ -1796,6 +1839,11 @@
         "skill1": "성게 찌르기",
         "skill2": "장난치기 / 재간둥이",
         "ult": "미끼 뿌리기"
+      },
+      "league_caitlyn": {
+        "skill1": "필트오버 피스메이커",
+        "skill2": "요들잡이 덫",
+        "ult": "비장의 한 발"
       }
     }
   },
@@ -2059,6 +2107,13 @@
         "skill": "<#a974ffff>ウニトゲストライク<>：対象を突き抜けて突進し、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>と<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の65%<>の<#a974ffff>魔法ダメージ<>、出血付与。<#a974ffff>シートライデント<>（<#ffb900ff>6秒<>ごと）：次の通常攻撃かウニトゲストライクが<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の60%<>の追加<#a974ffff>魔法ダメージ<>、倒すとCDが<#ffb900ff>1秒<>に。",
         "skill2": "<#a974ffff>プレイ/トリックスター<>：三叉槍に飛び乗り<#ffb900ff>0.63秒<>（被ダメージ1、行動妨害無効）、最も近い敵に叩きつけ周囲に<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の80%<>の<#a974ffff>魔法ダメージ<>と<#ffb900ff>2秒<><#ef5350ff>40%スロウ<>。敵チャンピオンが近いと待ち（最大<#ffb900ff>1秒<>）、攻撃を受けた瞬間に飛び乗り後続のスキルをかわす。",
         "ult": "<#a974ffff>フィッシング<>：魚を投げ最初の敵チャンピオンにくっつけスロウ、<#ffb900ff>2秒<>後その足元からサメが現れ周囲の敵を<#ffb900ff>1秒<><#ef5350ff>ノックアップ<>し<#a974ffff>魔法ダメージ<>。遠くへ飛ぶほど大きなサメ：<#a974ffff>150/220/300<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の70/90/110%<>、<#ef5350ff>スロウ40/60/80%<>。外れると落ちた場所に大きなサメ。"
+      },
+      "league_caitlyn": {
+        "name": "ケイトリン",
+        "attack": "通常攻撃は<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>ヘッドショット<>：<#ffb900ff>6<>発ごとに<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>170%<>。罠にかかった敵は<i#asset/base/ui/banpick/champion_stat_icon:range_0>射程<#ffb900ff>1.5倍<>以内で優先、+<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>。<#ff9028ff>90口径ネット<>：密着されるとネットで<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>と<#ef5350ff>50%スロウ<>、後ろへ跳び次の一発がヘッドショット（CD<#ffb900ff>12秒<>）。",
+        "skill": "狙いを定めて貫通弾を撃ち（射程内の敵チャンピオン優先）、最初に当たった敵に<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の110%<>の<#ff9028ff>物理ダメージ<>、以降の敵には<#ffb900ff>60%<>。",
+        "skill2": "敵チャンピオンの足元に罠を置く（チャージ<#ffb900ff>3<>回、<#ffb900ff>12秒<>ごとに1回）。罠は<#ffb900ff>8秒<>残り、最初に踏んだ敵チャンピオンを<#ffb900ff>1.25秒<><#ef5350ff>スネア<>し、ケイトリンがヘッドショットを撃ち込む。",
+        "ult": "敵チャンピオンを<#ffb900ff>1秒<>狙い（行動妨害で中断）、撃つ。弾の進路上の最初の敵チャンピオンに<#ff9028ff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の150%<>の<#ff9028ff>物理ダメージ<>。"
       }
     },
     "skill_name": {
@@ -2246,6 +2301,11 @@
         "skill1": "ウニトゲストライク",
         "skill2": "プレイ/トリックスター",
         "ult": "フィッシング"
+      },
+      "league_caitlyn": {
+        "skill1": "ピルトーヴァーピースメーカー",
+        "skill2": "ヨードルスナップトラップ",
+        "ult": "エース・イン・ザ・ホール"
       }
     }
   }
