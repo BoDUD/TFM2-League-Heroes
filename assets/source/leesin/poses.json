@@ -11,9 +11,9 @@
       ["Idle_Active@0", 130], ["Idle_Active@133", 100], ["Idle_Active@233", 130],
       ["Idle_Active@367", 170], ["Idle_Active@533", 130], ["Idle_Active@667>Idle_Active@0:0.5", 70]]},
     "run": {"frames": [
-      ["Run_Base@0", 192], ["Run_Base@192", 192], ["Run_Base@383", 192],
-      ["Run_Base@575", 192], ["Run_Base@767", 192], ["Run_Base@958", 192],
-      ["Run_Base@1150", 192], ["Run_Base@1342", 192]]},
+      ["Run_Base@0", 115], ["Run_Base@192", 115], ["Run_Base@383", 115],
+      ["Run_Base@575", 115], ["Run_Base@767", 115], ["Run_Base@958", 115],
+      ["Run_Base@1150", 115], ["Run_Base@1342", 115]]},
     "attack": {"lunge": 0.7, "frames": [
       ["Idle_Active@0>Attack3@0:0.5", 60], ["Attack3@100", 60], ["Attack3@233", 70],
       ["Attack3@333", 80], ["Attack3_toIdle@200", 50], ["Attack3_toIdle@700>Idle_Active@0:0.5", 40]]},

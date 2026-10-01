@@ -1,0 +1,37 @@
+{
+  "tool": "image_gen.imagegen",
+  "transparent_background": true,
+  "selected_outputs": {
+    "A": {
+      "prompt_key": "pack7_A_clean_prompt",
+      "reference": "previous generated A_micro.png"
+    },
+    "B": {
+      "prompt_key": "pack7_B_prompt",
+      "reference": "akali_original_A.png"
+    }
+  },
+  "attempts": [
+    {
+      "key": "pack7_A_prompt",
+      "prompt": "Draw ONE tiny low-resolution Akali game sprite in a CLEAN SIMPLE FLAT pixel-art style. This is a gameplay sprite, NOT a detailed pixel illustration. Aim40 native square rows tall, NEVER above56. Each material ONLY2 or3 flat shades, big calm color areas, minimal internal lines, no individual hairs, ornate folds, tiny stitching or noise.\nReference1 is her identity, colors, proportions and expression ONLY. Reference2 is size and placement ONLY; its dark muddy appearance is rejected. Reinterpret reference1 with the very simple readability of a classic handheld RPG sprite. Low navy ponytail swept LEFT, only3 large spiky locks, one large lime bow and two clean tails. Slim athletic body, tapered face. Teal pointed mask with lime edge, teal crop top, tan arms/belly, ONE lilac upper-arm curl, red round hip pouch, simple orange-brown ropebelt with just2slashes, blue baggy pants with ONE big highlight patch perleg, lime shinwraps, navy shoes. Near LEFT hand broad kunai downleft, far RIGHT hand curved kama outright. Arms emerge from shoulders, not face.\nPRIORITY: both eyes clearly visible, SEPARATE and on the SAME ROWS. Each eye2squares tall, white glint/white of eye, AMBER iris and dark pupil, slanted lashes. Iris color#D46A0A used ONLY in eyes. Keep hair away fromeyes. Teal mask covers nose/mouth and narrows towardchin, NOT rectangular.\nONE square dark silhouette outline, veryfew interior black lines. Maximum24flatcolors: #0A0A14 outline; navy/blue #111C3E #182E61 #1A3E8A #1C4AAE #3D72D9; lime #789336 #AEC926 #EFF92A; teal #063242 #094658 #1E6E7E; tan #E07A45 #FC9C5D #FDC58D; amberiris #D46A0A; white #FDFDFD; red #441221 #A42D2F; rope #7A3A14 #C0602A; lilac #9B90BF; steel #5F5E69 #B8BCC8.\nGenuine coarse nativepixel squares, allsame size, no smaller details within a square. No smoothing, gradients, glow, dithering, specks or messy edges. Full body in idle stance, 3/4front facingRIGHT. Both soles level. Transparentbackground, no shadow,text,grid,border.\nVERSION A: natural slim proportions matching approveddesign, eyes2rows tall. On1024squarecanvas at8x: nativecanvas128square, figurey60..99, footmidpointx64. If approximategrid is unavoidable retain coarse clear squares and the intended tiny40row pixel budget. Nothing below soles. Simple bold shapes, calm flat areas, readable eyes.",
+      "selected": false
+    },
+    {
+      "key": "pack7_A_simple_prompt",
+      "prompt": "A VERY TINY 16x20-pixel Akali RPG sprite enlarged with huge coarse square pixels. Extremely simple clean retro game art, ONLY16 flat colors. Each material only TWO solid shades. Broad flat color areas, no small ornamental details, no gradients or dithering. Thin one-pixel outline, almost no interior black lines.\nSlim female ninja, three-quarter FRONT facingRIGHT, LOW navy ponytail sweeps horizontally LEFT in THREE solid pointed locks. ONE lime bow, TWO plain ribbon tails. Tapered tan face: TWO SEPARATE clear eyes on SAME rows, each2pixels high, WHITE plus AMBER plus DARK pupil, angled lashes. AmberONLYeyes. PointedTEAL mask beloweyes with simplelimeedge; bangsnotcoveringeyes.\nTeal crop top, tan arms/midriff, single lilac upper-arm mark, lime wristwraps. Red round hip pouch, simple orangebrown belt. Blue baggy trousers with ONE broad highlight patch each, limeshinwraps, navyshoes. NearLEFT hand kunai downleft; farRIGHT hand curvedkama outward. Hands attached to shoulders through arms, weaponsdon'tcrossface. Legsapart, soleslevel.\nOne full-body figure on transparentbackground. No shadow, no floor, no labels. Simple beautiful readable pixel shapes, FEWER DETAILS. Every nativepixel a single large solid square, allsame size. Do NOT render a detailed highresolution illustration.",
+      "selected": false
+    },
+    {
+      "key": "pack7_A_clean_prompt",
+      "prompt": "Edit this tiny pixel sprite. Keep its EXACT coarse pixel size and its silhouette height of 48 square pixels, do not add resolution or increase its size. Clean flat game sprite. Fix the face so BOTH eyes each have TWO rows, a white pixel next to amber iris and black pupil; both eyes same row. Remove the purple stray pixels on hair. Hair stays navy, low ponytail left, lime bow. Trousers entirely navy blue, not teal. Simplify the belt to one orange rope. Teal mask tapering to chin. Teal lime-edged loincloth in front of pants. Keep left kunai and right kama and slim arms, keep all other proportions and stance. ONLY24 flat colors, each material2or3 shades. No gradients, no texture, no antialiasing. All squares the same large size including eyes; eyes must be made from the existing grid, never smaller squares. Transparent background. ONE character only.",
+      "selected": true
+    },
+    {
+      "key": "pack7_B_prompt",
+      "prompt": "Make version B of this pixel sprite with ONLY its head changed. Enlarge the FACE by TWO of the existing coarse square pixels in height and width; both eyes now THREE coarse square rows high. Eyes separated by skin, both eyes on SAME rows, white + amber iris + dark pupil clearly side by side. Angled upper lashes for a confident determined expression. Keep tapered teal face mask and navy bangs. Low navy ponytail sweeping left, lime bow. Keep body, arms, hands, weapons, legs, stance, and clothes exactly same position and size. Near LEFT hand kunai, far RIGHT hand kama. Every square must be EXACTLY same coarse size as existing sprite; no smaller squares inside eyes. Very simple game sprite, max24 flat colors, no gradients or texture. Head should grow upward2rows while neck/body fixed. Do not add hair details. Transparent background, ONE character.",
+      "selected": true
+    }
+  ],
+  "postprocess": "Faithful cell sampling for A; approximate 21–22px lattice sampling for B's inconsistent raw grid. Palette/material cleanup, binary alpha, native baseline 99, nearest-neighbor 8x. No manual face replacement. See export_pack7.py and validation.json."
+}
