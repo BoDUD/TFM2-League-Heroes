@@ -1,0 +1,593 @@
+{
+  "frame_total": 64,
+  "generated_frames": 58,
+  "checks": [
+    {
+      "tag": "idle",
+      "frame": 1,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "idle",
+      "frame": 2,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "idle",
+      "frame": 3,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "idle",
+      "frame": 4,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "idle",
+      "frame": 5,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "idle",
+      "frame": 6,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "run",
+      "frame": 1,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "run",
+      "frame": 2,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "run",
+      "frame": 3,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "run",
+      "frame": 4,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "run",
+      "frame": 5,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "run",
+      "frame": 6,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "run",
+      "frame": 7,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "run",
+      "frame": 8,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "attack",
+      "frame": 1,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "attack",
+      "frame": 2,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "attack",
+      "frame": 3,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "attack",
+      "frame": 4,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "attack",
+      "frame": 5,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "attack",
+      "frame": 6,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "attack_p",
+      "frame": 1,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "attack_p",
+      "frame": 2,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "attack_p",
+      "frame": 3,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "attack_p",
+      "frame": 4,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "attack_p",
+      "frame": 5,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "attack_p",
+      "frame": 6,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "skill",
+      "frame": 1,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "skill",
+      "frame": 2,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "skill",
+      "frame": 3,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "skill",
+      "frame": 4,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "skill",
+      "frame": 5,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "skill",
+      "frame": 6,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "skill2",
+      "frame": 1,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "skill2",
+      "frame": 2,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "skill2",
+      "frame": 3,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "skill2",
+      "frame": 4,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "skill2",
+      "frame": 5,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "skill2",
+      "frame": 6,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "skill2_dash",
+      "frame": 1,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "skill2_dash",
+      "frame": 2,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "skill2_dash",
+      "frame": 3,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "skill2_dash",
+      "frame": 4,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "skill2_dash",
+      "frame": 5,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "ult",
+      "frame": 1,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "ult",
+      "frame": 2,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "ult",
+      "frame": 3,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "ult",
+      "frame": 4,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "ult",
+      "frame": 5,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "ult",
+      "frame": 6,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "ult2",
+      "frame": 1,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "ult2",
+      "frame": 2,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "ult2",
+      "frame": 3,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "ult2",
+      "frame": 4,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "ult2",
+      "frame": 5,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "hit",
+      "frame": 1,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "hit",
+      "frame": 2,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "dead",
+      "frame": 1,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "dead",
+      "frame": 2,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "dead",
+      "frame": 3,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "dead",
+      "frame": 4,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "dead",
+      "frame": 5,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "dead",
+      "frame": 6,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": true
+    },
+    {
+      "tag": "dead",
+      "frame": 7,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": null
+    },
+    {
+      "tag": "dead",
+      "frame": 8,
+      "palette_ok": true,
+      "binary_alpha": true,
+      "below_floor_pixels": 0,
+      "amber_outside_head": 0,
+      "head_exact": null
+    }
+  ],
+  "all_grid_8x": true,
+  "idle_file_unchanged": true,
+  "run_head_x_relative_to_pivot": -8,
+  "run_head_y_range": [
+    47,
+    48
+  ],
+  "visual_review_complete": true,
+  "runtime_game_test": false,
+  "visual_review_scope": "All final contact sheets inspected for layout, head placement, weapon side and visible clipping. This is not a blanket pass of anatomy or reference-motion fidelity.",
+  "timing_and_pivots_match_input": true
+}
