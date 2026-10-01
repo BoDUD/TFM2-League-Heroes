@@ -41,6 +41,11 @@ first run; every run starts from there, so a second run changes nothing and --ch
    the death's 5th-8th tools/art/fix_tristana_dead.py's: the 3rd's body with the hit's closed eyes turned 45 / 90 / 90
    / 90 and put down by its plan, beside the cannon lying on the ground (the 2nd's lowest piece, cut as the 2nd), and
    that one cannon replaces the 3rd and 4th's own, so it lies still from the 2nd frame on.
+5. The attack is not Codex's any more (the user: "平A的时候头和身体不太协调"): its six frames pasted the design head at
+   one column over a body that changed drawing every frame (the feet sliding 8-12 squares a frame, no neck, a fat
+   cannon turning muzzle-up). attack_from_idle builds them from the shrunk idle - head, neck, vest, arms and cannon
+   one block moved along League's head path (ATTACK_PATH), the feet on the idle's, its own leg rows taken out for the
+   dip and sheared forward from the thighs to the boots; tools/art/import_tristana.py's MUZZLE_ATTACK follows the bell.
 Writes assets/source/native/tristana_native.png and tristana_<tag>.png (8x, cells and pivots unchanged); then run
 tools/art/import_native.py --hero tristana. --check compares with the files instead of writing.
 """
@@ -92,6 +97,15 @@ TURNED = {("skill2", 4): (3, "cw90"), ("skill2", 5): (3, "cw45")}
 # columns in 56, the feet kept while she stands
 FACE_AT = {("ult", 5): (57, 61, 68, 70), ("dead", 4): (71, 49, 82, 57)}
 DEAD_PLAN = {5: (45, 9, 10), 6: (90, 2, 16), 7: (90, 0, 16), 8: (90, 0, 16)}   # fix_tristana_dead.py's (1-based)
+# the attack from the idle (the user: "平A的时候头和身体不太协调"): the idle's head, neck, vest, arms and cannon as one
+# block moved along League's head path (right, down per frame; League's own, from frame 1: +1.6/+0.7, +2.8/+3.7,
+# +2.4/+4.5, -0.1/-1.5, -0.4/-2.0 - the dip held to 2 rows, deeper left stub legs), the feet on the idle's feet
+ATTACK_PATH = [(0, 0), (2, 1), (3, 2), (2, 2), (0, -1), (0, 0)]
+LEGS = 6                          # the idle's leg rows start 6 under the pivot (the thighs); the soles' outline is +11
+DIP_ROWS = (8, 7)                 # rows taken out for a dip, in this order (the boots' tops, then the knees)
+RISE_ROW = 8                      # row doubled for a rise
+FOOT = 9                          # rows from here down (boots, soles, outline) never move: the feet stay planted
+BELL_X = 17                       # columns right of the pivot from here belong to the cannon's bell, also under LEGS
 WEIGHT = {(246, 186, 48): 12, (130, 29, 63): 6,                               # amber eyes, mouth
           **{c: 2 for c in ((0x73, 0x97, 0xC3), (0x44, 0x5E, 0x80), (0x7E, 0x87, 0x9E), (0xB9, 0xDD, 0xED),
                             (0xBF, 0xCC, 0xD8))},                              # steel: the bell, the lenses
@@ -360,6 +374,51 @@ def strip_frames(path, n, cell):
             for k in range(n)], (cols, rows)
 
 
+def attack_from_idle(idle, ipiv, pivots, path=ATTACK_PATH):
+    """The attack's frames built from the shrunk idle frame (its pivot ipiv): the block (everything above the thighs
+    and the bell under them) moved by each frame's (dx, dy), the legs the idle's own rows - rows taken out for a dip
+    (DIP_ROWS), one doubled for a rise (RISE_ROW) - sheared from dx at the thighs to nothing at the boots (FOOT), each
+    frame on its own pivot. Codex's attack frames had the design head pasted at one place over a body that changed
+    drawing every frame: its feet slid 8-12 squares a frame, its head sank into the shoulders (no neck) and its cannon
+    turned fat and then muzzle-up under a head that never moved sideways."""
+    px, py = ipiv
+    h, w = idle.shape[:2]
+    rows = np.arange(h)[:, None] + np.zeros((1, w), int)
+    cols = np.zeros((h, 1), int) + np.arange(w)[None, :]
+    block = (rows < py + LEGS) | ((cols >= px + BELL_X) & (rows < py + FOOT))
+    legs = np.where(~block[..., None], idle, 0).astype(np.uint8)
+    body = np.where(block[..., None], idle, 0).astype(np.uint8)
+    out = []
+    for (dx, dy), (tx, ty) in zip(path, pivots):
+        src = list(range(py + LEGS, py + SOLES + 1))                  # the leg rows, top to bottom
+        if dy > 0:
+            for r in DIP_ROWS[:dy]:
+                src.remove(py + r)
+        for _ in range(-dy):
+            i = src.index(py + RISE_ROW)
+            src.insert(i, py + RISE_ROW)
+        f = np.zeros_like(idle)
+        top = py + SOLES + 1 - len(src)                               # the thighs' new row
+        for i, r in enumerate(src):
+            y = top + i
+            s_ = 0 if y >= py + FOOT else int(round(dx * (py + FOOT - y) / max(py + FOOT - top, 1)))
+            if s_ >= 0:
+                f[y, s_:] = np.where(legs[r, :w - s_, 3:] > 0, legs[r, :w - s_], f[y, s_:])
+            else:
+                f[y, :w + s_] = np.where(legs[r, -s_:, 3:] > 0, legs[r, -s_:], f[y, :w + s_])
+        moved = np.zeros_like(body)
+        ys, xs = np.nonzero(body[..., 3] > 0)
+        ok = (ys + dy >= 0) & (ys + dy < h) & (xs + dx >= 0) & (xs + dx < w)
+        moved[ys[ok] + dy, xs[ok] + dx] = body[ys[ok], xs[ok]]
+        m = moved[..., 3] > 0
+        f[m] = moved[m]
+        g = np.zeros_like(f)                                           # onto this frame's pivot
+        ox, oy = tx - px, ty - py
+        g[max(0, oy):h + min(0, oy), max(0, ox):w + min(0, ox)] = f[max(0, -oy):h - max(0, oy), max(0, -ox):w - max(0, ox)]
+        out.append(g)
+    return out
+
+
 def to_strip(frames, grid, cell):
     cols, rows = grid
     a = np.zeros((rows * cell[1], cols * cell[0], 4), np.uint8)
@@ -468,6 +527,10 @@ def main():
         m = cannon[..., 3] > 0
         f[m] = cannon[m]
     print(f"  dead 5-8: the 3rd's body (head {s3}/{(head[..., 3] > 0).sum()}), the hit's eyes ({s1}), turned")
+    att, grid_a, cuts_a = shrunk["attack"]
+    shrunk["attack"] = (attack_from_idle(shrunk["idle"][0][0], spec["tags"]["idle"][0]["pivot"],
+                                         [r["pivot"] for r in spec["tags"]["attack"]]), grid_a, cuts_a)
+    print(f"  attack: the idle's block along {ATTACK_PATH}, the feet on the idle's")
     for tag in TAGS:
         new, grid, _ = shrunk[tag]
         if tag == "idle":
