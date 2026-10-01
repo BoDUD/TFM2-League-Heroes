@@ -12,9 +12,9 @@
 
 ![拉克丝演示：跑步、普攻、Q 光之束缚和护盾、被动引爆、E 透光奇点、R 终极闪光](docs/preview/league_lux_showcase.gif?v=0930)
 
-![李青演示：跑步、Q 天音波和回音击、疾风骤雨普攻、E 天雷破和金钟罩；R 猛龙摆尾：逃开的德莱厄斯身后没人，回旋踢把他踢回盖伦那边；第二段亚索身后站着金克丝，正面踢把他踢进金克丝，金龙撞飞她](docs/preview/league_leesin_showcase.gif?v=1001edge)
+![李青演示：跑步、Q 天音波和回音击、疾风骤雨普攻、E 天雷破和金钟罩；R 猛龙摆尾：逃开的德莱厄斯身后没人，回旋踢把他踢回盖伦那边；第二段亚索身后站着金克丝，正面踢把他踢进金克丝，金龙撞飞她](docs/preview/league_leesin_showcase.gif?v=1001head)
 
-![索拉卡演示：跑步、普攻、Q 流星坠落和星体结界、W 星之灌注、R 祈愿](docs/preview/league_soraka_showcase.gif?v=1001legs)
+![索拉卡演示：跑步、普攻、Q 流星坠落和星体结界、W 星之灌注、R 祈愿](docs/preview/league_soraka_showcase.gif?v=1001head)
 
 ![德莱厄斯演示：跑步、E 无情铁手拉人、W 致残打击、普攻叠出血、Q 大杀四方、诺克萨斯之力、R 诺克萨斯断头台](docs/preview/league_darius_showcase.gif?v=0930c)
 
@@ -214,7 +214,8 @@ python tools/lol/extract_leesin.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmst
 python tools/lol/native_pose.py assets/source/leesin/poses.json --out <参考图文件夹>
 python tools/art/fit_native.py --hero leesin --src assets/source/leesin/codex --refs <参考图文件夹> --scale run=1.4 --scale attack=1.4 --scale skill=1.4 --scale skill2=1.34 --scale ult=1.38 --scale hit=1.38 --scale dead=1.35 --scale q2=1,1,1,1,1,1.18,1.18
 python tools/art/shorten_legs.py --hero leesin      # 腿缩短 3 行（从 legs_long/ 里 Codex 画的原图开始）
-python tools/art/import_native.py --hero leesin    # 角色图
+python tools/art/fix_leesin_head.py                # 跑步的头、嘴前的黑线 → leesin_retouch.json（动作条变了才要重跑）
+python tools/art/import_native.py --hero leesin    # 角色图（套用 leesin_retouch.json）
 python tools/art/import_leesin.py                  # 特效
 python tools/art/preview_leesin.py
 ```
@@ -227,6 +228,8 @@ python tools/art/preview_leesin.py
 - 腿和步频（2026-10-01）：用户：“盲僧的腿太长 导致步频过慢 比较违和”。`shorten_legs.py` 在每帧裤腰到脚踝之间删 3 整行（裤腰是灯笼裤的深蓝色第一次铺满 3 格的那一行，删和上下行最像的行，不连着删），上半身整体下移、脚还踩在地面线上，不重画、不重采样；Q2 的空翻和飞踢、R 的空翻、死亡被打飞的那一帧删行会把身体压扁，改成整帧下移 3 行，躺在地上的帧不动。Codex 画的原图留在 [`legs_long/`](assets/source/leesin/legs_long/)。步频慢的主因是跑步的时长：英雄联盟的 `Run_Base.anm` 有 1.53 秒，但动画图按每拍 0.02 秒播（`anim_graph.py LeeSin --grep run`：一圈 0.920 秒），原来 8 帧 × 192 ms 用的是文件原长，比原版慢 1.7 倍；改成英雄联盟的 8 帧 × 115 ms。头像截取点 −34 → −31，选人卡片的 `banpick_center` −7 → −10（待机最高处从站位点上 32 px 变成 29 px，照 −39 − 最高处）。
 - 腰线（2026-10-01）：用户：“盲僧改了一下缩短了腿 但是要和腿中间有一条黑线”（“要”是“腰”）。这条线是 Codex 原图里肚皮和红腰带之间的一行黑描边，腿短了以后更显眼。`shorten_legs.py` 删完行后再处理腰线：裤腰往上 6 行内，上面紧挨皮肤、下面紧挨腰带或裤子的一两格黑色，改成下面那块布的最深色（腰带的深红、裤子的深蓝）；横向要连着两格以上才算线，单独一格是手臂轮廓的末端，不动；外轮廓（四邻有透明格）不动。空中整帧下移的帧（贴着腿的是手和头）和 W 落地下巴贴着膝盖的那一帧不处理。改了 32 帧、每帧 2–8 格，待机每帧 8 格。
 - 黑边（2026-10-01，用户：「盲僧也要清理」）：同样加进 `COMPLETE` 和 `CLEAN`：缺描边的浅色边外补一格（1413 格），外圈的两种近黑（`#010000`、`#030106`）统一成一种，双层描边的内鼓包 130 格、碎点 93 格、斜阶梯多出的一格 21 格；蒙眼布那一块的脸、辫子、腕带的红条纹不动。`metrics` 的描边 96% → 98%（剩下的是深蓝裤子、深红腰带自己当边）。
+- 跑步时头上的残影（2026-10-01，用户：「盲僧走路时发现头上有残影」「这里不还是有残影？」）：Codex 在每个跑步帧都贴了造型图的脸（蒙眼布和它下面逐格一样），但没擦掉底下他自己画的那颗头，它大多偏一两格：脸前缘外面露出一条边——第 2、3、7 帧是一列皮肤、蒙眼布的红和第二层描边，第 1、4、6、8 帧是双层描边；后脑勺外面有一两格的描边和暗红碎点；蒙眼布上面 4 行光头也是每帧重画的（发髻的金扣忽左忽右、头顶冒黑点、头发盖到头顶）。每帧 115 ms 播起来，头的边缘一闪一闪像残影。`fix_leesin_head.py` 按每帧蒙眼布的位置：头顶换成待机的（头皮、轮廓和金扣，不含待机垂在身后的辫子），帧里自己画的第二个金扣改成辫子的深色头发；从头顶到下巴，待机头部前缘外面的格子清掉（最多 2 格宽）；后脑勺（8 帧共有的后缘）外面两列清掉。往后飘的辫子和下巴下面的肩膀不动。改完 8 帧的头从头顶到下巴逐格相同，也和待机的头一样，每帧仍是一整块。
+- 嘴前的黑线（2026-10-01，用户：「嘴巴前面还有黑线？」）：造型图的脸在棕色的嘴前面、描边里面多一格近黑色（`#030106`），下巴前缘再一格，和描边连成两格宽的斜黑线（旧造型去掉过的那条脸前缘深色线，Codex 的脸上又有了）。这两格改成皮肤色：嘴前是亮皮肤 `#F3B27C`，下面是皮肤阴影 `#D79260`，和旁边一样；露脸的 50 帧（待机、跑步、普攻、Q、E、R、受击、倒地前两帧）都改，每帧只动这 2 格。两项都写进 [`native/leesin_retouch.json`](assets/source/native/leesin_retouch.json)（共 311 格：跑步每帧 24–33 格，其他每帧 2 格），导入时套用，在呼吸和描边之前（下一条旧造型改嘴和鼻子的那份 retouch 在换成 Codex 动作条时删了，现在这个文件只有这两项）。
 - 进游戏看过后改了嘴和鼻子：造型图脸前缘那条深色竖线和下巴上的深色块去掉，换成蒙眼布下方两行处 2 格的嘴；头部直立的动作帧套用同一张下半脸。待机的头右侧原来是一条直边，在深色的英雄卡片上看起来像被切掉一半，改成了弧形轮廓（额头、蒙眼布、鼻尖外凸，嘴和下巴内收）。改动逐像素记在 [`native/leesin_retouch.json`](assets/source/native/leesin_retouch.json)，导入时套用。
 
 逐帧预览：[`docs/preview/league_leesin_frames.png`](docs/preview/league_leesin_frames.png)，特效：[`docs/preview/league_leesin_effects.png`](docs/preview/league_leesin_effects.png)。
