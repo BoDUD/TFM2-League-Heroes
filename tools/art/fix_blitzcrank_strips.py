@@ -34,17 +34,20 @@ away (frames 2 and 5-8) and a speck of the near fist (frame 2) are cleared (STUB
 Codex later regenerated the run (HANDOFF_RUN_REGEN.md): its fists stay at the sides, the same leg always leads and the
 trailing one is a brown block without a foot, so the first run, cleaned here, keeps the cross-step and the idle's legs.
 The Rocket Grab redrawn (the user, 2026-10-02: "要的是和联盟一样 从手臂飞出去的爪子勾人"; Q_REDO.md): Codex redrew
-the throwing arm along the hook's line (the empty socket at (24, -11)) in Q 3-7 and toward the return lines (the socket
-at (30, -5)) in the pull loop, on these frames as they stood (assets/source/blitzcrank/codex_q_redo/). Its arm
-replaced a box that also cut the head's right half and the chest port out of Q 4 and 5 (and slivers in Q 6 and the
-pull): every square it cleared outside the old arm (columns from +13 above row -12; Q 7's old fist from +13 down) comes
-back from the frame it started from; the old arm's bottom edge it left beside the pull 2 socket (row -11, columns
-+30..+37) is cleared; and the thin fork it drew as the mounted claw in Q 3 and 7 is replaced by its own open claw
+the throwing arm along the hook's line (the empty socket at (24, -11)) in Q 3-7, on these frames as they stood
+(assets/source/blitzcrank/codex_q_redo/; its pull loop, the arm toward returns flying to his pivot, is not used: the
+hand now comes back along its own line). Its arm replaced a box that also cut the head's right half and the chest port
+out of Q 4 and 5 (and slivers in Q 6): every square it cleared outside the old arm (columns from +13 above row -12; Q
+7's old fist from +13 down) comes back from the frame it started from; and the thin fork it drew as the mounted claw in
+Q 3 and 7 is replaced by its own open claw
 (logical/blitzcrank_fx_q_claw_open_1x.png, frame 1, without its rocket steam: not fired yet), the wrist on the arm's
 end at (25, -11), sheared down 12 degrees with the arm (the user: "有问题的地方还是你来调整"). The strip's timing in
 blitzcrank_cells.json follows the hook: frame 3 holds the claw on the arm until tick 16, when the flying one shows in
 front of it (import_blitzcrank.py), and frames 4-6 the empty socket until a missed claw is back (tick 32): 60 60 147
-66 84 116 67 67 ms (Codex's pack: 60 60 70 80 120 120 80 80; still 40 ticks).
+66 84 116 67 67 ms (Codex's pack: 60 60 70 80 120 120 80 80; still 40 ticks). The pull loop is Q 5, 6, 5 (the arm
+straight along the hook's line, the socket empty: the chain runs back into it) and the hold (q_hold, the claw back on
+the arm with its catch) Q 5 and 6 with Codex's closed claw mounted the same way; their cells in blitzcrank_cells.json
+are Q 5-6's.
 Last, nothing below the soles' line (row 97 of the cell; the HP bar covers it): the lying body of the death's last two
 frames reached 2 rows lower and moves up.
 Frames where the raised uppercut arm crosses the stacks' boxes keep the arm (E 5-6 start the far stack lower and keep
@@ -71,7 +74,7 @@ import design_blitzcrank as D  # noqa: E402
 SRC = os.path.join(ROOT, "assets", "source", "blitzcrank", "codex_strips")
 NATIVE = os.path.join(ROOT, "assets", "source", "native")
 Z = 8
-TAGS = ["run", "attack", "skill", "q_pull", "skill2", "ult", "hit", "dead"]
+TAGS = ["run", "attack", "skill", "q_pull", "q_hold", "skill2", "ult", "hit", "dead"]
 PINK = (0xF3, 0xA4, 0xD9)          # the eyes, a colour nothing else uses
 PIVOT = (64, 88)                   # the design's standing point
 HEAD = (60, 59, 68, 68)            # the head box on the design (x0, y0, x1, y1)
@@ -98,12 +101,15 @@ FIST = {"near": {1: (-14, -9), 2: (-14, -9), 3: (-14, -9), 4: (-14, -10), 5: (-1
 # (E 5) and the brown bar over the dome left of the arm (E 6) are taken off here
 CLEAR = {("skill2", 4): [(-34, 4, 4), (-33, 3, 4), (-32, 3, 4)], ("skill2", 5): [(-31, -2, 1)]}
 QREDO = os.path.join(ROOT, "assets", "source", "blitzcrank", "codex_q_redo")
-REDO = {"skill": [2, 3, 4, 5, 6], "q_pull": [0, 1, 2]}    # frames (0-based) taken from the redraw
-REDO_CLEAR = {("q_pull", 1): [(-11, 30, 37)]}
+REDO = {"skill": [2, 3, 4, 5, 6]}                          # frames (0-based) taken from the redraw
 MOUNT = {("skill", 2), ("skill", 6)}                      # frames whose mounted claw is the open claw piece
 WRIST = (25, -11)                                           # the arm's end in those frames
 SLOPE = 16.5 / 78                                           # the hook's line: 16.5 px down over 78
-STEAM = {(0xFF, 0xFF, 0xFF), (0xE8, 0xEC, 0xF0)}            # the claw's thrust puff, not in the design's colours
+STEAM = {(0xFF, 0xFF, 0xFF), (0xE8, 0xEC, 0xF0), (0xC8, 0xD0, 0xD8), (0x9A, 0xA4, 0xB0)}   # the claws' thrust puff
+# the pull loop and the hold are Q's frames 5-6 (0-based 4, 5: the arm straight along the hook's line, the socket
+# empty); the hold has the closed claw back on it
+PULL = [4, 5, 4]
+HOLD = [4, 5]
 # run frame (0-based): (row, first column, last column) from the standing point, leftovers cleared by hand
 STUB = {1: [(-2, 10, 13), (-1, 10, 13), (0, 11, 13), (-1, -15, -15), (0, -16, -15)],
         4: [(-2, 10, 13), (-1, 10, 13), (0, 11, 13)],
@@ -313,19 +319,49 @@ def redo(tag, one, table, shots):
         back = (f[..., 3] > 0) & ~(n[..., 3] > 0) & ~arm
         f[:] = n
         f[back] = before[back]
-        for r, q0, q1 in REDO_CLEAR.get((tag, i), []):
-            f[py + r, px + q0:px + q1 + 1] = 0
         if (tag, i) in MOUNT:
             f[py - 19:py - 3, px + 27:] = 0
-            wx, wy = WRIST
-            for cy, cx in zip(*np.nonzero(claw[..., 3])):
-                if tuple(int(v) for v in claw[cy, cx, :3]) in STEAM:
-                    continue                         # no thrust while it is still on the arm
-                f[py + wy + cy - 7 + int(round((cx - 2) * SLOPE)), px + wx + cx - 2] = claw[cy, cx]
+            mount(f, px, py, claw)
         log.append(f"  {tag} {i + 1}: Q redraw, {int(back.sum())} squares filled back"
                    + (", claw mounted" if (tag, i) in MOUNT else "") + f", {pieces(f[..., 3] > 0)} piece(s)")
         shots.append((f"{tag} {i + 1} redo", before, f.copy(), (py - 30, px)))
     return log
+
+
+def mount(f, px, py, claw):
+    """A claw piece (16x14, its wrist at columns 1-3) on the arm's end, sheared down with the hook's line; its steam
+    left out (no thrust while it is on the arm)."""
+    wx, wy = WRIST
+    for cy, cx in zip(*np.nonzero(claw[..., 3])):
+        if tuple(int(v) for v in claw[cy, cx, :3]) in STEAM:
+            continue
+        f[py + wy + cy - 7 + int(round((cx - 2) * SLOPE)), px + wx + cx - 2] = claw[cy, cx]
+
+
+def pull_strips(skill, table, shots):
+    """The pull loop (PULL) and the hold (HOLD, the closed claw mounted) from the finished Q strip, cell for cell."""
+    cw, ch = table["cell"]
+    frs = table["tags"]["skill"]
+    cols, _ = layout(len(frs))
+    claw = load(os.path.join(QREDO, "logical", "blitzcrank_fx_q_claw_closed_1x.png"))[:, :16]
+    out, log = {}, []
+    for tag, picks in (("q_pull", PULL), ("q_hold", HOLD)):
+        rows = table["tags"][tag]
+        assert [r["pivot"] for r in rows] == [frs[i]["pivot"] for i in picks], f"{tag}: pivots differ from Q's"
+        tc, tr = layout(len(picks))
+        strip = np.zeros((tr * ch, tc * cw, 4), np.uint8)
+        for k, i in enumerate(picks):
+            X, Y = (i % cols) * cw, (i // cols) * ch
+            f = skill[Y:Y + ch, X:X + cw].copy()
+            if tag == "q_hold":
+                px, py = frs[i]["pivot"]
+                mount(f, px, py, claw)
+                shots.append((f"{tag} {k + 1}", skill[Y:Y + ch, X:X + cw], f.copy(), (py - 30, px)))
+            strip[(k // tc) * ch:(k // tc + 1) * ch, (k % tc) * cw:(k % tc + 1) * cw] = f
+            log.append(f"  {tag} {k + 1}: Q {i + 1}" + (" + the closed claw" if tag == "q_hold" else "")
+                       + f", {pieces(f[..., 3] > 0)} piece(s)")
+        out[tag] = strip
+    return out, log
 
 
 def fix(tag, one, table, des, head, near, far, ring, shots, head_rows):
@@ -408,12 +444,18 @@ def main():
     near, far = box(NEAR), box(FAR)
     ring = [(dy, dx) for dy in range(-14, -2) for dx in range(-3, 10)
             if des[PIVOT[1] + dy, PIVOT[0] + dx, 3] and tuple(des[PIVOT[1] + dy, PIVOT[0] + dx, :3]) in SILVER]
-    shots, bad = [], 0
+    shots, bad, built = [], 0, {}
     for tag in TAGS:
-        one = load(os.path.join(SRC, f"blitzcrank_{tag}.png"))
-        print("\n".join(fix(tag, one, table, des, head, near, far, ring, shots, head_rows)))
-        log = redo(tag, one, table, shots)
-        if log:
+        if tag in built:
+            one = built[tag]
+        else:
+            one = load(os.path.join(SRC, f"blitzcrank_{tag}.png"))
+            print("\n".join(fix(tag, one, table, des, head, near, far, ring, shots, head_rows)))
+            log = redo(tag, one, table, shots)
+            if log:
+                print(chr(10).join(log))
+        if tag == "skill":
+            built, log = pull_strips(one, table, shots)
             print(chr(10).join(log))
         big = np.repeat(np.repeat(one, Z, 0), Z, 1)
         out = os.path.join(NATIVE, f"blitzcrank_{tag}.png")

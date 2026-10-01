@@ -2246,32 +2246,36 @@ he lives. In a logged game the clone exploded three times at the end of its time
 himself dies while it lives, its runs stop with him (4 such deaths in 28 logged games: no strike, picture or blast
 after them) - League's clone dies with Shaco too.
 
-**A hook from a raised arm that drags its catch all the way (league_blitzcrank Q, Rocket Grab).** A
+**A hook from a raised arm that brings its catch back along its own line (league_blitzcrank Q, Rocket Grab).** A
 `Direction` cast on `EnemyChampion` (range 70000) throws a non-penetrating `LinearProjectile` on `EnemyChampion`
 (speed 6000, radius 6000, range 78000, `y_offset` -11500): it passes minions and monsters (league_thresh Q). The champion
-it reaches takes magic damage, `Stun` 40 ticks and `Grab` at 1500 a tick - dragged all the way to him. An
-invisible twin on the same line on `EnemyChampionInCC` lands a tick later only when the stun took (a Black Shield lets
-both pass): it sets a 90-tick caster flag `q_held`, shows the claw on him and plays Blitzcrank's 3-frame `q_pull` loop
-(60 ticks at most). The hook's `end_effects` wait 2 ticks before reading anything (read at once they always missed
-the twin's flag, a tick behind, and every hook came back fast): a held hook comes back with its champion at 1500 a
-tick, a miss or a blocked hook at 9000 as `q_miss` (it carries no effect). A projectile moves on every tick from the
-one it is thrown on, so a hook removed h ticks after the throw stopped 6000 x (h + 1) along its line; 13 caster flags
-set at the throw, `q_f<j>` lasting j + 3 ticks, are still seen by those `end_effects` j + 2 ticks after it (4 logged
-games: every return matched; the twin, a tick behind them, sees a flag one tick less), so the first one still on is
-`q_f<h>` and picks `q_back<h>`, one return picture per stop (h 0-13), its chain drawn for that distance. The held
-return's own `end_effects` end the pull pose: `RemoveCasterAnimation q_pull` runs on the tick it reaches him (a probe
-view on the same list played there; he acted that tick, while the fixed 16 / 28 / 40 / 52-tick poses of the first
-version held him to the end - a `CasterAnimation` stops actions too). His arm is raised to the shoulder in the strip
-(League's pose), 16 px over his pivot, and the hook leaves from there (the user: "从上面勾 别从下面勾"): `y_offset`
--11500 starts it 16500 north of him and it slopes down to his pivot's height at the end of its range (12 degrees),
-coming down on a champion's chest; 8 logged games held 76 of 144 hooks, 68 of 125 at `y_offset` 2000 - the slope
-misses nobody more. Every return (`BackToCasterLinearProjectile`) flies to his pivot whatever its `y_offset` (the
-spawn vectors of a logged game). His body only faces left or right while most hooks fly at an angle (4 logged games:
-15 of 80 within 15 degrees of level, 60 between 30 and 90 up), so the claw and its chain are drawn under the units
-(`z` -1): the chain runs from the claw into him, out to the hook's start and back to his pivot, and his arm and body
-hide what lies over them - thrown level it comes out of the arm's socket, thrown at an angle out of his body, never
-hanging in the air; a return picture assumes a level throw, and at an angle its chain ends up to about 15 px off,
-inside him.
+it reaches takes magic damage and `Stun` 40 ticks. An invisible twin on the same line on `EnemyChampionInCC` lands a
+tick later only when the stun took (a Black Shield lets both pass): a 90-tick caster flag `q_held`, the claw on him,
+Blitzcrank's `q_pull` loop (60 ticks at most) and the drag. His arm is raised to the shoulder in the strip (League's
+pose), 16 px over his pivot, and the hook leaves from there (the user: "从上面勾 别从下面勾"): `y_offset` -11500 starts
+it 16500 north of him and it slopes down to his pivot's height at the end of its range (12 degrees), coming down on a
+champion's chest; 8 logged games held 76 of 144 hooks, 68 of 125 at `y_offset` 2000 - the slope misses nobody more.
+League's hand brings what it caught back along its line onto his arm (the user: "lol里面机器人什么样你就什么样"), but
+every `BackToCasterLinearProjectile` flies to his pivot whatever its `y_offset`, under the raised arm. A
+`LinearProjectile` thrown in the hook's `end_effects` (behind a `Delayed`) leaves where the hook left and heads for
+where it stopped - on the hook's own line, and removed there (the spawn vectors of a logged game; one thrown from the
+cast's own `Delayed` follows the cast's direction to the range's end) - so two of them at 1500 a tick carry the way
+back: their pictures draw the claw and its chain coming back along the line. A projectile moves on every tick from
+the one it is thrown on, so a hook removed h ticks after the throw stopped 6000 x (h + 1) along its line; 13 caster
+flags set at the throw, `q_f<j>` lasting j + 3 ticks, are still seen by the hook's `end_effects` j + 2 ticks after it
+and by the twin j + 1 ticks after it (4 logged games: every way back matched), so 2 ticks after the stop, and when
+the twin lands, the first one still on is `q_f<h>`: it picks the pictures (one pair per h, 0-13) and the drag - `Grab`
+1500 with `tick` (6000 (h + 1) + 12000 - 33000) / 1500 (the hook stops 12000 short of a champion's centre), so the
+catch stops in reach in front of him (33000 off) just as the claw is back where the strip holds it on his arm (32000
+along the line; the picture slows the claw so it slides from the catch's front onto it), when a `Delayed` in the same
+branch removes `q_pull` and plays the 8-tick hold (the closed claw on the arm; a `CasterAnimation` holds the caster
+from acting). Stopping the catch at the arm's end (43000) with a 12-tick hold cost him about a point (two batches
+-0.23 / -0.15 against +0.62 / +1.15): he had to walk before his uppercut.
+A miss or a blocked hook brings the open claw back fast. His body only faces left or right while most hooks fly at an
+angle (4 logged games: 15 of 80 within 15 degrees of level, 60 between 30 and 90 up), so the claws are drawn over the
+units (`z` 1: the catch never hides the claw) and the chains under them (`z` -1), running back to the hook's start:
+thrown level his straight arm hides the chain and it comes out of the socket, thrown at an angle it comes out from
+behind his head and shoulder - nothing hangs in the air. The flying claw rides the hook, its chain the twin.
 
 **Overdrive folded into the uppercut (league_blitzcrank W in E, Power Fist).** W's cooldown is a caster flag `w_cd`
 (900 ticks). Every action asks first: with `w_cd` absent and an enemy champion within 60000 (`RandomTarget` sets a

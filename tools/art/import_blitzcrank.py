@@ -16,23 +16,24 @@ it rises from the smokestacks), the charge and the shield as Codex drew them, st
 soles, 11 px under the pivot). Rows measured on Codex's frames where its drawing moved off the pack's points: the
 bolt's burst at (9, 32) (the pack: (10, 31)), the uppercut's flash at (11, 30) (the pack: (12, 26)).
 The Rocket Grab is drawn here from Codex's redraw (codex_q_redo/logical, 2026-10-02: an open claw, a closed one and a
-chain tile; the user: "要的是和联盟一样 从手臂飞出去的爪子勾人"). A projectile's picture is turned to its flight, so the
-claw points along it with the chain behind, and a picture cannot carry a height of its own (section "A beam from a
-raised weapon" in champion-data.md); the hook itself leaves from his raised arm (y_offset -11500: 16.5 px over his
-pivot, sloping down to the range's end, START -> END; straight ahead it passes the Q strip's empty socket 25 px along).
-Only left and right exist for his body while most hooks go up or down (in 4 logged games 15 of 80 within 15 degrees
-of level, 60 between 30 and 90 up), so the claw and the chain go under the units (z -1 in the kit) and the chain
-always runs into him: his arm and body hide what lies over them, and nothing hangs in the air at any angle. The hook
-moves 6 px on every tick from the throw. `q_hand`, a frame a tick: the open claw from SHOW_OUT px along (in front of
-where frame 3 of the strip holds it on his arm), its chain back to where the hook left (inside his chest), the links
-moving with the claw; the last frame held. A hook that stopped h ticks after the throw is 6 (h + 1) px along its
-line, and its return flies to his pivot whatever its y_offset (a logged game). `q_back0`..`q_back13` (the kit picks
-one by h): the closed claw turned round (its wrist toward him) coming back at 1500 a tick, a frame every 2 ticks, its
-chain into his pivot, until the return gets there (the kit ends the pull pose then); thrown straight ahead (`stop`)
-- at an angle the distance differs by up to about 15 px and the chain ends that much off inside his body; straight
-ahead it passes 2-3 px under the pull pose's socket (30, -5) into his belly. `q_miss`: the open claw and its chain
-coming back from the range's end (78 px from him at any angle) at 9000 a tick, gone at MISS_GONE px, when frame 7 of
-the strip has it on his arm again. Writes league/effects/league_blitzcrank_fx and league_blitzcrank_big.
+chain tile) as League has it (the user: "要的是和联盟一样 从手臂飞出去的爪子勾人", "lol里面机器人什么样你就什么样"): the hand
+flies out of his arm on its chain, and what it catches it brings back along the same line to his arm, where it goes
+back on. A projectile's picture is turned to its flight and cannot carry a height of its own (section "A beam from a
+raised weapon" in champion-data.md); the hook leaves from his raised arm (y_offset -11500: 16.5 px over his pivot,
+sloping down to the range's end; thrown straight ahead its line runs along the arm of the Q strip and out of its
+socket) and moves 6 px on every tick from the throw. The claw goes over the units (`q_hand`, `q_hc*`, `q_mc*`, z 1 in
+the kit: it holds its catch in sight) and the chain under them (`q_twin`, `q_hn*`, `q_mn*`, z -1), running back along
+the line to where the hook left: his straight arm hides it there, or his body when the hook flies at an angle (his
+body only faces left or right, and most hooks go up or down: 15 of 80 within 15 degrees of level in 4 logged games).
+Out, a frame a tick: the open claw from SHOW_OUT px along (in front of where the strip's frame 3 holds it), on the hook;
+its chain on the twin, which flies with it. A hook that stopped h ticks after the throw is 6 (h + 1) px along; 2
+ticks later the kit sends two projectiles along the same line (they leave where the hook left and head for where it
+stopped, LINE_V a tick) carrying, for that h, the claw and the chain coming back, a frame a tick: held (`q_hc<h>`,
+`q_hn<h>`), the closed claw with its catch (the drag began on the tick before) back where frame 3 holds it (DOCK) just
+as the catch stops STOP px off him, in reach, when the kit plays the strip's hold (the closed claw on the arm); empty
+(`q_mc<h>`, `q_mn<h>`: a miss or a blocked hook), the open claw fast (MISS_V), gone at DOCK, when the strip's frame 7
+has it on the arm. The claws on their way back carry no rocket steam. Writes league/effects/league_blitzcrank_fx and
+league_blitzcrank_big.
 """
 import argparse
 import json
@@ -67,13 +68,17 @@ NATIVE = {
 # tile; 16x14 cells, the claw's middle (8, 7) on the projectile, its wrist socket at the cell's left)
 QREDO = os.path.join(SRC, "codex_q_redo", "logical")
 START, END = (0.0, -16.5), (78.0, 0.0)  # the hook's line from his pivot, thrown straight ahead
-OUT_V, DRAG_V, MISS_V = 6.0, 1.5, 9.0   # px a tick: out, back with a champion, a miss coming back
-TIERS = 14                              # the held returns q_back0..13: stopped h ticks after the throw
+OUT_V, DRAG_V, MISS_V = 6.0, 1.5, 9.0   # px a tick: out, back with its catch (the drag), back empty
+LINE_V = 1.5                            # px a tick: the projectiles that carry the way back (the kit's q_line)
+TIERS = 14                              # the ways back q_*0..13: the hook stopped h ticks after the throw
 HAND_P = (8, 7)                         # the claw's middle in its cell: the projectile's point
 WRIST = 1                               # the cell's column where the chain meets the wrist
 CABLE_ROW = 6                           # the chain's top row in the cell (3 rows)
 SHOW_OUT = 36                           # px along the line: the flying claw shows (frame 3 holds it at 32)
-MISS_GONE = 24                          # a miss's claw is gone (frame 7 has it on his arm)
+DOCK = 32                               # px along the line: the claw back on the arm (the kit's q_dock)
+TOUCH, STOP = 12, 33                    # px: the hook stops this short of a champion's centre; the catch stops
+                                        # this far from him (the kit's q_touch, q_stop)
+STEAM = {(0xFF, 0xFF, 0xFF), (0xE8, 0xEC, 0xF0), (0xC8, 0xD0, 0xD8), (0x9A, 0xA4, 0xB0)}   # the claws' rocket puff
 
 
 def load_manifest(folder):
@@ -136,32 +141,34 @@ def ticks_ms(n, every=1):
     return [round((k + 1) * every * 1000 / 60) - round(k * every * 1000 / 60) for k in range(n)]
 
 
-def stop(h):
-    """How far from his pivot a hook thrown straight ahead stopped h ticks after the throw."""
-    lx, ly = END[0] - START[0], END[1] - START[1]
-    full = math.hypot(lx, ly)
-    d = min(OUT_V * (h + 1), full)
-    return math.hypot(START[0] + lx * d / full, START[1] + ly * d / full)
+FULL = math.hypot(END[0] - START[0], END[1] - START[1])   # the line's length (thrown straight ahead)
 
 
-def grab_frame(claw, chain, length, back=False):
-    """One picture of the hook, its pivot on the projectile: the claw's middle there and `length` px of chain from its
-    wrist toward Blitzcrank, the links fixed on the claw. Out the claw points along the flight; back (the picture
-    turned toward him) it is turned round, its wrist first."""
+def along(h):
+    """Px along the line where a hook stopped h ticks after the throw (it moves on the throw's tick too)."""
+    return min(OUT_V * (h + 1), FULL)
+
+
+def drag(h):
+    """Ticks the kit drags a held catch: from where the hook stopped to STOP off him."""
+    return max(0, round((along(h) + TOUCH - STOP) / DRAG_V))
+
+
+def claw_frame(claw, off):
+    """The claw, its middle off px along the line from the projectile (the picture's pivot), pointing out."""
+    return G.centre_frame(claw, int(round(off)) - HAND_P[0], -HAND_P[1])
+
+
+def chain_frame(chain, off, length):
+    """length px of chain ending at the wrist of a claw whose middle is off px along from the projectile, running
+    back toward where the hook left; the links fixed on the claw's end."""
     length = max(int(round(length)), 0)
-    hh, hw = claw.shape[:2]
-    canvas = np.zeros((hh, length + hw, 4), np.uint8)
-    x0 = length                                    # the claw cell's left column on the canvas
-    if length:
-        tile = np.tile(chain, (1, -(-length // chain.shape[1]) + 1, 1))
-        canvas[CABLE_ROW:CABLE_ROW + 3, x0 + WRIST - length:x0 + WRIST] = tile[:, tile.shape[1] - length:]
-    op = claw[..., 3] > 0
-    canvas[:, x0:x0 + hw][op] = claw[op]
-    px = x0 + HAND_P[0]
-    if back:
-        canvas = canvas[:, ::-1]
-        px = canvas.shape[1] - 1 - px
-    return G.centre_frame(canvas, -px, -HAND_P[1])
+    if not length:
+        return EMPTY
+    tile = np.tile(chain, (1, -(-length // chain.shape[1]) + 1, 1))
+    seg = tile[:, tile.shape[1] - length:]
+    end = int(round(off)) - (HAND_P[0] - WRIST)    # the wrist, from the projectile
+    return G.centre_frame(seg, end - length, CABLE_ROW - HAND_P[1])
 
 
 def claw_cells(name):
@@ -170,26 +177,52 @@ def claw_cells(name):
     return [a[:, k * 16:(k + 1) * 16] for k in range(a.shape[1] // 16)]
 
 
+def no_steam(cells):
+    out = []
+    for c in cells:
+        c = c.copy()
+        puff = np.isin(c[..., :3].reshape(-1, 3).view([("", c.dtype)] * 3).ravel(),
+                       np.array(sorted(STEAM), dtype=c.dtype).view([("", c.dtype)] * 3).ravel()).reshape(c.shape[:2])
+        c[puff & (c[..., 3] > 0)] = 0
+        out.append(c)
+    return out
+
+
 def grab_tags():
     opened, closed = claw_cells("claw_open"), claw_cells("claw_closed")
+    bare_open, bare_closed = no_steam(opened), no_steam(closed)
     chain = np.asarray(Image.open(G.lp(os.path.join(QREDO, "blitzcrank_fx_q_chain_1x.png"))).convert("RGBA")).copy()
-    # out: a frame a tick, 6 (k + 1) px along the line on tick k
-    full = math.hypot(END[0] - START[0], END[1] - START[1])
-    along = [OUT_V * (k + 1) for k in range(int(full // OUT_V))]
     tail = HAND_P[0] - WRIST                         # the claw's middle to its wrist
-    out = {"q_hand": [(grab_frame(opened[k % 2], chain, d - tail) if d >= SHOW_OUT else EMPTY, m)
-                      for k, (d, m) in enumerate(zip(along, ticks_ms(len(along))))]}
-    out["q_hand"][-1] = (out["q_hand"][-1][0], 600)  # held past any flight
-    # held returns: a frame every 2 ticks, r px from his pivot on tick k after it left (it moves on that tick too)
+    # out, a frame a tick: d px along on the throw's tick k; the claw on the hook, the chain on the twin back to the
+    # hook's start
+    ds = [OUT_V * (k + 1) for k in range(int(FULL // OUT_V))]
+    ms = ticks_ms(len(ds))
+    out = {"q_hand": [(claw_frame(opened[k % 2], 0) if d >= SHOW_OUT else EMPTY, m) for k, (d, m) in enumerate(zip(ds, ms))],
+           "q_twin": [(chain_frame(chain, 0, d - tail) if d >= SHOW_OUT else EMPTY, m) for d, m in zip(ds, ms)]}
+    for tag in ("q_hand", "q_twin"):
+        out[tag][-1] = (out[tag][-1][0], 600)        # held past any flight
+    # the way back, a frame a tick from the projectiles' first tick (2 ticks after the hook stopped): they left from
+    # the hook's start and are LINE_V (k + 1) px along on tick k
     for h in range(TIERS):
-        s = stop(h)
-        ks = list(range(0, int(s // DRAG_V), 2))     # until it is back on him
-        out[f"q_back{h}"] = [(grab_frame(closed[j % 2], chain, s - DRAG_V * (k + 1) - tail, back=True), m)
-                             for j, (k, m) in enumerate(zip(ks, ticks_ms(len(ks), 2)))] + [(EMPTY, 600)]
-    # a miss: a frame a tick from the range's end
-    rs = [r for r in (END[0] - MISS_V * (k + 1) for k in range(int(END[0] // MISS_V))) if r >= MISS_GONE]
-    out["q_miss"] = [(grab_frame(opened[k % 2], chain, r - tail, back=True), m)
-                     for k, (r, m) in enumerate(zip(rs, ticks_ms(len(rs))))] + [(EMPTY, 600)]
+        d0 = along(h)
+        # held: the claw with its catch, dragged since the tick before, back at DOCK as the catch stops (it slides
+        # from the catch's front onto it: the catch has TOUCH px more to go), then the hold takes over
+        hold = max(0, drag(h) - 1) if d0 > DOCK else 0
+        v = (d0 - DOCK) / drag(h) if hold else 0
+        claws, chains = [], []
+        for k, m in zip(range(hold), ticks_ms(hold)):
+            d = d0 - v * (k + 1)
+            off = d - LINE_V * (k + 1)
+            claws.append((claw_frame(bare_closed[k % 2], off), m))
+            chains.append((chain_frame(chain, off, d - tail), m))
+        out[f"q_hc{h}"], out[f"q_hn{h}"] = claws + [(EMPTY, 600)], chains + [(EMPTY, 600)]
+        # empty: the open claw fast back to DOCK
+        dd = [d0 - MISS_V * k for k in range(int(FULL // MISS_V) + 1) if d0 - MISS_V * k > DOCK]
+        mm = ticks_ms(len(dd))
+        out[f"q_mc{h}"] = [(claw_frame(bare_open[k % 2], d - LINE_V * (k + 1)), m)
+                           for k, (d, m) in enumerate(zip(dd, mm))] + [(EMPTY, 600)]
+        out[f"q_mn{h}"] = [(chain_frame(chain, d - LINE_V * (k + 1), d - tail), m)
+                           for k, (d, m) in enumerate(zip(dd, mm))] + [(EMPTY, 600)]
     return out
 
 
