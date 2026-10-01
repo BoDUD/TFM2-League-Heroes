@@ -43,7 +43,7 @@
     "description": "#asset/base/text/champion?description.league_blitzcrank.attack",
     "duration": 26,
     "cooltime": 80,
-    "start_timing": 12,
+    "start_timing": 8,
     "cancelable": true,
     "range": 25000,
     "casting_type": "Targeting",
@@ -80,7 +80,7 @@
                         "type": "RangeEffect",
                         "shape": {
                           "Circle": {
-                            "radius": 25000
+                            "radius": 35000
                           }
                         },
                         "target": "EnemyChampion",
@@ -264,7 +264,7 @@
                                   "type": "RangeEffect",
                                   "shape": {
                                     "Circle": {
-                                      "radius": 25000
+                                      "radius": 35000
                                     }
                                   },
                                   "target": "EnemyChampion",
@@ -421,7 +421,7 @@
                                   "type": "RangeEffect",
                                   "shape": {
                                     "Circle": {
-                                      "radius": 25000
+                                      "radius": 35000
                                     }
                                   },
                                   "target": "EnemyChampion",
@@ -578,7 +578,7 @@
                                   "type": "RangeEffect",
                                   "shape": {
                                     "Circle": {
-                                      "radius": 25000
+                                      "radius": 35000
                                     }
                                   },
                                   "target": "EnemyChampion",
@@ -735,7 +735,7 @@
                                   "type": "RangeEffect",
                                   "shape": {
                                     "Circle": {
-                                      "radius": 25000
+                                      "radius": 35000
                                     }
                                   },
                                   "target": "EnemyChampion",
@@ -892,7 +892,7 @@
                                   "type": "RangeEffect",
                                   "shape": {
                                     "Circle": {
-                                      "radius": 25000
+                                      "radius": 35000
                                     }
                                   },
                                   "target": "EnemyChampion",
@@ -1049,7 +1049,7 @@
                                   "type": "RangeEffect",
                                   "shape": {
                                     "Circle": {
-                                      "radius": 25000
+                                      "radius": 35000
                                     }
                                   },
                                   "target": "EnemyChampion",
@@ -1206,7 +1206,7 @@
                                   "type": "RangeEffect",
                                   "shape": {
                                     "Circle": {
-                                      "radius": 25000
+                                      "radius": 35000
                                     }
                                   },
                                   "target": "EnemyChampion",
@@ -1363,7 +1363,7 @@
                                   "type": "RangeEffect",
                                   "shape": {
                                     "Circle": {
-                                      "radius": 25000
+                                      "radius": 35000
                                     }
                                   },
                                   "target": "EnemyChampion",
@@ -1572,7 +1572,7 @@
                                 "tick": 240
                               }
                             },
-                            "move_speed_mult": 30
+                            "move_speed_mult": 20
                           },
                           "only_to_enemy": false
                         },
@@ -1585,7 +1585,7 @@
                                 "tick": 120
                               }
                             },
-                            "move_speed_mult": 25
+                            "move_speed_mult": 20
                           },
                           "only_to_enemy": false
                         },
@@ -1598,7 +1598,7 @@
                                 "tick": 240
                               }
                             },
-                            "attack_speed_mult": 40
+                            "attack_speed_mult": 25
                           },
                           "only_to_enemy": false
                         },
@@ -1738,7 +1738,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "ult",
-                          "tick": 36
+                          "tick": 35
                         },
                         {
                           "type": "Sfx",
@@ -1760,7 +1760,7 @@
                           "effects": [
                             {
                               "type": "Delayed",
-                              "tick": 14,
+                              "tick": 23,
                               "effects": [
                                 {
                                   "type": "CasterViewEffect",
@@ -1782,8 +1782,8 @@
                                   "effects": [
                                     {
                                       "type": "ApAttack",
-                                      "damage": 200,
-                                      "attack_ratio": 100,
+                                      "damage": 150,
+                                      "attack_ratio": 80,
                                       "hp_ratio": 0,
                                       "can_crit": false
                                     },
@@ -1878,8 +1878,8 @@
                   "effects": [
                     {
                       "type": "ApAttack",
-                      "damage": 40,
-                      "attack_ratio": 30,
+                      "damage": 20,
+                      "attack_ratio": 15,
                       "hp_ratio": 0,
                       "can_crit": false
                     },
@@ -1904,8 +1904,8 @@
     "action_name": "skill",
     "description": "#asset/base/text/champion?description.league_blitzcrank.skill",
     "duration": 40,
-    "cooltime": 480,
-    "start_timing": 14,
+    "cooltime": 600,
+    "start_timing": 11,
     "cancelable": false,
     "range": 70000,
     "casting_type": "Direction",
@@ -1942,7 +1942,7 @@
                         "type": "RangeEffect",
                         "shape": {
                           "Circle": {
-                            "radius": 25000
+                            "radius": 35000
                           }
                         },
                         "target": "EnemyChampion",
@@ -2126,7 +2126,7 @@
                                   "type": "RangeEffect",
                                   "shape": {
                                     "Circle": {
-                                      "radius": 25000
+                                      "radius": 35000
                                     }
                                   },
                                   "target": "EnemyChampion",
@@ -2283,7 +2283,7 @@
                                   "type": "RangeEffect",
                                   "shape": {
                                     "Circle": {
-                                      "radius": 25000
+                                      "radius": 35000
                                     }
                                   },
                                   "target": "EnemyChampion",
@@ -2440,7 +2440,7 @@
                                   "type": "RangeEffect",
                                   "shape": {
                                     "Circle": {
-                                      "radius": 25000
+                                      "radius": 35000
                                     }
                                   },
                                   "target": "EnemyChampion",
@@ -2597,7 +2597,7 @@
                                   "type": "RangeEffect",
                                   "shape": {
                                     "Circle": {
-                                      "radius": 25000
+                                      "radius": 35000
                                     }
                                   },
                                   "target": "EnemyChampion",
@@ -2754,7 +2754,7 @@
                                   "type": "RangeEffect",
                                   "shape": {
                                     "Circle": {
-                                      "radius": 25000
+                                      "radius": 35000
                                     }
                                   },
                                   "target": "EnemyChampion",
@@ -2911,7 +2911,7 @@
                                   "type": "RangeEffect",
                                   "shape": {
                                     "Circle": {
-                                      "radius": 25000
+                                      "radius": 35000
                                     }
                                   },
                                   "target": "EnemyChampion",
@@ -3068,7 +3068,7 @@
                                   "type": "RangeEffect",
                                   "shape": {
                                     "Circle": {
-                                      "radius": 25000
+                                      "radius": 35000
                                     }
                                   },
                                   "target": "EnemyChampion",
@@ -3225,7 +3225,7 @@
                                   "type": "RangeEffect",
                                   "shape": {
                                     "Circle": {
-                                      "radius": 25000
+                                      "radius": 35000
                                     }
                                   },
                                   "target": "EnemyChampion",
@@ -3434,7 +3434,7 @@
                                 "tick": 240
                               }
                             },
-                            "move_speed_mult": 30
+                            "move_speed_mult": 20
                           },
                           "only_to_enemy": false
                         },
@@ -3447,7 +3447,7 @@
                                 "tick": 120
                               }
                             },
-                            "move_speed_mult": 25
+                            "move_speed_mult": 20
                           },
                           "only_to_enemy": false
                         },
@@ -3460,7 +3460,7 @@
                                 "tick": 240
                               }
                             },
-                            "attack_speed_mult": 40
+                            "attack_speed_mult": 25
                           },
                           "only_to_enemy": false
                         },
@@ -3600,7 +3600,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "ult",
-                          "tick": 36
+                          "tick": 35
                         },
                         {
                           "type": "Sfx",
@@ -3622,7 +3622,7 @@
                           "effects": [
                             {
                               "type": "Delayed",
-                              "tick": 14,
+                              "tick": 23,
                               "effects": [
                                 {
                                   "type": "CasterViewEffect",
@@ -3644,8 +3644,8 @@
                                   "effects": [
                                     {
                                       "type": "ApAttack",
-                                      "damage": 200,
-                                      "attack_ratio": 100,
+                                      "damage": 150,
+                                      "attack_ratio": 80,
                                       "hp_ratio": 0,
                                       "can_crit": false
                                     },
@@ -3700,6 +3700,66 @@
           "name": "league_blitzcrank_q_held"
         },
         {
+          "type": "RemoveCasterBuff",
+          "name": "league_blitzcrank_q_t1"
+        },
+        {
+          "type": "RemoveCasterBuff",
+          "name": "league_blitzcrank_q_t2"
+        },
+        {
+          "type": "RemoveCasterBuff",
+          "name": "league_blitzcrank_q_t3"
+        },
+        {
+          "type": "RemoveCasterBuff",
+          "name": "league_blitzcrank_q_k1"
+        },
+        {
+          "type": "RemoveCasterBuff",
+          "name": "league_blitzcrank_q_k2"
+        },
+        {
+          "type": "RemoveCasterBuff",
+          "name": "league_blitzcrank_q_k3"
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_blitzcrank_q_t1",
+            "duration": {
+              "Time": {
+                "tick": 5
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_blitzcrank_q_t2",
+            "duration": {
+              "Time": {
+                "tick": 8
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_blitzcrank_q_t3",
+            "duration": {
+              "Time": {
+                "tick": 11
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
           "type": "Sfx",
           "name": "league_blitzcrank_q_cast"
         },
@@ -3721,8 +3781,8 @@
               "casting_type": "Targeting",
               "effect": {
                 "type": "ApAttack",
-                "damage": 90,
-                "attack_ratio": 80,
+                "damage": 70,
+                "attack_ratio": 50,
                 "hp_ratio": 0,
                 "can_crit": false
               }
@@ -3731,7 +3791,7 @@
               "casting_type": "Targeting",
               "effect": {
                 "type": "Stun",
-                "duration": 60
+                "duration": 40
               }
             },
             {
@@ -3752,29 +3812,86 @@
           "end_effects": [
             {
               "type": "Delayed",
-              "tick": 1,
+              "tick": 2,
               "effects": [
                 {
                   "type": "SwitchByBuff",
                   "buff_name": "league_blitzcrank_q_held",
                   "effect_buff": {
-                    "type": "BackToCasterLinearProjectile",
-                    "name": "league_blitzcrank_q_back",
-                    "speed": 1500,
-                    "range": 78000,
-                    "shape": {
-                      "Circle": {
-                        "radius": 1000
-                      }
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_blitzcrank_q_k1",
+                    "effect_buff": {
+                      "type": "BackToCasterLinearProjectile",
+                      "name": "league_blitzcrank_q_back1",
+                      "speed": 1500,
+                      "range": 78000,
+                      "shape": {
+                        "Circle": {
+                          "radius": 1000
+                        }
+                      },
+                      "penetrate": true,
+                      "applied_target": "EnemyChampion",
+                      "applied_effects": [],
+                      "end_effects": []
                     },
-                    "penetrate": true,
-                    "applied_target": "EnemyChampion",
-                    "applied_effects": [],
-                    "end_effects": []
+                    "effect_none": {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_blitzcrank_q_k2",
+                      "effect_buff": {
+                        "type": "BackToCasterLinearProjectile",
+                        "name": "league_blitzcrank_q_back2",
+                        "speed": 1500,
+                        "range": 78000,
+                        "shape": {
+                          "Circle": {
+                            "radius": 1000
+                          }
+                        },
+                        "penetrate": true,
+                        "applied_target": "EnemyChampion",
+                        "applied_effects": [],
+                        "end_effects": []
+                      },
+                      "effect_none": {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_blitzcrank_q_k3",
+                        "effect_buff": {
+                          "type": "BackToCasterLinearProjectile",
+                          "name": "league_blitzcrank_q_back3",
+                          "speed": 1500,
+                          "range": 78000,
+                          "shape": {
+                            "Circle": {
+                              "radius": 1000
+                            }
+                          },
+                          "penetrate": true,
+                          "applied_target": "EnemyChampion",
+                          "applied_effects": [],
+                          "end_effects": []
+                        },
+                        "effect_none": {
+                          "type": "BackToCasterLinearProjectile",
+                          "name": "league_blitzcrank_q_back4",
+                          "speed": 1500,
+                          "range": 78000,
+                          "shape": {
+                            "Circle": {
+                              "radius": 1000
+                            }
+                          },
+                          "penetrate": true,
+                          "applied_target": "EnemyChampion",
+                          "applied_effects": [],
+                          "end_effects": []
+                        }
+                      }
+                    }
                   },
                   "effect_none": {
                     "type": "BackToCasterLinearProjectile",
-                    "name": "league_blitzcrank_q_back",
+                    "name": "league_blitzcrank_q_miss",
                     "speed": 4500,
                     "range": 78000,
                     "shape": {
@@ -3827,6 +3944,92 @@
                 "type": "ViewEffect",
                 "name": "league_blitzcrank_q_grab"
               }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_blitzcrank_q_t1",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "CasterAnimation",
+                      "name": "q_pull",
+                      "tick": 16
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_blitzcrank_q_k1",
+                        "duration": {
+                          "Time": {
+                            "tick": 10
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                "effect_none": {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_blitzcrank_q_t2",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "CasterAnimation",
+                        "name": "q_pull",
+                        "tick": 28
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_blitzcrank_q_k2",
+                          "duration": {
+                            "Time": {
+                              "tick": 10
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_blitzcrank_q_t3",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "CasterAnimation",
+                          "name": "q_pull",
+                          "tick": 40
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_blitzcrank_q_k3",
+                            "duration": {
+                              "Time": {
+                                "tick": 10
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "CasterAnimation",
+                      "name": "q_pull",
+                      "tick": 52
+                    }
+                  }
+                }
+              }
             }
           ],
           "end_effects": []
@@ -3837,9 +4040,9 @@
   "skill2": {
     "action_name": "skill2",
     "description": "#asset/base/text/champion?description.league_blitzcrank.skill2",
-    "duration": 30,
+    "duration": 32,
     "cooltime": 420,
-    "start_timing": 10,
+    "start_timing": 12,
     "cancelable": false,
     "range": 25000,
     "casting_type": "Targeting",
@@ -3876,7 +4079,7 @@
                         "type": "RangeEffect",
                         "shape": {
                           "Circle": {
-                            "radius": 25000
+                            "radius": 35000
                           }
                         },
                         "target": "EnemyChampion",
@@ -4060,7 +4263,7 @@
                                   "type": "RangeEffect",
                                   "shape": {
                                     "Circle": {
-                                      "radius": 25000
+                                      "radius": 35000
                                     }
                                   },
                                   "target": "EnemyChampion",
@@ -4217,7 +4420,7 @@
                                   "type": "RangeEffect",
                                   "shape": {
                                     "Circle": {
-                                      "radius": 25000
+                                      "radius": 35000
                                     }
                                   },
                                   "target": "EnemyChampion",
@@ -4374,7 +4577,7 @@
                                   "type": "RangeEffect",
                                   "shape": {
                                     "Circle": {
-                                      "radius": 25000
+                                      "radius": 35000
                                     }
                                   },
                                   "target": "EnemyChampion",
@@ -4531,7 +4734,7 @@
                                   "type": "RangeEffect",
                                   "shape": {
                                     "Circle": {
-                                      "radius": 25000
+                                      "radius": 35000
                                     }
                                   },
                                   "target": "EnemyChampion",
@@ -4688,7 +4891,7 @@
                                   "type": "RangeEffect",
                                   "shape": {
                                     "Circle": {
-                                      "radius": 25000
+                                      "radius": 35000
                                     }
                                   },
                                   "target": "EnemyChampion",
@@ -4845,7 +5048,7 @@
                                   "type": "RangeEffect",
                                   "shape": {
                                     "Circle": {
-                                      "radius": 25000
+                                      "radius": 35000
                                     }
                                   },
                                   "target": "EnemyChampion",
@@ -5002,7 +5205,7 @@
                                   "type": "RangeEffect",
                                   "shape": {
                                     "Circle": {
-                                      "radius": 25000
+                                      "radius": 35000
                                     }
                                   },
                                   "target": "EnemyChampion",
@@ -5159,7 +5362,7 @@
                                   "type": "RangeEffect",
                                   "shape": {
                                     "Circle": {
-                                      "radius": 25000
+                                      "radius": 35000
                                     }
                                   },
                                   "target": "EnemyChampion",
@@ -5368,7 +5571,7 @@
                                 "tick": 240
                               }
                             },
-                            "move_speed_mult": 30
+                            "move_speed_mult": 20
                           },
                           "only_to_enemy": false
                         },
@@ -5381,7 +5584,7 @@
                                 "tick": 120
                               }
                             },
-                            "move_speed_mult": 25
+                            "move_speed_mult": 20
                           },
                           "only_to_enemy": false
                         },
@@ -5394,7 +5597,7 @@
                                 "tick": 240
                               }
                             },
-                            "attack_speed_mult": 40
+                            "attack_speed_mult": 25
                           },
                           "only_to_enemy": false
                         },
@@ -5534,7 +5737,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "ult",
-                          "tick": 36
+                          "tick": 35
                         },
                         {
                           "type": "Sfx",
@@ -5556,7 +5759,7 @@
                           "effects": [
                             {
                               "type": "Delayed",
-                              "tick": 14,
+                              "tick": 23,
                               "effects": [
                                 {
                                   "type": "CasterViewEffect",
@@ -5578,8 +5781,8 @@
                                   "effects": [
                                     {
                                       "type": "ApAttack",
-                                      "damage": 200,
-                                      "attack_ratio": 100,
+                                      "damage": 150,
+                                      "attack_ratio": 80,
                                       "hp_ratio": 0,
                                       "can_crit": false
                                     },
@@ -5653,8 +5856,8 @@
             },
             {
               "type": "Attack",
-              "damage": 30,
-              "attack_ratio": 150,
+              "damage": 20,
+              "attack_ratio": 100,
               "hp_ratio": 0,
               "target_hp_ratio": 0,
               "attack_effect_type": "Target"
@@ -5685,8 +5888,8 @@
             "effects": [
               {
                 "type": "Attack",
-                "damage": 30,
-                "attack_ratio": 150,
+                "damage": 20,
+                "attack_ratio": 100,
                 "hp_ratio": 0,
                 "target_hp_ratio": 0,
                 "attack_effect_type": "Target"
@@ -5748,7 +5951,7 @@
                     "type": "RangeEffect",
                     "shape": {
                       "Circle": {
-                        "radius": 25000
+                        "radius": 35000
                       }
                     },
                     "target": "EnemyChampion",
@@ -5932,7 +6135,7 @@
                               "type": "RangeEffect",
                               "shape": {
                                 "Circle": {
-                                  "radius": 25000
+                                  "radius": 35000
                                 }
                               },
                               "target": "EnemyChampion",
@@ -6089,7 +6292,7 @@
                               "type": "RangeEffect",
                               "shape": {
                                 "Circle": {
-                                  "radius": 25000
+                                  "radius": 35000
                                 }
                               },
                               "target": "EnemyChampion",
@@ -6246,7 +6449,7 @@
                               "type": "RangeEffect",
                               "shape": {
                                 "Circle": {
-                                  "radius": 25000
+                                  "radius": 35000
                                 }
                               },
                               "target": "EnemyChampion",
@@ -6403,7 +6606,7 @@
                               "type": "RangeEffect",
                               "shape": {
                                 "Circle": {
-                                  "radius": 25000
+                                  "radius": 35000
                                 }
                               },
                               "target": "EnemyChampion",
@@ -6560,7 +6763,7 @@
                               "type": "RangeEffect",
                               "shape": {
                                 "Circle": {
-                                  "radius": 25000
+                                  "radius": 35000
                                 }
                               },
                               "target": "EnemyChampion",
@@ -6717,7 +6920,7 @@
                               "type": "RangeEffect",
                               "shape": {
                                 "Circle": {
-                                  "radius": 25000
+                                  "radius": 35000
                                 }
                               },
                               "target": "EnemyChampion",
@@ -6874,7 +7077,7 @@
                               "type": "RangeEffect",
                               "shape": {
                                 "Circle": {
-                                  "radius": 25000
+                                  "radius": 35000
                                 }
                               },
                               "target": "EnemyChampion",
@@ -7031,7 +7234,7 @@
                               "type": "RangeEffect",
                               "shape": {
                                 "Circle": {
-                                  "radius": 25000
+                                  "radius": 35000
                                 }
                               },
                               "target": "EnemyChampion",
@@ -7234,7 +7437,7 @@
                     {
                       "type": "CasterAnimation",
                       "name": "ult",
-                      "tick": 36
+                      "tick": 35
                     },
                     {
                       "type": "Sfx",
@@ -7256,7 +7459,7 @@
                       "effects": [
                         {
                           "type": "Delayed",
-                          "tick": 14,
+                          "tick": 23,
                           "effects": [
                             {
                               "type": "CasterViewEffect",
@@ -7278,8 +7481,8 @@
                               "effects": [
                                 {
                                   "type": "ApAttack",
-                                  "damage": 200,
-                                  "attack_ratio": 100,
+                                  "damage": 150,
+                                  "attack_ratio": 80,
                                   "hp_ratio": 0,
                                   "can_crit": false
                                 },
@@ -7386,7 +7589,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "ult",
-                          "tick": 36
+                          "tick": 35
                         },
                         {
                           "type": "Sfx",
@@ -7408,7 +7611,7 @@
                           "effects": [
                             {
                               "type": "Delayed",
-                              "tick": 14,
+                              "tick": 23,
                               "effects": [
                                 {
                                   "type": "CasterViewEffect",
@@ -7430,8 +7633,8 @@
                                   "effects": [
                                     {
                                       "type": "ApAttack",
-                                      "damage": 200,
-                                      "attack_ratio": 100,
+                                      "damage": 150,
+                                      "attack_ratio": 80,
                                       "hp_ratio": 0,
                                       "can_crit": false
                                     },
@@ -7540,7 +7743,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "ult",
-                          "tick": 36
+                          "tick": 35
                         },
                         {
                           "type": "Sfx",
@@ -7562,7 +7765,7 @@
                           "effects": [
                             {
                               "type": "Delayed",
-                              "tick": 14,
+                              "tick": 23,
                               "effects": [
                                 {
                                   "type": "CasterViewEffect",
@@ -7584,8 +7787,8 @@
                                   "effects": [
                                     {
                                       "type": "ApAttack",
-                                      "damage": 200,
-                                      "attack_ratio": 100,
+                                      "damage": 150,
+                                      "attack_ratio": 80,
                                       "hp_ratio": 0,
                                       "can_crit": false
                                     },
@@ -7694,7 +7897,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "ult",
-                          "tick": 36
+                          "tick": 35
                         },
                         {
                           "type": "Sfx",
@@ -7716,7 +7919,7 @@
                           "effects": [
                             {
                               "type": "Delayed",
-                              "tick": 14,
+                              "tick": 23,
                               "effects": [
                                 {
                                   "type": "CasterViewEffect",
@@ -7738,8 +7941,8 @@
                                   "effects": [
                                     {
                                       "type": "ApAttack",
-                                      "damage": 200,
-                                      "attack_ratio": 100,
+                                      "damage": 150,
+                                      "attack_ratio": 80,
                                       "hp_ratio": 0,
                                       "can_crit": false
                                     },
@@ -7848,7 +8051,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "ult",
-                          "tick": 36
+                          "tick": 35
                         },
                         {
                           "type": "Sfx",
@@ -7870,7 +8073,7 @@
                           "effects": [
                             {
                               "type": "Delayed",
-                              "tick": 14,
+                              "tick": 23,
                               "effects": [
                                 {
                                   "type": "CasterViewEffect",
@@ -7892,8 +8095,8 @@
                                   "effects": [
                                     {
                                       "type": "ApAttack",
-                                      "damage": 200,
-                                      "attack_ratio": 100,
+                                      "damage": 150,
+                                      "attack_ratio": 80,
                                       "hp_ratio": 0,
                                       "can_crit": false
                                     },
@@ -8002,7 +8205,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "ult",
-                          "tick": 36
+                          "tick": 35
                         },
                         {
                           "type": "Sfx",
@@ -8024,7 +8227,7 @@
                           "effects": [
                             {
                               "type": "Delayed",
-                              "tick": 14,
+                              "tick": 23,
                               "effects": [
                                 {
                                   "type": "CasterViewEffect",
@@ -8046,8 +8249,8 @@
                                   "effects": [
                                     {
                                       "type": "ApAttack",
-                                      "damage": 200,
-                                      "attack_ratio": 100,
+                                      "damage": 150,
+                                      "attack_ratio": 80,
                                       "hp_ratio": 0,
                                       "can_crit": false
                                     },
@@ -8156,7 +8359,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "ult",
-                          "tick": 36
+                          "tick": 35
                         },
                         {
                           "type": "Sfx",
@@ -8178,7 +8381,7 @@
                           "effects": [
                             {
                               "type": "Delayed",
-                              "tick": 14,
+                              "tick": 23,
                               "effects": [
                                 {
                                   "type": "CasterViewEffect",
@@ -8200,8 +8403,8 @@
                                   "effects": [
                                     {
                                       "type": "ApAttack",
-                                      "damage": 200,
-                                      "attack_ratio": 100,
+                                      "damage": 150,
+                                      "attack_ratio": 80,
                                       "hp_ratio": 0,
                                       "can_crit": false
                                     },
@@ -8310,7 +8513,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "ult",
-                          "tick": 36
+                          "tick": 35
                         },
                         {
                           "type": "Sfx",
@@ -8332,7 +8535,7 @@
                           "effects": [
                             {
                               "type": "Delayed",
-                              "tick": 14,
+                              "tick": 23,
                               "effects": [
                                 {
                                   "type": "CasterViewEffect",
@@ -8354,8 +8557,8 @@
                                   "effects": [
                                     {
                                       "type": "ApAttack",
-                                      "damage": 200,
-                                      "attack_ratio": 100,
+                                      "damage": 150,
+                                      "attack_ratio": 80,
                                       "hp_ratio": 0,
                                       "can_crit": false
                                     },
@@ -8464,7 +8667,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "ult",
-                          "tick": 36
+                          "tick": 35
                         },
                         {
                           "type": "Sfx",
@@ -8486,7 +8689,7 @@
                           "effects": [
                             {
                               "type": "Delayed",
-                              "tick": 14,
+                              "tick": 23,
                               "effects": [
                                 {
                                   "type": "CasterViewEffect",
@@ -8508,8 +8711,8 @@
                                   "effects": [
                                     {
                                       "type": "ApAttack",
-                                      "damage": 200,
-                                      "attack_ratio": 100,
+                                      "damage": 150,
+                                      "attack_ratio": 80,
                                       "hp_ratio": 0,
                                       "can_crit": false
                                     },
@@ -8618,7 +8821,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "ult",
-                          "tick": 36
+                          "tick": 35
                         },
                         {
                           "type": "Sfx",
@@ -8640,7 +8843,7 @@
                           "effects": [
                             {
                               "type": "Delayed",
-                              "tick": 14,
+                              "tick": 23,
                               "effects": [
                                 {
                                   "type": "CasterViewEffect",
@@ -8662,8 +8865,8 @@
                                   "effects": [
                                     {
                                       "type": "ApAttack",
-                                      "damage": 200,
-                                      "attack_ratio": 100,
+                                      "damage": 150,
+                                      "attack_ratio": 80,
                                       "hp_ratio": 0,
                                       "can_crit": false
                                     },
@@ -8772,7 +8975,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "ult",
-                          "tick": 36
+                          "tick": 35
                         },
                         {
                           "type": "Sfx",
@@ -8794,7 +8997,7 @@
                           "effects": [
                             {
                               "type": "Delayed",
-                              "tick": 14,
+                              "tick": 23,
                               "effects": [
                                 {
                                   "type": "CasterViewEffect",
@@ -8816,8 +9019,8 @@
                                   "effects": [
                                     {
                                       "type": "ApAttack",
-                                      "damage": 200,
-                                      "attack_ratio": 100,
+                                      "damage": 150,
+                                      "attack_ratio": 80,
                                       "hp_ratio": 0,
                                       "can_crit": false
                                     },
@@ -8926,7 +9129,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "ult",
-                          "tick": 36
+                          "tick": 35
                         },
                         {
                           "type": "Sfx",
@@ -8948,7 +9151,7 @@
                           "effects": [
                             {
                               "type": "Delayed",
-                              "tick": 14,
+                              "tick": 23,
                               "effects": [
                                 {
                                   "type": "CasterViewEffect",
@@ -8970,8 +9173,8 @@
                                   "effects": [
                                     {
                                       "type": "ApAttack",
-                                      "damage": 200,
-                                      "attack_ratio": 100,
+                                      "damage": 150,
+                                      "attack_ratio": 80,
                                       "hp_ratio": 0,
                                       "can_crit": false
                                     },
@@ -9080,7 +9283,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "ult",
-                          "tick": 36
+                          "tick": 35
                         },
                         {
                           "type": "Sfx",
@@ -9102,7 +9305,7 @@
                           "effects": [
                             {
                               "type": "Delayed",
-                              "tick": 14,
+                              "tick": 23,
                               "effects": [
                                 {
                                   "type": "CasterViewEffect",
@@ -9124,8 +9327,8 @@
                                   "effects": [
                                     {
                                       "type": "ApAttack",
-                                      "damage": 200,
-                                      "attack_ratio": 100,
+                                      "damage": 150,
+                                      "attack_ratio": 80,
                                       "hp_ratio": 0,
                                       "can_crit": false
                                     },
@@ -9234,7 +9437,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "ult",
-                          "tick": 36
+                          "tick": 35
                         },
                         {
                           "type": "Sfx",
@@ -9256,7 +9459,7 @@
                           "effects": [
                             {
                               "type": "Delayed",
-                              "tick": 14,
+                              "tick": 23,
                               "effects": [
                                 {
                                   "type": "CasterViewEffect",
@@ -9278,8 +9481,8 @@
                                   "effects": [
                                     {
                                       "type": "ApAttack",
-                                      "damage": 200,
-                                      "attack_ratio": 100,
+                                      "damage": 150,
+                                      "attack_ratio": 80,
                                       "hp_ratio": 0,
                                       "can_crit": false
                                     },
@@ -9388,7 +9591,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "ult",
-                          "tick": 36
+                          "tick": 35
                         },
                         {
                           "type": "Sfx",
@@ -9410,7 +9613,7 @@
                           "effects": [
                             {
                               "type": "Delayed",
-                              "tick": 14,
+                              "tick": 23,
                               "effects": [
                                 {
                                   "type": "CasterViewEffect",
@@ -9432,8 +9635,8 @@
                                   "effects": [
                                     {
                                       "type": "ApAttack",
-                                      "damage": 200,
-                                      "attack_ratio": 100,
+                                      "damage": 150,
+                                      "attack_ratio": 80,
                                       "hp_ratio": 0,
                                       "can_crit": false
                                     },
@@ -9542,7 +9745,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "ult",
-                          "tick": 36
+                          "tick": 35
                         },
                         {
                           "type": "Sfx",
@@ -9564,7 +9767,7 @@
                           "effects": [
                             {
                               "type": "Delayed",
-                              "tick": 14,
+                              "tick": 23,
                               "effects": [
                                 {
                                   "type": "CasterViewEffect",
@@ -9586,8 +9789,8 @@
                                   "effects": [
                                     {
                                       "type": "ApAttack",
-                                      "damage": 200,
-                                      "attack_ratio": 100,
+                                      "damage": 150,
+                                      "attack_ratio": 80,
                                       "hp_ratio": 0,
                                       "can_crit": false
                                     },
@@ -9696,7 +9899,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "ult",
-                          "tick": 36
+                          "tick": 35
                         },
                         {
                           "type": "Sfx",
@@ -9718,7 +9921,7 @@
                           "effects": [
                             {
                               "type": "Delayed",
-                              "tick": 14,
+                              "tick": 23,
                               "effects": [
                                 {
                                   "type": "CasterViewEffect",
@@ -9740,8 +9943,8 @@
                                   "effects": [
                                     {
                                       "type": "ApAttack",
-                                      "damage": 200,
-                                      "attack_ratio": 100,
+                                      "damage": 150,
+                                      "attack_ratio": 80,
                                       "hp_ratio": 0,
                                       "can_crit": false
                                     },
@@ -9850,7 +10053,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "ult",
-                          "tick": 36
+                          "tick": 35
                         },
                         {
                           "type": "Sfx",
@@ -9872,7 +10075,7 @@
                           "effects": [
                             {
                               "type": "Delayed",
-                              "tick": 14,
+                              "tick": 23,
                               "effects": [
                                 {
                                   "type": "CasterViewEffect",
@@ -9894,8 +10097,8 @@
                                   "effects": [
                                     {
                                       "type": "ApAttack",
-                                      "damage": 200,
-                                      "attack_ratio": 100,
+                                      "damage": 150,
+                                      "attack_ratio": 80,
                                       "hp_ratio": 0,
                                       "can_crit": false
                                     },
@@ -10004,7 +10207,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "ult",
-                          "tick": 36
+                          "tick": 35
                         },
                         {
                           "type": "Sfx",
@@ -10026,7 +10229,7 @@
                           "effects": [
                             {
                               "type": "Delayed",
-                              "tick": 14,
+                              "tick": 23,
                               "effects": [
                                 {
                                   "type": "CasterViewEffect",
@@ -10048,8 +10251,8 @@
                                   "effects": [
                                     {
                                       "type": "ApAttack",
-                                      "damage": 200,
-                                      "attack_ratio": 100,
+                                      "damage": 150,
+                                      "attack_ratio": 80,
                                       "hp_ratio": 0,
                                       "can_crit": false
                                     },
@@ -10158,7 +10361,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "ult",
-                          "tick": 36
+                          "tick": 35
                         },
                         {
                           "type": "Sfx",
@@ -10180,7 +10383,7 @@
                           "effects": [
                             {
                               "type": "Delayed",
-                              "tick": 14,
+                              "tick": 23,
                               "effects": [
                                 {
                                   "type": "CasterViewEffect",
@@ -10202,8 +10405,8 @@
                                   "effects": [
                                     {
                                       "type": "ApAttack",
-                                      "damage": 200,
-                                      "attack_ratio": 100,
+                                      "damage": 150,
+                                      "attack_ratio": 80,
                                       "hp_ratio": 0,
                                       "can_crit": false
                                     },
@@ -10312,7 +10515,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "ult",
-                          "tick": 36
+                          "tick": 35
                         },
                         {
                           "type": "Sfx",
@@ -10334,7 +10537,7 @@
                           "effects": [
                             {
                               "type": "Delayed",
-                              "tick": 14,
+                              "tick": 23,
                               "effects": [
                                 {
                                   "type": "CasterViewEffect",
@@ -10356,8 +10559,8 @@
                                   "effects": [
                                     {
                                       "type": "ApAttack",
-                                      "damage": 200,
-                                      "attack_ratio": 100,
+                                      "damage": 150,
+                                      "attack_ratio": 80,
                                       "hp_ratio": 0,
                                       "can_crit": false
                                     },
@@ -10466,7 +10669,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "ult",
-                          "tick": 36
+                          "tick": 35
                         },
                         {
                           "type": "Sfx",
@@ -10488,7 +10691,7 @@
                           "effects": [
                             {
                               "type": "Delayed",
-                              "tick": 14,
+                              "tick": 23,
                               "effects": [
                                 {
                                   "type": "CasterViewEffect",
@@ -10510,8 +10713,8 @@
                                   "effects": [
                                     {
                                       "type": "ApAttack",
-                                      "damage": 200,
-                                      "attack_ratio": 100,
+                                      "damage": 150,
+                                      "attack_ratio": 80,
                                       "hp_ratio": 0,
                                       "can_crit": false
                                     },
@@ -10620,7 +10823,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "ult",
-                          "tick": 36
+                          "tick": 35
                         },
                         {
                           "type": "Sfx",
@@ -10642,7 +10845,7 @@
                           "effects": [
                             {
                               "type": "Delayed",
-                              "tick": 14,
+                              "tick": 23,
                               "effects": [
                                 {
                                   "type": "CasterViewEffect",
@@ -10664,8 +10867,8 @@
                                   "effects": [
                                     {
                                       "type": "ApAttack",
-                                      "damage": 200,
-                                      "attack_ratio": 100,
+                                      "damage": 150,
+                                      "attack_ratio": 80,
                                       "hp_ratio": 0,
                                       "can_crit": false
                                     },
@@ -10774,7 +10977,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "ult",
-                          "tick": 36
+                          "tick": 35
                         },
                         {
                           "type": "Sfx",
@@ -10796,7 +10999,7 @@
                           "effects": [
                             {
                               "type": "Delayed",
-                              "tick": 14,
+                              "tick": 23,
                               "effects": [
                                 {
                                   "type": "CasterViewEffect",
@@ -10818,8 +11021,8 @@
                                   "effects": [
                                     {
                                       "type": "ApAttack",
-                                      "damage": 200,
-                                      "attack_ratio": 100,
+                                      "damage": 150,
+                                      "attack_ratio": 80,
                                       "hp_ratio": 0,
                                       "can_crit": false
                                     },
@@ -10928,7 +11131,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "ult",
-                          "tick": 36
+                          "tick": 35
                         },
                         {
                           "type": "Sfx",
@@ -10950,7 +11153,7 @@
                           "effects": [
                             {
                               "type": "Delayed",
-                              "tick": 14,
+                              "tick": 23,
                               "effects": [
                                 {
                                   "type": "CasterViewEffect",
@@ -10972,8 +11175,8 @@
                                   "effects": [
                                     {
                                       "type": "ApAttack",
-                                      "damage": 200,
-                                      "attack_ratio": 100,
+                                      "damage": 150,
+                                      "attack_ratio": 80,
                                       "hp_ratio": 0,
                                       "can_crit": false
                                     },
@@ -11082,7 +11285,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "ult",
-                          "tick": 36
+                          "tick": 35
                         },
                         {
                           "type": "Sfx",
@@ -11104,7 +11307,7 @@
                           "effects": [
                             {
                               "type": "Delayed",
-                              "tick": 14,
+                              "tick": 23,
                               "effects": [
                                 {
                                   "type": "CasterViewEffect",
@@ -11126,8 +11329,8 @@
                                   "effects": [
                                     {
                                       "type": "ApAttack",
-                                      "damage": 200,
-                                      "attack_ratio": 100,
+                                      "damage": 150,
+                                      "attack_ratio": 80,
                                       "hp_ratio": 0,
                                       "can_crit": false
                                     },
@@ -11236,7 +11439,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "ult",
-                          "tick": 36
+                          "tick": 35
                         },
                         {
                           "type": "Sfx",
@@ -11258,7 +11461,7 @@
                           "effects": [
                             {
                               "type": "Delayed",
-                              "tick": 14,
+                              "tick": 23,
                               "effects": [
                                 {
                                   "type": "CasterViewEffect",
@@ -11280,8 +11483,8 @@
                                   "effects": [
                                     {
                                       "type": "ApAttack",
-                                      "damage": 200,
-                                      "attack_ratio": 100,
+                                      "damage": 150,
+                                      "attack_ratio": 80,
                                       "hp_ratio": 0,
                                       "can_crit": false
                                     },
@@ -11390,7 +11593,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "ult",
-                          "tick": 36
+                          "tick": 35
                         },
                         {
                           "type": "Sfx",
@@ -11412,7 +11615,7 @@
                           "effects": [
                             {
                               "type": "Delayed",
-                              "tick": 14,
+                              "tick": 23,
                               "effects": [
                                 {
                                   "type": "CasterViewEffect",
@@ -11434,8 +11637,8 @@
                                   "effects": [
                                     {
                                       "type": "ApAttack",
-                                      "damage": 200,
-                                      "attack_ratio": 100,
+                                      "damage": 150,
+                                      "attack_ratio": 80,
                                       "hp_ratio": 0,
                                       "can_crit": false
                                     },
@@ -11544,7 +11747,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "ult",
-                          "tick": 36
+                          "tick": 35
                         },
                         {
                           "type": "Sfx",
@@ -11566,7 +11769,7 @@
                           "effects": [
                             {
                               "type": "Delayed",
-                              "tick": 14,
+                              "tick": 23,
                               "effects": [
                                 {
                                   "type": "CasterViewEffect",
@@ -11588,8 +11791,8 @@
                                   "effects": [
                                     {
                                       "type": "ApAttack",
-                                      "damage": 200,
-                                      "attack_ratio": 100,
+                                      "damage": 150,
+                                      "attack_ratio": 80,
                                       "hp_ratio": 0,
                                       "can_crit": false
                                     },
@@ -11698,7 +11901,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "ult",
-                          "tick": 36
+                          "tick": 35
                         },
                         {
                           "type": "Sfx",
@@ -11720,7 +11923,7 @@
                           "effects": [
                             {
                               "type": "Delayed",
-                              "tick": 14,
+                              "tick": 23,
                               "effects": [
                                 {
                                   "type": "CasterViewEffect",
@@ -11742,8 +11945,8 @@
                                   "effects": [
                                     {
                                       "type": "ApAttack",
-                                      "damage": 200,
-                                      "attack_ratio": 100,
+                                      "damage": 150,
+                                      "attack_ratio": 80,
                                       "hp_ratio": 0,
                                       "can_crit": false
                                     },
@@ -11852,7 +12055,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "ult",
-                          "tick": 36
+                          "tick": 35
                         },
                         {
                           "type": "Sfx",
@@ -11874,7 +12077,7 @@
                           "effects": [
                             {
                               "type": "Delayed",
-                              "tick": 14,
+                              "tick": 23,
                               "effects": [
                                 {
                                   "type": "CasterViewEffect",
@@ -11896,8 +12099,8 @@
                                   "effects": [
                                     {
                                       "type": "ApAttack",
-                                      "damage": 200,
-                                      "attack_ratio": 100,
+                                      "damage": 150,
+                                      "attack_ratio": 80,
                                       "hp_ratio": 0,
                                       "can_crit": false
                                     },
@@ -12006,7 +12209,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "ult",
-                          "tick": 36
+                          "tick": 35
                         },
                         {
                           "type": "Sfx",
@@ -12028,7 +12231,7 @@
                           "effects": [
                             {
                               "type": "Delayed",
-                              "tick": 14,
+                              "tick": 23,
                               "effects": [
                                 {
                                   "type": "CasterViewEffect",
@@ -12050,8 +12253,8 @@
                                   "effects": [
                                     {
                                       "type": "ApAttack",
-                                      "damage": 200,
-                                      "attack_ratio": 100,
+                                      "damage": 150,
+                                      "attack_ratio": 80,
                                       "hp_ratio": 0,
                                       "can_crit": false
                                     },
@@ -12160,7 +12363,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "ult",
-                          "tick": 36
+                          "tick": 35
                         },
                         {
                           "type": "Sfx",
@@ -12182,7 +12385,7 @@
                           "effects": [
                             {
                               "type": "Delayed",
-                              "tick": 14,
+                              "tick": 23,
                               "effects": [
                                 {
                                   "type": "CasterViewEffect",
@@ -12204,8 +12407,8 @@
                                   "effects": [
                                     {
                                       "type": "ApAttack",
-                                      "damage": 200,
-                                      "attack_ratio": 100,
+                                      "damage": 150,
+                                      "attack_ratio": 80,
                                       "hp_ratio": 0,
                                       "can_crit": false
                                     },
@@ -12314,7 +12517,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "ult",
-                          "tick": 36
+                          "tick": 35
                         },
                         {
                           "type": "Sfx",
@@ -12336,7 +12539,7 @@
                           "effects": [
                             {
                               "type": "Delayed",
-                              "tick": 14,
+                              "tick": 23,
                               "effects": [
                                 {
                                   "type": "CasterViewEffect",
@@ -12358,8 +12561,8 @@
                                   "effects": [
                                     {
                                       "type": "ApAttack",
-                                      "damage": 200,
-                                      "attack_ratio": 100,
+                                      "damage": 150,
+                                      "attack_ratio": 80,
                                       "hp_ratio": 0,
                                       "can_crit": false
                                     },
@@ -12468,7 +12671,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "ult",
-                          "tick": 36
+                          "tick": 35
                         },
                         {
                           "type": "Sfx",
@@ -12490,7 +12693,7 @@
                           "effects": [
                             {
                               "type": "Delayed",
-                              "tick": 14,
+                              "tick": 23,
                               "effects": [
                                 {
                                   "type": "CasterViewEffect",
@@ -12512,8 +12715,8 @@
                                   "effects": [
                                     {
                                       "type": "ApAttack",
-                                      "damage": 200,
-                                      "attack_ratio": 100,
+                                      "damage": 150,
+                                      "attack_ratio": 80,
                                       "hp_ratio": 0,
                                       "can_crit": false
                                     },
@@ -12622,7 +12825,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "ult",
-                          "tick": 36
+                          "tick": 35
                         },
                         {
                           "type": "Sfx",
@@ -12644,7 +12847,7 @@
                           "effects": [
                             {
                               "type": "Delayed",
-                              "tick": 14,
+                              "tick": 23,
                               "effects": [
                                 {
                                   "type": "CasterViewEffect",
@@ -12666,8 +12869,8 @@
                                   "effects": [
                                     {
                                       "type": "ApAttack",
-                                      "damage": 200,
-                                      "attack_ratio": 100,
+                                      "damage": 150,
+                                      "attack_ratio": 80,
                                       "hp_ratio": 0,
                                       "can_crit": false
                                     },
@@ -12776,7 +12979,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "ult",
-                          "tick": 36
+                          "tick": 35
                         },
                         {
                           "type": "Sfx",
@@ -12798,7 +13001,7 @@
                           "effects": [
                             {
                               "type": "Delayed",
-                              "tick": 14,
+                              "tick": 23,
                               "effects": [
                                 {
                                   "type": "CasterViewEffect",
@@ -12820,8 +13023,8 @@
                                   "effects": [
                                     {
                                       "type": "ApAttack",
-                                      "damage": 200,
-                                      "attack_ratio": 100,
+                                      "damage": 150,
+                                      "attack_ratio": 80,
                                       "hp_ratio": 0,
                                       "can_crit": false
                                     },
@@ -12930,7 +13133,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "ult",
-                          "tick": 36
+                          "tick": 35
                         },
                         {
                           "type": "Sfx",
@@ -12952,7 +13155,7 @@
                           "effects": [
                             {
                               "type": "Delayed",
-                              "tick": 14,
+                              "tick": 23,
                               "effects": [
                                 {
                                   "type": "CasterViewEffect",
@@ -12974,8 +13177,8 @@
                                   "effects": [
                                     {
                                       "type": "ApAttack",
-                                      "damage": 200,
-                                      "attack_ratio": 100,
+                                      "damage": 150,
+                                      "attack_ratio": 80,
                                       "hp_ratio": 0,
                                       "can_crit": false
                                     },
@@ -13084,7 +13287,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "ult",
-                          "tick": 36
+                          "tick": 35
                         },
                         {
                           "type": "Sfx",
@@ -13106,7 +13309,7 @@
                           "effects": [
                             {
                               "type": "Delayed",
-                              "tick": 14,
+                              "tick": 23,
                               "effects": [
                                 {
                                   "type": "CasterViewEffect",
@@ -13128,8 +13331,8 @@
                                   "effects": [
                                     {
                                       "type": "ApAttack",
-                                      "damage": 200,
-                                      "attack_ratio": 100,
+                                      "damage": 150,
+                                      "attack_ratio": 80,
                                       "hp_ratio": 0,
                                       "can_crit": false
                                     },
@@ -13238,7 +13441,7 @@
                         {
                           "type": "CasterAnimation",
                           "name": "ult",
-                          "tick": 36
+                          "tick": 35
                         },
                         {
                           "type": "Sfx",
@@ -13260,7 +13463,7 @@
                           "effects": [
                             {
                               "type": "Delayed",
-                              "tick": 14,
+                              "tick": 23,
                               "effects": [
                                 {
                                   "type": "CasterViewEffect",
@@ -13282,8 +13485,8 @@
                                   "effects": [
                                     {
                                       "type": "ApAttack",
-                                      "damage": 200,
-                                      "attack_ratio": 100,
+                                      "damage": 150,
+                                      "attack_ratio": 80,
                                       "hp_ratio": 0,
                                       "can_crit": false
                                     },
@@ -13383,9 +13586,41 @@
     },
     {
       "type": "Animated",
-      "name": "league_blitzcrank_q_back",
+      "name": "league_blitzcrank_q_back1",
       "anim": "asset/league/effects/league_blitzcrank_big",
-      "tag": "q_back",
+      "tag": "q_back1",
+      "repeat": false,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_blitzcrank_q_back2",
+      "anim": "asset/league/effects/league_blitzcrank_big",
+      "tag": "q_back2",
+      "repeat": false,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_blitzcrank_q_back3",
+      "anim": "asset/league/effects/league_blitzcrank_big",
+      "tag": "q_back3",
+      "repeat": false,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_blitzcrank_q_back4",
+      "anim": "asset/league/effects/league_blitzcrank_big",
+      "tag": "q_back4",
+      "repeat": false,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_blitzcrank_q_miss",
+      "anim": "asset/league/effects/league_blitzcrank_big",
+      "tag": "q_miss",
       "repeat": false,
       "z": 1
     }
