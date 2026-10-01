@@ -60,7 +60,12 @@ HANDS = (1, -16)                       # between his hands (the redesign's idle)
 RAY_AHEAD, RAY_LEN, RAY_SPEED = 21, 80, 1
 RAY_FRAMES = [2, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 5, 5]
 RAY_AFTER = 2000                       # ms of nothing: the carrier creeps on to the target (70000 at 1000 a tick: 1.2 s)
-Q_RAY = [(f, (RAY_AHEAD + RAY_LEN // 2 - RAY_SPEED * i, 0), 1000 / 60) for i, f in enumerate(RAY_FRAMES)]
+# Nothing on the carrier's first tick: a TargetProjectile is spawned at his pivot with no direction (0, 0) and its
+# first move, in that same tick, jumps the 13000 of its y_offset lift straight up (plus one 1000 step), so the game
+# turns its picture straight up for that tick - the whole beam flashed upward, then pointed at the target ("一道射在
+# 固定角度，再向目标射一道"). From the second tick every move is a 1000 step at the target.
+RAY_SKIP = 1
+Q_RAY = [(f, (RAY_AHEAD + RAY_LEN // 2 - RAY_SPEED * i, 0), 1000 / 60) for i, f in enumerate(RAY_FRAMES, RAY_SKIP)]
 
 # raw strip -> native (keys as in tools/art/import_fiddlesticks.py RAW; x / y "pivot": the frame's pivot in Codex's
 # manifest - the middle of a hit, the feet of a burst drawn round a figure, the middle line of a flying picture)
@@ -284,6 +289,7 @@ def build():
             spots = spot if isinstance(spot, list) else [spot] * len(ms)       # one spot, or one a frame
             out[tag] = [(G.centre_frame(strip[k], sx - ax, sy - ay), m) for k, (sx, sy), m in zip(used, spots, ms)]
             if tag == "q_ray":
+                out[tag].insert(0, (np.zeros((1, 1, 4), np.uint8), RAY_SKIP * 1000 / 60))
                 out[tag].append((np.zeros((1, 1, 4), np.uint8), RAY_AFTER))
         sheets[sprite] = out
     return sheets
