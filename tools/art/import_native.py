@@ -88,7 +88,8 @@ NECK_EYES = {("fiora", "hit", 0): (-19, 3)}
 # outline": every hero from Nami on; the user: "后面英雄都要用的"; and the older ones whose outline CLEAN tidies, which
 # needs it closed). Nothing goes under the soles row; a frame that already reaches lower (lying down) keeps its own
 # bottom.
-COMPLETE = {"nami", "veigar", "jax", "ahri", "taric", "tristana", "fiora", "diana", "leesin", "missfortune", "fizz"}
+COMPLETE = {"nami", "veigar", "jax", "ahri", "taric", "tristana", "fiora", "diana", "leesin", "missfortune", "fizz",
+            "blitzcrank"}
 # hero: the luminance from which an edge pixel gets the outline (complete_outline's `dark`, default 70). Fiora's teal
 # leggings (luminance ~58) and wine cape (~44) edge many action frames without black: tfm2_ase.py metrics counts only
 # luminance < 40 as outline, so at 70 her Q frames read 83-89% (the bare rapier aside); at 40 they close too.
@@ -178,7 +179,9 @@ ORDER = {("lux", "idle"): [0, 0, 0, 0, 0, 0],   # the step-2 idle is the design 
          # and Fiora (Codex's game-size design B40: the pack's idle is the design in all six)
          ("fiora", "idle"): [0, 0, 0, 0, 0, 0],
          # and Fizz (Codex's game-size design A read back, 32 rows: the pack's idle is the design in all six)
-         ("fizz", "idle"): [0, 0, 0, 0, 0, 0]}
+         ("fizz", "idle"): [0, 0, 0, 0, 0, 0],
+         # and Blitzcrank (Codex's game-size design B2, fixed by hand: the pack's idle is the design in all six)
+         ("blitzcrank", "idle"): [0, 0, 0, 0, 0, 0]}
 # (hero, tag): (y, slots) - in those slots everything at or above pivot row y moves down a row (the row under
 # it is covered): one frame breathing, the face the same drawing throughout. Leona's shield covers her from
 # the chest to the ankles, so she sinks down to its tip and only the boots stay (a seam across the shield
@@ -259,7 +262,10 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        # Fiora: her lunge stance puts both legs on diagonals, so every row differs from the next; at 8 (the boot tops)
        # 3 squares of outline and 4 of colour change and the boots stay
        ("fiora", "idle"): (8, [2, 3, 4]),
-       ("fizz", "idle"): (8, [2, 3, 4])}      # ankles: the row under the seam is the one above it, one px wider
+       ("fizz", "idle"): (8, [2, 3, 4]),      # ankles: the row under the seam is the one above it, one px wider
+       # Blitzcrank: his fists hang down beside his feet, so every seam over the soles cuts them and the pistons; across
+       # the feet (rows 9/10: the same outline, 16 squares of shading) the body, the fists and the ankles sink a row
+       ("blitzcrank", "idle"): (9, [2, 3, 4])}
 CROWN = {"leesin"}              # heroes whose head template starts at the crown (a braid stands above it)
 PASTED = {"masteryi"}            # steadied on the head restyle_native pasted: his raised sword is the top of every frame
 # Codex's step-2 redraw (model_strips_18, tidied by tidy_codex18.py): the approved design's head (or face) is in every
@@ -299,7 +305,8 @@ EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade
         "taric": (24, 44, 176),           # export_taric.py sets both eyes to this blue; his raised mace tops some frames
         "tristana": (246, 186, 48),       # the goggle cups top every frame; the amber is only in her eyes
         "fiora": (24, 180, 200),          # her raised rapier tops some frames; the teal is used only in her eyes
-        "fizz": (32, 174, 86)}            # the trident tops the attack, E and R frames; the green is only in his eyes
+        "fizz": (32, 174, 86),            # the trident tops the attack, E and R frames; the green is only in his eyes
+        "blitzcrank": (243, 164, 217)}    # the smokestacks and the raised fists top the frames; the pink is the eyes
 
 
 def blocks(path):

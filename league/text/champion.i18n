@@ -259,6 +259,13 @@
         "skill": "<#a974ffff>淘气打击<>：穿过目标冲刺，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>和<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65% 法术强度<>的<#a974ffff>魔法伤害<>，附带流血。<#a974ffff>海石三叉戟<>（每<#ffb900ff>6秒<>）：下一次普攻或淘气打击额外造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 法术强度<>的<#a974ffff>魔法伤害<>，击杀目标则冷却缩短为<#ffb900ff>1秒<>。",
         "skill2": "<#a974ffff>古灵精怪<>：跳上三叉戟<#ffb900ff>0.63秒<>（受到的伤害只有1点、免疫控制），再砸向最近的敌人，对周围造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 法术强度<>的<#a974ffff>魔法伤害<>并<#ef5350ff>减速40%<><#ffb900ff>2秒<>。附近有敌方英雄时先蓄着，挨打就跳起躲开后面的技能（最多等<#ffb900ff>1秒<>）。",
         "ult": "<#a974ffff>巨鲨强袭<>：扔出一条鱼粘在第一个敌方英雄身上并减速，<#ffb900ff>2秒<>后鲨鱼从它脚下冲出，<#ef5350ff>击飞<>周围敌人<#ffb900ff>1秒<>并造成<#a974ffff>魔法伤害<>。鱼飞得越远鲨鱼越大：<#a974ffff>150/220/300<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70/90/110% 法术强度<>，<#ef5350ff>减速40/60/80%<>。落空则在落点冲出大鲨鱼。"
+      },
+      "league_blitzcrank": {
+        "name": "布里茨",
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>；大招没在冷却时，<#ffb900ff>1秒<>后再落一道闪电，造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30% 法术强度<>的<#a974ffff>魔法伤害<>。被动 <#e8d44dff>法力屏障<>：被围攻或被控制时获得<#e8d44dff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 法术强度<>的<#e8d44dff>护盾<>（冷却<#ffb900ff>60秒<>）。",
+        "skill": "射出机械手，抓住直线上第一个敌方英雄（穿过小兵），造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 法术强度<>的<#a974ffff>魔法伤害<>，<#ef5350ff>眩晕<>并把它拉到身前。",
+        "skill2": "一记上勾拳，造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150% 攻击力<>的<#ff9028ff>物理伤害<>并<#ef5350ff>击飞<><#ffb900ff>1秒<>。<#ff9028ff>过载运转<>（每<#ffb900ff>15秒<>）：敌方英雄靠近时自动开启，<#ffb900ff>4秒<>内移速+55%（逐渐降低）、攻速+40%，结束后<#ef5350ff>减速25%<><#ffb900ff>1.5秒<>。",
+        "ult": "释放静电，对身边敌人造成<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% 法术强度<>的<#a974ffff>魔法伤害<>，并<#ef5350ff>沉默<>敌方英雄<#ffb900ff>1秒<>。打起来才放；放出后普攻的闪电停用，直到大招冷却结束。"
       }
     },
     "skill_name": {
@@ -446,6 +453,11 @@
         "skill1": "淘气打击",
         "skill2": "古灵精怪",
         "ult": "巨鲨强袭"
+      },
+      "league_blitzcrank": {
+        "skill1": "机械飞爪",
+        "skill2": "能量铁拳",
+        "ult": "静电力场"
       }
     }
   },
@@ -709,6 +721,13 @@
         "skill": "<#a974ffff>現撈海膽<>：穿過目標衝刺，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>和<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65% 魔法攻擊<>的<#a974ffff>魔法傷害<>，附帶流血。<#a974ffff>海神三叉戟<>（每<#ffb900ff>6秒<>）：下一次普攻或現撈海膽額外造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 魔法攻擊<>的<#a974ffff>魔法傷害<>，擊殺目標則冷卻縮短為<#ffb900ff>1秒<>。",
         "skill2": "<#a974ffff>愛玩小飛<>：跳上三叉戟<#ffb900ff>0.63秒<>（受到的傷害只有1點、免疫控場），再砸向最近的敵人，對周圍造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 魔法攻擊<>的<#a974ffff>魔法傷害<>並<#ef5350ff>緩速40%<><#ffb900ff>2秒<>。附近有敵方英雄時先蓄著，挨打就跳起躲開後面的技能（最多等<#ffb900ff>1秒<>）。",
         "ult": "<#a974ffff>海之霸主<>：扔出一條魚黏在第一個敵方英雄身上並緩速，<#ffb900ff>2秒<>後鯊魚從牠腳下衝出，<#ef5350ff>擊飛<>周圍敵人<#ffb900ff>1秒<>並造成<#a974ffff>魔法傷害<>。魚飛得越遠鯊魚越大：<#a974ffff>150/220/300<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70/90/110% 魔法攻擊<>，<#ef5350ff>緩速40/60/80%<>。落空則在落點衝出大鯊魚。"
+      },
+      "league_blitzcrank": {
+        "name": "布里茨",
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>；大絕沒在冷卻時，<#ffb900ff>1秒<>後再落一道閃電，造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30% 魔法攻擊<>的<#a974ffff>魔法傷害<>。被動 <#e8d44dff>法力屏障<>：被圍攻或被控場時獲得<#e8d44dff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 魔法攻擊<>的<#e8d44dff>護盾<>（冷卻<#ffb900ff>60秒<>）。",
+        "skill": "射出機械手，抓住直線上第一個敵方英雄（穿過小兵），造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 魔法攻擊<>的<#a974ffff>魔法傷害<>，<#ef5350ff>暈眩<>並把它拉到身前。",
+        "skill2": "一記上勾拳，造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150% 攻擊力<>的<#ff9028ff>物理傷害<>並<#ef5350ff>擊飛<><#ffb900ff>1秒<>。<#ff9028ff>過載運轉<>（每<#ffb900ff>15秒<>）：敵方英雄靠近時自動開啟，<#ffb900ff>4秒<>內跑速+55%（逐漸降低）、攻速+40%，結束後<#ef5350ff>緩速25%<><#ffb900ff>1.5秒<>。",
+        "ult": "釋放靜電，對身邊敵人造成<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% 魔法攻擊<>的<#a974ffff>魔法傷害<>，並<#ef5350ff>沉默<>敵方英雄<#ffb900ff>1秒<>。開打才放；放出後普攻的閃電停用，直到大絕冷卻結束。"
       }
     },
     "skill_name": {
@@ -896,6 +915,11 @@
         "skill1": "現撈海膽",
         "skill2": "愛玩小飛",
         "ult": "海之霸主"
+      },
+      "league_blitzcrank": {
+        "skill1": "火箭抓取",
+        "skill2": "充能一擊",
+        "ult": "靜電力場"
       }
     }
   },
@@ -1159,6 +1183,13 @@
         "skill": "<#a974ffff>Urchin Strike<>: Fizz dashes through the target, dealing <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<> plus <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65% AP<> <#a974ffff>magic damage<> and the bleed. <#a974ffff>Seastone Trident<> (every <#ffb900ff>6s<>): his next basic attack or Urchin Strike deals <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% AP<> bonus <#a974ffff>magic damage<>; if it kills the target the cooldown drops to <#ffb900ff>1s<>.",
         "skill2": "<#a974ffff>Playful / Trickster<>: Fizz vaults onto his trident for <#ffb900ff>0.63s<> (hits deal him 1, immune to crowd control), then slams down on the nearest enemy, dealing <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% AP<> <#a974ffff>magic damage<> around him and <#ef5350ff>slowing by 40%<> for <#ffb900ff>2s<>. With enemy champions near he waits (up to <#ffb900ff>1s<>) and vaults the moment he is hit, dodging what follows.",
         "ult": "<#a974ffff>Chum the Waters<>: Fizz throws a fish that sticks to the first enemy champion and slows it; <#ffb900ff>2s<> later a shark bursts up under it, <#ef5350ff>knocking up<> nearby enemies for <#ffb900ff>1s<> and dealing <#a974ffff>magic damage<>. Farther fish, bigger shark: <#a974ffff>150/220/300<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70/90/110% AP<>, <#ef5350ff>slow 40/60/80%<>. A miss calls the big shark where the fish lands."
+      },
+      "league_blitzcrank": {
+        "name": "Blitzcrank",
+        "attack": "Basic attacks deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>; while Static Field is off cooldown, lightning strikes the target <#ffb900ff>1s<> later for <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30% AP<> <#a974ffff>magic damage<>. Passive <#e8d44dff>Mana Barrier<>: when surrounded or crowd-controlled he gains a <#e8d44dff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% AP<> <#e8d44dff>shield<> (<#ffb900ff>60s<> cooldown).",
+        "skill": "Blitzcrank fires his hand at the first enemy champion in a line (it passes minions), dealing <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% AP<> <#a974ffff>magic damage<>, <#ef5350ff>stunning<> it and pulling it to him.",
+        "skill2": "An uppercut dealing <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150% AD<> <#ff9028ff>physical damage<> and <#ef5350ff>knocking up<> for <#ffb900ff>1s<>. <#ff9028ff>Overdrive<> (every <#ffb900ff>15s<>): when enemy champions come near he gains +55% decaying move speed and +40% attack speed for <#ffb900ff>4s<>, then is <#ef5350ff>slowed by 25%<> for <#ffb900ff>1.5s<>.",
+        "ult": "Blitzcrank discharges, dealing <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% AP<> <#a974ffff>magic damage<> to nearby enemies and <#ef5350ff>silencing<> enemy champions for <#ffb900ff>1s<>. Used once a fight is on; afterwards the attacks' lightning stops until Static Field is off cooldown."
       }
     },
     "skill_name": {
@@ -1346,6 +1377,11 @@
         "skill1": "Urchin Strike",
         "skill2": "Playful / Trickster",
         "ult": "Chum the Waters"
+      },
+      "league_blitzcrank": {
+        "skill1": "Rocket Grab",
+        "skill2": "Power Fist",
+        "ult": "Static Field"
       }
     }
   },
@@ -1609,6 +1645,13 @@
         "skill": "<#a974ffff>성게 찌르기<>: 대상을 관통해 돌진하며 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>와 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 65%<> <#a974ffff>마법 피해<>, 출혈 적용. <#a974ffff>심해석 삼지창<>(<#ffb900ff>6초<>마다): 다음 기본 공격이나 성게 찌르기가 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 60%<> 추가 <#a974ffff>마법 피해<>, 대상을 처치하면 재사용 대기시간이 <#ffb900ff>1초<>로 줄어듭니다.",
         "skill2": "<#a974ffff>장난치기 / 재간둥이<>: <#ffb900ff>0.63초<> 동안 삼지창 위로 뛰어올라(받는 피해 1, 군중 제어 면역) 가장 가까운 적에게 내려찍어 주변에 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 80%<> <#a974ffff>마법 피해<>를 입히고 <#ffb900ff>2초<> 동안 <#ef5350ff>40% 둔화<>. 근처에 적 챔피언이 있으면 기다렸다가(최대 <#ffb900ff>1초<>) 맞는 순간 뛰어올라 이어지는 스킬을 피합니다.",
         "ult": "<#a974ffff>미끼 뿌리기<>: 물고기를 던져 처음 맞힌 적 챔피언에게 붙여 둔화시키고, <#ffb900ff>2초<> 뒤 그 아래에서 상어가 솟아올라 주변 적을 <#ffb900ff>1초<> 동안 <#ef5350ff>공중에 띄우고<> <#a974ffff>마법 피해<>. 멀리 날아갈수록 큰 상어: <#a974ffff>150/220/300<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 70/90/110%<>, <#ef5350ff>둔화 40/60/80%<>. 빗나가면 떨어진 곳에서 큰 상어가 솟아오릅니다."
+      },
+      "league_blitzcrank": {
+        "name": "블리츠크랭크",
+        "attack": "기본 공격: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>. 정전기장이 재사용 대기 중이 아니면 <#ffb900ff>1초<> 뒤 번개가 떨어져 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 30%<> <#a974ffff>마법 피해<>. 기본 지속 효과 <#e8d44dff>마나 보호막<>: 포위되거나 군중 제어에 걸리면 <#e8d44dff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 80%<> <#e8d44dff>보호막<>(재사용 대기 <#ffb900ff>60초<>).",
+        "skill": "손을 발사해 직선상 첫 적 챔피언(미니언 관통)을 붙잡아 <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 80%<> <#a974ffff>마법 피해<>를 입히고 <#ef5350ff>기절<>시키며 끌어옵니다.",
+        "skill2": "어퍼컷으로 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 150%<> <#ff9028ff>물리 피해<>, <#ffb900ff>1초<> <#ef5350ff>공중에 띄움<>. <#ff9028ff>폭주<>(<#ffb900ff>15초<>마다): 적 챔피언이 다가오면 <#ffb900ff>4초<> 동안 이동 속도 +55%(점차 감소), 공격 속도 +40%, 끝나면 <#ffb900ff>1.5초<> <#ef5350ff>25% 둔화<>.",
+        "ult": "정전기를 방출해 주변 적에게 <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 100%<> <#a974ffff>마법 피해<>, 적 챔피언 <#ffb900ff>1초<> <#ef5350ff>침묵<>. 교전이 시작되면 사용, 이후 재사용 대기 동안 기본 공격의 번개가 멈춥니다."
       }
     },
     "skill_name": {
@@ -1796,6 +1839,11 @@
         "skill1": "성게 찌르기",
         "skill2": "장난치기 / 재간둥이",
         "ult": "미끼 뿌리기"
+      },
+      "league_blitzcrank": {
+        "skill1": "로켓 손",
+        "skill2": "강철 주먹",
+        "ult": "정전기장"
       }
     }
   },
@@ -2059,6 +2107,13 @@
         "skill": "<#a974ffff>ウニトゲストライク<>：対象を突き抜けて突進し、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>と<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の65%<>の<#a974ffff>魔法ダメージ<>、出血付与。<#a974ffff>シートライデント<>（<#ffb900ff>6秒<>ごと）：次の通常攻撃かウニトゲストライクが<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の60%<>の追加<#a974ffff>魔法ダメージ<>、倒すとCDが<#ffb900ff>1秒<>に。",
         "skill2": "<#a974ffff>プレイ/トリックスター<>：三叉槍に飛び乗り<#ffb900ff>0.63秒<>（被ダメージ1、行動妨害無効）、最も近い敵に叩きつけ周囲に<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の80%<>の<#a974ffff>魔法ダメージ<>と<#ffb900ff>2秒<><#ef5350ff>40%スロウ<>。敵チャンピオンが近いと待ち（最大<#ffb900ff>1秒<>）、攻撃を受けた瞬間に飛び乗り後続のスキルをかわす。",
         "ult": "<#a974ffff>フィッシング<>：魚を投げ最初の敵チャンピオンにくっつけスロウ、<#ffb900ff>2秒<>後その足元からサメが現れ周囲の敵を<#ffb900ff>1秒<><#ef5350ff>ノックアップ<>し<#a974ffff>魔法ダメージ<>。遠くへ飛ぶほど大きなサメ：<#a974ffff>150/220/300<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の70/90/110%<>、<#ef5350ff>スロウ40/60/80%<>。外れると落ちた場所に大きなサメ。"
+      },
+      "league_blitzcrank": {
+        "name": "ブリッツクランク",
+        "attack": "通常攻撃は<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>。アルティメットがCD中でなければ<#ffb900ff>1秒<>後に雷が落ち<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の30%<>の<#a974ffff>魔法ダメージ<>。パッシブ <#e8d44dff>マナバリア<>：囲まれるか行動妨害を受けると<#e8d44dff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の80%<>の<#e8d44dff>シールド<>（CD<#ffb900ff>60秒<>）。",
+        "skill": "腕を発射し、直線上の最初の敵チャンピオン（ミニオンは貫通）を掴んで<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の80%<>の<#a974ffff>魔法ダメージ<>、<#ef5350ff>スタン<>させ引き寄せる。",
+        "skill2": "アッパーカットで<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の150%<>の<#ff9028ff>物理ダメージ<>と<#ffb900ff>1秒<><#ef5350ff>ノックアップ<>。<#ff9028ff>オーバードライブ<>（<#ffb900ff>15秒<>ごと）：敵チャンピオンが近づくと<#ffb900ff>4秒<>移動速度+55%（減衰）、攻撃速度+40%、終了後<#ffb900ff>1.5秒<><#ef5350ff>25%スロウ<>。",
+        "ult": "放電し周囲の敵に<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の100%<>の<#a974ffff>魔法ダメージ<>、敵チャンピオンを<#ffb900ff>1秒<><#ef5350ff>サイレンス<>。戦闘が始まると使用、以後CD中は通常攻撃の雷が止まる。"
       }
     },
     "skill_name": {
@@ -2246,6 +2301,11 @@
         "skill1": "ウニトゲストライク",
         "skill2": "プレイ/トリックスター",
         "ult": "フィッシング"
+      },
+      "league_blitzcrank": {
+        "skill1": "ロケットグラブ",
+        "skill2": "パワーフィスト",
+        "ult": "イナズマフィールド"
       }
     }
   }

@@ -1,0 +1,239 @@
+{
+  "mode": "reference-based native pixel animation generation + user-specified native correction",
+  "accepted_prompts": {
+    "run": {
+      "n": 8,
+      "cols": 4,
+      "rows": 2,
+      "ms": [
+        83,
+        83,
+        83,
+        84,
+        83,
+        83,
+        83,
+        85
+      ],
+      "pivots": [
+        56,
+        61,
+        57,
+        56,
+        70,
+        74,
+        60,
+        58
+      ],
+      "motion": "MOVE seamless heavy stomping loop. Frames1-4 left-leg stride, frames5-8 right-leg stride. Knees pass in middle frames, opposite fists swing opposite legs, large flat feet planted on baseline. Head same x relative to hip pivot ALL frames, bob maximum ONE logical pixel. No running in place with identical legs; clearly swap which foot is forward. Frame8 flows into1.",
+      "prompt": "Fix the RUN SPRITE SHEET using the FIRST close-up of the approved character. FIRST is exactly46 by44 native pixels, displayed16x: preserve this block size and sparse, flat, chunky 16-color pixel art. SECOND is the original pose sequence to guide stride. This is a PRODUCTION REPAIR after an earlier sheet had fragmented/missing hips, shins and forearms. Preserve a complete, solid waist, two continuous dark steel piston legs at least4pixels thick, two complete large flat GOLD shoes at least10pixels wide by4pixels high, and complete thick articulated arms and HUGE rectangular gold fists each8x12or larger with three finger blocks/steelknucklebolts. Do not perforate limbs or reduce them to scattered dots/skinny diagonal lines. Negative space only BETWEEN the two legs and OUTSIDE the body, never inside shins or forearms. Round gold boiler, small steel rim furnace, tiny gold9x10dome TWOsquarepinkwhiteeyes, two STEEL pipes, exactFIRST design. No crotch-to-shoe gaps; every leg connected to hip by a solid steel piston, every arm connected to shoulder by solid gold forearm.\nDraw 8 RUN keyframes,4columns2rows,transparent background. Read left to right top row thenbottom. Character upright44nativepixels tall frompipe top to soles. Small minimal walking animation: top row the near leg goes back竊知iddle竊断orward竊知iddle; bottom row near leg goesforward竊知iddle竊鍛ack竊知iddle; far leg moves opposite. Feet retain the exact flat shape, short shins SOLID as inFIRST, do not change body size. Heavy planted stomp: feet alternate being raised2pixels, plantedfoot always on common baseline. Both huge arms visibly swing mildly opposite legs. Chest/eyes always front-right, headstablex bobmax1pixel. Simplicity: no fine pixel clusters, each individualtile onecoarsepixellikeFIRST, no textureor dithering; no antialiasing, no semitransparency, one1pixeloutline. Palette ONLY #170F1D #292536 #672D01 #373E56 #984B01 #454759 #BC6802 #DD8702 #67718F #F9AF07 #FDDC36 #A2AECC #BFCDE0 #F3A4D9 #E2EBFC #FFF8FD. No labels/grid/groundshadow/effects. Layout cell128x112 logical. Sprites occupylogicalx40..86,y54..97 in eachcell; modestanimationexcursions. DON'T redesign into different gauntlets or curved clown shoes. The entire robotmustbe complete inEVERY frame, never a detached foot or empty piston.\n",
+      "refs": [
+        "work/blitzcrank_B2_close_reference.png",
+        "pose/lol_pose_run.png"
+      ],
+      "source_generated_file": "exec-f5ac116c-a54d-4b2f-addb-1611fa2a2b94.png"
+    },
+    "attack": {
+      "n": 6,
+      "cols": 3,
+      "rows": 2,
+      "ms": [
+        70,
+        70,
+        70,
+        70,
+        80,
+        80
+      ],
+      "pivots": [
+        54,
+        58,
+        60,
+        57,
+        60,
+        69
+      ],
+      "motion": "BASIC ATTACK heavy rightward punch. Frame1 near fist draws back from idle;2 cocked high beside body;3 HIT RELEASE fist slammed far forward RIGHT at chest height on extended thick arm;4 holds punch;5 both arms swing back outward;6 near idle again. Body turns slightly right, both pink eyes remain. Use frame3 as strongest extension, no particles.",
+      "prompt": "Three attached references: FIRST approved B2 pixel art character, whose exact shapes and colors are mandatory, SECOND native original animation cells, THIRD matching HD poses to guide movement only. Create a clean game animation strip of FIRST character moving per specified sequence. No redesign. Round gold boiler, small gold dome with middle ridge TWO 3x3 pink-white square eyes in dark sockets sitting on steel collar; TWO short STEEL smokestacks behind head; steel ring small bronze chest furnace lightning seam; black ribbed shoulder hoses; gold shoulder block, forearm, giant square finger fist with three stacked fingers and steel bolts; short steel piston legs and flat gold feet. Match FIRST exactly, keep size: 44 LOGICAL PIXELS from smokestacks to soles when upright, body46pixels wide in idle; head9x10logical, fist minimum8x8, arm minimum4wide. Draw coarse clean native pixel art with one tile smallest detail, rendered8x nearest-neighbor, NO fine-detail high-resolution drawing, no antialiasing, no blur, no texture/dither/gradient, binary transparency. Palette ONLY #170F1D #292536 #672D01 #373E56 #984B01 #454759 #BC6802 #DD8702 #67718F #F9AF07 #FDDC36 #A2AECC #BFCDE0 #F3A4D9 #E2EBFC #FFF8FD. One1pixel dark silhouette outline, material dark colors inside. Head and eyes identically copied in each frame, only whole translation/rigid tilt. Pink/white ONLY eyes. All limbs connected to torso, not floating. Both eyes and chest visible, three-quarter front toward RIGHT, never back. No steam/lightning/sparks/glow/detached fists/chains. No ground shadow, letters, numbering, grid lines, outlines around cells, background marks. Draw on TRUE TRANSPARENT background.\nEach frame in exact128x112logical cell (1024x896at8x), ample blank space above: standing sprites occupy approximately x40..85 y54..97, NOT filling cells. Feet lowest row97, NOTHING below (death final2allowed99). All frames read left to right then secondrow. Same scale across ALL cells. Sourceposes determine motion but FIRST design determines look, cleaner than SECOND.\n\nAnimation ATTACK, EXACTLY 6 distinct frames. BASIC ATTACK heavy rightward punch. Frame1 near fist draws back from idle;2 cocked high beside body;3 HIT RELEASE fist slammed far forward RIGHT at chest height on extended thick arm;4 holds punch;5 both arms swing back outward;6 near idle again. Body turns slightly right, both pink eyes remain. Use frame3 as strongest extension, no particles.\nLayout 3columns x 2rows, wholecanvas 3072x1792px, 384x224logical pixels, STRICT same-as-secondreferencecelllayout. Everypixelone8x8block. Perframe hip pivots(logicalx,y) (54,86),(58,86),(60,86),(57,86),(60,86),(69,86); timingms 70,70,70,70,80,80. Head relative hip position approximately(x+0,y-24), headtop y-29, appropriate lean except runconstanthead. Keep design scale44px, respect layout with generous margins.",
+      "refs": [
+        "C:/Users/OWNER/Documents/Codex/2026-10-01/new-chat-3/work/blitzcrank-strips-reference/design/blitzcrank_design.png",
+        "C:/Users/OWNER/Documents/Codex/2026-10-01/new-chat-3/work/blitzcrank-strips-reference/now/blitzcrank_now_attack.png",
+        "C:/Users/OWNER/Documents/Codex/2026-10-01/new-chat-3/work/blitzcrank-strips-reference/pose/lol_pose_attack.png"
+      ],
+      "source_generated_file": "exec-11dd6018-8f52-45f2-a1b0-24936044d442.png"
+    },
+    "skill": {
+      "n": 8,
+      "cols": 4,
+      "rows": 2,
+      "ms": [
+        60,
+        60,
+        70,
+        80,
+        120,
+        120,
+        80,
+        80
+      ],
+      "pivots": [
+        55,
+        49,
+        51,
+        60,
+        58,
+        54,
+        51,
+        57
+      ],
+      "motion": "ROCKET GRAB. Frame1-2 near arm draws back;3 thrust RIGHT with fist STILL ATTACHED;4 HAND DETACHES, arm extended at shoulder height ends in dark EMPTY hexagonal wrist socket;5-6 hold empty extended wrist;7 hand has returned, arm lowers;8 idle with BOTH hands restored. Exact empty-hand frames4,5,6 only. Other arm ALWAYS has its big fist. No flying hand, no chain.",
+      "prompt": "Three attached references: FIRST approved B2 pixel art character, whose exact shapes and colors are mandatory, SECOND native original animation cells, THIRD matching HD poses to guide movement only. Create a clean game animation strip of FIRST character moving per specified sequence. No redesign. Round gold boiler, small gold dome with middle ridge TWO 3x3 pink-white square eyes in dark sockets sitting on steel collar; TWO short STEEL smokestacks behind head; steel ring small bronze chest furnace lightning seam; black ribbed shoulder hoses; gold shoulder block, forearm, giant square finger fist with three stacked fingers and steel bolts; short steel piston legs and flat gold feet. Match FIRST exactly, keep size: 44 LOGICAL PIXELS from smokestacks to soles when upright, body46pixels wide in idle; head9x10logical, fist minimum8x8, arm minimum4wide. Draw coarse clean native pixel art with one tile smallest detail, rendered8x nearest-neighbor, NO fine-detail high-resolution drawing, no antialiasing, no blur, no texture/dither/gradient, binary transparency. Palette ONLY #170F1D #292536 #672D01 #373E56 #984B01 #454759 #BC6802 #DD8702 #67718F #F9AF07 #FDDC36 #A2AECC #BFCDE0 #F3A4D9 #E2EBFC #FFF8FD. One1pixel dark silhouette outline, material dark colors inside. Head and eyes identically copied in each frame, only whole translation/rigid tilt. Pink/white ONLY eyes. All limbs connected to torso, not floating. Both eyes and chest visible, three-quarter front toward RIGHT, never back. No steam/lightning/sparks/glow/detached fists/chains. No ground shadow, letters, numbering, grid lines, outlines around cells, background marks. Draw on TRUE TRANSPARENT background.\nEach frame in exact128x112logical cell (1024x896at8x), ample blank space above: standing sprites occupy approximately x40..85 y54..97, NOT filling cells. Feet lowest row97, NOTHING below (death final2allowed99). All frames read left to right then secondrow. Same scale across ALL cells. Sourceposes determine motion but FIRST design determines look, cleaner than SECOND.\n\nAnimation SKILL, EXACTLY 8 distinct frames. ROCKET GRAB. Frame1-2 near arm draws back;3 thrust RIGHT with fist STILL ATTACHED;4 HAND DETACHES, arm extended at shoulder height ends in dark EMPTY hexagonal wrist socket;5-6 hold empty extended wrist;7 hand has returned, arm lowers;8 idle with BOTH hands restored. Exact empty-hand frames4,5,6 only. Other arm ALWAYS has its big fist. No flying hand, no chain.\nLayout 4columns x 2rows, wholecanvas 4096x1792px, 512x224logical pixels, STRICT same-as-secondreferencecelllayout. Everypixelone8x8block. Perframe hip pivots(logicalx,y) (55,86),(49,86),(51,86),(60,86),(58,86),(54,86),(51,86),(57,86); timingms 60,60,70,80,120,120,80,80. Head relative hip position approximately(x+0,y-24), headtop y-29, appropriate lean except runconstanthead. Keep design scale44px, respect layout with generous margins.",
+      "refs": [
+        "C:/Users/OWNER/Documents/Codex/2026-10-01/new-chat-3/work/blitzcrank-strips-reference/design/blitzcrank_design.png",
+        "C:/Users/OWNER/Documents/Codex/2026-10-01/new-chat-3/work/blitzcrank-strips-reference/now/blitzcrank_now_skill.png",
+        "C:/Users/OWNER/Documents/Codex/2026-10-01/new-chat-3/work/blitzcrank-strips-reference/pose/lol_pose_skill.png"
+      ],
+      "source_generated_file": "exec-74d0d1fb-2957-47f5-a392-921062caabc4.png"
+    },
+    "q_pull": {
+      "n": 3,
+      "cols": 3,
+      "rows": 1,
+      "ms": [
+        100,
+        100,
+        100
+      ],
+      "pivots": [
+        58,
+        55,
+        54
+      ],
+      "motion": "ROCKET GRAB PULL loop3frames. Throwing arm stretched STRAIGHT RIGHT at shoulder height, dark open hexagonal wrist socket at tip, NO throwing HAND in ANY frame. Other fist remains tucked by chest. Body leans back hauling, rocks slightly between frames. Hand missing only on extended arm. No chain/flying hand.",
+      "prompt": "Three attached references: FIRST approved B2 pixel art character, whose exact shapes and colors are mandatory, SECOND native original animation cells, THIRD matching HD poses to guide movement only. Create a clean game animation strip of FIRST character moving per specified sequence. No redesign. Round gold boiler, small gold dome with middle ridge TWO 3x3 pink-white square eyes in dark sockets sitting on steel collar; TWO short STEEL smokestacks behind head; steel ring small bronze chest furnace lightning seam; black ribbed shoulder hoses; gold shoulder block, forearm, giant square finger fist with three stacked fingers and steel bolts; short steel piston legs and flat gold feet. Match FIRST exactly, keep size: 44 LOGICAL PIXELS from smokestacks to soles when upright, body46pixels wide in idle; head9x10logical, fist minimum8x8, arm minimum4wide. Draw coarse clean native pixel art with one tile smallest detail, rendered8x nearest-neighbor, NO fine-detail high-resolution drawing, no antialiasing, no blur, no texture/dither/gradient, binary transparency. Palette ONLY #170F1D #292536 #672D01 #373E56 #984B01 #454759 #BC6802 #DD8702 #67718F #F9AF07 #FDDC36 #A2AECC #BFCDE0 #F3A4D9 #E2EBFC #FFF8FD. One1pixel dark silhouette outline, material dark colors inside. Head and eyes identically copied in each frame, only whole translation/rigid tilt. Pink/white ONLY eyes. All limbs connected to torso, not floating. Both eyes and chest visible, three-quarter front toward RIGHT, never back. No steam/lightning/sparks/glow/detached fists/chains. No ground shadow, letters, numbering, grid lines, outlines around cells, background marks. Draw on TRUE TRANSPARENT background.\nEach frame in exact128x112logical cell (1024x896at8x), ample blank space above: standing sprites occupy approximately x40..85 y54..97, NOT filling cells. Feet lowest row97, NOTHING below (death final2allowed99). All frames read left to right then secondrow. Same scale across ALL cells. Sourceposes determine motion but FIRST design determines look, cleaner than SECOND.\n\nAnimation Q_PULL, EXACTLY 3 distinct frames. ROCKET GRAB PULL loop3frames. Throwing arm stretched STRAIGHT RIGHT at shoulder height, dark open hexagonal wrist socket at tip, NO throwing HAND in ANY frame. Other fist remains tucked by chest. Body leans back hauling, rocks slightly between frames. Hand missing only on extended arm. No chain/flying hand.\nLayout 3columns x 1rows, wholecanvas 3072x896px, 384x112logical pixels, STRICT same-as-secondreferencecelllayout. Everypixelone8x8block. Perframe hip pivots(logicalx,y) (58,86),(55,86),(54,86); timingms 100,100,100. Head relative hip position approximately(x+0,y-24), headtop y-29, appropriate lean except runconstanthead. Keep design scale44px, respect layout with generous margins.",
+      "refs": [
+        "C:/Users/OWNER/Documents/Codex/2026-10-01/new-chat-3/work/blitzcrank-strips-reference/design/blitzcrank_design.png",
+        "C:/Users/OWNER/Documents/Codex/2026-10-01/new-chat-3/work/blitzcrank-strips-reference/now/blitzcrank_now_q_pull.png",
+        "C:/Users/OWNER/Documents/Codex/2026-10-01/new-chat-3/work/blitzcrank-strips-reference/pose/lol_pose_q_pull.png"
+      ],
+      "source_generated_file": "exec-87bd4502-1768-4cb7-bf80-2217f14d74c2.png"
+    },
+    "skill2": {
+      "n": 7,
+      "cols": 4,
+      "rows": 2,
+      "ms": [
+        70,
+        70,
+        60,
+        60,
+        90,
+        100,
+        90
+      ],
+      "pivots": [
+        56,
+        60,
+        58,
+        64,
+        70,
+        70,
+        62
+      ],
+      "motion": "POWER FIST UPPERCUT.1-2 crouch with near fist low behind;3 LOW wind-up fist near floor behind;4 RELEASE punch sweeps UP front-right to HEAD HEIGHT;5 punch continues to fully extended arm straight UP, giant fist well ABOVE HEAD;6 arm lowers toward idle;7 idle. Last slot8 transparent empty. No effects. Frame5 upward fist must be distinctly higher than frame4. Both arms thick.",
+      "prompt": "Three attached references: FIRST approved B2 pixel art character, whose exact shapes and colors are mandatory, SECOND native original animation cells, THIRD matching HD poses to guide movement only. Create a clean game animation strip of FIRST character moving per specified sequence. No redesign. Round gold boiler, small gold dome with middle ridge TWO 3x3 pink-white square eyes in dark sockets sitting on steel collar; TWO short STEEL smokestacks behind head; steel ring small bronze chest furnace lightning seam; black ribbed shoulder hoses; gold shoulder block, forearm, giant square finger fist with three stacked fingers and steel bolts; short steel piston legs and flat gold feet. Match FIRST exactly, keep size: 44 LOGICAL PIXELS from smokestacks to soles when upright, body46pixels wide in idle; head9x10logical, fist minimum8x8, arm minimum4wide. Draw coarse clean native pixel art with one tile smallest detail, rendered8x nearest-neighbor, NO fine-detail high-resolution drawing, no antialiasing, no blur, no texture/dither/gradient, binary transparency. Palette ONLY #170F1D #292536 #672D01 #373E56 #984B01 #454759 #BC6802 #DD8702 #67718F #F9AF07 #FDDC36 #A2AECC #BFCDE0 #F3A4D9 #E2EBFC #FFF8FD. One1pixel dark silhouette outline, material dark colors inside. Head and eyes identically copied in each frame, only whole translation/rigid tilt. Pink/white ONLY eyes. All limbs connected to torso, not floating. Both eyes and chest visible, three-quarter front toward RIGHT, never back. No steam/lightning/sparks/glow/detached fists/chains. No ground shadow, letters, numbering, grid lines, outlines around cells, background marks. Draw on TRUE TRANSPARENT background.\nEach frame in exact128x112logical cell (1024x896at8x), ample blank space above: standing sprites occupy approximately x40..85 y54..97, NOT filling cells. Feet lowest row97, NOTHING below (death final2allowed99). All frames read left to right then secondrow. Same scale across ALL cells. Sourceposes determine motion but FIRST design determines look, cleaner than SECOND.\n\nAnimation SKILL2, EXACTLY 7 distinct frames. POWER FIST UPPERCUT.1-2 crouch with near fist low behind;3 LOW wind-up fist near floor behind;4 RELEASE punch sweeps UP front-right to HEAD HEIGHT;5 punch continues to fully extended arm straight UP, giant fist well ABOVE HEAD;6 arm lowers toward idle;7 idle. Last slot8 transparent empty. No effects. Frame5 upward fist must be distinctly higher than frame4. Both arms thick.\nLayout 4columns x 2rows, wholecanvas 4096x1792px, 512x224logical pixels, STRICT same-as-secondreferencecelllayout. Everypixelone8x8block. Perframe hip pivots(logicalx,y) (56,86),(60,86),(58,86),(64,86),(70,86),(70,86),(62,86); timingms 70,70,60,60,90,100,90. Head relative hip position approximately(x+0,y-24), headtop y-29, appropriate lean except runconstanthead. Keep design scale44px, respect layout with generous margins.",
+      "refs": [
+        "C:/Users/OWNER/Documents/Codex/2026-10-01/new-chat-3/work/blitzcrank-strips-reference/design/blitzcrank_design.png",
+        "C:/Users/OWNER/Documents/Codex/2026-10-01/new-chat-3/work/blitzcrank-strips-reference/now/blitzcrank_now_skill2.png",
+        "C:/Users/OWNER/Documents/Codex/2026-10-01/new-chat-3/work/blitzcrank-strips-reference/pose/lol_pose_skill2.png"
+      ],
+      "source_generated_file": "exec-f777db5c-0a0f-43a9-b6b6-996a6e577b07.png"
+    },
+    "ult": {
+      "n": 7,
+      "cols": 4,
+      "rows": 2,
+      "ms": [
+        70,
+        70,
+        70,
+        80,
+        90,
+        100,
+        100
+      ],
+      "pivots": [
+        56,
+        60,
+        61,
+        62,
+        62,
+        63,
+        57
+      ],
+      "motion": "STATIC FIELD.1-3 progressively hunch and pull BOTH giant fists inward, cross them over chest;4-5 crouch charge with fists raised in front;6 RELEASE abruptly spread BOTH arms very WIDE outward, chest port exposed pushed forward;7 return idle. Last slot8 completely empty. Frame6 WIDE, NOT hands crossed. No electricity, energy rings, sparks.",
+      "prompt": "Three attached references: FIRST approved B2 pixel art character, whose exact shapes and colors are mandatory, SECOND native original animation cells, THIRD matching HD poses to guide movement only. Create a clean game animation strip of FIRST character moving per specified sequence. No redesign. Round gold boiler, small gold dome with middle ridge TWO 3x3 pink-white square eyes in dark sockets sitting on steel collar; TWO short STEEL smokestacks behind head; steel ring small bronze chest furnace lightning seam; black ribbed shoulder hoses; gold shoulder block, forearm, giant square finger fist with three stacked fingers and steel bolts; short steel piston legs and flat gold feet. Match FIRST exactly, keep size: 44 LOGICAL PIXELS from smokestacks to soles when upright, body46pixels wide in idle; head9x10logical, fist minimum8x8, arm minimum4wide. Draw coarse clean native pixel art with one tile smallest detail, rendered8x nearest-neighbor, NO fine-detail high-resolution drawing, no antialiasing, no blur, no texture/dither/gradient, binary transparency. Palette ONLY #170F1D #292536 #672D01 #373E56 #984B01 #454759 #BC6802 #DD8702 #67718F #F9AF07 #FDDC36 #A2AECC #BFCDE0 #F3A4D9 #E2EBFC #FFF8FD. One1pixel dark silhouette outline, material dark colors inside. Head and eyes identically copied in each frame, only whole translation/rigid tilt. Pink/white ONLY eyes. All limbs connected to torso, not floating. Both eyes and chest visible, three-quarter front toward RIGHT, never back. No steam/lightning/sparks/glow/detached fists/chains. No ground shadow, letters, numbering, grid lines, outlines around cells, background marks. Draw on TRUE TRANSPARENT background.\nEach frame in exact128x112logical cell (1024x896at8x), ample blank space above: standing sprites occupy approximately x40..85 y54..97, NOT filling cells. Feet lowest row97, NOTHING below (death final2allowed99). All frames read left to right then secondrow. Same scale across ALL cells. Sourceposes determine motion but FIRST design determines look, cleaner than SECOND.\n\nAnimation ULT, EXACTLY 7 distinct frames. STATIC FIELD.1-3 progressively hunch and pull BOTH giant fists inward, cross them over chest;4-5 crouch charge with fists raised in front;6 RELEASE abruptly spread BOTH arms very WIDE outward, chest port exposed pushed forward;7 return idle. Last slot8 completely empty. Frame6 WIDE, NOT hands crossed. No electricity, energy rings, sparks.\nLayout 4columns x 2rows, wholecanvas 4096x1792px, 512x224logical pixels, STRICT same-as-secondreferencecelllayout. Everypixelone8x8block. Perframe hip pivots(logicalx,y) (56,86),(60,86),(61,86),(62,86),(62,86),(63,86),(57,86); timingms 70,70,70,80,90,100,100. Head relative hip position approximately(x+0,y-24), headtop y-29, appropriate lean except runconstanthead. Keep design scale44px, respect layout with generous margins.",
+      "refs": [
+        "C:/Users/OWNER/Documents/Codex/2026-10-01/new-chat-3/work/blitzcrank-strips-reference/design/blitzcrank_design.png",
+        "C:/Users/OWNER/Documents/Codex/2026-10-01/new-chat-3/work/blitzcrank-strips-reference/now/blitzcrank_now_ult.png",
+        "C:/Users/OWNER/Documents/Codex/2026-10-01/new-chat-3/work/blitzcrank-strips-reference/pose/lol_pose_ult.png"
+      ],
+      "source_generated_file": "exec-261a86be-6492-4cc3-8484-51d5814e6a7c.png"
+    },
+    "hit": {
+      "n": 2,
+      "cols": 2,
+      "rows": 1,
+      "ms": [
+        120,
+        120
+      ],
+      "pivots": [
+        54,
+        55
+      ],
+      "motion": "HIT.1 visibly recoils leaning backward to LEFT with arms jolted, white eye-centers dim to pink;2 recovers toward approved idle pose. Not two identical standing poses, subtle5-degree rigid body lean. No particles.",
+      "prompt": "Three attached references: FIRST approved B2 pixel art character, whose exact shapes and colors are mandatory, SECOND native original animation cells, THIRD matching HD poses to guide movement only. Create a clean game animation strip of FIRST character moving per specified sequence. No redesign. Round gold boiler, small gold dome with middle ridge TWO 3x3 pink-white square eyes in dark sockets sitting on steel collar; TWO short STEEL smokestacks behind head; steel ring small bronze chest furnace lightning seam; black ribbed shoulder hoses; gold shoulder block, forearm, giant square finger fist with three stacked fingers and steel bolts; short steel piston legs and flat gold feet. Match FIRST exactly, keep size: 44 LOGICAL PIXELS from smokestacks to soles when upright, body46pixels wide in idle; head9x10logical, fist minimum8x8, arm minimum4wide. Draw coarse clean native pixel art with one tile smallest detail, rendered8x nearest-neighbor, NO fine-detail high-resolution drawing, no antialiasing, no blur, no texture/dither/gradient, binary transparency. Palette ONLY #170F1D #292536 #672D01 #373E56 #984B01 #454759 #BC6802 #DD8702 #67718F #F9AF07 #FDDC36 #A2AECC #BFCDE0 #F3A4D9 #E2EBFC #FFF8FD. One1pixel dark silhouette outline, material dark colors inside. Head and eyes identically copied in each frame, only whole translation/rigid tilt. Pink/white ONLY eyes. All limbs connected to torso, not floating. Both eyes and chest visible, three-quarter front toward RIGHT, never back. No steam/lightning/sparks/glow/detached fists/chains. No ground shadow, letters, numbering, grid lines, outlines around cells, background marks. Draw on TRUE TRANSPARENT background.\nEach frame in exact128x112logical cell (1024x896at8x), ample blank space above: standing sprites occupy approximately x40..85 y54..97, NOT filling cells. Feet lowest row97, NOTHING below (death final2allowed99). All frames read left to right then secondrow. Same scale across ALL cells. Sourceposes determine motion but FIRST design determines look, cleaner than SECOND.\n\nAnimation HIT, EXACTLY 2 distinct frames. HIT.1 visibly recoils leaning backward to LEFT with arms jolted, white eye-centers dim to pink;2 recovers toward approved idle pose. Not two identical standing poses, subtle5-degree rigid body lean. No particles.\nLayout 2columns x 1rows, wholecanvas 2048x896px, 256x112logical pixels, STRICT same-as-secondreferencecelllayout. Everypixelone8x8block. Perframe hip pivots(logicalx,y) (54,86),(55,86); timingms 120,120. Head relative hip position approximately(x+0,y-24), headtop y-29, appropriate lean except runconstanthead. Keep design scale44px, respect layout with generous margins.",
+      "refs": [
+        "C:/Users/OWNER/Documents/Codex/2026-10-01/new-chat-3/work/blitzcrank-strips-reference/design/blitzcrank_design.png",
+        "C:/Users/OWNER/Documents/Codex/2026-10-01/new-chat-3/work/blitzcrank-strips-reference/now/blitzcrank_now_hit.png",
+        "C:/Users/OWNER/Documents/Codex/2026-10-01/new-chat-3/work/blitzcrank-strips-reference/pose/lol_pose_hit.png"
+      ],
+      "source_generated_file": "exec-aa6ac21f-e48c-41c5-895b-eed75b5770ca.png"
+    },
+    "dead": {
+      "n": 8,
+      "cols": 4,
+      "rows": 2,
+      "ms": [
+        100,
+        100,
+        100,
+        110,
+        120,
+        130,
+        150,
+        500
+      ],
+      "pivots": [
+        55,
+        54,
+        53,
+        51,
+        52,
+        53,
+        56,
+        54
+      ],
+      "motion": "DEATH.1 struck;2-4 arms flail and droop with body sag/head droop;5 body begins toppling backwards LEFT;6 mostly tilted backward toward horizontal;7-8 LYING ON BACK horizontally flat on floor, arms spread, eye sockets dark no pink or white at all. Last two frames body truly HORIZONTAL (smokestacks/head on LEFT side feet towardRIGHT), not upright low crouch. Final frame stays dead, do NOT return to idle. May reach row99 final2.",
+      "prompt": "Three attached references: FIRST approved B2 pixel art character, whose exact shapes and colors are mandatory, SECOND native original animation cells, THIRD matching HD poses to guide movement only. Create a clean game animation strip of FIRST character moving per specified sequence. No redesign. Round gold boiler, small gold dome with middle ridge TWO 3x3 pink-white square eyes in dark sockets sitting on steel collar; TWO short STEEL smokestacks behind head; steel ring small bronze chest furnace lightning seam; black ribbed shoulder hoses; gold shoulder block, forearm, giant square finger fist with three stacked fingers and steel bolts; short steel piston legs and flat gold feet. Match FIRST exactly, keep size: 44 LOGICAL PIXELS from smokestacks to soles when upright, body46pixels wide in idle; head9x10logical, fist minimum8x8, arm minimum4wide. Draw coarse clean native pixel art with one tile smallest detail, rendered8x nearest-neighbor, NO fine-detail high-resolution drawing, no antialiasing, no blur, no texture/dither/gradient, binary transparency. Palette ONLY #170F1D #292536 #672D01 #373E56 #984B01 #454759 #BC6802 #DD8702 #67718F #F9AF07 #FDDC36 #A2AECC #BFCDE0 #F3A4D9 #E2EBFC #FFF8FD. One1pixel dark silhouette outline, material dark colors inside. Head and eyes identically copied in each frame, only whole translation/rigid tilt. Pink/white ONLY eyes. All limbs connected to torso, not floating. Both eyes and chest visible, three-quarter front toward RIGHT, never back. No steam/lightning/sparks/glow/detached fists/chains. No ground shadow, letters, numbering, grid lines, outlines around cells, background marks. Draw on TRUE TRANSPARENT background.\nEach frame in exact128x112logical cell (1024x896at8x), ample blank space above: standing sprites occupy approximately x40..85 y54..97, NOT filling cells. Feet lowest row97, NOTHING below (death final2allowed99). All frames read left to right then secondrow. Same scale across ALL cells. Sourceposes determine motion but FIRST design determines look, cleaner than SECOND.\n\nAnimation DEAD, EXACTLY 8 distinct frames. DEATH.1 struck;2-4 arms flail and droop with body sag/head droop;5 body begins toppling backwards LEFT;6 mostly tilted backward toward horizontal;7-8 LYING ON BACK horizontally flat on floor, arms spread, eye sockets dark no pink or white at all. Last two frames body truly HORIZONTAL (smokestacks/head on LEFT side feet towardRIGHT), not upright low crouch. Final frame stays dead, do NOT return to idle. May reach row99 final2.\nLayout 4columns x 2rows, wholecanvas 4096x1792px, 512x224logical pixels, STRICT same-as-secondreferencecelllayout. Everypixelone8x8block. Perframe hip pivots(logicalx,y) (55,86),(54,86),(53,86),(51,86),(52,86),(53,86),(56,86),(54,86); timingms 100,100,100,110,120,130,150,500. Head relative hip position approximately(x+0,y-24), headtop y-29, appropriate lean except runconstanthead. Keep design scale44px, respect layout with generous margins.",
+      "refs": [
+        "C:/Users/OWNER/Documents/Codex/2026-10-01/new-chat-3/work/blitzcrank-strips-reference/design/blitzcrank_design.png",
+        "C:/Users/OWNER/Documents/Codex/2026-10-01/new-chat-3/work/blitzcrank-strips-reference/now/blitzcrank_now_dead.png",
+        "C:/Users/OWNER/Documents/Codex/2026-10-01/new-chat-3/work/blitzcrank-strips-reference/pose/lol_pose_dead.png"
+      ],
+      "source_generated_file": "exec-00f5fdfc-c18e-403f-87ee-c04710c94753.png"
+    }
+  },
+  "discarded_run_retries": "Initial run and retry lacked strong strides; a native-leg transplant draft was rejected after visible fragmentation. Final run regenerated with close-up B2 and full continuous limbs; no leg transplantation."
+}
