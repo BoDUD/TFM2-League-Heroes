@@ -29,7 +29,11 @@ drawn squares tall, not on the game grid ("未强行压回 ... 40 格高、26 �
   5. the outline closed (strips.complete_outline); each frame put in its 96x96 cell at the manifest's pivot ->
      assets/source/native/taric_<tag>.png (8x blocks), taric_cells.json (pivots and durations from the manifest) and
      taric_native.png (the idle frame).
-Codex drew six identical idle frames: the first is used for all six. --check compares with the files.
+Codex drew six identical idle frames: the first is used for all six. After this export the committed strips changed in
+two later steps, so --check reports them: the run's legs never crossed, and Codex redrew only the legs inside an edit
+mask, everything else locked (assets/source/taric/MODEL_RUN_LEGS.md, then MODEL_RUN_LEGS2.md: the far leg darker so the
+crossing step reads); tools/art/tidy_taric.py cleaned the dark edges of every strip and the run's one-frame flicker
+before the second legs pass.
 """
 import argparse
 import json

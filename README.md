@@ -1327,21 +1327,23 @@ python tools/art/preview_veigar.py
 python tools/lol/extract_taric.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstream-cli.exe 路径>"
 python tools/lol/native_pose.py assets/source/taric/poses.json --out <渲染文件夹>   # 动作参考帧
 python tools/art/export_taric.py <Codex 的定稿原画 taric-approved.png> <Codex 的动作交付 taric-approved-animations>
+python tools/art/tidy_taric.py --write   # 清黑边和跑步只闪一帧的像素（之后 Codex 又给跑步的腿重新上色，不要再跑）
 python tools/art/import_native.py --hero taric
 python tools/art/import_taric.py      # 特效；--raw <Codex 的特效交付文件夹> 先把 8 倍图切成原尺寸条
 python tools/art/preview_taric.py
 ```
 
-美术（原画的提示词见 [`assets/source/taric/PICTURE_PROMPT.md`](assets/source/taric/PICTURE_PROMPT.md)，造型的见 [`MODEL_PROMPTS.md`](assets/source/taric/MODEL_PROMPTS.md)，重画头的见 [`HEAD_REDO.md`](assets/source/taric/HEAD_REDO.md)，9 条动作的见 [`MODEL_STRIPS.md`](assets/source/taric/MODEL_STRIPS.md)，特效的见 [`PROMPTS.md`](assets/source/taric/PROMPTS.md)；Codex 的交接说明在 [`codex_model/`](assets/source/taric/codex_model/)、[`codex_strips/`](assets/source/taric/codex_strips/)、[`codex_fx/`](assets/source/taric/codex_fx/)）：
+美术（原画的提示词见 [`assets/source/taric/PICTURE_PROMPT.md`](assets/source/taric/PICTURE_PROMPT.md)，造型的见 [`MODEL_PROMPTS.md`](assets/source/taric/MODEL_PROMPTS.md)，重画头的见 [`HEAD_REDO.md`](assets/source/taric/HEAD_REDO.md)，9 条动作的见 [`MODEL_STRIPS.md`](assets/source/taric/MODEL_STRIPS.md)，跑步两次只改腿的见 [`MODEL_RUN_LEGS.md`](assets/source/taric/MODEL_RUN_LEGS.md)、[`MODEL_RUN_LEGS2.md`](assets/source/taric/MODEL_RUN_LEGS2.md)，特效的见 [`PROMPTS.md`](assets/source/taric/PROMPTS.md)；Codex 的交接说明在 [`codex_model/`](assets/source/taric/codex_model/)、[`codex_strips/`](assets/source/taric/codex_strips/)、[`codex_run_legs/`](assets/source/taric/codex_run_legs/)、[`codex_run_legs2/`](assets/source/taric/codex_run_legs2/)、[`codex_fx/`](assets/source/taric/codex_fx/)）：
 - 分工：模型和特效都由 Codex 画，Claude 写提示词包、整理和导入，按"原画 → 造型 → 动作 → 特效"分四步。
 - 原画和造型：先写原画提示词包，Codex 画了 A、B 两张，用户选 A（斧锤垂在身侧）。照主线卢锡安的做法让 Codex 直接按游戏尺寸画造型，两版用户都不满意（"都不行"，"脸和头发不像"），只重画头，用户选 B2（头大一点）。Codex 再把 B2 的头画成一整块（中分、带眼睑的小蓝眼、闭着的嘴、有手掌手指的空手），用户定稿（"这个很完美"），Codex 照这张画了 9 条动作：高细节像素画，约 70 格高，不在游戏的格子上。用户选用这一套（"用 Codex 的 approved 版"），代替游戏尺寸的 B2 和第一版动作。
 - 动作参考（`poses.json`）：镜头 yaw 40、pitch 25，不镜像，头 2.2、腿 0.8、头发 0.7、护肩 1.2，高度 39，96×96 的格子。待机 `taric_idle1`，移动 `taric_run`（8 帧 × 150 ms，头保持待机的样子），普攻 `taric_attack2`，强化普攻 `taric_passiveattack1`，E `taric_spell3_0`，Q/W `taric_spell1`，R `taric_spell4`，受击取 `taric_death` 开头，死亡 `taric_death`。
 - 缩到游戏尺寸（`export_taric.py`）：颜色取定稿原画按它自己的格子读回后的 28 色；每条动作按它站姿那一帧的高度定取样间距（大招和强化普攻画得小约 6%，按各自的站姿帧），每个游戏像素取多数色，格子对齐脚底线。眼睛在这个大小会被周围的皮肤投掉，在原图里找一对眼（同一行或随头歪斜、相距约 30 px、中间是鼻梁的皮肤；远侧那只贴着脸边，抬头时画成浅紫蓝），标成眼睛色 `#182CB0`（只用在眼睛上）。
 - 头（用户看待机和动图时指出三处）：第一版待机是定稿原画删行删列缩到 40 行（锐雯、阿卡丽的做法，脸那几行不删），头有 16 行，Codex 画的动作整体等比缩小后头只有 11–12 行，一放技能头就变大小（"塔里克放技能头还会变大？"）：待机改用 Codex 自己的待机帧、和动作同一比例缩。多数色把 1–3 px 的眉毛、眼睑和嘴线投掉，耳前垂下的一缕头发缩成最深的颜色、像一道黑线劈开脸（"待机帧的这个头就很奇怪"）：照 Codex 的待机帧逐格定脸（`FACE_EDITS`：每只眼睛上一格眼睑、两眼间的鼻梁留肤色、鼻尖一格阴影、嘴两格浅阴影、下巴一道轮廓，那缕头发用中间的棕色）。每帧的头各自缩，头发和下巴线帧帧不同，动起来像在变形（"gif图里看脸怎么还会变形"）：头是正的帧（两眼同一行、相距 2–4 格）先清掉自己的头，再按近侧那只眼睛贴上待机的整个头（头顶到下巴），删掉原来头发留下的 12 格以下的碎块。55 帧里 44 帧是同一个头，死亡第 2、3 帧仰倒时用自己的；代价是跑步时头发不再往后飘。
-- 导入：待机 6 帧用同一帧，第 3–5 帧从第 8 行往下沉一格呼吸（`BOB` 8：缝在靴子上，那两行只差 3 格描边和 10 格颜色，靴子最下面两行不动）；按眼睛色定头的位置（`EYES`），移动 8 帧的头稳在同一列（只挪了 1 帧 1 格）；`COMPLETE` 补描边（导出时已补过，这一步只补 8 格）。头像截取点 (−3, −38)，在发顶；待机最高点 −28，选人卡片装得下，不设 `banpick_center`。
+- 跑步的交叉步和黑边（用户在游戏里看）：Codex 画的跑步 8 帧一直是近腿在前，两腿从不交替（"塔里克的走路姿势没有交叉步"）。先试过给跑步换它自己的前倾头、8 帧共用一个上半身、让 Codex 在游戏尺寸上整体精修，用户都不满意（"改的都不像塔里克了 和英雄联盟里面也不像 还没之前好"），退回这一版后选了"只修交叉步"：Codex 只在腿的范围里改（站位点下 1 行到鞋底、站位点后 12 格往前，锤头下面 +8 行往下；其余一格不许动，交回后逐格核对为 0），照英雄联盟原版重排：第 8、1、2 帧近腿着地，第 4、5、6 帧远腿着地，第 3、7 帧交叉。两条腿同色时看不出交叉（"怎么感觉交叉步不是很明显？"），第二次只给腿重新上色：远腿 8 帧都压暗（最深的褐色裤子、暗灰护腿和靴子），近腿保持银白、留一两格高光，外形一格不变。黑边（"最后去除黑边 弄干净一点"，"跑动时不干净啊 多余的像素不清理吗"）：`tidy_taric.py` 把和描边同色、贴在外轮廓里面的第二层黑线换成里面的颜色，四周没有同色的单点换成周围最多的颜色（每帧 17–53 格）；跑步再按头的位置对齐相邻帧，前后两帧一样、只有这一帧不同的格子换成前后帧的颜色（腰以上每帧 80–120 格，持续两帧以上的晃动保留）；外轮廓、脸、宝石和领巾不碰。
+- 导入：待机 6 帧用同一帧，第 3–5 帧从第 8 行往下沉一格呼吸（`BOB` 8：缝在靴子上，那两行只差 3 格描边和 12 格颜色，靴子最下面两行不动）；按眼睛色定头的位置（`EYES`），移动 8 帧的头稳在同一列（只挪了 1 帧 1 格）；`COMPLETE` 补描边（导出时已补过，这一步补 84 格）。头像截取点 (−3, −38)，在发顶；待机最高点 −28，选人卡片装得下，不设 `banpick_center`。
 - 特效用 Codex 画的 14 张（93 帧）：这次 Codex 直接按游戏尺寸画，每张是 1 倍图放大 8 倍的纯色方块、只用包里的色板（星光蓝白、宝石紫、R 的金色、治疗的薄荷绿）、没有半透明，E 光束和 W 宝石上下严格对称；强化星点 Codex 自己改过一版，只在腰间和手边、不挡身体（`p_glow_correction.txt`）。`import_taric.py --raw` 按格子切帧，不缩放、不换颜色。锚点：命中放在上半身，围着人的画面（强化星点、晕眩、回血、护盾、R 的闪光和光罩）把人形空位的底行放在脚底线，地面圈（Q 的星光圈、E 在队友身边的爆开、灵链印记）的椭圆中心放在脚底线上 2 格，E 光束是 `LineRangeProjectile` 的画面（画面中心在长 62000 的矩形中点、随施法方向转，左端在塔里克身上），W 宝石按紫色宝石定点，R 的召唤按格子底边中点放在脚底线。时长按技能：E 光束前 8 帧撑满命中前的 44 tick、第 9 帧在命中那一刻爆开；灵链队友身边的圈晚 2 tick 出现、同一 tick 爆开；晕眩星环 75 tick；R 的召唤前 8 帧撑满生效前的 150 tick，第 9–10 帧落光。E 光束、Q 星光圈、队友身边的圈和灵链印记画在人物下层。
 - 出手时刻和动画对齐：普攻第 3 帧（第 10 tick），强化普攻第 3 帧（第 9 tick），E 第 3 帧（第 12 tick）射出光束，Q/W 第 3 帧（第 12 tick），R 的 7 帧正好 40 tick（召唤光在第 0 tick 开始）。
-- 结果：29 色，和右边像素同色的比例 32%（原版英雄 18%–46%）。待机每帧 907 个不透明像素，和维迦（798）、娜美（949）之间。
+- 结果：29 色，和右边像素同色的比例 36%（原版英雄 18%–46%）。待机每帧 907 个不透明像素，和维迦（798）、娜美（949）之间。
 
 逐帧预览：[`docs/preview/league_taric_frames.png`](docs/preview/league_taric_frames.png)，特效：[`docs/preview/league_taric_effects.png`](docs/preview/league_taric_effects.png)。
 

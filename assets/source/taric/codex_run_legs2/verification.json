@@ -1,0 +1,202 @@
+{
+  "frames": [
+    {
+      "frame": 1,
+      "changed_game_pixels": 45,
+      "outside_mask_changed_game_pixels": 0,
+      "alpha_and_leg_contour_unchanged": true,
+      "floor": 81,
+      "support_leg": "near",
+      "near_material_colors": [
+        "#502C3F",
+        "#6F3F53",
+        "#8FA3AC",
+        "#ADBFC7",
+        "#CBDDE0",
+        "#FDFDFD"
+      ],
+      "far_material_colors": [
+        "#2D1725",
+        "#4C4E5D"
+      ],
+      "immutable_sha256": "571558e726d48da988bf25dd7712a9935e265e2eabec76f1fff0577cc2e4d09f",
+      "output_immutable_sha256": "571558e726d48da988bf25dd7712a9935e265e2eabec76f1fff0577cc2e4d09f",
+      "description": "亮近腿在前着地，暗远腿弯曲留后。"
+    },
+    {
+      "frame": 2,
+      "changed_game_pixels": 77,
+      "outside_mask_changed_game_pixels": 0,
+      "alpha_and_leg_contour_unchanged": true,
+      "floor": 81,
+      "support_leg": "near",
+      "near_material_colors": [
+        "#502C3F",
+        "#6F3F53",
+        "#8FA3AC",
+        "#ADBFC7",
+        "#CBDDE0",
+        "#FDFDFD"
+      ],
+      "far_material_colors": [
+        "#2D1725",
+        "#4C4E5D"
+      ],
+      "immutable_sha256": "2c157f8891b57fb2df2f118dfa82a69c05bb092f9137466d0e128cb50e9b81bd",
+      "output_immutable_sha256": "2c157f8891b57fb2df2f118dfa82a69c05bb092f9137466d0e128cb50e9b81bd",
+      "description": "亮近腿身下支撑，暗远腿抬膝前摆。"
+    },
+    {
+      "frame": 3,
+      "changed_game_pixels": 84,
+      "outside_mask_changed_game_pixels": 0,
+      "alpha_and_leg_contour_unchanged": true,
+      "floor": 81,
+      "support_leg": "near",
+      "near_material_colors": [
+        "#502C3F",
+        "#6F3F53",
+        "#ADBFC7",
+        "#CBDDE0",
+        "#FDFDFD"
+      ],
+      "far_material_colors": [
+        "#2D1725",
+        "#361B29",
+        "#4C4E5D",
+        "#707E8B"
+      ],
+      "immutable_sha256": "7fbb3db1593cd0b22bbc97831fda1348d76642cf5b0e5cb9cd13f534412be281",
+      "output_immutable_sha256": "7fbb3db1593cd0b22bbc97831fda1348d76642cf5b0e5cb9cd13f534412be281",
+      "description": "亮近腿向后蹬地，暗远腿向前伸；亮膝边缘盖住暗腿根部。"
+    },
+    {
+      "frame": 4,
+      "changed_game_pixels": 67,
+      "outside_mask_changed_game_pixels": 0,
+      "alpha_and_leg_contour_unchanged": true,
+      "floor": 81,
+      "support_leg": "far",
+      "near_material_colors": [
+        "#502C3F",
+        "#6F3F53",
+        "#ADBFC7",
+        "#CBDDE0",
+        "#FDFDFD"
+      ],
+      "far_material_colors": [
+        "#2D1725",
+        "#361B29",
+        "#4C4E5D",
+        "#707E8B"
+      ],
+      "immutable_sha256": "454dfd67d69fcc064b13adce17fc788f7b1e3410d00b2841b7db8fa37d628b53",
+      "output_immutable_sha256": "454dfd67d69fcc064b13adce17fc788f7b1e3410d00b2841b7db8fa37d628b53",
+      "description": "暗远腿在前支撑，亮近腿弯曲留后。"
+    },
+    {
+      "frame": 5,
+      "changed_game_pixels": 55,
+      "outside_mask_changed_game_pixels": 0,
+      "alpha_and_leg_contour_unchanged": true,
+      "floor": 81,
+      "support_leg": "far",
+      "near_material_colors": [
+        "#502C3F",
+        "#6F3F53",
+        "#8FA3AC",
+        "#ADBFC7",
+        "#CBDDE0",
+        "#FDFDFD"
+      ],
+      "far_material_colors": [
+        "#2D1725",
+        "#361B29",
+        "#4C4E5D",
+        "#707E8B"
+      ],
+      "immutable_sha256": "f13b7110e0c1898209ed5905f641da44bd696bd76888230004169757ee6b6d95",
+      "output_immutable_sha256": "f13b7110e0c1898209ed5905f641da44bd696bd76888230004169757ee6b6d95",
+      "description": "暗远腿身下支撑，亮近腿收起。"
+    },
+    {
+      "frame": 6,
+      "changed_game_pixels": 58,
+      "outside_mask_changed_game_pixels": 0,
+      "alpha_and_leg_contour_unchanged": true,
+      "floor": 81,
+      "support_leg": "far",
+      "near_material_colors": [
+        "#502C3F",
+        "#6F3F53",
+        "#8FA3AC",
+        "#ADBFC7",
+        "#CBDDE0",
+        "#FDFDFD"
+      ],
+      "far_material_colors": [
+        "#2D1725",
+        "#361B29",
+        "#4C4E5D",
+        "#707E8B"
+      ],
+      "immutable_sha256": "f834b5c2c569ab28ecd24f3e107ba586829c5f7417b0a4e275c95499c1a4302a",
+      "output_immutable_sha256": "f834b5c2c569ab28ecd24f3e107ba586829c5f7417b0a4e275c95499c1a4302a",
+      "description": "暗远腿后移支撑，亮近腿抬膝前摆。"
+    },
+    {
+      "frame": 7,
+      "changed_game_pixels": 78,
+      "outside_mask_changed_game_pixels": 0,
+      "alpha_and_leg_contour_unchanged": true,
+      "floor": 81,
+      "support_leg": "far",
+      "near_material_colors": [
+        "#502C3F",
+        "#6F3F53",
+        "#8FA3AC",
+        "#ADBFC7",
+        "#CBDDE0",
+        "#FDFDFD"
+      ],
+      "far_material_colors": [
+        "#2D1725",
+        "#4C4E5D",
+        "#707E8B"
+      ],
+      "immutable_sha256": "9bf612a8632161a0e27d70ea1351c445e57e2790bbaa692b733c240cf7142cc4",
+      "output_immutable_sha256": "9bf612a8632161a0e27d70ea1351c445e57e2790bbaa692b733c240cf7142cc4",
+      "description": "亮近腿向前伸，暗远腿向后蹬地；交错处亮膝在前。"
+    },
+    {
+      "frame": 8,
+      "changed_game_pixels": 53,
+      "outside_mask_changed_game_pixels": 0,
+      "alpha_and_leg_contour_unchanged": true,
+      "floor": 81,
+      "support_leg": "near",
+      "near_material_colors": [
+        "#502C3F",
+        "#6F3F53",
+        "#8FA3AC",
+        "#ADBFC7",
+        "#CBDDE0",
+        "#FDFDFD"
+      ],
+      "far_material_colors": [
+        "#2D1725",
+        "#4C4E5D"
+      ],
+      "immutable_sha256": "3132bb2a47b840833afae34ebb2dc7c820107e1e04baca52a333f23ba7232089",
+      "output_immutable_sha256": "3132bb2a47b840833afae34ebb2dc7c820107e1e04baca52a333f23ba7232089",
+      "description": "亮近腿在前着地，暗远腿弯曲留后。"
+    }
+  ],
+  "outside_mask_changed_game_pixels_total": 0,
+  "outside_mask_changed_8x_pixels_total": 0,
+  "all_alpha_unchanged": true,
+  "grid_8x8_solid": true,
+  "source_palette_only": true,
+  "output_palette_count": 29,
+  "game_runtime_tested": false
+}

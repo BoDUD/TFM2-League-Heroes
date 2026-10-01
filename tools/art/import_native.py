@@ -192,7 +192,7 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        # the shins) the legs change in 18 squares with 2 of the outline and the lantern in 4 with none
        ("jax", "idle"): (4, [2, 3, 4]),
        # Taric: his mace hangs by his side down to the knees; the seam low in the boots (two rows differing in 3
-       # squares of outline and 10 of colour), the boots' lowest two rows stay
+       # squares of outline and 12 of colour), the boots' lowest two rows stay
        ("taric", "idle"): (8, [2, 3, 4])}
 CROWN = {"leesin"}              # heroes whose head template starts at the crown (a braid stands above it)
 PASTED = {"masteryi"}            # steadied on the head restyle_native pasted: his raised sword is the top of every frame
