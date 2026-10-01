@@ -3,7 +3,7 @@
   "champ": "Akali",
   "camera": {"yaw": 45, "pitch": 25, "mirror": true},
   "chibi": {"head": 2.2, "legs": 0.8, "hair": 0.7},
-  "height": 43,
+  "height": 37,
   "cell": [96, 96, 14],
   "design": "Akali_Base_Idle1@0",
   "hide_submeshes": ["recall", "chopsticks", "ramen", "ramen_noodles"],
