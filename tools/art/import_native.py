@@ -57,14 +57,15 @@ SOLES = 11
 # above pivot row y moves down a row. Codex drew Nami's swimming body a row lower under the head in run 1-4 than
 # in 5-8 and the design, so her neck stretched and shrank as she swam (the user: "一上一下的时候感觉身体要分离一样").
 NECK = {("nami", "run"): (-21, [0, 1, 2, 3])}
-# (hero, tag): rows to lift the pasted head in each frame, its neck filled in under it. Codex pasted the idle's head
-# at the idle's height on Fiora's upright walk (the en-garde idle stands 3 rows lower), so her chin sat on the collar
-# and the shoulders rose and fell under a still head (the user: "剑姬也有走路的时候 头和身体不协调的问题"): the eyes
-# stood 5 rows over the shirt in walk 1-5 and 4 in 6-8 against 8 in the idle. Lifted 2 and 3 rows the head rides the
-# body and its chin clears the collar by the idle's two neck rows (a skin neck alone read as a long face: the idle's
-# rows under the chin - the neck in its high gold collar - go under it). The head is what every frame of the tag has
-# the same, grown from the EYES colour above the chin.
-LIFT = {("fiora", "run"): [2, 2, 2, 2, 2, 3, 3, 3]}
+# (hero, tag): (y, rows, cape), a walk's step: in frame k everything at or above pivot row y moves down rows[k] and is
+# laid over what is below, so the leg tops tuck under the hips; a cape that streams behind her across row y goes along
+# whole (below y: each row up to one past its last `cape` colour pixel, and the tip's runs hanging off that), or the
+# seam folds it into a step. Codex redrew Fiora's walk with the head, neck and shoulders as one block (her pasted head
+# had drifted a row off the body: "头和身体不协调"), but the block stood still over the striding legs. League's walk
+# dips the whole upper body at the landing (frame 4, both feet wide) and carries it highest at 5-6: League's head and
+# body centre move about 2 px at her size, its hip 3 (one 3-px snap from 4 to 5 read bouncy on a 40-px chibi). The
+# drawing already stands a row higher in 6-8.
+STEP = {("fiora", "run"): (-6, [1, 1, 0, 2, 0, 1, 2, 2], ["5C0522", "730928"])}
 # heroes whose outline strips.complete_outline closes on the finished frames (the skill's art-spec "Close the
 # outline": every hero from Nami on; the user: "后面英雄都要用的"). Nothing goes under the soles row; a frame that
 # already reaches lower (lying down) keeps its own bottom.
@@ -410,65 +411,49 @@ def touch_up(hero, sheet):
     return n
 
 
-def lift_head(hero, sheet):
-    """LIFT: raise the pasted head of the listed frames and fill the neck under it; the pixels moved."""
+def step(hero, sheet):
+    """STEP: move the upper body of each frame, with its cape, down its rows over the legs; the frames moved."""
     moved = 0
-    for (h, tag), lifts in LIFT.items():
+    for (h, tag), (y0, rows, cape) in STEP.items():
         if h != hero or tag not in sheet:
             continue
-        frames = sheet[tag]
-        eye = tuple(EYES[hero])
-        rel = []
-        for a, _ in frames:
-            cy, cx = a.shape[0] // 2, a.shape[1] // 2
-            ys, xs = np.nonzero(a[..., 3] > 0)
-            rel.append({(int(y) - cy, int(x) - cx): tuple(int(v) for v in a[y, x, :3]) for y, x in zip(ys, xs)})
-        eyes = [q for q, c in rel[0].items() if c == eye]
-        chin = max(q[0] for q in eyes) + 3                     # the face ends three rows under the eyes
-        same = {q for q, c in rel[0].items() if q[0] <= chin and all(r.get(q) == c for r in rel[1:])}
-        head, todo = set(eyes), list(eyes)
-        while todo:
-            y, x = todo.pop()
-            for dy in (-1, 0, 1):
-                for dx in (-1, 0, 1):
-                    q = (y + dy, x + dx)
-                    if q in same and q not in head:
-                        head.add(q)
-                        todo.append(q)
-        # the neck: the idle's rows under its chin (the neck in its high collar), lined up on the eyes
-        idle = sheet["idle"][0][0]
-        icy, icx = idle.shape[0] // 2, idle.shape[1] // 2
-        iy, ix = np.nonzero((idle[..., :3] == eye).all(-1) & (idle[..., 3] > 0))
-        ichin, ieye_x = int(iy.max()) - icy + 3, int(round(ix.mean())) - icx
-        eye_x = int(round(np.mean([q[1] for q in eyes])))
-        for k, lift in enumerate(lifts):
-            if not lift:
+        wine = np.array([[int(c[i:i + 2], 16) for i in (0, 2, 4)] for c in cape])
+        for k, d in enumerate(rows):
+            if not d:
                 continue
-            a, ms = frames[k]
-            pad = lift + 2
-            b = np.pad(a, ((pad, pad), (0, 0), (0, 0)))
-            cy, cx = b.shape[0] // 2, b.shape[1] // 2
-            for y, x in head:
-                b[cy + y, cx + x] = 0
-            for y, x in head:
-                b[cy + y - lift, cx + x, :3] = rel[k][(y, x)]
-                b[cy + y - lift, cx + x, 3] = 255
-            for dy in range(1, lift + 1):                        # the idle's neck and collar rows under the chin
-                for dx in range(-6, 6):
-                    r, c = cy + chin - lift + dy, cx + eye_x + dx
-                    q = idle[icy + ichin + dy, icx + ieye_x + dx]
-                    if b[r, c, 3] == 0 and q[3] > 0:
-                        b[r, c] = q
-            for y, x in head:                                    # left open where the head was: holes in the body
-                r, c = cy + y, cx + x
-                if b[r, c, 3] == 0:
-                    near = [tuple(int(v) for v in b[r + dy, c + dx, :3]) for dy, dx in ((-1, 0), (1, 0), (0, -1), (0, 1))
-                            if b[r + dy, c + dx, 3] > 0 and (y + dy, x + dx) not in head]
-                    if len(near) >= 3:
-                        b[r, c, :3] = max(set(near), key=near.count)
-                        b[r, c, 3] = 255
-            frames[k] = (G.centre_frame(b, -cx, -cy), ms)
-            moved += len(head)
+            a, ms = sheet[tag][k]
+            cy = a.shape[0] // 2
+            cut = cy + y0 + 1                        # array rows before `cut` sit at pivot rows <= y0
+            op = a[..., 3] > 0
+            block = np.zeros(op.shape, bool)
+            block[:cut] = op[:cut]
+            for r in range(cut, a.shape[0]):         # the cape under the seam
+                cols = np.nonzero(op[r] & (a[r, :, None, :3] == wine).all(-1).any(-1))[0]
+                if len(cols):
+                    block[r, :cols.max() + 2] = op[r, :cols.max() + 2]
+                    continue
+                c, hang = 0, False
+                while c < a.shape[1]:                # its tip: the runs touching the cape in the row above
+                    if not op[r, c]:
+                        c += 1
+                        continue
+                    e = c
+                    while e < a.shape[1] and op[r, e]:
+                        e += 1
+                    if r > cut and block[r - 1, max(0, c - 1):e + 1].any() and (r - 1 >= cut):
+                        block[r, c:e] = True
+                        hang = True
+                    c = e
+                if not hang:
+                    break
+            b = np.pad(a, ((0, d), (0, 0), (0, 0)))
+            upper = np.zeros_like(b)
+            upper[d:a.shape[0] + d][np.pad(block, ((0, 0), (0, 0)))] = a[block]
+            b[:a.shape[0]][block] = 0
+            m = upper[..., 3] > 0
+            b[m] = upper[m]
+            sheet[tag][k] = (G.centre_frame(b, -(b.shape[1] // 2), -cy), ms)
+            moved += 1
     return moved
 
 
@@ -566,9 +551,9 @@ def main():
         touched = touch_up(hero, sheet)
         if touched:
             print(f"{hero}_retouch.json: {touched} pixels retouched")
-        lifted = lift_head(hero, sheet)
-        if lifted:
-            print(f"{hero}: pasted head lifted ({lifted} pixels a frame times frames)")
+        stepped = step(hero, sheet)
+        if stepped:
+            print(f"{hero}: walk step on {stepped} frames")
         breathe(hero, sheet)
         added, darkened, tidy = close_outline(hero, sheet)
         if added or darkened:

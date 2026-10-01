@@ -580,9 +580,15 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   seam's mechanism) rather than the head alone, which would leave its old place empty.
   A pasted idle head can also sit too low on a whole strip: league_fiora's en-garde idle stands 3 rows lower than her
   upright walk, and Codex pasted the head at the idle's height, so her chin sat on the collar and the shoulders rose
-  and fell under a still head (the user: "头和身体不协调"). `import_native.py` `LIFT` raises the head alone (what every
-  frame of the strip has the same, grown from the eyes) by a count per frame and puts the idle's rows under its chin
-  beneath it - the neck in its high collar; a bare skin neck read as a long face.
+  and fell under a still head (the user: "头和身体不协调"). Raising the pasted head alone by pixels and padding the
+  idle's neck under it still read odd ("还是有点怪"); the fix is a redraw pack that has Codex draw the head, neck,
+  collar, shoulders, upper sword arm and cape top as one figure (head copied square for square, the idle's
+  eye-to-shirt rows in every frame, legs and weapon kept). Then check the walk's bob against League: the redrawn
+  block stood still over the striding legs, while League's walk dips the whole upper body at the landing (both feet
+  widest) and carries it highest just after. `import_native.py` `STEP` moves everything above the hip row down a
+  count per frame, laid over the leg tops, and a cape crossing that row goes along whole (picked by its colours; cut
+  at the seam it folds into a 3-4 px step); follow League's head and body centre (about 2 px on a 40-row chibi), not
+  its hip (3 px, a one-frame 3-px snap reads bouncy).
 - **Review before shipping.** Per-strip sheets with the idle silhouette overlaid, `metrics`,
   a side-by-side with base champions at 1x and 3x, and a scripted showcase against a dummy.
 
