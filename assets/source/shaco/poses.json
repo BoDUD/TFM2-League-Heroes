@@ -1,0 +1,326 @@
+{
+ "hero": "shaco",
+ "champ": "Shaco",
+ "camera": {
+  "yaw": 30,
+  "pitch": 25,
+  "mirror": true
+ },
+ "chibi": {
+  "head": 3.4,
+  "legs": 0.55,
+  "scale": {
+   "L_hat": 0.4,
+   "R_hat": 0.4,
+   "L_shoulder": 1.4,
+   "R_shoulder": 1.4,
+   "L_weapon": 1.4,
+   "R_weapon": 1.4
+  }
+ },
+ "legs": "^(L|R)_leg$",
+ "weapon": "^(L|R)_weapon$",
+ "glue": [
+  {
+   "joint": "L_weapon",
+   "to": "L_hand"
+  },
+  {
+   "joint": "R_weapon",
+   "to": "R_hand"
+  }
+ ],
+ "height": 46,
+ "cell": [
+  112,
+  96,
+  14
+ ],
+ "design": "Shaco_Idle1@0",
+ "tags": {
+  "idle": {
+   "frames": [
+    [
+     "Shaco_Idle1@0",
+     180
+    ],
+    [
+     "Shaco_Idle1@0",
+     180
+    ],
+    [
+     "Shaco_Idle1@0",
+     180
+    ],
+    [
+     "Shaco_Idle1@0",
+     180
+    ],
+    [
+     "Shaco_Idle1@0",
+     180
+    ],
+    [
+     "Shaco_Idle1@0",
+     180
+    ]
+   ]
+  },
+  "run": {
+   "flat": true,
+   "head_like": "Shaco_Idle1@0",
+   "frames": [
+    [
+     "shaco_run_new@0",
+     139
+    ],
+    [
+     "shaco_run_new@125",
+     139
+    ],
+    [
+     "shaco_run_new@250",
+     139
+    ],
+    [
+     "shaco_run_new@375",
+     139
+    ],
+    [
+     "shaco_run_new@500",
+     139
+    ],
+    [
+     "shaco_run_new@625",
+     139
+    ],
+    [
+     "shaco_run_new@750",
+     139
+    ],
+    [
+     "shaco_run_new@875",
+     139
+    ]
+   ]
+  },
+  "attack": {
+   "lunge": 0.5,
+   "frames": [
+    [
+     "Shaco_Idle1@0>Shaco_Attack1@105:0.5",
+     60
+    ],
+    [
+     "Shaco_Attack1@210",
+     60
+    ],
+    [
+     "Shaco_Attack1@315",
+     60
+    ],
+    [
+     "Shaco_Attack1@420",
+     60
+    ],
+    [
+     "Shaco_Attack1@560",
+     70
+    ],
+    [
+     "Shaco_Attack1@700>Shaco_Idle1@0:0.5",
+     80
+    ]
+   ]
+  },
+  "attack_q": {
+   "lunge": 0.5,
+   "frames": [
+    [
+     "Shaco_Attack3@109",
+     60
+    ],
+    [
+     "Shaco_Attack3@218",
+     60
+    ],
+    [
+     "Shaco_Attack3@327",
+     60
+    ],
+    [
+     "Shaco_Attack3@435",
+     70
+    ],
+    [
+     "Shaco_Attack3@544",
+     80
+    ],
+    [
+     "Shaco_Attack3@700>Shaco_Idle1@0:0.5",
+     90
+    ]
+   ]
+  },
+  "attack_e": {
+   "lunge": 0.5,
+   "frames": [
+    [
+     "Shaco_Spell3@154",
+     60
+    ],
+    [
+     "Shaco_Spell3@308",
+     70
+    ],
+    [
+     "Shaco_Spell3@420",
+     60
+    ],
+    [
+     "Shaco_Spell3@540",
+     70
+    ],
+    [
+     "Shaco_Spell3@700",
+     80
+    ],
+    [
+     "Shaco_Spell3@925>Shaco_Idle1@0:0.5",
+     90
+    ]
+   ]
+  },
+  "skill": {
+   "lunge": 0.4,
+   "frames": [
+    [
+     "Shaco_Idle1@0>Shaco_Spell1@120:0.5",
+     50
+    ],
+    [
+     "Shaco_Spell1@240",
+     60
+    ],
+    [
+     "Shaco_Spell1@367",
+     70
+    ],
+    [
+     "Shaco_Spell1@500",
+     80
+    ],
+    [
+     "Shaco_Spell1@1283>Shaco_Idle1@0:0.5",
+     90
+    ]
+   ]
+  },
+  "skill2": {
+   "lunge": 0.4,
+   "frames": [
+    [
+     "Shaco_Spell2@105",
+     60
+    ],
+    [
+     "Shaco_Spell2@210",
+     70
+    ],
+    [
+     "Shaco_Spell2@315",
+     70
+    ],
+    [
+     "Shaco_Spell2@420",
+     80
+    ],
+    [
+     "Shaco_Spell2@734>Shaco_Idle1@0:0.5",
+     100
+    ]
+   ]
+  },
+  "ult": {
+   "lunge": 0.4,
+   "frames": [
+    [
+     "Shaco_Idle1@0>Shaco_Taunt@300:0.6",
+     70
+    ],
+    [
+     "Shaco_Taunt@525",
+     80
+    ],
+    [
+     "Shaco_Taunt@800",
+     80
+    ],
+    [
+     "Shaco_Taunt@1050",
+     90
+    ],
+    [
+     "Shaco_Taunt@1575",
+     90
+    ],
+    [
+     "Shaco_Taunt@3675>Shaco_Idle1@0:0.5",
+     100
+    ]
+   ]
+  },
+  "hit": {
+   "frames": [
+    [
+     "Shaco_Idle1@0>Shaco_Death@329:0.35",
+     100
+    ],
+    [
+     "Shaco_Idle1@0>Shaco_Death@329:0.15",
+     100
+    ]
+   ]
+  },
+  "dead": {
+   "anchor": "first",
+   "lunge": 0.4,
+   "flat": true,
+   "travel": 0.3,
+   "frames": [
+    [
+     "Shaco_Death@0",
+     100
+    ],
+    [
+     "Shaco_Death@329",
+     100
+    ],
+    [
+     "Shaco_Death@658",
+     100
+    ],
+    [
+     "Shaco_Death@988",
+     120
+    ],
+    [
+     "Shaco_Death@1317",
+     120
+    ],
+    [
+     "Shaco_Death@1646",
+     120
+    ],
+    [
+     "Shaco_Death@1975",
+     150
+    ],
+    [
+     "Shaco_Death@2304",
+     400
+    ]
+   ]
+  }
+ }
+}
