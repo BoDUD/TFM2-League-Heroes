@@ -89,11 +89,6 @@ def showcase(out, z=3, step=40):
     def on_foe(name, at, z=3):
         over.append(OnFoe(frames_of(small, name), at, d, z=z))
 
-    def on_her(name, at, until, z=1):
-        an = Follow(frames_of(small, name), at, x, gy, loop=True, until=until, on=body, z=z)
-        (over if z > 0 else under).append(an)
-        return an
-
     def vital(at, until):
         """A revealed Vital: its picture in V_LINK pieces from the reveal's first link until it is struck."""
         over.append(OnFoeFor(frames_of(small, "vital_mark"), at + tick(2), d, until, z=3))
@@ -139,7 +134,9 @@ def showcase(out, z=3, step=40):
     attack()
     # Riposte: the parry, Darius's swing into it, the stab on tick 47 down the line (its middle 27.5 px ahead)
     start = t
-    on_her("w_parry", start, start + tick(W_PARRY), z=2)
+    # the crescent rides W's projectile: 9 px over her pivot, creeping 0.1 px a tick at Darius (its frames step back)
+    over.append(Anim(frames_of(small, "w_guard"), start + tick(2), x, gy - 9, until=start + tick(2 + W_PARRY), z=2,
+                     x1=x + 0.1 * W_PARRY))
     d.attacks.append(start + tick(12))
     a("skill2", tick(W_DUR))
     stab = start + tick(W_STAB)

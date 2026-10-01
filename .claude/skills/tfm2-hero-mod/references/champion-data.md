@@ -594,9 +594,14 @@ the same champion file.
   A buff's picture (`view_buffs`) is not mirrored that way: league_fiora's parry crescent, drawn 17 px in front
   of her as the parry buff's picture, stood behind her whenever she faced left (the user, 2026-10-01: "W格挡会和
   剑的位置不一致"). A picture with a front and a back goes on a `CasterViewEffect` with `is_follow`, played with
-  the buff, its tag listing the loop for the buff's duration (her crescent: 4 frames twice, 750 ms = 45 ticks; her
-  speed lines trailing behind her: 750 ms per struck Vital, the strong half of the burst). Such a picture cannot be
-  stopped: refreshed before it ends, the next one plays over it.
+  the buff, its tag listing the loop for the buff's duration (her speed lines trailing behind her: 750 ms per struck
+  Vital, the strong half of the burst). Such a picture cannot be stopped: refreshed before it ends, the next one
+  plays over it. It only turns left or right: her crescent as a caster picture stood beside her while her stab went
+  down ("剑姬格挡还会歪？"). A picture that must face the target goes on a `TargetProjectile` cast at it
+  (league_lucian Q's way: it points from the caster's pivot at the target and `y_offset` lifts only its picture):
+  her crescent rides one with `speed` 100 and `y_offset` -4000 (9 px up), drawn 17 px ahead along its flight and
+  mirrored top to bottom, each 6-tick frame stepped back by the distance crept, an empty last frame after the
+  parry's 45 ticks while the projectile crawls on (4-9 s in a logged game; it goes at once if the target dies).
   A thing with a top and a bottom that flies every way (league_thresh's lantern) is laid along its flight
   and mirrored top to bottom, so every turn of it looks the same (art-spec).
 - A projectile's picture has one length, but its frames can follow the flight: an `Animated` view with

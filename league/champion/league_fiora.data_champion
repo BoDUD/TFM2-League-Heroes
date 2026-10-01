@@ -6390,8 +6390,12 @@
           "name": "league_fiora_w_cast"
         },
         {
-          "type": "CasterViewEffect",
-          "name": "league_fiora_w_parry_fx"
+          "type": "TargetProjectile",
+          "name": "league_fiora_w_guard_fx",
+          "speed": 100,
+          "y_offset": -4000,
+          "applied_target": "Enemy",
+          "applied_effects": []
         },
         {
           "type": "AddCasterBuff",
@@ -11576,6 +11580,14 @@
       "tag": "w_line",
       "repeat": false,
       "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_fiora_w_guard_fx",
+      "anim": "asset/league/effects/league_fiora_fx",
+      "tag": "w_guard",
+      "repeat": false,
+      "z": 1
     }
   ],
   "view_effects": [
@@ -11633,14 +11645,6 @@
       "anim": "asset/league/effects/league_fiora_fx",
       "tag": "vital_hit",
       "z": 2,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_fiora_w_parry_fx",
-      "anim": "asset/league/effects/league_fiora_fx",
-      "tag": "w_parry",
-      "z": 1,
       "is_follow": true
     },
     {

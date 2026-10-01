@@ -28,10 +28,10 @@ dust and the speed lines on their lowest row over all frames, across at their pu
 The second step places every cell by its anchor on the unit and times it by the kit (60 ticks a second): a hit on the
 chest, the vital beside it, the stun over the crown, R's crests round the waist, the ground pieces on the soles'
 row; the vital mark and R's crests in 20-tick pieces (the kit replays them every 20 ticks while they last), the
-challenge over the 22 ticks before the first of them, the parry over its 45 ticks (a caster picture played once:
-the loop twice), the speed lines over the burst's strong half (45 ticks, a caster picture too), the thrust inside
-its line's 11 ticks, the stun over its 1 s, the victory zone over its 3 s (opening 1-2, the loop 3-6 six times,
-fading 7-8). Writes league/effects/league_fiora_fx and league_fiora_big (r_zone).
+challenge over the 22 ticks before the first of them, the parry over its 45 ticks (the loop twice, played once on a
+projectile turned to the target), the speed lines over the burst's strong half (45 ticks, a caster picture), the
+thrust inside its line's 11 ticks, the stun over its 1 s, the victory zone over its 3 s (opening 1-2, the loop 3-6
+six times, fading 7-8). Writes league/effects/league_fiora_fx and league_fiora_big (r_zone).
 """
 import argparse
 import json
@@ -60,7 +60,11 @@ OVERHEAD = (0, -29)                    # over a 35-40 px hero's crown
 GROUND = (0, 10)                       # the middle of a ring round a unit's feet (the soles 11 px under its pivot)
 FEET = (0, 12)                         # the lowest row of dust at a unit's feet
 MIDDLE = (0, -9)                       # the middle of Fiora (40 px, the crown 29 px over her pivot)
-PARRY = (17, -9)                       # the parry crescent's right edge, in front of her
+PARRY = (17, -9)                       # the parry crescent's right edge, in front of her (the showcase's spot)
+GUARD_CREEP = 0.1                      # px a tick: the projectile carrying the turned crescent creeps at speed 100
+# the turned crescent's right edge 17 px ahead of its projectile (lifted 9 px by y_offset -4000), each 6-tick frame
+# stepped back by the distance the projectile has crept by its middle, so the crescent stands still
+GUARD = [(17 - round(GUARD_CREEP * (6 * k + 3)), 0) for k in range(8)]
 HEEL = (-1, 12)                        # the speed lines' puff at her heels
 # the pack's colours (PROMPTS_FX.md)
 STEEL = ["FFFFFF", "E6E8F0", "B8D8F8", "6FA8E8", "3A6FC0"]
@@ -290,7 +294,8 @@ PIECE = [83, 83, 83, 84]                  # a 20-tick piece (the kit replays the
 ZONE = [0, 1] + [2, 3, 4, 5] * 6 + [6, 7]
 ZONE_MS = [100, 100] + [100] * 24 + [200, 200]
 
-# sprite: {tag: [(strip, its frames used, spot of the anchor from the pivot, ms per frame), ...]}
+# sprite: {tag: [(strip, its frames used (None: an empty frame), spot of the anchor from the pivot (one, or one a
+# frame), ms per frame[, "mirror": the top half mirrored onto the bottom first]), ...]}
 FX = {
     "league_fiora_fx": {
         "hit": [("hit", range(5), HIT, [50] * 5)],
@@ -300,7 +305,9 @@ FX = {
         "q_dash": [("q_dash", range(5), FEET, [70] * 5)],
         "vital_mark": [("vital_mark", range(4), VITAL, PIECE)],
         "vital_hit": [("vital_hit", range(6), VITAL, [60] * 6)],
-        "w_parry": [("w_parry", [0, 1, 2, 3] * 2, PARRY, [100] * 7 + [50])],
+        # the parry crescent on W's TargetProjectile, turned to the target (the game turns a projectile's picture, upside
+        # down when she casts left: mirrored top to bottom); 45 ticks, then nothing until the projectile arrives
+        "w_guard": [("w_parry", [0, 1, 2, 3] * 2 + [None], GUARD + [(0, 0)], [100] * 7 + [50, 8000], "mirror")],
         "w_line": [("w_line", range(4), (0, 0), [33, 50, 50, 50])],
         "w_hit": [("w_hit", range(5), HIT, [50] * 5)],
         "w_slow": [("w_slow", range(6), GROUND, [80] * 6)],
@@ -328,10 +335,18 @@ def build():
         out = {}
         for tag, parts in tags.items():
             out[tag] = []
-            for src, used, (sx, sy), ms in parts:
+            for part in parts:
+                src, used, spot, ms = part[:4]
+                flip = len(part) > 4 and part[4] == "mirror"
                 ax, ay = anchors[src]["anchor"]
                 strip = cells(src, anchors[src]["frames"])
-                out[tag] += [(G.centre_frame(strip[k], sx - ax, sy - ay), m) for k, m in zip(used, ms)]
+                spots = spot if isinstance(spot, list) else [spot] * len(used)
+                for k, m, (sx, sy) in zip(used, ms, spots):
+                    if k is None:
+                        out[tag].append((np.zeros((1, 1, 4), np.uint8), m))
+                        continue
+                    cell = mirror(strip[k], ay) if flip else strip[k]
+                    out[tag].append((G.centre_frame(cell, sx - ax, sy - ay), m))
         sheets[sprite] = out
     return sheets
 
