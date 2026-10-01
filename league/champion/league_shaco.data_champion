@@ -947,6 +947,16 @@
                               {
                                 "type": "TargetSfx",
                                 "name": "league_shaco_clone_hit"
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 7,
+                                "effects": [
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "league_shaco_bs_hit"
+                                  }
+                                ]
                               }
                             ]
                           },
@@ -1007,6 +1017,16 @@
                                 {
                                   "type": "TargetSfx",
                                   "name": "league_shaco_clone_hit"
+                                },
+                                {
+                                  "type": "Delayed",
+                                  "tick": 7,
+                                  "effects": [
+                                    {
+                                      "type": "ViewEffect",
+                                      "name": "league_shaco_bs_hit"
+                                    }
+                                  ]
                                 }
                               ]
                             }

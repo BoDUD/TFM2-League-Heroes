@@ -84,9 +84,10 @@ RAW = {
     "r_burn": dict(n=5, ramps="demon", size=18, measure="w"),
     "w_throw": dict(n=4, ramps="box", size=10, measure="w", object=True),
     "w_land": dict(n=5, ramps="box dust", size=24, measure="w", y="lowest", object=True),
-    "w_box": dict(n=10, ramps="box demon smoke", size=24, measure="w", y="lowest", object=True),
+    "w_box": dict(n=10, ramps="box demon smoke", size=24, measure="w", y="lowest", object=True,
+                  align=(range(8), [8, 9])),
     "r_boom": dict(n=7, ramps="demon crimson smoke", size=60, measure="w", y=("at", 0.667)),
-    "r_mini": dict(n=10, ramps="box demon smoke", size=64, measure="w", object=True),
+    "r_mini": dict(n=10, ramps="box demon smoke", size=64, measure="w", object=True, align=(range(8), [8, 9])),
 }
 
 
@@ -156,6 +157,37 @@ def anchors_of(spec, rects, box):
                 raise ValueError(how)
         out.append(vals)
     return list(zip(out[0], out[1]))
+
+
+def align_boxes(out, tw, frames, after):
+    """The box drawn a little higher or wider in some frames (W's box 4 rows up in 6-8, the mini boxes 1-2): each of
+    `frames` moved so its box's lowest row and its left gold edge in the bottom rows match the first frame's; the
+    smoke frames `after` the box goes move with the last box frame. Returns the moves."""
+    gold = np.array(rgb("F3BF27"))
+    box = [np.array(rgb(h)) for h in ("1D264A", "334782", "F3BF27", "8A5D25")]
+    def spot(c):
+        m = (c[..., 3] > 0) & np.any([(c[..., :3] == b).all(-1) for b in box], 0)
+        ys = np.nonzero(m.any(1))[0]
+        low = int(ys.max())
+        g = (c[..., 3] > 0) & (c[..., :3] == gold).all(-1)
+        g[:max(0, low - 3)] = False
+        return low, int(np.nonzero(g.any(0))[0].min())
+    cells = [out[:, k * tw:(k + 1) * tw].copy() for k in range(out.shape[1] // tw)]
+    ref = spot(cells[frames[0]])
+    moves = {}
+    for k in list(frames) + list(after):
+        if k in frames:
+            low, left = spot(cells[k])
+            dy, dx = ref[0] - low, ref[1] - left
+        else:
+            dy, dx = moves[frames[-1]]
+        moves[k] = (dy, dx)
+        c = cells[k]
+        moved = np.zeros_like(c)
+        H, W = c.shape[:2]
+        moved[max(0, dy):H + min(0, dy), max(0, dx):W + min(0, dx)] = c[max(0, -dy):H - max(0, dy), max(0, -dx):W - max(0, dx)]
+        out[:, k * tw:(k + 1) * tw] = moved
+    return moves
 
 
 def flat_blocks(a):
@@ -244,6 +276,9 @@ def from_raw(folder, only=None):
             if spec.get("mirror"):
                 cell = mirror(cell, U)
             out[:, k * tw:(k + 1) * tw] = cell
+        if spec.get("align"):
+            moves = align_boxes(out, tw, *spec["align"])
+            print(f"  {fn}: box frames moved (dy, dx) " + " ".join(f"{k + 1}:{v}" for k, v in moves.items() if v != (0, 0)))
         Image.fromarray(np.repeat(np.repeat(out, Z, 0), Z, 1), "RGBA").save(G.lp(os.path.join(SRC, fn)))
         anchors[name] = {"cell": [tw, th], "anchor": [L, U], "frames": spec["n"]}
         print(f"{fn}  {spec['n']} cells of {tw}x{th}, anchor {L},{U}, scale {sx:.4f}, {rims} ring pixels, "

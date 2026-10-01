@@ -1,0 +1,18 @@
+{
+  "hit": {"cell": [19, 17], "anchor": [9, 8], "frames": 5},
+  "q_hit": {"cell": [31, 35], "anchor": [15, 17], "frames": 6},
+  "bs_hit": {"cell": [23, 27], "anchor": [11, 13], "frames": 5},
+  "e_shiv": {"cell": [17, 11], "anchor": [8, 5], "frames": 4},
+  "e_hit": {"cell": [21, 19], "anchor": [10, 9], "frames": 5},
+  "fear": {"cell": [21, 17], "anchor": [10, 8], "frames": 8},
+  "shot_hit": {"cell": [15, 13], "anchor": [7, 6], "frames": 4},
+  "q_vanish": {"cell": [35, 109], "anchor": [17, 54], "frames": 6},
+  "q_appear": {"cell": [29, 67], "anchor": [14, 33], "frames": 5},
+  "r_poof": {"cell": [37, 93], "anchor": [18, 46], "frames": 6},
+  "r_burn": {"cell": [23, 29], "anchor": [11, 14], "frames": 5},
+  "w_throw": {"cell": [17, 17], "anchor": [8, 8], "frames": 4},
+  "w_land": {"cell": [29, 61], "anchor": [14, 30], "frames": 5},
+  "w_box": {"cell": [33, 71], "anchor": [16, 35], "frames": 10},
+  "r_boom": {"cell": [63, 65], "anchor": [31, 32], "frames": 7},
+  "r_mini": {"cell": [69, 45], "anchor": [34, 22], "frames": 10}
+}
