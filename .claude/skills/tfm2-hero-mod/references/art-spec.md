@@ -578,6 +578,11 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   and at game size the head seemed to come off ("一上一下的时候感觉身体要分离一样"; league_riven's "脖子拉伸" before
   her). Move everything above a neck row down a row in the long-necked frames (`import_native.py` `NECK`, the breathing
   seam's mechanism) rather than the head alone, which would leave its old place empty.
+  A pasted idle head can also sit too low on a whole strip: league_fiora's en-garde idle stands 3 rows lower than her
+  upright walk, and Codex pasted the head at the idle's height, so her chin sat on the collar and the shoulders rose
+  and fell under a still head (the user: "头和身体不协调"). `import_native.py` `LIFT` raises the head alone (what every
+  frame of the strip has the same, grown from the eyes) by a count per frame and puts the idle's rows under its chin
+  beneath it - the neck in its high collar; a bare skin neck read as a long face.
 - **Review before shipping.** Per-strip sheets with the idle silhouette overlaid, `metrics`,
   a side-by-side with base champions at 1x and 3x, and a scripted showcase against a dummy.
 
