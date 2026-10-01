@@ -777,6 +777,125 @@
         },
         {
           "type": "Delayed",
+          "tick": 15,
+          "effects": [
+            {
+              "type": "RandomTarget",
+              "range": 100000,
+              "casting_target": "EnemyChampion",
+              "from_projectile": false,
+              "effects": [
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_caitlyn_q_aim",
+                    "duration": {
+                      "Time": {
+                        "tick": 10
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                },
+                {
+                  "type": "ParabolicProjectile",
+                  "name": "league_caitlyn_q_aim",
+                  "travel_time": 8,
+                  "range": 120000,
+                  "range_effect_name": "",
+                  "shape": {
+                    "Circle": {
+                      "radius": 1
+                    }
+                  },
+                  "applied_target": "EnemyChampion",
+                  "applied_effects": [],
+                  "end_effects": [
+                    {
+                      "type": "LinearProjectile",
+                      "name": "league_caitlyn_q_bolt",
+                      "penetrate": true,
+                      "applied_target": "EnemyWithoutTower",
+                      "applied_effects": [
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_caitlyn_q_first",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "Attack",
+                                  "damage": 36,
+                                  "attack_ratio": 66,
+                                  "hp_ratio": 0,
+                                  "target_hp_ratio": 0,
+                                  "attack_effect_type": "Target"
+                                },
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "league_caitlyn_q_hit"
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "Attack",
+                                  "damage": 60,
+                                  "attack_ratio": 110,
+                                  "hp_ratio": 0,
+                                  "target_hp_ratio": 0,
+                                  "attack_effect_type": "Target"
+                                },
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "league_caitlyn_q_hit"
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_caitlyn_q_first",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 40
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              ]
+                            }
+                          }
+                        },
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "TargetSfx",
+                            "name": "league_caitlyn_q_hit"
+                          }
+                        }
+                      ],
+                      "end_effects": [],
+                      "speed": 10000,
+                      "range": 120000,
+                      "shape": {
+                        "Circle": {
+                          "radius": 6000
+                        }
+                      },
+                      "y_offset": -2500
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
           "tick": 23,
           "effects": [
             {
@@ -790,103 +909,6 @@
             {
               "type": "CasterViewEffect",
               "name": "league_caitlyn_q_muzzle"
-            },
-            {
-              "type": "RandomTarget",
-              "range": 100000,
-              "casting_target": "EnemyChampion",
-              "from_projectile": false,
-              "effects": [
-                {
-                  "type": "AddCasterBuff",
-                  "buff_state": {
-                    "name": "league_caitlyn_q_aim",
-                    "duration": {
-                      "Time": {
-                        "tick": 1
-                      }
-                    }
-                  },
-                  "only_to_enemy": false
-                },
-                {
-                  "type": "LinearProjectile",
-                  "name": "league_caitlyn_q_bolt",
-                  "penetrate": true,
-                  "applied_target": "EnemyWithoutTower",
-                  "applied_effects": [
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_caitlyn_q_first",
-                        "effect_buff": {
-                          "type": "Combine",
-                          "effects": [
-                            {
-                              "type": "Attack",
-                              "damage": 36,
-                              "attack_ratio": 66,
-                              "hp_ratio": 0,
-                              "target_hp_ratio": 0,
-                              "attack_effect_type": "Target"
-                            },
-                            {
-                              "type": "ViewEffect",
-                              "name": "league_caitlyn_q_hit"
-                            }
-                          ]
-                        },
-                        "effect_none": {
-                          "type": "Combine",
-                          "effects": [
-                            {
-                              "type": "Attack",
-                              "damage": 60,
-                              "attack_ratio": 110,
-                              "hp_ratio": 0,
-                              "target_hp_ratio": 0,
-                              "attack_effect_type": "Target"
-                            },
-                            {
-                              "type": "ViewEffect",
-                              "name": "league_caitlyn_q_hit"
-                            },
-                            {
-                              "type": "AddCasterBuff",
-                              "buff_state": {
-                                "name": "league_caitlyn_q_first",
-                                "duration": {
-                                  "Time": {
-                                    "tick": 40
-                                  }
-                                }
-                              },
-                              "only_to_enemy": false
-                            }
-                          ]
-                        }
-                      }
-                    },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "TargetSfx",
-                        "name": "league_caitlyn_q_hit"
-                      }
-                    }
-                  ],
-                  "end_effects": [],
-                  "speed": 10000,
-                  "range": 120000,
-                  "shape": {
-                    "Circle": {
-                      "radius": 6000
-                    }
-                  },
-                  "y_offset": -2500
-                }
-              ]
             },
             {
               "type": "SwitchByBuff",
@@ -986,7 +1008,7 @@
     "start_timing": 10,
     "cancelable": false,
     "range": 80000,
-    "casting_type": "Position",
+    "casting_type": "Direction",
     "casting_target": "EnemyChampion",
     "attack_type": "Skill",
     "effect": {
@@ -1004,19 +1026,7 @@
                 "name": "league_caitlyn_w_busy_c",
                 "duration": {
                   "Time": {
-                    "tick": 535
-                  }
-                }
-              },
-              "only_to_enemy": false
-            },
-            {
-              "type": "AddCasterBuff",
-              "buff_state": {
-                "name": "league_caitlyn_w_alive_c",
-                "duration": {
-                  "Time": {
-                    "tick": 525
+                    "tick": 537
                   }
                 }
               },
@@ -1027,688 +1037,716 @@
               "name": "league_caitlyn_w_cast"
             },
             {
-              "type": "ParabolicProjectile",
+              "type": "LinearProjectile",
               "name": "league_caitlyn_w_throw",
-              "travel_time": 15,
-              "range": 100000,
-              "range_effect_name": "",
+              "penetrate": true,
+              "applied_target": "EnemyChampion",
+              "applied_effects": [],
+              "end_effects": [
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_caitlyn_w_alive_c",
+                    "duration": {
+                      "Time": {
+                        "tick": 510
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                },
+                {
+                  "type": "ViewEffect",
+                  "name": "league_caitlyn_w_land"
+                },
+                {
+                  "type": "Sfx",
+                  "name": "league_caitlyn_w_land"
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 30,
+                  "effects": [
+                    {
+                      "type": "RangePeriodProjectile",
+                      "name": "league_caitlyn_w_trigger",
+                      "shape": {
+                        "Circle": {
+                          "radius": 9000
+                        }
+                      },
+                      "tick": 480,
+                      "period": 1,
+                      "first_delay": 0,
+                      "applied_target": "EnemyChampion",
+                      "applied_effects": [
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_caitlyn_w_alive_c",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_caitlyn_w_alive_c"
+                                },
+                                {
+                                  "type": "RandomTarget",
+                                  "range": 1,
+                                  "casting_target": "AllyOnlySelf",
+                                  "from_projectile": false,
+                                  "effects": [
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_caitlyn_w_live",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 1
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_caitlyn_w_live",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "Bind",
+                                        "duration": 75
+                                      },
+                                      {
+                                        "type": "ViewEffect",
+                                        "name": "league_caitlyn_w_snap"
+                                      },
+                                      {
+                                        "type": "TargetSfx",
+                                        "name": "league_caitlyn_w_snap"
+                                      },
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_caitlyn_hs_trap",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 75
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      }
+                                    ]
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  }
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
+                          }
+                        }
+                      ],
+                      "end_effects": []
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 30,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_c",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 45,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_c",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 60,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_c",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 75,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_c",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 90,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_c",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 105,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_c",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 120,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_c",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 135,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_c",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 150,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_c",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 165,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_c",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 180,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_c",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 195,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_c",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 210,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_c",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 225,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_c",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 240,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_c",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 255,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_c",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 270,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_c",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 285,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_c",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 300,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_c",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 315,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_c",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 330,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_c",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 345,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_c",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 360,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_c",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 375,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_c",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 390,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_c",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 405,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_c",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 420,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_c",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 435,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_c",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 450,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_c",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 465,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_c",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 480,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_c",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 495,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_c",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_fade"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                }
+              ],
+              "speed": 6000,
+              "range": 58000,
               "shape": {
                 "Circle": {
                   "radius": 1
                 }
               },
-              "applied_target": "EnemyChampion",
-              "applied_effects": [],
-              "end_effects": []
-            },
-            {
-              "type": "Delayed",
-              "tick": 15,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_c",
-                  "effect_buff": {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "ViewEffect",
-                        "name": "league_caitlyn_w_land"
-                      },
-                      {
-                        "type": "Sfx",
-                        "name": "league_caitlyn_w_land"
-                      }
-                    ]
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 45,
-              "effects": [
-                {
-                  "type": "RangePeriodProjectile",
-                  "name": "league_caitlyn_w_trigger",
-                  "shape": {
-                    "Circle": {
-                      "radius": 9000
-                    }
-                  },
-                  "tick": 480,
-                  "period": 1,
-                  "first_delay": 0,
-                  "applied_target": "EnemyChampion",
-                  "applied_effects": [
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_caitlyn_w_alive_c",
-                        "effect_buff": {
-                          "type": "Combine",
-                          "effects": [
-                            {
-                              "type": "RemoveCasterBuff",
-                              "name": "league_caitlyn_w_alive_c"
-                            },
-                            {
-                              "type": "Bind",
-                              "duration": 75
-                            },
-                            {
-                              "type": "ViewEffect",
-                              "name": "league_caitlyn_w_snap"
-                            },
-                            {
-                              "type": "TargetSfx",
-                              "name": "league_caitlyn_w_snap"
-                            },
-                            {
-                              "type": "AddCasterBuff",
-                              "buff_state": {
-                                "name": "league_caitlyn_hs_trap",
-                                "duration": {
-                                  "Time": {
-                                    "tick": 75
-                                  }
-                                }
-                              },
-                              "only_to_enemy": false
-                            }
-                          ]
-                        },
-                        "effect_none": {
-                          "type": "Combine",
-                          "effects": []
-                        }
-                      }
-                    }
-                  ],
-                  "end_effects": []
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 45,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_c",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 60,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_c",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 75,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_c",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 90,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_c",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 105,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_c",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 120,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_c",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 135,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_c",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 150,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_c",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 165,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_c",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 180,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_c",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 195,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_c",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 210,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_c",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 225,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_c",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 240,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_c",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 255,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_c",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 270,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_c",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 285,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_c",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 300,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_c",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 315,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_c",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 330,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_c",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 345,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_c",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 360,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_c",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 375,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_c",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 390,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_c",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 405,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_c",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 420,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_c",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 435,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_c",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 450,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_c",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 465,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_c",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 480,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_c",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 495,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_c",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 510,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_c",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_fade"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
+              "y_offset": 0
             }
           ]
         },
@@ -1721,19 +1759,7 @@
                 "name": "league_caitlyn_w_busy_b",
                 "duration": {
                   "Time": {
-                    "tick": 535
-                  }
-                }
-              },
-              "only_to_enemy": false
-            },
-            {
-              "type": "AddCasterBuff",
-              "buff_state": {
-                "name": "league_caitlyn_w_alive_b",
-                "duration": {
-                  "Time": {
-                    "tick": 525
+                    "tick": 537
                   }
                 }
               },
@@ -1744,688 +1770,716 @@
               "name": "league_caitlyn_w_cast"
             },
             {
-              "type": "ParabolicProjectile",
+              "type": "LinearProjectile",
               "name": "league_caitlyn_w_throw",
-              "travel_time": 15,
-              "range": 100000,
-              "range_effect_name": "",
+              "penetrate": true,
+              "applied_target": "EnemyChampion",
+              "applied_effects": [],
+              "end_effects": [
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_caitlyn_w_alive_b",
+                    "duration": {
+                      "Time": {
+                        "tick": 510
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                },
+                {
+                  "type": "ViewEffect",
+                  "name": "league_caitlyn_w_land"
+                },
+                {
+                  "type": "Sfx",
+                  "name": "league_caitlyn_w_land"
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 30,
+                  "effects": [
+                    {
+                      "type": "RangePeriodProjectile",
+                      "name": "league_caitlyn_w_trigger",
+                      "shape": {
+                        "Circle": {
+                          "radius": 9000
+                        }
+                      },
+                      "tick": 480,
+                      "period": 1,
+                      "first_delay": 0,
+                      "applied_target": "EnemyChampion",
+                      "applied_effects": [
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_caitlyn_w_alive_b",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_caitlyn_w_alive_b"
+                                },
+                                {
+                                  "type": "RandomTarget",
+                                  "range": 1,
+                                  "casting_target": "AllyOnlySelf",
+                                  "from_projectile": false,
+                                  "effects": [
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_caitlyn_w_live",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 1
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_caitlyn_w_live",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "Bind",
+                                        "duration": 75
+                                      },
+                                      {
+                                        "type": "ViewEffect",
+                                        "name": "league_caitlyn_w_snap"
+                                      },
+                                      {
+                                        "type": "TargetSfx",
+                                        "name": "league_caitlyn_w_snap"
+                                      },
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_caitlyn_hs_trap",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 75
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      }
+                                    ]
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  }
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
+                          }
+                        }
+                      ],
+                      "end_effects": []
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 30,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_b",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 45,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_b",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 60,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_b",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 75,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_b",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 90,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_b",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 105,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_b",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 120,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_b",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 135,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_b",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 150,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_b",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 165,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_b",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 180,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_b",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 195,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_b",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 210,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_b",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 225,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_b",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 240,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_b",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 255,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_b",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 270,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_b",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 285,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_b",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 300,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_b",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 315,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_b",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 330,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_b",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 345,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_b",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 360,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_b",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 375,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_b",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 390,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_b",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 405,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_b",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 420,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_b",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 435,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_b",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 450,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_b",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 465,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_b",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 480,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_b",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_trap"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 495,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_caitlyn_w_alive_b",
+                      "effect_buff": {
+                        "type": "ViewEffect",
+                        "name": "league_caitlyn_w_fade"
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                }
+              ],
+              "speed": 6000,
+              "range": 35000,
               "shape": {
                 "Circle": {
                   "radius": 1
                 }
               },
-              "applied_target": "EnemyChampion",
-              "applied_effects": [],
-              "end_effects": []
-            },
-            {
-              "type": "Delayed",
-              "tick": 15,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_b",
-                  "effect_buff": {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "ViewEffect",
-                        "name": "league_caitlyn_w_land"
-                      },
-                      {
-                        "type": "Sfx",
-                        "name": "league_caitlyn_w_land"
-                      }
-                    ]
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 45,
-              "effects": [
-                {
-                  "type": "RangePeriodProjectile",
-                  "name": "league_caitlyn_w_trigger",
-                  "shape": {
-                    "Circle": {
-                      "radius": 9000
-                    }
-                  },
-                  "tick": 480,
-                  "period": 1,
-                  "first_delay": 0,
-                  "applied_target": "EnemyChampion",
-                  "applied_effects": [
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_caitlyn_w_alive_b",
-                        "effect_buff": {
-                          "type": "Combine",
-                          "effects": [
-                            {
-                              "type": "RemoveCasterBuff",
-                              "name": "league_caitlyn_w_alive_b"
-                            },
-                            {
-                              "type": "Bind",
-                              "duration": 75
-                            },
-                            {
-                              "type": "ViewEffect",
-                              "name": "league_caitlyn_w_snap"
-                            },
-                            {
-                              "type": "TargetSfx",
-                              "name": "league_caitlyn_w_snap"
-                            },
-                            {
-                              "type": "AddCasterBuff",
-                              "buff_state": {
-                                "name": "league_caitlyn_hs_trap",
-                                "duration": {
-                                  "Time": {
-                                    "tick": 75
-                                  }
-                                }
-                              },
-                              "only_to_enemy": false
-                            }
-                          ]
-                        },
-                        "effect_none": {
-                          "type": "Combine",
-                          "effects": []
-                        }
-                      }
-                    }
-                  ],
-                  "end_effects": []
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 45,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_b",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 60,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_b",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 75,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_b",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 90,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_b",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 105,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_b",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 120,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_b",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 135,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_b",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 150,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_b",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 165,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_b",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 180,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_b",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 195,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_b",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 210,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_b",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 225,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_b",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 240,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_b",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 255,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_b",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 270,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_b",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 285,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_b",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 300,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_b",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 315,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_b",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 330,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_b",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 345,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_b",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 360,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_b",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 375,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_b",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 390,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_b",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 405,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_b",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 420,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_b",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 435,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_b",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 450,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_b",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 465,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_b",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 480,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_b",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 495,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_b",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_trap"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 510,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_caitlyn_w_alive_b",
-                  "effect_buff": {
-                    "type": "ViewEffect",
-                    "name": "league_caitlyn_w_fade"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
+              "y_offset": 0
             }
           ]
         }
@@ -2439,19 +2493,7 @@
               "name": "league_caitlyn_w_busy_a",
               "duration": {
                 "Time": {
-                  "tick": 535
-                }
-              }
-            },
-            "only_to_enemy": false
-          },
-          {
-            "type": "AddCasterBuff",
-            "buff_state": {
-              "name": "league_caitlyn_w_alive_a",
-              "duration": {
-                "Time": {
-                  "tick": 525
+                  "tick": 537
                 }
               }
             },
@@ -2462,688 +2504,716 @@
             "name": "league_caitlyn_w_cast"
           },
           {
-            "type": "ParabolicProjectile",
+            "type": "LinearProjectile",
             "name": "league_caitlyn_w_throw",
-            "travel_time": 15,
-            "range": 100000,
-            "range_effect_name": "",
-            "shape": {
-              "Circle": {
-                "radius": 1
-              }
-            },
+            "penetrate": false,
             "applied_target": "EnemyChampion",
             "applied_effects": [],
-            "end_effects": []
-          },
-          {
-            "type": "Delayed",
-            "tick": 15,
-            "effects": [
+            "end_effects": [
               {
-                "type": "SwitchByBuff",
-                "buff_name": "league_caitlyn_w_alive_a",
-                "effect_buff": {
-                  "type": "Combine",
-                  "effects": [
-                    {
-                      "type": "ViewEffect",
-                      "name": "league_caitlyn_w_land"
-                    },
-                    {
-                      "type": "Sfx",
-                      "name": "league_caitlyn_w_land"
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_caitlyn_w_alive_a",
+                  "duration": {
+                    "Time": {
+                      "tick": 510
                     }
-                  ]
-                },
-                "effect_none": {
-                  "type": "Combine",
-                  "effects": []
-                }
-              }
-            ]
-          },
-          {
-            "type": "Delayed",
-            "tick": 45,
-            "effects": [
-              {
-                "type": "RangePeriodProjectile",
-                "name": "league_caitlyn_w_trigger",
-                "shape": {
-                  "Circle": {
-                    "radius": 9000
                   }
                 },
-                "tick": 480,
-                "period": 1,
-                "first_delay": 0,
-                "applied_target": "EnemyChampion",
-                "applied_effects": [
+                "only_to_enemy": false
+              },
+              {
+                "type": "ViewEffect",
+                "name": "league_caitlyn_w_land"
+              },
+              {
+                "type": "Sfx",
+                "name": "league_caitlyn_w_land"
+              },
+              {
+                "type": "Delayed",
+                "tick": 30,
+                "effects": [
                   {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "SwitchByBuff",
-                      "buff_name": "league_caitlyn_w_alive_a",
-                      "effect_buff": {
-                        "type": "Combine",
-                        "effects": [
-                          {
-                            "type": "RemoveCasterBuff",
-                            "name": "league_caitlyn_w_alive_a"
-                          },
-                          {
-                            "type": "Bind",
-                            "duration": 75
-                          },
-                          {
-                            "type": "ViewEffect",
-                            "name": "league_caitlyn_w_snap"
-                          },
-                          {
-                            "type": "TargetSfx",
-                            "name": "league_caitlyn_w_snap"
-                          },
-                          {
-                            "type": "AddCasterBuff",
-                            "buff_state": {
-                              "name": "league_caitlyn_hs_trap",
-                              "duration": {
-                                "Time": {
-                                  "tick": 75
+                    "type": "RangePeriodProjectile",
+                    "name": "league_caitlyn_w_trigger",
+                    "shape": {
+                      "Circle": {
+                        "radius": 9000
+                      }
+                    },
+                    "tick": 480,
+                    "period": 1,
+                    "first_delay": 0,
+                    "applied_target": "EnemyChampion",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_caitlyn_w_alive_a",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_caitlyn_w_alive_a"
+                              },
+                              {
+                                "type": "RandomTarget",
+                                "range": 1,
+                                "casting_target": "AllyOnlySelf",
+                                "from_projectile": false,
+                                "effects": [
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_caitlyn_w_live",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 1
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_caitlyn_w_live",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "Bind",
+                                      "duration": 75
+                                    },
+                                    {
+                                      "type": "ViewEffect",
+                                      "name": "league_caitlyn_w_snap"
+                                    },
+                                    {
+                                      "type": "TargetSfx",
+                                      "name": "league_caitlyn_w_snap"
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_caitlyn_hs_trap",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 75
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
                                 }
                               }
-                            },
-                            "only_to_enemy": false
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": []
                           }
-                        ]
-                      },
-                      "effect_none": {
-                        "type": "Combine",
-                        "effects": []
+                        }
                       }
+                    ],
+                    "end_effects": []
+                  }
+                ]
+              },
+              {
+                "type": "Delayed",
+                "tick": 30,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_caitlyn_w_alive_a",
+                    "effect_buff": {
+                      "type": "ViewEffect",
+                      "name": "league_caitlyn_w_trap"
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
                     }
                   }
-                ],
-                "end_effects": []
-              }
-            ]
-          },
-          {
-            "type": "Delayed",
-            "tick": 45,
-            "effects": [
+                ]
+              },
               {
-                "type": "SwitchByBuff",
-                "buff_name": "league_caitlyn_w_alive_a",
-                "effect_buff": {
-                  "type": "ViewEffect",
-                  "name": "league_caitlyn_w_trap"
-                },
-                "effect_none": {
-                  "type": "Combine",
-                  "effects": []
-                }
-              }
-            ]
-          },
-          {
-            "type": "Delayed",
-            "tick": 60,
-            "effects": [
+                "type": "Delayed",
+                "tick": 45,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_caitlyn_w_alive_a",
+                    "effect_buff": {
+                      "type": "ViewEffect",
+                      "name": "league_caitlyn_w_trap"
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              },
               {
-                "type": "SwitchByBuff",
-                "buff_name": "league_caitlyn_w_alive_a",
-                "effect_buff": {
-                  "type": "ViewEffect",
-                  "name": "league_caitlyn_w_trap"
-                },
-                "effect_none": {
-                  "type": "Combine",
-                  "effects": []
-                }
-              }
-            ]
-          },
-          {
-            "type": "Delayed",
-            "tick": 75,
-            "effects": [
+                "type": "Delayed",
+                "tick": 60,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_caitlyn_w_alive_a",
+                    "effect_buff": {
+                      "type": "ViewEffect",
+                      "name": "league_caitlyn_w_trap"
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              },
               {
-                "type": "SwitchByBuff",
-                "buff_name": "league_caitlyn_w_alive_a",
-                "effect_buff": {
-                  "type": "ViewEffect",
-                  "name": "league_caitlyn_w_trap"
-                },
-                "effect_none": {
-                  "type": "Combine",
-                  "effects": []
-                }
-              }
-            ]
-          },
-          {
-            "type": "Delayed",
-            "tick": 90,
-            "effects": [
+                "type": "Delayed",
+                "tick": 75,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_caitlyn_w_alive_a",
+                    "effect_buff": {
+                      "type": "ViewEffect",
+                      "name": "league_caitlyn_w_trap"
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              },
               {
-                "type": "SwitchByBuff",
-                "buff_name": "league_caitlyn_w_alive_a",
-                "effect_buff": {
-                  "type": "ViewEffect",
-                  "name": "league_caitlyn_w_trap"
-                },
-                "effect_none": {
-                  "type": "Combine",
-                  "effects": []
-                }
-              }
-            ]
-          },
-          {
-            "type": "Delayed",
-            "tick": 105,
-            "effects": [
+                "type": "Delayed",
+                "tick": 90,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_caitlyn_w_alive_a",
+                    "effect_buff": {
+                      "type": "ViewEffect",
+                      "name": "league_caitlyn_w_trap"
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              },
               {
-                "type": "SwitchByBuff",
-                "buff_name": "league_caitlyn_w_alive_a",
-                "effect_buff": {
-                  "type": "ViewEffect",
-                  "name": "league_caitlyn_w_trap"
-                },
-                "effect_none": {
-                  "type": "Combine",
-                  "effects": []
-                }
-              }
-            ]
-          },
-          {
-            "type": "Delayed",
-            "tick": 120,
-            "effects": [
+                "type": "Delayed",
+                "tick": 105,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_caitlyn_w_alive_a",
+                    "effect_buff": {
+                      "type": "ViewEffect",
+                      "name": "league_caitlyn_w_trap"
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              },
               {
-                "type": "SwitchByBuff",
-                "buff_name": "league_caitlyn_w_alive_a",
-                "effect_buff": {
-                  "type": "ViewEffect",
-                  "name": "league_caitlyn_w_trap"
-                },
-                "effect_none": {
-                  "type": "Combine",
-                  "effects": []
-                }
-              }
-            ]
-          },
-          {
-            "type": "Delayed",
-            "tick": 135,
-            "effects": [
+                "type": "Delayed",
+                "tick": 120,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_caitlyn_w_alive_a",
+                    "effect_buff": {
+                      "type": "ViewEffect",
+                      "name": "league_caitlyn_w_trap"
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              },
               {
-                "type": "SwitchByBuff",
-                "buff_name": "league_caitlyn_w_alive_a",
-                "effect_buff": {
-                  "type": "ViewEffect",
-                  "name": "league_caitlyn_w_trap"
-                },
-                "effect_none": {
-                  "type": "Combine",
-                  "effects": []
-                }
-              }
-            ]
-          },
-          {
-            "type": "Delayed",
-            "tick": 150,
-            "effects": [
+                "type": "Delayed",
+                "tick": 135,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_caitlyn_w_alive_a",
+                    "effect_buff": {
+                      "type": "ViewEffect",
+                      "name": "league_caitlyn_w_trap"
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              },
               {
-                "type": "SwitchByBuff",
-                "buff_name": "league_caitlyn_w_alive_a",
-                "effect_buff": {
-                  "type": "ViewEffect",
-                  "name": "league_caitlyn_w_trap"
-                },
-                "effect_none": {
-                  "type": "Combine",
-                  "effects": []
-                }
-              }
-            ]
-          },
-          {
-            "type": "Delayed",
-            "tick": 165,
-            "effects": [
+                "type": "Delayed",
+                "tick": 150,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_caitlyn_w_alive_a",
+                    "effect_buff": {
+                      "type": "ViewEffect",
+                      "name": "league_caitlyn_w_trap"
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              },
               {
-                "type": "SwitchByBuff",
-                "buff_name": "league_caitlyn_w_alive_a",
-                "effect_buff": {
-                  "type": "ViewEffect",
-                  "name": "league_caitlyn_w_trap"
-                },
-                "effect_none": {
-                  "type": "Combine",
-                  "effects": []
-                }
-              }
-            ]
-          },
-          {
-            "type": "Delayed",
-            "tick": 180,
-            "effects": [
+                "type": "Delayed",
+                "tick": 165,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_caitlyn_w_alive_a",
+                    "effect_buff": {
+                      "type": "ViewEffect",
+                      "name": "league_caitlyn_w_trap"
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              },
               {
-                "type": "SwitchByBuff",
-                "buff_name": "league_caitlyn_w_alive_a",
-                "effect_buff": {
-                  "type": "ViewEffect",
-                  "name": "league_caitlyn_w_trap"
-                },
-                "effect_none": {
-                  "type": "Combine",
-                  "effects": []
-                }
-              }
-            ]
-          },
-          {
-            "type": "Delayed",
-            "tick": 195,
-            "effects": [
+                "type": "Delayed",
+                "tick": 180,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_caitlyn_w_alive_a",
+                    "effect_buff": {
+                      "type": "ViewEffect",
+                      "name": "league_caitlyn_w_trap"
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              },
               {
-                "type": "SwitchByBuff",
-                "buff_name": "league_caitlyn_w_alive_a",
-                "effect_buff": {
-                  "type": "ViewEffect",
-                  "name": "league_caitlyn_w_trap"
-                },
-                "effect_none": {
-                  "type": "Combine",
-                  "effects": []
-                }
-              }
-            ]
-          },
-          {
-            "type": "Delayed",
-            "tick": 210,
-            "effects": [
+                "type": "Delayed",
+                "tick": 195,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_caitlyn_w_alive_a",
+                    "effect_buff": {
+                      "type": "ViewEffect",
+                      "name": "league_caitlyn_w_trap"
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              },
               {
-                "type": "SwitchByBuff",
-                "buff_name": "league_caitlyn_w_alive_a",
-                "effect_buff": {
-                  "type": "ViewEffect",
-                  "name": "league_caitlyn_w_trap"
-                },
-                "effect_none": {
-                  "type": "Combine",
-                  "effects": []
-                }
-              }
-            ]
-          },
-          {
-            "type": "Delayed",
-            "tick": 225,
-            "effects": [
+                "type": "Delayed",
+                "tick": 210,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_caitlyn_w_alive_a",
+                    "effect_buff": {
+                      "type": "ViewEffect",
+                      "name": "league_caitlyn_w_trap"
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              },
               {
-                "type": "SwitchByBuff",
-                "buff_name": "league_caitlyn_w_alive_a",
-                "effect_buff": {
-                  "type": "ViewEffect",
-                  "name": "league_caitlyn_w_trap"
-                },
-                "effect_none": {
-                  "type": "Combine",
-                  "effects": []
-                }
-              }
-            ]
-          },
-          {
-            "type": "Delayed",
-            "tick": 240,
-            "effects": [
+                "type": "Delayed",
+                "tick": 225,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_caitlyn_w_alive_a",
+                    "effect_buff": {
+                      "type": "ViewEffect",
+                      "name": "league_caitlyn_w_trap"
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              },
               {
-                "type": "SwitchByBuff",
-                "buff_name": "league_caitlyn_w_alive_a",
-                "effect_buff": {
-                  "type": "ViewEffect",
-                  "name": "league_caitlyn_w_trap"
-                },
-                "effect_none": {
-                  "type": "Combine",
-                  "effects": []
-                }
-              }
-            ]
-          },
-          {
-            "type": "Delayed",
-            "tick": 255,
-            "effects": [
+                "type": "Delayed",
+                "tick": 240,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_caitlyn_w_alive_a",
+                    "effect_buff": {
+                      "type": "ViewEffect",
+                      "name": "league_caitlyn_w_trap"
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              },
               {
-                "type": "SwitchByBuff",
-                "buff_name": "league_caitlyn_w_alive_a",
-                "effect_buff": {
-                  "type": "ViewEffect",
-                  "name": "league_caitlyn_w_trap"
-                },
-                "effect_none": {
-                  "type": "Combine",
-                  "effects": []
-                }
-              }
-            ]
-          },
-          {
-            "type": "Delayed",
-            "tick": 270,
-            "effects": [
+                "type": "Delayed",
+                "tick": 255,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_caitlyn_w_alive_a",
+                    "effect_buff": {
+                      "type": "ViewEffect",
+                      "name": "league_caitlyn_w_trap"
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              },
               {
-                "type": "SwitchByBuff",
-                "buff_name": "league_caitlyn_w_alive_a",
-                "effect_buff": {
-                  "type": "ViewEffect",
-                  "name": "league_caitlyn_w_trap"
-                },
-                "effect_none": {
-                  "type": "Combine",
-                  "effects": []
-                }
-              }
-            ]
-          },
-          {
-            "type": "Delayed",
-            "tick": 285,
-            "effects": [
+                "type": "Delayed",
+                "tick": 270,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_caitlyn_w_alive_a",
+                    "effect_buff": {
+                      "type": "ViewEffect",
+                      "name": "league_caitlyn_w_trap"
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              },
               {
-                "type": "SwitchByBuff",
-                "buff_name": "league_caitlyn_w_alive_a",
-                "effect_buff": {
-                  "type": "ViewEffect",
-                  "name": "league_caitlyn_w_trap"
-                },
-                "effect_none": {
-                  "type": "Combine",
-                  "effects": []
-                }
-              }
-            ]
-          },
-          {
-            "type": "Delayed",
-            "tick": 300,
-            "effects": [
+                "type": "Delayed",
+                "tick": 285,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_caitlyn_w_alive_a",
+                    "effect_buff": {
+                      "type": "ViewEffect",
+                      "name": "league_caitlyn_w_trap"
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              },
               {
-                "type": "SwitchByBuff",
-                "buff_name": "league_caitlyn_w_alive_a",
-                "effect_buff": {
-                  "type": "ViewEffect",
-                  "name": "league_caitlyn_w_trap"
-                },
-                "effect_none": {
-                  "type": "Combine",
-                  "effects": []
-                }
-              }
-            ]
-          },
-          {
-            "type": "Delayed",
-            "tick": 315,
-            "effects": [
+                "type": "Delayed",
+                "tick": 300,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_caitlyn_w_alive_a",
+                    "effect_buff": {
+                      "type": "ViewEffect",
+                      "name": "league_caitlyn_w_trap"
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              },
               {
-                "type": "SwitchByBuff",
-                "buff_name": "league_caitlyn_w_alive_a",
-                "effect_buff": {
-                  "type": "ViewEffect",
-                  "name": "league_caitlyn_w_trap"
-                },
-                "effect_none": {
-                  "type": "Combine",
-                  "effects": []
-                }
-              }
-            ]
-          },
-          {
-            "type": "Delayed",
-            "tick": 330,
-            "effects": [
+                "type": "Delayed",
+                "tick": 315,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_caitlyn_w_alive_a",
+                    "effect_buff": {
+                      "type": "ViewEffect",
+                      "name": "league_caitlyn_w_trap"
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              },
               {
-                "type": "SwitchByBuff",
-                "buff_name": "league_caitlyn_w_alive_a",
-                "effect_buff": {
-                  "type": "ViewEffect",
-                  "name": "league_caitlyn_w_trap"
-                },
-                "effect_none": {
-                  "type": "Combine",
-                  "effects": []
-                }
-              }
-            ]
-          },
-          {
-            "type": "Delayed",
-            "tick": 345,
-            "effects": [
+                "type": "Delayed",
+                "tick": 330,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_caitlyn_w_alive_a",
+                    "effect_buff": {
+                      "type": "ViewEffect",
+                      "name": "league_caitlyn_w_trap"
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              },
               {
-                "type": "SwitchByBuff",
-                "buff_name": "league_caitlyn_w_alive_a",
-                "effect_buff": {
-                  "type": "ViewEffect",
-                  "name": "league_caitlyn_w_trap"
-                },
-                "effect_none": {
-                  "type": "Combine",
-                  "effects": []
-                }
-              }
-            ]
-          },
-          {
-            "type": "Delayed",
-            "tick": 360,
-            "effects": [
+                "type": "Delayed",
+                "tick": 345,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_caitlyn_w_alive_a",
+                    "effect_buff": {
+                      "type": "ViewEffect",
+                      "name": "league_caitlyn_w_trap"
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              },
               {
-                "type": "SwitchByBuff",
-                "buff_name": "league_caitlyn_w_alive_a",
-                "effect_buff": {
-                  "type": "ViewEffect",
-                  "name": "league_caitlyn_w_trap"
-                },
-                "effect_none": {
-                  "type": "Combine",
-                  "effects": []
-                }
-              }
-            ]
-          },
-          {
-            "type": "Delayed",
-            "tick": 375,
-            "effects": [
+                "type": "Delayed",
+                "tick": 360,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_caitlyn_w_alive_a",
+                    "effect_buff": {
+                      "type": "ViewEffect",
+                      "name": "league_caitlyn_w_trap"
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              },
               {
-                "type": "SwitchByBuff",
-                "buff_name": "league_caitlyn_w_alive_a",
-                "effect_buff": {
-                  "type": "ViewEffect",
-                  "name": "league_caitlyn_w_trap"
-                },
-                "effect_none": {
-                  "type": "Combine",
-                  "effects": []
-                }
-              }
-            ]
-          },
-          {
-            "type": "Delayed",
-            "tick": 390,
-            "effects": [
+                "type": "Delayed",
+                "tick": 375,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_caitlyn_w_alive_a",
+                    "effect_buff": {
+                      "type": "ViewEffect",
+                      "name": "league_caitlyn_w_trap"
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              },
               {
-                "type": "SwitchByBuff",
-                "buff_name": "league_caitlyn_w_alive_a",
-                "effect_buff": {
-                  "type": "ViewEffect",
-                  "name": "league_caitlyn_w_trap"
-                },
-                "effect_none": {
-                  "type": "Combine",
-                  "effects": []
-                }
-              }
-            ]
-          },
-          {
-            "type": "Delayed",
-            "tick": 405,
-            "effects": [
+                "type": "Delayed",
+                "tick": 390,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_caitlyn_w_alive_a",
+                    "effect_buff": {
+                      "type": "ViewEffect",
+                      "name": "league_caitlyn_w_trap"
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              },
               {
-                "type": "SwitchByBuff",
-                "buff_name": "league_caitlyn_w_alive_a",
-                "effect_buff": {
-                  "type": "ViewEffect",
-                  "name": "league_caitlyn_w_trap"
-                },
-                "effect_none": {
-                  "type": "Combine",
-                  "effects": []
-                }
-              }
-            ]
-          },
-          {
-            "type": "Delayed",
-            "tick": 420,
-            "effects": [
+                "type": "Delayed",
+                "tick": 405,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_caitlyn_w_alive_a",
+                    "effect_buff": {
+                      "type": "ViewEffect",
+                      "name": "league_caitlyn_w_trap"
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              },
               {
-                "type": "SwitchByBuff",
-                "buff_name": "league_caitlyn_w_alive_a",
-                "effect_buff": {
-                  "type": "ViewEffect",
-                  "name": "league_caitlyn_w_trap"
-                },
-                "effect_none": {
-                  "type": "Combine",
-                  "effects": []
-                }
-              }
-            ]
-          },
-          {
-            "type": "Delayed",
-            "tick": 435,
-            "effects": [
+                "type": "Delayed",
+                "tick": 420,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_caitlyn_w_alive_a",
+                    "effect_buff": {
+                      "type": "ViewEffect",
+                      "name": "league_caitlyn_w_trap"
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              },
               {
-                "type": "SwitchByBuff",
-                "buff_name": "league_caitlyn_w_alive_a",
-                "effect_buff": {
-                  "type": "ViewEffect",
-                  "name": "league_caitlyn_w_trap"
-                },
-                "effect_none": {
-                  "type": "Combine",
-                  "effects": []
-                }
-              }
-            ]
-          },
-          {
-            "type": "Delayed",
-            "tick": 450,
-            "effects": [
+                "type": "Delayed",
+                "tick": 435,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_caitlyn_w_alive_a",
+                    "effect_buff": {
+                      "type": "ViewEffect",
+                      "name": "league_caitlyn_w_trap"
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              },
               {
-                "type": "SwitchByBuff",
-                "buff_name": "league_caitlyn_w_alive_a",
-                "effect_buff": {
-                  "type": "ViewEffect",
-                  "name": "league_caitlyn_w_trap"
-                },
-                "effect_none": {
-                  "type": "Combine",
-                  "effects": []
-                }
-              }
-            ]
-          },
-          {
-            "type": "Delayed",
-            "tick": 465,
-            "effects": [
+                "type": "Delayed",
+                "tick": 450,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_caitlyn_w_alive_a",
+                    "effect_buff": {
+                      "type": "ViewEffect",
+                      "name": "league_caitlyn_w_trap"
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              },
               {
-                "type": "SwitchByBuff",
-                "buff_name": "league_caitlyn_w_alive_a",
-                "effect_buff": {
-                  "type": "ViewEffect",
-                  "name": "league_caitlyn_w_trap"
-                },
-                "effect_none": {
-                  "type": "Combine",
-                  "effects": []
-                }
-              }
-            ]
-          },
-          {
-            "type": "Delayed",
-            "tick": 480,
-            "effects": [
+                "type": "Delayed",
+                "tick": 465,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_caitlyn_w_alive_a",
+                    "effect_buff": {
+                      "type": "ViewEffect",
+                      "name": "league_caitlyn_w_trap"
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              },
               {
-                "type": "SwitchByBuff",
-                "buff_name": "league_caitlyn_w_alive_a",
-                "effect_buff": {
-                  "type": "ViewEffect",
-                  "name": "league_caitlyn_w_trap"
-                },
-                "effect_none": {
-                  "type": "Combine",
-                  "effects": []
-                }
-              }
-            ]
-          },
-          {
-            "type": "Delayed",
-            "tick": 495,
-            "effects": [
+                "type": "Delayed",
+                "tick": 480,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_caitlyn_w_alive_a",
+                    "effect_buff": {
+                      "type": "ViewEffect",
+                      "name": "league_caitlyn_w_trap"
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              },
               {
-                "type": "SwitchByBuff",
-                "buff_name": "league_caitlyn_w_alive_a",
-                "effect_buff": {
-                  "type": "ViewEffect",
-                  "name": "league_caitlyn_w_trap"
-                },
-                "effect_none": {
-                  "type": "Combine",
-                  "effects": []
-                }
+                "type": "Delayed",
+                "tick": 495,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_caitlyn_w_alive_a",
+                    "effect_buff": {
+                      "type": "ViewEffect",
+                      "name": "league_caitlyn_w_fade"
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
               }
-            ]
-          },
-          {
-            "type": "Delayed",
-            "tick": 510,
-            "effects": [
-              {
-                "type": "SwitchByBuff",
-                "buff_name": "league_caitlyn_w_alive_a",
-                "effect_buff": {
-                  "type": "ViewEffect",
-                  "name": "league_caitlyn_w_fade"
-                },
-                "effect_none": {
-                  "type": "Combine",
-                  "effects": []
-                }
+            ],
+            "speed": 6000,
+            "range": 100000,
+            "shape": {
+              "Circle": {
+                "radius": 6000
               }
-            ]
+            },
+            "y_offset": 0
           }
         ]
       }

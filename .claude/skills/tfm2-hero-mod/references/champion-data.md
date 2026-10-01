@@ -509,7 +509,9 @@ when nobody hit her, and 89 ticks after the cast when enemies broke the shield f
 the unit holds - also one an ally gave it - and is gone 2 ticks after the hit that breaks the shield, so read it
 with a `Delayed {tick: 2}`. A `FixedAttack` on yourself is scaled by `damaged_reduce` / `damaged_amplify` like any
 damage, and damage a shield absorbs does not count in the simulation's "tank" statistic. A dying caster's
-zones and pending `Delayed` effects stop; the respawned hero is a new entity with none of them.
+zones and pending `Delayed` effects stop; the respawned hero is a new entity with none of them. Not a zone started
+from a projectile's `end_effects` (or a `Delayed` there): it runs its whole life (league_caitlyn W's traps, thrown as
+projectiles, 2026-10-01; see "A dead caster").
 
 **A dead caster** *(SDK simulation, league_jinx E, 2026-10-01)*: until he respawns (as a new entity) his buffs
 keep the state they had when he died - `SwitchByBuff` still reads them, nothing can be added to or taken from
@@ -520,7 +522,11 @@ league_jinx E's links went on after her death and, with the lock never added, bi
 at every link (8 and 18 times in two of 24 games; players: "夹子反复触发"); now each check starts from a
 `Delayed {tick: 1}` and a dead Jinx's trap bites no one (0 in 51 games). A flag the trap puts on her while she
 lives and reads later cannot do it: any flag on when she dies stays on, and gates that are off when the AI decides
-cost casts (section 3: the AI scores the branch the caster's buffs pick).
+cost casts (section 3: the AI scores the branch the caster's buffs pick). A search can: `RandomTarget {range: 1,
+casting_target: AllyOnlySelf}` finds no dead caster, so a zone's applied effects can ask "does she live" (a 1-tick flag
+from the search, read in the same tick) and keep their effects in plain sight of the AI - league_caitlyn W: 0 bites after
+29 deaths in 16 games (285 unguarded), the AI's throws unchanged, where the `Delayed`-projectile route cost a third of
+them.
 
 **Death clears a mod's buffs** *(seen in the SDK simulation, a probe hero on league_teemo)*: a
 `Permanent` caster buff added by his first attack was missing from his buff list after he died and
@@ -2189,27 +2195,36 @@ The user picked League's E as her escape: on tick 1 of an attack, with E ready (
 and from tick 7 hops her `MoveBack` 5000 x 6 straight away from that champion (inside `RandomTarget` the hop's target is
 the picked unit, league_ezreal E); `SwitchByBuff e_go` then skips the shot. About 2.5 nets a game.
 
-**Three traps on three slots that each bite one champion (league_caitlyn W, Yordle Snap Trap).** A `Position` cast on
+**Three traps on three spots, each biting one champion (league_caitlyn W, Yordle Snap Trap).** A `Direction` cast on
 `EnemyChampion` (range 80000) with `cooltime_use_count` 3 and cooltime 2160 (a charge every 12 s), on league_teemo R's
-slots: the first slot whose `busy` flag is gone takes the throw (a `ParabolicProjectile` with a view, 15 ticks), its
-`alive` flag lasts the life (30 ticks to arm, then 8 s), and `busy` outlasts every link, under the 12 s a slot takes to
-come back. Armed, a `RangePeriodProjectile` (radius 9000, `period` 1, the life) on `EnemyChampion` runs, while `alive`
-holds, `RemoveCasterBuff alive` first and then `Bind` 75, the snap picture and `hs_trap` on the champion it applies to:
-the removal comes before the next unit's check in the same tick, so one champion is bitten (league_jinx E bites every
-champion inside, its lock added a tick later). Picture links every 15 ticks show the lying trap while `alive` holds and
-the fading one as its last link. In simulated games 20 throws and 13 snaps a game: the AI's champions stand still
-while they attack. Her death needs no guard here (league_jinx E's chain of projectiles did, "A dead caster"): a dying
-caster's zones stop (section 5), and in 8 logged games with 13 deaths and 82 snaps none came while she was dead; a
-`Bind` moved into a `Delayed {tick: 1}` projectile was dropped again, since the AI scores a cast by the damage of the
-branch it can see when it decides.
+slots: the first slot whose `busy` flag is gone takes the throw, a `LinearProjectile` with the trap's view whose
+`end_effects` land the trap where it stops - slot a non-penetrating on `EnemyChampion` (it stops on the first enemy
+champion on the line: his feet), b and c penetrating with `range` 35000 and 58000 (a `Direction` cast's projectile
+stops at caster + direction x range). Thrown at his feet every time (a `Position` cast, the first version) the AI
+spent its three charges in a row on one champion and the traps piled up: 19 of 52 pairs alive together lay within
+18000 (the user: "会在一个位置无限放夹子 应该错开来放吧"); spread, 11 of 99. The landing adds `alive` for the life
+(30 ticks to arm, then 8 s), plays the landing and starts, from a `Delayed` (which keeps the point), a
+`RangePeriodProjectile` (radius 9000, `period` 1, the life) on `EnemyChampion` that, while `alive` holds, runs
+`RemoveCasterBuff alive` first and then `Bind` 75, the snap picture and `hs_trap`: the removal comes before the next
+unit's check in the same tick, so one champion is bitten. Picture links every 15 ticks show the lying trap while
+`alive` holds and the fading one as its last link. A zone from `end_effects` outlives its caster (section 5) and her
+frozen `alive` cannot be taken, so unguarded it bit every tick while she was dead (285 times in 16 games): the bite
+first asks `RandomTarget {range: 1, casting_target: AllyOnlySelf}` for a 1-tick `w_live` flag ("A dead caster").
+19 throws and 9-11 snaps a game: the AI's champions stand still while they attack.
 
-**A piercing round aimed at a champion, the first unit taking it all (league_caitlyn Q, Piltover Peacemaker).** A
+**A piercing round at where a champion stood, dodged by stepping aside (league_caitlyn Q, Piltover Peacemaker).** A
 `Direction` cast on `EnemyWithoutTower` (range 120000), so it also clears waves and camps; its sound plays on tick 1 and
 the shot comes from a `Delayed` 23 ticks later - a `Delayed` keeps a `Direction` cast's direction (no bolt without one in
-the logs). Morgana Q's aim: `RandomTarget {range: 100000, casting_target: EnemyChampion}` fires a penetrating
-`LinearProjectile` (speed 10000) toward a champion in reach with a 1-tick flag, else the cast's way; the first unit hit
-takes 60 + 110% AD and sets `q_first` (40 ticks), the rest 60% of it. Started from tick 1 the shot comes even when her
-wind-up is cut short: the same kit with the shot on `start_timing` 24 was 0.6 kills weaker on the same seeds.
+the logs). Aimed at a champion in reach when it leaves (Morgana Q's `RandomTarget`), it hit almost every time (the
+user: "Q是可以躲得 现在百发百命中"). Now the aim is locked 8 ticks before the shot: `RandomTarget {range: 100000,
+casting_target: EnemyChampion}` adds a flag and lobs a hidden `ParabolicProjectile` (`travel_time` 8), which lands where
+the champion stood; its `end_effects` start the bolt, which leaves from her (every projectile does), heads for that
+point and ends there; without a champion the bolt takes the cast's way. The muzzle and the sound stay in the cast's
+`Delayed` (a lob landing after her death would play them on her body). Of the bolts aimed at a champion, locked on
+tick 1 (League's whole 0.4 s wind-up) 16% hit - the AI's champions keep walking -, 12 ticks before the shot 28%, 8
+ticks about 40%. The first unit hit takes 60 + 110% AD and sets `q_first` (40 ticks), the rest 60% of it. Started
+from tick 1 the shot comes even when her wind-up is cut short: the same kit with the shot on `start_timing` 24 was
+0.6 kills weaker on the same seeds.
 
 **A channelled shot the first champion stops (league_caitlyn R, Ace in the Hole).** A `Targeting` cast on
 `EnemyChampion` with a long reach (200000): a crosshair buff on the target for the 1 s channel, league_missfortune R's

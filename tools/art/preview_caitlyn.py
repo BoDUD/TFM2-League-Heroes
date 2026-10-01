@@ -10,7 +10,8 @@
                                up to her: the shot becomes the net (90 Caliber Net) - it slows him and she hops back
                                - and the next shot is a Headshot; a trap thrown at his feet lands, arms and snaps
                                shut on him, rooting him, and her next shot is a Headshot from the trap; Garen comes
-                               up behind him; Piltover Peacemaker pierces both and Darius falls; Ace in the Hole:
+                               up behind him; Piltover Peacemaker, locked on Garen, pierces Darius on its way and
+                               Darius falls; Ace in the Hole:
                                the crosshair on Garen for the 1 s channel, then the long shot; 3x
 Projectiles fly as the kit flies them: from over her pivot, lifted to the muzzle's height (5000 - y_offset), at the
 target's pivot, turned to their way; their tags start empty while they cross her (tools/art/import_caitlyn.py).
@@ -27,7 +28,7 @@ sys.path.insert(0, HERE)
 from preview_annie import Held, OnFoe  # noqa: E402
 from preview_ashe import Anim, tick  # noqa: E402
 from preview_garen import ARENA, T, contact, frames_of, load  # noqa: E402
-from preview_jinx import Arc, Follow  # noqa: E402
+from preview_jinx import Follow  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
 LEAGUE = os.path.join(ROOT, "league")
@@ -135,12 +136,13 @@ def showcase(out, z=3, step=40):
     x = x0 - 30
     idle_to(e0 + 750)
     idle_to(headshot(d))                               # after the net: a Headshot
-    # W at his feet: the throw leaves on tick 10, lands 15 ticks later, arms 30 ticks after that and snaps him
+    # W at his feet: the trap leaves on tick 10, thrown straight at 6 px a tick (5 px over her pivot), stops on him,
+    # arms 30 ticks after landing and snaps him
     w0 = t
     throw = w0 + tick(10)
     spot = d.pos(throw)
-    land = throw + tick(15)
-    over.append(Arc(frames_of(fx, "w_throw"), throw, x, gy, until=land, x1=spot[0], y1=spot[1], h=22))
+    land = throw + tick(max(1.0, math.hypot(spot[0] - x, 5) / 6.0))
+    over.append(Turned(frames_of(fx, "w_throw"), throw, x, gy - 5, until=land, x1=spot[0], y1=spot[1]))
     under.append(Anim(frames_of(fx, "w_land"), land, *spot))
     armed = land + tick(30)                            # he stands on it: it bites as it arms
     on(d, "w_snap", armed)
@@ -151,13 +153,14 @@ def showcase(out, z=3, step=40):
     # Garen comes up behind him
     g.walks.append((t - 1600, t + 200, 150 - g.x))
     idle_to(t + 250)
-    # Piltover Peacemaker at Darius: the shot on tick 24 of the 40-tick strip, a piercing line 120 px long
+    # Piltover Peacemaker locked on Garen 8 ticks before the shot (tick 24 of the 40-tick strip): the bolt flies to
+    # where he stood then and ends there, piercing Darius on the way
     q0 = t
     qf = q0 + tick(24)
     flash("q_muzzle", qf)
-    x1 = x + 120
-    q_end = qf + tick(120 / Q[0])
-    over.append(Turned(frames_of(fx, "q_bolt"), qf, x, gy - Q[1], until=q_end, x1=x1, y1=gy))
+    x1, y1 = g.pos(qf - tick(8))
+    q_end = qf + tick(math.hypot(x1 - x, y1 - (gy - Q[1])) / Q[0])
+    over.append(Turned(frames_of(fx, "q_bolt"), qf, x, gy - Q[1], until=q_end, x1=x1, y1=y1))
     for foe in (d, g):
         fx_, _ = foe.pos(qf)
         hit_at = qf + tick((fx_ - x) / Q[0])
