@@ -5,17 +5,17 @@
     python tools/art/import_camille.py                                   # native strips -> effect sheets
 
 The body comes from tools/art/import_native.py. --raw turns every delivered strip into a native strip
-(assets/source/camille/camille_fx_<name>.png, 8x blocks) the way tools/art/import_shaco.py does: the frames from
-manifest.json's `assets[].frames[].rect` (or equal cells across the image), each game pixel the majority colour of
-the source pixels it covers, opaque when a third of them are solid, every colour snapped to the ramps that strip
-asked for; then the ring comes off the glows (import_riven.unrim's rule: an edge pixel of a ramp's darkest shade goes
-when two lighter neighbours hold the shape, else it takes the next shade). The hook's gold claw keeps its dark gold
-edge (not a ring shade). A delivered strip already made of flat 8x8 blocks is read one pixel a block instead. Writes
-camille_fx_anchors.json beside the strips.
-One scale per strip, set by the kit (1000 distance units a pixel): the hits 14-28 px wide, the sweep's fan 46 long
-(W's DirDot radius 46000), the hook and cable 72 at full length (8 squares a frame), the stun 16 wide, the shield 50
-tall over her 46 rows, the target's mark 28, the landing ring 56 (E's radius 25000 and a margin), the arena's hexagon
-86 wide (R's leash 25000 and the bodies round it), measured on its standing frames only.
+(assets/source/camille/camille_fx_<name>.png, 8x blocks). Codex's delivery (2026-10-02, 16 strips, 95 frames) is
+flat 8x8 blocks in the asked palette, its cells larger than the drawings, so each strip is read a pixel a block and
+then either kept as drawn (`native`: drawn within ~20% of its game size - Q2's burst, the sweep's fan (41 long against
+W's DirDot radius 46000), the hook and its cable (8 squares a frame), the stun, R's spark, E's landing ring and the
+arena, whose forming and standing strips must keep one scale so the loop meets the landing) or resampled to its game
+size like a raw drawing (each game pixel the majority colour of the source pixels it covers, kept when a fifth of them
+are solid so one-pixel sparks survive): the hits 14-20 px wide (drawn 25-29), the shield 50 tall over her 46 rows
+(drawn 65), the target's mark 28 (drawn 46), the wall zap 20. Every colour is snapped to the ramps the strip asked
+for, then the ring comes off the glows (import_riven.unrim's rule: an edge pixel of a ramp's darkest shade goes when
+two lighter neighbours hold the shape, else it takes the next shade). The shield slid 7 px sideways a frame in the
+delivery: each of its frames is anchored on its own drawing. Writes camille_fx_anchors.json beside the strips.
 The second step places every cell by its anchor on the unit and times it by the kit (60 ticks a second): a hit on the
 chest, the stun over the crown, the shield round her whole figure, the rings and the arena on the soles' row; the
 sweep's fan with its point 30 px behind the line's middle (a LineRangeProjectile's picture is centred on the line,
@@ -60,27 +60,30 @@ RIM = {"00457A": "0089C7", "1C2F80": "2F5FD9", "5E2491": "9447D1", "4A5470": "7F
 N4 = [(-1, 0), (1, 0), (0, -1), (0, 1)]
 N8 = N4 + [(-1, -1), (-1, 1), (1, -1), (1, 1)]
 
-# raw strip -> native: frames; ramps; scale by `size` game px over `measure` ("w" the widest drawing, "h" the tallest)
-# on `measure_on` frames (default all); anchors per axis: "cell" the cell's middle, ("at", share) of the cell,
-# "lowest" the lowest drawn row over all frames, "leftmost" the leftmost drawn column over all frames; `mirror` the
-# top half onto the bottom (the fan and the hook are drawn symmetric about their line)
+# raw strip -> native: frames; ramps; scale: `native` reads the delivery a pixel a block (Codex drew it near its
+# game size: within ~20%), else `size` game px over `measure` ("w" the widest drawing, "h" the tallest) on `measure_on`
+# frames (default all), a game pixel kept when `keep` of the source pixels it covers are solid (sparks of one
+# source pixel survive a halving at 0.2); anchors per axis: "cell" the cell's middle, ("at", share) of the cell
+# (0: the middle of its first column), "lowest" the lowest drawn row over all frames, "box" the middle of all the
+# frames' drawing, "own" each frame's own drawing (Codex's shield slid 7 px a frame); `mirror` the top half onto the
+# bottom (an odd-height strip drawn symmetric about its line)
 RAW = {
-    "hit": dict(n=5, ramps="steel hex", size=14, measure="w"),
-    "q_hit": dict(n=6, ramps="hex", size=20, measure="w"),
-    "q2_hit": dict(n=7, ramps="hex", size=28, measure="w"),
-    "w_arc": dict(n=6, ramps="hex steel", size=46, measure="w", x="leftmost", mirror=True),
-    "w_hit": dict(n=4, ramps="hex", size=14, measure="w"),
-    "w_edge": dict(n=6, ramps="hex deep", size=20, measure="w"),
-    "e_hook": dict(n=8, ramps="gold hex deep", size=72, measure="w", mirror=True),
-    "e_hit": dict(n=5, ramps="hex deep", size=16, measure="w"),
-    "e_stun": dict(n=8, ramps="hex", size=16, measure="w"),
-    "p_shield": dict(n=6, ramps="hex", size=50, measure="h"),
-    "r_mark": dict(n=4, ramps="violet hex", size=28, measure="w"),
-    "r_wall": dict(n=5, ramps="violet hex", size=20, measure="w"),
-    "r_hit": dict(n=4, ramps="violet", size=14, measure="w"),
-    "e_land": dict(n=7, ramps="hex dust", size=56, measure="w"),
-    "r_land": dict(n=8, ramps="hex deep", size=86, measure="w", measure_on=[7]),
-    "r_zone": dict(n=6, ramps="hex deep", size=86, measure="w"),
+    "hit": dict(n=5, ramps="steel hex", size=14, measure="w", keep=0.2),
+    "q_hit": dict(n=6, ramps="hex", size=20, measure="w", keep=0.2),
+    "q2_hit": dict(n=7, ramps="hex", native=True),
+    "w_arc": dict(n=6, ramps="hex steel", native=True, x=("at", 0)),
+    "w_hit": dict(n=4, ramps="hex", size=14, measure="w", keep=0.2),
+    "w_edge": dict(n=6, ramps="hex deep", size=20, measure="w", keep=0.2),
+    "e_hook": dict(n=8, ramps="gold hex deep", native=True, keep_rim=True),   # the cable's dark core is its middle
+    "e_hit": dict(n=5, ramps="hex deep", size=16, measure="w", keep=0.2),
+    "e_stun": dict(n=8, ramps="hex", native=True),
+    "p_shield": dict(n=6, ramps="hex", size=50, measure="h", keep=0.2, x="own", y="own"),
+    "r_mark": dict(n=4, ramps="violet hex", size=28, measure="w", keep=0.2, x="box", y="box"),
+    "r_wall": dict(n=5, ramps="violet hex", size=20, measure="w", keep=0.2),
+    "r_hit": dict(n=4, ramps="violet", native=True),
+    "e_land": dict(n=7, ramps="hex dust", native=True, x="box", y="box"),
+    "r_land": dict(n=8, ramps="hex deep", native=True),
+    "r_zone": dict(n=6, ramps="hex deep", native=True),
 }
 
 
@@ -144,10 +147,15 @@ def anchors_of(spec, rects, box):
                 vals.append(o + size / 2)
             elif how == "lowest":
                 vals.append(y + max(b[3] - r[1] for b, r in zip(box, rects)) - 0.5)
-            elif how == "leftmost":
-                vals.append(x + min(b[0] - r[0] for b, r in zip(box, rects)) + 0.5)
+            elif how == "box":
+                lo = min((b[0] - r[0]) if axis == 0 else (b[2] - r[1]) for b, r in zip(box, rects))
+                hi = max((b[1] - r[0]) if axis == 0 else (b[3] - r[1]) for b, r in zip(box, rects))
+                vals.append(o + (lo + hi) / 2)
+            elif how == "own":
+                b = box[k]
+                vals.append(((b[0] + b[1]) if axis == 0 else (b[2] + b[3])) / 2)
             elif how[0] == "at":
-                vals.append(o + size * how[1])
+                vals.append(o + size * how[1] if how[1] else o + 0.5)
             else:
                 raise ValueError(how)
         out.append(vals)
@@ -175,24 +183,11 @@ def from_raw(folder, only=None):
             continue
         fn = f"camille_fx_{name}.png"
         a = np.asarray(Image.open(G.lp(os.path.join(folder, fn))).convert("RGBA")).copy()
-        native = flat_blocks(a)
-        if native is not None:                     # already at game size: one pixel a block, the cells equal
-            n = spec["n"]
-            if native.shape[1] % n:
-                sys.exit(f"{fn}: {native.shape[1]} px is not {n} equal cells")
-            tw, th = native.shape[1] // n, native.shape[0]
-            out = native
-            L, U = tw // 2, th // 2
-            if spec.get("y") == "lowest":
-                U = int(np.nonzero(native[..., 3].any(1))[0].max())
-            if spec.get("x") == "leftmost":
-                L = min(int(np.nonzero(native[:, k * tw:(k + 1) * tw, 3].any(0))[0].min()) for k in range(n))
-            Image.fromarray(np.repeat(np.repeat(out, Z, 0), Z, 1), "RGBA").save(G.lp(os.path.join(SRC, fn)))
-            anchors[name] = {"cell": [tw, th], "anchor": [L, U], "frames": n}
-            print(f"{fn}  native: {n} cells of {tw}x{th}, anchor {L},{U}")
-            continue
+        flat = flat_blocks(a)
+        if flat is not None:                       # flat 8x8 blocks: work on the delivery's own pixels
+            a = flat
         solid = a[..., 3] >= 100
-        if fn in manifest:
+        if fn in manifest and flat is None:
             rects = [rect(f) for f in manifest[fn]["frames"]]
         else:                                      # equal cells across the image
             cw = a.shape[1] // spec["n"]
@@ -204,9 +199,12 @@ def from_raw(folder, only=None):
             ys, xs = np.nonzero(solid[y:y + h, x:x + w])
             box.append((x + xs.min(), x + xs.max() + 1, y + ys.min(), y + ys.max() + 1) if len(xs) else
                        (x + w // 2, x + w // 2 + 1, y + h // 2, y + h // 2 + 1))
-        on = [box[k] for k in spec.get("measure_on", range(spec["n"]))]
-        ext = {"h": lambda: max(b[3] - b[2] for b in on), "w": lambda: max(b[1] - b[0] for b in on)}[spec["measure"]]()
-        sx = sy = spec["size"] / ext
+        if spec.get("native"):
+            sx = sy = 1.0
+        else:
+            on = [box[k] for k in spec.get("measure_on", range(spec["n"]))]
+            ext = {"h": lambda: max(b[3] - b[2] for b in on), "w": lambda: max(b[1] - b[0] for b in on)}[spec["measure"]]()
+            sx = sy = spec["size"] / ext
         hexes = [h for r in spec["ramps"].split() for h in RAMPS[r]]
         idx = snap(a, solid, np.array([rgb(h) for h in hexes], float))
         pal = np.array([rgb(h) for h in hexes], np.uint8)
@@ -231,13 +229,15 @@ def from_raw(folder, only=None):
                     if sx1 <= sx0:
                         continue
                     m = solid[sy0:sy1, sx0:sx1]
-                    if m.mean() < 1 / 3:
+                    if m.mean() < spec.get("keep", 1 / 3):
                         continue
                     col = np.bincount(idx[sy0:sy1, sx0:sx1][m], minlength=len(pal)).argmax()
                     out[r, k * tw + c, :3] = pal[col]
                     out[r, k * tw + c, 3] = 255
-            cell, n = unrim(out[:, k * tw:(k + 1) * tw])
-            rims += n
+            cell = out[:, k * tw:(k + 1) * tw]
+            if not spec.get("keep_rim"):
+                cell, n = unrim(cell)
+                rims += n
             if spec.get("mirror"):
                 cell = mirror(cell, U)
             out[:, k * tw:(k + 1) * tw] = cell
@@ -272,7 +272,7 @@ FX = {
         "w_edge": [("w_edge", range(6), HIT, [60] * 6)],
         "e_hook": [("e_hook", range(8), (0, 0), [22] * 8)],                 # 8 squares of cable at 6 px a tick
         "e_hit": [("e_hit", range(5), HIT, [50] * 5)],
-        "e_stun": [("e_stun", range(8), OVERHEAD, [94] * 7 + [92])],        # e_stun 45 ticks
+        "e_stun": [("e_stun", range(8), OVERHEAD, [62] * 7 + [66])],        # e_stun 30 ticks
         "p_shield": [("p_shield", range(6), BODY, [100] * 6)],              # a buff view: loops while the shield holds
         "r_mark": [("r_mark", range(4), GROUND, [120] * 4)],                # a buff view: loops under the target
         "r_wall": [("r_wall", range(5), HIT, [60] * 5)],

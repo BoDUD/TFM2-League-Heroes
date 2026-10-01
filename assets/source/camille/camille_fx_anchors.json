@@ -1,0 +1,18 @@
+{
+  "hit": {"cell": [19, 19], "anchor": [9, 9], "frames": 5},
+  "q_hit": {"cell": [25, 23], "anchor": [12, 11], "frames": 6},
+  "q2_hit": {"cell": [31, 29], "anchor": [15, 14], "frames": 7},
+  "w_arc": {"cell": [89, 65], "anchor": [44, 32], "frames": 6},
+  "w_hit": {"cell": [19, 17], "anchor": [9, 8], "frames": 4},
+  "w_edge": {"cell": [25, 21], "anchor": [12, 10], "frames": 6},
+  "e_hook": {"cell": [139, 11], "anchor": [69, 5], "frames": 8},
+  "e_hit": {"cell": [21, 23], "anchor": [10, 11], "frames": 5},
+  "e_stun": {"cell": [23, 23], "anchor": [11, 11], "frames": 8},
+  "p_shield": {"cell": [25, 53], "anchor": [12, 26], "frames": 6},
+  "r_mark": {"cell": [31, 15], "anchor": [15, 7], "frames": 4},
+  "r_wall": {"cell": [23, 27], "anchor": [11, 13], "frames": 5},
+  "r_hit": {"cell": [21, 33], "anchor": [10, 16], "frames": 4},
+  "e_land": {"cell": [63, 29], "anchor": [31, 14], "frames": 7},
+  "r_land": {"cell": [91, 59], "anchor": [45, 29], "frames": 8},
+  "r_zone": {"cell": [75, 59], "anchor": [37, 29], "frames": 6}
+}
