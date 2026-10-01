@@ -217,6 +217,10 @@
               }
             },
             {
+              "type": "CasterViewEffect",
+              "name": "league_nocturne_swing"
+            },
+            {
               "type": "Delayed",
               "tick": 8,
               "effects": [
@@ -2610,7 +2614,7 @@
                   "casting_type": "Targeting",
                   "effect": {
                     "type": "RandomTarget",
-                    "range": 45000,
+                    "range": 60000,
                     "casting_target": "AllyOnlySelf",
                     "from_projectile": true,
                     "effects": [
@@ -2789,6 +2793,10 @@
           "tick": 45
         },
         {
+          "type": "CasterViewEffect",
+          "name": "league_nocturne_r_trail"
+        },
+        {
           "type": "MoveToTarget",
           "speed": 3500,
           "range": 400000,
@@ -2833,7 +2841,7 @@
       "name": "league_nocturne_q_path",
       "anim": "asset/league/effects/league_nocturne_big",
       "tag": "q_path",
-      "repeat": false,
+      "repeat": true,
       "z": -1
     },
     {
@@ -2851,6 +2859,14 @@
       "name": "league_nocturne_hit",
       "anim": "asset/league/effects/league_nocturne_fx",
       "tag": "hit",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_nocturne_swing",
+      "anim": "asset/league/effects/league_nocturne_fx",
+      "tag": "swing",
       "z": 1,
       "is_follow": true
     },
@@ -2907,7 +2923,7 @@
       "name": "league_nocturne_w_shroud",
       "anim": "asset/league/effects/league_nocturne_fx",
       "tag": "w_shroud",
-      "z": 1,
+      "z": -1,
       "is_follow": true
     },
     {
@@ -2923,7 +2939,7 @@
       "name": "league_nocturne_r_burst",
       "anim": "asset/league/effects/league_nocturne_big",
       "tag": "r_burst",
-      "z": 1,
+      "z": -1,
       "is_follow": false
     },
     {
@@ -2932,6 +2948,14 @@
       "anim": "asset/league/effects/league_nocturne_fx",
       "tag": "r_veil",
       "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_nocturne_r_trail",
+      "anim": "asset/league/effects/league_nocturne_fx",
+      "tag": "r_trail",
+      "z": -1,
       "is_follow": true
     },
     {

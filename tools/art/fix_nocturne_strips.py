@@ -10,18 +10,23 @@ found frame by frame: when an arm moves off the body, a dangling piece of its ol
 squares joined to the body only at a corner (a 3-square stroke right of the chest in 20 frames, 1-2 squares by a fist
 in 5). They go. A corner-joined square at the tail's tip (on the feet row, 11 under the pivot) stays: the tip ending
 on a diagonal is ordinary pixel art, and it keeps him on the ground.
-Writes the strips at 8x and copies nocturne_cells.json (the pack's table, the standing points Codex drew to).
+Writes the strips at 8x and nocturne_cells.json (the pack's table, the standing points Codex drew to). Six of the
+ten - run, attack, Q, E, R and its landing - were posed again after League's clips by tools/art/rig_nocturne.py
+(RIGGED); this leaves their strips alone and keeps the rig's entries in the table.
 --check compares with the committed files instead of writing them.
 """
 import argparse
 import json
 import os
-import shutil
+import sys
 
 import numpy as np
 from PIL import Image
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, HERE)
+from rig_nocturne import RIGGED, entries  # noqa: E402
+
 ROOT = os.path.dirname(os.path.dirname(HERE))
 SRC = os.path.join(ROOT, "assets", "source", "nocturne", "codex_strips")
 OUT = os.path.join(ROOT, "assets", "source", "native")
@@ -86,6 +91,8 @@ def main():
     cw, ch = cells["cell"]
     same = True
     for tag in TAGS:
+        if tag in RIGGED:
+            continue
         one = np.asarray(Image.open(lp(os.path.join(SRC, "strips_1x", f"nocturne_{tag}_1x.png"))).convert("RGBA")).copy()
         one[one[..., 3] < 128] = 0
         one[one[..., 3] > 0, 3] = 255
@@ -105,10 +112,16 @@ def main():
         else:
             Image.fromarray(big).save(lp(path))
             print(f"{tag:8s} {len(removed)} frames, outline squares removed per frame {removed}")
+    for tag in RIGGED:
+        cells["tags"][tag] = entries(tag)
+    path = os.path.join(OUT, "nocturne_cells.json")
     if a.check:
-        print("all identical" if same else "DIFFERENT")
+        ok = json.load(open(lp(path), encoding="utf-8")) == cells
+        print(f"cells    {'identical' if ok else 'DIFFERENT'}")
+        print("all identical" if same and ok else "DIFFERENT")
     else:
-        shutil.copyfile(lp(os.path.join(SRC, "nocturne_cells.json")), lp(os.path.join(OUT, "nocturne_cells.json")))
+        with open(lp(path), "w", encoding="utf-8") as f:
+            json.dump(cells, f, ensure_ascii=False, indent=1)
 
 
 if __name__ == "__main__":
