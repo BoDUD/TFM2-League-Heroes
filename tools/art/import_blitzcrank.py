@@ -16,14 +16,17 @@ it rises from the smokestacks), the charge and the shield as Codex drew them, st
 soles, 11 px under the pivot). Rows measured on Codex's frames where its drawing moved off the pack's points: the
 bolt's burst at (9, 32) (the pack: (10, 31)), the uppercut's flash at (11, 30) (the pack: (12, 26)).
 The Rocket Grab is drawn here from the pieces, a frame every 2 ticks: the projectile's picture is turned to its
-flight, so the fist points along it with the cable behind; no height can be added (section "A beam from a raised
-weapon" in champion-data.md), so the hand flies at the hook's line (y_offset 2000) and appears once it is REACH px
-out, past his arm, the cable running back to CABLE px from where it left (inside the front of his body).
-`q_hand`: out at 6000 a tick (12 px a frame), the cable growing; the last frame held. `q_back1`..`q_back4`: a held
-hook coming back with its champion at 1500 a tick (3 px a frame) from the tier's distance (BACK: the middle of the
-returns logged for each flight window, 25 / 35-41 / 45-52 ticks), the fist turned round (its wrist toward him), the
-cable shortening; `q_miss`: the fast return (4500 a tick, 9 px a frame) from the hook's full range. Each ends empty when
-the hand is back within REACH. Writes league/effects/league_blitzcrank_fx and league_blitzcrank_big.
+flight, so the fist points along it with the cable behind; a picture cannot carry a height of its own (section "A
+beam from a raised weapon" in champion-data.md). The hook itself leaves from his raised arm (the user, 2026-10-02:
+"从上面勾 别从下面勾"; the kit's y_offset -11500 starts it 16.5 px over his pivot, the arm's height, and it slopes down
+to the range's end), so `q_hand` shows the fist once it is REACH px out, at the arm's socket, its cable running back
+to CABLE px from where it left; out at 6000 a tick (12 px a frame), the cable growing; the last frame held. Every
+return flies to his pivot whatever its y_offset (a logged game), so a cable coming back would run into his belly
+under the raised arm: `q_back1`..`q_back4` (a held hook coming back with its champion at 1500 a tick, 3 px a frame,
+from the tier's distance - BACK, the middle of the returns logged for each flight window, 25 / 35-41 / 45-52 ticks) and
+`q_miss` (the fast return, 4500 a tick, 9 px a frame, from the hook's full range) draw the fist alone, turned round
+(its wrist toward him), gone once it is back within REACH. Writes league/effects/league_blitzcrank_fx and
+league_blitzcrank_big.
 """
 import argparse
 import json
@@ -54,7 +57,7 @@ NATIVE = {
     "r_hit": (5, "centre"), "r_silence": (6, "centre"), "mb_on": (6, (30, 47)),
 }
 # the Rocket Grab, in px: the hand shows from REACH out; the cable runs back to CABLE from the start
-REACH, CABLE = 24, 16
+REACH, CABLE = 24, 22
 OUT = 12                               # px a frame going out (6000 a tick, a frame every 2 ticks)
 DRAG, FAST = 3, 9                      # px a frame coming back with a champion (1500), without (4500)
 BACK = {"q_back1": 28, "q_back2": 38, "q_back3": 57, "q_back4": 71, "q_miss": 78}
@@ -131,13 +134,13 @@ def placed(cell, anchor, spot):
     return G.centre_frame(cell, spot[0] - ax, spot[1] - ay)
 
 
-def grab_frame(hand, cable, d, back=False):
+def grab_frame(hand, cable, d, back=False, with_cable=True):
     """One frame of the hook: the fist's middle on the projectile (the pivot), the cable from its wrist to CABLE px
     from where the hand left (d px behind it). Out: the fist points right, the cable runs left; back (the picture
     turned toward Blitzcrank): the fist turned round, the cable runs right. Empty within REACH."""
     if d < REACH:
         return np.zeros((1, 1, 4), np.uint8)
-    length = d - CABLE - (HAND_P[0] - WRIST)
+    length = d - CABLE - (HAND_P[0] - WRIST) if with_cable else 0
     hh, hw = hand.shape[:2]
     pad = max(length, 0) + hw
     canvas = np.zeros((hh, pad + hw, 4), np.uint8)
@@ -168,7 +171,7 @@ def grab_tags():
         step = FAST if tag == "q_miss" else DRAG
         frames, d, j = [], start, 0
         while d >= REACH:
-            frames.append((grab_frame(hands[j % 2], cable, d, back=True), FRAME_MS))
+            frames.append((grab_frame(hands[j % 2], cable, d, back=True, with_cable=False), FRAME_MS))
             d, j = d - step, j + 1
         frames.append((np.zeros((1, 1, 4), np.uint8), 600))
         out[tag] = frames

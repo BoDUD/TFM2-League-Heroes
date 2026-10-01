@@ -36,8 +36,9 @@ CHAMP = os.path.join(LEAGUE, "champions", "league_blitzcrank")
 FX = {n: os.path.join(LEAGUE, "effects", n) for n in ("league_blitzcrank_fx", "league_blitzcrank_big")}
 SPEED = 60.0                                  # move speed 1000: 60 px a second
 ATK_DUR, ATK_HIT = 26, 8                      # the punch: the action, its hit
-Q_DUR, Q_ST, Q_SPEED, Q_DRAG, Q_LINE = 40, 11, 6.0, 1.5, 3   # Rocket Grab: the action, the throw, px a tick out and
-                                              # dragging, the hook's line 3 px over his pivot (y_offset 2000)
+Q_DUR, Q_ST, Q_SPEED, Q_DRAG = 40, 11, 6.0, 1.5   # Rocket Grab: the action, the throw, px a tick out and dragging
+Q_LIFT, Q_RANGE = 16.5, 78                    # the hook leaves 16.5 px over his pivot (y_offset -11500, his raised arm)
+                                              # and slopes down to his pivot's height at the range's end
 TOUCH = 12                                    # the hook stops 12 px short of a champion's centre
 Q_T = (5, 8, 11)                              # the flight windows: pull pose 16 / 28 / 40 / 52 ticks
 Q_PULL = (16, 28, 40, 52)
@@ -106,10 +107,12 @@ def showcase(out, z=3, step=40):
     start = t
     throw = start + tick(Q_ST)
     reach = d.x - TOUCH - x
-    flight = reach / Q_SPEED
+    cy = gy - Q_LIFT * (1 - reach / Q_RANGE)                         # the hook's height where it stops
+    flight = math.hypot(reach, Q_LIFT * reach / Q_RANGE) / Q_SPEED
     catch = throw + tick(flight)
     k = next((i for i, w in enumerate(Q_T) if flight + 1 < w), 3)
-    over.append(Anim(frames_of(big, "q_hand"), throw, x, gy - Q_LINE, until=catch, x1=x + reach, y1=gy - Q_LINE, z=1))
+    over.append(Anim(turned(frames_of(big, "q_hand"), Q_RANGE, Q_LIFT), throw, x, gy - Q_LIFT, until=catch,
+                     x1=x + reach, y1=cy, z=1))
     pull = catch + tick(1)                                            # the twin lands a tick after the hook
     a("skill", pull - t)                                              # the cast until the pull pose takes over
     a("q_pull", tick(Q_PULL[k]), loop=True)
@@ -120,11 +123,13 @@ def showcase(out, z=3, step=40):
     dragged = pull + tick(drag / Q_DRAG)
     d.holds.append((catch, dragged + tick(6)))
     d.slides.append((pull, dragged, -drag))
+    # the hand comes back with him toward Blitzcrank's pivot (every return flies there), turned toward him
     back = catch + tick(2)
-    hx0 = x + reach - Q_DRAG * 2
+    hx0, hy0 = x + reach - Q_DRAG * 2, cy
     hx1 = x + NEAR - TOUCH
-    over.append(Anim(turned(frames_of(big, f"q_back{k + 1}"), -1, 0), back, hx0, gy - Q_LINE,
-                     until=back + tick((hx0 - hx1) / Q_DRAG), x1=hx1, y1=gy - Q_LINE, z=1))
+    hy1 = hy0 + (gy - hy0) * (hx0 - hx1) / (hx0 - x)
+    over.append(Anim(turned(frames_of(big, f"q_back{k + 1}"), x - hx0, gy - hy0), back, hx0, hy0,
+                     until=back + tick((hx0 - hx1) / Q_DRAG), x1=hx1, y1=hy1, z=1))
     a("idle", max(0.0, dragged - t) + 100, loop=True)
     # Overdrive: his first action with Darius this close starts it - the steam each second for 4 s - and Power Fist
     # throws him up on tick 12 for 1 s

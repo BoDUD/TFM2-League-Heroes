@@ -269,10 +269,10 @@
       },
       "league_blitzcrank": {
         "name": "布里茨",
-        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>；大招没在冷却时，<#ffb900ff>1秒<>后再落一道闪电，造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30% 法术强度<>的<#a974ffff>魔法伤害<>。被动 <#e8d44dff>法力屏障<>：被围攻或被控制时获得<#e8d44dff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 法术强度<>的<#e8d44dff>护盾<>（冷却<#ffb900ff>60秒<>）。",
-        "skill": "射出机械手，抓住直线上第一个敌方英雄（穿过小兵），造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 法术强度<>的<#a974ffff>魔法伤害<>，<#ef5350ff>眩晕<>并把它拉到身前。",
-        "skill2": "一记上勾拳，造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150% 攻击力<>的<#ff9028ff>物理伤害<>并<#ef5350ff>击飞<><#ffb900ff>1秒<>。<#ff9028ff>过载运转<>（每<#ffb900ff>15秒<>）：敌方英雄靠近时自动开启，<#ffb900ff>4秒<>内移速+55%（逐渐降低）、攻速+40%，结束后<#ef5350ff>减速25%<><#ffb900ff>1.5秒<>。",
-        "ult": "释放静电，对身边敌人造成<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% 法术强度<>的<#a974ffff>魔法伤害<>，并<#ef5350ff>沉默<>敌方英雄<#ffb900ff>1秒<>。打起来才放；放出后普攻的闪电停用，直到大招冷却结束。"
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>；大招没在冷却时，<#ffb900ff>1秒<>后再落一道闪电，造成<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15% 法术强度<>的<#a974ffff>魔法伤害<>。被动 <#e8d44dff>法力屏障<>：被围攻或被控制时获得<#e8d44dff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 法术强度<>的<#e8d44dff>护盾<>（冷却<#ffb900ff>60秒<>）。",
+        "skill": "射出机械手，抓住直线上第一个敌方英雄（穿过小兵），造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% 法术强度<>的<#a974ffff>魔法伤害<>，<#ef5350ff>眩晕<>并把它拉到身前。",
+        "skill2": "一记上勾拳，造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>并<#ef5350ff>击飞<><#ffb900ff>1秒<>。<#ff9028ff>过载运转<>（每<#ffb900ff>15秒<>）：敌方英雄靠近时自动开启，<#ffb900ff>4秒<>内移速+40%（逐渐降低）、攻速+25%，结束后<#ef5350ff>减速25%<><#ffb900ff>1.5秒<>。",
+        "ult": "释放静电，对身边敌人造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 法术强度<>的<#a974ffff>魔法伤害<>，并<#ef5350ff>沉默<>敌方英雄<#ffb900ff>1秒<>。打起来才放；放出后普攻的闪电停用，直到大招冷却结束。"
       }
     },
     "skill_name": {
@@ -743,10 +743,10 @@
       },
       "league_blitzcrank": {
         "name": "布里茨",
-        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>；大絕沒在冷卻時，<#ffb900ff>1秒<>後再落一道閃電，造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30% 魔法攻擊<>的<#a974ffff>魔法傷害<>。被動 <#e8d44dff>法力屏障<>：被圍攻或被控場時獲得<#e8d44dff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 魔法攻擊<>的<#e8d44dff>護盾<>（冷卻<#ffb900ff>60秒<>）。",
-        "skill": "射出機械手，抓住直線上第一個敵方英雄（穿過小兵），造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 魔法攻擊<>的<#a974ffff>魔法傷害<>，<#ef5350ff>暈眩<>並把它拉到身前。",
-        "skill2": "一記上勾拳，造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150% 攻擊力<>的<#ff9028ff>物理傷害<>並<#ef5350ff>擊飛<><#ffb900ff>1秒<>。<#ff9028ff>過載運轉<>（每<#ffb900ff>15秒<>）：敵方英雄靠近時自動開啟，<#ffb900ff>4秒<>內跑速+55%（逐漸降低）、攻速+40%，結束後<#ef5350ff>緩速25%<><#ffb900ff>1.5秒<>。",
-        "ult": "釋放靜電，對身邊敵人造成<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% 魔法攻擊<>的<#a974ffff>魔法傷害<>，並<#ef5350ff>沉默<>敵方英雄<#ffb900ff>1秒<>。開打才放；放出後普攻的閃電停用，直到大絕冷卻結束。"
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>；大絕沒在冷卻時，<#ffb900ff>1秒<>後再落一道閃電，造成<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15% 魔法攻擊<>的<#a974ffff>魔法傷害<>。被動 <#e8d44dff>法力屏障<>：被圍攻或被控場時獲得<#e8d44dff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 魔法攻擊<>的<#e8d44dff>護盾<>（冷卻<#ffb900ff>60秒<>）。",
+        "skill": "射出機械手，抓住直線上第一個敵方英雄（穿過小兵），造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% 魔法攻擊<>的<#a974ffff>魔法傷害<>，<#ef5350ff>暈眩<>並把它拉到身前。",
+        "skill2": "一記上勾拳，造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>並<#ef5350ff>擊飛<><#ffb900ff>1秒<>。<#ff9028ff>過載運轉<>（每<#ffb900ff>15秒<>）：敵方英雄靠近時自動開啟，<#ffb900ff>4秒<>內跑速+40%（逐漸降低）、攻速+25%，結束後<#ef5350ff>緩速25%<><#ffb900ff>1.5秒<>。",
+        "ult": "釋放靜電，對身邊敵人造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 魔法攻擊<>的<#a974ffff>魔法傷害<>，並<#ef5350ff>沉默<>敵方英雄<#ffb900ff>1秒<>。開打才放；放出後普攻的閃電停用，直到大絕冷卻結束。"
       }
     },
     "skill_name": {
@@ -1217,10 +1217,10 @@
       },
       "league_blitzcrank": {
         "name": "Blitzcrank",
-        "attack": "Basic attacks deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>; while Static Field is off cooldown, lightning strikes the target <#ffb900ff>1s<> later for <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30% AP<> <#a974ffff>magic damage<>. Passive <#e8d44dff>Mana Barrier<>: when surrounded or crowd-controlled he gains a <#e8d44dff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% AP<> <#e8d44dff>shield<> (<#ffb900ff>60s<> cooldown).",
-        "skill": "Blitzcrank fires his hand at the first enemy champion in a line (it passes minions), dealing <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% AP<> <#a974ffff>magic damage<>, <#ef5350ff>stunning<> it and pulling it to him.",
-        "skill2": "An uppercut dealing <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150% AD<> <#ff9028ff>physical damage<> and <#ef5350ff>knocking up<> for <#ffb900ff>1s<>. <#ff9028ff>Overdrive<> (every <#ffb900ff>15s<>): when enemy champions come near he gains +55% decaying move speed and +40% attack speed for <#ffb900ff>4s<>, then is <#ef5350ff>slowed by 25%<> for <#ffb900ff>1.5s<>.",
-        "ult": "Blitzcrank discharges, dealing <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% AP<> <#a974ffff>magic damage<> to nearby enemies and <#ef5350ff>silencing<> enemy champions for <#ffb900ff>1s<>. Used once a fight is on; afterwards the attacks' lightning stops until Static Field is off cooldown."
+        "attack": "Basic attacks deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>; while Static Field is off cooldown, lightning strikes the target <#ffb900ff>1s<> later for <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15% AP<> <#a974ffff>magic damage<>. Passive <#e8d44dff>Mana Barrier<>: when surrounded or crowd-controlled he gains a <#e8d44dff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% AP<> <#e8d44dff>shield<> (<#ffb900ff>60s<> cooldown).",
+        "skill": "Blitzcrank fires his hand at the first enemy champion in a line (it passes minions), dealing <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% AP<> <#a974ffff>magic damage<>, <#ef5350ff>stunning<> it and pulling it to him.",
+        "skill2": "An uppercut dealing <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<> and <#ef5350ff>knocking up<> for <#ffb900ff>1s<>. <#ff9028ff>Overdrive<> (every <#ffb900ff>15s<>): when enemy champions come near he gains +40% decaying move speed and +25% attack speed for <#ffb900ff>4s<>, then is <#ef5350ff>slowed by 25%<> for <#ffb900ff>1.5s<>.",
+        "ult": "Blitzcrank discharges, dealing <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% AP<> <#a974ffff>magic damage<> to nearby enemies and <#ef5350ff>silencing<> enemy champions for <#ffb900ff>1s<>. Used once a fight is on; afterwards the attacks' lightning stops until Static Field is off cooldown."
       }
     },
     "skill_name": {
@@ -1691,10 +1691,10 @@
       },
       "league_blitzcrank": {
         "name": "블리츠크랭크",
-        "attack": "기본 공격: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>. 정전기장이 재사용 대기 중이 아니면 <#ffb900ff>1초<> 뒤 번개가 떨어져 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 30%<> <#a974ffff>마법 피해<>. 기본 지속 효과 <#e8d44dff>마나 보호막<>: 포위되거나 군중 제어에 걸리면 <#e8d44dff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 80%<> <#e8d44dff>보호막<>(재사용 대기 <#ffb900ff>60초<>).",
-        "skill": "손을 발사해 직선상 첫 적 챔피언(미니언 관통)을 붙잡아 <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 80%<> <#a974ffff>마법 피해<>를 입히고 <#ef5350ff>기절<>시키며 끌어옵니다.",
-        "skill2": "어퍼컷으로 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 150%<> <#ff9028ff>물리 피해<>, <#ffb900ff>1초<> <#ef5350ff>공중에 띄움<>. <#ff9028ff>폭주<>(<#ffb900ff>15초<>마다): 적 챔피언이 다가오면 <#ffb900ff>4초<> 동안 이동 속도 +55%(점차 감소), 공격 속도 +40%, 끝나면 <#ffb900ff>1.5초<> <#ef5350ff>25% 둔화<>.",
-        "ult": "정전기를 방출해 주변 적에게 <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 100%<> <#a974ffff>마법 피해<>, 적 챔피언 <#ffb900ff>1초<> <#ef5350ff>침묵<>. 교전이 시작되면 사용, 이후 재사용 대기 동안 기본 공격의 번개가 멈춥니다."
+        "attack": "기본 공격: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>. 정전기장이 재사용 대기 중이 아니면 <#ffb900ff>1초<> 뒤 번개가 떨어져 <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 15%<> <#a974ffff>마법 피해<>. 기본 지속 효과 <#e8d44dff>마나 보호막<>: 포위되거나 군중 제어에 걸리면 <#e8d44dff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 80%<> <#e8d44dff>보호막<>(재사용 대기 <#ffb900ff>60초<>).",
+        "skill": "손을 발사해 직선상 첫 적 챔피언(미니언 관통)을 붙잡아 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 50%<> <#a974ffff>마법 피해<>를 입히고 <#ef5350ff>기절<>시키며 끌어옵니다.",
+        "skill2": "어퍼컷으로 <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>, <#ffb900ff>1초<> <#ef5350ff>공중에 띄움<>. <#ff9028ff>폭주<>(<#ffb900ff>15초<>마다): 적 챔피언이 다가오면 <#ffb900ff>4초<> 동안 이동 속도 +40%(점차 감소), 공격 속도 +25%, 끝나면 <#ffb900ff>1.5초<> <#ef5350ff>25% 둔화<>.",
+        "ult": "정전기를 방출해 주변 적에게 <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 80%<> <#a974ffff>마법 피해<>, 적 챔피언 <#ffb900ff>1초<> <#ef5350ff>침묵<>. 교전이 시작되면 사용, 이후 재사용 대기 동안 기본 공격의 번개가 멈춥니다."
       }
     },
     "skill_name": {
@@ -2165,10 +2165,10 @@
       },
       "league_blitzcrank": {
         "name": "ブリッツクランク",
-        "attack": "通常攻撃は<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>。アルティメットがCD中でなければ<#ffb900ff>1秒<>後に雷が落ち<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の30%<>の<#a974ffff>魔法ダメージ<>。パッシブ <#e8d44dff>マナバリア<>：囲まれるか行動妨害を受けると<#e8d44dff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の80%<>の<#e8d44dff>シールド<>（CD<#ffb900ff>60秒<>）。",
-        "skill": "腕を発射し、直線上の最初の敵チャンピオン（ミニオンは貫通）を掴んで<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の80%<>の<#a974ffff>魔法ダメージ<>、<#ef5350ff>スタン<>させ引き寄せる。",
-        "skill2": "アッパーカットで<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の150%<>の<#ff9028ff>物理ダメージ<>と<#ffb900ff>1秒<><#ef5350ff>ノックアップ<>。<#ff9028ff>オーバードライブ<>（<#ffb900ff>15秒<>ごと）：敵チャンピオンが近づくと<#ffb900ff>4秒<>移動速度+55%（減衰）、攻撃速度+40%、終了後<#ffb900ff>1.5秒<><#ef5350ff>25%スロウ<>。",
-        "ult": "放電し周囲の敵に<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の100%<>の<#a974ffff>魔法ダメージ<>、敵チャンピオンを<#ffb900ff>1秒<><#ef5350ff>サイレンス<>。戦闘が始まると使用、以後CD中は通常攻撃の雷が止まる。"
+        "attack": "通常攻撃は<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>。アルティメットがCD中でなければ<#ffb900ff>1秒<>後に雷が落ち<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の15%<>の<#a974ffff>魔法ダメージ<>。パッシブ <#e8d44dff>マナバリア<>：囲まれるか行動妨害を受けると<#e8d44dff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の80%<>の<#e8d44dff>シールド<>（CD<#ffb900ff>60秒<>）。",
+        "skill": "腕を発射し、直線上の最初の敵チャンピオン（ミニオンは貫通）を掴んで<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の50%<>の<#a974ffff>魔法ダメージ<>、<#ef5350ff>スタン<>させ引き寄せる。",
+        "skill2": "アッパーカットで<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>と<#ffb900ff>1秒<><#ef5350ff>ノックアップ<>。<#ff9028ff>オーバードライブ<>（<#ffb900ff>15秒<>ごと）：敵チャンピオンが近づくと<#ffb900ff>4秒<>移動速度+40%（減衰）、攻撃速度+25%、終了後<#ffb900ff>1.5秒<><#ef5350ff>25%スロウ<>。",
+        "ult": "放電し周囲の敵に<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の80%<>の<#a974ffff>魔法ダメージ<>、敵チャンピオンを<#ffb900ff>1秒<><#ef5350ff>サイレンス<>。戦闘が始まると使用、以後CD中は通常攻撃の雷が止まる。"
       }
     },
     "skill_name": {

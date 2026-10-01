@@ -4,7 +4,7 @@
     python tools/art/fix_blitzcrank_strips.py [--check] [--review DIR]
 
 Reads Codex's strips as delivered (assets/source/blitzcrank/codex_strips/blitzcrank_<tag>.png, one pixel per square,
-the 128x112 cells of blitzcrank_cells.json) and the approved design (assets/source/native/blitzcrank_native.png,
+the 128x112 cells of blitzcrank_cells.json) and the design they were drawn from (design_blitzcrank.design_b2(),
 standing point (64, 88)), and writes assets/source/native/blitzcrank_<tag>.png (8x) for import_native.py. In every
 frame whose head is the design's (the pasted dome matches square for square round the eyes, 90% at least):
   1. both smokestacks as the design has them, from the eyes' top-left square: Codex put them back without their side
@@ -19,6 +19,10 @@ frame whose head is the design's (the pasted dome matches square for square roun
      blue-grey, the dark greys - not the outline) in the 11 columns left of it, 6 rows high or more with 4 silver
      squares, is painted over with the belly round it (each square takes the commonest belly colour of its
      neighbours, from the edge in).
+  3. the head two columns to the right, as on the design (design_blitzcrank.py, the user 2026-10-02: "头部可以往右侧面调
+     一调？现在太靠左贴到铠甲了"): the pasted head's rows round the eyes move right, the squares it leaves are cleared, and
+     one left inside the body (all four neighbours drawn) takes their commonest colour. The tilted heads of the hit's
+     first frame and the fall stay where Codex drew them.
 The run: Codex moved each leg for the stride as row slices of the design (the hip stays, the foot moves up to six
 squares) and every slice carried the hanging fist's inner column along - a dashed ladder down the outer side of each
 leg (the swung fists are Codex's own drawing elsewhere). Each leg's slice is found row by row (one height for the
@@ -49,6 +53,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scripts"))
 import strips as G  # noqa: E402
+sys.path.insert(0, HERE)
+import design_blitzcrank as D  # noqa: E402
 
 SRC = os.path.join(ROOT, "assets", "source", "blitzcrank", "codex_strips")
 NATIVE = os.path.join(ROOT, "assets", "source", "native")
@@ -75,6 +81,10 @@ FIST = {"near": {1: (-14, -9), 2: (-14, -9), 3: (-14, -9), 4: (-14, -10), 5: (-1
                  8: (-14, -11), 9: (-12, -12), 10: (-12, -12), 11: (-13, -13)},
         "far": {1: (11, 13), 2: (11, 13), 3: (12, 13), 4: (13, 13), 5: (13, 13), 6: (12, 13), 7: (13, 13),
                 8: (13, 13)}}
+# (tag, frame 0-based): (row, first column, last column) from the standing point, leftovers cleared by hand after the
+# head moved: E 5-6 keep the air over the dome for the raised arm (OVERRIDE), so a stub of Codex's first far stack
+# (E 5) and the brown bar over the dome left of the arm (E 6) are taken off here
+CLEAR = {("skill2", 4): [(-34, 4, 4), (-33, 3, 4), (-32, 3, 4)], ("skill2", 5): [(-31, -2, 1)]}
 # run frame (0-based): (row, first column, last column) from the standing point, leftovers cleared by hand
 STUB = {1: [(-2, 10, 13), (-1, 10, 13), (0, 11, 13), (-1, -15, -15), (0, -16, -15)],
         4: [(-2, 10, 13), (-1, 10, 13), (0, 11, 13)],
@@ -246,7 +256,24 @@ def run_legs(f, px, py, des, k):
     return "; ".join(note) + f"; near leg in front +{front}, stub -{stub}"
 
 
-def fix(tag, one, table, des, head, near, far, ring, shots):
+def shift_head(f, e, head_rows):
+    """Step 3: the head moved D.HEAD_SHIFT columns right (rows from the eyes' top-left square). Returns the squares
+    painted into holes."""
+    ey, ex = e
+    rows = {ey + dy: (ex + c0, ex + c1) for dy, (c0, c1) in head_rows.items()}
+    left = D.move_head(f, rows, D.HEAD_SHIFT)
+    filled = 0
+    for y, x in sorted(left):
+        if f[y, x, 3]:
+            continue
+        near = [tuple(f[y + dy, x + dx]) for dy, dx in ((-1, 0), (1, 0), (0, -1), (0, 1))]
+        if all(c[3] for c in near):
+            f[y, x] = max(set(near), key=near.count)
+            filled += 1
+    return filled
+
+
+def fix(tag, one, table, des, head, near, far, ring, shots, head_rows):
     cw, ch = table["cell"]
     frs = table["tags"][tag]
     cols, _ = layout(len(frs))
@@ -268,7 +295,10 @@ def fix(tag, one, table, des, head, near, far, ring, shots):
             else:
                 stacks(f, e, head, near, far, OVERRIDE.get((tag, i), {}))
                 g = ghost_rings(f, px, py, ring)
-                note = "stacks" + (f", ring -{g}" if g else "")
+                h = shift_head(f, e, head_rows)
+                for r, q0, q1 in CLEAR.get((tag, i), []):
+                    f[py + r, px + q0:px + q1 + 1] = 0
+                note = "stacks" + (f", ring -{g}" if g else "") + f", head +{D.HEAD_SHIFT}" + (f" ({h} filled)" if h else "")
         if tag == "run":
             note += "; " + run_legs(f, px, py, des, i)
         low = int(np.nonzero(f[..., 3])[0].max())
@@ -310,8 +340,9 @@ def main():
     args = ap.parse_args()
     with open(G.lp(os.path.join(NATIVE, "blitzcrank_cells.json")), encoding="utf-8") as fh:
         table = json.load(fh)
-    des = load(os.path.join(NATIVE, "blitzcrank_native.png"), Z)
+    des = D.design_b2()
     dey, dex = eyes(des)
+    head_rows = {y - dey: (x0 - dex, x1 - dex) for y, (x0, x1) in D.HEAD.items()}
     x0, y0, x1, y1 = HEAD
     head = {(y - dey, x - dex): tuple(des[y, x]) for y in range(y0, y1 + 1) for x in range(x0, x1 + 1) if des[y, x, 3]}
 
@@ -325,7 +356,7 @@ def main():
     shots, bad = [], 0
     for tag in TAGS:
         one = load(os.path.join(SRC, f"blitzcrank_{tag}.png"))
-        print("\n".join(fix(tag, one, table, des, head, near, far, ring, shots)))
+        print("\n".join(fix(tag, one, table, des, head, near, far, ring, shots, head_rows)))
         big = np.repeat(np.repeat(one, Z, 0), Z, 1)
         out = os.path.join(NATIVE, f"blitzcrank_{tag}.png")
         if args.check:

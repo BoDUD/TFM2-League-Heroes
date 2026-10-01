@@ -2246,9 +2246,9 @@ he lives. In a logged game the clone exploded three times at the end of its time
 himself dies while it lives, its runs stop with him (4 such deaths in 28 logged games: no strike, picture or blast
 after them) - League's clone dies with Shaco too.
 
-**A hook that drags its catch all the way, the return drawn for the distance (league_blitzcrank Q, Rocket Grab).** A
+**A hook from a raised arm that drags its catch all the way (league_blitzcrank Q, Rocket Grab).** A
 `Direction` cast on `EnemyChampion` (range 70000) throws a non-penetrating `LinearProjectile` on `EnemyChampion`
-(speed 6000, radius 6000, range 78000, `y_offset` 2000): it passes minions and monsters (league_thresh Q). The champion
+(speed 6000, radius 6000, range 78000, `y_offset` -11500): it passes minions and monsters (league_thresh Q). The champion
 it reaches takes magic damage, `Stun` 40 ticks and `Grab` at 1500 a tick - dragged all the way to him. An
 invisible twin on the same line on `EnemyChampionInCC` lands a tick later only when the stun took (a Black Shield lets
 both pass): it sets a 90-tick caster flag `q_held`, shows the claw on him and plays Blitzcrank's 3-frame `q_pull` loop
@@ -2256,11 +2256,14 @@ for as long as the drag will take. Three caster windows set at the throw (`q_t1`
 flight time when the twin lands: the loop runs 16 / 28 / 40 / 52 ticks and a 10-tick tier flag `q_k1`..`q_k3` is
 left for the hook's `end_effects`, which wait 2 ticks before reading anything (read at once they always missed the
 twin's flag, a tick behind, and every hook came back fast): a held hook comes back with its champion at 1500 a tick as
-`q_back1`..`q_back4`, one picture per tier whose cable starts at that tier's distance (returns of 25 ticks in tier 2,
+`q_back1`..`q_back4`, one picture per tier timed for that tier's distance (returns of 25 ticks in tier 2,
 35-41 in tier 3, 45-52 in tier 4 in a logged game), a miss or a blocked hook at 4500 as `q_miss`. In that game 10 of 18
-hooks held. His arm is raised to the shoulder in the strip (League's pose), 16 px above his pivot; a `LinearProjectile`
-lifted there would start 16500 north and slant down to the end of its range, missing close champions (section on
-raised weapons), so the hand flies at the usual 2000 and its picture starts out of his body's front.
+hooks held. His arm is raised to the shoulder in the strip (League's pose), 16 px over his pivot, and the hook leaves
+from there (the user: "从上面勾 别从下面勾"): `y_offset` -11500 starts it 16500 north of him and it slopes down to his
+pivot's height at the end of its range (12 degrees), coming down on a champion's chest; 8 logged games held 76 of 144
+hooks, 68 of 125 at `y_offset` 2000 - the slope misses nobody more. Every return (`BackToCasterLinearProjectile`) flies
+to his pivot whatever its `y_offset` (the spawn vectors of a logged game), so a cable drawn on it would run into his
+belly under the raised arm: the returns draw the fist alone.
 
 **Overdrive folded into the uppercut (league_blitzcrank W in E, Power Fist).** W's cooldown is a caster flag `w_cd`
 (900 ticks). Every action asks first: with `w_cd` absent and an enemy champion within 60000 (`RandomTarget` sets a
