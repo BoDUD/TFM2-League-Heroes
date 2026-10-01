@@ -591,6 +591,10 @@ the same champion file.
   faces left (the base gunner's backward-run dust is drawn only behind him), and stays where it was
   played unless `is_follow`. An `Animation` plays its tag once, so a view that must stand for
   seconds lists its loop frames again (a 4 s loop of 100 ms frames is 40 frames).
+  A buff's picture (`view_buffs`) is not mirrored that way: league_fiora's parry crescent, drawn 17 px in front
+  of her as the parry buff's picture, stood behind her whenever she faced left (the user, 2026-10-01: "W格挡会和
+  剑的位置不一致"). A picture with a front and a back goes on a `CasterViewEffect` with `is_follow`, played with
+  the buff, its tag listing the loop for the buff's duration (her crescent: 4 frames twice, 750 ms = 45 ticks).
   A thing with a top and a bottom that flies every way (league_thresh's lantern) is laid along its flight
   and mirrored top to bottom, so every turn of it looks the same (art-spec).
 - A projectile's picture has one length, but its frames can follow the flight: an `Animated` view with

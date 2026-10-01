@@ -28,7 +28,8 @@ dust and the speed lines on their lowest row over all frames, across at their pu
 The second step places every cell by its anchor on the unit and times it by the kit (60 ticks a second): a hit on the
 chest, the vital beside it, the stun over the crown, R's crests round the waist, the ground pieces on the soles'
 row; the vital mark and R's crests in 20-tick pieces (the kit replays them every 20 ticks while they last), the
-challenge over the 22 ticks before the first of them, the thrust inside its line's 11 ticks, the stun over its 1 s,
+challenge over the 22 ticks before the first of them, the parry over its 45 ticks (a caster picture played once:
+the loop twice), the thrust inside its line's 11 ticks, the stun over its 1 s,
 the victory zone over its 3 s (opening 1-2, the loop 3-6 six times, fading 7-8). Writes
 league/effects/league_fiora_fx and league_fiora_big (r_zone).
 """
@@ -299,7 +300,7 @@ FX = {
         "q_dash": [("q_dash", range(5), FEET, [70] * 5)],
         "vital_mark": [("vital_mark", range(4), VITAL, PIECE)],
         "vital_hit": [("vital_hit", range(6), VITAL, [60] * 6)],
-        "w_parry": [("w_parry", range(4), PARRY, [100] * 4)],
+        "w_parry": [("w_parry", [0, 1, 2, 3] * 2, PARRY, [100] * 7 + [50])],
         "w_line": [("w_line", range(4), (0, 0), [33, 50, 50, 50])],
         "w_hit": [("w_hit", range(5), HIT, [50] * 5)],
         "w_slow": [("w_slow", range(6), GROUND, [80] * 6)],

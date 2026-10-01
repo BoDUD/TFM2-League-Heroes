@@ -6330,6 +6330,10 @@
           "name": "league_fiora_w_cast"
         },
         {
+          "type": "CasterViewEffect",
+          "name": "league_fiora_w_parry_fx"
+        },
+        {
           "type": "AddCasterBuff",
           "buff_state": {
             "name": "league_fiora_w_parry",
@@ -11533,6 +11537,14 @@
     },
     {
       "type": "Animation",
+      "name": "league_fiora_w_parry_fx",
+      "anim": "asset/league/effects/league_fiora_fx",
+      "tag": "w_parry",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
       "name": "league_fiora_w_hit",
       "anim": "asset/league/effects/league_fiora_fx",
       "tag": "w_hit",
@@ -11618,13 +11630,6 @@
       "name": "league_fiora_e_as",
       "anim": "asset/league/effects/league_fiora_fx",
       "tag": "e_glint",
-      "z": 1
-    },
-    {
-      "type": "Animated",
-      "name": "league_fiora_w_parry",
-      "anim": "asset/league/effects/league_fiora_fx",
-      "tag": "w_parry",
       "z": 1
     },
     {
