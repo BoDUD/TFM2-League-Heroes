@@ -32,12 +32,13 @@ burst and its wisp on their first frame's spark ring and ember, the same spot in
 The bomb gets a 1-px ring round its body, orange in the dark frame and gold in the bright one (a blink with the
 light): black iron on Darius's armour showed only its brass band. No other outline.
 The second step places every cell by its anchor - the projectiles on their point, the flashes on the muzzle of her
-firing frame (attack 3, E 3, R 3: the bells end at (22, 0), (20, 8) and (20, 4) from the pivot; the projectiles'
+firing frame (attack 3, E 3, R 3: the bells end at (27, 3), (20, 8) and (20, 4) from the pivot; E's fire moves to
+(19, 8) with its 4th frame, R's burns out in its 90 ms shot frame, the smoke stays; the projectiles'
 `y_offset` lift them near those heights: 2000 / 9000 / 6000, 3-4 px over the bells' middles - larger values lengthened
 the flights and cost her 0.7 kills a game), Rapid Fire's burst on the idle's bell (25, 2) as E's strip ends and its
 wisp on the bell's top, the hits on the upper body, the bomb and its spark on the chest, the ground pictures 11 px
 under the pivot (the soles), the stars over the head, the rocket over her goggles - and times each view by the kit:
-the projectiles start empty for the ticks they spend inside her (her pivot to the bell: 3, 5 and 3 ticks at 6000, 4500
+the projectiles start empty for the ticks they spend inside her (her pivot to the bell: 5, 5 and 3 ticks at 6000, 4500
 and 7000 a tick), then loop, and hold their first frame after 1 s (`repeat: false`, so nothing shows over her body);
 the bomb's two frames last 10 ticks, its replay period; the stun stars last the 30-tick stun; the wisp is 1 s, played
 every second of Rapid Fire. Writes assets/source/tristana/tristana_fx_<name>.png plus tristana_fx_anchors.json, and
@@ -63,9 +64,15 @@ SRC = os.path.join(ROOT, "assets", "source", "tristana")
 MOD = os.path.join(ROOT, "league")
 Z = 8
 # her firing frames' muzzles (the bell's end, from the pivot; tools/art/import_native.py's sheet, facing right)
-MUZZLE_ATTACK = (22, 0)
+MUZZLE_ATTACK = (27, 3)                # the idle's bell moved with the attack's 3rd and 4th frames (ATTACK_PATH +2, +1)
 MUZZLE_E = (20, 8)
+MUZZLE_E4 = (19, 8)                    # E's 4th frame: the bell a square back
 MUZZLE_R = (20, 4)
+# the flashes follow the bell (the user: "枪口的火还是没跟着枪的方向 固定住了"): a caster view stays where it was put
+# on her while the sprite moves under it, so each flash's fire is timed to the frames whose bell is where it is drawn
+# - the attack's 3rd and 4th frames hold the bell still (130 ms of fire), E's fire moves a square back with its 4th
+# frame, R's fire fits its 90 ms shot frame before the recoil throws the cannon over her head; the smoke after it
+# stays where it was blown out
 BELL = (25, 2)                         # the idle's bell: Rapid Fire's spark ring when E's strip ends, its steam
 STEAM = (22, -2)                       # the wisp's ember on the bell's top (it trails the bell in the shots' recoil)
 HIT = (0, -8)                          # a hit on the upper body of a 35-41 px hero
@@ -353,11 +360,11 @@ def seq(frames, ms):
 STARS = [0, 1, 2, 3]                    # the stun (30 ticks): the loop once, 125 ms a frame
 FX = {
     "league_tristana_fx": {
-        "bolt": [("bolt", flight(50), (0, 0))],
+        "bolt": [("bolt", flight(80), (0, 0))],
         "e_charge": [("e_charge", flight(80), (0, 0))],
         "r_ball": [("r_ball", flight(50), (0, 0))],
-        "shot": [("shot", seq(range(5), [40, 40, 50, 60, 60]), MUZZLE_ATTACK)],
-        "e_shot": [("e_shot", seq(range(4), [50] * 4), MUZZLE_E)],
+        "shot": [("shot", seq(range(5), [25, 30, 35, 50, 60]), MUZZLE_ATTACK)],
+        "e_shot": [("e_shot", seq([0], [60]), MUZZLE_E), ("e_shot", seq([1, 2, 3], [40, 50, 50]), MUZZLE_E4)],
         "hit": [("hit", seq(range(5), [50] * 5), HIT)],
         "p_boom": [("p_boom", seq(range(6), [50, 60, 70, 80, 90, 100]), GROUND)],
         "e_bomb0": [("e_bomb", seq([0, 1], [84, 84]), CHEST)],
@@ -368,7 +375,7 @@ FX = {
         "q_cast": [("q_cast", seq(range(5), [70] * 5), BELL)],
         "q_rapid": [("q_rapid", seq([0, 1, 2, 3] * 2, [125] * 8), STEAM)],
         "w_ready": [("w_ready", seq(range(5), [60, 70, 80, 90, 100]), HER_HEAD)],
-        "r_muzzle": [("r_muzzle", seq(range(6), [50, 60, 70, 80, 100, 110]), MUZZLE_R)],
+        "r_muzzle": [("r_muzzle", seq(range(6), [20, 20, 25, 25, 100, 110]), MUZZLE_R)],
         "r_hit": [("r_hit", seq(range(6), [50, 60, 70, 80, 90, 100]), BODY)],
         "r_stun": [("r_stun", seq(STARS, [125] * 4), OVERHEAD)],
     },
