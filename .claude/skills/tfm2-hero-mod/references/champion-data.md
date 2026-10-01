@@ -1060,6 +1060,9 @@ league_tristana (bottom, 2026-10-01, Buster Shot's knockback and 0.5 s stun wher
 league_vayne 1.92 and the base archer 0.65 in the same batch - no change.
 league_fiora (top, 2026-10-01, Riposte's 1 s stun when the parry blocked a hit): 1.23 a game; the base fighter 1.94
 and league_riven 2.42 in the same batch - no change.
+league_shaco (jungle, 2026-10-01, Jack In The Box's 1 s fear on champions and the 0.75 s fear of Hallucinate's
+three mini boxes): 2.42 a game; league_amumu 1.69, league_leesin 1.52, league_ekko 0.90 and the base ninja 0.65 in
+the same batch - fear counts as crowd control, the range the CC junglers gave before, no change.
 
 **Kill trigger (league_jinx Get Excited!).** No effect fires on a kill, but section 4's facts make one:
 1. Next to the damaging projectile, fire an invisible twin with the same speed and path and
@@ -2100,6 +2103,41 @@ target's picture pieces add the 2-tick `r_alive` caster flag the tick before eac
 60 ticks (a multiple of the pieces' 20) that finds it missing while `r_on` lasts means the target died, and the zone
 lands on her own spot (its picture a `CasterViewEffect`: a `ViewEffect` on her own spot never showed, league_thresh
 R). Checks every 20 ticks made the file 972 KB (every hook carries the whole ladder); every 60 keeps it near 580 KB.
+
+**A blink behind the target and a forced critical strike (league_shaco Q, Deceive).** A `Targeting` cast on
+`EnemyWithoutTower` (45000, so camps get it too): a puff where he stood (a `CasterViewEffect` that does not follow),
+`CasterInvisible` (90 ticks), `RushMoveToBack` (15000 a tick: he lands 15000 past the target) and a caster flag
+`q_ready` (150 ticks). The attack picks on tick 1 (`start_timing` 1, its hits `Delayed`): with `q_ready` it removes it,
+plays `attack_q` and on the hit tick adds a 2-tick caster buff with `crit_chance` 100 just before an `Attack` of
+20 + 85% attack. The roll happens when the `Attack` lands (section 4: chance = the stat plus buffs), so the backstab
+always crits (2x) and the buff is gone before the next hit; in a logged game every backstab came out critical.
+
+**Backstab without facing (league_shaco's passive).** Nothing reads where a unit faces, so "from behind" is built
+from what shows a back: Q's landing hit always, and hits on champions in crowd control - a feared champion runs
+away. Next to the attack's damage (and the shiv) an invisible twin `TargetProjectile` (100000 a tick, it lands the
+next tick) with `applied_target: EnemyChampionInCC` adds 15 + 25% attack and its own picture (in a `BaseAttack`
+action it can crit); the clone's strikes count the backstab in their ratio.
+
+**Two fears from one box: champions shorter than the rest (league_shaco W, Jack In The Box).** A `Position` cast on
+`EnemyWithoutTower`: a hidden `ParabolicProjectile` (`travel_time` 12) lands the box on the spot and its
+`end_effects` show it landing; `w_arm` ticks later it pops. A `RangeProjectile` on `EnemyChampion` gives `Fear` (60
+ticks) and a 2-tick `cc_immune` buff, and a `Delayed` of 1 tick a second one on `EnemyWithoutTower` gives `Fear` (90
+ticks): the champions, immune for that tick, keep the shorter fear, minions and monsters get the longer one (League's
+split). Then a `RangePeriodProjectile` (300 ticks, period 30) shoots everything round it. The box is not hidden and
+does not wait for someone to walk by: the AI would cast a trap anywhere, so it goes off at the enemy's feet.
+
+**A clone that rides the target and blows up where it died (league_shaco R, Hallucinate).** A `Targeting` cast on
+`EnemyChampion`: he vanishes (60 ticks) and 12 ticks later an `AddCasted` (`Bleed`, period 4) on the champion carries
+the clone (league_annie's Tibbers). Every run plays the clone's idle frame on the target, or strikes (10 + 45%
+attack, the backstab included, and its attack frames) when Shaco's own hits set `r_hit` (each of his hits adds the
+6-tick flag while `r_live` lasts) or after 60 ticks without one; a 24-tick `r_pic` flag lets the strike's picture
+play out before the idle frame comes back. After 300 ticks it explodes where the champion stands: 150 + 100%
+ability power round it and three mini boxes (the W pop with 45 / 75-tick fears and 150 ticks of shots). When the
+champion dies first it explodes where he fell: every run refreshes a 5-tick caster flag `r_seen` and lobs a hidden
+`ParabolicProjectile` at him (`travel_time` 6); a lob that lands after the runs have stopped - `r_seen` gone, `r_live`
+still on - removes the flags and explodes there. Nothing can be started from a dead unit, so the spot is armed while
+he lives. In a logged game the clone struck for 92-124 a hit and exploded three times at the end of its time and once
+on a death.
 
 ## 8. Gotchas
 
