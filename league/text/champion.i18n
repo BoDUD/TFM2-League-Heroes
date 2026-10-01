@@ -266,6 +266,13 @@
         "skill": "消失并闪到目标身后，<#ffb900ff>隐身1.5秒<>。下一次普攻是背刺：<#ff9028ff>必定暴击<>，造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85% 攻击力<>的<#ff9028ff>物理伤害<>（暴击后翻倍）。",
         "skill2": "向敌人脚下扔出惊吓魔盒，弹开时<#ef5350ff>恐惧<>周围敌方英雄<#ffb900ff>1秒<>（小兵和野怪<#ffb900ff>1.5秒<>），随后<#ffb900ff>5秒<>内每<#ffb900ff>0.5秒<>对周围所有敌人造成<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12% 法强<>的<#a974ffff>魔法伤害<>。",
         "ult": "短暂消失，在敌方英雄身后召出幻像，持续<#ffb900ff>5秒<>：萨科每次攻击时幻像同步背刺，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40% 攻击力<>的<#ff9028ff>物理伤害<>。结束或目标死亡时爆炸，造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% 法强<>的<#a974ffff>魔法伤害<>，并放出三个小魔盒<#ef5350ff>恐惧<>周围敌人。"
+      },
+      "league_camille": {
+        "name": "卡蜜尔",
+        "attack": "踢击造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。被动 <#ff9028ff>适应性防御<>：每<#ffb900ff>10秒<>，踢中敌方英雄时获得<#e8d44dff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#e8d44dff>100% 攻击力<>的<#e8d44dff>护盾<>，持续<#ffb900ff>2秒<>。<#ff9028ff>精准礼仪<>（每<#ffb900ff>7秒<>）：下一踢额外造成<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>并<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>加速<>；蓄力<#ffb900ff>1.5秒<>后的再一踢额外伤害翻倍，<#f5f5f5ff>50%<>转为<#f5f5f5ff>真实伤害<>。",
+        "skill": "<#ff9028ff>战术横扫<>：蓄力后向目标扇形横扫，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% 攻击力<>的<#ff9028ff>物理伤害<>。外沿的敌人额外受到<#ff9028ff>5%<>最大生命值的伤害并被<#ef5350ff>减速80%<>（2秒内衰减）；外沿每命中一名敌方英雄，回复<#6aff55ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#6aff55ff>30% 攻击力<>生命值。",
+        "skill2": "<#ff9028ff>钩索<>：向目标射出钩索并被拉过去，落地对周围敌人造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70% 攻击力<>的<#ff9028ff>物理伤害<>，<#ef5350ff>眩晕<>敌方英雄<#ffb900ff>0.75秒<>，并获得<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻速+40%<>，持续<#ffb900ff>5秒<>。",
+        "ult": "<#ff9028ff>海克斯最后通牒<>：跳向一名敌方英雄（空中免疫伤害和控制），落地震开周围其他敌人，用力场把目标锁在身边<#ffb900ff>3秒<>：目标无法使用位移技能，离她太远会被拽回；她离目标太远则提前结束。期间她踢中英雄额外造成<#f5f5f5ff>10<> + <#f5f5f5ff>4%<>最大生命值的<#f5f5f5ff>真实伤害<>。"
       }
     },
     "skill_name": {
@@ -458,6 +465,11 @@
         "skill1": "欺诈魔术",
         "skill2": "惊吓魔盒",
         "ult": "幻像"
+      },
+      "league_camille": {
+        "skill1": "战术横扫",
+        "skill2": "钩索",
+        "ult": "海克斯最后通牒"
       }
     }
   },
@@ -728,6 +740,13 @@
         "skill": "消失並閃到目標身後，<#ffb900ff>隱形1.5秒<>。下一次普攻是背刺：<#ff9028ff>必定暴擊<>，造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85% 攻擊力<>的<#ff9028ff>物理傷害<>（暴擊後翻倍）。",
         "skill2": "向敵人腳下扔出驚嚇魔盒，彈開時<#ef5350ff>恐懼<>周圍敵方英雄<#ffb900ff>1秒<>（小兵和野怪<#ffb900ff>1.5秒<>），隨後<#ffb900ff>5秒<>內每<#ffb900ff>0.5秒<>對周圍所有敵人造成<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12% 法術強度<>的<#a974ffff>魔法傷害<>。",
         "ult": "短暫消失，在敵方英雄身後召出幻象，持續<#ffb900ff>5秒<>：薩科每次攻擊時幻象同步背刺，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40% 攻擊力<>的<#ff9028ff>物理傷害<>。結束或目標死亡時爆炸，造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% 法術強度<>的<#a974ffff>魔法傷害<>，並放出三個小魔盒<#ef5350ff>恐懼<>周圍敵人。"
+      },
+      "league_camille": {
+        "name": "卡蜜兒",
+        "attack": "踢擊造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。被動 <#ff9028ff>適性防禦<>：每<#ffb900ff>10秒<>，踢中敵方英雄時獲得<#e8d44dff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#e8d44dff>100% 攻擊力<>的<#e8d44dff>護盾<>，持續<#ffb900ff>2秒<>。<#ff9028ff>精密解剖<>（每<#ffb900ff>7秒<>）：下一踢額外造成<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>並<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>加速<>；蓄力<#ffb900ff>1.5秒<>後的再一踢額外傷害翻倍，<#f5f5f5ff>50%<>轉為<#f5f5f5ff>真實傷害<>。",
+        "skill": "<#ff9028ff>刀光掠影<>：蓄力後向目標扇形橫掃，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% 攻擊力<>的<#ff9028ff>物理傷害<>。外緣的敵人額外受到<#ff9028ff>5%<>最大生命值的傷害並被<#ef5350ff>緩速80%<>（2秒內遞減）；外緣每命中一名敵方英雄，回復<#6aff55ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#6aff55ff>30% 攻擊力<>生命值。",
+        "skill2": "<#ff9028ff>鋼鐵鉤射<>：向目標射出鉤索並被拉過去，落地對周圍敵人造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70% 攻擊力<>的<#ff9028ff>物理傷害<>，<#ef5350ff>暈眩<>敵方英雄<#ffb900ff>0.75秒<>，並獲得<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻速+40%<>，持續<#ffb900ff>5秒<>。",
+        "ult": "<#ff9028ff>海克斯晶體結界<>：跳向一名敵方英雄（空中免疫傷害和控制），落地震開周圍其他敵人，用力場把目標鎖在身邊<#ffb900ff>3秒<>：目標無法使用位移技能，離她太遠會被拽回；她離目標太遠則提前結束。期間她踢中英雄額外造成<#f5f5f5ff>10<> + <#f5f5f5ff>4%<>最大生命值的<#f5f5f5ff>真實傷害<>。"
       }
     },
     "skill_name": {
@@ -920,6 +939,11 @@
         "skill1": "欺詐魔術",
         "skill2": "驚嚇魔盒",
         "ult": "幻象"
+      },
+      "league_camille": {
+        "skill1": "刀光掠影",
+        "skill2": "鋼鐵鉤射",
+        "ult": "海克斯晶體結界"
       }
     }
   },
@@ -1190,6 +1214,13 @@
         "skill": "Shaco vanishes and blinks behind his target, <#ffb900ff>invisible for 1.5s<>. His next attack is a backstab that <#ff9028ff>always critically strikes<>: <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>85% AD<> <#ff9028ff>physical damage<>, doubled by the crit.",
         "skill2": "Shaco throws a Jack-in-the-Box at an enemy's feet. It springs open, <#ef5350ff>fearing<> enemy champions around it for <#ffb900ff>1s<> (minions and monsters <#ffb900ff>1.5s<>), then fires at every enemy nearby every <#ffb900ff>0.5s<> for <#ffb900ff>5s<>, dealing <#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12% AP<> <#a974ffff>magic damage<> per shot.",
         "ult": "Shaco briefly vanishes and a clone appears behind an enemy champion for <#ffb900ff>5s<>, backstabbing it whenever Shaco attacks for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40% AD<> <#ff9028ff>physical damage<>. When it ends or the target dies it explodes for <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% AP<> <#a974ffff>magic damage<>, releasing three mini boxes that <#ef5350ff>fear<> nearby enemies."
+      },
+      "league_camille": {
+        "name": "Camille",
+        "attack": "Blade kicks deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. Passive <#ff9028ff>Adaptive Defenses<>: every <#ffb900ff>10s<> her kick on an enemy champion grants a <#e8d44dff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#e8d44dff>100% AD<> <#e8d44dff>shield<> for <#ffb900ff>2s<>. <#ff9028ff>Precision Protocol<> (every <#ffb900ff>7s<>): her next kick deals <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30% AD<> more and grants <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>Move Speed<>; the next kick after a <#ffb900ff>1.5s<> charge deals double the bonus, <#f5f5f5ff>50%<> as <#f5f5f5ff>true damage<>.",
+        "skill": "<#ff9028ff>Tactical Sweep<>: Camille winds up and slices in a cone toward her target for <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% AD<> <#ff9028ff>physical damage<>. Enemies hit by the outer edge take <#ff9028ff>5%<> of their max health more and are <#ef5350ff>slowed by 80%<> (decaying over 2s); she heals <#6aff55ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#6aff55ff>30% AD<> per enemy champion hit by the edge.",
+        "skill2": "<#ff9028ff>Hookshot<>: Camille fires her hookshot at her target and is pulled in. On landing she deals <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70% AD<> <#ff9028ff>physical damage<> around her, <#ef5350ff>stuns<> enemy champions for <#ffb900ff>0.75s<> and gains <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>40% Attack Speed<> for <#ffb900ff>5s<>.",
+        "ult": "<#ff9028ff>The Hextech Ultimatum<>: Camille leaps onto an enemy champion (immune to damage and crowd control in the air), knocks the others away and locks the target beside her for <#ffb900ff>3s<>: it cannot dash and is dragged back if it gets too far (if she gets too far, it ends). Her kicks on champions meanwhile deal <#f5f5f5ff>10<> + <#f5f5f5ff>4%<> of max health as <#f5f5f5ff>true damage<>."
       }
     },
     "skill_name": {
@@ -1382,6 +1413,11 @@
         "skill1": "Deceive",
         "skill2": "Jack In The Box",
         "ult": "Hallucinate"
+      },
+      "league_camille": {
+        "skill1": "Tactical Sweep",
+        "skill2": "Hookshot",
+        "ult": "The Hextech Ultimatum"
       }
     }
   },
@@ -1652,6 +1688,13 @@
         "skill": "사라졌다가 대상의 뒤로 순간이동해 <#ffb900ff>1.5초<> 동안 <#ffb900ff>투명<> 상태가 됩니다. 다음 기본 공격은 <#ff9028ff>반드시 치명타<>로 적중하는 암습으로 <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 85%<> <#ff9028ff>물리 피해<>(치명타로 2배)를 입힙니다.",
         "skill2": "적의 발밑에 깜짝 상자를 던집니다. 상자가 열리며 주변 적 챔피언을 <#ffb900ff>1초<>(미니언과 몬스터 <#ffb900ff>1.5초<>) 동안 <#ef5350ff>공포<>에 빠뜨리고, <#ffb900ff>5초<> 동안 <#ffb900ff>0.5초<>마다 주변 모든 적에게 <#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 12%<> <#a974ffff>마법 피해<>를 입힙니다.",
         "ult": "잠시 사라졌다가 적 챔피언의 뒤에 <#ffb900ff>5초<> 동안 분신을 불러냅니다. 샤코가 공격할 때마다 분신이 함께 찔러 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 40%<> <#ff9028ff>물리 피해<>를 입힙니다. 끝나거나 대상이 죽으면 폭발해 <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 100%<> <#a974ffff>마법 피해<>를 입히고 작은 상자 세 개가 주변 적을 <#ef5350ff>공포<>에 빠뜨립니다."
+      },
+      "league_camille": {
+        "name": "카밀",
+        "attack": "발차기로 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>. 기본 지속 효과 <#ff9028ff>적응형 방어 체계<>: <#ffb900ff>10초<>마다 적 챔피언을 차면 <#ffb900ff>2초<>간 <#e8d44dff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#e8d44dff>공격력의 100%<> <#e8d44dff>보호막<>. <#ff9028ff>정확성 프로토콜<>(<#ffb900ff>7초<>마다): 다음 발차기 <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> 추가 피해, <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도<> 증가. <#ffb900ff>1.5초<> 충전 후 발차기는 추가 피해 2배, <#f5f5f5ff>50%<>는 <#f5f5f5ff>고정 피해<>.",
+        "skill": "<#ff9028ff>전술적 휩쓸기<>: 힘을 모은 뒤 대상 방향 원뿔을 베어 <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 60%<> <#ff9028ff>물리 피해<>를 입힙니다. 바깥쪽에 맞은 적은 최대 체력의 <#ff9028ff>5%<> 추가 피해를 입고 <#ef5350ff>80% 둔화<>(2초에 걸쳐 감소)되며, 바깥쪽에 맞은 적 챔피언마다 <#6aff55ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#6aff55ff>공격력의 30%<>만큼 체력을 회복합니다.",
+        "skill2": "<#ff9028ff>갈고리 발사<>: 대상에게 갈고리를 쏘아 끌려갑니다. 착지하면 주변 적에게 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 70%<> <#ff9028ff>물리 피해<>를 입히고 적 챔피언을 <#ffb900ff>0.75초<> 동안 <#ef5350ff>기절<>시키며, <#ffb900ff>5초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>공격 속도가 40%<> 증가합니다.",
+        "ult": "<#ff9028ff>마법공학 최후통첩<>: 적 챔피언에게 뛰어들어(공중에서 피해와 군중 제어 면역) 주변의 다른 적을 밀쳐내고, 대상을 <#ffb900ff>3초<> 동안 곁에 가둡니다. 대상은 돌진할 수 없고 멀어지면 끌려옵니다(카밀이 멀어지면 끝납니다). 그동안 챔피언을 차면 <#f5f5f5ff>10<> + 최대 체력의 <#f5f5f5ff>4%<> <#f5f5f5ff>고정 피해<>를 추가로 입힙니다."
       }
     },
     "skill_name": {
@@ -1844,6 +1887,11 @@
         "skill1": "속임수",
         "skill2": "깜짝 상자",
         "ult": "환각"
+      },
+      "league_camille": {
+        "skill1": "전술적 휩쓸기",
+        "skill2": "갈고리 발사",
+        "ult": "마법공학 최후통첩"
       }
     }
   },
@@ -2114,6 +2162,13 @@
         "skill": "姿を消して対象の背後に移動し、<#ffb900ff>1.5秒<>間<#ffb900ff>インビジブル<>。次の通常攻撃は<#ff9028ff>必ずクリティカル<>になるバックスタブで、<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の85%<>の<#ff9028ff>物理ダメージ<>（クリティカルで2倍）。",
         "skill2": "敵の足元にびっくり箱を投げる。開くと周囲の敵チャンピオンを<#ffb900ff>1秒<>（ミニオンとモンスターは<#ffb900ff>1.5秒<>）<#ef5350ff>フィアー<>状態にし、<#ffb900ff>5秒<>間<#ffb900ff>0.5秒<>ごとに周囲の全ての敵に<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の12%<>の<#a974ffff>魔法ダメージ<>。",
         "ult": "一瞬姿を消し、敵チャンピオンの背後に分身を<#ffb900ff>5秒<>間呼び出す。シャコが攻撃するたびに分身も刺し、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の40%<>の<#ff9028ff>物理ダメージ<>。終了時か対象の死亡時に爆発し<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の100%<>の<#a974ffff>魔法ダメージ<>、小さな箱3つが周囲の敵を<#ef5350ff>フィアー<>状態にする。"
+      },
+      "league_camille": {
+        "name": "カミール",
+        "attack": "蹴りで<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>アダプティブディフェンス<>：<#ffb900ff>10秒<>ごとに敵チャンピオンを蹴ると<#e8d44dff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#e8d44dff>攻撃力の100%<>の<#e8d44dff>シールド<>（<#ffb900ff>2秒<>）。<#ff9028ff>プレシジョンプロトコル<>（<#ffb900ff>7秒<>ごと）：次の蹴りは<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>追加と<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>加速<>。<#ffb900ff>1.5秒<>溜めた次の蹴りは追加2倍、<#f5f5f5ff>50%<>が<#f5f5f5ff>確定ダメージ<>。",
+        "skill": "<#ff9028ff>タクティカルスイープ<>：力を溜めて対象へ扇状に斬り、<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の60%<>の<#ff9028ff>物理ダメージ<>。外側に当たった敵は最大体力の<#ff9028ff>5%<>の追加ダメージと<#ef5350ff>80%スロウ<>（2秒で減衰）。外側に当たった敵チャンピオン1体ごとに<#6aff55ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#6aff55ff>攻撃力の30%<>回復。",
+        "skill2": "<#ff9028ff>フックショット<>：対象にフックを撃ち込んで引き寄せられ、着地時に周囲の敵へ<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の70%<>の<#ff9028ff>物理ダメージ<>、敵チャンピオンを<#ffb900ff>0.75秒<><#ef5350ff>スタン<>、<#ffb900ff>5秒<>間<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻撃速度+40%<>。",
+        "ult": "<#ff9028ff>ヘクステック・アルティメイタム<>：敵チャンピオンに跳びかかり（空中はダメージと行動妨害を無効）、周囲の敵を弾き飛ばし、対象を<#ffb900ff>3秒<>間そばに閉じ込める。対象はダッシュできず、離れると引き戻される（カミールが離れると終了）。その間の蹴りは<#f5f5f5ff>10<> + 最大体力の<#f5f5f5ff>4%<>の<#f5f5f5ff>確定ダメージ<>を追加。"
       }
     },
     "skill_name": {
@@ -2306,6 +2361,11 @@
         "skill1": "幻惑",
         "skill2": "びっくり箱",
         "ult": "ハルシネイト"
+      },
+      "league_camille": {
+        "skill1": "タクティカルスイープ",
+        "skill2": "フックショット",
+        "ult": "ヘクステック・アルティメイタム"
       }
     }
   }

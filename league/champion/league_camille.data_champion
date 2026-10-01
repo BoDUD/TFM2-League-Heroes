@@ -1,0 +1,1158 @@
+{
+  "id": "league_camille",
+  "category": "Melee",
+  "tags": [
+    "AD",
+    "Melee",
+    "CC",
+    "Shield"
+  ],
+  "sprite": "asset/league/champions/league_camille",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/league/icons/league_camille_skill",
+    "asset/league/icons/league_camille_skill2",
+    "asset/league/icons/league_camille_ult"
+  ],
+  "stat": {
+    "attack": 90,
+    "magic_power": 0,
+    "hp": 1000,
+    "defence": 32,
+    "magic_resistance": 26,
+    "move_speed": 1040,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 18,
+    "magic_power": 0,
+    "hp": 100,
+    "defence": 8,
+    "magic_resistance": 4,
+    "move_speed": 10,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.league_camille.attack",
+    "duration": 24,
+    "cooltime": 64,
+    "start_timing": 1,
+    "cancelable": true,
+    "range": 25000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_camille_q2_win",
+          "effect_buff": {
+            "type": "SwitchByBuff",
+            "buff_name": "league_camille_q2_charge",
+            "effect_buff": {
+              "type": "Delayed",
+              "tick": 9,
+              "effects": [
+                {
+                  "type": "Attack",
+                  "damage": 0,
+                  "attack_ratio": 100,
+                  "hp_ratio": 0,
+                  "target_hp_ratio": 0,
+                  "attack_effect_type": "Target"
+                },
+                {
+                  "type": "ViewEffect",
+                  "name": "league_camille_hit"
+                },
+                {
+                  "type": "TargetSfx",
+                  "name": "league_camille_attack_hit"
+                }
+              ]
+            },
+            "effect_none": {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_camille_q2_win"
+                },
+                {
+                  "type": "CasterAnimation",
+                  "name": "attack_q2",
+                  "tick": 26
+                },
+                {
+                  "type": "Sfx",
+                  "name": "league_camille_q2_cast"
+                },
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_camille_q_ms"
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_camille_q_ms",
+                        "duration": {
+                          "Time": {
+                            "tick": 60
+                          }
+                        },
+                        "move_speed_mult": 30
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 9,
+                  "effects": [
+                    {
+                      "type": "Attack",
+                      "damage": 10,
+                      "attack_ratio": 80,
+                      "hp_ratio": 0,
+                      "target_hp_ratio": 0,
+                      "attack_effect_type": "Target"
+                    },
+                    {
+                      "type": "FixedAttack",
+                      "damage": 10,
+                      "attack_ratio": 80,
+                      "hp_ratio": 0,
+                      "target_hp_ratio": 0,
+                      "attack_effect_type": "Target"
+                    },
+                    {
+                      "type": "ViewEffect",
+                      "name": "league_camille_q2_hit"
+                    },
+                    {
+                      "type": "TargetSfx",
+                      "name": "league_camille_q2_hit"
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "effect_none": {
+            "type": "SwitchByBuff",
+            "buff_name": "league_camille_q_cd",
+            "effect_buff": {
+              "type": "Delayed",
+              "tick": 9,
+              "effects": [
+                {
+                  "type": "Attack",
+                  "damage": 0,
+                  "attack_ratio": 100,
+                  "hp_ratio": 0,
+                  "target_hp_ratio": 0,
+                  "attack_effect_type": "Target"
+                },
+                {
+                  "type": "ViewEffect",
+                  "name": "league_camille_hit"
+                },
+                {
+                  "type": "TargetSfx",
+                  "name": "league_camille_attack_hit"
+                }
+              ]
+            },
+            "effect_none": {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_camille_q_cd",
+                    "duration": {
+                      "Time": {
+                        "tick": 420
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_camille_q2_win"
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_camille_q2_charge"
+                },
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_camille_q2_win",
+                    "duration": {
+                      "Time": {
+                        "tick": 240
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                },
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_camille_q2_charge",
+                    "duration": {
+                      "Time": {
+                        "tick": 90
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                },
+                {
+                  "type": "CasterAnimation",
+                  "name": "attack_q",
+                  "tick": 24
+                },
+                {
+                  "type": "Sfx",
+                  "name": "league_camille_q_cast"
+                },
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_camille_q_ms"
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_camille_q_ms",
+                        "duration": {
+                          "Time": {
+                            "tick": 60
+                          }
+                        },
+                        "move_speed_mult": 30
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 9,
+                  "effects": [
+                    {
+                      "type": "Attack",
+                      "damage": 10,
+                      "attack_ratio": 130,
+                      "hp_ratio": 0,
+                      "target_hp_ratio": 0,
+                      "attack_effect_type": "Target"
+                    },
+                    {
+                      "type": "ViewEffect",
+                      "name": "league_camille_q_hit"
+                    },
+                    {
+                      "type": "TargetSfx",
+                      "name": "league_camille_q_hit"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "type": "Delayed",
+          "tick": 9,
+          "effects": [
+            {
+              "type": "TargetProjectile",
+              "name": "league_camille_twin",
+              "speed": 100000,
+              "y_offset": 0,
+              "applied_target": "EnemyChampion",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_camille_p_cd",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": []
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RangeEffect",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 1000
+                                }
+                              },
+                              "target": "AllyOnlySelf",
+                              "apply_type": "AroundCaster",
+                              "effects": [
+                                {
+                                  "type": "Shield",
+                                  "amount": 100,
+                                  "attack_ratio": 100,
+                                  "ap_ratio": 0,
+                                  "tick": 120
+                                }
+                              ]
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_camille_p_on",
+                                "duration": "WithShield"
+                              },
+                              "only_to_enemy": false
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_camille_p_cd",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 600
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            },
+                            {
+                              "type": "Sfx",
+                              "name": "league_camille_p_shield"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_camille_r_on",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "FixedAttack",
+                              "damage": 10,
+                              "attack_ratio": 0,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 4,
+                              "attack_effect_type": "Target"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_camille_r_hit"
+                            },
+                            {
+                              "type": "TargetSfx",
+                              "name": "league_camille_r_hit"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.league_camille.skill",
+    "duration": 40,
+    "cooltime": 480,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 42000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "league_camille_w_cast"
+        },
+        {
+          "type": "Delayed",
+          "tick": 26,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "league_camille_w_sweep"
+            },
+            {
+              "type": "LineRangeProjectile",
+              "name": "league_camille_w_arc",
+              "width": 30000,
+              "length": 60000,
+              "delay": 14,
+              "apply": 99,
+              "applied_target": "Enemy",
+              "applied_effects": []
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "DirDot": {
+                  "radius": 46000,
+                  "range": 700
+                }
+              },
+              "target": "EnemyWithoutTower",
+              "apply_type": {
+                "Forward": {
+                  "offset": 1000
+                }
+              },
+              "effects": [
+                {
+                  "type": "Attack",
+                  "damage": 50,
+                  "attack_ratio": 60,
+                  "hp_ratio": 0,
+                  "target_hp_ratio": 0,
+                  "attack_effect_type": "Target"
+                },
+                {
+                  "type": "ViewEffect",
+                  "name": "league_camille_w_hit"
+                }
+              ]
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 4000
+                }
+              },
+              "target": "EnemyWithoutTower",
+              "apply_type": {
+                "Forward": {
+                  "offset": 36000
+                }
+              },
+              "effects": [
+                {
+                  "type": "Attack",
+                  "damage": 0,
+                  "attack_ratio": 0,
+                  "hp_ratio": 0,
+                  "target_hp_ratio": 5,
+                  "attack_effect_type": "Target"
+                },
+                {
+                  "type": "AddBuff",
+                  "buff_state": {
+                    "name": "league_camille_w_slow1",
+                    "duration": {
+                      "Time": {
+                        "tick": 60
+                      }
+                    },
+                    "move_speed_mult": -50
+                  }
+                },
+                {
+                  "type": "AddBuff",
+                  "buff_state": {
+                    "name": "league_camille_w_slow2",
+                    "duration": {
+                      "Time": {
+                        "tick": 120
+                      }
+                    },
+                    "move_speed_mult": -30
+                  }
+                },
+                {
+                  "type": "ViewEffect",
+                  "name": "league_camille_w_edge"
+                }
+              ]
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 4000
+                }
+              },
+              "target": "EnemyChampion",
+              "apply_type": {
+                "Forward": {
+                  "offset": 36000
+                }
+              },
+              "effects": [
+                {
+                  "type": "Heal",
+                  "amount": 30,
+                  "attack_ratio": 30,
+                  "ap_ratio": 0,
+                  "heal_type": "Caster"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.league_camille.skill2",
+    "duration": 24,
+    "cooltime": 600,
+    "start_timing": 8,
+    "cancelable": false,
+    "range": 60000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "league_camille_e_cast"
+        },
+        {
+          "type": "TargetProjectile",
+          "name": "league_camille_e_hook",
+          "speed": 6000,
+          "y_offset": 0,
+          "applied_target": "Enemy",
+          "applied_effects": [
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "CasterAnimation",
+                    "name": "skill2_dash",
+                    "tick": 20
+                  },
+                  {
+                    "type": "Sfx",
+                    "name": "league_camille_e_pull"
+                  },
+                  {
+                    "type": "MoveToTarget",
+                    "speed": 3500,
+                    "range": 60000,
+                    "end_effects": [
+                      {
+                        "type": "CasterViewEffect",
+                        "name": "league_camille_e_land"
+                      },
+                      {
+                        "type": "Sfx",
+                        "name": "league_camille_e_land"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 25000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Attack",
+                            "damage": 60,
+                            "attack_ratio": 70,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 0,
+                            "attack_effect_type": "Target"
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_camille_e_hit"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 25000
+                          }
+                        },
+                        "target": "EnemyChampion",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Stun",
+                            "duration": 45
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_camille_e_stun"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_camille_e_as"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_camille_e_as",
+                          "duration": {
+                            "Time": {
+                              "tick": 300
+                            }
+                          },
+                          "attack_speed_mult": 40
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.league_camille.ult",
+    "duration": 30,
+    "cooltime": 3000,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 35000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "league_camille_r_cast"
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_camille_r_air",
+            "duration": {
+              "Time": {
+                "tick": 24
+              }
+            },
+            "damaged_reduce": 100,
+            "cc_immune": true
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "CasterInvisible",
+          "tick": 24
+        },
+        {
+          "type": "Delayed",
+          "tick": 10,
+          "effects": [
+            {
+              "type": "MoveToTarget",
+              "speed": 2500,
+              "range": 35000,
+              "end_effects": [
+                {
+                  "type": "CasterViewEffect",
+                  "name": "league_camille_r_land"
+                },
+                {
+                  "type": "Sfx",
+                  "name": "league_camille_r_land"
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_camille_r_on"
+                },
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_camille_r_on",
+                    "duration": {
+                      "Time": {
+                        "tick": 180
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                },
+                {
+                  "type": "RangeEffect",
+                  "shape": {
+                    "Circle": {
+                      "radius": 1000
+                    }
+                  },
+                  "target": "AllyOnlySelf",
+                  "apply_type": "AroundCaster",
+                  "effects": [
+                    {
+                      "type": "Delayed",
+                      "tick": 0,
+                      "effects": [
+                        {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_camille_r_on",
+                          "effect_buff": {
+                            "type": "CasterViewEffect",
+                            "name": "league_camille_r_zone"
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": []
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Delayed",
+                      "tick": 30,
+                      "effects": [
+                        {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_camille_r_on",
+                          "effect_buff": {
+                            "type": "CasterViewEffect",
+                            "name": "league_camille_r_zone"
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": []
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Delayed",
+                      "tick": 60,
+                      "effects": [
+                        {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_camille_r_on",
+                          "effect_buff": {
+                            "type": "CasterViewEffect",
+                            "name": "league_camille_r_zone"
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": []
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Delayed",
+                      "tick": 90,
+                      "effects": [
+                        {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_camille_r_on",
+                          "effect_buff": {
+                            "type": "CasterViewEffect",
+                            "name": "league_camille_r_zone"
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": []
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Delayed",
+                      "tick": 120,
+                      "effects": [
+                        {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_camille_r_on",
+                          "effect_buff": {
+                            "type": "CasterViewEffect",
+                            "name": "league_camille_r_zone"
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": []
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Delayed",
+                      "tick": 150,
+                      "effects": [
+                        {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_camille_r_on",
+                          "effect_buff": {
+                            "type": "CasterViewEffect",
+                            "name": "league_camille_r_zone"
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": []
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "AddBuff",
+                  "buff_state": {
+                    "name": "league_camille_r_imm",
+                    "duration": {
+                      "Time": {
+                        "tick": 2
+                      }
+                    },
+                    "cc_immune": true
+                  }
+                },
+                {
+                  "type": "RangeEffect",
+                  "shape": {
+                    "Circle": {
+                      "radius": 30000
+                    }
+                  },
+                  "target": "EnemyWithoutTower",
+                  "apply_type": "AroundCaster",
+                  "effects": [
+                    {
+                      "type": "Knockback",
+                      "speed": 2500,
+                      "tick": 10
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 3,
+                  "effects": [
+                    {
+                      "type": "BlockMoveSkill",
+                      "tick": 177
+                    },
+                    {
+                      "type": "AddBuff",
+                      "buff_state": {
+                        "name": "league_camille_r_mark",
+                        "duration": {
+                          "Time": {
+                            "tick": 177
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "type": "AddCasted",
+                      "casted_type": "Bleed",
+                      "duration": 180,
+                      "period": 6,
+                      "effects": [
+                        {
+                          "type": "TargetProjectile",
+                          "name": "league_camille_r_tether",
+                          "speed": 100000,
+                          "y_offset": 0,
+                          "applied_target": "EnemyChampion",
+                          "applied_effects": [
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_camille_r_on",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RandomTarget",
+                                      "range": 25000,
+                                      "casting_target": "AllyOnlySelf",
+                                      "from_projectile": true,
+                                      "effects": [
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_camille_r_near",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 1
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "RandomTarget",
+                                      "range": 60000,
+                                      "casting_target": "AllyOnlySelf",
+                                      "from_projectile": true,
+                                      "effects": [
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_camille_r_reach",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 1
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_camille_r_near",
+                                      "effect_buff": {
+                                        "type": "Combine",
+                                        "effects": []
+                                      },
+                                      "effect_none": {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_camille_r_reach",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "Grab",
+                                              "speed": 2500,
+                                              "tick": 4
+                                            },
+                                            {
+                                              "type": "ViewEffect",
+                                              "name": "league_camille_r_wall"
+                                            },
+                                            {
+                                              "type": "TargetSfx",
+                                              "name": "league_camille_r_wall"
+                                            }
+                                          ]
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_camille_r_on"
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_camille_r_near"
+                                    },
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_camille_r_reach"
+                                    }
+                                  ]
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "league_camille_w_arc",
+      "anim": "asset/league/effects/league_camille_fx",
+      "tag": "w_arc",
+      "repeat": false,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_camille_e_hook",
+      "anim": "asset/league/effects/league_camille_fx",
+      "tag": "e_hook",
+      "repeat": false,
+      "z": 1
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "league_camille_hit",
+      "anim": "asset/league/effects/league_camille_fx",
+      "tag": "hit",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_camille_q_hit",
+      "anim": "asset/league/effects/league_camille_fx",
+      "tag": "q_hit",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_camille_q2_hit",
+      "anim": "asset/league/effects/league_camille_fx",
+      "tag": "q2_hit",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_camille_w_hit",
+      "anim": "asset/league/effects/league_camille_fx",
+      "tag": "w_hit",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_camille_w_edge",
+      "anim": "asset/league/effects/league_camille_fx",
+      "tag": "w_edge",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_camille_e_hit",
+      "anim": "asset/league/effects/league_camille_fx",
+      "tag": "e_hit",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_camille_e_stun",
+      "anim": "asset/league/effects/league_camille_fx",
+      "tag": "e_stun",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_camille_e_land",
+      "anim": "asset/league/effects/league_camille_big",
+      "tag": "e_land",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_camille_r_land",
+      "anim": "asset/league/effects/league_camille_big",
+      "tag": "r_land",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_camille_r_zone",
+      "anim": "asset/league/effects/league_camille_big",
+      "tag": "r_zone",
+      "z": -1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_camille_r_wall",
+      "anim": "asset/league/effects/league_camille_fx",
+      "tag": "r_wall",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_camille_r_hit",
+      "anim": "asset/league/effects/league_camille_fx",
+      "tag": "r_hit",
+      "z": 2,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "league_camille_p_on",
+      "anim": "asset/league/effects/league_camille_fx",
+      "tag": "p_shield",
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_camille_r_mark",
+      "anim": "asset/league/effects/league_camille_fx",
+      "tag": "r_mark",
+      "z": -1
+    }
+  ]
+}
