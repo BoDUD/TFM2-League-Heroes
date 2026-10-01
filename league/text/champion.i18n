@@ -224,6 +224,13 @@
         "skill": "跳向目标，造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110% 攻击力<>的<#ff9028ff>物理伤害<>。<#ff9028ff>蓄力一击<>（冷却<#ffb900ff>5秒<>）：就绪时，下一次普攻或跳斩额外造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% 法术强度<>的<#a974ffff>魔法伤害<>。",
         "skill2": "进入<#ffb900ff>1.5秒<>防御姿态（照常行动）：躲闪所有普攻，受到的技能伤害降低<#ffb900ff>25%<>。然后对周围敌人造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% 法术强度<>的<#a974ffff>魔法伤害<>并<#ef5350ff>眩晕<><#ffb900ff>1秒<>，英雄另受<#f5f5f5ff>4% 最大生命值<>的<#f5f5f5ff>真实伤害<>。",
         "ult": "砸下灯柱，对周围敌人造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>150% 法术强度<>的<#a974ffff>魔法伤害<>。命中英雄则<#ffb900ff>8秒<>内获得<i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>40 护甲<>和魔抗，每多命中一名英雄再<#ffdd8eff>+15<>；期间每第<#ffb900ff>2<>次普攻就触发被动的魔法伤害。"
+      },
+      "league_taric": {
+        "name": "塔里克",
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。被动 <#ff9028ff>正气凌人<>：施放技能后<#ffb900ff>4秒<>内的下<#ffb900ff>2<>次普攻<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻速+100%<>，额外造成<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>3% 最大生命值<>的<#a974ffff>魔法伤害<>，缩短基础技能冷却，并为<#ff9028ff>星光之触<>充能<#ffb900ff>1<>层。",
+        "skill": "<#ff9028ff>炫光<>：朝敌人投射一道星光，<#ffb900ff>0.75秒<>后沿直线爆裂，造成<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>2% 最大生命值<>的<#a974ffff>魔法伤害<>并<#ef5350ff>晕眩<><#ffb900ff>1.25秒<>。",
+        "skill2": "<#ff9028ff>星光之触<>：消耗全部层数（最多<#ffb900ff>3<>层），每层为自己和附近友方英雄回复<#6aff55ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<>的<#6aff55ff>生命值<>。<#ff9028ff>坚毅壁垒<>（<#ffb900ff>12秒<>）：给身边队友<#e8d44dff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>的<#e8d44dff>护盾<>和<i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>15护甲<>并相连，技能也会在他身边施放。",
+        "ult": "<#ff9028ff>宇宙之辉<>：团战开始时召唤星光，<#ffb900ff>2.5秒<>后自己和附近的友方英雄（相连的队友身边也算）<#e8d44dff>免疫伤害<><#ffb900ff>2.5秒<>。"
       }
     },
     "skill_name": {
@@ -386,6 +393,11 @@
         "skill1": "跳斩",
         "skill2": "反击风暴",
         "ult": "武器大师"
+      },
+      "league_taric": {
+        "skill1": "炫光",
+        "skill2": "星光之触",
+        "ult": "宇宙之辉"
       }
     }
   },
@@ -614,6 +626,13 @@
         "skill": "躍向目標，造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110% 攻擊力<>的<#ff9028ff>物理傷害<>。<#ff9028ff>蓄力一擊<>（冷卻<#ffb900ff>5秒<>）：就緒時，下一次普攻或跳斬額外造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% 魔法強度<>的<#a974ffff>魔法傷害<>。",
         "skill2": "進入<#ffb900ff>1.5秒<>防禦架勢（照常行動）：閃避所有普攻，受到的技能傷害降低<#ffb900ff>25%<>。然後對周圍敵人造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% 魔法強度<>的<#a974ffff>魔法傷害<>並<#ef5350ff>暈眩<><#ffb900ff>1秒<>，英雄另受<#f5f5f5ff>4% 最大生命值<>的<#f5f5f5ff>真實傷害<>。",
         "ult": "砸下燈柱，對周圍敵人造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>150% 魔法強度<>的<#a974ffff>魔法傷害<>。命中英雄則<#ffb900ff>8秒<>內獲得<i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>40 物理防禦<>和魔法防禦，每多命中一名英雄再<#ffdd8eff>+15<>；期間每第<#ffb900ff>2<>次普攻就觸發被動的魔法傷害。"
+      },
+      "league_taric": {
+        "name": "塔里克",
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。被動 <#ff9028ff>智勇雙全<>：施放技能後<#ffb900ff>4秒<>內的下<#ffb900ff>2<>次普攻<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻速+100%<>，額外造成<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>3% 最大生命<>的<#a974ffff>魔法傷害<>，縮短基礎技能冷卻，並為<#ff9028ff>星光之觸<>充能<#ffb900ff>1<>層。",
+        "skill": "<#ff9028ff>失能眩光<>：朝敵人投射一道星光，<#ffb900ff>0.75秒<>後沿直線爆裂，造成<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>2% 最大生命<>的<#a974ffff>魔法傷害<>並<#ef5350ff>暈眩<><#ffb900ff>1.25秒<>。",
+        "skill2": "<#ff9028ff>星光之觸<>：消耗全部層數（最多<#ffb900ff>3<>層），每層為自己和附近友方英雄回復<#6aff55ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<>的<#6aff55ff>生命<>。<#ff9028ff>雙星壁壘<>（<#ffb900ff>12秒<>）：給身邊隊友<#e8d44dff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>的<#e8d44dff>護盾<>和<i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>15護甲<>並相連，技能也會在他身邊施放。",
+        "ult": "<#ff9028ff>宇宙光彩<>：團戰開始時召喚星光，<#ffb900ff>2.5秒<>後自己和附近的友方英雄（相連的隊友身邊也算）<#e8d44dff>免疫傷害<><#ffb900ff>2.5秒<>。"
       }
     },
     "skill_name": {
@@ -776,6 +795,11 @@
         "skill1": "跳斬",
         "skill2": "反擊風暴",
         "ult": "武器宗師"
+      },
+      "league_taric": {
+        "skill1": "失能眩光",
+        "skill2": "星光之觸",
+        "ult": "宇宙光彩"
       }
     }
   },
@@ -1004,6 +1028,13 @@
         "skill": "Jax leaps to his target for <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110% AD<> <#ff9028ff>physical damage<>. <#ff9028ff>Empower<> (<#ffb900ff>5s<> cooldown): when ready, his next attack or Leap Strike deals <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% Ability Power<> bonus <#a974ffff>magic damage<>.",
         "skill2": "Jax takes a defensive stance for <#ffb900ff>1.5s<> while he keeps fighting: he dodges all basic attacks and takes <#ffb900ff>25%<> less damage from abilities. Then he strikes nearby enemies for <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% Ability Power<> <#a974ffff>magic damage<>, <#ef5350ff>stunning<> them for <#ffb900ff>1s<>; champions also take <#f5f5f5ff>4% of their max health<> as <#f5f5f5ff>true damage<>.",
         "ult": "Jax slams his lamppost down for <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>150% Ability Power<> <#a974ffff>magic damage<> around him. If he hits a champion he gains <i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>40 armor<> and magic resist for <#ffb900ff>8s<>, <#ffdd8eff>+15<> per extra champion hit; meanwhile every <#ffb900ff>second<> attack deals the passive's bonus magic damage."
+      },
+      "league_taric": {
+        "name": "Taric",
+        "attack": "Basic attacks deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. Passive <#ff9028ff>Bravado<>: after a spell, his next <#ffb900ff>2<> attacks within <#ffb900ff>4s<> gain <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>100% Attack Speed<>, deal <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20% AP<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>3% max Health<> bonus <#a974ffff>magic damage<>, cut his basic cooldowns and add a <#ff9028ff>Starlight's Touch<> stack.",
+        "skill": "<#ff9028ff>Dazzle<>: Taric projects a beam of starlight at an enemy. After <#ffb900ff>0.75s<> it bursts, dealing <#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% AP<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>2% max Health<> <#a974ffff>magic damage<> and <#ef5350ff>stunning<> enemies on the line for <#ffb900ff>1.25s<>.",
+        "skill2": "<#ff9028ff>Starlight's Touch<>: spends every stack (max <#ffb900ff>3<>; one every <#ffb900ff>5s<> and per Bravado hit) to heal him and nearby allied champions for <#6aff55ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12% AP<> per stack. <#ff9028ff>Bastion<> (every <#ffb900ff>12s<>): an ally beside him gets a <#e8d44dff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% AP<> <#e8d44dff>shield<> and <i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>15 Armor<> and is linked: his spells also go off around that ally.",
+        "ult": "<#ff9028ff>Cosmic Radiance<>: as a fight begins Taric calls down the heavens; after <#ffb900ff>2.5s<> he and nearby allied champions (also around his linked ally) are <#e8d44dff>invulnerable<> for <#ffb900ff>2.5s<>."
       }
     },
     "skill_name": {
@@ -1166,6 +1197,11 @@
         "skill1": "Leap Strike",
         "skill2": "Counter Strike",
         "ult": "Grandmaster-at-Arms"
+      },
+      "league_taric": {
+        "skill1": "Dazzle",
+        "skill2": "Starlight's Touch",
+        "ult": "Cosmic Radiance"
       }
     }
   },
@@ -1394,6 +1430,13 @@
         "skill": "대상에게 도약해 <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 110%<> <#ff9028ff>물리 피해<>. <#ff9028ff>무기 강화<>(재사용 <#ffb900ff>5초<>): 준비되면 다음 기본 공격이나 도약 공격이 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 100%<> <#a974ffff>추가 마법 피해<>.",
         "skill2": "<#ffb900ff>1.5초<> 동안 방어 태세(행동 가능): 모든 기본 공격을 회피하고 스킬 피해를 <#ffb900ff>25%<> 덜 받습니다. 이후 주변 적에게 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 100%<> <#a974ffff>마법 피해<>, <#ffb900ff>1초<> <#ef5350ff>기절<>; 챔피언은 <#f5f5f5ff>최대 체력의 4%<> <#f5f5f5ff>고정 피해<>를 추가로 받습니다.",
         "ult": "가로등을 내리찍어 주변 적에게 <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 150%<> <#a974ffff>마법 피해<>. 챔피언 적중 시 <#ffb900ff>8초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>방어력 40<>·마법 저항력, 추가 챔피언당 <#ffdd8eff>+15<>; 그동안 <#ffb900ff>2<>번째 공격마다 추가 마법 피해."
+      },
+      "league_taric": {
+        "name": "타릭",
+        "attack": "기본 공격은 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다. 기본 지속 효과 <#ff9028ff>담대함<>: 스킬 사용 후 <#ffb900ff>4초<> 안의 다음 기본 공격 <#ffb900ff>2<>회가 <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>공격 속도 +100%<>, <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>최대 체력의 3%<> 추가 <#a974ffff>마법 피해<>, 기본 스킬 재사용 대기시간 감소, <#ff9028ff>별빛 손길<> 1회 충전.",
+        "skill": "<#ff9028ff>황홀한 강타<>: 적에게 별빛을 쏘아 <#ffb900ff>0.75초<> 뒤 직선으로 폭발시켜 <#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>최대 체력의 2%<>의 <#a974ffff>마법 피해<>를 입히고 <#ffb900ff>1.25초<> 동안 <#ef5350ff>기절<>시킵니다.",
+        "skill2": "<#ff9028ff>별빛 손길<>: 모든 충전(최대 <#ffb900ff>3<>회)을 소모해 충전당 자신과 주변 아군 챔피언의 체력을 <#6aff55ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<> 회복합니다. <#ff9028ff>수호의 고리<>(<#ffb900ff>12초<>): 옆의 아군에게 <#e8d44dff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>의 <#e8d44dff>보호막<>과 <i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>방어력 15<>를 주고 연결되어, 스킬이 그 아군 주변에서도 발동합니다.",
+        "ult": "<#ff9028ff>우주의 광휘<>: 교전이 시작되면 하늘의 빛을 불러 <#ffb900ff>2.5초<> 뒤 자신과 주변 아군 챔피언(연결된 아군 주변 포함)이 <#ffb900ff>2.5초<> 동안 <#e8d44dff>무적<>이 됩니다."
       }
     },
     "skill_name": {
@@ -1556,6 +1599,11 @@
         "skill1": "도약 공격",
         "skill2": "반격",
         "ult": "무기의 달인"
+      },
+      "league_taric": {
+        "skill1": "황홀한 강타",
+        "skill2": "별빛 손길",
+        "ult": "우주의 광휘"
       }
     }
   },
@@ -1784,6 +1832,13 @@
         "skill": "対象に跳びかかり<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の110%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>パワーバッシュ<>（CD<#ffb900ff>5秒<>）：準備できると次の通常攻撃かリープストライクが<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の100%<>の<#a974ffff>追加魔法ダメージ<>。",
         "skill2": "<#ffb900ff>1.5秒<>防御の構え（行動可能）：通常攻撃をすべて回避し、スキルの被ダメージ<#ffb900ff>25%<>軽減。その後周囲の敵に<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の100%<>の<#a974ffff>魔法ダメージ<>と<#ffb900ff>1秒<><#ef5350ff>スタン<>、チャンピオンには<#f5f5f5ff>最大体力の4%<>の<#f5f5f5ff>確定ダメージ<>。",
         "ult": "街灯を叩きつけ周囲に<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の150%<>の<#a974ffff>魔法ダメージ<>。チャンピオンに当たると<#ffb900ff>8秒<><i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>物理防御40<>と魔法防御、追加1体ごとに<#ffdd8eff>+15<>；その間<#ffb900ff>2<>回目ごとの攻撃で追加魔法ダメージ。"
+      },
+      "league_taric": {
+        "name": "タリック",
+        "attack": "通常攻撃は<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>。自動効果<#ff9028ff>ブラバド<>：スキル使用後<#ffb900ff>4秒<>以内の通常攻撃<#ffb900ff>2<>回が<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻撃速度+100%<>、<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>最大体力の3%<>の追加<#a974ffff>魔法ダメージ<>、スキルのCD短縮、<#ff9028ff>スターライトタッチ<>1チャージ。",
+        "skill": "<#ff9028ff>ダズル<>：敵に向けて星光を放ち、<#ffb900ff>0.75秒<>後に直線上で炸裂して<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>最大体力の2%<>の<#a974ffff>魔法ダメージ<>を与え、<#ffb900ff>1.25秒<>間<#ef5350ff>スタン<>させる。",
+        "skill2": "<#ff9028ff>スターライトタッチ<>：チャージ（最大<#ffb900ff>3<>）を全て使い、1チャージごとに自身と周囲の味方の体力を<#6aff55ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<>回復。<#ff9028ff>バスティオン<>（<#ffb900ff>12秒<>）：近くの味方に<#e8d44dff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の<#e8d44dff>シールド<>と<i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>物理防御15<>を与えて連結し、スキルがその味方の周囲でも発動する。",
+        "ult": "<#ff9028ff>コズミックレディアンス<>：集団戦の開始時に天の光を呼び、<#ffb900ff>2.5秒<>後に自身と周囲の味方（連結した味方の周囲も）が<#ffb900ff>2.5秒<>間<#e8d44dff>無敵<>になる。"
       }
     },
     "skill_name": {
@@ -1946,6 +2001,11 @@
         "skill1": "リープストライク",
         "skill2": "カウンターストライク",
         "ult": "ウェポングランドマスター"
+      },
+      "league_taric": {
+        "skill1": "ダズル",
+        "skill2": "スターライトタッチ",
+        "ult": "コズミックレディアンス"
       }
     }
   }
