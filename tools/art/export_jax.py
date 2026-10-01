@@ -37,6 +37,9 @@ them the way tools/art/export_vayne.py read Vayne's raw sheets:
      material's own dark, lone specks taken by their area), the pasted mask kept.
 With --install the strips, the cells table and the pack's idle (the design on every idle pivot) are written to
 assets/source/native/ for tools/art/import_native.py (which closes the outline, strips.complete_outline).
+These are the 41-row strips: tools/art/shrink_jax.py cut them and the design to 36 rows (2026-10-01), starting from
+copies in assets/source/jax/native41/. The design is read from there when the copy is there; after a new export
+delete that folder (shrink_jax.py copies assets/source/native/ into it again) and run shrink_jax.py.
 """
 import argparse
 import json
@@ -147,7 +150,10 @@ def pieces(fg, min_px=20):
 
 class Design:
     def __init__(self):
-        c = np.asarray(Image.open(lp(os.path.join(SRC, "jax_native.png"))).convert("RGBA"))[4::8, 4::8]
+        path = os.path.join(ROOT, "assets", "source", "jax", "native41", "jax_native.png")   # the 41-row design
+        if not os.path.exists(lp(path)):
+            path = os.path.join(SRC, "jax_native.png")
+        c = np.asarray(Image.open(lp(path)).convert("RGBA"))[4::8, 4::8]
         self.canvas = c.copy()
         op = c[..., 3] > 0
         eye = np.all(c[..., :3] == EYE, -1) & op
