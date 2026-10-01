@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "tool": "native pixel editing (Python/Pillow), explicitly requested by supplied brief",
-  "status": "hips4_native_revision",
+  "status": "align5_candidate",
   "scale": 8,
   "cell": [
     96,
@@ -43,37 +43,37 @@
       "native_leg_anchors": {
         "near": [
           [
-            44,
+            41,
             64
           ],
           [
-            43,
+            40,
             69
           ],
           [
-            40,
+            37,
             75
           ],
           [
-            40,
+            37,
             79
           ]
         ],
         "far": [
           [
-            42,
+            39,
             64
           ],
           [
-            39,
+            36,
             68
           ],
           [
-            36,
+            33,
             69
           ],
           [
-            36,
+            33,
             72
           ]
         ]
@@ -85,17 +85,8 @@
         "boot": 5,
         "sole": 5
       },
-      "method": "native-pixel hip/skirt redraw; rows68 onward unchanged",
-      "hip_edit_box": [
-        30,
-        54,
-        56,
-        68
-      ],
-      "front_plate_tip": [
-        43,
-        65
-      ]
+      "method": "Move pelvis and both legs backward together; native waist transition",
+      "lower_body_dx": -3
     },
     {
       "frame": 2,
@@ -125,37 +116,37 @@
       "native_leg_anchors": {
         "near": [
           [
-            46,
+            43,
             64
           ],
           [
-            47,
+            44,
             70
           ],
           [
-            47,
+            44,
             76
           ],
           [
-            47,
+            44,
             79
           ]
         ],
         "far": [
           [
-            43,
+            40,
             64
           ],
           [
-            43,
+            40,
             68
           ],
           [
-            38,
+            35,
             70
           ],
           [
-            38,
+            35,
             73
           ]
         ]
@@ -167,17 +158,8 @@
         "boot": 5,
         "sole": 5
       },
-      "method": "native-pixel hip/skirt redraw; rows68 onward unchanged",
-      "hip_edit_box": [
-        30,
-        54,
-        56,
-        68
-      ],
-      "front_plate_tip": [
-        46,
-        65
-      ]
+      "method": "Move pelvis and both legs backward together; native waist transition",
+      "lower_body_dx": -3
     },
     {
       "frame": 3,
@@ -207,37 +189,37 @@
       "native_leg_anchors": {
         "near": [
           [
-            46,
+            43,
             64
           ],
           [
-            47,
+            44,
             70
           ],
           [
-            46,
+            43,
             76
           ],
           [
-            47,
+            44,
             79
           ]
         ],
         "far": [
           [
-            43,
+            40,
             64
           ],
           [
-            41,
-            69
-          ],
-          [
             38,
             69
           ],
           [
-            38,
+            35,
+            69
+          ],
+          [
+            35,
             71
           ]
         ]
@@ -249,17 +231,8 @@
         "boot": 5,
         "sole": 5
       },
-      "method": "native-pixel hip/skirt redraw; rows68 onward unchanged",
-      "hip_edit_box": [
-        30,
-        54,
-        56,
-        68
-      ],
-      "front_plate_tip": [
-        46,
-        65
-      ]
+      "method": "Move pelvis and both legs backward together; native waist transition",
+      "lower_body_dx": -3
     },
     {
       "frame": 4,
@@ -289,37 +262,37 @@
       "native_leg_anchors": {
         "near": [
           [
-            44,
+            41,
             65
           ],
           [
-            44,
+            41,
             70
           ],
           [
-            42,
+            39,
             76
           ],
           [
-            43,
+            40,
             79
           ]
         ],
         "far": [
           [
-            46,
+            43,
             64
           ],
           [
-            47,
+            44,
             67
           ],
           [
-            48,
+            45,
             70
           ],
           [
-            47,
+            44,
             72
           ]
         ]
@@ -331,17 +304,8 @@
         "boot": 5,
         "sole": 5
       },
-      "method": "native-pixel hip/skirt redraw; rows68 onward unchanged",
-      "hip_edit_box": [
-        30,
-        54,
-        56,
-        68
-      ],
-      "front_plate_tip": [
-        44,
-        65
-      ]
+      "method": "Move pelvis and both legs backward together; native waist transition",
+      "lower_body_dx": -3
     },
     {
       "frame": 5,
@@ -371,37 +335,37 @@
       "native_leg_anchors": {
         "near": [
           [
-            43,
+            40,
             64
           ],
           [
-            42,
+            39,
             69
           ],
           [
-            39,
+            36,
             73
           ],
           [
-            40,
+            37,
             76
           ]
         ],
         "far": [
           [
-            45,
+            42,
             64
           ],
           [
-            48,
+            45,
             70
           ],
           [
-            46,
+            43,
             76
           ],
           [
-            47,
+            44,
             79
           ]
         ]
@@ -413,17 +377,8 @@
         "boot": 5,
         "sole": 5
       },
-      "method": "native-pixel hip/skirt redraw; rows68 onward unchanged",
-      "hip_edit_box": [
-        30,
-        54,
-        56,
-        68
-      ],
-      "front_plate_tip": [
-        42,
-        64
-      ]
+      "method": "Move pelvis and both legs backward together; native waist transition",
+      "lower_body_dx": -3
     },
     {
       "frame": 6,
@@ -453,37 +408,37 @@
       "native_leg_anchors": {
         "near": [
           [
-            43,
+            40,
             64
           ],
           [
-            42,
+            39,
             69
           ],
           [
-            38,
+            35,
             68
           ],
           [
-            37,
+            34,
             72
           ]
         ],
         "far": [
           [
-            44,
+            41,
             64
           ],
           [
-            46,
+            43,
             70
           ],
           [
-            46,
+            43,
             76
           ],
           [
-            47,
+            44,
             79
           ]
         ]
@@ -495,17 +450,8 @@
         "boot": 5,
         "sole": 5
       },
-      "method": "native-pixel hip/skirt redraw; rows68 onward unchanged",
-      "hip_edit_box": [
-        30,
-        54,
-        56,
-        68
-      ],
-      "front_plate_tip": [
-        41,
-        63
-      ]
+      "method": "Move pelvis and both legs backward together; native waist transition",
+      "lower_body_dx": -3
     },
     {
       "frame": 7,
@@ -535,37 +481,37 @@
       "native_leg_anchors": {
         "near": [
           [
-            42,
+            39,
             64
           ],
           [
-            41,
+            38,
             69
           ],
           [
-            37,
+            34,
             67
           ],
           [
-            37,
+            34,
             69
           ]
         ],
         "far": [
           [
-            45,
+            42,
             64
           ],
           [
-            47,
+            44,
             70
           ],
           [
-            46,
+            43,
             76
           ],
           [
-            46,
+            43,
             79
           ]
         ]
@@ -577,17 +523,8 @@
         "boot": 5,
         "sole": 5
       },
-      "method": "native-pixel hip/skirt redraw; rows68 onward unchanged",
-      "hip_edit_box": [
-        30,
-        54,
-        56,
-        68
-      ],
-      "front_plate_tip": [
-        40,
-        62
-      ]
+      "method": "Move pelvis and both legs backward together; native waist transition",
+      "lower_body_dx": -3
     },
     {
       "frame": 8,
@@ -617,37 +554,37 @@
       "native_leg_anchors": {
         "near": [
           [
-            42,
+            40,
             64
           ],
           [
-            42,
+            40,
             67
           ],
           [
-            46,
+            44,
             76
           ],
           [
-            45,
+            43,
             79
           ]
         ],
         "far": [
           [
-            41,
+            39,
             64
           ],
           [
-            40,
+            38,
             70
           ],
           [
-            38,
+            36,
             76
           ],
           [
-            38,
+            36,
             79
           ]
         ]
@@ -659,20 +596,11 @@
         "boot": 5,
         "sole": 5
       },
-      "method": "native-pixel hip/skirt redraw; rows68 onward unchanged",
-      "hip_edit_box": [
-        30,
-        54,
-        56,
-        68
-      ],
-      "front_plate_tip": [
-        42,
-        63
-      ]
+      "method": "Move pelvis and both legs backward together; native waist transition",
+      "lower_body_dx": -2
     }
   ],
-  "method": "Native pixel redraw of waist, pelvis and overlapping skirt plates only. No resampling of artwork.",
+  "method": "Native pixel lower-body alignment: hips and legs shift back together; smooth waist transition",
   "palette": [
     "#0A0412",
     "#0C0516",
