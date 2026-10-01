@@ -193,6 +193,12 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   at most), seat the chin on the shoulders with `"dy"`, and where a pose turns the torso thin under a big
   head, widen the rows under the chin (`restyle_native.py` `"shoulders"`). Check the ult and every
   side-on pose at game size, not only the idle the design was drawn on.
+  The exception: a design that has its own neck or collar between the chin and the chest keeps those rows in
+  every frame. league_fiora's strips prompt said "no neck under the chin", so Codex seated her pasted head on the
+  shirt in every action frame and her short neck and tall gold collar were gone (eyes 4-5 rows above the white
+  shirt against 8 in the design; the user: "剑姬放技能的时候脖子又消失 没修复吗？", "还是漏了" - only the walk had
+  been fixed). Write the design's eye-to-chest distance into the strips prompt, and before shipping measure it in
+  every frame of every action against the idle, not only in the strip the user pointed at.
 - **A big pasted head needs a body under it, not a pipe.** In the 0.21.0 pass the user still saw league_janna's
   neck and body apart: her drawn head is ~15 squares wide over a body League renders 5 squares wide at head 2.0,
   and in the attack and spells League turns her side-on and throws her legs back, so the little body hung off

@@ -66,6 +66,24 @@ NECK = {("nami", "run"): (-21, [0, 1, 2, 3])}
 # body centre move about 2 px at her size, its hip 3 (one 3-px snap from 4 to 5 read bouncy on a 40-px chibi). The
 # drawing already stands a row higher in 6-8.
 STEP = {("fiora", "run"): (-6, [1, 1, 0, 2, 0, 1, 2, 2], ["5C0522", "730928"])}
+# (hero, tag): per frame (rows, left, right[, "fill"]) or None, the pasted head put back on its neck: the design's
+# head moves up `rows` (the idle's head pixels round the eyes, down to the chin three rows under them) and the idle's
+# rows under its chin - the neck and the collar - go under it, `left`..`right` columns from the eyes, where the frame
+# is clear or had the head; "fill" also closes a clear gap under the chin with the idle's neck. Fiora's strips prompt
+# said "no neck under the chin", so Codex seated the head on the shirt in every action frame: eyes 4-5 rows above the
+# white shirt against the idle's 8, her short neck and tall gold collar gone (the user: "剑姬放技能的时候脖子又消失
+# 没修复吗？", "还是漏了"). Rows and widths per frame from a judge per strip: the wide collar (7) where the shoulders
+# are square to us, 5 where it would sit on a shoulder, cut on the side of a raised sword arm; the Q dash (2-3) stays
+# (League shows no neck there), as do the death frames whose head hangs ahead of the body (2-4).
+NECK_UP = {("fiora", "attack"): [(2, 7, 7), (1, 5, 4), (1, 5, 5, "fill"), (3, 7, 3), (3, 7, 3), None],
+           ("fiora", "attack_e"): [(3, 7, 7), (2, 7, 7), (3, 7, 7), (3, 7, 7), (3, 7, 7), (3, 7, 7)],
+           ("fiora", "skill"): [(3, 5, 5), None, None, (4, 5, 5), (4, 5, 5), (4, 5, 5)],
+           ("fiora", "skill2"): [(3, 5, 5)] * 6 + [(4, 5, 5)],
+           ("fiora", "ult"): [(4, 7, 7)] * 5,
+           ("fiora", "hit"): [(2, 7, 7), (2, 7, 7)],
+           ("fiora", "dead"): [(3, 7, 7), None, None, None, (4, 7, 7), (4, 7, 7), None, None]}
+# (hero, tag, frame): the eyes (pivot row, column) where the EYES colour is missing - her wince, eyes shut
+NECK_EYES = {("fiora", "hit", 0): (-19, 3)}
 # heroes whose outline strips.complete_outline closes on the finished frames (the skill's art-spec "Close the
 # outline": every hero from Nami on; the user: "后面英雄都要用的"). Nothing goes under the soles row; a frame that
 # already reaches lower (lying down) keeps its own bottom.
@@ -417,6 +435,74 @@ def touch_up(hero, sheet):
     return n
 
 
+def neck_up(hero, sheet):
+    """NECK_UP: the pasted head up its rows with the idle's neck and collar under it; the frames changed."""
+    changed = 0
+    if not any(h == hero for h, _ in NECK_UP):
+        return 0
+    eye = np.array(EYES[hero])
+    idle = sheet["idle"][0][0]
+    ys, xs = np.nonzero((idle[..., :3] == eye).all(-1) & (idle[..., 3] > 0))
+    iey, iex = int(ys.max()), int(round(xs.mean()))
+    head = [(y - iey, x - iex) for y, x in zip(*np.nonzero(idle[..., 3] > 0)) if y <= iey + 3 and abs(x - iex) <= 9]
+    for (h, tag), plan in NECK_UP.items():
+        if h != hero or tag not in sheet:
+            continue
+        for k, todo in enumerate(plan):
+            if not todo:
+                continue
+            rows, left, right = todo[:3]
+            a, ms = sheet[tag][k]
+            pad = rows + 16
+            c = np.pad(a, ((pad, pad), (pad, pad), (0, 0)))
+            cy, cx = c.shape[0] // 2, c.shape[1] // 2
+            if (hero, tag, k) in NECK_EYES:
+                dy, dx = NECK_EYES[(hero, tag, k)]
+                ey, ex = cy + dy, cx + dx
+            else:
+                ys, xs = np.nonzero((c[..., :3] == eye).all(-1) & (c[..., 3] > 0))
+                ey, ex = int(ys.max()), int(round(xs.mean()))
+            mine = [(dy, dx) for dy, dx in head if c[ey + dy, ex + dx, 3]
+                    and (c[ey + dy, ex + dx, :3] == idle[iey + dy, iex + dx, :3]).all()]
+            pix = {q: c[ey + q[0], ex + q[1]].copy() for q in mine}
+            for dy, dx in mine:
+                c[ey + dy, ex + dx] = 0
+            ney = ey - rows
+            for dy in range(4, 4 + rows):                       # the idle's neck and collar under the new chin
+                for dx in range(-left, right + 1):
+                    q = idle[iey + dy, iex + dx] if 0 <= iex + dx < idle.shape[1] else (0, 0, 0, 0)
+                    if q[3] and (c[ney + dy, ex + dx, 3] == 0 or ney + dy <= ey + 3):
+                        c[ney + dy, ex + dx] = q
+            for (dy, dx), p in pix.items():
+                c[ney + dy, ex + dx] = p
+            if "fill" in todo[3:]:                               # a clear gap under the chin: the idle's neck
+                for dy in range(4 + rows, 6 + rows):
+                    for dx in (-1, 0, 1):
+                        q = idle[iey + dy, iex + dx]
+                        if c[ney + dy, ex + dx, 3] == 0 and q[3]:
+                            c[ney + dy, ex + dx] = q
+            for dy, dx in mine:                                  # left open where the head was
+                y, x = ey + dy, ex + dx
+                if c[y, x, 3] == 0:
+                    near = [tuple(int(v) for v in c[y + yy, x + xx, :3]) for yy, xx in ((-1, 0), (1, 0), (0, -1), (0, 1))
+                            if c[y + yy, x + xx, 3]]
+                    if len(near) >= 3:
+                        c[y, x, :3] = max(set(near), key=near.count)
+                        c[y, x, 3] = 255
+            op = c[..., 3] > 0
+            pp = np.pad(op, 1)
+            shut = ~op & pp[:-2, 1:-1] & pp[2:, 1:-1] & pp[1:-1, :-2] & pp[1:-1, 2:]
+            shut[:max(0, ney - 14)] = False
+            shut[ney + 12:] = False
+            for y, x in zip(*np.nonzero(shut)):                  # clear pixels shut in on four sides
+                near = [tuple(int(v) for v in c[y + yy, x + xx, :3]) for yy, xx in ((-1, 0), (1, 0), (0, -1), (0, 1))]
+                c[y, x, :3] = max(set(near), key=near.count)
+                c[y, x, 3] = 255
+            sheet[tag][k] = (G.centre_frame(c, -cx, -cy), ms)
+            changed += 1
+    return changed
+
+
 def step(hero, sheet):
     """STEP: move the upper body of each frame, with its cape, down its rows over the legs; the frames moved."""
     moved = 0
@@ -564,6 +650,9 @@ def main():
                                  for p in glob.glob(os.path.join(SRC, "*_cells.json")))
     for hero in heroes:
         sheet, report = build(hero)
+        necks = neck_up(hero, sheet)
+        if necks:
+            print(f"{hero}: pasted head put back on its neck in {necks} frames")
         touched = touch_up(hero, sheet)
         if touched:
             print(f"{hero}_retouch.json: {touched} pixels retouched")
