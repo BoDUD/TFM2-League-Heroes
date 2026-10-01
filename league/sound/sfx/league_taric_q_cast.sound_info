@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_taric_sfx_q_cast",
+      "volume": 0.65
+    },
+    {
+      "delay": 0.0,
+      "clip": "league_taric_vo_q",
+      "volume": 0.9
+    }
+  ]
+}

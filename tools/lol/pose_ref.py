@@ -232,6 +232,13 @@ def diffuse_textures(paths, skin_bin=None, skn=None):
     return found
 
 
+def base_mesh(paths):
+    """The base skin's own .skn / .skl among the paths a skin bin names. Taric's bin also names a particle mesh
+    (`Skins/Base/Particles/Taric_Base_W_cas_anim.skn`, three gems) that sorts before `Taric.skn`."""
+    base = [p for p in paths if "/Base/" in p]
+    return next((p for p in base if "/particles/" not in p.lower()), base[0])
+
+
 def skn_submeshes(b):
     """A SKN's submeshes: (name, first index, index count)."""
     magic, major, _minor = struct.unpack_from("<IHH", b, 0)
@@ -596,8 +603,8 @@ def main():
     w = Wad(wad_path)
     skin_bin = w.read_path(f"data/characters/{champ.lower()}/skins/skin0.bin")
     refs = lambda blob, ext: sorted(set(m.decode("latin1") for m in re.findall(rb"[A-Za-z0-9_/\.\-]+\." + ext, blob)))
-    skn = [p for p in refs(skin_bin, rb"skn") if "/Base/" in p][0]
-    skl = [p for p in refs(skin_bin, rb"skl") if "/Base/" in p][0]
+    skn = base_mesh(refs(skin_bin, rb"skn"))
+    skl = base_mesh(refs(skin_bin, rb"skl"))
     texs = diffuse_textures(refs(skin_bin, rb"(?:tex|dds)"), skin_bin, skn)
     skn_bytes = w.read_path(skn.lower())
     tris, verts = read_skn(skn_bytes)
