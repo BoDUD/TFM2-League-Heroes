@@ -25,7 +25,7 @@
     "crit_chance": 0
   },
   "growth": {
-    "attack": 24,
+    "attack": 22,
     "magic_power": 10,
     "hp": 90,
     "defence": 8,
@@ -108,7 +108,7 @@
               "effects": [
                 {
                   "type": "Delayed",
-                  "tick": 12,
+                  "tick": 8,
                   "effects": [
                     {
                       "type": "RangeEffect",
@@ -297,7 +297,7 @@
             "effects": [
               {
                 "type": "Delayed",
-                "tick": 12,
+                "tick": 8,
                 "effects": [
                   {
                     "type": "RangeEffect",
@@ -2730,7 +2730,7 @@
           "effects": [
             {
               "type": "Invisible",
-              "tick": 240
+              "tick": 180
             },
             {
               "type": "ViewEffect",
@@ -2754,7 +2754,7 @@
                 "name": "league_nocturne_r_dark",
                 "duration": {
                   "Time": {
-                    "tick": 240
+                    "tick": 180
                   }
                 }
               }
