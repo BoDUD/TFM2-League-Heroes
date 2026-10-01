@@ -454,10 +454,20 @@ def step(hero, sheet):
                     break
             b = np.pad(a, ((0, d), (0, 0), (0, 0)))
             upper = np.zeros_like(b)
-            upper[d:a.shape[0] + d][np.pad(block, ((0, 0), (0, 0)))] = a[block]
+            upper[d:a.shape[0] + d][block] = a[block]
             b[:a.shape[0]][block] = 0
             m = upper[..., 3] > 0
             b[m] = upper[m]
+            # a clear pixel the move closes in on all four sides (the cape's edge come down beside a leg) takes its
+            # commonest neighbour
+            def shut(o):
+                p = np.pad(o, 1)
+                return ~o & p[:-2, 1:-1] & p[2:, 1:-1] & p[1:-1, :-2] & p[1:-1, 2:]
+            was = shut(np.pad(op, ((0, d), (0, 0))))
+            for y, x in zip(*np.nonzero(shut(b[..., 3] > 0) & ~was)):
+                near = [tuple(int(v) for v in b[y + dy, x + dx, :3]) for dy, dx in ((-1, 0), (1, 0), (0, -1), (0, 1))]
+                b[y, x, :3] = max(set(near), key=near.count)
+                b[y, x, 3] = 255
             sheet[tag][k] = (G.centre_frame(b, -(b.shape[1] // 2), -cy), ms)
             moved += 1
     return moved
