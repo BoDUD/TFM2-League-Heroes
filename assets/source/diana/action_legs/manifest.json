@@ -1,0 +1,4180 @@
+{
+  "note": "waist down rebuilt by tools/art/diana_action_legs.py (assets/source/diana/action_legs.json): the idle's skirt and legs under Codex's upper bodies; frames already grounded",
+  "animations": {
+    "attack": {
+      "file": "diana_attack.png",
+      "native_file": "native/diana_attack_1x.png",
+      "raw_file": "raw/diana_attack_raw.png",
+      "raw_size": [
+        1774,
+        887
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "size": [
+        3072,
+        1536
+      ],
+      "release_frame": 4,
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 60,
+          "rect": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "pivot": [
+            47,
+            68
+          ],
+          "bbox": [
+            11,
+            50,
+            64,
+            80
+          ],
+          "eye_mark": [
+            38,
+            60
+          ],
+          "eye_bbox": [
+            38,
+            60,
+            43,
+            62
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 79,
+          "pixels": 583,
+          "raw_rect": [
+            89,
+            258,
+            386,
+            428
+          ],
+          "source_eye_bbox": [
+            157,
+            56,
+            182,
+            67
+          ],
+          "sample_pitch_px": 5.625,
+          "sampled_size": [
+            53,
+            30
+          ],
+          "translation": [
+            11,
+            50
+          ],
+          "airborne_lift": 0,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "pivot_px": [
+            376,
+            544
+          ],
+          "bbox_px": [
+            88,
+            400,
+            512,
+            640
+          ],
+          "eye_mark_px": [
+            304,
+            480
+          ]
+        },
+        {
+          "frame": 2,
+          "ms": 60,
+          "rect": [
+            96,
+            0,
+            192,
+            96
+          ],
+          "pivot": [
+            45,
+            68
+          ],
+          "bbox": [
+            15,
+            45,
+            69,
+            80
+          ],
+          "eye_mark": [
+            38,
+            55
+          ],
+          "eye_bbox": [
+            38,
+            55,
+            43,
+            57
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 79,
+          "pixels": 633,
+          "raw_rect": [
+            535,
+            231,
+            842,
+            428
+          ],
+          "source_eye_bbox": [
+            136,
+            54,
+            159,
+            65
+          ],
+          "sample_pitch_px": 5.625,
+          "sampled_size": [
+            55,
+            35
+          ],
+          "translation": [
+            15,
+            45
+          ],
+          "airborne_lift": 0,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            768,
+            0,
+            1536,
+            768
+          ],
+          "pivot_px": [
+            360,
+            544
+          ],
+          "bbox_px": [
+            120,
+            360,
+            552,
+            640
+          ],
+          "eye_mark_px": [
+            304,
+            440
+          ]
+        },
+        {
+          "frame": 3,
+          "ms": 60,
+          "rect": [
+            192,
+            0,
+            288,
+            96
+          ],
+          "pivot": [
+            43,
+            68
+          ],
+          "bbox": [
+            16,
+            40,
+            74,
+            80
+          ],
+          "eye_mark": [
+            39,
+            49
+          ],
+          "eye_bbox": [
+            39,
+            49,
+            44,
+            51
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 79,
+          "pixels": 741,
+          "raw_rect": [
+            964,
+            203,
+            1294,
+            428
+          ],
+          "source_eye_bbox": [
+            135,
+            51,
+            159,
+            62
+          ],
+          "sample_pitch_px": 5.625,
+          "sampled_size": [
+            59,
+            40
+          ],
+          "translation": [
+            16,
+            40
+          ],
+          "airborne_lift": 0,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            1536,
+            0,
+            2304,
+            768
+          ],
+          "pivot_px": [
+            344,
+            544
+          ],
+          "bbox_px": [
+            128,
+            320,
+            592,
+            640
+          ],
+          "eye_mark_px": [
+            312,
+            392
+          ]
+        },
+        {
+          "frame": 4,
+          "ms": 70,
+          "rect": [
+            288,
+            0,
+            384,
+            96
+          ],
+          "pivot": [
+            35,
+            68
+          ],
+          "bbox": [
+            10,
+            14,
+            60,
+            80
+          ],
+          "eye_mark": [
+            33,
+            44
+          ],
+          "eye_bbox": [
+            33,
+            44,
+            38,
+            46
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 79,
+          "pixels": 727,
+          "raw_rect": [
+            1401,
+            56,
+            1689,
+            428
+          ],
+          "source_eye_bbox": [
+            138,
+            170,
+            161,
+            180
+          ],
+          "sample_pitch_px": 5.625,
+          "sampled_size": [
+            51,
+            66
+          ],
+          "translation": [
+            10,
+            14
+          ],
+          "airborne_lift": 0,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            2304,
+            0,
+            3072,
+            768
+          ],
+          "pivot_px": [
+            280,
+            544
+          ],
+          "bbox_px": [
+            80,
+            112,
+            480,
+            640
+          ],
+          "eye_mark_px": [
+            264,
+            352
+          ]
+        },
+        {
+          "frame": 5,
+          "ms": 70,
+          "rect": [
+            0,
+            96,
+            96,
+            192
+          ],
+          "pivot": [
+            57,
+            68
+          ],
+          "bbox": [
+            13,
+            20,
+            56,
+            80
+          ],
+          "eye_mark": [
+            46,
+            46
+          ],
+          "eye_bbox": [
+            46,
+            46,
+            51,
+            48
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 79,
+          "pixels": 728,
+          "raw_rect": [
+            103,
+            484,
+            347,
+            819
+          ],
+          "source_eye_bbox": [
+            191,
+            146,
+            215,
+            155
+          ],
+          "sample_pitch_px": 5.625,
+          "sampled_size": [
+            43,
+            60
+          ],
+          "translation": [
+            13,
+            20
+          ],
+          "airborne_lift": 0,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            0,
+            768,
+            768,
+            1536
+          ],
+          "pivot_px": [
+            456,
+            544
+          ],
+          "bbox_px": [
+            104,
+            160,
+            448,
+            640
+          ],
+          "eye_mark_px": [
+            368,
+            368
+          ]
+        },
+        {
+          "frame": 6,
+          "ms": 80,
+          "rect": [
+            96,
+            96,
+            192,
+            192
+          ],
+          "pivot": [
+            63,
+            68
+          ],
+          "bbox": [
+            25,
+            37,
+            88,
+            80
+          ],
+          "eye_mark": [
+            50,
+            47
+          ],
+          "eye_bbox": [
+            50,
+            47,
+            55,
+            49
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 79,
+          "pixels": 694,
+          "raw_rect": [
+            513,
+            575,
+            867,
+            819
+          ],
+          "source_eye_bbox": [
+            142,
+            58,
+            166,
+            68
+          ],
+          "sample_pitch_px": 5.625,
+          "sampled_size": [
+            63,
+            43
+          ],
+          "translation": [
+            25,
+            37
+          ],
+          "airborne_lift": 0,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            768,
+            768,
+            1536,
+            1536
+          ],
+          "pivot_px": [
+            504,
+            544
+          ],
+          "bbox_px": [
+            200,
+            296,
+            704,
+            640
+          ],
+          "eye_mark_px": [
+            400,
+            376
+          ]
+        },
+        {
+          "frame": 7,
+          "ms": 80,
+          "rect": [
+            192,
+            96,
+            288,
+            192
+          ],
+          "pivot": [
+            59,
+            68
+          ],
+          "bbox": [
+            34,
+            40,
+            74,
+            80
+          ],
+          "eye_mark": [
+            48,
+            49
+          ],
+          "eye_bbox": [
+            48,
+            49,
+            54,
+            51
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 79,
+          "pixels": 728,
+          "raw_rect": [
+            1031,
+            592,
+            1257,
+            819
+          ],
+          "source_eye_bbox": [
+            85,
+            55,
+            110,
+            64
+          ],
+          "sample_pitch_px": 5.625,
+          "sampled_size": [
+            40,
+            40
+          ],
+          "translation": [
+            34,
+            40
+          ],
+          "airborne_lift": 0,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            1536,
+            768,
+            2304,
+            1536
+          ],
+          "pivot_px": [
+            472,
+            544
+          ],
+          "bbox_px": [
+            272,
+            320,
+            592,
+            640
+          ],
+          "eye_mark_px": [
+            384,
+            392
+          ]
+        }
+      ],
+      "checks": {
+        "dimensions": true,
+        "grid_8x8": true,
+        "binary_alpha": true,
+        "palette_subset": true,
+        "color_count": 26,
+        "baseline_limit": true,
+        "populated_frames": 7,
+        "empty_unused_cells": true
+      },
+      "visual_status": "needs review: exact face squares, original silhouette, weapon hand, leg alternation and motion continuity are not certified"
+    },
+    "attack_p": {
+      "file": "diana_attack_p.png",
+      "native_file": "native/diana_attack_p_1x.png",
+      "raw_file": "raw/diana_attack_p_raw.png",
+      "raw_size": [
+        1774,
+        887
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "size": [
+        3072,
+        1536
+      ],
+      "release_frame": 5,
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 60,
+          "rect": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "pivot": [
+            37,
+            68
+          ],
+          "bbox": [
+            10,
+            40,
+            56,
+            80
+          ],
+          "eye_mark": [
+            26,
+            49
+          ],
+          "eye_bbox": [
+            26,
+            49,
+            31,
+            51
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 79,
+          "pixels": 784,
+          "raw_rect": [
+            107,
+            152,
+            423,
+            422
+          ],
+          "source_eye_bbox": [
+            117,
+            61,
+            145,
+            72
+          ],
+          "sample_pitch_px": 6.825,
+          "sampled_size": [
+            46,
+            40
+          ],
+          "translation": [
+            10,
+            40
+          ],
+          "airborne_lift": 0,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "pivot_px": [
+            296,
+            544
+          ],
+          "bbox_px": [
+            80,
+            320,
+            448,
+            640
+          ],
+          "eye_mark_px": [
+            208,
+            392
+          ]
+        },
+        {
+          "frame": 2,
+          "ms": 60,
+          "rect": [
+            96,
+            0,
+            192,
+            96
+          ],
+          "pivot": [
+            51,
+            68
+          ],
+          "bbox": [
+            12,
+            32,
+            56,
+            80
+          ],
+          "eye_mark": [
+            40,
+            49
+          ],
+          "eye_bbox": [
+            40,
+            49,
+            46,
+            51
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 79,
+          "pixels": 765,
+          "raw_rect": [
+            500,
+            97,
+            800,
+            422
+          ],
+          "source_eye_bbox": [
+            200,
+            115,
+            229,
+            127
+          ],
+          "sample_pitch_px": 6.825,
+          "sampled_size": [
+            44,
+            48
+          ],
+          "translation": [
+            12,
+            32
+          ],
+          "airborne_lift": 0,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            768,
+            0,
+            1536,
+            768
+          ],
+          "pivot_px": [
+            408,
+            544
+          ],
+          "bbox_px": [
+            96,
+            256,
+            448,
+            640
+          ],
+          "eye_mark_px": [
+            320,
+            392
+          ]
+        },
+        {
+          "frame": 3,
+          "ms": 60,
+          "rect": [
+            192,
+            0,
+            288,
+            96
+          ],
+          "pivot": [
+            53,
+            68
+          ],
+          "bbox": [
+            15,
+            37,
+            54,
+            80
+          ],
+          "eye_mark": [
+            42,
+            49
+          ],
+          "eye_bbox": [
+            42,
+            49,
+            47,
+            50
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 79,
+          "pixels": 740,
+          "raw_rect": [
+            945,
+            127,
+            1214,
+            422
+          ],
+          "source_eye_bbox": [
+            190,
+            80,
+            218,
+            91
+          ],
+          "sample_pitch_px": 6.825,
+          "sampled_size": [
+            39,
+            43
+          ],
+          "translation": [
+            15,
+            37
+          ],
+          "airborne_lift": 0,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            1536,
+            0,
+            2304,
+            768
+          ],
+          "pivot_px": [
+            424,
+            544
+          ],
+          "bbox_px": [
+            120,
+            296,
+            432,
+            640
+          ],
+          "eye_mark_px": [
+            336,
+            392
+          ]
+        },
+        {
+          "frame": 4,
+          "ms": 60,
+          "rect": [
+            288,
+            0,
+            384,
+            96
+          ],
+          "pivot": [
+            29,
+            68
+          ],
+          "bbox": [
+            1,
+            47,
+            40,
+            80
+          ],
+          "eye_mark": [
+            32,
+            59
+          ],
+          "eye_bbox": [
+            32,
+            59,
+            37,
+            61
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 79,
+          "pixels": 646,
+          "raw_rect": [
+            1381,
+            195,
+            1645,
+            422
+          ],
+          "source_eye_bbox": [
+            216,
+            83,
+            244,
+            96
+          ],
+          "sample_pitch_px": 6.825,
+          "sampled_size": [
+            39,
+            33
+          ],
+          "translation": [
+            1,
+            47
+          ],
+          "airborne_lift": 0,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            2304,
+            0,
+            3072,
+            768
+          ],
+          "pivot_px": [
+            232,
+            544
+          ],
+          "bbox_px": [
+            8,
+            376,
+            320,
+            640
+          ],
+          "eye_mark_px": [
+            256,
+            472
+          ]
+        },
+        {
+          "frame": 5,
+          "ms": 70,
+          "rect": [
+            0,
+            96,
+            96,
+            192
+          ],
+          "pivot": [
+            47,
+            68
+          ],
+          "bbox": [
+            20,
+            50,
+            77,
+            80
+          ],
+          "eye_mark": [
+            47,
+            60
+          ],
+          "eye_bbox": [
+            47,
+            60,
+            52,
+            62
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 79,
+          "pixels": 651,
+          "raw_rect": [
+            66,
+            633,
+            458,
+            836
+          ],
+          "source_eye_bbox": [
+            191,
+            69,
+            219,
+            81
+          ],
+          "sample_pitch_px": 6.825,
+          "sampled_size": [
+            57,
+            30
+          ],
+          "translation": [
+            20,
+            50
+          ],
+          "airborne_lift": 0,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            0,
+            768,
+            768,
+            1536
+          ],
+          "pivot_px": [
+            376,
+            544
+          ],
+          "bbox_px": [
+            160,
+            400,
+            616,
+            640
+          ],
+          "eye_mark_px": [
+            376,
+            480
+          ]
+        },
+        {
+          "frame": 6,
+          "ms": 80,
+          "rect": [
+            96,
+            96,
+            192,
+            192
+          ],
+          "pivot": [
+            54,
+            68
+          ],
+          "bbox": [
+            26,
+            50,
+            83,
+            80
+          ],
+          "eye_mark": [
+            53,
+            60
+          ],
+          "eye_bbox": [
+            53,
+            60,
+            58,
+            62
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 79,
+          "pixels": 640,
+          "raw_rect": [
+            510,
+            633,
+            902,
+            836
+          ],
+          "source_eye_bbox": [
+            190,
+            69,
+            219,
+            81
+          ],
+          "sample_pitch_px": 6.825,
+          "sampled_size": [
+            57,
+            30
+          ],
+          "translation": [
+            26,
+            50
+          ],
+          "airborne_lift": 0,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            768,
+            768,
+            1536,
+            1536
+          ],
+          "pivot_px": [
+            432,
+            544
+          ],
+          "bbox_px": [
+            208,
+            400,
+            664,
+            640
+          ],
+          "eye_mark_px": [
+            424,
+            480
+          ]
+        },
+        {
+          "frame": 7,
+          "ms": 90,
+          "rect": [
+            192,
+            96,
+            288,
+            192
+          ],
+          "pivot": [
+            54,
+            68
+          ],
+          "bbox": [
+            21,
+            40,
+            59,
+            80
+          ],
+          "eye_mark": [
+            48,
+            50
+          ],
+          "eye_bbox": [
+            48,
+            50,
+            53,
+            51
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 79,
+          "pixels": 789,
+          "raw_rect": [
+            959,
+            561,
+            1216,
+            835
+          ],
+          "source_eye_bbox": [
+            189,
+            65,
+            217,
+            77
+          ],
+          "sample_pitch_px": 6.825,
+          "sampled_size": [
+            38,
+            40
+          ],
+          "translation": [
+            21,
+            40
+          ],
+          "airborne_lift": 0,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            1536,
+            768,
+            2304,
+            1536
+          ],
+          "pivot_px": [
+            432,
+            544
+          ],
+          "bbox_px": [
+            168,
+            320,
+            472,
+            640
+          ],
+          "eye_mark_px": [
+            384,
+            400
+          ]
+        }
+      ],
+      "checks": {
+        "dimensions": true,
+        "grid_8x8": true,
+        "binary_alpha": true,
+        "palette_subset": true,
+        "color_count": 26,
+        "baseline_limit": true,
+        "populated_frames": 7,
+        "empty_unused_cells": true
+      },
+      "visual_status": "needs review: exact face squares, original silhouette, weapon hand, leg alternation and motion continuity are not certified"
+    },
+    "skill": {
+      "file": "diana_skill.png",
+      "native_file": "native/diana_skill_1x.png",
+      "raw_file": "raw/diana_skill_raw.png",
+      "raw_size": [
+        1774,
+        887
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "size": [
+        3072,
+        1536
+      ],
+      "release_frame": 4,
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 60,
+          "rect": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "pivot": [
+            50,
+            68
+          ],
+          "bbox": [
+            13,
+            39,
+            54,
+            80
+          ],
+          "eye_mark": [
+            41,
+            48
+          ],
+          "eye_bbox": [
+            41,
+            48,
+            46,
+            49
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 79,
+          "pixels": 608,
+          "raw_rect": [
+            85,
+            167,
+            347,
+            426
+          ],
+          "source_eye_bbox": [
+            185,
+            55,
+            210,
+            65
+          ],
+          "sample_pitch_px": 6.325,
+          "sampled_size": [
+            41,
+            41
+          ],
+          "translation": [
+            13,
+            39
+          ],
+          "airborne_lift": 0,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "pivot_px": [
+            400,
+            544
+          ],
+          "bbox_px": [
+            104,
+            312,
+            432,
+            640
+          ],
+          "eye_mark_px": [
+            328,
+            384
+          ]
+        },
+        {
+          "frame": 2,
+          "ms": 60,
+          "rect": [
+            96,
+            0,
+            192,
+            96
+          ],
+          "pivot": [
+            48,
+            68
+          ],
+          "bbox": [
+            20,
+            27,
+            54,
+            80
+          ],
+          "eye_mark": [
+            39,
+            49
+          ],
+          "eye_bbox": [
+            39,
+            49,
+            41,
+            50
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 79,
+          "pixels": 627,
+          "raw_rect": [
+            555,
+            85,
+            769,
+            418
+          ],
+          "source_eye_bbox": [
+            126,
+            137,
+            148,
+            147
+          ],
+          "sample_pitch_px": 6.325,
+          "sampled_size": [
+            34,
+            53
+          ],
+          "translation": [
+            20,
+            27
+          ],
+          "airborne_lift": 0,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            768,
+            0,
+            1536,
+            768
+          ],
+          "pivot_px": [
+            384,
+            544
+          ],
+          "bbox_px": [
+            160,
+            216,
+            432,
+            640
+          ],
+          "eye_mark_px": [
+            312,
+            392
+          ]
+        },
+        {
+          "frame": 3,
+          "ms": 60,
+          "rect": [
+            192,
+            0,
+            288,
+            96
+          ],
+          "pivot": [
+            50,
+            68
+          ],
+          "bbox": [
+            20,
+            27,
+            54,
+            80
+          ],
+          "eye_mark": [
+            41,
+            49
+          ],
+          "eye_bbox": [
+            41,
+            49,
+            46,
+            50
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 79,
+          "pixels": 618,
+          "raw_rect": [
+            1003,
+            85,
+            1216,
+            418
+          ],
+          "source_eye_bbox": [
+            140,
+            137,
+            165,
+            147
+          ],
+          "sample_pitch_px": 6.325,
+          "sampled_size": [
+            34,
+            53
+          ],
+          "translation": [
+            20,
+            27
+          ],
+          "airborne_lift": 0,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            1536,
+            0,
+            2304,
+            768
+          ],
+          "pivot_px": [
+            400,
+            544
+          ],
+          "bbox_px": [
+            160,
+            216,
+            432,
+            640
+          ],
+          "eye_mark_px": [
+            328,
+            392
+          ]
+        },
+        {
+          "frame": 4,
+          "ms": 70,
+          "rect": [
+            288,
+            0,
+            384,
+            96
+          ],
+          "pivot": [
+            49,
+            68
+          ],
+          "bbox": [
+            13,
+            28,
+            55,
+            80
+          ],
+          "eye_mark": [
+            39,
+            50
+          ],
+          "eye_bbox": [
+            39,
+            50,
+            44,
+            51
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 79,
+          "pixels": 702,
+          "raw_rect": [
+            1456,
+            85,
+            1719,
+            413
+          ],
+          "source_eye_bbox": [
+            170,
+            136,
+            195,
+            147
+          ],
+          "sample_pitch_px": 6.325,
+          "sampled_size": [
+            42,
+            52
+          ],
+          "translation": [
+            13,
+            28
+          ],
+          "airborne_lift": 0,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            2304,
+            0,
+            3072,
+            768
+          ],
+          "pivot_px": [
+            392,
+            544
+          ],
+          "bbox_px": [
+            104,
+            224,
+            440,
+            640
+          ],
+          "eye_mark_px": [
+            312,
+            400
+          ]
+        },
+        {
+          "frame": 5,
+          "ms": 80,
+          "rect": [
+            0,
+            96,
+            96,
+            192
+          ],
+          "pivot": [
+            48,
+            68
+          ],
+          "bbox": [
+            17,
+            28,
+            51,
+            80
+          ],
+          "eye_mark": [
+            38,
+            49
+          ],
+          "eye_bbox": [
+            38,
+            49,
+            40,
+            51
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 79,
+          "pixels": 600,
+          "raw_rect": [
+            146,
+            496,
+            360,
+            825
+          ],
+          "source_eye_bbox": [
+            137,
+            133,
+            160,
+            139
+          ],
+          "sample_pitch_px": 6.325,
+          "sampled_size": [
+            34,
+            52
+          ],
+          "translation": [
+            17,
+            28
+          ],
+          "airborne_lift": 0,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            0,
+            768,
+            768,
+            1536
+          ],
+          "pivot_px": [
+            384,
+            544
+          ],
+          "bbox_px": [
+            136,
+            224,
+            408,
+            640
+          ],
+          "eye_mark_px": [
+            304,
+            392
+          ]
+        },
+        {
+          "frame": 6,
+          "ms": 90,
+          "rect": [
+            96,
+            96,
+            192,
+            192
+          ],
+          "pivot": [
+            48,
+            68
+          ],
+          "bbox": [
+            18,
+            29,
+            52,
+            80
+          ],
+          "eye_mark": [
+            38,
+            49
+          ],
+          "eye_bbox": [
+            38,
+            49,
+            43,
+            51
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 79,
+          "pixels": 604,
+          "raw_rect": [
+            593,
+            501,
+            805,
+            825
+          ],
+          "source_eye_bbox": [
+            134,
+            128,
+            158,
+            136
+          ],
+          "sample_pitch_px": 6.325,
+          "sampled_size": [
+            34,
+            51
+          ],
+          "translation": [
+            18,
+            29
+          ],
+          "airborne_lift": 0,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            768,
+            768,
+            1536,
+            1536
+          ],
+          "pivot_px": [
+            384,
+            544
+          ],
+          "bbox_px": [
+            144,
+            232,
+            416,
+            640
+          ],
+          "eye_mark_px": [
+            304,
+            392
+          ]
+        },
+        {
+          "frame": 7,
+          "ms": 100,
+          "rect": [
+            192,
+            96,
+            288,
+            192
+          ],
+          "pivot": [
+            37,
+            68
+          ],
+          "bbox": [
+            1,
+            40,
+            35,
+            80
+          ],
+          "eye_mark": [
+            28,
+            49
+          ],
+          "eye_bbox": [
+            28,
+            49,
+            29,
+            50
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 79,
+          "pixels": 753,
+          "raw_rect": [
+            983,
+            572,
+            1195,
+            825
+          ],
+          "source_eye_bbox": [
+            155,
+            58,
+            179,
+            69
+          ],
+          "sample_pitch_px": 6.325,
+          "sampled_size": [
+            34,
+            40
+          ],
+          "translation": [
+            1,
+            40
+          ],
+          "airborne_lift": 0,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            1536,
+            768,
+            2304,
+            1536
+          ],
+          "pivot_px": [
+            296,
+            544
+          ],
+          "bbox_px": [
+            8,
+            320,
+            280,
+            640
+          ],
+          "eye_mark_px": [
+            224,
+            392
+          ]
+        }
+      ],
+      "checks": {
+        "dimensions": true,
+        "grid_8x8": true,
+        "binary_alpha": true,
+        "palette_subset": true,
+        "color_count": 26,
+        "baseline_limit": true,
+        "populated_frames": 7,
+        "empty_unused_cells": true
+      },
+      "visual_status": "needs review: exact face squares, original silhouette, weapon hand, leg alternation and motion continuity are not certified"
+    },
+    "skill2": {
+      "file": "diana_skill2.png",
+      "native_file": "native/diana_skill2_1x.png",
+      "raw_file": "raw/diana_skill2_raw.png",
+      "raw_size": [
+        1536,
+        1024
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "size": [
+        2304,
+        1536
+      ],
+      "release_frame": null,
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 60,
+          "rect": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "pivot": [
+            49,
+            68
+          ],
+          "bbox": [
+            4,
+            37,
+            57,
+            80
+          ],
+          "eye_mark": [
+            44,
+            51
+          ],
+          "eye_bbox": [
+            44,
+            51,
+            50,
+            53
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 79,
+          "pixels": 981,
+          "raw_rect": [
+            73,
+            204,
+            400,
+            469
+          ],
+          "source_eye_bbox": [
+            254,
+            88,
+            280,
+            100
+          ],
+          "sample_pitch_px": 6.15,
+          "sampled_size": [
+            53,
+            43
+          ],
+          "translation": [
+            4,
+            37
+          ],
+          "airborne_lift": 0,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "pivot_px": [
+            392,
+            544
+          ],
+          "bbox_px": [
+            32,
+            296,
+            456,
+            640
+          ],
+          "eye_mark_px": [
+            352,
+            408
+          ]
+        },
+        {
+          "frame": 2,
+          "ms": 80,
+          "rect": [
+            96,
+            0,
+            192,
+            96
+          ],
+          "pivot": [
+            52,
+            68
+          ],
+          "bbox": [
+            1,
+            39,
+            65,
+            73
+          ],
+          "eye_mark": [
+            52,
+            56
+          ],
+          "eye_bbox": [
+            52,
+            56,
+            57,
+            58
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 72,
+          "pixels": 866,
+          "raw_rect": [
+            554,
+            214,
+            947,
+            422
+          ],
+          "source_eye_bbox": [
+            319,
+            106,
+            345,
+            118
+          ],
+          "sample_pitch_px": 6.15,
+          "sampled_size": [
+            64,
+            34
+          ],
+          "translation": [
+            1,
+            39
+          ],
+          "airborne_lift": 7,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            768,
+            0,
+            1536,
+            768
+          ],
+          "pivot_px": [
+            416,
+            544
+          ],
+          "bbox_px": [
+            8,
+            312,
+            520,
+            584
+          ],
+          "eye_mark_px": [
+            416,
+            448
+          ]
+        },
+        {
+          "frame": 3,
+          "ms": 80,
+          "rect": [
+            192,
+            0,
+            288,
+            96
+          ],
+          "pivot": [
+            51,
+            68
+          ],
+          "bbox": [
+            1,
+            40,
+            64,
+            73
+          ],
+          "eye_mark": [
+            55,
+            57
+          ],
+          "eye_bbox": [
+            55,
+            57,
+            60,
+            59
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 72,
+          "pixels": 877,
+          "raw_rect": [
+            1063,
+            224,
+            1463,
+            426
+          ],
+          "source_eye_bbox": [
+            353,
+            104,
+            377,
+            118
+          ],
+          "sample_pitch_px": 6.15,
+          "sampled_size": [
+            65,
+            33
+          ],
+          "translation": [
+            1,
+            40
+          ],
+          "airborne_lift": 7,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            1536,
+            0,
+            2304,
+            768
+          ],
+          "pivot_px": [
+            408,
+            544
+          ],
+          "bbox_px": [
+            8,
+            320,
+            512,
+            584
+          ],
+          "eye_mark_px": [
+            440,
+            456
+          ]
+        },
+        {
+          "frame": 4,
+          "ms": 80,
+          "rect": [
+            0,
+            96,
+            96,
+            192
+          ],
+          "pivot": [
+            52,
+            68
+          ],
+          "bbox": [
+            1,
+            40,
+            65,
+            73
+          ],
+          "eye_mark": [
+            56,
+            56
+          ],
+          "eye_bbox": [
+            56,
+            56,
+            61,
+            59
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 72,
+          "pixels": 910,
+          "raw_rect": [
+            80,
+            686,
+            481,
+            888
+          ],
+          "source_eye_bbox": [
+            349,
+            100,
+            375,
+            114
+          ],
+          "sample_pitch_px": 6.15,
+          "sampled_size": [
+            65,
+            33
+          ],
+          "translation": [
+            1,
+            40
+          ],
+          "airborne_lift": 7,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            0,
+            768,
+            768,
+            1536
+          ],
+          "pivot_px": [
+            416,
+            544
+          ],
+          "bbox_px": [
+            8,
+            320,
+            520,
+            584
+          ],
+          "eye_mark_px": [
+            448,
+            448
+          ]
+        },
+        {
+          "frame": 5,
+          "ms": 80,
+          "rect": [
+            96,
+            96,
+            192,
+            192
+          ],
+          "pivot": [
+            49,
+            68
+          ],
+          "bbox": [
+            8,
+            37,
+            57,
+            80
+          ],
+          "eye_mark": [
+            44,
+            51
+          ],
+          "eye_bbox": [
+            44,
+            51,
+            46,
+            53
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 79,
+          "pixels": 932,
+          "raw_rect": [
+            603,
+            675,
+            907,
+            940
+          ],
+          "source_eye_bbox": [
+            229,
+            84,
+            255,
+            98
+          ],
+          "sample_pitch_px": 6.15,
+          "sampled_size": [
+            49,
+            43
+          ],
+          "translation": [
+            8,
+            37
+          ],
+          "airborne_lift": 0,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            768,
+            768,
+            1536,
+            1536
+          ],
+          "pivot_px": [
+            392,
+            544
+          ],
+          "bbox_px": [
+            64,
+            296,
+            456,
+            640
+          ],
+          "eye_mark_px": [
+            352,
+            408
+          ]
+        }
+      ],
+      "checks": {
+        "dimensions": true,
+        "grid_8x8": true,
+        "binary_alpha": true,
+        "palette_subset": true,
+        "color_count": 26,
+        "baseline_limit": true,
+        "populated_frames": 5,
+        "empty_unused_cells": true
+      },
+      "visual_status": "needs review: exact face squares, original silhouette, weapon hand, leg alternation and motion continuity are not certified"
+    },
+    "skill2_w": {
+      "file": "diana_skill2_w.png",
+      "native_file": "native/diana_skill2_w_1x.png",
+      "raw_file": "raw/diana_skill2_w_raw.png",
+      "raw_size": [
+        1774,
+        887
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "size": [
+        3072,
+        1536
+      ],
+      "release_frame": null,
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 60,
+          "rect": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "pivot": [
+            53,
+            68
+          ],
+          "bbox": [
+            20,
+            37,
+            52,
+            80
+          ],
+          "eye_mark": [
+            42,
+            47
+          ],
+          "eye_bbox": [
+            42,
+            47,
+            47,
+            48
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 79,
+          "pixels": 681,
+          "raw_rect": [
+            112,
+            134,
+            346,
+            449
+          ],
+          "source_eye_bbox": [
+            171,
+            74,
+            200,
+            84
+          ],
+          "sample_pitch_px": 7.4,
+          "sampled_size": [
+            32,
+            43
+          ],
+          "translation": [
+            20,
+            37
+          ],
+          "airborne_lift": 0,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "pivot_px": [
+            424,
+            544
+          ],
+          "bbox_px": [
+            160,
+            296,
+            416,
+            640
+          ],
+          "eye_mark_px": [
+            336,
+            376
+          ]
+        },
+        {
+          "frame": 2,
+          "ms": 60,
+          "rect": [
+            96,
+            0,
+            192,
+            96
+          ],
+          "pivot": [
+            49,
+            68
+          ],
+          "bbox": [
+            22,
+            37,
+            51,
+            77
+          ],
+          "eye_mark": [
+            40,
+            48
+          ],
+          "eye_bbox": [
+            40,
+            48,
+            42,
+            49
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 76,
+          "pixels": 562,
+          "raw_rect": [
+            549,
+            134,
+            761,
+            427
+          ],
+          "source_eye_bbox": [
+            136,
+            79,
+            165,
+            89
+          ],
+          "sample_pitch_px": 7.4,
+          "sampled_size": [
+            29,
+            40
+          ],
+          "translation": [
+            22,
+            37
+          ],
+          "airborne_lift": 3,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            768,
+            0,
+            1536,
+            768
+          ],
+          "pivot_px": [
+            392,
+            544
+          ],
+          "bbox_px": [
+            176,
+            296,
+            408,
+            616
+          ],
+          "eye_mark_px": [
+            320,
+            384
+          ]
+        },
+        {
+          "frame": 3,
+          "ms": 60,
+          "rect": [
+            192,
+            0,
+            288,
+            96
+          ],
+          "pivot": [
+            38,
+            68
+          ],
+          "bbox": [
+            5,
+            36,
+            64,
+            77
+          ],
+          "eye_mark": [
+            28,
+            46
+          ],
+          "eye_bbox": [
+            28,
+            46,
+            32,
+            48
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 76,
+          "pixels": 712,
+          "raw_rect": [
+            898,
+            134,
+            1331,
+            434
+          ],
+          "source_eye_bbox": [
+            167,
+            79,
+            194,
+            89
+          ],
+          "sample_pitch_px": 7.4,
+          "sampled_size": [
+            59,
+            41
+          ],
+          "translation": [
+            5,
+            36
+          ],
+          "airborne_lift": 3,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            1536,
+            0,
+            2304,
+            768
+          ],
+          "pivot_px": [
+            304,
+            544
+          ],
+          "bbox_px": [
+            40,
+            288,
+            512,
+            616
+          ],
+          "eye_mark_px": [
+            224,
+            368
+          ]
+        },
+        {
+          "frame": 4,
+          "ms": 70,
+          "rect": [
+            288,
+            0,
+            384,
+            96
+          ],
+          "pivot": [
+            46,
+            68
+          ],
+          "bbox": [
+            16,
+            29,
+            53,
+            77
+          ],
+          "eye_mark": [
+            36,
+            47
+          ],
+          "eye_bbox": [
+            36,
+            47,
+            41,
+            49
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 76,
+          "pixels": 663,
+          "raw_rect": [
+            1388,
+            74,
+            1663,
+            429
+          ],
+          "source_eye_bbox": [
+            155,
+            134,
+            183,
+            145
+          ],
+          "sample_pitch_px": 7.4,
+          "sampled_size": [
+            37,
+            48
+          ],
+          "translation": [
+            16,
+            29
+          ],
+          "airborne_lift": 3,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            2304,
+            0,
+            3072,
+            768
+          ],
+          "pivot_px": [
+            368,
+            544
+          ],
+          "bbox_px": [
+            128,
+            232,
+            424,
+            616
+          ],
+          "eye_mark_px": [
+            288,
+            376
+          ]
+        },
+        {
+          "frame": 5,
+          "ms": 70,
+          "rect": [
+            0,
+            96,
+            96,
+            192
+          ],
+          "pivot": [
+            50,
+            68
+          ],
+          "bbox": [
+            20,
+            31,
+            47,
+            77
+          ],
+          "eye_mark": [
+            39,
+            50
+          ],
+          "eye_bbox": [
+            39,
+            50,
+            40,
+            52
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 76,
+          "pixels": 589,
+          "raw_rect": [
+            146,
+            501,
+            344,
+            841
+          ],
+          "source_eye_bbox": [
+            137,
+            140,
+            166,
+            147
+          ],
+          "sample_pitch_px": 7.4,
+          "sampled_size": [
+            27,
+            46
+          ],
+          "translation": [
+            20,
+            31
+          ],
+          "airborne_lift": 3,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            0,
+            768,
+            768,
+            1536
+          ],
+          "pivot_px": [
+            400,
+            544
+          ],
+          "bbox_px": [
+            160,
+            248,
+            376,
+            616
+          ],
+          "eye_mark_px": [
+            312,
+            400
+          ]
+        },
+        {
+          "frame": 6,
+          "ms": 80,
+          "rect": [
+            96,
+            96,
+            192,
+            192
+          ],
+          "pivot": [
+            59,
+            68
+          ],
+          "bbox": [
+            17,
+            42,
+            57,
+            80
+          ],
+          "eye_mark": [
+            48,
+            51
+          ],
+          "eye_bbox": [
+            48,
+            51,
+            53,
+            53
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 79,
+          "pixels": 588,
+          "raw_rect": [
+            475,
+            563,
+            773,
+            841
+          ],
+          "source_eye_bbox": [
+            236,
+            71,
+            265,
+            80
+          ],
+          "sample_pitch_px": 7.4,
+          "sampled_size": [
+            40,
+            38
+          ],
+          "translation": [
+            17,
+            42
+          ],
+          "airborne_lift": 0,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            768,
+            768,
+            1536,
+            1536
+          ],
+          "pivot_px": [
+            472,
+            544
+          ],
+          "bbox_px": [
+            136,
+            336,
+            456,
+            640
+          ],
+          "eye_mark_px": [
+            384,
+            408
+          ]
+        },
+        {
+          "frame": 7,
+          "ms": 90,
+          "rect": [
+            192,
+            96,
+            288,
+            192
+          ],
+          "pivot": [
+            49,
+            68
+          ],
+          "bbox": [
+            24,
+            38,
+            50,
+            80
+          ],
+          "eye_mark": [
+            40,
+            48
+          ],
+          "eye_bbox": [
+            40,
+            48,
+            44,
+            50
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 79,
+          "pixels": 693,
+          "raw_rect": [
+            996,
+            550,
+            1192,
+            861
+          ],
+          "source_eye_bbox": [
+            116,
+            77,
+            142,
+            87
+          ],
+          "sample_pitch_px": 7.4,
+          "sampled_size": [
+            26,
+            42
+          ],
+          "translation": [
+            24,
+            38
+          ],
+          "airborne_lift": 0,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            1536,
+            768,
+            2304,
+            1536
+          ],
+          "pivot_px": [
+            392,
+            544
+          ],
+          "bbox_px": [
+            192,
+            304,
+            400,
+            640
+          ],
+          "eye_mark_px": [
+            320,
+            384
+          ]
+        }
+      ],
+      "checks": {
+        "dimensions": true,
+        "grid_8x8": true,
+        "binary_alpha": true,
+        "palette_subset": true,
+        "color_count": 26,
+        "baseline_limit": true,
+        "populated_frames": 7,
+        "empty_unused_cells": true
+      },
+      "visual_status": "needs review: exact face squares, original silhouette, weapon hand, leg alternation and motion continuity are not certified"
+    },
+    "ult": {
+      "file": "diana_ult.png",
+      "native_file": "native/diana_ult_1x.png",
+      "raw_file": "raw/diana_ult_raw.png",
+      "raw_size": [
+        1774,
+        887
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "size": [
+        3072,
+        1536
+      ],
+      "release_frame": 5,
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 60,
+          "rect": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "pivot": [
+            46,
+            68
+          ],
+          "bbox": [
+            21,
+            27,
+            49,
+            80
+          ],
+          "eye_mark": [
+            37,
+            51
+          ],
+          "eye_bbox": [
+            37,
+            51,
+            39,
+            53
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 79,
+          "pixels": 862,
+          "raw_rect": [
+            128,
+            158,
+            304,
+            492
+          ],
+          "source_eye_bbox": [
+            104,
+            150,
+            110,
+            160
+          ],
+          "sample_pitch_px": 6.25,
+          "sampled_size": [
+            28,
+            53
+          ],
+          "translation": [
+            21,
+            27
+          ],
+          "airborne_lift": 0,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "pivot_px": [
+            368,
+            544
+          ],
+          "bbox_px": [
+            168,
+            216,
+            392,
+            640
+          ],
+          "eye_mark_px": [
+            296,
+            408
+          ]
+        },
+        {
+          "frame": 2,
+          "ms": 60,
+          "rect": [
+            96,
+            0,
+            192,
+            96
+          ],
+          "pivot": [
+            44,
+            68
+          ],
+          "bbox": [
+            18,
+            13,
+            45,
+            73
+          ],
+          "eye_mark": [
+            35,
+            44
+          ],
+          "eye_bbox": [
+            35,
+            44,
+            37,
+            46
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 72,
+          "pixels": 765,
+          "raw_rect": [
+            564,
+            80,
+            735,
+            453
+          ],
+          "source_eye_bbox": [
+            111,
+            195,
+            118,
+            204
+          ],
+          "sample_pitch_px": 6.25,
+          "sampled_size": [
+            27,
+            60
+          ],
+          "translation": [
+            18,
+            13
+          ],
+          "airborne_lift": 7,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            768,
+            0,
+            1536,
+            768
+          ],
+          "pivot_px": [
+            352,
+            544
+          ],
+          "bbox_px": [
+            144,
+            104,
+            360,
+            584
+          ],
+          "eye_mark_px": [
+            280,
+            352
+          ]
+        },
+        {
+          "frame": 3,
+          "ms": 70,
+          "rect": [
+            192,
+            0,
+            288,
+            96
+          ],
+          "pivot": [
+            48,
+            68
+          ],
+          "bbox": [
+            19,
+            5,
+            46,
+            68
+          ],
+          "eye_mark": [
+            38,
+            36
+          ],
+          "eye_bbox": [
+            38,
+            36,
+            40,
+            38
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 67,
+          "pixels": 808,
+          "raw_rect": [
+            1011,
+            37,
+            1178,
+            429
+          ],
+          "source_eye_bbox": [
+            123,
+            193,
+            131,
+            204
+          ],
+          "sample_pitch_px": 6.25,
+          "sampled_size": [
+            27,
+            63
+          ],
+          "translation": [
+            19,
+            5
+          ],
+          "airborne_lift": 12,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            1536,
+            0,
+            2304,
+            768
+          ],
+          "pivot_px": [
+            384,
+            544
+          ],
+          "bbox_px": [
+            152,
+            40,
+            368,
+            544
+          ],
+          "eye_mark_px": [
+            304,
+            288
+          ]
+        },
+        {
+          "frame": 4,
+          "ms": 70,
+          "rect": [
+            288,
+            0,
+            384,
+            96
+          ],
+          "pivot": [
+            46,
+            68
+          ],
+          "bbox": [
+            17,
+            50,
+            59,
+            80
+          ],
+          "eye_mark": [
+            39,
+            63
+          ],
+          "eye_bbox": [
+            39,
+            63,
+            41,
+            65
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 79,
+          "pixels": 712,
+          "raw_rect": [
+            1452,
+            270,
+            1714,
+            460
+          ],
+          "source_eye_bbox": [
+            142,
+            87,
+            149,
+            93
+          ],
+          "sample_pitch_px": 6.25,
+          "sampled_size": [
+            42,
+            30
+          ],
+          "translation": [
+            17,
+            50
+          ],
+          "airborne_lift": 0,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            2304,
+            0,
+            3072,
+            768
+          ],
+          "pivot_px": [
+            368,
+            544
+          ],
+          "bbox_px": [
+            136,
+            400,
+            472,
+            640
+          ],
+          "eye_mark_px": [
+            312,
+            504
+          ]
+        },
+        {
+          "frame": 5,
+          "ms": 80,
+          "rect": [
+            0,
+            96,
+            96,
+            192
+          ],
+          "pivot": [
+            50,
+            68
+          ],
+          "bbox": [
+            20,
+            50,
+            56,
+            80
+          ],
+          "eye_mark": [
+            40,
+            64
+          ],
+          "eye_bbox": [
+            40,
+            64,
+            42,
+            66
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 79,
+          "pixels": 684,
+          "raw_rect": [
+            121,
+            671,
+            346,
+            859
+          ],
+          "source_eye_bbox": [
+            128,
+            91,
+            135,
+            98
+          ],
+          "sample_pitch_px": 6.25,
+          "sampled_size": [
+            36,
+            30
+          ],
+          "translation": [
+            20,
+            50
+          ],
+          "airborne_lift": 0,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            0,
+            768,
+            768,
+            1536
+          ],
+          "pivot_px": [
+            400,
+            544
+          ],
+          "bbox_px": [
+            160,
+            400,
+            448,
+            640
+          ],
+          "eye_mark_px": [
+            320,
+            512
+          ]
+        },
+        {
+          "frame": 6,
+          "ms": 100,
+          "rect": [
+            96,
+            96,
+            192,
+            192
+          ],
+          "pivot": [
+            48,
+            68
+          ],
+          "bbox": [
+            20,
+            53,
+            58,
+            80
+          ],
+          "eye_mark": [
+            39,
+            67
+          ],
+          "eye_bbox": [
+            39,
+            67,
+            40,
+            68
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 79,
+          "pixels": 593,
+          "raw_rect": [
+            572,
+            692,
+            809,
+            859
+          ],
+          "source_eye_bbox": [
+            121,
+            88,
+            127,
+            93
+          ],
+          "sample_pitch_px": 6.25,
+          "sampled_size": [
+            38,
+            27
+          ],
+          "translation": [
+            20,
+            53
+          ],
+          "airborne_lift": 0,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            768,
+            768,
+            1536,
+            1536
+          ],
+          "pivot_px": [
+            384,
+            544
+          ],
+          "bbox_px": [
+            160,
+            424,
+            464,
+            640
+          ],
+          "eye_mark_px": [
+            312,
+            536
+          ]
+        },
+        {
+          "frame": 7,
+          "ms": 110,
+          "rect": [
+            192,
+            96,
+            288,
+            192
+          ],
+          "pivot": [
+            47,
+            68
+          ],
+          "bbox": [
+            17,
+            53,
+            57,
+            80
+          ],
+          "eye_mark": [
+            37,
+            66
+          ],
+          "eye_bbox": [
+            37,
+            66,
+            39,
+            68
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 79,
+          "pixels": 588,
+          "raw_rect": [
+            1018,
+            692,
+            1266,
+            859
+          ],
+          "source_eye_bbox": [
+            133,
+            87,
+            138,
+            93
+          ],
+          "sample_pitch_px": 6.25,
+          "sampled_size": [
+            40,
+            27
+          ],
+          "translation": [
+            17,
+            53
+          ],
+          "airborne_lift": 0,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            1536,
+            768,
+            2304,
+            1536
+          ],
+          "pivot_px": [
+            376,
+            544
+          ],
+          "bbox_px": [
+            136,
+            424,
+            456,
+            640
+          ],
+          "eye_mark_px": [
+            296,
+            528
+          ]
+        },
+        {
+          "frame": 8,
+          "ms": 110,
+          "rect": [
+            288,
+            96,
+            384,
+            192
+          ],
+          "pivot": [
+            52,
+            68
+          ],
+          "bbox": [
+            23,
+            33,
+            51,
+            80
+          ],
+          "eye_mark": [
+            41,
+            52
+          ],
+          "eye_bbox": [
+            41,
+            52,
+            42,
+            53
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 79,
+          "pixels": 821,
+          "raw_rect": [
+            1468,
+            567,
+            1646,
+            859
+          ],
+          "source_eye_bbox": [
+            110,
+            118,
+            117,
+            125
+          ],
+          "sample_pitch_px": 6.25,
+          "sampled_size": [
+            28,
+            47
+          ],
+          "translation": [
+            23,
+            33
+          ],
+          "airborne_lift": 0,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            2304,
+            768,
+            3072,
+            1536
+          ],
+          "pivot_px": [
+            416,
+            544
+          ],
+          "bbox_px": [
+            184,
+            264,
+            408,
+            640
+          ],
+          "eye_mark_px": [
+            328,
+            416
+          ]
+        }
+      ],
+      "checks": {
+        "dimensions": true,
+        "grid_8x8": true,
+        "binary_alpha": true,
+        "palette_subset": true,
+        "color_count": 26,
+        "baseline_limit": true,
+        "populated_frames": 8,
+        "empty_unused_cells": true
+      },
+      "visual_status": "needs review: exact face squares, original silhouette, weapon hand, leg alternation and motion continuity are not certified"
+    },
+    "hit": {
+      "file": "diana_hit.png",
+      "native_file": "native/diana_hit_1x.png",
+      "raw_file": "raw/diana_hit_raw.png",
+      "raw_size": [
+        1774,
+        887
+      ],
+      "grid": [
+        2,
+        1
+      ],
+      "size": [
+        1536,
+        768
+      ],
+      "release_frame": null,
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 120,
+          "rect": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "pivot": [
+            53,
+            68
+          ],
+          "bbox": [
+            18,
+            35,
+            55,
+            80
+          ],
+          "eye_mark": [
+            34,
+            48
+          ],
+          "eye_bbox": [
+            34,
+            45,
+            36,
+            46
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 79,
+          "pixels": 778,
+          "raw_rect": [
+            279,
+            296,
+            700,
+            797
+          ],
+          "source_eye_bbox": [
+            192,
+            97,
+            230,
+            125
+          ],
+          "sample_pitch_px": 11.25,
+          "sampled_size": [
+            37,
+            45
+          ],
+          "translation": [
+            18,
+            35
+          ],
+          "airborne_lift": 0,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "pivot_px": [
+            424,
+            544
+          ],
+          "bbox_px": [
+            144,
+            280,
+            440,
+            640
+          ],
+          "eye_mark_px": [
+            272,
+            360
+          ]
+        },
+        {
+          "frame": 2,
+          "ms": 120,
+          "rect": [
+            96,
+            0,
+            192,
+            96
+          ],
+          "pivot": [
+            51,
+            68
+          ],
+          "bbox": [
+            20,
+            35,
+            49,
+            80
+          ],
+          "eye_mark": [
+            37,
+            48
+          ],
+          "eye_bbox": [
+            37,
+            45,
+            42,
+            46
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 79,
+          "pixels": 735,
+          "raw_rect": [
+            1190,
+            288,
+            1520,
+            797
+          ],
+          "source_eye_bbox": [
+            202,
+            108,
+            245,
+            128
+          ],
+          "sample_pitch_px": 11.25,
+          "sampled_size": [
+            29,
+            45
+          ],
+          "translation": [
+            20,
+            35
+          ],
+          "airborne_lift": 0,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            768,
+            0,
+            1536,
+            768
+          ],
+          "pivot_px": [
+            408,
+            544
+          ],
+          "bbox_px": [
+            160,
+            280,
+            392,
+            640
+          ],
+          "eye_mark_px": [
+            296,
+            360
+          ]
+        }
+      ],
+      "checks": {
+        "dimensions": true,
+        "grid_8x8": true,
+        "binary_alpha": true,
+        "palette_subset": true,
+        "color_count": 26,
+        "baseline_limit": true,
+        "populated_frames": 2,
+        "empty_unused_cells": true
+      },
+      "visual_status": "needs review: exact face squares, original silhouette, weapon hand, leg alternation and motion continuity are not certified"
+    },
+    "dead": {
+      "file": "diana_dead.png",
+      "native_file": "native/diana_dead_1x.png",
+      "raw_file": "raw/diana_dead_raw.png",
+      "raw_size": [
+        1774,
+        887
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "size": [
+        3072,
+        1536
+      ],
+      "release_frame": null,
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 100,
+          "rect": [
+            0,
+            0,
+            96,
+            96
+          ],
+          "pivot": [
+            52,
+            68
+          ],
+          "bbox": [
+            26,
+            40,
+            65,
+            80
+          ],
+          "eye_mark": [
+            42,
+            49
+          ],
+          "eye_bbox": [
+            42,
+            49,
+            46,
+            51
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 79,
+          "pixels": 733,
+          "raw_rect": [
+            123,
+            162,
+            421,
+            467
+          ],
+          "source_eye_bbox": [
+            119,
+            72,
+            149,
+            82
+          ],
+          "sample_pitch_px": 7.625,
+          "sampled_size": [
+            39,
+            40
+          ],
+          "translation": [
+            26,
+            40
+          ],
+          "airborne_lift": 0,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "pivot_px": [
+            416,
+            544
+          ],
+          "bbox_px": [
+            208,
+            320,
+            520,
+            640
+          ],
+          "eye_mark_px": [
+            336,
+            392
+          ]
+        },
+        {
+          "frame": 2,
+          "ms": 100,
+          "rect": [
+            96,
+            0,
+            192,
+            96
+          ],
+          "pivot": [
+            48,
+            68
+          ],
+          "bbox": [
+            12,
+            42,
+            62,
+            80
+          ],
+          "eye_mark": [
+            34,
+            52
+          ],
+          "eye_bbox": [
+            34,
+            52,
+            36,
+            53
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 79,
+          "pixels": 522,
+          "raw_rect": [
+            504,
+            160,
+            889,
+            449
+          ],
+          "source_eye_bbox": [
+            173,
+            73,
+            198,
+            81
+          ],
+          "sample_pitch_px": 7.625,
+          "sampled_size": [
+            50,
+            38
+          ],
+          "translation": [
+            12,
+            42
+          ],
+          "airborne_lift": 0,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            768,
+            0,
+            1536,
+            768
+          ],
+          "pivot_px": [
+            384,
+            544
+          ],
+          "bbox_px": [
+            96,
+            336,
+            496,
+            640
+          ],
+          "eye_mark_px": [
+            272,
+            416
+          ]
+        },
+        {
+          "frame": 3,
+          "ms": 120,
+          "rect": [
+            192,
+            0,
+            288,
+            96
+          ],
+          "pivot": [
+            46,
+            68
+          ],
+          "bbox": [
+            20,
+            50,
+            59,
+            80
+          ],
+          "eye_mark": [
+            32,
+            60
+          ],
+          "eye_bbox": [
+            32,
+            60,
+            34,
+            62
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 79,
+          "pixels": 525,
+          "raw_rect": [
+            995,
+            239,
+            1291,
+            467
+          ],
+          "source_eye_bbox": [
+            101,
+            76,
+            103,
+            80
+          ],
+          "sample_pitch_px": 7.625,
+          "sampled_size": [
+            39,
+            30
+          ],
+          "translation": [
+            20,
+            50
+          ],
+          "airborne_lift": 0,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            1536,
+            0,
+            2304,
+            768
+          ],
+          "pivot_px": [
+            368,
+            544
+          ],
+          "bbox_px": [
+            160,
+            400,
+            472,
+            640
+          ],
+          "eye_mark_px": [
+            256,
+            480
+          ]
+        },
+        {
+          "frame": 4,
+          "ms": 120,
+          "rect": [
+            288,
+            0,
+            384,
+            96
+          ],
+          "pivot": [
+            47,
+            68
+          ],
+          "bbox": [
+            20,
+            55,
+            59,
+            82
+          ],
+          "eye_mark": [
+            34,
+            62
+          ],
+          "eye_bbox": [
+            34,
+            62,
+            36,
+            63
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 81,
+          "pixels": 505,
+          "raw_rect": [
+            1440,
+            265,
+            1736,
+            468
+          ],
+          "source_eye_bbox": [
+            114,
+            52,
+            121,
+            57
+          ],
+          "sample_pitch_px": 7.625,
+          "sampled_size": [
+            39,
+            27
+          ],
+          "translation": [
+            20,
+            55
+          ],
+          "airborne_lift": 0,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            2304,
+            0,
+            3072,
+            768
+          ],
+          "pivot_px": [
+            376,
+            544
+          ],
+          "bbox_px": [
+            160,
+            440,
+            472,
+            656
+          ],
+          "eye_mark_px": [
+            272,
+            496
+          ]
+        },
+        {
+          "frame": 5,
+          "ms": 120,
+          "rect": [
+            0,
+            96,
+            96,
+            192
+          ],
+          "pivot": [
+            48,
+            68
+          ],
+          "bbox": [
+            16,
+            55,
+            64,
+            82
+          ],
+          "eye_mark": [
+            34,
+            63
+          ],
+          "eye_bbox": [
+            34,
+            63,
+            36,
+            65
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 81,
+          "pixels": 578,
+          "raw_rect": [
+            64,
+            634,
+            437,
+            840
+          ],
+          "source_eye_bbox": [
+            142,
+            57,
+            149,
+            67
+          ],
+          "sample_pitch_px": 7.625,
+          "sampled_size": [
+            49,
+            27
+          ],
+          "translation": [
+            16,
+            55
+          ],
+          "airborne_lift": 0,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            0,
+            768,
+            768,
+            1536
+          ],
+          "pivot_px": [
+            384,
+            544
+          ],
+          "bbox_px": [
+            128,
+            440,
+            512,
+            656
+          ],
+          "eye_mark_px": [
+            272,
+            504
+          ]
+        },
+        {
+          "frame": 6,
+          "ms": 150,
+          "rect": [
+            96,
+            96,
+            192,
+            192
+          ],
+          "pivot": [
+            47,
+            68
+          ],
+          "bbox": [
+            19,
+            61,
+            65,
+            82
+          ],
+          "eye_mark": [
+            33,
+            66
+          ],
+          "eye_bbox": [
+            33,
+            66,
+            34,
+            67
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 81,
+          "pixels": 538,
+          "raw_rect": [
+            515,
+            672,
+            866,
+            835
+          ],
+          "source_eye_bbox": [
+            103,
+            38,
+            116,
+            43
+          ],
+          "sample_pitch_px": 7.625,
+          "sampled_size": [
+            46,
+            21
+          ],
+          "translation": [
+            19,
+            61
+          ],
+          "airborne_lift": 0,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            768,
+            768,
+            1536,
+            1536
+          ],
+          "pivot_px": [
+            376,
+            544
+          ],
+          "bbox_px": [
+            152,
+            488,
+            520,
+            656
+          ],
+          "eye_mark_px": [
+            264,
+            528
+          ]
+        },
+        {
+          "frame": 7,
+          "ms": 150,
+          "rect": [
+            192,
+            96,
+            288,
+            192
+          ],
+          "pivot": [
+            50,
+            68
+          ],
+          "bbox": [
+            20,
+            61,
+            69,
+            82
+          ],
+          "eye_mark": [
+            36,
+            65
+          ],
+          "eye_bbox": [
+            36,
+            65,
+            37,
+            66
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 81,
+          "pixels": 529,
+          "raw_rect": [
+            936,
+            681,
+            1311,
+            840
+          ],
+          "source_eye_bbox": [
+            120,
+            30,
+            131,
+            35
+          ],
+          "sample_pitch_px": 7.625,
+          "sampled_size": [
+            49,
+            21
+          ],
+          "translation": [
+            20,
+            61
+          ],
+          "airborne_lift": 0,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            1536,
+            768,
+            2304,
+            1536
+          ],
+          "pivot_px": [
+            400,
+            544
+          ],
+          "bbox_px": [
+            160,
+            488,
+            552,
+            656
+          ],
+          "eye_mark_px": [
+            288,
+            520
+          ]
+        },
+        {
+          "frame": 8,
+          "ms": 500,
+          "rect": [
+            288,
+            96,
+            384,
+            192
+          ],
+          "pivot": [
+            45,
+            68
+          ],
+          "bbox": [
+            11,
+            67,
+            63,
+            82
+          ],
+          "eye_mark": [
+            32,
+            74
+          ],
+          "eye_bbox": [
+            32,
+            74,
+            33,
+            75
+          ],
+          "eye_mark_status": "palette_detected_requires_visual_confirmation",
+          "lowest_row": 81,
+          "pixels": 450,
+          "raw_rect": [
+            1358,
+            721,
+            1753,
+            838
+          ],
+          "source_eye_bbox": [
+            167,
+            56,
+            171,
+            60
+          ],
+          "sample_pitch_px": 7.625,
+          "sampled_size": [
+            52,
+            15
+          ],
+          "translation": [
+            11,
+            67
+          ],
+          "airborne_lift": 0,
+          "grid_recovery": "reconstruction with visually calibrated nearest-center pitch; not exact native source-grid recovery",
+          "eye_region_estimated": true,
+          "rect_px": [
+            2304,
+            768,
+            3072,
+            1536
+          ],
+          "pivot_px": [
+            360,
+            544
+          ],
+          "bbox_px": [
+            88,
+            536,
+            504,
+            656
+          ],
+          "eye_mark_px": [
+            256,
+            592
+          ]
+        }
+      ],
+      "checks": {
+        "dimensions": true,
+        "grid_8x8": true,
+        "binary_alpha": true,
+        "palette_subset": true,
+        "color_count": 26,
+        "baseline_limit": true,
+        "populated_frames": 8,
+        "empty_unused_cells": true
+      },
+      "visual_status": "needs review: exact face squares, original silhouette, weapon hand, leg alternation and motion continuity are not certified"
+    }
+  }
+}

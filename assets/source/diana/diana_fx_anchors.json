@@ -1,0 +1,19 @@
+{
+  "hit": {"cell": [15, 17], "anchor": [7, 8], "frames": 5},
+  "p_cleave": {"cell": [47, 25], "anchor": [23, 12], "frames": 6},
+  "p_hit": {"cell": [21, 21], "anchor": [10, 10], "frames": 5},
+  "q_bolt": {"cell": [31, 25], "anchor": [15, 12], "frames": 4},
+  "q_hit": {"cell": [25, 25], "anchor": [12, 12], "frames": 6},
+  "moon_mark": {"cell": [13, 29], "anchor": [6, 14], "frames": 6},
+  "e_hit": {"cell": [31, 21], "anchor": [15, 10], "frames": 6},
+  "w_cast": {"cell": [47, 29], "anchor": [23, 14], "frames": 6},
+  "w_orb3": {"cell": [48, 16], "anchor": [24, 8], "frames": 8},
+  "w_orb2": {"cell": [48, 16], "anchor": [24, 8], "frames": 8},
+  "w_orb1": {"cell": [48, 16], "anchor": [24, 8], "frames": 8},
+  "w_orb": {"cell": [13, 7], "anchor": [6, 3], "frames": 4},
+  "w_boom": {"cell": [21, 21], "anchor": [10, 10], "frames": 6},
+  "w_shield": {"cell": [39, 41], "anchor": [19, 20], "frames": 6},
+  "r_draw": {"cell": [99, 49], "anchor": [49, 24], "frames": 8},
+  "r_moon": {"cell": [70, 120], "anchor": [35, 102], "frames": 12},
+  "r_hit": {"cell": [23, 45], "anchor": [11, 22], "frames": 6}
+}

@@ -1770,6 +1770,52 @@ per cast, E's twins, the ult) adds a 240-tick caster buff with `range` 24000 (he
 `range` buff also stretches the distance the AI starts attacking from (section 3): the next attack began 65000 from a
 pyromancer (48000 plus both bodies) and the attack consumes the buff (bonus magic damage, its own slash).
 
+**Every third attack cleaves, attack speed after every spell (league_diana Moonsilver Blade).** The attack walks two
+240-tick caster stacks (league_masteryi's Double Strike, branched at `start_timing` 1); the third plays its own strip
+(`CasterAnimation attack_p`, the hit 13 ticks after the branch instead of 10) and adds to the plain hit a
+`RangeEffect` circle (radius 18000 at `Forward {offset: 18000}`, `EnemyWithoutTower`) of `ApAttack`: the target stands
+in it, so it and whoever is next to it take the magic cleave. Every spell removes and re-adds a 180-tick
+`attack_speed_mult` caster buff (one instance, section 5).
+
+**A mark the caster reads (league_diana Moonlight).** League's Moonlight sits on the enemies Crescent Strike hit, and
+Lunar Rush has no cooldown on a marked one. Nothing reads a buff on the target (`SwitchByBuff` checks the caster), so
+the mark is a caster flag: every unit the crescent hits refreshes a 180-tick `moonlight` buff on her (and gets a
+crescent picture of its own for as long, an `AddBuff` with a `view_buffs` entry); a 20-tick caster lock plays the hit
+sound once when the crescent goes through a whole camp. Lunar Rush spends the flag whatever it dashes at.
+
+**A dash that refreshes on the mark, inside one cast (league_diana Lunar Rush).** No effect resets one skill's
+cooldown (`skill_cooldown_mult` caps both skills at once, so a refund would bring Crescent Strike back too and chain
+Q-E-Q-E), so the refresh is the second dash itself: a `Targeting` cast on `EnemyWithoutTower` (range 45000) swaps
+`moonlight` for a 90-tick `e_again` flag, dashes (`MoveToTarget`, `CasterAnimation skill2`) and, 8 ticks after the
+landing (`Delayed` in the dash's `end_effects`), spends `e_again` on a second dash: `RandomTarget {EnemyChampion,
+45000}` with a 1-tick `e2_aim` flag, else `RandomTarget {EnemyWithoutTower}` (the Briar/Ahri tiers), each a
+`MoveToTarget` with the same hit. League's reset sound (`DianaTeleport_reset`) plays on the second one. In the
+simulation (60 games, 10 minutes) she cast it 31 times a game and dashed twice on 21 of them, the second dash onto a
+champion 6 times.
+
+**Orbs that burst one by one on the enemies near her (league_diana Pale Cascade, folded into Lunar Rush).** On the
+first arrival, when its own 600-tick cooldown buff is gone: a `Shield` through a `RangeEffect` on `AllyOnlySelf`, a
+`WithShield` picture buff, and three orbs - caster buffs `w_orb3` -> `w_orb2` -> `w_orb1` whose `view_buffs` show 3, 2
+and 1 orbs circling her (each re-added with the time left, so all end with the 5 s). `Delayed` pulses every 15 ticks
+(from tick 6, while a `w_live` buff lasts) pick a random enemy within 20000 (`RandomTarget`), fire a
+`TargetProjectile` orb at it (the damage and the burst in its `applied_effects`) and step the orb count; the third
+removes `w_live` and shields her again (shields add up). With enemies next to her the three burst within 0.6 s; with
+nobody in reach the orbs wait. Measured: 23 casts a game, 2.9 orbs a cast.
+
+**Draw them in, then the moon crashes, harder for each champion (league_diana Moonfall).** A `Targeting` cast on
+`EnemyChampion` (range 25000): a `RangeEffect` (radius 40000) on `EnemyChampion` with `Grab {speed: 2500}` (no `tick`:
+each stops at her, section 4 "Pull vs Grab"), a 40% slow for 2 s and a count - league_kayle R's two-flag count taken
+to three (`SwitchByBuff r_n2 ? add r_n3 : SwitchByBuff r_n1 ? add r_n2 : add r_n1`, 70-tick flags). 60 ticks later a
+`Delayed` checks `r_n1` (no champion drawn: no crash) and picks one of three `RangeEffect`s by `r_n3` / `r_n2`: the
+damage +35% for each champion beyond the first. The falling moon is a `CasterViewEffect` played 20 ticks before the
+crash (radius 32000 round her). Keep the pull wider than the cast range: the AI casts from `range` plus both bodies
+(league_garen E, league_leesin R above), so with League's proportions (range 30000, pull 32000) 20 of 42 casts came
+from 45000 or more centre to centre and 37% of the ults drew nobody - the ring on the ground and no moon. Range 20000
+drew 92% but the AI cast it a quarter less often (one batch +0.01 against +0.44); range 25000 with a 40000 pull drew
+84% (2.7 casts a game, 1.22 champions a cast that drew) and took lane 1 from +0.44 / +0.55 to +1.04 / +1.03. The grab
+is crowd control for league_yasuo's R (section 7 "Blink to a crowd-controlled champion"): beside her he cast it 1.23
+times a game.
+
 **Attack speed that stacks and falls off one stack at a time (league_jax Relentless Assault).** League gives a stack
 per attack for 2.5 s, eight at most, and loses them one by one once he stops. Every attack runs a `SwitchByBuff`
 chain from `ra_8` down: the highest stack present is the count (the lower ones always outlast it), then all are
@@ -1989,7 +2035,13 @@ it: 6000), and its view (`repeat: false`) starts with an empty frame for the tic
 the bell (3, 5 and 3 at 6000, 4500 and 7000 a tick), then loops, and holds a frame long enough to outlast any flight.
 The flashes at the bell are `CasterViewEffect`s played in the same tick, with `is_follow`: played without it, they
 stayed on the side they were played on and showed behind her once she turned ("小炮转身了那个火就在小炮的身后",
-2026-10-01). `y_offset` is not only the
+2026-10-01). Following her is not following her sprite: the view stays where it was put on her while the bell moves in
+the frames after the shot (R's flame burned on in front of her for ~300 ms after the recoil had thrown the cannon over
+her head: "枪口的火还是没跟着枪的方向 固定住了"). So the fire is timed to the frames whose bell stays put - the
+attack's shot frame and the next hold the bell still, R's flame burns out in its 90 ms shot frame - and a view's tag
+can be built from parts at different spots (E's fire moves a square back with its 4th frame); the smoke after the
+fire may stay where it was blown out. Attack speed shortens the attack's frames but not a view's, so keep that fire
+within the frames at base speed. `y_offset` is not only the
 picture (league_lucian's double shot moved by a tick): when she was cut to 34 rows, 5000 / 13000 / 9000 (the new
 bells' middles) made the flights 1-2 ticks longer on average (the bolt 8.4 -> 9.4 ticks, the charge 13.1 -> 15.3 in
 one simulated game) and her kill difference fell from +2.06 to +1.33 on the same 24 seeds, so the tested values stay
