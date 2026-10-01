@@ -384,6 +384,92 @@ def drop_lonely(f):
     return out
 
 
+def clean_outline(f, color, dark=40, keep=None, bare=()):
+    """Tidy a closed outline (run after complete_outline): one black ring, one pixel thick, no crumbs.
+      bare    a `color` pixel whose coloured 8-neighbours are all in a `bare` colour (a blade drawn as a bare
+              one-pixel line) with one of them 4-next to it is cleared: a slanted line is runs of two or three
+              pixels, and complete_outline caps both ends of every run, which reads as a dashed black-and-white
+              line;
+      ring    an edge pixel (4-next to clear) darker than `dark` in another colour (a material's darkest shade
+              standing in for the outline) becomes `color`, so the ring is black all round;
+      thick   an inner `color` pixel 4-next to the ring whose other `color` 8-neighbours are all ring pixels (a
+              bump doubling the ring, not an interior line) takes its neighbours' commonest other colour;
+      speck   an inner `color` pixel with at most one `color` 8-neighbour (a crumb) does the same;
+      corner  a ring pixel with no coloured 4-neighbour whose `color` 8-neighbours stay joined without it (the
+              outer pixel of a doubled diagonal staircase) is cleared.
+    `keep` pixels (the face) never change. Returns (picture, {rule: pixels})."""
+    f = f.copy()
+    col = np.array(color, f.dtype)
+    H, W = f.shape[:2]
+    keep = np.zeros((H, W), bool) if keep is None else keep
+    caps = np.zeros((H, W), bool)
+    if bare:
+        op = f[..., 3] > 0
+        blk = op & (f[..., :3] == col).all(-1)
+        isbare = op & np.any([(f[..., :3] == np.array(c, f.dtype)).all(-1) for c in bare], axis=0)
+        other = op & ~blk & ~isbare
+        q_o, q_b = np.pad(other, 1), np.pad(isbare, 1)
+        near_other = np.zeros((H, W), bool)
+        near_bare4 = np.zeros((H, W), bool)
+        for dy in (-1, 0, 1):
+            for dx in (-1, 0, 1):
+                if dy or dx:
+                    near_other |= q_o[1 + dy:H + 1 + dy, 1 + dx:W + 1 + dx]
+                    if not (dy and dx):
+                        near_bare4 |= q_b[1 + dy:H + 1 + dy, 1 + dx:W + 1 + dx]
+        caps = blk & near_bare4 & ~near_other & ~keep
+        f[caps] = 0
+    op = f[..., 3] > 0
+    p = np.pad(op, 1)
+    edge = op & ~(p[:-2, 1:-1] & p[2:, 1:-1] & p[1:-1, :-2] & p[1:-1, 2:])
+    blk = op & (f[..., :3] == col).all(-1)
+    ring = edge & op & (lum(f[..., :3]) < dark) & ~blk & ~keep
+    f[ring, :3] = col
+    blk |= ring
+
+    def count(m, n8):
+        q = np.pad(m, 1).astype(np.int8)
+        steps = [(dy, dx) for dy in (-1, 0, 1) for dx in (-1, 0, 1) if (dy or dx) and (n8 or not (dy and dx))]
+        return sum(q[1 + dy:H + 1 + dy, 1 + dx:W + 1 + dx] for dy, dx in steps)
+
+    inner = blk & ~edge & ~keep
+    thick = inner & (count(blk & edge, False) > 0) & (count(inner, True) == 0)
+    speck = inner & ~thick & (count(blk, True) <= 1)
+    for y, x in zip(*np.nonzero(thick | speck)):
+        votes = {}
+        for dy in (-1, 0, 1):
+            for dx in (-1, 0, 1):
+                yy, xx = y + dy, x + dx
+                if (dy or dx) and 0 <= yy < H and 0 <= xx < W and op[yy, xx] and not blk[yy, xx]:
+                    c = tuple(int(v) for v in f[yy, xx, :3])
+                    votes[c] = votes.get(c, 0) + (1 if dy and dx else 2)
+        if votes:
+            f[y, x, :3] = max(votes, key=votes.get)
+    blk = (f[..., 3] > 0) & (f[..., :3] == col).all(-1)
+    coloured = (f[..., 3] > 0) & ~blk
+    corner = np.zeros((H, W), bool)
+    for y, x in zip(*np.nonzero(blk & edge & ~keep)):
+        if any(0 <= y + dy < H and 0 <= x + dx < W and coloured[y + dy, x + dx]
+               for dy, dx in ((-1, 0), (1, 0), (0, -1), (0, 1))):
+            continue
+        nb = [(dy, dx) for dy in (-1, 0, 1) for dx in (-1, 0, 1)
+              if (dy or dx) and 0 <= y + dy < H and 0 <= x + dx < W and blk[y + dy, x + dx] and not corner[y + dy, x + dx]]
+        if len(nb) < 2:
+            continue
+        seen, todo = {nb[0]}, [nb[0]]
+        while todo:
+            cy, cx = todo.pop()
+            for n in nb:
+                if n not in seen and max(abs(n[0] - cy), abs(n[1] - cx)) == 1:
+                    seen.add(n)
+                    todo.append(n)
+        if len(seen) == len(nb):
+            corner[y, x] = True
+            f[y, x] = 0
+    return f, {"bare": int(caps.sum()), "ring": int(ring.sum()), "thick": int(thick.sum()), "speck": int(speck.sum()),
+               "corner": int(corner.sum())}
+
+
 # ----------------------------------------------------------------------------- output
 def centre_frame(arr, u0, r0):
     """Trim to the content and pad symmetrically so the pivot pixel is the exact centre (odd size)."""

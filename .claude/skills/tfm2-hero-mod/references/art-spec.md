@@ -563,6 +563,12 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   A mid-dark edge colour is not outline to `metrics` (luminance under 40) yet stays unringed at the threshold 70:
   league_fiora's teal leggings (~58) and wine cape (~44) left her Q frames at 83-89%; `import_native.py` `DARK` sets
   the threshold per hero (hers 40: 98-100%, the bare rapier aside).
+  Then tidy it (`strips.clean_outline`, `import_native.py` `CLEAN`; the user on Fiora: "黑色描边处理一下 弄干净点"):
+  an edge pixel in a material's near-black shade becomes the outline colour (one black ring, not black here and dark
+  teal there), a black pixel doubling the ring from inside and a lone black crumb take their neighbours' colour, the
+  outer pixel of a doubled diagonal staircase goes; the face box stays. A blade drawn as a bare one-pixel line
+  breaks into runs of two or three when slanted, and complete_outline caps both ends of every run: a dashed black-
+  and-white line. `BARE` names the blade colour and clean_outline clears every black pixel that touches only it.
 - **Keep the neck the same in every frame.** With the design's head pasted into redrawn frames, align a loop's frames
   on the head and check that the shoulders sit the same number of rows under the chin. Codex drew league_nami's
   swimming body a row lower under the head in four of the eight run frames: her neck stretched and shrank as she bobbed

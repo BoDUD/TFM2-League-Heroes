@@ -65,6 +65,13 @@ COMPLETE = {"nami", "veigar", "jax", "ahri", "fiora"}
 # leggings (luminance ~58) and wine cape (~44) edge many action frames without black: tfm2_ase.py metrics counts only
 # luminance < 40 as outline, so at 70 her Q frames read 83-89% (the bare rapier aside); at 40 they close too.
 DARK = {"fiora": 40}
+# heroes whose closed outline strips.clean_outline then tidies (one black ring, one pixel thick, no crumbs; the face
+# box round the EYES colour untouched). Fiora's Codex frames mixed black with her darkest teal, wine and brown on
+# the ring, doubled it inside and left loose black crumbs on the legs (the user: "黑色描边处理一下 弄干净点").
+CLEAN = {"fiora"}
+# hero: colours of a blade drawn as a bare one-pixel line; clean_outline clears the black caps complete_outline puts
+# on the ends of every run of a slanted one (Fiora's rapier in Q, the crit and the salute read as a dashed line)
+BARE = {"fiora": [(0xE6, 0xE8, 0xF0)]}
 ORDER = {("lux", "idle"): [0, 0, 0, 0, 0, 0],   # the step-2 idle is the design in all six (was 0 1 2 3 5 4)
          # League leans his upper body a square forward in idle 4-5 and back in 6, and every frame's head
          # is voted anew, so the face swung and changed shape as he breathed (the user). Frame 1 in every
@@ -409,9 +416,10 @@ def breathe(hero, sheet):
 
 
 def close_outline(hero, sheet):
-    """COMPLETE: strips.complete_outline on every frame, in idle frame 1's outline colour; (added, darkened)."""
+    """COMPLETE: strips.complete_outline on every frame, in idle frame 1's outline colour, then CLEAN:
+    strips.clean_outline; (added, darkened, {clean rule: pixels})."""
     if hero not in COMPLETE:
-        return 0, 0
+        return 0, 0, {}
     first = sheet["idle"][0][0]
     op = first[..., 3] > 0
     p = np.pad(op, 1)
@@ -419,16 +427,26 @@ def close_outline(hero, sheet):
     dark = [tuple(int(v) for v in c) for c in first[edge & (G.lum(first[..., :3]) < 70)][:, :3]]   # the commonest
     colour = max(set(dark), key=dark.count)
     added = darkened = 0
+    tidy = {}
     for tag, frames in sheet.items():
         for k, (a, ms) in enumerate(frames):
             b = np.pad(a, ((1, 1), (1, 1), (0, 0)))              # room for an outline round the widest pixel
             c = b.shape[0] // 2
             low = int(np.nonzero(b[..., 3].any(1))[0].max())
             b, n, d = G.complete_outline(b, color=colour, dark=DARK.get(hero, 70), feet=max(c + SOLES, low))
+            if hero in CLEAN:
+                face = np.zeros(b.shape[:2], bool)
+                ys, xs = np.nonzero((b[..., :3] == EYES[hero]).all(-1) & (b[..., 3] > 0))
+                if len(ys):
+                    cy, cx = int(ys.mean()), int(xs.mean())
+                    face[max(0, cy - 6):cy + 6, max(0, cx - 7):cx + 7] = True
+                b, counts = G.clean_outline(b, colour, dark=DARK.get(hero, 70), keep=face, bare=BARE.get(hero, ()))
+                for rule, v in counts.items():
+                    tidy[rule] = tidy.get(rule, 0) + v
             frames[k] = (G.centre_frame(b, -(b.shape[1] // 2), -c), ms)
             added += n
             darkened += d
-    return added, darkened
+    return added, darkened, tidy
 
 
 def flatness(frames):
@@ -474,9 +492,11 @@ def main():
         if touched:
             print(f"{hero}_retouch.json: {touched} pixels retouched")
         breathe(hero, sheet)
-        added, darkened = close_outline(hero, sheet)
+        added, darkened, tidy = close_outline(hero, sheet)
         if added or darkened:
             print(f"{hero}: outline closed with {added} pixels added, {darkened} darkened on the feet line")
+        if tidy:
+            print(f"{hero}: outline tidied: " + ", ".join(f"{k} {v}" for k, v in tidy.items()))
         w, h = G.write_sheet(os.path.join(MOD, "champions", f"league_{hero}"), sheet)
         frames = [a for fr in sheet.values() for a, _ in fr]
         colours = len(np.unique(np.concatenate([a[a[..., 3] > 0][:, :3] for a in frames]), axis=0))
