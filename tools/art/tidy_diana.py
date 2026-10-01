@@ -2,7 +2,7 @@
 """Diana's strips from Codex's delivery (assets/source/diana/MODEL_STRIPS.md) into assets/source/native/.
 
     python tools/art/tidy_diana.py assets/source/diana/codex_strips --run assets/source/diana/run_legs
-                                   [--tags run,attack,...] [--check]
+                                   --legs assets/source/diana/action_legs [--tags run,attack,...] [--check]
 
 The delivery (diana_animation_candidates.zip, kept in codex_strips/: native/diana_<tag>_1x.png in 96x96 cells,
 manifest.json with an eye_mark per frame, the pack's diana_cells.json) is already on the grid and in the design's 26
@@ -19,7 +19,8 @@ keep is the face: its eyes change size and place from frame to frame (one eye, t
      idle strip was laid on (its blade on the left pulled it across the League silhouette, as with Vayne), so in game
      the unit would stand at her heel;
   4. the blade and the hair (see BLADE): the idle's blade 2 squares back, clear of the hair; elsewhere a line of
-     outline where they touch.
+     outline where they touch;
+  5. the outline one square thick (clean; the user: "清理一下黑边也别忘了 弄干净一点").
 The run came back a second time (diana_run_redo.zip; the prompt: assets/source/diana/RUN_REDO.md): Codex's first
 run had the same legs in all 8 frames; the redo swaps the planted leg (near in 1-4, far in 5-8, strides opposite in 4
 and 8) with the hips up kept square for square and the soles on the ground. In game its legs were still wrong (the
@@ -34,6 +35,9 @@ The fifth (diana_run_hips4, prompt RUN_REDO4.md) redrew the hips so the legs joi
 tops), and Codex's align5 (kept in codex_run/ now) moved hips and legs 3 squares back under the torso. Its legs
 still looked unlike the idle's, so tools/art/diana_run_legs.py replaces them with the idle's legs on League's run
 poses and writes assets/source/diana/run_legs/, which --run takes now.
+The other actions then got the same waist down (the user: "你既然改了 释放技能的时候腿部也要弄成一样的吧"):
+tools/art/diana_action_legs.py rebuilds them under Codex's upper bodies into assets/source/diana/action_legs/, which
+--legs takes (its frames already grounded).
 In the run, the legs' squares in the blade's pale cyan (the third run's frame 8 shin, RUN_GREAVE) take the idle's
 greave silver, so a shin never flashes white once a stride.
 Writes assets/source/native/diana_<tag>.png (8x blocks) and diana_cells.json; the idle strip is the design's.
@@ -75,6 +79,7 @@ BLADE_BACK = 2
 RUN_HIPS, RUN_LEGS_X = 62, 30                # the run's legs: below its hips row, right of the blade's tip
 RUN_GREAVE = {(0xD0, 0xF6, 0xEE): (0xB8, 0xBF, 0xC7)}  # the blade's pale cyan -> the idle's greave silver
 N4 = ((1, 0), (-1, 0), (0, 1), (0, -1))
+N8 = [(dx, dy) for dy in (-1, 0, 1) for dx in (-1, 0, 1) if dx or dy]
 
 
 def lp(p):
@@ -232,10 +237,51 @@ def move_blade(f, d=BLADE_BACK):
     return ink
 
 
+def clean(f):
+    """The outline one square thick: outline squares on the outside that touch no colour (8 around) go, so do loose
+    pieces of 1-2 squares; repeated until nothing changes."""
+    f = f.copy()
+    h, w = f.shape[:2]
+    while True:
+        op = f[..., 3] > 0
+        ink = op & np.array([[op[y, x] and key(f[y, x]) in LINE for x in range(w)] for y in range(h)])
+        col = op & ~ink
+        near = np.zeros_like(col)
+        for dx, dy in N8:
+            near |= np.roll(np.roll(col, dy, 0), dx, 1)
+        outside = np.zeros_like(op)
+        for dx, dy in N4:
+            outside |= ~np.roll(np.roll(op, dy, 0), dx, 1)
+        gone = ink & outside & ~near
+        if not gone.any():
+            break
+        f[gone] = 0
+    op = f[..., 3] > 0
+    seen = np.zeros_like(op)
+    for y, x in zip(*np.nonzero(op)):
+        if seen[y, x]:
+            continue
+        todo, part = [(y, x)], [(y, x)]
+        seen[y, x] = True
+        while todo:
+            cy, cx = todo.pop()
+            for dx, dy in N8:
+                ny, nx = cy + dy, cx + dx
+                if 0 <= ny < h and 0 <= nx < w and op[ny, nx] and not seen[ny, nx]:
+                    seen[ny, nx] = True
+                    todo.append((ny, nx))
+                    part.append((ny, nx))
+        if len(part) <= 2:
+            for py, px in part:
+                f[py, px] = 0
+    return f
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("delivery")
     ap.add_argument("--run", help="the run redo delivery (its native/diana_run_1x.png and manifest.json)")
+    ap.add_argument("--legs", help="tools/art/diana_action_legs.py's output: the tags in its manifest come from there")
     ap.add_argument("--tags", default="run,attack,attack_p,skill,skill2,skill2_w,ult,hit,dead")
     ap.add_argument("--check", action="store_true")
     o = ap.parse_args()
@@ -245,11 +291,14 @@ def main():
     idle = np.asarray(Image.open(lp(os.path.join(o.delivery, "native", "diana_idle_1x.png"))).convert("RGBA")).copy()
     patch = face_patch(idle[:ch, :cw])
     tags = ["idle"] + o.tags.split(",")
+    legs = json.load(open(lp(os.path.join(o.legs, "manifest.json")), encoding="utf-8"))["animations"] if o.legs else {}
     same = True
     for tag in tags:
         root, an = o.delivery, man["animations"][tag]
         if tag == "run" and o.run:
             root, an = o.run, json.load(open(lp(os.path.join(o.run, "manifest.json")), encoding="utf-8"))
+        elif o.legs and tag in legs:
+            root, an = o.legs, legs[tag]
         strip = np.asarray(Image.open(lp(os.path.join(root, an["native_file"]))).convert("RGBA")).copy()
         strip[strip[..., 3] < 128] = 0
         strip[strip[..., 3] > 0, 3] = 255
@@ -275,6 +324,11 @@ def main():
                 f, n = line_between(f)
                 if n:
                     notes[-1] += f" line{n}"
+                c = clean(f)
+                n = int((c != f).any(-1).sum())
+                if n:
+                    notes[-1] += f" clean{n}"
+                f = c
             else:
                 f = move_blade(f)
                 notes.append(f"{k + 1}:blade back {BLADE_BACK}")

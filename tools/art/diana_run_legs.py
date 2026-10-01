@@ -190,6 +190,14 @@ def upper(f, dy):
     return up
 
 
+def skirt_ring(s):
+    """The outline round a skirt stamp: next to its colours only - where the idle's own dark line already edges it (the
+    hem over the knees, the cape's side) a second line would make a black band."""
+    op = s[..., 3] > 0
+    ink = op & np.isin(s[..., 0], (0x0A, 0x0C)) & np.isin(s[..., 1], (0x04, 0x05)) & np.isin(s[..., 2], (0x12, 0x16))
+    return ring(op & ~ink) & ~op
+
+
 def skirt(idle, dx, dy, trail, lift):
     s = np.zeros_like(idle)
     (y0, y1), (x0, x1) = SKIRT_ROWS, SKIRT_COLS
@@ -204,7 +212,7 @@ def skirt(idle, dx, dy, trail, lift):
         s[y1 - 3:y1, x0 - 1:x0 + 4] = part
     if lift:                                   # the front of the hem row one row up
         s[y1 - 1, x1 - 5:x1] = 0
-    s[ring(s[..., 3] > 0)] = INK
+    s[skirt_ring(s)] = INK
     return shifted(s, dy, dx)
 
 
