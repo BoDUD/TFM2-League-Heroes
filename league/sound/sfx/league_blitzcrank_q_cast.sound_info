@@ -6,7 +6,7 @@
       "volume": 0.6
     },
     {
-      "delay": 0.2,
+      "delay": 0.08,
       "clip": "league_blitzcrank_sfx_q_launch",
       "volume": 0.6
     }

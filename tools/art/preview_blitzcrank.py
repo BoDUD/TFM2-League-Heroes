@@ -6,15 +6,16 @@
   league_blitzcrank_frames.png    every animation, frame by frame, 3x on the arena colour
   league_blitzcrank_effects.png   every effect animation, 3x
   league_blitzcrank_showcase.gif  a scripted fight with Darius and Garen, timed like the kit (60 ticks a second): Blitzcrank
-                                  walks in and throws Rocket Grab at Darius 69 px off - the hand leaves on tick 11 at
-                                  6 px a tick, its cable growing behind it, and catches him 57 px out (9.5 ticks: the
-                                  third window) - stunned, the claw on him, dragged in at 1.5 px a tick while he holds
-                                  the pull pose for 40 ticks and the hand comes back with him; Overdrive starts with
+                                  walks in and throws Rocket Grab at Darius 69 px off - thrown on tick 11, the claw
+                                  leaves his raised arm at 6 px a tick, its chain behind it, and stops 12 px short of
+                                  him 9 ticks after the throw - stunned, dragged in at 1.5 px a tick while he holds the
+                                  pull pose until the closed claw and its chain are back on him; Overdrive starts with
                                   him close (the steam every second) and Power Fist throws him up for 1 s; a punch marks
                                   him and the bolt strikes a second later (Static Field's passive); Garen walks up -
                                   two champions on him: Mana Barrier's shield; Static Field: the charge, the field on
                                   tick 23, both hit and silenced (1 s); a last punch and Darius falls. 3x. Projectile
-                                  pictures are turned to their flight like the game does (the hand comes back leftward).
+                                  pictures are turned to their flight like the game does (the claw comes back leftward);
+                                  the claw and its chain go under the units, as in the kit.
 """
 import argparse
 import math
@@ -40,12 +41,11 @@ Q_DUR, Q_ST, Q_SPEED, Q_DRAG = 40, 11, 6.0, 1.5   # Rocket Grab: the action, the
 Q_LIFT, Q_RANGE = 16.5, 78                    # the hook leaves 16.5 px over his pivot (y_offset -11500, his raised arm)
                                               # and slopes down to his pivot's height at the range's end
 TOUCH = 12                                    # the hook stops 12 px short of a champion's centre
-Q_T = (5, 8, 11)                              # the flight windows: pull pose 16 / 28 / 40 / 52 ticks
-Q_PULL = (16, 28, 40, 52)
 E_DUR, E_HIT, E_AIR = 32, 12, 60              # Power Fist: the action, the uppercut, the knock-up
 RP_DELAY = 60                                 # Static Field's passive: the bolt a second after the punch
 R_DUR, R_HIT, R_SILENCE = 35, 23, 60          # Static Field: the action, the field, the silence
 NEAR = 22                                     # a dragged champion stops this far from him (the bodies touch)
+BACKS_SHOWN = {"q_back5", "q_back9", "q_back13"}   # the 14 returns differ only in where they start: three shown
 
 
 def turned(fr, dx, dy):
@@ -102,34 +102,34 @@ def showcase(out, z=3, step=40):
     # he walks in; Darius stands 69 px ahead of where he stops
     run_to(96)
     d.x = x + 69
-    # Rocket Grab: the hand leaves on tick 11 from 3 px over his pivot, 6 px a tick; it stops 12 px short of Darius
-    # (57 px out, 9.5 ticks), the twin lands a tick later inside the third window: the pull pose for 40 ticks
+    # Rocket Grab, tick by tick as the kit runs it: thrown on tick 11 from 16.5 px over his pivot toward his pivot's
+    # height Q_RANGE px ahead, 6 px along that line on every tick from the throw (that one too); it stops TOUCH px
+    # short of Darius h ticks after the throw: stunned and dragged in at 1.5 px a tick. The twin lands a tick later
+    # (the pull pose); the claw comes back 2 ticks after the stop, flying to his pivot at 1.5 px a tick, and the pose
+    # ends when it is there. Its picture q_back<h> is the one the kit picks; the claw and the chain go under the units
     start = t
     throw = start + tick(Q_ST)
-    reach = d.x - TOUCH - x
-    cy = gy - Q_LIFT * (1 - reach / Q_RANGE)                         # the hook's height where it stops
-    flight = math.hypot(reach, Q_LIFT * reach / Q_RANGE) / Q_SPEED
-    catch = throw + tick(flight)
-    k = next((i for i, w in enumerate(Q_T) if flight + 1 < w), 3)
-    over.append(Anim(turned(frames_of(big, "q_hand"), Q_RANGE, Q_LIFT), throw, x, gy - Q_LIFT, until=catch,
-                     x1=x + reach, y1=cy, z=1))
-    pull = catch + tick(1)                                            # the twin lands a tick after the hook
+    full = math.hypot(Q_RANGE, Q_LIFT)
+    ux, uy = Q_RANGE / full, Q_LIFT / full                            # the line's direction
+    h = next(k for k in range(20) if Q_SPEED * (k + 1) * ux >= d.x - TOUCH - x)
+    sx, sy = Q_SPEED * (h + 1) * ux, -Q_LIFT + Q_SPEED * (h + 1) * uy   # where it stopped, from his pivot
+    under.append(Anim(turned(frames_of(big, "q_hand"), Q_RANGE, Q_LIFT), throw, x + Q_SPEED * ux,
+                      gy - Q_LIFT + Q_SPEED * uy, until=throw + tick(h), x1=x + sx, y1=gy + sy, z=-1))
+    hit = throw + tick(h)
+    stop = math.hypot(sx, sy)
+    life = int(stop // Q_DRAG)                                        # ticks until the claw is back on him
+    pull, back = hit + tick(1), hit + tick(2)
+    home = back + tick(life)
     a("skill", pull - t)                                              # the cast until the pull pose takes over
-    a("q_pull", tick(Q_PULL[k]), loop=True)
-    # the stun and the drag: Darius to NEAR px off him at 1.5 px a tick, the hand back with him (2 ticks after the
-    # hook stopped), its picture turned toward Blitzcrank; the claw on him
+    a("q_pull", home - pull, loop=True)
     on_foe(small, "q_grab", pull, d)
     drag = d.x - x - NEAR
-    dragged = pull + tick(drag / Q_DRAG)
-    d.holds.append((catch, dragged + tick(6)))
-    d.slides.append((pull, dragged, -drag))
-    # the hand comes back with him toward Blitzcrank's pivot (every return flies there), turned toward him
-    back = catch + tick(2)
-    hx0, hy0 = x + reach - Q_DRAG * 2, cy
-    hx1 = x + NEAR - TOUCH
-    hy1 = hy0 + (gy - hy0) * (hx0 - hx1) / (hx0 - x)
-    over.append(Anim(turned(frames_of(big, f"q_back{k + 1}"), x - hx0, gy - hy0), back, hx0, hy0,
-                     until=back + tick((hx0 - hx1) / Q_DRAG), x1=hx1, y1=hy1, z=1))
+    dragged = hit + tick(drag / Q_DRAG)
+    d.holds.append((hit, dragged + tick(6)))
+    d.slides.append((hit, dragged, -drag))
+    f0, f1 = 1 - Q_DRAG / stop, 1 - Q_DRAG * (life + 1) / stop       # the return moves on its first tick too
+    under.append(Anim(turned(frames_of(big, f"q_back{h}"), -sx, -sy), back, x + sx * f0, gy + sy * f0,
+                      until=home, x1=x + sx * f1, y1=gy + sy * f1, z=-1))
     a("idle", max(0.0, dragged - t) + 100, loop=True)
     # Overdrive: his first action with Darius this close starts it - the steam each second for 4 s - and Power Fist
     # throws him up on tick 12 for 1 s
@@ -199,7 +199,7 @@ def showcase(out, z=3, step=40):
     pal = strip.quantize(colors=255, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE)
     q = [f.quantize(palette=pal, dither=Image.Dither.NONE) for f in frames]
     q[0].save(T.long_path(out), save_all=True, append_images=q[1:], duration=step, loop=0, optimize=False)
-    return len(frames), round(end / 1000.0, 1), f"tier {k + 1}", round(flight, 1)
+    return len(frames), round(end / 1000.0, 1), f"q_back{h}", round(stop, 1)
 
 
 def main():
@@ -216,9 +216,10 @@ def main():
     rows = []
     for name, path in FX.items():
         sp = load(path)
-        rows += [(sp, t["name"], f"{name[18:]}:{t['name']}") for t in sp.tags]
+        rows += [(sp, t["name"], f"{name[18:]}:{t['name']}") for t in sp.tags
+                 if not t["name"].startswith("q_back") or t["name"] in BACKS_SHOWN]
     print("effects", contact(rows, os.path.join(args.out, "league_blitzcrank_effects.png")))
-    print("showcase frames/seconds/tier/flight ticks",
+    print("showcase frames/seconds/return/px",
           showcase(os.path.join(args.out, "league_blitzcrank_showcase.gif")))
 
 

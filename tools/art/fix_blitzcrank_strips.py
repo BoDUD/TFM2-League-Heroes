@@ -33,6 +33,18 @@ foot cover it (the crossing frames 3-5), and the far fist's wrist stub left besi
 away (frames 2 and 5-8) and a speck of the near fist (frame 2) are cleared (STUB).
 Codex later regenerated the run (HANDOFF_RUN_REGEN.md): its fists stay at the sides, the same leg always leads and the
 trailing one is a brown block without a foot, so the first run, cleaned here, keeps the cross-step and the idle's legs.
+The Rocket Grab redrawn (the user, 2026-10-02: "要的是和联盟一样 从手臂飞出去的爪子勾人"; Q_REDO.md): Codex redrew
+the throwing arm along the hook's line (the empty socket at (24, -11)) in Q 3-7 and toward the return lines (the socket
+at (30, -5)) in the pull loop, on these frames as they stood (assets/source/blitzcrank/codex_q_redo/). Its arm
+replaced a box that also cut the head's right half and the chest port out of Q 4 and 5 (and slivers in Q 6 and the
+pull): every square it cleared outside the old arm (columns from +13 above row -12; Q 7's old fist from +13 down) comes
+back from the frame it started from; the old arm's bottom edge it left beside the pull 2 socket (row -11, columns
++30..+37) is cleared; and the thin fork it drew as the mounted claw in Q 3 and 7 is replaced by its own open claw
+(logical/blitzcrank_fx_q_claw_open_1x.png, frame 1, without its rocket steam: not fired yet), the wrist on the arm's
+end at (25, -11), sheared down 12 degrees with the arm (the user: "有问题的地方还是你来调整"). The strip's timing in
+blitzcrank_cells.json follows the hook: frame 3 holds the claw on the arm until tick 16, when the flying one shows in
+front of it (import_blitzcrank.py), and frames 4-6 the empty socket until a missed claw is back (tick 32): 60 60 147
+66 84 116 67 67 ms (Codex's pack: 60 60 70 80 120 120 80 80; still 40 ticks).
 Last, nothing below the soles' line (row 97 of the cell; the HP bar covers it): the lying body of the death's last two
 frames reached 2 rows lower and moves up.
 Frames where the raised uppercut arm crosses the stacks' boxes keep the arm (E 5-6 start the far stack lower and keep
@@ -85,6 +97,13 @@ FIST = {"near": {1: (-14, -9), 2: (-14, -9), 3: (-14, -9), 4: (-14, -10), 5: (-1
 # head moved: E 5-6 keep the air over the dome for the raised arm (OVERRIDE), so a stub of Codex's first far stack
 # (E 5) and the brown bar over the dome left of the arm (E 6) are taken off here
 CLEAR = {("skill2", 4): [(-34, 4, 4), (-33, 3, 4), (-32, 3, 4)], ("skill2", 5): [(-31, -2, 1)]}
+QREDO = os.path.join(ROOT, "assets", "source", "blitzcrank", "codex_q_redo")
+REDO = {"skill": [2, 3, 4, 5, 6], "q_pull": [0, 1, 2]}    # frames (0-based) taken from the redraw
+REDO_CLEAR = {("q_pull", 1): [(-11, 30, 37)]}
+MOUNT = {("skill", 2), ("skill", 6)}                      # frames whose mounted claw is the open claw piece
+WRIST = (25, -11)                                           # the arm's end in those frames
+SLOPE = 16.5 / 78                                           # the hook's line: 16.5 px down over 78
+STEAM = {(0xFF, 0xFF, 0xFF), (0xE8, 0xEC, 0xF0)}            # the claw's thrust puff, not in the design's colours
 # run frame (0-based): (row, first column, last column) from the standing point, leftovers cleared by hand
 STUB = {1: [(-2, 10, 13), (-1, 10, 13), (0, 11, 13), (-1, -15, -15), (0, -16, -15)],
         4: [(-2, 10, 13), (-1, 10, 13), (0, 11, 13)],
@@ -273,6 +292,42 @@ def shift_head(f, e, head_rows):
     return filled
 
 
+def redo(tag, one, table, shots):
+    """The Rocket Grab's redrawn frames over the fixed strip, their holes filled from it."""
+    if tag not in REDO:
+        return []
+    cw, ch = table["cell"]
+    frs = table["tags"][tag]
+    cols, _ = layout(len(frs))
+    new = load(os.path.join(QREDO, f"blitzcrank_{tag}.png"))
+    claw = load(os.path.join(QREDO, "logical", "blitzcrank_fx_q_claw_open_1x.png"))[:, :16]
+    log = []
+    for i in REDO[tag]:
+        X, Y = (i % cols) * cw, (i // cols) * ch
+        f = one[Y:Y + ch, X:X + cw]
+        before = f.copy()
+        n = new[Y:Y + ch, X:X + cw]
+        px, py = frs[i]["pivot"]
+        yy, xx = np.mgrid[0:ch, 0:cw]
+        arm = (xx - px >= 13) & ((yy - py <= -12) | ((tag, i) == ("skill", 6)))
+        back = (f[..., 3] > 0) & ~(n[..., 3] > 0) & ~arm
+        f[:] = n
+        f[back] = before[back]
+        for r, q0, q1 in REDO_CLEAR.get((tag, i), []):
+            f[py + r, px + q0:px + q1 + 1] = 0
+        if (tag, i) in MOUNT:
+            f[py - 19:py - 3, px + 27:] = 0
+            wx, wy = WRIST
+            for cy, cx in zip(*np.nonzero(claw[..., 3])):
+                if tuple(int(v) for v in claw[cy, cx, :3]) in STEAM:
+                    continue                         # no thrust while it is still on the arm
+                f[py + wy + cy - 7 + int(round((cx - 2) * SLOPE)), px + wx + cx - 2] = claw[cy, cx]
+        log.append(f"  {tag} {i + 1}: Q redraw, {int(back.sum())} squares filled back"
+                   + (", claw mounted" if (tag, i) in MOUNT else "") + f", {pieces(f[..., 3] > 0)} piece(s)")
+        shots.append((f"{tag} {i + 1} redo", before, f.copy(), (py - 30, px)))
+    return log
+
+
 def fix(tag, one, table, des, head, near, far, ring, shots, head_rows):
     cw, ch = table["cell"]
     frs = table["tags"][tag]
@@ -357,6 +412,9 @@ def main():
     for tag in TAGS:
         one = load(os.path.join(SRC, f"blitzcrank_{tag}.png"))
         print("\n".join(fix(tag, one, table, des, head, near, far, ring, shots, head_rows)))
+        log = redo(tag, one, table, shots)
+        if log:
+            print(chr(10).join(log))
         big = np.repeat(np.repeat(one, Z, 0), Z, 1)
         out = os.path.join(NATIVE, f"blitzcrank_{tag}.png")
         if args.check:

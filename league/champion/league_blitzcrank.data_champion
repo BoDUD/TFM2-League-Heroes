@@ -3701,32 +3701,84 @@
         },
         {
           "type": "RemoveCasterBuff",
-          "name": "league_blitzcrank_q_t1"
+          "name": "league_blitzcrank_q_f0"
         },
         {
           "type": "RemoveCasterBuff",
-          "name": "league_blitzcrank_q_t2"
+          "name": "league_blitzcrank_q_f1"
         },
         {
           "type": "RemoveCasterBuff",
-          "name": "league_blitzcrank_q_t3"
+          "name": "league_blitzcrank_q_f2"
         },
         {
           "type": "RemoveCasterBuff",
-          "name": "league_blitzcrank_q_k1"
+          "name": "league_blitzcrank_q_f3"
         },
         {
           "type": "RemoveCasterBuff",
-          "name": "league_blitzcrank_q_k2"
+          "name": "league_blitzcrank_q_f4"
         },
         {
           "type": "RemoveCasterBuff",
-          "name": "league_blitzcrank_q_k3"
+          "name": "league_blitzcrank_q_f5"
+        },
+        {
+          "type": "RemoveCasterBuff",
+          "name": "league_blitzcrank_q_f6"
+        },
+        {
+          "type": "RemoveCasterBuff",
+          "name": "league_blitzcrank_q_f7"
+        },
+        {
+          "type": "RemoveCasterBuff",
+          "name": "league_blitzcrank_q_f8"
+        },
+        {
+          "type": "RemoveCasterBuff",
+          "name": "league_blitzcrank_q_f9"
+        },
+        {
+          "type": "RemoveCasterBuff",
+          "name": "league_blitzcrank_q_f10"
+        },
+        {
+          "type": "RemoveCasterBuff",
+          "name": "league_blitzcrank_q_f11"
+        },
+        {
+          "type": "RemoveCasterBuff",
+          "name": "league_blitzcrank_q_f12"
         },
         {
           "type": "AddCasterBuff",
           "buff_state": {
-            "name": "league_blitzcrank_q_t1",
+            "name": "league_blitzcrank_q_f0",
+            "duration": {
+              "Time": {
+                "tick": 3
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_blitzcrank_q_f1",
+            "duration": {
+              "Time": {
+                "tick": 4
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_blitzcrank_q_f2",
             "duration": {
               "Time": {
                 "tick": 5
@@ -3738,7 +3790,31 @@
         {
           "type": "AddCasterBuff",
           "buff_state": {
-            "name": "league_blitzcrank_q_t2",
+            "name": "league_blitzcrank_q_f3",
+            "duration": {
+              "Time": {
+                "tick": 6
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_blitzcrank_q_f4",
+            "duration": {
+              "Time": {
+                "tick": 7
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_blitzcrank_q_f5",
             "duration": {
               "Time": {
                 "tick": 8
@@ -3750,10 +3826,82 @@
         {
           "type": "AddCasterBuff",
           "buff_state": {
-            "name": "league_blitzcrank_q_t3",
+            "name": "league_blitzcrank_q_f6",
+            "duration": {
+              "Time": {
+                "tick": 9
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_blitzcrank_q_f7",
+            "duration": {
+              "Time": {
+                "tick": 10
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_blitzcrank_q_f8",
             "duration": {
               "Time": {
                 "tick": 11
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_blitzcrank_q_f9",
+            "duration": {
+              "Time": {
+                "tick": 12
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_blitzcrank_q_f10",
+            "duration": {
+              "Time": {
+                "tick": 13
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_blitzcrank_q_f11",
+            "duration": {
+              "Time": {
+                "tick": 14
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_blitzcrank_q_f12",
+            "duration": {
+              "Time": {
+                "tick": 15
               }
             }
           },
@@ -3819,10 +3967,10 @@
                   "buff_name": "league_blitzcrank_q_held",
                   "effect_buff": {
                     "type": "SwitchByBuff",
-                    "buff_name": "league_blitzcrank_q_k1",
+                    "buff_name": "league_blitzcrank_q_f0",
                     "effect_buff": {
                       "type": "BackToCasterLinearProjectile",
-                      "name": "league_blitzcrank_q_back1",
+                      "name": "league_blitzcrank_q_back0",
                       "speed": 1500,
                       "range": 78000,
                       "shape": {
@@ -3833,14 +3981,19 @@
                       "penetrate": true,
                       "applied_target": "EnemyChampion",
                       "applied_effects": [],
-                      "end_effects": []
+                      "end_effects": [
+                        {
+                          "type": "RemoveCasterAnimation",
+                          "name": "q_pull"
+                        }
+                      ]
                     },
                     "effect_none": {
                       "type": "SwitchByBuff",
-                      "buff_name": "league_blitzcrank_q_k2",
+                      "buff_name": "league_blitzcrank_q_f1",
                       "effect_buff": {
                         "type": "BackToCasterLinearProjectile",
-                        "name": "league_blitzcrank_q_back2",
+                        "name": "league_blitzcrank_q_back1",
                         "speed": 1500,
                         "range": 78000,
                         "shape": {
@@ -3851,14 +4004,19 @@
                         "penetrate": true,
                         "applied_target": "EnemyChampion",
                         "applied_effects": [],
-                        "end_effects": []
+                        "end_effects": [
+                          {
+                            "type": "RemoveCasterAnimation",
+                            "name": "q_pull"
+                          }
+                        ]
                       },
                       "effect_none": {
                         "type": "SwitchByBuff",
-                        "buff_name": "league_blitzcrank_q_k3",
+                        "buff_name": "league_blitzcrank_q_f2",
                         "effect_buff": {
                           "type": "BackToCasterLinearProjectile",
-                          "name": "league_blitzcrank_q_back3",
+                          "name": "league_blitzcrank_q_back2",
                           "speed": 1500,
                           "range": 78000,
                           "shape": {
@@ -3869,22 +4027,272 @@
                           "penetrate": true,
                           "applied_target": "EnemyChampion",
                           "applied_effects": [],
-                          "end_effects": []
+                          "end_effects": [
+                            {
+                              "type": "RemoveCasterAnimation",
+                              "name": "q_pull"
+                            }
+                          ]
                         },
                         "effect_none": {
-                          "type": "BackToCasterLinearProjectile",
-                          "name": "league_blitzcrank_q_back4",
-                          "speed": 1500,
-                          "range": 78000,
-                          "shape": {
-                            "Circle": {
-                              "radius": 1000
-                            }
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_blitzcrank_q_f3",
+                          "effect_buff": {
+                            "type": "BackToCasterLinearProjectile",
+                            "name": "league_blitzcrank_q_back3",
+                            "speed": 1500,
+                            "range": 78000,
+                            "shape": {
+                              "Circle": {
+                                "radius": 1000
+                              }
+                            },
+                            "penetrate": true,
+                            "applied_target": "EnemyChampion",
+                            "applied_effects": [],
+                            "end_effects": [
+                              {
+                                "type": "RemoveCasterAnimation",
+                                "name": "q_pull"
+                              }
+                            ]
                           },
-                          "penetrate": true,
-                          "applied_target": "EnemyChampion",
-                          "applied_effects": [],
-                          "end_effects": []
+                          "effect_none": {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_blitzcrank_q_f4",
+                            "effect_buff": {
+                              "type": "BackToCasterLinearProjectile",
+                              "name": "league_blitzcrank_q_back4",
+                              "speed": 1500,
+                              "range": 78000,
+                              "shape": {
+                                "Circle": {
+                                  "radius": 1000
+                                }
+                              },
+                              "penetrate": true,
+                              "applied_target": "EnemyChampion",
+                              "applied_effects": [],
+                              "end_effects": [
+                                {
+                                  "type": "RemoveCasterAnimation",
+                                  "name": "q_pull"
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_blitzcrank_q_f5",
+                              "effect_buff": {
+                                "type": "BackToCasterLinearProjectile",
+                                "name": "league_blitzcrank_q_back5",
+                                "speed": 1500,
+                                "range": 78000,
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 1000
+                                  }
+                                },
+                                "penetrate": true,
+                                "applied_target": "EnemyChampion",
+                                "applied_effects": [],
+                                "end_effects": [
+                                  {
+                                    "type": "RemoveCasterAnimation",
+                                    "name": "q_pull"
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_blitzcrank_q_f6",
+                                "effect_buff": {
+                                  "type": "BackToCasterLinearProjectile",
+                                  "name": "league_blitzcrank_q_back6",
+                                  "speed": 1500,
+                                  "range": 78000,
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 1000
+                                    }
+                                  },
+                                  "penetrate": true,
+                                  "applied_target": "EnemyChampion",
+                                  "applied_effects": [],
+                                  "end_effects": [
+                                    {
+                                      "type": "RemoveCasterAnimation",
+                                      "name": "q_pull"
+                                    }
+                                  ]
+                                },
+                                "effect_none": {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_blitzcrank_q_f7",
+                                  "effect_buff": {
+                                    "type": "BackToCasterLinearProjectile",
+                                    "name": "league_blitzcrank_q_back7",
+                                    "speed": 1500,
+                                    "range": 78000,
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 1000
+                                      }
+                                    },
+                                    "penetrate": true,
+                                    "applied_target": "EnemyChampion",
+                                    "applied_effects": [],
+                                    "end_effects": [
+                                      {
+                                        "type": "RemoveCasterAnimation",
+                                        "name": "q_pull"
+                                      }
+                                    ]
+                                  },
+                                  "effect_none": {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_blitzcrank_q_f8",
+                                    "effect_buff": {
+                                      "type": "BackToCasterLinearProjectile",
+                                      "name": "league_blitzcrank_q_back8",
+                                      "speed": 1500,
+                                      "range": 78000,
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 1000
+                                        }
+                                      },
+                                      "penetrate": true,
+                                      "applied_target": "EnemyChampion",
+                                      "applied_effects": [],
+                                      "end_effects": [
+                                        {
+                                          "type": "RemoveCasterAnimation",
+                                          "name": "q_pull"
+                                        }
+                                      ]
+                                    },
+                                    "effect_none": {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_blitzcrank_q_f9",
+                                      "effect_buff": {
+                                        "type": "BackToCasterLinearProjectile",
+                                        "name": "league_blitzcrank_q_back9",
+                                        "speed": 1500,
+                                        "range": 78000,
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 1000
+                                          }
+                                        },
+                                        "penetrate": true,
+                                        "applied_target": "EnemyChampion",
+                                        "applied_effects": [],
+                                        "end_effects": [
+                                          {
+                                            "type": "RemoveCasterAnimation",
+                                            "name": "q_pull"
+                                          }
+                                        ]
+                                      },
+                                      "effect_none": {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_blitzcrank_q_f10",
+                                        "effect_buff": {
+                                          "type": "BackToCasterLinearProjectile",
+                                          "name": "league_blitzcrank_q_back10",
+                                          "speed": 1500,
+                                          "range": 78000,
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 1000
+                                            }
+                                          },
+                                          "penetrate": true,
+                                          "applied_target": "EnemyChampion",
+                                          "applied_effects": [],
+                                          "end_effects": [
+                                            {
+                                              "type": "RemoveCasterAnimation",
+                                              "name": "q_pull"
+                                            }
+                                          ]
+                                        },
+                                        "effect_none": {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_blitzcrank_q_f11",
+                                          "effect_buff": {
+                                            "type": "BackToCasterLinearProjectile",
+                                            "name": "league_blitzcrank_q_back11",
+                                            "speed": 1500,
+                                            "range": 78000,
+                                            "shape": {
+                                              "Circle": {
+                                                "radius": 1000
+                                              }
+                                            },
+                                            "penetrate": true,
+                                            "applied_target": "EnemyChampion",
+                                            "applied_effects": [],
+                                            "end_effects": [
+                                              {
+                                                "type": "RemoveCasterAnimation",
+                                                "name": "q_pull"
+                                              }
+                                            ]
+                                          },
+                                          "effect_none": {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_blitzcrank_q_f12",
+                                            "effect_buff": {
+                                              "type": "BackToCasterLinearProjectile",
+                                              "name": "league_blitzcrank_q_back12",
+                                              "speed": 1500,
+                                              "range": 78000,
+                                              "shape": {
+                                                "Circle": {
+                                                  "radius": 1000
+                                                }
+                                              },
+                                              "penetrate": true,
+                                              "applied_target": "EnemyChampion",
+                                              "applied_effects": [],
+                                              "end_effects": [
+                                                {
+                                                  "type": "RemoveCasterAnimation",
+                                                  "name": "q_pull"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "BackToCasterLinearProjectile",
+                                              "name": "league_blitzcrank_q_back13",
+                                              "speed": 1500,
+                                              "range": 78000,
+                                              "shape": {
+                                                "Circle": {
+                                                  "radius": 1000
+                                                }
+                                              },
+                                              "penetrate": true,
+                                              "applied_target": "EnemyChampion",
+                                              "applied_effects": [],
+                                              "end_effects": [
+                                                {
+                                                  "type": "RemoveCasterAnimation",
+                                                  "name": "q_pull"
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
                         }
                       }
                     }
@@ -3892,7 +4300,7 @@
                   "effect_none": {
                     "type": "BackToCasterLinearProjectile",
                     "name": "league_blitzcrank_q_miss",
-                    "speed": 4500,
+                    "speed": 9000,
                     "range": 78000,
                     "shape": {
                       "Circle": {
@@ -3948,87 +4356,9 @@
             {
               "casting_type": "Targeting",
               "effect": {
-                "type": "SwitchByBuff",
-                "buff_name": "league_blitzcrank_q_t1",
-                "effect_buff": {
-                  "type": "Combine",
-                  "effects": [
-                    {
-                      "type": "CasterAnimation",
-                      "name": "q_pull",
-                      "tick": 16
-                    },
-                    {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "league_blitzcrank_q_k1",
-                        "duration": {
-                          "Time": {
-                            "tick": 10
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    }
-                  ]
-                },
-                "effect_none": {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_blitzcrank_q_t2",
-                  "effect_buff": {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "CasterAnimation",
-                        "name": "q_pull",
-                        "tick": 28
-                      },
-                      {
-                        "type": "AddCasterBuff",
-                        "buff_state": {
-                          "name": "league_blitzcrank_q_k2",
-                          "duration": {
-                            "Time": {
-                              "tick": 10
-                            }
-                          }
-                        },
-                        "only_to_enemy": false
-                      }
-                    ]
-                  },
-                  "effect_none": {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_blitzcrank_q_t3",
-                    "effect_buff": {
-                      "type": "Combine",
-                      "effects": [
-                        {
-                          "type": "CasterAnimation",
-                          "name": "q_pull",
-                          "tick": 40
-                        },
-                        {
-                          "type": "AddCasterBuff",
-                          "buff_state": {
-                            "name": "league_blitzcrank_q_k3",
-                            "duration": {
-                              "Time": {
-                                "tick": 10
-                              }
-                            }
-                          },
-                          "only_to_enemy": false
-                        }
-                      ]
-                    },
-                    "effect_none": {
-                      "type": "CasterAnimation",
-                      "name": "q_pull",
-                      "tick": 52
-                    }
-                  }
-                }
+                "type": "CasterAnimation",
+                "name": "q_pull",
+                "tick": 60
               }
             }
           ],
@@ -13582,7 +13912,15 @@
       "anim": "asset/league/effects/league_blitzcrank_big",
       "tag": "q_hand",
       "repeat": false,
-      "z": 1
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_blitzcrank_q_back0",
+      "anim": "asset/league/effects/league_blitzcrank_big",
+      "tag": "q_back0",
+      "repeat": false,
+      "z": -1
     },
     {
       "type": "Animated",
@@ -13590,7 +13928,7 @@
       "anim": "asset/league/effects/league_blitzcrank_big",
       "tag": "q_back1",
       "repeat": false,
-      "z": 1
+      "z": -1
     },
     {
       "type": "Animated",
@@ -13598,7 +13936,7 @@
       "anim": "asset/league/effects/league_blitzcrank_big",
       "tag": "q_back2",
       "repeat": false,
-      "z": 1
+      "z": -1
     },
     {
       "type": "Animated",
@@ -13606,7 +13944,7 @@
       "anim": "asset/league/effects/league_blitzcrank_big",
       "tag": "q_back3",
       "repeat": false,
-      "z": 1
+      "z": -1
     },
     {
       "type": "Animated",
@@ -13614,7 +13952,79 @@
       "anim": "asset/league/effects/league_blitzcrank_big",
       "tag": "q_back4",
       "repeat": false,
-      "z": 1
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_blitzcrank_q_back5",
+      "anim": "asset/league/effects/league_blitzcrank_big",
+      "tag": "q_back5",
+      "repeat": false,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_blitzcrank_q_back6",
+      "anim": "asset/league/effects/league_blitzcrank_big",
+      "tag": "q_back6",
+      "repeat": false,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_blitzcrank_q_back7",
+      "anim": "asset/league/effects/league_blitzcrank_big",
+      "tag": "q_back7",
+      "repeat": false,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_blitzcrank_q_back8",
+      "anim": "asset/league/effects/league_blitzcrank_big",
+      "tag": "q_back8",
+      "repeat": false,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_blitzcrank_q_back9",
+      "anim": "asset/league/effects/league_blitzcrank_big",
+      "tag": "q_back9",
+      "repeat": false,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_blitzcrank_q_back10",
+      "anim": "asset/league/effects/league_blitzcrank_big",
+      "tag": "q_back10",
+      "repeat": false,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_blitzcrank_q_back11",
+      "anim": "asset/league/effects/league_blitzcrank_big",
+      "tag": "q_back11",
+      "repeat": false,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_blitzcrank_q_back12",
+      "anim": "asset/league/effects/league_blitzcrank_big",
+      "tag": "q_back12",
+      "repeat": false,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_blitzcrank_q_back13",
+      "anim": "asset/league/effects/league_blitzcrank_big",
+      "tag": "q_back13",
+      "repeat": false,
+      "z": -1
     },
     {
       "type": "Animated",
@@ -13622,7 +14032,7 @@
       "anim": "asset/league/effects/league_blitzcrank_big",
       "tag": "q_miss",
       "repeat": false,
-      "z": 1
+      "z": -1
     }
   ],
   "view_effects": [

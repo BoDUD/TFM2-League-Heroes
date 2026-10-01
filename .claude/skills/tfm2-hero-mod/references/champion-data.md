@@ -2252,18 +2252,26 @@ after them) - League's clone dies with Shaco too.
 it reaches takes magic damage, `Stun` 40 ticks and `Grab` at 1500 a tick - dragged all the way to him. An
 invisible twin on the same line on `EnemyChampionInCC` lands a tick later only when the stun took (a Black Shield lets
 both pass): it sets a 90-tick caster flag `q_held`, shows the claw on him and plays Blitzcrank's 3-frame `q_pull` loop
-for as long as the drag will take. Three caster windows set at the throw (`q_t1` 5 ticks, `q_t2` 8, `q_t3` 11) give the
-flight time when the twin lands: the loop runs 16 / 28 / 40 / 52 ticks and a 10-tick tier flag `q_k1`..`q_k3` is
-left for the hook's `end_effects`, which wait 2 ticks before reading anything (read at once they always missed the
-twin's flag, a tick behind, and every hook came back fast): a held hook comes back with its champion at 1500 a tick as
-`q_back1`..`q_back4`, one picture per tier timed for that tier's distance (returns of 25 ticks in tier 2,
-35-41 in tier 3, 45-52 in tier 4 in a logged game), a miss or a blocked hook at 4500 as `q_miss`. In that game 10 of 18
-hooks held. His arm is raised to the shoulder in the strip (League's pose), 16 px over his pivot, and the hook leaves
-from there (the user: "从上面勾 别从下面勾"): `y_offset` -11500 starts it 16500 north of him and it slopes down to his
-pivot's height at the end of its range (12 degrees), coming down on a champion's chest; 8 logged games held 76 of 144
-hooks, 68 of 125 at `y_offset` 2000 - the slope misses nobody more. Every return (`BackToCasterLinearProjectile`) flies
-to his pivot whatever its `y_offset` (the spawn vectors of a logged game), so a cable drawn on it would run into his
-belly under the raised arm: the returns draw the fist alone.
+(60 ticks at most). The hook's `end_effects` wait 2 ticks before reading anything (read at once they always missed
+the twin's flag, a tick behind, and every hook came back fast): a held hook comes back with its champion at 1500 a
+tick, a miss or a blocked hook at 9000 as `q_miss` (it carries no effect). A projectile moves on every tick from the
+one it is thrown on, so a hook removed h ticks after the throw stopped 6000 x (h + 1) along its line; 13 caster flags
+set at the throw, `q_f<j>` lasting j + 3 ticks, are still seen by those `end_effects` j + 2 ticks after it (4 logged
+games: every return matched; the twin, a tick behind them, sees a flag one tick less), so the first one still on is
+`q_f<h>` and picks `q_back<h>`, one return picture per stop (h 0-13), its chain drawn for that distance. The held
+return's own `end_effects` end the pull pose: `RemoveCasterAnimation q_pull` runs on the tick it reaches him (a probe
+view on the same list played there; he acted that tick, while the fixed 16 / 28 / 40 / 52-tick poses of the first
+version held him to the end - a `CasterAnimation` stops actions too). His arm is raised to the shoulder in the strip
+(League's pose), 16 px over his pivot, and the hook leaves from there (the user: "从上面勾 别从下面勾"): `y_offset`
+-11500 starts it 16500 north of him and it slopes down to his pivot's height at the end of its range (12 degrees),
+coming down on a champion's chest; 8 logged games held 76 of 144 hooks, 68 of 125 at `y_offset` 2000 - the slope
+misses nobody more. Every return (`BackToCasterLinearProjectile`) flies to his pivot whatever its `y_offset` (the
+spawn vectors of a logged game). His body only faces left or right while most hooks fly at an angle (4 logged games:
+15 of 80 within 15 degrees of level, 60 between 30 and 90 up), so the claw and its chain are drawn under the units
+(`z` -1): the chain runs from the claw into him, out to the hook's start and back to his pivot, and his arm and body
+hide what lies over them - thrown level it comes out of the arm's socket, thrown at an angle out of his body, never
+hanging in the air; a return picture assumes a level throw, and at an angle its chain ends up to about 15 px off,
+inside him.
 
 **Overdrive folded into the uppercut (league_blitzcrank W in E, Power Fist).** W's cooldown is a caster flag `w_cd`
 (900 ticks). Every action asks first: with `w_cd` absent and an enemy champion within 60000 (`RandomTarget` sets a
