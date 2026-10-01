@@ -46,6 +46,8 @@ first run; every run starts from there, so a second run changes nothing and --ch
    cannon turning muzzle-up). attack_from_idle builds them from the shrunk idle - head, neck, vest, arms and cannon
    one block moved along League's head path (ATTACK_PATH), the feet on the idle's, its own leg rows taken out for the
    dip and sheared forward from the thighs to the boots; tools/art/import_tristana.py's MUZZLE_ATTACK follows the bell.
+   Then "腿部看起来和身体不一致 不像一个部位": those legs changed length every frame, so now they are the idle's whole
+   legs, only leaning, and the block dips one row at most over the thighs' top.
 Writes assets/source/native/tristana_native.png and tristana_<tag>.png (8x, cells and pivots unchanged); then run
 tools/art/import_native.py --hero tristana. --check compares with the files instead of writing.
 """
@@ -99,11 +101,12 @@ FACE_AT = {("ult", 5): (57, 61, 68, 70), ("dead", 4): (71, 49, 82, 57)}
 DEAD_PLAN = {5: (45, 9, 10), 6: (90, 2, 16), 7: (90, 0, 16), 8: (90, 0, 16)}   # fix_tristana_dead.py's (1-based)
 # the attack from the idle (the user: "平A的时候头和身体不太协调"): the idle's head, neck, vest, arms and cannon as one
 # block moved along League's head path (right, down per frame; League's own, from frame 1: +1.6/+0.7, +2.8/+3.7,
-# +2.4/+4.5, -0.1/-1.5, -0.4/-2.0 - the dip held to 2 rows, deeper left stub legs), the feet on the idle's feet
-ATTACK_PATH = [(0, 0), (2, 1), (3, 2), (2, 2), (0, -1), (0, 0)]
+# +2.4/+4.5, -0.1/-1.5, -0.4/-2.0), the feet on the idle's feet. A first version dipped 2 rows by taking leg rows out
+# and rose one by doubling one: the legs changed length every frame ("腿部看起来和身体不一致 不像一个部位 非常违和感").
+# Now the legs are the idle's whole legs in every frame, only leaning: the dip is at most a row of the vest over the
+# thighs' top, and the shot frame and the next hold the bell still while its flash plays (import_tristana.py)
+ATTACK_PATH = [(0, 0), (1, 0), (2, 1), (2, 1), (0, 0), (0, 0)]
 LEGS = 6                          # the idle's leg rows start 6 under the pivot (the thighs); the soles' outline is +11
-DIP_ROWS = (8, 7)                 # rows taken out for a dip, in this order (the boots' tops, then the knees)
-RISE_ROW = 8                      # row doubled for a rise
 FOOT = 9                          # rows from here down (boots, soles, outline) never move: the feet stay planted
 BELL_X = 17                       # columns right of the pivot from here belong to the cannon's bell, also under LEGS
 WEIGHT = {(246, 186, 48): 12, (130, 29, 63): 6,                               # amber eyes, mouth
@@ -376,11 +379,11 @@ def strip_frames(path, n, cell):
 
 def attack_from_idle(idle, ipiv, pivots, path=ATTACK_PATH):
     """The attack's frames built from the shrunk idle frame (its pivot ipiv): the block (everything above the thighs
-    and the bell under them) moved by each frame's (dx, dy), the legs the idle's own rows - rows taken out for a dip
-    (DIP_ROWS), one doubled for a rise (RISE_ROW) - sheared from dx at the thighs to nothing at the boots (FOOT), each
-    frame on its own pivot. Codex's attack frames had the design head pasted at one place over a body that changed
-    drawing every frame: its feet slid 8-12 squares a frame, its head sank into the shoulders (no neck) and its cannon
-    turned fat and then muzzle-up under a head that never moved sideways."""
+    and the bell under them) moved by each frame's (dx, dy), dy never up (the block covers the thighs' top row on a
+    dip), the legs the idle's own whole legs leaning from dx at the thighs to nothing at the boots (FOOT), each frame
+    on its own pivot. Codex's attack frames had the design head pasted at one place over a body that changed drawing
+    every frame: its feet slid 8-12 squares a frame, its head sank into the shoulders (no neck) and its cannon turned
+    fat and then muzzle-up under a head that never moved sideways."""
     px, py = ipiv
     h, w = idle.shape[:2]
     rows = np.arange(h)[:, None] + np.zeros((1, w), int)
@@ -390,22 +393,14 @@ def attack_from_idle(idle, ipiv, pivots, path=ATTACK_PATH):
     body = np.where(block[..., None], idle, 0).astype(np.uint8)
     out = []
     for (dx, dy), (tx, ty) in zip(path, pivots):
-        src = list(range(py + LEGS, py + SOLES + 1))                  # the leg rows, top to bottom
-        if dy > 0:
-            for r in DIP_ROWS[:dy]:
-                src.remove(py + r)
-        for _ in range(-dy):
-            i = src.index(py + RISE_ROW)
-            src.insert(i, py + RISE_ROW)
+        assert 0 <= dy <= 1, "the legs never stretch or shrink: a dip of one row at most, no rise"
         f = np.zeros_like(idle)
-        top = py + SOLES + 1 - len(src)                               # the thighs' new row
-        for i, r in enumerate(src):
-            y = top + i
-            s_ = 0 if y >= py + FOOT else int(round(dx * (py + FOOT - y) / max(py + FOOT - top, 1)))
+        for y in range(py + LEGS, py + SOLES + 1):                    # the legs, every row the idle's own
+            s_ = 0 if y >= py + FOOT else int(round(dx * (py + FOOT - y) / (FOOT - LEGS)))
             if s_ >= 0:
-                f[y, s_:] = np.where(legs[r, :w - s_, 3:] > 0, legs[r, :w - s_], f[y, s_:])
+                f[y, s_:] = np.where(legs[y, :w - s_, 3:] > 0, legs[y, :w - s_], f[y, s_:])
             else:
-                f[y, :w + s_] = np.where(legs[r, -s_:, 3:] > 0, legs[r, -s_:], f[y, :w + s_])
+                f[y, :w + s_] = np.where(legs[y, -s_:, 3:] > 0, legs[y, -s_:], f[y, :w + s_])
         moved = np.zeros_like(body)
         ys, xs = np.nonzero(body[..., 3] > 0)
         ok = (ys + dy >= 0) & (ys + dy < h) & (xs + dx >= 0) & (xs + dx < w)
