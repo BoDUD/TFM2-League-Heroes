@@ -1,0 +1,19 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_shaco_sfx_crit_hit",
+      "volume": 0.6
+    },
+    {
+      "delay": 0.03,
+      "clip": "league_shaco_sfx_bs_hit",
+      "volume": 0.45
+    },
+    {
+      "delay": 0.0,
+      "clip": "league_shaco_vo_q_hit",
+      "volume": 0.9
+    }
+  ]
+}

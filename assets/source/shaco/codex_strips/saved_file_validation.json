@@ -1,0 +1,77 @@
+{
+  "all_passed": true,
+  "total_frames": 58,
+  "animations": {
+    "idle": {
+      "saved_png_nearest_8x_verified": true,
+      "head_exact_including_face_gaps": true,
+      "frames_verified": 6,
+      "gif_frames": 1,
+      "timing_and_pivots_match_input": true
+    },
+    "run": {
+      "saved_png_nearest_8x_verified": true,
+      "head_exact_including_face_gaps": true,
+      "frames_verified": 8,
+      "gif_frames": 8,
+      "timing_and_pivots_match_input": true
+    },
+    "attack": {
+      "saved_png_nearest_8x_verified": true,
+      "head_exact_including_face_gaps": true,
+      "frames_verified": 6,
+      "gif_frames": 6,
+      "timing_and_pivots_match_input": true
+    },
+    "attack_q": {
+      "saved_png_nearest_8x_verified": true,
+      "head_exact_including_face_gaps": true,
+      "frames_verified": 6,
+      "gif_frames": 6,
+      "timing_and_pivots_match_input": true
+    },
+    "attack_e": {
+      "saved_png_nearest_8x_verified": true,
+      "head_exact_including_face_gaps": true,
+      "frames_verified": 6,
+      "gif_frames": 6,
+      "timing_and_pivots_match_input": true
+    },
+    "skill": {
+      "saved_png_nearest_8x_verified": true,
+      "head_exact_including_face_gaps": true,
+      "frames_verified": 5,
+      "gif_frames": 5,
+      "timing_and_pivots_match_input": true
+    },
+    "skill2": {
+      "saved_png_nearest_8x_verified": true,
+      "head_exact_including_face_gaps": true,
+      "frames_verified": 5,
+      "gif_frames": 5,
+      "timing_and_pivots_match_input": true
+    },
+    "ult": {
+      "saved_png_nearest_8x_verified": true,
+      "head_exact_including_face_gaps": true,
+      "frames_verified": 6,
+      "gif_frames": 6,
+      "timing_and_pivots_match_input": true
+    },
+    "hit": {
+      "saved_png_nearest_8x_verified": true,
+      "head_exact_including_face_gaps": true,
+      "frames_verified": 2,
+      "gif_frames": 2,
+      "timing_and_pivots_match_input": true
+    },
+    "dead": {
+      "saved_png_nearest_8x_verified": true,
+      "head_exact_including_face_gaps": true,
+      "frames_verified": 8,
+      "gif_frames": 8,
+      "timing_and_pivots_match_input": true
+    }
+  },
+  "scope": "saved image files; no game import/runtime test"
+}

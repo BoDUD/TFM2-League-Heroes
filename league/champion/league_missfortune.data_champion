@@ -844,7 +844,7 @@
                     "length": 100000,
                     "delay": 15,
                     "apply": 65,
-                    "applied_target": "EnemyWithoutTower",
+                    "applied_target": "Ally",
                     "applied_effects": []
                   },
                   {
@@ -852,7 +852,7 @@
                     "shape": {
                       "DirDot": {
                         "radius": 100000,
-                        "range": 940
+                        "range": 906
                       }
                     },
                     "target": "EnemyWithoutTower",
@@ -922,7 +922,7 @@
                     "length": 100000,
                     "delay": 15,
                     "apply": 65,
-                    "applied_target": "EnemyWithoutTower",
+                    "applied_target": "Ally",
                     "applied_effects": []
                   },
                   {
@@ -930,7 +930,7 @@
                     "shape": {
                       "DirDot": {
                         "radius": 100000,
-                        "range": 940
+                        "range": 906
                       }
                     },
                     "target": "EnemyWithoutTower",
@@ -1000,7 +1000,7 @@
                     "length": 100000,
                     "delay": 15,
                     "apply": 65,
-                    "applied_target": "EnemyWithoutTower",
+                    "applied_target": "Ally",
                     "applied_effects": []
                   },
                   {
@@ -1008,7 +1008,7 @@
                     "shape": {
                       "DirDot": {
                         "radius": 100000,
-                        "range": 940
+                        "range": 906
                       }
                     },
                     "target": "EnemyWithoutTower",
@@ -1078,7 +1078,7 @@
                     "length": 100000,
                     "delay": 15,
                     "apply": 65,
-                    "applied_target": "EnemyWithoutTower",
+                    "applied_target": "Ally",
                     "applied_effects": []
                   },
                   {
@@ -1086,7 +1086,7 @@
                     "shape": {
                       "DirDot": {
                         "radius": 100000,
-                        "range": 940
+                        "range": 906
                       }
                     },
                     "target": "EnemyWithoutTower",
@@ -1156,7 +1156,7 @@
                     "length": 100000,
                     "delay": 15,
                     "apply": 65,
-                    "applied_target": "EnemyWithoutTower",
+                    "applied_target": "Ally",
                     "applied_effects": []
                   },
                   {
@@ -1164,7 +1164,7 @@
                     "shape": {
                       "DirDot": {
                         "radius": 100000,
-                        "range": 940
+                        "range": 906
                       }
                     },
                     "target": "EnemyWithoutTower",
@@ -1234,7 +1234,7 @@
                     "length": 100000,
                     "delay": 15,
                     "apply": 65,
-                    "applied_target": "EnemyWithoutTower",
+                    "applied_target": "Ally",
                     "applied_effects": []
                   },
                   {
@@ -1242,7 +1242,7 @@
                     "shape": {
                       "DirDot": {
                         "radius": 100000,
-                        "range": 940
+                        "range": 906
                       }
                     },
                     "target": "EnemyWithoutTower",
@@ -1312,7 +1312,7 @@
                     "length": 100000,
                     "delay": 15,
                     "apply": 65,
-                    "applied_target": "EnemyWithoutTower",
+                    "applied_target": "Ally",
                     "applied_effects": []
                   },
                   {
@@ -1320,7 +1320,7 @@
                     "shape": {
                       "DirDot": {
                         "radius": 100000,
-                        "range": 940
+                        "range": 906
                       }
                     },
                     "target": "EnemyWithoutTower",
@@ -1390,7 +1390,7 @@
                     "length": 100000,
                     "delay": 15,
                     "apply": 65,
-                    "applied_target": "EnemyWithoutTower",
+                    "applied_target": "Ally",
                     "applied_effects": []
                   },
                   {
@@ -1398,7 +1398,7 @@
                     "shape": {
                       "DirDot": {
                         "radius": 100000,
-                        "range": 940
+                        "range": 906
                       }
                     },
                     "target": "EnemyWithoutTower",
@@ -1468,7 +1468,7 @@
                     "length": 100000,
                     "delay": 15,
                     "apply": 65,
-                    "applied_target": "EnemyWithoutTower",
+                    "applied_target": "Ally",
                     "applied_effects": []
                   },
                   {
@@ -1476,7 +1476,7 @@
                     "shape": {
                       "DirDot": {
                         "radius": 100000,
-                        "range": 940
+                        "range": 906
                       }
                     },
                     "target": "EnemyWithoutTower",
@@ -1546,7 +1546,7 @@
                     "length": 100000,
                     "delay": 15,
                     "apply": 65,
-                    "applied_target": "EnemyWithoutTower",
+                    "applied_target": "Ally",
                     "applied_effects": []
                   },
                   {
@@ -1554,7 +1554,7 @@
                     "shape": {
                       "DirDot": {
                         "radius": 100000,
-                        "range": 940
+                        "range": 906
                       }
                     },
                     "target": "EnemyWithoutTower",
@@ -1624,7 +1624,7 @@
                     "length": 100000,
                     "delay": 15,
                     "apply": 65,
-                    "applied_target": "EnemyWithoutTower",
+                    "applied_target": "Ally",
                     "applied_effects": []
                   },
                   {
@@ -1632,7 +1632,7 @@
                     "shape": {
                       "DirDot": {
                         "radius": 100000,
-                        "range": 940
+                        "range": 906
                       }
                     },
                     "target": "EnemyWithoutTower",
@@ -1702,7 +1702,7 @@
                     "length": 100000,
                     "delay": 15,
                     "apply": 65,
-                    "applied_target": "EnemyWithoutTower",
+                    "applied_target": "Ally",
                     "applied_effects": []
                   },
                   {
@@ -1710,7 +1710,7 @@
                     "shape": {
                       "DirDot": {
                         "radius": 100000,
-                        "range": 940
+                        "range": 906
                       }
                     },
                     "target": "EnemyWithoutTower",

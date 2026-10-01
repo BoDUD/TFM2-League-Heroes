@@ -1,0 +1,258 @@
+{
+  "idle": {
+    "frames": 6,
+    "distinct_frames": 1,
+    "head_identical": true,
+    "cyan_outside_head": 0,
+    "palette_subset": true,
+    "binary_alpha": true,
+    "strict_8x8": true,
+    "below_baseline_except_lying_death": 0,
+    "component_counts": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "heights": [
+      46,
+      46,
+      46,
+      46,
+      46,
+      46
+    ]
+  },
+  "run": {
+    "frames": 8,
+    "distinct_frames": 8,
+    "head_identical": true,
+    "cyan_outside_head": 0,
+    "palette_subset": true,
+    "binary_alpha": true,
+    "strict_8x8": true,
+    "below_baseline_except_lying_death": 0,
+    "component_counts": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "heights": [
+      46,
+      46,
+      46,
+      44,
+      46,
+      46,
+      46,
+      44
+    ]
+  },
+  "attack": {
+    "frames": 6,
+    "distinct_frames": 6,
+    "head_identical": true,
+    "cyan_outside_head": 0,
+    "palette_subset": true,
+    "binary_alpha": true,
+    "strict_8x8": true,
+    "below_baseline_except_lying_death": 0,
+    "component_counts": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "heights": [
+      46,
+      45,
+      44,
+      43,
+      45,
+      46
+    ]
+  },
+  "attack_q": {
+    "frames": 6,
+    "distinct_frames": 6,
+    "head_identical": true,
+    "cyan_outside_head": 0,
+    "palette_subset": true,
+    "binary_alpha": true,
+    "strict_8x8": true,
+    "below_baseline_except_lying_death": 0,
+    "component_counts": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "heights": [
+      45,
+      44,
+      41,
+      40,
+      42,
+      46
+    ]
+  },
+  "attack_e": {
+    "frames": 6,
+    "distinct_frames": 6,
+    "head_identical": true,
+    "cyan_outside_head": 0,
+    "palette_subset": true,
+    "binary_alpha": true,
+    "strict_8x8": true,
+    "below_baseline_except_lying_death": 0,
+    "component_counts": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "heights": [
+      46,
+      46,
+      46,
+      43,
+      41,
+      46
+    ]
+  },
+  "skill": {
+    "frames": 5,
+    "distinct_frames": 5,
+    "head_identical": true,
+    "cyan_outside_head": 0,
+    "palette_subset": true,
+    "binary_alpha": true,
+    "strict_8x8": true,
+    "below_baseline_except_lying_death": 0,
+    "component_counts": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "heights": [
+      46,
+      45,
+      42,
+      41,
+      46
+    ]
+  },
+  "skill2": {
+    "frames": 5,
+    "distinct_frames": 5,
+    "head_identical": true,
+    "cyan_outside_head": 0,
+    "palette_subset": true,
+    "binary_alpha": true,
+    "strict_8x8": true,
+    "below_baseline_except_lying_death": 0,
+    "component_counts": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "heights": [
+      45,
+      45,
+      43,
+      44,
+      46
+    ]
+  },
+  "ult": {
+    "frames": 6,
+    "distinct_frames": 6,
+    "head_identical": true,
+    "cyan_outside_head": 0,
+    "palette_subset": true,
+    "binary_alpha": true,
+    "strict_8x8": true,
+    "below_baseline_except_lying_death": 0,
+    "component_counts": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "heights": [
+      46,
+      45,
+      45,
+      44,
+      45,
+      46
+    ]
+  },
+  "hit": {
+    "frames": 2,
+    "distinct_frames": 2,
+    "head_identical": true,
+    "cyan_outside_head": 0,
+    "palette_subset": true,
+    "binary_alpha": true,
+    "strict_8x8": true,
+    "below_baseline_except_lying_death": 0,
+    "component_counts": [
+      1,
+      1
+    ],
+    "heights": [
+      46,
+      46
+    ]
+  },
+  "dead": {
+    "frames": 8,
+    "distinct_frames": 8,
+    "head_identical": true,
+    "cyan_outside_head": 0,
+    "palette_subset": true,
+    "binary_alpha": true,
+    "strict_8x8": true,
+    "below_baseline_except_lying_death": 0,
+    "component_counts": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "heights": [
+      46,
+      46,
+      46,
+      46,
+      44,
+      41,
+      30,
+      30
+    ]
+  }
+}
