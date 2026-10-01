@@ -1051,6 +1051,9 @@ league_vayne (bottom, 2026-09-30, Condemn's knockback and 1 s stun): 1.75 a game
 0.65 and league_lucian 0.44 in the same batch - no change.
 league_veigar (mid, 2026-09-30, Event Horizon's cage: a 1 s stun on every champion it catches): 2.40 a game; the base
 lightning mage 3.19 and pyromancer 0.65 in the same batch - no change.
+league_taric (support, 2026-10-01, Dazzle's 1.25 s stun on a line bursting 0.75 s after the cast, and round a linked
+ally): 1.02 a game; league_nami 1.90 and league_leona 1.88 in the same batch - a late-bursting line catches fewer
+champions than knock-ups or circles, no change.
 league_fiora (top, 2026-10-01, Riposte's 1 s stun when the parry blocked a hit): 1.23 a game; the base fighter 1.94
 and league_riven 2.42 in the same batch - no change.
 
@@ -1843,6 +1846,56 @@ the top when it hits (+25% a rung) and clears it. The action starts on tick 2 - 
 staff he raises as he leaps - and fires the bolt from a `Delayed` 10 ticks later (league_akali E's shuriken), so the
 orb flashes as the bolt leaves at the top of the leap; the bolt's `y_offset` -15000 lifts its picture 20 px over the
 pivot (5000 - `y_offset`, see "A beam from a raised weapon"), level with his shoulders rather than his waist.
+
+**Two quick attacks after every spell, each taking a second off the cooldowns (league_taric Bravado).** Every spell (E,
+the Q/W cast, R's start) adds two 240-tick caster buffs `brav_1` and `brav_2` and a 240-tick `attack_speed_mult` 100.
+The attack branches at tick 1 (league_jinx's way): `brav_2` first, then `brav_1` together with the speed buff, each
+playing `CasterAnimation attack_p` with the hit in a `Delayed` 9 - bonus magic (`ApAttack` 30 + 20% AP + 3% of his
+maximum health, the stand-in for League's armour ratio), a Starlight's Touch stack and the cooldown cut. League takes
+1 s off his basic cooldowns per empowered hit; nothing subtracts time, and `skill_cooldown_mult` only caps each
+remaining cooldown at cooltime x 100 / (100 + mult) (section 5), while the first empowered attack lands 70-120 ticks
+after the spell: with +20 per hit one cut happened in a whole simulated game. The two hits therefore add growing
+values in 2-tick buffs, 55 for the first and 145 for the second, which take about 1 s each off the spell just cast
+(E, cooltime 420: 337 -> 270 at the first hit, 228 -> 171 at the second, in the simulation's cooldown events) and cut
+the other basic spell only when it was cast within the last 2-3 s. The same buff carries `ult_cooldown_mult` of the
+opposite sign: the ult's cap uses the sum, and no ult cut showed in the events. With the cut working the kit went from
++0.97 to +1.68 kills in the same batch.
+
+**Stacks that fill over time, counted at his actions (league_taric Starlight's Touch).** Up to three `Permanent` stack
+buffs `q_s1`..`q_s3` (death clears them). Nothing runs on its own every few seconds without an icon (an `AddCasted`
+on himself would show a status icon all game), so the stack timer is read when he acts: three caster timers of 300,
+600 and 900 ticks; an action that finds the first gone adds a stack, the second gone another, the third gone a third,
+and sets all three again - a 12 s walk gives two stacks at his first action. Bravado hits add one each. Cast as `None`
+on `EnemyChampion` within 45000 the AI used it 6 times a game (nothing to score: it heals); on `EnemyWithoutTower`
+within 30000 (anything he is fighting) 18-21 times. It heals him and the allied champions in a 30000 circle for 40 +
+12% AP per stack spent, and removes the stacks.
+
+**A link that repeats his spells round an ally (league_taric Bastion, folded into Q).** On its own 12 s timer the Q cast
+also picks a random allied champion within 60000 (`RandomTarget AllyNotSelf`, league_janna E), shields it (80 + 40% AP
+for 150 ticks), gives it 15 armour and hangs an `AddCasted` (`Heal`, period 1, 720 ticks) on it. Each run of the casted
+checks Taric's 2-tick cast flags - a `SwitchByBuff` inside it reads the caster, Taric - and removes the flag it uses, so
+a cast fires once there. Its effects run on the ally, so a hidden one-tick `ParabolicProjectile` lands on the ally's
+spot (league_annie R) and its `end_effects` go on only when Taric stands within 110000 of it and not within 30000 of it
+(two `RandomTarget AllyOnlySelf from_projectile` flags: League's link breaks at 1300 units, and an ally on top of him is
+already inside his own circles); there they start Q's heal circle (a flag per stack count), E's stun (a circle bursting
+on the beam's tick: a line started at a point points from the caster, section 6) or R's invulnerability circle. In the
+simulation 31.7 champion heals a game came from his own Q and 8.4 from the link, and the link's E burst about 1.6
+times a game. The casted shows a `heal` status icon on the ally while the link lasts.
+
+**A beam that bursts after a delay (league_taric E, Dazzle).** A `Targeting` cast on `EnemyWithoutTower` with league_morgana
+Q's aim (a random enemy champion in reach first, else the cast target): a `LineRangeProjectile` 62000 long whose hit is
+the damage and a 75-tick stun. Champions here walk out of a line in a second: with League's 1 s delay (`apply` 60) and
+width 12000, 24% of the casts aimed at a champion stunned one; `apply` 45 with width 18000 stunned in 65% (30 / 18000:
+96%). The beam's picture carries the 45-tick charge and the burst (`delay` 57).
+
+**Team invulnerability 2.5 s after the call, started at the fight (league_taric R, Cosmic Radiance).** league_riven R's
+arming (the slot is a 3-tick `None` action on `EnemyChampion` that adds `r_armed` for 600 ticks; left unused, a 3-tick
+`ult_cooldown_mult` 4900 refunds it) with league_kayle R's counting: while armed, every action and a `Delayed` pulse every
+30 ticks count the enemy champions within 45000 (the `n1` / `n2` flags) and look for an allied champion in crowd
+control there; two enemies, or a held ally, start it: `CasterAnimation ult`, the call's picture, and 150 ticks later a
+`RangeEffect` on `AllyChampion` (radius 40000) adds a 150-tick buff with `damaged_reduce` 100 - every hit deals 1. Two
+such buffs (his circle and the link's overlapping) still take 1 a hit (measured). About 1.25 starts a game, 2.1
+champions made invulnerable each; a dead Taric's pending `Delayed` never lands.
 
 **A weak spot on the target without state on the target (league_fiora Duelist's Dance).** League shows a Vital on one
 of four sides of a champion and strikes it with a hit from that side; nothing reads a direction or keeps state on

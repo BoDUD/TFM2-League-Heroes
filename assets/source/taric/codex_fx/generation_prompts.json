@@ -1,0 +1,299 @@
+{
+  "tool": "built-in image_gen",
+  "assets": {
+    "hit": {
+      "id": "taric_fx_hit",
+      "number": 1,
+      "name": "普攻命中，5 帧",
+      "frame_count": 5,
+      "source_columns": 3,
+      "source_rows": 2,
+      "cell": [
+        256,
+        256
+      ],
+      "columns": 5,
+      "rows": 1,
+      "game_size": [
+        16,
+        16
+      ],
+      "anchor": "center",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, starlight colours (#FFFFFF, #E4FAFF, #A8ECFF, #5CD2FF, #2A9BE8, #1F5FC8, #1A2E8A) with lilac-silver gem tones (#F4EEFF, #C9B8FF, #9A7CF6, #6A4CE0, #45309E).\nEffect: a MACE-AXE IMPACT, 5 frames: 1 a small white flash at the center; 2 a short curved slash of lilac-silver light across the center with a white core; 3 the slash breaks into small blue-white star sparks flying outward; 4 the sparks spread and dim; 5 a few faint violet specks.\nProduction layout (overrides any previous layout): exactly 3 columns and 2 rows, 5 sequential frames in reading order. Each source cell has width:height ratio 256:256. Equal cells, no gutters. 1 unused cells at the end must be completely empty. Draw only abstract magical VFX, NEVER a person, face, armor, text, icon label, reference board or border. Use a transparent background, NO checkerboard baked into the image. Magic constructed from crisp solid rectangular pixel clusters and stepped edges, not blur or airbrush glow. Keep each effect in its own cell and its animation anchor fixed between frames; do not re-center sparse late-stage sparks. Each frame distinctly shows its stated animation stage. Never use the reserved color #279FF6. Use only the effect palette stated above. No black outlines. Do NOT copy words from the reference. The reference image is for spell motifs and palette only, NOT for its photographic softness, labels or layout.",
+      "loop": false
+    },
+    "p_hit": {
+      "id": "taric_fx_p_hit",
+      "number": 2,
+      "name": "正气凌人的强化普攻命中，6 帧",
+      "frame_count": 6,
+      "source_columns": 3,
+      "source_rows": 2,
+      "cell": [
+        256,
+        256
+      ],
+      "columns": 6,
+      "rows": 1,
+      "game_size": [
+        22,
+        22
+      ],
+      "anchor": "center",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, starlight colours (#FFFFFF, #E4FAFF, #A8ECFF, #5CD2FF, #2A9BE8, #1F5FC8, #1A2E8A) with violet gem shards (#F4EEFF, #C9B8FF, #9A7CF6, #6A4CE0, #45309E).\nEffect: a BRAVADO STRIKE, 6 frames: 1 a bright white four-pointed star flash at the center; 2 the star opens to full size, its long points white-cyan, a ring of blue starlight around it; 3 small violet crystal shards burst outward from it, the star fading to cyan; 4 the shards fly further, a few tiny white stars twinkle; 5 the shards and stars dim to deep blue; 6 two or three faint specks.\nProduction layout (overrides any previous layout): exactly 3 columns and 2 rows, 6 sequential frames in reading order. Each source cell has width:height ratio 256:256. Equal cells, no gutters. 0 unused cells at the end must be completely empty. Draw only abstract magical VFX, NEVER a person, face, armor, text, icon label, reference board or border. Use a transparent background, NO checkerboard baked into the image. Magic constructed from crisp solid rectangular pixel clusters and stepped edges, not blur or airbrush glow. Keep each effect in its own cell and its animation anchor fixed between frames; do not re-center sparse late-stage sparks. Each frame distinctly shows its stated animation stage. Never use the reserved color #279FF6. Use only the effect palette stated above. No black outlines. Do NOT copy words from the reference. The reference image is for spell motifs and palette only, NOT for its photographic softness, labels or layout.",
+      "loop": false
+    },
+    "p_glow": {
+      "id": "taric_fx_p_glow",
+      "number": 3,
+      "name": "正气凌人的强化状态（塔里克身上，循环），4 帧",
+      "frame_count": 4,
+      "source_columns": 4,
+      "source_rows": 1,
+      "cell": [
+        288,
+        384
+      ],
+      "columns": 4,
+      "rows": 1,
+      "game_size": [
+        36,
+        40
+      ],
+      "anchor": "body",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, starlight colours (#FFFFFF, #E4FAFF, #A8ECFF, #5CD2FF, #2A9BE8, #1F5FC8, #1A2E8A) with violet gem sparks (#F4EEFF, #C9B8FF, #9A7CF6, #6A4CE0, #45309E).\nEffect: BRAVADO, a charged aura around a standing figure (leave a figure-shaped empty space in the middle, about 60% of the cell width and 80% of the cell height - do NOT draw the figure), 4 frames, a seamless loop: five or six small blue-white four-pointed star sparks and two violet gem glints orbiting the figure at waist and hand height, the ones behind the figure dimmer; they move a quarter turn each frame and twinkle; nothing covers the face.\nProduction layout (overrides any previous layout): exactly 4 columns and 1 rows, 4 sequential frames in reading order. Each source cell has width:height ratio 288:384. Equal cells, no gutters. 0 unused cells at the end must be completely empty. Draw only abstract magical VFX, NEVER a person, face, armor, text, icon label, reference board or border. Use a transparent background, NO checkerboard baked into the image. Magic constructed from crisp solid rectangular pixel clusters and stepped edges, not blur or airbrush glow. Keep each effect in its own cell and its animation anchor fixed between frames; do not re-center sparse late-stage sparks. Each frame distinctly shows its stated animation stage. Never use the reserved color #279FF6. Use only the effect palette stated above. No black outlines. Do NOT copy words from the reference. The reference image is for spell motifs and palette only, NOT for its photographic softness, labels or layout.\nKeep the middle silhouette EMPTY and transparent: no face, no painted body, no solid filled shell. Use stars and rims OUTSIDE the silhouette; the upper-middle face area must stay clear. Any short initial impact flare should be narrow, with surrounding rays rather than a solid white disk.",
+      "loop": true
+    },
+    "e_beam": {
+      "id": "taric_fx_e_beam",
+      "number": 4,
+      "name": "E 炫光的星光光束（地上一条线，先蓄力再爆开），12 帧",
+      "frame_count": 12,
+      "source_columns": 3,
+      "source_rows": 4,
+      "cell": [
+        512,
+        160
+      ],
+      "columns": 4,
+      "rows": 3,
+      "game_size": [
+        64,
+        20
+      ],
+      "anchor": "center",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, starlight colours (#FFFFFF, #E4FAFF, #A8ECFF, #5CD2FF, #2A9BE8, #1F5FC8, #1A2E8A).\nEffect: DAZZLE, a beam of starlight lying straight along the ground from the LEFT edge to the RIGHT edge of the cell, SYMMETRIC above and below the middle line, 12 frames: 1 a thin faint blue line (1-2 squares thick) across the whole cell; 2-8 the charge: the line slowly brightens and thickens to about a quarter of the cell height, small four-pointed stars light up one by one along it, pale cyan (#A8ECFF) to white at its core; 9 the burst: the whole line flares into a wide dazzling white-cyan band filling the cell height, star sparks spraying off both edges; 10 the band breaks into a row of bright stars; 11 the stars fade to blue; 12 a few faint blue specks along the line.\nProduction layout (overrides any previous layout): exactly 3 columns and 4 rows, 12 sequential frames in reading order. Each source cell has width:height ratio 512:160. Equal cells, no gutters. 0 unused cells at the end must be completely empty. Draw only abstract magical VFX, NEVER a person, face, armor, text, icon label, reference board or border. Use a transparent background, NO checkerboard baked into the image. Magic constructed from crisp solid rectangular pixel clusters and stepped edges, not blur or airbrush glow. Keep each effect in its own cell and its animation anchor fixed between frames; do not re-center sparse late-stage sparks. Each frame distinctly shows its stated animation stage. Never use the reserved color #279FF6. Use only the effect palette stated above. No black outlines. Do NOT copy words from the reference. The reference image is for spell motifs and palette only, NOT for its photographic softness, labels or layout.\nThe entire effect faces RIGHT and is vertically MIRROR SYMMETRIC about its horizontal centerline in every frame. No diagonal rays. For the beam, the horizontal axis spans the full cell width, with open transparent margins only above and below.",
+      "loop": false
+    },
+    "e_hit": {
+      "id": "taric_fx_e_hit",
+      "number": 5,
+      "name": "E 炫光击中并晕眩敌人，6 帧",
+      "frame_count": 6,
+      "source_columns": 3,
+      "source_rows": 2,
+      "cell": [
+        288,
+        384
+      ],
+      "columns": 6,
+      "rows": 1,
+      "game_size": [
+        26,
+        36
+      ],
+      "anchor": "body",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, starlight colours (#FFFFFF, #E4FAFF, #A8ECFF, #5CD2FF, #2A9BE8, #1F5FC8, #1A2E8A) with lilac stars (#F4EEFF, #C9B8FF, #9A7CF6, #6A4CE0, #45309E).\nEffect: a DAZZLING STUN on a standing figure (leave a figure-shaped empty space in the middle - do NOT draw the figure), 6 frames: 1 a burst of white-cyan light on the figure's chest with short rays; 2 the rays fade, a small ring of five tiny four-pointed stars appears above the figure's head (cyan and lilac); 3-5 the ring of stars circles over the head (a quarter turn each frame), twinkling; 6 the stars fade.\nProduction layout (overrides any previous layout): exactly 3 columns and 2 rows, 6 sequential frames in reading order. Each source cell has width:height ratio 288:384. Equal cells, no gutters. 0 unused cells at the end must be completely empty. Draw only abstract magical VFX, NEVER a person, face, armor, text, icon label, reference board or border. Use a transparent background, NO checkerboard baked into the image. Magic constructed from crisp solid rectangular pixel clusters and stepped edges, not blur or airbrush glow. Keep each effect in its own cell and its animation anchor fixed between frames; do not re-center sparse late-stage sparks. Each frame distinctly shows its stated animation stage. Never use the reserved color #279FF6. Use only the effect palette stated above. No black outlines. Do NOT copy words from the reference. The reference image is for spell motifs and palette only, NOT for its photographic softness, labels or layout.\nKeep the middle silhouette EMPTY and transparent: no face, no painted body, no solid filled shell. Use stars and rims OUTSIDE the silhouette; the upper-middle face area must stay clear. Any short initial impact flare should be narrow, with surrounding rays rather than a solid white disk.",
+      "loop": false
+    },
+    "e_ally": {
+      "id": "taric_fx_e_ally",
+      "number": 6,
+      "name": "E 炫光在相连队友身边爆开（地上一圈），12 帧",
+      "frame_count": 12,
+      "source_columns": 3,
+      "source_rows": 4,
+      "cell": [
+        512,
+        256
+      ],
+      "columns": 4,
+      "rows": 3,
+      "game_size": [
+        44,
+        22
+      ],
+      "anchor": "ground",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, starlight colours (#FFFFFF, #E4FAFF, #A8ECFF, #5CD2FF, #2A9BE8, #1F5FC8, #1A2E8A).\nEffect: DAZZLE AROUND AN ALLY, a flat ellipse of starlight on the ground (twice as wide as tall) filling the cell, 12 frames with the same timing as a charge-and-burst: 1 a faint thin blue ellipse; 2-8 small four-pointed stars light up one by one around the ellipse, the ring brightening to pale cyan; 9 the burst: the whole ring flares white-cyan and thick, star sparks spraying up and out; 10 a wider, thinner bright ring; 11 it fades to blue; 12 a few faint specks.\nProduction layout (overrides any previous layout): exactly 3 columns and 4 rows, 12 sequential frames in reading order. Each source cell has width:height ratio 512:256. Equal cells, no gutters. 0 unused cells at the end must be completely empty. Draw only abstract magical VFX, NEVER a person, face, armor, text, icon label, reference board or border. Use a transparent background, NO checkerboard baked into the image. Magic constructed from crisp solid rectangular pixel clusters and stepped edges, not blur or airbrush glow. Keep each effect in its own cell and its animation anchor fixed between frames; do not re-center sparse late-stage sparks. Each frame distinctly shows its stated animation stage. Never use the reserved color #279FF6. Use only the effect palette stated above. No black outlines. Do NOT copy words from the reference. The reference image is for spell motifs and palette only, NOT for its photographic softness, labels or layout.\nThis is a ground-plane ellipse seen obliquely from above, NOT a front-facing circle. Keep it horizontally wide and flattened, centered at the same position in every frame.",
+      "loop": false
+    },
+    "q_cast": {
+      "id": "taric_fx_q_cast",
+      "number": 7,
+      "name": "Q 星光之触：塔里克脚下的星光圈，8 帧",
+      "frame_count": 8,
+      "source_columns": 2,
+      "source_rows": 4,
+      "cell": [
+        512,
+        256
+      ],
+      "columns": 4,
+      "rows": 2,
+      "game_size": [
+        64,
+        32
+      ],
+      "anchor": "ground",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, starlight colours (#FFFFFF, #E4FAFF, #A8ECFF, #5CD2FF, #2A9BE8, #1F5FC8, #1A2E8A).\nEffect: STARLIGHT'S TOUCH, a circle of starlight on the ground around a standing figure (a flat ellipse twice as wide as tall filling the cell - do NOT draw the figure), 8 frames: 1 a small bright white-cyan spark at the center; 2 a ring of light expands outward from it; 3 the ring reaches the cell's edges as a thin bright ellipse, blue-white four-pointed stars appear on it; 4-5 thin vertical rays of pale starlight rise from inside the ring, the stars twinkle; 6 the rays fade upward; 7 the ring dims to blue; 8 a few faint specks.\nProduction layout (overrides any previous layout): exactly 2 columns and 4 rows, 8 sequential frames in reading order. Each source cell has width:height ratio 512:256. Equal cells, no gutters. 0 unused cells at the end must be completely empty. Draw only abstract magical VFX, NEVER a person, face, armor, text, icon label, reference board or border. Use a transparent background, NO checkerboard baked into the image. Magic constructed from crisp solid rectangular pixel clusters and stepped edges, not blur or airbrush glow. Keep each effect in its own cell and its animation anchor fixed between frames; do not re-center sparse late-stage sparks. Each frame distinctly shows its stated animation stage. Never use the reserved color #279FF6. Use only the effect palette stated above. No black outlines. Do NOT copy words from the reference. The reference image is for spell motifs and palette only, NOT for its photographic softness, labels or layout.\nThis is a ground-plane ellipse seen obliquely from above, NOT a front-facing circle. Keep it horizontally wide and flattened, centered at the same position in every frame.",
+      "loop": false
+    },
+    "q_heal": {
+      "id": "taric_fx_q_heal",
+      "number": 8,
+      "name": "Q 星光之触回血（每个被治疗的友方英雄身上），6 帧",
+      "frame_count": 6,
+      "source_columns": 3,
+      "source_rows": 2,
+      "cell": [
+        256,
+        384
+      ],
+      "columns": 6,
+      "rows": 1,
+      "game_size": [
+        24,
+        34
+      ],
+      "anchor": "body",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, starlight colours (#FFFFFF, #E4FAFF, #A8ECFF, #5CD2FF, #2A9BE8, #1F5FC8, #1A2E8A) with a touch of healing mint (#D8FFE8, #8CF7C8).\nEffect: a STARLIGHT HEAL rising around a standing figure (leave a figure-shaped empty space in the middle, about 60% of the cell width and 80% of the cell height - do NOT draw the figure), 6 frames: 1 a ring of small blue-white star sparks around the figure's feet; 2 the sparks rise to its waist, a bright four-pointed star appears beside its shoulder, a faint mint glow; 3 the sparks and the star rise to its chest, twinkling; 4 they reach the head height; 5 they fade to pale blue; 6 a few faint specks above the head.\nProduction layout (overrides any previous layout): exactly 3 columns and 2 rows, 6 sequential frames in reading order. Each source cell has width:height ratio 256:384. Equal cells, no gutters. 0 unused cells at the end must be completely empty. Draw only abstract magical VFX, NEVER a person, face, armor, text, icon label, reference board or border. Use a transparent background, NO checkerboard baked into the image. Magic constructed from crisp solid rectangular pixel clusters and stepped edges, not blur or airbrush glow. Keep each effect in its own cell and its animation anchor fixed between frames; do not re-center sparse late-stage sparks. Each frame distinctly shows its stated animation stage. Never use the reserved color #279FF6. Use only the effect palette stated above. No black outlines. Do NOT copy words from the reference. The reference image is for spell motifs and palette only, NOT for its photographic softness, labels or layout.\nKeep the middle silhouette EMPTY and transparent: no face, no painted body, no solid filled shell. Use stars and rims OUTSIDE the silhouette; the upper-middle face area must stay clear. Any short initial impact flare should be narrow, with surrounding rays rather than a solid white disk.",
+      "loop": false
+    },
+    "w_bolt": {
+      "id": "taric_fx_w_bolt",
+      "number": 9,
+      "name": "W 坚毅壁垒：塔里克连到队友的宝石星光（飞行），4 帧循环",
+      "frame_count": 4,
+      "source_columns": 2,
+      "source_rows": 2,
+      "cell": [
+        256,
+        128
+      ],
+      "columns": 4,
+      "rows": 1,
+      "game_size": [
+        16,
+        8
+      ],
+      "anchor": "center",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, starlight colours (#F4EEFF, #C9B8FF, #9A7CF6, #6A4CE0, #45309E) with a starlight trail (#FFFFFF, #E4FAFF, #A8ECFF, #5CD2FF, #2A9BE8, #1F5FC8, #1A2E8A).\nEffect: BASTION, a small flying gem to the RIGHT, 4 frames, a seamless loop, SYMMETRIC above and below the middle line: a faceted blue-violet gem with a white glint at 70% of the cell width, about 45% of the cell height; behind it a tapering trail of cyan-white starlight with two or three tiny stars to the left edge; the trail twinkles each frame.\nProduction layout (overrides any previous layout): exactly 2 columns and 2 rows, 4 sequential frames in reading order. Each source cell has width:height ratio 256:128. Equal cells, no gutters. 0 unused cells at the end must be completely empty. Draw only abstract magical VFX, NEVER a person, face, armor, text, icon label, reference board or border. Use a transparent background, NO checkerboard baked into the image. Magic constructed from crisp solid rectangular pixel clusters and stepped edges, not blur or airbrush glow. Keep each effect in its own cell and its animation anchor fixed between frames; do not re-center sparse late-stage sparks. Each frame distinctly shows its stated animation stage. Never use the reserved color #279FF6. Use only the effect palette stated above. No black outlines. Do NOT copy words from the reference. The reference image is for spell motifs and palette only, NOT for its photographic softness, labels or layout.\nThe entire effect faces RIGHT and is vertically MIRROR SYMMETRIC about its horizontal centerline in every frame. No diagonal rays. For the beam, the horizontal axis spans the full cell width, with open transparent margins only above and below.",
+      "loop": true
+    },
+    "w_bind": {
+      "id": "taric_fx_w_bind",
+      "number": 10,
+      "name": "W 坚毅壁垒：队友得到护盾的瞬间，6 帧",
+      "frame_count": 6,
+      "source_columns": 3,
+      "source_rows": 2,
+      "cell": [
+        256,
+        320
+      ],
+      "columns": 6,
+      "rows": 1,
+      "game_size": [
+        32,
+        40
+      ],
+      "anchor": "body",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, starlight colours (#F4EEFF, #C9B8FF, #9A7CF6, #6A4CE0, #45309E) with starlight edges (#FFFFFF, #E4FAFF, #A8ECFF, #5CD2FF, #2A9BE8, #1F5FC8, #1A2E8A).\nEffect: a CRYSTAL SHIELD forming around a standing figure (leave a figure-shaped empty space in the middle - do NOT draw the figure, and do not cover it: only the shield's outline and a few see-through facets), 6 frames: 1 small violet crystal shards gather around the figure; 2 they join into the outline of a faceted blue-violet crystal shell around the figure, a white rim of light; 3 the shell shines, a white glint sweeping across it; 4 the shell holds, facets glinting; 5 it breaks into small violet and cyan stars; 6 the stars fade.\nProduction layout (overrides any previous layout): exactly 3 columns and 2 rows, 6 sequential frames in reading order. Each source cell has width:height ratio 256:320. Equal cells, no gutters. 0 unused cells at the end must be completely empty. Draw only abstract magical VFX, NEVER a person, face, armor, text, icon label, reference board or border. Use a transparent background, NO checkerboard baked into the image. Magic constructed from crisp solid rectangular pixel clusters and stepped edges, not blur or airbrush glow. Keep each effect in its own cell and its animation anchor fixed between frames; do not re-center sparse late-stage sparks. Each frame distinctly shows its stated animation stage. Never use the reserved color #279FF6. Use only the effect palette stated above. No black outlines. Do NOT copy words from the reference. The reference image is for spell motifs and palette only, NOT for its photographic softness, labels or layout.\nKeep the middle silhouette EMPTY and transparent: no face, no painted body, no solid filled shell. Use stars and rims OUTSIDE the silhouette; the upper-middle face area must stay clear. Any short initial impact flare should be narrow, with surrounding rays rather than a solid white disk.",
+      "loop": false
+    },
+    "w_link": {
+      "id": "taric_fx_w_link",
+      "number": 11,
+      "name": "W 灵链：相连队友脚下的宝石印记（循环），4 帧",
+      "frame_count": 4,
+      "source_columns": 2,
+      "source_rows": 2,
+      "cell": [
+        320,
+        128
+      ],
+      "columns": 4,
+      "rows": 1,
+      "game_size": [
+        30,
+        12
+      ],
+      "anchor": "ground",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, starlight colours (#F4EEFF, #C9B8FF, #9A7CF6, #6A4CE0, #45309E) with starlight sparks (#FFFFFF, #E4FAFF, #A8ECFF, #5CD2FF, #2A9BE8, #1F5FC8, #1A2E8A).\nEffect: the BASTION LINK, a sigil on the ground under a figure's feet (the figure is NOT drawn), 4 frames, a seamless loop: a flat thin ellipse (2.5 times as wide as tall) of blue-violet light filling the cell, a small diamond-shaped gem on its front edge and three tiny stars on the ring; the gem and the stars travel a quarter of the way round the ring each frame, the parts behind dimmer.\nProduction layout (overrides any previous layout): exactly 2 columns and 2 rows, 4 sequential frames in reading order. Each source cell has width:height ratio 320:128. Equal cells, no gutters. 0 unused cells at the end must be completely empty. Draw only abstract magical VFX, NEVER a person, face, armor, text, icon label, reference board or border. Use a transparent background, NO checkerboard baked into the image. Magic constructed from crisp solid rectangular pixel clusters and stepped edges, not blur or airbrush glow. Keep each effect in its own cell and its animation anchor fixed between frames; do not re-center sparse late-stage sparks. Each frame distinctly shows its stated animation stage. Never use the reserved color #279FF6. Use only the effect palette stated above. No black outlines. Do NOT copy words from the reference. The reference image is for spell motifs and palette only, NOT for its photographic softness, labels or layout.\nThis is a ground-plane ellipse seen obliquely from above, NOT a front-facing circle. Keep it horizontally wide and flattened, centered at the same position in every frame.",
+      "loop": true
+    },
+    "r_call": {
+      "id": "taric_fx_r_call",
+      "number": 12,
+      "name": "R 宇宙之辉：召唤星光（2.5 秒，塔里克和相连队友身上），10 帧",
+      "frame_count": 10,
+      "source_columns": 5,
+      "source_rows": 2,
+      "cell": [
+        256,
+        512
+      ],
+      "columns": 10,
+      "rows": 1,
+      "game_size": [
+        48,
+        96
+      ],
+      "anchor": "feet",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, starlight colours (#FFFFFF, #FFF6D6, #FFE08A, #F6B94A, #D97F2A) with a little starlight blue (#FFFFFF, #E4FAFF, #A8ECFF, #5CD2FF, #2A9BE8, #1F5FC8, #1A2E8A).\nEffect: COSMIC RADIANCE, the heavens answer a standing figure: the figure stands at the BOTTOM of a tall cell (leave its space empty in the lower third - do NOT draw the figure), 10 frames: 1 a faint golden sparkle high in the top of the cell; 2-3 a golden-white halo ring like a solar corona forms there, a few four-pointed stars on it; 4-6 the halo brightens and thin golden rays begin to stream down from it; 7-8 a column of golden light descends step by step toward the figure's head, the halo blazing; 9 the column of light reaches the figure and floods its space with white-gold light; 10 a bright starburst flash where the figure stands, the halo gone.\nProduction layout (overrides any previous layout): exactly 5 columns and 2 rows, 10 sequential frames in reading order. Each source cell has width:height ratio 256:512. Equal cells, no gutters. 0 unused cells at the end must be completely empty. Draw only abstract magical VFX, NEVER a person, face, armor, text, icon label, reference board or border. Use a transparent background, NO checkerboard baked into the image. Magic constructed from crisp solid rectangular pixel clusters and stepped edges, not blur or airbrush glow. Keep each effect in its own cell and its animation anchor fixed between frames; do not re-center sparse late-stage sparks. Each frame distinctly shows its stated animation stage. Never use the reserved color #279FF6. Use only the effect palette stated above. No black outlines. Do NOT copy words from the reference. The reference image is for spell motifs and palette only, NOT for its photographic softness, labels or layout.\nThe lower-third figure space must remain transparent even at the final impact: split the column into side rays and a hollow starburst perimeter around that space; do not fill an opaque white silhouette. Exactly TEN stages, the last two distinct landing stages.",
+      "loop": false
+    },
+    "r_shine": {
+      "id": "taric_fx_r_shine",
+      "number": 13,
+      "name": "R 宇宙之辉生效：每个友方英雄身上的金光一闪，6 帧",
+      "frame_count": 6,
+      "source_columns": 3,
+      "source_rows": 2,
+      "cell": [
+        288,
+        384
+      ],
+      "columns": 6,
+      "rows": 1,
+      "game_size": [
+        36,
+        44
+      ],
+      "anchor": "body",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, starlight colours (#FFFFFF, #FFF6D6, #FFE08A, #F6B94A, #D97F2A).\nEffect: a RADIANT INVULNERABILITY FLASH on a standing figure (leave a figure-shaped empty space in the middle - do NOT draw the figure), 6 frames: 1 a burst of white-gold light at the figure's chest; 2 long golden rays shoot out in all directions, a big four-pointed star; 3 the rays at full length, small gold stars around the figure; 4 the rays shorten, a pale gold outline glows around the figure's space; 5 the outline glows fainter; 6 a few gold specks.\nProduction layout (overrides any previous layout): exactly 3 columns and 2 rows, 6 sequential frames in reading order. Each source cell has width:height ratio 288:384. Equal cells, no gutters. 0 unused cells at the end must be completely empty. Draw only abstract magical VFX, NEVER a person, face, armor, text, icon label, reference board or border. Use a transparent background, NO checkerboard baked into the image. Magic constructed from crisp solid rectangular pixel clusters and stepped edges, not blur or airbrush glow. Keep each effect in its own cell and its animation anchor fixed between frames; do not re-center sparse late-stage sparks. Each frame distinctly shows its stated animation stage. Never use the reserved color #279FF6. Use only the effect palette stated above. No black outlines. Do NOT copy words from the reference. The reference image is for spell motifs and palette only, NOT for its photographic softness, labels or layout.\nKeep the middle silhouette EMPTY and transparent: no face, no painted body, no solid filled shell. Use stars and rims OUTSIDE the silhouette; the upper-middle face area must stay clear. Any short initial impact flare should be narrow, with surrounding rays rather than a solid white disk.",
+      "loop": false
+    },
+    "r_invuln": {
+      "id": "taric_fx_r_invuln",
+      "number": 14,
+      "name": "R 宇宙之辉：无敌期间身上的金色光罩（循环，2.5 秒），4 帧",
+      "frame_count": 4,
+      "source_columns": 4,
+      "source_rows": 1,
+      "cell": [
+        288,
+        384
+      ],
+      "columns": 4,
+      "rows": 1,
+      "game_size": [
+        34,
+        44
+      ],
+      "anchor": "body",
+      "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, no outline, starlight colours (#FFFFFF, #FFF6D6, #FFE08A, #F6B94A, #D97F2A).\nEffect: an INVULNERABILITY GLOW around a standing figure (leave a figure-shaped empty space in the middle - do NOT draw the figure and do not cover it), 4 frames, a seamless loop: a thin white-gold rim of light following the figure's silhouette, a soft pale-gold glow just outside it, four small gold four-pointed stars circling the figure (the ones behind dimmer); the stars move a quarter turn each frame and the rim shimmers.\nProduction layout (overrides any previous layout): exactly 4 columns and 1 rows, 4 sequential frames in reading order. Each source cell has width:height ratio 288:384. Equal cells, no gutters. 0 unused cells at the end must be completely empty. Draw only abstract magical VFX, NEVER a person, face, armor, text, icon label, reference board or border. Use a transparent background, NO checkerboard baked into the image. Magic constructed from crisp solid rectangular pixel clusters and stepped edges, not blur or airbrush glow. Keep each effect in its own cell and its animation anchor fixed between frames; do not re-center sparse late-stage sparks. Each frame distinctly shows its stated animation stage. Never use the reserved color #279FF6. Use only the effect palette stated above. No black outlines. Do NOT copy words from the reference. The reference image is for spell motifs and palette only, NOT for its photographic softness, labels or layout.\nKeep the middle silhouette EMPTY and transparent: no face, no painted body, no solid filled shell. Use stars and rims OUTSIDE the silhouette; the upper-middle face area must stay clear. Any short initial impact flare should be narrow, with surrounding rays rather than a solid white disk.",
+      "loop": true
+    }
+  }
+}

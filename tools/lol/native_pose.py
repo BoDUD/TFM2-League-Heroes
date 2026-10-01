@@ -146,8 +146,8 @@ class Champ:
         w = Wad(os.path.join(lol, "Game", "DATA", "FINAL", "Champions", f"{champ}.wad.client"))
         skin_bin = w.read_path(f"data/characters/{champ.lower()}/skins/skin0.bin")
         refs = lambda blob, ext: sorted(set(m.decode("latin1") for m in re.findall(rb"[A-Za-z0-9_/\.\-]+\." + ext, blob)))
-        skn = [p for p in refs(skin_bin, rb"skn") if "/Base/" in p][0]
-        skl = [p for p in refs(skin_bin, rb"skl") if "/Base/" in p][0]
+        skn = P.base_mesh(refs(skin_bin, rb"skn"))
+        skl = P.base_mesh(refs(skin_bin, rb"skl"))
         texs = P.diffuse_textures(refs(skin_bin, rb"(?:tex|dds)"), skin_bin, skn)
         skn_bytes = w.read_path(skn.lower())
         self.tris, self.verts = P.read_skn(skn_bytes)
