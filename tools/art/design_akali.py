@@ -3,9 +3,9 @@
 
     python tools/art/design_akali.py [--out assets/source/native/akali_native.png] [--check]
 
-The first design (Codex's 66-square draft cut to 47 rows, then to 40 by shrink_akali.py; codex_model/design3_*,
-native47/) read as a dark blob on the olive arena ground: near-black and dark olive, realistic proportions with a small
-head, the face hidden by the mask. The user: "现在阿卡丽太丑了 重做一下吧", then Tristana's route: a picture first (the
+The first design (Codex's 66-square draft cut to 47 rows, then to 40 rows; codex_model/design3_*) read as a dark
+blob on the olive arena ground: near-black and dark olive, realistic proportions with a small head, the face hidden by
+the mask. The user: "现在阿卡丽太丑了 重做一下吧", then Tristana's route: a picture first (the
 user picked Codex's redraw 4 B, codex_model/redo7/akali_redraw4_B.png: slim, a tapered face, amber eyes, a teal mask
 hugging the face, navy-blue hair with a lime bow, lilac tattoos, a red satchel, blue trousers), then the sprite. Codex's
 image model cannot draw an exact 40-row grid; main's 18-redraw recipe ("干净，不要细节": at most 24 colours, 2-3 flat
@@ -19,8 +19,6 @@ codex_model/redo7/akali_native_A.png: 44x48, 18 colours, a strict 8x grid, the a
 4. one outline (design_riven.one_outline + outline_rgba), the face kept square for square - closing the ring over the
    top adds a row: 40;
 5. on the 128x128 canvas at 8x: the soles on row 99, the middle of the feet on column 64.
-dp_keep, lp and the STEEL / GOLD / WEIGHTS of the first design stay here for tools/art/shrink_akali.py until the new
-strips replace the old ones.
 """
 import argparse
 import os
@@ -39,11 +37,7 @@ OUT = os.path.join(ROOT, "assets", "source", "native", "akali_native.png")
 HEIGHT = 40
 KEEP = 39                         # rows the deletion keeps: closing the outline ring adds one row on top (40)
 EYE = (0xD4, 0x6A, 0x0A)          # the amber of the eyes, used nowhere else (import_native steadies the frames on it)
-REDO_WEIGHTS = {"eye": 12, "steel": 8, "lime": 3}
-# the first design's weights (tools/art/shrink_akali.py)
-STEEL = ("#6E7A8C", "#ACB8C8", "#E7EEF2")
-GOLD = ("#755225", "#B88835", "#E2B94B", "#FFE397")
-WEIGHTS = {"eye": 12, "steel": 6, "gold": 4}
+WEIGHTS = {"eye": 12, "steel": 8, "lime": 3}
 
 
 def lp(path):
@@ -93,11 +87,11 @@ def weight(c):
     r, g, b = c
     lum = 0.299 * r + 0.587 * g + 0.114 * b
     if c == EYE or (r > 230 and 170 < g < 215 and b < 40):
-        return REDO_WEIGHTS["eye"]
+        return WEIGHTS["eye"]
     if max(c) - min(c) < 40 and lum > 120:          # steel greys and whites: the blades
-        return REDO_WEIGHTS["steel"]
+        return WEIGHTS["steel"]
     if g > 200 and r > 150 and b < 110:              # the lime bow, trims and wraps
-        return REDO_WEIGHTS["lime"]
+        return WEIGHTS["lime"]
     return 1
 
 
