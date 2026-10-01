@@ -6815,7 +6815,7 @@
       "anim": "asset/league/effects/league_tristana_fx",
       "tag": "shot",
       "z": 1,
-      "is_follow": false
+      "is_follow": true
     },
     {
       "type": "Animation",
@@ -6823,7 +6823,7 @@
       "anim": "asset/league/effects/league_tristana_fx",
       "tag": "e_shot",
       "z": 1,
-      "is_follow": false
+      "is_follow": true
     },
     {
       "type": "Animation",
@@ -6927,7 +6927,7 @@
       "anim": "asset/league/effects/league_tristana_fx",
       "tag": "r_muzzle",
       "z": 1,
-      "is_follow": false
+      "is_follow": true
     },
     {
       "type": "Animation",

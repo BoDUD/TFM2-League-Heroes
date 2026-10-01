@@ -589,7 +589,9 @@ the same champion file.
   once, so its frames cover the zone's lifetime).
   A `CasterViewEffect` is not turned: it is drawn at the caster's pivot, mirrored when the caster
   faces left (the base gunner's backward-run dust is drawn only behind him), and stays where it was
-  played unless `is_follow`. An `Animation` plays its tag once, so a view that must stand for
+  played unless `is_follow`. A picture drawn off the pivot's side follows its caster: league_tristana's
+  flashes at the bell, 22 px in front of her pivot, played without `is_follow`, were seen behind her
+  after she turned (the user, 2026-10-01); with `is_follow` they turn with her, as league_riven's layers do. An `Animation` plays its tag once, so a view that must stand for
   seconds lists its loop frames again (a 4 s loop of 100 ms frames is 40 frames).
   A thing with a top and a bottom that flies every way (league_thresh's lantern) is laid along its flight
   and mirrored top to bottom, so every turn of it looks the same (art-spec).
@@ -1917,7 +1919,9 @@ pivot; its `y_offset` lifts the picture (`5000 - y_offset` over the pivot), so e
 firing frame's bell (the attack 3 px over the pivot: 2000; E, the barrel lowered, 4 px under it: 9000; R 1 px under
 it: 6000), and its view (`repeat: false`) starts with an empty frame for the ticks the ball needs from her pivot to
 the bell (3, 5 and 3 at 6000, 4500 and 7000 a tick), then loops, and holds a frame long enough to outlast any flight.
-The flashes at the bell are `CasterViewEffect`s (mirrored with her) played in the same tick. `y_offset` is not only the
+The flashes at the bell are `CasterViewEffect`s played in the same tick, with `is_follow`: played without it, they
+stayed on the side they were played on and showed behind her once she turned ("小炮转身了那个火就在小炮的身后",
+2026-10-01). `y_offset` is not only the
 picture (league_lucian's double shot moved by a tick): when she was cut to 34 rows, 5000 / 13000 / 9000 (the new
 bells' middles) made the flights 1-2 ticks longer on average (the bolt 8.4 -> 9.4 ticks, the charge 13.1 -> 15.3 in
 one simulated game) and her kill difference fell from +2.06 to +1.33 on the same 24 seeds, so the tested values stay

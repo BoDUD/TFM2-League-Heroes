@@ -13,20 +13,27 @@ strips as approved (assets/source/native/tristana_*.png at 41 rows, copied to as
 first run; every run starts from there, so a second run changes nothing and --check can tell).
 1. The design: 7 rows and 10 columns go, found by dynamic programming (design_akali.dp_keep: never two neighbours, a
    deleted line costing its difference from the nearer neighbour; the amber eyes weigh 12, the mouth 6, the cannon's
-   steel and brass 2) with the outline on top, the head from the hair's top down to the neck (rows 7-21), the feet
-   (rows 38-40), the thighs and knees (rows 33-36), the head's columns but the left ear's tip (5-36) and the bell's
-   rims (44, 45, 54, 55) kept: rows 1 (the goggles' cups), 22, 24, 27, 29, 31 (the shoulders and the waist - through
-   the cannon, which loses as many), 37 (the boots); columns 1, 3 (the left ear's tip), 37, 39, 41, 43 (the brass
-   barrel), 46, 48, 50, 52 (inside the bell). 46x34. A first cut took a thigh row (34) and a boot row (37): the left
-   leg's slant from the thigh to the boot came out in steps (the user: "小炮缩放后左腿看起来像少了一块？"). The user picked this smaller cannon ("炮可以调小一点", B) over the first 34-row cut, which kept the
-   cannon whole (50 wide), and one that only narrowed the bell (47).
+   steel and brass 2) with the outline on top, the goggle cups' middle, the head from the hair's top down through the
+   neck, collar, shoulders and upper arms (rows 7-24), the thighs and knees (33-36), the feet (38-40), the head's
+   columns but the left ear's tip (5-36) and the bell's rims (44, 45, 54, 55) kept: rows 1, 6 (the goggle cups' top
+   and bottom), 25 (under the upper arms), 27, 29, 31 (the waist - through the cannon, which loses as many), 37 (the
+   boots); columns 1, 3 (the left ear's tip), 37, 39, 41, 43 (the brass barrel), 46, 48, 50, 52 (inside the bell).
+   46x34. The user picked this smaller cannon ("炮可以调小一点", B) over the first 34-row cut, which kept the cannon
+   whole (50 wide), and one that only narrowed the bell (47). Two cuts in between were taken back: a thigh row (34)
+   stepped the left leg's slant from the thigh to the boot ("小炮缩放后左腿看起来像少了一块？"), and two shoulder rows
+   (22, 24) left the shoulders and both upper arms on one flat row under the chin, a pale line with the outline under
+   it ("模型出问题了吧 脖子下面一条横线是什么").
 2. Every upright frame: the design's head (HEAD_BOX, the block Codex pasted in every frame; its eyes out of the search,
    closed in the hit) is found in it and the rows and columns the design loses inside that box go, so the head is the
    design's in every frame. The rest by zones round the head, with as many deletions as the design has there for its
-   length: below the head down to the feet the design's 6 rows of its 20 (preferring its rows, counted from the
-   soles; the thighs and knees in every frame are the design's rows 33-36 counted from the soles, kept), the feet (3 rows over the soles) kept; right of the head 8 of the first 19 columns (the cannon held
-   forward); 10/56 of anything reaching further (the cannon raised over the head, swung behind her) - each zone by
-   the same dynamic programming.
+   length: below the head down to the feet the design's 5 rows of its 20 (preferring its rows, counted from the
+   soles; the neck, collar, shoulders and upper arms (the design's rows 18-24 under the head) kept in every frame,
+   the thighs and knees (its rows 33-36 counted from the soles) too unless a crouch leaves no room for its share
+   without them - a crouch losing fewer rows stood 1-2 rows taller than the idle, its cannon thicker; deep in W's
+   run-up the knees come up to the shoulders' rows, which then count as the thighs'), the feet (3 rows over the
+   soles) kept; right of the head 8 of the first 19 columns (the cannon held forward); 10/56 of
+   anything reaching further (the cannon raised over the head, swung behind her) - each zone by the same dynamic
+   programming.
 3. The outline put back where a deleted line held it (a pixel whose outline neighbour went gets one on the new edge),
    never under the soles. Each frame stays on its pivot, the soles 11 rows under it.
 4. Frames that are another frame turned whole are turned again from the shrunk one: W's 4th and 5th are its 3rd turned
@@ -58,9 +65,11 @@ OUT = os.path.join(ROOT, "assets", "source", "native")
 SRC = os.path.join(ROOT, "assets", "source", "tristana", "native41")
 CELLS = os.path.join(OUT, "tristana_cells.json")
 HEIGHT = 34
-KEEP_ROWS = {0} | set(range(7, 22)) | set(range(33, 37)) | {38, 39, 40}   # the design's: the outline on top (it would
-    # come back), the head from the hair's top to the neck, the thighs and knees (a thigh row cut the left leg's slant
-    # into steps: "左腿看起来像少了一块"), the feet
+KEEP_ROWS = {0} | set(range(2, 6)) | set(range(7, 25)) | set(range(33, 37)) | {38, 39, 40}   # the design's: the
+    # outline on top (it would come back), the goggle cups' middle (at most rows 1 and 6 go), the head from the hair's
+    # top down through the neck, the collar, the shoulders and the upper arms (rows 22 and 24 went first and the
+    # shoulders sat on one flat row under the chin: "脖子下面一条横线"), the thighs and knees (a thigh row cut the left
+    # leg's slant into steps: "左腿看起来像少了一块"), the feet
 WIDTH = 46                                     # 10 columns: the left ear's tip, the brass barrel, inside the bell
 KEEP_COLS = {0} | set(range(5, 37)) | {44, 45, 54, 55}   # the outline at the ear's tip, the head but the ear's tip,
                                                          # the bell's rims
@@ -187,8 +196,9 @@ def pick(costs, k, banned):
     return sorted(out)
 
 
-def zone_cuts(idx, w, axis, lo, hi, k, prefer, banned=()):
-    """k lines to delete among lo..hi (inclusive) along axis (0 rows, 1 columns), near the preferred ones."""
+def zone_cuts(idx, w, axis, lo, hi, k, prefer, banned=(), soft=()):
+    """k lines to delete among lo..hi (inclusive) along axis (0 rows, 1 columns), near the preferred ones, never a
+    banned one; the soft ones kept too unless that leaves no room for k."""
     if k <= 0 or hi < lo:
         return []
     lines = [idx[i] if axis == 0 else idx[:, i] for i in range(idx.shape[axis])]
@@ -196,8 +206,11 @@ def zone_cuts(idx, w, axis, lo, hi, k, prefer, banned=()):
     span = list(range(lo, hi + 1))
     costs = [line_cost(lines, wts, i) + (PRIOR * min(min(abs(i - p) for p in prefer), 5) if prefer else 0.0)
              for i in span]
-    chosen = pick(costs, k, {j for j, i in enumerate(span) if i in banned})
-    return [span[j] for j in chosen]
+    for kept in (set(banned) | set(soft), set(banned)):
+        chosen = pick(costs, k, {j for j, i in enumerate(span) if i in kept})
+        if chosen:
+            return [span[j] for j in chosen]
+    sys.exit(f"no {k} lines to delete in {lo}..{hi} (axis {axis}) besides the kept ones")
 
 
 def extent(idx, axis, lo, hi):
@@ -241,7 +254,9 @@ def frame_cuts(frame, fig, drow, dcol, pivot, pal, face_at=None):
     n = zone[1] - zone[0] + 1
     k = len(body) if n >= BODY else round(n * len(body) / BODY)
     thighs = {soles - (H - 1 - r) for r in range(33, 37)}         # the design's thighs and knees over the soles
-    rows += zone_cuts(idx, w, 0, zone[0], zone[1], k, prefer_r, edge_r | thighs)
+    shoulders = {hy + r for r in range(18, 25)}                   # the neck, the collar, the shoulders, the upper arms
+    # a deep crouch (W's run-up, the ult's 4th) brings the knees up to the shoulders' rows: those count as the thighs'
+    rows += zone_cuts(idx, w, 0, zone[0], zone[1], k, prefer_r, edge_r | (shoulders - thighs), thighs)
     up = extent(idx, 0, top - 1, 0)                                # over the goggles: the cannon raised
     rows += zone_cuts(idx, w, 0, top - up, top - 1, round(up * FURTHER), [], edge_r)
     lx = extent(idx, 1, left - 1, 0)                               # behind her: the cannon swung back
