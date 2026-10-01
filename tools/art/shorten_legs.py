@@ -17,7 +17,9 @@ legs. Frames whose legs do not hang under the hip take the overrides in LEGS[her
 (lying in the death), or "cols": [x0, x1, n] - n columns of a leg reaching out sideways between cell columns x0 and x1
 go and the foot's side comes in, "shift": n - the whole frame n rows down (in the air, where rows would squash the
 body: the head keeps its path), or "rows" to replace the bands for that frame.
-Rows and columns only: no pixel is redrawn, the outline and the shading stay as drawn.
+Rows and columns only: no pixel is redrawn, the outline and the shading stay as drawn - but for LEGS[hero]["waist"]:
+the black line Codex drew across Lee Sin's waist, between the belly and the sash, takes the darkest colour of the cloth
+under it (waist_line).
 The tables that count from the pivot (<hero>_retouch.json, the idle's BOB seam in import_native.py, the effects'
 anchors in import_<hero>.py) are kept in step by hand; the report says which rows went in every frame.
 """
@@ -52,7 +54,19 @@ LEGS = {
                # the death) rows would squash him: the frame comes down as far instead, so the head keeps its path;
                # lying on the ground in the death: as drawn
                "frames": {**{f"q2{k}": {"shift": 3} for k in (2, 3, 4, 5)}, "ult3": {"shift": 3}, "dead3": {"shift": 3},
-                          **{f"dead{k}": {"skip": True} for k in (4, 5, 6, 7)}}},
+                          **{f"dead{k}": {"skip": True} for k in (4, 5, 6, 7)},
+                          # crouched on landing, the chin on the knee: its outline is not the waist's (see "waist")
+                          "skill24": {"waist": False}},
+               # Codex drew a black line across the waist, between the bare belly and the red sash (or the trousers)
+               # under it; with the legs shorter it read as a seam ("盲僧改了一下缩短了腿 但是要和腿中间有一条黑线",
+               # 要 = 腰): one or two black squares (or his hair's near-blacks) with the belly's skin over them and the
+               # cloth under them, in the rows over the trousers' top, take the cloth's darkest colour - the sash's dark
+               # red, the trousers' dark navy; not in the frames that come down instead of shrinking (in the air, a hand
+               # or the head over the legs)
+               "waist": {"rows": 6, "ink": hexes("010000", "030106", "1A1116", "32252A"),
+                         "skin": hexes("F3B27C", "B3653D", "D79260", "C88F6A", "685E58"),
+                         "sash": hexes("A8172E", "D21F30", "D42232", "8F0C27", "31080F", "E0A52F", "AB6F25"),
+                         "to": hexes("8F0C27", "131528")}},
     # the leggings under the dress: two rows. Her leggings' shades are her outline's and the dress's too, and the
     # dress's purples her leggings' stripes, so no colour finds the hem: the band is the idle's legs counted up
     # from the feet ("feet": rows 7 to 2 over the frame's lowest row; 8 rows from the hem to the soles -> 6)
@@ -137,6 +151,48 @@ def shorten_rows(f, spec, bands):
     return out, sorted(gone), hip, cost
 
 
+def waist_line(f, spec):
+    """The black line Codex drew across the waist (LEGS[hero]["waist"]): in the rows from spec["waist"]["rows"] over the
+    trousers' top (hip_row) to the row under it, a run of one or two black squares with skin right over it and the sash
+    or the trousers right under it takes the sash's dark red or the trousers' dark navy - if every square of the run has
+    all four neighbours drawn, so the silhouette's outline stays, and the square beside it is such a run too (a line, not
+    the end of an outline coming down). Returns the frame and how many squares changed."""
+    w = spec.get("waist")
+    if not w:
+        return f, 0
+    try:
+        hip = hip_row(f, spec)
+    except ValueError:
+        return f, 0
+    rgb, op = f[..., :3], f[..., 3] > 0
+
+    def of(colours):
+        m = np.zeros(op.shape, bool)
+        for c in colours:
+            m |= np.all(rgb == np.array(c, np.uint8), -1) & op
+        return m
+
+    ink, skin, sash, navy = of(w["ink"]), of(w["skin"]), of(w["sash"]), of(spec["colours"])
+    p = np.pad(op, 1)
+    inside = p[:-2, 1:-1] & p[2:, 1:-1] & p[1:-1, :-2] & p[1:-1, 2:]
+    runs = {}
+    for x in range(f.shape[1]):
+        for y in range(max(1, hip - w["rows"]), min(hip + 2, f.shape[0] - 2)):
+            if not (skin[y - 1, x] and ink[y, x]):
+                continue
+            k = 2 if ink[y + 1, x] else 1
+            below = y + k
+            if (sash[below, x] or navy[below, x]) and inside[y:below, x].all():
+                runs[y, x] = (k, w["to"][0] if sash[below, x] else w["to"][1])
+    # a line runs across: a lone square is the end of an outline coming down (a hand's edge over the sash)
+    out, n = f.copy(), 0
+    for (y, x), (k, c) in runs.items():
+        if (y, x - 1) in runs or (y, x + 1) in runs:
+            out[y:y + k, x, :3] = c
+            n += k
+    return out, n
+
+
 def shorten_cols(f, x0, x1, n):
     """n columns out of x0..x1; the far side of the band from the body comes in."""
     cols, cost = pick(np.transpose(f, (1, 0, 2)), x0, x1, n, set())
@@ -200,8 +256,9 @@ def main():
                     out[sl], gone, cost = shorten_cols(f, *ov["cols"])
                     notes.append(f"{k + 1} cols {gone}")
                 else:
-                    out[sl], gone, hip, cost = shorten_rows(f, spec, ov.get("rows", spec["bands"]))
-                    notes.append(f"{k + 1} hip {hip} rows {gone}")
+                    g, gone, hip, cost = shorten_rows(f, spec, ov.get("rows", spec["bands"]))
+                    out[sl], n = waist_line(g, spec) if ov.get("waist", True) else (g, 0)
+                    notes.append(f"{k + 1} hip {hip} rows {gone}" + (f" waist {n}" if n else ""))
             print(f"{hero} {tag}: " + "; ".join(notes))
             if o.check:
                 now = read8(os.path.join(SRC, f"{hero}_{tag}.png"))

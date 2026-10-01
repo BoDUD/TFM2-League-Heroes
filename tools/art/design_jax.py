@@ -21,7 +21,9 @@ eye lights on the bronze mask). The user picked "A41" of A45 / A43 / A41 / B52 /
   6. the size: 41 rows (the user's pick; Riven 40, Darius 42): whole rows and columns deleted, never through the
      mask (design_riven.keep_axis), then step 5 again;
   7. on the 128x128 canvas, soles on row 99, the middle of the feet on column 64, shown at 8x.
---check compares the result with the committed jax_native.png instead of writing it.
+tools/art/shrink_jax.py then cut him to 36 rows (players found him too big, 2026-10-01): it starts from this 41-row
+design kept in assets/source/jax/native41/, and --check compares the result with that copy when it is there (with the
+committed jax_native.png otherwise) instead of writing it.
 """
 import argparse
 import os
@@ -39,6 +41,7 @@ import regrid as G  # noqa: E402
 
 DRAFT = os.path.join(ROOT, "assets", "source", "jax", "codex_model", "jax_design_A.png")
 OUT = os.path.join(ROOT, "assets", "source", "native", "jax_native.png")
+APPROVED = os.path.join(ROOT, "assets", "source", "jax", "native41", "jax_native.png")   # shrink_jax.py's source
 K = 24
 EYE = (0x46, 0xF0, 0xFF)          # the four lights on the mask; no other square uses it
 HEIGHT = 41
@@ -123,7 +126,7 @@ def main():
     args = ap.parse_args()
     img, a = design()
     if args.check:
-        old = np.asarray(Image.open(R.lp(OUT)).convert("RGBA"))
+        old = np.asarray(Image.open(R.lp(APPROVED if os.path.exists(R.lp(APPROVED)) else OUT)).convert("RGBA"))
         new = np.asarray(img)
         print("identical" if old.shape == new.shape and (old == new).all() else
               f"differs: {int(np.any(old != new, -1).sum())} px")

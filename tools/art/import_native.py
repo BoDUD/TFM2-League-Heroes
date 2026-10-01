@@ -85,9 +85,10 @@ NECK_UP = {("fiora", "attack"): [(2, 7, 7), (1, 5, 4), (1, 5, 5, "fill"), (3, 7,
 # (hero, tag, frame): the eyes (pivot row, column) where the EYES colour is missing - her wince, eyes shut
 NECK_EYES = {("fiora", "hit", 0): (-19, 3)}
 # heroes whose outline strips.complete_outline closes on the finished frames (the skill's art-spec "Close the
-# outline": every hero from Nami on; the user: "后面英雄都要用的"). Nothing goes under the soles row; a frame that
-# already reaches lower (lying down) keeps its own bottom.
-COMPLETE = {"nami", "veigar", "jax", "ahri", "taric", "tristana", "fiora", "diana"}
+# outline": every hero from Nami on; the user: "后面英雄都要用的"; and the older ones whose outline CLEAN tidies, which
+# needs it closed). Nothing goes under the soles row; a frame that already reaches lower (lying down) keeps its own
+# bottom.
+COMPLETE = {"nami", "veigar", "jax", "ahri", "taric", "tristana", "fiora", "diana", "leesin", "missfortune"}
 # hero: the luminance from which an edge pixel gets the outline (complete_outline's `dark`, default 70). Fiora's teal
 # leggings (luminance ~58) and wine cape (~44) edge many action frames without black: tfm2_ase.py metrics counts only
 # luminance < 40 as outline, so at 70 her Q frames read 83-89% (the bare rapier aside); at 40 they close too.
@@ -95,7 +96,16 @@ DARK = {"fiora": 40}
 # heroes whose closed outline strips.clean_outline then tidies (one black ring, one pixel thick, no crumbs; the face
 # box round the EYES colour untouched). Fiora's Codex frames mixed black with her darkest teal, wine and brown on
 # the ring, doubled it inside and left loose black crumbs on the legs (the user: "黑色描边处理一下 弄干净点").
-CLEAN = {"fiora"}
+# Miss Fortune, Lee Sin, Ahri and Jax the same (2026-10-01: "顺便帮我清理一下厄运小姐的黑边部分 干净一点", "盲僧也要清理",
+# "阿狸也清理一下", "贾克斯也清理一下"): their action frames' ring was a second near-black beside the idle's, with their
+# materials' darkest shades on it (her dark red, teal and brown and gold left open; his navy, dark red and hair; her
+# wine and navy; Jax's three near-blacks, his hood's and cape's darkest magenta and violet), doubled corners and crumbs.
+CLEAN = {"fiora", "leesin", "missfortune", "ahri", "jax"}
+# CLEAN heroes tidied by clean_outline's strict rules: a review of every frame found Fiora's rules cut their boot soles
+# to points, peeled Lee Sin's black braid, blackened muzzles, hair tips and wrist stripes in place and broke interior
+# lines drawn in their second near-black; strict only unifies the ring's near-blacks, never blackens a colour, and
+# clears a corner only where it doubles a staircase (strips.clean_outline)
+STRICT = {"leesin", "missfortune", "ahri", "jax"}
 # hero: colours of a blade drawn as a bare one-pixel line; clean_outline clears the black caps complete_outline puts
 # on the ends of every run of a slanted one (Fiora's rapier in Q, the crit and the salute read as a dashed line),
 # and strips.straighten_lines redraws each long one as a straight pixel line from the hilt to the tip (Codex's
@@ -603,6 +613,7 @@ def close_outline(hero, sheet):
             b = np.pad(a, ((1, 1), (1, 1), (0, 0)))              # room for an outline round the widest pixel
             c = b.shape[0] // 2
             low = int(np.nonzero(b[..., 3].any(1))[0].max())
+            before = b
             b, n, d = G.complete_outline(b, color=colour, dark=DARK.get(hero, 70), feet=max(c + SOLES, low))
             if hero in CLEAN:
                 face = np.zeros(b.shape[:2], bool)
@@ -610,7 +621,11 @@ def close_outline(hero, sheet):
                 if len(ys):
                     cy, cx = int(ys.mean()), int(xs.mean())
                     face[max(0, cy - 6):cy + 6, max(0, cx - 7):cx + 7] = True
-                b, counts = G.clean_outline(b, colour, dark=DARK.get(hero, 70), keep=face, bare=BARE.get(hero, ()))
+                elif hero in STRICT:                         # no eyes to find the face by (lying, turned away): the
+                    face[:] = True                           # tidy would take an eye's dark pixel for a crumb
+                new_px = (b[..., 3] > 0) & (before[..., 3] == 0)
+                b, counts = G.clean_outline(b, colour, dark=DARK.get(hero, 70), keep=face, bare=BARE.get(hero, ()),
+                                            strict=hero in STRICT, added=new_px)
                 for rule, v in counts.items():
                     tidy[rule] = tidy.get(rule, 0) + v
                 if hero in BARE:
