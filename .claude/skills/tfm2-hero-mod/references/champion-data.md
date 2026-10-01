@@ -1102,7 +1102,7 @@ game; the base lightning mage 3.19, pyromancer 0.65 and league_veigar 2.44 in th
 league_shaco (jungle, 2026-10-01, Jack In The Box's 1 s fear on champions and the 0.75 s fear of Hallucinate's
 three mini boxes): 2.42 a game; league_amumu 1.69, league_leesin 1.52, league_ekko 0.90 and the base ninja 0.65 in
 the same batch - fear counts as crowd control, the range the CC junglers gave before, no change.
-league_caitlyn (bottom, 2026-10-01, Yordle Snap Trap's 1.25 s root on the first champion to step on it): 0.75 a game;
+league_caitlyn (bottom, 2026-10-01, Yordle Snap Trap's 1.25 s root - 1.5 s since - on the first champion to step on it): 0.75 a game;
 the base archer 0.65, league_vayne 1.92 and league_tristana 1.08 in the same batch - no change.
 
 **Kill trigger (league_jinx Get Excited!).** No effect fires on a kill, but section 4's facts make one:
@@ -2262,7 +2262,7 @@ after them) - League's clone dies with Shaco too.
 **Every sixth shot a Headshot, trapped champions first (league_caitlyn Headshot).** The attack decides on tick 1
 (league_jinx's way) and fires from a `Delayed` (7 ticks, 9 for a Headshot with its own `CasterAnimation passive`). Five
 `Permanent` counters `hs_1`..`hs_5`, walked from the top like league_masteryi's Double Strike, make every sixth shot a
-Headshot (170% AD; death clears the count, as League's); only plain shots count. While her trap holds a champion (the
+Headshot (180% AD; death clears the count, as League's); only plain shots count. While her trap holds a champion (the
 `hs_trap` caster flag, as long as the root) a `RandomTarget` on `EnemyChampionInCC` within 1.5x her range (77500: the
 radii add 20000) takes the shot instead of the AI's target - League's double-range Headshot on a trapped champion - with
 a trap bonus; nothing tells who put a champion in crowd control, so an ally's stun in that window counts too. A net hit
@@ -2286,7 +2286,7 @@ spent its three charges in a row on one champion and the traps piled up: 19 of 5
 18000 (the user: "会在一个位置无限放夹子 应该错开来放吧"); spread, 11 of 99. The landing adds `alive` for the life
 (30 ticks to arm, then 8 s), plays the landing and starts, from a `Delayed` (which keeps the point), a
 `RangePeriodProjectile` (radius 9000, `period` 1, the life) on `EnemyChampion` that, while `alive` holds, runs
-`RemoveCasterBuff alive` first and then `Bind` 75, the snap picture and `hs_trap`: the removal comes before the next
+`RemoveCasterBuff alive` first and then `Bind` 90, the snap picture and `hs_trap`: the removal comes before the next
 unit's check in the same tick, so one champion is bitten. Picture links every 15 ticks show the lying trap while
 `alive` holds and the fading one as its last link. A zone from `end_effects` outlives its caster (section 5) and her
 frozen `alive` cannot be taken, so unguarded it bit every tick while she was dead (285 times in 16 games): the bite
@@ -2296,7 +2296,9 @@ threw her other charges straight at him, 4.6 throws a game within 2.25 s of a sn
 root ended (the user: "W敌人踩上去后会连放 这个要改一改 其他时候没问题"). The bite adds `w_hold` for the root and 60
 ticks more, and W's effect is `SwitchByBuff w_hold` with an empty branch: the AI scores the branch its buffs pick
 (section 3), finds nothing and keeps the charges - 0 such throws; 15 throws and 8.6 snaps a game against 19 and 11.
-One charge of 8 s instead ended every back-to-back throw but cost 0.46 kills a game: the AI then threw 10 traps.
+One charge of 8 s instead ended every back-to-back throw but cost 0.46 kills a game: the AI then threw 10 traps. The held
+champion's re-snaps had been worth about 0.55 kills a game; the root back at 1.5 s and the Headshot at 180% won 0.35 of
+it back.
 
 **A piercing round at where a champion stood, dodged by stepping aside (league_caitlyn Q, Piltover Peacemaker).** A
 `Direction` cast on `EnemyWithoutTower` (range 120000), so it also clears waves and camps; its sound plays on tick 1 and
