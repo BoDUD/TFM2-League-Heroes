@@ -518,11 +518,17 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   edges, 4-5 square lavender boots) still read as other legs next to her skill frames, which stand on the idle's own
   legs ("移动时和放技能的时候腿部还是不一样啊 你看不出吗？"): the idle's boots are 3 squares over a dark sole row, its far
   leg 2-3 wide. Row-shifting the idle's legs instead (each row moved toward the foot, the shin's last rows dropped to
-  lift it) put the boot straight under the knee: "上腿下下腿和截肢了一样". Her run now has two bones a leg - hip, knee
-  and ankle at the idle's own joints, never shortened - posed on League's run angles (the standing ankle put on the
-  ground, the knee solved forward), skinned with the idle's leg rows (the outline left out) and given one fresh
-  outline ring each (`fix_kaisa_strips.py` `RUN_LEGS`, `RUN_POSE`). In this view the far hip sits 4 squares right of
-  the near one, so the far leg's kick hides behind the near leg unless it swings back further (1.7 times League's).
+  lift it) put the boot straight under the knee: "上腿下下腿和截肢了一样"; the idle's leg texture mapped onto two bones
+  scattered its gold and brown detail squares into specks ("还是不对 你好好修吧"); hips moved to her middle made the
+  far leg come out under the bodysuit instead of its hip plate ("移动时腿看起来还是脱节的"), and the idle's two legs,
+  thin and thick in its A-stance, read as mismatched in motion ("左腿细右腿粗？"). What worked is
+  tools/art/diana_run_legs.py's way (the user: "之前皎月有这问题"): the hips inside the idle's own hip plates, both
+  legs alike, capsules in the idle's leg materials (shaded back, lit front, one gold knee square, the boot with a
+  darker sole) on the idle's soles row, one supporting leg per half stepping back a square a frame, the swinging leg
+  on League's angles with both halves averaged (`fix_kaisa_strips.py` `RUN_HIPS`, `SUPPORT_DX`, `RUN_SWING`). Mind
+  the square-centre convention: a capsule round the ankle at row 10.0 under the pivot fills rows 9-10 - an ankle at
+  8.5 put Kai'Sa's boots two rows above her idle's ground. In this view the far hip sits right of the near one, so
+  the far leg's kick hides behind the near leg unless it swings back further (1.3 times League's).
 - **A picture round the hero goes under her, not round a hole (league_vayne).** Asked to "leave a figure-shaped empty
   space", Codex also cleared a rectangle in the middle of every Final Hour cell of its export (x 22.5-77.5%, y
   17-89%): the flare's rays, the refresh's ring and most of the aura's motes went. Its raw sheets still had them; drawn

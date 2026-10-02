@@ -13,16 +13,19 @@ where League's run_base takes two). The user: "有问题的地方你进行收尾
   upper body (wide squatting legs; the user: "有奇怪的地方你在调一下吧 codex太笨了"). Built here the way
   tools/art/fix_caitlyn_run.py built Caitlyn's run (the user: "挺不错的"): every frame is the idle's frame 1 down to the
   hip plates (rows to 2 under the pivot, and the arms' tips: head, pods, torso, arms as one block), lowered by League's
-  step (DY: 0, 1, 2, 1, 0, 1, 2, 1 - the pelvis lowest as each leg passes under her), over two legs on League's run
-  (its joints' angles, frames @108 to @0 so its pelvis matches DY): in 1-4 the screen-left (near) leg stands while
-  the other kicks its heel up behind and swings its knee through, 5-8 the other way round. The legs are the idle's
-  own (the user: "移动时和放技能的时候腿部还是不一样啊 你看不出吗？" - legs drawn square by square in its materials had
-  wider shins and bigger, brighter boots), and whole (row-shifted idle legs whose lifted feet lost their shin rows:
-  "上腿下下腿和截肢了一样"): two bones each, hip, knee and ankle at the idle's own joints (RUN_LEGS: the thigh 4.5
-  squares, the shin 3), posed on League's angles (RUN_POSE: the hip's swing 1.2 times League's, the far leg's
-  backward swing 1.7 so its kick shows past the near leg), the standing foot on the ground (the knee solved
-  forward); the bones are skinned with the idle's leg rows (stood up straight, the outline left out), each leg with
-  one outline ring, the near leg over the far one;
+  step (RUN_BOB: 0, 1, 1, 0 rows in each half - lowest in mid-stance), over two legs drawn the way
+  tools/art/diana_run_legs.py drew Diana's ("之前皎月有这问题"): the hips inside the idle's two hip plates, each leg
+  coming out under its own plate as in the idle (legs hung from her middle came out under the bodysuit and looked
+  cut off: "移动时腿看起来还是脱节的"), both legs alike ("左腿细右腿粗？" - the idle's two legs differ in its A-stance),
+  capsules in the idle's leg materials (plate with a shaded back and a lit front, the gold knee guard, the lavender
+  boot with a darker sole), thigh 7.5 and shin 3.5 squares, the boot on the idle's soles row; one supporting leg per
+  half (the near one in 1-4, the far one in 5-8), its boot flat and stepping back a square a frame (SUPPORT_DX), its
+  knee from the leg lengths; the swinging leg on League's run (RUN_SWING: both halves averaged, so both steps are
+  alike; the far leg swings back 1.3 times as far, or its kick hides behind the near leg), a lifted boot a row off the
+  ground; one outline round each leg, a single line where they overlap. Earlier tries: legs drawn square by square in
+  the idle's materials ("移动时和放技能的时候腿部还是不一样啊"), row-shifted idle legs that lost their shins
+  ("上腿下下腿和截肢了一样"), the idle's leg texture on bones (its gold and brown details scattered into specks:
+  "还是不对 你好好修吧");
 - R 3: Codex's back leg, pushed off 25 squares behind her, redrawn in the idle's leg materials, as long and as thick
   as the idle's leg (the user: "放技能的时候注意如果腿不一致也要调整");
 - R 1 and 2: the dark hair spike's inside in the hair's mid shade, its left edge lit;
@@ -74,32 +77,24 @@ BOOT, BOOT_D = rgb("887CBF"), rgb("6D5EA2")
 IDLE_PIVOT = (48, 70)
 HIP_ROW = 2
 ARM_TIPS = [(-12, 3), (12, 3), (13, 3)]
-DY = [0, 1, 2, 1, 0, 1, 2, 1]
-# the run's legs: two bones each - hip, knee, ankle at the idle's own joints (rows 1, 5.5 and 8.5 under the pivot: the
-# thigh 4.5 squares, the shin 3, never shortened), skinned with the idle's leg rows 3-10 under the pivot (the outline
-# left out, a fresh ring round each leg). Per leg: its columns from the pivot, the shift per row that stands it up
-# straight (the screen-left leg leans out 5 squares in the idle's A-stance), the middle of its top row, where its hip
-# goes in the run (from the pivot), and whether its boot is turned round to point forward like the other's
-RUN_LEGS = {"sl": dict(cols=(-11, 0), shift=[0, 2, 3, 3, 4, 5, 5, 5], top=-3, hip=-2, turn=True),
-            "sr": dict(cols=(1, 11), shift=[0, 0, 0, 0, 0, 0, -1, -1], top=5, hip=2, turn=False)}
-HIP_Y, KNEE_Y, ANKLE_Y = 1.0, 5.5, 8.5    # the joints' rows under the pivot (the boot 9-10, its sole 11)
-THIGH_L, SHIN_L = KNEE_Y - HIP_Y, ANKLE_Y - KNEE_Y
-# per frame and leg: (thigh, shin) in degrees from straight down, + forward - League's run (run_base, its joints
-# through tools/lol/pose_joints.py) at @108, @217 ... @758, @0, so its pelvis rises and falls with DY; R, her right,
-# is the near, screen-left leg. The hip's swing is RUN_SWING times League's, the knee's bend League's own; the far
-# leg swings back RUN_SWING_BACK times League's, or its kick stays hidden behind the near leg (its hip sits 4 squares
-# to the right in this view). The leg whose foot comes lowest stands: its ankle goes on the ground row where its foot
-# came (within the leg's reach), the knee solved forward
-RUN_POSE = [{"sl": (44, -51), "sr": (-35, -63)},
-            {"sl": (11, -20), "sr": (-26, -97)},
-            {"sl": (3, -35), "sr": (-2, -101)},
-            {"sl": (-11, -50), "sr": (25, -69)},
-            {"sl": (-42, -70), "sr": (44, -47)},
-            {"sl": (-39, -97), "sr": (24, -22)},
-            {"sl": (-6, -103), "sr": (8, -30)},
-            {"sl": (29, -72), "sr": (-16, -43)}]
-RUN_SWING, RUN_SWING_BACK = 1.2, 1.7
-RUN_FRONT = "sl"                          # the near leg (her right) over the other
+# the run's legs (tools/art/diana_run_legs.py's way): two bones each, the hip inside its own hip plate as in the idle
+# (the near leg under the left plate, the far one under the right plate's inner edge), so the idle's upper body covers
+# the thigh tops; both legs alike. Coordinates from the pivot, a square's middle at +0.5; the ankle of a flat boot at
+# 10.0, so the boot fills rows 9-10 and its sole outline is row 11, the idle's
+RUN_HIPS = {"near": -3.0, "far": 3.5}
+RUN_HIP_Y, RUN_ANKLE_Y = -1.0, 10.0
+THIGH_L, SHIN_L = 7.5, 3.5                # the knee at the idle's knee guards, 6.5 under the pivot
+R_THIGH, R_SHIN = 1.75, 1.3               # the capsules' radii: a thigh 4 squares wide, a shin 3, like the idle's
+BOOT_HEEL, BOOT_LEN, BOOT_W = 0.5, 3.0, 0.9
+# one supporting leg per half (the near one in frames 1-4, the far one in 5-8, so both steps are alike): its boot flat
+# on the ground, stepping back a square a frame from its hip; the body RUN_BOB rows lower in mid-stance
+SUPPORT_DX = (2.5, 1.5, 0.5, -0.5)
+RUN_BOB = (0, 1, 1, 0)
+# the swinging leg of a half: League's run (degrees from straight down, + forward; run_base's joints through
+# tools/lol/pose_joints.py, @108 @217 @325 @433): the far leg in frames 1-4 averaged with the near leg in 5-8. The far
+# leg swings back RUN_BACK_FAR times as far, or its kick stays hidden behind the near leg
+RUN_SWING = [(-38.5, -66.5), (-32.5, -97.0), (-4.0, -102.0), (27.0, -70.5)]
+RUN_BACK_FAR = 1.3
 THIGH, SHIN, FOOT = 3.8, 3.2, 2.8         # widths in game px (the inside, 4 squares like the idle's and the run's legs;
 #                                           the outline ring goes round it)
 # standing frames (indices from 0) on the idle's whole body; hit 1 on its legs only
@@ -212,119 +207,115 @@ def ring(px):
     return out
 
 
-def run_template(idle, leg):
-    """Per leg row 0..7 (3..10 under the pivot) its inside squares {x from the leg's middle: rgba}, the leg stood up
-    straight; the screen-left boot turned round; no row narrower than 3 (the far shin is 2 in the idle)."""
-    d = RUN_LEGS[leg]
-    ix, iy = IDLE_PIVOT
-    x0, x1 = d["cols"]
-    rows = []
-    for r in range(8):
-        row = {}
-        for x in range(x0, x1 + 1):
-            if idle[iy + 3 + r, ix + x, 3] and colour(idle, iy + 3 + r, ix + x) not in DARK:
-                row[x - d["top"] + d["shift"][r]] = idle[iy + 3 + r, ix + x].copy()
-        rows.append(row)
-    if d["turn"]:
-        xs = [x for r in (6, 7) for x in rows[r]]
-        c = min(xs) + max(xs)
-        for r in (6, 7):
-            rows[r] = {c - x: v for x, v in rows[r].items()}
-    for row in rows:
-        if row and max(row) - min(row) < 2:
-            row[max(row) + 1] = row[max(row)]
-    return rows
+def unit(v):
+    v = np.asarray(v, float)
+    return v / (np.linalg.norm(v) or 1)
 
 
-def knee_of(hip, ankle):
-    """The knee of a two-bone leg from the hip to the ankle, bent forward (+x); a straight leg out of reach."""
-    hx, hy = hip
-    dx, dy = ankle[0] - hx, ankle[1] - hy
-    d = math.hypot(dx, dy)
+def ik_knee(hip, ankle):
+    """The knee of a two-bone leg from the hip to the ankle, bent forward; the ankle pulled in if out of reach."""
+    v = ankle - hip
+    d = np.linalg.norm(v)
     if d >= THIGH_L + SHIN_L - 1e-6:
-        return hx + dx / d * THIGH_L, hy + dy / d * THIGH_L
-    a = math.acos(max(-1.0, min(1.0, (THIGH_L ** 2 + d * d - SHIN_L ** 2) / (2 * THIGH_L * d))))
-    base = math.atan2(dy, dx)
-    return max(((hx + THIGH_L * math.cos(base + s * a), hy + THIGH_L * math.sin(base + s * a)) for s in (1, -1)),
-               key=lambda k: k[0])
+        ankle = hip + v / d * (THIGH_L + SHIN_L - 1e-3)
+        v, d = ankle - hip, THIGH_L + SHIN_L - 1e-3
+    a = np.arccos(np.clip((THIGH_L ** 2 + d ** 2 - SHIN_L ** 2) / (2 * THIGH_L * d), -1, 1))
+    u = v / d
+    cands = []
+    for s in (1, -1):
+        c, sn = np.cos(s * a), np.sin(s * a)
+        cands.append(hip + THIGH_L * np.array([u[0] * c - u[1] * sn, u[0] * sn + u[1] * c]))
+    return max(cands, key=lambda k: k[0]), ankle
 
 
-def across(row, w):
-    """A template row's colour at w across it: its nearest square, w within the row's span (+-0.5)."""
-    if not row or w < min(row) - 0.5 or w > max(row) + 0.5:
-        return None
-    return row[min(row, key=lambda x: abs(x - w))]
+def capsule(shape, a, b, r):
+    """Squares whose middles lie within r of the segment ab: (mask, distance, side - > 0 on the front of a leg hanging
+    down)."""
+    ys, xs = np.mgrid[0:shape[0], 0:shape[1]]
+    px, py = xs + 0.5, ys + 0.5
+    vx, vy = b[0] - a[0], b[1] - a[1]
+    t = np.clip(((px - a[0]) * vx + (py - a[1]) * vy) / max(vx * vx + vy * vy, 1e-6), 0, 1)
+    cx, cy = a[0] + t * vx, a[1] + t * vy
+    d = np.hypot(px - cx, py - cy)
+    return d <= r, d, (px - cx) * vy - (py - cy) * vx
 
 
-def skinned(rows, hip, knee, ankle, planted):
-    """{(x, y): rgba} from the pivot: the thigh and the shin mapped onto the template's rows 0-2 and 3-5 (the shin
-    over the thigh at the knee), the boot (rows 6-7) flat under the ankle when planted, else carried on along the
-    shin."""
-    out = {}
-    bones = [(hip, knee, lambda u: max(0, min(2, int(math.floor(u - (3 - HIP_Y) + 0.5))))),
-             (knee, ankle, lambda u: 3 + max(0, min(2, int(math.floor(u * 3 / SHIN_L)))))]
-    xs, ys = [p[0] for p in (hip, knee, ankle)], [p[1] for p in (hip, knee, ankle)]
-    for y in range(int(min(ys)) - 4, int(max(ys)) + 5):
-        for x in range(int(min(xs)) - 6, int(max(xs)) + 7):
-            got = None
-            for a, b, row_at in bones:
-                L = math.hypot(b[0] - a[0], b[1] - a[1]) or 1e-9
-                ux, uy = (b[0] - a[0]) / L, (b[1] - a[1]) / L
-                u = (x - a[0]) * ux + (y - a[1]) * uy
-                if -0.5 <= u <= L + 0.5:
-                    c = across(rows[row_at(u)], (x - a[0]) * uy - (y - a[1]) * ux)
-                    got = c if c is not None else got
-            if got is not None:
-                out[(x, y)] = got
-    if planted:
-        ax = math.floor(ankle[0] + 0.5)
-        for r, y in ((6, 9), (7, 10)):
-            for x, c in rows[r].items():
-                out[(ax + x, y)] = c
-    else:
-        L = math.hypot(ankle[0] - knee[0], ankle[1] - knee[1]) or 1e-9
-        ux, uy = (ankle[0] - knee[0]) / L, (ankle[1] - knee[1]) / L
-        for y in range(int(ankle[1]) - 5, int(ankle[1]) + 6):
-            for x in range(int(ankle[0]) - 6, int(ankle[0]) + 7):
-                u = (x - ankle[0]) * ux + (y - ankle[1]) * uy
-                if 0 <= u <= 2.0:
-                    c = across(rows[6 + min(1, int(u))], (x - ankle[0]) * uy - (y - ankle[1]) * ux)
-                    if c is not None:
-                        out[(x, y)] = c
+def run_leg(shape, hip, knee, ankle, foot):
+    """One leg's fill in the idle's materials: thigh and shin plate with a shaded back edge and a lit front, the gold
+    knee guard in front of the knee, the lavender boot from heel to toe with a darker sole side."""
+    fill = np.zeros(shape + (4,), np.uint8)
+    for a, b, r in ((hip, knee, R_THIGH), (knee, ankle, R_SHIN)):
+        m, d, side = capsule(shape, a, b, r)
+        fill[m] = PLATE + (255,)
+        edge = m & (d > r - 1.0)
+        fill[edge & (side < 0)] = SHADE + (255,)
+        fill[edge & (side > 0)] = LIT + (255,)
+    bend = unit(ankle - knee) + unit(knee - hip)
+    front = unit([-bend[1], bend[0]]) if np.linalg.norm(bend) > 1e-6 else np.array([1.0, 0.0])
+    if front[0] < 0:
+        front = -front
+    g = knee + front * (R_SHIN * 0.9)
+    gx, gy = int(math.floor(g[0])), int(math.floor(g[1]))
+    for dy, c in ((0, GOLD_L), (1, GOLD)):
+        if fill[gy + dy, gx, 3]:
+            fill[gy + dy, gx] = c + (255,)
+    heel, toe = ankle - foot * BOOT_HEEL, ankle + foot * (BOOT_LEN - BOOT_HEEL)
+    m, d, side = capsule(shape, heel, toe, BOOT_W)
+    fill[m] = BOOT + (255,)
+    fill[(m & (side < -0.2)) | (m & (d > BOOT_W - 0.5) & (side < 0))] = BOOT_D + (255,)
+    return fill
+
+
+def ring_of(mask):
+    p = np.pad(mask, 1)
+    return (p[:-2, 1:-1] | p[2:, 1:-1] | p[1:-1, :-2] | p[1:-1, 2:]) & ~mask
+
+
+def legs_layer(far, near):
+    """The far leg, then the near one over it: one outline round each, a single line where they overlap."""
+    fm, nm = far[..., 3] > 0, near[..., 3] > 0
+    out = np.zeros_like(far)
+    fr, nr = ring_of(fm), ring_of(nm)
+    out[fm] = far[fm]
+    out[fr & ~nm] = INK + (255,)
+    out[nm] = near[nm]
+    out[nr & ~fm] = INK + (255,)
+    p = np.pad(fr, 1)
+    out[nr & fm & ~(p[:-2, 1:-1] | p[2:, 1:-1] | p[1:-1, :-2] | p[1:-1, 2:])] = INK + (255,)
     return out
 
 
 def run_frame(idle, k, pivot):
-    """Run frame k on its cell: the legs, then the idle's upper body lowered by DY[k]; standing on `pivot`."""
-    out = np.zeros_like(idle)
+    """Run frame k on its cell: the legs, then the idle's upper body RUN_BOB rows lower; standing on `pivot`."""
     ix, iy = IDLE_PIVOT
-    joints = {}
-    for leg, (t0, s0) in RUN_POSE[k].items():
-        f = RUN_SWING_BACK if leg != RUN_FRONT and t0 < 0 else RUN_SWING
-        th, sh = math.radians(t0 * f), math.radians(t0 * f + s0 - t0)
-        hip = (RUN_LEGS[leg]["hip"], HIP_Y + DY[k])
-        knee = (hip[0] + THIGH_L * math.sin(th), hip[1] + THIGH_L * math.cos(th))
-        joints[leg] = [hip, knee, (knee[0] + SHIN_L * math.sin(sh), knee[1] + SHIN_L * math.cos(sh))]
-    stand = max(joints, key=lambda s: joints[s][2][1])
-    hip = joints[stand][0]
-    reach = math.sqrt(max(0.0, (THIGH_L + SHIN_L - 0.02) ** 2 - (ANKLE_Y - hip[1]) ** 2))
-    ankle = (hip[0] + max(-reach, min(reach, joints[stand][2][0] - hip[0])), ANKLE_Y)
-    joints[stand] = [hip, knee_of(hip, ankle), ankle]
-    for leg in sorted(joints, key=lambda s: s == RUN_FRONT):
-        hip, knee, ankle = joints[leg]
-        px = skinned(run_template(idle, leg), hip, knee, ankle, planted=ankle[1] >= ANKLE_Y - 0.5)
-        for (x, y) in ring(px):
-            if y <= 11:
-                out[iy + y, ix + x] = INK + (255,)
-        for (x, y), c in px.items():
-            out[iy + y, ix + x] = c
+    p, shape = k % 4, idle.shape[:2]
+    bob = RUN_BOB[p]
+    hips = {s: np.array([ix + x, iy + RUN_HIP_Y + bob]) for s, x in RUN_HIPS.items()}
+    sup, swg = ("near", "far") if k < 4 else ("far", "near")
+    knee, ankle = ik_knee(hips[sup], np.array([hips[sup][0] + SUPPORT_DX[p], iy + RUN_ANKLE_Y]))
+    legs = {sup: (hips[sup], knee, ankle, np.array([1.0, 0.0]))}
+    t0, s0 = RUN_SWING[p]
+    f = RUN_BACK_FAR if swg == "far" and t0 < 0 else 1.0
+    th, sh = math.radians(t0 * f), math.radians(t0 * f + s0 - t0)
+    kn = hips[swg] + THIGH_L * np.array([math.sin(th), math.cos(th)])
+    an = kn + SHIN_L * np.array([math.sin(sh), math.cos(sh)])
+    an[1] = min(an[1], iy + RUN_ANKLE_Y - 1.0)          # a lifted boot stays a row off the ground
+    s = unit(an - kn)
+    if s[1] >= 0.3:                                     # the shin hangs down: the foot forward, tilted down
+        foot = unit([1.0, 0.6])
+    else:                                               # kicked up behind: the foot hangs from the ankle, toe down
+        foot = unit([-s[1], s[0]])
+        foot = -foot if foot[1] < 0 else foot
+    legs[swg] = (hips[swg], kn, an, foot)
+    out = legs_layer(run_leg(shape, *legs["far"]), run_leg(shape, *legs["near"]))
+    out[iy + 12:] = 0                                   # nothing under the soles' outline row
     up = idle.copy()
     keep = np.zeros(up.shape[:2], bool)
     keep[:iy + HIP_ROW + 1] = True
     for x, y in ARM_TIPS:
         keep[iy + y, ix + x] = True
     up[~keep] = 0
-    up = np.roll(up, DY[k], 0)
+    up = np.roll(up, bob, 0)
     m = up[..., 3] > 0
     out[m] = up[m]
     return np.roll(out, pivot[0] - ix, 1) if pivot[0] != ix else out
