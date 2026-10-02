@@ -12,8 +12,8 @@ checks passed (blocks, palette, alpha, feet line, the head square for square); w
    edge, tails), repeated - design_leblanc.black_crumbs, the rule the design was cleaned with - and what that cuts
    off up to CRUMB squares.
 2. Frame fixes (FIXES below), each a few squares, the rest Codex's. The run is Codex's redo (RUN_REDO.md; its first
-   run kept one wide stance - my own leg redraw on it was turned down: "做的不行 让codex帮忙重做吧"), the head's
-   surroundings checked clean.
+   run kept one wide stance - my own leg redraw on it was turned down: "做的不行 让codex帮忙重做吧") with one upper body
+   in all eight frames and each frame's own legs (run below: "移动时候头和身体不协调 像脱节了一样").
 Writes assets/source/native/leblanc_<tag>.png (8x), leblanc_ult.png (Q's: R repeats her last spell with that spell's
 own animation) and leblanc_cells.json (the pack's, with ult); then run tools/art/import_native.py --hero leblanc. --check compares with the files instead of writing them.
 """
@@ -127,21 +127,28 @@ def design_head():
     return d[y0:ys.max() + 1, x0:xs.max() + 1], m[y0:ys.max() + 1, x0:xs.max() + 1]
 
 
+def find_head(f):
+    """The design's head in a frame, square for square: its corner (x, y)."""
+    head, hm = design_head()
+    best = (0, 0, 0)
+    for y in range(f.shape[0] - head.shape[0] + 1):
+        for x in range(f.shape[1] - head.shape[1] + 1):
+            s = (np.all(f[y:y + head.shape[0], x:x + head.shape[1]] == head, -1) & hm).sum()
+            if s > best[0]:
+                best = (s, x, y)
+    s, hx, hy = best
+    if s < hm.sum():
+        raise ValueError(f"the design's head is not in this frame ({s}/{hm.sum()})")
+    return hx, hy
+
+
 def head_halo(f, pivot):
     """The run: Codex's own ear-cuffs (gold, 1-2 squares) stayed beside the pasted head in frames 5-8 and flickered
     by the ears as she ran ("走路的时候左右耳会冒出来什么东西"). Round the head (found square for square), from its top
     down to the ear-cuffs, only the head stays within HALO squares of it."""
     g = f.copy()
     head, hm = design_head()
-    best = (0, 0, 0)
-    for y in range(g.shape[0] - head.shape[0] + 1):
-        for x in range(g.shape[1] - head.shape[1] + 1):
-            s = (np.all(g[y:y + head.shape[0], x:x + head.shape[1]] == head, -1) & hm).sum()
-            if s > best[0]:
-                best = (s, x, y)
-    s, hx, hy = best
-    if s < hm.sum():
-        raise ValueError(f"the design's head is not in this frame ({s}/{hm.sum()})")
+    hx, hy = find_head(g)
     m = np.zeros(g.shape[:2], bool)
     m[hy:hy + head.shape[0], hx:hx + head.shape[1]] = hm
     near = np.zeros_like(m)
@@ -196,10 +203,44 @@ def near_arm(f, pivot):
 FIXES = {("attack", 3): attack3_staff, ("attack", 4): near_arm, ("attack", 5): near_arm}
 
 
+RUN_BODY = 3                    # the run frame whose upper body every frame wears (1-based)
+RUN_LEGS = 63                   # from this row down, in the legs' columns, each frame keeps its own legs
+LEGS_X = (-13, 13)              # the legs' columns from the pivot
+
+
+def shift(a, dx, dy):
+    out = np.zeros_like(a)
+    H, W = a.shape[:2]
+    ys, yd = (slice(0, H - dy), slice(dy, H)) if dy >= 0 else (slice(-dy, H), slice(0, H + dy))
+    xs, xd = (slice(0, W - dx), slice(dx, W)) if dx >= 0 else (slice(-dx, W), slice(0, W + dx))
+    out[yd, xd] = a[ys, xs]
+    return out
+
+
 def run(frames, pivots):
-    """The run, Codex's redo (codex_run_redo: a crossing stride, passing in frames 3 and 7, a foot on the line in every
-    frame): every frame still loses whatever stands beside the head (head_halo; Codex cleared it this time)."""
-    return [head_halo(f, p) for f, p in zip(frames, pivots)]
+    """The run, Codex's redo (codex_run_redo: a crossing stride, a foot on the line in every frame) - but it drew the
+    body anew in every frame under the pasted head, the collar 1-3 squares off it from frame to frame, the cape and the
+    staff jumping: the head seemed to float over a body moving on its own (the user: "移动时候头和身体不协调 像脱节了一
+    样"). So every frame wears frame RUN_BODY's upper body - the head, the collar, the torso, the cape and the staff one
+    block - moved with Codex's head (frames 1 and 5 a row lower: the bob), and keeps only its own legs: under row
+    RUN_LEGS in the legs' columns, behind the gown. Codex's own ear-cuffs beside the head go first (head_halo)."""
+    frames = [head_halo(f, p) for f, p in zip(frames, pivots)]
+    heads = [find_head(f) for f in frames]
+    k0 = RUN_BODY - 1
+    body = frames[k0].copy()
+    px = pivots[k0][0]
+    body[RUN_LEGS:, px + LEGS_X[0]:px + LEGS_X[1] + 1] = 0
+    out = []
+    for k, (f, p) in enumerate(zip(frames, pivots)):
+        dx, dy = heads[k][0] - heads[k0][0], heads[k][1] - heads[k0][1]
+        g = shift(body, dx, dy)
+        legs = np.zeros_like(f)
+        cols = slice(p[0] + LEGS_X[0], p[0] + LEGS_X[1] + 1)
+        legs[RUN_LEGS + dy:, cols] = f[RUN_LEGS + dy:, cols]
+        m = (legs[..., 3] > 0) & (g[..., 3] == 0)
+        g[m] = legs[m]
+        out.append(g)
+    return out
 
 
 TAG_FIXES = {"run": run}
