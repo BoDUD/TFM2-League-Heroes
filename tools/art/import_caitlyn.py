@@ -60,7 +60,7 @@ HIT = (0, -8)                          # a hit on the upper body of a 32-42 px u
 SOLES = 11                             # the soles' row under the pivot
 # each projectile: the muzzle it leaves
 LEAVES = {"bolt": "attack", "hs_bolt": "passive", "hs_trap_bolt": "passive", "e_net": "e", "q_bolt": "skill",
-          "r_bullet": "ult"}
+          "r_bullet": "ult", "r_laser": "ult"}
 
 
 
@@ -175,6 +175,10 @@ def build():
         "hs_bolt": [("hs_bolt", proj["hs_bolt"], (0, 0), "point")],
         "q_bolt": [("q_bolt", proj["q_bolt"], (0, 0), "point")],
         "r_bullet": [("r_bullet", proj["r_bullet"], (0, 0), "point")],
+        # R's laser sight (tools/art/caitlyn_r_laser.py): a link's head on its projectile, hidden until it is out of
+        # the rifle, then 12, 24 and 36 px (the tail stays on the muzzle until the next link shows) until it reaches him
+        "r_laser": [("r_laser", [(None, round(lead("r_laser", speeds) * TICK)), (0, round(TICK)), (1, round(TICK)),
+                                 (2, 3000)], (0, 0), "point")],
         "e_net": [("e_net", net, (0, 0), "point")],
         "w_throw": [("w_throw", throw, (0, 0), "point")],
         "shot": [("shot", own("shot"), tip("attack"), "point")],

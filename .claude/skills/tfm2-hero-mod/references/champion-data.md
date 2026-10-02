@@ -2384,7 +2384,13 @@ from tick 1 the shot comes even when her wind-up is cut short: the same kit with
 crowd-control check every 10 ticks (`RandomTarget {range: 1, casting_target: AllyChampionInCC}` removes the channel
 flag), and at tick 61, if the flag holds, a non-penetrating `LinearProjectile` on `EnemyChampion` (speed 20000, radius
 8000) toward him: the first enemy champion on the line takes 250 + 150% AD, minions do not block. 4.5 of 5 casts a game
-hit a champion.
+hit a champion. Her laser sight (the user: "女警大招释放时候没有线 ... 中没中 打谁的都不知道") is league_fiddlesticks W's chain
+the other way: from tick 10 (the rifle level on tick 12) an `AddCasted` on him (period 2, until the channel's end)
+sends, while the channel flag holds, a `TargetProjectile` at him (12000 a tick, the bullet's `y_offset`) with no
+effects; its picture is a red link 2 px thick with its head on the projectile, hidden 3 ticks (out of the rifle), then
+12, 24 and 36 px long, so the newest link reaches back to the muzzle and the older ones overlap into one line that
+ends on him (a homing projectile goes on its target), `z` -1 so her rifle covers its start. Links stop when the
+channel breaks or she fires; the ones in flight run on to him while the bullet follows the line.
 
 **A cleave every fourth attack or on a timer (league_nocturne passive, Umbra Blades).** League's 12 s cooldown, which
 each attack cuts by 1-3 s, comes out at about every fourth attack in a fight. The attack (`start_timing` 1, its hit

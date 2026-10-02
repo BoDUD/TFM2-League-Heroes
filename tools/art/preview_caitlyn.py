@@ -12,7 +12,8 @@
                                shut on him, rooting him, and her next shot is a Headshot from the trap; Garen comes
                                up behind him; Piltover Peacemaker, locked on Garen, pierces Darius on its way and
                                Darius falls; Ace in the Hole:
-                               the crosshair on Garen for the 1 s channel, then the long shot; 3x
+                               the crosshair on Garen and her red laser sight on him for the 1 s
+                               channel, then the long shot down the line; 3x
 Projectiles fly as the kit flies them: from over her pivot, lifted to the muzzle's height (5000 - y_offset), at the
 target's pivot, turned to their way; their tags start empty while they cross her (tools/art/import_caitlyn.py).
 """
@@ -36,6 +37,7 @@ CHAMP = os.path.join(LEAGUE, "champions", "league_caitlyn")
 FX = os.path.join(LEAGUE, "effects", "league_caitlyn_fx")
 # the kit's projectiles: speed in px a tick, lift over her pivot in px (5000 - y_offset)
 BOLT, HS, NET, Q, R = (7.0, 6.5), (9.0, 8.0), (6.0, 11.5), (10.0, 7.5), (20.0, 9.0)
+LASER, LASER_EVERY, LASER_FROM = (12.0, 9.0), 2, 10    # R's laser sight: a link every 2 ticks from tick 10
 
 
 class Turned(Anim):
@@ -173,6 +175,12 @@ def showcase(out, z=3, step=40):
     # Ace in the Hole on Garen: the crosshair for the 60-tick channel, the shot on tick 61, 20 px a tick
     r0 = t
     on(g, "r_mark", r0 + tick(1), until=r0 + tick(61))
+    # her laser sight: a link at him every 2 ticks of the channel, under the units (the rifle covers its start)
+    for k in range((60 - LASER_FROM) // LASER_EVERY + 1):
+        s0 = r0 + tick(LASER_FROM + LASER_EVERY * k)
+        lx, ly = g.pos(s0)
+        arrive = s0 + tick(max(1.0, math.hypot(lx - x, ly - (gy - LASER[1])) / LASER[0]))
+        under.append(Turned(frames_of(fx, "r_laser"), s0, x, gy - LASER[1], until=arrive, x1=lx, y1=ly))
     rf = r0 + tick(61)
     flash("r_muzzle", rf)
     gx, gy2 = g.pos(rf)

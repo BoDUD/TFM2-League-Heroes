@@ -3310,6 +3310,36 @@
           "tick": 10,
           "effects": [
             {
+              "type": "AddCasted",
+              "casted_type": "Bleed",
+              "duration": 50,
+              "period": 2,
+              "effects": [
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_caitlyn_r_chan",
+                  "effect_buff": {
+                    "type": "TargetProjectile",
+                    "name": "league_caitlyn_r_laser",
+                    "speed": 12000,
+                    "y_offset": -4000,
+                    "applied_target": "EnemyChampion",
+                    "applied_effects": []
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 10,
+          "effects": [
+            {
               "type": "RandomTarget",
               "range": 1,
               "casting_target": "AllyChampionInCC",
@@ -3563,6 +3593,14 @@
       "tag": "r_bullet",
       "repeat": false,
       "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_caitlyn_r_laser",
+      "anim": "asset/league/effects/league_caitlyn_fx",
+      "tag": "r_laser",
+      "repeat": false,
+      "z": -1
     }
   ],
   "view_effects": [
