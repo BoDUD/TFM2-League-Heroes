@@ -348,7 +348,7 @@ RIGID = {("garen", "run"): (0, ["FCFCFC", "296380", "284965", "9BABC3", "A9B7CB"
 # hero: a module in tools/art with tidy(tag, k, frame) -> frame, run on the finished frames (after the outline is closed
 # and cleaned): the user's clean-up of dirty black blocks and stray squares inside the silhouette (2026-10-02:
 # "盖伦把黑边清理干净 有杂的黑色的地方", "风女 莫甘娜 不干净的黑色块也太多了", "莫甘娜头部有很多多余的方块", "阿狸也是都给我清理干净")
-TIDY = {}
+TIDY = {"ahri": "tidy_ahri"}
 # hero: weapon colours - after the outline, dark spurs and dots hanging off the weapon's outline (a near-black pixel
 # within 2 px of the weapon with 3 or 4 clear sides) are cleared, twice. GROW copied rows through Garen's slanted
 # blade and doubled its outline's steps: dots hung under the blade in every frame (the user: "剑触碰到地面直接变形").
