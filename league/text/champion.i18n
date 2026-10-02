@@ -322,6 +322,13 @@
         "skill": "向前释放魔爆，对命中的第一个敌人造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55% 法强<>的<#a974ffff>魔法伤害<>。若有敌人带着<#ff9028ff>涌动<>，命中时它们全部受到<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 法强<>的弹射伤害，涌动随之消耗。",
         "skill2": "连招：<#ff9028ff>法术涌动<>造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>伤害，给目标和附近敌人挂上<#ff9028ff>涌动<><#ffb900ff>4秒<>；<#ff9028ff>符文禁锢<>造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>伤害，有涌动时<#ef5350ff>禁锢1.25秒<>，否则减速；再补一发<#ff9028ff>超负荷<>，两枚符文让他<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移速+30%<>。",
         "ult": "开启传送门，引导<#ffb900ff>1秒<>后瑞兹和站在门里的友方英雄一起传送向敌方英雄，落地对附近一名敌方英雄补一发<#ff9028ff>法术涌动<>。被控会打断。被动：施放后本条命内涌动弹射伤害提高到<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 法强<>。"
+      },
+      "league_kennen": {
+        "name": "凯南",
+        "attack": "投掷手里剑。被动 <#ff9028ff>雷缚印<>：技能命中英雄留下标记，第三层<#ef5350ff>眩晕1.25秒<>（7秒内再次眩晕0.5秒）。<#ff9028ff>电刃<>：每第5次普攻额外造成<#a974ffff>48<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法强<>魔法伤害并留下标记。",
+        "skill": "掷出千鸟手里剑（出手前锁定方向，可躲开），命中第一个敌人造成<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90% 法强<>的<#a974ffff>魔法伤害<>。命中英雄时若<#ff9028ff>电刃<>就绪，立刻放电（连招）。",
+        "skill2": "化作闪电冲过敌群，对经过的敌人造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法强<>；冲完放出<#ff9028ff>电刃<>（<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>）并在<#ffb900ff>4秒<>内攻速+50%。大招就绪时直接接大招（连招）。",
+        "ult": "召唤跟随自己的风暴<#ffb900ff>3秒<>，每0.5秒雷击范围内的敌方英雄，造成<#a974ffff>52<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30% 法强<>的<#a974ffff>魔法伤害<>并留下标记；期间护甲和魔抗+25。"
       }
     },
     "skill_name": {
@@ -554,6 +561,11 @@
         "skill1": "超负荷",
         "skill2": "符文禁锢",
         "ult": "曲境折跃"
+      },
+      "league_kennen": {
+        "skill1": "奥义！千鸟",
+        "skill2": "奥义！雷铠",
+        "ult": "秘奥义！万雷天牢引"
       }
     }
   },
@@ -880,6 +892,13 @@
         "skill": "向前釋放魔法爆裂，對命中的第一個敵人造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55% 法術強度<>的<#a974ffff>魔法傷害<>。若有敵人帶著<#ff9028ff>法術湧動<>，命中時它們全部受到<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>的彈射傷害，湧動隨之消耗。",
         "skill2": "連招：<#ff9028ff>法術湧動<>造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>傷害，給目標和附近敵人附加<#ff9028ff>湧動<><#ffb900ff>4秒<>；<#ff9028ff>符文禁錮<>造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>傷害，有湧動時<#ef5350ff>定身1.25秒<>，否則緩速；再補一發<#ff9028ff>超負荷<>，兩個符文讓他<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>跑速+30%<>。",
         "ult": "開啟傳送門，引導<#ffb900ff>1秒<>後雷茲和站在門裡的隊友英雄一起傳送向敵方英雄，落地對附近一名敵方英雄補一發<#ff9028ff>法術湧動<>。被控會打斷。被動：施放後本條命內湧動彈射傷害提升至<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>。"
+      },
+      "league_kennen": {
+        "name": "凱能",
+        "attack": "投擲手裡劍。被動 <#ff9028ff>風暴印記<>：技能命中英雄留下印記，第三層<#ef5350ff>暈眩1.25秒<>（7秒內再次暈眩0.5秒）。<#ff9028ff>電能釋放<>：每第5次普攻額外造成<#a974ffff>48<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法術強度<>魔法傷害並留下印記。",
+        "skill": "擲出雷電手裡劍（出手前鎖定方向，可躲開），命中第一個敵人造成<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90% 法術強度<>的<#a974ffff>魔法傷害<>。命中英雄時若<#ff9028ff>電能釋放<>就緒，立刻放電（連招）。",
+        "skill2": "化作閃電衝過敵群，對經過的敵人造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法術強度<>；衝完放出<#ff9028ff>電能釋放<>（<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>）並在<#ffb900ff>4秒<>內攻速+50%。大招就緒時直接接大招（連招）。",
+        "ult": "召喚跟隨自己的風暴<#ffb900ff>3秒<>，每0.5秒雷擊範圍內的敵方英雄，造成<#a974ffff>52<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30% 法術強度<>的<#a974ffff>魔法傷害<>並留下印記；期間護甲和魔抗+25。"
       }
     },
     "skill_name": {
@@ -1112,6 +1131,11 @@
         "skill1": "超負荷",
         "skill2": "符文禁錮",
         "ult": "扭轉之境"
+      },
+      "league_kennen": {
+        "skill1": "雷電手裡劍",
+        "skill2": "閃電衝擊",
+        "ult": "雷霆風暴"
       }
     }
   },
@@ -1438,6 +1462,13 @@
         "skill": "Ryze unleashes a blast that deals <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55% AP<> <#a974ffff>magic damage<> to the first enemy hit. If any enemies carry <#ff9028ff>Flux<>, the hit makes all of them take <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% AP<> bounce damage and uses the Flux up.",
         "skill2": "Combo: <#ff9028ff>Spell Flux<> deals <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% AP<> and puts <#ff9028ff>Flux<> on the target and enemies near it for <#ffb900ff>4s<>; <#ff9028ff>Rune Prison<> deals <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55% AP<> and <#ef5350ff>roots<> for <#ffb900ff>1.25s<> while Flux is up (slows otherwise); then an <#ff9028ff>Overload<> whose two runes give him <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>30% Move Speed<>.",
         "ult": "Ryze opens a portal; after <#ffb900ff>1s<> of channelling he and the allied champions standing in it warp toward the enemy champion, and on landing he throws a <#ff9028ff>Spell Flux<> at an enemy champion nearby. Crowd control breaks the channel. Passive: once cast in a life, the Flux bounce deals <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% AP<>."
+      },
+      "league_kennen": {
+        "name": "Kennen",
+        "attack": "Throws shurikens. Passive <#ff9028ff>Mark of the Storm<>: his abilities mark the champions they hit; the third mark <#ef5350ff>stuns for 1.25s<> (0.5s if stunned within 7s). <#ff9028ff>Electrical Surge<>: every fifth attack deals <#a974ffff>48<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% AP<> bonus <#a974ffff>magic damage<> and marks.",
+        "skill": "Kennen hurls a shuriken (the aim is set before it leaves, so it can be dodged): the first enemy hit takes <#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90% AP<> <#a974ffff>magic damage<>. If it hits a champion while <#ff9028ff>Electrical Surge<> is ready, he surges at once (combo).",
+        "skill2": "Kennen turns into lightning and rushes through enemies, dealing <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% AP<> to each one he passes; at the end he releases <#ff9028ff>Electrical Surge<> (<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% AP<> around him) and gains 50% attack speed for <#ffb900ff>4s<>. With his ultimate ready he goes straight into it (combo).",
+        "ult": "Kennen summons a storm that follows him for <#ffb900ff>3s<>, striking enemy champions inside it every 0.5s for <#a974ffff>52<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30% AP<> <#a974ffff>magic damage<> and a mark; he gains 25 armor and magic resist meanwhile."
       }
     },
     "skill_name": {
@@ -1670,6 +1701,11 @@
         "skill1": "Overload",
         "skill2": "Rune Prison",
         "ult": "Realm Warp"
+      },
+      "league_kennen": {
+        "skill1": "Thundering Shuriken",
+        "skill2": "Lightning Rush",
+        "ult": "Slicing Maelstrom"
       }
     }
   },
@@ -1996,6 +2032,13 @@
         "skill": "돌풍을 발사해 처음 맞힌 적에게 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 55%<>의 <#a974ffff>마법 피해<>를 입힙니다. <#ff9028ff>전이 표식<>이 있는 적이 있으면 모두 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 40%<>의 튕기는 피해를 입고 표식은 소모됩니다.",
         "skill2": "연계: <#ff9028ff>주문 전이<>가 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 피해를 입히고 대상과 주변 적에게 <#ffb900ff>4초<> 동안 <#ff9028ff>전이 표식<>을 남깁니다. <#ff9028ff>룬 감옥<>이 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> 피해를 입히고 표식이 있으면 <#ffb900ff>1.25초<> <#ef5350ff>속박<>(없으면 둔화). 이어서 <#ff9028ff>과부하<>를 쏘고 룬 두 개로 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도 30%<> 증가.",
         "ult": "차원문을 열고 <#ffb900ff>1초<> 정신을 집중한 뒤, 문 안의 아군 챔피언과 함께 적 챔피언 쪽으로 순간이동하고 착지 시 근처 적 챔피언에게 <#ff9028ff>주문 전이<>를 던집니다. 군중 제어에 끊깁니다. 기본 지속 효과: 사용한 생명 동안 튕기는 피해가 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>로 증가."
+      },
+      "league_kennen": {
+        "name": "케넨",
+        "attack": "표창을 던집니다. 기본 지속 효과 <#ff9028ff>폭풍의 표식<>: 스킬이 적중한 챔피언에게 표식을 남기며, 세 번째 표식은 <#ef5350ff>1.25초 기절<>(7초 안에 다시 기절하면 0.5초). <#ff9028ff>전류 방출<>: 다섯 번째 공격마다 <#a974ffff>48<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 주문력<>의 추가 <#a974ffff>마법 피해<>와 표식.",
+        "skill": "표창을 던집니다(던지기 전에 방향이 정해져 피할 수 있음). 처음 맞은 적에게 <#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90% 주문력<> <#a974ffff>마법 피해<>. 챔피언에게 적중했을 때 <#ff9028ff>전류 방출<>이 준비되어 있으면 곧바로 방출합니다(연계).",
+        "skill2": "번개로 변해 적 사이를 돌진하며 지나간 적에게 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 주문력<>의 피해를 입히고, 끝나면 <#ff9028ff>전류 방출<>(<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>)을 쓰고 <#ffb900ff>4초<> 동안 공격 속도 +50%. 궁극기가 준비되어 있으면 바로 이어서 사용합니다(연계).",
+        "ult": "자신을 따라다니는 폭풍을 <#ffb900ff>3초<> 동안 불러 0.5초마다 안의 적 챔피언에게 <#a974ffff>52<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30% 주문력<> <#a974ffff>마법 피해<>와 표식을 남깁니다. 그동안 방어력과 마법 저항력 +25."
       }
     },
     "skill_name": {
@@ -2228,6 +2271,11 @@
         "skill1": "과부하",
         "skill2": "룬 감옥",
         "ult": "공간 왜곡"
+      },
+      "league_kennen": {
+        "skill1": "천둥의 표창",
+        "skill2": "번개 질주",
+        "ult": "날카로운 소용돌이"
       }
     }
   },
@@ -2554,6 +2602,13 @@
         "skill": "エネルギー弾を放ち、最初に当たった敵に<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の55%<>の<#a974ffff>魔法ダメージ<>。<#ff9028ff>フラックス<>を受けた敵がいれば全員に<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の40%<>の波及ダメージ、フラックスは消費。",
         "skill2": "連携：<#ff9028ff>スペルフラックス<>が<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>、対象と周囲の敵に<#ffb900ff>4秒<><#ff9028ff>フラックス<>。<#ff9028ff>ルーンプリズン<>が<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>、フラックス中は<#ffb900ff>1.25秒<><#ef5350ff>スネア<>(無ければスロウ)。続けて<#ff9028ff>オーバーロード<>、ルーン2個で<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度30%<>増加。",
         "ult": "ポータルを開き<#ffb900ff>1秒<>詠唱後、中にいる味方チャンピオンと共に敵チャンピオンの方へテレポートし、着地時に近くの敵チャンピオンへ<#ff9028ff>スペルフラックス<>。行動妨害で中断。パッシブ：使用したライフの間、波及ダメージが<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>に。"
+      },
+      "league_kennen": {
+        "name": "ケネン",
+        "attack": "手裏剣を投げる。パッシブ <#ff9028ff>嵐の刻印<>：スキルが当たったチャンピオンに刻印、3つ目で<#ef5350ff>1.25秒スタン<>（7秒以内の再スタンは0.5秒）。<#ff9028ff>稲妻の奔流<>：5回目の通常攻撃ごとに<#a974ffff>48<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 魔力<>の追加<#a974ffff>魔法ダメージ<>と刻印。",
+        "skill": "手裏剣を投げる（投げる前に向きが決まり、避けられる）。最初に当たった敵に<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90% 魔力<>の<#a974ffff>魔法ダメージ<>。チャンピオンに当たった時<#ff9028ff>稲妻の奔流<>が使えればすぐに放つ（コンボ）。",
+        "skill2": "稲妻となって敵の間を駆け抜け、通った敵に<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 魔力<>。終わりに<#ff9028ff>稲妻の奔流<>（<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>）、<#ffb900ff>4秒<>攻撃速度+50%。アルティメットが使えればそのまま続ける（コンボ）。",
+        "ult": "自分についてくる嵐を<#ffb900ff>3秒<>呼び、0.5秒ごとに中の敵チャンピオンに<#a974ffff>52<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30% 魔力<>の<#a974ffff>魔法ダメージ<>と刻印。その間物理防御と魔法防御+25。"
       }
     },
     "skill_name": {
@@ -2786,6 +2841,11 @@
         "skill1": "オーバーロード",
         "skill2": "ルーンプリズン",
         "ult": "ポータルワープ"
+      },
+      "league_kennen": {
+        "skill1": "雷遁手裏剣",
+        "skill2": "疾風迅雷",
+        "ult": "雷撃の大嵐"
       }
     }
   }

@@ -78,6 +78,38 @@ EDITS = {
     ('skill2', 5): [(9, -6, WG, H0)],
 }
 
+# The face ring: the design's 6x5 face that tidy_codex18.py pasted into the step-2 strips sits a row under the
+# eyes Codex drew, and the frames kept a ring of Codex's own forehead, eye whites, lids, amber and blush round it,
+# different in each frame - while she ran the face flickered and looked blurred (the user, 2026-10-02: "阿狸跑动的
+# 时候脸部太模糊", then "其他帧也有问题吧 要修一起修吧"; 4-15 such pixels a run frame, 3-14 in the attack, Q, W and the
+# flinch, none in the idle). Step 8, in every frame that holds the pasted face as the idle has it (IDLE_FACE, rows -1..
+# +3 and columns -2..+3 from the left iris), gives each of them the idle's hair at that place (IDLE_RING: rows -3..+2,
+# columns -4..+5; h hair0, H hair1, m hair2, K the outline black, . the face, left alone). RING_KEEP: pixels of
+# a hand at the face that stay (dx, dy from the left iris).
+IDLE_FACE = ("bhdssd",
+             "sWAssA",
+             "bssssb",
+             "HhsMsH",
+             "hHHcch")
+FACE = {'b': (210, 137, 126), 'h': H0, 'd': (106, 48, 16), 's': SK, 'W': (249, 244, 252), 'A': (233, 162, 34),
+        'H': H1, 'M': (177, 98, 103), 'c': SKS}
+IDLE_RING = ("HHHHhHHhHK",
+             "hhKKKKHKHH",
+             "hH......hm",
+             "hH......Kh",
+             "hh......hh",
+             "hh......hK")
+RING = {'h': H0, 'H': H1, 'm': H2, 'K': OUT}
+RING_FACE = {GID['skin'], GID['gold'], GID['eye'], GID['tail']}
+RING_KEEP = {
+    ('skill', 0): [(5, 2)],                                               # the raised right arm's white cuff
+    ('skill', 1): [(-3, -1), (-4, 0), (-3, 0), (-4, 1), (-3, 1), (-4, 2)],  # the left arm raised past the face
+    ('skill', 2): [(-4, 2)],                                              # the same arm
+    ('skill', 5): [(-4, 2)], ('skill', 6): [(-4, 2)],                     # the near shoulder
+    ('ult', 6): [(4, 1)],                                                 # by the arm reaching out
+    ('dead', 2): [(-4, 0), (-4, 1), (-4, 2), (-3, 2)],                    # the left arm flung up
+}
+
 
 def groups(a):
     al = a[..., 3] > 0
@@ -396,4 +428,33 @@ def tidy(tag, k, frame, log=None):
         g[sp] = 0
         blk &= ~sp
         log['spurs'] += int(sp.sum())
+
+    # 8 the face ring (IDLE_RING)
+    log['ring'] = face_ring(a, RING_KEEP.get((tag, k), ()))
     return a
+
+
+def face_ring(a, keep=()):
+    """Where the frame holds the pasted face as the idle has it (IDLE_FACE round the two eye-only amber pixels),
+    every face-coloured pixel round it (skin, lid gold, Codex's own amber, eye white) takes the idle's hair at that
+    place (IDLE_RING); the face, clear pixels, the (dx, dy) of `keep` and everything else stay."""
+    eye = (a[..., :3] == RAMPS['eye'][0]).all(-1) & (a[..., 3] > 0)
+    ys, xs = np.nonzero(eye)
+    if len(xs) != 2 or ys[0] != ys[1] or abs(int(xs[0]) - int(xs[1])) != 3:
+        return 0                                   # a turned or hidden face (R's dash, the flinch, the fall)
+    ex, ey = int(xs.min()), int(ys[0])
+    for r, row in enumerate(IDLE_FACE):
+        for c, ch in enumerate(row):
+            px = a[ey - 1 + r, ex - 2 + c]
+            if px[3] == 0 or tuple(int(v) for v in px[:3]) != FACE[ch]:
+                return 0
+    g = groups(a)
+    n = 0
+    for r, row in enumerate(IDLE_RING):
+        for c, ch in enumerate(row):
+            y, x = ey - 3 + r, ex - 4 + c
+            if ch == '.' or (c - 4, r - 3) in keep or a[y, x, 3] == 0 or g[y, x] not in RING_FACE:
+                continue
+            a[y, x, :3] = RING[ch]
+            n += 1
+    return n
