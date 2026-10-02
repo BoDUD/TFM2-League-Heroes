@@ -616,12 +616,14 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   hair (a tall crown) and none into the face. Loops copy the same body lines in every frame. `FACE_FIX` then repaints
   squares round the EYES pixel in every frame whose face matches (Garen's far eye, one grey square under bare skin,
   became the near eye's lid, white and iris over its two grown columns: "修复一下右眼").
-- **One upper body for a run whose shoulders were redrawn per frame (league_darius).** Codex redrew the shoulders round
-  one pasted head in every run frame - the pauldron beside the face in six frames and dropped in two, the chest 4-5 px
-  back and forth - and the head seemed to slide over the body ("诺手在上半区移动看起来头和身体不协调"). `BLOCK` puts one
-  frame's rows above a seam under the chin into every frame (the seam where the fewest silhouette edges meet the
-  frames' own arms and cape below; the reference with a clean face and the weapon as in idle) and sinks that block a
-  row on the step's low frames; arms, cape and legs below the seam stay as drawn.
+- **One body for a run redrawn anew in every frame (league_darius).** Codex redrew the whole run round one pasted head
+  in every frame - the pauldron beside the face in six frames and dropped in two, chest, arms, cape and the hanging axe
+  2-5 px back and forth - and the head seemed to slide over the body ("诺手在上半区移动看起来头和身体不协调"). A block from
+  the chin up left the chest sliding under it ("胸部以下和胸部以上协调吗？又看起来像割裂了一样"): any seam through the
+  body shows. `BLOCK` puts one frame's whole body down to the knees into every frame (the reference with a clean face
+  and the weapon as in idle), keeps each frame's shins and feet (the stride) and whatever crosses the seam, moved
+  sideways to meet the block (best colour match in a box round the seam: -4..+2 px), and sinks the body a row on the
+  step's low frames.
 
 ## QA checklist
 

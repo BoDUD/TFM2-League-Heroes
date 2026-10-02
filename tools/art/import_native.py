@@ -57,14 +57,17 @@ SOLES = 11
 # above pivot row y moves down a row. Codex drew Nami's swimming body a row lower under the head in run 1-4 than
 # in 5-8 and the design, so her neck stretched and shrank as she swam (the user: "一上一下的时候感觉身体要分离一样").
 NECK = {("nami", "run"): (-21, [0, 1, 2, 3])}
-# (hero, tag): (reference slot, y, slots) - one upper body for a whole loop: every frame's rows at or above pivot row y
-# become the reference frame's, and after GROW the listed slots sink a row (the step). Codex drew Darius's shoulders
-# anew round one pasted head in every run frame - the pauldron up beside his face in six frames and down in two, the
-# collar and chest a few px back and forth - so the head seemed to slide over the body (the user: "诺手在上半区移动看起来
-# 头和身体不协调"; he stays at his size: "诺手就修复移动的问题不放大了"). The seam under his chin (row -13) crosses the
-# fewest edges into every frame's arms and cape below it; frame 8's head, collar, pauldron and axe top (its face clean,
-# the axe upright as in idle) ride the step down a row in 3-4 and 7-8 like League's head.
-BLOCK = {("darius", "run"): (7, -13, [2, 3, 6, 7])}
+# (hero, tag): (reference slot, y, slots, box) - one body for a whole loop: every frame's rows at or above pivot row y
+# become the reference frame's and only the rows under it stay the frame's own, moved sideways so that what crosses
+# the seam (inside box: rows y0..y1, columns x0..x1 from the pivot) lines up with the reference; the listed slots then
+# sink a row (the step; after GROW for a hero who grows). Codex drew Darius's run anew in every frame round one pasted
+# head - the pauldron up beside his face in six frames and down in two, chest, arms, cape and the hanging axe a few px
+# back and forth - so the head slid over the body (the user: "诺手在上半区移动看起来头和身体不协调"). One block from the
+# chin up still left the chest sliding under it ("胸部以下和胸部以上协调吗？又看起来像割裂了一样"): now frame 8's whole body
+# down to the knees (row 3: head, armour, arms, cape, the axe down to the middle of its head) is every frame's, and each
+# frame keeps its shins and feet (the stride) and the axe head's lower half, moved to meet the upper half; the body
+# rides the step down a row in 3-4 and 7-8 like League's. He stays at his size ("诺手就修复移动的问题不放大了").
+BLOCK = {("darius", "run"): (7, 3, [2, 3, 6, 7], (-1, 8, -24, 4))}
 # hero: the idle's height in rows (crown to soles) the whole sprite grows to (the user, 2026-10-02: "盖伦现在尺寸在游戏里
 # 看起来偏小了" at 37 rows; 44 was "太大", "42左右就行"). Whole rows and columns are copied, one in every 1/(f - 1)
 # counted up from under the soles and out from the pivot column, each where its copy shows least (the fewest one-pixel
@@ -678,24 +681,42 @@ def sink_block(a, cut):
     return b
 
 
+def shifted(a, dx):
+    """a moved dx columns right (clear columns come in)."""
+    b = np.zeros_like(a)
+    if dx >= 0:
+        b[:, dx:] = a[:, :a.shape[1] - dx]
+    else:
+        b[:, :dx] = a[:, -dx:]
+    return b
+
+
 def one_upper(hero, sheet):
-    """BLOCK: the reference frame's rows at or above the seam in every frame of the loop (and its step when the hero
-    does not GROW; a growing hero steps after growing); the frames changed."""
-    n = 0
-    for (h, tag), (ref, y0, slots) in BLOCK.items():
+    """BLOCK: the reference frame's rows at or above the seam in every frame of the loop over the frame's own rows
+    below it, moved sideways to meet it (and the step when the hero does not GROW; a growing hero steps after
+    growing); {tag: the sideways moves}."""
+    moves = {}
+    for (h, tag), (ref, y0, slots, (by0, by1, bx0, bx1)) in BLOCK.items():
         if h != hero or tag not in sheet:
             continue
-        arrs, cy, cx = canvas([a for a, _ in sheet[tag]])
+        arrs, cy, cx = canvas([np.pad(a, ((0, 0), (8, 8), (0, 0))) for a, _ in sheet[tag]])
         cut = cy + y0 + 1                            # array rows before cut sit at pivot rows <= y0
+        box = (slice(cy + by0, cy + by1 + 1), slice(cx + bx0, cx + bx1 + 1))
+        refbox = arrs[ref][box]
+
+        def meet(a, dx):
+            m = shifted(a, dx)[box]
+            return int(((refbox[..., 3] > 0) & (m[..., 3] > 0) & (refbox[..., :3] == m[..., :3]).all(-1)).sum())
+        moves[tag] = []
         for k, a in enumerate(arrs):
-            b = a.copy()
+            dx = max(range(-5, 6), key=lambda d: (meet(a, d), -abs(d)))
+            b = shifted(a, dx)
             b[:cut] = arrs[ref][:cut]
             if hero not in GROW and k in slots:
                 b = sink_block(b, cut)
-            if (b != a).any():
-                n += 1
+            moves[tag].append(dx)
             sheet[tag][k] = (G.centre_frame(b, -cx, -cy), sheet[tag][k][1])
-    return n
+    return moves
 
 
 def line_cost(a):
@@ -904,9 +925,8 @@ def main():
         if stepped:
             print(f"{hero}: walk step on {stepped} frames")
         breathe(hero, sheet)
-        upper = one_upper(hero, sheet)
-        if upper:
-            print(f"{hero}: one upper body in {upper} frames")
+        for tag, moves in one_upper(hero, sheet).items():
+            print(f"{hero}: one body in every {tag} frame, the parts under it moved " + " ".join(f"{d:+d}" for d in moves))
         f, grown = grow(hero, sheet)
         if f:
             print(f"{hero}: grown {f:.3f}x - rows/columns copied in each strip's first frame: " +
