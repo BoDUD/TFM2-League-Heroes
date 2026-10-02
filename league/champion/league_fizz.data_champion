@@ -659,6 +659,30 @@
                   }
                 ]
               }
+            },
+            {
+              "type": "TargetProjectile",
+              "name": "league_fizz_q_twin",
+              "speed": 20000,
+              "y_offset": 0,
+              "applied_target": "EnemyChampion",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_fizz_q_on",
+                      "duration": {
+                        "Time": {
+                          "tick": 60
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  }
+                }
+              ]
             }
           ]
         }
@@ -697,24 +721,40 @@
           }
         },
         {
-          "type": "RandomTarget",
-          "range": 50000,
-          "casting_target": "EnemyChampion",
-          "from_projectile": false,
-          "effects": [
-            {
-              "type": "AddCasterBuff",
-              "buff_state": {
-                "name": "league_fizz_e_threat",
-                "duration": {
-                  "Time": {
-                    "tick": 1
-                  }
+          "type": "SwitchByBuff",
+          "buff_name": "league_fizz_q_on",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "SwitchByBuff",
+            "buff_name": "league_fizz_r_stuck",
+            "effect_buff": {
+              "type": "Combine",
+              "effects": []
+            },
+            "effect_none": {
+              "type": "RandomTarget",
+              "range": 50000,
+              "casting_target": "EnemyChampion",
+              "from_projectile": false,
+              "effects": [
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_fizz_e_threat",
+                    "duration": {
+                      "Time": {
+                        "tick": 1
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
                 }
-              },
-              "only_to_enemy": false
+              ]
             }
-          ]
+          }
         },
         {
           "type": "SwitchByBuff",

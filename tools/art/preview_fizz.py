@@ -15,12 +15,15 @@
                             faded (invisible) for 38 ticks while he vaults onto Darius, the slam on tick 42 and Darius
                             slowed; a last jab and Darius falls. Fizz is drawn in front: the dash leaves him 15 px past
                             Darius's centre, inside his sprite. 3x
+  league_fizz_combos.gif    the combos (tools/kit/fizz_combos.py), labelled: Urchin Strike through Darius and Playful
+                            at once, no wait for a hit (Q E); a cut; the fish stuck on him and Playful at once, the
+                            slam before the shark (R E); 3x
 """
 import argparse
 import os
 import sys
 
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFont
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
@@ -154,6 +157,14 @@ def showcase(out, z=3, step=40):
     a("idle", 1400, loop=True, flip=True)
     end = t
 
+    return film(out, W, H, end, d, body, under, over, hidden, z=z, step=step) + (f"shark {k}", round(flight, 1))
+
+
+def film(out, W, H, end, d, body, under, over, hidden, labels=(), z=3, step=40):
+    """Draw the clip: ground effects, Darius and Fizz (in front, faded while hidden), the other effects; labels =
+    [(t0, t1, text)] in a corner."""
+    font = ImageFont.load_default(size=8 * z) if labels else None
+
     def faded(f, tt):
         for t0, t1 in hidden:
             if t0 <= tt < t1:
@@ -185,7 +196,12 @@ def showcase(out, z=3, step=40):
             f = an.frame(tt)
             if f is not None:
                 place(img, f, *an.pos(tt))
-        frames.append(img.resize((W * z, H * z), Image.NEAREST).convert("RGB"))
+        img = img.resize((W * z, H * z), Image.NEAREST).convert("RGB")
+        for t0, t1, text in labels:
+            if t0 <= tt < t1:
+                ImageDraw.Draw(img).text((4 * z, 2 * z), text, font=font, fill=(255, 236, 160),
+                                         stroke_width=z // 2 + 1, stroke_fill=(24, 20, 16))
+        frames.append(img)
         tt += step
     sample = frames[::6]                              # one palette for the whole clip
     strip = Image.new("RGB", (W * z, H * z * len(sample)))
@@ -194,7 +210,108 @@ def showcase(out, z=3, step=40):
     pal = strip.quantize(colors=255, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE)
     q = [f.quantize(palette=pal, dither=Image.Dither.NONE) for f in frames]
     q[0].save(T.long_path(out), save_all=True, append_images=q[1:], duration=step, loop=0, optimize=False)
-    return len(frames), round(end / 1000.0, 1), f"shark {k}", round(flight, 1)
+    return len(frames), round(end / 1000.0, 1)
+
+
+def combos(out, z=3, step=40):
+    """The combos (tools/kit/fizz_combos.py), labelled: Urchin Strike through Darius, then Playful at once - no
+    1 s wait for a hit - the hop back onto him and the slam (Q E); a cut; Chum the Waters sticks the fish on him and
+    Playful goes at once, vaulting onto him, the slam before the shark bursts under him (R E)."""
+    fizz = load(CHAMP)
+    fx = {k: load(v) for k, v in FX.items()}
+    small, big = fx["league_fizz_fx"], fx["league_fizz_big"]
+    W, H = 300, 120
+    gy = 84
+    d = Turning(load(os.path.join(LEAGUE, "champions", "league_darius")), 180, gy)
+    body, under, over, hidden, labels = [], [], [], [], []
+    t = 0.0
+    x = d.x - 45
+
+    def a(tag, dur=None, loop=False, way=None, flip=False):
+        nonlocal t
+        an = Path(frames_of(fizz, tag), t, x, gy, loop=loop, until=(t + dur) if dur else None, way=way or (),
+                  flip=flip)
+        body.append(an)
+        t = an.until
+
+    def fx_at(sp, tag, at, px, py=gy, ground=False, until=None, x1=None, loop=False, flip=False):
+        an = Anim(frames_of(sp, tag), at, px, py, z=-1 if ground else 1, loop=loop, until=until, x1=x1, flip=flip)
+        (under if ground else over).append(an)
+        return an
+
+    def on_foe(sp, tag, at, z=2):
+        over.append(OnFoe(frames_of(sp, tag), at, d, z=z))
+        d.flinches.append(at)
+
+    def hop(perch, flip):
+        """Playful at once: the 3-tick cast, the splash, 38 ticks hidden, the vault from tick 6 at 3 px a tick onto
+        perch, the slam on tick 42."""
+        nonlocal x
+        a("idle", tick(3), flip=flip)
+        up = t
+        fx_at(small, "e_up", up, x, gy, ground=True)
+        hidden.append((up, up + tick(E_LAND)))
+        a("skill2", tick(E_ANIM), way=[(up + tick(E_UP), x), (up + tick(E_UP + abs(x - perch) / E_VAULT), perch)],
+          flip=flip)
+        x = perch
+        fx_at(big, "e_slam", up + tick(E_SLAM), x, gy, ground=True)
+        on_foe(small, "e_slow", up + tick(E_SLAM))
+        return up
+
+    a("idle", 300, loop=True)
+    # Q E: Urchin Strike through him (W rides the hit), E right after it
+    q0 = t
+    go = q0 + tick(Q_ST)
+    to = d.x + Q_BACK
+    fx_at(small, "q_dash", go, x, gy, ground=True)
+    passing = go + tick((d.x - TOUCH - x) / Q_SPEED)
+    on_foe(small, "q_hit", passing + tick(1))
+    on_foe(small, "w_hit", passing + tick(1), z=3)
+    a("skill", tick(Q_DUR), way=[(go, x), (go + tick((to - x) / Q_SPEED), to)])
+    turn1 = go + tick((d.x - x) / Q_SPEED)            # he turns as Fizz passes his centre
+    x = to
+    e0 = t
+    hop(d.x + TOUCH, flip=True)
+    a("idle", 700, loop=True, flip=True)
+    labels += [(q0, e0, "Q"), (e0, t, "Q E")]
+    cut = t
+    t += 240
+    # R E: back in front of him (he turns to face her again), the fish from 70 px, E at once
+    x = d.x - 70
+    a("idle", 300, loop=True)
+    r0 = t
+    launch = r0 + tick(R_THROW)
+    flight = (d.x - R_WIDTH - x) / R_SPEED
+    stick = launch + tick(flight)
+    k = 1 if flight <= R_T1 else 2 if flight <= R_T2 else 3
+    fx_at(small, "r_fish", launch, x, gy, until=stick, x1=d.x - R_WIDTH, loop=True)
+    shark = stick + tick(R_WAIT + 1)
+    over.append(OnFoeFor(frames_of(small, "r_stuck"), stick, d, shark, z=3))
+    under.append(OnFoeFor(frames_of(big, f"r_ring{k}"), stick, d, shark, z=-1))
+    a("ult", tick(R_DUR))
+    e1 = t
+    hop(d.x - TOUCH, flip=False)
+    a("idle", shark - t, loop=True)
+    fx_at(big, f"r_shark{k}", shark, *d.pos(shark))
+    d.hops.append((shark + tick(2), shark + tick(2 + R_AIR), 16))
+    d.flinches.append(shark + tick(2))
+    d.death = shark + tick(2 + R_AIR) + 100
+    a("idle", tick(R_AIR) + 1000, loop=True)
+    labels += [(r0, e1, "R"), (e1, t, "R E")]
+    blank = [(cut, cut + 240)]
+
+    class Cut:
+        """Darius off stage during the cut, turned back to face her for the second scene."""
+        def frame(self, tt):
+            if any(a0 <= tt < a1 for a0, a1 in blank):
+                return None
+            d.turn = turn1 if tt < cut else None
+            return d.frame(tt)
+
+        def pos(self, tt):
+            return d.pos(tt)
+
+    return film(out, W, H, t, Cut(), body, under, over, hidden, labels=labels, z=z, step=step)
 
 
 def main():
@@ -213,6 +330,7 @@ def main():
         rows += [(sp, t["name"], f"{name[12:]}:{t['name']}") for t in sp.tags]
     print("effects", contact(rows, os.path.join(args.out, "league_fizz_effects.png")))
     print("showcase frames/seconds/shark/flight ticks", showcase(os.path.join(args.out, "league_fizz_showcase.gif")))
+    print("combos frames/seconds", combos(os.path.join(args.out, "league_fizz_combos.gif")))
 
 
 if __name__ == "__main__":
