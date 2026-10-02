@@ -58,12 +58,6 @@ SOLES = 11
 # above pivot row y moves down a row. Codex drew Nami's swimming body a row lower under the head in run 1-4 than
 # in 5-8 and the design, so her neck stretched and shrank as she swam (the user: "一上一下的时候感觉身体要分离一样").
 NECK = {("nami", "run"): (-21, [0, 1, 2, 3])}
-# (hero, tag): (reference slot, y, slots, box) - one body for a whole loop: every frame's rows at or above pivot row y
-# become the reference frame's and only the rows under it stay the frame's own, moved sideways so that what crosses
-# the seam (inside box: rows y0..y1, columns x0..x1 from the pivot) lines up with the reference; the listed slots then
-# sink a row (the step; after GROW for a hero who grows). Tried on Darius's run and rejected (a body cut at the chest,
-# then a frozen body over shuffling feet): his walk is Codex's again, see HEAD_MOVE.
-BLOCK = {}
 # (hero, tag): (reference slot, {slot: (dx, dy)}, head box (row0, row1, col0, col1) from the EYES pixel) - the pasted
 # head moved with the body: in the listed slots Codex drew the body (dx, dy) off the reference frame's while the head
 # stayed put, so the head is moved by the same amount (its pixels: those of the box equal to the idle's head round
@@ -71,29 +65,6 @@ BLOCK = {}
 # user, "原来的走路姿势是最好的 问题是头和身体不协调"; measured on the shoulders (best colour match against frame 8):
 # frame 1's body 5 px further forward, frame 4's 3 px forward and a row lower, the others within a pixel.
 HEAD_MOVE = {("darius", "run"): (7, {0: (5, 0), 3: (3, 1)}, (-9, 3, -8, 6))}
-# hero: the idle's height in rows (crown to soles) the whole sprite grows to (the user, 2026-10-02: "盖伦现在尺寸在游戏里
-# 看起来偏小了" at 37 rows; 44 was "太大", "42左右就行"). Whole rows and columns are copied, one in every 1/(f - 1)
-# counted up from under the soles and out from the pivot column, each where its copy shows least (the fewest one-pixel
-# lines across it, the outline counted threefold), never through the head or the soles; the loops (STEADY) copy the
-# same body lines in every frame. No new colour, no resampling.
-GROW = {"garen": 42}
-# hero: (rows, columns) the head copies, counted from the EYES pixel (its top row, left column) wherever the eye is
-# drawn, so the head grows the same way in every frame - Garen a plain hair row, the cheeks' row under the eyes, a
-# back-hair column and the far eye's column (FACE_FIX paints the two squares as an eye) - and HEAD_BOX (rows, columns
-# from the same pixel), the head, where nothing else is copied (copies through it read as a taller crown or a wider
-# face)
-HEAD = {"garen": ([-6, 1], [-6, 2])}
-HEAD_BOX = {"garen": ((-8, 2), (-7, 4))}
-# hero: [(dx, dy, colour there, new colour)] from the EYES pixel, painted after GROW in every frame whose face has all
-# the expected colours. Garen's far (right) eye was one grey-blue square under bare skin beside the near eye's black
-# lid over white and iris (the user: "修复一下右眼"); grown to two squares by HEAD's column it gets the near eye's lid,
-# white and iris, and the brow square between the lids turns skin so the two eyes do not run into one bar. Each list is
-# painted on its own (all or nothing). His mouth: the face had none (plain skin under the eyes); the user asked for
-# a handsomer one ("盖伦的嘴再做帅一点") and let me pick ("盖伦你选一个最合适的"): a firm closed line of two dark-brown
-# squares under the eyes, a little toward his front, and a gold-brown shade on the far jaw.
-FACE_FIX = {"garen": [[(1, -1, "31171A", "FCCB9C"), (2, -1, "FCCB9C", "0E0513"), (3, -1, "FCCB9C", "0E0513"),
-                       (2, 0, "8A8AA3", "FCFCFC"), (3, 0, "8A8AA3", "1F3EC8")],
-                      [(1, 2, "FCCB9C", "784324"), (2, 2, "FCCB9C", "784324"), (-2, 2, "FCCB9C", "BE8138")]]}
 # (hero, tag): (y, rows, cape), a walk's step: in frame k everything at or above pivot row y moves down rows[k] and is
 # laid over what is below, so the leg tops tuck under the hips; a cape that streams behind her across row y goes along
 # whole (below y: each row up to one past its last `cape` colour pixel, and the tip's runs hanging off that), or the
@@ -126,7 +97,7 @@ NECK_EYES = {("fiora", "hit", 0): (-19, 3)}
 # needs it closed). Nothing goes under the soles row; a frame that already reaches lower (lying down) keeps its own
 # bottom.
 COMPLETE = {"nami", "veigar", "jax", "ahri", "taric", "tristana", "fiora", "diana", "leesin", "missfortune", "fizz", "shaco",
-            "caitlyn", "nocturne", "blitzcrank", "camille", "leblanc", "garen"}
+            "caitlyn", "nocturne", "blitzcrank", "camille", "leblanc"}
 # hero: the luminance from which an edge pixel gets the outline (complete_outline's `dark`, default 70). Fiora's teal
 # leggings (luminance ~58) and wine cape (~44) edge many action frames without black: tfm2_ase.py metrics counts only
 # luminance < 40 as outline, so at 70 her Q frames read 83-89% (the bare rapier aside); at 40 they close too.
@@ -138,13 +109,12 @@ DARK = {"fiora": 40}
 # "阿狸也清理一下", "贾克斯也清理一下"): their action frames' ring was a second near-black beside the idle's, with their
 # materials' darkest shades on it (her dark red, teal and brown and gold left open; his navy, dark red and hair; her
 # wine and navy; Jax's three near-blacks, his hood's and cape's darkest magenta and violet), doubled corners and crumbs.
-# Garen too (2026-10-02, after GROW: "盖伦把黑边清理干净 有杂的黑色的地方 不干净")
-CLEAN = {"fiora", "leesin", "missfortune", "ahri", "jax", "garen"}
+CLEAN = {"fiora", "leesin", "missfortune", "ahri", "jax"}
 # CLEAN heroes tidied by clean_outline's strict rules: a review of every frame found Fiora's rules cut their boot soles
 # to points, peeled Lee Sin's black braid, blackened muzzles, hair tips and wrist stripes in place and broke interior
 # lines drawn in their second near-black; strict only unifies the ring's near-blacks, never blackens a colour, and
 # clears a corner only where it doubles a staircase (strips.clean_outline)
-STRICT = {"leesin", "missfortune", "ahri", "jax", "garen"}
+STRICT = {"leesin", "missfortune", "ahri", "jax"}
 # hero: colours of a blade drawn as a bare one-pixel line; clean_outline clears the black caps complete_outline puts
 # on the ends of every run of a slanted one (Fiora's rapier in Q, the crit and the salute read as a dashed line),
 # and strips.straighten_lines redraws each long one as a straight pixel line from the hilt to the tip (Codex's
@@ -271,8 +241,8 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        ("amumu", "idle"): (6, [2, 3, 4]),
        # Jinx: the seam across her boots' shafts, her soles stay
        ("jinx", "idle"): (6, [2, 3, 4, 5]),
-       # Garen breathes no more: every seam moved part of him against the rest - lower, the sword bent; at the waist,
-       # the chest squashed a row - the user: "不要上下摇摆 模型会变形" (his idle is the one drawing in all six slots)
+       # Garen: the seam across his greaves, his sabatons stay
+       ("garen", "idle"): (6, [2, 3, 4]),
        # Ashe: the seam across her boots' shafts, her soles stay. Codex's redraw hangs the cloak down to 8 rows
        # under the pivot and leaves 4 rows of boots: at 6 the seam cut the cloak's last row off her thighs and
        # the legs seemed to come apart ("腿像分开了一样"); at 9 the outline does not change (6 squares of colour)
@@ -334,25 +304,10 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        # LeBlanc: her gown's diagonal trims change every row (13-18 squares from one row to the next); the seam runs
        # through the hem over her heels (rows 97/98 of the design), the staff's straight shaft one row shorter
        ("leblanc", "idle"): (9, [2, 3, 4])}
-# (hero, tag): colours of a held weapon that crosses the BOB seam: in the breathing slots its part under the seam (and
-# that part's dark outline) sinks with the upper body instead of staying, so the weapon moves as one piece; what it
-# would push under the soles row is dropped (the tip planted). Garen's sword runs from his hands (above the seam)
-# down to its tip on the soles row; it bent at the seam every breath (the user: "怎么盖伦上下摆动剑变形").
-BOB_CARRY = {}   # Garen's sword was carried here, then the seam moved over it (BOB)
-# (hero, tag): (reference slot, weapon colours, top row) - one drawing of a held weapon for the whole loop: in every
-# frame the weapon (the pieces of these colours under pivot row `top`, with their dark outline) is taken out and the
-# reference frame's weapon put where it overlaps the frame's own best (a whole-pixel move); squares it leaves bare take
-# their commonest drawn neighbour (or stay clear outside the body). Codex drew Garen's run sword anew in every frame,
-# its edges stepping differently each time, so it seemed to bend as he bobbed (the user: "怎么盖伦上下摆动剑变形").
-RIGID = {("garen", "run"): (0, ["FCFCFC", "296380", "284965", "9BABC3", "A9B7CB", "8A8AA3", "4A4353"], -6)}
 # hero: a module in tools/art with tidy(tag, k, frame) -> frame, run on the finished frames (after the outline is closed
 # and cleaned): the user's clean-up of dirty black blocks and stray squares inside the silhouette (2026-10-02:
 # "盖伦把黑边清理干净 有杂的黑色的地方", "风女 莫甘娜 不干净的黑色块也太多了", "莫甘娜头部有很多多余的方块", "阿狸也是都给我清理干净")
-TIDY = {"ahri": "tidy_ahri", "janna": "tidy_janna", "morgana": "tidy_morgana"}
-# hero: weapon colours - after the outline, dark spurs and dots hanging off the weapon's outline (a near-black pixel
-# within 2 px of the weapon with 3 or 4 clear sides) are cleared, twice. GROW copied rows through Garen's slanted
-# blade and doubled its outline's steps: dots hung under the blade in every frame (the user: "剑触碰到地面直接变形").
-SPURS = {"garen": ["FCFCFC", "296380", "284965", "9BABC3", "A9B7CB", "8A8AA3", "4A4353"]}
+TIDY = {"ahri": "clean_ahri", "janna": "clean_janna", "morgana": "clean_morgana"}
 CROWN = {"leesin"}              # heroes whose head template starts at the crown (a braid stands above it)
 PASTED = {"masteryi"}            # steadied on the head restyle_native pasted: his raised sword is the top of every frame
 # Codex's step-2 redraw (model_strips_18, tidied by tidy_codex18.py): the approved design's head (or face) is in every
@@ -685,10 +640,7 @@ def step(hero, sheet):
 
 def breathe(hero, sheet):
     """BOB and NECK: move the upper body of the listed slots down a row (after the retouch, which is drawn on the
-    frame before it moves). A hero who GROWs breathes inside grow(), after the copies: copied rows fixed in the sheet
-    met the moved sword a row off in the breathing frames and its steps changed shape (the user: "怎么盖伦上下摆动剑变形")."""
-    if hero in GROW:
-        return
+    frame before it moves)."""
     for (h, tag), (y0, slots) in list(BOB.items()) + list(NECK.items()):
         if h != hero or tag not in sheet:
             continue
@@ -709,77 +661,10 @@ def canvas(arrs):
             hh, hw)
 
 
-def sink_block(a, cut):
-    """BLOCK's step: the array rows before cut down a row (the row under them covered)."""
-    b = a.copy()
-    b[1:cut + 1] = a[0:cut]
-    b[0] = 0
-    return b
-
-
-def sink_carry(a, cut, colours, floor):
-    """sink_block, and the parts of colours under the seam that touch it (with their dark outline) a row down too;
-    nothing goes under row floor (the soles row); a square the carried piece leaves takes the square above it."""
-    b = sink_block(a, cut)
-    want = np.array([[int(c[i:i + 2], 16) for i in (0, 2, 4)] for c in colours])
-    op = a[..., 3] > 0
-    hit = op & (a[..., None, :3] == want).all(-1).any(-1)
-    hit[:cut] = False
-    lab, n = G.label(hit)
-    keep = np.zeros_like(hit)
-    for k in range(1, n + 1):
-        m = lab == k
-        if m[cut:cut + 2].any():                   # touches the seam: held from above
-            keep |= m
-    p = np.pad(keep, 1)
-    ring = (p[:-2, 1:-1] | p[2:, 1:-1] | p[1:-1, :-2] | p[1:-1, 2:]) & ~keep & op & (G.lum(a[..., :3]) < 45)
-    ring[:cut] = False
-    piece = keep | ring
-    ys, xs = np.nonzero(piece)
-    for y, x in sorted(zip(ys, xs), key=lambda t: -t[0]):     # bottom up
-        if not piece[y - 1, x]:
-            b[y, x] = a[y - 1, x] if y - 1 >= cut else b[y, x]
-        if y + 1 <= floor:
-            b[y + 1, x] = a[y, x]
-    return b
-
-
-def shifted(a, dx):
-    """a moved dx columns right (clear columns come in)."""
-    b = np.zeros_like(a)
-    if dx >= 0:
-        b[:, dx:] = a[:, :a.shape[1] - dx]
-    else:
-        b[:, :dx] = a[:, -dx:]
-    return b
-
-
-def one_upper(hero, sheet):
-    """BLOCK: the reference frame's rows at or above the seam in every frame of the loop over the frame's own rows
-    below it, moved sideways to meet it (and the step when the hero does not GROW; a growing hero steps after
-    growing); {tag: the sideways moves}."""
-    moves = {}
-    for (h, tag), (ref, y0, slots, (by0, by1, bx0, bx1)) in BLOCK.items():
-        if h != hero or tag not in sheet:
-            continue
-        arrs, cy, cx = canvas([np.pad(a, ((0, 0), (8, 8), (0, 0))) for a, _ in sheet[tag]])
-        cut = cy + y0 + 1                            # array rows before cut sit at pivot rows <= y0
-        box = (slice(cy + by0, cy + by1 + 1), slice(cx + bx0, cx + bx1 + 1))
-        refbox = arrs[ref][box]
-
-        def meet(a, dx):
-            m = shifted(a, dx)[box]
-            return int(((refbox[..., 3] > 0) & (m[..., 3] > 0) & (refbox[..., :3] == m[..., :3]).all(-1)).sum())
-        moves[tag] = []
-        for k, a in enumerate(arrs):
-            dx = max(range(-5, 6), key=lambda d: (meet(a, d), -abs(d)))
-            b = shifted(a, dx)
-            b[:cut] = arrs[ref][:cut]
-            if hero not in GROW and k in slots:
-                b = sink_block(b, cut)
-            moves[tag].append(dx)
-            sheet[tag][k] = (G.centre_frame(b, -cx, -cy), sheet[tag][k][1])
-    return moves
+def eye_at(hero, a):
+    """(row, column) of the EYES colour's first pixel (top row, left column), or None (turned away, lying down)."""
+    ys, xs = np.nonzero((a[..., :3] == np.array(EYES[hero], np.uint8)).all(-1) & (a[..., 3] > 0))
+    return (int(ys.min()), int(xs[ys == ys.min()].min())) if len(ys) else None
 
 
 def head_move(hero, sheet):
@@ -812,193 +697,19 @@ def head_move(hero, sheet):
     return done
 
 
-def line_cost(a):
-    """What copying each row of a shows: its one-pixel features (pixels unlike the rows above and below, dark ones -
-    the outline - threefold) and a little for every pixel unlike the next row."""
-    p = np.pad(a, ((1, 1), (0, 0), (0, 0)))
-    cur, up, dn = p[1:-1], p[:-2], p[2:]
-    drawn = (cur[..., 3] > 0) | (up[..., 3] > 0) | (dn[..., 3] > 0)
-    d_up, d_dn = (cur != up).any(-1), (cur != dn).any(-1)
-    w = np.where(G.lum(cur[..., :3]) < 45, 3.0, 1.0)
-    return ((drawn & d_up & d_dn) * w).sum(1) + 0.35 * (drawn & d_dn).sum(1)
-
-
-def eye_at(hero, a):
-    """(row, column) of the EYES colour's first pixel (top row, left column), or None (turned away, lying down)."""
-    ys, xs = np.nonzero((a[..., :3] == np.array(EYES[hero], np.uint8)).all(-1) & (a[..., 3] > 0))
-    return (int(ys.min()), int(xs[ys == ys.min()].min())) if len(ys) else None
-
-
-def pick_lines(cost, first, last, anchor, step, barred, n, forced=()):
-    """The lines (0..n-1) to copy besides the forced ones: bands of step lines counted from anchor both ways - before
-    it [anchor - (k+1) step, anchor - k step), from it [anchor + k step, anchor + (k+1) step) - one copy in each band
-    whose middle the drawing (lines first..last) reaches and that holds no forced line: its cheapest line that is not
-    barred and not beside another copy, else the nearest such line outside it."""
-    picks = []
-    ok = lambda i: 0 <= i < n and i not in barred and all(abs(i - q) > 1 for q in list(picks) + list(forced))
-    bands, k = [], 0
-    while anchor - (k + 0.5) * step >= first:
-        bands.append((anchor - (k + 1) * step, anchor - k * step))
-        k += 1
-    k = 0
-    while anchor + (k + 0.5) * step <= last:
-        bands.append((anchor + k * step, anchor + (k + 1) * step))
-        k += 1
-    for lo, hi in bands:
-        mid = (lo + hi) / 2
-        if any(lo <= q < hi for q in forced):
-            continue
-        cand = [i for i in range(int(np.ceil(lo)), int(np.ceil(hi))) if ok(i)]
-        if not cand:
-            cand = sorted((i for i in range(n) if ok(i)), key=lambda i: abs(i - mid))[:2]
-        if cand:
-            picks.append(min(cand, key=lambda i: (cost[i], abs(i - mid))))
-    return sorted(picks)
-
-
-def grow(hero, sheet):
-    """GROW: every frame drawn bigger by copying whole rows and columns, the soles kept SOLES under the pivot;
-    (factor, {tag: (rows, columns) copied in its first frame})."""
-    if hero not in GROW:
-        return None, {}
-    idle = sheet["idle"][0][0]
-    ys = np.nonzero(idle[..., 3].any(1))[0]
-    f = GROW[hero] / (ys.max() - ys.min() + 1)
-    step = 1.0 / (f - 1.0)
-    added = {}
+def tidy_frames(hero, sheet):
+    """TIDY: the hero's own clean-up module on every finished frame; the pixels it changed."""
+    if hero not in TIDY:
+        return 0
+    mod = importlib.import_module(TIDY[hero])
+    n = 0
     for tag, frames in sheet.items():
-        arrs, cy, cx = canvas([a for a, _ in frames])
-        ground = cy + SOLES + 1
-        groups = [list(range(len(arrs)))] if tag in STEADY else [[k] for k in range(len(arrs))]
-        block = BLOCK.get((hero, tag))
-        sinks = [(y0, slots) for (h, t), (y0, slots) in list(BOB.items()) + list(NECK.items()) if h == hero and t == tag]
-        for group in groups:
-            rc = sum(line_cost(arrs[k]) for k in group)
-            cc = sum(line_cost(arrs[k].transpose(1, 0, 2)) for k in group)
-            (r0, r1), (c0, c1) = HEAD_BOX[hero]
-            head_r, head_c = {}, {}
-            bar_r, bar_c = {cy + SOLES, cy + SOLES - 1}, set()
-            for k in group:
-                e = eye_at(hero, arrs[k])
-                head_r[k] = {e[0] + r for r in HEAD[hero][0]} if e else set()
-                head_c[k] = {e[1] + c for c in HEAD[hero][1]} if e else set()
-                if e:
-                    bar_r |= set(range(e[0] + r0, e[0] + r1 + 1))
-                    bar_c |= set(range(e[1] + c0, e[1] + c1 + 1))
-            drawn = np.any([arrs[k][..., 3] > 0 for k in group], 0)
-            dy, dx = np.nonzero(drawn.any(1))[0], np.nonzero(drawn.any(0))[0]
-            body_r = pick_lines(rc, dy.min(), dy.max(), ground, step, bar_r, len(rc), set().union(*head_r.values()))
-            body_c = pick_lines(cc, dx.min(), dx.max(), cx, step, bar_c, len(cc), set().union(*head_c.values()))
-            # a loop drawn bobbing (Codex's run: the head a row lower in some frames): the copied rows above the pivot
-            # move with the frame's head, so the body and what it holds are copied at the same place every frame
-            eyes = {k: eye_at(hero, arrs[k]) for k in group}
-            ref = next((eyes[k][0] for k in group if eyes[k]), None)
-            for k in group:
-                lift = eyes[k][0] - ref if (eyes[k] and ref is not None and len(group) > 1) else 0
-                rows = {r + lift if r < cy else r for r in body_r} | head_r[k]
-                cols = set(body_c) | head_c[k]
-                ncy = cy + sum(1 for r in rows if r < ground)
-                ncx = cx + sum(1 for c in cols if c < cx)
-                b = np.repeat(arrs[k], [2 if i in rows else 1 for i in range(arrs[k].shape[0])], axis=0)
-                b = np.repeat(b, [2 if i in cols else 1 for i in range(arrs[k].shape[1])], axis=1)
-                if block and k in block[2]:
-                    seam = cy + block[1]
-                    b = sink_block(b, seam + sum(1 for r in rows if r <= seam) + 1)
-                for y0, slots in sinks:                  # BOB / NECK at the grown seam
-                    if k in slots:
-                        seam = cy + y0
-                        cut = seam + sum(1 for r in rows if r <= seam) + 1
-                        carry = BOB_CARRY.get((hero, tag))
-                        b = sink_carry(b, cut, carry, ncy + SOLES) if carry else sink_block(b, cut)
-                frames[k] = (G.centre_frame(b, -ncx, -ncy), frames[k][1])
-                if k == 0:
-                    added[tag] = (len(rows), len(cols))
-    return f, added
-
-
-def weapon_piece(a, colours, top):
-    """The weapon: pieces of colours under array row top (the biggest, and any touching it), with their dark ring."""
-    want = np.array([[int(c[i:i + 2], 16) for i in (0, 2, 4)] for c in colours])
-    op = a[..., 3] > 0
-    hit = op & (a[..., None, :3] == want).all(-1).any(-1)
-    hit[:top] = False
-    lab, n = G.label(hit)
-    if not n:
-        return np.zeros_like(hit)
-    sizes = np.bincount(lab.ravel())[1:]
-    main = lab == int(sizes.argmax()) + 1
-    near = main.copy()                               # the blade's broken-off bits (a tip, a glint) within 3 px of it
-    for _ in range(3):
-        p = np.pad(near, 1)
-        near = near | p[:-2, 1:-1] | p[2:, 1:-1] | p[1:-1, :-2] | p[1:-1, 2:]
-    keep = np.isin(lab, [k for k in range(1, n + 1) if (near & (lab == k)).any()])
-    dark = op & (G.lum(a[..., :3]) < 45)
-    piece = keep.copy()
-    for _ in range(2):                               # its outline, doubled in places by GROW's copies
-        p = np.pad(piece, 1)
-        grow8 = (p[:-2, 1:-1] | p[2:, 1:-1] | p[1:-1, :-2] | p[1:-1, 2:] | p[:-2, :-2] | p[:-2, 2:] | p[2:, :-2] | p[2:, 2:])
-        piece = piece | (grow8 & dark)
-    return piece
-
-
-def rigid(hero, sheet):
-    """RIGID: the reference frame's weapon in every frame of the loop; {tag: the moves}."""
-    moves = {}
-    for (h, tag), (ref, colours, top) in RIGID.items():
-        if h != hero or tag not in sheet:
-            continue
-        arrs, cy, cx = canvas([np.pad(a, ((4, 4), (4, 4), (0, 0))) for a, _ in sheet[tag]])
-        rp = weapon_piece(arrs[ref], colours, cy + top)
-        rys, rxs = np.nonzero(rp)
-        moves[tag] = []
-        for k, a in enumerate(arrs):
-            kp = weapon_piece(a, colours, cy + top)
-            best = max(((int((np.roll(np.roll(rp, dy, 0), dx, 1) & kp).sum()), -abs(dy) - abs(dx), dy, dx)
-                        for dy in range(-3, 4) for dx in range(-3, 4)))
-            dy, dx = best[2], best[3]
-            b = a.copy()
-            b[kp] = 0
-            b[rys + dy, rxs + dx] = arrs[ref][rys, rxs]
-            bare = kp & ~np.roll(np.roll(rp, dy, 0), dx, 1)
-            for y, x in zip(*np.nonzero(bare)):          # leftovers of the old weapon
-                nb = [tuple(b[yy, xx]) for yy, xx in ((y - 1, x), (y + 1, x), (y, x - 1), (y, x + 1))
-                      if b[yy, xx, 3] and not kp[yy, xx]]
-                if len(nb) >= 3:
-                    b[y, x] = max(set(nb), key=nb.count)
-            lab, n = G.label(b[..., 3] > 0)                  # crumbs the old weapon left apart from the body
-            if n > 1:
-                sizes = np.bincount(lab.ravel())[1:]
-                for j in range(1, n + 1):
-                    if sizes[j - 1] <= 6:
-                        b[lab == j] = 0
-            moves[tag].append((dy, dx))
-            sheet[tag][k] = (G.centre_frame(b, -cx, -cy), sheet[tag][k][1])
-    return moves
-
-
-def face_fix(hero, sheet):
-    """FACE_FIX: the listed squares round the EYES pixel repainted in every frame whose face shows all the expected
-    colours; (frames painted, frames with the eye but another face)."""
-    if hero not in FACE_FIX:
-        return 0, 0
-    hexc = lambda c: tuple(int(c[i:i + 2], 16) for i in (0, 2, 4))
-    groups = [[(dx, dy, hexc(c), hexc(n)) for dx, dy, c, n in g] for g in FACE_FIX[hero]]
-    done = other = 0
-    for frames in sheet.values():
-        for a, _ in frames:
-            e = eye_at(hero, a)                    # found before any group paints (a later group may add the colour)
-            if e is None:
-                continue
-            for fix in groups:
-                spots = [(e[0] + dy, e[1] + dx, c, n) for dx, dy, c, n in fix]
-                if all(0 <= y < a.shape[0] and 0 <= x < a.shape[1] and a[y, x, 3] and tuple(a[y, x, :3]) == c
-                       for y, x, c, _ in spots):
-                    for y, x, _, n in spots:
-                        a[y, x, :3] = n
-                    done += 1
-                else:
-                    other += 1
-    return done, other
+        for k, (a, ms) in enumerate(frames):
+            p = np.pad(a, ((6, 6), (6, 6), (0, 0)))      # room round the frame (Morgana's pasted head template)
+            b = mod.tidy(tag, k, p.copy())
+            n += int((b != p).any(-1).sum())
+            frames[k] = (G.centre_frame(b, -(b.shape[1] // 2), -(b.shape[0] // 2)), ms)
+    return n
 
 
 def close_outline(hero, sheet):
@@ -1041,43 +752,6 @@ def close_outline(hero, sheet):
             added += n
             darkened += d
     return added, darkened, tidy
-
-
-def clear_spurs(hero, sheet):
-    """SPURS: the dark spurs round the weapon cleared; the pixels cleared."""
-    if hero not in SPURS:
-        return 0
-    want = np.array([[int(c[i:i + 2], 16) for i in (0, 2, 4)] for c in SPURS[hero]])
-    n = 0
-    for frames in sheet.values():
-        for a, _ in frames:
-            near = (a[..., 3] > 0) & (a[..., None, :3] == want).all(-1).any(-1)
-            for _ in range(2):
-                q = np.pad(near, 1)
-                near = near | q[:-2, 1:-1] | q[2:, 1:-1] | q[1:-1, :-2] | q[1:-1, 2:] | q[:-2, :-2] | q[:-2, 2:] |                     q[2:, :-2] | q[2:, 2:]
-            for _ in range(2):
-                op = a[..., 3] > 0
-                q = np.pad(op, 1)
-                clear = (~q[:-2, 1:-1]).astype(int) + (~q[2:, 1:-1]) + (~q[1:-1, :-2]) + (~q[1:-1, 2:])
-                spur = op & near & (G.lum(a[..., :3]) < 45) & (clear >= 3)
-                a[spur] = 0
-                n += int(spur.sum())
-    return n
-
-
-def tidy_frames(hero, sheet):
-    """TIDY: the hero's own clean-up module on every finished frame; the pixels it changed."""
-    if hero not in TIDY:
-        return 0
-    mod = importlib.import_module(TIDY[hero])
-    n = 0
-    for tag, frames in sheet.items():
-        for k, (a, ms) in enumerate(frames):
-            p = np.pad(a, ((6, 6), (6, 6), (0, 0)))      # room round the frame (Morgana's pasted head template)
-            b = mod.tidy(tag, k, p.copy())
-            n += int((b != p).any(-1).sum())
-            frames[k] = (G.centre_frame(b, -(b.shape[1] // 2), -(b.shape[0] // 2)), ms)
-    return n
 
 
 def flatness(frames):
@@ -1131,25 +805,11 @@ def main():
         breathe(hero, sheet)
         for tag, slots in head_move(hero, sheet).items():
             print(f"{hero}: the head moved with the body in {tag} slots " + " ".join(str(k + 1) for k in slots))
-        for tag, moves in one_upper(hero, sheet).items():
-            print(f"{hero}: one body in every {tag} frame, the parts under it moved " + " ".join(f"{d:+d}" for d in moves))
-        f, grown = grow(hero, sheet)
-        if f:
-            print(f"{hero}: grown {f:.3f}x - rows/columns copied in each strip's first frame: " +
-                  ", ".join(f"{t} {r}/{c}" for t, (r, c) in grown.items()))
-        for tag, mv in rigid(hero, sheet).items():
-            print(f"{hero}: one weapon drawing in every {tag} frame, moved " + " ".join(f"{dy:+d}/{dx:+d}" for dy, dx in mv))
-        painted, other = face_fix(hero, sheet)
-        if painted or other:
-            print(f"{hero}: face fixed in {painted} frames ({other} with the eye drawn otherwise left alone)")
         added, darkened, tidy = close_outline(hero, sheet)
         if added or darkened:
             print(f"{hero}: outline closed with {added} pixels added, {darkened} darkened on the feet line")
         if tidy:
             print(f"{hero}: outline tidied: " + ", ".join(f"{k} {v}" for k, v in tidy.items()))
-        spurs = clear_spurs(hero, sheet)
-        if spurs:
-            print(f"{hero}: {spurs} dark spurs round the weapon cleared")
         tidied = tidy_frames(hero, sheet)
         if tidied:
             print(f"{hero}: {TIDY[hero]} changed {tidied} pixels")

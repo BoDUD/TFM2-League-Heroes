@@ -605,17 +605,6 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   its hip (3 px, a one-frame 3-px snap reads bouncy).
 - **Review before shipping.** Per-strip sheets with the idle silhouette overlaid, `metrics`,
   a side-by-side with base champions at 1x and 3x, and a scripted showcase against a dummy.
-- **Growing a finished sprite: copy whole lines, never through the head (league_garen 37 -> 42 rows).** Heroes made
-  early at the base game's size looked small next to the later ~40-46-row ones ("盖伦现在尺寸在游戏里看起来偏小了"; 44
-  was "太大", "42左右就行"). `tools/art/import_native.py` `GROW` copies whole rows and columns of the finished frames:
-  one in every 1/(f - 1) lines counted up from under the soles and out from the pivot column (the soles stay SOLES
-  under the pivot, a jump's height grows with the body), each band's copy on the line that shows least (the fewest
-  one-pixel features across it, the outline counted threefold). No resampling, no new colour. The head grows by a
-  plan counted from the EYES pixel (`HEAD`: a plain hair row, the cheek row under the eyes, a back-hair column, the
-  far eye's column) and nothing else may cross it (`HEAD_BOX`): copies picked by cost alone put two rows into Garen's
-  hair (a tall crown) and none into the face. Loops copy the same body lines in every frame. `FACE_FIX` then repaints
-  squares round the EYES pixel in every frame whose face matches (Garen's far eye, one grey square under bare skin,
-  became the near eye's lid, white and iris over its two grown columns: "修复一下右眼").
 - **Move the pasted head with the body; keep the drawn walk (league_darius).** Codex pasted one head at one place in
   all 8 run frames while it drew the body a little differently in each - in frame 1 the body 5 px further forward, in
   frame 4 3 px forward and a row lower - so the head seemed left behind ("头和身体不协调"). Two "one body" fixes (the
@@ -625,11 +614,12 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   measure each frame's body against a reference frame (best colour match of the shoulders and chest, the head left
   out), and move only the head by that offset in the frames that are off (`HEAD_MOVE`); the strip the head uncovers
   takes the reference frame's pixels at the same place on the body. Change the least: the user liked the motion.
-- **A grown hero's idle may not breathe (league_garen).** Copied rows fixed in the sheet met the breathing frames' moved
-  sword a row off ("怎么盖伦上下摆动剑变形"); breathing after GROW with the sword carried down cut its tip on the soles row
-  ("剑触碰到地面直接变形"); a seam at the waist squashed the chest. The user: "不要上下摇摆 模型会变形" - his idle is one
-  drawing in all six slots. `RIGID` puts one drawing of the weapon in every frame of a loop that Codex redrew per frame,
-  and `SPURS` clears dark spurs and dots GROW left hanging off a slanted blade's doubled outline steps.
+- **A per-hero clean-up after the import (league_ahri, league_janna, league_morgana).** For dirty black blocks and stray
+  squares inside a finished sprite ("不干净的黑色块也太多了", "头部有很多多余的方块"): tools/art/clean_<hero>.py's
+  tidy(tag, k, frame) runs on every finished frame from import_native.py `TIDY` (frames padded 6 px, trimmed back):
+  black touching one material takes that material's darkest shade, a 1-px line stays where two materials meet, stray
+  squares go, the eyes never change; a cleaned head can be pasted back by the eye (Morgana). The user reviews before
+  and after; no automatic review rounds.
 
 ## QA checklist
 
