@@ -1,0 +1,39 @@
+{
+  "idle": {
+    "gif_total_ms": 1200,
+    "expected_ms": 1200
+  },
+  "run": {
+    "gif_total_ms": 1280,
+    "expected_ms": 1280
+  },
+  "attack": {
+    "gif_total_ms": 460,
+    "expected_ms": 460
+  },
+  "attack_p": {
+    "gif_total_ms": 460,
+    "expected_ms": 460
+  },
+  "skill": {
+    "gif_total_ms": 460,
+    "expected_ms": 460
+  },
+  "skill2": {
+    "gif_total_ms": 470,
+    "expected_ms": 470
+  },
+  "ult": {
+    "gif_total_ms": 670,
+    "expected_ms": 670
+  },
+  "hit": {
+    "gif_total_ms": 200,
+    "expected_ms": 200
+  },
+  "dead": {
+    "gif_total_ms": 1340,
+    "expected_ms": 1340
+  },
+  "idle_original_hash_match": true
+}
