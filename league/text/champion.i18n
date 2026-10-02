@@ -315,6 +315,13 @@
         "skill": "朝周围敌人发射<#ffb900ff>6<>枚导弹（第一枚射向目标），每枚造成<#ff9028ff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>物理伤害。<#ff9028ff>活体武器<>：攻击力达到<#ffb900ff>200<>后变为<#ffb900ff>12<>枚，每枚<#ff9028ff>20<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>34%<>。",
         "skill2": "锁定后朝敌方英雄射出长距离虚空光束（开火前走开可躲），穿过小兵，命中的第一个英雄受到<#ff9028ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>物理伤害并叠<#ffb900ff>2<>层电浆。<#ff9028ff>活体武器<>：12级起叠<#ffb900ff>3<>层并返还<#ffb900ff>75%<>冷却。",
         "ult": "冲向一名近期受伤的敌方英雄，落地获得<#ffb900ff>220<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>180%<>的护盾，持续<#ffb900ff>2秒<>。"
+      },
+      "league_ryze": {
+        "name": "瑞兹",
+        "attack": "发射符文法球攻击。被动<#ff9028ff>奥术专精<>：所有技能伤害额外加上<i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>2% 最大生命值<>（本作没有法力值，以生命值代替法力）。",
+        "skill": "向前释放魔爆，对命中的第一个敌人造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55% 法强<>的<#a974ffff>魔法伤害<>。若有敌人带着<#ff9028ff>涌动<>，命中时它们全部受到<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 法强<>的弹射伤害，涌动随之消耗。",
+        "skill2": "连招：<#ff9028ff>法术涌动<>造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>伤害，给目标和附近敌人挂上<#ff9028ff>涌动<><#ffb900ff>4秒<>；<#ff9028ff>符文禁锢<>造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>伤害，有涌动时<#ef5350ff>禁锢1.25秒<>，否则减速；再补一发<#ff9028ff>超负荷<>，两枚符文让他<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移速+30%<>。",
+        "ult": "开启传送门，引导<#ffb900ff>1秒<>后瑞兹和站在门里的友方英雄一起传送向敌方英雄，落地对附近一名敌方英雄补一发<#ff9028ff>法术涌动<>。被控会打断。被动：施放后本条命内涌动弹射伤害提高到<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 法强<>。"
       }
     },
     "skill_name": {
@@ -542,6 +549,11 @@
         "skill1": "艾卡西亚暴雨",
         "skill2": "虚空索敌",
         "ult": "猎手本能"
+      },
+      "league_ryze": {
+        "skill1": "超负荷",
+        "skill2": "符文禁锢",
+        "ult": "曲境折跃"
       }
     }
   },
@@ -861,6 +873,13 @@
         "skill": "朝周圍敵人發射<#ffb900ff>6<>枚飛彈（第一枚射向目標），每枚造成<#ff9028ff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>物理傷害。<#ff9028ff>生物兵器<>：攻擊力達到<#ffb900ff>200<>後變為<#ffb900ff>12<>枚，每枚<#ff9028ff>20<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>34%<>。",
         "skill2": "鎖定後朝敵方英雄射出長距離虛空光束（開火前走開可躲），穿過小兵，命中的第一個英雄受到<#ff9028ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>物理傷害並疊<#ffb900ff>2<>層電漿。<#ff9028ff>生物兵器<>：12級起疊<#ffb900ff>3<>層並返還<#ffb900ff>75%<>冷卻。",
         "ult": "衝向一名近期受傷的敵方英雄，落地獲得<#ffb900ff>220<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>180%<>的護盾，持續<#ffb900ff>2秒<>。"
+      },
+      "league_ryze": {
+        "name": "雷茲",
+        "attack": "發射符文法球攻擊。被動<#ff9028ff>奧術專精<>：所有技能傷害額外加上<i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>2% 最大生命<>（本作沒有魔力，以生命代替魔力）。",
+        "skill": "向前釋放魔法爆裂，對命中的第一個敵人造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55% 法術強度<>的<#a974ffff>魔法傷害<>。若有敵人帶著<#ff9028ff>法術湧動<>，命中時它們全部受到<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>的彈射傷害，湧動隨之消耗。",
+        "skill2": "連招：<#ff9028ff>法術湧動<>造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>傷害，給目標和附近敵人附加<#ff9028ff>湧動<><#ffb900ff>4秒<>；<#ff9028ff>符文禁錮<>造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>傷害，有湧動時<#ef5350ff>定身1.25秒<>，否則緩速；再補一發<#ff9028ff>超負荷<>，兩個符文讓他<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>跑速+30%<>。",
+        "ult": "開啟傳送門，引導<#ffb900ff>1秒<>後雷茲和站在門裡的隊友英雄一起傳送向敵方英雄，落地對附近一名敵方英雄補一發<#ff9028ff>法術湧動<>。被控會打斷。被動：施放後本條命內湧動彈射傷害提升至<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>。"
       }
     },
     "skill_name": {
@@ -1088,6 +1107,11 @@
         "skill1": "伊卡西亞魔雨",
         "skill2": "虛空探索者",
         "ult": "殺手本能"
+      },
+      "league_ryze": {
+        "skill1": "超負荷",
+        "skill2": "符文禁錮",
+        "ult": "扭轉之境"
       }
     }
   },
@@ -1407,6 +1431,13 @@
         "skill": "Kai'Sa fires <#ffb900ff>6<> missiles at nearby enemies (the first at her target), each dealing <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50% AD<> <#ff9028ff>physical damage<>. <#ff9028ff>Living Weapon<>: with <#ffb900ff>200<> attack it fires <#ffb900ff>12<>, <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>34% AD<> each.",
         "skill2": "Kai'Sa locks on an enemy champion and fires a long-range void bolt (dodgeable before it fires) that passes minions: the first champion hit takes <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150% AD<> <#ff9028ff>physical damage<> and <#ffb900ff>2<> Plasma. <#ff9028ff>Living Weapon<>: from level 12, <#ffb900ff>3<> Plasma and <#ffb900ff>75%<> of the cooldown back.",
         "ult": "Kai'Sa dashes to an enemy champion damaged lately and lands with a <#ffb900ff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>180% AD<> shield for <#ffb900ff>2s<>."
+      },
+      "league_ryze": {
+        "name": "Ryze",
+        "attack": "Rune orb shots. Passive <#ff9028ff>Arcane Mastery<>: all his spells deal bonus damage equal to <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>2% of his max Health<> (TFM2 has no mana; health stands in for it).",
+        "skill": "Ryze unleashes a blast that deals <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55% AP<> <#a974ffff>magic damage<> to the first enemy hit. If any enemies carry <#ff9028ff>Flux<>, the hit makes all of them take <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% AP<> bounce damage and uses the Flux up.",
+        "skill2": "Combo: <#ff9028ff>Spell Flux<> deals <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% AP<> and puts <#ff9028ff>Flux<> on the target and enemies near it for <#ffb900ff>4s<>; <#ff9028ff>Rune Prison<> deals <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55% AP<> and <#ef5350ff>roots<> for <#ffb900ff>1.25s<> while Flux is up (slows otherwise); then an <#ff9028ff>Overload<> whose two runes give him <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>30% Move Speed<>.",
+        "ult": "Ryze opens a portal; after <#ffb900ff>1s<> of channelling he and the allied champions standing in it warp toward the enemy champion, and on landing he throws a <#ff9028ff>Spell Flux<> at an enemy champion nearby. Crowd control breaks the channel. Passive: once cast in a life, the Flux bounce deals <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% AP<>."
       }
     },
     "skill_name": {
@@ -1634,6 +1665,11 @@
         "skill1": "Icathian Rain",
         "skill2": "Void Seeker",
         "ult": "Killer Instinct"
+      },
+      "league_ryze": {
+        "skill1": "Overload",
+        "skill2": "Rune Prison",
+        "ult": "Realm Warp"
       }
     }
   },
@@ -1953,6 +1989,13 @@
         "skill": "주변 적에게 미사일 <#ffb900ff>6<>발(첫 발은 대상에게)을 쏴 발마다 <#ff9028ff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 50%<> <#ff9028ff>물리 피해<>. <#ff9028ff>살아있는 무기<>: 공격력 <#ffb900ff>200<> 이상이면 <#ffb900ff>12<>발, 발마다 <#ff9028ff>20<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>34%<>.",
         "skill2": "적 챔피언을 조준해 장거리 공허 광선을 쏩니다(발사 전에 피할 수 있음). 미니언을 지나쳐 처음 맞힌 챔피언에게 <#ff9028ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 150%<> <#ff9028ff>물리 피해<>와 플라즈마 <#ffb900ff>2<>중첩. <#ff9028ff>살아있는 무기<>: 12레벨부터 <#ffb900ff>3<>중첩, 재사용 대기시간 <#ffb900ff>75%<> 반환.",
         "ult": "최근 피해를 입은 적 챔피언에게 돌진해 착지하며 <#ffb900ff>2초<> 동안 <#ffb900ff>220<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>공격력의 180%<> 보호막을 얻습니다."
+      },
+      "league_ryze": {
+        "name": "라이즈",
+        "attack": "룬 구체를 발사합니다. 기본 지속 효과 <#ff9028ff>비전 연마<>: 모든 스킬이 <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>최대 체력의 2%<>만큼 추가 피해를 입힙니다(마나 대신 체력).",
+        "skill": "돌풍을 발사해 처음 맞힌 적에게 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 55%<>의 <#a974ffff>마법 피해<>를 입힙니다. <#ff9028ff>전이 표식<>이 있는 적이 있으면 모두 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 40%<>의 튕기는 피해를 입고 표식은 소모됩니다.",
+        "skill2": "연계: <#ff9028ff>주문 전이<>가 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 피해를 입히고 대상과 주변 적에게 <#ffb900ff>4초<> 동안 <#ff9028ff>전이 표식<>을 남깁니다. <#ff9028ff>룬 감옥<>이 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> 피해를 입히고 표식이 있으면 <#ffb900ff>1.25초<> <#ef5350ff>속박<>(없으면 둔화). 이어서 <#ff9028ff>과부하<>를 쏘고 룬 두 개로 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도 30%<> 증가.",
+        "ult": "차원문을 열고 <#ffb900ff>1초<> 정신을 집중한 뒤, 문 안의 아군 챔피언과 함께 적 챔피언 쪽으로 순간이동하고 착지 시 근처 적 챔피언에게 <#ff9028ff>주문 전이<>를 던집니다. 군중 제어에 끊깁니다. 기본 지속 효과: 사용한 생명 동안 튕기는 피해가 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>로 증가."
       }
     },
     "skill_name": {
@@ -2180,6 +2223,11 @@
         "skill1": "이케시아 폭우",
         "skill2": "공허추적자",
         "ult": "사냥본능"
+      },
+      "league_ryze": {
+        "skill1": "과부하",
+        "skill2": "룬 감옥",
+        "ult": "공간 왜곡"
       }
     }
   },
@@ -2499,6 +2547,13 @@
         "skill": "周囲の敵へミサイルを<#ffb900ff>6<>発（1発目は対象へ）、1発ごとに<#ff9028ff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の50%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>共生兵器<>：攻撃力<#ffb900ff>200<>以上で<#ffb900ff>12<>発、1発<#ff9028ff>20<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>34%<>。",
         "skill2": "敵チャンピオンを狙い長距離のヴォイド弾を撃つ（発射前に避けられる）。ミニオンを抜け、最初に当たったチャンピオンに<#ff9028ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の150%<>の<#ff9028ff>物理ダメージ<>とプラズマ<#ffb900ff>2<>。<#ff9028ff>共生兵器<>：Lv12から<#ffb900ff>3<>スタック、CDの<#ffb900ff>75%<>を回復。",
         "ult": "最近ダメージを受けた敵チャンピオンへ突進し、着地で<#ffb900ff>2秒<>間<#ffb900ff>220<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>攻撃力の180%<>のシールドを得る。"
+      },
+      "league_ryze": {
+        "name": "ライズ",
+        "attack": "ルーンのオーブを放つ。パッシブ <#ff9028ff>古代の呪術<>：全スキルが<i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>最大体力の2%<>の追加ダメージ(マナの代わりに体力)。",
+        "skill": "エネルギー弾を放ち、最初に当たった敵に<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の55%<>の<#a974ffff>魔法ダメージ<>。<#ff9028ff>フラックス<>を受けた敵がいれば全員に<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の40%<>の波及ダメージ、フラックスは消費。",
+        "skill2": "連携：<#ff9028ff>スペルフラックス<>が<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>、対象と周囲の敵に<#ffb900ff>4秒<><#ff9028ff>フラックス<>。<#ff9028ff>ルーンプリズン<>が<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>、フラックス中は<#ffb900ff>1.25秒<><#ef5350ff>スネア<>(無ければスロウ)。続けて<#ff9028ff>オーバーロード<>、ルーン2個で<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度30%<>増加。",
+        "ult": "ポータルを開き<#ffb900ff>1秒<>詠唱後、中にいる味方チャンピオンと共に敵チャンピオンの方へテレポートし、着地時に近くの敵チャンピオンへ<#ff9028ff>スペルフラックス<>。行動妨害で中断。パッシブ：使用したライフの間、波及ダメージが<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>に。"
       }
     },
     "skill_name": {
@@ -2726,6 +2781,11 @@
         "skill1": "イカシアの雨",
         "skill2": "ヴォイドシーカー",
         "ult": "キラーヴォイド"
+      },
+      "league_ryze": {
+        "skill1": "オーバーロード",
+        "skill2": "ルーンプリズン",
+        "ult": "ポータルワープ"
       }
     }
   }
