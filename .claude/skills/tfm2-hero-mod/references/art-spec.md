@@ -616,14 +616,20 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   hair (a tall crown) and none into the face. Loops copy the same body lines in every frame. `FACE_FIX` then repaints
   squares round the EYES pixel in every frame whose face matches (Garen's far eye, one grey square under bare skin,
   became the near eye's lid, white and iris over its two grown columns: "修复一下右眼").
-- **One body for a run redrawn anew in every frame (league_darius).** Codex redrew the whole run round one pasted head
-  in every frame - the pauldron beside the face in six frames and dropped in two, chest, arms, cape and the hanging axe
-  2-5 px back and forth - and the head seemed to slide over the body ("诺手在上半区移动看起来头和身体不协调"). A block from
-  the chin up left the chest sliding under it ("胸部以下和胸部以上协调吗？又看起来像割裂了一样"): any seam through the
-  body shows. `BLOCK` puts one frame's whole body down to the knees into every frame (the reference with a clean face
-  and the weapon as in idle), keeps each frame's shins and feet (the stride) and whatever crosses the seam, moved
-  sideways to meet the block (best colour match in a box round the seam: -4..+2 px), and sinks the body a row on the
-  step's low frames.
+- **Move the pasted head with the body; keep the drawn walk (league_darius).** Codex pasted one head at one place in
+  all 8 run frames while it drew the body a little differently in each - in frame 1 the body 5 px further forward, in
+  frame 4 3 px forward and a row lower - so the head seemed left behind ("头和身体不协调"). Two "one body" fixes (the
+  chin-up block over every frame; the body down to the knees with only the feet drawn per frame) were rejected - a body
+  cut at the chest, a frozen body gliding - and so were four rebuilds (a unified torso, the idle body on League's
+  joints, a full part rig, one body with re-attached limbs): "原来的走路姿势是最好的 问题是头和身体不协调". What worked:
+  measure each frame's body against a reference frame (best colour match of the shoulders and chest, the head left
+  out), and move only the head by that offset in the frames that are off (`HEAD_MOVE`); the strip the head uncovers
+  takes the reference frame's pixels at the same place on the body. Change the least: the user liked the motion.
+- **Grow first, then breathe; a held weapon moves in one piece (league_garen).** Copied rows fixed in the sheet met the
+  breathing frames' moved sword a row off, so it bent with every breath ("怎么盖伦上下摆动剑变形"): a growing hero's BOB
+  runs after GROW at the grown seam, `BOB_CARRY` sinks the weapon's part under the seam with the body (what would go
+  under the soles is dropped: the tip stays planted), and `RIGID` puts one drawing of the weapon in every frame of a
+  loop that Codex redrew per frame (the old blade, its 2-px dark ring and loose crumbs cleared first).
 
 ## QA checklist
 
