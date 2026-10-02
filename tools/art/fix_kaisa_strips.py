@@ -23,7 +23,8 @@ where League's run_base takes two). The user: "有问题的地方你进行收尾
   half (the near one in 1-4, the far one in 5-8), its boot flat and stepping back a square a frame (SUPPORT_DX), its
   knee from the leg lengths; the swinging leg on League's run (RUN_SWING: both halves averaged, so both steps are
   alike; the far leg swings back 1.3 times as far, or its kick hides behind the near leg), a lifted boot a row off the
-  ground; one outline round each leg, a single line where they overlap. Earlier tries: legs drawn square by square in
+  ground, its foot at League's angle (toe back and down); one outline round each leg, a single line where they
+  overlap. Earlier tries: legs drawn square by square in
   the idle's materials ("移动时和放技能的时候腿部还是不一样啊"), row-shifted idle legs that lost their shins
   ("上腿下下腿和截肢了一样"), the idle's leg texture on bones (its gold and brown details scattered into specks:
   "还是不对 你好好修吧");
@@ -87,7 +88,7 @@ RUN_HIPS = {"near": -1.5, "far": 2.5}
 RUN_HIP_Y, RUN_ANKLE_Y = -1.0, 10.0
 THIGH_L, SHIN_L = 7.5, 3.5                # the knee at the idle's knee guards, 6.5 under the pivot
 R_THIGH, R_SHIN = 1.75, 1.3               # the capsules' radii: a thigh 4 squares wide, a shin 3, like the idle's
-BOOT_HEEL, BOOT_LEN, BOOT_W = 0.5, 3.0, 0.9
+BOOT_HEEL, BOOT_LEN, BOOT_W = 0.5, 2.5, 0.9       # a boot 4 squares heel to toe, 2 rows: the idle's are 3 and 5
 # one supporting leg per half (the near one in frames 1-4, the far one in 5-8, so both steps are alike): its boot flat
 # on the ground, stepping back a square a frame from its hip; the body RUN_BOB rows lower in mid-stance
 SUPPORT_DX = (2.5, 1.5, 0.5, -0.5)
@@ -96,6 +97,9 @@ RUN_BOB = (0, 1, 1, 0)
 # tools/lol/pose_joints.py, @108 @217 @325 @433): the far leg in frames 1-4 averaged with the near leg in 5-8. The far
 # leg swings back RUN_BACK_FAR times as far, or its kick stays hidden behind the near leg
 RUN_SWING = [(-38.5, -66.5), (-32.5, -97.0), (-4.0, -102.0), (27.0, -70.5)]
+# its foot, ankle to toe (degrees from straight down): League's, the toe back and down while the heel is up - a foot
+# drawn square to the shin hung straight down from a level shin like a peg (the user: "你觉得对吗")
+RUN_FOOT = (-20.0, -49.0, -66.0, -30.0)
 RUN_BACK_FAR = 1.3
 THIGH, SHIN, FOOT = 3.8, 3.2, 2.8         # widths in game px (the inside, 4 squares like the idle's and the run's legs;
 #                                           the outline ring goes round it)
@@ -302,13 +306,8 @@ def run_frame(idle, k, pivot):
     kn = hips[swg] + THIGH_L * np.array([math.sin(th), math.cos(th)])
     an = kn + SHIN_L * np.array([math.sin(sh), math.cos(sh)])
     an[1] = min(an[1], iy + RUN_ANKLE_Y - 1.0)          # a lifted boot stays a row off the ground
-    s = unit(an - kn)
-    if s[1] >= 0.3:                                     # the shin hangs down: the foot forward, tilted down
-        foot = unit([1.0, 0.6])
-    else:                                               # kicked up behind: the foot hangs from the ankle, toe down
-        foot = unit([-s[1], s[0]])
-        foot = -foot if foot[1] < 0 else foot
-    legs[swg] = (hips[swg], kn, an, foot)
+    a = math.radians(RUN_FOOT[p])
+    legs[swg] = (hips[swg], kn, an, np.array([math.sin(a), math.cos(a)]))
     out = legs_layer(run_leg(shape, *legs["far"]), run_leg(shape, *legs["near"]))
     out[iy + 12:] = 0                                   # nothing under the soles' outline row
     up = idle.copy()
