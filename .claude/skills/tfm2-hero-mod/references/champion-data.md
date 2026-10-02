@@ -1149,6 +1149,8 @@ champion a game is still in reach when the tether ends, no change.
 league_blitzcrank (support, --lane 4, 2026-10-02, Rocket Grab's 0.67 s stun and Power Fist's 1 s knock-up): 1.98 a
 game; league_leona 1.88, league_thresh 1.35 and the base priest 0.65 in the same batch - with the hard-CC supports, no
 change.
+league_leblanc (mid, 2026-10-02, Ethereal Chains' 1.5 s root when the chain holds for 1.5 s): 0.58 a game; the
+base pyromancer 0.65 and lightning mage 3.19 in the same batch - the root needs the chain to hold, no change.
 
 **Kill trigger (league_jinx Get Excited!).** No effect fires on a kill, but section 4's facts make one:
 1. Next to the damaging projectile, fire an invisible twin with the same speed and path and
@@ -2468,6 +2470,51 @@ angle (4 logged games: 15 of 80 within 15 degrees of level, 60 between 30 and 90
 units (`z` 1: the catch never hides the claw) and the chains under them (`z` -1), running back to the hook's start:
 thrown level his straight arm hides the chain and it comes out of the socket, thrown at an angle it comes out from
 behind his head and shoulder - nothing hangs in the air. The flying claw rides the hook, its chain the twin.
+
+**A mark that her next spell bursts, and the Q -> W combo (league_leblanc Q, Sigil of Malice).** A `Targeting` cast
+on `EnemyWithoutTower` (70000) throws a `TargetProjectile` (3500 a tick): magic damage and a mark for 210 ticks.
+Nothing reads a buff on a target (league_diana Moonlight), so the mark lives on the unit as two `AddCasted`s that
+read caster flags: one plays the sigil picture every 12 ticks while the caster flag `q_mark` holds (a 4-frame loop of
+3 ticks a frame looks continuous), one checks every 2 ticks for `pop_q`, which every other spell hit of hers
+refreshes for 3 ticks (W's blast, the chain and the root, R's versions; R's sigil has its own `rq_mark` / `pop_rq`
+and each pops the other): then the sigil bursts on the marked unit (magic damage again) and `q_mark` goes. Any of her
+spell hits pops it, not only one on the marked unit, but the AI follows up on the unit it marked nearly always. The
+combo (the user: "可以加入连招逻辑 像盲僧那样", league_leesin Q1 -> Q2): a hidden twin of the sigil on `EnemyChampion`
+sets `q_champ` when it lands; 24 ticks after the release, with `q_champ` on and W ready (the caster flag `w_cd`, which
+W's slot shares: while it runs the slot's effect is an empty branch the AI does not cast, league_caitlyn W), the cast
+goes on into W - she dashes onto the champion she marked and the blast bursts the sigil. Without the combo she scored
+about 0.6 lower (lane 2 against the five base mages).
+
+**A dash that comes back by itself (league_leblanc W, Distortion).** A `Targeting` cast on `EnemyChampion` (60000):
+`MoveToTarget` (4000 a tick) and a blast in its `end_effects` (radius 26000, magic damage, pops sigils). The return is
+league_ekko R's anchor: a `LinearProjectile` with speed 1 and range 1 ends where she stood, and its `end_effects` hold
+a `Delayed` (75 ticks) that `Teleport`s her back when the caster flag `w_go` is there. The go is queued on her own
+unit - a `Delayed` in a self-only `RangeEffect` (`AllyOnlySelf`) - because a `Delayed` queued on a unit that dies runs
+only its pictures: queued on the dash's target, the minion the blast killed cancelled 4 of 8 returns. The anchor's
+`end_effects` outlive her, so a dead LeBlanc does not come back, and one tick before the return a `RandomTarget` on
+`AllyChampionInCC` keeps a crowd-controlled one where she is (league_missfortune R's check; League has no recast while
+stunned). A dash cast while a return is pending sets up none of its own: the pending one takes her home.
+
+**A chain folded into the attack that roots if it holds (league_leblanc E, Ethereal Chains).** Every 10 s her next
+attack with an enemy champion within 80000 throws the chain at him instead (`CasterAnimation e`, league_caitlyn's net):
+the aim locks 8 ticks before the throw (a hidden `ParabolicProjectile` lands where he stood, league_caitlyn Q), and a
+non-penetrating `LinearProjectile` on `EnemyChampion` (3000 a tick) flies there through minions: magic damage, the
+tether (links flying back to her every 12 ticks, league_fiddlesticks W / league_nocturne E) and after 90 ticks a check
+whether she is still within 95000 of him (a hidden projectile asking `RandomTarget {AllyOnlySelf, from_projectile:
+true}`, league_nocturne E): yes - `Bind` 90 ticks and more magic damage.
+
+**Repeat the last spell (league_leblanc R, Mimicry).** Each of her spells swaps one `Permanent` caster flag of three
+(`last_q`, `last_w`, `last_e`: remove the others, add its own); R is a `Targeting` cast on `EnemyChampion` (70000)
+whose effect is `SwitchByBuff last_w -> RW, last_e -> RE, else RQ`: a bigger sigil (its own mark), a bigger dash and
+blast (radius 30000) with the return, a bigger chain and root - about double damage. Death clears the flags, so the
+first R after a respawn is RQ, as is one before any spell.
+
+**A dodge when she is crowded (league_leblanc passive, Mirror Image).** League's trigger is "below 40% health", which
+no effect reads; the user picked "when crowded": while the 40-s caster flag `p_cd` is off, each attack first counts
+the enemy champions within 40000 (a `RangeEffect` that sets `p_n1` on the first and `p_n2` from the second,
+league_kayle R) and a tick later, with `p_n2` on, she turns `CasterInvisible` for 60 ticks, hops away from one of
+them (`MoveBack` 6000 a tick for 4 ticks inside a `RandomTarget`) and leaves the clone picture where she stood; the
+shot is skipped.
 
 **Overdrive folded into the uppercut (league_blitzcrank W in E, Power Fist).** W's cooldown is a caster flag `w_cd`
 (900 ticks). Every action asks first: with `w_cd` absent and an enemy champion within 60000 (`RandomTarget` sets a
