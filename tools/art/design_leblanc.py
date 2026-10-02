@@ -22,13 +22,15 @@ staff to stand straight, the hole in the cape to go and the outline to be clean 
      crystal's right outline - the left wing's squares mirrored about the shaft, 2 rows lower as Codex drew it;
   4. enclosed clear squares in the body (rows 24 down), and single enclosed squares anywhere, filled with the colour
      round them (a 6-square hole in the cape's lower left, one square between the staff's guard and its right wing); the far gold ear-cuff moved 3 rows down to the eyes' height (the row cut had left it above
-     them: "耳边耳朵位置有点偏高了吧", the user picked "下移 3 行" of 2 / 3);
+     them: "耳边耳朵位置有点偏高了吧", the user picked "下移 3 行" of 2 / 3), and the near ear made its mirror image
+     about the face's middle ("最好左右耳朵做成一样的");
   5. strips.complete_outline (one outline square outside every light edge, nothing under the soles), then
      strips.clean_outline (one black ring, no crumbs, no doubled corners), the face's box never touched; then
      black pieces touching no colour (8-connected, up to 4 squares) go - the mirrored wing's tip outline landed
      apart from the wing ("法杖旁边多了一块黑色素") - and so does every edge square of the outline with no coloured
      square among its 8 neighbours (it outlines nothing: "这里也有多余的黑色方框", the left wing's tip);
-  6. on the 128x128 canvas at 8x: the soles on row 99, the middle of the feet on column 64.
+  6. on the 128x128 canvas at 8x: the soles on row 99, the middle of the feet on column 64; the near eye's two
+     pupil squares in #7A0012, a red no other square uses (import_native's EYES finds the eyes by it).
 --check compares the result with the committed leblanc_native.png instead of writing it.
 """
 import argparse
@@ -67,7 +69,12 @@ HOLES_FROM = 24
 EAR = [(8, 16), (9, 16), (9, 17), (10, 16), (10, 17), (11, 16), (12, 16)]      # the far ear-cuff (cut coordinates)
 EAR_OUTLINE = [(7, 16), (8, 17), (9, 18), (10, 18), (11, 17), (12, 17)]
 EAR_DY = 3
+# the near ear made the far one's mirror image about the face's middle (cut column 9: "最好左右耳朵做成一样的"); the
+# old near cuff's squares the mirror does not cover become outline
+NEAR_EAR_OLD = [(13, 2), (14, 2), (14, 3), (15, 3)]
+EAR_AXIS2 = 18
 FEET_MID = 10                                    # the cut's column between the two heels
+PUPILS, EYE = [(70, 62), (71, 62)], (0x7A, 0x00, 0x12)   # canvas squares of the near eye's pupil; the eye-only red
 
 
 def lp(path):
@@ -359,6 +366,10 @@ def build():
         a[p] = 0
     for (r, c), v in ear.items():
         a[r + EAR_DY, c] = v
+    for p in NEAR_EAR_OLD:
+        a[p] = OUTLINE + (255,)
+    for (r, c), v in ear.items():
+        a[r + EAR_DY, EAR_AXIS2 - c] = v
     a = np.pad(a, ((2, 2), (2, 2), (0, 0)))
     keep = np.zeros(a.shape[:2], bool)
     r0, r1, c0, c1 = FACE_BOX
@@ -372,6 +383,12 @@ def build():
     can = np.zeros((128, 128, 4), np.uint8)
     y0, x0 = SOLE_ROW + 1 - fig.shape[0], MID_COL - mid
     can[y0:y0 + fig.shape[0], x0:x0 + fig.shape[1]] = fig
+    for r, c in PUPILS:
+        assert hexs(can[r, c]) == "7F0015", (r, c, hexs(can[r, c]))
+        can[r, c, :3] = EYE
+    assert not (can[..., :3] == np.array(EYE, np.uint8)).all(-1).sum() - len(PUPILS)
+    ys, xs = np.nonzero(can[..., 3] > 0)
+    fig = can[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
     return can, fig
 
 
