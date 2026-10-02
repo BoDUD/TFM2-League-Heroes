@@ -1,0 +1,149 @@
+{
+  "body_dimensions_ok": true,
+  "skill_frames_1_2_8_pixel_identical": true,
+  "eight_by_eight_block_contract": true,
+  "body_palette_ok": true,
+  "binary_alpha": true,
+  "changes_confined_to_throwing_arm": true,
+  "wrist_positions": [
+    {
+      "tag": "skill",
+      "frame": 4,
+      "pivot": [
+        60,
+        86
+      ],
+      "wrist": [
+        84,
+        75
+      ],
+      "relative": [
+        24,
+        -11
+      ]
+    },
+    {
+      "tag": "skill",
+      "frame": 5,
+      "pivot": [
+        58,
+        86
+      ],
+      "wrist": [
+        82,
+        75
+      ],
+      "relative": [
+        24,
+        -11
+      ]
+    },
+    {
+      "tag": "skill",
+      "frame": 6,
+      "pivot": [
+        54,
+        86
+      ],
+      "wrist": [
+        78,
+        75
+      ],
+      "relative": [
+        24,
+        -11
+      ]
+    },
+    {
+      "tag": "q_pull",
+      "frame": 1,
+      "pivot": [
+        58,
+        86
+      ],
+      "wrist": [
+        88,
+        81
+      ],
+      "relative": [
+        30,
+        -5
+      ]
+    },
+    {
+      "tag": "q_pull",
+      "frame": 2,
+      "pivot": [
+        55,
+        86
+      ],
+      "wrist": [
+        85,
+        81
+      ],
+      "relative": [
+        30,
+        -5
+      ]
+    },
+    {
+      "tag": "q_pull",
+      "frame": 3,
+      "pivot": [
+        54,
+        86
+      ],
+      "wrist": [
+        84,
+        81
+      ],
+      "relative": [
+        30,
+        -5
+      ]
+    }
+  ],
+  "nothing_below_foot_line": true,
+  "claws": [
+    {
+      "file": "blitzcrank_fx_q_claw_open_1x.png",
+      "size": [
+        32,
+        14
+      ],
+      "alpha_binary": true,
+      "palette_ok": true
+    },
+    {
+      "file": "blitzcrank_fx_q_claw_closed_1x.png",
+      "size": [
+        32,
+        14
+      ],
+      "alpha_binary": true,
+      "palette_ok": true
+    }
+  ],
+  "chain_size": [
+    8,
+    3
+  ],
+  "chain_seamless_x": true,
+  "connected_components_diagnostic": {
+    "skill": [
+      1,
+      1,
+      1,
+      2,
+      1,
+      1,
+      1,
+      1
+    ],
+    "q_pull": [
+      1,
+      1,
+      1
+    ]
+  }
+}

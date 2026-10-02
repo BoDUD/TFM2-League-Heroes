@@ -89,7 +89,7 @@ NECK_EYES = {("fiora", "hit", 0): (-19, 3)}
 # needs it closed). Nothing goes under the soles row; a frame that already reaches lower (lying down) keeps its own
 # bottom.
 COMPLETE = {"nami", "veigar", "jax", "ahri", "taric", "tristana", "fiora", "diana", "leesin", "missfortune", "fizz", "shaco",
-            "caitlyn", "nocturne", "leblanc"}
+            "caitlyn", "nocturne", "blitzcrank", "leblanc"}
 # hero: the luminance from which an edge pixel gets the outline (complete_outline's `dark`, default 70). Fiora's teal
 # leggings (luminance ~58) and wine cape (~44) edge many action frames without black: tfm2_ase.py metrics counts only
 # luminance < 40 as outline, so at 70 her Q frames read 83-89% (the bare rapier aside); at 40 they close too.
@@ -191,6 +191,8 @@ ORDER = {("lux", "idle"): [0, 0, 0, 0, 0, 0],   # the step-2 idle is the design 
          ("caitlyn", "passive"): [0, 1, 2, 4, 4, 5],
          # and Nocturne (Codex's game-size design B cut to 40 rows: the pack's idle is the design in all six)
          ("nocturne", "idle"): [0, 0, 0, 0, 0, 0],
+         # and Blitzcrank (Codex's game-size design B2, fixed by hand: the pack's idle is the design in all six)
+         ("blitzcrank", "idle"): [0, 0, 0, 0, 0, 0],
          # and LeBlanc (Codex's game-size design B cut to 43 rows: the pack's idle is the design in all six)
          ("leblanc", "idle"): [0, 0, 0, 0, 0, 0]}
 # (hero, tag): (y, slots) - in those slots everything at or above pivot row y moves down a row (the row under
@@ -283,6 +285,9 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        # Nocturne floats on his smoke tail: all of him sinks a row and rises again, the seam in the tail's thin straight
        # part (rows 97/98 of the design: 2 squares differ, 1 of the outline); only the tail's tip stays on the ground
        ("nocturne", "idle"): (9, [2, 3, 4]),
+       # Blitzcrank: his fists hang down beside his feet, so every seam over the soles cuts them and the pistons; across
+       # the feet (rows 9/10: the same outline, 16 squares of shading) the body, the fists and the ankles sink a row
+       ("blitzcrank", "idle"): (9, [2, 3, 4]),
        # LeBlanc: her gown's diagonal trims change every row (13-18 squares from one row to the next); the seam runs
        # through the hem over her heels (rows 97/98 of the design), the staff's straight shaft one row shorter
        ("leblanc", "idle"): (9, [2, 3, 4])}
@@ -329,6 +334,7 @@ EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade
         "shaco": (3, 167, 233),           # the hat's horns top every frame; the ice cyan is used only in his eyes
         "caitlyn": (20, 84, 169),         # her top hat tops most frames (the rifle W, Q 1 and R 1); the blue is only in her eyes
         "nocturne": (255, 255, 255),      # the crest or a raised blade tops the frames; pure white only in his eyes
+        "blitzcrank": (243, 164, 217),    # the smokestacks and the raised fists top the frames; the pink is the eyes
         "leblanc": (122, 0, 18)}          # her staff's crystal or diadem tops the frames; the dark red is her near pupil's
 
 

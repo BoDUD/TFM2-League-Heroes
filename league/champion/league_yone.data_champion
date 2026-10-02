@@ -2159,6 +2159,38 @@
                 "speed": 3000,
                 "range": 40000,
                 "end_effects": []
+              },
+              {
+                "type": "LinearProjectile",
+                "name": "league_yone_q3_mark",
+                "speed": 3000,
+                "range": 46000,
+                "shape": {
+                  "Circle": {
+                    "radius": 12000
+                  }
+                },
+                "penetrate": true,
+                "y_offset": 0,
+                "applied_target": "EnemyChampion",
+                "applied_effects": [
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_yone_q3_up",
+                        "duration": {
+                          "Time": {
+                            "tick": 90
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  }
+                ],
+                "end_effects": []
               }
             ]
           }
@@ -5621,80 +5653,89 @@
     "casting_target": "EnemyChampion",
     "attack_type": "Skill",
     "effect": {
-      "type": "Combine",
-      "effects": [
-        {
-          "type": "Sfx",
-          "name": "league_yone_r_cast"
-        },
-        {
-          "type": "LineRangeProjectile",
-          "name": "league_yone_r_line",
-          "width": 20000,
-          "length": 90000,
-          "delay": 34,
-          "apply": 999,
-          "applied_target": "EnemyWithoutTower",
-          "applied_effects": []
-        },
-        {
-          "type": "Delayed",
-          "tick": 15,
-          "effects": [
-            {
-              "type": "LineRangeProjectile",
-              "name": "league_yone_r_hit",
-              "width": 20000,
-              "length": 90000,
-              "delay": 2,
-              "apply": 1,
-              "applied_target": "EnemyWithoutTower",
-              "applied_effects": [
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "Attack",
-                    "damage": 70,
-                    "attack_ratio": 50
-                  }
-                },
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "FixedAttack",
-                    "damage": 50,
-                    "attack_ratio": 35
-                  }
-                },
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "Airborne",
-                    "duration": 45
-                  }
-                },
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "ViewEffect",
-                    "name": "league_yone_r_slash"
-                  }
-                },
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "TargetSfx",
-                    "name": "league_yone_r_hit"
-                  }
-                }
-              ]
-            },
-            {
-              "type": "SwitchByBuff",
-              "buff_name": "league_yone_spirit",
-              "effect_buff": {
+      "type": "SwitchByBuff",
+      "buff_name": "league_yone_q3_up",
+      "effect_buff": {
+        "type": "Combine",
+        "effects": [
+          {
+            "type": "RemoveCasterBuff",
+            "name": "league_yone_q3_up"
+          },
+          {
+            "type": "CasterAnimation",
+            "name": "q3",
+            "tick": 30
+          },
+          {
+            "type": "Sfx",
+            "name": "league_yone_r_cast"
+          },
+          {
+            "type": "LineRangeProjectile",
+            "name": "league_yone_r_line",
+            "width": 20000,
+            "length": 90000,
+            "delay": 34,
+            "apply": 999,
+            "applied_target": "EnemyWithoutTower",
+            "applied_effects": []
+          },
+          {
+            "type": "Delayed",
+            "tick": 7,
+            "effects": [
+              {
                 "type": "LineRangeProjectile",
-                "name": "league_yone_r_twin",
+                "name": "league_yone_r_hit",
+                "width": 20000,
+                "length": 90000,
+                "delay": 2,
+                "apply": 1,
+                "applied_target": "EnemyWithoutTower",
+                "applied_effects": [
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "Attack",
+                      "damage": 70,
+                      "attack_ratio": 50
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "FixedAttack",
+                      "damage": 50,
+                      "attack_ratio": 35
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "Airborne",
+                      "duration": 45
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "ViewEffect",
+                      "name": "league_yone_r_slash"
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "TargetSfx",
+                      "name": "league_yone_r_hit"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "LineRangeProjectile",
+                "name": "league_yone_r_mark",
                 "width": 20000,
                 "length": 90000,
                 "delay": 2,
@@ -5705,652 +5746,1548 @@
                     "casting_type": "Targeting",
                     "effect": {
                       "type": "SwitchByBuff",
-                      "buff_name": "league_yone_spirit",
+                      "buff_name": "league_yone_q_lock",
                       "effect_buff": {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_yone_e_b11",
-                        "effect_buff": {
-                          "type": "SwitchByBuff",
-                          "buff_name": "league_yone_e_b6",
-                          "effect_buff": {
-                            "type": "SwitchByBuff",
-                            "buff_name": "league_yone_e_b3",
-                            "effect_buff": {
-                              "type": "SwitchByBuff",
-                              "buff_name": "league_yone_e_b2",
-                              "effect_buff": {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_yone_e_b1",
-                                "effect_buff": {
-                                  "type": "Combine",
-                                  "effects": [
-                                    {
-                                      "type": "AddBuff",
-                                      "buff_state": {
-                                        "name": "league_yone_e_mark",
-                                        "duration": {
-                                          "Time": {
-                                            "tick": 242
-                                          }
-                                        }
-                                      }
-                                    },
-                                    {
-                                      "type": "Delayed",
-                                      "tick": 242,
-                                      "effects": [
-                                        {
-                                          "type": "SwitchByBuff",
-                                          "buff_name": "league_yone_e_alive",
-                                          "effect_buff": {
-                                            "type": "Combine",
-                                            "effects": [
-                                              {
-                                                "type": "FixedAttack",
-                                                "damage": 30,
-                                                "attack_ratio": 21
-                                              },
-                                              {
-                                                "type": "ViewEffect",
-                                                "name": "league_yone_e_pop"
-                                              },
-                                              {
-                                                "type": "TargetSfx",
-                                                "name": "league_yone_e_hit"
-                                              }
-                                            ]
-                                          },
-                                          "effect_none": {
-                                            "type": "Combine",
-                                            "effects": []
-                                          }
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                },
-                                "effect_none": {
-                                  "type": "Combine",
-                                  "effects": [
-                                    {
-                                      "type": "AddBuff",
-                                      "buff_state": {
-                                        "name": "league_yone_e_mark",
-                                        "duration": {
-                                          "Time": {
-                                            "tick": 222
-                                          }
-                                        }
-                                      }
-                                    },
-                                    {
-                                      "type": "Delayed",
-                                      "tick": 222,
-                                      "effects": [
-                                        {
-                                          "type": "SwitchByBuff",
-                                          "buff_name": "league_yone_e_alive",
-                                          "effect_buff": {
-                                            "type": "Combine",
-                                            "effects": [
-                                              {
-                                                "type": "FixedAttack",
-                                                "damage": 30,
-                                                "attack_ratio": 21
-                                              },
-                                              {
-                                                "type": "ViewEffect",
-                                                "name": "league_yone_e_pop"
-                                              },
-                                              {
-                                                "type": "TargetSfx",
-                                                "name": "league_yone_e_hit"
-                                              }
-                                            ]
-                                          },
-                                          "effect_none": {
-                                            "type": "Combine",
-                                            "effects": []
-                                          }
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                }
-                              },
-                              "effect_none": {
-                                "type": "Combine",
-                                "effects": [
-                                  {
-                                    "type": "AddBuff",
-                                    "buff_state": {
-                                      "name": "league_yone_e_mark",
-                                      "duration": {
-                                        "Time": {
-                                          "tick": 202
-                                        }
-                                      }
-                                    }
-                                  },
-                                  {
-                                    "type": "Delayed",
-                                    "tick": 202,
-                                    "effects": [
-                                      {
-                                        "type": "SwitchByBuff",
-                                        "buff_name": "league_yone_e_alive",
-                                        "effect_buff": {
-                                          "type": "Combine",
-                                          "effects": [
-                                            {
-                                              "type": "FixedAttack",
-                                              "damage": 30,
-                                              "attack_ratio": 21
-                                            },
-                                            {
-                                              "type": "ViewEffect",
-                                              "name": "league_yone_e_pop"
-                                            },
-                                            {
-                                              "type": "TargetSfx",
-                                              "name": "league_yone_e_hit"
-                                            }
-                                          ]
-                                        },
-                                        "effect_none": {
-                                          "type": "Combine",
-                                          "effects": []
-                                        }
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            },
-                            "effect_none": {
-                              "type": "SwitchByBuff",
-                              "buff_name": "league_yone_e_b5",
-                              "effect_buff": {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_yone_e_b4",
-                                "effect_buff": {
-                                  "type": "Combine",
-                                  "effects": [
-                                    {
-                                      "type": "AddBuff",
-                                      "buff_state": {
-                                        "name": "league_yone_e_mark",
-                                        "duration": {
-                                          "Time": {
-                                            "tick": 182
-                                          }
-                                        }
-                                      }
-                                    },
-                                    {
-                                      "type": "Delayed",
-                                      "tick": 182,
-                                      "effects": [
-                                        {
-                                          "type": "SwitchByBuff",
-                                          "buff_name": "league_yone_e_alive",
-                                          "effect_buff": {
-                                            "type": "Combine",
-                                            "effects": [
-                                              {
-                                                "type": "FixedAttack",
-                                                "damage": 30,
-                                                "attack_ratio": 21
-                                              },
-                                              {
-                                                "type": "ViewEffect",
-                                                "name": "league_yone_e_pop"
-                                              },
-                                              {
-                                                "type": "TargetSfx",
-                                                "name": "league_yone_e_hit"
-                                              }
-                                            ]
-                                          },
-                                          "effect_none": {
-                                            "type": "Combine",
-                                            "effects": []
-                                          }
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                },
-                                "effect_none": {
-                                  "type": "Combine",
-                                  "effects": [
-                                    {
-                                      "type": "AddBuff",
-                                      "buff_state": {
-                                        "name": "league_yone_e_mark",
-                                        "duration": {
-                                          "Time": {
-                                            "tick": 162
-                                          }
-                                        }
-                                      }
-                                    },
-                                    {
-                                      "type": "Delayed",
-                                      "tick": 162,
-                                      "effects": [
-                                        {
-                                          "type": "SwitchByBuff",
-                                          "buff_name": "league_yone_e_alive",
-                                          "effect_buff": {
-                                            "type": "Combine",
-                                            "effects": [
-                                              {
-                                                "type": "FixedAttack",
-                                                "damage": 30,
-                                                "attack_ratio": 21
-                                              },
-                                              {
-                                                "type": "ViewEffect",
-                                                "name": "league_yone_e_pop"
-                                              },
-                                              {
-                                                "type": "TargetSfx",
-                                                "name": "league_yone_e_hit"
-                                              }
-                                            ]
-                                          },
-                                          "effect_none": {
-                                            "type": "Combine",
-                                            "effects": []
-                                          }
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                }
-                              },
-                              "effect_none": {
-                                "type": "Combine",
-                                "effects": [
-                                  {
-                                    "type": "AddBuff",
-                                    "buff_state": {
-                                      "name": "league_yone_e_mark",
-                                      "duration": {
-                                        "Time": {
-                                          "tick": 142
-                                        }
-                                      }
-                                    }
-                                  },
-                                  {
-                                    "type": "Delayed",
-                                    "tick": 142,
-                                    "effects": [
-                                      {
-                                        "type": "SwitchByBuff",
-                                        "buff_name": "league_yone_e_alive",
-                                        "effect_buff": {
-                                          "type": "Combine",
-                                          "effects": [
-                                            {
-                                              "type": "FixedAttack",
-                                              "damage": 30,
-                                              "attack_ratio": 21
-                                            },
-                                            {
-                                              "type": "ViewEffect",
-                                              "name": "league_yone_e_pop"
-                                            },
-                                            {
-                                              "type": "TargetSfx",
-                                              "name": "league_yone_e_hit"
-                                            }
-                                          ]
-                                        },
-                                        "effect_none": {
-                                          "type": "Combine",
-                                          "effects": []
-                                        }
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            }
-                          },
-                          "effect_none": {
-                            "type": "SwitchByBuff",
-                            "buff_name": "league_yone_e_b9",
-                            "effect_buff": {
-                              "type": "SwitchByBuff",
-                              "buff_name": "league_yone_e_b8",
-                              "effect_buff": {
-                                "type": "SwitchByBuff",
-                                "buff_name": "league_yone_e_b7",
-                                "effect_buff": {
-                                  "type": "Combine",
-                                  "effects": [
-                                    {
-                                      "type": "AddBuff",
-                                      "buff_state": {
-                                        "name": "league_yone_e_mark",
-                                        "duration": {
-                                          "Time": {
-                                            "tick": 122
-                                          }
-                                        }
-                                      }
-                                    },
-                                    {
-                                      "type": "Delayed",
-                                      "tick": 122,
-                                      "effects": [
-                                        {
-                                          "type": "SwitchByBuff",
-                                          "buff_name": "league_yone_e_alive",
-                                          "effect_buff": {
-                                            "type": "Combine",
-                                            "effects": [
-                                              {
-                                                "type": "FixedAttack",
-                                                "damage": 30,
-                                                "attack_ratio": 21
-                                              },
-                                              {
-                                                "type": "ViewEffect",
-                                                "name": "league_yone_e_pop"
-                                              },
-                                              {
-                                                "type": "TargetSfx",
-                                                "name": "league_yone_e_hit"
-                                              }
-                                            ]
-                                          },
-                                          "effect_none": {
-                                            "type": "Combine",
-                                            "effects": []
-                                          }
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                },
-                                "effect_none": {
-                                  "type": "Combine",
-                                  "effects": [
-                                    {
-                                      "type": "AddBuff",
-                                      "buff_state": {
-                                        "name": "league_yone_e_mark",
-                                        "duration": {
-                                          "Time": {
-                                            "tick": 102
-                                          }
-                                        }
-                                      }
-                                    },
-                                    {
-                                      "type": "Delayed",
-                                      "tick": 102,
-                                      "effects": [
-                                        {
-                                          "type": "SwitchByBuff",
-                                          "buff_name": "league_yone_e_alive",
-                                          "effect_buff": {
-                                            "type": "Combine",
-                                            "effects": [
-                                              {
-                                                "type": "FixedAttack",
-                                                "damage": 30,
-                                                "attack_ratio": 21
-                                              },
-                                              {
-                                                "type": "ViewEffect",
-                                                "name": "league_yone_e_pop"
-                                              },
-                                              {
-                                                "type": "TargetSfx",
-                                                "name": "league_yone_e_hit"
-                                              }
-                                            ]
-                                          },
-                                          "effect_none": {
-                                            "type": "Combine",
-                                            "effects": []
-                                          }
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                }
-                              },
-                              "effect_none": {
-                                "type": "Combine",
-                                "effects": [
-                                  {
-                                    "type": "AddBuff",
-                                    "buff_state": {
-                                      "name": "league_yone_e_mark",
-                                      "duration": {
-                                        "Time": {
-                                          "tick": 82
-                                        }
-                                      }
-                                    }
-                                  },
-                                  {
-                                    "type": "Delayed",
-                                    "tick": 82,
-                                    "effects": [
-                                      {
-                                        "type": "SwitchByBuff",
-                                        "buff_name": "league_yone_e_alive",
-                                        "effect_buff": {
-                                          "type": "Combine",
-                                          "effects": [
-                                            {
-                                              "type": "FixedAttack",
-                                              "damage": 30,
-                                              "attack_ratio": 21
-                                            },
-                                            {
-                                              "type": "ViewEffect",
-                                              "name": "league_yone_e_pop"
-                                            },
-                                            {
-                                              "type": "TargetSfx",
-                                              "name": "league_yone_e_hit"
-                                            }
-                                          ]
-                                        },
-                                        "effect_none": {
-                                          "type": "Combine",
-                                          "effects": []
-                                        }
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            },
-                            "effect_none": {
-                              "type": "SwitchByBuff",
-                              "buff_name": "league_yone_e_b10",
-                              "effect_buff": {
-                                "type": "Combine",
-                                "effects": [
-                                  {
-                                    "type": "AddBuff",
-                                    "buff_state": {
-                                      "name": "league_yone_e_mark",
-                                      "duration": {
-                                        "Time": {
-                                          "tick": 62
-                                        }
-                                      }
-                                    }
-                                  },
-                                  {
-                                    "type": "Delayed",
-                                    "tick": 62,
-                                    "effects": [
-                                      {
-                                        "type": "SwitchByBuff",
-                                        "buff_name": "league_yone_e_alive",
-                                        "effect_buff": {
-                                          "type": "Combine",
-                                          "effects": [
-                                            {
-                                              "type": "FixedAttack",
-                                              "damage": 30,
-                                              "attack_ratio": 21
-                                            },
-                                            {
-                                              "type": "ViewEffect",
-                                              "name": "league_yone_e_pop"
-                                            },
-                                            {
-                                              "type": "TargetSfx",
-                                              "name": "league_yone_e_hit"
-                                            }
-                                          ]
-                                        },
-                                        "effect_none": {
-                                          "type": "Combine",
-                                          "effects": []
-                                        }
-                                      }
-                                    ]
-                                  }
-                                ]
-                              },
-                              "effect_none": {
-                                "type": "Combine",
-                                "effects": [
-                                  {
-                                    "type": "AddBuff",
-                                    "buff_state": {
-                                      "name": "league_yone_e_mark",
-                                      "duration": {
-                                        "Time": {
-                                          "tick": 42
-                                        }
-                                      }
-                                    }
-                                  },
-                                  {
-                                    "type": "Delayed",
-                                    "tick": 42,
-                                    "effects": [
-                                      {
-                                        "type": "SwitchByBuff",
-                                        "buff_name": "league_yone_e_alive",
-                                        "effect_buff": {
-                                          "type": "Combine",
-                                          "effects": [
-                                            {
-                                              "type": "FixedAttack",
-                                              "damage": 30,
-                                              "attack_ratio": 21
-                                            },
-                                            {
-                                              "type": "ViewEffect",
-                                              "name": "league_yone_e_pop"
-                                            },
-                                            {
-                                              "type": "TargetSfx",
-                                              "name": "league_yone_e_hit"
-                                            }
-                                          ]
-                                        },
-                                        "effect_none": {
-                                          "type": "Combine",
-                                          "effects": []
-                                        }
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            }
-                          }
-                        },
-                        "effect_none": {
-                          "type": "Combine",
-                          "effects": [
-                            {
-                              "type": "AddBuff",
-                              "buff_state": {
-                                "name": "league_yone_e_mark",
-                                "duration": {
-                                  "Time": {
-                                    "tick": 22
-                                  }
-                                }
-                              }
-                            },
-                            {
-                              "type": "Delayed",
-                              "tick": 22,
-                              "effects": [
-                                {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "league_yone_e_alive",
-                                  "effect_buff": {
-                                    "type": "Combine",
-                                    "effects": [
-                                      {
-                                        "type": "FixedAttack",
-                                        "damage": 30,
-                                        "attack_ratio": 21
-                                      },
-                                      {
-                                        "type": "ViewEffect",
-                                        "name": "league_yone_e_pop"
-                                      },
-                                      {
-                                        "type": "TargetSfx",
-                                        "name": "league_yone_e_hit"
-                                      }
-                                    ]
-                                  },
-                                  "effect_none": {
-                                    "type": "Combine",
-                                    "effects": []
-                                  }
-                                }
-                              ]
-                            }
-                          ]
-                        }
+                        "type": "Combine",
+                        "effects": []
                       },
                       "effect_none": {
                         "type": "Combine",
-                        "effects": []
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_yone_q_lock",
+                              "duration": {
+                                "Time": {
+                                  "tick": 5
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_yone_q_stack",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_yone_q_stack"
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_yone_q_ready",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 600
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                {
+                                  "type": "Sfx",
+                                  "name": "league_yone_q_ready"
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_yone_q_stack",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 600
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            }
+                          }
+                        ]
                       }
                     }
                   }
                 ]
               },
-              "effect_none": {
-                "type": "Combine",
-                "effects": []
+              {
+                "type": "SwitchByBuff",
+                "buff_name": "league_yone_spirit",
+                "effect_buff": {
+                  "type": "LineRangeProjectile",
+                  "name": "league_yone_r_twin",
+                  "width": 20000,
+                  "length": 90000,
+                  "delay": 2,
+                  "apply": 1,
+                  "applied_target": "EnemyChampion",
+                  "applied_effects": [
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_yone_spirit",
+                        "effect_buff": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_yone_e_b11",
+                          "effect_buff": {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_yone_e_b6",
+                            "effect_buff": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_yone_e_b3",
+                              "effect_buff": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_yone_e_b2",
+                                "effect_buff": {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_yone_e_b1",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "AddBuff",
+                                        "buff_state": {
+                                          "name": "league_yone_e_mark",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 242
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 242,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_yone_e_alive",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "FixedAttack",
+                                                  "damage": 30,
+                                                  "attack_ratio": 21
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_yone_e_pop"
+                                                },
+                                                {
+                                                  "type": "TargetSfx",
+                                                  "name": "league_yone_e_hit"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "AddBuff",
+                                        "buff_state": {
+                                          "name": "league_yone_e_mark",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 222
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 222,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_yone_e_alive",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "FixedAttack",
+                                                  "damage": 30,
+                                                  "attack_ratio": 21
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_yone_e_pop"
+                                                },
+                                                {
+                                                  "type": "TargetSfx",
+                                                  "name": "league_yone_e_hit"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "league_yone_e_mark",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 202
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "type": "Delayed",
+                                      "tick": 202,
+                                      "effects": [
+                                        {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_yone_e_alive",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "FixedAttack",
+                                                "damage": 30,
+                                                "attack_ratio": 21
+                                              },
+                                              {
+                                                "type": "ViewEffect",
+                                                "name": "league_yone_e_pop"
+                                              },
+                                              {
+                                                "type": "TargetSfx",
+                                                "name": "league_yone_e_hit"
+                                              }
+                                            ]
+                                          },
+                                          "effect_none": {
+                                            "type": "Combine",
+                                            "effects": []
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              },
+                              "effect_none": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_yone_e_b5",
+                                "effect_buff": {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_yone_e_b4",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "AddBuff",
+                                        "buff_state": {
+                                          "name": "league_yone_e_mark",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 182
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 182,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_yone_e_alive",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "FixedAttack",
+                                                  "damage": 30,
+                                                  "attack_ratio": 21
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_yone_e_pop"
+                                                },
+                                                {
+                                                  "type": "TargetSfx",
+                                                  "name": "league_yone_e_hit"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "AddBuff",
+                                        "buff_state": {
+                                          "name": "league_yone_e_mark",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 162
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 162,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_yone_e_alive",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "FixedAttack",
+                                                  "damage": 30,
+                                                  "attack_ratio": 21
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_yone_e_pop"
+                                                },
+                                                {
+                                                  "type": "TargetSfx",
+                                                  "name": "league_yone_e_hit"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "league_yone_e_mark",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 142
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "type": "Delayed",
+                                      "tick": 142,
+                                      "effects": [
+                                        {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_yone_e_alive",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "FixedAttack",
+                                                "damage": 30,
+                                                "attack_ratio": 21
+                                              },
+                                              {
+                                                "type": "ViewEffect",
+                                                "name": "league_yone_e_pop"
+                                              },
+                                              {
+                                                "type": "TargetSfx",
+                                                "name": "league_yone_e_hit"
+                                              }
+                                            ]
+                                          },
+                                          "effect_none": {
+                                            "type": "Combine",
+                                            "effects": []
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            "effect_none": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_yone_e_b9",
+                              "effect_buff": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_yone_e_b8",
+                                "effect_buff": {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_yone_e_b7",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "AddBuff",
+                                        "buff_state": {
+                                          "name": "league_yone_e_mark",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 122
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 122,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_yone_e_alive",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "FixedAttack",
+                                                  "damage": 30,
+                                                  "attack_ratio": 21
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_yone_e_pop"
+                                                },
+                                                {
+                                                  "type": "TargetSfx",
+                                                  "name": "league_yone_e_hit"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "AddBuff",
+                                        "buff_state": {
+                                          "name": "league_yone_e_mark",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 102
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 102,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_yone_e_alive",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "FixedAttack",
+                                                  "damage": 30,
+                                                  "attack_ratio": 21
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_yone_e_pop"
+                                                },
+                                                {
+                                                  "type": "TargetSfx",
+                                                  "name": "league_yone_e_hit"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "league_yone_e_mark",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 82
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "type": "Delayed",
+                                      "tick": 82,
+                                      "effects": [
+                                        {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_yone_e_alive",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "FixedAttack",
+                                                "damage": 30,
+                                                "attack_ratio": 21
+                                              },
+                                              {
+                                                "type": "ViewEffect",
+                                                "name": "league_yone_e_pop"
+                                              },
+                                              {
+                                                "type": "TargetSfx",
+                                                "name": "league_yone_e_hit"
+                                              }
+                                            ]
+                                          },
+                                          "effect_none": {
+                                            "type": "Combine",
+                                            "effects": []
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              },
+                              "effect_none": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_yone_e_b10",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "league_yone_e_mark",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 62
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "type": "Delayed",
+                                      "tick": 62,
+                                      "effects": [
+                                        {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_yone_e_alive",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "FixedAttack",
+                                                "damage": 30,
+                                                "attack_ratio": 21
+                                              },
+                                              {
+                                                "type": "ViewEffect",
+                                                "name": "league_yone_e_pop"
+                                              },
+                                              {
+                                                "type": "TargetSfx",
+                                                "name": "league_yone_e_hit"
+                                              }
+                                            ]
+                                          },
+                                          "effect_none": {
+                                            "type": "Combine",
+                                            "effects": []
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "league_yone_e_mark",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 42
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "type": "Delayed",
+                                      "tick": 42,
+                                      "effects": [
+                                        {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_yone_e_alive",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "FixedAttack",
+                                                "damage": 30,
+                                                "attack_ratio": 21
+                                              },
+                                              {
+                                                "type": "ViewEffect",
+                                                "name": "league_yone_e_pop"
+                                              },
+                                              {
+                                                "type": "TargetSfx",
+                                                "name": "league_yone_e_hit"
+                                              }
+                                            ]
+                                          },
+                                          "effect_none": {
+                                            "type": "Combine",
+                                            "effects": []
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "AddBuff",
+                                "buff_state": {
+                                  "name": "league_yone_e_mark",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 22
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 22,
+                                "effects": [
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_yone_e_alive",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "FixedAttack",
+                                          "damage": 30,
+                                          "attack_ratio": 21
+                                        },
+                                        {
+                                          "type": "ViewEffect",
+                                          "name": "league_yone_e_pop"
+                                        },
+                                        {
+                                          "type": "TargetSfx",
+                                          "name": "league_yone_e_hit"
+                                        }
+                                      ]
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    }
+                  ]
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": []
+                }
+              },
+              {
+                "type": "Sfx",
+                "name": "league_yone_r_dash"
+              },
+              {
+                "type": "RushMoveToBack",
+                "speed": 12000,
+                "applied_effects": []
               }
-            },
-            {
-              "type": "Sfx",
-              "name": "league_yone_r_dash"
-            },
-            {
-              "type": "RushMoveToBack",
-              "speed": 12000,
-              "applied_effects": []
-            }
-          ]
-        }
-      ]
+            ]
+          }
+        ]
+      },
+      "effect_none": {
+        "type": "Combine",
+        "effects": [
+          {
+            "type": "Sfx",
+            "name": "league_yone_r_cast"
+          },
+          {
+            "type": "LineRangeProjectile",
+            "name": "league_yone_r_line",
+            "width": 20000,
+            "length": 90000,
+            "delay": 34,
+            "apply": 999,
+            "applied_target": "EnemyWithoutTower",
+            "applied_effects": []
+          },
+          {
+            "type": "Delayed",
+            "tick": 15,
+            "effects": [
+              {
+                "type": "LineRangeProjectile",
+                "name": "league_yone_r_hit",
+                "width": 20000,
+                "length": 90000,
+                "delay": 2,
+                "apply": 1,
+                "applied_target": "EnemyWithoutTower",
+                "applied_effects": [
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "Attack",
+                      "damage": 70,
+                      "attack_ratio": 50
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "FixedAttack",
+                      "damage": 50,
+                      "attack_ratio": 35
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "Airborne",
+                      "duration": 45
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "ViewEffect",
+                      "name": "league_yone_r_slash"
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "TargetSfx",
+                      "name": "league_yone_r_hit"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "LineRangeProjectile",
+                "name": "league_yone_r_mark",
+                "width": 20000,
+                "length": 90000,
+                "delay": 2,
+                "apply": 1,
+                "applied_target": "EnemyChampion",
+                "applied_effects": [
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_yone_q_lock",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": []
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_yone_q_lock",
+                              "duration": {
+                                "Time": {
+                                  "tick": 5
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_yone_q_stack",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_yone_q_stack"
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_yone_q_ready",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 600
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                {
+                                  "type": "Sfx",
+                                  "name": "league_yone_q_ready"
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_yone_q_stack",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 600
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "SwitchByBuff",
+                "buff_name": "league_yone_spirit",
+                "effect_buff": {
+                  "type": "LineRangeProjectile",
+                  "name": "league_yone_r_twin",
+                  "width": 20000,
+                  "length": 90000,
+                  "delay": 2,
+                  "apply": 1,
+                  "applied_target": "EnemyChampion",
+                  "applied_effects": [
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_yone_spirit",
+                        "effect_buff": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_yone_e_b11",
+                          "effect_buff": {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_yone_e_b6",
+                            "effect_buff": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_yone_e_b3",
+                              "effect_buff": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_yone_e_b2",
+                                "effect_buff": {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_yone_e_b1",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "AddBuff",
+                                        "buff_state": {
+                                          "name": "league_yone_e_mark",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 242
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 242,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_yone_e_alive",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "FixedAttack",
+                                                  "damage": 30,
+                                                  "attack_ratio": 21
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_yone_e_pop"
+                                                },
+                                                {
+                                                  "type": "TargetSfx",
+                                                  "name": "league_yone_e_hit"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "AddBuff",
+                                        "buff_state": {
+                                          "name": "league_yone_e_mark",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 222
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 222,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_yone_e_alive",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "FixedAttack",
+                                                  "damage": 30,
+                                                  "attack_ratio": 21
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_yone_e_pop"
+                                                },
+                                                {
+                                                  "type": "TargetSfx",
+                                                  "name": "league_yone_e_hit"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "league_yone_e_mark",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 202
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "type": "Delayed",
+                                      "tick": 202,
+                                      "effects": [
+                                        {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_yone_e_alive",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "FixedAttack",
+                                                "damage": 30,
+                                                "attack_ratio": 21
+                                              },
+                                              {
+                                                "type": "ViewEffect",
+                                                "name": "league_yone_e_pop"
+                                              },
+                                              {
+                                                "type": "TargetSfx",
+                                                "name": "league_yone_e_hit"
+                                              }
+                                            ]
+                                          },
+                                          "effect_none": {
+                                            "type": "Combine",
+                                            "effects": []
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              },
+                              "effect_none": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_yone_e_b5",
+                                "effect_buff": {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_yone_e_b4",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "AddBuff",
+                                        "buff_state": {
+                                          "name": "league_yone_e_mark",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 182
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 182,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_yone_e_alive",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "FixedAttack",
+                                                  "damage": 30,
+                                                  "attack_ratio": 21
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_yone_e_pop"
+                                                },
+                                                {
+                                                  "type": "TargetSfx",
+                                                  "name": "league_yone_e_hit"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "AddBuff",
+                                        "buff_state": {
+                                          "name": "league_yone_e_mark",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 162
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 162,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_yone_e_alive",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "FixedAttack",
+                                                  "damage": 30,
+                                                  "attack_ratio": 21
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_yone_e_pop"
+                                                },
+                                                {
+                                                  "type": "TargetSfx",
+                                                  "name": "league_yone_e_hit"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "league_yone_e_mark",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 142
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "type": "Delayed",
+                                      "tick": 142,
+                                      "effects": [
+                                        {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_yone_e_alive",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "FixedAttack",
+                                                "damage": 30,
+                                                "attack_ratio": 21
+                                              },
+                                              {
+                                                "type": "ViewEffect",
+                                                "name": "league_yone_e_pop"
+                                              },
+                                              {
+                                                "type": "TargetSfx",
+                                                "name": "league_yone_e_hit"
+                                              }
+                                            ]
+                                          },
+                                          "effect_none": {
+                                            "type": "Combine",
+                                            "effects": []
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            "effect_none": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_yone_e_b9",
+                              "effect_buff": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_yone_e_b8",
+                                "effect_buff": {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_yone_e_b7",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "AddBuff",
+                                        "buff_state": {
+                                          "name": "league_yone_e_mark",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 122
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 122,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_yone_e_alive",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "FixedAttack",
+                                                  "damage": 30,
+                                                  "attack_ratio": 21
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_yone_e_pop"
+                                                },
+                                                {
+                                                  "type": "TargetSfx",
+                                                  "name": "league_yone_e_hit"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "AddBuff",
+                                        "buff_state": {
+                                          "name": "league_yone_e_mark",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 102
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "type": "Delayed",
+                                        "tick": 102,
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_yone_e_alive",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "FixedAttack",
+                                                  "damage": 30,
+                                                  "attack_ratio": 21
+                                                },
+                                                {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_yone_e_pop"
+                                                },
+                                                {
+                                                  "type": "TargetSfx",
+                                                  "name": "league_yone_e_hit"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "league_yone_e_mark",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 82
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "type": "Delayed",
+                                      "tick": 82,
+                                      "effects": [
+                                        {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_yone_e_alive",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "FixedAttack",
+                                                "damage": 30,
+                                                "attack_ratio": 21
+                                              },
+                                              {
+                                                "type": "ViewEffect",
+                                                "name": "league_yone_e_pop"
+                                              },
+                                              {
+                                                "type": "TargetSfx",
+                                                "name": "league_yone_e_hit"
+                                              }
+                                            ]
+                                          },
+                                          "effect_none": {
+                                            "type": "Combine",
+                                            "effects": []
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              },
+                              "effect_none": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_yone_e_b10",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "league_yone_e_mark",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 62
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "type": "Delayed",
+                                      "tick": 62,
+                                      "effects": [
+                                        {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_yone_e_alive",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "FixedAttack",
+                                                "damage": 30,
+                                                "attack_ratio": 21
+                                              },
+                                              {
+                                                "type": "ViewEffect",
+                                                "name": "league_yone_e_pop"
+                                              },
+                                              {
+                                                "type": "TargetSfx",
+                                                "name": "league_yone_e_hit"
+                                              }
+                                            ]
+                                          },
+                                          "effect_none": {
+                                            "type": "Combine",
+                                            "effects": []
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "AddBuff",
+                                      "buff_state": {
+                                        "name": "league_yone_e_mark",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 42
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "type": "Delayed",
+                                      "tick": 42,
+                                      "effects": [
+                                        {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_yone_e_alive",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "FixedAttack",
+                                                "damage": 30,
+                                                "attack_ratio": 21
+                                              },
+                                              {
+                                                "type": "ViewEffect",
+                                                "name": "league_yone_e_pop"
+                                              },
+                                              {
+                                                "type": "TargetSfx",
+                                                "name": "league_yone_e_hit"
+                                              }
+                                            ]
+                                          },
+                                          "effect_none": {
+                                            "type": "Combine",
+                                            "effects": []
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "AddBuff",
+                                "buff_state": {
+                                  "name": "league_yone_e_mark",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 22
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 22,
+                                "effects": [
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_yone_e_alive",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "FixedAttack",
+                                          "damage": 30,
+                                          "attack_ratio": 21
+                                        },
+                                        {
+                                          "type": "ViewEffect",
+                                          "name": "league_yone_e_pop"
+                                        },
+                                        {
+                                          "type": "TargetSfx",
+                                          "name": "league_yone_e_hit"
+                                        }
+                                      ]
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    }
+                  ]
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": []
+                }
+              },
+              {
+                "type": "Sfx",
+                "name": "league_yone_r_dash"
+              },
+              {
+                "type": "RushMoveToBack",
+                "speed": 12000,
+                "applied_effects": []
+              }
+            ]
+          }
+        ]
+      }
     }
   },
   "view_projectiles": [
