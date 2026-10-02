@@ -125,7 +125,10 @@ BARE = {"fiora": [(0xE6, 0xE8, 0xF0)]}
 # beside her cheeks: the completion closed their mouths and left a speck of ground on each side of the face in every
 # frame, and her pasted arm (fix_sona_strips.py) left more between the hand, the shoulder and the hair. Her design's
 # own pinholes, between the skirt panels and the legs, are 5-7 rows over the soles and stay
-PLUG = {"sona": 9}
+PLUG = {"sona": 9,
+        # Jax: the idle's breathing seam (BOB, row 4) closes a notch at the near foot into a pinhole in slots 3-5;
+        # every other hole in his frames is painted by tools/art/fix_jax_frames.py before the import
+        "jax": 0}
 ORDER = {("lux", "idle"): [0, 0, 0, 0, 0, 0],   # the step-2 idle is the design in all six (was 0 1 2 3 5 4)
          # League leans his upper body a square forward in idle 4-5 and back in 6, and every frame's head
          # is voted anew, so the face swung and changed shape as he breathed (the user). Frame 1 in every
