@@ -1153,6 +1153,8 @@ league_camille (top, 2026-10-02, the E2 dash's 0.75 s stun after a hook on a min
 the range of the CC heroes before, no change.
 league_leblanc (mid, 2026-10-02, Ethereal Chains' 1.5 s root when the chain holds for 1.5 s): 0.58 a game; the
 base pyromancer 0.65 and lightning mage 3.19 in the same batch - the root needs the chain to hold, no change.
+league_kaisa (bottom, 2026-10-02): no crowd control of her own (her passive's extra Plasma on a crowd-controlled champion
+reads her allies' control) - no change.
 
 **Kill trigger (league_jinx Get Excited!).** No effect fires on a kill, but section 4's facts make one:
 1. Next to the damaging projectile, fire an invisible twin with the same speed and path and
@@ -2636,6 +2638,53 @@ ahead: next to the cone (`DirDot`, radius 46000, range 700 - about +-45 degrees)
 Forward offset 36000}` gives the units at the cone's rim the % max health damage, the slows and, on champions, her
 heal. The sweep's picture is a `LineRangeProjectile` (60000 long, nothing applied, 23 ticks) whose crescent is drawn
 with the fan's point 30 px behind the line's middle - the line starts at her.
+
+**Stacks that rupture at the fifth hit, counted on her (league_kaisa passive, Second Skin).** Nothing reads a buff
+on the target, so the Plasma count lives on her as league_vayne's Silver Bolts does: four caster flags `pl_1` ->
+`pl_4` (each 240 ticks, the step removing the one before it). Her attack fires the real bolt (`Enemy`) and a
+champion-only twin with the same speed and `y_offset`, so they land on the same tick and the twin's `applied_effects`
+run only on a champion: they walk the ladder from the top (`pl_4` ruptures - a `FixedAttack` of a flat part, a share
+of her attack and a share of the target's maximum health, League's missing-health share being unreadable - else the
+next flag), each step with its magic damage and the mark's picture (`pl_1`-`pl_4`, the pips drawn as 2 x 2 squares so
+the count reads at game size). A third twin on `EnemyChampionInCC`, a tick later and without damage, climbs once more:
+League's allies' immobilising effects. W climbs two steps at once (three evolved) in one chain - `to(k)` is the flag
+`pl_{k+n}` or the rupture - instead of nested climbs, since the engine copies a skill's tree every tick. About 2-3
+ruptures a game in the simulation.
+
+**Supercharge folded into the attack (league_kaisa E).** League's E (move speed while charging, then attack speed) is
+one decision in the attack: without the 480-tick caster buff `e_cd` and with a `RandomTarget {EnemyChampion}` within
+75000, the shot also sets `e_cd`, a move-speed flag (`move_speed_mult`) for 66 ticks and, `Delayed` by those 66, an
+attack-speed flag (`attack_speed_mult`) for 240 ticks; the arcs on her are 1 s pictures queued every 60 ticks behind a
+`SwitchByBuff` on that flag. The evolved E (level 9) adds `CasterInvisible` for 30 ticks. The `Delayed` attack
+speed and arcs sit in a self-only `RangeEffect` inside the `RandomTarget`: left in the `RandomTarget` they waited on
+the picked champion and were dropped when he died first - a kill right after the E (her R in, the rupture) lost the
+whole attack speed (SDK simulation: `e_ms` ran out and no `e_as` came).
+
+**A volley split among the enemies round her, fanned out of the pods (league_kaisa Q, Icathian Rain).** The first
+missile flies at the cast's target; the rest come from three `AddCasted` on herself (a self-only `RangeEffect`), whose
+`effects` run on her each period: a `RandomTarget` (`EnemyWithoutTower`, 60000) and a homing missile from her at the
+picked enemy, so an isolated champion takes them all and a wave splits them. A casted fires once every `period` after
+its first, `duration / period - 1` times (the first test fired five of six); the three are `Delayed` 0, 2 and 4 ticks
+with a 6-tick period and each lifts its missiles to its own height (`y_offset` -24000, -15000, -33000: the pods, and a
+row of lasers under and over them), so the lasers fan out and meet on the targets - League's swarm, which the engine
+cannot curve. 6 missiles, 12 once evolved (9.7 a cast over a game: the evolution comes at about 4 minutes).
+
+**Evolutions by attack and level (league_kaisa Living Weapon).** Nothing reads attack or level directly, so
+league_tristana's probe reads them: under a 3-tick 99% `damaged_reduce` she shields herself (a 3-tick `Shield`) and
+hits herself with a `FixedAttack` 100 times what the shield is measured against - `attack_ratio` for Q's evolution
+(the shield is 20% of 199.5: her hit breaks it once her attack is 200), `hp_ratio` against the level table's maximum
+health for E (level 9) and W (level 12); a `WithShield` flag gone two ticks later means the hit broke the shield, and the
+stage becomes a permanent flag (two passes in a row in a fight, a silent re-read at each life's first cast: death
+clears caster buffs). The probes run in Q and W (skills: no crit roll on the self-hit).
+
+**A dash to a damaged champion, then a shield (league_kaisa R, Killer Instinct).** A `Targeting` cast on
+`EnemyChampionRecentlyAttacked` (100000): the action lasts only the 8-tick launch; at tick 7 the launch burst is left on
+the ground (a caster view, not following), the dash pose is forced (`CasterAnimation ult_dash` for the longest flight)
+and `MoveToTarget` (6000 a tick) takes her onto him; its `end_effects` remove the dash pose, force the landing
+(`ult_land`) and shield her for 2 s. League's R needs Plasma on the target; gated on her Plasma flags the AI still cast
+it with the branch empty (a wasted ultimate in 2 of 4-5 casts: it scores the cast, not the branch), so "recently
+damaged by her team" stands in. Dashing in from 150000 she died 2.6 times a game; from 100000 with a larger shield 2.1,
+the same as a variant that stopped 45000 short of him (a streak and a `Teleport`), so the dash stays: her body flies.
 
 ## 8. Gotchas
 

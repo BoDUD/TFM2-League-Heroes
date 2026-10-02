@@ -301,6 +301,13 @@
         "skill": "投出魔印，造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法强<>的<#a974ffff>魔法伤害<>并标记<#ffb900ff>3.5秒<>；她的下一个技能命中时魔印引爆，再造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法强<>。命中英雄时若<#ff9028ff>魔影迷踪<>就绪，立刻接上（连招）。",
         "skill2": "冲到敌方英雄身边，对周围敌人造成<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% 法强<>的<#a974ffff>魔法伤害<>，<#ffb900ff>0.93秒<>后闪回出发点（被控制时留在原地）。",
         "ult": "重放上一个施放的技能，伤害更高：魔印<#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>110%<>（引爆同样）；迷踪<#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>150%<>；锁链<#a974ffff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>，禁锢时再<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>150%<>。"
+      },
+      "league_kaisa": {
+        "name": "卡莎",
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理伤害。<#ff9028ff>体表活肤<>：普攻命中英雄叠电浆（被控制的英雄2层），每次命中附加<#a974ffff>18+9×层数<>魔法伤害；满5层引爆，造成<#f5f5f5ff>80<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>60%<>+<#f5f5f5ff>15%最大生命<>真实伤害。<#ff9028ff>极限超载<>：每<#ffb900ff>8秒<>首次命中英雄时加速，随后<#ffb900ff>4秒<>攻速+<#ffb900ff>90%<>，9级起隐身<#ffb900ff>0.5秒<>。",
+        "skill": "朝周围敌人发射<#ffb900ff>6<>枚导弹（第一枚射向目标），每枚造成<#ff9028ff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>物理伤害。<#ff9028ff>活体武器<>：攻击力达到<#ffb900ff>200<>后变为<#ffb900ff>12<>枚，每枚<#ff9028ff>20<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>34%<>。",
+        "skill2": "锁定后朝敌方英雄射出长距离虚空光束（开火前走开可躲），穿过小兵，命中的第一个英雄受到<#ff9028ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>物理伤害并叠<#ffb900ff>2<>层电浆。<#ff9028ff>活体武器<>：12级起叠<#ffb900ff>3<>层并返还<#ffb900ff>75%<>冷却。",
+        "ult": "冲向一名近期受伤的敌方英雄，落地获得<#ffb900ff>220<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>180%<>的护盾，持续<#ffb900ff>2秒<>。"
       }
     },
     "skill_name": {
@@ -518,6 +525,11 @@
         "skill1": "恶意魔印",
         "skill2": "魔影迷踪",
         "ult": "故技重施"
+      },
+      "league_kaisa": {
+        "skill1": "艾卡西亚暴雨",
+        "skill2": "虚空索敌",
+        "ult": "猎手本能"
       }
     }
   },
@@ -823,6 +835,13 @@
         "skill": "投出印記，造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法術強度<>的<#a974ffff>魔法傷害<>並標記<#ffb900ff>3.5秒<>；她的下一個技能命中時印記引爆，再造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法術強度<>。命中英雄時若<#ff9028ff>移行瞬影<>就緒，立刻接上（連招）。",
         "skill2": "衝到敵方英雄身邊，對周圍敵人造成<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% 法術強度<>的<#a974ffff>魔法傷害<>，<#ffb900ff>0.93秒<>後閃回出發點（被控制時留在原地）。",
         "ult": "重放上一個施放的技能，傷害更高：印記<#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>110%<>（引爆同樣）；瞬影<#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>150%<>；鎖鍊<#a974ffff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>，禁錮時再<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>150%<>。"
+      },
+      "league_kaisa": {
+        "name": "凱莎",
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理傷害。<#ff9028ff>二階蟲甲<>：普攻命中英雄疊電漿（被控制的英雄2層），每次命中附加<#a974ffff>18+9×層數<>魔法傷害；滿5層引爆，造成<#f5f5f5ff>80<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>60%<>+<#f5f5f5ff>15%最大生命<>真實傷害。<#ff9028ff>極速充能<>：每<#ffb900ff>8秒<>首次命中英雄時加速，隨後<#ffb900ff>4秒<>攻速+<#ffb900ff>90%<>，9級起隱身<#ffb900ff>0.5秒<>。",
+        "skill": "朝周圍敵人發射<#ffb900ff>6<>枚飛彈（第一枚射向目標），每枚造成<#ff9028ff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>物理傷害。<#ff9028ff>生物兵器<>：攻擊力達到<#ffb900ff>200<>後變為<#ffb900ff>12<>枚，每枚<#ff9028ff>20<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>34%<>。",
+        "skill2": "鎖定後朝敵方英雄射出長距離虛空光束（開火前走開可躲），穿過小兵，命中的第一個英雄受到<#ff9028ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>物理傷害並疊<#ffb900ff>2<>層電漿。<#ff9028ff>生物兵器<>：12級起疊<#ffb900ff>3<>層並返還<#ffb900ff>75%<>冷卻。",
+        "ult": "衝向一名近期受傷的敵方英雄，落地獲得<#ffb900ff>220<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>180%<>的護盾，持續<#ffb900ff>2秒<>。"
       }
     },
     "skill_name": {
@@ -1040,6 +1059,11 @@
         "skill1": "惡意印記",
         "skill2": "移行瞬影",
         "ult": "模仿"
+      },
+      "league_kaisa": {
+        "skill1": "伊卡西亞魔雨",
+        "skill2": "虛空探索者",
+        "ult": "殺手本能"
       }
     }
   },
@@ -1345,6 +1369,13 @@
         "skill": "LeBlanc projects a sigil, dealing <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% AP<> <#a974ffff>magic damage<> and marking the target for <#ffb900ff>3.5s<>; her next ability that hits detonates it for <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% AP<>. If it hits a champion while <#ff9028ff>Distortion<> is ready, she follows up with it at once (combo).",
         "skill2": "LeBlanc dashes to an enemy champion, dealing <#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% AP<> <#a974ffff>magic damage<> to enemies around her, and <#ffb900ff>0.93s<> later blinks back to where she started (not while crowd-controlled).",
         "ult": "LeBlanc casts her last ability again, stronger: the sigil <#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>110% AP<> (and as much when detonated), Distortion <#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>150% AP<>, the chain <#a974ffff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90% AP<> and <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>150% AP<> on rooting."
+      },
+      "league_kaisa": {
+        "name": "Kai'Sa",
+        "attack": "Basic attacks deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. <#ff9028ff>Second Skin<>: hits on a champion add Plasma (2 if crowd-controlled), each dealing <#a974ffff>18 + 9/stack<> magic damage; the 5th ruptures for <#f5f5f5ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>60% AD<> + <#f5f5f5ff>15% max health<> true damage. <#ff9028ff>Supercharge<>: every <#ffb900ff>8s<> her first champion hit hastes her, then <#ffb900ff>+90%<> attack speed for <#ffb900ff>4s<> (level 9+: <#ffb900ff>0.5s<> invisible).",
+        "skill": "Kai'Sa fires <#ffb900ff>6<> missiles at nearby enemies (the first at her target), each dealing <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50% AD<> <#ff9028ff>physical damage<>. <#ff9028ff>Living Weapon<>: with <#ffb900ff>200<> attack it fires <#ffb900ff>12<>, <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>34% AD<> each.",
+        "skill2": "Kai'Sa locks on an enemy champion and fires a long-range void bolt (dodgeable before it fires) that passes minions: the first champion hit takes <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150% AD<> <#ff9028ff>physical damage<> and <#ffb900ff>2<> Plasma. <#ff9028ff>Living Weapon<>: from level 12, <#ffb900ff>3<> Plasma and <#ffb900ff>75%<> of the cooldown back.",
+        "ult": "Kai'Sa dashes to an enemy champion damaged lately and lands with a <#ffb900ff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>180% AD<> shield for <#ffb900ff>2s<>."
       }
     },
     "skill_name": {
@@ -1562,6 +1593,11 @@
         "skill1": "Sigil of Malice",
         "skill2": "Distortion",
         "ult": "Mimic"
+      },
+      "league_kaisa": {
+        "skill1": "Icathian Rain",
+        "skill2": "Void Seeker",
+        "ult": "Killer Instinct"
       }
     }
   },
@@ -1867,6 +1903,13 @@
         "skill": "인장을 던져 <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 주문력<> <#a974ffff>마법 피해<>를 입히고 <#ffb900ff>3.5초<> 동안 표식을 남깁니다. 다음 스킬이 적중하면 표식이 터져 <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 주문력<>의 피해를 입힙니다. 챔피언에게 적중했을 때 <#ff9028ff>왜곡<>이 준비되어 있으면 곧바로 이어서 사용합니다(연계).",
         "skill2": "적 챔피언에게 돌진해 주변 적에게 <#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% 주문력<> <#a974ffff>마법 피해<>를 입히고, <#ffb900ff>0.93초<> 후 출발 지점으로 돌아갑니다(군중 제어 상태에서는 제외).",
         "ult": "마지막으로 사용한 스킬을 더 강하게 다시 사용합니다: 인장 <#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>110%<>(폭발도 같음), 왜곡 <#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>150%<>, 사슬 <#a974ffff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>, 속박 시 <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>150%<>."
+      },
+      "league_kaisa": {
+        "name": "카이사",
+        "attack": "기본 공격은 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>두 번째 피부<>: 챔피언을 맞히면 플라즈마 중첩(CC 상태면 2), 적중마다 <#a974ffff>18+9×중첩<> 마법 피해; 5중첩에 폭발해 <#f5f5f5ff>80<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>60%<>+<#f5f5f5ff>최대 체력의 15%<> 고정 피해. <#ff9028ff>고속 충전<>: <#ffb900ff>8초<>마다 처음 챔피언을 맞히면 이동 속도, 이후 <#ffb900ff>4초<> 공격 속도 +<#ffb900ff>90%<>(9레벨부터 <#ffb900ff>0.5초<> 투명).",
+        "skill": "주변 적에게 미사일 <#ffb900ff>6<>발(첫 발은 대상에게)을 쏴 발마다 <#ff9028ff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 50%<> <#ff9028ff>물리 피해<>. <#ff9028ff>살아있는 무기<>: 공격력 <#ffb900ff>200<> 이상이면 <#ffb900ff>12<>발, 발마다 <#ff9028ff>20<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>34%<>.",
+        "skill2": "적 챔피언을 조준해 장거리 공허 광선을 쏩니다(발사 전에 피할 수 있음). 미니언을 지나쳐 처음 맞힌 챔피언에게 <#ff9028ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 150%<> <#ff9028ff>물리 피해<>와 플라즈마 <#ffb900ff>2<>중첩. <#ff9028ff>살아있는 무기<>: 12레벨부터 <#ffb900ff>3<>중첩, 재사용 대기시간 <#ffb900ff>75%<> 반환.",
+        "ult": "최근 피해를 입은 적 챔피언에게 돌진해 착지하며 <#ffb900ff>2초<> 동안 <#ffb900ff>220<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>공격력의 180%<> 보호막을 얻습니다."
       }
     },
     "skill_name": {
@@ -2084,6 +2127,11 @@
         "skill1": "악의의 인장",
         "skill2": "왜곡",
         "ult": "모방"
+      },
+      "league_kaisa": {
+        "skill1": "이케시아 폭우",
+        "skill2": "공허추적자",
+        "ult": "사냥본능"
       }
     }
   },
@@ -2389,6 +2437,13 @@
         "skill": "印を放ち<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 魔力<>の<#a974ffff>魔法ダメージ<>を与え、<#ffb900ff>3.5秒<>間マーク。次のスキルが当たるとマークが爆発し<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 魔力<>。チャンピオンに当たった時<#ff9028ff>ディストーション<>が使えればすぐに続ける（コンボ）。",
         "skill2": "敵チャンピオンへ突進し、周囲の敵に<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% 魔力<>の<#a974ffff>魔法ダメージ<>、<#ffb900ff>0.93秒<>後に出発地点へ戻る（行動妨害中は戻らない）。",
         "ult": "最後に使ったスキルを強化して再演：印<#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>110%<>（爆発も同じ）、ディストーション<#a974ffff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>150%<>、鎖<#a974ffff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>、スネア時<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>150%<>。"
+      },
+      "league_kaisa": {
+        "name": "カイ＝サ",
+        "attack": "通常攻撃は<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>ヴォイドスキン<>：命中でプラズマ（行動妨害中は2）、<#a974ffff>18+9×スタック<>の魔法ダメージ；5で炸裂し<#f5f5f5ff>80<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>60%<>+<#f5f5f5ff>最大体力の15%<>の確定ダメージ。<#ff9028ff>スーパーチャージ<>：<#ffb900ff>8秒<>ごとに初命中で加速、その後<#ffb900ff>4秒<>攻撃速度+<#ffb900ff>90%<>（Lv9から<#ffb900ff>0.5秒<>透明）。",
+        "skill": "周囲の敵へミサイルを<#ffb900ff>6<>発（1発目は対象へ）、1発ごとに<#ff9028ff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の50%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>共生兵器<>：攻撃力<#ffb900ff>200<>以上で<#ffb900ff>12<>発、1発<#ff9028ff>20<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>34%<>。",
+        "skill2": "敵チャンピオンを狙い長距離のヴォイド弾を撃つ（発射前に避けられる）。ミニオンを抜け、最初に当たったチャンピオンに<#ff9028ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の150%<>の<#ff9028ff>物理ダメージ<>とプラズマ<#ffb900ff>2<>。<#ff9028ff>共生兵器<>：Lv12から<#ffb900ff>3<>スタック、CDの<#ffb900ff>75%<>を回復。",
+        "ult": "最近ダメージを受けた敵チャンピオンへ突進し、着地で<#ffb900ff>2秒<>間<#ffb900ff>220<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>攻撃力の180%<>のシールドを得る。"
       }
     },
     "skill_name": {
@@ -2606,6 +2661,11 @@
         "skill1": "シジルマリス",
         "skill2": "ディストーション",
         "ult": "再演"
+      },
+      "league_kaisa": {
+        "skill1": "イカシアの雨",
+        "skill2": "ヴォイドシーカー",
+        "ult": "キラーヴォイド"
       }
     }
   }

@@ -514,6 +514,15 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   legs that way on Codex's feet and knees, both legs alike, the leg in front the one whose outline cuts the other.
   league_taric went the other way: with both legs alike his crossing did not read, so his far leg is a step darker
   in his own armour's colours (`MODEL_RUN_LEGS2.md`) - a darker far leg, never another material.
+  league_kaisa took thirteen tries; what was finally accepted ("这版走路可以了"): find where the legs really start.
+  Her two magenta-and-gold pieces under the belt are THIGH armour, not hip plates; every run that froze the idle down
+  to them moved only the legs below the knee ("脱节", "大腿小腿一起动", a leg hanging off the side, "像木板整条滑").
+  Cut at the belt; each thigh is the idle's own thigh piece, sheared so the knee swings under her middle; both lower
+  legs are the idle's straighter one (equally thick); a heel kick lifts the boot behind the knee guard. Take the gait
+  from League's run rendered through the game's camera at game size (tools/lol/native_pose.py, one render per leg joint
+  with "anchor": {"joints": [j]}): in that camera the legs stay under the body and lift, they do not splay fore and aft
+  as side-view angles suggest. Never freehand the legs' pixels (drawn shins and boots read as other legs), and if the
+  idle's two legs differ in thickness, even them in the idle itself so every action inherits it ("待机时候腿一粗一细").
 - **A picture round the hero goes under her, not round a hole (league_vayne).** Asked to "leave a figure-shaped empty
   space", Codex also cleared a rectangle in the middle of every Final Hour cell of its export (x 22.5-77.5%, y
   17-89%): the flare's rays, the refresh's ring and most of the aura's motes went. Its raw sheets still had them; drawn
