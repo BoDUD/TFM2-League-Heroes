@@ -4,3 +4,6 @@ __pycache__/
 league/sound/sfx/*.wav
 league/sound/sfx/*.mp3
 league/sound/sfx/*.ogg
+
+# tools/package_mod.py output (installed / uploaded copy of league/)
+dist/
