@@ -116,6 +116,11 @@ also means minions and monsters: a non-penetrating skillshot on it stops on the 
   `EnemyChampionInCC`, also fires on stunned or rooted champions. No base champion's data uses it.
   As a projectile's `applied_target` it is tested when the projectile hits (league_fiddlesticks Q,
   section 7).
+- **An empty branch does not hold every slot** *(SDK simulation, league_leesin, 2026-10-02)*: league_caitlyn W
+  (`SwitchByBuff w_hold`, empty for the buff) kept its charges, but league_leesin's E (`None` on
+  `EnemyWithoutTower`) behind a flag went out empty in fights and on camps, and its ult (`Targeting EnemyChampion`)
+  right after every combo that set the flag - each cast also starting the slot's real cooldown. Do not hold a slot
+  with a flag; let the slot play the combo (section 7, "Combos the slots play").
 - **Damaging basic abilities go on `EnemyWithoutTower`** *(reported by players; measured in a 5v5
   simulation on the SDK)*. The AI only casts an action while a unit matching `casting_target` is
   within `range`, so a skill on `EnemyChampion` is never used on minions or jungle monsters: the
@@ -922,6 +927,30 @@ pick shields the ally (a bare `Shield`) and Lee (a self-only `RangeEffect`) on t
 `MoveToTarget` dashes Lee there; shields in the dash's `end_effects` would be lost to a stun. About 3
 dashes a game, 52/53 reach the ally. Checking every ally in one tick with reset zones does not work:
 the zones are not processed in spawn order and one enemy was counted by two allies' zones.
+
+**Combos the slots play (league_leesin QQAE, QRQ, RQQ; 0.42.5).** The user wanted League's combos ("QRQ 回旋踢 QQAE RQQ",
+no ward hop). The AI casts one slot at a time, so each combo is the slot it spends, shaped by caster flags the slot
+before it left:
+- Q's casts set `q_cd` (its 360-tick cooldown); Q2 landing with an enemy champion in reach (a `RandomTarget`, range
+  12000) adds `q2_on` (150 ticks).
+- E cast while `q2_on` holds punches first (QQAE): E branches on `start_timing` 1 - its usual effects wait in a
+  `Delayed` 16, still on its tick 17 - so `CasterAnimation attack` replaces E's pose before it shows; the punch (100%
+  AD on a champion found by a `RandomTarget`) lands on the attack's hit frame, then `CasterAnimation skill2` and the
+  stomp on its frame. Safeguard's check sits once, outside the branch (the game copies `skill` and `skill2` whole
+  every tick, so the trees are kept small).
+- R cast while `q_cd` holds chases (QRQ): from R's tick 26, `CasterAnimation q2` and `MoveToTarget` 7000 after the
+  champion the kick sends off at 3000 a tick - caught in 6-7 ticks - and a 30 + 60% strike.
+- R cast with Q ready throws (RQQ): `q_throw` (Q's palm frames alone, a tag cut from the skill strip) on tick 24, then
+  a `TargetProjectile` Sonic Wave (8000, `y_offset` 5000: no lift, so its first move does not point the picture up)
+  that meets the champion in the air on tick 34, and Q2's dash 8 ticks after the hit.
+So every R ends in one of the two. In 12 simulated games: 18 QQAE, 48 QRQ (all caught), 15 RQQ (13 waves hit before
+the landing, 12 dashes hit). Against base junglers (lane 1, two batches of 720 games) the kill difference was +0.79 / +0.87 before and +0.58 / +1.21 with the combos (about 10% more damage dealt): the same strength within the noise.
+**A flag does not hold every slot.** The first version kept a spent skill's slot behind its cooldown flag (an empty
+branch, the hold league_caitlyn W relies on): the AI still cast the held E (`None` on `EnemyWithoutTower`) - 19 times
+in 12 games, in fights as well as on camps - and the held ult (`Targeting EnemyChampion`) after every QRQ, each an
+empty action that also started the slot's real cooldown. Gating a combo on the slot's level is no easier
+(`SwitchByLevel3` is the only level an effect reads; the ult unlocks at 5), so the combos spend no other slot's
+cooldown at all.
 
 **Heal an ally at a health cost (league_soraka W).** `Targeting` + `AllyNotSelf`: `Heal
 {heal_type: Ally}` on the target, then a 3-tick caster buff with `undying: true` and
