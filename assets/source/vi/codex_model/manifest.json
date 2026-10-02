@@ -1,0 +1,179 @@
+{
+  "mode": "built-in image_gen; resampled to game size and quantized; not native 38-cell drawing",
+  "coordinate_convention": "zero-based; bbox right/bottom exclusive; pivot is placement reference",
+  "eye_note": "eye_color_cells_1x lists every matching color cell, including accidental use outside eyes; eyes not certified",
+  "designs": {
+    "A": {
+      "file": "vi_design_A.png",
+      "canvas_px": [
+        1024,
+        1024
+      ],
+      "logical_canvas": [
+        128,
+        128
+      ],
+      "scale": 8,
+      "top_row": 62,
+      "sole_row": 99,
+      "bbox_1x": [
+        51,
+        62,
+        78,
+        100
+      ],
+      "height_cells": 38,
+      "width_cells": 27,
+      "pivot_1x": [
+        64,
+        88
+      ],
+      "pivot_px": [
+        512,
+        704
+      ],
+      "opaque_cells": 657,
+      "color_count": 24,
+      "palette": [
+        "#100C19",
+        "#1456D8",
+        "#24CEF5",
+        "#302A43",
+        "#314462",
+        "#483C65",
+        "#511525",
+        "#647599",
+        "#6B4260",
+        "#961E37",
+        "#97B9CB",
+        "#98601D",
+        "#9C1C4F",
+        "#A75A3E",
+        "#A94734",
+        "#ADBDCE",
+        "#D2AB71",
+        "#D9982C",
+        "#E43883",
+        "#E59B76",
+        "#F7F2D8",
+        "#FF76B5",
+        "#FFCC58",
+        "#FFD5AB"
+      ],
+      "eye_color": "#97B9CB",
+      "eye_color_cells_1x": [
+        [
+          64,
+          77
+        ],
+        [
+          65,
+          78
+        ],
+        [
+          58,
+          79
+        ],
+        [
+          59,
+          79
+        ],
+        [
+          58,
+          80
+        ],
+        [
+          70,
+          80
+        ],
+        [
+          71,
+          80
+        ],
+        [
+          71,
+          81
+        ],
+        [
+          58,
+          91
+        ],
+        [
+          72,
+          91
+        ]
+      ],
+      "grid8_errors": 0,
+      "partial_alpha": 0,
+      "below_sole_pixels": 0
+    },
+    "B": {
+      "file": "vi_design_B.png",
+      "canvas_px": [
+        1024,
+        1024
+      ],
+      "logical_canvas": [
+        128,
+        128
+      ],
+      "scale": 8,
+      "top_row": 62,
+      "sole_row": 99,
+      "bbox_1x": [
+        52,
+        62,
+        78,
+        100
+      ],
+      "height_cells": 38,
+      "width_cells": 26,
+      "pivot_1x": [
+        64,
+        88
+      ],
+      "pivot_px": [
+        512,
+        704
+      ],
+      "opaque_cells": 716,
+      "color_count": 24,
+      "palette": [
+        "#100C19",
+        "#1456D8",
+        "#24CEF5",
+        "#302A43",
+        "#314462",
+        "#483C65",
+        "#511525",
+        "#647599",
+        "#6B4260",
+        "#961E37",
+        "#97B9CB",
+        "#98601D",
+        "#9C1C4F",
+        "#A75A3E",
+        "#A94734",
+        "#ADBDCE",
+        "#D2AB71",
+        "#D9982C",
+        "#E43883",
+        "#E59B76",
+        "#F7F2D8",
+        "#FF76B5",
+        "#FFCC58",
+        "#FFD5AB"
+      ],
+      "eye_color": "#97B9CB",
+      "eye_color_cells_1x": [
+        [
+          59,
+          78
+        ]
+      ],
+      "grid8_errors": 0,
+      "partial_alpha": 0,
+      "below_sole_pixels": 0
+    }
+  }
+}
