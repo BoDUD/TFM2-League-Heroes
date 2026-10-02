@@ -1164,6 +1164,8 @@ league_sona (support, --lane 4, 2026-10-02, Crescendo's 1.5 s stun on every cham
 league_leona 2.19, league_nami 1.94 and the base priest 0.50 in the same batch - no change.
 league_kennen (top, 2026-10-02, the third mark's stun: 1.25 s, 0.5 s within 7 s of the last; Yasuo mid): 1.48 a game;
 the base fighter 2.33 in the same batch - in the range of the CC heroes before, no change.
+league_ryze (mid, --lane 2, 2026-10-03, Rune Prison's 1.25 s root on a Flux'd target; Yasuo top): 1.65 a game;
+league_ahri 1.33 and the base lightning mage 3.19 in the same batch - no change.
 
 **Kill trigger (league_jinx Get Excited!).** No effect fires on a kill, but section 4's facts make one:
 1. Next to the damaging projectile, fire an invisible twin with the same speed and path and
@@ -2780,6 +2782,53 @@ picture (a 2.9 s caster view that follows him, under the units) and one `AddCast
 30): each period a `RangeEffect` round him on `EnemyChampion` within 55000 - magic damage, the bolt and a mark (one
 per strike), so the third strike stuns everyone inside. One strike in the tree is enough for both callers (the ult
 and E's combo; the game copies `skill` and `skill2` every tick: E stays at about 160 nodes); his death clears it.
+**Marks a later hit sets off on every marked enemy (league_ryze Spell Flux and Overload).** League's Flux sits on
+the enemies and Overload bounces to the Flux'd ones; nothing reads a buff on another unit, so each mark is an
+`AddCasted` on the enemy that reads the caster's flags. E's zone (a hidden 1-tick lob onto the target, then a
+`RangeProjectile` on `EnemyWithoutTower`) gives every unit it reaches two of them: one plays the mark's picture every
+12 ticks while the caster's generation flag (`fx_c`, 240 ticks) holds, one checks every 2 ticks for the caster flag
+`q_pop`. Q's hit raises `q_pop` for 3 ticks and queues on the caster the removal of the generation and of `q_pop`:
+every marked unit bursts once in that window (405 bursts counted in the logs, none twice), and the generation is
+used up. Two generations (`fx_c` from the combo's E, `fx_r` from R's landing E) let a new E switch the other off,
+so a unit never carries two live marks. The wider spread for a target already marked (38000 against 25000) reads a
+flag set before the generation is refreshed - read after it, every E took the wide zone.
+
+**League's combo as one cast (league_ryze E -> W -> Q).** Ryze's W and E reset Q, so League players cast E, W, Q
+in a row; `skill2` is that sequence on one `Targeting` cast (60000, `EnemyWithoutTower`): E on tick 6, W on 24,
+Q on 38 of one 12-frame strip, the W and the Q `Delayed` on the target with a flag set on the caster
+(`c_w_ok`, `c_q_ok`): a `Delayed` queued on a unit that dies runs only its pictures, so when the target died the
+caster's own `Delayed` checks find the flag missing and fire the W or Q at a `RandomTarget` (champions first). The
+runes League's Q passive counts are pictures and flags on the caster (E -> one, W -> two, Q spends them: move speed).
+
+**A team teleport to chase or escape (league_ryze R, Realm Warp).** The user: never at an enemy already in front of
+him, "追敌人或者逃跑用", "或者运送小兵". The first version - a `Direction` cast on `EnemyChampion` (80000) that blinked 30000
+ahead (`DirTeleport`) - went out in 163 of 163 simulated casts with the nearest enemy champion 30000-55000 away, inside his
+attack range: the AI decides an ult like that once the fight is on, and 45 landings ended within 30000 of an enemy. The slot
+now only arms R (league_riven R: a 3-tick `None` action on the `idle` tag, `EnemyChampion` within 120000, `r_armed` for 600
+ticks, left unused a 3-tick `ult_cooldown_mult` 4900), and an `AddCasted` on himself (period 10) checks while armed:
+- escape: two enemy champions within 30000 (league_kayle R's `n1` -> `n2` ladder in a `RangeEffect`), or one within 15000 (a
+  `RandomTarget`) with no `AllyNotSelf` within 50000. `RandomTarget EnemyChampion` within 30000 holds the jump: after the
+  60-tick channel a `MoveBack` (15000 x 4) straight away from the champion it picked - it runs from a `Delayed` queued on
+  that champion, so the direction is taken at the jump. A projectile cannot fly the other way to show the far portal during
+  the channel: a `LinearProjectile`'s `speed` is unsigned too (`-10000` fails to parse and breaks the kit, like
+  `DirTeleport.moved`), so the escape's arrival is drawn when he lands.
+- chase: no enemy champion within 45000 (his reach) while one was within the last 90 ticks (a `r_seen` refresh), an
+  `AllyNotSelf` within 50000, and a `RandomTarget EnemyChampionRecentlyAttacked` (it works in a `RandomTarget`) within 100000:
+  a hidden, non-penetrating `LinearProjectile` on `EnemyChampion` toward it (speed 26666, range 80000, radius 5000) stops
+  where it touches the first enemy champion, plays the far portal there, and a `Delayed` in its `end_effects` `Teleport`s
+  him there at the end of the channel (the stop point is kept, section 4). A radius of 40000 landed him an attack range
+  short - by then the fleeing champion had run another 60000 (1000 units a tick): after the landing 41% stood in his reach,
+  with the portal on the champion 62%.
+Requiring an ally near the chase (he follows with the team, never alone at low health) and the "one in reach a moment ago"
+check (no chase on the approach - the first try warped onto five enemies walking in) came from the logs. Every allied
+unit in his portal comes along: an anchor (league_ekko R) at his feet starts, after the jump, a zone on `AllyNotSelf` whose
+applied effect is a `TargetProjectile` on `BothWithoutTower` carrying `Grab {speed 15000}` - a `Grab` straight from a zone
+on `Ally` or `AllyNotSelf` dragged two allied towers across the lane in the simulation (`tower` 6 from 368000,592000), and
+no casting target names allied minions alone. Crowd control breaks the channel (a `RandomTarget AllyChampionInCC` on
+himself every 15 ticks sets `r_cut`). In 72 games: 2.2 chases, 0.6 escapes and 0.2 cut channels a game, a chase carrying about 0.8
+champions and 0.2 minions; lane 2 +1.41 / +1.35 against +1.65 / +2.01 for the old blink (it threw its landing
+Spell Flux into every fight).
+
 ## 8. Gotchas
 
 - A `RangePeriodProjectile` put straight into an action's effects, or into a self-only `RangeEffect`, is never

@@ -1,0 +1,3097 @@
+{
+  "scale": 8,
+  "cell_native": [
+    104,
+    96
+  ],
+  "cell_output": [
+    832,
+    768
+  ],
+  "palette": [
+    "#014C78",
+    "#097999",
+    "#0F0213",
+    "#10041C",
+    "#112A70",
+    "#141743",
+    "#18235D",
+    "#23148D",
+    "#233D98",
+    "#321721",
+    "#329498",
+    "#40CCFC",
+    "#431F20",
+    "#494560",
+    "#511AC4",
+    "#51261D",
+    "#663322",
+    "#6B44CC",
+    "#7F4226",
+    "#9270F2",
+    "#9B592D",
+    "#A88CFB",
+    "#B368FD",
+    "#B59CFC",
+    "#C4A68D",
+    "#C8B5FD",
+    "#E79845",
+    "#F4EEEA",
+    "#FBCE84",
+    "#FBFBFD"
+  ],
+  "animations": {
+    "skill2": {
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 78,
+          "cell_rect_native": [
+            0,
+            0,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            0,
+            0,
+            832,
+            768
+          ],
+          "pivot_native": [
+            49,
+            70
+          ],
+          "pivot_output": [
+            392,
+            560
+          ],
+          "bbox_native": [
+            20,
+            42,
+            73,
+            82
+          ],
+          "bbox_output": [
+            160,
+            336,
+            584,
+            656
+          ],
+          "head_origin_native": [
+            41,
+            45
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            982
+          ],
+          "bottom_row": 81,
+          "local_repairs": []
+        },
+        {
+          "frame": 2,
+          "ms": 78,
+          "cell_rect_native": [
+            104,
+            0,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            832,
+            0,
+            832,
+            768
+          ],
+          "pivot_native": [
+            48,
+            70
+          ],
+          "pivot_output": [
+            384,
+            560
+          ],
+          "bbox_native": [
+            20,
+            42,
+            72,
+            82
+          ],
+          "bbox_output": [
+            160,
+            336,
+            576,
+            656
+          ],
+          "head_origin_native": [
+            40,
+            45
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            1043
+          ],
+          "bottom_row": 81,
+          "local_repairs": []
+        },
+        {
+          "frame": 3,
+          "ms": 78,
+          "cell_rect_native": [
+            208,
+            0,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            1664,
+            0,
+            832,
+            768
+          ],
+          "pivot_native": [
+            50,
+            70
+          ],
+          "pivot_output": [
+            400,
+            560
+          ],
+          "bbox_native": [
+            24,
+            43,
+            63,
+            82
+          ],
+          "bbox_output": [
+            192,
+            344,
+            504,
+            656
+          ],
+          "head_origin_native": [
+            42,
+            44
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            939
+          ],
+          "bottom_row": 81,
+          "local_repairs": []
+        },
+        {
+          "frame": 4,
+          "ms": 78,
+          "cell_rect_native": [
+            312,
+            0,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            2496,
+            0,
+            832,
+            768
+          ],
+          "pivot_native": [
+            44,
+            70
+          ],
+          "pivot_output": [
+            352,
+            560
+          ],
+          "bbox_native": [
+            21,
+            27,
+            60,
+            82
+          ],
+          "bbox_output": [
+            168,
+            216,
+            480,
+            656
+          ],
+          "head_origin_native": [
+            36,
+            43
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            968
+          ],
+          "bottom_row": 81,
+          "local_repairs": []
+        },
+        {
+          "frame": 5,
+          "ms": 78,
+          "cell_rect_native": [
+            0,
+            96,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            0,
+            768,
+            832,
+            768
+          ],
+          "pivot_native": [
+            46,
+            70
+          ],
+          "pivot_output": [
+            368,
+            560
+          ],
+          "bbox_native": [
+            25,
+            26,
+            62,
+            82
+          ],
+          "bbox_output": [
+            200,
+            208,
+            496,
+            656
+          ],
+          "head_origin_native": [
+            38,
+            43
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            950
+          ],
+          "bottom_row": 81,
+          "local_repairs": []
+        },
+        {
+          "frame": 6,
+          "ms": 78,
+          "cell_rect_native": [
+            104,
+            96,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            832,
+            768,
+            832,
+            768
+          ],
+          "pivot_native": [
+            45,
+            70
+          ],
+          "pivot_output": [
+            360,
+            560
+          ],
+          "bbox_native": [
+            18,
+            42,
+            65,
+            82
+          ],
+          "bbox_output": [
+            144,
+            336,
+            520,
+            656
+          ],
+          "head_origin_native": [
+            37,
+            48
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            869
+          ],
+          "bottom_row": 81,
+          "local_repairs": [
+            {
+              "type": "remove_detached_scroll_remnant",
+              "pixels": 9
+            }
+          ]
+        },
+        {
+          "frame": 7,
+          "ms": 78,
+          "cell_rect_native": [
+            208,
+            96,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            1664,
+            768,
+            832,
+            768
+          ],
+          "pivot_native": [
+            45,
+            70
+          ],
+          "pivot_output": [
+            360,
+            560
+          ],
+          "bbox_native": [
+            18,
+            53,
+            60,
+            82
+          ],
+          "bbox_output": [
+            144,
+            424,
+            480,
+            656
+          ],
+          "head_origin_native": [
+            37,
+            55
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            822
+          ],
+          "bottom_row": 81,
+          "local_repairs": [
+            {
+              "type": "remove_detached_scroll_remnant",
+              "pixels": 22
+            }
+          ]
+        },
+        {
+          "frame": 8,
+          "ms": 78,
+          "cell_rect_native": [
+            312,
+            96,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            2496,
+            768,
+            832,
+            768
+          ],
+          "pivot_native": [
+            47,
+            70
+          ],
+          "pivot_output": [
+            376,
+            560
+          ],
+          "bbox_native": [
+            19,
+            46,
+            59,
+            82
+          ],
+          "bbox_output": [
+            152,
+            368,
+            472,
+            656
+          ],
+          "head_origin_native": [
+            39,
+            48
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            876
+          ],
+          "bottom_row": 81,
+          "local_repairs": [
+            {
+              "type": "remove_detached_scroll_remnant",
+              "pixels": 16
+            }
+          ]
+        },
+        {
+          "frame": 9,
+          "ms": 78,
+          "cell_rect_native": [
+            0,
+            192,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            0,
+            1536,
+            832,
+            768
+          ],
+          "pivot_native": [
+            43,
+            70
+          ],
+          "pivot_output": [
+            344,
+            560
+          ],
+          "bbox_native": [
+            11,
+            49,
+            66,
+            82
+          ],
+          "bbox_output": [
+            88,
+            392,
+            528,
+            656
+          ],
+          "head_origin_native": [
+            35,
+            54
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            881
+          ],
+          "bottom_row": 81,
+          "local_repairs": []
+        },
+        {
+          "frame": 10,
+          "ms": 78,
+          "cell_rect_native": [
+            104,
+            192,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            832,
+            1536,
+            832,
+            768
+          ],
+          "pivot_native": [
+            46,
+            70
+          ],
+          "pivot_output": [
+            368,
+            560
+          ],
+          "bbox_native": [
+            22,
+            43,
+            69,
+            82
+          ],
+          "bbox_output": [
+            176,
+            344,
+            552,
+            656
+          ],
+          "head_origin_native": [
+            38,
+            45
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            966
+          ],
+          "bottom_row": 81,
+          "local_repairs": []
+        },
+        {
+          "frame": 11,
+          "ms": 78,
+          "cell_rect_native": [
+            208,
+            192,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            1664,
+            1536,
+            832,
+            768
+          ],
+          "pivot_native": [
+            48,
+            70
+          ],
+          "pivot_output": [
+            384,
+            560
+          ],
+          "bbox_native": [
+            25,
+            41,
+            62,
+            82
+          ],
+          "bbox_output": [
+            200,
+            328,
+            496,
+            656
+          ],
+          "head_origin_native": [
+            40,
+            46
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            939
+          ],
+          "bottom_row": 81,
+          "local_repairs": []
+        },
+        {
+          "frame": 12,
+          "ms": 75,
+          "cell_rect_native": [
+            312,
+            192,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            2496,
+            1536,
+            832,
+            768
+          ],
+          "pivot_native": [
+            47,
+            70
+          ],
+          "pivot_output": [
+            376,
+            560
+          ],
+          "bbox_native": [
+            31,
+            42,
+            60,
+            82
+          ],
+          "bbox_output": [
+            248,
+            336,
+            480,
+            656
+          ],
+          "head_origin_native": [
+            39,
+            43
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            828
+          ],
+          "bottom_row": 81,
+          "local_repairs": []
+        }
+      ],
+      "grid": [
+        4,
+        3
+      ],
+      "output_size": [
+        3328,
+        2304
+      ],
+      "generator_output_size": [
+        1507,
+        1044
+      ],
+      "source_grid_pitch_estimate": 5.05,
+      "source": "generation_sources/ryze_skill2_raw.png"
+    },
+    "run": {
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 133,
+          "cell_rect_native": [
+            0,
+            0,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            0,
+            0,
+            832,
+            768
+          ],
+          "pivot_native": [
+            51,
+            70
+          ],
+          "pivot_output": [
+            408,
+            560
+          ],
+          "bbox_native": [
+            30,
+            42,
+            61,
+            82
+          ],
+          "bbox_output": [
+            240,
+            336,
+            488,
+            656
+          ],
+          "head_origin_native": [
+            43,
+            44
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            748
+          ],
+          "bottom_row": 81,
+          "local_repairs": [
+            {
+              "type": "copy_boundary_gap",
+              "from": [
+                71,
+                38
+              ],
+              "to": [
+                73,
+                38
+              ],
+              "missing_pixels": 1
+            }
+          ]
+        },
+        {
+          "frame": 2,
+          "ms": 133,
+          "cell_rect_native": [
+            104,
+            0,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            832,
+            0,
+            832,
+            768
+          ],
+          "pivot_native": [
+            49,
+            70
+          ],
+          "pivot_output": [
+            392,
+            560
+          ],
+          "bbox_native": [
+            28,
+            42,
+            59,
+            82
+          ],
+          "bbox_output": [
+            224,
+            336,
+            472,
+            656
+          ],
+          "head_origin_native": [
+            41,
+            43
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            716
+          ],
+          "bottom_row": 81,
+          "local_repairs": [
+            {
+              "type": "copy_boundary_gap",
+              "from": [
+                71,
+                35
+              ],
+              "to": [
+                73,
+                35
+              ],
+              "missing_pixels": 1
+            }
+          ]
+        },
+        {
+          "frame": 3,
+          "ms": 134,
+          "cell_rect_native": [
+            208,
+            0,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            1664,
+            0,
+            832,
+            768
+          ],
+          "pivot_native": [
+            50,
+            70
+          ],
+          "pivot_output": [
+            400,
+            560
+          ],
+          "bbox_native": [
+            32,
+            42,
+            59,
+            82
+          ],
+          "bbox_output": [
+            256,
+            336,
+            472,
+            656
+          ],
+          "head_origin_native": [
+            42,
+            43
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            704
+          ],
+          "bottom_row": 81,
+          "local_repairs": []
+        },
+        {
+          "frame": 4,
+          "ms": 133,
+          "cell_rect_native": [
+            312,
+            0,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            2496,
+            0,
+            832,
+            768
+          ],
+          "pivot_native": [
+            48,
+            70
+          ],
+          "pivot_output": [
+            384,
+            560
+          ],
+          "bbox_native": [
+            28,
+            42,
+            61,
+            82
+          ],
+          "bbox_output": [
+            224,
+            336,
+            488,
+            656
+          ],
+          "head_origin_native": [
+            40,
+            43
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            742
+          ],
+          "bottom_row": 81,
+          "local_repairs": []
+        },
+        {
+          "frame": 5,
+          "ms": 133,
+          "cell_rect_native": [
+            0,
+            96,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            0,
+            768,
+            832,
+            768
+          ],
+          "pivot_native": [
+            46,
+            70
+          ],
+          "pivot_output": [
+            368,
+            560
+          ],
+          "bbox_native": [
+            23,
+            43,
+            57,
+            82
+          ],
+          "bbox_output": [
+            184,
+            344,
+            456,
+            656
+          ],
+          "head_origin_native": [
+            38,
+            44
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            745
+          ],
+          "bottom_row": 81,
+          "local_repairs": []
+        },
+        {
+          "frame": 6,
+          "ms": 134,
+          "cell_rect_native": [
+            104,
+            96,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            832,
+            768,
+            832,
+            768
+          ],
+          "pivot_native": [
+            45,
+            70
+          ],
+          "pivot_output": [
+            360,
+            560
+          ],
+          "bbox_native": [
+            22,
+            41,
+            57,
+            82
+          ],
+          "bbox_output": [
+            176,
+            328,
+            456,
+            656
+          ],
+          "head_origin_native": [
+            37,
+            43
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            767
+          ],
+          "bottom_row": 81,
+          "local_repairs": [
+            {
+              "type": "copy_boundary_gap",
+              "from": [
+                71,
+                31
+              ],
+              "to": [
+                73,
+                31
+              ],
+              "missing_pixels": 1
+            }
+          ]
+        },
+        {
+          "frame": 7,
+          "ms": 133,
+          "cell_rect_native": [
+            208,
+            96,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            1664,
+            768,
+            832,
+            768
+          ],
+          "pivot_native": [
+            47,
+            70
+          ],
+          "pivot_output": [
+            376,
+            560
+          ],
+          "bbox_native": [
+            27,
+            41,
+            58,
+            82
+          ],
+          "bbox_output": [
+            216,
+            328,
+            464,
+            656
+          ],
+          "head_origin_native": [
+            39,
+            43
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            738
+          ],
+          "bottom_row": 81,
+          "local_repairs": []
+        },
+        {
+          "frame": 8,
+          "ms": 134,
+          "cell_rect_native": [
+            312,
+            96,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            2496,
+            768,
+            832,
+            768
+          ],
+          "pivot_native": [
+            50,
+            70
+          ],
+          "pivot_output": [
+            400,
+            560
+          ],
+          "bbox_native": [
+            28,
+            42,
+            61,
+            82
+          ],
+          "bbox_output": [
+            224,
+            336,
+            488,
+            656
+          ],
+          "head_origin_native": [
+            42,
+            43
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            779
+          ],
+          "bottom_row": 81,
+          "local_repairs": []
+        }
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "output_size": [
+        3328,
+        1536
+      ],
+      "generator_output_size": [
+        1846,
+        852
+      ],
+      "source_grid_pitch_estimate": 6.0,
+      "source": "generation_sources/ryze_run_raw.png"
+    },
+    "attack": {
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 60,
+          "cell_rect_native": [
+            0,
+            0,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            0,
+            0,
+            832,
+            768
+          ],
+          "pivot_native": [
+            47,
+            70
+          ],
+          "pivot_output": [
+            376,
+            560
+          ],
+          "bbox_native": [
+            28,
+            44,
+            65,
+            82
+          ],
+          "bbox_output": [
+            224,
+            352,
+            520,
+            656
+          ],
+          "head_origin_native": [
+            39,
+            46
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            790
+          ],
+          "bottom_row": 81,
+          "local_repairs": []
+        },
+        {
+          "frame": 2,
+          "ms": 70,
+          "cell_rect_native": [
+            104,
+            0,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            832,
+            0,
+            832,
+            768
+          ],
+          "pivot_native": [
+            51,
+            70
+          ],
+          "pivot_output": [
+            408,
+            560
+          ],
+          "bbox_native": [
+            22,
+            43,
+            59,
+            82
+          ],
+          "bbox_output": [
+            176,
+            344,
+            472,
+            656
+          ],
+          "head_origin_native": [
+            43,
+            46
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            833
+          ],
+          "bottom_row": 81,
+          "local_repairs": []
+        },
+        {
+          "frame": 3,
+          "ms": 80,
+          "cell_rect_native": [
+            208,
+            0,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            1664,
+            0,
+            832,
+            768
+          ],
+          "pivot_native": [
+            52,
+            70
+          ],
+          "pivot_output": [
+            416,
+            560
+          ],
+          "bbox_native": [
+            28,
+            46,
+            73,
+            82
+          ],
+          "bbox_output": [
+            224,
+            368,
+            584,
+            656
+          ],
+          "head_origin_native": [
+            44,
+            48
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            786
+          ],
+          "bottom_row": 81,
+          "local_repairs": []
+        },
+        {
+          "frame": 4,
+          "ms": 90,
+          "cell_rect_native": [
+            0,
+            96,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            0,
+            768,
+            832,
+            768
+          ],
+          "pivot_native": [
+            51,
+            70
+          ],
+          "pivot_output": [
+            408,
+            560
+          ],
+          "bbox_native": [
+            32,
+            43,
+            72,
+            82
+          ],
+          "bbox_output": [
+            256,
+            344,
+            576,
+            656
+          ],
+          "head_origin_native": [
+            43,
+            45
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            810
+          ],
+          "bottom_row": 81,
+          "local_repairs": []
+        },
+        {
+          "frame": 5,
+          "ms": 100,
+          "cell_rect_native": [
+            104,
+            96,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            832,
+            768,
+            832,
+            768
+          ],
+          "pivot_native": [
+            50,
+            70
+          ],
+          "pivot_output": [
+            400,
+            560
+          ],
+          "bbox_native": [
+            31,
+            43,
+            68,
+            82
+          ],
+          "bbox_output": [
+            248,
+            344,
+            544,
+            656
+          ],
+          "head_origin_native": [
+            42,
+            45
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            782
+          ],
+          "bottom_row": 81,
+          "local_repairs": []
+        },
+        {
+          "frame": 6,
+          "ms": 70,
+          "cell_rect_native": [
+            208,
+            96,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            1664,
+            768,
+            832,
+            768
+          ],
+          "pivot_native": [
+            52,
+            70
+          ],
+          "pivot_output": [
+            416,
+            560
+          ],
+          "bbox_native": [
+            36,
+            42,
+            65,
+            82
+          ],
+          "bbox_output": [
+            288,
+            336,
+            520,
+            656
+          ],
+          "head_origin_native": [
+            44,
+            43
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            828
+          ],
+          "bottom_row": 81,
+          "local_repairs": []
+        }
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "output_size": [
+        2496,
+        1536
+      ],
+      "generator_output_size": [
+        1599,
+        984
+      ],
+      "source_grid_pitch_estimate": 6.9,
+      "source": "generation_sources/ryze_attack_raw.png"
+    },
+    "skill": {
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 50,
+          "cell_rect_native": [
+            0,
+            0,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            0,
+            0,
+            832,
+            768
+          ],
+          "pivot_native": [
+            52,
+            70
+          ],
+          "pivot_output": [
+            416,
+            560
+          ],
+          "bbox_native": [
+            28,
+            46,
+            67,
+            82
+          ],
+          "bbox_output": [
+            224,
+            368,
+            536,
+            656
+          ],
+          "head_origin_native": [
+            44,
+            48
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            863
+          ],
+          "bottom_row": 81,
+          "local_repairs": [
+            {
+              "type": "remove_detached_scroll_remnant",
+              "pixels": 7
+            }
+          ]
+        },
+        {
+          "frame": 2,
+          "ms": 50,
+          "cell_rect_native": [
+            104,
+            0,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            832,
+            0,
+            832,
+            768
+          ],
+          "pivot_native": [
+            45,
+            70
+          ],
+          "pivot_output": [
+            360,
+            560
+          ],
+          "bbox_native": [
+            16,
+            42,
+            52,
+            82
+          ],
+          "bbox_output": [
+            128,
+            336,
+            416,
+            656
+          ],
+          "head_origin_native": [
+            37,
+            49
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            856
+          ],
+          "bottom_row": 81,
+          "local_repairs": []
+        },
+        {
+          "frame": 3,
+          "ms": 60,
+          "cell_rect_native": [
+            208,
+            0,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            1664,
+            0,
+            832,
+            768
+          ],
+          "pivot_native": [
+            50,
+            70
+          ],
+          "pivot_output": [
+            400,
+            560
+          ],
+          "bbox_native": [
+            17,
+            50,
+            74,
+            82
+          ],
+          "bbox_output": [
+            136,
+            400,
+            592,
+            656
+          ],
+          "head_origin_native": [
+            42,
+            53
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            868
+          ],
+          "bottom_row": 81,
+          "local_repairs": [
+            {
+              "type": "remove_detached_scroll_remnant",
+              "pixels": 6
+            }
+          ]
+        },
+        {
+          "frame": 4,
+          "ms": 80,
+          "cell_rect_native": [
+            0,
+            96,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            0,
+            768,
+            832,
+            768
+          ],
+          "pivot_native": [
+            47,
+            70
+          ],
+          "pivot_output": [
+            376,
+            560
+          ],
+          "bbox_native": [
+            24,
+            41,
+            70,
+            82
+          ],
+          "bbox_output": [
+            192,
+            328,
+            560,
+            656
+          ],
+          "head_origin_native": [
+            39,
+            44
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            916
+          ],
+          "bottom_row": 81,
+          "local_repairs": []
+        },
+        {
+          "frame": 5,
+          "ms": 90,
+          "cell_rect_native": [
+            104,
+            96,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            832,
+            768,
+            832,
+            768
+          ],
+          "pivot_native": [
+            48,
+            70
+          ],
+          "pivot_output": [
+            384,
+            560
+          ],
+          "bbox_native": [
+            26,
+            43,
+            62,
+            82
+          ],
+          "bbox_output": [
+            208,
+            344,
+            496,
+            656
+          ],
+          "head_origin_native": [
+            40,
+            48
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            859
+          ],
+          "bottom_row": 81,
+          "local_repairs": []
+        },
+        {
+          "frame": 6,
+          "ms": 103,
+          "cell_rect_native": [
+            208,
+            96,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            1664,
+            768,
+            832,
+            768
+          ],
+          "pivot_native": [
+            47,
+            70
+          ],
+          "pivot_output": [
+            376,
+            560
+          ],
+          "bbox_native": [
+            31,
+            42,
+            60,
+            82
+          ],
+          "bbox_output": [
+            248,
+            336,
+            480,
+            656
+          ],
+          "head_origin_native": [
+            39,
+            43
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            828
+          ],
+          "bottom_row": 81,
+          "local_repairs": []
+        }
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "output_size": [
+        2496,
+        1536
+      ],
+      "generator_output_size": [
+        1599,
+        984
+      ],
+      "source_grid_pitch_estimate": 7.05,
+      "source": "generation_sources/ryze_skill_raw.png"
+    },
+    "ult": {
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 125,
+          "cell_rect_native": [
+            0,
+            0,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            0,
+            0,
+            832,
+            768
+          ],
+          "pivot_native": [
+            45,
+            70
+          ],
+          "pivot_output": [
+            360,
+            560
+          ],
+          "bbox_native": [
+            17,
+            43,
+            67,
+            82
+          ],
+          "bbox_output": [
+            136,
+            344,
+            536,
+            656
+          ],
+          "head_origin_native": [
+            37,
+            44
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            859
+          ],
+          "bottom_row": 81,
+          "local_repairs": []
+        },
+        {
+          "frame": 2,
+          "ms": 125,
+          "cell_rect_native": [
+            104,
+            0,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            832,
+            0,
+            832,
+            768
+          ],
+          "pivot_native": [
+            48,
+            70
+          ],
+          "pivot_output": [
+            384,
+            560
+          ],
+          "bbox_native": [
+            28,
+            53,
+            60,
+            82
+          ],
+          "bbox_output": [
+            224,
+            424,
+            480,
+            656
+          ],
+          "head_origin_native": [
+            40,
+            54
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            572
+          ],
+          "bottom_row": 81,
+          "local_repairs": []
+        },
+        {
+          "frame": 3,
+          "ms": 125,
+          "cell_rect_native": [
+            208,
+            0,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            1664,
+            0,
+            832,
+            768
+          ],
+          "pivot_native": [
+            48,
+            70
+          ],
+          "pivot_output": [
+            384,
+            560
+          ],
+          "bbox_native": [
+            28,
+            56,
+            61,
+            82
+          ],
+          "bbox_output": [
+            224,
+            448,
+            488,
+            656
+          ],
+          "head_origin_native": [
+            40,
+            57
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            543
+          ],
+          "bottom_row": 81,
+          "local_repairs": []
+        },
+        {
+          "frame": 4,
+          "ms": 125,
+          "cell_rect_native": [
+            312,
+            0,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            2496,
+            0,
+            832,
+            768
+          ],
+          "pivot_native": [
+            50,
+            70
+          ],
+          "pivot_output": [
+            400,
+            560
+          ],
+          "bbox_native": [
+            32,
+            54,
+            62,
+            82
+          ],
+          "bbox_output": [
+            256,
+            432,
+            496,
+            656
+          ],
+          "head_origin_native": [
+            42,
+            56
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            564
+          ],
+          "bottom_row": 81,
+          "local_repairs": []
+        },
+        {
+          "frame": 5,
+          "ms": 125,
+          "cell_rect_native": [
+            0,
+            96,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            0,
+            768,
+            832,
+            768
+          ],
+          "pivot_native": [
+            48,
+            70
+          ],
+          "pivot_output": [
+            384,
+            560
+          ],
+          "bbox_native": [
+            28,
+            40,
+            69,
+            82
+          ],
+          "bbox_output": [
+            224,
+            320,
+            552,
+            656
+          ],
+          "head_origin_native": [
+            40,
+            48
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            779
+          ],
+          "bottom_row": 81,
+          "local_repairs": []
+        },
+        {
+          "frame": 6,
+          "ms": 125,
+          "cell_rect_native": [
+            104,
+            96,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            832,
+            768,
+            832,
+            768
+          ],
+          "pivot_native": [
+            46,
+            70
+          ],
+          "pivot_output": [
+            368,
+            560
+          ],
+          "bbox_native": [
+            25,
+            38,
+            67,
+            82
+          ],
+          "bbox_output": [
+            200,
+            304,
+            536,
+            656
+          ],
+          "head_origin_native": [
+            38,
+            44
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            824
+          ],
+          "bottom_row": 81,
+          "local_repairs": []
+        },
+        {
+          "frame": 7,
+          "ms": 125,
+          "cell_rect_native": [
+            208,
+            96,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            1664,
+            768,
+            832,
+            768
+          ],
+          "pivot_native": [
+            46,
+            70
+          ],
+          "pivot_output": [
+            368,
+            560
+          ],
+          "bbox_native": [
+            20,
+            44,
+            68,
+            82
+          ],
+          "bbox_output": [
+            160,
+            352,
+            544,
+            656
+          ],
+          "head_origin_native": [
+            38,
+            45
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            863
+          ],
+          "bottom_row": 81,
+          "local_repairs": []
+        },
+        {
+          "frame": 8,
+          "ms": 125,
+          "cell_rect_native": [
+            312,
+            96,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            2496,
+            768,
+            832,
+            768
+          ],
+          "pivot_native": [
+            48,
+            70
+          ],
+          "pivot_output": [
+            384,
+            560
+          ],
+          "bbox_native": [
+            29,
+            32,
+            57,
+            82
+          ],
+          "bbox_output": [
+            232,
+            256,
+            456,
+            656
+          ],
+          "head_origin_native": [
+            40,
+            45
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            799
+          ],
+          "bottom_row": 81,
+          "local_repairs": [
+            {
+              "type": "copy_boundary_gap",
+              "from": [
+                44,
+                34
+              ],
+              "to": [
+                41,
+                34
+              ],
+              "missing_pixels": 2
+            }
+          ]
+        }
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "output_size": [
+        3328,
+        1536
+      ],
+      "generator_output_size": [
+        1846,
+        852
+      ],
+      "source_grid_pitch_estimate": 6.575,
+      "source": "generation_sources/ryze_ult_raw.png"
+    },
+    "ult_land": {
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 67,
+          "cell_rect_native": [
+            0,
+            0,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            0,
+            0,
+            832,
+            768
+          ],
+          "pivot_native": [
+            46,
+            70
+          ],
+          "pivot_output": [
+            368,
+            560
+          ],
+          "bbox_native": [
+            20,
+            53,
+            58,
+            82
+          ],
+          "bbox_output": [
+            160,
+            424,
+            464,
+            656
+          ],
+          "head_origin_native": [
+            38,
+            55
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            680
+          ],
+          "bottom_row": 81,
+          "local_repairs": [
+            {
+              "type": "remove_detached_scroll_remnant",
+              "pixels": 21
+            }
+          ]
+        },
+        {
+          "frame": 2,
+          "ms": 67,
+          "cell_rect_native": [
+            104,
+            0,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            832,
+            0,
+            832,
+            768
+          ],
+          "pivot_native": [
+            50,
+            70
+          ],
+          "pivot_output": [
+            400,
+            560
+          ],
+          "bbox_native": [
+            28,
+            49,
+            63,
+            82
+          ],
+          "bbox_output": [
+            224,
+            392,
+            504,
+            656
+          ],
+          "head_origin_native": [
+            42,
+            50
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            720
+          ],
+          "bottom_row": 81,
+          "local_repairs": [
+            {
+              "type": "remove_detached_scroll_remnant",
+              "pixels": 6
+            }
+          ]
+        },
+        {
+          "frame": 3,
+          "ms": 67,
+          "cell_rect_native": [
+            208,
+            0,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            1664,
+            0,
+            832,
+            768
+          ],
+          "pivot_native": [
+            51,
+            70
+          ],
+          "pivot_output": [
+            408,
+            560
+          ],
+          "bbox_native": [
+            32,
+            44,
+            63,
+            82
+          ],
+          "bbox_output": [
+            256,
+            352,
+            504,
+            656
+          ],
+          "head_origin_native": [
+            43,
+            45
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            756
+          ],
+          "bottom_row": 81,
+          "local_repairs": []
+        },
+        {
+          "frame": 4,
+          "ms": 66,
+          "cell_rect_native": [
+            312,
+            0,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            2496,
+            0,
+            832,
+            768
+          ],
+          "pivot_native": [
+            49,
+            70
+          ],
+          "pivot_output": [
+            392,
+            560
+          ],
+          "bbox_native": [
+            33,
+            42,
+            62,
+            82
+          ],
+          "bbox_output": [
+            264,
+            336,
+            496,
+            656
+          ],
+          "head_origin_native": [
+            41,
+            43
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            828
+          ],
+          "bottom_row": 81,
+          "local_repairs": []
+        }
+      ],
+      "grid": [
+        4,
+        1
+      ],
+      "output_size": [
+        3328,
+        768
+      ],
+      "generator_output_size": [
+        1956,
+        804
+      ],
+      "source_grid_pitch_estimate": 8.525,
+      "source": "generation_sources/ryze_ult_land_raw.png"
+    },
+    "hit": {
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 100,
+          "cell_rect_native": [
+            0,
+            0,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            0,
+            0,
+            832,
+            768
+          ],
+          "pivot_native": [
+            54,
+            70
+          ],
+          "pivot_output": [
+            432,
+            560
+          ],
+          "bbox_native": [
+            30,
+            42,
+            77,
+            82
+          ],
+          "bbox_output": [
+            240,
+            336,
+            616,
+            656
+          ],
+          "head_origin_native": [
+            46,
+            45
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            887
+          ],
+          "bottom_row": 81,
+          "local_repairs": []
+        },
+        {
+          "frame": 2,
+          "ms": 100,
+          "cell_rect_native": [
+            104,
+            0,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            832,
+            0,
+            832,
+            768
+          ],
+          "pivot_native": [
+            52,
+            70
+          ],
+          "pivot_output": [
+            416,
+            560
+          ],
+          "bbox_native": [
+            29,
+            42,
+            68,
+            82
+          ],
+          "bbox_output": [
+            232,
+            336,
+            544,
+            656
+          ],
+          "head_origin_native": [
+            44,
+            46
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            859
+          ],
+          "bottom_row": 81,
+          "local_repairs": []
+        }
+      ],
+      "grid": [
+        2,
+        1
+      ],
+      "output_size": [
+        1664,
+        768
+      ],
+      "generator_output_size": [
+        1846,
+        852
+      ],
+      "source_grid_pitch_estimate": 9.1,
+      "source": "generation_sources/ryze_hit_raw.png"
+    },
+    "dead": {
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 100,
+          "cell_rect_native": [
+            0,
+            0,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            0,
+            0,
+            832,
+            768
+          ],
+          "pivot_native": [
+            44,
+            70
+          ],
+          "pivot_output": [
+            352,
+            560
+          ],
+          "bbox_native": [
+            28,
+            45,
+            66,
+            82
+          ],
+          "bbox_output": [
+            224,
+            360,
+            528,
+            656
+          ],
+          "head_origin_native": [
+            36,
+            46
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            789
+          ],
+          "bottom_row": 81,
+          "local_repairs": []
+        },
+        {
+          "frame": 2,
+          "ms": 100,
+          "cell_rect_native": [
+            104,
+            0,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            832,
+            0,
+            832,
+            768
+          ],
+          "pivot_native": [
+            44,
+            70
+          ],
+          "pivot_output": [
+            352,
+            560
+          ],
+          "bbox_native": [
+            28,
+            44,
+            56,
+            82
+          ],
+          "bbox_output": [
+            224,
+            352,
+            448,
+            656
+          ],
+          "head_origin_native": [
+            36,
+            45
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            741
+          ],
+          "bottom_row": 81,
+          "local_repairs": [
+            {
+              "type": "remove_detached_scroll_remnant",
+              "pixels": 11
+            }
+          ]
+        },
+        {
+          "frame": 3,
+          "ms": 120,
+          "cell_rect_native": [
+            208,
+            0,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            1664,
+            0,
+            832,
+            768
+          ],
+          "pivot_native": [
+            41,
+            70
+          ],
+          "pivot_output": [
+            328,
+            560
+          ],
+          "bbox_native": [
+            22,
+            50,
+            47,
+            82
+          ],
+          "bbox_output": [
+            176,
+            400,
+            376,
+            656
+          ],
+          "head_origin_native": [
+            33,
+            53
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            589
+          ],
+          "bottom_row": 81,
+          "local_repairs": [
+            {
+              "type": "remove_detached_scroll_remnant",
+              "pixels": 27
+            }
+          ]
+        },
+        {
+          "frame": 4,
+          "ms": 120,
+          "cell_rect_native": [
+            312,
+            0,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            2496,
+            0,
+            832,
+            768
+          ],
+          "pivot_native": [
+            45,
+            70
+          ],
+          "pivot_output": [
+            360,
+            560
+          ],
+          "bbox_native": [
+            23,
+            47,
+            53,
+            82
+          ],
+          "bbox_output": [
+            184,
+            376,
+            424,
+            656
+          ],
+          "head_origin_native": [
+            37,
+            49
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            720
+          ],
+          "bottom_row": 81,
+          "local_repairs": [
+            {
+              "type": "remove_detached_scroll_remnant",
+              "pixels": 11
+            }
+          ]
+        },
+        {
+          "frame": 5,
+          "ms": 150,
+          "cell_rect_native": [
+            0,
+            96,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            0,
+            768,
+            832,
+            768
+          ],
+          "pivot_native": [
+            45,
+            70
+          ],
+          "pivot_output": [
+            360,
+            560
+          ],
+          "bbox_native": [
+            19,
+            54,
+            57,
+            82
+          ],
+          "bbox_output": [
+            152,
+            432,
+            456,
+            656
+          ],
+          "head_origin_native": [
+            37,
+            57
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            589
+          ],
+          "bottom_row": 81,
+          "local_repairs": [
+            {
+              "type": "remove_detached_scroll_remnant",
+              "pixels": 23
+            }
+          ]
+        },
+        {
+          "frame": 6,
+          "ms": 150,
+          "cell_rect_native": [
+            104,
+            96,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            832,
+            768,
+            832,
+            768
+          ],
+          "pivot_native": [
+            44,
+            70
+          ],
+          "pivot_output": [
+            352,
+            560
+          ],
+          "bbox_native": [
+            7,
+            58,
+            56,
+            82
+          ],
+          "bbox_output": [
+            56,
+            464,
+            448,
+            656
+          ],
+          "head_origin_native": [
+            36,
+            66
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            566
+          ],
+          "bottom_row": 81,
+          "local_repairs": []
+        },
+        {
+          "frame": 7,
+          "ms": 200,
+          "cell_rect_native": [
+            208,
+            96,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            1664,
+            768,
+            832,
+            768
+          ],
+          "pivot_native": [
+            39,
+            70
+          ],
+          "pivot_output": [
+            312,
+            560
+          ],
+          "bbox_native": [
+            2,
+            67,
+            52,
+            82
+          ],
+          "bbox_output": [
+            16,
+            536,
+            416,
+            656
+          ],
+          "head_origin_native": [
+            31,
+            68
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            474
+          ],
+          "bottom_row": 81,
+          "local_repairs": [
+            {
+              "type": "remove_detached_scroll_remnant",
+              "pixels": 8
+            }
+          ]
+        },
+        {
+          "frame": 8,
+          "ms": 400,
+          "cell_rect_native": [
+            312,
+            96,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            2496,
+            768,
+            832,
+            768
+          ],
+          "pivot_native": [
+            39,
+            70
+          ],
+          "pivot_output": [
+            312,
+            560
+          ],
+          "bbox_native": [
+            2,
+            67,
+            52,
+            82
+          ],
+          "bbox_output": [
+            16,
+            536,
+            416,
+            656
+          ],
+          "head_origin_native": [
+            31,
+            68
+          ],
+          "head_exact": true,
+          "eye_colors_outside_head": 0,
+          "connected_components": [
+            467
+          ],
+          "bottom_row": 81,
+          "local_repairs": [
+            {
+              "type": "remove_detached_scroll_remnant",
+              "pixels": 6
+            }
+          ]
+        }
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "output_size": [
+        3328,
+        1536
+      ],
+      "generator_output_size": [
+        1846,
+        852
+      ],
+      "source_grid_pitch_estimate": 6.425,
+      "source": "generation_sources/ryze_dead_raw.png"
+    },
+    "idle": {
+      "grid": [
+        3,
+        2
+      ],
+      "output_size": [
+        2496,
+        1536
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 200,
+          "cell_rect_native": [
+            0,
+            0,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            0,
+            0,
+            832,
+            768
+          ],
+          "pivot_native": [
+            49,
+            70
+          ],
+          "pivot_output": [
+            392,
+            560
+          ],
+          "bbox_native": [
+            33,
+            42,
+            62,
+            82
+          ],
+          "bbox_output": [
+            264,
+            336,
+            496,
+            656
+          ]
+        },
+        {
+          "frame": 2,
+          "ms": 200,
+          "cell_rect_native": [
+            104,
+            0,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            832,
+            0,
+            832,
+            768
+          ],
+          "pivot_native": [
+            49,
+            70
+          ],
+          "pivot_output": [
+            392,
+            560
+          ],
+          "bbox_native": [
+            33,
+            42,
+            62,
+            82
+          ],
+          "bbox_output": [
+            264,
+            336,
+            496,
+            656
+          ]
+        },
+        {
+          "frame": 3,
+          "ms": 200,
+          "cell_rect_native": [
+            208,
+            0,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            1664,
+            0,
+            832,
+            768
+          ],
+          "pivot_native": [
+            49,
+            70
+          ],
+          "pivot_output": [
+            392,
+            560
+          ],
+          "bbox_native": [
+            33,
+            42,
+            62,
+            82
+          ],
+          "bbox_output": [
+            264,
+            336,
+            496,
+            656
+          ]
+        },
+        {
+          "frame": 4,
+          "ms": 200,
+          "cell_rect_native": [
+            0,
+            96,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            0,
+            768,
+            832,
+            768
+          ],
+          "pivot_native": [
+            49,
+            70
+          ],
+          "pivot_output": [
+            392,
+            560
+          ],
+          "bbox_native": [
+            33,
+            42,
+            62,
+            82
+          ],
+          "bbox_output": [
+            264,
+            336,
+            496,
+            656
+          ]
+        },
+        {
+          "frame": 5,
+          "ms": 200,
+          "cell_rect_native": [
+            104,
+            96,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            832,
+            768,
+            832,
+            768
+          ],
+          "pivot_native": [
+            49,
+            70
+          ],
+          "pivot_output": [
+            392,
+            560
+          ],
+          "bbox_native": [
+            33,
+            42,
+            62,
+            82
+          ],
+          "bbox_output": [
+            264,
+            336,
+            496,
+            656
+          ]
+        },
+        {
+          "frame": 6,
+          "ms": 200,
+          "cell_rect_native": [
+            208,
+            96,
+            104,
+            96
+          ],
+          "cell_rect_output": [
+            1664,
+            768,
+            832,
+            768
+          ],
+          "pivot_native": [
+            49,
+            70
+          ],
+          "pivot_output": [
+            392,
+            560
+          ],
+          "bbox_native": [
+            33,
+            42,
+            62,
+            82
+          ],
+          "bbox_output": [
+            264,
+            336,
+            496,
+            656
+          ]
+        }
+      ],
+      "copied_original": true
+    }
+  },
+  "release_status": "review_draft_visual_constraints_not_fully_met",
+  "emission_frames_1based": {
+    "attack": {
+      "orb": 3
+    },
+    "skill": {
+      "Q": 3
+    },
+    "skill2": {
+      "E": 2,
+      "W": 6,
+      "Q": 9
+    }
+  },
+  "integration_ticks": {
+    "attack": 8,
+    "Q": 6,
+    "combo": [
+      5,
+      23,
+      37
+    ],
+    "R_channel": 60
+  }
+}
