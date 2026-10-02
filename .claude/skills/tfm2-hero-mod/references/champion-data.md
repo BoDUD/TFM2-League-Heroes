@@ -1162,6 +1162,8 @@ league_kaisa (bottom, 2026-10-02): no crowd control of her own (her passive's ex
 reads her allies' control) - no change.
 league_sona (support, --lane 4, 2026-10-02, Crescendo's 1.5 s stun on every champion its wave passes): 1.00 a game;
 league_leona 2.19, league_nami 1.94 and the base priest 0.50 in the same batch - no change.
+league_kennen (top, 2026-10-02, the third mark's stun: 1.25 s, 0.5 s within 7 s of the last; Yasuo mid): 1.48 a game;
+the base fighter 2.33 in the same batch - in the range of the CC heroes before, no change.
 
 **Kill trigger (league_jinx Get Excited!).** No effect fires on a kill, but section 4's facts make one:
 1. Next to the damaging projectile, fire an invisible twin with the same speed and path and
@@ -2729,6 +2731,55 @@ magic damage and `Stun` 90. The same cast adds a `Permanent` caster flag `r_hast
 25 (Q and W capped at 80% of their cooldown) with `ult_cooldown_mult` -25, so the ult's own cap stays (section 5:
 the ult's cap adds both). 3 logged games: 2.7 casts a game, about one champion stunned a cast.
 
+**Marks counted on him, the third stuns (league_kennen passive, Mark of the Storm).** Nothing reads a buff on the
+target, so the count lives on him (league_kaisa's Plasma): two caster flags `k_1` -> `k_2` (360 ticks, refreshed by
+each new mark). Every champion hit of his spells (and of every fifth attack) runs one `mark()`: with `k_2` on, the hit
+stuns that champion (`Stun` 75 ticks, 30 while the caster flag `k_recent` says he stunned someone in the last 420 -
+League's shorter second stun), plays the stun picture and sets `k_boom`; else it shows the pips over the head (one or
+two lit). The count itself moves a tick later in a `Delayed` queued on him (`AllyOnlySelf`: queued on the champion
+it would be dropped if the hit killed him): it climbs, or after a stun clears and sets `k_recent`. A 2-tick lock per
+source (`k_lock_q` / `_w` / `_a` / `_r`, E's for the whole rush) counts one cast once however many champions it hits,
+and every champion a stunning cast reaches is stunned - League gives each of them a mark. Only champion hits count
+(the user's pick). The count is his, not theirs: a mark on one champion and two on another stun the second.
+
+**A skillshot through the wave to the champion (league_kennen Q, Thundering Shuriken).** A `Direction` cast on
+`EnemyWithoutTower` (80000). Two ticks into it a `RandomTarget` on `EnemyChampion` sets the 11-tick flag `q_aimed`
+and throws a hidden `ParabolicProjectile` (8 ticks) where the champion stands; its `end_effects` throw the shuriken
+at that point (league_caitlyn Q's aim lock: a champion who keeps moving steps out of it) - a non-penetrating
+`LinearProjectile` on `EnemyChampion` that flies past the minions to the first champion on its line. Thrown at the
+cast's way without a champion (`q_aimed` off), it is a `LinearProjectile` on `EnemyWithoutTower` for waves and camps,
+with a champion-only twin that reads the real one's 1-tick `q_now` flag (league_ezreal Q), so only a champion it
+really hit gets a mark. On minions' targets the aimed throw reached a champion 3-7 times in 45-61 a game; through
+the wave, with a radius of 7000 at 8000 a tick, 42% of the aimed throws hit. The combo Q -> W (the user: 连招): the
+champion hit sets `q_near` (a `RandomTarget` on `AllyOnlySelf` from the projectile within the surge's 50000) and 4
+ticks later, on him, with `q_near` on and the surge's cooldown flag `w_cd` off, Electrical Surge follows.
+
+**A third basic without a slot (league_kennen W, Electrical Surge).** Q and E take `skill` and `skill2`, so W is
+folded in twice. Its passive is the attack's count (league_masteryi's chain): four caster flags `a_1` -> `a_4` (600
+ticks), the fifth throw the charged star - extra magic damage and, through a champion-only twin of the star, a mark
+(its own flash and hit). Its active is a function the other spells call - after a Q hit on a champion near him and
+at the end of E's rush - on its own 540-tick caster flag `w_cd`, spent by whichever comes first: the pose at once
+(`CasterAnimation w`), 6 ticks later the burst (radius 50000, the ring round him from the big sheet): magic damage to
+every enemy and a mark on the champions.
+
+**A rush through enemies that ends in two follow-ups (league_kennen E, Lightning Rush).** A `Targeting` cast on
+`EnemyWithoutTower` (50000): `RushTime` (2500 a tick for 16 ticks, `penetrate`, radius 15000) toward the target and
+through it - magic damage to every enemy passed, and a mark through a `RandomTarget` at range 1 on `EnemyChampion`
+(a minion's hit cannot mark). The lightning-ball picture rides him (a caster view, z 2, over the crouched dash pose).
+The end, 17 ticks later, is a `Delayed` queued on him, not on the target: queued on a minion the rush killed it ran
+only its pictures - no attack speed, no `w_cd`, no `r_cd`, and the storm came again on the next rush. It gives 50%
+attack speed for 4 s, breaks the ball, casts the surge if `w_cd` is off and runs the combo E -> R (the user: E
+冲进人群时如果大招好了就直接接 R): with the ult unlocked (`r_open`, a `Permanent` flag the ult slot's every cast sets)
+and unused (`r_cd`) and an enemy champion within the storm's radius, the storm starts; the ult slot then finds
+`r_cd` and goes out empty, which starts its own cooldown ("A flag does not hold every slot").
+
+**A storm that follows him, as one casted on himself (league_kennen R, Slicing Maelstrom).** A `None` cast on
+`EnemyChampion` (55000; League's radius is his attack range: at 45000 the storm missed champions he fought at 73000
+centre to centre): the caster flag `r_cd` (3000 ticks), +25 armour and magic resistance for 181 ticks, the storm's
+picture (a 2.9 s caster view that follows him, under the units) and one `AddCasted` on himself (duration 151, period
+30): each period a `RangeEffect` round him on `EnemyChampion` within 55000 - magic damage, the bolt and a mark (one
+per strike), so the third strike stuns everyone inside. One strike in the tree is enough for both callers (the ult
+and E's combo; the game copies `skill` and `skill2` every tick: E stays at about 160 nodes); his death clears it.
 ## 8. Gotchas
 
 - A `RangePeriodProjectile` put straight into an action's effects, or into a self-only `RangeEffect`, is never

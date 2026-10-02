@@ -315,6 +315,13 @@
         "skill": "朝周围敌人发射<#ffb900ff>6<>枚导弹（第一枚射向目标），每枚造成<#ff9028ff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>物理伤害。<#ff9028ff>活体武器<>：攻击力达到<#ffb900ff>200<>后变为<#ffb900ff>12<>枚，每枚<#ff9028ff>20<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>34%<>。",
         "skill2": "锁定后朝敌方英雄射出长距离虚空光束（开火前走开可躲），穿过小兵，命中的第一个英雄受到<#ff9028ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>物理伤害并叠<#ffb900ff>2<>层电浆。<#ff9028ff>活体武器<>：12级起叠<#ffb900ff>3<>层并返还<#ffb900ff>75%<>冷却。",
         "ult": "冲向一名近期受伤的敌方英雄，落地获得<#ffb900ff>220<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>180%<>的护盾，持续<#ffb900ff>2秒<>。"
+      },
+      "league_kennen": {
+        "name": "凯南",
+        "attack": "投掷手里剑。被动 <#ff9028ff>雷缚印<>：技能命中英雄留下标记，第三层<#ef5350ff>眩晕1.25秒<>（7秒内再次眩晕0.5秒）。<#ff9028ff>电刃<>：每第5次普攻额外造成<#a974ffff>48<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法强<>魔法伤害并留下标记。",
+        "skill": "掷出千鸟手里剑（出手前锁定方向，可躲开），命中第一个敌人造成<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90% 法强<>的<#a974ffff>魔法伤害<>。命中英雄时若<#ff9028ff>电刃<>就绪，立刻放电（连招）。",
+        "skill2": "化作闪电冲过敌群，对经过的敌人造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法强<>；冲完放出<#ff9028ff>电刃<>（<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>）并在<#ffb900ff>4秒<>内攻速+50%。大招就绪时直接接大招（连招）。",
+        "ult": "召唤跟随自己的风暴<#ffb900ff>3秒<>，每0.5秒雷击范围内的敌方英雄，造成<#a974ffff>52<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30% 法强<>的<#a974ffff>魔法伤害<>并留下标记；期间护甲和魔抗+25。"
       }
     },
     "skill_name": {
@@ -542,6 +549,11 @@
         "skill1": "艾卡西亚暴雨",
         "skill2": "虚空索敌",
         "ult": "猎手本能"
+      },
+      "league_kennen": {
+        "skill1": "奥义！千鸟",
+        "skill2": "奥义！雷铠",
+        "ult": "秘奥义！万雷天牢引"
       }
     }
   },
@@ -861,6 +873,13 @@
         "skill": "朝周圍敵人發射<#ffb900ff>6<>枚飛彈（第一枚射向目標），每枚造成<#ff9028ff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>物理傷害。<#ff9028ff>生物兵器<>：攻擊力達到<#ffb900ff>200<>後變為<#ffb900ff>12<>枚，每枚<#ff9028ff>20<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>34%<>。",
         "skill2": "鎖定後朝敵方英雄射出長距離虛空光束（開火前走開可躲），穿過小兵，命中的第一個英雄受到<#ff9028ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>物理傷害並疊<#ffb900ff>2<>層電漿。<#ff9028ff>生物兵器<>：12級起疊<#ffb900ff>3<>層並返還<#ffb900ff>75%<>冷卻。",
         "ult": "衝向一名近期受傷的敵方英雄，落地獲得<#ffb900ff>220<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>180%<>的護盾，持續<#ffb900ff>2秒<>。"
+      },
+      "league_kennen": {
+        "name": "凱能",
+        "attack": "投擲手裡劍。被動 <#ff9028ff>風暴印記<>：技能命中英雄留下印記，第三層<#ef5350ff>暈眩1.25秒<>（7秒內再次暈眩0.5秒）。<#ff9028ff>電能釋放<>：每第5次普攻額外造成<#a974ffff>48<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法術強度<>魔法傷害並留下印記。",
+        "skill": "擲出雷電手裡劍（出手前鎖定方向，可躲開），命中第一個敵人造成<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90% 法術強度<>的<#a974ffff>魔法傷害<>。命中英雄時若<#ff9028ff>電能釋放<>就緒，立刻放電（連招）。",
+        "skill2": "化作閃電衝過敵群，對經過的敵人造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法術強度<>；衝完放出<#ff9028ff>電能釋放<>（<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>）並在<#ffb900ff>4秒<>內攻速+50%。大招就緒時直接接大招（連招）。",
+        "ult": "召喚跟隨自己的風暴<#ffb900ff>3秒<>，每0.5秒雷擊範圍內的敵方英雄，造成<#a974ffff>52<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30% 法術強度<>的<#a974ffff>魔法傷害<>並留下印記；期間護甲和魔抗+25。"
       }
     },
     "skill_name": {
@@ -1088,6 +1107,11 @@
         "skill1": "伊卡西亞魔雨",
         "skill2": "虛空探索者",
         "ult": "殺手本能"
+      },
+      "league_kennen": {
+        "skill1": "雷電手裡劍",
+        "skill2": "閃電衝擊",
+        "ult": "雷霆風暴"
       }
     }
   },
@@ -1407,6 +1431,13 @@
         "skill": "Kai'Sa fires <#ffb900ff>6<> missiles at nearby enemies (the first at her target), each dealing <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50% AD<> <#ff9028ff>physical damage<>. <#ff9028ff>Living Weapon<>: with <#ffb900ff>200<> attack it fires <#ffb900ff>12<>, <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>34% AD<> each.",
         "skill2": "Kai'Sa locks on an enemy champion and fires a long-range void bolt (dodgeable before it fires) that passes minions: the first champion hit takes <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150% AD<> <#ff9028ff>physical damage<> and <#ffb900ff>2<> Plasma. <#ff9028ff>Living Weapon<>: from level 12, <#ffb900ff>3<> Plasma and <#ffb900ff>75%<> of the cooldown back.",
         "ult": "Kai'Sa dashes to an enemy champion damaged lately and lands with a <#ffb900ff>220<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>180% AD<> shield for <#ffb900ff>2s<>."
+      },
+      "league_kennen": {
+        "name": "Kennen",
+        "attack": "Throws shurikens. Passive <#ff9028ff>Mark of the Storm<>: his abilities mark the champions they hit; the third mark <#ef5350ff>stuns for 1.25s<> (0.5s if stunned within 7s). <#ff9028ff>Electrical Surge<>: every fifth attack deals <#a974ffff>48<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% AP<> bonus <#a974ffff>magic damage<> and marks.",
+        "skill": "Kennen hurls a shuriken (the aim is set before it leaves, so it can be dodged): the first enemy hit takes <#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90% AP<> <#a974ffff>magic damage<>. If it hits a champion while <#ff9028ff>Electrical Surge<> is ready, he surges at once (combo).",
+        "skill2": "Kennen turns into lightning and rushes through enemies, dealing <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% AP<> to each one he passes; at the end he releases <#ff9028ff>Electrical Surge<> (<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% AP<> around him) and gains 50% attack speed for <#ffb900ff>4s<>. With his ultimate ready he goes straight into it (combo).",
+        "ult": "Kennen summons a storm that follows him for <#ffb900ff>3s<>, striking enemy champions inside it every 0.5s for <#a974ffff>52<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30% AP<> <#a974ffff>magic damage<> and a mark; he gains 25 armor and magic resist meanwhile."
       }
     },
     "skill_name": {
@@ -1634,6 +1665,11 @@
         "skill1": "Icathian Rain",
         "skill2": "Void Seeker",
         "ult": "Killer Instinct"
+      },
+      "league_kennen": {
+        "skill1": "Thundering Shuriken",
+        "skill2": "Lightning Rush",
+        "ult": "Slicing Maelstrom"
       }
     }
   },
@@ -1953,6 +1989,13 @@
         "skill": "주변 적에게 미사일 <#ffb900ff>6<>발(첫 발은 대상에게)을 쏴 발마다 <#ff9028ff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 50%<> <#ff9028ff>물리 피해<>. <#ff9028ff>살아있는 무기<>: 공격력 <#ffb900ff>200<> 이상이면 <#ffb900ff>12<>발, 발마다 <#ff9028ff>20<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>34%<>.",
         "skill2": "적 챔피언을 조준해 장거리 공허 광선을 쏩니다(발사 전에 피할 수 있음). 미니언을 지나쳐 처음 맞힌 챔피언에게 <#ff9028ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 150%<> <#ff9028ff>물리 피해<>와 플라즈마 <#ffb900ff>2<>중첩. <#ff9028ff>살아있는 무기<>: 12레벨부터 <#ffb900ff>3<>중첩, 재사용 대기시간 <#ffb900ff>75%<> 반환.",
         "ult": "최근 피해를 입은 적 챔피언에게 돌진해 착지하며 <#ffb900ff>2초<> 동안 <#ffb900ff>220<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>공격력의 180%<> 보호막을 얻습니다."
+      },
+      "league_kennen": {
+        "name": "케넨",
+        "attack": "표창을 던집니다. 기본 지속 효과 <#ff9028ff>폭풍의 표식<>: 스킬이 적중한 챔피언에게 표식을 남기며, 세 번째 표식은 <#ef5350ff>1.25초 기절<>(7초 안에 다시 기절하면 0.5초). <#ff9028ff>전류 방출<>: 다섯 번째 공격마다 <#a974ffff>48<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 주문력<>의 추가 <#a974ffff>마법 피해<>와 표식.",
+        "skill": "표창을 던집니다(던지기 전에 방향이 정해져 피할 수 있음). 처음 맞은 적에게 <#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90% 주문력<> <#a974ffff>마법 피해<>. 챔피언에게 적중했을 때 <#ff9028ff>전류 방출<>이 준비되어 있으면 곧바로 방출합니다(연계).",
+        "skill2": "번개로 변해 적 사이를 돌진하며 지나간 적에게 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 주문력<>의 피해를 입히고, 끝나면 <#ff9028ff>전류 방출<>(<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>)을 쓰고 <#ffb900ff>4초<> 동안 공격 속도 +50%. 궁극기가 준비되어 있으면 바로 이어서 사용합니다(연계).",
+        "ult": "자신을 따라다니는 폭풍을 <#ffb900ff>3초<> 동안 불러 0.5초마다 안의 적 챔피언에게 <#a974ffff>52<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30% 주문력<> <#a974ffff>마법 피해<>와 표식을 남깁니다. 그동안 방어력과 마법 저항력 +25."
       }
     },
     "skill_name": {
@@ -2180,6 +2223,11 @@
         "skill1": "이케시아 폭우",
         "skill2": "공허추적자",
         "ult": "사냥본능"
+      },
+      "league_kennen": {
+        "skill1": "천둥의 표창",
+        "skill2": "번개 질주",
+        "ult": "날카로운 소용돌이"
       }
     }
   },
@@ -2499,6 +2547,13 @@
         "skill": "周囲の敵へミサイルを<#ffb900ff>6<>発（1発目は対象へ）、1発ごとに<#ff9028ff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の50%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>共生兵器<>：攻撃力<#ffb900ff>200<>以上で<#ffb900ff>12<>発、1発<#ff9028ff>20<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>34%<>。",
         "skill2": "敵チャンピオンを狙い長距離のヴォイド弾を撃つ（発射前に避けられる）。ミニオンを抜け、最初に当たったチャンピオンに<#ff9028ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の150%<>の<#ff9028ff>物理ダメージ<>とプラズマ<#ffb900ff>2<>。<#ff9028ff>共生兵器<>：Lv12から<#ffb900ff>3<>スタック、CDの<#ffb900ff>75%<>を回復。",
         "ult": "最近ダメージを受けた敵チャンピオンへ突進し、着地で<#ffb900ff>2秒<>間<#ffb900ff>220<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>攻撃力の180%<>のシールドを得る。"
+      },
+      "league_kennen": {
+        "name": "ケネン",
+        "attack": "手裏剣を投げる。パッシブ <#ff9028ff>嵐の刻印<>：スキルが当たったチャンピオンに刻印、3つ目で<#ef5350ff>1.25秒スタン<>（7秒以内の再スタンは0.5秒）。<#ff9028ff>稲妻の奔流<>：5回目の通常攻撃ごとに<#a974ffff>48<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 魔力<>の追加<#a974ffff>魔法ダメージ<>と刻印。",
+        "skill": "手裏剣を投げる（投げる前に向きが決まり、避けられる）。最初に当たった敵に<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90% 魔力<>の<#a974ffff>魔法ダメージ<>。チャンピオンに当たった時<#ff9028ff>稲妻の奔流<>が使えればすぐに放つ（コンボ）。",
+        "skill2": "稲妻となって敵の間を駆け抜け、通った敵に<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 魔力<>。終わりに<#ff9028ff>稲妻の奔流<>（<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>）、<#ffb900ff>4秒<>攻撃速度+50%。アルティメットが使えればそのまま続ける（コンボ）。",
+        "ult": "自分についてくる嵐を<#ffb900ff>3秒<>呼び、0.5秒ごとに中の敵チャンピオンに<#a974ffff>52<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30% 魔力<>の<#a974ffff>魔法ダメージ<>と刻印。その間物理防御と魔法防御+25。"
       }
     },
     "skill_name": {
@@ -2726,6 +2781,11 @@
         "skill1": "イカシアの雨",
         "skill2": "ヴォイドシーカー",
         "ult": "キラーヴォイド"
+      },
+      "league_kennen": {
+        "skill1": "雷遁手裏剣",
+        "skill2": "疾風迅雷",
+        "ult": "雷撃の大嵐"
       }
     }
   }
