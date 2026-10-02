@@ -2411,7 +2411,9 @@ games he stood on a trail about 2 s of the 5 s after each Q (43 a game).
 **A tether that fears if it holds (league_nocturne E, Unspeakable Horror).** A `Targeting` cast on `EnemyWithoutTower`
 (30000): the links are league_fiddlesticks W's chain (a `TargetProjectile` to the target, a 1-tick
 `ParabolicProjectile` landing on him, a `BackToCasterLinearProjectile` flying back at 1600 a tick), one every 12 ticks
-for 2 s, with 4 `ApAttack` pulses (20 + 30% AP). After 120 ticks a hidden `TargetProjectile` (100000 a tick: it lands
+for 2 s from one `AddCasted` on the target (period 12, 120 ticks; its `TargetProjectile` leaves from him, as the Q's
+champion-trail checks do - a `Delayed` per link wrote the chain ten times, and those kept flying at a target that had
+died), with 4 `ApAttack` pulses (20 + 30% AP). After 120 ticks a hidden `TargetProjectile` (100000 a tick: it lands
 the next tick) on the target asks `RandomTarget {AllyOnlySelf, from_projectile: true}` within 60000 whether Nocturne
 is still near; yes adds a 3-tick caster flag `e_near`, and a `Delayed` of 1 tick reads it: `Fear` (80 ticks) and a
 `move_speed_mult` 40 caster buff as long (E's passive, without its direction). The range counts from the champion's
@@ -2422,10 +2424,12 @@ champions reached the check (in 10 of the other 16 the target had died first), a
 **A spell shield that pays out when it is hit (league_nocturne W, Shroud of Darkness, folded into E).** The same cast
 raises the shroud: a caster buff (90 ticks) with `skill_damaged_reduce` 100 and `cc_immune`, a 1-point `Shield` on
 himself (a self-only `RangeEffect`, 92 ticks) and a `WithShield` caster flag `w_guard`. Any hit breaks the shield (a
-skill's damage cut to nothing still deals 1, league_fiora W), and checks every 6 ticks from tick 4 - each a self-only
-`Delayed` - find `w_guard` gone: the first one adds `w_done` and `attack_speed_mult` 40 for 300 ticks (League's doubled
-passive). W's passive attack speed is in the attack cooldown (48 against the assassins' 50-52). In logged games the
-shroud paid out 12-16 times a game, of about 24 casts.
+skill's damage cut to nothing still deals 1, league_fiora W), and a check every 6 ticks from tick 4 finds `w_guard`
+gone: one polling zone (`RangePeriodProjectile`, radius 2000000, `period` 6, `AllyChampion`) started where a hidden
+1-tick `ParabolicProjectile` lands on the target (a zone starts only from a projectile's end, see section 8); it runs
+on every allied champion, and the first check that pays adds `w_done` and `attack_speed_mult` 40 for 300 ticks
+(League's doubled passive). W's passive attack speed is in the attack cooldown (48 against the assassins' 50-52). In logged games the
+shroud paid out 14-19 times a game, of about 25 casts.
 
 **Team invisibility and a dive from afar (league_nocturne R, Paranoia).** A `Targeting` cast on `EnemyChampion` within
 110000: on tick 8 a `RangeEffect` round him (2000000, `AllyChampion`) makes every allied champion, himself included,
@@ -2495,6 +2499,14 @@ off. About 3-4 shields a game in the simulation.
 
 ## 8. Gotchas
 
+- A `RangePeriodProjectile` put straight into an action's effects, or into a self-only `RangeEffect`, is never
+  created (league_nocturne W's poll: no zone in the logs, no attack speed in nine games); zones start from a
+  projectile's `end_effects` - a hidden 1-tick `ParabolicProjectile` onto the target does it (league_ekko's zones,
+  league_nocturne's poll).
+- The engine copies the `skill` / `skill2` trees every tick (the perf session's tick meter, 2026-10-02): league_nocturne
+  E's 15 `Delayed` guard checks and 10 `Delayed` tether links (260 nodes) made a game with one Nocturne cost 1.38x a
+  base game's CPU per tick; written once - one polling zone and one `AddCasted` (56 nodes) - 1.17x. Write repeated
+  work once instead of a `Delayed` per pulse.
 - `action_name` / `CasterAnimation.name` must be real sprite tags. Two LoL Reborn heroes use
   `action_name: "skill"` while their sprites only have `skill1`.
 - `SwitchByBuff` checks the caster; the buff must be added somewhere in the same kit.
