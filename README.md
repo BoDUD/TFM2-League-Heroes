@@ -1758,7 +1758,24 @@ python tools/art/preview_blitzcrank.py
 
 ## 安装测试
 
-把 `league` 文件夹复制到 `Teamfight Manager2/mods/league`，在游戏的 Mods 菜单里启用。音频要先按上面的命令在本地提取。
+音频要先按上面的命令在本地提取。装进游戏和上传创意工坊都用 `tools/package_mod.py` 打包，不要直接复制 `league` 文件夹：
+
+```bash
+pip install pillow numpy soundfile
+python tools/package_mod.py --install                  # 全部英雄装进 Teamfight Manager2/mods/league
+python tools/package_mod.py --hero fiora --install     # 只装一个英雄，别的英雄的文件不动
+python tools/package_mod.py --out <文件夹>/league       # 打包到别处，例如上传创意工坊用的文件夹
+```
+
+然后在游戏的 Mods 菜单里启用 `league`。
+
+游戏启动时会把 mod 里除背景音乐外的每个文件整个读进内存，原样复制的 `league` 有 78 MB，其中 66 MB 是 WAV。打包后的内容和仓库里完全一样，只是更小（19 MB）：
+
+- 音效转成 MP3（和原版音效同一格式），名字不变。
+- 精灵图的图集去掉重复帧、排紧，每一帧的大小和像素不变。
+- JSON 去掉空白。
+
+每个输出都会和源文件核对。仓库里的文件不变。查到的原因和数字见 [docs/perf.md](docs/perf.md)。
 
 ## 仓库里的 skill
 
