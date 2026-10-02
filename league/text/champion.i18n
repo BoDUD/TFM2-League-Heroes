@@ -267,6 +267,13 @@
         "skill2": "向敌人脚下扔出惊吓魔盒，弹开时<#ef5350ff>恐惧<>周围敌方英雄<#ffb900ff>1秒<>（小兵和野怪<#ffb900ff>1.5秒<>），随后<#ffb900ff>5秒<>内每<#ffb900ff>0.5秒<>对周围所有敌人造成<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12% 法强<>的<#a974ffff>魔法伤害<>。",
         "ult": "短暂消失，在敌方英雄身后召出幻像，持续<#ffb900ff>5秒<>：萨科每次攻击时幻像同步背刺，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40% 攻击力<>的<#ff9028ff>物理伤害<>。结束或目标死亡时爆炸，造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% 法强<>的<#a974ffff>魔法伤害<>，并放出三个小魔盒<#ef5350ff>恐惧<>周围敌人。"
       },
+      "league_caitlyn": {
+        "name": "凯特琳",
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。被动 <#ff9028ff>爆头<>：每第<#ffb900ff>6<>枪造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>180% 攻击力<>；被夹住的英雄在<#ffb900ff>1.5倍<><i#asset/base/ui/banpick/champion_stat_icon:range_0>射程内优先爆头，再加<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>。<#ff9028ff>90口径绳网<>：英雄贴身时改射网，造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>并<#ef5350ff>减速50%<>，向后跳开，下一枪爆头（冷却<#ffb900ff>12秒<>）。",
+        "skill": "瞄准后朝锁定的位置射出穿透子弹（优先瞄敌方英雄，开枪前走开可躲），对第一个命中的敌人造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110% 攻击力<>的<#ff9028ff>物理伤害<>，之后的敌人受到<#ffb900ff>60%<>。",
+        "skill2": "朝敌方英雄扔出夹子（<#ffb900ff>3<>层充能，每层<#ffb900ff>12秒<>），第一个落在他脚下，其余错开放在两人之间，存在<#ffb900ff>8秒<>；第一个踩中的敌方英雄被<#ef5350ff>禁锢<><#ffb900ff>1.5秒<>，凯特琳会对他爆头。",
+        "ult": "瞄准一名敌方英雄<#ffb900ff>1秒<>（被控制会中断），然后开枪，对路上第一个敌方英雄造成<#ff9028ff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150% 攻击力<>的<#ff9028ff>物理伤害<>。"
+      },
       "league_blitzcrank": {
         "name": "布里茨",
         "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>；大招没在冷却时，<#ffb900ff>1秒<>后再落一道闪电，造成<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15% 法术强度<>的<#a974ffff>魔法伤害<>。被动 <#e8d44dff>法力屏障<>：被围攻或被控制时获得<#e8d44dff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 法术强度<>的<#e8d44dff>护盾<>（冷却<#ffb900ff>60秒<>）。",
@@ -465,6 +472,11 @@
         "skill1": "欺诈魔术",
         "skill2": "惊吓魔盒",
         "ult": "幻像"
+      },
+      "league_caitlyn": {
+        "skill1": "和平使者",
+        "skill2": "约德尔诱捕器",
+        "ult": "让子弹飞"
       },
       "league_blitzcrank": {
         "skill1": "机械飞爪",
@@ -741,6 +753,13 @@
         "skill2": "向敵人腳下扔出驚嚇魔盒，彈開時<#ef5350ff>恐懼<>周圍敵方英雄<#ffb900ff>1秒<>（小兵和野怪<#ffb900ff>1.5秒<>），隨後<#ffb900ff>5秒<>內每<#ffb900ff>0.5秒<>對周圍所有敵人造成<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12% 法術強度<>的<#a974ffff>魔法傷害<>。",
         "ult": "短暫消失，在敵方英雄身後召出幻象，持續<#ffb900ff>5秒<>：薩科每次攻擊時幻象同步背刺，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40% 攻擊力<>的<#ff9028ff>物理傷害<>。結束或目標死亡時爆炸，造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% 法術強度<>的<#a974ffff>魔法傷害<>，並放出三個小魔盒<#ef5350ff>恐懼<>周圍敵人。"
       },
+      "league_caitlyn": {
+        "name": "凱特琳",
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。被動 <#ff9028ff>爆頭<>：每第<#ffb900ff>6<>槍造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>180% 攻擊力<>；被夾住的英雄在<#ffb900ff>1.5倍<><i#asset/base/ui/banpick/champion_stat_icon:range_0>射程內優先爆頭，再加<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>。<#ff9028ff>90口徑繩網<>：英雄貼身時改射網，造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>並<#ef5350ff>緩速50%<>，向後跳開，下一槍爆頭（冷卻<#ffb900ff>12秒<>）。",
+        "skill": "瞄準後朝鎖定的位置射出穿透子彈（優先瞄敵方英雄，開槍前走開可躲），對第一個命中的敵人造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110% 攻擊力<>的<#ff9028ff>物理傷害<>，之後的敵人受到<#ffb900ff>60%<>。",
+        "skill2": "朝敵方英雄擲出陷阱（<#ffb900ff>3<>層充能，每層<#ffb900ff>12秒<>），第一個落在他腳下，其餘錯開放在兩人之間，存在<#ffb900ff>8秒<>；第一個踩中的敵方英雄被<#ef5350ff>定身<><#ffb900ff>1.5秒<>，凱特琳會對他爆頭。",
+        "ult": "瞄準一名敵方英雄<#ffb900ff>1秒<>（被控制會中斷），然後開槍，對路上第一個敵方英雄造成<#ff9028ff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150% 攻擊力<>的<#ff9028ff>物理傷害<>。"
+      },
       "league_blitzcrank": {
         "name": "布里茨",
         "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>；大絕沒在冷卻時，<#ffb900ff>1秒<>後再落一道閃電，造成<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15% 魔法攻擊<>的<#a974ffff>魔法傷害<>。被動 <#e8d44dff>法力屏障<>：被圍攻或被控場時獲得<#e8d44dff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 魔法攻擊<>的<#e8d44dff>護盾<>（冷卻<#ffb900ff>60秒<>）。",
@@ -939,6 +958,11 @@
         "skill1": "欺詐魔術",
         "skill2": "驚嚇魔盒",
         "ult": "幻象"
+      },
+      "league_caitlyn": {
+        "skill1": "和平使者",
+        "skill2": "約德爾誘捕器",
+        "ult": "勝券在握"
       },
       "league_blitzcrank": {
         "skill1": "火箭抓取",
@@ -1215,6 +1239,13 @@
         "skill2": "Shaco throws a Jack-in-the-Box at an enemy's feet. It springs open, <#ef5350ff>fearing<> enemy champions around it for <#ffb900ff>1s<> (minions and monsters <#ffb900ff>1.5s<>), then fires at every enemy nearby every <#ffb900ff>0.5s<> for <#ffb900ff>5s<>, dealing <#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12% AP<> <#a974ffff>magic damage<> per shot.",
         "ult": "Shaco briefly vanishes and a clone appears behind an enemy champion for <#ffb900ff>5s<>, backstabbing it whenever Shaco attacks for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40% AD<> <#ff9028ff>physical damage<>. When it ends or the target dies it explodes for <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% AP<> <#a974ffff>magic damage<>, releasing three mini boxes that <#ef5350ff>fear<> nearby enemies."
       },
+      "league_caitlyn": {
+        "name": "Caitlyn",
+        "attack": "Basic attacks deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. <#ff9028ff>Headshot<>: every <#ffb900ff>6<>th shot deals <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>180% AD<>; a trapped champion within <#ffb900ff>1.5x<> <i#asset/base/ui/banpick/champion_stat_icon:range_0>range is shot first, +<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40% AD<>. <#ff9028ff>90 Caliber Net<>: an enemy champion on her gets a net instead: <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% AD<>, a <#ef5350ff>50% slow<>; she hops back and her next shot is a Headshot (<#ffb900ff>12s<> cooldown).",
+        "skill": "After aiming, Caitlyn fires a piercing round at the spot she locked (an enemy champion first; he can step aside): <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110% AD<> <#ff9028ff>physical damage<> to the first enemy hit, <#ffb900ff>60%<> of it to the others.",
+        "skill2": "Caitlyn throws traps at an enemy champion (<#ffb900ff>3<> charges, one every <#ffb900ff>12s<>): the first at his feet, the others spread between them, lasting <#ffb900ff>8s<>. The first enemy champion to step on it is <#ef5350ff>rooted<> for <#ffb900ff>1.5s<> and Caitlyn headshots him.",
+        "ult": "Caitlyn lines up a shot on an enemy champion for <#ffb900ff>1s<> (crowd control breaks it), then fires: the first enemy champion in the bullet's path takes <#ff9028ff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150% AD<> <#ff9028ff>physical damage<>."
+      },
       "league_blitzcrank": {
         "name": "Blitzcrank",
         "attack": "Basic attacks deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>; while Static Field is off cooldown, lightning strikes the target <#ffb900ff>1s<> later for <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15% AP<> <#a974ffff>magic damage<>. Passive <#e8d44dff>Mana Barrier<>: when surrounded or crowd-controlled he gains a <#e8d44dff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% AP<> <#e8d44dff>shield<> (<#ffb900ff>60s<> cooldown).",
@@ -1413,6 +1444,11 @@
         "skill1": "Deceive",
         "skill2": "Jack In The Box",
         "ult": "Hallucinate"
+      },
+      "league_caitlyn": {
+        "skill1": "Piltover Peacemaker",
+        "skill2": "Yordle Snap Trap",
+        "ult": "Ace in the Hole"
       },
       "league_blitzcrank": {
         "skill1": "Rocket Grab",
@@ -1689,6 +1725,13 @@
         "skill2": "적의 발밑에 깜짝 상자를 던집니다. 상자가 열리며 주변 적 챔피언을 <#ffb900ff>1초<>(미니언과 몬스터 <#ffb900ff>1.5초<>) 동안 <#ef5350ff>공포<>에 빠뜨리고, <#ffb900ff>5초<> 동안 <#ffb900ff>0.5초<>마다 주변 모든 적에게 <#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 12%<> <#a974ffff>마법 피해<>를 입힙니다.",
         "ult": "잠시 사라졌다가 적 챔피언의 뒤에 <#ffb900ff>5초<> 동안 분신을 불러냅니다. 샤코가 공격할 때마다 분신이 함께 찔러 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 40%<> <#ff9028ff>물리 피해<>를 입힙니다. 끝나거나 대상이 죽으면 폭발해 <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 100%<> <#a974ffff>마법 피해<>를 입히고 작은 상자 세 개가 주변 적을 <#ef5350ff>공포<>에 빠뜨립니다."
       },
+      "league_caitlyn": {
+        "name": "케이틀린",
+        "attack": "기본 공격은 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>헤드샷<>: <#ffb900ff>6<>번째 공격마다 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 180%<>. 덫에 걸린 챔피언은 <i#asset/base/ui/banpick/champion_stat_icon:range_0>사거리 <#ffb900ff>1.5배<> 안에서 먼저 맞히고 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> 추가. <#ff9028ff>90구경 투망<>: 적 챔피언이 붙으면 그물로 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> 피해와 <#ef5350ff>50% 둔화<>, 뒤로 물러나고 다음 공격은 헤드샷(재사용 <#ffb900ff>12초<>).",
+        "skill": "조준한 위치로 관통 탄환을 발사해(적 챔피언 우선, 발사 전에 피할 수 있음) 처음 맞힌 적에게 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 110%<> <#ff9028ff>물리 피해<>, 그 뒤의 적에게 <#ffb900ff>60%<>의 피해를 입힙니다.",
+        "skill2": "적 챔피언에게 덫을 던집니다(충전 <#ffb900ff>3<>회, <#ffb900ff>12초<>마다 1회). 첫 덫은 발밑에, 나머지는 사이에 흩어 놓으며 <#ffb900ff>8초<> 동안 남고, 처음 밟은 적 챔피언은 <#ffb900ff>1.5초<> 동안 <#ef5350ff>속박<>되며 케이틀린이 헤드샷을 날립니다.",
+        "ult": "적 챔피언을 <#ffb900ff>1초<> 동안 조준한 뒤(군중 제어로 끊김) 발사해, 탄환이 지나는 길의 첫 적 챔피언에게 <#ff9028ff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 150%<> <#ff9028ff>물리 피해<>를 입힙니다."
+      },
       "league_blitzcrank": {
         "name": "블리츠크랭크",
         "attack": "기본 공격: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>. 정전기장이 재사용 대기 중이 아니면 <#ffb900ff>1초<> 뒤 번개가 떨어져 <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 15%<> <#a974ffff>마법 피해<>. 기본 지속 효과 <#e8d44dff>마나 보호막<>: 포위되거나 군중 제어에 걸리면 <#e8d44dff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 80%<> <#e8d44dff>보호막<>(재사용 대기 <#ffb900ff>60초<>).",
@@ -1887,6 +1930,11 @@
         "skill1": "속임수",
         "skill2": "깜짝 상자",
         "ult": "환각"
+      },
+      "league_caitlyn": {
+        "skill1": "필트오버 피스메이커",
+        "skill2": "요들잡이 덫",
+        "ult": "비장의 한 발"
       },
       "league_blitzcrank": {
         "skill1": "로켓 손",
@@ -2163,6 +2211,13 @@
         "skill2": "敵の足元にびっくり箱を投げる。開くと周囲の敵チャンピオンを<#ffb900ff>1秒<>（ミニオンとモンスターは<#ffb900ff>1.5秒<>）<#ef5350ff>フィアー<>状態にし、<#ffb900ff>5秒<>間<#ffb900ff>0.5秒<>ごとに周囲の全ての敵に<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の12%<>の<#a974ffff>魔法ダメージ<>。",
         "ult": "一瞬姿を消し、敵チャンピオンの背後に分身を<#ffb900ff>5秒<>間呼び出す。シャコが攻撃するたびに分身も刺し、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の40%<>の<#ff9028ff>物理ダメージ<>。終了時か対象の死亡時に爆発し<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の100%<>の<#a974ffff>魔法ダメージ<>、小さな箱3つが周囲の敵を<#ef5350ff>フィアー<>状態にする。"
       },
+      "league_caitlyn": {
+        "name": "ケイトリン",
+        "attack": "通常攻撃は<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>ヘッドショット<>：<#ffb900ff>6<>発ごとに<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>180%<>。罠にかかった敵は<i#asset/base/ui/banpick/champion_stat_icon:range_0>射程<#ffb900ff>1.5倍<>以内で優先、+<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>。<#ff9028ff>90口径ネット<>：密着されるとネットで<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>と<#ef5350ff>50%スロウ<>、後ろへ跳び次の一発がヘッドショット（CD<#ffb900ff>12秒<>）。",
+        "skill": "狙った位置へ貫通弾を撃ち（敵チャンピオン優先、発射前に避けられる）、最初に当たった敵に<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の110%<>の<#ff9028ff>物理ダメージ<>、以降の敵には<#ffb900ff>60%<>。",
+        "skill2": "敵チャンピオンへ罠を投げる（チャージ<#ffb900ff>3<>回、<#ffb900ff>12秒<>ごとに1回）。最初は足元、残りは間に散らす。罠は<#ffb900ff>8秒<>残り、最初に踏んだ敵チャンピオンを<#ffb900ff>1.5秒<><#ef5350ff>スネア<>し、ケイトリンがヘッドショットを撃ち込む。",
+        "ult": "敵チャンピオンを<#ffb900ff>1秒<>狙い（行動妨害で中断）、撃つ。弾の進路上の最初の敵チャンピオンに<#ff9028ff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の150%<>の<#ff9028ff>物理ダメージ<>。"
+      },
       "league_blitzcrank": {
         "name": "ブリッツクランク",
         "attack": "通常攻撃は<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>。アルティメットがCD中でなければ<#ffb900ff>1秒<>後に雷が落ち<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の15%<>の<#a974ffff>魔法ダメージ<>。パッシブ <#e8d44dff>マナバリア<>：囲まれるか行動妨害を受けると<#e8d44dff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の80%<>の<#e8d44dff>シールド<>（CD<#ffb900ff>60秒<>）。",
@@ -2361,6 +2416,11 @@
         "skill1": "幻惑",
         "skill2": "びっくり箱",
         "ult": "ハルシネイト"
+      },
+      "league_caitlyn": {
+        "skill1": "ピルトーヴァーピースメーカー",
+        "skill2": "ヨードルスナップトラップ",
+        "ult": "エース・イン・ザ・ホール"
       },
       "league_blitzcrank": {
         "skill1": "ロケットグラブ",
