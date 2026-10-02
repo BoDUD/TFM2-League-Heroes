@@ -1,0 +1,3013 @@
+{
+  "scale": 8,
+  "cell_size_1x": [
+    80,
+    72
+  ],
+  "cell_size_px": [
+    640,
+    576
+  ],
+  "palette_rgb": [
+    [
+      2,
+      17,
+      45
+    ],
+    [
+      11,
+      6,
+      14
+    ],
+    [
+      37,
+      19,
+      36
+    ],
+    [
+      58,
+      20,
+      82
+    ],
+    [
+      63,
+      174,
+      248
+    ],
+    [
+      69,
+      35,
+      72
+    ],
+    [
+      74,
+      78,
+      112
+    ],
+    [
+      76,
+      24,
+      25
+    ],
+    [
+      94,
+      35,
+      134
+    ],
+    [
+      110,
+      62,
+      117
+    ],
+    [
+      122,
+      62,
+      28
+    ],
+    [
+      138,
+      54,
+      184
+    ],
+    [
+      138,
+      143,
+      176
+    ],
+    [
+      142,
+      62,
+      48
+    ],
+    [
+      182,
+      87,
+      222
+    ],
+    [
+      201,
+      113,
+      78
+    ],
+    [
+      203,
+      116,
+      32
+    ],
+    [
+      237,
+      162,
+      122
+    ],
+    [
+      245,
+      245,
+      245
+    ],
+    [
+      248,
+      162,
+      59
+    ],
+    [
+      254,
+      220,
+      128
+    ]
+  ],
+  "animations": {
+    "run": {
+      "file": "kennen_run.png",
+      "file_1x": "1x/kennen_run_1x.png",
+      "size_px": [
+        2560,
+        1152
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "duration_ms": 100,
+          "cell_rect_1x": [
+            0,
+            0,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            38,
+            48
+          ],
+          "pivot_px": [
+            304,
+            384
+          ],
+          "export": {
+            "bbox_1x": [
+              22,
+              25,
+              34,
+              35
+            ],
+            "head_origin_1x": [
+              31,
+              30
+            ],
+            "head_rotation_deg": 0,
+            "head_mismatched_cells": 0,
+            "blue_outside_head": 0,
+            "opaque_cells": 596,
+            "lowest_row": 59,
+            "sampled_blue_cells": 6
+          },
+          "bbox_1x": [
+            22,
+            25,
+            34,
+            35
+          ],
+          "bbox_px": [
+            176,
+            200,
+            272,
+            280
+          ],
+          "components_8_connected": [
+            596
+          ]
+        },
+        {
+          "index": 2,
+          "duration_ms": 100,
+          "cell_rect_1x": [
+            80,
+            0,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            640,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            39,
+            48
+          ],
+          "pivot_px": [
+            312,
+            384
+          ],
+          "export": {
+            "bbox_1x": [
+              21,
+              26,
+              36,
+              34
+            ],
+            "head_origin_1x": [
+              32,
+              31
+            ],
+            "head_rotation_deg": 0,
+            "head_mismatched_cells": 0,
+            "blue_outside_head": 0,
+            "opaque_cells": 600,
+            "lowest_row": 59,
+            "sampled_blue_cells": 3
+          },
+          "bbox_1x": [
+            21,
+            26,
+            36,
+            34
+          ],
+          "bbox_px": [
+            168,
+            208,
+            288,
+            272
+          ],
+          "components_8_connected": [
+            600
+          ]
+        },
+        {
+          "index": 3,
+          "duration_ms": 100,
+          "cell_rect_1x": [
+            160,
+            0,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            1280,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            39,
+            48
+          ],
+          "pivot_px": [
+            312,
+            384
+          ],
+          "export": {
+            "bbox_1x": [
+              20,
+              26,
+              37,
+              34
+            ],
+            "head_origin_1x": [
+              32,
+              31
+            ],
+            "head_rotation_deg": 0,
+            "head_mismatched_cells": 0,
+            "blue_outside_head": 0,
+            "opaque_cells": 608,
+            "lowest_row": 59,
+            "sampled_blue_cells": 4
+          },
+          "bbox_1x": [
+            20,
+            26,
+            37,
+            34
+          ],
+          "bbox_px": [
+            160,
+            208,
+            296,
+            272
+          ],
+          "components_8_connected": [
+            608
+          ]
+        },
+        {
+          "index": 4,
+          "duration_ms": 100,
+          "cell_rect_1x": [
+            240,
+            0,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            1920,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            40,
+            48
+          ],
+          "pivot_px": [
+            320,
+            384
+          ],
+          "export": {
+            "bbox_1x": [
+              21,
+              25,
+              37,
+              35
+            ],
+            "head_origin_1x": [
+              33,
+              30
+            ],
+            "head_rotation_deg": 0,
+            "head_mismatched_cells": 0,
+            "blue_outside_head": 0,
+            "opaque_cells": 617,
+            "lowest_row": 59,
+            "sampled_blue_cells": 3
+          },
+          "bbox_1x": [
+            21,
+            25,
+            37,
+            35
+          ],
+          "bbox_px": [
+            168,
+            200,
+            296,
+            280
+          ],
+          "components_8_connected": [
+            617
+          ]
+        },
+        {
+          "index": 5,
+          "duration_ms": 100,
+          "cell_rect_1x": [
+            0,
+            72,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            0,
+            576,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            38,
+            48
+          ],
+          "pivot_px": [
+            304,
+            384
+          ],
+          "export": {
+            "bbox_1x": [
+              21,
+              25,
+              35,
+              35
+            ],
+            "head_origin_1x": [
+              31,
+              30
+            ],
+            "head_rotation_deg": 0,
+            "head_mismatched_cells": 0,
+            "blue_outside_head": 0,
+            "opaque_cells": 604,
+            "lowest_row": 59,
+            "sampled_blue_cells": 5
+          },
+          "bbox_1x": [
+            21,
+            25,
+            35,
+            35
+          ],
+          "bbox_px": [
+            168,
+            200,
+            280,
+            280
+          ],
+          "components_8_connected": [
+            604
+          ]
+        },
+        {
+          "index": 6,
+          "duration_ms": 100,
+          "cell_rect_1x": [
+            80,
+            72,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            640,
+            576,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            39,
+            48
+          ],
+          "pivot_px": [
+            312,
+            384
+          ],
+          "export": {
+            "bbox_1x": [
+              22,
+              26,
+              35,
+              34
+            ],
+            "head_origin_1x": [
+              32,
+              31
+            ],
+            "head_rotation_deg": 0,
+            "head_mismatched_cells": 0,
+            "blue_outside_head": 0,
+            "opaque_cells": 590,
+            "lowest_row": 59,
+            "sampled_blue_cells": 4
+          },
+          "bbox_1x": [
+            22,
+            26,
+            35,
+            34
+          ],
+          "bbox_px": [
+            176,
+            208,
+            280,
+            272
+          ],
+          "components_8_connected": [
+            590
+          ]
+        },
+        {
+          "index": 7,
+          "duration_ms": 100,
+          "cell_rect_1x": [
+            160,
+            72,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            1280,
+            576,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            39,
+            48
+          ],
+          "pivot_px": [
+            312,
+            384
+          ],
+          "export": {
+            "bbox_1x": [
+              22,
+              26,
+              35,
+              34
+            ],
+            "head_origin_1x": [
+              32,
+              31
+            ],
+            "head_rotation_deg": 0,
+            "head_mismatched_cells": 0,
+            "blue_outside_head": 0,
+            "opaque_cells": 590,
+            "lowest_row": 59,
+            "sampled_blue_cells": 5
+          },
+          "bbox_1x": [
+            22,
+            26,
+            35,
+            34
+          ],
+          "bbox_px": [
+            176,
+            208,
+            280,
+            272
+          ],
+          "components_8_connected": [
+            590
+          ]
+        },
+        {
+          "index": 8,
+          "duration_ms": 100,
+          "cell_rect_1x": [
+            240,
+            72,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            1920,
+            576,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            40,
+            48
+          ],
+          "pivot_px": [
+            320,
+            384
+          ],
+          "export": {
+            "bbox_1x": [
+              23,
+              25,
+              35,
+              35
+            ],
+            "head_origin_1x": [
+              33,
+              30
+            ],
+            "head_rotation_deg": 0,
+            "head_mismatched_cells": 0,
+            "blue_outside_head": 0,
+            "opaque_cells": 596,
+            "lowest_row": 59,
+            "sampled_blue_cells": 5
+          },
+          "bbox_1x": [
+            23,
+            25,
+            35,
+            35
+          ],
+          "bbox_px": [
+            184,
+            200,
+            280,
+            280
+          ],
+          "components_8_connected": [
+            596
+          ]
+        }
+      ],
+      "release": null,
+      "preview": "previews/kennen_run.gif"
+    },
+    "attack": {
+      "file": "kennen_attack.png",
+      "file_1x": "1x/kennen_attack_1x.png",
+      "size_px": [
+        1920,
+        1152
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "duration_ms": 60,
+          "cell_rect_1x": [
+            0,
+            0,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            44,
+            48
+          ],
+          "pivot_px": [
+            352,
+            384
+          ],
+          "export": {
+            "bbox_1x": [
+              31,
+              21,
+              29,
+              39
+            ],
+            "head_origin_1x": [
+              35,
+              26
+            ],
+            "head_rotation_deg": 0,
+            "head_mismatched_cells": 0,
+            "blue_outside_head": 0,
+            "opaque_cells": 678,
+            "lowest_row": 59,
+            "sampled_blue_cells": 4
+          },
+          "bbox_1x": [
+            31,
+            21,
+            29,
+            39
+          ],
+          "bbox_px": [
+            248,
+            168,
+            232,
+            312
+          ],
+          "components_8_connected": [
+            678
+          ]
+        },
+        {
+          "index": 2,
+          "duration_ms": 60,
+          "cell_rect_1x": [
+            80,
+            0,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            640,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            44,
+            48
+          ],
+          "pivot_px": [
+            352,
+            384
+          ],
+          "export": {
+            "bbox_1x": [
+              27,
+              16,
+              35,
+              44
+            ],
+            "head_origin_1x": [
+              34,
+              26
+            ],
+            "head_rotation_deg": 0,
+            "head_mismatched_cells": 0,
+            "blue_outside_head": 0,
+            "opaque_cells": 750,
+            "lowest_row": 59,
+            "sampled_blue_cells": 5
+          },
+          "bbox_1x": [
+            27,
+            16,
+            35,
+            44
+          ],
+          "bbox_px": [
+            216,
+            128,
+            280,
+            352
+          ],
+          "components_8_connected": [
+            750
+          ]
+        },
+        {
+          "index": 3,
+          "duration_ms": 60,
+          "cell_rect_1x": [
+            160,
+            0,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            1280,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            44,
+            48
+          ],
+          "pivot_px": [
+            352,
+            384
+          ],
+          "export": {
+            "bbox_1x": [
+              31,
+              14,
+              29,
+              46
+            ],
+            "head_origin_1x": [
+              35,
+              26
+            ],
+            "head_rotation_deg": 0,
+            "head_mismatched_cells": 0,
+            "blue_outside_head": 0,
+            "opaque_cells": 769,
+            "lowest_row": 59,
+            "sampled_blue_cells": 6
+          },
+          "bbox_1x": [
+            31,
+            14,
+            29,
+            46
+          ],
+          "bbox_px": [
+            248,
+            112,
+            232,
+            368
+          ],
+          "components_8_connected": [
+            769
+          ]
+        },
+        {
+          "index": 4,
+          "duration_ms": 70,
+          "cell_rect_1x": [
+            0,
+            72,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            0,
+            576,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            42,
+            48
+          ],
+          "pivot_px": [
+            336,
+            384
+          ],
+          "export": {
+            "bbox_1x": [
+              31,
+              29,
+              44,
+              31
+            ],
+            "head_origin_1x": [
+              36,
+              30
+            ],
+            "head_rotation_deg": 0,
+            "head_mismatched_cells": 0,
+            "blue_outside_head": 0,
+            "opaque_cells": 728,
+            "lowest_row": 59,
+            "sampled_blue_cells": 5
+          },
+          "bbox_1x": [
+            31,
+            29,
+            44,
+            31
+          ],
+          "bbox_px": [
+            248,
+            232,
+            352,
+            248
+          ],
+          "components_8_connected": [
+            728
+          ]
+        },
+        {
+          "index": 5,
+          "duration_ms": 70,
+          "cell_rect_1x": [
+            80,
+            72,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            640,
+            576,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            42,
+            48
+          ],
+          "pivot_px": [
+            336,
+            384
+          ],
+          "export": {
+            "bbox_1x": [
+              31,
+              30,
+              38,
+              30
+            ],
+            "head_origin_1x": [
+              38,
+              30
+            ],
+            "head_rotation_deg": 0,
+            "head_mismatched_cells": 0,
+            "blue_outside_head": 0,
+            "opaque_cells": 673,
+            "lowest_row": 59,
+            "sampled_blue_cells": 4
+          },
+          "bbox_1x": [
+            31,
+            30,
+            38,
+            30
+          ],
+          "bbox_px": [
+            248,
+            240,
+            304,
+            240
+          ],
+          "components_8_connected": [
+            673
+          ]
+        },
+        {
+          "index": 6,
+          "duration_ms": 80,
+          "cell_rect_1x": [
+            160,
+            72,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            1280,
+            576,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            42,
+            48
+          ],
+          "pivot_px": [
+            336,
+            384
+          ],
+          "export": {
+            "bbox_1x": [
+              30,
+              23,
+              27,
+              37
+            ],
+            "head_origin_1x": [
+              32,
+              28
+            ],
+            "head_rotation_deg": 0,
+            "head_mismatched_cells": 0,
+            "blue_outside_head": 0,
+            "lowest_row": 59,
+            "reused_approved_idle": true
+          },
+          "bbox_1x": [
+            30,
+            23,
+            27,
+            37
+          ],
+          "bbox_px": [
+            240,
+            184,
+            216,
+            296
+          ],
+          "components_8_connected": [
+            705
+          ]
+        }
+      ],
+      "release": {
+        "frame": 4,
+        "tick": 11
+      },
+      "preview": "previews/kennen_attack.gif"
+    },
+    "skill": {
+      "file": "kennen_skill.png",
+      "file_1x": "1x/kennen_skill_1x.png",
+      "size_px": [
+        1920,
+        1152
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "duration_ms": 50,
+          "cell_rect_1x": [
+            0,
+            0,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            42,
+            48
+          ],
+          "pivot_px": [
+            336,
+            384
+          ],
+          "export": {
+            "bbox_1x": [
+              31,
+              21,
+              28,
+              39
+            ],
+            "head_origin_1x": [
+              34,
+              27
+            ],
+            "head_rotation_deg": 0,
+            "head_mismatched_cells": 0,
+            "blue_outside_head": 0,
+            "opaque_cells": 731,
+            "lowest_row": 59,
+            "sampled_blue_cells": 5
+          },
+          "bbox_1x": [
+            31,
+            21,
+            28,
+            39
+          ],
+          "bbox_px": [
+            248,
+            168,
+            224,
+            312
+          ],
+          "components_8_connected": [
+            731
+          ]
+        },
+        {
+          "index": 2,
+          "duration_ms": 60,
+          "cell_rect_1x": [
+            80,
+            0,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            640,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            42,
+            48
+          ],
+          "pivot_px": [
+            336,
+            384
+          ],
+          "export": {
+            "bbox_1x": [
+              30,
+              21,
+              32,
+              39
+            ],
+            "head_origin_1x": [
+              33,
+              27
+            ],
+            "head_rotation_deg": 0,
+            "head_mismatched_cells": 0,
+            "blue_outside_head": 0,
+            "opaque_cells": 733,
+            "lowest_row": 59,
+            "sampled_blue_cells": 2
+          },
+          "bbox_1x": [
+            30,
+            21,
+            32,
+            39
+          ],
+          "bbox_px": [
+            240,
+            168,
+            256,
+            312
+          ],
+          "components_8_connected": [
+            733
+          ]
+        },
+        {
+          "index": 3,
+          "duration_ms": 70,
+          "cell_rect_1x": [
+            160,
+            0,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            1280,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            43,
+            48
+          ],
+          "pivot_px": [
+            344,
+            384
+          ],
+          "export": {
+            "bbox_1x": [
+              29,
+              24,
+              36,
+              36
+            ],
+            "head_origin_1x": [
+              34,
+              29
+            ],
+            "head_rotation_deg": 0,
+            "head_mismatched_cells": 0,
+            "blue_outside_head": 0,
+            "opaque_cells": 756,
+            "lowest_row": 59,
+            "sampled_blue_cells": 3
+          },
+          "bbox_1x": [
+            29,
+            24,
+            36,
+            36
+          ],
+          "bbox_px": [
+            232,
+            192,
+            288,
+            288
+          ],
+          "components_8_connected": [
+            756
+          ]
+        },
+        {
+          "index": 4,
+          "duration_ms": 80,
+          "cell_rect_1x": [
+            0,
+            72,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            0,
+            576,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            43,
+            48
+          ],
+          "pivot_px": [
+            344,
+            384
+          ],
+          "export": {
+            "bbox_1x": [
+              31,
+              24,
+              43,
+              36
+            ],
+            "head_origin_1x": [
+              41,
+              29
+            ],
+            "head_rotation_deg": 0,
+            "head_mismatched_cells": 0,
+            "blue_outside_head": 0,
+            "opaque_cells": 758,
+            "lowest_row": 59,
+            "sampled_blue_cells": 3
+          },
+          "bbox_1x": [
+            31,
+            24,
+            43,
+            36
+          ],
+          "bbox_px": [
+            248,
+            192,
+            344,
+            288
+          ],
+          "components_8_connected": [
+            758
+          ]
+        },
+        {
+          "index": 5,
+          "duration_ms": 90,
+          "cell_rect_1x": [
+            80,
+            72,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            640,
+            576,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            44,
+            48
+          ],
+          "pivot_px": [
+            352,
+            384
+          ],
+          "export": {
+            "bbox_1x": [
+              31,
+              24,
+              44,
+              36
+            ],
+            "head_origin_1x": [
+              42,
+              29
+            ],
+            "head_rotation_deg": 0,
+            "head_mismatched_cells": 0,
+            "blue_outside_head": 0,
+            "opaque_cells": 754,
+            "lowest_row": 59,
+            "sampled_blue_cells": 4
+          },
+          "bbox_1x": [
+            31,
+            24,
+            44,
+            36
+          ],
+          "bbox_px": [
+            248,
+            192,
+            352,
+            288
+          ],
+          "components_8_connected": [
+            754
+          ]
+        },
+        {
+          "index": 6,
+          "duration_ms": 100,
+          "cell_rect_1x": [
+            160,
+            72,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            1280,
+            576,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            43,
+            48
+          ],
+          "pivot_px": [
+            344,
+            384
+          ],
+          "export": {
+            "bbox_1x": [
+              31,
+              23,
+              27,
+              37
+            ],
+            "head_origin_1x": [
+              33,
+              28
+            ],
+            "head_rotation_deg": 0,
+            "head_mismatched_cells": 0,
+            "blue_outside_head": 0,
+            "lowest_row": 59,
+            "reused_approved_idle": true
+          },
+          "bbox_1x": [
+            31,
+            23,
+            27,
+            37
+          ],
+          "bbox_px": [
+            248,
+            184,
+            216,
+            296
+          ],
+          "components_8_connected": [
+            705
+          ]
+        }
+      ],
+      "release": {
+        "frame": 4,
+        "tick": 11
+      },
+      "preview": "previews/kennen_skill.gif"
+    },
+    "skill2": {
+      "file": "kennen_skill2.png",
+      "file_1x": "1x/kennen_skill2_1x.png",
+      "size_px": [
+        2560,
+        576
+      ],
+      "grid": [
+        4,
+        1
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "duration_ms": 75,
+          "cell_rect_1x": [
+            0,
+            0,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            38,
+            48
+          ],
+          "pivot_px": [
+            304,
+            384
+          ],
+          "export": {
+            "bbox_1x": [
+              23,
+              33,
+              45,
+              27
+            ],
+            "head_origin_1x": [
+              42,
+              38
+            ],
+            "head_rotation_deg": 0,
+            "head_mismatched_cells": 0,
+            "blue_outside_head": 0,
+            "opaque_cells": 586,
+            "lowest_row": 59,
+            "sampled_blue_cells": 4
+          },
+          "bbox_1x": [
+            23,
+            33,
+            45,
+            27
+          ],
+          "bbox_px": [
+            184,
+            264,
+            360,
+            216
+          ],
+          "components_8_connected": [
+            586
+          ]
+        },
+        {
+          "index": 2,
+          "duration_ms": 75,
+          "cell_rect_1x": [
+            80,
+            0,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            640,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            38,
+            48
+          ],
+          "pivot_px": [
+            304,
+            384
+          ],
+          "export": {
+            "bbox_1x": [
+              15,
+              33,
+              49,
+              27
+            ],
+            "head_origin_1x": [
+              39,
+              38
+            ],
+            "head_rotation_deg": 0,
+            "head_mismatched_cells": 0,
+            "blue_outside_head": 0,
+            "opaque_cells": 607,
+            "lowest_row": 59,
+            "sampled_blue_cells": 4
+          },
+          "bbox_1x": [
+            15,
+            33,
+            49,
+            27
+          ],
+          "bbox_px": [
+            120,
+            264,
+            392,
+            216
+          ],
+          "components_8_connected": [
+            607
+          ]
+        },
+        {
+          "index": 3,
+          "duration_ms": 75,
+          "cell_rect_1x": [
+            160,
+            0,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            1280,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            38,
+            48
+          ],
+          "pivot_px": [
+            304,
+            384
+          ],
+          "export": {
+            "bbox_1x": [
+              17,
+              33,
+              50,
+              27
+            ],
+            "head_origin_1x": [
+              42,
+              38
+            ],
+            "head_rotation_deg": 0,
+            "head_mismatched_cells": 0,
+            "blue_outside_head": 0,
+            "opaque_cells": 639,
+            "lowest_row": 59,
+            "sampled_blue_cells": 5
+          },
+          "bbox_1x": [
+            17,
+            33,
+            50,
+            27
+          ],
+          "bbox_px": [
+            136,
+            264,
+            400,
+            216
+          ],
+          "components_8_connected": [
+            639
+          ]
+        },
+        {
+          "index": 4,
+          "duration_ms": 75,
+          "cell_rect_1x": [
+            240,
+            0,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            1920,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            38,
+            48
+          ],
+          "pivot_px": [
+            304,
+            384
+          ],
+          "export": {
+            "bbox_1x": [
+              13,
+              33,
+              46,
+              27
+            ],
+            "head_origin_1x": [
+              34,
+              38
+            ],
+            "head_rotation_deg": 0,
+            "head_mismatched_cells": 0,
+            "blue_outside_head": 0,
+            "opaque_cells": 578,
+            "lowest_row": 59,
+            "sampled_blue_cells": 4
+          },
+          "bbox_1x": [
+            13,
+            33,
+            46,
+            27
+          ],
+          "bbox_px": [
+            104,
+            264,
+            368,
+            216
+          ],
+          "components_8_connected": [
+            578
+          ]
+        }
+      ],
+      "release": null,
+      "preview": "previews/kennen_skill2.gif"
+    },
+    "w": {
+      "file": "kennen_w.png",
+      "file_1x": "1x/kennen_w_1x.png",
+      "size_px": [
+        1920,
+        1152
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "duration_ms": 50,
+          "cell_rect_1x": [
+            0,
+            0,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            44,
+            48
+          ],
+          "pivot_px": [
+            352,
+            384
+          ],
+          "export": {
+            "bbox_1x": [
+              23,
+              11,
+              38,
+              49
+            ],
+            "head_origin_1x": [
+              36,
+              23
+            ],
+            "head_rotation_deg": 0,
+            "head_mismatched_cells": 0,
+            "blue_outside_head": 0,
+            "opaque_cells": 873,
+            "lowest_row": 59,
+            "sampled_blue_cells": 4
+          },
+          "bbox_1x": [
+            23,
+            11,
+            38,
+            49
+          ],
+          "bbox_px": [
+            184,
+            88,
+            304,
+            392
+          ],
+          "components_8_connected": [
+            873
+          ]
+        },
+        {
+          "index": 2,
+          "duration_ms": 50,
+          "cell_rect_1x": [
+            80,
+            0,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            640,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            41,
+            48
+          ],
+          "pivot_px": [
+            328,
+            384
+          ],
+          "export": {
+            "bbox_1x": [
+              22,
+              16,
+              37,
+              44
+            ],
+            "head_origin_1x": [
+              34,
+              28
+            ],
+            "head_rotation_deg": 0,
+            "head_mismatched_cells": 0,
+            "blue_outside_head": 0,
+            "opaque_cells": 808,
+            "lowest_row": 59,
+            "sampled_blue_cells": 6
+          },
+          "bbox_1x": [
+            22,
+            16,
+            37,
+            44
+          ],
+          "bbox_px": [
+            176,
+            128,
+            296,
+            352
+          ],
+          "components_8_connected": [
+            808
+          ]
+        },
+        {
+          "index": 3,
+          "duration_ms": 60,
+          "cell_rect_1x": [
+            160,
+            0,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            1280,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            40,
+            48
+          ],
+          "pivot_px": [
+            320,
+            384
+          ],
+          "export": {
+            "bbox_1x": [
+              16,
+              32,
+              56,
+              28
+            ],
+            "head_origin_1x": [
+              30,
+              35
+            ],
+            "head_rotation_deg": 0,
+            "head_mismatched_cells": 0,
+            "blue_outside_head": 0,
+            "opaque_cells": 749,
+            "lowest_row": 59,
+            "sampled_blue_cells": 3
+          },
+          "bbox_1x": [
+            16,
+            32,
+            56,
+            28
+          ],
+          "bbox_px": [
+            128,
+            256,
+            448,
+            224
+          ],
+          "components_8_connected": [
+            749
+          ]
+        },
+        {
+          "index": 4,
+          "duration_ms": 60,
+          "cell_rect_1x": [
+            0,
+            72,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            0,
+            576,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            46,
+            48
+          ],
+          "pivot_px": [
+            368,
+            384
+          ],
+          "export": {
+            "bbox_1x": [
+              22,
+              32,
+              56,
+              28
+            ],
+            "head_origin_1x": [
+              36,
+              37
+            ],
+            "head_rotation_deg": 0,
+            "head_mismatched_cells": 0,
+            "blue_outside_head": 0,
+            "opaque_cells": 712,
+            "lowest_row": 59,
+            "sampled_blue_cells": 4
+          },
+          "bbox_1x": [
+            22,
+            32,
+            56,
+            28
+          ],
+          "bbox_px": [
+            176,
+            256,
+            448,
+            224
+          ],
+          "components_8_connected": [
+            712
+          ]
+        },
+        {
+          "index": 5,
+          "duration_ms": 60,
+          "cell_rect_1x": [
+            80,
+            72,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            640,
+            576,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            40,
+            48
+          ],
+          "pivot_px": [
+            320,
+            384
+          ],
+          "export": {
+            "bbox_1x": [
+              28,
+              23,
+              27,
+              37
+            ],
+            "head_origin_1x": [
+              30,
+              28
+            ],
+            "head_rotation_deg": 0,
+            "head_mismatched_cells": 0,
+            "blue_outside_head": 0,
+            "lowest_row": 59,
+            "reused_approved_idle": true
+          },
+          "bbox_1x": [
+            28,
+            23,
+            27,
+            37
+          ],
+          "bbox_px": [
+            224,
+            184,
+            216,
+            296
+          ],
+          "components_8_connected": [
+            705
+          ]
+        }
+      ],
+      "release": {
+        "frame": 3,
+        "tick": 6
+      },
+      "preview": "previews/kennen_w.gif"
+    },
+    "ult": {
+      "file": "kennen_ult.png",
+      "file_1x": "1x/kennen_ult_1x.png",
+      "size_px": [
+        1920,
+        1152
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "duration_ms": 60,
+          "cell_rect_1x": [
+            0,
+            0,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            41,
+            48
+          ],
+          "pivot_px": [
+            328,
+            384
+          ],
+          "export": {
+            "bbox_1x": [
+              27,
+              32,
+              33,
+              28
+            ],
+            "head_origin_1x": [
+              35,
+              37
+            ],
+            "head_rotation_deg": 0,
+            "head_mismatched_cells": 0,
+            "blue_outside_head": 0,
+            "opaque_cells": 557,
+            "lowest_row": 59,
+            "sampled_blue_cells": 3
+          },
+          "bbox_1x": [
+            27,
+            32,
+            33,
+            28
+          ],
+          "bbox_px": [
+            216,
+            256,
+            264,
+            224
+          ],
+          "components_8_connected": [
+            557
+          ]
+        },
+        {
+          "index": 2,
+          "duration_ms": 60,
+          "cell_rect_1x": [
+            80,
+            0,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            640,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            41,
+            48
+          ],
+          "pivot_px": [
+            328,
+            384
+          ],
+          "export": {
+            "bbox_1x": [
+              31,
+              10,
+              25,
+              47
+            ],
+            "head_origin_1x": [
+              31,
+              22
+            ],
+            "head_rotation_deg": 0,
+            "head_mismatched_cells": 0,
+            "blue_outside_head": 0,
+            "opaque_cells": 592,
+            "lowest_row": 56,
+            "sampled_blue_cells": 3
+          },
+          "bbox_1x": [
+            31,
+            10,
+            25,
+            47
+          ],
+          "bbox_px": [
+            248,
+            80,
+            200,
+            376
+          ],
+          "components_8_connected": [
+            592
+          ]
+        },
+        {
+          "index": 3,
+          "duration_ms": 60,
+          "cell_rect_1x": [
+            160,
+            0,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            1280,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            41,
+            48
+          ],
+          "pivot_px": [
+            328,
+            384
+          ],
+          "export": {
+            "bbox_1x": [
+              31,
+              9,
+              25,
+              48
+            ],
+            "head_origin_1x": [
+              31,
+              21
+            ],
+            "head_rotation_deg": 0,
+            "head_mismatched_cells": 0,
+            "blue_outside_head": 0,
+            "opaque_cells": 587,
+            "lowest_row": 56,
+            "sampled_blue_cells": 6
+          },
+          "bbox_1x": [
+            31,
+            9,
+            25,
+            48
+          ],
+          "bbox_px": [
+            248,
+            72,
+            200,
+            384
+          ],
+          "components_8_connected": [
+            587
+          ]
+        },
+        {
+          "index": 4,
+          "duration_ms": 70,
+          "cell_rect_1x": [
+            0,
+            72,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            0,
+            576,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            40,
+            48
+          ],
+          "pivot_px": [
+            320,
+            384
+          ],
+          "export": {
+            "bbox_1x": [
+              27,
+              35,
+              44,
+              25
+            ],
+            "head_origin_1x": [
+              35,
+              35
+            ],
+            "head_rotation_deg": 0,
+            "head_mismatched_cells": 0,
+            "blue_outside_head": 0,
+            "opaque_cells": 580,
+            "lowest_row": 59,
+            "sampled_blue_cells": 3
+          },
+          "bbox_1x": [
+            27,
+            35,
+            44,
+            25
+          ],
+          "bbox_px": [
+            216,
+            280,
+            352,
+            200
+          ],
+          "components_8_connected": [
+            580
+          ]
+        },
+        {
+          "index": 5,
+          "duration_ms": 70,
+          "cell_rect_1x": [
+            80,
+            72,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            640,
+            576,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            44,
+            48
+          ],
+          "pivot_px": [
+            352,
+            384
+          ],
+          "export": {
+            "bbox_1x": [
+              26,
+              32,
+              40,
+              28
+            ],
+            "head_origin_1x": [
+              37,
+              37
+            ],
+            "head_rotation_deg": 0,
+            "head_mismatched_cells": 0,
+            "blue_outside_head": 0,
+            "opaque_cells": 575,
+            "lowest_row": 59,
+            "sampled_blue_cells": 2
+          },
+          "bbox_1x": [
+            26,
+            32,
+            40,
+            28
+          ],
+          "bbox_px": [
+            208,
+            256,
+            320,
+            224
+          ],
+          "components_8_connected": [
+            575
+          ]
+        },
+        {
+          "index": 6,
+          "duration_ms": 80,
+          "cell_rect_1x": [
+            160,
+            72,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            1280,
+            576,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            40,
+            48
+          ],
+          "pivot_px": [
+            320,
+            384
+          ],
+          "export": {
+            "bbox_1x": [
+              28,
+              23,
+              27,
+              37
+            ],
+            "head_origin_1x": [
+              30,
+              28
+            ],
+            "head_rotation_deg": 0,
+            "head_mismatched_cells": 0,
+            "blue_outside_head": 0,
+            "lowest_row": 59,
+            "reused_approved_idle": true
+          },
+          "bbox_1x": [
+            28,
+            23,
+            27,
+            37
+          ],
+          "bbox_px": [
+            224,
+            184,
+            216,
+            296
+          ],
+          "components_8_connected": [
+            705
+          ]
+        }
+      ],
+      "release": null,
+      "preview": "previews/kennen_ult.gif"
+    },
+    "hit": {
+      "file": "kennen_hit.png",
+      "file_1x": "1x/kennen_hit_1x.png",
+      "size_px": [
+        1280,
+        576
+      ],
+      "grid": [
+        2,
+        1
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "duration_ms": 100,
+          "cell_rect_1x": [
+            0,
+            0,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            44,
+            48
+          ],
+          "pivot_px": [
+            352,
+            384
+          ],
+          "export": {
+            "bbox_1x": [
+              23,
+              23,
+              31,
+              37
+            ],
+            "head_origin_1x": [
+              25,
+              28
+            ],
+            "head_rotation_deg": 0,
+            "head_mismatched_cells": 0,
+            "blue_outside_head": 0,
+            "opaque_cells": 628,
+            "lowest_row": 59,
+            "sampled_blue_cells": 4
+          },
+          "bbox_1x": [
+            23,
+            23,
+            31,
+            37
+          ],
+          "bbox_px": [
+            184,
+            184,
+            248,
+            296
+          ],
+          "components_8_connected": [
+            628
+          ]
+        },
+        {
+          "index": 2,
+          "duration_ms": 100,
+          "cell_rect_1x": [
+            80,
+            0,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            640,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            44,
+            48
+          ],
+          "pivot_px": [
+            352,
+            384
+          ],
+          "export": {
+            "bbox_1x": [
+              32,
+              23,
+              27,
+              37
+            ],
+            "head_origin_1x": [
+              34,
+              28
+            ],
+            "head_rotation_deg": 0,
+            "head_mismatched_cells": 0,
+            "blue_outside_head": 0,
+            "lowest_row": 59,
+            "reused_approved_idle": true
+          },
+          "bbox_1x": [
+            32,
+            23,
+            27,
+            37
+          ],
+          "bbox_px": [
+            256,
+            184,
+            216,
+            296
+          ],
+          "components_8_connected": [
+            705
+          ]
+        }
+      ],
+      "release": null,
+      "preview": "previews/kennen_hit.gif"
+    },
+    "dead": {
+      "file": "kennen_dead.png",
+      "file_1x": "1x/kennen_dead_1x.png",
+      "size_px": [
+        2560,
+        1152
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "duration_ms": 100,
+          "cell_rect_1x": [
+            0,
+            0,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            43,
+            48
+          ],
+          "pivot_px": [
+            344,
+            384
+          ],
+          "export": {
+            "bbox_1x": [
+              21,
+              16,
+              33,
+              44
+            ],
+            "head_origin_1x": [
+              25,
+              21
+            ],
+            "head_rotation_deg": 0,
+            "head_mismatched_cells": 0,
+            "blue_outside_head": 0,
+            "opaque_cells": 733,
+            "lowest_row": 59,
+            "sampled_blue_cells": 5
+          },
+          "bbox_1x": [
+            21,
+            16,
+            33,
+            44
+          ],
+          "bbox_px": [
+            168,
+            128,
+            264,
+            352
+          ],
+          "components_8_connected": [
+            733
+          ]
+        },
+        {
+          "index": 2,
+          "duration_ms": 100,
+          "cell_rect_1x": [
+            80,
+            0,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            640,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            45,
+            48
+          ],
+          "pivot_px": [
+            360,
+            384
+          ],
+          "export": {
+            "bbox_1x": [
+              20,
+              20,
+              39,
+              37
+            ],
+            "head_origin_1x": [
+              25,
+              21
+            ],
+            "head_rotation_deg": 0,
+            "head_mismatched_cells": 0,
+            "blue_outside_head": 0,
+            "opaque_cells": 694,
+            "lowest_row": 56,
+            "sampled_blue_cells": 2
+          },
+          "bbox_1x": [
+            20,
+            20,
+            39,
+            37
+          ],
+          "bbox_px": [
+            160,
+            160,
+            312,
+            296
+          ],
+          "components_8_connected": [
+            694
+          ]
+        },
+        {
+          "index": 3,
+          "duration_ms": 110,
+          "cell_rect_1x": [
+            160,
+            0,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            1280,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            47,
+            48
+          ],
+          "pivot_px": [
+            376,
+            384
+          ],
+          "export": {
+            "bbox_1x": [
+              20,
+              32,
+              43,
+              28
+            ],
+            "head_origin_1x": [
+              31,
+              32
+            ],
+            "head_rotation_deg": -90,
+            "head_mismatched_cells": 0,
+            "blue_outside_head": 0,
+            "opaque_cells": 572,
+            "lowest_row": 59,
+            "sampled_blue_cells": 5
+          },
+          "bbox_1x": [
+            20,
+            32,
+            43,
+            28
+          ],
+          "bbox_px": [
+            160,
+            256,
+            344,
+            224
+          ],
+          "components_8_connected": [
+            572
+          ]
+        },
+        {
+          "index": 4,
+          "duration_ms": 110,
+          "cell_rect_1x": [
+            240,
+            0,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            1920,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            48,
+            48
+          ],
+          "pivot_px": [
+            384,
+            384
+          ],
+          "export": {
+            "bbox_1x": [
+              24,
+              35,
+              41,
+              25
+            ],
+            "head_origin_1x": [
+              33,
+              35
+            ],
+            "head_rotation_deg": -90,
+            "head_mismatched_cells": 0,
+            "blue_outside_head": 0,
+            "opaque_cells": 570,
+            "lowest_row": 59,
+            "sampled_blue_cells": 5
+          },
+          "bbox_1x": [
+            24,
+            35,
+            41,
+            25
+          ],
+          "bbox_px": [
+            192,
+            280,
+            328,
+            200
+          ],
+          "components_8_connected": [
+            570
+          ]
+        },
+        {
+          "index": 5,
+          "duration_ms": 120,
+          "cell_rect_1x": [
+            0,
+            72,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            0,
+            576,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            50,
+            48
+          ],
+          "pivot_px": [
+            400,
+            384
+          ],
+          "export": {
+            "bbox_1x": [
+              26,
+              37,
+              51,
+              25
+            ],
+            "head_origin_1x": [
+              26,
+              37
+            ],
+            "head_rotation_deg": -90,
+            "head_mismatched_cells": 0,
+            "blue_outside_head": 0,
+            "opaque_cells": 557,
+            "lowest_row": 61,
+            "sampled_blue_cells": 2
+          },
+          "bbox_1x": [
+            26,
+            37,
+            51,
+            25
+          ],
+          "bbox_px": [
+            208,
+            296,
+            408,
+            200
+          ],
+          "components_8_connected": [
+            497,
+            60
+          ]
+        },
+        {
+          "index": 6,
+          "duration_ms": 150,
+          "cell_rect_1x": [
+            80,
+            72,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            640,
+            576,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            49,
+            48
+          ],
+          "pivot_px": [
+            392,
+            384
+          ],
+          "export": {
+            "bbox_1x": [
+              26,
+              37,
+              51,
+              25
+            ],
+            "head_origin_1x": [
+              26,
+              37
+            ],
+            "head_rotation_deg": -90,
+            "head_mismatched_cells": 0,
+            "blue_outside_head": 0,
+            "opaque_cells": 554,
+            "lowest_row": 61,
+            "sampled_blue_cells": 3
+          },
+          "bbox_1x": [
+            26,
+            37,
+            51,
+            25
+          ],
+          "bbox_px": [
+            208,
+            296,
+            408,
+            200
+          ],
+          "components_8_connected": [
+            554
+          ]
+        },
+        {
+          "index": 7,
+          "duration_ms": 300,
+          "cell_rect_1x": [
+            160,
+            72,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            1280,
+            576,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            50,
+            48
+          ],
+          "pivot_px": [
+            400,
+            384
+          ],
+          "export": {
+            "bbox_1x": [
+              26,
+              37,
+              51,
+              25
+            ],
+            "head_origin_1x": [
+              26,
+              37
+            ],
+            "head_rotation_deg": -90,
+            "head_mismatched_cells": 0,
+            "blue_outside_head": 0,
+            "opaque_cells": 554,
+            "lowest_row": 61,
+            "sampled_blue_cells": 3
+          },
+          "bbox_1x": [
+            26,
+            37,
+            51,
+            25
+          ],
+          "bbox_px": [
+            208,
+            296,
+            408,
+            200
+          ],
+          "components_8_connected": [
+            554
+          ]
+        },
+        {
+          "index": 8,
+          "duration_ms": 500,
+          "cell_rect_1x": [
+            240,
+            72,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            1920,
+            576,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            50,
+            48
+          ],
+          "pivot_px": [
+            400,
+            384
+          ],
+          "export": {
+            "bbox_1x": [
+              26,
+              37,
+              51,
+              25
+            ],
+            "head_origin_1x": [
+              26,
+              37
+            ],
+            "head_rotation_deg": -90,
+            "head_mismatched_cells": 0,
+            "blue_outside_head": 0,
+            "opaque_cells": 554,
+            "lowest_row": 61,
+            "sampled_blue_cells": 3
+          },
+          "bbox_1x": [
+            26,
+            37,
+            51,
+            25
+          ],
+          "bbox_px": [
+            208,
+            296,
+            408,
+            200
+          ],
+          "components_8_connected": [
+            554
+          ]
+        }
+      ],
+      "release": null,
+      "preview": "previews/kennen_dead.gif"
+    },
+    "idle": {
+      "file": "kennen_idle.png",
+      "source": "supplied unchanged",
+      "size_px": [
+        1920,
+        1152
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "duration_ms": 180,
+          "cell_rect_1x": [
+            0,
+            0,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            0,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            43,
+            48
+          ],
+          "pivot_px": [
+            344,
+            384
+          ],
+          "bbox_1x": [
+            31,
+            23,
+            27,
+            37
+          ]
+        },
+        {
+          "index": 2,
+          "duration_ms": 180,
+          "cell_rect_1x": [
+            80,
+            0,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            640,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            43,
+            48
+          ],
+          "pivot_px": [
+            344,
+            384
+          ],
+          "bbox_1x": [
+            31,
+            23,
+            27,
+            37
+          ]
+        },
+        {
+          "index": 3,
+          "duration_ms": 180,
+          "cell_rect_1x": [
+            160,
+            0,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            1280,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            43,
+            48
+          ],
+          "pivot_px": [
+            344,
+            384
+          ],
+          "bbox_1x": [
+            31,
+            23,
+            27,
+            37
+          ]
+        },
+        {
+          "index": 4,
+          "duration_ms": 180,
+          "cell_rect_1x": [
+            0,
+            72,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            0,
+            576,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            43,
+            48
+          ],
+          "pivot_px": [
+            344,
+            384
+          ],
+          "bbox_1x": [
+            31,
+            23,
+            27,
+            37
+          ]
+        },
+        {
+          "index": 5,
+          "duration_ms": 180,
+          "cell_rect_1x": [
+            80,
+            72,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            640,
+            576,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            43,
+            48
+          ],
+          "pivot_px": [
+            344,
+            384
+          ],
+          "bbox_1x": [
+            31,
+            23,
+            27,
+            37
+          ]
+        },
+        {
+          "index": 6,
+          "duration_ms": 180,
+          "cell_rect_1x": [
+            160,
+            72,
+            80,
+            72
+          ],
+          "cell_rect_px": [
+            1280,
+            576,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            43,
+            48
+          ],
+          "pivot_px": [
+            344,
+            384
+          ],
+          "bbox_1x": [
+            31,
+            23,
+            27,
+            37
+          ]
+        }
+      ]
+    }
+  },
+  "total_frames": 51
+}
