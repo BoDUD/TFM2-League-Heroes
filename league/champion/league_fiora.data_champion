@@ -6390,12 +6390,20 @@
           "name": "league_fiora_w_cast"
         },
         {
-          "type": "TargetProjectile",
+          "type": "LinearProjectile",
           "name": "league_fiora_w_guard_fx",
           "speed": 100,
+          "range": 4500,
+          "shape": {
+            "Circle": {
+              "radius": 1
+            }
+          },
+          "penetrate": true,
           "y_offset": -4000,
-          "applied_target": "Enemy",
-          "applied_effects": []
+          "applied_target": "Ally",
+          "applied_effects": [],
+          "end_effects": []
         },
         {
           "type": "AddCasterBuff",

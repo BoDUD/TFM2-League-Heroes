@@ -1846,7 +1846,7 @@ per cast, E's twins, the ult) adds a 240-tick caster buff with `range` 24000 (he
 `range` buff also stretches the distance the AI starts attacking from (section 3): the next attack began 65000 from a
 pyromancer (48000 plus both bodies) and the attack consumes the buff (bonus magic damage, its own slash).
 
-**Combos the slots play (league_akali E Q A, R E E R; 0.42.3).** league_leesin's way ("Combos the slots play"):
+**Combos the slots play (league_akali E Q A, R E E R; 0.42.6).** league_leesin's way ("Combos the slots play"):
 each combo is the slot it spends, no slot is held. E2's champion-only twin (its applied effects run only when E2's
 target is a champion) adds `e2_on` (120 ticks), and while R's `r_window` is open it also removes the window and,
 6 ticks later, runs the second dash's own effects (`CasterAnimation ult2`, the `RushTime` that reads the ladder)
@@ -2484,6 +2484,20 @@ off. About 3-4 shields a game in the simulation.
   at all 6.40). On `applied_target: Ally` it draws the same and they moved 1800 (normal fighting), while her allies did
   not start dodging it (1600 -> 1700): 7.12 hits a cast with the 50 degree cone, 5.06 with the same cone on
   `EnemyWithoutTower`. Put a picture that stays while damage comes later on `Ally`.
+- **A projectile must end** *(SDK simulation + stack sampling, league_fiora W, 2026-10-02)*. Her guard picture
+  was a `TargetProjectile` at speed 100 with no `applied_effects`: it trailed its target for minutes (one lived
+  11214 ticks). Each tick a projectile runs, `prepare_dead_caster_overlay` copies its caster's whole entity
+  (all four effect trees) when that caster is dead - so once Fiora died the match's CPU per tick tripled and
+  stayed there. Give picture-only projectiles an end: a `LinearProjectile` with `range` = speed x ticks the
+  picture shows (hers: speed 100, range 4500 = 45 ticks), on `applied_target: Ally` (previous entry). lint warns
+  on a `TargetProjectile` slower than 1000 and a `LinearProjectile` alive over 600 ticks.
+- **skill and skill2 are copied every tick** *(same study)*. While a match is on screen,
+  `build_entity_state_event` calls `skill()` and `skill2()` for every champion each tick, and for a data
+  champion that clones the whole action with its effect tree. 55% of a Jinx mirror game's CPU went to copying
+  her 1019-node skill2; ten league heroes cost about 4x the CPU of ten base champions per tick (background
+  matches, which build no events, only +8%). Attack and ult size do not matter here. Keep skill/skill2 lean:
+  one animation instead of a frame-by-frame `Delayed` + `ViewEffect` chain, shared logic outside copied
+  `SwitchByBuff` branches. lint lists skill/skill2 above 300 nodes as INFO.
 - A buff's view can outlive its unit: Garen died mid-spin and the whirl of his 3 s caster buff
   stayed on the body (no view_buffs option covers death). For a purely visual timed effect,
   play `CasterViewEffect` on a timer instead (one per `Delayed` pulse, `is_follow: true` in
