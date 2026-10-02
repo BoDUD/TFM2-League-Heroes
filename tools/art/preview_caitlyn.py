@@ -36,7 +36,7 @@ LEAGUE = os.path.join(ROOT, "league")
 CHAMP = os.path.join(LEAGUE, "champions", "league_caitlyn")
 FX = os.path.join(LEAGUE, "effects", "league_caitlyn_fx")
 # the kit's projectiles: speed in px a tick, lift over her pivot in px (5000 - y_offset)
-BOLT, HS, NET, Q, R = (7.0, 6.5), (9.0, 8.0), (6.0, 11.5), (10.0, 7.5), (20.0, 9.0)
+BOLT, HS, NET, Q, R = (7.0, 9.5), (9.0, 11.0), (6.0, 14.5), (10.0, 7.5), (20.0, 9.0)
 LASER, LASER_EVERY, LASER_FROM = (6.0, 9.0), 1, 10     # R's laser sight: an 8 px dash a tick from tick 10
 
 
@@ -53,7 +53,7 @@ def showcase(out, z=3, step=40):
     ct = load(CHAMP)
     fx = load(FX)
     W, H = 300, 124
-    gy = 88                                            # her pivot row: the hat stands 29 px over it
+    gy = 88                                            # her pivot row: the hat stands 32 px over it
     x = 70                                             # where she stands after running in
     d = Held(load(os.path.join(LEAGUE, "champions", "league_darius")), 160, gy)
     g = Held(load(os.path.join(LEAGUE, "champions", "league_garen")), 330, gy - 6)      # a row behind, off the edge

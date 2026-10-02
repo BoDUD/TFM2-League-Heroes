@@ -1616,7 +1616,10 @@ speed and target, no `applied_effects`), lifted 8 px (`y_offset` -3000). It flie
 lifted picture slopes down onto it (league_caitlyn: 16.5 px sloped 12 degrees, "子弹看起来是歪的"): lifted to the
 barrels' middles (11 and 14 px) it dived 15-19 degrees into a champion 40 px away; at 8 px the tracer's top rows
 leave the lower barrel, 6.5 degrees at 70 px and 11 at 40. Level and at the barrels needs the ult frames' pistols
-lower. Its view starts with an empty tick (the lift
+lower. A lifted picture rises from the caster's pivot column, so where it shows (past the muzzle) it has already sunk
+lift x muzzle x / distance: league_caitlyn's legs 3 px longer (2026-10-03) raised her shot muzzles to 9.5 and 11 px;
+lifted only 8 and 9 the bullets surfaced plainly under the barrel, so they keep the muzzles (6 degrees at 90 px, 4
+before). Its view starts with an empty tick (the lift
 jump, see "A beam from a raised weapon") and then shows only what has left the muzzles 20 px ahead (4 and 16 px,
 `import_lucian.py` `R_IN`), and plays once. In the simulation each line spawned its twin on the same tick (the
 twin at the caster's own spot, the line 5000 north), the twin arrived 2 ticks after the line's hit (inside the
