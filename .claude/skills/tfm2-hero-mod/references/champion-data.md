@@ -2602,7 +2602,10 @@ ruptures a game in the simulation.
 one decision in the attack: without the 480-tick caster buff `e_cd` and with a `RandomTarget {EnemyChampion}` within
 75000, the shot also sets `e_cd`, a move-speed flag (`move_speed_mult`) for 66 ticks and, `Delayed` by those 66, an
 attack-speed flag (`attack_speed_mult`) for 240 ticks; the arcs on her are 1 s pictures queued every 60 ticks behind a
-`SwitchByBuff` on that flag. The evolved E (level 9) adds `CasterInvisible` for 30 ticks.
+`SwitchByBuff` on that flag. The evolved E (level 9) adds `CasterInvisible` for 30 ticks. The `Delayed` attack
+speed and arcs sit in a self-only `RangeEffect` inside the `RandomTarget`: left in the `RandomTarget` they waited on
+the picked champion and were dropped when he died first - a kill right after the E (her R in, the rupture) lost the
+whole attack speed (SDK simulation: `e_ms` ran out and no `e_as` came).
 
 **A volley split among the enemies round her, fanned out of the pods (league_kaisa Q, Icathian Rain).** The first
 missile flies at the cast's target; the rest come from three `AddCasted` on herself (a self-only `RangeEffect`), whose

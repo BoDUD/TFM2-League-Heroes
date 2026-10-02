@@ -510,93 +510,105 @@
                 }
               },
               {
-                "type": "Delayed",
-                "tick": 66,
+                "type": "RangeEffect",
+                "shape": {
+                  "Circle": {
+                    "radius": 1000
+                  }
+                },
+                "target": "AllyOnlySelf",
+                "apply_type": "AroundCaster",
                 "effects": [
                   {
-                    "type": "AddCasterBuff",
-                    "buff_state": {
-                      "name": "league_kaisa_e_as",
-                      "duration": {
-                        "Time": {
-                          "tick": 240
+                    "type": "Delayed",
+                    "tick": 66,
+                    "effects": [
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_kaisa_e_as",
+                          "duration": {
+                            "Time": {
+                              "tick": 240
+                            }
+                          },
+                          "attack_speed_mult": 90
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 68,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_kaisa_e_as",
+                        "effect_buff": {
+                          "type": "CasterViewEffect",
+                          "name": "league_kaisa_e_aura"
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
                         }
-                      },
-                      "attack_speed_mult": 90
-                    },
-                    "only_to_enemy": false
-                  }
-                ]
-              },
-              {
-                "type": "Delayed",
-                "tick": 68,
-                "effects": [
+                      }
+                    ]
+                  },
                   {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_kaisa_e_as",
-                    "effect_buff": {
-                      "type": "CasterViewEffect",
-                      "name": "league_kaisa_e_aura"
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  }
-                ]
-              },
-              {
-                "type": "Delayed",
-                "tick": 128,
-                "effects": [
+                    "type": "Delayed",
+                    "tick": 128,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_kaisa_e_as",
+                        "effect_buff": {
+                          "type": "CasterViewEffect",
+                          "name": "league_kaisa_e_aura"
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
                   {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_kaisa_e_as",
-                    "effect_buff": {
-                      "type": "CasterViewEffect",
-                      "name": "league_kaisa_e_aura"
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  }
-                ]
-              },
-              {
-                "type": "Delayed",
-                "tick": 188,
-                "effects": [
+                    "type": "Delayed",
+                    "tick": 188,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_kaisa_e_as",
+                        "effect_buff": {
+                          "type": "CasterViewEffect",
+                          "name": "league_kaisa_e_aura"
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
                   {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_kaisa_e_as",
-                    "effect_buff": {
-                      "type": "CasterViewEffect",
-                      "name": "league_kaisa_e_aura"
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  }
-                ]
-              },
-              {
-                "type": "Delayed",
-                "tick": 248,
-                "effects": [
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_kaisa_e_as",
-                    "effect_buff": {
-                      "type": "CasterViewEffect",
-                      "name": "league_kaisa_e_aura"
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
+                    "type": "Delayed",
+                    "tick": 248,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_kaisa_e_as",
+                        "effect_buff": {
+                          "type": "CasterViewEffect",
+                          "name": "league_kaisa_e_aura"
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
                   }
                 ]
               }
