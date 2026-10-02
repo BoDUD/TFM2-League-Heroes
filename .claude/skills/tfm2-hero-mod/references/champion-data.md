@@ -515,7 +515,9 @@ when nobody hit her, and 89 ticks after the cast when enemies broke the shield f
 the unit holds - also one an ally gave it - and is gone 2 ticks after the hit that breaks the shield, so read it
 with a `Delayed {tick: 2}`. A `FixedAttack` on yourself is scaled by `damaged_reduce` / `damaged_amplify` like any
 damage, and damage a shield absorbs does not count in the simulation's "tank" statistic. A dying caster's
-zones and pending `Delayed` effects stop; the respawned hero is a new entity with none of them.
+zones and pending `Delayed` effects stop; the respawned hero is a new entity with none of them. Not a zone started
+from a projectile's `end_effects` (or a `Delayed` there): it runs its whole life (league_caitlyn W's traps, thrown as
+projectiles, 2026-10-01; see "A dead caster").
 
 **A dead caster** *(SDK simulation, league_jinx E, 2026-10-01)*: until he respawns (as a new entity) his buffs
 keep the state they had when he died - `SwitchByBuff` still reads them, nothing can be added to or taken from
@@ -526,7 +528,11 @@ league_jinx E's links went on after her death and, with the lock never added, bi
 at every link (8 and 18 times in two of 24 games; players: "夹子反复触发"); now each check starts from a
 `Delayed {tick: 1}` and a dead Jinx's trap bites no one (0 in 51 games). A flag the trap puts on her while she
 lives and reads later cannot do it: any flag on when she dies stays on, and gates that are off when the AI decides
-cost casts (section 3: the AI scores the branch the caster's buffs pick).
+cost casts (section 3: the AI scores the branch the caster's buffs pick). A search can: `RandomTarget {range: 1,
+casting_target: AllyOnlySelf}` finds no dead caster, so a zone's applied effects can ask "does she live" (a 1-tick flag
+from the search, read in the same tick) and keep their effects in plain sight of the AI - league_caitlyn W: 0 bites after
+29 deaths in 16 games (285 unguarded), the AI's throws unchanged, where the `Delayed`-projectile route cost a third of
+them.
 
 **Death clears a mod's buffs** *(seen in the SDK simulation, a probe hero on league_teemo)*: a
 `Permanent` caster buff added by his first attack was missing from his buff list after he died and
@@ -1096,6 +1102,8 @@ game; the base lightning mage 3.19, pyromancer 0.65 and league_veigar 2.44 in th
 league_shaco (jungle, 2026-10-01, Jack In The Box's 1 s fear on champions and the 0.75 s fear of Hallucinate's
 three mini boxes): 2.42 a game; league_amumu 1.69, league_leesin 1.52, league_ekko 0.90 and the base ninja 0.65 in
 the same batch - fear counts as crowd control, the range the CC junglers gave before, no change.
+league_caitlyn (bottom, 2026-10-01, Yordle Snap Trap's 1.25 s root - 1.5 s since - on the first champion to step on it): 0.75 a game;
+the base archer 0.65, league_vayne 1.92 and league_tristana 1.08 in the same batch - no change.
 league_camille (top, 2026-10-02, Hookshot's 0.5 s stun on the champion the hook caught; Yasuo mid): 2.19 a game -
 the range of the CC heroes before, no change.
 
@@ -2108,7 +2116,15 @@ within the frames at base speed. `y_offset` is not only the
 picture (league_lucian's double shot moved by a tick): when she was cut to 34 rows, 5000 / 13000 / 9000 (the new
 bells' middles) made the flights 1-2 ticks longer on average (the bolt 8.4 -> 9.4 ticks, the charge 13.1 -> 15.3 in
 one simulated game) and her kill difference fell from +2.06 to +1.33 on the same 24 seeds, so the tested values stay
-and the pictures fly 3-4 px over the bells' middles, still inside them.
+and the pictures fly 3-4 px over the bells' middles, still inside them. The cost is not general: league_caitlyn's
+projectiles went from `y_offset` 3000 to their muzzles (-11500 for a rifle 16.5 px over the pivot, -7000 / -6500 /
+-2500 / -4000 for the Headshot, the net, Q and R; `tools/art/import_caitlyn.py` checks the kit against the measured
+muzzles and starts each view empty for ceil(muzzle x / speed) ticks) and her mean stayed +2.30 on the same 288 games.
+A high muzzle has another cost: the bullet flies at the target's pivot, so from 16.5 px up it fell 12 degrees over her
+70-85 px reach and its turned picture looked crooked (the user: "平A出去的子弹看起来是歪的"). League's Caitlyn fires
+from the hip; her attack and Headshot now fire on Codex's lowered-barrel frames (import_native `ORDER` holds them two
+slots and drops the frame that threw the barrel up; muzzles 6.5 and 8 px up, `y_offset` -1500 / -3000, about 5
+degrees). Keep a shot frame's muzzle within about 8 px of the pivot's height, or the shot tilts.
 
 **A weak spot on the target without state on the target (league_fiora Duelist's Dance).** League shows a Vital on one
 of four sides of a champion and strikes it with a hit from that side; nothing reads a direction or keeps state on
@@ -2245,6 +2261,68 @@ he lives. In a logged game the clone exploded three times at the end of its time
 himself dies while it lives, its runs stop with him (4 such deaths in 28 logged games: no strike, picture or blast
 after them) - League's clone dies with Shaco too.
 
+**Every sixth shot a Headshot, trapped champions first (league_caitlyn Headshot).** The attack decides on tick 1
+(league_jinx's way) and fires from a `Delayed` (7 ticks, 9 for a Headshot with its own `CasterAnimation passive`). Five
+`Permanent` counters `hs_1`..`hs_5`, walked from the top like league_masteryi's Double Strike, make every sixth shot a
+Headshot (180% AD; death clears the count, as League's); only plain shots count. While her trap holds a champion (the
+`hs_trap` caster flag, as long as the root) a `RandomTarget` on `EnemyChampionInCC` within 1.5x her range (77500: the
+radii add 20000) takes the shot instead of the AI's target - League's double-range Headshot on a trapped champion - with
+a trap bonus; nothing tells who put a champion in crowd control, so an ally's stun in that window counts too. A net hit
+leaves `hs_net` (108 ticks): the next shot is a Headshot. In ten simulated minutes about 29 counted Headshots and 8 on
+trapped champions.
+
+**A shot that becomes the net when a champion is on her (league_caitlyn E, 90 Caliber Net folded into the attack).**
+The user picked League's E as her escape: on tick 1 of an attack, with E ready (no `e_cd` caster buff, 720 ticks) a
+`RandomTarget {range: 25000, casting_target: EnemyChampion}` (about 45000 centre to centre) sets a 1-tick `e_go`, plays
+`CasterAnimation e`, fires the net (`TargetProjectile` on `EnemyChampion`: 60 + 60% AD, a 50% slow for 1 s, `hs_net`)
+and from tick 7 hops her `MoveBack` 5000 x 6 straight away from that champion (inside `RandomTarget` the hop's target is
+the picked unit, league_ezreal E); `SwitchByBuff e_go` then skips the shot. About 2.5 nets a game.
+
+**Three traps on three spots, none thrown at a champion they hold (league_caitlyn W, Yordle Snap Trap).** A `Direction`
+cast on `EnemyChampion` (range 80000) with `cooltime_use_count` 3 and cooltime 2160 (a charge every 12 s), on
+league_teemo R's slots: the first slot whose `busy` flag is gone takes the throw, a `LinearProjectile` with the trap's view whose
+`end_effects` land the trap where it stops - slot a non-penetrating on `EnemyChampion` (it stops on the first enemy
+champion on the line: his feet), b and c penetrating with `range` 35000 and 58000 (a `Direction` cast's projectile
+stops at caster + direction x range). Thrown at his feet every time (a `Position` cast, the first version) the AI
+spent its three charges in a row on one champion and the traps piled up: 19 of 52 pairs alive together lay within
+18000 (the user: "会在一个位置无限放夹子 应该错开来放吧"); spread, 11 of 99. The landing adds `alive` for the life
+(30 ticks to arm, then 8 s), plays the landing and starts, from a `Delayed` (which keeps the point), a
+`RangePeriodProjectile` (radius 9000, `period` 1, the life) on `EnemyChampion` that, while `alive` holds, runs
+`RemoveCasterBuff alive` first and then `Bind` 90, the snap picture and `hs_trap`: the removal comes before the next
+unit's check in the same tick, so one champion is bitten. Picture links every 15 ticks show the lying trap while
+`alive` holds and the fading one as its last link. A zone from `end_effects` outlives its caster (section 5) and her
+frozen `alive` cannot be taken, so unguarded it bit every tick while she was dead (285 times in 16 games): the bite
+first asks `RandomTarget {range: 1, casting_target: AllyOnlySelf}` for a 1-tick `w_live` flag ("A dead caster").
+The AI's champions stand still while they attack, so most traps bite - and a snapped one stands still too: the AI
+threw her other charges straight at him, 4.6 throws a game within 2.25 s of a snap, each biting him again when the
+root ended (the user: "W敌人踩上去后会连放 这个要改一改 其他时候没问题"). The bite adds `w_hold` for the root and 60
+ticks more, and W's effect is `SwitchByBuff w_hold` with an empty branch: the AI scores the branch its buffs pick
+(section 3), finds nothing and keeps the charges - 0 such throws; 15 throws and 8.6 snaps a game against 19 and 11.
+One charge of 8 s instead ended every back-to-back throw but cost 0.46 kills a game: the AI then threw 10 traps. The held
+champion's re-snaps had been worth about 0.55 kills a game; the root back at 1.5 s and the Headshot at 180% won 0.35 of
+it back.
+
+**A piercing round at where a champion stood, dodged by stepping aside (league_caitlyn Q, Piltover Peacemaker).** A
+`Direction` cast on `EnemyWithoutTower` (range 120000), so it also clears waves and camps; its sound plays on tick 1 and
+the shot comes from a `Delayed` 23 ticks later - a `Delayed` keeps a `Direction` cast's direction (no bolt without one in
+the logs). Aimed at a champion in reach when it leaves (Morgana Q's `RandomTarget`), it hit almost every time (the
+user: "Q是可以躲得 现在百发百命中"). Now the aim is locked 8 ticks before the shot: `RandomTarget {range: 100000,
+casting_target: EnemyChampion}` adds a flag and lobs a hidden `ParabolicProjectile` (`travel_time` 8), which lands where
+the champion stood; its `end_effects` start the bolt, which leaves from her (every projectile does), heads for that
+point and ends there; without a champion the bolt takes the cast's way. The muzzle and the sound stay in the cast's
+`Delayed` (a lob landing after her death would play them on her body). Of the bolts aimed at a champion, locked on
+tick 1 (League's whole 0.4 s wind-up) 16% hit - the AI's champions keep walking -, 12 ticks before the shot 28%, 8
+ticks about 40%. The first unit hit takes 60 + 110% AD and sets `q_first` (40 ticks), the rest 60% of it. Started
+from tick 1 the shot comes even when her wind-up is cut short: the same kit with the shot on `start_timing` 24 was
+0.6 kills weaker on the same seeds.
+
+**A channelled shot the first champion stops (league_caitlyn R, Ace in the Hole).** A `Targeting` cast on
+`EnemyChampion` with a long reach (200000): a crosshair buff on the target for the 1 s channel, league_missfortune R's
+crowd-control check every 10 ticks (`RandomTarget {range: 1, casting_target: AllyChampionInCC}` removes the channel
+flag), and at tick 61, if the flag holds, a non-penetrating `LinearProjectile` on `EnemyChampion` (speed 20000, radius
+8000) toward him: the first enemy champion on the line takes 250 + 150% AD, minions do not block. 4.5 of 5 casts a game
+hit a champion.
+
 **A leash round the caster (league_camille R, The Hextech Ultimatum).** A `Targeting` cast on `EnemyChampion`: a
 14-tick caster buff (`damaged_reduce` 100, `cc_immune`) for the leap and, from tick 5, `MoveToTarget {speed: 4000}`
 whose `end_effects` set a 180-tick caster flag `r_on`, knock the others back (`Knockback` round her; the target keeps
@@ -2254,7 +2332,7 @@ applied effects ask two `RandomTarget {casting_target: AllyOnlySelf, from_projec
 whether she is near - measured from the target, league_morgana R's tether check: within 25000 nothing happens; within
 60000 a 4-tick `Grab` (2500 a tick) drags the target back toward her with the wall's zap; farther, she has left the
 field and `r_on` goes (League ends the ult when Camille leaves it). While `r_on` lasts her hits on champions add true
-damage (10 + 3% of max health; nothing reads current health). The cast used to make her invisible in the air as well
+damage (10 + 2% of max health; nothing reads current health). The cast used to make her invisible in the air as well
 (`CasterInvisible`) when her sprite could not jump; with the leap drawn it only hides her picture, so it went.
 
 **Pictures on the action's clock (league_camille R).** The landing's `end_effects` come when the leap arrives: 1-3
