@@ -1,0 +1,3911 @@
+{
+  "character": "caitlyn",
+  "scope": "22 separate VFX assets",
+  "assets": [
+    {
+      "file": "caitlyn_fx_bolt.png",
+      "tag": "bolt",
+      "title": "普攻子弹（飞行），4 帧循环",
+      "size": [
+        1024,
+        64
+      ],
+      "grid": [
+        4,
+        1
+      ],
+      "frame_count": 4,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            64
+          ],
+          "source_rect": [
+            0,
+            0,
+            386,
+            992
+          ],
+          "bbox": [
+            0,
+            0,
+            240,
+            64
+          ],
+          "duration_ticks": 2,
+          "duration_ms": 33.333333333333336
+        },
+        {
+          "index": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            64
+          ],
+          "source_rect": [
+            386,
+            0,
+            401,
+            992
+          ],
+          "bbox": [
+            0,
+            0,
+            240,
+            64
+          ],
+          "duration_ticks": 2,
+          "duration_ms": 33.333333333333336
+        },
+        {
+          "index": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            64
+          ],
+          "source_rect": [
+            787,
+            0,
+            401,
+            992
+          ],
+          "bbox": [
+            0,
+            0,
+            240,
+            64
+          ],
+          "duration_ticks": 2,
+          "duration_ms": 33.333333333333336
+        },
+        {
+          "index": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            64
+          ],
+          "source_rect": [
+            1188,
+            0,
+            398,
+            992
+          ],
+          "bbox": [
+            0,
+            0,
+            240,
+            64
+          ],
+          "duration_ticks": 2,
+          "duration_ms": 33.333333333333336
+        }
+      ],
+      "game_size_px": [
+        12,
+        4
+      ],
+      "game_size_file": "game_size/caitlyn_fx_bolt.png",
+      "anchor": [
+        128.0,
+        32.0
+      ],
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "pixel_block_size": 8,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "palette_hex": [
+        "#FFFFFF",
+        "#FFF6C8",
+        "#FFE27A",
+        "#5E3B12",
+        "#A0702A",
+        "#D7AE50",
+        "#F2D98A",
+        "#0E5A7A",
+        "#1E9FC4",
+        "#27CCE2",
+        "#9FF3FF"
+      ],
+      "loop": true,
+      "hold_last_frame": false,
+      "timing_status": "suggested_60fps_ticks",
+      "binding": {
+        "table": "view_projectiles",
+        "key": "league_caitlyn_bolt",
+        "follow_actor": false,
+        "z": 0
+      },
+      "sha256": "fe6918f352242dbbde0b31e9b136c04424d9150fd701633254a44278af030463",
+      "source_native_size": [
+        1586,
+        992
+      ]
+    },
+    {
+      "file": "caitlyn_fx_hs_bolt.png",
+      "tag": "hs_bolt",
+      "title": "爆头子弹（飞行，更大更亮），4 帧循环",
+      "size": [
+        1152,
+        96
+      ],
+      "grid": [
+        4,
+        1
+      ],
+      "frame_count": 4,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            288,
+            96
+          ],
+          "source_rect": [
+            0,
+            0,
+            551,
+            724
+          ],
+          "bbox": [
+            0,
+            8,
+            272,
+            88
+          ],
+          "duration_ticks": 2,
+          "duration_ms": 33.333333333333336
+        },
+        {
+          "index": 1,
+          "rect": [
+            288,
+            0,
+            288,
+            96
+          ],
+          "source_rect": [
+            551,
+            0,
+            559,
+            724
+          ],
+          "bbox": [
+            0,
+            0,
+            264,
+            96
+          ],
+          "duration_ticks": 2,
+          "duration_ms": 33.333333333333336
+        },
+        {
+          "index": 2,
+          "rect": [
+            576,
+            0,
+            288,
+            96
+          ],
+          "source_rect": [
+            1110,
+            0,
+            552,
+            724
+          ],
+          "bbox": [
+            0,
+            8,
+            240,
+            88
+          ],
+          "duration_ticks": 2,
+          "duration_ms": 33.333333333333336
+        },
+        {
+          "index": 3,
+          "rect": [
+            864,
+            0,
+            288,
+            96
+          ],
+          "source_rect": [
+            1662,
+            0,
+            510,
+            724
+          ],
+          "bbox": [
+            0,
+            16,
+            216,
+            80
+          ],
+          "duration_ticks": 2,
+          "duration_ms": 33.333333333333336
+        }
+      ],
+      "game_size_px": [
+        18,
+        6
+      ],
+      "game_size_file": "game_size/caitlyn_fx_hs_bolt.png",
+      "anchor": [
+        144.0,
+        48.0
+      ],
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "pixel_block_size": 8,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "palette_hex": [
+        "#FFFFFF",
+        "#FFF6C8",
+        "#FFE27A",
+        "#0E5A7A",
+        "#1E9FC4",
+        "#27CCE2",
+        "#9FF3FF",
+        "#5E3B12",
+        "#A0702A",
+        "#D7AE50",
+        "#F2D98A"
+      ],
+      "loop": true,
+      "hold_last_frame": false,
+      "timing_status": "suggested_60fps_ticks",
+      "binding": {
+        "table": "view_projectiles",
+        "key": "league_caitlyn_hs_bolt",
+        "follow_actor": false,
+        "z": 0
+      },
+      "sha256": "16419cf4bad931d5a79e0c594b8c2b4ec03211fe0fe44655e2dff22479af5edc",
+      "source_native_size": [
+        2172,
+        724
+      ]
+    },
+    {
+      "file": "caitlyn_fx_q_bolt.png",
+      "tag": "q_bolt",
+      "title": "Q 和平使者的子弹（飞行），4 帧循环",
+      "size": [
+        2048,
+        224
+      ],
+      "grid": [
+        4,
+        1
+      ],
+      "frame_count": 4,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            512,
+            224
+          ],
+          "source_rect": [
+            0,
+            0,
+            547,
+            724
+          ],
+          "bbox": [
+            24,
+            16,
+            488,
+            208
+          ],
+          "duration_ticks": 3,
+          "duration_ms": 50.0
+        },
+        {
+          "index": 1,
+          "rect": [
+            512,
+            0,
+            512,
+            224
+          ],
+          "source_rect": [
+            547,
+            0,
+            539,
+            724
+          ],
+          "bbox": [
+            16,
+            16,
+            496,
+            208
+          ],
+          "duration_ticks": 3,
+          "duration_ms": 50.0
+        },
+        {
+          "index": 2,
+          "rect": [
+            1024,
+            0,
+            512,
+            224
+          ],
+          "source_rect": [
+            1086,
+            0,
+            546,
+            724
+          ],
+          "bbox": [
+            16,
+            16,
+            496,
+            208
+          ],
+          "duration_ticks": 3,
+          "duration_ms": 50.0
+        },
+        {
+          "index": 3,
+          "rect": [
+            1536,
+            0,
+            512,
+            224
+          ],
+          "source_rect": [
+            1632,
+            0,
+            540,
+            724
+          ],
+          "bbox": [
+            32,
+            40,
+            480,
+            184
+          ],
+          "duration_ticks": 3,
+          "duration_ms": 50.0
+        }
+      ],
+      "game_size_px": [
+        32,
+        14
+      ],
+      "game_size_file": "game_size/caitlyn_fx_q_bolt.png",
+      "anchor": [
+        256.0,
+        112.0
+      ],
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "pixel_block_size": 8,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "palette_hex": [
+        "#0E5A7A",
+        "#1E9FC4",
+        "#27CCE2",
+        "#9FF3FF",
+        "#FFFFFF",
+        "#FFF6C8",
+        "#FFE27A"
+      ],
+      "loop": true,
+      "hold_last_frame": false,
+      "timing_status": "suggested_60fps_ticks",
+      "binding": {
+        "table": "view_projectiles",
+        "key": "league_caitlyn_q_bolt",
+        "follow_actor": false,
+        "z": 0
+      },
+      "sha256": "c52118546309f1c68f4a269085b9278cde036bbaefea79af247c7af9bd0e8e15",
+      "source_native_size": [
+        2172,
+        724
+      ],
+      "scale_revision": {
+        "revision": "q_larger_v2",
+        "requested_visible_scale": 1.3,
+        "actual_per_frame_scales": [
+          1.3,
+          1.3,
+          1.3,
+          1.3
+        ],
+        "frame_canvas_changed": true,
+        "old_game_size_px": [
+          24,
+          10
+        ],
+        "new_game_size_px": [
+          32,
+          14
+        ],
+        "anchor_changed": false,
+        "timing_changed": false
+      }
+    },
+    {
+      "file": "caitlyn_fx_e_net.png",
+      "tag": "e_net",
+      "title": "E 绳网（飞行），4 帧",
+      "size": [
+        1024,
+        256
+      ],
+      "grid": [
+        4,
+        1
+      ],
+      "frame_count": 4,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "source_rect": [
+            0,
+            0,
+            511,
+            724
+          ],
+          "bbox": [
+            72,
+            80,
+            184,
+            176
+          ],
+          "duration_ticks": 2,
+          "duration_ms": 33.333333333333336
+        },
+        {
+          "index": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "source_rect": [
+            511,
+            0,
+            553,
+            724
+          ],
+          "bbox": [
+            24,
+            24,
+            224,
+            232
+          ],
+          "duration_ticks": 2,
+          "duration_ms": 33.333333333333336
+        },
+        {
+          "index": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "source_rect": [
+            1064,
+            0,
+            561,
+            724
+          ],
+          "bbox": [
+            8,
+            16,
+            240,
+            240
+          ],
+          "duration_ticks": 2,
+          "duration_ms": 33.333333333333336
+        },
+        {
+          "index": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "source_rect": [
+            1625,
+            0,
+            547,
+            724
+          ],
+          "bbox": [
+            8,
+            8,
+            248,
+            248
+          ],
+          "duration_ticks": 2,
+          "duration_ms": 33.333333333333336
+        }
+      ],
+      "game_size_px": [
+        16,
+        14
+      ],
+      "game_size_file": "game_size/caitlyn_fx_e_net.png",
+      "anchor": [
+        128.0,
+        128.0
+      ],
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "pixel_block_size": 8,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "palette_hex": [
+        "#3A2414",
+        "#6F4434",
+        "#A07335",
+        "#D9B77A",
+        "#5E3B12",
+        "#A0702A",
+        "#D7AE50",
+        "#F2D98A"
+      ],
+      "loop": false,
+      "hold_last_frame": true,
+      "timing_status": "suggested_60fps_ticks",
+      "binding": {
+        "table": "view_projectiles",
+        "key": "league_caitlyn_e_net",
+        "follow_actor": false,
+        "z": 0
+      },
+      "sha256": "0ca3157882a57c8e9e46a906f48eb39a94c3e7ca442fb94b98e23489119f9020",
+      "source_native_size": [
+        2172,
+        724
+      ],
+      "game_size_resampling": "nearest to retain thin ropes, mesh holes and separated speed lines"
+    },
+    {
+      "file": "caitlyn_fx_w_throw.png",
+      "tag": "w_throw",
+      "title": "W 夹子（飞行，翻转），4 帧循环",
+      "size": [
+        512,
+        128
+      ],
+      "grid": [
+        4,
+        1
+      ],
+      "frame_count": 4,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            128,
+            128
+          ],
+          "source_rect": [
+            0,
+            0,
+            495,
+            793
+          ],
+          "bbox": [
+            0,
+            8,
+            120,
+            120
+          ],
+          "duration_ticks": 3,
+          "duration_ms": 50.0
+        },
+        {
+          "index": 1,
+          "rect": [
+            128,
+            0,
+            128,
+            128
+          ],
+          "source_rect": [
+            495,
+            0,
+            549,
+            793
+          ],
+          "bbox": [
+            0,
+            8,
+            120,
+            120
+          ],
+          "duration_ticks": 3,
+          "duration_ms": 50.0
+        },
+        {
+          "index": 2,
+          "rect": [
+            256,
+            0,
+            128,
+            128
+          ],
+          "source_rect": [
+            1044,
+            0,
+            389,
+            793
+          ],
+          "bbox": [
+            32,
+            8,
+            88,
+            120
+          ],
+          "duration_ticks": 3,
+          "duration_ms": 50.0
+        },
+        {
+          "index": 3,
+          "rect": [
+            384,
+            0,
+            128,
+            128
+          ],
+          "source_rect": [
+            1433,
+            0,
+            550,
+            793
+          ],
+          "bbox": [
+            0,
+            8,
+            120,
+            120
+          ],
+          "duration_ticks": 3,
+          "duration_ms": 50.0
+        }
+      ],
+      "game_size_px": [
+        8,
+        8
+      ],
+      "game_size_file": "game_size/caitlyn_fx_w_throw.png",
+      "anchor": [
+        64.0,
+        64.0
+      ],
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "pixel_block_size": 8,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "palette_hex": [
+        "#5E3B12",
+        "#A0702A",
+        "#D7AE50",
+        "#F2D98A",
+        "#283447",
+        "#445E80",
+        "#8FA6C1",
+        "#D5E2EE"
+      ],
+      "loop": true,
+      "hold_last_frame": false,
+      "timing_status": "suggested_60fps_ticks",
+      "binding": {
+        "table": "view_projectiles",
+        "key": "league_caitlyn_w_throw",
+        "follow_actor": false,
+        "z": 0
+      },
+      "sha256": "ddfdc58f75517cba3f7623e920da5427f39287d16be7624dd92414f1dfee0c66",
+      "source_native_size": [
+        1983,
+        793
+      ]
+    },
+    {
+      "file": "caitlyn_fx_r_bullet.png",
+      "tag": "r_bullet",
+      "title": "R 让子弹飞的子弹（飞行），4 帧循环",
+      "size": [
+        1600,
+        80
+      ],
+      "grid": [
+        4,
+        1
+      ],
+      "frame_count": 4,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            400,
+            80
+          ],
+          "source_rect": [
+            0,
+            0,
+            496,
+            793
+          ],
+          "bbox": [
+            0,
+            0,
+            376,
+            80
+          ],
+          "duration_ticks": 2,
+          "duration_ms": 33.333333333333336
+        },
+        {
+          "index": 1,
+          "rect": [
+            400,
+            0,
+            400,
+            80
+          ],
+          "source_rect": [
+            496,
+            0,
+            496,
+            793
+          ],
+          "bbox": [
+            0,
+            8,
+            376,
+            72
+          ],
+          "duration_ticks": 2,
+          "duration_ms": 33.333333333333336
+        },
+        {
+          "index": 2,
+          "rect": [
+            800,
+            0,
+            400,
+            80
+          ],
+          "source_rect": [
+            992,
+            0,
+            492,
+            793
+          ],
+          "bbox": [
+            0,
+            8,
+            376,
+            72
+          ],
+          "duration_ticks": 2,
+          "duration_ms": 33.333333333333336
+        },
+        {
+          "index": 3,
+          "rect": [
+            1200,
+            0,
+            400,
+            80
+          ],
+          "source_rect": [
+            1484,
+            0,
+            499,
+            793
+          ],
+          "bbox": [
+            0,
+            8,
+            376,
+            72
+          ],
+          "duration_ticks": 2,
+          "duration_ms": 33.333333333333336
+        }
+      ],
+      "game_size_px": [
+        32,
+        6
+      ],
+      "game_size_file": "game_size/caitlyn_fx_r_bullet.png",
+      "anchor": [
+        200.0,
+        40.0
+      ],
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "pixel_block_size": 8,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "palette_hex": [
+        "#FFFFFF",
+        "#FFF6C8",
+        "#FFE27A",
+        "#5E3B12",
+        "#A0702A",
+        "#D7AE50",
+        "#F2D98A",
+        "#0E5A7A",
+        "#1E9FC4",
+        "#27CCE2",
+        "#9FF3FF"
+      ],
+      "loop": true,
+      "hold_last_frame": false,
+      "timing_status": "suggested_60fps_ticks",
+      "binding": {
+        "table": "view_projectiles",
+        "key": "league_caitlyn_r_bullet",
+        "follow_actor": false,
+        "z": 0
+      },
+      "sha256": "fd77ed32951345176816783e27676427c22e8e6c080da1fcf52e981ff2116354",
+      "source_native_size": [
+        1983,
+        793
+      ]
+    },
+    {
+      "file": "caitlyn_fx_shot.png",
+      "tag": "shot",
+      "title": "普攻枪口火光（她的枪口，朝右），4 帧",
+      "size": [
+        1280,
+        256
+      ],
+      "grid": [
+        4,
+        1
+      ],
+      "frame_count": 4,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            320,
+            256
+          ],
+          "source_rect": [
+            0,
+            0,
+            378,
+            793
+          ],
+          "bbox": [
+            0,
+            16,
+            176,
+            240
+          ],
+          "duration_ticks": 2,
+          "duration_ms": 33.333333333333336
+        },
+        {
+          "index": 1,
+          "rect": [
+            320,
+            0,
+            320,
+            256
+          ],
+          "source_rect": [
+            378,
+            0,
+            587,
+            793
+          ],
+          "bbox": [
+            0,
+            8,
+            304,
+            240
+          ],
+          "duration_ticks": 2,
+          "duration_ms": 33.333333333333336
+        },
+        {
+          "index": 2,
+          "rect": [
+            640,
+            0,
+            320,
+            256
+          ],
+          "source_rect": [
+            965,
+            0,
+            453,
+            793
+          ],
+          "bbox": [
+            0,
+            16,
+            248,
+            240
+          ],
+          "duration_ticks": 3,
+          "duration_ms": 50.0
+        },
+        {
+          "index": 3,
+          "rect": [
+            960,
+            0,
+            320,
+            256
+          ],
+          "source_rect": [
+            1418,
+            0,
+            565,
+            793
+          ],
+          "bbox": [
+            0,
+            72,
+            280,
+            184
+          ],
+          "duration_ticks": 3,
+          "duration_ms": 50.0
+        }
+      ],
+      "game_size_px": [
+        10,
+        8
+      ],
+      "game_size_file": "game_size/caitlyn_fx_shot.png",
+      "anchor": [
+        0,
+        128.0
+      ],
+      "anchor_normalized": [
+        0.0,
+        0.5
+      ],
+      "pixel_block_size": 8,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "palette_hex": [
+        "#FFFFFF",
+        "#FFF6C8",
+        "#FFE27A",
+        "#5E3B12",
+        "#A0702A",
+        "#D7AE50",
+        "#F2D98A",
+        "#0E5A7A",
+        "#1E9FC4",
+        "#27CCE2",
+        "#9FF3FF",
+        "#E6E0D8",
+        "#B9B0A6",
+        "#857B72",
+        "#574F4A"
+      ],
+      "loop": false,
+      "hold_last_frame": false,
+      "timing_status": "suggested_60fps_ticks",
+      "binding": {
+        "table": "view_effects",
+        "key": "league_caitlyn_shot",
+        "follow_actor": true,
+        "z": 0
+      },
+      "sha256": "7bb76d41a5a9b04b6fe799aa77efdac473b3fc3a5878d86f4e9f90edab9d20b9",
+      "source_native_size": [
+        1983,
+        793
+      ]
+    },
+    {
+      "file": "caitlyn_fx_hs_shot.png",
+      "tag": "hs_shot",
+      "title": "爆头枪口火光，5 帧",
+      "size": [
+        1280,
+        192
+      ],
+      "grid": [
+        5,
+        1
+      ],
+      "frame_count": 5,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            192
+          ],
+          "source_rect": [
+            0,
+            0,
+            334,
+            793
+          ],
+          "bbox": [
+            0,
+            16,
+            152,
+            176
+          ],
+          "duration_ticks": 2,
+          "duration_ms": 33.333333333333336
+        },
+        {
+          "index": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            192
+          ],
+          "source_rect": [
+            334,
+            0,
+            476,
+            793
+          ],
+          "bbox": [
+            0,
+            32,
+            240,
+            152
+          ],
+          "duration_ticks": 2,
+          "duration_ms": 33.333333333333336
+        },
+        {
+          "index": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            192
+          ],
+          "source_rect": [
+            810,
+            0,
+            396,
+            793
+          ],
+          "bbox": [
+            0,
+            8,
+            232,
+            184
+          ],
+          "duration_ticks": 2,
+          "duration_ms": 33.333333333333336
+        },
+        {
+          "index": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            192
+          ],
+          "source_rect": [
+            1206,
+            0,
+            408,
+            793
+          ],
+          "bbox": [
+            0,
+            16,
+            240,
+            176
+          ],
+          "duration_ticks": 3,
+          "duration_ms": 50.0
+        },
+        {
+          "index": 4,
+          "rect": [
+            1024,
+            0,
+            256,
+            192
+          ],
+          "source_rect": [
+            1614,
+            0,
+            369,
+            793
+          ],
+          "bbox": [
+            0,
+            56,
+            216,
+            136
+          ],
+          "duration_ticks": 3,
+          "duration_ms": 50.0
+        }
+      ],
+      "game_size_px": [
+        16,
+        12
+      ],
+      "game_size_file": "game_size/caitlyn_fx_hs_shot.png",
+      "anchor": [
+        0,
+        96.0
+      ],
+      "anchor_normalized": [
+        0.0,
+        0.5
+      ],
+      "pixel_block_size": 8,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "palette_hex": [
+        "#FFFFFF",
+        "#FFF6C8",
+        "#FFE27A",
+        "#5E3B12",
+        "#A0702A",
+        "#D7AE50",
+        "#F2D98A",
+        "#0E5A7A",
+        "#1E9FC4",
+        "#27CCE2",
+        "#9FF3FF",
+        "#E6E0D8",
+        "#B9B0A6",
+        "#857B72",
+        "#574F4A"
+      ],
+      "loop": false,
+      "hold_last_frame": false,
+      "timing_status": "suggested_60fps_ticks",
+      "binding": {
+        "table": "view_effects",
+        "key": "league_caitlyn_hs_shot",
+        "follow_actor": true,
+        "z": 0
+      },
+      "sha256": "5f360637fc69a0a71c5ebceb4da434973c8480e77cada373d6c5ba09a904ce5e",
+      "source_native_size": [
+        1983,
+        793
+      ]
+    },
+    {
+      "file": "caitlyn_fx_e_shot.png",
+      "tag": "e_shot",
+      "title": "E 射网的枪口火光，4 帧",
+      "size": [
+        1024,
+        256
+      ],
+      "grid": [
+        4,
+        1
+      ],
+      "frame_count": 4,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "source_rect": [
+            0,
+            0,
+            405,
+            724
+          ],
+          "bbox": [
+            0,
+            24,
+            120,
+            224
+          ],
+          "duration_ticks": 2,
+          "duration_ms": 33.333333333333336
+        },
+        {
+          "index": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "source_rect": [
+            405,
+            0,
+            677,
+            724
+          ],
+          "bbox": [
+            0,
+            8,
+            240,
+            240
+          ],
+          "duration_ticks": 2,
+          "duration_ms": 33.333333333333336
+        },
+        {
+          "index": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "source_rect": [
+            1082,
+            0,
+            540,
+            724
+          ],
+          "bbox": [
+            0,
+            8,
+            224,
+            240
+          ],
+          "duration_ticks": 3,
+          "duration_ms": 50.0
+        },
+        {
+          "index": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "source_rect": [
+            1622,
+            0,
+            550,
+            724
+          ],
+          "bbox": [
+            0,
+            40,
+            208,
+            216
+          ],
+          "duration_ticks": 3,
+          "duration_ms": 50.0
+        }
+      ],
+      "game_size_px": [
+        12,
+        12
+      ],
+      "game_size_file": "game_size/caitlyn_fx_e_shot.png",
+      "anchor": [
+        0,
+        128.0
+      ],
+      "anchor_normalized": [
+        0.0,
+        0.5
+      ],
+      "pixel_block_size": 8,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "palette_hex": [
+        "#E6E0D8",
+        "#B9B0A6",
+        "#857B72",
+        "#574F4A",
+        "#5E3B12",
+        "#A0702A",
+        "#D7AE50",
+        "#F2D98A",
+        "#3A2414",
+        "#6F4434",
+        "#A07335",
+        "#D9B77A"
+      ],
+      "loop": false,
+      "hold_last_frame": false,
+      "timing_status": "suggested_60fps_ticks",
+      "binding": {
+        "table": "view_effects",
+        "key": "league_caitlyn_e_shot",
+        "follow_actor": true,
+        "z": 0
+      },
+      "sha256": "7a777aee94cab7cbb93291a3fe2f208aa600461e0507096a98029abb917acfc3",
+      "source_native_size": [
+        2172,
+        724
+      ]
+    },
+    {
+      "file": "caitlyn_fx_q_muzzle.png",
+      "tag": "q_muzzle",
+      "title": "Q 和平使者出膛（枪口爆风），5 帧",
+      "size": [
+        2240,
+        352
+      ],
+      "grid": [
+        5,
+        1
+      ],
+      "frame_count": 5,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            448,
+            352
+          ],
+          "source_rect": [
+            0,
+            0,
+            296,
+            772
+          ],
+          "bbox": [
+            0,
+            56,
+            176,
+            288
+          ],
+          "duration_ticks": 2,
+          "duration_ms": 33.333333333333336
+        },
+        {
+          "index": 1,
+          "rect": [
+            448,
+            0,
+            448,
+            352
+          ],
+          "source_rect": [
+            296,
+            0,
+            465,
+            772
+          ],
+          "bbox": [
+            0,
+            32,
+            328,
+            312
+          ],
+          "duration_ticks": 2,
+          "duration_ms": 33.333333333333336
+        },
+        {
+          "index": 2,
+          "rect": [
+            896,
+            0,
+            448,
+            352
+          ],
+          "source_rect": [
+            761,
+            0,
+            530,
+            772
+          ],
+          "bbox": [
+            0,
+            16,
+            432,
+            336
+          ],
+          "duration_ticks": 2,
+          "duration_ms": 33.333333333333336
+        },
+        {
+          "index": 3,
+          "rect": [
+            1344,
+            0,
+            448,
+            352
+          ],
+          "source_rect": [
+            1291,
+            0,
+            429,
+            772
+          ],
+          "bbox": [
+            0,
+            56,
+            328,
+            296
+          ],
+          "duration_ticks": 2,
+          "duration_ms": 33.333333333333336
+        },
+        {
+          "index": 4,
+          "rect": [
+            1792,
+            0,
+            448,
+            352
+          ],
+          "source_rect": [
+            1720,
+            0,
+            316,
+            772
+          ],
+          "bbox": [
+            0,
+            96,
+            224,
+            248
+          ],
+          "duration_ticks": 2,
+          "duration_ms": 33.333333333333336
+        }
+      ],
+      "game_size_px": [
+        24,
+        18
+      ],
+      "game_size_file": "game_size/caitlyn_fx_q_muzzle.png",
+      "anchor": [
+        0,
+        176.0
+      ],
+      "anchor_normalized": [
+        0.0,
+        0.5
+      ],
+      "pixel_block_size": 8,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "palette_hex": [
+        "#0E5A7A",
+        "#1E9FC4",
+        "#27CCE2",
+        "#9FF3FF",
+        "#FFFFFF",
+        "#FFF6C8",
+        "#FFE27A"
+      ],
+      "loop": false,
+      "hold_last_frame": false,
+      "timing_status": "suggested_60fps_ticks",
+      "binding": {
+        "table": "view_effects",
+        "key": "league_caitlyn_q_muzzle",
+        "follow_actor": true,
+        "z": 0
+      },
+      "sha256": "a10e2da1992ef3ae1a50c6b97e165cda4e010130363e6b1b1732fc53d40b45c3",
+      "source_native_size": [
+        2036,
+        772
+      ],
+      "scale_revision": {
+        "revision": "q_larger_v2",
+        "requested_visible_scale": 1.25,
+        "actual_per_frame_scales": [
+          1.25,
+          1.25,
+          1.25,
+          1.25,
+          1.25
+        ],
+        "frame_canvas_changed": true,
+        "old_game_size_px": [
+          18,
+          14
+        ],
+        "new_game_size_px": [
+          24,
+          18
+        ],
+        "anchor_changed": false,
+        "timing_changed": false
+      }
+    },
+    {
+      "file": "caitlyn_fx_r_muzzle.png",
+      "tag": "r_muzzle",
+      "title": "R 让子弹飞的枪口爆风，6 帧",
+      "size": [
+        2496,
+        288
+      ],
+      "grid": [
+        6,
+        1
+      ],
+      "frame_count": 6,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            416,
+            288
+          ],
+          "source_rect": [
+            0,
+            0,
+            264,
+            751
+          ],
+          "bbox": [
+            0,
+            32,
+            192,
+            248
+          ],
+          "duration_ticks": 3,
+          "duration_ms": 50.0
+        },
+        {
+          "index": 1,
+          "rect": [
+            416,
+            0,
+            416,
+            288
+          ],
+          "source_rect": [
+            264,
+            0,
+            399,
+            751
+          ],
+          "bbox": [
+            0,
+            40,
+            344,
+            240
+          ],
+          "duration_ticks": 3,
+          "duration_ms": 50.0
+        },
+        {
+          "index": 2,
+          "rect": [
+            832,
+            0,
+            416,
+            288
+          ],
+          "source_rect": [
+            663,
+            0,
+            408,
+            751
+          ],
+          "bbox": [
+            0,
+            16,
+            392,
+            272
+          ],
+          "duration_ticks": 3,
+          "duration_ms": 50.0
+        },
+        {
+          "index": 3,
+          "rect": [
+            1248,
+            0,
+            416,
+            288
+          ],
+          "source_rect": [
+            1071,
+            0,
+            387,
+            751
+          ],
+          "bbox": [
+            0,
+            48,
+            352,
+            240
+          ],
+          "duration_ticks": 4,
+          "duration_ms": 66.66666666666667
+        },
+        {
+          "index": 4,
+          "rect": [
+            1664,
+            0,
+            416,
+            288
+          ],
+          "source_rect": [
+            1458,
+            0,
+            360,
+            751
+          ],
+          "bbox": [
+            0,
+            88,
+            296,
+            200
+          ],
+          "duration_ticks": 4,
+          "duration_ms": 66.66666666666667
+        },
+        {
+          "index": 5,
+          "rect": [
+            2080,
+            0,
+            416,
+            288
+          ],
+          "source_rect": [
+            1818,
+            0,
+            277,
+            751
+          ],
+          "bbox": [
+            0,
+            104,
+            184,
+            176
+          ],
+          "duration_ticks": 4,
+          "duration_ms": 66.66666666666667
+        }
+      ],
+      "game_size_px": [
+        26,
+        18
+      ],
+      "game_size_file": "game_size/caitlyn_fx_r_muzzle.png",
+      "anchor": [
+        0,
+        144.0
+      ],
+      "anchor_normalized": [
+        0.0,
+        0.5
+      ],
+      "pixel_block_size": 8,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "palette_hex": [
+        "#FFFFFF",
+        "#FFF6C8",
+        "#FFE27A",
+        "#5E3B12",
+        "#A0702A",
+        "#D7AE50",
+        "#F2D98A",
+        "#0E5A7A",
+        "#1E9FC4",
+        "#27CCE2",
+        "#9FF3FF",
+        "#E6E0D8",
+        "#B9B0A6",
+        "#857B72",
+        "#574F4A"
+      ],
+      "loop": false,
+      "hold_last_frame": false,
+      "timing_status": "suggested_60fps_ticks",
+      "binding": {
+        "table": "view_effects",
+        "key": "league_caitlyn_r_muzzle",
+        "follow_actor": true,
+        "z": 0
+      },
+      "sha256": "0a2771ca2c7de9b72f0f906ce26dec0ab7726e4b83a4a5f83eb75c867116e291",
+      "source_native_size": [
+        2095,
+        751
+      ]
+    },
+    {
+      "file": "caitlyn_fx_hit.png",
+      "tag": "hit",
+      "title": "普攻命中（目标身上），4 帧",
+      "size": [
+        1024,
+        256
+      ],
+      "grid": [
+        4,
+        1
+      ],
+      "frame_count": 4,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "source_rect": [
+            0,
+            0,
+            474,
+            724
+          ],
+          "bbox": [
+            88,
+            88,
+            168,
+            168
+          ],
+          "duration_ticks": 2,
+          "duration_ms": 33.333333333333336
+        },
+        {
+          "index": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "source_rect": [
+            474,
+            0,
+            610,
+            724
+          ],
+          "bbox": [
+            16,
+            8,
+            240,
+            240
+          ],
+          "duration_ticks": 2,
+          "duration_ms": 33.333333333333336
+        },
+        {
+          "index": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "source_rect": [
+            1084,
+            0,
+            586,
+            724
+          ],
+          "bbox": [
+            24,
+            16,
+            232,
+            232
+          ],
+          "duration_ticks": 3,
+          "duration_ms": 50.0
+        },
+        {
+          "index": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "source_rect": [
+            1670,
+            0,
+            502,
+            724
+          ],
+          "bbox": [
+            64,
+            48,
+            184,
+            200
+          ],
+          "duration_ticks": 3,
+          "duration_ms": 50.0
+        }
+      ],
+      "game_size_px": [
+        10,
+        10
+      ],
+      "game_size_file": "game_size/caitlyn_fx_hit.png",
+      "anchor": [
+        128.0,
+        128.0
+      ],
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "pixel_block_size": 8,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "palette_hex": [
+        "#FFFFFF",
+        "#FFF6C8",
+        "#FFE27A",
+        "#5E3B12",
+        "#A0702A",
+        "#D7AE50",
+        "#F2D98A"
+      ],
+      "loop": false,
+      "hold_last_frame": false,
+      "timing_status": "suggested_60fps_ticks",
+      "binding": {
+        "table": "view_effects",
+        "key": "league_caitlyn_hit",
+        "follow_actor": true,
+        "z": 0
+      },
+      "sha256": "492f5c35e84a4527b268ab504d3717ae84904a0dbe9f814eacaa786ded7162d6",
+      "source_native_size": [
+        2172,
+        724
+      ]
+    },
+    {
+      "file": "caitlyn_fx_hs_hit.png",
+      "tag": "hs_hit",
+      "title": "爆头命中（目标身上），6 帧",
+      "size": [
+        1536,
+        256
+      ],
+      "grid": [
+        6,
+        1
+      ],
+      "frame_count": 6,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "source_rect": [
+            0,
+            0,
+            351,
+            343
+          ],
+          "bbox": [
+            64,
+            64,
+            184,
+            184
+          ],
+          "duration_ticks": 2,
+          "duration_ms": 33.333333333333336
+        },
+        {
+          "index": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "source_rect": [
+            351,
+            0,
+            350,
+            343
+          ],
+          "bbox": [
+            48,
+            48,
+            208,
+            208
+          ],
+          "duration_ticks": 2,
+          "duration_ms": 33.333333333333336
+        },
+        {
+          "index": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "source_rect": [
+            701,
+            0,
+            387,
+            343
+          ],
+          "bbox": [
+            16,
+            8,
+            240,
+            240
+          ],
+          "duration_ticks": 2,
+          "duration_ms": 33.333333333333336
+        },
+        {
+          "index": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "source_rect": [
+            1088,
+            0,
+            374,
+            343
+          ],
+          "bbox": [
+            16,
+            16,
+            232,
+            232
+          ],
+          "duration_ticks": 3,
+          "duration_ms": 50.0
+        },
+        {
+          "index": 4,
+          "rect": [
+            1024,
+            0,
+            256,
+            256
+          ],
+          "source_rect": [
+            1462,
+            0,
+            372,
+            343
+          ],
+          "bbox": [
+            40,
+            32,
+            216,
+            216
+          ],
+          "duration_ticks": 3,
+          "duration_ms": 50.0
+        },
+        {
+          "index": 5,
+          "rect": [
+            1280,
+            0,
+            256,
+            256
+          ],
+          "source_rect": [
+            1834,
+            0,
+            338,
+            343
+          ],
+          "bbox": [
+            64,
+            72,
+            184,
+            184
+          ],
+          "duration_ticks": 3,
+          "duration_ms": 50.0
+        }
+      ],
+      "game_size_px": [
+        20,
+        20
+      ],
+      "game_size_file": "game_size/caitlyn_fx_hs_hit.png",
+      "anchor": [
+        128.0,
+        128.0
+      ],
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "pixel_block_size": 8,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "palette_hex": [
+        "#FFFFFF",
+        "#FFF6C8",
+        "#FFE27A",
+        "#0E5A7A",
+        "#1E9FC4",
+        "#27CCE2",
+        "#9FF3FF",
+        "#5E3B12",
+        "#A0702A",
+        "#D7AE50",
+        "#F2D98A"
+      ],
+      "loop": false,
+      "hold_last_frame": false,
+      "timing_status": "suggested_60fps_ticks",
+      "binding": {
+        "table": "view_effects",
+        "key": "league_caitlyn_hs_hit",
+        "follow_actor": true,
+        "z": 0
+      },
+      "sha256": "73b8ee95eaf81a9074b2c8f5838cf7e700750364079c360b24bd37d55d53d54e",
+      "source_native_size": [
+        2172,
+        724
+      ]
+    },
+    {
+      "file": "caitlyn_fx_q_hit.png",
+      "tag": "q_hit",
+      "title": "Q 命中（目标身上），5 帧",
+      "size": [
+        1600,
+        320
+      ],
+      "grid": [
+        5,
+        1
+      ],
+      "frame_count": 5,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            320,
+            320
+          ],
+          "source_rect": [
+            0,
+            0,
+            354,
+            793
+          ],
+          "bbox": [
+            88,
+            96,
+            224,
+            224
+          ],
+          "duration_ticks": 2,
+          "duration_ms": 33.333333333333336
+        },
+        {
+          "index": 1,
+          "rect": [
+            320,
+            0,
+            320,
+            320
+          ],
+          "source_rect": [
+            354,
+            0,
+            450,
+            793
+          ],
+          "bbox": [
+            16,
+            8,
+            304,
+            304
+          ],
+          "duration_ticks": 2,
+          "duration_ms": 33.333333333333336
+        },
+        {
+          "index": 2,
+          "rect": [
+            640,
+            0,
+            320,
+            320
+          ],
+          "source_rect": [
+            804,
+            0,
+            418,
+            793
+          ],
+          "bbox": [
+            16,
+            32,
+            296,
+            280
+          ],
+          "duration_ticks": 3,
+          "duration_ms": 50.0
+        },
+        {
+          "index": 3,
+          "rect": [
+            960,
+            0,
+            320,
+            320
+          ],
+          "source_rect": [
+            1222,
+            0,
+            405,
+            793
+          ],
+          "bbox": [
+            48,
+            64,
+            264,
+            248
+          ],
+          "duration_ticks": 3,
+          "duration_ms": 50.0
+        },
+        {
+          "index": 4,
+          "rect": [
+            1280,
+            0,
+            320,
+            320
+          ],
+          "source_rect": [
+            1627,
+            0,
+            356,
+            793
+          ],
+          "bbox": [
+            112,
+            104,
+            208,
+            216
+          ],
+          "duration_ticks": 3,
+          "duration_ms": 50.0
+        }
+      ],
+      "game_size_px": [
+        22,
+        22
+      ],
+      "game_size_file": "game_size/caitlyn_fx_q_hit.png",
+      "anchor": [
+        160.0,
+        160.0
+      ],
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "pixel_block_size": 8,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "palette_hex": [
+        "#0E5A7A",
+        "#1E9FC4",
+        "#27CCE2",
+        "#9FF3FF",
+        "#FFFFFF",
+        "#FFF6C8",
+        "#FFE27A"
+      ],
+      "loop": false,
+      "hold_last_frame": false,
+      "timing_status": "suggested_60fps_ticks",
+      "binding": {
+        "table": "view_effects",
+        "key": "league_caitlyn_q_hit",
+        "follow_actor": true,
+        "z": 0
+      },
+      "sha256": "e4845aa2dc0e2ad70ad5a29d3e65a294225a49fc06ad908da68f8f284f6989e8",
+      "source_native_size": [
+        1983,
+        793
+      ],
+      "scale_revision": {
+        "revision": "q_larger_v2",
+        "requested_visible_scale": 1.3,
+        "actual_per_frame_scales": [
+          1.3,
+          1.276,
+          1.3,
+          1.3,
+          1.3
+        ],
+        "frame_canvas_changed": true,
+        "old_game_size_px": [
+          16,
+          16
+        ],
+        "new_game_size_px": [
+          22,
+          22
+        ],
+        "anchor_changed": false,
+        "timing_changed": false
+      }
+    },
+    {
+      "file": "caitlyn_fx_e_hit.png",
+      "tag": "e_hit",
+      "title": "E 网住目标（目标身上，1 秒），10 帧",
+      "size": [
+        1280,
+        512
+      ],
+      "grid": [
+        5,
+        2
+      ],
+      "frame_count": 10,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "source_rect": [
+            0,
+            0,
+            430,
+            392
+          ],
+          "bbox": [
+            16,
+            96,
+            240,
+            232
+          ],
+          "duration_ticks": 6,
+          "duration_ms": 100.0
+        },
+        {
+          "index": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "source_rect": [
+            430,
+            0,
+            376,
+            392
+          ],
+          "bbox": [
+            24,
+            56,
+            224,
+            232
+          ],
+          "duration_ticks": 6,
+          "duration_ms": 100.0
+        },
+        {
+          "index": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "source_rect": [
+            806,
+            0,
+            404,
+            392
+          ],
+          "bbox": [
+            32,
+            64,
+            224,
+            232
+          ],
+          "duration_ticks": 6,
+          "duration_ms": 100.0
+        },
+        {
+          "index": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "source_rect": [
+            1210,
+            0,
+            372,
+            392
+          ],
+          "bbox": [
+            56,
+            64,
+            192,
+            232
+          ],
+          "duration_ticks": 6,
+          "duration_ms": 100.0
+        },
+        {
+          "index": 4,
+          "rect": [
+            1024,
+            0,
+            256,
+            256
+          ],
+          "source_rect": [
+            1582,
+            0,
+            401,
+            392
+          ],
+          "bbox": [
+            56,
+            64,
+            192,
+            232
+          ],
+          "duration_ticks": 6,
+          "duration_ms": 100.0,
+          "assembled_from": {
+            "same_asset_frame_index": 3,
+            "adjustment": "bottom gold weight palette brightness only"
+          }
+        },
+        {
+          "index": 5,
+          "rect": [
+            0,
+            256,
+            256,
+            256
+          ],
+          "source_rect": [
+            0,
+            392,
+            402,
+            401
+          ],
+          "bbox": [
+            56,
+            64,
+            192,
+            232
+          ],
+          "duration_ticks": 6,
+          "duration_ms": 100.0,
+          "assembled_from": {
+            "same_asset_frame_index": 3,
+            "adjustment": "bottom gold weight palette brightness only"
+          }
+        },
+        {
+          "index": 6,
+          "rect": [
+            256,
+            256,
+            256,
+            256
+          ],
+          "source_rect": [
+            402,
+            392,
+            393,
+            401
+          ],
+          "bbox": [
+            56,
+            64,
+            192,
+            232
+          ],
+          "duration_ticks": 6,
+          "duration_ms": 100.0,
+          "assembled_from": {
+            "same_asset_frame_index": 3,
+            "adjustment": "bottom gold weight palette brightness only"
+          }
+        },
+        {
+          "index": 7,
+          "rect": [
+            512,
+            256,
+            256,
+            256
+          ],
+          "source_rect": [
+            795,
+            392,
+            394,
+            401
+          ],
+          "bbox": [
+            56,
+            64,
+            192,
+            232
+          ],
+          "duration_ticks": 6,
+          "duration_ms": 100.0,
+          "assembled_from": {
+            "same_asset_frame_index": 3,
+            "adjustment": "bottom gold weight palette brightness only"
+          }
+        },
+        {
+          "index": 8,
+          "rect": [
+            768,
+            256,
+            256,
+            256
+          ],
+          "source_rect": [
+            1189,
+            392,
+            357,
+            401
+          ],
+          "bbox": [
+            56,
+            64,
+            192,
+            232
+          ],
+          "duration_ticks": 6,
+          "duration_ms": 100.0,
+          "assembled_from": {
+            "same_asset_frame_index": 3,
+            "adjustment": "bottom gold weight palette brightness only"
+          }
+        },
+        {
+          "index": 9,
+          "rect": [
+            1024,
+            256,
+            256,
+            256
+          ],
+          "source_rect": [
+            1546,
+            392,
+            437,
+            401
+          ],
+          "bbox": [
+            16,
+            0,
+            232,
+            232
+          ],
+          "duration_ticks": 6,
+          "duration_ms": 100.0
+        }
+      ],
+      "game_size_px": [
+        22,
+        22
+      ],
+      "game_size_file": "game_size/caitlyn_fx_e_hit.png",
+      "anchor": [
+        128.0,
+        230.4
+      ],
+      "anchor_normalized": [
+        0.5,
+        0.9
+      ],
+      "pixel_block_size": 8,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "palette_hex": [
+        "#3A2414",
+        "#6F4434",
+        "#A07335",
+        "#D9B77A",
+        "#5E3B12",
+        "#A0702A",
+        "#D7AE50",
+        "#F2D98A"
+      ],
+      "loop": false,
+      "hold_last_frame": false,
+      "timing_status": "specified_by_pack",
+      "binding": {
+        "table": "view_effects",
+        "key": "league_caitlyn_e_hit",
+        "follow_actor": true,
+        "z": 0
+      },
+      "sha256": "726c34f0a5738f70262b94fe703129bbd8371440bc3f641bdb5ad15a93ced74f",
+      "source_native_size": [
+        1983,
+        793
+      ],
+      "game_size_resampling": "nearest to retain thin ropes, mesh holes and separated speed lines"
+    },
+    {
+      "file": "caitlyn_fx_r_hit.png",
+      "tag": "r_hit",
+      "title": "R 大子弹命中（目标身上），7 帧",
+      "size": [
+        1792,
+        256
+      ],
+      "grid": [
+        7,
+        1
+      ],
+      "frame_count": 7,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "source_rect": [
+            0,
+            0,
+            264,
+            756
+          ],
+          "bbox": [
+            72,
+            72,
+            176,
+            184
+          ],
+          "duration_ticks": 2,
+          "duration_ms": 33.333333333333336
+        },
+        {
+          "index": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "source_rect": [
+            264,
+            0,
+            319,
+            756
+          ],
+          "bbox": [
+            48,
+            32,
+            208,
+            224
+          ],
+          "duration_ticks": 2,
+          "duration_ms": 33.333333333333336
+        },
+        {
+          "index": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "source_rect": [
+            583,
+            0,
+            431,
+            756
+          ],
+          "bbox": [
+            16,
+            8,
+            240,
+            240
+          ],
+          "duration_ticks": 3,
+          "duration_ms": 50.0
+        },
+        {
+          "index": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "source_rect": [
+            1014,
+            0,
+            290,
+            756
+          ],
+          "bbox": [
+            56,
+            40,
+            200,
+            208
+          ],
+          "duration_ticks": 3,
+          "duration_ms": 50.0
+        },
+        {
+          "index": 4,
+          "rect": [
+            1024,
+            0,
+            256,
+            256
+          ],
+          "source_rect": [
+            1304,
+            0,
+            276,
+            756
+          ],
+          "bbox": [
+            56,
+            48,
+            192,
+            200
+          ],
+          "duration_ticks": 4,
+          "duration_ms": 66.66666666666667
+        },
+        {
+          "index": 5,
+          "rect": [
+            1280,
+            0,
+            256,
+            256
+          ],
+          "source_rect": [
+            1580,
+            0,
+            280,
+            756
+          ],
+          "bbox": [
+            64,
+            64,
+            184,
+            192
+          ],
+          "duration_ticks": 4,
+          "duration_ms": 66.66666666666667
+        },
+        {
+          "index": 6,
+          "rect": [
+            1536,
+            0,
+            256,
+            256
+          ],
+          "source_rect": [
+            1860,
+            0,
+            219,
+            756
+          ],
+          "bbox": [
+            96,
+            88,
+            160,
+            168
+          ],
+          "duration_ticks": 4,
+          "duration_ms": 66.66666666666667
+        }
+      ],
+      "game_size_px": [
+        28,
+        28
+      ],
+      "game_size_file": "game_size/caitlyn_fx_r_hit.png",
+      "anchor": [
+        128.0,
+        128.0
+      ],
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "pixel_block_size": 8,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "palette_hex": [
+        "#FFFFFF",
+        "#FFF6C8",
+        "#FFE27A",
+        "#5E3B12",
+        "#A0702A",
+        "#D7AE50",
+        "#F2D98A",
+        "#0E5A7A",
+        "#1E9FC4",
+        "#27CCE2",
+        "#9FF3FF",
+        "#E6E0D8",
+        "#B9B0A6",
+        "#857B72",
+        "#574F4A"
+      ],
+      "loop": false,
+      "hold_last_frame": false,
+      "timing_status": "suggested_60fps_ticks",
+      "binding": {
+        "table": "view_effects",
+        "key": "league_caitlyn_r_hit",
+        "follow_actor": true,
+        "z": 0
+      },
+      "sha256": "aa4178d97f922a560ee2cb8b46c0e37ec4e3c9b36dda5c911251ac30a8290aba",
+      "source_native_size": [
+        2079,
+        756
+      ]
+    },
+    {
+      "file": "caitlyn_fx_w_land.png",
+      "tag": "w_land",
+      "title": "W 夹子落地张开（地面，画在人物下面），5 帧",
+      "size": [
+        1280,
+        160
+      ],
+      "grid": [
+        5,
+        1
+      ],
+      "frame_count": 5,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            160
+          ],
+          "source_rect": [
+            0,
+            0,
+            430,
+            793
+          ],
+          "bbox": [
+            16,
+            40,
+            240,
+            128
+          ],
+          "duration_ticks": 3,
+          "duration_ms": 50.0
+        },
+        {
+          "index": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            160
+          ],
+          "source_rect": [
+            430,
+            0,
+            358,
+            793
+          ],
+          "bbox": [
+            40,
+            0,
+            216,
+            120
+          ],
+          "duration_ticks": 3,
+          "duration_ms": 50.0
+        },
+        {
+          "index": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            160
+          ],
+          "source_rect": [
+            788,
+            0,
+            393,
+            793
+          ],
+          "bbox": [
+            24,
+            32,
+            224,
+            128
+          ],
+          "duration_ticks": 3,
+          "duration_ms": 50.0
+        },
+        {
+          "index": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            160
+          ],
+          "source_rect": [
+            1181,
+            0,
+            392,
+            793
+          ],
+          "bbox": [
+            24,
+            16,
+            232,
+            128
+          ],
+          "duration_ticks": 3,
+          "duration_ms": 50.0
+        },
+        {
+          "index": 4,
+          "rect": [
+            1024,
+            0,
+            256,
+            160
+          ],
+          "source_rect": [
+            1573,
+            0,
+            410,
+            793
+          ],
+          "bbox": [
+            16,
+            16,
+            240,
+            128
+          ],
+          "duration_ticks": 3,
+          "duration_ms": 50.0
+        }
+      ],
+      "game_size_px": [
+        16,
+        10
+      ],
+      "game_size_file": "game_size/caitlyn_fx_w_land.png",
+      "anchor": [
+        128.0,
+        128.0
+      ],
+      "anchor_normalized": [
+        0.5,
+        0.8
+      ],
+      "pixel_block_size": 8,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "palette_hex": [
+        "#5E3B12",
+        "#A0702A",
+        "#D7AE50",
+        "#F2D98A",
+        "#283447",
+        "#445E80",
+        "#8FA6C1",
+        "#D5E2EE",
+        "#0E5A7A",
+        "#1E9FC4",
+        "#27CCE2",
+        "#9FF3FF"
+      ],
+      "loop": false,
+      "hold_last_frame": false,
+      "timing_status": "suggested_60fps_ticks",
+      "binding": {
+        "table": "view_effects",
+        "key": "league_caitlyn_w_land",
+        "follow_actor": false,
+        "z": -1
+      },
+      "sha256": "5987a9b8f0c0b2fb2339c6e07a9ed01e3e83d313cbc8d7d26d9499615d5e6ca7",
+      "source_native_size": [
+        1983,
+        793
+      ]
+    },
+    {
+      "file": "caitlyn_fx_w_trap.png",
+      "tag": "w_trap",
+      "title": "W 夹子埋伏（地面，循环），2 帧",
+      "size": [
+        512,
+        160
+      ],
+      "grid": [
+        2,
+        1
+      ],
+      "frame_count": 2,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            160
+          ],
+          "source_rect": [
+            0,
+            0,
+            1068,
+            724
+          ],
+          "bbox": [
+            16,
+            16,
+            240,
+            128
+          ],
+          "duration_ticks": 7,
+          "duration_ms": 116.66666666666667,
+          "assembled_from": {
+            "file": "caitlyn_fx_w_land.png",
+            "frame_index": 4,
+            "adjustment": "cyan centre light palette dimming only"
+          }
+        },
+        {
+          "index": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            160
+          ],
+          "source_rect": [
+            1068,
+            0,
+            1104,
+            724
+          ],
+          "bbox": [
+            16,
+            16,
+            240,
+            128
+          ],
+          "duration_ticks": 8,
+          "duration_ms": 133.33333333333334,
+          "assembled_from": {
+            "file": "caitlyn_fx_w_land.png",
+            "frame_index": 4,
+            "adjustment": "exact copy"
+          }
+        }
+      ],
+      "game_size_px": [
+        16,
+        10
+      ],
+      "game_size_file": "game_size/caitlyn_fx_w_trap.png",
+      "anchor": [
+        128.0,
+        128.0
+      ],
+      "anchor_normalized": [
+        0.5,
+        0.8
+      ],
+      "pixel_block_size": 8,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "palette_hex": [
+        "#5E3B12",
+        "#A0702A",
+        "#D7AE50",
+        "#F2D98A",
+        "#283447",
+        "#445E80",
+        "#8FA6C1",
+        "#D5E2EE",
+        "#0E5A7A",
+        "#1E9FC4",
+        "#27CCE2",
+        "#9FF3FF"
+      ],
+      "loop": true,
+      "hold_last_frame": false,
+      "timing_status": "specified_by_pack",
+      "binding": {
+        "table": "view_effects",
+        "key": "league_caitlyn_w_trap",
+        "follow_actor": false,
+        "z": -1
+      },
+      "sha256": "99be56beb909bed75009228ebe65fc6f8fff83ab7edcf92cca41e399c50c9922",
+      "source_native_size": [
+        2172,
+        724
+      ]
+    },
+    {
+      "file": "caitlyn_fx_w_fade.png",
+      "tag": "w_fade",
+      "title": "W 夹子消失（地面），3 帧",
+      "size": [
+        768,
+        160
+      ],
+      "grid": [
+        3,
+        1
+      ],
+      "frame_count": 3,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            160
+          ],
+          "source_rect": [
+            0,
+            0,
+            772,
+            724
+          ],
+          "bbox": [
+            16,
+            0,
+            240,
+            128
+          ],
+          "duration_ticks": 3,
+          "duration_ms": 50.0
+        },
+        {
+          "index": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            160
+          ],
+          "source_rect": [
+            772,
+            0,
+            675,
+            724
+          ],
+          "bbox": [
+            32,
+            24,
+            224,
+            128
+          ],
+          "duration_ticks": 3,
+          "duration_ms": 50.0
+        },
+        {
+          "index": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            160
+          ],
+          "source_rect": [
+            1447,
+            0,
+            725,
+            724
+          ],
+          "bbox": [
+            40,
+            32,
+            216,
+            128
+          ],
+          "duration_ticks": 3,
+          "duration_ms": 50.0
+        }
+      ],
+      "game_size_px": [
+        16,
+        10
+      ],
+      "game_size_file": "game_size/caitlyn_fx_w_fade.png",
+      "anchor": [
+        128.0,
+        128.0
+      ],
+      "anchor_normalized": [
+        0.5,
+        0.8
+      ],
+      "pixel_block_size": 8,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "palette_hex": [
+        "#5E3B12",
+        "#A0702A",
+        "#D7AE50",
+        "#F2D98A",
+        "#283447",
+        "#445E80",
+        "#8FA6C1",
+        "#D5E2EE"
+      ],
+      "loop": false,
+      "hold_last_frame": false,
+      "timing_status": "suggested_60fps_ticks",
+      "binding": {
+        "table": "view_effects",
+        "key": "league_caitlyn_w_fade",
+        "follow_actor": false,
+        "z": -1
+      },
+      "sha256": "663857fc268ee78f828c522f839f3716c8ff1c99cc44e76146b9db7497ef1981",
+      "source_native_size": [
+        2172,
+        724
+      ]
+    },
+    {
+      "file": "caitlyn_fx_w_snap.png",
+      "tag": "w_snap",
+      "title": "W 夹住目标（目标脚下，1.25 秒），9 帧",
+      "size": [
+        2304,
+        170
+      ],
+      "grid": [
+        9,
+        1
+      ],
+      "frame_count": 9,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            170
+          ],
+          "source_rect": [
+            0,
+            0,
+            290,
+            724
+          ],
+          "bbox": [
+            16,
+            49,
+            240,
+            161
+          ],
+          "duration_ticks": 5,
+          "duration_ms": 83.33333333333333
+        },
+        {
+          "index": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            170
+          ],
+          "source_rect": [
+            290,
+            0,
+            222,
+            724
+          ],
+          "bbox": [
+            40,
+            49,
+            208,
+            161
+          ],
+          "duration_ticks": 9,
+          "duration_ms": 150.0
+        },
+        {
+          "index": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            170
+          ],
+          "source_rect": [
+            512,
+            0,
+            229,
+            724
+          ],
+          "bbox": [
+            40,
+            49,
+            208,
+            161
+          ],
+          "duration_ticks": 9,
+          "duration_ms": 150.0
+        },
+        {
+          "index": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            170
+          ],
+          "source_rect": [
+            741,
+            0,
+            231,
+            724
+          ],
+          "bbox": [
+            40,
+            57,
+            208,
+            161
+          ],
+          "duration_ticks": 9,
+          "duration_ms": 150.0
+        },
+        {
+          "index": 4,
+          "rect": [
+            1024,
+            0,
+            256,
+            170
+          ],
+          "source_rect": [
+            972,
+            0,
+            235,
+            724
+          ],
+          "bbox": [
+            40,
+            57,
+            216,
+            161
+          ],
+          "duration_ticks": 9,
+          "duration_ms": 150.0
+        },
+        {
+          "index": 5,
+          "rect": [
+            1280,
+            0,
+            256,
+            170
+          ],
+          "source_rect": [
+            1207,
+            0,
+            235,
+            724
+          ],
+          "bbox": [
+            40,
+            57,
+            208,
+            161
+          ],
+          "duration_ticks": 9,
+          "duration_ms": 150.0
+        },
+        {
+          "index": 6,
+          "rect": [
+            1536,
+            0,
+            256,
+            170
+          ],
+          "source_rect": [
+            1442,
+            0,
+            234,
+            724
+          ],
+          "bbox": [
+            40,
+            57,
+            208,
+            161
+          ],
+          "duration_ticks": 9,
+          "duration_ms": 150.0
+        },
+        {
+          "index": 7,
+          "rect": [
+            1792,
+            0,
+            256,
+            170
+          ],
+          "source_rect": [
+            1676,
+            0,
+            225,
+            724
+          ],
+          "bbox": [
+            40,
+            49,
+            208,
+            161
+          ],
+          "duration_ticks": 9,
+          "duration_ms": 150.0
+        },
+        {
+          "index": 8,
+          "rect": [
+            2048,
+            0,
+            256,
+            170
+          ],
+          "source_rect": [
+            1901,
+            0,
+            271,
+            724
+          ],
+          "bbox": [
+            16,
+            25,
+            232,
+            161
+          ],
+          "duration_ticks": 7,
+          "duration_ms": 116.66666666666667
+        }
+      ],
+      "game_size_px": [
+        18,
+        12
+      ],
+      "game_size_file": "game_size/caitlyn_fx_w_snap.png",
+      "anchor": [
+        128.0,
+        161.5
+      ],
+      "anchor_normalized": [
+        0.5,
+        0.95
+      ],
+      "pixel_block_size": 8,
+      "grid_origin": [
+        0,
+        1
+      ],
+      "palette_hex": [
+        "#5E3B12",
+        "#A0702A",
+        "#D7AE50",
+        "#F2D98A",
+        "#283447",
+        "#445E80",
+        "#8FA6C1",
+        "#D5E2EE",
+        "#0E5A7A",
+        "#1E9FC4",
+        "#27CCE2",
+        "#9FF3FF",
+        "#FFFFFF",
+        "#FFF6C8",
+        "#FFE27A"
+      ],
+      "loop": false,
+      "hold_last_frame": false,
+      "timing_status": "specified_by_pack",
+      "binding": {
+        "table": "view_effects",
+        "key": "league_caitlyn_w_snap",
+        "follow_actor": true,
+        "z": 0
+      },
+      "sha256": "2ace5c37632cc93adc1b00b3a59a363b2ccbf5b6d0e59cd23e4ab069fdecd7d2",
+      "source_native_size": [
+        2172,
+        724
+      ]
+    },
+    {
+      "file": "caitlyn_fx_r_mark.png",
+      "tag": "r_mark",
+      "title": "R 瞄准准星（目标身上，循环），4 帧循环",
+      "size": [
+        1024,
+        256
+      ],
+      "grid": [
+        4,
+        1
+      ],
+      "frame_count": 4,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "source_rect": [
+            0,
+            0,
+            572,
+            724
+          ],
+          "bbox": [
+            16,
+            8,
+            240,
+            240
+          ],
+          "duration_ticks": 6,
+          "duration_ms": 100.0
+        },
+        {
+          "index": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "source_rect": [
+            572,
+            0,
+            531,
+            724
+          ],
+          "bbox": [
+            40,
+            32,
+            216,
+            216
+          ],
+          "duration_ticks": 6,
+          "duration_ms": 100.0
+        },
+        {
+          "index": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "source_rect": [
+            1103,
+            0,
+            517,
+            724
+          ],
+          "bbox": [
+            56,
+            48,
+            200,
+            200
+          ],
+          "duration_ticks": 6,
+          "duration_ms": 100.0
+        },
+        {
+          "index": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "source_rect": [
+            1620,
+            0,
+            552,
+            724
+          ],
+          "bbox": [
+            40,
+            40,
+            208,
+            208
+          ],
+          "duration_ticks": 6,
+          "duration_ms": 100.0
+        }
+      ],
+      "game_size_px": [
+        24,
+        24
+      ],
+      "game_size_file": "game_size/caitlyn_fx_r_mark.png",
+      "anchor": [
+        128.0,
+        128.0
+      ],
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "pixel_block_size": 8,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "palette_hex": [
+        "#7A1020",
+        "#D13845",
+        "#FF6A6A",
+        "#5E3B12",
+        "#A0702A",
+        "#D7AE50",
+        "#F2D98A"
+      ],
+      "loop": true,
+      "hold_last_frame": false,
+      "timing_status": "suggested_60fps_ticks",
+      "binding": {
+        "table": "view_buffs",
+        "key": "league_caitlyn_r_mark",
+        "follow_actor": true,
+        "z": 0
+      },
+      "sha256": "ba23089ed84ef85806da63ea3f91f9faeacf5d3496d5243f6fc2f001bcc8eb52",
+      "source_native_size": [
+        2172,
+        724
+      ]
+    },
+    {
+      "file": "caitlyn_fx_e_slow.png",
+      "tag": "e_slow",
+      "title": "E 减速标记（目标身上，循环），4 帧循环",
+      "size": [
+        1024,
+        128
+      ],
+      "grid": [
+        4,
+        1
+      ],
+      "frame_count": 4,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            128
+          ],
+          "source_rect": [
+            0,
+            0,
+            506,
+            793
+          ],
+          "bbox": [
+            16,
+            8,
+            232,
+            112
+          ],
+          "duration_ticks": 6,
+          "duration_ms": 100.0
+        },
+        {
+          "index": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            128
+          ],
+          "source_rect": [
+            506,
+            0,
+            486,
+            793
+          ],
+          "bbox": [
+            16,
+            8,
+            232,
+            112
+          ],
+          "duration_ticks": 6,
+          "duration_ms": 100.0
+        },
+        {
+          "index": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            128
+          ],
+          "source_rect": [
+            992,
+            0,
+            480,
+            793
+          ],
+          "bbox": [
+            16,
+            8,
+            232,
+            112
+          ],
+          "duration_ticks": 6,
+          "duration_ms": 100.0
+        },
+        {
+          "index": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            128
+          ],
+          "source_rect": [
+            1472,
+            0,
+            511,
+            793
+          ],
+          "bbox": [
+            16,
+            8,
+            240,
+            112
+          ],
+          "duration_ticks": 6,
+          "duration_ms": 100.0
+        }
+      ],
+      "game_size_px": [
+        16,
+        8
+      ],
+      "game_size_file": "game_size/caitlyn_fx_e_slow.png",
+      "anchor": [
+        128.0,
+        108.8
+      ],
+      "anchor_normalized": [
+        0.5,
+        0.85
+      ],
+      "pixel_block_size": 8,
+      "grid_origin": [
+        0,
+        0
+      ],
+      "palette_hex": [
+        "#3A2414",
+        "#6F4434",
+        "#A07335",
+        "#D9B77A",
+        "#E6E0D8",
+        "#B9B0A6",
+        "#857B72",
+        "#574F4A"
+      ],
+      "loop": true,
+      "hold_last_frame": false,
+      "timing_status": "suggested_60fps_ticks",
+      "binding": {
+        "table": "view_buffs",
+        "key": "league_caitlyn_e_slow",
+        "follow_actor": true,
+        "z": 0
+      },
+      "sha256": "81a6e8881547b20b07723e7a4fa6293b6773e73b944ab817030b97936971bdd6",
+      "source_native_size": [
+        1983,
+        793
+      ],
+      "game_size_resampling": "nearest to retain thin ropes, mesh holes and separated speed lines"
+    }
+  ],
+  "asset_count": 22,
+  "frame_count": 107,
+  "palette_and_alpha": "hard RGBA, per-effect declared palette",
+  "original_lol_texture_atlas_included": false,
+  "revision": {
+    "name": "q_larger_v2",
+    "summary": "Caitlyn Q muzzle, projectile and impact visible artwork enlarged inside the original frame canvases.",
+    "changed_tags": [
+      "q_bolt",
+      "q_muzzle",
+      "q_hit"
+    ],
+    "frame_count_changed": false,
+    "frame_canvas_changed": true,
+    "bindings_changed": false
+  }
+}

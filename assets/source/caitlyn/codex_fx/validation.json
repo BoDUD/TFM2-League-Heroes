@@ -1,0 +1,2906 @@
+{
+  "asset_count": 22,
+  "frame_count": 107,
+  "passed": true,
+  "errors": [],
+  "assets": [
+    {
+      "tag": "bolt",
+      "checks": [
+        {
+          "check": "specified sheet size",
+          "passed": true
+        },
+        {
+          "check": "specified frame count",
+          "passed": true
+        },
+        {
+          "check": "binary transparency",
+          "passed": true
+        },
+        {
+          "check": "declared per-effect palette",
+          "passed": true
+        },
+        {
+          "check": "no black outline or black background",
+          "passed": true
+        },
+        {
+          "check": "file hash",
+          "passed": true
+        },
+        {
+          "check": "game-sized sheet dimensions",
+          "passed": true
+        },
+        {
+          "check": "game-sized binary transparency",
+          "passed": true
+        },
+        {
+          "check": "frame 1 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 1 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 1 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "frame 1 vertical symmetry",
+          "passed": true
+        },
+        {
+          "check": "game frame 1 visible",
+          "passed": true
+        },
+        {
+          "check": "game frame 1 vertical symmetry",
+          "passed": true
+        },
+        {
+          "check": "frame 2 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 2 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 2 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "frame 2 vertical symmetry",
+          "passed": true
+        },
+        {
+          "check": "game frame 2 visible",
+          "passed": true
+        },
+        {
+          "check": "game frame 2 vertical symmetry",
+          "passed": true
+        },
+        {
+          "check": "frame 3 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 3 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 3 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "frame 3 vertical symmetry",
+          "passed": true
+        },
+        {
+          "check": "game frame 3 visible",
+          "passed": true
+        },
+        {
+          "check": "game frame 3 vertical symmetry",
+          "passed": true
+        },
+        {
+          "check": "frame 4 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 4 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 4 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "frame 4 vertical symmetry",
+          "passed": true
+        },
+        {
+          "check": "game frame 4 visible",
+          "passed": true
+        },
+        {
+          "check": "game frame 4 vertical symmetry",
+          "passed": true
+        },
+        {
+          "check": "loop flag",
+          "passed": true
+        },
+        {
+          "check": "net projectile holds last frame",
+          "passed": true
+        }
+      ],
+      "used_colors": 11
+    },
+    {
+      "tag": "hs_bolt",
+      "checks": [
+        {
+          "check": "specified sheet size",
+          "passed": true
+        },
+        {
+          "check": "specified frame count",
+          "passed": true
+        },
+        {
+          "check": "binary transparency",
+          "passed": true
+        },
+        {
+          "check": "declared per-effect palette",
+          "passed": true
+        },
+        {
+          "check": "no black outline or black background",
+          "passed": true
+        },
+        {
+          "check": "file hash",
+          "passed": true
+        },
+        {
+          "check": "game-sized sheet dimensions",
+          "passed": true
+        },
+        {
+          "check": "game-sized binary transparency",
+          "passed": true
+        },
+        {
+          "check": "frame 1 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 1 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 1 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "frame 1 vertical symmetry",
+          "passed": true
+        },
+        {
+          "check": "game frame 1 visible",
+          "passed": true
+        },
+        {
+          "check": "game frame 1 vertical symmetry",
+          "passed": true
+        },
+        {
+          "check": "frame 2 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 2 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 2 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "frame 2 vertical symmetry",
+          "passed": true
+        },
+        {
+          "check": "game frame 2 visible",
+          "passed": true
+        },
+        {
+          "check": "game frame 2 vertical symmetry",
+          "passed": true
+        },
+        {
+          "check": "frame 3 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 3 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 3 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "frame 3 vertical symmetry",
+          "passed": true
+        },
+        {
+          "check": "game frame 3 visible",
+          "passed": true
+        },
+        {
+          "check": "game frame 3 vertical symmetry",
+          "passed": true
+        },
+        {
+          "check": "frame 4 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 4 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 4 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "frame 4 vertical symmetry",
+          "passed": true
+        },
+        {
+          "check": "game frame 4 visible",
+          "passed": true
+        },
+        {
+          "check": "game frame 4 vertical symmetry",
+          "passed": true
+        },
+        {
+          "check": "loop flag",
+          "passed": true
+        },
+        {
+          "check": "net projectile holds last frame",
+          "passed": true
+        }
+      ],
+      "used_colors": 11
+    },
+    {
+      "tag": "q_bolt",
+      "checks": [
+        {
+          "check": "specified sheet size",
+          "passed": true
+        },
+        {
+          "check": "specified frame count",
+          "passed": true
+        },
+        {
+          "check": "binary transparency",
+          "passed": true
+        },
+        {
+          "check": "declared per-effect palette",
+          "passed": true
+        },
+        {
+          "check": "no black outline or black background",
+          "passed": true
+        },
+        {
+          "check": "file hash",
+          "passed": true
+        },
+        {
+          "check": "game-sized sheet dimensions",
+          "passed": true
+        },
+        {
+          "check": "game-sized binary transparency",
+          "passed": true
+        },
+        {
+          "check": "frame 1 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 1 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 1 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "frame 1 vertical symmetry",
+          "passed": true
+        },
+        {
+          "check": "game frame 1 visible",
+          "passed": true
+        },
+        {
+          "check": "game frame 1 vertical symmetry",
+          "passed": true
+        },
+        {
+          "check": "frame 2 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 2 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 2 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "frame 2 vertical symmetry",
+          "passed": true
+        },
+        {
+          "check": "game frame 2 visible",
+          "passed": true
+        },
+        {
+          "check": "game frame 2 vertical symmetry",
+          "passed": true
+        },
+        {
+          "check": "frame 3 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 3 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 3 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "frame 3 vertical symmetry",
+          "passed": true
+        },
+        {
+          "check": "game frame 3 visible",
+          "passed": true
+        },
+        {
+          "check": "game frame 3 vertical symmetry",
+          "passed": true
+        },
+        {
+          "check": "frame 4 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 4 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 4 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "frame 4 vertical symmetry",
+          "passed": true
+        },
+        {
+          "check": "game frame 4 visible",
+          "passed": true
+        },
+        {
+          "check": "game frame 4 vertical symmetry",
+          "passed": true
+        },
+        {
+          "check": "loop flag",
+          "passed": true
+        },
+        {
+          "check": "net projectile holds last frame",
+          "passed": true
+        }
+      ],
+      "used_colors": 6
+    },
+    {
+      "tag": "e_net",
+      "checks": [
+        {
+          "check": "specified sheet size",
+          "passed": true
+        },
+        {
+          "check": "specified frame count",
+          "passed": true
+        },
+        {
+          "check": "binary transparency",
+          "passed": true
+        },
+        {
+          "check": "declared per-effect palette",
+          "passed": true
+        },
+        {
+          "check": "no black outline or black background",
+          "passed": true
+        },
+        {
+          "check": "file hash",
+          "passed": true
+        },
+        {
+          "check": "game-sized sheet dimensions",
+          "passed": true
+        },
+        {
+          "check": "game-sized binary transparency",
+          "passed": true
+        },
+        {
+          "check": "frame 1 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 1 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 1 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "frame 1 vertical symmetry",
+          "passed": true
+        },
+        {
+          "check": "game frame 1 visible",
+          "passed": true
+        },
+        {
+          "check": "game frame 1 vertical symmetry",
+          "passed": true
+        },
+        {
+          "check": "frame 2 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 2 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 2 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "frame 2 vertical symmetry",
+          "passed": true
+        },
+        {
+          "check": "game frame 2 visible",
+          "passed": true
+        },
+        {
+          "check": "game frame 2 vertical symmetry",
+          "passed": true
+        },
+        {
+          "check": "frame 3 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 3 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 3 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "frame 3 vertical symmetry",
+          "passed": true
+        },
+        {
+          "check": "game frame 3 visible",
+          "passed": true
+        },
+        {
+          "check": "game frame 3 vertical symmetry",
+          "passed": true
+        },
+        {
+          "check": "frame 4 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 4 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 4 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "frame 4 vertical symmetry",
+          "passed": true
+        },
+        {
+          "check": "game frame 4 visible",
+          "passed": true
+        },
+        {
+          "check": "game frame 4 vertical symmetry",
+          "passed": true
+        },
+        {
+          "check": "loop flag",
+          "passed": true
+        },
+        {
+          "check": "net projectile holds last frame",
+          "passed": true
+        }
+      ],
+      "used_colors": 8
+    },
+    {
+      "tag": "w_throw",
+      "checks": [
+        {
+          "check": "specified sheet size",
+          "passed": true
+        },
+        {
+          "check": "specified frame count",
+          "passed": true
+        },
+        {
+          "check": "binary transparency",
+          "passed": true
+        },
+        {
+          "check": "declared per-effect palette",
+          "passed": true
+        },
+        {
+          "check": "no black outline or black background",
+          "passed": true
+        },
+        {
+          "check": "file hash",
+          "passed": true
+        },
+        {
+          "check": "game-sized sheet dimensions",
+          "passed": true
+        },
+        {
+          "check": "game-sized binary transparency",
+          "passed": true
+        },
+        {
+          "check": "frame 1 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 1 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 1 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 1 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 2 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 2 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 2 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 2 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 3 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 3 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 3 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 3 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 4 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 4 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 4 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 4 visible",
+          "passed": true
+        },
+        {
+          "check": "loop flag",
+          "passed": true
+        },
+        {
+          "check": "net projectile holds last frame",
+          "passed": true
+        }
+      ],
+      "used_colors": 8
+    },
+    {
+      "tag": "r_bullet",
+      "checks": [
+        {
+          "check": "specified sheet size",
+          "passed": true
+        },
+        {
+          "check": "specified frame count",
+          "passed": true
+        },
+        {
+          "check": "binary transparency",
+          "passed": true
+        },
+        {
+          "check": "declared per-effect palette",
+          "passed": true
+        },
+        {
+          "check": "no black outline or black background",
+          "passed": true
+        },
+        {
+          "check": "file hash",
+          "passed": true
+        },
+        {
+          "check": "game-sized sheet dimensions",
+          "passed": true
+        },
+        {
+          "check": "game-sized binary transparency",
+          "passed": true
+        },
+        {
+          "check": "frame 1 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 1 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 1 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "frame 1 vertical symmetry",
+          "passed": true
+        },
+        {
+          "check": "game frame 1 visible",
+          "passed": true
+        },
+        {
+          "check": "game frame 1 vertical symmetry",
+          "passed": true
+        },
+        {
+          "check": "frame 2 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 2 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 2 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "frame 2 vertical symmetry",
+          "passed": true
+        },
+        {
+          "check": "game frame 2 visible",
+          "passed": true
+        },
+        {
+          "check": "game frame 2 vertical symmetry",
+          "passed": true
+        },
+        {
+          "check": "frame 3 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 3 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 3 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "frame 3 vertical symmetry",
+          "passed": true
+        },
+        {
+          "check": "game frame 3 visible",
+          "passed": true
+        },
+        {
+          "check": "game frame 3 vertical symmetry",
+          "passed": true
+        },
+        {
+          "check": "frame 4 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 4 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 4 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "frame 4 vertical symmetry",
+          "passed": true
+        },
+        {
+          "check": "game frame 4 visible",
+          "passed": true
+        },
+        {
+          "check": "game frame 4 vertical symmetry",
+          "passed": true
+        },
+        {
+          "check": "loop flag",
+          "passed": true
+        },
+        {
+          "check": "net projectile holds last frame",
+          "passed": true
+        }
+      ],
+      "used_colors": 10
+    },
+    {
+      "tag": "shot",
+      "checks": [
+        {
+          "check": "specified sheet size",
+          "passed": true
+        },
+        {
+          "check": "specified frame count",
+          "passed": true
+        },
+        {
+          "check": "binary transparency",
+          "passed": true
+        },
+        {
+          "check": "declared per-effect palette",
+          "passed": true
+        },
+        {
+          "check": "no black outline or black background",
+          "passed": true
+        },
+        {
+          "check": "file hash",
+          "passed": true
+        },
+        {
+          "check": "game-sized sheet dimensions",
+          "passed": true
+        },
+        {
+          "check": "game-sized binary transparency",
+          "passed": true
+        },
+        {
+          "check": "frame 1 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 1 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 1 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 1 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 2 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 2 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 2 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 2 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 3 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 3 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 3 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 3 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 4 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 4 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 4 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 4 visible",
+          "passed": true
+        },
+        {
+          "check": "loop flag",
+          "passed": true
+        },
+        {
+          "check": "net projectile holds last frame",
+          "passed": true
+        }
+      ],
+      "used_colors": 14
+    },
+    {
+      "tag": "hs_shot",
+      "checks": [
+        {
+          "check": "specified sheet size",
+          "passed": true
+        },
+        {
+          "check": "specified frame count",
+          "passed": true
+        },
+        {
+          "check": "binary transparency",
+          "passed": true
+        },
+        {
+          "check": "declared per-effect palette",
+          "passed": true
+        },
+        {
+          "check": "no black outline or black background",
+          "passed": true
+        },
+        {
+          "check": "file hash",
+          "passed": true
+        },
+        {
+          "check": "game-sized sheet dimensions",
+          "passed": true
+        },
+        {
+          "check": "game-sized binary transparency",
+          "passed": true
+        },
+        {
+          "check": "frame 1 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 1 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 1 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 1 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 2 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 2 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 2 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 2 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 3 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 3 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 3 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 3 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 4 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 4 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 4 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 4 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 5 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 5 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 5 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 5 visible",
+          "passed": true
+        },
+        {
+          "check": "loop flag",
+          "passed": true
+        },
+        {
+          "check": "net projectile holds last frame",
+          "passed": true
+        }
+      ],
+      "used_colors": 14
+    },
+    {
+      "tag": "e_shot",
+      "checks": [
+        {
+          "check": "specified sheet size",
+          "passed": true
+        },
+        {
+          "check": "specified frame count",
+          "passed": true
+        },
+        {
+          "check": "binary transparency",
+          "passed": true
+        },
+        {
+          "check": "declared per-effect palette",
+          "passed": true
+        },
+        {
+          "check": "no black outline or black background",
+          "passed": true
+        },
+        {
+          "check": "file hash",
+          "passed": true
+        },
+        {
+          "check": "game-sized sheet dimensions",
+          "passed": true
+        },
+        {
+          "check": "game-sized binary transparency",
+          "passed": true
+        },
+        {
+          "check": "frame 1 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 1 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 1 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 1 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 2 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 2 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 2 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 2 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 3 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 3 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 3 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 3 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 4 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 4 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 4 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 4 visible",
+          "passed": true
+        },
+        {
+          "check": "loop flag",
+          "passed": true
+        },
+        {
+          "check": "net projectile holds last frame",
+          "passed": true
+        }
+      ],
+      "used_colors": 12
+    },
+    {
+      "tag": "q_muzzle",
+      "checks": [
+        {
+          "check": "specified sheet size",
+          "passed": true
+        },
+        {
+          "check": "specified frame count",
+          "passed": true
+        },
+        {
+          "check": "binary transparency",
+          "passed": true
+        },
+        {
+          "check": "declared per-effect palette",
+          "passed": true
+        },
+        {
+          "check": "no black outline or black background",
+          "passed": true
+        },
+        {
+          "check": "file hash",
+          "passed": true
+        },
+        {
+          "check": "game-sized sheet dimensions",
+          "passed": true
+        },
+        {
+          "check": "game-sized binary transparency",
+          "passed": true
+        },
+        {
+          "check": "frame 1 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 1 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 1 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 1 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 2 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 2 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 2 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 2 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 3 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 3 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 3 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 3 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 4 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 4 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 4 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 4 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 5 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 5 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 5 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 5 visible",
+          "passed": true
+        },
+        {
+          "check": "loop flag",
+          "passed": true
+        },
+        {
+          "check": "net projectile holds last frame",
+          "passed": true
+        }
+      ],
+      "used_colors": 6
+    },
+    {
+      "tag": "r_muzzle",
+      "checks": [
+        {
+          "check": "specified sheet size",
+          "passed": true
+        },
+        {
+          "check": "specified frame count",
+          "passed": true
+        },
+        {
+          "check": "binary transparency",
+          "passed": true
+        },
+        {
+          "check": "declared per-effect palette",
+          "passed": true
+        },
+        {
+          "check": "no black outline or black background",
+          "passed": true
+        },
+        {
+          "check": "file hash",
+          "passed": true
+        },
+        {
+          "check": "game-sized sheet dimensions",
+          "passed": true
+        },
+        {
+          "check": "game-sized binary transparency",
+          "passed": true
+        },
+        {
+          "check": "frame 1 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 1 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 1 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 1 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 2 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 2 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 2 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 2 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 3 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 3 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 3 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 3 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 4 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 4 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 4 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 4 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 5 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 5 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 5 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 5 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 6 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 6 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 6 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 6 visible",
+          "passed": true
+        },
+        {
+          "check": "loop flag",
+          "passed": true
+        },
+        {
+          "check": "net projectile holds last frame",
+          "passed": true
+        }
+      ],
+      "used_colors": 14
+    },
+    {
+      "tag": "hit",
+      "checks": [
+        {
+          "check": "specified sheet size",
+          "passed": true
+        },
+        {
+          "check": "specified frame count",
+          "passed": true
+        },
+        {
+          "check": "binary transparency",
+          "passed": true
+        },
+        {
+          "check": "declared per-effect palette",
+          "passed": true
+        },
+        {
+          "check": "no black outline or black background",
+          "passed": true
+        },
+        {
+          "check": "file hash",
+          "passed": true
+        },
+        {
+          "check": "game-sized sheet dimensions",
+          "passed": true
+        },
+        {
+          "check": "game-sized binary transparency",
+          "passed": true
+        },
+        {
+          "check": "frame 1 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 1 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 1 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 1 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 2 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 2 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 2 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 2 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 3 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 3 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 3 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 3 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 4 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 4 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 4 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 4 visible",
+          "passed": true
+        },
+        {
+          "check": "loop flag",
+          "passed": true
+        },
+        {
+          "check": "net projectile holds last frame",
+          "passed": true
+        }
+      ],
+      "used_colors": 7
+    },
+    {
+      "tag": "hs_hit",
+      "checks": [
+        {
+          "check": "specified sheet size",
+          "passed": true
+        },
+        {
+          "check": "specified frame count",
+          "passed": true
+        },
+        {
+          "check": "binary transparency",
+          "passed": true
+        },
+        {
+          "check": "declared per-effect palette",
+          "passed": true
+        },
+        {
+          "check": "no black outline or black background",
+          "passed": true
+        },
+        {
+          "check": "file hash",
+          "passed": true
+        },
+        {
+          "check": "game-sized sheet dimensions",
+          "passed": true
+        },
+        {
+          "check": "game-sized binary transparency",
+          "passed": true
+        },
+        {
+          "check": "frame 1 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 1 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 1 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 1 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 2 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 2 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 2 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 2 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 3 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 3 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 3 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 3 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 4 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 4 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 4 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 4 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 5 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 5 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 5 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 5 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 6 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 6 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 6 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 6 visible",
+          "passed": true
+        },
+        {
+          "check": "loop flag",
+          "passed": true
+        },
+        {
+          "check": "net projectile holds last frame",
+          "passed": true
+        }
+      ],
+      "used_colors": 11
+    },
+    {
+      "tag": "q_hit",
+      "checks": [
+        {
+          "check": "specified sheet size",
+          "passed": true
+        },
+        {
+          "check": "specified frame count",
+          "passed": true
+        },
+        {
+          "check": "binary transparency",
+          "passed": true
+        },
+        {
+          "check": "declared per-effect palette",
+          "passed": true
+        },
+        {
+          "check": "no black outline or black background",
+          "passed": true
+        },
+        {
+          "check": "file hash",
+          "passed": true
+        },
+        {
+          "check": "game-sized sheet dimensions",
+          "passed": true
+        },
+        {
+          "check": "game-sized binary transparency",
+          "passed": true
+        },
+        {
+          "check": "frame 1 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 1 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 1 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 1 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 2 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 2 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 2 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 2 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 3 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 3 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 3 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 3 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 4 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 4 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 4 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 4 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 5 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 5 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 5 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 5 visible",
+          "passed": true
+        },
+        {
+          "check": "loop flag",
+          "passed": true
+        },
+        {
+          "check": "net projectile holds last frame",
+          "passed": true
+        }
+      ],
+      "used_colors": 6
+    },
+    {
+      "tag": "e_hit",
+      "checks": [
+        {
+          "check": "specified sheet size",
+          "passed": true
+        },
+        {
+          "check": "specified frame count",
+          "passed": true
+        },
+        {
+          "check": "binary transparency",
+          "passed": true
+        },
+        {
+          "check": "declared per-effect palette",
+          "passed": true
+        },
+        {
+          "check": "no black outline or black background",
+          "passed": true
+        },
+        {
+          "check": "file hash",
+          "passed": true
+        },
+        {
+          "check": "game-sized sheet dimensions",
+          "passed": true
+        },
+        {
+          "check": "game-sized binary transparency",
+          "passed": true
+        },
+        {
+          "check": "frame 1 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 1 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 1 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 1 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 2 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 2 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 2 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 2 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 3 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 3 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 3 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 3 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 4 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 4 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 4 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 4 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 5 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 5 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 5 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 5 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 6 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 6 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 6 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 6 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 7 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 7 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 7 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 7 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 8 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 8 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 8 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 8 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 9 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 9 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 9 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 9 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 10 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 10 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 10 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 10 visible",
+          "passed": true
+        },
+        {
+          "check": "specified duration in ticks",
+          "passed": true
+        },
+        {
+          "check": "loop flag",
+          "passed": true
+        },
+        {
+          "check": "net projectile holds last frame",
+          "passed": true
+        }
+      ],
+      "used_colors": 8
+    },
+    {
+      "tag": "r_hit",
+      "checks": [
+        {
+          "check": "specified sheet size",
+          "passed": true
+        },
+        {
+          "check": "specified frame count",
+          "passed": true
+        },
+        {
+          "check": "binary transparency",
+          "passed": true
+        },
+        {
+          "check": "declared per-effect palette",
+          "passed": true
+        },
+        {
+          "check": "no black outline or black background",
+          "passed": true
+        },
+        {
+          "check": "file hash",
+          "passed": true
+        },
+        {
+          "check": "game-sized sheet dimensions",
+          "passed": true
+        },
+        {
+          "check": "game-sized binary transparency",
+          "passed": true
+        },
+        {
+          "check": "frame 1 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 1 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 1 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 1 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 2 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 2 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 2 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 2 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 3 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 3 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 3 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 3 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 4 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 4 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 4 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 4 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 5 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 5 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 5 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 5 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 6 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 6 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 6 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 6 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 7 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 7 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 7 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 7 visible",
+          "passed": true
+        },
+        {
+          "check": "loop flag",
+          "passed": true
+        },
+        {
+          "check": "net projectile holds last frame",
+          "passed": true
+        }
+      ],
+      "used_colors": 15
+    },
+    {
+      "tag": "w_land",
+      "checks": [
+        {
+          "check": "specified sheet size",
+          "passed": true
+        },
+        {
+          "check": "specified frame count",
+          "passed": true
+        },
+        {
+          "check": "binary transparency",
+          "passed": true
+        },
+        {
+          "check": "declared per-effect palette",
+          "passed": true
+        },
+        {
+          "check": "no black outline or black background",
+          "passed": true
+        },
+        {
+          "check": "file hash",
+          "passed": true
+        },
+        {
+          "check": "game-sized sheet dimensions",
+          "passed": true
+        },
+        {
+          "check": "game-sized binary transparency",
+          "passed": true
+        },
+        {
+          "check": "frame 1 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 1 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 1 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 1 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 2 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 2 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 2 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 2 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 3 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 3 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 3 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 3 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 4 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 4 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 4 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 4 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 5 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 5 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 5 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 5 visible",
+          "passed": true
+        },
+        {
+          "check": "loop flag",
+          "passed": true
+        },
+        {
+          "check": "net projectile holds last frame",
+          "passed": true
+        }
+      ],
+      "used_colors": 11
+    },
+    {
+      "tag": "w_trap",
+      "checks": [
+        {
+          "check": "specified sheet size",
+          "passed": true
+        },
+        {
+          "check": "specified frame count",
+          "passed": true
+        },
+        {
+          "check": "binary transparency",
+          "passed": true
+        },
+        {
+          "check": "declared per-effect palette",
+          "passed": true
+        },
+        {
+          "check": "no black outline or black background",
+          "passed": true
+        },
+        {
+          "check": "file hash",
+          "passed": true
+        },
+        {
+          "check": "game-sized sheet dimensions",
+          "passed": true
+        },
+        {
+          "check": "game-sized binary transparency",
+          "passed": true
+        },
+        {
+          "check": "frame 1 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 1 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 1 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 1 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 2 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 2 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 2 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 2 visible",
+          "passed": true
+        },
+        {
+          "check": "specified duration in ticks",
+          "passed": true
+        },
+        {
+          "check": "loop flag",
+          "passed": true
+        },
+        {
+          "check": "net projectile holds last frame",
+          "passed": true
+        }
+      ],
+      "used_colors": 12
+    },
+    {
+      "tag": "w_fade",
+      "checks": [
+        {
+          "check": "specified sheet size",
+          "passed": true
+        },
+        {
+          "check": "specified frame count",
+          "passed": true
+        },
+        {
+          "check": "binary transparency",
+          "passed": true
+        },
+        {
+          "check": "declared per-effect palette",
+          "passed": true
+        },
+        {
+          "check": "no black outline or black background",
+          "passed": true
+        },
+        {
+          "check": "file hash",
+          "passed": true
+        },
+        {
+          "check": "game-sized sheet dimensions",
+          "passed": true
+        },
+        {
+          "check": "game-sized binary transparency",
+          "passed": true
+        },
+        {
+          "check": "frame 1 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 1 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 1 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 1 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 2 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 2 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 2 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 2 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 3 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 3 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 3 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 3 visible",
+          "passed": true
+        },
+        {
+          "check": "loop flag",
+          "passed": true
+        },
+        {
+          "check": "net projectile holds last frame",
+          "passed": true
+        }
+      ],
+      "used_colors": 8
+    },
+    {
+      "tag": "w_snap",
+      "checks": [
+        {
+          "check": "specified sheet size",
+          "passed": true
+        },
+        {
+          "check": "specified frame count",
+          "passed": true
+        },
+        {
+          "check": "binary transparency",
+          "passed": true
+        },
+        {
+          "check": "declared per-effect palette",
+          "passed": true
+        },
+        {
+          "check": "no black outline or black background",
+          "passed": true
+        },
+        {
+          "check": "file hash",
+          "passed": true
+        },
+        {
+          "check": "game-sized sheet dimensions",
+          "passed": true
+        },
+        {
+          "check": "game-sized binary transparency",
+          "passed": true
+        },
+        {
+          "check": "frame 1 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 1 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 1 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 1 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 2 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 2 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 2 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 2 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 3 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 3 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 3 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 3 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 4 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 4 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 4 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 4 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 5 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 5 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 5 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 5 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 6 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 6 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 6 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 6 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 7 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 7 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 7 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 7 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 8 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 8 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 8 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 8 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 9 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 9 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 9 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 9 visible",
+          "passed": true
+        },
+        {
+          "check": "specified duration in ticks",
+          "passed": true
+        },
+        {
+          "check": "loop flag",
+          "passed": true
+        },
+        {
+          "check": "net projectile holds last frame",
+          "passed": true
+        }
+      ],
+      "used_colors": 15
+    },
+    {
+      "tag": "r_mark",
+      "checks": [
+        {
+          "check": "specified sheet size",
+          "passed": true
+        },
+        {
+          "check": "specified frame count",
+          "passed": true
+        },
+        {
+          "check": "binary transparency",
+          "passed": true
+        },
+        {
+          "check": "declared per-effect palette",
+          "passed": true
+        },
+        {
+          "check": "no black outline or black background",
+          "passed": true
+        },
+        {
+          "check": "file hash",
+          "passed": true
+        },
+        {
+          "check": "game-sized sheet dimensions",
+          "passed": true
+        },
+        {
+          "check": "game-sized binary transparency",
+          "passed": true
+        },
+        {
+          "check": "frame 1 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 1 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 1 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 1 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 2 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 2 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 2 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 2 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 3 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 3 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 3 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 3 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 4 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 4 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 4 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 4 visible",
+          "passed": true
+        },
+        {
+          "check": "loop flag",
+          "passed": true
+        },
+        {
+          "check": "net projectile holds last frame",
+          "passed": true
+        }
+      ],
+      "used_colors": 6
+    },
+    {
+      "tag": "e_slow",
+      "checks": [
+        {
+          "check": "specified sheet size",
+          "passed": true
+        },
+        {
+          "check": "specified frame count",
+          "passed": true
+        },
+        {
+          "check": "binary transparency",
+          "passed": true
+        },
+        {
+          "check": "declared per-effect palette",
+          "passed": true
+        },
+        {
+          "check": "no black outline or black background",
+          "passed": true
+        },
+        {
+          "check": "file hash",
+          "passed": true
+        },
+        {
+          "check": "game-sized sheet dimensions",
+          "passed": true
+        },
+        {
+          "check": "game-sized binary transparency",
+          "passed": true
+        },
+        {
+          "check": "frame 1 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 1 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 1 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 1 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 2 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 2 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 2 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 2 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 3 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 3 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 3 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 3 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 4 exact grid rectangle",
+          "passed": true
+        },
+        {
+          "check": "frame 4 visible",
+          "passed": true
+        },
+        {
+          "check": "frame 4 square 8px blocks",
+          "passed": true
+        },
+        {
+          "check": "game frame 4 visible",
+          "passed": true
+        },
+        {
+          "check": "loop flag",
+          "passed": true
+        },
+        {
+          "check": "net projectile holds last frame",
+          "passed": true
+        }
+      ],
+      "used_colors": 7
+    }
+  ],
+  "live_game_tested": false,
+  "scope": "asset files, rectangles, transparency, palettes, symmetry and specified timing; visual review is separate"
+}

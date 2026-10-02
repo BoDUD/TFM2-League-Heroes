@@ -1,0 +1,358 @@
+{
+ "hero": "caitlyn",
+ "champ": "Caitlyn",
+ "camera": {
+  "yaw": 20,
+  "pitch": 20,
+  "mirror": true
+ },
+ "chibi": {
+  "head": 2.8,
+  "legs": 0.75,
+  "hair": 0.8
+ },
+ "weapon": "^Rifle_Root$",
+ "glue": {
+  "joint": "Rifle_Root",
+  "to": "R_Hand"
+ },
+ "hide_submeshes": true,
+ "height": 41,
+ "cell": [
+  96,
+  96,
+  14
+ ],
+ "design": "idle1@0",
+ "tags": {
+  "idle": {
+   "frames": [
+    [
+     "idle1@0",
+     200
+    ],
+    [
+     "idle1@0",
+     200
+    ],
+    [
+     "idle1@0",
+     200
+    ],
+    [
+     "idle1@0",
+     200
+    ],
+    [
+     "idle1@0",
+     200
+    ],
+    [
+     "idle1@0",
+     200
+    ]
+   ]
+  },
+  "run": {
+   "flat": true,
+   "head_like": "idle1@0",
+   "frames": [
+    [
+     "run@0",
+     117
+    ],
+    [
+     "run@117",
+     117
+    ],
+    [
+     "run@233",
+     117
+    ],
+    [
+     "run@350",
+     117
+    ],
+    [
+     "run@467",
+     117
+    ],
+    [
+     "run@583",
+     117
+    ],
+    [
+     "run@700",
+     117
+    ],
+    [
+     "run@817",
+     117
+    ]
+   ]
+  },
+  "attack": {
+   "lunge": 0.3,
+   "frames": [
+    [
+     "idle1@0>attack1@0:0.6",
+     60
+    ],
+    [
+     "attack1@60",
+     60
+    ],
+    [
+     "attack1@110",
+     70
+    ],
+    [
+     "attack1@170",
+     70
+    ],
+    [
+     "attack1@230",
+     70
+    ],
+    [
+     "attack1@267>idle1@0:0.5",
+     70
+    ]
+   ],
+   "head_like": "idle1@0"
+  },
+  "passive": {
+   "lunge": 0.3,
+   "frames": [
+    [
+     "idle1@0>passive@0:0.6",
+     60
+    ],
+    [
+     "passive@60",
+     50
+    ],
+    [
+     "passive@120",
+     50
+    ],
+    [
+     "passive@180",
+     70
+    ],
+    [
+     "passive@240",
+     70
+    ],
+    [
+     "passive@300>idle1@0:0.5",
+     67
+    ]
+   ],
+   "head_like": "idle1@0"
+  },
+  "skill": {
+   "lunge": 0.3,
+   "frames": [
+    [
+     "spell1@0",
+     70
+    ],
+    [
+     "spell1@133",
+     70
+    ],
+    [
+     "spell1@267",
+     70
+    ],
+    [
+     "spell1@400",
+     70
+    ],
+    [
+     "spell1@500",
+     60
+    ],
+    [
+     "spell1@560",
+     60
+    ],
+    [
+     "spell1@650",
+     100
+    ],
+    [
+     "spell1@800>idle1@0:0.5",
+     167
+    ]
+   ],
+   "head_like": "idle1@0"
+  },
+  "skill2": {
+   "lunge": 0.3,
+   "frames": [
+    [
+     "idle1@0>spell2@0:0.6",
+     60
+    ],
+    [
+     "spell2@106",
+     50
+    ],
+    [
+     "spell2@211",
+     57
+    ],
+    [
+     "spell2@317",
+     80
+    ],
+    [
+     "spell2@422",
+     80
+    ],
+    [
+     "spell2@528>idle1@0:0.5",
+     73
+    ]
+   ],
+   "head_like": "idle1@0"
+  },
+  "e": {
+   "lunge": 0.3,
+   "rise": 0.35,
+   "frames": [
+    [
+     "idle1@0>spell3@0:0.6",
+     50
+    ],
+    [
+     "spell3@100",
+     50
+    ],
+    [
+     "spell3@160",
+     67
+    ],
+    [
+     "spell3@300",
+     67
+    ],
+    [
+     "spell3@450",
+     67
+    ],
+    [
+     "spell3@650",
+     83
+    ],
+    [
+     "spell3@850",
+     100
+    ],
+    [
+     "spell3@1000>idle1@0:0.5",
+     83
+    ]
+   ],
+   "head_like": "idle1@0"
+  },
+  "ult": {
+   "lunge": 0.3,
+   "frames": [
+    [
+     "spell4@0",
+     100
+    ],
+    [
+     "spell4@150",
+     100
+    ],
+    [
+     "spell4@300",
+     200
+    ],
+    [
+     "spell4@500",
+     200
+    ],
+    [
+     "spell4@700",
+     200
+    ],
+    [
+     "spell4@900",
+     217
+    ],
+    [
+     "spell4@1000",
+     150
+    ],
+    [
+     "spell4@1500",
+     150
+    ],
+    [
+     "spell4@1900>idle1@0:0.5",
+     83
+    ]
+   ],
+   "head_like": "idle1@0"
+  },
+  "hit": {
+   "frames": [
+    [
+     "idle1@0>death@600:0.35",
+     120
+    ],
+    [
+     "idle1@0>death@600:0.15",
+     120
+    ]
+   ],
+   "head_like": "idle1@0"
+  },
+  "dead": {
+   "anchor": "first",
+   "lunge": 0.15,
+   "flat": true,
+   "travel": 0.12,
+   "rise": 0.2,
+   "frames": [
+    [
+     "death@150",
+     100
+    ],
+    [
+     "death@371",
+     100
+    ],
+    [
+     "death@742",
+     110
+    ],
+    [
+     "death@1113",
+     110
+    ],
+    [
+     "death@1483",
+     120
+    ],
+    [
+     "death@1854",
+     130
+    ],
+    [
+     "death@2225",
+     150
+    ],
+    [
+     "death@2900",
+     500
+    ]
+   ]
+  }
+ }
+}

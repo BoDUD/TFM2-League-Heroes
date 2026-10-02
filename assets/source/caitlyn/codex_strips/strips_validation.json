@@ -1,0 +1,1176 @@
+{
+  "scope": "file geometry, exact palette, alpha, head pixels, eye placement, connectivity, baseline, vacant cells, supplied idle preservation",
+  "not_certified_by_automated_checks": [
+    "anatomical quality",
+    "rifle length and ornament identity in every pose",
+    "sleeve and glove width at every point",
+    "game import and in-game appearance"
+  ],
+  "animations": {
+    "idle": {
+      "dimensions_ok": true,
+      "strict_8x8_blocks": true,
+      "binary_alpha": true,
+      "approved_palette_only": true,
+      "vacant_cells_transparent": true,
+      "frames": [
+        {
+          "frame": 1,
+          "bbox_game_px": [
+            27,
+            41,
+            68,
+            82
+          ],
+          "component_sizes": [
+            815
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 2,
+          "bbox_game_px": [
+            27,
+            41,
+            68,
+            82
+          ],
+          "component_sizes": [
+            815
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 3,
+          "bbox_game_px": [
+            27,
+            41,
+            68,
+            82
+          ],
+          "component_sizes": [
+            815
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 4,
+          "bbox_game_px": [
+            27,
+            41,
+            68,
+            82
+          ],
+          "component_sizes": [
+            815
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 5,
+          "bbox_game_px": [
+            27,
+            41,
+            68,
+            82
+          ],
+          "component_sizes": [
+            815
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 6,
+          "bbox_game_px": [
+            27,
+            41,
+            68,
+            82
+          ],
+          "component_sizes": [
+            815
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        }
+      ]
+    },
+    "skill2": {
+      "dimensions_ok": true,
+      "strict_8x8_blocks": true,
+      "binary_alpha": true,
+      "approved_palette_only": true,
+      "vacant_cells_transparent": true,
+      "frames": [
+        {
+          "frame": 1,
+          "bbox_game_px": [
+            29,
+            37,
+            56,
+            82
+          ],
+          "component_sizes": [
+            764
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 2,
+          "bbox_game_px": [
+            28,
+            39,
+            58,
+            82
+          ],
+          "component_sizes": [
+            758
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 3,
+          "bbox_game_px": [
+            27,
+            40,
+            59,
+            82
+          ],
+          "component_sizes": [
+            756
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 4,
+          "bbox_game_px": [
+            30,
+            42,
+            67,
+            82
+          ],
+          "component_sizes": [
+            722
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 5,
+          "bbox_game_px": [
+            35,
+            39,
+            63,
+            82
+          ],
+          "component_sizes": [
+            819
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 6,
+          "bbox_game_px": [
+            31,
+            41,
+            72,
+            82
+          ],
+          "component_sizes": [
+            815
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        }
+      ]
+    },
+    "dead": {
+      "dimensions_ok": true,
+      "strict_8x8_blocks": true,
+      "binary_alpha": true,
+      "approved_palette_only": true,
+      "vacant_cells_transparent": true,
+      "frames": [
+        {
+          "frame": 1,
+          "bbox_game_px": [
+            35,
+            41,
+            75,
+            82
+          ],
+          "component_sizes": [
+            743
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 2,
+          "bbox_game_px": [
+            34,
+            38,
+            64,
+            82
+          ],
+          "component_sizes": [
+            736
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 3,
+          "bbox_game_px": [
+            34,
+            42,
+            69,
+            82
+          ],
+          "component_sizes": [
+            596
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 4,
+          "bbox_game_px": [
+            33,
+            41,
+            70,
+            82
+          ],
+          "component_sizes": [
+            619
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 5,
+          "bbox_game_px": [
+            34,
+            44,
+            79,
+            82
+          ],
+          "component_sizes": [
+            607
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 6,
+          "bbox_game_px": [
+            32,
+            48,
+            81,
+            82
+          ],
+          "component_sizes": [
+            636
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 7,
+          "bbox_game_px": [
+            21,
+            64,
+            78,
+            84
+          ],
+          "component_sizes": [
+            665
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": "lying-head exception",
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 8,
+          "bbox_game_px": [
+            20,
+            67,
+            78,
+            84
+          ],
+          "component_sizes": [
+            683
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": "lying-head exception",
+          "eye_blue_only_in_expected_eye_pixels": true
+        }
+      ]
+    },
+    "e": {
+      "dimensions_ok": true,
+      "strict_8x8_blocks": true,
+      "binary_alpha": true,
+      "approved_palette_only": true,
+      "vacant_cells_transparent": true,
+      "frames": [
+        {
+          "frame": 1,
+          "bbox_game_px": [
+            34,
+            41,
+            78,
+            82
+          ],
+          "component_sizes": [
+            711
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 2,
+          "bbox_game_px": [
+            28,
+            44,
+            73,
+            82
+          ],
+          "component_sizes": [
+            679
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 3,
+          "bbox_game_px": [
+            30,
+            43,
+            80,
+            82
+          ],
+          "component_sizes": [
+            756
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 4,
+          "bbox_game_px": [
+            34,
+            41,
+            81,
+            78
+          ],
+          "component_sizes": [
+            735
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 5,
+          "bbox_game_px": [
+            35,
+            45,
+            81,
+            78
+          ],
+          "component_sizes": [
+            713
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 6,
+          "bbox_game_px": [
+            32,
+            44,
+            79,
+            82
+          ],
+          "component_sizes": [
+            699
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 7,
+          "bbox_game_px": [
+            33,
+            44,
+            79,
+            82
+          ],
+          "component_sizes": [
+            728
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 8,
+          "bbox_game_px": [
+            30,
+            41,
+            71,
+            82
+          ],
+          "component_sizes": [
+            815
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        }
+      ]
+    },
+    "skill": {
+      "dimensions_ok": true,
+      "strict_8x8_blocks": true,
+      "binary_alpha": true,
+      "approved_palette_only": true,
+      "vacant_cells_transparent": true,
+      "frames": [
+        {
+          "frame": 1,
+          "bbox_game_px": [
+            29,
+            33,
+            63,
+            82
+          ],
+          "component_sizes": [
+            684
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 2,
+          "bbox_game_px": [
+            37,
+            41,
+            88,
+            82
+          ],
+          "component_sizes": [
+            770
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 3,
+          "bbox_game_px": [
+            33,
+            46,
+            83,
+            82
+          ],
+          "component_sizes": [
+            788
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 4,
+          "bbox_game_px": [
+            34,
+            48,
+            83,
+            82
+          ],
+          "component_sizes": [
+            750
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 5,
+          "bbox_game_px": [
+            34,
+            48,
+            83,
+            82
+          ],
+          "component_sizes": [
+            750
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 6,
+          "bbox_game_px": [
+            33,
+            48,
+            82,
+            82
+          ],
+          "component_sizes": [
+            750
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 7,
+          "bbox_game_px": [
+            32,
+            48,
+            84,
+            82
+          ],
+          "component_sizes": [
+            773
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 8,
+          "bbox_game_px": [
+            31,
+            41,
+            72,
+            82
+          ],
+          "component_sizes": [
+            815
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        }
+      ]
+    },
+    "run": {
+      "dimensions_ok": true,
+      "strict_8x8_blocks": true,
+      "binary_alpha": true,
+      "approved_palette_only": true,
+      "vacant_cells_transparent": true,
+      "frames": [
+        {
+          "frame": 1,
+          "bbox_game_px": [
+            26,
+            41,
+            71,
+            82
+          ],
+          "component_sizes": [
+            739
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 2,
+          "bbox_game_px": [
+            24,
+            42,
+            71,
+            82
+          ],
+          "component_sizes": [
+            720
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 3,
+          "bbox_game_px": [
+            28,
+            42,
+            72,
+            82
+          ],
+          "component_sizes": [
+            729
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 4,
+          "bbox_game_px": [
+            25,
+            41,
+            71,
+            82
+          ],
+          "component_sizes": [
+            742
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 5,
+          "bbox_game_px": [
+            26,
+            41,
+            72,
+            82
+          ],
+          "component_sizes": [
+            716
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 6,
+          "bbox_game_px": [
+            24,
+            42,
+            70,
+            82
+          ],
+          "component_sizes": [
+            675
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 7,
+          "bbox_game_px": [
+            25,
+            42,
+            69,
+            82
+          ],
+          "component_sizes": [
+            710
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 8,
+          "bbox_game_px": [
+            23,
+            41,
+            69,
+            82
+          ],
+          "component_sizes": [
+            729
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        }
+      ]
+    },
+    "attack": {
+      "dimensions_ok": true,
+      "strict_8x8_blocks": true,
+      "binary_alpha": true,
+      "approved_palette_only": true,
+      "vacant_cells_transparent": true,
+      "frames": [
+        {
+          "frame": 1,
+          "bbox_game_px": [
+            33,
+            41,
+            80,
+            82
+          ],
+          "component_sizes": [
+            750
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 2,
+          "bbox_game_px": [
+            33,
+            41,
+            81,
+            82
+          ],
+          "component_sizes": [
+            745
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 3,
+          "bbox_game_px": [
+            34,
+            41,
+            83,
+            82
+          ],
+          "component_sizes": [
+            766
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 4,
+          "bbox_game_px": [
+            33,
+            38,
+            80,
+            82
+          ],
+          "component_sizes": [
+            752
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 5,
+          "bbox_game_px": [
+            34,
+            38,
+            78,
+            82
+          ],
+          "component_sizes": [
+            739
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 6,
+          "bbox_game_px": [
+            29,
+            41,
+            70,
+            82
+          ],
+          "component_sizes": [
+            815
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        }
+      ]
+    },
+    "passive": {
+      "dimensions_ok": true,
+      "strict_8x8_blocks": true,
+      "binary_alpha": true,
+      "approved_palette_only": true,
+      "vacant_cells_transparent": true,
+      "frames": [
+        {
+          "frame": 1,
+          "bbox_game_px": [
+            33,
+            41,
+            74,
+            82
+          ],
+          "component_sizes": [
+            692
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 2,
+          "bbox_game_px": [
+            33,
+            45,
+            74,
+            82
+          ],
+          "component_sizes": [
+            688
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 3,
+          "bbox_game_px": [
+            34,
+            45,
+            74,
+            82
+          ],
+          "component_sizes": [
+            679
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 4,
+          "bbox_game_px": [
+            34,
+            43,
+            77,
+            82
+          ],
+          "component_sizes": [
+            747
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 5,
+          "bbox_game_px": [
+            33,
+            45,
+            76,
+            82
+          ],
+          "component_sizes": [
+            698
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 6,
+          "bbox_game_px": [
+            29,
+            41,
+            70,
+            82
+          ],
+          "component_sizes": [
+            815
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        }
+      ]
+    },
+    "ult": {
+      "dimensions_ok": true,
+      "strict_8x8_blocks": true,
+      "binary_alpha": true,
+      "approved_palette_only": true,
+      "vacant_cells_transparent": true,
+      "frames": [
+        {
+          "frame": 1,
+          "bbox_game_px": [
+            32,
+            36,
+            66,
+            82
+          ],
+          "component_sizes": [
+            642
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 2,
+          "bbox_game_px": [
+            34,
+            47,
+            70,
+            82
+          ],
+          "component_sizes": [
+            642
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 3,
+          "bbox_game_px": [
+            32,
+            50,
+            74,
+            82
+          ],
+          "component_sizes": [
+            618
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 4,
+          "bbox_game_px": [
+            35,
+            49,
+            77,
+            82
+          ],
+          "component_sizes": [
+            642
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 5,
+          "bbox_game_px": [
+            34,
+            49,
+            75,
+            82
+          ],
+          "component_sizes": [
+            619
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 6,
+          "bbox_game_px": [
+            32,
+            49,
+            74,
+            82
+          ],
+          "component_sizes": [
+            628
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 7,
+          "bbox_game_px": [
+            32,
+            48,
+            73,
+            82
+          ],
+          "component_sizes": [
+            639
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 8,
+          "bbox_game_px": [
+            34,
+            50,
+            74,
+            82
+          ],
+          "component_sizes": [
+            599
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 9,
+          "bbox_game_px": [
+            30,
+            41,
+            71,
+            82
+          ],
+          "component_sizes": [
+            815
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        }
+      ]
+    },
+    "hit": {
+      "dimensions_ok": true,
+      "strict_8x8_blocks": true,
+      "binary_alpha": true,
+      "approved_palette_only": true,
+      "vacant_cells_transparent": true,
+      "frames": [
+        {
+          "frame": 1,
+          "bbox_game_px": [
+            32,
+            41,
+            79,
+            82
+          ],
+          "component_sizes": [
+            738
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        },
+        {
+          "frame": 2,
+          "bbox_game_px": [
+            28,
+            41,
+            69,
+            82
+          ],
+          "component_sizes": [
+            815
+          ],
+          "one_connected_sprite": true,
+          "baseline_ok": true,
+          "approved_head_pixels_ok": true,
+          "eye_blue_only_in_expected_eye_pixels": true
+        }
+      ]
+    }
+  },
+  "failures": [],
+  "idle_sha256_equal_to_supplied": true,
+  "file_checks_passed": true
+}

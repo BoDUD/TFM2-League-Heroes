@@ -1,0 +1,295 @@
+{
+  "schema_version": 1,
+  "stage": "design_draft",
+  "assets": [
+    {
+      "version": "A",
+      "file": "caitlyn_design_A.png",
+      "status": "unprocessed_generated_draft",
+      "canvas_px": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "intended_canvas_px": [
+        1024,
+        1024
+      ],
+      "intended_pixel_block_px": 8,
+      "intended_character_height_game_px": 42,
+      "intended_sole_game_row_zero_based": 99,
+      "intended_sole_canvas_y_inclusive": [
+        792,
+        799
+      ],
+      "actual_silhouette_bbox_alpha_at_least_128_exclusive": [
+        402,
+        241,
+        988,
+        1222
+      ],
+      "actual_any_alpha_bbox_exclusive": [
+        23,
+        21,
+        1210,
+        1225
+      ],
+      "actual_sole_canvas_row_alpha_at_least_128": 1221,
+      "actual_sole_game_row": null,
+      "standing_anchor_px": null,
+      "eye_blue_centers_game_px": null,
+      "null_reason": "Draft is not on the required game grid; game coordinates are unverified.",
+      "opaque_rgb_color_count_alpha_at_least_128": 88111,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "partially_transparent_pixel_count": 238170,
+      "nonuniform_8x8_visible_block_count": 4305,
+      "palette_most_frequent_24_for_reference_only": [
+        {
+          "hex": "#000000",
+          "pixels": 1701
+        },
+        {
+          "hex": "#000001",
+          "pixels": 546
+        },
+        {
+          "hex": "#FFFFFF",
+          "pixels": 522
+        },
+        {
+          "hex": "#000002",
+          "pixels": 373
+        },
+        {
+          "hex": "#000003",
+          "pixels": 333
+        },
+        {
+          "hex": "#010000",
+          "pixels": 266
+        },
+        {
+          "hex": "#FDFDFD",
+          "pixels": 246
+        },
+        {
+          "hex": "#020100",
+          "pixels": 242
+        },
+        {
+          "hex": "#060009",
+          "pixels": 232
+        },
+        {
+          "hex": "#000004",
+          "pixels": 229
+        },
+        {
+          "hex": "#040008",
+          "pixels": 226
+        },
+        {
+          "hex": "#050009",
+          "pixels": 222
+        },
+        {
+          "hex": "#06000A",
+          "pixels": 216
+        },
+        {
+          "hex": "#010100",
+          "pixels": 215
+        },
+        {
+          "hex": "#010001",
+          "pixels": 214
+        },
+        {
+          "hex": "#030200",
+          "pixels": 199
+        },
+        {
+          "hex": "#040007",
+          "pixels": 194
+        },
+        {
+          "hex": "#07000B",
+          "pixels": 189
+        },
+        {
+          "hex": "#07000A",
+          "pixels": 187
+        },
+        {
+          "hex": "#06000B",
+          "pixels": 186
+        },
+        {
+          "hex": "#010002",
+          "pixels": 185
+        },
+        {
+          "hex": "#050008",
+          "pixels": 183
+        },
+        {
+          "hex": "#040009",
+          "pixels": 180
+        },
+        {
+          "hex": "#05000A",
+          "pixels": 179
+        }
+      ],
+      "validated_for_game_import": false
+    },
+    {
+      "version": "B",
+      "file": "caitlyn_design_B.png",
+      "status": "unprocessed_generated_draft",
+      "canvas_px": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "intended_canvas_px": [
+        1024,
+        1024
+      ],
+      "intended_pixel_block_px": 8,
+      "intended_character_height_game_px": 42,
+      "intended_sole_game_row_zero_based": 99,
+      "intended_sole_canvas_y_inclusive": [
+        792,
+        799
+      ],
+      "actual_silhouette_bbox_alpha_at_least_128_exclusive": [
+        403,
+        401,
+        882,
+        970
+      ],
+      "actual_any_alpha_bbox_exclusive": [
+        65,
+        53,
+        1210,
+        1212
+      ],
+      "actual_sole_canvas_row_alpha_at_least_128": 969,
+      "actual_sole_game_row": null,
+      "standing_anchor_px": null,
+      "eye_blue_centers_game_px": null,
+      "null_reason": "Draft is not on the required game grid; game coordinates are unverified.",
+      "opaque_rgb_color_count_alpha_at_least_128": 38276,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "partially_transparent_pixel_count": 123191,
+      "nonuniform_8x8_visible_block_count": 2279,
+      "palette_most_frequent_24_for_reference_only": [
+        {
+          "hex": "#0C0112",
+          "pixels": 394
+        },
+        {
+          "hex": "#0C0111",
+          "pixels": 389
+        },
+        {
+          "hex": "#0D0113",
+          "pixels": 376
+        },
+        {
+          "hex": "#0D0112",
+          "pixels": 365
+        },
+        {
+          "hex": "#0E0114",
+          "pixels": 339
+        },
+        {
+          "hex": "#282A50",
+          "pixels": 324
+        },
+        {
+          "hex": "#282A4F",
+          "pixels": 305
+        },
+        {
+          "hex": "#0B0110",
+          "pixels": 304
+        },
+        {
+          "hex": "#0F0115",
+          "pixels": 302
+        },
+        {
+          "hex": "#0C0011",
+          "pixels": 293
+        },
+        {
+          "hex": "#0B0010",
+          "pixels": 287
+        },
+        {
+          "hex": "#0E0113",
+          "pixels": 283
+        },
+        {
+          "hex": "#1D1C33",
+          "pixels": 276
+        },
+        {
+          "hex": "#0E0115",
+          "pixels": 252
+        },
+        {
+          "hex": "#0B0111",
+          "pixels": 243
+        },
+        {
+          "hex": "#292B50",
+          "pixels": 243
+        },
+        {
+          "hex": "#0C0110",
+          "pixels": 238
+        },
+        {
+          "hex": "#292B51",
+          "pixels": 238
+        },
+        {
+          "hex": "#0A000F",
+          "pixels": 236
+        },
+        {
+          "hex": "#0F0116",
+          "pixels": 235
+        },
+        {
+          "hex": "#0C0012",
+          "pixels": 235
+        },
+        {
+          "hex": "#1E1D35",
+          "pixels": 221
+        },
+        {
+          "hex": "#292B52",
+          "pixels": 221
+        },
+        {
+          "hex": "#0A010E",
+          "pixels": 217
+        }
+      ],
+      "validated_for_game_import": false
+    }
+  ],
+  "note": "Native generation drafts. Exact 8x8 grid, <=24 colors, binary alpha and ground row are not met. Do not import without normalization."
+}
