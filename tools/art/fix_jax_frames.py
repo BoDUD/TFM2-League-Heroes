@@ -16,12 +16,18 @@ in the E burst and the lying death, 67 round the face in the death's frame 6.
      fewer) own dark ring then takes the colour round it, so no black dot is left in the cape. The real gaps stay open
      (KEEP): between the arm and the body, the lamppost and the body or the hood, the legs and the lantern, the cape
      and a leg - open in League's frames too.
+  0. REDRAW: the E burst (6) and the death's frames 2-8 stayed speckled after the holes were painted - every material
+     broken into single pixels by the drafts' sampling. Codex repainted them on their own 96x96 cells at game size,
+     only the design's 24 colours: flat 2-3 tone materials, the pole straightened, the silhouette, the mask and the
+     real gaps kept (assets/source/jax/REDO13.md; codex_redo13/: the 13 frames, HANDOFF, QA; the user: 「这个拜托
+     codex吧」). The 1x files replace those frames before the steps below.
 fix(tag, frames, pivots) -> (frames, {what: count}); frames HxWx4 uint8 cells, pivots (x, y) per frame.
 """
 import os
 import sys
 
 import numpy as np
+from PIL import Image
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
@@ -29,6 +35,7 @@ sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scr
 import strips as G  # noqa: E402
 
 SOLES = 11
+REDO = os.path.join(ROOT, "assets", "source", "jax", "codex_redo13")      # jax_<tag>_<n>.png, 96x96 cells, 1x
 OUTLINE = (0x11, 0x03, 0x15)     # the idle's outline (import_native closes the outline in it)
 DARK = 30                        # luminance under which a pixel counts as the outline
 PIN = 6
@@ -53,7 +60,7 @@ KEEP.update({
     ("hit", 1): [(21, 22, 3, 6)],                # the shin and the lantern
     ("hit", 2): [(8, 9, 4, 6)],
     ("dead", 4): [(12, 15, -10, -4)],            # the face and the arm on the planted lamppost
-    ("dead", 5): [(11, 14, -6, -4)],
+    ("dead", 5): [(11, 14, -6, -4), (9, 10, -3, -3)],
     ("dead", 7): [(14, 17, -2, 0)],              # the arm and the lantern
 })
 # clear pixels (from the pivot) open to the outside here that the import's outline closes into a hole all the same
@@ -192,9 +199,24 @@ def paint(f, pix, pin):
     return n
 
 
+def lp(p):
+    p = os.path.abspath(p)
+    pre = chr(92) * 2 + "?" + chr(92)
+    return p if os.name != "nt" or p.startswith(pre) else pre + p
+
+
 def fix(tag, frames, pivots):
     frames = [f.copy() for f in frames]
     report = {}
+    for k in range(len(frames)):                 # 0: Codex's redraws replace their frames
+        p = os.path.join(REDO, f"jax_{tag}_{k + 1}.png")
+        if os.path.exists(lp(p)):
+            a = np.asarray(Image.open(lp(p)).convert("RGBA")).copy()
+            assert a.shape == frames[k].shape, (tag, k + 1, a.shape)
+            a[a[..., 3] < 128] = 0
+            a[a[..., 3] > 0, 3] = 255
+            frames[k] = a
+            report["redrawn"] = report.get("redrawn", 0) + 1
     if tag == "attack":
         report["leg"] = leg(frames, pivots)
     for k, f in enumerate(frames):
