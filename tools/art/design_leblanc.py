@@ -30,7 +30,9 @@ staff to stand straight, the hole in the cape to go and the outline to be clean 
      apart from the wing ("法杖旁边多了一块黑色素") - and so does every edge square of the outline with no coloured
      square among its 8 neighbours (it outlines nothing: "这里也有多余的黑色方框", the left wing's tip);
   6. on the 128x128 canvas at 8x: the soles on row 99, the middle of the feet on column 64; the near eye's two
-     pupil squares in #7A0012, a red no other square uses (import_native's EYES finds the eyes by it).
+     pupil squares in #7A0012, a red no other square uses (import_native's EYES finds the eyes by it);
+  7. the hem by hand (tools/art/tidy_leblanc.py HEM: "乐芙兰有多余的像素没清理干净啊"), placed where the design sits
+     in Codex's idle (codex_strips/leblanc_idle.png, the design pasted), the same squares as every frame that holds it.
 --check compares the result with the committed leblanc_native.png instead of writing it.
 """
 import argparse
@@ -45,7 +47,11 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scripts"))
 import strips  # noqa: E402
 
+sys.path.insert(0, HERE)
+import tidy_leblanc as T  # noqa: E402
+
 DRAFT = os.path.join(ROOT, "assets", "source", "leblanc", "codex_model", "leblanc_design_B_1x.png")
+IDLE = os.path.join(ROOT, "assets", "source", "leblanc", "codex_strips", "leblanc_idle.png")
 OUT = os.path.join(ROOT, "assets", "source", "native", "leblanc_native.png")
 OUTLINE = (6, 2, 18)
 SOLE_ROW, MID_COL = 99, 64
@@ -387,6 +393,12 @@ def build():
         assert hexs(can[r, c]) == "7F0015", (r, c, hexs(can[r, c]))
         can[r, c, :3] = EYE
     assert not (can[..., :3] == np.array(EYE, np.uint8)).all(-1).sum() - len(PUPILS)
+    ref = np.asarray(Image.open(lp(IDLE)).convert("RGBA"))[4::8, 4::8][:80, :96].copy()
+    ref[ref[..., 3] < 128] = 0
+    ref[ref[..., 3] > 0, 3] = 255
+    dx, dy, share = T.find_body(can, ref)                       # 7. the hem, as in the idle
+    assert share == 1, share
+    can = T.hem(can, dx, dy)
     ys, xs = np.nonzero(can[..., 3] > 0)
     fig = can[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
     return can, fig

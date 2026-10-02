@@ -14,6 +14,8 @@ checks passed (blocks, palette, alpha, feet line, the head square for square); w
 2. Frame fixes (FIXES below), each a few squares, the rest Codex's. The run is Codex's redo (RUN_REDO.md; its first
    run kept one wide stance - my own leg redraw on it was turned down: "做的不行 让codex帮忙重做吧") with one upper body
    in all eight frames and each frame's own legs (run below: "移动时候头和身体不协调 像脱节了一样").
+3. Every frame, the idle too, last: tools/art/tidy_leblanc.py (the user: "乐芙兰有多余的像素没清理干净啊"): the design's
+   hem by hand wherever the design's lower body is; the run's cape loses a nub (in run below).
 Writes assets/source/native/leblanc_<tag>.png (8x), leblanc_ult.png (Q's: R repeats her last spell with that spell's
 own animation) and leblanc_cells.json (the pack's, with ult); then run tools/art/import_native.py --hero leblanc. --check compares with the files instead of writing them.
 """
@@ -30,6 +32,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 import design_leblanc as D  # noqa: E402
+import tidy_leblanc as T  # noqa: E402
 
 SRC = os.path.join(ROOT, "assets", "source", "leblanc", "codex_strips")
 # strips Codex drew again: the run (RUN_REDO.md - its first run kept one wide stance, "走路没有交叉步 平行走路？")
@@ -259,7 +262,7 @@ def run(frames, pivots):
     frames = [head_halo(f, p) for f, p in zip(frames, pivots)]
     heads = [find_head(f) for f in frames]
     k0 = RUN_BODY - 1
-    body = straight_staff(frames[k0], pivots[k0])
+    body = T.run_nub(straight_staff(frames[k0], pivots[k0]))
     px = pivots[k0][0]
     body[RUN_LEGS:, px + LEGS_X[0]:px + LEGS_X[1] + 1] = 0
     out = []
@@ -286,6 +289,7 @@ def main():
     with open(lp(os.path.join(SRC, "leblanc_cells.json")), encoding="utf-8") as f:
         cells = json.load(f)
     cw, ch = cells["cell"]
+    ref = load("idle")[:ch, :cw]                # the design as Codex pasted it: tidy_leblanc finds its lower body by it
     same = True
     for tag in TAGS:
         a = load(tag)
@@ -306,6 +310,10 @@ def main():
         if tag in TAG_FIXES:
             done = TAG_FIXES[tag](done, [row["pivot"] for row in cells["tags"][tag]])
             print(f"  {tag:11s} all: {TAG_FIXES[tag].__name__}")
+        for i, g in enumerate(done):            # 3: the stray squares
+            done[i], what = T.clean(g, ref)
+            if what:
+                print(f"  {tag:11s} {i + 1}: tidy - " + ", ".join(what))
         for i, g in enumerate(done):
             r, c = divmod(i, cols)
             out[r * ch:(r + 1) * ch, c * cw:(c + 1) * cw] = g
