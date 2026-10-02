@@ -29,8 +29,8 @@ near its white-pink head, growing out of the pod over its first two frames; W's 
 a tapering wavy trail, a magenta arc mirrored above and below, its first frame with a short trail. W's charge, blast and
 hit keep Codex's drawings in League's violet (the plasma ramp mapped onto the bullet's), the blast 26 px, the hit 30.
 The second step places every cell by its anchor on a spot from the pivot (game px, x right, y down; measured on
-league/champions/league_kaisa: the attack's palm (19, -9) in frame 3 and (23, -10) in frame 4, W's cannon (22, -6)
-while it charges (frames 3-4) and (24, -16) as it fires (frame 5), Q's pods' openings (-13, -29) and (15, -29) in
+league/champions/league_kaisa: the attack's palm (19, -9) in frame 3 and (23, -10) in frame 4, W's cannon (22, -10)
+while it charges (frames 3-4) and (23, -15) as it fires (frame 5), Q's pods' openings (-13, -30) and (16, -29) in
 frame 3, the soles 11 under the pivot) and times it by the kit: the attack bolt leaves her palm 9 px up (the kit's
 y_offset -3000 lifts it 8) and starts empty for the 3 ticks it spends inside her (19 px at 7000 a tick), W's bolt for
 2 (24 px at 14000), then they loop and hold (`repeat: false`); Q's missiles come out of the pods (y_offset -24000,
@@ -395,9 +395,9 @@ def cells(name, n):
 
 
 PALM3, PALM4 = (19.5, -9), (23.5, -10)     # just past the hand's last pixel: attack frames 3 and 4
-CANNON_LOW = (22.5, -6)                    # W's cannon mouth as it charges (frames 3-4)
-BLAST = (24.5, -13)                        # W's blast: between the raised cannon (-16) and the bolt (8 px up)
-PODS = [(-13, -29), (15, -29)]             # Q frame 3: the tops of the pods' magenta panels
+CANNON_LOW = (22.5, -10)                   # W's cannon mouth as it charges (frames 3-4, standing on the idle's body)
+BLAST = (24.5, -12)                        # W's blast: between the raised cannon (-15) and the bolt (8 px up)
+PODS = [(-13, -30), (16, -29)]             # Q frame 3: the tops of the pods' magenta panels
 HIT = (0, -8)                              # a hit on the upper body of a 32-44 px unit
 OVERHEAD = (0, -33)                        # over a 32-44 px unit's head: the plasma mark
 SOLES = (0, 11)                            # the ground under a unit (its soles' row)

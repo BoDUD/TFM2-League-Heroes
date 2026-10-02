@@ -19,16 +19,17 @@ where League's run_base takes two). The user: "有问题的地方你进行收尾
   5-7 the other way round, 4 and 8 the landings. The legs are the idle's: 4 squares wide with the shaded and lit plate
   edges, the gold knee, the lavender boot, 9 rows from the hip plates to the soles; one outline ring each, the near
   leg's over the far one;
-- W 2 and 6: the back leg Codex drew as a dark block, redrawn on its own line in the idle's leg materials, as long
-  and as thick as the idle's leg (the user: "放技能的时候注意如果腿不一致也要调整"); R 3: Codex's back leg, pushed off
-  25 squares behind her, redrawn the same way;
+- R 3: Codex's back leg, pushed off 25 squares behind her, redrawn in the idle's leg materials, as long and as thick
+  as the idle's leg (the user: "放技能的时候注意如果腿不一致也要调整");
 - R 1 and 2: the dark hair spike's inside in the hair's mid shade, its left edge lit;
-- the standing action frames (attack 2-5, Q 2-5, W 3-5, hit 1) on the idle's legs: Codex drew them on long legs
-  spread 30 squares apart, thinner than the idle's (the user: "待机时腿部和放技能时候不一样？待机时的腿部更好"). Each keeps
-  its rows down to the pivot's (torso, arms, the plates' top); under them the idle's rows 1-11 under its pivot go in -
-  the plates' lower edge between its hanging arms, then both legs and boots - moved under the frame's torso (the
-  middle of its row at the pivot against the idle's); the frame's own legs (its pieces under the pivot reaching 6 rows
-  down) are cleared first, an arm tip hanging past the pivot stays, specks left over go.
+- the standing action frames (attack 2-5, Q 2-5, W 2-6) on the idle's whole body: Codex drew them on long legs
+  spread 30 squares apart under a narrower, darker torso (the user: "待机时腿部和放技能时候不一样？待机时的腿部更好"; with
+  the idle's legs alone under Codex's torso the waist looked pinched: "你统一一下吧 感觉模型有点变形了"). Each frame is the
+  idle's torso and plates (rows 11 over to 2 under the pivot, its hanging arms cut out: ARM_CUT) and its legs at the
+  idle's own place, over Codex's head, pods, hair and arms - its frame without its legs (its pieces under the pivot
+  reaching 6 rows down), moved so its pasted head sits on the idle's head (the crouch of W 3-4, 4 rows, and the hops of
+  Q 5 and W 5 undone: W fires standing, as League's); specks left over go. Hit 1 (a head Codex turned) keeps its
+  torso and only stands on the idle's legs (the idle's rows 1-11 under its pivot moved under its torso).
 Writes assets/source/native/kaisa_run.png, kaisa_attack.png, kaisa_skill.png, kaisa_skill2.png, kaisa_hit.png,
 kaisa_ult.png and kaisa_ult_dash.png (8x, the cells of
 kaisa_cells.json: R's delivered 4-frame strip split into the launch, 1-3, and the dash pose the kit forces while she
@@ -213,18 +214,20 @@ RUN_LEGS = [
 ]
 THIGH, SHIN, FOOT = 3.8, 3.2, 2.8         # widths in game px (the inside, 4 squares like the idle's and the run's legs;
 #                                           the outline ring goes round it)
-# W's crouch (frames 2 and 6): the back leg Codex drew as a dark block, redrawn on its own line behind the body (hip,
-# knee, ankle, toe from the pivot; the block cleared first: dark squares in the box). Its first redraw followed the
-# block to 21-22 squares behind the hip, twice the idle's leg; the user: "放技能的时候注意如果腿不一致也要调整" - now
-# hip to ankle as long as the idle's leg (about 8), the foot on the soles' row
-W_LEGS = {1: (((-9, 1), (-12, 4), (-15, 8), (-17, 10)), (-23, 1, -9, 11)),
-          5: (((-10, 1), (-13, 4), (-16, 8), (-18, 10)), (-24, 1, -10, 11))}
-# standing frames on the idle's legs (indices from 0), the frame's rows kept down to LEG_CUT under the pivot; the idle's
-# part under it: HIP_SPAN columns (from its pivot) for the rows 1-3 under it (its plates, not its hanging arms), LEG_SPAN
-# for the rows 4-11 (both legs and boots)
-IDLE_LEGS = {"attack": [1, 2, 3, 4], "skill": [1, 2, 3, 4], "skill2": [2, 3, 4], "hit": [0]}
-LEG_CUT = 0
+# standing frames (indices from 0) on the idle's whole body; hit 1 on its legs only
+IDLE_BODY = {"attack": [1, 2, 3, 4], "skill": [1, 2, 3, 4], "skill2": [1, 2, 3, 4, 5]}
+IDLE_LEGS = {"hit": [0]}
+LEG_CUT = 0                               # legs only: the frame keeps its rows down to this one under the pivot
+# the idle's part under that: HIP_SPAN columns (from its pivot) for the rows 1-3 under it (its plates, not its hanging
+# arms), LEG_SPAN for the rows 4-11 (both legs and boots)
 HIP_SPAN, LEG_SPAN = (-6, 10), (-12, 12)
+# the idle's torso and plates: rows TORSO from its pivot, less its hanging arms - per row (from the pivot) the left arm
+# is x <= ARM_CUT[y][0], the right arm x >= ARM_CUT[y][1]
+TORSO = (-11, 2)
+ARM_CUT = {-7: (-8, 14), -6: (-8, 6), -5: (-8, 6), -4: (-10, 7), **{y: (-10, 9) for y in range(-3, 3)}}
+ARM_ROW = (-13, 14)                       # the other torso rows (under the chin): columns -12 to 13
+# Codex pasted the design's head in every frame: the idle's rows 20 to 12 over its pivot, columns -4 to 8, find it
+HEAD = (-4, -20, 9, -11)                  # x0, y0, x1, y1 from the pivot (x1, y1 exclusive)
 # R's launch, frame 3: Codex's back leg pushed off 25 squares behind her: everything in the box cleared (from the
 # pivot: the leg alone, under and behind the torso) and the leg redrawn as long as the idle's
 R_LEGS = {2: (((-10, 3), (-13, 6), (-16, 9), (-18, 10)), (-27, 3, -11, 12))}
@@ -429,43 +432,69 @@ def on_idle_legs(frame, pivot, idle):
     """The frame down to LEG_CUT under its pivot over the idle's plates' lower edge and legs, moved under its torso."""
     px, py = pivot
     ix, iy = IDLE_PIVOT
-    out = frame.copy()
-    below = np.zeros(frame.shape[:2], bool)
-    below[py + LEG_CUT + 1:] = frame[py + LEG_CUT + 1:, :, 3] > 0
-    lab, n = pieces_of(below)
-    for k in range(1, n + 1):
-        if np.nonzero(lab == k)[0].max() >= py + 6:      # a leg (an arm tip stays above that)
-            out[lab == k] = 0
+    out = without_legs(frame, py + LEG_CUT)
     a0, a1 = run_at(frame, py + LEG_CUT, px)
     b0, b1 = run_at(idle, iy + LEG_CUT, ix)
-    dx = int(round((a0 + a1) / 2 - (b0 + b1) / 2))
-    for y in range(LEG_CUT + 1, 12):
+    idle_legs_at(out, px, py, idle, dx=int(round((a0 + a1) / 2 - (b0 + b1) / 2)), first=LEG_CUT + 1)
+    return drop_specks(out)
+
+
+def head_at(frame, head, hm):
+    """(x, y) of the pasted head's box in the frame (every square of it exact), or None."""
+    h, w = hm.shape
+    for y in range(frame.shape[0] - h):
+        for x in range(frame.shape[1] - w):
+            win = frame[y:y + h, x:x + w]
+            if ((win[..., 3] > 0) == hm).all() and (win[hm][:, :3] == head[hm][:, :3]).all():
+                return x, y
+    return None
+
+
+def without_legs(frame, py):
+    """The frame less its pieces under the pivot that reach 6 rows down (legs); arm tips over that stay."""
+    out = frame.copy()
+    below = np.zeros(frame.shape[:2], bool)
+    below[py + 1:] = frame[py + 1:, :, 3] > 0
+    lab, n = pieces_of(below)
+    for k in range(1, n + 1):
+        if np.nonzero(lab == k)[0].max() >= py + 6:
+            out[lab == k] = 0
+    return out
+
+
+def idle_legs_at(out, px, py, idle, dx=0, first=1):
+    """The idle's rows first..11 under its pivot (plates' lower edge between its arms, then both legs) at (px + dx, py)."""
+    ix, iy = IDLE_PIVOT
+    for y in range(first, 12):
         x0, x1 = HIP_SPAN if y <= 3 else LEG_SPAN
         for x in range(x0, x1 + 1):
             if idle[iy + y, ix + x, 3]:
                 out[py + y, px + x + dx] = idle[iy + y, ix + x]
-    return drop_specks(out)
 
 
-def w_frame(frame, pivot, k):
-    if k not in W_LEGS:
-        return frame
+def on_idle_body(frame, pivot, idle):
+    """Codex's head, pods, hair and arms moved onto the idle's torso, plates and legs (see the docstring)."""
     px, py = pivot
-    pts, (x0, y0, x1, y1) = W_LEGS[k]
-    a = frame.copy()
-    for y in range(py + y0, py + y1 + 1):
-        for x in range(px + x0, px + x1 + 1):
-            if a[y, x, 3] and colour(a, y, x) in DARK:
-                a[y, x] = 0
+    ix, iy = IDLE_PIVOT
+    x0, y0, x1, y1 = HEAD
+    head = idle[iy + y0:iy + y1, ix + x0:ix + x1]
+    hm = head[..., 3] > 0
+    pos = head_at(frame, head, hm)
+    if pos is None:
+        sys.exit("no pasted head in a standing frame")
+    dx, dy = pos[0] - (px + x0), pos[1] - (py + y0)
+    parts = without_legs(frame, py)
     out = np.zeros_like(frame)
-    leg = draw_leg(pts)
-    for (x, y) in ring(leg):
-        if y <= 11:
-            out[py + y, px + x] = INK + (255,)
-    for (x, y), c in leg.items():
-        out[py + y, px + x] = c + (255,)
-    m = a[..., 3] > 0
-    out[m] = a[m]
+    ys, xs = np.nonzero(parts[..., 3])
+    ty, tx = ys - dy, xs - dx
+    ok = (ty >= 0) & (ty < out.shape[0]) & (tx >= 0) & (tx < out.shape[1])
+    out[ty[ok], tx[ok]] = parts[ys[ok], xs[ok]]
+    for y in range(TORSO[0], TORSO[1] + 1):
+        lo, hi = ARM_CUT.get(y, ARM_ROW)
+        for x in range(lo + 1, hi):
+            if idle[iy + y, ix + x, 3]:
+                out[py + y, px + x] = idle[iy + y, ix + x]
+    idle_legs_at(out, px, py, idle, first=TORSO[1] + 1)
     return drop_specks(out)
 
 
@@ -506,10 +535,14 @@ def build():
     out["run"] = ([run_frame(idle, k, tuple(r["pivot"])) for k, r in enumerate(run)], run)
     w = cells["tags"]["skill2"]
     src = cells_of(os.path.join(SRC, "kaisa_skill2.png"), len(w), cell)
-    out["skill2"] = ([w_frame(f, tuple(r["pivot"]), k) for k, (f, r) in enumerate(zip(src, w))], w)
+    out["skill2"] = (src, w)
     for tag in ("attack", "skill", "hit"):
         rows = cells["tags"][tag]
         out[tag] = (cells_of(os.path.join(SRC, f"kaisa_{tag}.png"), len(rows), cell), rows)
+    for tag, ks in IDLE_BODY.items():
+        frames, rows = out[tag]
+        for k in ks:
+            frames[k] = on_idle_body(frames[k], tuple(rows[k]["pivot"]), idle)
     for tag, ks in IDLE_LEGS.items():
         frames, rows = out[tag]
         for k in ks:
