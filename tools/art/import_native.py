@@ -318,10 +318,9 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        # Camille: the seam halfway down her leg blades (rows 93/94: the same silhouette, 3 squares of colour differ);
        # the blades' lower halves stay on the ground
        ("camille", "idle"): (5, [2, 3, 4]),
-       # LeBlanc: her gown's diagonal trims change every row; the seam at +9 ran through the hem over her heels and the
-       # breathing frames lost the row of her feet (the user: "上下摆动时腿部丢失"); at +3, in the gown's middle, the rows
-       # +3/+4 differ in 11 squares and none of the outline - the hem, the feet and the staff's tip stay
-       ("leblanc", "idle"): (3, [2, 3, 4]),
+       # LeBlanc: her gown's diagonal trims change every row (13-18 squares from one row to the next); the seam runs
+       # through the hem over her heels (rows 97/98 of the design), the staff's straight shaft one row shorter
+       ("leblanc", "idle"): (9, [2, 3, 4]),
        # Kai'Sa: the seam low in her shin plates (rows 6/7 under the pivot: 2 squares of opacity and 4 of colour differ);
        # the clawed boots stay
        ("kaisa", "idle"): (6, [2, 3, 4]),
