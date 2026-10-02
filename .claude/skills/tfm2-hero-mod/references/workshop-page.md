@@ -53,6 +53,12 @@ Free, non-commercial fan mod. <Franchise> and its characters belong to <owner>.
 links, Discord channel
 ```
 
+## Upload folder
+
+Upload a packed copy, not the source folder: players' games read every file at start-up
+(mod-structure.md "Loading cost"). In the league repo: `python tools/package_mod.py --out <folder>/league`,
+lint that folder, then point TFM2ModUploader at it (19 MB instead of 77 MB on 2026-10-02).
+
 ## Change notes
 
 Keep a `WORKSHOP_CHANGE_NOTE_<version>.txt` per release (LoL Reborn does) and paste it into the

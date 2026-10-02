@@ -1,0 +1,329 @@
+[
+  {
+    "file": "logical/blitzcrank_fx_e_hit_1x.png",
+    "size": [
+      144,
+      40
+    ],
+    "mode": "RGBA",
+    "alpha_values": [
+      0,
+      255
+    ],
+    "used_palette": [
+      "#984B01",
+      "#DD8702",
+      "#F9AF07",
+      "#FFD24A",
+      "#FFF2B0",
+      "#FFFFFF"
+    ],
+    "palette_ok": true,
+    "sha256": "7c97dc9de528cf603a2215216d86574c467096de0c4a8d1a9c1c8bee12ba9485"
+  },
+  {
+    "file": "logical/blitzcrank_fx_hit_1x.png",
+    "size": [
+      80,
+      16
+    ],
+    "mode": "RGBA",
+    "alpha_values": [
+      0,
+      255
+    ],
+    "used_palette": [
+      "#67718F",
+      "#984B01",
+      "#BFCDE0",
+      "#DD8702",
+      "#F9AF07",
+      "#FFD24A",
+      "#FFF2B0",
+      "#FFFFFF"
+    ],
+    "palette_ok": true,
+    "sha256": "3d25f34da0608c70bbb4a28722f2c57a578d72fbf1daffc387f3c873a02f9465"
+  },
+  {
+    "file": "logical/blitzcrank_fx_mb_on_1x.png",
+    "size": [
+      360,
+      56
+    ],
+    "mode": "RGBA",
+    "alpha_values": [
+      0,
+      255
+    ],
+    "used_palette": [
+      "#984B01",
+      "#DD8702",
+      "#F9AF07",
+      "#FFD24A",
+      "#FFF2B0",
+      "#FFFFFF"
+    ],
+    "palette_ok": true,
+    "sha256": "a3b72d46d15b38d02f85da8afc58a2707ab8a704afb3135a4e505918ded13783"
+  },
+  {
+    "file": "logical/blitzcrank_fx_p_bolt_1x.png",
+    "size": [
+      120,
+      44
+    ],
+    "mode": "RGBA",
+    "alpha_values": [
+      0,
+      255
+    ],
+    "used_palette": [
+      "#3A5CE0",
+      "#4FA0FF",
+      "#9ED8FF",
+      "#E6F6FF",
+      "#FFFFFF"
+    ],
+    "palette_ok": true,
+    "sha256": "64181594d9c04855dd4d7a80466cf905ea675b8f243c842462f9e54826e4b6ec"
+  },
+  {
+    "file": "logical/blitzcrank_fx_p_mark_1x.png",
+    "size": [
+      108,
+      18
+    ],
+    "mode": "RGBA",
+    "alpha_values": [
+      0,
+      255
+    ],
+    "used_palette": [
+      "#2A2A9A",
+      "#3A5CE0",
+      "#4FA0FF",
+      "#9ED8FF",
+      "#E6F6FF",
+      "#FFFFFF"
+    ],
+    "palette_ok": true,
+    "sha256": "5a9e3607de51a0fa8d1c1141bcb53dd01774c890c929c7f7abc5633ef58e6bc3"
+  },
+  {
+    "file": "logical/blitzcrank_fx_q_cable_1x.png",
+    "size": [
+      12,
+      3
+    ],
+    "mode": "RGBA",
+    "alpha_values": [
+      255
+    ],
+    "used_palette": [
+      "#373E56",
+      "#454759",
+      "#67718F",
+      "#A2AECC"
+    ],
+    "palette_ok": true,
+    "sha256": "ab957d22e0c7d0f65ce3c2bea0c4bc20d89c414b7bcc308f1b46d27085e72b2d"
+  },
+  {
+    "file": "logical/blitzcrank_fx_q_grab_1x.png",
+    "size": [
+      110,
+      22
+    ],
+    "mode": "RGBA",
+    "alpha_values": [
+      0,
+      255
+    ],
+    "used_palette": [
+      "#2A2A9A",
+      "#3A5CE0",
+      "#4FA0FF",
+      "#984B01",
+      "#9ED8FF",
+      "#DD8702",
+      "#E6F6FF",
+      "#F9AF07",
+      "#FFD24A",
+      "#FFF2B0",
+      "#FFFFFF"
+    ],
+    "palette_ok": true,
+    "sha256": "70313f2b78e130b60a327798656ad053980e6cc9b07fa926eddb20b0f3f755a8"
+  },
+  {
+    "file": "logical/blitzcrank_fx_q_hand_1x.png",
+    "size": [
+      32,
+      12
+    ],
+    "mode": "RGBA",
+    "alpha_values": [
+      0,
+      255
+    ],
+    "used_palette": [
+      "#170F1D",
+      "#373E56",
+      "#454759",
+      "#672D01",
+      "#67718F",
+      "#6E7884",
+      "#984B01",
+      "#9AA4B0",
+      "#A2AECC",
+      "#BC6802",
+      "#C8D0D8",
+      "#DD8702",
+      "#E8ECF0",
+      "#F9AF07",
+      "#FFFFFF"
+    ],
+    "palette_ok": true,
+    "sha256": "7eec29255ee7523ba4c67a6e0cfccd2543e0b9e54eb14bc89c8c26bc6f1d006f"
+  },
+  {
+    "file": "logical/blitzcrank_fx_q_parts_1x.png",
+    "size": [
+      32,
+      15
+    ],
+    "mode": "RGBA",
+    "alpha_values": [
+      0,
+      255
+    ],
+    "used_palette": [
+      "#170F1D",
+      "#373E56",
+      "#454759",
+      "#672D01",
+      "#67718F",
+      "#6E7884",
+      "#984B01",
+      "#9AA4B0",
+      "#A2AECC",
+      "#BC6802",
+      "#C8D0D8",
+      "#DD8702",
+      "#E8ECF0",
+      "#F9AF07",
+      "#FFFFFF"
+    ],
+    "palette_ok": true,
+    "sha256": "aa253aff9e916a244e76031ae32546144304130d203bcc084e0d27640ff7f732"
+  },
+  {
+    "file": "logical/blitzcrank_fx_r_charge_1x.png",
+    "size": [
+      300,
+      56
+    ],
+    "mode": "RGBA",
+    "alpha_values": [
+      0,
+      255
+    ],
+    "used_palette": [
+      "#2A2A9A",
+      "#3A5CE0",
+      "#4FA0FF",
+      "#9ED8FF",
+      "#E6F6FF",
+      "#FFFFFF"
+    ],
+    "palette_ok": true,
+    "sha256": "d96d9a0dbde63561489e5f09a31e7cbb203649e2013e420b8a14e298190296fb"
+  },
+  {
+    "file": "logical/blitzcrank_fx_r_field_1x.png",
+    "size": [
+      924,
+      72
+    ],
+    "mode": "RGBA",
+    "alpha_values": [
+      0,
+      255
+    ],
+    "used_palette": [
+      "#2A2A9A",
+      "#3A5CE0",
+      "#4FA0FF",
+      "#9ED8FF",
+      "#E6F6FF",
+      "#FFFFFF"
+    ],
+    "palette_ok": true,
+    "sha256": "b882b16110afb9518c62f311245c74369af30ed691a94ec003bb311ad8518b33"
+  },
+  {
+    "file": "logical/blitzcrank_fx_r_hit_1x.png",
+    "size": [
+      90,
+      18
+    ],
+    "mode": "RGBA",
+    "alpha_values": [
+      0,
+      255
+    ],
+    "used_palette": [
+      "#2A2A9A",
+      "#3A5CE0",
+      "#4FA0FF",
+      "#9ED8FF",
+      "#E6F6FF"
+    ],
+    "palette_ok": true,
+    "sha256": "446337d6bec84976db7f8edaf9adb1db578784416bb1c4f26eaf1d1ee5cc47af"
+  },
+  {
+    "file": "logical/blitzcrank_fx_r_silence_1x.png",
+    "size": [
+      132,
+      12
+    ],
+    "mode": "RGBA",
+    "alpha_values": [
+      0,
+      255
+    ],
+    "used_palette": [
+      "#6A30C0",
+      "#9A60F0",
+      "#C8A0FF",
+      "#F0E0FF"
+    ],
+    "palette_ok": true,
+    "sha256": "1b04427d79bdfdd76962718435282af25b4c9d3b62eed9a58ab88baa45d6bb2d"
+  },
+  {
+    "file": "logical/blitzcrank_fx_w_steam_1x.png",
+    "size": [
+      288,
+      56
+    ],
+    "mode": "RGBA",
+    "alpha_values": [
+      0,
+      255
+    ],
+    "used_palette": [
+      "#6E7884",
+      "#9AA4B0",
+      "#C8D0D8",
+      "#E8ECF0",
+      "#FFD24A",
+      "#FFF2B0",
+      "#FFFFFF"
+    ],
+    "palette_ok": true,
+    "sha256": "fe5c3776d5e4cdffc1169fa5138a15a450928926473a4652b16843abb586dd5f"
+  }
+]

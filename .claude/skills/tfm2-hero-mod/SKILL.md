@@ -71,9 +71,12 @@ empty tooltip). That is why the linter exists - run it after every edit.
 7. **Play-test** - a 5v5 simulation on the classic mod SDK's engine (game_core 0.5.1, the last one shipped;
    champion-data section 9) first shows every cast with its target kind and
    the end-of-game statistics (porting-heroes.md "Balance check"). Then
-   copy to `<game>/mods/<mod_id>/`, enable in the Mods menu, watch each action,
-   compare the hero's height with a base champion. Details: `references/mod-structure.md`.
-8. **Publish** - `TFM2ModUploader.exe` + the page layout in `references/workshop-page.md`.
+   install into `<game>/mods/<mod_id>/` (in the league repo: `tools/package_mod.py --hero <id> --install`,
+   which ships MP3 clips, packed sheets and minified JSON - the game reads every mod file at start-up),
+   enable in the Mods menu, watch each action, compare the hero's height with a base champion.
+   Details: `references/mod-structure.md` ("Loading cost").
+8. **Publish** - upload the packed copy (`tools/package_mod.py --out <folder>`) with `TFM2ModUploader.exe`
+   + the page layout in `references/workshop-page.md`.
 
 ## Rules that prevent silent failures
 

@@ -12,12 +12,15 @@ load).
                              whirlwind knocks both up, Last Breath blinks to them and cuts them in
                              the air (Darius falls), Sweeping Blade dashes through Garen and a
                              spinning EQ follows, 3x
+  league_yasuo_combos.gif    the combos (tools/kit/yasuo_combos.py), labelled: the whirlwind knocks both up, E
+                             through Garen cuts the circle on the way (Q3 E Q), Last Breath onto Darius and the circle
+                             after the slash (R Q); 3x
 """
 import argparse
 import os
 import sys
 
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFont
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
@@ -120,6 +123,14 @@ def showcase(out, z=3, step=40):
     a("idle", 1500, loop=True)
     end = t
 
+    return film(out, W, H, end, foes, body, under, over, z=z, step=step)
+
+
+def film(out, W, H, end, foes, body, under, over, labels=(), z=3, step=40):
+    """Draw the clip: ground effects, the foes (the one further back first), Yasuo's first playing animation, the
+    other effects; labels = [(t0, t1, text)] in a corner."""
+    font = ImageFont.load_default(size=8 * z) if labels else None
+
     def place(img, f, px, py):
         img.alpha_composite(f, (px - f.width // 2, py - f.height // 2))
 
@@ -142,7 +153,12 @@ def showcase(out, z=3, step=40):
             f = an.frame(tt)
             if f is not None:
                 place(img, f, *an.pos(tt))
-        frames.append(img.resize((W * z, H * z), Image.NEAREST).convert("RGB"))
+        img = img.resize((W * z, H * z), Image.NEAREST).convert("RGB")
+        for t0, t1, text in labels:
+            if t0 <= tt < t1:
+                ImageDraw.Draw(img).text((4 * z, 2 * z), text, font=font, fill=(255, 236, 160),
+                                         stroke_width=z // 2 + 1, stroke_fill=(24, 20, 16))
+        frames.append(img)
         tt += step
     sample = frames[::6]                              # one palette for the whole clip
     strip = Image.new("RGB", (W * z, H * z * len(sample)))
@@ -152,6 +168,87 @@ def showcase(out, z=3, step=40):
     q = [f.quantize(palette=pal, dither=Image.Dither.NONE) for f in frames]
     q[0].save(T.long_path(out), save_all=True, append_images=q[1:], duration=step, loop=0)
     return len(frames), round(end / 1000.0, 1)
+
+
+def combos(out, z=3, step=40):
+    """The combos (tools/kit/yasuo_combos.py), labelled: the whirlwind knocks Darius and Garen up (Q3), Sweeping Blade
+    through Garen cuts the circle on the way (Q3 E Q), Last Breath onto Darius and the circle after the slash
+    (R Q); timed like the kit (the whirlwind on Q3's tick 11, the circle 10 ticks into E, 29 into R)."""
+    yas = load(CHAMP)
+    fx = {k: load(v) for k, v in FX.items()}
+    W, H = 250, 130
+    gy = 90
+    foes = {
+        "darius": Foe(load(os.path.join(LEAGUE, "champions", "league_darius")), 136, gy),
+        "garen": Foe(load(os.path.join(LEAGUE, "champions", "league_garen")), 150, gy - 9),
+    }
+    d, g = foes["darius"], foes["garen"]
+    body, under, over, labels = [], [], [], []
+    t = 0.0
+    x = 100
+
+    def a(tag, dur=None, loop=False, at=None, to=None):
+        nonlocal t
+        an = Anim(frames_of(yas, tag), t, at if at is not None else x, gy, loop=loop,
+                  until=(t + dur) if dur else None, x1=to)
+        body.append(an)
+        t = an.until
+
+    def fx_at(sprite, tag, at, px, py=gy, ground=False, until=None, x1=None):
+        an = Anim(frames_of(fx[sprite], tag), at, px, py, z=-1 if ground else 1, loop=until is not None,
+                  until=until, x1=x1)
+        (under if ground else over).append(an)
+        return an
+
+    def circle(at, cx):
+        """EQ's cut round him: the picture 2 ticks in, the hit on whoever stands within 25 px 4 ticks in."""
+        fx_at("league_yasuo_big", "eq", at + tick(2), cx)
+        for f in (d, g):
+            if abs(f.pos(at + tick(4))[0] - cx) <= 27:
+                fx_at("league_yasuo_fx", "q_hit", at + tick(4), *f.pos(at + tick(4)))
+                f.flinches.append(at + tick(4))
+
+    a("idle", 300, loop=True)
+    # Q3: the whirlwind on tick 11, 2.5 px a tick, both knocked up for 1 s
+    s0 = t
+    fx_at("league_yasuo_fx", "q_ready", 0, x, until=s0 + tick(11))
+    launch = s0 + tick(11)
+    fx_at("league_yasuo_big", "tornado", launch, x + 8, until=launch + tick(80 / 2.5), x1=x + 88)
+    ups = {}
+    for f in (d, g):
+        up = launch + tick((f.x - x - 8) / 2.5)
+        ups[id(f)] = up
+        fx_at("league_yasuo_fx", "knockup", up, f.x, f.y)
+    a("q3")
+    # E in the window: through Garen (3.5 px a tick from tick 2), the circle 10 ticks in, on the way
+    e0 = t + tick(3)
+    a("idle", tick(3), loop=True)
+    to = g.x + 15
+    dash = tick((to - x) / 3.5)
+    fx_at("league_yasuo_fx", "e_hit", e0 + tick(2) + dash / 2, g.x, g.y)
+    g.flinches.append(e0 + tick(2) + dash / 2)
+    cut = e0 + tick(10)
+    at_cut = x + (to - x) * min(1.0, (cut - e0 - tick(2)) / dash)
+    a("skill2", cut - e0, to=at_cut)
+    x = at_cut
+    circle(cut, x)
+    a("eq", tick(24))
+    if dash > cut - e0 - tick(2):
+        x = to
+    # R onto Darius while both are still up: re-lifted, the slash on tick 25, the circle on tick 29
+    r0 = t
+    x = d.x - 12
+    land = r0 + tick(25)
+    for f in (d, g):
+        f.hops.append((ups[id(f)], land + 250, 16))
+        fx_at("league_yasuo_big", "r_slash", r0 + tick(4), *f.pos(r0 + tick(4)))
+    a("ult", tick(29))
+    circle(t, x)
+    d.death = t + tick(4) + 200
+    a("eq", tick(24))
+    a("idle", 1400, loop=True)
+    labels += [(s0, e0, "Q3"), (e0, r0, "Q3 E Q"), (r0, t, "R Q")]
+    return film(out, W, H, t, foes, body, under, over, labels=labels, z=z, step=step)
 
 
 def main():
@@ -167,6 +264,7 @@ def main():
         rows += [(sp, t["name"], f"{name[13:]}:{t['name']}") for t in sp.tags]
     print("effects", contact(rows, os.path.join(args.out, "league_yasuo_effects.png")))
     print("showcase frames/seconds", showcase(os.path.join(args.out, "league_yasuo_showcase.gif")))
+    print("combos frames/seconds", combos(os.path.join(args.out, "league_yasuo_combos.gif")))
 
 
 if __name__ == "__main__":

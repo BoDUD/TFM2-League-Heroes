@@ -1,0 +1,224 @@
+{
+  "character": "Blitzcrank",
+  "revision": "Q mechanical claw alignment redo",
+  "scale": 8,
+  "cell_1x": [
+    128,
+    112
+  ],
+  "body_files": [
+    {
+      "file": "blitzcrank_skill.png",
+      "layout": [
+        4,
+        2
+      ],
+      "frames": 8,
+      "timings_ms": [
+        60,
+        60,
+        70,
+        80,
+        120,
+        120,
+        80,
+        80
+      ]
+    },
+    {
+      "file": "blitzcrank_q_pull.png",
+      "layout": [
+        3,
+        1
+      ],
+      "frames": 3,
+      "timings_ms": [
+        100,
+        100,
+        100
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "name": "q_claw_open",
+      "file": "logical/blitzcrank_fx_q_claw_open_1x.png",
+      "size_1x": [
+        32,
+        14
+      ],
+      "cell_1x": [
+        16,
+        14
+      ],
+      "frames": [
+        {
+          "rect_1x": [
+            0,
+            0,
+            16,
+            14
+          ]
+        },
+        {
+          "rect_1x": [
+            16,
+            0,
+            16,
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "name": "q_claw_closed",
+      "file": "logical/blitzcrank_fx_q_claw_closed_1x.png",
+      "size_1x": [
+        32,
+        14
+      ],
+      "cell_1x": [
+        16,
+        14
+      ],
+      "frames": [
+        {
+          "rect_1x": [
+            0,
+            0,
+            16,
+            14
+          ]
+        },
+        {
+          "rect_1x": [
+            16,
+            0,
+            16,
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "name": "q_chain",
+      "file": "logical/blitzcrank_fx_q_chain_1x.png",
+      "size_1x": [
+        8,
+        3
+      ],
+      "tileable_x": true
+    }
+  ],
+  "wrist_positions_1x": {
+    "skill": [
+      {
+        "frame": 3,
+        "pivot": [
+          51,
+          86
+        ],
+        "wrist": [
+          75,
+          75
+        ],
+        "relative": [
+          24,
+          -11
+        ]
+      },
+      {
+        "frame": 4,
+        "pivot": [
+          60,
+          86
+        ],
+        "wrist": [
+          84,
+          75
+        ],
+        "relative": [
+          24,
+          -11
+        ]
+      },
+      {
+        "frame": 5,
+        "pivot": [
+          58,
+          86
+        ],
+        "wrist": [
+          82,
+          75
+        ],
+        "relative": [
+          24,
+          -11
+        ]
+      },
+      {
+        "frame": 6,
+        "pivot": [
+          54,
+          86
+        ],
+        "wrist": [
+          78,
+          75
+        ],
+        "relative": [
+          24,
+          -11
+        ]
+      }
+    ],
+    "q_pull": [
+      {
+        "frame": 1,
+        "pivot": [
+          58,
+          86
+        ],
+        "wrist": [
+          88,
+          81
+        ],
+        "relative": [
+          30,
+          -5
+        ]
+      },
+      {
+        "frame": 2,
+        "pivot": [
+          55,
+          86
+        ],
+        "wrist": [
+          85,
+          81
+        ],
+        "relative": [
+          30,
+          -5
+        ]
+      },
+      {
+        "frame": 3,
+        "pivot": [
+          54,
+          86
+        ],
+        "wrist": [
+          84,
+          81
+        ],
+        "relative": [
+          30,
+          -5
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "bbox_1x": [
+    41,
+    56,
+    87,
+    100
+  ],
+  "sprite_size": [
+    46,
+    44
+  ],
+  "colors": 22,
+  "alpha": [
+    0,
+    255
+  ],
+  "protected_pixel_differences": 0,
+  "native_gold_shade_counts": {
+    "#672d01": 76,
+    "#984b01": 95,
+    "#bc6802": 94,
+    "#dd8702": 156,
+    "#f9af07": 83,
+    "#fddc36": 14
+  },
+  "foot_row": 99,
+  "grid_exact": true,
+  "port_steel_extent": [
+    13,
+    12
+  ],
+  "gold_shadow_fraction": 0.5115830115830116,
+  "gold_brightest_fraction": 0.02702702702702703
+}
