@@ -15,6 +15,8 @@ legs (with the corners under a sole), the leg in front ringed over the one behin
 ring cuts the other. The shorts' crotch on the hips row stays; nothing above it changes.
 Then both ears the left one (tools/art/tristana_ears.py), on Codex's head: one row taller than the design's between the
 goggles and the face, so the head is found by its middle (the hair and the face between the ears).
+Then the cannon's bell symmetric (tools/art/tristana_bell.py, as shrink_tristana.py does): Codex's own smaller, slanted
+bell, the same drawing in all eight frames, gets the new one, moved with the bob.
 Writes assets/source/native/tristana_run.png (8x, cells and pivots unchanged); then run
 tools/art/import_native.py --hero tristana. --check compares with the file instead of writing it.
 """
@@ -30,6 +32,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import design_akali as D  # noqa: E402
 import shrink_tristana as S  # noqa: E402
+import tristana_bell as BELL  # noqa: E402
 import tristana_ears as EARS  # noqa: E402
 from native_refs import layout  # noqa: E402
 
@@ -134,6 +137,8 @@ def main():
         if found < EARS.FOUND:
             sys.exit(f"run {k + 1}: the head's middle is not in it ({found:.0%})")
         new[k] = EARS.same_ears(f, dx, dy)
+    run1 = new[0].copy()                            # the bell symmetric, found by the 1st frame's
+    new = [BELL.fix_run(f, run1) for f in new]
     strip = S.to_strip(new, layout(8), cell)
     if o.check:
         old = np.asarray(Image.open(D.lp(OUT)).convert("RGBA"))
