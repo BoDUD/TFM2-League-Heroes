@@ -21,6 +21,9 @@ whole figure (「死亡后模型缺失右半身」), no arm is drawn here (「�
           lying on the ground by his head;
   attack, skill (Q): the throw - Codex's four arm poses on the base (codex_throw/throw_arm_<k>_1x.png: wind-up,
           swing, release, follow-through; THROW_PROMPT.md) between two design frames; until they are there, the design.
+          Codex's release and follow-through arms reached 13-15 squares past the body, as far as he is wide (League's
+          claw reaches 4-6): 「凯南平A时手的长度有点怪啊」 - SHORTEN deletes sleeve columns there (the hand and the
+          shuriken move in), the user's pick B of 4 / 6 / 8 squares.
 Writes assets/source/native/kennen_<tag>.png (8x) and kennen_cells.json; then tools/art/import_native.py --hero kennen.
 """
 import argparse
@@ -53,6 +56,7 @@ MS = {"idle": [180] * 6, "run": [100] * 8, "attack": [60, 60, 60, 70, 70, 80], "
       "skill2": [75] * 4, "w": [50, 50, 60, 60, 60], "ult": [60, 60, 60, 70, 70, 80], "hit": [100, 100],
       "dead": [100, 100, 110, 110, 120, 150, 300, 500]}
 TAGS = list(MS)
+SHORTEN = {3: (77, 6), 4: (76, 4)}   # throw arm k: (first canvas column, columns) deleted from the sleeve
 
 UPPER = (60, 95)                # the design's rows above the shoes: the shuriken's tip to the robe's hem
 NEAR_SHOE = (96, 99, 56, 60)    # rows, columns of the design's shoes (the near one narrowed by the slim robe)
@@ -224,6 +228,12 @@ def throw_frames(full, base, order):
         p = THROW.format(k)
         if os.path.exists(lp(p)):
             arm = read1x(p)
+            if k in SHORTEN:
+                c0, n = SHORTEN[k]
+                short = np.zeros_like(arm)
+                short[:, :c0] = arm[:, :c0]
+                short[:, c0:arm.shape[1] - n] = arm[:, c0 + n:]
+                arm = short
             fig = base.copy()
             m = arm[..., 3] > 0
             fig[m] = arm[m]

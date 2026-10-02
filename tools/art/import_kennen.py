@@ -257,8 +257,8 @@ def cells(name, n):
     return [a[:, k * w:(k + 1) * w] for k in range(n)]
 
 
-HAND_A = (30, -5)               # the shuriken leaving his hand in the throw's release (attack frame 4)
-HAND_Q = (30, -5)               # the same release in Q (frame 4)
+HAND_A = (24, -5)               # the shuriken leaving his hand in the throw's release (attack frame 4, the arm shortened)
+HAND_Q = (24, -5)               # the same release in Q (frame 4)
 HIT = (0, -8)                   # a hit on the upper body of a 31-44 px unit
 OVERHEAD = (0, -35)             # over a 31-44 px unit's head: the mark counter
 SOLES = (0, 11)                 # the ground under a unit (its soles' row)
