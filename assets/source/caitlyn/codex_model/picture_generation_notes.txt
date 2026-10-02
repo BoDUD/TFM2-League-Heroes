@@ -1,0 +1,16 @@
+凯特琳像素造型图 A / B
+
+生成方式：内置 image_gen；未使用 CLI 或 Images API。
+文件：caitlyn-model-A.png、caitlyn-model-B.png
+规格：1024×1536，RGBA PNG，保留工具生成的透明通道。
+两张均为高清造型原图，尚未制作约40像素高的游戏精灵或动作帧。
+
+提示词要点（完整素材包提示词见 caitlyn-source-prompt.md）：
+Create Caitlyn from League of Legends, classic in-game costume, full-body detailed pixel art, 3/4 front facing right with both blue eyes visible. Match provided Vayne and Diana images for pixel illustration style and proportions only. Tall purple top hat with gold chevron and cyan gem, waist-length indigo hair, white cravat, cropped brown leather jacket, gold-trimmed violet dress with white petticoat, dark leggings, thigh straps and tall brown boots. Ornate gold and ivory hextech sniper rifle with cyan energy lines and round blue lenses. Sharp pixel clusters, dark outlines and hard cel shading. Real alpha-transparent portrait 1024x1536, no floor, shadow, halo or text; nothing below soles.
+
+A: Two hands holding rifle diagonally across waist and lower chest, stock at image-left hip, barrel rising toward upper right, face unobstructed.
+B: Far hand supporting upright rifle on image-left, stock at hip and muzzle above hat; near hand rests on hip.
+
+最后版面修订：仅调整整体尺寸与留白，要求人物从帽顶到鞋底约1100px，武器完整且所有方向至少80px留白，保留脸型、服装与姿势。生成结果的人物高度为近似值。
+
+检查：确认两文件均为1024×1536 RGBA；alpha包含0；在浅灰底合成预览核对透明区域无可见背景光晕、角色及枪械未裁切、面朝右、两只蓝眼睛可见。原始生成文件保持未修改。
