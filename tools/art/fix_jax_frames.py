@@ -20,7 +20,8 @@ in the E burst and the lying death, 67 round the face in the death's frame 6.
      broken into single pixels by the drafts' sampling. Codex repainted them on their own 96x96 cells at game size,
      only the design's 24 colours: flat 2-3 tone materials, the pole straightened, the silhouette, the mask and the
      real gaps kept (assets/source/jax/REDO13.md; codex_redo13/: the 13 frames, HANDOFF, QA; the user: 「这个拜托
-     codex吧」). The 1x files replace those frames before the steps below.
+     codex吧」). The 1x files replace those frames before the steps below. RECOLOUR then mends what the repaint left:
+     a pale skin-coloured cross in the plume of the E burst's frame 4 (the user: 「有问题的地方还是你帮我修吧」).
 fix(tag, frames, pivots) -> (frames, {what: count}); frames HxWx4 uint8 cells, pivots (x, y) per frame.
 """
 import os
@@ -63,6 +64,9 @@ KEEP.update({
     ("dead", 5): [(11, 14, -6, -4), (9, 10, -3, -3)],
     ("dead", 7): [(14, 17, -2, 0)],              # the arm and the lantern
 })
+# (tag, frame): (x0, x1, y0, y1 from the pivot, inclusive), {old colour: new colour} - colours mended in a box
+RECOLOUR = {("skill2_burst", 4): ((1, 5, -30, -25), {(0x8D, 0x86, 0xAE): (0x2F, 0x4A, 0x9C),
+                                                     (0x3A, 0x2A, 0x5C): (0x23, 0x3A, 0x7E)})}
 # clear pixels (from the pivot) open to the outside here that the import's outline closes into a hole all the same
 # (its clean-up redraws the outline's corners): painted like the holes
 EXTRA = {("attack_e", 1): [(-15, 5), (-16, 6), (-15, 6)], ("dead", 4): [(14, 3), (14, 4)],
@@ -217,6 +221,16 @@ def fix(tag, frames, pivots):
             a[a[..., 3] > 0, 3] = 255
             frames[k] = a
             report["redrawn"] = report.get("redrawn", 0) + 1
+        if (tag, k + 1) in RECOLOUR:
+            (x0, x1, y0, y1), swap = RECOLOUR[(tag, k + 1)]
+            px, py = pivots[k]
+            f = frames[k]
+            for y in range(py + y0, py + y1 + 1):
+                for x in range(px + x0, px + x1 + 1):
+                    c = tuple(int(v) for v in f[y, x, :3])
+                    if f[y, x, 3] and c in swap:
+                        f[y, x, :3] = swap[c]
+                        report["recoloured"] = report.get("recoloured", 0) + 1
     if tag == "attack":
         report["leg"] = leg(frames, pivots)
     for k, f in enumerate(frames):
