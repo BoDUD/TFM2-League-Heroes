@@ -14,9 +14,10 @@ where League's run_base takes two). The user: "有问题的地方你进行收尾
   tools/art/fix_caitlyn_run.py built Caitlyn's run (the user: "挺不错的"): every frame is the idle's frame 1 down to the
   hip plates (rows to 2 under the pivot, and the arms' tips: head, pods, torso, arms as one block), lowered by League's
   step (RUN_BOB: 0, 1, 1, 0 rows in each half - lowest in mid-stance), over two legs drawn the way
-  tools/art/diana_run_legs.py drew Diana's ("之前皎月有这问题"): the hips inside the idle's two hip plates, each leg
-  coming out under its own plate as in the idle (legs hung from her middle came out under the bodysuit and looked
-  cut off: "移动时腿看起来还是脱节的"), both legs alike ("左腿细右腿粗？" - the idle's two legs differ in its A-stance),
+  tools/art/diana_run_legs.py drew Diana's ("之前皎月有这问题"): the hips inside the upper body, under the middle of
+  her bodysuit 4 squares apart, so both legs come out under her (hips under the two hip plates hung a leg off her
+  side with the body's middle empty: "移动时腿看起来还是脱节的", "我说的是这里"), both legs alike ("左腿细右腿粗？" -
+  the idle's two legs differ in its A-stance),
   capsules in the idle's leg materials (plate with a shaded back and a lit front, the gold knee guard, the lavender
   boot with a darker sole), thigh 7.5 and shin 3.5 squares, the boot on the idle's soles row; one supporting leg per
   half (the near one in 1-4, the far one in 5-8), its boot flat and stepping back a square a frame (SUPPORT_DX), its
@@ -77,11 +78,12 @@ BOOT, BOOT_D = rgb("887CBF"), rgb("6D5EA2")
 IDLE_PIVOT = (48, 70)
 HIP_ROW = 2
 ARM_TIPS = [(-12, 3), (12, 3), (13, 3)]
-# the run's legs (tools/art/diana_run_legs.py's way): two bones each, the hip inside its own hip plate as in the idle
-# (the near leg under the left plate, the far one under the right plate's inner edge), so the idle's upper body covers
-# the thigh tops; both legs alike. Coordinates from the pivot, a square's middle at +0.5; the ankle of a flat boot at
+# the run's legs (tools/art/diana_run_legs.py's way): two bones each, both hips under the middle of her bodysuit, 4
+# squares apart, inside the idle's upper body, which covers the thigh tops - hips under the two hip plates (the idle's
+# own leg places) hung the legs off her sides, the body's middle empty over them (the user, of that frame:
+# "我说的是这里"); both legs alike. Coordinates from the pivot, a square's middle at +0.5; the ankle of a flat boot at
 # 10.0, so the boot fills rows 9-10 and its sole outline is row 11, the idle's
-RUN_HIPS = {"near": -3.0, "far": 3.5}
+RUN_HIPS = {"near": -1.5, "far": 2.5}
 RUN_HIP_Y, RUN_ANKLE_Y = -1.0, 10.0
 THIGH_L, SHIN_L = 7.5, 3.5                # the knee at the idle's knee guards, 6.5 under the pivot
 R_THIGH, R_SHIN = 1.75, 1.3               # the capsules' radii: a thigh 4 squares wide, a shin 3, like the idle's

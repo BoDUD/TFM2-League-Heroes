@@ -519,10 +519,11 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   legs ("移动时和放技能的时候腿部还是不一样啊 你看不出吗？"): the idle's boots are 3 squares over a dark sole row, its far
   leg 2-3 wide. Row-shifting the idle's legs instead (each row moved toward the foot, the shin's last rows dropped to
   lift it) put the boot straight under the knee: "上腿下下腿和截肢了一样"; the idle's leg texture mapped onto two bones
-  scattered its gold and brown detail squares into specks ("还是不对 你好好修吧"); hips moved to her middle made the
-  far leg come out under the bodysuit instead of its hip plate ("移动时腿看起来还是脱节的"), and the idle's two legs,
+  scattered its gold and brown detail squares into specks ("还是不对 你好好修吧"); hips under the idle's two hip
+  plates hung a leg off her side with the body's middle empty ("移动时腿看起来还是脱节的", "我说的是这里"), and the idle's two legs,
   thin and thick in its A-stance, read as mismatched in motion ("左腿细右腿粗？"). What worked is
-  tools/art/diana_run_legs.py's way (the user: "之前皎月有这问题"): the hips inside the idle's own hip plates, both
+  tools/art/diana_run_legs.py's way (the user: "之前皎月有这问题"): both hips under the middle of her body, 4 squares
+  apart and hidden by the upper body, both
   legs alike, capsules in the idle's leg materials (shaded back, lit front, one gold knee square, the boot with a
   darker sole) on the idle's soles row, one supporting leg per half stepping back a square a frame, the swinging leg
   on League's angles with both halves averaged (`fix_kaisa_strips.py` `RUN_HIPS`, `SUPPORT_DX`, `RUN_SWING`). Mind
