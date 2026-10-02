@@ -13,12 +13,14 @@ where League's run_base takes two). The user: "有问题的地方你进行收尾
   upper body (wide squatting legs; the user: "有奇怪的地方你在调一下吧 codex太笨了"). Built here the way
   tools/art/fix_caitlyn_run.py built Caitlyn's run (the user: "挺不错的"): every frame is the idle's frame 1 down to the
   hip plates (rows to 2 under the pivot, and the arms' tips: head, pods, torso, arms as one block), lowered by League's
-  step (DY: 0, 1, 2, 1, 0, 1, 2, 1 - the pelvis lowest as each leg passes under her), over two legs drawn square by
-  square on Caitlyn's leg poses (League's run joints at game size, about 1.6 times League's swing): in 1-3 the
-  screen-left (near) leg is planted under her while the other kicks its heel up behind and swings its knee through,
-  5-7 the other way round, 4 and 8 the landings. The legs are the idle's: 4 squares wide with the shaded and lit plate
-  edges, the gold knee, the lavender boot, 9 rows from the hip plates to the soles; one outline ring each, the near
-  leg's over the far one;
+  step (DY: 0, 1, 2, 1, 0, 1, 2, 1 - the pelvis lowest as each leg passes under her), over two legs on Caitlyn's leg
+  poses (League's run joints at game size, about 1.6 times League's swing): in 1-3 the screen-left (near) leg is
+  planted under her while the other kicks its heel up behind and swings its knee through, 5-7 the other way round, 4
+  and 8 the landings. The legs are the idle's own pixels, the same as in the skill frames (legs drawn square by square
+  in its materials had wider shins and bigger, brighter boots; the user: "移动时和放技能的时候腿部还是不一样啊 你看不出吗？"):
+  its rows 3-11 under the pivot, each leg stood up straight (RUN_LEGS) and its hip moved under her middle, then per
+  frame (RUN_POSE) the rows from the knee down shifted toward the foot's place and the shin's last rows dropped to
+  lift the foot; the near leg over the far one;
 - R 3: Codex's back leg, pushed off 25 squares behind her, redrawn in the idle's leg materials, as long and as thick
   as the idle's leg (the user: "放技能的时候注意如果腿不一致也要调整");
 - R 1 and 2: the dark hair spike's inside in the hair's mid shade, its left edge lit;
@@ -71,147 +73,26 @@ IDLE_PIVOT = (48, 70)
 HIP_ROW = 2
 ARM_TIPS = [(-12, 3), (12, 3), (13, 3)]
 DY = [0, 1, 2, 1, 0, 1, 2, 1]
-LEG_MAT = {"s": SHADE, "p": PLATE, "l": LIT, "g": GOLD, "G": GOLD_L, "b": BOOT, "c": BOOT_D}
-LEG_X0 = -8                               # column 0 of every leg grid, from the pivot; rows 3..10 under it
-# each frame: (far leg, near leg); "." empty. The far leg's hip is the right half of the plates, the near one's the left
-RUN_LEGS = [
-    # 1: the near leg planted under her, the far one bent up behind it
-    (["........sppl......",
-      ".......sppl.......",
-      "......sppl........",
-      "...sgGppl.........",
-      "..cbbbb...........",
-      "..cbb.............",
-      "..................",
-      ".................."],
-     [".....sppl.........",
-      ".....sppl.........",
-      "......sgGl........",
-      "......sppl........",
-      "......sppl........",
-      "......sppl........",
-      "......cbbbb.......",
-      "......cbbbbb......"]),
-    # 2: planted; the far heel kicked up behind
-    (["........sppl......",
-      "........sppl......",
-      "...sgGppppl.......",
-      "..cbbbbb..........",
-      "..cbb.............",
-      "..................",
-      "..................",
-      ".................."],
-     [".....sppl.........",
-      ".....sppl.........",
-      ".....sppl.........",
-      "......sgGl........",
-      "......sppl........",
-      "......sppl........",
-      "......cbbbb.......",
-      "......cbbbbb......"]),
-    # 3: lowest; the far knee swings through in front, its foot tucked under
-    (["........sppl......",
-      "........sppl......",
-      ".........sppl.....",
-      "......sgGpppl.....",
-      "......cbbbbb......",
-      ".......cbbb.......",
-      "..................",
-      ".................."],
-     [".....sppl.........",
-      ".....sppl.........",
-      ".....sppl.........",
-      ".....sppl.........",
-      ".....sgGl.........",
-      ".....sppl.........",
-      ".....cbbbb........",
-      ".....cbbbbb......."]),
-    # 4: the far foot lands in front, the near leg pushes off behind
-    (["........sppl......",
-      "........sppl......",
-      ".........sppl.....",
-      ".........sgGl.....",
-      ".........sppl.....",
-      ".........sppl.....",
-      ".........cbbbb....",
-      ".........cbbbbb..."],
-     [".....sppl.........",
-      "....sppl..........",
-      "....sppl..........",
-      "...sgGl...........",
-      "...sppl...........",
-      "..sppl............",
-      "..cbbb............",
-      ".cbbb............."]),
-    # 5: the far leg planted, the near one bent up behind
-    (["........sppl......",
-      "........sppl......",
-      "........sppl......",
-      ".........sgGl.....",
-      ".........sppl.....",
-      ".........sppl.....",
-      ".........cbbbb....",
-      ".........cbbbbb..."],
-     [".....sppl.........",
-      "....sppl..........",
-      "...spppl..........",
-      "..sgGppl..........",
-      ".cbbbb............",
-      ".cbb..............",
-      "..................",
-      ".................."]),
-    # 6: planted; the near heel kicked up behind
-    (["........sppl......",
-      "........sppl......",
-      "........sppl......",
-      ".........sgGl.....",
-      ".........sppl.....",
-      ".........sppl.....",
-      ".........cbbbb....",
-      ".........cbbbbb..."],
-     [".....sppl.........",
-      ".....sppl.........",
-      "..sgGppppl........",
-      ".cbbbbb...........",
-      ".cbb..............",
-      "..................",
-      "..................",
-      ".................."]),
-    # 7: lowest; the near knee swings through, its foot tucked under
-    (["........sppl......",
-      "........sppl......",
-      "........sppl......",
-      "........sppl......",
-      "........sgGl......",
-      "........sppl......",
-      "........cbbbb.....",
-      "........cbbbbb...."],
-     [".....sppl.........",
-      ".....sppl.........",
-      "......sppl........",
-      "...sgGpppl........",
-      "...cbbbbb.........",
-      "....cbbb..........",
-      "..................",
-      ".................."]),
-    # 8: the near foot lands in front, the far leg pushes off behind it
-    (["........sppl......",
-      ".......sppl.......",
-      ".......sppl.......",
-      "......sgGl........",
-      "......sppl........",
-      ".....sppl.........",
-      ".....cbbb.........",
-      "....cbbb.........."],
-     [".....sppl.........",
-      ".....sppl.........",
-      "......sppl........",
-      "......sgGl........",
-      "......sppl........",
-      "......sppl........",
-      "......cbbbb.......",
-      "......cbbbbb......"]),
-]
+# the run's legs are the idle's own (its rows 3-11 under the pivot): per leg its columns from the pivot, the shift per
+# row (3..11) that stands it up straight (the screen-left leg leans out 5 squares in the idle's A-stance), the middle
+# of its top row and where that goes in the run (both hips under her middle), its knee row (from row 3), and whether
+# its boot (rows 9-11) is turned round to point forward like the other's
+RUN_LEGS = {"sl": dict(cols=(-11, 0), shift=[0, 2, 3, 3, 4, 5, 5, 5, 5], top=-3, hip=-1.5, knee=2, turn=True),
+            "sr": dict(cols=(1, 11), shift=[0, 0, 0, 0, 0, 0, -1, -1, -1], top=5, hip=1.5, knee=3, turn=False)}
+BOOT_ROW = 6                              # rows 0-5 of a leg (3-8 under the pivot) the leg, 6-7 the boot, 8 the sole
+# per frame and leg: (the foot's shift from its hip, rows the foot is lifted, the knee's shift); + forward. The feet
+# where the legs drawn before had them (Caitlyn's poses), the kicked ones further back so the far leg's shows past
+# the near one: 1-3 the screen-left (near) leg planted, the other's heel up behind, then through; 4 its landing;
+# 5-8 the other way round
+RUN_POSE = [{"sl": (1.5, 0, 0.5), "sr": (-9, 2, -3)},
+            {"sl": (1.5, 0, 0.5), "sr": (-8.5, 3, -3)},
+            {"sl": (1, 0, 0.5), "sr": (-1, 2, 1)},
+            {"sl": (-4, 0, -1), "sr": (2, 0, 1)},
+            {"sr": (2, 0, 1), "sl": (-5, 2, -1.5)},
+            {"sr": (2, 0, 1), "sl": (-4.5, 3, -1.5)},
+            {"sr": (1, 0, 0.5), "sl": (-1, 2, 1)},
+            {"sr": (-7, 0, -2), "sl": (2, 0, 1)}]
+RUN_FRONT = "sl"                          # the near leg (her right) over the other
 THIGH, SHIN, FOOT = 3.8, 3.2, 2.8         # widths in game px (the inside, 4 squares like the idle's and the run's legs;
 #                                           the outline ring goes round it)
 # standing frames (indices from 0) on the idle's whole body; hit 1 on its legs only
@@ -324,22 +205,32 @@ def ring(px):
     return out
 
 
-def leg_pixels(grid):
-    """{(x, y): rgb} of one leg grid, from the pivot."""
-    return {(LEG_X0 + c, 3 + r): LEG_MAT[ch] for r, row in enumerate(grid) for c, ch in enumerate(row) if ch != "."}
-
-
-def leg_ring(px):
-    """The 4-neighbour ring of a leg, plus the corners under its soles (tools/art/fix_caitlyn_run.py)."""
-    out = set()
-    for (x, y) in px:
-        for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
-            if (x + dx, y + dy) not in px:
-                out.add((x + dx, y + dy))
-        if (x, y + 1) not in px:
-            for dx in (-1, 1):
-                if (x + dx, y + 1) not in px and (x + dx, y) not in px:
-                    out.add((x + dx, y + 1))
+def run_leg(idle, leg, foot, lift, knee):
+    """{(x, y): rgba} from the pivot: one of the idle's legs, stood up straight, its hip moved under her middle, the rows
+    from the knee down shifted toward the foot's place, the shin's last `lift` rows dropped (the foot lifted)."""
+    d = RUN_LEGS[leg]
+    ix, iy = IDLE_PIVOT
+    x0, x1 = d["cols"]
+    rows = [[(x - d["top"] + d["shift"][r], idle[iy + 3 + r, ix + x].copy()) for x in range(x0, x1 + 1)
+             if idle[iy + 3 + r, ix + x, 3]] for r in range(9)]
+    if d["turn"]:
+        xs = [x for r in range(BOOT_ROW, 9) for x, _ in rows[r]]
+        c = min(xs) + max(xs)
+        for r in range(BOOT_ROW, 9):
+            rows[r] = [(c - x, v) for x, v in rows[r]]
+    keep = list(range(BOOT_ROW - lift)) + list(range(BOOT_ROW, 9))
+    k, last = d["knee"], BOOT_ROW - lift - 1
+    out = {}
+    for i, r in enumerate(keep):
+        if r >= BOOT_ROW:
+            dx = foot
+        elif r <= k:
+            dx = knee * r / k
+        else:
+            dx = knee + (foot - knee) * (r - k) / max(1, last - k + 1)
+        sx = math.floor(d["hip"] + dx + 0.5)        # one whole shift per row: the row stays in one piece
+        for x, c in rows[r]:
+            out[(sx + x, 3 + i)] = c
     return out
 
 
@@ -347,13 +238,9 @@ def run_frame(idle, k, pivot):
     """Run frame k on its cell: the legs, then the idle's upper body lowered by DY[k]; standing on `pivot`."""
     out = np.zeros_like(idle)
     ix, iy = IDLE_PIVOT
-    for grid in RUN_LEGS[k]:
-        px = leg_pixels(grid)
-        for (x, y) in leg_ring(px):
-            if y <= 11:
-                out[iy + y, ix + x] = INK + (255,)
-        for (x, y), c in px.items():
-            out[iy + y, ix + x] = c + (255,)
+    for leg in sorted(RUN_POSE[k], key=lambda s: s == RUN_FRONT):
+        for (x, y), c in run_leg(idle, leg, *RUN_POSE[k][leg]).items():
+            out[iy + y, ix + x] = c
     up = idle.copy()
     keep = np.zeros(up.shape[:2], bool)
     keep[:iy + HIP_ROW + 1] = True

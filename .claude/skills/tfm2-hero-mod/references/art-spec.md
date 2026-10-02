@@ -514,6 +514,13 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   legs that way on Codex's feet and knees, both legs alike, the leg in front the one whose outline cuts the other.
   league_taric went the other way: with both legs alike his crossing did not read, so his far leg is a step darker
   in his own armour's colours (`MODEL_RUN_LEGS2.md`) - a darker far leg, never another material.
+  league_kaisa went further: legs drawn square by square in the idle's materials (4 squares wide with lit and shaded
+  edges, 4-5 square lavender boots) still read as other legs next to her skill frames, which stand on the idle's own
+  legs ("移动时和放技能的时候腿部还是不一样啊 你看不出吗？"): the idle's boots are 3 squares over a dark sole row, its far
+  leg 2-3 wide. Her run now takes the idle's leg pixels: each leg stood up straight, both hips under her middle, per
+  frame the rows from the knee down shifted toward the foot and the shin's last rows dropped for a lifted foot, one
+  whole shift per row so no row splits (`fix_kaisa_strips.py` `RUN_LEGS`, `RUN_POSE`); the far leg's kick goes 9
+  squares back so it shows past the near one.
 - **A picture round the hero goes under her, not round a hole (league_vayne).** Asked to "leave a figure-shaped empty
   space", Codex also cleared a rectangle in the middle of every Final Hour cell of its export (x 22.5-77.5%, y
   17-89%): the flare's rays, the refresh's ring and most of the aura's motes went. Its raw sheets still had them; drawn
