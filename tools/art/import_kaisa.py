@@ -427,7 +427,6 @@ FX = {
     # her pivot, with a short trail, then loops (repeat: false, the last frame held)
     "q_missile": [("q_missile", seq([0, 1] + [2, 3] * 12 + [2], [33, 33] + [60] * 24 + [3000]), [(0, 0)])],
     "w_bolt": [("w_bolt", [(None, 17)] + seq([0] + [1, 2, 3, 4] * 3 + [1], [33] + [50] * 12 + [3000]), [(0, 0)])],
-    "r_dash": [("r_trail", [(k, 50) for k in [0, 1, 2, 3] * 4] + [(0, 3000)], [(0, 0)])],
     "shot": [("shot", seq([0], [57]), [PALM3]), ("shot", seq([1, 2, 3], [40, 50, 60]), [PALM4])],
     "hit": [("hit", seq(range(4), [40, 50, 60, 70]), [HIT])],
     "pl_1": pl(1), "pl_2": pl(2), "pl_3": pl(3), "pl_4": pl(4),
