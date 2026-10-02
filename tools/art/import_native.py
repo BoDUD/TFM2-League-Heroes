@@ -271,8 +271,9 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        ("amumu", "idle"): (6, [2, 3, 4]),
        # Jinx: the seam across her boots' shafts, her soles stay
        ("jinx", "idle"): (6, [2, 3, 4, 5]),
-       # Garen: the seam across his greaves, his sabatons stay
-       ("garen", "idle"): (6, [2, 3, 4]),
+       # Garen: the seam at his waist (row -4), over his hands' sword: head, chest and arms breathe, the sword and legs
+       # stay one drawing (a seam lower bent the blade, and carrying it down cut the tip on the ground: "剑触碰到地面直接变形")
+       ("garen", "idle"): (-4, [2, 3, 4]),
        # Ashe: the seam across her boots' shafts, her soles stay. Codex's redraw hangs the cloak down to 8 rows
        # under the pivot and leaves 4 rows of boots: at 6 the seam cut the cloak's last row off her thighs and
        # the legs seemed to come apart ("腿像分开了一样"); at 9 the outline does not change (6 squares of colour)
@@ -338,7 +339,7 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
 # that part's dark outline) sinks with the upper body instead of staying, so the weapon moves as one piece; what it
 # would push under the soles row is dropped (the tip planted). Garen's sword runs from his hands (above the seam)
 # down to its tip on the soles row; it bent at the seam every breath (the user: "怎么盖伦上下摆动剑变形").
-BOB_CARRY = {("garen", "idle"): ["FCFCFC", "296380", "284965", "9BABC3", "A9B7CB", "8A8AA3", "4A4353"]}
+BOB_CARRY = {}   # Garen's sword was carried here, then the seam moved over it (BOB)
 # (hero, tag): (reference slot, weapon colours, top row) - one drawing of a held weapon for the whole loop: in every
 # frame the weapon (the pieces of these colours under pivot row `top`, with their dark outline) is taken out and the
 # reference frame's weapon put where it overlaps the frame's own best (a whole-pixel move); squares it leaves bare take
@@ -349,6 +350,10 @@ RIGID = {("garen", "run"): (0, ["FCFCFC", "296380", "284965", "9BABC3", "A9B7CB"
 # and cleaned): the user's clean-up of dirty black blocks and stray squares inside the silhouette (2026-10-02:
 # "盖伦把黑边清理干净 有杂的黑色的地方", "风女 莫甘娜 不干净的黑色块也太多了", "莫甘娜头部有很多多余的方块", "阿狸也是都给我清理干净")
 TIDY = {}
+# hero: weapon colours - after the outline, dark spurs and dots hanging off the weapon's outline (a near-black pixel
+# within 2 px of the weapon with 3 or 4 clear sides) are cleared, twice. GROW copied rows through Garen's slanted
+# blade and doubled its outline's steps: dots hung under the blade in every frame (the user: "剑触碰到地面直接变形").
+SPURS = {"garen": ["FCFCFC", "296380", "284965", "9BABC3", "A9B7CB", "8A8AA3", "4A4353"]}
 CROWN = {"leesin"}              # heroes whose head template starts at the crown (a braid stands above it)
 PASTED = {"masteryi"}            # steadied on the head restyle_native pasted: his raised sword is the top of every frame
 # Codex's step-2 redraw (model_strips_18, tidied by tidy_codex18.py): the approved design's head (or face) is in every
@@ -1039,6 +1044,28 @@ def close_outline(hero, sheet):
     return added, darkened, tidy
 
 
+def clear_spurs(hero, sheet):
+    """SPURS: the dark spurs round the weapon cleared; the pixels cleared."""
+    if hero not in SPURS:
+        return 0
+    want = np.array([[int(c[i:i + 2], 16) for i in (0, 2, 4)] for c in SPURS[hero]])
+    n = 0
+    for frames in sheet.values():
+        for a, _ in frames:
+            near = (a[..., 3] > 0) & (a[..., None, :3] == want).all(-1).any(-1)
+            for _ in range(2):
+                q = np.pad(near, 1)
+                near = near | q[:-2, 1:-1] | q[2:, 1:-1] | q[1:-1, :-2] | q[1:-1, 2:] | q[:-2, :-2] | q[:-2, 2:] |                     q[2:, :-2] | q[2:, 2:]
+            for _ in range(2):
+                op = a[..., 3] > 0
+                q = np.pad(op, 1)
+                clear = (~q[:-2, 1:-1]).astype(int) + (~q[2:, 1:-1]) + (~q[1:-1, :-2]) + (~q[1:-1, 2:])
+                spur = op & near & (G.lum(a[..., :3]) < 45) & (clear >= 3)
+                a[spur] = 0
+                n += int(spur.sum())
+    return n
+
+
 def tidy_frames(hero, sheet):
     """TIDY: the hero's own clean-up module on every finished frame; the pixels it changed."""
     if hero not in TIDY:
@@ -1120,6 +1147,9 @@ def main():
             print(f"{hero}: outline closed with {added} pixels added, {darkened} darkened on the feet line")
         if tidy:
             print(f"{hero}: outline tidied: " + ", ".join(f"{k} {v}" for k, v in tidy.items()))
+        spurs = clear_spurs(hero, sheet)
+        if spurs:
+            print(f"{hero}: {spurs} dark spurs round the weapon cleared")
         tidied = tidy_frames(hero, sheet)
         if tidied:
             print(f"{hero}: {TIDY[hero]} changed {tidied} pixels")
