@@ -22,8 +22,11 @@ where League's run_base takes two). The user: "有问题的地方你进行收尾
 - the idle: its two lower legs were one thin, one thick ("待机时候腿一粗一细"): the screen-left one is now the
   screen-right one mirrored, its boot where the old one stood (EVEN_ROWS); every standing action and the run take
   their legs from this idle, and kaisa_idle.png is written with it;
-- R 3: Codex's back leg, pushed off 25 squares behind her, redrawn in the idle's leg materials, as long and as thick
-  as the idle's leg (the user: "放技能的时候注意如果腿不一致也要调整");
+- the posed frames (R's launch 1-3, its dash, its landing 1-2, the death 1-6) on the idle's own legs, posed per frame
+  (POSED_LEGS: thigh pieces sheared or turned, the lower legs sheared, bent or turned, the soles on the ground): Codex
+  drew their legs bulkier and darker than the idle's (the user: "你要改全改啊 什么SKILL 大招里面的腿还是不一样"); R 3's
+  back leg, first redrawn in the idle's materials, is the idle's own leg too; the death's last two frames (face down)
+  keep Codex's;
 - R 1 and 2: the dark hair spike's inside in the hair's mid shade, its left edge lit;
 - the standing action frames (attack 2-5, Q 2-5, W 2-6) on the idle's whole body: Codex drew them on long legs
   spread 30 squares apart under a narrower, darker torso (the user: "待机时腿部和放技能时候不一样？待机时的腿部更好"; with
@@ -34,7 +37,7 @@ where League's run_base takes two). The user: "有问题的地方你进行收尾
   Q 5 and W 5 undone: W fires standing, as League's); specks left over go. Hit 1 (a head Codex turned) keeps its
   torso and only stands on the idle's legs (the idle's rows 1-11 under its pivot moved under its torso).
 Writes assets/source/native/kaisa_idle.png, kaisa_run.png, kaisa_attack.png, kaisa_skill.png, kaisa_skill2.png, kaisa_hit.png,
-kaisa_ult.png and kaisa_ult_dash.png (8x, the cells of
+kaisa_ult.png, kaisa_ult_dash.png, kaisa_ult_land.png and kaisa_dead.png (8x, the cells of
 kaisa_cells.json: R's delivered 4-frame strip split into the launch, 1-3, and the dash pose the kit forces while she
 flies, 4); then run tools/art/import_native.py --hero kaisa.
 """
@@ -66,10 +69,6 @@ def rgb(h):
 INK = rgb("160722")                       # the outline
 INK2 = rgb("1E0A2A")                      # the second near-black
 DARK = {INK, INK2}
-# the idle's leg materials
-PLATE, LIT, SHADE = rgb("352657"), rgb("463970"), rgb("2A1F46")
-GOLD, GOLD_L = rgb("D7A965"), rgb("F7D896")
-BOOT, BOOT_D = rgb("887CBF"), rgb("6D5EA2")
 # the idle's pivot; its legs (the one place every standing action and the run take theirs from)
 IDLE_PIVOT = (48, 70)
 # the idle's two lower legs were one thin, one thick (its A-stance: the screen-left one seen slanting; the user:
@@ -111,8 +110,6 @@ RUN_POSE = [
     {"near": (2, 1, "rot", -70, 0), "far": (0, -2, "down", 0, 0)},
     {"near": (3, 3, "down", -1, 0), "far": (0, -2, "down", -1, 0)},
 ]
-THIGH, SHIN, FOOT = 3.8, 3.2, 2.8         # widths in game px (the inside, 4 squares like the idle's and the run's legs;
-#                                           the outline ring goes round it)
 # standing frames (indices from 0) on the idle's whole body; hit 1 on its legs only
 IDLE_BODY = {"attack": [1, 2, 3, 4], "skill": [1, 2, 3, 4], "skill2": [1, 2, 3, 4, 5]}
 IDLE_LEGS = {"hit": [0]}
@@ -127,13 +124,58 @@ ARM_CUT = {-7: (-8, 14), -6: (-8, 6), -5: (-8, 6), -4: (-10, 7), **{y: (-10, 9) 
 ARM_ROW = (-13, 14)                       # the other torso rows (under the chin): columns -12 to 13
 # Codex pasted the design's head in every frame: the idle's rows 20 to 12 over its pivot, columns -4 to 8, find it
 HEAD = (-4, -20, 9, -11)                  # x0, y0, x1, y1 from the pivot (x1, y1 exclusive)
-# R's launch, frame 3: Codex's back leg pushed off 25 squares behind her: everything in the box cleared (from the
-# pivot: the leg alone, under and behind the torso) and the leg redrawn as long as the idle's
-R_LEGS = {2: (((-10, 3), (-13, 6), (-16, 9), (-18, 10)), (-27, 3, -11, 12))}
 # R's launch (frames 1 and 2): the hair whipping up over her head (League's Spell4_in) was drawn in the hair's darkest
 # shade only and read as a black spike: its inside in the hair's mid shade, its left edge lit (box from the pivot)
 HAIR_D, HAIR, HAIR_L = rgb("351036"), rgb("4E194C"), rgb("8A387A")
 R_HAIR = {0: (-9, -33, -1, -19), 1: (-9, -29, -1, -19)}
+# the frames whose legs Codex drew in a pose (R's launch 1-3, its dash, its landing 1-2, the death 1-6) on the idle's
+# own legs, posed (the user: "你要改全改啊 什么SKILL 大招里面的腿还是不一样"): the frame keeps its rows down to "belt"
+# (rows from its pivot, + down) and the "keep" boxes (x0, y0, x1, y1 from the pivot: its claws, arms, hair); its other
+# pixels in the "clear" columns under the belt go. Each leg is the idle's thigh piece (rows -3..3: plate and
+# bodysuit; near x <= 0) over its screen-right lower leg (rows 4-11, both legs equally thick), per leg: "hip" where
+# the thigh's top middle goes; "drop" thigh rows left out of its middle (foreshortened); "kt" its shear at the knee,
+# or "tr" degrees turned about the top (RotSprite, + counter-clockwise); "mode" "down" (the lower leg sheared "ks" at
+# the sole), "bend" (only the shin sheared, the boot moved whole, so it keeps the idle's shape) or "rot" (turned "ks"
+# degrees about the knee); "ground" the shin lengthened or shortened so the sole lands on the soles row; "flip" the
+# lower leg mirrored (toe left). Fitted per frame (work/ks/legs_onto.py); death 7-8 (face down on the ground) keep
+# Codex's legs, hardly seen
+POSED_LEGS = {
+    ("ult", 0): {"belt": 0, "keep": [[-12, 1, -8, 1]],
+                 "near": {"hip": [-4, -1], "tr": -65, "flip": True, "mode": "bend", "ks": -2, "ground": True},
+                 "far": {"hip": [3, -1], "tr": 25, "mode": "bend", "ks": 1, "ground": True}},
+    ("ult", 1): {"belt": 0, "clear": [-25, 14], "keep": [[-9, 1, 1, 4], [-19, 1, -15, 4]],
+                 "near": {"hip": [-12, -1], "drop": 2, "kt": -1, "mode": "down", "ks": -5, "flip": True},
+                 "far": {"hip": [2, -1], "tr": 35, "mode": "bend", "ks": 1, "ground": True}},
+    ("ult", 2): {"belt": 0, "clear": [-28, 16], "keep": [[8, -4, 16, 3]],
+                 "near": {"hip": [-8, -3], "kt": -5, "mode": "down", "ks": -2, "flip": True},
+                 "far": {"hip": [1, -2], "tr": 80, "drop": 1, "mode": "rot", "ks": -35}},
+    ("ult_dash", 0): {"belt": 0, "clear": [-32, -8], "keep": [[-12, 1, -7, 7]],
+                      "near": {"hip": [-15, -1], "drop": 1, "kt": -6, "mode": "rot", "ks": -103},
+                      "far": {"hip": [-16, 2], "drop": 2, "kt": -1, "mode": "rot", "ks": -95}},
+    ("ult_land", 0): {"belt": 1, "clear": [-18, 16], "keep": [[7, -2, 16, 11]],
+                      "near": {"hip": [-4, 1], "drop": 3, "kt": -7, "mode": "bend", "ks": -2, "flip": True,
+                               "ground": True},
+                      "far": {"hip": [1, 1], "drop": 4, "kt": -3, "mode": "down", "ks": -1}},
+    ("ult_land", 1): {"belt": 0, "clear": [-20, 16], "keep": [[7, 1, 13, 9]],
+                      "near": {"hip": [-4, -2], "drop": 1, "kt": -5, "mode": "bend", "ks": -2, "flip": True,
+                               "ground": True},
+                      "far": {"hip": [2, -2], "drop": 1, "kt": 0, "mode": "bend", "ks": -1, "ground": True}},
+    ("dead", 0): {"belt": -4, "near": {"hip": [-2, -3], "kt": -2, "flip": True, "ks": 1.4},
+                  "far": {"hip": [5, -3], "kt": -1, "ks": -1.5}},
+    ("dead", 1): {"belt": -4, "near": {"hip": [1, -3], "flip": True, "kt": -3}, "far": {"hip": [6, -3], "ks": -1}},
+    ("dead", 2): {"belt": -4, "keep": [[-10, -3, -3, 3], [12, -3, 20, 0]],
+                  "near": {"hip": [1, -3], "kt": 0, "flip": True, "mode": "down", "ks": -1.5},
+                  "far": {"hip": [5, -3], "kt": 2, "mode": "down", "ks": -2.5}},
+    ("dead", 3): {"belt": -1, "keep": [[-10, -1, -6, 7], [10, -1, 14, 4]],
+                  "near": {"hip": [-1, -2], "drop": 1, "flip": True, "ks": 1},
+                  "far": {"hip": [5, -2], "drop": 1, "ks": -2}},
+    ("dead", 4): {"belt": 0, "keep": [[-14, -6, -8, 3], [-13, 4, -11, 4], [4, -2, 12, 9]],
+                  "far": {"hip": [2, 1], "drop": 4, "kt": -2, "ks": -1},
+                  "near": {"hip": [-4, -1], "drop": 2, "kt": -3, "ks": -1, "flip": True}},
+    ("dead", 5): {"belt": 2, "clear": [-18, 12],
+                  "near": {"hip": [-6, 1], "drop": 4, "kt": -1, "mode": "down", "ks": -5, "flip": True},
+                  "far": {"hip": [-1, 1], "drop": 4, "kt": 1, "mode": "down", "ks": 2}},
+}
 
 
 def lp(path):
@@ -158,69 +200,6 @@ def sheet_of(frames, cell):
 
 def colour(a, y, x):
     return tuple(int(v) for v in a[y, x, :3])
-
-
-def seg(p, a, b):
-    """(distance from p to segment ab, signed side: + on the left of a->b's direction, t along it)."""
-    ax, ay = a
-    bx, by = b
-    dx, dy = bx - ax, by - ay
-    L2 = dx * dx + dy * dy or 1e-9
-    t = max(0.0, min(1.0, ((p[0] - ax) * dx + (p[1] - ay) * dy) / L2))
-    cx, cy = ax + t * dx, ay + t * dy
-    side = (dx * (p[1] - ay) - dy * (p[0] - ax)) / math.sqrt(L2)
-    return math.hypot(p[0] - cx, p[1] - cy), side, t
-
-
-def draw_leg(pts):
-    """{(x, y): rgb} of one leg through hip, knee, ankle, toe. The light falls from the upper front: the side of each
-    segment facing up (smaller y) is lit, the other shaded."""
-    hip, knee, ankle, toe = pts
-    out = {}
-    xs = [p[0] for p in pts]
-    ys = [p[1] for p in pts]
-    for y in range(int(min(ys)) - 3, int(max(ys)) + 4):
-        for x in range(int(min(xs)) - 3, int(max(xs)) + 4):
-            p = (x, y)
-            best = None
-            for name, a, b, w in (("thigh", hip, knee, THIGH), ("shin", knee, ankle, SHIN), ("foot", ankle, toe, FOOT)):
-                d, side, t = seg(p, a, b)
-                if d <= w / 2 and (best is None or d < best[1]):
-                    best = (name, d, side, t, a, b, w)
-            if best is None:
-                continue
-            name, d, side, t, a, b, w = best
-            # which side of the segment faces up: the normal's y; lit if that side is toward smaller y
-            dx, dy = b[0] - a[0], b[1] - a[1]
-            nx, ny = -dy, dx                       # the left normal (side > 0)
-            up_is_left = ny < 0 or (ny == 0 and nx > 0)
-            lit = (side > 0) == up_is_left
-            edge = d > w / 2 - 1.0
-            if name == "foot":
-                c = BOOT if (lit or not edge) else BOOT_D
-            else:
-                c = (LIT if lit else SHADE) if edge else PLATE
-            out[p] = c
-    # the knee's gold plate and its highlight (no magenta on the legs: the idle has it on the hip plates only), the
-    # boot's claw
-    kx, ky = int(round(knee[0])), int(round(knee[1]))
-    for q, c in (((kx, ky), GOLD), ((kx, ky - 1), GOLD_L)):
-        if q in out:
-            out[q] = c
-    tx = int(round(toe[0] + (toe[0] - ankle[0]) * 0.4))
-    ty = int(round(toe[1] + (toe[1] - ankle[1]) * 0.4))
-    if (tx, ty) not in out:
-        out[(tx, ty)] = BOOT_D
-    return out
-
-
-def ring(px):
-    out = set()
-    for (x, y) in px:
-        for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
-            if (x + dx, y + dy) not in px:
-                out.add((x + dx, y + dy))
-    return out
 
 
 def rnd(v):
@@ -459,20 +438,98 @@ def r_frame(frame, pivot, k):
                 if a[y, x, 3] and colour(a, y, x) == HAIR_D:
                     left = colour(a, y, x - 1) if a[y, x - 1, 3] else None
                     a[y, x, :3] = HAIR_L if left in DARK else HAIR
-    if k in R_LEGS:
-        pts, (x0, y0, x1, y1) = R_LEGS[k]
-        a[py + y0:py + y1 + 1, px + x0:px + x1 + 1] = 0
-        out = np.zeros_like(a)
-        leg = draw_leg(pts)
-        for (x, y) in ring(leg):
-            if y <= 11:
-                out[py + y, px + x] = INK + (255,)
-        for (x, y), c in leg.items():
-            out[py + y, px + x] = c + (255,)
-        m = a[..., 3] > 0
-        out[m] = a[m]
-        a = drop_specks(out)
     return a
+
+
+def posed_leg(idle, lower, leg, p):
+    """One of the idle's legs posed by p (see POSED_LEGS): {(x, y) from the frame's pivot: rgba}."""
+    ix, iy = IDLE_PIVOT
+    th = {(x - ix, y - iy): c for (x, y), c in run_thigh(idle, leg).items()}
+    yt = min(y for _, y in th)
+    xs = [x for (x, y) in th if y == yt]
+    tx = (min(xs) + max(xs)) // 2
+    rows = sorted({y for _, y in th})
+    drop = int(p.get("drop", 0))
+    mid = len(rows) // 2
+    gone = set(rows[mid - drop // 2: mid - drop // 2 + drop]) if drop else set()
+    keep_rows = [y for y in rows if y not in gone]
+    kt = float(p.get("kt", 0))
+    n = max(1, len(keep_rows) - 1)
+    hx, hy = p["hip"]
+    out_t = {}
+    for i, y in enumerate(keep_rows):
+        for (x, yy), c in th.items():
+            if yy == y:
+                out_t[(x - tx + hx + rnd(kt * i / n), hy + i)] = c
+    if p.get("tr"):                                   # the thigh turned about its top middle
+        x0, y0 = min(x for x, _ in out_t), min(y for _, y in out_t)
+        arr = np.zeros((max(y for _, y in out_t) - y0 + 1, max(x for x, _ in out_t) - x0 + 1, 4), np.uint8)
+        for (x, y), c in out_t.items():
+            arr[y - y0, x - x0] = c
+        rot, (jx, jy) = rotsprite(arr, (hx - x0, hy - y0), float(p["tr"]))
+        out_t = {(hx + xx - jx, hy + yy - jy): rot[yy, xx] for yy, xx in zip(*np.nonzero(rot[..., 3]))}
+    yb = max(y for _, y in out_t)
+    xs = [x for (x, y) in out_t if y == yb]
+    kx = (min(xs) + max(xs)) // 2
+    lw = {((-dx, r) if p.get("flip") else (dx, r)): c for (dx, r), c in lower.items()}
+    mode, ks = p.get("mode", "down"), float(p.get("ks", 0))
+    if p.get("ground") and mode != "rot":             # the sole on the soles row: plain shin rows in or out
+        need = 11 - (yb + 1 + max(r for _, r in lw))
+        if need > 0:
+            plain = {dx: c for (dx, r), c in lw.items() if r == 1}
+            lw = {(dx, r + (need if r > 1 else 0)): c for (dx, r), c in lw.items()}
+            lw.update({(dx, 1 + i): c for dx, c in plain.items() for i in range(1, need + 1)})
+        elif need < 0:
+            gone = [1, 3, 2][:min(3, -need)]
+            remap = {r: i for i, r in enumerate(r for r in sorted({r for _, r in lw}) if r not in gone)}
+            lw = {(dx, remap[r]): c for (dx, r), c in lw.items() if r in remap}
+    out = {}
+    if mode == "rot":
+        x0, y0 = min(dx for dx, _ in lw), min(r for _, r in lw)
+        arr = np.zeros((max(r for _, r in lw) - y0 + 1, max(dx for dx, _ in lw) - x0 + 1, 4), np.uint8)
+        for (dx, r), c in lw.items():
+            arr[r - y0, dx - x0] = c
+        rot, (jx, jy) = rotsprite(arr, (-x0, 0), ks)
+        for yy, xx in zip(*np.nonzero(rot[..., 3])):
+            out[(kx + xx - jx, yb + 1 + yy - jy)] = rot[yy, xx]
+    elif mode == "bend":
+        nb = max(1, max(r for _, r in lw) - 3)
+        for (dx, r), c in lw.items():
+            out[(kx + dx + rnd(ks * min(r, nb) / nb), yb + 1 + r)] = c
+    else:
+        nr = max(r for _, r in lw)
+        for (dx, r), c in lw.items():
+            out[(kx + dx + rnd(ks * r / nr), yb + 1 + r)] = c
+    out.update(out_t)
+    return out
+
+
+def legs_onto(frame, pivot, params, idle):
+    """The frame's legs replaced by the idle's, posed (POSED_LEGS)."""
+    px, py = pivot
+    lower = run_lower(idle)
+    belt = int(params["belt"])
+    c0, c1 = params.get("clear", [-16, 16])
+    kept = frame.copy()
+    keep = np.zeros(frame.shape[:2], bool)
+    keep[:py + belt + 1] = True
+    for x0, y0, x1, y1 in params.get("keep", []):
+        keep[py + y0:py + y1 + 1, px + x0:px + x1 + 1] = True
+    clear = np.zeros(frame.shape[:2], bool)
+    clear[py + belt + 1:, px + c0:px + c1 + 1] = True
+    kept[clear & ~keep] = 0
+    out = np.zeros_like(frame)
+    for leg in ("far", "near"):
+        p = params.get(leg)
+        if not p or p.get("hide"):
+            continue
+        for (x, y), c in posed_leg(idle, lower, leg, p).items():
+            X, Y = px + x, py + y
+            if 0 <= Y <= py + 11 and 0 <= X < out.shape[1]:
+                out[Y, X] = c
+    m = kept[..., 3] > 0
+    out[m] = kept[m]
+    return out
 
 
 def build():
@@ -513,6 +570,11 @@ def build():
     fixed = [r_frame(f, tuple(r["pivot"]), k) for k, (f, r) in enumerate(zip(src, u))]
     out["ult"] = (fixed[:3], cells["tags"]["ult"])
     out["ult_dash"] = (fixed[3:], cells["tags"]["ult_dash"])
+    out["dead"] = (cells_of(os.path.join(SRC, "kaisa_dead.png"), len(cells["tags"]["dead"]), cell),
+                   cells["tags"]["dead"])
+    for (tag, k), params in POSED_LEGS.items():
+        frames, rows = out[tag]
+        frames[k] = legs_onto(frames[k], tuple(rows[k]["pivot"]), params, idle)
     return out, cell
 
 
