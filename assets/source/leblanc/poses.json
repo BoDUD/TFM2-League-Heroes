@@ -1,0 +1,37 @@
+{
+ "hero": "leblanc",
+ "champ": "Leblanc",
+ "camera": {"yaw": 45, "pitch": 20, "mirror": false},
+ "chibi": {"head": 2.3, "legs": 0.8, "scale": {"Weapon": 0.75}},
+ "weapon": "^Weapon$",
+ "submesh_textures": {"Weapon": "Weapon_TX"},
+ "hide": ["^CapeRoot$", "^LowerCapeRoot", "^C_CapeCollarRoot$"],
+ "height": 38,
+ "cell": [96, 80, 12],
+ "design": "idle1@0",
+ "tags": {
+  "idle": {"frames": [["idle1@0", 180], ["idle1@0", 180], ["idle1@0", 180],
+                      ["idle1@0", 180], ["idle1@0", 180], ["idle1@0", 180]]},
+  "run": {"rise": 0.0, "flat": true, "head_like": "idle1@0", "frames": [
+   ["run1@0", 142], ["run1@142", 142], ["run1@283", 142], ["run1@425", 142],
+   ["run1@567", 142], ["run1@708", 142], ["run1@850", 142], ["run1@992", 142]]},
+  "attack": {"lunge": 0.5, "frames": [
+   ["idle1@0>attack1@60:0.5", 50], ["attack1@150", 50], ["attack1@230", 60],
+   ["attack1@300", 70], ["attack1@420", 80], ["attack1@600>idle1@0:0.5", 90]]},
+  "skill": {"lunge": 0.4, "frames": [
+   ["idle1@0>spell1@60:0.5", 50], ["spell1@125", 60], ["spell1@250", 70],
+   ["spell1@375", 80], ["spell1@500>idle1@0:0.5", 100]]},
+  "skill2": {"lunge": 0.4, "frames": [
+   ["spell2@0", 60], ["spell2@100", 60], ["spell2@200", 60], ["spell2@300", 60], ["spell2@400", 60]]},
+  "skill2_back": {"lunge": 0.4, "frames": [
+   ["spell2_recast@0", 80], ["spell2_recast@125", 80], ["spell2_recast@250", 80],
+   ["spell2_recast@375", 80], ["spell2_recast@500>idle1@0:0.5", 80]]},
+  "e": {"lunge": 0.4, "frames": [
+   ["idle1@0>spell3@60:0.5", 60], ["spell3@125", 60], ["spell3@250", 70],
+   ["spell3@375", 90], ["spell3@500", 100], ["spell3@700>idle1@0:0.5", 120]]},
+  "hit": {"frames": [["idle1@0>death@200:0.35", 100], ["idle1@0>death@200:0.15", 100]]},
+  "dead": {"anchor": "first", "lunge": 0.4, "flat": true, "rise": 0.3, "travel": 0.3, "frames": [
+   ["death@0", 100], ["death@150", 100], ["death@300", 100], ["death@450", 120],
+   ["death@600", 120], ["death@800", 150], ["death@1100", 200], ["death@1500", 400]]}
+ }
+}
