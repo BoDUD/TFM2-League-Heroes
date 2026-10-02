@@ -321,7 +321,7 @@
         "attack": "发射符文法球攻击。被动<#ff9028ff>奥术专精<>：所有技能伤害额外加上<i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>2% 最大生命值<>（本作没有法力值，以生命值代替法力）。",
         "skill": "向前释放魔爆，对命中的第一个敌人造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55% 法强<>的<#a974ffff>魔法伤害<>。若有敌人带着<#ff9028ff>涌动<>，命中时它们全部受到<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 法强<>的弹射伤害，涌动随之消耗。",
         "skill2": "连招：<#ff9028ff>法术涌动<>造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>伤害，给目标和附近敌人挂上<#ff9028ff>涌动<><#ffb900ff>4秒<>；<#ff9028ff>符文禁锢<>造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>伤害，有涌动时<#ef5350ff>禁锢1.25秒<>，否则减速；再补一发<#ff9028ff>超负荷<>，两枚符文让他<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移速+30%<>。",
-        "ult": "开启传送门，引导<#ffb900ff>1秒<>后瑞兹和站在门里的友方英雄一起传送向敌方英雄，落地对附近一名敌方英雄补一发<#ff9028ff>法术涌动<>。被控会打断。被动：施放后本条命内涌动弹射伤害提高到<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 法强<>。"
+        "ult": "两名敌方英雄逼近（或独自被贴身）时开门逃向反方向；交战的敌人逃出射程、身边有队友时开门追过去。引导<#ffb900ff>1秒<>后传送，门里的友方英雄和小兵一起过去，落地补一发<#ff9028ff>法术涌动<>。被控会打断。被动：施放后本条命内涌动弹射伤害提高到<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 法强<>。"
       },
       "league_kennen": {
         "name": "凯南",
@@ -891,7 +891,7 @@
         "attack": "發射符文法球攻擊。被動<#ff9028ff>奧術專精<>：所有技能傷害額外加上<i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>2% 最大生命<>（本作沒有魔力，以生命代替魔力）。",
         "skill": "向前釋放魔法爆裂，對命中的第一個敵人造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55% 法術強度<>的<#a974ffff>魔法傷害<>。若有敵人帶著<#ff9028ff>法術湧動<>，命中時它們全部受到<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>的彈射傷害，湧動隨之消耗。",
         "skill2": "連招：<#ff9028ff>法術湧動<>造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>傷害，給目標和附近敵人附加<#ff9028ff>湧動<><#ffb900ff>4秒<>；<#ff9028ff>符文禁錮<>造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>傷害，有湧動時<#ef5350ff>定身1.25秒<>，否則緩速；再補一發<#ff9028ff>超負荷<>，兩個符文讓他<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>跑速+30%<>。",
-        "ult": "開啟傳送門，引導<#ffb900ff>1秒<>後雷茲和站在門裡的隊友英雄一起傳送向敵方英雄，落地對附近一名敵方英雄補一發<#ff9028ff>法術湧動<>。被控會打斷。被動：施放後本條命內湧動彈射傷害提升至<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>。"
+        "ult": "兩名敵方英雄逼近（或獨自被貼身）時開門逃往反方向；交戰的敵人逃出射程、身邊有隊友時開門追過去。引導<#ffb900ff>1秒<>後傳送，門裡的隊友英雄和小兵一起過去，落地補一發<#ff9028ff>法術湧動<>。被控會打斷。被動：施放後本條命內湧動彈射傷害提升至<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>。"
       },
       "league_kennen": {
         "name": "凱能",
@@ -1461,7 +1461,7 @@
         "attack": "Rune orb shots. Passive <#ff9028ff>Arcane Mastery<>: all his spells deal bonus damage equal to <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>2% of his max Health<> (TFM2 has no mana; health stands in for it).",
         "skill": "Ryze unleashes a blast that deals <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55% AP<> <#a974ffff>magic damage<> to the first enemy hit. If any enemies carry <#ff9028ff>Flux<>, the hit makes all of them take <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% AP<> bounce damage and uses the Flux up.",
         "skill2": "Combo: <#ff9028ff>Spell Flux<> deals <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% AP<> and puts <#ff9028ff>Flux<> on the target and enemies near it for <#ffb900ff>4s<>; <#ff9028ff>Rune Prison<> deals <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55% AP<> and <#ef5350ff>roots<> for <#ffb900ff>1.25s<> while Flux is up (slows otherwise); then an <#ff9028ff>Overload<> whose two runes give him <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>30% Move Speed<>.",
-        "ult": "Ryze opens a portal; after <#ffb900ff>1s<> of channelling he and the allied champions standing in it warp toward the enemy champion, and on landing he throws a <#ff9028ff>Spell Flux<> at an enemy champion nearby. Crowd control breaks the channel. Passive: once cast in a life, the Flux bounce deals <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% AP<>."
+        "ult": "Ryze opens a portal to flee when two enemy champions close in (or one reaches him alone), or to chase a foe leaving his range with an ally near. After <#ffb900ff>1s<> he warps with the allied champions and minions in it, then throws a <#ff9028ff>Spell Flux<>. Crowd control breaks it. Passive: once cast in a life, the Flux bounce deals <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% AP<>."
       },
       "league_kennen": {
         "name": "Kennen",
@@ -2031,7 +2031,7 @@
         "attack": "룬 구체를 발사합니다. 기본 지속 효과 <#ff9028ff>비전 연마<>: 모든 스킬이 <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>최대 체력의 2%<>만큼 추가 피해를 입힙니다(마나 대신 체력).",
         "skill": "돌풍을 발사해 처음 맞힌 적에게 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 55%<>의 <#a974ffff>마법 피해<>를 입힙니다. <#ff9028ff>전이 표식<>이 있는 적이 있으면 모두 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 40%<>의 튕기는 피해를 입고 표식은 소모됩니다.",
         "skill2": "연계: <#ff9028ff>주문 전이<>가 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 피해를 입히고 대상과 주변 적에게 <#ffb900ff>4초<> 동안 <#ff9028ff>전이 표식<>을 남깁니다. <#ff9028ff>룬 감옥<>이 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> 피해를 입히고 표식이 있으면 <#ffb900ff>1.25초<> <#ef5350ff>속박<>(없으면 둔화). 이어서 <#ff9028ff>과부하<>를 쏘고 룬 두 개로 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도 30%<> 증가.",
-        "ult": "차원문을 열고 <#ffb900ff>1초<> 정신을 집중한 뒤, 문 안의 아군 챔피언과 함께 적 챔피언 쪽으로 순간이동하고 착지 시 근처 적 챔피언에게 <#ff9028ff>주문 전이<>를 던집니다. 군중 제어에 끊깁니다. 기본 지속 효과: 사용한 생명 동안 튕기는 피해가 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>로 증가."
+        "ult": "적 챔피언 둘이 다가오거나 혼자 붙잡히면 반대쪽으로 피하고, 교전 중인 적이 사거리 밖으로 달아나면 아군과 함께 쫓아갑니다. <#ffb900ff>1초<> 뒤 문 안의 아군 챔피언·미니언과 순간이동하고 착지 시 <#ff9028ff>주문 전이<>. 군중 제어에 끊깁니다. 기본 지속 효과: 사용한 생명 동안 튕기는 피해 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>."
       },
       "league_kennen": {
         "name": "케넨",
@@ -2601,7 +2601,7 @@
         "attack": "ルーンのオーブを放つ。パッシブ <#ff9028ff>古代の呪術<>：全スキルが<i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>最大体力の2%<>の追加ダメージ(マナの代わりに体力)。",
         "skill": "エネルギー弾を放ち、最初に当たった敵に<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の55%<>の<#a974ffff>魔法ダメージ<>。<#ff9028ff>フラックス<>を受けた敵がいれば全員に<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の40%<>の波及ダメージ、フラックスは消費。",
         "skill2": "連携：<#ff9028ff>スペルフラックス<>が<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>、対象と周囲の敵に<#ffb900ff>4秒<><#ff9028ff>フラックス<>。<#ff9028ff>ルーンプリズン<>が<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>、フラックス中は<#ffb900ff>1.25秒<><#ef5350ff>スネア<>(無ければスロウ)。続けて<#ff9028ff>オーバーロード<>、ルーン2個で<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度30%<>増加。",
-        "ult": "ポータルを開き<#ffb900ff>1秒<>詠唱後、中にいる味方チャンピオンと共に敵チャンピオンの方へテレポートし、着地時に近くの敵チャンピオンへ<#ff9028ff>スペルフラックス<>。行動妨害で中断。パッシブ：使用したライフの間、波及ダメージが<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>に。"
+        "ult": "敵チャンピオン2体が迫る(孤立中に接近される)と逃げ、交戦中の敵が射程外へ逃げると味方と追う。<#ffb900ff>1秒<>詠唱後、中の味方チャンピオンとミニオンと共にテレポートし着地時に<#ff9028ff>スペルフラックス<>。行動妨害で中断。パッシブ：使用したライフの間、波及ダメージ<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>。"
       },
       "league_kennen": {
         "name": "ケネン",

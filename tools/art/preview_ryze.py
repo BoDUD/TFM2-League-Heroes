@@ -10,9 +10,11 @@
                             Flux's violet orb bursts on Darius and marks him and Garen (violet runes circling their
                             chests), Rune Prison roots the Flux'd Darius in a cage of blue bars, the reset Overload
                             bursts the Flux on both (a lightning strike and a violet blast each), the two runes he
-                            charged (circling his waist) burst out and hasten him; Realm Warp opens a portal under him
-                            and Lucian and one ahead, he and Lucian blink through (a column where they stood, the
-                            arrival round him, a flash on Lucian) and his landing Spell Flux marks Darius again; 3x
+                            charged (circling his waist) burst out and hasten him; Darius and Garen back off, and once
+                            Darius has left his reach Realm Warp chases him: a portal under Ryze and Lucian and one
+                            where the line toward Darius touches him, he and Lucian blink through (a column where they
+                            stood, the arrival round him, a flash on Lucian) and his landing Spell Flux marks Darius
+                            again; 3x
 """
 import argparse
 import os
@@ -67,7 +69,7 @@ def showcase(out, z=3, step=40):
     W, H = 300, 150
     gy = 100                                          # the pivot row: R's column rises 54 px over it
     x0 = 72
-    warp = 30                                         # r_move 30000: 30 px toward the target
+    reach_stop = 15                                   # R's chase line stops r_stop (5000) + Darius's body short of him
     lucian = Ally(load(os.path.join(LEAGUE, "champions", "league_lucian")), x0 - 24, gy - 8)   # in the 30 px portal
     d = Held(load(os.path.join(LEAGUE, "champions", "league_darius")), x0 + 54, gy + 8)      # 55 px: attack range
     g = Held(load(os.path.join(LEAGUE, "champions", "league_garen")), 286, gy - 14)         # walking in
@@ -76,9 +78,10 @@ def showcase(out, z=3, step=40):
     me = Ally(None, x0, gy)                           # his pivot, for the views that follow him
     x = x0
 
-    def a(tag, dur=None, loop=False, to=None):
+    def a(tag, dur=None, loop=False, to=None, at=None):
         nonlocal t
-        an = Anim(frames_of(ryze, tag), t, x, gy, loop=loop, until=(t + dur) if dur else None, x1=to)
+        px, py = at if at else (x, gy)
+        an = Anim(frames_of(ryze, tag), t, px, py, loop=loop, until=(t + dur) if dur else None, x1=to)
         body.append(an)
         t = an.until
 
@@ -94,19 +97,20 @@ def showcase(out, z=3, step=40):
         (under if ground else over).append(an)
         return an
 
-    def shot(tag, launch, foe, speed, hit=None, y0=2):
+    def shot(tag, launch, foe, speed, hit=None, y0=2, at=None):
         """A shot from his pivot (y0 px up) to the foe's pivot at `speed` px a tick; returns its arrival."""
+        px, py = at if at else (x, gy)
         tx, ty = foe.pos(launch)
-        arrive = launch + tick(max(1.0, ((tx - x) ** 2 + (ty - gy) ** 2) ** 0.5 / speed))
-        over.append(Anim(frames_of(small, tag), launch, x, gy - y0, loop=True, until=arrive, x1=tx, y1=ty - y0))
+        arrive = launch + tick(max(1.0, ((tx - px) ** 2 + (ty - py) ** 2) ** 0.5 / speed))
+        over.append(Anim(frames_of(small, tag), launch, px, py - y0, loop=True, until=arrive, x1=tx, y1=ty - y0))
         if hit:
             on(foe, small, hit, arrive)
         foe.flinches.append(arrive)
         return arrive
 
-    def flux(start, end):
+    def flux(start, end, foes=None):
         """Flux on Darius and Garen (both inside the 25 px zone round Darius): the mark replayed every 12 ticks."""
-        for foe in (d, g):
+        for foe in foes or (d, g):
             k = start
             while k < end:
                 on(foe, small, "flux", k)
@@ -148,26 +152,38 @@ def showcase(out, z=3, step=40):
         foe.flinches.append(hit)
     a("skill2")
     a("idle", 900, loop=True)
-    # Realm Warp: the portals open (his feet and 30 px ahead); after the 60-tick channel he blinks, Lucian is pulled
-    # through (15 px a tick) and the landing Spell Flux leaves 3 ticks later
-    r0 = t
+    # Realm Warp, the chase: out of the cage Darius runs off, Garen with him; once Darius has left Ryze's reach (60 px
+    # with the bodies) the next check (every 10 ticks) opens the portals - his own, and one where the line toward
+    # Darius touches him - and after the 60-tick channel he blinks there, Lucian (in his portal) is pulled through
+    # (15 px a tick) and the landing Spell Flux leaves 3 ticks later
+    flee, flee_t, flee_px = t, tick(66), 64
+    for foe, px in ((d, flee_px), (g, flee_px + 6)):
+        foe.runs.append((flee, flee + flee_t))
+        foe.slides.append((flee, flee + flee_t, px))
+    r0 = flee + tick(6 + 10)
+    dx_, dy_ = d.pos(r0)
+    span = ((dx_ - x) ** 2 + (dy_ - gy) ** 2) ** 0.5
+    u = (span - reach_stop) / span                    # the line stops r_stop + his body short of him
+    dest = (int(round(x + (dx_ - x) * u)), int(round(gy + (dy_ - gy) * u)))
+    a("idle", r0 - t, loop=True)
     at(big, "r_portal", r0, x, gy, ground=True)
-    at(big, "r_dest", r0, x + warp, gy, ground=True)
+    at(big, "r_dest", r0, *dest, ground=True)
     a("ult", tick(61), loop=True)
     jump = t
     at(big, "r_out", jump, x, gy)
-    x += warp
-    me.moves.append((jump - 1, jump, x, gy))
+    x, y = dest
+    me.moves.append((jump - 1, jump, x, y))
     on(me, big, "r_in", jump)
     lx, ly = lucian.pos(jump)
-    pull = jump + tick(max(1.0, (abs(x - 24 - lx) + abs(gy - 8 - ly)) / 15.0))
-    lucian.moves.append((jump, pull, x - 24, gy - 8))
+    pull = jump + tick(max(1.0, (abs(x - 24 - lx) + abs(y - 8 - ly)) / 15.0))
+    lucian.moves.append((jump, pull, x - 24, y - 8))
     on(lucian, small, "r_ally", jump)
     e = jump + tick(3)
-    land = shot("e_orb", e, d, 4.5, "e_hit")
-    flux(land + tick(3), land + tick(3 + 96))
-    a("ult_land")
-    a("idle", 1700, loop=True)
+    land = shot("e_orb", e, d, 4.5, "e_hit", at=(x, y))
+    near = [f for f in (d, g) if abs(f.pos(land)[0] - d.pos(land)[0]) <= 25]
+    flux(land + tick(3), land + tick(3 + 96), near)
+    a("ult_land", at=(x, y))
+    a("idle", 1700, loop=True, at=(x, y))
     end = t
 
     def place(img, f, px, py):
@@ -185,7 +201,7 @@ def showcase(out, z=3, step=40):
         for an in body:
             f = an.frame(tt)
             if f is not None:
-                units.append((gy, f, an.pos(tt)))
+                units.append((an.pos(tt)[1], f, an.pos(tt)))
                 break
         for _, f, p in sorted(units, key=lambda u: u[0]):
             if f is not None:

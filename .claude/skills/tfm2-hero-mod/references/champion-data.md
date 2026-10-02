@@ -2800,15 +2800,34 @@ Q on 38 of one 12-frame strip, the W and the Q `Delayed` on the target with a fl
 caster's own `Delayed` checks find the flag missing and fire the W or Q at a `RandomTarget` (champions first). The
 runes League's Q passive counts are pictures and flags on the caster (E -> one, W -> two, Q spends them: move speed).
 
-**A team teleport through a portal (league_ryze R, Realm Warp).** A `Direction` cast on `EnemyChampion`: a hidden
-`LinearProjectile` plays the destination portal where it stops (r_move ahead), a second one of speed 1 and range 1
-stays at his feet as the anchor; after the 60-tick channel the anchor's `end_effects` `Delayed` puts a
-`RangeProjectile` (the portal's radius, `AllyChampion`) applying `Grab {speed 15000}` - allied champions standing
-there are dragged to the caster in 3-4 ticks, after his `DirTeleport` (the probe: priest and ninja zipped across).
-Crowd control breaks the channel: every 15 ticks a `RandomTarget AllyChampionInCC` on himself sets `r_cut` and
-removes the cast animation. The AI scores an ult by the damage of the branch its caster's flags pick when it
-decides: a pure teleport was cast 7 times in 9 games; the warp on the default branch (`r_cut` leads to the empty
-one) with a damaging Spell Flux on landing: 2.2 a game.
+**A team teleport to chase or escape (league_ryze R, Realm Warp).** The user: never at an enemy already in front of
+him, "追敌人或者逃跑用", "或者运送小兵". The first version - a `Direction` cast on `EnemyChampion` (80000) that blinked 30000
+ahead (`DirTeleport`) - went out in 163 of 163 simulated casts with the nearest enemy champion 30000-55000 away, inside his
+attack range: the AI decides an ult like that once the fight is on, and 45 landings ended within 30000 of an enemy. The slot
+now only arms R (league_riven R: a 3-tick `None` action on the `idle` tag, `EnemyChampion` within 120000, `r_armed` for 600
+ticks, left unused a 3-tick `ult_cooldown_mult` 4900), and an `AddCasted` on himself (period 10) checks while armed:
+- escape: two enemy champions within 30000 (league_kayle R's `n1` -> `n2` ladder in a `RangeEffect`), or one within 15000 (a
+  `RandomTarget`) with no `AllyNotSelf` within 50000. `RandomTarget EnemyChampion` within 30000 holds the jump: after the
+  60-tick channel a `MoveBack` (15000 x 4) straight away from the champion it picked - it runs from a `Delayed` queued on
+  that champion, so the direction is taken at the jump. A projectile cannot fly the other way to show the far portal during
+  the channel: a `LinearProjectile`'s `speed` is unsigned too (`-10000` fails to parse and breaks the kit, like
+  `DirTeleport.moved`), so the escape's arrival is drawn when he lands.
+- chase: no enemy champion within 45000 (his reach) while one was within the last 90 ticks (a `r_seen` refresh), an
+  `AllyNotSelf` within 50000, and a `RandomTarget EnemyChampionRecentlyAttacked` (it works in a `RandomTarget`) within 100000:
+  a hidden, non-penetrating `LinearProjectile` on `EnemyChampion` toward it (speed 26666, range 80000, radius 5000) stops
+  where it touches the first enemy champion, plays the far portal there, and a `Delayed` in its `end_effects` `Teleport`s
+  him there at the end of the channel (the stop point is kept, section 4). A radius of 40000 landed him an attack range
+  short - by then the fleeing champion had run another 60000 (1000 units a tick): after the landing 41% stood in his reach,
+  with the portal on the champion 62%.
+Requiring an ally near the chase (he follows with the team, never alone at low health) and the "one in reach a moment ago"
+check (no chase on the approach - the first try warped onto five enemies walking in) came from the logs. Every allied
+unit in his portal comes along: an anchor (league_ekko R) at his feet starts, after the jump, a zone on `AllyNotSelf` whose
+applied effect is a `TargetProjectile` on `BothWithoutTower` carrying `Grab {speed 15000}` - a `Grab` straight from a zone
+on `Ally` or `AllyNotSelf` dragged two allied towers across the lane in the simulation (`tower` 6 from 368000,592000), and
+no casting target names allied minions alone. Crowd control breaks the channel (a `RandomTarget AllyChampionInCC` on
+himself every 15 ticks sets `r_cut`). In 72 games: 2.2 chases, 0.6 escapes and 0.2 cut channels a game, a chase carrying about 0.8
+champions and 0.2 minions; lane 2 +1.41 / +1.35 against +1.65 / +2.01 for the old blink (it threw its landing
+Spell Flux into every fight).
 
 ## 8. Gotchas
 
