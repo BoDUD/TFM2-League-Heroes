@@ -14,5 +14,8 @@
   "r_hit": {"cell": [21, 33], "anchor": [10, 16], "frames": 4},
   "e_land": {"cell": [63, 29], "anchor": [31, 14], "frames": 7},
   "r_land": {"cell": [91, 59], "anchor": [45, 29], "frames": 8},
-  "r_zone": {"cell": [75, 59], "anchor": [37, 29], "frames": 6}
+  "r_zone": {"cell": [75, 59], "anchor": [37, 29], "frames": 6},
+  "q2_ready": {"cell": [17, 18], "anchor": [8, 4], "frames": 6},
+  "q2_flash": {"cell": [17, 18], "anchor": [8, 4], "frames": 4},
+  "q2_end": {"cell": [17, 18], "anchor": [8, 4], "frames": 3}
 }

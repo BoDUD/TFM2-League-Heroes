@@ -273,8 +273,13 @@ FX = {
         "w_edge": [("w_edge", range(6), HIT, [60] * 6)],
         "e_hook": [("e_hook", range(8), (0, 0), [22] * 8)],                 # 8 squares of cable at 6 px a tick
         "e_hit": [("e_hit", range(5), HIT, [50] * 5)],
-        "e_stun": [("e_stun", range(8), OVERHEAD, [62] * 7 + [66])],        # e_stun 30 ticks
+        "e_stun": [("e_stun", range(8), OVERHEAD, [94] * 7 + [92])],        # e_stun 45 ticks (League's 0.75 s)
         "p_shield": [("p_shield", range(6), BODY, [100] * 6)],              # a buff view: loops while the shield holds
+        # the charged second kick waiting (q2_ready's three-phase buff view, drawn by work/cm/q2_glow_cm.py): the
+        # flash as the charge completes, the blades' bloom while it waits, the bloom draining as the kick goes off
+        "q2_flash": [("q2_flash", range(4), (0, 0), [60] * 4)],
+        "q2_ready": [("q2_ready", range(6), (0, 0), [80] * 6)],
+        "q2_end": [("q2_end", range(3), (0, 0), [50] * 3)],
         "r_mark": [("r_mark", range(4), GROUND, [120] * 4)],                # a buff view: loops under the target
         "r_wall": [("r_wall", range(5), HIT, [60] * 5)],
         "r_hit": [("r_hit", range(4), HIT, [50] * 4)],

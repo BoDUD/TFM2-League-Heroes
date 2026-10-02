@@ -6,15 +6,15 @@
   league_camille_frames.png     every animation, frame by frame, 3x on the arena colour
   league_camille_effects.png    every effect animation, 3x
   league_camille_showcase.gif   a scripted fight against Garen and Darius, timed like the kit: she runs in and kicks
-                                Garen - Adaptive Defenses wraps her in its hex shield; Precision Protocol's first
-                                kick (the cyan star), a plain kick while it charges, the charged second kick (the
-                                true-damage burst); Tactical Sweep's crescent catches Garen on its outer edge and he
-                                falls. Darius walks up behind a red caster minion (a prop drawn here); Hookshot's
-                                claw catches the minion beside him (she never hooks a champion), she is pulled to it
-                                and dashes on at Darius - the shock ring, Darius stunned under the hex stars. The Hextech
-                                Ultimatum: a short leap, the arena rises where she lands and stays there, the mark at
-                                his feet; her kicks add true damage, he walks to the field's edge, hits the wall and
-                                is dragged back, and falls; 3x
+                                Garen - Adaptive Defenses wraps her in its hex shield; Precision Protocol's first kick
+                                (the cyan star), a plain kick while it charges, her blades lighting up when the charge
+                                completes, the charged second kick (the true-damage burst); Tactical Sweep's crescent
+                                catches Garen on its outer edge and he falls. Darius walks up behind a red caster
+                                minion (a prop drawn here); Hookshot's claw catches the minion beside him (she never
+                                hooks a champion), she is pulled to it and dashes on at Darius - the shock ring,
+                                Darius stunned under the hex stars. The Hextech Ultimatum: a short leap, the arena
+                                rises where she lands and stays there, the mark at his feet; her kicks add true
+                                damage, he walks to the field's edge, hits the wall and is dragged back, and falls; 3x
 """
 import argparse
 import math
@@ -168,9 +168,18 @@ def showcase(out, z=3, step=40):
     first = kick(g)
     # Adaptive Defenses: the shield (and its picture) for 120 ticks on the first champion hit
     over.append(Follow(frames_of(fx, "p_shield"), first, 0, 0, loop=True, until=first + tick(120), on=body))
-    # Precision Protocol: Q1 (25 ticks, the hit on 8), a plain kick while Q2 charges 90 ticks, the charged Q2 (27, on 9)
+    # Precision Protocol: Q1 (25 ticks, the hit on 8), a plain kick while Q2 charges 90 ticks, the charged Q2 (27, on 9);
+    # from the charge's end (the q2_ready buff, tick 91 of Q1) her blades glow until the charged kick: the flash, the
+    # loop, the bloom draining as the kick goes off
+    q1_at = t
     kick(g, "attack_q", 8, 25, "q_hit")
     kick(g)
+    ready_at, q2_at = q1_at + tick(91), t
+    flash = frames_of(fx, "q2_flash")
+    over.append(Follow(flash, ready_at, 0, 0, on=body))
+    over.append(Follow(frames_of(fx, "q2_ready"), ready_at + sum(ms for _, ms in flash), 0, 0, loop=True,
+                       until=q2_at, on=body))
+    over.append(Follow(frames_of(fx, "q2_end"), q2_at, 0, 0, on=body))
     kick(g, "attack_q2", 9, 27, "q2_hit")
     # Darius walks up behind, to the back row 58 px ahead of her
     d.walks_in.append((2600, 5600, 128 - d.x))
@@ -214,7 +223,7 @@ def showcase(out, z=3, step=40):
     on(fx, "e_hit", landed, d)
     on(fx, "e_hit", landed, mn)
     on(fx, "e_stun", landed, d)
-    d.holds.append((landed, landed + tick(30)))
+    d.holds.append((landed, landed + tick(45)))                # E2's 0.75 s stun
     # The Hextech Ultimatum on Darius: the leap on tick 5 at 5 px a tick, onto him; where she lands the field is set
     # and stays - its own picture, the arena forming and then standing for its 180 ticks (the sheet holds it turned half
     # round for the engine: turned back here) - and the mark is on him from 3 ticks after

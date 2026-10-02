@@ -49,9 +49,11 @@ PROJECTILE_EFFECTS = {"TargetProjectile", "AutoTargetProjectile", "TargetSplashP
                       "TargetProjectileFromProjectile", "ShrinkingBarrier"}
 CATEGORIES = {"Melee", "Range", "Magician", "Util", "Assassin"}
 CASTING_TYPES = {"Targeting", "Direction", "Position", "None"}
+# the game's own CastingTarget variants (serde's list in TeamfightManager2.exe 0.6.2): Both is every unit of both sides,
+# towers and monsters too (league_camille E picks its holds with it)
 CASTING_TARGETS = {"Enemy", "EnemyWithoutTower", "EnemyChampion", "EnemyChampionInCC", "EnemyChampionRecentlyAttacked",
                    "AllyOnlySelf", "AllyChampion", "AllyNotSelf", "AllyChampionInCC", "BothWithoutTower",
-                   "BothChampion", "Ally"}
+                   "BothChampion", "Ally", "Both"}
 ATTACK_TYPES = {"BaseAttack", "Skill"}
 # Enum values the engine's parser accepts (game_core in the game's mod SDK; scripts/sdk_probe.rs)
 HEAL_TYPES = {"Caster", "Ally", "Any", "AllyAll"}
