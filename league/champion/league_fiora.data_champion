@@ -6401,7 +6401,7 @@
           },
           "penetrate": true,
           "y_offset": -4000,
-          "applied_target": "Enemy",
+          "applied_target": "Ally",
           "applied_effects": [],
           "end_effects": []
         },
