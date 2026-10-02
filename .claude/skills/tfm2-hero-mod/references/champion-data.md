@@ -525,8 +525,10 @@ them (also straight in a projectile's effects, not only from a `Delayed`), and t
 Projectiles started from another projectile's `end_effects` still spawn and hit; a `Delayed` queued after the
 death still runs its effects, but a projectile it starts does not spawn (a dead caster fires no projectile).
 league_jinx E's links went on after her death and, with the lock never added, bit the champion they had rooted
-at every link (8 and 18 times in two of 24 games; players: "夹子反复触发"); now each check starts from a
-`Delayed {tick: 1}` and a dead Jinx's trap bites no one (0 in 51 games). A flag the trap puts on her while she
+at every link (8 and 18 times in two of 24 games; players: "夹子反复触发"); each check then started from a
+`Delayed {tick: 1}` and a dead Jinx's trap bit no one in the simulation (0 in 51 games) - but players saw it again
+on that version, so the game may spawn what the SDK does not: the trap is now `Delayed` effects of the cast itself,
+which stop when she dies (section 7, "A trap that waits and snaps once"). A flag the trap puts on her while she
 lives and reads later cannot do it: any flag on when she dies stays on, and gates that are off when the AI decides
 cost casts (section 3: the AI scores the branch the caster's buffs pick). A search can: `RandomTarget {range: 1,
 casting_target: AllyOnlySelf}` finds no dead caster, so a zone's applied effects can ask "does she live" (a 1-tick flag
@@ -1036,8 +1038,14 @@ it leaves. The ult's longer curse adds a caster "window" buff that the pulses ch
 
 **Pull yourself to the first champion hit (league_amumu Q).** `LinearProjectile {penetrate: false,
 applied_target: EnemyChampion}` passes minions and monsters (the AI cannot aim around them); its
-`applied_effects` hold the damage, `Stun`, `MoveToTarget` (the Lee Sin Q2 dash, without the delay)
-and `CasterAnimation` for the flight. A miss moves nothing.
+`applied_effects` hold the damage and the `Stun`, then a `Delayed {tick: 2}` with `MoveToTarget` and the
+`CasterAnimation` for the flight (league_leesin Q2's way). A miss moves nothing. Players never saw it stun ("从来没有
+触发过眩晕"; 2026-10-02) while the simulation held 38% of the throws and kept the champion still for 60 ticks, so
+the parts no hero proven in the game uses were changed: the dash had sat straight in the `applied_effects`, and
+the bandage was the pack's thinnest and slowest (radius 5000, 5000 a tick; then 7000 and 6500: 60% held). Played,
+it still missed too often ("的确有点难Q中人", "长度也远一点"): radius 12000, cast range 75000 (was 62000), the
+bandage 85000 long (was 70000), the dash 110000 - 73% held in 18 simulated games (56% before; 67% at 10000), and
+against base junglers the kill difference went from -0.52 to +0.01 (720 games).
 
 **Third cast is different (league_yasuo Q3).** Two hidden caster buffs count the hits: the first
 hit of a cast adds `q_stack`, the next cast's hit swaps it for `q_ready` (both 6 s, one per cast with
@@ -1143,23 +1151,29 @@ target. What the check misses is the AI changing targets while the old one lives
 of her attacks carry it.
 
 **A trap that waits and snaps once (league_jinx E).** One zone cannot last and hit once (section 4), so
-the trap is a chain of short links, each started where the thrown `ParabolicProjectile` landed:
-- a `ViewEffect` of the lying trap for the link's length (15 ticks);
-- a `RangeProjectile` with `delay` 14 and `apply` 1 on `EnemyChampion` (it checks on the link's first
-  tick, section 4), whose effects (skipped under a lock) bite:
-  `Bind`, damage, a `ViewEffect` on the victim, and `WithSelf {Delayed {tick: 1, AddCasterBuff lock}}`,
-  so every champion inside at that check is bitten before the lock falls; the `RangeProjectile` itself starts
-  from a `Delayed {tick: 1}`, so a dead Jinx's links bite no one (below);
-- a hidden `ParabolicProjectile` of `travel_time` 15 aimed at the same spot, whose `end_effects` start
-  the next link unless the lock is on.
+the trap is 20 short links (15 ticks each, 5 s). They were a chain - each link's hidden `ParabolicProjectile` started
+the next from its `end_effects` unless a lock on Jinx was on - and a chain started from `end_effects` goes on after
+the caster dies (below): players saw champions bitten again and again ("夹子反复触发", then "被秒的英雄同时碰到了两个
+炸弹" on a version that only kept the dead caster's checks from spawning). Now the links are flat, league_teemo R's
+way: a `Position` cast keeps its point for every effect it runs, so each link is a `Delayed` of the cast itself (the
+throw lands on tick 36, the links follow every 15 ticks, the fizzle after them), and a dying caster's pending
+`Delayed` effects stop - in simulation the chain showed 19 links after Jinx's 7 deaths with a trap out, the flat
+links none after 6. Each link, at the cast point:
+- skips if this trap already bit (`e_spent<slot>`, set a tick after the bite): one bite per trap;
+- from the third link on, skips unless the link before it ran (`e_hb<slot>_<k-1>`, set by that link): should the
+  links ever go on after her death, her frozen flags stop the trap one link later, one bite at most;
+- shows the lying trap and, unless a trap bit someone in the last 90 ticks (`e_lock`, shared, the root's length),
+  starts the check: a `RangeProjectile` (`delay` 14, `apply` 1) on `EnemyChampion` whose effects bite every champion
+  inside (`Bind` 90, damage, a `ViewEffect`) and `WithSelf {Delayed {tick: 1}}` set `e_lock` and `e_spent<slot>`.
+Casts alternate between two slots (a `Permanent` toggle), so a second trap thrown while the first lies (cooldown
+cuts) has flags of its own; each cast clears its slot's. The first link is not gated by the heartbeat, so the AI,
+which scores the branch the caster's buffs pick, still sees the bite: 176 throws in 12 simulated games (169 before),
+69% bit a champion (63%), no champion bitten twice within 90 ticks, none after her death. The throw lands on the cast
+point itself (`range` 120000), where the links stand.
 
-The first link only arms (no check). 20 links make 5 s; after a bite the next link never starts, so the
-trap vanishes a tick after it snaps. The lock lives on the caster and is shorter than the cooldown, so
-it never blocks the next throw. In simulation 77 throws: 46 bit a champion, 31 ran out.
-
-**A trap that lasts, with three at once (league_teemo Noxious Trap).** league_jinx E's links are
-projectiles nested in each other's `end_effects`: its file is 119 levels deep, and serde_json stops at
-128, so that chain cannot run much past its 20 links (5 s). A `Position` cast keeps its cast point for
+**A trap that lasts, with three at once (league_teemo Noxious Trap).** Links nested in each other's
+`end_effects` (league_jinx E until 2026-10-02) cannot run long: that file was 119 levels deep, and serde_json stops at
+128, so the chain could not run much past its 20 links (5 s). A `Position` cast keeps its cast point for
 every effect it runs, `Delayed` ones included (league_soraka's Equinox; every `RangeProjectile` and
 `ViewEffect` of league_teemo R appeared on the mushroom's spot in the simulation), so the links can sit
 side by side in the ult's own `Combine` (19 levels deep, 292 KB for three mushrooms of 12 s):
