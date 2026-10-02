@@ -1,0 +1,47 @@
+{
+ "hero": "camille",
+ "champ": "Camille",
+ "camera": {"yaw": 30, "pitch": 25, "mirror": true},
+ "chibi": {"head": 2.3, "legs": 0.72, "hair": 0.8},
+ "legs": "^(L|R)_Hip$",
+ "height": 46,
+ "cell": [128, 112, 14],
+ "design": "Camille_Idle_loop@0",
+ "tags": {
+  "idle": {"frames": [
+   ["Camille_Idle_loop@0", 200], ["Camille_Idle_loop@0", 200], ["Camille_Idle_loop@0", 200],
+   ["Camille_Idle_loop@0", 200], ["Camille_Idle_loop@0", 200], ["Camille_Idle_loop@0", 200]]},
+  "run": {"flat": true, "head_like": "Camille_Idle_loop@0", "frames": [
+   ["Camille_Run_Base@0", 125], ["Camille_Run_Base@125", 125], ["Camille_Run_Base@250", 125],
+   ["Camille_Run_Base@375", 125], ["Camille_Run_Base@500", 125], ["Camille_Run_Base@625", 125],
+   ["Camille_Run_Base@750", 125], ["Camille_Run_Base@875", 125]]},
+  "attack": {"lunge": 0.6, "frames": [
+   ["Camille_Idle_loop@0>Camille_Attack1@120:0.6", 60], ["Camille_Attack1@220", 60], ["Camille_Attack1@330", 60],
+   ["Camille_Attack1@400", 70], ["Camille_Attack1@500", 80], ["Camille_Attack1@640>Camille_Idle_loop@0:0.5", 90]]},
+  "attack_q": {"lunge": 0.6, "frames": [
+   ["Camille_Idle_loop@0>Camille_spell1@100:0.6", 60], ["Camille_spell1@200", 60], ["Camille_spell1@300", 60],
+   ["Camille_spell1@400", 70], ["Camille_spell1@560", 80], ["Camille_spell1@760>Camille_Idle_loop@0:0.5", 90]]},
+  "attack_q2": {"lunge": 0.6, "frames": [
+   ["Camille_Idle_loop@0>Camille_Spell1_2@40:0.6", 60], ["Camille_Spell1_2@80", 70], ["Camille_Spell1_2@160", 60],
+   ["Camille_Spell1_2@240", 80], ["Camille_Spell1_2@260>Camille_Idle_loop@0:0.5", 90],
+   ["Camille_Spell1_2@260>Camille_Idle_loop@0:0.85", 90]]},
+  "skill": {"lunge": 0.6, "rise": 0.5, "frames": [
+   ["Camille_Idle_loop@0>Camille_Spell2_0@0:0.6", 80], ["Camille_Spell2_0@120", 90], ["Camille_Spell2_0@300", 90],
+   ["Camille_Spell2_0@480", 90], ["Camille_Spell2_0@600", 80], ["Camille_Spell2_0@720", 90],
+   ["Camille_Spell2_0@900", 110], ["Camille_Spell2_0@1000>Camille_Idle_loop@0:0.5", 110]]},
+  "skill2": {"lunge": 0.5, "frames": [
+   ["Camille_Idle_loop@0>Camille_Spell3_0@0:0.6", 70], ["Camille_Spell3_0@100", 70], ["Camille_Spell3_0@250", 80],
+   ["Camille_Spell3_0@400", 90], ["Camille_Spell3_0@600", 90]]},
+  "skill2_dash": {"lunge": 0.4, "rise": 0.4, "frames": [
+   ["Camille_Spell3_Dash2@70", 60], ["Camille_Spell3_Dash2@140", 60], ["Camille_Spell3_Dash2@210", 60],
+   ["Camille_Spell3_Hit@80", 70], ["Camille_Spell3_Hit@160", 80], ["Camille_Spell3_Hit@320>Camille_Idle_loop@0:0.4", 100]]},
+  "ult": {"lunge": 0.4, "rise": 0.25, "frames": [
+   ["Camille_Idle_loop@0>Camille_spell4@0:0.7", 80], ["Camille_spell4@110", 80], ["Camille_spell4@550", 80],
+   ["Camille_spell4@660", 80], ["Camille_spell4@770", 100], ["Camille_spell4@880>Camille_Idle_loop@0:0.5", 110]]},
+  "hit": {"flat": true, "frames": [
+   ["Camille_Idle_loop@0>Camille_death@150:0.3", 100], ["Camille_Idle_loop@0>Camille_death@150:0.12", 100]]},
+  "dead": {"anchor": "first", "lunge": 0.5, "flat": true, "travel": 0.3, "frames": [
+   ["Camille_death@0", 100], ["Camille_death@300", 100], ["Camille_death@700", 110], ["Camille_death@1200", 120],
+   ["Camille_death@1800", 120], ["Camille_death@2400", 130], ["Camille_death@3000", 150], ["Camille_death@3600", 400]]}
+ }
+}

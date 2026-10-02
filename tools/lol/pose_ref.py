@@ -219,8 +219,9 @@ def diffuse_textures(paths, skin_bin=None, skn=None):
     Given the bin and the skin's .skn path, the skin's own texture comes first: the bin names it right
     after the mesh. Teemo's skin has three colour maps, and the harmonica's (`Teemo_Base_Harmonica_TX_CM`,
     for a submesh that is hidden) sorted first and turned the whole model brass; for every earlier hero
-    the texture after the mesh is the one the name rules picked."""
-    base = [p for p in paths if "/Base/" in p]
+    the texture after the mesh is the one the name rules picked. Camille's bin spells the folder `skins/base/`, so
+    the folder is matched in any case."""
+    base = [p for p in paths if "/base/" in p.lower()]
     named = [p for p in base if re.search(r"_tx_cm|_cm_tx", p, re.I) and not re.search(r"trail", p, re.I)]
     found = named or [p for p in base if not re.search(r"loadscreen|square|circle|icon|/particles/", p, re.I)]
     if skin_bin is not None and skn is not None:
@@ -234,8 +235,9 @@ def diffuse_textures(paths, skin_bin=None, skn=None):
 
 def base_mesh(paths):
     """The base skin's own .skn / .skl among the paths a skin bin names. Taric's bin also names a particle mesh
-    (`Skins/Base/Particles/Taric_Base_W_cas_anim.skn`, three gems) that sorts before `Taric.skn`."""
-    base = [p for p in paths if "/Base/" in p]
+    (`Skins/Base/Particles/Taric_Base_W_cas_anim.skn`, three gems) that sorts before `Taric.skn`. The folder is
+    matched in any case (Camille's `skins/base/`)."""
+    base = [p for p in paths if "/base/" in p.lower()]
     return next((p for p in base if "/particles/" not in p.lower()), base[0])
 
 

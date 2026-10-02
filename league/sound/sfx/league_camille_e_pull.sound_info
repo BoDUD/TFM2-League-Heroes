@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_camille_sfx_e_pull",
+      "volume": 0.5
+    },
+    {
+      "delay": 0.1,
+      "clip": "league_camille_sfx_e_dash",
+      "volume": 0.45
+    }
+  ]
+}
