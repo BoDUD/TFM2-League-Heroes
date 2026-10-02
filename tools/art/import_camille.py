@@ -48,6 +48,7 @@ OVERHEAD = (0, -31)                    # over a 35-40 px hero's crown (the stun)
 GROUND = (0, 10)                       # the middle of a ring round a unit's feet (the soles 11 px under its pivot)
 BODY = (0, -12)                        # the middle of her 46 rows (crown 34 over the pivot, blade tips 11 under it)
 LINE = (-30, 0)                        # the sweep's point: half of the line's 60000 behind its middle
+TURNED = {"r_field"}                   # pictures of zones the engine draws turned half round (direction (-1, 0))
 # the pack's colours (PROMPTS_FX.md)
 HEX = ["FFFFFF", "CFFBFF", "6FF2FF", "00C8F0", "0089C7", "00457A"]
 DEEP = ["B8D8FF", "5A9CFF", "2F5FD9", "1C2F80"]
@@ -280,8 +281,10 @@ FX = {
     },
     "league_camille_big": {
         "e_land": [("e_land", range(7), GROUND, [50] * 7)],
-        "r_land": [("r_land", range(8), GROUND, [60] * 6 + [70, 70])],      # r_piece 30 ticks; r_zone from tick 30
-        "r_zone": [("r_zone", range(6), GROUND, [83, 83, 84, 83, 83, 84])], # one 30-tick piece
+        # R's field: its zone's own picture for the zone's 180 ticks - the arena forming (500 ms), then standing
+        # (five 500-ms loops) - turned half round, as the zone's direction is (-1, 0) and the engine turns it back
+        "r_field": [("r_land", range(8), GROUND, [60] * 6 + [70, 70])] +
+                   [("r_zone", range(6), GROUND, [83, 83, 84, 83, 83, 84])] * 5,
     },
 }
 
@@ -298,7 +301,8 @@ def build():
                 ax, ay = anchors[src]["anchor"]
                 strip = cells(src, anchors[src]["frames"])
                 for k, m in zip(used, ms):
-                    out[tag].append((G.centre_frame(strip[k], spot[0] - ax, spot[1] - ay), m))
+                    f = G.centre_frame(strip[k], spot[0] - ax, spot[1] - ay)
+                    out[tag].append((np.ascontiguousarray(f[::-1, ::-1]) if tag in TURNED else f, m))
         sheets[sprite] = out
     return sheets
 

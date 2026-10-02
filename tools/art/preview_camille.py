@@ -9,11 +9,12 @@
                                 Garen - Adaptive Defenses wraps her in its hex shield; Precision Protocol's first
                                 kick (the cyan star), a plain kick while it charges, the charged second kick (the
                                 true-damage burst); Tactical Sweep's crescent catches Garen on its outer edge and he
-                                falls. Darius walks up behind; Hookshot's claw flies to him, she is pulled across and
-                                lands with a shock ring, Darius stunned under the hex stars. The Hextech Ultimatum:
-                                a short leap, the arena rises round them and stays with her, the mark at his feet;
-                                her kicks add true damage, he tries to walk out, hits the wall and is dragged back,
-                                and falls; 3x
+                                falls. Darius walks up behind a red caster minion (a prop drawn here); Hookshot's
+                                claw catches the minion beside him (she never hooks a champion), she is pulled to it
+                                and dashes on at Darius - the shock ring, Darius stunned under the hex stars. The Hextech
+                                Ultimatum: a short leap, the arena rises where she lands and stays there, the mark at
+                                his feet; her kicks add true damage, he walks to the field's edge, hits the wall and
+                                is dragged back, and falls; 3x
 """
 import argparse
 import math
@@ -36,6 +37,23 @@ FX = os.path.join(LEAGUE, "effects", "league_camille_fx")
 BIG = os.path.join(LEAGUE, "effects", "league_camille_big")
 KICK = 64                                             # the attack's cooldown, ticks
 KICK_E = 50                                           # with Hookshot's 30% attack speed
+FIELD_R = 36                                          # R's field: 36000 round the point she landed on
+# a red caster minion facing left - a prop for the showcase only (the base game's minion art is not ours to show)
+MINION = ["...ooooo...",
+          "..olllllo..",
+          ".olrrrrrlo.",
+          ".orRRRRRro.",
+          ".oyRyRRRro.",
+          ".orRRRRRro.",
+          "..orrrrro..",
+          "..odddddo..",
+          ".olrrrrrlo.",
+          "olrrrrrrrlo",
+          "orrrrrrrrro",
+          "orrrrrrrrro",
+          ".ooo...ooo."]
+MINION_COL = {"o": (42, 10, 20), "l": (252, 45, 63), "r": (179, 17, 45), "R": (106, 10, 30), "y": (243, 191, 39),
+              "d": (62, 52, 80)}
 
 
 class Fleer(Held):
@@ -72,6 +90,38 @@ def turned(frames, angle):
     return [(f.rotate(angle, resample=Image.NEAREST, expand=True), ms) for f, ms in frames]
 
 
+class Prop:
+    """A unit that only stands (the minion): its picture centred on its pivot, the soles 11 px under it."""
+
+    def __init__(self, x, y):
+        h, w = len(MINION), len(MINION[0])
+        img = Image.new("RGBA", (w, 23), (0, 0, 0, 0))
+        for r, row in enumerate(MINION):
+            for c, ch in enumerate(row):
+                if ch != ".":
+                    img.putpixel((c, 23 - h + r), MINION_COL[ch] + (255,))
+        self.img, self.x, self.y = img, x, y
+
+    def pos(self, t):
+        return self.x, self.y
+
+    def frame(self, t):
+        return self.img
+
+
+class FieldView:
+    """R's field as the contact sheet shows it: turned back upright, the forming and one standing loop (14 frames)."""
+
+    def __init__(self, sp):
+        fr = frames_of(sp, "r_field")[:14]
+        self.frames = [f.transpose(Image.ROTATE_180) for f, _ in fr]
+        self.durations = [ms for _, ms in fr]
+        self.h = sp.h
+
+    def tag_frames(self, tag):
+        return list(range(len(self.frames)))
+
+
 def showcase(out, z=3, step=40):
     cam = load(CHAMP)
     fx, big = load(FX), load(BIG)
@@ -80,7 +130,7 @@ def showcase(out, z=3, step=40):
     back = gy - 12                                     # the back row, where Darius comes in
     g = Fleer(load(os.path.join(LEAGUE, "champions", "league_garen")), 102, gy)
     d = Fleer(load(os.path.join(LEAGUE, "champions", "league_darius")), 340, back)
-    body, under, over = [], [], []
+    body, under, over, props = [], [], [], []
     t = 0.0
     spot = {"x": 70, "y": gy}
 
@@ -132,54 +182,63 @@ def showcase(out, z=3, step=40):
     g.flinches.append(sweep)
     g.death = sweep + 120
     a("skill", tick(40))
-    # Hookshot at Darius: the claw leaves on tick 9 (5 px over her pivot) at 6 px a tick; the pull at 3.5 px a tick
+    # Hookshot: the throw plays when a pulse finds a hold near a champion - the minion beside Darius (never a champion);
+    # the claw leaves on tick 9 (5 px over her pivot) at 6 px a tick, then the pull at 3.5 px a tick to it; E2: a dash
+    # at Darius (4.5 px a tick) - the landing ring, the hit round her, his stun
+    mn = Prop(126, gy + 9)                            # a front-row minion, right of the fallen Garen
+    props.append(mn)
     e0 = t
     rel = e0 + tick(9)
     sx, sy = spot["x"], gy - 5
-    tx, ty = d.pos(rel)
-    dist = math.hypot(tx - sx, ty - sy)
-    arrive = rel + tick(dist / 6.0)
+    tx, ty = mn.pos(rel)
+    arrive = rel + tick(math.hypot(tx - sx, ty - sy) / 6.0)
     over.append(Anim(turned(frames_of(fx, "e_hook"), math.degrees(math.atan2(sy - ty, tx - sx))), rel, sx, sy,
                      until=arrive, x1=tx, y1=ty))
-    a("skill2", arrive - e0)
-    land_x, land_y = tx - 18, back
-    pull = math.hypot(land_x - spot["x"], land_y - gy)
-    landed = arrive + tick(pull / 3.5)
-    dash = a("skill2_dash", tick(26), loop=True)         # a forced tag loops past its 430 ms
-    x0, y0 = spot["x"], gy
-    dash.pos = lambda tt, t0=arrive, t1=landed: (
-        (int(round(x0 + (land_x - x0) * min(1.0, max(0.0, (tt - t0) / (t1 - t0))))),
-         int(round(y0 + (land_y - y0) * min(1.0, max(0.0, (tt - t0) / (t1 - t0)))))))
-    spot["x"], spot["y"] = land_x, land_y
-    under.append(Anim(frames_of(big, "e_land"), landed, land_x, land_y))
+    a("skill2", arrive + tick(1) - e0)
+
+    def glide(tag, x0, y0, x1, y1, t0, t1, dur):
+        an = a(tag, dur, loop=True)                        # a forced tag loops past its 430 ms
+        an.pos = lambda tt: (int(round(x0 + (x1 - x0) * min(1.0, max(0.0, (tt - t0) / max(1, t1 - t0))))),
+                             int(round(y0 + (y1 - y0) * min(1.0, max(0.0, (tt - t0) / max(1, t1 - t0))))))
+        return an
+    px_, py_ = tx - 16, ty
+    t0 = t
+    pulled = t0 + tick(math.hypot(px_ - spot["x"], py_ - spot["y"]) / 3.5)
+    glide("skill2_dash", spot["x"], spot["y"], px_, py_, t0, pulled, pulled - t0)
+    dx_, dy_ = d.pos(pulled)
+    ex_, ey_ = dx_ - 18, dy_
+    landed = pulled + tick(math.hypot(ex_ - px_, ey_ - py_) / 4.5)
+    glide("skill2_dash", px_, py_, ex_, ey_, pulled, landed, tick(26))
+    spot["x"], spot["y"] = ex_, ey_
+    under.append(Anim(frames_of(big, "e_land"), landed, ex_, ey_))
     on(fx, "e_hit", landed, d)
+    on(fx, "e_hit", landed, mn)
     on(fx, "e_stun", landed, d)
     d.holds.append((landed, landed + tick(30)))
-    # The Hextech Ultimatum on Darius: the leap on tick 5 (4 px a tick, onto him), the arena on tick 14, standing
-    # pieces every 30 ticks after it while it lasts (180 ticks from the landing), the mark on him from 3 ticks after
+    # The Hextech Ultimatum on Darius: the leap on tick 5 at 5 px a tick, onto him; where she lands the field is set
+    # and stays - its own picture, the arena forming and then standing for its 180 ticks (the sheet holds it turned half
+    # round for the engine: turned back here) - and the mark is on him from 3 ticks after
     r0 = t
-    hop_to = tx - 14
-    reach = r0 + tick(5) + tick(max(1.0, (hop_to - land_x) / 4.0))
+    hop_to = dx_ - 14
+    reach = r0 + tick(5) + tick(max(1.0, abs(hop_to - ex_) / 5.0))
     ult = a("ult", tick(30))
     ult.pos = lambda tt, t0=r0 + tick(5), t1=reach: (
-        int(round(land_x + (hop_to - land_x) * min(1.0, max(0.0, (tt - t0) / (t1 - t0))))), land_y)
+        int(round(ex_ + (hop_to - ex_) * min(1.0, max(0.0, (tt - t0) / (t1 - t0))))), ey_)
     spot["x"] = hop_to
     on_until = reach + tick(180)
-    under.append(Anim(frames_of(big, "r_land"), r0 + tick(14), hop_to, land_y))
-    k = 1
-    while r0 + tick(14 + 30 * k) < on_until:
-        under.append(Follow(frames_of(big, "r_zone"), r0 + tick(14 + 30 * k), 0, 0, on=body))
-        k += 1
+    under.append(Anim([(f.transpose(Image.ROTATE_180), ms) for f, ms in frames_of(big, "r_field")], reach, hop_to, ey_))
     under.append(OnFoe(frames_of(fx, "r_mark"), reach + tick(3), d, z=-1))
     under[-1].loop, under[-1].until = True, on_until
     # kicks in the arena, 30% faster: each adds R's true damage; Darius walks off, the wall drags him back
     kick(d, gap=KICK_E, extra="r_hit")
     k2 = t
     kick(d, gap=KICK_E, extra="r_hit")
-    flee0 = k2 + 333                                   # after the second kick's flinch: 14 px off, 28 from her
-    d.flees.append((flee0, flee0 + 400, 14))
-    zap = flee0 + 400                                  # past r_leash 25000: a 4-tick Grab back and the wall's zap
-    d.slides.append((zap, zap + tick(4), -12))
+    flee0 = k2 + 333                                   # after the second kick's flinch he walks for the edge
+    centre = hop_to
+    out_by = FIELD_R + 2 - (d.pos(flee0)[0] - centre)  # until he is 2 px out of the field
+    d.flees.append((flee0, flee0 + 520, out_by))
+    zap = flee0 + 520                                  # out: a 4-tick Grab drags him back toward her, the wall's zap
+    d.slides.append((zap, zap + tick(4), -(out_by + 2)))
     on(fx, "r_wall", zap, d)
     last = kick(d, gap=KICK_E, extra="r_hit")
     d.death = last + 120
@@ -200,7 +259,7 @@ def showcase(out, z=3, step=40):
             if f is not None:
                 place(img, f, *an.pos(tt))
         her = next((an for an in body if an.frame(tt) is not None), None)
-        units = [(foe.pos(tt)[1], 0, foe) for foe in (d, g)] + [(her.pos(tt)[1], 1, her)]
+        units = [(foe.pos(tt)[1], 0, foe) for foe in [d, g] + props] + [(her.pos(tt)[1], 1, her)]
         for _, _, u in sorted(units, key=lambda v: (v[0], v[1])):
             place(img, u.frame(tt), *u.pos(tt))
         for an in over:
@@ -229,7 +288,7 @@ def main():
                             os.path.join(args.out, "league_camille_frames.png")))
     sp, bp = load(FX), load(BIG)
     print("effects", contact([(sp, t["name"], t["name"]) for t in sp.tags] +
-                             [(bp, t["name"], t["name"]) for t in bp.tags],
+                             [(bp, "e_land", "e_land"), (FieldView(bp), "r_field", "r_field (14 of 38)")],
                              os.path.join(args.out, "league_camille_effects.png")))
     print("showcase frames/seconds", showcase(os.path.join(args.out, "league_camille_showcase.gif")))
 
