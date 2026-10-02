@@ -1149,6 +1149,8 @@ champion a game is still in reach when the tether ends, no change.
 league_blitzcrank (support, --lane 4, 2026-10-02, Rocket Grab's 0.67 s stun and Power Fist's 1 s knock-up): 1.98 a
 game; league_leona 1.88, league_thresh 1.35 and the base priest 0.65 in the same batch - with the hard-CC supports, no
 change.
+league_camille (top, 2026-10-02, the E2 dash's 0.75 s stun after a hook on a minion, a monster or a tower; Yasuo mid, his combo kit of #66): 2.17 a game -
+the range of the CC heroes before, no change.
 league_kaisa (bottom, 2026-10-02): no crowd control of her own (her passive's extra Plasma on a crowd-controlled champion
 reads her allies' control) - no change.
 
@@ -2386,7 +2388,16 @@ from tick 1 the shot comes even when her wind-up is cut short: the same kit with
 crowd-control check every 10 ticks (`RandomTarget {range: 1, casting_target: AllyChampionInCC}` removes the channel
 flag), and at tick 61, if the flag holds, a non-penetrating `LinearProjectile` on `EnemyChampion` (speed 20000, radius
 8000) toward him: the first enemy champion on the line takes 250 + 150% AD, minions do not block. 4.5 of 5 casts a game
-hit a champion.
+hit a champion. Her laser sight (the user: "女警大招释放时候没有线 ... 中没中 打谁的都不知道") is league_fiddlesticks W's chain
+the other way: from tick 10 (the rifle level on tick 12) an `AddCasted` on him (period 2, until the channel's end)
+sends every tick, while the channel flag holds, a `TargetProjectile` at him (6000 a tick, the bullet's `y_offset`
+-4000: from the rifle) with no effects; its picture is a red dash 2 px thick with its head on the projectile, hidden
+5 ticks (past the rifle), then 4 and 8 px long: 6 px apart, the dashes overlap into one line that ends on his pivot (a
+homing projectile goes on its target), where the crosshair is drawn now (it sat on his chest, 8 px higher), `z` -1.
+The dashes stop when the channel breaks or she fires; the ones in flight run on to him while the bullet follows the
+line. The user found it crooked twice ("凯特琳这个大招特效线是歪的？做直了啊", "…连接线特效是歪的 你不修吗"): 24 and 36 px
+links, each turned on its own, stepped where two met, and a line from her standing height missed both the barrel and
+the crosshair. Short dashes keep a turned line straight: each is too short to step, and their heads lie on the line.
 
 **A cleave every fourth attack or on a timer (league_nocturne passive, Umbra Blades).** League's 12 s cooldown, which
 each attack cuts by 1-3 s, comes out at about every fourth attack in a fight. The attack (`start_timing` 1, its hit
@@ -2498,6 +2509,82 @@ for 600 ticks and a `WithShield` caster buff that carries its picture (it goes w
 The check runs at every action and on a train of pulses queued on himself (every 30 ticks for 240 ticks after an
 action, one train at a time): a stun stops his actions, not the pulses, so a hook or a stun in a fight still sets it
 off. About 3-4 shields a game in the simulation.
+
+**A field fixed where she landed, nobody walks out (league_camille R, The Hextech Ultimatum).** A `Targeting`
+cast on `EnemyChampion`: a 14-tick caster buff (`damaged_reduce` 100, `cc_immune`) for the leap and, from tick 5,
+`MoveToTarget {speed: 5000}` whose `end_effects` set `r_on` (180 ticks), knock the others back (the target keeps its
+place through a 2-tick `cc_immune`), 3 ticks later block the target's dashes and start an `AddCasted` (`Bleed`,
+period 1) on it, and fire an anchor - a `LinearProjectile` with `speed` 1, `range` 1 and `y_offset` 5000 (league_ekko
+R; at `y_offset` 0 it started 5000 over her and took 5000 ticks to come down) - whose `end_effects` start the zones
+there (180 ticks, period 1): the drawn arena's floor as a `Rect` on `AllyOnlySelf` (a 2-tick `r_cin`) and on
+`EnemyChampion` (`r_tin`), and a wide circle on `AllyOnlySelf` that pulls her back to the centre whenever `r_cin` is
+missing - a `Pull` in a projectile's `applied_effects` heads for the projectile (section 4 "Pull vs Grab"). The
+target's `AddCasted` asks every tick, while she lives (`RandomTarget {range: 1, AllyOnlySelf}` -> a 1-tick `r_live`):
+no `r_tin` -> a 1-tick `Grab` (2000) toward her, who is inside, the wall's zap at most every 30 ticks. `r_tin` is
+any enemy champion in the arena, his teammates too, so a safety net also pulls him when she is not within 47000 of
+him (`RandomTarget AllyOnlySelf` from the projectile; with her body about 62 px between the centres, more than the
+arena is wide, so it never touches a target still inside - at 28000, 43 px, it nudged him in 7% of his ticks inside:
+the user, "离她太远不是应该不能释放吗？为啥强行？"). `Grab` and `Knockback` only pull toward or push away from the caster, so the target is kept through
+her and she through the zone's own pull (the user: "卡密尔的大招是无法离场的").
+The first field let the target walk out (the user: "敌人也不能走出那个圈 现在还可以走出去"): a 36000 circle checked every
+6 ticks, and a shape counts the unit's own collision radius, so the target's centre had 51 px round the landing point
+while the arena is drawn 66 x 30 px - the ground has no perspective squash (the 5v5 map is a square, 960000 units, a
+1280 px picture; the base game's area pictures are round). In twelve simulated games the target stood outside the
+drawn floor 58% of the R ticks; with the box, every tick, the centre pull and the safety net 2%, mostly against
+the wall. A `Rect`'s `width` and `height` are whole sizes with the unit's radius added round them (her `r_cin`
+flipped at about 23500 across with `width` 15000, and at 15800 up and down with `height` 0). The arena's picture is
+drawn 5 px higher than the rings (`import_camille.py` `FLOOR`), so its floor - back wall to front wall - is centred on
+the zones. Her E can't cut the leap either (the user: "青钢影的大招时没法躲避的"): E's pulses run beside her actions, and a
+hook that pulled her mid-leap once left the ult landing nowhere; `r_leap`, from the cast to the landing, stops E's
+throw, pulls and E2. An anchor fired on tick 14 of the action instead (to time the picture) was skipped whenever the
+leap landed later: the AI leaps from about 52000 centre to centre.
+
+**A zone's picture comes turned by its direction (league_camille R).** The anchor flies 1 unit, so its direction
+is (0, 0), and the `RangePeriodProjectile` it starts got (-1, 0) in every logged field (15 of 15). A zone's view is
+turned to its direction like any projectile's - here half round, upside down - so the sheet stores the arena's frames
+turned half round and the engine turns them back (`tools/art/import_camille.py` `TURNED`). The view (`repeat` on, as long
+as the zone: 3000 ms) holds the arena forming (500 ms) and then standing.
+
+**A hook that needs a hold, armed by its slot and thrown by pulses (league_camille E, Hookshot).** League's
+Hookshot needs a wall; TFM2 has none (section 4) and no casting target picks towers alone. The user's rules: minions,
+monsters and towers hold, champions never ("拉英雄直接设置落空"), no casts at champions for nothing ("你可以加连招逻辑啊
+这样就不会无脑E英雄了") and an escape too ("逃跑时也可以放吧"). Cast from the slot on a champion, the search below found no
+hold near it at 41 of 69 casts (fights away from the waves) and the cooldown went on a miss; cast on `Enemy`, the AI
+threw it at champions 11 times a game. So the slot is a 3-tick action on the `idle` tag (`Targeting EnemyChampion`,
+range 60000, cooltime 240) that adds a 240-tick `e_armed` flag and an `AddCasted` (`Bleed`, period 6, 240 ticks) on
+her own spot through a self-only `RangeEffect`: its effects run every period with her as the caster and her position
+as the origin - a pulse train with the search written once (league_fizz E's pulses rode a zone). A pulse, armed and
+without the 720-tick `e_cd`, picks a unit with `RandomTarget` on `Both` - minions, monsters (the epic monster too),
+towers and champions of both sides - and sends the pick two twins, one on `Both`, one on `BothChampion` that flags a
+champion (both hit in the same tick, the champion one's effects after the other's: league_ezreal Q); a tick later a
+pick that holds starts `e_cd`, plays `CasterAnimation skill2` (the throw) and 8 ticks later sends the hook (a
+`TargetProjectile`) at it, whose applied effects pull her there (`MoveToTarget`). Engage: a champion within 60000, a
+pick within 35000 of it (`from_projectile`) that is within 60000 of her (a `RandomTarget AllyOnlySelf` from the pick),
+then E2 from the hold. Escape, while outnumbered by two (league_kayle R's count ladder: two enemy champions within 45000
+and no ally within 40000, or three and one) and not in her R: a pick within 60000 of her with no enemy champion within
+40000 of it, at least 25000 from her; E2 is a `MoveBack` (4500 x 8) from an enemy champion near. One pick a pulse:
+five engage and six escape picks a pulse (every 10 ticks) made `skill2` 438 effect nodes, and the game copies the
+whole `skill` and `skill2` of every mod champion every tick of a shown match (the performance work's measurement:
+cost in proportion to their nodes); one pick every 6 ticks is 116 nodes and landed more E2 stuns in twelve simulated
+games (117 against 101). Nothing reads health, so being outnumbered stands
+for fleeing; after the escape the AI walks back when it wants the fight. Hooked in four games: 38 minions, 3 monsters
+(stump, serpent, epic), 1 tower. With the final numbers, twelve simulated games: 10.4 throws a game, 10.2 pulls, 8.2 E2 stuns, no champion hooked and no empty throw; 0.1-0.4 escapes a game (ganks seldom happen next to a hold).
+
+**A charged-attack cue that a dying target cannot cancel (league_camille Q2, Precision Protocol).** League lights
+her leg blades once the second kick is charged (the user asked for it). The engine plays `idle` and `run` itself, so
+the cue is a buff's picture: `q2_ready` (a caster flag) from the charge's end to the charged kick, a `ThreePhase` view
+(`pre_tag` the flash as the charge completes, `loop_tag` the blades' bloom, `remove_tag` the bloom draining as the kick
+goes off; league_janna's storm shield). A buff's picture is not mirrored when she faces left (section 6), so the cue
+is symmetric about her pivot: a soft cyan bloom over both blades (partial alpha, as league_ekko's R ghost) with hard
+sparks. The flag is set by a `Delayed` of the charge's 90 ticks from the first kick - and a `Delayed` in the kick's
+own effects did not run when the unit kicked died before it (a minion: 1 of 4 charges in a logged game showed no
+cue); riding a self-only `RangeEffect` (`AllyOnlySelf`) on her, 36 of 37 charges lit up, the last one cut by the
+game's end.
+**A sweep's outer edge (league_camille W, Tactical Sweep).** No shape is a ring sector, so the outer edge is a disc
+ahead: next to the cone (`DirDot`, radius 46000, range 700 - about +-45 degrees) a `RangeEffect {Circle 4000,
+Forward offset 36000}` gives the units at the cone's rim the % max health damage, the slows and, on champions, her
+heal. The sweep's picture is a `LineRangeProjectile` (60000 long, nothing applied, 23 ticks) whose crescent is drawn
+with the fan's point 30 px behind the line's middle - the line starts at her.
 
 **Stacks that rupture at the fifth hit, counted on her (league_kaisa passive, Second Skin).** Nothing reads a buff
 on the target, so the Plasma count lives on her as league_vayne's Silver Bolts does: four caster flags `pl_1` ->
