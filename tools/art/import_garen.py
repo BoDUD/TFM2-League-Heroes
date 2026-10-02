@@ -253,7 +253,8 @@ FX = {
     },
     "league_garen_buffs": {
         "decisive": ("fx_q_ready", 6, (0.095, 0.095), anchors_q_ready, (0, 10), [100] * 6, 0.4),
-        "courage": ("fx_courage", 6, (0.128, 0.128), anchors_courage, (0, -6), [90] * 6, 0.4),
+        # grown with the body (44 / 37 rows, import_native.py GROW): round his middle, 10 px over the pivot
+        "courage": ("fx_courage", 6, (0.152, 0.152), anchors_courage, (0, -10), [90] * 6, 0.4),
     },
     "league_garen_spin": {
         # 4/3 of the first size (0.32, 0.24): the spin's radius went from 30000 to 40000

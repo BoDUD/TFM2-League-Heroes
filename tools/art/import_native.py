@@ -57,6 +57,26 @@ SOLES = 11
 # above pivot row y moves down a row. Codex drew Nami's swimming body a row lower under the head in run 1-4 than
 # in 5-8 and the design, so her neck stretched and shrank as she swam (the user: "一上一下的时候感觉身体要分离一样").
 NECK = {("nami", "run"): (-21, [0, 1, 2, 3])}
+# (hero, tag): (reference slot, y, slots) - one upper body for a whole loop: every frame's rows at or above pivot row y
+# become the reference frame's, and after GROW the listed slots sink a row (the step). Codex drew Darius's shoulders
+# anew round one pasted head in every run frame - the pauldron up beside his face in six frames and down in two, the
+# collar and chest a few px back and forth - so the head seemed to slide over the body (the user: "诺手在上半区移动看起来
+# 头和身体不协调"). The seam under his chin (row -13) crosses the fewest edges into every frame's arms and cape below it;
+# frame 8's head, collar, pauldron and axe top (its face clean, the axe upright as in idle) ride the step down a row in
+# 3-4 and 7-8 like League's head.
+BLOCK = {("darius", "run"): (7, -13, [2, 3, 6, 7])}
+# hero: the idle's height in rows (crown to soles) the whole sprite grows to (the user, 2026-10-02: "盖伦现在尺寸在游戏里
+# 看起来偏小了" at 37 rows, "诺手也是" at 42). Whole rows and columns are copied, one in every 1/(f - 1) counted up from
+# under the soles and out from the pivot column, each where its copy shows least (the fewest one-pixel lines across
+# it, the outline counted threefold), never through the head or the soles; the loops (STEADY) copy the same body lines
+# in every frame. No new colour, no resampling.
+GROW = {"garen": 44, "darius": 46}
+# hero: (rows, columns) the head copies, counted from the EYES pixel (its top row, left column) wherever the eye is
+# drawn, so the head grows the same way in every frame - Garen a plain hair row and the cheeks' row under the eyes, a
+# back-hair column and the near cheek's; Darius a hair row and a back-hair column - and HEAD_BOX (rows, columns from
+# the same pixel), the head, where nothing else is copied (copies through it read as a taller crown or a wider face)
+HEAD = {"garen": ([-6, 1], [-6, 2]), "darius": ([-6], [-6])}
+HEAD_BOX = {"garen": ((-8, 2), (-7, 4)), "darius": ((-8, 2), (-7, 4))}
 # (hero, tag): (y, rows, cape), a walk's step: in frame k everything at or above pivot row y moves down rows[k] and is
 # laid over what is below, so the leg tops tuck under the hips; a cape that streams behind her across row y goes along
 # whole (below y: each row up to one past its last `cape` colour pixel, and the tip's runs hanging off that), or the
@@ -635,6 +655,133 @@ def breathe(hero, sheet):
             sheet[tag][k] = (b, ms)
 
 
+def canvas(arrs):
+    """Frames centred on their pivots padded to one size: (arrays, centre row, centre column)."""
+    hh = max(a.shape[0] // 2 for a in arrs)
+    hw = max(a.shape[1] // 2 for a in arrs)
+    return ([np.pad(a, ((hh - a.shape[0] // 2,) * 2, (hw - a.shape[1] // 2,) * 2, (0, 0))) for a in arrs],
+            hh, hw)
+
+
+def sink_block(a, cut):
+    """BLOCK's step: the array rows before cut down a row (the row under them covered)."""
+    b = a.copy()
+    b[1:cut + 1] = a[0:cut]
+    b[0] = 0
+    return b
+
+
+def one_upper(hero, sheet):
+    """BLOCK: the reference frame's rows at or above the seam in every frame of the loop (and its step when the hero
+    does not GROW; a growing hero steps after growing); the frames changed."""
+    n = 0
+    for (h, tag), (ref, y0, slots) in BLOCK.items():
+        if h != hero or tag not in sheet:
+            continue
+        arrs, cy, cx = canvas([a for a, _ in sheet[tag]])
+        cut = cy + y0 + 1                            # array rows before cut sit at pivot rows <= y0
+        for k, a in enumerate(arrs):
+            b = a.copy()
+            b[:cut] = arrs[ref][:cut]
+            if hero not in GROW and k in slots:
+                b = sink_block(b, cut)
+            if (b != a).any():
+                n += 1
+            sheet[tag][k] = (G.centre_frame(b, -cx, -cy), sheet[tag][k][1])
+    return n
+
+
+def line_cost(a):
+    """What copying each row of a shows: its one-pixel features (pixels unlike the rows above and below, dark ones -
+    the outline - threefold) and a little for every pixel unlike the next row."""
+    p = np.pad(a, ((1, 1), (0, 0), (0, 0)))
+    cur, up, dn = p[1:-1], p[:-2], p[2:]
+    drawn = (cur[..., 3] > 0) | (up[..., 3] > 0) | (dn[..., 3] > 0)
+    d_up, d_dn = (cur != up).any(-1), (cur != dn).any(-1)
+    w = np.where(G.lum(cur[..., :3]) < 45, 3.0, 1.0)
+    return ((drawn & d_up & d_dn) * w).sum(1) + 0.35 * (drawn & d_dn).sum(1)
+
+
+def eye_at(hero, a):
+    """(row, column) of the EYES colour's first pixel (top row, left column), or None (turned away, lying down)."""
+    ys, xs = np.nonzero((a[..., :3] == np.array(EYES[hero], np.uint8)).all(-1) & (a[..., 3] > 0))
+    return (int(ys.min()), int(xs[ys == ys.min()].min())) if len(ys) else None
+
+
+def pick_lines(cost, first, last, anchor, step, barred, n, forced=()):
+    """The lines (0..n-1) to copy besides the forced ones: bands of step lines counted from anchor both ways - before
+    it [anchor - (k+1) step, anchor - k step), from it [anchor + k step, anchor + (k+1) step) - one copy in each band
+    whose middle the drawing (lines first..last) reaches and that holds no forced line: its cheapest line that is not
+    barred and not beside another copy, else the nearest such line outside it."""
+    picks = []
+    ok = lambda i: 0 <= i < n and i not in barred and all(abs(i - q) > 1 for q in list(picks) + list(forced))
+    bands, k = [], 0
+    while anchor - (k + 0.5) * step >= first:
+        bands.append((anchor - (k + 1) * step, anchor - k * step))
+        k += 1
+    k = 0
+    while anchor + (k + 0.5) * step <= last:
+        bands.append((anchor + k * step, anchor + (k + 1) * step))
+        k += 1
+    for lo, hi in bands:
+        mid = (lo + hi) / 2
+        if any(lo <= q < hi for q in forced):
+            continue
+        cand = [i for i in range(int(np.ceil(lo)), int(np.ceil(hi))) if ok(i)]
+        if not cand:
+            cand = sorted((i for i in range(n) if ok(i)), key=lambda i: abs(i - mid))[:2]
+        if cand:
+            picks.append(min(cand, key=lambda i: (cost[i], abs(i - mid))))
+    return sorted(picks)
+
+
+def grow(hero, sheet):
+    """GROW: every frame drawn bigger by copying whole rows and columns, the soles kept SOLES under the pivot;
+    (factor, {tag: (rows, columns) copied in its first frame})."""
+    if hero not in GROW:
+        return None, {}
+    idle = sheet["idle"][0][0]
+    ys = np.nonzero(idle[..., 3].any(1))[0]
+    f = GROW[hero] / (ys.max() - ys.min() + 1)
+    step = 1.0 / (f - 1.0)
+    added = {}
+    for tag, frames in sheet.items():
+        arrs, cy, cx = canvas([a for a, _ in frames])
+        ground = cy + SOLES + 1
+        groups = [list(range(len(arrs)))] if tag in STEADY else [[k] for k in range(len(arrs))]
+        block = BLOCK.get((hero, tag))
+        for group in groups:
+            rc = sum(line_cost(arrs[k]) for k in group)
+            cc = sum(line_cost(arrs[k].transpose(1, 0, 2)) for k in group)
+            (r0, r1), (c0, c1) = HEAD_BOX[hero]
+            head_r, head_c = {}, {}
+            bar_r, bar_c = {cy + SOLES, cy + SOLES - 1}, set()
+            for k in group:
+                e = eye_at(hero, arrs[k])
+                head_r[k] = {e[0] + r for r in HEAD[hero][0]} if e else set()
+                head_c[k] = {e[1] + c for c in HEAD[hero][1]} if e else set()
+                if e:
+                    bar_r |= set(range(e[0] + r0, e[0] + r1 + 1))
+                    bar_c |= set(range(e[1] + c0, e[1] + c1 + 1))
+            drawn = np.any([arrs[k][..., 3] > 0 for k in group], 0)
+            dy, dx = np.nonzero(drawn.any(1))[0], np.nonzero(drawn.any(0))[0]
+            body_r = pick_lines(rc, dy.min(), dy.max(), ground, step, bar_r, len(rc), set().union(*head_r.values()))
+            body_c = pick_lines(cc, dx.min(), dx.max(), cx, step, bar_c, len(cc), set().union(*head_c.values()))
+            for k in group:
+                rows, cols = set(body_r) | head_r[k], set(body_c) | head_c[k]
+                ncy = cy + sum(1 for r in rows if r < ground)
+                ncx = cx + sum(1 for c in cols if c < cx)
+                b = np.repeat(arrs[k], [2 if i in rows else 1 for i in range(arrs[k].shape[0])], axis=0)
+                b = np.repeat(b, [2 if i in cols else 1 for i in range(arrs[k].shape[1])], axis=1)
+                if block and k in block[2]:
+                    seam = cy + block[1]
+                    b = sink_block(b, seam + sum(1 for r in rows if r <= seam) + 1)
+                frames[k] = (G.centre_frame(b, -ncx, -ncy), frames[k][1])
+                if k == 0:
+                    added[tag] = (len(rows), len(cols))
+    return f, added
+
+
 def close_outline(hero, sheet):
     """COMPLETE: strips.complete_outline on every frame, in idle frame 1's outline colour, then CLEAN:
     strips.clean_outline; (added, darkened, {clean rule: pixels})."""
@@ -726,6 +873,13 @@ def main():
         if stepped:
             print(f"{hero}: walk step on {stepped} frames")
         breathe(hero, sheet)
+        upper = one_upper(hero, sheet)
+        if upper:
+            print(f"{hero}: one upper body in {upper} frames")
+        f, grown = grow(hero, sheet)
+        if f:
+            print(f"{hero}: grown {f:.3f}x - rows/columns copied in each strip's first frame: " +
+                  ", ".join(f"{t} {r}/{c}" for t, (r, c) in grown.items()))
         added, darkened, tidy = close_outline(hero, sheet)
         if added or darkened:
             print(f"{hero}: outline closed with {added} pixels added, {darkened} darkened on the feet line")
