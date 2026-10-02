@@ -1,0 +1,1825 @@
+{
+  "version": 2,
+  "cell_game_pixels": [
+    120,
+    104
+  ],
+  "scale": 8,
+  "palette": [
+    "#080611",
+    "#101029",
+    "#171C43",
+    "#202952",
+    "#284C85",
+    "#30437B",
+    "#33323E",
+    "#342039",
+    "#465DAC",
+    "#555160",
+    "#560F27",
+    "#583262",
+    "#777680",
+    "#794786",
+    "#888BA2",
+    "#9B1032",
+    "#A1A3AA",
+    "#D3143E",
+    "#D3D7DC"
+  ],
+  "contract_origin": "PROMPTS_FX2.md; durations proposed",
+  "effects": {
+    "hit": {
+      "file": "nocturne_fx2_hit.png",
+      "grid": [
+        2,
+        2
+      ],
+      "size_px": [
+        1920,
+        1664
+      ],
+      "loop": false,
+      "binding_kind": "view_effects",
+      "binding_id": "league_nocturne_hit",
+      "follow_unit": true,
+      "layer": "front",
+      "frames": [
+        {
+          "frame": 1,
+          "duration_ms": 60,
+          "cell_rect_1x": [
+            0,
+            0,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            57,
+            68,
+            64,
+            74
+          ],
+          "effect_center_1x": [
+            60,
+            70
+          ]
+        },
+        {
+          "frame": 2,
+          "duration_ms": 70,
+          "cell_rect_1x": [
+            120,
+            0,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            960,
+            0,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            55,
+            65,
+            65,
+            76
+          ],
+          "effect_center_1x": [
+            60,
+            70
+          ]
+        },
+        {
+          "frame": 3,
+          "duration_ms": 90,
+          "cell_rect_1x": [
+            0,
+            104,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            0,
+            832,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            53,
+            65,
+            66,
+            76
+          ],
+          "effect_center_1x": [
+            60,
+            70
+          ]
+        },
+        {
+          "frame": 4,
+          "duration_ms": 110,
+          "cell_rect_1x": [
+            120,
+            104,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            960,
+            832,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            56,
+            69,
+            67,
+            73
+          ],
+          "effect_center_1x": [
+            60,
+            70
+          ]
+        }
+      ],
+      "maximum_visible_box_1x": [
+        14,
+        12
+      ],
+      "clear_rect_1x": null,
+      "sha256": "e9b7cd2ca39a542e8c45ed25fb9d3d0e4e09b75483f9cf44819aa0dc6aa1eb4a"
+    },
+    "p_hit": {
+      "file": "nocturne_fx2_p_hit.png",
+      "grid": [
+        2,
+        2
+      ],
+      "size_px": [
+        1920,
+        1664
+      ],
+      "loop": false,
+      "binding_kind": "view_effects",
+      "binding_id": "league_nocturne_p_hit",
+      "follow_unit": true,
+      "layer": "front",
+      "frames": [
+        {
+          "frame": 1,
+          "duration_ms": 60,
+          "cell_rect_1x": [
+            0,
+            0,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            55,
+            65,
+            65,
+            76
+          ],
+          "effect_center_1x": [
+            60,
+            70
+          ]
+        },
+        {
+          "frame": 2,
+          "duration_ms": 70,
+          "cell_rect_1x": [
+            120,
+            0,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            960,
+            0,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            54,
+            63,
+            66,
+            76
+          ],
+          "effect_center_1x": [
+            60,
+            70
+          ]
+        },
+        {
+          "frame": 3,
+          "duration_ms": 90,
+          "cell_rect_1x": [
+            0,
+            104,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            0,
+            832,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            53,
+            63,
+            68,
+            76
+          ],
+          "effect_center_1x": [
+            60,
+            70
+          ]
+        },
+        {
+          "frame": 4,
+          "duration_ms": 110,
+          "cell_rect_1x": [
+            120,
+            104,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            960,
+            832,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            54,
+            65,
+            67,
+            76
+          ],
+          "effect_center_1x": [
+            60,
+            70
+          ]
+        }
+      ],
+      "maximum_visible_box_1x": [
+        16,
+        16
+      ],
+      "clear_rect_1x": null,
+      "sha256": "9cad1c76a2204e83774c0da7d16354fd59903b464eb4bb14506ec5c4db532a2e"
+    },
+    "q_hit": {
+      "file": "nocturne_fx2_q_hit.png",
+      "grid": [
+        2,
+        2
+      ],
+      "size_px": [
+        1920,
+        1664
+      ],
+      "loop": false,
+      "binding_kind": "view_effects",
+      "binding_id": "league_nocturne_q_hit",
+      "follow_unit": true,
+      "layer": "front",
+      "frames": [
+        {
+          "frame": 1,
+          "duration_ms": 60,
+          "cell_rect_1x": [
+            0,
+            0,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            54,
+            67,
+            66,
+            80
+          ],
+          "effect_center_1x": [
+            60,
+            72
+          ]
+        },
+        {
+          "frame": 2,
+          "duration_ms": 70,
+          "cell_rect_1x": [
+            120,
+            0,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            960,
+            0,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            53,
+            66,
+            67,
+            80
+          ],
+          "effect_center_1x": [
+            60,
+            72
+          ]
+        },
+        {
+          "frame": 3,
+          "duration_ms": 90,
+          "cell_rect_1x": [
+            0,
+            104,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            0,
+            832,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            52,
+            65,
+            68,
+            80
+          ],
+          "effect_center_1x": [
+            60,
+            72
+          ]
+        },
+        {
+          "frame": 4,
+          "duration_ms": 110,
+          "cell_rect_1x": [
+            120,
+            104,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            960,
+            832,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            54,
+            68,
+            68,
+            80
+          ],
+          "effect_center_1x": [
+            60,
+            72
+          ]
+        }
+      ],
+      "maximum_visible_box_1x": [
+        18,
+        16
+      ],
+      "clear_rect_1x": null,
+      "sha256": "fe3372a75c8cc9e83f569fccf8922b2c03babd666770d6c60b97d2ab83e2d5a2"
+    },
+    "q_dusk": {
+      "file": "nocturne_fx2_q_dusk.png",
+      "grid": [
+        2,
+        2
+      ],
+      "size_px": [
+        1920,
+        1664
+      ],
+      "loop": true,
+      "binding_kind": "view_buffs",
+      "binding_id": "league_nocturne_q_dusk",
+      "follow_unit": true,
+      "layer": "ground behind",
+      "frames": [
+        {
+          "frame": 1,
+          "duration_ms": 110,
+          "cell_rect_1x": [
+            0,
+            0,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            49,
+            85,
+            72,
+            91
+          ],
+          "effect_center_1x": [
+            60,
+            88
+          ]
+        },
+        {
+          "frame": 2,
+          "duration_ms": 110,
+          "cell_rect_1x": [
+            120,
+            0,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            960,
+            0,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            49,
+            86,
+            72,
+            91
+          ],
+          "effect_center_1x": [
+            60,
+            88
+          ]
+        },
+        {
+          "frame": 3,
+          "duration_ms": 110,
+          "cell_rect_1x": [
+            0,
+            104,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            0,
+            832,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            48,
+            86,
+            71,
+            91
+          ],
+          "effect_center_1x": [
+            60,
+            88
+          ]
+        },
+        {
+          "frame": 4,
+          "duration_ms": 110,
+          "cell_rect_1x": [
+            120,
+            104,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            960,
+            832,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            49,
+            86,
+            72,
+            91
+          ],
+          "effect_center_1x": [
+            60,
+            88
+          ]
+        }
+      ],
+      "maximum_visible_box_1x": [
+        24,
+        6
+      ],
+      "clear_rect_1x": null,
+      "sha256": "f3fde2efbaed456e2a250cbcc31c597169c6b83921c230bdaa8149131968cffd"
+    },
+    "e_grip": {
+      "file": "nocturne_fx2_e_grip.png",
+      "grid": [
+        2,
+        2
+      ],
+      "size_px": [
+        1920,
+        1664
+      ],
+      "loop": false,
+      "binding_kind": "view_effects",
+      "binding_id": "league_nocturne_e_grip",
+      "follow_unit": true,
+      "layer": "front",
+      "frames": [
+        {
+          "frame": 1,
+          "duration_ms": 60,
+          "cell_rect_1x": [
+            0,
+            0,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            49,
+            63,
+            72,
+            84
+          ],
+          "effect_center_1x": [
+            60,
+            72
+          ]
+        },
+        {
+          "frame": 2,
+          "duration_ms": 70,
+          "cell_rect_1x": [
+            120,
+            0,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            960,
+            0,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            48,
+            61,
+            72,
+            84
+          ],
+          "effect_center_1x": [
+            60,
+            72
+          ]
+        },
+        {
+          "frame": 3,
+          "duration_ms": 90,
+          "cell_rect_1x": [
+            0,
+            104,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            0,
+            832,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            48,
+            61,
+            72,
+            84
+          ],
+          "effect_center_1x": [
+            60,
+            72
+          ]
+        },
+        {
+          "frame": 4,
+          "duration_ms": 110,
+          "cell_rect_1x": [
+            120,
+            104,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            960,
+            832,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            49,
+            61,
+            72,
+            84
+          ],
+          "effect_center_1x": [
+            60,
+            72
+          ]
+        }
+      ],
+      "maximum_visible_box_1x": [
+        24,
+        24
+      ],
+      "clear_rect_1x": [
+        55,
+        65,
+        65,
+        79
+      ],
+      "sha256": "af4bd2378af2b1b0012f2e65f4f4ac5a5e2b99f93b7efa6210d88bba0018e4df"
+    },
+    "e_tick": {
+      "file": "nocturne_fx2_e_tick.png",
+      "grid": [
+        2,
+        2
+      ],
+      "size_px": [
+        1920,
+        1664
+      ],
+      "loop": false,
+      "binding_kind": "view_effects",
+      "binding_id": "league_nocturne_e_tick",
+      "follow_unit": true,
+      "layer": "front",
+      "frames": [
+        {
+          "frame": 1,
+          "duration_ms": 60,
+          "cell_rect_1x": [
+            0,
+            0,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            58,
+            69,
+            63,
+            74
+          ],
+          "effect_center_1x": [
+            60,
+            70
+          ]
+        },
+        {
+          "frame": 2,
+          "duration_ms": 70,
+          "cell_rect_1x": [
+            120,
+            0,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            960,
+            0,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            55,
+            68,
+            65,
+            76
+          ],
+          "effect_center_1x": [
+            60,
+            70
+          ]
+        },
+        {
+          "frame": 3,
+          "duration_ms": 90,
+          "cell_rect_1x": [
+            0,
+            104,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            0,
+            832,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            54,
+            69,
+            66,
+            75
+          ],
+          "effect_center_1x": [
+            60,
+            70
+          ]
+        },
+        {
+          "frame": 4,
+          "duration_ms": 110,
+          "cell_rect_1x": [
+            120,
+            104,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            960,
+            832,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            59,
+            67,
+            64,
+            73
+          ],
+          "effect_center_1x": [
+            60,
+            70
+          ]
+        }
+      ],
+      "maximum_visible_box_1x": [
+        12,
+        12
+      ],
+      "clear_rect_1x": null,
+      "sha256": "31491f6434b5eefd267d865315953fbaeab8cb06d244c7596e6e93c991d713b3"
+    },
+    "e_fear": {
+      "file": "nocturne_fx2_e_fear.png",
+      "grid": [
+        2,
+        2
+      ],
+      "size_px": [
+        1920,
+        1664
+      ],
+      "loop": true,
+      "binding_kind": "view_effects",
+      "binding_id": "league_nocturne_e_fear",
+      "follow_unit": true,
+      "layer": "above head",
+      "frames": [
+        {
+          "frame": 1,
+          "duration_ms": 110,
+          "cell_rect_1x": [
+            0,
+            0,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            52,
+            39,
+            66,
+            49
+          ],
+          "effect_center_1x": [
+            60,
+            44
+          ]
+        },
+        {
+          "frame": 2,
+          "duration_ms": 110,
+          "cell_rect_1x": [
+            120,
+            0,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            960,
+            0,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            52,
+            39,
+            67,
+            50
+          ],
+          "effect_center_1x": [
+            60,
+            44
+          ]
+        },
+        {
+          "frame": 3,
+          "duration_ms": 110,
+          "cell_rect_1x": [
+            0,
+            104,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            0,
+            832,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            53,
+            39,
+            67,
+            50
+          ],
+          "effect_center_1x": [
+            60,
+            44
+          ]
+        },
+        {
+          "frame": 4,
+          "duration_ms": 110,
+          "cell_rect_1x": [
+            120,
+            104,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            960,
+            832,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            52,
+            39,
+            67,
+            50
+          ],
+          "effect_center_1x": [
+            60,
+            44
+          ]
+        }
+      ],
+      "maximum_visible_box_1x": [
+        16,
+        12
+      ],
+      "clear_rect_1x": null,
+      "sha256": "cc8c8c7380aa2a3cda02f773d307b824ba134f31378eede3d03fdfcc291aa043"
+    },
+    "w_proc": {
+      "file": "nocturne_fx2_w_proc.png",
+      "grid": [
+        2,
+        2
+      ],
+      "size_px": [
+        1920,
+        1664
+      ],
+      "loop": false,
+      "binding_kind": "view_effects",
+      "binding_id": "league_nocturne_w_proc",
+      "follow_unit": true,
+      "layer": "around body",
+      "frames": [
+        {
+          "frame": 1,
+          "duration_ms": 60,
+          "cell_rect_1x": [
+            0,
+            0,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            46,
+            50,
+            75,
+            86
+          ],
+          "effect_center_1x": [
+            60,
+            68
+          ]
+        },
+        {
+          "frame": 2,
+          "duration_ms": 70,
+          "cell_rect_1x": [
+            120,
+            0,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            960,
+            0,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            44,
+            55,
+            76,
+            84
+          ],
+          "effect_center_1x": [
+            60,
+            68
+          ]
+        },
+        {
+          "frame": 3,
+          "duration_ms": 90,
+          "cell_rect_1x": [
+            0,
+            104,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            0,
+            832,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            46,
+            52,
+            73,
+            87
+          ],
+          "effect_center_1x": [
+            60,
+            68
+          ]
+        },
+        {
+          "frame": 4,
+          "duration_ms": 110,
+          "cell_rect_1x": [
+            120,
+            104,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            960,
+            832,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            47,
+            48,
+            75,
+            82
+          ],
+          "effect_center_1x": [
+            60,
+            68
+          ]
+        }
+      ],
+      "maximum_visible_box_1x": [
+        32,
+        40
+      ],
+      "clear_rect_1x": [
+        54,
+        53,
+        66,
+        82
+      ],
+      "sha256": "bd4aca0d2645684ddb23843cfdca2d1634a6a1163403b6b632d47be2c798b142"
+    },
+    "r_burst": {
+      "file": "nocturne_fx2_r_burst.png",
+      "grid": [
+        2,
+        2
+      ],
+      "size_px": [
+        1920,
+        1664
+      ],
+      "loop": false,
+      "binding_kind": "view_effects",
+      "binding_id": "league_nocturne_r_burst",
+      "follow_unit": false,
+      "layer": "ground behind",
+      "frames": [
+        {
+          "frame": 1,
+          "duration_ms": 60,
+          "cell_rect_1x": [
+            0,
+            0,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            33,
+            85,
+            89,
+            97
+          ],
+          "effect_center_1x": [
+            60,
+            88
+          ]
+        },
+        {
+          "frame": 2,
+          "duration_ms": 70,
+          "cell_rect_1x": [
+            120,
+            0,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            960,
+            0,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            4,
+            77,
+            116,
+            99
+          ],
+          "effect_center_1x": [
+            60,
+            88
+          ]
+        },
+        {
+          "frame": 3,
+          "duration_ms": 90,
+          "cell_rect_1x": [
+            0,
+            104,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            0,
+            832,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            3,
+            75,
+            117,
+            101
+          ],
+          "effect_center_1x": [
+            60,
+            88
+          ]
+        },
+        {
+          "frame": 4,
+          "duration_ms": 110,
+          "cell_rect_1x": [
+            120,
+            104,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            960,
+            832,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            4,
+            74,
+            117,
+            102
+          ],
+          "effect_center_1x": [
+            60,
+            88
+          ]
+        }
+      ],
+      "maximum_visible_box_1x": [
+        114,
+        28
+      ],
+      "clear_rect_1x": [
+        47,
+        48,
+        73,
+        85
+      ],
+      "sha256": "4da4396354b6f7ba73b5134250a27637d812198b4de691f5dd9149a77426b2d2"
+    },
+    "r_veil": {
+      "file": "nocturne_fx2_r_veil.png",
+      "grid": [
+        2,
+        2
+      ],
+      "size_px": [
+        1920,
+        1664
+      ],
+      "loop": false,
+      "binding_kind": "view_effects",
+      "binding_id": "league_nocturne_r_veil",
+      "follow_unit": true,
+      "layer": "behind body",
+      "frames": [
+        {
+          "frame": 1,
+          "duration_ms": 60,
+          "cell_rect_1x": [
+            0,
+            0,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            48,
+            71,
+            73,
+            89
+          ],
+          "effect_center_1x": [
+            60,
+            71
+          ]
+        },
+        {
+          "frame": 2,
+          "duration_ms": 70,
+          "cell_rect_1x": [
+            120,
+            0,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            960,
+            0,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            47,
+            61,
+            74,
+            89
+          ],
+          "effect_center_1x": [
+            60,
+            71
+          ]
+        },
+        {
+          "frame": 3,
+          "duration_ms": 90,
+          "cell_rect_1x": [
+            0,
+            104,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            0,
+            832,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            46,
+            60,
+            74,
+            89
+          ],
+          "effect_center_1x": [
+            60,
+            71
+          ]
+        },
+        {
+          "frame": 4,
+          "duration_ms": 110,
+          "cell_rect_1x": [
+            120,
+            104,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            960,
+            832,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            47,
+            71,
+            74,
+            89
+          ],
+          "effect_center_1x": [
+            60,
+            71
+          ]
+        }
+      ],
+      "maximum_visible_box_1x": [
+        28,
+        34
+      ],
+      "clear_rect_1x": [
+        54,
+        55,
+        66,
+        83
+      ],
+      "sha256": "21a3632c17d34f421f3b5c97b90ee3cb4d1274ade80bef6b81de0603e6b53e3c"
+    },
+    "r_dark": {
+      "file": "nocturne_fx2_r_dark.png",
+      "grid": [
+        2,
+        2
+      ],
+      "size_px": [
+        1920,
+        1664
+      ],
+      "loop": true,
+      "binding_kind": "view_buffs",
+      "binding_id": "league_nocturne_r_dark",
+      "follow_unit": true,
+      "layer": "head surround",
+      "frames": [
+        {
+          "frame": 1,
+          "duration_ms": 110,
+          "cell_rect_1x": [
+            0,
+            0,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            45,
+            52,
+            75,
+            65
+          ],
+          "effect_center_1x": [
+            60,
+            58
+          ]
+        },
+        {
+          "frame": 2,
+          "duration_ms": 110,
+          "cell_rect_1x": [
+            120,
+            0,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            960,
+            0,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            45,
+            51,
+            75,
+            65
+          ],
+          "effect_center_1x": [
+            60,
+            58
+          ]
+        },
+        {
+          "frame": 3,
+          "duration_ms": 110,
+          "cell_rect_1x": [
+            0,
+            104,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            0,
+            832,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            45,
+            51,
+            74,
+            64
+          ],
+          "effect_center_1x": [
+            60,
+            58
+          ]
+        },
+        {
+          "frame": 4,
+          "duration_ms": 110,
+          "cell_rect_1x": [
+            120,
+            104,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            960,
+            832,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            45,
+            51,
+            75,
+            65
+          ],
+          "effect_center_1x": [
+            60,
+            58
+          ]
+        }
+      ],
+      "maximum_visible_box_1x": [
+        30,
+        14
+      ],
+      "clear_rect_1x": [
+        55,
+        53,
+        65,
+        65
+      ],
+      "sha256": "f9016fb92a807f39cfe9799a23e1d4d3e90388b0b19c0d113f305f899621e5a4"
+    }
+  },
+  "runtime_tested": false,
+  "integration_notes": {
+    "e_tick": "Repeat every500ms for2s per supplied contract; this is animation asset only, not runtime schedule implementation.",
+    "q_hit": "Center y72 follows detailed prompt (16 above anchor); table chest reference y70 differs by2px.",
+    "r_burst": "Fixed ground position. Width114,height28 to fit anchor88 in104-high cell; approximate4:1 flattened ellipse instead of requested2:1.",
+    "loops": "Four slots1-2-3-2 form a ping-pong cycle; wrap2-to1 reverses first1-to2 step. Three distinct source poses, each110ms.",
+    "layering": "Smoke center masks preserve body/face visibility. Buff durations and mirrored render are runtime responsibilities."
+  }
+}
