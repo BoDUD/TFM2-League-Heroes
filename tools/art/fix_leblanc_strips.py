@@ -11,8 +11,9 @@ checks passed (blocks, palette, alpha, feet line, the head square for square); w
    squares that outline nothing (no coloured square among their 8 neighbours: a second black ring along the cape's
    edge, tails), repeated - design_leblanc.black_crumbs, the rule the design was cleaned with - and what that cuts
    off up to CRUMB squares.
-2. Frame fixes (FIXES below), each a few squares, the rest Codex's; the run as a whole (run below): the head's
-   surroundings cleaned, frames 5-8 on frames 1-4's body, the legs drawn again (leblanc_run_legs.py).
+2. Frame fixes (FIXES below), each a few squares, the rest Codex's. The run is Codex's redo (RUN_REDO.md; its first
+   run kept one wide stance - my own leg redraw on it was turned down: "做的不行 让codex帮忙重做吧"), the head's
+   surroundings checked clean.
 Writes assets/source/native/leblanc_<tag>.png (8x), leblanc_ult.png (Q's: R repeats her last spell with that spell's
 own animation) and leblanc_cells.json (the pack's, with ult); then run tools/art/import_native.py --hero leblanc. --check compares with the files instead of writing them.
 """
@@ -29,9 +30,10 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 import design_leblanc as D  # noqa: E402
-import leblanc_run_legs as RL  # noqa: E402
 
 SRC = os.path.join(ROOT, "assets", "source", "leblanc", "codex_strips")
+# strips Codex drew again: the run (RUN_REDO.md - its first run kept one wide stance, "走路没有交叉步 平行走路？")
+REDO = {"run": os.path.join(ROOT, "assets", "source", "leblanc", "codex_run_redo")}
 OUT = os.path.join(ROOT, "assets", "source", "native")
 Z = 8
 TAGS = ["idle", "run", "attack", "skill", "skill2", "skill2_back", "e", "hit", "dead"]
@@ -47,7 +49,8 @@ def lp(p):
 
 
 def load(tag):
-    a = np.asarray(Image.open(lp(os.path.join(SRC, f"leblanc_{tag}.png"))).convert("RGBA"))[Z // 2::Z, Z // 2::Z].copy()
+    src = REDO.get(tag, SRC)
+    a = np.asarray(Image.open(lp(os.path.join(src, f"leblanc_{tag}.png"))).convert("RGBA"))[Z // 2::Z, Z // 2::Z].copy()
     a[a[..., 3] < 128] = 0
     a[a[..., 3] > 0, 3] = 255
     return a
@@ -194,18 +197,9 @@ FIXES = {("attack", 3): attack3_staff, ("attack", 4): near_arm, ("attack", 5): n
 
 
 def run(frames, pivots):
-    """The run as a whole (the user: "走路没有交叉步 平行走路？"): Codex kept one wide stance in all eight frames, the
-    left leg behind and the right ahead, its second half's front leg coming out of the gown's slit five rows higher.
-    Every frame loses Codex's own ear-cuffs beside the head (head_halo), frames 5-8 take frames 1-4's upper body (a
-    run's body repeats every step; their hem is the clean one), and leblanc_run_legs.py draws the crossing stride
-    under the hem, the legs swapped in the second half."""
-    base = [head_halo(f, p) for f, p in zip(frames, pivots)]
-    out = []
-    for k, p in enumerate(pivots):
-        src = k % 4
-        g = np.roll(base[src], p[0] - pivots[src][0], 1)
-        out.append(RL.redraw(g, p, k + 1))
-    return out
+    """The run, Codex's redo (codex_run_redo: a crossing stride, passing in frames 3 and 7, a foot on the line in every
+    frame): every frame still loses whatever stands beside the head (head_halo; Codex cleared it this time)."""
+    return [head_halo(f, p) for f, p in zip(frames, pivots)]
 
 
 TAG_FIXES = {"run": run}
