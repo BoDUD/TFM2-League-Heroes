@@ -605,6 +605,21 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   its hip (3 px, a one-frame 3-px snap reads bouncy).
 - **Review before shipping.** Per-strip sheets with the idle silhouette overlaid, `metrics`,
   a side-by-side with base champions at 1x and 3x, and a scripted showcase against a dummy.
+- **Move the pasted head with the body; keep the drawn walk (league_darius).** Codex pasted one head at one place in
+  all 8 run frames while it drew the body a little differently in each - in frame 1 the body 5 px further forward, in
+  frame 4 3 px forward and a row lower - so the head seemed left behind ("头和身体不协调"). Two "one body" fixes (the
+  chin-up block over every frame; the body down to the knees with only the feet drawn per frame) were rejected - a body
+  cut at the chest, a frozen body gliding - and so were four rebuilds (a unified torso, the idle body on League's
+  joints, a full part rig, one body with re-attached limbs): "原来的走路姿势是最好的 问题是头和身体不协调". What worked:
+  measure each frame's body against a reference frame (best colour match of the shoulders and chest, the head left
+  out), and move only the head by that offset in the frames that are off (`HEAD_MOVE`); the strip the head uncovers
+  takes the reference frame's pixels at the same place on the body. Change the least: the user liked the motion.
+- **A per-hero clean-up after the import (league_ahri, league_janna, league_morgana).** For dirty black blocks and stray
+  squares inside a finished sprite ("不干净的黑色块也太多了", "头部有很多多余的方块"): tools/art/clean_<hero>.py's
+  tidy(tag, k, frame) runs on every finished frame from import_native.py `TIDY` (frames padded 6 px, trimmed back):
+  black touching one material takes that material's darkest shade, a 1-px line stays where two materials meet, stray
+  squares go, the eyes never change; a cleaned head can be pasted back by the eye (Morgana). The user reviews before
+  and after; no automatic review rounds.
 
 ## QA checklist
 
