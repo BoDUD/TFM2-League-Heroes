@@ -61,22 +61,29 @@ NECK = {("nami", "run"): (-21, [0, 1, 2, 3])}
 # become the reference frame's, and after GROW the listed slots sink a row (the step). Codex drew Darius's shoulders
 # anew round one pasted head in every run frame - the pauldron up beside his face in six frames and down in two, the
 # collar and chest a few px back and forth - so the head seemed to slide over the body (the user: "诺手在上半区移动看起来
-# 头和身体不协调"). The seam under his chin (row -13) crosses the fewest edges into every frame's arms and cape below it;
-# frame 8's head, collar, pauldron and axe top (its face clean, the axe upright as in idle) ride the step down a row in
-# 3-4 and 7-8 like League's head.
+# 头和身体不协调"; he stays at his size: "诺手就修复移动的问题不放大了"). The seam under his chin (row -13) crosses the
+# fewest edges into every frame's arms and cape below it; frame 8's head, collar, pauldron and axe top (its face clean,
+# the axe upright as in idle) ride the step down a row in 3-4 and 7-8 like League's head.
 BLOCK = {("darius", "run"): (7, -13, [2, 3, 6, 7])}
 # hero: the idle's height in rows (crown to soles) the whole sprite grows to (the user, 2026-10-02: "盖伦现在尺寸在游戏里
-# 看起来偏小了" at 37 rows, "诺手也是" at 42). Whole rows and columns are copied, one in every 1/(f - 1) counted up from
-# under the soles and out from the pivot column, each where its copy shows least (the fewest one-pixel lines across
-# it, the outline counted threefold), never through the head or the soles; the loops (STEADY) copy the same body lines
-# in every frame. No new colour, no resampling.
-GROW = {"garen": 44, "darius": 46}
+# 看起来偏小了" at 37 rows; 44 was "太大", "42左右就行"). Whole rows and columns are copied, one in every 1/(f - 1)
+# counted up from under the soles and out from the pivot column, each where its copy shows least (the fewest one-pixel
+# lines across it, the outline counted threefold), never through the head or the soles; the loops (STEADY) copy the
+# same body lines in every frame. No new colour, no resampling.
+GROW = {"garen": 42}
 # hero: (rows, columns) the head copies, counted from the EYES pixel (its top row, left column) wherever the eye is
-# drawn, so the head grows the same way in every frame - Garen a plain hair row and the cheeks' row under the eyes, a
-# back-hair column and the near cheek's; Darius a hair row and a back-hair column - and HEAD_BOX (rows, columns from
-# the same pixel), the head, where nothing else is copied (copies through it read as a taller crown or a wider face)
-HEAD = {"garen": ([-6, 1], [-6, 2]), "darius": ([-6], [-6])}
-HEAD_BOX = {"garen": ((-8, 2), (-7, 4)), "darius": ((-8, 2), (-7, 4))}
+# drawn, so the head grows the same way in every frame - Garen a plain hair row, the cheeks' row under the eyes, a
+# back-hair column and the far eye's column (FACE_FIX paints the two squares as an eye) - and HEAD_BOX (rows, columns
+# from the same pixel), the head, where nothing else is copied (copies through it read as a taller crown or a wider
+# face)
+HEAD = {"garen": ([-6, 1], [-6, 2])}
+HEAD_BOX = {"garen": ((-8, 2), (-7, 4))}
+# hero: [(dx, dy, colour there, new colour)] from the EYES pixel, painted after GROW in every frame whose face has all
+# the expected colours. Garen's far (right) eye was one grey-blue square under bare skin beside the near eye's black
+# lid over white and iris (the user: "修复一下右眼"); grown to two squares by HEAD's column it gets the near eye's lid,
+# white and iris, and the brow square between the lids turns skin so the two eyes do not run into one bar.
+FACE_FIX = {"garen": [(1, -1, "31171A", "FCCB9C"), (2, -1, "FCCB9C", "0E0513"), (3, -1, "FCCB9C", "0E0513"),
+                      (2, 0, "8A8AA3", "FCFCFC"), (3, 0, "8A8AA3", "1F3EC8")]}
 # (hero, tag): (y, rows, cape), a walk's step: in frame k everything at or above pivot row y moves down rows[k] and is
 # laid over what is below, so the leg tops tuck under the hips; a cape that streams behind her across row y goes along
 # whole (below y: each row up to one past its last `cape` colour pixel, and the tip's runs hanging off that), or the
@@ -782,6 +789,30 @@ def grow(hero, sheet):
     return f, added
 
 
+def face_fix(hero, sheet):
+    """FACE_FIX: the listed squares round the EYES pixel repainted in every frame whose face shows all the expected
+    colours; (frames painted, frames with the eye but another face)."""
+    if hero not in FACE_FIX:
+        return 0, 0
+    fix = [(dx, dy, tuple(int(c[i:i + 2], 16) for i in (0, 2, 4)), tuple(int(n[i:i + 2], 16) for i in (0, 2, 4)))
+           for dx, dy, c, n in FACE_FIX[hero]]
+    done = other = 0
+    for frames in sheet.values():
+        for a, _ in frames:
+            e = eye_at(hero, a)
+            if e is None:
+                continue
+            spots = [(e[0] + dy, e[1] + dx, c, n) for dx, dy, c, n in fix]
+            if all(0 <= y < a.shape[0] and 0 <= x < a.shape[1] and a[y, x, 3] and tuple(a[y, x, :3]) == c
+                   for y, x, c, _ in spots):
+                for y, x, _, n in spots:
+                    a[y, x, :3] = n
+                done += 1
+            else:
+                other += 1
+    return done, other
+
+
 def close_outline(hero, sheet):
     """COMPLETE: strips.complete_outline on every frame, in idle frame 1's outline colour, then CLEAN:
     strips.clean_outline; (added, darkened, {clean rule: pixels})."""
@@ -880,6 +911,9 @@ def main():
         if f:
             print(f"{hero}: grown {f:.3f}x - rows/columns copied in each strip's first frame: " +
                   ", ".join(f"{t} {r}/{c}" for t, (r, c) in grown.items()))
+        painted, other = face_fix(hero, sheet)
+        if painted or other:
+            print(f"{hero}: face fixed in {painted} frames ({other} with the eye drawn otherwise left alone)")
         added, darkened, tidy = close_outline(hero, sheet)
         if added or darkened:
             print(f"{hero}: outline closed with {added} pixels added, {darkened} darkened on the feet line")

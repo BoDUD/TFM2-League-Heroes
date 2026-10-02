@@ -3,7 +3,7 @@
     "league_garen": {
       "face": {
         "x": -2,
-        "y": -41
+        "y": -39
       },
       "center": {
         "x": 0,
@@ -11,7 +11,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -7
+        "y": -9
       }
     },
     "league_ashe": {
@@ -65,7 +65,7 @@
     "league_darius": {
       "face": {
         "x": 0,
-        "y": -37
+        "y": -34
       },
       "center": {
         "x": 0,
@@ -73,7 +73,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -5
+        "y": -9
       }
     },
     "league_amumu": {

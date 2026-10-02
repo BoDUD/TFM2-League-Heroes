@@ -605,15 +605,17 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   its hip (3 px, a one-frame 3-px snap reads bouncy).
 - **Review before shipping.** Per-strip sheets with the idle silhouette overlaid, `metrics`,
   a side-by-side with base champions at 1x and 3x, and a scripted showcase against a dummy.
-- **Growing a finished sprite: copy whole lines, never through the head (league_garen 37 -> 44 rows,
-  league_darius 42 -> 46).** Heroes made early at the base game's size looked small next to the later ~40-46-row ones
-  ("盖伦现在尺寸在游戏里看起来偏小了"). `tools/art/import_native.py` `GROW` copies whole rows and columns of the
-  finished frames: one in every 1/(f - 1) lines counted up from under the soles and out from the pivot column (the soles
-  stay SOLES under the pivot, a jump's height grows with the body), each band's copy on the line that shows least (the
-  fewest one-pixel features across it, the outline counted threefold). No resampling, no new colour. The head grows by
-  a plan counted from the EYES pixel (`HEAD`: a plain hair row, the cheek row under the eyes, a back-hair column, the
-  near cheek's column) and nothing else may cross it (`HEAD_BOX`): copies picked by cost alone put two rows into
-  Garen's hair (a tall crown) and none into the face. Loops copy the same body lines in every frame.
+- **Growing a finished sprite: copy whole lines, never through the head (league_garen 37 -> 42 rows).** Heroes made
+  early at the base game's size looked small next to the later ~40-46-row ones ("盖伦现在尺寸在游戏里看起来偏小了"; 44
+  was "太大", "42左右就行"). `tools/art/import_native.py` `GROW` copies whole rows and columns of the finished frames:
+  one in every 1/(f - 1) lines counted up from under the soles and out from the pivot column (the soles stay SOLES
+  under the pivot, a jump's height grows with the body), each band's copy on the line that shows least (the fewest
+  one-pixel features across it, the outline counted threefold). No resampling, no new colour. The head grows by a
+  plan counted from the EYES pixel (`HEAD`: a plain hair row, the cheek row under the eyes, a back-hair column, the
+  far eye's column) and nothing else may cross it (`HEAD_BOX`): copies picked by cost alone put two rows into Garen's
+  hair (a tall crown) and none into the face. Loops copy the same body lines in every frame. `FACE_FIX` then repaints
+  squares round the EYES pixel in every frame whose face matches (Garen's far eye, one grey square under bare skin,
+  became the near eye's lid, white and iris over its two grown columns: "修复一下右眼").
 - **One upper body for a run whose shoulders were redrawn per frame (league_darius).** Codex redrew the shoulders round
   one pasted head in every run frame - the pauldron beside the face in six frames and dropped in two, the chest 4-5 px
   back and forth - and the head seemed to slide over the body ("诺手在上半区移动看起来头和身体不协调"). `BLOCK` puts one
