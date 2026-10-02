@@ -28,9 +28,16 @@ last frames got the pasted upright head on a body lying on the ground. So every 
    up to the pasted head, its outline moved against it, as on the design. Not pasted (NO_PASTE): the death's frames
    6-8 (lying on the ground): the drawn head stays; frame 3 bows the head (EYES_AT: its eyes placed by hand);
 4. pinholes (clear pieces of at most 2 squares shut in by the figure) take the commonest colour round them;
-5. placed in the pack's cell: the soles on the feet line (11 rows under the standing point), the pasted near eye on
-   the column where Codex's pasted one stood (the head's place over the standing point Codex kept in every frame);
-   frames without a pasted head by the middle of Codex's figure.
+5. the hands: Codex drew them with a blue-violet rim that snapped to the scalp's two darkest violets (GLOW), so they
+   read as dark claws; outside the pasted head those take the design's dark arm violet, and a tunic navy with skin on
+   three sides (the rim inside a hand) too;
+6. arms stretched out sideways reach at most ARM_REACH (15) squares past the torso, as the design's hanging arm: the
+   columns over that come out of the upper arm just outside the shoulder, in the rows over the hips (the user, of
+   League's reach on the chibi body: "手臂是不是有点变长", picked 15 of 17 / 15 / 13);
+7. placed in the pack's cell: the soles on the feet line (11 rows under the standing point); the actions by the hips
+   (HIP_ANCHOR: the teal cloth's middle on the idle's column - Codex kept the head on one column and the body slid
+   back under it: "释放技能和攻击的时候 头和身体不协调"), the lying death frames on the frame before; the run by the
+   pasted near eye on Codex's column (import_native steadies it on the eyes).
 CODEX: the last frame of the attack, Q, the combo and the landing stay Codex's (the idle itself at the standing
 point: the action ends in the approved stance). FRAMES: R's last frame (both arms straight up) holds frame 7 (both
 arms raised wide): its near arm rises right behind the head and is mostly covered by the pasted one.
@@ -84,11 +91,17 @@ SKIN = {(0x6B, 0x44, 0xCC), (0xB5, 0x9C, 0xFC), (0x92, 0x70, 0xF2), (0xA8, 0x8C,
 RUNES = {(0x14, 0x17, 0x43), (0x18, 0x23, 0x5D)}
 BRONZE = {(0xE7, 0x98, 0x45), (0xFB, 0xCE, 0x84)}
 TEAL = {(0x01, 0x4C, 0x78), (0x32, 0x94, 0x98), (0x09, 0x79, 0x99)}
+GLOW = {(0x51, 0x1A, 0xC4), (0x23, 0x14, 0x8D)}   # the scalp's darkest violets: the design uses them only in the head
+ARM_DARK = (0x6B, 0x44, 0xCC)                     # the design's dark arm violet
+NAVY = {(0x14, 0x17, 0x43), (0x18, 0x23, 0x5D), (0x11, 0x2A, 0x70), (0x23, 0x3D, 0x98)}   # the tunic's navies
 # actions placed by the hips (the teal cloth's middle over the standing point, as on the idle: HIP_X) - Codex kept the
 # head on one column in every frame and the body slid 4-8 squares back under it in the attack and the spells (the user:
 # "释放技能和攻击的时候 头和身体不协调"); the run stays on its head (import_native steadies it on the eyes)
 HIP_ANCHOR = {"attack", "skill", "skill2", "ult", "ult_land", "hit", "dead"}
 HIP_X = -0.1
+# outstretched arms (horizontal, at most 10 squares thick) reach at most this many squares past the torso
+ARM_REACH = 15
+ARM_TAGS = {"attack", "skill", "skill2", "ult", "ult_land", "hit"}
 # tag: rows from the eyes down to the belt (the idle: 18). The run's drawing puts its head 16-22 rows over the belt
 # from frame to frame (the user: "头和身体不协调": the head bobbed against the body); rows over that come out of the
 # chest, so head, scroll and arms sit on the belt alike in every frame and bob with the body
@@ -394,6 +407,19 @@ def paste_head(a, head, at=None, shift=0):
     for y, (x, hl, before) in filled.items():           # a lone row would be a stick across the gap
         if y - 1 not in filled and y + 1 not in filled:
             out[y, x:hl] = before
+    # the drawn hands' glow: Codex's hands have a blue-violet rim that snaps to the scalp's two darkest violets, so
+    # they read as dark claws (the user: "放技能的时候手臂是不是有点变形"); the design's arms and hands are shaded with
+    # its dark arm violet - outside the pasted head those two take it
+    for y, x in zip(*np.nonzero((out[..., 3] > 0) & ~hm)):
+        if colour(out, y, x) in GLOW:
+            out[y, x, :3] = ARM_DARK
+    # and the rim's navy specks inside a hand: a tunic navy with skin on three of its four sides
+    skin = np.zeros((H, W), bool)
+    for y, x in zip(*np.nonzero(out[..., 3] > 0)):
+        skin[y, x] = colour(out, y, x) in SKIN
+    for y, x in zip(*np.nonzero((out[..., 3] > 0) & ~hm)):
+        if colour(out, y, x) in NAVY and sum(skin[yy, xx] for yy, xx in ((y - 1, x), (y + 1, x), (y, x - 1), (y, x + 1))) >= 3:
+            out[y, x, :3] = ARM_DARK
     lab_, sizes = pieces(out[..., 3] > 0)              # crumbs
     main = int(np.argmax(sizes[1:])) + 1
     near_head = grow(hm, 3)
@@ -403,6 +429,61 @@ def paste_head(a, head, at=None, shift=0):
             out[m] = 0
     ys, xs = np.nonzero(out[..., 3] > 0)
     return out[ys.min():ys.max() + 1, xs.min():xs.max() + 1], 61.5 + dx - xs.min()
+
+
+def arm_span(f, py, side):
+    """The outstretched arm on `side` (+1 right, -1 left) in the rows over the hips (py - 2 of the cell): from the
+    figure's edge inward the columns stay as tall as the arm (and its hand) until the torso, where the height jumps.
+    (torso edge column, arm end column, the arm's height) or None."""
+    op = f[..., 3] > 0
+    h = op[:max(0, py - 2)].sum(0)
+    xs = np.nonzero(h)[0]
+    if not len(xs):
+        return None
+    end = xs.max() if side > 0 else xs.min()
+    x, heights = end, []
+    while 0 <= x < f.shape[1] and h[x] > 0:
+        heights.append(int(h[x]))
+        if len(heights) > 6 and h[x] > 2.2 * np.median(heights[3:]) and h[x] >= 12:
+            break
+        x -= side
+    if len(heights) < 6:
+        return None
+    return x, end, int(np.median(heights[3:]))
+
+
+def shorten_arms(f, py, reach):
+    """An arm stretched out sideways over more than `reach` squares past the torso loses the columns over that just
+    outside the shoulder, in the rows over the hips: the forearm, the bracer and the hand move in (the legs under
+    them stay). Codex drew League's reach on the chibi body (the user: "手臂是不是有点变长"). (frame, columns cut)"""
+    out = f.copy()
+    cut = 0
+    for side in (1, -1):
+        span = arm_span(out, py, side)
+        if span is None:
+            continue
+        torso, end, thick = span
+        n = abs(end - torso) - reach
+        lo, hi = sorted((torso, end))
+        seg = out[:max(0, py - 2), lo:hi + 1]
+        drawn = seg[..., 3] > 0
+        skin = sum(1 for y, x in zip(*np.nonzero(drawn)) if colour(seg, y, x) in SKIN)
+        # an arm: at most 10 squares thick, at most 26 long, a third of it skin (not the body seen from the side)
+        if n <= 0 or thick > 10 or abs(end - torso) > 26 or skin < 0.3 * drawn.sum():
+            continue
+        rows = slice(0, max(0, py - 2))
+        band = out[rows].copy()
+        if side > 0:
+            c0 = torso + 2
+            band[:, c0:band.shape[1] - n] = band[:, c0 + n:]
+            band[:, band.shape[1] - n:] = 0
+        else:
+            c0 = torso - 2
+            band[:, n:c0 + 1] = band[:, :c0 + 1 - n]
+            band[:, :n] = 0
+        out[rows] = band
+        cut += n
+    return out, cut
 
 
 def plug(f):
@@ -462,6 +543,13 @@ def build():
                 f, eye = paste_head(f, head, EYES_AT.get((tag, k + 1)))
             f, holes = plug(np.pad(f, ((1, 1), (1, 1), (0, 0))))
             f = crop(f)
+            if tag in ARM_TAGS:
+                # the figure's own rows: the hips at the cell's standing row minus its soles' offset
+                hip_row = f.shape[0] - 1 - FEET
+                f, n_cut = shorten_arms(np.pad(f, ((0, 0), (2, 2), (0, 0))), hip_row, ARM_REACH)
+                f = crop(f)
+                if n_cut:
+                    report.append((tag, k + 1, f"arm {n_cut} squares shorter"))
             cop = cf[..., 3] > 0
             ys, xs = np.nonzero(cop)
             hip = hips(f)
