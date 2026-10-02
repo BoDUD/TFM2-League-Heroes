@@ -51,7 +51,7 @@ OK = direct, ~ = approximate, X = not possible in data-only mods.
 | Bonus on a kill (Jinx's Get Excited!) | a kill check: an invisible champion-only twin of the projectile flags the caster, a short `AddCasted` on the target clears the flag while it lives (champion-data "Kill trigger"); the hero's own killing blows only, not assists | ~ |
 | Reset / refresh on kill (Darius R, Katarina) | the kill can be detected (row above), but no effect resets a cooldown (`ult_cooldown_mult` untested) | X |
 | Weapon swap the player chooses (Jinx Q) | automatic by distance: the long weapon's range on the attack, the short one while an enemy is close (champion-data "Weapon picked by distance") | ~ |
-| Trap that lasts and springs once (Jinx E) | a chain of short links, each checking once; a bite locks the chain (champion-data "A trap that waits and snaps once") | ~ |
+| Trap that lasts and springs once (Jinx E) | short links as `Delayed` effects of the `Position` cast (they stop when the caster dies), each checking once; a bite spends the trap, per-trap slots and a heartbeat (champion-data "A trap that waits and snaps once") | ~ |
 | Trap that waits long, several at once (Teemo R) | flat `Delayed` links of a `Position` cast, a trigger zone and a damage zone per trap, one set of flags per slot (champion-data "A trap that lasts, with three at once"); 12 s instead of minutes, gone when the caster dies | ~ |
 | On-hit poison over time (Teemo E) | `AddCasted Poison` in the attack's projectile: every hit adds its own 4 s poison (League refreshes one), so the numbers count on the stack | ~ |
 | Blind (Teemo Q) | `BlockAttack`: the target cannot basic attack; the game shows a disarm icon | OK |
@@ -59,7 +59,7 @@ OK = direct, ~ = approximate, X = not possible in data-only mods.
 | Toggled aura (Amumu W) | on while fighting: every action starts a guarded train of `Delayed` pulses around the caster (champion-data "Aura that runs while he fights") | ~ |
 | %-max-health magic damage (Amumu W) | `ApAttack` has no `target_hp_ratio`: the % part becomes `FixedAttack` (true), whole percents only | ~ |
 | Amplify one damage type (Amumu's Curse: +10% of magic damage as true) | no per-type amplify field: `damaged_amplify` on all damage, re-applied so it never stacks | ~ |
-| Hook that pulls the caster in (Amumu Q) | `LinearProjectile` on `EnemyChampion` + `MoveToTarget` in `applied_effects` | OK |
+| Hook that pulls the caster in (Amumu Q) | `LinearProjectile` on `EnemyChampion`: damage and `Stun` in `applied_effects`, `MoveToTarget` from a `Delayed` there (league_leesin Q2's way) | OK |
 | Cooldown reduced when hit (Amumu E) | no "was hit" trigger: a shorter fixed cooldown | X |
 | Charges (Amumu Q: 2, Teemo R: 3) | `cooltime_use_count: N`: N charges, each refilled in `cooltime / N`, one after the other (champion-data "Recast / charges", measured). league_amumu keeps 1 and a shorter cooldown (chosen before this was known); league_teemo R has 3 of 20 s, spent as targets come | OK |
 | Ability treated as a basic attack (Yasuo Q: crits, on-hit) | the action's `attack_type: BaseAttack` (champion-data "Critical strikes") | OK |
