@@ -23,9 +23,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 SRC = os.path.join(ROOT, "assets", "source", "caitlyn")
 Z = 8
-LENGTHS = (12, 24)
+LENGTHS = (4, 8)
 CORE, EDGE = (0xFF, 0x6A, 0x6A, 255), (0xD1, 0x38, 0x45, 255)
-W, H = 25, 3                     # the head is column 23 (its right edge the anchor, 24.0); rows 1 (core), 2 (edge)
+W, H = 9, 3                      # the head is column 7 (its right edge the anchor, 8.0); rows 1 (core), 2 (edge)
 
 
 def lp(p):

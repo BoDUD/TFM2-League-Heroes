@@ -61,8 +61,9 @@ SOLES = 11                             # the soles' row under the pivot
 # each projectile: the muzzle it leaves
 LEAVES = {"bolt": "attack", "hs_bolt": "passive", "hs_trap_bolt": "passive", "e_net": "e", "q_bolt": "skill",
           "r_bullet": "ult", "r_laser": "ult"}
-# R's shot and laser fly level from her standing height (y_offset 5000) to his, so the line runs straight
-LEVEL = {"r_bullet", "r_laser"}
+# projectiles that fly level from her standing height (y_offset 5000) instead of a muzzle's height
+LEVEL = set()
+MARK = (0, 0)                          # R's crosshair on his pivot, where the laser and the shot end
 
 
 
@@ -177,8 +178,8 @@ def build():
         "hs_bolt": [("hs_bolt", proj["hs_bolt"], (0, 0), "point")],
         "q_bolt": [("q_bolt", proj["q_bolt"], (0, 0), "point")],
         "r_bullet": [("r_bullet", proj["r_bullet"], (0, 0), "point")],
-        # R's laser sight (tools/art/caitlyn_r_laser.py): a link's head on its projectile, hidden until it is past the
-        # rifle, 12 px for a tick, then 24 px end to end with the next link until it reaches him
+        # R's laser sight (tools/art/caitlyn_r_laser.py): a dash's head on its projectile, hidden until it is past the
+        # rifle, 4 px for a tick, then 8 px (6 px apart: one a tick at 6 px a tick) until it reaches him
         "r_laser": [("r_laser", [(None, round(lead("r_laser", speeds) * TICK)), (0, round(TICK)), (1, 3000)],
                      (0, 0), "point")],
         "e_net": [("e_net", net, (0, 0), "point")],
@@ -192,7 +193,7 @@ def build():
         "hs_hit": [("hs_hit", own("hs_hit"), HIT, "point")],
         "q_hit": [("q_hit", own("q_hit"), HIT, "point")],
         "r_hit": [("r_hit", own("r_hit"), HIT, "point")],
-        "r_mark": [("r_mark", [(k, 100) for k in range(4)], HIT, "point")],
+        "r_mark": [("r_mark", [(k, 100) for k in range(4)], MARK, "point")],
         "e_hit": [("e_hit", own("e_hit"), (0, 0), "ground")],
         "e_slow": [("e_slow", [(k, 100) for k in range(4)], (0, 0), "ground")],
         "w_land": [("w_land", [(0, 50), (1, 50), (2, 50), (3, 50), (4, 300)], (0, 0), "ground")],
