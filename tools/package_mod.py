@@ -491,7 +491,7 @@ def main():
             if not os.path.isfile(lp(os.path.join(out, "mod.mod_info"))):
                 sys.exit(f"{out} exists and is not a mod folder; not replacing it")
             shutil.rmtree(lp(out))
-        for rel, data in pkg.items():
+        for rel, data in sorted(pkg.items()):    # the order the game reads them: one pass on a hard disk
             write(os.path.join(out, rel), data)
         print("package:", out)
     if a.install:
