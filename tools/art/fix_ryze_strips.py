@@ -82,6 +82,11 @@ EYE_ONLY = [(0xFB, 0xFB, 0xFD), (0xB3, 0x68, 0xFD)]
 SKIN = {(0x6B, 0x44, 0xCC), (0xB5, 0x9C, 0xFC), (0x92, 0x70, 0xF2), (0xA8, 0x8C, 0xFB), (0xC8, 0xB5, 0xFD),
         (0x51, 0x1A, 0xC4), (0x23, 0x14, 0x8D)}
 RUNES = {(0x14, 0x17, 0x43), (0x18, 0x23, 0x5D)}
+BRONZE = {(0xE7, 0x98, 0x45), (0xFB, 0xCE, 0x84)}
+# tag: rows from the eyes down to the belt (the idle: 18). The run's drawing puts its head 16-22 rows over the belt
+# from frame to frame (the user: "头和身体不协调": the head bobbed against the body); rows over that come out of the
+# chest, so head, scroll and arms sit on the belt alike in every frame and bob with the body
+HEAD_ON_BODY = {"run": 17.0}
 OUTLINE = {(0x0F, 0x02, 0x13), (0x10, 0x04, 0x1C)}
 
 
@@ -252,25 +257,57 @@ def head_like(px):
     return c in SKIN or c in RUNES or c in OUTLINE or min(c) > 225
 
 
-def paste_head(a, head, at=None):
-    """Step 3: (frame, near eye's centre column in it) or (frame, None) when the eyes are not found."""
+def belt(a):
+    """The belt's row: the mean row of the bronze squares (the buckle, the belt's studs) between 9 rows under the
+    eyes and 9 over the soles (the pauldron is higher, the knee guards lower)."""
+    e = eyes(a)
+    op = a[..., 3] > 0
+    if e is None:
+        return None
+    eye = (e[0][0] + e[0][2]) / 2
+    soles = int(np.nonzero(op.any(1))[0].max())
+    rows = [y for y, x in zip(*np.nonzero(op)) if eye + 9 <= y <= soles - 9 and colour(a, y, x) in BRONZE]
+    return float(np.mean(rows)) if rows else None
+
+
+def squash(a, n, top, bottom):
+    """n whole rows out of the band [top, bottom) (the chest under the beard, over the belt), chosen like cut(): the
+    rows least unlike their neighbours, never two together; everything above moves down n rows (head, scroll, arms)."""
+    H, W = a.shape[:2]
+    cols = sorted({colour(a, y, x) for y, x in zip(*np.nonzero(a[..., 3] > 0))})
+    lut = {c: i for i, c in enumerate(cols)}
+    idx = np.full((H, W), -1, int)
+    for y, x in zip(*np.nonzero(a[..., 3] > 0)):
+        idx[y, x] = lut[colour(a, y, x)]
+    band = list(range(top, bottom))
+    keep, _ = keep_lines([idx[y] for y in band], [np.ones(W, int)] * len(band), len(band) - n, set())
+    rows = list(range(top)) + [band[i] for i in keep] + list(range(bottom, H))
+    return crop(a[rows])
+
+
+def paste_head(a, head, at=None, shift=0):
+    """Step 3: (frame, near eye's centre column in it) or (frame, None) when the eyes are not found. `shift` rows
+    move the pasted head off the drawn one's place (the drawn head is erased where it was)."""
     e = at or eyes(a)
     if e is None:
         return a, None
     near, far = e
     dy = int(round(((near[0] + near[2]) / 2 - NEAR_EYE[0] + (far[0] + far[2]) / 2 - FAR_EYE[0]) / 2))
     dx = int(round(((near[1] + near[3]) / 2 - NEAR_EYE[1] + (far[1] + far[3]) / 2 - FAR_EYE[1]) / 2))
-    hy = np.array([p[0] for p in head]) + dy
+    hy0 = np.array([p[0] for p in head]) + dy
     hx = np.array([p[1] for p in head]) + dx
-    P = max(4, -int(hy.min()) + 4, -int(hx.min()) + 4)
+    hy = hy0 + shift
+    P = max(4, -int(min(hy.min(), hy0.min())) + 4, -int(hx.min()) + 4)
     b = np.pad(a, ((P, P), (P, P), (0, 0)))
-    hy, hx, dy, dx = hy + P, hx + P, dy + P, dx + P
+    hy0, hy, hx, dy, dx = hy0 + P, hy + P, hx + P, dy + P, dx + P
     H, W = b.shape[:2]
     op = b[..., 3] > 0
-    hm = np.zeros((H, W), bool)
+    hm0 = np.zeros((H, W), bool)                         # where the drawn head is
+    hm0[hy0, hx] = True
+    hm = np.zeros((H, W), bool)                          # where the design's head goes
     hm[hy, hx] = True
-    win = grow(hm)
-    win[max(0, hy.min() - 4):hy.min(), 60 + dx:69 + dx] = True
+    win = grow(hm0)
+    win[max(0, hy0.min() - 4):hy0.min(), 60 + dx:69 + dx] = True
     win[61 + dy:71 + dy, max(0, 56 + dx - SIDE):70 + dx + SIDE] = True
     ok = np.zeros((H, W), bool)
     dark = np.zeros((H, W), bool)
@@ -400,6 +437,14 @@ def build():
             f = cut(reads[k], factor)
             eye = None
             if (tag, k + 1) not in NO_PASTE:
+                if tag in HEAD_ON_BODY and belt(f) is not None:
+                    e = eyes(f)
+                    eye_row = (e[0][0] + e[0][2]) / 2
+                    n = int(round(belt(f) - HEAD_ON_BODY[tag] - eye_row))
+                    if n > 0:
+                        f = squash(f, n, int(eye_row) + 5, int(belt(f)))
+                        report.append((tag, k + 1, f"{n} rows out of the chest: the eyes {HEAD_ON_BODY[tag]:g} over "
+                                                   f"the belt"))
                 f, eye = paste_head(f, head, EYES_AT.get((tag, k + 1)))
             f, holes = plug(np.pad(f, ((1, 1), (1, 1), (0, 0))))
             f = crop(f)
