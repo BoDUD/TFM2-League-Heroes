@@ -271,9 +271,8 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        ("amumu", "idle"): (6, [2, 3, 4]),
        # Jinx: the seam across her boots' shafts, her soles stay
        ("jinx", "idle"): (6, [2, 3, 4, 5]),
-       # Garen: the seam at his waist (row -4), over his hands' sword: head, chest and arms breathe, the sword and legs
-       # stay one drawing (a seam lower bent the blade, and carrying it down cut the tip on the ground: "剑触碰到地面直接变形")
-       ("garen", "idle"): (-4, [2, 3, 4]),
+       # Garen breathes no more: every seam moved part of him against the rest - lower, the sword bent; at the waist,
+       # the chest squashed a row - the user: "不要上下摇摆 模型会变形" (his idle is the one drawing in all six slots)
        # Ashe: the seam across her boots' shafts, her soles stay. Codex's redraw hangs the cloak down to 8 rows
        # under the pivot and leaves 4 rows of boots: at 6 the seam cut the cloak's last row off her thighs and
        # the legs seemed to come apart ("腿像分开了一样"); at 9 the outline does not change (6 squares of colour)

@@ -625,13 +625,11 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   measure each frame's body against a reference frame (best colour match of the shoulders and chest, the head left
   out), and move only the head by that offset in the frames that are off (`HEAD_MOVE`); the strip the head uncovers
   takes the reference frame's pixels at the same place on the body. Change the least: the user liked the motion.
-- **Grow first, then breathe above the weapon (league_garen).** Copied rows fixed in the sheet met the breathing
-  frames' moved sword a row off, so it bent with every breath ("怎么盖伦上下摆动剑变形"): a growing hero's BOB runs after
-  GROW at the grown seam. Carrying the sword down with the body (`BOB_CARRY`) cut its tip on the soles row
-  ("剑触碰到地面直接变形"); the seam moved up to his waist instead, over the hands' hilt, so the sword and legs are one
-  drawing in every idle frame and only head, chest and arms breathe. `RIGID` puts one drawing of the weapon in every
-  frame of a loop that Codex redrew per frame, and `SPURS` clears dark spurs and dots GROW left hanging off a slanted
-  blade's doubled outline steps.
+- **A grown hero's idle may not breathe (league_garen).** Copied rows fixed in the sheet met the breathing frames' moved
+  sword a row off ("怎么盖伦上下摆动剑变形"); breathing after GROW with the sword carried down cut its tip on the soles row
+  ("剑触碰到地面直接变形"); a seam at the waist squashed the chest. The user: "不要上下摇摆 模型会变形" - his idle is one
+  drawing in all six slots. `RIGID` puts one drawing of the weapon in every frame of a loop that Codex redrew per frame,
+  and `SPURS` clears dark spurs and dots GROW left hanging off a slanted blade's doubled outline steps.
 
 ## QA checklist
 
