@@ -65,7 +65,7 @@ TAGS = ["run", "attack", "skill", "skill2", "ult", "ult_land", "hit", "dead"]
 # the raw sheets: columns x rows of even cells, read left to right, top to bottom
 GRID = {"run": (4, 2), "attack": (3, 2), "skill": (3, 2), "skill2": (4, 3), "ult": (4, 2), "ult_land": (4, 1),
         "hit": (2, 1), "dead": (4, 2)}
-TRUE = {"run": 6.0, "attack": 5.1, "skill": 7.0, "skill2": 5.0, "ult": 5.0, "ult_land": 8.0, "hit": 8.0, "dead": 5.0}
+TRUE = {"run": 8.0, "attack": 5.1, "skill": 7.0, "skill2": 5.0, "ult": 5.0, "ult_land": 8.0, "hit": 8.0, "dead": 5.0}
 REF = {"run": None, "attack": 6, "skill": 6, "skill2": 12, "ult": 1, "ult_land": 4, "hit": 2, "dead": 2}
 NO_PASTE = {("dead", 6), ("dead", 7), ("dead", 8)}
 # eyes found by hand ((top, left, bottom, right) near, far, on the cut frame): the death's frame 3 bows the head,
