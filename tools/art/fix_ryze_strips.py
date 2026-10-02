@@ -77,12 +77,18 @@ FRAMES = {("ult", 8): 7}
 HEAD = [(y, x) for y in range(61, 71) for x in range(56, 70)] + [(y, x) for y in range(71, 75) for x in range(57, 69)]
 NEAR_EYE, FAR_EYE = (67.5, 61.5), (67.5, 67.0)
 SIDE = 5                   # the drawn head reaches this many columns past the pasted one's sides (crown to beard)
-GAP = 6                    # at most this wide a gap it leaves between the scroll and the pasted head is closed
+GAP = 2                    # at most this wide a gap it leaves between the scroll and the pasted head is closed
 EYE_ONLY = [(0xFB, 0xFB, 0xFD), (0xB3, 0x68, 0xFD)]
 SKIN = {(0x6B, 0x44, 0xCC), (0xB5, 0x9C, 0xFC), (0x92, 0x70, 0xF2), (0xA8, 0x8C, 0xFB), (0xC8, 0xB5, 0xFD),
         (0x51, 0x1A, 0xC4), (0x23, 0x14, 0x8D)}
 RUNES = {(0x14, 0x17, 0x43), (0x18, 0x23, 0x5D)}
 BRONZE = {(0xE7, 0x98, 0x45), (0xFB, 0xCE, 0x84)}
+TEAL = {(0x01, 0x4C, 0x78), (0x32, 0x94, 0x98), (0x09, 0x79, 0x99)}
+# actions placed by the hips (the teal cloth's middle over the standing point, as on the idle: HIP_X) - Codex kept the
+# head on one column in every frame and the body slid 4-8 squares back under it in the attack and the spells (the user:
+# "释放技能和攻击的时候 头和身体不协调"); the run stays on its head (import_native steadies it on the eyes)
+HIP_ANCHOR = {"attack", "skill", "skill2", "ult", "ult_land", "hit", "dead"}
+HIP_X = -0.1
 # tag: rows from the eyes down to the belt (the idle: 18). The run's drawing puts its head 16-22 rows over the belt
 # from frame to frame (the user: "头和身体不协调": the head bobbed against the body); rows over that come out of the
 # chest, so head, scroll and arms sit on the belt alike in every frame and bob with the body
@@ -257,6 +263,13 @@ def head_like(px):
     return c in SKIN or c in RUNES or c in OUTLINE or min(c) > 225
 
 
+def hips(a):
+    """The column of the hips: the middle of the teal cloth hanging at the front of the belt (None if not drawn)."""
+    ys, xs = np.nonzero(a[..., 3] > 0)
+    t = [x for y, x in zip(ys, xs) if colour(a, y, x) in TEAL]
+    return float(np.mean(t)) if len(t) >= 4 else None
+
+
 def belt(a):
     """The belt's row: the mean row of the bronze squares (the buckle, the belt's studs) between 9 rows under the
     eyes and 9 over the soles (the pauldron is higher, the knee guards lower)."""
@@ -427,6 +440,7 @@ def build():
         factor = (idle_cs[1] - idle_cs[0] + 1) / float(np.median(hs))
         sheet = np.zeros((rows * ch, cols * cw, 4), np.uint8)
         frames = []
+        prev = None                                      # the last placed frame's middle, in the next frame's cell
         for k, fr in enumerate(frs):
             X, Y = (k % cols) * cw, (k // cols) * ch
             cf = codex[Y:Y + ch, X:X + cw]
@@ -450,7 +464,12 @@ def build():
             f = crop(f)
             cop = cf[..., 3] > 0
             ys, xs = np.nonzero(cop)
-            if eye is not None:
+            hip = hips(f)
+            if tag in HIP_ANCHOR and hip is not None:               # the body stays, the head leans with the pose
+                x0 = int(round(fr["pivot"][0] + HIP_X - hip))
+            elif tag in HIP_ANCHOR and prev is not None:            # lying, the cloth hidden: on the last frame's middle
+                x0 = int(round(prev - (f.shape[1] - 1) / 2))
+            elif eye is not None:
                 hits = np.nonzero((cf[..., :3] == EYE_ONLY[0]).all(-1) & cop)
                 near = hits[1][hits[1] <= hits[1].min() + 1]           # Codex's near eye: the left 2x2 white
                 x0 = int(round(near.mean() - eye))
@@ -460,6 +479,7 @@ def build():
             assert 0 <= x0 and x0 + f.shape[1] <= cw and 0 <= y0, (tag, k + 1, x0, y0, f.shape)
             cell = np.zeros((ch, cw, 4), np.uint8)
             cell[y0:y0 + f.shape[0], x0:x0 + f.shape[1]] = f
+            prev = x0 + (f.shape[1] - 1) / 2 - fr["pivot"][0] + (frs[min(k + 1, len(frs) - 1)]["pivot"][0])
             frames.append(cell)
             report.append((tag, k + 1, f"{f.shape[1]}x{f.shape[0]}, " + ("head pasted" if eye is not None else
                                                                           "drawn head") +
