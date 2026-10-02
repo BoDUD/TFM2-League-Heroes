@@ -1104,6 +1104,9 @@ three mini boxes): 2.42 a game; league_amumu 1.69, league_leesin 1.52, league_ek
 the same batch - fear counts as crowd control, the range the CC junglers gave before, no change.
 league_caitlyn (bottom, 2026-10-01, Yordle Snap Trap's 1.25 s root - 1.5 s since - on the first champion to step on it): 0.75 a game;
 the base archer 0.65, league_vayne 1.92 and league_tristana 1.08 in the same batch - no change.
+league_nocturne (jungle, 2026-10-02, Unspeakable Horror's 1.33 s fear when the tether holds for 2 s): 0.83 a game;
+the base ninja 0.65 in the same batch (league_shaco 2.04 and league_leesin 1.52 in an earlier one) - about one
+champion a game is still in reach when the tether ends, no change.
 league_blitzcrank (support, --lane 4, 2026-10-02, Rocket Grab's 0.67 s stun and Power Fist's 1 s knock-up): 1.98 a
 game; league_leona 1.88, league_thresh 1.35 and the base priest 0.65 in the same batch - with the hard-CC supports, no
 change.
@@ -2323,6 +2326,54 @@ crowd-control check every 10 ticks (`RandomTarget {range: 1, casting_target: All
 flag), and at tick 61, if the flag holds, a non-penetrating `LinearProjectile` on `EnemyChampion` (speed 20000, radius
 8000) toward him: the first enemy champion on the line takes 250 + 150% AD, minions do not block. 4.5 of 5 casts a game
 hit a champion.
+
+**A cleave every fourth attack or on a timer (league_nocturne passive, Umbra Blades).** League's 12 s cooldown, which
+each attack cuts by 1-3 s, comes out at about every fourth attack in a fight. The attack (`start_timing` 1, its hit
+`Delayed`) reads a caster buff `p_cd` (720 ticks): while it is absent the attack is the cleave; while it is there,
+three counter rungs `p_n1` -> `p_n2` -> `p_n3` (720 ticks each, one removed as the next is added) count the plain
+attacks, and the attack that finds `p_n3` cleaves. The cleave removes the rungs, restarts `p_cd`, plays `attack_p` and
+on its hit tick a self-only `RangeEffect` (radius 20000, `EnemyWithoutTower`) gives each enemy 120% attack and
+Nocturne a `Heal` (15 + 20% AP, `heal_type: Caster`) per enemy hit. The circle reaches a unit's edge, so it takes the
+attack's own target even at the attack's full range: in six logged games (about 49 cleaves each) 13% of the cleaves hit
+nothing and 20% hit two or more enemies.
+
+**A trail that lies on the ground and follows the champions it hit (league_nocturne Q, Duskbringer).** A `Direction`
+cast on `EnemyWithoutTower`: the blade is a penetrating `LinearProjectile` (4500 a tick, 66000; its hit sound plays
+once a wave through a 20-tick `q_snd` flag), and a picture-only `LineRangeProjectile` on `Ally` (66000 x 9000, `delay`
+300) draws the trail for 5 s without the enemy AI dodging it. The trail's zones: anchors - hidden `LinearProjectile`s
+on `Ally` with the blade's speed and ranges 6000, 18000 ... 66000 - each start a `RangePeriodProjectile` (radius 9000,
+300 ticks, `period` 6, `AllyChampion`) where they stop, whose application asks `RandomTarget {AllyOnlySelf,
+from_projectile: true}` within 9000 whether Nocturne stands in it (league_ekko's pulse). A champion-only twin of the
+blade adds an `AddCasted Bleed` (300 ticks, period 6) to every champion it hits, which sends a hidden `TargetProjectile`
+at him each period with the same question at 15000: a trail behind him too. Either answer refreshes one `trail` caster
+buff (move speed +25%, attack +15%, 10 ticks) by removing and adding it (section 5: same-name buffs add up). In logged
+games he stood on a trail about 2 s of the 5 s after each Q (43 a game).
+
+**A tether that fears if it holds (league_nocturne E, Unspeakable Horror).** A `Targeting` cast on `EnemyWithoutTower`
+(30000): the links are league_fiddlesticks W's chain (a `TargetProjectile` to the target, a 1-tick
+`ParabolicProjectile` landing on him, a `BackToCasterLinearProjectile` flying back at 1600 a tick), one every 12 ticks
+for 2 s, with 4 `ApAttack` pulses (20 + 30% AP). After 120 ticks a hidden `TargetProjectile` (100000 a tick: it lands
+the next tick) on the target asks `RandomTarget {AllyOnlySelf, from_projectile: true}` within 60000 whether Nocturne
+is still near; yes adds a 3-tick caster flag `e_near`, and a `Delayed` of 1 tick reads it: `Fear` (80 ticks) and a
+`move_speed_mult` 40 caster buff as long (E's passive, without its direction). The range counts from the champion's
+edge (a check at 45000 feared a champion 58932 away, centre to centre). In six logged games 14 of 30 tethers on
+champions reached the check (in 10 of the other 16 the target had died first), and 7 feared at 60000, 4 at
+45000; at 32000 the check came after most targets had walked out of it.
+
+**A spell shield that pays out when it is hit (league_nocturne W, Shroud of Darkness, folded into E).** The same cast
+raises the shroud: a caster buff (90 ticks) with `skill_damaged_reduce` 100 and `cc_immune`, a 1-point `Shield` on
+himself (a self-only `RangeEffect`, 92 ticks) and a `WithShield` caster flag `w_guard`. Any hit breaks the shield (a
+skill's damage cut to nothing still deals 1, league_fiora W), and checks every 6 ticks from tick 4 - each a self-only
+`Delayed` - find `w_guard` gone: the first one adds `w_done` and `attack_speed_mult` 40 for 300 ticks (League's doubled
+passive). W's passive attack speed is in the attack cooldown (48 against the assassins' 50-52). In logged games the
+shroud paid out 12-16 times a game, of about 24 casts.
+
+**Team invisibility and a dive from afar (league_nocturne R, Paranoia).** A `Targeting` cast on `EnemyChampion` within
+110000: on tick 8 a `RangeEffect` round him (2000000, `AllyChampion`) makes every allied champion, himself included,
+`Invisible` for 180 ticks, and one on `EnemyChampion` gives every enemy champion the `r_dark` mist (a picture-only
+buff with a `ThreePhase` view); then `MoveToTarget` (3500 a tick, a 45-tick `cc_immune` caster buff for the flight)
+lands 120 + 120% attack. The invisibility carries the kit: 4 s +2.12, 2 s +0.12, none -1.86 against the base junglers
+(lane 1, seeds 1-12), while halving the passive's heal changed nothing (+2.16); it settled at 3 s.
 
 **A hook from a raised arm that brings its catch back along its own line (league_blitzcrank Q, Rocket Grab).** A
 `Direction` cast on `EnemyChampion` (range 70000) throws a non-penetrating `LinearProjectile` on `EnemyChampion`

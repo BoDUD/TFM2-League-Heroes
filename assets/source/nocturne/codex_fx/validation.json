@@ -1,0 +1,78 @@
+{
+  "pass": true,
+  "checks": {
+    "attack_slash": {
+      "pass": true,
+      "grid_8x": true,
+      "binary_alpha": true,
+      "palette_subset": true,
+      "white_pixels": 0,
+      "distinct_frames": 4,
+      "nonempty_frames": 4
+    },
+    "passive_cleave": {
+      "pass": true,
+      "grid_8x": true,
+      "binary_alpha": true,
+      "palette_subset": true,
+      "white_pixels": 0,
+      "distinct_frames": 4,
+      "nonempty_frames": 4
+    },
+    "q_blade": {
+      "pass": true,
+      "grid_8x": true,
+      "binary_alpha": true,
+      "palette_subset": true,
+      "white_pixels": 0,
+      "distinct_frames": 3,
+      "nonempty_frames": 4
+    },
+    "q_trail": {
+      "pass": true,
+      "grid_8x": true,
+      "binary_alpha": true,
+      "palette_subset": true,
+      "white_pixels": 0,
+      "distinct_frames": 3,
+      "nonempty_frames": 4
+    },
+    "e_tether": {
+      "pass": true,
+      "grid_8x": true,
+      "binary_alpha": true,
+      "palette_subset": true,
+      "white_pixels": 0,
+      "distinct_frames": 3,
+      "nonempty_frames": 4
+    },
+    "w_shroud": {
+      "pass": true,
+      "grid_8x": true,
+      "binary_alpha": true,
+      "palette_subset": true,
+      "white_pixels": 0,
+      "distinct_frames": 3,
+      "nonempty_frames": 4
+    },
+    "r_flight": {
+      "pass": true,
+      "grid_8x": true,
+      "binary_alpha": true,
+      "palette_subset": true,
+      "white_pixels": 0,
+      "distinct_frames": 3,
+      "nonempty_frames": 4
+    },
+    "r_impact": {
+      "pass": true,
+      "grid_8x": true,
+      "binary_alpha": true,
+      "palette_subset": true,
+      "white_pixels": 0,
+      "distinct_frames": 4,
+      "nonempty_frames": 4
+    }
+  },
+  "runtime_tested": false
+}
