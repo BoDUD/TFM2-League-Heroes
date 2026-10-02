@@ -13,7 +13,13 @@ more similar neighbour), never two neighbours in one step, a line whose deletion
 extra. Near-identical shades are merged first (RGB distance 22, by frequency). The result, 46 x 21 and 49 colours,
 stands on the 128 x 128 canvas with the middle of its blade tips at column 64 and its lowest row at 99 (the pivot
 (64, 88), 11 rows above), and its far eye takes the near eye's cyan #029FD9 so that colour is the eyes' alone (the
-far eye and the hip core shared #0AE3FB). Writes the 8x design; --check compares with the committed file instead.
+far eye and the hip core shared #0AE3FB).
+The arms (2026-10-02, the user: "卡密尔的手部能改精致一点吗？现在太怪了"): the columns that went ran through both arms, so
+the raised far forearm and hand were left as their outer outline alone - a one-pixel black hook - and the near
+elbow lost its outline. A second cut with the arms' columns (source 0-6 and 21-27) protected keeps Codex's arms;
+its far forearm, gold cuff and raised gloved hand (rows 12-17) go onto C1 two columns right, where they meet C1's
+shoulder, in place of the hook, and the near elbow's outer side gets its outline back. The body is C1's, unchanged.
+Writes the 8x design; --check compares with the committed file instead.
 """
 import argparse
 import os
@@ -35,6 +41,13 @@ WEIGHTS = [0.5, 1.0, 1.3]
 ROWS, WIDTH, TOL = 46, 0.8, 22
 SPLIT_COST = 1000
 EYE = (0x02, 0x9F, 0xD9)
+ARM_COLS = set(range(0, 7)) | set(range(21, 28))   # source columns of the two arms (kept in the second cut)
+FAR_ROWS = range(12, 18)                     # the far forearm, cuff and hand (rows of the cut)
+FAR_FROM = (15, 20)                          # their columns in the arms-kept cut ...
+FAR_SHIFT = 2                                # ... two columns right on C1, onto its shoulder
+FAR_ERASE = (17, 20)                         # C1's hook there
+ELBOW_ROWS = range(15, 21)                   # the near elbow's outer side
+OUTLINE = (0x03, 0x01, 0x0F)
 FAR_EYE = [(63, 67)]                         # (row, column) on the canvas: the far eye, #0AE3FB in the cut
 CANVAS, FEET, MID = 128, 99, 64
 Z = 8
@@ -140,9 +153,11 @@ def delete_lines(a, axis, k, allowed_sets, protect=()):
     return np.take(a, keep, axis=axis), keep
 
 
-def shrink_block(a, rows_target, cols_target, groups, weights, step=0.9):
-    """Shrink to rows_target x cols_target in ~10% steps, each row group giving up rows by its weight."""
+def shrink_block(a, rows_target, cols_target, groups, weights, protect_cols=(), step=0.9):
+    """Shrink to rows_target x cols_target in ~10% steps, each row group giving up rows by its weight; the columns
+    protect_cols (of the block as given) never go."""
     wts = list(weights)
+    col_ids = np.arange(a.shape[1])
     while a.shape[0] > rows_target or a.shape[1] > cols_target:
         nr = max(rows_target, int(round(a.shape[0] * step)))
         nc = max(cols_target, int(round(a.shape[1] * step)))
@@ -163,7 +178,9 @@ def shrink_block(a, rows_target, cols_target, groups, weights, step=0.9):
             wts = [w for g, w in zip(new, wts) if g[1] >= g[0]]
             groups = [g for g in new if g[1] >= g[0]]
         if k_c:
-            a, _ = delete_lines(a, 1, k_c, [(set(range(a.shape[1])), k_c)], {0, a.shape[1] - 1})
+            prot = {i for i in range(a.shape[1]) if col_ids[i] in protect_cols} | {0, a.shape[1] - 1}
+            a, keep = delete_lines(a, 1, k_c, [(set(range(a.shape[1])), k_c)], prot)
+            col_ids = col_ids[keep]
         if not k_r and not k_c:
             break
     return a
@@ -186,12 +203,32 @@ def stack(head, body):
     return crop(out)
 
 
+def graft(c1, arms):
+    """C1 with the arms-kept cut's far forearm and hand in place of its hook, and the near elbow outlined."""
+    pad = 1
+    out = np.zeros((c1.shape[0], c1.shape[1] + pad + FAR_SHIFT, 4), np.uint8)
+    out[:, pad:pad + c1.shape[1]] = c1
+    for y in FAR_ROWS:
+        out[y, pad + FAR_ERASE[0]:pad + FAR_ERASE[1] + 1] = 0
+        for x in range(FAR_FROM[0], FAR_FROM[1] + 1):
+            if arms[y, x, 3]:
+                out[y, pad + x + FAR_SHIFT] = arms[y, x]
+    for y in ELBOW_ROWS:
+        for x in range(pad + 3):
+            nxt = out[y, x + 1]
+            if not out[y, x, 3] and nxt[3] and tuple(nxt[:3]) != OUTLINE:
+                out[y, x] = OUTLINE + (255,)
+    return crop(out)
+
+
 def design():
     src = crop(clean(np.asarray(Image.open(G.lp(SRC)).convert("RGBA")), TOL))
     head, body0 = src[:CHIN + 1], src[CHIN + 1:]
     groups = [(max(0, lo - CHIN - 1), min(body0.shape[0] - 1, hi - CHIN - 1)) for lo, hi in REGIONS]
     cols = int(round(body0.shape[1] * (ROWS / src.shape[0]) ** WIDTH))
-    cut = stack(head, shrink_block(body0.copy(), ROWS - head.shape[0], cols, groups, WEIGHTS))
+    c1 = stack(head, shrink_block(body0.copy(), ROWS - head.shape[0], cols, groups, WEIGHTS))
+    arms = stack(head, shrink_block(body0.copy(), ROWS - head.shape[0], cols, groups, WEIGHTS, ARM_COLS))
+    cut = graft(c1, arms)
     op = cut[..., 3] > 0
     low = int(np.nonzero(op.any(1))[0].max())
     tips = np.nonzero(op[low - 2:low + 1].any(0))[0]
