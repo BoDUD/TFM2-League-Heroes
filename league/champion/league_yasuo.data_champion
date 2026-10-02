@@ -813,8 +813,8 @@
                         "effects": [
                           {
                             "type": "Attack",
-                            "damage": 30,
-                            "attack_ratio": 100
+                            "damage": 15,
+                            "attack_ratio": 50
                           },
                           {
                             "type": "ViewEffect",
@@ -823,72 +823,6 @@
                           {
                             "type": "TargetSfx",
                             "name": "league_yasuo_q_hit"
-                          },
-                          {
-                            "type": "SwitchByBuff",
-                            "buff_name": "league_yasuo_q_lock",
-                            "effect_buff": {
-                              "type": "Combine",
-                              "effects": []
-                            },
-                            "effect_none": {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "AddCasterBuff",
-                                  "buff_state": {
-                                    "name": "league_yasuo_q_lock",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 5
-                                      }
-                                    }
-                                  },
-                                  "only_to_enemy": false
-                                },
-                                {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "league_yasuo_q_stack",
-                                  "effect_buff": {
-                                    "type": "Combine",
-                                    "effects": [
-                                      {
-                                        "type": "RemoveCasterBuff",
-                                        "name": "league_yasuo_q_stack"
-                                      },
-                                      {
-                                        "type": "AddCasterBuff",
-                                        "buff_state": {
-                                          "name": "league_yasuo_q_ready",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 360
-                                            }
-                                          }
-                                        },
-                                        "only_to_enemy": false
-                                      },
-                                      {
-                                        "type": "Sfx",
-                                        "name": "league_yasuo_q_ready"
-                                      }
-                                    ]
-                                  },
-                                  "effect_none": {
-                                    "type": "AddCasterBuff",
-                                    "buff_state": {
-                                      "name": "league_yasuo_q_stack",
-                                      "duration": {
-                                        "Time": {
-                                          "tick": 360
-                                        }
-                                      }
-                                    },
-                                    "only_to_enemy": false
-                                  }
-                                }
-                              ]
-                            }
                           }
                         ]
                       }
@@ -1024,8 +958,8 @@
                   "effects": [
                     {
                       "type": "Attack",
-                      "damage": 30,
-                      "attack_ratio": 100
+                      "damage": 15,
+                      "attack_ratio": 50
                     },
                     {
                       "type": "ViewEffect",
@@ -1034,72 +968,6 @@
                     {
                       "type": "TargetSfx",
                       "name": "league_yasuo_q_hit"
-                    },
-                    {
-                      "type": "SwitchByBuff",
-                      "buff_name": "league_yasuo_q_lock",
-                      "effect_buff": {
-                        "type": "Combine",
-                        "effects": []
-                      },
-                      "effect_none": {
-                        "type": "Combine",
-                        "effects": [
-                          {
-                            "type": "AddCasterBuff",
-                            "buff_state": {
-                              "name": "league_yasuo_q_lock",
-                              "duration": {
-                                "Time": {
-                                  "tick": 5
-                                }
-                              }
-                            },
-                            "only_to_enemy": false
-                          },
-                          {
-                            "type": "SwitchByBuff",
-                            "buff_name": "league_yasuo_q_stack",
-                            "effect_buff": {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_yasuo_q_stack"
-                                },
-                                {
-                                  "type": "AddCasterBuff",
-                                  "buff_state": {
-                                    "name": "league_yasuo_q_ready",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 360
-                                      }
-                                    }
-                                  },
-                                  "only_to_enemy": false
-                                },
-                                {
-                                  "type": "Sfx",
-                                  "name": "league_yasuo_q_ready"
-                                }
-                              ]
-                            },
-                            "effect_none": {
-                              "type": "AddCasterBuff",
-                              "buff_state": {
-                                "name": "league_yasuo_q_stack",
-                                "duration": {
-                                  "Time": {
-                                    "tick": 360
-                                  }
-                                }
-                              },
-                              "only_to_enemy": false
-                            }
-                          }
-                        ]
-                      }
                     }
                   ]
                 }

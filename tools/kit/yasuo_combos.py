@@ -5,11 +5,14 @@
 
 E then Q (the circle, EQ / EQ3) was already in the kit. Like tools/kit/leesin_combos.py, each new combo is played by
 a slot, shaped by flags the slot before it left; no slot is held:
-- R -> Q: after Last Breath's slash (its tick 25) Yasuo turns into Steel Tempest's circle (EQ's pose and hit:
-  30 + 100% AD on every enemy within 25000, the Gathering Storm stack it gives), on the enemies he holds up.
+- R -> Q: after Last Breath's slash (its tick 25) Yasuo turns into Steel Tempest's circle (EQ's pose, its 25000
+  cut) on the enemies he holds up.
 - Q3 -> E -> Q: Q3's whirlwind knocking up an enemy champion opens a 2.5 s window (q3_up, from a champion-only twin
   of the whirlwind); E dashed in it cuts the circle on the way, 8 ticks in - the circle a Q cast during the dash
   would give, without a Q (Q3 has just been spent).
+Neither circle spends Q, so both are lighter than Q's: 15 + 50% AD and no Gathering Storm stack. At Q's full
+30 + 100% with the stack, Yasuo's kill difference in mid against base mages went from +2.30 to +3.16 (720 simulated
+games; +2.79 without the stack), his damage up about 5%.
 The kit file was hand-built; the script refuses to run twice (q3_up marks a combo kit). --check only verifies.
 """
 import argparse
@@ -25,6 +28,7 @@ AFTER_R = 28                 # R's effects start on its tick 1, the slash lands 
 WINDOW = 150                 # q3_up: E this soon after Q3 knocked up a champion (the AI's next E came 85-131
                              # ticks later in a simulation, so the knock-up's 60 caught none)
 DASH_CUT = 8                 # ticks after E's effects (its tick 2) before the circle
+LIGHT = (15, 50)             # the combos' circle: half of Q's 30 + 100% AD
 
 
 def n(x):
@@ -79,7 +83,14 @@ def build(k):
     eq = find(q["effect"], lambda o: o.get("type") == "SwitchByBuff" and o.get("buff_name") == n("e_window"))
     plain = eq["effect_buff"]["effect_none"]["effects"]
     assert plain[0] == unflag("e_window") and [x["type"] for x in plain[1:]] == ["CasterAnimation", "Sfx", "Delayed"]
-    circle = plain[1:]
+    circle = json.loads(json.dumps(plain[1:]))       # a copy, made lighter: half the hit, no stack
+    cut = circle[2]["effects"][1]
+    assert cut["type"] == "RangeEffect"
+    hit = cut["effects"][0]
+    assert hit["type"] == "Attack" and (hit["damage"], hit["attack_ratio"]) == (30, 100)
+    hit["damage"], hit["attack_ratio"] = LIGHT
+    assert cut["effects"][-1].get("buff_name") == n("q_lock")
+    cut["effects"] = cut["effects"][:-1]
     # ---- Q3's whirlwind and the Delayed that throws it
     throw = find(q["effect"], lambda o: o.get("type") == "Delayed" and any(
         x.get("name") == n("q3_tornado") for x in o.get("effects", [])))
