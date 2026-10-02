@@ -22,8 +22,15 @@ where League's run_base takes two). The user: "有问题的地方你进行收尾
 - W 2 and 6: the back leg Codex drew as a dark block, redrawn on its own line in the idle's leg materials, as long
   and as thick as the idle's leg (the user: "放技能的时候注意如果腿不一致也要调整"); R 3: Codex's back leg, pushed off
   25 squares behind her, redrawn the same way;
-- R 1 and 2: the dark hair spike's inside in the hair's mid shade, its left edge lit.
-Writes assets/source/native/kaisa_run.png, kaisa_skill2.png, kaisa_ult.png and kaisa_ult_dash.png (8x, the cells of
+- R 1 and 2: the dark hair spike's inside in the hair's mid shade, its left edge lit;
+- the standing action frames (attack 2-5, Q 2-5, W 3-5, hit 1) on the idle's legs: Codex drew them on long legs
+  spread 30 squares apart, thinner than the idle's (the user: "待机时腿部和放技能时候不一样？待机时的腿部更好"). Each keeps
+  its rows down to the pivot's (torso, arms, the plates' top); under them the idle's rows 1-11 under its pivot go in -
+  the plates' lower edge between its hanging arms, then both legs and boots - moved under the frame's torso (the
+  middle of its row at the pivot against the idle's); the frame's own legs (its pieces under the pivot reaching 6 rows
+  down) are cleared first, an arm tip hanging past the pivot stays, specks left over go.
+Writes assets/source/native/kaisa_run.png, kaisa_attack.png, kaisa_skill.png, kaisa_skill2.png, kaisa_hit.png,
+kaisa_ult.png and kaisa_ult_dash.png (8x, the cells of
 kaisa_cells.json: R's delivered 4-frame strip split into the launch, 1-3, and the dash pose the kit forces while she
 flies, 4); then run tools/art/import_native.py --hero kaisa.
 """
@@ -212,6 +219,12 @@ THIGH, SHIN, FOOT = 3.8, 3.2, 2.8         # widths in game px (the inside, 4 squ
 # hip to ankle as long as the idle's leg (about 8), the foot on the soles' row
 W_LEGS = {1: (((-9, 1), (-12, 4), (-15, 8), (-17, 10)), (-23, 1, -9, 11)),
           5: (((-10, 1), (-13, 4), (-16, 8), (-18, 10)), (-24, 1, -10, 11))}
+# standing frames on the idle's legs (indices from 0), the frame's rows kept down to LEG_CUT under the pivot; the idle's
+# part under it: HIP_SPAN columns (from its pivot) for the rows 1-3 under it (its plates, not its hanging arms), LEG_SPAN
+# for the rows 4-11 (both legs and boots)
+IDLE_LEGS = {"attack": [1, 2, 3, 4], "skill": [1, 2, 3, 4], "skill2": [2, 3, 4], "hit": [0]}
+LEG_CUT = 0
+HIP_SPAN, LEG_SPAN = (-6, 10), (-12, 12)
 # R's launch, frame 3: Codex's back leg pushed off 25 squares behind her: everything in the box cleared (from the
 # pivot: the leg alone, under and behind the torso) and the leg redrawn as long as the idle's
 R_LEGS = {2: (((-10, 3), (-13, 6), (-16, 9), (-18, 10)), (-27, 3, -11, 12))}
@@ -375,6 +388,65 @@ def drop_specks(a, most=9):
     return out
 
 
+def run_at(cell, y, px, lo=-10, hi=12):
+    """The run of opaque squares on row y holding the column nearest px: (first, last)."""
+    row = cell[y, :, 3] > 0
+    best, x = None, px + lo
+    while x <= px + hi:
+        if row[x]:
+            a = x
+            while x + 1 < len(row) and row[x + 1]:
+                x += 1
+            d = 0 if a <= px <= x else min(abs(a - px), abs(x - px))
+            if best is None or d < best[0]:
+                best = (d, a, x)
+        x += 1
+    return best[1], best[2]
+
+
+def pieces_of(mask):
+    """8-connected pieces: (labels, count)."""
+    lab = np.zeros(mask.shape, int)
+    n = 0
+    for y0, x0 in zip(*np.nonzero(mask)):
+        if lab[y0, x0]:
+            continue
+        n += 1
+        stack = [(y0, x0)]
+        lab[y0, x0] = n
+        while stack:
+            y, x = stack.pop()
+            for dy in (-1, 0, 1):
+                for dx in (-1, 0, 1):
+                    ny, nx = y + dy, x + dx
+                    if 0 <= ny < mask.shape[0] and 0 <= nx < mask.shape[1] and mask[ny, nx] and not lab[ny, nx]:
+                        lab[ny, nx] = n
+                        stack.append((ny, nx))
+    return lab, n
+
+
+def on_idle_legs(frame, pivot, idle):
+    """The frame down to LEG_CUT under its pivot over the idle's plates' lower edge and legs, moved under its torso."""
+    px, py = pivot
+    ix, iy = IDLE_PIVOT
+    out = frame.copy()
+    below = np.zeros(frame.shape[:2], bool)
+    below[py + LEG_CUT + 1:] = frame[py + LEG_CUT + 1:, :, 3] > 0
+    lab, n = pieces_of(below)
+    for k in range(1, n + 1):
+        if np.nonzero(lab == k)[0].max() >= py + 6:      # a leg (an arm tip stays above that)
+            out[lab == k] = 0
+    a0, a1 = run_at(frame, py + LEG_CUT, px)
+    b0, b1 = run_at(idle, iy + LEG_CUT, ix)
+    dx = int(round((a0 + a1) / 2 - (b0 + b1) / 2))
+    for y in range(LEG_CUT + 1, 12):
+        x0, x1 = HIP_SPAN if y <= 3 else LEG_SPAN
+        for x in range(x0, x1 + 1):
+            if idle[iy + y, ix + x, 3]:
+                out[py + y, px + x + dx] = idle[iy + y, ix + x]
+    return drop_specks(out)
+
+
 def w_frame(frame, pivot, k):
     if k not in W_LEGS:
         return frame
@@ -435,6 +507,13 @@ def build():
     w = cells["tags"]["skill2"]
     src = cells_of(os.path.join(SRC, "kaisa_skill2.png"), len(w), cell)
     out["skill2"] = ([w_frame(f, tuple(r["pivot"]), k) for k, (f, r) in enumerate(zip(src, w))], w)
+    for tag in ("attack", "skill", "hit"):
+        rows = cells["tags"][tag]
+        out[tag] = (cells_of(os.path.join(SRC, f"kaisa_{tag}.png"), len(rows), cell), rows)
+    for tag, ks in IDLE_LEGS.items():
+        frames, rows = out[tag]
+        for k in ks:
+            frames[k] = on_idle_legs(frames[k], tuple(rows[k]["pivot"]), idle)
     # R's strip as Codex delivered it (4 frames) is split into ult (1-3) and ult_dash (4) by work/ks/prep_strips.py's
     # layout: the fixed launch frames go to kaisa_ult.png, the dash frame to kaisa_ult_dash.png
     u = cells["tags"]["ult"] + cells["tags"]["ult_dash"]
