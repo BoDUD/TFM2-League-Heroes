@@ -59,7 +59,7 @@ def showcase(out, z=3, step=40):
     W, H = 300, 150
     gy = 104                                          # the pivot row: R's burst rises 59 px over it
     x = 80
-    lucian = Ally(load(os.path.join(LEAGUE, "champions", "league_lucian")), x - 30, gy - 10)  # inside the 35 px ring
+    lucian = Ally(load(os.path.join(LEAGUE, "champions", "league_lucian")), x - 30, gy - 10)  # inside the 45 px ring
     d = Held(load(os.path.join(LEAGUE, "champions", "league_darius")), x + 50, gy + 12)     # 51 px: attack range
     g = Held(load(os.path.join(LEAGUE, "champions", "league_garen")), 284, gy - 16)        # walking in
     body, under, over = [], [], []

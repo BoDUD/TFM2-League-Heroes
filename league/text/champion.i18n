@@ -297,9 +297,9 @@
       },
       "league_sona": {
         "name": "娑娜",
-        "attack": "弹出音符攻击。被动<#ff9028ff>能量和弦<>：每放<#ffb900ff>3<>次技能，下次普攻打中英雄时额外造成<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 法强<>的<#a974ffff>魔法伤害<>，并按最后一首歌：断奏 伤害翻倍；渐弱 目标伤害降低<#ffb900ff>25%<>3秒；节奏 <#ef5350ff>减速40%<>2秒。",
-        "skill": "对附近两个敌人（英雄优先）各造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45% 法强<>的<#a974ffff>魔法伤害<>。<#ff9028ff>旋律<>：<#ffb900ff>3秒<>内来到她身边的友方英雄<#ffb900ff>3秒<>内获得<#ff9028ff>12% 攻击力<>和<#a974ffff>12% 法强<>。",
-        "skill2": "为自己和一名附近的友方英雄回复<#6aff55ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>25% 法强<>生命值。<#ff9028ff>旋律<>：身边的友方英雄获得<#e8d44dff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>30% 法强<>的护盾<#ffb900ff>1.5秒<>。每<#ffb900ff>14秒<>同时弹<#ff9028ff>迅捷奏鸣曲<>：身边友方英雄<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移速+20%<>（自己+30%）<#ffb900ff>3秒<>。",
+        "attack": "弹出音符攻击。被动<#ff9028ff>能量和弦<>：每放<#ffb900ff>3<>次技能，下次普攻额外造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% 法强<>的<#a974ffff>魔法伤害<>，并按最后一首歌：断奏 伤害翻倍；渐弱 目标伤害降低<#ffb900ff>25%<>（3秒）；节奏 <#ef5350ff>减速40%<>（2秒）。",
+        "skill": "对附近两个敌人（英雄优先）各造成<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55% 法强<>的<#a974ffff>魔法伤害<>。<#ff9028ff>旋律<>：<#ffb900ff>3秒<>内来到她身边的友方英雄<#ffb900ff>3秒<>内获得<#ff9028ff>15% 攻击力<>和<#a974ffff>15% 法强<>。",
+        "skill2": "为自己和一名附近的友方英雄回复<#6aff55ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>35% 法强<>生命值。<#ff9028ff>旋律<>：身边的友方英雄获得<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>35% 法强<>的护盾<#ffb900ff>1.5秒<>。每<#ffb900ff>14秒<>同时弹<#ff9028ff>迅捷奏鸣曲<>：身边友方英雄<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移速+20%<>（自己+30%）<#ffb900ff>3秒<>。",
         "ult": "朝敌方英雄弹出一道音波，途经的敌方英雄受到<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 法强<>的<#a974ffff>魔法伤害<>并被<#ef5350ff>晕眩1.5秒<>。被动：每条命放出大招后，技能冷却缩短<#ffb900ff>20%<>。"
       },
       "league_leblanc": {
@@ -843,9 +843,9 @@
       },
       "league_sona": {
         "name": "索娜",
-        "attack": "彈出音符攻擊。被動<#ff9028ff>力量和絃<>：每施放<#ffb900ff>3<>次技能，下次普攻命中英雄時額外造成<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 法術強度<>的<#a974ffff>魔法傷害<>，並依最後一首歌：斷奏 傷害加倍；衰弱 目標傷害降低<#ffb900ff>25%<>3秒；節奏 <#ef5350ff>緩速40%<>2秒。",
-        "skill": "對附近兩名敵人（英雄優先）各造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45% 法術強度<>的<#a974ffff>魔法傷害<>。<#ff9028ff>旋律<>：<#ffb900ff>3秒<>內來到她身邊的友方英雄<#ffb900ff>3秒<>內獲得<#ff9028ff>12% 攻擊力<>和<#a974ffff>12% 法術強度<>。",
-        "skill2": "為自身和一名附近的友方英雄回復<#6aff55ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>25% 法術強度<>生命。<#ff9028ff>旋律<>：身邊的友方英雄獲得<#e8d44dff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>30% 法術強度<>護盾<#ffb900ff>1.5秒<>。每<#ffb900ff>14秒<>同時彈<#ff9028ff>迅捷奏鳴曲<>：身邊友方英雄<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>跑速+20%<>（自身+30%）<#ffb900ff>3秒<>。",
+        "attack": "彈出音符攻擊。被動<#ff9028ff>力量和絃<>：每施放<#ffb900ff>3<>次技能，下次普攻額外造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% 法術強度<>的<#a974ffff>魔法傷害<>，並依最後一首歌：斷奏 傷害加倍；衰弱 目標傷害降低<#ffb900ff>25%<>（3秒）；節奏 <#ef5350ff>緩速40%<>（2秒）。",
+        "skill": "對附近兩名敵人（英雄優先）各造成<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55% 法術強度<>的<#a974ffff>魔法傷害<>。<#ff9028ff>旋律<>：<#ffb900ff>3秒<>內來到她身邊的友方英雄<#ffb900ff>3秒<>內獲得<#ff9028ff>15% 攻擊力<>和<#a974ffff>15% 法術強度<>。",
+        "skill2": "為自身和一名附近的友方英雄回復<#6aff55ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>35% 法術強度<>生命。<#ff9028ff>旋律<>：身邊的友方英雄獲得<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>35% 法術強度<>護盾<#ffb900ff>1.5秒<>。每<#ffb900ff>14秒<>同時彈<#ff9028ff>迅捷奏鳴曲<>：身邊友方英雄<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>跑速+20%<>（自身+30%）<#ffb900ff>3秒<>。",
         "ult": "朝敵方英雄奏出一道音波，途經的敵方英雄受到<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 法術強度<>的<#a974ffff>魔法傷害<>並<#ef5350ff>暈眩1.5秒<>。被動：每條命施放大絕後，技能冷卻縮短<#ffb900ff>20%<>。"
       },
       "league_leblanc": {
@@ -1389,9 +1389,9 @@
       },
       "league_sona": {
         "name": "Sona",
-        "attack": "Note shots. Passive <#ff9028ff>Power Chord<>: after every <#ffb900ff>3<> spells her next attack on a champion deals <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% AP<> bonus <#a974ffff>magic damage<> plus the last song's effect: Staccato doubles it, Diminuendo makes the target deal <#ffb900ff>25%<> less damage for 3s, Tempo <#ef5350ff>slows<> it by 40% for 2s.",
-        "skill": "Sona deals <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45% AP<> <#a974ffff>magic damage<> to each of the two nearest enemies, champions first. <#ff9028ff>Melody<>: allied champions who come near her within <#ffb900ff>3s<> gain <#ff9028ff>12% AD<> and <#a974ffff>12% AP<> for <#ffb900ff>3s<>.",
-        "skill2": "Sona heals herself and a nearby allied champion for <#6aff55ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>25% AP<>. <#ff9028ff>Melody<>: allied champions near her gain a <#e8d44dff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>30% AP<> shield for <#ffb900ff>1.5s<>. Every <#ffb900ff>14s<> she also plays <#ff9028ff>Song of Celerity<>: allied champions near her gain <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>20% Move Speed<> (30% for herself) for <#ffb900ff>3s<>.",
+        "attack": "Note shots. Passive <#ff9028ff>Power Chord<>: after every <#ffb900ff>3<> spells her next attack deals <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% AP<> bonus <#a974ffff>magic damage<> plus the last song's effect: Staccato doubles it, Diminuendo makes the target deal <#ffb900ff>25%<> less damage for 3s, Tempo <#ef5350ff>slows<> it by 40% for 2s.",
+        "skill": "Sona deals <#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55% AP<> <#a974ffff>magic damage<> to each of the two nearest enemies, champions first. <#ff9028ff>Melody<>: allied champions who come near her within <#ffb900ff>3s<> gain <#ff9028ff>15% AD<> and <#a974ffff>15% AP<> for <#ffb900ff>3s<>.",
+        "skill2": "Sona heals herself and a nearby allied champion for <#6aff55ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>35% AP<>. <#ff9028ff>Melody<>: allied champions near her gain a <#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>35% AP<> shield for <#ffb900ff>1.5s<>. Every <#ffb900ff>14s<> she also plays <#ff9028ff>Song of Celerity<>: allied champions near her gain <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>20% Move Speed<> (30% for herself) for <#ffb900ff>3s<>.",
         "ult": "Sona strikes a chord at an enemy champion: a wave that deals <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% AP<> <#a974ffff>magic damage<> to every enemy champion it passes and <#ef5350ff>stuns<> them for <#ffb900ff>1.5s<>. Passive: once she has cast it in a life, her basic spells' cooldowns are <#ffb900ff>20%<> shorter."
       },
       "league_leblanc": {
@@ -1935,9 +1935,9 @@
       },
       "league_sona": {
         "name": "소나",
-        "attack": "음표를 쏩니다. 기본 지속 효과 <#ff9028ff>파워 코드<>: 스킬을 <#ffb900ff>3<>번 쓰면 다음 기본 공격이 챔피언에게 <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 40%<>의 추가 <#a974ffff>마법 피해<>를 입히고 마지막 곡의 효과를 줍니다: 스타카토는 피해 2배, 디미누엔도는 대상이 주는 피해 <#ffb900ff>25%<> 감소(3초), 템포는 <#ef5350ff>40% 둔화<>(2초).",
-        "skill": "가장 가까운 적 두 명(챔피언 우선)에게 각각 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 45%<>의 <#a974ffff>마법 피해<>를 입힙니다. <#ff9028ff>멜로디<>: <#ffb900ff>3초<> 안에 소나 곁에 온 아군 챔피언은 <#ffb900ff>3초<> 동안 <#ff9028ff>공격력 12%<>와 <#a974ffff>주문력 12%<>가 증가합니다.",
-        "skill2": "자신과 근처 아군 챔피언 한 명의 체력을 <#6aff55ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>주문력의 25%<> 회복합니다. <#ff9028ff>멜로디<>: 곁의 아군 챔피언은 <#ffb900ff>1.5초<> 동안 <#e8d44dff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>주문력의 30%<>의 보호막을 얻습니다. <#ffb900ff>14초<>마다 <#ff9028ff>기민함의 노래<>도 연주해 곁의 아군 챔피언의 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도가 20%<>(자신 30%) <#ffb900ff>3초<> 동안 증가합니다.",
+        "attack": "음표를 쏩니다. 기본 지속 효과 <#ff9028ff>파워 코드<>: 스킬을 <#ffb900ff>3<>번 쓰면 다음 기본 공격이 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 50%<>의 추가 <#a974ffff>마법 피해<>를 입히고 마지막 곡의 효과를 줍니다: 스타카토는 피해 2배, 디미누엔도는 대상이 주는 피해 <#ffb900ff>25%<> 감소(3초), 템포는 <#ef5350ff>40% 둔화<>(2초).",
+        "skill": "가장 가까운 적 두 명(챔피언 우선)에게 각각 <#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 55%<>의 <#a974ffff>마법 피해<>를 입힙니다. <#ff9028ff>멜로디<>: <#ffb900ff>3초<> 안에 소나 곁에 온 아군 챔피언은 <#ffb900ff>3초<> 동안 <#ff9028ff>공격력 15%<>와 <#a974ffff>주문력 15%<>가 증가합니다.",
+        "skill2": "자신과 근처 아군 챔피언 한 명의 체력을 <#6aff55ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>주문력의 35%<> 회복합니다. <#ff9028ff>멜로디<>: 곁의 아군 챔피언은 <#ffb900ff>1.5초<> 동안 <#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>주문력의 35%<>의 보호막을 얻습니다. <#ffb900ff>14초<>마다 <#ff9028ff>기민함의 노래<>도 연주해 곁의 아군 챔피언의 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도가 20%<>(자신 30%) <#ffb900ff>3초<> 동안 증가합니다.",
         "ult": "적 챔피언을 향해 선율을 연주해 지나가는 모든 적 챔피언에게 <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 60%<>의 <#a974ffff>마법 피해<>를 입히고 <#ffb900ff>1.5초<> 동안 <#ef5350ff>기절<>시킵니다. 패시브: 한 번 사용하면 그 생명 동안 기본 스킬 재사용 대기시간이 <#ffb900ff>20%<> 감소합니다."
       },
       "league_leblanc": {
@@ -2481,9 +2481,9 @@
       },
       "league_sona": {
         "name": "ソナ",
-        "attack": "音符を放つ。パッシブ <#ff9028ff>パワーコード<>：スキル<#ffb900ff>3<>回ごとに次の通常攻撃がチャンピオンに<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の40%<>の追加<#a974ffff>魔法ダメージ<>、最後の曲の効果：スタッカートは2倍、ディミヌエンドは与ダメージ<#ffb900ff>25%<>減(3秒)、テンポは<#ef5350ff>40%スロウ<>(2秒)。",
-        "skill": "近くの敵2体(チャンピオン優先)に<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の45%<>の<#a974ffff>魔法ダメージ<>。<#ff9028ff>メロディー<>：<#ffb900ff>3秒<>以内にそばに来た味方チャンピオンは<#ffb900ff>3秒<>間<#ff9028ff>攻撃力<>と<#a974ffff>魔力<>が12%増加。",
-        "skill2": "自身と近くの味方チャンピオン1体の体力を<#6aff55ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>魔力の25%<>回復。<#ff9028ff>メロディー<>：そばの味方チャンピオンに<#ffb900ff>1.5秒<>間<#e8d44dff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>魔力の30%<>のシールド。<#ffb900ff>14秒<>ごとに<#ff9028ff>セレリティ<>も奏で、そばの味方は<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度20%<>増加(自身30%)、<#ffb900ff>3秒<>。",
+        "attack": "音符を放つ。パッシブ <#ff9028ff>パワーコード<>：スキル<#ffb900ff>3<>回ごとに次の通常攻撃が<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の50%<>の追加<#a974ffff>魔法ダメージ<>、最後の曲の効果：スタッカートは2倍、ディミヌエンドは与ダメージ<#ffb900ff>25%<>減(3秒)、テンポは<#ef5350ff>40%スロウ<>(2秒)。",
+        "skill": "近くの敵2体(チャンピオン優先)に<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の55%<>の<#a974ffff>魔法ダメージ<>。<#ff9028ff>メロディー<>：<#ffb900ff>3秒<>以内にそばに来た味方チャンピオンは<#ffb900ff>3秒<>間<#ff9028ff>攻撃力<>と<#a974ffff>魔力<>が15%増加。",
+        "skill2": "自身と近くの味方チャンピオン1体の体力を<#6aff55ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>魔力の35%<>回復。<#ff9028ff>メロディー<>：そばの味方チャンピオンに<#ffb900ff>1.5秒<>間<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>魔力の35%<>のシールド。<#ffb900ff>14秒<>ごとに<#ff9028ff>セレリティ<>も奏で、そばの味方は<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度20%<>増加(自身30%)、<#ffb900ff>3秒<>。",
         "ult": "敵チャンピオンへ和音の波を放ち、通過した敵チャンピオンに<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の60%<>の<#a974ffff>魔法ダメージ<>と<#ffb900ff>1.5秒<>の<#ef5350ff>スタン<>。パッシブ：一度使うとそのライフの間、通常スキルのクールダウンが<#ffb900ff>20%<>短縮。"
       },
       "league_leblanc": {

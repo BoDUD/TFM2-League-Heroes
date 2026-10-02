@@ -138,6 +138,9 @@ also means minions and monsters: a non-penetrating skillshot on it stops on the 
   means "lowest health": base Priest's ult finds that ally in hard-coded logic
   (`lowest_hp_ally_in_range`). Heal, RangeEffect, Combine, Delayed, WithSelf and the projectiles
   all report their expected heal, so a heal nested in them still counts.
+  As a zone's `applied_target` `AllyNotSelf` is wider: league_sona's first Song of Celerity aura
+  (`ApplyInProjectile` on `AllyNotSelf`) hastened her side's minions and towers too (the simulation's buff
+  events, 2026-10-02); on `AllyChampion` it reached champions only, her as well.
   **In the simulation the health does not steer it** *(SDK simulation and disassembly, league_kayle,
   2026-09-29)*: `battle_ally_action` is called only by the legacy poke / hunt sub-plans (serpent, epic
   monster); the battle sub-plan's `base_battle_action` checks the casting target and range and scores
@@ -459,7 +462,9 @@ How they behave *(measured in the SDK simulation for league_jinx, 3-12 ten-minut
   is hit on the tick it touches the edge *(measured for league_thresh R, 2026-09-29)*. Where it starts:
   `follow_caster: false` in a `None` cast never spawned, in a `Targeting` cast it spawns on the target; to
   lay it where the caster stands, start it from the `end_effects` of Ekko's anchor (a `LinearProjectile`
-  with `speed` 1, `range` 1, section 7 "Back to where he stood").
+  with `speed` 1, `range` 1, section 7 "Back to where he stood"). `follow_caster: true` in a `Targeting`
+  cast spawns on the caster and moves with her for its whole `tick`, each ally it touches hit once - League's
+  Melodies (league_sona Q / W / E: 3 logged games, every buff once per ally per cast).
 `ApplyInProjectile` has no `period` and `RangePeriodProjectile` no `follow_caster` (SDK), so an aura
 that ticks while it follows the hero is built from `Delayed` pulses of a `RangeEffect` around the
 caster (section 7, "Aura that runs while he fights").
@@ -1155,6 +1160,8 @@ league_leblanc (mid, 2026-10-02, Ethereal Chains' 1.5 s root when the chain hold
 base pyromancer 0.65 and lightning mage 3.19 in the same batch - the root needs the chain to hold, no change.
 league_kaisa (bottom, 2026-10-02): no crowd control of her own (her passive's extra Plasma on a crowd-controlled champion
 reads her allies' control) - no change.
+league_sona (support, --lane 4, 2026-10-02, Crescendo's 1.5 s stun on every champion its wave passes): 1.00 a game;
+league_leona 2.19, league_nami 1.94 and the base priest 0.50 in the same batch - no change.
 
 **Kill trigger (league_jinx Get Excited!).** No effect fires on a kill, but section 4's facts make one:
 1. Next to the damaging projectile, fire an invisible twin with the same speed and path and
@@ -2685,6 +2692,42 @@ and `MoveToTarget` (6000 a tick) takes her onto him; its `end_effects` remove th
 it with the branch empty (a wasted ultimate in 2 of 4-5 casts: it scores the cast, not the branch), so "recently
 damaged by her team" stands in. Dashing in from 150000 she died 2.6 times a game; from 100000 with a larger shield 2.1,
 the same as a variant that stopped 45000 short of him (a streak and a `Teleport`), so the dash stays: her body flies.
+
+**Three spells, then a chord by the last song (league_sona passive, Power Chord).** Every spell counts one on a ladder
+of `Permanent` caster flags (`pc_1`, `pc_2`; the third adds `pc_ready` and the glow picture; W with E counts two, and
+while the chord waits a spell only refreshes the glow - in League it does not stack) and swaps one `Permanent` song
+flag of three (`song_q` / `song_w` / `song_e`, the last one cast; league_leblanc R's way). The attack decides on tick 1
+(league_jinx's way): with `pc_ready` on it plays its own strip (`CasterAnimation attack_p`) and sends the gold note on
+tick 11 with a hidden twin on `EnemyWithoutTower` (in League any unit but a tower uses the chord up) whose effects are
+`SwitchByBuff song_e -> Tempo, song_w -> Diminuendo, else Staccato`: bonus magic damage, doubled (Staccato), the
+target's `attack_mult` and `magic_power_mult` -25 for 3 s (Diminuendo), or a 40% slow for 2 s (Tempo); a self-only
+`Delayed` 1 in it removes `pc_ready` and the glow, so every unit the same note reaches that tick still gets it. In 3
+logged games about 20 chords a game: 13 Staccato, 7 Tempo, Diminuendo almost never (half her W casts bring E, which
+is then the last song).
+
+**Auras that follow her and bless each ally once (league_sona Melodies, on Q, W and E).** An `ApplyInProjectile` with
+`follow_caster: true` in the `Targeting` cast (`tick` 180, a 45000 circle, `applied_target: AllyChampion`) spawns on
+her and moves with her for 3 s; each allied champion it touches (her too) gets the song once: Q's +15% attack and
+ability power for 3 s, W's shield and its `WithShield` picture, E's speed. Its picture is the zone's own
+`view_projectiles` entry (`repeat`, `z` -1), so the ring rides under her feet. On `AllyNotSelf` E's first aura sped
+her minions and towers too (section 3).
+
+**Two bolts at the first two enemies, champions first (league_sona Q, Hymn of Valor).** A `Targeting` cast on
+`EnemyWithoutTower` (65000, lanes and camps); one `RangeEffect` round her on `EnemyWithoutTower` visits the units in
+entity-id order (champions first) and a `SwitchByBuff` on two caster flags (`q_n1`, `q_n2`, 2 ticks, removed at the
+cast) sends a homing note at the first two only. 3 logged games: 46 casts a game, 72 notes, 15 on champions.
+
+**A heal for her and one ally, E on its own timer (league_sona W, Aria of Perseverance with Song of Celerity).** A
+`Targeting` cast on `EnemyChampion` (80000: only in fights): a self-only heal and a `RandomTarget AllyNotSelf` heal
+(60000; nothing reads health, League picks the most wounded), the shield aura; E rides in the same cast when its
+caster flag `e_cd` (840 ticks) is off - the haste aura, a self-only +10% on top of the aura's +20%, a second count and
+the last song.
+
+**The ult's passive after its first cast (league_sona R, Crescendo with Accelerando).** A `Direction` cast on
+`EnemyChampion` (75000): a penetrating `LinearProjectile` (5000 a tick, 95000 long, radius 20000) on `EnemyChampion` -
+magic damage and `Stun` 90. The same cast adds a `Permanent` caster flag `r_haste` once per life: `skill_cooldown_mult`
+25 (Q and W capped at 80% of their cooldown) with `ult_cooldown_mult` -25, so the ult's own cap stays (section 5:
+the ult's cap adds both). 3 logged games: 2.7 casts a game, about one champion stunned a cast.
 
 ## 8. Gotchas
 

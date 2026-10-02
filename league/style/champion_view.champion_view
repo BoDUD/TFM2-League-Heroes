@@ -506,7 +506,7 @@
     },
     "league_sona": {
       "face": {
-        "x": 0,
+        "x": -1,
         "y": -36
       },
       "center": {

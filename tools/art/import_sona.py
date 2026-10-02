@@ -43,7 +43,7 @@ WAIST = (0, -3)                # the etwahl's middle in her idle
 OVERHEAD = (0, -31)            # over a 35-40 px hero's crown
 LIFT = (0, -40)                # the etwahl over her head in R's frames 3-5
 GROUND = 9                     # a ring round the feet: its ellipse's middle 2 px over the soles
-AURA = 35000                   # the Melody's radius (league_sona.data_champion)
+AURA = 45000                   # the Melody's radius (league_sona.data_champion)
 # name: factor other than 1/2. Halved, the slow's staff ring (21 px) and the haste's wind (19 px) hid behind a
 # 34 px hero; R's burst (19 px) was smaller than the etwahl it bursts on (34 px)
 SCALE = {"pc_tempo": 1, "e_ally": 1, "r_cast": 1}

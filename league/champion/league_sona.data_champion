@@ -18,9 +18,9 @@
   "stat": {
     "attack": 80,
     "magic_power": 30,
-    "hp": 860,
-    "defence": 20,
-    "magic_resistance": 22,
+    "hp": 920,
+    "defence": 24,
+    "magic_resistance": 24,
     "move_speed": 1000,
     "hp_regen": 0,
     "stack": 0,
@@ -29,7 +29,7 @@
   "growth": {
     "attack": 6,
     "magic_power": 15,
-    "hp": 88,
+    "hp": 95,
     "defence": 7,
     "magic_resistance": 4,
     "move_speed": 10,
@@ -42,73 +42,79 @@
     "description": "#asset/base/text/champion?description.league_sona.attack",
     "duration": 30,
     "cooltime": 90,
-    "start_timing": 12,
+    "start_timing": 1,
     "cancelable": true,
     "range": 55000,
     "casting_type": "Targeting",
     "casting_target": "Enemy",
     "attack_type": "BaseAttack",
     "effect": {
-      "type": "Combine",
-      "effects": [
-        {
-          "type": "TargetProjectile",
-          "name": "league_sona_note",
-          "speed": 5000,
-          "y_offset": 1500,
-          "applied_target": "Enemy",
-          "applied_effects": [
-            {
-              "casting_type": "Targeting",
-              "effect": {
-                "type": "Attack",
-                "damage": 0,
-                "attack_ratio": 100,
-                "hp_ratio": 0,
-                "target_hp_ratio": 0,
-                "attack_effect_type": "Target"
-              }
-            },
-            {
-              "casting_type": "Targeting",
-              "effect": {
-                "type": "ViewEffect",
-                "name": "league_sona_hit"
-              }
-            },
-            {
-              "casting_type": "Targeting",
-              "effect": {
-                "type": "TargetSfx",
-                "name": "league_sona_attack_hit"
-              }
-            }
-          ]
-        },
-        {
-          "type": "SwitchByBuff",
-          "buff_name": "league_sona_pc_ready",
-          "effect_buff": {
+      "type": "SwitchByBuff",
+      "buff_name": "league_sona_pc_ready",
+      "effect_buff": {
+        "type": "Combine",
+        "effects": [
+          {
             "type": "Combine",
             "effects": [
               {
-                "type": "Combine",
-                "effects": [
+                "type": "RemoveCasterBuff",
+                "name": "league_sona_pc_glow"
+              },
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_sona_pc_glow",
+                  "duration": {
+                    "Time": {
+                      "tick": 180
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              }
+            ]
+          },
+          {
+            "type": "CasterAnimation",
+            "name": "attack_p",
+            "tick": 28
+          },
+          {
+            "type": "Delayed",
+            "tick": 10,
+            "effects": [
+              {
+                "type": "TargetProjectile",
+                "name": "league_sona_pc_note",
+                "speed": 5000,
+                "y_offset": 1500,
+                "applied_target": "Enemy",
+                "applied_effects": [
                   {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_sona_pc_glow"
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "Attack",
+                      "damage": 0,
+                      "attack_ratio": 100,
+                      "hp_ratio": 0,
+                      "target_hp_ratio": 0,
+                      "attack_effect_type": "Target"
+                    }
                   },
                   {
-                    "type": "AddCasterBuff",
-                    "buff_state": {
-                      "name": "league_sona_pc_glow",
-                      "duration": {
-                        "Time": {
-                          "tick": 180
-                        }
-                      }
-                    },
-                    "only_to_enemy": false
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "ViewEffect",
+                      "name": "league_sona_hit"
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "TargetSfx",
+                      "name": "league_sona_attack_hit"
+                    }
                   }
                 ]
               },
@@ -120,14 +126,14 @@
                   "name": "league_sona_pc_chord",
                   "speed": 5000,
                   "y_offset": 1500,
-                  "applied_target": "EnemyChampion",
+                  "applied_target": "EnemyWithoutTower",
                   "applied_effects": [
                     {
                       "casting_type": "Targeting",
                       "effect": {
                         "type": "ApAttack",
-                        "damage": 30,
-                        "attack_ratio": 40,
+                        "damage": 50,
+                        "attack_ratio": 50,
                         "hp_ratio": 0,
                         "attack_effect_type": "Target"
                       }
@@ -200,14 +206,14 @@
                     "name": "league_sona_pc_chord",
                     "speed": 5000,
                     "y_offset": 1500,
-                    "applied_target": "EnemyChampion",
+                    "applied_target": "EnemyWithoutTower",
                     "applied_effects": [
                       {
                         "casting_type": "Targeting",
                         "effect": {
                           "type": "ApAttack",
-                          "damage": 30,
-                          "attack_ratio": 40,
+                          "damage": 50,
+                          "attack_ratio": 50,
                           "hp_ratio": 0,
                           "attack_effect_type": "Target"
                         }
@@ -278,14 +284,14 @@
                     "name": "league_sona_pc_chord",
                     "speed": 5000,
                     "y_offset": 1500,
-                    "applied_target": "EnemyChampion",
+                    "applied_target": "EnemyWithoutTower",
                     "applied_effects": [
                       {
                         "casting_type": "Targeting",
                         "effect": {
                           "type": "ApAttack",
-                          "damage": 60,
-                          "attack_ratio": 80,
+                          "damage": 100,
+                          "attack_ratio": 100,
                           "hp_ratio": 0,
                           "attack_effect_type": "Target"
                         }
@@ -338,13 +344,49 @@
                 }
               }
             ]
-          },
-          "effect_none": {
-            "type": "Combine",
-            "effects": []
           }
-        }
-      ]
+        ]
+      },
+      "effect_none": {
+        "type": "Delayed",
+        "tick": 6,
+        "effects": [
+          {
+            "type": "TargetProjectile",
+            "name": "league_sona_note",
+            "speed": 5000,
+            "y_offset": 1500,
+            "applied_target": "Enemy",
+            "applied_effects": [
+              {
+                "casting_type": "Targeting",
+                "effect": {
+                  "type": "Attack",
+                  "damage": 0,
+                  "attack_ratio": 100,
+                  "hp_ratio": 0,
+                  "target_hp_ratio": 0,
+                  "attack_effect_type": "Target"
+                }
+              },
+              {
+                "casting_type": "Targeting",
+                "effect": {
+                  "type": "ViewEffect",
+                  "name": "league_sona_hit"
+                }
+              },
+              {
+                "casting_type": "Targeting",
+                "effect": {
+                  "type": "TargetSfx",
+                  "name": "league_sona_attack_hit"
+                }
+              }
+            ]
+          }
+        ]
+      }
     }
   },
   "skill": {
@@ -352,7 +394,7 @@
     "description": "#asset/base/text/champion?description.league_sona.skill",
     "duration": 30,
     "cooltime": 420,
-    "start_timing": 12,
+    "start_timing": 7,
     "cancelable": false,
     "range": 65000,
     "casting_type": "Targeting",
@@ -581,8 +623,8 @@
                           "casting_type": "Targeting",
                           "effect": {
                             "type": "ApAttack",
-                            "damage": 50,
-                            "attack_ratio": 45,
+                            "damage": 85,
+                            "attack_ratio": 55,
                             "hp_ratio": 0,
                             "attack_effect_type": "Target"
                           }
@@ -631,8 +673,8 @@
                           "casting_type": "Targeting",
                           "effect": {
                             "type": "ApAttack",
-                            "damage": 50,
-                            "attack_ratio": 45,
+                            "damage": 85,
+                            "attack_ratio": 55,
                             "hp_ratio": 0,
                             "attack_effect_type": "Target"
                           }
@@ -664,7 +706,7 @@
           "name": "league_sona_q_aura",
           "shape": {
             "Circle": {
-              "radius": 35000
+              "radius": 45000
             }
           },
           "tick": 180,
@@ -682,8 +724,8 @@
                       "tick": 180
                     }
                   },
-                  "attack_mult": 12,
-                  "magic_power_mult": 12
+                  "attack_mult": 15,
+                  "magic_power_mult": 15
                 }
               }
             }
@@ -695,9 +737,9 @@
   "skill2": {
     "action_name": "skill2",
     "description": "#asset/base/text/champion?description.league_sona.skill2",
-    "duration": 34,
-    "cooltime": 540,
-    "start_timing": 14,
+    "duration": 30,
+    "cooltime": 480,
+    "start_timing": 8,
     "cancelable": false,
     "range": 80000,
     "casting_type": "Targeting",
@@ -884,9 +926,9 @@
           "effects": [
             {
               "type": "Heal",
-              "amount": 50,
+              "amount": 90,
               "attack_ratio": 0,
-              "ap_ratio": 25,
+              "ap_ratio": 35,
               "heal_type": "Caster"
             },
             {
@@ -903,9 +945,9 @@
           "effects": [
             {
               "type": "Heal",
-              "amount": 50,
+              "amount": 90,
               "attack_ratio": 0,
-              "ap_ratio": 25,
+              "ap_ratio": 35,
               "heal_type": "Ally"
             },
             {
@@ -919,7 +961,7 @@
           "name": "league_sona_w_aura",
           "shape": {
             "Circle": {
-              "radius": 35000
+              "radius": 45000
             }
           },
           "tick": 180,
@@ -930,9 +972,9 @@
               "casting_type": "Targeting",
               "effect": {
                 "type": "Shield",
-                "amount": 40,
+                "amount": 60,
                 "attack_ratio": 0,
-                "ap_ratio": 30,
+                "ap_ratio": 35,
                 "tick": 90
               }
             },
@@ -1163,7 +1205,7 @@
                 "name": "league_sona_e_aura",
                 "shape": {
                   "Circle": {
-                    "radius": 35000
+                    "radius": 45000
                   }
                 },
                 "tick": 180,
@@ -1196,9 +1238,9 @@
   "ult": {
     "action_name": "ult",
     "description": "#asset/base/text/champion?description.league_sona.ult",
-    "duration": 36,
+    "duration": 40,
     "cooltime": 3000,
-    "start_timing": 14,
+    "start_timing": 8,
     "cancelable": false,
     "range": 75000,
     "casting_type": "Direction",
@@ -1290,6 +1332,14 @@
       "name": "league_sona_note",
       "anim": "asset/league/effects/league_sona_fx",
       "tag": "note",
+      "repeat": true,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_sona_pc_note",
+      "anim": "asset/league/effects/league_sona_fx",
+      "tag": "pc_note",
       "repeat": true,
       "z": 1
     },

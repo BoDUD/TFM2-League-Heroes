@@ -404,6 +404,11 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   held off her waist) is a few empty pixels in an outline ring: a black hole in the armour. `restyle_native.py`
   `"fill_holes": <pixels>` fills every empty region the frame's edge cannot reach, up to that size, and its inner
   outline with the body colours beside it; left out, every other hero's output is byte-identical.
+  Closing the outline can leave one-pixel pinholes (a clear pixel with four opaque neighbours): league_sona's design
+  has one-pixel slits beside her cheeks, the completion closed their mouths and every frame showed a speck of ground
+  on each side of the face, and the arm fix_sona_strips.py pastes left more by the hand. `import_native.py` `PLUG`
+  (hero: rows over the soles whose own pinholes stay) fills the others with the outline colour after the
+  completion; count the pinholes per frame against the design's (hers: four, between the skirt panels and the legs).
 - **A weapon pointing at the camera vanishes.** League's Kayle glides with her sword held out at her side and
   trailing down and back; through the 45-degree camera it points almost straight at the viewer, and the 20-px
   blade drew as a 5-9 px stub ("走路的时候剑缩小了 几乎看不到了"). Measure the weapon's length on screen against
@@ -411,6 +416,10 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   frame) turns only the weapon chain about the vertical axis through its grip, the body untouched: 45 shows
   the blade trailing behind her as League's own side view does. Left out, every other hero's render is
   byte-identical.
+- **The face may hang from another joint.** `native_pose.py` finds the head (its top, the chibi scale, the face
+  part) by the vertices skinned to the joint `head`; Sona's face, skull and hair follow `C_Head` and her `head`
+  joint carries none (the render stopped: no head vertices). `"head_joint": "C_Head"` in the spec names it; check
+  the skeleton's joint names when a new champion's render stops there.
 - **Big frames are redrawn one canvas at a time.** A redraw at 8x (NATIVE_REDRAW.md) draws over whole strips;
   league_kayle's 112x112 cells make her 16-frame move a 3584x3584 image, too big for an image model.
   `tools/art/native_frames.py split` cuts every frame out on a canvas of its own (64 x cell height, the pivot at
