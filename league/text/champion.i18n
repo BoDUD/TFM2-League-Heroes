@@ -329,6 +329,13 @@
         "skill": "掷出千鸟手里剑（出手前锁定方向，可躲开），命中第一个敌人造成<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90% 法强<>的<#a974ffff>魔法伤害<>。命中英雄时若<#ff9028ff>电刃<>就绪，立刻放电（连招）。",
         "skill2": "化作闪电冲过敌群，对经过的敌人造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法强<>；冲完放出<#ff9028ff>电刃<>（<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>）并在<#ffb900ff>4秒<>内攻速+50%。大招就绪时直接接大招（连招）。",
         "ult": "召唤跟随自己的风暴<#ffb900ff>3秒<>，每0.5秒雷击范围内的敌方英雄，造成<#a974ffff>52<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30% 法强<>的<#a974ffff>魔法伤害<>并留下标记；期间护甲和魔抗+25。"
+      },
+      "league_zilean": {
+        "name": "基兰",
+        "attack": "发射时光法球。被动<#ff9028ff>瓶中时光<>：每<#ffb900ff>90秒<>攒满一瓶，下次<#ff9028ff>时光发条<>加速友方英雄时送给他：他和基兰各获得<#ff9028ff>10攻击力<>、<#a974ffff>10法强<>和<#6aff55ff>80生命值<>，直到阵亡。",
+        "skill": "向目标脚下扔出炸弹（出手时锁定落点，可躲开），粘在附近第一个敌人身上（英雄优先），<#ffb900ff>3秒<>后爆炸，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法强<>的<#a974ffff>魔法伤害<>。<#ff9028ff>穿梭未来<>（每<#ffb900ff>12秒<>）：炸弹粘上英雄时倒转时间再扔一颗，两颗立即爆炸并<#ef5350ff>晕眩1.25秒<>，技能冷却缩短。",
+        "skill2": "使一名敌方英雄<#ef5350ff>减速35%<>，同时让身边一名友方英雄（没有则自己）<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移速+35%<>，持续<#ffb900ff>2.5秒<>。",
+        "ult": "附近的友方英雄被控制、或基兰被两名以上敌方英雄贴身时，为其挂上时光符文：<#ffb900ff>5秒<>内不会阵亡，结束时时光回溯，回复<#6aff55ff>400<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>150% 法强<>生命值。"
       }
     },
     "skill_name": {
@@ -566,6 +573,11 @@
         "skill1": "奥义！千鸟",
         "skill2": "奥义！雷铠",
         "ult": "秘奥义！万雷天牢引"
+      },
+      "league_zilean": {
+        "skill1": "定时炸弹",
+        "skill2": "时光发条",
+        "ult": "时光倒流"
       }
     }
   },
@@ -899,6 +911,13 @@
         "skill": "擲出雷電手裡劍（出手前鎖定方向，可躲開），命中第一個敵人造成<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90% 法術強度<>的<#a974ffff>魔法傷害<>。命中英雄時若<#ff9028ff>電能釋放<>就緒，立刻放電（連招）。",
         "skill2": "化作閃電衝過敵群，對經過的敵人造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法術強度<>；衝完放出<#ff9028ff>電能釋放<>（<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>）並在<#ffb900ff>4秒<>內攻速+50%。大招就緒時直接接大招（連招）。",
         "ult": "召喚跟隨自己的風暴<#ffb900ff>3秒<>，每0.5秒雷擊範圍內的敵方英雄，造成<#a974ffff>52<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30% 法術強度<>的<#a974ffff>魔法傷害<>並留下印記；期間護甲和魔抗+25。"
+      },
+      "league_zilean": {
+        "name": "極靈",
+        "attack": "發射時光法球。被動<#ff9028ff>時光之瓶<>：每<#ffb900ff>90秒<>裝滿一瓶，下次<#ff9028ff>時間扭曲<>加速友方英雄時送給他：他和極靈各獲得<#ff9028ff>10攻擊力<>、<#a974ffff>10法術強度<>和<#6aff55ff>80生命<>，直到陣亡。",
+        "skill": "向目標腳下擲出炸彈（出手時鎖定落點，可躲開），黏在附近第一個敵人身上（英雄優先），<#ffb900ff>3秒<>後爆炸，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法術強度<>的<#a974ffff>魔法傷害<>。<#ff9028ff>時光回溯<>（每<#ffb900ff>12秒<>）：炸彈黏上英雄時倒轉時間再擲一顆，兩顆立即爆炸並<#ef5350ff>暈眩1.25秒<>，技能冷卻縮短。",
+        "skill2": "使一名敵方英雄<#ef5350ff>緩速35%<>，同時讓身邊一名友方英雄（沒有則自身）<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>跑速+35%<>，持續<#ffb900ff>2.5秒<>。",
+        "ult": "附近的友方英雄被控制、或極靈被兩名以上敵方英雄貼身時，為其掛上時光符文：<#ffb900ff>5秒<>內不會陣亡，結束時時光回溯，回復<#6aff55ff>400<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>150% 法術強度<>生命。"
       }
     },
     "skill_name": {
@@ -1136,6 +1155,11 @@
         "skill1": "雷電手裡劍",
         "skill2": "閃電衝擊",
         "ult": "雷霆風暴"
+      },
+      "league_zilean": {
+        "skill1": "定時炸彈",
+        "skill2": "時間扭曲",
+        "ult": "時光倒流"
       }
     }
   },
@@ -1469,6 +1493,13 @@
         "skill": "Kennen hurls a shuriken (the aim is set before it leaves, so it can be dodged): the first enemy hit takes <#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90% AP<> <#a974ffff>magic damage<>. If it hits a champion while <#ff9028ff>Electrical Surge<> is ready, he surges at once (combo).",
         "skill2": "Kennen turns into lightning and rushes through enemies, dealing <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% AP<> to each one he passes; at the end he releases <#ff9028ff>Electrical Surge<> (<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% AP<> around him) and gains 50% attack speed for <#ffb900ff>4s<>. With his ultimate ready he goes straight into it (combo).",
         "ult": "Kennen summons a storm that follows him for <#ffb900ff>3s<>, striking enemy champions inside it every 0.5s for <#a974ffff>52<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30% AP<> <#a974ffff>magic damage<> and a mark; he gains 25 armor and magic resist meanwhile."
+      },
+      "league_zilean": {
+        "name": "Zilean",
+        "attack": "Fires time orbs. Passive <#ff9028ff>Time In A Bottle<>: every <#ffb900ff>90s<> a bottle fills; his next <#ff9028ff>Time Warp<> on an allied champion hands it over: that ally and Zilean each gain <#ff9028ff>10 attack<>, <#a974ffff>10 AP<> and <#6aff55ff>80 health<> until they die.",
+        "skill": "Zilean lobs a bomb at the target's feet (aimed on release: dodgeable). It sticks to the first enemy near it (champions first) and explodes after <#ffb900ff>3s<> for <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% AP<> <#a974ffff>magic damage<>. <#ff9028ff>Rewind<> (every <#ffb900ff>12s<>): on a champion he turns time back and throws another - both explode at once and <#ef5350ff>stun for 1.25s<>; cooldowns shorten.",
+        "skill2": "Zilean <#ef5350ff>slows<> an enemy champion by <#ef5350ff>35%<> and grants an allied champion beside him (himself if alone) <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>35% move speed<> for <#ffb900ff>2.5s<>.",
+        "ult": "When an allied champion near him is crowd-controlled, or two enemy champions close in on Zilean, he places a time rune on them: they cannot die for <#ffb900ff>5s<>, then time rewinds and they heal <#6aff55ff>400<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>150% AP<>."
       }
     },
     "skill_name": {
@@ -1706,6 +1737,11 @@
         "skill1": "Thundering Shuriken",
         "skill2": "Lightning Rush",
         "ult": "Slicing Maelstrom"
+      },
+      "league_zilean": {
+        "skill1": "Time Bomb",
+        "skill2": "Time Warp",
+        "ult": "Chronoshift"
       }
     }
   },
@@ -2039,6 +2075,13 @@
         "skill": "표창을 던집니다(던지기 전에 방향이 정해져 피할 수 있음). 처음 맞은 적에게 <#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90% 주문력<> <#a974ffff>마법 피해<>. 챔피언에게 적중했을 때 <#ff9028ff>전류 방출<>이 준비되어 있으면 곧바로 방출합니다(연계).",
         "skill2": "번개로 변해 적 사이를 돌진하며 지나간 적에게 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 주문력<>의 피해를 입히고, 끝나면 <#ff9028ff>전류 방출<>(<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>)을 쓰고 <#ffb900ff>4초<> 동안 공격 속도 +50%. 궁극기가 준비되어 있으면 바로 이어서 사용합니다(연계).",
         "ult": "자신을 따라다니는 폭풍을 <#ffb900ff>3초<> 동안 불러 0.5초마다 안의 적 챔피언에게 <#a974ffff>52<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30% 주문력<> <#a974ffff>마법 피해<>와 표식을 남깁니다. 그동안 방어력과 마법 저항력 +25."
+      },
+      "league_zilean": {
+        "name": "질리언",
+        "attack": "시간의 구슬을 발사합니다. 기본 지속 효과 <#ff9028ff>시간의 유리병<>: <#ffb900ff>90초<>마다 병이 차며, 다음 <#ff9028ff>시간 왜곡<>으로 아군 챔피언을 가속할 때 건넵니다. 그 아군과 질리언은 죽을 때까지 <#ff9028ff>공격력 10<>, <#a974ffff>주문력 10<>, <#6aff55ff>체력 80<>을 얻습니다.",
+        "skill": "대상의 발밑에 폭탄을 던집니다(던질 때 위치가 정해져 피할 수 있음). 근처의 첫 적(챔피언 우선)에게 붙어 <#ffb900ff>3초<> 후 폭발하며 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 주문력<>의 <#a974ffff>마법 피해<>. <#ff9028ff>되감기<>(<#ffb900ff>12초<>마다): 챔피언에게 붙으면 시간을 되돌려 하나 더 던지고, 두 폭탄이 즉시 터지며 <#ef5350ff>1.25초 기절<>; 재사용 대기시간 감소.",
+        "skill2": "적 챔피언을 <#ef5350ff>35% 둔화<>시키고, 주변 아군 챔피언 하나(없으면 자신)의 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도를 35%<> 높입니다. 지속 <#ffb900ff>2.5초<>.",
+        "ult": "주변 아군 챔피언이 군중 제어에 걸리거나 적 챔피언 둘 이상이 질리언에게 붙으면 그 대상에게 시간의 룬을 겁니다: <#ffb900ff>5초<> 동안 죽지 않고, 끝나면 시간이 되돌아가 <#6aff55ff>400<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>150% 주문력<>의 체력을 회복합니다."
       }
     },
     "skill_name": {
@@ -2276,6 +2319,11 @@
         "skill1": "천둥의 표창",
         "skill2": "번개 질주",
         "ult": "날카로운 소용돌이"
+      },
+      "league_zilean": {
+        "skill1": "시한 폭탄",
+        "skill2": "시간 왜곡",
+        "ult": "시간 역행"
       }
     }
   },
@@ -2609,6 +2657,13 @@
         "skill": "手裏剣を投げる（投げる前に向きが決まり、避けられる）。最初に当たった敵に<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90% 魔力<>の<#a974ffff>魔法ダメージ<>。チャンピオンに当たった時<#ff9028ff>稲妻の奔流<>が使えればすぐに放つ（コンボ）。",
         "skill2": "稲妻となって敵の間を駆け抜け、通った敵に<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 魔力<>。終わりに<#ff9028ff>稲妻の奔流<>（<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>）、<#ffb900ff>4秒<>攻撃速度+50%。アルティメットが使えればそのまま続ける（コンボ）。",
         "ult": "自分についてくる嵐を<#ffb900ff>3秒<>呼び、0.5秒ごとに中の敵チャンピオンに<#a974ffff>52<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30% 魔力<>の<#a974ffff>魔法ダメージ<>と刻印。その間物理防御と魔法防御+25。"
+      },
+      "league_zilean": {
+        "name": "ジリアン",
+        "attack": "時の弾を放つ。パッシブ<#ff9028ff>タイムインボトル<>：<#ffb900ff>90秒<>ごとに瓶が満ち、次の<#ff9028ff>タイムワープ<>で味方チャンピオンを加速する時に渡す。その味方とジリアンは倒れるまで<#ff9028ff>攻撃力10<>、<#a974ffff>魔力10<>、<#6aff55ff>体力80<>を得る。",
+        "skill": "対象の足元に爆弾を投げる（着弾点は投げた時に決まる）。近くの最初の敵（チャンピオン優先）にくっつき、<#ffb900ff>3秒<>後に爆発して<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 魔力<>の<#a974ffff>魔法ダメージ<>。<#ff9028ff>リワインド<>（<#ffb900ff>12秒<>ごと）：チャンピオンにくっつくと時を戻してもう1つ投げ、2つが即爆発して<#ef5350ff>1.25秒スタン<>、クールダウン短縮。",
+        "skill2": "敵チャンピオンに<#ef5350ff>35%スロウ<>、そばの味方チャンピオン1人（いなければ自分）に<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度+35%<>。<#ffb900ff>2.5秒<>。",
+        "ult": "近くの味方チャンピオンが行動妨害を受けるか、敵チャンピオン2人以上がジリアンに迫ると、その対象に時のルーン：<#ffb900ff>5秒<>倒れず、終わると時が戻り<#6aff55ff>400<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>150% 魔力<>の体力を回復。"
       }
     },
     "skill_name": {
@@ -2846,6 +2901,11 @@
         "skill1": "雷遁手裏剣",
         "skill2": "疾風迅雷",
         "ult": "雷撃の大嵐"
+      },
+      "league_zilean": {
+        "skill1": "タイムボム",
+        "skill2": "タイムワープ",
+        "ult": "クロノシフト"
       }
     }
   }
