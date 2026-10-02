@@ -1,0 +1,159 @@
+{
+  "artifact_checks": [
+    {
+      "file": "ryze_fx_orb.png",
+      "frames": 4,
+      "source_hash_matches": true,
+      "rectangles_in_bounds": true,
+      "all_frames_nonempty": true,
+      "transparent": true
+    },
+    {
+      "file": "ryze_fx_hit.png",
+      "frames": 4,
+      "source_hash_matches": true,
+      "rectangles_in_bounds": true,
+      "all_frames_nonempty": true,
+      "transparent": true
+    },
+    {
+      "file": "ryze_fx_q_bolt.png",
+      "frames": 4,
+      "source_hash_matches": true,
+      "rectangles_in_bounds": true,
+      "all_frames_nonempty": true,
+      "transparent": true
+    },
+    {
+      "file": "ryze_fx_q_cast.png",
+      "frames": 4,
+      "source_hash_matches": true,
+      "rectangles_in_bounds": true,
+      "all_frames_nonempty": true,
+      "transparent": true
+    },
+    {
+      "file": "ryze_fx_q_hit.png",
+      "frames": 5,
+      "source_hash_matches": true,
+      "rectangles_in_bounds": true,
+      "all_frames_nonempty": true,
+      "transparent": true
+    },
+    {
+      "file": "ryze_fx_q_pop.png",
+      "frames": 5,
+      "source_hash_matches": true,
+      "rectangles_in_bounds": true,
+      "all_frames_nonempty": true,
+      "transparent": true
+    },
+    {
+      "file": "ryze_fx_e_orb.png",
+      "frames": 4,
+      "source_hash_matches": true,
+      "rectangles_in_bounds": true,
+      "all_frames_nonempty": true,
+      "transparent": true
+    },
+    {
+      "file": "ryze_fx_e_cast.png",
+      "frames": 4,
+      "source_hash_matches": true,
+      "rectangles_in_bounds": true,
+      "all_frames_nonempty": true,
+      "transparent": true
+    },
+    {
+      "file": "ryze_fx_e_hit.png",
+      "frames": 5,
+      "source_hash_matches": true,
+      "rectangles_in_bounds": true,
+      "all_frames_nonempty": true,
+      "transparent": true
+    },
+    {
+      "file": "ryze_fx_flux.png",
+      "frames": 4,
+      "source_hash_matches": true,
+      "rectangles_in_bounds": true,
+      "all_frames_nonempty": true,
+      "transparent": true
+    },
+    {
+      "file": "ryze_fx_w_cage.png",
+      "frames": 8,
+      "source_hash_matches": true,
+      "rectangles_in_bounds": true,
+      "all_frames_nonempty": true,
+      "transparent": true
+    },
+    {
+      "file": "ryze_fx_rune_out.png",
+      "frames": 5,
+      "source_hash_matches": true,
+      "rectangles_in_bounds": true,
+      "all_frames_nonempty": true,
+      "transparent": true
+    },
+    {
+      "file": "ryze_fx_runes.png",
+      "frames": 12,
+      "source_hash_matches": true,
+      "rectangles_in_bounds": true,
+      "all_frames_nonempty": true,
+      "transparent": true
+    },
+    {
+      "file": "ryze_fx_w_slow.png",
+      "frames": 4,
+      "source_hash_matches": true,
+      "rectangles_in_bounds": true,
+      "all_frames_nonempty": true,
+      "transparent": true
+    },
+    {
+      "file": "ryze_fx_q_haste.png",
+      "frames": 4,
+      "source_hash_matches": true,
+      "rectangles_in_bounds": true,
+      "all_frames_nonempty": true,
+      "transparent": true
+    },
+    {
+      "file": "ryze_fx_r_portal.png",
+      "frames": 10,
+      "source_hash_matches": true,
+      "rectangles_in_bounds": true,
+      "all_frames_nonempty": true,
+      "transparent": true
+    },
+    {
+      "file": "ryze_fx_r_out.png",
+      "frames": 6,
+      "source_hash_matches": true,
+      "rectangles_in_bounds": true,
+      "all_frames_nonempty": true,
+      "transparent": true
+    },
+    {
+      "file": "ryze_fx_r_in.png",
+      "frames": 6,
+      "source_hash_matches": true,
+      "rectangles_in_bounds": true,
+      "all_frames_nonempty": true,
+      "transparent": true
+    },
+    {
+      "file": "ryze_fx_r_ally.png",
+      "frames": 4,
+      "source_hash_matches": true,
+      "rectangles_in_bounds": true,
+      "all_frames_nonempty": true,
+      "transparent": true
+    }
+  ],
+  "visual_frame_count_review": true,
+  "game_import_tested": false,
+  "strict_single_pixel_grid_palette_symmetry_verified": false
+}

@@ -97,7 +97,7 @@ NECK_EYES = {("fiora", "hit", 0): (-19, 3)}
 # needs it closed). Nothing goes under the soles row; a frame that already reaches lower (lying down) keeps its own
 # bottom.
 COMPLETE = {"nami", "veigar", "jax", "ahri", "taric", "tristana", "fiora", "diana", "leesin", "missfortune", "fizz", "shaco",
-            "caitlyn", "nocturne", "blitzcrank", "camille", "leblanc", "kaisa", "sona", "vi"}
+            "caitlyn", "nocturne", "blitzcrank", "camille", "leblanc", "kaisa", "sona", "kennen", "vi", "ryze"}
 # hero: the luminance from which an edge pixel gets the outline (complete_outline's `dark`, default 70). Fiora's teal
 # leggings (luminance ~58) and wine cape (~44) edge many action frames without black: tfm2_ase.py metrics counts only
 # luminance < 40 as outline, so at 70 her Q frames read 83-89% (the bare rapier aside); at 40 they close too.
@@ -125,7 +125,10 @@ BARE = {"fiora": [(0xE6, 0xE8, 0xF0)]}
 # beside her cheeks: the completion closed their mouths and left a speck of ground on each side of the face in every
 # frame, and her pasted arm (fix_sona_strips.py) left more between the hand, the shoulder and the hair. Her design's
 # own pinholes, between the skirt panels and the legs, are 5-7 rows over the soles and stay
-PLUG = {"sona": 9}
+PLUG = {"sona": 9,
+        # Jax: the idle's breathing seam (BOB, row 4) closes a notch at the near foot into a pinhole in slots 3-5;
+        # every other hole in his frames is painted by tools/art/fix_jax_frames.py before the import
+        "jax": 0}
 ORDER = {("lux", "idle"): [0, 0, 0, 0, 0, 0],   # the step-2 idle is the design in all six (was 0 1 2 3 5 4)
          # League leans his upper body a square forward in idle 4-5 and back in 6, and every frame's head
          # is voted anew, so the face swung and changed shape as he breathed (the user). Frame 1 in every
@@ -215,8 +218,12 @@ ORDER = {("lux", "idle"): [0, 0, 0, 0, 0, 0],   # the step-2 idle is the design 
          ("kaisa", "idle"): [0, 0, 0, 0, 0, 0],
          # and Sona (Codex's game-size design B, 40 rows: the pack's idle is the design in all six)
          ("sona", "idle"): [0, 0, 0, 0, 0, 0],
+         # and Kennen (Codex's design A cut to 37 rows, design_kennen.py: the pack's idle is the design in all six)
+         ("kennen", "idle"): [0, 0, 0, 0, 0, 0],
          # and Vi (the approved guard master read onto 40 rows, design_vi.py: strips_vi.py writes the design in all six)
-         ("vi", "idle"): [0, 0, 0, 0, 0, 0]}
+         ("vi", "idle"): [0, 0, 0, 0, 0, 0],
+         # and Ryze (Codex's image-model draft A cut to 40 rows: the pack's idle is the design in all six)
+         ("ryze", "idle"): [0, 0, 0, 0, 0, 0]}
 # (hero, tag): (y, slots) - in those slots everything at or above pivot row y moves down a row (the row under
 # it is covered): one frame breathing, the face the same drawing throughout. Leona's shield covers her from
 # the chest to the ankles, so she sinks down to its tip and only the boots stay (a seam across the shield
@@ -322,9 +329,14 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        # Sona: her skirt's panels run straight down; the seam in rows 94/95 of the design (the same width, 7 squares of
        # the outline move); the hem and the panels' lower ends stay on the ground
        ("sona", "idle"): (6, [2, 3, 4]),
+       # Kennen: the seam low in the robe (rows 94/95 of the design: 2 squares of opacity and 9 of colour differ); his
+       # shoes and the hem's last row stay
+       ("kennen", "idle"): (6, [2, 3, 4]),
        # Vi: the seam across her shins (row 92 of the design, 4 under the pivot: both legs there are thin slanted
        # strokes, the near gauntlet's lowest row is 85), so her guard sinks a row and only the boots stay
-       ("vi", "idle"): (4, [2, 3, 4])}
+       ("vi", "idle"): (4, [2, 3, 4]),
+       # Ryze: his hands hang to the knee guards, so the seam runs in the boot shafts (rows 96/97 of the design)
+       ("ryze", "idle"): (8, [2, 3, 4])}
 # hero: a module in tools/art with tidy(tag, k, frame) -> frame, run on the finished frames (after the outline is closed
 # and cleaned): the user's clean-up of dirty black blocks and stray squares inside the silhouette (2026-10-02:
 # "盖伦把黑边清理干净 有杂的黑色的地方", "风女 莫甘娜 不干净的黑色块也太多了", "莫甘娜头部有很多多余的方块", "阿狸也是都给我清理干净")
@@ -377,8 +389,10 @@ EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade
         "leblanc": (122, 0, 18),          # her staff's crystal or diadem tops the frames; the dark red is her near pupil's
         "kaisa": (130, 62, 163),          # her raised pods top every frame; the near iris' purple is only in her eyes
         "sona": (34, 201, 184),           # her twin tails top the frames (the Etwahl in R); the teal is only in her irises
-        "vi": (0, 108, 251)}              # a raised gauntlet tops the E, R and uppercut frames; this blue is only her near
+        "kennen": (63, 174, 248),         # the shuriken on his back tops every frame; the blue is only in his eyes
+        "vi": (0, 108, 251),              # a raised gauntlet tops the E, R and uppercut frames; this blue is only her near
                                           # iris's top square (design_vi.py; the crystals use the other blues)
+        "ryze": (251, 251, 253)}          # the scroll or a raised hand tops the frames; the white is only in his eyes
 
 
 def blocks(path):

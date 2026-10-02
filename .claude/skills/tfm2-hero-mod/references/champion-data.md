@@ -1162,6 +1162,10 @@ league_kaisa (bottom, 2026-10-02): no crowd control of her own (her passive's ex
 reads her allies' control) - no change.
 league_sona (support, --lane 4, 2026-10-02, Crescendo's 1.5 s stun on every champion its wave passes): 1.00 a game;
 league_leona 2.19, league_nami 1.94 and the base priest 0.50 in the same batch - no change.
+league_kennen (top, 2026-10-02, the third mark's stun: 1.25 s, 0.5 s within 7 s of the last; Yasuo mid): 1.48 a game;
+the base fighter 2.33 in the same batch - in the range of the CC heroes before, no change.
+league_ryze (mid, --lane 2, 2026-10-03, Rune Prison's 1.25 s root on a Flux'd target; Yasuo top): 1.65 a game;
+league_ahri 1.33 and the base lightning mage 3.19 in the same batch - no change.
 
 **Kill trigger (league_jinx Get Excited!).** No effect fires on a kill, but section 4's facts make one:
 1. Next to the damaging projectile, fire an invisible twin with the same speed and path and
@@ -2728,6 +2732,102 @@ the last song.
 magic damage and `Stun` 90. The same cast adds a `Permanent` caster flag `r_haste` once per life: `skill_cooldown_mult`
 25 (Q and W capped at 80% of their cooldown) with `ult_cooldown_mult` -25, so the ult's own cap stays (section 5:
 the ult's cap adds both). 3 logged games: 2.7 casts a game, about one champion stunned a cast.
+
+**Marks counted on him, the third stuns (league_kennen passive, Mark of the Storm).** Nothing reads a buff on the
+target, so the count lives on him (league_kaisa's Plasma): two caster flags `k_1` -> `k_2` (360 ticks, refreshed by
+each new mark). Every champion hit of his spells (and of every fifth attack) runs one `mark()`: with `k_2` on, the hit
+stuns that champion (`Stun` 75 ticks, 30 while the caster flag `k_recent` says he stunned someone in the last 420 -
+League's shorter second stun), plays the stun picture and sets `k_boom`; else it shows the pips over the head (one or
+two lit). The count itself moves a tick later in a `Delayed` queued on him (`AllyOnlySelf`: queued on the champion
+it would be dropped if the hit killed him): it climbs, or after a stun clears and sets `k_recent`. A 2-tick lock per
+source (`k_lock_q` / `_w` / `_a` / `_r`, E's for the whole rush) counts one cast once however many champions it hits,
+and every champion a stunning cast reaches is stunned - League gives each of them a mark. Only champion hits count
+(the user's pick). The count is his, not theirs: a mark on one champion and two on another stun the second.
+
+**A skillshot through the wave to the champion (league_kennen Q, Thundering Shuriken).** A `Direction` cast on
+`EnemyWithoutTower` (80000). Two ticks into it a `RandomTarget` on `EnemyChampion` sets the 11-tick flag `q_aimed`
+and throws a hidden `ParabolicProjectile` (8 ticks) where the champion stands; its `end_effects` throw the shuriken
+at that point (league_caitlyn Q's aim lock: a champion who keeps moving steps out of it) - a non-penetrating
+`LinearProjectile` on `EnemyChampion` that flies past the minions to the first champion on its line. Thrown at the
+cast's way without a champion (`q_aimed` off), it is a `LinearProjectile` on `EnemyWithoutTower` for waves and camps,
+with a champion-only twin that reads the real one's 1-tick `q_now` flag (league_ezreal Q), so only a champion it
+really hit gets a mark. On minions' targets the aimed throw reached a champion 3-7 times in 45-61 a game; through
+the wave, with a radius of 7000 at 8000 a tick, 42% of the aimed throws hit. The combo Q -> W (the user: 连招): the
+champion hit sets `q_near` (a `RandomTarget` on `AllyOnlySelf` from the projectile within the surge's 50000) and 4
+ticks later, on him, with `q_near` on and the surge's cooldown flag `w_cd` off, Electrical Surge follows.
+
+**A third basic without a slot (league_kennen W, Electrical Surge).** Q and E take `skill` and `skill2`, so W is
+folded in twice. Its passive is the attack's count (league_masteryi's chain): four caster flags `a_1` -> `a_4` (600
+ticks), the fifth throw the charged star - extra magic damage and, through a champion-only twin of the star, a mark
+(its own flash and hit). Its active is a function the other spells call - after a Q hit on a champion near him and
+at the end of E's rush - on its own 540-tick caster flag `w_cd`, spent by whichever comes first: the pose at once
+(`CasterAnimation w`), 6 ticks later the burst (radius 50000, the ring round him from the big sheet): magic damage to
+every enemy and a mark on the champions.
+
+**A rush through enemies that ends in two follow-ups (league_kennen E, Lightning Rush).** A `Targeting` cast on
+`EnemyWithoutTower` (50000): `RushTime` (2500 a tick for 16 ticks, `penetrate`, radius 15000) toward the target and
+through it - magic damage to every enemy passed, and a mark through a `RandomTarget` at range 1 on `EnemyChampion`
+(a minion's hit cannot mark). The lightning-ball picture rides him (a caster view, z 2, over the crouched dash pose).
+The end, 17 ticks later, is a `Delayed` queued on him, not on the target: queued on a minion the rush killed it ran
+only its pictures - no attack speed, no `w_cd`, no `r_cd`, and the storm came again on the next rush. It gives 50%
+attack speed for 4 s, breaks the ball, casts the surge if `w_cd` is off and runs the combo E -> R (the user: E
+冲进人群时如果大招好了就直接接 R): with the ult unlocked (`r_open`, a `Permanent` flag the ult slot's every cast sets)
+and unused (`r_cd`) and an enemy champion within the storm's radius, the storm starts; the ult slot then finds
+`r_cd` and goes out empty, which starts its own cooldown ("A flag does not hold every slot").
+
+**A storm that follows him, as one casted on himself (league_kennen R, Slicing Maelstrom).** A `None` cast on
+`EnemyChampion` (55000; League's radius is his attack range: at 45000 the storm missed champions he fought at 73000
+centre to centre): the caster flag `r_cd` (3000 ticks), +25 armour and magic resistance for 181 ticks, the storm's
+picture (a 2.9 s caster view that follows him, under the units) and one `AddCasted` on himself (duration 151, period
+30): each period a `RangeEffect` round him on `EnemyChampion` within 55000 - magic damage, the bolt and a mark (one
+per strike), so the third strike stuns everyone inside. One strike in the tree is enough for both callers (the ult
+and E's combo; the game copies `skill` and `skill2` every tick: E stays at about 160 nodes); his death clears it.
+**Marks a later hit sets off on every marked enemy (league_ryze Spell Flux and Overload).** League's Flux sits on
+the enemies and Overload bounces to the Flux'd ones; nothing reads a buff on another unit, so each mark is an
+`AddCasted` on the enemy that reads the caster's flags. E's zone (a hidden 1-tick lob onto the target, then a
+`RangeProjectile` on `EnemyWithoutTower`) gives every unit it reaches two of them: one plays the mark's picture every
+12 ticks while the caster's generation flag (`fx_c`, 240 ticks) holds, one checks every 2 ticks for the caster flag
+`q_pop`. Q's hit raises `q_pop` for 3 ticks and queues on the caster the removal of the generation and of `q_pop`:
+every marked unit bursts once in that window (405 bursts counted in the logs, none twice), and the generation is
+used up. Two generations (`fx_c` from the combo's E, `fx_r` from R's landing E) let a new E switch the other off,
+so a unit never carries two live marks. The wider spread for a target already marked (38000 against 25000) reads a
+flag set before the generation is refreshed - read after it, every E took the wide zone.
+
+**League's combo as one cast (league_ryze E -> W -> Q).** Ryze's W and E reset Q, so League players cast E, W, Q
+in a row; `skill2` is that sequence on one `Targeting` cast (60000, `EnemyWithoutTower`): E on tick 6, W on 24,
+Q on 38 of one 12-frame strip, the W and the Q `Delayed` on the target with a flag set on the caster
+(`c_w_ok`, `c_q_ok`): a `Delayed` queued on a unit that dies runs only its pictures, so when the target died the
+caster's own `Delayed` checks find the flag missing and fire the W or Q at a `RandomTarget` (champions first). The
+runes League's Q passive counts are pictures and flags on the caster (E -> one, W -> two, Q spends them: move speed).
+
+**A team teleport to chase or escape (league_ryze R, Realm Warp).** The user: never at an enemy already in front of
+him, "追敌人或者逃跑用", "或者运送小兵". The first version - a `Direction` cast on `EnemyChampion` (80000) that blinked 30000
+ahead (`DirTeleport`) - went out in 163 of 163 simulated casts with the nearest enemy champion 30000-55000 away, inside his
+attack range: the AI decides an ult like that once the fight is on, and 45 landings ended within 30000 of an enemy. The slot
+now only arms R (league_riven R: a 3-tick `None` action on the `idle` tag, `EnemyChampion` within 120000, `r_armed` for 600
+ticks, left unused a 3-tick `ult_cooldown_mult` 4900), and an `AddCasted` on himself (period 10) checks while armed:
+- escape: two enemy champions within 30000 (league_kayle R's `n1` -> `n2` ladder in a `RangeEffect`), or one within 15000 (a
+  `RandomTarget`) with no `AllyNotSelf` within 50000. `RandomTarget EnemyChampion` within 30000 holds the jump: after the
+  60-tick channel a `MoveBack` (15000 x 4) straight away from the champion it picked - it runs from a `Delayed` queued on
+  that champion, so the direction is taken at the jump. A projectile cannot fly the other way to show the far portal during
+  the channel: a `LinearProjectile`'s `speed` is unsigned too (`-10000` fails to parse and breaks the kit, like
+  `DirTeleport.moved`), so the escape's arrival is drawn when he lands.
+- chase: no enemy champion within 45000 (his reach) while one was within the last 90 ticks (a `r_seen` refresh), an
+  `AllyNotSelf` within 50000, and a `RandomTarget EnemyChampionRecentlyAttacked` (it works in a `RandomTarget`) within 100000:
+  a hidden, non-penetrating `LinearProjectile` on `EnemyChampion` toward it (speed 26666, range 80000, radius 5000) stops
+  where it touches the first enemy champion, plays the far portal there, and a `Delayed` in its `end_effects` `Teleport`s
+  him there at the end of the channel (the stop point is kept, section 4). A radius of 40000 landed him an attack range
+  short - by then the fleeing champion had run another 60000 (1000 units a tick): after the landing 41% stood in his reach,
+  with the portal on the champion 62%.
+Requiring an ally near the chase (he follows with the team, never alone at low health) and the "one in reach a moment ago"
+check (no chase on the approach - the first try warped onto five enemies walking in) came from the logs. Every allied
+unit in his portal comes along: an anchor (league_ekko R) at his feet starts, after the jump, a zone on `AllyNotSelf` whose
+applied effect is a `TargetProjectile` on `BothWithoutTower` carrying `Grab {speed 15000}` - a `Grab` straight from a zone
+on `Ally` or `AllyNotSelf` dragged two allied towers across the lane in the simulation (`tower` 6 from 368000,592000), and
+no casting target names allied minions alone. Crowd control breaks the channel (a `RandomTarget AllyChampionInCC` on
+himself every 15 ticks sets `r_cut`). In 72 games: 2.2 chases, 0.6 escapes and 0.2 cut channels a game, a chase carrying about 0.8
+champions and 0.2 minions; lane 2 +1.41 / +1.35 against +1.65 / +2.01 for the old blink (it threw its landing
+Spell Flux into every fight).
 
 ## 8. Gotchas
 

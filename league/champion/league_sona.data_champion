@@ -18,7 +18,7 @@
   "stat": {
     "attack": 80,
     "magic_power": 30,
-    "hp": 920,
+    "hp": 950,
     "defence": 24,
     "magic_resistance": 24,
     "move_speed": 1000,
@@ -623,8 +623,8 @@
                           "casting_type": "Targeting",
                           "effect": {
                             "type": "ApAttack",
-                            "damage": 85,
-                            "attack_ratio": 55,
+                            "damage": 95,
+                            "attack_ratio": 60,
                             "hp_ratio": 0,
                             "attack_effect_type": "Target"
                           }
@@ -673,8 +673,8 @@
                           "casting_type": "Targeting",
                           "effect": {
                             "type": "ApAttack",
-                            "damage": 85,
-                            "attack_ratio": 55,
+                            "damage": 95,
+                            "attack_ratio": 60,
                             "hp_ratio": 0,
                             "attack_effect_type": "Target"
                           }
@@ -926,9 +926,9 @@
           "effects": [
             {
               "type": "Heal",
-              "amount": 90,
+              "amount": 100,
               "attack_ratio": 0,
-              "ap_ratio": 35,
+              "ap_ratio": 40,
               "heal_type": "Caster"
             },
             {
@@ -945,9 +945,9 @@
           "effects": [
             {
               "type": "Heal",
-              "amount": 90,
+              "amount": 100,
               "attack_ratio": 0,
-              "ap_ratio": 35,
+              "ap_ratio": 40,
               "heal_type": "Ally"
             },
             {
@@ -972,9 +972,9 @@
               "casting_type": "Targeting",
               "effect": {
                 "type": "Shield",
-                "amount": 60,
+                "amount": 70,
                 "attack_ratio": 0,
-                "ap_ratio": 35,
+                "ap_ratio": 40,
                 "tick": 90
               }
             },

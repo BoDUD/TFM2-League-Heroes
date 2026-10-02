@@ -1,0 +1,21 @@
+{
+  "a_star": {"cell": [13, 11], "anchor": [6, 5], "frames": 4},
+  "a_cast": {"cell": [15, 9], "anchor": [7, 4], "frames": 3},
+  "a_hit": {"cell": [15, 15], "anchor": [7, 7], "frames": 4},
+  "a_cast2": {"cell": [17, 19], "anchor": [8, 9], "frames": 4},
+  "a_hit2": {"cell": [21, 21], "anchor": [10, 10], "frames": 5},
+  "k_mark1": {"cell": [17, 11], "anchor": [8, 5], "frames": 4},
+  "k_mark2": {"cell": [17, 13], "anchor": [8, 6], "frames": 4},
+  "k_stun": {"cell": [29, 79], "anchor": [14, 39], "frames": 10},
+  "q_star": {"cell": [37, 15], "anchor": [18, 7], "frames": 4},
+  "q_cast": {"cell": [19, 17], "anchor": [9, 8], "frames": 4},
+  "q_hit": {"cell": [23, 23], "anchor": [11, 11], "frames": 5},
+  "w_burst": {"cell": [103, 79], "anchor": [51, 39], "frames": 7},
+  "w_hit": {"cell": [19, 19], "anchor": [9, 9], "frames": 4},
+  "e_in": {"cell": [29, 23], "anchor": [14, 11], "frames": 4},
+  "e_ball": {"cell": [35, 31], "anchor": [17, 15], "frames": 4},
+  "e_hit": {"cell": [17, 17], "anchor": [8, 8], "frames": 4},
+  "e_out": {"cell": [31, 31], "anchor": [15, 15], "frames": 5},
+  "r_storm": {"cell": [117, 203], "anchor": [58, 101], "frames": 12},
+  "r_hit": {"cell": [21, 99], "anchor": [10, 49], "frames": 5}
+}

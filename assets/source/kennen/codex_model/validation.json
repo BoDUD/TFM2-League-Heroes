@@ -1,0 +1,73 @@
+{
+  "A": {
+    "canvas_1x": [
+      128,
+      128
+    ],
+    "canvas_8x": [
+      1024,
+      1024
+    ],
+    "bbox_1x": [
+      47,
+      52,
+      80,
+      99
+    ],
+    "total_height_cells": 48,
+    "hood_to_sole_cells_visual": 40,
+    "visible_colors": 21,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "blue_eye_cells": [
+      [
+        66,
+        75
+      ],
+      [
+        72,
+        76
+      ],
+      [
+        73,
+        76
+      ]
+    ]
+  },
+  "B": {
+    "canvas_1x": [
+      128,
+      128
+    ],
+    "canvas_8x": [
+      1024,
+      1024
+    ],
+    "bbox_1x": [
+      52,
+      57,
+      80,
+      99
+    ],
+    "total_height_cells": 43,
+    "hood_to_sole_cells_visual": 40,
+    "visible_colors": 20,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "blue_eye_cells": [
+      [
+        66,
+        75
+      ],
+      [
+        73,
+        76
+      ]
+    ]
+  },
+  "body_cell_differences_below_row_68": 70
+}

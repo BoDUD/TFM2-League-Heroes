@@ -28,6 +28,9 @@ can tell).
 3. The colours of RECOLOUR (the user's pick of three; nothing else changes).
 4. The outline put back where a deleted line held it (a pixel whose outline neighbour went gets one on the new edge,
    in that neighbour's colour), never under the soles. Each frame stays on its pivot, the soles 11 rows under it.
+5. The fixes of the frame-by-frame review (tools/art/fix_jax_frames.py, 2026-10-02): the attack's frame 3 gets frame
+   2's near leg, and the holes Codex's frames left in the body are painted from their neighbours (the real gaps
+   between the arm, the lamppost and the body stay open).
 Writes assets/source/native/jax_native.png and jax_<tag>.png (8x, cells and pivots unchanged); then run
 tools/art/import_native.py --hero jax and tools/art/preview_jax.py. --check compares with the files instead of writing.
 """
@@ -45,6 +48,7 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 import design_akali as D  # noqa: E402
 import shrink_tristana as ST  # noqa: E402
+import fix_jax_frames as FX  # noqa: E402
 from import_native import blocks  # noqa: E402
 
 OUT = os.path.join(ROOT, "assets", "source", "native")
@@ -317,6 +321,9 @@ def main():
             rows, cols, how = frame_cuts(fr, fig, box, drow, dcol, row["pivot"], pal)
             new.append(cut(fr, rows, cols, row["pivot"]))
             print(f"  {tag:12s} {k + 1}: {how}  rows -{len(rows)} {rows}  columns -{len(cols)} {cols}")
+        new, fixed = FX.fix(tag, new, [row["pivot"] for row in table])
+        if fixed:
+            print(f"  {tag:12s} fixed: " + ", ".join(f"{k} {v}" for k, v in fixed.items()))
         if tag == "idle":
             feet = np.nonzero(fig[-1, :, 3] > 0)[0]                    # the stance's middle stays where it was
             mid = (int(feet.min()) + int(feet.max()) + 1) // 2
