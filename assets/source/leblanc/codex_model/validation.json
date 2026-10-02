@@ -1,0 +1,44 @@
+{
+  "A": {
+    "grid_source_step_x": 17.10000000000003,
+    "grid_source_step_y": 17.05000000000003,
+    "visible_native_size": [
+      51,
+      86
+    ],
+    "native_bbox": [
+      39,
+      14,
+      90,
+      100
+    ],
+    "colors": 26,
+    "binary_alpha": true,
+    "aligned_8px_grid": true,
+    "bottom_row": 99,
+    "target_total_height": 45,
+    "target_height_pass": false,
+    "note": "Regridded authored cells without resizing. Native size target failed; draft only."
+  },
+  "B": {
+    "grid_source_step_x": 16.900000000000027,
+    "grid_source_step_y": 16.35000000000002,
+    "visible_native_size": [
+      47,
+      75
+    ],
+    "native_bbox": [
+      41,
+      25,
+      88,
+      100
+    ],
+    "colors": 25,
+    "binary_alpha": true,
+    "aligned_8px_grid": true,
+    "bottom_row": 99,
+    "target_total_height": 42,
+    "target_height_pass": false,
+    "note": "Regridded authored cells without resizing. Native size target failed; draft only."
+  }
+}

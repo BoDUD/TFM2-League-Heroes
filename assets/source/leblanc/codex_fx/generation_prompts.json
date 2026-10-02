@@ -1,0 +1,562 @@
+[
+  {
+    "name": "a_orb",
+    "filename": "leblanc_fx_a_orb.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, smoke, glass or sparks, colours only from a magenta ramp (#FFF2FC, #FFA8EE, #E651D3, #A42BB5, #5C1A74) with glass highlights (#FFFFFF, #ECE6FF, #B8A8F2).\nEffect: a SMALL MAGIC ORB flying to the RIGHT, 4 frames, a seamless loop, SYMMETRIC above and below the middle line: a round magenta orb with a white-pink core at the front (right), a short tail of 2-3 magenta sparkles behind it (to the left) that flicker from frame to frame; the orb pulses slightly.\nLayout: one horizontal row of 4 equal cells, each 2 wide to 1 tall, image size 2048x256 (each cell 512x256); the orb on the middle line of every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n\nThe attached reference atlas is for shape vocabulary only (eye sigil, chain links, angular mirror shards). Do not reproduce its labels or panels. Draw ONLY this requested effect in this exact number of equal cells. Keep all frames separate, clean transparent background, no hero or character. Each frame has a bright core, with flat palette bands instead of blur. ",
+    "frame_count": 4,
+    "output_size": [
+      2048,
+      256
+    ],
+    "cell_size": [
+      512,
+      256
+    ],
+    "game_size": [
+      10,
+      8
+    ],
+    "loop": true,
+    "palette": [
+      "#FFF2FC",
+      "#FFA8EE",
+      "#E651D3",
+      "#A42BB5",
+      "#5C1A74",
+      "#FFFFFF",
+      "#ECE6FF",
+      "#B8A8F2"
+    ]
+  },
+  {
+    "name": "a_cast",
+    "filename": "leblanc_fx_a_cast.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, smoke, glass or sparks, colours only from a magenta ramp (#FFF2FC, #FFA8EE, #E651D3, #A42BB5, #5C1A74) with glass highlights (#FFFFFF, #ECE6FF, #B8A8F2).\nEffect: a SMALL CAST FLASH, 4 frames: 1 a tiny white-pink point; 2 a four-pointed magenta star flash with a white core; 3 the star at full size with 3-4 tiny sparkles around it; 4 the sparkles fade.\nLayout: one horizontal row of 4 equal square cells, image size 1024x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n\nThe attached reference atlas is for shape vocabulary only (eye sigil, chain links, angular mirror shards). Do not reproduce its labels or panels. Draw ONLY this requested effect in this exact number of equal cells. Keep all frames separate, clean transparent background, no hero or character. Each frame has a bright core, with flat palette bands instead of blur. ",
+    "frame_count": 4,
+    "output_size": [
+      1024,
+      256
+    ],
+    "cell_size": [
+      256,
+      256
+    ],
+    "game_size": [
+      12,
+      12
+    ],
+    "loop": false,
+    "palette": [
+      "#FFF2FC",
+      "#FFA8EE",
+      "#E651D3",
+      "#A42BB5",
+      "#5C1A74",
+      "#FFFFFF",
+      "#ECE6FF",
+      "#B8A8F2"
+    ]
+  },
+  {
+    "name": "a_hit",
+    "filename": "leblanc_fx_a_hit.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, smoke, glass or sparks, colours only from a magenta ramp (#FFF2FC, #FFA8EE, #E651D3, #A42BB5, #5C1A74) with glass highlights (#FFFFFF, #ECE6FF, #B8A8F2).\nEffect: a SMALL MAGIC IMPACT, 4 frames: 1 a white-pink flash at the center; 2 a round magenta burst with a white core and 4-5 short spikes; 3 the spikes break into small sparkles flying outward; 4 a few fading violet specks.\nLayout: one horizontal row of 4 equal square cells, image size 1024x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n\nThe attached reference atlas is for shape vocabulary only (eye sigil, chain links, angular mirror shards). Do not reproduce its labels or panels. Draw ONLY this requested effect in this exact number of equal cells. Keep all frames separate, clean transparent background, no hero or character. Each frame has a bright core, with flat palette bands instead of blur. ",
+    "frame_count": 4,
+    "output_size": [
+      1024,
+      256
+    ],
+    "cell_size": [
+      256,
+      256
+    ],
+    "game_size": [
+      14,
+      14
+    ],
+    "loop": false,
+    "palette": [
+      "#FFF2FC",
+      "#FFA8EE",
+      "#E651D3",
+      "#A42BB5",
+      "#5C1A74",
+      "#FFFFFF",
+      "#ECE6FF",
+      "#B8A8F2"
+    ]
+  },
+  {
+    "name": "q_orb",
+    "filename": "leblanc_fx_q_orb.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, smoke, glass or sparks, colours only from a magenta ramp (#FFF2FC, #FFA8EE, #E651D3, #A42BB5, #5C1A74) with crimson (#FF9AB0, #E8264B, #9B1032) and glass highlights (#FFFFFF, #ECE6FF, #B8A8F2).\nEffect: a FLYING SIGIL moving to the RIGHT, 4 frames, a seamless loop, SYMMETRIC above and below the middle line: at the front (right) a glowing magenta EYE-SHAPED RUNE - an almond eye outline of magenta light with a crimson pupil in its middle and small hooked rune points around it - that pulses and turns slightly each frame; behind it (to the left) a tapering magenta light trail with a few sparkles.\nLayout: one horizontal row of 4 equal cells, each 2 wide to 1 tall, image size 2048x256 (each cell 512x256); the sigil on the middle line of every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n\nThe attached reference atlas is for shape vocabulary only (eye sigil, chain links, angular mirror shards). Do not reproduce its labels or panels. Draw ONLY this requested effect in this exact number of equal cells. Keep all frames separate, clean transparent background, no hero or character. Each frame has a bright core, with flat palette bands instead of blur. ",
+    "frame_count": 4,
+    "output_size": [
+      2048,
+      256
+    ],
+    "cell_size": [
+      512,
+      256
+    ],
+    "game_size": [
+      16,
+      12
+    ],
+    "loop": true,
+    "palette": [
+      "#FFF2FC",
+      "#FFA8EE",
+      "#E651D3",
+      "#A42BB5",
+      "#5C1A74",
+      "#FF9AB0",
+      "#E8264B",
+      "#9B1032",
+      "#FFFFFF",
+      "#ECE6FF",
+      "#B8A8F2"
+    ]
+  },
+  {
+    "name": "q_cast",
+    "filename": "leblanc_fx_q_cast.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, smoke, glass or sparks, colours only from a magenta ramp (#FFF2FC, #FFA8EE, #E651D3, #A42BB5, #5C1A74) with crimson (#FF9AB0, #E8264B, #9B1032).\nEffect: a SIGIL FORMING, 4 frames: 1 a small ring of magenta rune light appears; 2 the ring brightens and an eye-shaped rune with a crimson pupil glows in its middle; 3 a bright white-pink flash as the rune is thrown; 4 the ring breaks into fading sparkles.\nLayout: one horizontal row of 4 equal square cells, image size 1024x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n\nThe attached reference atlas is for shape vocabulary only (eye sigil, chain links, angular mirror shards). Do not reproduce its labels or panels. Draw ONLY this requested effect in this exact number of equal cells. Keep all frames separate, clean transparent background, no hero or character. Each frame has a bright core, with flat palette bands instead of blur. ",
+    "frame_count": 4,
+    "output_size": [
+      1024,
+      256
+    ],
+    "cell_size": [
+      256,
+      256
+    ],
+    "game_size": [
+      16,
+      16
+    ],
+    "loop": false,
+    "palette": [
+      "#FFF2FC",
+      "#FFA8EE",
+      "#E651D3",
+      "#A42BB5",
+      "#5C1A74",
+      "#FF9AB0",
+      "#E8264B",
+      "#9B1032"
+    ]
+  },
+  {
+    "name": "q_hit",
+    "filename": "leblanc_fx_q_hit.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, smoke, glass or sparks, colours only from a magenta ramp (#FFF2FC, #FFA8EE, #E651D3, #A42BB5, #5C1A74) with crimson (#FF9AB0, #E8264B, #9B1032) and glass highlights (#FFFFFF, #ECE6FF, #B8A8F2).\nEffect: a SIGIL STRIKE, 5 frames: 1 a white-pink flash at the center; 2 the eye-shaped magenta rune slams in, bright, its crimson pupil glowing, a ring of light around it; 3 the rune at full brightness, 5-6 magenta sparks flying out; 4 the ring widens and thins, the sparks fly further; 5 the rune dims, a few violet specks.\nLayout: one horizontal row of 5 equal square cells, image size 1280x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n\nThe attached reference atlas is for shape vocabulary only (eye sigil, chain links, angular mirror shards). Do not reproduce its labels or panels. Draw ONLY this requested effect in this exact number of equal cells. Keep all frames separate, clean transparent background, no hero or character. Each frame has a bright core, with flat palette bands instead of blur. ",
+    "frame_count": 5,
+    "output_size": [
+      1280,
+      256
+    ],
+    "cell_size": [
+      256,
+      256
+    ],
+    "game_size": [
+      18,
+      18
+    ],
+    "loop": false,
+    "palette": [
+      "#FFF2FC",
+      "#FFA8EE",
+      "#E651D3",
+      "#A42BB5",
+      "#5C1A74",
+      "#FF9AB0",
+      "#E8264B",
+      "#9B1032",
+      "#FFFFFF",
+      "#ECE6FF",
+      "#B8A8F2"
+    ]
+  },
+  {
+    "name": "q_mark",
+    "filename": "leblanc_fx_q_mark.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, smoke, glass or sparks, colours only from a magenta ramp (#FFF2FC, #FFA8EE, #E651D3, #A42BB5, #5C1A74) with crimson (#FF9AB0, #E8264B, #9B1032).\nEffect: a FLOATING SIGIL MARK, 4 frames, a SEAMLESS LOOP: a glowing magenta eye-shaped rune with a crimson pupil, hooked rune points around it; over the 4 frames the glow pulses (dim, bright, brighter, bright) and the rune points rotate a little; frame 4 flows back into frame 1. Semi-bright, not too large: it floats on a character's chest.\nLayout: one horizontal row of 4 equal square cells, image size 1024x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n\nThe attached reference atlas is for shape vocabulary only (eye sigil, chain links, angular mirror shards). Do not reproduce its labels or panels. Draw ONLY this requested effect in this exact number of equal cells. Keep all frames separate, clean transparent background, no hero or character. Each frame has a bright core, with flat palette bands instead of blur. ",
+    "frame_count": 4,
+    "output_size": [
+      1024,
+      256
+    ],
+    "cell_size": [
+      256,
+      256
+    ],
+    "game_size": [
+      16,
+      12
+    ],
+    "loop": true,
+    "palette": [
+      "#FFF2FC",
+      "#FFA8EE",
+      "#E651D3",
+      "#A42BB5",
+      "#5C1A74",
+      "#FF9AB0",
+      "#E8264B",
+      "#9B1032"
+    ]
+  },
+  {
+    "name": "q_pop",
+    "filename": "leblanc_fx_q_pop.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, smoke, glass or sparks, colours only from a magenta ramp (#FFF2FC, #FFA8EE, #E651D3, #A42BB5, #5C1A74) with glass highlights (#FFFFFF, #ECE6FF, #B8A8F2) and crimson (#FF9AB0, #E8264B, #9B1032).\nEffect: a SIGIL SHATTERING, 6 frames: 1 the eye-shaped magenta rune flares white; 2 it cracks - bright lines of light across it; 3 THE BURST: it shatters into 8-10 angular magenta glass shards flying outward, a ring of magenta light expanding from the center; 4 the shards fly further and spin, the ring widens and thins; 5 the shards fade to violet, the ring breaks up; 6 a few fading specks.\nLayout: one horizontal row of 6 equal square cells, image size 1536x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n\nThe attached reference atlas is for shape vocabulary only (eye sigil, chain links, angular mirror shards). Do not reproduce its labels or panels. Draw ONLY this requested effect in this exact number of equal cells. Keep all frames separate, clean transparent background, no hero or character. Each frame has a bright core, with flat palette bands instead of blur. ",
+    "frame_count": 6,
+    "output_size": [
+      1536,
+      256
+    ],
+    "cell_size": [
+      256,
+      256
+    ],
+    "game_size": [
+      32,
+      32
+    ],
+    "loop": false,
+    "palette": [
+      "#FFF2FC",
+      "#FFA8EE",
+      "#E651D3",
+      "#A42BB5",
+      "#5C1A74",
+      "#FFFFFF",
+      "#ECE6FF",
+      "#B8A8F2",
+      "#FF9AB0",
+      "#E8264B",
+      "#9B1032"
+    ]
+  },
+  {
+    "name": "e_chain",
+    "filename": "leblanc_fx_e_chain.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, smoke, glass or sparks, colours only from a magenta ramp (#FFF2FC, #FFA8EE, #E651D3, #A42BB5, #5C1A74) with glass highlights (#FFFFFF, #ECE6FF, #B8A8F2).\nEffect: a FLYING ETHEREAL CHAIN moving to the RIGHT, 4 frames, a seamless loop, SYMMETRIC above and below the middle line: at the front (right) a bright hollow chain link of magenta light (an oval ring with a white-pink highlight), behind it 2-3 more links, each fainter and smaller, joined by a thin violet light ribbon that ripples; the links alternate flat / edge-on like a real chain.\nLayout: one horizontal row of 4 equal cells, each 2 wide to 1 tall, image size 2048x256 (each cell 512x256); the chain on the middle line of every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n\nThe attached reference atlas is for shape vocabulary only (eye sigil, chain links, angular mirror shards). Do not reproduce its labels or panels. Draw ONLY this requested effect in this exact number of equal cells. Keep all frames separate, clean transparent background, no hero or character. Each frame has a bright core, with flat palette bands instead of blur. ",
+    "frame_count": 4,
+    "output_size": [
+      2048,
+      256
+    ],
+    "cell_size": [
+      512,
+      256
+    ],
+    "game_size": [
+      16,
+      8
+    ],
+    "loop": true,
+    "palette": [
+      "#FFF2FC",
+      "#FFA8EE",
+      "#E651D3",
+      "#A42BB5",
+      "#5C1A74",
+      "#FFFFFF",
+      "#ECE6FF",
+      "#B8A8F2"
+    ]
+  },
+  {
+    "name": "e_tether",
+    "filename": "leblanc_fx_e_tether.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, smoke, glass or sparks, colours only from a magenta ramp (#FFF2FC, #FFA8EE, #E651D3, #A42BB5, #5C1A74) with glass highlights (#FFFFFF, #ECE6FF, #B8A8F2).\nEffect: ONE CHAIN LINK OF LIGHT moving to the RIGHT, 4 frames, a seamless loop, SYMMETRIC above and below the middle line: a hollow oval link of magenta light with a white-pink highlight, a short thin violet light thread leaving it on the left and on the right (so that links in a row read as one chain); the link turns from flat to edge-on and back over the 4 frames and shimmers.\nLayout: one horizontal row of 4 equal cells, each 2 wide to 1 tall, image size 2048x256 (each cell 512x256); the link on the middle line of every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n\nThe attached reference atlas is for shape vocabulary only (eye sigil, chain links, angular mirror shards). Do not reproduce its labels or panels. Draw ONLY this requested effect in this exact number of equal cells. Keep all frames separate, clean transparent background, no hero or character. Each frame has a bright core, with flat palette bands instead of blur. The horizontal violet connecting filament extends all the way to the LEFT AND RIGHT CELL BOUNDARIES on the same center row; successive tiles must join seamlessly.",
+    "frame_count": 4,
+    "output_size": [
+      2048,
+      256
+    ],
+    "cell_size": [
+      512,
+      256
+    ],
+    "game_size": [
+      10,
+      6
+    ],
+    "loop": true,
+    "palette": [
+      "#FFF2FC",
+      "#FFA8EE",
+      "#E651D3",
+      "#A42BB5",
+      "#5C1A74",
+      "#FFFFFF",
+      "#ECE6FF",
+      "#B8A8F2"
+    ]
+  },
+  {
+    "name": "e_cast",
+    "filename": "leblanc_fx_e_cast.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, smoke, glass or sparks, colours only from a magenta ramp (#FFF2FC, #FFA8EE, #E651D3, #A42BB5, #5C1A74) with glass highlights (#FFFFFF, #ECE6FF, #B8A8F2).\nEffect: a CHAIN CAST FLASH, 4 frames: 1 a white-pink flash; 2 a short magenta arc of light sweeping to the right with 2 chain links of light in it; 3 the arc at full length, sparkles; 4 the arc and links fade.\nLayout: one horizontal row of 4 equal square cells, image size 1024x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n\nThe attached reference atlas is for shape vocabulary only (eye sigil, chain links, angular mirror shards). Do not reproduce its labels or panels. Draw ONLY this requested effect in this exact number of equal cells. Keep all frames separate, clean transparent background, no hero or character. Each frame has a bright core, with flat palette bands instead of blur. ",
+    "frame_count": 4,
+    "output_size": [
+      1024,
+      256
+    ],
+    "cell_size": [
+      256,
+      256
+    ],
+    "game_size": [
+      14,
+      14
+    ],
+    "loop": false,
+    "palette": [
+      "#FFF2FC",
+      "#FFA8EE",
+      "#E651D3",
+      "#A42BB5",
+      "#5C1A74",
+      "#FFFFFF",
+      "#ECE6FF",
+      "#B8A8F2"
+    ]
+  },
+  {
+    "name": "e_hit",
+    "filename": "leblanc_fx_e_hit.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, smoke, glass or sparks, colours only from a magenta ramp (#FFF2FC, #FFA8EE, #E651D3, #A42BB5, #5C1A74) with glass highlights (#FFFFFF, #ECE6FF, #B8A8F2).\nEffect: a CHAIN STRIKE, 4 frames: 1 a white-pink flash; 2 a ring of 5-6 magenta chain links of light snaps around the center; 3 the ring tightens, sparks fly off; 4 it fades to violet specks.\nLayout: one horizontal row of 4 equal square cells, image size 1024x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n\nThe attached reference atlas is for shape vocabulary only (eye sigil, chain links, angular mirror shards). Do not reproduce its labels or panels. Draw ONLY this requested effect in this exact number of equal cells. Keep all frames separate, clean transparent background, no hero or character. Each frame has a bright core, with flat palette bands instead of blur. ",
+    "frame_count": 4,
+    "output_size": [
+      1024,
+      256
+    ],
+    "cell_size": [
+      256,
+      256
+    ],
+    "game_size": [
+      16,
+      16
+    ],
+    "loop": false,
+    "palette": [
+      "#FFF2FC",
+      "#FFA8EE",
+      "#E651D3",
+      "#A42BB5",
+      "#5C1A74",
+      "#FFFFFF",
+      "#ECE6FF",
+      "#B8A8F2"
+    ]
+  },
+  {
+    "name": "e_root",
+    "filename": "leblanc_fx_e_root.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, smoke, glass or sparks, colours only from a magenta ramp (#FFF2FC, #FFA8EE, #E651D3, #A42BB5, #5C1A74) with glass highlights (#FFFFFF, #ECE6FF, #B8A8F2).\nEffect: a CHAIN ROOT on the ground round a figure's feet (do NOT draw the figure), 12 frames: a flattened ellipse of magenta light on the ground (twice as wide as tall) at the bottom of the cell; 1-3 the ellipse appears and 3-4 chains of glowing magenta links rise from it and wrap round where the legs are (up to a third of the cell's height); 4-9 the chains hold, their links shimmering, the ellipse pulsing (a loop); 10-12 the chains shatter into magenta glass shards and fade. Leave the middle above the ellipse empty except for the chains.\nLayout: one horizontal row of 12 equal cells, each 3 wide to 2 tall, image size 9216x512 (each cell 768x512); the ellipse centered at the bottom of every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n\nThe attached reference atlas is for shape vocabulary only (eye sigil, chain links, angular mirror shards). Do not reproduce its labels or panels. Draw ONLY this requested effect in this exact number of equal cells. Keep all frames separate, clean transparent background, no hero or character. Each frame has a bright core, with flat palette bands instead of blur. ",
+    "frame_count": 12,
+    "output_size": [
+      9216,
+      512
+    ],
+    "cell_size": [
+      768,
+      512
+    ],
+    "game_size": [
+      26,
+      16
+    ],
+    "loop": false,
+    "palette": [
+      "#FFF2FC",
+      "#FFA8EE",
+      "#E651D3",
+      "#A42BB5",
+      "#5C1A74",
+      "#FFFFFF",
+      "#ECE6FF",
+      "#B8A8F2"
+    ]
+  },
+  {
+    "name": "w_pad",
+    "filename": "leblanc_fx_w_pad.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, smoke, glass or sparks, colours only from a magenta ramp (#FFF2FC, #FFA8EE, #E651D3, #A42BB5, #5C1A74) with crimson (#FF9AB0, #E8264B, #9B1032).\nEffect: a MAGIC CIRCLE ON THE GROUND seen from above (a flattened ellipse, twice as wide as tall), 10 frames: 1-2 a ring of magenta light appears; 3-8 the circle glows: an outer ring, an inner ring of small rune marks that turn a little each frame, an eye-shaped rune with a crimson pupil in the middle, the glow pulsing; 9-10 the circle shrinks into its center and fades.\nLayout: one horizontal row of 10 equal cells, each 2 wide to 1 tall, image size 5120x256 (each cell 512x256); the ellipse centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n\nThe attached reference atlas is for shape vocabulary only (eye sigil, chain links, angular mirror shards). Do not reproduce its labels or panels. Draw ONLY this requested effect in this exact number of equal cells. Keep all frames separate, clean transparent background, no hero or character. Each frame has a bright core, with flat palette bands instead of blur. ",
+    "frame_count": 10,
+    "output_size": [
+      5120,
+      256
+    ],
+    "cell_size": [
+      512,
+      256
+    ],
+    "game_size": [
+      30,
+      14
+    ],
+    "loop": false,
+    "palette": [
+      "#FFF2FC",
+      "#FFA8EE",
+      "#E651D3",
+      "#A42BB5",
+      "#5C1A74",
+      "#FF9AB0",
+      "#E8264B",
+      "#9B1032"
+    ]
+  },
+  {
+    "name": "w_trail",
+    "filename": "leblanc_fx_w_trail.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, smoke, glass or sparks, colours only from a magenta ramp (#FFF2FC, #FFA8EE, #E651D3, #A42BB5, #5C1A74) with glass highlights (#FFFFFF, #ECE6FF, #B8A8F2).\nEffect: a DASH TRAIL behind a figure that moves to the RIGHT (do NOT draw the figure), 5 frames: 4-5 horizontal streaks of magenta light trailing to the LEFT from the right part of the cell, with a few small angular glass shards between them; 1 the streaks start short and bright; 2-3 they stretch long to the left; 4 they thin and break; 5 they fade to violet specks.\nLayout: one horizontal row of 5 equal cells, each 3 wide to 2 tall, image size 3840x512 (each cell 768x512); the streaks on the cell's middle height, starting near the right. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n\nThe attached reference atlas is for shape vocabulary only (eye sigil, chain links, angular mirror shards). Do not reproduce its labels or panels. Draw ONLY this requested effect in this exact number of equal cells. Keep all frames separate, clean transparent background, no hero or character. Each frame has a bright core, with flat palette bands instead of blur. ",
+    "frame_count": 5,
+    "output_size": [
+      3840,
+      512
+    ],
+    "cell_size": [
+      768,
+      512
+    ],
+    "game_size": [
+      26,
+      18
+    ],
+    "loop": false,
+    "palette": [
+      "#FFF2FC",
+      "#FFA8EE",
+      "#E651D3",
+      "#A42BB5",
+      "#5C1A74",
+      "#FFFFFF",
+      "#ECE6FF",
+      "#B8A8F2"
+    ]
+  },
+  {
+    "name": "w_blast",
+    "filename": "leblanc_fx_w_blast.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, smoke, glass or sparks, colours only from a magenta ramp (#FFF2FC, #FFA8EE, #E651D3, #A42BB5, #5C1A74) with glass highlights (#FFFFFF, #ECE6FF, #B8A8F2).\nEffect: a MAGIC BLAST ON THE GROUND, 7 frames: 1 a white-pink flash at the center; 2 a bright magenta burst rises from the center and a ring of light starts on the ground (a flattened ellipse, twice as wide as tall); 3 THE BLAST: the ring at two thirds of the cell's width, 8-10 angular magenta glass shards thrown up and out; 4 the ring reaches the cell's edges, the shards fly further; 5 the ring thins and breaks into arcs; 6 the shards fall and fade to violet; 7 a few specks.\nLayout: one horizontal row of 7 equal cells, each 2 wide to 1 tall, image size 3584x256 (each cell 512x256); the ellipse centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n\nThe attached reference atlas is for shape vocabulary only (eye sigil, chain links, angular mirror shards). Do not reproduce its labels or panels. Draw ONLY this requested effect in this exact number of equal cells. Keep all frames separate, clean transparent background, no hero or character. Each frame has a bright core, with flat palette bands instead of blur. ",
+    "frame_count": 7,
+    "output_size": [
+      3584,
+      256
+    ],
+    "cell_size": [
+      512,
+      256
+    ],
+    "game_size": [
+      56,
+      28
+    ],
+    "loop": false,
+    "palette": [
+      "#FFF2FC",
+      "#FFA8EE",
+      "#E651D3",
+      "#A42BB5",
+      "#5C1A74",
+      "#FFFFFF",
+      "#ECE6FF",
+      "#B8A8F2"
+    ]
+  },
+  {
+    "name": "w_hit",
+    "filename": "leblanc_fx_w_hit.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, smoke, glass or sparks, colours only from a magenta ramp (#FFF2FC, #FFA8EE, #E651D3, #A42BB5, #5C1A74) with glass highlights (#FFFFFF, #ECE6FF, #B8A8F2).\nEffect: a SHARD HIT, 4 frames: 1 a white-pink flash; 2 a magenta burst with 4-5 small angular glass shards flying out; 3 the shards spread; 4 they fade.\nLayout: one horizontal row of 4 equal square cells, image size 1024x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n\nThe attached reference atlas is for shape vocabulary only (eye sigil, chain links, angular mirror shards). Do not reproduce its labels or panels. Draw ONLY this requested effect in this exact number of equal cells. Keep all frames separate, clean transparent background, no hero or character. Each frame has a bright core, with flat palette bands instead of blur. ",
+    "frame_count": 4,
+    "output_size": [
+      1024,
+      256
+    ],
+    "cell_size": [
+      256,
+      256
+    ],
+    "game_size": [
+      16,
+      16
+    ],
+    "loop": false,
+    "palette": [
+      "#FFF2FC",
+      "#FFA8EE",
+      "#E651D3",
+      "#A42BB5",
+      "#5C1A74",
+      "#FFFFFF",
+      "#ECE6FF",
+      "#B8A8F2"
+    ]
+  },
+  {
+    "name": "w_out",
+    "filename": "leblanc_fx_w_out.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, smoke, glass or sparks, colours only from a magenta ramp (#FFF2FC, #FFA8EE, #E651D3, #A42BB5, #5C1A74) with glass highlights (#FFFFFF, #ECE6FF, #B8A8F2).\nEffect: a VANISH, 5 frames: 1 a tall narrow column of magenta light (as tall as the cell) appears; 2 it brightens, a figure-sized cloud of small angular glass shards in it; 3 the shards drift up and apart; 4 the column thins; 5 a few fading shards near the top.\nLayout: one horizontal row of 5 equal cells, each 3 wide to 4 tall, image size 1920x1024 (each cell 384x512); centered at the bottom of every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n\nThe attached reference atlas is for shape vocabulary only (eye sigil, chain links, angular mirror shards). Do not reproduce its labels or panels. Draw ONLY this requested effect in this exact number of equal cells. Keep all frames separate, clean transparent background, no hero or character. Each frame has a bright core, with flat palette bands instead of blur. ",
+    "frame_count": 5,
+    "output_size": [
+      1920,
+      1024
+    ],
+    "cell_size": [
+      384,
+      1024
+    ],
+    "game_size": [
+      22,
+      30
+    ],
+    "loop": false,
+    "palette": [
+      "#FFF2FC",
+      "#FFA8EE",
+      "#E651D3",
+      "#A42BB5",
+      "#5C1A74",
+      "#FFFFFF",
+      "#ECE6FF",
+      "#B8A8F2"
+    ]
+  },
+  {
+    "name": "w_in",
+    "filename": "leblanc_fx_w_in.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, smoke, glass or sparks, colours only from a magenta ramp (#FFF2FC, #FFA8EE, #E651D3, #A42BB5, #5C1A74) with glass highlights (#FFFFFF, #ECE6FF, #B8A8F2).\nEffect: an APPEAR, 5 frames: 1 small angular magenta glass shards scattered around the cell; 2 they fly inward toward the middle; 3 they gather into a tall narrow column of bright magenta light (as tall as the cell); 4 a white-pink flash in the column; 5 the column fades.\nLayout: one horizontal row of 5 equal cells, each 3 wide to 4 tall, image size 1920x1024 (each cell 384x512); centered at the bottom of every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n\nThe attached reference atlas is for shape vocabulary only (eye sigil, chain links, angular mirror shards). Do not reproduce its labels or panels. Draw ONLY this requested effect in this exact number of equal cells. Keep all frames separate, clean transparent background, no hero or character. Each frame has a bright core, with flat palette bands instead of blur. ",
+    "frame_count": 5,
+    "output_size": [
+      1920,
+      1024
+    ],
+    "cell_size": [
+      384,
+      1024
+    ],
+    "game_size": [
+      22,
+      30
+    ],
+    "loop": false,
+    "palette": [
+      "#FFF2FC",
+      "#FFA8EE",
+      "#E651D3",
+      "#A42BB5",
+      "#5C1A74",
+      "#FFFFFF",
+      "#ECE6FF",
+      "#B8A8F2"
+    ]
+  }
+]

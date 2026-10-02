@@ -48,6 +48,12 @@ first run; every run starts from there, so a second run changes nothing and --ch
    dip and sheared forward from the thighs to the boots; tools/art/import_tristana.py's MUZZLE_ATTACK follows the bell.
    Then "腿部看起来和身体不一致 不像一个部位": those legs changed length every frame, so now they are the idle's whole
    legs, only leaning, and the block dips one row at most over the thighs' top.
+6. Both ears the left one (tools/art/tristana_ears.py; the user: "小炮也有这问题左右耳朵做的不一样", A of A / B), on
+   every frame, last: the right ear erased and the left one mirrored onto that side; the turned frames keep their
+   bodies (quarter turns undone and done again, the others get the idle's new ear turned with RotSprite).
+7. The cannon's bell symmetric (tools/art/tristana_bell.py; the user: "还有小炮的枪口有点歪？", then "小炮没问题
+   提交吧"): the columns taken out of its inside in 1. left it leaning, so every frame holding the idle's bell (found
+   square for square) and the hit's 1st get it drawn again on the barrel's axis; the turned cannons keep theirs.
 Writes assets/source/native/tristana_native.png and tristana_<tag>.png (8x, cells and pivots unchanged); then run
 tools/art/import_native.py --hero tristana. --check compares with the files instead of writing.
 """
@@ -65,6 +71,8 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 import design_akali as D  # noqa: E402
 import fix_tristana_dead as FD  # noqa: E402
+import tristana_bell as BELL  # noqa: E402
+import tristana_ears as EARS  # noqa: E402
 from import_native import blocks  # noqa: E402
 from native_refs import Z, layout  # noqa: E402
 
@@ -526,6 +534,22 @@ def main():
     shrunk["attack"] = (attack_from_idle(shrunk["idle"][0][0], spec["tags"]["idle"][0]["pivot"],
                                          [r["pivot"] for r in spec["tags"]["attack"]]), grid_a, cuts_a)
     print(f"  attack: the idle's block along {ATTACK_PATH}, the feet on the idle's")
+    idle0 = shrunk["idle"][0][0].copy()          # 6: both ears the left one, on every frame, last
+    new_idle0 = EARS.fix("idle", 1, idle0, idle0, None)[0]
+    for tag in TAGS:
+        for k, f in enumerate(shrunk[tag][0]):
+            shrunk[tag][0][k], share = EARS.fix(tag, k + 1, f, idle0, new_idle0)
+            if (tag, k + 1) not in EARS.TURNED and share < EARS.FOUND:
+                sys.exit(f"{tag} {k + 1}: the head's middle is not in it ({share:.0%})")
+    print("  ears: the left one on both sides;", ", ".join(f"{t} {k} turned {d}" for (t, k), d in EARS.TURNED.items()))
+    idle0 = shrunk["idle"][0][0].copy()          # 7: the bell symmetric wherever the idle's is, and the hit's 1st
+    bells = []
+    for tag in TAGS:
+        for k, f in enumerate(shrunk[tag][0]):
+            shrunk[tag][0][k], how = BELL.fix(tag, k + 1, f, idle0)
+            if how:
+                bells.append(f"{tag} {k + 1} ({how})")
+    print("  bell: symmetric in", ", ".join(bells))
     for tag in TAGS:
         new, grid, _ = shrunk[tag]
         if tag == "idle":
