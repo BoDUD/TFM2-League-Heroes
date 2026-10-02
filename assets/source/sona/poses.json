@@ -1,0 +1,39 @@
+{
+ "hero": "sona",
+ "champ": "Sona",
+ "camera": {"yaw": 30, "pitch": 15, "mirror": false},
+ "chibi": {"head": 1.0, "legs": 0.65, "scale": {"C_Head": 3.6, "C_Hair": 0.5, "WEAPON": 1.0}},
+ "head_joint": "C_Head",
+ "legs": "^(F|B)_Skirt$",
+ "weapon": "^WEAPON$",
+ "height": 36,
+ "cell": [112, 96, 14],
+ "design": "sona_idle1@0",
+ "tags": {
+  "idle": {"frames": [["sona_idle1@0", 200], ["sona_idle1@0", 200], ["sona_idle1@0", 200],
+                      ["sona_idle1@0", 200], ["sona_idle1@0", 200], ["sona_idle1@0", 200]]},
+  "run": {"rise": 0.3, "head_like": "sona_idle1@0", "frames": [
+   ["sona_run@0", 160], ["sona_run@312", 160], ["sona_run@625", 160], ["sona_run@937", 160],
+   ["sona_run@1250", 160], ["sona_run@1562", 160], ["sona_run@1875", 160], ["sona_run@2187", 160]]},
+  "attack": {"lunge": 0.4, "frames": [
+   ["sona_idle1@0>sona_attack1@100:0.5", 60], ["sona_attack1@200", 60], ["sona_attack1@300", 70],
+   ["sona_attack1@420", 80], ["sona_attack1@560", 90], ["sona_attack1@750>sona_idle1@0:0.5", 100]]},
+  "attack_p": {"lunge": 0.4, "frames": [
+   ["sona_idle1@0>sona_crit@100:0.5", 60], ["sona_crit@220", 60], ["sona_crit@340", 70],
+   ["sona_crit@460", 80], ["sona_crit@600", 90], ["sona_crit@800>sona_idle1@0:0.5", 100]]},
+  "skill": {"lunge": 0.4, "frames": [
+   ["sona_idle1@0>sona_spell1@100:0.5", 60], ["sona_spell1@220", 60], ["sona_spell1@340", 70],
+   ["sona_spell1@480", 80], ["sona_spell1@640", 90], ["sona_spell1@820>sona_idle1@0:0.5", 100]]},
+  "skill2": {"lunge": 0.4, "frames": [
+   ["sona_idle1@0>sona_spell2@120:0.5", 60], ["sona_spell2@280", 70], ["sona_spell2@440", 70],
+   ["sona_spell2@620", 80], ["sona_spell2@820", 90], ["sona_spell2@1100>sona_idle1@0:0.5", 100]]},
+  "ult": {"lunge": 0.4, "frames": [
+   ["sona_idle1@0>sona_spell4@150:0.5", 60], ["sona_spell4@330", 70], ["sona_spell4@500", 70],
+   ["sona_spell4@700", 80], ["sona_spell4@900", 90], ["sona_spell4@1150", 100], ["sona_spell4@1450", 100],
+   ["sona_spell4@1750>sona_idle1@0:0.5", 100]]},
+  "hit": {"frames": [["sona_idle1@0>sona_death@200:0.35", 100], ["sona_idle1@0>sona_death@200:0.15", 100]]},
+  "dead": {"anchor": "first", "lunge": 0.4, "flat": true, "rise": 0.3, "travel": 0.3, "frames": [
+   ["sona_death@0", 100], ["sona_death@300", 100], ["sona_death@700", 120], ["sona_death@1100", 120],
+   ["sona_death@1500", 150], ["sona_death@2000", 150], ["sona_death@2600", 200], ["sona_death@3400", 400]]}
+ }
+}

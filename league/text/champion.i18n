@@ -294,6 +294,13 @@
         "skill": "<#ff9028ff>战术横扫<>：蓄力后向目标扇形横扫，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% 攻击力<>的<#ff9028ff>物理伤害<>。外沿的敌人额外受到<#ff9028ff>5%<>最大生命值的伤害并被<#ef5350ff>减速80%<>（2秒内衰减）；外沿每命中一名敌方英雄，回复<#6aff55ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#6aff55ff>20% 攻击力<>生命值。",
         "skill2": "<#ff9028ff>钩索<>：钩住敌方英雄附近的小兵、野怪或防御塔并被拉过去（不钩英雄），随后冲向附近的敌方英雄，对周围敌人造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70% 攻击力<>的<#ff9028ff>物理伤害<>，被撞的英雄<#ef5350ff>眩晕<><#ffb900ff>0.75秒<>，并获得<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻速+50%<>，持续<#ffb900ff>5秒<>。被以多打少时改钩远离敌人的目标，拉过去后反向冲开。",
         "ult": "<#ff9028ff>海克斯最后通牒<>：跳向一名敌方英雄（空中免疫伤害和控制），落地震开周围其他敌人，在落点展开固定的力场<#ffb900ff>3秒<>：目标无法使用位移技能、走不出力场，她也留在场内。期间她踢中英雄额外造成<#f5f5f5ff>10<> + <#f5f5f5ff>3%<>最大生命值的<#f5f5f5ff>真实伤害<>。"
+      },
+      "league_sona": {
+        "name": "娑娜",
+        "attack": "弹出音符攻击。被动<#ff9028ff>能量和弦<>：每放<#ffb900ff>3<>次技能，下次普攻打中英雄时额外造成<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 法强<>的<#a974ffff>魔法伤害<>，并按最后一首歌：断奏 伤害翻倍；渐弱 目标伤害降低<#ffb900ff>25%<>3秒；节奏 <#ef5350ff>减速40%<>2秒。",
+        "skill": "对附近两个敌人（英雄优先）各造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45% 法强<>的<#a974ffff>魔法伤害<>。<#ff9028ff>旋律<>：<#ffb900ff>3秒<>内来到她身边的友方英雄<#ffb900ff>3秒<>内获得<#ff9028ff>12% 攻击力<>和<#a974ffff>12% 法强<>。",
+        "skill2": "为自己和一名附近的友方英雄回复<#6aff55ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>25% 法强<>生命值。<#ff9028ff>旋律<>：身边的友方英雄获得<#e8d44dff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>30% 法强<>的护盾<#ffb900ff>1.5秒<>。每<#ffb900ff>14秒<>同时弹<#ff9028ff>迅捷奏鸣曲<>：身边友方英雄<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移速+20%<>（自己+30%）<#ffb900ff>3秒<>。",
+        "ult": "朝敌方英雄弹出一道音波，途经的敌方英雄受到<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 法强<>的<#a974ffff>魔法伤害<>并被<#ef5350ff>晕眩1.5秒<>。被动：每条命放出大招后，技能冷却缩短<#ffb900ff>20%<>。"
       }
     },
     "skill_name": {
@@ -506,6 +513,11 @@
         "skill1": "战术横扫",
         "skill2": "钩索",
         "ult": "海克斯最后通牒"
+      },
+      "league_sona": {
+        "skill1": "英勇赞美诗",
+        "skill2": "坚毅咏叹调",
+        "ult": "狂舞终乐章"
       }
     }
   },
@@ -804,6 +816,13 @@
         "skill": "<#ff9028ff>刀光掠影<>：蓄力後向目標扇形橫掃，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% 攻擊力<>的<#ff9028ff>物理傷害<>。外緣的敵人額外受到<#ff9028ff>5%<>最大生命值的傷害並被<#ef5350ff>緩速80%<>（2秒內遞減）；外緣每命中一名敵方英雄，回復<#6aff55ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#6aff55ff>20% 攻擊力<>生命值。",
         "skill2": "<#ff9028ff>鋼鐵鉤射<>：鉤住敵方英雄附近的小兵、野怪或防禦塔並被拉過去（不鉤英雄），隨後衝向附近的敵方英雄，對周圍敵人造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70% 攻擊力<>的<#ff9028ff>物理傷害<>，被撞的英雄<#ef5350ff>暈眩<><#ffb900ff>0.75秒<>，並獲得<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻速+50%<>，持續<#ffb900ff>5秒<>。被以多打少時改鉤遠離敵人的目標，拉過去後反向衝開。",
         "ult": "<#ff9028ff>海克斯晶體結界<>：跳向一名敵方英雄（空中免疫傷害和控制），落地震開周圍其他敵人，在落點展開固定的力場<#ffb900ff>3秒<>：目標無法使用位移技能、走不出力場，她也留在場內。期間她踢中英雄額外造成<#f5f5f5ff>10<> + <#f5f5f5ff>3%<>最大生命值的<#f5f5f5ff>真實傷害<>。"
+      },
+      "league_sona": {
+        "name": "索娜",
+        "attack": "彈出音符攻擊。被動<#ff9028ff>力量和絃<>：每施放<#ffb900ff>3<>次技能，下次普攻命中英雄時額外造成<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 法術強度<>的<#a974ffff>魔法傷害<>，並依最後一首歌：斷奏 傷害加倍；衰弱 目標傷害降低<#ffb900ff>25%<>3秒；節奏 <#ef5350ff>緩速40%<>2秒。",
+        "skill": "對附近兩名敵人（英雄優先）各造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45% 法術強度<>的<#a974ffff>魔法傷害<>。<#ff9028ff>旋律<>：<#ffb900ff>3秒<>內來到她身邊的友方英雄<#ffb900ff>3秒<>內獲得<#ff9028ff>12% 攻擊力<>和<#a974ffff>12% 法術強度<>。",
+        "skill2": "為自身和一名附近的友方英雄回復<#6aff55ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>25% 法術強度<>生命。<#ff9028ff>旋律<>：身邊的友方英雄獲得<#e8d44dff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>30% 法術強度<>護盾<#ffb900ff>1.5秒<>。每<#ffb900ff>14秒<>同時彈<#ff9028ff>迅捷奏鳴曲<>：身邊友方英雄<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>跑速+20%<>（自身+30%）<#ffb900ff>3秒<>。",
+        "ult": "朝敵方英雄奏出一道音波，途經的敵方英雄受到<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 法術強度<>的<#a974ffff>魔法傷害<>並<#ef5350ff>暈眩1.5秒<>。被動：每條命施放大絕後，技能冷卻縮短<#ffb900ff>20%<>。"
       }
     },
     "skill_name": {
@@ -1016,6 +1035,11 @@
         "skill1": "刀光掠影",
         "skill2": "鋼鐵鉤射",
         "ult": "海克斯晶體結界"
+      },
+      "league_sona": {
+        "skill1": "英勇讚美詩",
+        "skill2": "堅毅詠嘆調",
+        "ult": "狂舞終樂章"
       }
     }
   },
@@ -1314,6 +1338,13 @@
         "skill": "<#ff9028ff>Tactical Sweep<>: Camille winds up and slices in a cone toward her target for <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% AD<> <#ff9028ff>physical damage<>. Enemies hit by the outer edge take <#ff9028ff>5%<> of their max health more and are <#ef5350ff>slowed by 80%<> (decaying over 2s); she heals <#6aff55ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#6aff55ff>20% AD<> per enemy champion hit by the edge.",
         "skill2": "<#ff9028ff>Hookshot<>: Camille hooks a minion, monster or tower near an enemy champion (never a champion) and is pulled to it, then dashes at a nearby enemy champion, dealing <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70% AD<> <#ff9028ff>physical damage<> around her, <#ef5350ff>stunning<> it for <#ffb900ff>0.75s<> and gaining <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>50% Attack Speed<> for <#ffb900ff>5s<>. Outnumbered, she hooks one away from enemies and dashes off instead.",
         "ult": "<#ff9028ff>The Hextech Ultimatum<>: Camille leaps onto an enemy champion (immune to damage and crowd control in the air), knocks the others away and raises a fixed field where she lands for <#ffb900ff>3s<>: the target cannot dash or walk out of it, and she stays inside too. Her kicks on champions meanwhile deal <#f5f5f5ff>10<> + <#f5f5f5ff>3%<> of max health as <#f5f5f5ff>true damage<>."
+      },
+      "league_sona": {
+        "name": "Sona",
+        "attack": "Note shots. Passive <#ff9028ff>Power Chord<>: after every <#ffb900ff>3<> spells her next attack on a champion deals <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% AP<> bonus <#a974ffff>magic damage<> plus the last song's effect: Staccato doubles it, Diminuendo makes the target deal <#ffb900ff>25%<> less damage for 3s, Tempo <#ef5350ff>slows<> it by 40% for 2s.",
+        "skill": "Sona deals <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45% AP<> <#a974ffff>magic damage<> to each of the two nearest enemies, champions first. <#ff9028ff>Melody<>: allied champions who come near her within <#ffb900ff>3s<> gain <#ff9028ff>12% AD<> and <#a974ffff>12% AP<> for <#ffb900ff>3s<>.",
+        "skill2": "Sona heals herself and a nearby allied champion for <#6aff55ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>25% AP<>. <#ff9028ff>Melody<>: allied champions near her gain a <#e8d44dff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>30% AP<> shield for <#ffb900ff>1.5s<>. Every <#ffb900ff>14s<> she also plays <#ff9028ff>Song of Celerity<>: allied champions near her gain <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>20% Move Speed<> (30% for herself) for <#ffb900ff>3s<>.",
+        "ult": "Sona strikes a chord at an enemy champion: a wave that deals <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% AP<> <#a974ffff>magic damage<> to every enemy champion it passes and <#ef5350ff>stuns<> them for <#ffb900ff>1.5s<>. Passive: once she has cast it in a life, her basic spells' cooldowns are <#ffb900ff>20%<> shorter."
       }
     },
     "skill_name": {
@@ -1526,6 +1557,11 @@
         "skill1": "Tactical Sweep",
         "skill2": "Hookshot",
         "ult": "The Hextech Ultimatum"
+      },
+      "league_sona": {
+        "skill1": "Hymn of Valor",
+        "skill2": "Aria of Perseverance",
+        "ult": "Crescendo"
       }
     }
   },
@@ -1824,6 +1860,13 @@
         "skill": "<#ff9028ff>전술적 휩쓸기<>: 힘을 모은 뒤 대상 방향 원뿔을 베어 <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 60%<> <#ff9028ff>물리 피해<>를 입힙니다. 바깥쪽에 맞은 적은 최대 체력의 <#ff9028ff>5%<> 추가 피해를 입고 <#ef5350ff>80% 둔화<>(2초에 걸쳐 감소)되며, 바깥쪽에 맞은 적 챔피언마다 <#6aff55ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#6aff55ff>공격력의 20%<>만큼 체력을 회복합니다.",
         "skill2": "<#ff9028ff>갈고리 발사<>: 적 챔피언 근처의 미니언, 몬스터 또는 포탑에 갈고리를 걸어 끌려간 뒤(챔피언 제외) 근처 적 챔피언에게 돌진해 주변 적에게 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 70%<> <#ff9028ff>물리 피해<>를 입히고 그 챔피언을 <#ffb900ff>0.75초<> 동안 <#ef5350ff>기절<>시키며, <#ffb900ff>5초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>공격 속도가 50%<> 증가합니다. 수적 열세면 먼 곳에 걸어 반대로 빠져나갑니다.",
         "ult": "<#ff9028ff>마법공학 최후통첩<>: 적 챔피언에게 뛰어들어(공중에서 피해와 군중 제어 면역) 주변의 다른 적을 밀쳐내고, 착지 지점에 <#ffb900ff>3초<> 동안 고정된 결계를 펼칩니다. 대상은 돌진할 수 없고 결계를 벗어날 수 없으며 카밀도 안에 머뭅니다. 그동안 챔피언을 차면 <#f5f5f5ff>10<> + 최대 체력의 <#f5f5f5ff>3%<> <#f5f5f5ff>고정 피해<>를 추가로 입힙니다."
+      },
+      "league_sona": {
+        "name": "소나",
+        "attack": "음표를 쏩니다. 기본 지속 효과 <#ff9028ff>파워 코드<>: 스킬을 <#ffb900ff>3<>번 쓰면 다음 기본 공격이 챔피언에게 <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 40%<>의 추가 <#a974ffff>마법 피해<>를 입히고 마지막 곡의 효과를 줍니다: 스타카토는 피해 2배, 디미누엔도는 대상이 주는 피해 <#ffb900ff>25%<> 감소(3초), 템포는 <#ef5350ff>40% 둔화<>(2초).",
+        "skill": "가장 가까운 적 두 명(챔피언 우선)에게 각각 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 45%<>의 <#a974ffff>마법 피해<>를 입힙니다. <#ff9028ff>멜로디<>: <#ffb900ff>3초<> 안에 소나 곁에 온 아군 챔피언은 <#ffb900ff>3초<> 동안 <#ff9028ff>공격력 12%<>와 <#a974ffff>주문력 12%<>가 증가합니다.",
+        "skill2": "자신과 근처 아군 챔피언 한 명의 체력을 <#6aff55ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>주문력의 25%<> 회복합니다. <#ff9028ff>멜로디<>: 곁의 아군 챔피언은 <#ffb900ff>1.5초<> 동안 <#e8d44dff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>주문력의 30%<>의 보호막을 얻습니다. <#ffb900ff>14초<>마다 <#ff9028ff>기민함의 노래<>도 연주해 곁의 아군 챔피언의 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도가 20%<>(자신 30%) <#ffb900ff>3초<> 동안 증가합니다.",
+        "ult": "적 챔피언을 향해 선율을 연주해 지나가는 모든 적 챔피언에게 <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 60%<>의 <#a974ffff>마법 피해<>를 입히고 <#ffb900ff>1.5초<> 동안 <#ef5350ff>기절<>시킵니다. 패시브: 한 번 사용하면 그 생명 동안 기본 스킬 재사용 대기시간이 <#ffb900ff>20%<> 감소합니다."
       }
     },
     "skill_name": {
@@ -2036,6 +2079,11 @@
         "skill1": "전술적 휩쓸기",
         "skill2": "갈고리 발사",
         "ult": "마법공학 최후통첩"
+      },
+      "league_sona": {
+        "skill1": "용맹의 찬가",
+        "skill2": "인내의 아리아",
+        "ult": "크레센도"
       }
     }
   },
@@ -2334,6 +2382,13 @@
         "skill": "<#ff9028ff>タクティカルスイープ<>：力を溜めて対象へ扇状に斬り、<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の60%<>の<#ff9028ff>物理ダメージ<>。外側に当たった敵は最大体力の<#ff9028ff>5%<>の追加ダメージと<#ef5350ff>80%スロウ<>（2秒で減衰）。外側に当たった敵チャンピオン1体ごとに<#6aff55ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#6aff55ff>攻撃力の20%<>回復。",
         "skill2": "<#ff9028ff>フックショット<>：敵チャンピオン近くのミニオン・モンスター・タワーにフックを掛けて引き寄せられ（チャンピオンは不可）、近くの敵チャンピオンへ突進し周囲の敵に<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の70%<>の<#ff9028ff>物理ダメージ<>、その敵を<#ffb900ff>0.75秒<><#ef5350ff>スタン<>、<#ffb900ff>5秒<>間<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻撃速度+50%<>。数で不利なら離れた所に掛けて逆へ離脱。",
         "ult": "<#ff9028ff>ヘクステック・アルティメイタム<>：敵チャンピオンに跳びかかり（空中はダメージと行動妨害を無効）、周囲の敵を弾き飛ばし、着地点に<#ffb900ff>3秒<>間動かない結界を張る。対象はダッシュできず出られず、カミールも中に留まる。その間の蹴りは<#f5f5f5ff>10<> + 最大体力の<#f5f5f5ff>3%<>の<#f5f5f5ff>確定ダメージ<>を追加。"
+      },
+      "league_sona": {
+        "name": "ソナ",
+        "attack": "音符を放つ。パッシブ <#ff9028ff>パワーコード<>：スキル<#ffb900ff>3<>回ごとに次の通常攻撃がチャンピオンに<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の40%<>の追加<#a974ffff>魔法ダメージ<>、最後の曲の効果：スタッカートは2倍、ディミヌエンドは与ダメージ<#ffb900ff>25%<>減(3秒)、テンポは<#ef5350ff>40%スロウ<>(2秒)。",
+        "skill": "近くの敵2体(チャンピオン優先)に<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の45%<>の<#a974ffff>魔法ダメージ<>。<#ff9028ff>メロディー<>：<#ffb900ff>3秒<>以内にそばに来た味方チャンピオンは<#ffb900ff>3秒<>間<#ff9028ff>攻撃力<>と<#a974ffff>魔力<>が12%増加。",
+        "skill2": "自身と近くの味方チャンピオン1体の体力を<#6aff55ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>魔力の25%<>回復。<#ff9028ff>メロディー<>：そばの味方チャンピオンに<#ffb900ff>1.5秒<>間<#e8d44dff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>魔力の30%<>のシールド。<#ffb900ff>14秒<>ごとに<#ff9028ff>セレリティ<>も奏で、そばの味方は<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度20%<>増加(自身30%)、<#ffb900ff>3秒<>。",
+        "ult": "敵チャンピオンへ和音の波を放ち、通過した敵チャンピオンに<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の60%<>の<#a974ffff>魔法ダメージ<>と<#ffb900ff>1.5秒<>の<#ef5350ff>スタン<>。パッシブ：一度使うとそのライフの間、通常スキルのクールダウンが<#ffb900ff>20%<>短縮。"
       }
     },
     "skill_name": {
@@ -2546,6 +2601,11 @@
         "skill1": "タクティカルスイープ",
         "skill2": "フックショット",
         "ult": "ヘクステック・アルティメイタム"
+      },
+      "league_sona": {
+        "skill1": "ヒム・オブ・ヴァロー",
+        "skill2": "パーセヴァランス",
+        "ult": "クレッシェンド"
       }
     }
   }
