@@ -281,6 +281,13 @@
         "skill2": "用梦魇灵链拴住目标<#ffb900ff>2秒<>，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>120% 法强<>的<#a974ffff>魔法伤害<>，结束时目标仍在附近则被<#ef5350ff>恐惧1.33秒<>，魔腾追击时<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移速+40%<>。同时升起<#ff9028ff>黑暗庇护<><#ffb900ff>1.5秒<>：技能伤害降为1、免疫控制，期间受到攻击则<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻速+40%<><#ffb900ff>5秒<>。",
         "ult": "黑暗降临：我方所有英雄<#ffb900ff>隐身3秒<>（敌人只能看见身边的单位），魔腾飞扑一名敌方英雄，落地造成<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120% 攻击力<>的<#ff9028ff>物理伤害<>，飞行中免疫控制。"
       },
+      "league_blitzcrank": {
+        "name": "布里茨",
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>；大招没在冷却时，<#ffb900ff>1秒<>后再落一道闪电，造成<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15% 法术强度<>的<#a974ffff>魔法伤害<>。被动 <#e8d44dff>法力屏障<>：被围攻或被控制时获得<#e8d44dff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 法术强度<>的<#e8d44dff>护盾<>（冷却<#ffb900ff>60秒<>）。",
+        "skill": "射出机械手，抓住直线上第一个敌方英雄（穿过小兵），造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% 法术强度<>的<#a974ffff>魔法伤害<>，<#ef5350ff>眩晕<>并把它拉到身前。",
+        "skill2": "一记上勾拳，造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>并<#ef5350ff>击飞<><#ffb900ff>1秒<>。<#ff9028ff>过载运转<>（每<#ffb900ff>15秒<>）：敌方英雄靠近时自动开启，<#ffb900ff>4秒<>内移速+40%（逐渐降低）、攻速+25%，结束后<#ef5350ff>减速25%<><#ffb900ff>1.5秒<>。",
+        "ult": "释放静电，对身边敌人造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 法术强度<>的<#a974ffff>魔法伤害<>，并<#ef5350ff>沉默<>敌方英雄<#ffb900ff>1秒<>。打起来才放；放出后普攻的闪电停用，直到大招冷却结束。"
+      },
       "league_camille": {
         "name": "卡蜜尔",
         "attack": "踢击造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。被动 <#ff9028ff>适应性防御<>：每<#ffb900ff>10秒<>，踢中敌方英雄时获得<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#e8d44dff>60% 攻击力<>的<#e8d44dff>护盾<>，持续<#ffb900ff>2秒<>。<#ff9028ff>精准礼仪<>（每<#ffb900ff>7秒<>）：下一踢额外造成<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<>并<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>加速<>；蓄力<#ffb900ff>1.5秒<>后的再一踢额外伤害翻倍，<#f5f5f5ff>40%<>转为<#f5f5f5ff>真实伤害<>。",
@@ -489,6 +496,11 @@
         "skill1": "梦魇之径",
         "skill2": "无言恐惧",
         "ult": "鬼影重重"
+      },
+      "league_blitzcrank": {
+        "skill1": "机械飞爪",
+        "skill2": "能量铁拳",
+        "ult": "静电力场"
       },
       "league_camille": {
         "skill1": "战术横扫",
@@ -779,6 +791,13 @@
         "skill2": "用夢魘鎖鏈拴住目標<#ffb900ff>2秒<>，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>120% 法術強度<>的<#a974ffff>魔法傷害<>，結束時目標仍在附近則被<#ef5350ff>恐懼1.33秒<>，夜曲追擊時<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移速+40%<>。同時升起<#ff9028ff>夜幕庇護<><#ffb900ff>1.5秒<>：技能傷害降為1、免疫控制，期間受到攻擊則<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻速+40%<><#ffb900ff>5秒<>。",
         "ult": "黑暗降臨：我方所有英雄<#ffb900ff>隱形3秒<>（敵人只能看見身邊的單位），夜曲飛撲一名敵方英雄，落地造成<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120% 攻擊力<>的<#ff9028ff>物理傷害<>，飛行中免疫控制。"
       },
+      "league_blitzcrank": {
+        "name": "布里茨",
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>；大絕沒在冷卻時，<#ffb900ff>1秒<>後再落一道閃電，造成<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15% 魔法攻擊<>的<#a974ffff>魔法傷害<>。被動 <#e8d44dff>法力屏障<>：被圍攻或被控場時獲得<#e8d44dff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 魔法攻擊<>的<#e8d44dff>護盾<>（冷卻<#ffb900ff>60秒<>）。",
+        "skill": "射出機械手，抓住直線上第一個敵方英雄（穿過小兵），造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% 魔法攻擊<>的<#a974ffff>魔法傷害<>，<#ef5350ff>暈眩<>並把它拉到身前。",
+        "skill2": "一記上勾拳，造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>並<#ef5350ff>擊飛<><#ffb900ff>1秒<>。<#ff9028ff>過載運轉<>（每<#ffb900ff>15秒<>）：敵方英雄靠近時自動開啟，<#ffb900ff>4秒<>內跑速+40%（逐漸降低）、攻速+25%，結束後<#ef5350ff>緩速25%<><#ffb900ff>1.5秒<>。",
+        "ult": "釋放靜電，對身邊敵人造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 魔法攻擊<>的<#a974ffff>魔法傷害<>，並<#ef5350ff>沉默<>敵方英雄<#ffb900ff>1秒<>。開打才放；放出後普攻的閃電停用，直到大絕冷卻結束。"
+      },
       "league_camille": {
         "name": "卡蜜兒",
         "attack": "踢擊造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。被動 <#ff9028ff>適性防禦<>：每<#ffb900ff>10秒<>，踢中敵方英雄時獲得<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#e8d44dff>60% 攻擊力<>的<#e8d44dff>護盾<>，持續<#ffb900ff>2秒<>。<#ff9028ff>精密解剖<>（每<#ffb900ff>7秒<>）：下一踢額外造成<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<>並<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>加速<>；蓄力<#ffb900ff>1.5秒<>後的再一踢額外傷害翻倍，<#f5f5f5ff>40%<>轉為<#f5f5f5ff>真實傷害<>。",
@@ -987,6 +1006,11 @@
         "skill1": "黃昏渠道",
         "skill2": "深宵斷魂",
         "ult": "無盡夢魘"
+      },
+      "league_blitzcrank": {
+        "skill1": "火箭抓取",
+        "skill2": "充能一擊",
+        "ult": "靜電力場"
       },
       "league_camille": {
         "skill1": "刀光掠影",
@@ -1277,6 +1301,13 @@
         "skill2": "Nocturne tethers his target for <#ffb900ff>2s<>, dealing <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>120% AP<> <#a974ffff>magic damage<>; if it is still near at the end it is <#ef5350ff>feared<> for <#ffb900ff>1.33s<> and he chases with <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>40% Move Speed<>. He also raises <#ff9028ff>Shroud of Darkness<> for <#ffb900ff>1.5s<>: ability damage drops to 1 and he is immune to crowd control; if he is hit meanwhile he gains <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>40% attack speed<> for <#ffb900ff>5s<>.",
         "ult": "Darkness falls: every allied champion turns <#ffb900ff>invisible for 3s<> (enemies see only what is next to them), and Nocturne flies at an enemy champion, dealing <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120% AD<> <#ff9028ff>physical damage<> on landing. He is immune to crowd control in flight."
       },
+      "league_blitzcrank": {
+        "name": "Blitzcrank",
+        "attack": "Basic attacks deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>; while Static Field is off cooldown, lightning strikes the target <#ffb900ff>1s<> later for <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15% AP<> <#a974ffff>magic damage<>. Passive <#e8d44dff>Mana Barrier<>: when surrounded or crowd-controlled he gains a <#e8d44dff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% AP<> <#e8d44dff>shield<> (<#ffb900ff>60s<> cooldown).",
+        "skill": "Blitzcrank fires his hand at the first enemy champion in a line (it passes minions), dealing <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% AP<> <#a974ffff>magic damage<>, <#ef5350ff>stunning<> it and pulling it to him.",
+        "skill2": "An uppercut dealing <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<> and <#ef5350ff>knocking up<> for <#ffb900ff>1s<>. <#ff9028ff>Overdrive<> (every <#ffb900ff>15s<>): when enemy champions come near he gains +40% decaying move speed and +25% attack speed for <#ffb900ff>4s<>, then is <#ef5350ff>slowed by 25%<> for <#ffb900ff>1.5s<>.",
+        "ult": "Blitzcrank discharges, dealing <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% AP<> <#a974ffff>magic damage<> to nearby enemies and <#ef5350ff>silencing<> enemy champions for <#ffb900ff>1s<>. Used once a fight is on; afterwards the attacks' lightning stops until Static Field is off cooldown."
+      },
       "league_camille": {
         "name": "Camille",
         "attack": "Blade kicks deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. Passive <#ff9028ff>Adaptive Defenses<>: every <#ffb900ff>10s<> her kick on an enemy champion grants a <#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#e8d44dff>60% AD<> <#e8d44dff>shield<> for <#ffb900ff>2s<>. <#ff9028ff>Precision Protocol<> (every <#ffb900ff>7s<>): her next kick deals <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25% AD<> more and grants <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>Move Speed<>; the next kick after a <#ffb900ff>1.5s<> charge deals double the bonus, <#f5f5f5ff>40%<> as <#f5f5f5ff>true damage<>.",
@@ -1485,6 +1516,11 @@
         "skill1": "Duskbringer",
         "skill2": "Unspeakable Horror",
         "ult": "Paranoia"
+      },
+      "league_blitzcrank": {
+        "skill1": "Rocket Grab",
+        "skill2": "Power Fist",
+        "ult": "Static Field"
       },
       "league_camille": {
         "skill1": "Tactical Sweep",
@@ -1775,6 +1811,13 @@
         "skill2": "대상을 <#ffb900ff>2초<> 동안 사슬로 묶어 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 120%<> <#a974ffff>마법 피해<>를 입히고, 끝날 때 가까이 있으면 <#ffb900ff>1.33초<> 동안 <#ef5350ff>공포<>에 빠뜨리며 추격 시 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도 40%<>. 동시에 <#ff9028ff>어둠의 장막<>을 <#ffb900ff>1.5초<> 동안 펼쳐 스킬 피해가 1이 되고 군중 제어에 면역이며, 그동안 공격받으면 <#ffb900ff>5초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>공격 속도 40%<>.",
         "ult": "어둠이 내려 모든 아군 챔피언이 <#ffb900ff>3초<> 동안 <#ffb900ff>투명<> 상태가 되고(적은 바로 옆의 유닛만 봄), 녹턴이 적 챔피언에게 날아가 착지 시 <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 120%<> <#ff9028ff>물리 피해<>를 입힙니다. 비행 중 군중 제어에 면역입니다."
       },
+      "league_blitzcrank": {
+        "name": "블리츠크랭크",
+        "attack": "기본 공격: <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>. 정전기장이 재사용 대기 중이 아니면 <#ffb900ff>1초<> 뒤 번개가 떨어져 <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 15%<> <#a974ffff>마법 피해<>. 기본 지속 효과 <#e8d44dff>마나 보호막<>: 포위되거나 군중 제어에 걸리면 <#e8d44dff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 80%<> <#e8d44dff>보호막<>(재사용 대기 <#ffb900ff>60초<>).",
+        "skill": "손을 발사해 직선상 첫 적 챔피언(미니언 관통)을 붙잡아 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 50%<> <#a974ffff>마법 피해<>를 입히고 <#ef5350ff>기절<>시키며 끌어옵니다.",
+        "skill2": "어퍼컷으로 <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>, <#ffb900ff>1초<> <#ef5350ff>공중에 띄움<>. <#ff9028ff>폭주<>(<#ffb900ff>15초<>마다): 적 챔피언이 다가오면 <#ffb900ff>4초<> 동안 이동 속도 +40%(점차 감소), 공격 속도 +25%, 끝나면 <#ffb900ff>1.5초<> <#ef5350ff>25% 둔화<>.",
+        "ult": "정전기를 방출해 주변 적에게 <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 80%<> <#a974ffff>마법 피해<>, 적 챔피언 <#ffb900ff>1초<> <#ef5350ff>침묵<>. 교전이 시작되면 사용, 이후 재사용 대기 동안 기본 공격의 번개가 멈춥니다."
+      },
       "league_camille": {
         "name": "카밀",
         "attack": "발차기로 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>. 기본 지속 효과 <#ff9028ff>적응형 방어 체계<>: <#ffb900ff>10초<>마다 적 챔피언을 차면 <#ffb900ff>2초<>간 <#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#e8d44dff>공격력의 60%<> <#e8d44dff>보호막<>. <#ff9028ff>정확성 프로토콜<>(<#ffb900ff>7초<>마다): 다음 발차기 <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<> 추가 피해, <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도<> 증가. <#ffb900ff>1.5초<> 충전 후 발차기는 추가 피해 2배, <#f5f5f5ff>40%<>는 <#f5f5f5ff>고정 피해<>.",
@@ -1983,6 +2026,11 @@
         "skill1": "황혼의 인도자",
         "skill2": "말할 수 없는 공포",
         "ult": "피해망상"
+      },
+      "league_blitzcrank": {
+        "skill1": "로켓 손",
+        "skill2": "강철 주먹",
+        "ult": "정전기장"
       },
       "league_camille": {
         "skill1": "전술적 휩쓸기",
@@ -2273,6 +2321,13 @@
         "skill2": "対象を<#ffb900ff>2秒<>鎖で繋ぎ<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の120%<>の<#a974ffff>魔法ダメージ<>、最後に近くにいれば<#ffb900ff>1.33秒<><#ef5350ff>フィアー<>、追う時<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度40%<>。同時に<#ff9028ff>漆黒の帳<><#ffb900ff>1.5秒<>：スキルダメージ1、行動妨害無効、その間に攻撃されると<#ffb900ff>5秒<><i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻撃速度40%<>。",
         "ult": "闇が訪れ、味方チャンピオン全員が<#ffb900ff>3秒<>間<#ffb900ff>インビジブル<>（敵はすぐ近くのユニットしか見えない）。敵チャンピオンへ飛びかかり、着地で<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の120%<>の<#ff9028ff>物理ダメージ<>。飛行中は行動妨害無効。"
       },
+      "league_blitzcrank": {
+        "name": "ブリッツクランク",
+        "attack": "通常攻撃は<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>。アルティメットがCD中でなければ<#ffb900ff>1秒<>後に雷が落ち<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の15%<>の<#a974ffff>魔法ダメージ<>。パッシブ <#e8d44dff>マナバリア<>：囲まれるか行動妨害を受けると<#e8d44dff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の80%<>の<#e8d44dff>シールド<>（CD<#ffb900ff>60秒<>）。",
+        "skill": "腕を発射し、直線上の最初の敵チャンピオン（ミニオンは貫通）を掴んで<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の50%<>の<#a974ffff>魔法ダメージ<>、<#ef5350ff>スタン<>させ引き寄せる。",
+        "skill2": "アッパーカットで<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>と<#ffb900ff>1秒<><#ef5350ff>ノックアップ<>。<#ff9028ff>オーバードライブ<>（<#ffb900ff>15秒<>ごと）：敵チャンピオンが近づくと<#ffb900ff>4秒<>移動速度+40%（減衰）、攻撃速度+25%、終了後<#ffb900ff>1.5秒<><#ef5350ff>25%スロウ<>。",
+        "ult": "放電し周囲の敵に<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の80%<>の<#a974ffff>魔法ダメージ<>、敵チャンピオンを<#ffb900ff>1秒<><#ef5350ff>サイレンス<>。戦闘が始まると使用、以後CD中は通常攻撃の雷が止まる。"
+      },
       "league_camille": {
         "name": "カミール",
         "attack": "蹴りで<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>アダプティブディフェンス<>：<#ffb900ff>10秒<>ごとに敵チャンピオンを蹴ると<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#e8d44dff>攻撃力の60%<>の<#e8d44dff>シールド<>（<#ffb900ff>2秒<>）。<#ff9028ff>プレシジョンプロトコル<>（<#ffb900ff>7秒<>ごと）：次の蹴りは<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<>追加と<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>加速<>。<#ffb900ff>1.5秒<>溜めた次の蹴りは追加2倍、<#f5f5f5ff>40%<>が<#f5f5f5ff>確定ダメージ<>。",
@@ -2481,6 +2536,11 @@
         "skill1": "闇の手",
         "skill2": "底知れぬ恐怖",
         "ult": "パラノイア"
+      },
+      "league_blitzcrank": {
+        "skill1": "ロケットグラブ",
+        "skill2": "パワーフィスト",
+        "ult": "イナズマフィールド"
       },
       "league_camille": {
         "skill1": "タクティカルスイープ",
