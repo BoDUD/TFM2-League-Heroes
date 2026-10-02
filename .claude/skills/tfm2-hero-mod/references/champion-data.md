@@ -1164,6 +1164,8 @@ league_sona (support, --lane 4, 2026-10-02, Crescendo's 1.5 s stun on every cham
 league_leona 2.19, league_nami 1.94 and the base priest 0.50 in the same batch - no change.
 league_kennen (top, 2026-10-02, the third mark's stun: 1.25 s, 0.5 s within 7 s of the last; Yasuo mid): 1.48 a game;
 the base fighter 2.33 in the same batch - in the range of the CC heroes before, no change.
+league_ryze (mid, --lane 2, 2026-10-03, Rune Prison's 1.25 s root on a Flux'd target; Yasuo top): 1.65 a game;
+league_ahri 1.33 and the base lightning mage 3.19 in the same batch - no change.
 
 **Kill trigger (league_jinx Get Excited!).** No effect fires on a kill, but section 4's facts make one:
 1. Next to the damaging projectile, fire an invisible twin with the same speed and path and
@@ -2780,6 +2782,34 @@ picture (a 2.9 s caster view that follows him, under the units) and one `AddCast
 30): each period a `RangeEffect` round him on `EnemyChampion` within 55000 - magic damage, the bolt and a mark (one
 per strike), so the third strike stuns everyone inside. One strike in the tree is enough for both callers (the ult
 and E's combo; the game copies `skill` and `skill2` every tick: E stays at about 160 nodes); his death clears it.
+**Marks a later hit sets off on every marked enemy (league_ryze Spell Flux and Overload).** League's Flux sits on
+the enemies and Overload bounces to the Flux'd ones; nothing reads a buff on another unit, so each mark is an
+`AddCasted` on the enemy that reads the caster's flags. E's zone (a hidden 1-tick lob onto the target, then a
+`RangeProjectile` on `EnemyWithoutTower`) gives every unit it reaches two of them: one plays the mark's picture every
+12 ticks while the caster's generation flag (`fx_c`, 240 ticks) holds, one checks every 2 ticks for the caster flag
+`q_pop`. Q's hit raises `q_pop` for 3 ticks and queues on the caster the removal of the generation and of `q_pop`:
+every marked unit bursts once in that window (405 bursts counted in the logs, none twice), and the generation is
+used up. Two generations (`fx_c` from the combo's E, `fx_r` from R's landing E) let a new E switch the other off,
+so a unit never carries two live marks. The wider spread for a target already marked (38000 against 25000) reads a
+flag set before the generation is refreshed - read after it, every E took the wide zone.
+
+**League's combo as one cast (league_ryze E -> W -> Q).** Ryze's W and E reset Q, so League players cast E, W, Q
+in a row; `skill2` is that sequence on one `Targeting` cast (60000, `EnemyWithoutTower`): E on tick 6, W on 24,
+Q on 38 of one 12-frame strip, the W and the Q `Delayed` on the target with a flag set on the caster
+(`c_w_ok`, `c_q_ok`): a `Delayed` queued on a unit that dies runs only its pictures, so when the target died the
+caster's own `Delayed` checks find the flag missing and fire the W or Q at a `RandomTarget` (champions first). The
+runes League's Q passive counts are pictures and flags on the caster (E -> one, W -> two, Q spends them: move speed).
+
+**A team teleport through a portal (league_ryze R, Realm Warp).** A `Direction` cast on `EnemyChampion`: a hidden
+`LinearProjectile` plays the destination portal where it stops (r_move ahead), a second one of speed 1 and range 1
+stays at his feet as the anchor; after the 60-tick channel the anchor's `end_effects` `Delayed` puts a
+`RangeProjectile` (the portal's radius, `AllyChampion`) applying `Grab {speed 15000}` - allied champions standing
+there are dragged to the caster in 3-4 ticks, after his `DirTeleport` (the probe: priest and ninja zipped across).
+Crowd control breaks the channel: every 15 ticks a `RandomTarget AllyChampionInCC` on himself sets `r_cut` and
+removes the cast animation. The AI scores an ult by the damage of the branch its caster's flags pick when it
+decides: a pure teleport was cast 7 times in 9 games; the warp on the default branch (`r_cut` leads to the empty
+one) with a damaging Spell Flux on landing: 2.2 a game.
+
 ## 8. Gotchas
 
 - A `RangePeriodProjectile` put straight into an action's effects, or into a self-only `RangeEffect`, is never

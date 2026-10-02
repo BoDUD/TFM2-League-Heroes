@@ -461,6 +461,18 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   cheek closed by the outline, a closed mouth of two shadow squares over the chin, and no shadow square joining
   the jaw corners to the chin line. Look at the whole face - brows, eyes, mouth, jaw - at 6x and 12x next to the
   source picture before sending any face.
+- **When Codex's own pixel strips look poor, read its raw sheets again.** league_ryze's step-2 delivery came as
+  Codex's conversion of its image-model sheets (`generation_sources/`): one sampling pitch for all eight strips
+  although each was drawn on its own grid (5-8 px squares: the attack came out a fifth too big, the run lost a row
+  across the legs in three frames), a box wiped round the drawn head before the paste (the arm raised beside the
+  head became a thin stick, two hands floated), the drawn crown left over the pasted one, an upright head pasted
+  on the body lying dead. `tools/art/fix_ryze_strips.py` reads every raw strip on its own grid (`regrid.py` at the
+  period of the colour changes - `size` is not a scale knob: a larger value merges only the weak boundaries, so
+  the busy face reads big), snaps to the design's colours, deletes whole lines (`dp_keep`) to the idle's
+  crown-to-soles height and erases the drawn head only by flooding from its eyes through skin within a square of
+  the pasted head (raised arms stay). Image-model runs also tend to lead with the same leg in both steps: check the
+  near leg's place in frames 2 and 6 before importing; Ryze's run went back to Codex with a colour-coded leg chart
+  (near leg orange, far leg blue) and its 4th attempt alternated.
 - **Whole raw sheets: one scale per sheet, paste only the face.** Codex's league_morgana animations (design A)
   came as eight raw sheets (3x2 cells of 512 px, 4x2 of about 443 px and 2x1 of 887, on a magenta key), each at a
   scale of its own (a game pixel 4.4-7.2 source px). `tools/art/tidy_morgana.py` takes one scale per sheet from its
