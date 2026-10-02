@@ -647,7 +647,7 @@
                     },
                     "effect_none": {
                       "type": "SwitchByBuff",
-                      "buff_name": "league_camille_r_air",
+                      "buff_name": "league_camille_r_leap",
                       "effect_buff": {
                         "type": "Combine",
                         "effects": []
@@ -889,119 +889,143 @@
                                                         "effects": []
                                                       },
                                                       "effect_none": {
-                                                        "type": "Combine",
-                                                        "effects": [
-                                                          {
-                                                            "type": "AddCasterBuff",
-                                                            "buff_state": {
-                                                              "name": "league_camille_e_got",
-                                                              "duration": {
-                                                                "Time": {
-                                                                  "tick": 30
+                                                        "type": "SwitchByBuff",
+                                                        "buff_name": "league_camille_r_leap",
+                                                        "effect_buff": {
+                                                          "type": "Combine",
+                                                          "effects": []
+                                                        },
+                                                        "effect_none": {
+                                                          "type": "Combine",
+                                                          "effects": [
+                                                            {
+                                                              "type": "AddCasterBuff",
+                                                              "buff_state": {
+                                                                "name": "league_camille_e_got",
+                                                                "duration": {
+                                                                  "Time": {
+                                                                    "tick": 30
+                                                                  }
                                                                 }
-                                                              }
+                                                              },
+                                                              "only_to_enemy": false
                                                             },
-                                                            "only_to_enemy": false
-                                                          },
-                                                          {
-                                                            "type": "AddCasterBuff",
-                                                            "buff_state": {
-                                                              "name": "league_camille_e_cd",
-                                                              "duration": {
-                                                                "Time": {
-                                                                  "tick": 720
+                                                            {
+                                                              "type": "AddCasterBuff",
+                                                              "buff_state": {
+                                                                "name": "league_camille_e_cd",
+                                                                "duration": {
+                                                                  "Time": {
+                                                                    "tick": 720
+                                                                  }
                                                                 }
-                                                              }
+                                                              },
+                                                              "only_to_enemy": false
                                                             },
-                                                            "only_to_enemy": false
-                                                          },
-                                                          {
-                                                            "type": "RemoveCasterBuff",
-                                                            "name": "league_camille_e_armed"
-                                                          },
-                                                          {
-                                                            "type": "AddCasterBuff",
-                                                            "buff_state": {
-                                                              "name": "league_camille_e_fled",
-                                                              "duration": {
-                                                                "Time": {
-                                                                  "tick": 60
+                                                            {
+                                                              "type": "RemoveCasterBuff",
+                                                              "name": "league_camille_e_armed"
+                                                            },
+                                                            {
+                                                              "type": "AddCasterBuff",
+                                                              "buff_state": {
+                                                                "name": "league_camille_e_fled",
+                                                                "duration": {
+                                                                  "Time": {
+                                                                    "tick": 60
+                                                                  }
                                                                 }
-                                                              }
+                                                              },
+                                                              "only_to_enemy": false
                                                             },
-                                                            "only_to_enemy": false
-                                                          },
-                                                          {
-                                                            "type": "CasterAnimation",
-                                                            "name": "skill2",
-                                                            "tick": 24
-                                                          },
-                                                          {
-                                                            "type": "Sfx",
-                                                            "name": "league_camille_e_cast"
-                                                          },
-                                                          {
-                                                            "type": "Delayed",
-                                                            "tick": 8,
-                                                            "effects": [
-                                                              {
-                                                                "type": "TargetProjectile",
-                                                                "name": "league_camille_e_hook",
-                                                                "speed": 6000,
-                                                                "y_offset": 0,
-                                                                "applied_target": "Both",
-                                                                "applied_effects": [
-                                                                  {
-                                                                    "casting_type": "Targeting",
-                                                                    "effect": {
-                                                                      "type": "Combine",
-                                                                      "effects": [
-                                                                        {
-                                                                          "type": "CasterAnimation",
-                                                                          "name": "skill2_dash",
-                                                                          "tick": 26
+                                                            {
+                                                              "type": "CasterAnimation",
+                                                              "name": "skill2",
+                                                              "tick": 24
+                                                            },
+                                                            {
+                                                              "type": "Sfx",
+                                                              "name": "league_camille_e_cast"
+                                                            },
+                                                            {
+                                                              "type": "Delayed",
+                                                              "tick": 8,
+                                                              "effects": [
+                                                                {
+                                                                  "type": "TargetProjectile",
+                                                                  "name": "league_camille_e_hook",
+                                                                  "speed": 6000,
+                                                                  "y_offset": 0,
+                                                                  "applied_target": "Both",
+                                                                  "applied_effects": [
+                                                                    {
+                                                                      "casting_type": "Targeting",
+                                                                      "effect": {
+                                                                        "type": "SwitchByBuff",
+                                                                        "buff_name": "league_camille_r_leap",
+                                                                        "effect_buff": {
+                                                                          "type": "Combine",
+                                                                          "effects": []
                                                                         },
-                                                                        {
-                                                                          "type": "Sfx",
-                                                                          "name": "league_camille_e_pull"
-                                                                        },
-                                                                        {
-                                                                          "type": "MoveToTarget",
-                                                                          "speed": 3500,
-                                                                          "range": 100000,
-                                                                          "end_effects": [
+                                                                        "effect_none": {
+                                                                          "type": "Combine",
+                                                                          "effects": [
                                                                             {
-                                                                              "type": "RandomTarget",
-                                                                              "range": 70000,
-                                                                              "casting_target": "EnemyChampion",
-                                                                              "from_projectile": false,
-                                                                              "effects": [
+                                                                              "type": "CasterAnimation",
+                                                                              "name": "skill2_dash",
+                                                                              "tick": 26
+                                                                            },
+                                                                            {
+                                                                              "type": "Sfx",
+                                                                              "name": "league_camille_e_pull"
+                                                                            },
+                                                                            {
+                                                                              "type": "MoveToTarget",
+                                                                              "speed": 3500,
+                                                                              "range": 100000,
+                                                                              "end_effects": [
                                                                                 {
-                                                                                  "type": "CasterAnimation",
-                                                                                  "name": "skill2_dash",
-                                                                                  "tick": 26
-                                                                                },
-                                                                                {
-                                                                                  "type": "Sfx",
-                                                                                  "name": "league_camille_e_pull"
-                                                                                },
-                                                                                {
-                                                                                  "type": "MoveBack",
-                                                                                  "speed": 4500,
-                                                                                  "tick": 8
+                                                                                  "type": "SwitchByBuff",
+                                                                                  "buff_name": "league_camille_r_leap",
+                                                                                  "effect_buff": {
+                                                                                    "type": "Combine",
+                                                                                    "effects": []
+                                                                                  },
+                                                                                  "effect_none": {
+                                                                                    "type": "RandomTarget",
+                                                                                    "range": 70000,
+                                                                                    "casting_target": "EnemyChampion",
+                                                                                    "from_projectile": false,
+                                                                                    "effects": [
+                                                                                      {
+                                                                                        "type": "CasterAnimation",
+                                                                                        "name": "skill2_dash",
+                                                                                        "tick": 26
+                                                                                      },
+                                                                                      {
+                                                                                        "type": "Sfx",
+                                                                                        "name": "league_camille_e_pull"
+                                                                                      },
+                                                                                      {
+                                                                                        "type": "MoveBack",
+                                                                                        "speed": 4500,
+                                                                                        "tick": 8
+                                                                                      }
+                                                                                    ]
+                                                                                  }
                                                                                 }
                                                                               ]
                                                                             }
                                                                           ]
                                                                         }
-                                                                      ]
+                                                                      }
                                                                     }
-                                                                  }
-                                                                ]
-                                                              }
-                                                            ]
-                                                          }
-                                                        ]
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        }
                                                       }
                                                     }
                                                   }
@@ -1141,166 +1165,190 @@
                                                                 "effects": []
                                                               },
                                                               "effect_none": {
-                                                                "type": "Combine",
-                                                                "effects": [
-                                                                  {
-                                                                    "type": "AddCasterBuff",
-                                                                    "buff_state": {
-                                                                      "name": "league_camille_e_got",
-                                                                      "duration": {
-                                                                        "Time": {
-                                                                          "tick": 30
+                                                                "type": "SwitchByBuff",
+                                                                "buff_name": "league_camille_r_leap",
+                                                                "effect_buff": {
+                                                                  "type": "Combine",
+                                                                  "effects": []
+                                                                },
+                                                                "effect_none": {
+                                                                  "type": "Combine",
+                                                                  "effects": [
+                                                                    {
+                                                                      "type": "AddCasterBuff",
+                                                                      "buff_state": {
+                                                                        "name": "league_camille_e_got",
+                                                                        "duration": {
+                                                                          "Time": {
+                                                                            "tick": 30
+                                                                          }
                                                                         }
-                                                                      }
+                                                                      },
+                                                                      "only_to_enemy": false
                                                                     },
-                                                                    "only_to_enemy": false
-                                                                  },
-                                                                  {
-                                                                    "type": "AddCasterBuff",
-                                                                    "buff_state": {
-                                                                      "name": "league_camille_e_cd",
-                                                                      "duration": {
-                                                                        "Time": {
-                                                                          "tick": 720
+                                                                    {
+                                                                      "type": "AddCasterBuff",
+                                                                      "buff_state": {
+                                                                        "name": "league_camille_e_cd",
+                                                                        "duration": {
+                                                                          "Time": {
+                                                                            "tick": 720
+                                                                          }
                                                                         }
-                                                                      }
+                                                                      },
+                                                                      "only_to_enemy": false
                                                                     },
-                                                                    "only_to_enemy": false
-                                                                  },
-                                                                  {
-                                                                    "type": "RemoveCasterBuff",
-                                                                    "name": "league_camille_e_armed"
-                                                                  },
-                                                                  {
-                                                                    "type": "CasterAnimation",
-                                                                    "name": "skill2",
-                                                                    "tick": 24
-                                                                  },
-                                                                  {
-                                                                    "type": "Sfx",
-                                                                    "name": "league_camille_e_cast"
-                                                                  },
-                                                                  {
-                                                                    "type": "Delayed",
-                                                                    "tick": 8,
-                                                                    "effects": [
-                                                                      {
-                                                                        "type": "TargetProjectile",
-                                                                        "name": "league_camille_e_hook",
-                                                                        "speed": 6000,
-                                                                        "y_offset": 0,
-                                                                        "applied_target": "Both",
-                                                                        "applied_effects": [
-                                                                          {
-                                                                            "casting_type": "Targeting",
-                                                                            "effect": {
-                                                                              "type": "Combine",
-                                                                              "effects": [
-                                                                                {
-                                                                                  "type": "CasterAnimation",
-                                                                                  "name": "skill2_dash",
-                                                                                  "tick": 26
+                                                                    {
+                                                                      "type": "RemoveCasterBuff",
+                                                                      "name": "league_camille_e_armed"
+                                                                    },
+                                                                    {
+                                                                      "type": "CasterAnimation",
+                                                                      "name": "skill2",
+                                                                      "tick": 24
+                                                                    },
+                                                                    {
+                                                                      "type": "Sfx",
+                                                                      "name": "league_camille_e_cast"
+                                                                    },
+                                                                    {
+                                                                      "type": "Delayed",
+                                                                      "tick": 8,
+                                                                      "effects": [
+                                                                        {
+                                                                          "type": "TargetProjectile",
+                                                                          "name": "league_camille_e_hook",
+                                                                          "speed": 6000,
+                                                                          "y_offset": 0,
+                                                                          "applied_target": "Both",
+                                                                          "applied_effects": [
+                                                                            {
+                                                                              "casting_type": "Targeting",
+                                                                              "effect": {
+                                                                                "type": "SwitchByBuff",
+                                                                                "buff_name": "league_camille_r_leap",
+                                                                                "effect_buff": {
+                                                                                  "type": "Combine",
+                                                                                  "effects": []
                                                                                 },
-                                                                                {
-                                                                                  "type": "Sfx",
-                                                                                  "name": "league_camille_e_pull"
-                                                                                },
-                                                                                {
-                                                                                  "type": "MoveToTarget",
-                                                                                  "speed": 3500,
-                                                                                  "range": 100000,
-                                                                                  "end_effects": [
+                                                                                "effect_none": {
+                                                                                  "type": "Combine",
+                                                                                  "effects": [
                                                                                     {
-                                                                                      "type": "RandomTarget",
-                                                                                      "range": 40000,
-                                                                                      "casting_target": "EnemyChampion",
-                                                                                      "from_projectile": false,
-                                                                                      "effects": [
+                                                                                      "type": "CasterAnimation",
+                                                                                      "name": "skill2_dash",
+                                                                                      "tick": 26
+                                                                                    },
+                                                                                    {
+                                                                                      "type": "Sfx",
+                                                                                      "name": "league_camille_e_pull"
+                                                                                    },
+                                                                                    {
+                                                                                      "type": "MoveToTarget",
+                                                                                      "speed": 3500,
+                                                                                      "range": 100000,
+                                                                                      "end_effects": [
                                                                                         {
-                                                                                          "type": "CasterAnimation",
-                                                                                          "name": "skill2_dash",
-                                                                                          "tick": 26
-                                                                                        },
-                                                                                        {
-                                                                                          "type": "Sfx",
-                                                                                          "name": "league_camille_e_pull"
-                                                                                        },
-                                                                                        {
-                                                                                          "type": "MoveToTarget",
-                                                                                          "speed": 4500,
-                                                                                          "range": 40000,
-                                                                                          "end_effects": [
-                                                                                            {
-                                                                                              "type": "CasterViewEffect",
-                                                                                              "name": "league_camille_e_land"
-                                                                                            },
-                                                                                            {
-                                                                                              "type": "Sfx",
-                                                                                              "name": "league_camille_e_land"
-                                                                                            },
-                                                                                            {
-                                                                                              "type": "RangeEffect",
-                                                                                              "shape": {
-                                                                                                "Circle": {
-                                                                                                  "radius": 25000
-                                                                                                }
+                                                                                          "type": "SwitchByBuff",
+                                                                                          "buff_name": "league_camille_r_leap",
+                                                                                          "effect_buff": {
+                                                                                            "type": "Combine",
+                                                                                            "effects": []
+                                                                                          },
+                                                                                          "effect_none": {
+                                                                                            "type": "RandomTarget",
+                                                                                            "range": 40000,
+                                                                                            "casting_target": "EnemyChampion",
+                                                                                            "from_projectile": false,
+                                                                                            "effects": [
+                                                                                              {
+                                                                                                "type": "CasterAnimation",
+                                                                                                "name": "skill2_dash",
+                                                                                                "tick": 26
                                                                                               },
-                                                                                              "target": "EnemyWithoutTower",
-                                                                                              "apply_type": "AroundCaster",
-                                                                                              "effects": [
-                                                                                                {
-                                                                                                  "type": "Attack",
-                                                                                                  "damage": 60,
-                                                                                                  "attack_ratio": 70,
-                                                                                                  "hp_ratio": 0,
-                                                                                                  "target_hp_ratio": 0,
-                                                                                                  "attack_effect_type": "Target"
-                                                                                                },
-                                                                                                {
-                                                                                                  "type": "ViewEffect",
-                                                                                                  "name": "league_camille_e_hit"
-                                                                                                }
-                                                                                              ]
-                                                                                            },
-                                                                                            {
-                                                                                              "type": "Stun",
-                                                                                              "duration": 45
-                                                                                            },
-                                                                                            {
-                                                                                              "type": "ViewEffect",
-                                                                                              "name": "league_camille_e_stun"
-                                                                                            },
-                                                                                            {
-                                                                                              "type": "RemoveCasterBuff",
-                                                                                              "name": "league_camille_e_as"
-                                                                                            },
-                                                                                            {
-                                                                                              "type": "AddCasterBuff",
-                                                                                              "buff_state": {
-                                                                                                "name": "league_camille_e_as",
-                                                                                                "duration": {
-                                                                                                  "Time": {
-                                                                                                    "tick": 300
+                                                                                              {
+                                                                                                "type": "Sfx",
+                                                                                                "name": "league_camille_e_pull"
+                                                                                              },
+                                                                                              {
+                                                                                                "type": "MoveToTarget",
+                                                                                                "speed": 4500,
+                                                                                                "range": 40000,
+                                                                                                "end_effects": [
+                                                                                                  {
+                                                                                                    "type": "CasterViewEffect",
+                                                                                                    "name": "league_camille_e_land"
+                                                                                                  },
+                                                                                                  {
+                                                                                                    "type": "Sfx",
+                                                                                                    "name": "league_camille_e_land"
+                                                                                                  },
+                                                                                                  {
+                                                                                                    "type": "RangeEffect",
+                                                                                                    "shape": {
+                                                                                                      "Circle": {
+                                                                                                        "radius": 25000
+                                                                                                      }
+                                                                                                    },
+                                                                                                    "target": "EnemyWithoutTower",
+                                                                                                    "apply_type": "AroundCaster",
+                                                                                                    "effects": [
+                                                                                                      {
+                                                                                                        "type": "Attack",
+                                                                                                        "damage": 60,
+                                                                                                        "attack_ratio": 70,
+                                                                                                        "hp_ratio": 0,
+                                                                                                        "target_hp_ratio": 0,
+                                                                                                        "attack_effect_type": "Target"
+                                                                                                      },
+                                                                                                      {
+                                                                                                        "type": "ViewEffect",
+                                                                                                        "name": "league_camille_e_hit"
+                                                                                                      }
+                                                                                                    ]
+                                                                                                  },
+                                                                                                  {
+                                                                                                    "type": "Stun",
+                                                                                                    "duration": 45
+                                                                                                  },
+                                                                                                  {
+                                                                                                    "type": "ViewEffect",
+                                                                                                    "name": "league_camille_e_stun"
+                                                                                                  },
+                                                                                                  {
+                                                                                                    "type": "RemoveCasterBuff",
+                                                                                                    "name": "league_camille_e_as"
+                                                                                                  },
+                                                                                                  {
+                                                                                                    "type": "AddCasterBuff",
+                                                                                                    "buff_state": {
+                                                                                                      "name": "league_camille_e_as",
+                                                                                                      "duration": {
+                                                                                                        "Time": {
+                                                                                                          "tick": 300
+                                                                                                        }
+                                                                                                      },
+                                                                                                      "attack_speed_mult": 50
+                                                                                                    },
+                                                                                                    "only_to_enemy": false
                                                                                                   }
-                                                                                                },
-                                                                                                "attack_speed_mult": 50
-                                                                                              },
-                                                                                              "only_to_enemy": false
-                                                                                            }
-                                                                                          ]
+                                                                                                ]
+                                                                                              }
+                                                                                            ]
+                                                                                          }
                                                                                         }
                                                                                       ]
                                                                                     }
                                                                                   ]
                                                                                 }
-                                                                              ]
+                                                                              }
                                                                             }
-                                                                          }
-                                                                        ]
-                                                                      }
-                                                                    ]
-                                                                  }
-                                                                ]
+                                                                          ]
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  ]
+                                                                }
                                                               }
                                                             },
                                                             "effect_none": {
@@ -1406,6 +1454,22 @@
           "name": "league_camille_r_cast"
         },
         {
+          "type": "RemoveCasterBuff",
+          "name": "league_camille_r_leap"
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_camille_r_leap",
+            "duration": {
+              "Time": {
+                "tick": 60
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
           "type": "AddCasterBuff",
           "buff_state": {
             "name": "league_camille_r_air",
@@ -1430,6 +1494,10 @@
               "end_effects": [
                 {
                   "type": "RemoveCasterBuff",
+                  "name": "league_camille_r_leap"
+                },
+                {
+                  "type": "RemoveCasterBuff",
                   "name": "league_camille_r_on"
                 },
                 {
@@ -1439,6 +1507,10 @@
                 {
                   "type": "RemoveCasterBuff",
                   "name": "league_camille_r_tin"
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_camille_r_zap"
                 },
                 {
                   "type": "AddCasterBuff",
@@ -1499,36 +1571,29 @@
                       "type": "RangePeriodProjectile",
                       "name": "league_camille_r_field",
                       "shape": {
-                        "Circle": {
-                          "radius": 36000
+                        "Rect": {
+                          "width": 29000,
+                          "height": 0
                         }
                       },
                       "tick": 180,
-                      "period": 6,
+                      "period": 1,
                       "first_delay": 0,
-                      "applied_target": "AllyChampion",
+                      "applied_target": "AllyOnlySelf",
                       "applied_effects": [
                         {
                           "casting_type": "Targeting",
                           "effect": {
-                            "type": "RandomTarget",
-                            "range": 36000,
-                            "casting_target": "AllyOnlySelf",
-                            "from_projectile": true,
-                            "effects": [
-                              {
-                                "type": "AddCasterBuff",
-                                "buff_state": {
-                                  "name": "league_camille_r_cin",
-                                  "duration": {
-                                    "Time": {
-                                      "tick": 8
-                                    }
-                                  }
-                                },
-                                "only_to_enemy": false
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_camille_r_cin",
+                              "duration": {
+                                "Time": {
+                                  "tick": 2
+                                }
                               }
-                            ]
+                            },
+                            "only_to_enemy": false
                           }
                         }
                       ],
@@ -1538,12 +1603,13 @@
                       "type": "RangePeriodProjectile",
                       "name": "league_camille_r_field_t",
                       "shape": {
-                        "Circle": {
-                          "radius": 36000
+                        "Rect": {
+                          "width": 29000,
+                          "height": 0
                         }
                       },
                       "tick": 180,
-                      "period": 6,
+                      "period": 1,
                       "first_delay": 0,
                       "applied_target": "EnemyChampion",
                       "applied_effects": [
@@ -1555,11 +1621,43 @@
                               "name": "league_camille_r_tin",
                               "duration": {
                                 "Time": {
-                                  "tick": 8
+                                  "tick": 2
                                 }
                               }
                             },
                             "only_to_enemy": false
+                          }
+                        }
+                      ],
+                      "end_effects": []
+                    },
+                    {
+                      "type": "RangePeriodProjectile",
+                      "name": "league_camille_r_field_c",
+                      "shape": {
+                        "Circle": {
+                          "radius": 150000
+                        }
+                      },
+                      "tick": 180,
+                      "period": 1,
+                      "first_delay": 0,
+                      "applied_target": "AllyOnlySelf",
+                      "applied_effects": [
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_camille_r_cin",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": []
+                            },
+                            "effect_none": {
+                              "type": "Pull",
+                              "speed": 3000,
+                              "tick": 1
+                            }
                           }
                         }
                       ],
@@ -1619,7 +1717,7 @@
                       "type": "AddCasted",
                       "casted_type": "Bleed",
                       "duration": 180,
-                      "period": 6,
+                      "period": 1,
                       "effects": [
                         {
                           "type": "TargetProjectile",
@@ -1654,55 +1752,128 @@
                                     ]
                                   },
                                   {
+                                    "type": "RandomTarget",
+                                    "range": 47000,
+                                    "casting_target": "AllyOnlySelf",
+                                    "from_projectile": true,
+                                    "effects": [
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_camille_r_near",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 1
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      }
+                                    ]
+                                  },
+                                  {
                                     "type": "SwitchByBuff",
                                     "buff_name": "league_camille_r_live",
                                     "effect_buff": {
                                       "type": "SwitchByBuff",
                                       "buff_name": "league_camille_r_on",
                                       "effect_buff": {
-                                        "type": "Combine",
-                                        "effects": [
-                                          {
-                                            "type": "SwitchByBuff",
-                                            "buff_name": "league_camille_r_cin",
-                                            "effect_buff": {
-                                              "type": "Combine",
-                                              "effects": []
-                                            },
-                                            "effect_none": {
-                                              "type": "MoveToTarget",
-                                              "speed": 3000,
-                                              "range": 15000,
-                                              "end_effects": []
-                                            }
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_camille_r_tin",
+                                        "effect_buff": {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_camille_r_near",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": []
                                           },
-                                          {
-                                            "type": "SwitchByBuff",
-                                            "buff_name": "league_camille_r_tin",
-                                            "effect_buff": {
-                                              "type": "Combine",
-                                              "effects": []
-                                            },
-                                            "effect_none": {
-                                              "type": "Combine",
-                                              "effects": [
-                                                {
-                                                  "type": "Grab",
-                                                  "speed": 2500,
-                                                  "tick": 4
+                                          "effect_none": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "Grab",
+                                                "speed": 2000,
+                                                "tick": 1
+                                              },
+                                              {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_camille_r_zap",
+                                                "effect_buff": {
+                                                  "type": "Combine",
+                                                  "effects": []
                                                 },
-                                                {
-                                                  "type": "ViewEffect",
-                                                  "name": "league_camille_r_wall"
-                                                },
-                                                {
-                                                  "type": "TargetSfx",
-                                                  "name": "league_camille_r_wall"
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_camille_r_zap",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 30
+                                                          }
+                                                        }
+                                                      },
+                                                      "only_to_enemy": false
+                                                    },
+                                                    {
+                                                      "type": "ViewEffect",
+                                                      "name": "league_camille_r_wall"
+                                                    },
+                                                    {
+                                                      "type": "TargetSfx",
+                                                      "name": "league_camille_r_wall"
+                                                    }
+                                                  ]
                                                 }
-                                              ]
-                                            }
+                                              }
+                                            ]
                                           }
-                                        ]
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "Grab",
+                                              "speed": 2000,
+                                              "tick": 1
+                                            },
+                                            {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_camille_r_zap",
+                                              "effect_buff": {
+                                                "type": "Combine",
+                                                "effects": []
+                                              },
+                                              "effect_none": {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_camille_r_zap",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 30
+                                                        }
+                                                      }
+                                                    },
+                                                    "only_to_enemy": false
+                                                  },
+                                                  {
+                                                    "type": "ViewEffect",
+                                                    "name": "league_camille_r_wall"
+                                                  },
+                                                  {
+                                                    "type": "TargetSfx",
+                                                    "name": "league_camille_r_wall"
+                                                  }
+                                                ]
+                                              }
+                                            }
+                                          ]
+                                        }
                                       },
                                       "effect_none": {
                                         "type": "Combine",
@@ -1713,6 +1884,10 @@
                                       "type": "Combine",
                                       "effects": []
                                     }
+                                  },
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_camille_r_near"
                                   },
                                   {
                                     "type": "RemoveCasterBuff",

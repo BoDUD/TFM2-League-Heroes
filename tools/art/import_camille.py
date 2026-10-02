@@ -46,6 +46,7 @@ Z = 8
 HIT = (0, -8)                          # a hit on the upper body of a 35-40 px hero
 OVERHEAD = (0, -31)                    # over a 35-40 px hero's crown (the stun)
 GROUND = (0, 10)                       # the middle of a ring round a unit's feet (the soles 11 px under its pivot)
+FLOOR = (0, 5)                         # R's arena: its floor (back wall to front wall) centred on the zones' centre
 BODY = (0, -12)                        # the middle of her 46 rows (crown 34 over the pivot, blade tips 11 under it)
 LINE = (-30, 0)                        # the sweep's point: half of the line's 60000 behind its middle
 TURNED = {"r_field"}                   # pictures of zones the engine draws turned half round (direction (-1, 0))
@@ -288,8 +289,9 @@ FX = {
         "e_land": [("e_land", range(7), GROUND, [50] * 7)],
         # R's field: its zone's own picture for the zone's 180 ticks - the arena forming (500 ms), then standing
         # (five 500-ms loops) - turned half round, as the zone's direction is (-1, 0) and the engine turns it back
-        "r_field": [("r_land", range(8), GROUND, [60] * 6 + [70, 70])] +
-                   [("r_zone", range(6), GROUND, [83, 83, 84, 83, 83, 84])] * 5,
+        # its floor drawn 5 px over the soles' row, so the floor's middle is on the landing point: the zones' centre
+        "r_field": [("r_land", range(8), FLOOR, [60] * 6 + [70, 70])] +
+                   [("r_zone", range(6), FLOOR, [83, 83, 84, 83, 83, 84])] * 5,
     },
 }
 

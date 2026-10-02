@@ -37,7 +37,7 @@ FX = os.path.join(LEAGUE, "effects", "league_camille_fx")
 BIG = os.path.join(LEAGUE, "effects", "league_camille_big")
 KICK = 64                                             # the attack's cooldown, ticks
 KICK_E = 50                                           # with Hookshot's 30% attack speed
-FIELD_R = 36                                          # R's field: 36000 round the point she landed on
+FIELD_R = 30                                          # R's field: its floor reaches 30 px left and right of where she landed
 # a red caster minion facing left - a prop for the showcase only (the base game's minion art is not ours to show)
 MINION = ["...ooooo...",
           "..olllllo..",
