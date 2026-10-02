@@ -514,25 +514,15 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   legs that way on Codex's feet and knees, both legs alike, the leg in front the one whose outline cuts the other.
   league_taric went the other way: with both legs alike his crossing did not read, so his far leg is a step darker
   in his own armour's colours (`MODEL_RUN_LEGS2.md`) - a darker far leg, never another material.
-  league_kaisa went further: legs drawn square by square in the idle's materials (4 squares wide with lit and shaded
-  edges, 4-5 square lavender boots) still read as other legs next to her skill frames, which stand on the idle's own
-  legs ("移动时和放技能的时候腿部还是不一样啊 你看不出吗？"): the idle's boots are 3 squares over a dark sole row, its far
-  leg 2-3 wide. Row-shifting the idle's legs instead (each row moved toward the foot, the shin's last rows dropped to
-  lift it) put the boot straight under the knee: "上腿下下腿和截肢了一样"; the idle's leg texture mapped onto two bones
-  scattered its gold and brown detail squares into specks ("还是不对 你好好修吧"); hips under the idle's two hip
-  plates hung a leg off her side with the body's middle empty ("移动时腿看起来还是脱节的", "我说的是这里"), and the idle's two legs,
-  thin and thick in its A-stance, read as mismatched in motion ("左腿细右腿粗？"). What worked is
-  tools/art/diana_run_legs.py's way (the user: "之前皎月有这问题"): both hips under the middle of her body, 4 squares
-  apart and hidden by the upper body, both
-  legs alike, capsules in the idle's leg materials (shaded back, lit front, one gold knee square, the boot with a
-  darker sole) on the idle's soles row, one supporting leg per half stepping back a square a frame, the swinging leg
-  on League's angles with both halves averaged (`fix_kaisa_strips.py` `RUN_HIPS`, `SUPPORT_DX`, `RUN_SWING`). Mind
-  the square-centre convention: a capsule round the ankle at row 10.0 under the pivot fills rows 9-10 - an ankle at
-  8.5 put Kai'Sa's boots two rows above her idle's ground. With League's deep knee bend a thigh hidden under hip
-  plates hardly moves while the shin folds back level ("走路不应该大腿小腿一起动吗？"): swing the thigh 1.4 times
-  League's, bend the knee half as much, let the standing foot sweep from 3 squares ahead of the hip to 3 behind (legs
-  a little longer than hip to ground), and give a lifted foot League's angle (toe back and down), never square to the
-  shin (a level shin then hangs a peg: "你觉得对吗").
+  league_kaisa took thirteen tries; what was finally accepted ("这版走路可以了"): find where the legs really start.
+  Her two magenta-and-gold pieces under the belt are THIGH armour, not hip plates; every run that froze the idle down
+  to them moved only the legs below the knee ("脱节", "大腿小腿一起动", a leg hanging off the side, "像木板整条滑").
+  Cut at the belt; each thigh is the idle's own thigh piece, sheared so the knee swings under her middle; both lower
+  legs are the idle's straighter one (equally thick); a heel kick lifts the boot behind the knee guard. Take the gait
+  from League's run rendered through the game's camera at game size (tools/lol/native_pose.py, one render per leg joint
+  with "anchor": {"joints": [j]}): in that camera the legs stay under the body and lift, they do not splay fore and aft
+  as side-view angles suggest. Never freehand the legs' pixels (drawn shins and boots read as other legs), and if the
+  idle's two legs differ in thickness, even them in the idle itself so every action inherits it ("待机时候腿一粗一细").
 - **A picture round the hero goes under her, not round a hole (league_vayne).** Asked to "leave a figure-shaped empty
   space", Codex also cleared a rectangle in the middle of every Final Hour cell of its export (x 22.5-77.5%, y
   17-89%): the flare's rays, the refresh's ring and most of the aura's motes went. Its raw sheets still had them; drawn
