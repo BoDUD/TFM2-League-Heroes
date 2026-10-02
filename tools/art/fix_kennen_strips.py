@@ -18,9 +18,10 @@ Its checks passed (blocks, palette, alpha, feet line, the head square for square
 3. R's leap (frames 2-3) had stick legs under a dark column and the shuriken balanced on the hood: the design leaps
    (3 and 4 rows up, the shoes tucked a row), the shuriken staying on his back.
 4. The attack's frames 2-3 held the shuriken with no arm (it floated beside and over the hood): frame 2 is frame 1 again
-   (the hand reaching back to the shuriken still on his back - an arm drawn there would be hidden by the hood), frame 3
-   gets an arm from the near shoulder up behind the hood to a plum glove gripping the star (a sleeve 2 squares wide in
-   the robe's violets inside the outline, only where the frame is clear: the arm goes behind the head).
+   (the hand reaching back to the shuriken still on his back - an arm drawn there would be hidden by the hood). Frame
+   3 is Codex's: the star raised on top of the hood, its lower point on the hood, the hand hidden behind it - as
+   League's frame 3. (An arm drawn from the near shoulder up to it was 17 squares long, a thin stick: the user, "中间有
+   一帧手臂突然伸的很长 有点诡异".)
 5. One-square strays: the brown tips over Q's shuriken (frames 1-2), the gold strand and the violet blob over the hood
    in W's crouch (frames 3-4), two gold squares beside the attack's frame 1.
 6. The death's frames 3-8 turned the pasted head a quarter but drew the body under it in the gloves' darkest plum, so
@@ -53,8 +54,7 @@ PIVOT = (64, 88)                # the design's standing point on its 128x128 can
 UPPER = (63, 95)                # the design's rows above the shoes: the shuriken's tip to the robe's hem
 NEAR_SHOE = (96, 99, 54, 60)    # rows, columns of the design's shoes
 FAR_SHOE = (96, 99, 65, 73)
-C = {"#": (0x0B, 0x06, 0x0E), "b": (0x5E, 0x23, 0x86), "d": (0x8A, 0x36, 0xB8), "v": (0x3A, 0x14, 0x52),
-     "p": (0x45, 0x23, 0x48), "P": (0x25, 0x13, 0x24), "q": (0x6E, 0x3E, 0x75), "Y": (0xFE, 0xDC, 0x80)}
+C = {"#": (0x0B, 0x06, 0x0E)}    # the design's outline
 
 # the run: a two-step cycle (8 x 100 ms) - body rows down (up a row while a foot swings through), the shoes' middles
 # in columns from the pivot (the near one ahead of the far one in frames 1-2 and 8, behind it in frames 4-6) and their
@@ -74,8 +74,6 @@ DASH_NEAR_LIFT = [0, 1, 0, 0]
 DASH_FAR_LIFT = [0, 0, 0, 1]
 # R's leap, frames 2 and 3 (0-based 1, 2): rows up, the shoes a row more
 LEAP = {1: 3, 2: 4}
-# arms for the attack's frames 2-3 (0-based 1, 2): shoulder and hand (cell x, y)
-ARMS = {("attack", 2): ((35, 41), (36, 24))}
 COPY = {("attack", 1): 0}       # (tag, frame) -> the frame whose pixels it takes
 # strays: (tag, 0-based frame) -> cell (y, x) squares cleared
 STRAYS = {("skill", 0): [(21, 38)],
@@ -255,34 +253,6 @@ def dead_frames(frs, piv, des, cw, ch):
     return frs
 
 
-def arm(f, a, b):
-    """A sleeve from a (shoulder) to b (hand), 2 squares wide, violet with a light edge, outlined, only on clear
-    squares; then a 2x2 plum glove at b over everything."""
-    (x0, y0), (x1, y1) = a, b
-    n = max(abs(x1 - x0), abs(y1 - y0)) * 3 + 1
-    body = set()
-    for k in range(n):
-        t = k / (n - 1)
-        x, y = x0 + (x1 - x0) * t, y0 + (y1 - y0) * t
-        for dx in (0, 1):
-            body.add((int(round(y)), int(round(x - 0.5)) + dx))
-    ring = {(y + dy, x + dx) for y, x in body for dy in (-1, 0, 1) for dx in (-1, 0, 1)} - body
-    for y, x in ring:
-        if 0 <= y < f.shape[0] and 0 <= x < f.shape[1] and not f[y, x, 3]:
-            f[y, x, :3], f[y, x, 3] = C["#"], 255
-    for y, x in body:
-        if 0 <= y < f.shape[0] and 0 <= x < f.shape[1] and not f[y, x, 3]:
-            left = (y, x - 1) not in body
-            f[y, x, :3], f[y, x, 3] = (C["d"] if left else C["b"]), 255
-    glove = {(y1, x1): "p", (y1, x1 + 1): "q", (y1 + 1, x1): "P", (y1 + 1, x1 + 1): "p"}
-    for (y, x), c in glove.items():
-        f[y, x, :3], f[y, x, 3] = C[c], 255
-    for y, x in {(y + dy, x + dx) for (y, x) in glove for dy in (-1, 0, 1) for dx in (-1, 0, 1)} - set(glove):
-        if 0 <= y < f.shape[0] and 0 <= x < f.shape[1] and not f[y, x, 3]:
-            f[y, x, :3], f[y, x, 3] = C["#"], 255
-    return f
-
-
 def build():
     cells = json.load(open(lp(os.path.join(SRC, "kennen_cells.json")), encoding="utf-8"))
     cw, ch = cells["cell"]
@@ -306,8 +276,6 @@ def build():
                 frs[k] = frs[COPY[(tag, k)]].copy()
             for y, x in STRAYS.get((tag, k), []):
                 frs[k][y, x] = 0
-            if (tag, k) in ARMS:
-                frs[k] = arm(frs[k], *ARMS[(tag, k)])
         out[tag] = join(frs, cw, ch)
     return out, cells
 
