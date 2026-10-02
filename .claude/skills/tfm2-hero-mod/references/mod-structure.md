@@ -106,9 +106,29 @@ unit, so trimmed frames must stay symmetric around the pivot (base frames all ha
 this reason). The engine binary also knows `frame_offsets` and `overlay_anchor` keys, but no
 shipped file uses them - format unverified. Prefer shipping `.aseprite` directly (oppi does).
 
+## Loading cost
+
+Read from the 0.6.2 exe (strings + disassembly) and measured on 2026-10-02 (league repo `docs/perf.md`):
+
+- At start-up the loader reads **every file of every enabled mod into memory**, except `.wav`/`.mp3` under
+  `/sound/bgm/` (those stream). A clip is decoded each time it plays, on the audio thread (rodio 0.21 +
+  symphonia 0.5.4); its bytes are copied into a cache on the first play. So clip size is start-up disk
+  reading and resident memory, not CPU.
+- Only `.mp3` and `.wav` play; anything else gets `Unsupported audio file "{Path}". Only .mp3 and .wav are
+  supported.` The base game's 498 sfx are all MP3 (mostly 192 kbps stereo with a LAME tag).
+- `log.log` (`%APPDATA%\TeamSamoyed\TeamfightManager2\data\`) always records `state init done..` and
+  `asset loading done!`, even with `"log": false`: their difference is the asset loading time.
+- On a hard disk every small file costs ~8-10 ms of seeking when cold: the 78 MB / 1560-file league pack took
+  16 s to read with the file cache bypassed (2026-10-02, 5900 rpm drive). Ship MP3 clips, minified JSON and
+  sheets without empty space; fewer files help too.
+- The league repo builds that copy with `tools/package_mod.py` (WAV -> VBR MP3 V0, identical frames merged and
+  sheets packed tightly with frame sizes/pixels unchanged, whitespace-free JSON, each output checked against
+  its source). Its `--install` merges one hero or all of them into `<game>/mods/league`.
+
 ## Local test loop
 
-1. Copy (or junction) the mod folder into `<game>/mods/<mod_id>/`.
+1. Install the mod into `<game>/mods/<mod_id>/` (league: `python tools/package_mod.py --hero <id> --install`;
+   other mods: copy or junction the folder).
 2. Run `python scripts/lint_mod.py <game>/mods/<mod_id>` until there are no errors.
 3. Start the game, enable the mod in the Mods menu (writes `config/game/mods.json`), start a
    custom match with the hero, and check: every action animates, projectiles/effects are

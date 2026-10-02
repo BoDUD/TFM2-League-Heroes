@@ -154,7 +154,10 @@ def shown_length(s):
     s = re.sub(r"<i#[^>]*>", "*", s)
     return len(re.sub(r"<[^>]*>", "", s))
 ACTIONS = ("attack", "skill", "skill2", "ult")
-AUDIO_EXT = (".mp3", ".wav", ".ogg")
+AUDIO_EXT = (".mp3", ".wav")  # the game warns "Only .mp3 and .wav are supported" for anything else (.ogg)
+CRAWL_SPEED = 1000            # a TargetProjectile slower than this can trail its target for minutes
+CRAWL_TICKS = 600             # a LinearProjectile alive longer than this (range / speed) is a lingering entity
+BIG_ACTION_NODES = 300        # skill / skill2 effect nodes above this cost CPU every tick of a shown match
 
 
 class Report:
@@ -397,6 +400,14 @@ def walk_effects(node, out):
                     out["no_ratio"].add(t)
             if t == "RangeProjectile" and isinstance(node.get("delay"), int) and isinstance(node.get("apply"), int)                     and node["apply"] > node["delay"]:
                 out["never"].add((node.get("name"), node["delay"], node["apply"]))
+            speed = node.get("speed")
+            if isinstance(speed, (int, float)) and speed > 0:
+                if t in ("TargetProjectile", "TargetSplashProjectile") and speed < CRAWL_SPEED:
+                    out["crawl"].add((t, node.get("name"), f"speed {speed}"))
+                elif t in ("LinearProjectile", "BackToCasterLinearProjectile") and isinstance(node.get("range"), (int, float)):
+                    life = node["range"] / speed * (2 if t.startswith("BackToCaster") else 1)
+                    if life > CRAWL_TICKS:
+                        out["crawl"].add((t, node.get("name"), f"{life:.0f} ticks alive"))
             if t == "AddCasted" and node.get("casted_type") not in CASTED_TYPES:
                 out["bad_enum"].append((t, "casted_type", node.get("casted_type")))
             shape = node.get("shape")
@@ -524,6 +535,12 @@ def main(argv=None):
     # ---------------------------------------------------------------- sounds
     sfx_dir = os.path.join(root, "sound", "sfx")
     mod_sfx = {}
+    for p in sorted(glob.glob(os.path.join(glob.escape(root), "**", "*.ogg"), recursive=True)):
+        rep.error(mod.rel(p), "the game only plays .mp3 and .wav (it warns 'Unsupported audio file' for .ogg)")
+    for p in sorted(glob.glob(os.path.join(glob.escape(sfx_dir), "*.wav"))):
+        if os.path.isfile(p[:-4] + ".mp3"):
+            rep.warn(mod.rel(p), "the clip is here as .wav and .mp3: both load under one name and one replaces the "
+                                 "other - keep one (tools/package_mod.py installs .mp3 and removes the .wav)")
     for p in glob.glob(os.path.join(glob.escape(sfx_dir), "*.sound_info")):
         name = os.path.splitext(os.path.basename(p))[0]
         mod_sfx[name] = p
@@ -631,7 +648,7 @@ def main(argv=None):
         # actions + effects
         found = dict(types=[], projectiles=set(), view_effects=set(), anims=set(), sfx=set(), switch_buffs=set(),
                      removed_buffs=set(), buffs=set(), bad_enum=[], no_duration=set(), ignored=[], no_ratio=set(),
-                     never=set(), dead_buff=set())
+                     never=set(), dead_buff=set(), crawl=set())
         for slot in ACTIONS:
             a = d.get(slot)
             if not isinstance(a, dict):
@@ -672,7 +689,13 @@ def main(argv=None):
                         rep.error(WA, f"text key description.{m.group(1)}.{m.group(2)} missing in 'en'")
                     elif miss:
                         rep.info(WA, f"text key missing in {len(miss)} language(s): {', '.join(miss)}")
+            n_before = len(found["types"])
             walk_effects(a.get("effect"), found)
+            nodes = len(found["types"]) - n_before
+            if slot in ("skill", "skill2") and nodes > BIG_ACTION_NODES:
+                rep.info(WA, f"{nodes} effect nodes: while a match is on screen the game copies the whole skill and "
+                             f"skill2 tree once a tick for this champion (docs/perf.md) - repeated frame-by-frame "
+                             f"ViewEffect chains and copied SwitchByBuff branches cost CPU in every match")
             if a.get("casting_type") == "None" and untargeted_moves(a.get("effect")):
                 rep.warn(WA, "MoveToTarget in a casting_type None action has no target and will not move - "
                              "cast as Targeting or wrap it in RandomTarget")
@@ -703,6 +726,10 @@ def main(argv=None):
                         f"appears but is gone after delay - 1, so it never hits")
         for nm, k in sorted(found["dead_buff"]):
             rep.warn(W, f"buff '{nm}': '{k}' is not a buff field - the game has no such name and ignores it")
+        for t, nm, how in sorted(found["crawl"], key=str):
+            rep.warn(W, f"{t} '{nm}' ({how}) can stay in the match for minutes; once its caster is dead the game "
+                        f"copies the whole dead champion every tick for it (league_fiora's W guard tripled the "
+                        f"match's CPU) - give it a range that ends it: LinearProjectile with range = speed x ticks")
         for nm in sorted(found["no_duration"]):
             rep.info(W, f"buff '{nm}' has no duration (shipped packs do this; set Permanent or Time explicitly)")
         if isinstance(tags, list):
