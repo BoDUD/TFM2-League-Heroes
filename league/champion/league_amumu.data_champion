@@ -515,7 +515,7 @@
     "cooltime": 360,
     "start_timing": 16,
     "cancelable": false,
-    "range": 62000,
+    "range": 75000,
     "casting_type": "Direction",
     "casting_target": "EnemyChampion",
     "attack_type": "Skill",
@@ -547,10 +547,10 @@
           "type": "LinearProjectile",
           "name": "league_amumu_q_bandage",
           "speed": 6500,
-          "range": 70000,
+          "range": 85000,
           "shape": {
             "Circle": {
-              "radius": 7000
+              "radius": 12000
             }
           },
           "penetrate": false,
@@ -595,7 +595,7 @@
                   {
                     "type": "MoveToTarget",
                     "speed": 4000,
-                    "range": 90000,
+                    "range": 110000,
                     "end_effects": [
                       {
                         "type": "SwitchByBuff",

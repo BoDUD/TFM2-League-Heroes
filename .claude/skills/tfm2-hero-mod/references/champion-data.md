@@ -1042,7 +1042,10 @@ applied_target: EnemyChampion}` passes minions and monsters (the AI cannot aim a
 `CasterAnimation` for the flight (league_leesin Q2's way). A miss moves nothing. Players never saw it stun ("从来没有
 触发过眩晕"; 2026-10-02) while the simulation held 38% of the throws and kept the champion still for 60 ticks, so
 the parts no hero proven in the game uses were changed: the dash had sat straight in the `applied_effects`, and
-the bandage was the pack's thinnest and slowest (radius 5000, 5000 a tick; now 7000 and 6500: 60% held).
+the bandage was the pack's thinnest and slowest (radius 5000, 5000 a tick; then 7000 and 6500: 60% held). Played,
+it still missed too often ("的确有点难Q中人", "长度也远一点"): radius 12000, cast range 75000 (was 62000), the
+bandage 85000 long (was 70000), the dash 110000 - 73% held in 18 simulated games (56% before; 67% at 10000), and
+against base junglers the kill difference went from -0.52 to +0.01 (720 games).
 
 **Third cast is different (league_yasuo Q3).** Two hidden caster buffs count the hits: the first
 hit of a cast adds `q_stack`, the next cast's hit swaps it for `q_ready` (both 6 s, one per cast with

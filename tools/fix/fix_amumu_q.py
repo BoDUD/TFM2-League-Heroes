@@ -1,4 +1,4 @@
-"""Amumu Q (Bandage Toss): a wider, faster bandage; the dash after the stun, Lee Sin's way.
+"""Amumu Q (Bandage Toss): a wider, faster, longer bandage; the dash after the stun, Lee Sin's way.
 
 The user: "阿木木的Q技能，不知道为什么从来没有触发过眩晕，也不清楚有没有伤害 ... 贴脸q也没有触发过，只见过他靠大招控人".
 In the SDK simulation the bandage held 4-6 of 8-15 throws a game and the champion it held stood still for 60 ticks; R's
@@ -8,14 +8,21 @@ the two parts no other hero in the game relies on are made like the ones that wo
   width): the thinnest, slowest skillshot of the pack gets through less;
 - the hit: damage, the stun, the wrap and its sound land at once; the dash and the pull pose start from a
   Delayed {tick: 2} in the same hit, as league_leesin Q2 does from Q1's hit (seen working in the game).
+Then the user played it: "阿木木的确有点难Q中人 可以加宽一点绷带的宽度" and "长度也远一点". Radius 7000 -> 12000, cast range
+62000 -> 75000 with the bandage flying 85000 (was 70000) and the dash reaching 110000 (was 90000): in 18 simulated
+games 56% of the throws held a champion, now 73% (10000 and the same range: 67%); in the jungle against base
+junglers (720 games) the kill difference went from -0.52 to +0.01 (+0.11 at 10000).
 
     python tools/fix/fix_amumu_q.py <league_amumu.data_champion>
+
+Runs on the kit before the first fix or after it.
 """
 import json
 import os
 import sys
 
-RADIUS, SPEED, DASH_DELAY = 7000, 6500, 2
+RADIUS, SPEED, DASH_DELAY = 12000, 6500, 2
+CAST_RANGE, LENGTH, DASH_RANGE = 75000, 85000, 110000
 
 
 def main(path):
@@ -27,18 +34,23 @@ def main(path):
                    if e.get("type") == "LinearProjectile" and e.get("name") == "league_amumu_q_bandage")
     applied = bandage["applied_effects"]
     kinds = [a["effect"]["type"] for a in applied]
-    assert kinds == ["ApAttack", "Stun", "ViewEffect", "TargetSfx", "MoveToTarget", "CasterAnimation"], kinds
-    now = applied[:4]
-    later = [a["effect"] for a in applied[4:]]
+    if kinds == ["ApAttack", "Stun", "ViewEffect", "TargetSfx", "MoveToTarget", "CasterAnimation"]:
+        later = [a["effect"] for a in applied[4:]]
+        applied[4:] = [{"casting_type": "Targeting", "effect": {"type": "Delayed", "tick": DASH_DELAY, "effects": later}}]
+    assert [a["effect"]["type"] for a in applied] == ["ApAttack", "Stun", "ViewEffect", "TargetSfx", "Delayed"], kinds
+    move = applied[4]["effect"]["effects"][0]
+    assert move["type"] == "MoveToTarget"
+    move["range"] = DASH_RANGE
     bandage["shape"] = {"Circle": {"radius": RADIUS}}
     bandage["speed"] = SPEED
-    bandage["applied_effects"] = now + [{"casting_type": "Targeting",
-                                         "effect": {"type": "Delayed", "tick": DASH_DELAY, "effects": later}}]
+    bandage["range"] = LENGTH
+    k["skill"]["range"] = CAST_RANGE
     out = json.dumps(k, ensure_ascii=False, indent=2) + "\n"
     if nl == "\r\n":
         out = out.replace("\n", "\r\n")
     open(lp, "wb").write(out.encode("utf-8"))
-    print(f"{path}: bandage radius {RADIUS}, speed {SPEED}; dash and pose {DASH_DELAY} ticks after the stun")
+    print(f"{path}: bandage radius {RADIUS}, speed {SPEED}, {LENGTH} long (cast at {CAST_RANGE}); "
+          f"dash ({DASH_RANGE}) and pose {DASH_DELAY} ticks after the stun")
 
 
 if __name__ == "__main__":
