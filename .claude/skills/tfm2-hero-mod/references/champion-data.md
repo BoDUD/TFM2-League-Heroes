@@ -525,8 +525,10 @@ them (also straight in a projectile's effects, not only from a `Delayed`), and t
 Projectiles started from another projectile's `end_effects` still spawn and hit; a `Delayed` queued after the
 death still runs its effects, but a projectile it starts does not spawn (a dead caster fires no projectile).
 league_jinx E's links went on after her death and, with the lock never added, bit the champion they had rooted
-at every link (8 and 18 times in two of 24 games; players: "夹子反复触发"); now each check starts from a
-`Delayed {tick: 1}` and a dead Jinx's trap bites no one (0 in 51 games). A flag the trap puts on her while she
+at every link (8 and 18 times in two of 24 games; players: "夹子反复触发"); each check then started from a
+`Delayed {tick: 1}` and a dead Jinx's trap bit no one in the simulation (0 in 51 games) - but players saw it again
+on that version, so the game may spawn what the SDK does not: the trap is now `Delayed` effects of the cast itself,
+which stop when she dies (section 7, "A trap that waits and snaps once"). A flag the trap puts on her while she
 lives and reads later cannot do it: any flag on when she dies stays on, and gates that are off when the AI decides
 cost casts (section 3: the AI scores the branch the caster's buffs pick). A search can: `RandomTarget {range: 1,
 casting_target: AllyOnlySelf}` finds no dead caster, so a zone's applied effects can ask "does she live" (a 1-tick flag
@@ -1036,8 +1038,14 @@ it leaves. The ult's longer curse adds a caster "window" buff that the pulses ch
 
 **Pull yourself to the first champion hit (league_amumu Q).** `LinearProjectile {penetrate: false,
 applied_target: EnemyChampion}` passes minions and monsters (the AI cannot aim around them); its
-`applied_effects` hold the damage, `Stun`, `MoveToTarget` (the Lee Sin Q2 dash, without the delay)
-and `CasterAnimation` for the flight. A miss moves nothing.
+`applied_effects` hold the damage and the `Stun`, then a `Delayed {tick: 2}` with `MoveToTarget` and the
+`CasterAnimation` for the flight (league_leesin Q2's way). A miss moves nothing. Players never saw it stun ("从来没有
+触发过眩晕"; 2026-10-02) while the simulation held 38% of the throws and kept the champion still for 60 ticks, so
+the parts no hero proven in the game uses were changed: the dash had sat straight in the `applied_effects`, and
+the bandage was the pack's thinnest and slowest (radius 5000, 5000 a tick; then 7000 and 6500: 60% held). Played,
+it still missed too often ("的确有点难Q中人", "长度也远一点"): radius 12000, cast range 75000 (was 62000), the
+bandage 85000 long (was 70000), the dash 110000 - 73% held in 18 simulated games (56% before; 67% at 10000), and
+against base junglers the kill difference went from -0.52 to +0.01 (720 games).
 
 **Third cast is different (league_yasuo Q3).** Two hidden caster buffs count the hits: the first
 hit of a cast adds `q_stack`, the next cast's hit swaps it for `q_ready` (both 6 s, one per cast with
@@ -1107,6 +1115,9 @@ the base archer 0.65, league_vayne 1.92 and league_tristana 1.08 in the same bat
 league_nocturne (jungle, 2026-10-02, Unspeakable Horror's 1.33 s fear when the tether holds for 2 s): 0.83 a game;
 the base ninja 0.65 in the same batch (league_shaco 2.04 and league_leesin 1.52 in an earlier one) - about one
 champion a game is still in reach when the tether ends, no change.
+league_blitzcrank (support, --lane 4, 2026-10-02, Rocket Grab's 0.67 s stun and Power Fist's 1 s knock-up): 1.98 a
+game; league_leona 1.88, league_thresh 1.35 and the base priest 0.65 in the same batch - with the hard-CC supports, no
+change.
 
 **Kill trigger (league_jinx Get Excited!).** No effect fires on a kill, but section 4's facts make one:
 1. Next to the damaging projectile, fire an invisible twin with the same speed and path and
@@ -1140,23 +1151,29 @@ target. What the check misses is the AI changing targets while the old one lives
 of her attacks carry it.
 
 **A trap that waits and snaps once (league_jinx E).** One zone cannot last and hit once (section 4), so
-the trap is a chain of short links, each started where the thrown `ParabolicProjectile` landed:
-- a `ViewEffect` of the lying trap for the link's length (15 ticks);
-- a `RangeProjectile` with `delay` 14 and `apply` 1 on `EnemyChampion` (it checks on the link's first
-  tick, section 4), whose effects (skipped under a lock) bite:
-  `Bind`, damage, a `ViewEffect` on the victim, and `WithSelf {Delayed {tick: 1, AddCasterBuff lock}}`,
-  so every champion inside at that check is bitten before the lock falls; the `RangeProjectile` itself starts
-  from a `Delayed {tick: 1}`, so a dead Jinx's links bite no one (below);
-- a hidden `ParabolicProjectile` of `travel_time` 15 aimed at the same spot, whose `end_effects` start
-  the next link unless the lock is on.
+the trap is 20 short links (15 ticks each, 5 s). They were a chain - each link's hidden `ParabolicProjectile` started
+the next from its `end_effects` unless a lock on Jinx was on - and a chain started from `end_effects` goes on after
+the caster dies (below): players saw champions bitten again and again ("夹子反复触发", then "被秒的英雄同时碰到了两个
+炸弹" on a version that only kept the dead caster's checks from spawning). Now the links are flat, league_teemo R's
+way: a `Position` cast keeps its point for every effect it runs, so each link is a `Delayed` of the cast itself (the
+throw lands on tick 36, the links follow every 15 ticks, the fizzle after them), and a dying caster's pending
+`Delayed` effects stop - in simulation the chain showed 19 links after Jinx's 7 deaths with a trap out, the flat
+links none after 6. Each link, at the cast point:
+- skips if this trap already bit (`e_spent<slot>`, set a tick after the bite): one bite per trap;
+- from the third link on, skips unless the link before it ran (`e_hb<slot>_<k-1>`, set by that link): should the
+  links ever go on after her death, her frozen flags stop the trap one link later, one bite at most;
+- shows the lying trap and, unless a trap bit someone in the last 90 ticks (`e_lock`, shared, the root's length),
+  starts the check: a `RangeProjectile` (`delay` 14, `apply` 1) on `EnemyChampion` whose effects bite every champion
+  inside (`Bind` 90, damage, a `ViewEffect`) and `WithSelf {Delayed {tick: 1}}` set `e_lock` and `e_spent<slot>`.
+Casts alternate between two slots (a `Permanent` toggle), so a second trap thrown while the first lies (cooldown
+cuts) has flags of its own; each cast clears its slot's. The first link is not gated by the heartbeat, so the AI,
+which scores the branch the caster's buffs pick, still sees the bite: 176 throws in 12 simulated games (169 before),
+69% bit a champion (63%), no champion bitten twice within 90 ticks, none after her death. The throw lands on the cast
+point itself (`range` 120000), where the links stand.
 
-The first link only arms (no check). 20 links make 5 s; after a bite the next link never starts, so the
-trap vanishes a tick after it snaps. The lock lives on the caster and is shorter than the cooldown, so
-it never blocks the next throw. In simulation 77 throws: 46 bit a champion, 31 ran out.
-
-**A trap that lasts, with three at once (league_teemo Noxious Trap).** league_jinx E's links are
-projectiles nested in each other's `end_effects`: its file is 119 levels deep, and serde_json stops at
-128, so that chain cannot run much past its 20 links (5 s). A `Position` cast keeps its cast point for
+**A trap that lasts, with three at once (league_teemo Noxious Trap).** Links nested in each other's
+`end_effects` (league_jinx E until 2026-10-02) cannot run long: that file was 119 levels deep, and serde_json stops at
+128, so the chain could not run much past its 20 links (5 s). A `Position` cast keeps its cast point for
 every effect it runs, `Delayed` ones included (league_soraka's Equinox; every `RangeProjectile` and
 `ViewEffect` of league_teemo R appeared on the mushroom's spot in the simulation), so the links can sit
 side by side in the ult's own `Combine` (19 levels deep, 292 KB for three mushrooms of 12 s):
@@ -2371,6 +2388,65 @@ shroud paid out 12-16 times a game, of about 24 casts.
 buff with a `ThreePhase` view); then `MoveToTarget` (3500 a tick, a 45-tick `cc_immune` caster buff for the flight)
 lands 120 + 120% attack. The invisibility carries the kit: 4 s +2.12, 2 s +0.12, none -1.86 against the base junglers
 (lane 1, seeds 1-12), while halving the passive's heal changed nothing (+2.16); it settled at 3 s.
+
+**A hook from a raised arm that brings its catch back along its own line (league_blitzcrank Q, Rocket Grab).** A
+`Direction` cast on `EnemyChampion` (range 70000) throws a non-penetrating `LinearProjectile` on `EnemyChampion`
+(speed 6000, radius 6000, range 78000, `y_offset` -11500): it passes minions and monsters (league_thresh Q). The champion
+it reaches takes magic damage and `Stun` 40 ticks. An invisible twin on the same line on `EnemyChampionInCC` lands a
+tick later only when the stun took (a Black Shield lets both pass): a 90-tick caster flag `q_held`, the claw on him,
+Blitzcrank's `q_pull` loop (60 ticks at most) and the drag. His arm is raised to the shoulder in the strip (League's
+pose), 16 px over his pivot, and the hook leaves from there (the user: "从上面勾 别从下面勾"): `y_offset` -11500 starts
+it 16500 north of him and it slopes down to his pivot's height at the end of its range (12 degrees), coming down on a
+champion's chest; 8 logged games held 76 of 144 hooks, 68 of 125 at `y_offset` 2000 - the slope misses nobody more.
+League's hand brings what it caught back along its line onto his arm (the user: "lol里面机器人什么样你就什么样"), but
+every `BackToCasterLinearProjectile` flies to his pivot whatever its `y_offset`, under the raised arm. A
+`LinearProjectile` thrown in the hook's `end_effects` (behind a `Delayed`) leaves where the hook left and heads for
+where it stopped - on the hook's own line, and removed there (the spawn vectors of a logged game; one thrown from the
+cast's own `Delayed` follows the cast's direction to the range's end) - so two of them at 1500 a tick carry the way
+back: their pictures draw the claw and its chain coming back along the line. A projectile moves on every tick from
+the one it is thrown on, so a hook removed h ticks after the throw stopped 6000 x (h + 1) along its line; 13 caster
+flags set at the throw, `q_f<j>` lasting j + 3 ticks, are still seen by the hook's `end_effects` j + 2 ticks after it
+and by the twin j + 1 ticks after it (4 logged games: every way back matched), so 2 ticks after the stop, and when
+the twin lands, the first one still on is `q_f<h>`: it picks the pictures (one pair per h, 0-13) and the drag - `Grab`
+1500 with `tick` (6000 (h + 1) + 12000 - 33000) / 1500 (the hook stops 12000 short of a champion's centre), so the
+catch stops in reach in front of him (33000 off) just as the claw is back where the strip holds it on his arm (32000
+along the line; the picture slows the claw so it slides from the catch's front onto it), when a `Delayed` in the same
+branch removes `q_pull` and plays the 8-tick hold (the closed claw on the arm; a `CasterAnimation` holds the caster
+from acting). Stopping the catch at the arm's end (43000) with a 12-tick hold cost him about a point (two batches
+-0.23 / -0.15 against +0.62 / +1.15): he had to walk before his uppercut.
+A miss or a blocked hook brings the open claw back fast. His body only faces left or right while most hooks fly at an
+angle (4 logged games: 15 of 80 within 15 degrees of level, 60 between 30 and 90 up), so the claws are drawn over the
+units (`z` 1: the catch never hides the claw) and the chains under them (`z` -1), running back to the hook's start:
+thrown level his straight arm hides the chain and it comes out of the socket, thrown at an angle it comes out from
+behind his head and shoulder - nothing hangs in the air. The flying claw rides the hook, its chain the twin.
+
+**Overdrive folded into the uppercut (league_blitzcrank W in E, Power Fist).** W's cooldown is a caster flag `w_cd`
+(900 ticks). Every action asks first: with `w_cd` absent and an enemy champion within 60000 (`RandomTarget` sets a
+1-tick `w_go`), Overdrive starts - move speed +20% for 240 ticks and +20% more for the first 120 (two caster
+buffs: League's speed decays), attack speed +25% for 240, the steam from both smokestacks each second (a
+self-only `RangeEffect` holding `Delayed` caster pictures), then a 25% self-slow for 90 ticks. The uppercut itself is
+`skill2`, a `Targeting` cast on `EnemyWithoutTower` (lanes and camps): an enemy champion within its 25000 reach is
+punched first (a `RandomTarget` that also sets a 1-tick `e_aim` flag so the cast target is not hit as well), else the
+cast target - physical damage and `Airborne` 60.
+
+**The ult's passive while it is ready, the armed active with a silence (league_blitzcrank R, Static Field).** The
+attack carries, while the caster buff `r_cd` is absent, an invisible `TargetProjectile` on `EnemyWithoutTower` (no
+towers): a static mark on the unit hit and a `Delayed` 60-tick lightning bolt of magic damage. The ult is armed like
+league_taric's and league_riven's: the slot (a 3-tick `None` action on the `idle` tag) arms `r_armed` for 600 ticks and
+every action plus a pulse every 15 ticks fires it when an enemy champion is within 30000: `CasterAnimation ult` (35
+ticks), the charge picture, and on tick 23 (the strip's burst frame) the field round him - magic damage on
+`EnemyWithoutTower` within 40000 and `BlockSkill` 60 ticks (League's silence) on the champions - and `r_cd` for the
+ult's cooldown (3000 ticks), which stops the passive until the cooldown ends, as in League. Left unused, a 3-tick
+`ult_cooldown_mult` 4900 refunds it.
+
+**A shield when in danger instead of at low health (league_blitzcrank's passive, Mana Barrier).** Nothing reads
+current health, so danger stands in: two or more enemy champions within 35000 (a `RangeEffect` whose every hit
+climbs a 3-tick `mb_n1` -> `mb_n2` ladder) or Blitzcrank himself crowd-controlled (`RandomTarget` `AllyChampionInCC`
+within 1 finds only him, league_missfortune R), with the 3600-tick `mb_cd` off: a self-only `Shield` of 120 + 80% AP
+for 600 ticks and a `WithShield` caster buff that carries its picture (it goes when the shield breaks, section 5).
+The check runs at every action and on a train of pulses queued on himself (every 30 ticks for 240 ticks after an
+action, one train at a time): a stun stops his actions, not the pulses, so a hook or a stun in a fight still sets it
+off. About 3-4 shields a game in the simulation.
 
 ## 8. Gotchas
 
