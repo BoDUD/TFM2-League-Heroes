@@ -13,12 +13,15 @@
                              later she dashes in, still hidden, and cuts; the mark again, the long-reach strike;
                              Perfect Execution: she rushes through him, turns, strikes twice more and 2.5 s after the
                              first rush rushes back through him for the execution; 3x
+  league_akali_combos.gif    the combos (tools/kit/akali_combos.py), labelled: E onto Darius and Q with the kama
+                             flung at once (E Q A); a cut; R's first rush, E, and the second rush right after E2's cut
+                             (R E E R); 3x
 """
 import argparse
 import os
 import sys
 
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFont
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
@@ -169,6 +172,14 @@ def showcase(out, z=3, step=40):
     for r in ready:
         over.append(Follow(frames_of(small, "p_ready"), r[0], x, gy, loop=True, until=r[1], on=body, z=1))
 
+    return film(out, W, H, gy, end, d, body, under, over, hidden, z=z, step=step)
+
+
+def film(out, W, H, gy, end, d, body, under, over, hidden, labels=(), z=3, step=40):
+    """Draw the clip: ground effects, Darius and Akali (faded while hidden) by depth, the other effects; labels =
+    [(t0, t1, text)] in a corner."""
+    font = ImageFont.load_default(size=8 * z) if labels else None
+
     def faded(f, bx, tt):
         for t0, t1 in hidden:
             if t0 <= tt < t1:
@@ -201,7 +212,12 @@ def showcase(out, z=3, step=40):
             f = an.frame(tt)
             if f is not None:
                 place(img, f, *an.pos(tt))
-        frames.append(img.resize((W * z, H * z), Image.NEAREST).convert("RGB"))
+        img = img.resize((W * z, H * z), Image.NEAREST).convert("RGB")
+        for t0, t1, text in labels:
+            if t0 <= tt < t1:
+                ImageDraw.Draw(img).text((4 * z, 2 * z), text, font=font, fill=(255, 236, 160),
+                                         stroke_width=z // 2 + 1, stroke_fill=(24, 20, 16))
+        frames.append(img)
         tt += step
     sample = frames[::6]                              # one palette for the whole clip
     strip = Image.new("RGB", (W * z, H * z * len(sample)))
@@ -211,6 +227,122 @@ def showcase(out, z=3, step=40):
     q = [f.quantize(palette=pal, dither=Image.Dither.NONE) for f in frames]
     q[0].save(T.long_path(out), save_all=True, append_images=q[1:], duration=step, loop=0, optimize=False)
     return len(frames), round(end / 1000.0, 1)
+
+
+def combos(out, z=3, step=40):
+    """The combos (tools/kit/akali_combos.py), labelled: E, E2 onto Darius (the window opens), Q with the kama flung
+    at once (E Q A); a cut; R's first rush through him, she turns, E - the flip, the shuriken, E2 - and the second
+    rush right after E2's cut instead of 2.5 s after the first (R E E R)."""
+    akali = load(CHAMP)
+    fx = {k: load(v) for k, v in FX.items()}
+    small, big = fx["league_akali_fx"], fx["league_akali_big"]
+    W, H = 280, 112
+    gy = 78
+    d = Held(load(os.path.join(LEAGUE, "champions", "league_darius")), 176, gy)
+    body, under, over, hidden, labels = [], [], [], [], []
+    t = 0.0
+    x = 120
+
+    def a(tag, dur=None, loop=False, way=None, flip=False):
+        nonlocal t
+        an = Path(frames_of(akali, tag), t, x, gy, loop=loop, until=(t + dur) if dur else None, way=way or (),
+                  flip=flip)
+        body.append(an)
+        t = an.until
+
+    def fx_at(sp, tag, at, px, py=gy, ground=False, until=None, x1=None, y1=None, loop=None, flip=False):
+        an = Anim(frames_of(sp, tag), at, px, py, z=1, loop=(until is not None) if loop is None else loop,
+                  until=until, x1=x1, y1=y1, flip=flip)
+        (under if ground else over).append(an)
+        return an
+
+    def on_foe(tag, at, z_=2):
+        over.append(OnFoe(frames_of(small, tag), at, d, z=z_))
+        d.flinches.append(at)
+
+    def flip_and_throw(side, shroud):
+        """E: back 21 px (ticks 3-10), the shroud on landing, the shuriken on tick 14, E2 30 ticks after the hit to
+        16 px from him; returns E2's arrival. side +1: she faces right (Darius on her right)."""
+        nonlocal x
+        e = t
+        back_to = x - 21 * side
+        a("skill2", tick(23), way=[(e + tick(3), x), (e + tick(10), back_to)], flip=side < 0)
+        x = back_to
+        land = e + tick(10)
+        if shroud:
+            fx_at(big, "w_smoke", land, x, gy, loop=False)
+            hidden.append((land, land + HIDDEN))
+        throw = e + tick(14)
+        hand = (x + 8 * side, gy - 8)
+        arrive = throw + tick(abs(d.x - 6 * side - hand[0]) / 6.0)
+        fx_at(small, "e_shuriken", throw, hand[0], hand[1], until=arrive, x1=d.x - 6 * side, y1=gy - 8,
+              flip=side < 0)
+        on_foe("e_hit", arrive)
+        over.append(OnFoeFor(frames_of(small, "e_mark"), arrive, d, arrive + tick(42), z=3))
+        under.append(OnFoe(frames_of(small, "p_ring"), arrive, d, z=-1))
+        a("idle", arrive + tick(30) - t, loop=True, flip=side < 0)
+        dash_to = d.x - 16 * side
+        dash_end = t + tick(abs(dash_to - x) / 6.0)
+        fx_at(big, "e_dash", t, x, gy, flip=side < 0)
+        on_foe("e2_hit", dash_end)
+        under.append(OnFoe(frames_of(small, "p_ring"), dash_end + tick(1), d, z=-1))
+        a("skill2_dash", tick(19), way=[(t, x), (dash_end, dash_to)], flip=side < 0)
+        x = dash_to
+        return dash_end
+
+    # ---- E Q A: E2 onto Darius opens the window; Q there flings the kama 5 ticks after the fan
+    e0 = t
+    flip_and_throw(+1, shroud=True)
+    a("idle", tick(4), loop=True)
+    q = t
+    fan = q + tick(10)
+    fx_at(big, "q_fan", fan, x + 22, gy - 6)
+    on_foe("q_hit", fan)
+    a("skill", tick(15))                              # the fan's frames, cut by the kama's pose
+    on_foe("p_hit", t + tick(7))
+    a("attack_p", tick(29))
+    a("idle", tick(30), loop=True)
+    labels += [(e0, q, "E > E2"), (q, t, "E Q A")]
+    cut0 = t
+    t += 240                                          # the cut: an empty arena
+    # ---- R E E R: the first rush through him, she turns, E, E2, and the second rush 6 ticks after E2's cut
+    d.x, x = 176, 146
+    t0 = t
+    a("idle", 400, loop=True)
+    r1 = t
+    through = x + 72
+    fx_at(big, "r_dash", r1 + tick(2), x, gy)
+    on_foe("r1_hit", r1 + tick(2) + tick((d.x - x) / 8.0))
+    a("ult", tick(26), way=[(r1 + tick(2), x), (r1 + tick(11), through)])
+    x = through
+    under.append(OnFoe(frames_of(small, "p_ring"), r1 + tick(11), d, z=-1))
+    a("idle", tick(10), loop=True, flip=True)
+    landed = flip_and_throw(-1, shroud=False)
+    r2 = landed + tick(1 + 6)
+    if r2 > t:
+        a("idle", r2 - t, loop=True, flip=True)
+    fx_at(big, "r_dash", r2, x, gy, flip=True)
+    back = x - 72
+    on_foe("r2_hit", r2 + tick((x - d.x) / 8.0))
+    d.death = r2 + tick((x - d.x) / 8.0) + 60
+    a("ult2", tick(19), way=[(r2, x), (r2 + tick(9), back)], flip=True)
+    x = back
+    a("idle", 1400, loop=True, flip=True)
+    labels.append((t0, t, "R E E R"))
+    blank = [(cut0, cut0 + 240)]
+
+    class Cut:
+        """Darius off stage during the cut."""
+        def __init__(self, foe):
+            self.foe = foe
+
+        def frame(self, tt):
+            return None if any(a0 <= tt < a1 for a0, a1 in blank) else self.foe.frame(tt)
+
+        def pos(self, tt):
+            return self.foe.pos(tt)
+
+    return film(out, W, H, gy, t, Cut(d), body, under, over, hidden, labels=labels, z=z, step=step)
 
 
 def main():
@@ -230,6 +362,7 @@ def main():
         rows += [(sp, t["name"], f"{name[13:]}:{t['name']}") for t in sp.tags]
     print("effects", contact(rows, os.path.join(args.out, "league_akali_effects.png")))
     print("showcase frames/seconds", showcase(os.path.join(args.out, "league_akali_showcase.gif")))
+    print("combos frames/seconds", combos(os.path.join(args.out, "league_akali_combos.gif")))
 
 
 if __name__ == "__main__":

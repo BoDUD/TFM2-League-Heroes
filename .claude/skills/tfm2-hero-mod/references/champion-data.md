@@ -116,6 +116,11 @@ also means minions and monsters: a non-penetrating skillshot on it stops on the 
   `EnemyChampionInCC`, also fires on stunned or rooted champions. No base champion's data uses it.
   As a projectile's `applied_target` it is tested when the projectile hits (league_fiddlesticks Q,
   section 7).
+- **An empty branch does not hold every slot** *(SDK simulation, league_leesin, 2026-10-02)*: league_caitlyn W
+  (`SwitchByBuff w_hold`, empty for the buff) kept its charges, but league_leesin's E (`None` on
+  `EnemyWithoutTower`) behind a flag went out empty in fights and on camps, and its ult (`Targeting EnemyChampion`)
+  right after every combo that set the flag - each cast also starting the slot's real cooldown. Do not hold a slot
+  with a flag; let the slot play the combo (section 7, "Combos the slots play").
 - **Damaging basic abilities go on `EnemyWithoutTower`** *(reported by players; measured in a 5v5
   simulation on the SDK)*. The AI only casts an action while a unit matching `casting_target` is
   within `range`, so a skill on `EnemyChampion` is never used on minions or jungle monsters: the
@@ -922,6 +927,30 @@ pick shields the ally (a bare `Shield`) and Lee (a self-only `RangeEffect`) on t
 `MoveToTarget` dashes Lee there; shields in the dash's `end_effects` would be lost to a stun. About 3
 dashes a game, 52/53 reach the ally. Checking every ally in one tick with reset zones does not work:
 the zones are not processed in spawn order and one enemy was counted by two allies' zones.
+
+**Combos the slots play (league_leesin QQAE, QRQ, RQQ; 0.42.5).** The user wanted League's combos ("QRQ 回旋踢 QQAE RQQ",
+no ward hop). The AI casts one slot at a time, so each combo is the slot it spends, shaped by caster flags the slot
+before it left:
+- Q's casts set `q_cd` (its 360-tick cooldown); Q2 landing with an enemy champion in reach (a `RandomTarget`, range
+  12000) adds `q2_on` (150 ticks).
+- E cast while `q2_on` holds punches first (QQAE): E branches on `start_timing` 1 - its usual effects wait in a
+  `Delayed` 16, still on its tick 17 - so `CasterAnimation attack` replaces E's pose before it shows; the punch (100%
+  AD on a champion found by a `RandomTarget`) lands on the attack's hit frame, then `CasterAnimation skill2` and the
+  stomp on its frame. Safeguard's check sits once, outside the branch (the game copies `skill` and `skill2` whole
+  every tick, so the trees are kept small).
+- R cast while `q_cd` holds chases (QRQ): from R's tick 26, `CasterAnimation q2` and `MoveToTarget` 7000 after the
+  champion the kick sends off at 3000 a tick - caught in 6-7 ticks - and a 30 + 60% strike.
+- R cast with Q ready throws (RQQ): `q_throw` (Q's palm frames alone, a tag cut from the skill strip) on tick 24, then
+  a `TargetProjectile` Sonic Wave (8000, `y_offset` 5000: no lift, so its first move does not point the picture up)
+  that meets the champion in the air on tick 34, and Q2's dash 8 ticks after the hit.
+So every R ends in one of the two. In 12 simulated games: 18 QQAE, 48 QRQ (all caught), 15 RQQ (13 waves hit before
+the landing, 12 dashes hit). Against base junglers (lane 1, two batches of 720 games) the kill difference was +0.79 / +0.87 before and +0.58 / +1.21 with the combos (about 10% more damage dealt): the same strength within the noise.
+**A flag does not hold every slot.** The first version kept a spent skill's slot behind its cooldown flag (an empty
+branch, the hold league_caitlyn W relies on): the AI still cast the held E (`None` on `EnemyWithoutTower`) - 19 times
+in 12 games, in fights as well as on camps - and the held ult (`Targeting EnemyChampion`) after every QRQ, each an
+empty action that also started the slot's real cooldown. Gating a combo on the slot's level is no easier
+(`SwitchByLevel3` is the only level an effect reads; the ult unlocks at 5), so the combos spend no other slot's
+cooldown at all.
 
 **Heal an ally at a health cost (league_soraka W).** `Targeting` + `AllyNotSelf`: `Heal
 {heal_type: Ally}` on the target, then a 3-tick caster buff with `undying: true` and
@@ -1846,6 +1875,16 @@ per cast, E's twins, the ult) adds a 240-tick caster buff with `range` 24000 (he
 `range` buff also stretches the distance the AI starts attacking from (section 3): the next attack began 65000 from a
 pyromancer (48000 plus both bodies) and the attack consumes the buff (bonus magic damage, its own slash).
 
+**Combos the slots play (league_akali E Q A, R E E R; 0.42.6).** league_leesin's way ("Combos the slots play"):
+each combo is the slot it spends, no slot is held. E2's champion-only twin (its applied effects run only when E2's
+target is a champion) adds `e2_on` (120 ticks), and while R's `r_window` is open it also removes the window and,
+6 ticks later, runs the second dash's own effects (`CasterAnimation ult2`, the `RushTime` that reads the ladder)
+toward that champion - R's scheduled second dash finds no window and stays put, and the ladder already holds E2's
+rung. Q in `e2_on`, 5 ticks after the fan and with the ring armed, flings the kama: a `RandomTarget` (48000, the
+empowered range) on `EnemyChampion` plays `attack_p` and lands the attack's own empowered hit 7 ticks later (the
+ring spent). In 12 simulated games 44 E2s landed on champions: 17 Qs flung the kama (all hit), 6 second dashes came
+off E2 (on R's tick 90 on average, not 152; all hit). In mid lane against base mages (720 games) the kill difference was +1.38 before and +1.36 with the combos (about 2% more damage dealt): the same strength.
+
 **Every third attack cleaves, attack speed after every spell (league_diana Moonsilver Blade).** The attack walks two
 240-tick caster stacks (league_masteryi's Double Strike, branched at `start_timing` 1); the third plays its own strip
 (`CasterAnimation attack_p`, the hit 13 ticks after the branch instead of 10) and adds to the plain hit a
@@ -2486,6 +2525,20 @@ off. About 3-4 shields a game in the simulation.
   at all 6.40). On `applied_target: Ally` it draws the same and they moved 1800 (normal fighting), while her allies did
   not start dodging it (1600 -> 1700): 7.12 hits a cast with the 50 degree cone, 5.06 with the same cone on
   `EnemyWithoutTower`. Put a picture that stays while damage comes later on `Ally`.
+- **A projectile must end** *(SDK simulation + stack sampling, league_fiora W, 2026-10-02)*. Her guard picture
+  was a `TargetProjectile` at speed 100 with no `applied_effects`: it trailed its target for minutes (one lived
+  11214 ticks). Each tick a projectile runs, `prepare_dead_caster_overlay` copies its caster's whole entity
+  (all four effect trees) when that caster is dead - so once Fiora died the match's CPU per tick tripled and
+  stayed there. Give picture-only projectiles an end: a `LinearProjectile` with `range` = speed x ticks the
+  picture shows (hers: speed 100, range 4500 = 45 ticks), on `applied_target: Ally` (previous entry). lint warns
+  on a `TargetProjectile` slower than 1000 and a `LinearProjectile` alive over 600 ticks.
+- **skill and skill2 are copied every tick** *(same study)*. While a match is on screen,
+  `build_entity_state_event` calls `skill()` and `skill2()` for every champion each tick, and for a data
+  champion that clones the whole action with its effect tree. 55% of a Jinx mirror game's CPU went to copying
+  her 1019-node skill2; ten league heroes cost about 4x the CPU of ten base champions per tick (background
+  matches, which build no events, only +8%). Attack and ult size do not matter here. Keep skill/skill2 lean:
+  one animation instead of a frame-by-frame `Delayed` + `ViewEffect` chain, shared logic outside copied
+  `SwitchByBuff` branches. lint lists skill/skill2 above 300 nodes as INFO.
 - A buff's view can outlive its unit: Garen died mid-spin and the whirl of his 3 s caster buff
   stayed on the body (no view_buffs option covers death). For a purely visual timed effect,
   play `CasterViewEffect` on a timer instead (one per `Delayed` pulse, `is_follow: true` in

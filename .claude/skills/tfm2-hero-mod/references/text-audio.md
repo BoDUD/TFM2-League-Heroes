@@ -109,7 +109,11 @@ ahead of the helmet's crown so the portrait keeps the lenses on its right.
 {"plays": [{"delay": 0.0, "clip": "<clip_file_name_without_ext>", "volume": 0.6}]}
 ```
 
-- Put the clip next to it (`sound/sfx/<clip>.mp3` or `.wav`).
+- Put the clip next to it (`sound/sfx/<clip>.mp3` or `.wav`; the game plays nothing else, `.ogg` included).
+  The clip name has no extension, so a `.wav` can be swapped for an `.mp3` of the same name without editing
+  anything - but never keep both (one replaces the other). Ship MP3: the game reads every clip into memory at
+  start-up (mod-structure.md "Loading cost"); the league repo's `tools/package_mod.py` encodes VBR V0, which
+  decodes to the WAV's exact length.
 - `Sfx`/`TargetSfx` look sounds up in the base namespace, so every custom sound needs **two
   override entries** (the pattern used by both big packs):
   `asset/base/sound/sfx/<name>` -> `asset/<mod_id>/sound/sfx/<name>` and
