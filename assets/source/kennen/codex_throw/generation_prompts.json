@@ -1,0 +1,12 @@
+{
+  "mode": "built-in image_gen",
+  "prompt": "Using the attached base and approved start pose, produce four pixel sprite poses of ONLY the far throwing arm and same gold shuriken: windup behind upperleft hood, swing above front of face, release forward at chin height with shuriken center at logical row82 three pixels ahead of open glove, followthrough forward slightly down emptyhand. Preserve base headfacebodyfeet exactly. 2-3pixelthick natural bent arms, goldcuff plumglove steelplate. Strict8x8grid, existingpalette, binarytransparent, no text shadow or antialias. Nothing above logicalrow63 or below99. Four square1024panels. Existing opaque base unchanged except goldhoodrightedge already covered by approvedstartarm.",
+  "references": [
+    "1_base_8x.png",
+    "2_start_pose_8x.png",
+    "3_picture_B.png",
+    "4_league_attack.png"
+  ],
+  "raw": "raw/generated_four_poses.png",
+  "processing": "Raw sheet2172x724; quarter panels; logical pitch9.9, yorigin-379.1, xorigins[-390,-382,-382,-382]. Only new arm areas sampled3x3median and mapped to basepalette. Baseopaque cells never overwritten. Weapon reused from approvedstart gold cells plus neighboring darkoutline; allposes sameweapon, no scaling. Missing sleeveconnection and opengloves repaired on logicalgrid. No independent new weapons generated."
+}

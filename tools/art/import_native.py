@@ -97,7 +97,7 @@ NECK_EYES = {("fiora", "hit", 0): (-19, 3)}
 # needs it closed). Nothing goes under the soles row; a frame that already reaches lower (lying down) keeps its own
 # bottom.
 COMPLETE = {"nami", "veigar", "jax", "ahri", "taric", "tristana", "fiora", "diana", "leesin", "missfortune", "fizz", "shaco",
-            "caitlyn", "nocturne", "blitzcrank", "camille", "leblanc", "kaisa", "sona"}
+            "caitlyn", "nocturne", "blitzcrank", "camille", "leblanc", "kaisa", "sona", "kennen"}
 # hero: the luminance from which an edge pixel gets the outline (complete_outline's `dark`, default 70). Fiora's teal
 # leggings (luminance ~58) and wine cape (~44) edge many action frames without black: tfm2_ase.py metrics counts only
 # luminance < 40 as outline, so at 70 her Q frames read 83-89% (the bare rapier aside); at 40 they close too.
@@ -214,7 +214,9 @@ ORDER = {("lux", "idle"): [0, 0, 0, 0, 0, 0],   # the step-2 idle is the design 
          # and Kai'Sa (Codex's chibi draft B cut to 44 rows, design_kaisa.py: the pack's idle is the design in all six)
          ("kaisa", "idle"): [0, 0, 0, 0, 0, 0],
          # and Sona (Codex's game-size design B, 40 rows: the pack's idle is the design in all six)
-         ("sona", "idle"): [0, 0, 0, 0, 0, 0]}
+         ("sona", "idle"): [0, 0, 0, 0, 0, 0],
+         # and Kennen (Codex's design A cut to 37 rows, design_kennen.py: the pack's idle is the design in all six)
+         ("kennen", "idle"): [0, 0, 0, 0, 0, 0]}
 # (hero, tag): (y, slots) - in those slots everything at or above pivot row y moves down a row (the row under
 # it is covered): one frame breathing, the face the same drawing throughout. Leona's shield covers her from
 # the chest to the ankles, so she sinks down to its tip and only the boots stay (a seam across the shield
@@ -319,7 +321,10 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        ("kaisa", "idle"): (6, [2, 3, 4]),
        # Sona: her skirt's panels run straight down; the seam in rows 94/95 of the design (the same width, 7 squares of
        # the outline move); the hem and the panels' lower ends stay on the ground
-       ("sona", "idle"): (6, [2, 3, 4])}
+       ("sona", "idle"): (6, [2, 3, 4]),
+       # Kennen: the seam low in the robe (rows 94/95 of the design: 2 squares of opacity and 9 of colour differ); his
+       # shoes and the hem's last row stay
+       ("kennen", "idle"): (6, [2, 3, 4])}
 # hero: a module in tools/art with tidy(tag, k, frame) -> frame, run on the finished frames (after the outline is closed
 # and cleaned): the user's clean-up of dirty black blocks and stray squares inside the silhouette (2026-10-02:
 # "盖伦把黑边清理干净 有杂的黑色的地方", "风女 莫甘娜 不干净的黑色块也太多了", "莫甘娜头部有很多多余的方块", "阿狸也是都给我清理干净")
@@ -371,7 +376,8 @@ EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade
         "camille": (2, 159, 217),         # her raised blade tops the kicks; the far eye was recoloured to this cyan
         "leblanc": (122, 0, 18),          # her staff's crystal or diadem tops the frames; the dark red is her near pupil's
         "kaisa": (130, 62, 163),          # her raised pods top every frame; the near iris' purple is only in her eyes
-        "sona": (34, 201, 184)}           # her twin tails top the frames (the Etwahl in R); the teal is only in her irises
+        "sona": (34, 201, 184),           # her twin tails top the frames (the Etwahl in R); the teal is only in her irises
+        "kennen": (63, 174, 248)}         # the shuriken on his back tops every frame; the blue is only in his eyes
 
 
 def blocks(path):

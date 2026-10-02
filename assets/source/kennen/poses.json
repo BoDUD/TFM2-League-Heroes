@@ -1,0 +1,35 @@
+{
+ "hero": "kennen",
+ "champ": "Kennen",
+ "camera": {"yaw": 35, "pitch": 20, "mirror": false},
+ "chibi": {"head": 1.2, "legs": 0.85},
+ "weapon": "^weapon$",
+ "height": 32,
+ "cell": [80, 72, 12],
+ "design": "Kennen_Idle1@0",
+ "tags": {
+  "idle": {"frames": [["Kennen_Idle1@0", 180], ["Kennen_Idle1@0", 180], ["Kennen_Idle1@0", 180],
+                      ["Kennen_Idle1@0", 180], ["Kennen_Idle1@0", 180], ["Kennen_Idle1@0", 180]]},
+  "run": {"flat": true, "head_like": "Kennen_Idle1@0", "frames": [
+   ["Kennen_Run@0>Kennen_Idle1@0:0.3", 100], ["Kennen_Run@100>Kennen_Idle1@0:0.3", 100], ["Kennen_Run@200>Kennen_Idle1@0:0.3", 100], ["Kennen_Run@300>Kennen_Idle1@0:0.3", 100],
+   ["Kennen_Run@400>Kennen_Idle1@0:0.3", 100], ["Kennen_Run@500>Kennen_Idle1@0:0.3", 100], ["Kennen_Run@600>Kennen_Idle1@0:0.3", 100], ["Kennen_Run@700>Kennen_Idle1@0:0.3", 100]]},
+  "attack": {"lunge": 0.4, "frames": [
+   ["Kennen_Idle1@0>Kennen_Attack1@60:0.5", 60], ["Kennen_Attack1@180", 60], ["Kennen_Attack1@360", 60],
+   ["Kennen_Attack1@420", 70], ["Kennen_Attack1@560", 70], ["Kennen_Attack1@800>Kennen_Idle1@0:0.5", 80]]},
+  "skill": {"lunge": 0.4, "frames": [
+   ["Kennen_Idle1@0>Kennen_Spell1@70:0.5", 50], ["Kennen_Spell1@140", 60], ["Kennen_Spell1@280", 70],
+   ["Kennen_Spell1@420", 80], ["Kennen_Spell1@600", 90], ["Kennen_Spell1@900>Kennen_Idle1@0:0.5", 100]]},
+  "skill2": {"flat": true, "head_like": "Kennen_Idle1@0", "frames": [
+   ["Kennen_Run@0", 75], ["Kennen_Run@200", 75], ["Kennen_Run@400", 75], ["Kennen_Run@600", 75]]},
+  "w": {"lunge": 0.3, "frames": [
+   ["Kennen_Spell2@60", 50], ["Kennen_Spell2@160", 50], ["Kennen_Spell2@258", 60], ["Kennen_Spell2@387", 60],
+   ["Kennen_Spell2@646>Kennen_Idle1@0:0.5", 60]]},
+  "ult": {"lunge": 0.3, "rise": 0.3, "frames": [
+   ["spell4@0", 60], ["spell4@60", 60], ["spell4@120", 60], ["spell4@180", 70],
+   ["spell4@260", 70], ["spell4@380>Kennen_Idle1@0:0.5", 80]]},
+  "hit": {"frames": [["Kennen_Idle1@0>Kennen_Death@80:0.35", 100], ["Kennen_Idle1@0>Kennen_Death@80:0.15", 100]]},
+  "dead": {"anchor": "first", "lunge": 0.3, "flat": true, "rise": 0.25, "travel": 0.2, "frames": [
+   ["Kennen_Death@0", 100], ["Kennen_Death@120", 100], ["Kennen_Death@240", 110], ["Kennen_Death@360", 110],
+   ["Kennen_Death@500", 120], ["Kennen_Death@650", 150], ["Kennen_Death@800", 300], ["Kennen_Death@1000", 500]]}
+ }
+}
