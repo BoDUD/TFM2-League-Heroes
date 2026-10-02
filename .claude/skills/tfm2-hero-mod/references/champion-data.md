@@ -1875,6 +1875,16 @@ per cast, E's twins, the ult) adds a 240-tick caster buff with `range` 24000 (he
 `range` buff also stretches the distance the AI starts attacking from (section 3): the next attack began 65000 from a
 pyromancer (48000 plus both bodies) and the attack consumes the buff (bonus magic damage, its own slash).
 
+**Combos the slots play (league_akali E Q A, R E E R; 0.42.6).** league_leesin's way ("Combos the slots play"):
+each combo is the slot it spends, no slot is held. E2's champion-only twin (its applied effects run only when E2's
+target is a champion) adds `e2_on` (120 ticks), and while R's `r_window` is open it also removes the window and,
+6 ticks later, runs the second dash's own effects (`CasterAnimation ult2`, the `RushTime` that reads the ladder)
+toward that champion - R's scheduled second dash finds no window and stays put, and the ladder already holds E2's
+rung. Q in `e2_on`, 5 ticks after the fan and with the ring armed, flings the kama: a `RandomTarget` (48000, the
+empowered range) on `EnemyChampion` plays `attack_p` and lands the attack's own empowered hit 7 ticks later (the
+ring spent). In 12 simulated games 44 E2s landed on champions: 17 Qs flung the kama (all hit), 6 second dashes came
+off E2 (on R's tick 90 on average, not 152; all hit). In mid lane against base mages (720 games) the kill difference was +1.38 before and +1.36 with the combos (about 2% more damage dealt): the same strength.
+
 **Every third attack cleaves, attack speed after every spell (league_diana Moonsilver Blade).** The attack walks two
 240-tick caster stacks (league_masteryi's Double Strike, branched at `start_timing` 1); the third plays its own strip
 (`CasterAnimation attack_p`, the hit 13 ticks after the branch instead of 10) and adds to the plain hit a
