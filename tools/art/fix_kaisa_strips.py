@@ -52,6 +52,7 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scripts"))
 sys.path.insert(0, HERE)
 import strips as G  # noqa: E402
+from rig_nocturne import rotsprite  # noqa: E402
 from native_refs import Z, layout  # noqa: E402
 
 NAT = os.path.join(ROOT, "assets", "source", "native")
@@ -76,6 +77,9 @@ IDLE_PIVOT = (48, 70)
 # the left thigh's bottom middle and sheared EVEN_FOOT squares at the sole so its boot stands where the old one stood
 EVEN_ROWS = (4, 11)
 EVEN_FOOT = -3
+# the frames Codex drew as the idle itself (the attack's, Q's and W's first and last, the hit's second, the landing's
+# last): their legs evened the same way (the user: "你要改全改啊", "攻击的腿也不一样")
+EVEN_FRAMES = {"attack": [0, 5], "skill": [0, 5], "skill2": [0, 6], "hit": [1], "ult_land": [3]}
 # the run (the user, of the accepted version: "这版走路可以了"), built from the idle's own pixels: the idle above the
 # belt (row RUN_BELT under the pivot... -4) and its two arms stay, lowered RUN_DY; each thigh is the idle's own thigh
 # piece under the belt (rows -3..3: the magenta-and-gold plate over the bodysuit - her THIGHS, which every earlier run
@@ -91,16 +95,20 @@ RUN_LOWER = (4, 11)                       # lower-leg rows
 RUN_ARMS = (-9, 9)                        # columns from the pivot at or beyond which rows -3..3 are the arms
 RUN_SPLIT = 0                             # near thigh x <= RUN_SPLIT, far thigh x > RUN_SPLIT
 RUN_DY = [1, 1, 0, 0, 1, 1, 0, 0]
-# per frame and leg: (lift rows, thigh shear at the knee, "down" / "fold", lower shear at the sole (fold: the boot's
-# rows up and squares back), x shift)
+# per frame and leg: (lift rows, thigh shear at the knee, "down" / "rot", the lower leg's shear at the sole / its turn
+# about the knee in degrees (RotSprite, + counter-clockwise: the heel kicks swing it back, clockwise), x shift). The
+# heel kicks first moved the boot up behind the knee guard, the shin between gone (the user: "脚跟和脚空出来一大截"); the
+# far leg's kick in frame 3 went behind the near leg, so there it is a lifted leg, its shin turned back 35 degrees,
+# in front of the other. A standing leg on a frame the body is lowered (RUN_DY 1) is lifted 1 too, so its sole stays
+# on the soles row (lowered with the body, its sole outline fell under row 11 and was cut off)
 RUN_POSE = [
-    {"near": (2, 3, "down", 0, 0), "far": (0, -2, "down", -1, 0)},
-    {"near": (0, 2, "down", 0, 0), "far": (1, -3, "down", -2, 0)},
-    {"near": (0, 1, "down", 0, 0), "far": (2, -2, "fold", 4, 0)},
+    {"near": (2, 3, "down", 0, 0), "far": (1, -2, "down", -1, 0)},
+    {"near": (1, 2, "down", 0, 0), "far": (1, -3, "down", -2, 0)},
+    {"near": (0, 1, "down", 0, 0), "far": (3, -1, "rot", -35, 0)},
     {"near": (0, 1, "down", -1, 0), "far": (3, 0, "down", -1, 0)},
-    {"near": (0, 0, "down", -1, 0), "far": (2, 0, "down", 0, 0)},
-    {"near": (1, 0, "down", -2, 0), "far": (0, -1, "down", 0, 0)},
-    {"near": (2, 1, "fold", 4, 0), "far": (0, -2, "down", 0, 0)},
+    {"near": (1, 0, "down", -1, 0), "far": (2, 0, "down", 0, 0)},
+    {"near": (1, 0, "down", -2, 0), "far": (1, -1, "down", 0, 0)},
+    {"near": (2, 1, "rot", -70, 0), "far": (0, -2, "down", 0, 0)},
     {"near": (3, 3, "down", -1, 0), "far": (0, -2, "down", -1, 0)},
 ]
 THIGH, SHIN, FOOT = 3.8, 3.2, 2.8         # widths in game px (the inside, 4 squares like the idle's and the run's legs;
@@ -235,6 +243,12 @@ def even_legs(idle):
     return a
 
 
+def even_frame(frame, pivot):
+    """even_legs on a frame standing on `pivot` (a copy of the idle)."""
+    dx, dy = IDLE_PIVOT[0] - pivot[0], IDLE_PIVOT[1] - pivot[1]
+    return np.roll(np.roll(even_legs(np.roll(np.roll(frame, dx, 1), dy, 0)), -dx, 1), -dy, 0)
+
+
 def run_thigh(idle, leg):
     ix, iy = IDLE_PIVOT
     out = {}
@@ -267,10 +281,15 @@ def run_leg(idle, lower, leg, lift, kt, mode, ks, sx, dy):
     for (dx, r), c in lower.items():
         if mode == "down":
             out[(kx + dx + rnd(ks * r / n), yb + 1 + r)] = c
-        elif r <= 3:                                  # fold: the knee guard stays under the knee
-            out[(kx + dx, yb + 1 + r)] = c
-        else:                                         # and the boot goes up and back behind it
-            out[(kx + dx - ks, yb + 1 + r - ks)] = c
+    if mode == "rot":                                 # the whole lower leg turned about the knee
+        xs_ = [dx for dx, _ in lower]
+        x0, h = min(xs_), max(r for _, r in lower) + 1
+        arr = np.zeros((h, max(xs_) - x0 + 1, 4), np.uint8)
+        for (dx, r), c in lower.items():
+            arr[r, dx - x0] = c
+        rot, (jx, jy) = rotsprite(arr, (-x0, 0), ks)
+        for yy, xx in zip(*np.nonzero(rot[..., 3])):
+            out[(kx + xx - jx, yb + 1 + yy - jy)] = rot[yy, xx]
     out.update(thigh)
     return out
 
@@ -473,6 +492,12 @@ def build():
     for tag in ("attack", "skill", "hit"):
         rows = cells["tags"][tag]
         out[tag] = (cells_of(os.path.join(SRC, f"kaisa_{tag}.png"), len(rows), cell), rows)
+    out["ult_land"] = (cells_of(os.path.join(SRC, "kaisa_ult_land.png"), len(cells["tags"]["ult_land"]), cell),
+                       cells["tags"]["ult_land"])
+    for tag, ks in EVEN_FRAMES.items():
+        frames, rows = out[tag]
+        for k in ks:
+            frames[k] = even_frame(frames[k], tuple(rows[k]["pivot"]))
     for tag, ks in IDLE_BODY.items():
         frames, rows = out[tag]
         for k in ks:
