@@ -4,7 +4,7 @@
     python tools/art/import_kennen.py --raw <Codex's delivery folder>   # once: raw PNGs -> native strips
     python tools/art/import_kennen.py                                   # native strips -> the effect sheets
 
-The body comes from tools/art/fix_kennen_strips.py and import_native.py. Codex delivered image-model drafts
+The body comes from tools/art/rig_kennen.py and import_native.py. Codex delivered image-model drafts
 (outputs/kennen-fx, 2026-10-02 20:58: 1619-2172 x 724-971 px, soft alpha, free colours; HANDOFF, manifest and prompts
 in assets/source/kennen/codex_fx), every frame's rectangle in manifest.json (`assets[].frames[].rect` = [x, y, w, h]).
 --raw turns each frame into a cell of a native strip (assets/source/kennen/kennen_fx_<name>.png, 8x, plus
@@ -21,8 +21,8 @@ star (Q's, the lightning trailing behind it); the flashes and hits on frame 1's 
 and E's ball on their drawing's middle; W's surge on its white ring's middle (frame 4: its spokes are uneven), R's
 storm on its clouds' middle; the stun's columns and R's bolt on their drawings' foot.
 The second step places every cell by its anchor on a spot from the pivot (game px, x right, y down; measured on
-league/champions/league_kennen: the star in his hand as the attack lets go (27, -4) in frame 4, his claw at Q's throw
-(30, -4), the soles 11 under the pivot, his body's middle -6 (-5 crouched in E's dash)) and times it by the kit: the
+league/champions/league_kennen: the shuriken leaving his hand in the throw's release (30, -5), attack's and Q's frame
+4, the soles 11 under the pivot, his body's middle -6 (-5 crouched in E's dash)) and times it by the kit: the
 thrown stars start empty while they cross him (5 ticks, Q's 3: from his pivot to his hand), then spin; the mark
 counters 0.8 s over the target's head, the stun its 1.25 s, E's ball the 0.28 s of the rush (until e_out), R's storm
 2.9 s (forming, the loop of frames 3-10 four times, the fade; the strikes end at 2.5 s, the armour at 3 s).
@@ -257,8 +257,8 @@ def cells(name, n):
     return [a[:, k * w:(k + 1) * w] for k in range(n)]
 
 
-HAND_A = (27, -4)               # the star in his hand as the attack lets go (frame 4)
-HAND_Q = (30, -4)               # his claw at Q's throw (frame 4)
+HAND_A = (30, -5)               # the shuriken leaving his hand in the throw's release (attack frame 4)
+HAND_Q = (30, -5)               # the same release in Q (frame 4)
 HIT = (0, -8)                   # a hit on the upper body of a 31-44 px unit
 OVERHEAD = (0, -35)             # over a 31-44 px unit's head: the mark counter
 SOLES = (0, 11)                 # the ground under a unit (its soles' row)
