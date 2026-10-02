@@ -217,6 +217,38 @@ def shift(a, dx, dy):
     return out
 
 
+STAFF_HEAD = (72, 61, 85, 76)    # the design's staff head: the crystal, its gold cap and the two bat wings (x0, y0, x1, y1)
+STAFF_AXIS = 78                  # the design's shaft column (the crystal's middle)
+STAFF_ROW = -7                   # the run's staff line from the pivot: the far hand's middle (frame 3's glove)
+STAFF_FROM = 13                  # the run's staff starts this many columns right of the pivot (just past the glove)
+STAFF_TIP = 37                   # its crystal's tip, columns right of the pivot (where Codex's head ended)
+GOLD = (0xF4, 0xAA, 0x45)
+
+
+def straight_staff(f, pivot):
+    """The run's staff (the user: "乐芙兰移动时法杖是歪的"): Codex drew it as a thick dark band sloping two rows down to
+    the right under a head tilted up. It goes, and the design's own staff takes its place laid level: the head (the red
+    crystal, its gold cap and the two bat wings) turned a quarter clockwise so the crystal points ahead, on a straight
+    one-square gold shaft in its outline from the glove."""
+    g = f.copy()
+    px, py = pivot
+    y = py + STAFF_ROW
+    g[y - 7:y + 8, px + STAFF_FROM:] = 0
+    d = np.asarray(Image.open(lp(HEAD)).convert("RGBA"))[Z // 2::Z, Z // 2::Z]
+    x0, y0, x1, y1 = STAFF_HEAD
+    head = np.rot90(d[y0:y1 + 1, x0:x1 + 1], -1)          # clockwise: the crystal's tip to the right
+    hh, hw = head.shape[:2]
+    top, left = y - (STAFF_AXIS - x0), px + STAFF_TIP - (hw - 1)
+    for x in range(px + STAFF_FROM, left):
+        g[y - 1, x] = OUTLINE + (255,)
+        g[y, x] = GOLD + (255,)
+        g[y + 1, x] = OUTLINE + (255,)
+    m = head[..., 3] > 0
+    reg = g[top:top + hh, left:left + hw]
+    reg[m] = head[m]
+    return g
+
+
 def run(frames, pivots):
     """The run, Codex's redo (codex_run_redo: a crossing stride, a foot on the line in every frame) - but it drew the
     body anew in every frame under the pasted head, the collar 1-3 squares off it from frame to frame, the cape and the
@@ -227,7 +259,7 @@ def run(frames, pivots):
     frames = [head_halo(f, p) for f, p in zip(frames, pivots)]
     heads = [find_head(f) for f in frames]
     k0 = RUN_BODY - 1
-    body = frames[k0].copy()
+    body = straight_staff(frames[k0], pivots[k0])
     px = pivots[k0][0]
     body[RUN_LEGS:, px + LEGS_X[0]:px + LEGS_X[1] + 1] = 0
     out = []
