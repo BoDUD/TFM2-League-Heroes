@@ -89,7 +89,7 @@ NECK_EYES = {("fiora", "hit", 0): (-19, 3)}
 # needs it closed). Nothing goes under the soles row; a frame that already reaches lower (lying down) keeps its own
 # bottom.
 COMPLETE = {"nami", "veigar", "jax", "ahri", "taric", "tristana", "fiora", "diana", "leesin", "missfortune", "fizz", "shaco",
-            "caitlyn", "nocturne"}
+            "caitlyn", "nocturne", "leblanc"}
 # hero: the luminance from which an edge pixel gets the outline (complete_outline's `dark`, default 70). Fiora's teal
 # leggings (luminance ~58) and wine cape (~44) edge many action frames without black: tfm2_ase.py metrics counts only
 # luminance < 40 as outline, so at 70 her Q frames read 83-89% (the bare rapier aside); at 40 they close too.
@@ -190,7 +190,9 @@ ORDER = {("lux", "idle"): [0, 0, 0, 0, 0, 0],   # the step-2 idle is the design 
          ("caitlyn", "attack"): [0, 1, 3, 3, 4, 5],
          ("caitlyn", "passive"): [0, 1, 2, 4, 4, 5],
          # and Nocturne (Codex's game-size design B cut to 40 rows: the pack's idle is the design in all six)
-         ("nocturne", "idle"): [0, 0, 0, 0, 0, 0]}
+         ("nocturne", "idle"): [0, 0, 0, 0, 0, 0],
+         # and LeBlanc (Codex's game-size design B cut to 43 rows: the pack's idle is the design in all six)
+         ("leblanc", "idle"): [0, 0, 0, 0, 0, 0]}
 # (hero, tag): (y, slots) - in those slots everything at or above pivot row y moves down a row (the row under
 # it is covered): one frame breathing, the face the same drawing throughout. Leona's shield covers her from
 # the chest to the ankles, so she sinks down to its tip and only the boots stay (a seam across the shield
@@ -280,7 +282,10 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        ("caitlyn", "idle"): (7, [2, 3, 4]),
        # Nocturne floats on his smoke tail: all of him sinks a row and rises again, the seam in the tail's thin straight
        # part (rows 97/98 of the design: 2 squares differ, 1 of the outline); only the tail's tip stays on the ground
-       ("nocturne", "idle"): (9, [2, 3, 4])}
+       ("nocturne", "idle"): (9, [2, 3, 4]),
+       # LeBlanc: her gown's diagonal trims change every row (13-18 squares from one row to the next); the seam runs
+       # through the hem over her heels (rows 97/98 of the design), the staff's straight shaft one row shorter
+       ("leblanc", "idle"): (9, [2, 3, 4])}
 CROWN = {"leesin"}              # heroes whose head template starts at the crown (a braid stands above it)
 PASTED = {"masteryi"}            # steadied on the head restyle_native pasted: his raised sword is the top of every frame
 # Codex's step-2 redraw (model_strips_18, tidied by tidy_codex18.py): the approved design's head (or face) is in every
@@ -323,7 +328,8 @@ EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade
         "fizz": (32, 174, 86),            # the trident tops the attack, E and R frames; the green is only in his eyes
         "shaco": (3, 167, 233),           # the hat's horns top every frame; the ice cyan is used only in his eyes
         "caitlyn": (20, 84, 169),         # her top hat tops most frames (the rifle W, Q 1 and R 1); the blue is only in her eyes
-        "nocturne": (255, 255, 255)}      # the crest or a raised blade tops the frames; pure white only in his eyes
+        "nocturne": (255, 255, 255),      # the crest or a raised blade tops the frames; pure white only in his eyes
+        "leblanc": (122, 0, 18)}          # her staff's crystal or diadem tops the frames; the dark red is her near pupil's
 
 
 def blocks(path):
