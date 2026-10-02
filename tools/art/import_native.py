@@ -215,7 +215,7 @@ ORDER = {("lux", "idle"): [0, 0, 0, 0, 0, 0],   # the step-2 idle is the design 
          ("kaisa", "idle"): [0, 0, 0, 0, 0, 0],
          # and Sona (Codex's game-size design B, 40 rows: the pack's idle is the design in all six)
          ("sona", "idle"): [0, 0, 0, 0, 0, 0],
-         # and Vi (Codex's simple draft A cut to 40 rows, design_vi.py: the pack's idle is the design in all six)
+         # and Vi (the approved guard master read onto 40 rows, design_vi.py: strips_vi.py writes the design in all six)
          ("vi", "idle"): [0, 0, 0, 0, 0, 0]}
 # (hero, tag): (y, slots) - in those slots everything at or above pivot row y moves down a row (the row under
 # it is covered): one frame breathing, the face the same drawing throughout. Leona's shield covers her from
@@ -322,8 +322,8 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        # Sona: her skirt's panels run straight down; the seam in rows 94/95 of the design (the same width, 7 squares of
        # the outline move); the hem and the panels' lower ends stay on the ground
        ("sona", "idle"): (6, [2, 3, 4]),
-       # Vi: the seam at her knees (rows 92/93 of the design: 1 square of opacity and 5 of colour differ, the fewest from
-       # the belt down); the gauntlets lose one row of their crystals in the low slots, the knuckles and boots stay
+       # Vi: the seam across her shins (row 92 of the design, 4 under the pivot: both legs there are thin slanted
+       # strokes, the near gauntlet's lowest row is 85), so her guard sinks a row and only the boots stay
        ("vi", "idle"): (4, [2, 3, 4])}
 # hero: a module in tools/art with tidy(tag, k, frame) -> frame, run on the finished frames (after the outline is closed
 # and cleaned): the user's clean-up of dirty black blocks and stray squares inside the silhouette (2026-10-02:
@@ -377,7 +377,8 @@ EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade
         "leblanc": (122, 0, 18),          # her staff's crystal or diadem tops the frames; the dark red is her near pupil's
         "kaisa": (130, 62, 163),          # her raised pods top every frame; the near iris' purple is only in her eyes
         "sona": (34, 201, 184),           # her twin tails top the frames (the Etwahl in R); the teal is only in her irises
-        "vi": (0, 108, 251)}              # a raised gauntlet tops the E, R and uppercut frames; this blue is only her near iris
+        "vi": (0, 108, 251)}              # a raised gauntlet tops the E, R and uppercut frames; this blue is only her near
+                                          # iris's top square (design_vi.py; the crystals use the other blues)
 
 
 def blocks(path):
