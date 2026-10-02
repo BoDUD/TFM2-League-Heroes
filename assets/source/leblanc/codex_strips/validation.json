@@ -1,0 +1,171 @@
+{
+  "idle": {
+    "frame_count": 6,
+    "head_identical_all": true,
+    "eye_color_outside_head": 0,
+    "binary_alpha": true,
+    "palette_subset": true,
+    "foot_line": true,
+    "unique_frame_count": 1,
+    "head_connected_to_body_all": true,
+    "strict_8x_blocks": true,
+    "attached_body_pixels": [
+      617,
+      617,
+      617,
+      617,
+      617,
+      617
+    ]
+  },
+  "run": {
+    "frame_count": 8,
+    "head_identical_all": true,
+    "eye_color_outside_head": 0,
+    "binary_alpha": true,
+    "palette_subset": true,
+    "foot_line": true,
+    "unique_frame_count": 8,
+    "head_connected_to_body_all": true,
+    "strict_8x_blocks": true,
+    "attached_body_pixels": [
+      769,
+      670,
+      656,
+      676,
+      740,
+      686,
+      729,
+      732
+    ],
+    "head_bob_range": 0
+  },
+  "attack": {
+    "frame_count": 6,
+    "head_identical_all": true,
+    "eye_color_outside_head": 0,
+    "binary_alpha": true,
+    "palette_subset": true,
+    "foot_line": true,
+    "unique_frame_count": 6,
+    "head_connected_to_body_all": true,
+    "strict_8x_blocks": true,
+    "attached_body_pixels": [
+      573,
+      519,
+      360,
+      609,
+      612,
+      617
+    ]
+  },
+  "skill": {
+    "frame_count": 5,
+    "head_identical_all": true,
+    "eye_color_outside_head": 0,
+    "binary_alpha": true,
+    "palette_subset": true,
+    "foot_line": true,
+    "unique_frame_count": 5,
+    "head_connected_to_body_all": true,
+    "strict_8x_blocks": true,
+    "attached_body_pixels": [
+      617,
+      683,
+      696,
+      685,
+      617
+    ]
+  },
+  "skill2": {
+    "frame_count": 5,
+    "head_identical_all": true,
+    "eye_color_outside_head": 0,
+    "binary_alpha": true,
+    "palette_subset": true,
+    "foot_line": true,
+    "unique_frame_count": 5,
+    "head_connected_to_body_all": true,
+    "strict_8x_blocks": true,
+    "attached_body_pixels": [
+      1282,
+      1150,
+      1140,
+      1039,
+      1055
+    ]
+  },
+  "skill2_back": {
+    "frame_count": 5,
+    "head_identical_all": true,
+    "eye_color_outside_head": 0,
+    "binary_alpha": true,
+    "palette_subset": true,
+    "foot_line": true,
+    "unique_frame_count": 5,
+    "head_connected_to_body_all": true,
+    "strict_8x_blocks": true,
+    "attached_body_pixels": [
+      330,
+      421,
+      592,
+      635,
+      611
+    ]
+  },
+  "e": {
+    "frame_count": 6,
+    "head_identical_all": true,
+    "eye_color_outside_head": 0,
+    "binary_alpha": true,
+    "palette_subset": true,
+    "foot_line": true,
+    "unique_frame_count": 6,
+    "head_connected_to_body_all": true,
+    "strict_8x_blocks": true,
+    "attached_body_pixels": [
+      617,
+      582,
+      550,
+      807,
+      814,
+      617
+    ]
+  },
+  "hit": {
+    "frame_count": 2,
+    "head_identical_all": true,
+    "eye_color_outside_head": 0,
+    "binary_alpha": true,
+    "palette_subset": true,
+    "foot_line": true,
+    "unique_frame_count": 2,
+    "head_connected_to_body_all": true,
+    "strict_8x_blocks": true,
+    "attached_body_pixels": [
+      615,
+      611
+    ]
+  },
+  "dead": {
+    "frame_count": 8,
+    "head_identical_all": true,
+    "eye_color_outside_head": 0,
+    "binary_alpha": true,
+    "palette_subset": true,
+    "foot_line": true,
+    "unique_frame_count": 6,
+    "head_connected_to_body_all": true,
+    "strict_8x_blocks": true,
+    "attached_body_pixels": [
+      512,
+      276,
+      342,
+      221,
+      204,
+      170,
+      170,
+      170
+    ]
+  }
+}
