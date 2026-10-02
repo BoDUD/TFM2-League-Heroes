@@ -2386,7 +2386,16 @@ from tick 1 the shot comes even when her wind-up is cut short: the same kit with
 crowd-control check every 10 ticks (`RandomTarget {range: 1, casting_target: AllyChampionInCC}` removes the channel
 flag), and at tick 61, if the flag holds, a non-penetrating `LinearProjectile` on `EnemyChampion` (speed 20000, radius
 8000) toward him: the first enemy champion on the line takes 250 + 150% AD, minions do not block. 4.5 of 5 casts a game
-hit a champion.
+hit a champion. Her laser sight (the user: "女警大招释放时候没有线 ... 中没中 打谁的都不知道") is league_fiddlesticks W's chain
+the other way: from tick 10 (the rifle level on tick 12) an `AddCasted` on him (period 2, until the channel's end)
+sends every tick, while the channel flag holds, a `TargetProjectile` at him (6000 a tick, the bullet's `y_offset`
+-4000: from the rifle) with no effects; its picture is a red dash 2 px thick with its head on the projectile, hidden
+5 ticks (past the rifle), then 4 and 8 px long: 6 px apart, the dashes overlap into one line that ends on his pivot (a
+homing projectile goes on its target), where the crosshair is drawn now (it sat on his chest, 8 px higher), `z` -1.
+The dashes stop when the channel breaks or she fires; the ones in flight run on to him while the bullet follows the
+line. The user found it crooked twice ("凯特琳这个大招特效线是歪的？做直了啊", "…连接线特效是歪的 你不修吗"): 24 and 36 px
+links, each turned on its own, stepped where two met, and a line from her standing height missed both the barrel and
+the crosshair. Short dashes keep a turned line straight: each is too short to step, and their heads lie on the line.
 
 **A cleave every fourth attack or on a timer (league_nocturne passive, Umbra Blades).** League's 12 s cooldown, which
 each attack cuts by 1-3 s, comes out at about every fourth attack in a fight. The attack (`start_timing` 1, its hit

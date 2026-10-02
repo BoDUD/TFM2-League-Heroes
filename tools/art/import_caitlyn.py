@@ -60,7 +60,10 @@ HIT = (0, -8)                          # a hit on the upper body of a 32-42 px u
 SOLES = 11                             # the soles' row under the pivot
 # each projectile: the muzzle it leaves
 LEAVES = {"bolt": "attack", "hs_bolt": "passive", "hs_trap_bolt": "passive", "e_net": "e", "q_bolt": "skill",
-          "r_bullet": "ult"}
+          "r_bullet": "ult", "r_laser": "ult"}
+# projectiles that fly level from her standing height (y_offset 5000) instead of a muzzle's height
+LEVEL = set()
+MARK = (0, 0)                          # R's crosshair on his pivot, where the laser and the shot end
 
 
 
@@ -134,7 +137,7 @@ def lead(name, speeds):
 
 def check_kit(speeds):
     for name, muzzle in LEAVES.items():
-        want = 5000 - round(-MUZZLE[muzzle][1] * 1000)
+        want = 5000 if name in LEVEL else 5000 - round(-MUZZLE[muzzle][1] * 1000)
         speed, y = speeds[name]
         state = "ok" if y == want else f"MISMATCH (the muzzle wants {want})"
         print(f"  {name}: speed {speed}, y_offset {y} {state}, {lead(name, speeds)} empty ticks")
@@ -175,6 +178,10 @@ def build():
         "hs_bolt": [("hs_bolt", proj["hs_bolt"], (0, 0), "point")],
         "q_bolt": [("q_bolt", proj["q_bolt"], (0, 0), "point")],
         "r_bullet": [("r_bullet", proj["r_bullet"], (0, 0), "point")],
+        # R's laser sight (tools/art/caitlyn_r_laser.py): a dash's head on its projectile, hidden until it is past the
+        # rifle, 4 px for a tick, then 8 px (6 px apart: one a tick at 6 px a tick) until it reaches him
+        "r_laser": [("r_laser", [(None, round(lead("r_laser", speeds) * TICK)), (0, round(TICK)), (1, 3000)],
+                     (0, 0), "point")],
         "e_net": [("e_net", net, (0, 0), "point")],
         "w_throw": [("w_throw", throw, (0, 0), "point")],
         "shot": [("shot", own("shot"), tip("attack"), "point")],
@@ -186,7 +193,7 @@ def build():
         "hs_hit": [("hs_hit", own("hs_hit"), HIT, "point")],
         "q_hit": [("q_hit", own("q_hit"), HIT, "point")],
         "r_hit": [("r_hit", own("r_hit"), HIT, "point")],
-        "r_mark": [("r_mark", [(k, 100) for k in range(4)], HIT, "point")],
+        "r_mark": [("r_mark", [(k, 100) for k in range(4)], MARK, "point")],
         "e_hit": [("e_hit", own("e_hit"), (0, 0), "ground")],
         "e_slow": [("e_slow", [(k, 100) for k in range(4)], (0, 0), "ground")],
         "w_land": [("w_land", [(0, 50), (1, 50), (2, 50), (3, 50), (4, 300)], (0, 0), "ground")],
