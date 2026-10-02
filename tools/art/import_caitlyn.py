@@ -61,6 +61,8 @@ SOLES = 11                             # the soles' row under the pivot
 # each projectile: the muzzle it leaves
 LEAVES = {"bolt": "attack", "hs_bolt": "passive", "hs_trap_bolt": "passive", "e_net": "e", "q_bolt": "skill",
           "r_bullet": "ult", "r_laser": "ult"}
+# R's shot and laser fly level from her standing height (y_offset 5000) to his, so the line runs straight
+LEVEL = {"r_bullet", "r_laser"}
 
 
 
@@ -134,7 +136,7 @@ def lead(name, speeds):
 
 def check_kit(speeds):
     for name, muzzle in LEAVES.items():
-        want = 5000 - round(-MUZZLE[muzzle][1] * 1000)
+        want = 5000 if name in LEVEL else 5000 - round(-MUZZLE[muzzle][1] * 1000)
         speed, y = speeds[name]
         state = "ok" if y == want else f"MISMATCH (the muzzle wants {want})"
         print(f"  {name}: speed {speed}, y_offset {y} {state}, {lead(name, speeds)} empty ticks")
@@ -175,10 +177,10 @@ def build():
         "hs_bolt": [("hs_bolt", proj["hs_bolt"], (0, 0), "point")],
         "q_bolt": [("q_bolt", proj["q_bolt"], (0, 0), "point")],
         "r_bullet": [("r_bullet", proj["r_bullet"], (0, 0), "point")],
-        # R's laser sight (tools/art/caitlyn_r_laser.py): a link's head on its projectile, hidden until it is out of
-        # the rifle, then 12, 24 and 36 px (the tail stays on the muzzle until the next link shows) until it reaches him
-        "r_laser": [("r_laser", [(None, round(lead("r_laser", speeds) * TICK)), (0, round(TICK)), (1, round(TICK)),
-                                 (2, 3000)], (0, 0), "point")],
+        # R's laser sight (tools/art/caitlyn_r_laser.py): a link's head on its projectile, hidden until it is past the
+        # rifle, 12 px for a tick, then 24 px end to end with the next link until it reaches him
+        "r_laser": [("r_laser", [(None, round(lead("r_laser", speeds) * TICK)), (0, round(TICK)), (1, 3000)],
+                     (0, 0), "point")],
         "e_net": [("e_net", net, (0, 0), "point")],
         "w_throw": [("w_throw", throw, (0, 0), "point")],
         "shot": [("shot", own("shot"), tip("attack"), "point")],

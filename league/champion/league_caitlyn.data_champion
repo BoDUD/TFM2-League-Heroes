@@ -3322,7 +3322,7 @@
                     "type": "TargetProjectile",
                     "name": "league_caitlyn_r_laser",
                     "speed": 12000,
-                    "y_offset": -4000,
+                    "y_offset": 5000,
                     "applied_target": "EnemyChampion",
                     "applied_effects": []
                   },
@@ -3523,7 +3523,7 @@
                         "radius": 8000
                       }
                     },
-                    "y_offset": -4000
+                    "y_offset": 5000
                   }
                 ]
               },
