@@ -331,50 +331,23 @@
                                         {
                                           "casting_type": "Targeting",
                                           "effect": {
-                                            "type": "Delayed",
-                                            "tick": 1,
+                                            "type": "Combine",
                                             "effects": [
                                               {
-                                                "type": "TargetProjectile",
-                                                "name": "league_leblanc_e_link",
-                                                "speed": 100000,
-                                                "y_offset": 0,
-                                                "applied_target": "EnemyChampion",
-                                                "applied_effects": [
-                                                  {
-                                                    "casting_type": "Targeting",
-                                                    "effect": {
-                                                      "type": "ParabolicProjectile",
-                                                      "name": "league_leblanc_e_spot",
-                                                      "travel_time": 1,
-                                                      "range": 400000,
-                                                      "shape": {
-                                                        "Circle": {
-                                                          "radius": 0
-                                                        }
-                                                      },
-                                                      "range_effect_name": "",
-                                                      "applied_target": "EnemyChampion",
-                                                      "applied_effects": [],
-                                                      "end_effects": [
-                                                        {
-                                                          "type": "BackToCasterLinearProjectile",
-                                                          "name": "league_leblanc_e_tether",
-                                                          "speed": 1800,
-                                                          "range": 200000,
-                                                          "penetrate": true,
-                                                          "shape": {
-                                                            "Circle": {
-                                                              "radius": 0
-                                                            }
-                                                          },
-                                                          "applied_target": "EnemyChampion",
-                                                          "applied_effects": []
-                                                        }
-                                                      ]
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_leblanc_e_held"
+                                              },
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_leblanc_e_held",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 94
                                                     }
                                                   }
-                                                ]
+                                                },
+                                                "only_to_enemy": false
                                               }
                                             ]
                                           }
@@ -382,12 +355,14 @@
                                         {
                                           "casting_type": "Targeting",
                                           "effect": {
-                                            "type": "Delayed",
-                                            "tick": 13,
+                                            "type": "AddCasted",
+                                            "casted_type": "Bleed",
+                                            "duration": 90,
+                                            "period": 6,
                                             "effects": [
                                               {
                                                 "type": "TargetProjectile",
-                                                "name": "league_leblanc_e_link",
+                                                "name": "league_leblanc_e_tie",
                                                 "speed": 100000,
                                                 "y_offset": 0,
                                                 "applied_target": "EnemyChampion",
@@ -395,338 +370,94 @@
                                                   {
                                                     "casting_type": "Targeting",
                                                     "effect": {
-                                                      "type": "ParabolicProjectile",
-                                                      "name": "league_leblanc_e_spot",
-                                                      "travel_time": 1,
-                                                      "range": 400000,
-                                                      "shape": {
-                                                        "Circle": {
-                                                          "radius": 0
-                                                        }
-                                                      },
-                                                      "range_effect_name": "",
-                                                      "applied_target": "EnemyChampion",
-                                                      "applied_effects": [],
-                                                      "end_effects": [
+                                                      "type": "RandomTarget",
+                                                      "range": 95000,
+                                                      "casting_target": "AllyOnlySelf",
+                                                      "from_projectile": true,
+                                                      "effects": [
                                                         {
-                                                          "type": "BackToCasterLinearProjectile",
-                                                          "name": "league_leblanc_e_tether",
-                                                          "speed": 1800,
-                                                          "range": 200000,
-                                                          "penetrate": true,
-                                                          "shape": {
-                                                            "Circle": {
-                                                              "radius": 0
+                                                          "type": "AddCasterBuff",
+                                                          "buff_state": {
+                                                            "name": "league_leblanc_e_tie",
+                                                            "duration": {
+                                                              "Time": {
+                                                                "tick": 3
+                                                              }
                                                             }
                                                           },
-                                                          "applied_target": "EnemyChampion",
-                                                          "applied_effects": []
+                                                          "only_to_enemy": false
                                                         }
                                                       ]
                                                     }
-                                                  }
-                                                ]
-                                              }
-                                            ]
-                                          }
-                                        },
-                                        {
-                                          "casting_type": "Targeting",
-                                          "effect": {
-                                            "type": "Delayed",
-                                            "tick": 25,
-                                            "effects": [
-                                              {
-                                                "type": "TargetProjectile",
-                                                "name": "league_leblanc_e_link",
-                                                "speed": 100000,
-                                                "y_offset": 0,
-                                                "applied_target": "EnemyChampion",
-                                                "applied_effects": [
+                                                  },
                                                   {
                                                     "casting_type": "Targeting",
                                                     "effect": {
-                                                      "type": "ParabolicProjectile",
-                                                      "name": "league_leblanc_e_spot",
-                                                      "travel_time": 1,
-                                                      "range": 400000,
-                                                      "shape": {
-                                                        "Circle": {
-                                                          "radius": 0
-                                                        }
-                                                      },
-                                                      "range_effect_name": "",
-                                                      "applied_target": "EnemyChampion",
-                                                      "applied_effects": [],
-                                                      "end_effects": [
+                                                      "type": "Delayed",
+                                                      "tick": 1,
+                                                      "effects": [
                                                         {
-                                                          "type": "BackToCasterLinearProjectile",
-                                                          "name": "league_leblanc_e_tether",
-                                                          "speed": 1800,
-                                                          "range": 200000,
-                                                          "penetrate": true,
-                                                          "shape": {
-                                                            "Circle": {
-                                                              "radius": 0
+                                                          "type": "SwitchByBuff",
+                                                          "buff_name": "league_leblanc_e_tie",
+                                                          "effect_buff": {
+                                                            "type": "SwitchByBuff",
+                                                            "buff_name": "league_leblanc_e_held",
+                                                            "effect_buff": {
+                                                              "type": "TargetProjectile",
+                                                              "name": "league_leblanc_e_link",
+                                                              "speed": 100000,
+                                                              "y_offset": 0,
+                                                              "applied_target": "EnemyChampion",
+                                                              "applied_effects": [
+                                                                {
+                                                                  "casting_type": "Targeting",
+                                                                  "effect": {
+                                                                    "type": "ParabolicProjectile",
+                                                                    "name": "league_leblanc_e_spot",
+                                                                    "travel_time": 1,
+                                                                    "range": 400000,
+                                                                    "shape": {
+                                                                      "Circle": {
+                                                                        "radius": 0
+                                                                      }
+                                                                    },
+                                                                    "range_effect_name": "",
+                                                                    "applied_target": "EnemyChampion",
+                                                                    "applied_effects": [],
+                                                                    "end_effects": [
+                                                                      {
+                                                                        "type": "BackToCasterLinearProjectile",
+                                                                        "name": "league_leblanc_e_tether",
+                                                                        "speed": 3000,
+                                                                        "range": 95000,
+                                                                        "penetrate": true,
+                                                                        "shape": {
+                                                                          "Circle": {
+                                                                            "radius": 0
+                                                                          }
+                                                                        },
+                                                                        "applied_target": "EnemyChampion",
+                                                                        "applied_effects": []
+                                                                      }
+                                                                    ]
+                                                                  }
+                                                                }
+                                                              ]
+                                                            },
+                                                            "effect_none": {
+                                                              "type": "Combine",
+                                                              "effects": []
                                                             }
                                                           },
-                                                          "applied_target": "EnemyChampion",
-                                                          "applied_effects": []
-                                                        }
-                                                      ]
-                                                    }
-                                                  }
-                                                ]
-                                              }
-                                            ]
-                                          }
-                                        },
-                                        {
-                                          "casting_type": "Targeting",
-                                          "effect": {
-                                            "type": "Delayed",
-                                            "tick": 37,
-                                            "effects": [
-                                              {
-                                                "type": "TargetProjectile",
-                                                "name": "league_leblanc_e_link",
-                                                "speed": 100000,
-                                                "y_offset": 0,
-                                                "applied_target": "EnemyChampion",
-                                                "applied_effects": [
-                                                  {
-                                                    "casting_type": "Targeting",
-                                                    "effect": {
-                                                      "type": "ParabolicProjectile",
-                                                      "name": "league_leblanc_e_spot",
-                                                      "travel_time": 1,
-                                                      "range": 400000,
-                                                      "shape": {
-                                                        "Circle": {
-                                                          "radius": 0
-                                                        }
-                                                      },
-                                                      "range_effect_name": "",
-                                                      "applied_target": "EnemyChampion",
-                                                      "applied_effects": [],
-                                                      "end_effects": [
-                                                        {
-                                                          "type": "BackToCasterLinearProjectile",
-                                                          "name": "league_leblanc_e_tether",
-                                                          "speed": 1800,
-                                                          "range": 200000,
-                                                          "penetrate": true,
-                                                          "shape": {
-                                                            "Circle": {
-                                                              "radius": 0
-                                                            }
-                                                          },
-                                                          "applied_target": "EnemyChampion",
-                                                          "applied_effects": []
-                                                        }
-                                                      ]
-                                                    }
-                                                  }
-                                                ]
-                                              }
-                                            ]
-                                          }
-                                        },
-                                        {
-                                          "casting_type": "Targeting",
-                                          "effect": {
-                                            "type": "Delayed",
-                                            "tick": 49,
-                                            "effects": [
-                                              {
-                                                "type": "TargetProjectile",
-                                                "name": "league_leblanc_e_link",
-                                                "speed": 100000,
-                                                "y_offset": 0,
-                                                "applied_target": "EnemyChampion",
-                                                "applied_effects": [
-                                                  {
-                                                    "casting_type": "Targeting",
-                                                    "effect": {
-                                                      "type": "ParabolicProjectile",
-                                                      "name": "league_leblanc_e_spot",
-                                                      "travel_time": 1,
-                                                      "range": 400000,
-                                                      "shape": {
-                                                        "Circle": {
-                                                          "radius": 0
-                                                        }
-                                                      },
-                                                      "range_effect_name": "",
-                                                      "applied_target": "EnemyChampion",
-                                                      "applied_effects": [],
-                                                      "end_effects": [
-                                                        {
-                                                          "type": "BackToCasterLinearProjectile",
-                                                          "name": "league_leblanc_e_tether",
-                                                          "speed": 1800,
-                                                          "range": 200000,
-                                                          "penetrate": true,
-                                                          "shape": {
-                                                            "Circle": {
-                                                              "radius": 0
-                                                            }
-                                                          },
-                                                          "applied_target": "EnemyChampion",
-                                                          "applied_effects": []
-                                                        }
-                                                      ]
-                                                    }
-                                                  }
-                                                ]
-                                              }
-                                            ]
-                                          }
-                                        },
-                                        {
-                                          "casting_type": "Targeting",
-                                          "effect": {
-                                            "type": "Delayed",
-                                            "tick": 61,
-                                            "effects": [
-                                              {
-                                                "type": "TargetProjectile",
-                                                "name": "league_leblanc_e_link",
-                                                "speed": 100000,
-                                                "y_offset": 0,
-                                                "applied_target": "EnemyChampion",
-                                                "applied_effects": [
-                                                  {
-                                                    "casting_type": "Targeting",
-                                                    "effect": {
-                                                      "type": "ParabolicProjectile",
-                                                      "name": "league_leblanc_e_spot",
-                                                      "travel_time": 1,
-                                                      "range": 400000,
-                                                      "shape": {
-                                                        "Circle": {
-                                                          "radius": 0
-                                                        }
-                                                      },
-                                                      "range_effect_name": "",
-                                                      "applied_target": "EnemyChampion",
-                                                      "applied_effects": [],
-                                                      "end_effects": [
-                                                        {
-                                                          "type": "BackToCasterLinearProjectile",
-                                                          "name": "league_leblanc_e_tether",
-                                                          "speed": 1800,
-                                                          "range": 200000,
-                                                          "penetrate": true,
-                                                          "shape": {
-                                                            "Circle": {
-                                                              "radius": 0
-                                                            }
-                                                          },
-                                                          "applied_target": "EnemyChampion",
-                                                          "applied_effects": []
-                                                        }
-                                                      ]
-                                                    }
-                                                  }
-                                                ]
-                                              }
-                                            ]
-                                          }
-                                        },
-                                        {
-                                          "casting_type": "Targeting",
-                                          "effect": {
-                                            "type": "Delayed",
-                                            "tick": 73,
-                                            "effects": [
-                                              {
-                                                "type": "TargetProjectile",
-                                                "name": "league_leblanc_e_link",
-                                                "speed": 100000,
-                                                "y_offset": 0,
-                                                "applied_target": "EnemyChampion",
-                                                "applied_effects": [
-                                                  {
-                                                    "casting_type": "Targeting",
-                                                    "effect": {
-                                                      "type": "ParabolicProjectile",
-                                                      "name": "league_leblanc_e_spot",
-                                                      "travel_time": 1,
-                                                      "range": 400000,
-                                                      "shape": {
-                                                        "Circle": {
-                                                          "radius": 0
-                                                        }
-                                                      },
-                                                      "range_effect_name": "",
-                                                      "applied_target": "EnemyChampion",
-                                                      "applied_effects": [],
-                                                      "end_effects": [
-                                                        {
-                                                          "type": "BackToCasterLinearProjectile",
-                                                          "name": "league_leblanc_e_tether",
-                                                          "speed": 1800,
-                                                          "range": 200000,
-                                                          "penetrate": true,
-                                                          "shape": {
-                                                            "Circle": {
-                                                              "radius": 0
-                                                            }
-                                                          },
-                                                          "applied_target": "EnemyChampion",
-                                                          "applied_effects": []
-                                                        }
-                                                      ]
-                                                    }
-                                                  }
-                                                ]
-                                              }
-                                            ]
-                                          }
-                                        },
-                                        {
-                                          "casting_type": "Targeting",
-                                          "effect": {
-                                            "type": "Delayed",
-                                            "tick": 85,
-                                            "effects": [
-                                              {
-                                                "type": "TargetProjectile",
-                                                "name": "league_leblanc_e_link",
-                                                "speed": 100000,
-                                                "y_offset": 0,
-                                                "applied_target": "EnemyChampion",
-                                                "applied_effects": [
-                                                  {
-                                                    "casting_type": "Targeting",
-                                                    "effect": {
-                                                      "type": "ParabolicProjectile",
-                                                      "name": "league_leblanc_e_spot",
-                                                      "travel_time": 1,
-                                                      "range": 400000,
-                                                      "shape": {
-                                                        "Circle": {
-                                                          "radius": 0
-                                                        }
-                                                      },
-                                                      "range_effect_name": "",
-                                                      "applied_target": "EnemyChampion",
-                                                      "applied_effects": [],
-                                                      "end_effects": [
-                                                        {
-                                                          "type": "BackToCasterLinearProjectile",
-                                                          "name": "league_leblanc_e_tether",
-                                                          "speed": 1800,
-                                                          "range": 200000,
-                                                          "penetrate": true,
-                                                          "shape": {
-                                                            "Circle": {
-                                                              "radius": 0
-                                                            }
-                                                          },
-                                                          "applied_target": "EnemyChampion",
-                                                          "applied_effects": []
+                                                          "effect_none": {
+                                                            "type": "Combine",
+                                                            "effects": [
+                                                              {
+                                                                "type": "RemoveCasterBuff",
+                                                                "name": "league_leblanc_e_held"
+                                                              }
+                                                            ]
+                                                          }
                                                         }
                                                       ]
                                                     }
@@ -782,79 +513,91 @@
                                                           "type": "SwitchByBuff",
                                                           "buff_name": "league_leblanc_e_near",
                                                           "effect_buff": {
-                                                            "type": "Combine",
-                                                            "effects": [
-                                                              {
-                                                                "type": "RemoveCasterBuff",
-                                                                "name": "league_leblanc_e_near"
-                                                              },
-                                                              {
-                                                                "type": "Bind",
-                                                                "duration": 90
-                                                              },
-                                                              {
-                                                                "type": "ApAttack",
-                                                                "damage": 110,
-                                                                "attack_ratio": 100,
-                                                                "hp_ratio": 0,
-                                                                "attack_effect_type": "Target"
-                                                              },
-                                                              {
-                                                                "type": "ViewEffect",
-                                                                "name": "league_leblanc_e_root"
-                                                              },
-                                                              {
-                                                                "type": "TargetSfx",
-                                                                "name": "league_leblanc_e_root"
-                                                              },
-                                                              {
-                                                                "type": "Combine",
-                                                                "effects": [
-                                                                  {
-                                                                    "type": "Combine",
-                                                                    "effects": [
-                                                                      {
-                                                                        "type": "RemoveCasterBuff",
-                                                                        "name": "league_leblanc_pop_q"
-                                                                      },
-                                                                      {
-                                                                        "type": "AddCasterBuff",
-                                                                        "buff_state": {
-                                                                          "name": "league_leblanc_pop_q",
-                                                                          "duration": {
-                                                                            "Time": {
-                                                                              "tick": 3
-                                                                            }
-                                                                          }
+                                                            "type": "SwitchByBuff",
+                                                            "buff_name": "league_leblanc_e_held",
+                                                            "effect_buff": {
+                                                              "type": "Combine",
+                                                              "effects": [
+                                                                {
+                                                                  "type": "RemoveCasterBuff",
+                                                                  "name": "league_leblanc_e_near"
+                                                                },
+                                                                {
+                                                                  "type": "RemoveCasterBuff",
+                                                                  "name": "league_leblanc_e_held"
+                                                                },
+                                                                {
+                                                                  "type": "Bind",
+                                                                  "duration": 90
+                                                                },
+                                                                {
+                                                                  "type": "ApAttack",
+                                                                  "damage": 110,
+                                                                  "attack_ratio": 100,
+                                                                  "hp_ratio": 0,
+                                                                  "attack_effect_type": "Target"
+                                                                },
+                                                                {
+                                                                  "type": "ViewEffect",
+                                                                  "name": "league_leblanc_e_root"
+                                                                },
+                                                                {
+                                                                  "type": "TargetSfx",
+                                                                  "name": "league_leblanc_e_root"
+                                                                },
+                                                                {
+                                                                  "type": "Combine",
+                                                                  "effects": [
+                                                                    {
+                                                                      "type": "Combine",
+                                                                      "effects": [
+                                                                        {
+                                                                          "type": "RemoveCasterBuff",
+                                                                          "name": "league_leblanc_pop_q"
                                                                         },
-                                                                        "only_to_enemy": false
-                                                                      }
-                                                                    ]
-                                                                  },
-                                                                  {
-                                                                    "type": "Combine",
-                                                                    "effects": [
-                                                                      {
-                                                                        "type": "RemoveCasterBuff",
-                                                                        "name": "league_leblanc_pop_rq"
-                                                                      },
-                                                                      {
-                                                                        "type": "AddCasterBuff",
-                                                                        "buff_state": {
-                                                                          "name": "league_leblanc_pop_rq",
-                                                                          "duration": {
-                                                                            "Time": {
-                                                                              "tick": 3
+                                                                        {
+                                                                          "type": "AddCasterBuff",
+                                                                          "buff_state": {
+                                                                            "name": "league_leblanc_pop_q",
+                                                                            "duration": {
+                                                                              "Time": {
+                                                                                "tick": 3
+                                                                              }
                                                                             }
-                                                                          }
+                                                                          },
+                                                                          "only_to_enemy": false
+                                                                        }
+                                                                      ]
+                                                                    },
+                                                                    {
+                                                                      "type": "Combine",
+                                                                      "effects": [
+                                                                        {
+                                                                          "type": "RemoveCasterBuff",
+                                                                          "name": "league_leblanc_pop_rq"
                                                                         },
-                                                                        "only_to_enemy": false
-                                                                      }
-                                                                    ]
-                                                                  }
-                                                                ]
-                                                              }
-                                                            ]
+                                                                        {
+                                                                          "type": "AddCasterBuff",
+                                                                          "buff_state": {
+                                                                            "name": "league_leblanc_pop_rq",
+                                                                            "duration": {
+                                                                              "Time": {
+                                                                                "tick": 3
+                                                                              }
+                                                                            }
+                                                                          },
+                                                                          "only_to_enemy": false
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            },
+                                                            "effect_none": {
+                                                              "type": "Combine",
+                                                              "effects": []
+                                                            }
                                                           },
                                                           "effect_none": {
                                                             "type": "Combine",
@@ -1220,50 +963,23 @@
                                           {
                                             "casting_type": "Targeting",
                                             "effect": {
-                                              "type": "Delayed",
-                                              "tick": 1,
+                                              "type": "Combine",
                                               "effects": [
                                                 {
-                                                  "type": "TargetProjectile",
-                                                  "name": "league_leblanc_e_link",
-                                                  "speed": 100000,
-                                                  "y_offset": 0,
-                                                  "applied_target": "EnemyChampion",
-                                                  "applied_effects": [
-                                                    {
-                                                      "casting_type": "Targeting",
-                                                      "effect": {
-                                                        "type": "ParabolicProjectile",
-                                                        "name": "league_leblanc_e_spot",
-                                                        "travel_time": 1,
-                                                        "range": 400000,
-                                                        "shape": {
-                                                          "Circle": {
-                                                            "radius": 0
-                                                          }
-                                                        },
-                                                        "range_effect_name": "",
-                                                        "applied_target": "EnemyChampion",
-                                                        "applied_effects": [],
-                                                        "end_effects": [
-                                                          {
-                                                            "type": "BackToCasterLinearProjectile",
-                                                            "name": "league_leblanc_e_tether",
-                                                            "speed": 1800,
-                                                            "range": 200000,
-                                                            "penetrate": true,
-                                                            "shape": {
-                                                              "Circle": {
-                                                                "radius": 0
-                                                              }
-                                                            },
-                                                            "applied_target": "EnemyChampion",
-                                                            "applied_effects": []
-                                                          }
-                                                        ]
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_leblanc_e_held"
+                                                },
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_leblanc_e_held",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 94
                                                       }
                                                     }
-                                                  ]
+                                                  },
+                                                  "only_to_enemy": false
                                                 }
                                               ]
                                             }
@@ -1271,12 +987,14 @@
                                           {
                                             "casting_type": "Targeting",
                                             "effect": {
-                                              "type": "Delayed",
-                                              "tick": 13,
+                                              "type": "AddCasted",
+                                              "casted_type": "Bleed",
+                                              "duration": 90,
+                                              "period": 6,
                                               "effects": [
                                                 {
                                                   "type": "TargetProjectile",
-                                                  "name": "league_leblanc_e_link",
+                                                  "name": "league_leblanc_e_tie",
                                                   "speed": 100000,
                                                   "y_offset": 0,
                                                   "applied_target": "EnemyChampion",
@@ -1284,338 +1002,94 @@
                                                     {
                                                       "casting_type": "Targeting",
                                                       "effect": {
-                                                        "type": "ParabolicProjectile",
-                                                        "name": "league_leblanc_e_spot",
-                                                        "travel_time": 1,
-                                                        "range": 400000,
-                                                        "shape": {
-                                                          "Circle": {
-                                                            "radius": 0
-                                                          }
-                                                        },
-                                                        "range_effect_name": "",
-                                                        "applied_target": "EnemyChampion",
-                                                        "applied_effects": [],
-                                                        "end_effects": [
+                                                        "type": "RandomTarget",
+                                                        "range": 95000,
+                                                        "casting_target": "AllyOnlySelf",
+                                                        "from_projectile": true,
+                                                        "effects": [
                                                           {
-                                                            "type": "BackToCasterLinearProjectile",
-                                                            "name": "league_leblanc_e_tether",
-                                                            "speed": 1800,
-                                                            "range": 200000,
-                                                            "penetrate": true,
-                                                            "shape": {
-                                                              "Circle": {
-                                                                "radius": 0
+                                                            "type": "AddCasterBuff",
+                                                            "buff_state": {
+                                                              "name": "league_leblanc_e_tie",
+                                                              "duration": {
+                                                                "Time": {
+                                                                  "tick": 3
+                                                                }
                                                               }
                                                             },
-                                                            "applied_target": "EnemyChampion",
-                                                            "applied_effects": []
+                                                            "only_to_enemy": false
                                                           }
                                                         ]
                                                       }
-                                                    }
-                                                  ]
-                                                }
-                                              ]
-                                            }
-                                          },
-                                          {
-                                            "casting_type": "Targeting",
-                                            "effect": {
-                                              "type": "Delayed",
-                                              "tick": 25,
-                                              "effects": [
-                                                {
-                                                  "type": "TargetProjectile",
-                                                  "name": "league_leblanc_e_link",
-                                                  "speed": 100000,
-                                                  "y_offset": 0,
-                                                  "applied_target": "EnemyChampion",
-                                                  "applied_effects": [
+                                                    },
                                                     {
                                                       "casting_type": "Targeting",
                                                       "effect": {
-                                                        "type": "ParabolicProjectile",
-                                                        "name": "league_leblanc_e_spot",
-                                                        "travel_time": 1,
-                                                        "range": 400000,
-                                                        "shape": {
-                                                          "Circle": {
-                                                            "radius": 0
-                                                          }
-                                                        },
-                                                        "range_effect_name": "",
-                                                        "applied_target": "EnemyChampion",
-                                                        "applied_effects": [],
-                                                        "end_effects": [
+                                                        "type": "Delayed",
+                                                        "tick": 1,
+                                                        "effects": [
                                                           {
-                                                            "type": "BackToCasterLinearProjectile",
-                                                            "name": "league_leblanc_e_tether",
-                                                            "speed": 1800,
-                                                            "range": 200000,
-                                                            "penetrate": true,
-                                                            "shape": {
-                                                              "Circle": {
-                                                                "radius": 0
+                                                            "type": "SwitchByBuff",
+                                                            "buff_name": "league_leblanc_e_tie",
+                                                            "effect_buff": {
+                                                              "type": "SwitchByBuff",
+                                                              "buff_name": "league_leblanc_e_held",
+                                                              "effect_buff": {
+                                                                "type": "TargetProjectile",
+                                                                "name": "league_leblanc_e_link",
+                                                                "speed": 100000,
+                                                                "y_offset": 0,
+                                                                "applied_target": "EnemyChampion",
+                                                                "applied_effects": [
+                                                                  {
+                                                                    "casting_type": "Targeting",
+                                                                    "effect": {
+                                                                      "type": "ParabolicProjectile",
+                                                                      "name": "league_leblanc_e_spot",
+                                                                      "travel_time": 1,
+                                                                      "range": 400000,
+                                                                      "shape": {
+                                                                        "Circle": {
+                                                                          "radius": 0
+                                                                        }
+                                                                      },
+                                                                      "range_effect_name": "",
+                                                                      "applied_target": "EnemyChampion",
+                                                                      "applied_effects": [],
+                                                                      "end_effects": [
+                                                                        {
+                                                                          "type": "BackToCasterLinearProjectile",
+                                                                          "name": "league_leblanc_e_tether",
+                                                                          "speed": 3000,
+                                                                          "range": 95000,
+                                                                          "penetrate": true,
+                                                                          "shape": {
+                                                                            "Circle": {
+                                                                              "radius": 0
+                                                                            }
+                                                                          },
+                                                                          "applied_target": "EnemyChampion",
+                                                                          "applied_effects": []
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  }
+                                                                ]
+                                                              },
+                                                              "effect_none": {
+                                                                "type": "Combine",
+                                                                "effects": []
                                                               }
                                                             },
-                                                            "applied_target": "EnemyChampion",
-                                                            "applied_effects": []
-                                                          }
-                                                        ]
-                                                      }
-                                                    }
-                                                  ]
-                                                }
-                                              ]
-                                            }
-                                          },
-                                          {
-                                            "casting_type": "Targeting",
-                                            "effect": {
-                                              "type": "Delayed",
-                                              "tick": 37,
-                                              "effects": [
-                                                {
-                                                  "type": "TargetProjectile",
-                                                  "name": "league_leblanc_e_link",
-                                                  "speed": 100000,
-                                                  "y_offset": 0,
-                                                  "applied_target": "EnemyChampion",
-                                                  "applied_effects": [
-                                                    {
-                                                      "casting_type": "Targeting",
-                                                      "effect": {
-                                                        "type": "ParabolicProjectile",
-                                                        "name": "league_leblanc_e_spot",
-                                                        "travel_time": 1,
-                                                        "range": 400000,
-                                                        "shape": {
-                                                          "Circle": {
-                                                            "radius": 0
-                                                          }
-                                                        },
-                                                        "range_effect_name": "",
-                                                        "applied_target": "EnemyChampion",
-                                                        "applied_effects": [],
-                                                        "end_effects": [
-                                                          {
-                                                            "type": "BackToCasterLinearProjectile",
-                                                            "name": "league_leblanc_e_tether",
-                                                            "speed": 1800,
-                                                            "range": 200000,
-                                                            "penetrate": true,
-                                                            "shape": {
-                                                              "Circle": {
-                                                                "radius": 0
-                                                              }
-                                                            },
-                                                            "applied_target": "EnemyChampion",
-                                                            "applied_effects": []
-                                                          }
-                                                        ]
-                                                      }
-                                                    }
-                                                  ]
-                                                }
-                                              ]
-                                            }
-                                          },
-                                          {
-                                            "casting_type": "Targeting",
-                                            "effect": {
-                                              "type": "Delayed",
-                                              "tick": 49,
-                                              "effects": [
-                                                {
-                                                  "type": "TargetProjectile",
-                                                  "name": "league_leblanc_e_link",
-                                                  "speed": 100000,
-                                                  "y_offset": 0,
-                                                  "applied_target": "EnemyChampion",
-                                                  "applied_effects": [
-                                                    {
-                                                      "casting_type": "Targeting",
-                                                      "effect": {
-                                                        "type": "ParabolicProjectile",
-                                                        "name": "league_leblanc_e_spot",
-                                                        "travel_time": 1,
-                                                        "range": 400000,
-                                                        "shape": {
-                                                          "Circle": {
-                                                            "radius": 0
-                                                          }
-                                                        },
-                                                        "range_effect_name": "",
-                                                        "applied_target": "EnemyChampion",
-                                                        "applied_effects": [],
-                                                        "end_effects": [
-                                                          {
-                                                            "type": "BackToCasterLinearProjectile",
-                                                            "name": "league_leblanc_e_tether",
-                                                            "speed": 1800,
-                                                            "range": 200000,
-                                                            "penetrate": true,
-                                                            "shape": {
-                                                              "Circle": {
-                                                                "radius": 0
-                                                              }
-                                                            },
-                                                            "applied_target": "EnemyChampion",
-                                                            "applied_effects": []
-                                                          }
-                                                        ]
-                                                      }
-                                                    }
-                                                  ]
-                                                }
-                                              ]
-                                            }
-                                          },
-                                          {
-                                            "casting_type": "Targeting",
-                                            "effect": {
-                                              "type": "Delayed",
-                                              "tick": 61,
-                                              "effects": [
-                                                {
-                                                  "type": "TargetProjectile",
-                                                  "name": "league_leblanc_e_link",
-                                                  "speed": 100000,
-                                                  "y_offset": 0,
-                                                  "applied_target": "EnemyChampion",
-                                                  "applied_effects": [
-                                                    {
-                                                      "casting_type": "Targeting",
-                                                      "effect": {
-                                                        "type": "ParabolicProjectile",
-                                                        "name": "league_leblanc_e_spot",
-                                                        "travel_time": 1,
-                                                        "range": 400000,
-                                                        "shape": {
-                                                          "Circle": {
-                                                            "radius": 0
-                                                          }
-                                                        },
-                                                        "range_effect_name": "",
-                                                        "applied_target": "EnemyChampion",
-                                                        "applied_effects": [],
-                                                        "end_effects": [
-                                                          {
-                                                            "type": "BackToCasterLinearProjectile",
-                                                            "name": "league_leblanc_e_tether",
-                                                            "speed": 1800,
-                                                            "range": 200000,
-                                                            "penetrate": true,
-                                                            "shape": {
-                                                              "Circle": {
-                                                                "radius": 0
-                                                              }
-                                                            },
-                                                            "applied_target": "EnemyChampion",
-                                                            "applied_effects": []
-                                                          }
-                                                        ]
-                                                      }
-                                                    }
-                                                  ]
-                                                }
-                                              ]
-                                            }
-                                          },
-                                          {
-                                            "casting_type": "Targeting",
-                                            "effect": {
-                                              "type": "Delayed",
-                                              "tick": 73,
-                                              "effects": [
-                                                {
-                                                  "type": "TargetProjectile",
-                                                  "name": "league_leblanc_e_link",
-                                                  "speed": 100000,
-                                                  "y_offset": 0,
-                                                  "applied_target": "EnemyChampion",
-                                                  "applied_effects": [
-                                                    {
-                                                      "casting_type": "Targeting",
-                                                      "effect": {
-                                                        "type": "ParabolicProjectile",
-                                                        "name": "league_leblanc_e_spot",
-                                                        "travel_time": 1,
-                                                        "range": 400000,
-                                                        "shape": {
-                                                          "Circle": {
-                                                            "radius": 0
-                                                          }
-                                                        },
-                                                        "range_effect_name": "",
-                                                        "applied_target": "EnemyChampion",
-                                                        "applied_effects": [],
-                                                        "end_effects": [
-                                                          {
-                                                            "type": "BackToCasterLinearProjectile",
-                                                            "name": "league_leblanc_e_tether",
-                                                            "speed": 1800,
-                                                            "range": 200000,
-                                                            "penetrate": true,
-                                                            "shape": {
-                                                              "Circle": {
-                                                                "radius": 0
-                                                              }
-                                                            },
-                                                            "applied_target": "EnemyChampion",
-                                                            "applied_effects": []
-                                                          }
-                                                        ]
-                                                      }
-                                                    }
-                                                  ]
-                                                }
-                                              ]
-                                            }
-                                          },
-                                          {
-                                            "casting_type": "Targeting",
-                                            "effect": {
-                                              "type": "Delayed",
-                                              "tick": 85,
-                                              "effects": [
-                                                {
-                                                  "type": "TargetProjectile",
-                                                  "name": "league_leblanc_e_link",
-                                                  "speed": 100000,
-                                                  "y_offset": 0,
-                                                  "applied_target": "EnemyChampion",
-                                                  "applied_effects": [
-                                                    {
-                                                      "casting_type": "Targeting",
-                                                      "effect": {
-                                                        "type": "ParabolicProjectile",
-                                                        "name": "league_leblanc_e_spot",
-                                                        "travel_time": 1,
-                                                        "range": 400000,
-                                                        "shape": {
-                                                          "Circle": {
-                                                            "radius": 0
-                                                          }
-                                                        },
-                                                        "range_effect_name": "",
-                                                        "applied_target": "EnemyChampion",
-                                                        "applied_effects": [],
-                                                        "end_effects": [
-                                                          {
-                                                            "type": "BackToCasterLinearProjectile",
-                                                            "name": "league_leblanc_e_tether",
-                                                            "speed": 1800,
-                                                            "range": 200000,
-                                                            "penetrate": true,
-                                                            "shape": {
-                                                              "Circle": {
-                                                                "radius": 0
-                                                              }
-                                                            },
-                                                            "applied_target": "EnemyChampion",
-                                                            "applied_effects": []
+                                                            "effect_none": {
+                                                              "type": "Combine",
+                                                              "effects": [
+                                                                {
+                                                                  "type": "RemoveCasterBuff",
+                                                                  "name": "league_leblanc_e_held"
+                                                                }
+                                                              ]
+                                                            }
                                                           }
                                                         ]
                                                       }
@@ -1671,79 +1145,91 @@
                                                             "type": "SwitchByBuff",
                                                             "buff_name": "league_leblanc_e_near",
                                                             "effect_buff": {
-                                                              "type": "Combine",
-                                                              "effects": [
-                                                                {
-                                                                  "type": "RemoveCasterBuff",
-                                                                  "name": "league_leblanc_e_near"
-                                                                },
-                                                                {
-                                                                  "type": "Bind",
-                                                                  "duration": 90
-                                                                },
-                                                                {
-                                                                  "type": "ApAttack",
-                                                                  "damage": 110,
-                                                                  "attack_ratio": 100,
-                                                                  "hp_ratio": 0,
-                                                                  "attack_effect_type": "Target"
-                                                                },
-                                                                {
-                                                                  "type": "ViewEffect",
-                                                                  "name": "league_leblanc_e_root"
-                                                                },
-                                                                {
-                                                                  "type": "TargetSfx",
-                                                                  "name": "league_leblanc_e_root"
-                                                                },
-                                                                {
-                                                                  "type": "Combine",
-                                                                  "effects": [
-                                                                    {
-                                                                      "type": "Combine",
-                                                                      "effects": [
-                                                                        {
-                                                                          "type": "RemoveCasterBuff",
-                                                                          "name": "league_leblanc_pop_q"
-                                                                        },
-                                                                        {
-                                                                          "type": "AddCasterBuff",
-                                                                          "buff_state": {
-                                                                            "name": "league_leblanc_pop_q",
-                                                                            "duration": {
-                                                                              "Time": {
-                                                                                "tick": 3
-                                                                              }
-                                                                            }
+                                                              "type": "SwitchByBuff",
+                                                              "buff_name": "league_leblanc_e_held",
+                                                              "effect_buff": {
+                                                                "type": "Combine",
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "RemoveCasterBuff",
+                                                                    "name": "league_leblanc_e_near"
+                                                                  },
+                                                                  {
+                                                                    "type": "RemoveCasterBuff",
+                                                                    "name": "league_leblanc_e_held"
+                                                                  },
+                                                                  {
+                                                                    "type": "Bind",
+                                                                    "duration": 90
+                                                                  },
+                                                                  {
+                                                                    "type": "ApAttack",
+                                                                    "damage": 110,
+                                                                    "attack_ratio": 100,
+                                                                    "hp_ratio": 0,
+                                                                    "attack_effect_type": "Target"
+                                                                  },
+                                                                  {
+                                                                    "type": "ViewEffect",
+                                                                    "name": "league_leblanc_e_root"
+                                                                  },
+                                                                  {
+                                                                    "type": "TargetSfx",
+                                                                    "name": "league_leblanc_e_root"
+                                                                  },
+                                                                  {
+                                                                    "type": "Combine",
+                                                                    "effects": [
+                                                                      {
+                                                                        "type": "Combine",
+                                                                        "effects": [
+                                                                          {
+                                                                            "type": "RemoveCasterBuff",
+                                                                            "name": "league_leblanc_pop_q"
                                                                           },
-                                                                          "only_to_enemy": false
-                                                                        }
-                                                                      ]
-                                                                    },
-                                                                    {
-                                                                      "type": "Combine",
-                                                                      "effects": [
-                                                                        {
-                                                                          "type": "RemoveCasterBuff",
-                                                                          "name": "league_leblanc_pop_rq"
-                                                                        },
-                                                                        {
-                                                                          "type": "AddCasterBuff",
-                                                                          "buff_state": {
-                                                                            "name": "league_leblanc_pop_rq",
-                                                                            "duration": {
-                                                                              "Time": {
-                                                                                "tick": 3
+                                                                          {
+                                                                            "type": "AddCasterBuff",
+                                                                            "buff_state": {
+                                                                              "name": "league_leblanc_pop_q",
+                                                                              "duration": {
+                                                                                "Time": {
+                                                                                  "tick": 3
+                                                                                }
                                                                               }
-                                                                            }
+                                                                            },
+                                                                            "only_to_enemy": false
+                                                                          }
+                                                                        ]
+                                                                      },
+                                                                      {
+                                                                        "type": "Combine",
+                                                                        "effects": [
+                                                                          {
+                                                                            "type": "RemoveCasterBuff",
+                                                                            "name": "league_leblanc_pop_rq"
                                                                           },
-                                                                          "only_to_enemy": false
-                                                                        }
-                                                                      ]
-                                                                    }
-                                                                  ]
-                                                                }
-                                                              ]
+                                                                          {
+                                                                            "type": "AddCasterBuff",
+                                                                            "buff_state": {
+                                                                              "name": "league_leblanc_pop_rq",
+                                                                              "duration": {
+                                                                                "Time": {
+                                                                                  "tick": 3
+                                                                                }
+                                                                              }
+                                                                            },
+                                                                            "only_to_enemy": false
+                                                                          }
+                                                                        ]
+                                                                      }
+                                                                    ]
+                                                                  }
+                                                                ]
+                                                              },
+                                                              "effect_none": {
+                                                                "type": "Combine",
+                                                                "effects": []
+                                                              }
                                                             },
                                                             "effect_none": {
                                                               "type": "Combine",
@@ -3282,50 +2768,23 @@
                             {
                               "casting_type": "Targeting",
                               "effect": {
-                                "type": "Delayed",
-                                "tick": 1,
+                                "type": "Combine",
                                 "effects": [
                                   {
-                                    "type": "TargetProjectile",
-                                    "name": "league_leblanc_e_link",
-                                    "speed": 100000,
-                                    "y_offset": 0,
-                                    "applied_target": "EnemyChampion",
-                                    "applied_effects": [
-                                      {
-                                        "casting_type": "Targeting",
-                                        "effect": {
-                                          "type": "ParabolicProjectile",
-                                          "name": "league_leblanc_e_spot",
-                                          "travel_time": 1,
-                                          "range": 400000,
-                                          "shape": {
-                                            "Circle": {
-                                              "radius": 0
-                                            }
-                                          },
-                                          "range_effect_name": "",
-                                          "applied_target": "EnemyChampion",
-                                          "applied_effects": [],
-                                          "end_effects": [
-                                            {
-                                              "type": "BackToCasterLinearProjectile",
-                                              "name": "league_leblanc_re_tether",
-                                              "speed": 1800,
-                                              "range": 200000,
-                                              "penetrate": true,
-                                              "shape": {
-                                                "Circle": {
-                                                  "radius": 0
-                                                }
-                                              },
-                                              "applied_target": "EnemyChampion",
-                                              "applied_effects": []
-                                            }
-                                          ]
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_leblanc_re_held"
+                                  },
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_leblanc_re_held",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 94
                                         }
                                       }
-                                    ]
+                                    },
+                                    "only_to_enemy": false
                                   }
                                 ]
                               }
@@ -3333,12 +2792,14 @@
                             {
                               "casting_type": "Targeting",
                               "effect": {
-                                "type": "Delayed",
-                                "tick": 13,
+                                "type": "AddCasted",
+                                "casted_type": "Bleed",
+                                "duration": 90,
+                                "period": 6,
                                 "effects": [
                                   {
                                     "type": "TargetProjectile",
-                                    "name": "league_leblanc_e_link",
+                                    "name": "league_leblanc_re_tie",
                                     "speed": 100000,
                                     "y_offset": 0,
                                     "applied_target": "EnemyChampion",
@@ -3346,338 +2807,94 @@
                                       {
                                         "casting_type": "Targeting",
                                         "effect": {
-                                          "type": "ParabolicProjectile",
-                                          "name": "league_leblanc_e_spot",
-                                          "travel_time": 1,
-                                          "range": 400000,
-                                          "shape": {
-                                            "Circle": {
-                                              "radius": 0
-                                            }
-                                          },
-                                          "range_effect_name": "",
-                                          "applied_target": "EnemyChampion",
-                                          "applied_effects": [],
-                                          "end_effects": [
+                                          "type": "RandomTarget",
+                                          "range": 95000,
+                                          "casting_target": "AllyOnlySelf",
+                                          "from_projectile": true,
+                                          "effects": [
                                             {
-                                              "type": "BackToCasterLinearProjectile",
-                                              "name": "league_leblanc_re_tether",
-                                              "speed": 1800,
-                                              "range": 200000,
-                                              "penetrate": true,
-                                              "shape": {
-                                                "Circle": {
-                                                  "radius": 0
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_leblanc_re_tie",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 3
+                                                  }
                                                 }
                                               },
-                                              "applied_target": "EnemyChampion",
-                                              "applied_effects": []
+                                              "only_to_enemy": false
                                             }
                                           ]
                                         }
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            },
-                            {
-                              "casting_type": "Targeting",
-                              "effect": {
-                                "type": "Delayed",
-                                "tick": 25,
-                                "effects": [
-                                  {
-                                    "type": "TargetProjectile",
-                                    "name": "league_leblanc_e_link",
-                                    "speed": 100000,
-                                    "y_offset": 0,
-                                    "applied_target": "EnemyChampion",
-                                    "applied_effects": [
+                                      },
                                       {
                                         "casting_type": "Targeting",
                                         "effect": {
-                                          "type": "ParabolicProjectile",
-                                          "name": "league_leblanc_e_spot",
-                                          "travel_time": 1,
-                                          "range": 400000,
-                                          "shape": {
-                                            "Circle": {
-                                              "radius": 0
-                                            }
-                                          },
-                                          "range_effect_name": "",
-                                          "applied_target": "EnemyChampion",
-                                          "applied_effects": [],
-                                          "end_effects": [
+                                          "type": "Delayed",
+                                          "tick": 1,
+                                          "effects": [
                                             {
-                                              "type": "BackToCasterLinearProjectile",
-                                              "name": "league_leblanc_re_tether",
-                                              "speed": 1800,
-                                              "range": 200000,
-                                              "penetrate": true,
-                                              "shape": {
-                                                "Circle": {
-                                                  "radius": 0
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_leblanc_re_tie",
+                                              "effect_buff": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_leblanc_re_held",
+                                                "effect_buff": {
+                                                  "type": "TargetProjectile",
+                                                  "name": "league_leblanc_e_link",
+                                                  "speed": 100000,
+                                                  "y_offset": 0,
+                                                  "applied_target": "EnemyChampion",
+                                                  "applied_effects": [
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "ParabolicProjectile",
+                                                        "name": "league_leblanc_e_spot",
+                                                        "travel_time": 1,
+                                                        "range": 400000,
+                                                        "shape": {
+                                                          "Circle": {
+                                                            "radius": 0
+                                                          }
+                                                        },
+                                                        "range_effect_name": "",
+                                                        "applied_target": "EnemyChampion",
+                                                        "applied_effects": [],
+                                                        "end_effects": [
+                                                          {
+                                                            "type": "BackToCasterLinearProjectile",
+                                                            "name": "league_leblanc_re_tether",
+                                                            "speed": 3000,
+                                                            "range": 95000,
+                                                            "penetrate": true,
+                                                            "shape": {
+                                                              "Circle": {
+                                                                "radius": 0
+                                                              }
+                                                            },
+                                                            "applied_target": "EnemyChampion",
+                                                            "applied_effects": []
+                                                          }
+                                                        ]
+                                                      }
+                                                    }
+                                                  ]
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
                                                 }
                                               },
-                                              "applied_target": "EnemyChampion",
-                                              "applied_effects": []
-                                            }
-                                          ]
-                                        }
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            },
-                            {
-                              "casting_type": "Targeting",
-                              "effect": {
-                                "type": "Delayed",
-                                "tick": 37,
-                                "effects": [
-                                  {
-                                    "type": "TargetProjectile",
-                                    "name": "league_leblanc_e_link",
-                                    "speed": 100000,
-                                    "y_offset": 0,
-                                    "applied_target": "EnemyChampion",
-                                    "applied_effects": [
-                                      {
-                                        "casting_type": "Targeting",
-                                        "effect": {
-                                          "type": "ParabolicProjectile",
-                                          "name": "league_leblanc_e_spot",
-                                          "travel_time": 1,
-                                          "range": 400000,
-                                          "shape": {
-                                            "Circle": {
-                                              "radius": 0
-                                            }
-                                          },
-                                          "range_effect_name": "",
-                                          "applied_target": "EnemyChampion",
-                                          "applied_effects": [],
-                                          "end_effects": [
-                                            {
-                                              "type": "BackToCasterLinearProjectile",
-                                              "name": "league_leblanc_re_tether",
-                                              "speed": 1800,
-                                              "range": 200000,
-                                              "penetrate": true,
-                                              "shape": {
-                                                "Circle": {
-                                                  "radius": 0
-                                                }
-                                              },
-                                              "applied_target": "EnemyChampion",
-                                              "applied_effects": []
-                                            }
-                                          ]
-                                        }
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            },
-                            {
-                              "casting_type": "Targeting",
-                              "effect": {
-                                "type": "Delayed",
-                                "tick": 49,
-                                "effects": [
-                                  {
-                                    "type": "TargetProjectile",
-                                    "name": "league_leblanc_e_link",
-                                    "speed": 100000,
-                                    "y_offset": 0,
-                                    "applied_target": "EnemyChampion",
-                                    "applied_effects": [
-                                      {
-                                        "casting_type": "Targeting",
-                                        "effect": {
-                                          "type": "ParabolicProjectile",
-                                          "name": "league_leblanc_e_spot",
-                                          "travel_time": 1,
-                                          "range": 400000,
-                                          "shape": {
-                                            "Circle": {
-                                              "radius": 0
-                                            }
-                                          },
-                                          "range_effect_name": "",
-                                          "applied_target": "EnemyChampion",
-                                          "applied_effects": [],
-                                          "end_effects": [
-                                            {
-                                              "type": "BackToCasterLinearProjectile",
-                                              "name": "league_leblanc_re_tether",
-                                              "speed": 1800,
-                                              "range": 200000,
-                                              "penetrate": true,
-                                              "shape": {
-                                                "Circle": {
-                                                  "radius": 0
-                                                }
-                                              },
-                                              "applied_target": "EnemyChampion",
-                                              "applied_effects": []
-                                            }
-                                          ]
-                                        }
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            },
-                            {
-                              "casting_type": "Targeting",
-                              "effect": {
-                                "type": "Delayed",
-                                "tick": 61,
-                                "effects": [
-                                  {
-                                    "type": "TargetProjectile",
-                                    "name": "league_leblanc_e_link",
-                                    "speed": 100000,
-                                    "y_offset": 0,
-                                    "applied_target": "EnemyChampion",
-                                    "applied_effects": [
-                                      {
-                                        "casting_type": "Targeting",
-                                        "effect": {
-                                          "type": "ParabolicProjectile",
-                                          "name": "league_leblanc_e_spot",
-                                          "travel_time": 1,
-                                          "range": 400000,
-                                          "shape": {
-                                            "Circle": {
-                                              "radius": 0
-                                            }
-                                          },
-                                          "range_effect_name": "",
-                                          "applied_target": "EnemyChampion",
-                                          "applied_effects": [],
-                                          "end_effects": [
-                                            {
-                                              "type": "BackToCasterLinearProjectile",
-                                              "name": "league_leblanc_re_tether",
-                                              "speed": 1800,
-                                              "range": 200000,
-                                              "penetrate": true,
-                                              "shape": {
-                                                "Circle": {
-                                                  "radius": 0
-                                                }
-                                              },
-                                              "applied_target": "EnemyChampion",
-                                              "applied_effects": []
-                                            }
-                                          ]
-                                        }
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            },
-                            {
-                              "casting_type": "Targeting",
-                              "effect": {
-                                "type": "Delayed",
-                                "tick": 73,
-                                "effects": [
-                                  {
-                                    "type": "TargetProjectile",
-                                    "name": "league_leblanc_e_link",
-                                    "speed": 100000,
-                                    "y_offset": 0,
-                                    "applied_target": "EnemyChampion",
-                                    "applied_effects": [
-                                      {
-                                        "casting_type": "Targeting",
-                                        "effect": {
-                                          "type": "ParabolicProjectile",
-                                          "name": "league_leblanc_e_spot",
-                                          "travel_time": 1,
-                                          "range": 400000,
-                                          "shape": {
-                                            "Circle": {
-                                              "radius": 0
-                                            }
-                                          },
-                                          "range_effect_name": "",
-                                          "applied_target": "EnemyChampion",
-                                          "applied_effects": [],
-                                          "end_effects": [
-                                            {
-                                              "type": "BackToCasterLinearProjectile",
-                                              "name": "league_leblanc_re_tether",
-                                              "speed": 1800,
-                                              "range": 200000,
-                                              "penetrate": true,
-                                              "shape": {
-                                                "Circle": {
-                                                  "radius": 0
-                                                }
-                                              },
-                                              "applied_target": "EnemyChampion",
-                                              "applied_effects": []
-                                            }
-                                          ]
-                                        }
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            },
-                            {
-                              "casting_type": "Targeting",
-                              "effect": {
-                                "type": "Delayed",
-                                "tick": 85,
-                                "effects": [
-                                  {
-                                    "type": "TargetProjectile",
-                                    "name": "league_leblanc_e_link",
-                                    "speed": 100000,
-                                    "y_offset": 0,
-                                    "applied_target": "EnemyChampion",
-                                    "applied_effects": [
-                                      {
-                                        "casting_type": "Targeting",
-                                        "effect": {
-                                          "type": "ParabolicProjectile",
-                                          "name": "league_leblanc_e_spot",
-                                          "travel_time": 1,
-                                          "range": 400000,
-                                          "shape": {
-                                            "Circle": {
-                                              "radius": 0
-                                            }
-                                          },
-                                          "range_effect_name": "",
-                                          "applied_target": "EnemyChampion",
-                                          "applied_effects": [],
-                                          "end_effects": [
-                                            {
-                                              "type": "BackToCasterLinearProjectile",
-                                              "name": "league_leblanc_re_tether",
-                                              "speed": 1800,
-                                              "range": 200000,
-                                              "penetrate": true,
-                                              "shape": {
-                                                "Circle": {
-                                                  "radius": 0
-                                                }
-                                              },
-                                              "applied_target": "EnemyChampion",
-                                              "applied_effects": []
+                                              "effect_none": {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_leblanc_re_held"
+                                                  }
+                                                ]
+                                              }
                                             }
                                           ]
                                         }
@@ -3733,79 +2950,91 @@
                                               "type": "SwitchByBuff",
                                               "buff_name": "league_leblanc_e_near",
                                               "effect_buff": {
-                                                "type": "Combine",
-                                                "effects": [
-                                                  {
-                                                    "type": "RemoveCasterBuff",
-                                                    "name": "league_leblanc_e_near"
-                                                  },
-                                                  {
-                                                    "type": "Bind",
-                                                    "duration": 90
-                                                  },
-                                                  {
-                                                    "type": "ApAttack",
-                                                    "damage": 200,
-                                                    "attack_ratio": 150,
-                                                    "hp_ratio": 0,
-                                                    "attack_effect_type": "Target"
-                                                  },
-                                                  {
-                                                    "type": "ViewEffect",
-                                                    "name": "league_leblanc_re_root"
-                                                  },
-                                                  {
-                                                    "type": "TargetSfx",
-                                                    "name": "league_leblanc_e_root"
-                                                  },
-                                                  {
-                                                    "type": "Combine",
-                                                    "effects": [
-                                                      {
-                                                        "type": "Combine",
-                                                        "effects": [
-                                                          {
-                                                            "type": "RemoveCasterBuff",
-                                                            "name": "league_leblanc_pop_q"
-                                                          },
-                                                          {
-                                                            "type": "AddCasterBuff",
-                                                            "buff_state": {
-                                                              "name": "league_leblanc_pop_q",
-                                                              "duration": {
-                                                                "Time": {
-                                                                  "tick": 3
-                                                                }
-                                                              }
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_leblanc_re_held",
+                                                "effect_buff": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "RemoveCasterBuff",
+                                                      "name": "league_leblanc_e_near"
+                                                    },
+                                                    {
+                                                      "type": "RemoveCasterBuff",
+                                                      "name": "league_leblanc_re_held"
+                                                    },
+                                                    {
+                                                      "type": "Bind",
+                                                      "duration": 90
+                                                    },
+                                                    {
+                                                      "type": "ApAttack",
+                                                      "damage": 200,
+                                                      "attack_ratio": 150,
+                                                      "hp_ratio": 0,
+                                                      "attack_effect_type": "Target"
+                                                    },
+                                                    {
+                                                      "type": "ViewEffect",
+                                                      "name": "league_leblanc_re_root"
+                                                    },
+                                                    {
+                                                      "type": "TargetSfx",
+                                                      "name": "league_leblanc_e_root"
+                                                    },
+                                                    {
+                                                      "type": "Combine",
+                                                      "effects": [
+                                                        {
+                                                          "type": "Combine",
+                                                          "effects": [
+                                                            {
+                                                              "type": "RemoveCasterBuff",
+                                                              "name": "league_leblanc_pop_q"
                                                             },
-                                                            "only_to_enemy": false
-                                                          }
-                                                        ]
-                                                      },
-                                                      {
-                                                        "type": "Combine",
-                                                        "effects": [
-                                                          {
-                                                            "type": "RemoveCasterBuff",
-                                                            "name": "league_leblanc_pop_rq"
-                                                          },
-                                                          {
-                                                            "type": "AddCasterBuff",
-                                                            "buff_state": {
-                                                              "name": "league_leblanc_pop_rq",
-                                                              "duration": {
-                                                                "Time": {
-                                                                  "tick": 3
+                                                            {
+                                                              "type": "AddCasterBuff",
+                                                              "buff_state": {
+                                                                "name": "league_leblanc_pop_q",
+                                                                "duration": {
+                                                                  "Time": {
+                                                                    "tick": 3
+                                                                  }
                                                                 }
-                                                              }
+                                                              },
+                                                              "only_to_enemy": false
+                                                            }
+                                                          ]
+                                                        },
+                                                        {
+                                                          "type": "Combine",
+                                                          "effects": [
+                                                            {
+                                                              "type": "RemoveCasterBuff",
+                                                              "name": "league_leblanc_pop_rq"
                                                             },
-                                                            "only_to_enemy": false
-                                                          }
-                                                        ]
-                                                      }
-                                                    ]
-                                                  }
-                                                ]
+                                                            {
+                                                              "type": "AddCasterBuff",
+                                                              "buff_state": {
+                                                                "name": "league_leblanc_pop_rq",
+                                                                "duration": {
+                                                                  "Time": {
+                                                                    "tick": 3
+                                                                  }
+                                                                }
+                                                              },
+                                                              "only_to_enemy": false
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
                                               },
                                               "effect_none": {
                                                 "type": "Combine",

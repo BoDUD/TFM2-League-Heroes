@@ -148,10 +148,10 @@ def showcase(out, z=3, step=40):
     hit = fly("e_chain", throw, x, gy - 2, d, 3.0)
     on(fx, "e_hit", hit, d)
     d.flinches.append(hit)
-    for k in range(7):
-        s = hit + tick(1 + 12 * k)
+    for k in range(15):                                # a link every 6 ticks, 3 px a tick, while the tether holds
+        s = hit + tick(1 + 6 * k)
         dx, _ = d.pos(s)
-        over.append(Anim(frames_of(fx, "e_tether"), s, dx - 6, gy - 2, loop=True, until=s + tick((dx - x) / 1.8),
+        over.append(Anim(frames_of(fx, "e_tether"), s, dx - 6, gy - 2, loop=True, until=s + tick((dx - x) / 3.0),
                          x1=x + 6, y1=gy - 2))
     a("e")
     root = hit + tick(90)
@@ -165,10 +165,10 @@ def showcase(out, z=3, step=40):
     rhit = fly("re_chain", rthrow, x, gy - 2, d, 3.0)
     on(fx, "re_hit", rhit, d)
     d.flinches.append(rhit)
-    for k in range(7):
-        s = rhit + tick(1 + 12 * k)
+    for k in range(15):
+        s = rhit + tick(1 + 6 * k)
         dx, _ = d.pos(s)
-        over.append(Anim(frames_of(fx, "re_tether"), s, dx - 6, gy - 2, loop=True, until=s + tick((dx - x) / 1.8),
+        over.append(Anim(frames_of(fx, "re_tether"), s, dx - 6, gy - 2, loop=True, until=s + tick((dx - x) / 3.0),
                          x1=x + 6, y1=gy - 2))
     a("ult")
     rroot = rhit + tick(90)

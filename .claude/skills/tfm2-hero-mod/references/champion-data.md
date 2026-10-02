@@ -2499,9 +2499,15 @@ stunned). A dash cast while a return is pending sets up none of its own: the pen
 attack with an enemy champion within 80000 throws the chain at him instead (`CasterAnimation e`, league_caitlyn's net):
 the aim locks 8 ticks before the throw (a hidden `ParabolicProjectile` lands where he stood, league_caitlyn Q), and a
 non-penetrating `LinearProjectile` on `EnemyChampion` (3000 a tick) flies there through minions: magic damage, the
-tether (links flying back to her every 12 ticks, league_fiddlesticks W / league_nocturne E) and after 90 ticks a check
-whether she is still within 95000 of him (a hidden projectile asking `RandomTarget {AllyOnlySelf, from_projectile:
-true}`, league_nocturne E): yes - `Bind` 90 ticks and more magic damage.
+tether. The tether holds while she stays near: the hit sets a caster flag `e_held` (94 ticks) and an `AddCasted` on
+him (90 ticks, period 6) sends a hidden projectile at him each period asking `RandomTarget {AllyOnlySelf,
+from_projectile: true}` within 95000 whether she is near (league_nocturne E's check); near - a link flies back to her
+(a `BackToCasterLinearProjectile`, 3000 a tick, range 95000), out of reach - `e_held` goes for good: no more links,
+no root. Without it the links kept flying to her for the whole 1.5 s after Distortion took her away (the user: "W回本体
+有时候没链到特效还在"). After 90 ticks, `e_held` on and her still near: `Bind` 90 ticks and more magic damage. In 8
+logged games 37 chains: the links stopped where she passed about 113000 centre to centre (the check counts from the
+bodies' edges) and 8 rooted; one `AddCasted` instead of a `Delayed` per link took the attack tree from 391 nodes to
+299.
 
 **Repeat the last spell (league_leblanc R, Mimicry).** Each of her spells swaps one `Permanent` caster flag of three
 (`last_q`, `last_w`, `last_e`: remove the others, add its own); R is a `Targeting` cast on `EnemyChampion` (70000)
