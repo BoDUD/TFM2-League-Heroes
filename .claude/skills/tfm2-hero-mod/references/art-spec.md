@@ -528,8 +528,11 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   darker sole) on the idle's soles row, one supporting leg per half stepping back a square a frame, the swinging leg
   on League's angles with both halves averaged (`fix_kaisa_strips.py` `RUN_HIPS`, `SUPPORT_DX`, `RUN_SWING`). Mind
   the square-centre convention: a capsule round the ankle at row 10.0 under the pivot fills rows 9-10 - an ankle at
-  8.5 put Kai'Sa's boots two rows above her idle's ground. In this view the far hip sits right of the near one, so
-  the far leg's kick hides behind the near leg unless it swings back further (1.3 times League's).
+  8.5 put Kai'Sa's boots two rows above her idle's ground. With League's deep knee bend a thigh hidden under hip
+  plates hardly moves while the shin folds back level ("走路不应该大腿小腿一起动吗？"): swing the thigh 1.4 times
+  League's, bend the knee half as much, let the standing foot sweep from 3 squares ahead of the hip to 3 behind (legs
+  a little longer than hip to ground), and give a lifted foot League's angle (toe back and down), never square to the
+  shin (a level shin then hangs a peg: "你觉得对吗").
 - **A picture round the hero goes under her, not round a hole (league_vayne).** Asked to "leave a figure-shaped empty
   space", Codex also cleared a rectangle in the middle of every Final Hour cell of its export (x 22.5-77.5%, y
   17-89%): the flare's rays, the refresh's ring and most of the aura's motes went. Its raw sheets still had them; drawn
