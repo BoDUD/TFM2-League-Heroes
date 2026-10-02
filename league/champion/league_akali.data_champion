@@ -719,6 +719,231 @@
               ]
             }
           ]
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_akali_e2_on",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "RemoveCasterBuff",
+                "name": "league_akali_e2_on"
+              },
+              {
+                "type": "Delayed",
+                "tick": 5,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_akali_p_ready",
+                    "effect_buff": {
+                      "type": "RandomTarget",
+                      "range": 48000,
+                      "casting_target": "EnemyChampion",
+                      "from_projectile": false,
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_akali_p_ready"
+                        },
+                        {
+                          "type": "CasterAnimation",
+                          "name": "attack_p",
+                          "tick": 29
+                        },
+                        {
+                          "type": "Delayed",
+                          "tick": 7,
+                          "effects": [
+                            {
+                              "type": "Attack",
+                              "damage": 0,
+                              "attack_ratio": 100,
+                              "attack_effect_type": "Target"
+                            },
+                            {
+                              "type": "ApAttack",
+                              "damage": 54,
+                              "attack_ratio": 70
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_akali_p_hit"
+                            },
+                            {
+                              "type": "TargetSfx",
+                              "name": "league_akali_p_hit"
+                            },
+                            {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_akali_r_window",
+                              "effect_buff": {
+                                "type": "TargetProjectile",
+                                "name": "league_akali_a_twin",
+                                "speed": 100000,
+                                "y_offset": 0,
+                                "applied_target": "EnemyChampion",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_akali_r_s8",
+                                      "effect_buff": {
+                                        "type": "Combine",
+                                        "effects": []
+                                      },
+                                      "effect_none": {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_akali_r_s7",
+                                        "effect_buff": {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_akali_r_s8",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 190
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
+                                        },
+                                        "effect_none": {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_akali_r_s6",
+                                          "effect_buff": {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_akali_r_s7",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 190
+                                                }
+                                              }
+                                            },
+                                            "only_to_enemy": false
+                                          },
+                                          "effect_none": {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_akali_r_s5",
+                                            "effect_buff": {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_akali_r_s6",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 190
+                                                  }
+                                                }
+                                              },
+                                              "only_to_enemy": false
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_akali_r_s4",
+                                              "effect_buff": {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_akali_r_s5",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 190
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_akali_r_s3",
+                                                "effect_buff": {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_akali_r_s4",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 190
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                },
+                                                "effect_none": {
+                                                  "type": "SwitchByBuff",
+                                                  "buff_name": "league_akali_r_s2",
+                                                  "effect_buff": {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_akali_r_s3",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 190
+                                                        }
+                                                      }
+                                                    },
+                                                    "only_to_enemy": false
+                                                  },
+                                                  "effect_none": {
+                                                    "type": "SwitchByBuff",
+                                                    "buff_name": "league_akali_r_s1",
+                                                    "effect_buff": {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_akali_r_s2",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 190
+                                                          }
+                                                        }
+                                                      },
+                                                      "only_to_enemy": false
+                                                    },
+                                                    "effect_none": {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_akali_r_s1",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 190
+                                                          }
+                                                        }
+                                                      },
+                                                      "only_to_enemy": false
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": []
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": []
+          }
         }
       ]
     }
@@ -1388,6 +1613,273 @@
                                                       }
                                                     }
                                                   }
+                                                },
+                                                "effect_none": {
+                                                  "type": "Combine",
+                                                  "effects": []
+                                                }
+                                              },
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_akali_e2_on",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 120
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
+                                              },
+                                              {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_akali_r_window",
+                                                "effect_buff": {
+                                                  "type": "Combine",
+                                                  "effects": [
+                                                    {
+                                                      "type": "RemoveCasterBuff",
+                                                      "name": "league_akali_r_window"
+                                                    },
+                                                    {
+                                                      "type": "Delayed",
+                                                      "tick": 6,
+                                                      "effects": [
+                                                        {
+                                                          "type": "AddCasterBuff",
+                                                          "buff_state": {
+                                                            "name": "league_akali_r2_done",
+                                                            "duration": {
+                                                              "Time": {
+                                                                "tick": 3
+                                                              }
+                                                            }
+                                                          },
+                                                          "only_to_enemy": false
+                                                        },
+                                                        {
+                                                          "type": "Sfx",
+                                                          "name": "league_akali_r2_cast"
+                                                        },
+                                                        {
+                                                          "type": "CasterAnimation",
+                                                          "name": "ult2",
+                                                          "tick": 19
+                                                        },
+                                                        {
+                                                          "type": "CasterViewEffect",
+                                                          "name": "league_akali_r_dash"
+                                                        },
+                                                        {
+                                                          "type": "RushTime",
+                                                          "speed": 8000,
+                                                          "tick": 9,
+                                                          "range": 15000,
+                                                          "casting_target": "EnemyWithoutTower",
+                                                          "penetrate": true,
+                                                          "applied_effects": [
+                                                            {
+                                                              "casting_type": "Targeting",
+                                                              "effect": {
+                                                                "type": "SwitchByBuff",
+                                                                "buff_name": "league_akali_r_s8",
+                                                                "effect_buff": {
+                                                                  "type": "Combine",
+                                                                  "effects": [
+                                                                    {
+                                                                      "type": "ApAttack",
+                                                                      "damage": 258,
+                                                                      "attack_ratio": 129
+                                                                    },
+                                                                    {
+                                                                      "type": "ViewEffect",
+                                                                      "name": "league_akali_r2_hit"
+                                                                    },
+                                                                    {
+                                                                      "type": "TargetSfx",
+                                                                      "name": "league_akali_r2_hit"
+                                                                    }
+                                                                  ]
+                                                                },
+                                                                "effect_none": {
+                                                                  "type": "SwitchByBuff",
+                                                                  "buff_name": "league_akali_r_s7",
+                                                                  "effect_buff": {
+                                                                    "type": "Combine",
+                                                                    "effects": [
+                                                                      {
+                                                                        "type": "ApAttack",
+                                                                        "damage": 236,
+                                                                        "attack_ratio": 118
+                                                                      },
+                                                                      {
+                                                                        "type": "ViewEffect",
+                                                                        "name": "league_akali_r2_hit"
+                                                                      },
+                                                                      {
+                                                                        "type": "TargetSfx",
+                                                                        "name": "league_akali_r2_hit"
+                                                                      }
+                                                                    ]
+                                                                  },
+                                                                  "effect_none": {
+                                                                    "type": "SwitchByBuff",
+                                                                    "buff_name": "league_akali_r_s6",
+                                                                    "effect_buff": {
+                                                                      "type": "Combine",
+                                                                      "effects": [
+                                                                        {
+                                                                          "type": "ApAttack",
+                                                                          "damage": 215,
+                                                                          "attack_ratio": 108
+                                                                        },
+                                                                        {
+                                                                          "type": "ViewEffect",
+                                                                          "name": "league_akali_r2_hit"
+                                                                        },
+                                                                        {
+                                                                          "type": "TargetSfx",
+                                                                          "name": "league_akali_r2_hit"
+                                                                        }
+                                                                      ]
+                                                                    },
+                                                                    "effect_none": {
+                                                                      "type": "SwitchByBuff",
+                                                                      "buff_name": "league_akali_r_s5",
+                                                                      "effect_buff": {
+                                                                        "type": "Combine",
+                                                                        "effects": [
+                                                                          {
+                                                                            "type": "ApAttack",
+                                                                            "damage": 194,
+                                                                            "attack_ratio": 97
+                                                                          },
+                                                                          {
+                                                                            "type": "ViewEffect",
+                                                                            "name": "league_akali_r2_hit"
+                                                                          },
+                                                                          {
+                                                                            "type": "TargetSfx",
+                                                                            "name": "league_akali_r2_hit"
+                                                                          }
+                                                                        ]
+                                                                      },
+                                                                      "effect_none": {
+                                                                        "type": "SwitchByBuff",
+                                                                        "buff_name": "league_akali_r_s4",
+                                                                        "effect_buff": {
+                                                                          "type": "Combine",
+                                                                          "effects": [
+                                                                            {
+                                                                              "type": "ApAttack",
+                                                                              "damage": 172,
+                                                                              "attack_ratio": 86
+                                                                            },
+                                                                            {
+                                                                              "type": "ViewEffect",
+                                                                              "name": "league_akali_r2_hit"
+                                                                            },
+                                                                            {
+                                                                              "type": "TargetSfx",
+                                                                              "name": "league_akali_r2_hit"
+                                                                            }
+                                                                          ]
+                                                                        },
+                                                                        "effect_none": {
+                                                                          "type": "SwitchByBuff",
+                                                                          "buff_name": "league_akali_r_s3",
+                                                                          "effect_buff": {
+                                                                            "type": "Combine",
+                                                                            "effects": [
+                                                                              {
+                                                                                "type": "ApAttack",
+                                                                                "damage": 150,
+                                                                                "attack_ratio": 75
+                                                                              },
+                                                                              {
+                                                                                "type": "ViewEffect",
+                                                                                "name": "league_akali_r2_hit"
+                                                                              },
+                                                                              {
+                                                                                "type": "TargetSfx",
+                                                                                "name": "league_akali_r2_hit"
+                                                                              }
+                                                                            ]
+                                                                          },
+                                                                          "effect_none": {
+                                                                            "type": "SwitchByBuff",
+                                                                            "buff_name": "league_akali_r_s2",
+                                                                            "effect_buff": {
+                                                                              "type": "Combine",
+                                                                              "effects": [
+                                                                                {
+                                                                                  "type": "ApAttack",
+                                                                                  "damage": 129,
+                                                                                  "attack_ratio": 64
+                                                                                },
+                                                                                {
+                                                                                  "type": "ViewEffect",
+                                                                                  "name": "league_akali_r2_hit"
+                                                                                },
+                                                                                {
+                                                                                  "type": "TargetSfx",
+                                                                                  "name": "league_akali_r2_hit"
+                                                                                }
+                                                                              ]
+                                                                            },
+                                                                            "effect_none": {
+                                                                              "type": "SwitchByBuff",
+                                                                              "buff_name": "league_akali_r_s1",
+                                                                              "effect_buff": {
+                                                                                "type": "Combine",
+                                                                                "effects": [
+                                                                                  {
+                                                                                    "type": "ApAttack",
+                                                                                    "damage": 108,
+                                                                                    "attack_ratio": 54
+                                                                                  },
+                                                                                  {
+                                                                                    "type": "ViewEffect",
+                                                                                    "name": "league_akali_r2_hit"
+                                                                                  },
+                                                                                  {
+                                                                                    "type": "TargetSfx",
+                                                                                    "name": "league_akali_r2_hit"
+                                                                                  }
+                                                                                ]
+                                                                              },
+                                                                              "effect_none": {
+                                                                                "type": "Combine",
+                                                                                "effects": [
+                                                                                  {
+                                                                                    "type": "ApAttack",
+                                                                                    "damage": 86,
+                                                                                    "attack_ratio": 43
+                                                                                  },
+                                                                                  {
+                                                                                    "type": "ViewEffect",
+                                                                                    "name": "league_akali_r2_hit"
+                                                                                  },
+                                                                                  {
+                                                                                    "type": "TargetSfx",
+                                                                                    "name": "league_akali_r2_hit"
+                                                                                  }
+                                                                                ]
+                                                                              }
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
                                                 },
                                                 "effect_none": {
                                                   "type": "Combine",
