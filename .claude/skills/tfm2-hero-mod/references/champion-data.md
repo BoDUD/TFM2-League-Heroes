@@ -1112,6 +1112,9 @@ the base archer 0.65, league_vayne 1.92 and league_tristana 1.08 in the same bat
 league_nocturne (jungle, 2026-10-02, Unspeakable Horror's 1.33 s fear when the tether holds for 2 s): 0.83 a game;
 the base ninja 0.65 in the same batch (league_shaco 2.04 and league_leesin 1.52 in an earlier one) - about one
 champion a game is still in reach when the tether ends, no change.
+league_blitzcrank (support, --lane 4, 2026-10-02, Rocket Grab's 0.67 s stun and Power Fist's 1 s knock-up): 1.98 a
+game; league_leona 1.88, league_thresh 1.35 and the base priest 0.65 in the same batch - with the hard-CC supports, no
+change.
 
 **Kill trigger (league_jinx Get Excited!).** No effect fires on a kill, but section 4's facts make one:
 1. Next to the damaging projectile, fire an invisible twin with the same speed and path and
@@ -2382,6 +2385,65 @@ shroud paid out 12-16 times a game, of about 24 casts.
 buff with a `ThreePhase` view); then `MoveToTarget` (3500 a tick, a 45-tick `cc_immune` caster buff for the flight)
 lands 120 + 120% attack. The invisibility carries the kit: 4 s +2.12, 2 s +0.12, none -1.86 against the base junglers
 (lane 1, seeds 1-12), while halving the passive's heal changed nothing (+2.16); it settled at 3 s.
+
+**A hook from a raised arm that brings its catch back along its own line (league_blitzcrank Q, Rocket Grab).** A
+`Direction` cast on `EnemyChampion` (range 70000) throws a non-penetrating `LinearProjectile` on `EnemyChampion`
+(speed 6000, radius 6000, range 78000, `y_offset` -11500): it passes minions and monsters (league_thresh Q). The champion
+it reaches takes magic damage and `Stun` 40 ticks. An invisible twin on the same line on `EnemyChampionInCC` lands a
+tick later only when the stun took (a Black Shield lets both pass): a 90-tick caster flag `q_held`, the claw on him,
+Blitzcrank's `q_pull` loop (60 ticks at most) and the drag. His arm is raised to the shoulder in the strip (League's
+pose), 16 px over his pivot, and the hook leaves from there (the user: "从上面勾 别从下面勾"): `y_offset` -11500 starts
+it 16500 north of him and it slopes down to his pivot's height at the end of its range (12 degrees), coming down on a
+champion's chest; 8 logged games held 76 of 144 hooks, 68 of 125 at `y_offset` 2000 - the slope misses nobody more.
+League's hand brings what it caught back along its line onto his arm (the user: "lol里面机器人什么样你就什么样"), but
+every `BackToCasterLinearProjectile` flies to his pivot whatever its `y_offset`, under the raised arm. A
+`LinearProjectile` thrown in the hook's `end_effects` (behind a `Delayed`) leaves where the hook left and heads for
+where it stopped - on the hook's own line, and removed there (the spawn vectors of a logged game; one thrown from the
+cast's own `Delayed` follows the cast's direction to the range's end) - so two of them at 1500 a tick carry the way
+back: their pictures draw the claw and its chain coming back along the line. A projectile moves on every tick from
+the one it is thrown on, so a hook removed h ticks after the throw stopped 6000 x (h + 1) along its line; 13 caster
+flags set at the throw, `q_f<j>` lasting j + 3 ticks, are still seen by the hook's `end_effects` j + 2 ticks after it
+and by the twin j + 1 ticks after it (4 logged games: every way back matched), so 2 ticks after the stop, and when
+the twin lands, the first one still on is `q_f<h>`: it picks the pictures (one pair per h, 0-13) and the drag - `Grab`
+1500 with `tick` (6000 (h + 1) + 12000 - 33000) / 1500 (the hook stops 12000 short of a champion's centre), so the
+catch stops in reach in front of him (33000 off) just as the claw is back where the strip holds it on his arm (32000
+along the line; the picture slows the claw so it slides from the catch's front onto it), when a `Delayed` in the same
+branch removes `q_pull` and plays the 8-tick hold (the closed claw on the arm; a `CasterAnimation` holds the caster
+from acting). Stopping the catch at the arm's end (43000) with a 12-tick hold cost him about a point (two batches
+-0.23 / -0.15 against +0.62 / +1.15): he had to walk before his uppercut.
+A miss or a blocked hook brings the open claw back fast. His body only faces left or right while most hooks fly at an
+angle (4 logged games: 15 of 80 within 15 degrees of level, 60 between 30 and 90 up), so the claws are drawn over the
+units (`z` 1: the catch never hides the claw) and the chains under them (`z` -1), running back to the hook's start:
+thrown level his straight arm hides the chain and it comes out of the socket, thrown at an angle it comes out from
+behind his head and shoulder - nothing hangs in the air. The flying claw rides the hook, its chain the twin.
+
+**Overdrive folded into the uppercut (league_blitzcrank W in E, Power Fist).** W's cooldown is a caster flag `w_cd`
+(900 ticks). Every action asks first: with `w_cd` absent and an enemy champion within 60000 (`RandomTarget` sets a
+1-tick `w_go`), Overdrive starts - move speed +20% for 240 ticks and +20% more for the first 120 (two caster
+buffs: League's speed decays), attack speed +25% for 240, the steam from both smokestacks each second (a
+self-only `RangeEffect` holding `Delayed` caster pictures), then a 25% self-slow for 90 ticks. The uppercut itself is
+`skill2`, a `Targeting` cast on `EnemyWithoutTower` (lanes and camps): an enemy champion within its 25000 reach is
+punched first (a `RandomTarget` that also sets a 1-tick `e_aim` flag so the cast target is not hit as well), else the
+cast target - physical damage and `Airborne` 60.
+
+**The ult's passive while it is ready, the armed active with a silence (league_blitzcrank R, Static Field).** The
+attack carries, while the caster buff `r_cd` is absent, an invisible `TargetProjectile` on `EnemyWithoutTower` (no
+towers): a static mark on the unit hit and a `Delayed` 60-tick lightning bolt of magic damage. The ult is armed like
+league_taric's and league_riven's: the slot (a 3-tick `None` action on the `idle` tag) arms `r_armed` for 600 ticks and
+every action plus a pulse every 15 ticks fires it when an enemy champion is within 30000: `CasterAnimation ult` (35
+ticks), the charge picture, and on tick 23 (the strip's burst frame) the field round him - magic damage on
+`EnemyWithoutTower` within 40000 and `BlockSkill` 60 ticks (League's silence) on the champions - and `r_cd` for the
+ult's cooldown (3000 ticks), which stops the passive until the cooldown ends, as in League. Left unused, a 3-tick
+`ult_cooldown_mult` 4900 refunds it.
+
+**A shield when in danger instead of at low health (league_blitzcrank's passive, Mana Barrier).** Nothing reads
+current health, so danger stands in: two or more enemy champions within 35000 (a `RangeEffect` whose every hit
+climbs a 3-tick `mb_n1` -> `mb_n2` ladder) or Blitzcrank himself crowd-controlled (`RandomTarget` `AllyChampionInCC`
+within 1 finds only him, league_missfortune R), with the 3600-tick `mb_cd` off: a self-only `Shield` of 120 + 80% AP
+for 600 ticks and a `WithShield` caster buff that carries its picture (it goes when the shield breaks, section 5).
+The check runs at every action and on a train of pulses queued on himself (every 30 ticks for 240 ticks after an
+action, one train at a time): a stun stops his actions, not the pulses, so a hook or a stun in a fight still sets it
+off. About 3-4 shields a game in the simulation.
 
 ## 8. Gotchas
 
