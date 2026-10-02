@@ -1,0 +1,1280 @@
+{
+  "version": 1,
+  "cell_game_pixels": [
+    120,
+    104
+  ],
+  "scale": 8,
+  "palette": [
+    "#080611",
+    "#101029",
+    "#171C43",
+    "#202952",
+    "#284C85",
+    "#30437B",
+    "#33323E",
+    "#342039",
+    "#465DAC",
+    "#555160",
+    "#560F27",
+    "#583262",
+    "#777680",
+    "#794786",
+    "#888BA2",
+    "#9B1032",
+    "#A1A3AA",
+    "#D3143E",
+    "#D3D7DC"
+  ],
+  "status": "asset QA passed; runtime import pending",
+  "contract_origin": "proposed effect contract; input pack specifies actor contract only",
+  "effects": {
+    "attack_slash": {
+      "file": "nocturne_fx_attack_slash.png",
+      "grid": [
+        2,
+        2
+      ],
+      "size_px": [
+        1920,
+        1664
+      ],
+      "action": "attack",
+      "trigger_actor_frame": 3,
+      "trigger_tick": 7,
+      "loop": false,
+      "layer": "front",
+      "frames": [
+        {
+          "frame": 1,
+          "duration_ms": 70,
+          "cell_rect_1x": [
+            0,
+            0,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            71,
+            53,
+            89,
+            79
+          ],
+          "attach_origin_1x": [
+            60,
+            88
+          ]
+        },
+        {
+          "frame": 2,
+          "duration_ms": 70,
+          "cell_rect_1x": [
+            120,
+            0,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            960,
+            0,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            67,
+            47,
+            91,
+            83
+          ],
+          "attach_origin_1x": [
+            60,
+            88
+          ]
+        },
+        {
+          "frame": 3,
+          "duration_ms": 90,
+          "cell_rect_1x": [
+            0,
+            104,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            0,
+            832,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            64,
+            45,
+            95,
+            85
+          ],
+          "attach_origin_1x": [
+            60,
+            88
+          ]
+        },
+        {
+          "frame": 4,
+          "duration_ms": 110,
+          "cell_rect_1x": [
+            120,
+            104,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            960,
+            832,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            63,
+            47,
+            94,
+            83
+          ],
+          "attach_origin_1x": [
+            60,
+            88
+          ]
+        }
+      ],
+      "sha256": "26bb569fe71c627806b4bae32f7e8d61e61c2964902a9e0fd8a7d66f34a6d2ee"
+    },
+    "passive_cleave": {
+      "file": "nocturne_fx_passive_cleave.png",
+      "grid": [
+        2,
+        2
+      ],
+      "size_px": [
+        1920,
+        1664
+      ],
+      "action": "attack_p",
+      "trigger_actor_frame": 3,
+      "trigger_tick": 7,
+      "loop": false,
+      "layer": "split front/back recommended",
+      "frames": [
+        {
+          "frame": 1,
+          "duration_ms": 70,
+          "cell_rect_1x": [
+            0,
+            0,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            40,
+            67,
+            81,
+            82
+          ],
+          "attach_origin_1x": [
+            60,
+            88
+          ]
+        },
+        {
+          "frame": 2,
+          "duration_ms": 70,
+          "cell_rect_1x": [
+            120,
+            0,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            960,
+            0,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            27,
+            64,
+            93,
+            84
+          ],
+          "attach_origin_1x": [
+            60,
+            88
+          ]
+        },
+        {
+          "frame": 3,
+          "duration_ms": 90,
+          "cell_rect_1x": [
+            0,
+            104,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            0,
+            832,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            24,
+            62,
+            96,
+            86
+          ],
+          "attach_origin_1x": [
+            60,
+            88
+          ]
+        },
+        {
+          "frame": 4,
+          "duration_ms": 110,
+          "cell_rect_1x": [
+            120,
+            104,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            960,
+            832,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            24,
+            63,
+            96,
+            86
+          ],
+          "attach_origin_1x": [
+            60,
+            88
+          ]
+        }
+      ],
+      "sha256": "4a80ed68d2a49089a5098637252c41962b73b2ecff9e07be06b1c5753933da10"
+    },
+    "q_blade": {
+      "file": "nocturne_fx_q_blade.png",
+      "grid": [
+        2,
+        2
+      ],
+      "size_px": [
+        1920,
+        1664
+      ],
+      "action": "skill",
+      "trigger_actor_frame": 3,
+      "trigger_tick": 8,
+      "loop": true,
+      "layer": "projectile entity",
+      "frames": [
+        {
+          "frame": 1,
+          "duration_ms": 100,
+          "cell_rect_1x": [
+            0,
+            0,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            45,
+            64,
+            75,
+            72
+          ],
+          "attach_origin_1x": [
+            60,
+            68
+          ]
+        },
+        {
+          "frame": 2,
+          "duration_ms": 100,
+          "cell_rect_1x": [
+            120,
+            0,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            960,
+            0,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            43,
+            62,
+            77,
+            74
+          ],
+          "attach_origin_1x": [
+            60,
+            68
+          ]
+        },
+        {
+          "frame": 3,
+          "duration_ms": 100,
+          "cell_rect_1x": [
+            0,
+            104,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            0,
+            832,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            43,
+            61,
+            78,
+            75
+          ],
+          "attach_origin_1x": [
+            60,
+            68
+          ]
+        },
+        {
+          "frame": 4,
+          "duration_ms": 100,
+          "cell_rect_1x": [
+            120,
+            104,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            960,
+            832,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            43,
+            62,
+            77,
+            74
+          ],
+          "attach_origin_1x": [
+            60,
+            68
+          ]
+        }
+      ],
+      "sha256": "3a98eee64522bdbba1ccc6d13ea66217b41984f81243d7a8ae476e96d1a581c2"
+    },
+    "q_trail": {
+      "file": "nocturne_fx_q_trail.png",
+      "grid": [
+        2,
+        2
+      ],
+      "size_px": [
+        1920,
+        1664
+      ],
+      "action": "skill",
+      "trigger_actor_frame": 3,
+      "trigger_tick": 8,
+      "loop": true,
+      "layer": "ground behind actor",
+      "frames": [
+        {
+          "frame": 1,
+          "duration_ms": 100,
+          "cell_rect_1x": [
+            0,
+            0,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            25,
+            78,
+            92,
+            86
+          ],
+          "attach_origin_1x": [
+            60,
+            88
+          ]
+        },
+        {
+          "frame": 2,
+          "duration_ms": 100,
+          "cell_rect_1x": [
+            120,
+            0,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            960,
+            0,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            16,
+            77,
+            104,
+            87
+          ],
+          "attach_origin_1x": [
+            60,
+            88
+          ]
+        },
+        {
+          "frame": 3,
+          "duration_ms": 100,
+          "cell_rect_1x": [
+            0,
+            104,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            0,
+            832,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            16,
+            76,
+            104,
+            88
+          ],
+          "attach_origin_1x": [
+            60,
+            88
+          ]
+        },
+        {
+          "frame": 4,
+          "duration_ms": 100,
+          "cell_rect_1x": [
+            120,
+            104,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            960,
+            832,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            16,
+            77,
+            104,
+            87
+          ],
+          "attach_origin_1x": [
+            60,
+            88
+          ]
+        }
+      ],
+      "sha256": "ab2774d3ec6a1a7149af33c7c83bc30e11c770d0aae3a6fddfbffba62959348e"
+    },
+    "e_tether": {
+      "file": "nocturne_fx_e_tether.png",
+      "grid": [
+        2,
+        2
+      ],
+      "size_px": [
+        1920,
+        1664
+      ],
+      "action": "skill2",
+      "trigger_actor_frame": 3,
+      "trigger_tick": 8,
+      "loop": true,
+      "layer": "front, endpoint follows target",
+      "frames": [
+        {
+          "frame": 1,
+          "duration_ms": 100,
+          "cell_rect_1x": [
+            0,
+            0,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            67,
+            63,
+            110,
+            72
+          ],
+          "attach_origin_1x": [
+            60,
+            68
+          ]
+        },
+        {
+          "frame": 2,
+          "duration_ms": 100,
+          "cell_rect_1x": [
+            120,
+            0,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            960,
+            0,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            61,
+            63,
+            113,
+            73
+          ],
+          "attach_origin_1x": [
+            60,
+            68
+          ]
+        },
+        {
+          "frame": 3,
+          "duration_ms": 100,
+          "cell_rect_1x": [
+            0,
+            104,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            0,
+            832,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            61,
+            63,
+            114,
+            74
+          ],
+          "attach_origin_1x": [
+            60,
+            68
+          ]
+        },
+        {
+          "frame": 4,
+          "duration_ms": 100,
+          "cell_rect_1x": [
+            120,
+            104,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            960,
+            832,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            61,
+            63,
+            113,
+            73
+          ],
+          "attach_origin_1x": [
+            60,
+            68
+          ]
+        }
+      ],
+      "sha256": "21779b636b1747772d08309ea733543206751b07422c698809b20c37c95480d2"
+    },
+    "w_shroud": {
+      "file": "nocturne_fx_w_shroud.png",
+      "grid": [
+        2,
+        2
+      ],
+      "size_px": [
+        1920,
+        1664
+      ],
+      "action": "skill2",
+      "trigger_actor_frame": 3,
+      "trigger_tick": 8,
+      "loop": true,
+      "layer": "behind actor",
+      "frames": [
+        {
+          "frame": 1,
+          "duration_ms": 100,
+          "cell_rect_1x": [
+            0,
+            0,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            36,
+            43,
+            85,
+            86
+          ],
+          "attach_origin_1x": [
+            60,
+            88
+          ]
+        },
+        {
+          "frame": 2,
+          "duration_ms": 100,
+          "cell_rect_1x": [
+            120,
+            0,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            960,
+            0,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            36,
+            41,
+            84,
+            87
+          ],
+          "attach_origin_1x": [
+            60,
+            88
+          ]
+        },
+        {
+          "frame": 3,
+          "duration_ms": 100,
+          "cell_rect_1x": [
+            0,
+            104,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            0,
+            832,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            35,
+            40,
+            85,
+            88
+          ],
+          "attach_origin_1x": [
+            60,
+            88
+          ]
+        },
+        {
+          "frame": 4,
+          "duration_ms": 100,
+          "cell_rect_1x": [
+            120,
+            104,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            960,
+            832,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            36,
+            41,
+            84,
+            87
+          ],
+          "attach_origin_1x": [
+            60,
+            88
+          ]
+        }
+      ],
+      "sha256": "723701b879a46d2380c02f410239d7a98e9384dc537e8312a11e30a575b54a9a"
+    },
+    "r_flight": {
+      "file": "nocturne_fx_r_flight.png",
+      "grid": [
+        2,
+        2
+      ],
+      "size_px": [
+        1920,
+        1664
+      ],
+      "action": "ult",
+      "trigger_actor_frame": 3,
+      "trigger_tick": 8,
+      "loop": true,
+      "layer": "behind actor, move with actor",
+      "frames": [
+        {
+          "frame": 1,
+          "duration_ms": 100,
+          "cell_rect_1x": [
+            0,
+            0,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            10,
+            55,
+            54,
+            73
+          ],
+          "attach_origin_1x": [
+            60,
+            88
+          ]
+        },
+        {
+          "frame": 2,
+          "duration_ms": 100,
+          "cell_rect_1x": [
+            120,
+            0,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            960,
+            0,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            9,
+            53,
+            55,
+            76
+          ],
+          "attach_origin_1x": [
+            60,
+            88
+          ]
+        },
+        {
+          "frame": 3,
+          "duration_ms": 100,
+          "cell_rect_1x": [
+            0,
+            104,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            0,
+            832,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            6,
+            50,
+            58,
+            78
+          ],
+          "attach_origin_1x": [
+            60,
+            88
+          ]
+        },
+        {
+          "frame": 4,
+          "duration_ms": 100,
+          "cell_rect_1x": [
+            120,
+            104,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            960,
+            832,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            9,
+            53,
+            55,
+            76
+          ],
+          "attach_origin_1x": [
+            60,
+            88
+          ]
+        }
+      ],
+      "sha256": "2574c22c0926a75788a77f421ea89c6337ccff7d9ad41403581092b398506113"
+    },
+    "r_impact": {
+      "file": "nocturne_fx_r_impact.png",
+      "grid": [
+        2,
+        2
+      ],
+      "size_px": [
+        1920,
+        1664
+      ],
+      "action": "ult_hit",
+      "trigger_actor_frame": 1,
+      "trigger_tick": 0,
+      "loop": false,
+      "layer": "front / ground",
+      "frames": [
+        {
+          "frame": 1,
+          "duration_ms": 70,
+          "cell_rect_1x": [
+            0,
+            0,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            39,
+            58,
+            81,
+            82
+          ],
+          "attach_origin_1x": [
+            60,
+            88
+          ]
+        },
+        {
+          "frame": 2,
+          "duration_ms": 70,
+          "cell_rect_1x": [
+            120,
+            0,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            960,
+            0,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            26,
+            58,
+            95,
+            83
+          ],
+          "attach_origin_1x": [
+            60,
+            88
+          ]
+        },
+        {
+          "frame": 3,
+          "duration_ms": 90,
+          "cell_rect_1x": [
+            0,
+            104,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            0,
+            832,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            22,
+            52,
+            98,
+            88
+          ],
+          "attach_origin_1x": [
+            60,
+            88
+          ]
+        },
+        {
+          "frame": 4,
+          "duration_ms": 110,
+          "cell_rect_1x": [
+            120,
+            104,
+            120,
+            104
+          ],
+          "cell_rect_8x": [
+            960,
+            832,
+            960,
+            832
+          ],
+          "pivot_1x": [
+            60,
+            88
+          ],
+          "pivot_8x": [
+            480,
+            704
+          ],
+          "bbox_1x": [
+            24,
+            56,
+            96,
+            85
+          ],
+          "attach_origin_1x": [
+            60,
+            88
+          ]
+        }
+      ],
+      "sha256": "5290ffa06eee5878d83043f186d2a5ca6c4f9a269687b31efa29eac262c5e1e9"
+    }
+  },
+  "integration_notes": {
+    "W": "Composite W into skill2 per input actor specification; shield activation/duration require runtime buff implementation.",
+    "E": "Single tile is a sample link segment. Runtime must tile/stretch between caster hand and target, and verify range break / fear pulse.",
+    "Q": "Spawn blade at skill frame 3 / tick 8; trail consists of tiled ground segments. Flight speed and lifetime are runtime settings.",
+    "R": "Start wake at ult frame 3 / tick 8; impact begins ult_hit frame 1 / tick 0. Screen darkness is a runtime screen overlay, not this sprite.",
+    "duration": "Effect durations are proposed; actor durations are unchanged. Loop travel/active frames, then terminate or play reverse on buff exit."
+  }
+}

@@ -89,7 +89,7 @@ NECK_EYES = {("fiora", "hit", 0): (-19, 3)}
 # needs it closed). Nothing goes under the soles row; a frame that already reaches lower (lying down) keeps its own
 # bottom.
 COMPLETE = {"nami", "veigar", "jax", "ahri", "taric", "tristana", "fiora", "diana", "leesin", "missfortune", "fizz", "shaco",
-            "caitlyn", "camille"}
+            "caitlyn", "nocturne", "camille"}
 # hero: the luminance from which an edge pixel gets the outline (complete_outline's `dark`, default 70). Fiora's teal
 # leggings (luminance ~58) and wine cape (~44) edge many action frames without black: tfm2_ase.py metrics counts only
 # luminance < 40 as outline, so at 70 her Q frames read 83-89% (the bare rapier aside); at 40 they close too.
@@ -189,6 +189,8 @@ ORDER = {("lux", "idle"): [0, 0, 0, 0, 0, 0],   # the step-2 idle is the design 
          # League fires from the hip. The shot frame is now the lowered barrel (6.5 / 8 px up), held two slots
          ("caitlyn", "attack"): [0, 1, 3, 3, 4, 5],
          ("caitlyn", "passive"): [0, 1, 2, 4, 4, 5],
+         # and Nocturne (Codex's game-size design B cut to 40 rows: the pack's idle is the design in all six)
+         ("nocturne", "idle"): [0, 0, 0, 0, 0, 0],
          # and Camille (Codex's 65-row drawing cut to 46 rows, design C1: the pack's idle is the design in all six)
          ("camille", "idle"): [0, 0, 0, 0, 0, 0]}
 # (hero, tag): (y, slots) - in those slots everything at or above pivot row y moves down a row (the row under
@@ -278,6 +280,9 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        # Caitlyn: the rifle's stock reaches her hips, so the seam runs in the boot shafts (rows 7/8 under the pivot: 2
        # squares of opacity and 5 of colour differ); the boots' feet stay
        ("caitlyn", "idle"): (7, [2, 3, 4]),
+       # Nocturne floats on his smoke tail: all of him sinks a row and rises again, the seam in the tail's thin straight
+       # part (rows 97/98 of the design: 2 squares differ, 1 of the outline); only the tail's tip stays on the ground
+       ("nocturne", "idle"): (9, [2, 3, 4]),
        # Camille: the seam halfway down her leg blades (rows 93/94: the same silhouette, 3 squares of colour differ);
        # the blades' lower halves stay on the ground
        ("camille", "idle"): (5, [2, 3, 4])}
@@ -323,6 +328,7 @@ EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade
         "fizz": (32, 174, 86),            # the trident tops the attack, E and R frames; the green is only in his eyes
         "shaco": (3, 167, 233),           # the hat's horns top every frame; the ice cyan is used only in his eyes
         "caitlyn": (20, 84, 169),         # her top hat tops most frames (the rifle W, Q 1 and R 1); the blue is only in her eyes
+        "nocturne": (255, 255, 255),      # the crest or a raised blade tops the frames; pure white only in his eyes
         "camille": (2, 159, 217)}         # her raised blade tops the kicks; the far eye was recoloured to this cyan
 
 
