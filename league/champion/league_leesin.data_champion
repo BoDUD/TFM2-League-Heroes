@@ -596,6 +596,18 @@
       "type": "Combine",
       "effects": [
         {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_leesin_q_cd",
+            "duration": {
+              "Time": {
+                "tick": 360
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
           "type": "Sfx",
           "name": "league_leesin_q_cast"
         },
@@ -712,6 +724,30 @@
                           }
                         },
                         "only_to_enemy": false
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_leesin_q2_on"
+                      },
+                      {
+                        "type": "RandomTarget",
+                        "range": 12000,
+                        "casting_target": "EnemyChampion",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_leesin_q2_on",
+                              "duration": {
+                                "Time": {
+                                  "tick": 150
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
                       }
                     ]
                   },
@@ -1193,7 +1229,7 @@
     "description": "#asset/base/text/champion?description.league_leesin.skill2",
     "duration": 40,
     "cooltime": 420,
-    "start_timing": 17,
+    "start_timing": 1,
     "cancelable": false,
     "range": 26000,
     "casting_type": "None",
@@ -1203,167 +1239,293 @@
       "type": "Combine",
       "effects": [
         {
-          "type": "Sfx",
-          "name": "league_leesin_e_cast"
-        },
-        {
-          "type": "Sfx",
-          "name": "league_leesin_e_hit"
-        },
-        {
-          "type": "CasterViewEffect",
-          "name": "league_leesin_e_wave"
-        },
-        {
-          "type": "AddCasterBuff",
-          "buff_state": {
-            "name": "league_leesin_flurry",
-            "duration": {
-              "Time": {
-                "tick": 180
-              }
-            },
-            "attack_speed_mult": 40
-          },
-          "only_to_enemy": false
-        },
-        {
-          "type": "AddCasterBuff",
-          "buff_state": {
-            "name": "league_leesin_flurry_2",
-            "duration": {
-              "Time": {
-                "tick": 180
-              }
-            }
-          },
-          "only_to_enemy": false
-        },
-        {
-          "type": "RangeEffect",
-          "shape": {
-            "Circle": {
-              "radius": 32000
-            }
-          },
-          "target": "EnemyWithoutTower",
-          "apply_type": "AroundCaster",
-          "effects": [
-            {
-              "type": "Attack",
-              "damage": 60,
-              "attack_ratio": 80
-            },
-            {
-              "type": "AddBuff",
-              "buff_state": {
-                "name": "league_leesin_e_slow",
-                "duration": {
-                  "Time": {
-                    "tick": 120
-                  }
-                },
-                "move_speed_mult": -40
-              }
-            }
-          ]
-        },
-        {
-          "type": "AddCasterBuff",
-          "buff_state": {
-            "name": "league_leesin_iron_will",
-            "duration": {
-              "Time": {
-                "tick": 180
-              }
-            },
-            "vamp": 20
-          },
-          "only_to_enemy": false
-        },
-        {
           "type": "SwitchByBuff",
-          "buff_name": "league_leesin_w_cd",
+          "buff_name": "league_leesin_q2_on",
           "effect_buff": {
-            "type": "Combine",
-            "effects": []
-          },
-          "effect_none": {
             "type": "Combine",
             "effects": [
               {
-                "type": "RandomTarget",
-                "range": 1,
-                "casting_target": "AllyChampionInCC",
-                "from_projectile": false,
+                "type": "CasterAnimation",
+                "name": "attack",
+                "tick": 20
+              },
+              {
+                "type": "Delayed",
+                "tick": 11,
                 "effects": [
                   {
-                    "type": "AddCasterBuff",
-                    "buff_state": {
-                      "name": "league_leesin_w_self_cc",
-                      "duration": {
-                        "Time": {
-                          "tick": 1
-                        }
+                    "type": "RandomTarget",
+                    "range": 12000,
+                    "casting_target": "EnemyChampion",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Attack",
+                        "damage": 0,
+                        "attack_ratio": 100
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "league_leesin_hit"
+                      },
+                      {
+                        "type": "TargetSfx",
+                        "name": "league_leesin_attack_hit"
                       }
-                    },
-                    "only_to_enemy": false
+                    ]
                   }
                 ]
               },
               {
-                "type": "SwitchByBuff",
-                "buff_name": "league_leesin_w_self_cc",
-                "effect_buff": {
-                  "type": "Combine",
-                  "effects": []
+                "type": "Delayed",
+                "tick": 21,
+                "effects": [
+                  {
+                    "type": "CasterAnimation",
+                    "name": "skill2",
+                    "tick": 40
+                  }
+                ]
+              },
+              {
+                "type": "Delayed",
+                "tick": 38,
+                "effects": [
+                  {
+                    "type": "Sfx",
+                    "name": "league_leesin_e_cast"
+                  },
+                  {
+                    "type": "Sfx",
+                    "name": "league_leesin_e_hit"
+                  },
+                  {
+                    "type": "CasterViewEffect",
+                    "name": "league_leesin_e_wave"
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_leesin_flurry",
+                      "duration": {
+                        "Time": {
+                          "tick": 180
+                        }
+                      },
+                      "attack_speed_mult": 40
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_leesin_flurry_2",
+                      "duration": {
+                        "Time": {
+                          "tick": 180
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 32000
+                      }
+                    },
+                    "target": "EnemyWithoutTower",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
+                        "type": "Attack",
+                        "damage": 60,
+                        "attack_ratio": 80
+                      },
+                      {
+                        "type": "AddBuff",
+                        "buff_state": {
+                          "name": "league_leesin_e_slow",
+                          "duration": {
+                            "Time": {
+                              "tick": 120
+                            }
+                          },
+                          "move_speed_mult": -40
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_leesin_iron_will",
+                      "duration": {
+                        "Time": {
+                          "tick": 180
+                        }
+                      },
+                      "vamp": 20
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "Delayed",
+            "tick": 16,
+            "effects": [
+              {
+                "type": "Sfx",
+                "name": "league_leesin_e_cast"
+              },
+              {
+                "type": "Sfx",
+                "name": "league_leesin_e_hit"
+              },
+              {
+                "type": "CasterViewEffect",
+                "name": "league_leesin_e_wave"
+              },
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_leesin_flurry",
+                  "duration": {
+                    "Time": {
+                      "tick": 180
+                    }
+                  },
+                  "attack_speed_mult": 40
                 },
-                "effect_none": {
-                  "type": "Combine",
-                  "effects": [
-                    {
-                      "type": "RandomTarget",
-                      "range": 35000,
-                      "casting_target": "AllyChampionInCC",
-                      "from_projectile": false,
+                "only_to_enemy": false
+              },
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_leesin_flurry_2",
+                  "duration": {
+                    "Time": {
+                      "tick": 180
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "RangeEffect",
+                "shape": {
+                  "Circle": {
+                    "radius": 32000
+                  }
+                },
+                "target": "EnemyWithoutTower",
+                "apply_type": "AroundCaster",
+                "effects": [
+                  {
+                    "type": "Attack",
+                    "damage": 60,
+                    "attack_ratio": 80
+                  },
+                  {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "league_leesin_e_slow",
+                      "duration": {
+                        "Time": {
+                          "tick": 120
+                        }
+                      },
+                      "move_speed_mult": -40
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_leesin_iron_will",
+                  "duration": {
+                    "Time": {
+                      "tick": 180
+                    }
+                  },
+                  "vamp": 20
+                },
+                "only_to_enemy": false
+              }
+            ]
+          }
+        },
+        {
+          "type": "Delayed",
+          "tick": 16,
+          "effects": [
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_leesin_w_cd",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyChampionInCC",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_leesin_w_self_cc",
+                          "duration": {
+                            "Time": {
+                              "tick": 1
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_leesin_w_self_cc",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": []
+                    },
+                    "effect_none": {
+                      "type": "Combine",
                       "effects": [
                         {
-                          "type": "AddCasterBuff",
-                          "buff_state": {
-                            "name": "league_leesin_w_cd",
-                            "duration": {
-                              "Time": {
-                                "tick": 720
-                              }
-                            }
-                          },
-                          "only_to_enemy": false
-                        },
-                        {
-                          "type": "Sfx",
-                          "name": "league_leesin_w_shield"
-                        },
-                        {
-                          "type": "Shield",
-                          "amount": 80,
-                          "attack_ratio": 80,
-                          "ap_ratio": 0,
-                          "tick": 120
-                        },
-                        {
-                          "type": "ViewEffect",
-                          "name": "league_leesin_shield"
-                        },
-                        {
-                          "type": "RangeEffect",
-                          "shape": {
-                            "Circle": {
-                              "radius": 1000
-                            }
-                          },
-                          "target": "AllyOnlySelf",
-                          "apply_type": "AroundCaster",
+                          "type": "RandomTarget",
+                          "range": 35000,
+                          "casting_target": "AllyChampionInCC",
+                          "from_projectile": false,
                           "effects": [
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_leesin_w_cd",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 720
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            },
+                            {
+                              "type": "Sfx",
+                              "name": "league_leesin_w_shield"
+                            },
                             {
                               "type": "Shield",
                               "amount": 80,
@@ -1374,144 +1536,144 @@
                             {
                               "type": "ViewEffect",
                               "name": "league_leesin_shield"
+                            },
+                            {
+                              "type": "RangeEffect",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 1000
+                                }
+                              },
+                              "target": "AllyOnlySelf",
+                              "apply_type": "AroundCaster",
+                              "effects": [
+                                {
+                                  "type": "Shield",
+                                  "amount": 80,
+                                  "attack_ratio": 80,
+                                  "ap_ratio": 0,
+                                  "tick": 120
+                                },
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "league_leesin_shield"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_leesin_flurry",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 180
+                                  }
+                                },
+                                "attack_speed_mult": 40
+                              },
+                              "only_to_enemy": false
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_leesin_flurry_2",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 180
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            },
+                            {
+                              "type": "CasterAnimation",
+                              "name": "q2",
+                              "tick": 20
+                            },
+                            {
+                              "type": "MoveToTarget",
+                              "speed": 5000,
+                              "range": 70000,
+                              "end_effects": []
                             }
                           ]
                         },
                         {
-                          "type": "AddCasterBuff",
-                          "buff_state": {
-                            "name": "league_leesin_flurry",
-                            "duration": {
-                              "Time": {
-                                "tick": 180
-                              }
-                            },
-                            "attack_speed_mult": 40
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_leesin_w_cd",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": []
                           },
-                          "only_to_enemy": false
-                        },
-                        {
-                          "type": "AddCasterBuff",
-                          "buff_state": {
-                            "name": "league_leesin_flurry_2",
-                            "duration": {
-                              "Time": {
-                                "tick": 180
-                              }
-                            }
-                          },
-                          "only_to_enemy": false
-                        },
-                        {
-                          "type": "CasterAnimation",
-                          "name": "q2",
-                          "tick": 20
-                        },
-                        {
-                          "type": "MoveToTarget",
-                          "speed": 5000,
-                          "range": 70000,
-                          "end_effects": []
-                        }
-                      ]
-                    },
-                    {
-                      "type": "SwitchByBuff",
-                      "buff_name": "league_leesin_w_cd",
-                      "effect_buff": {
-                        "type": "Combine",
-                        "effects": []
-                      },
-                      "effect_none": {
-                        "type": "Combine",
-                        "effects": [
-                          {
-                            "type": "RandomTarget",
-                            "range": 35000,
-                            "casting_target": "AllyNotSelf",
-                            "from_projectile": false,
+                          "effect_none": {
+                            "type": "Combine",
                             "effects": [
                               {
-                                "type": "ParabolicProjectile",
-                                "name": "league_leesin_w_probe",
-                                "travel_time": 1,
-                                "range": 1000000,
-                                "range_effect_name": "",
-                                "shape": {
-                                  "Circle": {
-                                    "radius": 1
-                                  }
-                                },
-                                "applied_target": "AllyChampion",
-                                "applied_effects": [],
-                                "end_effects": [
+                                "type": "RandomTarget",
+                                "range": 35000,
+                                "casting_target": "AllyNotSelf",
+                                "from_projectile": false,
+                                "effects": [
                                   {
-                                    "type": "RangeProjectile",
-                                    "name": "league_leesin_w_crowd",
+                                    "type": "ParabolicProjectile",
+                                    "name": "league_leesin_w_probe",
+                                    "travel_time": 1,
+                                    "range": 1000000,
+                                    "range_effect_name": "",
                                     "shape": {
                                       "Circle": {
-                                        "radius": 35000
+                                        "radius": 1
                                       }
                                     },
-                                    "delay": 1,
-                                    "apply": 1,
-                                    "applied_target": "EnemyChampion",
-                                    "applied_effects": [
+                                    "applied_target": "AllyChampion",
+                                    "applied_effects": [],
+                                    "end_effects": [
                                       {
-                                        "casting_type": "Targeting",
-                                        "effect": {
-                                          "type": "SwitchByBuff",
-                                          "buff_name": "league_leesin_w_n1",
-                                          "effect_buff": {
-                                            "type": "SwitchByBuff",
-                                            "buff_name": "league_leesin_w_cd",
-                                            "effect_buff": {
-                                              "type": "Combine",
-                                              "effects": []
-                                            },
-                                            "effect_none": {
-                                              "type": "RandomTarget",
-                                              "range": 3000,
-                                              "casting_target": "AllyNotSelf",
-                                              "from_projectile": true,
-                                              "effects": [
-                                                {
-                                                  "type": "AddCasterBuff",
-                                                  "buff_state": {
-                                                    "name": "league_leesin_w_cd",
-                                                    "duration": {
-                                                      "Time": {
-                                                        "tick": 720
-                                                      }
-                                                    }
-                                                  },
-                                                  "only_to_enemy": false
+                                        "type": "RangeProjectile",
+                                        "name": "league_leesin_w_crowd",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 35000
+                                          }
+                                        },
+                                        "delay": 1,
+                                        "apply": 1,
+                                        "applied_target": "EnemyChampion",
+                                        "applied_effects": [
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_leesin_w_n1",
+                                              "effect_buff": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_leesin_w_cd",
+                                                "effect_buff": {
+                                                  "type": "Combine",
+                                                  "effects": []
                                                 },
-                                                {
-                                                  "type": "Sfx",
-                                                  "name": "league_leesin_w_shield"
-                                                },
-                                                {
-                                                  "type": "Shield",
-                                                  "amount": 80,
-                                                  "attack_ratio": 80,
-                                                  "ap_ratio": 0,
-                                                  "tick": 120
-                                                },
-                                                {
-                                                  "type": "ViewEffect",
-                                                  "name": "league_leesin_shield"
-                                                },
-                                                {
-                                                  "type": "RangeEffect",
-                                                  "shape": {
-                                                    "Circle": {
-                                                      "radius": 1000
-                                                    }
-                                                  },
-                                                  "target": "AllyOnlySelf",
-                                                  "apply_type": "AroundCaster",
+                                                "effect_none": {
+                                                  "type": "RandomTarget",
+                                                  "range": 3000,
+                                                  "casting_target": "AllyNotSelf",
+                                                  "from_projectile": true,
                                                   "effects": [
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_leesin_w_cd",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 720
+                                                          }
+                                                        }
+                                                      },
+                                                      "only_to_enemy": false
+                                                    },
+                                                    {
+                                                      "type": "Sfx",
+                                                      "name": "league_leesin_w_shield"
+                                                    },
                                                     {
                                                       "type": "Shield",
                                                       "amount": 80,
@@ -1522,156 +1684,156 @@
                                                     {
                                                       "type": "ViewEffect",
                                                       "name": "league_leesin_shield"
+                                                    },
+                                                    {
+                                                      "type": "RangeEffect",
+                                                      "shape": {
+                                                        "Circle": {
+                                                          "radius": 1000
+                                                        }
+                                                      },
+                                                      "target": "AllyOnlySelf",
+                                                      "apply_type": "AroundCaster",
+                                                      "effects": [
+                                                        {
+                                                          "type": "Shield",
+                                                          "amount": 80,
+                                                          "attack_ratio": 80,
+                                                          "ap_ratio": 0,
+                                                          "tick": 120
+                                                        },
+                                                        {
+                                                          "type": "ViewEffect",
+                                                          "name": "league_leesin_shield"
+                                                        }
+                                                      ]
+                                                    },
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_leesin_flurry",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 180
+                                                          }
+                                                        },
+                                                        "attack_speed_mult": 40
+                                                      },
+                                                      "only_to_enemy": false
+                                                    },
+                                                    {
+                                                      "type": "AddCasterBuff",
+                                                      "buff_state": {
+                                                        "name": "league_leesin_flurry_2",
+                                                        "duration": {
+                                                          "Time": {
+                                                            "tick": 180
+                                                          }
+                                                        }
+                                                      },
+                                                      "only_to_enemy": false
+                                                    },
+                                                    {
+                                                      "type": "CasterAnimation",
+                                                      "name": "q2",
+                                                      "tick": 20
+                                                    },
+                                                    {
+                                                      "type": "MoveToTarget",
+                                                      "speed": 5000,
+                                                      "range": 70000,
+                                                      "end_effects": []
                                                     }
                                                   ]
-                                                },
-                                                {
-                                                  "type": "AddCasterBuff",
-                                                  "buff_state": {
-                                                    "name": "league_leesin_flurry",
-                                                    "duration": {
-                                                      "Time": {
-                                                        "tick": 180
-                                                      }
-                                                    },
-                                                    "attack_speed_mult": 40
-                                                  },
-                                                  "only_to_enemy": false
-                                                },
-                                                {
-                                                  "type": "AddCasterBuff",
-                                                  "buff_state": {
-                                                    "name": "league_leesin_flurry_2",
-                                                    "duration": {
-                                                      "Time": {
-                                                        "tick": 180
-                                                      }
-                                                    }
-                                                  },
-                                                  "only_to_enemy": false
-                                                },
-                                                {
-                                                  "type": "CasterAnimation",
-                                                  "name": "q2",
-                                                  "tick": 20
-                                                },
-                                                {
-                                                  "type": "MoveToTarget",
-                                                  "speed": 5000,
-                                                  "range": 70000,
-                                                  "end_effects": []
                                                 }
-                                              ]
-                                            }
-                                          },
-                                          "effect_none": {
-                                            "type": "AddCasterBuff",
-                                            "buff_state": {
-                                              "name": "league_leesin_w_n1",
-                                              "duration": {
-                                                "Time": {
-                                                  "tick": 1
-                                                }
-                                              }
-                                            },
-                                            "only_to_enemy": false
-                                          }
-                                        }
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "type": "RangeEffect",
-                            "shape": {
-                              "Circle": {
-                                "radius": 35000
-                              }
-                            },
-                            "target": "AllyNotSelf",
-                            "apply_type": "AroundCaster",
-                            "effects": [
-                              {
-                                "type": "ParabolicProjectile",
-                                "name": "league_leesin_w_probe",
-                                "travel_time": 1,
-                                "range": 1000000,
-                                "range_effect_name": "",
-                                "shape": {
-                                  "Circle": {
-                                    "radius": 1
-                                  }
-                                },
-                                "applied_target": "AllyChampion",
-                                "applied_effects": [],
-                                "end_effects": [
-                                  {
-                                    "type": "RangeProjectile",
-                                    "name": "league_leesin_w_contact",
-                                    "shape": {
-                                      "Circle": {
-                                        "radius": 25000
-                                      }
-                                    },
-                                    "delay": 2,
-                                    "apply": 2,
-                                    "applied_target": "EnemyChampion",
-                                    "applied_effects": [
-                                      {
-                                        "casting_type": "Targeting",
-                                        "effect": {
-                                          "type": "SwitchByBuff",
-                                          "buff_name": "league_leesin_w_cd",
-                                          "effect_buff": {
-                                            "type": "Combine",
-                                            "effects": []
-                                          },
-                                          "effect_none": {
-                                            "type": "RandomTarget",
-                                            "range": 3000,
-                                            "casting_target": "AllyNotSelf",
-                                            "from_projectile": true,
-                                            "effects": [
-                                              {
+                                              },
+                                              "effect_none": {
                                                 "type": "AddCasterBuff",
                                                 "buff_state": {
-                                                  "name": "league_leesin_w_cd",
+                                                  "name": "league_leesin_w_n1",
                                                   "duration": {
                                                     "Time": {
-                                                      "tick": 720
+                                                      "tick": 1
                                                     }
                                                   }
                                                 },
                                                 "only_to_enemy": false
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "RangeEffect",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 35000
+                                  }
+                                },
+                                "target": "AllyNotSelf",
+                                "apply_type": "AroundCaster",
+                                "effects": [
+                                  {
+                                    "type": "ParabolicProjectile",
+                                    "name": "league_leesin_w_probe",
+                                    "travel_time": 1,
+                                    "range": 1000000,
+                                    "range_effect_name": "",
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 1
+                                      }
+                                    },
+                                    "applied_target": "AllyChampion",
+                                    "applied_effects": [],
+                                    "end_effects": [
+                                      {
+                                        "type": "RangeProjectile",
+                                        "name": "league_leesin_w_contact",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 25000
+                                          }
+                                        },
+                                        "delay": 2,
+                                        "apply": 2,
+                                        "applied_target": "EnemyChampion",
+                                        "applied_effects": [
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_leesin_w_cd",
+                                              "effect_buff": {
+                                                "type": "Combine",
+                                                "effects": []
                                               },
-                                              {
-                                                "type": "Sfx",
-                                                "name": "league_leesin_w_shield"
-                                              },
-                                              {
-                                                "type": "Shield",
-                                                "amount": 80,
-                                                "attack_ratio": 80,
-                                                "ap_ratio": 0,
-                                                "tick": 120
-                                              },
-                                              {
-                                                "type": "ViewEffect",
-                                                "name": "league_leesin_shield"
-                                              },
-                                              {
-                                                "type": "RangeEffect",
-                                                "shape": {
-                                                  "Circle": {
-                                                    "radius": 1000
-                                                  }
-                                                },
-                                                "target": "AllyOnlySelf",
-                                                "apply_type": "AroundCaster",
+                                              "effect_none": {
+                                                "type": "RandomTarget",
+                                                "range": 3000,
+                                                "casting_target": "AllyNotSelf",
+                                                "from_projectile": true,
                                                 "effects": [
+                                                  {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_leesin_w_cd",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 720
+                                                        }
+                                                      }
+                                                    },
+                                                    "only_to_enemy": false
+                                                  },
+                                                  {
+                                                    "type": "Sfx",
+                                                    "name": "league_leesin_w_shield"
+                                                  },
                                                   {
                                                     "type": "Shield",
                                                     "amount": 80,
@@ -1682,48 +1844,71 @@
                                                   {
                                                     "type": "ViewEffect",
                                                     "name": "league_leesin_shield"
+                                                  },
+                                                  {
+                                                    "type": "RangeEffect",
+                                                    "shape": {
+                                                      "Circle": {
+                                                        "radius": 1000
+                                                      }
+                                                    },
+                                                    "target": "AllyOnlySelf",
+                                                    "apply_type": "AroundCaster",
+                                                    "effects": [
+                                                      {
+                                                        "type": "Shield",
+                                                        "amount": 80,
+                                                        "attack_ratio": 80,
+                                                        "ap_ratio": 0,
+                                                        "tick": 120
+                                                      },
+                                                      {
+                                                        "type": "ViewEffect",
+                                                        "name": "league_leesin_shield"
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_leesin_flurry",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 180
+                                                        }
+                                                      },
+                                                      "attack_speed_mult": 40
+                                                    },
+                                                    "only_to_enemy": false
+                                                  },
+                                                  {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_leesin_flurry_2",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 180
+                                                        }
+                                                      }
+                                                    },
+                                                    "only_to_enemy": false
+                                                  },
+                                                  {
+                                                    "type": "CasterAnimation",
+                                                    "name": "q2",
+                                                    "tick": 20
+                                                  },
+                                                  {
+                                                    "type": "MoveToTarget",
+                                                    "speed": 5000,
+                                                    "range": 70000,
+                                                    "end_effects": []
                                                   }
                                                 ]
-                                              },
-                                              {
-                                                "type": "AddCasterBuff",
-                                                "buff_state": {
-                                                  "name": "league_leesin_flurry",
-                                                  "duration": {
-                                                    "Time": {
-                                                      "tick": 180
-                                                    }
-                                                  },
-                                                  "attack_speed_mult": 40
-                                                },
-                                                "only_to_enemy": false
-                                              },
-                                              {
-                                                "type": "AddCasterBuff",
-                                                "buff_state": {
-                                                  "name": "league_leesin_flurry_2",
-                                                  "duration": {
-                                                    "Time": {
-                                                      "tick": 180
-                                                    }
-                                                  }
-                                                },
-                                                "only_to_enemy": false
-                                              },
-                                              {
-                                                "type": "CasterAnimation",
-                                                "name": "q2",
-                                                "tick": 20
-                                              },
-                                              {
-                                                "type": "MoveToTarget",
-                                                "speed": 5000,
-                                                "range": 70000,
-                                                "end_effects": []
                                               }
-                                            ]
+                                            }
                                           }
-                                        }
+                                        ]
                                       }
                                     ]
                                   }
@@ -1731,14 +1916,14 @@
                               }
                             ]
                           }
-                        ]
-                      }
+                        }
+                      ]
                     }
-                  ]
-                }
+                  }
+                ]
               }
-            ]
-          }
+            }
+          ]
         }
       ]
     }
@@ -1988,6 +2173,185 @@
               }
             }
           ]
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_leesin_q_cd",
+          "effect_buff": {
+            "type": "Delayed",
+            "tick": 25,
+            "effects": [
+              {
+                "type": "CasterAnimation",
+                "name": "q2",
+                "tick": 31
+              },
+              {
+                "type": "Sfx",
+                "name": "league_leesin_q2_cast"
+              },
+              {
+                "type": "MoveToTarget",
+                "speed": 7000,
+                "range": 110000,
+                "end_effects": [
+                  {
+                    "type": "Attack",
+                    "damage": 30,
+                    "attack_ratio": 60
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "league_leesin_q2_hit"
+                  },
+                  {
+                    "type": "TargetSfx",
+                    "name": "league_leesin_q2_hit"
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_leesin_flurry",
+                      "duration": {
+                        "Time": {
+                          "tick": 180
+                        }
+                      },
+                      "attack_speed_mult": 40
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_leesin_flurry_2",
+                      "duration": {
+                        "Time": {
+                          "tick": 180
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "Delayed",
+            "tick": 22,
+            "effects": [
+              {
+                "type": "CasterAnimation",
+                "name": "q_throw",
+                "tick": 20
+              },
+              {
+                "type": "Sfx",
+                "name": "league_leesin_q_cast"
+              },
+              {
+                "type": "Delayed",
+                "tick": 4,
+                "effects": [
+                  {
+                    "type": "TargetProjectile",
+                    "name": "league_leesin_q_wave",
+                    "speed": 8000,
+                    "y_offset": 5000,
+                    "applied_target": "EnemyChampion",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "Attack",
+                          "damage": 50,
+                          "attack_ratio": 90
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ViewEffect",
+                          "name": "league_leesin_q_mark"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "TargetSfx",
+                          "name": "league_leesin_q_hit"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "Delayed",
+                          "tick": 8,
+                          "effects": [
+                            {
+                              "type": "Sfx",
+                              "name": "league_leesin_q2_cast"
+                            },
+                            {
+                              "type": "CasterAnimation",
+                              "name": "q2",
+                              "tick": 31
+                            },
+                            {
+                              "type": "MoveToTarget",
+                              "speed": 7000,
+                              "range": 110000,
+                              "end_effects": [
+                                {
+                                  "type": "Attack",
+                                  "damage": 50,
+                                  "attack_ratio": 100
+                                },
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "league_leesin_q2_hit"
+                                },
+                                {
+                                  "type": "TargetSfx",
+                                  "name": "league_leesin_q2_hit"
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_leesin_flurry",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 180
+                                      }
+                                    },
+                                    "attack_speed_mult": 40
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_leesin_flurry_2",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 180
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
         }
       ]
     }
