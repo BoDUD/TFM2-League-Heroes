@@ -29,6 +29,7 @@ writes the round-1 body only with --body.
 """
 import argparse
 import glob
+import importlib
 import json
 import os
 import sys
@@ -57,6 +58,13 @@ SOLES = 11
 # above pivot row y moves down a row. Codex drew Nami's swimming body a row lower under the head in run 1-4 than
 # in 5-8 and the design, so her neck stretched and shrank as she swam (the user: "一上一下的时候感觉身体要分离一样").
 NECK = {("nami", "run"): (-21, [0, 1, 2, 3])}
+# (hero, tag): (reference slot, {slot: (dx, dy)}, head box (row0, row1, col0, col1) from the EYES pixel) - the pasted
+# head moved with the body: in the listed slots Codex drew the body (dx, dy) off the reference frame's while the head
+# stayed put, so the head is moved by the same amount (its pixels: those of the box equal to the idle's head round
+# the eye) and what it uncovers takes the reference frame's pixels at the same place on the body. Darius's run: the
+# user, "原来的走路姿势是最好的 问题是头和身体不协调"; measured on the shoulders (best colour match against frame 8):
+# frame 1's body 5 px further forward, frame 4's 3 px forward and a row lower, the others within a pixel.
+HEAD_MOVE = {("darius", "run"): (7, {0: (5, 0), 3: (3, 1)}, (-9, 3, -8, 6))}
 # (hero, tag): (y, rows, cape), a walk's step: in frame k everything at or above pivot row y moves down rows[k] and is
 # laid over what is below, so the leg tops tuck under the hips; a cape that streams behind her across row y goes along
 # whole (below y: each row up to one past its last `cape` colour pixel, and the tip's runs hanging off that), or the
@@ -89,7 +97,7 @@ NECK_EYES = {("fiora", "hit", 0): (-19, 3)}
 # needs it closed). Nothing goes under the soles row; a frame that already reaches lower (lying down) keeps its own
 # bottom.
 COMPLETE = {"nami", "veigar", "jax", "ahri", "taric", "tristana", "fiora", "diana", "leesin", "missfortune", "fizz", "shaco",
-            "caitlyn", "nocturne", "blitzcrank", "camille", "leblanc", "sona"}
+            "caitlyn", "nocturne", "blitzcrank", "camille", "leblanc", "kaisa", "sona"}
 # hero: the luminance from which an edge pixel gets the outline (complete_outline's `dark`, default 70). Fiora's teal
 # leggings (luminance ~58) and wine cape (~44) edge many action frames without black: tfm2_ase.py metrics counts only
 # luminance < 40 as outline, so at 70 her Q frames read 83-89% (the bare rapier aside); at 40 they close too.
@@ -203,6 +211,8 @@ ORDER = {("lux", "idle"): [0, 0, 0, 0, 0, 0],   # the step-2 idle is the design 
          ("camille", "idle"): [0, 0, 0, 0, 0, 0],
          # and LeBlanc (Codex's game-size design B cut to 43 rows: the pack's idle is the design in all six)
          ("leblanc", "idle"): [0, 0, 0, 0, 0, 0],
+         # and Kai'Sa (Codex's chibi draft B cut to 44 rows, design_kaisa.py: the pack's idle is the design in all six)
+         ("kaisa", "idle"): [0, 0, 0, 0, 0, 0],
          # and Sona (Codex's game-size design B, 40 rows: the pack's idle is the design in all six)
          ("sona", "idle"): [0, 0, 0, 0, 0, 0]}
 # (hero, tag): (y, slots) - in those slots everything at or above pivot row y moves down a row (the row under
@@ -304,9 +314,16 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        # LeBlanc: her gown's diagonal trims change every row (13-18 squares from one row to the next); the seam runs
        # through the hem over her heels (rows 97/98 of the design), the staff's straight shaft one row shorter
        ("leblanc", "idle"): (9, [2, 3, 4]),
+       # Kai'Sa: the seam low in her shin plates (rows 6/7 under the pivot: 2 squares of opacity and 4 of colour differ);
+       # the clawed boots stay
+       ("kaisa", "idle"): (6, [2, 3, 4]),
        # Sona: her skirt's panels run straight down; the seam in rows 94/95 of the design (the same width, 7 squares of
        # the outline move); the hem and the panels' lower ends stay on the ground
        ("sona", "idle"): (6, [2, 3, 4])}
+# hero: a module in tools/art with tidy(tag, k, frame) -> frame, run on the finished frames (after the outline is closed
+# and cleaned): the user's clean-up of dirty black blocks and stray squares inside the silhouette (2026-10-02:
+# "盖伦把黑边清理干净 有杂的黑色的地方", "风女 莫甘娜 不干净的黑色块也太多了", "莫甘娜头部有很多多余的方块", "阿狸也是都给我清理干净")
+TIDY = {"ahri": "clean_ahri", "janna": "clean_janna", "morgana": "clean_morgana"}
 CROWN = {"leesin"}              # heroes whose head template starts at the crown (a braid stands above it)
 PASTED = {"masteryi"}            # steadied on the head restyle_native pasted: his raised sword is the top of every frame
 # Codex's step-2 redraw (model_strips_18, tidied by tidy_codex18.py): the approved design's head (or face) is in every
@@ -353,6 +370,7 @@ EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade
         "blitzcrank": (243, 164, 217),    # the smokestacks and the raised fists top the frames; the pink is the eyes
         "camille": (2, 159, 217),         # her raised blade tops the kicks; the far eye was recoloured to this cyan
         "leblanc": (122, 0, 18),          # her staff's crystal or diadem tops the frames; the dark red is her near pupil's
+        "kaisa": (130, 62, 163),          # her raised pods top every frame; the near iris' purple is only in her eyes
         "sona": (34, 201, 184)}           # her twin tails top the frames (the Etwahl in R); the teal is only in her irises
 
 
@@ -653,6 +671,65 @@ def breathe(hero, sheet):
             sheet[tag][k] = (b, ms)
 
 
+def canvas(arrs):
+    """Frames centred on their pivots padded to one size: (arrays, centre row, centre column)."""
+    hh = max(a.shape[0] // 2 for a in arrs)
+    hw = max(a.shape[1] // 2 for a in arrs)
+    return ([np.pad(a, ((hh - a.shape[0] // 2,) * 2, (hw - a.shape[1] // 2,) * 2, (0, 0))) for a in arrs],
+            hh, hw)
+
+
+def eye_at(hero, a):
+    """(row, column) of the EYES colour's first pixel (top row, left column), or None (turned away, lying down)."""
+    ys, xs = np.nonzero((a[..., :3] == np.array(EYES[hero], np.uint8)).all(-1) & (a[..., 3] > 0))
+    return (int(ys.min()), int(xs[ys == ys.min()].min())) if len(ys) else None
+
+
+def head_move(hero, sheet):
+    """HEAD_MOVE: the head moved with the body in the listed slots; {tag: slots moved}."""
+    done = {}
+    for (h, tag), (ref, moves, (r0, r1, c0, c1)) in HEAD_MOVE.items():
+        if h != hero or tag not in sheet:
+            continue
+        idle = sheet["idle"][0][0]
+        ie = eye_at(hero, idle)
+        arrs, cy, cx = canvas([np.pad(a, ((4, 4), (8, 8), (0, 0))) for a, _ in sheet[tag]])
+        for k, (dx, dy) in moves.items():
+            a = arrs[k]
+            e = eye_at(hero, a)
+            m = np.zeros(a.shape[:2], bool)
+            for y in range(r0, r1 + 1):
+                for x in range(c0, c1 + 1):
+                    p, q = idle[ie[0] + y, ie[1] + x], a[e[0] + y, e[1] + x]
+                    if p[3] and q[3] and (p == q).all():
+                        m[e[0] + y, e[1] + x] = True
+            ys, xs = np.nonzero(m)
+            new = np.zeros_like(m)
+            new[ys + dy, xs + dx] = True
+            b = a.copy()
+            for y, x in zip(*np.nonzero(m & ~new)):    # uncovered: the reference body at the same place on the body
+                b[y, x] = arrs[ref][y - dy, x - dx]
+            b[ys + dy, xs + dx] = a[ys, xs]
+            sheet[tag][k] = (G.centre_frame(b, -cx, -cy), sheet[tag][k][1])
+        done[tag] = sorted(moves)
+    return done
+
+
+def tidy_frames(hero, sheet):
+    """TIDY: the hero's own clean-up module on every finished frame; the pixels it changed."""
+    if hero not in TIDY:
+        return 0
+    mod = importlib.import_module(TIDY[hero])
+    n = 0
+    for tag, frames in sheet.items():
+        for k, (a, ms) in enumerate(frames):
+            p = np.pad(a, ((6, 6), (6, 6), (0, 0)))      # room round the frame (Morgana's pasted head template)
+            b = mod.tidy(tag, k, p.copy())
+            n += int((b != p).any(-1).sum())
+            frames[k] = (G.centre_frame(b, -(b.shape[1] // 2), -(b.shape[0] // 2)), ms)
+    return n
+
+
 def close_outline(hero, sheet):
     """COMPLETE: strips.complete_outline on every frame, in idle frame 1's outline colour, then CLEAN:
     strips.clean_outline; (added, darkened, {clean rule: pixels})."""
@@ -753,11 +830,16 @@ def main():
         if stepped:
             print(f"{hero}: walk step on {stepped} frames")
         breathe(hero, sheet)
+        for tag, slots in head_move(hero, sheet).items():
+            print(f"{hero}: the head moved with the body in {tag} slots " + " ".join(str(k + 1) for k in slots))
         added, darkened, tidy = close_outline(hero, sheet)
         if added or darkened:
             print(f"{hero}: outline closed with {added} pixels added, {darkened} darkened on the feet line")
         if tidy:
             print(f"{hero}: outline tidied: " + ", ".join(f"{k} {v}" for k, v in tidy.items()))
+        tidied = tidy_frames(hero, sheet)
+        if tidied:
+            print(f"{hero}: {TIDY[hero]} changed {tidied} pixels")
         w, h = G.write_sheet(os.path.join(MOD, "champions", f"league_{hero}"), sheet)
         frames = [a for fr in sheet.values() for a, _ in fr]
         colours = len(np.unique(np.concatenate([a[a[..., 3] > 0][:, :3] for a in frames]), axis=0))
