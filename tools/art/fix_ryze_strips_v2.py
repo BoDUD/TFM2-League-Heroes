@@ -102,9 +102,10 @@ TROUSERS = set("ozw")
 # the run's arms: Codex's broke into pieces over the body (the review: "arm fragments"); the idle's swung against
 # the legs instead - the near arm back as the near leg reaches forward (frames 4 and 8 the widest strides)
 RUN_SWING = {("run", k + 1): s for k, s in enumerate((0.5, 0.0, -0.5, -1.0, -0.5, 0.0, 0.5, 1.0))}
-SWING_DEG = 20
-ELBOW_DEG = 25
-RUN_UPPER = 8                                    # the upper arm's squares on the line (the idle's: shoulder to bracer)
+SWING_DEG = 18
+ELBOW_DEG = 60                                   # the elbows bent as he jogs (straighter they swung like pendulums
+                                                 # to the knees: 「瑞兹走路时手还是有点不自然」, the pick B)
+RUN_UPPER = 7                                    # the upper arm's squares on the line (to the elbow)
 # the boots of the legs swinging through in the run's passing frames (run_legs took rows out of the shins: the leg
 # ended at the knee band); {row from the pivot: (first column, squares)} in the idle's boot materials
 FEET = {("run", 2): {7: (0, "Dxx"), 8: (0, "rjhh")}, ("run", 6): {6: (-1, "Dxx"), 7: (-1, "rjhh")}}
