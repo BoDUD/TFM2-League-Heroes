@@ -20,8 +20,9 @@ legs, the arms were drawn as tubes and the ult's wings as flat polygons. The use
   behind each for the spread membrane (WINGS).
 - the death: the whole design turned by RotSprite (staggering back), then a quarter (lying on his back, face up), the
   blade on the ground beside him.
-- the run: the idle's own two legs, every square as drawn, moved whole - the planted one sliding back on the soles'
-  row, the swinging one lifted and carried forward, half a cycle apart; the body a row lower on the contacts.
+- the run: the idle's own two legs, every square as drawn, turned about the hips by RotSprite - the planted one from
+  ahead to behind, the swinging one lifted and bent at the knee on its way forward - the hips in under the waist so the
+  near leg passes in front of the far one; the body a row lower when the planted leg slants.
 --check compares the strips with assets/source/native/.
 """
 import argparse
@@ -85,19 +86,23 @@ FAR_ROOT = (69, 75)                  # where the drawn wings join the back (behi
 NEAR_ROOT = (58, 75)
 # the run (8 frames, 2026-10-04): every leg I drew was turned down - the whole-leg shear slid the knee plate off the shin
 # as it played (「是膝盖那和下面的小腿 走路的时候感觉脱节的」), legs from close hips read as a skirt under the wide waist
-# (「怎么看起来剑魔像穿了裙子？？」), two-bone legs on League's joints were 「不自然」, Codex's redraw lost to them - and
-# then the user: 「你把待机的腿用到走路啊」. So each of the idle's legs is moved whole: in its four planted frames it
-# slides from RUN_AMP ahead of its idle place to RUN_AMP behind on the soles' row, in its four swinging frames it goes
-# back to ahead lifted RUN_LIFT rows; the dark leg half a cycle after the lit one, the lit one drawn over it (they meet
-# in frames 1 and 8); the body (over the legs' tops) a row lower on the contacts (RUN_BOB).
-RUN_AMP = 3
-RUN_LIFT = [0, 2, 3, 1]
-RUN_PLANT = [1.0, 0.5, -0.5, -1.0]
-RUN_SWING = [-1.0, -0.5, 0.5, 1.0]
-RUN_BOB = [1, 0, 0, 0, 1, 0, 0, 0]
+# (「怎么看起来剑魔像穿了裙子？？」), two-bone legs on League's joints were 「不自然」, Codex's redraw lost to them; then
+# 「你把待机的腿用到走路啊」, and the idle's legs slid whole on the ground were 「你觉得对吗？ 不自然啊」 (no swing, no
+# knee). Now each of the idle's legs, every square as drawn, is TURNED about its hip by RotSprite (RUN: degrees, + = the
+# foot ahead - a forward leg lands heel first, a back one leaves on the toe) and lifted RUN rows off the ground while it
+# swings, bent at the knee when lifted 2+ rows (RUN_BEND: the thigh and the shin + boot turned apart, cut at KNEE_ROW);
+# the hips come RUN_HIP_IN in under the waist so the feet cross (the near leg in front of the far one in an X in frames 8
+# and 1; spread at most ~12 squares in 4-5); the near boot is mirrored about its knee so its toe points forward like the
+# far one's; the body drops a row when the planted leg's slant shortens it.
+RUN = [[24, 0, -32, 1], [12, 0, -22, 3], [-4, 0, 6, 3], [-14, 0, 18, 1],    # [near deg, near lift, far deg, far lift]
+       [-22, 1, 16, 0], [-12, 3, 6, 0], [8, 3, -8, 0], [24, 1, -24, 0]]
+RUN_HIP_IN = 3
+RUN_BEND = (10, 25)
 LEG_TOP = 88                         # the legs below this row move; the hips and the skirt above stay
-NEAR_COLS = (48, 64)                 # the lit (left) leg's columns, the dark (right) leg's
-FAR_COLS = (64, 80)
+KNEE_ROW = 94                        # the shin + boot from this row down
+# the idle's legs (canvas squares): their columns, hips and knees; the lit (near) one's boot is mirrored about its knee
+NEAR_LEG = {"cols": (52, 64), "hip": (59.0, 88.0), "knee": (58.0, 93.5)}
+FAR_LEG = {"cols": (64, 76), "hip": (69.0, 88.0), "knee": (69.0, 93.5)}
 DEAD = [(0, 0), (0.15, 0), (0.4, 1), ("rot", 0), ("rot", 0), ("rot", 0), ("rot", 0), ("rot", 0)]
 
 
@@ -428,28 +433,68 @@ def frame(tag, i, des, sm):
     raise ValueError(tag)
 
 
-def leg(des, sm, cols):
-    """One of the design's legs below LEG_TOP (the blade's squares left with the body)."""
-    part = np.zeros_like(des)
-    part[LEG_TOP:, cols[0]:cols[1]] = des[LEG_TOP:, cols[0]:cols[1]]
-    part[sm] = 0
-    return part
+def turn(sprite, joint, deg):
+    """RotSprite about joint (+ = counter-clockwise on screen: a hanging part swings ahead): (sprite, joint in it)."""
+    if abs(deg) < 0.5:
+        return sprite, joint
+    r, (jx, jy) = rotsprite(sprite, joint, deg)
+    return r, (jx + (joint[0] - round(joint[0])), jy + (joint[1] - round(joint[1])))
+
+
+def leg_pieces(des, sm, L, mirror=False):
+    """One of the idle's legs cut at the knee: (thigh, shin + boot, whole leg), the blade's squares left out; the shin +
+    boot mirrored about the knee's column when `mirror` (the toe forward)."""
+    c0, c1 = L["cols"]
+    thigh, shin = np.zeros_like(des), np.zeros_like(des)
+    thigh[LEG_TOP:KNEE_ROW, c0:c1] = des[LEG_TOP:KNEE_ROW, c0:c1]
+    shin[KNEE_ROW:, c0:c1] = des[KNEE_ROW:, c0:c1]
+    thigh[sm] = 0
+    shin[sm] = 0
+    if mirror:
+        ys, xs = np.nonzero(shin[..., 3])
+        m = np.zeros_like(shin)
+        m[ys, np.round(2 * L["knee"][0] - xs).astype(int)] = shin[ys, xs]
+        shin = m
+    return thigh, shin, over(thigh.copy(), shin)
+
+
+def run_leg(pieces, L, deg, lift, hip_at):
+    """A leg turned deg about its hip, bent RUN_BEND at the knee when lifted 2+ rows."""
+    thigh, shin, whole = pieces
+    out = np.zeros((128, 128, 4), np.uint8)
+    if lift >= 2:
+        th, sh = deg + RUN_BEND[0], deg - RUN_BEND[1]
+        t = math.radians(th)
+        vx, vy = L["knee"][0] - L["hip"][0], L["knee"][1] - L["hip"][1]
+        knee = (hip_at[0] + vx * math.cos(t) + vy * math.sin(t), hip_at[1] - vx * math.sin(t) + vy * math.cos(t))
+        parts = ((shin, L["knee"], sh, knee), (thigh, L["hip"], th, hip_at))
+    else:
+        parts = ((whole, L["hip"], deg, hip_at),)
+    for piece, joint, d, at in parts:
+        s, j = turn(piece, joint, d)
+        over(out, s, int(round(at[0] - j[0])), int(round(at[1] - j[1])))
+    return out
 
 
 def run(i, des, sm):
-    """The idle's legs moved whole (RUN_PLANT / RUN_SWING / RUN_LIFT), the upper body, the arms holding the blade, the
-    wings and the head the design's own, RUN_BOB rows lower."""
+    """The idle's legs turned about the hips (RUN), each with its lowest square `lift` rows over the soles' row; the
+    upper body - head, wings, arms, the blade - the design's own, a row lower when a planted leg's slant shortens it."""
     upper = des.copy()
-    upper[LEG_TOP:] = 0
+    upper[LEG_TOP:, NEAR_LEG["cols"][0]:FAR_LEG["cols"][1]] = 0
     upper[sm] = des[sm]                                   # the blade hangs below the hips with the fist
+    na, nl, fa, fl = RUN[i]
+    legs, drop = [], 0
+    for L, deg, lift, near in ((FAR_LEG, fa, fl, False), (NEAR_LEG, na, nl, True)):
+        hip = (L["hip"][0] + (RUN_HIP_IN if near else -RUN_HIP_IN), L["hip"][1])
+        a = run_leg(leg_pieces(des, sm, L, mirror=near), L, deg, lift, hip)
+        low = int(np.nonzero(a[..., 3].any(1))[0].max())
+        if not lift:
+            drop = max(drop, min(1, 99 - low))
+        legs.append(np.roll(a, 99 - lift - low, 0))
     out = np.zeros_like(des)
-    for part, ph in ((leg(des, sm, FAR_COLS), (i + 4) % 8), (leg(des, sm, NEAR_COLS), i)):
-        if ph < 4:
-            dx, lift = RUN_AMP * RUN_PLANT[ph], 0
-        else:
-            dx, lift = RUN_AMP * RUN_SWING[ph - 4], RUN_LIFT[ph - 4]
-        over(out, part, int(round(dx)), -lift)
-    return over(out, upper, 0, RUN_BOB[i])
+    for a in legs:                                        # the near leg over the far one
+        over(out, a)
+    return over(out, upper, 0, drop)
 
 
 def sheared(a, k, sink=0):
