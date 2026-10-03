@@ -20,7 +20,7 @@ legs, the arms were drawn as tubes and the ult's wings as flat polygons. The use
   behind each for the spread membrane (WINGS).
 - the death: the whole design turned by RotSprite (staggering back), then a quarter (lying on his back, face up), the
   blade on the ground beside him.
-- the run: the design's legs turned about the hips by RotSprite in League's stride (STEP), the body bobbing a row.
+- the run: the design's legs leaned by shearing in League's stride, crossing (RUN_C), the swinging foot lifted.
 --check compares the strips with assets/source/native/.
 """
 import argparse
@@ -79,8 +79,21 @@ ULT_ARMS = [None, (165, (53, 83), (72, 79), (75, 80)), (150, (49, 81), (73, 78),
             (150, (49, 81), (73, 78), (78, 77)), (150, (49, 81), (73, 78), (78, 77)), None]
 FAR_ROOT = (69, 75)                  # where the drawn wings join the back (behind the shoulders)
 NEAR_ROOT = (58, 75)
-STEP = [-18, -6, 10, 18, 18, 6, -10, -18]      # the run's near leg angle (the far leg the opposite), Codex's stride
-BOB = [0, 1, 1, 0, 0, 1, 1, 0]
+# the run (League's Unsheath_run01, 8 frames): the legs alternate under the body - the near foot (left) from behind
+# the far one to ahead of it and back, so the lead swaps every half cycle (the user: 「走路没有交叉步」); League's
+# legs run close together, so in the run both legs come RUN_NARROW px in under the skirt (hips 6 apart, not the
+# idle's 12) and the feet swing RUN_REACH px either side of the body's middle (shoes 10 px apart at most), the
+# swinging foot lifted as League's knee comes up; the body a row lower when both feet are down.
+# RUN_C = -cos(2 pi i / 8): -1 = near foot behind (frame 0, League's), +1 = near foot ahead (frame 4).
+RUN_C = [-1.0, -0.71, 0.0, 0.71, 1.0, 0.71, 0.0, -0.71]
+RUN_REACH = 5
+RUN_NARROW = 3
+NEAR_LIFT = [0, 2, 3, 1, 0, 0, 0, 0]
+FAR_LIFT = [0, 0, 0, 0, 0, 2, 3, 1]
+RUN_BOB = [1, 0, 0, 0, 1, 0, 0, 0]
+LEG_TOP = 88                         # the legs below this row move; the hips and the skirt above stay
+NEAR_COLS = (48, 64)                 # the near (left) leg's columns, the far (right) leg's
+FAR_COLS = (64, 80)
 DEAD = [(0, 0), (0.15, 0), (0.4, 1), ("rot", 0), ("rot", 0), ("rot", 0), ("rot", 0), ("rot", 0)]
 
 
@@ -411,27 +424,56 @@ def frame(tag, i, des, sm):
     raise ValueError(tag)
 
 
-def run(i, des, sm):
-    """The design's legs turned about the hips in League's stride; everything over them - the arms holding the blade
-    as in the idle, the wings, the head - the design's own, bobbing a row."""
-    upper = des.copy()
-    upper[88:, 53:] = 0                                   # the blade's tip and its outline (left of the legs) stay up
-    upper[sm] = des[sm]                                   # the blade hangs below row 88 with the fist
-    legs = des.copy()
-    legs[:88] = 0
-    legs[:, :53] = 0
-    legs[sm] = 0
-    out = np.zeros_like(des)
-    for side, hip, sign in (("far", (68, 88), -1), ("near", (60, 88), 1)):
-        part = legs.copy()
-        if side == "far":
-            part[:, :64] = 0
+def leg(des, sm, cols):
+    """One of the design's legs below LEG_TOP (the blade's squares left with the body)."""
+    part = np.zeros_like(des)
+    part[LEG_TOP:, cols[0]:cols[1]] = des[LEG_TOP:, cols[0]:cols[1]]
+    part[sm] = 0
+    return part
+
+
+def stride(part, top_dx, foot_dx, lift):
+    """A leg moved top_dx at the hip and foot_dx at the sole, leaned by shearing in between (every square keeps its
+    colour), then lifted `lift` rows (its top slides under the skirt)."""
+    out = np.zeros_like(part)
+    span = 100 - LEG_TOP
+    for y in range(LEG_TOP, 100):
+        dx = int(round(top_dx + (foot_dx - top_dx) * (y - LEG_TOP + 1) / span))
+        row = part[y]
+        if not row[:, 3].any():
+            continue
+        shifted = np.zeros_like(row)
+        if dx >= 0:
+            shifted[dx:] = row[:row.shape[0] - dx]
         else:
-            part[:, 64:] = 0
-        t = turned(part, hip, sign * STEP[i], hip)
-        ys = np.nonzero(t[..., 3].any(1))[0]
-        over(out, t, 0, 99 - ys.max())
-    return over(out, upper, 0, BOB[i])
+            shifted[:dx] = row[-dx:]
+        yy = y - lift
+        m = shifted[:, 3] > 0
+        out[yy][m] = shifted[m]
+    return out
+
+
+def run(i, des, sm):
+    """League's stride with crossing legs: each of the design's legs leaned by shearing (no turning noise, the hips
+    in place), the near foot from behind the far one to past it and back (RUN_C), the swinging foot lifted; the far
+    leg drawn first, the near one over it, the body over both - the arms holding the blade as in the idle, the wings,
+    the head, the design's own - a row lower when both feet are down."""
+    upper = des.copy()
+    upper[LEG_TOP:] = 0
+    upper[sm] = des[sm]                                   # the blade hangs below the hips with the fist
+    near, far = leg(des, sm, NEAR_COLS), leg(des, sm, FAR_COLS)
+    nx, fx = shin_x(near), shin_x(far)
+    mid = (nx + fx) / 2
+    out = np.zeros_like(des)
+    over(out, stride(far, -RUN_NARROW, mid - RUN_REACH * RUN_C[i] - fx, FAR_LIFT[i]))
+    over(out, stride(near, RUN_NARROW, mid + RUN_REACH * RUN_C[i] - nx, NEAR_LIFT[i]))
+    return over(out, upper, 0, RUN_BOB[i])
+
+
+def shin_x(part):
+    """A leg's middle column over its shin (rows 92-95)."""
+    xs = np.nonzero(part[92:96, :, 3].any(0))[0]
+    return (xs.min() + xs.max()) / 2
 
 
 def sheared(a, k, sink=0):
