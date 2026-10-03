@@ -7,20 +7,25 @@
 //! - **回旋踢**（`insec`，换掉 R 第 7 tick 的 `RushMoveToBack`；R 第 17 tick 主包照常踢）——照高手的打法，把他踢回
 //!   **自己队伍那边**：踢的方向朝他身边 `ALLY_R` 内己方英雄的重心，没有队友就朝最近的己方塔，都没有才踢回李青这边。
 //!   李青**已经站在他背后**（和「背后」差不过 60°）就不 W，直接贴上去（`DIRECT_MIN`..`BEHIND`）摆正了踢；不在就 W 到他
-//!   背后 `BEHIND`（墙里往近挪，还不行左右转 15°、30° 找落脚点）。从第 7 tick 到踢的那一刻**一路跟着他走**（`follow`：
+//!   背后 `BEHIND`（墙里往近挪，还不行左右转 15°、30° 找落脚点）；W 在冷却（`HOP_CD`，和下面的 W 共用）就不绕后，
+//!   从李青这边贴上去正面踢（v1.8）。从第 7 tick 到踢的那一刻**一路跟着他走**（`follow`：
 //!   每 tick 按他当时的位置重算落点，每 tick 最多挪 `INSEC_SPEED`，不用强制位移——它算控制会打断 R），踢完就停。
 //!   v1.4 以前只看李青站在哪边、绕到对面去踢：李青本来就在他背后时反而绕过去把他踢回敌方；跟随结束后还会把李青
 //!   放回第 7 tick 的旧落点（踢完瞬移一下）。
-//! - **W 逃跑 / 追击**（被动 `hop`，挂在 `passive_skill2` 上）：每 `AUTO_EVERY` tick 看一次（顺便记下
+//! - **W 逃跑 / 追击 / 突进**（被动 `hop`，挂在 `passive_skill2` 上）：每 `AUTO_EVERY` tick 看一次（顺便记下
 //!   英雄们在哪、算出每 tick 的速度），`HOP_CD` 一次，**只顺着 AI 自己要走的方向 W**：
 //!   - 逃跑：血量低于 `LOW_HP`、`DANGER_R` 内有敌方英雄、**他自己正在往远离敌人的方向跑**——W 冲向
 //!     他跑的方向左右 60° 内离敌人最远、路上没有墙的点（`HOP_MIN`..`HOP_RANGE`）；
 //!   - 追击：敌方英雄血量低于 `CHASE_HP`、离他 `CHASE_MIN` 以外够得着、**那人正在跑开、李青正在追**——
 //!     W 冲到他身前。
-//!   AI 没在跑（站着打、往回走）就不 W（v1.2 以前满血时会突然冲向远处的残血敌人、残血时往反方向冲，
-//!   冲完 AI 又走回去，看起来莫名其妙）。
+//!   - 突进开团（v1.8）：自己血量 `ENGAGE_HP` 以上、连着两次看都正对着一个敌方英雄走（`ENGAGE_COS`）、他站着或横着走
+//!     （朝李青走过来的不用冲，跑开的只在残血时追）、离他 `ENGAGE_MIN` 以外 W 够得着——W 冲到他身前接着打；
+//!     他站在他们自己的塔下（不残血）、或身边三个敌方英雄而我方没人时不冲。
 //!
-//! 冲的时候李青身上亮 W 的护盾光、播 W 的声音（只是画面，不给护盾），逃跑 / 追击时播跑步的动作
+//!   AI 没在跑（站着打、往回走）就不 W（v1.2 以前满血时会突然冲向远处的残血敌人、残血时往反方向冲，
+//!   冲完 AI 又走回去，看起来莫名其妙）。W 一个冷却 `HOP_CD`（12 秒），逃跑、追击、突进、R 绕后共用（v1.8）。
+//!
+//! 冲的时候李青身上亮 W 的护盾光、播 W 的声音（只是画面，不给护盾），逃跑 / 追击 / 突进时播跑步的动作
 //! （`RUN_ANIM`，不借别的技能的动作；R 里绕后不加，他在放 R）。刚出手的
 //! 普攻 / Q / E 之后 `AFTER_ATTACK` / `AFTER_SKILL` tick、R 之后 `AFTER_ULT` tick 内不 W（看冷却刚跳起来），
 //! 免得把出手到一半的技能拉走打空。冲刺被韧性缩短时每 tick 补一段（`dash`）。墙用内置的 5v5 碰撞墙
@@ -49,11 +54,23 @@ const ID: &str = "league_leesin_hop";
 pub const BEHIND: f64 = 15_000.0;
 pub const BEHIND_MIN: f64 = 6_000.0;
 const INSEC_SPEED: f64 = 8_000.0;
-/// W 逃跑 / 追击：最远冲多远、冲的速度、至少冲多远才值得、多久一次。
+/// W：最远冲多远、冲的速度、至少冲多远才值得、冷却（逃跑、追击、突进、R 绕后共用，12 秒）。
 pub const HOP_RANGE: f64 = 45_000.0;
 const HOP_SPEED: f64 = 6_000.0;
 pub const HOP_MIN: f64 = 18_000.0;
-pub const HOP_CD: usize = 1_200;
+pub const HOP_CD: usize = 720;
+/// 突进开团：自己血量至少这么多（比例）；他身边这么近的敌方英雄算一伙（三个、我方没人在附近就不冲）；
+/// 离他们的塔这么近不冲（他残血时照冲）。
+pub const ENGAGE_HP: f64 = 0.5;
+pub const ENGAGE_CROWD_R: f64 = 35_000.0;
+pub const ENGAGE_TOWER_R: f64 = 50_000.0;
+/// 突进：离他至少这么远才冲（平 A 射程 23000，近了走两步就到）；「正对着他走」的夹角 cos（约 30°），要连着两次看
+/// （`AUTO_EVERY` tick 一次）都这样——AI 真在朝他走，不是路过；冲完 `ENGAGE_WATCH` tick 内李青在他 `ENGAGE_NEAR`
+/// 内出手（普攻、技能）算打上了（只记日志）。
+pub const ENGAGE_MIN: f64 = 35_000.0;
+pub const ENGAGE_COS: f64 = 0.85;
+const ENGAGE_WATCH: usize = 90;
+const ENGAGE_NEAR: f64 = 30_000.0;
 /// 逃跑：血量比例和多近算被追。
 pub const LOW_HP: f64 = 0.3;
 pub const DANGER_R: f64 = 40_000.0;
@@ -403,11 +420,11 @@ fn w_dash(sim: &mut StableSim<'_>, lee: usize, from: (f64, f64), spot: (f64, f64
 
 // ===================== 两个用法 =====================
 
-/// 己方活着的防御塔。
-fn allied_towers(sim: &StableSim<'_>, team: usize) -> Vec<(f64, f64)> {
+/// 活着的防御塔：`ours` 取 `team` 这边的，否则取对面的。
+fn towers(sim: &StableSim<'_>, team: usize, ours: bool) -> Vec<(f64, f64)> {
     (0..sim.entity_count())
         .filter_map(|i| sim.entity_at(i))
-        .filter(|e| e.is_tower() && e.is_alive() && e.team() == team)
+        .filter(|e| e.is_tower() && e.is_alive() && (e.team() == team) == ours)
         .map(|e| {
             let (x, y) = e.pos();
             (x as f64, y as f64)
@@ -425,18 +442,22 @@ fn insec(sim: &mut StableSim<'_>, lee: usize, input: InputTargetV1) {
     let (from, target) = ((lx as f64, ly as f64), (tx as f64, ty as f64));
     let (champs, walls) = scan(sim);
     let allies: Vec<(f64, f64)> = champs.iter().filter(|c| c.team == team && c.id != lee).map(|c| c.at).collect();
-    let (kick, why) = kick_dir(target, from, &allies, &allied_towers(sim, team));
+    let (kick, why) = kick_dir(target, from, &allies, &towers(sim, team, true));
     let back = (-kick.0, -kick.1);
     let gap = dist(from, target);
     let side = unit_vec((from.0 - target.0, from.1 - target.1)).unwrap_or(back);
     let direct = (side.0 * back.0 + side.1 * back.1 >= BEHIND_COS).then_some(("DIRECT: already behind him", back));
+    let w_ready = !has_buff(sim, lee, CD);
     let (how, dir, keep) = match direct {
         Some((how, dir)) => (how, dir, gap.clamp(DIRECT_MIN, BEHIND)),
+        // W 在冷却：不绕后，从李青站的这边贴上去踢（同主包的正面踢）
+        None if !w_ready => ("FRONT: W on cooldown", side, gap.clamp(DIRECT_MIN, BEHIND)),
         None => match behind_spot(walls, from, target, back) {
             Some((w, dir)) => {
                 let at = InputTargetV1::target(lee);
                 sim.play_view_effect(W_VIEW, lee, &at, 0, 0, 0);
                 sim.play_sfx(W_SFX, lee, &at);
+                sim.add_buff(lee, &BuffV1::timed(CD, HOP_CD));
                 ("W behind him", dir, dist(w, target))
             }
             // 他背后没地方落脚：就从李青站的这边踢
@@ -453,7 +474,7 @@ fn insec(sim: &mut StableSim<'_>, lee: usize, input: InputTargetV1) {
     sim.queue_effect(&name, AttackTypeV1::Skill, lee, &at, KICK_AFTER);
     let spot = (target.0 + dir.0 * keep, target.1 + dir.1 * keep);
     wlog(format!(
-        "{} INSEC {how}: kick #{} at {} toward {why}; Lee {} ({gap:.0} from him) -> {} ({keep:.0} behind)",
+        "{} INSEC {how}: kick #{} at {} toward {why}; Lee {} ({gap:.0} from him) -> {} ({keep:.0} from him)",
         head(sim, lee),
         input.target_id,
         pt(target),
@@ -552,37 +573,105 @@ fn kick_check(sim: &mut StableSim<'_>, lee: usize, input: InputTargetV1) {
     ));
 }
 
-/// 被动：残血、正在逃的时候 W 顺着逃的方向冲走；追着残血逃跑的敌人时 W 追上去。`vel`：英雄们每 tick 的速度。
-fn hop(sim: &mut StableSim<'_>, lee: usize, vel: &HashMap<usize, (f64, f64)>) {
-    let Some(me) = sim.get_entity(lee) else { return };
+/// 一个敌方英雄（突进用）：id、位置、速度、生命比例。
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct Foe {
+    pub id: usize,
+    pub at: (f64, f64),
+    pub v: (f64, f64),
+    pub hp: f64,
+}
+
+/// 敌方英雄（带速度）。
+fn foes_of(champs: &[Champ], team: usize, vel: &HashMap<usize, (f64, f64)>) -> Vec<Foe> {
+    champs
+        .iter()
+        .filter(|c| c.team != team)
+        .map(|c| Foe { id: c.id, at: c.at, v: vel.get(&c.id).copied().unwrap_or_default(), hp: c.hp })
+        .collect()
+}
+
+/// 李青正对着走的敌方英雄：在走，方向和「李青指向他」差不过 `ENGAGE_COS`。
+pub fn walking_at(lee: (f64, f64), v_lee: (f64, f64), foes: &[Foe]) -> Vec<usize> {
+    if v_lee.0.hypot(v_lee.1) < MOVING {
+        return Vec::new();
+    }
+    foes.iter().filter(|f| cos(v_lee, (f.at.0 - lee.0, f.at.1 - lee.1)) >= ENGAGE_COS).map(|f| f.id).collect()
+}
+
+/// 突进开团的目标和落点：李青这次和上次（`before`）看都正对着他走（`walking_at`）、他离 `ENGAGE_MIN` 以外、
+/// 他站着或横着走（朝李青走过来的不用冲；跑开的是追击，只追残血的）、W 够得着（`chase_spot`：落在他身前 `CHASE_STOP`）、
+/// 不在他们自己的塔下（`ENGAGE_TOWER_R`，他残血时照冲）、他身边 `ENGAGE_CROWD_R` 内的敌方英雄不到三个
+/// （或我方 `allies` 也有人在附近）。几个都行时挑李青最正对着走的那个。
+pub fn engage_target(
+    walls: bool,
+    lee: (f64, f64),
+    v_lee: (f64, f64),
+    foes: &[Foe],
+    before: &[usize],
+    allies: &[(f64, f64)],
+    their_towers: &[(f64, f64)],
+) -> Option<(usize, (f64, f64))> {
+    let now = walking_at(lee, v_lee, foes);
+    foes.iter()
+        .filter(|f| now.contains(&f.id) && before.contains(&f.id) && dist(lee, f.at) >= ENGAGE_MIN)
+        .filter(|f| !moving_away(lee, f.v, f.at) && !moving_away(f.at, f.v, lee))
+        .filter(|f| f.hp <= CHASE_HP || their_towers.iter().all(|t| dist(*t, f.at) > ENGAGE_TOWER_R))
+        .filter(|f| {
+            let crowd = foes.iter().filter(|o| dist(o.at, f.at) <= ENGAGE_CROWD_R).count();
+            crowd < 3 || allies.iter().any(|a| dist(*a, f.at) <= ENGAGE_CROWD_R + 15_000.0)
+        })
+        .filter_map(|f| chase_spot(walls, lee, f.at).map(|w| (cos(v_lee, (f.at.0 - lee.0, f.at.1 - lee.1)), f.id, w)))
+        .max_by(|a, b| a.0.total_cmp(&b.0))
+        .map(|(_, id, w)| (id, w))
+}
+
+/// 被动：残血、正在逃的时候 W 顺着逃的方向冲走；追着残血逃跑的敌人时 W 追上去；血量一半以上、一直正对着一个
+/// 站着（或横着走）的敌人走时 W 突进开团。`before`：上次看时李青正对着走的敌方英雄。突进了返回目标。
+fn hop(
+    sim: &mut StableSim<'_>,
+    lee: usize,
+    champs: &[Champ],
+    walls: bool,
+    foes: &[Foe],
+    v_lee: (f64, f64),
+    before: &[usize],
+) -> Option<usize> {
+    let me = sim.get_entity(lee)?;
     if !me.is_alive() || has_buff(sim, lee, CD) || has_cc(sim, lee, &BUSY) {
-        return;
+        return None;
     }
     let team = me.team();
-    let (champs, walls) = scan(sim);
-    let Some(mine) = champs.iter().find(|c| c.id == lee) else { return };
+    let mine = champs.iter().find(|c| c.id == lee)?;
     let here = mine.at;
-    let v_lee = vel.get(&lee).copied().unwrap_or_default();
-    let foes: Vec<&Champ> = champs.iter().filter(|c| c.team != team).collect();
     let foe_at: Vec<(f64, f64)> = foes.iter().map(|c| c.at).collect();
     let closest = foe_at.iter().copied().min_by(|a, b| dist(here, *a).total_cmp(&dist(here, *b)));
-    let (spot, why) = if mine.hp <= LOW_HP && nearest(here, &foe_at) <= DANGER_R {
+    let (spot, why, target) = if mine.hp <= LOW_HP && nearest(here, &foe_at) <= DANGER_R {
         // 只在他自己正往远离最近那个敌人的方向跑时 W
         let fleeing = closest.is_some_and(|c| moving_away(here, v_lee, c));
-        (fleeing.then(|| escape_spot(walls, here, &foe_at, v_lee)).flatten(), "ESCAPE")
+        (fleeing.then(|| escape_spot(walls, here, &foe_at, v_lee)).flatten(), "ESCAPE", None)
     } else {
         let prey = foes
             .iter()
-            .filter(|c| c.hp <= CHASE_HP && chasing(here, v_lee, c.at, vel.get(&c.id).copied().unwrap_or_default()))
+            .filter(|c| c.hp <= CHASE_HP && chasing(here, v_lee, c.at, c.v))
             .filter_map(|c| chase_spot(walls, here, c.at).map(|w| (dist(here, c.at), w)))
             .min_by(|a, b| a.0.total_cmp(&b.0));
-        (prey.map(|(_, w)| w), "CHASE")
+        match prey {
+            Some((_, w)) => (Some(w), "CHASE", None),
+            None if mine.hp >= ENGAGE_HP => {
+                let allies: Vec<(f64, f64)> = champs.iter().filter(|c| c.team == team && c.id != lee).map(|c| c.at).collect();
+                let hit = engage_target(walls, here, v_lee, foes, before, &allies, &towers(sim, team, false));
+                (hit.map(|(_, w)| w), "ENGAGE", hit.map(|(id, _)| id))
+            }
+            None => (None, "CHASE", None),
+        }
     };
-    let Some(w) = spot else { return };
+    let w = spot?;
     sim.add_buff(lee, &BuffV1::timed(CD, HOP_CD));
     let ticks = w_dash(sim, lee, here, w, HOP_SPEED);
+    let what = target.map_or_else(|| why.to_string(), |id| format!("{why} #{id}"));
     wlog(format!(
-        "{} {why} W to {} ({:.0} away, {ticks} ticks), hp {:.0}%, running {:.0}/tick, nearest enemy {:.0} -> {:.0}",
+        "{} {what} W to {} ({:.0} away, {ticks} ticks), hp {:.0}%, running {:.0}/tick, nearest enemy {:.0} -> {:.0}",
         head(sim, lee),
         pt(w),
         dist(here, w),
@@ -591,6 +680,7 @@ fn hop(sim: &mut StableSim<'_>, lee: usize, vel: &HashMap<usize, (f64, f64)>) {
         nearest(here, &foe_at),
         nearest(w, &foe_at)
     ));
+    target
 }
 
 // ===================== Q 的出手（选手 AI） =====================
@@ -896,6 +986,10 @@ struct Hop {
     seen: HashMap<usize, (f64, f64, usize)>,
     /// 按了 Q 的那一 tick（还没看到 Q2 飞踢 = 还不知道打没打中）。
     q_cast: Option<usize>,
+    /// 上次看时李青正对着走的敌方英雄（突进要连着两次）。
+    walking_at: Vec<usize>,
+    /// 突进的目标和那一 tick（还没看到李青在他身边出手）。
+    engage: Option<(usize, usize)>,
 }
 
 /// Q 按下后这么久还没飞踢（Q2）就算打空：第 16 tick 发波，飞满射程 17 tick，打中后 12 tick 飞踢。
@@ -956,11 +1050,14 @@ impl StablePassive for Hop {
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, player: usize, entity: usize) {
         let tick = sim.tick();
+        // 这一 tick 刚出手（普攻、Q、E、R）
+        let mut struck = false;
         if let Some(now) = sim.get_player(player).and_then(|p| p.cooldowns()) {
             if let Some(last) = self.last {
                 let quiet = cast_quiet(last, now);
                 if quiet > 0 {
                     self.quiet_until = self.quiet_until.max(tick + quiet);
+                    struck = true;
                 }
                 // 按了 Q（R 里自带的那一下不算：R 的冷却同时跳）
                 if now.1 > last.1 && now.3 <= last.3 {
@@ -979,10 +1076,38 @@ impl StablePassive for Hop {
                 wlog(format!("{} Q MISSED", head(sim, entity)));
             }
         }
+        // 突进之后：李青在他身边出手了就算打上了，`ENGAGE_WATCH` tick 还没有就是白冲了
+        if let Some((id, t0)) = self.engage {
+            let gap = match (sim.get_entity(entity), sim.get_entity(id).filter(|t| t.is_alive())) {
+                (Some(me), Some(t)) => {
+                    let ((ax, ay), (bx, by)) = (me.pos(), t.pos());
+                    Some(dist((ax as f64, ay as f64), (bx as f64, by as f64)))
+                }
+                _ => None,
+            };
+            let verdict = match gap {
+                None => Some(format!("ENGAGE #{id}: he is dead or gone after {} ticks", tick - t0)),
+                Some(d) if struck && d <= ENGAGE_NEAR => Some(format!("ENGAGE FOUGHT #{id} after {} ticks ({d:.0} apart)", tick - t0)),
+                Some(d) if tick > t0 + ENGAGE_WATCH => Some(format!("ENGAGE WASTED #{id}: no hit in {ENGAGE_WATCH} ticks, {d:.0} from him")),
+                _ => None,
+            };
+            if let Some(v) = verdict {
+                self.engage = None;
+                wlog(format!("{} {v}", head(sim, entity)));
+            }
+        }
         if tick % AUTO_EVERY == 0 {
             let vel = self.track(sim, tick);
+            let (champs, walls) = scan(sim);
+            let v_lee = vel.get(&entity).copied().unwrap_or_default();
+            let foes = sim.get_entity(entity).map(|e| foes_of(&champs, e.team(), &vel)).unwrap_or_default();
+            let here = champs.iter().find(|c| c.id == entity).map(|c| c.at);
+            let now_at = here.map(|h| walking_at(h, v_lee, &foes)).unwrap_or_default();
+            let before = std::mem::replace(&mut self.walking_at, now_at);
             if tick >= self.quiet_until {
-                hop(sim, entity, &vel);
+                if let Some(id) = hop(sim, entity, &champs, walls, &foes, v_lee, &before) {
+                    self.engage = Some((id, tick));
+                }
             }
         }
     }
@@ -993,7 +1118,7 @@ fn init(host: &StableHost) -> StableMod {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v1.7 (W dash, no ward, aimed Q) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v1.8 (W dash, no ward, aimed Q) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -1142,6 +1267,41 @@ mod tests {
         assert!(parse_follow("league_leesin_hop_target:41").is_none());
         let w = follow_spot(true, (489_000.0, 480_000.0), (1.0, 0.0), BEHIND);
         assert!((w.0 - (489_000.0 + BEHIND)).abs() < 1.0 && (w.1 - 480_000.0).abs() < 1.0, "{w:?}");
+    }
+
+    #[test]
+    fn engage_closes_in_on_who_he_walks_at() {
+        let lee = (480_000.0, 480_000.0);
+        let him = Foe { id: 7, at: (520_000.0, 480_000.0), v: (0.0, 0.0), hp: 1.0 };
+        let go = |foes: &[Foe], before: &[usize], allies: &[(f64, f64)], towers: &[(f64, f64)]| {
+            engage_target(true, lee, (900.0, 0.0), foes, before, allies, towers)
+        };
+        // 李青一直往东走、他站着、40000：冲到他身前 8000
+        let (id, w) = go(&[him], &[7], &[], &[]).unwrap();
+        assert_eq!(id, 7);
+        assert!((w.0 - 512_000.0).abs() < 1.0 && (w.1 - 480_000.0).abs() < 1.0, "{w:?}");
+        // 他横着走（往北）：照冲
+        assert!(go(&[Foe { v: (0.0, -900.0), ..him }], &[7], &[], &[]).is_some());
+        // 上次看时还没朝他走（刚转过来 / 路过）：不冲
+        assert!(go(&[him], &[], &[], &[]).is_none());
+        // 站着不动 / 往回走 / 斜着走（偏 45°）：不冲
+        assert!(engage_target(true, lee, (0.0, 0.0), &[him], &[7], &[], &[]).is_none());
+        assert!(engage_target(true, lee, (-900.0, 0.0), &[him], &[7], &[], &[]).is_none());
+        assert!(engage_target(true, lee, (700.0, 700.0), &[him], &[7], &[], &[]).is_none());
+        // 他朝李青走过来（不冲也碰上）/ 他跑开（满血的不追）：不冲
+        assert!(go(&[Foe { v: (-900.0, 0.0), ..him }], &[7], &[], &[]).is_none());
+        assert!(go(&[Foe { v: (900.0, 0.0), ..him }], &[7], &[], &[]).is_none());
+        // 他在他们的塔下：不冲；残血照冲
+        let tower = [(545_000.0, 480_000.0)];
+        assert!(go(&[him], &[7], &[], &tower).is_none());
+        assert!(go(&[Foe { hp: 0.2, ..him }], &[7], &[], &tower).is_some());
+        // 他身边还有两个人：不冲；我方也有人在那边：冲（挑最正对着的那个）
+        let pack = [him, Foe { id: 8, at: (530_000.0, 470_000.0), ..him }, Foe { id: 9, at: (530_000.0, 495_000.0), ..him }];
+        assert!(go(&pack, &[7, 8, 9], &[], &[]).is_none());
+        assert_eq!(go(&pack, &[7, 8, 9], &[(515_000.0, 500_000.0)], &[]).map(|h| h.0), Some(7));
+        // 近了（出了平 A 射程走几步就到）/ 太远（够不着）：不冲
+        assert!(go(&[Foe { at: (510_000.0, 480_000.0), ..him }], &[7], &[], &[]).is_none());
+        assert!(go(&[Foe { at: (560_000.0, 480_000.0), ..him }], &[7], &[], &[]).is_none());
     }
 
     #[test]

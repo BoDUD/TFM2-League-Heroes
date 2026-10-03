@@ -1,7 +1,8 @@
 //! 走真实的导出入口，在一个迷你模拟里试盲僧的手游式 W：强制位移每 tick 按速度挪人，单位按自己的速度走路，
 //! 排队的效果到点触发，被动每 tick 调一次。检查 R 的 W 绕后让李青落到目标身后（宿主不挪人时直接放过去）；
 //! 残血、正在逃的时候 W 顺着逃的方向冲走（站着打不冲），追着残血逃跑的敌人时 W 追上（他走过来、李青往回走
-//! 都不冲），冷却内不再冲，冲的时候播跑步动作；W 的光亮在李青身上（不插眼）。
+//! 都不冲），血量一半以上一直朝一个站着的敌人走时 W 突进（他在塔下、李青半血以下不冲），冷却内不再冲（R 绕后
+//! 也用这个冷却，冷却中 R 改成正面踢），冲的时候播跑步动作；W 的光亮在李青身上（不插眼）。
 
 use std::collections::HashMap;
 use std::ffi::c_void;
@@ -269,6 +270,11 @@ fn me(world: &World) -> (f64, f64) {
     (world.units[0].x, world.units[0].y)
 }
 
+/// 李青身上 W 冷却还剩几 tick（没在冷却 = None）。
+fn cd_left(world: &World) -> Option<usize> {
+    world.units[0].buffs.iter().find(|b| b.0.name() == "league_leesin_hop_cd").map(|b| b.1)
+}
+
 #[test]
 fn w_dashes_for_the_insec_the_escape_and_the_chase() {
     let log = std::env::temp_dir().join("league_leesin_hop_test.log");
@@ -292,6 +298,7 @@ fn w_dashes_for_the_insec_the_escape_and_the_chase() {
             let mut world = World { units: vec![unit(440_000.0, 480_000.0, 0), unit(480_000.0, 480_000.0, 1)], force_move_works: works, ..Default::default() };
             call(&mut world, &fx, "league_leesin_hop:insec", 0, InputTargetV1::target(1));
             assert_eq!(world.views, [("league_leesin_shield".to_string(), InputTargetKindV1::Target.code(), 0)]);
+            assert_eq!(cd_left(&world), Some(720), "the insec W does not share the W cooldown");
             assert!(world.sounds.contains(&"league_leesin_w_shield".to_string()));
             assert!(world.units[0].ccs.is_empty(), "the insec put a CC on him (it would cut his R)");
             run(&mut world, &fx, None, 12);
@@ -351,6 +358,7 @@ fn w_dashes_for_the_insec_the_escape_and_the_chase() {
         };
         call(&mut world, &fx, "league_leesin_hop:insec", 0, InputTargetV1::target(1));
         assert!(world.views.is_empty() && world.sounds.is_empty(), "W'd although he stood behind him");
+        assert_eq!(cd_left(&world), None, "a direct kick used the W cooldown");
         run(&mut world, &fx, None, 12);
         assert!(dist(me(&world), (495_000.0, 480_000.0)) < 1_500.0, "direct kick from {:?}", me(&world));
         // 踢完就停：再跑 20 tick，李青不会被放回别的地方
@@ -374,6 +382,14 @@ fn w_dashes_for_the_insec_the_escape_and_the_chase() {
         call(&mut world, &fx, "league_leesin_hop:insec", 0, InputTargetV1::target(1));
         run(&mut world, &fx, None, 12);
         assert!(dist(me(&world), (480_000.0, 465_000.0)) < 1_500.0, "{:?}", me(&world));
+        // 1f. W 在冷却、李青在他西边（没有队友、没有塔：本该绕到东边往西踢）：不绕后，从西边贴上去往东踢；冷却不动
+        let mut world = World { units: vec![unit(440_000.0, 480_000.0, 0), unit(480_000.0, 480_000.0, 1)], force_move_works: true, ..Default::default() };
+        world.units[0].buffs.push((BuffV1::timed("league_leesin_hop_cd", 300), 300));
+        call(&mut world, &fx, "league_leesin_hop:insec", 0, InputTargetV1::target(1));
+        assert!(world.views.is_empty() && world.sounds.is_empty(), "W'd on cooldown");
+        assert_eq!(cd_left(&world), Some(300));
+        run(&mut world, &fx, None, 12);
+        assert!(dist(me(&world), (465_000.0, 480_000.0)) < 1_500.0, "front kick from {:?}", me(&world));
         // 1b. 他边走边被绕后（往东走开 / 往北走）：李青一路跟着，踢的那一刻（10 tick 后）还在他身后 15000
         for walk in [(900.0, 0.0), (0.0, -900.0), (-700.0, 600.0)] {
             let mut world = World { units: vec![unit(440_000.0, 480_000.0, 0), unit(480_000.0, 480_000.0, 1)], force_move_works: true, ..Default::default() };
@@ -445,17 +461,50 @@ fn w_dashes_for_the_insec_the_escape_and_the_chase() {
         run(&mut world, &fx, Some(&hop), 20);
         assert_eq!(world.views.len(), 1);
 
-        // 5. 都满血：不冲
+        // 5. 都满血、他往东跑开：不冲（满血的不追）
         let mut world = pair((480_000.0, 480_000.0), (900.0, 0.0), (530_000.0, 480_000.0), (900.0, 0.0));
         let hop = passive();
         run(&mut world, &fx, Some(&hop), 60);
         assert!(world.views.is_empty());
 
+        // 6. 满血、一直往东走向一个站着的敌人（离 60000）：第二次看到还正对着他（第 12 tick），W 冲到他身前 8000（跑步动作）；
+        //    冲完在他身边平 A = 打上了；W 进 12 秒冷却
+        let mut world = pair((480_000.0, 480_000.0), (900.0, 0.0), (540_000.0, 480_000.0), (0.0, 0.0));
+        let hop = passive();
+        run(&mut world, &fx, Some(&hop), 12);
+        assert!(world.views.is_empty(), "engaged on the first look");
+        run(&mut world, &fx, Some(&hop), 1);
+        assert_eq!(world.views.len(), 1, "no engage W");
+        assert!(ran(&world));
+        run(&mut world, &fx, Some(&hop), 8);
+        assert!(dist(me(&world), (532_000.0, 480_000.0)) < 4_000.0, "{:?}", me(&world));
+        world.cooldowns = (50, 0, 0, 0);
+        run(&mut world, &fx, Some(&hop), 2);
+        assert!(cd_left(&world).is_some_and(|t| t > 700), "{:?}", cd_left(&world));
+        // 冲完 AI 改主意往回走、一直没出手：白冲了（日志）
+        let mut world = pair((480_000.0, 480_000.0), (900.0, 0.0), (540_000.0, 480_000.0), (0.0, 0.0));
+        let hop = passive();
+        run(&mut world, &fx, Some(&hop), 20);
+        assert_eq!(world.views.len(), 1);
+        world.units[0].walk = (-900.0, 0.0);
+        run(&mut world, &fx, Some(&hop), 90);
+        // 他在他们的塔下 / 李青只剩四成血：不冲
+        let mut world = pair((480_000.0, 480_000.0), (900.0, 0.0), (540_000.0, 480_000.0), (0.0, 0.0));
+        let mut tower = unit(570_000.0, 480_000.0, 1);
+        tower.tower = true;
+        world.units.push(tower);
+        run(&mut world, &fx, Some(&passive()), 30);
+        assert!(world.views.is_empty(), "dove under his tower");
+        let mut world = pair((480_000.0, 480_000.0), (900.0, 0.0), (540_000.0, 480_000.0), (0.0, 0.0));
+        world.units[0].hp = 400;
+        run(&mut world, &fx, Some(&passive()), 30);
+        assert!(world.views.is_empty(), "engaged at 40% hp");
+
         let text = std::fs::read_to_string(&log).expect("log written");
         if std::env::var_os("KEEP_LOG").is_none() {
             let _ = std::fs::remove_file(&log);
         }
-        assert!(text.starts_with("=== league_leesin_hop v1.7"), "{text}");
+        assert!(text.starts_with("=== league_leesin_hop v1.8"), "{text}");
         assert!(!text.contains(": OFF"), "{text}");
         assert!(!text.contains("placed on the spot"), "{text}");
         for line in [
@@ -465,6 +514,10 @@ fn w_dashes_for_the_insec_the_escape_and_the_chase() {
             "0 deg off the planned way: on target",
             "ESCAPE W to",
             "CHASE W to (527400,480000)",
+            "INSEC FRONT: W on cooldown: kick #1 at (480000,480000) toward back; Lee (440000,480000) (40000 from him) -> (465000,480000)",
+            "ENGAGE #1 W to (532000,480000) (41200 away, 7 ticks), hp 100%, running 900/tick, nearest enemy 49200 -> 8000",
+            "ENGAGE FOUGHT #1 after 9 ticks",
+            "ENGAGE WASTED #1: no hit in 90 ticks",
             "running 900/tick",
             "Q AIM at #1 Champion at (450000,474000) walking 1000/tick: thrown at (450000,",
             "Q SKIP #1 Minion at (450000,474000): no Q on minions",

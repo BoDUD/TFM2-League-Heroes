@@ -28,45 +28,45 @@ TEXT = {
                    f"{AD}<#ff9028ff>80% 攻击力<>的<#ff9028ff>物理伤害<>并被<#ef5350ff>减速<><#ffb900ff>40%<>，"
                    "持续<#ffb900ff>2秒<>。<#ff9028ff>铁布衫<>：<#6aff55ff>20% 吸血<>，持续<#ffb900ff>3秒<>。"
                    f"<#ff9028ff>连招<>：回音击后<#ffb900ff>2.5秒<>内先出一拳（{AD}<#ff9028ff>100%<>）。"
-                   "<#ff9028ff>金钟罩<>：残血被追时 W 冲走，敌方残血逃跑时 W 追上。",
+                   "<#ff9028ff>金钟罩<>：W 每<#ffb900ff>12秒<>一次：残血被追冲走、追残血、半血以上冲上去开团。",
         "zh-hant": "【W位移測試版】<#ff9028ff>天雷破<>：躍起捶地，周圍敵人受到<#ff9028ff>60<> + "
                    f"{AD}<#ff9028ff>80% 攻擊力<>的<#ff9028ff>物理傷害<>並被<#ef5350ff>緩速<><#ffb900ff>40%<>，"
                    "持續<#ffb900ff>2秒<>。<#ff9028ff>鐵布衫<>：<#6aff55ff>20% 吸血<>，持續<#ffb900ff>3秒<>。"
                    f"<#ff9028ff>連招<>：回音擊後<#ffb900ff>2.5秒<>內先出一拳（{AD}<#ff9028ff>100%<>）。"
-                   "<#ff9028ff>金鐘罩<>：殘血被追時 W 衝走，敵方殘血逃跑時 W 追上。",
+                   "<#ff9028ff>金鐘罩<>：W 每<#ffb900ff>12秒<>一次：殘血被追衝走、追殘血、半血以上衝上去開團。",
         "en": "[W dash test build] <#ff9028ff>Tempest<>: Lee Sin smashes the ground, dealing <#ff9028ff>60<> + "
               f"{AD}<#ff9028ff>80% AD<> <#ff9028ff>physical damage<> and <#ef5350ff>slowing<> by <#ffb900ff>40%<> for "
               "<#ffb900ff>2s<>. <#ff9028ff>Iron Will<>: <#6aff55ff>20% life steal<> for <#ffb900ff>3s<>. "
               f"<#ff9028ff>Combo<>: within <#ffb900ff>2.5s<> of Resonating Strike he punches first ({AD}<#ff9028ff>100%<>). "
-              "<#ff9028ff>Safeguard<>: low, he W-dashes away; a fleeing low enemy gets W-chased.",
+              "<#ff9028ff>Safeguard<> (W, <#ffb900ff>12s<>): low, he dashes away; W-chases fleeing low enemies; above half health dashes in to fight.",
         "ko": "[W 이동 테스트판] <#ff9028ff>폭풍<>: 땅을 내리쳐 주변 적에게 <#ff9028ff>60<> + "
               f"{AD}<#ff9028ff>공격력의 80%<> <#ff9028ff>물리 피해<>를 주고 <#ffb900ff>2초<> 동안 <#ffb900ff>40%<> "
               "<#ef5350ff>둔화<>. <#ff9028ff>철갑<>: <#ffb900ff>3초<> 동안 <#6aff55ff>생명력 흡수 20%<>. "
               f"<#ff9028ff>연계<>: 공명의 일격 후 <#ffb900ff>2.5초<> 안이면 먼저 주먹({AD}<#ff9028ff>100%<>). "
-              "<#ff9028ff>방호<>: 빈사 시 W로 빠지고, 도망치는 빈사 적은 W로 쫓습니다.",
+              "<#ff9028ff>방호<>(W, <#ffb900ff>12초<>): 빈사 시 빠지고, 도망치는 빈사 적은 쫓고, 체력 절반 이상이면 파고듭니다.",
         "ja": "【W移動試験版】<#ff9028ff>テンペスト<>：地面を叩き周囲の敵に<#ff9028ff>60<> + "
               f"{AD}<#ff9028ff>攻撃力の80%<>の<#ff9028ff>物理ダメージ<>、<#ffb900ff>2秒<>間<#ffb900ff>40%<>"
               "<#ef5350ff>スロウ<>。<#ff9028ff>アイアンウィル<>：<#ffb900ff>3秒<>間<#6aff55ff>ライフスティール20%<>。"
               f"<#ff9028ff>連携<>：響掌撃の後<#ffb900ff>2.5秒<>以内なら先に一撃（{AD}<#ff9028ff>100%<>）。"
-              "<#ff9028ff>守りの拳<>：瀕死ならWで離脱、逃げる瀕死の敵はWで追う。",
+              "<#ff9028ff>守りの拳<>（W・<#ffb900ff>12秒<>）：瀕死なら離脱、逃げる瀕死の敵を追い、体力半分以上で突撃。",
     },
     "ult": {
-        "zh-hans": "【W位移测试版】<#ff9028ff>猛龙摆尾<>：把目标正面踢进身后的敌方英雄，身后没人则 W 冲到他身后<#ef5350ff>踢回<>己方："
+        "zh-hans": "【W位移测试版】<#ff9028ff>猛龙摆尾<>：把目标正面踢进身后的敌方英雄，身后没人则 W 冲到他身后<#ef5350ff>踢回<>己方（W 冷却中照常正面踢）："
                    f"<#ff9028ff>120<> + {AD}<#ff9028ff>130% 攻击力<>的<#ff9028ff>物理伤害<>，撞到的敌人受到<#ff9028ff>80<> + "
                    f"{AD}<#ff9028ff>80%<>伤害并<#ef5350ff>击飞<><#ffb900ff>0.75秒<>。<#ff9028ff>连招<>：飞踢追击或接天音波、回音击。",
-        "zh-hant": "【W位移測試版】<#ff9028ff>猛龍擺尾<>：把目標正面踢進身後的敵方英雄，身後沒人則 W 衝到他身後<#ef5350ff>踢回<>己方："
+        "zh-hant": "【W位移測試版】<#ff9028ff>猛龍擺尾<>：把目標正面踢進身後的敵方英雄，身後沒人則 W 衝到他身後<#ef5350ff>踢回<>己方（W 冷卻中照常正面踢）："
                    f"<#ff9028ff>120<> + {AD}<#ff9028ff>130% 攻擊力<>的<#ff9028ff>物理傷害<>，撞到的敵人受到<#ff9028ff>80<> + "
                    f"{AD}<#ff9028ff>80%<>傷害並<#ef5350ff>擊飛<><#ffb900ff>0.75秒<>。<#ff9028ff>連招<>：飛踢追擊或接天音波、回音擊。",
         "en": "[W dash test build] <#ff9028ff>Dragon's Rage<>: kicks the target into an enemy champion behind it, or W-dashes "
-              f"behind it and kicks it <#ef5350ff>back<> to his allies: <#ff9028ff>120<> + {AD}<#ff9028ff>130% AD<> "
+              f"behind it and kicks it <#ef5350ff>back<> to his allies (a front kick while W is on cooldown): <#ff9028ff>120<> + {AD}<#ff9028ff>130% AD<> "
               f"<#ff9028ff>physical damage<>; enemies it hits take <#ff9028ff>80<> + {AD}<#ff9028ff>80% AD<> and are "
               "<#ef5350ff>knocked up<> <#ffb900ff>0.75s<>. <#ff9028ff>Combo<>: a flying kick, or Sonic Wave and Resonating Strike.",
         "ko": "[W 이동 테스트판] <#ff9028ff>용의 분노<>: 대상을 뒤의 적 챔피언에게 차거나, 뒤에 아무도 없으면 W로 대상 뒤로 가 "
-              f"아군 쪽으로 <#ef5350ff>되찹니다<>: <#ff9028ff>120<> + {AD}<#ff9028ff>공격력의 130%<> <#ff9028ff>물리 피해<>, "
+              f"아군 쪽으로 <#ef5350ff>되찹니다<>(W 대기 중엔 정면으로): <#ff9028ff>120<> + {AD}<#ff9028ff>공격력의 130%<> <#ff9028ff>물리 피해<>, "
               f"부딪힌 적은 <#ff9028ff>80<> + {AD}<#ff9028ff>80%<> 피해와 <#ffb900ff>0.75초<> <#ef5350ff>에어본<>. "
               "<#ff9028ff>연계<>: 날아차기 추격 또는 음파·공명의 일격.",
         "ja": "【W移動試験版】<#ff9028ff>龍の怒り<>：対象を後ろの敵チャンピオンへ蹴り込む。後ろに誰もいなければWで背後に回り"
-              f"味方側へ<#ef5350ff>蹴り返す<>：<#ff9028ff>120<> + {AD}<#ff9028ff>攻撃力の130%<>の<#ff9028ff>物理ダメージ<>、"
+              f"味方側へ<#ef5350ff>蹴り返す<>（W待機中は正面から）：<#ff9028ff>120<> + {AD}<#ff9028ff>攻撃力の130%<>の<#ff9028ff>物理ダメージ<>、"
               f"ぶつかった敵に<#ff9028ff>80<> + {AD}<#ff9028ff>80%<>と<#ffb900ff>0.75秒<>の<#ef5350ff>ノックアップ<>。"
               "<#ff9028ff>連携<>：飛び蹴りか音波・響掌撃。",
     },
