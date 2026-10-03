@@ -18,7 +18,8 @@ whole rows and columns are taken out until it is 42 rows (the user's pick among 
    Codex 「头发这里少一块」, then 「卡莎头顶少一块模型」); fills of that corner stood up as a comb or a bump (「卡莎公鸡
    头？」「头顶凸出来的那一块 不难看吗」). The user: 「你把护翼往两侧扩出去一点不就能改了吗」 - so the pods move two squares
    apart (PODS_OUT) and the crown between them is drawn round by hand (CROWN, the user's pick 「用右图」 with its seams
-   mended); the far eye as big as the near one (EYE_FAR: 「眼睛也是一大一小」); the outline closed once more.
+   mended); the far eye as big as the near one (EYE_FAR: 「眼睛也是一大一小」); the face's two holes skin (FACE_FILL:
+   「卡莎的脸部丢失了一块模型」「还有嘴的右下方也少」); the outline closed once more.
 Writes assets/source/kaisa/design_v2/kaisa_design_v2.png and _1x. --check compares with the files.
 """
 import argparse
@@ -66,6 +67,10 @@ def read_back():
 HAIR = {"a": (0x14, 0x01, 0x1B), "g": (0x34, 0x2C, 0x62), "k": (0x27, 0x1A, 0x43), "j": (0x4B, 0x36, 0x75)}   # outline, hair, its shade
 EYE_FAR = {(3, -19): "FDFCFC", (4, -19): "440F52", (3, -18): "FDFCFD", (4, -18): "7B0D9F"}
 # the far eye as big as the near one: its white beside the iris, its lash over it (「眼睛也是一大一小」)
+FACE_FILL = {(-3, -18): "FCDDCD", (-3, -17): "FCDDCD", (3, -15): "FCDDCD"}
+# the face's holes (「卡莎的脸部丢失了一块模型」, 2026-10-04): the near cheek's two skin squares stood apart, a column of
+# hair between them and the eye's dark corner - that column is skin (the user's pick A: the corner stays dark); and
+# under the mouth the skin stopped a square short of the row over it (「还有嘴的右下方也少」)
 PODS_OUT = (-2, 2)          # the far pod two squares further left, the near one two further right (the user: 「你把护翼
                             # 往两侧扩出去一点不就能改了吗」); x from the pivot, the far pod the one left of column -4
 CROWN = {-28: (-5, "aaaaa"), -27: (-6, "akjjjka"), -26: (-7, "akjjgggka"), -25: (-7, "kjggkggka."),
@@ -120,7 +125,7 @@ def build():
     x0 = int(round(64 - (feet.min() + feet.max() + 1) / 2))
     canvas = np.zeros((128, 128, 4), np.uint8)
     canvas[100 - fig.shape[0]:100, x0:x0 + fig.shape[1]] = fig
-    for (x, y), h in EYE_FAR.items():
+    for (x, y), h in {**EYE_FAR, **FACE_FILL}.items():
         canvas[88 + y, 64 + x] = [int(h[i:i + 2], 16) for i in (0, 2, 4)] + [255]
     canvas = G.complete_outline(pods_out(canvas), color=HAIR["a"], feet=99)[0]
     return canvas, fig
