@@ -21,7 +21,7 @@ legs, the arms were drawn as tubes and the ult's wings as flat polygons. The use
 - the death: the whole design turned by RotSprite (staggering back), then a quarter (lying on his back, face up), the
   blade on the ground beside him.
 - the run: the idle's own two legs, every square as drawn, turned about the hips by RotSprite - the planted one from
-  ahead to behind, the swinging one lifted and bent at the knee on its way forward - the hips in under the waist so the
+  ahead to behind, the swinging one lifted on its way forward, each leg whole - the hips in under the waist so the
   near leg passes in front of the far one; the body a row lower when the planted leg slants.
 --check compares the strips with assets/source/native/.
 """
@@ -90,19 +90,21 @@ NEAR_ROOT = (58, 75)
 # 「你把待机的腿用到走路啊」, and the idle's legs slid whole on the ground were 「你觉得对吗？ 不自然啊」 (no swing, no
 # knee). Now each of the idle's legs, every square as drawn, is TURNED about its hip by RotSprite (RUN: degrees, + = the
 # foot ahead - a forward leg lands heel first, a back one leaves on the toe) and lifted RUN rows off the ground while it
-# swings, bent at the knee when lifted 2+ rows (RUN_BEND: the thigh and the shin + boot turned apart, cut at KNEE_ROW);
-# the hips come RUN_HIP_IN in under the waist so the feet cross (the near leg in front of the far one in an X in frames 8
-# and 1; spread at most ~12 squares in 4-5); the near boot is mirrored about its knee so its toe points forward like the
-# far one's; the body drops a row when the planted leg's slant shortens it.
+# swings; the hips come RUN_HIP_IN in under the waist so the feet cross (the near leg in front of the far one in an X in
+# frames 8 and 1; spread at most ~12 squares in 4-5); the body drops a row when the planted leg's slant shortens it.
+# 「换腿的时候这里就像是断了的」 (v7): the near leg's shin + boot were mirrored about the knee (toe forward) while its thigh
+# leans the other way - a kink at the knee in every frame - its knee row has a black square inside (95, 58), and the
+# lifted legs were bent (thigh and shin turned apart: a one-square joint). Now only the near FOOT (rows NEAR_FOOT down)
+# is mirrored about the ankle, the knee square is the leg's dark steel (NEAR_KNEE_FILL) and every leg turns whole.
 RUN = [[24, 0, -32, 1], [12, 0, -22, 3], [-4, 0, 6, 3], [-14, 0, 18, 1],    # [near deg, near lift, far deg, far lift]
        [-22, 1, 16, 0], [-12, 3, 6, 0], [8, 3, -8, 0], [24, 1, -24, 0]]
 RUN_HIP_IN = 3
-RUN_BEND = (10, 25)
 LEG_TOP = 88                         # the legs below this row move; the hips and the skirt above stay
-KNEE_ROW = 94                        # the shin + boot from this row down
-# the idle's legs (canvas squares): their columns, hips and knees; the lit (near) one's boot is mirrored about its knee
-NEAR_LEG = {"cols": (52, 64), "hip": (59.0, 88.0), "knee": (58.0, 93.5)}
-FAR_LEG = {"cols": (64, 76), "hip": (69.0, 88.0), "knee": (69.0, 93.5)}
+NEAR_FOOT = (97, 57.5)               # the near foot: from this row down, mirrored about this column (the ankle)
+NEAR_KNEE_FILL = {(95, 58): "e"}     # the near knee's black square inside the leg
+# the idle's legs (canvas squares): their columns and hips
+NEAR_LEG = {"cols": (52, 64), "hip": (59.0, 88.0)}
+FAR_LEG = {"cols": (64, 76), "hip": (69.0, 88.0)}
 DEAD = [(0, 0), (0.15, 0), (0.4, 1), ("rot", 0), ("rot", 0), ("rot", 0), ("rot", 0), ("rot", 0)]
 
 
@@ -441,39 +443,30 @@ def turn(sprite, joint, deg):
     return r, (jx + (joint[0] - round(joint[0])), jy + (joint[1] - round(joint[1])))
 
 
-def leg_pieces(des, sm, L, mirror=False):
-    """One of the idle's legs cut at the knee: (thigh, shin + boot, whole leg), the blade's squares left out; the shin +
-    boot mirrored about the knee's column when `mirror` (the toe forward)."""
+def leg_piece(des, sm, L, near=False):
+    """One of the idle's legs below LEG_TOP, the blade's squares left out; the near one with its knee square filled and
+    its foot mirrored about the ankle (the toe forward, the leg above it as drawn)."""
     c0, c1 = L["cols"]
-    thigh, shin = np.zeros_like(des), np.zeros_like(des)
-    thigh[LEG_TOP:KNEE_ROW, c0:c1] = des[LEG_TOP:KNEE_ROW, c0:c1]
-    shin[KNEE_ROW:, c0:c1] = des[KNEE_ROW:, c0:c1]
-    thigh[sm] = 0
-    shin[sm] = 0
-    if mirror:
-        ys, xs = np.nonzero(shin[..., 3])
-        m = np.zeros_like(shin)
-        m[ys, np.round(2 * L["knee"][0] - xs).astype(int)] = shin[ys, xs]
-        shin = m
-    return thigh, shin, over(thigh.copy(), shin)
+    leg = np.zeros_like(des)
+    leg[LEG_TOP:, c0:c1] = des[LEG_TOP:, c0:c1]
+    leg[sm] = 0
+    if near:
+        for (r, c), k in NEAR_KNEE_FILL.items():
+            leg[r, c] = rgba(k)
+        row, ax = NEAR_FOOT
+        foot = np.zeros_like(leg)
+        foot[row:] = leg[row:]
+        leg[row:] = 0
+        ys, xs = np.nonzero(foot[..., 3])
+        leg[ys, np.round(2 * ax - xs).astype(int)] = foot[ys, xs]
+    return leg
 
 
-def run_leg(pieces, L, deg, lift, hip_at):
-    """A leg turned deg about its hip, bent RUN_BEND at the knee when lifted 2+ rows."""
-    thigh, shin, whole = pieces
+def run_leg(leg, L, deg, hip_at):
+    """A leg turned deg about its hip (RotSprite, + = the foot ahead), its hip on hip_at."""
     out = np.zeros((128, 128, 4), np.uint8)
-    if lift >= 2:
-        th, sh = deg + RUN_BEND[0], deg - RUN_BEND[1]
-        t = math.radians(th)
-        vx, vy = L["knee"][0] - L["hip"][0], L["knee"][1] - L["hip"][1]
-        knee = (hip_at[0] + vx * math.cos(t) + vy * math.sin(t), hip_at[1] - vx * math.sin(t) + vy * math.cos(t))
-        parts = ((shin, L["knee"], sh, knee), (thigh, L["hip"], th, hip_at))
-    else:
-        parts = ((whole, L["hip"], deg, hip_at),)
-    for piece, joint, d, at in parts:
-        s, j = turn(piece, joint, d)
-        over(out, s, int(round(at[0] - j[0])), int(round(at[1] - j[1])))
-    return out
+    s, j = turn(leg, L["hip"], deg)
+    return over(out, s, int(round(hip_at[0] - j[0])), int(round(hip_at[1] - j[1])))
 
 
 def run(i, des, sm):
@@ -486,7 +479,7 @@ def run(i, des, sm):
     legs, drop = [], 0
     for L, deg, lift, near in ((FAR_LEG, fa, fl, False), (NEAR_LEG, na, nl, True)):
         hip = (L["hip"][0] + (RUN_HIP_IN if near else -RUN_HIP_IN), L["hip"][1])
-        a = run_leg(leg_pieces(des, sm, L, mirror=near), L, deg, lift, hip)
+        a = run_leg(leg_piece(des, sm, L, near), L, deg, hip)
         low = int(np.nonzero(a[..., 3].any(1))[0].max())
         if not lift:
             drop = max(drop, min(1, 99 - low))
