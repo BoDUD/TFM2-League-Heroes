@@ -1174,6 +1174,8 @@ league_kennen (top, 2026-10-02, the third mark's stun: 1.25 s, 0.5 s within 7 s 
 the base fighter 2.33 in the same batch - in the range of the CC heroes before, no change.
 league_ryze (mid, --lane 2, 2026-10-03, Rune Prison's 1.25 s root on a Flux'd target; Yasuo top): 1.65 a game;
 league_ahri 1.33 and the base lightning mage 3.19 in the same batch - no change.
+league_zilean (support, --lane 4, 2026-10-03, the double bomb's 1.25 s stun on every enemy in its blast): 1.40 a game;
+league_leona 2.19 and the base priest 0.50 in the same batch - no change.
 
 **Kill trigger (league_jinx Get Excited!).** No effect fires on a kill, but section 4's facts make one:
 1. Next to the damaging projectile, fire an invisible twin with the same speed and path and
@@ -2836,6 +2838,70 @@ no casting target names allied minions alone. Crowd control breaks the channel (
 himself every 15 ticks sets `r_cut`). In 72 games: 2.2 chases, 0.6 escapes and 0.2 cut channels a game, a chase carrying about 0.8
 champions and 0.2 minions; lane 2 +1.41 / +1.35 against +1.65 / +2.01 for the old blink (it threw its landing
 Spell Flux into every fight).
+
+**A bomb that sticks to the first unit where it lands (league_zilean Q, Time Bomb).** A `Targeting` cast on
+`EnemyWithoutTower` (70000) lobs a `ParabolicProjectile` (24 ticks) at where the target stood when it left his
+hand - a champion who keeps walking steps out of it. Its shape is a circle of 8000 on `EnemyWithoutTower`, and a
+3-tick caster flag `q_lock` set by the first unit it reaches keeps the others out: entity order puts champions first,
+so a champion inside wins over the minions round him (League's "prioritizes champions"). On that unit: the ticking
+picture and sound in 30-tick pieces, each behind `SwitchByBuff q_off` (a picture once started cannot be stopped,
+so a piece is the most that plays on after the bomb is gone), and a `Delayed` of 180 ticks - the fuse - that blows it
+up round wherever the unit walked: a one-tick lob onto the unit's spot (league_annie R's) whose `end_effects` start
+the blast (a one-tick `RangeProjectile`, radius 30000, magic damage to every enemy). Nobody near the landing: the
+lob's `end_effects` find `q_lock` off a tick later, put the bomb's picture on the ground and blow it up there.
+League's bomb also blows up when its carrier dies; queued on a dead unit the fuse's `Delayed` runs only its
+pictures (section 4), so 8 of 27 bombs on minions were lost in a logged game. league_shaco R's watch finds the
+death: on the carrier an `AddCasted` (`Fire`: a burn icon while it ticks, period 4) refreshes the 5-tick caster flag
+`q_seen` and lobs a hidden watch at it; a `Delayed` of 6 ticks in the watch's `end_effects` (it waits at the landing
+point) finds `q_seen` gone when the runs stopped with the carrier and, with `q_live` on (the bomb waits: set at the
+stick, removed by the fuse's end and by the second bomb), sets `q_off` and blows the bomb up there - 2-6 ticks after
+the death, a few pixels from the body (every carrier that died in two logged games).
+
+**Hidden projectiles in flight move the AI (league_zilean Q's watch).** Shaco's watch lob flies 6 ticks, so with one
+every 4 ticks one or two are always in the air over the carrier. On Zilean that cost the kill difference 0.4 and 9%
+of his damage to champions in 720 games (seeds 25-48: +2.44 / 7276 without the watch, +2.01 / 6634 with it), and
+the same lobs with their `end_effects` removed did the same (+1.97 / 6497): the lobs, not the blasts. On
+`applied_target: AllyOnlySelf` they went the other way (+3.06 / 7545). A 1-tick lob whose `end_effects` wait in a
+`Delayed` is in the air for one tick: +2.40 / 7424, the blasts it finds counted in. Keep hidden watch projectiles
+short-lived (league_shaco R's 6-tick lobs on its target champion were not measured this way).
+
+**Rewind as the second bomb on the same champion (league_zilean W in Q, QWQ).** League's W resets Q, and the
+players' combo is Q, W, Q: two bombs on one champion blow at once and stun everyone round him. The user picked it
+automatic. Beside the bomb flies an invisible twin with the same path and shape on `EnemyChampion` (its own lock
+`q_tlock`), so it finds only a champion near the landing; with W's 720-tick caster cooldown `w_cd` off it sets
+`w_cd` and `q_pop` (the first bomb's blast is called off), poses him (`CasterAnimation w` 30 ticks, then Q's
+`skill` again) and 42 ticks later throws the second bomb from a `Delayed` queued on that champion: a
+`TargetProjectile` from the caster to him wherever he ran (`y_offset` -14000, the raised hand). Its hit sets
+`q_off` (the first bomb's ticking stops), a 2-tick `skill_cooldown_mult` 60 with `ult_cooldown_mult` -60 (W's
+"-10 s on his basic spells" as league_taric's burst: the cooldowns left are capped, the ult's untouched) and a tick
+later the double blast round the champion: twice the damage and a 75-tick `Stun` on every enemy in it. In 720
+simulated games: 18 Q casts on champions and 28 on minions and camps a game; in logged games about 11 double blasts
+and 15-17 champion stuns a game.
+
+**Slow one, haste another in one cast (league_zilean E, Time Warp).** League gives one or the other; the AI cannot
+choose, so (the user's pick) a `Targeting` cast on `EnemyChampion` (70000) does both: the champion gets a 150-tick
+`move_speed_mult` -35 buff, and an allied champion near Zilean +35 for as long - a `RandomTarget AllyNotSelf` at
+40000, then (a 1-tick caster flag `e_got` says the first found nobody) at 80000; nobody: Zilean himself. The ally
+next to him is hastened first, as a player would. 11.2 casts a game; 10 of 11 reached an ally.
+
+**Experience as stats, handed over by a spell (league_zilean passive, Time in a Bottle).** No effect gives
+experience, so the bottle gives what levels give: a caster timer `b_cd` (5400 ticks), started by each life's first
+action (a `Permanent` caster flag `life` that death clears, section 5), fills it; the next E that hastens an allied
+champion pours it out - that ally and Zilean each get a `Permanent` buff of +10 attack, +10 ability power and +80
+health (same-name buffs add up, so every bottle adds an instance; death takes them away, as it clears every buff).
+About 2.5 bottles a game.
+
+**A revive as an undying rune, armed until someone is in danger (league_zilean R, Chronoshift).** League's rune
+revives the ally who dies under it. Nothing reads current health or brings a unit back, but `undying: true` keeps a
+unit alive while its buff lasts (also given to an ally by `AddBuff`): the rune is 300 ticks of `undying` on the
+ally, and a tick before it ends the rewind - a heal of 400 + 150% ability power (`heal_type: Ally`) with its
+picture. When: league_kayle R's armed ult - the slot (a 3-tick action on the `idle` tag, `EnemyChampion` within
+60000) adds `r_armed` for 900 ticks, and every action checks: an allied champion in crowd control within 90000
+first (`AllyChampionInCC`), else Zilean himself when two enemy champions stand within 40000 of him (Kayle's
+two-flag count); a save plays Q's pose and the voice; an unused window caps the cooldown at 60 ticks. At 60000 /
+30000 the check found someone 0.2 times a game, at 90000 / 40000 0.8. Nobody died under the rune; with a rewind of
+250 + 80% 5 of 7 saved champions died within a second after it, with 400 + 150% (League's revive is 600-1100 +
+200%) 3 of 6. A 60-tick stasis after it (`damaged_reduce` 100 + `cc_immune`, League's) was tested and left out.
 
 ## 8. Gotchas
 
