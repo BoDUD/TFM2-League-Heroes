@@ -5,7 +5,9 @@
 //! `override/` 里的副本，加两处原生代码：
 //!
 //! - **W 绕后回旋踢**（`insec`，换掉 R 第 7 tick 的 `RushMoveToBack`）：W 冲到目标身后 `BEHIND`
-//!   （墙里落不了脚就往近挪；每 tick 直接挪 `INSEC_SPEED`——不用强制位移，它算控制会打断 R），第 17 tick 主包照常踢——李青在他
+//!   （墙里落不了脚就往近挪；每 tick 直接挪 `INSEC_SPEED`——不用强制位移，它算控制会打断 R），**一路跟着他走**：
+//!   每 tick 按他当时的位置重算「他身后」（方向固定为李青原来那一侧），贴到踢的那一刻（v1.4：v1.3 的落点在第 7 tick
+//!   就定死了，他接着走开，踢的时候隔了 12000～24000，像隔空踢、再对空放 Q），第 17 tick 主包照常踢——李青在他
 //!   身后，所以把他踢回李青这边。身后实在没地方时冲到目标面前（同正面踢）。
 //! - **W 逃跑 / 追击**（被动 `hop`，挂在 `passive_skill2` 上）：每 `AUTO_EVERY` tick 看一次（顺便记下
 //!   英雄们在哪、算出每 tick 的速度），`HOP_CD` 一次，**只顺着 AI 自己要走的方向 W**：
@@ -62,7 +64,7 @@ pub const ALONG_COS: f64 = 0.5;
 /// 逃跑 / 追击冲刺时播的动作。
 const RUN_ANIM: &str = "run";
 /// 刚出手的技能 / 普攻多久内不 W（免得把出手到一半的 Q 拉走打空）；R 后面主包还有飞踢、天音波连招，等更久。
-pub const AFTER_SKILL: usize = 50;
+pub const AFTER_SKILL: usize = 80;
 pub const AFTER_ULT: usize = 90;
 pub const AFTER_ATTACK: usize = 18;
 /// W 冲刺的标记：时长是最晚到达时间；冲刺被韧性缩短时每 tick 补一段。
@@ -75,6 +77,8 @@ const STEPPING: &str = "league_leesin_hop_stepping";
 const TARGET: &str = "league_leesin_hop_target:";
 /// 主包在 R 的第 17 tick 踢，绕后在第 7 tick：之后 10 tick。
 const KICK_AFTER: usize = 10;
+/// R 绕后时跟着目标走（`league_leesin_hop_follow:<id>:<dx>:<dy>`，dx/dy 是李青看向他的方向 ×1000），到踢为止。
+const FOLLOW: &str = "league_leesin_hop_follow:";
 /// W 冲的时候李青身上的光和声音（主包 W 的护盾光，只是画面）。
 const W_VIEW: &str = "league_leesin_shield";
 const W_SFX: &str = "league_leesin_w_shield";
@@ -173,6 +177,40 @@ pub fn insec_spot(walls: bool, lee: (f64, f64), target: (f64, f64)) -> Option<(f
         behind -= 1_500.0;
     }
     None
+}
+
+/// 跟着走时的落点：他现在的位置往 `dir`（李青原来看向他的方向）再走 `BEHIND`，墙里就往近挪，最近 `BEHIND_MIN`。
+pub fn follow_spot(walls: bool, target: (f64, f64), dir: (f64, f64)) -> (f64, f64) {
+    let mut behind = BEHIND;
+    while behind >= BEHIND_MIN {
+        let w = (target.0 + dir.0 * behind, target.1 + dir.1 * behind);
+        let on_map = w.0 >= 0.0 && w.1 >= 0.0 && w.0 < 960_000.0 && w.1 < 960_000.0;
+        if on_map && !(walls && is_wall(w.0, w.1)) {
+            return w;
+        }
+        behind -= 1_500.0;
+    }
+    (target.0 + dir.0 * BEHIND_MIN, target.1 + dir.1 * BEHIND_MIN)
+}
+
+/// 跟着走的标记：目标、方向（×1000 取整）。
+pub fn follow_name(target: usize, dir: (f64, f64)) -> String {
+    format!("{FOLLOW}{target}:{}:{}", (dir.0 * 1000.0).round() as i64, (dir.1 * 1000.0).round() as i64)
+}
+
+/// 从跟着走的标记读回 (目标, 方向)。
+pub fn parse_follow(name: &str) -> Option<(usize, (f64, f64))> {
+    let mut it = name.strip_prefix(FOLLOW)?.split(':');
+    let id = it.next()?.parse().ok()?;
+    let dx: f64 = it.next()?.parse::<i64>().ok()? as f64 / 1000.0;
+    let dy: f64 = it.next()?.parse::<i64>().ok()? as f64 / 1000.0;
+    let n = dx.hypot(dy);
+    (n > 0.0).then_some((id, (dx / n, dy / n)))
+}
+
+fn follow_of(sim: &StableSim<'_>, lee: usize) -> Option<(usize, (f64, f64))> {
+    let me = sim.get_entity(lee)?;
+    (0..me.buff_count()).filter_map(|i| me.buff_at(i)).find_map(|b| parse_follow(b.name()))
 }
 
 fn nearest(p: (f64, f64), foes: &[(f64, f64)]) -> f64 {
@@ -341,6 +379,12 @@ fn insec(sim: &mut StableSim<'_>, lee: usize, input: InputTargetV1) {
     match insec_spot(walls, from, target) {
         Some(w) => {
             let ticks = w_dash(sim, lee, from, w, INSEC_SPEED, true);
+            // 一路跟着他走到踢的那一刻（dash 每 tick 按他当时的位置重算落点）
+            let d = dist(from, target).max(1.0);
+            let dir = ((target.0 - from.0) / d, (target.1 - from.1) / d);
+            sim.add_buff(lee, &BuffV1::timed(&follow_name(input.target_id, dir), KICK_AFTER + 1));
+            sim.entity_remove_buff(lee, DASH);
+            sim.add_buff(lee, &BuffV1::timed(DASH, KICK_AFTER + 1));
             // 第 17 tick（插入后 10 tick）主包踢：那一刻他在不在目标身后，记进日志
             let name = format!("{ID}:kick_check");
             let at = InputTargetV1::pos(w.0.round().max(0.0) as u64, w.1.round().max(0.0) as u64);
@@ -380,6 +424,25 @@ fn dash(sim: &mut StableSim<'_>, lee: usize, input: InputTargetV1) {
     }
     let (x, y) = me.pos();
     let here = (x as f64, y as f64);
+    // R 里绕后：跟着他走，每 tick 按他现在的位置重算「他身后」，挪过去，直到踢（标记到期）
+    if let Some((id, dir)) = follow_of(sim, lee) {
+        let Some(t) = sim.get_entity(id).filter(|t| t.is_alive()) else {
+            sim.entity_remove_buff(lee, DASH);
+            return;
+        };
+        let (tx, ty) = t.pos();
+        let (_, walls) = scan(sim);
+        let spot = follow_spot(walls, (tx as f64, ty as f64), dir);
+        let off = dist(here, spot);
+        if off > 1.0 {
+            let step = INSEC_SPEED.min(off);
+            let next = (here.0 + (spot.0 - here.0) / off * step, here.1 + (spot.1 - here.1) / off * step);
+            sim.entity_set_pos(lee, next.0.round().max(0.0) as u64, next.1.round().max(0.0) as u64);
+        }
+        let name = format!("{ID}:dash");
+        sim.queue_effect(&name, AttackTypeV1::Skill, lee, &input, 1);
+        return;
+    }
     let spot = (input.x as f64, input.y as f64);
     let off = dist(here, spot);
     if off <= 1_500.0 {
@@ -426,14 +489,16 @@ fn kick_check(sim: &mut StableSim<'_>, lee: usize, input: InputTargetV1) {
     let Some(t) = target_id.and_then(|id| sim.get_entity(id)) else { return };
     let (tx, ty) = t.pos();
     let target = (tx as f64, ty as f64);
-    let behind = (here.0 - target.0) * (spot.0 - target.0) + (here.1 - target.1) * (spot.1 - target.1) > 0.0;
+    // 「身后」= 李青原来看向他的方向那一侧（跟着走的标记里）；没有标记时按最初的落点
+    let side = follow_of(sim, lee).map_or((spot.0 - target.0, spot.1 - target.1), |(_, dir)| dir);
+    let behind = (here.0 - target.0) * side.0 + (here.1 - target.1) * side.1 > 0.0;
     wlog(format!(
-        "{} KICK at t+{KICK_AFTER}: Lee {} target {} ({:.0} apart), {:.0} from the spot, {}",
+        "{} KICK at t+{KICK_AFTER}: Lee {} target {} ({:.0} apart; he moved {:.0} since the W), {}",
         head(sim, lee),
         pt(here),
         pt(target),
         dist(here, target),
-        dist(here, spot),
+        dist(spot, target) - BEHIND,
         if behind { "behind him: kicks him back" } else { "NOT behind him" }
     ));
 }
@@ -582,7 +647,7 @@ fn init(host: &StableHost) -> StableMod {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v1.3 (W dash, no ward) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v1.4 (W dash, no ward) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -649,6 +714,20 @@ mod tests {
         // 近了直接打，远了摸不着
         assert!(chase_spot(true, me, (500_000.0, 480_000.0)).is_none());
         assert!(chase_spot(true, me, (560_000.0, 480_000.0)).is_none());
+    }
+
+    #[test]
+    fn the_insec_follows_him_behind() {
+        let name = follow_name(41, (0.6, -0.8));
+        assert_eq!(name, "league_leesin_hop_follow:41:600:-800");
+        let (id, dir) = parse_follow(&name).unwrap();
+        assert_eq!(id, 41);
+        assert!((dir.0 - 0.6).abs() < 1e-9 && (dir.1 + 0.8).abs() < 1e-9);
+        assert!(name.len() <= BUFF_NAME_CAP && follow_name(u32::MAX as usize, (-0.999, 0.999)).len() <= BUFF_NAME_CAP);
+        assert!(parse_follow("league_leesin_hop_target:41").is_none());
+        // 他往东走了 9000：落点跟着挪 9000，还在他身后 BEHIND
+        let w = follow_spot(true, (489_000.0, 480_000.0), (1.0, 0.0));
+        assert!((w.0 - (489_000.0 + BEHIND)).abs() < 1.0 && (w.1 - 480_000.0).abs() < 1.0, "{w:?}");
     }
 
     #[test]

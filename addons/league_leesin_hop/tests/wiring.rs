@@ -268,6 +268,17 @@ fn w_dashes_for_the_insec_the_escape_and_the_chase() {
             run(&mut world, &fx, None, 12);
             assert!(dist(me(&world), (495_000.0, 480_000.0)) < 1_500.0, "ForceMove works {works}: {:?}", me(&world));
         }
+        // 1b. 他边走边被绕后（往东走开 / 往北走）：李青一路跟着，踢的那一刻（10 tick 后）还在他身后 15000
+        for walk in [(900.0, 0.0), (0.0, -900.0), (-700.0, 600.0)] {
+            let mut world = World { units: vec![unit(440_000.0, 480_000.0, 0), unit(480_000.0, 480_000.0, 1)], force_move_works: true, ..Default::default() };
+            world.units[1].walk = walk;
+            call(&mut world, &fx, "league_leesin_hop:insec", 0, InputTargetV1::target(1));
+            run(&mut world, &fx, None, 10);
+            let him = (world.units[1].x, world.units[1].y);
+            let want = (him.0 + 15_000.0, him.1);
+            assert!(dist(me(&world), want) < 2_500.0, "walk {walk:?}: Lee {:?}, him {him:?}", me(&world));
+            assert!(world.units[0].ccs.is_empty());
+        }
 
         let ran = |world: &World| world.units[0].ccs.iter().any(|c| c.0.kind == CcKindV1::Animation.code() && c.0.name() == "run");
         // 两个人：李青 #0、敌人 #1，各自按 walk 走
@@ -314,7 +325,7 @@ fn w_dashes_for_the_insec_the_escape_and_the_chase() {
             assert!(world.views.is_empty(), "chased with {lee_walk:?} / {him_walk:?}");
         }
 
-        // 4. 刚放完 Q（冷却刚跳起来）：50 tick 内不 W，之后照常追
+        // 4. 刚放完 Q（冷却刚跳起来）：80 tick 内不 W，之后照常追
         let mut world = pair((480_000.0, 480_000.0), (900.0, 0.0), (520_000.0, 480_000.0), (900.0, 0.0));
         let hop = passive();
         run(&mut world, &fx, Some(&hop), 3);
@@ -322,7 +333,10 @@ fn w_dashes_for_the_insec_the_escape_and_the_chase() {
         world.units[1].hp = 150;
         run(&mut world, &fx, Some(&hop), 45);
         assert!(world.views.is_empty(), "W right after a Q");
+        // Q1 打中后 12 tick 才飞踢（Q2），整个过程约 76 tick：80 tick 内都不 W
         run(&mut world, &fx, Some(&hop), 30);
+        assert!(world.views.is_empty(), "W during the Q2 flying kick");
+        run(&mut world, &fx, Some(&hop), 20);
         assert_eq!(world.views.len(), 1);
 
         // 5. 都满血：不冲
@@ -335,7 +349,8 @@ fn w_dashes_for_the_insec_the_escape_and_the_chase() {
         if std::env::var_os("KEEP_LOG").is_none() {
             let _ = std::fs::remove_file(&log);
         }
-        assert!(text.starts_with("=== league_leesin_hop v1.3"), "{text}");
+        assert!(text.starts_with("=== league_leesin_hop v1.4"), "{text}");
+        assert!(!text.contains("NOT behind him"), "{text}");
         for line in ["INSEC W to (495000,480000) behind #1", "behind him: kicks him back", "ESCAPE W to", "CHASE W to (527400,480000)", "running 900/tick"] {
             assert!(text.contains(line), "missing {line:?} in the log:\n{text}");
         }
