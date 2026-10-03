@@ -15,7 +15,7 @@
                              the dash pose with the trail behind her, lands next to him in her shield; she evolves;
                              3x
 Projectiles fly as the kit flies them: from over her pivot, lifted 5000 - y_offset (the bolt and W's line 8 px, Q's
-lasers 29, 20 and 38 px: out of the pods, fanned), at the target's pivot, turned to their way; the bolt and the W
+lasers 26, 17 and 35 px: out of the pods, fanned), at the target's pivot, turned to their way; the bolt and the W
 bullet start empty while they cross her (tools/art/import_kaisa.py).
 """
 import argparse
@@ -39,7 +39,7 @@ CHAMP = os.path.join(LEAGUE, "champions", "league_kaisa")
 FX = os.path.join(LEAGUE, "effects", "league_kaisa_fx")
 # the kit's projectiles: speed in px a tick, lift over her pivot in px (5000 - y_offset)
 BOLT, VOID = (7.0, 8.0), (14.0, 8.0)
-MISSILES = [(4.5, 29.0), (4.5, 20.0), (4.5, 38.0)]   # Q's three lifts (the kit's q_lifts), the first at the pods
+MISSILES = [(4.5, 26.0), (4.5, 17.0), (4.5, 35.0)]   # Q's three lifts (the kit's q_lifts), the first at the pods
 DASH = 6.0                                     # Killer Instinct's MoveToTarget, px a tick
 
 

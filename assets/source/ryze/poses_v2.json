@@ -1,0 +1,387 @@
+{
+ "hero": "ryze",
+ "champ": "Ryze",
+ "camera": {
+  "yaw": 35,
+  "pitch": 15,
+  "mirror": true
+ },
+ "chibi": {
+  "head": 2.2,
+  "legs": 0.85,
+  "scale": {
+   "Scroll_Base_SKN": 1.4,
+   "Scroll_Top_SKN": 1.5,
+   "Scroll_Bottom_SKN": 1.4,
+   "L_Clavicle": 1.3,
+   "R_Clavicle": 1.3,
+   "Spine2": 1.15
+  }
+ },
+ "height": 41,
+ "cell": [
+  104,
+  96,
+  14
+ ],
+ "design": "ryze_idle1@0",
+ "tags": {
+  "idle": {
+   "frames": [
+    [
+     "ryze_idle1@0",
+     200
+    ],
+    [
+     "ryze_idle1@0",
+     200
+    ],
+    [
+     "ryze_idle1@0",
+     200
+    ],
+    [
+     "ryze_idle1@0",
+     200
+    ],
+    [
+     "ryze_idle1@0",
+     200
+    ],
+    [
+     "ryze_idle1@0",
+     200
+    ]
+   ]
+  },
+  "run": {
+   "rise": 0.3,
+   "head_like": "ryze_idle1@0",
+   "frames": [
+    [
+     "Ryze_Run_Fast@0",
+     133
+    ],
+    [
+     "Ryze_Run_Fast@133",
+     133
+    ],
+    [
+     "Ryze_Run_Fast@267",
+     134
+    ],
+    [
+     "Ryze_Run_Fast@400",
+     133
+    ],
+    [
+     "Ryze_Run_Fast@533",
+     133
+    ],
+    [
+     "Ryze_Run_Fast@667",
+     134
+    ],
+    [
+     "Ryze_Run_Fast@800",
+     133
+    ],
+    [
+     "Ryze_Run_Fast@933",
+     134
+    ]
+   ]
+  },
+  "attack": {
+   "lunge": 0.4,
+   "frames": [
+    [
+     "ryze_idle1@0>ryze_attack1@100:0.5",
+     60
+    ],
+    [
+     "ryze_attack1@200",
+     70,
+     {
+      "turn": -60
+     }
+    ],
+    [
+     "ryze_attack1@250",
+     80
+    ],
+    [
+     "ryze_attack1@350",
+     90,
+     {
+      "turn": 70
+     }
+    ],
+    [
+     "ryze_attack1@500",
+     100,
+     {
+      "turn": 65
+     }
+    ],
+    [
+     "ryze_attack1@700>ryze_idle1@0:0.5",
+     70,
+     {
+      "turn": 60
+     }
+    ]
+   ]
+  },
+  "skill": {
+   "lunge": 0.4,
+   "frames": [
+    [
+     "ryze_idle1@0>ryze_spell1@100:0.5",
+     50
+    ],
+    [
+     "ryze_spell1@150",
+     50,
+     {
+      "turn": 95
+     }
+    ],
+    [
+     "ryze_spell1@220",
+     60,
+     {
+      "turn": 40
+     }
+    ],
+    [
+     "ryze_spell1@350",
+     80,
+     {
+      "turn": 40
+     }
+    ],
+    [
+     "ryze_spell1@550",
+     90,
+     {
+      "turn": 45
+     }
+    ],
+    [
+     "ryze_spell1@800>ryze_idle1@0:0.5",
+     103,
+     {
+      "turn": 45
+     }
+    ]
+   ]
+  },
+  "skill2": {
+   "lunge": 0.4,
+   "frames": [
+    [
+     "ryze_spell3@0",
+     78
+    ],
+    [
+     "ryze_spell3@150",
+     78,
+     {
+      "turn": -45
+     }
+    ],
+    [
+     "ryze_spell3@250",
+     78
+    ],
+    [
+     "ryze_spell2@100",
+     78,
+     {
+      "turn": 75
+     }
+    ],
+    [
+     "ryze_spell2@150",
+     78,
+     {
+      "turn": 70
+     }
+    ],
+    [
+     "ryze_spell2@200",
+     78,
+     {
+      "turn": 55
+     }
+    ],
+    [
+     "ryze_spell1@150",
+     78,
+     {
+      "turn": 95
+     }
+    ],
+    [
+     "ryze_spell1@200",
+     78,
+     {
+      "turn": 50
+     }
+    ],
+    [
+     "ryze_spell1@250",
+     78
+    ],
+    [
+     "ryze_spell1@400",
+     78,
+     {
+      "turn": 40
+     }
+    ],
+    [
+     "ryze_spell1@600",
+     78,
+     {
+      "turn": 45
+     }
+    ],
+    [
+     "ryze_spell1@800>ryze_idle1@0:0.5",
+     75,
+     {
+      "turn": 45
+     }
+    ]
+   ]
+  },
+  "ult": {
+   "lunge": 0.4,
+   "frames": [
+    [
+     "ryze_spell4@0",
+     125,
+     {
+      "turn": 50
+     }
+    ],
+    [
+     "ryze_spell4@230",
+     125
+    ],
+    [
+     "ryze_spell4@460",
+     125,
+     {
+      "turn": 40
+     }
+    ],
+    [
+     "ryze_spell4@690",
+     125,
+     {
+      "turn": 50
+     }
+    ],
+    [
+     "ryze_spell4@920",
+     125
+    ],
+    [
+     "ryze_spell4@1150",
+     125
+    ],
+    [
+     "ryze_spell4@1380",
+     125
+    ],
+    [
+     "ryze_spell4@1840",
+     125,
+     {
+      "turn": 45
+     }
+    ]
+   ]
+  },
+  "ult_land": {
+   "lunge": 0.4,
+   "frames": [
+    [
+     "Ryze_Spell4_Winddown@0",
+     67
+    ],
+    [
+     "Ryze_Spell4_Winddown@150",
+     67
+    ],
+    [
+     "Ryze_Spell4_Winddown@300",
+     67
+    ],
+    [
+     "Ryze_Spell4_Winddown@450>ryze_idle1@0:0.5",
+     66
+    ]
+   ]
+  },
+  "hit": {
+   "frames": [
+    [
+     "ryze_idle1@0>ryze_death@150:0.35",
+     100
+    ],
+    [
+     "ryze_idle1@0>ryze_death@150:0.15",
+     100
+    ]
+   ]
+  },
+  "dead": {
+   "anchor": "first",
+   "lunge": 0.4,
+   "flat": true,
+   "rise": 0.3,
+   "travel": 0.3,
+   "frames": [
+    [
+     "ryze_death@0",
+     100,
+     {
+      "turn": 40
+     }
+    ],
+    [
+     "ryze_death@300",
+     100
+    ],
+    [
+     "ryze_death@1000",
+     120
+    ],
+    [
+     "ryze_death@2200",
+     120
+    ],
+    [
+     "ryze_death@3000",
+     150
+    ],
+    [
+     "ryze_death@3600",
+     150
+    ],
+    [
+     "ryze_death@4000",
+     200
+    ],
+    [
+     "ryze_death@4300",
+     400
+    ]
+   ]
+  }
+ }
+}
