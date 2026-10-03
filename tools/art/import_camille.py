@@ -49,7 +49,7 @@ GROUND = (0, 10)                       # the middle of a ring round a unit's fee
 FLOOR = (0, 5)                         # R's arena: its floor (back wall to front wall) centred on the zones' centre
 BODY = (0, -12)                        # the middle of her 46 rows (crown 34 over the pivot, blade tips 11 under it)
 LINE = (-30, 0)                        # the sweep's point: half of the line's 60000 behind its middle
-TURNED = {"r_field"}                   # pictures of zones the engine draws turned half round (direction (-1, 0))
+TURNED = {"r_field", "r_zone"}         # pictures of zones the engine draws turned half round (direction (-1, 0))
 # the pack's colours (PROMPTS_FX.md)
 HEX = ["FFFFFF", "CFFBFF", "6FF2FF", "00C8F0", "0089C7", "00457A"]
 DEEP = ["B8D8FF", "5A9CFF", "2F5FD9", "1C2F80"]
@@ -287,11 +287,13 @@ FX = {
     },
     "league_camille_big": {
         "e_land": [("e_land", range(7), GROUND, [50] * 7)],
-        # R's field: its zone's own picture for the zone's 180 ticks - the arena forming (500 ms), then standing
-        # (five 500-ms loops) - turned half round, as the zone's direction is (-1, 0) and the engine turns it back
+        # R's field: pictures of 30-tick zone pieces - the arena forming (r_field: 500 ms, its standing loops after
+        # it unused since the kit plays 30-tick pieces) and standing (r_zone: one 500-ms loop, a piece every 30 ticks
+        # while R lasts) - turned half round, as the zones' direction is (-1, 0) and the engine turns it back
         # its floor drawn 5 px over the soles' row, so the floor's middle is on the landing point: the zones' centre
         "r_field": [("r_land", range(8), FLOOR, [60] * 6 + [70, 70])] +
                    [("r_zone", range(6), FLOOR, [83, 83, 84, 83, 83, 84])] * 5,
+        "r_zone": [("r_zone", range(6), FLOOR, [83, 83, 84, 83, 83, 84])],
     },
 }
 

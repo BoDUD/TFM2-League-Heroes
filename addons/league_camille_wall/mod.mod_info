@@ -8,7 +8,7 @@
     },
     {
       "mod_id": "league",
-      "version": ">=0.48.0"
+      "version": ">=0.50.5"
     }
   ],
   "description": "Test build of Camille's Hookshot that hooks walls and towers (needs League of Legends Heroes): replaces the main pack's Camille so her E hooks a wall, the map's edge or a tower in range near an enemy champion (aimed at where he will be), is pulled to it, clings and dives at him; a passive casts E whenever it is ready. No wall or tower nearby, no cast. Writes a log for testing.",
@@ -16,5 +16,5 @@
   "mod_id": "league_camille_wall",
   "mod_type": "native",
   "name": "League Heroes: Camille Wall Hookshot (test)",
-  "version": "0.4.1"
+  "version": "0.4.2"
 }
