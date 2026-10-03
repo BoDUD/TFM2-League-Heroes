@@ -135,8 +135,14 @@
                         "type": "Combine",
                         "effects": [
                           {
-                            "type": "CasterViewEffect",
-                            "name": "league_vi_e_cone"
+                            "type": "LineRangeProjectile",
+                            "name": "league_vi_e_wave",
+                            "width": 10000,
+                            "length": 68000,
+                            "delay": 22,
+                            "apply": 22,
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": []
                           },
                           {
                             "type": "Sfx",
@@ -915,8 +921,14 @@
                 "type": "Combine",
                 "effects": [
                   {
-                    "type": "CasterViewEffect",
-                    "name": "league_vi_e_cone"
+                    "type": "LineRangeProjectile",
+                    "name": "league_vi_e_wave",
+                    "width": 10000,
+                    "length": 68000,
+                    "delay": 22,
+                    "apply": 22,
+                    "applied_target": "EnemyWithoutTower",
+                    "applied_effects": []
                   },
                   {
                     "type": "Sfx",
@@ -1680,7 +1692,16 @@
       ]
     }
   },
-  "view_projectiles": [],
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "league_vi_e_wave",
+      "anim": "asset/league/effects/league_vi_fx",
+      "tag": "e_wave",
+      "repeat": false,
+      "z": 1
+    }
+  ],
   "view_effects": [
     {
       "type": "Animation",
@@ -1743,14 +1764,6 @@
       "name": "league_vi_e_arm",
       "anim": "asset/league/effects/league_vi_fx",
       "tag": "e_arm",
-      "z": 1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_vi_e_cone",
-      "anim": "asset/league/effects/league_vi_fx",
-      "tag": "e_cone",
       "z": 1,
       "is_follow": true
     },

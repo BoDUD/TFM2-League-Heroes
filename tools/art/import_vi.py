@@ -16,9 +16,13 @@ Placing (a frame's middle is drawn on the unit's pivot, 11 px over its feet; a c
 faces left). Her spots are measured on league/champions/league_vi (x right, y down from the pivot; re-measure after a
 strips redraw; these are the guard design's, tools/art/strips_vi.py): the Q charge on the near gauntlet pulled back
 low beside her hip (its crystal (-7, -5), skill frames 2-4), the E glow on the far fist raised by her cheek (its crystal
-(11, -15) in the idle: that fist does the E hammer), the E wave's left middle on that fist's crystal as it smashes
-down-forward (22, -1: attack_e frame 4), the R trail's right edge at her back (-4, -12), Q's dust at her start (its
-right edge 4 px ahead, its foot on the soles).
+(11, -15) in the idle: that fist does the E hammer), the R trail's right edge at her back (-4, -12), Q's dust at her
+start (its right edge 4 px ahead, its foot on the soles). The E wave is the picture of a view-only line from her pivot
+toward the target (the kit's league_vi_e_wave, WAVE px long; a line's picture is drawn centred on the line and turned to
+it, league_briar E): its left middle 22 px along the line, where the smashing fist's crystal is (attack_e frame 4),
+its middle row on the line. As a caster picture it only turned left or right and stood the wrong way on the red side
+(the user, 2026-10-03: 「之前剑姬的问题 E技能的特效没有跟随人物 反方向的」); turned with the line it points where the cone
+hits, upside down when she punches left (Codex's wave is about the same both ways up).
 The hits, W's third hit, Q's stop and R's knock aside on the target's upper body (0, -8); R's uppercut column, the
 shield and R's launch with their foot on the soles; R's slam crack round the feet (its middle 2 px over the soles).
 Times (60 ticks a second, league_vi.data_champion): the Q charge 5 x 100 ms (its 30 ticks), Q's dust 6 x 70 ms (the
@@ -49,6 +53,7 @@ BODY = (0, -8)                 # a hit on the upper body
 Q_FIST = (-7, -5)              # the near gauntlet pulled back by her hip, skill frames 2-4: its crystal
 E_FIST = (11, -15)             # the far fist raised by her cheek in the idle (the E hammer's fist): its crystal
 E_SMASH = (22, -1)             # that fist smashing down-forward, attack_e frame 4: the wave's left middle
+WAVE = 68                      # the E wave's line (league_vi_e_wave's length / 1000): the frames centre on its middle
 R_BACK = (-4, -12)             # the R trail's right edge, behind her
 # name: factor, or (across, down)
 SCALE = {"hit": 0.7, "q_hit": 0.7, "e_hit": 0.7, "r_side": 0.7, "q_charge": 1 / 2, "e_arm": 1 / 2,
@@ -123,6 +128,13 @@ def left_at(frames, point):
     return [G.centre_frame(c, point[0] - x0, point[1] - int(round((y0 + y1) / 2))) for c in frames]
 
 
+def on_line(frames, start, length):
+    """A line's picture: the common box's left middle `start` px along a line `length` px long from her pivot, the frame
+    centred on the line's middle."""
+    x0, y0, x1, y1 = box(frames)
+    return [G.centre_frame(c, start - length // 2 - x0, -int(round((y0 + y1) / 2))) for c in frames]
+
+
 def right_at(frames, point):
     """The common box's right middle on `point`."""
     x0, y0, x1, y1 = box(frames)
@@ -163,7 +175,7 @@ def build():
         "q_hit": seq(at(cells("q_hit"), BODY), 70),
         "q_stop": seq(at(cells("q_stop"), BODY), 70),
         "e_arm": seq(at(cells("e_arm"), E_FIST), 80),
-        "e_cone": seq(left_at(cells("e_cone"), E_SMASH), 60),
+        "e_wave": seq(on_line(cells("e_cone"), E_SMASH[0], WAVE), 60),
         "e_hit": seq(at(cells("e_hit"), BODY), 70),
         "r_cast": seq(grounded(cells("r_cast")), 80),
         "r_trail": seq(right_at(cells("r_trail"), R_BACK), 70),
@@ -174,9 +186,11 @@ def build():
 
 
 # effect: (her tag, frame index) it is drawn over in the review; None = on a target (her idle)
-ON = {"q_charge": ("skill", 2), "q_go": ("skill_dash", 0), "e_arm": ("idle", 0), "e_cone": ("attack_e", 3),
+ON = {"q_charge": ("skill", 2), "q_go": ("skill_dash", 0), "e_arm": ("idle", 0), "e_wave": ("attack_e", 3),
       "bs_on": ("idle", 0), "r_cast": ("ult", 0), "r_trail": ("ult_dash", 0), "r_slam": ("ult_slam", 0)}
 BEHIND = {"q_go", "r_trail", "r_slam"}
+# effect: px its frame's middle stands ahead of her pivot in the review (a line's picture: the line's middle)
+AHEAD = {"e_wave": WAVE // 2}
 
 
 def review(fx, out, z=4):
@@ -196,12 +210,14 @@ def review(fx, out, z=4):
             if id(a) in seen:
                 continue
             seen.add(id(a))
+            dx = AHEAD.get(name, 0)
             H = max(a.shape[0], b.shape[0])
-            W = max(a.shape[1], b.shape[1])
+            W = max(a.shape[1] + 2 * dx, b.shape[1])
             c = Image.new("RGBA", (W, H), ARENA)
             layers = [(a, 1), (b, 0)] if name in BEHIND else [(b, 0), (a, 1)]
-            for arr, _ in layers:
-                c.alpha_composite(Image.fromarray(arr, "RGBA"), ((W - arr.shape[1]) // 2, (H - arr.shape[0]) // 2))
+            for arr, ahead in layers:
+                c.alpha_composite(Image.fromarray(arr, "RGBA"),
+                                  ((W - arr.shape[1]) // 2 + dx * ahead, (H - arr.shape[0]) // 2))
             cells_.append(c.resize((W * z, H * z), Image.NEAREST))
         h = max(c.height for c in cells_)
         row = Image.new("RGBA", (sum(c.width + 8 for c in cells_) + 8, h + 28), (30, 34, 40, 255))

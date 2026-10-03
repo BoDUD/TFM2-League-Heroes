@@ -16,6 +16,7 @@
 Distances in px (1000 distance units a px): Q dashes 4 px a tick for 12 ticks, R 4 px a tick.
 """
 import argparse
+import math
 import os
 import sys
 
@@ -34,6 +35,7 @@ LEAGUE = os.path.join(ROOT, "league")
 CHAMP = os.path.join(LEAGUE, "champions", "league_vi")
 FX = os.path.join(LEAGUE, "effects", "league_vi_fx")
 Q_SPEED, R_SPEED = 4.0, 4.0
+WAVE = 68                                   # the E wave's line, px (league_vi_e_wave)
 ATK_HIT, ATK_DUR, ATK_CD = 10, 24, 60
 
 
@@ -90,12 +92,20 @@ def showcase(out, z=3, step=40):
     def on(foe, tag, at):
         over.append(OnFoe(frames_of(fx, tag), at, foe, z=2))
 
+    def line(tag, at, foe, length=WAVE):
+        """A view-only line's picture (league_vi_e_wave): centred on the line from her pivot toward the foe, turned to it."""
+        fx_, fy = foe.pos(at)
+        ang = math.atan2(fy - gy, fx_ - x)
+        frames = [(f.rotate(-math.degrees(ang), resample=Image.NEAREST, expand=True) if abs(ang) > 1e-6 else f, ms)
+                  for f, ms in frames_of(fx, tag)]
+        over.append(Anim(frames, at, int(round(x + length / 2 * math.cos(ang))), int(round(gy + length / 2 * math.sin(ang)))))
+
     def punch(foe, cd=ATK_CD, e=False, behind=None):
         """An attack (or E's punch): the hit on tick 10 of the 24-tick action; the next one cd ticks later."""
         start = t
         land = start + tick(ATK_HIT)
         if e:
-            on_her("e_cone", land - tick(1))
+            line("e_wave", land - tick(1), foe)
             for f in [foe] + ([behind] if behind else []):
                 on(f, "e_hit", land)
                 f.flinches.append(land)
