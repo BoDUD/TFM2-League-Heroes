@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_camille": {
+    "remapping": "asset/league_camille_wall/override/league_camille",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_camille_wall/text/champion",
+    "type": "merge"
+  }
+}

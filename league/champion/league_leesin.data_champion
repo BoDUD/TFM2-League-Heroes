@@ -589,7 +589,7 @@
     "start_timing": 16,
     "cancelable": false,
     "range": 66000,
-    "casting_type": "Direction",
+    "casting_type": "Targeting",
     "casting_target": "EnemyWithoutTower",
     "attack_type": "Skill",
     "effect": {
@@ -654,8 +654,8 @@
               "casting_type": "Targeting",
               "effect": {
                 "type": "Attack",
-                "damage": 50,
-                "attack_ratio": 90
+                "damage": 35,
+                "attack_ratio": 65
               }
             },
             {
@@ -689,8 +689,8 @@
                     "end_effects": [
                       {
                         "type": "Attack",
-                        "damage": 50,
-                        "attack_ratio": 100
+                        "damage": 35,
+                        "attack_ratio": 70
                       },
                       {
                         "type": "ViewEffect",

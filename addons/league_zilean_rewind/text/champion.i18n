@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_zilean_rewind": {
+        "ult": "【复活测试版】附近的友方英雄或基兰自己快要阵亡时（身边有敌人，生命低于<#ffb900ff>30%<>或刚被打掉一大截），为其挂上时光符文<#ffb900ff>5秒<>：期间受到致命伤害不会阵亡，而是时光倒流<#ffb900ff>2.5秒<>（无法被选中），之后回复<#6aff55ff>400<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>150% 法强<>生命值；符文没用上则不回血。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_zilean_rewind": {
+        "ult": "【復活測試版】附近的友方英雄或極靈自己快要陣亡時（身邊有敵人，生命低於<#ffb900ff>30%<>或剛被打掉一大截），為其掛上時光符文<#ffb900ff>5秒<>：期間受到致命傷害不會陣亡，而是時光倒流<#ffb900ff>2.5秒<>（無法被選取），之後回復<#6aff55ff>400<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>150% 法術強度<>生命；符文沒用上則不回復。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_zilean_rewind": {
+        "ult": "[Rewind test build] When an allied champion near him (or Zilean himself) is about to die - an enemy close and health below <#ffb900ff>30%<> or a big hit just taken - he places a time rune on them for <#ffb900ff>5s<>: lethal damage instead rewinds them for <#ffb900ff>2.5s<> (untargetable), then they revive with <#6aff55ff>400<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>150% AP<> health. An unused rune does nothing."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_zilean_rewind": {
+        "ult": "[되감기 테스트판] 주변 아군 챔피언이나 질리언 자신이 쓰러지기 직전이면(적이 가까이 있고 체력 <#ffb900ff>30%<> 미만이거나 방금 크게 맞음) <#ffb900ff>5초<> 동안 시간의 룬을 겁니다: 치명적인 피해를 받으면 <#ffb900ff>2.5초<> 동안 시간이 되돌아간 뒤(대상 지정 불가) <#6aff55ff>400<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>150% 주문력<>의 체력으로 되살아납니다. 쓰이지 않은 룬은 효과가 없습니다."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_zilean_rewind": {
+        "ult": "【巻き戻し試験版】近くの味方チャンピオンかジリアン自身が倒れそうな時（敵が近く、体力<#ffb900ff>30%<>未満か大きなダメージ直後）、その対象に<#ffb900ff>5秒<>時のルーン：致命傷を受けると倒れず<#ffb900ff>2.5秒<>時が戻り（対象不可）、<#6aff55ff>400<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>150% 魔力<>の体力で復活。使われなければ効果なし。"
+      }
+    }
+  }
+}
