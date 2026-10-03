@@ -1,0 +1,141 @@
+{
+  "result": "PASS",
+  "assets_checked": 19,
+  "frames_checked": 110,
+  "engine_tested": false,
+  "checks": [
+    {
+      "id": "zilean_fx_a_orb",
+      "unique_main_frames": 4,
+      "unique_game_frames": 4,
+      "frames_touching_export_edge": 0,
+      "passed_dimensions_palette_alpha_rects_nonempty_sha256": true
+    },
+    {
+      "id": "zilean_fx_a_cast",
+      "unique_main_frames": 4,
+      "unique_game_frames": 4,
+      "frames_touching_export_edge": 0,
+      "passed_dimensions_palette_alpha_rects_nonempty_sha256": true
+    },
+    {
+      "id": "zilean_fx_a_hit",
+      "unique_main_frames": 4,
+      "unique_game_frames": 4,
+      "frames_touching_export_edge": 0,
+      "passed_dimensions_palette_alpha_rects_nonempty_sha256": true
+    },
+    {
+      "id": "zilean_fx_q_cast",
+      "unique_main_frames": 4,
+      "unique_game_frames": 4,
+      "frames_touching_export_edge": 0,
+      "passed_dimensions_palette_alpha_rects_nonempty_sha256": true
+    },
+    {
+      "id": "zilean_fx_q_bomb",
+      "unique_main_frames": 4,
+      "unique_game_frames": 4,
+      "frames_touching_export_edge": 0,
+      "passed_dimensions_palette_alpha_rects_nonempty_sha256": true
+    },
+    {
+      "id": "zilean_fx_q_bomb_on",
+      "unique_main_frames": 4,
+      "unique_game_frames": 4,
+      "frames_touching_export_edge": 0,
+      "passed_dimensions_palette_alpha_rects_nonempty_sha256": true
+    },
+    {
+      "id": "zilean_fx_q_bomb_ground",
+      "unique_main_frames": 12,
+      "unique_game_frames": 12,
+      "frames_touching_export_edge": 0,
+      "passed_dimensions_palette_alpha_rects_nonempty_sha256": true
+    },
+    {
+      "id": "zilean_fx_q_boom",
+      "unique_main_frames": 7,
+      "unique_game_frames": 7,
+      "frames_touching_export_edge": 0,
+      "passed_dimensions_palette_alpha_rects_nonempty_sha256": true
+    },
+    {
+      "id": "zilean_fx_q_boom2",
+      "unique_main_frames": 8,
+      "unique_game_frames": 8,
+      "frames_touching_export_edge": 0,
+      "passed_dimensions_palette_alpha_rects_nonempty_sha256": true
+    },
+    {
+      "id": "zilean_fx_q_hit",
+      "unique_main_frames": 4,
+      "unique_game_frames": 4,
+      "frames_touching_export_edge": 0,
+      "passed_dimensions_palette_alpha_rects_nonempty_sha256": true
+    },
+    {
+      "id": "zilean_fx_q_stun",
+      "unique_main_frames": 6,
+      "unique_game_frames": 6,
+      "frames_touching_export_edge": 0,
+      "passed_dimensions_palette_alpha_rects_nonempty_sha256": true
+    },
+    {
+      "id": "zilean_fx_w_rewind",
+      "unique_main_frames": 6,
+      "unique_game_frames": 6,
+      "frames_touching_export_edge": 0,
+      "passed_dimensions_palette_alpha_rects_nonempty_sha256": true
+    },
+    {
+      "id": "zilean_fx_e_cast",
+      "unique_main_frames": 4,
+      "unique_game_frames": 4,
+      "frames_touching_export_edge": 0,
+      "passed_dimensions_palette_alpha_rects_nonempty_sha256": true
+    },
+    {
+      "id": "zilean_fx_e_slow",
+      "unique_main_frames": 6,
+      "unique_game_frames": 6,
+      "frames_touching_export_edge": 0,
+      "passed_dimensions_palette_alpha_rects_nonempty_sha256": true
+    },
+    {
+      "id": "zilean_fx_e_haste",
+      "unique_main_frames": 6,
+      "unique_game_frames": 6,
+      "frames_touching_export_edge": 0,
+      "passed_dimensions_palette_alpha_rects_nonempty_sha256": true
+    },
+    {
+      "id": "zilean_fx_p_bottle",
+      "unique_main_frames": 6,
+      "unique_game_frames": 6,
+      "frames_touching_export_edge": 0,
+      "passed_dimensions_palette_alpha_rects_nonempty_sha256": true
+    },
+    {
+      "id": "zilean_fx_r_cast",
+      "unique_main_frames": 5,
+      "unique_game_frames": 5,
+      "frames_touching_export_edge": 0,
+      "passed_dimensions_palette_alpha_rects_nonempty_sha256": true
+    },
+    {
+      "id": "zilean_fx_r_rune",
+      "unique_main_frames": 8,
+      "unique_game_frames": 8,
+      "frames_touching_export_edge": 0,
+      "passed_dimensions_palette_alpha_rects_nonempty_sha256": true
+    },
+    {
+      "id": "zilean_fx_r_rewind",
+      "unique_main_frames": 8,
+      "unique_game_frames": 8,
+      "frames_touching_export_edge": 0,
+      "passed_dimensions_palette_alpha_rects_nonempty_sha256": true
+    }
+  ]
+}

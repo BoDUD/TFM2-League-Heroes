@@ -1,0 +1,6 @@
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, rings or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a gold ramp (#FFFFFF, #FFF2B0, #FFD24A, #E39A1E, #9C5A10) and a bright cyan ramp (#FFFFFF, #D8FFFF, #7FF4FF, #2FC8E8, #1A7FB0).
+Effect: the TIME BOMB (a round golden bomb 7-8 squares across: a gold shell with a darker gold band, a small white clock face on its front with one cyan hand, a tiny cyan spark on a short fuse at the top) flying, 4 frames, a seamless loop: the clock hand turns a quarter each frame, the fuse spark flickers, a few cyan sparks trailing behind it to the LEFT. Keep the bomb round and centered so it looks the same when the game turns it.
+Layout: one horizontal row of 4 equal square cells, image size 1024x256; the bomb centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
+
+
+Generation refinements: no character; equal spacing; generous padding; bright coarse square pixels.
