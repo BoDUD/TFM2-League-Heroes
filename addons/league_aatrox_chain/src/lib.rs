@@ -1,4 +1,4 @@
-//! 剑魔 W 锁链附加包 v0.2：W「恶火束链」照 League 原版。
+//! 剑魔 W 锁链附加包 v0.2.1：W「恶火束链」照 League 原版。
 //!
 //! 主包的 W（数据）：锁链停在第一个敌人身上（伤害 + 减速 1.5 秒）；打中英雄时在落点放圈，1.5 秒后那个英雄
 //! 再受一次伤害、被拉向剑魔。League 的两条数据写不出来：走出圈锁链就断、拉回的是圈的中心。
@@ -14,7 +14,7 @@
 //!     排队，剑魔死了也照样跑）。剑魔身上挂 `w_tether`（数据在锁链落点播圈），打中的是英雄再挂 `w_champ`
 //!     （数据给第一下记 E 的吸血、被动冷却、大灭击杀）。
 //!   - 小兵：剑魔身上挂 `w_minion`，数据再打一下（League：对小兵双倍）。
-//! - `watch`：离圈心超过 `AREA`（走出去、闪现、冲刺都算）→ 锁链断，什么都不发生；到 `HOLD` tick（1.5 秒）
+//! - `watch`：走出画出来的圈（横向 `AREA`、上下 `AREA_Y` 的椭圆；走出去、闪现、冲刺都算）→ 锁链断，什么都不发生；到 `HOLD` tick（1.5 秒）
 //!   还在圈里 → 拉回圈心（引擎的强制位移 ForceMove，撞墙会停），剑魔身上挂 `w_pull`（英雄再挂
 //!   `w_pull_c`）：数据在 `READ_AT` tick 读到，打第二下（按剑魔当下的攻击力）、播缠身和收紧的画面，
 //!   英雄再记吸血、被动、击杀。拴着的时候每 `LINK_EVERY` tick 从他脚下往圈心飞一节锁链
@@ -42,8 +42,12 @@ pub const ON: &str = "league_aatrox_chain_on";
 pub const HOLD: usize = 90;
 /// 数据层读拉回标记的时刻（打中后第几 tick）：本包在 `HOLD` 拉，标记留 `PULL_T` tick。
 pub const READ_AT: usize = HOLD + 2;
-/// 圈的半径（League 的圈约 460 / W 射程 825，主包 w_area）。
+/// 圈的半径（League 的圈约 460 / W 射程 825，主包 w_area）：横向。
 pub const AREA: f64 = 33_000.0;
+/// 圈上下的半径：w_ring 画成扁的（锁链外沿横向 ±30 像素、上下 ±20，桩子在 ±33），TFM2 的地面没有透视压扁
+/// （1 像素约 1000），正圆的判定上下比画出来的圈多出十几像素——走出画面上的圈锁链也不断。所以按画面判：
+/// 横向 `AREA`、上下 `AREA` × 20/30（v0.2.1）。
+pub const AREA_Y: f64 = 22_000.0;
 /// 找不到锁链时，圈心比他原地往剑魔那边挪多少（League：「稍微靠近剑魔」）。
 pub const CENTER_IN: f64 = 3_000.0;
 /// 找锁链的范围：打中的那一 tick，剑魔离被打中的人这么近的投射物就是锁链。
@@ -129,6 +133,11 @@ fn pt(p: (f64, f64)) -> String {
 
 fn dist(a: (f64, f64), b: (f64, f64)) -> f64 {
     ((a.0 - b.0).powi(2) + (a.1 - b.1).powi(2)).sqrt()
+}
+
+/// 在圈外：圈心 `c`，横向半径 `AREA`、上下 `AREA_Y` 的椭圆（和画出来的圈一样）。
+pub fn outside(p: (f64, f64), c: (f64, f64)) -> bool {
+    ((p.0 - c.0) / AREA).powi(2) + ((p.1 - c.1) / AREA_Y).powi(2) > 1.0
 }
 
 fn fpos(p: (u64, u64)) -> (f64, f64) {
@@ -358,12 +367,13 @@ fn watch(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
     }
     let here = fpos(e.pos());
     let d = dist(here, c);
-    if d > AREA {
+    if outside(here, c) {
         sim.entity_remove_buff(me, &name);
         let on_me = InputTargetV1::target(me);
         sim.play_view_effect(&aatrox("w_hit"), a, &on_me, 0, 0, 0);
         sim.play_sfx(&aatrox("w_hit"), a, &on_me);
-        wlog(format!("{} BREAK: {d:.0} from the ring's centre, {} ticks before the pull", head(sim, me), snap.saturating_sub(tick)));
+        wlog(format!("{} BREAK: {d:.0} from the ring's centre ({:+.0}, {:+.0}), {} ticks before the pull", head(sim, me),
+                     here.0 - c.0, here.1 - c.1, snap.saturating_sub(tick)));
         return;
     }
     if tick >= snap {

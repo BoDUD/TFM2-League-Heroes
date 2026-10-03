@@ -11,7 +11,7 @@ use std::ffi::c_void;
 use std::mem::{size_of, zeroed};
 
 use league_aatrox_chain::{
-    AREA, CHAMP, HOLD, LINK_DROP, LINK_EVERY, MINION, ON, PULL, PULL_C, READ_AT, STAGES, TETHER,
+    outside, AREA, AREA_Y, CHAMP, HOLD, LINK_DROP, LINK_EVERY, MINION, ON, PULL, PULL_C, READ_AT, STAGES, TETHER,
 };
 use mod_api_stable::*;
 
@@ -270,10 +270,16 @@ type Flags = Vec<(usize, Vec<String>)>;
 
 /// `n` tick：每 tick `walk` 里的人先走一步，再跑到点的效果、强制位移挪人，记下剑魔的标记，buff 和控制过期。
 unsafe fn run_walking(world: &mut World, fx: &Effects, n: usize, walk: &[(usize, f64)], flags: &mut Flags) {
+    let walk: Vec<(usize, f64, f64)> = walk.iter().map(|&(id, dx)| (id, dx, 0.0)).collect();
+    run_walking_xy(world, fx, n, &walk, flags);
+}
+
+unsafe fn run_walking_xy(world: &mut World, fx: &Effects, n: usize, walk: &[(usize, f64, f64)], flags: &mut Flags) {
     for _ in 0..n {
-        for (id, dx) in walk {
+        for (id, dx, dy) in walk {
             if world.units[*id].ccs.is_empty() {
                 world.units[*id].x += dx;
+                world.units[*id].y += dy;
             }
         }
         while let Some(i) = world.queue.iter().position(|q| q.0 <= world.tick) {
@@ -405,6 +411,19 @@ fn infernal_chains_follow_league() {
         let broke = w.links.last().unwrap().0;
         assert!((44..=50).contains(&broke), "links until {broke}");
         assert!(AREA > 30_000.0);
+
+        // 2b. 往下走（每 tick 500；坐标没有负数，不能往上）：圈上下只有 AREA_Y（画出来的扁圈），22000 / 500 = 44 tick 就断，不拉
+        let mut w = world();
+        let mut f = Flags::new();
+        chain_hits(&mut w, &fx, 1, Some(stop), InputTargetV1::target(1));
+        let start = (w.units[1].x, w.units[1].y);
+        run_walking_xy(&mut w, &fx, HOLD + 20, &[(1, 0.0, 500.0)], &mut f);
+        assert!(f.iter().all(|(_, v)| !v.iter().any(|n| n == PULL)), "the chain held although he left the ring downward");
+        assert!(!has(&w, 1, ON) && w.pulls.is_empty());
+        let broke = w.links.last().unwrap().0;
+        let need = ((AREA_Y - (start.1 - stop.1).abs()) / 500.0) as usize;
+        assert!(broke + 8 >= need && broke <= need + 2, "links until {broke}, the ring's edge after {need}");
+        assert!(outside((stop.0, stop.1 - AREA_Y - 1.0), stop) && !outside((stop.0 + AREA - 1.0, stop.1), stop));
 
         // 3. 往剑魔那边走（每 tick 300，1.5 秒 27000，圈心另一边还在圈里）：照样拉回圈心
         let mut w = world();

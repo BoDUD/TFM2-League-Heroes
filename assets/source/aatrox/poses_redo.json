@@ -1,0 +1,226 @@
+{
+ "hero": "aatrox",
+ "champ": "Aatrox",
+ "camera": {
+  "yaw": 45,
+  "pitch": 20,
+  "mirror": true
+ },
+ "chibi": {
+  "head": 2.0,
+  "legs": 0.8,
+  "scale": {
+   "Weapon": 0.65
+  }
+ },
+ "weapon": "^Weapon$",
+ "hide_submeshes": [
+  "Banner"
+ ],
+ "submesh_textures": {
+  "Wings": "Wings_TX",
+  "Sword": "Sword_TX"
+ },
+ "height": 39,
+ "cell": [
+  112,
+  96,
+  14
+ ],
+ "design": "Aatrox_Unsheath_idle1@0",
+ "tags": {
+  "skill": {
+   "hide": [
+    "Wing"
+   ],
+   "lunge": 0.65,
+   "rise": 0.5,
+   "release": 6,
+   "frames": [
+    [
+     "Aatrox_Unsheath_idle1@0>Aatrox_ground_Q1@100:0.5",
+     100
+    ],
+    [
+     "Aatrox_ground_Q1@300",
+     150
+    ],
+    [
+     "Aatrox_ground_Q1@500",
+     150
+    ],
+    [
+     "Aatrox_ground_Q1@600",
+     100
+    ],
+    [
+     "Aatrox_ground_Q1@680",
+     100
+    ],
+    [
+     "Aatrox_ground_Q1@750",
+     100
+    ],
+    [
+     "Aatrox_ground_Q1@800",
+     50
+    ],
+    [
+     "Aatrox_ground_Q1@800>Aatrox_Unsheath_idle1@0:0.5",
+     50
+    ]
+   ]
+  },
+  "q2": {
+   "hide": [
+    "Wing"
+   ],
+   "lunge": 0.65,
+   "rise": 0.5,
+   "release": 6,
+   "frames": [
+    [
+     "Aatrox_Unsheath_idle1@0>Aatrox_ground_Q2@120:0.5",
+     100
+    ],
+    [
+     "Aatrox_ground_Q2@360",
+     150
+    ],
+    [
+     "Aatrox_ground_Q2@540",
+     150
+    ],
+    [
+     "Aatrox_ground_Q2@660",
+     100
+    ],
+    [
+     "Aatrox_ground_Q2@720",
+     100
+    ],
+    [
+     "Aatrox_ground_Q2@780",
+     100
+    ],
+    [
+     "Aatrox_ground_Q2@840",
+     50
+    ],
+    [
+     "Aatrox_ground_Q2@840>Aatrox_Unsheath_idle1@0:0.5",
+     50
+    ]
+   ]
+  },
+  "q3": {
+   "hide": [
+    "Wing"
+   ],
+   "lunge": 0.65,
+   "rise": 0.6,
+   "release": 6,
+   "frames": [
+    [
+     "Aatrox_Unsheath_idle1@0>Aatrox_ground_Q3@100:0.5",
+     100
+    ],
+    [
+     "Aatrox_ground_Q3@250",
+     150
+    ],
+    [
+     "Aatrox_ground_Q3@550",
+     150
+    ],
+    [
+     "Aatrox_ground_Q3@600",
+     100
+    ],
+    [
+     "Aatrox_ground_Q3@650",
+     100
+    ],
+    [
+     "Aatrox_ground_Q3@700",
+     100
+    ],
+    [
+     "Aatrox_ground_Q3@750",
+     50
+    ],
+    [
+     "Aatrox_ground_Q3@750>Aatrox_Unsheath_idle1@0:0.5",
+     50
+    ]
+   ]
+  },
+  "ult": {
+   "rise": 0.5,
+   "frames": [
+    [
+     "Aatrox_Unsheath_idle1@0>Aatrox_ULT_into@160:0.5",
+     100
+    ],
+    [
+     "Aatrox_ULT_into@320",
+     100
+    ],
+    [
+     "Aatrox_ULT_into@480",
+     100
+    ],
+    [
+     "Aatrox_ULT_into@640",
+     100
+    ],
+    [
+     "Aatrox_ULT_into@800",
+     100
+    ],
+    [
+     "Aatrox_ULT_into@960",
+     100
+    ],
+    [
+     "Aatrox_ULT_into@1120",
+     100
+    ],
+    [
+     "Aatrox_ULT_into@1440>Aatrox_Unsheath_idle1@0:0.5",
+     100
+    ]
+   ]
+  },
+  "rwings": {
+   "flat": true,
+   "rise": 0,
+   "frames": [
+    [
+     "Aatrox_ULT_Idle@0",
+     150
+    ],
+    [
+     "Aatrox_ULT_Idle@228",
+     150
+    ],
+    [
+     "Aatrox_ULT_Idle@456",
+     150
+    ],
+    [
+     "Aatrox_ULT_Idle@684",
+     150
+    ],
+    [
+     "Aatrox_ULT_Idle@912",
+     150
+    ],
+    [
+     "Aatrox_ULT_Idle@1140",
+     150
+    ]
+   ]
+  }
+ }
+}
