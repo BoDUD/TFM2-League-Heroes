@@ -8,7 +8,7 @@ The same model, chibi proportions, camera and scale as native_pose.py with that 
 (x, y, z) in game px: x from the pivot (right +), y down from the pivot with the frame's lowest leg point on the soles'
 row (11, as the render's "flat" placement puts it; a frame whose whole body is off the ground is lifted as the render
 lifts it), z toward the camera. --names lists the skeleton's joints. Used to draw legs on League's poses
-(tools/art/fix_caitlyn_run.py: Caitlyn's run legs).
+(the first Caitlyn design's run legs, 2026-10-01; its script was retired with that design).
 """
 import argparse
 import json

@@ -16,9 +16,9 @@ frame count and ticks into caitlyn_fx_anchors.json.
 The second step places every cell by its anchor on a spot from the pivot (game px, x right, y down; a pixel's middle
 on whole numbers) and times it:
 - the muzzle flashes (anchored on their left edge's middle) just past the barrel's last pixel of her firing frames
-  (Q 7, E 3, R 7 as codex_strips/strips_HANDOFF.md has them; the attack and the Headshot fire from their lowered
-  barrel, frames 4 and 5 held in slots 3-4 and 4-5 by import_native's ORDER - Codex's shot frames threw the barrel up
-  and the bullets fell 12 degrees; MUZZLE below). A caster view follows her, not her sprite (champion-data
+  (the second design, tools/art/rig_caitlyn.py: the attack fires from the hip in frames 3-4, the Headshot in 4-5, E
+  in 3, Q and R kneeling in 7 - the first design's Codex shots threw the barrel up and the bullets fell 12 degrees;
+  MUZZLE below). A caster view follows her, not her sprite (champion-data
   "Projectiles that leave the muzzle"), so the fire burns only while the barrel stays where it was drawn, at base
   speed: the attack's shot comes 8 ticks in (133 ms) with the barrel still to 260 ms - Codex's 67 ms of fire; the
   Headshot's 10 ticks in (167 ms), still to 300 ms - 130 ms; E's 67 ms; Q's 100 ms (its whole 7th frame); R's 150 ms.
@@ -54,8 +54,8 @@ KIT = os.path.join(MOD, "champion", "league_caitlyn.data_champion")
 Z = 8
 TICK = 1000 / 60
 # the barrel's last pixel of each firing frame and the middle of the barrel's rows (.5: between two rows), measured on
-# league/champions/league_caitlyn's sheet: the attack's 4th frame, the Headshot's 5th, Q 7, E 3, R 7
-MUZZLE = {"attack": (30, -6.5), "passive": (27, -8), "skill": (35, -7.5), "e": (34, -11.5), "ult": (26, -9)}
+# league/champions/league_caitlyn's sheet: the attack's 3rd-4th frames, the Headshot's 4th-5th, Q 7, E 3, R 7
+MUZZLE = {"attack": (21, -7), "passive": (21, -8), "skill": (20, -8), "e": (21, -11), "ult": (20, -8)}
 HIT = (0, -8)                          # a hit on the upper body of a 32-42 px unit
 SOLES = 11                             # the soles' row under the pivot
 # each projectile: the muzzle it leaves

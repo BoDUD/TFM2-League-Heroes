@@ -199,13 +199,9 @@ ORDER = {("lux", "idle"): [0, 0, 0, 0, 0, 0],   # the step-2 idle is the design 
          ("fizz", "idle"): [0, 0, 0, 0, 0, 0],
          # and Shaco (Codex's 46-row design v4 A with its ruff patch: the pack's idle is the design in all six)
          ("shaco", "idle"): [0, 0, 0, 0, 0, 0],
-         # and Caitlyn (Codex's chibi draft B cut to 42 rows, design_caitlyn.py: the pack's idle is the design in all six)
+         # and Caitlyn (the second design, design_caitlyn_v2.py: rig_caitlyn.py writes it into all six; her strips are
+         # posed in display order, the shots from the hip held two slots as the first design's ORDER had them)
          ("caitlyn", "idle"): [0, 0, 0, 0, 0, 0],
-         # her shots: Codex's 3rd attack frame (4th Headshot frame) throws the barrel up to 16.5 (12) px over the pivot
-         # and the bullet, lifted there, fell 12 degrees onto the target's pivot ("平A出去的子弹看起来是歪的");
-         # League fires from the hip. The shot frame is now the lowered barrel (6.5 / 8 px up), held two slots
-         ("caitlyn", "attack"): [0, 1, 3, 3, 4, 5],
-         ("caitlyn", "passive"): [0, 1, 2, 4, 4, 5],
          # and Nocturne (Codex's game-size design B cut to 40 rows: the pack's idle is the design in all six)
          ("nocturne", "idle"): [0, 0, 0, 0, 0, 0],
          # and Blitzcrank (Codex's game-size design B2, fixed by hand: the pack's idle is the design in all six)
