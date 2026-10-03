@@ -16,11 +16,21 @@
 //! 稳定性铁律（对照 kirito / necoarc / sungjinwoo 三个稳定 mod）：
 //! 位移一律走数据层 Rush，绝不在 native 里 entity_set_pos；不使用
 //! queue_effect；击杀成长用 on_kill/on_assist 回调而非轮询击杀日志。
+//!
+//! 状态隔离铁律（「有的对局有里香、有的对局没有」的根因）：
+//! 游戏在同一个进程里会跑多份模拟——服务器预模拟（ServerPresim，赛程结果先在
+//! 后台算一遍）、屏幕上正在看的对局（ClientMatchView）、观战、回放。每份模拟的
+//! 实体 id 都从同样的小整数开始，而 match hook / native effect 是所有模拟共用的
+//! 同一个对象。旧版把大脑、标记栈、成长放在只按实体 id 区分的全局表里：后台预模拟
+//! 开局会重置、收场会清空、逐 tick 会拿它自己世界里的实体去推进屏幕对局的大脑，
+//! 屏幕上的里香于是时有时无（官方 SDK 文档对 sim 回调的要求：no global state）。
+//! 现在所有运行时状态都按「哪一份模拟」分开存放，见 [`SimKey`] / [`with_state`]。
 
-use std::collections::HashMap;
+use std::collections::btree_map::Entry;
+use std::collections::{BTreeMap, HashMap};
 use std::fs::OpenOptions;
 use std::io::Write;
-use std::sync::atomic::{AtomicBool, Ordering};
+use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
@@ -36,6 +46,11 @@ fn dlog(msg: impl AsRef<str>) {
         let _ = writeln!(f, "[yuta] {}", msg.as_ref());
         let _ = f.flush();
     }
+}
+
+/// 带模拟来源的日志：预模拟与屏幕对局交错写同一个文件时，也能分清每行属于哪一份。
+fn slog(sim: &StableSim<'_>, msg: impl AsRef<str>) {
+    dlog(format!("[{}] {}", SimKey::of(sim).label(), msg.as_ref()));
 }
 
 // ---------------- 标记 ----------------
@@ -59,14 +74,114 @@ const MARK_PERIODS: [usize; 5] = [360, 720, 480, 540, 540];
 const MARK_CAP: usize = 99;
 const F_MARK: &str = "yuta_f_mark";
 
-/// 标记 LIFO 栈，按英雄实体 id 存于 Rust 侧（引擎死亡会清空实体 buff）。
-static STACKS: LazyLock<Mutex<HashMap<usize, Vec<u8>>>> =
-    LazyLock::new(|| Mutex::new(HashMap::new()));
+// ===================== 按模拟隔离的运行时状态 =====================
 
-fn with_stack<R>(eid: usize, f: impl FnOnce(&mut Vec<u8>) -> R) -> R {
+/// 一份模拟的身份：来源（预模拟 / 屏幕对局 / 观战 / 回放 / 工具）+ 赛程、回放、
+/// 小局编号 + 对局种子。同一赛程的预模拟和屏幕对局种子相同但来源不同；不同赛程
+/// 编号和种子都不同，所以并行或交错跑的几份模拟各用各的状态。
+#[derive(Clone, Copy, PartialEq, Eq, Hash, Debug)]
+struct SimKey {
+    kind: u32,
+    match_id: u64,
+    replay_id: u64,
+    set_index: u64,
+    seed: u64,
+}
+
+impl SimKey {
+    fn of(sim: &StableSim<'_>) -> Self {
+        let origin = sim.sim_origin().unwrap_or_default();
+        Self {
+            kind: origin.kind,
+            match_id: origin.match_id,
+            replay_id: origin.replay_id,
+            set_index: origin.set_index,
+            seed: sim.seed(),
+        }
+    }
+
+    fn label(&self) -> String {
+        let kind = match SimOriginKindV1::from_code(self.kind) {
+            Some(SimOriginKindV1::ServerPresim) => "presim",
+            Some(SimOriginKindV1::ClientMatchView) => "view",
+            Some(SimOriginKindV1::ClientSpectate) => "spectate",
+            Some(SimOriginKindV1::ClientReplay) => "replay",
+            Some(SimOriginKindV1::Tool) => "tool",
+            _ => "unknown",
+        };
+        let id = |v: u64| {
+            if v == SimOriginV1::NONE {
+                "-".to_string()
+            } else {
+                v.to_string()
+            }
+        };
+        format!(
+            "{kind} m={} r={} s={} seed={:x}",
+            id(self.match_id),
+            id(self.replay_id),
+            id(self.set_index),
+            self.seed
+        )
+    }
+}
+
+/// 一份模拟里本 mod 的全部运行时状态。键都是【该模拟世界】里的实体 id；用 BTreeMap
+/// 保证遍历顺序固定（同一赛程的预模拟和屏幕对局必须算出一样的结果）。
+#[derive(Default)]
+struct SimState {
+    /// 这份模拟见过的最大 tick。tick 变小 = 同一身份的模拟重新开跑（重看回放、
+    /// 中途退出后重开），上一轮留下的状态整份作废。
+    last_tick: usize,
+    /// 最近一次访问的序号，只用来回收没跑到收场就被放弃的模拟留下的状态。
+    stamp: u64,
+    /// 乙骨实体 id -> 大脑。
+    brains: BTreeMap<usize, YutaBrain>,
+    /// 乙骨实体 id -> 标记 LIFO 栈（引擎死亡会清空实体 buff，真值存这里）。
+    stacks: BTreeMap<usize, Vec<u8>>,
+    /// 乙骨实体 id -> 噬魂成长层数（同理，死亡不丢）。
+    growth: BTreeMap<usize, u32>,
+}
+
+static SIMS: LazyLock<Mutex<HashMap<SimKey, SimState>>> =
+    LazyLock::new(|| Mutex::new(HashMap::new()));
+static STAMP: AtomicU64 = AtomicU64::new(0);
+/// 同时保留的模拟状态上限。进行中的模拟每 tick 都会访问自己的状态，不会被回收。
+const MAX_SIMS: usize = 64;
+
+/// 取当前这份模拟的状态。闭包里【只许改 Rust 数据】：持锁期间调用会改世界的
+/// sim API，可能经引擎回调重入本 mod（伤害 -> on_kill 等）而死锁。
+fn with_state<R>(sim: &StableSim<'_>, f: impl FnOnce(&mut SimState) -> R) -> R {
+    // 先把要问引擎的都问完，再上锁。
+    let key = SimKey::of(sim);
+    let tick = sim.tick();
+    let stamp = STAMP.fetch_add(1, Ordering::Relaxed);
     // PoisonError::into_inner：即使此前回调 panic 过也继续可用，避免连锁崩溃。
-    let mut map = STACKS.lock().unwrap_or_else(|e| e.into_inner());
-    f(map.entry(eid).or_default())
+    let mut map = SIMS.lock().unwrap_or_else(|e| e.into_inner());
+    if map.len() >= MAX_SIMS && !map.contains_key(&key) {
+        if let Some(oldest) = map.iter().min_by_key(|(_, s)| s.stamp).map(|(k, _)| *k) {
+            map.remove(&oldest);
+        }
+    }
+    let st = map.entry(key).or_default();
+    if tick < st.last_tick {
+        *st = SimState::default();
+    }
+    st.last_tick = tick;
+    st.stamp = stamp;
+    f(st)
+}
+
+/// 这份模拟是否已有状态（不新建）。没有乙骨的模拟（大多数后台预模拟）不建状态。
+fn has_state(sim: &StableSim<'_>) -> bool {
+    let key = SimKey::of(sim);
+    SIMS.lock().unwrap_or_else(|e| e.into_inner()).contains_key(&key)
+}
+
+/// 收场：拿走这份模拟的状态（只动 Rust 内存，不改世界）。
+fn take_state(sim: &StableSim<'_>) -> Option<SimState> {
+    let key = SimKey::of(sim);
+    SIMS.lock().unwrap_or_else(|e| e.into_inner()).remove(&key)
 }
 
 // ---------------- 噬魂成长（击杀/助攻 +10% 基础属性） ----------------
@@ -74,15 +189,6 @@ fn with_stack<R>(eid: usize, f: impl FnOnce(&mut Vec<u8>) -> R) -> R {
 const GROWTH_BUFF: &str = "yuta_growth";
 /// 每层 +10%：攻击/法强/护甲/生命/魔抗（同名 buff 按层叠加）。
 const GROWTH_MULT: i32 = 10;
-
-/// 每个乙骨的成长层数（引擎死亡会清 buff，故真值存 Rust 侧）。
-static GROWTH: LazyLock<Mutex<HashMap<usize, u32>>> =
-    LazyLock::new(|| Mutex::new(HashMap::new()));
-
-fn with_growth<R>(eid: usize, f: impl FnOnce(&mut u32) -> R) -> R {
-    let mut map = GROWTH.lock().unwrap_or_else(|e| e.into_inner());
-    f(map.entry(eid).or_insert(0))
-}
 
 /// 一层成长 buff（永久，同名按层叠加，引擎负责属性换算）。
 fn growth_buff_layer() -> BuffV1 {
@@ -100,12 +206,16 @@ fn growth_push(sim: &mut StableSim<'_>, eid: usize) {
     sim.entity_stack_buff(eid, &growth_buff_layer(), 0, true);
 }
 
-/// 出生/复活：按记录层数重建成长 buff。
-fn growth_rebuild(sim: &mut StableSim<'_>, eid: usize) {
-    let n = with_growth(eid, |n| *n);
-    for _ in 0..n {
+/// 出生/复活：补挂 `layers` 层成长 buff。
+fn growth_rebuild(sim: &mut StableSim<'_>, eid: usize, layers: u32) {
+    for _ in 0..layers {
         growth_push(sim, eid);
     }
+}
+
+/// 乙骨在这份模拟里累计的成长层数。
+fn growth_of(sim: &StableSim<'_>, yuta_id: usize) -> u32 {
+    with_state(sim, |st| st.growth.get(&yuta_id).copied().unwrap_or(0))
 }
 
 // ---------------- 里香 ----------------
@@ -113,7 +223,11 @@ fn growth_rebuild(sim: &mut StableSim<'_>, eid: usize) {
 const RIKA_UNIT: &str = "yuta_summon";
 /// 里香归属标记：必须用固定静态名，绝不能按实体 id 现场 format! 出动态名——
 /// 动态 buff 名会在引擎侧反复注册/在跨局复用的实体 id 上残留，收场时崩溃。
+/// 归属（哪只乙骨的里香）记在本份模拟的大脑里，不靠 buff 名区分。
 const RIKA_TAG: &str = "yuta_rika_tag";
+/// 乙骨自身标记（同样是固定静态名）：on_spawn 挂上，match hook 靠它在任何一份
+/// 模拟里认出乙骨，保证每只乙骨都有大脑。
+const YUTA_TAG: &str = "yuta_self_tag";
 /// 里香存活时长。反汇编稳定 mod（sungjinwoo）实测：它的常驻自由移动召唤物
 /// spawn_unit 的 duration 传的就是 0x5f5e100=100_000_000 tick（近永久），且连开
 /// 多局从不崩——证明引擎收场会安全回收召唤单位及其永久标记 buff。直接沿用同一值，
@@ -164,6 +278,15 @@ const GROW_MS: usize = 6;
 const GROW_REGEN: usize = 1;
 
 const CRIT_AURA: &str = "yuta_crit_aura";
+/// 里香在场时乙骨的额外暴击率（百分点，与面板 crit_chance 同单位）。
+/// 旧版光环 buff 只有名字没有数值，挂上去不加任何暴击。
+const CRIT_AURA_PCT: i32 = 50;
+
+fn crit_aura_buff() -> BuffV1 {
+    let mut b = BuffV1::named(CRIT_AURA);
+    b.crit_chance = CRIT_AURA_PCT;
+    b
+}
 
 // ---------------- 技能数值 ----------------
 
@@ -192,7 +315,7 @@ fn rika_true_strike(sim: &mut StableSim<'_>, caster: usize, target: usize) {
     if !t.is_alive() || t.is_tower() {
         return;
     }
-    let Some(rid) = find_rika(sim, caster) else {
+    let Some(rid) = rika_of(sim, caster) else {
         return;
     };
     let max_hp = sim.get_entity(rid).map(|e| e.hp().1).unwrap_or(0);
@@ -218,15 +341,53 @@ fn has_buff_named(e: &StableEntity<'_, '_>, name: &str) -> bool {
     false
 }
 
-/// 按召唤时打上的归属标记找里香（固定静态 buff 名）。
-fn find_rika(sim: &StableSim<'_>, _owner: usize) -> Option<usize> {
+/// `id` 是否仍是 `team` 一方存活的里香。实体 id 会被引擎复用：里香死后这个 id
+/// 可能分给新刷的小兵，只看 is_alive 会把小兵当成里香，所以还要核对队伍和身份
+/// （归属标记；标记万一被清掉时退回按单位名核对）。
+fn is_rika(sim: &StableSim<'_>, id: usize, team: usize) -> bool {
+    let Some(e) = sim.get_entity(id) else {
+        return false;
+    };
+    e.is_alive()
+        && e.team() == team
+        && (has_buff_named(&e, RIKA_TAG) || e.name().as_deref() == Some(RIKA_UNIT))
+}
+
+/// 这只乙骨在【这份模拟】里的里香：按他大脑记录的 id 查，不再全图找任意一只
+/// （镜像对局里旧版会拿到对面的里香）。大脑不在这份状态里时退回找同队的里香。
+fn rika_of(sim: &StableSim<'_>, owner: usize) -> Option<usize> {
+    match with_state(sim, |st| st.brains.get(&owner).map(|b| (b.rika, b.team))) {
+        Some((Some(rid), team)) => is_rika(sim, rid, team).then_some(rid),
+        Some((None, _)) => None,
+        None => {
+            let team = sim.get_entity(owner)?.team();
+            find_unclaimed_rika(sim, team, &[])
+        }
+    }
+}
+
+/// 场上本方存活、且没有被这份模拟里其他乙骨认领的里香（大脑状态重建后认领用）。
+fn find_unclaimed_rika(sim: &StableSim<'_>, team: usize, claimed: &[usize]) -> Option<usize> {
     for i in 0..sim.entity_count() {
         let Some(e) = sim.entity_at(i) else { continue };
-        if e.is_alive() && has_buff_named(&e, RIKA_TAG) {
-            return Some(e.id());
+        let id = e.id();
+        if !claimed.contains(&id) && is_rika(sim, id, team) {
+            return Some(id);
         }
     }
     None
+}
+
+/// 这份模拟里所有存活、挂着自身标记（on_spawn 挂的）的乙骨，返回 (实体 id, 队伍)。
+fn find_yutas(sim: &StableSim<'_>) -> Vec<(usize, usize)> {
+    let mut out = Vec::new();
+    for i in 0..sim.entity_count() {
+        let Some(e) = sim.entity_at(i) else { continue };
+        if e.is_champion() && e.is_alive() && has_buff_named(&e, YUTA_TAG) {
+            out.push((e.id(), e.team()));
+        }
+    }
+    out
 }
 
 fn mark_count(sim: &StableSim<'_>, eid: usize, name: &str) -> usize {
@@ -298,11 +459,18 @@ fn sync_next(sim: &mut StableSim<'_>, eid: usize) {
 }
 
 fn stack_grant(sim: &mut StableSim<'_>, eid: usize, ty: usize) {
-    let full = with_stack(eid, |st| st.len() >= MARK_CAP);
-    if full {
+    let pushed = with_state(sim, |st| {
+        let stack = st.stacks.entry(eid).or_default();
+        if stack.len() >= MARK_CAP {
+            false
+        } else {
+            stack.push(ty as u8);
+            true
+        }
+    });
+    if !pushed {
         return;
     }
-    with_stack(eid, |st| st.push(ty as u8));
     sim.add_buff(eid, &BuffV1::named(MARK_NAMES[ty]));
     sync_next(sim, eid);
 }
@@ -317,24 +485,25 @@ fn stack_consume(sim: &mut StableSim<'_>, eid: usize, ty: usize) {
             sim.add_buff(eid, &BuffV1::named(MARK_NAMES[ty]));
         }
     }
-    with_stack(eid, |st| {
-        if let Some(pos) = st.iter().rposition(|m| *m as usize == ty) {
-            st.remove(pos);
+    with_state(sim, |st| {
+        if let Some(stack) = st.stacks.get_mut(&eid) {
+            if let Some(pos) = stack.iter().rposition(|m| *m as usize == ty) {
+                stack.remove(pos);
+            }
         }
     });
     sync_next(sim, eid);
 }
 
-/// 出生/复活：按 Rust 栈重建全部 mark buff（引擎死亡已清空实体 buff）。
-fn stack_rebuild(sim: &mut StableSim<'_>, eid: usize) {
-    let marks = with_stack(eid, |st| st.clone());
-    for &ty in &marks {
+/// 复活：按 Rust 栈重建全部 mark buff（引擎死亡已清空实体 buff）。
+fn stack_rebuild(sim: &mut StableSim<'_>, eid: usize, marks: &[u8]) {
+    for &ty in marks {
         sim.add_buff(eid, &BuffV1::named(MARK_NAMES[ty as usize]));
     }
     sync_next(sim, eid);
 }
 
-// ===================== 里香大脑（全局状态，由 MatchHook 驱动） =====================
+// ===================== 里香大脑（按模拟存放，由 MatchHook 驱动） =====================
 //
 // 关键架构（对照稳定 mod sungjinwoo / necoarc）：一切「每帧遍历世界、召唤、
 // 治疗、造成伤害」的逻辑都必须在 StableMatchHook::on_match_tick（核心世界 tick
@@ -343,11 +512,14 @@ fn stack_rebuild(sim: &mut StableSim<'_>, eid: usize) {
 // 会改变世界实体集合，破坏引擎内部迭代，表现为无 panic、爆点漂移的随机闪退。
 // 召唤物流的 sjw 正是用 on_match_tick 管理召唤物。
 
-/// 每个乙骨的运行时状态，按英雄实体 id 存全局；只在 on_match_tick 内短暂取出使用。
+/// 每个乙骨的运行时状态，存在所属模拟的 [`SimState`] 里；只在 on_match_tick 内复制出来推进。
 #[derive(Clone)]
 struct YutaBrain {
+    /// 乙骨所在队伍（登记时记下；乙骨阵亡期间也靠它核对里香归属）。
+    team: usize,
     /// 各标记剩余获取计时（死亡期间不递减）。
     timers: [usize; 5],
+    /// 这只乙骨的里香（本份模拟里的实体 id）。
     rika: Option<usize>,
     respawn: usize,
     /// 开局世界未稳定前延迟召唤（tick）。
@@ -356,24 +528,10 @@ struct YutaBrain {
     satk: usize,
 }
 
-impl Default for YutaBrain {
-    fn default() -> Self {
-        Self::fresh()
-    }
-}
-
-/// 大脑表：英雄实体 id -> 大脑。passive on_spawn 负责登记，MatchHook 负责推进。
-static BRAINS: LazyLock<Mutex<HashMap<usize, YutaBrain>>> =
-    LazyLock::new(|| Mutex::new(HashMap::new()));
-
-fn brains_lock<R>(f: impl FnOnce(&mut HashMap<usize, YutaBrain>) -> R) -> R {
-    let mut map = BRAINS.lock().unwrap_or_else(|e| e.into_inner());
-    f(&mut map)
-}
-
 impl YutaBrain {
-    fn fresh() -> Self {
+    fn fresh(team: usize) -> Self {
         Self {
+            team,
             timers: MARK_PERIODS,
             rika: None,
             respawn: 0,
@@ -425,10 +583,19 @@ impl YutaBrain {
             range: 14_000,
             ..UnitAttackV1::default()
         };
-        dlog(format!(
-            "spawn_unit begin tick={} lv={level} pos=({},{}) hp={} atk={} ms={} crit={}",
-            sim.tick(), x, yp, stat.hp, stat.attack, stat.move_speed, stat.crit_chance
-        ));
+        slog(
+            sim,
+            format!(
+                "spawn_unit begin tick={} owner={yuta_id} lv={level} pos=({},{}) hp={} atk={} ms={} crit={}",
+                sim.tick(),
+                x,
+                yp,
+                stat.hp,
+                stat.attack,
+                stat.move_speed,
+                stat.crit_chance
+            ),
+        );
         // 在乙骨脚下出生（固定偏移会让一侧队伍刷出场外）。
         let spawned = sim.spawn_unit(
             RIKA_UNIT,
@@ -440,15 +607,16 @@ impl YutaBrain {
             &stat,
             &attack,
         );
-        dlog(format!("spawn_unit end => {:?}", spawned));
+        slog(sim, format!("spawn_unit end => {:?}", spawned));
         if let Some(id) = spawned {
             sim.add_buff(id, &BuffV1::named(RIKA_TAG));
             self.rika = Some(id);
             self.satk = RIKA_SATK_TICKS;
             self.next_heal = sim.tick() + 60;
-            // 把乙骨已积累的噬魂成长同步给新出生的里香。
-            growth_rebuild(sim, id);
-            dlog(format!("spawn_rika ok id={id}"));
+            // 把乙骨已积累的噬魂成长同步给新出生的里香（旧版误按里香自己的 id 查表）。
+            let layers = growth_of(sim, yuta_id);
+            growth_rebuild(sim, id, layers);
+            slog(sim, format!("spawn_rika ok id={id} owner={yuta_id} growth={layers}"));
         }
     }
 
@@ -466,7 +634,7 @@ impl YutaBrain {
                 let no_shield = sim.get_entity(rika).map(|e| e.shield() == 0).unwrap_or(true);
                 if over > 0 && no_shield {
                     sim.entity_add_shield(rika, over, RIKA_SHIELD_TICKS);
-                    dlog(format!("rika shield +{over} tick={}", sim.tick()));
+                    slog(sim, format!("rika shield +{over} tick={}", sim.tick()));
                 }
             }
         }
@@ -507,25 +675,28 @@ impl YutaBrain {
                 sim.play_view_effect(fx, rika, &InputTargetV1::target(tid), 0, 0, 0);
             }
         }
-        dlog(format!("rika_special tick={} tid={tid} dmg={dmg}", sim.tick()));
+        slog(sim, format!("rika_special tick={} tid={tid} dmg={dmg}", sim.tick()));
     }
 
-    fn tick_rika(&mut self, sim: &mut StableSim<'_>, yuta_id: usize, yuta_alive: bool) {
-        // 状态自愈：若大脑里没记录里香，但场上确有带归属标记的存活里香（例如
-        // 状态重建/复活后），直接认领它，绝不再生一只造成重复召唤。
-        if self.rika.is_none() {
-            if let Some(existing) = find_rika(sim, yuta_id) {
-                self.rika = Some(existing);
-                self.respawn = 0;
+    /// `claimed`：这份模拟里其他乙骨的里香，绝不认领。
+    fn tick_rika(&mut self, sim: &mut StableSim<'_>, yuta_id: usize, yuta_alive: bool, claimed: &[usize]) {
+        // 阵亡/失效检测：记录的 id 必须仍是本方存活的里香（id 被复用给别的单位也算没了）。
+        if let Some(id) = self.rika {
+            if !is_rika(sim, id, self.team) {
+                self.rika = None;
+                self.respawn = RIKA_RESPAWN_TICKS;
+                // 里香不在场，暴击光环随之撤掉。
+                sim.entity_remove_buff(yuta_id, CRIT_AURA);
+                slog(sim, format!("rika gone id={id} owner={yuta_id} tick={}", sim.tick()));
             }
         }
 
-        // 阵亡检测。
-        if let Some(id) = self.rika {
-            let alive = sim.get_entity(id).map(|e| e.is_alive()).unwrap_or(false);
-            if !alive {
-                self.rika = None;
-                self.respawn = RIKA_RESPAWN_TICKS;
+        // 状态自愈：没记录里香，但场上有本方、未被别的乙骨认领的存活里香（例如大脑
+        // 状态重建后），直接认领它，绝不再生一只造成重复召唤。
+        if self.rika.is_none() {
+            if let Some(existing) = find_unclaimed_rika(sim, self.team, claimed) {
+                self.rika = Some(existing);
+                self.respawn = 0;
             }
         }
 
@@ -563,7 +734,7 @@ impl YutaBrain {
 
         // 暴击光环：里香在场时乙骨常驻 +50% 暴击。
         if yuta_alive && mark_count(sim, yuta_id, CRIT_AURA) == 0 {
-            sim.add_buff(yuta_id, &BuffV1::named(CRIT_AURA));
+            sim.add_buff(yuta_id, &crit_aura_buff());
         }
 
         // 普攻周期：面前有敌时按攻击间隔回血（过量转单层护盾）。
@@ -593,7 +764,7 @@ impl YutaBrain {
     }
 
     /// 每个世界 tick（安全点）推进一次：标记计时 + 里香。
-    fn tick(&mut self, sim: &mut StableSim<'_>, yuta_id: usize) {
+    fn tick(&mut self, sim: &mut StableSim<'_>, yuta_id: usize, claimed: &[usize]) {
         let yuta_alive = sim.get_entity(yuta_id).map(|e| e.is_alive()).unwrap_or(false);
 
         // 标记计时：死亡期间暂停。
@@ -603,7 +774,7 @@ impl YutaBrain {
                 if self.timers[k] > 0 {
                     self.timers[k] -= 1;
                     if self.timers[k] == 0 {
-                        dlog(format!("grant mark {k} tick={tick}"));
+                        slog(sim, format!("grant mark {k} tick={tick} owner={yuta_id}"));
                         stack_grant(sim, yuta_id, k);
                         self.timers[k] = MARK_PERIODS[k];
                     }
@@ -611,156 +782,159 @@ impl YutaBrain {
             }
         }
 
-        self.tick_rika(sim, yuta_id, yuta_alive);
+        self.tick_rika(sim, yuta_id, yuta_alive, claimed);
     }
 }
 
-/// 乙骨取得一次击杀或助攻：乙骨与在场里香各加一层噬魂成长（+10%，永久叠加）。
-/// 由 passive on_kill / on_assist 触发；里香按归属标记实时查找，不依赖大脑表，
-/// 因此即便在伤害结算中重入也安全。
+/// 乙骨取得一次击杀或助攻：乙骨与他自己的里香各加一层噬魂成长（+10%，永久叠加）。
+/// 由 passive on_kill / on_assist 触发；只短暂读写本份模拟的状态，即便在伤害结算中
+/// 重入也安全。
 fn gain_growth(sim: &mut StableSim<'_>, yuta_id: usize) {
-    dlog(format!("growth +1 tick={}", sim.tick()));
-    with_growth(yuta_id, |n| *n += 1);
+    let layers = with_state(sim, |st| {
+        let n = st.growth.entry(yuta_id).or_insert(0);
+        *n += 1;
+        *n
+    });
+    slog(sim, format!("growth -> {layers} tick={} owner={yuta_id}", sim.tick()));
     if sim.get_entity(yuta_id).map(|e| e.is_alive()).unwrap_or(false) {
         growth_push(sim, yuta_id);
     }
-    if let Some(rid) = find_rika(sim, yuta_id) {
-        if sim.get_entity(rid).map(|e| e.is_alive()).unwrap_or(false) {
-            growth_push(sim, rid);
-        }
+    if let Some(rid) = rika_of(sim, yuta_id) {
+        growth_push(sim, rid);
     }
 }
 
-/// 本场是否已经做过收场清理（on_match_start 重置；is_end 首次为真时执行一次）。
-static END_SEEN: AtomicBool = AtomicBool::new(false);
-
-/// 收场处理：【只读自检 + 只清我方 Rust 内存】，绝不在 is_end 阶段调用任何会改世界
-/// 的 API（entity_set_hp/clear_shield 等会触发引擎死亡/结算流程，在收场中途改世界
-/// 本身就可能崩溃，和当年 on_update 的教训一致）。召唤物本身由引擎在拆除世界时
-/// 安全回收——这是稳定 mod 已验证的路径，不需要我们去杀它。
-fn reap_rika_at_end(sim: &mut StableSim<'_>) {
+/// 收场处理：【只读自检】，状态已由调用方从表里拿走（只清我方 Rust 内存）。绝不在
+/// is_end 阶段调用任何会改世界的 API（entity_set_hp/clear_shield 等会触发引擎死亡/
+/// 结算流程，在收场中途改世界本身就可能崩溃，和当年 on_update 的教训一致）。召唤物
+/// 本身由引擎在拆除世界时安全回收——这是稳定 mod 已验证的路径，不需要我们去杀它。
+fn log_end(sim: &StableSim<'_>, st: &SimState) {
     // 只读：记录收场瞬间里香是否还挂着护盾（应恒为 0，因为 RIKA_SHIELD_TICKS=420
     // 远小于战斗结束到 is_end 的间隔）。若哪天看到非 0，说明护盾定时器仍是隐患。
     let mut shields: Vec<(usize, usize)> = Vec::new();
-    for i in 0..sim.entity_count() {
-        if let Some(e) = sim.entity_at(i) {
-            if e.is_alive() && has_buff_named(&e, RIKA_TAG) {
-                shields.push((e.id(), e.shield()));
+    for brain in st.brains.values() {
+        if let Some(rid) = brain.rika {
+            if let Some(e) = sim.get_entity(rid) {
+                if e.is_alive() {
+                    shields.push((rid, e.shield()));
+                }
             }
         }
     }
-    STACKS.lock().unwrap_or_else(|e| e.into_inner()).clear();
-    GROWTH.lock().unwrap_or_else(|e| e.into_inner()).clear();
-    BRAINS.lock().unwrap_or_else(|e| e.into_inner()).clear();
-    dlog(format!(
-        "end cleanup tick={} rika_shields={:?} ec={} (memory-only)",
-        sim.tick(),
-        shields,
-        sim.entity_count()
-    ));
+    slog(
+        sim,
+        format!(
+            "end cleanup tick={} brains={} rika_shields={:?} ec={} (memory-only)",
+            sim.tick(),
+            st.brains.len(),
+            shields,
+            sim.entity_count()
+        ),
+    );
 }
 
-/// 世界 tick 结束后的安全点：推进每个乙骨的大脑。
-/// 大脑先从全局表取出（避免在调用会改世界的 API 时持锁/重入死锁），再放回。
+/// 世界 tick 结束后的安全点：推进这份模拟里每个乙骨的大脑。
+/// 大脑先从状态表复制出来（推进时会调用改世界的 API，期间不能持锁/重入死锁），再写回。
 struct YutaHook;
 impl StableMatchHook for YutaHook {
-    /// 每局开局一次（玩家已出生、首个 tick 完成前）。关键：引擎在「再来一局」时
-    /// 会复用实体 id（上一局里香是 id8/id93，新一局仍是 id8/id93），而 Rust 侧
-    /// 三张全局表会跨局残留。若不清干净，上一局 GROWTH[93] 等会在新局被错误重建
-    /// 到复用 id 上，并在收场阶段触发崩溃。这里与 on_spawn 的先后无关地做彻底重置。
+    /// 每份模拟开局一次（玩家已出生、首个 tick 完成前）。只整理【这份模拟】自己的
+    /// 状态：on_spawn 刚登记的乙骨保留并复位，标记栈/成长从零开始。旧版在这里清空
+    /// 全进程共用的全局表——后台预模拟一开局，屏幕对局的状态就跟着被清掉了。
     fn on_match_start(&self, sim: &mut StableSim<'_>) {
-        // 新一局：复位收场标记。
-        END_SEEN.store(false, Ordering::Relaxed);
-        // 标记/成长：新局一律从零开始，直接整表清空（on_spawn 随后会重建英雄本体）。
-        STACKS.lock().unwrap_or_else(|e| e.into_inner()).clear();
-        GROWTH.lock().unwrap_or_else(|e| e.into_inner()).clear();
-
-        // 大脑：仍在场且是英雄的 id 重置为 fresh（新局的乙骨），其余（上一局里香等
-        // 已不存在/被复用的 id）一律剔除，杜绝指向上一局已销毁世界的悬挂引用。
-        let mut brains = BRAINS.lock().unwrap_or_else(|e| e.into_inner());
-        brains.retain(|eid, brain| {
-            let keep = sim.get_entity(*eid).map(|e| e.is_champion()).unwrap_or(false);
-            if keep {
-                *brain = YutaBrain::fresh();
+        let brains = with_state(sim, |st| {
+            st.stacks.clear();
+            st.growth.clear();
+            for brain in st.brains.values_mut() {
+                *brain = YutaBrain::fresh(brain.team);
             }
-            keep
+            st.brains.len()
         });
-        dlog(format!(
-            "on_match_start swept; ec={} brains_left={}",
-            sim.entity_count(),
-            brains.len()
-        ));
+        slog(
+            sim,
+            format!(
+                "on_match_start tick={} ec={} brains={brains}",
+                sim.tick(),
+                sim.entity_count()
+            ),
+        );
     }
 
     fn on_match_tick(&self, sim: &mut StableSim<'_>, _rng_seed: u64) {
         let tick = sim.tick();
 
-        // ===== 收场阶段：只读自检 + 清我方内存，不改世界 =====
+        // ===== 收场阶段：只读自检 + 丢掉这份模拟的状态，不改世界 =====
         // 反汇编 sungjinwoo 证实：近永久(1亿tick)召唤物 + 永久标记 buff 在连开多局时
         // 由引擎安全回收，不是崩溃源；真正不能留下的是「收场时仍未到期的护盾定时器」
         // （已用 RIKA_SHIELD_TICKS=420 保证其在战斗结束后、is_end 前自然到期）。
         // 这里绝不能 set_hp/clear_shield——在 is_end 改世界会触发引擎死亡/结算，危险。
         if sim.is_end() {
-            if !END_SEEN.swap(true, Ordering::Relaxed) {
-                reap_rika_at_end(sim);
+            if let Some(st) = take_state(sim) {
+                log_end(sim, &st);
             }
             // 收场阶段不再推进任何战斗逻辑。
             return;
         }
 
-        // 登记的乙骨实体 id 快照。
-        let ids: Vec<usize> = brains_lock(|m| m.keys().copied().collect());
-        let mut stale: Vec<usize> = Vec::new();
-        for eid in ids {
-            let is_champ = sim.get_entity(eid).map(|e| e.is_champion()).unwrap_or(false);
-            if !is_champ {
-                // 开局早期实体可能尚未就绪，仅在比赛进行一段时间后才清理失效 id。
-                if tick > 300 {
-                    stale.push(eid);
-                }
-                continue;
+        // 确保这份模拟里每个存活的乙骨都有大脑（on_spawn 已登记的不受影响；这是
+        // passive 与 hook 拿到的模拟身份万一不一致时的兜底）。没有乙骨的模拟每 30 tick
+        // 才看一眼，也不为它建状态。
+        let known = has_state(sim);
+        if !known && tick % 30 != 0 {
+            return;
+        }
+        let found = find_yutas(sim);
+        if !known && found.is_empty() {
+            return;
+        }
+        let owners: Vec<usize> = with_state(sim, |st| {
+            for &(eid, team) in &found {
+                st.brains.entry(eid).or_insert_with(|| YutaBrain::fresh(team));
             }
+            st.brains.keys().copied().collect()
+        });
+
+        for eid in owners {
+            let taken = with_state(sim, |st| {
+                let brain = st.brains.get(&eid).cloned()?;
+                let claimed: Vec<usize> = st
+                    .brains
+                    .iter()
+                    .filter(|(owner, _)| **owner != eid)
+                    .filter_map(|(_, b)| b.rika)
+                    .collect();
+                Some((brain, claimed))
+            });
+            let Some((mut brain, claimed)) = taken else { continue };
             if tick % 600 == 0 {
-                dlog(format!("brain tick={tick} entity={eid} end={}", sim.is_end()));
+                slog(sim, format!("brain tick={tick} entity={eid} rika={:?}", brain.rika));
             }
-            let mut brain = brains_lock(|m| m.remove(&eid)).unwrap_or_else(YutaBrain::fresh);
-            brain.tick(sim, eid);
-            brains_lock(|m| {
-                m.insert(eid, brain);
+            brain.tick(sim, eid, &claimed);
+            with_state(sim, |st| {
+                st.brains.insert(eid, brain);
             });
         }
-        if !stale.is_empty() {
-            brains_lock(|m| {
-                for s in stale {
-                    m.remove(&s);
-                }
-            });
-        }
+
         // 尾段打点：进入可能结束的区间后每 30 tick 一次；一旦还崩，最后一行就是
-        // 钩子完整跑完的确切 tick，并能看出 is_end 是否曾翻转（end=true 会先走上面
-        // 的 end cleanup 分支）。
+        // 钩子完整跑完的确切 tick。
         if tick >= 6_900 && tick % 30 == 0 {
-            dlog(format!(
-                "tickpost tick={tick} ec={} end={}",
-                sim.entity_count(),
-                sim.is_end()
-            ));
+            slog(sim, format!("tickpost tick={tick} ec={}", sim.entity_count()));
         }
     }
 
     /// 收场判定钩子（引擎判定胜负时调用）。双保险：若 on_match_tick 尚未观测到
-    /// is_end 翻转，这里在 is_end 为真时同样执行一次里香清理；始终返回 None 不干预胜负。
+    /// is_end 翻转，这里在 is_end 为真时同样丢掉这份模拟的状态；始终返回 None 不干预胜负。
     fn check_match_end(&self, sim: &mut StableSim<'_>) -> Option<bool> {
         let tick = sim.tick();
-        if sim.is_end() && !END_SEEN.swap(true, Ordering::Relaxed) {
-            reap_rika_at_end(sim);
+        if sim.is_end() {
+            if let Some(st) = take_state(sim) {
+                log_end(sim, &st);
+            }
         }
         if tick >= 6_900 && tick % 60 == 0 {
-            dlog(format!(
-                "check_match_end tick={tick} ec={} end={}",
-                sim.entity_count(),
-                sim.is_end()
-            ));
+            slog(
+                sim,
+                format!("check_match_end tick={tick} ec={} end={}", sim.entity_count(), sim.is_end()),
+            );
         }
         None
     }
@@ -776,22 +950,29 @@ impl StablePassive for YutaPassive {
     }
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, _player: usize, entity: usize) {
-        dlog(format!("on_spawn tick={} entity={}", sim.tick(), entity));
-        // 新比赛开局（tick < 10）清空全部残留并登记一个新大脑；复活则保留大脑
-        // （里香跨乙骨死亡继续存在），只确保已登记。
-        if sim.tick() < 10 {
-            with_stack(entity, |st| st.clear());
-            with_growth(entity, |n| *n = 0);
-            brains_lock(|m| {
-                m.insert(entity, YutaBrain::fresh());
-            });
-        } else {
-            brains_lock(|m| {
-                m.entry(entity).or_insert_with(YutaBrain::fresh);
-            });
+        let Some(team) = sim.get_entity(entity).map(|e| e.team()) else {
+            return;
+        };
+        slog(sim, format!("on_spawn tick={} entity={entity} team={team}", sim.tick()));
+        // 自身标记（固定静态名，死亡被清、复活重挂）：match hook 靠它认出乙骨。
+        if mark_count(sim, entity, YUTA_TAG) == 0 {
+            sim.add_buff(entity, &BuffV1::named(YUTA_TAG));
         }
-        stack_rebuild(sim, entity);
-        growth_rebuild(sim, entity);
+        // 这份模拟里第一次出生：登记新大脑、清掉残留；复活：保留大脑（里香跨乙骨
+        // 死亡继续存在），按记录重建标记与成长。
+        let (marks, layers) = with_state(sim, |st| {
+            if let Entry::Vacant(slot) = st.brains.entry(entity) {
+                slot.insert(YutaBrain::fresh(team));
+                st.stacks.remove(&entity);
+                st.growth.remove(&entity);
+            }
+            (
+                st.stacks.get(&entity).cloned().unwrap_or_default(),
+                st.growth.get(&entity).copied().unwrap_or(0),
+            )
+        });
+        stack_rebuild(sim, entity, &marks);
+        growth_rebuild(sim, entity, layers);
     }
 
     fn on_kill(&mut self, sim: &mut StableSim<'_>, _player: usize, entity: usize, _victim: usize) {
@@ -876,20 +1057,20 @@ impl StableEffectType for Atk3 {
             sim.play_view_effect(fx, caster, &InputTargetV1::target(tid), 0, 0, 0);
         }
         rika_true_strike(sim, caster, tid);
-        dlog(format!("atk3 tick={} tid={tid}", sim.tick()));
+        slog(sim, format!("atk3 tick={} tid={tid}", sim.tick()));
     }
 }
 
 /// 大招（方向性光束）的 native 部分拆成两个：UltOpen 自身瞬间 / UltHit 光束命中。
-/// 大招开启瞬间（方向性技能，无目标依赖）：里香原生退场
+/// 大招开启瞬间（方向性技能，无目标依赖）：【自己的】里香原生退场
 /// （引擎自己处理隐身/不可选中/输入锁定）。
 struct UltOpen;
 impl StableEffectType for UltOpen {
     fn apply(&self, sim: &mut StableSim<'_>, _: u64, caster: usize, _: InputTargetV1) {
-        if let Some(rid) = find_rika(sim, caster) {
+        if let Some(rid) = rika_of(sim, caster) {
             sim.entity_banish(caster, rid, ULT_BANISH_TICKS, "", "");
         }
-        dlog(format!("ult open tick={}", sim.tick()));
+        slog(sim, format!("ult open tick={} owner={caster}", sim.tick()));
     }
 }
 
@@ -912,7 +1093,7 @@ impl StableEffectType for UltHit {
         sim.apply_cc(tid, &CcV1::of_kind(CcKindV1::BlockSkill, ULT_BLOCK_TICKS));
         // 里香此刻已被 UltOpen 退场（不可选中），但联动真伤由乙骨直接结算，仍生效。
         rika_true_strike(sim, caster, tid);
-        dlog(format!("ult beam hit tick={} tid={tid}", sim.tick()));
+        slog(sim, format!("ult beam hit tick={} tid={tid}", sim.tick()));
     }
 }
 

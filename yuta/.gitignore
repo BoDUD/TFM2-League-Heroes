@@ -1,2 +1,4 @@
 target/
 *.dll
+# dlog() writes to E:\新建文件夹\yuta_debug.log; off Windows that is a file in the crate root
+*yuta_debug.log
