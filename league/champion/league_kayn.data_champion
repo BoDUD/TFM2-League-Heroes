@@ -125,7 +125,7 @@
                         "effect_buff": {
                           "type": "Heal",
                           "amount": 0,
-                          "attack_ratio": 30,
+                          "attack_ratio": 20,
                           "ap_ratio": 0,
                           "heal_type": "Caster"
                         },
@@ -184,8 +184,8 @@
                                       "effects": [
                                         {
                                           "type": "FixedAttack",
-                                          "damage": 10,
-                                          "attack_ratio": 20,
+                                          "damage": 8,
+                                          "attack_ratio": 15,
                                           "hp_ratio": 0,
                                           "target_hp_ratio": 0,
                                           "attack_effect_type": "Target"
@@ -319,8 +319,8 @@
               "casting_type": "Targeting",
               "effect": {
                 "type": "Attack",
-                "damage": 45,
-                "attack_ratio": 65,
+                "damage": 40,
+                "attack_ratio": 55,
                 "hp_ratio": 0,
                 "target_hp_ratio": 0,
                 "attack_effect_type": "Target"
@@ -385,8 +385,8 @@
                   "effects": [
                     {
                       "type": "Attack",
-                      "damage": 45,
-                      "attack_ratio": 65,
+                      "damage": 40,
+                      "attack_ratio": 55,
                       "hp_ratio": 0,
                       "target_hp_ratio": 0,
                       "attack_effect_type": "Target"
@@ -422,7 +422,7 @@
                             "damage": 0,
                             "attack_ratio": 0,
                             "hp_ratio": 0,
-                            "target_hp_ratio": 5,
+                            "target_hp_ratio": 4,
                             "attack_effect_type": "Target"
                           },
                           {
@@ -441,8 +441,8 @@
                       "buff_name": "league_kayn_form_d",
                       "effect_buff": {
                         "type": "Heal",
-                        "amount": 13,
-                        "attack_ratio": 19,
+                        "amount": 8,
+                        "attack_ratio": 11,
                         "ap_ratio": 0,
                         "heal_type": "Caster"
                       },
@@ -501,8 +501,8 @@
                                     "effects": [
                                       {
                                         "type": "FixedAttack",
-                                        "damage": 10,
-                                        "attack_ratio": 20,
+                                        "damage": 8,
+                                        "attack_ratio": 15,
                                         "hp_ratio": 0,
                                         "target_hp_ratio": 0,
                                         "attack_effect_type": "Target"
@@ -739,8 +739,8 @@
                       "effects": [
                         {
                           "type": "Heal",
-                          "amount": 30,
-                          "attack_ratio": 30,
+                          "amount": 20,
+                          "attack_ratio": 20,
                           "ap_ratio": 0,
                           "heal_type": "Caster"
                         }
@@ -890,8 +890,8 @@
                             "casting_type": "Targeting",
                             "effect": {
                               "type": "Attack",
-                              "damage": 60,
-                              "attack_ratio": 110,
+                              "damage": 55,
+                              "attack_ratio": 100,
                               "hp_ratio": 0,
                               "target_hp_ratio": 0,
                               "attack_effect_type": "Target"
@@ -966,8 +966,8 @@
                               "buff_name": "league_kayn_form_d",
                               "effect_buff": {
                                 "type": "Heal",
-                                "amount": 18,
-                                "attack_ratio": 33,
+                                "amount": 11,
+                                "attack_ratio": 20,
                                 "ap_ratio": 0,
                                 "heal_type": "Caster"
                               },
@@ -1026,8 +1026,8 @@
                                             "effects": [
                                               {
                                                 "type": "FixedAttack",
-                                                "damage": 10,
-                                                "attack_ratio": 20,
+                                                "damage": 8,
+                                                "attack_ratio": 15,
                                                 "hp_ratio": 0,
                                                 "target_hp_ratio": 0,
                                                 "attack_effect_type": "Target"
@@ -1077,8 +1077,8 @@
                               "casting_type": "Targeting",
                               "effect": {
                                 "type": "Attack",
-                                "damage": 60,
-                                "attack_ratio": 110,
+                                "damage": 55,
+                                "attack_ratio": 100,
                                 "hp_ratio": 0,
                                 "target_hp_ratio": 0,
                                 "attack_effect_type": "Target"
@@ -1146,8 +1146,8 @@
                                 "buff_name": "league_kayn_form_d",
                                 "effect_buff": {
                                   "type": "Heal",
-                                  "amount": 18,
-                                  "attack_ratio": 33,
+                                  "amount": 11,
+                                  "attack_ratio": 20,
                                   "ap_ratio": 0,
                                   "heal_type": "Caster"
                                 },
@@ -1206,8 +1206,8 @@
                                               "effects": [
                                                 {
                                                   "type": "FixedAttack",
-                                                  "damage": 10,
-                                                  "attack_ratio": 20,
+                                                  "damage": 8,
+                                                  "attack_ratio": 15,
                                                   "hp_ratio": 0,
                                                   "target_hp_ratio": 0,
                                                   "attack_effect_type": "Target"
@@ -1254,8 +1254,8 @@
                               "casting_type": "Targeting",
                               "effect": {
                                 "type": "Attack",
-                                "damage": 60,
-                                "attack_ratio": 110,
+                                "damage": 55,
+                                "attack_ratio": 100,
                                 "hp_ratio": 0,
                                 "target_hp_ratio": 0,
                                 "attack_effect_type": "Target"
@@ -1986,8 +1986,8 @@
                         },
                         {
                           "type": "Attack",
-                          "damage": 120,
-                          "attack_ratio": 160,
+                          "damage": 110,
+                          "attack_ratio": 150,
                           "hp_ratio": 0,
                           "target_hp_ratio": 0,
                           "attack_effect_type": "Target"
@@ -2016,7 +2016,7 @@
                                 "damage": 0,
                                 "attack_ratio": 0,
                                 "hp_ratio": 0,
-                                "target_hp_ratio": 12,
+                                "target_hp_ratio": 10,
                                 "attack_effect_type": "Target"
                               },
                               {
@@ -2076,8 +2076,8 @@
                           "buff_name": "league_kayn_form_d",
                           "effect_buff": {
                             "type": "Heal",
-                            "amount": 36,
-                            "attack_ratio": 48,
+                            "amount": 22,
+                            "attack_ratio": 30,
                             "ap_ratio": 0,
                             "heal_type": "Caster"
                           },
@@ -2136,8 +2136,8 @@
                                         "effects": [
                                           {
                                             "type": "FixedAttack",
-                                            "damage": 10,
-                                            "attack_ratio": 20,
+                                            "damage": 8,
+                                            "attack_ratio": 15,
                                             "hp_ratio": 0,
                                             "target_hp_ratio": 0,
                                             "attack_effect_type": "Target"

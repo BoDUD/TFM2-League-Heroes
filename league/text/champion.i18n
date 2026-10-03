@@ -353,10 +353,10 @@
       },
       "league_kayn": {
         "name": "凯隐",
-        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理伤害。暗裔魔镰：<#fffffffe><>技能打中身边英雄攒<#fe5c50ff>暗裔<>（<#ffb900ff>2<>次），W只打中远处英雄攒<#8484fbff>影流<>（<#ffb900ff>1<>次），先满的变身（死亡重攒）<#ffffffff><>。<#fe5c50ff>暗裔杀手<>：对英雄的伤害回复<#ffb900ff>30%<>；<#8484fbff>影流刺客<>：开战<#ffb900ff>3秒<>内每次命中英雄额外<#ffb900ff>10<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>20%<>真实伤害。",
-        "skill": "冲向目标并旋转镰刀，冲刺和旋转各造成<#ff9028ff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<>物理伤害（<#fe5c50ff>暗裔<>：对英雄再加<#ff9028ff>5%最大生命<>）。掠影步：之后<#ffb900ff>2秒<>移速+<#ffb900ff>35%<>（<#8484fbff>影流<>+<#ffb900ff>55%<>），回复<#ffb900ff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>30%<>生命。",
-        "skill2": "举镰<#ffb900ff>0.55秒<>（举起时锁定方向）后向前斩出一道镰刃，造成<#ff9028ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>物理伤害和逐渐衰减的<#ffb900ff>50%<>减速。<#fe5c50ff>暗裔<>：击飞<#ffb900ff>0.75秒<>；<#8484fbff>影流<>：距离更远。",
-        "ult": "钻进最近被己方打过的敌方英雄体内，<#ffb900ff>2秒<>不可选取，随后破体而出造成<#ff9028ff>120<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<>物理伤害。<#fe5c50ff>暗裔<>：再加<#ff9028ff>12%最大生命<>伤害并回复其中<#ffb900ff>70%<>；<#8484fbff>影流<>：重新开启开战额外伤害。"
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理伤害。暗裔魔镰：<#fffffffe><>技能打中身边英雄攒<#fe5c50ff>暗裔<>（<#ffb900ff>2<>次），W只打中远处英雄攒<#8484fbff>影流<>（<#ffb900ff>1<>次），先满的变身（死亡重攒）<#ffffffff><>。<#fe5c50ff>暗裔杀手<>：对英雄的伤害回复<#ffb900ff>20%<>；<#8484fbff>影流刺客<>：开战<#ffb900ff>3秒<>内每次命中英雄额外<#ffb900ff>8<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>15%<>真实伤害。",
+        "skill": "冲向目标并旋转镰刀，冲刺和旋转各造成<#ff9028ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>物理伤害（<#fe5c50ff>暗裔<>：对英雄再加<#ff9028ff>4%最大生命<>）。掠影步：之后<#ffb900ff>2秒<>移速+<#ffb900ff>35%<>（<#8484fbff>影流<>+<#ffb900ff>55%<>），回复<#ffb900ff>20<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>20%<>生命。",
+        "skill2": "举镰<#ffb900ff>0.55秒<>（举起时锁定方向）后向前斩出一道镰刃，造成<#ff9028ff>55<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理伤害和逐渐衰减的<#ffb900ff>50%<>减速。<#fe5c50ff>暗裔<>：击飞<#ffb900ff>0.75秒<>；<#8484fbff>影流<>：距离更远。",
+        "ult": "钻进最近被己方打过的敌方英雄体内，<#ffb900ff>2秒<>不可选取，随后破体而出造成<#ff9028ff>110<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>物理伤害。<#fe5c50ff>暗裔<>：再加<#ff9028ff>10%最大生命<>伤害并回复其中<#ffb900ff>70%<>；<#8484fbff>影流<>：重新开启开战额外伤害。"
       }
     },
     "skill_name": {
@@ -971,10 +971,10 @@
       },
       "league_kayn": {
         "name": "慨影",
-        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理傷害。冥血罪鐮：<#fffffffe><>技能打中身邊英雄累積<#fe5c50ff>闇裔<>（<#ffb900ff>2<>次），W只打中遠處英雄累積<#8484fbff>影流<>（<#ffb900ff>1<>次），先滿的變身（死亡重算）<#ffffffff><>。<#fe5c50ff>闇裔<>：對英雄的傷害回復<#ffb900ff>30%<>；<#8484fbff>影流<>：開戰<#ffb900ff>3秒<>內每次命中英雄額外<#ffb900ff>10<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>20%<>真實傷害。",
-        "skill": "衝向目標並旋轉鐮刀，衝刺和旋轉各造成<#ff9028ff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<>物理傷害（<#fe5c50ff>闇裔<>：對英雄再加<#ff9028ff>5%最大生命<>）。夜叉行：之後<#ffb900ff>2秒<>移速+<#ffb900ff>35%<>（<#8484fbff>影流<>+<#ffb900ff>55%<>），回復<#ffb900ff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>30%<>生命。",
-        "skill2": "舉鐮<#ffb900ff>0.55秒<>（舉起時鎖定方向）後向前斬出一道鐮刃，造成<#ff9028ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>物理傷害和逐漸減弱的<#ffb900ff>50%<>緩速。<#fe5c50ff>闇裔<>：擊飛<#ffb900ff>0.75秒<>；<#8484fbff>影流<>：距離更遠。",
-        "ult": "鑽進最近被己方打過的敵方英雄體內，<#ffb900ff>2秒<>無法被選取，隨後破體而出造成<#ff9028ff>120<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<>物理傷害。<#fe5c50ff>闇裔<>：再加<#ff9028ff>12%最大生命<>傷害並回復其中<#ffb900ff>70%<>；<#8484fbff>影流<>：重新開啟開戰額外傷害。"
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理傷害。冥血罪鐮：<#fffffffe><>技能打中身邊英雄累積<#fe5c50ff>闇裔<>（<#ffb900ff>2<>次），W只打中遠處英雄累積<#8484fbff>影流<>（<#ffb900ff>1<>次），先滿的變身（死亡重算）<#ffffffff><>。<#fe5c50ff>闇裔<>：對英雄的傷害回復<#ffb900ff>20%<>；<#8484fbff>影流<>：開戰<#ffb900ff>3秒<>內每次命中英雄額外<#ffb900ff>8<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>15%<>真實傷害。",
+        "skill": "衝向目標並旋轉鐮刀，衝刺和旋轉各造成<#ff9028ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>物理傷害（<#fe5c50ff>闇裔<>：對英雄再加<#ff9028ff>4%最大生命<>）。夜叉行：之後<#ffb900ff>2秒<>移速+<#ffb900ff>35%<>（<#8484fbff>影流<>+<#ffb900ff>55%<>），回復<#ffb900ff>20<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>20%<>生命。",
+        "skill2": "舉鐮<#ffb900ff>0.55秒<>（舉起時鎖定方向）後向前斬出一道鐮刃，造成<#ff9028ff>55<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理傷害和逐漸減弱的<#ffb900ff>50%<>緩速。<#fe5c50ff>闇裔<>：擊飛<#ffb900ff>0.75秒<>；<#8484fbff>影流<>：距離更遠。",
+        "ult": "鑽進最近被己方打過的敵方英雄體內，<#ffb900ff>2秒<>無法被選取，隨後破體而出造成<#ff9028ff>110<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>物理傷害。<#fe5c50ff>闇裔<>：再加<#ff9028ff>10%最大生命<>傷害並回復其中<#ffb900ff>70%<>；<#8484fbff>影流<>：重新開啟開戰額外傷害。"
       }
     },
     "skill_name": {
@@ -1589,10 +1589,10 @@
       },
       "league_kayn": {
         "name": "Kayn",
-        "attack": "Basic attacks deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. <#ff9028ff>Darkin Scythe<>: <#fffffffe><>spell hits on nearby champions charge the <#fe5c50ff>Darkin<> (<#ffb900ff>2<>), W hits only on far ones the <#8484fbff>Shadow<> (<#ffb900ff>1<>); the first full one is his form until death<#ffffffff><>. <#fe5c50ff>Darkin<>: heals <#ffb900ff>30%<> of damage to champions. <#8484fbff>Shadow<>: for <#ffb900ff>3s<> into a fight, hits on champions deal <#ffb900ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>20%<> true damage more.",
-        "skill": "Kayn dashes at the target and spins his scythe; the dash and the spin each deal <#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65% AD<> <#ff9028ff>physical damage<> (<#fe5c50ff>Darkin<>: +<#ff9028ff>5% max health<> to champions). <#ff9028ff>Shadow Step<>: then <#ffb900ff>+35%<> move speed (<#8484fbff>Shadow<> <#ffb900ff>+55%<>) for <#ffb900ff>2s<> and heals <#ffb900ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>30%<>.",
-        "skill2": "Kayn raises his scythe for <#ffb900ff>0.55s<> (the aim locks as he raises it), then slashes a line ahead: <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110% AD<> <#ff9028ff>physical damage<> and a decaying <#ffb900ff>50%<> slow. <#fe5c50ff>Darkin<>: knocks up for <#ffb900ff>0.75s<>. <#8484fbff>Shadow<>: longer reach.",
-        "ult": "Kayn infests an enemy champion his team damaged recently, untargetable for <#ffb900ff>2s<>, then bursts out for <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160% AD<> <#ff9028ff>physical damage<>. <#fe5c50ff>Darkin<>: +<#ff9028ff>12% max health<>, healing <#ffb900ff>70%<> of it. <#8484fbff>Shadow<>: his fight-start bonus opens again."
+        "attack": "Basic attacks deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. <#ff9028ff>Darkin Scythe<>: <#fffffffe><>spell hits on nearby champions charge the <#fe5c50ff>Darkin<> (<#ffb900ff>2<>), W hits only on far ones the <#8484fbff>Shadow<> (<#ffb900ff>1<>); the first full one is his form until death<#ffffffff><>. <#fe5c50ff>Darkin<>: heals <#ffb900ff>20%<> of damage to champions. <#8484fbff>Shadow<>: for <#ffb900ff>3s<> into a fight, hits on champions deal <#ffb900ff>8<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>15%<> true damage more.",
+        "skill": "Kayn dashes at the target and spins his scythe; the dash and the spin each deal <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55% AD<> <#ff9028ff>physical damage<> (<#fe5c50ff>Darkin<>: +<#ff9028ff>4% max health<> to champions). <#ff9028ff>Shadow Step<>: then <#ffb900ff>+35%<> move speed (<#8484fbff>Shadow<> <#ffb900ff>+55%<>) for <#ffb900ff>2s<> and heals <#ffb900ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>20%<>.",
+        "skill2": "Kayn raises his scythe for <#ffb900ff>0.55s<> (the aim locks as he raises it), then slashes a line ahead: <#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<> and a decaying <#ffb900ff>50%<> slow. <#fe5c50ff>Darkin<>: knocks up for <#ffb900ff>0.75s<>. <#8484fbff>Shadow<>: longer reach.",
+        "ult": "Kayn infests an enemy champion his team damaged recently, untargetable for <#ffb900ff>2s<>, then bursts out for <#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150% AD<> <#ff9028ff>physical damage<>. <#fe5c50ff>Darkin<>: +<#ff9028ff>10% max health<>, healing <#ffb900ff>70%<> of it. <#8484fbff>Shadow<>: his fight-start bonus opens again."
       }
     },
     "skill_name": {
@@ -2207,10 +2207,10 @@
       },
       "league_kayn": {
         "name": "케인",
-        "attack": "기본 공격은 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>다르킨의 낫<>: <#fffffffe><>가까운 챔피언에게 스킬 적중 시 <#fe5c50ff>다르킨<>(<#ffb900ff>2<>), W가 먼 챔피언만 맞히면 <#8484fbff>그림자 암살자<>(<#ffb900ff>1<>) 충전, 먼저 차는 쪽으로 변신(사망 시 초기화)<#ffffffff><>. <#fe5c50ff>다르킨<>: 챔피언 피해의 <#ffb900ff>30%<> 회복. <#8484fbff>암살자<>: 전투 시작 <#ffb900ff>3초<> 동안 챔피언 적중마다 <#ffb900ff>10<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>20%<> 고정 피해.",
-        "skill": "대상에게 돌진한 뒤 낫을 회전, 돌진과 회전이 각각 <#ff9028ff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 65%<> <#ff9028ff>물리 피해<>(<#fe5c50ff>다르킨<>: 챔피언에게 <#ff9028ff>최대 체력의 5%<> 추가). <#ff9028ff>그림자의 길<>: 이후 <#ffb900ff>2초<> 이동 속도 +<#ffb900ff>35%<>(<#8484fbff>암살자<> +<#ffb900ff>55%<>), 체력 <#ffb900ff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>30%<> 회복.",
-        "skill2": "<#ffb900ff>0.55초<> 낫을 들어 올린 뒤(이때 방향 고정) 앞으로 베어 <#ff9028ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 110%<> <#ff9028ff>물리 피해<>와 점점 약해지는 <#ffb900ff>50%<> 둔화. <#fe5c50ff>다르킨<>: <#ffb900ff>0.75초<> 띄워 올림. <#8484fbff>암살자<>: 사거리 증가.",
-        "ult": "최근 아군이 피해를 준 적 챔피언에게 침투해 <#ffb900ff>2초<> 동안 대상으로 지정할 수 없고, 빠져나오며 <#ff9028ff>120<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 160%<> <#ff9028ff>물리 피해<>. <#fe5c50ff>다르킨<>: <#ff9028ff>최대 체력의 12%<> 추가, 그 <#ffb900ff>70%<> 회복. <#8484fbff>암살자<>: 전투 시작 추가 피해 재활성화."
+        "attack": "기본 공격은 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>다르킨의 낫<>: <#fffffffe><>가까운 챔피언에게 스킬 적중 시 <#fe5c50ff>다르킨<>(<#ffb900ff>2<>), W가 먼 챔피언만 맞히면 <#8484fbff>그림자 암살자<>(<#ffb900ff>1<>) 충전, 먼저 차는 쪽으로 변신(사망 시 초기화)<#ffffffff><>. <#fe5c50ff>다르킨<>: 챔피언 피해의 <#ffb900ff>20%<> 회복. <#8484fbff>암살자<>: 전투 시작 <#ffb900ff>3초<> 동안 챔피언 적중마다 <#ffb900ff>8<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>15%<> 고정 피해.",
+        "skill": "대상에게 돌진한 뒤 낫을 회전, 돌진과 회전이 각각 <#ff9028ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 55%<> <#ff9028ff>물리 피해<>(<#fe5c50ff>다르킨<>: 챔피언에게 <#ff9028ff>최대 체력의 4%<> 추가). <#ff9028ff>그림자의 길<>: 이후 <#ffb900ff>2초<> 이동 속도 +<#ffb900ff>35%<>(<#8484fbff>암살자<> +<#ffb900ff>55%<>), 체력 <#ffb900ff>20<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>20%<> 회복.",
+        "skill2": "<#ffb900ff>0.55초<> 낫을 들어 올린 뒤(이때 방향 고정) 앞으로 베어 <#ff9028ff>55<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>와 점점 약해지는 <#ffb900ff>50%<> 둔화. <#fe5c50ff>다르킨<>: <#ffb900ff>0.75초<> 띄워 올림. <#8484fbff>암살자<>: 사거리 증가.",
+        "ult": "최근 아군이 피해를 준 적 챔피언에게 침투해 <#ffb900ff>2초<> 동안 대상으로 지정할 수 없고, 빠져나오며 <#ff9028ff>110<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 150%<> <#ff9028ff>물리 피해<>. <#fe5c50ff>다르킨<>: <#ff9028ff>최대 체력의 10%<> 추가, 그 <#ffb900ff>70%<> 회복. <#8484fbff>암살자<>: 전투 시작 추가 피해 재활성화."
       }
     },
     "skill_name": {
@@ -2825,10 +2825,10 @@
       },
       "league_kayn": {
         "name": "ケイン",
-        "attack": "通常攻撃は<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>緋眼の大鎌<>：<#fffffffe><>近くの敵へのスキル命中で<#fe5c50ff>ダーキン<>（<#ffb900ff>2<>）、Wが遠くの敵だけに命中で<#8484fbff>暗殺者<>（<#ffb900ff>1<>）が溜まり、先に満ちた方に変身（死亡で解除）<#ffffffff><>。<#fe5c50ff>ダーキン<>：与ダメージの<#ffb900ff>30%<>回復。<#8484fbff>暗殺者<>：開戦<#ffb900ff>3秒<>、命中ごとに<#ffb900ff>10<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>20%<>確定ダメージ。",
-        "skill": "対象へ突進し大鎌を回転、突進と回転がそれぞれ<#ff9028ff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の65%<>の<#ff9028ff>物理ダメージ<>（<#fe5c50ff>ダーキン<>：チャンピオンに<#ff9028ff>最大体力の5%<>追加）。<#ff9028ff>影抜き<>：その後<#ffb900ff>2秒<>移動速度+<#ffb900ff>35%<>（<#8484fbff>暗殺者<>+<#ffb900ff>55%<>）、体力<#ffb900ff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>30%<>回復。",
-        "skill2": "<#ffb900ff>0.55秒<>大鎌を構え（その時に方向固定）前方を斬り、<#ff9028ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の110%<>の<#ff9028ff>物理ダメージ<>と減衰する<#ffb900ff>50%<>スロウ。<#fe5c50ff>ダーキン<>：<#ffb900ff>0.75秒<>打ち上げ。<#8484fbff>暗殺者<>：射程が長い。",
-        "ult": "味方が最近ダメージを与えた敵チャンピオンに潜り込み<#ffb900ff>2秒<>対象不可、飛び出して<#ff9028ff>120<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の160%<>の<#ff9028ff>物理ダメージ<>。<#fe5c50ff>ダーキン<>：<#ff9028ff>最大体力の12%<>追加、その<#ffb900ff>70%<>回復。<#8484fbff>暗殺者<>：開戦ボーナスが再び有効。"
+        "attack": "通常攻撃は<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>緋眼の大鎌<>：<#fffffffe><>近くの敵へのスキル命中で<#fe5c50ff>ダーキン<>（<#ffb900ff>2<>）、Wが遠くの敵だけに命中で<#8484fbff>暗殺者<>（<#ffb900ff>1<>）が溜まり、先に満ちた方に変身（死亡で解除）<#ffffffff><>。<#fe5c50ff>ダーキン<>：与ダメージの<#ffb900ff>20%<>回復。<#8484fbff>暗殺者<>：開戦<#ffb900ff>3秒<>、命中ごとに<#ffb900ff>8<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>15%<>確定ダメージ。",
+        "skill": "対象へ突進し大鎌を回転、突進と回転がそれぞれ<#ff9028ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の55%<>の<#ff9028ff>物理ダメージ<>（<#fe5c50ff>ダーキン<>：チャンピオンに<#ff9028ff>最大体力の4%<>追加）。<#ff9028ff>影抜き<>：その後<#ffb900ff>2秒<>移動速度+<#ffb900ff>35%<>（<#8484fbff>暗殺者<>+<#ffb900ff>55%<>）、体力<#ffb900ff>20<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>20%<>回復。",
+        "skill2": "<#ffb900ff>0.55秒<>大鎌を構え（その時に方向固定）前方を斬り、<#ff9028ff>55<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>と減衰する<#ffb900ff>50%<>スロウ。<#fe5c50ff>ダーキン<>：<#ffb900ff>0.75秒<>打ち上げ。<#8484fbff>暗殺者<>：射程が長い。",
+        "ult": "味方が最近ダメージを与えた敵チャンピオンに潜り込み<#ffb900ff>2秒<>対象不可、飛び出して<#ff9028ff>110<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の150%<>の<#ff9028ff>物理ダメージ<>。<#fe5c50ff>ダーキン<>：<#ff9028ff>最大体力の10%<>追加、その<#ffb900ff>70%<>回復。<#8484fbff>暗殺者<>：開戦ボーナスが再び有効。"
       }
     },
     "skill_name": {
