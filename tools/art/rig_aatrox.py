@@ -103,6 +103,12 @@ LEG_TOP = 88                         # the legs below this row move; the hips an
 NEAR_FOOT = (97, 57.0)               # the near foot: from this row down, mirrored about this column (under the knee:
 #                                      「往膝盖那移一点都解决了」 - 57.5 left it a square out from the shin)
 NEAR_KNEE_FILL = {(95, 58): "e"}     # the near knee's black square inside the leg
+# the red hip plates over the thighs' tops (rows HIP_PLATE_ROWS, the reds and their dark shade): with the hips brought in
+# they rode into the middle of the body - 「待机的腿上的红色部位是在外面的 然后走路时就到里面了」 - so they stay with the
+# body where the idle has them, and the moved thighs show their own steel there (PLATE_UNDER)
+HIP_PLATE_ROWS = (88, 91)
+HIP_PLATE_KEYS = "56789"
+PLATE_UNDER = {"near": "1", "far": "0"}
 # the idle's legs (canvas squares): their columns and hips
 NEAR_LEG = {"cols": (52, 64), "hip": (59.0, 88.0)}
 FAR_LEG = {"cols": (64, 76), "hip": (69.0, 88.0)}
@@ -444,13 +450,29 @@ def turn(sprite, joint, deg):
     return r, (jx + (joint[0] - round(joint[0])), jy + (joint[1] - round(joint[1])))
 
 
+def hip_plates(des, sm):
+    """The red hip plates' squares on the design (HIP_PLATE_ROWS, HIP_PLATE_KEYS, in the legs' columns, not the blade)."""
+    m = np.zeros(des.shape[:2], bool)
+    r0, r1 = HIP_PLATE_ROWS
+    for k in HIP_PLATE_KEYS:
+        m[r0:r1] |= (des[r0:r1, :, 3] > 0) & (des[r0:r1, :, :3] == D.COL[k]).all(-1)
+    m[:, :NEAR_LEG["cols"][0]] = False
+    m[:, FAR_LEG["cols"][1]:] = False
+    return m & ~sm
+
+
 def leg_piece(des, sm, L, near=False):
-    """One of the idle's legs below LEG_TOP, the blade's squares left out; the near one with its knee square filled and
-    its foot mirrored about the ankle (the toe forward, the leg above it as drawn)."""
+    """One of the idle's legs below LEG_TOP, the blade's squares left out, the hip plates' squares in the thigh's own
+    steel (the plates stay with the body); the near one with its knee square filled and its foot mirrored about the
+    ankle (the toe forward, the leg above it as drawn)."""
     c0, c1 = L["cols"]
     leg = np.zeros_like(des)
     leg[LEG_TOP:, c0:c1] = des[LEG_TOP:, c0:c1]
     leg[sm] = 0
+    plate = hip_plates(des, sm)
+    plate[:, :c0] = False
+    plate[:, c1:] = False
+    leg[plate] = rgba(PLATE_UNDER["near" if near else "far"])
     if near:
         for (r, c), k in NEAR_KNEE_FILL.items():
             leg[r, c] = rgba(k)
@@ -476,6 +498,8 @@ def run(i, des, sm):
     upper = des.copy()
     upper[LEG_TOP:, NEAR_LEG["cols"][0]:FAR_LEG["cols"][1]] = 0
     upper[sm] = des[sm]                                   # the blade hangs below the hips with the fist
+    plate = hip_plates(des, sm)
+    upper[plate] = des[plate]                             # the red hip plates stay where the idle has them
     na, nl, fa, fl = RUN[i]
     legs, drop = [], 0
     for L, deg, lift, near in ((FAR_LEG, fa, fl, False), (NEAR_LEG, na, nl, True)):
