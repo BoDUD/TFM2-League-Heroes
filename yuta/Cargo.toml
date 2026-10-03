@@ -1,0 +1,15 @@
+[package]
+name = "yuta"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+mod-api-stable = { path = "vendor/mod-api-stable" }
+
+[profile.release]
+lto = "thin"
+strip = "debuginfo"
