@@ -445,7 +445,7 @@
                                 "type": "TargetProjectile",
                                 "name": "league_caitlyn_bolt",
                                 "speed": 7000,
-                                "y_offset": -1500,
+                                "y_offset": -2500,
                                 "applied_target": "Enemy",
                                 "applied_effects": [
                                   {
@@ -513,7 +513,7 @@
                                   "type": "TargetProjectile",
                                   "name": "league_caitlyn_bolt",
                                   "speed": 7000,
-                                  "y_offset": -1500,
+                                  "y_offset": -2500,
                                   "applied_target": "Enemy",
                                   "applied_effects": [
                                     {
@@ -581,7 +581,7 @@
                                     "type": "TargetProjectile",
                                     "name": "league_caitlyn_bolt",
                                     "speed": 7000,
-                                    "y_offset": -1500,
+                                    "y_offset": -2500,
                                     "applied_target": "Enemy",
                                     "applied_effects": [
                                       {
@@ -649,7 +649,7 @@
                                       "type": "TargetProjectile",
                                       "name": "league_caitlyn_bolt",
                                       "speed": 7000,
-                                      "y_offset": -1500,
+                                      "y_offset": -2500,
                                       "applied_target": "Enemy",
                                       "applied_effects": [
                                         {
@@ -710,7 +710,7 @@
                                       "type": "TargetProjectile",
                                       "name": "league_caitlyn_bolt",
                                       "speed": 7000,
-                                      "y_offset": -1500,
+                                      "y_offset": -2500,
                                       "applied_target": "Enemy",
                                       "applied_effects": [
                                         {

@@ -15,11 +15,10 @@ Here every frame is put together from the approved design's own parts (assets/so
   「枪的细节太差了」, 「枪的元素太少 实在改不好的话就抄oppi的拿回来手描」) and turned whole by RotSprite; the arms along
   shoulder -> elbow -> hand (ARM: the navy sleeve with its brown leather, the gold band, the cream cuff, the brown
   glove; every square within 1 of the line takes the colour at that length and side; a hand out of reach stops at
-  the arm's length, never a stretched stick); the legs as oppi draws them (「除了移动的时候 其他时候腿部完全不对」):
-  standing, straight down like the idle's and at most SPREAD out under the skirt's corners (slanting legs stepped and
-  broke their bands: 「这里腿各种脱节」), two squares thick with the design's garter, knee pad, boot top and buckle
-  whole, both toes forward as the idle's; oppi's kneel drawn square by square (KNEEL); the hop back with both legs straight
-  down and together off the ground; one outline ring each;
+  the arm's length, never a stretched stick); one outline ring each;
+- the legs: standing, aiming and every skill on the idle's own legs, square for square (the user, after slanted,
+  spread and splayed legs: 「这里腿各种脱节」「怎么释放技能全外八字啊」「这姿势不怪吗 你还不明白吗」) - the hop lifts them
+  off the ground; oppi's kneel drawn square by square (KNEEL) for Q, R and the death;
 - the idle and the carrying frames: the design's hold (the butt by the near hip, the barrel up past the far
   shoulder) with the traced rifle - the user picked it over the design's own rifle so that the rifle is the same in
   every action (「B」); standing straight on the design's own legs;
@@ -277,108 +276,6 @@ def arm(shoulder, hand, out_dir=-1):
     return chain([shoulder, e, hand], lambda t: ARM_HALF, colour)
 
 
-# the leg: hip at row -2, knee in the knee pad's row, ankle between the foot's rows (the design's left leg)
-HIP_Y, KNEE_Y, ANKLE_Y, TOE = -2.0, 2.0, 9.5, 1.0
-LT, LS = KNEE_Y - HIP_Y, ANKLE_Y - KNEE_Y
-# the design leg's two fill columns, row by row: the thigh (navy, the garter, the knee pad) and the shin (navy, the
-# boot top, the boot, the buckle); a bone drawn shorter keeps its bands whole and drops navy rows first. Bone lines
-# coloured square by square scattered the bands into gold specks on every slanted leg (「腿有点变形」)
-THIGH_END = ["Ct", "vw"]
-SHIN_END = ["CC", "vv", "vw", "vC"]
-FOOT = ["vvw", "tvw"]                            # the foot's two rows under a standing shin, the toe forward
-SPREAD = 2.0                                     # how far a standing leg moves out from its hip (the skirt's corners)
-FOOT_FLAT = ["vt", "wv"]                         # at the end of a level shin: two columns, top and bottom
-
-
-def leg_materials(d):
-    return None                                  # the leg's colours are the design's, spelled out above
-
-
-def bands(n, end, fill="rr"):
-    if n <= 0:
-        return []
-    if n > len(end):
-        return [fill] * (n - len(end)) + end
-    return {1: [end[-1]], 2: [end[0], end[-1]], 3: [end[0], end[-2], end[-1]]}.get(n, end[len(end) - n:])
-
-
-def steep(a, b):
-    return abs(b[1] - a[1]) >= abs(b[0] - a[0])
-
-
-def by_rows(a, b, rows, end, out):
-    """The bone a -> b on the given rows, two squares wide round the line, its bands from a to b; returns the last
-    row's first column."""
-    mats = bands(len(rows), end)
-    c0 = int(math.floor(a[0] - 0.5))
-    for i, y in enumerate(rows):
-        t = (y - a[1]) / (b[1] - a[1]) if b[1] != a[1] else 1.0
-        x = a[0] + (b[0] - a[0]) * min(1.0, max(0.0, t))
-        c0 = int(math.floor(x - 0.5))
-        for j, ch in enumerate(mats[i]):
-            out[(c0 + j, y)] = rgba(ch)
-    return c0
-
-
-def by_cols(a, b, cols, end, out):
-    """The bone a -> b on the given columns, two squares tall round the line, its bands from a to b."""
-    mats = bands(len(cols), end)
-    for i, x in enumerate(cols):
-        t = (x - a[0]) / (b[0] - a[0]) if b[0] != a[0] else 1.0
-        y = a[1] + (b[1] - a[1]) * min(1.0, max(0.0, t))
-        r0 = int(math.floor(y - 0.5))
-        for j, ch in enumerate(mats[i]):
-            out[(x, r0 + j)] = rgba(ch)
-
-
-def span(p0, p1):
-    s = 1 if p1 >= p0 else -1
-    return list(range(p0, p1 + s, s))
-
-
-def leg(hip, ankle, mats=None, kneel=None, out_dir=None):
-    """One leg drawn as pixel art: the thigh hip -> knee and the shin knee -> ankle two squares thick, row by row (or
-    column by column where a bone lies flatter than 45 degrees), the design's bands whole, the foot toe forward under
-    a standing shin or at the end of a level one. The knee bends forward (out_dir +1) unless told otherwise, or sits
-    where kneel puts it."""
-    if kneel is not None:
-        k = kneel
-    else:
-        # standing: the leg straight down like the idle's, at most SPREAD squares out from the hip so its top stays
-        # under the skirt's hem; a slanting leg stepped a square every few rows and every band broke at the steps
-        # (the user: 「这里腿各种脱节」)
-        x = min(max(ankle[0], hip[0] - SPREAD), hip[0] + SPREAD)
-        hip, ankle = (x, hip[1]), (x, ankle[1])
-        f = LT / (LT + LS)
-        k = (hip[0] + (ankle[0] - hip[0]) * f, hip[1] + (ankle[1] - hip[1]) * f)
-    cells = {}
-    kr = int(math.floor(k[1] + 0.5))              # the knee pad's row
-    kc = int(math.floor(k[0]))                    # ... and column
-    if steep(hip, k):
-        by_rows(hip, k, span(int(math.floor(hip[1])) + 1, kr), THIGH_END, cells)
-    else:
-        by_cols(hip, k, span(int(math.floor(hip[0])), kc), THIGH_END, cells)
-    if steep(k, ankle):
-        ar = int(math.floor(ankle[1]))            # the foot's first row
-        c0 = by_rows(k, ankle, span(kr + 1, ar - 1), SHIN_END, cells)
-        # the foot right under the shin's last row, its toe forward as the idle's (the near toe turned out made her
-        # duck-footed in every skill: 「怎么释放技能全外八字啊」)
-        for i, row in enumerate(FOOT):
-            for j, ch in enumerate(row):
-                cells[(c0 + j, ar + i)] = rgba(ch)
-    else:
-        s = 1 if ankle[0] > k[0] else -1
-        first = int(math.floor(k[0] - 0.5)) + (2 if s > 0 else -1)
-        last = int(math.floor(ankle[0]))
-        cols = span(first, last)
-        by_cols(k, ankle, cols, SHIN_END, cells)
-        r0 = int(math.floor(ankle[1] - 0.5))
-        for i, col in enumerate(FOOT_FLAT):
-            for j, ch in enumerate(col):
-                cells[(cols[-1] + s * (i + 1), r0 + j)] = rgba(ch)
-    return cells
-
-
 # legs drawn square by square (oppi's kneel: the near knee on the ground and its shin flat behind, the far shin
 # upright under a level thigh), rows from KNEEL_Y, columns from X0; the far one first
 X0 = -12
@@ -440,12 +337,6 @@ def grid_cells(rows, y0, dx=0, dy=0):
     return out
 
 
-def run_leg(phase, dx=0, dy=0):
-    """A leg of the approved run (tools/art/fix_caitlyn_run_v2.py LEG, its near hip on columns -3/-2)."""
-    import fix_caitlyn_run_v2 as RUN
-    return grid_cells(RUN.LEG[phase], RUN.Y0, dx, dy)
-
-
 # ---------------------------------------------------------------------------------------------------------------
 # a frame
 
@@ -474,8 +365,7 @@ def shift(cells, dx, dy):
 
 
 SHOULDER = {"near": (-5.0, -15.5), "far": (1.5, -15.5)}
-HIPS = {"near": -3.5, "far": 2.5}               # the design's legs, straight down
-STAND = {"near": (-3.5, 0), "far": (2.5, 0)}
+STAND = {"stand": True}                        # the idle's own legs, square for square
 
 
 def place_rotated(dst, layer, about, deg):
@@ -529,23 +419,15 @@ def compose(P, mats, pose, cell, pivot):
         cv.put(rifle((lx, ly), ld))
     bx, by = pose.get("body", (0, 0))
     hx, hy = pose.get("head", (0, 0))
-    hips = pose.get("hips", HIPS)
     legs = pose.get("legs", STAND)
-    if legs == STAND and hips == HIPS and by == 0:
+    if legs == STAND:
         cv.put(shift(P["legs"], bx, 0), outline=False)        # the design's own legs, square for square
         legs = {}
-    for name in [n for n in ("far", "near") if n in legs]:
-        spec = legs[name]
-        hip = (hips[name] + bx, HIP_Y + by)
-        if isinstance(spec, dict) and "kneel" in spec:           # oppi's kneel, drawn square by square
-            cells = grid_cells(KNEEL[name], KNEEL_Y, spec.get("dx", 0))
-        elif isinstance(spec, dict) and "run" in spec:           # a leg of the approved run
-            cells = run_leg(spec["run"], spec.get("dx", 0), spec.get("dy", 0))
-        elif isinstance(spec, dict):
-            cells = leg(hip, spec["ankle"], mats, kneel=spec.get("knee"))
-        else:
-            cells = leg(hip, (spec[0], ANKLE_Y - spec[1]), mats)
-        cv.put(cells)
+    elif isinstance(legs, dict) and "design" in legs:          # the same legs off the ground (the hop)
+        cv.put(shift(P["legs"], bx, -legs["design"]), outline=False)
+        legs = {}
+    for name in [n for n in ("far", "near") if n in legs]:          # oppi's kneel, drawn square by square
+        cv.put(grid_cells(KNEEL[name], KNEEL_Y, legs[name].get("dx", 0)))
     up = Canvas(cell[0], cell[1], pivot)
     sh = {k: (x + bx, y + by) for k, (x, y) in SHOULDER.items()}
     rz = pose.get("rifle_z", "")
@@ -600,10 +482,6 @@ def compose(P, mats, pose, cell, pivot):
 # rows higher than the first one's, so the rifle heights are taken 4 rows up; its legs (thigh 4, shin and boot 7.5)
 # kneel 6 rows down: the near knee on the ground (its thigh drawn a little longer), the far shin upright
 
-def wide(n=-6.5, f=5.5, ln=0, lf=0):
-    return {"near": (n, ln), "far": (f, lf)}
-
-
 def kneel_legs(dx=0):
     return {"near": {"kneel": True, "dx": dx}, "far": {"kneel": True, "dx": dx}}
 
@@ -611,11 +489,11 @@ def kneel_legs(dx=0):
 BUTT = (-8.5, -14.0)                 # the aimed rifle's butt at the near shoulder
 
 
-def aim(deg=0.0, up=0.0, dy=1, dx=0, legs=None, near=GRIP, far=FORE, head=(0, 0), **kw):
+def aim(deg=0.0, up=0.0, dy=0, dx=0, legs=None, near=GRIP, far=FORE, head=(0, 0), **kw):
     """Aiming from the near shoulder: the butt at the shoulder, the near glove at the grip under the stock, the far one
-    under the barrel; up raises the rifle, dy lowers the whole upper body (a crouch)."""
+    under the barrel; up raises the rifle; standing on the idle's own legs unless told otherwise."""
     p = {"rifle": (BUTT[0] + dx, BUTT[1] - up + dy, deg), "near": near, "far": far, "near_down": 2.5,
-         "rifle_z": "front", "body": (dx, dy), "head": head, "legs": legs or wide()}
+         "rifle_z": "front", "body": (dx, dy), "head": head, "legs": legs or STAND}
     p.update(kw)
     return p
 
@@ -647,10 +525,10 @@ def staff(dy=0, dx=0, legs=None, head=(0, 0), far=None, **kw):
     return p
 
 
-# the hop back: both legs straight down and together, off the ground (the run's legs there, one swung forward and one
-# tucked back, made a big crossing stride in the middle of a skill: 「放技能时怎么大交叉步啊 看的这么有违和感」)
-HOP = {"near": (-4.5, 2), "far": (1.5, 2)}
-HOP2 = {"near": (-4.5, 1), "far": (1.5, 1)}
+# the hop back: the idle's own legs off the ground (the run's legs there, one swung forward and one tucked back, made a
+# big crossing stride in the middle of a skill: 「放技能时怎么大交叉步啊 看的这么有违和感」)
+HOP = {"design": 2}
+HOP2 = {"design": 1}
 
 POSES = {
     # main's attack, shown in display order (import_native's ORDER for the first design is gone): aimed at the chest,
@@ -663,57 +541,57 @@ POSES = {
         aim(deg=0, up=-6),
         aim(deg=0, up=-6),
         aim(deg=5, up=-5),
-        carry(legs=wide(-5.5, 4.5)),
+        carry(),
     ],
-    # main's passive (the Headshot): aimed, down into a wider stance (2-3), the shot from the hip held two slots (4-5),
-    # back to the idle's hold
+    # main's passive (the Headshot): aimed, lowering (2-3), the shot from the hip held two slots (4-5), back to the
+    # idle's hold
     "passive": [
         aim(deg=2),
-        aim(deg=0, dy=2, legs=wide(-8.5, 7.5)),
-        aim(deg=0, up=-1, dy=2, legs=wide(-8.5, 7.5)),
-        aim(deg=0, up=-4, dy=2, legs=wide(-8.0, 7.0)),
-        aim(deg=0, up=-4, dy=2, legs=wide(-8.0, 7.0)),
-        carry(legs=wide(-5.5, 4.5)),
+        aim(deg=0, up=-1),
+        aim(deg=0, up=-3),
+        aim(deg=0, up=-6),
+        aim(deg=0, up=-6),
+        carry(),
     ],
     # main's Q: the rifle swung up behind the head, brought round across the body, then down on one knee aiming level
     # (3-6, oppi's kneel), the shot (7), up again
     "skill": [
         {"rifle": (6.0, -15.0, 150), "near": 4.0, "far": 10.0, "near_down": 1.5, "rifle_z": "behind",
-         "legs": wide(-5.5, 4.5), "body": (0, 1)},
+         "body": (0, 0)},
         {"rifle": (-7.5, -9.0, 28), "near": GRIP, "far": FORE, "near_down": 2.0, "rifle_z": "front",
-         "legs": wide(-6.5, 5.5), "body": (0, 1)},
+         "body": (0, 0)},
         kneel(dy=5),
         kneel(),
         kneel(),
         kneel(up=0.5),
         kneel(dx=-1),                     # 7: the shot, the recoil a square back
-        carry(legs=wide(-5.5, 4.5)),
+        carry(),
     ],
     # main's W: the rifle stood at her side, she bends a little and the far hand throws the trap forward (4), up again
     "skill2": [
         staff(far=(4.0, -9.0)),
-        staff(dy=1, dx=1, head=(1, 0), legs=wide(-5.0, 4.0), far=(6.0, -8.0)),
-        staff(dy=2, dx=1, head=(1, 1), legs=wide(-6.5, 5.5), far=(7.0, -6.0)),
-        staff(dy=2, dx=2, head=(1, 1), legs=wide(-7.5, 6.5), far=(14.0, -3.0)),
-        staff(dy=1, dx=1, head=(1, 0), legs=wide(-6.0, 5.0), far=(8.0, -6.0)),
-        carry(legs=wide(-5.5, 4.5)),
+        staff(dx=1, head=(1, 0), far=(6.0, -9.0)),
+        staff(dx=1, head=(1, 1), far=(7.0, -8.0)),
+        staff(dx=1, head=(1, 1), far=(14.0, -6.0)),
+        staff(dx=1, head=(1, 0), far=(8.0, -8.0)),
+        carry(),
     ],
     # main's E: aimed, lower, the net's shot (3), the hop back - off the ground, legs together (4-5), landing (6-7),
     # back to the idle's hold
     "e": [
         aim(deg=2),
-        aim(deg=1, dy=2, legs=wide(-7.5, 6.5)),
-        aim(deg=0, dy=2, legs=wide(-7.5, 6.5)),   # 3: the net's shot
+        aim(deg=1, up=-1),
+        aim(deg=0, up=-2),                # 3: the net's shot
         aim(deg=6, up=0.5, dx=-1, dy=-2, legs=HOP),
         aim(deg=3, dx=-1, dy=-1, legs=HOP2),
-        aim(deg=0, dy=2, legs=wide(-8.0, 7.0)),
-        aim(deg=1, dy=2, legs=wide(-7.5, 6.5)),
-        carry(legs=wide(-5.5, 4.5)),
+        aim(deg=0, up=-1),
+        aim(deg=1),
+        carry(),
     ],
     # main's R: the rifle raised high, down on one knee with it, aiming level (3-6), the shot (7), lower (8), up again
     "ult": [
         {"rifle": (-4.0, -11.0, 58), "near": GRIP, "far": 14.0, "near_down": 2.0, "rifle_z": "front",
-         "legs": wide(-5.0, 4.0), "body": (0, 0)},
+         "body": (0, 0)},
         {"rifle": (-7.0, -6.0, 38), "near": GRIP, "far": FORE, "near_down": 2.0, "rifle_z": "front",
          "legs": kneel_legs(), "body": (0, 5)},
         kneel(),
@@ -722,12 +600,12 @@ POSES = {
         kneel(),
         kneel(dx=-1),                     # 7: the shot, a square of recoil
         kneel(dy=7),
-        carry(legs=wide(-5.5, 4.5)),
+        carry(),
     ],
     # main's hit: thrown back while aiming, then back in the idle's hold a square behind
     "hit": [
         aim(deg=-4, dx=-1, up=-1, head=(-1, 0)),
-        carry(dx=-1, legs=wide(-5.5, 4.5)),
+        carry(dx=-1),
     ],
 }
 
@@ -814,7 +692,7 @@ def main():
     cells = json.load(open(lp(a.cells), encoding="utf-8"))
     d = design()
     P = parts(d)
-    mats = leg_materials(d)
+    mats = None
     tags = a.only.split(",") if a.only else list(POSES)
     os.makedirs(lp(a.out), exist_ok=True)
     v1_cells = json.load(open(lp(os.path.join(a.v1, "caitlyn_cells.json")), encoding="utf-8")) if a.v1 else None
