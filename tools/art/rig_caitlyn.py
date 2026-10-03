@@ -18,8 +18,8 @@ Here every frame is put together from the approved design's own parts (assets/so
   the arm's length, never a stretched stick); the legs as oppi draws them (「除了移动的时候 其他时候腿部完全不对」):
   standing, straight down like the idle's and at most SPREAD out under the skirt's corners (slanting legs stepped and
   broke their bands: 「这里腿各种脱节」), two squares thick with the design's garter, knee pad, boot top and buckle
-  whole, a near foot moved out turning its toe out; oppi's kneel drawn square by square (KNEEL); the hop on the
-  approved run's tucked legs; one outline ring each;
+  whole, a near foot moved out turning its toe out; oppi's kneel drawn square by square (KNEEL); the hop back with both legs straight
+  down and together off the ground; one outline ring each;
 - the idle and the carrying frames: the design's hold (the butt by the near hip, the barrel up past the far
   shoulder) with the traced rifle - the user picked it over the design's own rifle so that the rifle is the same in
   every action (「B」); standing straight on the design's own legs;
@@ -654,8 +654,10 @@ def staff(dy=0, dx=0, legs=None, head=(0, 0), far=None, **kw):
     return p
 
 
-HOP = {"near": {"run": 6, "dx": -1, "dy": -2}, "far": {"run": 7, "dx": 5, "dy": -2}}    # the run's tucked legs, airborne
-HOP2 = {"near": {"run": 6, "dx": -1}, "far": {"run": 7, "dx": 5}}
+# the hop back: both legs straight down and together, off the ground (the run's legs there, one swung forward and one
+# tucked back, made a big crossing stride in the middle of a skill: 「放技能时怎么大交叉步啊 看的这么有违和感」)
+HOP = {"near": (-4.5, 2), "far": (1.5, 2)}
+HOP2 = {"near": (-4.5, 1), "far": (1.5, 1)}
 
 POSES = {
     # main's attack, shown in display order (import_native's ORDER for the first design is gone): aimed at the chest,
@@ -703,14 +705,14 @@ POSES = {
         staff(dy=1, dx=1, head=(1, 0), legs=wide(-6.0, 5.0), far=(8.0, -6.0)),
         carry(legs=wide(-5.5, 4.5)),
     ],
-    # main's E: aimed, lower, the net's shot (3), the hop back - airborne, the run's tucked legs (4-5), landing (6-7),
+    # main's E: aimed, lower, the net's shot (3), the hop back - off the ground, legs together (4-5), landing (6-7),
     # back to the idle's hold
     "e": [
         aim(deg=2),
         aim(deg=1, dy=2, legs=wide(-7.5, 6.5)),
         aim(deg=0, dy=2, legs=wide(-7.5, 6.5)),   # 3: the net's shot
         aim(deg=6, up=0.5, dx=-1, dy=-2, legs=HOP),
-        aim(deg=3, dx=-1, dy=0, legs=HOP2),
+        aim(deg=3, dx=-1, dy=-1, legs=HOP2),
         aim(deg=0, dy=2, legs=wide(-8.0, 7.0)),
         aim(deg=1, dy=2, legs=wide(-7.5, 6.5)),
         carry(legs=wide(-5.5, 4.5)),
