@@ -2869,7 +2869,8 @@ cooldown) measured the same way in the jungle lane, three batches of 720 games: 
 noise (about 0.30 a batch, the damage moving -1% to +6%), so Shaco keeps his (the user's call, 2026-10-03). The AI
 does react to them: in 240 logged games each the ult's target died during the clone 32.8% of the time with the
 6-tick lobs and 39.8% with the 1-tick one (it walks away from the lobs), while Shaco died first 3.4% against 5.1%;
-both versions blew the clone up on every target that died.
+the clone blew up on all 470 targets that died under it with the 1-tick lob, on 376 of 378 with the 6-tick one (and
+once on a target that lived).
 
 **Rewind as the second bomb on the same champion (league_zilean W in Q, QWQ).** League's W resets Q, and the
 players' combo is Q, W, Q: two bombs on one champion blow at once and stun everyone round him. The user picked it
