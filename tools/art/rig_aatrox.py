@@ -100,7 +100,8 @@ RUN = [[24, 0, -32, 1], [12, 0, -22, 3], [-4, 0, 6, 3], [-14, 0, 18, 1],    # [n
        [-22, 1, 16, 0], [-12, 3, 6, 0], [8, 3, -8, 0], [24, 1, -24, 0]]
 RUN_HIP_IN = 3
 LEG_TOP = 88                         # the legs below this row move; the hips and the skirt above stay
-NEAR_FOOT = (97, 57.5)               # the near foot: from this row down, mirrored about this column (the ankle)
+NEAR_FOOT = (97, 57.0)               # the near foot: from this row down, mirrored about this column (under the knee:
+#                                      「往膝盖那移一点都解决了」 - 57.5 left it a square out from the shin)
 NEAR_KNEE_FILL = {(95, 58): "e"}     # the near knee's black square inside the leg
 # the idle's legs (canvas squares): their columns and hips
 NEAR_LEG = {"cols": (52, 64), "hip": (59.0, 88.0)}
