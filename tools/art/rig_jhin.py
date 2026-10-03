@@ -76,35 +76,40 @@ CH = "0123456789abcdefghijklmn"
 #   ("gap", x0, y0, x1, y1, c)    the same once the import's outline is closed (an opening a square wide is shut by it)
 FIX = {
     # the shot: Codex lifted the near forearm level with the gun but left the idle's arm hanging two columns off the
-    # body (rows 48-57, no outline) - now the bare upper arm hangs from the shoulder to the elbow at the hip, outlined,
-    # and the forearm keeps Codex's place (the muzzle 7.5 rows over the pivot)
-    ("attack", 3): [("draw", 47, 42, ["   0",
-                                      "   0",
-                                      "  ii0",
-                                      " 0ii0",
-                                      " 0ii0",
-                                      " 0ii0",
-                                      " 0  0",
-                                      " 0  0",
-                                      " 0",
-                                      " 0",
-                                      " 0",
-                                      "  00  000000",
-                                      "  ..",
-                                      "  ..",
-                                      "  ..",
-                                      "  0."])],
+    # body (rows 48-57, no outline); hung from the shoulder it made an L, a right angle at the hip (the user,
+    # 2026-10-03: 「手臂怎么90度角？看着一股怪味」). Traced from League's shot at game size: the upper arm slants down and
+    # forward from the shoulder, the elbow a little bent (the user's pick B over a straight arm), the forearm nearly
+    # level to the grip, the purple cuff before the hand; Whisper stays (the muzzle 7.5 rows over the pivot)
+    ("attack", 3): [("clear", 48, 45, 58, 56),
+                    ("draw", 47, 42, ["   0",
+                                      "   0"]),
+                    ("draw", 49, 43, ["ii0",
+                                      "hii0",
+                                      "0ii0",
+                                      "0hii0",
+                                      " 0ii00",
+                                      " 0hiii000",
+                                      "  0hiiiii0",
+                                      "   00hi6ii",
+                                      "     000hi",
+                                      "        00"]),
+                    ("draw", 49, 57, ["0."])],
     # the fourth shot's flourish: Whisper held up on an arm 16 rows long (the design's is 6) - the gun, the hand and
     # the tassel come down 7 rows, the arm under the hand 9 rows
     ("attack4", 2): [("clear", 33, 27, 37, 32),
                      ("move", [(29, 5, 43, 26), (29, 27, 32, 32)], 0, 7)],
     # the fourth shot: the same hanging arm, its forearm a gold-and-skin line with nothing over it (a thin bright
-    # stick): bare skin like the design's arm, outlined; the black cord hanging under the barrel out
-    ("attack4", 4): [("draw", 47, 48, ["0  0",
-                                       "0  00000000",
-                                       "0  iiiiiii",
-                                       "0  iiihiii",
-                                       " 000000000000"]),
+    # stick): bare skin like the design's arm, outlined, one straight line from the shoulder down to the grip (the
+    # hanging arm's top had stood 2 rows over the forearm at the shoulder - the same L); the black cord hanging under
+    # the barrel out
+    ("attack4", 4): [("clear", 47, 48, 57, 53),
+                     ("draw", 47, 46, ["  0",
+                                       " ii000",
+                                       "hiiiii0000",
+                                       "0hiiiiiii60",
+                                       " 0000hiiiii",
+                                       "     0000hi",
+                                       "         00"]),
                      ("clear", 77, 51, 77, 54)],
     ("attack4", 5): [("draw", 51, 44, [" 0000000",
                                        " iiiii",
