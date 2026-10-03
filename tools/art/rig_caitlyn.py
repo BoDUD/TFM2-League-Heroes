@@ -16,13 +16,15 @@ Here every frame is put together from the approved design's own parts (assets/so
   shoulder -> elbow -> hand (ARM: the navy sleeve with its brown leather, the gold band, the cream cuff, the brown
   glove; every square within 1 of the line takes the colour at that length and side; a hand out of reach stops at
   the arm's length, never a stretched stick); the legs as oppi draws them (「除了移动的时候 其他时候腿部完全不对」):
-  straight and apart, two squares thick row by row with the design's garter, knee pad, boot top and buckle whole;
-  oppi's kneel drawn square by square (KNEEL); the hop on the approved run's tucked legs; one outline ring each;
+  standing, straight down like the idle's and at most SPREAD out under the skirt's corners (slanting legs stepped and
+  broke their bands: 「这里腿各种脱节」), two squares thick with the design's garter, knee pad, boot top and buckle
+  whole, a near foot moved out turning its toe out; oppi's kneel drawn square by square (KNEEL); the hop on the
+  approved run's tucked legs; one outline ring each;
 - the idle and the carrying frames: the design's hold (the butt by the near hip, the barrel up past the far
   shoulder) with the traced rifle - the user picked it over the design's own rifle so that the rifle is the same in
   every action (「B」); standing straight on the design's own legs;
-- the death's fall and the lying frames: the upper body turned about the hips (RotSprite, tools/art/rig_nocturne.py)
-  and laid on the feet line, the rifle loose beside her.
+- the death's end as oppi's: slumping on her knees, then down on her front (LYING: the head upright with its chin on
+  the ground, the body and legs flat behind it, the rifle under her).
 The poses follow the first design's strips the user approved (assets/source/native/caitlyn_<tag>.png on main before
 this design): aiming from the shoulder, the shots from the hip (the muzzle 7-8 squares over the pivot, so a bullet
 flies at the target's pivot nearly level), the kneeling shots, the rifle raised or stood upright, the hop back, the
@@ -285,6 +287,7 @@ THIGH_END = ["Ct", "vw"]
 SHIN_END = ["CC", "vv", "vw", "vC"]
 FOOT = ["vvw", "tvw"]                            # the foot's two rows under a standing shin, the toe forward
 FOOT_OUT = ["wvv", "wvt"]                        # a near foot planted wide: the toe out to the left, as oppi's
+SPREAD = 2.0                                     # how far a standing leg moves out from its hip (the skirt's corners)
 FOOT_FLAT = ["vt", "wv"]                         # at the end of a level shin: two columns, top and bottom
 
 
@@ -339,9 +342,16 @@ def leg(hip, ankle, mats=None, kneel=None, out_dir=None):
     column by column where a bone lies flatter than 45 degrees), the design's bands whole, the foot toe forward under
     a standing shin or at the end of a level one. The knee bends forward (out_dir +1) unless told otherwise, or sits
     where kneel puts it."""
+    out = False
     if kneel is not None:
         k = kneel
-    else:                                         # straight, as oppi's: the knee on the hip -> ankle line, never bent
+    else:
+        # standing: the leg straight down like the idle's, at most SPREAD squares out from the hip so its top stays
+        # under the skirt's hem; a slanting leg stepped a square every few rows and every band broke at the steps
+        # (the user: 「这里腿各种脱节」)
+        x = min(max(ankle[0], hip[0] - SPREAD), hip[0] + SPREAD)
+        out = x < hip[0] - 0.75                   # a near leg moved out to the left turns its toe out, as oppi's
+        hip, ankle = (x, hip[1]), (x, ankle[1])
         f = LT / (LT + LS)
         k = (hip[0] + (ankle[0] - hip[0]) * f, hip[1] + (ankle[1] - hip[1]) * f)
     cells = {}
@@ -354,9 +364,9 @@ def leg(hip, ankle, mats=None, kneel=None, out_dir=None):
     if steep(k, ankle):
         ar = int(math.floor(ankle[1]))            # the foot's first row
         c0 = by_rows(k, ankle, span(kr + 1, ar - 1), SHIN_END, cells)
-        # the foot right under the shin's last row; a leg slanting out to the left (the near one in a wide stance)
-        # turns its toe out to the left, as oppi's - a toe turned in under a slanting leg read as a broken ankle
-        if ankle[0] < hip[0] - 0.75:
+        # the foot right under the shin's last row, its toe out to the left on a near leg moved out (as oppi's): a toe
+        # turned in under it read as a broken ankle
+        if out:
             foot, c0 = FOOT_OUT, c0 - 1
         else:
             foot = FOOT
@@ -388,14 +398,44 @@ KNEEL = {
             "..................vw..",
             "..................vvw.",
             "..................tvw."],
-    "near": ["........rr............",
-             "........rr............",
-             "........rr............",
+    "near": [".........rr...........",
+             ".........rr...........",
+             ".........rr...........",
              ".........rr...........",
              ".........Ct...........",
              "..vvvCrrrvw...........",
              "..tvwCrrrvw..........."],
 }
+
+
+# lying on her front as oppi's Caitlyn lies at the end of her death: the head upright with its chin on the ground,
+# the jacket, the skirt and the legs flat behind it to the left, the rifle on the ground under her; the death's lying
+# frames turned the whole upper body a quarter turn instead and laid the face on its side (the user: 「还是看了怪」)
+LYING_X0, LYING_Y0 = -25, 4
+LYING = {
+    "far": ["......................",
+            "......................",
+            "......................",
+            "..tvvCrrvCtrr.........",
+            "..vvwCrrwCtrr.........",
+            "......................",
+            "......................"],
+    "near": ["......................",
+             "......................",
+             "......................",
+             "......................",
+             "......................",
+             "tvvwCrrrvCtrr.........",
+             "vvwwCrrrwCtrr........."],
+    "body": [".............mmmmmm....",
+             "...........dqsssqmmmm..",
+             "..........CsssssqqFdm..",
+             ".........CsCsssqoqFFw..",
+             ".........FsCssqqoqFwo..",
+             "........FCssssqqoqqwo..",
+             "........FCCCCCqqoqqqo.."],
+}
+LYING_HEAD = (7, 28)                # the head's move from standing: its chin on the ground in front of the body
 
 
 def grid_cells(rows, y0, dx=0, dy=0):
@@ -462,6 +502,23 @@ def place_rotated(dst, layer, about, deg):
             dst[ty, tx] = r[yy, xx]
 
 
+def compose_lying(P, pose, cell, pivot):
+    """The lying frames: the rifle under her, the far leg, the near leg, the body, the head upright on top."""
+    cv = Canvas(cell[0], cell[1], pivot)
+    hx, hy = pose.get("head", (0, 0))
+    cv.put(rifle(pose.get("rifle_at", (-15.0, 8.0)), 0))
+    for part in ("far", "near", "body"):
+        cells = {}
+        for i, row in enumerate(LYING[part]):
+            for j, ch in enumerate(row):
+                if ch != ".":
+                    cells[(LYING_X0 + j, LYING_Y0 + i)] = rgba(ch)
+        cv.put(cells)
+    cv.put(shift(P["head"], LYING_HEAD[0] + hx, LYING_HEAD[1] + hy), outline=False)
+    cv.a[pivot[1] + 12:] = 0
+    return cv.a
+
+
 def compose(P, mats, pose, cell, pivot):
     """One frame of a pose:
     body (dx, dy): the upper parts, the shoulders and the hips; head (dx, dy) more;
@@ -471,6 +528,8 @@ def compose(P, mats, pose, cell, pivot):
     rifle_z: "front" (over the near arm too), "behind" (behind the head and the torso) or default (over the head);
     rot (degrees, (x, y)): the upper body turned about that point (+ counter-clockwise), the legs not;
     loose_rifle (x, y, degrees): a rifle not in her hands (drawn last, not turned)."""
+    if pose.get("lying"):
+        return compose_lying(P, pose, cell, pivot)
     cv = Canvas(cell[0], cell[1], pivot)
     if "loose_rifle" in pose and pose.get("loose_back"):     # lying on the ground behind her legs
         lx, ly, ld = pose["loose_rifle"]
@@ -687,18 +746,13 @@ def death():
         staff(dy=7, legs=kneel_legs(), head=(1, 2), far=(4.0, -1.0)),
         staff(dy=7, legs=kneel_legs(), head=(1, 2), far=(4.0, -1.0)),
     ]
-    # falling forward: the upper body turned about the hips over the kneeling legs
-    out.append({"legs": kneel_legs(), "body": (1, 7), "head": (1, 1), "near": (3.0, -4.0), "far": (7.0, -3.0),
-                "rot": (-30, (0.5, 5.0)), "ground": "lift", "loose_rifle": (-11.0, 9.0, 70), "loose_back": True})
-    out.append({"legs": kneel_legs(1), "body": (3, 9), "head": (1, 1), "near": (5.0, -2.0), "far": (9.0, -1.0),
-                "rot": (-70, (2.5, 7.0)), "ground": "lift", "loose_rifle": (-16.0, 4.0, 12), "loose_back": True})
-    # lying: the legs straight back along the ground, the dropped rifle behind her body over them (on the ground
-    # under the legs it buried them)
-    lie = {"legs": {"near": {"ankle": (-16.0, 9.5), "knee": (-9.0, 9.2)}, "far": {"ankle": (-15.0, 8.5), "knee": (-8.0, 8.3)}},
-           "body": (0, 7), "head": (0, 0), "near": (-1.0, -6.0), "far": (3.0, -6.0),
-           "rot": (-90, (-2.0, 7.0)), "ground": True, "loose_rifle": (-17.0, 3.0, 4), "loose_back": True}
-    out.append(lie)
-    out.append(dict(lie))
+    # slumping on her knees, then down on her front as oppi's (the head upright, the body flat behind it): a turned
+    # upper body with its face on its side read as strange (「还是看了怪」)
+    out.append({"body": (0, 8), "head": (1, 2), "legs": kneel_legs(), "near": (-6.0, 1.0), "far": (4.0, 0.0),
+                "loose_rifle": (-11.0, 9.0, 70), "loose_back": True})
+    out.append({"lying": True, "head": (0, -2)})
+    out.append({"lying": True})
+    out.append({"lying": True})
     return out
 
 
