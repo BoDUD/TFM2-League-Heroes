@@ -18,7 +18,7 @@ Here every frame is put together from the approved design's own parts (assets/so
   the arm's length, never a stretched stick); the legs as oppi draws them (「除了移动的时候 其他时候腿部完全不对」):
   standing, straight down like the idle's and at most SPREAD out under the skirt's corners (slanting legs stepped and
   broke their bands: 「这里腿各种脱节」), two squares thick with the design's garter, knee pad, boot top and buckle
-  whole, a near foot moved out turning its toe out; oppi's kneel drawn square by square (KNEEL); the hop back with both legs straight
+  whole, both toes forward as the idle's; oppi's kneel drawn square by square (KNEEL); the hop back with both legs straight
   down and together off the ground; one outline ring each;
 - the idle and the carrying frames: the design's hold (the butt by the near hip, the barrel up past the far
   shoulder) with the traced rifle - the user picked it over the design's own rifle so that the rifle is the same in
@@ -286,7 +286,6 @@ LT, LS = KNEE_Y - HIP_Y, ANKLE_Y - KNEE_Y
 THIGH_END = ["Ct", "vw"]
 SHIN_END = ["CC", "vv", "vw", "vC"]
 FOOT = ["vvw", "tvw"]                            # the foot's two rows under a standing shin, the toe forward
-FOOT_OUT = ["wvv", "wvt"]                        # a near foot planted wide: the toe out to the left, as oppi's
 SPREAD = 2.0                                     # how far a standing leg moves out from its hip (the skirt's corners)
 FOOT_FLAT = ["vt", "wv"]                         # at the end of a level shin: two columns, top and bottom
 
@@ -342,7 +341,6 @@ def leg(hip, ankle, mats=None, kneel=None, out_dir=None):
     column by column where a bone lies flatter than 45 degrees), the design's bands whole, the foot toe forward under
     a standing shin or at the end of a level one. The knee bends forward (out_dir +1) unless told otherwise, or sits
     where kneel puts it."""
-    out = False
     if kneel is not None:
         k = kneel
     else:
@@ -350,7 +348,6 @@ def leg(hip, ankle, mats=None, kneel=None, out_dir=None):
         # under the skirt's hem; a slanting leg stepped a square every few rows and every band broke at the steps
         # (the user: 「这里腿各种脱节」)
         x = min(max(ankle[0], hip[0] - SPREAD), hip[0] + SPREAD)
-        out = x < hip[0] - 0.75                   # a near leg moved out to the left turns its toe out, as oppi's
         hip, ankle = (x, hip[1]), (x, ankle[1])
         f = LT / (LT + LS)
         k = (hip[0] + (ankle[0] - hip[0]) * f, hip[1] + (ankle[1] - hip[1]) * f)
@@ -364,13 +361,9 @@ def leg(hip, ankle, mats=None, kneel=None, out_dir=None):
     if steep(k, ankle):
         ar = int(math.floor(ankle[1]))            # the foot's first row
         c0 = by_rows(k, ankle, span(kr + 1, ar - 1), SHIN_END, cells)
-        # the foot right under the shin's last row, its toe out to the left on a near leg moved out (as oppi's): a toe
-        # turned in under it read as a broken ankle
-        if out:
-            foot, c0 = FOOT_OUT, c0 - 1
-        else:
-            foot = FOOT
-        for i, row in enumerate(foot):
+        # the foot right under the shin's last row, its toe forward as the idle's (the near toe turned out made her
+        # duck-footed in every skill: 「怎么释放技能全外八字啊」)
+        for i, row in enumerate(FOOT):
             for j, ch in enumerate(row):
                 cells[(c0 + j, ar + i)] = rgba(ch)
     else:
