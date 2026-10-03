@@ -338,8 +338,9 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        # Vi: the seam across her shins (row 92 of the design, 4 under the pivot: both legs there are thin slanted
        # strokes, the near gauntlet's lowest row is 85), so her guard sinks a row and only the boots stay
        ("vi", "idle"): (4, [2, 3, 4]),
-       # Ryze: his hands hang to the knee guards, so the seam runs in the boot shafts (rows 96/97 of the design)
-       ("ryze", "idle"): (8, [2, 3, 4]),
+       # Ryze (second design, tools/art/design_ryze_v2.py): the seam in the boot shafts, rows 7/8 under the pivot (one
+       # square differs); his hands hang to the belt
+       ("ryze", "idle"): (7, [2, 3, 4]),
        # Jhin: the cane and Whisper reach the ground, so a seam in the legs cuts them - at the knees the cane's bands
        # and Whisper's slanted barrel stepped a row each breath (the user: 「上下摆动导致模型变形 盖伦就没这问题」); the
        # seam runs under his shoulders (rows 77/78 of the design: no square of the silhouette and 12 of colour differ):
@@ -403,7 +404,7 @@ EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade
         "blitzcrank": (243, 164, 217),    # the smokestacks and the raised fists top the frames; the pink is the eyes
         "camille": (2, 159, 217),         # her raised blade tops the kicks; the far eye was recoloured to this cyan
         "leblanc": (122, 0, 18),          # her staff's crystal or diadem tops the frames; the dark red is her near pupil's
-        "kaisa": (130, 62, 163),          # her raised pods top every frame; the near iris' purple is only in her eyes
+        "kaisa": (0x8B, 0x17, 0xB2),      # the near iris of the 42-row design (tools/art/design_kaisa_v2.py): only in her eyes
         "sona": (34, 201, 184),           # her twin tails top the frames (the Etwahl in R); the teal is only in her irises
         "kennen": (63, 174, 248),         # the shuriken on his back tops every frame; the blue is only in his eyes
         "vi": (0, 108, 251),              # a raised gauntlet tops the E, R and uppercut frames; this blue is only her near

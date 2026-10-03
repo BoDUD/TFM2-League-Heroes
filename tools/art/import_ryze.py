@@ -266,8 +266,9 @@ def cells(name, n):
     return [a[:, k * w:(k + 1) * w] for k in range(n)]
 
 
-Q_PALM = (24, -8)          # just past the palm in Q's frame 3 and the combo's frame 9
-E_PALM = (24, -15)         # just past the raised palm in the combo's frame 2
+Q_PALM = (22, -20)         # just past the open palm in Q's frame 3, the pointing hand's tip in the combo's frame 9
+E_PALM = (23, -24)         # the tip of the hand pointing up in the combo's frame 2 (Codex's second strips, the arms
+                           # thinned on the idle's body: tools/art/fix_ryze_strips_v2.py)
 HIT = (0, -8)              # a hit on the upper body of a 32-44 px unit
 CHEST = (0, -7)            # Flux circles a unit's chest
 WAIST = (0, -2)            # his belt: the runes he charges and lets out

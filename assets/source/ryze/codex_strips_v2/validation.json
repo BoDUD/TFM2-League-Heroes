@@ -1,0 +1,447 @@
+{
+  "new_frames_checked": 54,
+  "checks": [
+    {
+      "action": "run",
+      "frame": 1,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": false,
+      "footline_pass": true
+    },
+    {
+      "action": "run",
+      "frame": 2,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": false,
+      "footline_pass": true
+    },
+    {
+      "action": "run",
+      "frame": 3,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": false,
+      "footline_pass": true
+    },
+    {
+      "action": "run",
+      "frame": 4,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": false,
+      "footline_pass": true
+    },
+    {
+      "action": "run",
+      "frame": 5,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": false,
+      "footline_pass": true
+    },
+    {
+      "action": "run",
+      "frame": 6,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": false,
+      "footline_pass": true
+    },
+    {
+      "action": "run",
+      "frame": 7,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": false,
+      "footline_pass": true
+    },
+    {
+      "action": "run",
+      "frame": 8,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": false,
+      "footline_pass": true
+    },
+    {
+      "action": "attack",
+      "frame": 1,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": true,
+      "footline_pass": true
+    },
+    {
+      "action": "attack",
+      "frame": 2,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": true,
+      "footline_pass": true
+    },
+    {
+      "action": "attack",
+      "frame": 3,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": true,
+      "footline_pass": true
+    },
+    {
+      "action": "attack",
+      "frame": 4,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": true,
+      "footline_pass": true
+    },
+    {
+      "action": "attack",
+      "frame": 5,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": true,
+      "footline_pass": true
+    },
+    {
+      "action": "attack",
+      "frame": 6,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": true,
+      "footline_pass": true
+    },
+    {
+      "action": "skill",
+      "frame": 1,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": true,
+      "footline_pass": true
+    },
+    {
+      "action": "skill",
+      "frame": 2,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": true,
+      "footline_pass": true
+    },
+    {
+      "action": "skill",
+      "frame": 3,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": true,
+      "footline_pass": true
+    },
+    {
+      "action": "skill",
+      "frame": 4,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": true,
+      "footline_pass": true
+    },
+    {
+      "action": "skill",
+      "frame": 5,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": true,
+      "footline_pass": true
+    },
+    {
+      "action": "skill",
+      "frame": 6,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": true,
+      "footline_pass": true
+    },
+    {
+      "action": "skill2",
+      "frame": 1,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": true,
+      "footline_pass": true
+    },
+    {
+      "action": "skill2",
+      "frame": 2,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": true,
+      "footline_pass": true
+    },
+    {
+      "action": "skill2",
+      "frame": 3,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": true,
+      "footline_pass": true
+    },
+    {
+      "action": "skill2",
+      "frame": 4,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": true,
+      "footline_pass": true
+    },
+    {
+      "action": "skill2",
+      "frame": 5,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": true,
+      "footline_pass": true
+    },
+    {
+      "action": "skill2",
+      "frame": 6,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": true,
+      "footline_pass": true
+    },
+    {
+      "action": "skill2",
+      "frame": 7,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": false,
+      "footline_pass": true
+    },
+    {
+      "action": "skill2",
+      "frame": 8,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": true,
+      "footline_pass": true
+    },
+    {
+      "action": "skill2",
+      "frame": 9,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": true,
+      "footline_pass": true
+    },
+    {
+      "action": "skill2",
+      "frame": 10,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": true,
+      "footline_pass": true
+    },
+    {
+      "action": "skill2",
+      "frame": 11,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": true,
+      "footline_pass": true
+    },
+    {
+      "action": "skill2",
+      "frame": 12,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": true,
+      "footline_pass": true
+    },
+    {
+      "action": "ult",
+      "frame": 1,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": true,
+      "footline_pass": true
+    },
+    {
+      "action": "ult",
+      "frame": 2,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": false,
+      "footline_pass": true
+    },
+    {
+      "action": "ult",
+      "frame": 3,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": false,
+      "footline_pass": true
+    },
+    {
+      "action": "ult",
+      "frame": 4,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": false,
+      "footline_pass": true
+    },
+    {
+      "action": "ult",
+      "frame": 5,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": true,
+      "footline_pass": true
+    },
+    {
+      "action": "ult",
+      "frame": 6,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": true,
+      "footline_pass": true
+    },
+    {
+      "action": "ult",
+      "frame": 7,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": true,
+      "footline_pass": true
+    },
+    {
+      "action": "ult",
+      "frame": 8,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": true,
+      "footline_pass": true
+    },
+    {
+      "action": "ult_land",
+      "frame": 1,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": false,
+      "footline_pass": true
+    },
+    {
+      "action": "ult_land",
+      "frame": 2,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": false,
+      "footline_pass": true
+    },
+    {
+      "action": "ult_land",
+      "frame": 3,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": true,
+      "footline_pass": true
+    },
+    {
+      "action": "ult_land",
+      "frame": 4,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": true,
+      "footline_pass": true
+    },
+    {
+      "action": "hit",
+      "frame": 1,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": true,
+      "footline_pass": true
+    },
+    {
+      "action": "hit",
+      "frame": 2,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": true,
+      "footline_pass": true
+    },
+    {
+      "action": "dead",
+      "frame": 1,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": true,
+      "footline_pass": true
+    },
+    {
+      "action": "dead",
+      "frame": 2,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": true,
+      "footline_pass": true
+    },
+    {
+      "action": "dead",
+      "frame": 3,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": false,
+      "footline_pass": true
+    },
+    {
+      "action": "dead",
+      "frame": 4,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": false,
+      "footline_pass": true
+    },
+    {
+      "action": "dead",
+      "frame": 5,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": false,
+      "footline_pass": true
+    },
+    {
+      "action": "dead",
+      "frame": 6,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": false,
+      "footline_pass": true
+    },
+    {
+      "action": "dead",
+      "frame": 7,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": false,
+      "footline_pass": true
+    },
+    {
+      "action": "dead",
+      "frame": 8,
+      "connected_components": 1,
+      "approved_head_exact": true,
+      "approved_legs_exact": false,
+      "footline_pass": true
+    }
+  ],
+  "death_last_two_frames_identical": true,
+  "checks_scope": "dimensions, blocks, binary alpha, palette, exact approved opaque head pixels, approved standing leg pixels, 8-neighbor connected body, footline",
+  "visual_review_scope": "compact bent casting arms and complete falling body",
+  "not_claimed": [
+    "in-game import/rendering",
+    "exact 3x3 / 3x4 hand templates",
+    "identical scroll mask in all frames",
+    "run boot separation <=10 pixels",
+    "all standing silhouettes exactly 41 pixels tall"
+  ]
+}
