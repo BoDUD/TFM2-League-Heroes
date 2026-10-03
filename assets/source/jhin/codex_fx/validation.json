@@ -1,0 +1,1354 @@
+{
+  "status": "passed",
+  "assets": 27,
+  "frames": 146,
+  "previews": 28,
+  "checks": [
+    {
+      "file": "jhin_fx_a_bolt.png",
+      "frames": 4,
+      "distinct_frames": 4,
+      "alpha": "binary transparent",
+      "palette": "passed",
+      "symmetry": "passed if required",
+      "right_edge_opaque_pixels_per_frame": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "bbox_1x": [
+        [
+          1,
+          9,
+          63,
+          23
+        ],
+        [
+          6,
+          9,
+          63,
+          23
+        ],
+        [
+          3,
+          6,
+          63,
+          26
+        ],
+        [
+          2,
+          9,
+          63,
+          23
+        ]
+      ]
+    },
+    {
+      "file": "jhin_fx_a4_bolt.png",
+      "frames": 4,
+      "distinct_frames": 4,
+      "alpha": "binary transparent",
+      "palette": "passed",
+      "symmetry": "passed if required",
+      "right_edge_opaque_pixels_per_frame": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "bbox_1x": [
+        [
+          5,
+          1,
+          62,
+          31
+        ],
+        [
+          1,
+          3,
+          62,
+          29
+        ],
+        [
+          1,
+          4,
+          59,
+          28
+        ],
+        [
+          10,
+          6,
+          54,
+          26
+        ]
+      ]
+    },
+    {
+      "file": "jhin_fx_a_cast.png",
+      "frames": 4,
+      "distinct_frames": 4,
+      "alpha": "binary transparent",
+      "palette": "passed",
+      "symmetry": "passed if required",
+      "right_edge_opaque_pixels_per_frame": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "bbox_1x": [
+        [
+          11,
+          10,
+          23,
+          21
+        ],
+        [
+          3,
+          3,
+          30,
+          28
+        ],
+        [
+          1,
+          1,
+          31,
+          30
+        ],
+        [
+          4,
+          5,
+          28,
+          27
+        ]
+      ]
+    },
+    {
+      "file": "jhin_fx_a_muzzle.png",
+      "frames": 4,
+      "distinct_frames": 4,
+      "alpha": "binary transparent",
+      "palette": "passed",
+      "symmetry": "passed if required",
+      "right_edge_opaque_pixels_per_frame": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "bbox_1x": [
+        [
+          0,
+          7,
+          10,
+          25
+        ],
+        [
+          0,
+          4,
+          25,
+          27
+        ],
+        [
+          0,
+          7,
+          27,
+          24
+        ],
+        [
+          0,
+          10,
+          31,
+          24
+        ]
+      ]
+    },
+    {
+      "file": "jhin_fx_a_hit.png",
+      "frames": 4,
+      "distinct_frames": 4,
+      "alpha": "binary transparent",
+      "palette": "passed",
+      "symmetry": "passed if required",
+      "right_edge_opaque_pixels_per_frame": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "bbox_1x": [
+        [
+          8,
+          8,
+          24,
+          22
+        ],
+        [
+          2,
+          2,
+          30,
+          28
+        ],
+        [
+          1,
+          1,
+          31,
+          30
+        ],
+        [
+          3,
+          5,
+          31,
+          25
+        ]
+      ]
+    },
+    {
+      "file": "jhin_fx_a4_muzzle.png",
+      "frames": 5,
+      "distinct_frames": 5,
+      "alpha": "binary transparent",
+      "palette": "passed",
+      "symmetry": "passed if required",
+      "right_edge_opaque_pixels_per_frame": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "bbox_1x": [
+        [
+          0,
+          10,
+          12,
+          23
+        ],
+        [
+          0,
+          3,
+          28,
+          28
+        ],
+        [
+          0,
+          3,
+          21,
+          30
+        ],
+        [
+          0,
+          1,
+          28,
+          29
+        ],
+        [
+          0,
+          6,
+          25,
+          24
+        ]
+      ]
+    },
+    {
+      "file": "jhin_fx_a4_hit.png",
+      "frames": 5,
+      "distinct_frames": 5,
+      "alpha": "binary transparent",
+      "palette": "passed",
+      "symmetry": "passed if required",
+      "right_edge_opaque_pixels_per_frame": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "bbox_1x": [
+        [
+          7,
+          7,
+          26,
+          25
+        ],
+        [
+          2,
+          4,
+          28,
+          28
+        ],
+        [
+          1,
+          1,
+          28,
+          31
+        ],
+        [
+          2,
+          3,
+          30,
+          30
+        ],
+        [
+          4,
+          5,
+          27,
+          27
+        ]
+      ]
+    },
+    {
+      "file": "jhin_fx_a_reload.png",
+      "frames": 8,
+      "distinct_frames": 8,
+      "alpha": "binary transparent",
+      "palette": "passed",
+      "symmetry": "passed if required",
+      "right_edge_opaque_pixels_per_frame": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "bbox_1x": [
+        [
+          19,
+          7,
+          49,
+          25
+        ],
+        [
+          15,
+          1,
+          49,
+          25
+        ],
+        [
+          18,
+          7,
+          48,
+          25
+        ],
+        [
+          17,
+          1,
+          48,
+          25
+        ],
+        [
+          17,
+          1,
+          47,
+          25
+        ],
+        [
+          16,
+          1,
+          50,
+          25
+        ],
+        [
+          11,
+          1,
+          52,
+          31
+        ],
+        [
+          16,
+          7,
+          46,
+          25
+        ]
+      ]
+    },
+    {
+      "file": "jhin_fx_q_nade.png",
+      "frames": 4,
+      "distinct_frames": 4,
+      "alpha": "binary transparent",
+      "palette": "passed",
+      "symmetry": "passed if required",
+      "right_edge_opaque_pixels_per_frame": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "bbox_1x": [
+        [
+          2,
+          4,
+          31,
+          27
+        ],
+        [
+          1,
+          5,
+          30,
+          27
+        ],
+        [
+          1,
+          5,
+          29,
+          27
+        ],
+        [
+          3,
+          5,
+          31,
+          25
+        ]
+      ]
+    },
+    {
+      "file": "jhin_fx_q_throw.png",
+      "frames": 4,
+      "distinct_frames": 4,
+      "alpha": "binary transparent",
+      "palette": "passed",
+      "symmetry": "passed if required",
+      "right_edge_opaque_pixels_per_frame": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "bbox_1x": [
+        [
+          13,
+          13,
+          18,
+          19
+        ],
+        [
+          6,
+          6,
+          26,
+          25
+        ],
+        [
+          1,
+          6,
+          31,
+          25
+        ],
+        [
+          7,
+          7,
+          27,
+          26
+        ]
+      ]
+    },
+    {
+      "file": "jhin_fx_q_boom.png",
+      "frames": 5,
+      "distinct_frames": 5,
+      "alpha": "binary transparent",
+      "palette": "passed",
+      "symmetry": "passed if required",
+      "right_edge_opaque_pixels_per_frame": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "bbox_1x": [
+        [
+          11,
+          13,
+          22,
+          27
+        ],
+        [
+          4,
+          9,
+          30,
+          30
+        ],
+        [
+          2,
+          1,
+          30,
+          31
+        ],
+        [
+          2,
+          4,
+          30,
+          30
+        ],
+        [
+          10,
+          7,
+          25,
+          28
+        ]
+      ]
+    },
+    {
+      "file": "jhin_fx_q_drop.png",
+      "frames": 4,
+      "distinct_frames": 4,
+      "alpha": "binary transparent",
+      "palette": "passed",
+      "symmetry": "passed if required",
+      "right_edge_opaque_pixels_per_frame": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "bbox_1x": [
+        [
+          9,
+          2,
+          22,
+          24
+        ],
+        [
+          5,
+          21,
+          27,
+          43
+        ],
+        [
+          8,
+          47,
+          23,
+          76
+        ],
+        [
+          2,
+          53,
+          31,
+          76
+        ]
+      ]
+    },
+    {
+      "file": "jhin_fx_w_shot.png",
+      "frames": 4,
+      "distinct_frames": 4,
+      "alpha": "binary transparent",
+      "palette": "passed",
+      "symmetry": "passed if required",
+      "right_edge_opaque_pixels_per_frame": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "bbox_1x": [
+        [
+          21,
+          2,
+          84,
+          14
+        ],
+        [
+          13,
+          1,
+          83,
+          15
+        ],
+        [
+          13,
+          1,
+          83,
+          15
+        ],
+        [
+          12,
+          1,
+          82,
+          15
+        ]
+      ]
+    },
+    {
+      "file": "jhin_fx_w_muzzle.png",
+      "frames": 5,
+      "distinct_frames": 5,
+      "alpha": "binary transparent",
+      "palette": "passed",
+      "symmetry": "passed if required",
+      "right_edge_opaque_pixels_per_frame": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "bbox_1x": [
+        [
+          0,
+          10,
+          10,
+          21
+        ],
+        [
+          0,
+          4,
+          37,
+          28
+        ],
+        [
+          0,
+          5,
+          35,
+          30
+        ],
+        [
+          0,
+          1,
+          45,
+          28
+        ],
+        [
+          0,
+          4,
+          30,
+          25
+        ]
+      ]
+    },
+    {
+      "file": "jhin_fx_w_hit.png",
+      "frames": 5,
+      "distinct_frames": 5,
+      "alpha": "binary transparent",
+      "palette": "passed",
+      "symmetry": "passed if required",
+      "right_edge_opaque_pixels_per_frame": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "bbox_1x": [
+        [
+          5,
+          5,
+          27,
+          26
+        ],
+        [
+          2,
+          2,
+          29,
+          29
+        ],
+        [
+          1,
+          4,
+          31,
+          27
+        ],
+        [
+          3,
+          6,
+          30,
+          25
+        ],
+        [
+          8,
+          9,
+          25,
+          25
+        ]
+      ]
+    },
+    {
+      "file": "jhin_fx_w_root.png",
+      "frames": 8,
+      "distinct_frames": 8,
+      "alpha": "binary transparent",
+      "palette": "passed",
+      "symmetry": "passed if required",
+      "right_edge_opaque_pixels_per_frame": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "bbox_1x": [
+        [
+          7,
+          23,
+          32,
+          30
+        ],
+        [
+          7,
+          10,
+          31,
+          30
+        ],
+        [
+          6,
+          8,
+          32,
+          31
+        ],
+        [
+          7,
+          8,
+          32,
+          31
+        ],
+        [
+          7,
+          6,
+          32,
+          30
+        ],
+        [
+          7,
+          7,
+          33,
+          31
+        ],
+        [
+          7,
+          1,
+          33,
+          31
+        ],
+        [
+          6,
+          16,
+          33,
+          31
+        ]
+      ]
+    },
+    {
+      "file": "jhin_fx_e_seed.png",
+      "frames": 4,
+      "distinct_frames": 4,
+      "alpha": "binary transparent",
+      "palette": "passed",
+      "symmetry": "passed if required",
+      "right_edge_opaque_pixels_per_frame": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "bbox_1x": [
+        [
+          3,
+          2,
+          28,
+          31
+        ],
+        [
+          2,
+          1,
+          30,
+          31
+        ],
+        [
+          1,
+          1,
+          30,
+          31
+        ],
+        [
+          3,
+          3,
+          30,
+          31
+        ]
+      ]
+    },
+    {
+      "file": "jhin_fx_e_land.png",
+      "frames": 8,
+      "distinct_frames": 8,
+      "alpha": "binary transparent",
+      "palette": "passed",
+      "symmetry": "passed if required",
+      "right_edge_opaque_pixels_per_frame": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "bbox_1x": [
+        [
+          10,
+          8,
+          38,
+          29
+        ],
+        [
+          16,
+          1,
+          32,
+          29
+        ],
+        [
+          8,
+          8,
+          41,
+          29
+        ],
+        [
+          11,
+          4,
+          37,
+          28
+        ],
+        [
+          6,
+          4,
+          42,
+          30
+        ],
+        [
+          12,
+          4,
+          38,
+          31
+        ],
+        [
+          14,
+          10,
+          37,
+          29
+        ],
+        [
+          18,
+          15,
+          31,
+          26
+        ]
+      ]
+    },
+    {
+      "file": "jhin_fx_e_bloom.png",
+      "frames": 10,
+      "distinct_frames": 10,
+      "alpha": "binary transparent",
+      "palette": "passed",
+      "symmetry": "passed if required",
+      "right_edge_opaque_pixels_per_frame": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "bbox_1x": [
+        [
+          7,
+          11,
+          57,
+          26
+        ],
+        [
+          6,
+          9,
+          56,
+          26
+        ],
+        [
+          1,
+          5,
+          57,
+          28
+        ],
+        [
+          1,
+          4,
+          59,
+          28
+        ],
+        [
+          1,
+          1,
+          60,
+          28
+        ],
+        [
+          2,
+          1,
+          60,
+          29
+        ],
+        [
+          3,
+          1,
+          61,
+          28
+        ],
+        [
+          4,
+          1,
+          63,
+          29
+        ],
+        [
+          5,
+          2,
+          60,
+          31
+        ],
+        [
+          6,
+          3,
+          58,
+          30
+        ]
+      ]
+    },
+    {
+      "file": "jhin_fx_e_boom.png",
+      "frames": 7,
+      "distinct_frames": 7,
+      "alpha": "binary transparent",
+      "palette": "passed",
+      "symmetry": "passed if required",
+      "right_edge_opaque_pixels_per_frame": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "bbox_1x": [
+        [
+          3,
+          13,
+          28,
+          29
+        ],
+        [
+          3,
+          7,
+          31,
+          29
+        ],
+        [
+          1,
+          1,
+          31,
+          31
+        ],
+        [
+          1,
+          3,
+          31,
+          29
+        ],
+        [
+          1,
+          5,
+          31,
+          29
+        ],
+        [
+          7,
+          7,
+          31,
+          31
+        ],
+        [
+          1,
+          9,
+          24,
+          28
+        ]
+      ]
+    },
+    {
+      "file": "jhin_fx_e_hit.png",
+      "frames": 4,
+      "distinct_frames": 4,
+      "alpha": "binary transparent",
+      "palette": "passed",
+      "symmetry": "passed if required",
+      "right_edge_opaque_pixels_per_frame": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "bbox_1x": [
+        [
+          7,
+          7,
+          28,
+          28
+        ],
+        [
+          3,
+          5,
+          29,
+          30
+        ],
+        [
+          2,
+          1,
+          29,
+          31
+        ],
+        [
+          6,
+          7,
+          24,
+          31
+        ]
+      ]
+    },
+    {
+      "file": "jhin_fx_r_deploy.png",
+      "frames": 8,
+      "distinct_frames": 8,
+      "alpha": "binary transparent",
+      "palette": "passed",
+      "symmetry": "passed if required",
+      "right_edge_opaque_pixels_per_frame": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "bbox_1x": [
+        [
+          16,
+          30,
+          32,
+          39
+        ],
+        [
+          15,
+          24,
+          32,
+          39
+        ],
+        [
+          15,
+          13,
+          33,
+          39
+        ],
+        [
+          14,
+          1,
+          33,
+          39
+        ],
+        [
+          16,
+          3,
+          32,
+          39
+        ],
+        [
+          16,
+          3,
+          33,
+          39
+        ],
+        [
+          16,
+          3,
+          32,
+          39
+        ],
+        [
+          19,
+          8,
+          30,
+          34
+        ]
+      ]
+    },
+    {
+      "file": "jhin_fx_r_muzzle.png",
+      "frames": 5,
+      "distinct_frames": 5,
+      "alpha": "binary transparent",
+      "palette": "passed",
+      "symmetry": "passed if required",
+      "right_edge_opaque_pixels_per_frame": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "bbox_1x": [
+        [
+          0,
+          3,
+          19,
+          29
+        ],
+        [
+          0,
+          2,
+          44,
+          29
+        ],
+        [
+          0,
+          1,
+          46,
+          29
+        ],
+        [
+          0,
+          2,
+          47,
+          29
+        ],
+        [
+          0,
+          3,
+          45,
+          28
+        ]
+      ]
+    },
+    {
+      "file": "jhin_fx_r_bullet.png",
+      "frames": 4,
+      "distinct_frames": 4,
+      "alpha": "binary transparent",
+      "palette": "passed",
+      "symmetry": "passed if required",
+      "right_edge_opaque_pixels_per_frame": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "bbox_1x": [
+        [
+          10,
+          1,
+          53,
+          15
+        ],
+        [
+          9,
+          1,
+          54,
+          15
+        ],
+        [
+          10,
+          1,
+          54,
+          15
+        ],
+        [
+          10,
+          1,
+          54,
+          15
+        ]
+      ]
+    },
+    {
+      "file": "jhin_fx_r_hit.png",
+      "frames": 5,
+      "distinct_frames": 5,
+      "alpha": "binary transparent",
+      "palette": "passed",
+      "symmetry": "passed if required",
+      "right_edge_opaque_pixels_per_frame": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "bbox_1x": [
+        [
+          8,
+          13,
+          21,
+          28
+        ],
+        [
+          6,
+          12,
+          24,
+          29
+        ],
+        [
+          6,
+          1,
+          25,
+          31
+        ],
+        [
+          7,
+          9,
+          25,
+          30
+        ],
+        [
+          9,
+          17,
+          21,
+          26
+        ]
+      ]
+    },
+    {
+      "file": "jhin_fx_r_crit.png",
+      "frames": 6,
+      "distinct_frames": 6,
+      "alpha": "binary transparent",
+      "palette": "passed",
+      "symmetry": "passed if required",
+      "right_edge_opaque_pixels_per_frame": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "bbox_1x": [
+        [
+          7,
+          9,
+          24,
+          24
+        ],
+        [
+          3,
+          6,
+          26,
+          25
+        ],
+        [
+          2,
+          1,
+          29,
+          30
+        ],
+        [
+          3,
+          3,
+          30,
+          29
+        ],
+        [
+          1,
+          4,
+          30,
+          26
+        ],
+        [
+          12,
+          10,
+          24,
+          21
+        ]
+      ]
+    },
+    {
+      "file": "jhin_fx_slowed.png",
+      "frames": 8,
+      "distinct_frames": 8,
+      "alpha": "binary transparent",
+      "palette": "passed",
+      "symmetry": "passed if required",
+      "right_edge_opaque_pixels_per_frame": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "bbox_1x": [
+        [
+          17,
+          3,
+          63,
+          30
+        ],
+        [
+          18,
+          3,
+          62,
+          31
+        ],
+        [
+          17,
+          3,
+          63,
+          31
+        ],
+        [
+          18,
+          3,
+          62,
+          30
+        ],
+        [
+          18,
+          6,
+          62,
+          27
+        ],
+        [
+          18,
+          1,
+          62,
+          26
+        ],
+        [
+          18,
+          6,
+          62,
+          25
+        ],
+        [
+          17,
+          1,
+          63,
+          25
+        ]
+      ]
+    }
+  ]
+}

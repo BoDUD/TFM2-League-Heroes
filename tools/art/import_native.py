@@ -97,7 +97,7 @@ NECK_EYES = {("fiora", "hit", 0): (-19, 3)}
 # needs it closed). Nothing goes under the soles row; a frame that already reaches lower (lying down) keeps its own
 # bottom.
 COMPLETE = {"nami", "veigar", "jax", "ahri", "taric", "tristana", "fiora", "diana", "leesin", "missfortune", "fizz", "shaco",
-            "caitlyn", "nocturne", "blitzcrank", "camille", "leblanc", "kaisa", "sona", "kennen", "vi", "ryze", "zilean"}
+            "caitlyn", "nocturne", "blitzcrank", "camille", "leblanc", "kaisa", "sona", "kennen", "vi", "ryze", "jhin", "zilean"}
 # hero: the luminance from which an edge pixel gets the outline (complete_outline's `dark`, default 70). Fiora's teal
 # leggings (luminance ~58) and wine cape (~44) edge many action frames without black: tfm2_ase.py metrics counts only
 # luminance < 40 as outline, so at 70 her Q frames read 83-89% (the bare rapier aside); at 40 they close too.
@@ -224,6 +224,8 @@ ORDER = {("lux", "idle"): [0, 0, 0, 0, 0, 0],   # the step-2 idle is the design 
          ("vi", "idle"): [0, 0, 0, 0, 0, 0],
          # and Ryze (Codex's image-model draft A cut to 40 rows: the pack's idle is the design in all six)
          ("ryze", "idle"): [0, 0, 0, 0, 0, 0],
+         # and Jhin (Codex's raw draft A cut to 41 rows, design_jhin.py: the pack's idle is the design in all six)
+         ("jhin", "idle"): [0, 0, 0, 0, 0, 0],
          # and Zilean (Codex's image-model draft A_draft_02 cut to 40 rows: the pack's idle is the design in all six)
          ("zilean", "idle"): [0, 0, 0, 0, 0, 0]}
 # (hero, tag): (y, slots) - in those slots everything at or above pivot row y moves down a row (the row under
@@ -339,6 +341,12 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        ("vi", "idle"): (4, [2, 3, 4]),
        # Ryze: his hands hang to the knee guards, so the seam runs in the boot shafts (rows 96/97 of the design)
        ("ryze", "idle"): (8, [2, 3, 4]),
+       # Jhin: the cane and Whisper reach the ground, so a seam in the legs cuts them - at the knees the cane's bands
+       # and Whisper's slanted barrel stepped a row each breath (the user: 「上下摆动导致模型变形 盖伦就没这问题」); the
+       # seam runs under his shoulders (rows 77/78 of the design: no square of the silhouette and 12 of colour differ):
+       # the head, the collar, the shoulders and the cape's top sink a row, the hands, the cane, Whisper and the legs
+       # stay (the user's pick A of four)
+       ("jhin", "idle"): (-11, [2, 3, 4]),
        # Zilean floats: the seam low in the robe under the clock's pendulum (rows 94/95 of the design: the same width,
        # 11 squares of colour differ); the hem and his dangling feet stay
        ("zilean", "idle"): (6, [2, 3, 4])}
@@ -398,6 +406,7 @@ EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade
         "vi": (0, 108, 251),              # a raised gauntlet tops the E, R and uppercut frames; this blue is only her near
                                           # iris's top square (design_vi.py; the crystals use the other blues)
         "ryze": (251, 251, 253),          # the scroll or a raised hand tops the frames; the white is only in his eyes
+        "jhin": (255, 110, 180),          # Whisper or the cannon tops the flourishes; the pink is only in his eyes
         "zilean": (246, 249, 250)}        # the clock's roof tops every frame; this white is only in his eyes
 
 

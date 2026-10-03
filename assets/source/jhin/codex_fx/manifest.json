@@ -1,0 +1,5459 @@
+{
+  "version": 1,
+  "artist": "OpenAI imagegen",
+  "pixel_step": 8,
+  "processing": "Native imagegen artwork only. Equal-cell extraction, common bounds, nearest-neighbor regrid, palette mapping, binary alpha and requested symmetry. Original PNGs retained in raw/.",
+  "preview_timing": "Preview timing only; game binding and durations must be implemented separately.",
+  "assets": [
+    {
+      "file": "jhin_fx_a_bolt.png",
+      "prompt_number": 1,
+      "generated_frame_count": 4,
+      "size": [
+        2048,
+        256
+      ],
+      "cell": [
+        512,
+        256
+      ],
+      "layout": {
+        "columns": 4,
+        "rows": 1
+      },
+      "raw_file": "raw/jhin_fx_a_bolt.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "pixel1x_file": "pixel1x/jhin_fx_a_bolt.png",
+      "palette": [
+        "#FFFFFF",
+        "#FFF3C4",
+        "#FFD45E",
+        "#F0A030",
+        "#A85E14"
+      ],
+      "binding": "view_projectiles `league_jhin_a_bolt`（朝右，游戏转到飞行方向）",
+      "game_display_size": "10 × 4",
+      "anchor_note": "Cell anchor metadata from supplied specification; game attachment requires importer implementation.",
+      "loop_frame_indices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "preview_ms": [
+        100,
+        100,
+        100,
+        100
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            0,
+            512,
+            256
+          ],
+          "raw_rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_1x": [
+            1,
+            9,
+            63,
+            23
+          ],
+          "anchor": [
+            256,
+            128
+          ]
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            512,
+            0,
+            512,
+            256
+          ],
+          "raw_rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_1x": [
+            6,
+            9,
+            63,
+            23
+          ],
+          "anchor": [
+            256,
+            128
+          ]
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            1024,
+            0,
+            512,
+            256
+          ],
+          "raw_rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_1x": [
+            3,
+            6,
+            63,
+            26
+          ],
+          "anchor": [
+            256,
+            128
+          ]
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            1536,
+            0,
+            512,
+            256
+          ],
+          "raw_rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_1x": [
+            2,
+            9,
+            63,
+            23
+          ],
+          "anchor": [
+            256,
+            128
+          ]
+        }
+      ],
+      "processing_common_raw_bbox": [
+        54,
+        288,
+        486,
+        429
+      ],
+      "sha256": "911578b8f52711c7c63f2961e884d7f63659ce19ab4c66c494e5e1ead6d757fb"
+    },
+    {
+      "file": "jhin_fx_a4_bolt.png",
+      "prompt_number": 2,
+      "generated_frame_count": 4,
+      "size": [
+        2048,
+        256
+      ],
+      "cell": [
+        512,
+        256
+      ],
+      "layout": {
+        "columns": 4,
+        "rows": 1
+      },
+      "raw_file": "raw/jhin_fx_a4_bolt.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "pixel1x_file": "pixel1x/jhin_fx_a4_bolt.png",
+      "palette": [
+        "#FFFFFF",
+        "#FFF3C4",
+        "#FFD45E",
+        "#F0A030",
+        "#A85E14",
+        "#FFD6E2",
+        "#FF7FA6",
+        "#E0306A",
+        "#8A1240"
+      ],
+      "binding": "view_projectiles `league_jhin_a4_bolt`（朝右，游戏转到飞行方向）",
+      "game_display_size": "18 × 8",
+      "anchor_note": "Cell anchor metadata from supplied specification; game attachment requires importer implementation.",
+      "loop_frame_indices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "preview_ms": [
+        100,
+        100,
+        100,
+        100
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            0,
+            512,
+            256
+          ],
+          "raw_rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_1x": [
+            5,
+            1,
+            62,
+            31
+          ],
+          "anchor": [
+            256,
+            128
+          ]
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            512,
+            0,
+            512,
+            256
+          ],
+          "raw_rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_1x": [
+            1,
+            3,
+            62,
+            29
+          ],
+          "anchor": [
+            256,
+            128
+          ]
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            1024,
+            0,
+            512,
+            256
+          ],
+          "raw_rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_1x": [
+            1,
+            4,
+            59,
+            28
+          ],
+          "anchor": [
+            256,
+            128
+          ]
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            1536,
+            0,
+            512,
+            256
+          ],
+          "raw_rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_1x": [
+            10,
+            6,
+            54,
+            26
+          ],
+          "anchor": [
+            256,
+            128
+          ]
+        }
+      ],
+      "processing_common_raw_bbox": [
+        0,
+        227,
+        543,
+        496
+      ],
+      "sha256": "1306ef31c857cf0abbb2296c09d9afb3d7407290906e224584a90d4baae63aaa"
+    },
+    {
+      "file": "jhin_fx_a_cast.png",
+      "prompt_number": 3,
+      "generated_frame_count": 4,
+      "size": [
+        1024,
+        256
+      ],
+      "cell": [
+        256,
+        256
+      ],
+      "layout": {
+        "columns": 4,
+        "rows": 1
+      },
+      "raw_file": "raw/jhin_fx_a_cast.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "pixel1x_file": "pixel1x/jhin_fx_a_cast.png",
+      "palette": [
+        "#FFFFFF",
+        "#FFF3C4",
+        "#FFD45E",
+        "#F0A030",
+        "#A85E14"
+      ],
+      "binding": "view_effects `league_jhin_a_cast`（施法者身上，跟随；Claude 放到普攻第 2 帧低语的位置）",
+      "game_display_size": "10",
+      "anchor_note": "Cell anchor metadata from supplied specification; game attachment requires importer implementation.",
+      "loop_frame_indices": [],
+      "preview_ms": [
+        100,
+        100,
+        100,
+        100
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_1x": [
+            11,
+            10,
+            23,
+            21
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_1x": [
+            3,
+            3,
+            30,
+            28
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_1x": [
+            1,
+            1,
+            31,
+            30
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_1x": [
+            4,
+            5,
+            28,
+            27
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        }
+      ],
+      "processing_common_raw_bbox": [
+        79,
+        181,
+        456,
+        544
+      ],
+      "sha256": "cf2b8447d18ce0b36347d8e7d9bdcd540e15248b7f31fcc37ec039a5a4cb1ce5"
+    },
+    {
+      "file": "jhin_fx_a_muzzle.png",
+      "prompt_number": 4,
+      "generated_frame_count": 4,
+      "size": [
+        1024,
+        256
+      ],
+      "cell": [
+        256,
+        256
+      ],
+      "layout": {
+        "columns": 4,
+        "rows": 1
+      },
+      "raw_file": "raw/jhin_fx_a_muzzle.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "pixel1x_file": "pixel1x/jhin_fx_a_muzzle.png",
+      "palette": [
+        "#FFFFFF",
+        "#D2FFF6",
+        "#7EF2D8",
+        "#22B28A",
+        "#126858",
+        "#FFF3C4",
+        "#FFD45E",
+        "#F0A030",
+        "#A85E14"
+      ],
+      "binding": "view_effects `league_jhin_a_muzzle`（施法者身上，跟随，朝左时游戏左右镜像；格子左边中点放到普攻第 3 帧的枪口）",
+      "game_display_size": "12 × 10",
+      "anchor_note": "Cell anchor metadata from supplied specification; game attachment requires importer implementation.",
+      "loop_frame_indices": [],
+      "preview_ms": [
+        100,
+        100,
+        100,
+        100
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_1x": [
+            0,
+            7,
+            10,
+            25
+          ],
+          "anchor": [
+            0,
+            128
+          ]
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_1x": [
+            0,
+            4,
+            25,
+            27
+          ],
+          "anchor": [
+            0,
+            128
+          ]
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_1x": [
+            0,
+            7,
+            27,
+            24
+          ],
+          "anchor": [
+            0,
+            128
+          ]
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_1x": [
+            0,
+            10,
+            31,
+            24
+          ],
+          "anchor": [
+            0,
+            128
+          ]
+        }
+      ],
+      "processing_common_raw_bbox": [
+        9,
+        215,
+        516,
+        548
+      ],
+      "sha256": "983fe5252dff06da964d1834e8f2db3ca90ba9146e175e5cac17fcdaa025e28c"
+    },
+    {
+      "file": "jhin_fx_a_hit.png",
+      "prompt_number": 5,
+      "generated_frame_count": 4,
+      "size": [
+        1024,
+        256
+      ],
+      "cell": [
+        256,
+        256
+      ],
+      "layout": {
+        "columns": 4,
+        "rows": 1
+      },
+      "raw_file": "raw/jhin_fx_a_hit.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "pixel1x_file": "pixel1x/jhin_fx_a_hit.png",
+      "palette": [
+        "#FFFFFF",
+        "#FFF3C4",
+        "#FFD45E",
+        "#F0A030",
+        "#A85E14"
+      ],
+      "binding": "view_effects `league_jhin_a_hit`（跟随）",
+      "game_display_size": "10",
+      "anchor_note": "Cell anchor metadata from supplied specification; game attachment requires importer implementation.",
+      "loop_frame_indices": [],
+      "preview_ms": [
+        100,
+        100,
+        100,
+        100
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_1x": [
+            8,
+            8,
+            24,
+            22
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_1x": [
+            2,
+            2,
+            30,
+            28
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_1x": [
+            1,
+            1,
+            31,
+            30
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_1x": [
+            3,
+            5,
+            31,
+            25
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        }
+      ],
+      "processing_common_raw_bbox": [
+        68,
+        161,
+        474,
+        560
+      ],
+      "sha256": "c249a94b2582b203e33df9516b0f608851b43be07be73d211f6c749d18bb3d5b"
+    },
+    {
+      "file": "jhin_fx_a4_muzzle.png",
+      "prompt_number": 6,
+      "generated_frame_count": 5,
+      "size": [
+        1920,
+        256
+      ],
+      "cell": [
+        384,
+        256
+      ],
+      "layout": {
+        "columns": 5,
+        "rows": 1
+      },
+      "raw_file": "raw/jhin_fx_a4_muzzle.png",
+      "raw_size": [
+        1983,
+        793
+      ],
+      "pixel1x_file": "pixel1x/jhin_fx_a4_muzzle.png",
+      "palette": [
+        "#FFFFFF",
+        "#FFF3C4",
+        "#FFD45E",
+        "#F0A030",
+        "#A85E14",
+        "#FFD6E2",
+        "#FF7FA6",
+        "#E0306A",
+        "#8A1240"
+      ],
+      "binding": "view_effects `league_jhin_a4_muzzle`（施法者身上，跟随，朝左时镜像；格子左边中点放到第四枪第 4 帧的枪口）",
+      "game_display_size": "20 × 14",
+      "anchor_note": "Cell anchor metadata from supplied specification; game attachment requires importer implementation.",
+      "loop_frame_indices": [],
+      "preview_ms": [
+        100,
+        100,
+        100,
+        100,
+        100
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            0,
+            384,
+            256
+          ],
+          "raw_rect": [
+            0,
+            0,
+            297,
+            793
+          ],
+          "alpha_bbox_1x": [
+            0,
+            10,
+            12,
+            23
+          ],
+          "anchor": [
+            0,
+            128
+          ]
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            384,
+            0,
+            384,
+            256
+          ],
+          "raw_rect": [
+            297,
+            0,
+            490,
+            793
+          ],
+          "alpha_bbox_1x": [
+            0,
+            3,
+            28,
+            28
+          ],
+          "anchor": [
+            0,
+            128
+          ]
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            768,
+            0,
+            384,
+            256
+          ],
+          "raw_rect": [
+            787,
+            0,
+            399,
+            793
+          ],
+          "alpha_bbox_1x": [
+            0,
+            3,
+            21,
+            30
+          ],
+          "anchor": [
+            0,
+            128
+          ]
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            1152,
+            0,
+            384,
+            256
+          ],
+          "raw_rect": [
+            1186,
+            0,
+            424,
+            793
+          ],
+          "alpha_bbox_1x": [
+            0,
+            1,
+            28,
+            29
+          ],
+          "anchor": [
+            0,
+            128
+          ]
+        },
+        {
+          "index": 4,
+          "row": 0,
+          "column": 4,
+          "rect": [
+            1536,
+            0,
+            384,
+            256
+          ],
+          "raw_rect": [
+            1610,
+            0,
+            373,
+            793
+          ],
+          "alpha_bbox_1x": [
+            0,
+            6,
+            25,
+            24
+          ],
+          "anchor": [
+            0,
+            128
+          ]
+        }
+      ],
+      "processing_common_raw_bbox": [
+        8,
+        227,
+        485,
+        590
+      ],
+      "sha256": "667b0ca1dda3c474d1f4ed595c6d93515c411cbdc1b2d590f4c88d6fb6e9aaa8"
+    },
+    {
+      "file": "jhin_fx_a4_hit.png",
+      "prompt_number": 7,
+      "generated_frame_count": 5,
+      "size": [
+        1280,
+        256
+      ],
+      "cell": [
+        256,
+        256
+      ],
+      "layout": {
+        "columns": 5,
+        "rows": 1
+      },
+      "raw_file": "raw/jhin_fx_a4_hit.png",
+      "raw_size": [
+        1983,
+        793
+      ],
+      "pixel1x_file": "pixel1x/jhin_fx_a4_hit.png",
+      "palette": [
+        "#FFFFFF",
+        "#FFF3C4",
+        "#FFD45E",
+        "#F0A030",
+        "#A85E14",
+        "#FFD6E2",
+        "#FF7FA6",
+        "#E0306A",
+        "#8A1240"
+      ],
+      "binding": "view_effects `league_jhin_a4_hit`（跟随，画在人物上面）",
+      "game_display_size": "18",
+      "anchor_note": "Cell anchor metadata from supplied specification; game attachment requires importer implementation.",
+      "loop_frame_indices": [],
+      "preview_ms": [
+        100,
+        100,
+        100,
+        100,
+        100
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            0,
+            0,
+            397,
+            793
+          ],
+          "alpha_bbox_1x": [
+            7,
+            7,
+            26,
+            25
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            397,
+            0,
+            396,
+            793
+          ],
+          "alpha_bbox_1x": [
+            2,
+            4,
+            28,
+            28
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            793,
+            0,
+            397,
+            793
+          ],
+          "alpha_bbox_1x": [
+            1,
+            1,
+            28,
+            31
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            1190,
+            0,
+            396,
+            793
+          ],
+          "alpha_bbox_1x": [
+            2,
+            3,
+            30,
+            30
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "index": 4,
+          "row": 0,
+          "column": 4,
+          "rect": [
+            1024,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            1586,
+            0,
+            397,
+            793
+          ],
+          "alpha_bbox_1x": [
+            4,
+            5,
+            27,
+            27
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        }
+      ],
+      "processing_common_raw_bbox": [
+        4,
+        188,
+        396,
+        588
+      ],
+      "sha256": "bd01b4d733a566352d61a3140a7f64e2caa3c693cf27e09e60c7cd5ee1c891d0"
+    },
+    {
+      "file": "jhin_fx_a_reload.png",
+      "prompt_number": 8,
+      "generated_frame_count": 8,
+      "size": [
+        4096,
+        256
+      ],
+      "cell": [
+        512,
+        256
+      ],
+      "layout": {
+        "columns": 8,
+        "rows": 1
+      },
+      "raw_file": "raw/jhin_fx_a_reload.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "pixel1x_file": "pixel1x/jhin_fx_a_reload.png",
+      "palette": [
+        "#FFFFFF",
+        "#FFF3C4",
+        "#FFD45E",
+        "#F0A030",
+        "#A85E14"
+      ],
+      "binding": "view_effects `league_jhin_a_reload`（施法者身上，跟随，画在头顶上；导入时拉长到装弹的 2.2 秒）",
+      "game_display_size": "18 × 8",
+      "anchor_note": "Cell anchor metadata from supplied specification; game attachment requires importer implementation.",
+      "loop_frame_indices": [],
+      "preview_ms": [
+        270,
+        280,
+        270,
+        280,
+        270,
+        280,
+        270,
+        280
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            0,
+            512,
+            256
+          ],
+          "raw_rect": [
+            0,
+            0,
+            272,
+            724
+          ],
+          "alpha_bbox_1x": [
+            19,
+            7,
+            49,
+            25
+          ],
+          "anchor": [
+            256,
+            128
+          ]
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            512,
+            0,
+            512,
+            256
+          ],
+          "raw_rect": [
+            272,
+            0,
+            271,
+            724
+          ],
+          "alpha_bbox_1x": [
+            15,
+            1,
+            49,
+            25
+          ],
+          "anchor": [
+            256,
+            128
+          ]
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            1024,
+            0,
+            512,
+            256
+          ],
+          "raw_rect": [
+            543,
+            0,
+            271,
+            724
+          ],
+          "alpha_bbox_1x": [
+            18,
+            7,
+            48,
+            25
+          ],
+          "anchor": [
+            256,
+            128
+          ]
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            1536,
+            0,
+            512,
+            256
+          ],
+          "raw_rect": [
+            814,
+            0,
+            272,
+            724
+          ],
+          "alpha_bbox_1x": [
+            17,
+            1,
+            48,
+            25
+          ],
+          "anchor": [
+            256,
+            128
+          ]
+        },
+        {
+          "index": 4,
+          "row": 0,
+          "column": 4,
+          "rect": [
+            2048,
+            0,
+            512,
+            256
+          ],
+          "raw_rect": [
+            1086,
+            0,
+            272,
+            724
+          ],
+          "alpha_bbox_1x": [
+            17,
+            1,
+            47,
+            25
+          ],
+          "anchor": [
+            256,
+            128
+          ]
+        },
+        {
+          "index": 5,
+          "row": 0,
+          "column": 5,
+          "rect": [
+            2560,
+            0,
+            512,
+            256
+          ],
+          "raw_rect": [
+            1358,
+            0,
+            271,
+            724
+          ],
+          "alpha_bbox_1x": [
+            16,
+            1,
+            50,
+            25
+          ],
+          "anchor": [
+            256,
+            128
+          ]
+        },
+        {
+          "index": 6,
+          "row": 0,
+          "column": 6,
+          "rect": [
+            3072,
+            0,
+            512,
+            256
+          ],
+          "raw_rect": [
+            1629,
+            0,
+            271,
+            724
+          ],
+          "alpha_bbox_1x": [
+            11,
+            1,
+            52,
+            31
+          ],
+          "anchor": [
+            256,
+            128
+          ]
+        },
+        {
+          "index": 7,
+          "row": 0,
+          "column": 7,
+          "rect": [
+            3584,
+            0,
+            512,
+            256
+          ],
+          "raw_rect": [
+            1900,
+            0,
+            272,
+            724
+          ],
+          "alpha_bbox_1x": [
+            16,
+            7,
+            46,
+            25
+          ],
+          "anchor": [
+            256,
+            128
+          ]
+        }
+      ],
+      "processing_common_raw_bbox": [
+        11,
+        272,
+        251,
+        449
+      ],
+      "sha256": "ec4152d9947089ed5e76f32cbdc284a12dfe209b22843c032cc94cd4520d0f8a"
+    },
+    {
+      "file": "jhin_fx_q_nade.png",
+      "prompt_number": 9,
+      "generated_frame_count": 4,
+      "size": [
+        1024,
+        256
+      ],
+      "cell": [
+        256,
+        256
+      ],
+      "layout": {
+        "columns": 4,
+        "rows": 1
+      },
+      "raw_file": "raw/jhin_fx_q_nade.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "pixel1x_file": "pixel1x/jhin_fx_q_nade.png",
+      "palette": [
+        "#E6ECF2",
+        "#A8B4C4",
+        "#6A7890",
+        "#3A4458",
+        "#1E2230",
+        "#FFFFFF",
+        "#FFF3C4",
+        "#FFD45E",
+        "#F0A030",
+        "#A85E14",
+        "#D2FFF6",
+        "#7EF2D8",
+        "#22B28A",
+        "#126858"
+      ],
+      "binding": "view_projectiles `league_jhin_q_nade`（循环，游戏转到飞行方向）",
+      "game_display_size": "8 × 8",
+      "anchor_note": "Cell anchor metadata from supplied specification; game attachment requires importer implementation.",
+      "loop_frame_indices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "preview_ms": [
+        100,
+        100,
+        100,
+        100
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_1x": [
+            2,
+            4,
+            31,
+            27
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_1x": [
+            1,
+            5,
+            30,
+            27
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_1x": [
+            1,
+            5,
+            29,
+            27
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_1x": [
+            3,
+            5,
+            31,
+            25
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        }
+      ],
+      "processing_common_raw_bbox": [
+        54,
+        229,
+        425,
+        514
+      ],
+      "sha256": "c9cd53dbe0507b487a7e1a4a9e6ec3c31bbed57fa9a09b45decf4c355e5841bb"
+    },
+    {
+      "file": "jhin_fx_q_throw.png",
+      "prompt_number": 10,
+      "generated_frame_count": 4,
+      "size": [
+        1024,
+        256
+      ],
+      "cell": [
+        256,
+        256
+      ],
+      "layout": {
+        "columns": 4,
+        "rows": 1
+      },
+      "raw_file": "raw/jhin_fx_q_throw.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "pixel1x_file": "pixel1x/jhin_fx_q_throw.png",
+      "palette": [
+        "#FFFFFF",
+        "#FFF3C4",
+        "#FFD45E",
+        "#F0A030",
+        "#A85E14"
+      ],
+      "binding": "view_effects `league_jhin_q_throw`（施法者身上，跟随；放到 Q 第 3 帧金拳头的位置）",
+      "game_display_size": "10",
+      "anchor_note": "Cell anchor metadata from supplied specification; game attachment requires importer implementation.",
+      "loop_frame_indices": [],
+      "preview_ms": [
+        100,
+        100,
+        100,
+        100
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_1x": [
+            13,
+            13,
+            18,
+            19
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_1x": [
+            6,
+            6,
+            26,
+            25
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_1x": [
+            1,
+            6,
+            31,
+            25
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_1x": [
+            7,
+            7,
+            27,
+            26
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        }
+      ],
+      "processing_common_raw_bbox": [
+        56,
+        208,
+        478,
+        494
+      ],
+      "sha256": "e0e16404155b6960b4e302cfd49d211a36f2a5c9c80e03cb270e030c6d1e648f"
+    },
+    {
+      "file": "jhin_fx_q_boom.png",
+      "prompt_number": 11,
+      "generated_frame_count": 5,
+      "size": [
+        1280,
+        256
+      ],
+      "cell": [
+        256,
+        256
+      ],
+      "layout": {
+        "columns": 5,
+        "rows": 1
+      },
+      "raw_file": "raw/jhin_fx_q_boom.png",
+      "raw_size": [
+        1983,
+        793
+      ],
+      "pixel1x_file": "pixel1x/jhin_fx_q_boom.png",
+      "palette": [
+        "#FFFFFF",
+        "#FFF3C4",
+        "#FFD45E",
+        "#F0A030",
+        "#A85E14",
+        "#F4F0E8",
+        "#D2CABC",
+        "#A69C8C",
+        "#746A5C"
+      ],
+      "binding": "view_effects `league_jhin_q_boom`（跟随，画在人物上面）",
+      "game_display_size": "18",
+      "anchor_note": "Cell anchor metadata from supplied specification; game attachment requires importer implementation.",
+      "loop_frame_indices": [],
+      "preview_ms": [
+        100,
+        100,
+        100,
+        100,
+        100
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            0,
+            0,
+            397,
+            793
+          ],
+          "alpha_bbox_1x": [
+            11,
+            13,
+            22,
+            27
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            397,
+            0,
+            396,
+            793
+          ],
+          "alpha_bbox_1x": [
+            4,
+            9,
+            30,
+            30
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            793,
+            0,
+            397,
+            793
+          ],
+          "alpha_bbox_1x": [
+            2,
+            1,
+            30,
+            31
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            1190,
+            0,
+            396,
+            793
+          ],
+          "alpha_bbox_1x": [
+            2,
+            4,
+            30,
+            30
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "index": 4,
+          "row": 0,
+          "column": 4,
+          "rect": [
+            1024,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            1586,
+            0,
+            397,
+            793
+          ],
+          "alpha_bbox_1x": [
+            10,
+            7,
+            25,
+            28
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        }
+      ],
+      "processing_common_raw_bbox": [
+        0,
+        207,
+        397,
+        639
+      ],
+      "sha256": "20663fe8f1281a8301b52743f4c0e3cd65e247466ed20378f620d25ce3186eab"
+    },
+    {
+      "file": "jhin_fx_q_drop.png",
+      "prompt_number": 12,
+      "generated_frame_count": 4,
+      "size": [
+        1024,
+        768
+      ],
+      "cell": [
+        256,
+        768
+      ],
+      "layout": {
+        "columns": 4,
+        "rows": 1
+      },
+      "raw_file": "raw/jhin_fx_q_drop.png",
+      "raw_size": [
+        1448,
+        1086
+      ],
+      "pixel1x_file": "pixel1x/jhin_fx_q_drop.png",
+      "palette": [
+        "#E6ECF2",
+        "#A8B4C4",
+        "#6A7890",
+        "#3A4458",
+        "#1E2230",
+        "#FFFFFF",
+        "#FFF3C4",
+        "#FFD45E",
+        "#F0A030",
+        "#A85E14",
+        "#D2FFF6",
+        "#7EF2D8",
+        "#22B28A",
+        "#126858"
+      ],
+      "binding": "view_effects `league_jhin_q_drop`（跟随；落到底以后接 `q_boom`）",
+      "game_display_size": "8 × 24",
+      "anchor_note": "Cell anchor metadata from supplied specification; game attachment requires importer implementation.",
+      "loop_frame_indices": [],
+      "preview_ms": [
+        100,
+        100,
+        100,
+        100
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            768
+          ],
+          "raw_rect": [
+            0,
+            0,
+            362,
+            1086
+          ],
+          "alpha_bbox_1x": [
+            9,
+            2,
+            22,
+            24
+          ],
+          "anchor": [
+            128,
+            512
+          ]
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            768
+          ],
+          "raw_rect": [
+            362,
+            0,
+            362,
+            1086
+          ],
+          "alpha_bbox_1x": [
+            5,
+            21,
+            27,
+            43
+          ],
+          "anchor": [
+            128,
+            512
+          ]
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            768
+          ],
+          "raw_rect": [
+            724,
+            0,
+            362,
+            1086
+          ],
+          "alpha_bbox_1x": [
+            8,
+            47,
+            23,
+            76
+          ],
+          "anchor": [
+            128,
+            512
+          ]
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            768
+          ],
+          "raw_rect": [
+            1086,
+            0,
+            362,
+            1086
+          ],
+          "alpha_bbox_1x": [
+            2,
+            53,
+            31,
+            76
+          ],
+          "anchor": [
+            128,
+            512
+          ]
+        }
+      ],
+      "processing_common_raw_bbox": [
+        58,
+        110,
+        310,
+        916
+      ],
+      "sha256": "f8e321e86ebc7fc0421255c6445e863faf141080f55b4ae4f95ade93c6b695e6"
+    },
+    {
+      "file": "jhin_fx_w_shot.png",
+      "prompt_number": 13,
+      "generated_frame_count": 4,
+      "size": [
+        3072,
+        128
+      ],
+      "cell": [
+        768,
+        128
+      ],
+      "layout": {
+        "columns": 4,
+        "rows": 1
+      },
+      "raw_file": "raw/jhin_fx_w_shot.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "pixel1x_file": "pixel1x/jhin_fx_w_shot.png",
+      "palette": [
+        "#FFFFFF",
+        "#FFF3C4",
+        "#FFD45E",
+        "#F0A030",
+        "#A85E14",
+        "#EEDCFF",
+        "#C49CFF",
+        "#8E5BEA",
+        "#4E2A9E"
+      ],
+      "binding": "view_projectiles `league_jhin_w_shot`（朝右，游戏转到飞行方向）",
+      "game_display_size": "32 × 5",
+      "anchor_note": "Cell anchor metadata from supplied specification; game attachment requires importer implementation.",
+      "loop_frame_indices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "preview_ms": [
+        100,
+        100,
+        100,
+        100
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            0,
+            768,
+            128
+          ],
+          "raw_rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_1x": [
+            21,
+            2,
+            84,
+            14
+          ],
+          "anchor": [
+            384,
+            64
+          ]
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            768,
+            0,
+            768,
+            128
+          ],
+          "raw_rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_1x": [
+            13,
+            1,
+            83,
+            15
+          ],
+          "anchor": [
+            384,
+            64
+          ]
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            1536,
+            0,
+            768,
+            128
+          ],
+          "raw_rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_1x": [
+            13,
+            1,
+            83,
+            15
+          ],
+          "anchor": [
+            384,
+            64
+          ]
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            2304,
+            0,
+            768,
+            128
+          ],
+          "raw_rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_1x": [
+            12,
+            1,
+            82,
+            15
+          ],
+          "anchor": [
+            384,
+            64
+          ]
+        }
+      ],
+      "processing_common_raw_bbox": [
+        27,
+        313,
+        529,
+        411
+      ],
+      "sha256": "4ab3cf564e422aaf0ea1c80480ad17058649677d47f5e0e70de41066fbdd63b1"
+    },
+    {
+      "file": "jhin_fx_w_muzzle.png",
+      "prompt_number": 14,
+      "generated_frame_count": 5,
+      "size": [
+        1920,
+        256
+      ],
+      "cell": [
+        384,
+        256
+      ],
+      "layout": {
+        "columns": 5,
+        "rows": 1
+      },
+      "raw_file": "raw/jhin_fx_w_muzzle.png",
+      "raw_size": [
+        1983,
+        793
+      ],
+      "pixel1x_file": "pixel1x/jhin_fx_w_muzzle.png",
+      "palette": [
+        "#FFFFFF",
+        "#FFF3C4",
+        "#FFD45E",
+        "#F0A030",
+        "#A85E14",
+        "#FFD6E2",
+        "#FF7FA6",
+        "#E0306A",
+        "#8A1240",
+        "#EEDCFF",
+        "#C49CFF",
+        "#8E5BEA",
+        "#4E2A9E"
+      ],
+      "binding": "view_effects `league_jhin_w_muzzle`（施法者身上，跟随，朝左时镜像；格子左边中点放到 W 第 7 帧的枪口）",
+      "game_display_size": "22 × 14",
+      "anchor_note": "Cell anchor metadata from supplied specification; game attachment requires importer implementation.",
+      "loop_frame_indices": [],
+      "preview_ms": [
+        100,
+        100,
+        100,
+        100,
+        100
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            0,
+            384,
+            256
+          ],
+          "raw_rect": [
+            0,
+            0,
+            397,
+            793
+          ],
+          "alpha_bbox_1x": [
+            0,
+            10,
+            10,
+            21
+          ],
+          "anchor": [
+            0,
+            128
+          ]
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            384,
+            0,
+            384,
+            256
+          ],
+          "raw_rect": [
+            397,
+            0,
+            396,
+            793
+          ],
+          "alpha_bbox_1x": [
+            0,
+            4,
+            37,
+            28
+          ],
+          "anchor": [
+            0,
+            128
+          ]
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            768,
+            0,
+            384,
+            256
+          ],
+          "raw_rect": [
+            793,
+            0,
+            397,
+            793
+          ],
+          "alpha_bbox_1x": [
+            0,
+            5,
+            35,
+            30
+          ],
+          "anchor": [
+            0,
+            128
+          ]
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            1152,
+            0,
+            384,
+            256
+          ],
+          "raw_rect": [
+            1190,
+            0,
+            396,
+            793
+          ],
+          "alpha_bbox_1x": [
+            0,
+            1,
+            45,
+            28
+          ],
+          "anchor": [
+            0,
+            128
+          ]
+        },
+        {
+          "index": 4,
+          "row": 0,
+          "column": 4,
+          "rect": [
+            1536,
+            0,
+            384,
+            256
+          ],
+          "raw_rect": [
+            1586,
+            0,
+            397,
+            793
+          ],
+          "alpha_bbox_1x": [
+            0,
+            4,
+            30,
+            25
+          ],
+          "anchor": [
+            0,
+            128
+          ]
+        }
+      ],
+      "processing_common_raw_bbox": [
+        6,
+        296,
+        381,
+        510
+      ],
+      "sha256": "c413aa7947f7357563d276a10fb87eca3c3a5f27d17d7a1e45df473d60744191"
+    },
+    {
+      "file": "jhin_fx_w_hit.png",
+      "prompt_number": 15,
+      "generated_frame_count": 5,
+      "size": [
+        1280,
+        256
+      ],
+      "cell": [
+        256,
+        256
+      ],
+      "layout": {
+        "columns": 5,
+        "rows": 1
+      },
+      "raw_file": "raw/jhin_fx_w_hit.png",
+      "raw_size": [
+        1983,
+        793
+      ],
+      "pixel1x_file": "pixel1x/jhin_fx_w_hit.png",
+      "palette": [
+        "#FFFFFF",
+        "#FFF3C4",
+        "#FFD45E",
+        "#F0A030",
+        "#A85E14",
+        "#FFD6E2",
+        "#FF7FA6",
+        "#E0306A",
+        "#8A1240",
+        "#EEDCFF",
+        "#C49CFF",
+        "#8E5BEA",
+        "#4E2A9E"
+      ],
+      "binding": "view_effects `league_jhin_w_hit`（跟随，画在人物上面）",
+      "game_display_size": "16",
+      "anchor_note": "Cell anchor metadata from supplied specification; game attachment requires importer implementation.",
+      "loop_frame_indices": [],
+      "preview_ms": [
+        100,
+        100,
+        100,
+        100,
+        100
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            0,
+            0,
+            397,
+            793
+          ],
+          "alpha_bbox_1x": [
+            5,
+            5,
+            27,
+            26
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            397,
+            0,
+            396,
+            793
+          ],
+          "alpha_bbox_1x": [
+            2,
+            2,
+            29,
+            29
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            793,
+            0,
+            397,
+            793
+          ],
+          "alpha_bbox_1x": [
+            1,
+            4,
+            31,
+            27
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            1190,
+            0,
+            396,
+            793
+          ],
+          "alpha_bbox_1x": [
+            3,
+            6,
+            30,
+            25
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "index": 4,
+          "row": 0,
+          "column": 4,
+          "rect": [
+            1024,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            1586,
+            0,
+            397,
+            793
+          ],
+          "alpha_bbox_1x": [
+            8,
+            9,
+            25,
+            25
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        }
+      ],
+      "processing_common_raw_bbox": [
+        16,
+        233,
+        381,
+        562
+      ],
+      "sha256": "216c78a0c652a1dc8f307d577404b639feaca48971cff3a4f0fc46b81caf654b"
+    },
+    {
+      "file": "jhin_fx_w_root.png",
+      "prompt_number": 16,
+      "generated_frame_count": 8,
+      "size": [
+        2560,
+        256
+      ],
+      "cell": [
+        320,
+        256
+      ],
+      "layout": {
+        "columns": 8,
+        "rows": 1
+      },
+      "raw_file": "raw/jhin_fx_w_root.png",
+      "raw_size": [
+        1983,
+        793
+      ],
+      "pixel1x_file": "pixel1x/jhin_fx_w_root.png",
+      "palette": [
+        "#FFFFFF",
+        "#EEDCFF",
+        "#C49CFF",
+        "#8E5BEA",
+        "#4E2A9E",
+        "#FFD6E2",
+        "#FF7FA6",
+        "#E0306A",
+        "#8A1240"
+      ],
+      "binding": "view_effects `league_jhin_w_root`（跟随；3–6 帧导入时重复到定身结束）",
+      "game_display_size": "22 × 18",
+      "anchor_note": "Cell anchor metadata from supplied specification; game attachment requires importer implementation.",
+      "loop_frame_indices": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "preview_ms": [
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            0,
+            320,
+            256
+          ],
+          "raw_rect": [
+            0,
+            0,
+            248,
+            793
+          ],
+          "alpha_bbox_1x": [
+            7,
+            23,
+            32,
+            30
+          ],
+          "anchor": [
+            160,
+            232
+          ]
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            320,
+            0,
+            320,
+            256
+          ],
+          "raw_rect": [
+            248,
+            0,
+            248,
+            793
+          ],
+          "alpha_bbox_1x": [
+            7,
+            10,
+            31,
+            30
+          ],
+          "anchor": [
+            160,
+            232
+          ]
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            640,
+            0,
+            320,
+            256
+          ],
+          "raw_rect": [
+            496,
+            0,
+            248,
+            793
+          ],
+          "alpha_bbox_1x": [
+            6,
+            8,
+            32,
+            31
+          ],
+          "anchor": [
+            160,
+            232
+          ]
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            960,
+            0,
+            320,
+            256
+          ],
+          "raw_rect": [
+            744,
+            0,
+            248,
+            793
+          ],
+          "alpha_bbox_1x": [
+            7,
+            8,
+            32,
+            31
+          ],
+          "anchor": [
+            160,
+            232
+          ]
+        },
+        {
+          "index": 4,
+          "row": 0,
+          "column": 4,
+          "rect": [
+            1280,
+            0,
+            320,
+            256
+          ],
+          "raw_rect": [
+            992,
+            0,
+            247,
+            793
+          ],
+          "alpha_bbox_1x": [
+            7,
+            6,
+            32,
+            30
+          ],
+          "anchor": [
+            160,
+            232
+          ]
+        },
+        {
+          "index": 5,
+          "row": 0,
+          "column": 5,
+          "rect": [
+            1600,
+            0,
+            320,
+            256
+          ],
+          "raw_rect": [
+            1239,
+            0,
+            248,
+            793
+          ],
+          "alpha_bbox_1x": [
+            7,
+            7,
+            33,
+            31
+          ],
+          "anchor": [
+            160,
+            232
+          ]
+        },
+        {
+          "index": 6,
+          "row": 0,
+          "column": 6,
+          "rect": [
+            1920,
+            0,
+            320,
+            256
+          ],
+          "raw_rect": [
+            1487,
+            0,
+            248,
+            793
+          ],
+          "alpha_bbox_1x": [
+            7,
+            1,
+            33,
+            31
+          ],
+          "anchor": [
+            160,
+            232
+          ]
+        },
+        {
+          "index": 7,
+          "row": 0,
+          "column": 7,
+          "rect": [
+            2240,
+            0,
+            320,
+            256
+          ],
+          "raw_rect": [
+            1735,
+            0,
+            248,
+            793
+          ],
+          "alpha_bbox_1x": [
+            6,
+            16,
+            33,
+            31
+          ],
+          "anchor": [
+            160,
+            232
+          ]
+        }
+      ],
+      "processing_common_raw_bbox": [
+        21,
+        442,
+        233,
+        679
+      ],
+      "sha256": "6c3afb58d6fc5971930024534bbf34eef28f7d9e02e606251007b59c960fb8cf"
+    },
+    {
+      "file": "jhin_fx_e_seed.png",
+      "prompt_number": 17,
+      "generated_frame_count": 4,
+      "size": [
+        1024,
+        256
+      ],
+      "cell": [
+        256,
+        256
+      ],
+      "layout": {
+        "columns": 4,
+        "rows": 1
+      },
+      "raw_file": "raw/jhin_fx_e_seed.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "pixel1x_file": "pixel1x/jhin_fx_e_seed.png",
+      "palette": [
+        "#FFFFFF",
+        "#FFF3C4",
+        "#FFD45E",
+        "#F0A030",
+        "#A85E14",
+        "#FFD6E2",
+        "#FF7FA6",
+        "#E0306A",
+        "#8A1240"
+      ],
+      "binding": "view_projectiles `league_jhin_e_seed`（游戏转到飞行方向）",
+      "game_display_size": "8 × 8",
+      "anchor_note": "Cell anchor metadata from supplied specification; game attachment requires importer implementation.",
+      "loop_frame_indices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "preview_ms": [
+        100,
+        100,
+        100,
+        100
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_1x": [
+            3,
+            2,
+            28,
+            31
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_1x": [
+            2,
+            1,
+            30,
+            31
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_1x": [
+            1,
+            1,
+            30,
+            31
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_1x": [
+            3,
+            3,
+            30,
+            31
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        }
+      ],
+      "processing_common_raw_bbox": [
+        94,
+        185,
+        445,
+        551
+      ],
+      "sha256": "fa7b1aa7ddf30ce4d9dbe6828ce91f6e2fd8dea0bade47fd3ce0c81fd58019ed"
+    },
+    {
+      "file": "jhin_fx_e_land.png",
+      "prompt_number": 18,
+      "generated_frame_count": 8,
+      "size": [
+        3072,
+        256
+      ],
+      "cell": [
+        384,
+        256
+      ],
+      "layout": {
+        "columns": 8,
+        "rows": 1
+      },
+      "raw_file": "raw/jhin_fx_e_land.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "pixel1x_file": "pixel1x/jhin_fx_e_land.png",
+      "palette": [
+        "#FFFFFF",
+        "#FFF3C4",
+        "#FFD45E",
+        "#F0A030",
+        "#A85E14",
+        "#FFD6E2",
+        "#FF7FA6",
+        "#E0306A",
+        "#8A1240"
+      ],
+      "binding": "view_effects `league_jhin_e_land`（地面，画在人物下面，不跟随）",
+      "game_display_size": "14 × 10",
+      "anchor_note": "Cell anchor metadata from supplied specification; game attachment requires importer implementation.",
+      "loop_frame_indices": [],
+      "preview_ms": [
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            0,
+            384,
+            256
+          ],
+          "raw_rect": [
+            0,
+            0,
+            272,
+            724
+          ],
+          "alpha_bbox_1x": [
+            10,
+            8,
+            38,
+            29
+          ],
+          "anchor": [
+            192,
+            240
+          ]
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            384,
+            0,
+            384,
+            256
+          ],
+          "raw_rect": [
+            272,
+            0,
+            271,
+            724
+          ],
+          "alpha_bbox_1x": [
+            16,
+            1,
+            32,
+            29
+          ],
+          "anchor": [
+            192,
+            240
+          ]
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            768,
+            0,
+            384,
+            256
+          ],
+          "raw_rect": [
+            543,
+            0,
+            271,
+            724
+          ],
+          "alpha_bbox_1x": [
+            8,
+            8,
+            41,
+            29
+          ],
+          "anchor": [
+            192,
+            240
+          ]
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            1152,
+            0,
+            384,
+            256
+          ],
+          "raw_rect": [
+            814,
+            0,
+            272,
+            724
+          ],
+          "alpha_bbox_1x": [
+            11,
+            4,
+            37,
+            28
+          ],
+          "anchor": [
+            192,
+            240
+          ]
+        },
+        {
+          "index": 4,
+          "row": 0,
+          "column": 4,
+          "rect": [
+            1536,
+            0,
+            384,
+            256
+          ],
+          "raw_rect": [
+            1086,
+            0,
+            272,
+            724
+          ],
+          "alpha_bbox_1x": [
+            6,
+            4,
+            42,
+            30
+          ],
+          "anchor": [
+            192,
+            240
+          ]
+        },
+        {
+          "index": 5,
+          "row": 0,
+          "column": 5,
+          "rect": [
+            1920,
+            0,
+            384,
+            256
+          ],
+          "raw_rect": [
+            1358,
+            0,
+            271,
+            724
+          ],
+          "alpha_bbox_1x": [
+            12,
+            4,
+            38,
+            31
+          ],
+          "anchor": [
+            192,
+            240
+          ]
+        },
+        {
+          "index": 6,
+          "row": 0,
+          "column": 6,
+          "rect": [
+            2304,
+            0,
+            384,
+            256
+          ],
+          "raw_rect": [
+            1629,
+            0,
+            271,
+            724
+          ],
+          "alpha_bbox_1x": [
+            14,
+            10,
+            37,
+            29
+          ],
+          "anchor": [
+            192,
+            240
+          ]
+        },
+        {
+          "index": 7,
+          "row": 0,
+          "column": 7,
+          "rect": [
+            2688,
+            0,
+            384,
+            256
+          ],
+          "raw_rect": [
+            1900,
+            0,
+            272,
+            724
+          ],
+          "alpha_bbox_1x": [
+            18,
+            15,
+            31,
+            26
+          ],
+          "anchor": [
+            192,
+            240
+          ]
+        }
+      ],
+      "processing_common_raw_bbox": [
+        0,
+        266,
+        272,
+        490
+      ],
+      "sha256": "dca74013ac4401f5d18949ae5d2311c6e839113c512892784ba4855802316740"
+    },
+    {
+      "file": "jhin_fx_e_bloom.png",
+      "prompt_number": 19,
+      "generated_frame_count": 10,
+      "size": [
+        5120,
+        256
+      ],
+      "cell": [
+        512,
+        256
+      ],
+      "layout": {
+        "columns": 10,
+        "rows": 1
+      },
+      "raw_file": "raw/jhin_fx_e_bloom.png",
+      "raw_size": [
+        1774,
+        887
+      ],
+      "pixel1x_file": "pixel1x/jhin_fx_e_bloom.png",
+      "palette": [
+        "#FFFFFF",
+        "#FFF3C4",
+        "#FFD45E",
+        "#F0A030",
+        "#A85E14",
+        "#FFD6E2",
+        "#FF7FA6",
+        "#E0306A",
+        "#8A1240"
+      ],
+      "binding": "view_effects `league_jhin_e_bloom`（地面，画在人物下面，不跟随，大图；4–8 帧导入时重复到 2 秒）",
+      "game_display_size": "36 × 18",
+      "anchor_note": "Cell anchor metadata from supplied specification; game attachment requires importer implementation.",
+      "loop_frame_indices": [
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "preview_ms": [
+        100,
+        100,
+        100,
+        240,
+        240,
+        240,
+        240,
+        240,
+        100,
+        100
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            0,
+            512,
+            256
+          ],
+          "raw_rect": [
+            0,
+            0,
+            177,
+            887
+          ],
+          "alpha_bbox_1x": [
+            7,
+            11,
+            57,
+            26
+          ],
+          "anchor": [
+            256,
+            128
+          ]
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            512,
+            0,
+            512,
+            256
+          ],
+          "raw_rect": [
+            177,
+            0,
+            178,
+            887
+          ],
+          "alpha_bbox_1x": [
+            6,
+            9,
+            56,
+            26
+          ],
+          "anchor": [
+            256,
+            128
+          ]
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            1024,
+            0,
+            512,
+            256
+          ],
+          "raw_rect": [
+            355,
+            0,
+            177,
+            887
+          ],
+          "alpha_bbox_1x": [
+            1,
+            5,
+            57,
+            28
+          ],
+          "anchor": [
+            256,
+            128
+          ]
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            1536,
+            0,
+            512,
+            256
+          ],
+          "raw_rect": [
+            532,
+            0,
+            178,
+            887
+          ],
+          "alpha_bbox_1x": [
+            1,
+            4,
+            59,
+            28
+          ],
+          "anchor": [
+            256,
+            128
+          ]
+        },
+        {
+          "index": 4,
+          "row": 0,
+          "column": 4,
+          "rect": [
+            2048,
+            0,
+            512,
+            256
+          ],
+          "raw_rect": [
+            710,
+            0,
+            177,
+            887
+          ],
+          "alpha_bbox_1x": [
+            1,
+            1,
+            60,
+            28
+          ],
+          "anchor": [
+            256,
+            128
+          ]
+        },
+        {
+          "index": 5,
+          "row": 0,
+          "column": 5,
+          "rect": [
+            2560,
+            0,
+            512,
+            256
+          ],
+          "raw_rect": [
+            887,
+            0,
+            177,
+            887
+          ],
+          "alpha_bbox_1x": [
+            2,
+            1,
+            60,
+            29
+          ],
+          "anchor": [
+            256,
+            128
+          ]
+        },
+        {
+          "index": 6,
+          "row": 0,
+          "column": 6,
+          "rect": [
+            3072,
+            0,
+            512,
+            256
+          ],
+          "raw_rect": [
+            1064,
+            0,
+            178,
+            887
+          ],
+          "alpha_bbox_1x": [
+            3,
+            1,
+            61,
+            28
+          ],
+          "anchor": [
+            256,
+            128
+          ]
+        },
+        {
+          "index": 7,
+          "row": 0,
+          "column": 7,
+          "rect": [
+            3584,
+            0,
+            512,
+            256
+          ],
+          "raw_rect": [
+            1242,
+            0,
+            177,
+            887
+          ],
+          "alpha_bbox_1x": [
+            4,
+            1,
+            63,
+            29
+          ],
+          "anchor": [
+            256,
+            128
+          ]
+        },
+        {
+          "index": 8,
+          "row": 0,
+          "column": 8,
+          "rect": [
+            4096,
+            0,
+            512,
+            256
+          ],
+          "raw_rect": [
+            1419,
+            0,
+            178,
+            887
+          ],
+          "alpha_bbox_1x": [
+            5,
+            2,
+            60,
+            31
+          ],
+          "anchor": [
+            256,
+            128
+          ]
+        },
+        {
+          "index": 9,
+          "row": 0,
+          "column": 9,
+          "rect": [
+            4608,
+            0,
+            512,
+            256
+          ],
+          "raw_rect": [
+            1597,
+            0,
+            177,
+            887
+          ],
+          "alpha_bbox_1x": [
+            6,
+            3,
+            58,
+            30
+          ],
+          "anchor": [
+            256,
+            128
+          ]
+        }
+      ],
+      "processing_common_raw_bbox": [
+        1,
+        340,
+        176,
+        533
+      ],
+      "sha256": "64d6fc4f606202e44ccc689b152e7005db6671798ec0289d6fb9e5f2a7ef63b4"
+    },
+    {
+      "file": "jhin_fx_e_boom.png",
+      "prompt_number": 20,
+      "generated_frame_count": 7,
+      "size": [
+        1792,
+        256
+      ],
+      "cell": [
+        256,
+        256
+      ],
+      "layout": {
+        "columns": 7,
+        "rows": 1
+      },
+      "raw_file": "raw/jhin_fx_e_boom.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "pixel1x_file": "pixel1x/jhin_fx_e_boom.png",
+      "palette": [
+        "#FFFFFF",
+        "#FFF3C4",
+        "#FFD45E",
+        "#F0A030",
+        "#A85E14",
+        "#FFD6E2",
+        "#FF7FA6",
+        "#E0306A",
+        "#8A1240",
+        "#F4F0E8",
+        "#D2CABC",
+        "#A69C8C",
+        "#746A5C"
+      ],
+      "binding": "view_effects `league_jhin_e_boom`（不跟随，画在人物上面，大图）",
+      "game_display_size": "40 × 40",
+      "anchor_note": "Cell anchor metadata from supplied specification; game attachment requires importer implementation.",
+      "loop_frame_indices": [],
+      "preview_ms": [
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            0,
+            0,
+            310,
+            724
+          ],
+          "alpha_bbox_1x": [
+            3,
+            13,
+            28,
+            29
+          ],
+          "anchor": [
+            128,
+            160
+          ]
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            310,
+            0,
+            311,
+            724
+          ],
+          "alpha_bbox_1x": [
+            3,
+            7,
+            31,
+            29
+          ],
+          "anchor": [
+            128,
+            160
+          ]
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            621,
+            0,
+            310,
+            724
+          ],
+          "alpha_bbox_1x": [
+            1,
+            1,
+            31,
+            31
+          ],
+          "anchor": [
+            128,
+            160
+          ]
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            931,
+            0,
+            310,
+            724
+          ],
+          "alpha_bbox_1x": [
+            1,
+            3,
+            31,
+            29
+          ],
+          "anchor": [
+            128,
+            160
+          ]
+        },
+        {
+          "index": 4,
+          "row": 0,
+          "column": 4,
+          "rect": [
+            1024,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            1241,
+            0,
+            310,
+            724
+          ],
+          "alpha_bbox_1x": [
+            1,
+            5,
+            31,
+            29
+          ],
+          "anchor": [
+            128,
+            160
+          ]
+        },
+        {
+          "index": 5,
+          "row": 0,
+          "column": 5,
+          "rect": [
+            1280,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            1551,
+            0,
+            311,
+            724
+          ],
+          "alpha_bbox_1x": [
+            7,
+            7,
+            31,
+            31
+          ],
+          "anchor": [
+            128,
+            160
+          ]
+        },
+        {
+          "index": 6,
+          "row": 0,
+          "column": 6,
+          "rect": [
+            1536,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            1862,
+            0,
+            310,
+            724
+          ],
+          "alpha_bbox_1x": [
+            1,
+            9,
+            24,
+            28
+          ],
+          "anchor": [
+            128,
+            160
+          ]
+        }
+      ],
+      "processing_common_raw_bbox": [
+        0,
+        222,
+        311,
+        532
+      ],
+      "sha256": "fbd5f1ab3ccfd34460372e24689e9248fddef8531a11e7c0fe784f92310072ef"
+    },
+    {
+      "file": "jhin_fx_e_hit.png",
+      "prompt_number": 21,
+      "generated_frame_count": 4,
+      "size": [
+        1024,
+        256
+      ],
+      "cell": [
+        256,
+        256
+      ],
+      "layout": {
+        "columns": 4,
+        "rows": 1
+      },
+      "raw_file": "raw/jhin_fx_e_hit.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "pixel1x_file": "pixel1x/jhin_fx_e_hit.png",
+      "palette": [
+        "#FFFFFF",
+        "#FFF3C4",
+        "#FFD45E",
+        "#F0A030",
+        "#A85E14",
+        "#FFD6E2",
+        "#FF7FA6",
+        "#E0306A",
+        "#8A1240"
+      ],
+      "binding": "view_effects `league_jhin_e_hit`（跟随，画在人物上面）",
+      "game_display_size": "14",
+      "anchor_note": "Cell anchor metadata from supplied specification; game attachment requires importer implementation.",
+      "loop_frame_indices": [],
+      "preview_ms": [
+        100,
+        100,
+        100,
+        100
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_1x": [
+            7,
+            7,
+            28,
+            28
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_1x": [
+            3,
+            5,
+            29,
+            30
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_1x": [
+            2,
+            1,
+            29,
+            31
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_1x": [
+            6,
+            7,
+            24,
+            31
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        }
+      ],
+      "processing_common_raw_bbox": [
+        99,
+        164,
+        438,
+        534
+      ],
+      "sha256": "2fd293ccc905ba765af193c12ec07ed41e318b311e102f1bee412b07fca8ad0e"
+    },
+    {
+      "file": "jhin_fx_r_deploy.png",
+      "prompt_number": 22,
+      "generated_frame_count": 8,
+      "size": [
+        3072,
+        320
+      ],
+      "cell": [
+        384,
+        320
+      ],
+      "layout": {
+        "columns": 8,
+        "rows": 1
+      },
+      "raw_file": "raw/jhin_fx_r_deploy.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "pixel1x_file": "pixel1x/jhin_fx_r_deploy.png",
+      "palette": [
+        "#FFFFFF",
+        "#FFD6E2",
+        "#FF7FA6",
+        "#E0306A",
+        "#8A1240",
+        "#FFF3C4",
+        "#FFD45E",
+        "#F0A030",
+        "#A85E14"
+      ],
+      "binding": "view_effects `league_jhin_r_deploy`（施法者身上，跟随，朝左时镜像）",
+      "game_display_size": "36 × 30",
+      "anchor_note": "Cell anchor metadata from supplied specification; game attachment requires importer implementation.",
+      "loop_frame_indices": [],
+      "preview_ms": [
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            0,
+            384,
+            320
+          ],
+          "raw_rect": [
+            0,
+            0,
+            272,
+            724
+          ],
+          "alpha_bbox_1x": [
+            16,
+            30,
+            32,
+            39
+          ],
+          "anchor": [
+            192,
+            296
+          ]
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            384,
+            0,
+            384,
+            320
+          ],
+          "raw_rect": [
+            272,
+            0,
+            271,
+            724
+          ],
+          "alpha_bbox_1x": [
+            15,
+            24,
+            32,
+            39
+          ],
+          "anchor": [
+            192,
+            296
+          ]
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            768,
+            0,
+            384,
+            320
+          ],
+          "raw_rect": [
+            543,
+            0,
+            271,
+            724
+          ],
+          "alpha_bbox_1x": [
+            15,
+            13,
+            33,
+            39
+          ],
+          "anchor": [
+            192,
+            296
+          ]
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            1152,
+            0,
+            384,
+            320
+          ],
+          "raw_rect": [
+            814,
+            0,
+            272,
+            724
+          ],
+          "alpha_bbox_1x": [
+            14,
+            1,
+            33,
+            39
+          ],
+          "anchor": [
+            192,
+            296
+          ]
+        },
+        {
+          "index": 4,
+          "row": 0,
+          "column": 4,
+          "rect": [
+            1536,
+            0,
+            384,
+            320
+          ],
+          "raw_rect": [
+            1086,
+            0,
+            272,
+            724
+          ],
+          "alpha_bbox_1x": [
+            16,
+            3,
+            32,
+            39
+          ],
+          "anchor": [
+            192,
+            296
+          ]
+        },
+        {
+          "index": 5,
+          "row": 0,
+          "column": 5,
+          "rect": [
+            1920,
+            0,
+            384,
+            320
+          ],
+          "raw_rect": [
+            1358,
+            0,
+            271,
+            724
+          ],
+          "alpha_bbox_1x": [
+            16,
+            3,
+            33,
+            39
+          ],
+          "anchor": [
+            192,
+            296
+          ]
+        },
+        {
+          "index": 6,
+          "row": 0,
+          "column": 6,
+          "rect": [
+            2304,
+            0,
+            384,
+            320
+          ],
+          "raw_rect": [
+            1629,
+            0,
+            271,
+            724
+          ],
+          "alpha_bbox_1x": [
+            16,
+            3,
+            32,
+            39
+          ],
+          "anchor": [
+            192,
+            296
+          ]
+        },
+        {
+          "index": 7,
+          "row": 0,
+          "column": 7,
+          "rect": [
+            2688,
+            0,
+            384,
+            320
+          ],
+          "raw_rect": [
+            1900,
+            0,
+            272,
+            724
+          ],
+          "alpha_bbox_1x": [
+            19,
+            8,
+            30,
+            34
+          ],
+          "anchor": [
+            192,
+            296
+          ]
+        }
+      ],
+      "processing_common_raw_bbox": [
+        16,
+        133,
+        248,
+        595
+      ],
+      "sha256": "3ef0a671a42deaf4131d0ff5c62e3267bf15bc0054a414f514d42da40d0c100c"
+    },
+    {
+      "file": "jhin_fx_r_muzzle.png",
+      "prompt_number": 23,
+      "generated_frame_count": 5,
+      "size": [
+        1920,
+        256
+      ],
+      "cell": [
+        384,
+        256
+      ],
+      "layout": {
+        "columns": 5,
+        "rows": 1
+      },
+      "raw_file": "raw/jhin_fx_r_muzzle.png",
+      "raw_size": [
+        1983,
+        793
+      ],
+      "pixel1x_file": "pixel1x/jhin_fx_r_muzzle.png",
+      "palette": [
+        "#FFFFFF",
+        "#FFF3C4",
+        "#FFD45E",
+        "#F0A030",
+        "#A85E14",
+        "#FFD6E2",
+        "#FF7FA6",
+        "#E0306A",
+        "#8A1240"
+      ],
+      "binding": "view_effects `league_jhin_r_muzzle`（施法者身上，跟随，朝左时镜像；格子左边中点放到 R 开炮帧的炮口）",
+      "game_display_size": "24 × 16",
+      "anchor_note": "Cell anchor metadata from supplied specification; game attachment requires importer implementation.",
+      "loop_frame_indices": [],
+      "preview_ms": [
+        100,
+        100,
+        100,
+        100,
+        100
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            0,
+            384,
+            256
+          ],
+          "raw_rect": [
+            0,
+            0,
+            397,
+            793
+          ],
+          "alpha_bbox_1x": [
+            0,
+            3,
+            19,
+            29
+          ],
+          "anchor": [
+            0,
+            128
+          ]
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            384,
+            0,
+            384,
+            256
+          ],
+          "raw_rect": [
+            397,
+            0,
+            396,
+            793
+          ],
+          "alpha_bbox_1x": [
+            0,
+            2,
+            44,
+            29
+          ],
+          "anchor": [
+            0,
+            128
+          ]
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            768,
+            0,
+            384,
+            256
+          ],
+          "raw_rect": [
+            793,
+            0,
+            397,
+            793
+          ],
+          "alpha_bbox_1x": [
+            0,
+            1,
+            46,
+            29
+          ],
+          "anchor": [
+            0,
+            128
+          ]
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            1152,
+            0,
+            384,
+            256
+          ],
+          "raw_rect": [
+            1190,
+            0,
+            396,
+            793
+          ],
+          "alpha_bbox_1x": [
+            0,
+            2,
+            47,
+            29
+          ],
+          "anchor": [
+            0,
+            128
+          ]
+        },
+        {
+          "index": 4,
+          "row": 0,
+          "column": 4,
+          "rect": [
+            1536,
+            0,
+            384,
+            256
+          ],
+          "raw_rect": [
+            1586,
+            0,
+            397,
+            793
+          ],
+          "alpha_bbox_1x": [
+            0,
+            3,
+            45,
+            28
+          ],
+          "anchor": [
+            0,
+            128
+          ]
+        }
+      ],
+      "processing_common_raw_bbox": [
+        2,
+        284,
+        377,
+        501
+      ],
+      "sha256": "bc121000f5cff44f9bd27cfe82361bf37978c892dc70d73187be2545c7a44ffe"
+    },
+    {
+      "file": "jhin_fx_r_bullet.png",
+      "prompt_number": 24,
+      "generated_frame_count": 4,
+      "size": [
+        2048,
+        128
+      ],
+      "cell": [
+        512,
+        128
+      ],
+      "layout": {
+        "columns": 4,
+        "rows": 1
+      },
+      "raw_file": "raw/jhin_fx_r_bullet.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "pixel1x_file": "pixel1x/jhin_fx_r_bullet.png",
+      "palette": [
+        "#FFFFFF",
+        "#FFF3C4",
+        "#FFD45E",
+        "#F0A030",
+        "#A85E14",
+        "#FFD6E2",
+        "#FF7FA6",
+        "#E0306A",
+        "#8A1240"
+      ],
+      "binding": "view_projectiles `league_jhin_r_bullet`（朝右，游戏转到飞行方向）",
+      "game_display_size": "30 × 8",
+      "anchor_note": "Cell anchor metadata from supplied specification; game attachment requires importer implementation.",
+      "loop_frame_indices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "preview_ms": [
+        100,
+        100,
+        100,
+        100
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            0,
+            512,
+            128
+          ],
+          "raw_rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_1x": [
+            10,
+            1,
+            53,
+            15
+          ],
+          "anchor": [
+            256,
+            64
+          ]
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            512,
+            0,
+            512,
+            128
+          ],
+          "raw_rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_1x": [
+            9,
+            1,
+            54,
+            15
+          ],
+          "anchor": [
+            256,
+            64
+          ]
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            1024,
+            0,
+            512,
+            128
+          ],
+          "raw_rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_1x": [
+            10,
+            1,
+            54,
+            15
+          ],
+          "anchor": [
+            256,
+            64
+          ]
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            1536,
+            0,
+            512,
+            128
+          ],
+          "raw_rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "alpha_bbox_1x": [
+            10,
+            1,
+            54,
+            15
+          ],
+          "anchor": [
+            256,
+            64
+          ]
+        }
+      ],
+      "processing_common_raw_bbox": [
+        32,
+        285,
+        513,
+        435
+      ],
+      "sha256": "0f7f6286191c075bfa10759cf4d1058ca128715d6f7ffbaf687e563d4ad2ef84"
+    },
+    {
+      "file": "jhin_fx_r_hit.png",
+      "prompt_number": 25,
+      "generated_frame_count": 5,
+      "size": [
+        1280,
+        256
+      ],
+      "cell": [
+        256,
+        256
+      ],
+      "layout": {
+        "columns": 5,
+        "rows": 1
+      },
+      "raw_file": "raw/jhin_fx_r_hit.png",
+      "raw_size": [
+        1983,
+        793
+      ],
+      "pixel1x_file": "pixel1x/jhin_fx_r_hit.png",
+      "palette": [
+        "#FFFFFF",
+        "#FFF3C4",
+        "#FFD45E",
+        "#F0A030",
+        "#A85E14",
+        "#FFD6E2",
+        "#FF7FA6",
+        "#E0306A",
+        "#8A1240"
+      ],
+      "binding": "view_effects `league_jhin_r_hit`（跟随，画在人物上面）",
+      "game_display_size": "18",
+      "anchor_note": "Cell anchor metadata from supplied specification; game attachment requires importer implementation.",
+      "loop_frame_indices": [],
+      "preview_ms": [
+        100,
+        100,
+        100,
+        100,
+        100
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            0,
+            0,
+            397,
+            793
+          ],
+          "alpha_bbox_1x": [
+            8,
+            13,
+            21,
+            28
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            397,
+            0,
+            396,
+            793
+          ],
+          "alpha_bbox_1x": [
+            6,
+            12,
+            24,
+            29
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            793,
+            0,
+            397,
+            793
+          ],
+          "alpha_bbox_1x": [
+            6,
+            1,
+            25,
+            31
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            1190,
+            0,
+            396,
+            793
+          ],
+          "alpha_bbox_1x": [
+            7,
+            9,
+            25,
+            30
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "index": 4,
+          "row": 0,
+          "column": 4,
+          "rect": [
+            1024,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            1586,
+            0,
+            397,
+            793
+          ],
+          "alpha_bbox_1x": [
+            9,
+            17,
+            21,
+            26
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        }
+      ],
+      "processing_common_raw_bbox": [
+        0,
+        121,
+        397,
+        700
+      ],
+      "sha256": "d339a2cb71c94718417ac67df6ca29e2aa487b328016ba5d0220cbff923f9403"
+    },
+    {
+      "file": "jhin_fx_r_crit.png",
+      "prompt_number": 26,
+      "generated_frame_count": 6,
+      "size": [
+        1536,
+        256
+      ],
+      "cell": [
+        256,
+        256
+      ],
+      "layout": {
+        "columns": 6,
+        "rows": 1
+      },
+      "raw_file": "raw/jhin_fx_r_crit.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "pixel1x_file": "pixel1x/jhin_fx_r_crit.png",
+      "palette": [
+        "#FFFFFF",
+        "#FFF3C4",
+        "#FFD45E",
+        "#F0A030",
+        "#A85E14",
+        "#FFD6E2",
+        "#FF7FA6",
+        "#E0306A",
+        "#8A1240"
+      ],
+      "binding": "view_effects `league_jhin_r_crit`（跟随，画在人物上面）",
+      "game_display_size": "26",
+      "anchor_note": "Cell anchor metadata from supplied specification; game attachment requires importer implementation.",
+      "loop_frame_indices": [],
+      "preview_ms": [
+        100,
+        100,
+        100,
+        100,
+        100,
+        100
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            0,
+            0,
+            362,
+            724
+          ],
+          "alpha_bbox_1x": [
+            7,
+            9,
+            24,
+            24
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            362,
+            0,
+            362,
+            724
+          ],
+          "alpha_bbox_1x": [
+            3,
+            6,
+            26,
+            25
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            724,
+            0,
+            362,
+            724
+          ],
+          "alpha_bbox_1x": [
+            2,
+            1,
+            29,
+            30
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            1086,
+            0,
+            362,
+            724
+          ],
+          "alpha_bbox_1x": [
+            3,
+            3,
+            30,
+            29
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "index": 4,
+          "row": 0,
+          "column": 4,
+          "rect": [
+            1024,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            1448,
+            0,
+            362,
+            724
+          ],
+          "alpha_bbox_1x": [
+            1,
+            4,
+            30,
+            26
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        },
+        {
+          "index": 5,
+          "row": 0,
+          "column": 5,
+          "rect": [
+            1280,
+            0,
+            256,
+            256
+          ],
+          "raw_rect": [
+            1810,
+            0,
+            362,
+            724
+          ],
+          "alpha_bbox_1x": [
+            12,
+            10,
+            24,
+            21
+          ],
+          "anchor": [
+            128,
+            128
+          ]
+        }
+      ],
+      "processing_common_raw_bbox": [
+        0,
+        167,
+        362,
+        546
+      ],
+      "sha256": "0be52f950a951a04efc374f2fc4ad44b4079babbef6853abc67bd057683e1584"
+    },
+    {
+      "file": "jhin_fx_slowed.png",
+      "prompt_number": 27,
+      "generated_frame_count": 8,
+      "size": [
+        2560,
+        512
+      ],
+      "cell": [
+        640,
+        256
+      ],
+      "layout": {
+        "columns": 4,
+        "rows": 2
+      },
+      "raw_file": "raw/jhin_fx_slowed.png",
+      "raw_size": [
+        1983,
+        793
+      ],
+      "pixel1x_file": "pixel1x/jhin_fx_slowed.png",
+      "palette": [
+        "#FFFFFF",
+        "#FFD6E2",
+        "#FF7FA6",
+        "#E0306A",
+        "#8A1240",
+        "#FFF3C4",
+        "#FFD45E",
+        "#F0A030",
+        "#A85E14"
+      ],
+      "binding": "view_buffs `league_jhin_e_slowed`（第 1 行）/ `league_jhin_r_slowed`（第 2 行）（循环，画在脚下）",
+      "game_display_size": "20 × 8",
+      "anchor_note": "Cell anchor metadata from supplied specification; game attachment requires importer implementation.",
+      "loop_frame_indices": [],
+      "preview_ms": [
+        100,
+        100,
+        100,
+        100
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "row": 0,
+          "column": 0,
+          "rect": [
+            0,
+            0,
+            640,
+            256
+          ],
+          "raw_rect": [
+            0,
+            0,
+            496,
+            396
+          ],
+          "alpha_bbox_1x": [
+            17,
+            3,
+            63,
+            30
+          ],
+          "anchor": [
+            320,
+            232
+          ]
+        },
+        {
+          "index": 1,
+          "row": 0,
+          "column": 1,
+          "rect": [
+            640,
+            0,
+            640,
+            256
+          ],
+          "raw_rect": [
+            496,
+            0,
+            496,
+            396
+          ],
+          "alpha_bbox_1x": [
+            18,
+            3,
+            62,
+            31
+          ],
+          "anchor": [
+            320,
+            232
+          ]
+        },
+        {
+          "index": 2,
+          "row": 0,
+          "column": 2,
+          "rect": [
+            1280,
+            0,
+            640,
+            256
+          ],
+          "raw_rect": [
+            992,
+            0,
+            495,
+            396
+          ],
+          "alpha_bbox_1x": [
+            17,
+            3,
+            63,
+            31
+          ],
+          "anchor": [
+            320,
+            232
+          ]
+        },
+        {
+          "index": 3,
+          "row": 0,
+          "column": 3,
+          "rect": [
+            1920,
+            0,
+            640,
+            256
+          ],
+          "raw_rect": [
+            1487,
+            0,
+            496,
+            396
+          ],
+          "alpha_bbox_1x": [
+            18,
+            3,
+            62,
+            30
+          ],
+          "anchor": [
+            320,
+            232
+          ]
+        },
+        {
+          "index": 4,
+          "row": 1,
+          "column": 0,
+          "rect": [
+            0,
+            256,
+            640,
+            256
+          ],
+          "raw_rect": [
+            0,
+            396,
+            496,
+            397
+          ],
+          "alpha_bbox_1x": [
+            18,
+            6,
+            62,
+            27
+          ],
+          "anchor": [
+            320,
+            232
+          ]
+        },
+        {
+          "index": 5,
+          "row": 1,
+          "column": 1,
+          "rect": [
+            640,
+            256,
+            640,
+            256
+          ],
+          "raw_rect": [
+            496,
+            396,
+            496,
+            397
+          ],
+          "alpha_bbox_1x": [
+            18,
+            1,
+            62,
+            26
+          ],
+          "anchor": [
+            320,
+            232
+          ]
+        },
+        {
+          "index": 6,
+          "row": 1,
+          "column": 2,
+          "rect": [
+            1280,
+            256,
+            640,
+            256
+          ],
+          "raw_rect": [
+            992,
+            396,
+            495,
+            397
+          ],
+          "alpha_bbox_1x": [
+            18,
+            6,
+            62,
+            25
+          ],
+          "anchor": [
+            320,
+            232
+          ]
+        },
+        {
+          "index": 7,
+          "row": 1,
+          "column": 3,
+          "rect": [
+            1920,
+            256,
+            640,
+            256
+          ],
+          "raw_rect": [
+            1487,
+            396,
+            496,
+            397
+          ],
+          "alpha_bbox_1x": [
+            17,
+            1,
+            63,
+            25
+          ],
+          "anchor": [
+            320,
+            232
+          ]
+        }
+      ],
+      "processing_common_raw_bbox": [
+        51,
+        95,
+        442,
+        348
+      ],
+      "sha256": "d323814f5f5939d6a777a738d5d7f0f7939a5600d1def1fcf73ea72966efd773"
+    }
+  ]
+}
