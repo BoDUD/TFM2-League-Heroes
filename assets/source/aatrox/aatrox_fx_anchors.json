@@ -306,5 +306,16 @@
    66
   ],
   "frames": 8
+ },
+ "w_chain_grow": {
+  "cell": [
+   78,
+   13
+  ],
+  "anchor": [
+   71,
+   6
+  ],
+  "frames": 30
  }
 }

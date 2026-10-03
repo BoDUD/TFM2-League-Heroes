@@ -11,7 +11,7 @@ use std::ffi::c_void;
 use std::mem::{size_of, zeroed};
 
 use league_aatrox_chain::{
-    outside, AREA, AREA_Y, CHAMP, HOLD, LINK_DROP, LINK_EVERY, MINION, ON, PULL, PULL_C, READ_AT, STAGES, TETHER,
+    outside, AREA, AREA_Y, CHAMP, NATIVE_VIEWS, HOLD, LINK_DROP, LINK_EVERY, MINION, ON, PULL, PULL_C, READ_AT, STAGES, TETHER,
 };
 use mod_api_stable::*;
 
@@ -384,8 +384,11 @@ fn infernal_chains_follow_league() {
         chain_hits(&mut w, &fx, 1, Some(stop), InputTargetV1::target(1));
         assert!(has(&w, 1, &format!("{ON}:152000:0:0:{HOLD}")), "no chain mark on Garen at the chain's stop");
         assert!(has(&w, 0, TETHER) && has(&w, 0, CHAMP));
-        run(&mut w, &fx, HOLD + 12, &mut f);
+        run(&mut w, &fx, 2, &mut f);
         assert!(flagged(&f, 1, TETHER), "the ring's flag is gone before the data reads it");
+        // 数据读到 w_tether、播圈，把它删掉（RemoveCasterBuff）：本包就不自己播
+        w.units[0].buffs.retain(|b| b.0.name() != TETHER);
+        run(&mut w, &fx, HOLD + 10, &mut f);
         assert!(!flagged(&f, HOLD - 1, PULL), "pulled before 1.5 s");
         for t in [HOLD, READ_AT] {
             assert!(flagged(&f, t, PULL) && flagged(&f, t, PULL_C), "no pull flags at tick {t}");
@@ -398,6 +401,16 @@ fn infernal_chains_follow_league() {
         assert_eq!(w.links.len(), HOLD / LINK_EVERY + 1);
         let drop = LINK_DROP as u64;
         assert!(w.links.iter().all(|l| l.2 == (stop.0 as u64, drop) && l.1 == (160_000, drop)));
+
+        // 1b. 数据没读到 w_tether（游戏里「W 看不出」时的情形）：第 SEEN_AT tick 本包自己在圈心播圈，拉回时再播收紧和缠身
+        let mut w = world();
+        let mut f = Flags::new();
+        chain_hits(&mut w, &fx, 1, Some(stop), InputTargetV1::target(1));
+        run(&mut w, &fx, HOLD + 12, &mut f);
+        assert_eq!(viewed(&w, "league_aatrox_w_ring"), 1, "no ring played here when the data missed it");
+        assert_eq!(viewed(&w, "league_aatrox_w_snap"), 1, "no snap played here when the data missed the ring");
+        assert_eq!(viewed(&w, "league_aatrox_w_yank"), 1);
+        assert!(!has(&w, 0, TETHER) && !has(&w, 1, NATIVE_VIEWS));
 
         // 2. 盖伦往外走（每 tick 500，圈半径 33000）：走出圈锁链就断——不拉、不挂第二下的标记
         let mut w = world();

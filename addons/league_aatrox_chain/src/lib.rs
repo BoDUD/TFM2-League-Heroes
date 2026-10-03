@@ -1,4 +1,4 @@
-//! 剑魔 W 锁链附加包 v0.2.2：W「恶火束链」照 League 原版。
+//! 剑魔 W 锁链附加包 v0.2.3：W「恶火束链」照 League 原版。
 //!
 //! 主包的 W（数据）：锁链停在第一个敌人身上（伤害 + 减速 1.5 秒）；打中英雄时在落点放圈，1.5 秒后那个英雄
 //! 再受一次伤害、被拉向剑魔。League 的两条数据写不出来：走出圈锁链就断、拉回的是圈的中心。
@@ -65,6 +65,9 @@ pub const HIT_T: usize = 3;
 /// 写进日志——游戏里「W 看不出」（2026-10-04）时分清是数据没读到本包的标记，还是画面没显示（v0.2.2）。
 pub const TETHER_T: usize = 6;
 pub const SEEN_AT: usize = 4;
+/// 数据没播圈时（`w_tether` 到第 `SEEN_AT` tick 还在），本包自己在圈心播圈，并在被锁的人身上挂这个记号，拉回时
+/// 本包再播收紧和缠身（v0.2.3：用户「W 甩出去的锁链看不到 脚下也看不到」，数据读不读得到本包的标记还没证实）。
+pub const NATIVE_VIEWS: &str = "league_aatrox_chain_nv";
 pub const PULL_T: usize = 6;
 /// 拉回的速度（每 tick），到圈心这么近就算到了。
 pub const PULL_SPEED: f64 = 2_500.0;
@@ -373,8 +376,17 @@ fn watch(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
     let d = dist(here, c);
     if HOLD.saturating_sub(snap.saturating_sub(tick)) == SEEN_AT {
         let left = names(sim, a).iter().any(|n| n == TETHER);
+        let mut took = true;
+        if left {
+            sim.entity_remove_buff(a, TETHER);
+            took = sim.play_view_effect(&aatrox("w_ring"), a, &pos_input(c), 0, 0, 0);
+            sim.play_sfx(&aatrox("w_ring"), a, &pos_input(c));
+            sim.add_buff(me, &BuffV1::timed(NATIVE_VIEWS, HOLD + 5));
+        }
         wlog(format!("{} RING {}: the data {} the w_tether flag", head(sim, me),
-                     if left { "NOT PLAYED" } else { "played" }, if left { "did not read" } else { "read and removed" }));
+                     if left { if took { "NOT PLAYED by the data, played here" } else { "NOT PLAYED by the data, refused here" } }
+                     else { "played by the data" },
+                     if left { "did not read" } else { "read and removed" }));
     }
     if outside(here, c) {
         sim.entity_remove_buff(me, &name);
@@ -407,6 +419,13 @@ fn pull(sim: &mut StableSim<'_>, me: usize, c: (f64, f64), a: usize, d: f64) {
     }
     let champion = e.is_champion();
     let marked = alive(sim, a);
+    if names(sim, me).iter().any(|n| n == NATIVE_VIEWS) {
+        // the data missed the ring: the snap and the wrap played here too
+        sim.entity_remove_buff(me, NATIVE_VIEWS);
+        sim.play_view_effect(&aatrox("w_snap"), a, &pos_input(c), 0, 0, 0);
+        sim.play_view_effect(&aatrox("w_yank"), a, &InputTargetV1::target(me), 0, 0, 0);
+        sim.play_sfx(&aatrox("w_yank"), a, &InputTargetV1::target(me));
+    }
     if marked {
         flag(sim, a, PULL, PULL_T);
         if champion {

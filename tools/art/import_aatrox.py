@@ -400,8 +400,9 @@ FX = {
     "e_dash": [("e_dash", seq(range(4), [50, 60, 70, 80]), [BEHIND])],
     # the claw's flash inside W's throw frame (4: 5 ticks)
     "w_throw": [("w_throw", seq(range(4), [TICK, 2 * TICK, 2 * TICK, 2 * TICK]), [CLAW])],
-    # the chain: 66000 at 5000 a tick = 13 ticks; the links: up to 33000 at 2500 = 13 ticks
-    "w_chain": [("w_chain", flight(4, 50, 300), [(0, 0)])],
+    # the chain: 66000 at 2200 a tick = 30 ticks, paid out from his hand (tools/art/chain_aatrox.py: frame k = the claw
+    # and k x 2.2 px of links); the links: up to 33000 at 2500 = 13 ticks
+    "w_chain": [("w_chain_grow", [(EMPTY, TICK)] + seq(range(30), [TICK] * 29 + [1000]), [(0, 0)])],
     "w_link": [("w_link", flight(4, 50, 300), [(0, 0)])],
     "w_hit": [("w_hit", seq(range(4), [40, 50, 60, 70]), [HIT])],
     "w_yank": [("w_yank", seq(range(4), [40, 60, 80, 100]), [BODY])],
