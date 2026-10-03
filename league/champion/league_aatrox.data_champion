@@ -4002,7 +4002,7 @@
       "anim": "asset/league/effects/league_aatrox_fx",
       "tag": "p_swing",
       "z": 1,
-      "is_follow": true
+      "is_follow": false
     },
     {
       "type": "Animation",
@@ -4018,7 +4018,7 @@
       "anim": "asset/league/effects/league_aatrox_fx",
       "tag": "q1_slash",
       "z": 1,
-      "is_follow": true
+      "is_follow": false
     },
     {
       "type": "Animation",
@@ -4026,7 +4026,7 @@
       "anim": "asset/league/effects/league_aatrox_fx",
       "tag": "q2_slash",
       "z": 1,
-      "is_follow": true
+      "is_follow": false
     },
     {
       "type": "Animation",
@@ -4034,7 +4034,7 @@
       "anim": "asset/league/effects/league_aatrox_fx",
       "tag": "q3_slash",
       "z": 1,
-      "is_follow": true
+      "is_follow": false
     },
     {
       "type": "Animation",
@@ -4074,7 +4074,7 @@
       "anim": "asset/league/effects/league_aatrox_fx",
       "tag": "w_throw",
       "z": 1,
-      "is_follow": true
+      "is_follow": false
     },
     {
       "type": "Animation",
@@ -4130,7 +4130,7 @@
       "anim": "asset/league/effects/league_aatrox_fx",
       "tag": "r_renew",
       "z": 1,
-      "is_follow": true
+      "is_follow": false
     }
   ],
   "view_buffs": [

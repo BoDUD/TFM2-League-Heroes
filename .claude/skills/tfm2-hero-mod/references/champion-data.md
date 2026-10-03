@@ -624,7 +624,23 @@ the same champion file.
   once, so its frames cover the zone's lifetime).
   A `CasterViewEffect` is not turned: it is drawn at the caster's pivot, mirrored when the caster
   faces left (the base gunner's backward-run dust is drawn only behind him), and stays where it was
-  played unless `is_follow`. A picture drawn off the pivot's side follows its caster: league_tristana's
+  played unless `is_follow`.
+  **The red side: a caster picture that starts after the action's first tick must not follow** *(seen in game,
+  2026-10-03)*. Played from a `Delayed` or an `AddCasted` with `is_follow: true`, it is mirrored the wrong way
+  whenever the caster is on the red team, while it looks right on the blue side: league_vi E's shock wave
+  ("红方释放的释放是歪的") and league_aatrox's Q slashes, passive streak and W flash ("在红色方技能特效是反的") all
+  stood backwards there. The match events carry no facing (`EffectApplyed {name, caster_id, target, info}`); the
+  client picks it - a non-following picture becomes `AnimationOnce {flip_x}`, the flip taken from the caster's
+  action facing when it starts (`game_view` `get_action_flip_x`), a following one `AnimationOnceFollow {offset_x,
+  offset_y}` with no flip of its own. oppi's LoL Reborn never combines the two: its 7 caster pictures inside a
+  `Delayed` all have `is_follow: false`, its 8 following ones play at the action's start (league_riven's layers
+  too: bound on the action's first tick). So a directional picture timed into an action gets `is_follow: false`
+  (mirrored by the facing when it starts, it stays where it was played - fine while the hero stands in the
+  animation); one that must ride on the hero (a dash trail) plays at the action's start, the wait drawn as
+  leading empty frames. Left-right symmetric pictures (rings, auras, heals) show no difference. `lint_mod.py`
+  warns on every late following caster picture (73 in 31 heroes of this pack in 2026-10, most of them
+  symmetric). Check every directional effect with the hero on the red team before shipping.
+  A picture drawn off the pivot's side follows its caster: league_tristana's
   flashes at the bell, 22 px in front of her pivot, played without `is_follow`, were seen behind her
   after she turned (the user, 2026-10-01); with `is_follow` they turn with her, as league_riven's layers do. An `Animation` plays its tag once, so a view that must stand for
   seconds lists its loop frames again (a 4 s loop of 100 ms frames is 40 frames).
