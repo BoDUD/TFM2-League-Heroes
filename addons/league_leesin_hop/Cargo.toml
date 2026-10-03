@@ -1,0 +1,11 @@
+[package]
+name = "league_leesin_hop"
+version = "0.1.8"
+edition = "2021"
+publish = false
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+mod-api-stable = { path = "../vendor/mod-api-stable" }

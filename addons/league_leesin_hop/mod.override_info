@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_leesin": {
+    "remapping": "asset/league_leesin_hop/override/league_leesin",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_leesin_hop/text/champion",
+    "type": "merge"
+  }
+}
