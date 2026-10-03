@@ -1,0 +1,469 @@
+[
+  {
+    "frame": 1,
+    "canvas": [
+      1254,
+      1254
+    ],
+    "protected_upper_rgba_changed_pixels": 0,
+    "protected_regions": [
+      [
+        0,
+        632,
+        930
+      ],
+      [
+        632,
+        658,
+        894
+      ],
+      [
+        658,
+        697,
+        875
+      ],
+      [
+        697,
+        727,
+        867
+      ],
+      [
+        727,
+        1254,
+        886
+      ]
+    ],
+    "painted_palette_existing_only": true,
+    "boots": {
+      "A": {
+        "sole_center_x": 691,
+        "heel_sole_y": 1189,
+        "grid_position": [
+          3,
+          0
+        ]
+      },
+      "B": {
+        "sole_center_x": 541,
+        "heel_sole_y": 1135,
+        "grid_position": [
+          -5,
+          -3
+        ]
+      }
+    },
+    "shoe_center_distance_squares": 8,
+    "lowest_opaque_y": 1189,
+    "near_leg_layer": "B always above A",
+    "major_components": 1,
+    "sha256": "a6e4512695a9516c2dee68367bc774a35a35986cc7d9ae981221e74ee327aef6"
+  },
+  {
+    "frame": 2,
+    "canvas": [
+      1254,
+      1254
+    ],
+    "protected_upper_rgba_changed_pixels": 0,
+    "protected_regions": [
+      [
+        0,
+        635,
+        931
+      ],
+      [
+        635,
+        663,
+        896
+      ],
+      [
+        663,
+        683,
+        878
+      ],
+      [
+        683,
+        730,
+        867
+      ],
+      [
+        730,
+        1254,
+        887
+      ]
+    ],
+    "painted_palette_existing_only": true,
+    "boots": {
+      "A": {
+        "sole_center_x": 654,
+        "heel_sole_y": 1189,
+        "grid_position": [
+          1,
+          0
+        ]
+      },
+      "B": {
+        "sole_center_x": 560,
+        "heel_sole_y": 1099,
+        "grid_position": [
+          -4,
+          -5
+        ]
+      }
+    },
+    "shoe_center_distance_squares": 5,
+    "lowest_opaque_y": 1189,
+    "near_leg_layer": "B always above A",
+    "major_components": 1,
+    "sha256": "0b70deed571e4f103caca21c9e99d0acc62986209a33ffec2d4c118156c890ca"
+  },
+  {
+    "frame": 3,
+    "canvas": [
+      1254,
+      1254
+    ],
+    "protected_upper_rgba_changed_pixels": 0,
+    "protected_regions": [
+      [
+        0,
+        619,
+        915
+      ],
+      [
+        619,
+        644,
+        889
+      ],
+      [
+        644,
+        659,
+        860
+      ],
+      [
+        659,
+        734,
+        827
+      ],
+      [
+        734,
+        1254,
+        865
+      ]
+    ],
+    "painted_palette_existing_only": true,
+    "boots": {
+      "A": {
+        "sole_center_x": 616,
+        "heel_sole_y": 1189,
+        "grid_position": [
+          -1,
+          0
+        ]
+      },
+      "B": {
+        "sole_center_x": 616,
+        "heel_sole_y": 1135,
+        "grid_position": [
+          -1,
+          -3
+        ]
+      }
+    },
+    "shoe_center_distance_squares": 0,
+    "lowest_opaque_y": 1189,
+    "near_leg_layer": "B always above A",
+    "major_components": 1,
+    "sha256": "2e0d4d0454cd201696852a0d766d8961cbe40db264578f04bad6e15fe2d1cebd"
+  },
+  {
+    "frame": 4,
+    "canvas": [
+      1254,
+      1254
+    ],
+    "protected_upper_rgba_changed_pixels": 0,
+    "protected_regions": [
+      [
+        0,
+        696,
+        901
+      ],
+      [
+        696,
+        715,
+        867
+      ],
+      [
+        715,
+        762,
+        844
+      ],
+      [
+        762,
+        1254,
+        875
+      ]
+    ],
+    "painted_palette_existing_only": true,
+    "boots": {
+      "A": {
+        "sole_center_x": 560,
+        "heel_sole_y": 1171,
+        "grid_position": [
+          -4,
+          -1
+        ]
+      },
+      "B": {
+        "sole_center_x": 691,
+        "heel_sole_y": 1171,
+        "grid_position": [
+          3,
+          -1
+        ]
+      }
+    },
+    "shoe_center_distance_squares": 7,
+    "lowest_opaque_y": 1189,
+    "near_leg_layer": "B always above A",
+    "major_components": 1,
+    "sha256": "95375883f071bb36284b31fb4415eae67db3776c7fe2931f5cac445ad8e6a8b2"
+  },
+  {
+    "frame": 5,
+    "canvas": [
+      1254,
+      1254
+    ],
+    "protected_upper_rgba_changed_pixels": 0,
+    "protected_regions": [
+      [
+        0,
+        632,
+        930
+      ],
+      [
+        632,
+        653,
+        894
+      ],
+      [
+        653,
+        690,
+        876
+      ],
+      [
+        690,
+        728,
+        867
+      ],
+      [
+        728,
+        1254,
+        886
+      ]
+    ],
+    "painted_palette_existing_only": true,
+    "boots": {
+      "A": {
+        "sole_center_x": 541,
+        "heel_sole_y": 1135,
+        "grid_position": [
+          -5,
+          -3
+        ]
+      },
+      "B": {
+        "sole_center_x": 691,
+        "heel_sole_y": 1189,
+        "grid_position": [
+          3,
+          0
+        ]
+      }
+    },
+    "shoe_center_distance_squares": 8,
+    "lowest_opaque_y": 1189,
+    "near_leg_layer": "B always above A",
+    "major_components": 1,
+    "sha256": "4ec8c26abecaad342186ecbe9fff9fdb502e654ff693e803c0182d8d0b844983"
+  },
+  {
+    "frame": 6,
+    "canvas": [
+      1254,
+      1254
+    ],
+    "protected_upper_rgba_changed_pixels": 0,
+    "protected_regions": [
+      [
+        0,
+        628,
+        934
+      ],
+      [
+        628,
+        658,
+        896
+      ],
+      [
+        658,
+        686,
+        885
+      ],
+      [
+        686,
+        732,
+        867
+      ],
+      [
+        732,
+        1254,
+        886
+      ]
+    ],
+    "painted_palette_existing_only": true,
+    "boots": {
+      "A": {
+        "sole_center_x": 560,
+        "heel_sole_y": 1099,
+        "grid_position": [
+          -4,
+          -5
+        ]
+      },
+      "B": {
+        "sole_center_x": 654,
+        "heel_sole_y": 1189,
+        "grid_position": [
+          1,
+          0
+        ]
+      }
+    },
+    "shoe_center_distance_squares": 5,
+    "lowest_opaque_y": 1189,
+    "near_leg_layer": "B always above A",
+    "major_components": 1,
+    "sha256": "ec046d9b0078e0ab5a50fffc5ee4f825a3136856ccbcce3b619d3b52649a7cb5"
+  },
+  {
+    "frame": 7,
+    "canvas": [
+      1254,
+      1254
+    ],
+    "protected_upper_rgba_changed_pixels": 0,
+    "protected_regions": [
+      [
+        0,
+        616,
+        925
+      ],
+      [
+        616,
+        640,
+        884
+      ],
+      [
+        640,
+        660,
+        870
+      ],
+      [
+        660,
+        717,
+        843
+      ],
+      [
+        717,
+        1254,
+        874
+      ]
+    ],
+    "painted_palette_existing_only": true,
+    "boots": {
+      "A": {
+        "sole_center_x": 616,
+        "heel_sole_y": 1135,
+        "grid_position": [
+          -1,
+          -3
+        ]
+      },
+      "B": {
+        "sole_center_x": 616,
+        "heel_sole_y": 1189,
+        "grid_position": [
+          -1,
+          0
+        ]
+      }
+    },
+    "shoe_center_distance_squares": 0,
+    "lowest_opaque_y": 1189,
+    "near_leg_layer": "B always above A",
+    "major_components": 1,
+    "sha256": "385e801b1ddc252cfacba6602418d2f98d45285483bfd369057cd7151d3eb8c1"
+  },
+  {
+    "frame": 8,
+    "canvas": [
+      1254,
+      1254
+    ],
+    "protected_upper_rgba_changed_pixels": 0,
+    "protected_regions": [
+      [
+        0,
+        654,
+        915
+      ],
+      [
+        654,
+        681,
+        880
+      ],
+      [
+        681,
+        712,
+        840
+      ],
+      [
+        712,
+        761,
+        829
+      ],
+      [
+        761,
+        1254,
+        869
+      ]
+    ],
+    "painted_palette_existing_only": true,
+    "boots": {
+      "A": {
+        "sole_center_x": 691,
+        "heel_sole_y": 1171,
+        "grid_position": [
+          3,
+          -1
+        ]
+      },
+      "B": {
+        "sole_center_x": 560,
+        "heel_sole_y": 1171,
+        "grid_position": [
+          -4,
+          -1
+        ]
+      }
+    },
+    "shoe_center_distance_squares": 7,
+    "lowest_opaque_y": 1189,
+    "near_leg_layer": "B always above A",
+    "major_components": 1,
+    "sha256": "4446b529546b774f232b087f8a6759af874238d26984da20f3a15386ecf835fc"
+  }
+]

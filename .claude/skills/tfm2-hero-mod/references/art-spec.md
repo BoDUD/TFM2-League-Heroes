@@ -650,6 +650,19 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   black touching one material takes that material's darkest shade, a 1-px line stays where two materials meet, stray
   squares go, the eyes never change; a cleaned head can be pasted back by the eye (Morgana). The user reviews before
   and after; no automatic review rounds.
+- **Big-square image generation read block by block, at one scale for the design and every frame (league_vi).** An
+  image model asked for "40 squares tall" drew Vi's approved master 59 squares tall (~12.5 px squares in a 1254 px
+  picture); the read-back shrunk to 40 melted into specks. `tools/art/shrink_vi.py` reads the ORIGINAL picture instead:
+  each game pixel covers a block of it (719 source rows / 40), the source pixels snapped to the read-back's palette;
+  the eyes' and crystals' blues win a block they hold 12% of (whites 36%), the outline darks 40%, else the commonest
+  colour; lone squares merge, the outline closes. Then Codex drew every action frame as its own 1254 px picture at the
+  master's scale and placement (the soles on its ground line, the standing point on its column) with no read-back of
+  its own, and `tools/art/strips_vi.py` reads each on the design's grid (the master read as a frame gives the design
+  exactly): the frames match the idle in size without any per-frame scaling. Soles more than half a square off the
+  ground line move by whole squares; the design's head is pasted where the frame's hair and skin squares agree best
+  with it (exact colours matched 0.2-0.6, the classes 0.6-0.9), the frame's own face cleared first (behind the head
+  only skin and eyes, so trailing hair stays). Such frames pack palette-indexed (alpha over 128 or not, the nearest
+  palette colour) and read back pixel for pixel: 19 MB -> 1.2 MB.
 
 ## QA checklist
 

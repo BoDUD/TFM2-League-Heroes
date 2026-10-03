@@ -5,7 +5,7 @@
         "name": "盖伦",
         "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。",
         "skill": "<#ff9028ff>致命打击<>：盖伦获得<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>35% 移动速度<>，持续<#ffb900ff>1.5秒<>。<#ffb900ff>4.5秒<>内的下一次普攻变为跃起重击，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150% 攻击力<>的<#ff9028ff>物理伤害<>并<#ef5350ff>沉默<>目标<#ffb900ff>1.5秒<>。同时获得<#ff9028ff>勇气<>：<#ffb900ff>2秒<>内受到的伤害降低<#ffb900ff>30%<>、韧性提高<#ffb900ff>60%<>，并获得<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50% 攻击力<>的<#e8d44dff>护盾<>。",
-        "skill2": "<#ff9028ff>审判<>：盖伦挥剑旋转<#ffb900ff>3秒<>，边转边追着目标移动，共转<#ffb900ff>7<>圈，每圈对周围敌人造成<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55% 攻击力<>的<#ff9028ff>物理伤害<>，追击的目标每圈多受<#ffb900ff>25%<>。第<#ffb900ff>7<>圈命中的敌人<i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>护甲<>降低<#ffb900ff>25%<>，持续<#ffb900ff>6秒<>。被动 <#ff9028ff>坚韧<>：盖伦拥有很高的<#6aff55ff>生命回复<>。",
+        "skill2": "<#ff9028ff>审判<>：盖伦挥剑旋转<#ffb900ff>3秒<>，边转边走向身边的敌人（贴身的英雄优先，不会远距离扑人），共转<#ffb900ff>7<>圈，每圈对周围敌人造成<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55% 攻击力<>的<#ff9028ff>物理伤害<>，他走向的那个敌人每圈多受<#ffb900ff>25%<>。第<#ffb900ff>7<>圈命中的敌人<i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>护甲<>降低<#ffb900ff>25%<>，持续<#ffb900ff>6秒<>。被动 <#ff9028ff>坚韧<>：盖伦拥有很高的<#6aff55ff>生命回复<>。",
         "ult": "<#ff9028ff>德玛西亚正义<>：召唤巨剑从天而降，对目标敌方英雄造成<#f5f5f5ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120% 攻击力<> + <#f5f5f5ff>12% 目标最大生命值<>的<#f5f5f5ff>真实伤害<>。"
       },
       "league_ashe": {
@@ -336,6 +336,13 @@
         "skill": "向目标脚下扔出炸弹（出手时锁定落点，可躲开），粘在附近第一个敌人身上（英雄优先），<#ffb900ff>3秒<>后爆炸，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法强<>的<#a974ffff>魔法伤害<>。<#ff9028ff>穿梭未来<>（每<#ffb900ff>12秒<>）：炸弹粘上英雄时倒转时间再扔一颗，两颗立即爆炸并<#ef5350ff>晕眩1.25秒<>，技能冷却缩短。",
         "skill2": "使一名敌方英雄<#ef5350ff>减速35%<>，同时让身边一名友方英雄（没有则自己）<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移速+35%<>，持续<#ffb900ff>2.5秒<>。",
         "ult": "附近的友方英雄被控制、或基兰被两名以上敌方英雄贴身时，为其挂上时光符文：<#ffb900ff>5秒<>内不会阵亡，结束时时光回溯，回复<#6aff55ff>400<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>150% 法强<>生命值。"
+      },
+      "league_vi": {
+        "name": "蔚",
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理伤害。<#ff9028ff>爆弹重拳<>：每第3次普攻额外造成<#ff9028ff>20<>物理伤害（对英雄再加<#ff9028ff>5%最大生命<>），减护甲<#ffb900ff>20%<>，自身攻速+<#ffb900ff>30%<>，均<#ffb900ff>4秒<>。<#ff9028ff>爆裂护盾<>：技能命中敌人获得<#ffb900ff>100<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>60%<>护盾<#ffb900ff>3秒<>，冷却<#ffb900ff>12秒<>，第3次普攻减<#ffb900ff>3秒<>。",
+        "skill": "蓄力<#ffb900ff>0.5秒<>（开始蓄力时锁定方向）后向前冲刺，对路上的敌人造成<#ff9028ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理伤害；撞到第一个英雄时停下并击退他，叠1层爆弹重拳，之后<#ffb900ff>1.5秒<>内施放透体之劲会立刻出拳。",
+        "skill2": "<#ffb900ff>2<>层充能（每层<#ffb900ff>8秒<>）。下一次普攻变为透体之劲，对目标和其身后扇形内的敌人造成<#ff9028ff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>物理伤害。",
+        "ult": "锁定一名敌方英雄冲过去，期间免疫控制；撞开路上的敌人，造成<#ff9028ff>75<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>物理伤害并眩晕<#ffb900ff>0.75秒<>；到达后将目标击飞<#ffb900ff>1.25秒<>并造成<#ff9028ff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>物理伤害，下一拳自带透体之劲。"
       }
     },
     "skill_name": {
@@ -578,6 +585,11 @@
         "skill1": "定时炸弹",
         "skill2": "时光发条",
         "ult": "时光倒流"
+      },
+      "league_vi": {
+        "skill1": "强能冲拳",
+        "skill2": "透体之劲",
+        "ult": "天霸横空烈轰"
       }
     }
   },
@@ -587,7 +599,7 @@
         "name": "蓋倫",
         "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。",
         "skill": "<#ff9028ff>致命打擊<>：蓋倫獲得<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>35% 移動速度<>，持續<#ffb900ff>1.5秒<>。<#ffb900ff>4.5秒<>內的下一次普攻變為躍起重擊，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150% 攻擊力<>的<#ff9028ff>物理傷害<>並<#ef5350ff>沉默<>目標<#ffb900ff>1.5秒<>。同時獲得<#ff9028ff>勇氣<>：<#ffb900ff>2秒<>內受到的傷害降低<#ffb900ff>30%<>、韌性提高<#ffb900ff>60%<>，並獲得<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50% 攻擊力<>的<#e8d44dff>護盾<>。",
-        "skill2": "<#ff9028ff>審判<>：蓋倫揮劍旋轉<#ffb900ff>3秒<>，邊轉邊追著目標移動，共轉<#ffb900ff>7<>圈，每圈對周圍敵人造成<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55% 攻擊力<>的<#ff9028ff>物理傷害<>，追擊的目標每圈多受<#ffb900ff>25%<>。第<#ffb900ff>7<>圈命中的敵人<i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>護甲<>降低<#ffb900ff>25%<>，持續<#ffb900ff>6秒<>。被動 <#ff9028ff>堅韌<>：蓋倫擁有很高的<#6aff55ff>生命回復<>。",
+        "skill2": "<#ff9028ff>審判<>：蓋倫揮劍旋轉<#ffb900ff>3秒<>，邊轉邊走向身邊的敵人（貼身的英雄優先，不會遠距離撲人），共轉<#ffb900ff>7<>圈，每圈對周圍敵人造成<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55% 攻擊力<>的<#ff9028ff>物理傷害<>，他走向的那個敵人每圈多受<#ffb900ff>25%<>。第<#ffb900ff>7<>圈命中的敵人<i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>護甲<>降低<#ffb900ff>25%<>，持續<#ffb900ff>6秒<>。被動 <#ff9028ff>堅韌<>：蓋倫擁有很高的<#6aff55ff>生命回復<>。",
         "ult": "<#ff9028ff>德瑪西亞正義<>：召喚巨劍從天而降，對目標敵方英雄造成<#f5f5f5ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120% 攻擊力<> + <#f5f5f5ff>12% 目標最大生命值<>的<#f5f5f5ff>真實傷害<>。"
       },
       "league_ashe": {
@@ -918,6 +930,13 @@
         "skill": "向目標腳下擲出炸彈（出手時鎖定落點，可躲開），黏在附近第一個敵人身上（英雄優先），<#ffb900ff>3秒<>後爆炸，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法術強度<>的<#a974ffff>魔法傷害<>。<#ff9028ff>時光回溯<>（每<#ffb900ff>12秒<>）：炸彈黏上英雄時倒轉時間再擲一顆，兩顆立即爆炸並<#ef5350ff>暈眩1.25秒<>，技能冷卻縮短。",
         "skill2": "使一名敵方英雄<#ef5350ff>緩速35%<>，同時讓身邊一名友方英雄（沒有則自身）<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>跑速+35%<>，持續<#ffb900ff>2.5秒<>。",
         "ult": "附近的友方英雄被控制、或極靈被兩名以上敵方英雄貼身時，為其掛上時光符文：<#ffb900ff>5秒<>內不會陣亡，結束時時光回溯，回復<#6aff55ff>400<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>150% 法術強度<>生命。"
+      },
+      "league_vi": {
+        "name": "菲艾",
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理傷害。<#ff9028ff>爆彈重拳<>：每第3次普攻額外造成<#ff9028ff>20<>物理傷害（對英雄再加<#ff9028ff>5%最大生命<>），減護甲<#ffb900ff>20%<>，自身攻速+<#ffb900ff>30%<>，均<#ffb900ff>4秒<>。<#ff9028ff>爆裂護盾<>：技能命中敵人獲得<#ffb900ff>100<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>60%<>護盾<#ffb900ff>3秒<>，冷卻<#ffb900ff>12秒<>，第3次普攻減<#ffb900ff>3秒<>。",
+        "skill": "蓄力<#ffb900ff>0.5秒<>（開始蓄力時鎖定方向）後向前衝刺，對路上的敵人造成<#ff9028ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理傷害；撞到第一個英雄時停下並擊退他，疊1層爆彈重拳，之後<#ffb900ff>1.5秒<>內施放透體之勁會立刻出拳。",
+        "skill2": "<#ffb900ff>2<>層充能（每層<#ffb900ff>8秒<>）。下一次普攻變為透體之勁，對目標和其身後扇形內的敵人造成<#ff9028ff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>物理傷害。",
+        "ult": "鎖定一名敵方英雄衝過去，期間免疫控制；撞開路上的敵人，造成<#ff9028ff>75<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>物理傷害並暈眩<#ffb900ff>0.75秒<>；到達後將目標擊飛<#ffb900ff>1.25秒<>並造成<#ff9028ff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>物理傷害，下一拳自帶透體之勁。"
       }
     },
     "skill_name": {
@@ -1160,6 +1179,11 @@
         "skill1": "定時炸彈",
         "skill2": "時間扭曲",
         "ult": "時光倒流"
+      },
+      "league_vi": {
+        "skill1": "強能衝拳",
+        "skill2": "透體之勁",
+        "ult": "天霸橫空烈轟"
       }
     }
   },
@@ -1169,7 +1193,7 @@
         "name": "Garen",
         "attack": "Basic attacks deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>.",
         "skill": "<#ff9028ff>Decisive Strike<>: Garen gains <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>35% movement speed<> for <#ffb900ff>1.5s<>. His next basic attack within <#ffb900ff>4.5s<> becomes a leaping strike that deals <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150% AD<> <#ff9028ff>physical damage<> and <#ef5350ff>silences<> the target for <#ffb900ff>1.5s<>. He also gains <#ff9028ff>Courage<>: <#ffb900ff>30%<> damage reduction and <#ffb900ff>60%<> tenacity for <#ffb900ff>2s<>, plus a <#e8d44dff>shield<> of <#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50% AD<>.",
-        "skill2": "<#ff9028ff>Judgment<>: Garen spins his sword for <#ffb900ff>3s<> and chases his target while spinning. Each of the <#ffb900ff>7<> spins deals <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55% AD<> <#ff9028ff>physical damage<> to nearby enemies, <#ffb900ff>25%<> more to the one he chases; the <#ffb900ff>7th<> spin lowers their <i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>armor<> by <#ffb900ff>25%<> for <#ffb900ff>6s<>. Passive <#ff9028ff>Perseverance<>: Garen has very high <#6aff55ff>health regeneration<>.",
+        "skill2": "<#ff9028ff>Judgment<>: Garen spins his sword for <#ffb900ff>3s<> and walks to the nearest enemies while spinning. Each of the <#ffb900ff>7<> spins deals <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55% AD<> <#ff9028ff>physical damage<> to nearby enemies, <#ffb900ff>25%<> more to the one he walks to; the <#ffb900ff>7th<> spin lowers their <i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>armor<> by <#ffb900ff>25%<> for <#ffb900ff>6s<>. Passive <#ff9028ff>Perseverance<>: Garen has very high <#6aff55ff>health regeneration<>.",
         "ult": "<#ff9028ff>Demacian Justice<>: Calls a giant sword down on the target enemy champion, dealing <#f5f5f5ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120% AD<> + <#f5f5f5ff>12% of its max health<> <#f5f5f5ff>true damage<>."
       },
       "league_ashe": {
@@ -1500,6 +1524,13 @@
         "skill": "Zilean lobs a bomb at the target's feet (aimed on release: dodgeable). It sticks to the first enemy near it (champions first) and explodes after <#ffb900ff>3s<> for <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% AP<> <#a974ffff>magic damage<>. <#ff9028ff>Rewind<> (every <#ffb900ff>12s<>): on a champion he turns time back and throws another - both explode at once and <#ef5350ff>stun for 1.25s<>; cooldowns shorten.",
         "skill2": "Zilean <#ef5350ff>slows<> an enemy champion by <#ef5350ff>35%<> and grants an allied champion beside him (himself if alone) <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>35% move speed<> for <#ffb900ff>2.5s<>.",
         "ult": "When an allied champion near him is crowd-controlled, or two enemy champions close in on Zilean, he places a time rune on them: they cannot die for <#ffb900ff>5s<>, then time rewinds and they heal <#6aff55ff>400<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>150% AP<>."
+      },
+      "league_vi": {
+        "name": "Vi",
+        "attack": "Basic attacks deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. <#ff9028ff>Denting Blows<>: every 3rd attack deals <#ff9028ff>20<> more (+<#ff9028ff>5% max health<> to champions), shreds <#ffb900ff>20%<> armour and gives <#ffb900ff>+30%<> attack speed for <#ffb900ff>4s<>. <#ff9028ff>Blast Shield<>: a spell hit shields her for <#ffb900ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>60% AD<> (<#ffb900ff>3s<>, <#ffb900ff>12s<> cooldown, <#ffb900ff>-3s<> per 3rd attack).",
+        "skill": "Vi charges for <#ffb900ff>0.5s<> (the aim locks as she starts), then dashes ahead dealing <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<> to enemies on the way; the first champion stops her and is knocked back (a Denting Blows stack). For <#ffb900ff>1.5s<> after, Relentless Force punches at once.",
+        "skill2": "<#ffb900ff>2<> charges (<#ffb900ff>8s<> each). Her next attack becomes Relentless Force: <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110% AD<> <#ff9028ff>physical damage<> to the target and enemies in a cone behind it.",
+        "ult": "Vi targets an enemy champion and charges, immune to crowd control; enemies in the way take <#ff9028ff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% AD<> <#ff9028ff>physical damage<> and are stunned <#ffb900ff>0.75s<>. On arrival the target is knocked up <#ffb900ff>1.25s<> for <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120% AD<>; her next attack is a Relentless Force."
       }
     },
     "skill_name": {
@@ -1742,6 +1773,11 @@
         "skill1": "Time Bomb",
         "skill2": "Time Warp",
         "ult": "Chronoshift"
+      },
+      "league_vi": {
+        "skill1": "Vault Breaker",
+        "skill2": "Relentless Force",
+        "ult": "Cease and Desist"
       }
     }
   },
@@ -1751,7 +1787,7 @@
         "name": "가렌",
         "attack": "기본 공격은 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 줍니다.",
         "skill": "<#ff9028ff>결정타<>: 가렌이 <#ffb900ff>1.5초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도가 35%<> 증가합니다. <#ffb900ff>4.5초<> 안의 다음 기본 공격은 도약 강타가 되어 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 150%<> <#ff9028ff>물리 피해<>를 주고 대상을 <#ffb900ff>1.5초<> 동안 <#ef5350ff>침묵<>시킵니다. 또한 <#ff9028ff>용기<>를 얻어 <#ffb900ff>2초<> 동안 받는 피해가 <#ffb900ff>30%<> 감소하고 강인함이 <#ffb900ff>60%<> 증가하며, <#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 50%<>의 <#e8d44dff>보호막<>을 얻습니다.",
-        "skill2": "<#ff9028ff>심판<>: 가렌이 <#ffb900ff>3초<> 동안 검을 휘두르며 회전하고, 회전하며 대상을 쫓아갑니다. <#ffb900ff>7<>번의 회전마다 주변 적에게 <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 55%<> <#ff9028ff>물리 피해<>를 주고(쫓는 대상은 <#ffb900ff>25%<> 추가), <#ffb900ff>7<>번째 회전은 <i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>방어력<>을 <#ffb900ff>6초<> 동안 <#ffb900ff>25%<> 낮춥니다. 기본 지속 효과 <#ff9028ff>인내<>: 가렌은 <#6aff55ff>체력 재생<>이 매우 높습니다.",
+        "skill2": "<#ff9028ff>심판<>: 가렌이 <#ffb900ff>3초<> 동안 검을 휘두르며 회전하고, 회전하며 가까운 적에게 다가갑니다. <#ffb900ff>7<>번의 회전마다 주변 적에게 <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 55%<> <#ff9028ff>물리 피해<>를 주고(다가가는 대상은 <#ffb900ff>25%<> 추가), <#ffb900ff>7<>번째 회전은 <i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>방어력<>을 <#ffb900ff>6초<> 동안 <#ffb900ff>25%<> 낮춥니다. 기본 지속 효과 <#ff9028ff>인내<>: 가렌은 <#6aff55ff>체력 재생<>이 매우 높습니다.",
         "ult": "<#ff9028ff>데마시아의 정의<>: 대상 적 챔피언에게 거대한 검을 내리꽂아 <#f5f5f5ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 120%<> + <#f5f5f5ff>대상 최대 체력의 12%<> <#f5f5f5ff>고정 피해<>를 줍니다."
       },
       "league_ashe": {
@@ -2082,6 +2118,13 @@
         "skill": "대상의 발밑에 폭탄을 던집니다(던질 때 위치가 정해져 피할 수 있음). 근처의 첫 적(챔피언 우선)에게 붙어 <#ffb900ff>3초<> 후 폭발하며 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 주문력<>의 <#a974ffff>마법 피해<>. <#ff9028ff>되감기<>(<#ffb900ff>12초<>마다): 챔피언에게 붙으면 시간을 되돌려 하나 더 던지고, 두 폭탄이 즉시 터지며 <#ef5350ff>1.25초 기절<>; 재사용 대기시간 감소.",
         "skill2": "적 챔피언을 <#ef5350ff>35% 둔화<>시키고, 주변 아군 챔피언 하나(없으면 자신)의 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도를 35%<> 높입니다. 지속 <#ffb900ff>2.5초<>.",
         "ult": "주변 아군 챔피언이 군중 제어에 걸리거나 적 챔피언 둘 이상이 질리언에게 붙으면 그 대상에게 시간의 룬을 겁니다: <#ffb900ff>5초<> 동안 죽지 않고, 끝나면 시간이 되돌아가 <#6aff55ff>400<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>150% 주문력<>의 체력을 회복합니다."
+      },
+      "league_vi": {
+        "name": "바이",
+        "attack": "기본 공격은 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>강타<>: 3번째 공격마다 <#ff9028ff>20<> 추가 피해(챔피언에게 <#ff9028ff>최대 체력의 5%<>), 방어력 <#ffb900ff>20%<> 감소, 공격 속도 +<#ffb900ff>30%<>(<#ffb900ff>4초<>). <#ff9028ff>폭발 보호막<>: 스킬 적중 시 <#ffb900ff>100<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>60%<> 보호막 <#ffb900ff>3초<>(재사용 <#ffb900ff>12초<>, 3번째 공격마다 <#ffb900ff>-3초<>).",
+        "skill": "<#ffb900ff>0.5초<> 충전 후(충전 시작 때 방향 고정) 돌진해 경로의 적에게 <#ff9028ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>; 처음 부딪힌 챔피언에서 멈추고 밀쳐냅니다(강타 1중첩). 이후 <#ffb900ff>1.5초<> 안에 가차없는 힘은 바로 주먹을 날립니다.",
+        "skill2": "<#ffb900ff>2<>회 충전(회당 <#ffb900ff>8초<>). 다음 기본 공격이 대상과 그 뒤 부채꼴의 적에게 <#ff9028ff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 110%<> <#ff9028ff>물리 피해<>를 줍니다.",
+        "ult": "적 챔피언에게 돌진하며 군중 제어에 면역; 경로의 적은 <#ff9028ff>75<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> 피해와 <#ffb900ff>0.75초<> 기절. 도착하면 대상을 <#ffb900ff>1.25초<> 띄워 올리고 <#ff9028ff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 120%<> 피해, 다음 공격은 가차없는 힘."
       }
     },
     "skill_name": {
@@ -2324,6 +2367,11 @@
         "skill1": "시한 폭탄",
         "skill2": "시간 왜곡",
         "ult": "시간 역행"
+      },
+      "league_vi": {
+        "skill1": "금고 부수기",
+        "skill2": "가차없는 힘",
+        "ult": "기선 제압"
       }
     }
   },
@@ -2333,7 +2381,7 @@
         "name": "ガレン",
         "attack": "通常攻撃は<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>を与える。",
         "skill": "<#ff9028ff>断固たる一撃<>：<#ffb900ff>1.5秒<>間<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度が35%<>増加する。<#ffb900ff>4.5秒<>以内の次の通常攻撃は跳躍斬りになり、<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の150%<>の<#ff9028ff>物理ダメージ<>を与え、<#ffb900ff>1.5秒<>間<#ef5350ff>サイレンス<>にする。<#ff9028ff>勇気<>：<#ffb900ff>2秒<>間受けるダメージが<#ffb900ff>30%<>減少し、行動妨害耐性が<#ffb900ff>60%<>増加し、<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の50%<>の<#e8d44dff>シールド<>を得る。",
-        "skill2": "<#ff9028ff>審判<>：ガレンは<#ffb900ff>3秒<>間剣を振り回して回転し、回転しながら対象を追いかける。<#ffb900ff>7<>回の回転ごとに周囲の敵に<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の55%<>の<#ff9028ff>物理ダメージ<>を与え（追っている敵には<#ffb900ff>25%<>増し）、<#ffb900ff>7<>回目の回転は<i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>物理防御<>を<#ffb900ff>6秒<>間<#ffb900ff>25%<>低下させる。自動効果 <#ff9028ff>忍耐<>：ガレンは非常に高い<#6aff55ff>体力自動回復<>を持つ。",
+        "skill2": "<#ff9028ff>審判<>：ガレンは<#ffb900ff>3秒<>間剣を振り回して回転し、回転しながら近くの敵へ歩み寄る。<#ffb900ff>7<>回の回転ごとに周囲の敵に<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の55%<>の<#ff9028ff>物理ダメージ<>を与え（向かう敵には<#ffb900ff>25%<>増し）、<#ffb900ff>7<>回目の回転は<i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>物理防御<>を<#ffb900ff>6秒<>間<#ffb900ff>25%<>低下させる。自動効果 <#ff9028ff>忍耐<>：ガレンは非常に高い<#6aff55ff>体力自動回復<>を持つ。",
         "ult": "<#ff9028ff>デマーシアの正義<>：対象の敵チャンピオンに巨大な剣を落とし、<#f5f5f5ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の120%<> + <#f5f5f5ff>対象の最大体力の12%<>の<#f5f5f5ff>確定ダメージ<>を与える。"
       },
       "league_ashe": {
@@ -2664,6 +2712,13 @@
         "skill": "対象の足元に爆弾を投げる（着弾点は投げた時に決まる）。近くの最初の敵（チャンピオン優先）にくっつき、<#ffb900ff>3秒<>後に爆発して<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 魔力<>の<#a974ffff>魔法ダメージ<>。<#ff9028ff>リワインド<>（<#ffb900ff>12秒<>ごと）：チャンピオンにくっつくと時を戻してもう1つ投げ、2つが即爆発して<#ef5350ff>1.25秒スタン<>、クールダウン短縮。",
         "skill2": "敵チャンピオンに<#ef5350ff>35%スロウ<>、そばの味方チャンピオン1人（いなければ自分）に<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度+35%<>。<#ffb900ff>2.5秒<>。",
         "ult": "近くの味方チャンピオンが行動妨害を受けるか、敵チャンピオン2人以上がジリアンに迫ると、その対象に時のルーン：<#ffb900ff>5秒<>倒れず、終わると時が戻り<#6aff55ff>400<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>150% 魔力<>の体力を回復。"
+      },
+      "league_vi": {
+        "name": "ヴァイ",
+        "attack": "通常攻撃は<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>デンティングブロー<>：3回目ごとに<#ff9028ff>20<>追加（チャンピオンには<#ff9028ff>最大体力の5%<>も）、物理防御<#ffb900ff>20%<>低下、攻撃速度+<#ffb900ff>30%<>（<#ffb900ff>4秒<>）。<#ff9028ff>ブラストシールド<>：スキル命中で<#ffb900ff>100<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>60%<>のシールド<#ffb900ff>3秒<>（CD<#ffb900ff>12秒<>、3回目ごとに<#ffb900ff>-3秒<>）。",
+        "skill": "<#ffb900ff>0.5秒<>溜め（溜め始めに方向固定）、前方へ突進し進路上の敵に<#ff9028ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>。最初のチャンピオンで止まりノックバック（スタック1）、<#ffb900ff>1.5秒<>以内のレレントレスフォースは即座に殴る。",
+        "skill2": "チャージ<#ffb900ff>2<>（1回<#ffb900ff>8秒<>）。次の通常攻撃が対象と背後の扇形の敵に<#ff9028ff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の110%<>の<#ff9028ff>物理ダメージ<>。",
+        "ult": "敵チャンピオンへ突進（行動妨害無効）、進路上の敵に<#ff9028ff>75<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>とスタン<#ffb900ff>0.75秒<>。到達で対象を<#ffb900ff>1.25秒<>打ち上げ<#ff9028ff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の120%<>、次の攻撃はレレントレスフォース。"
       }
     },
     "skill_name": {
@@ -2906,6 +2961,11 @@
         "skill1": "タイムボム",
         "skill2": "タイムワープ",
         "ult": "クロノシフト"
+      },
+      "league_vi": {
+        "skill1": "ヴォールトブレイカー",
+        "skill2": "レレントレスフォース",
+        "ult": "セース・アンド・デジスト"
       }
     }
   }
