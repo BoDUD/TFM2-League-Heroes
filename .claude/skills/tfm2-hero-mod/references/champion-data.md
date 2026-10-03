@@ -2345,11 +2345,13 @@ attack, the backstab included, and its attack frames) when Shaco's own hits set 
 play out before the idle frame comes back. After 300 ticks it explodes where the champion stands: 150 + 100%
 ability power round it and three mini boxes (the W pop with 45 / 75-tick fears and 150 ticks of shots). When the
 champion dies first it explodes where he fell: every run refreshes a 5-tick caster flag `r_seen` and lobs a hidden
-`ParabolicProjectile` at him (`travel_time` 6); a lob that lands after the runs have stopped - `r_seen` gone, `r_live`
-still on - removes the flags and explodes there. Nothing can be started from a dead unit, so the spot is armed while
-he lives. In a logged game the clone exploded three times at the end of its time and once on a death. When Shaco
-himself dies while it lives, its runs stop with him (4 such deaths in 28 logged games: no strike, picture or blast
-after them) - League's clone dies with Shaco too.
+`ParabolicProjectile` at him (`travel_time` 1) whose `end_effects` wait in a `Delayed` of 6 ticks at the landing
+point; a check that comes after the runs have stopped - `r_seen` gone, `r_live` still on - removes the flags and
+explodes there, 3-6 ticks after the death (all 470 such deaths in 240 logged games). Nothing can be started from a
+dead unit, so the spot is armed while he lives. Until 0.50.2 the lob itself flew 6 ticks and its target walked away
+from it (below, "Hidden projectiles in flight move the AI"). When Shaco himself dies while it lives, its runs stop
+with him (4 such deaths in 28 logged games: no strike, picture or blast after them) - League's clone dies with Shaco
+too.
 
 **Every sixth shot a Headshot, trapped champions first (league_caitlyn Headshot).** The attack decides on tick 1
 (league_jinx's way) and fires from a `Delayed` (7 ticks, 9 for a Headshot with its own `CasterAnimation passive`). Five
@@ -2857,13 +2859,20 @@ point) finds `q_seen` gone when the runs stopped with the carrier and, with `q_l
 stick, removed by the fuse's end and by the second bomb), sets `q_off` and blows the bomb up there - 2-6 ticks after
 the death, a few pixels from the body (every carrier that died in two logged games).
 
-**Hidden projectiles in flight move the AI (league_zilean Q's watch).** Shaco's watch lob flies 6 ticks, so with one
-every 4 ticks one or two are always in the air over the carrier. On Zilean that cost the kill difference 0.4 and 9%
-of his damage to champions in 720 games (seeds 25-48: +2.44 / 7276 without the watch, +2.01 / 6634 with it), and
-the same lobs with their `end_effects` removed did the same (+1.97 / 6497): the lobs, not the blasts. On
+**Hidden projectiles in flight move the AI (league_zilean Q's watch).** The watch lob copied from Shaco flew 6 ticks,
+so with one every 4 ticks one or two were always in the air over the carrier. On Zilean that cost the kill difference
+0.4 and 9% of his damage to champions in 720 games (seeds 25-48: +2.44 / 7276 without the watch, +2.01 / 6634 with
+it), and the same lobs with their `end_effects` removed did the same (+1.97 / 6497): the lobs, not the blasts. On
 `applied_target: AllyOnlySelf` they went the other way (+3.06 / 7545). A 1-tick lob whose `end_effects` wait in a
 `Delayed` is in the air for one tick: +2.40 / 7424, the blasts it finds counted in. Keep hidden watch projectiles
-short-lived (league_shaco R's 6-tick lobs on its target champion were not measured this way).
+short-lived. league_shaco R's watch (the same 6-tick lobs, but only while the clone lives: 300 ticks of a 50 s
+cooldown) measured the same way in the jungle lane, three batches of 720 games: +1.08 / +1.27 / +0.90 with the 6-tick
+lobs, +1.16 / +0.80 / +1.17 with the 1-tick lob, +1.02 / +1.23 with the lobs' `end_effects` removed - inside the
+paired noise (about 0.30 a batch, the damage moving -1% to +6%). The AI does react to them: in 240 logged games each
+the ult's target died during the clone 32.9% of the time with the 6-tick lobs and 39.8% with the 1-tick one (it walks
+away from the lobs), while Shaco died first 3.2% against 5.1%; both blew up on every target that died under the clone
+(379 and 470). Shaco has the 1-tick lob since 0.50.2 (the user's call, 2026-10-03): the target fights on as it would
+in League.
 
 **Rewind as the second bomb on the same champion (league_zilean W in Q, QWQ).** League's W resets Q, and the
 players' combo is Q, W, Q: two bombs on one champion blow at once and stun everyone round him. The user picked it
