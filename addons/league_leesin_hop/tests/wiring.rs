@@ -15,13 +15,17 @@ struct Unit {
     /// 自己走路的速度（每 tick），被强制位移时不走。
     walk: (f64, f64),
     team: usize,
+    /// 防御塔（不是英雄）。
+    tower: bool,
+    /// 小兵（不是英雄）。
+    minion: bool,
     hp: usize,
     buffs: Vec<(BuffV1, usize)>,
     ccs: Vec<(CcV1, u64)>,
 }
 
 fn unit(x: f64, y: f64, team: usize) -> Unit {
-    Unit { x, y, walk: (0.0, 0.0), team, hp: 1000, buffs: vec![], ccs: vec![] }
+    Unit { x, y, walk: (0.0, 0.0), team, tower: false, minion: false, hp: 1000, buffs: vec![], ccs: vec![] }
 }
 
 #[derive(Default)]
@@ -155,6 +159,28 @@ unsafe extern "C" fn cooldowns(
 unsafe extern "C" fn player_valid(_: *const c_void, h: PlayerHandleV1) -> bool {
     h.id() == Some(0)
 }
+unsafe extern "C" fn is_tower(s: *const c_void, h: EntityHandleV1) -> bool {
+    u(s, h).is_some_and(|e| e.tower)
+}
+unsafe extern "C" fn is_champion(s: *const c_void, h: EntityHandleV1) -> bool {
+    u(s, h).is_some_and(|e| !e.tower && !e.minion)
+}
+unsafe extern "C" fn is_minion(s: *const c_void, h: EntityHandleV1) -> bool {
+    u(s, h).is_some_and(|e| e.minion)
+}
+unsafe extern "C" fn player_champion(_: *const c_void, h: PlayerHandleV1) -> EntityHandleV1 {
+    EntityHandleV1::from_id(h.id().unwrap_or(0))
+}
+// ---------- 选手 AI 的上下文 ----------
+unsafe extern "C" fn ai_player(_: *const c_void) -> usize {
+    0
+}
+unsafe extern "C" fn ai_tick(s: *const c_void) -> usize {
+    w(s).tick
+}
+unsafe extern "C" fn ai_valid(_: *const c_void, _: *const InputV1) -> bool {
+    true
+}
 unsafe extern "C" fn host_log(_: u32, _: *const u8, _: usize) {}
 
 fn vtable() -> SimVtableV1 {
@@ -166,7 +192,10 @@ fn vtable() -> SimVtableV1 {
     vt.entity_at = Some(at);
     vt.entity_is_valid = Some(yes);
     vt.entity_is_alive = Some(yes);
-    vt.entity_is_champion = Some(yes);
+    vt.entity_is_champion = Some(is_champion);
+    vt.entity_is_tower = Some(is_tower);
+    vt.entity_is_minion = Some(is_minion);
+    vt.player_champion = Some(player_champion);
     vt.entity_is_targetable = Some(yes);
     vt.entity_team = Some(team);
     vt.entity_pos = Some(pos);
@@ -268,6 +297,79 @@ fn w_dashes_for_the_insec_the_escape_and_the_chase() {
             run(&mut world, &fx, None, 12);
             assert!(dist(me(&world), (495_000.0, 480_000.0)) < 1_500.0, "ForceMove works {works}: {:?}", me(&world));
         }
+        // 0. 选手 AI：李青按 Q 时——对走动的英雄往预判的位置打，对小兵不放（改成平 A 它）
+        let ais = std::slice::from_raw_parts(ex.player_ai_ptr, ex.player_ai_len);
+        assert_eq!(ais.len(), 1);
+        let ai = ais[0];
+        let mut world = World { units: vec![unit(400_000.0, 480_000.0, 0), unit(450_000.0, 480_000.0, 1)], force_move_works: true, ..Default::default() };
+        world.units[1].walk = (0.0, -1_000.0);
+        let mut ai_vt: AiVtableV1 = zeroed();
+        ai_vt.size = size_of::<AiVtableV1>();
+        ai_vt.player_id = Some(ai_player);
+        ai_vt.tick = Some(ai_tick);
+        ai_vt.is_valid_input = Some(ai_valid);
+        let think = |world: &mut World, base: Option<InputV1>| -> Option<InputV1> {
+            let vt = vtable();
+            let mut ctx = AiCtxV1 {
+                size: size_of::<AiCtxV1>(),
+                vtable: &ai_vt,
+                state: world as *mut World as *mut c_void,
+                sim: &vt,
+                sim_state: world as *mut World as *mut c_void,
+            };
+            let mut out: InputV1 = zeroed();
+            let base_ptr = base.as_ref().map_or(std::ptr::null(), |b| b as *const InputV1);
+            let code = ((*ai.vtable).think.unwrap())(ai.userdata, &mut ctx, base_ptr, &mut out);
+            (code == AiDecisionKindV1::Replace.code()).then_some(out)
+        };
+        // 看他走几 tick（算出速度），再按 Q（内置 AI 瞄着他现在的位置）
+        for _ in 0..6 {
+            assert!(think(&mut world, None).is_none());
+            run(&mut world, &fx, None, 1);
+        }
+        let q_at_him = InputV1::action(InputKindV1::Skill, InputTargetV1::dir(50_000, 0));
+        let out = think(&mut world, Some(q_at_him)).expect("re-aimed");
+        assert_eq!(out.kind, InputKindV1::Skill.code());
+        assert!(out.target.dir_y < -15_000 && out.target.dir_x > 45_000, "aimed {:?}", (out.target.dir_x, out.target.dir_y));
+        // 不按 Q 时不管
+        assert!(think(&mut world, Some(InputV1::move_to(1, 1))).is_none());
+        // 对小兵按 Q：改成平 A 它
+        world.units[1].minion = true;
+        let out = think(&mut world, Some(q_at_him)).expect("skipped");
+        assert_eq!((out.kind, out.target.target_id), (InputKindV1::Attack.code(), 1));
+
+        // 1c. 队友在他西边（往西踢），李青已经在他东边（背后）：不 W，直接贴上去（40000 → 15000）踢
+        let ally = |x: f64, y: f64| unit(x, y, 0);
+        let mut world = World {
+            units: vec![unit(520_000.0, 480_000.0, 0), unit(480_000.0, 480_000.0, 1), ally(390_000.0, 470_000.0), ally(390_000.0, 490_000.0)],
+            force_move_works: true,
+            ..Default::default()
+        };
+        call(&mut world, &fx, "league_leesin_hop:insec", 0, InputTargetV1::target(1));
+        assert!(world.views.is_empty() && world.sounds.is_empty(), "W'd although he stood behind him");
+        run(&mut world, &fx, None, 12);
+        assert!(dist(me(&world), (495_000.0, 480_000.0)) < 1_500.0, "direct kick from {:?}", me(&world));
+        // 踢完就停：再跑 20 tick，李青不会被放回别的地方
+        let at_kick = me(&world);
+        run(&mut world, &fx, None, 20);
+        assert!(dist(me(&world), at_kick) < 1.0, "moved after the kick: {at_kick:?} -> {:?}", me(&world));
+        // 1d. 队友在西边，李青也在西边：W 到他东边（背后），往西踢
+        let mut world = World {
+            units: vec![unit(440_000.0, 480_000.0, 0), unit(480_000.0, 480_000.0, 1), ally(390_000.0, 480_000.0)],
+            force_move_works: true,
+            ..Default::default()
+        };
+        call(&mut world, &fx, "league_leesin_hop:insec", 0, InputTargetV1::target(1));
+        assert_eq!(world.views.len(), 1);
+        run(&mut world, &fx, None, 12);
+        assert!(dist(me(&world), (495_000.0, 480_000.0)) < 1_500.0, "{:?}", me(&world));
+        // 1e. 附近没有队友，己方塔在他南边：往南踢，W 到他北边
+        let mut tower = unit(480_000.0, 700_000.0, 0);
+        tower.tower = true;
+        let mut world = World { units: vec![unit(440_000.0, 480_000.0, 0), unit(480_000.0, 480_000.0, 1), tower], force_move_works: true, ..Default::default() };
+        call(&mut world, &fx, "league_leesin_hop:insec", 0, InputTargetV1::target(1));
+        run(&mut world, &fx, None, 12);
+        assert!(dist(me(&world), (480_000.0, 465_000.0)) < 1_500.0, "{:?}", me(&world));
         // 1b. 他边走边被绕后（往东走开 / 往北走）：李青一路跟着，踢的那一刻（10 tick 后）还在他身后 15000
         for walk in [(900.0, 0.0), (0.0, -900.0), (-700.0, 600.0)] {
             let mut world = World { units: vec![unit(440_000.0, 480_000.0, 0), unit(480_000.0, 480_000.0, 1)], force_move_works: true, ..Default::default() };
@@ -349,9 +451,20 @@ fn w_dashes_for_the_insec_the_escape_and_the_chase() {
         if std::env::var_os("KEEP_LOG").is_none() {
             let _ = std::fs::remove_file(&log);
         }
-        assert!(text.starts_with("=== league_leesin_hop v1.4"), "{text}");
-        assert!(!text.contains("NOT behind him"), "{text}");
-        for line in ["INSEC W to (495000,480000) behind #1", "behind him: kicks him back", "ESCAPE W to", "CHASE W to (527400,480000)", "running 900/tick"] {
+        assert!(text.starts_with("=== league_leesin_hop v1.6"), "{text}");
+        assert!(!text.contains(": OFF"), "{text}");
+        assert!(!text.contains("placed on the spot"), "{text}");
+        for line in [
+            "INSEC W behind him: kick #1 at (480000,480000) toward back; Lee (440000,480000) (40000 from him) -> (495000,480000)",
+            "INSEC DIRECT: already behind him: kick #1 at (480000,480000) toward allies",
+            "INSEC W behind him: kick #1 at (480000,480000) toward tower",
+            "0 deg off the planned way: on target",
+            "ESCAPE W to",
+            "CHASE W to (527400,480000)",
+            "running 900/tick",
+            "Q AIM at #1 Champion at (450000,474000) walking 1000/tick: thrown at (450000,",
+            "Q SKIP #1 Minion at (450000,474000): no Q on minions",
+        ] {
             assert!(text.contains(line), "missing {line:?} in the log:\n{text}");
         }
     }
