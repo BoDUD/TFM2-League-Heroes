@@ -1,0 +1,109 @@
+{
+  "actions": {
+    "attack": {
+      "frame_count": 6,
+      "palette_pass": true,
+      "alpha_pass": true,
+      "grid_8x8_pass": true,
+      "exact_head_mask_pass": true,
+      "eye_color_scope_pass": true,
+      "footline_pass": true,
+      "needs_visual_review": [
+        "body/clock overlap",
+        "generated head border remnants",
+        "sleeve/hand shape",
+        "motion silhouette fidelity"
+      ]
+    },
+    "run": {
+      "frame_count": 8,
+      "palette_pass": true,
+      "alpha_pass": true,
+      "grid_8x8_pass": true,
+      "exact_head_mask_pass": true,
+      "eye_color_scope_pass": true,
+      "footline_pass": true,
+      "needs_visual_review": [
+        "body/clock overlap",
+        "generated head border remnants",
+        "sleeve/hand shape",
+        "motion silhouette fidelity"
+      ]
+    },
+    "skill": {
+      "frame_count": 6,
+      "palette_pass": true,
+      "alpha_pass": true,
+      "grid_8x8_pass": true,
+      "exact_head_mask_pass": true,
+      "eye_color_scope_pass": true,
+      "footline_pass": true,
+      "needs_visual_review": [
+        "body/clock overlap",
+        "generated head border remnants",
+        "sleeve/hand shape",
+        "motion silhouette fidelity"
+      ]
+    },
+    "w": {
+      "frame_count": 5,
+      "palette_pass": true,
+      "alpha_pass": true,
+      "grid_8x8_pass": true,
+      "exact_head_mask_pass": true,
+      "eye_color_scope_pass": true,
+      "footline_pass": true,
+      "needs_visual_review": [
+        "body/clock overlap",
+        "generated head border remnants",
+        "sleeve/hand shape",
+        "motion silhouette fidelity"
+      ]
+    },
+    "skill2": {
+      "frame_count": 6,
+      "palette_pass": true,
+      "alpha_pass": true,
+      "grid_8x8_pass": true,
+      "exact_head_mask_pass": true,
+      "eye_color_scope_pass": true,
+      "footline_pass": true,
+      "needs_visual_review": [
+        "body/clock overlap",
+        "generated head border remnants",
+        "sleeve/hand shape",
+        "motion silhouette fidelity"
+      ]
+    },
+    "hit": {
+      "frame_count": 2,
+      "palette_pass": true,
+      "alpha_pass": true,
+      "grid_8x8_pass": true,
+      "exact_head_mask_pass": true,
+      "eye_color_scope_pass": true,
+      "footline_pass": true,
+      "needs_visual_review": [
+        "body/clock overlap",
+        "generated head border remnants",
+        "sleeve/hand shape",
+        "motion silhouette fidelity"
+      ]
+    },
+    "dead": {
+      "frame_count": 8,
+      "palette_pass": true,
+      "alpha_pass": true,
+      "grid_8x8_pass": true,
+      "exact_head_mask_pass": true,
+      "eye_color_scope_pass": true,
+      "footline_pass": true,
+      "needs_visual_review": [
+        "body/clock overlap",
+        "generated head border remnants",
+        "sleeve/hand shape",
+        "motion silhouette fidelity"
+      ]
+    }
+  }
+}

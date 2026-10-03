@@ -1,0 +1,3053 @@
+{
+  "cell_1x": [
+    80,
+    72
+  ],
+  "scale": 8,
+  "palette": [
+    "#04749B",
+    "#07050B",
+    "#070514",
+    "#096F97",
+    "#17162D",
+    "#1A2A74",
+    "#203BA1",
+    "#249BB6",
+    "#264BCA",
+    "#2E2E45",
+    "#2F6EEE",
+    "#321913",
+    "#3689F8",
+    "#3BA5FC",
+    "#50DBFD",
+    "#562910",
+    "#70121A",
+    "#76808E",
+    "#81491B",
+    "#95ACAE",
+    "#A05B16",
+    "#B7731A",
+    "#BFEBF4",
+    "#CF8C20",
+    "#D02B2B",
+    "#D17A54",
+    "#DD9F26",
+    "#ECB432",
+    "#F1EAC6",
+    "#F6F9FA",
+    "#FAD94F",
+    "#FBC895",
+    "#FCF585"
+  ],
+  "actions": {
+    "attack": {
+      "image": "zilean_attack.png",
+      "image_1x": "zilean_attack_1x.png",
+      "size_px": [
+        1920,
+        1152
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "release_frame": 5,
+      "frames": [
+        {
+          "index": 1,
+          "rect_1x": [
+            0,
+            0,
+            80,
+            72
+          ],
+          "rect_px": [
+            0,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            40,
+            48
+          ],
+          "duration_ms": 60,
+          "bbox_cell_1x": [
+            20,
+            20,
+            55,
+            60
+          ],
+          "bbox_cell_px": [
+            160,
+            160,
+            440,
+            480
+          ],
+          "head_translation_1x": [
+            -24,
+            -40
+          ],
+          "head_rotation_degrees": 0,
+          "clock_rotation_degrees": 0,
+          "head_exact_mask_match": true,
+          "eye_pixels_outside_head": 0,
+          "footline_limit_1x": 59,
+          "lowest_opaque_row": 59,
+          "source_cell_px": [
+            0,
+            0,
+            540,
+            486
+          ],
+          "source_grid_pitch_px": 8.0,
+          "art_origin": "generated body with reference head/clock masks",
+          "bbox_sheet_px": [
+            160,
+            160,
+            440,
+            480
+          ],
+          "pivot_cell_px": [
+            320,
+            384
+          ],
+          "pivot_sheet_px": [
+            320,
+            384
+          ]
+        },
+        {
+          "index": 2,
+          "rect_1x": [
+            80,
+            0,
+            80,
+            72
+          ],
+          "rect_px": [
+            640,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            41,
+            48
+          ],
+          "duration_ms": 70,
+          "bbox_cell_1x": [
+            20,
+            20,
+            56,
+            60
+          ],
+          "bbox_cell_px": [
+            160,
+            160,
+            448,
+            480
+          ],
+          "head_translation_1x": [
+            -23,
+            -40
+          ],
+          "head_rotation_degrees": 0,
+          "clock_rotation_degrees": 3,
+          "head_exact_mask_match": true,
+          "eye_pixels_outside_head": 0,
+          "footline_limit_1x": 59,
+          "lowest_opaque_row": 59,
+          "source_cell_px": [
+            540,
+            0,
+            1079,
+            486
+          ],
+          "source_grid_pitch_px": 8.0,
+          "art_origin": "generated body with reference head/clock masks",
+          "bbox_sheet_px": [
+            800,
+            160,
+            1088,
+            480
+          ],
+          "pivot_cell_px": [
+            328,
+            384
+          ],
+          "pivot_sheet_px": [
+            968,
+            384
+          ]
+        },
+        {
+          "index": 3,
+          "rect_1x": [
+            160,
+            0,
+            80,
+            72
+          ],
+          "rect_px": [
+            1280,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            41,
+            48
+          ],
+          "duration_ms": 70,
+          "bbox_cell_1x": [
+            21,
+            21,
+            56,
+            60
+          ],
+          "bbox_cell_px": [
+            168,
+            168,
+            448,
+            480
+          ],
+          "head_translation_1x": [
+            -23,
+            -40
+          ],
+          "head_rotation_degrees": 0,
+          "clock_rotation_degrees": 5,
+          "head_exact_mask_match": true,
+          "eye_pixels_outside_head": 0,
+          "footline_limit_1x": 59,
+          "lowest_opaque_row": 59,
+          "source_cell_px": [
+            1079,
+            0,
+            1619,
+            486
+          ],
+          "source_grid_pitch_px": 8.0,
+          "art_origin": "generated body with reference head/clock masks",
+          "bbox_sheet_px": [
+            1448,
+            168,
+            1728,
+            480
+          ],
+          "pivot_cell_px": [
+            328,
+            384
+          ],
+          "pivot_sheet_px": [
+            1608,
+            384
+          ]
+        },
+        {
+          "index": 4,
+          "rect_1x": [
+            0,
+            72,
+            80,
+            72
+          ],
+          "rect_px": [
+            0,
+            576,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            40,
+            48
+          ],
+          "duration_ms": 90,
+          "bbox_cell_1x": [
+            20,
+            20,
+            55,
+            60
+          ],
+          "bbox_cell_px": [
+            160,
+            160,
+            440,
+            480
+          ],
+          "head_translation_1x": [
+            -24,
+            -40
+          ],
+          "head_rotation_degrees": 0,
+          "clock_rotation_degrees": 2,
+          "head_exact_mask_match": true,
+          "eye_pixels_outside_head": 0,
+          "footline_limit_1x": 59,
+          "lowest_opaque_row": 59,
+          "source_cell_px": [
+            0,
+            486,
+            540,
+            972
+          ],
+          "source_grid_pitch_px": 8.0,
+          "art_origin": "generated body with reference head/clock masks",
+          "bbox_sheet_px": [
+            160,
+            736,
+            440,
+            1056
+          ],
+          "pivot_cell_px": [
+            320,
+            384
+          ],
+          "pivot_sheet_px": [
+            320,
+            960
+          ]
+        },
+        {
+          "index": 5,
+          "rect_1x": [
+            80,
+            72,
+            80,
+            72
+          ],
+          "rect_px": [
+            640,
+            576,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            37,
+            48
+          ],
+          "duration_ms": 100,
+          "bbox_cell_1x": [
+            17,
+            21,
+            57,
+            60
+          ],
+          "bbox_cell_px": [
+            136,
+            168,
+            456,
+            480
+          ],
+          "head_translation_1x": [
+            -27,
+            -39
+          ],
+          "head_rotation_degrees": 0,
+          "clock_rotation_degrees": 0,
+          "head_exact_mask_match": true,
+          "eye_pixels_outside_head": 0,
+          "footline_limit_1x": 59,
+          "lowest_opaque_row": 59,
+          "source_cell_px": [
+            540,
+            486,
+            1079,
+            972
+          ],
+          "source_grid_pitch_px": 8.0,
+          "art_origin": "generated body with reference head/clock masks",
+          "bbox_sheet_px": [
+            776,
+            744,
+            1096,
+            1056
+          ],
+          "pivot_cell_px": [
+            296,
+            384
+          ],
+          "pivot_sheet_px": [
+            936,
+            960
+          ]
+        },
+        {
+          "index": 6,
+          "rect_1x": [
+            160,
+            72,
+            80,
+            72
+          ],
+          "rect_px": [
+            1280,
+            576,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            38,
+            48
+          ],
+          "duration_ms": 110,
+          "bbox_cell_1x": [
+            18,
+            20,
+            53,
+            60
+          ],
+          "bbox_cell_px": [
+            144,
+            160,
+            424,
+            480
+          ],
+          "head_translation_1x": [
+            -26,
+            -40
+          ],
+          "head_rotation_degrees": 0,
+          "clock_rotation_degrees": 0,
+          "head_exact_mask_match": true,
+          "eye_pixels_outside_head": 0,
+          "footline_limit_1x": 59,
+          "lowest_opaque_row": 59,
+          "source_cell_px": [
+            1079,
+            486,
+            1619,
+            972
+          ],
+          "source_grid_pitch_px": 8.0,
+          "art_origin": "approved model artwork reused for exact idle recovery",
+          "bbox_sheet_px": [
+            1424,
+            736,
+            1704,
+            1056
+          ],
+          "pivot_cell_px": [
+            304,
+            384
+          ],
+          "pivot_sheet_px": [
+            1584,
+            960
+          ]
+        }
+      ]
+    },
+    "run": {
+      "image": "zilean_run.png",
+      "image_1x": "zilean_run_1x.png",
+      "size_px": [
+        2560,
+        1152
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "release_frame": null,
+      "frames": [
+        {
+          "index": 1,
+          "rect_1x": [
+            0,
+            0,
+            80,
+            72
+          ],
+          "rect_px": [
+            0,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            40,
+            48
+          ],
+          "duration_ms": 97,
+          "bbox_cell_1x": [
+            20,
+            19,
+            55,
+            60
+          ],
+          "bbox_cell_px": [
+            160,
+            152,
+            440,
+            480
+          ],
+          "head_translation_1x": [
+            -24,
+            -40
+          ],
+          "head_rotation_degrees": 0,
+          "clock_rotation_degrees": -6,
+          "head_exact_mask_match": true,
+          "eye_pixels_outside_head": 0,
+          "footline_limit_1x": 59,
+          "lowest_opaque_row": 59,
+          "source_cell_px": [
+            0,
+            0,
+            467,
+            421
+          ],
+          "source_grid_pitch_px": 7.5,
+          "art_origin": "generated body with reference head/clock masks",
+          "bbox_sheet_px": [
+            160,
+            152,
+            440,
+            480
+          ],
+          "pivot_cell_px": [
+            320,
+            384
+          ],
+          "pivot_sheet_px": [
+            320,
+            384
+          ]
+        },
+        {
+          "index": 2,
+          "rect_1x": [
+            80,
+            0,
+            80,
+            72
+          ],
+          "rect_px": [
+            640,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            40,
+            48
+          ],
+          "duration_ms": 97,
+          "bbox_cell_1x": [
+            20,
+            19,
+            56,
+            60
+          ],
+          "bbox_cell_px": [
+            160,
+            152,
+            448,
+            480
+          ],
+          "head_translation_1x": [
+            -24,
+            -40
+          ],
+          "head_rotation_degrees": 0,
+          "clock_rotation_degrees": -6,
+          "head_exact_mask_match": true,
+          "eye_pixels_outside_head": 0,
+          "footline_limit_1x": 59,
+          "lowest_opaque_row": 59,
+          "source_cell_px": [
+            467,
+            0,
+            934,
+            421
+          ],
+          "source_grid_pitch_px": 7.5,
+          "art_origin": "generated body with reference head/clock masks",
+          "bbox_sheet_px": [
+            800,
+            152,
+            1088,
+            480
+          ],
+          "pivot_cell_px": [
+            320,
+            384
+          ],
+          "pivot_sheet_px": [
+            960,
+            384
+          ]
+        },
+        {
+          "index": 3,
+          "rect_1x": [
+            160,
+            0,
+            80,
+            72
+          ],
+          "rect_px": [
+            1280,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            40,
+            48
+          ],
+          "duration_ms": 97,
+          "bbox_cell_1x": [
+            17,
+            18,
+            57,
+            59
+          ],
+          "bbox_cell_px": [
+            136,
+            144,
+            456,
+            472
+          ],
+          "head_translation_1x": [
+            -24,
+            -41
+          ],
+          "head_rotation_degrees": 0,
+          "clock_rotation_degrees": -6,
+          "head_exact_mask_match": true,
+          "eye_pixels_outside_head": 0,
+          "footline_limit_1x": 58,
+          "lowest_opaque_row": 58,
+          "source_cell_px": [
+            934,
+            0,
+            1402,
+            421
+          ],
+          "source_grid_pitch_px": 7.5,
+          "art_origin": "generated body with reference head/clock masks",
+          "bbox_sheet_px": [
+            1416,
+            144,
+            1736,
+            472
+          ],
+          "pivot_cell_px": [
+            320,
+            384
+          ],
+          "pivot_sheet_px": [
+            1600,
+            384
+          ]
+        },
+        {
+          "index": 4,
+          "rect_1x": [
+            240,
+            0,
+            80,
+            72
+          ],
+          "rect_px": [
+            1920,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            40,
+            48
+          ],
+          "duration_ms": 97,
+          "bbox_cell_1x": [
+            16,
+            18,
+            55,
+            59
+          ],
+          "bbox_cell_px": [
+            128,
+            144,
+            440,
+            472
+          ],
+          "head_translation_1x": [
+            -24,
+            -41
+          ],
+          "head_rotation_degrees": 0,
+          "clock_rotation_degrees": -6,
+          "head_exact_mask_match": true,
+          "eye_pixels_outside_head": 0,
+          "footline_limit_1x": 58,
+          "lowest_opaque_row": 58,
+          "source_cell_px": [
+            1402,
+            0,
+            1869,
+            421
+          ],
+          "source_grid_pitch_px": 7.5,
+          "art_origin": "generated body with reference head/clock masks",
+          "bbox_sheet_px": [
+            2048,
+            144,
+            2360,
+            472
+          ],
+          "pivot_cell_px": [
+            320,
+            384
+          ],
+          "pivot_sheet_px": [
+            2240,
+            384
+          ]
+        },
+        {
+          "index": 5,
+          "rect_1x": [
+            0,
+            72,
+            80,
+            72
+          ],
+          "rect_px": [
+            0,
+            576,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            40,
+            48
+          ],
+          "duration_ms": 97,
+          "bbox_cell_1x": [
+            15,
+            19,
+            55,
+            60
+          ],
+          "bbox_cell_px": [
+            120,
+            152,
+            440,
+            480
+          ],
+          "head_translation_1x": [
+            -24,
+            -40
+          ],
+          "head_rotation_degrees": 0,
+          "clock_rotation_degrees": -6,
+          "head_exact_mask_match": true,
+          "eye_pixels_outside_head": 0,
+          "footline_limit_1x": 59,
+          "lowest_opaque_row": 59,
+          "source_cell_px": [
+            0,
+            421,
+            467,
+            842
+          ],
+          "source_grid_pitch_px": 7.5,
+          "art_origin": "generated body with reference head/clock masks",
+          "bbox_sheet_px": [
+            120,
+            728,
+            440,
+            1056
+          ],
+          "pivot_cell_px": [
+            320,
+            384
+          ],
+          "pivot_sheet_px": [
+            320,
+            960
+          ]
+        },
+        {
+          "index": 6,
+          "rect_1x": [
+            80,
+            72,
+            80,
+            72
+          ],
+          "rect_px": [
+            640,
+            576,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            39,
+            48
+          ],
+          "duration_ms": 97,
+          "bbox_cell_1x": [
+            17,
+            19,
+            54,
+            60
+          ],
+          "bbox_cell_px": [
+            136,
+            152,
+            432,
+            480
+          ],
+          "head_translation_1x": [
+            -25,
+            -40
+          ],
+          "head_rotation_degrees": 0,
+          "clock_rotation_degrees": -6,
+          "head_exact_mask_match": true,
+          "eye_pixels_outside_head": 0,
+          "footline_limit_1x": 59,
+          "lowest_opaque_row": 59,
+          "source_cell_px": [
+            467,
+            421,
+            934,
+            842
+          ],
+          "source_grid_pitch_px": 7.5,
+          "art_origin": "generated body with reference head/clock masks",
+          "bbox_sheet_px": [
+            776,
+            728,
+            1072,
+            1056
+          ],
+          "pivot_cell_px": [
+            312,
+            384
+          ],
+          "pivot_sheet_px": [
+            952,
+            960
+          ]
+        },
+        {
+          "index": 7,
+          "rect_1x": [
+            160,
+            72,
+            80,
+            72
+          ],
+          "rect_px": [
+            1280,
+            576,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            40,
+            48
+          ],
+          "duration_ms": 97,
+          "bbox_cell_1x": [
+            19,
+            19,
+            55,
+            60
+          ],
+          "bbox_cell_px": [
+            152,
+            152,
+            440,
+            480
+          ],
+          "head_translation_1x": [
+            -24,
+            -40
+          ],
+          "head_rotation_degrees": 0,
+          "clock_rotation_degrees": -6,
+          "head_exact_mask_match": true,
+          "eye_pixels_outside_head": 0,
+          "footline_limit_1x": 59,
+          "lowest_opaque_row": 59,
+          "source_cell_px": [
+            934,
+            421,
+            1402,
+            842
+          ],
+          "source_grid_pitch_px": 7.5,
+          "art_origin": "generated body with reference head/clock masks",
+          "bbox_sheet_px": [
+            1432,
+            728,
+            1720,
+            1056
+          ],
+          "pivot_cell_px": [
+            320,
+            384
+          ],
+          "pivot_sheet_px": [
+            1600,
+            960
+          ]
+        },
+        {
+          "index": 8,
+          "rect_1x": [
+            240,
+            72,
+            80,
+            72
+          ],
+          "rect_px": [
+            1920,
+            576,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            40,
+            48
+          ],
+          "duration_ms": 97,
+          "bbox_cell_1x": [
+            20,
+            19,
+            55,
+            60
+          ],
+          "bbox_cell_px": [
+            160,
+            152,
+            440,
+            480
+          ],
+          "head_translation_1x": [
+            -24,
+            -40
+          ],
+          "head_rotation_degrees": 0,
+          "clock_rotation_degrees": -6,
+          "head_exact_mask_match": true,
+          "eye_pixels_outside_head": 0,
+          "footline_limit_1x": 59,
+          "lowest_opaque_row": 59,
+          "source_cell_px": [
+            1402,
+            421,
+            1869,
+            842
+          ],
+          "source_grid_pitch_px": 7.5,
+          "art_origin": "generated body with reference head/clock masks",
+          "bbox_sheet_px": [
+            2080,
+            728,
+            2360,
+            1056
+          ],
+          "pivot_cell_px": [
+            320,
+            384
+          ],
+          "pivot_sheet_px": [
+            2240,
+            960
+          ]
+        }
+      ]
+    },
+    "skill": {
+      "image": "zilean_skill.png",
+      "image_1x": "zilean_skill_1x.png",
+      "size_px": [
+        1920,
+        1152
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "release_frame": 4,
+      "frames": [
+        {
+          "index": 1,
+          "rect_1x": [
+            0,
+            0,
+            80,
+            72
+          ],
+          "rect_px": [
+            0,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            40,
+            48
+          ],
+          "duration_ms": 60,
+          "bbox_cell_1x": [
+            20,
+            20,
+            55,
+            60
+          ],
+          "bbox_cell_px": [
+            160,
+            160,
+            440,
+            480
+          ],
+          "head_translation_1x": [
+            -24,
+            -40
+          ],
+          "head_rotation_degrees": 0,
+          "clock_rotation_degrees": 0,
+          "head_exact_mask_match": true,
+          "eye_pixels_outside_head": 0,
+          "footline_limit_1x": 59,
+          "lowest_opaque_row": 59,
+          "source_cell_px": [
+            0,
+            0,
+            540,
+            486
+          ],
+          "source_grid_pitch_px": 8.25,
+          "art_origin": "generated body with reference head/clock masks",
+          "bbox_sheet_px": [
+            160,
+            160,
+            440,
+            480
+          ],
+          "pivot_cell_px": [
+            320,
+            384
+          ],
+          "pivot_sheet_px": [
+            320,
+            384
+          ]
+        },
+        {
+          "index": 2,
+          "rect_1x": [
+            80,
+            0,
+            80,
+            72
+          ],
+          "rect_px": [
+            640,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            40,
+            48
+          ],
+          "duration_ms": 70,
+          "bbox_cell_1x": [
+            20,
+            21,
+            55,
+            60
+          ],
+          "bbox_cell_px": [
+            160,
+            168,
+            440,
+            480
+          ],
+          "head_translation_1x": [
+            -24,
+            -39
+          ],
+          "head_rotation_degrees": 0,
+          "clock_rotation_degrees": -4,
+          "head_exact_mask_match": true,
+          "eye_pixels_outside_head": 0,
+          "footline_limit_1x": 59,
+          "lowest_opaque_row": 59,
+          "source_cell_px": [
+            540,
+            0,
+            1079,
+            486
+          ],
+          "source_grid_pitch_px": 8.25,
+          "art_origin": "generated body with reference head/clock masks",
+          "bbox_sheet_px": [
+            800,
+            168,
+            1080,
+            480
+          ],
+          "pivot_cell_px": [
+            320,
+            384
+          ],
+          "pivot_sheet_px": [
+            960,
+            384
+          ]
+        },
+        {
+          "index": 3,
+          "rect_1x": [
+            160,
+            0,
+            80,
+            72
+          ],
+          "rect_px": [
+            1280,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            37,
+            48
+          ],
+          "duration_ms": 70,
+          "bbox_cell_1x": [
+            17,
+            20,
+            52,
+            60
+          ],
+          "bbox_cell_px": [
+            136,
+            160,
+            416,
+            480
+          ],
+          "head_translation_1x": [
+            -27,
+            -39
+          ],
+          "head_rotation_degrees": 0,
+          "clock_rotation_degrees": -6,
+          "head_exact_mask_match": true,
+          "eye_pixels_outside_head": 0,
+          "footline_limit_1x": 59,
+          "lowest_opaque_row": 59,
+          "source_cell_px": [
+            1079,
+            0,
+            1619,
+            486
+          ],
+          "source_grid_pitch_px": 8.25,
+          "art_origin": "generated body with reference head/clock masks",
+          "bbox_sheet_px": [
+            1416,
+            160,
+            1696,
+            480
+          ],
+          "pivot_cell_px": [
+            296,
+            384
+          ],
+          "pivot_sheet_px": [
+            1576,
+            384
+          ]
+        },
+        {
+          "index": 4,
+          "rect_1x": [
+            0,
+            72,
+            80,
+            72
+          ],
+          "rect_px": [
+            0,
+            576,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            40,
+            48
+          ],
+          "duration_ms": 90,
+          "bbox_cell_1x": [
+            20,
+            19,
+            58,
+            60
+          ],
+          "bbox_cell_px": [
+            160,
+            152,
+            464,
+            480
+          ],
+          "head_translation_1x": [
+            -24,
+            -41
+          ],
+          "head_rotation_degrees": 0,
+          "clock_rotation_degrees": 0,
+          "head_exact_mask_match": true,
+          "eye_pixels_outside_head": 0,
+          "footline_limit_1x": 59,
+          "lowest_opaque_row": 59,
+          "source_cell_px": [
+            0,
+            486,
+            540,
+            971
+          ],
+          "source_grid_pitch_px": 8.25,
+          "art_origin": "generated body with reference head/clock masks",
+          "bbox_sheet_px": [
+            160,
+            728,
+            464,
+            1056
+          ],
+          "pivot_cell_px": [
+            320,
+            384
+          ],
+          "pivot_sheet_px": [
+            320,
+            960
+          ]
+        },
+        {
+          "index": 5,
+          "rect_1x": [
+            80,
+            72,
+            80,
+            72
+          ],
+          "rect_px": [
+            640,
+            576,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            41,
+            48
+          ],
+          "duration_ms": 100,
+          "bbox_cell_1x": [
+            21,
+            20,
+            57,
+            60
+          ],
+          "bbox_cell_px": [
+            168,
+            160,
+            456,
+            480
+          ],
+          "head_translation_1x": [
+            -23,
+            -40
+          ],
+          "head_rotation_degrees": 0,
+          "clock_rotation_degrees": 0,
+          "head_exact_mask_match": true,
+          "eye_pixels_outside_head": 0,
+          "footline_limit_1x": 59,
+          "lowest_opaque_row": 59,
+          "source_cell_px": [
+            540,
+            486,
+            1079,
+            971
+          ],
+          "source_grid_pitch_px": 8.25,
+          "art_origin": "generated body with reference head/clock masks",
+          "bbox_sheet_px": [
+            808,
+            736,
+            1096,
+            1056
+          ],
+          "pivot_cell_px": [
+            328,
+            384
+          ],
+          "pivot_sheet_px": [
+            968,
+            960
+          ]
+        },
+        {
+          "index": 6,
+          "rect_1x": [
+            160,
+            72,
+            80,
+            72
+          ],
+          "rect_px": [
+            1280,
+            576,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            40,
+            48
+          ],
+          "duration_ms": 110,
+          "bbox_cell_1x": [
+            20,
+            20,
+            55,
+            60
+          ],
+          "bbox_cell_px": [
+            160,
+            160,
+            440,
+            480
+          ],
+          "head_translation_1x": [
+            -24,
+            -40
+          ],
+          "head_rotation_degrees": 0,
+          "clock_rotation_degrees": 0,
+          "head_exact_mask_match": true,
+          "eye_pixels_outside_head": 0,
+          "footline_limit_1x": 59,
+          "lowest_opaque_row": 59,
+          "source_cell_px": [
+            1079,
+            486,
+            1619,
+            971
+          ],
+          "source_grid_pitch_px": 8.25,
+          "art_origin": "approved model artwork reused for exact idle recovery",
+          "bbox_sheet_px": [
+            1440,
+            736,
+            1720,
+            1056
+          ],
+          "pivot_cell_px": [
+            320,
+            384
+          ],
+          "pivot_sheet_px": [
+            1600,
+            960
+          ]
+        }
+      ]
+    },
+    "w": {
+      "image": "zilean_w.png",
+      "image_1x": "zilean_w_1x.png",
+      "size_px": [
+        1920,
+        1152
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "release_frame": null,
+      "frames": [
+        {
+          "index": 1,
+          "rect_1x": [
+            0,
+            0,
+            80,
+            72
+          ],
+          "rect_px": [
+            0,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            40,
+            48
+          ],
+          "duration_ms": 80,
+          "bbox_cell_1x": [
+            20,
+            20,
+            55,
+            60
+          ],
+          "bbox_cell_px": [
+            160,
+            160,
+            440,
+            480
+          ],
+          "head_translation_1x": [
+            -24,
+            -40
+          ],
+          "head_rotation_degrees": 0,
+          "clock_rotation_degrees": 0,
+          "head_exact_mask_match": true,
+          "eye_pixels_outside_head": 0,
+          "footline_limit_1x": 59,
+          "lowest_opaque_row": 59,
+          "source_cell_px": [
+            0,
+            0,
+            540,
+            486
+          ],
+          "source_grid_pitch_px": 7.15,
+          "art_origin": "generated body with reference head/clock masks",
+          "bbox_sheet_px": [
+            160,
+            160,
+            440,
+            480
+          ],
+          "pivot_cell_px": [
+            320,
+            384
+          ],
+          "pivot_sheet_px": [
+            320,
+            384
+          ]
+        },
+        {
+          "index": 2,
+          "rect_1x": [
+            80,
+            0,
+            80,
+            72
+          ],
+          "rect_px": [
+            640,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            38,
+            48
+          ],
+          "duration_ms": 80,
+          "bbox_cell_1x": [
+            18,
+            21,
+            54,
+            60
+          ],
+          "bbox_cell_px": [
+            144,
+            168,
+            432,
+            480
+          ],
+          "head_translation_1x": [
+            -26,
+            -39
+          ],
+          "head_rotation_degrees": 0,
+          "clock_rotation_degrees": -4,
+          "head_exact_mask_match": true,
+          "eye_pixels_outside_head": 0,
+          "footline_limit_1x": 59,
+          "lowest_opaque_row": 59,
+          "source_cell_px": [
+            540,
+            0,
+            1079,
+            486
+          ],
+          "source_grid_pitch_px": 7.15,
+          "art_origin": "generated body with reference head/clock masks",
+          "bbox_sheet_px": [
+            784,
+            168,
+            1072,
+            480
+          ],
+          "pivot_cell_px": [
+            304,
+            384
+          ],
+          "pivot_sheet_px": [
+            944,
+            384
+          ]
+        },
+        {
+          "index": 3,
+          "rect_1x": [
+            160,
+            0,
+            80,
+            72
+          ],
+          "rect_px": [
+            1280,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            35,
+            48
+          ],
+          "duration_ms": 90,
+          "bbox_cell_1x": [
+            15,
+            20,
+            52,
+            60
+          ],
+          "bbox_cell_px": [
+            120,
+            160,
+            416,
+            480
+          ],
+          "head_translation_1x": [
+            -29,
+            -39
+          ],
+          "head_rotation_degrees": 0,
+          "clock_rotation_degrees": -8,
+          "head_exact_mask_match": true,
+          "eye_pixels_outside_head": 0,
+          "footline_limit_1x": 59,
+          "lowest_opaque_row": 59,
+          "source_cell_px": [
+            1079,
+            0,
+            1619,
+            486
+          ],
+          "source_grid_pitch_px": 7.15,
+          "art_origin": "generated body with reference head/clock masks",
+          "bbox_sheet_px": [
+            1400,
+            160,
+            1696,
+            480
+          ],
+          "pivot_cell_px": [
+            280,
+            384
+          ],
+          "pivot_sheet_px": [
+            1560,
+            384
+          ]
+        },
+        {
+          "index": 4,
+          "rect_1x": [
+            0,
+            72,
+            80,
+            72
+          ],
+          "rect_px": [
+            0,
+            576,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            40,
+            48
+          ],
+          "duration_ms": 120,
+          "bbox_cell_1x": [
+            20,
+            20,
+            55,
+            60
+          ],
+          "bbox_cell_px": [
+            160,
+            160,
+            440,
+            480
+          ],
+          "head_translation_1x": [
+            -24,
+            -40
+          ],
+          "head_rotation_degrees": 0,
+          "clock_rotation_degrees": -4,
+          "head_exact_mask_match": true,
+          "eye_pixels_outside_head": 0,
+          "footline_limit_1x": 59,
+          "lowest_opaque_row": 59,
+          "source_cell_px": [
+            0,
+            486,
+            540,
+            971
+          ],
+          "source_grid_pitch_px": 7.15,
+          "art_origin": "generated body with reference head/clock masks",
+          "bbox_sheet_px": [
+            160,
+            736,
+            440,
+            1056
+          ],
+          "pivot_cell_px": [
+            320,
+            384
+          ],
+          "pivot_sheet_px": [
+            320,
+            960
+          ]
+        },
+        {
+          "index": 5,
+          "rect_1x": [
+            80,
+            72,
+            80,
+            72
+          ],
+          "rect_px": [
+            640,
+            576,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            41,
+            48
+          ],
+          "duration_ms": 130,
+          "bbox_cell_1x": [
+            21,
+            20,
+            56,
+            60
+          ],
+          "bbox_cell_px": [
+            168,
+            160,
+            448,
+            480
+          ],
+          "head_translation_1x": [
+            -23,
+            -40
+          ],
+          "head_rotation_degrees": 0,
+          "clock_rotation_degrees": 0,
+          "head_exact_mask_match": true,
+          "eye_pixels_outside_head": 0,
+          "footline_limit_1x": 59,
+          "lowest_opaque_row": 59,
+          "source_cell_px": [
+            540,
+            486,
+            1079,
+            971
+          ],
+          "source_grid_pitch_px": 7.15,
+          "art_origin": "approved model artwork reused for exact idle recovery",
+          "bbox_sheet_px": [
+            808,
+            736,
+            1088,
+            1056
+          ],
+          "pivot_cell_px": [
+            328,
+            384
+          ],
+          "pivot_sheet_px": [
+            968,
+            960
+          ]
+        }
+      ]
+    },
+    "skill2": {
+      "image": "zilean_skill2.png",
+      "image_1x": "zilean_skill2_1x.png",
+      "size_px": [
+        1920,
+        1152
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "release_frame": 4,
+      "frames": [
+        {
+          "index": 1,
+          "rect_1x": [
+            0,
+            0,
+            80,
+            72
+          ],
+          "rect_px": [
+            0,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            40,
+            48
+          ],
+          "duration_ms": 60,
+          "bbox_cell_1x": [
+            20,
+            20,
+            55,
+            60
+          ],
+          "bbox_cell_px": [
+            160,
+            160,
+            440,
+            480
+          ],
+          "head_translation_1x": [
+            -24,
+            -40
+          ],
+          "head_rotation_degrees": 0,
+          "clock_rotation_degrees": 0,
+          "head_exact_mask_match": true,
+          "eye_pixels_outside_head": 0,
+          "footline_limit_1x": 59,
+          "lowest_opaque_row": 59,
+          "source_cell_px": [
+            0,
+            0,
+            540,
+            486
+          ],
+          "source_grid_pitch_px": 7.85,
+          "art_origin": "generated body with reference head/clock masks",
+          "bbox_sheet_px": [
+            160,
+            160,
+            440,
+            480
+          ],
+          "pivot_cell_px": [
+            320,
+            384
+          ],
+          "pivot_sheet_px": [
+            320,
+            384
+          ]
+        },
+        {
+          "index": 2,
+          "rect_1x": [
+            80,
+            0,
+            80,
+            72
+          ],
+          "rect_px": [
+            640,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            40,
+            48
+          ],
+          "duration_ms": 70,
+          "bbox_cell_1x": [
+            20,
+            21,
+            55,
+            60
+          ],
+          "bbox_cell_px": [
+            160,
+            168,
+            440,
+            480
+          ],
+          "head_translation_1x": [
+            -24,
+            -39
+          ],
+          "head_rotation_degrees": 0,
+          "clock_rotation_degrees": -3,
+          "head_exact_mask_match": true,
+          "eye_pixels_outside_head": 0,
+          "footline_limit_1x": 59,
+          "lowest_opaque_row": 59,
+          "source_cell_px": [
+            540,
+            0,
+            1079,
+            486
+          ],
+          "source_grid_pitch_px": 7.85,
+          "art_origin": "generated body with reference head/clock masks",
+          "bbox_sheet_px": [
+            800,
+            168,
+            1080,
+            480
+          ],
+          "pivot_cell_px": [
+            320,
+            384
+          ],
+          "pivot_sheet_px": [
+            960,
+            384
+          ]
+        },
+        {
+          "index": 3,
+          "rect_1x": [
+            160,
+            0,
+            80,
+            72
+          ],
+          "rect_px": [
+            1280,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            37,
+            48
+          ],
+          "duration_ms": 70,
+          "bbox_cell_1x": [
+            17,
+            20,
+            52,
+            60
+          ],
+          "bbox_cell_px": [
+            136,
+            160,
+            416,
+            480
+          ],
+          "head_translation_1x": [
+            -27,
+            -39
+          ],
+          "head_rotation_degrees": 0,
+          "clock_rotation_degrees": -5,
+          "head_exact_mask_match": true,
+          "eye_pixels_outside_head": 0,
+          "footline_limit_1x": 59,
+          "lowest_opaque_row": 59,
+          "source_cell_px": [
+            1079,
+            0,
+            1619,
+            486
+          ],
+          "source_grid_pitch_px": 7.85,
+          "art_origin": "generated body with reference head/clock masks",
+          "bbox_sheet_px": [
+            1416,
+            160,
+            1696,
+            480
+          ],
+          "pivot_cell_px": [
+            296,
+            384
+          ],
+          "pivot_sheet_px": [
+            1576,
+            384
+          ]
+        },
+        {
+          "index": 4,
+          "rect_1x": [
+            0,
+            72,
+            80,
+            72
+          ],
+          "rect_px": [
+            0,
+            576,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            40,
+            48
+          ],
+          "duration_ms": 90,
+          "bbox_cell_1x": [
+            20,
+            20,
+            58,
+            60
+          ],
+          "bbox_cell_px": [
+            160,
+            160,
+            464,
+            480
+          ],
+          "head_translation_1x": [
+            -24,
+            -40
+          ],
+          "head_rotation_degrees": 0,
+          "clock_rotation_degrees": 0,
+          "head_exact_mask_match": true,
+          "eye_pixels_outside_head": 0,
+          "footline_limit_1x": 59,
+          "lowest_opaque_row": 59,
+          "source_cell_px": [
+            0,
+            486,
+            540,
+            971
+          ],
+          "source_grid_pitch_px": 7.85,
+          "art_origin": "generated body with reference head/clock masks",
+          "bbox_sheet_px": [
+            160,
+            736,
+            464,
+            1056
+          ],
+          "pivot_cell_px": [
+            320,
+            384
+          ],
+          "pivot_sheet_px": [
+            320,
+            960
+          ]
+        },
+        {
+          "index": 5,
+          "rect_1x": [
+            80,
+            72,
+            80,
+            72
+          ],
+          "rect_px": [
+            640,
+            576,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            41,
+            48
+          ],
+          "duration_ms": 100,
+          "bbox_cell_1x": [
+            21,
+            20,
+            59,
+            60
+          ],
+          "bbox_cell_px": [
+            168,
+            160,
+            472,
+            480
+          ],
+          "head_translation_1x": [
+            -23,
+            -40
+          ],
+          "head_rotation_degrees": 0,
+          "clock_rotation_degrees": 0,
+          "head_exact_mask_match": true,
+          "eye_pixels_outside_head": 0,
+          "footline_limit_1x": 59,
+          "lowest_opaque_row": 59,
+          "source_cell_px": [
+            540,
+            486,
+            1079,
+            971
+          ],
+          "source_grid_pitch_px": 7.85,
+          "art_origin": "generated body with reference head/clock masks",
+          "bbox_sheet_px": [
+            808,
+            736,
+            1112,
+            1056
+          ],
+          "pivot_cell_px": [
+            328,
+            384
+          ],
+          "pivot_sheet_px": [
+            968,
+            960
+          ]
+        },
+        {
+          "index": 6,
+          "rect_1x": [
+            160,
+            72,
+            80,
+            72
+          ],
+          "rect_px": [
+            1280,
+            576,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            41,
+            48
+          ],
+          "duration_ms": 110,
+          "bbox_cell_1x": [
+            21,
+            20,
+            56,
+            60
+          ],
+          "bbox_cell_px": [
+            168,
+            160,
+            448,
+            480
+          ],
+          "head_translation_1x": [
+            -23,
+            -40
+          ],
+          "head_rotation_degrees": 0,
+          "clock_rotation_degrees": 0,
+          "head_exact_mask_match": true,
+          "eye_pixels_outside_head": 0,
+          "footline_limit_1x": 59,
+          "lowest_opaque_row": 59,
+          "source_cell_px": [
+            1079,
+            486,
+            1619,
+            971
+          ],
+          "source_grid_pitch_px": 7.85,
+          "art_origin": "approved model artwork reused for exact idle recovery",
+          "bbox_sheet_px": [
+            1448,
+            736,
+            1728,
+            1056
+          ],
+          "pivot_cell_px": [
+            328,
+            384
+          ],
+          "pivot_sheet_px": [
+            1608,
+            960
+          ]
+        }
+      ]
+    },
+    "hit": {
+      "image": "zilean_hit.png",
+      "image_1x": "zilean_hit_1x.png",
+      "size_px": [
+        1280,
+        576
+      ],
+      "grid": [
+        2,
+        1
+      ],
+      "release_frame": null,
+      "frames": [
+        {
+          "index": 1,
+          "rect_1x": [
+            0,
+            0,
+            80,
+            72
+          ],
+          "rect_px": [
+            0,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            40,
+            48
+          ],
+          "duration_ms": 100,
+          "bbox_cell_1x": [
+            18,
+            20,
+            56,
+            60
+          ],
+          "bbox_cell_px": [
+            144,
+            160,
+            448,
+            480
+          ],
+          "head_translation_1x": [
+            -26,
+            -40
+          ],
+          "head_rotation_degrees": 0,
+          "clock_rotation_degrees": 5,
+          "head_exact_mask_match": true,
+          "eye_pixels_outside_head": 0,
+          "footline_limit_1x": 59,
+          "lowest_opaque_row": 59,
+          "source_cell_px": [
+            0,
+            0,
+            935,
+            841
+          ],
+          "source_grid_pitch_px": 10.1,
+          "art_origin": "generated body with reference head/clock masks",
+          "bbox_sheet_px": [
+            144,
+            160,
+            448,
+            480
+          ],
+          "pivot_cell_px": [
+            320,
+            384
+          ],
+          "pivot_sheet_px": [
+            320,
+            384
+          ]
+        },
+        {
+          "index": 2,
+          "rect_1x": [
+            80,
+            0,
+            80,
+            72
+          ],
+          "rect_px": [
+            640,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            40,
+            48
+          ],
+          "duration_ms": 100,
+          "bbox_cell_1x": [
+            20,
+            20,
+            55,
+            60
+          ],
+          "bbox_cell_px": [
+            160,
+            160,
+            440,
+            480
+          ],
+          "head_translation_1x": [
+            -24,
+            -40
+          ],
+          "head_rotation_degrees": 0,
+          "clock_rotation_degrees": 0,
+          "head_exact_mask_match": true,
+          "eye_pixels_outside_head": 0,
+          "footline_limit_1x": 59,
+          "lowest_opaque_row": 59,
+          "source_cell_px": [
+            935,
+            0,
+            1870,
+            841
+          ],
+          "source_grid_pitch_px": 10.1,
+          "art_origin": "approved model artwork reused for exact idle recovery",
+          "bbox_sheet_px": [
+            800,
+            160,
+            1080,
+            480
+          ],
+          "pivot_cell_px": [
+            320,
+            384
+          ],
+          "pivot_sheet_px": [
+            960,
+            384
+          ]
+        }
+      ]
+    },
+    "dead": {
+      "image": "zilean_dead.png",
+      "image_1x": "zilean_dead_1x.png",
+      "size_px": [
+        2560,
+        1152
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "release_frame": null,
+      "frames": [
+        {
+          "index": 1,
+          "rect_1x": [
+            0,
+            0,
+            80,
+            72
+          ],
+          "rect_px": [
+            0,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            40,
+            48
+          ],
+          "duration_ms": 100,
+          "bbox_cell_1x": [
+            19,
+            20,
+            61,
+            60
+          ],
+          "bbox_cell_px": [
+            152,
+            160,
+            488,
+            480
+          ],
+          "head_translation_1x": [
+            -24,
+            -40
+          ],
+          "head_rotation_degrees": 0,
+          "clock_rotation_degrees": 0,
+          "head_exact_mask_match": true,
+          "eye_pixels_outside_head": 0,
+          "footline_limit_1x": 59,
+          "lowest_opaque_row": 59,
+          "source_cell_px": [
+            0,
+            0,
+            467,
+            421
+          ],
+          "source_grid_pitch_px": 5.45,
+          "art_origin": "generated body with reference head/clock masks",
+          "bbox_sheet_px": [
+            152,
+            160,
+            488,
+            480
+          ],
+          "pivot_cell_px": [
+            320,
+            384
+          ],
+          "pivot_sheet_px": [
+            320,
+            384
+          ]
+        },
+        {
+          "index": 2,
+          "rect_1x": [
+            80,
+            0,
+            80,
+            72
+          ],
+          "rect_px": [
+            640,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            39,
+            48
+          ],
+          "duration_ms": 100,
+          "bbox_cell_1x": [
+            19,
+            19,
+            62,
+            60
+          ],
+          "bbox_cell_px": [
+            152,
+            152,
+            496,
+            480
+          ],
+          "head_translation_1x": [
+            -25,
+            -40
+          ],
+          "head_rotation_degrees": 0,
+          "clock_rotation_degrees": 0,
+          "head_exact_mask_match": true,
+          "eye_pixels_outside_head": 0,
+          "footline_limit_1x": 59,
+          "lowest_opaque_row": 59,
+          "source_cell_px": [
+            467,
+            0,
+            934,
+            421
+          ],
+          "source_grid_pitch_px": 5.45,
+          "art_origin": "generated body with reference head/clock masks",
+          "bbox_sheet_px": [
+            792,
+            152,
+            1136,
+            480
+          ],
+          "pivot_cell_px": [
+            312,
+            384
+          ],
+          "pivot_sheet_px": [
+            952,
+            384
+          ]
+        },
+        {
+          "index": 3,
+          "rect_1x": [
+            160,
+            0,
+            80,
+            72
+          ],
+          "rect_px": [
+            1280,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            39,
+            48
+          ],
+          "duration_ms": 110,
+          "bbox_cell_1x": [
+            19,
+            20,
+            69,
+            60
+          ],
+          "bbox_cell_px": [
+            152,
+            160,
+            552,
+            480
+          ],
+          "head_translation_1x": [
+            -25,
+            -40
+          ],
+          "head_rotation_degrees": 0,
+          "clock_rotation_degrees": 0,
+          "head_exact_mask_match": true,
+          "eye_pixels_outside_head": 0,
+          "footline_limit_1x": 59,
+          "lowest_opaque_row": 59,
+          "source_cell_px": [
+            934,
+            0,
+            1402,
+            421
+          ],
+          "source_grid_pitch_px": 5.45,
+          "art_origin": "generated body with reference head/clock masks",
+          "bbox_sheet_px": [
+            1432,
+            160,
+            1832,
+            480
+          ],
+          "pivot_cell_px": [
+            312,
+            384
+          ],
+          "pivot_sheet_px": [
+            1592,
+            384
+          ]
+        },
+        {
+          "index": 4,
+          "rect_1x": [
+            240,
+            0,
+            80,
+            72
+          ],
+          "rect_px": [
+            1920,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            39,
+            48
+          ],
+          "duration_ms": 110,
+          "bbox_cell_1x": [
+            12,
+            21,
+            54,
+            60
+          ],
+          "bbox_cell_px": [
+            96,
+            168,
+            432,
+            480
+          ],
+          "head_translation_1x": [
+            -25,
+            -45
+          ],
+          "head_rotation_degrees": 55,
+          "clock_rotation_degrees": 55,
+          "head_exact_mask_match": true,
+          "eye_pixels_outside_head": 0,
+          "footline_limit_1x": 59,
+          "lowest_opaque_row": 59,
+          "source_cell_px": [
+            1402,
+            0,
+            1869,
+            421
+          ],
+          "source_grid_pitch_px": 5.45,
+          "art_origin": "approved image-model artwork rotated as one piece for falling/lying pose",
+          "bbox_sheet_px": [
+            2016,
+            168,
+            2352,
+            480
+          ],
+          "pivot_cell_px": [
+            312,
+            384
+          ],
+          "pivot_sheet_px": [
+            2232,
+            384
+          ]
+        },
+        {
+          "index": 5,
+          "rect_1x": [
+            0,
+            72,
+            80,
+            72
+          ],
+          "rect_px": [
+            0,
+            576,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            43,
+            48
+          ],
+          "duration_ms": 120,
+          "bbox_cell_1x": [
+            14,
+            27,
+            57,
+            61
+          ],
+          "bbox_cell_px": [
+            112,
+            216,
+            456,
+            488
+          ],
+          "head_translation_1x": [
+            -21,
+            -44
+          ],
+          "head_rotation_degrees": 75,
+          "clock_rotation_degrees": 75,
+          "head_exact_mask_match": true,
+          "eye_pixels_outside_head": 0,
+          "footline_limit_1x": 60,
+          "lowest_opaque_row": 60,
+          "source_cell_px": [
+            0,
+            421,
+            467,
+            842
+          ],
+          "source_grid_pitch_px": 5.45,
+          "art_origin": "approved image-model artwork rotated as one piece for falling/lying pose",
+          "bbox_sheet_px": [
+            112,
+            792,
+            456,
+            1064
+          ],
+          "pivot_cell_px": [
+            344,
+            384
+          ],
+          "pivot_sheet_px": [
+            344,
+            960
+          ]
+        },
+        {
+          "index": 6,
+          "rect_1x": [
+            80,
+            72,
+            80,
+            72
+          ],
+          "rect_px": [
+            640,
+            576,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            38,
+            48
+          ],
+          "duration_ms": 150,
+          "bbox_cell_1x": [
+            9,
+            26,
+            51,
+            61
+          ],
+          "bbox_cell_px": [
+            72,
+            208,
+            408,
+            488
+          ],
+          "head_translation_1x": [
+            -26,
+            -46
+          ],
+          "head_rotation_degrees": 85,
+          "clock_rotation_degrees": 85,
+          "head_exact_mask_match": true,
+          "eye_pixels_outside_head": 0,
+          "footline_limit_1x": 60,
+          "lowest_opaque_row": 60,
+          "source_cell_px": [
+            467,
+            421,
+            934,
+            842
+          ],
+          "source_grid_pitch_px": 5.45,
+          "art_origin": "approved image-model artwork rotated as one piece for falling/lying pose",
+          "bbox_sheet_px": [
+            712,
+            784,
+            1048,
+            1064
+          ],
+          "pivot_cell_px": [
+            304,
+            384
+          ],
+          "pivot_sheet_px": [
+            944,
+            960
+          ]
+        },
+        {
+          "index": 7,
+          "rect_1x": [
+            160,
+            72,
+            80,
+            72
+          ],
+          "rect_px": [
+            1280,
+            576,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            35,
+            48
+          ],
+          "duration_ms": 300,
+          "bbox_cell_1x": [
+            6,
+            26,
+            48,
+            61
+          ],
+          "bbox_cell_px": [
+            48,
+            208,
+            384,
+            488
+          ],
+          "head_translation_1x": [
+            -29,
+            -46
+          ],
+          "head_rotation_degrees": 85,
+          "clock_rotation_degrees": 85,
+          "head_exact_mask_match": true,
+          "eye_pixels_outside_head": 0,
+          "footline_limit_1x": 60,
+          "lowest_opaque_row": 60,
+          "source_cell_px": [
+            934,
+            421,
+            1402,
+            842
+          ],
+          "source_grid_pitch_px": 5.45,
+          "art_origin": "approved image-model artwork rotated as one piece for falling/lying pose",
+          "bbox_sheet_px": [
+            1328,
+            784,
+            1664,
+            1064
+          ],
+          "pivot_cell_px": [
+            280,
+            384
+          ],
+          "pivot_sheet_px": [
+            1560,
+            960
+          ]
+        },
+        {
+          "index": 8,
+          "rect_1x": [
+            240,
+            72,
+            80,
+            72
+          ],
+          "rect_px": [
+            1920,
+            576,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            33,
+            48
+          ],
+          "duration_ms": 500,
+          "bbox_cell_1x": [
+            6,
+            26,
+            48,
+            61
+          ],
+          "bbox_cell_px": [
+            48,
+            208,
+            384,
+            488
+          ],
+          "head_translation_1x": [
+            -29,
+            -46
+          ],
+          "head_rotation_degrees": 85,
+          "clock_rotation_degrees": 85,
+          "head_exact_mask_match": true,
+          "eye_pixels_outside_head": 0,
+          "footline_limit_1x": 60,
+          "lowest_opaque_row": 60,
+          "source_cell_px": [
+            1402,
+            421,
+            1869,
+            842
+          ],
+          "source_grid_pitch_px": 5.45,
+          "art_origin": "approved image-model artwork rotated as one piece for falling/lying pose",
+          "bbox_sheet_px": [
+            1968,
+            784,
+            2304,
+            1064
+          ],
+          "pivot_cell_px": [
+            264,
+            384
+          ],
+          "pivot_sheet_px": [
+            2184,
+            960
+          ]
+        }
+      ]
+    },
+    "idle": {
+      "image": "zilean_idle.png",
+      "image_1x": "zilean_idle_1x.png",
+      "grid": [
+        3,
+        2
+      ],
+      "size_px": [
+        1920,
+        1152
+      ],
+      "frames": [
+        {
+          "index": 1,
+          "rect_1x": [
+            0,
+            0,
+            80,
+            72
+          ],
+          "rect_px": [
+            0,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            40,
+            48
+          ],
+          "duration_ms": 180,
+          "bbox_cell_1x": [
+            20,
+            20,
+            55,
+            60
+          ],
+          "supplied_unchanged": true,
+          "bbox_sheet_px": [
+            160,
+            160,
+            440,
+            480
+          ],
+          "pivot_cell_px": [
+            320,
+            384
+          ],
+          "pivot_sheet_px": [
+            320,
+            384
+          ]
+        },
+        {
+          "index": 2,
+          "rect_1x": [
+            80,
+            0,
+            80,
+            72
+          ],
+          "rect_px": [
+            640,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            40,
+            48
+          ],
+          "duration_ms": 180,
+          "bbox_cell_1x": [
+            20,
+            20,
+            55,
+            60
+          ],
+          "supplied_unchanged": true,
+          "bbox_sheet_px": [
+            800,
+            160,
+            1080,
+            480
+          ],
+          "pivot_cell_px": [
+            320,
+            384
+          ],
+          "pivot_sheet_px": [
+            960,
+            384
+          ]
+        },
+        {
+          "index": 3,
+          "rect_1x": [
+            160,
+            0,
+            80,
+            72
+          ],
+          "rect_px": [
+            1280,
+            0,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            40,
+            48
+          ],
+          "duration_ms": 180,
+          "bbox_cell_1x": [
+            20,
+            20,
+            55,
+            60
+          ],
+          "supplied_unchanged": true,
+          "bbox_sheet_px": [
+            1440,
+            160,
+            1720,
+            480
+          ],
+          "pivot_cell_px": [
+            320,
+            384
+          ],
+          "pivot_sheet_px": [
+            1600,
+            384
+          ]
+        },
+        {
+          "index": 4,
+          "rect_1x": [
+            0,
+            72,
+            80,
+            72
+          ],
+          "rect_px": [
+            0,
+            576,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            40,
+            48
+          ],
+          "duration_ms": 180,
+          "bbox_cell_1x": [
+            20,
+            20,
+            55,
+            60
+          ],
+          "supplied_unchanged": true,
+          "bbox_sheet_px": [
+            160,
+            736,
+            440,
+            1056
+          ],
+          "pivot_cell_px": [
+            320,
+            384
+          ],
+          "pivot_sheet_px": [
+            320,
+            960
+          ]
+        },
+        {
+          "index": 5,
+          "rect_1x": [
+            80,
+            72,
+            80,
+            72
+          ],
+          "rect_px": [
+            640,
+            576,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            40,
+            48
+          ],
+          "duration_ms": 180,
+          "bbox_cell_1x": [
+            20,
+            20,
+            55,
+            60
+          ],
+          "supplied_unchanged": true,
+          "bbox_sheet_px": [
+            800,
+            736,
+            1080,
+            1056
+          ],
+          "pivot_cell_px": [
+            320,
+            384
+          ],
+          "pivot_sheet_px": [
+            960,
+            960
+          ]
+        },
+        {
+          "index": 6,
+          "rect_1x": [
+            160,
+            72,
+            80,
+            72
+          ],
+          "rect_px": [
+            1280,
+            576,
+            640,
+            576
+          ],
+          "pivot_1x": [
+            40,
+            48
+          ],
+          "duration_ms": 180,
+          "bbox_cell_1x": [
+            20,
+            20,
+            55,
+            60
+          ],
+          "supplied_unchanged": true,
+          "bbox_sheet_px": [
+            1440,
+            736,
+            1720,
+            1056
+          ],
+          "pivot_cell_px": [
+            320,
+            384
+          ],
+          "pivot_sheet_px": [
+            1600,
+            960
+          ]
+        }
+      ],
+      "supplied_unchanged": true
+    }
+  },
+  "status": "review_candidate",
+  "source_route": "image model bodies; source-grid sampling and reference-mask compositing",
+  "aliases": {
+    "ult": "skill"
+  },
+  "verification": {
+    "frames_checked": 47,
+    "pixel_grid": true,
+    "binary_alpha": true,
+    "approved_palette_only": true,
+    "timing_and_pivot_preserved": true,
+    "footline_limit": true,
+    "w_unused_cell_empty": true,
+    "run_head_x_constant_relative_to_pivot": true,
+    "run_head_bob_at_most_1px": true,
+    "dead_last_two_frames_identical": true,
+    "idle_sha256": "2362d9d3c8091f18edfefcaedd42b588e405aefb6b54325cc043ba6b3d4d5cdb",
+    "visual_status": "candidate: minor torso/clock overlap, hand and neck details need review; no live game test"
+  }
+}
