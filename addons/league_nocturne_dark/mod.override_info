@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_nocturne": {
+    "remapping": "asset/league_nocturne_dark/override/league_nocturne",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_nocturne_dark/text/champion",
+    "type": "merge"
+  }
+}
