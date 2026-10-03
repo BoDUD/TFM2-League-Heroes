@@ -3154,9 +3154,512 @@
                     "type": "TargetSfx",
                     "name": "league_aatrox_w_hit"
                   }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_aatrox_w_minion",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_aatrox_w_minion"
+                        },
+                        {
+                          "type": "Attack",
+                          "damage": 40,
+                          "attack_ratio": 40,
+                          "hp_ratio": 0,
+                          "target_hp_ratio": 0,
+                          "attack_effect_type": "Target"
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_aatrox_w_champ",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_aatrox_w_champ"
+                        },
+                        {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_aatrox_r",
+                          "effect_buff": {
+                            "type": "Heal",
+                            "amount": 10,
+                            "attack_ratio": 10,
+                            "ap_ratio": 0,
+                            "heal_type": "Caster"
+                          },
+                          "effect_none": {
+                            "type": "Heal",
+                            "amount": 7,
+                            "attack_ratio": 7,
+                            "ap_ratio": 0,
+                            "heal_type": "Caster"
+                          }
+                        },
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "Circle": {
+                              "radius": 1000
+                            }
+                          },
+                          "target": "AllyOnlySelf",
+                          "apply_type": "AroundCaster",
+                          "effects": [
+                            {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_aatrox_p_lw",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": []
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_aatrox_p_lw",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 3
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  },
+                                  {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_aatrox_pc2",
+                                    "effect_buff": {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_aatrox_pc3",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 900
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    },
+                                    "effect_none": {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_aatrox_pc1",
+                                      "effect_buff": {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_aatrox_pc2",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 900
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      },
+                                      "effect_none": {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_aatrox_pc1",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 900
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_aatrox_r",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_aatrox_k_a"
+                                  },
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_aatrox_k_a",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 2
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_aatrox_k_b"
+                                  },
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_aatrox_k_b",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 6
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "AddCasted",
+                                "casted_type": "Heal",
+                                "duration": 3,
+                                "period": 1,
+                                "effects": [
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_aatrox_k_a"
+                                  },
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_aatrox_k_b"
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": []
+                          }
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "Delayed",
+                    "tick": 92,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_aatrox_w_pull",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "Attack",
+                              "damage": 40,
+                              "attack_ratio": 40,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_aatrox_w_yank"
+                            },
+                            {
+                              "type": "TargetSfx",
+                              "name": "league_aatrox_w_yank"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "Delayed",
+                    "tick": 92,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_aatrox_w_pull_c",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_aatrox_r",
+                              "effect_buff": {
+                                "type": "Heal",
+                                "amount": 10,
+                                "attack_ratio": 10,
+                                "ap_ratio": 0,
+                                "heal_type": "Caster"
+                              },
+                              "effect_none": {
+                                "type": "Heal",
+                                "amount": 7,
+                                "attack_ratio": 7,
+                                "ap_ratio": 0,
+                                "heal_type": "Caster"
+                              }
+                            },
+                            {
+                              "type": "RangeEffect",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 1000
+                                }
+                              },
+                              "target": "AllyOnlySelf",
+                              "apply_type": "AroundCaster",
+                              "effects": [
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_aatrox_p_lw2",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_aatrox_p_lw2",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 3
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      },
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_aatrox_pc2",
+                                        "effect_buff": {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_aatrox_pc3",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 900
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
+                                        },
+                                        "effect_none": {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_aatrox_pc1",
+                                          "effect_buff": {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_aatrox_pc2",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 900
+                                                }
+                                              }
+                                            },
+                                            "only_to_enemy": false
+                                          },
+                                          "effect_none": {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_aatrox_pc1",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 900
+                                                }
+                                              }
+                                            },
+                                            "only_to_enemy": false
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_aatrox_r",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_aatrox_k_a"
+                                      },
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_aatrox_k_a",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 2
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_aatrox_k_b"
+                                      },
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_aatrox_k_b",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 6
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "AddCasted",
+                                    "casted_type": "Heal",
+                                    "duration": 3,
+                                    "period": 1,
+                                    "effects": [
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_aatrox_k_a"
+                                      },
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_aatrox_k_b"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": []
+                              }
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  }
                 }
               ],
-              "end_effects": [],
+              "end_effects": [
+                {
+                  "type": "Delayed",
+                  "tick": 1,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_aatrox_w_tether",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_aatrox_w_tether"
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_aatrox_w_ring"
+                          },
+                          {
+                            "type": "Sfx",
+                            "name": "league_aatrox_w_ring"
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 92,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_aatrox_w_pull",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_aatrox_w_snap"
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  ]
+                }
+              ],
               "speed": 5000,
               "range": 66000,
               "shape": {
@@ -3714,22 +4217,6 @@
       "tag": "r_renew",
       "z": 1,
       "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_aatrox_w_ring_in",
-      "anim": "asset/league/effects/league_aatrox_big",
-      "tag": "w_ring_in",
-      "z": -1,
-      "is_follow": false
-    },
-    {
-      "type": "Animation",
-      "name": "league_aatrox_w_ring_beat",
-      "anim": "asset/league/effects/league_aatrox_big",
-      "tag": "w_ring_beat",
-      "z": -1,
-      "is_follow": false
     }
   ],
   "view_buffs": [

@@ -1,27 +1,30 @@
-"""Build the add-on's copy of Aatrox from the main pack (League's Infernal Chains).
+"""Build the add-on's copy of Aatrox from the main pack (League's Infernal Chains, v0.2).
 
     python addons/league_aatrox_chain/make_override.py
 
 Reads league/champion/league_aatrox.data_champion and league/text/champion.i18n and writes
 addons/league_aatrox_chain/override/league_aatrox.data_champion and .../text/champion.i18n:
-the same kit with W's chain handed to the add-on -
-  * the chain's hit (LinearProjectile league_aatrox_w_chain, applied to the first enemy it meets) also calls
-    league_aatrox_chain:chain on that unit: a champion or monster is chained (the ring, the links, the pull to the
-    ring's centre and the second hit at 1.5 s, or nothing when it leaves the ring first), a minion takes the
-    damage once more (League: double to minions); a champion also gives the hit's extras (E's heal, the passive's
-    IOU, World Ender's kill mark) - the add-on knows which unit the chain really hit;
+the same kit with W's chain handed to the add-on. The add-on decides (which unit is chained, when it breaks free,
+the pull to the ring's centre) and leaves flags on Aatrox; everything seen or dealt stays in data, read from those
+flags (v0.1 played the ring and dealt the second hit natively, and none of it showed in the game):
+  * the chain's hit (LinearProjectile league_aatrox_w_chain, on the first enemy it meets) calls
+    league_aatrox_chain:chain on that unit, then
+      w_minion -> the hit once more (League: double to minions),
+      w_champ  -> the first hit's extras on a champion (E's heal, the passive's IOU, World Ender's kill mark),
+      and READ_AT ticks later w_pull -> the second hit + the chains wrapping the target (w_yank),
+                                w_pull_c -> the second hit's extras on a champion;
+  * the chain's end (its stop: the ring's centre) plays the ring when w_tether is set, and at READ_AT the snap
+    (w_snap) when w_pull is;
   * the main pack's champion branch (a search for a champion beside the chain, which also finds one behind the
-    minion that stopped it: the w_champ mark, the hit's extras and the second hit with its Pull) and the ring it
-    lays at the impact point (the chain's end_effects) are dropped, so nobody else is hit or pulled;
-  * view entries for the add-on's pictures, from the main pack's effect sheets: league_aatrox_w_link (a chain link
-    flying to the ring's centre), league_aatrox_w_ring_in / league_aatrox_w_ring_beat (the ring, replayed while the
-    chain holds);
+    minion that stopped it: the w_champ mark, the extras and the second hit with its Pull toward Aatrox) and its ring
+    are dropped; the nodes above are copied from them;
+  * a view entry for the links the add-on flies to the ring's centre (league_aatrox_w_link, main pack's sheet);
   * W's tooltip points to description.league_aatrox_chain.skill2 (League's rules, with a "W chain test build" lead,
     so the tooltip in game shows whether the override took).
-The numbers the add-on repeats (W damage, the 1.5 s, E's heal on a W hit, the passive's IOU, the kill mark) are
-read from src/lib.rs and checked against the kit. Every other champion stays untouched. Run it again whenever the main
-pack's Aatrox changes.
+The flag names and READ_AT are read from src/lib.rs. Every other champion stays untouched. Run it again whenever
+the main pack's Aatrox changes.
 """
+import copy
 import json
 import os
 import re
@@ -33,7 +36,6 @@ MOD_ID = "league_aatrox_chain"
 HERO = "league_aatrox"
 TEXT_KEY = "description.league_aatrox_chain.skill2"
 FX = "asset/league/effects/league_aatrox_fx"
-BIG = "asset/league/effects/league_aatrox_big"
 AD = "<i#asset/base/ui/banpick/champion_stat_icon:ad_0>"
 O, R, Y, E = "<#ff9028ff>", "<#ef5350ff>", "<#ffb900ff>", "<>"
 # the skill details panel's limits (lint_mod.TOOLTIP_MAX)
@@ -72,16 +74,21 @@ def lp(path):
 
 
 def consts():
-    """The numbers src/lib.rs repeats from the kit."""
+    """The flag names and timings src/lib.rs uses."""
     with open(lp(os.path.join(ADDON, "src", "lib.rs")), encoding="utf-8") as f:
         src = f.read()
     out = {}
-    for name in ("W_DMG", "W_RATIO", "HOLD", "E_HEAL_AMOUNT", "E_HEAL_RATIO", "E_HEAL_R_AMOUNT", "E_HEAL_R_RATIO",
-                 "PC_HOLD", "K_HOLD"):
-        m = re.search(r"pub const %s: usize = ([0-9_]+);" % name, src)
+    m = re.search(r"pub const HOLD: usize = ([0-9_]+);", src)
+    k = re.search(r"pub const READ_AT: usize = HOLD \+ ([0-9]+);", src)
+    if not m or not k:
+        sys.exit("no HOLD / READ_AT in src/lib.rs: update this script")
+    out["HOLD"] = int(m.group(1).replace("_", ""))
+    out["READ_AT"] = out["HOLD"] + int(k.group(1))
+    for name in ("TETHER", "CHAMP", "MINION", "PULL", "PULL_C"):
+        m = re.search(r'pub const %s: &str = "([a-z_]+)";' % name, src)
         if not m:
             sys.exit("no %s in src/lib.rs: update this script" % name)
-        out[name] = int(m.group(1).replace("_", ""))
+        out[name] = m.group(1)
     return out
 
 
@@ -100,74 +107,92 @@ def inner(entry):
     return entry.get("effect", entry) if isinstance(entry, dict) else entry
 
 
+def on(flag_name, effects):
+    """The effects when Aatrox carries the flag (SwitchByBuff reads the caster's buffs)."""
+    return {"type": "SwitchByBuff", "buff_name": flag_name, "effect_buff": {"type": "Combine", "effects": effects},
+            "effect_none": {"type": "Combine", "effects": []}}
+
+
+def used(flag_name):
+    return {"type": "RemoveCasterBuff", "name": flag_name}
+
+
+def targeting(effect):
+    return {"casting_type": "Targeting", "effect": effect}
+
+
+def one(nodes, what):
+    if len(nodes) != 1:
+        sys.exit("expected one %s in the main pack's W, found %d: update this script" % (what, len(nodes)))
+    return nodes[0]
+
+
 def main():
     c = consts()
     src = os.path.join(ROOT, "league", "champion", HERO + ".data_champion")
     with open(lp(src), encoding="utf-8") as f:
         champion = json.load(f)
     w = champion["skill2"]
-    chains = [n for n in walk(w) if n.get("type") == "LinearProjectile" and n.get("name") == HERO + "_w_chain"]
-    if len(chains) != 1:
-        sys.exit("expected one W chain projectile, found %d: update this script" % len(chains))
-    chain = chains[0]
+    chain = one([n for n in walk(w) if n.get("type") == "LinearProjectile" and n.get("name") == HERO + "_w_chain"],
+                "chain projectile")
     applied = chain["applied_effects"]
     effects = [inner(e) for e in applied]
-
-    # the kit's numbers the add-on repeats
-    hits = [e for e in effects if e.get("type") == "Attack"]
-    if len(hits) != 1 or (hits[0]["damage"], hits[0]["attack_ratio"]) != (c["W_DMG"], c["W_RATIO"]):
-        sys.exit("W's hit is not %d + %d%% AD any more: update src/lib.rs" % (c["W_DMG"], c["W_RATIO"]))
-    slows = [e for e in effects if e.get("type") == "AddBuff" and e["buff_state"]["name"] == HERO + "_w_slowed"]
-    if len(slows) != 1 or slows[0]["buff_state"]["duration"]["Time"]["tick"] != c["HOLD"]:
+    hit = one([e for e in effects if e.get("type") == "Attack"], "chain hit")
+    slow = one([e for e in effects if e.get("type") == "AddBuff" and e["buff_state"]["name"] == HERO + "_w_slowed"],
+               "slow")
+    if slow["buff_state"]["duration"]["Time"]["tick"] != c["HOLD"]:
         sys.exit("W's slow does not last HOLD (%d) ticks any more: update src/lib.rs" % c["HOLD"])
-    c["SLOW"] = -slows[0]["buff_state"]["move_speed_mult"]
-    kit = json.dumps(champion)
-    for name, tick in (("pc1", c["PC_HOLD"]), ("k_b", c["K_HOLD"])):
-        if not re.search(r'"name": "%s_%s", "duration": \{"Time": \{"tick": %d\}\}' % (HERO, name, tick), kit):
-            sys.exit("%s_%s no longer lasts %d ticks: update src/lib.rs" % (HERO, name, tick))
+    c.update(W_DMG=hit["damage"], W_RATIO=hit["attack_ratio"], SLOW=-slow["buff_state"]["move_speed_mult"])
 
-    # the champion branch: the w_champ mark, the hit's extras (E's heal, the passive's IOU, the kill mark) and the
-    # second hit (a Delayed with the Pull) - all of it moves into the add-on
-    picks = [e for e in effects if e.get("type") == "RandomTarget" and e.get("casting_target") == "EnemyChampion"]
-    if len(picks) != 1:
-        sys.exit("expected one champion branch on the chain's hit, found %d: update this script" % len(picks))
-    branch = picks[0]["effects"]
-    second = [e for e in branch if e.get("type") == "Delayed" and any(n.get("type") == "Pull" for n in walk(e))]
-    marks = [e for e in branch if e.get("type") == "AddCasterBuff" and e["buff_state"]["name"] == HERO + "_w_champ"]
-    amps = [e for e in branch if e.get("type") == "SwitchByBuff" and e.get("buff_name") == HERO + "_r"
-            and e["effect_buff"].get("type") == "Heal"]
-    owes = [e for e in branch if e.get("type") == "RangeEffect" and HERO + "_p_lw" in json.dumps(e)]
-    kills = [e for e in branch if e.get("type") == "SwitchByBuff" and HERO + "_k_b" in json.dumps(e)]
-    if [len(second), len(marks), len(amps), len(owes), len(kills)] != [1] * 5 or len(branch) != 5:
-        sys.exit("the main pack's champion branch changed shape: update this script and src/lib.rs")
-    amp = amps[0]
-    heal = [(h["amount"], h["attack_ratio"]) for h in (amp["effect_none"], amp["effect_buff"])]
-    if heal != [(c["E_HEAL_AMOUNT"], c["E_HEAL_RATIO"]), (c["E_HEAL_R_AMOUNT"], c["E_HEAL_R_RATIO"])]:
-        sys.exit("E's heal on a W hit is %s now: update src/lib.rs" % heal)
-    applied.remove(next(e for e in applied if inner(e) is picks[0]))
-    # the ring at the impact point
-    rings = [e for e in chain["end_effects"] if HERO + "_w_ring" in json.dumps(e)]
-    if len(rings) != 1:
-        sys.exit("the main pack's ring at the impact point changed shape: update this script")
-    chain["end_effects"] = [e for e in chain["end_effects"] if e is not rings[0]]
-    # the add-on on the unit the chain hit, after the slow (the add-on finds a slowed unit when given a position)
-    at = applied.index(next(e for e in applied if inner(e) is slows[0])) + 1
-    applied.insert(at, {"casting_type": "Targeting", "effect": {"type": "Native", "effect_ref": MOD_ID + ":chain"}})
+    # the main pack's champion branch: the w_champ mark, the first hit's extras, the second hit (a Delayed with Pull)
+    pick = one([e for e in effects if e.get("type") == "RandomTarget" and e.get("casting_target") == "EnemyChampion"],
+               "champion branch")
+    branch = pick["effects"]
+    second = one([e for e in branch if e.get("type") == "Delayed" and any(n.get("type") == "Pull" for n in walk(e))],
+                 "second hit")
+    mark = one([e for e in branch if e.get("type") == "AddCasterBuff" and e["buff_state"]["name"] == HERO + "_w_champ"],
+               "w_champ mark")
+    first_extras = [copy.deepcopy(e) for e in branch if e is not second and e is not mark]
+    if len(first_extras) != 3 or HERO + "_p_lw\"" not in json.dumps(first_extras):
+        sys.exit("the first hit's extras changed shape (heal, passive IOU p_lw, kill mark): update this script")
+    picture = {HERO + "_w_yank"}
+    second_hit = [copy.deepcopy(e) for e in second["effects"]
+                  if e.get("type") == "Attack" or (e.get("type") in ("ViewEffect", "TargetSfx") and e["name"] in picture)]
+    second_extras = [copy.deepcopy(e) for e in second["effects"]
+                     if e.get("type") not in ("Attack", "Pull", "ViewEffect", "TargetSfx")]
+    if len(second_hit) != 3 or len(second_extras) != 3 or HERO + "_p_lw2" not in json.dumps(second_extras):
+        sys.exit("the second hit changed shape (Attack, w_yank picture and sound; heal, IOU p_lw2, kill mark)")
+
+    # the main pack's ring at the chain's stop: its picture and sound, the snap
+    ring = one([e for e in chain["end_effects"] if HERO + "_w_ring" in json.dumps(e)], "ring at the chain's stop")
+    ring_nodes = [copy.deepcopy(n) for n in walk(ring) if n.get("type") in ("ViewEffect", "Sfx")]
+    snap = [n for n in ring_nodes if n["name"] == HERO + "_w_snap"]
+    ring_pic = [n for n in ring_nodes if n["name"] == HERO + "_w_ring"]
+    if len(snap) != 1 or len(ring_pic) != 2:
+        sys.exit("the ring's picture/sound/snap changed shape: update this script")
+
+    # the new W: the add-on on the unit the chain hit, then the data reading its flags
+    at = applied.index(next(e for e in applied if inner(e) is slow)) + 1
+    applied.insert(at, targeting({"type": "Native", "effect_ref": MOD_ID + ":chain"}))
+    applied.remove(next(e for e in applied if inner(e) is pick))
+    applied += [
+        targeting(on(c["MINION"], [used(c["MINION"]), copy.deepcopy(hit)])),
+        targeting(on(c["CHAMP"], [used(c["CHAMP"])] + first_extras)),
+        targeting({"type": "Delayed", "tick": c["READ_AT"], "effects": [on(c["PULL"], second_hit)]}),
+        targeting({"type": "Delayed", "tick": c["READ_AT"], "effects": [on(c["PULL_C"], second_extras)]}),
+    ]
+    chain["end_effects"] = [e for e in chain["end_effects"] if e is not ring] + [
+        {"type": "Delayed", "tick": 1, "effects": [on(c["TETHER"], [used(c["TETHER"])] + ring_pic)]},
+        {"type": "Delayed", "tick": c["READ_AT"], "effects": [on(c["PULL"], snap)]},
+    ]
     left = json.dumps(w)
-    for gone in ('"type": "Pull"', HERO + "_w_champ\", \"duration", HERO + "_w_ring", HERO + "_w_snap", HERO + "_w_yank"):
-        if gone in left:
-            sys.exit("%s is still in W after the swap: update this script" % gone)
+    if '"type": "Pull"' in left or '"type": "RandomTarget"' in left:
+        sys.exit("the main pack's pull toward Aatrox or its champion search is still in W: update this script")
 
-    # the add-on's pictures (tags in the main pack's sheets, tools/art/import_aatrox.py)
-    views_p = {v["name"] for v in champion["view_projectiles"]}
-    if HERO + "_w_link" not in views_p:
+    # the links the add-on flies (a tag in the main pack's sheet, tools/art/import_aatrox.py)
+    if HERO + "_w_link" not in {v["name"] for v in champion["view_projectiles"]}:
         champion["view_projectiles"].append({"type": "Animated", "name": HERO + "_w_link", "anim": FX, "tag": "w_link",
                                              "repeat": True, "z": 1})
-    views_e = {v["name"] for v in champion["view_effects"]}
-    for tag in ("w_ring_in", "w_ring_beat"):
-        if HERO + "_" + tag not in views_e:
-            champion["view_effects"].append({"type": "Animation", "name": HERO + "_" + tag, "anim": BIG, "tag": tag,
-                                             "z": -1, "is_follow": False})
     champion["skill2"]["description"] = "#asset/base/text/champion?" + TEXT_KEY
 
     text_by_lang = texts(c)
@@ -191,7 +216,7 @@ def main():
     with open(lp(out_text), "w", encoding="utf-8", newline="\n") as f:
         f.write(json.dumps(text, ensure_ascii=False, indent=2) + "\n")
     print("wrote", os.path.relpath(out, ROOT), "and", os.path.relpath(out_text, ROOT),
-          "- W's second hit and ring handed to %s:chain" % MOD_ID)
+          "- W's tether, break and pull in %s, its pictures and hits on the flags at %d" % (MOD_ID, c["READ_AT"]))
 
 
 if __name__ == "__main__":

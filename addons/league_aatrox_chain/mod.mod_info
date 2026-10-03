@@ -11,10 +11,10 @@
       "version": ">=0.51.0"
     }
   ],
-  "description": "Test build of Aatrox's Infernal Chains as in League (needs League of Legends Heroes): replaces the main pack's Aatrox so his W chains only the unit it hits - a champion or monster is tethered to the spot for 1.5 s, leaving the ring breaks the chain, otherwise it is pulled back to the ring's centre and hit again; minions take double damage. Other champions are untouched. Writes a log for testing.",
+  "description": "Test build of Aatrox's Infernal Chains as in League (needs League of Legends Heroes): replaces the main pack's Aatrox so his W chains only the unit it hits - a champion or monster is tethered to the spot for 1.5 s, leaving the ring breaks the chain, otherwise it is pulled back to the ring's centre and hit again; minions take double damage. v0.2: the ring, the snap and the hits are played by the data from the add-on's flags. Other champions are untouched. Writes a log for testing.",
   "last_updated": "2026-10-03",
   "mod_id": "league_aatrox_chain",
   "mod_type": "native",
   "name": "League Heroes: Aatrox Infernal Chains (test)",
-  "version": "0.1.0"
+  "version": "0.2.0"
 }

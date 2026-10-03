@@ -1,24 +1,25 @@
-//! 剑魔 W 锁链附加包：W「恶火束链」照 League 原版。
+//! 剑魔 W 锁链附加包 v0.2：W「恶火束链」照 League 原版。
 //!
 //! 主包的 W（数据）：锁链停在第一个敌人身上（伤害 + 减速 1.5 秒）；打中英雄时在落点放圈，1.5 秒后那个英雄
 //! 再受一次伤害、被拉向剑魔。League 的两条数据写不出来：走出圈锁链就断、拉回的是圈的中心。
-//! `mod.override_info` 把主包的剑魔换成 `override/` 里的副本：锁链打中的那一下调本包的 `chain`，主包的
-//! 第二下（英雄身上的 `Delayed`）和落点的圈去掉，其余不动。
+//! `mod.override_info` 把主包的剑魔换成 `override/` 里的副本：锁链打中的那一下调本包的 `chain`。
+//!
+//! 本包只做判断和位移，看得见的和伤害都留给数据层（v0.1 由本包自己播圈、打第二下，游戏里看不到：
+//! 「w技能完全看不到效果」）。本包在剑魔身上挂几个短标记，副本里锁链的数据读标记再播画面、打伤害：
 //!
 //! - `chain`（锁链打中谁就对谁调，League：只有这一个人）：
-//!   - 英雄或野怪（League：英雄和大型野怪；TFM2 的野怪都是单只的大怪）：圈放在他脚下往剑魔那边挪
-//!     `CENTER_IN` 的地方（League：拉回的位置比原地稍微靠近剑魔），半径 `AREA`（League 的圈约 460、W 射程 825，
-//!     本包 W 射程 60000），他身上挂 `league_aatrox_chain_on:<圈心x>:<圈心y>:<剑魔>:<到点tick>`，
-//!     然后每 tick 看着他（`watch`，以他为施法者排队，剑魔死了也照样跑）。
-//!   - 小兵：再受一次同样的伤害（League：对小兵双倍）。
+//!   - 英雄或野怪（League：英雄和大型野怪；TFM2 的野怪都是单只的大怪）：锁住。圈心是锁链停下的地方
+//!     （锁链碰到他就停，比他稍微靠近剑魔，League 也是这样），他身上挂
+//!     `league_aatrox_chain_on:<圈心x>:<圈心y>:<剑魔>:<到点tick>`，然后每 tick 看着他（`watch`，以他为施法者
+//!     排队，剑魔死了也照样跑）。剑魔身上挂 `w_tether`（数据在锁链落点播圈），打中的是英雄再挂 `w_champ`
+//!     （数据给第一下记 E 的吸血、被动冷却、大灭击杀）。
+//!   - 小兵：剑魔身上挂 `w_minion`，数据再打一下（League：对小兵双倍）。
 //! - `watch`：离圈心超过 `AREA`（走出去、闪现、冲刺都算）→ 锁链断，什么都不发生；到 `HOLD` tick（1.5 秒）
-//!   还在圈里 → 再受一次伤害（按剑魔当下的攻击力算），拉回圈心（引擎的强制位移 ForceMove，撞墙会停）；
-//!   英雄的话照主包的规矩：剑魔吸血（E 被动，大灭期间更多）、记一次被动冷却缩减、大灭期间记击杀
-//!   （第一下打中英雄时也一样，按锁链真正打中的人算）。
-//!   拴着的时候每 `LINK_EVERY` tick 从他脚下往圈心飞一节锁链（`league_aatrox_w_link`），
-//!   圈每 `RING_BEAT` tick 补播一次，锁链断了就不再补。
-//! - `drag`：拉回被韧性截短了就再推剩下的路，直到到圈心；比上次没近多少（撞墙）就停。
-//! - `kill`：大灭期间第二下之后一 tick 看他死了没（引擎的死亡可能在这一 tick 末才算）。
+//!   还在圈里 → 拉回圈心（引擎的强制位移 ForceMove，撞墙会停），剑魔身上挂 `w_pull`（英雄再挂
+//!   `w_pull_c`）：数据在 `READ_AT` tick 读到，打第二下（按剑魔当下的攻击力）、播缠身和收紧的画面，
+//!   英雄再记吸血、被动、击杀。拴着的时候每 `LINK_EVERY` tick 从他脚下往圈心飞一节锁链
+//!   （`league_aatrox_w_link`，贴着地面：两头都往下挪 `LINK_DROP`，和圈的画面一样落在脚下）。
+//! - `drag`：拉回被韧性截短了就再推剩下的路，直到到圈心；比上次没近多少（撞墙、免控）就停。
 //!
 //! 只碰被剑魔 W 打中的单位；状态都在单位身上的 buff 和排队的效果里，不用全局变量，服务端预模拟和你看的
 //! 那场各算各的。League 的「真实视野」（被锁住的人现形）没有接口，没做。
@@ -39,22 +40,24 @@ const ID: &str = "league_aatrox_chain";
 pub const ON: &str = "league_aatrox_chain_on";
 /// 锁住多久：1.5 秒（同主包 w_hold、League）。
 pub const HOLD: usize = 90;
+/// 数据层读拉回标记的时刻（打中后第几 tick）：本包在 `HOLD` 拉，标记留 `PULL_T` tick。
+pub const READ_AT: usize = HOLD + 2;
 /// 圈的半径（League 的圈约 460 / W 射程 825，主包 w_area）。
 pub const AREA: f64 = 33_000.0;
-/// 圈心比他原地往剑魔那边挪多少（League：「稍微靠近剑魔」）。
+/// 找不到锁链时，圈心比他原地往剑魔那边挪多少（League：「稍微靠近剑魔」）。
 pub const CENTER_IN: f64 = 3_000.0;
-/// 伤害（同主包 w_dmg / w_ratio）：40 + 40% 攻击力，第二下一样，对小兵再来一次。
-pub const W_DMG: usize = 40;
-pub const W_RATIO: usize = 40;
-/// W 打中英雄时剑魔回的血（主包 E 被动的 amp：40 + 40% 的 18%，大灭期间 ×1.5，取整同主包）：数额 + 攻击力%。
-pub const E_HEAL_AMOUNT: usize = 7;
-pub const E_HEAL_RATIO: usize = 7;
-pub const E_HEAL_R_AMOUNT: usize = 10;
-pub const E_HEAL_R_RATIO: usize = 10;
-/// 被动冷却缩减的欠条（主包 pc1..pc3，pc_hold）。
-pub const PC_HOLD: usize = 900;
-/// 大灭的击杀标记（主包 k_b 的时长）。
-pub const K_HOLD: usize = 6;
+/// 找锁链的范围：打中的那一 tick，剑魔离被打中的人这么近的投射物就是锁链。
+pub const FIND_CHAIN: f64 = 20_000.0;
+/// 剑魔身上的标记（数据层读）：锁住（播圈）、第一下打中英雄（吸血等）、小兵（再打一下）、拉回（第二下）、
+/// 拉回的是英雄（吸血等）。
+pub const TETHER: &str = "league_aatrox_w_tether";
+pub const CHAMP: &str = "league_aatrox_w_champ";
+pub const MINION: &str = "league_aatrox_w_minion";
+pub const PULL: &str = "league_aatrox_w_pull";
+pub const PULL_C: &str = "league_aatrox_w_pull_c";
+/// 标记留多久：打中时的标记数据层同一 tick 和下一 tick 读，拉回的在 `READ_AT` 读。
+pub const HIT_T: usize = 3;
+pub const PULL_T: usize = 6;
 /// 拉回的速度（每 tick），到圈心这么近就算到了。
 pub const PULL_SPEED: f64 = 2_500.0;
 pub const ARRIVE: f64 = 1_500.0;
@@ -62,15 +65,12 @@ pub const ARRIVE: f64 = 1_500.0;
 pub const DRAG: &str = "league_aatrox_chain_drag";
 pub const DRAG_SLACK: usize = 6;
 pub const DRAG_GAIN: f64 = 500.0;
-/// 锁链一节一节地飞：每几 tick 一节，每 tick 飞多远。
+/// 锁链一节一节地飞：每几 tick 一节，每 tick 飞多远；两头往下挪多少（贴地，和圈一样在脚下）。
 pub const LINK_EVERY: usize = 4;
 pub const LINK_SPEED: u64 = 2_500;
-/// 圈的画面：`w_ring_in`（出现 + 一圈）多长，之后每 `RING_BEAT` tick 补播一次 `w_ring_beat`
-/// （同 tools/art/import_aatrox.py 里两段动画的长度）。
-pub const RING_IN: usize = 24;
-pub const RING_BEAT: usize = 16;
+pub const LINK_DROP: f64 = 9_000.0;
 
-/// 主包剑魔的名字（buff、特效、音效都以它开头）。
+/// 主包剑魔的名字（投射物、特效、音效都以它开头）。
 fn aatrox(x: &str) -> String {
     format!("league_aatrox_{x}")
 }
@@ -157,11 +157,8 @@ fn names(sim: &StableSim<'_>, id: usize) -> Vec<String> {
     })
 }
 
-fn has_buff(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
-    names(sim, id).iter().any(|n| n == name)
-}
-
-fn refresh(sim: &mut StableSim<'_>, id: usize, name: &str, ticks: usize) {
+/// 剑魔身上的短标记（同名的先去掉，免得叠两份）。
+fn flag(sim: &mut StableSim<'_>, id: usize, name: &str, ticks: usize) {
     sim.entity_remove_buff(id, name);
     sim.add_buff(id, &BuffV1::timed(name, ticks));
 }
@@ -179,7 +176,7 @@ fn queue(sim: &mut StableSim<'_>, step: &str, caster: usize, input: InputTargetV
 
 // ===================== 规则 =====================
 
-/// 圈心：他脚下往剑魔那边挪 `CENTER_IN`（剑魔比这还近就只挪一半的距离）；不知道剑魔在哪就在他脚下。
+/// 找不到锁链时的圈心：他脚下往剑魔那边挪 `CENTER_IN`（剑魔比这还近就只挪一半的距离）。
 pub fn center_of(target: (f64, f64), aatrox: Option<(f64, f64)>) -> (f64, f64) {
     let Some(a) = aatrox else { return target };
     let d = dist(target, a);
@@ -188,6 +185,16 @@ pub fn center_of(target: (f64, f64), aatrox: Option<(f64, f64)>) -> (f64, f64) {
     }
     let k = CENTER_IN.min(d / 2.0) / d;
     (target.0 + (a.0 - target.0) * k, target.1 + (a.1 - target.1) * k)
+}
+
+/// 锁链停下的地方：剑魔的投射物里离被打中的人最近的那个（`FIND_CHAIN` 以内）。
+pub fn impact_point(target: (f64, f64), projectiles: &[(f64, f64)]) -> Option<(f64, f64)> {
+    projectiles
+        .iter()
+        .map(|p| (dist(*p, target), *p))
+        .filter(|(d, _)| *d <= FIND_CHAIN)
+        .min_by(|a, b| a.0.total_cmp(&b.0))
+        .map(|(_, p)| p)
 }
 
 /// 标记：`league_aatrox_chain_on:<圈心x>:<圈心y>:<剑魔>:<到点tick>`。
@@ -205,22 +212,11 @@ pub fn parse_on(name: &str) -> Option<((f64, f64), usize, usize)> {
     it.next().is_none().then_some(((x as f64, y as f64), a, snap))
 }
 
-/// 一下 W 的伤害（第一下、第二下、对小兵补的那下都一样）：`W_DMG` + `W_RATIO`% 攻击力。
-pub fn w_damage(attack: usize) -> usize {
-    W_DMG + attack * W_RATIO / 100
-}
-
-/// W 打中英雄时剑魔回的血（攻击力 `attack`，`ult` = 大灭期间）。
-pub fn e_heal(attack: usize, ult: bool) -> usize {
-    let (amount, ratio) = if ult { (E_HEAL_R_AMOUNT, E_HEAL_R_RATIO) } else { (E_HEAL_AMOUNT, E_HEAL_RATIO) };
-    amount + attack * ratio / 100
-}
-
 /// 被锁链打中的是什么。
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Kind {
     Champion,
-    /// 野怪（中立；TFM2 的 rhino / mushroom / stump / bee / serpen_monster 都是单只的大怪）。
+    /// 野怪（中立；TFM2 的 rhino / mushroom / stump / bee / serpen / epic_monster 都是单只的大怪）。
     Monster,
     Minion,
     /// 塔、召唤物：不拴。
@@ -239,12 +235,6 @@ pub fn kind_of(champion: bool, minion: bool, tower: bool, team: usize, name: &st
     } else {
         Kind::Other
     }
-}
-
-/// 拴着的第 `age` tick（锁链打中那一 tick 是 0）要不要补播圈：出现那段放完后每 `RING_BEAT` tick 一次，
-/// 播到超过到点半段以上的那次不播（到点时播收紧的画面）。
-pub fn ring_beat_due(age: usize) -> bool {
-    age >= RING_IN && (age - RING_IN) % RING_BEAT == 0 && age + RING_BEAT <= HOLD + RING_BEAT / 2
 }
 
 // ===================== 打中 =====================
@@ -280,52 +270,52 @@ fn chain(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
     let living = e.is_alive();
     let name = e.name().unwrap_or_default();
     match kind_of(e.is_champion(), e.is_minion(), e.is_tower(), e.team(), &name) {
-        Kind::Minion if living => {
-            let dmg = w_damage(sim.get_entity(me).map_or(0, |a| a.stat().attack));
-            sim.deal_damage(me, t, dmg, 0, AttackTypeV1::Skill);
-        }
+        Kind::Minion => flag(sim, me, MINION, HIT_T),
         Kind::Champion => {
-            // 主包把这段挂在「锁链旁边的英雄」上（小兵挡住时也会算到后面的英雄），本包按真正打中的人来
-            let extra = on_champion(sim, me, t);
+            // 主包把第一下的吸血等挂在「锁链旁边的英雄」上（小兵挡住时也会算到后面的英雄），本包按真正打中的人来
+            flag(sim, me, CHAMP, HIT_T);
             if living {
                 tether(sim, me, t, Kind::Champion);
-            } else {
-                wlog(format!("{} chain hit killed {}{extra}", head(sim, me), who(sim, t)));
             }
         }
         Kind::Monster if living => tether(sim, me, t, Kind::Monster),
+        Kind::Monster => {}
         Kind::Other => wlog(format!("{} chain hit {}: not tethered", head(sim, me), who(sim, t))),
-        _ => {}
     }
 }
 
-/// 锁住：圈、标记、第一节锁链，开始每 tick 看着他。
+/// 锁住：圈心是锁链停下的地方，标记、第一节锁链、剑魔身上的 `w_tether`（数据播圈），开始每 tick 看着他。
 fn tether(sim: &mut StableSim<'_>, me: usize, t: usize, kind: Kind) {
     if names(sim, t).iter().filter_map(|n| parse_on(n)).any(|(_, a, _)| a == me) {
         return;
     }
     let Some(here) = pos_of(sim, t) else { return };
     let from = pos_of(sim, me);
-    let c = center_of(here, from);
+    let mine: Vec<(f64, f64)> = (0..sim.projectile_count())
+        .filter_map(|i| sim.projectile_at(i))
+        .filter(|p| p.caster_id == me)
+        .map(|p| (p.x as f64, p.y as f64))
+        .collect();
+    let found = impact_point(here, &mine);
+    let c = found.unwrap_or_else(|| center_of(here, from));
     let snap = sim.tick() + HOLD;
     sim.add_buff(t, &BuffV1::timed(&on_name(c, me, snap), HOLD + 5));
-    let at_c = pos_input(c);
-    sim.play_view_effect(&aatrox("w_ring_in"), me, &at_c, 0, 0, 0);
-    sim.play_sfx(&aatrox("w_ring"), me, &at_c);
+    flag(sim, me, TETHER, HIT_T);
     let linked = link(sim, me, here, c);
-    queue(sim, "watch", t, at_c, 1);
+    queue(sim, "watch", t, pos_input(c), 1);
     wlog(format!(
-        "{} TETHER {kind:?} {} at {} ring {} (Aatrox {}){}",
+        "{} TETHER {kind:?} {} at {} ring {} ({}; Aatrox {}){}",
         head(sim, me),
         who(sim, t),
         pt(here),
         pt(c),
+        if found.is_some() { "the chain's stop" } else { "no chain found: 3000 toward Aatrox" },
         from.map_or("-".to_string(), pt),
         if linked { "" } else { " - spawn_projectile(w_link) refused" }
     ));
 }
 
-/// 一节锁链：从他脚下飞向圈心（看不见的碰撞，什么都不打）。
+/// 一节锁链：从他脚下飞向圈心，贴着地面（两头往下挪 `LINK_DROP`）；看不见的碰撞，什么都不打。
 fn link(sim: &mut StableSim<'_>, me: usize, from: (f64, f64), c: (f64, f64)) -> bool {
     if dist(from, c) < 2_000.0 {
         return true;
@@ -334,13 +324,13 @@ fn link(sim: &mut StableSim<'_>, me: usize, from: (f64, f64), c: (f64, f64)) -> 
         caster_id: me,
         team: sim.get_entity(me).map_or(0, |e| e.team()),
         x: from.0.round().max(0.0) as u64,
-        y: from.1.round().max(0.0) as u64,
+        y: (from.1 + LINK_DROP).round().max(0.0) as u64,
         radius: 1_000,
         speed: LINK_SPEED,
         move_kind: ProjectileMoveKindV1::Linear.code(),
         target_id: 0,
         target_x: c.0.round().max(0.0) as u64,
-        target_y: c.1.round().max(0.0) as u64,
+        target_y: (c.1 + LINK_DROP).round().max(0.0) as u64,
         penetrate: true,
         attack_type: AttackTypeV1::Skill.code(),
         casting_type: CastingTypeV1::Position.code(),
@@ -351,7 +341,7 @@ fn link(sim: &mut StableSim<'_>, me: usize, from: (f64, f64), c: (f64, f64)) -> 
 
 // ===================== 拴着 =====================
 
-/// 每 tick（`me` = 被锁住的人，输入 = 圈心）：走出圈就断；到点还在圈里就拉回、再打一下。
+/// 每 tick（`me` = 被锁住的人，输入 = 圈心）：走出圈就断；到点还在圈里就拉回。
 fn watch(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
     let Some(at) = input_pos(&input) else { return };
     let mark = names(sim, me).into_iter().find_map(|n| {
@@ -385,88 +375,36 @@ fn watch(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
     if age % LINK_EVERY == 0 {
         link(sim, a, here, c);
     }
-    if ring_beat_due(age) {
-        sim.play_view_effect(&aatrox("w_ring_beat"), a, &input, 0, 0, 0);
-    }
     queue(sim, "watch", me, input, 1);
 }
 
-/// 到点还在圈里：收紧的画面，再受一次伤害，拉回圈心；英雄的话照主包第二下的规矩记吸血、被动、击杀。
+/// 到点还在圈里：剑魔身上挂 `w_pull`（英雄再挂 `w_pull_c`），数据在 `READ_AT` 打第二下、播收紧和缠身；
+/// 他被拉回圈心。
 fn pull(sim: &mut StableSim<'_>, me: usize, c: (f64, f64), a: usize, d: f64) {
-    let at_c = pos_input(c);
-    let on_me = InputTargetV1::target(me);
-    sim.play_view_effect(&aatrox("w_snap"), a, &at_c, 0, 0, 0);
     let Some(e) = sim.get_entity(me) else { return };
     if !e.is_targetable() {
         wlog(format!("{} PULL skipped: untargetable at the pull", head(sim, me)));
         return;
     }
     let champion = e.is_champion();
-    let before = e.hp().0;
-    let dmg = w_damage(sim.get_entity(a).map_or(0, |x| x.stat().attack));
-    sim.deal_damage(a, me, dmg, 0, AttackTypeV1::Skill);
-    sim.play_view_effect(&aatrox("w_yank"), a, &on_me, 0, 0, 0);
-    sim.play_sfx(&aatrox("w_yank"), a, &on_me);
-    let (after, max) = sim.get_entity(me).map_or((0, 0), |x| x.hp());
-    let mut extra = String::new();
-    if champion {
-        extra = on_champion(sim, a, me);
+    let marked = alive(sim, a);
+    if marked {
+        flag(sim, a, PULL, PULL_T);
+        if champion {
+            flag(sim, a, PULL_C, PULL_T);
+        }
     }
     let mut ticks = 0;
-    if alive(sim, me) && d > ARRIVE {
+    if d > ARRIVE {
         if let Some(here) = pos_of(sim, me) {
             ticks = push(sim, me, here, c, d);
         }
     }
     wlog(format!(
-        "{} PULL: {d:.0} from the centre, pulled in {ticks} ticks, hit {dmg} ({before} -> {after}/{max}){extra}",
-        head(sim, me)
+        "{} PULL: {d:.0} from the centre, pulled in {ticks} ticks; {}",
+        head(sim, me),
+        if marked { "the second hit flagged on Aatrox" } else { "Aatrox is dead: no second hit" }
     ));
-}
-
-/// W 打中英雄（第一下、第二下各一次，同主包 on_champ）：剑魔吸血、欠被动一次冷却缩减（pc1 → pc2 → pc3，
-/// 他下次普攻时扣）、大灭期间记击杀。
-fn on_champion(sim: &mut StableSim<'_>, a: usize, t: usize) -> String {
-    let ult = has_buff(sim, a, &aatrox("r"));
-    let mut out = String::new();
-    if alive(sim, a) {
-        let heal = e_heal(sim.get_entity(a).map_or(0, |x| x.stat().attack), ult);
-        sim.heal(a, a, heal);
-        out += &format!(", Aatrox heals {heal}");
-    }
-    let held = names(sim, a);
-    let pc = if held.contains(&aatrox("pc2")) {
-        "pc3"
-    } else if held.contains(&aatrox("pc1")) {
-        "pc2"
-    } else {
-        "pc1"
-    };
-    refresh(sim, a, &aatrox(pc), PC_HOLD);
-    out += &format!(", passive cut {pc}");
-    if ult {
-        if alive(sim, t) && sim.get_entity(t).is_some_and(|e| e.hp().0 > 0) {
-            queue(sim, "kill", a, InputTargetV1::target(t), 1);
-        } else {
-            mark_kill(sim, a);
-            out += ", KILL in World Ender";
-        }
-    }
-    out
-}
-
-/// 主包大灭的击杀检查：k_b 在、k_a 不在 = 他打的英雄死了，大灭刷新。
-fn mark_kill(sim: &mut StableSim<'_>, a: usize) {
-    sim.entity_remove_buff(a, &aatrox("k_a"));
-    refresh(sim, a, &aatrox("k_b"), K_HOLD);
-}
-
-fn kill(sim: &mut StableSim<'_>, a: usize, input: InputTargetV1) {
-    if input.kind != InputTargetKindV1::Target.code() || alive(sim, input.target_id) || !has_buff(sim, a, &aatrox("r")) {
-        return;
-    }
-    mark_kill(sim, a);
-    wlog(format!("{} KILL in World Ender: {} died after the pull", head(sim, a), who(sim, input.target_id)));
 }
 
 /// 强制位移到 `to`，正好走到（速度取整到每 tick 一样长）；返回 tick 数。
@@ -516,7 +454,7 @@ fn drag(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
     }
     sim.entity_remove_buff(me, &name);
     if d > last - DRAG_GAIN {
-        wlog(format!("{} DRAG stuck {d:.0} short of the centre (was {last:.0}): a wall?", head(sim, me)));
+        wlog(format!("{} DRAG stuck {d:.0} short of the centre (was {last:.0}): a wall or cc-immune", head(sim, me)));
         return;
     }
     let ticks = push(sim, me, here, c, d);
@@ -530,7 +468,6 @@ enum Step {
     Chain,
     Watch,
     Drag,
-    Kill,
     Noop,
 }
 
@@ -542,21 +479,20 @@ impl StableEffectType for Stage {
             Step::Chain => chain(sim, caster, input),
             Step::Watch => watch(sim, caster, input),
             Step::Drag => drag(sim, caster, input),
-            Step::Kill => kill(sim, caster, input),
             Step::Noop => {}
         }
     }
 }
 
 /// 本包的原生效果：`league_aatrox_chain:<名字>`。数据层只调 `chain`。
-pub const STAGES: [&str; 5] = ["chain", "watch", "drag", "kill", "noop"];
+pub const STAGES: [&str; 4] = ["chain", "watch", "drag", "noop"];
 
 fn init(host: &StableHost) -> StableMod {
     // 上一次启动的日志留一份（.prev.log），重启游戏不丢
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v0.1 (League's Infernal Chains) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v0.2 (League's Infernal Chains; pictures and hits in data) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -567,9 +503,8 @@ fn init(host: &StableHost) -> StableMod {
     module.add_native_effect(format!("{ID}:chain"), Stage(Step::Chain));
     module.add_native_effect(format!("{ID}:watch"), Stage(Step::Watch));
     module.add_native_effect(format!("{ID}:drag"), Stage(Step::Drag));
-    module.add_native_effect(format!("{ID}:kill"), Stage(Step::Kill));
     module.add_native_effect(format!("{ID}:noop"), Stage(Step::Noop));
-    host.log(LogLevel::Info, "league_aatrox_chain loaded (Aatrox's W tethers the unit it hits, breaks outside the ring, pulls back at 1.5 s).");
+    host.log(LogLevel::Info, "league_aatrox_chain v0.2 loaded (Aatrox's W tethers the unit it hits, breaks outside the ring, pulls back at 1.5 s).");
     module
 }
 
@@ -601,41 +536,30 @@ mod tests {
     }
 
     #[test]
-    fn the_ring_sits_a_little_toward_aatrox() {
-        // 剑魔在左边 50000：圈心往左挪 3000
+    fn the_ring_sits_where_the_chain_stopped() {
+        // 剑魔的投射物里离他最近的（20000 以内）是锁链
+        let target = (100_000.0, 50_000.0);
+        assert_eq!(impact_point(target, &[(90_000.0, 47_000.0), (60_000.0, 50_000.0)]), Some((90_000.0, 47_000.0)));
+        assert_eq!(impact_point(target, &[(60_000.0, 50_000.0)]), None);
+        assert_eq!(impact_point(target, &[]), None);
+        // 找不到：往剑魔那边挪 3000（剑魔贴着他就挪一半）
         assert_eq!(center_of((100_000.0, 0.0), Some((50_000.0, 0.0))), (97_000.0, 0.0));
-        // 斜着：挪的距离还是 3000
-        let c = center_of((0.0, 0.0), Some((30_000.0, 40_000.0)));
-        assert!((dist(c, (0.0, 0.0)) - CENTER_IN).abs() < 1e-6 && c.0 > 0.0 && c.1 > 0.0);
-        // 剑魔贴着他（4000）：只挪一半；剑魔不在 / 重合：原地
         assert_eq!(center_of((10_000.0, 0.0), Some((6_000.0, 0.0))), (8_000.0, 0.0));
         assert_eq!(center_of((10_000.0, 5.0), None), (10_000.0, 5.0));
-        assert_eq!(center_of((10_000.0, 5.0), Some((10_000.0, 5.0))), (10_000.0, 5.0));
     }
 
     #[test]
-    fn damage_heal_and_what_gets_tethered() {
-        assert_eq!(w_damage(100), 80);
-        assert_eq!(w_damage(0), W_DMG);
-        // 7 + 7% 攻击力，大灭期间 10 + 10%（同主包）
-        assert_eq!(e_heal(100, false), 14);
-        assert_eq!(e_heal(125, true), 22);
+    fn what_gets_tethered() {
         assert_eq!(kind_of(true, false, false, 1, "league_garen"), Kind::Champion);
         assert_eq!(kind_of(false, true, false, 1, "melee_minion"), Kind::Minion);
         assert_eq!(kind_of(false, false, false, 2, "rhino_monster"), Kind::Monster);
         // 野怪就算宿主把它当小兵、或队伍码不是中立：按名字也算野怪
         assert_eq!(kind_of(false, true, false, 2, "serpen_monster"), Kind::Monster);
-        assert_eq!(kind_of(false, false, false, 0, "bee_monster"), Kind::Monster);
+        assert_eq!(kind_of(false, false, false, 0, "epic_monster"), Kind::Monster);
         assert_eq!(kind_of(false, false, true, 1, "tower"), Kind::Other);
         // 召唤物（安妮的熊之类）不拴
         assert_eq!(kind_of(false, false, false, 1, "league_annie_tibbers"), Kind::Other);
-    }
-
-    #[test]
-    fn the_ring_is_replayed_until_the_pull() {
-        let beats: Vec<usize> = (0..=HOLD).filter(|a| ring_beat_due(*a)).collect();
-        assert_eq!(beats, [24, 40, 56, 72]);
-        // 最后一次播到 88，到点（90）播收紧的画面
-        assert!(beats.last().unwrap() + RING_BEAT <= HOLD);
+        // 数据层读拉回标记时，标记还在
+        assert!(READ_AT > HOLD && READ_AT < HOLD + PULL_T);
     }
 }
