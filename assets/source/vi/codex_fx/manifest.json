@@ -1,0 +1,3296 @@
+{
+  "schema_version": 1,
+  "method": "native imagegen, equal-cell normalization, per-effect palette, binary alpha, 8x nearest neighbor",
+  "assets": [
+    {
+      "id": "vi_fx_hit",
+      "file": "vi_fx_hit.png",
+      "image_size": [
+        1024,
+        256
+      ],
+      "frame_count": 4,
+      "grid": [
+        4,
+        1
+      ],
+      "cell_size": [
+        256,
+        256
+      ],
+      "logical_cell_size": [
+        32,
+        32
+      ],
+      "game_size": [
+        12,
+        12
+      ],
+      "binding": "league_vi_hit",
+      "preview_frame_ms": 100,
+      "loop": false,
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "palette": [
+        "#0D2A6E",
+        "#1E5BD8",
+        "#3FA8FF",
+        "#8D6246",
+        "#8FE3FF",
+        "#D7A965",
+        "#E8FBFF",
+        "#F7D896",
+        "#FFFFFF"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            0,
+            0,
+            32,
+            32
+          ],
+          "source_rect": [
+            0,
+            115,
+            543,
+            471
+          ],
+          "bbox_1x": [
+            5,
+            9,
+            27,
+            25
+          ],
+          "visible_pixels": 107,
+          "mean_luminance": 212.28,
+          "brightest_10pct_mean": 255.0,
+          "bright_pixel_count": 32
+        },
+        {
+          "index": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            32,
+            0,
+            32,
+            32
+          ],
+          "source_rect": [
+            543,
+            115,
+            543,
+            471
+          ],
+          "bbox_1x": [
+            3,
+            1,
+            29,
+            31
+          ],
+          "visible_pixels": 236,
+          "mean_luminance": 200.39,
+          "brightest_10pct_mean": 255.0,
+          "bright_pixel_count": 81
+        },
+        {
+          "index": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            64,
+            0,
+            32,
+            32
+          ],
+          "source_rect": [
+            1086,
+            115,
+            543,
+            471
+          ],
+          "bbox_1x": [
+            2,
+            3,
+            29,
+            31
+          ],
+          "visible_pixels": 173,
+          "mean_luminance": 159.67,
+          "brightest_10pct_mean": 253.71,
+          "bright_pixel_count": 19
+        },
+        {
+          "index": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            96,
+            0,
+            32,
+            32
+          ],
+          "source_rect": [
+            1629,
+            115,
+            543,
+            471
+          ],
+          "bbox_1x": [
+            5,
+            5,
+            27,
+            29
+          ],
+          "visible_pixels": 58,
+          "mean_luminance": 165.17,
+          "brightest_10pct_mean": 253.71,
+          "bright_pixel_count": 7
+        }
+      ]
+    },
+    {
+      "id": "vi_fx_w_proc",
+      "file": "vi_fx_w_proc.png",
+      "image_size": [
+        1536,
+        256
+      ],
+      "frame_count": 6,
+      "grid": [
+        6,
+        1
+      ],
+      "cell_size": [
+        256,
+        256
+      ],
+      "logical_cell_size": [
+        32,
+        32
+      ],
+      "game_size": [
+        22,
+        22
+      ],
+      "binding": "league_vi_w_proc",
+      "preview_frame_ms": 100,
+      "loop": false,
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "palette": [
+        "#0D2A6E",
+        "#1E5BD8",
+        "#3FA8FF",
+        "#8FE3FF",
+        "#E8FBFF",
+        "#FFFFFF"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            0,
+            0,
+            32,
+            32
+          ],
+          "source_rect": [
+            0,
+            189,
+            362,
+            345
+          ],
+          "bbox_1x": [
+            5,
+            1,
+            30,
+            31
+          ],
+          "visible_pixels": 161,
+          "mean_luminance": 152.77,
+          "brightest_10pct_mean": 255.0,
+          "bright_pixel_count": 20
+        },
+        {
+          "index": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            32,
+            0,
+            32,
+            32
+          ],
+          "source_rect": [
+            362,
+            189,
+            362,
+            345
+          ],
+          "bbox_1x": [
+            2,
+            4,
+            31,
+            29
+          ],
+          "visible_pixels": 256,
+          "mean_luminance": 183.47,
+          "brightest_10pct_mean": 255.0,
+          "bright_pixel_count": 73
+        },
+        {
+          "index": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            64,
+            0,
+            32,
+            32
+          ],
+          "source_rect": [
+            724,
+            189,
+            362,
+            345
+          ],
+          "bbox_1x": [
+            1,
+            2,
+            32,
+            31
+          ],
+          "visible_pixels": 375,
+          "mean_luminance": 186.93,
+          "brightest_10pct_mean": 255.0,
+          "bright_pixel_count": 128
+        },
+        {
+          "index": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            96,
+            0,
+            32,
+            32
+          ],
+          "source_rect": [
+            1086,
+            189,
+            362,
+            345
+          ],
+          "bbox_1x": [
+            2,
+            3,
+            31,
+            31
+          ],
+          "visible_pixels": 201,
+          "mean_luminance": 179.55,
+          "brightest_10pct_mean": 255.0,
+          "bright_pixel_count": 62
+        },
+        {
+          "index": 4,
+          "rect": [
+            1024,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            128,
+            0,
+            32,
+            32
+          ],
+          "source_rect": [
+            1448,
+            189,
+            362,
+            345
+          ],
+          "bbox_1x": [
+            5,
+            6,
+            30,
+            28
+          ],
+          "visible_pixels": 95,
+          "mean_luminance": 175.45,
+          "brightest_10pct_mean": 255.0,
+          "bright_pixel_count": 29
+        },
+        {
+          "index": 5,
+          "rect": [
+            1280,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            160,
+            0,
+            32,
+            32
+          ],
+          "source_rect": [
+            1810,
+            189,
+            362,
+            345
+          ],
+          "bbox_1x": [
+            7,
+            7,
+            27,
+            26
+          ],
+          "visible_pixels": 32,
+          "mean_luminance": 166.3,
+          "brightest_10pct_mean": 255.0,
+          "bright_pixel_count": 12
+        }
+      ]
+    },
+    {
+      "id": "vi_fx_bs_on",
+      "file": "vi_fx_bs_on.png",
+      "image_size": [
+        1920,
+        256
+      ],
+      "frame_count": 10,
+      "grid": [
+        10,
+        1
+      ],
+      "cell_size": [
+        192,
+        256
+      ],
+      "logical_cell_size": [
+        24,
+        32
+      ],
+      "game_size": [
+        36,
+        46
+      ],
+      "binding": "league_vi_bs_on",
+      "preview_frame_ms": 100,
+      "loop": false,
+      "anchor_normalized": [
+        0.5,
+        1
+      ],
+      "palette": [
+        "#0D2A6E",
+        "#1E5BD8",
+        "#3FA8FF",
+        "#8FE3FF",
+        "#E8FBFF",
+        "#FFFFFF"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            192,
+            256
+          ],
+          "rect_1x": [
+            0,
+            0,
+            24,
+            32
+          ],
+          "source_rect": [
+            0,
+            278,
+            198,
+            252
+          ],
+          "bbox_1x": [
+            1,
+            6,
+            23,
+            24
+          ],
+          "visible_pixels": 148,
+          "mean_luminance": 153.02,
+          "brightest_10pct_mean": 255.0,
+          "bright_pixel_count": 21
+        },
+        {
+          "index": 1,
+          "rect": [
+            192,
+            0,
+            192,
+            256
+          ],
+          "rect_1x": [
+            24,
+            0,
+            24,
+            32
+          ],
+          "source_rect": [
+            198,
+            278,
+            199,
+            252
+          ],
+          "bbox_1x": [
+            1,
+            3,
+            23,
+            25
+          ],
+          "visible_pixels": 43,
+          "mean_luminance": 154.09,
+          "brightest_10pct_mean": 243.13,
+          "bright_pixel_count": 4
+        },
+        {
+          "index": 2,
+          "rect": [
+            384,
+            0,
+            192,
+            256
+          ],
+          "rect_1x": [
+            48,
+            0,
+            24,
+            32
+          ],
+          "source_rect": [
+            397,
+            278,
+            198,
+            252
+          ],
+          "bbox_1x": [
+            0,
+            3,
+            24,
+            29
+          ],
+          "visible_pixels": 141,
+          "mean_luminance": 154.29,
+          "brightest_10pct_mean": 251.9,
+          "bright_pixel_count": 22
+        },
+        {
+          "index": 3,
+          "rect": [
+            576,
+            0,
+            192,
+            256
+          ],
+          "rect_1x": [
+            72,
+            0,
+            24,
+            32
+          ],
+          "source_rect": [
+            595,
+            278,
+            198,
+            252
+          ],
+          "bbox_1x": [
+            1,
+            3,
+            24,
+            28
+          ],
+          "visible_pixels": 134,
+          "mean_luminance": 154.04,
+          "brightest_10pct_mean": 254.45,
+          "bright_pixel_count": 25
+        },
+        {
+          "index": 4,
+          "rect": [
+            768,
+            0,
+            192,
+            256
+          ],
+          "rect_1x": [
+            96,
+            0,
+            24,
+            32
+          ],
+          "source_rect": [
+            793,
+            278,
+            199,
+            252
+          ],
+          "bbox_1x": [
+            0,
+            3,
+            24,
+            28
+          ],
+          "visible_pixels": 128,
+          "mean_luminance": 151.13,
+          "brightest_10pct_mean": 253.81,
+          "bright_pixel_count": 21
+        },
+        {
+          "index": 5,
+          "rect": [
+            960,
+            0,
+            192,
+            256
+          ],
+          "rect_1x": [
+            120,
+            0,
+            24,
+            32
+          ],
+          "source_rect": [
+            992,
+            278,
+            198,
+            252
+          ],
+          "bbox_1x": [
+            0,
+            3,
+            24,
+            28
+          ],
+          "visible_pixels": 138,
+          "mean_luminance": 155.56,
+          "brightest_10pct_mean": 251.12,
+          "bright_pixel_count": 15
+        },
+        {
+          "index": 6,
+          "rect": [
+            1152,
+            0,
+            192,
+            256
+          ],
+          "rect_1x": [
+            144,
+            0,
+            24,
+            32
+          ],
+          "source_rect": [
+            1190,
+            278,
+            198,
+            252
+          ],
+          "bbox_1x": [
+            0,
+            3,
+            24,
+            28
+          ],
+          "visible_pixels": 138,
+          "mean_luminance": 158.24,
+          "brightest_10pct_mean": 255.0,
+          "bright_pixel_count": 27
+        },
+        {
+          "index": 7,
+          "rect": [
+            1344,
+            0,
+            192,
+            256
+          ],
+          "rect_1x": [
+            168,
+            0,
+            24,
+            32
+          ],
+          "source_rect": [
+            1388,
+            278,
+            198,
+            252
+          ],
+          "bbox_1x": [
+            0,
+            3,
+            24,
+            28
+          ],
+          "visible_pixels": 135,
+          "mean_luminance": 154.36,
+          "brightest_10pct_mean": 252.23,
+          "bright_pixel_count": 16
+        },
+        {
+          "index": 8,
+          "rect": [
+            1536,
+            0,
+            192,
+            256
+          ],
+          "rect_1x": [
+            192,
+            0,
+            24,
+            32
+          ],
+          "source_rect": [
+            1586,
+            278,
+            199,
+            252
+          ],
+          "bbox_1x": [
+            0,
+            2,
+            24,
+            30
+          ],
+          "visible_pixels": 304,
+          "mean_luminance": 167.67,
+          "brightest_10pct_mean": 255.0,
+          "bright_pixel_count": 71
+        },
+        {
+          "index": 9,
+          "rect": [
+            1728,
+            0,
+            192,
+            256
+          ],
+          "rect_1x": [
+            216,
+            0,
+            24,
+            32
+          ],
+          "source_rect": [
+            1785,
+            278,
+            198,
+            252
+          ],
+          "bbox_1x": [
+            1,
+            1,
+            22,
+            31
+          ],
+          "visible_pixels": 195,
+          "mean_luminance": 146.21,
+          "brightest_10pct_mean": 252.29,
+          "bright_pixel_count": 28
+        }
+      ]
+    },
+    {
+      "id": "vi_fx_q_charge",
+      "file": "vi_fx_q_charge.png",
+      "image_size": [
+        1280,
+        256
+      ],
+      "frame_count": 5,
+      "grid": [
+        5,
+        1
+      ],
+      "cell_size": [
+        256,
+        256
+      ],
+      "logical_cell_size": [
+        32,
+        32
+      ],
+      "game_size": [
+        14,
+        14
+      ],
+      "binding": "league_vi_q_charge",
+      "preview_frame_ms": 100,
+      "loop": false,
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "palette": [
+        "#0D2A6E",
+        "#1E5BD8",
+        "#3FA8FF",
+        "#7A2E08",
+        "#8FE3FF",
+        "#D2601A",
+        "#E8FBFF",
+        "#FF9A2E",
+        "#FFD27A",
+        "#FFF4D6",
+        "#FFFFFF"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            0,
+            0,
+            32,
+            32
+          ],
+          "source_rect": [
+            0,
+            218,
+            397,
+            379
+          ],
+          "bbox_1x": [
+            4,
+            3,
+            28,
+            29
+          ],
+          "visible_pixels": 103,
+          "mean_luminance": 125.56,
+          "brightest_10pct_mean": 252.18,
+          "bright_pixel_count": 11
+        },
+        {
+          "index": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            32,
+            0,
+            32,
+            32
+          ],
+          "source_rect": [
+            397,
+            218,
+            396,
+            379
+          ],
+          "bbox_1x": [
+            3,
+            7,
+            29,
+            29
+          ],
+          "visible_pixels": 117,
+          "mean_luminance": 157.21,
+          "brightest_10pct_mean": 252.42,
+          "bright_pixel_count": 17
+        },
+        {
+          "index": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            64,
+            0,
+            32,
+            32
+          ],
+          "source_rect": [
+            793,
+            218,
+            397,
+            379
+          ],
+          "bbox_1x": [
+            2,
+            2,
+            30,
+            28
+          ],
+          "visible_pixels": 256,
+          "mean_luminance": 166.99,
+          "brightest_10pct_mean": 252.91,
+          "bright_pixel_count": 34
+        },
+        {
+          "index": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            96,
+            0,
+            32,
+            32
+          ],
+          "source_rect": [
+            1190,
+            218,
+            396,
+            379
+          ],
+          "bbox_1x": [
+            0,
+            1,
+            30,
+            31
+          ],
+          "visible_pixels": 456,
+          "mean_luminance": 174.53,
+          "brightest_10pct_mean": 255.0,
+          "bright_pixel_count": 138
+        },
+        {
+          "index": 4,
+          "rect": [
+            1024,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            128,
+            0,
+            32,
+            32
+          ],
+          "source_rect": [
+            1586,
+            218,
+            397,
+            379
+          ],
+          "bbox_1x": [
+            1,
+            2,
+            30,
+            31
+          ],
+          "visible_pixels": 455,
+          "mean_luminance": 178.47,
+          "brightest_10pct_mean": 255.0,
+          "bright_pixel_count": 155
+        }
+      ]
+    },
+    {
+      "id": "vi_fx_q_go",
+      "file": "vi_fx_q_go.png",
+      "image_size": [
+        1536,
+        128
+      ],
+      "frame_count": 6,
+      "grid": [
+        6,
+        1
+      ],
+      "cell_size": [
+        256,
+        128
+      ],
+      "logical_cell_size": [
+        32,
+        16
+      ],
+      "game_size": [
+        30,
+        14
+      ],
+      "binding": "league_vi_q_go",
+      "preview_frame_ms": 100,
+      "loop": false,
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "palette": [
+        "#3A3030",
+        "#6B5A50",
+        "#7A2E08",
+        "#9C8A7A",
+        "#CFC2B0",
+        "#D2601A",
+        "#FF9A2E",
+        "#FFD27A",
+        "#FFF4D6"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            128
+          ],
+          "rect_1x": [
+            0,
+            0,
+            32,
+            16
+          ],
+          "source_rect": [
+            0,
+            244,
+            362,
+            251
+          ],
+          "bbox_1x": [
+            3,
+            2,
+            30,
+            15
+          ],
+          "visible_pixels": 130,
+          "mean_luminance": 164.67,
+          "brightest_10pct_mean": 244.17,
+          "bright_pixel_count": 20
+        },
+        {
+          "index": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            128
+          ],
+          "rect_1x": [
+            32,
+            0,
+            32,
+            16
+          ],
+          "source_rect": [
+            362,
+            244,
+            362,
+            251
+          ],
+          "bbox_1x": [
+            1,
+            2,
+            32,
+            15
+          ],
+          "visible_pixels": 204,
+          "mean_luminance": 137.85,
+          "brightest_10pct_mean": 225.01,
+          "bright_pixel_count": 8
+        },
+        {
+          "index": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            128
+          ],
+          "rect_1x": [
+            64,
+            0,
+            32,
+            16
+          ],
+          "source_rect": [
+            724,
+            244,
+            362,
+            251
+          ],
+          "bbox_1x": [
+            2,
+            2,
+            31,
+            15
+          ],
+          "visible_pixels": 194,
+          "mean_luminance": 134.35,
+          "brightest_10pct_mean": 216.97,
+          "bright_pixel_count": 3
+        },
+        {
+          "index": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            128
+          ],
+          "rect_1x": [
+            96,
+            0,
+            32,
+            16
+          ],
+          "source_rect": [
+            1086,
+            244,
+            362,
+            251
+          ],
+          "bbox_1x": [
+            2,
+            3,
+            32,
+            15
+          ],
+          "visible_pixels": 123,
+          "mean_luminance": 108.32,
+          "brightest_10pct_mean": 199.56,
+          "bright_pixel_count": 0
+        },
+        {
+          "index": 4,
+          "rect": [
+            1024,
+            0,
+            256,
+            128
+          ],
+          "rect_1x": [
+            128,
+            0,
+            32,
+            16
+          ],
+          "source_rect": [
+            1448,
+            244,
+            362,
+            251
+          ],
+          "bbox_1x": [
+            5,
+            7,
+            31,
+            15
+          ],
+          "visible_pixels": 82,
+          "mean_luminance": 98.81,
+          "brightest_10pct_mean": 194.35,
+          "bright_pixel_count": 0
+        },
+        {
+          "index": 5,
+          "rect": [
+            1280,
+            0,
+            256,
+            128
+          ],
+          "rect_1x": [
+            160,
+            0,
+            32,
+            16
+          ],
+          "source_rect": [
+            1810,
+            244,
+            362,
+            251
+          ],
+          "bbox_1x": [
+            4,
+            8,
+            28,
+            15
+          ],
+          "visible_pixels": 48,
+          "mean_luminance": 84.62,
+          "brightest_10pct_mean": 167.99,
+          "bright_pixel_count": 0
+        }
+      ]
+    },
+    {
+      "id": "vi_fx_q_hit",
+      "file": "vi_fx_q_hit.png",
+      "image_size": [
+        1024,
+        256
+      ],
+      "frame_count": 4,
+      "grid": [
+        4,
+        1
+      ],
+      "cell_size": [
+        256,
+        256
+      ],
+      "logical_cell_size": [
+        32,
+        32
+      ],
+      "game_size": [
+        12,
+        12
+      ],
+      "binding": "league_vi_q_hit",
+      "preview_frame_ms": 100,
+      "loop": false,
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "palette": [
+        "#7A2E08",
+        "#D2601A",
+        "#FF9A2E",
+        "#FFD27A",
+        "#FFF4D6"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            0,
+            0,
+            32,
+            32
+          ],
+          "source_rect": [
+            0,
+            137,
+            543,
+            455
+          ],
+          "bbox_1x": [
+            6,
+            3,
+            27,
+            28
+          ],
+          "visible_pixels": 139,
+          "mean_luminance": 175.6,
+          "brightest_10pct_mean": 244.17,
+          "bright_pixel_count": 29
+        },
+        {
+          "index": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            32,
+            0,
+            32,
+            32
+          ],
+          "source_rect": [
+            543,
+            137,
+            543,
+            455
+          ],
+          "bbox_1x": [
+            3,
+            1,
+            29,
+            30
+          ],
+          "visible_pixels": 295,
+          "mean_luminance": 146.61,
+          "brightest_10pct_mean": 244.17,
+          "bright_pixel_count": 39
+        },
+        {
+          "index": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            64,
+            0,
+            32,
+            32
+          ],
+          "source_rect": [
+            1086,
+            137,
+            543,
+            455
+          ],
+          "bbox_1x": [
+            2,
+            1,
+            29,
+            31
+          ],
+          "visible_pixels": 192,
+          "mean_luminance": 144.07,
+          "brightest_10pct_mean": 234.88,
+          "bright_pixel_count": 14
+        },
+        {
+          "index": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            96,
+            0,
+            32,
+            32
+          ],
+          "source_rect": [
+            1629,
+            137,
+            543,
+            455
+          ],
+          "bbox_1x": [
+            3,
+            5,
+            23,
+            29
+          ],
+          "visible_pixels": 38,
+          "mean_luminance": 121.58,
+          "brightest_10pct_mean": 209.57,
+          "bright_pixel_count": 1
+        }
+      ]
+    },
+    {
+      "id": "vi_fx_q_stop",
+      "file": "vi_fx_q_stop.png",
+      "image_size": [
+        1536,
+        256
+      ],
+      "frame_count": 6,
+      "grid": [
+        6,
+        1
+      ],
+      "cell_size": [
+        256,
+        256
+      ],
+      "logical_cell_size": [
+        32,
+        32
+      ],
+      "game_size": [
+        26,
+        26
+      ],
+      "binding": "league_vi_q_stop",
+      "preview_frame_ms": 100,
+      "loop": false,
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "palette": [
+        "#0D2A6E",
+        "#1E5BD8",
+        "#3FA8FF",
+        "#7A2E08",
+        "#8FE3FF",
+        "#D2601A",
+        "#E8FBFF",
+        "#FF9A2E",
+        "#FFD27A",
+        "#FFF4D6",
+        "#FFFFFF"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            0,
+            0,
+            32,
+            32
+          ],
+          "source_rect": [
+            0,
+            161,
+            362,
+            407
+          ],
+          "bbox_1x": [
+            3,
+            6,
+            28,
+            28
+          ],
+          "visible_pixels": 162,
+          "mean_luminance": 199.35,
+          "brightest_10pct_mean": 255.0,
+          "bright_pixel_count": 51
+        },
+        {
+          "index": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            32,
+            0,
+            32,
+            32
+          ],
+          "source_rect": [
+            362,
+            161,
+            362,
+            407
+          ],
+          "bbox_1x": [
+            1,
+            1,
+            28,
+            29
+          ],
+          "visible_pixels": 378,
+          "mean_luminance": 147.53,
+          "brightest_10pct_mean": 254.59,
+          "bright_pixel_count": 62
+        },
+        {
+          "index": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            64,
+            0,
+            32,
+            32
+          ],
+          "source_rect": [
+            724,
+            161,
+            362,
+            407
+          ],
+          "bbox_1x": [
+            1,
+            2,
+            32,
+            28
+          ],
+          "visible_pixels": 426,
+          "mean_luminance": 176.31,
+          "brightest_10pct_mean": 255.0,
+          "bright_pixel_count": 133
+        },
+        {
+          "index": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            96,
+            0,
+            32,
+            32
+          ],
+          "source_rect": [
+            1086,
+            161,
+            362,
+            407
+          ],
+          "bbox_1x": [
+            0,
+            1,
+            32,
+            31
+          ],
+          "visible_pixels": 284,
+          "mean_luminance": 175.71,
+          "brightest_10pct_mean": 255.0,
+          "bright_pixel_count": 107
+        },
+        {
+          "index": 4,
+          "rect": [
+            1024,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            128,
+            0,
+            32,
+            32
+          ],
+          "source_rect": [
+            1448,
+            161,
+            362,
+            407
+          ],
+          "bbox_1x": [
+            0,
+            3,
+            32,
+            28
+          ],
+          "visible_pixels": 125,
+          "mean_luminance": 134.63,
+          "brightest_10pct_mean": 232.02,
+          "bright_pixel_count": 7
+        },
+        {
+          "index": 5,
+          "rect": [
+            1280,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            160,
+            0,
+            32,
+            32
+          ],
+          "source_rect": [
+            1810,
+            161,
+            362,
+            407
+          ],
+          "bbox_1x": [
+            6,
+            4,
+            28,
+            28
+          ],
+          "visible_pixels": 43,
+          "mean_luminance": 159.98,
+          "brightest_10pct_mean": 249.73,
+          "bright_pixel_count": 8
+        }
+      ]
+    },
+    {
+      "id": "vi_fx_e_arm",
+      "file": "vi_fx_e_arm.png",
+      "image_size": [
+        1280,
+        256
+      ],
+      "frame_count": 5,
+      "grid": [
+        5,
+        1
+      ],
+      "cell_size": [
+        256,
+        256
+      ],
+      "logical_cell_size": [
+        32,
+        32
+      ],
+      "game_size": [
+        14,
+        14
+      ],
+      "binding": "league_vi_e_arm",
+      "preview_frame_ms": 100,
+      "loop": false,
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "palette": [
+        "#0D2A6E",
+        "#1E5BD8",
+        "#3FA8FF",
+        "#8FE3FF",
+        "#E8FBFF",
+        "#FFFFFF"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            0,
+            0,
+            32,
+            32
+          ],
+          "source_rect": [
+            0,
+            189,
+            397,
+            492
+          ],
+          "bbox_1x": [
+            7,
+            10,
+            22,
+            23
+          ],
+          "visible_pixels": 52,
+          "mean_luminance": 146.12,
+          "brightest_10pct_mean": 252.42,
+          "bright_pixel_count": 6
+        },
+        {
+          "index": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            32,
+            0,
+            32,
+            32
+          ],
+          "source_rect": [
+            397,
+            189,
+            396,
+            492
+          ],
+          "bbox_1x": [
+            0,
+            5,
+            32,
+            28
+          ],
+          "visible_pixels": 258,
+          "mean_luminance": 141.11,
+          "brightest_10pct_mean": 253.51,
+          "bright_pixel_count": 32
+        },
+        {
+          "index": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            64,
+            0,
+            32,
+            32
+          ],
+          "source_rect": [
+            793,
+            189,
+            397,
+            492
+          ],
+          "bbox_1x": [
+            0,
+            2,
+            31,
+            29
+          ],
+          "visible_pixels": 229,
+          "mean_luminance": 137.85,
+          "brightest_10pct_mean": 252.08,
+          "bright_pixel_count": 22
+        },
+        {
+          "index": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            96,
+            0,
+            32,
+            32
+          ],
+          "source_rect": [
+            1190,
+            189,
+            396,
+            492
+          ],
+          "bbox_1x": [
+            0,
+            1,
+            32,
+            31
+          ],
+          "visible_pixels": 424,
+          "mean_luminance": 160.29,
+          "brightest_10pct_mean": 255.0,
+          "bright_pixel_count": 91
+        },
+        {
+          "index": 4,
+          "rect": [
+            1024,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            128,
+            0,
+            32,
+            32
+          ],
+          "source_rect": [
+            1586,
+            189,
+            397,
+            492
+          ],
+          "bbox_1x": [
+            0,
+            10,
+            23,
+            24
+          ],
+          "visible_pixels": 50,
+          "mean_luminance": 128.82,
+          "brightest_10pct_mean": 193.18,
+          "bright_pixel_count": 2
+        }
+      ]
+    },
+    {
+      "id": "vi_fx_e_cone",
+      "file": "vi_fx_e_cone.png",
+      "image_size": [
+        2304,
+        256
+      ],
+      "frame_count": 6,
+      "grid": [
+        6,
+        1
+      ],
+      "cell_size": [
+        384,
+        256
+      ],
+      "logical_cell_size": [
+        48,
+        32
+      ],
+      "game_size": [
+        44,
+        26
+      ],
+      "binding": "league_vi_e_cone",
+      "preview_frame_ms": 100,
+      "loop": false,
+      "anchor_normalized": [
+        0,
+        0.5
+      ],
+      "palette": [
+        "#0D2A6E",
+        "#1E5BD8",
+        "#3FA8FF",
+        "#8FE3FF",
+        "#E8FBFF",
+        "#FFFFFF"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            384,
+            256
+          ],
+          "rect_1x": [
+            0,
+            0,
+            48,
+            32
+          ],
+          "source_rect": [
+            0,
+            148,
+            315,
+            461
+          ],
+          "bbox_1x": [
+            2,
+            5,
+            43,
+            26
+          ],
+          "visible_pixels": 245,
+          "mean_luminance": 213.18,
+          "brightest_10pct_mean": 255.0,
+          "bright_pixel_count": 120
+        },
+        {
+          "index": 1,
+          "rect": [
+            384,
+            0,
+            384,
+            256
+          ],
+          "rect_1x": [
+            48,
+            0,
+            48,
+            32
+          ],
+          "source_rect": [
+            315,
+            148,
+            390,
+            461
+          ],
+          "bbox_1x": [
+            3,
+            5,
+            46,
+            28
+          ],
+          "visible_pixels": 410,
+          "mean_luminance": 177.22,
+          "brightest_10pct_mean": 255.0,
+          "bright_pixel_count": 126
+        },
+        {
+          "index": 2,
+          "rect": [
+            768,
+            0,
+            384,
+            256
+          ],
+          "rect_1x": [
+            96,
+            0,
+            48,
+            32
+          ],
+          "source_rect": [
+            705,
+            148,
+            405,
+            461
+          ],
+          "bbox_1x": [
+            2,
+            1,
+            47,
+            31
+          ],
+          "visible_pixels": 803,
+          "mean_luminance": 152.07,
+          "brightest_10pct_mean": 255.0,
+          "bright_pixel_count": 200
+        },
+        {
+          "index": 3,
+          "rect": [
+            1152,
+            0,
+            384,
+            256
+          ],
+          "rect_1x": [
+            144,
+            0,
+            48,
+            32
+          ],
+          "source_rect": [
+            1110,
+            148,
+            410,
+            461
+          ],
+          "bbox_1x": [
+            2,
+            2,
+            46,
+            31
+          ],
+          "visible_pixels": 343,
+          "mean_luminance": 195.07,
+          "brightest_10pct_mean": 255.0,
+          "bright_pixel_count": 142
+        },
+        {
+          "index": 4,
+          "rect": [
+            1536,
+            0,
+            384,
+            256
+          ],
+          "rect_1x": [
+            192,
+            0,
+            48,
+            32
+          ],
+          "source_rect": [
+            1520,
+            148,
+            390,
+            461
+          ],
+          "bbox_1x": [
+            2,
+            5,
+            45,
+            27
+          ],
+          "visible_pixels": 173,
+          "mean_luminance": 165.16,
+          "brightest_10pct_mean": 255.0,
+          "bright_pixel_count": 35
+        },
+        {
+          "index": 5,
+          "rect": [
+            1920,
+            0,
+            384,
+            256
+          ],
+          "rect_1x": [
+            240,
+            0,
+            48,
+            32
+          ],
+          "source_rect": [
+            1910,
+            148,
+            262,
+            461
+          ],
+          "bbox_1x": [
+            5,
+            7,
+            44,
+            24
+          ],
+          "visible_pixels": 92,
+          "mean_luminance": 186.04,
+          "brightest_10pct_mean": 255.0,
+          "bright_pixel_count": 32
+        }
+      ]
+    },
+    {
+      "id": "vi_fx_e_hit",
+      "file": "vi_fx_e_hit.png",
+      "image_size": [
+        1024,
+        256
+      ],
+      "frame_count": 4,
+      "grid": [
+        4,
+        1
+      ],
+      "cell_size": [
+        256,
+        256
+      ],
+      "logical_cell_size": [
+        32,
+        32
+      ],
+      "game_size": [
+        12,
+        12
+      ],
+      "binding": "league_vi_e_hit",
+      "preview_frame_ms": 100,
+      "loop": false,
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "palette": [
+        "#0D2A6E",
+        "#1E5BD8",
+        "#3FA8FF",
+        "#8FE3FF",
+        "#E8FBFF",
+        "#FFFFFF"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            0,
+            0,
+            32,
+            32
+          ],
+          "source_rect": [
+            0,
+            111,
+            543,
+            492
+          ],
+          "bbox_1x": [
+            6,
+            5,
+            27,
+            29
+          ],
+          "visible_pixels": 153,
+          "mean_luminance": 184.32,
+          "brightest_10pct_mean": 255.0,
+          "bright_pixel_count": 41
+        },
+        {
+          "index": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            32,
+            0,
+            32,
+            32
+          ],
+          "source_rect": [
+            543,
+            111,
+            543,
+            492
+          ],
+          "bbox_1x": [
+            2,
+            1,
+            30,
+            31
+          ],
+          "visible_pixels": 315,
+          "mean_luminance": 164.26,
+          "brightest_10pct_mean": 255.0,
+          "bright_pixel_count": 59
+        },
+        {
+          "index": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            64,
+            0,
+            32,
+            32
+          ],
+          "source_rect": [
+            1086,
+            111,
+            543,
+            492
+          ],
+          "bbox_1x": [
+            2,
+            2,
+            29,
+            30
+          ],
+          "visible_pixels": 179,
+          "mean_luminance": 159.89,
+          "brightest_10pct_mean": 255.0,
+          "bright_pixel_count": 37
+        },
+        {
+          "index": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            96,
+            0,
+            32,
+            32
+          ],
+          "source_rect": [
+            1629,
+            111,
+            543,
+            492
+          ],
+          "bbox_1x": [
+            5,
+            6,
+            29,
+            27
+          ],
+          "visible_pixels": 33,
+          "mean_luminance": 165.94,
+          "brightest_10pct_mean": 255.0,
+          "bright_pixel_count": 8
+        }
+      ]
+    },
+    {
+      "id": "vi_fx_r_cast",
+      "file": "vi_fx_r_cast.png",
+      "image_size": [
+        960,
+        256
+      ],
+      "frame_count": 5,
+      "grid": [
+        5,
+        1
+      ],
+      "cell_size": [
+        192,
+        256
+      ],
+      "logical_cell_size": [
+        24,
+        32
+      ],
+      "game_size": [
+        30,
+        40
+      ],
+      "binding": "league_vi_r_cast",
+      "preview_frame_ms": 100,
+      "loop": false,
+      "anchor_normalized": [
+        0.5,
+        1
+      ],
+      "palette": [
+        "#0D2A6E",
+        "#1E5BD8",
+        "#3FA8FF",
+        "#8FE3FF",
+        "#E8FBFF",
+        "#FFFFFF"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            192,
+            256
+          ],
+          "rect_1x": [
+            0,
+            0,
+            24,
+            32
+          ],
+          "source_rect": [
+            0,
+            91,
+            397,
+            648
+          ],
+          "bbox_1x": [
+            3,
+            26,
+            23,
+            32
+          ],
+          "visible_pixels": 56,
+          "mean_luminance": 170.6,
+          "brightest_10pct_mean": 255.0,
+          "bright_pixel_count": 10
+        },
+        {
+          "index": 1,
+          "rect": [
+            192,
+            0,
+            192,
+            256
+          ],
+          "rect_1x": [
+            24,
+            0,
+            24,
+            32
+          ],
+          "source_rect": [
+            397,
+            91,
+            396,
+            648
+          ],
+          "bbox_1x": [
+            3,
+            6,
+            23,
+            32
+          ],
+          "visible_pixels": 129,
+          "mean_luminance": 166.65,
+          "brightest_10pct_mean": 255.0,
+          "bright_pixel_count": 30
+        },
+        {
+          "index": 2,
+          "rect": [
+            384,
+            0,
+            192,
+            256
+          ],
+          "rect_1x": [
+            48,
+            0,
+            24,
+            32
+          ],
+          "source_rect": [
+            793,
+            91,
+            397,
+            648
+          ],
+          "bbox_1x": [
+            3,
+            0,
+            22,
+            32
+          ],
+          "visible_pixels": 221,
+          "mean_luminance": 179.76,
+          "brightest_10pct_mean": 255.0,
+          "bright_pixel_count": 67
+        },
+        {
+          "index": 3,
+          "rect": [
+            576,
+            0,
+            192,
+            256
+          ],
+          "rect_1x": [
+            72,
+            0,
+            24,
+            32
+          ],
+          "source_rect": [
+            1190,
+            91,
+            396,
+            648
+          ],
+          "bbox_1x": [
+            2,
+            7,
+            21,
+            32
+          ],
+          "visible_pixels": 126,
+          "mean_luminance": 170.25,
+          "brightest_10pct_mean": 255.0,
+          "bright_pixel_count": 27
+        },
+        {
+          "index": 4,
+          "rect": [
+            768,
+            0,
+            192,
+            256
+          ],
+          "rect_1x": [
+            96,
+            0,
+            24,
+            32
+          ],
+          "source_rect": [
+            1586,
+            91,
+            397,
+            648
+          ],
+          "bbox_1x": [
+            2,
+            14,
+            20,
+            32
+          ],
+          "visible_pixels": 59,
+          "mean_luminance": 173.56,
+          "brightest_10pct_mean": 255.0,
+          "bright_pixel_count": 12
+        }
+      ]
+    },
+    {
+      "id": "vi_fx_r_trail",
+      "file": "vi_fx_r_trail.png",
+      "image_size": [
+        1536,
+        128
+      ],
+      "frame_count": 6,
+      "grid": [
+        6,
+        1
+      ],
+      "cell_size": [
+        256,
+        128
+      ],
+      "logical_cell_size": [
+        32,
+        16
+      ],
+      "game_size": [
+        40,
+        20
+      ],
+      "binding": "league_vi_r_trail",
+      "preview_frame_ms": 100,
+      "loop": true,
+      "anchor_normalized": [
+        1,
+        0.5
+      ],
+      "palette": [
+        "#0D2A6E",
+        "#1E5BD8",
+        "#3FA8FF",
+        "#8FE3FF",
+        "#E8FBFF",
+        "#FFFFFF"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            128
+          ],
+          "rect_1x": [
+            0,
+            0,
+            32,
+            16
+          ],
+          "source_rect": [
+            0,
+            261,
+            362,
+            210
+          ],
+          "bbox_1x": [
+            5,
+            3,
+            31,
+            14
+          ],
+          "visible_pixels": 108,
+          "mean_luminance": 154.46,
+          "brightest_10pct_mean": 252.89,
+          "bright_pixel_count": 16
+        },
+        {
+          "index": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            128
+          ],
+          "rect_1x": [
+            32,
+            0,
+            32,
+            16
+          ],
+          "source_rect": [
+            362,
+            261,
+            362,
+            210
+          ],
+          "bbox_1x": [
+            3,
+            3,
+            31,
+            13
+          ],
+          "visible_pixels": 165,
+          "mean_luminance": 160.03,
+          "brightest_10pct_mean": 255.0,
+          "bright_pixel_count": 37
+        },
+        {
+          "index": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            128
+          ],
+          "rect_1x": [
+            64,
+            0,
+            32,
+            16
+          ],
+          "source_rect": [
+            724,
+            261,
+            362,
+            210
+          ],
+          "bbox_1x": [
+            2,
+            2,
+            31,
+            15
+          ],
+          "visible_pixels": 182,
+          "mean_luminance": 159.51,
+          "brightest_10pct_mean": 255.0,
+          "bright_pixel_count": 37
+        },
+        {
+          "index": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            128
+          ],
+          "rect_1x": [
+            96,
+            0,
+            32,
+            16
+          ],
+          "source_rect": [
+            1086,
+            261,
+            362,
+            210
+          ],
+          "bbox_1x": [
+            2,
+            2,
+            31,
+            15
+          ],
+          "visible_pixels": 190,
+          "mean_luminance": 160.66,
+          "brightest_10pct_mean": 255.0,
+          "bright_pixel_count": 36
+        },
+        {
+          "index": 4,
+          "rect": [
+            1024,
+            0,
+            256,
+            128
+          ],
+          "rect_1x": [
+            128,
+            0,
+            32,
+            16
+          ],
+          "source_rect": [
+            1448,
+            261,
+            362,
+            210
+          ],
+          "bbox_1x": [
+            4,
+            2,
+            31,
+            14
+          ],
+          "visible_pixels": 164,
+          "mean_luminance": 168.47,
+          "brightest_10pct_mean": 255.0,
+          "bright_pixel_count": 38
+        },
+        {
+          "index": 5,
+          "rect": [
+            1280,
+            0,
+            256,
+            128
+          ],
+          "rect_1x": [
+            160,
+            0,
+            32,
+            16
+          ],
+          "source_rect": [
+            1810,
+            261,
+            362,
+            210
+          ],
+          "bbox_1x": [
+            4,
+            3,
+            31,
+            13
+          ],
+          "visible_pixels": 126,
+          "mean_luminance": 165.99,
+          "brightest_10pct_mean": 255.0,
+          "bright_pixel_count": 26
+        }
+      ]
+    },
+    {
+      "id": "vi_fx_r_side",
+      "file": "vi_fx_r_side.png",
+      "image_size": [
+        1024,
+        256
+      ],
+      "frame_count": 4,
+      "grid": [
+        4,
+        1
+      ],
+      "cell_size": [
+        256,
+        256
+      ],
+      "logical_cell_size": [
+        32,
+        32
+      ],
+      "game_size": [
+        14,
+        14
+      ],
+      "binding": "league_vi_r_side",
+      "preview_frame_ms": 100,
+      "loop": false,
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "palette": [
+        "#0D2A6E",
+        "#1E5BD8",
+        "#3FA8FF",
+        "#8D6246",
+        "#8FE3FF",
+        "#D7A965",
+        "#E8FBFF",
+        "#F7D896",
+        "#FFFFFF"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            0,
+            0,
+            32,
+            32
+          ],
+          "source_rect": [
+            0,
+            121,
+            543,
+            482
+          ],
+          "bbox_1x": [
+            4,
+            5,
+            28,
+            31
+          ],
+          "visible_pixels": 168,
+          "mean_luminance": 153.48,
+          "brightest_10pct_mean": 255.0,
+          "bright_pixel_count": 32
+        },
+        {
+          "index": 1,
+          "rect": [
+            256,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            32,
+            0,
+            32,
+            32
+          ],
+          "source_rect": [
+            543,
+            121,
+            543,
+            482
+          ],
+          "bbox_1x": [
+            3,
+            4,
+            30,
+            31
+          ],
+          "visible_pixels": 144,
+          "mean_luminance": 162.9,
+          "brightest_10pct_mean": 255.0,
+          "bright_pixel_count": 25
+        },
+        {
+          "index": 2,
+          "rect": [
+            512,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            64,
+            0,
+            32,
+            32
+          ],
+          "source_rect": [
+            1086,
+            121,
+            543,
+            482
+          ],
+          "bbox_1x": [
+            4,
+            1,
+            27,
+            30
+          ],
+          "visible_pixels": 138,
+          "mean_luminance": 151.59,
+          "brightest_10pct_mean": 233.09,
+          "bright_pixel_count": 7
+        },
+        {
+          "index": 3,
+          "rect": [
+            768,
+            0,
+            256,
+            256
+          ],
+          "rect_1x": [
+            96,
+            0,
+            32,
+            32
+          ],
+          "source_rect": [
+            1629,
+            121,
+            543,
+            482
+          ],
+          "bbox_1x": [
+            5,
+            4,
+            26,
+            30
+          ],
+          "visible_pixels": 56,
+          "mean_luminance": 153.33,
+          "brightest_10pct_mean": 224.02,
+          "bright_pixel_count": 1
+        }
+      ]
+    },
+    {
+      "id": "vi_fx_r_hit",
+      "file": "vi_fx_r_hit.png",
+      "image_size": [
+        1152,
+        288
+      ],
+      "frame_count": 6,
+      "grid": [
+        6,
+        1
+      ],
+      "cell_size": [
+        192,
+        288
+      ],
+      "logical_cell_size": [
+        24,
+        36
+      ],
+      "game_size": [
+        20,
+        36
+      ],
+      "binding": "league_vi_r_hit",
+      "preview_frame_ms": 100,
+      "loop": false,
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "palette": [
+        "#0D2A6E",
+        "#1E5BD8",
+        "#3FA8FF",
+        "#8D6246",
+        "#8FE3FF",
+        "#D7A965",
+        "#E8FBFF",
+        "#F7D896",
+        "#FFFFFF"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            192,
+            288
+          ],
+          "rect_1x": [
+            0,
+            0,
+            24,
+            36
+          ],
+          "source_rect": [
+            0,
+            24,
+            362,
+            691
+          ],
+          "bbox_1x": [
+            2,
+            23,
+            22,
+            35
+          ],
+          "visible_pixels": 95,
+          "mean_luminance": 182.17,
+          "brightest_10pct_mean": 255.0,
+          "bright_pixel_count": 27
+        },
+        {
+          "index": 1,
+          "rect": [
+            192,
+            0,
+            192,
+            288
+          ],
+          "rect_1x": [
+            24,
+            0,
+            24,
+            36
+          ],
+          "source_rect": [
+            362,
+            24,
+            362,
+            691
+          ],
+          "bbox_1x": [
+            1,
+            10,
+            23,
+            36
+          ],
+          "visible_pixels": 213,
+          "mean_luminance": 170.0,
+          "brightest_10pct_mean": 255.0,
+          "bright_pixel_count": 50
+        },
+        {
+          "index": 2,
+          "rect": [
+            384,
+            0,
+            192,
+            288
+          ],
+          "rect_1x": [
+            48,
+            0,
+            24,
+            36
+          ],
+          "source_rect": [
+            724,
+            24,
+            362,
+            691
+          ],
+          "bbox_1x": [
+            2,
+            3,
+            22,
+            36
+          ],
+          "visible_pixels": 318,
+          "mean_luminance": 174.3,
+          "brightest_10pct_mean": 255.0,
+          "bright_pixel_count": 76
+        },
+        {
+          "index": 3,
+          "rect": [
+            576,
+            0,
+            192,
+            288
+          ],
+          "rect_1x": [
+            72,
+            0,
+            24,
+            36
+          ],
+          "source_rect": [
+            1086,
+            24,
+            362,
+            691
+          ],
+          "bbox_1x": [
+            2,
+            9,
+            23,
+            35
+          ],
+          "visible_pixels": 118,
+          "mean_luminance": 215.53,
+          "brightest_10pct_mean": 255.0,
+          "bright_pixel_count": 57
+        },
+        {
+          "index": 4,
+          "rect": [
+            768,
+            0,
+            192,
+            288
+          ],
+          "rect_1x": [
+            96,
+            0,
+            24,
+            36
+          ],
+          "source_rect": [
+            1448,
+            24,
+            362,
+            691
+          ],
+          "bbox_1x": [
+            7,
+            13,
+            22,
+            35
+          ],
+          "visible_pixels": 48,
+          "mean_luminance": 188.08,
+          "brightest_10pct_mean": 255.0,
+          "bright_pixel_count": 9
+        },
+        {
+          "index": 5,
+          "rect": [
+            960,
+            0,
+            192,
+            288
+          ],
+          "rect_1x": [
+            120,
+            0,
+            24,
+            36
+          ],
+          "source_rect": [
+            1810,
+            24,
+            362,
+            691
+          ],
+          "bbox_1x": [
+            7,
+            15,
+            19,
+            34
+          ],
+          "visible_pixels": 14,
+          "mean_luminance": 176.76,
+          "brightest_10pct_mean": 236.41,
+          "bright_pixel_count": 1
+        }
+      ]
+    },
+    {
+      "id": "vi_fx_r_slam",
+      "file": "vi_fx_r_slam.png",
+      "image_size": [
+        3072,
+        128
+      ],
+      "frame_count": 8,
+      "grid": [
+        8,
+        1
+      ],
+      "cell_size": [
+        384,
+        128
+      ],
+      "logical_cell_size": [
+        48,
+        16
+      ],
+      "game_size": [
+        40,
+        14
+      ],
+      "binding": "league_vi_r_slam",
+      "preview_frame_ms": 100,
+      "loop": false,
+      "anchor_normalized": [
+        0.5,
+        0.5
+      ],
+      "palette": [
+        "#0D2A6E",
+        "#1E5BD8",
+        "#3A3030",
+        "#3FA8FF",
+        "#6B5A50",
+        "#8FE3FF",
+        "#9C8A7A",
+        "#CFC2B0",
+        "#E8FBFF",
+        "#FFFFFF"
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            384,
+            128
+          ],
+          "rect_1x": [
+            0,
+            0,
+            48,
+            16
+          ],
+          "source_rect": [
+            0,
+            222,
+            272,
+            292
+          ],
+          "bbox_1x": [
+            9,
+            6,
+            37,
+            15
+          ],
+          "visible_pixels": 117,
+          "mean_luminance": 202.17,
+          "brightest_10pct_mean": 255.0,
+          "bright_pixel_count": 43
+        },
+        {
+          "index": 1,
+          "rect": [
+            384,
+            0,
+            384,
+            128
+          ],
+          "rect_1x": [
+            48,
+            0,
+            48,
+            16
+          ],
+          "source_rect": [
+            272,
+            222,
+            271,
+            292
+          ],
+          "bbox_1x": [
+            2,
+            3,
+            48,
+            15
+          ],
+          "visible_pixels": 242,
+          "mean_luminance": 104.91,
+          "brightest_10pct_mean": 195.46,
+          "bright_pixel_count": 0
+        },
+        {
+          "index": 2,
+          "rect": [
+            768,
+            0,
+            384,
+            128
+          ],
+          "rect_1x": [
+            96,
+            0,
+            48,
+            16
+          ],
+          "source_rect": [
+            543,
+            222,
+            271,
+            292
+          ],
+          "bbox_1x": [
+            3,
+            5,
+            47,
+            15
+          ],
+          "visible_pixels": 215,
+          "mean_luminance": 78.31,
+          "brightest_10pct_mean": 216.92,
+          "bright_pixel_count": 9
+        },
+        {
+          "index": 3,
+          "rect": [
+            1152,
+            0,
+            384,
+            128
+          ],
+          "rect_1x": [
+            144,
+            0,
+            48,
+            16
+          ],
+          "source_rect": [
+            814,
+            222,
+            272,
+            292
+          ],
+          "bbox_1x": [
+            3,
+            2,
+            46,
+            15
+          ],
+          "visible_pixels": 237,
+          "mean_luminance": 93.72,
+          "brightest_10pct_mean": 228.46,
+          "bright_pixel_count": 10
+        },
+        {
+          "index": 4,
+          "rect": [
+            1536,
+            0,
+            384,
+            128
+          ],
+          "rect_1x": [
+            192,
+            0,
+            48,
+            16
+          ],
+          "source_rect": [
+            1086,
+            222,
+            272,
+            292
+          ],
+          "bbox_1x": [
+            3,
+            0,
+            46,
+            16
+          ],
+          "visible_pixels": 260,
+          "mean_luminance": 98.67,
+          "brightest_10pct_mean": 237.74,
+          "bright_pixel_count": 17
+        },
+        {
+          "index": 5,
+          "rect": [
+            1920,
+            0,
+            384,
+            128
+          ],
+          "rect_1x": [
+            240,
+            0,
+            48,
+            16
+          ],
+          "source_rect": [
+            1358,
+            222,
+            271,
+            292
+          ],
+          "bbox_1x": [
+            2,
+            4,
+            45,
+            14
+          ],
+          "visible_pixels": 186,
+          "mean_luminance": 83.19,
+          "brightest_10pct_mean": 213.22,
+          "bright_pixel_count": 7
+        },
+        {
+          "index": 6,
+          "rect": [
+            2304,
+            0,
+            384,
+            128
+          ],
+          "rect_1x": [
+            288,
+            0,
+            48,
+            16
+          ],
+          "source_rect": [
+            1629,
+            222,
+            271,
+            292
+          ],
+          "bbox_1x": [
+            3,
+            5,
+            47,
+            15
+          ],
+          "visible_pixels": 100,
+          "mean_luminance": 66.92,
+          "brightest_10pct_mean": 128.33,
+          "bright_pixel_count": 0
+        },
+        {
+          "index": 7,
+          "rect": [
+            2688,
+            0,
+            384,
+            128
+          ],
+          "rect_1x": [
+            336,
+            0,
+            48,
+            16
+          ],
+          "source_rect": [
+            1900,
+            222,
+            272,
+            292
+          ],
+          "bbox_1x": [
+            8,
+            7,
+            43,
+            13
+          ],
+          "visible_pixels": 47,
+          "mean_luminance": 50.13,
+          "brightest_10pct_mean": 50.13,
+          "bright_pixel_count": 0
+        }
+      ]
+    }
+  ]
+}

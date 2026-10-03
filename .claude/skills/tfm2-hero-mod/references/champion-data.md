@@ -639,6 +639,9 @@ the same champion file.
   her crescent rides one with `speed` 100 and `y_offset` -4000 (9 px up), drawn 17 px ahead along its flight and
   mirrored top to bottom, each 6-tick frame stepped back by the distance crept, an empty last frame after the
   parry's 45 ticks while the projectile crawls on (4-9 s in a logged game; it goes at once if the target dies).
+  A picture that must outlive a target killed by the hit rides a view-only `LineRangeProjectile` instead (in a
+  `Targeting` action it points at the target and lasts its `delay`; league_briar E's scream, league_vi E's shock wave:
+  as a caster picture it stood the wrong way on the red side, "E技能的特效没有跟随人物 反方向的").
   A thing with a top and a bottom that flies every way (league_thresh's lantern) is laid along its flight
   and mirrored top to bottom, so every turn of it looks the same (art-spec).
 - A projectile's picture has one length, but its frames can follow the flight: an `Animated` view with
