@@ -1,0 +1,21 @@
+{
+  "a_orb": {"cell": [19, 7], "anchor": [9, 3], "frames": 4},
+  "a_cast": {"cell": [13, 9], "anchor": [6, 4], "frames": 4},
+  "a_hit": {"cell": [15, 13], "anchor": [7, 6], "frames": 4},
+  "q_cast": {"cell": [15, 17], "anchor": [7, 8], "frames": 4},
+  "q_bomb": {"cell": [13, 11], "anchor": [6, 5], "frames": 4},
+  "q_bomb_on": {"cell": [17, 17], "anchor": [8, 8], "frames": 4},
+  "q_bomb_ground": {"cell": [31, 47], "anchor": [15, 23], "frames": 12},
+  "q_boom": {"cell": [61, 51], "anchor": [30, 25], "frames": 7},
+  "q_boom2": {"cell": [69, 47], "anchor": [34, 23], "frames": 8},
+  "q_hit": {"cell": [15, 13], "anchor": [7, 6], "frames": 4},
+  "q_stun": {"cell": [21, 17], "anchor": [10, 8], "frames": 6},
+  "w_rewind": {"cell": [43, 43], "anchor": [21, 21], "frames": 6},
+  "e_cast": {"cell": [15, 15], "anchor": [7, 7], "frames": 4},
+  "e_slow": {"cell": [25, 27], "anchor": [12, 13], "frames": 6},
+  "e_haste": {"cell": [27, 37], "anchor": [13, 18], "frames": 6},
+  "p_bottle": {"cell": [11, 41], "anchor": [5, 20], "frames": 6},
+  "r_cast": {"cell": [41, 47], "anchor": [20, 23], "frames": 5},
+  "r_rune": {"cell": [25, 29], "anchor": [12, 14], "frames": 8},
+  "r_rewind": {"cell": [41, 83], "anchor": [20, 41], "frames": 8}
+}

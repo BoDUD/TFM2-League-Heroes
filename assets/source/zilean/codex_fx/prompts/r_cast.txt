@@ -1,0 +1,6 @@
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, rings or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a gold ramp (#FFFFFF, #FFF2B0, #FFD24A, #E39A1E, #9C5A10) and a bright cyan ramp (#FFFFFF, #D8FFFF, #7FF4FF, #2FC8E8, #1A7FB0).
+Effect: a CHRONOSHIFT CAST at a figure's feet (do NOT draw the figure), 5 frames: 1 a gold point on the ground; 2 a CLOCK RING (League's time circle: a flat gold ellipse twice as wide as tall on the ground with 12 short tick marks round it, like a clock face without numbers) with an inner ring of tiny cyan glyphs, about 34 squares wide; 3 it shines, a column of gold light rising from it; 4 the column fades upward; 5 the ring fades.
+Layout: one horizontal row of 5 equal cells, each 2 wide to 1 tall, image size 1600x400 (each cell 320x160); the ellipse centered 5 squares above the bottom of every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
+
+
+Generation refinements: no character; equal spacing; generous padding; bright coarse square pixels.

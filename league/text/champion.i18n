@@ -337,6 +337,13 @@
         "skill2": "若<#ff9028ff>万众倾倒<>就绪，先在敌方英雄脚下种莲花：踩中后<#ef5350ff>减速35%<>，<#ffb900ff>2秒<>后炸开造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>。随后超远射击第一个敌方英雄造成<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>；他近期受过我方伤害则<#ef5350ff>禁锢1.67秒<>。",
         "ult": "架枪引导，开<#ffb900ff>4<>枪锁定后射出的超远子弹（被控制会中断），各打中路上第一个敌方英雄造成<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>并<#ef5350ff>减速80%<>；每中一枪后续+<#ffb900ff>30%<>，第四枪伤害翻倍。"
       },
+      "league_zilean": {
+        "name": "基兰",
+        "attack": "发射时光法球。被动<#ff9028ff>瓶中时光<>：每<#ffb900ff>90秒<>攒满一瓶，下次<#ff9028ff>时光发条<>加速友方英雄时送给他：他和基兰各获得<#ff9028ff>10攻击力<>、<#a974ffff>10法强<>和<#6aff55ff>80生命值<>，直到阵亡。",
+        "skill": "向目标脚下扔出炸弹（出手时锁定落点，可躲开），粘在附近第一个敌人身上（英雄优先），<#ffb900ff>3秒<>后爆炸，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法强<>的<#a974ffff>魔法伤害<>。<#ff9028ff>穿梭未来<>（每<#ffb900ff>12秒<>）：炸弹粘上英雄时倒转时间再扔一颗，两颗立即爆炸并<#ef5350ff>晕眩1.25秒<>，技能冷却缩短。",
+        "skill2": "使一名敌方英雄<#ef5350ff>减速35%<>，同时让身边一名友方英雄（没有则自己）<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移速+35%<>，持续<#ffb900ff>2.5秒<>。",
+        "ult": "附近的友方英雄被控制、或基兰被两名以上敌方英雄贴身时，为其挂上时光符文：<#ffb900ff>5秒<>内不会阵亡，结束时时光回溯，回复<#6aff55ff>400<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>150% 法强<>生命值。"
+      },
       "league_vi": {
         "name": "蔚",
         "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理伤害。<#ff9028ff>爆弹重拳<>：每第3次普攻额外造成<#ff9028ff>20<>物理伤害（对英雄再加<#ff9028ff>5%最大生命<>），减护甲<#ffb900ff>20%<>，自身攻速+<#ffb900ff>30%<>，均<#ffb900ff>4秒<>。<#ff9028ff>爆裂护盾<>：技能命中敌人获得<#ffb900ff>100<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>60%<>护盾<#ffb900ff>3秒<>，冷却<#ffb900ff>12秒<>，第3次普攻减<#ffb900ff>3秒<>。",
@@ -585,6 +592,11 @@
         "skill1": "曼舞手雷",
         "skill2": "致命华彩",
         "ult": "完美谢幕"
+      },
+      "league_zilean": {
+        "skill1": "定时炸弹",
+        "skill2": "时光发条",
+        "ult": "时光倒流"
       },
       "league_vi": {
         "skill1": "强能冲拳",
@@ -931,6 +943,13 @@
         "skill2": "若<#ff9028ff>魔幻時刻<>就緒，先在敵方英雄腳下種蓮花：踩中後<#ef5350ff>緩速35%<>，<#ffb900ff>2秒<>後炸開造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>。隨後超遠射擊第一個敵方英雄造成<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>；他近期受過我方傷害則<#ef5350ff>定身1.67秒<>。",
         "ult": "架槍引導，開<#ffb900ff>4<>槍鎖定後射出的超遠子彈（被控制會中斷），各打中路上第一個敵方英雄造成<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>並<#ef5350ff>緩速80%<>；每中一槍後續+<#ffb900ff>30%<>，第四槍傷害翻倍。"
       },
+      "league_zilean": {
+        "name": "極靈",
+        "attack": "發射時光法球。被動<#ff9028ff>時光之瓶<>：每<#ffb900ff>90秒<>裝滿一瓶，下次<#ff9028ff>時間扭曲<>加速友方英雄時送給他：他和極靈各獲得<#ff9028ff>10攻擊力<>、<#a974ffff>10法術強度<>和<#6aff55ff>80生命<>，直到陣亡。",
+        "skill": "向目標腳下擲出炸彈（出手時鎖定落點，可躲開），黏在附近第一個敵人身上（英雄優先），<#ffb900ff>3秒<>後爆炸，造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法術強度<>的<#a974ffff>魔法傷害<>。<#ff9028ff>時光回溯<>（每<#ffb900ff>12秒<>）：炸彈黏上英雄時倒轉時間再擲一顆，兩顆立即爆炸並<#ef5350ff>暈眩1.25秒<>，技能冷卻縮短。",
+        "skill2": "使一名敵方英雄<#ef5350ff>緩速35%<>，同時讓身邊一名友方英雄（沒有則自身）<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>跑速+35%<>，持續<#ffb900ff>2.5秒<>。",
+        "ult": "附近的友方英雄被控制、或極靈被兩名以上敵方英雄貼身時，為其掛上時光符文：<#ffb900ff>5秒<>內不會陣亡，結束時時光回溯，回復<#6aff55ff>400<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>150% 法術強度<>生命。"
+      },
       "league_vi": {
         "name": "菲艾",
         "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理傷害。<#ff9028ff>爆彈重拳<>：每第3次普攻額外造成<#ff9028ff>20<>物理傷害（對英雄再加<#ff9028ff>5%最大生命<>），減護甲<#ffb900ff>20%<>，自身攻速+<#ffb900ff>30%<>，均<#ffb900ff>4秒<>。<#ff9028ff>爆裂護盾<>：技能命中敵人獲得<#ffb900ff>100<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>60%<>護盾<#ffb900ff>3秒<>，冷卻<#ffb900ff>12秒<>，第3次普攻減<#ffb900ff>3秒<>。",
@@ -1179,6 +1198,11 @@
         "skill1": "狂舞手雷",
         "skill2": "致命伏筆",
         "ult": "華麗謝幕"
+      },
+      "league_zilean": {
+        "skill1": "定時炸彈",
+        "skill2": "時間扭曲",
+        "ult": "時光倒流"
       },
       "league_vi": {
         "skill1": "強能衝拳",
@@ -1525,6 +1549,13 @@
         "skill2": "With <#ff9028ff>Captive Audience<> ready, Jhin first plants a lotus at an enemy champion's feet: stepped on, it <#ef5350ff>slows by 35%<> and bursts <#ffb900ff>2s<> later for <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>. Then he fires a very long shot: the first enemy champion hit takes <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> and is <#ef5350ff>rooted for 1.67s<> if Jhin's team damaged him lately.",
         "ult": "Jhin sets up and fires <#ffb900ff>4<> very long shots, each aimed before it leaves (crowd control breaks the channel): the first enemy champion in its path takes <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<> and is <#ef5350ff>slowed by 80%<>; every hit adds <#ffb900ff>30%<> to the shots after it, and the fourth deals double."
       },
+      "league_zilean": {
+        "name": "Zilean",
+        "attack": "Fires time orbs. Passive <#ff9028ff>Time In A Bottle<>: every <#ffb900ff>90s<> a bottle fills; his next <#ff9028ff>Time Warp<> on an allied champion hands it over: that ally and Zilean each gain <#ff9028ff>10 attack<>, <#a974ffff>10 AP<> and <#6aff55ff>80 health<> until they die.",
+        "skill": "Zilean lobs a bomb at the target's feet (aimed on release: dodgeable). It sticks to the first enemy near it (champions first) and explodes after <#ffb900ff>3s<> for <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% AP<> <#a974ffff>magic damage<>. <#ff9028ff>Rewind<> (every <#ffb900ff>12s<>): on a champion he turns time back and throws another - both explode at once and <#ef5350ff>stun for 1.25s<>; cooldowns shorten.",
+        "skill2": "Zilean <#ef5350ff>slows<> an enemy champion by <#ef5350ff>35%<> and grants an allied champion beside him (himself if alone) <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>35% move speed<> for <#ffb900ff>2.5s<>.",
+        "ult": "When an allied champion near him is crowd-controlled, or two enemy champions close in on Zilean, he places a time rune on them: they cannot die for <#ffb900ff>5s<>, then time rewinds and they heal <#6aff55ff>400<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>150% AP<>."
+      },
       "league_vi": {
         "name": "Vi",
         "attack": "Basic attacks deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. <#ff9028ff>Denting Blows<>: every 3rd attack deals <#ff9028ff>20<> more (+<#ff9028ff>5% max health<> to champions), shreds <#ffb900ff>20%<> armour and gives <#ffb900ff>+30%<> attack speed for <#ffb900ff>4s<>. <#ff9028ff>Blast Shield<>: a spell hit shields her for <#ffb900ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>60% AD<> (<#ffb900ff>3s<>, <#ffb900ff>12s<> cooldown, <#ffb900ff>-3s<> per 3rd attack).",
@@ -1773,6 +1804,11 @@
         "skill1": "Dancing Grenade",
         "skill2": "Deadly Flourish",
         "ult": "Curtain Call"
+      },
+      "league_zilean": {
+        "skill1": "Time Bomb",
+        "skill2": "Time Warp",
+        "ult": "Chronoshift"
       },
       "league_vi": {
         "skill1": "Vault Breaker",
@@ -2119,6 +2155,13 @@
         "skill2": "<#ff9028ff>강제 관람<>이 준비되어 있으면 먼저 적 챔피언 발밑에 연꽃을 심습니다: 밟으면 <#ef5350ff>35% 둔화<>, <#ffb900ff>2초<> 뒤 터지며 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>. 이어서 아주 먼 거리로 쏘아 처음 맞은 적 챔피언에게 <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>; 최근 아군에게 피해를 입은 챔피언은 <#ef5350ff>1.67초 속박<>.",
         "ult": "자리를 잡고 조준 후 발사되는 초장거리 탄환 <#ffb900ff>4<>발을 쏩니다(군중 제어로 중단). 각 탄환은 경로의 첫 적 챔피언에게 <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<> 피해와 <#ef5350ff>80% 둔화<>; 명중할 때마다 이후 +<#ffb900ff>30%<>, 네 번째는 두 배."
       },
+      "league_zilean": {
+        "name": "질리언",
+        "attack": "시간의 구슬을 발사합니다. 기본 지속 효과 <#ff9028ff>시간의 유리병<>: <#ffb900ff>90초<>마다 병이 차며, 다음 <#ff9028ff>시간 왜곡<>으로 아군 챔피언을 가속할 때 건넵니다. 그 아군과 질리언은 죽을 때까지 <#ff9028ff>공격력 10<>, <#a974ffff>주문력 10<>, <#6aff55ff>체력 80<>을 얻습니다.",
+        "skill": "대상의 발밑에 폭탄을 던집니다(던질 때 위치가 정해져 피할 수 있음). 근처의 첫 적(챔피언 우선)에게 붙어 <#ffb900ff>3초<> 후 폭발하며 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 주문력<>의 <#a974ffff>마법 피해<>. <#ff9028ff>되감기<>(<#ffb900ff>12초<>마다): 챔피언에게 붙으면 시간을 되돌려 하나 더 던지고, 두 폭탄이 즉시 터지며 <#ef5350ff>1.25초 기절<>; 재사용 대기시간 감소.",
+        "skill2": "적 챔피언을 <#ef5350ff>35% 둔화<>시키고, 주변 아군 챔피언 하나(없으면 자신)의 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도를 35%<> 높입니다. 지속 <#ffb900ff>2.5초<>.",
+        "ult": "주변 아군 챔피언이 군중 제어에 걸리거나 적 챔피언 둘 이상이 질리언에게 붙으면 그 대상에게 시간의 룬을 겁니다: <#ffb900ff>5초<> 동안 죽지 않고, 끝나면 시간이 되돌아가 <#6aff55ff>400<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>150% 주문력<>의 체력을 회복합니다."
+      },
       "league_vi": {
         "name": "바이",
         "attack": "기본 공격은 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>강타<>: 3번째 공격마다 <#ff9028ff>20<> 추가 피해(챔피언에게 <#ff9028ff>최대 체력의 5%<>), 방어력 <#ffb900ff>20%<> 감소, 공격 속도 +<#ffb900ff>30%<>(<#ffb900ff>4초<>). <#ff9028ff>폭발 보호막<>: 스킬 적중 시 <#ffb900ff>100<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>60%<> 보호막 <#ffb900ff>3초<>(재사용 <#ffb900ff>12초<>, 3번째 공격마다 <#ffb900ff>-3초<>).",
@@ -2367,6 +2410,11 @@
         "skill1": "춤추는 유탄",
         "skill2": "살상연희",
         "ult": "커튼 콜"
+      },
+      "league_zilean": {
+        "skill1": "시한 폭탄",
+        "skill2": "시간 왜곡",
+        "ult": "시간 역행"
       },
       "league_vi": {
         "skill1": "금고 부수기",
@@ -2713,6 +2761,13 @@
         "skill2": "<#ff9028ff>女神の抱擁<>が使えれば先に敵チャンピオンの足元へ蓮を植える：踏むと<#ef5350ff>35%スロウ<>、<#ffb900ff>2秒<>後に爆ぜて<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>。続けて超長射程の一撃、最初の敵チャンピオンに<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>、最近味方が傷つけた相手は<#ef5350ff>1.67秒スネア<>。",
         "ult": "構えて、狙いを定めてから放つ超長射程の弾を<#ffb900ff>4<>発撃つ（行動妨害で中断）。各弾は進路上の最初の敵チャンピオンに<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>と<#ef5350ff>80%スロウ<>；命中ごとに以降+<#ffb900ff>30%<>、4発目は2倍。"
       },
+      "league_zilean": {
+        "name": "ジリアン",
+        "attack": "時の弾を放つ。パッシブ<#ff9028ff>タイムインボトル<>：<#ffb900ff>90秒<>ごとに瓶が満ち、次の<#ff9028ff>タイムワープ<>で味方チャンピオンを加速する時に渡す。その味方とジリアンは倒れるまで<#ff9028ff>攻撃力10<>、<#a974ffff>魔力10<>、<#6aff55ff>体力80<>を得る。",
+        "skill": "対象の足元に爆弾を投げる（着弾点は投げた時に決まる）。近くの最初の敵（チャンピオン優先）にくっつき、<#ffb900ff>3秒<>後に爆発して<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 魔力<>の<#a974ffff>魔法ダメージ<>。<#ff9028ff>リワインド<>（<#ffb900ff>12秒<>ごと）：チャンピオンにくっつくと時を戻してもう1つ投げ、2つが即爆発して<#ef5350ff>1.25秒スタン<>、クールダウン短縮。",
+        "skill2": "敵チャンピオンに<#ef5350ff>35%スロウ<>、そばの味方チャンピオン1人（いなければ自分）に<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度+35%<>。<#ffb900ff>2.5秒<>。",
+        "ult": "近くの味方チャンピオンが行動妨害を受けるか、敵チャンピオン2人以上がジリアンに迫ると、その対象に時のルーン：<#ffb900ff>5秒<>倒れず、終わると時が戻り<#6aff55ff>400<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>150% 魔力<>の体力を回復。"
+      },
       "league_vi": {
         "name": "ヴァイ",
         "attack": "通常攻撃は<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>デンティングブロー<>：3回目ごとに<#ff9028ff>20<>追加（チャンピオンには<#ff9028ff>最大体力の5%<>も）、物理防御<#ffb900ff>20%<>低下、攻撃速度+<#ffb900ff>30%<>（<#ffb900ff>4秒<>）。<#ff9028ff>ブラストシールド<>：スキル命中で<#ffb900ff>100<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>60%<>のシールド<#ffb900ff>3秒<>（CD<#ffb900ff>12秒<>、3回目ごとに<#ffb900ff>-3秒<>）。",
@@ -2961,6 +3016,11 @@
         "skill1": "｢爆ぜ狂う果実｣",
         "skill2": "｢死者への狂奏曲｣",
         "ult": "｢終演 -フィナーレ-｣"
+      },
+      "league_zilean": {
+        "skill1": "タイムボム",
+        "skill2": "タイムワープ",
+        "ult": "クロノシフト"
       },
       "league_vi": {
         "skill1": "ヴォールトブレイカー",

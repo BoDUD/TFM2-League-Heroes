@@ -1,0 +1,2603 @@
+{
+  "id": "league_zilean",
+  "category": "Util",
+  "tags": [
+    "AP",
+    "Magic",
+    "Range",
+    "CC",
+    "Heal"
+  ],
+  "sprite": "asset/league/champions/league_zilean",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/league/icons/league_zilean_skill",
+    "asset/league/icons/league_zilean_skill2",
+    "asset/league/icons/league_zilean_ult"
+  ],
+  "stat": {
+    "attack": 80,
+    "magic_power": 30,
+    "hp": 900,
+    "defence": 22,
+    "magic_resistance": 24,
+    "move_speed": 1000,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 6,
+    "magic_power": 15,
+    "hp": 95,
+    "defence": 7,
+    "magic_resistance": 4,
+    "move_speed": 10,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.league_zilean.attack",
+    "duration": 30,
+    "cooltime": 90,
+    "start_timing": 17,
+    "cancelable": true,
+    "range": 55000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_zilean_life",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_zilean_life",
+                  "duration": "Permanent"
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_zilean_b_cd",
+                  "duration": {
+                    "Time": {
+                      "tick": 5400
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              }
+            ]
+          }
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_zilean_r_armed",
+          "effect_buff": {
+            "type": "SwitchByBuff",
+            "buff_name": "league_zilean_r_busy",
+            "effect_buff": {
+              "type": "Combine",
+              "effects": []
+            },
+            "effect_none": {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_zilean_r_busy",
+                    "duration": {
+                      "Time": {
+                        "tick": 3
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_zilean_r_n1"
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_zilean_r_n2"
+                },
+                {
+                  "type": "RandomTarget",
+                  "range": 90000,
+                  "casting_target": "AllyChampionInCC",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_zilean_r_lock",
+                        "duration": {
+                          "Time": {
+                            "tick": 3
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_zilean_r_armed"
+                    },
+                    {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "AddBuff",
+                          "buff_state": {
+                            "name": "league_zilean_r_rune",
+                            "duration": {
+                              "Time": {
+                                "tick": 300
+                              }
+                            },
+                            "undying": true
+                          }
+                        },
+                        {
+                          "type": "TargetSfx",
+                          "name": "league_zilean_r_rune"
+                        },
+                        {
+                          "type": "Delayed",
+                          "tick": 299,
+                          "effects": [
+                            {
+                              "type": "Heal",
+                              "amount": 400,
+                              "attack_ratio": 0,
+                              "ap_ratio": 150,
+                              "heal_type": "Ally"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_zilean_r_rewind"
+                            },
+                            {
+                              "type": "TargetSfx",
+                              "name": "league_zilean_r_rewind"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 1,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_zilean_r_lock",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Sfx",
+                            "name": "league_zilean_r_cast"
+                          },
+                          {
+                            "type": "CasterAnimation",
+                            "name": "skill",
+                            "tick": 30
+                          },
+                          {
+                            "type": "CasterViewEffect",
+                            "name": "league_zilean_r_cast"
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RangeEffect",
+                            "shape": {
+                              "Circle": {
+                                "radius": 40000
+                              }
+                            },
+                            "target": "EnemyChampion",
+                            "apply_type": "AroundCaster",
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_zilean_r_n1",
+                                "effect_buff": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_zilean_r_n2",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 3
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                "effect_none": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_zilean_r_n1",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 3
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 1,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_zilean_r_n2",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_zilean_r_armed"
+                                    },
+                                    {
+                                      "type": "RangeEffect",
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 1000
+                                        }
+                                      },
+                                      "target": "AllyOnlySelf",
+                                      "apply_type": "AroundCaster",
+                                      "effects": [
+                                        {
+                                          "type": "AddBuff",
+                                          "buff_state": {
+                                            "name": "league_zilean_r_rune",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 300
+                                              }
+                                            },
+                                            "undying": true
+                                          }
+                                        },
+                                        {
+                                          "type": "Sfx",
+                                          "name": "league_zilean_r_rune"
+                                        },
+                                        {
+                                          "type": "Delayed",
+                                          "tick": 299,
+                                          "effects": [
+                                            {
+                                              "type": "Heal",
+                                              "amount": 400,
+                                              "attack_ratio": 0,
+                                              "ap_ratio": 150,
+                                              "heal_type": "Caster"
+                                            },
+                                            {
+                                              "type": "CasterViewEffect",
+                                              "name": "league_zilean_r_rewind"
+                                            },
+                                            {
+                                              "type": "Sfx",
+                                              "name": "league_zilean_r_rewind"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "Sfx",
+                                          "name": "league_zilean_r_cast"
+                                        },
+                                        {
+                                          "type": "CasterAnimation",
+                                          "name": "skill",
+                                          "tick": 30
+                                        },
+                                        {
+                                          "type": "CasterViewEffect",
+                                          "name": "league_zilean_r_cast"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": []
+          }
+        },
+        {
+          "type": "CasterViewEffect",
+          "name": "league_zilean_a_cast"
+        },
+        {
+          "type": "TargetProjectile",
+          "name": "league_zilean_a_orb",
+          "speed": 5000,
+          "y_offset": -1000,
+          "applied_target": "Enemy",
+          "applied_effects": [
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "Attack",
+                "damage": 0,
+                "attack_ratio": 100,
+                "hp_ratio": 0,
+                "target_hp_ratio": 0,
+                "attack_effect_type": "Target"
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "ViewEffect",
+                "name": "league_zilean_a_hit"
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "TargetSfx",
+                "name": "league_zilean_a_hit"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.league_zilean.skill",
+    "duration": 30,
+    "cooltime": 420,
+    "start_timing": 12,
+    "cancelable": false,
+    "range": 70000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_zilean_life",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_zilean_life",
+                  "duration": "Permanent"
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_zilean_b_cd",
+                  "duration": {
+                    "Time": {
+                      "tick": 5400
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              }
+            ]
+          }
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_zilean_r_armed",
+          "effect_buff": {
+            "type": "SwitchByBuff",
+            "buff_name": "league_zilean_r_busy",
+            "effect_buff": {
+              "type": "Combine",
+              "effects": []
+            },
+            "effect_none": {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_zilean_r_busy",
+                    "duration": {
+                      "Time": {
+                        "tick": 3
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_zilean_r_n1"
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_zilean_r_n2"
+                },
+                {
+                  "type": "RandomTarget",
+                  "range": 90000,
+                  "casting_target": "AllyChampionInCC",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_zilean_r_lock",
+                        "duration": {
+                          "Time": {
+                            "tick": 3
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_zilean_r_armed"
+                    },
+                    {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "AddBuff",
+                          "buff_state": {
+                            "name": "league_zilean_r_rune",
+                            "duration": {
+                              "Time": {
+                                "tick": 300
+                              }
+                            },
+                            "undying": true
+                          }
+                        },
+                        {
+                          "type": "TargetSfx",
+                          "name": "league_zilean_r_rune"
+                        },
+                        {
+                          "type": "Delayed",
+                          "tick": 299,
+                          "effects": [
+                            {
+                              "type": "Heal",
+                              "amount": 400,
+                              "attack_ratio": 0,
+                              "ap_ratio": 150,
+                              "heal_type": "Ally"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_zilean_r_rewind"
+                            },
+                            {
+                              "type": "TargetSfx",
+                              "name": "league_zilean_r_rewind"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 1,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_zilean_r_lock",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Sfx",
+                            "name": "league_zilean_r_cast"
+                          },
+                          {
+                            "type": "CasterAnimation",
+                            "name": "skill",
+                            "tick": 30
+                          },
+                          {
+                            "type": "CasterViewEffect",
+                            "name": "league_zilean_r_cast"
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RangeEffect",
+                            "shape": {
+                              "Circle": {
+                                "radius": 40000
+                              }
+                            },
+                            "target": "EnemyChampion",
+                            "apply_type": "AroundCaster",
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_zilean_r_n1",
+                                "effect_buff": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_zilean_r_n2",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 3
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                "effect_none": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_zilean_r_n1",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 3
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 1,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_zilean_r_n2",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_zilean_r_armed"
+                                    },
+                                    {
+                                      "type": "RangeEffect",
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 1000
+                                        }
+                                      },
+                                      "target": "AllyOnlySelf",
+                                      "apply_type": "AroundCaster",
+                                      "effects": [
+                                        {
+                                          "type": "AddBuff",
+                                          "buff_state": {
+                                            "name": "league_zilean_r_rune",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 300
+                                              }
+                                            },
+                                            "undying": true
+                                          }
+                                        },
+                                        {
+                                          "type": "Sfx",
+                                          "name": "league_zilean_r_rune"
+                                        },
+                                        {
+                                          "type": "Delayed",
+                                          "tick": 299,
+                                          "effects": [
+                                            {
+                                              "type": "Heal",
+                                              "amount": 400,
+                                              "attack_ratio": 0,
+                                              "ap_ratio": 150,
+                                              "heal_type": "Caster"
+                                            },
+                                            {
+                                              "type": "CasterViewEffect",
+                                              "name": "league_zilean_r_rewind"
+                                            },
+                                            {
+                                              "type": "Sfx",
+                                              "name": "league_zilean_r_rewind"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "Sfx",
+                                          "name": "league_zilean_r_cast"
+                                        },
+                                        {
+                                          "type": "CasterAnimation",
+                                          "name": "skill",
+                                          "tick": 30
+                                        },
+                                        {
+                                          "type": "CasterViewEffect",
+                                          "name": "league_zilean_r_cast"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": []
+          }
+        },
+        {
+          "type": "Sfx",
+          "name": "league_zilean_q_cast"
+        },
+        {
+          "type": "CasterViewEffect",
+          "name": "league_zilean_q_cast"
+        },
+        {
+          "type": "RemoveCasterBuff",
+          "name": "league_zilean_q_lock"
+        },
+        {
+          "type": "RemoveCasterBuff",
+          "name": "league_zilean_q_tlock"
+        },
+        {
+          "type": "ParabolicProjectile",
+          "name": "league_zilean_q_bomb",
+          "travel_time": 24,
+          "range": 400000,
+          "range_effect_name": "",
+          "shape": {
+            "Circle": {
+              "radius": 8000
+            }
+          },
+          "applied_target": "EnemyWithoutTower",
+          "applied_effects": [
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_zilean_q_lock",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": []
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_zilean_q_lock",
+                        "duration": {
+                          "Time": {
+                            "tick": 3
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "TargetSfx",
+                      "name": "league_zilean_q_stick"
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_zilean_q_live"
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_zilean_q_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 188
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "AddCasted",
+                      "casted_type": "Fire",
+                      "duration": 180,
+                      "period": 4,
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_zilean_q_seen"
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_zilean_q_seen",
+                            "duration": {
+                              "Time": {
+                                "tick": 5
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "ParabolicProjectile",
+                          "name": "league_zilean_q_watch",
+                          "travel_time": 1,
+                          "range": 400000,
+                          "range_effect_name": "",
+                          "shape": {
+                            "Circle": {
+                              "radius": 1
+                            }
+                          },
+                          "applied_target": "EnemyChampion",
+                          "applied_effects": [],
+                          "end_effects": [
+                            {
+                              "type": "Delayed",
+                              "tick": 6,
+                              "effects": [
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_zilean_q_seen",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  },
+                                  "effect_none": {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_zilean_q_live",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_zilean_q_live"
+                                        },
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_zilean_q_off",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 180
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
+                                        },
+                                        {
+                                          "type": "ViewEffect",
+                                          "name": "league_zilean_q_boom"
+                                        },
+                                        {
+                                          "type": "Sfx",
+                                          "name": "league_zilean_q_boom"
+                                        },
+                                        {
+                                          "type": "RangeProjectile",
+                                          "name": "league_zilean_q_boom_z",
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 30000
+                                            }
+                                          },
+                                          "delay": 1,
+                                          "apply": 1,
+                                          "applied_target": "EnemyWithoutTower",
+                                          "applied_effects": [
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "ApAttack",
+                                                "damage": 80,
+                                                "attack_ratio": 70,
+                                                "hp_ratio": 0,
+                                                "attack_effect_type": "Target"
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "ViewEffect",
+                                                "name": "league_zilean_q_hit"
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_zilean_q_off",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": []
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_zilean_q_bomb_on"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "league_zilean_q_tick"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "Delayed",
+                      "tick": 30,
+                      "effects": [
+                        {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_zilean_q_off",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": []
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "ViewEffect",
+                                "name": "league_zilean_q_bomb_on"
+                              },
+                              {
+                                "type": "TargetSfx",
+                                "name": "league_zilean_q_tick"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Delayed",
+                      "tick": 60,
+                      "effects": [
+                        {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_zilean_q_off",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": []
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "ViewEffect",
+                                "name": "league_zilean_q_bomb_on"
+                              },
+                              {
+                                "type": "TargetSfx",
+                                "name": "league_zilean_q_tick"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Delayed",
+                      "tick": 90,
+                      "effects": [
+                        {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_zilean_q_off",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": []
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "ViewEffect",
+                                "name": "league_zilean_q_bomb_on"
+                              },
+                              {
+                                "type": "TargetSfx",
+                                "name": "league_zilean_q_tick"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Delayed",
+                      "tick": 120,
+                      "effects": [
+                        {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_zilean_q_off",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": []
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "ViewEffect",
+                                "name": "league_zilean_q_bomb_on"
+                              },
+                              {
+                                "type": "TargetSfx",
+                                "name": "league_zilean_q_tick"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Delayed",
+                      "tick": 150,
+                      "effects": [
+                        {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_zilean_q_off",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": []
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "ViewEffect",
+                                "name": "league_zilean_q_bomb_on"
+                              },
+                              {
+                                "type": "TargetSfx",
+                                "name": "league_zilean_q_tick"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Delayed",
+                      "tick": 180,
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_zilean_q_live"
+                        },
+                        {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_zilean_q_pop",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": []
+                          },
+                          "effect_none": {
+                            "type": "ParabolicProjectile",
+                            "name": "league_zilean_q_boom_lob",
+                            "travel_time": 1,
+                            "range": 400000,
+                            "range_effect_name": "",
+                            "shape": {
+                              "Circle": {
+                                "radius": 1
+                              }
+                            },
+                            "applied_target": "EnemyChampion",
+                            "applied_effects": [],
+                            "end_effects": [
+                              {
+                                "type": "ViewEffect",
+                                "name": "league_zilean_q_boom"
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "league_zilean_q_boom"
+                              },
+                              {
+                                "type": "RangeProjectile",
+                                "name": "league_zilean_q_boom_z",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 30000
+                                  }
+                                },
+                                "delay": 1,
+                                "apply": 1,
+                                "applied_target": "EnemyWithoutTower",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "ApAttack",
+                                      "damage": 80,
+                                      "attack_ratio": 70,
+                                      "hp_ratio": 0,
+                                      "attack_effect_type": "Target"
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "ViewEffect",
+                                      "name": "league_zilean_q_hit"
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          ],
+          "end_effects": [
+            {
+              "type": "Delayed",
+              "tick": 1,
+              "effects": [
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_zilean_q_lock",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "ViewEffect",
+                        "name": "league_zilean_q_bomb_ground"
+                      },
+                      {
+                        "type": "Sfx",
+                        "name": "league_zilean_q_ground"
+                      },
+                      {
+                        "type": "Delayed",
+                        "tick": 179,
+                        "effects": [
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_zilean_q_boom"
+                          },
+                          {
+                            "type": "Sfx",
+                            "name": "league_zilean_q_boom"
+                          },
+                          {
+                            "type": "RangeProjectile",
+                            "name": "league_zilean_q_boom_z",
+                            "shape": {
+                              "Circle": {
+                                "radius": 30000
+                              }
+                            },
+                            "delay": 1,
+                            "apply": 1,
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ApAttack",
+                                  "damage": 80,
+                                  "attack_ratio": 70,
+                                  "hp_ratio": 0,
+                                  "attack_effect_type": "Target"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "league_zilean_q_hit"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "ParabolicProjectile",
+          "name": "league_zilean_q_twin",
+          "travel_time": 24,
+          "range": 400000,
+          "range_effect_name": "",
+          "shape": {
+            "Circle": {
+              "radius": 8000
+            }
+          },
+          "applied_target": "EnemyChampion",
+          "applied_effects": [
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_zilean_q_tlock",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": []
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_zilean_q_tlock",
+                        "duration": {
+                          "Time": {
+                            "tick": 3
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_zilean_w_cd",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": []
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_zilean_w_cd",
+                              "duration": {
+                                "Time": {
+                                  "tick": 720
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_zilean_q_pop",
+                              "duration": {
+                                "Time": {
+                                  "tick": 182
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "RangeEffect",
+                            "shape": {
+                              "Circle": {
+                                "radius": 1000
+                              }
+                            },
+                            "target": "AllyOnlySelf",
+                            "apply_type": "AroundCaster",
+                            "effects": [
+                              {
+                                "type": "CasterAnimation",
+                                "name": "w",
+                                "tick": 30
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "league_zilean_w_cast"
+                              },
+                              {
+                                "type": "CasterViewEffect",
+                                "name": "league_zilean_w_rewind"
+                              },
+                              {
+                                "type": "Delayed",
+                                "tick": 30,
+                                "effects": [
+                                  {
+                                    "type": "CasterAnimation",
+                                    "name": "skill",
+                                    "tick": 30
+                                  },
+                                  {
+                                    "type": "Sfx",
+                                    "name": "league_zilean_q_cast"
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 42,
+                            "effects": [
+                              {
+                                "type": "TargetProjectile",
+                                "name": "league_zilean_q_bomb2",
+                                "speed": 6000,
+                                "y_offset": -14000,
+                                "applied_target": "EnemyChampion",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_zilean_q_live"
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_zilean_q_off",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 182
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_zilean_w_cut",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 2
+                                          }
+                                        },
+                                        "skill_cooldown_mult": 60,
+                                        "ult_cooldown_mult": -60
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "Delayed",
+                                      "tick": 1,
+                                      "effects": [
+                                        {
+                                          "type": "ParabolicProjectile",
+                                          "name": "league_zilean_q_boom2_lob",
+                                          "travel_time": 1,
+                                          "range": 400000,
+                                          "range_effect_name": "",
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 1
+                                            }
+                                          },
+                                          "applied_target": "EnemyChampion",
+                                          "applied_effects": [],
+                                          "end_effects": [
+                                            {
+                                              "type": "ViewEffect",
+                                              "name": "league_zilean_q_boom2"
+                                            },
+                                            {
+                                              "type": "Sfx",
+                                              "name": "league_zilean_q_boom2"
+                                            },
+                                            {
+                                              "type": "RangeProjectile",
+                                              "name": "league_zilean_q_boom2_z",
+                                              "shape": {
+                                                "Circle": {
+                                                  "radius": 30000
+                                                }
+                                              },
+                                              "delay": 1,
+                                              "apply": 1,
+                                              "applied_target": "EnemyWithoutTower",
+                                              "applied_effects": [
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "ApAttack",
+                                                    "damage": 160,
+                                                    "attack_ratio": 140,
+                                                    "hp_ratio": 0,
+                                                    "attack_effect_type": "Target"
+                                                  }
+                                                },
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "ViewEffect",
+                                                    "name": "league_zilean_q_hit"
+                                                  }
+                                                },
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "Stun",
+                                                    "duration": 75
+                                                  }
+                                                },
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "ViewEffect",
+                                                    "name": "league_zilean_q_stun"
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ],
+          "end_effects": []
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.league_zilean.skill2",
+    "duration": 30,
+    "cooltime": 600,
+    "start_timing": 12,
+    "cancelable": false,
+    "range": 70000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_zilean_life",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_zilean_life",
+                  "duration": "Permanent"
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_zilean_b_cd",
+                  "duration": {
+                    "Time": {
+                      "tick": 5400
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              }
+            ]
+          }
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_zilean_r_armed",
+          "effect_buff": {
+            "type": "SwitchByBuff",
+            "buff_name": "league_zilean_r_busy",
+            "effect_buff": {
+              "type": "Combine",
+              "effects": []
+            },
+            "effect_none": {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_zilean_r_busy",
+                    "duration": {
+                      "Time": {
+                        "tick": 3
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_zilean_r_n1"
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_zilean_r_n2"
+                },
+                {
+                  "type": "RandomTarget",
+                  "range": 90000,
+                  "casting_target": "AllyChampionInCC",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_zilean_r_lock",
+                        "duration": {
+                          "Time": {
+                            "tick": 3
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_zilean_r_armed"
+                    },
+                    {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "AddBuff",
+                          "buff_state": {
+                            "name": "league_zilean_r_rune",
+                            "duration": {
+                              "Time": {
+                                "tick": 300
+                              }
+                            },
+                            "undying": true
+                          }
+                        },
+                        {
+                          "type": "TargetSfx",
+                          "name": "league_zilean_r_rune"
+                        },
+                        {
+                          "type": "Delayed",
+                          "tick": 299,
+                          "effects": [
+                            {
+                              "type": "Heal",
+                              "amount": 400,
+                              "attack_ratio": 0,
+                              "ap_ratio": 150,
+                              "heal_type": "Ally"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_zilean_r_rewind"
+                            },
+                            {
+                              "type": "TargetSfx",
+                              "name": "league_zilean_r_rewind"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 1,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_zilean_r_lock",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Sfx",
+                            "name": "league_zilean_r_cast"
+                          },
+                          {
+                            "type": "CasterAnimation",
+                            "name": "skill",
+                            "tick": 30
+                          },
+                          {
+                            "type": "CasterViewEffect",
+                            "name": "league_zilean_r_cast"
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RangeEffect",
+                            "shape": {
+                              "Circle": {
+                                "radius": 40000
+                              }
+                            },
+                            "target": "EnemyChampion",
+                            "apply_type": "AroundCaster",
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_zilean_r_n1",
+                                "effect_buff": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_zilean_r_n2",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 3
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                "effect_none": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_zilean_r_n1",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 3
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 1,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_zilean_r_n2",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_zilean_r_armed"
+                                    },
+                                    {
+                                      "type": "RangeEffect",
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 1000
+                                        }
+                                      },
+                                      "target": "AllyOnlySelf",
+                                      "apply_type": "AroundCaster",
+                                      "effects": [
+                                        {
+                                          "type": "AddBuff",
+                                          "buff_state": {
+                                            "name": "league_zilean_r_rune",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 300
+                                              }
+                                            },
+                                            "undying": true
+                                          }
+                                        },
+                                        {
+                                          "type": "Sfx",
+                                          "name": "league_zilean_r_rune"
+                                        },
+                                        {
+                                          "type": "Delayed",
+                                          "tick": 299,
+                                          "effects": [
+                                            {
+                                              "type": "Heal",
+                                              "amount": 400,
+                                              "attack_ratio": 0,
+                                              "ap_ratio": 150,
+                                              "heal_type": "Caster"
+                                            },
+                                            {
+                                              "type": "CasterViewEffect",
+                                              "name": "league_zilean_r_rewind"
+                                            },
+                                            {
+                                              "type": "Sfx",
+                                              "name": "league_zilean_r_rewind"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "Sfx",
+                                          "name": "league_zilean_r_cast"
+                                        },
+                                        {
+                                          "type": "CasterAnimation",
+                                          "name": "skill",
+                                          "tick": 30
+                                        },
+                                        {
+                                          "type": "CasterViewEffect",
+                                          "name": "league_zilean_r_cast"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": []
+          }
+        },
+        {
+          "type": "Sfx",
+          "name": "league_zilean_e_cast"
+        },
+        {
+          "type": "CasterViewEffect",
+          "name": "league_zilean_e_cast"
+        },
+        {
+          "type": "AddBuff",
+          "buff_state": {
+            "name": "league_zilean_e_slow",
+            "duration": {
+              "Time": {
+                "tick": 150
+              }
+            },
+            "move_speed_mult": -35
+          }
+        },
+        {
+          "type": "TargetSfx",
+          "name": "league_zilean_e_slow"
+        },
+        {
+          "type": "RemoveCasterBuff",
+          "name": "league_zilean_e_got"
+        },
+        {
+          "type": "RandomTarget",
+          "range": 40000,
+          "casting_target": "AllyNotSelf",
+          "from_projectile": false,
+          "effects": [
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_zilean_e_got",
+                "duration": {
+                  "Time": {
+                    "tick": 1
+                  }
+                }
+              },
+              "only_to_enemy": false
+            },
+            {
+              "type": "AddBuff",
+              "buff_state": {
+                "name": "league_zilean_e_haste",
+                "duration": {
+                  "Time": {
+                    "tick": 150
+                  }
+                },
+                "move_speed_mult": 35
+              }
+            },
+            {
+              "type": "TargetSfx",
+              "name": "league_zilean_e_haste"
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_zilean_b_cd",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_zilean_b_cd",
+                      "duration": {
+                        "Time": {
+                          "tick": 5400
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "league_zilean_bottle",
+                      "duration": "Permanent",
+                      "attack": 10,
+                      "magic_power": 10,
+                      "hp": 80
+                    }
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "league_zilean_p_bottle"
+                  },
+                  {
+                    "type": "TargetSfx",
+                    "name": "league_zilean_p_bottle"
+                  },
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 1000
+                      }
+                    },
+                    "target": "AllyOnlySelf",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
+                        "type": "AddBuff",
+                        "buff_state": {
+                          "name": "league_zilean_bottle",
+                          "duration": "Permanent",
+                          "attack": 10,
+                          "magic_power": 10,
+                          "hp": 80
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_zilean_e_got",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "RandomTarget",
+            "range": 80000,
+            "casting_target": "AllyNotSelf",
+            "from_projectile": false,
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_zilean_e_got",
+                  "duration": {
+                    "Time": {
+                      "tick": 1
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "AddBuff",
+                "buff_state": {
+                  "name": "league_zilean_e_haste",
+                  "duration": {
+                    "Time": {
+                      "tick": 150
+                    }
+                  },
+                  "move_speed_mult": 35
+                }
+              },
+              {
+                "type": "TargetSfx",
+                "name": "league_zilean_e_haste"
+              },
+              {
+                "type": "SwitchByBuff",
+                "buff_name": "league_zilean_b_cd",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": []
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_zilean_b_cd",
+                        "duration": {
+                          "Time": {
+                            "tick": 5400
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "AddBuff",
+                      "buff_state": {
+                        "name": "league_zilean_bottle",
+                        "duration": "Permanent",
+                        "attack": 10,
+                        "magic_power": 10,
+                        "hp": 80
+                      }
+                    },
+                    {
+                      "type": "ViewEffect",
+                      "name": "league_zilean_p_bottle"
+                    },
+                    {
+                      "type": "TargetSfx",
+                      "name": "league_zilean_p_bottle"
+                    },
+                    {
+                      "type": "RangeEffect",
+                      "shape": {
+                        "Circle": {
+                          "radius": 1000
+                        }
+                      },
+                      "target": "AllyOnlySelf",
+                      "apply_type": "AroundCaster",
+                      "effects": [
+                        {
+                          "type": "AddBuff",
+                          "buff_state": {
+                            "name": "league_zilean_bottle",
+                            "duration": "Permanent",
+                            "attack": 10,
+                            "magic_power": 10,
+                            "hp": 80
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_zilean_e_got",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "RangeEffect",
+            "shape": {
+              "Circle": {
+                "radius": 1000
+              }
+            },
+            "target": "AllyOnlySelf",
+            "apply_type": "AroundCaster",
+            "effects": [
+              {
+                "type": "AddBuff",
+                "buff_state": {
+                  "name": "league_zilean_e_haste",
+                  "duration": {
+                    "Time": {
+                      "tick": 150
+                    }
+                  },
+                  "move_speed_mult": 35
+                }
+              },
+              {
+                "type": "TargetSfx",
+                "name": "league_zilean_e_haste"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "idle",
+    "description": "#asset/base/text/champion?description.league_zilean.ult",
+    "duration": 3,
+    "cooltime": 3600,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 60000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_zilean_life",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_zilean_life",
+                  "duration": "Permanent"
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_zilean_b_cd",
+                  "duration": {
+                    "Time": {
+                      "tick": 5400
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              }
+            ]
+          }
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_zilean_r_armed",
+            "duration": {
+              "Time": {
+                "tick": 900
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_zilean_r_armed",
+          "effect_buff": {
+            "type": "SwitchByBuff",
+            "buff_name": "league_zilean_r_busy",
+            "effect_buff": {
+              "type": "Combine",
+              "effects": []
+            },
+            "effect_none": {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_zilean_r_busy",
+                    "duration": {
+                      "Time": {
+                        "tick": 3
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_zilean_r_n1"
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_zilean_r_n2"
+                },
+                {
+                  "type": "RandomTarget",
+                  "range": 90000,
+                  "casting_target": "AllyChampionInCC",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_zilean_r_lock",
+                        "duration": {
+                          "Time": {
+                            "tick": 3
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_zilean_r_armed"
+                    },
+                    {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "AddBuff",
+                          "buff_state": {
+                            "name": "league_zilean_r_rune",
+                            "duration": {
+                              "Time": {
+                                "tick": 300
+                              }
+                            },
+                            "undying": true
+                          }
+                        },
+                        {
+                          "type": "TargetSfx",
+                          "name": "league_zilean_r_rune"
+                        },
+                        {
+                          "type": "Delayed",
+                          "tick": 299,
+                          "effects": [
+                            {
+                              "type": "Heal",
+                              "amount": 400,
+                              "attack_ratio": 0,
+                              "ap_ratio": 150,
+                              "heal_type": "Ally"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_zilean_r_rewind"
+                            },
+                            {
+                              "type": "TargetSfx",
+                              "name": "league_zilean_r_rewind"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 1,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_zilean_r_lock",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "Sfx",
+                            "name": "league_zilean_r_cast"
+                          },
+                          {
+                            "type": "CasterAnimation",
+                            "name": "skill",
+                            "tick": 30
+                          },
+                          {
+                            "type": "CasterViewEffect",
+                            "name": "league_zilean_r_cast"
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RangeEffect",
+                            "shape": {
+                              "Circle": {
+                                "radius": 40000
+                              }
+                            },
+                            "target": "EnemyChampion",
+                            "apply_type": "AroundCaster",
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_zilean_r_n1",
+                                "effect_buff": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_zilean_r_n2",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 3
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                "effect_none": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_zilean_r_n1",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 3
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 1,
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_zilean_r_n2",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_zilean_r_armed"
+                                    },
+                                    {
+                                      "type": "RangeEffect",
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 1000
+                                        }
+                                      },
+                                      "target": "AllyOnlySelf",
+                                      "apply_type": "AroundCaster",
+                                      "effects": [
+                                        {
+                                          "type": "AddBuff",
+                                          "buff_state": {
+                                            "name": "league_zilean_r_rune",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 300
+                                              }
+                                            },
+                                            "undying": true
+                                          }
+                                        },
+                                        {
+                                          "type": "Sfx",
+                                          "name": "league_zilean_r_rune"
+                                        },
+                                        {
+                                          "type": "Delayed",
+                                          "tick": 299,
+                                          "effects": [
+                                            {
+                                              "type": "Heal",
+                                              "amount": 400,
+                                              "attack_ratio": 0,
+                                              "ap_ratio": 150,
+                                              "heal_type": "Caster"
+                                            },
+                                            {
+                                              "type": "CasterViewEffect",
+                                              "name": "league_zilean_r_rewind"
+                                            },
+                                            {
+                                              "type": "Sfx",
+                                              "name": "league_zilean_r_rewind"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "Sfx",
+                                          "name": "league_zilean_r_cast"
+                                        },
+                                        {
+                                          "type": "CasterAnimation",
+                                          "name": "skill",
+                                          "tick": 30
+                                        },
+                                        {
+                                          "type": "CasterViewEffect",
+                                          "name": "league_zilean_r_cast"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": []
+          }
+        },
+        {
+          "type": "Delayed",
+          "tick": 899,
+          "effects": [
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_zilean_r_armed",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_zilean_r_armed"
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_zilean_r_retry",
+                      "duration": {
+                        "Time": {
+                          "tick": 3
+                        }
+                      },
+                      "ult_cooldown_mult": 5900
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": []
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "league_zilean_a_orb",
+      "anim": "asset/league/effects/league_zilean_fx",
+      "tag": "a_orb",
+      "repeat": true,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_zilean_q_bomb",
+      "anim": "asset/league/effects/league_zilean_fx",
+      "tag": "q_bomb",
+      "repeat": true,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_zilean_q_bomb2",
+      "anim": "asset/league/effects/league_zilean_fx",
+      "tag": "q_bomb",
+      "repeat": true,
+      "z": 1
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "league_zilean_a_cast",
+      "anim": "asset/league/effects/league_zilean_fx",
+      "tag": "a_cast",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_zilean_a_hit",
+      "anim": "asset/league/effects/league_zilean_fx",
+      "tag": "a_hit",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_zilean_q_cast",
+      "anim": "asset/league/effects/league_zilean_fx",
+      "tag": "q_cast",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_zilean_q_bomb_on",
+      "anim": "asset/league/effects/league_zilean_fx",
+      "tag": "q_bomb_on",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_zilean_q_bomb_ground",
+      "anim": "asset/league/effects/league_zilean_fx",
+      "tag": "q_bomb_ground",
+      "z": 1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_zilean_q_hit",
+      "anim": "asset/league/effects/league_zilean_fx",
+      "tag": "q_hit",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_zilean_q_stun",
+      "anim": "asset/league/effects/league_zilean_fx",
+      "tag": "q_stun",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_zilean_q_boom",
+      "anim": "asset/league/effects/league_zilean_big",
+      "tag": "q_boom",
+      "z": 1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_zilean_q_boom2",
+      "anim": "asset/league/effects/league_zilean_big",
+      "tag": "q_boom2",
+      "z": 1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_zilean_w_rewind",
+      "anim": "asset/league/effects/league_zilean_big",
+      "tag": "w_rewind",
+      "z": -1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_zilean_e_cast",
+      "anim": "asset/league/effects/league_zilean_fx",
+      "tag": "e_cast",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_zilean_p_bottle",
+      "anim": "asset/league/effects/league_zilean_fx",
+      "tag": "p_bottle",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_zilean_r_cast",
+      "anim": "asset/league/effects/league_zilean_big",
+      "tag": "r_cast",
+      "z": -1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_zilean_r_rewind",
+      "anim": "asset/league/effects/league_zilean_big",
+      "tag": "r_rewind",
+      "z": 2,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "league_zilean_e_slow",
+      "anim": "asset/league/effects/league_zilean_fx",
+      "tag": "e_slow",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "league_zilean_e_haste",
+      "anim": "asset/league/effects/league_zilean_fx",
+      "tag": "e_haste",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_zilean_r_rune",
+      "anim": "asset/league/effects/league_zilean_big",
+      "tag": "r_rune",
+      "repeat": true,
+      "z": 2
+    }
+  ]
+}
