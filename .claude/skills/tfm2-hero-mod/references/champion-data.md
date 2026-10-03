@@ -832,7 +832,12 @@ spin with only `can_use_with_move` stood in place), so give every `Delayed` puls
 to its `RangeEffect`: `RandomTarget {range: 60000, casting_target: EnemyChampion, effects:
 [MoveToTarget {speed: 1400, range: 60000, end_effects: []}]}`. Re-pick the target on every pulse:
 chasing only the cast target left Garen spinning in place once it died - at once when it was a
-minion. Cast it on `EnemyWithoutTower` so it is also used on waves and camps (on `EnemyChampion`
+minion. *(Since 2026-10-03 the pulses look in rings instead - a player: "自动吸附敌方英雄有点容易送了，而且清兵的时候
+不会动，也很呆": the random champion within 60000 at 1400 a tick dived past the front, and with no champion near he
+spun on the spot on 73% of wave and camp spins. Each pulse now dashes at his own move speed (1000) onto an enemy
+champion within 25000, else any enemy within 30000, else within 45000 (a 1-tick caster flag skips the outer rings,
+league_lucian R's way; `tools/kit/garen_spin.py`): still spins 6%, kill difference within the noise; a version with
+no champion ring ended fewer spins alone but lost a kill a game.)* Cast it on `EnemyWithoutTower` so it is also used on waves and camps (on `EnemyChampion`
 players never saw it clear and thought it dealt no damage); the pulses' `RandomTarget` still
 chases champions in range. See league_garen E.
 Once the dashes worked, the user saw Garen chase *without* turning: one 180-tick `CasterAnimation`
