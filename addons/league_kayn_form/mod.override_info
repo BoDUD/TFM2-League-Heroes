@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_kayn": {
+    "remapping": "asset/league_kayn_form/override/league_kayn",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_kayn_form/text/champion",
+    "type": "merge"
+  }
+}
