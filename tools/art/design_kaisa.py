@@ -38,6 +38,7 @@ DRAFT = os.path.join(ROOT, "assets", "source", "kaisa", "codex_model", "kaisa_de
 OUT = os.path.join(ROOT, "assets", "source", "native", "kaisa_native.png")
 MAXC = 26
 ROWS = 44
+KEEP_ROWS = set()             # more rows of the read-back the cut never takes out (design_kaisa_v2.py: the pods' tips)
 EYES = [(19, 27), (19, 28), (20, 27), (20, 28), (19, 32), (19, 33), (20, 32), (20, 33)]   # on the 64x46 read-back
 
 
@@ -138,11 +139,11 @@ def cut(a):
     best = None
     for order in ("rc", "cr"):
         if order == "rc":
-            r_, lr = keep_lines(list(idx), list(w), keep_n, face_rows)
+            r_, lr = keep_lines(list(idx), list(w), keep_n, face_rows | KEEP_ROWS)
             c_, lc = keep_lines(list(idx[r_].T), list(w[r_].T), tw, face_cols)
         else:
             c_, lc = keep_lines(list(idx.T), list(w.T), tw, face_cols)
-            r_, lr = keep_lines(list(idx[:, c_]), list(w[:, c_]), keep_n, face_rows)
+            r_, lr = keep_lines(list(idx[:, c_]), list(w[:, c_]), keep_n, face_rows | KEEP_ROWS)
         if best is None or lr + lc < best[0]:
             best = (lr + lc, r_, c_)
     _, rows, kc = best

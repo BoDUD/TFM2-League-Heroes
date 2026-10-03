@@ -1,0 +1,104 @@
+{
+  "A": {
+    "status": "REVIEW_DRAFT_NOT_ACCEPTED",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "block_spacing_estimate_px": 21.5,
+    "uniform_grid_verified": false,
+    "logical_canvas": [
+      31,
+      54
+    ],
+    "logical_opaque_bbox": [
+      0,
+      0,
+      30,
+      54
+    ],
+    "opaque_pixels": 958,
+    "colors": 25,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "estimated_segments": {
+      "head_including_hair_and_face": 15,
+      "torso": 9,
+      "thigh": 10,
+      "shin_and_boot": 14
+    },
+    "hair_face_split": "not reliably measurable",
+    "hair_to_sole_estimated_rows": 47,
+    "strict_40row_pass": false
+  },
+  "B": {
+    "status": "REVIEW_DRAFT_NOT_ACCEPTED",
+    "raw_size": [
+      1240,
+      1268
+    ],
+    "block_spacing_estimate_px": 20.5,
+    "uniform_grid_verified": false,
+    "logical_canvas": [
+      32,
+      60
+    ],
+    "logical_opaque_bbox": [
+      0,
+      0,
+      32,
+      59
+    ],
+    "opaque_pixels": 1053,
+    "colors": 31,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "estimated_segments": {
+      "head_including_hair_and_face": 16,
+      "torso": 10,
+      "thigh": 11,
+      "shin_and_boot": 16
+    },
+    "hair_face_split": "not reliably measurable",
+    "hair_to_sole_estimated_rows": 53,
+    "strict_40row_pass": false
+  },
+  "C": {
+    "status": "REVIEW_DRAFT_NOT_ACCEPTED",
+    "raw_size": [
+      971,
+      1619
+    ],
+    "block_spacing_estimate_px": 21,
+    "uniform_grid_verified": false,
+    "logical_canvas": [
+      34,
+      68
+    ],
+    "logical_opaque_bbox": [
+      0,
+      0,
+      34,
+      68
+    ],
+    "opaque_pixels": 1208,
+    "colors": 25,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "estimated_segments": {
+      "head_including_hair_and_face": 14,
+      "torso": 13,
+      "thigh": 15,
+      "shin_and_boot": 21
+    },
+    "hair_face_split": "not reliably measurable",
+    "hair_to_sole_estimated_rows": 63,
+    "strict_40row_pass": false
+  }
+}

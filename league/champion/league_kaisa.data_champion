@@ -1737,7 +1737,7 @@
                 "type": "TargetProjectile",
                 "name": "league_kaisa_q_missile",
                 "speed": 4500,
-                "y_offset": -24000,
+                "y_offset": -21000,
                 "applied_target": "EnemyWithoutTower",
                 "applied_effects": [
                   {
@@ -1793,7 +1793,7 @@
                             "type": "TargetProjectile",
                             "name": "league_kaisa_q_missile",
                             "speed": 4500,
-                            "y_offset": -15000,
+                            "y_offset": -12000,
                             "applied_target": "EnemyWithoutTower",
                             "applied_effects": [
                               {
@@ -1859,7 +1859,7 @@
                                 "type": "TargetProjectile",
                                 "name": "league_kaisa_q_missile",
                                 "speed": 4500,
-                                "y_offset": -33000,
+                                "y_offset": -30000,
                                 "applied_target": "EnemyWithoutTower",
                                 "applied_effects": [
                                   {
@@ -1927,7 +1927,7 @@
                                 "type": "TargetProjectile",
                                 "name": "league_kaisa_q_missile",
                                 "speed": 4500,
-                                "y_offset": -24000,
+                                "y_offset": -21000,
                                 "applied_target": "EnemyWithoutTower",
                                 "applied_effects": [
                                   {
@@ -1974,7 +1974,7 @@
                 "type": "TargetProjectile",
                 "name": "league_kaisa_q_missile",
                 "speed": 4500,
-                "y_offset": -24000,
+                "y_offset": -21000,
                 "applied_target": "EnemyWithoutTower",
                 "applied_effects": [
                   {
@@ -2030,7 +2030,7 @@
                             "type": "TargetProjectile",
                             "name": "league_kaisa_q_missile",
                             "speed": 4500,
-                            "y_offset": -15000,
+                            "y_offset": -12000,
                             "applied_target": "EnemyWithoutTower",
                             "applied_effects": [
                               {
@@ -2096,7 +2096,7 @@
                                 "type": "TargetProjectile",
                                 "name": "league_kaisa_q_missile",
                                 "speed": 4500,
-                                "y_offset": -33000,
+                                "y_offset": -30000,
                                 "applied_target": "EnemyWithoutTower",
                                 "applied_effects": [
                                   {
@@ -2164,7 +2164,7 @@
                                 "type": "TargetProjectile",
                                 "name": "league_kaisa_q_missile",
                                 "speed": 4500,
-                                "y_offset": -24000,
+                                "y_offset": -21000,
                                 "applied_target": "EnemyWithoutTower",
                                 "applied_effects": [
                                   {
