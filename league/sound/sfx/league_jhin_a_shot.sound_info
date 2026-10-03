@@ -2,8 +2,13 @@
   "plays": [
     {
       "delay": 0.0,
+      "clip": "league_jhin_sfx_attack_fire",
+      "volume": 0.6
+    },
+    {
+      "delay": 0.0,
       "clip": "league_jhin_sfx_attack",
-      "volume": 0.5
+      "volume": 0.35
     }
   ]
 }

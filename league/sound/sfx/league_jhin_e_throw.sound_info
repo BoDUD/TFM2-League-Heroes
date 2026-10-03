@@ -2,6 +2,11 @@
   "plays": [
     {
       "delay": 0.0,
+      "clip": "league_jhin_sfx_e_cast",
+      "volume": 0.45
+    },
+    {
+      "delay": 0.0,
       "clip": "league_jhin_sfx_e_throw",
       "volume": 0.5
     }

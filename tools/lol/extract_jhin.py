@@ -13,7 +13,9 @@ JhinPassiveAttack_OnMissileCast (the fourth shot) with JhinCritAttack_OnHit, Jhi
 JhinQ_OnMissileLaunch / _OnHit and JhinQMisBounce_OnMissileLaunch (Dancing Grenade and its bounces), JhinW_OnCast /
 _misslelaunch / _champ_hit (Deadly Flourish), JhinETrap_OnMissileLaunch / _OnBuffActivate and
 JhinETrapSlow_buffcast_trigger / _buffdeactivate_explodeondeath (Captive Audience: thrown, landed, bloom, burst),
-JhinR_OnCast, JhinRShotMis(4)_OnMissileLaunch / _hit_champ (Curtain Call and its fourth shot). Voice: the
+JhinR_OnCast, JhinRShotMis(4)_OnMissileLaunch / _hit_champ (Curtain Call and its fourth shot); the shots' reports
+(_OnMissileCast: BasicAttack, PassiveAttack, JhinQ, JhinRShotMis(4)) and the casts' clicks (_OnCast: PassiveAttack,
+JhinQ, JhinE, JhinRShot), which League plays with the launches. Voice: the
 JhinPassiveAttack / JhinQ / JhinW / JhinR cast3D lines. The icons: Jhin_Q = Q, Jhin_W = W (E rides on it),
 Jhin_R = R.
 """
@@ -56,6 +58,16 @@ CLIPS = {
     "league_jhin_sfx_r_shot4": ("Play_sfx_Jhin_JhinRShotMis4_OnMissileLaunch", 162033505, 1.6, -4),
     "league_jhin_sfx_r_hit": ("Play_sfx_Jhin_JhinRShotMis_hit_champ", 466662020, 1.0, -7),
     "league_jhin_sfx_r_hit4": ("Play_sfx_Jhin_JhinRShotMis4_hit_champ", 40846800, 1.4, -6),
+    # the shots' report: League plays _OnMissileCast with _OnMissileLaunch; the first clips above took only the launch
+    # layer, a whoosh that peaks 250-530 ms in (the user: 「烬的技能音效…不太对」); _OnMissileCast peaks in its first 5 ms
+    "league_jhin_sfx_attack_fire": ("Play_sfx_Jhin_JhinBasicAttack_OnMissileCast", 505400768, 0.8, -8),
+    "league_jhin_sfx_a4_flourish": ("Play_sfx_Jhin_JhinPassiveAttack_OnCast", 655766925, 1.0, -9),
+    "league_jhin_sfx_q_flick": ("Play_sfx_Jhin_JhinQ_OnCast", 196141365, 0.6, -10),
+    "league_jhin_sfx_q_throw": ("Play_sfx_Jhin_JhinQ_OnMissileCast", 53175217, 0.8, -8),
+    "league_jhin_sfx_e_cast": ("Play_sfx_Jhin_JhinE_OnCast", 594274455, 0.9, -9),
+    "league_jhin_sfx_r_click": ("Play_sfx_Jhin_JhinRShot_OnCast", 831471844, 0.5, -10),
+    "league_jhin_sfx_r_fire": ("Play_sfx_Jhin_JhinRShotMis_OnMissileCast", 46429787, 2.1, -5),
+    "league_jhin_sfx_r_fire4": ("Play_sfx_Jhin_JhinRShotMis4_OnMissileCast", 642455238, 2.1, -4),
     "league_jhin_vo_a4": ("Play_vo_Jhin_JhinPassiveAttack_cast3D", 955336664, 1.4, -2),
     "league_jhin_vo_q": ("Play_vo_Jhin_JhinQ_cast3D", 1985355450, 1.4, -2),
     "league_jhin_vo_w": ("Play_vo_Jhin_JhinW_cast3D", 1266575895, 1.4, -2),

@@ -426,12 +426,14 @@
               "only_to_enemy": false
             },
             {
-              "type": "CasterViewEffect",
-              "name": "league_jhin_a_cast"
-            },
-            {
-              "type": "Sfx",
-              "name": "league_jhin_a_shot"
+              "type": "Delayed",
+              "tick": 2,
+              "effects": [
+                {
+                  "type": "CasterViewEffect",
+                  "name": "league_jhin_a_cast"
+                }
+              ]
             },
             {
               "type": "Delayed",
@@ -440,6 +442,10 @@
                 {
                   "type": "CasterViewEffect",
                   "name": "league_jhin_a_muzzle"
+                },
+                {
+                  "type": "Sfx",
+                  "name": "league_jhin_a_shot"
                 },
                 {
                   "type": "TargetProjectile",
@@ -710,12 +716,14 @@
                 "only_to_enemy": false
               },
               {
-                "type": "CasterViewEffect",
-                "name": "league_jhin_a_cast"
-              },
-              {
-                "type": "Sfx",
-                "name": "league_jhin_a_shot"
+                "type": "Delayed",
+                "tick": 2,
+                "effects": [
+                  {
+                    "type": "CasterViewEffect",
+                    "name": "league_jhin_a_cast"
+                  }
+                ]
               },
               {
                 "type": "Delayed",
@@ -724,6 +732,10 @@
                   {
                     "type": "CasterViewEffect",
                     "name": "league_jhin_a_muzzle"
+                  },
+                  {
+                    "type": "Sfx",
+                    "name": "league_jhin_a_shot"
                   },
                   {
                     "type": "TargetProjectile",
@@ -987,12 +999,14 @@
                 "only_to_enemy": false
               },
               {
-                "type": "CasterViewEffect",
-                "name": "league_jhin_a_cast"
-              },
-              {
-                "type": "Sfx",
-                "name": "league_jhin_a_shot"
+                "type": "Delayed",
+                "tick": 2,
+                "effects": [
+                  {
+                    "type": "CasterViewEffect",
+                    "name": "league_jhin_a_cast"
+                  }
+                ]
               },
               {
                 "type": "Delayed",
@@ -1001,6 +1015,10 @@
                   {
                     "type": "CasterViewEffect",
                     "name": "league_jhin_a_muzzle"
+                  },
+                  {
+                    "type": "Sfx",
+                    "name": "league_jhin_a_shot"
                   },
                   {
                     "type": "TargetProjectile",

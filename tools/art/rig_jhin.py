@@ -18,7 +18,6 @@ Writes assets/source/native/jhin_<tag>.png (8x) and jhin_cells.json; then tools/
 import argparse
 import json
 import os
-import shutil
 import sys
 
 import numpy as np
@@ -59,6 +58,11 @@ RUN = [(3, -4, 0, 0, 0), (1, -2, 0, 1, 0), (-1, 0, 0, 2, -1), (-3, 2, 0, 1, -1),
 # against the design at their pivots), drawn again from the design so its later touches reach them (the right hand,
 # design_jhin.py HAND)
 DESIGN_FRAMES = {"idle": [1, 2, 3, 4, 5, 6], "attack": [1, 6], "attack4": [6], "skill": [6], "skill2": [8], "hit": [2]}
+# frame times (ms) that keep a muzzle flash on a level gun (the user, 2026-10-03: 「攻击特效不太对」 - the flash outlived the
+# shot frame and hung where the muzzle had been while the gun kicked up): the shot frames longer, the totals as before
+# (attack 400 ms: the shot on tick 9 in frame 3, now 110-220 ms; W 800 ms: the shot on tick 43 in frame 7, now 620-770;
+# the R shot 250 ms: frame 1, the shot, 90 ms before the recoil)
+RETIME = {"attack": [50, 60, 110, 60, 60, 60], "skill2": [100, 100, 100, 100, 130, 90, 150, 30], "ult_shot": [90, 60, 60, 40]}
 # Codex's palette (codex_model/jhin_palette.hex) by character: 0 the outline, 4/5 the dark purples, 7-9 the crimsons,
 # a-c the cape's creams and tan, d-g the golds, h/i the skin, j/k the gunmetal, n the eyes
 CH = "0123456789abcdefghijklmn"
@@ -468,7 +472,12 @@ def main():
     for tag, frs in out.items():
         strip = join(frs, cell)
         Image.fromarray(np.repeat(np.repeat(strip, Z, 0), Z, 1)).save(lp(os.path.join(NATIVE, f"jhin_{tag}.png")))
-    shutil.copyfile(lp(os.path.join(CODEX, "jhin_cells.json")), lp(os.path.join(NATIVE, "jhin_cells.json")))
+    for tag, ms in RETIME.items():
+        assert sum(ms) == sum(f["ms"] for f in cells["tags"][tag]) and len(ms) == len(cells["tags"][tag]), tag
+        for f, m in zip(cells["tags"][tag], ms):
+            f["ms"] = m
+    with open(lp(os.path.join(NATIVE, "jhin_cells.json")), "w", encoding="utf-8", newline="\n") as f:
+        json.dump(cells, f, indent=1)
     print("written", ", ".join(f"{t} {len(v)}" for t, v in out.items()))
     if a.review:
         os.makedirs(a.review, exist_ok=True)

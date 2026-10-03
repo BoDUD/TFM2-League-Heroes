@@ -282,42 +282,47 @@ def seq(frames, ms):
     return list(zip(frames, ms))
 
 
-def flight(n, ms, total):
-    """An empty first tick, then n frames of ms looped over `total` ms (twice a bullet's straight flight: homing shots
-    chase), the last held a second (a `repeat: false` view must not run out mid-flight; champion-data.md)."""
+def flight(n, ms, total, lead=1):
+    """`lead` empty ticks (a projectile's first move points its picture up; and it leaves his pivot, so the bullets stay
+    unseen until they pass the muzzle: Whisper 30 px out at 7 px a tick, the cannon 39 at 20), then n frames of ms
+    looped over `total` ms (twice a bullet's straight flight: homing shots chase), the last held a second (a
+    `repeat: false` view must not run out mid-flight; champion-data.md)."""
     k = max(1, math.ceil(total / ms))
-    return [(EMPTY, 17)] + seq([i % n for i in range(k)], [ms] * (k - 1) + [1000])
+    return [(EMPTY, lead * 1000 / 60)] + seq([i % n for i in range(k)], [ms] * (k - 1) + [1000])
 
 
 ROOT_MS = 100 * 1000 // 60 - 110 - 180      # the root's 100 ticks after the vines rise (110 ms) and fade (180 ms)
 BLOOM_MS = 120 * 1000 // 60 - 3 * 60 - 140  # the bloom's 120 ticks after it opens (3 x 60 ms) and curls (2 x 70 ms)
 FX = {
     # the bullets: the attack 55 px at 7 / 8 px a tick, W 220 px at 16, R 240 px at 20
-    "a_bolt": [("a_bolt", flight(4, 50, 320), [(0, 0)])],
-    "a4_bolt": [("a4_bolt", flight(4, 50, 280), [(0, 0)])],
-    "w_shot": [("w_shot", flight(4, 50, 300), [(0, 0)])],
-    "r_bullet": [("r_bullet", flight(4, 50, 300), [(0, 0)])],
+    "a_bolt": [("a_bolt", flight(4, 50, 320, lead=4), [(0, 0)])],
+    "a4_bolt": [("a4_bolt", flight(4, 50, 280, lead=4), [(0, 0)])],
+    "w_shot": [("w_shot", flight(4, 50, 300, lead=2), [(0, 0)])],
+    "r_bullet": [("r_bullet", flight(4, 50, 300, lead=2), [(0, 0)])],
     "q_nade": [("q_nade", seq(range(4), [60] * 4), [(0, 0)])],
     "e_seed": [("e_seed", seq([0, 1, 2, 3, 0, 1], [50] * 6), [(0, 0)])],
-    "a_cast": [("a_cast", seq(range(4), [30, 40, 50, 60]), [A_CAST])],
-    "a_muzzle": [("a_muzzle", seq(range(4), [40, 50, 60, 70]), [A_MUZZLE])],
+    # the casters' flashes end with the frame that shows their gun or fist there (the user: 「攻击特效不太对」 - the
+    # flashes of 180-300 ms hung in the air after Whisper kicked up): the glint inside attack frame 2, the muzzle fire
+    # inside the shot frames (rig_jhin.py RETIME)
+    "a_cast": [("a_cast", seq(range(3), [17, 17, 17]), [A_CAST])],
+    "a_muzzle": [("a_muzzle", seq(range(4), [17, 17, 25, 25]), [A_MUZZLE])],
     "a_hit": [("a_hit", seq(range(4), [40, 50, 60, 70]), [HIT])],
-    "a4_muzzle": [("a4_muzzle", seq(range(5), [40, 50, 60, 70, 80]), [A4_MUZZLE])],
+    "a4_muzzle": [("a4_muzzle", seq(range(5), [17, 25, 33, 33, 42]), [A4_MUZZLE])],
     "a4_hit": [("a4_hit", seq(range(5), [40, 50, 60, 80, 100]), [HIT])],
     # the reload: 130 ticks (2167 ms): a bullet lit each ~0.5 s, the flash at the end
     "a_reload": [("a_reload", seq(range(8), [250, 120, 380, 120, 500, 500, 120, 177]), [RELOAD])],
-    "q_throw": [("q_throw", seq(range(4), [40, 50, 60, 70]), [Q_FIST])],
+    "q_throw": [("q_throw", seq(range(4), [17, 25, 25, 33]), [Q_FIST])],
     "q_boom": [("q_boom", seq(range(5), [40, 50, 60, 80, 100]), [HIT])],
     # a hop: the grenade drops onto the next unit (6 ticks, 100 ms) and q_boom plays there as it lands
     "q_drop": [("q_drop", seq(range(4), [25, 25, 25, 25]), [(0, -6)])],     # lands on the hit spot
-    "w_muzzle": [("w_muzzle", seq(range(5), [40, 50, 60, 70, 80]), [W_MUZZLE])],
+    "w_muzzle": [("w_muzzle", seq(range(5), [17, 17, 17, 16, 16]), [W_MUZZLE])],
     "w_hit": [("w_hit", seq(range(5), [40, 50, 60, 70, 80]), [HIT])],
     "w_root": [("w_root", seq([0, 1] + [2, 3, 4, 5] * 3, [50, 60] + [ROOT_MS // 12] * 12) + seq([6, 7], [80, 100]),
                 [FEET])],
     "e_land": [("e_land", seq(range(8), [50, 60, 70, 100, 120, 150, 200, 250]), [SOLES])],
     "e_hit": [("e_hit", seq(range(4), [40, 50, 60, 70]), [HIT])],
     "r_deploy": [("r_deploy", seq(range(8), [40, 60, 70, 80, 90, 100, 110, 120]), [FEET])],
-    "r_muzzle": [("r_muzzle", seq(range(5), [40, 50, 60, 70, 80]), [R_MUZZLE])],
+    "r_muzzle": [("r_muzzle", seq(range(5), [17, 17, 25, 25, 33]), [R_MUZZLE])],
     "r_hit": [("r_hit", seq(range(5), [40, 50, 60, 70, 80]), [HIT])],
     "r_crit": [("r_crit", seq(range(6), [40, 50, 60, 80, 100, 120]), [HIT])],
     "e_slowed": [("slowed", seq(range(4), [100] * 4), [FEET])],

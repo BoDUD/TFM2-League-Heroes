@@ -91,11 +91,11 @@ def showcase(out, z=3, step=40):
     body.append(run_in)
     t = run_in.until
     a("idle", 300, loop=True)
-    # three shots of Whisper: the glint as he raises it, the bullet on tick 8 at 7 px a tick, 72 ticks apart
+    # three shots of Whisper: the glint as he raises it, the bullet on tick 9 at 7 px a tick, 72 ticks apart
     for _ in range(3):
-        on(me, small, "a_cast", t)
-        on(me, small, "a_muzzle", t + tick(8))
-        shot("a_bolt", t + tick(8), d, 7.0, 7, "a_hit")
+        on(me, small, "a_cast", t + tick(3))           # as Whisper comes up (the kit: 2 ticks after the attack applies)
+        on(me, small, "a_muzzle", t + tick(9))
+        shot("a_bolt", t + tick(9), d, 7.0, 7, "a_hit")
         a("attack")
         a("idle", tick(72 - 24), loop=True)
     # the fourth: his flourish, the shot on tick 12 at 8 px a tick, the crit; the reload lights up over his hood
