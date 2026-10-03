@@ -28,7 +28,7 @@ fists of five (the idle's arms and hands are three); the user on the combo redra
   finger in POINT kept), the near one moved in ARM_IN squares to the idle's shoulder; the far arm behind the body (in
   front of the scroll when raised across it: OVER_SCROLL), the near one in front of it, each with one outline;
 then the pockets as above, those up to BODY_POCKET squares (between a thinned arm and the idle's narrower body)
-from the design's squares there. After the review: the run's arms are the idle's swung against the legs (RUN_SWING,
+from the design's squares there. After the review: the run's arms follow League's run (run_arms,
 Codex's broke into pieces), the passing legs get their boots back (FEET), crumbs apart from the figure go (CRUMB), the
 far arm Codex folded into a lump while shooting and the recoveries' short arms are the idle's own (IDLE_ARMS), and R's
 channel stands (REUSE).
@@ -99,13 +99,18 @@ ARM_STEPS = 16                                   # an arm's line at most this lo
 # idle's hips with rows taken out of the shins
 LEG_REMAP = {"u": "j", "q": "h", "r": "j", "l": "o"}
 TROUSERS = set("ozw")
-# the run's arms: Codex's broke into pieces over the body (the review: "arm fragments"); the idle's swung against
-# the legs instead - the near arm back as the near leg reaches forward (frames 4 and 8 the widest strides)
-RUN_SWING = {("run", k + 1): s for k, s in enumerate((0.5, 0.0, -0.5, -1.0, -0.5, 0.0, 0.5, 1.0))}
-SWING_DEG = 18
-ELBOW_DEG = 60                                   # the elbows bent as he jogs (straighter they swung like pendulums
-                                                 # to the knees: 「瑞兹走路时手还是有点不自然」, the pick B)
-RUN_UPPER = 7                                    # the upper arm's squares on the line (to the elbow)
+# the run's arms: Codex's broke into pieces over the body (the review: "arm fragments"), swung pendulums of the idle's
+# read as strange (「瑞兹走路时手还是有点不自然」「太奇怪了 … 看英雄联盟里面啊」); so they follow League's Ryze_Run_Fast
+# (assets/source/ryze/lol_joints_v2.json, its joints at game size): shoulder -> elbow -> hand as League's camera sees
+# them, the upper arm ARM_SCALE[0] and the forearm ARM_SCALE[1] times as long, drawn as the idle's arm; an arm lies in
+# front of the body or behind it as League's does (its hand's depth against the spine's): the far arm crosses the
+# belly as it swings forward, the near one goes behind as it swings back. Codex's legs run a frame behind League's
+# (its frame 1 = League's 133 ms: the near foot kicked up behind): RUN_LOL
+LOL_JOINTS = os.path.join(ROOT, "assets", "source", "ryze", "lol_joints_v2.json")
+RUN_LOL = 1
+ARM_SCALE = (1.25, 1.0)
+NEAR_BEHIND = -5                                 # the near hand this far behind the spine (League units): behind it
+FAR_IN_FRONT = 8                                 # the far hand this far in front of the spine: in front of the body
 # the boots of the legs swinging through in the run's passing frames (run_legs took rows out of the shins: the leg
 # ended at the knee band); {row from the pivot: (first column, squares)} in the idle's boot materials
 FEET = {("run", 2): {7: (0, "Dxx"), 8: (0, "rjhh")}, ("run", 6): {6: (-1, "Dxx"), 7: (-1, "rjhh")}}
@@ -671,20 +676,30 @@ SIDE_X = (-5, 5)
 SHADE = {"o": "l", "z": "l", "w": "o", "h": "j", "j": "u", "x": "h", "y": "x", "r": "u", "u": "r", "q": "u"}
 
 
-def swung(side, s):
-    """An arm's line from its shoulder (SHOULDER), the idle's length: the upper arm SWING_DEG * s from hanging (s > 0
-    forward), the forearm ELBOW_DEG further forward."""
-    sx, sy = SHOULDER[side]
-    th, el = math.radians(SWING_DEG * s), math.radians(SWING_DEG * s + ELBOW_DEG)
-    pts = [(sx + i * math.sin(th), sy + i * math.cos(th)) for i in range(RUN_UPPER)]
-    ex, ey = pts[-1]
-    pts += [(ex + j * math.sin(el), ey + j * math.cos(el)) for j in range(1, ARM_STEPS - RUN_UPPER + 1)]
-    line = []
-    for x, y in pts:
-        q = (math.floor(x + 0.5), math.floor(y + 0.5))     # (round() halves to even: a shoulder on .5 skipped rows)
-        if not line or line[-1] != q:
-            line.append(q)
-    return line
+def run_arms(k):
+    """Run frame k (0-based): [(side, layer, line)] for both arms after League's joints (RUN_LOL, ARM_SCALE)."""
+    with open(lp(LOL_JOINTS), encoding="utf-8") as f:
+        j = json.load(f)["run"][(k + RUN_LOL) % 8]["joints"]
+    spine = j["Spine2"][2]
+    out = []
+    for side, (s, e, h) in (("front", ("L_Shoulder", "L_Elbow", "L_Hand")), ("back", ("R_Shoulder", "R_Elbow", "R_Hand"))):
+        sx, sy = SHOULDER[side]
+        ex, ey = sx + ARM_SCALE[0] * (j[e][0] - j[s][0]), sy + ARM_SCALE[0] * (j[e][1] - j[s][1])
+        hx, hy = ex + ARM_SCALE[1] * (j[h][0] - j[e][0]), ey + ARM_SCALE[1] * (j[h][1] - j[e][1])
+        depth = j[h][2] - spine
+        if side == "front":
+            layer = "front" if depth > NEAR_BEHIND else "back"
+        else:
+            layer = "over" if depth > FAR_IN_FRONT else "back"
+        line = []
+        for (x0, y0), (x1, y1) in (((sx, sy), (ex, ey)), ((ex, ey), (hx, hy))):
+            n = max(1, int(round(max(abs(x1 - x0), abs(y1 - y0)))))
+            for i in range(n + 1):
+                q = (math.floor(x0 + (x1 - x0) * i / n + 0.5), math.floor(y0 + (y1 - y0) * i / n + 0.5))
+                if not line or line[-1] != q:      # (round() halves to even: a shoulder on .5 skipped rows)
+                    line.append(q)
+        out.append((side, layer, line))
+    return out
 
 
 def torso_sides(upper):
@@ -877,10 +892,10 @@ def idle_body(a, pivot, hd, P, tag, point=(), over_scroll=False, legs_own=False,
         by_side.setdefault(side_of(g), set()).update(g)
     groups = list(by_side.values())
     groups = [g for g in groups if side_of(g) not in idle_arms]
-    if swing is not None:                        # the run: the idle's arms swung (RUN_SWING), not Codex's
+    if swing is not None:                        # the run: the arms after League's (run_arms), not Codex's
         groups = []
-        for side, sgn in (("back", -1), ("front", 1)):
-            arms[side] = {(x, y + drop): c for (x, y), c in draw_arm(swung(side, sgn * swing), {}, side).items()}
+        for side, layer, line in swing:
+            arms[layer].update({(x, y + drop): c for (x, y), c in draw_arm(line, {}, side).items()})
     for comp in groups:
         pix = {(x - px, y - py): a[y, x].copy() for y, x in comp}
         # the dark squares walled in by the arm on 3 or 4 sides (twice: a 2-square crease)
@@ -994,7 +1009,7 @@ def build():
                     hd = eye_offset(a, fr["pivot"]) + (1.0,)
                 hip = flap_top(a, fr["pivot"]) - FLAP_TOP if crouch else None
                 a, thinned, lean = idle_body(a, fr["pivot"], (hd[0], max(0, hd[1])), P, tag, point,
-                                             (tag, k + 1) in OVER_SCROLL, own, hip, RUN_SWING.get((tag, k + 1)),
+                                             (tag, k + 1) in OVER_SCROLL, own, hip, run_arms(k) if tag == "run" else None,
                                              IDLE_ARMS.get((tag, k + 1), ()))
                 a, _, fixed = mend(a, fr["pivot"], des, head, lean / (R.HIP_Y - R.NECK_Y))
                 note = f" | idle body, lean {lean:+d}, arms thinned by {thinned}"
