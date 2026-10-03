@@ -1619,8 +1619,8 @@
                                       "casting_type": "Targeting",
                                       "effect": {
                                         "type": "Attack",
-                                        "damage": 135,
-                                        "attack_ratio": 218,
+                                        "damage": 150,
+                                        "attack_ratio": 240,
                                         "hp_ratio": 0,
                                         "target_hp_ratio": 0,
                                         "attack_effect_type": "Target"
@@ -1661,15 +1661,15 @@
                                         "buff_name": "league_aatrox_r",
                                         "effect_buff": {
                                           "type": "Heal",
-                                          "amount": 36,
-                                          "attack_ratio": 58,
+                                          "amount": 40,
+                                          "attack_ratio": 64,
                                           "ap_ratio": 0,
                                           "heal_type": "Caster"
                                         },
                                         "effect_none": {
                                           "type": "Heal",
-                                          "amount": 24,
-                                          "attack_ratio": 39,
+                                          "amount": 27,
+                                          "attack_ratio": 43,
                                           "ap_ratio": 0,
                                           "heal_type": "Caster"
                                         }
@@ -1851,8 +1851,8 @@
                                       "casting_type": "Targeting",
                                       "effect": {
                                         "type": "Attack",
-                                        "damage": 81,
-                                        "attack_ratio": 131,
+                                        "damage": 90,
+                                        "attack_ratio": 144,
                                         "hp_ratio": 0,
                                         "target_hp_ratio": 0,
                                         "attack_effect_type": "Target"
@@ -1900,15 +1900,15 @@
                                         "buff_name": "league_aatrox_r",
                                         "effect_buff": {
                                           "type": "Heal",
-                                          "amount": 22,
-                                          "attack_ratio": 36,
+                                          "amount": 24,
+                                          "attack_ratio": 39,
                                           "ap_ratio": 0,
                                           "heal_type": "Caster"
                                         },
                                         "effect_none": {
                                           "type": "Heal",
-                                          "amount": 15,
-                                          "attack_ratio": 24,
+                                          "amount": 16,
+                                          "attack_ratio": 26,
                                           "ap_ratio": 0,
                                           "heal_type": "Caster"
                                         }
@@ -2249,8 +2249,8 @@
                                     "casting_type": "Targeting",
                                     "effect": {
                                       "type": "Attack",
-                                      "damage": 112,
-                                      "attack_ratio": 181,
+                                      "damage": 125,
+                                      "attack_ratio": 200,
                                       "hp_ratio": 0,
                                       "target_hp_ratio": 0,
                                       "attack_effect_type": "Target"
@@ -2288,15 +2288,15 @@
                                       "buff_name": "league_aatrox_r",
                                       "effect_buff": {
                                         "type": "Heal",
-                                        "amount": 30,
-                                        "attack_ratio": 50,
+                                        "amount": 33,
+                                        "attack_ratio": 54,
                                         "ap_ratio": 0,
                                         "heal_type": "Caster"
                                       },
                                       "effect_none": {
                                         "type": "Heal",
-                                        "amount": 20,
-                                        "attack_ratio": 33,
+                                        "amount": 22,
+                                        "attack_ratio": 36,
                                         "ap_ratio": 0,
                                         "heal_type": "Caster"
                                       }
@@ -2485,8 +2485,8 @@
                                         "casting_type": "Targeting",
                                         "effect": {
                                           "type": "Attack",
-                                          "damage": 67,
-                                          "attack_ratio": 109,
+                                          "damage": 75,
+                                          "attack_ratio": 120,
                                           "hp_ratio": 0,
                                           "target_hp_ratio": 0,
                                           "attack_effect_type": "Target"
@@ -2534,15 +2534,15 @@
                                           "buff_name": "league_aatrox_r",
                                           "effect_buff": {
                                             "type": "Heal",
-                                            "amount": 18,
-                                            "attack_ratio": 30,
+                                            "amount": 21,
+                                            "attack_ratio": 33,
                                             "ap_ratio": 0,
                                             "heal_type": "Caster"
                                           },
                                           "effect_none": {
                                             "type": "Heal",
-                                            "amount": 12,
-                                            "attack_ratio": 20,
+                                            "amount": 14,
+                                            "attack_ratio": 22,
                                             "ap_ratio": 0,
                                             "heal_type": "Caster"
                                           }
@@ -2876,8 +2876,8 @@
                                     "casting_type": "Targeting",
                                     "effect": {
                                       "type": "Attack",
-                                      "damage": 90,
-                                      "attack_ratio": 145,
+                                      "damage": 100,
+                                      "attack_ratio": 160,
                                       "hp_ratio": 0,
                                       "target_hp_ratio": 0,
                                       "attack_effect_type": "Target"
@@ -2915,15 +2915,15 @@
                                       "buff_name": "league_aatrox_r",
                                       "effect_buff": {
                                         "type": "Heal",
-                                        "amount": 24,
-                                        "attack_ratio": 39,
+                                        "amount": 27,
+                                        "attack_ratio": 44,
                                         "ap_ratio": 0,
                                         "heal_type": "Caster"
                                       },
                                       "effect_none": {
                                         "type": "Heal",
-                                        "amount": 16,
-                                        "attack_ratio": 26,
+                                        "amount": 18,
+                                        "attack_ratio": 29,
                                         "ap_ratio": 0,
                                         "heal_type": "Caster"
                                       }
@@ -3112,8 +3112,8 @@
                                         "casting_type": "Targeting",
                                         "effect": {
                                           "type": "Attack",
-                                          "damage": 54,
-                                          "attack_ratio": 87,
+                                          "damage": 60,
+                                          "attack_ratio": 96,
                                           "hp_ratio": 0,
                                           "target_hp_ratio": 0,
                                           "attack_effect_type": "Target"
@@ -3161,15 +3161,15 @@
                                           "buff_name": "league_aatrox_r",
                                           "effect_buff": {
                                             "type": "Heal",
-                                            "amount": 15,
-                                            "attack_ratio": 24,
+                                            "amount": 16,
+                                            "attack_ratio": 26,
                                             "ap_ratio": 0,
                                             "heal_type": "Caster"
                                           },
                                           "effect_none": {
                                             "type": "Heal",
-                                            "amount": 10,
-                                            "attack_ratio": 16,
+                                            "amount": 11,
+                                            "attack_ratio": 17,
                                             "ap_ratio": 0,
                                             "heal_type": "Caster"
                                           }
