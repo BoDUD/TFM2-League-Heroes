@@ -284,6 +284,7 @@ LT, LS = KNEE_Y - HIP_Y, ANKLE_Y - KNEE_Y
 THIGH_END = ["Ct", "vw"]
 SHIN_END = ["CC", "vv", "vw", "vC"]
 FOOT = ["vvw", "tvw"]                            # the foot's two rows under a standing shin, the toe forward
+FOOT_OUT = ["wvv", "wvt"]                        # a near foot planted wide: the toe out to the left, as oppi's
 FOOT_FLAT = ["vt", "wv"]                         # at the end of a level shin: two columns, top and bottom
 
 
@@ -304,14 +305,17 @@ def steep(a, b):
 
 
 def by_rows(a, b, rows, end, out):
-    """The bone a -> b on the given rows, two squares wide round the line, its bands from a to b."""
+    """The bone a -> b on the given rows, two squares wide round the line, its bands from a to b; returns the last
+    row's first column."""
     mats = bands(len(rows), end)
+    c0 = int(math.floor(a[0] - 0.5))
     for i, y in enumerate(rows):
         t = (y - a[1]) / (b[1] - a[1]) if b[1] != a[1] else 1.0
         x = a[0] + (b[0] - a[0]) * min(1.0, max(0.0, t))
         c0 = int(math.floor(x - 0.5))
         for j, ch in enumerate(mats[i]):
             out[(c0 + j, y)] = rgba(ch)
+    return c0
 
 
 def by_cols(a, b, cols, end, out):
@@ -349,9 +353,14 @@ def leg(hip, ankle, mats=None, kneel=None, out_dir=None):
         by_cols(hip, k, span(int(math.floor(hip[0])), kc), THIGH_END, cells)
     if steep(k, ankle):
         ar = int(math.floor(ankle[1]))            # the foot's first row
-        by_rows(k, ankle, span(kr + 1, ar - 1), SHIN_END, cells)
-        c0 = int(math.floor(ankle[0] - 0.5))
-        for i, row in enumerate(FOOT):
+        c0 = by_rows(k, ankle, span(kr + 1, ar - 1), SHIN_END, cells)
+        # the foot right under the shin's last row; a leg slanting out to the left (the near one in a wide stance)
+        # turns its toe out to the left, as oppi's - a toe turned in under a slanting leg read as a broken ankle
+        if ankle[0] < hip[0] - 0.75:
+            foot, c0 = FOOT_OUT, c0 - 1
+        else:
+            foot = FOOT
+        for i, row in enumerate(foot):
             for j, ch in enumerate(row):
                 cells[(c0 + j, ar + i)] = rgba(ch)
     else:
@@ -463,6 +472,9 @@ def compose(P, mats, pose, cell, pivot):
     rot (degrees, (x, y)): the upper body turned about that point (+ counter-clockwise), the legs not;
     loose_rifle (x, y, degrees): a rifle not in her hands (drawn last, not turned)."""
     cv = Canvas(cell[0], cell[1], pivot)
+    if "loose_rifle" in pose and pose.get("loose_back"):     # lying on the ground behind her legs
+        lx, ly, ld = pose["loose_rifle"]
+        cv.put(rifle((lx, ly), ld))
     bx, by = pose.get("body", (0, 0))
     hx, hy = pose.get("head", (0, 0))
     hips = pose.get("hips", HIPS)
@@ -524,7 +536,7 @@ def compose(P, mats, pose, cell, pivot):
     else:
         m = up.a[..., 3] > 0
         cv.a[m] = up.a[m]
-    if "loose_rifle" in pose:
+    if "loose_rifle" in pose and not pose.get("loose_back"):
         lx, ly, ld = pose["loose_rifle"]
         cv.put(rifle((lx, ly), ld))
     cv.a[pivot[1] + 12:] = 0
@@ -677,13 +689,14 @@ def death():
     ]
     # falling forward: the upper body turned about the hips over the kneeling legs
     out.append({"legs": kneel_legs(), "body": (1, 7), "head": (1, 1), "near": (3.0, -4.0), "far": (7.0, -3.0),
-                "rot": (-30, (0.5, 5.0)), "ground": "lift", "loose_rifle": (-11.0, 9.0, 70)})
+                "rot": (-30, (0.5, 5.0)), "ground": "lift", "loose_rifle": (-11.0, 9.0, 70), "loose_back": True})
     out.append({"legs": kneel_legs(1), "body": (3, 9), "head": (1, 1), "near": (5.0, -2.0), "far": (9.0, -1.0),
-                "rot": (-70, (2.5, 7.0)), "ground": "lift", "loose_rifle": (-14.0, 9.5, 35)})
-    # lying: the legs straight back along the ground
+                "rot": (-70, (2.5, 7.0)), "ground": "lift", "loose_rifle": (-16.0, 4.0, 12), "loose_back": True})
+    # lying: the legs straight back along the ground, the dropped rifle behind her body over them (on the ground
+    # under the legs it buried them)
     lie = {"legs": {"near": {"ankle": (-16.0, 9.5), "knee": (-9.0, 9.2)}, "far": {"ankle": (-15.0, 8.5), "knee": (-8.0, 8.3)}},
            "body": (0, 7), "head": (0, 0), "near": (-1.0, -6.0), "far": (3.0, -6.0),
-           "rot": (-90, (-2.0, 7.0)), "ground": True, "loose_rifle": (-15.0, 9.5, 0)}
+           "rot": (-90, (-2.0, 7.0)), "ground": True, "loose_rifle": (-17.0, 3.0, 4), "loose_back": True}
     out.append(lie)
     out.append(dict(lie))
     return out
