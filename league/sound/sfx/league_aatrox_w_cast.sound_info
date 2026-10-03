@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_aatrox_sfx_w_cast",
+      "volume": 0.55
+    },
+    {
+      "delay": 0.0,
+      "clip": "league_aatrox_vo_w",
+      "volume": 0.8
+    }
+  ]
+}

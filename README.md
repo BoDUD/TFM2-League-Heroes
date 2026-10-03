@@ -2,7 +2,7 @@
 
 团战经理2（Teamfight Manager 2）的英雄联盟英雄 Mod，mod_id 是 `league`。纯数据 mod：不改游戏本体，不需要编译。
 
-英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹。
+英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）、亚托克斯（`league_aatrox`，美术进行中）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹。按计划接着做上单亚托克斯（剑魔）。
 
 对敌人放的小技能，施放目标是「敌人（不含防御塔）」，清线、打野时也会放；只有大招、德莱厄斯的 E（拉人）、阿木木的 Q（绷带）、锤石的 Q（钩子）、阿狸的 E（魅惑）、薇恩的 E（恶魔审判）、维迦的 E（扭曲空间）、凯特琳的 W（约德尔诱捕器）和卡莎的 W（虚空索敌）只对英雄放（莫甘娜的 Q 对什么都放，但射程内有敌方英雄时朝英雄射；贝蕾亚的 Q 也一样，射程内有敌方英雄时扑英雄；娜美的 W、Q 也是，射程内有敌方英雄时打英雄；黛安娜的 Q 也一样，射程内有敌方英雄时朝英雄射，E 带着月光再冲的第二下也先找英雄；菲奥娜的 Q、W 也一样，射程内有敌方英雄时冲向、刺向英雄；凯特琳的 Q 也一样，射程内有敌方英雄时朝英雄射；凯南的 Q 也一样，射程内有敌方英雄时锁定英雄射）；提莫的 W 是给自己加速和伪装，也只在敌方英雄靠近时放。最早几个英雄的小技能只对英雄放，打野时一直平 A 野怪，按玩家反馈改了。
 
@@ -2023,6 +2023,32 @@ python tools/art/preview_ryze.py
 - 特效用 Codex 画的 19 张（102 帧，生图原稿，`import_ryze.py --raw` 同卡莎：每个游戏像素取覆盖的原稿像素里最多的颜色，四分之一以上不透明才画，颜色归到包里的蓝、紫两套色阶，光效外圈最暗的一档去掉；三种飞行物上下对称，游戏按飞行方向转；传送门每格和画一样宽，格边混进来的邻格碎片去掉）。位置：Q 和 E 的出手闪光在手掌 (24, −8) 和 (24, −15)，命中和引爆在上半身 (0, −8)，涌动绕胸口 (0, −7)，符文绕腰 (0, −2)，牢笼、减速锁链、加速风、传送门、光柱、落地都在脚底。时长：涌动 4 帧 × 50 ms（技能每 12 tick 重放一次），禁锢的牢笼立着保持到 75 tick 再消散，没有涌动时牢笼只一闪（减速的锁链留在脚下），传送门展开、转过 1 秒引导、他离开时收起。
 
 逐帧预览：[`docs/preview/league_ryze_frames.png`](docs/preview/league_ryze_frames.png)，特效：[`docs/preview/league_ryze_effects.png`](docs/preview/league_ryze_effects.png)。
+
+## 英雄：亚托克斯
+
+| 部分 | 内容 |
+|---|---|
+| 定位 | 上单（近战，分类 Melee），10 月 3 日按计划做的下一个英雄；本包第 49 个英雄。暗裔剑魔：Q 三段挥剑、剑尖的甜点区击飞，W 甩出锁链、1.5 秒后把没走开的英雄拉回来，E 并进 Q 里拉开距离、技能命中英雄回血，R 化身恶魔。**这次在云端会话里做，没有游戏本体、SDK 和英雄联盟客户端**：技能数据静态检查过（下面的「检查」），模拟对战、音效图标提取、参考图渲染都要在本机做 |
+| 普攻 | 巨剑斩击，100% 攻击力的物理伤害，射程 25000，攻击间隔 66 tick，第 12 tick 打中（占位，等动作图定）。被动「赐死剑气」并入普攻：冷却做成四段 3 秒的状态（共 12 秒，蔚的爆裂护盾那种做法），四段都没有时这一下换成 `attack_p` 重斩：40 + 100% 攻击力，对英雄（只对英雄生效的影子弹，英雄联盟对野怪有上限）再加目标 7% 最大生命；回复 15 + 10% 攻击力，命中英雄再回复 30 + 40%。Q 的甜点区或 W 命中英雄时去掉剩下最长的一段（−3 秒，每次施法一次）。死亡清空状态，所以复活后的第一下就是重斩，和英雄联盟一样 |
+| 技能1 | Q「暗裔利刃」：朝 30000 内的敌人施放（小兵和野怪也算，清线、打野也用），3 层充能（`cooltime_use_count` 3，每 5 秒回一层），按施法计数（锐雯 Q 的做法：4 秒内接下一段，否则从第一段重来）。方向在施法时锁定（`Direction`，能躲）。第一段长条（`LineRangeProjectile` 长 56000、宽 2000）、第二段宽条（44000 × 9000）、第三段前方圆形（20000 处、半径 14000）：25/30/35 + 50/60/70% 攻击力的物理伤害；剑尖处的甜点区再造成 15/20/25 + 35/40/45% 并击飞 0.5 秒（剑尖的圆由一个隐形飞行物送过去：`Direction` 施法里 `Forward` 区域会退回施法者身上）。E「暗影冲决」并入：每次 Q 起手时有敌方英雄贴身（12000 内）且冲决冷却好了（8 秒），先往后跳 15000（`MoveBack`），让剑尖落在他身上——英雄联盟里 Q 途中按 E 调距离；冲决的被动做成技能命中英雄回血：每段 8 + 12% 攻击力，甜点区再 6 + 8%（只对英雄生效的影子区域） |
+| 技能2 | W「恶火束链」：朝 60000 内的敌人施放，冷却 14 秒；射程内有敌方英雄时锁链甩向英雄（穿过小兵），否则沿施法方向打第一个敌人：30 + 40% 攻击力的物理伤害、减速 25% 1.5 秒。锁住英雄时落点亮起束链区域，1.5 秒后一个只打英雄的圆（半径 12000）把还在里面的英雄拉回中心（`Pull` 在飞行物的效果里朝飞行物的位置拉）并再造成一次伤害；每次命中英雄回复 6 + 8%，赐死剑气冷却 −3 秒 |
+| 大招 | R「大灭」：敌方英雄进入 45000 时施放（3 tick 的待机动作，锐雯 R 的做法），冷却 50 秒；35000 内有英雄就立刻化身，否则备好 10 秒，第一次靠近英雄的普攻时化身，没用上就返还冷却。化身 10 秒：攻击力 +25%，移速 +40%（前 2 秒）和 +20%（10 秒），技能和被动的回复提高 50%；附近（40000）的小兵和野怪恐惧 3 秒（先给敌方英雄 2 tick 控制免疫，贝蕾亚 R 的做法）。翅膀和红光是每秒重放一次的 1 秒画面（挂在他自己身上的 `AddCasted`，死亡就停；状态的画面会留在尸体上）。英雄联盟里击杀延长持续时间，没做 |
+| 数值 | 攻击 90（+18）、生命 1050（+105）、护甲 32（+8）、魔抗 25（+4）、移速 1020（+10）。对照包里的上单（德莱厄斯、锐雯、盖伦）定的初稿，**还没跑 SDK 对战模拟**；动作图定下时机后在本机跑：上单，对 5 个原版上单，两批种子。亚索联动（甜点区击飞、W 的拉回）也到时一起量 |
+| 精灵图 | 还没有。第 0 步原画的提示词写好了（[`assets/source/aatrox/PICTURE_PROMPT.md`](assets/source/aatrox/PICTURE_PROMPT.md)：A 英雄联盟待机，单手握剑垂向身前；B 拄剑站姿），本机运行 `aatrox_picture_pack.py` 生成给 Codex 的包（渲染图只留在本机）。技能要的动作 11 个：`idle`、`run`、`attack`、`attack_p`（重斩）、`q1`、`q2`、`q3`、`w`、`ult`（化身）、`hit`、`dead` |
+| 特效 | 还没有（第 3 步）：`asset/league/effects/league_aatrox_fx` 的 16 个标签——普攻命中、重斩命中、三段剑气（长条、宽条、裂地圆）、剑尖的甜点区、Q 命中、甜点区命中、冲决的残影、飞行的锁链、锁住、束链区域、拉回、化身爆发、翅膀红光、恐惧标记 |
+| 图标 / 音效 | 官方技能图标（Q / W / R）和英雄联盟的音效、配音（Q、W、R 带中文配音），本机运行 `tools/lol/extract_aatrox.py`：事件名还没对过，先 `--list` 列出客户端里的事件，提取时按名字匹配，听过没问题后把事件名和媒体 id 写死（同 `extract_vi.py`） |
+| 名字 | 简中：亚托克斯，暗裔利刃、恶火束链、大灭，被动赐死剑气、E 暗影冲决。英文是官方名。繁中（厄薩斯）、韩文、日文的名字是凭记忆写的，之前的英雄是从客户端和 Data Dragon 读的，本机核对后再改 |
+
+重新生成（素材来自本机的英雄联盟客户端，音频和渲染图不进仓库）：
+
+```bash
+python tools/kit/aatrox_kit.py                                          # 技能：数值和时机都在脚本顶部，改完重新生成
+python tools/lol/aatrox_picture_pack.py --lol "D:\WeGameApps\lol"        # 美术第 0 步：给 Codex 的原画包 dist/aatrox_picture_pack.zip
+python tools/lol/extract_aatrox.py --lol "D:\WeGameApps\lol" --list      # 客户端里的音效事件和图标
+python tools/lol/extract_aatrox.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstream-cli.exe 路径>"
+```
+
+检查（云端，没有游戏本体）：`lint_mod.py league` 对剑魔只报还没有的精灵图、特效图、图标和本机音频；放上占位的精灵图、特效图和图标（标签同上）后 0 错误 0 警告，文本都在技能面板的长度上限内。Q 123 个节点、W 49 个（每 tick 复制的上限 300）。
 
 ## 选人卡片位置（`banpick_center`）
 

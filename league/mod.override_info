@@ -5234,5 +5234,113 @@
   "asset/base/sound/sfx/league_vi_vo_r": {
     "remapping": "asset/league/sound/sfx/league_vi_vo_r",
     "type": "override"
+  },
+  "asset/base/sound/sfx/league_aatrox_attack_hit": {
+    "remapping": "asset/league/sound/sfx/league_aatrox_attack_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_aatrox_p_hit": {
+    "remapping": "asset/league/sound/sfx/league_aatrox_p_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_aatrox_q1": {
+    "remapping": "asset/league/sound/sfx/league_aatrox_q1",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_aatrox_q2": {
+    "remapping": "asset/league/sound/sfx/league_aatrox_q2",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_aatrox_q3": {
+    "remapping": "asset/league/sound/sfx/league_aatrox_q3",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_aatrox_q_slam": {
+    "remapping": "asset/league/sound/sfx/league_aatrox_q_slam",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_aatrox_q_sweet": {
+    "remapping": "asset/league/sound/sfx/league_aatrox_q_sweet",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_aatrox_e": {
+    "remapping": "asset/league/sound/sfx/league_aatrox_e",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_aatrox_w_cast": {
+    "remapping": "asset/league/sound/sfx/league_aatrox_w_cast",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_aatrox_w_hit": {
+    "remapping": "asset/league/sound/sfx/league_aatrox_w_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_aatrox_w_pull": {
+    "remapping": "asset/league/sound/sfx/league_aatrox_w_pull",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_aatrox_r_cast": {
+    "remapping": "asset/league/sound/sfx/league_aatrox_r_cast",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_aatrox_sfx_attack_hit": {
+    "remapping": "asset/league/sound/sfx/league_aatrox_sfx_attack_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_aatrox_sfx_p_hit": {
+    "remapping": "asset/league/sound/sfx/league_aatrox_sfx_p_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_aatrox_sfx_q1": {
+    "remapping": "asset/league/sound/sfx/league_aatrox_sfx_q1",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_aatrox_vo_q": {
+    "remapping": "asset/league/sound/sfx/league_aatrox_vo_q",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_aatrox_sfx_q2": {
+    "remapping": "asset/league/sound/sfx/league_aatrox_sfx_q2",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_aatrox_sfx_q3": {
+    "remapping": "asset/league/sound/sfx/league_aatrox_sfx_q3",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_aatrox_sfx_q_slam": {
+    "remapping": "asset/league/sound/sfx/league_aatrox_sfx_q_slam",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_aatrox_sfx_q_sweet": {
+    "remapping": "asset/league/sound/sfx/league_aatrox_sfx_q_sweet",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_aatrox_sfx_e": {
+    "remapping": "asset/league/sound/sfx/league_aatrox_sfx_e",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_aatrox_sfx_w_cast": {
+    "remapping": "asset/league/sound/sfx/league_aatrox_sfx_w_cast",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_aatrox_vo_w": {
+    "remapping": "asset/league/sound/sfx/league_aatrox_vo_w",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_aatrox_sfx_w_hit": {
+    "remapping": "asset/league/sound/sfx/league_aatrox_sfx_w_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_aatrox_sfx_w_pull": {
+    "remapping": "asset/league/sound/sfx/league_aatrox_sfx_w_pull",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_aatrox_sfx_r_cast": {
+    "remapping": "asset/league/sound/sfx/league_aatrox_sfx_r_cast",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/league_aatrox_vo_r": {
+    "remapping": "asset/league/sound/sfx/league_aatrox_vo_r",
+    "type": "override"
   }
 }
