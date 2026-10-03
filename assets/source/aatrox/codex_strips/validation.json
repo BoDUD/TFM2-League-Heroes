@@ -1,0 +1,145 @@
+{
+  "run": {
+    "frame_count": 8,
+    "size": [
+      3584,
+      1536
+    ],
+    "strict_8x_grid": true,
+    "binary_alpha": true,
+    "color_count": 15,
+    "below_soles_empty": true,
+    "empty_cells_clear": true,
+    "sha256": "05edb0ec879e8e758060391cdc2b335f82012f74458c10e984fcf256faa4560c"
+  },
+  "attack": {
+    "frame_count": 6,
+    "size": [
+      2688,
+      1536
+    ],
+    "strict_8x_grid": true,
+    "binary_alpha": true,
+    "color_count": 15,
+    "below_soles_empty": true,
+    "empty_cells_clear": true,
+    "sha256": "028a7008267076b28ca510480157d4938ea8d7b3dcc152e97c99dfe493722719"
+  },
+  "attack_p": {
+    "frame_count": 6,
+    "size": [
+      2688,
+      1536
+    ],
+    "strict_8x_grid": true,
+    "binary_alpha": true,
+    "color_count": 15,
+    "below_soles_empty": true,
+    "empty_cells_clear": true,
+    "sha256": "d0c8dbb977b59669e60c5b0f696a111e815bc6b58e11b60d449c4246d9b639c0"
+  },
+  "skill": {
+    "frame_count": 7,
+    "size": [
+      3584,
+      1536
+    ],
+    "strict_8x_grid": true,
+    "binary_alpha": true,
+    "color_count": 15,
+    "below_soles_empty": true,
+    "empty_cells_clear": true,
+    "sha256": "443ec1ce0b5dfaeb6dc64bcfbf5c8288838e94601cea2255977100705d9464e0"
+  },
+  "q2": {
+    "frame_count": 7,
+    "size": [
+      3584,
+      1536
+    ],
+    "strict_8x_grid": true,
+    "binary_alpha": true,
+    "color_count": 15,
+    "below_soles_empty": true,
+    "empty_cells_clear": true,
+    "sha256": "0a9e31b2888e54e1e3214c6e10a668a8f0de8f8726802e54e47182e7cbe276f9"
+  },
+  "q3": {
+    "frame_count": 7,
+    "size": [
+      3584,
+      1536
+    ],
+    "strict_8x_grid": true,
+    "binary_alpha": true,
+    "color_count": 15,
+    "below_soles_empty": true,
+    "empty_cells_clear": true,
+    "sha256": "a852abd8677cae92b77b1500472f922a0d52d1b4f27f475d0c76831116ad5bf5"
+  },
+  "skill2": {
+    "frame_count": 6,
+    "size": [
+      2688,
+      1536
+    ],
+    "strict_8x_grid": true,
+    "binary_alpha": true,
+    "color_count": 15,
+    "below_soles_empty": true,
+    "empty_cells_clear": true,
+    "sha256": "8e258f3cbac31932dbd3d3f38514b39e97fbaec152888cd784121850b3da645a"
+  },
+  "ult": {
+    "frame_count": 6,
+    "size": [
+      2688,
+      1536
+    ],
+    "strict_8x_grid": true,
+    "binary_alpha": true,
+    "color_count": 15,
+    "below_soles_empty": true,
+    "empty_cells_clear": true,
+    "sha256": "5e83849671c62ffa5ef3a467fa17df024e4165d062bd16d133143c98766dac1f"
+  },
+  "hit": {
+    "frame_count": 2,
+    "size": [
+      1792,
+      768
+    ],
+    "strict_8x_grid": true,
+    "binary_alpha": true,
+    "color_count": 15,
+    "below_soles_empty": true,
+    "empty_cells_clear": true,
+    "sha256": "78c23a5b38b3d104401c48bbba9c6c89711f4b9624c1a297970f45142609445a"
+  },
+  "dead": {
+    "frame_count": 8,
+    "size": [
+      3584,
+      1536
+    ],
+    "strict_8x_grid": true,
+    "binary_alpha": true,
+    "color_count": 15,
+    "below_soles_empty": true,
+    "empty_cells_clear": true,
+    "sha256": "9b097a0f5588c1f92c556302ebfbc8c1fdf890b5c05f35dbbd001a579c96fec0"
+  },
+  "idle": {
+    "frame_count": 6,
+    "size": [
+      2688,
+      1536
+    ],
+    "strict_8x_grid": true,
+    "binary_alpha": true,
+    "color_count": 15,
+    "below_soles_empty": true,
+    "empty_cells_clear": true,
+    "sha256": "e4343d80f67207f20101bc47bc88e93c3b6ba6fc4e613ee4356ee82aa82d8d02"
+  }
+}

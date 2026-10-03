@@ -23,7 +23,10 @@ Steps:
   4. the sampled sword (bent by the sampling: its upper half at ~0.44, its lower at ~0.7, and its eye lost) cleared
      (CLEAR) and the first design's blade pasted, moved only (SWORD_SHIFT: the guard at the near fist), pinholes at
      the hilt filled with outline; strips.complete_outline;
-  5. on the 128 x 128 canvas at 8x: the soles on row 99, the middle of the feet on column 64.
+  5. on the 128 x 128 canvas at 8x: the soles on row 99, the middle of the feet on column 64;
+  6. the head turned to face forward (the user, on the action strips: 「头应该看前方吧 现在看的是后面」 - the big near horn
+     curling up and back read as a face turned away): mirrored left to right and moved HEAD_TURN columns right, the chin
+     over the neck again (the user's pick A2 of three), strips.complete_outline.
 --check compares the result with the committed aatrox_native.png instead of writing it.
 """
 import argparse
@@ -64,6 +67,7 @@ OLD_HEAD = {3: (26, 27), 4: (26, 30), 5: (26, 31), 6: (25, 32), 7: (24, 32), 8: 
 CLEAR = {23: 22, 24: 22, 25: 22, 26: 22, 27: 23, 28: 22, 29: 22, 30: 21, 31: 21, 32: 21, 33: 21, 34: 21, 35: 20,
          36: 20, 37: 19, 38: 18, 39: 18}
 SWORD_SHIFT = (-3, 2)
+HEAD_TURN = 3                         # the mirrored head moved right: its chin over the neck
 BLADE = set("56789abcfg")             # the blade's plum / red / orange letters
 N4 = [(-1, 0), (1, 0), (0, -1), (0, 1)]
 N8 = [(dy, dx) for dy in (-1, 0, 1) for dx in (-1, 0, 1) if dy or dx]
@@ -146,6 +150,39 @@ def blade(first):
     return {p: g[p[0]][p[1]] for p in body | ring}
 
 
+def head_squares(can, first, mirrored=False):
+    """The first design's head (HEAD) found on a canvas, square for square (mirrored: as turned by step 6)."""
+    fl = letters(first)
+    part = {(r, c): fl[r][c] for r, spans in HEAD.items() for c0, c1 in spans for c in range(c0, c1 + 1)
+            if fl[r][c] != "."}
+    if mirrored:
+        cs = [c for _, c in part]
+        part = {(r, min(cs) + max(cs) - c): k for (r, c), k in part.items()}
+    g = letters(can)
+    keys = list(part)
+    r0, c0 = min(r for r, _ in keys), min(c for _, c in keys)
+    for dy in range(-r0, can.shape[0] - r0):
+        for dx in range(-c0, can.shape[1] - c0):
+            if all(0 <= r + dy < can.shape[0] and 0 <= c + dx < can.shape[1] and g[r + dy][c + dx] == k
+                   for (r, c), k in part.items()):
+                return {(r + dy, c + dx) for r, c in keys}
+    raise SystemExit("head not found")
+
+
+def turn_head(can, first):
+    """Step 6: the head mirrored in its own box and moved HEAD_TURN columns right, the outline closed again."""
+    sq = head_squares(can, first)
+    rs = [r for r, _ in sq]
+    cs = [c for _, c in sq]
+    head = {(r, c): can[r, c].copy() for r, c in sq}
+    for r, c in sq:
+        can[r, c] = 0
+    for (r, c), v in head.items():
+        can[r, min(cs) + max(cs) - c + HEAD_TURN] = v
+    can, _, _ = strips.complete_outline(can, color=COL["o"], feet=SOLE_ROW)
+    return can
+
+
 def build():
     raw, _, _ = regrid(load(DRAFT))
     ys, xs = np.nonzero(raw[..., 3] >= 128)
@@ -190,7 +227,7 @@ def build():
     y0 = SOLE_ROW + 1 - a.shape[0]
     can = np.zeros((128, 128, 4), np.uint8)
     can[y0:y0 + a.shape[0], x0:x0 + a.shape[1]] = a
-    return can
+    return turn_head(can, first)
 
 
 def main():
