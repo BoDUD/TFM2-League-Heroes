@@ -9,10 +9,12 @@
                                 Garen - Adaptive Defenses wraps her in its hex shield; Precision Protocol's first kick
                                 (the cyan star), a plain kick while it charges, her blades lighting up when the charge
                                 completes, the charged second kick (the true-damage burst); Tactical Sweep's crescent
-                                catches Garen on its outer edge and he falls. Darius walks up behind a red caster
-                                minion (a prop drawn here); Hookshot's claw catches the minion beside him (she never
-                                hooks a champion), she is pulled to it and dashes on at Darius - the shock ring,
-                                Darius stunned under the hex stars. The Hextech Ultimatum: a short leap, the arena
+                                catches Garen on its outer edge and he falls. Darius walks up in the back row;
+                                Hookshot's claw bites into a stone wall up ahead of her (a prop drawn here in the
+                                5v5 walls' colours: the wall-hook add-on hooks walls, the map's edges and towers), she
+                                is pulled to the wall, clings for 6 ticks and dives on at Darius, turning 80 degrees
+                                from the pull (never back) - the shock ring, Darius stunned under the hex stars. The
+                                Hextech Ultimatum: a short leap onto his row, the arena
                                 rises where she lands and stays there, the mark at his feet; her kicks add true
                                 damage, he walks to the field's edge, hits the wall and is dragged back, and falls; 3x
 """
@@ -38,22 +40,24 @@ BIG = os.path.join(LEAGUE, "effects", "league_camille_big")
 KICK = 64                                             # the attack's cooldown, ticks
 KICK_E = 50                                           # with Hookshot's 30% attack speed
 FIELD_R = 30                                          # R's field: its floor reaches 30 px left and right of where she landed
-# a red caster minion facing left - a prop for the showcase only (the base game's minion art is not ours to show)
-MINION = ["...ooooo...",
-          "..olllllo..",
-          ".olrrrrrlo.",
-          ".orRRRRRro.",
-          ".oyRyRRRro.",
-          ".orRRRRRro.",
-          "..orrrrro..",
-          "..odddddo..",
-          ".olrrrrrlo.",
-          "olrrrrrrrlo",
-          "orrrrrrrrro",
-          "orrrrrrrrro",
-          ".ooo...ooo."]
-MINION_COL = {"o": (42, 10, 20), "l": (252, 45, 63), "r": (179, 17, 45), "R": (106, 10, 30), "y": (243, 191, 39),
-              "d": (62, 52, 80)}
+# a block of stone wall - a prop for the showcase only, drawn here in the colours of the 5v5 map's walls (the base
+# game's wall art is not ours to show): rounded stones on top, dark bricks in front, a dark outline
+WALL = [".oooooooooooooooooooooooo.",
+        "oLLLLLLcLLLLLLLcLLLLLLLLLo",
+        "oLLLLLLcLLLLLLLcLLLLLLLLLo",
+        "oLLLLLLcLLLLLLLccLLLLLLLLo",
+        "occccccLLccccccLLcccccLcco",
+        "oLLLLcLLLLLLLLcLLLLLLLcLLo",
+        "oLLLLcLLLLLLLLcLLLLLLLcLLo",
+        "osssssssssssssssssssssssso",
+        "oFFFFFFbFFFFFFFFbFFFFFFFFo",
+        "oFFFFFFbFFFFFFFFbFFFFFFFFo",
+        "obbbbbbbbbbbbbbbbbbbbbbbbo",
+        "oFFFbFFFFFFFFbFFFFFFFbFFFo",
+        "oFFFbFFFFFFFFbFFFFFFFbFFFo",
+        ".oooooooooooooooooooooooo."]
+WALL_COL = {"o": (6, 26, 24), "L": (81, 107, 96), "c": (57, 79, 73), "s": (24, 37, 43), "F": (34, 53, 60),
+            "b": (23, 36, 42)}
 
 
 class Fleer(Held):
@@ -91,15 +95,14 @@ def turned(frames, angle):
 
 
 class Prop:
-    """A unit that only stands (the minion): its picture centred on its pivot, the soles 11 px under it."""
+    """Something that only stands (the wall): its picture centred on (x, y)."""
 
-    def __init__(self, x, y):
-        h, w = len(MINION), len(MINION[0])
-        img = Image.new("RGBA", (w, 23), (0, 0, 0, 0))
-        for r, row in enumerate(MINION):
+    def __init__(self, x, y, rows=WALL, colours=WALL_COL):
+        img = Image.new("RGBA", (len(rows[0]), len(rows)), (0, 0, 0, 0))
+        for r, row in enumerate(rows):
             for c, ch in enumerate(row):
                 if ch != ".":
-                    img.putpixel((c, 23 - h + r), MINION_COL[ch] + (255,))
+                    img.putpixel((c, r), colours[ch] + (255,))
         self.img, self.x, self.y = img, x, y
 
     def pos(self, t):
@@ -191,15 +194,16 @@ def showcase(out, z=3, step=40):
     g.flinches.append(sweep)
     g.death = sweep + 120
     a("skill", tick(40))
-    # Hookshot: the throw plays when a pulse finds a hold near a champion - the minion beside Darius (never a champion);
-    # the claw leaves on tick 9 (5 px over her pivot) at 6 px a tick, then the pull at 3.5 px a tick to it; E2: a dash
-    # at Darius (4.5 px a tick) - the landing ring, the hit round her, his stun
-    mn = Prop(126, gy + 9)                            # a front-row minion, right of the fallen Garen
-    props.append(mn)
+    # Hookshot (the wall-hook add-on): a wall up ahead, 43 px from her (40000 in the game) and 34 px from Darius; the
+    # claw leaves on tick 9 (5 px over her pivot) at 6 px a tick and bites into the wall's front, the pull at 3.5 px a
+    # tick to its foot, 6 ticks clinging, E2: the dive at Darius (4.5 px a tick) to 14 px short of him (CONTACT) - 80
+    # degrees off the pull, not back the way she came - the landing ring, the hit, his stun
+    wall = Prop(100, 52)                              # front bricks y 53-57, the foot y 58
+    props.append(wall)
     e0 = t
     rel = e0 + tick(9)
     sx, sy = spot["x"], gy - 5
-    tx, ty = mn.pos(rel)
+    tx, ty = wall.x, wall.y + 3                       # the claw's tip in the front bricks
     arrive = rel + tick(math.hypot(tx - sx, ty - sy) / 6.0)
     over.append(Anim(turned(frames_of(fx, "e_hook"), math.degrees(math.atan2(sy - ty, tx - sx))), rel, sx, sy,
                      until=arrive, x1=tx, y1=ty))
@@ -210,18 +214,20 @@ def showcase(out, z=3, step=40):
         an.pos = lambda tt: (int(round(x0 + (x1 - x0) * min(1.0, max(0.0, (tt - t0) / max(1, t1 - t0))))),
                              int(round(y0 + (y1 - y0) * min(1.0, max(0.0, (tt - t0) / max(1, t1 - t0))))))
         return an
-    px_, py_ = tx - 16, ty
+    px_, py_ = wall.x, wall.y + 8                      # at the wall's foot, in front of it
     t0 = t
     pulled = t0 + tick(math.hypot(px_ - spot["x"], py_ - spot["y"]) / 3.5)
     glide("skill2_dash", spot["x"], spot["y"], px_, py_, t0, pulled, pulled - t0)
-    dx_, dy_ = d.pos(pulled)
-    ex_, ey_ = dx_ - 18, dy_
-    landed = pulled + tick(math.hypot(ex_ - px_, ey_ - py_) / 4.5)
-    glide("skill2_dash", px_, py_, ex_, ey_, pulled, landed, tick(26))
+    clung = pulled + tick(6)
+    glide("skill2_dash", px_, py_, px_, py_, pulled, clung, clung - pulled)
+    dx_, dy_ = d.pos(clung)
+    gap = math.hypot(dx_ - px_, dy_ - py_)
+    ex_, ey_ = int(round(dx_ - (dx_ - px_) / gap * 14)), int(round(dy_ - (dy_ - py_) / gap * 14))
+    landed = clung + tick(math.hypot(ex_ - px_, ey_ - py_) / 4.5)
+    glide("skill2_dash", px_, py_, ex_, ey_, clung, landed, tick(26))
     spot["x"], spot["y"] = ex_, ey_
     under.append(Anim(frames_of(big, "e_land"), landed, ex_, ey_))
     on(fx, "e_hit", landed, d)
-    on(fx, "e_hit", landed, mn)
     on(fx, "e_stun", landed, d)
     d.holds.append((landed, landed + tick(45)))                # E2's 0.75 s stun
     # The Hextech Ultimatum on Darius: the leap on tick 5 at 5 px a tick, onto him; where she lands the field is set
@@ -229,13 +235,14 @@ def showcase(out, z=3, step=40):
     # round for the engine: turned back here) - and the mark is on him from 3 ticks after
     r0 = t
     hop_to = dx_ - 14
-    reach = r0 + tick(5) + tick(max(1.0, abs(hop_to - ex_) / 5.0))
+    reach = r0 + tick(5) + tick(max(1.0, math.hypot(hop_to - ex_, dy_ - ey_) / 5.0))
     ult = a("ult", tick(30))
     ult.pos = lambda tt, t0=r0 + tick(5), t1=reach: (
-        int(round(ex_ + (hop_to - ex_) * min(1.0, max(0.0, (tt - t0) / (t1 - t0))))), ey_)
-    spot["x"] = hop_to
+        int(round(ex_ + (hop_to - ex_) * min(1.0, max(0.0, (tt - t0) / (t1 - t0))))),
+        int(round(ey_ + (dy_ - ey_) * min(1.0, max(0.0, (tt - t0) / (t1 - t0))))))
+    spot["x"], spot["y"] = hop_to, dy_
     on_until = reach + tick(180)
-    under.append(Anim([(f.transpose(Image.ROTATE_180), ms) for f, ms in frames_of(big, "r_field")], reach, hop_to, ey_))
+    under.append(Anim([(f.transpose(Image.ROTATE_180), ms) for f, ms in frames_of(big, "r_field")], reach, hop_to, dy_))
     under.append(OnFoe(frames_of(fx, "r_mark"), reach + tick(3), d, z=-1))
     under[-1].loop, under[-1].until = True, on_until
     # kicks in the arena, 30% faster: each adds R's true damage; Darius walks off, the wall drags him back

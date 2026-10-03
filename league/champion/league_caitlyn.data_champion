@@ -235,7 +235,7 @@
                           "type": "TargetProjectile",
                           "name": "league_caitlyn_hs_trap_bolt",
                           "speed": 9000,
-                          "y_offset": -3000,
+                          "y_offset": -2500,
                           "applied_target": "Enemy",
                           "applied_effects": [
                             {
@@ -312,7 +312,7 @@
                             "type": "TargetProjectile",
                             "name": "league_caitlyn_hs_bolt",
                             "speed": 9000,
-                            "y_offset": -3000,
+                            "y_offset": -2500,
                             "applied_target": "Enemy",
                             "applied_effects": [
                               {
@@ -377,7 +377,7 @@
                               "type": "TargetProjectile",
                               "name": "league_caitlyn_hs_bolt",
                               "speed": 9000,
-                              "y_offset": -3000,
+                              "y_offset": -2500,
                               "applied_target": "Enemy",
                               "applied_effects": [
                                 {
@@ -445,7 +445,7 @@
                                 "type": "TargetProjectile",
                                 "name": "league_caitlyn_bolt",
                                 "speed": 7000,
-                                "y_offset": -1500,
+                                "y_offset": -2500,
                                 "applied_target": "Enemy",
                                 "applied_effects": [
                                   {
@@ -513,7 +513,7 @@
                                   "type": "TargetProjectile",
                                   "name": "league_caitlyn_bolt",
                                   "speed": 7000,
-                                  "y_offset": -1500,
+                                  "y_offset": -2500,
                                   "applied_target": "Enemy",
                                   "applied_effects": [
                                     {
@@ -581,7 +581,7 @@
                                     "type": "TargetProjectile",
                                     "name": "league_caitlyn_bolt",
                                     "speed": 7000,
-                                    "y_offset": -1500,
+                                    "y_offset": -2500,
                                     "applied_target": "Enemy",
                                     "applied_effects": [
                                       {
@@ -649,7 +649,7 @@
                                       "type": "TargetProjectile",
                                       "name": "league_caitlyn_bolt",
                                       "speed": 7000,
-                                      "y_offset": -1500,
+                                      "y_offset": -2500,
                                       "applied_target": "Enemy",
                                       "applied_effects": [
                                         {
@@ -710,7 +710,7 @@
                                       "type": "TargetProjectile",
                                       "name": "league_caitlyn_bolt",
                                       "speed": 7000,
-                                      "y_offset": -1500,
+                                      "y_offset": -2500,
                                       "applied_target": "Enemy",
                                       "applied_effects": [
                                         {
@@ -3322,7 +3322,7 @@
                     "type": "TargetProjectile",
                     "name": "league_caitlyn_r_laser",
                     "speed": 6000,
-                    "y_offset": -4000,
+                    "y_offset": -2500,
                     "applied_target": "EnemyChampion",
                     "applied_effects": []
                   },
@@ -3523,7 +3523,7 @@
                         "radius": 8000
                       }
                     },
-                    "y_offset": -4000
+                    "y_offset": -2500
                   }
                 ]
               },

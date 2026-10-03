@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_nocturne_dark": {
+        "ult": "【黑暗测试版】黑暗降临：<#ffb900ff>3秒<>内全地图变暗，我方英雄离敌人远时隐身、敌人贴近才看得见；魔腾飞扑一名敌方英雄，落地造成<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120% 攻击力<>的<#ff9028ff>物理伤害<>，飞行中免疫控制。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_nocturne_dark": {
+        "ult": "【黑暗測試版】黑暗降臨：<#ffb900ff>3秒<>內全地圖變暗，我方英雄離敵人遠時隱形、敵人貼近才看得見；夜曲飛撲一名敵方英雄，落地造成<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120% 攻擊力<>的<#ff9028ff>物理傷害<>，飛行中免疫控制。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_nocturne_dark": {
+        "ult": "[Darkness test build] Darkness falls: for <#ffb900ff>3s<> the map goes dark and allied champions are invisible to enemies that are not right next to them; Nocturne flies at an enemy champion, dealing <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120% AD<> <#ff9028ff>physical damage<> on landing. He is immune to crowd control in flight."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_nocturne_dark": {
+        "ult": "[어둠 테스트판] 어둠이 내려 <#ffb900ff>3초<> 동안 지도가 어두워지고, 아군 챔피언은 적이 바로 옆에 오기 전까지 보이지 않습니다. 녹턴이 적 챔피언에게 날아가 착지 시 <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 120%<> <#ff9028ff>물리 피해<>를 입힙니다. 비행 중 군중 제어에 면역입니다."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_nocturne_dark": {
+        "ult": "【闇の試験版】闇が訪れ<#ffb900ff>3秒<>間マップが暗くなり、味方チャンピオンは敵がすぐ近くに来るまで見えない。敵チャンピオンへ飛びかかり、着地で<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の120%<>の<#ff9028ff>物理ダメージ<>。飛行中は行動妨害無効。"
+      }
+    }
+  }
+}

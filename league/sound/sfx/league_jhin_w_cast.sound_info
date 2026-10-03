@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_jhin_sfx_w_cast",
+      "volume": 0.55
+    },
+    {
+      "delay": 0.05,
+      "clip": "league_jhin_vo_w",
+      "volume": 0.9
+    }
+  ]
+}
