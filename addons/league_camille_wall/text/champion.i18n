@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_camille_wall": {
+        "skill2": "【钩墙测试版】<#ff9028ff>钩索<>：钩住射程内的墙（含地图四边）或防御塔并被拉过去（附近没有不出手），随后冲向附近的敌方英雄，对周围敌人造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70% 攻击力<>的<#ff9028ff>物理伤害<>，被撞的英雄<#ef5350ff>眩晕<><#ffb900ff>0.75秒<>，并获得<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻速+50%<>，持续<#ffb900ff>5秒<>。被以多打少时改钩远离敌人的墙或塔，拉过去后再冲开。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_camille_wall": {
+        "skill2": "【鉤牆測試版】<#ff9028ff>鋼鐵鉤射<>：鉤住射程內的牆（含地圖四邊）或防禦塔並被拉過去（附近沒有不出手），隨後衝向附近的敵方英雄，對周圍敵人造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70% 攻擊力<>的<#ff9028ff>物理傷害<>，被撞的英雄<#ef5350ff>暈眩<><#ffb900ff>0.75秒<>，並獲得<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻速+50%<>，持續<#ffb900ff>5秒<>。被以多打少時改鉤遠離敵人的牆或塔，拉過去後再衝開。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_camille_wall": {
+        "skill2": "[Wall-hook test build] <#ff9028ff>Hookshot<>: Camille hooks a wall (the map's edges too) or tower in range and is pulled to it, then dashes at a nearby enemy champion, dealing <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70% AD<> <#ff9028ff>physical damage<> around her, <#ef5350ff>stunning<> it for <#ffb900ff>0.75s<> and gaining <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>50% Attack Speed<> for <#ffb900ff>5s<>. Outnumbered, she hooks a wall or tower away from enemies and dashes off instead."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_camille_wall": {
+        "skill2": "[벽 갈고리 테스트판] <#ff9028ff>갈고리 발사<>: 사거리 안의 벽(맵 가장자리 포함)이나 포탑에 갈고리를 걸어 끌려간 뒤 근처 적 챔피언에게 돌진해 주변 적에게 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 70%<> <#ff9028ff>물리 피해<>를 입히고 그 챔피언을 <#ffb900ff>0.75초<> 동안 <#ef5350ff>기절<>시키며, <#ffb900ff>5초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>공격 속도가 50%<> 증가합니다. 수적 열세면 적에게서 먼 벽이나 포탑에 걸어 빠져나갑니다."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_camille_wall": {
+        "skill2": "【壁フック試験版】<#ff9028ff>フックショット<>：射程内の壁（マップの端も）かタワーにフックを掛けて引き寄せられ（近くになければ使わない）、近くの敵チャンピオンへ突進し周囲の敵に<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の70%<>の<#ff9028ff>物理ダメージ<>、その敵を<#ffb900ff>0.75秒<><#ef5350ff>スタン<>、<#ffb900ff>5秒<>間<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻撃速度+50%<>。数で不利なら敵から離れた壁かタワーに掛けて離脱。"
+      }
+    }
+  }
+}
