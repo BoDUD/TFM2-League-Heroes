@@ -2863,7 +2863,13 @@ of his damage to champions in 720 games (seeds 25-48: +2.44 / 7276 without the w
 the same lobs with their `end_effects` removed did the same (+1.97 / 6497): the lobs, not the blasts. On
 `applied_target: AllyOnlySelf` they went the other way (+3.06 / 7545). A 1-tick lob whose `end_effects` wait in a
 `Delayed` is in the air for one tick: +2.40 / 7424, the blasts it finds counted in. Keep hidden watch projectiles
-short-lived (league_shaco R's 6-tick lobs on its target champion were not measured this way).
+short-lived. league_shaco R's watch (the same 6-tick lobs, but only while the clone lives: 300 ticks of a 50 s
+cooldown) measured the same way in the jungle lane, three batches of 720 games: +1.08 / +1.27 / +0.90 as shipped,
++1.16 / +0.80 / +1.17 with the 1-tick lob, +1.02 / +1.23 with the lobs' `end_effects` removed - inside the paired
+noise (about 0.30 a batch, the damage moving -1% to +6%), so Shaco keeps his (the user's call, 2026-10-03). The AI
+does react to them: in 240 logged games each the ult's target died during the clone 32.8% of the time with the
+6-tick lobs and 39.8% with the 1-tick one (it walks away from the lobs), while Shaco died first 3.4% against 5.1%;
+both versions blew the clone up on every target that died.
 
 **Rewind as the second bomb on the same champion (league_zilean W in Q, QWQ).** League's W resets Q, and the
 players' combo is Q, W, Q: two bombs on one champion blow at once and stun everyone round him. The user picked it
