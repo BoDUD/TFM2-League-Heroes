@@ -11,12 +11,16 @@ on every slanted leg: 「走路的时候腿有点变形」. So, as the first des
 length - navy tights, the gold garter, the brown knee pad, the gold boot top, the brown boot, the foot toe forward),
 and each frame is
 - the idle's upper body (tools/art/rig_caitlyn.py's hold: the design's head, hat, hair, torso and skirt with the
-  traced rifle carried as in the idle) down to the skirt's lining (2 rows over the standing point) - lowered by STEP
-  (League's pelvis), the legs staying on the ground (the skirt slides over the thighs);
-- the near leg at phase k in frame k + 1, the far leg 4 phases on and 3 squares further right (the hips 3 apart):
+  traced rifle carried as in the idle) down to the skirt's lining (2 rows over the standing point) - lowered by STEP,
+  a row as a foot lands, back up as the legs pass (League's pelvis), the legs staying on the ground (the skirt slides
+  over the thighs);
+- the near leg at phase k in frame k + 1, the far leg 4 phases on and 2 squares further right (both steps as long):
   planted under her and sliding back (1-3), pushing off (4), the heel kicked up behind (5-6), swung through (7) and
   reaching forward to land (8). The near foot passes the far one between frames 2 and 3 and back between 7 and 8.
   The far leg is drawn first with its outline ring, the near one with its ring over it, the upper body over both.
+The user: 「女警走路时候有点不自然」 - the body rose as a foot landed and sank as the legs passed, the far leg 3 squares
+over made one step long and the next a shuffle, and the heel kicked up to the knee's height: the pick C (STEP, FAR,
+phase 6 drawn lower).
 Writes the 4 x 2 strip of 96 x 96 cells at 8x (the cells and pivots of the run in the cells table).
 """
 import argparse
@@ -32,8 +36,8 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 PIVOT = (64, 88)                 # the standing point on the canvas the upper body is drawn on
 Z = 8
 CUT = -2                         # the upper body: rows to 2 over the standing point (the skirt's lining)
-STEP = [0, 1, 2, 1, 0, 1, 2, 1]  # the upper body's rows down per frame (League's pelvis)
-FAR = 3                          # the far leg: the near leg's drawing 3 squares to the right
+STEP = [1, 1, 0, 0, 1, 1, 0, 0]  # the upper body's rows down per frame: down as a foot lands, up as the legs pass
+FAR = 2                          # the far leg: the near leg's drawing 2 squares to the right
 PAL = {"r": "30345C", "C": "FDC429", "t": "683934", "v": "7A4429", "w": "915526", "d": "0D0012"}
 X0, Y0 = -12, -1                 # the grids' first column and row (squares from the standing point)
 # one leg (the near one: its hip over columns -3/-2) in its eight phases; rows -1..10, columns from -12
@@ -103,17 +107,17 @@ LEG = [
      "....tv................",
      "......................",
      "......................"],
-    # 6: the heel kicked up high, the shin level behind the knee
+    # 6: the heel lifted behind to the other shin's middle, the knee under the hip
     ["..........rr..........",
      "..........rr..........",
      "..........Ct..........",
      "..........vw..........",
-     ".....vvCCrrr..........",
-     "....tvwCCrr...........",
-     "....tv................",
-     "......................",
-     "......................",
-     "......................",
+     ".........rr...........",
+     ".........rr...........",
+     "........CC............",
+     "........vv............",
+     ".......vC.............",
+     ".......tvw............",
      "......................",
      "......................"],
     # 7: swung through, the knee forward, the foot tucked under her
