@@ -45,19 +45,20 @@ TOOLTIP_MAX = {"zh-hans": 130, "zh-hant": 130, "en": 334, "ja": 147, "ko": 185}
 def texts(c):
     dmg = f"{O}{c['W_DMG']}{E} + {AD}{O}{c['W_RATIO']}%{E}"
     s = f"{c['HOLD'] / 60:g}"
+    k = c["SLOW"]                                     # 0 since the user's 「减速删了」 (2026-10-04): no slow clause
     return {
-        "zh-hans": f"【W锁链测试版】甩出锁链，第一个敌人受到{dmg}物理伤害并{R}减速{c['SLOW']}%{E}（小兵双倍伤害）；英雄或野怪"
-                   f"被锁在原地{Y}{s}秒{E}：走出圈锁链就断，没走出就被{R}拖回圈中心{E}再受一次伤害。",
-        "zh-hant": f"【W鎖鏈測試版】甩出鎖鏈，第一個敵人受到{dmg}物理傷害並{R}緩速{c['SLOW']}%{E}（小兵雙倍傷害）；英雄或野怪"
-                   f"被鎖在原地{Y}{s}秒{E}：走出圈鎖鏈就斷，沒走出就被{R}拖回圈中心{E}再受一次傷害。",
+        "zh-hans": f"【W锁链测试版】甩出锁链，第一个敌人受到{dmg}物理伤害" + (f"并{R}减速{k}%{E}" if k else "") +
+                   f"（小兵双倍伤害）；英雄或野怪被锁在原地{Y}{s}秒{E}：走出圈锁链就断，没走出就被{R}拖回圈中心{E}再受一次伤害。",
+        "zh-hant": f"【W鎖鏈測試版】甩出鎖鏈，第一個敵人受到{dmg}物理傷害" + (f"並{R}緩速{k}%{E}" if k else "") +
+                   f"（小兵雙倍傷害）；英雄或野怪被鎖在原地{Y}{s}秒{E}：走出圈鎖鏈就斷，沒走出就被{R}拖回圈中心{E}再受一次傷害。",
         "en": f"[W chain test build] Aatrox fires a chain: the first enemy hit takes {dmg} {O}physical damage{E} (double to "
-              f"minions) and is {R}slowed by {c['SLOW']}%{E}; a champion or monster is chained to the spot for {Y}{s}s{E}: "
-              f"leaving the ring breaks the chain, otherwise it is {R}pulled back to its centre{E} and hit again.",
-        "ko": f"[W 사슬 테스트판] 사슬을 던져 처음 맞은 적에게 {dmg} {O}물리 피해{E}(미니언 2배)와 {R}{c['SLOW']}% 둔화{E}; "
-              f"챔피언이나 몬스터는 {Y}{s}초{E} 동안 그 자리에 묶입니다: 범위를 벗어나면 사슬이 끊기고, 아니면 "
-              f"{R}중심으로 끌려와{E} 다시 피해를 입습니다.",
-        "ja": f"【W鎖テスト版】鎖を放ち最初の敵に{dmg}の{O}物理ダメージ{E}（ミニオンには2倍）と{R}{c['SLOW']}%スロウ{E}。"
-              f"チャンピオンとモンスターは{Y}{s}秒{E}その場に繋がれ、範囲外に出れば鎖が切れ、出なければ{R}中心へ引き戻され{E}"
+              f"minions)" + (f" and is {R}slowed by {k}%{E}" if k else "") + f"; a champion or monster is chained to the spot "
+              f"for {Y}{s}s{E}: leaving the ring breaks the chain, otherwise it is {R}pulled back to its centre{E} and hit again.",
+        "ko": f"[W 사슬 테스트판] 사슬을 던져 처음 맞은 적에게 {dmg} {O}물리 피해{E}(미니언 2배)" +
+              (f"와 {R}{k}% 둔화{E}" if k else "를 줍니다") + f"; 챔피언이나 몬스터는 {Y}{s}초{E} 동안 그 자리에 묶입니다: "
+              f"범위를 벗어나면 사슬이 끊기고, 아니면 {R}중심으로 끌려와{E} 다시 피해를 입습니다.",
+        "ja": f"【W鎖テスト版】鎖を放ち最初の敵に{dmg}の{O}物理ダメージ{E}（ミニオンには2倍）" + (f"と{R}{k}%スロウ{E}" if k else "") +
+              f"。チャンピオンとモンスターは{Y}{s}秒{E}その場に繋がれ、範囲外に出れば鎖が切れ、出なければ{R}中心へ引き戻され{E}"
               f"再びダメージ。",
     }
 
@@ -142,7 +143,7 @@ def main():
                "slow")
     if slow["buff_state"]["duration"]["Time"]["tick"] != c["HOLD"]:
         sys.exit("W's slow does not last HOLD (%d) ticks any more: update src/lib.rs" % c["HOLD"])
-    c.update(W_DMG=hit["damage"], W_RATIO=hit["attack_ratio"], SLOW=-slow["buff_state"]["move_speed_mult"])
+    c.update(W_DMG=hit["damage"], W_RATIO=hit["attack_ratio"], SLOW=-slow["buff_state"].get("move_speed_mult", 0))
 
     # the main pack's champion branch: the w_champ mark, the first hit's extras, the second hit (a Delayed with Pull)
     pick = one([e for e in effects if e.get("type") == "RandomTarget" and e.get("casting_target") == "EnemyChampion"],

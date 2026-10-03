@@ -3529,8 +3529,7 @@
                         "Time": {
                           "tick": 90
                         }
-                      },
-                      "move_speed_mult": -25
+                      }
                     }
                   }
                 },
