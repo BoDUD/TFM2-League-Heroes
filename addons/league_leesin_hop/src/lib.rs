@@ -629,13 +629,18 @@ pub struct Mark {
     pub hp: f64,
 }
 
-/// Q 怎么处理内置 AI 这一下：照放、改方向（往这个点打）、不放。
+/// Q 怎么处理内置 AI 这一下：照放、改方向（往这个点打）、不放（改成打 / 走向那个目标）、
+/// 不放（那条线上什么都没有：改成朝那个方向走——内置 AI 把带冲刺的 Q 当位移用，赶路时会朝走的方向放）。
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum QPlan {
     Keep,
     Aim((f64, f64)),
     Skip(&'static str),
+    Wander((f64, f64)),
 }
+
+/// 改成走的时候往那个方向走多远。
+const WANDER: f64 = 20_000.0;
 
 fn sub(a: (f64, f64), b: (f64, f64)) -> (f64, f64) {
     (a.0 - b.0, a.1 - b.1)
@@ -712,7 +717,13 @@ pub fn blocked(me: (f64, f64), aim: (f64, f64), target: usize, marks: &[Mark]) -
 /// 照高手的打法处理内置 AI 这一下 Q：英雄——往他走到的地方打（预判），被小兵挡住或预判后够不着就不放；
 /// 小兵——不放（不拿 Q 打走动的兵）；野怪——照放，快死的不放。认不出打谁就照放。
 pub fn plan_q(input: &InputTargetV1, me: (f64, f64), marks: &[Mark]) -> (QPlan, Option<Mark>) {
-    let Some(t) = intended(input, me, marks) else { return (QPlan::Keep, None) };
+    let Some(t) = intended(input, me, marks) else {
+        let n = (input.dir_x as f64).hypot(input.dir_y as f64);
+        if InputTargetKindV1::from_code(input.kind) == Some(InputTargetKindV1::Dir) && n >= 1.0 {
+            return (QPlan::Wander((input.dir_x as f64 / n, input.dir_y as f64 / n)), None);
+        }
+        return (QPlan::Keep, None);
+    };
     let plan = match t.kind {
         Kind::Champion => {
             let p = lead(me, &t);
@@ -807,10 +818,15 @@ impl StablePlayerAi for LeeAi {
             let (plan, t) = plan_q(&base.target, me, &marks);
             (plan, t, me, head(&sim, lee_id))
         };
-        let t = t?;
         match plan {
             QPlan::Keep => None,
+            QPlan::Wander(d) => {
+                let to = (me.0 + d.0 * WANDER, me.1 + d.1 * WANDER);
+                wlog(format!("{head_line} Q SKIP: nothing on that line, walks on toward {}", pt(to)));
+                Some(InputV1::move_to(to.0.round().max(0.0) as u64, to.1.round().max(0.0) as u64))
+            }
             QPlan::Aim(p) => {
+                let t = t?;
                 let (dx, dy) = ((p.0 - me.0).round() as i64, (p.1 - me.1).round() as i64);
                 let input = InputV1::action(InputKindV1::Skill, InputTargetV1::dir(dx, dy));
                 if !ctx.is_valid_input(&input) {
@@ -828,6 +844,7 @@ impl StablePlayerAi for LeeAi {
                 Some(input)
             }
             QPlan::Skip(why) => {
+                let t = t?;
                 let attack = InputV1::action(InputKindV1::Attack, InputTargetV1::target(t.id));
                 let input = if ctx.is_valid_input(&attack) {
                     attack
@@ -976,7 +993,7 @@ fn init(host: &StableHost) -> StableMod {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v1.6 (W dash, no ward, aimed Q) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v1.7 (W dash, no ward, aimed Q) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -1050,8 +1067,10 @@ mod tests {
         assert_eq!(plan_q(&InputTargetV1::target(4), me, &[camp]).0, QPlan::Keep);
         let dying = Mark { hp: 0.1, ..camp };
         assert!(matches!(plan_q(&InputTargetV1::target(4), me, &[dying]).0, QPlan::Skip(_)));
-        // 认不出打谁：照放
-        assert_eq!(plan_q(&InputTargetV1::dir(0, 1), me, &[camp]).0, QPlan::Keep);
+        // 那条线上什么都没有（内置 AI 赶路时朝走的方向放）：不放，改成朝那边走
+        assert_eq!(plan_q(&InputTargetV1::dir(0, 1), me, &[camp]).0, QPlan::Wander((0.0, 1.0)));
+        // 对一个认不出的单位放：照放
+        assert_eq!(plan_q(&InputTargetV1::target(99), me, &[camp]).0, QPlan::Keep);
         // 认人：方向上离线最近的；点上离点最近的
         let a = mark(1, 450_000.0, 470_000.0, Kind::Champion);
         let b = mark(2, 450_000.0, 489_000.0, Kind::Champion);

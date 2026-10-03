@@ -337,6 +337,10 @@ fn w_dashes_for_the_insec_the_escape_and_the_chase() {
         world.units[1].minion = true;
         let out = think(&mut world, Some(q_at_him)).expect("skipped");
         assert_eq!((out.kind, out.target.target_id), (InputKindV1::Attack.code(), 1));
+        // 朝空地按 Q（线上没有任何单位）：不放，改成朝那边走
+        let out = think(&mut world, Some(InputV1::action(InputKindV1::Skill, InputTargetV1::dir(0, 50_000)))).expect("walked");
+        assert_eq!(out.kind, InputKindV1::Move.code());
+        assert!(out.y > 480_000 + 15_000, "{:?}", (out.x, out.y));
 
         // 1c. 队友在他西边（往西踢），李青已经在他东边（背后）：不 W，直接贴上去（40000 → 15000）踢
         let ally = |x: f64, y: f64| unit(x, y, 0);
@@ -451,7 +455,7 @@ fn w_dashes_for_the_insec_the_escape_and_the_chase() {
         if std::env::var_os("KEEP_LOG").is_none() {
             let _ = std::fs::remove_file(&log);
         }
-        assert!(text.starts_with("=== league_leesin_hop v1.6"), "{text}");
+        assert!(text.starts_with("=== league_leesin_hop v1.7"), "{text}");
         assert!(!text.contains(": OFF"), "{text}");
         assert!(!text.contains("placed on the spot"), "{text}");
         for line in [
