@@ -153,7 +153,7 @@ def showcase(out, z=3, step=40):
     q("q3", 3, 36, 21, 15)
     a("idle", 500, loop=True)
 
-    # Darius backs off 40 px; Infernal Chains after him: the chain on tick 14 from the claw, 5 px a tick, raised 8 px
+    # Darius backs off 40 px; Infernal Chains after him: the chain on tick 14 from the claw, 2.2 px a tick, raised 8 px
     d.runs.append((t, t + 700))
     d.slides.append((t, t + 700, 40))
     a("idle", 800, loop=True)
@@ -161,7 +161,7 @@ def showcase(out, z=3, step=40):
     on(me, small, "w_throw", w0 + tick(14))
     mx, my = x, gy
     dx, dy = d.pos(w0 + tick(14))
-    fly = max(1.0, (dx - mx) / 5.0)
+    fly = max(1.0, (dx - mx) / 2.2)                     # w_speed 2200: the chain paid out from his hand
     hit = w0 + tick(14 + fly)
     at(small, "w_chain", w0 + tick(14), mx, my - 8, until=hit, x1=dx, y1=dy)
     hit_on(d, "w_hit", hit)
@@ -194,22 +194,38 @@ def showcase(out, z=3, step=40):
     a("run", walk / 0.06, loop=True, slides=[(t, t + walk / 0.06, walk)])
 
     # World Ender: the transformation (48 ticks: League's wings unfold, the flash and the ground ring), then the
-    # wings behind him for the rest (the r_look buff starts as the strip ends)
+    # wings behind him (the r_look buff starts as the strip ends); his attacks and Q casts in their winged forms
+    # (attack_r, skill_r: Codex's redo2), the aura's wings put away while they play
     r0 = t
     on(me, big, "r_transform", r0)
     a("ult")
-    aura = OnFoe(frames_of(big, "r_aura"), r0 + tick(48), me, z=-1)
-    aura.loop, aura.until = True, None
-    under.append(aura)
+
+    def wings(t0, t1):
+        w = OnFoe(frames_of(big, "r_aura"), t0, me, z=-1)
+        w.loop, w.until = True, t1
+        under.append(w)
+
+    w0 = r0 + tick(48)
     a("idle", 300, loop=True)
+    wings(w0, t)
     for _ in range(2):
         hit_on(d, "a_hit", t + tick(12))
-        a("attack")
+        a("attack_r")
+        s0 = t
         a("idle", tick(66 - 26), loop=True)
-    d.death = t - tick(66 - 26 - 1)
+        wings(s0, t)
+    s0 = t
+    q("skill_r", 1, 36, 0, 15)
+    s1 = t
+    a("idle", 200, loop=True)
+    wings(s1, t)
+    hit_on(d, "a_hit", t + tick(12))
+    a("attack_r")
+    d.death = t - tick(26 - 13)
     on(me, small, "r_renew", d.death + tick(6))
+    s0 = t
     a("idle", 1400, loop=True)
-    aura.until = t
+    wings(s0, t)
     end = t
 
     def place(img, f, px, py):

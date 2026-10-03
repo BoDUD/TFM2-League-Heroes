@@ -20,6 +20,10 @@ HANDOFF.md). Here:
   aatrox_fx_r_burst.png keeps its first flash whole and, after it, only the ground ring and the low flames (rows from
   BURST_CUT of its cell down).
 Codex's run is not taken (one foot stood still in all eight frames); the run stays rig_aatrox.py's.
+The second redo (assets/source/aatrox/codex_redo2/, REDO2.md, 2026-10-04: 「开大招后没动作吗？」 -> 「请Codex补画」): World
+Ender's forms of the attack, the empowered attack and the three Q casts - the approved frames with League's wings added
+behind (every frame's base pixels kept, the soles already on the idle's row) - become the tags <tag>_r with the base
+tag's cells and timings (R_FORMS); build_aatrox.py plays them while World Ender runs.
 """
 import json
 import os
@@ -43,6 +47,8 @@ UP = 1                      # Codex's soles on row 82, the idle's on 81
 LOOSE = 12                  # pieces this small and apart from the figure go
 BLOW = 5                    # frame 6: the blow
 BURST_CUT = 55              # r_transform's cell rows kept from here down (its feet on row 66: the ring, low flames)
+REDO2 = os.path.join(SRC, "codex_redo2")
+R_FORMS = ["attack", "attack_p", "skill", "q2", "q3"]
 
 
 def load(path):
@@ -136,6 +142,12 @@ def main():
         low = [int(np.nonzero(g[..., 3].any(1))[0].max()) for g, _ in done]
         print(f"{tag:5s} {len(done)} frames, loose squares removed {[n for _, n in done]}, lowest rows {low}"
               + (f", blade tip on the blow {tip(done[BLOW][0], rows[BLOW]['pivot'])}" if tag != "ult" else ""))
+    for tag in R_FORMS:
+        rows = cells["tags"][tag]
+        fr = cut(load(os.path.join(REDO2, f"aatrox_{tag}_r.png")), cw, ch, len(rows))
+        Image.fromarray(sheet(fr, cw, ch)).save(G.lp(os.path.join(OUT, f"aatrox_{tag}_r.png")))
+        cells["tags"][f"{tag}_r"] = [{"pivot": r["pivot"], "ms": r["ms"]} for r in rows]
+        print(f"{tag}_r {len(fr)} frames (World Ender, Codex's wings)")
     with open(G.lp(cpath), "w", encoding="utf-8", newline="\n") as f:
         json.dump(cells, f, indent=1)
 
