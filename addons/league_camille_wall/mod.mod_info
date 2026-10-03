@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.48.0"
+    }
+  ],
+  "description": "Test build for Camille's wall Hookshot (needs League of Legends Heroes). Logs only: checks that this add-on can replace Camille, reads the map's walls and records where a wall hook would land. Gameplay unchanged.",
+  "last_updated": "2026-10-03",
+  "mod_id": "league_camille_wall",
+  "mod_type": "native",
+  "name": "League Heroes: Camille Wall Hookshot (test)",
+  "version": "0.0.1"
+}
