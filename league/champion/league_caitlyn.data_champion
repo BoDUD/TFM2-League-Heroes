@@ -107,7 +107,7 @@
                     "type": "TargetProjectile",
                     "name": "league_caitlyn_e_net",
                     "speed": 6000,
-                    "y_offset": -5500,
+                    "y_offset": -6500,
                     "applied_target": "EnemyChampion",
                     "applied_effects": [
                       {
