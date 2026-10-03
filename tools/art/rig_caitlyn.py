@@ -11,12 +11,14 @@ Here every frame is put together from the approved design's own parts (assets/so
 - the head (hat, face, the hair beside it: rows -33..-18) and the long back hair, as drawn;
 - the torso and the skirt as drawn, the squares the carried rifle and the hands covered painted in the bodice's and
   the skirt's own colours (TORSO, SKIRT);
-- the rifle drawn along its line from the butt (RIFLE: the gold butt plate, the ivory stock, the brown grip, the gold
-  receiver and the long one-square gold barrel, 29.5 squares as design A's), the arms along shoulder -> elbow -> hand
-  (ARM: the navy sleeve with its brown leather, the gold band, the cream cuff, the brown glove; a hand out of reach
-  stops at the arm's length, never a stretched stick) and the legs along hip -> knee -> ankle -> toe (the design's
-  leg, as tools/art/fix_caitlyn_run_v2.py) - every square within the part's half width of its line takes the
-  design's colour at that length and side, then one outline ring;
+- the rifle drawn level square by square after design A's (RIFLE_ROWS: the gold butt plate, the ivory stock, the
+  brown grip, the receiver with its cream top, navy scope and trigger, the barrel two squares thick at the chamber
+  and one to the muzzle brake, 29 squares) and turned whole by RotSprite (the user: 「枪的细节太差了」); the arms
+  along shoulder -> elbow -> hand (ARM: the navy sleeve with its brown leather, the gold band, the cream cuff, the
+  brown glove; every square within 1 of the line takes the colour at that length and side; a hand out of reach stops
+  at the arm's length, never a stretched stick); the legs drawn as pixel art two squares thick, row by row (column by
+  column where a bone lies flat), the design's garter, knee pad, boot top and buckle kept whole (coloured by length
+  along a bone line they scattered into gold specks: 「腿有点变形」); one outline ring round each part;
 - in the carrying frames (the idle's pose) the design's whole upper body as drawn;
 - the death's fall and the lying frames: the upper body turned about the hips (RotSprite, tools/art/rig_nocturne.py)
   and laid on the feet line, the rifle loose beside her.
@@ -126,6 +128,7 @@ def parts(d):
         "torso": grid(TORSO, TORSO_X0, -17),
         "skirt": grid(SKIRT, SKIRT_X0, -7),
         "upper": grab(d, -13, 14, -33, -2),                                   # the carrying frames: as drawn
+        "legs": grab(d, -13, 14, -1, 11),                                     # standing straight: as drawn
     }
 
 
@@ -191,44 +194,46 @@ def knee(hip, ankle, lt, ls, forward=1):
     return mx + nx * h, my + ny * h
 
 
-# the rifle, from the butt: (length, colours of its rows from the top line down); the top line is straight, the stock
-# hangs deeper under it
-RIFLE = [
-    (1.5, "CCC"),      # the butt plate
-    (3.0, "FFD"),      # the ivory stock, deep at the butt
-    (2.5, "FD"),       # ... narrowing to the wrist
-    (2.0, "wv"),       # the grip (the near hand)
-    (4.0, "CH"),       # the receiver
-    (15.0, "C"),       # the barrel
-    (1.5, "B"),        # the muzzle
+# the rifle drawn level, square by square, after design A's (the user found the line-drawn one plain: 「枪的细节太差了」):
+# rows from the scope down, columns from behind the butt; RIFLE_AT is the barrel's top row at the butt (the point a
+# pose gives). The gold butt plate, the ivory stock, the brown grip, the receiver (cream top, gold) with the navy scope
+# and the trigger, the barrel two squares thick at the chamber (a brown collar) and one square to the muzzle with two
+# glints, the muzzle brake. Turned by RotSprite (quarter turns exactly); one outline ring after turning.
+RIFLE_ROWS = [
+    "...........rrrr..................",
+    "..Cw.......HHHH..............wC..",
+    "..CwFFFFwwwCCCCCwCCCCCHCCCCCHCwC.",
+    "..CwFFFDvvvBBBBBwBBBB........wC..",
+    "..CwDD........C..................",
 ]
-RIFLE_LEN = sum(n for n, _ in RIFLE)
+RIFLE_AT = (2, 2)
+RIFLE_LEN = 29.0                                  # the anchor to the muzzle's last square
 
 
 def rifle(butt, deg):
-    """The rifle's squares: the butt's top corner at butt, pointing deg (counter-clockwise from right)."""
-    a = math.radians(deg)
-    ux, uy = math.cos(a), -math.sin(a)         # along the rifle
-    nx, ny = -uy, ux                             # down from its top line (right of the direction)
-    if ny < 0:
-        nx, ny = -nx, -ny
-    out = {}
-    bx, by = butt
-    for y in range(int(by) - 34, int(by) + 34):
-        for x in range(int(bx) - 34, int(bx) + 34):
-            u = (x - bx) * ux + (y - by) * uy
-            v = (x - bx) * nx + (y - by) * ny
-            if u < -0.5 or u > RIFLE_LEN + 0.5:
-                continue
-            acc = 0.0
-            for n, rows in RIFLE:
-                if u <= acc + n or (n, rows) == RIFLE[-1]:
-                    k = int(math.floor(v + 0.5))
-                    if 0 <= k < len(rows):
-                        out[(x, y)] = rgba(rows[k])
-                    break
-                acc += n
-    return out
+    """The rifle's squares: its barrel's top row at the butt on butt, pointing deg (counter-clockwise from right);
+    pointing back (over 90 degrees) it is turned over first, so its grip and trigger still face down."""
+    import rig_nocturne as RN
+    h, w = len(RIFLE_ROWS), len(RIFLE_ROWS[0])
+    a = np.zeros((h, w, 4), np.uint8)
+    for y, row in enumerate(RIFLE_ROWS):
+        for x, ch in enumerate(row):
+            if ch != ".":
+                a[y, x] = rgba(ch)
+    jx, jy = RIFLE_AT
+    deg = deg % 360
+    if 90 < deg < 270:
+        a = a[::-1].copy()
+        jy = h - 1 - jy
+    if deg % 90 == 0:
+        for _ in range(int(deg // 90)):
+            a = np.rot90(a).copy()
+            jx, jy = jy, a.shape[0] - 1 - jx
+        r, (rx, ry) = a, (jx, jy)
+    else:
+        r, (rx, ry) = RN.rotsprite(a, (jx, jy), deg)
+    bx, by = int(round(butt[0])), int(round(butt[1]))
+    return {(bx + xx - rx, by + yy - ry): r[yy, xx].copy() for yy, xx in zip(*np.nonzero(r[..., 3]))}
 
 
 def rifle_point(butt, deg, t, down=0.5):
@@ -265,51 +270,92 @@ def arm(shoulder, hand, out_dir=-1):
     return chain([shoulder, e, hand], lambda t: ARM_HALF, colour)
 
 
-# the leg (tools/art/fix_caitlyn_run_v2.py): hip at row -2, knee in the knee pad's row, ankle between the foot's rows
+# the leg: hip at row -2, knee in the knee pad's row, ankle between the foot's rows (the design's left leg)
 HIP_Y, KNEE_Y, ANKLE_Y, TOE = -2.0, 2.0, 9.5, 1.0
 LT, LS = KNEE_Y - HIP_Y, ANKLE_Y - KNEE_Y
+# the design leg's two fill columns, row by row: the thigh (navy, the garter, the knee pad) and the shin (navy, the
+# boot top, the boot, the buckle); a bone drawn shorter keeps its bands whole and drops navy rows first. Bone lines
+# coloured square by square scattered the bands into gold specks on every slanted leg (「腿有点变形」)
+THIGH_END = ["Ct", "vw"]
+SHIN_END = ["CC", "vv", "vw", "vC"]
+FOOT = ["vvw", "tvw"]                            # the foot's two rows under a standing shin, the toe forward
+FOOT_FLAT = ["vt", "wv"]                         # at the end of a level shin: two columns, top and bottom
 
 
 def leg_materials(d):
-    rows = {r: (d[PIVOT[1] + r, PIVOT[0] - 4].copy(), d[PIVOT[1] + r, PIVOT[0] - 3].copy()) for r in range(-1, 9)}
-    foot = {(r, i): d[PIVOT[1] + r, PIVOT[0] + c].copy() for r in (9, 10) for i, c in enumerate((-4, -3, -2))}
-    return rows, foot
+    return None                                  # the leg's colours are the design's, spelled out above
 
 
-def leg(hip, ankle, mats, kneel=None):
-    """One leg's squares: hip -> knee -> ankle -> toe, the knee forward (or at kneel: the knee on the ground)."""
-    rows, foot = mats
-    k = kneel if kneel is not None else knee(hip, ankle, LT, LS)
-    sx, sy = ankle[0] - k[0], ankle[1] - k[1]
-    n = math.hypot(sx, sy) or 1e-9
-    sx, sy = sx / n, sy / n
-    ux, uy = sy, -sx
-    toe = (ankle[0] + ux * TOE, ankle[1] + uy * TOE)
-    lt = math.hypot(k[0] - hip[0], k[1] - hip[1])
-    out = {}
-    xs = (hip[0], k[0], ankle[0], toe[0])
-    ys = (hip[1], k[1], ankle[1], toe[1])
-    for y in range(int(math.floor(min(ys))) - 2, int(math.ceil(max(ys))) + 3):
-        for x in range(int(math.floor(min(xs))) - 2, int(math.ceil(max(xs))) + 3):
-            p = (float(x), float(y))
-            d1, t1, s1 = seg(p, hip, k)
-            d2, t2, s2 = seg(p, k, ankle)
-            d3, _, _ = seg(p, ankle, toe)
-            if min(d1, d2, d3) > 1.0:
-                continue
-            lu = (x - ankle[0]) * ux + (y - ankle[1]) * uy
-            lv = (x - ankle[0]) * sx + (y - ankle[1]) * sy
-            if lv > -1.0 and (d3 < min(d1, d2) or lv > -0.5):
-                i = int(np.argmin([abs(lu - c) for c in (-0.5, 0.5, 1.5)]))
-                out[(x, y)] = foot[(9 if lv < 0 else 10, i)]
-                continue
-            if d1 <= d2:
-                along, side = t1 * LT / max(lt, 1e-9), s1
-            else:
-                along, side = LT + t2 * LS / max(n, 1e-9), s2
-            r = int(min(8, max(-1, round(HIP_Y + along))))
-            out[(x, y)] = rows[r][0 if side < 0 else 1]
-    return out
+def bands(n, end, fill="rr"):
+    if n <= 0:
+        return []
+    if n > len(end):
+        return [fill] * (n - len(end)) + end
+    return {1: [end[-1]], 2: [end[0], end[-1]], 3: [end[0], end[-2], end[-1]]}.get(n, end[len(end) - n:])
+
+
+def steep(a, b):
+    return abs(b[1] - a[1]) >= abs(b[0] - a[0])
+
+
+def by_rows(a, b, rows, end, out):
+    """The bone a -> b on the given rows, two squares wide round the line, its bands from a to b."""
+    mats = bands(len(rows), end)
+    for i, y in enumerate(rows):
+        t = (y - a[1]) / (b[1] - a[1]) if b[1] != a[1] else 1.0
+        x = a[0] + (b[0] - a[0]) * min(1.0, max(0.0, t))
+        c0 = int(math.floor(x - 0.5))
+        for j, ch in enumerate(mats[i]):
+            out[(c0 + j, y)] = rgba(ch)
+
+
+def by_cols(a, b, cols, end, out):
+    """The bone a -> b on the given columns, two squares tall round the line, its bands from a to b."""
+    mats = bands(len(cols), end)
+    for i, x in enumerate(cols):
+        t = (x - a[0]) / (b[0] - a[0]) if b[0] != a[0] else 1.0
+        y = a[1] + (b[1] - a[1]) * min(1.0, max(0.0, t))
+        r0 = int(math.floor(y - 0.5))
+        for j, ch in enumerate(mats[i]):
+            out[(x, r0 + j)] = rgba(ch)
+
+
+def span(p0, p1):
+    s = 1 if p1 >= p0 else -1
+    return list(range(p0, p1 + s, s))
+
+
+def leg(hip, ankle, mats=None, kneel=None, out_dir=None):
+    """One leg drawn as pixel art: the thigh hip -> knee and the shin knee -> ankle two squares thick, row by row (or
+    column by column where a bone lies flatter than 45 degrees), the design's bands whole, the foot toe forward under
+    a standing shin or at the end of a level one. The knee bends forward (out_dir +1) unless told otherwise, or sits
+    where kneel puts it."""
+    k = kneel if kneel is not None else knee(hip, ankle, LT, LS, forward=out_dir or 1)
+    cells = {}
+    kr = int(math.floor(k[1] + 0.5))              # the knee pad's row
+    kc = int(math.floor(k[0]))                    # ... and column
+    if steep(hip, k):
+        by_rows(hip, k, span(int(math.floor(hip[1])) + 1, kr), THIGH_END, cells)
+    else:
+        by_cols(hip, k, span(int(math.floor(hip[0])), kc), THIGH_END, cells)
+    if steep(k, ankle):
+        ar = int(math.floor(ankle[1]))            # the foot's first row
+        by_rows(k, ankle, span(kr + 1, ar - 1), SHIN_END, cells)
+        c0 = int(math.floor(ankle[0] - 0.5))
+        for i, row in enumerate(FOOT):
+            for j, ch in enumerate(row):
+                cells[(c0 + j, ar + i)] = rgba(ch)
+    else:
+        s = 1 if ankle[0] > k[0] else -1
+        first = int(math.floor(k[0] - 0.5)) + (2 if s > 0 else -1)
+        last = int(math.floor(ankle[0]))
+        cols = span(first, last)
+        by_cols(k, ankle, cols, SHIN_END, cells)
+        r0 = int(math.floor(ankle[1] - 0.5))
+        for i, col in enumerate(FOOT_FLAT):
+            for j, ch in enumerate(col):
+                cells[(cols[-1] + s * (i + 1), r0 + j)] = rgba(ch)
+    return cells
 
 
 # ---------------------------------------------------------------------------------------------------------------
@@ -375,13 +421,19 @@ def compose(P, mats, pose, cell, pivot):
     hx, hy = pose.get("head", (0, 0))
     hips = pose.get("hips", HIPS)
     legs = pose.get("legs", STAND)
-    for name in ("far", "near"):
+    if legs == STAND and hips == HIPS and by == 0:
+        cv.put(shift(P["legs"], bx, 0), outline=False)        # the design's own legs, square for square
+        legs = {}
+    for name in [n for n in ("far", "near") if n in legs]:
         spec = legs[name]
         hip = (hips[name] + bx, HIP_Y + by)
         if isinstance(spec, dict):
             cells = leg(hip, spec["ankle"], mats, kneel=spec.get("knee"))
         else:
-            cells = leg(hip, (spec[0], ANKLE_Y - spec[1]), mats)
+            ankle = (spec[0], ANKLE_Y - spec[1])
+            # a near foot planted wide behind the hip: the knee bends out (to the left), as in a wide stance
+            out = -1 if name == "near" and ankle[0] < hip[0] - 1.5 and spec[1] == 0 else 1
+            cells = leg(hip, ankle, mats, out_dir=out)
         cv.put(cells)
     up = Canvas(cell[0], cell[1], pivot)
     if pose.get("carry"):
