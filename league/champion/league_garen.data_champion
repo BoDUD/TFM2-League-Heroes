@@ -261,27 +261,127 @@
               "name": "league_garen_spin"
             },
             {
-              "type": "RandomTarget",
-              "range": 60000,
-              "casting_target": "EnemyChampion",
-              "from_projectile": false,
+              "type": "Combine",
               "effects": [
                 {
-                  "type": "MoveToTarget",
-                  "speed": 1400,
-                  "range": 60000,
-                  "end_effects": [
+                  "type": "RandomTarget",
+                  "range": 25000,
+                  "casting_target": "EnemyChampion",
+                  "from_projectile": false,
+                  "effects": [
                     {
-                      "type": "CasterAnimation",
-                      "name": "spin",
-                      "tick": 26
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_garen_e_found",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
                     },
                     {
-                      "type": "Attack",
-                      "damage": 6,
-                      "attack_ratio": 14
+                      "type": "MoveToTarget",
+                      "speed": 1000,
+                      "range": 25000,
+                      "end_effects": [
+                        {
+                          "type": "CasterAnimation",
+                          "name": "spin",
+                          "tick": 26
+                        },
+                        {
+                          "type": "Attack",
+                          "damage": 6,
+                          "attack_ratio": 14
+                        }
+                      ]
                     }
                   ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_garen_e_found",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RandomTarget",
+                        "range": 30000,
+                        "casting_target": "EnemyWithoutTower",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_garen_e_found",
+                              "duration": {
+                                "Time": {
+                                  "tick": 1
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "MoveToTarget",
+                            "speed": 1000,
+                            "range": 30000,
+                            "end_effects": [
+                              {
+                                "type": "CasterAnimation",
+                                "name": "spin",
+                                "tick": 26
+                              },
+                              {
+                                "type": "Attack",
+                                "damage": 6,
+                                "attack_ratio": 14
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_garen_e_found",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": []
+                        },
+                        "effect_none": {
+                          "type": "RandomTarget",
+                          "range": 45000,
+                          "casting_target": "EnemyWithoutTower",
+                          "from_projectile": false,
+                          "effects": [
+                            {
+                              "type": "MoveToTarget",
+                              "speed": 1000,
+                              "range": 45000,
+                              "end_effects": [
+                                {
+                                  "type": "CasterAnimation",
+                                  "name": "spin",
+                                  "tick": 26
+                                },
+                                {
+                                  "type": "Attack",
+                                  "damage": 6,
+                                  "attack_ratio": 14
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
                 }
               ]
             },
@@ -322,27 +422,127 @@
               "name": "league_garen_spin"
             },
             {
-              "type": "RandomTarget",
-              "range": 60000,
-              "casting_target": "EnemyChampion",
-              "from_projectile": false,
+              "type": "Combine",
               "effects": [
                 {
-                  "type": "MoveToTarget",
-                  "speed": 1400,
-                  "range": 60000,
-                  "end_effects": [
+                  "type": "RandomTarget",
+                  "range": 25000,
+                  "casting_target": "EnemyChampion",
+                  "from_projectile": false,
+                  "effects": [
                     {
-                      "type": "CasterAnimation",
-                      "name": "spin",
-                      "tick": 25
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_garen_e_found",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
                     },
                     {
-                      "type": "Attack",
-                      "damage": 6,
-                      "attack_ratio": 14
+                      "type": "MoveToTarget",
+                      "speed": 1000,
+                      "range": 25000,
+                      "end_effects": [
+                        {
+                          "type": "CasterAnimation",
+                          "name": "spin",
+                          "tick": 25
+                        },
+                        {
+                          "type": "Attack",
+                          "damage": 6,
+                          "attack_ratio": 14
+                        }
+                      ]
                     }
                   ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_garen_e_found",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RandomTarget",
+                        "range": 30000,
+                        "casting_target": "EnemyWithoutTower",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_garen_e_found",
+                              "duration": {
+                                "Time": {
+                                  "tick": 1
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "MoveToTarget",
+                            "speed": 1000,
+                            "range": 30000,
+                            "end_effects": [
+                              {
+                                "type": "CasterAnimation",
+                                "name": "spin",
+                                "tick": 25
+                              },
+                              {
+                                "type": "Attack",
+                                "damage": 6,
+                                "attack_ratio": 14
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_garen_e_found",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": []
+                        },
+                        "effect_none": {
+                          "type": "RandomTarget",
+                          "range": 45000,
+                          "casting_target": "EnemyWithoutTower",
+                          "from_projectile": false,
+                          "effects": [
+                            {
+                              "type": "MoveToTarget",
+                              "speed": 1000,
+                              "range": 45000,
+                              "end_effects": [
+                                {
+                                  "type": "CasterAnimation",
+                                  "name": "spin",
+                                  "tick": 25
+                                },
+                                {
+                                  "type": "Attack",
+                                  "damage": 6,
+                                  "attack_ratio": 14
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
                 }
               ]
             },
@@ -379,27 +579,127 @@
               "name": "league_garen_spin"
             },
             {
-              "type": "RandomTarget",
-              "range": 60000,
-              "casting_target": "EnemyChampion",
-              "from_projectile": false,
+              "type": "Combine",
               "effects": [
                 {
-                  "type": "MoveToTarget",
-                  "speed": 1400,
-                  "range": 60000,
-                  "end_effects": [
+                  "type": "RandomTarget",
+                  "range": 25000,
+                  "casting_target": "EnemyChampion",
+                  "from_projectile": false,
+                  "effects": [
                     {
-                      "type": "CasterAnimation",
-                      "name": "spin",
-                      "tick": 26
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_garen_e_found",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
                     },
                     {
-                      "type": "Attack",
-                      "damage": 6,
-                      "attack_ratio": 14
+                      "type": "MoveToTarget",
+                      "speed": 1000,
+                      "range": 25000,
+                      "end_effects": [
+                        {
+                          "type": "CasterAnimation",
+                          "name": "spin",
+                          "tick": 26
+                        },
+                        {
+                          "type": "Attack",
+                          "damage": 6,
+                          "attack_ratio": 14
+                        }
+                      ]
                     }
                   ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_garen_e_found",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RandomTarget",
+                        "range": 30000,
+                        "casting_target": "EnemyWithoutTower",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_garen_e_found",
+                              "duration": {
+                                "Time": {
+                                  "tick": 1
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "MoveToTarget",
+                            "speed": 1000,
+                            "range": 30000,
+                            "end_effects": [
+                              {
+                                "type": "CasterAnimation",
+                                "name": "spin",
+                                "tick": 26
+                              },
+                              {
+                                "type": "Attack",
+                                "damage": 6,
+                                "attack_ratio": 14
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_garen_e_found",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": []
+                        },
+                        "effect_none": {
+                          "type": "RandomTarget",
+                          "range": 45000,
+                          "casting_target": "EnemyWithoutTower",
+                          "from_projectile": false,
+                          "effects": [
+                            {
+                              "type": "MoveToTarget",
+                              "speed": 1000,
+                              "range": 45000,
+                              "end_effects": [
+                                {
+                                  "type": "CasterAnimation",
+                                  "name": "spin",
+                                  "tick": 26
+                                },
+                                {
+                                  "type": "Attack",
+                                  "damage": 6,
+                                  "attack_ratio": 14
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
                 }
               ]
             },
@@ -440,27 +740,127 @@
               "name": "league_garen_spin"
             },
             {
-              "type": "RandomTarget",
-              "range": 60000,
-              "casting_target": "EnemyChampion",
-              "from_projectile": false,
+              "type": "Combine",
               "effects": [
                 {
-                  "type": "MoveToTarget",
-                  "speed": 1400,
-                  "range": 60000,
-                  "end_effects": [
+                  "type": "RandomTarget",
+                  "range": 25000,
+                  "casting_target": "EnemyChampion",
+                  "from_projectile": false,
+                  "effects": [
                     {
-                      "type": "CasterAnimation",
-                      "name": "spin",
-                      "tick": 26
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_garen_e_found",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
                     },
                     {
-                      "type": "Attack",
-                      "damage": 6,
-                      "attack_ratio": 14
+                      "type": "MoveToTarget",
+                      "speed": 1000,
+                      "range": 25000,
+                      "end_effects": [
+                        {
+                          "type": "CasterAnimation",
+                          "name": "spin",
+                          "tick": 26
+                        },
+                        {
+                          "type": "Attack",
+                          "damage": 6,
+                          "attack_ratio": 14
+                        }
+                      ]
                     }
                   ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_garen_e_found",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RandomTarget",
+                        "range": 30000,
+                        "casting_target": "EnemyWithoutTower",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_garen_e_found",
+                              "duration": {
+                                "Time": {
+                                  "tick": 1
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "MoveToTarget",
+                            "speed": 1000,
+                            "range": 30000,
+                            "end_effects": [
+                              {
+                                "type": "CasterAnimation",
+                                "name": "spin",
+                                "tick": 26
+                              },
+                              {
+                                "type": "Attack",
+                                "damage": 6,
+                                "attack_ratio": 14
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_garen_e_found",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": []
+                        },
+                        "effect_none": {
+                          "type": "RandomTarget",
+                          "range": 45000,
+                          "casting_target": "EnemyWithoutTower",
+                          "from_projectile": false,
+                          "effects": [
+                            {
+                              "type": "MoveToTarget",
+                              "speed": 1000,
+                              "range": 45000,
+                              "end_effects": [
+                                {
+                                  "type": "CasterAnimation",
+                                  "name": "spin",
+                                  "tick": 26
+                                },
+                                {
+                                  "type": "Attack",
+                                  "damage": 6,
+                                  "attack_ratio": 14
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
                 }
               ]
             },
@@ -497,27 +897,127 @@
               "name": "league_garen_spin"
             },
             {
-              "type": "RandomTarget",
-              "range": 60000,
-              "casting_target": "EnemyChampion",
-              "from_projectile": false,
+              "type": "Combine",
               "effects": [
                 {
-                  "type": "MoveToTarget",
-                  "speed": 1400,
-                  "range": 60000,
-                  "end_effects": [
+                  "type": "RandomTarget",
+                  "range": 25000,
+                  "casting_target": "EnemyChampion",
+                  "from_projectile": false,
+                  "effects": [
                     {
-                      "type": "CasterAnimation",
-                      "name": "spin",
-                      "tick": 26
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_garen_e_found",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
                     },
                     {
-                      "type": "Attack",
-                      "damage": 6,
-                      "attack_ratio": 14
+                      "type": "MoveToTarget",
+                      "speed": 1000,
+                      "range": 25000,
+                      "end_effects": [
+                        {
+                          "type": "CasterAnimation",
+                          "name": "spin",
+                          "tick": 26
+                        },
+                        {
+                          "type": "Attack",
+                          "damage": 6,
+                          "attack_ratio": 14
+                        }
+                      ]
                     }
                   ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_garen_e_found",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RandomTarget",
+                        "range": 30000,
+                        "casting_target": "EnemyWithoutTower",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_garen_e_found",
+                              "duration": {
+                                "Time": {
+                                  "tick": 1
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "MoveToTarget",
+                            "speed": 1000,
+                            "range": 30000,
+                            "end_effects": [
+                              {
+                                "type": "CasterAnimation",
+                                "name": "spin",
+                                "tick": 26
+                              },
+                              {
+                                "type": "Attack",
+                                "damage": 6,
+                                "attack_ratio": 14
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_garen_e_found",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": []
+                        },
+                        "effect_none": {
+                          "type": "RandomTarget",
+                          "range": 45000,
+                          "casting_target": "EnemyWithoutTower",
+                          "from_projectile": false,
+                          "effects": [
+                            {
+                              "type": "MoveToTarget",
+                              "speed": 1000,
+                              "range": 45000,
+                              "end_effects": [
+                                {
+                                  "type": "CasterAnimation",
+                                  "name": "spin",
+                                  "tick": 26
+                                },
+                                {
+                                  "type": "Attack",
+                                  "damage": 6,
+                                  "attack_ratio": 14
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
                 }
               ]
             },
@@ -558,27 +1058,127 @@
               "name": "league_garen_spin"
             },
             {
-              "type": "RandomTarget",
-              "range": 60000,
-              "casting_target": "EnemyChampion",
-              "from_projectile": false,
+              "type": "Combine",
               "effects": [
                 {
-                  "type": "MoveToTarget",
-                  "speed": 1400,
-                  "range": 60000,
-                  "end_effects": [
+                  "type": "RandomTarget",
+                  "range": 25000,
+                  "casting_target": "EnemyChampion",
+                  "from_projectile": false,
+                  "effects": [
                     {
-                      "type": "CasterAnimation",
-                      "name": "spin",
-                      "tick": 25
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_garen_e_found",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
                     },
                     {
-                      "type": "Attack",
-                      "damage": 6,
-                      "attack_ratio": 14
+                      "type": "MoveToTarget",
+                      "speed": 1000,
+                      "range": 25000,
+                      "end_effects": [
+                        {
+                          "type": "CasterAnimation",
+                          "name": "spin",
+                          "tick": 25
+                        },
+                        {
+                          "type": "Attack",
+                          "damage": 6,
+                          "attack_ratio": 14
+                        }
+                      ]
                     }
                   ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_garen_e_found",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RandomTarget",
+                        "range": 30000,
+                        "casting_target": "EnemyWithoutTower",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_garen_e_found",
+                              "duration": {
+                                "Time": {
+                                  "tick": 1
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "MoveToTarget",
+                            "speed": 1000,
+                            "range": 30000,
+                            "end_effects": [
+                              {
+                                "type": "CasterAnimation",
+                                "name": "spin",
+                                "tick": 25
+                              },
+                              {
+                                "type": "Attack",
+                                "damage": 6,
+                                "attack_ratio": 14
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_garen_e_found",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": []
+                        },
+                        "effect_none": {
+                          "type": "RandomTarget",
+                          "range": 45000,
+                          "casting_target": "EnemyWithoutTower",
+                          "from_projectile": false,
+                          "effects": [
+                            {
+                              "type": "MoveToTarget",
+                              "speed": 1000,
+                              "range": 45000,
+                              "end_effects": [
+                                {
+                                  "type": "CasterAnimation",
+                                  "name": "spin",
+                                  "tick": 25
+                                },
+                                {
+                                  "type": "Attack",
+                                  "damage": 6,
+                                  "attack_ratio": 14
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
                 }
               ]
             },
@@ -615,27 +1215,127 @@
               "name": "league_garen_spin"
             },
             {
-              "type": "RandomTarget",
-              "range": 60000,
-              "casting_target": "EnemyChampion",
-              "from_projectile": false,
+              "type": "Combine",
               "effects": [
                 {
-                  "type": "MoveToTarget",
-                  "speed": 1400,
-                  "range": 60000,
-                  "end_effects": [
+                  "type": "RandomTarget",
+                  "range": 25000,
+                  "casting_target": "EnemyChampion",
+                  "from_projectile": false,
+                  "effects": [
                     {
-                      "type": "CasterAnimation",
-                      "name": "spin",
-                      "tick": 26
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_garen_e_found",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
                     },
                     {
-                      "type": "Attack",
-                      "damage": 6,
-                      "attack_ratio": 14
+                      "type": "MoveToTarget",
+                      "speed": 1000,
+                      "range": 25000,
+                      "end_effects": [
+                        {
+                          "type": "CasterAnimation",
+                          "name": "spin",
+                          "tick": 26
+                        },
+                        {
+                          "type": "Attack",
+                          "damage": 6,
+                          "attack_ratio": 14
+                        }
+                      ]
                     }
                   ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_garen_e_found",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RandomTarget",
+                        "range": 30000,
+                        "casting_target": "EnemyWithoutTower",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_garen_e_found",
+                              "duration": {
+                                "Time": {
+                                  "tick": 1
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "MoveToTarget",
+                            "speed": 1000,
+                            "range": 30000,
+                            "end_effects": [
+                              {
+                                "type": "CasterAnimation",
+                                "name": "spin",
+                                "tick": 26
+                              },
+                              {
+                                "type": "Attack",
+                                "damage": 6,
+                                "attack_ratio": 14
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_garen_e_found",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": []
+                        },
+                        "effect_none": {
+                          "type": "RandomTarget",
+                          "range": 45000,
+                          "casting_target": "EnemyWithoutTower",
+                          "from_projectile": false,
+                          "effects": [
+                            {
+                              "type": "MoveToTarget",
+                              "speed": 1000,
+                              "range": 45000,
+                              "end_effects": [
+                                {
+                                  "type": "CasterAnimation",
+                                  "name": "spin",
+                                  "tick": 26
+                                },
+                                {
+                                  "type": "Attack",
+                                  "damage": 6,
+                                  "attack_ratio": 14
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
                 }
               ]
             },
