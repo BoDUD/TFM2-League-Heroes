@@ -1174,6 +1174,8 @@ league_kennen (top, 2026-10-02, the third mark's stun: 1.25 s, 0.5 s within 7 s 
 the base fighter 2.33 in the same batch - in the range of the CC heroes before, no change.
 league_ryze (mid, --lane 2, 2026-10-03, Rune Prison's 1.25 s root on a Flux'd target; Yasuo top): 1.65 a game;
 league_ahri 1.33 and the base lightning mage 3.19 in the same batch - no change.
+league_jhin (bottom, --lane 3, 2026-10-03, Deadly Flourish's 1.67 s root on a champion hit lately; Yasuo mid): 1.44 a
+game; the base archer 0.50 and gunner 0.19 in the same batch (league_kennen 1.48) - no change.
 
 **Kill trigger (league_jinx Get Excited!).** No effect fires on a kill, but section 4's facts make one:
 1. Next to the damaging projectile, fire an invisible twin with the same speed and path and
@@ -2837,6 +2839,55 @@ himself every 15 ticks sets `r_cut`). In 72 games: 2.2 chases, 0.6 escapes and 0
 champions and 0.2 minions; lane 2 +1.41 / +1.35 against +1.65 / +2.01 for the old blink (it threw its landing
 Spell Flux into every fight).
 
+**Four shots, the fourth a crit, then a reload he walks through (league_jhin, Whisper).** The attack is a chain of
+three caster flags `a_1` -> `a_3` (600 ticks); the fourth plays its own strip (`CasterAnimation attack4`) and fires
+on tick 12: a 1-tick `crit_chance` 100 caster flag before its `Attack` crits it (a `BaseAttack` crits; an `Attack`
+in a `Skill` action never does), `RemoveCasterBuff` before the second `Attack` (10% of maximum health) keeps that one
+plain. The reload is a self-only `RangeEffect` with `BlockAttack {tick 130}`: an `attack_speed_mult` debuff does not
+delay the next attack (its cooldown is fixed when an attack starts, simulation log) - blocked, he walks and casts
+through the 2.2 s, +25% move speed for 2 s. The bullets are `TargetProjectile`s lifted to the muzzle of their shot
+frame (`y_offset` -2000 / -2500: 5000 - y_offset above the pivot), their views opening on an empty tick.
+
+**A grenade that hops among enemies but never back (league_jhin Q, Dancing Grenade).** `RandomTarget` with
+`from_projectile` picks the unit the projectile just hit (a monk hopped onto itself in the simulation), so the hops
+come from league_missfortune Q's wide twin: a penetrating `LinearProjectile` on `EnemyWithoutTower` (25000 wide,
+140000 long, the grenade's speed) launched with the homing grenade. The grenade's hit opens a 12-tick window flag on
+him (and a 1-tick `q_wait` so the units the twin touched before the hit do not count); every unit the twin touches
+inside the window takes one hop - a drop picture and, 6 ticks later, the hit - up to three, counted by caster flags
+`q_h1` -> `q_h2`. The +35% a kill reads a kill flag on each unit hit (`k_read` ticks later, the league_jinx check) and
+climbs a ladder `q_x1` -> `q_x3` on him. 25-45% of the casts hopped in the simulation, none back onto the unit hit.
+
+**A long shot that roots the champions his team hit (league_jhin W, Deadly Flourish).** A `Direction` cast on
+`EnemyChampion`: 36 ticks in, a `RandomTarget` on `EnemyChampionRecentlyAttacked` (a champion in the fight; else any
+`EnemyChampion` in reach) throws a hidden 6-tick `ParabolicProjectile` where he stands (league_caitlyn Q's aim lock),
+whose `end_effects` launch two `LinearProjectile`s down that line: a twin on `EnemyChampionRecentlyAttacked` that
+refreshes a 2-tick caster flag `w_rec`, and the shot on `EnemyChampion` (it stops on the first champion): damage, then
+a `Delayed` of 1 tick roots him if `w_rec` or `w_mark` (Jhin's own hit on a champion in the last 240 ticks) is on -
+the engine runs the two projectiles in either order, so the shot reads the twin a tick later.
+`EnemyChampionRecentlyAttacked` works as a projectile's `applied_target` (its window was not measured).
+
+**A trap thrown before the shot, and a bloom where he kills (league_jhin E, Captive Audience, in W).** With the
+15 s caster flag `e_cd` off, W first lobs the lotus (`ParabolicProjectile`, 18 ticks) at a champion within 75000.
+Landed: its picture, a caster flag `e_alive`, and 24 ticks later a `RangePeriodProjectile` trigger on `EnemyChampion`
+(period 1, 300 ticks) - started from `end_effects`, it outlives a dead caster, so it first asks whether he lives
+(`RandomTarget` `AllyOnlySelf` at range 1 finds no dead caster). The first champion on it blooms it where he stands: a
+1-tick lob onto him from a `Delayed` (no projectile spawns straight from a zone's applied effects), whose landing runs
+the bloom (picture, a slow zone, and 120 ticks later the burst zone). The passive: every shot of the attack, W and R
+also fires a hidden lob landing where the target stood 10 ticks later; 8 ticks after it lands it reads that source's
+kill flag (`k_a` / `k_w` / `k_r`: set on the champion's hit, cleared by a 3-tick casted while he lives - league_jinx,
+league_tristana) and blooms on the corpse. A projectile cannot start from the killing hit itself.
+
+**Four aim-locked shells from a kneeling channel (league_jhin R, Curtain Call).** A `CasterAnimation` loops its tag
+for its ticks, so the channel has three tags: `ult` (the deploy, 30 ticks), `ult_aim` (looped for the rest) and
+`ult_shot` (12 ticks of recoil, then `ult_aim` again). One `AddCasted` poll on him (every 6 ticks for the 300 ticks
+after the deploy) ends the channel when he is crowd-controlled (`RandomTarget` `AllyChampionInCC` at range 1) and,
+when the gap flag `r_wait` is off, picks a champion damaged lately within 120000, else any in range: a hidden 8-tick
+lob, then a `LinearProjectile` on `EnemyChampion` (20000 a tick). The count `r_s1` -> `r_s4` and the hit ladder
+`r_h1` -> `r_h3` (+30% a shell that hit) are caster flags; the fourth deals twice the damage outright and ends the
+channel when its shell is out. Flags, animations and sounds are queued on him (a `Delayed` on a target that died
+runs only pictures).
+Lifting the lines and bullets to the muzzles of the finished strips (W and R 9.5 and 8 px instead of 5) and firing W
+3 ticks earlier, in its shot frame, raised the kill difference by about 0.2 each (+1.56 -> +2.0 over 1440 games).
 ## 8. Gotchas
 
 - A `RangePeriodProjectile` put straight into an action's effects, or into a self-only `RangeEffect`, is never
