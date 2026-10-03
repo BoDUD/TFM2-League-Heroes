@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.50.0"
+    }
+  ],
+  "description": "Test build of a Wild Rift style W for Lee Sin (needs League of Legends Heroes): replaces the main pack's Lee Sin so his R dashes behind a lone target with W (no ward) before the kick, and once skill2 is learned he W-dashes away when low on health, W-chases fleeing low-health enemies and, above half health, W-dashes at the enemy he walks toward; one 12 s W cooldown, shared with the R dash (a front kick while it runs). Writes a log for testing.",
+  "last_updated": "2026-10-03",
+  "mod_id": "league_leesin_hop",
+  "mod_type": "native",
+  "name": "League Heroes: Lee Sin W Dash (test)",
+  "version": "0.1.8"
+}

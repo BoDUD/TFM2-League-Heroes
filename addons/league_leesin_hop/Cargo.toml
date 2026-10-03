@@ -1,6 +1,6 @@
 [package]
-name = "league_camille_wall"
-version = "0.4.2"
+name = "league_leesin_hop"
+version = "0.1.8"
 edition = "2021"
 publish = false
 
@@ -9,4 +9,3 @@ crate-type = ["cdylib", "rlib"]
 
 [dependencies]
 mod-api-stable = { path = "../vendor/mod-api-stable" }
-
