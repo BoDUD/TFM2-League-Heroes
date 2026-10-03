@@ -41,6 +41,9 @@ from rig_nocturne import rotsprite  # noqa: E402
 OUT = os.path.join(ROOT, "assets", "source", "native")
 CELLS = os.path.join(OUT, "aatrox_cells.json")
 TAGS = ["idle", "run", "attack", "attack_p", "skill", "q2", "q3", "skill2", "ult", "hit", "dead"]
+# drawn by Codex since 2026-10-04 (League's full-body Q casts, the transformation with League's wings):
+# tools/art/import_redo_aatrox.py writes them
+CODEX = {"skill", "q2", "q3", "ult"}
 Z = 8
 PIVOT = (64, 88)
 # canvas row -> (first col, last col) cleared
@@ -529,6 +532,8 @@ def build():
     sm = sword_mask(des)
     out = {}
     for tag in TAGS:
+        if tag in CODEX:
+            continue
         frs = cells["tags"][tag]
         cols, rows = layout(len(frs))
         sheet = np.zeros((rows * ch, cols * cw, 4), np.uint8)

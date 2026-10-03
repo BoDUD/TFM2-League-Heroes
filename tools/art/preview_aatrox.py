@@ -7,10 +7,10 @@
   league_aatrox_effects.png   every effect animation, 3x
   league_aatrox_showcase.gif  a scripted fight against Darius with Garen behind him, timed like the kit: Aatrox
                               walks in and swings twice; the empowered strike (Deathbringer Stance) thrusts a streak
-                              from the blade and bursts on Darius; The Darkin Blade three times with Umbral Dash in
-                              each wind-up - Q1 hops back so Darius stands on the long slam's edge (the arc, the
-                              line on the ground, the edge's pillar and knock-up), Q2's sweep and fan catch him on
-                              the rim, Q3 rushes in and slams the ring onto him; Infernal Chains: the claw's flash,
+                              from the blade and bursts on Darius; The Darkin Blade three times as League casts it
+                              (0.6 s to the blow): Umbral Dash halfway through the wind-up (Q1 hops back so Darius
+                              stands on the slam's far edge, Q3 rushes in), the shape laid on the ground after it
+                              with its warning, then the blow (the arc, the edge's pillar and knock-up); Infernal Chains: the claw's flash,
                               the chain flies and hits, the ring lies under him and links run to its centre while he
                               walks off inside it (he had backed off first), and at 1.5 s the chains snap him back to the
                               centre (Garen, by the ring, is left alone); World Ender: the transformation, the wings and the aura,
@@ -119,34 +119,38 @@ def showcase(out, z=3, step=40):
     a("attack_p")
     a("idle", 400, loop=True)
 
-    def q(tag, k, hit_t, slide, edge_up):
-        """A Q cast: E's slide in the wind-up (6-7 ticks at 3 px), the slash 4 ticks before the hit, the ground
-        shape on the hit and the edge's pillar + knock-up on Darius."""
+    def q(tag, k, hit_t, slide, edge_up, e_t=18, lock_t=26):
+        """A Q cast (build_aatrox.py: e_t, q_lock_t, q_hit_t): E's slide halfway through the wind-up (6-7 ticks at
+        3 px), the shape laid on the ground after it (its picture: the warning, then the impact on the blow), the
+        slash 4 ticks before the blow, the edge's pillar + knock-up on Darius."""
         nonlocal t
         q0 = t
-        an = a(tag, slides=[(q0, q0 + tick(abs(slide) / 3.0), slide)] if slide else ())
+        an = a(tag, slides=[(q0 + tick(e_t), q0 + tick(e_t + abs(slide) / 3.0), slide)] if slide else ())
         if slide:
-            on(me, small, "e_dash", q0)
+            ex, ey = an.pos(q0 + tick(e_t))
+            at(small, "e_dash", q0 + tick(e_t), ex, ey)    # left where the dash starts (is_follow false)
         on(me, small, f"q{k}_slash", q0 + tick(hit_t - 4))
-        hx, hy = an.pos(q0 + tick(hit_t))
+        hx, hy = an.pos(q0 + tick(lock_t))
         if k == 1:
-            at(big, "q1_body", q0 + tick(hit_t), hx + 23, hy, ground=True)
+            at(big, "q1_body", q0 + tick(lock_t), hx + 22, hy, ground=True)      # the 45000 line's middle
         elif k == 2:
-            at(big, "q2_body", q0 + tick(hit_t), hx + 15, hy, ground=True)
+            at(big, "q2_body", q0 + tick(lock_t), hx + 13, hy, ground=True)      # the 26000 line's middle
         else:
-            at(big, "q3_body", q0 + tick(hit_t), hx + 24, hy, ground=True)
+            # the circle 14.5 px ahead, or on Darius when he is nearer (the point stops at its target)
+            ahead = min(14.5, d.pos(q0 + tick(lock_t))[0] - hx)
+            at(big, "q3_body", q0 + tick(lock_t), hx + ahead, hy, ground=True)
         hit_on(d, "q_hit", q0 + tick(hit_t))
         on(d, small, "q_edge", q0 + tick(hit_t))
         d.hops.append((q0 + tick(hit_t), q0 + tick(hit_t + edge_up), 8 if k < 3 else 11))
 
-    # Q1: Darius 26 px away, the edge 46: E hops back 18 px first
-    q("skill", 1, 22, -18, 20)
+    # Q1: Darius 26 px away, the far edge at 41: E hops back 18 px first
+    q("skill", 1, 36, -18, 15)
     a("idle", 300, loop=True)
-    # Q2: the rim at 38 +-10: Darius at 44 is on it
-    q("q2", 2, 22, 0, 20)
+    # Q2: the far edge at 31: Darius at 44 is on it
+    q("q2", 2, 36, 0, 15)
     a("idle", 300, loop=True)
-    # Q3: the slam's middle 24 ahead: E rushes 21 px in
-    q("q3", 3, 24, 21, 30)
+    # Q3: the circle 14.5 ahead: E rushes 21 px in
+    q("q3", 3, 36, 21, 15)
     a("idle", 500, loop=True)
 
     # Darius backs off 40 px; Infernal Chains after him: the chain on tick 14 from the claw, 5 px a tick, raised 8 px
@@ -189,11 +193,12 @@ def showcase(out, z=3, step=40):
     walk = d.pos(t)[0] - 26 - x
     a("run", walk / 0.06, loop=True, slides=[(t, t + walk / 0.06, walk)])
 
-    # World Ender: the transformation (40 ticks), then the wings under him for the rest
+    # World Ender: the transformation (48 ticks: League's wings unfold, the flash and the ground ring), then the
+    # wings behind him for the rest (the r_look buff starts as the strip ends)
     r0 = t
     on(me, big, "r_transform", r0)
     a("ult")
-    aura = OnFoe(frames_of(big, "r_aura"), r0 + tick(20), me, z=-1)
+    aura = OnFoe(frames_of(big, "r_aura"), r0 + tick(48), me, z=-1)
     aura.loop, aura.until = True, None
     under.append(aura)
     a("idle", 300, loop=True)

@@ -351,9 +351,10 @@ def cells(name, n):
 # spots from the pivot (game px, x right, y down), measured on the finished strips (rig_aatrox.py: the tip = the fist
 # reached from the near shoulder + 19 along the blade's angle; the claw = the far fist in THROW + 4)
 P_TIP = (22, -7)            # the passive's thrust, attack_p 4 (the blade level, ahead)
-Q1_TIP = (11, 10)           # the blade on the ground, skill 5 (its tip (11, 7)): the arc's foot on the soles' row
-Q2_TIP = (24, -9)           # the sweep's reach, q2 5 (the tip at (22, -7)), the crescent's rim just beyond it
-Q3_TIP = (12, 10)           # q3 5, the slam (the tip (11, 7)): the burst's foot on the ground
+# the Q blows since Codex's redo (import_redo_aatrox.py, League's full-body casts: the blade lands far ahead, frame 6)
+Q1_TIP = (37, 10)           # the blade's tip on the ground, skill 6: the arc's foot on the soles' row
+Q2_TIP = (43, -2)           # the sweep's reach, q2 6 (the blade level, its tip at (41, 0)), the crescent just beyond
+Q3_TIP = (38, 10)           # q3 6, the slam (the tip on the ground at (38, 10)): the burst's foot
 CLAW = (18, -12)            # the red claw in W 4
 HIT = (0, -8)               # a hit on the upper body of a 32-44 px unit
 BODY = (0, -6)              # round the body (the chains wrapping him, the renewal ring)
@@ -361,8 +362,9 @@ FEET = (0, 9)               # a ring on the ground round a unit's feet (the elli
 SOLES = (0, 11)             # the ground under a unit (its soles' row)
 BEHIND = (-2, 6)            # E's trail: its bright head at his back, low
 OVER = (0, -16)             # the fear swirl over a minion's head
-Q1_LINE = (0, 0)            # the Q1 line's middle (46000 long)
-Q2_POINT = (-15, 0)         # the Q2 fan's point on the caster (a 30000 line, centred)
+Q1_LINE = (0, 0)            # the Q1 line's middle (45000 long): the rectangle from him
+Q2_POINT = (-13, 0)         # the Q2 fan's point on the caster (a 26000 line, centred)
+Q2_WARN = (1, 0)            # the trapezoid's middle, 14 px ahead of him (7 behind to 34.5 ahead)
 EMPTY = "empty"             # a frame with nothing in it (a projectile's first tick)
 
 
@@ -411,18 +413,25 @@ FX = {
 # the ring: RING_IN = 24 ticks (400 ms), RING_BEAT = 16 ticks (267 ms) - addons/league_aatrox_chain/src/lib.rs
 RING_IN = seq(range(6), [60, 60, 70, 70, 70, 70])
 RING_BEAT = seq([2, 3, 4, 5], [67, 67, 67, 66])
+# Q's shapes are laid on the ground at build_aatrox.py's q_lock_t (after E's dash in the wind-up) and hit on the blow
+# (tick 36, League's 0.6 s): their pictures play the warning (tools/art/warn_aatrox.py, League's shapes) until the blow,
+# then the impact
+Q_BLOW, LOCK_T = 36, 26
+WARN = seq(range(6), [(Q_BLOW - LOCK_T) * TICK / 6] * 6)
 BIG = {
-    "q1_body": [("q1_body", seq(range(4), [40, 60, 80, 100]), [Q1_LINE])],
-    "q2_body": [("q2_body", seq(range(4), [40, 60, 80, 100]), [Q2_POINT])],
-    "q3_body": [("q3_body", seq(range(5), [40, 60, 80, 120, 160]), [FEET])],
+    "q1_body": [("q1_warn", WARN, [Q1_LINE]), ("q1_body", seq(range(4), [40, 60, 80, 100]), [Q1_LINE])],
+    "q2_body": [("q2_warn", WARN, [Q2_WARN]), ("q2_body", seq(range(4), [40, 60, 80, 100]), [Q2_POINT])],
+    "q3_body": [("q3_warn", WARN, [FEET]), ("q3_body", seq(range(5), [40, 60, 80, 120, 160]), [FEET])],
     # the main pack's ring: appears, turns to 1.5 s
     "w_ring": [("w_ring", seq([0, 1], [60, 60]) + loop([2, 3, 4, 5], 80, 1280) + seq([5], [100]), [FEET])],
     "w_ring_in": [("w_ring", RING_IN, [FEET])],
     "w_ring_beat": [("w_ring", RING_BEAT, [FEET])],
     "w_snap": [("w_snap", seq(range(5), [50, 60, 70, 80, 100]), [FEET])],
-    # with the ult's 40 ticks (667 ms)
-    "r_transform": [("r_transform", seq(range(8), [40, 60, 70, 80, 90, 100, 110, 120]), [SOLES])],
-    "r_aura": [("r_aura", seq(range(6), [100] * 6), [SOLES])],
+    # with the ult's 48 ticks (800 ms): the flash and the ground ring only (import_redo_aatrox.py r_burst - the fire
+    # wings went, Codex's transformation strip unfolds League's wings)
+    "r_transform": [("r_burst", seq(range(8), [40, 70, 90, 110, 120, 130, 120, 120]), [SOLES])],
+    # the wings loop of Codex's redo (import_redo_aatrox.py): anchored on the standing point, behind him
+    "r_aura": [("r_aura", seq(range(6), [150] * 6), [(0, 0)])],
 }
 
 
