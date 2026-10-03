@@ -329,6 +329,13 @@
         "skill": "掷出千鸟手里剑（出手前锁定方向，可躲开），命中第一个敌人造成<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90% 法强<>的<#a974ffff>魔法伤害<>。命中英雄时若<#ff9028ff>电刃<>就绪，立刻放电（连招）。",
         "skill2": "化作闪电冲过敌群，对经过的敌人造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法强<>；冲完放出<#ff9028ff>电刃<>（<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>）并在<#ffb900ff>4秒<>内攻速+50%。大招就绪时直接接大招（连招）。",
         "ult": "召唤跟随自己的风暴<#ffb900ff>3秒<>，每0.5秒雷击范围内的敌方英雄，造成<#a974ffff>52<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30% 法强<>的<#a974ffff>魔法伤害<>并留下标记；期间护甲和魔抗+25。"
+      },
+      "league_jhin": {
+        "name": "烬",
+        "attack": "被动 <#ff9028ff>低语<>：四发一轮，第四发必定<#ff9028ff>暴击<>并附加目标<#ffb900ff>10%<>最大生命值的伤害，然后装弹<#ffb900ff>2.17秒<>（可走动、放技能）并加速<#ffb900ff>25%<>。烬击杀的英雄会在倒下处绽放莲花。",
+        "skill": "掷出手雷，炸到目标后弹向其身后的敌人，最多命中<#ffb900ff>4<>次，每次造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>物理伤害；每击杀一个单位，之后每次+<#ffb900ff>35%<>。",
+        "skill2": "若<#ff9028ff>万众倾倒<>就绪，先在敌方英雄脚下种莲花：踩中后<#ef5350ff>减速35%<>，<#ffb900ff>2秒<>后炸开造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>。随后超远射击第一个敌方英雄造成<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>；他近期受过我方伤害则<#ef5350ff>禁锢1.67秒<>。",
+        "ult": "架枪引导，开<#ffb900ff>4<>枪锁定后射出的超远子弹（被控制会中断），各打中路上第一个敌方英雄造成<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>并<#ef5350ff>减速80%<>；每中一枪后续+<#ffb900ff>30%<>，第四枪伤害翻倍。"
       }
     },
     "skill_name": {
@@ -566,6 +573,11 @@
         "skill1": "奥义！千鸟",
         "skill2": "奥义！雷铠",
         "ult": "秘奥义！万雷天牢引"
+      },
+      "league_jhin": {
+        "skill1": "曼舞手雷",
+        "skill2": "致命华彩",
+        "ult": "完美谢幕"
       }
     }
   },
@@ -899,6 +911,13 @@
         "skill": "擲出雷電手裡劍（出手前鎖定方向，可躲開），命中第一個敵人造成<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90% 法術強度<>的<#a974ffff>魔法傷害<>。命中英雄時若<#ff9028ff>電能釋放<>就緒，立刻放電（連招）。",
         "skill2": "化作閃電衝過敵群，對經過的敵人造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法術強度<>；衝完放出<#ff9028ff>電能釋放<>（<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>）並在<#ffb900ff>4秒<>內攻速+50%。大招就緒時直接接大招（連招）。",
         "ult": "召喚跟隨自己的風暴<#ffb900ff>3秒<>，每0.5秒雷擊範圍內的敵方英雄，造成<#a974ffff>52<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30% 法術強度<>的<#a974ffff>魔法傷害<>並留下印記；期間護甲和魔抗+25。"
+      },
+      "league_jhin": {
+        "name": "燼",
+        "attack": "被動 <#ff9028ff>低語<>：四發一輪，第四發必定<#ff9028ff>暴擊<>並附加目標<#ffb900ff>10%<>最大生命值的傷害，然後裝彈<#ffb900ff>2.17秒<>（可走動、施放技能）並加速<#ffb900ff>25%<>。燼擊殺的英雄會在倒下處綻放蓮花。",
+        "skill": "擲出手雷，炸到目標後彈向其身後的敵人，最多命中<#ffb900ff>4<>次，每次造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>物理傷害；每擊殺一個單位，之後每次+<#ffb900ff>35%<>。",
+        "skill2": "若<#ff9028ff>魔幻時刻<>就緒，先在敵方英雄腳下種蓮花：踩中後<#ef5350ff>緩速35%<>，<#ffb900ff>2秒<>後炸開造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>。隨後超遠射擊第一個敵方英雄造成<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>；他近期受過我方傷害則<#ef5350ff>定身1.67秒<>。",
+        "ult": "架槍引導，開<#ffb900ff>4<>槍鎖定後射出的超遠子彈（被控制會中斷），各打中路上第一個敵方英雄造成<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>並<#ef5350ff>緩速80%<>；每中一槍後續+<#ffb900ff>30%<>，第四槍傷害翻倍。"
       }
     },
     "skill_name": {
@@ -1136,6 +1155,11 @@
         "skill1": "雷電手裡劍",
         "skill2": "閃電衝擊",
         "ult": "雷霆風暴"
+      },
+      "league_jhin": {
+        "skill1": "狂舞手雷",
+        "skill2": "致命伏筆",
+        "ult": "華麗謝幕"
       }
     }
   },
@@ -1469,6 +1493,13 @@
         "skill": "Kennen hurls a shuriken (the aim is set before it leaves, so it can be dodged): the first enemy hit takes <#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90% AP<> <#a974ffff>magic damage<>. If it hits a champion while <#ff9028ff>Electrical Surge<> is ready, he surges at once (combo).",
         "skill2": "Kennen turns into lightning and rushes through enemies, dealing <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% AP<> to each one he passes; at the end he releases <#ff9028ff>Electrical Surge<> (<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% AP<> around him) and gains 50% attack speed for <#ffb900ff>4s<>. With his ultimate ready he goes straight into it (combo).",
         "ult": "Kennen summons a storm that follows him for <#ffb900ff>3s<>, striking enemy champions inside it every 0.5s for <#a974ffff>52<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30% AP<> <#a974ffff>magic damage<> and a mark; he gains 25 armor and magic resist meanwhile."
+      },
+      "league_jhin": {
+        "name": "Jhin",
+        "attack": "Passive <#ff9028ff>Whisper<>: four shots a round; the fourth always <#ff9028ff>crits<> and adds <#ffb900ff>10%<> of the target's max health, then Jhin reloads for <#ffb900ff>2.17s<> (he can move and cast meanwhile) and gains <#ffb900ff>25%<> move speed. Champions he kills bloom a lotus where they fall.",
+        "skill": "Jhin throws a grenade that bounces from its target to the enemies behind it, up to <#ffb900ff>4<> hits, each dealing <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> <#ff9028ff>physical damage<>; every unit it kills adds <#ffb900ff>35%<> to the hits after it.",
+        "skill2": "With <#ff9028ff>Captive Audience<> ready, Jhin first plants a lotus at an enemy champion's feet: stepped on, it <#ef5350ff>slows by 35%<> and bursts <#ffb900ff>2s<> later for <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>. Then he fires a very long shot: the first enemy champion hit takes <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> and is <#ef5350ff>rooted for 1.67s<> if Jhin's team damaged him lately.",
+        "ult": "Jhin sets up and fires <#ffb900ff>4<> very long shots, each aimed before it leaves (crowd control breaks the channel): the first enemy champion in its path takes <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<> and is <#ef5350ff>slowed by 80%<>; every hit adds <#ffb900ff>30%<> to the shots after it, and the fourth deals double."
       }
     },
     "skill_name": {
@@ -1706,6 +1737,11 @@
         "skill1": "Thundering Shuriken",
         "skill2": "Lightning Rush",
         "ult": "Slicing Maelstrom"
+      },
+      "league_jhin": {
+        "skill1": "Dancing Grenade",
+        "skill2": "Deadly Flourish",
+        "ult": "Curtain Call"
       }
     }
   },
@@ -2039,6 +2075,13 @@
         "skill": "표창을 던집니다(던지기 전에 방향이 정해져 피할 수 있음). 처음 맞은 적에게 <#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90% 주문력<> <#a974ffff>마법 피해<>. 챔피언에게 적중했을 때 <#ff9028ff>전류 방출<>이 준비되어 있으면 곧바로 방출합니다(연계).",
         "skill2": "번개로 변해 적 사이를 돌진하며 지나간 적에게 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 주문력<>의 피해를 입히고, 끝나면 <#ff9028ff>전류 방출<>(<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>)을 쓰고 <#ffb900ff>4초<> 동안 공격 속도 +50%. 궁극기가 준비되어 있으면 바로 이어서 사용합니다(연계).",
         "ult": "자신을 따라다니는 폭풍을 <#ffb900ff>3초<> 동안 불러 0.5초마다 안의 적 챔피언에게 <#a974ffff>52<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30% 주문력<> <#a974ffff>마법 피해<>와 표식을 남깁니다. 그동안 방어력과 마법 저항력 +25."
+      },
+      "league_jhin": {
+        "name": "진",
+        "attack": "기본 지속 효과 <#ff9028ff>속삭임<>: 네 발이 한 바퀴이며 네 번째 공격은 항상 <#ff9028ff>치명타<>로 대상 최대 체력의 <#ffb900ff>10%<>를 더합니다. 이후 <#ffb900ff>2.17초<> 동안 재장전(이동, 스킬 사용 가능)하며 이동 속도 +<#ffb900ff>25%<>. 진이 처치한 챔피언 자리에 연꽃이 핍니다.",
+        "skill": "유탄을 던져 대상에 맞힌 뒤 그 뒤의 적에게 튕기며 최대 <#ffb900ff>4<>번 맞히고, 매번 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> <#ff9028ff>물리 피해<>를 입힙니다. 유닛을 처치할 때마다 이후 피해 +<#ffb900ff>35%<>.",
+        "skill2": "<#ff9028ff>강제 관람<>이 준비되어 있으면 먼저 적 챔피언 발밑에 연꽃을 심습니다: 밟으면 <#ef5350ff>35% 둔화<>, <#ffb900ff>2초<> 뒤 터지며 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>. 이어서 아주 먼 거리로 쏘아 처음 맞은 적 챔피언에게 <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>; 최근 아군에게 피해를 입은 챔피언은 <#ef5350ff>1.67초 속박<>.",
+        "ult": "자리를 잡고 조준 후 발사되는 초장거리 탄환 <#ffb900ff>4<>발을 쏩니다(군중 제어로 중단). 각 탄환은 경로의 첫 적 챔피언에게 <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<> 피해와 <#ef5350ff>80% 둔화<>; 명중할 때마다 이후 +<#ffb900ff>30%<>, 네 번째는 두 배."
       }
     },
     "skill_name": {
@@ -2276,6 +2319,11 @@
         "skill1": "천둥의 표창",
         "skill2": "번개 질주",
         "ult": "날카로운 소용돌이"
+      },
+      "league_jhin": {
+        "skill1": "춤추는 유탄",
+        "skill2": "살상연희",
+        "ult": "커튼 콜"
       }
     }
   },
@@ -2609,6 +2657,13 @@
         "skill": "手裏剣を投げる（投げる前に向きが決まり、避けられる）。最初に当たった敵に<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90% 魔力<>の<#a974ffff>魔法ダメージ<>。チャンピオンに当たった時<#ff9028ff>稲妻の奔流<>が使えればすぐに放つ（コンボ）。",
         "skill2": "稲妻となって敵の間を駆け抜け、通った敵に<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 魔力<>。終わりに<#ff9028ff>稲妻の奔流<>（<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>）、<#ffb900ff>4秒<>攻撃速度+50%。アルティメットが使えればそのまま続ける（コンボ）。",
         "ult": "自分についてくる嵐を<#ffb900ff>3秒<>呼び、0.5秒ごとに中の敵チャンピオンに<#a974ffff>52<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30% 魔力<>の<#a974ffff>魔法ダメージ<>と刻印。その間物理防御と魔法防御+25。"
+      },
+      "league_jhin": {
+        "name": "ジン",
+        "attack": "パッシブ <#ff9028ff>囁き<>：4発で1巡、4発目は必ず<#ff9028ff>クリティカル<>し対象の最大体力の<#ffb900ff>10%<>を追加。その後<#ffb900ff>2.17秒<>リロード（移動・スキル可）し移動速度+<#ffb900ff>25%<>。キルしたチャンピオンの場所に蓮が咲く。",
+        "skill": "榴弾を投げ、対象に当たると後ろの敵へ跳ね、最大<#ffb900ff>4<>回命中し毎回<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>の<#ff9028ff>物理ダメージ<>。ユニットを倒すごとに以降+<#ffb900ff>35%<>。",
+        "skill2": "<#ff9028ff>女神の抱擁<>が使えれば先に敵チャンピオンの足元へ蓮を植える：踏むと<#ef5350ff>35%スロウ<>、<#ffb900ff>2秒<>後に爆ぜて<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>。続けて超長射程の一撃、最初の敵チャンピオンに<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>、最近味方が傷つけた相手は<#ef5350ff>1.67秒スネア<>。",
+        "ult": "構えて、狙いを定めてから放つ超長射程の弾を<#ffb900ff>4<>発撃つ（行動妨害で中断）。各弾は進路上の最初の敵チャンピオンに<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>と<#ef5350ff>80%スロウ<>；命中ごとに以降+<#ffb900ff>30%<>、4発目は2倍。"
       }
     },
     "skill_name": {
@@ -2846,6 +2901,11 @@
         "skill1": "雷遁手裏剣",
         "skill2": "疾風迅雷",
         "ult": "雷撃の大嵐"
+      },
+      "league_jhin": {
+        "skill1": "｢爆ぜ狂う果実｣",
+        "skill2": "｢死者への狂奏曲｣",
+        "ult": "｢終演 -フィナーレ-｣"
       }
     }
   }
