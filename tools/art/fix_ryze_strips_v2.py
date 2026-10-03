@@ -52,6 +52,7 @@ sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scr
 import strips as G  # noqa: E402
 import rig_ryze as R  # noqa: E402
 import ryze_death as RD  # noqa: E402
+import ryze_arms as RA  # noqa: E402
 
 SRC = os.path.join(ROOT, "assets", "source", "ryze", "codex_strips_v2")
 NAT = os.path.join(ROOT, "assets", "source", "native")
@@ -123,6 +124,11 @@ RUN_POSE = {
     7: {"front": (10, 14), "back": (-10, 4)},
     8: {"front": (10, 14), "back": (-10, 4)},
 }
+# the arms of every standing frame posed as the first version's (the user-approved strips before the slimming): their
+# joints (shoulder, elbow, wrist, hand) read off each frame (V1_ARMS), the idle's own arm turned to the same directions
+# (tools/art/ryze_arms.py) - Codex's v2 arms and the idle's arm turned at a guess read as stiff (「瑞兹的手臂感觉还是很
+# 奇怪真的」「像个僵尸一样」「不自然」)
+V1_ARMS = os.path.join(ROOT, "assets", "source", "ryze", "v1_arm_joints.json")
 # the boots of the legs swinging through in the run's passing frames (run_legs took rows out of the shins: the leg
 # ended at the knee band); {row from the pivot: (first column, squares)} in the idle's boot materials
 FEET = {("run", 2): {7: (0, "Dxx"), 8: (0, "rjhh")}, ("run", 6): {6: (-1, "Dxx"), 7: (-1, "rjhh")}}
@@ -734,6 +740,43 @@ def pose_arm(P, side, S, H, near_elbow):
     return unspur(cells)
 
 
+def arm_poses():
+    """{(tag, frame): {side: (upper arm degrees, forearm degrees, layer)}} from the first version's arms
+    (V1_ARMS: their joints read off the user-approved first strips), the angles from straight down, + forward."""
+    if not os.path.exists(lp(V1_ARMS)):
+        return {}
+    with open(lp(V1_ARMS), encoding="utf-8") as f:
+        data = json.load(f)
+    out = {}
+    for strip_ in data:
+        for fr in strip_["frames"]:
+            pose = {}
+            for side in ("far", "near"):
+                j = fr[side]
+                if j.get("hidden") or not all(j.get(k) for k in ("shoulder", "elbow", "hand")):
+                    pose[side] = (0.0, 0.0, "back" if side == "far" else "front")
+                    continue
+                S, E, H = j["shoulder"], j["elbow"], j["hand"]
+                up = math.degrees(math.atan2(E[0] - S[0], E[1] - S[1]))
+                fore = math.degrees(math.atan2(H[0] - E[0], H[1] - E[1]))
+                lay_ = j.get("layer", "")
+                if side == "far":
+                    layer = "over" if lay_ == "in_front_of_body" else "back"
+                else:
+                    layer = "back" if lay_ == "behind_body" else "front"
+                pose[side] = (up, fore, layer)
+            out[(strip_["tag"], fr["frame"])] = pose
+    return out
+
+
+def drawn_arms(pose, P):
+    """{layer: squares} of both arms posed (ryze_arms.pose: the idle's arm squares sheared and turned)."""
+    out = {"back": {}, "over": {}, "front": {}}
+    for side, (up, fore, layer) in pose.items():
+        out[layer].update(RA.pose(P["arms"], side, up, fore))
+    return out
+
+
 def run_arms(k, P):
     """Run frame k (0-based): {side: squares} - the idle's arm turned as RUN_POSE says."""
     out = {}
@@ -755,6 +798,23 @@ def run_arms(k, P):
                     del cells[(x, y)]
         out[side] = cells
     return out
+
+
+def ring_layer(out, cells, py, px, face, over):
+    """Arm squares (x, y from the pivot) onto the frame with one outline round them: over the body too when over, never
+    on the face (a hand by the face stops at it)."""
+    h, w = out.shape[:2]
+    pts = {(py + y, px + x): c for (x, y), c in cells.items() if 0 <= py + y < h and 0 <= px + x < w
+           and (py + y, px + x) not in face}
+    for (y, x) in pts:
+        for oy, ox in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+            q = (y + oy, x + ox)
+            if q in pts or q in face or not (0 <= q[0] < h and 0 <= q[1] < w):
+                continue
+            if over or not out[q][3]:
+                out[q] = INK + (255,)
+    for q, c in pts.items():
+        out[q] = c
 
 
 def torso_sides(upper):
@@ -893,7 +953,7 @@ def cut_rows(full, n):
 
 
 def idle_body(a, pivot, hd, P, tag, point=(), over_scroll=False, legs_own=False, crouch_hip=None, swing=None,
-              idle_arms=()):
+              idle_arms=(), drawn=None):
     """A standing frame on the idle's own upper body with Codex's arms drawn again (the module's docstring); legs_own:
     the idle's upper body down to its belt, dropped to Codex's head, over Codex's own legs (OWN_LEGS); crouch_hip: in a
     crouch (CROUCH) the belt drops to Codex's hips instead, the torso losing up to MAX_CUT rows to reach Codex's head
@@ -951,6 +1011,10 @@ def idle_body(a, pivot, hd, P, tag, point=(), over_scroll=False, legs_own=False,
     if swing is not None:                        # the run: the idle's arms turned (run_arms), not Codex's
         groups = []
     posed = {"back": {}, "over": {}, "front": {}}
+    if drawn is not None:                        # ARM_POSES: the idle's arms posed as the first version's (ryze_arms)
+        groups, swing, idle_arms = [], None, ()
+        for layer, cells in drawn.items():
+            posed[layer].update({(x + R.lean_x(lean, -14), y + drop): c for (x, y), c in cells.items()})
 
     def layer_of(side, comp):
         # a far arm brought across the front of the body (its skin over his clothes: a fist before the belly) lies
@@ -1029,10 +1093,6 @@ def idle_body(a, pivot, hd, P, tag, point=(), over_scroll=False, legs_own=False,
 
     # the far arm behind the body, unless raised across the scroll on his back (OVER_SCROLL) or brought before the
     # body: then in front of it
-    lay(arms["back"], False, SHOULDER["back"])
-    for (x, y), c in posed["back"].items():
-        if 0 <= py + y < h and 0 <= px + x < w:
-            out[py + y, px + x] = c
     if legs is None:
         for side in ("back", "front"):
             for (x, y), c in P["legs"][side].items():
@@ -1046,6 +1106,9 @@ def idle_body(a, pivot, hd, P, tag, point=(), over_scroll=False, legs_own=False,
     if swing is not None:                        # the run's far arm behind the body, its hand over the legs
         for (x, y), c in swing["back"].items():
             out[py + y + drop, px + x] = c
+    # the far arm behind the body (over the legs: its hand hangs beside the hips), with its outline
+    lay(arms["back"], False, SHOULDER["back"])
+    ring_layer(out, posed["back"], py, px, face=set(), over=False)
     if placed is not None:
         for (x, y), c in placed.items():
             if 0 <= py + y < h:
@@ -1061,9 +1124,7 @@ def idle_body(a, pivot, hd, P, tag, point=(), over_scroll=False, legs_own=False,
             for (x, y), c in P["arms"][(side, part)].items():
                 out[py + y + drop, px + x + lx(y)] = c
     for layer in ("over", "front"):
-        for (x, y), c in posed[layer].items():
-            if 0 <= py + y < h and 0 <= px + x < w and (py + y, px + x) not in face:
-                out[py + y, px + x] = c
+        ring_layer(out, posed[layer], py, px, face=face, over=True)
     lay(arms["over"], True, SHOULDER["back"])
     lay(arms["front"], True, SHOULDER["front"])
     return out, thinned, int(round(lean * (R.HIP_Y - R.NECK_Y)))
@@ -1077,6 +1138,7 @@ def build():
     x0, x1, y0, y1 = HEAD
     head = {(x, y): c for (x, y), c in des.items() if x0 <= x <= x1 and y0 <= y <= y1}
     P = R.parts(R.design())
+    poses = arm_poses()
     out, log = {}, []
     for tag in TAGS:
         frs = cells["tags"][tag]
@@ -1105,7 +1167,8 @@ def build():
                 hip = flap_top(a, fr["pivot"]) - FLAP_TOP if crouch else None
                 a, thinned, lean = idle_body(a, fr["pivot"], (hd[0], max(0, hd[1])), P, tag, point,
                                              (tag, k + 1) in OVER_SCROLL, own, hip, run_arms(k, P) if tag == "run" else None,
-                                             IDLE_ARMS.get((tag, k + 1), ()))
+                                             IDLE_ARMS.get((tag, k + 1), ()),
+                                             drawn_arms(poses[(tag, k + 1)], P) if (tag, k + 1) in poses else None)
                 a, _, fixed = mend(a, fr["pivot"], des, head, lean / (R.HIP_Y - R.NECK_Y))
                 note = f" | idle body, lean {lean:+d}, arms thinned by {thinned}"
             if (tag, k + 1) in HEAD_TOP:
