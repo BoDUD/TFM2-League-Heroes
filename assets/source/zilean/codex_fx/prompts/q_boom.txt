@@ -1,0 +1,7 @@
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, rings or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a bright cyan ramp (#FFFFFF, #D8FFFF, #7FF4FF, #2FC8E8, #1A7FB0) and a gold ramp (#FFFFFF, #FFF2B0, #FFD24A, #E39A1E, #9C5A10).
+Effect: a TIME BOMB EXPLOSION, 7 frames: 1 a white flash at the center; 2 a round burst of light cyan with a white core; 3 a jagged starburst ring of light cyan expanding (League's nova: a ring with spiky edges), a CLOCK RING (League's time circle: a thin bright ring with 12 short tick marks round it, like a clock face without numbers) flat on the ground under it flashing; 4 the ring at full size, 4-5 thin cyan lightning arcs and a few gold bomb shards flying out; 5 the ring thinner and breaking; 6 sparks and fading arcs; 7 a few last sparks.
+Layout: one horizontal row of 7 equal cells, each 8 wide to 5 tall, image size 2240x280 (each cell 320x200); the explosion centered 12 squares above the bottom of every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
+
+
+Generation refinements: no character; equal spacing; generous padding; bright coarse square pixels.
+Source layout changed to 4 columns x 2 rows to keep frames separate. Final export reassembled into one horizontal row.
