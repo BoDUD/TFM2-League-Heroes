@@ -455,7 +455,7 @@
     "league_caitlyn": {
       "face": {
         "x": -1,
-        "y": -35
+        "y": -32
       },
       "center": {
         "x": 0,
@@ -463,7 +463,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -7
+        "y": -10
       }
     },
     "league_nocturne": {

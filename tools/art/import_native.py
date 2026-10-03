@@ -334,9 +334,8 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        ("ryze", "idle"): (8, [2, 3, 4])}
 # hero: a module in tools/art with tidy(tag, k, frame) -> frame, run on the finished frames (after the outline is closed
 # and cleaned): the user's clean-up of dirty black blocks and stray squares inside the silhouette (2026-10-02:
-# "盖伦把黑边清理干净 有杂的黑色的地方", "风女 莫甘娜 不干净的黑色块也太多了", "莫甘娜头部有很多多余的方块", "阿狸也是都给我清理干净");
-# Caitlyn's legs 3 rows longer and her back hair 2 squares in (players: legs too short, too fat; 2026-10-03)
-TIDY = {"ahri": "clean_ahri", "janna": "clean_janna", "morgana": "clean_morgana", "caitlyn": "fix_caitlyn_body"}
+# "盖伦把黑边清理干净 有杂的黑色的地方", "风女 莫甘娜 不干净的黑色块也太多了", "莫甘娜头部有很多多余的方块", "阿狸也是都给我清理干净")
+TIDY = {"ahri": "clean_ahri", "janna": "clean_janna", "morgana": "clean_morgana"}
 CROWN = {"leesin"}              # heroes whose head template starts at the crown (a braid stands above it)
 PASTED = {"masteryi"}            # steadied on the head restyle_native pasted: his raised sword is the top of every frame
 # Codex's step-2 redraw (model_strips_18, tidied by tidy_codex18.py): the approved design's head (or face) is in every

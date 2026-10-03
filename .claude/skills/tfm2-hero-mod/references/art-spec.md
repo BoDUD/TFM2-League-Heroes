@@ -650,14 +650,6 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   black touching one material takes that material's darkest shade, a 1-px line stays where two materials meet, stray
   squares go, the eyes never change; a cleaned head can be pasted back by the eye (Morgana). The user reviews before
   and after; no automatic review rounds.
-- **Longer legs, slimmer hair after the import (league_caitlyn, `fix_caitlyn_body.py` as her `TIDY`).** Players: "腿太短
-  太胖". Rows only, nothing redrawn: per frame the cheapest row 2-9 under the pivot where the legs are thin strokes (runs
-  <= 7, one crossed run <= 14, not a boot sole) repeats 3 more times and everything above moves up; no such row: a frame
-  off the ground lifts whole, folded legs (kneels, crouches, lying) stay - and pin frames of one pose that the rule
-  splits (R's kneel: 5-7 found thin shins, 3-4 and 8 did not). The back hair's left edge comes 2 squares in, and hair
-  tips the cut leaves floating go. Then every fixed height moves with her: muzzles, the kit's `y_offset`s, face point,
-  `banpick_center` (-39 - idle top). The user picked from A/B/C option sheets (legs +3, +4, +3 with hair) next to the
-  reference (oppi's) idle.
 
 ## QA checklist
 

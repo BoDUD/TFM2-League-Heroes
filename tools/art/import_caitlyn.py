@@ -54,11 +54,8 @@ KIT = os.path.join(MOD, "champion", "league_caitlyn.data_champion")
 Z = 8
 TICK = 1000 / 60
 # the barrel's last pixel of each firing frame and the middle of the barrel's rows (.5: between two rows), measured on
-# league/champions/league_caitlyn's sheet: the attack's 4th frame, the Headshot's 5th, Q 7, E 3, R 7. Her longer legs
-# (tools/art/fix_caitlyn_body.py) lift the standing shots 3 px (attack 6.5 -> 9.5, Headshot 8 -> 11, E 11.5 -> 14.5);
-# Q and R fire kneeling and stay. Lifted to these muzzles the bullets slope about 6 degrees onto a target 90 px away (4
-# before); lifted less (8 and 9 px) they came out visibly under the barrel, since they rise from her pivot's column
-MUZZLE = {"attack": (30, -9.5), "passive": (27, -11), "skill": (35, -7.5), "e": (34, -14.5), "ult": (26, -9)}
+# league/champions/league_caitlyn's sheet: the attack's 4th frame, the Headshot's 5th, Q 7, E 3, R 7
+MUZZLE = {"attack": (30, -6.5), "passive": (27, -8), "skill": (35, -7.5), "e": (34, -11.5), "ult": (26, -9)}
 HIT = (0, -8)                          # a hit on the upper body of a 32-42 px unit
 SOLES = 11                             # the soles' row under the pivot
 # each projectile: the muzzle it leaves
