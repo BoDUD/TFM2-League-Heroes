@@ -1,4 +1,4 @@
-# 剑魔 W 锁链附加包（测试版 v0.2.1）
+# 剑魔 W 锁链附加包（测试版 v0.2.2）
 
 主包 `league` 保持纯数据。主包里剑魔的 W「恶火束链」：锁链停在第一个敌人身上（40 + 40% 攻击力、减速 25% 1.5 秒）；
 锁链旁边有敌方英雄时在落点放圈，1.5 秒后那个英雄再受一次伤害、被拉向剑魔。League 的两条数据写不出来：
@@ -34,6 +34,8 @@
 6. 日志在 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_aatrox_chain.log`，每次启动游戏重写（上一次的留在 `.prev.log`）：
    - `TETHER Champion #… at (x,y) ring (x,y) (the chain's stop; Aatrox (x,y))`：锁住谁、圈在哪；
    - `BREAK: 23500 from the ring's centre (+1200, -23400), 30 ticks before the pull`：走出圈，锁链断了（括号里是离圈心的横向、上下）；
+   - `RING played` / `RING NOT PLAYED`（v0.2.2）：锁住后第 4 tick，数据有没有读到 `w_tether` 播圈（数据播圈时把标记删掉）；
+     游戏里「W 看不出」时先看这一行：NOT PLAYED = 数据没读到本包的标记，played = 圈播了、是画面的问题；
    - `PULL: … from the centre, pulled in … ticks; the second hit flagged on Aatrox`：拉回，第二下交给数据；
    - `DRAG: stopped … short of the centre, pushed again …`：拉回被截短，补推。
 

@@ -1,4 +1,4 @@
-//! 剑魔 W 锁链附加包 v0.2.1：W「恶火束链」照 League 原版。
+//! 剑魔 W 锁链附加包 v0.2.2：W「恶火束链」照 League 原版。
 //!
 //! 主包的 W（数据）：锁链停在第一个敌人身上（伤害 + 减速 1.5 秒）；打中英雄时在落点放圈，1.5 秒后那个英雄
 //! 再受一次伤害、被拉向剑魔。League 的两条数据写不出来：走出圈锁链就断、拉回的是圈的中心。
@@ -61,6 +61,10 @@ pub const PULL: &str = "league_aatrox_w_pull";
 pub const PULL_C: &str = "league_aatrox_w_pull_c";
 /// 标记留多久：打中时的标记数据层同一 tick 和下一 tick 读，拉回的在 `READ_AT` 读。
 pub const HIT_T: usize = 3;
+/// `w_tether` 留得久一点：数据播圈时把它删掉（RemoveCasterBuff），`watch` 在第 `SEEN_AT` tick 看它还在不在，
+/// 写进日志——游戏里「W 看不出」（2026-10-04）时分清是数据没读到本包的标记，还是画面没显示（v0.2.2）。
+pub const TETHER_T: usize = 6;
+pub const SEEN_AT: usize = 4;
 pub const PULL_T: usize = 6;
 /// 拉回的速度（每 tick），到圈心这么近就算到了。
 pub const PULL_SPEED: f64 = 2_500.0;
@@ -309,7 +313,7 @@ fn tether(sim: &mut StableSim<'_>, me: usize, t: usize, kind: Kind) {
     let c = found.unwrap_or_else(|| center_of(here, from));
     let snap = sim.tick() + HOLD;
     sim.add_buff(t, &BuffV1::timed(&on_name(c, me, snap), HOLD + 5));
-    flag(sim, me, TETHER, HIT_T);
+    flag(sim, me, TETHER, TETHER_T);
     let linked = link(sim, me, here, c);
     queue(sim, "watch", t, pos_input(c), 1);
     wlog(format!(
@@ -367,6 +371,11 @@ fn watch(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
     }
     let here = fpos(e.pos());
     let d = dist(here, c);
+    if HOLD.saturating_sub(snap.saturating_sub(tick)) == SEEN_AT {
+        let left = names(sim, a).iter().any(|n| n == TETHER);
+        wlog(format!("{} RING {}: the data {} the w_tether flag", head(sim, me),
+                     if left { "NOT PLAYED" } else { "played" }, if left { "did not read" } else { "read and removed" }));
+    }
     if outside(here, c) {
         sim.entity_remove_buff(me, &name);
         let on_me = InputTargetV1::target(me);
@@ -502,7 +511,8 @@ fn init(host: &StableHost) -> StableMod {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v0.2 (League's Infernal Chains; pictures and hits in data) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{} (League's Infernal Chains; pictures and hits in data) loaded: game {}.{}.{} abi {} log={} ===",
+        env!("CARGO_PKG_VERSION"),
         v.major,
         v.minor,
         v.patch,

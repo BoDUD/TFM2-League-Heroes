@@ -84,21 +84,24 @@ ULT_ARMS = [None, (165, (53, 83), (72, 79), (75, 80)), (150, (49, 81), (73, 78),
 FAR_ROOT = (69, 75)                  # where the drawn wings join the back (behind the shoulders)
 NEAR_ROOT = (58, 75)
 # the run (League's Unsheath_run01, 8 frames, 2026-10-04): the sheared run (each whole leg leaned) broke at the knee as
-# it played (the user: 「是膝盖那和下面的小腿 走路的时候感觉脱节的」) and splayed its toes. Now League's own legs:
-# tools/lol/pose_joints.py assets/source/aatrox/poses.json --tag run --joints L_Hip,L_KneeLower,L_Foot,L_Toe,R_Hip,
-# R_KneeLower,R_Foot,R_Toe --json assets/source/aatrox/run_joints.json (game px from the pivot), each leg's knee and ankle
-# taken from its hip and scaled to the design's leg (LEG_SCALE: across 0.65, down 0.5 - the hip 10 rows over the
-# soles), drawn as one limb through the knee (thigh LEG_CORE, shin LEG_SHIN thick) in the leg's own colours with a light
-# on the knee plate, and the leg's own boot from the design at the ankle (the lit one mirrored: toe forward). League's
-# L leg is the design's dark right-hand one, R the lit left-hand one; the hips 3 apart under the skirt so the feet
-# cross (dark minus lit foot: -3, -4, -2, +4, +9, +10, +9, +3); the knee nearer the camera (League's z) drawn over the
-# other with its outline; the lowest sole on the soles' row (the body down 0-2 rows with it).
+# it played (the user: 「是膝盖那和下面的小腿 走路的时候感觉脱节的」); legs from hips 3 apart then read as a skirt under the
+# wide waist (「怎么看起来剑魔像穿了裙子？？」, the idle's legs pointed at as right). Now: the hips where the idle's legs
+# leave the waist (LEG_HIPS, 8 apart: the thighs stay apart), the feet where League's run puts them under the body
+# (tools/lol/pose_joints.py assets/source/aatrox/poses.json --tag run --joints L_Hip,L_KneeLower,L_Foot,L_Toe,R_Hip,
+# R_KneeLower,R_Foot,R_Toe --json assets/source/aatrox/run_joints.json: game px from the pivot; across from the hips'
+# middle x LEG_SCALE[0], down from each hip x LEG_SCALE[1]), each knee by two-bone IK (THIGH, SHIN) bending forward;
+# each leg one limb through its knee (LEG_CORE, LEG_SHIN thick: the idle's 2-3 squares) in its own colours with a
+# light on the knee plate; its own boot's foot (the lit one mirrored, toe forward) drawn first and the shin over its
+# top. League's L leg is the design's dark right-hand one, R the lit left-hand one; dark minus lit foot: -3, -4, -4,
+# +2, +7, +9, +7, +2 (they cross, 9 apart at most); the knee nearer the camera (League's z) drawn over the other with
+# its outline; the lowest sole on the soles' row (the body down 0-1 rows with it).
 RUN_JOINTS = os.path.join(ROOT, "assets", "source", "aatrox", "run_joints.json")
-LEG_HIPS = {"L": (65.5, 88.5), "R": (62.5, 88.5)}
+LEG_HIPS = {"L": (68.0, 88.5), "R": (60.0, 88.5)}
 LEG_MATS = {"L": ("2", "0", "d"), "R": ("2", "1", "e")}
 LEG_KNEE = {"L": "2", "R": "3"}
-LEG_SCALE = (0.65, 0.5)
-LEG_CORE, LEG_SHIN = 1.2, 0.95
+LEG_SCALE = (0.65, 0.55)
+THIGH, SHIN = 4.6, 4.2
+LEG_CORE, LEG_SHIN = 1.0, 0.85
 LEG_TOP = 88                         # the legs below this row move; the hips and the skirt above stay
 NEAR_COLS = (48, 64)                 # the lit (left) leg's columns, the dark (right) leg's
 FAR_COLS = (64, 80)
@@ -433,16 +436,16 @@ def frame(tag, i, des, sm):
 
 
 def boots(des):
-    """The design's boots, toe forward (the dark leg's as drawn, the lit one's mirrored), with their ankle (the top
-    row's middle)."""
+    """The design's feet, toe forward (the dark leg's as drawn, the lit one's mirrored), with their ankle (the middle of
+    the top row's coloured squares)."""
     out = {}
     for side, (c0, c1), flip in (("L", FAR_COLS, False), ("R", NEAR_COLS, True)):
-        part = des[96:100, c0:c1].copy()
+        part = des[97:100, c0:c1].copy()                 # the foot: the boot's last three rows
         if flip:
             part = part[:, ::-1]
         cols = np.nonzero((part[..., 3] > 0).any(0))[0]
         part = part[:, cols.min():cols.max() + 1]
-        top = np.nonzero(part[0, :, 3] > 0)[0]
+        top = np.nonzero((part[0, :, 3] > 0) & ~(part[0, :, :3] == D.COL["o"]).all(-1))[0]
         out[side] = (part, ((top.min() + top.max()) / 2.0, 0.0))
     return out
 
@@ -490,31 +493,48 @@ def stamp_boot(a, part, anchor, at, ring_over):
             a[y, x] = part[r, c]
 
 
+def knee_ik(hip, foot):
+    """The knee for a hip and an ankle (THIGH, SHIN), bending forward; an ankle out of reach is pulled in."""
+    v = foot - hip
+    d = float(np.hypot(*v))
+    if d > THIGH + SHIN - 0.05:
+        d = THIGH + SHIN - 0.05
+        foot = hip + v / np.hypot(*v) * d
+    u = (foot - hip) / d
+    a = (THIGH * THIGH - SHIN * SHIN + d * d) / (2 * d)
+    n = np.array([-u[1], u[0]])
+    if n[0] < 0:
+        n = -n
+    return hip + u * a + n * math.sqrt(max(0.0, THIGH * THIGH - a * a)), foot
+
+
 def run(i, des, sm):
     """League's run legs on the design (RUN_JOINTS): the upper body, the arms holding the blade, the wings and the head
     are the design's own; each leg one limb through its knee, its boot at the ankle, the nearer one over the other."""
     with open(lp(RUN_JOINTS), encoding="utf-8") as f:
         j = json.load(f)[i]["joints"]
     bt = boots(des)
+    hmid = (np.array(j["L_Hip"][:2]) + np.array(j["R_Hip"][:2])) / 2
+    mid = (LEG_HIPS["L"][0] + LEG_HIPS["R"][0]) / 2
     legs = []
     for s in ("L", "R"):
-        H, K, F = (np.array(j[f"{s}_{n}"][:2]) for n in ("Hip", "KneeLower", "Foot"))
+        F = np.array(j[f"{s}_Foot"][:2])
         hip = np.array(LEG_HIPS[s])
-        k = hip + np.array(LEG_SCALE) * (K - H)
-        ft = hip + np.array(LEG_SCALE) * (F - H)
-        legs.append((j[f"{s}_KneeLower"][2], s, hip, k, ft))
-    low = max(ft[1] + bt[s][0].shape[0] - 1 for _, s, _, _, ft in legs)
+        foot = np.array([mid + LEG_SCALE[0] * (F[0] - hmid[0]), hip[1] + LEG_SCALE[1] * (F[1] - j[f"{s}_Hip"][1])])
+        k, foot = knee_ik(hip, foot)
+        legs.append((j[f"{s}_KneeLower"][2], s, hip, k, foot))
+    low = max(ft[1] + bt[s][0].shape[0] for _, s, _, _, ft in legs)
     dy = int(round(max(-1.0, min(2.0, 99 - low))))
     upper = des.copy()
     upper[LEG_TOP:] = 0
     upper[sm] = des[sm]                                   # the blade hangs below the hips with the fist
     out = np.zeros_like(des)
+    d = np.array([0.0, float(dy)])
     for n, (_, s, hip, k, ft) in enumerate(sorted(legs, key=lambda t: t[0])):
-        d = np.array([0.0, float(dy)])
+        part, anchor = bt[s]
+        stamp_boot(out, part, anchor, ft + d + np.array([0.0, 1.0]), ring_over=n > 0)
         leg_limb(out, [hip + d, k + d, ft + d], LEG_MATS[s], (LEG_CORE, LEG_SHIN), ring_over=n > 0)
         out[int(round(k[1] + dy)), int(round(k[0]))] = rgba(LEG_KNEE[s])     # the knee plate's light
-        part, anchor = bt[s]
-        stamp_boot(out, part, anchor, ft + d, ring_over=n > 0)
     return over(out, upper, 0, dy)
 
 
