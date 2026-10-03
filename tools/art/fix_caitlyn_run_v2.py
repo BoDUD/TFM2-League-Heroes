@@ -10,9 +10,9 @@ on every slanted leg: 「走路的时候腿有点变形」. So, as the first des
 「挺不错的」), every leg here is drawn square by square (LEG: one leg's eight phases, the design's leg materials and
 length - navy tights, the gold garter, the brown knee pad, the gold boot top, the brown boot, the foot toe forward),
 and each frame is
-- the design (assets/source/caitlyn/design_v2) from the top down to its skirt's lining (2 rows over the standing
-  point): head, hat, hair, the rifle carried as in the idle, the skirt - lowered by STEP (League's pelvis), the legs
-  staying on the ground (the skirt slides over the thighs);
+- the idle's upper body (tools/art/rig_caitlyn.py's hold: the design's head, hat, hair, torso and skirt with the
+  traced rifle carried as in the idle) down to the skirt's lining (2 rows over the standing point) - lowered by STEP
+  (League's pelvis), the legs staying on the ground (the skirt slides over the thighs);
 - the near leg at phase k in frame k + 1, the far leg 4 phases on and 3 squares further right (the hips 3 apart):
   planted under her and sliding back (1-3), pushing off (4), the heel kicked up behind (5-6), swung through (7) and
   reaching forward to land (8). The near foot passes the far one between frames 2 and 3 and back between 7 and 8.
@@ -29,8 +29,7 @@ from PIL import Image
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 
-DESIGN = os.path.join(ROOT, "assets", "source", "caitlyn", "design_v2", "caitlyn_design_v2_1x.png")
-PIVOT = (64, 88)                 # the design's standing point on its canvas
+PIVOT = (64, 88)                 # the standing point on the canvas the upper body is drawn on
 Z = 8
 CUT = -2                         # the upper body: rows to 2 over the standing point (the skirt's lining)
 STEP = [0, 1, 2, 1, 0, 1, 2, 1]  # the upper body's rows down per frame (League's pelvis)
@@ -207,7 +206,11 @@ def main():
     cells = json.load(open(lp(a.cells), encoding="utf-8"))
     cell = cells["cell"][:2]
     run = cells["tags"]["run"]
-    d = np.asarray(Image.open(lp(DESIGN)).convert("RGBA")).copy()
+    import sys
+    sys.path.insert(0, HERE)
+    import rig_caitlyn as RIG
+    P = RIG.parts(RIG.design())
+    d = RIG.compose(P, None, dict(RIG.carry(), legs={}), (128, 128), PIVOT)    # the idle's upper body, no legs
     d[PIVOT[1] + CUT + 1:] = 0
     strip = np.zeros((2 * cell[1], 4 * cell[0], 4), np.uint8)
     for k, fr in enumerate(run):

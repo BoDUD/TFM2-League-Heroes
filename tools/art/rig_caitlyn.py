@@ -18,7 +18,9 @@ Here every frame is put together from the approved design's own parts (assets/so
   the arm's length, never a stretched stick); the legs as oppi draws them (「除了移动的时候 其他时候腿部完全不对」):
   straight and apart, two squares thick row by row with the design's garter, knee pad, boot top and buckle whole;
   oppi's kneel drawn square by square (KNEEL); the hop on the approved run's tucked legs; one outline ring each;
-- in the carrying frames (the idle's pose) the design's whole upper body as drawn;
+- the idle and the carrying frames: the design's hold (the butt by the near hip, the barrel up past the far
+  shoulder) with the traced rifle - the user picked it over the design's own rifle so that the rifle is the same in
+  every action (「B」); standing straight on the design's own legs;
 - the death's fall and the lying frames: the upper body turned about the hips (RotSprite, tools/art/rig_nocturne.py)
   and laid on the feet line, the rifle loose beside her.
 The poses follow the first design's strips the user approved (assets/source/native/caitlyn_<tag>.png on main before
@@ -129,7 +131,6 @@ def parts(d):
         "hair": grab(d, -13, -8, -17, -11, lambda x, y: x <= -9 or y == -17),  # the long hair under it
         "torso": grid(TORSO, TORSO_X0, -17),
         "skirt": grid(SKIRT, SKIRT_X0, -7),
-        "upper": grab(d, -13, 14, -33, -2),                                   # the carrying frames: as drawn
         "legs": grab(d, -13, 14, -1, 11),                                     # standing straight: as drawn
     }
 
@@ -455,8 +456,8 @@ def place_rotated(dst, layer, about, deg):
 def compose(P, mats, pose, cell, pivot):
     """One frame of a pose:
     body (dx, dy): the upper parts, the shoulders and the hips; head (dx, dy) more;
-    carry: the design's upper body as drawn, or rifle (butt x, y, degrees: its top line's end at the butt) with the
-      hands near / far: t along the rifle (the near glove at the grip, the far one under the barrel) or (x, y);
+    rifle (butt x, y, degrees: its body's top row at the butt) with the hands near / far: t along the rifle (the
+      near glove at the wrist, the far one under the scope) or (x, y);
     legs: near / far as (ankle x, lift) or {"ankle": (x, y), "knee": (x, y)} (the knee placed);
     rifle_z: "front" (over the near arm too), "behind" (behind the head and the torso) or default (over the head);
     rot (degrees, (x, y)): the upper body turned about that point (+ counter-clockwise), the legs not;
@@ -482,38 +483,33 @@ def compose(P, mats, pose, cell, pivot):
             cells = leg(hip, (spec[0], ANKLE_Y - spec[1]), mats)
         cv.put(cells)
     up = Canvas(cell[0], cell[1], pivot)
-    if pose.get("carry"):
-        up.put(shift(P["hair"], bx + hx, by + hy), outline=False)
-        up.put(shift(P["upper"], bx, by), outline=False)
-        up.put(shift(P["head"], bx + hx, by + hy), outline=False)
-    else:
-        sh = {k: (x + bx, y + by) for k, (x, y) in SHOULDER.items()}
-        rz = pose.get("rifle_z", "")
-        gun = None
-        rx = ry = deg = 0
-        if "rifle" in pose:
-            rx, ry, deg = pose["rifle"]
-            gun = rifle((rx, ry), deg)
+    sh = {k: (x + bx, y + by) for k, (x, y) in SHOULDER.items()}
+    rz = pose.get("rifle_z", "")
+    gun = None
+    rx = ry = deg = 0
+    if "rifle" in pose:
+        rx, ry, deg = pose["rifle"]
+        gun = rifle((rx, ry), deg)
 
-        def hand(spec, down):
-            if isinstance(spec, tuple):
-                return spec
-            return rifle_point((rx, ry), deg, spec, down=down)
+    def hand(spec, down):
+        if isinstance(spec, tuple):
+            return spec
+        return rifle_point((rx, ry), deg, spec, down=down)
 
-        up.put(shift(P["hair"], bx + hx, by + hy), outline=False)
-        if gun is not None and rz == "behind":
-            up.put(gun)
-        if "far" in pose:
-            up.put(arm(sh["far"], hand(pose["far"], pose.get("far_down", 1.5)), pose.get("far_elbow", -1)))
-        up.put(shift(P["skirt"], bx, by), outline=False)
-        up.put(shift(P["torso"], bx, by), outline=False)
-        up.put(shift(P["head"], bx + hx, by + hy), outline=False)
-        if gun is not None and rz == "":
-            up.put(gun)
-        if "near" in pose:
-            up.put(arm(sh["near"], hand(pose["near"], pose.get("near_down", 2.0)), pose.get("near_elbow", -1)))
-        if gun is not None and rz == "front":
-            up.put(gun)
+    up.put(shift(P["hair"], bx + hx, by + hy), outline=False)
+    if gun is not None and rz == "behind":
+        up.put(gun)
+    if "far" in pose:
+        up.put(arm(sh["far"], hand(pose["far"], pose.get("far_down", 1.5)), pose.get("far_elbow", -1)))
+    up.put(shift(P["skirt"], bx, by), outline=False)
+    up.put(shift(P["torso"], bx, by), outline=False)
+    up.put(shift(P["head"], bx + hx, by + hy), outline=False)
+    if gun is not None and rz == "":
+        up.put(gun)
+    if "near" in pose:
+        up.put(arm(sh["near"], hand(pose["near"], pose.get("near_down", 2.0)), pose.get("near_elbow", -1)))
+    if gun is not None and rz == "front":
+        up.put(gun)
     if "rot" in pose:
         deg_r, (ax, ay) = pose["rot"]
         lay = np.zeros_like(cv.a)
@@ -565,8 +561,14 @@ def kneel(deg=0.0, up=0.0, dy=6, **kw):
     return aim(deg=deg, up=up, dy=dy, **kw)
 
 
+CARRY = (-10.0, -5.0, 38)            # the idle's hold: the butt at the near hip, the barrel up past the far shoulder
+
+
 def carry(dy=0, dx=0, legs=None, head=(0, 0), **kw):
-    p = {"carry": True, "body": (dx, dy), "head": head, "legs": legs or STAND}
+    """The idle's hold with the traced rifle (the user picked it over the design's own rifle: 「B」), as the design
+    holds hers: the butt by the near hip, the near glove at the wrist, the far one under the scope."""
+    p = {"rifle": (CARRY[0] + dx, CARRY[1] + dy, CARRY[2]), "near": GRIP, "far": FORE, "near_down": 2.0,
+         "rifle_z": "front", "body": (dx, dy), "head": head, "legs": legs or STAND}
     p.update(kw)
     return p
 
@@ -688,7 +690,7 @@ def death():
 
 
 POSES["dead"] = death()
-POSES["idle"] = [carry() for _ in range(6)]       # the design; import_native's BOB breathes it
+POSES["idle"] = [carry() for _ in range(6)]       # the design's hold, the traced rifle; import_native's BOB breathes it
 
 
 def build(tag, P, mats, cells):
