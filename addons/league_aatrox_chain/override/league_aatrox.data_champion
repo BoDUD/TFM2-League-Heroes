@@ -3408,7 +3408,7 @@
     "cooltime": 540,
     "start_timing": 1,
     "cancelable": false,
-    "range": 60000,
+    "range": 42000,
     "casting_type": "Direction",
     "casting_target": "EnemyWithoutTower",
     "attack_type": "Skill",
