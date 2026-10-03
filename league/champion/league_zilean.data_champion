@@ -362,7 +362,7 @@
           "type": "TargetProjectile",
           "name": "league_zilean_a_orb",
           "speed": 5000,
-          "y_offset": 1500,
+          "y_offset": -1000,
           "applied_target": "Enemy",
           "applied_effects": [
             {
@@ -770,6 +770,144 @@
                       "name": "league_zilean_q_stick"
                     },
                     {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_zilean_q_live"
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_zilean_q_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 188
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "AddCasted",
+                      "casted_type": "Fire",
+                      "duration": 180,
+                      "period": 4,
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_zilean_q_seen"
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_zilean_q_seen",
+                            "duration": {
+                              "Time": {
+                                "tick": 5
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "ParabolicProjectile",
+                          "name": "league_zilean_q_watch",
+                          "travel_time": 1,
+                          "range": 400000,
+                          "range_effect_name": "",
+                          "shape": {
+                            "Circle": {
+                              "radius": 1
+                            }
+                          },
+                          "applied_target": "EnemyChampion",
+                          "applied_effects": [],
+                          "end_effects": [
+                            {
+                              "type": "Delayed",
+                              "tick": 6,
+                              "effects": [
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_zilean_q_seen",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": []
+                                  },
+                                  "effect_none": {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_zilean_q_live",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_zilean_q_live"
+                                        },
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_zilean_q_off",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 180
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
+                                        },
+                                        {
+                                          "type": "ViewEffect",
+                                          "name": "league_zilean_q_boom"
+                                        },
+                                        {
+                                          "type": "Sfx",
+                                          "name": "league_zilean_q_boom"
+                                        },
+                                        {
+                                          "type": "RangeProjectile",
+                                          "name": "league_zilean_q_boom_z",
+                                          "shape": {
+                                            "Circle": {
+                                              "radius": 30000
+                                            }
+                                          },
+                                          "delay": 1,
+                                          "apply": 1,
+                                          "applied_target": "EnemyWithoutTower",
+                                          "applied_effects": [
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "ApAttack",
+                                                "damage": 80,
+                                                "attack_ratio": 70,
+                                                "hp_ratio": 0,
+                                                "attack_effect_type": "Target"
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "ViewEffect",
+                                                "name": "league_zilean_q_hit"
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
                       "type": "SwitchByBuff",
                       "buff_name": "league_zilean_q_off",
                       "effect_buff": {
@@ -929,6 +1067,10 @@
                       "type": "Delayed",
                       "tick": 180,
                       "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_zilean_q_live"
+                        },
                         {
                           "type": "SwitchByBuff",
                           "buff_name": "league_zilean_q_pop",
@@ -1193,9 +1335,16 @@
                                 "type": "TargetProjectile",
                                 "name": "league_zilean_q_bomb2",
                                 "speed": 6000,
-                                "y_offset": 1500,
+                                "y_offset": -14000,
                                 "applied_target": "EnemyChampion",
                                 "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_zilean_q_live"
+                                    }
+                                  },
                                   {
                                     "casting_type": "Targeting",
                                     "effect": {
@@ -2431,6 +2580,7 @@
       "name": "league_zilean_e_slow",
       "anim": "asset/league/effects/league_zilean_fx",
       "tag": "e_slow",
+      "repeat": true,
       "z": 2
     },
     {
@@ -2438,6 +2588,7 @@
       "name": "league_zilean_e_haste",
       "anim": "asset/league/effects/league_zilean_fx",
       "tag": "e_haste",
+      "repeat": true,
       "z": -1
     },
     {
@@ -2445,6 +2596,7 @@
       "name": "league_zilean_r_rune",
       "anim": "asset/league/effects/league_zilean_big",
       "tag": "r_rune",
+      "repeat": true,
       "z": 2
     }
   ]
