@@ -1,4 +1,4 @@
-//! 魔腾黑暗附加包 v2：R「鬼影重重」——全地图变暗，敌人只能看见身边。
+//! 魔腾黑暗附加包 v3：R「鬼影重重」——全地图变暗，敌人只能看见、只打得到身边。
 //!
 //! 主包里魔腾的 R 让己方所有英雄隐身 3 秒、敌方英雄头上一团黑雾，再飞扑一名敌方英雄。
 //! `mod.override_info` 把主包的魔腾换成 `override/` 里的副本：那条「全体隐身 180 tick」换成本包的
@@ -7,6 +7,12 @@
 //! - 模拟里（`start` + 每 tick 的 `tick`，`DARK_T` tick）：魔腾一方的每个英雄，`NEAR` 内没有敌方英雄
 //!   时隐身 2 tick（每 tick 续上），有敌人贴近就现身——League 里被黑暗笼罩的人视野缩到身边，
 //!   本作没有按队伍改视野的接口，用「贴近才看得见」来做。
+//! - 鬼影重重（v3，`Paranoia`：每个玩家每 tick 的 AI 输入钩子）：本作的视野是全队共享的——一个敌人贴近，
+//!   整队都看得见，魔腾飞扑落地后连远处的射手都锁他（用户：「梦魇开大时5个隐身别人还可以攻击的到」，模拟里
+//!   R 期间 52 次出手 47 次打魔腾、一半从 6 万外）。League 的鬼影重重是每个敌人只看得见自己身边、没有共享
+//!   视野，所以黑暗里每个敌方英雄要攻击、施放到的魔腾一方单位（英雄、小兵）离他超过 `SIGHT`，这一下就换成
+//!   朝它走过去；走到 `SIGHT` 以内照常出手。指向点的技能看点附近 `AIM_POS` 内的单位，指方向的看方向两侧
+//!   `AIM_DEG` 度、`AIM_REACH` 内离方向线最近的。
 //! - 画面：R 出手时在地图中心播 `VEIL_LAYERS` 层铺满整张地图的半透明暗色（`VEIL`，副本里加的特效，
 //!   贴图在 `effects/`），错开 `VEIL_STEP` tick 叠上去，各播 3 秒，所以渐入、渐出。特效画在单位下面
 //!   （z −2）：地面变黑，英雄和技能特效照样看得清。它是普通的特效事件，跟着比赛画面同步播。
@@ -32,6 +38,15 @@ pub const NEAR: f64 = 40_000.0;
 const VEIL_T: usize = 2;
 /// 魔腾身上的标记：黑暗还在。
 const ON: &str = "league_nocturne_dark_on";
+/// 黑暗里敌方英雄看得见（打得到）的魔腾一方单位：身边这么近（同 `NEAR`）。
+pub const SIGHT: f64 = NEAR;
+/// 指向点的技能：点旁边这么近有魔腾一方的单位，就算瞄的它。
+pub const AIM_POS: f64 = 15_000.0;
+/// 指方向的技能：方向两侧这么多度、这么远以内的魔腾一方单位，算瞄的它。
+pub const AIM_DEG: f64 = 15.0;
+pub const AIM_REACH: f64 = 150_000.0;
+/// 同一个敌人被拦下，这么多 tick 内只记一行日志。
+const LOG_EVERY: usize = 30;
 
 /// 铺满地图的暗色特效（副本的 view_effects 里加的，贴图 `effects/league_nocturne_dark`）、播在哪（地图中心）、
 /// 叠几层、每层隔几 tick。
@@ -68,6 +83,10 @@ fn wlog(msg: impl AsRef<str>) {
 }
 
 fn head(sim: &StableSim<'_>, id: usize) -> String {
+    head_of(sim, "nocturne", id)
+}
+
+fn head_of(sim: &StableSim<'_>, who: &str, id: usize) -> String {
     let o = sim.sim_origin().unwrap_or_default();
     let label = match SimOriginKindV1::from_code(o.kind) {
         Some(SimOriginKindV1::ServerPresim) => "presim",
@@ -78,7 +97,7 @@ fn head(sim: &StableSim<'_>, id: usize) -> String {
         _ => "unknown",
     };
     let m = |v: u64| if v == SimOriginV1::NONE { "-".to_string() } else { v.to_string() };
-    format!("[{label} m={} s={}] t={} nocturne#{id}", m(o.match_id), m(o.set_index), sim.tick())
+    format!("[{label} m={} s={}] t={} {who}#{id}", m(o.match_id), m(o.set_index), sim.tick())
 }
 
 // ===================== 模拟：贴近才看得见 =====================
@@ -156,6 +175,110 @@ fn tick(sim: &mut StableSim<'_>, nocturne: usize) {
     queue(sim, "tick", nocturne, 1);
 }
 
+// ===================== 鬼影重重：只打得到身边的 =====================
+
+fn fpos(p: (u64, u64)) -> (f64, f64) {
+    (p.0 as f64, p.1 as f64)
+}
+
+/// 看不见就不出手：瞄的位置 `aim` 离出手的人 `me` 超过 `SIGHT`，就改成朝那里走（返回要走去的点）。
+pub fn blinded(me: (f64, f64), aim: (f64, f64)) -> Option<(f64, f64)> {
+    (dist(me, aim) > SIGHT).then_some(aim)
+}
+
+/// 指向点的技能瞄的是谁：点旁边 `AIM_POS` 以内最近的魔腾一方单位。
+pub fn aimed_at_point(p: (f64, f64), dark: &[(f64, f64)]) -> Option<(f64, f64)> {
+    dark.iter().copied().filter(|u| dist(p, *u) <= AIM_POS).min_by(|a, b| dist(p, *a).total_cmp(&dist(p, *b)))
+}
+
+/// 指方向的技能瞄的是谁：从 `me` 沿 `dir` 两侧 `AIM_DEG` 度、`AIM_REACH` 以内，离方向线最近的魔腾一方单位。
+pub fn aimed_along(me: (f64, f64), dir: (f64, f64), dark: &[(f64, f64)]) -> Option<(f64, f64)> {
+    let len = (dir.0 * dir.0 + dir.1 * dir.1).sqrt();
+    if len == 0.0 {
+        return None;
+    }
+    let (ux, uy) = (dir.0 / len, dir.1 / len);
+    let cos_max = AIM_DEG.to_radians().cos();
+    dark.iter()
+        .copied()
+        .filter_map(|u| {
+            let (vx, vy) = (u.0 - me.0, u.1 - me.1);
+            let d = (vx * vx + vy * vy).sqrt();
+            let along = vx * ux + vy * uy;
+            (d > 0.0 && d <= AIM_REACH && along / d >= cos_max).then_some((u, (d * d - along * along).max(0.0)))
+        })
+        .min_by(|a, b| a.1.total_cmp(&b.1))
+        .map(|(u, _)| u)
+}
+
+/// 正对着 `team` 的黑暗：对面一方有魔腾带着 `ON`，返回对面那一方。
+fn darkness_against(sim: &StableSim<'_>, team: usize) -> Option<usize> {
+    (0..sim.entity_count()).find_map(|i| {
+        let e = sim.entity_at(i)?;
+        (e.is_champion() && e.team() != team && has_buff(sim, e.id(), ON)).then(|| e.team())
+    })
+}
+
+#[derive(Clone, Default)]
+struct Paranoia {
+    /// 上次记日志的 tick（每个玩家一份）。
+    last_log: Option<usize>,
+}
+
+impl StablePlayerAi for Paranoia {
+    fn clone_box(&self) -> Box<dyn StablePlayerAi> {
+        Box::new(self.clone())
+    }
+
+    fn id(&self) -> String {
+        format!("{ID}:paranoia")
+    }
+
+    fn priority(&self) -> i32 {
+        100
+    }
+
+    fn think(&mut self, ctx: &mut StableAiContext<'_>, base: Option<InputV1>) -> Option<InputV1> {
+        let input = base?;
+        let kind = InputKindV1::from_code(input.kind)?;
+        if matches!(kind, InputKindV1::Move | InputKindV1::Return) {
+            return None;
+        }
+        let player = ctx.player_id();
+        let team = ctx.team();
+        let sim = ctx.sim()?;
+        let dark_team = darkness_against(&sim, team)?;
+        let me = sim.get_player(player)?.champion()?;
+        let my = fpos(me.pos());
+        let mut dark = Vec::new();
+        for i in 0..sim.entity_count() {
+            let Some(e) = sim.entity_at(i) else { continue };
+            if e.team() == dark_team && e.is_alive() && (e.is_champion() || e.is_minion()) {
+                dark.push((e.id(), fpos(e.pos())));
+            }
+        }
+        let spots: Vec<(f64, f64)> = dark.iter().map(|(_, p)| *p).collect();
+        let t = input.target;
+        let aim = match InputTargetKindV1::from_code(t.kind)? {
+            InputTargetKindV1::Target => dark.iter().find(|(id, _)| *id == t.target_id).map(|(_, p)| *p)?,
+            InputTargetKindV1::Pos => aimed_at_point((t.x as f64, t.y as f64), &spots)?,
+            InputTargetKindV1::Dir => aimed_along(my, (t.dir_x as f64, t.dir_y as f64), &spots)?,
+            InputTargetKindV1::None => return None,
+        };
+        let to = blinded(my, aim)?;
+        let now = sim.tick();
+        if self.last_log.is_none_or(|t0| now >= t0 + LOG_EVERY) {
+            self.last_log = Some(now);
+            wlog(format!(
+                "{} PARANOIA: player {player} {kind:?} out of sight ({:.0} away) - walks there instead",
+                head_of(&sim, "enemy", me.id()),
+                dist(my, aim)
+            ));
+        }
+        Some(InputV1::move_to(to.0 as u64, to.1 as u64))
+    }
+}
+
 // ===================== 注册 =====================
 
 struct Start;
@@ -184,7 +307,8 @@ fn init(host: &StableHost) -> StableMod {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v2 (Paranoia darkness, map veil effect) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{} (Paranoia: darkness, map veil, enemies hit only what is near) loaded: game {}.{}.{} abi {} log={} ===",
+        env!("CARGO_PKG_VERSION"),
         v.major,
         v.minor,
         v.patch,
@@ -195,7 +319,8 @@ fn init(host: &StableHost) -> StableMod {
     module.add_native_effect(format!("{ID}:start"), Start);
     module.add_native_effect(format!("{ID}:tick"), Tick);
     module.add_native_effect(format!("{ID}:layer"), Layer);
-    host.log(LogLevel::Info, "league_nocturne_dark v2 loaded (Nocturne's R darkens the map).");
+    module.add_player_input_ai(Paranoia::default());
+    host.log(LogLevel::Info, "league_nocturne_dark v3 loaded (Nocturne's R darkens the map; enemies hit only what is near).");
     module
 }
 
@@ -212,5 +337,25 @@ mod tests {
         // #1 有敌人在 30000 内：看得见；#3 的敌人在 45000：看不见
         assert_eq!(to_hide(&allies, &enemies), [2, 3]);
         assert_eq!(to_hide(&allies, &[]), [1, 2, 3]);
+    }
+
+    #[test]
+    fn far_targets_turn_into_a_walk() {
+        let me = (100_000.0, 100_000.0);
+        // 3 万外看得见：照常出手；6 万外看不见：改成走过去
+        assert_eq!(blinded(me, (130_000.0, 100_000.0)), None);
+        assert_eq!(blinded(me, (160_000.0, 100_000.0)), Some((160_000.0, 100_000.0)));
+    }
+
+    #[test]
+    fn point_and_direction_skills_find_what_they_aim_at() {
+        let dark = [(200_000.0, 100_000.0), (100_000.0, 220_000.0)];
+        assert_eq!(aimed_at_point((205_000.0, 104_000.0), &dark), Some((200_000.0, 100_000.0)));
+        assert_eq!(aimed_at_point((150_000.0, 150_000.0), &dark), None);
+        let me = (100_000.0, 100_000.0);
+        assert_eq!(aimed_along(me, (1.0, 0.05), &dark), Some((200_000.0, 100_000.0)));
+        assert_eq!(aimed_along(me, (0.0, 1.0), &dark), Some((100_000.0, 220_000.0)));
+        assert_eq!(aimed_along(me, (-1.0, 0.0), &dark), None);
+        assert_eq!(aimed_along(me, (0.0, 0.0), &dark), None);
     }
 }

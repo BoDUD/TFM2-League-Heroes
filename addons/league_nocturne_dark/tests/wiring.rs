@@ -117,6 +117,13 @@ unsafe extern "C" fn view_effect(
     true
 }
 unsafe extern "C" fn host_log(_: u32, _: *const u8, _: usize) {}
+// 玩家 k 的英雄就是单位 k
+unsafe extern "C" fn player_is_valid(s: *const c_void, h: PlayerHandleV1) -> bool {
+    h.id().is_some_and(|k| k < w(s).units.len())
+}
+unsafe extern "C" fn player_champion(_: *const c_void, h: PlayerHandleV1) -> EntityHandleV1 {
+    h.id().map_or(EntityHandleV1::NULL, EntityHandleV1::from_id)
+}
 
 fn vtable() -> SimVtableV1 {
     let mut vt: SimVtableV1 = unsafe { zeroed() };
@@ -137,6 +144,8 @@ fn vtable() -> SimVtableV1 {
     vt.queue_effect = Some(queue_effect);
     vt.entity_set_invisible = Some(invisible);
     vt.play_view_effect = Some(view_effect);
+    vt.player_is_valid = Some(player_is_valid);
+    vt.player_champion = Some(player_champion);
     vt
 }
 
@@ -235,8 +244,102 @@ fn paranoia_hides_the_team_and_veils_the_map_in_the_sim() {
         if std::env::var_os("KEEP_LOG").is_none() {
             let _ = std::fs::remove_file(&log);
         }
-        assert!(text.starts_with("=== league_nocturne_dark v2"), "{text}");
+        assert!(text.starts_with(&format!("=== league_nocturne_dark v{}", env!("CARGO_PKG_VERSION"))), "{text}");
         assert!(text.contains("DARKNESS for 180 ticks: 2 of 3 allies unseen"), "{text}");
         assert!(text.contains("darkness over"), "{text}");
     }
 }
+
+// ===================== 鬼影重重：AI 钩子 =====================
+
+/// AI 钩子看到的「这个玩家」：玩家 id 和队伍。
+struct Me {
+    player: usize,
+    team: usize,
+}
+unsafe extern "C" fn ai_player(s: *const c_void) -> usize {
+    (*(s as *const Me)).player
+}
+unsafe extern "C" fn ai_team(s: *const c_void) -> usize {
+    (*(s as *const Me)).team
+}
+
+/// 让导出的 AI 钩子替玩家 `player` 想一 tick：返回替换后的输入（`None` = 照原样）。
+unsafe fn think(world: &mut World, ai: &PlayerAiRegV1, player: usize, base: InputV1) -> Option<InputV1> {
+    let vt = vtable();
+    let mut avt: AiVtableV1 = zeroed();
+    avt.size = size_of::<AiVtableV1>();
+    avt.player_id = Some(ai_player);
+    avt.team = Some(ai_team);
+    let mut me = Me { player, team: world.units[player].team };
+    let mut ctx = AiCtxV1 {
+        size: size_of::<AiCtxV1>(),
+        vtable: &avt,
+        state: &mut me as *mut Me as *mut c_void,
+        sim: &vt,
+        sim_state: world as *mut World as *mut c_void,
+    };
+    let mut out = InputV1::default();
+    let code = ((*ai.vtable).think.unwrap())(ai.userdata, &mut ctx, &base, &mut out);
+    (code == AiDecisionKindV1::Replace.code()).then_some(out)
+}
+
+#[test]
+fn in_the_dark_enemies_hit_only_what_is_near() {
+    let log = std::env::temp_dir().join("league_nocturne_dark_ai_test.log");
+    std::env::set_var("LEAGUE_NOCTURNE_DARK_LOG", &log);
+    unsafe {
+        let mut host: HostApiV1 = zeroed();
+        host.size = size_of::<HostApiV1>();
+        host.host_abi_level = ABI_LEVEL;
+        host.log = Some(host_log);
+        let ex = &*league_nocturne_dark::tfm2_mod_entry_stable(&host);
+        let _ = std::panic::take_hook();
+        let regs = std::slice::from_raw_parts(ex.native_effects_ptr, ex.native_effects_len);
+        let fx: Effects = regs.iter().map(|e| (e.name.as_str().to_string(), e)).collect();
+        let ais = std::slice::from_raw_parts(ex.player_ai_ptr, ex.player_ai_len);
+        assert_eq!(ais.len(), 1, "one player AI hook");
+        let ai = &ais[0];
+
+        let attack = |id: usize| InputV1::action(InputKindV1::Attack, InputTargetV1::target(id));
+        let walk_to = |id: usize, w: &World| InputV1::move_to(w.units[id].x as u64, w.units[id].y as u64);
+        let mut w = world(true);
+        // 没开 R：敌人 #4 打 28 万外的 #1 照常
+        assert_eq!(think(&mut w, ai, 4, attack(1)), None);
+
+        call(&mut w, &fx, "league_nocturne_dark:start", 0);
+        run(&mut w, &fx, 1);
+        // 黑暗里：#4 离 #1 28 万，看不见 -> 改成走过去；#3 离 #1 3 万，照常打
+        assert_eq!(think(&mut w, ai, 4, attack(1)), Some(walk_to(1, &w)));
+        assert_eq!(think(&mut w, ai, 3, attack(1)), None);
+        // 指向 #1 旁边一个点的技能、指着 #2 方向的技能：也走过去
+        let at_point = InputV1::action(InputKindV1::Skill, InputTargetV1::pos(402_000, 401_000));
+        assert_eq!(think(&mut w, ai, 4, at_point), Some(walk_to(1, &w)));
+        // (#4 走到离 #2 约 11.7 万的地方，朝 #2 甩；15 万外的不算瞄着)
+        let home = (w.units[4].x, w.units[4].y);
+        (w.units[4].x, w.units[4].y) = (700_000.0, 260_000.0);
+        let mut toward = InputV1::action(InputKindV1::Skill2, InputTargetV1::NONE);
+        toward.target.kind = InputTargetKindV1::Dir.code();
+        (toward.target.dir_x, toward.target.dir_y) = (100_000, -60_000);
+        assert_eq!(think(&mut w, ai, 4, toward), Some(walk_to(2, &w)));
+        (w.units[4].x, w.units[4].y) = home;
+        (toward.target.dir_x, toward.target.dir_y) = (200_000, -400_000);
+        assert_eq!(think(&mut w, ai, 4, toward), None, "a direction toward a unit 45 万 away aims at nothing");
+        // 走路、回城、打别的队伍的不管；魔腾一方自己的玩家也不管
+        assert_eq!(think(&mut w, ai, 4, InputV1::move_to(1, 2)), None);
+        assert_eq!(think(&mut w, ai, 4, InputV1::return_home()), None);
+        assert_eq!(think(&mut w, ai, 4, attack(3)), None);
+        assert_eq!(think(&mut w, ai, 1, attack(4)), None);
+
+        // 黑暗过去：照常
+        run(&mut w, &fx, DARK_T + 5);
+        assert_eq!(think(&mut w, ai, 4, attack(1)), None);
+
+        let text = std::fs::read_to_string(&log).expect("log written");
+        if std::env::var_os("KEEP_LOG").is_none() {
+            let _ = std::fs::remove_file(&log);
+        }
+        assert!(text.contains("PARANOIA: player 4 Attack out of sight"), "{text}");
+    }
+}
+
