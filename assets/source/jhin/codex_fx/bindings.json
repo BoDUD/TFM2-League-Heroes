@@ -1,0 +1,137 @@
+[
+ {
+  "file": "jhin_fx_a_bolt.png",
+  "binding": "view_projectiles `league_jhin_a_bolt`（朝右，游戏转到飞行方向）",
+  "size": "10 × 4"
+ },
+ {
+  "file": "jhin_fx_a4_bolt.png",
+  "binding": "view_projectiles `league_jhin_a4_bolt`（朝右，游戏转到飞行方向）",
+  "size": "18 × 8"
+ },
+ {
+  "file": "jhin_fx_a_cast.png",
+  "binding": "view_effects `league_jhin_a_cast`（施法者身上，跟随；Claude 放到普攻第 2 帧低语的位置）",
+  "size": "10"
+ },
+ {
+  "file": "jhin_fx_a_muzzle.png",
+  "binding": "view_effects `league_jhin_a_muzzle`（施法者身上，跟随，朝左时游戏左右镜像；格子左边中点放到普攻第 3 帧的枪口）",
+  "size": "12 × 10"
+ },
+ {
+  "file": "jhin_fx_a_hit.png",
+  "binding": "view_effects `league_jhin_a_hit`（跟随）",
+  "size": "10"
+ },
+ {
+  "file": "jhin_fx_a4_muzzle.png",
+  "binding": "view_effects `league_jhin_a4_muzzle`（施法者身上，跟随，朝左时镜像；格子左边中点放到第四枪第 4 帧的枪口）",
+  "size": "20 × 14"
+ },
+ {
+  "file": "jhin_fx_a4_hit.png",
+  "binding": "view_effects `league_jhin_a4_hit`（跟随，画在人物上面）",
+  "size": "18"
+ },
+ {
+  "file": "jhin_fx_a_reload.png",
+  "binding": "view_effects `league_jhin_a_reload`（施法者身上，跟随，画在头顶上；导入时拉长到装弹的 2.2 秒）",
+  "size": "18 × 8"
+ },
+ {
+  "file": "jhin_fx_q_nade.png",
+  "binding": "view_projectiles `league_jhin_q_nade`（循环，游戏转到飞行方向）",
+  "size": "8 × 8"
+ },
+ {
+  "file": "jhin_fx_q_throw.png",
+  "binding": "view_effects `league_jhin_q_throw`（施法者身上，跟随；放到 Q 第 3 帧金拳头的位置）",
+  "size": "10"
+ },
+ {
+  "file": "jhin_fx_q_boom.png",
+  "binding": "view_effects `league_jhin_q_boom`（跟随，画在人物上面）",
+  "size": "18"
+ },
+ {
+  "file": "jhin_fx_q_drop.png",
+  "binding": "view_effects `league_jhin_q_drop`（跟随；落到底以后接 `q_boom`）",
+  "size": "8 × 24"
+ },
+ {
+  "file": "jhin_fx_w_shot.png",
+  "binding": "view_projectiles `league_jhin_w_shot`（朝右，游戏转到飞行方向）",
+  "size": "32 × 5"
+ },
+ {
+  "file": "jhin_fx_w_muzzle.png",
+  "binding": "view_effects `league_jhin_w_muzzle`（施法者身上，跟随，朝左时镜像；格子左边中点放到 W 第 7 帧的枪口）",
+  "size": "22 × 14"
+ },
+ {
+  "file": "jhin_fx_w_hit.png",
+  "binding": "view_effects `league_jhin_w_hit`（跟随，画在人物上面）",
+  "size": "16"
+ },
+ {
+  "file": "jhin_fx_w_root.png",
+  "binding": "view_effects `league_jhin_w_root`（跟随；3–6 帧导入时重复到定身结束）",
+  "size": "22 × 18"
+ },
+ {
+  "file": "jhin_fx_e_seed.png",
+  "binding": "view_projectiles `league_jhin_e_seed`（游戏转到飞行方向）",
+  "size": "8 × 8"
+ },
+ {
+  "file": "jhin_fx_e_land.png",
+  "binding": "view_effects `league_jhin_e_land`（地面，画在人物下面，不跟随）",
+  "size": "14 × 10"
+ },
+ {
+  "file": "jhin_fx_e_bloom.png",
+  "binding": "view_effects `league_jhin_e_bloom`（地面，画在人物下面，不跟随，大图；4–8 帧导入时重复到 2 秒）",
+  "size": "36 × 18"
+ },
+ {
+  "file": "jhin_fx_e_boom.png",
+  "binding": "view_effects `league_jhin_e_boom`（不跟随，画在人物上面，大图）",
+  "size": "40 × 40"
+ },
+ {
+  "file": "jhin_fx_e_hit.png",
+  "binding": "view_effects `league_jhin_e_hit`（跟随，画在人物上面）",
+  "size": "14"
+ },
+ {
+  "file": "jhin_fx_r_deploy.png",
+  "binding": "view_effects `league_jhin_r_deploy`（施法者身上，跟随，朝左时镜像）",
+  "size": "36 × 30"
+ },
+ {
+  "file": "jhin_fx_r_muzzle.png",
+  "binding": "view_effects `league_jhin_r_muzzle`（施法者身上，跟随，朝左时镜像；格子左边中点放到 R 开炮帧的炮口）",
+  "size": "24 × 16"
+ },
+ {
+  "file": "jhin_fx_r_bullet.png",
+  "binding": "view_projectiles `league_jhin_r_bullet`（朝右，游戏转到飞行方向）",
+  "size": "30 × 8"
+ },
+ {
+  "file": "jhin_fx_r_hit.png",
+  "binding": "view_effects `league_jhin_r_hit`（跟随，画在人物上面）",
+  "size": "18"
+ },
+ {
+  "file": "jhin_fx_r_crit.png",
+  "binding": "view_effects `league_jhin_r_crit`（跟随，画在人物上面）",
+  "size": "26"
+ },
+ {
+  "file": "jhin_fx_slowed.png",
+  "binding": "view_buffs `league_jhin_e_slowed`（第 1 行）/ `league_jhin_r_slowed`（第 2 行）（循环，画在脚下）",
+  "size": "20 × 8"
+ }
+]

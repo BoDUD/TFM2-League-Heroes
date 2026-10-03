@@ -1174,6 +1174,8 @@ league_kennen (top, 2026-10-02, the third mark's stun: 1.25 s, 0.5 s within 7 s 
 the base fighter 2.33 in the same batch - in the range of the CC heroes before, no change.
 league_ryze (mid, --lane 2, 2026-10-03, Rune Prison's 1.25 s root on a Flux'd target; Yasuo top): 1.65 a game;
 league_ahri 1.33 and the base lightning mage 3.19 in the same batch - no change.
+league_jhin (bottom, --lane 3, 2026-10-03, Deadly Flourish's 1.67 s root on a champion hit lately; Yasuo mid): 1.44 a
+game; the base archer 0.50 and gunner 0.19 in the same batch (league_kennen 1.48) - no change.
 league_zilean (support, --lane 4, 2026-10-03, the double bomb's 1.25 s stun on every enemy in its blast): 1.40 a game;
 league_leona 2.19 and the base priest 0.50 in the same batch - no change.
 
@@ -2345,11 +2347,13 @@ attack, the backstab included, and its attack frames) when Shaco's own hits set 
 play out before the idle frame comes back. After 300 ticks it explodes where the champion stands: 150 + 100%
 ability power round it and three mini boxes (the W pop with 45 / 75-tick fears and 150 ticks of shots). When the
 champion dies first it explodes where he fell: every run refreshes a 5-tick caster flag `r_seen` and lobs a hidden
-`ParabolicProjectile` at him (`travel_time` 6); a lob that lands after the runs have stopped - `r_seen` gone, `r_live`
-still on - removes the flags and explodes there. Nothing can be started from a dead unit, so the spot is armed while
-he lives. In a logged game the clone exploded three times at the end of its time and once on a death. When Shaco
-himself dies while it lives, its runs stop with him (4 such deaths in 28 logged games: no strike, picture or blast
-after them) - League's clone dies with Shaco too.
+`ParabolicProjectile` at him (`travel_time` 1) whose `end_effects` wait in a `Delayed` of 6 ticks at the landing
+point; a check that comes after the runs have stopped - `r_seen` gone, `r_live` still on - removes the flags and
+explodes there, 3-6 ticks after the death (all 470 such deaths in 240 logged games). Nothing can be started from a
+dead unit, so the spot is armed while he lives. Until 0.50.2 the lob itself flew 6 ticks and its target walked away
+from it (below, "Hidden projectiles in flight move the AI"). When Shaco himself dies while it lives, its runs stop
+with him (4 such deaths in 28 logged games: no strike, picture or blast after them) - League's clone dies with Shaco
+too.
 
 **Every sixth shot a Headshot, trapped champions first (league_caitlyn Headshot).** The attack decides on tick 1
 (league_jinx's way) and fires from a `Delayed` (7 ticks, 9 for a Headshot with its own `CasterAnimation passive`). Five
@@ -2839,6 +2843,56 @@ himself every 15 ticks sets `r_cut`). In 72 games: 2.2 chases, 0.6 escapes and 0
 champions and 0.2 minions; lane 2 +1.41 / +1.35 against +1.65 / +2.01 for the old blink (it threw its landing
 Spell Flux into every fight).
 
+**Four shots, the fourth a crit, then a reload he walks through (league_jhin, Whisper).** The attack is a chain of
+three caster flags `a_1` -> `a_3` (600 ticks); the fourth plays its own strip (`CasterAnimation attack4`) and fires
+on tick 12: a 1-tick `crit_chance` 100 caster flag before its `Attack` crits it (a `BaseAttack` crits; an `Attack`
+in a `Skill` action never does), `RemoveCasterBuff` before the second `Attack` (10% of maximum health) keeps that one
+plain. The reload is a self-only `RangeEffect` with `BlockAttack {tick 130}`: an `attack_speed_mult` debuff does not
+delay the next attack (its cooldown is fixed when an attack starts, simulation log) - blocked, he walks and casts
+through the 2.2 s, +25% move speed for 2 s. The bullets are `TargetProjectile`s lifted to the muzzle of their shot
+frame (`y_offset` -2000 / -2500: 5000 - y_offset above the pivot), their views opening on an empty tick.
+
+**A grenade that hops among enemies but never back (league_jhin Q, Dancing Grenade).** `RandomTarget` with
+`from_projectile` picks the unit the projectile just hit (a monk hopped onto itself in the simulation), so the hops
+come from league_missfortune Q's wide twin: a penetrating `LinearProjectile` on `EnemyWithoutTower` (25000 wide,
+140000 long, the grenade's speed) launched with the homing grenade. The grenade's hit opens a 12-tick window flag on
+him (and a 1-tick `q_wait` so the units the twin touched before the hit do not count); every unit the twin touches
+inside the window takes one hop - a drop picture and, 6 ticks later, the hit - up to three, counted by caster flags
+`q_h1` -> `q_h2`. The +35% a kill reads a kill flag on each unit hit (`k_read` ticks later, the league_jinx check) and
+climbs a ladder `q_x1` -> `q_x3` on him. 25-45% of the casts hopped in the simulation, none back onto the unit hit.
+
+**A long shot that roots the champions his team hit (league_jhin W, Deadly Flourish).** A `Direction` cast on
+`EnemyChampion`: 36 ticks in, a `RandomTarget` on `EnemyChampionRecentlyAttacked` (a champion in the fight; else any
+`EnemyChampion` in reach) throws a hidden 6-tick `ParabolicProjectile` where he stands (league_caitlyn Q's aim lock),
+whose `end_effects` launch two `LinearProjectile`s down that line: a twin on `EnemyChampionRecentlyAttacked` that
+refreshes a 2-tick caster flag `w_rec`, and the shot on `EnemyChampion` (it stops on the first champion): damage, then
+a `Delayed` of 1 tick roots him if `w_rec` or `w_mark` (Jhin's own hit on a champion in the last 240 ticks) is on -
+the engine runs the two projectiles in either order, so the shot reads the twin a tick later.
+`EnemyChampionRecentlyAttacked` works as a projectile's `applied_target` (its window was not measured).
+
+**A trap thrown before the shot, and a bloom where he kills (league_jhin E, Captive Audience, in W).** With the
+15 s caster flag `e_cd` off, W first lobs the lotus (`ParabolicProjectile`, 18 ticks) at a champion within 75000.
+Landed: its picture, a caster flag `e_alive`, and 24 ticks later a `RangePeriodProjectile` trigger on `EnemyChampion`
+(period 1, 300 ticks) - started from `end_effects`, it outlives a dead caster, so it first asks whether he lives
+(`RandomTarget` `AllyOnlySelf` at range 1 finds no dead caster). The first champion on it blooms it where he stands: a
+1-tick lob onto him from a `Delayed` (no projectile spawns straight from a zone's applied effects), whose landing runs
+the bloom (picture, a slow zone, and 120 ticks later the burst zone). The passive: every shot of the attack, W and R
+also fires a hidden lob landing where the target stood 10 ticks later; 8 ticks after it lands it reads that source's
+kill flag (`k_a` / `k_w` / `k_r`: set on the champion's hit, cleared by a 3-tick casted while he lives - league_jinx,
+league_tristana) and blooms on the corpse. A projectile cannot start from the killing hit itself.
+
+**Four aim-locked shells from a kneeling channel (league_jhin R, Curtain Call).** A `CasterAnimation` loops its tag
+for its ticks, so the channel has three tags: `ult` (the deploy, 30 ticks), `ult_aim` (looped for the rest) and
+`ult_shot` (12 ticks of recoil, then `ult_aim` again). One `AddCasted` poll on him (every 6 ticks for the 300 ticks
+after the deploy) ends the channel when he is crowd-controlled (`RandomTarget` `AllyChampionInCC` at range 1) and,
+when the gap flag `r_wait` is off, picks a champion damaged lately within 120000, else any in range: a hidden 8-tick
+lob, then a `LinearProjectile` on `EnemyChampion` (20000 a tick). The count `r_s1` -> `r_s4` and the hit ladder
+`r_h1` -> `r_h3` (+30% a shell that hit) are caster flags; the fourth deals twice the damage outright and ends the
+channel when its shell is out. Flags, animations and sounds are queued on him (a `Delayed` on a target that died
+runs only pictures).
+Lifting the lines and bullets to the muzzles of the finished strips (W and R 9.5 and 8 px instead of 5) and firing W
+3 ticks earlier, in its shot frame, raised the kill difference by about 0.2 each (+1.56 -> +2.0 over 1440 games).
+
 **A bomb that sticks to the first unit where it lands (league_zilean Q, Time Bomb).** A `Targeting` cast on
 `EnemyWithoutTower` (70000) lobs a `ParabolicProjectile` (24 ticks) at where the target stood when it left his
 hand - a champion who keeps walking steps out of it. Its shape is a circle of 8000 on `EnemyWithoutTower`, and a
@@ -2857,13 +2911,20 @@ point) finds `q_seen` gone when the runs stopped with the carrier and, with `q_l
 stick, removed by the fuse's end and by the second bomb), sets `q_off` and blows the bomb up there - 2-6 ticks after
 the death, a few pixels from the body (every carrier that died in two logged games).
 
-**Hidden projectiles in flight move the AI (league_zilean Q's watch).** Shaco's watch lob flies 6 ticks, so with one
-every 4 ticks one or two are always in the air over the carrier. On Zilean that cost the kill difference 0.4 and 9%
-of his damage to champions in 720 games (seeds 25-48: +2.44 / 7276 without the watch, +2.01 / 6634 with it), and
-the same lobs with their `end_effects` removed did the same (+1.97 / 6497): the lobs, not the blasts. On
+**Hidden projectiles in flight move the AI (league_zilean Q's watch).** The watch lob copied from Shaco flew 6 ticks,
+so with one every 4 ticks one or two were always in the air over the carrier. On Zilean that cost the kill difference
+0.4 and 9% of his damage to champions in 720 games (seeds 25-48: +2.44 / 7276 without the watch, +2.01 / 6634 with
+it), and the same lobs with their `end_effects` removed did the same (+1.97 / 6497): the lobs, not the blasts. On
 `applied_target: AllyOnlySelf` they went the other way (+3.06 / 7545). A 1-tick lob whose `end_effects` wait in a
 `Delayed` is in the air for one tick: +2.40 / 7424, the blasts it finds counted in. Keep hidden watch projectiles
-short-lived (league_shaco R's 6-tick lobs on its target champion were not measured this way).
+short-lived. league_shaco R's watch (the same 6-tick lobs, but only while the clone lives: 300 ticks of a 50 s
+cooldown) measured the same way in the jungle lane, three batches of 720 games: +1.08 / +1.27 / +0.90 with the 6-tick
+lobs, +1.16 / +0.80 / +1.17 with the 1-tick lob, +1.02 / +1.23 with the lobs' `end_effects` removed - inside the
+paired noise (about 0.30 a batch, the damage moving -1% to +6%). The AI does react to them: in 240 logged games each
+the ult's target died during the clone 32.9% of the time with the 6-tick lobs and 39.8% with the 1-tick one (it walks
+away from the lobs), while Shaco died first 3.2% against 5.1%; both blew up on every target that died under the clone
+(379 and 470). Shaco has the 1-tick lob since 0.50.2 (the user's call, 2026-10-03): the target fights on as it would
+in League.
 
 **Rewind as the second bomb on the same champion (league_zilean W in Q, QWQ).** League's W resets Q, and the
 players' combo is Q, W, Q: two bombs on one champion blow at once and stun everyone round him. The user picked it
