@@ -36,7 +36,7 @@
 
 ## 特效（24 张）
 
-24 张特效的提示词都以同一段画风开头。大小写在每条里，导入时 Claude 按技能范围缩放（1 个游戏像素约等于 1000 距离单位：Q 第一段长 46000、第三段圈半径 20000、W 圈半径 20000）。
+24 张特效的提示词都以同一段画风开头。大小写在每条里，导入时 Claude 按技能范围缩放（1 个游戏像素约等于 1000 距离单位：Q 第一段长 46000、第三段圈半径 20000、W 圈半径 33000）。
 
 ### 1. `aatrox_fx_a_hit.png`：普攻打中（目标身上），4 帧
 
@@ -200,7 +200,7 @@ Layout: one horizontal row of 4 equal square cells, image size 1024x256; centere
 
 ### 17. `aatrox_fx_w_ring.png`：W 地上的锁链圈（拴住期间，1.5 秒），6 帧
 
-锁链打中英雄后，在打中的地方地上出现一个暗红色的圆圈（从斜上方看是扁椭圆，宽是高的 2 倍），圈边上一圈锁链和铁钉，中间一个暗紫色的漩涡，被拴的人走出圈就挣脱，1.5 秒还在圈里就被拉回圈中心（参考 W_hole_mask、W_hole_gradient、W_Ground_Clump、W_noise_mult）。第 1–2 帧圈出现，3–6 帧循环。约 40 格宽、20 格高。
+锁链打中英雄后，在打中的地方地上出现一个暗红色的圆圈（从斜上方看是扁椭圆，宽是高的 2 倍），圈边上一圈锁链和铁钉，中间一个暗紫色的漩涡，被拴的人走出圈就挣脱，1.5 秒还在圈里就被拉回圈中心（参考 W_hole_mask、W_hole_gradient、W_Ground_Clump、W_noise_mult）。第 1–2 帧圈出现，3–6 帧循环。圈很大（英雄联盟里这个圈约有 W 射程的一半多），约 66 格宽、33 格高，比剑魔本人宽一倍多。
 
 ```text
 Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, fire, slashes or sparks, BRIGHT colours (each shape lit with its lightest shades and a white or pale-gold core - it must read on a dark battlefield), colours only from a fire ramp (#FFFFFF, #FFF0B8, #FFB347, #FF5A2A, #E0202E, #8F0E2B), a shade ramp (#C9A6D8, #8E5BA8, #5A2E6E, #34163F, #1A0A22) and an iron ramp (#D9D4DE, #9A93A8, #625B74, #39334A, #1A1624).
@@ -210,7 +210,7 @@ Layout: one horizontal row of 6 equal 2:1 cells, image size 3072x256 (each cell 
 
 ### 18. `aatrox_fx_w_snap.png`：W 1.5 秒到：锁链收紧，把人拉回圈中心（地面上），5 帧
 
-1.5 秒时还在圈里：圈上的锁链一下子全部收紧，往圈中心猛拉，中心炸开一团暗红色的光（参考 W_chain_glow、Basic_Impact_ring、W_Splash_tar）。约 40 格宽、24 格高（地上的扁椭圆加上往上冒的光）。
+1.5 秒时还在圈里：圈上的锁链一下子全部收紧，往圈中心猛拉，中心炸开一团暗红色的光（参考 W_chain_glow、Basic_Impact_ring、W_Splash_tar）。和 w_ring 的圈一样大：约 66 格宽、40 格高（地上 66 × 33 的扁椭圆加上往上冒的光）。
 
 ```text
 Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, fire, slashes or sparks, BRIGHT colours (each shape lit with its lightest shades and a white or pale-gold core - it must read on a dark battlefield), colours only from a fire ramp (#FFFFFF, #FFF0B8, #FFB347, #FF5A2A, #E0202E, #8F0E2B) and an iron ramp (#D9D4DE, #9A93A8, #625B74, #39334A, #1A1624).
@@ -300,8 +300,8 @@ Layout: one horizontal row of 5 equal square cells, image size 1280x256; centere
 | `aatrox_fx_w_chain` | view_projectiles `league_aatrox_w_chain`（朝右，游戏转到飞行方向，上下对称） | 24 × 8 |
 | `aatrox_fx_w_link` | view_projectiles `league_aatrox_w_link`（朝右，游戏转到连线方向，上下对称；从地上的圈中心到被拴的人一节节接起来） | 16 × 6 |
 | `aatrox_fx_w_hit` | view_effects `league_aatrox_w_hit`（跟随，画在人物上面） | 16 |
-| `aatrox_fx_w_ring` | view_effects `league_aatrox_w_ring`（BIG，画在地面上，不跟随，循环到 1.5 秒） | 40 × 20 |
-| `aatrox_fx_w_snap` | view_effects `league_aatrox_w_snap`（BIG，画在地面上，不跟随） | 40 × 24 |
+| `aatrox_fx_w_ring` | view_effects `league_aatrox_w_ring`（BIG，画在地面上，不跟随，循环到 1.5 秒） | 66 × 33 |
+| `aatrox_fx_w_snap` | view_effects `league_aatrox_w_snap`（BIG，画在地面上，不跟随） | 66 × 40 |
 | `aatrox_fx_w_yank` | view_effects `league_aatrox_w_yank`（跟随，画在人物上面） | 18 |
 | `aatrox_fx_w_slowed` | view_buffs `league_aatrox_w_slowed`（循环，画在脚下） | 20 × 8 |
 | `aatrox_fx_r_transform` | view_effects `league_aatrox_r_transform`（BIG，施法者身上，跟随，朝左时镜像） | 48 × 48 |
