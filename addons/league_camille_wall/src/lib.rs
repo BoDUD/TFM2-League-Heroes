@@ -23,7 +23,8 @@
 //! 1000）人早走远了，只好挂在墙上不动；贴身的目标也会去钩 36000 外的墙再扑回来；v4 收紧了钩点、
 //! 预判走位，E2 总会扑出去，加了地图四边。
 //!
-//! 她的 R（跃起和场地）期间不出 E，E 进行中 R 开始了就停掉（场地会把她拉回中心，抢起来会卡住）。
+//! 她的 R 跃起中不出 E，E 进行中 R 开始了就停掉（会把半空的她拉走，大招落空）。R 的场地里只在要逃时出 E（v4.2）：
+//! 主包的场地不再把她拉回中心，她走出去场地就结束，钩出去等于放掉正在打的目标，所以场地里不突进。
 //!
 //! 位移用引擎自己的强制位移（`ForceMove`，冲刺技能走的就是它，撞墙会停）；之后每 tick
 //! 看一次，她身上没有强制位移却还没到时改为逐 tick 直接设位置，保证一定能到。
@@ -815,9 +816,14 @@ fn has_buff(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
         .is_some_and(|e| (0..e.buff_count()).any(|i| e.buff_at(i).is_some_and(|b| b.name() == name)))
 }
 
-/// 她的 R 在跃起中或场地还在（主包的 `r_leap` / `r_on`）：场地会把她拉回中心，E 不能和它抢。
+/// 她的 R 在跃起中（主包的 `r_leap`，施放到落地）：E 会把半空的她拉走，大招落空。
 fn in_ult(sim: &StableSim<'_>, id: usize) -> bool {
-    has_buff(sim, id, &camille("r_leap")) || has_buff(sim, id, &camille("r_on"))
+    has_buff(sim, id, &camille("r_leap"))
+}
+
+/// 她的 R 场地还在（主包的 `r_on`）：她走出去场地就结束，所以场地里不突进，只在要逃时出 E。
+fn in_arena(sim: &StableSim<'_>, id: usize) -> bool {
+    has_buff(sim, id, &camille("r_on"))
 }
 
 /// R 开始了：停掉正在进行的 E（拉人、挂墙、扑），不再排下一 tick。
@@ -951,6 +957,9 @@ fn decide(sim: &mut StableSim<'_>, caster: usize, escape: bool, vel: &Velocities
     let hp = hp_share(sim, caster);
     let low = !escape && hp <= LOW_HP && nearest(here, &foes) <= LOW_HP_NEAR;
     let escape = escape || low;
+    if !escape && in_arena(sim, caster) {
+        return;
+    }
     let hits = hook_points(&grid, here, my_radius(sim, caster), &posts_of(&us, team));
     let plan = if escape {
         plan_escape(&hits, here, &foes).map(|h| (h, None))
@@ -1369,7 +1378,7 @@ fn init(host: &StableHost) -> StableMod {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v4.1 (wall + map edge + tower Hookshot) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v4.2 (wall + map edge + tower Hookshot) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
