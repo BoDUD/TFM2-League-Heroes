@@ -12,8 +12,8 @@ Here every frame is put together from the approved design's own parts (assets/so
 - the torso and the skirt as drawn, the squares the carried rifle and the hands covered painted in the bodice's and
   the skirt's own colours (TORSO, SKIRT);
 - the rifle drawn level square by square after design A's (RIFLE_ROWS: the gold butt plate, the ivory stock, the
-  brown grip, the receiver with its cream top, navy scope and trigger, the barrel two squares thick at the chamber
-  and one to the muzzle brake, 29 squares) and turned whole by RotSprite (the user: 「枪的细节太差了」); the arms
+  brown grip, the receiver with its cream top, navy scope and trigger, a brown collar, the barrel two squares thick
+  like the idle's with two glints, the muzzle brake, 29 squares) and turned whole by RotSprite (the user: 「枪的细节太差了」); the arms
   along shoulder -> elbow -> hand (ARM: the navy sleeve with its brown leather, the gold band, the cream cuff, the
   brown glove; every square within 1 of the line takes the colour at that length and side; a hand out of reach stops
   at the arm's length, never a stretched stick); the legs drawn as pixel art two squares thick, row by row (column by
@@ -197,14 +197,14 @@ def knee(hip, ankle, lt, ls, forward=1):
 # the rifle drawn level, square by square, after design A's (the user found the line-drawn one plain: 「枪的细节太差了」):
 # rows from the scope down, columns from behind the butt; RIFLE_AT is the barrel's top row at the butt (the point a
 # pose gives). The gold butt plate, the ivory stock, the brown grip, the receiver (cream top, gold) with the navy scope
-# and the trigger, the barrel two squares thick at the chamber (a brown collar) and one square to the muzzle with two
-# glints, the muzzle brake. Turned by RotSprite (quarter turns exactly); one outline ring after turning.
+# and the trigger, a brown collar, the barrel two squares thick like the idle's (bright gold over dark gold, two
+# glints), the muzzle brake. Turned by RotSprite (quarter turns exactly); one outline ring after turning.
 RIFLE_ROWS = [
-    "...........rrrr..................",
-    "..Cw.......HHHH..............wC..",
-    "..CwFFFFwwwCCCCCwCCCCCHCCCCCHCwC.",
-    "..CwFFFDvvvBBBBBwBBBB........wC..",
-    "..CwDD........C..................",
+    "...........rrrr...................",
+    "..Cw.......HHHH..............wC...",
+    "..CwFFFFwwwCCCCCwCCCCCHCCCCCHCwC..",
+    "..CwFFFDvvvBBBBBwBBBBBBBBBBBBBwC..",
+    "..CwDD........C...................",
 ]
 RIFLE_AT = (2, 2)
 RIFLE_LEN = 29.0                                  # the anchor to the muzzle's last square

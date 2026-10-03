@@ -55,7 +55,7 @@ Z = 8
 TICK = 1000 / 60
 # the barrel's last pixel of each firing frame and the middle of the barrel's rows (.5: between two rows), measured on
 # league/champions/league_caitlyn's sheet: the attack's 3rd-4th frames, the Headshot's 4th-5th, Q 7, E 3, R 7
-MUZZLE = {"attack": (21, -7), "passive": (21, -8), "skill": (19, -8), "e": (21, -11), "ult": (19, -8)}
+MUZZLE = {"attack": (21, -6.5), "passive": (21, -7.5), "skill": (19, -7.5), "e": (21, -10.5), "ult": (19, -7.5)}
 HIT = (0, -8)                          # a hit on the upper body of a 32-42 px unit
 SOLES = 11                             # the soles' row under the pivot
 # each projectile: the muzzle it leaves
