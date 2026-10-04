@@ -267,5 +267,5 @@ def run_frame(P, i):
 
 if __name__ == "__main__":
     P = R.Parts()
-    fr = [("idle", P.d)] + [(f"run {k + 1}", run_frame(P, k)) for k in range(8)]
+    fr = [("idle", P.idle)] + [(f"run {k + 1}", run_frame(P, k)) for k in range(8)]
     print(R.show(fr, "run.png", z=5))

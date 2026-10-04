@@ -18,10 +18,10 @@ Anchors (source pixels, the same spot in every cell unless the drawing moves): t
 their cell's middle (the pack asked for them centred); the hits on a frame's white flash; the shield bubble, the war
 cry's ring and the hunt's ring on the box of their full-size frame.
 The second step places every cell by its anchor on a spot from the pivot (game px, x right, y down; the soles 11 under
-the pivot), measured on the rigged strips (work/sv/rig_sv.py: the idle's body, the arms and the blade posed): the blade
-leaving her near hand in attack 3 (27, -14), the near hand that throws Q in skill 4 (23, -12), the blade she catches
-in the raised near hand in skill_catch 1 (23, -22), the blade at her back hip when W starts in attack 1 (-18, -8), her
-chest (3, -10) - and times it by the
+the pivot), measured on the rigged strips (tools/art/rig_sivir.py, the small crossblade's ring): the blade leaving her
+near hand in attack 3 (26, -14), the near hand that throws Q in skill 4 (23, -12), the blade she catches in the raised
+near hand in skill_catch 1 (22, -22), the blade at her back hip when W starts in attack 1 (-16, -8), her chest (3, -10)
+- and times it by the
 kit (60 ticks a second): the flying blades start with empty ticks (a projectile's first move points its picture up,
 import_lucian.py's RAY_SKIP; and it leaves her pivot, so the blade stays unseen until it is past her hand) and loop
 their frames over their longest flight; the shield holds up to e_cap (180 ticks); the hunt's ring loops for its 8 s.
@@ -57,7 +57,8 @@ RAMPS = {
 RIM = {"A8641A": "E8A830", "137A70": "2CC4B0", "3A2E9E": "5A6CF0", "1A4E9E": "2E9EE8"}
 
 # raw strip -> native: frames n, size (game px) over measure, anchor, ramps, obj (keeps its outline); the flying blades
-# a size over the pack's (10 / 12 / 20): the blade she holds is ~14 px, and at 10 the spinning drawing was a blur
+# a size over the pack's (10 / 12 / 20): at 10 the spinning drawing was a blur; Q's blade (22 at first) the size of
+# the crossblade in her hand since it was made smaller (16 x 16, rig_sivir.SMALL_BLADE): she catches what she threw
 RAW = {
     "a_blade": dict(n=4, size=13, measure="m", anchor="cell", ramps="BLADE GOLD TEAL", obj=True),
     "w_blade": dict(n=4, size=15, measure="m", anchor="cell", ramps="BLADE GOLD TEAL", obj=True),
@@ -66,7 +67,7 @@ RAW = {
     "w_on": dict(n=4, size=18, measure="w", anchor="cell", ramps="TEAL"),
     "w_bounce": dict(n=4, size=16, measure="m", anchor="cell", ramps="BLADE GOLD TEAL", obj=True),
     "w_hit": dict(n=4, size=12, measure="m", anchor="cell", ramps="TEAL GOLD"),
-    "q_blade": dict(n=4, size=22, measure="m", anchor="cell", ramps="BLADE GOLD TEAL", obj=True),
+    "q_blade": dict(n=4, size=16, measure="m", anchor="cell", ramps="BLADE GOLD TEAL", obj=True),
     "q_throw": dict(n=4, size=12, measure="m", anchor="cell", ramps="GOLD TEAL"),
     "q_hit": dict(n=5, size=16, measure="m", anchor="cell", ramps="GOLD TEAL"),
     "q_catch": dict(n=4, size=14, measure="m", anchor="cell", ramps="GOLD TEAL"),
@@ -171,10 +172,10 @@ def cells(name, n):
 
 
 # spots from the pivot (game px, x right, y down), measured on the finished strips (fx_pack_sv.py's marks)
-A_BLADE = (27, -14)         # the blade leaving her near hand in attack 3 (the throw)
-W_HIP = (-18, -8)           # the blade at her back hip in attack 1 (W lights it as the attack starts)
+A_BLADE = (26, -14)         # the blade leaving her near hand in attack 3 (the throw)
+W_HIP = (-16, -8)           # the blade at her back hip in attack 1 (W lights it as the attack starts)
 Q_HAND = (23, -12)          # the near hand that throws Q in skill 4
-Q_CATCH = (23, -22)         # the blade she catches in the raised near hand (skill_catch 1)
+Q_CATCH = (22, -22)         # the blade she catches in the raised near hand (skill_catch 1)
 CHEST = (3, -10)            # her chest (the idle's, eyes + 9)
 WAIST = (2, -4)             # W's motes round her waist
 BUBBLE = (2, -9)            # the shield's middle: 20 over her soles

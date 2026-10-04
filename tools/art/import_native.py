@@ -349,9 +349,9 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        ("jhin", "idle"): (-11, [2, 3, 4]),
        # Zilean floats: the seam low in the robe under the clock's pendulum (rows 94/95 of the design: the same width,
        # 11 squares of colour differ); the hem and his dangling feet stay
-       ("zilean", "idle"): (6, [2, 3, 4]),
-       # Sivir: the head, the scarf and the shoulders sink a row over the crouching body (the seam under the scarf)
-       ("sivir", "idle"): (-12, [2, 3, 4])}
+       ("zilean", "idle"): (6, [2, 3, 4])}
+# Sivir does not breathe: the seam under her scarf cut the crossblade and the near shoulder every breath and the
+# ban/pick card shook (the user: 「BP界面还是会上下摇动」); of a seam in the boots or none, the user picked none
 # hero: a module in tools/art with tidy(tag, k, frame) -> frame, run on the finished frames (after the outline is closed
 # and cleaned): the user's clean-up of dirty black blocks and stray squares inside the silhouette (2026-10-02:
 # "盖伦把黑边清理干净 有杂的黑色的地方", "风女 莫甘娜 不干净的黑色块也太多了", "莫甘娜头部有很多多余的方块", "阿狸也是都给我清理干净")

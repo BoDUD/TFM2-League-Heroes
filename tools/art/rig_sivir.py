@@ -4,6 +4,9 @@
     python tools/art/rig_sivir.py            # writes assets/source/native/sivir_<tag>.png (8x) + sivir_cells.json
     python tools/art/rig_sivir.py --review   # also Temp/sv_work/rig/review.png (every pose next to the idle, 6x)
 
+The idle is the design with a smaller crossblade (SMALL_BLADE, 「另外希维尔感觉模型偏大？」), the same drawing in all
+six frames (no breathing: 「BP界面还是会上下摇动」).
+
 Codex's step-2 strips (2026-10-04) drew a new, bigger body in every frame (+13-45% of the idle's area); scaled and
 with the design's head pasted they still read 「人物释放技能时变胖 模型变形」. Every frame here is the design itself:
 
@@ -172,8 +175,36 @@ def show(arrs, name, z=12):
 # ---------------------------------------------------------------------------------------------------------------
 # posing
 
-RING = (47.0, 80.0)          # the crossblade's ring middle (continuous canvas coordinates)
+RING = (49.0, 80.0)          # the small crossblade's ring middle (continuous canvas coordinates; the design's: 47, 80)
 CUFF = (59.5, 76.0)          # where the far sleeve meets the cuff
+# the crossblade a size smaller (2026-10-04, 「另外希维尔感觉模型偏大？」 - the user picked 「只缩小十字刃」): the
+# design's 20 x 23 crossblade redrawn at ~70%, 16 x 16 squares - its five blades (the top one with its axe edge to the
+# upper left, the narrow left one, the bottom one, the right one under the far glove and the one below it), cream on
+# the lit edges, the ring with its 2 x 2 hole and its gems; the far glove holds it by the same square (53, 78) as the
+# big one, so the ring sits 2 squares further right. The body stays the design's; the squares only the big one covered
+# show what is behind it (her hair, as in every action where the blade moves away).
+SMALL_BLADE = """
+.....####.......
+....#CCCE#......
+...#CCEEF#......
+....##CEF#......
+..#..#CEFE#.##..
+.#C#.#GEFFECCC#.
+.#CE##EGJEEEFF#.
+.#CFOE##EOF###..
+.#CFE#..#E#.....
+.##GE#..#EC#....
+..#EEF##EFEECC#.
+..#EFEEFOGEEEC#.
+..#CFJE###FEC#..
+..#CEE#...###...
+..#CCCCC#.......
+...######.......
+"""
+SMALL_AT = (42, 71)          # its top-left square on the design canvas (the hole: 48-49 / 79-80)
+BLADE_COLOURS = {"C": (0xFF, 0xF4, 0xC0), "G": (0xFF, 0xE2, 0x7A), "E": (0xE8, 0xA8, 0x30), "F": (0xA8, 0x69, 0x1E),
+                 "J": (0x18, 0xA8, 0x90), "O": (0xA0, 0x30, 0x2A)}     # the design's cream, golds, teal, red
+HELD = (3.0, -1.5)           # the ring from the near glove's middle when that hand holds the crossblade
 SHOULDER_FAR = (61.0, 73.5)
 SHOULDER_NEAR = (75.0, 77.0)
 GLOVE_NEAR = (85.5, 83.0)    # the near glove's middle
@@ -186,6 +217,31 @@ def sprite_of(d, mask):
     s = np.zeros((ys.max() - y0 + 1, xs.max() - x0 + 1, 4), np.uint8)
     s[ys - y0, xs - x0] = d[ys, xs]
     return s, (x0, y0)
+
+
+def small_blade():
+    """(sprite, top-left square) of the small crossblade drawn in SMALL_BLADE."""
+    rows = SMALL_BLADE.strip("\n").split("\n")
+    s = np.zeros((len(rows), max(len(r) for r in rows), 4), np.uint8)
+    for y, r in enumerate(rows):
+        for x, ch in enumerate(r):
+            if ch == "#":
+                s[y, x] = OUT + (255,)
+            elif ch in BLADE_COLOURS:
+                s[y, x] = BLADE_COLOURS[ch] + (255,)
+    return s, SMALL_AT
+
+
+def joined(under, over):
+    """Two (sprite, top-left) parts as one, `over` drawn over `under`."""
+    (s1, (x1, y1)), (s2, (x2, y2)) = under, over
+    x0, y0 = min(x1, x2), min(y1, y2)
+    out = np.zeros((max(y1 + s1.shape[0], y2 + s2.shape[0]) - y0, max(x1 + s1.shape[1], x2 + s2.shape[1]) - x0, 4),
+                   np.uint8)
+    for s, (x, y) in ((s1, (x1, y1)), (s2, (x2, y2))):
+        m = s[..., 3] > 0
+        out[y - y0:y - y0 + s.shape[0], x - x0:x - x0 + s.shape[1]][m] = s[m]
+    return out, (x0, y0)
 
 
 def rot_pt(p, c, deg):
@@ -352,15 +408,38 @@ class Parts:
             for x in range(54, 61):
                 if unit[y, x] and not (y == 74 and x <= 55):
                     hand[y, x] = True
-        self.unit = sprite_of(d, unit)
         self.hand = sprite_of(d, hand)
-        self.blade = sprite_of(d, unit & ~hand)
+        self.blade = small_blade()
+        self.unit = joined(self.blade, self.hand)          # the glove over the crossblade it holds
         self.front = sprite_of(d, front)
         nu, nb, fu, fb = leg_masks(d)
         self.legs = (sprite_of(d, nu), sprite_of(d, nb), sprite_of(d, fu), sprite_of(d, fb))
         nl = self.body.copy()
         nl[nu | nb | fu | fb] = 0
         self.body_nolegs = drop_small(nl, 6)
+        self.idle = idle_of(self, unit & ~hand, hand)
+
+
+def idle_of(P, big, hand):
+    """The idle: the design with the small crossblade under the glove in place of the big one. The squares only the big
+    one covered go, with the outline squares beside them left with nothing drawn next to them; the gaps behind her back
+    take her hair (settle), as in every action where the blade moves away."""
+    a = P.d.copy()
+    a[big] = 0
+    near = np.zeros_like(big)
+    for dy in (-1, 0, 1):
+        for dx in (-1, 0, 1):
+            near |= np.roll(np.roll(big, dy, 0), dx, 1)
+    for y, x in zip(*np.nonzero((a[..., 3] > 0) & near)):
+        if is_out(a[y, x]) and not any(a[y + dy, x + dx, 3] and not is_out(a[y + dy, x + dx])
+                                       for dy in (-1, 0, 1) for dx in (-1, 0, 1) if dy or dx):
+            a[y, x] = 0
+    s, (ox, oy) = P.blade
+    for y, x in zip(*np.nonzero(s[..., 3])):
+        if not hand[oy + y, ox + x]:
+            a[oy + y, ox + x] = s[y, x]
+    a = drop_small(a, 4)
+    return settle(a, [(int(round(RING[0] - 0.5)), int(round(RING[1] - 0.5)))])
 
 
 HIP_ROW = 86                 # the lean bends the body over this row (the belt's bottom)
@@ -422,8 +501,8 @@ def compose(P, pose):
     if pose.get("held") is not None:
         g = rot_pt(GLOVE_NEAR, SHOULDER_NEAR, nd)
         g = (g[0] + sh_near, g[1])
-        put(can, transform(*P.blade, RING, pose["held"], (g[0] + 4, g[1] - 2)), under=True)
-        rings.append((g[0] + 4, g[1] - 2))
+        put(can, transform(*P.blade, RING, pose["held"], (g[0] + HELD[0], g[1] + HELD[1])), under=True)
+        rings.append((g[0] + HELD[0], g[1] + HELD[1]))
     can = drop_small(can, 4)
     keep = [(int(round(x - 0.5)), int(round(y - 0.5))) for x, y in rings]
     return settle(can, keep, lean_shift(80, k), 0, 128)
@@ -447,7 +526,7 @@ IDLE = {"base": "idle"}
 
 def frame(P, pose):
     if pose.get("base") == "idle":
-        return P.d.copy()
+        return P.idle.copy()
     return compose(P, pose)
 
 
@@ -710,7 +789,7 @@ def dead_frame(P, i):
 def review(P, tags, name, z=6):
     imgs = []
     for t in tags:
-        r = [("idle", P.d)] + [(f"{t} {i + 1}", frame(P, p)) for i, p in enumerate(POSES[t])]
+        r = [("idle", P.idle)] + [(f"{t} {i + 1}", frame(P, p)) for i, p in enumerate(POSES[t])]
         ims = []
         for lab, a in r:
             sub = a[38:102, 30:106]
@@ -749,7 +828,9 @@ def layout(n):
 
 
 def frames_of(P, tag, n):
-    if tag == "run":                    # the run v2 (League's run, drawn legs): tools/art/rig_sivir_run.py
+    if tag == "idle":                   # no breathing (the user's pick of 「BP界面还是会上下摇动」): one drawing
+        return [P.idle.copy() for _ in range(n)]
+    if tag == "run":                    # the run v3 (League's run, drawn legs): tools/art/rig_sivir_run.py
         import rig_sivir_run
         return [rig_sivir_run.run_frame(P, i) for i in range(n)]
     if tag == "dead":
@@ -764,8 +845,6 @@ def build():
     os.makedirs(OUT_DIR, exist_ok=True)
     idle_head = cells["tags"]["idle"][0]["head"]
     for tag, rows in cells["tags"].items():
-        if tag == "idle":
-            continue
         fr = frames_of(P, tag, len(rows))
         assert len(fr) == len(rows), (tag, len(fr), len(rows))
         c, r = layout(len(fr))
