@@ -30,12 +30,12 @@ League's kit in TFM2's four slots (porting-heroes "League of Legends specifics")
           League scales the slam with the thrown champion's bonus health; the data reads only each target's own
           maximum health, so everyone hit takes a share of his own and the thrown champion more of its own.
 
-Art, icons and sounds still to come: the sprite (asset/league/champions/league_sett: idle run attack attack2 skill
-skill2 ult ult_dash ult_slam hit dead) and the effect sheets league_sett_fx / league_sett_big from Codex
-(assets/source/sett/), the ability icons and League's sounds from the client in a local session
-(tools/lol/extract_<hero>.py). Until then the sounds are base placeholders (SFX). The numbers are a first guess
-inside the base ranges, not yet balanced on the SDK simulator (porting-heroes "Balance check"). The localized ability
-names in zh-hant, ko and ja were written without the client and still need checking against it.
+Art still to come: the sprite (asset/league/champions/league_sett: idle run attack attack2 skill skill2 ult ult_dash
+ult_slam hit dead) and the effect sheets league_sett_fx / league_sett_big from Codex (assets/source/sett/). The
+ability icons and League's sounds come from the local client (tools/lol/extract_sett.py; the clips stay out of git),
+and the names in the text were checked against the zh_CN string table and Data Dragon (zh_TW, ko_KR, ja_JP). The
+numbers are a first guess inside the base ranges, not yet balanced on the SDK simulator (porting-heroes "Balance
+check").
 """
 import argparse
 import json

@@ -2222,6 +2222,7 @@ python tools/art/preview_sivir.py
 重新生成：
 
 ```bash
+python tools/lol/extract_sett.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstream-cli.exe 路径>"   # 音效和技能图标
 python tools/kit/sett_kit.py              # 技能数据和五种语言的文字，数字都来自脚本里的常量；--check 只比对
 ```
 
