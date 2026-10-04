@@ -1,0 +1,280 @@
+{
+ "hero": "twistedfate",
+ "champ": "TwistedFate",
+ "camera": {
+  "yaw": 45,
+  "pitch": 20,
+  "mirror": true
+ },
+ "chibi": {
+  "head": 2.8,
+  "legs": 0.8
+ },
+ "height": 40,
+ "cell": [
+  128,
+  96,
+  14
+ ],
+ "design": "twistedfate_2012_idle1@0",
+ "tags": {
+  "idle": {
+   "frames": [
+    [
+     "twistedfate_2012_idle1@0",
+     200
+    ],
+    [
+     "twistedfate_2012_idle1@0",
+     200
+    ],
+    [
+     "twistedfate_2012_idle1@0",
+     200
+    ],
+    [
+     "twistedfate_2012_idle1@0",
+     200
+    ],
+    [
+     "twistedfate_2012_idle1@0",
+     200
+    ],
+    [
+     "twistedfate_2012_idle1@0",
+     200
+    ]
+   ]
+  },
+  "run": {
+   "head_like": "twistedfate_2012_idle1@0",
+   "frames": [
+    [
+     "twistedfate_walk@0",
+     217
+    ],
+    [
+     "twistedfate_walk@217",
+     217
+    ],
+    [
+     "twistedfate_walk@433",
+     217
+    ],
+    [
+     "twistedfate_walk@650",
+     217
+    ],
+    [
+     "twistedfate_walk@867",
+     217
+    ],
+    [
+     "twistedfate_walk@1083",
+     217
+    ],
+    [
+     "twistedfate_walk@1300",
+     217
+    ],
+    [
+     "twistedfate_walk@1517",
+     217
+    ]
+   ]
+  },
+  "attack": {
+   "lunge": 0.4,
+   "release": 4,
+   "frames": [
+    [
+     "twistedfate_2012_idle1@0>twistedfate_2012_attack1@100:0.5",
+     60
+    ],
+    [
+     "twistedfate_2012_attack1@150",
+     70
+    ],
+    [
+     "twistedfate_2012_attack1@230",
+     70
+    ],
+    [
+     "twistedfate_2012_attack1@300",
+     70
+    ],
+    [
+     "twistedfate_2012_attack1@450",
+     80
+    ],
+    [
+     "twistedfate_2012_attack1@700>twistedfate_2012_idle1@0:0.5",
+     83
+    ]
+   ]
+  },
+  "skill": {
+   "lunge": 0.4,
+   "rise": 0.2,
+   "release": 4,
+   "frames": [
+    [
+     "twistedfate_2012_idle1@0>twistedfate_2012_spell1@100:0.5",
+     60
+    ],
+    [
+     "twistedfate_2012_spell1@180",
+     70
+    ],
+    [
+     "twistedfate_2012_spell1@330",
+     70
+    ],
+    [
+     "twistedfate_2012_spell1@450",
+     70
+    ],
+    [
+     "twistedfate_2012_spell1@650",
+     70
+    ],
+    [
+     "twistedfate_2012_spell1@900>twistedfate_2012_idle1@0:0.5",
+     60
+    ]
+   ]
+  },
+  "skill2": {
+   "lunge": 0.3,
+   "frames": [
+    [
+     "twistedfate_2012_idle1@0>twistedfate_2012_attack1@100:0.4",
+     80
+    ],
+    [
+     "twistedfate_2012_idle1@0>twistedfate_2012_attack1@100:0.8",
+     87
+    ]
+   ]
+  },
+  "ult": {
+   "lunge": 0.3,
+   "frames": [
+    [
+     "twistedfate_2012_idle1@0>twistedfate_2012_spell4@200:0.5",
+     100
+    ],
+    [
+     "twistedfate_2012_spell4@200",
+     130
+    ],
+    [
+     "twistedfate_2012_spell4@400",
+     130
+    ],
+    [
+     "twistedfate_2012_spell4@400",
+     140
+    ]
+   ]
+  },
+  "ult_gate": {
+   "lunge": 0.3,
+   "frames": [
+    [
+     "twistedfate_2012_channel_windup@0",
+     250
+    ],
+    [
+     "twistedfate_2012_channel_windup@300",
+     250
+    ],
+    [
+     "twistedfate_2012_channel_windup@600",
+     250
+    ],
+    [
+     "twistedfate_2012_channel_windup@900",
+     250
+    ],
+    [
+     "twistedfate_2012_channel_windup@1200",
+     250
+    ],
+    [
+     "twistedfate_2012_channel_windup@1500",
+     250
+    ]
+   ]
+  },
+  "ult_land": {
+   "lunge": 0.3,
+   "frames": [
+    [
+     "twistedfate_2012_channel_windup@1950",
+     110
+    ],
+    [
+     "twistedfate_2012_channel_windup@1950>twistedfate_2012_idle1@0:0.5",
+     110
+    ],
+    [
+     "twistedfate_2012_idle1@0",
+     113
+    ]
+   ]
+  },
+  "hit": {
+   "frames": [
+    [
+     "twistedfate_2012_idle1@0>twistedfate_2012_death@300:0.35",
+     100
+    ],
+    [
+     "twistedfate_2012_idle1@0>twistedfate_2012_death@300:0.15",
+     100
+    ]
+   ]
+  },
+  "dead": {
+   "anchor": "first",
+   "lunge": 0.3,
+   "flat": true,
+   "travel": 0.2,
+   "frames": [
+    [
+     "twistedfate_2012_death@0",
+     100
+    ],
+    [
+     "twistedfate_2012_death@300",
+     110
+    ],
+    [
+     "twistedfate_2012_death@600",
+     110
+    ],
+    [
+     "twistedfate_2012_death@900",
+     120
+    ],
+    [
+     "twistedfate_2012_death@1200",
+     130
+    ],
+    [
+     "twistedfate_2012_death@1600",
+     150
+    ],
+    [
+     "twistedfate_2012_death@2200",
+     200
+    ],
+    [
+     "twistedfate_2012_death@2900",
+     300
+    ]
+   ]
+  }
+ }
+}

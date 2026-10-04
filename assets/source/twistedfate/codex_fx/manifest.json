@@ -1,0 +1,3034 @@
+{
+  "schema_version": 1,
+  "character": "Twisted Fate",
+  "delivery_type": "AI-generated raw VFX sprite sheets",
+  "rect_convention": "[x,y,width,height], zero-based source image pixels, left-to-right temporal order",
+  "not_game_integration_verified": true,
+  "assets": [
+    {
+      "prompt_number": 1,
+      "file": "twistedfate_fx_a_card.png",
+      "image_size": [
+        2172,
+        724
+      ],
+      "requested_image_size": [
+        2048,
+        256
+      ],
+      "frame_count": 4,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            134,
+            269,
+            381,
+            188
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            119,
+            269,
+            355,
+            187
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            106,
+            269,
+            370,
+            188
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            78,
+            269,
+            354,
+            188
+          ]
+        }
+      ],
+      "binding": "view_projectiles `league_twistedfate_a_card`（朝右，游戏转到飞行方向，上下对称）",
+      "game_size_description": "16 × 8",
+      "sha256": "85e4557b9adf43e6f5b0c50ca3d1fbed74c8326f598089a5fca68cb6993c8e9d",
+      "alpha": {
+        "fully_transparent_pixels": 1411924,
+        "partial_alpha_pixels": 159114,
+        "opaque_pixels": 1490
+      },
+      "luminance_0_255_alpha_gt_127": {
+        "mean": 171.88,
+        "brightest_decile_mean": 253.69
+      },
+      "notes": [
+        "原稿帧数与阶段经目视检查；物体尺寸及帧间锚点需导入时校准。",
+        "生图原稿未经调色、重绘、描边处理或网格化；含半透明边缘，颜色未严格量化到指定色阶。",
+        "实际画布/格子比例与提示词尺寸不同；请按 frames[].rect 切图后再定游戏尺寸。"
+      ]
+    },
+    {
+      "prompt_number": 2,
+      "file": "twistedfate_fx_a_card_e.png",
+      "image_size": [
+        2172,
+        724
+      ],
+      "requested_image_size": [
+        2048,
+        256
+      ],
+      "frame_count": 4,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            60,
+            248,
+            481,
+            225
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            56,
+            233,
+            448,
+            249
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            49,
+            247,
+            481,
+            226
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            55,
+            239,
+            451,
+            243
+          ]
+        }
+      ],
+      "binding": "view_projectiles `league_twistedfate_a_card_e`（朝右，游戏转到飞行方向，上下对称）",
+      "game_size_description": "22 × 10",
+      "sha256": "91f94b105ab415ac23c1f2227e8d8df9db3e64f1145fe25758ec9ab0fcd2f02c",
+      "alpha": {
+        "fully_transparent_pixels": 1255684,
+        "partial_alpha_pixels": 316844,
+        "opaque_pixels": 0
+      },
+      "luminance_0_255_alpha_gt_127": {
+        "mean": 128.11,
+        "brightest_decile_mean": 250.86
+      },
+      "notes": [
+        "原稿帧数与阶段经目视检查；物体尺寸及帧间锚点需导入时校准。",
+        "生图原稿未经调色、重绘、描边处理或网格化；含半透明边缘，颜色未严格量化到指定色阶。",
+        "实际画布/格子比例与提示词尺寸不同；请按 frames[].rect 切图后再定游戏尺寸。"
+      ]
+    },
+    {
+      "prompt_number": 3,
+      "file": "twistedfate_fx_a_hit.png",
+      "image_size": [
+        2172,
+        724
+      ],
+      "requested_image_size": [
+        1024,
+        256
+      ],
+      "frame_count": 4,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            34,
+            136,
+            475,
+            453
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            75,
+            184,
+            416,
+            375
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            96,
+            193,
+            391,
+            357
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            87,
+            166,
+            389,
+            401
+          ]
+        }
+      ],
+      "binding": "view_effects `league_twistedfate_a_hit`（跟随，画在人物上面）",
+      "game_size_description": "12",
+      "sha256": "6ce9991aad53e2a041a67f8a403ae9da3c57a74e5997ab3c9aba08c6911d6039",
+      "alpha": {
+        "fully_transparent_pixels": 1332823,
+        "partial_alpha_pixels": 238509,
+        "opaque_pixels": 1196
+      },
+      "luminance_0_255_alpha_gt_127": {
+        "mean": 165.63,
+        "brightest_decile_mean": 253.54
+      },
+      "notes": [
+        "原稿帧数与阶段经目视检查；物体尺寸及帧间锚点需导入时校准。",
+        "生图原稿未经调色、重绘、描边处理或网格化；含半透明边缘，颜色未严格量化到指定色阶。",
+        "实际画布/格子比例与提示词尺寸不同；请按 frames[].rect 切图后再定游戏尺寸。"
+      ]
+    },
+    {
+      "prompt_number": 4,
+      "file": "twistedfate_fx_e_cast.png",
+      "image_size": [
+        1774,
+        887
+      ],
+      "requested_image_size": [
+        1024,
+        192
+      ],
+      "frame_count": 4,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            444,
+            887
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            12,
+            263,
+            339,
+            352
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            444,
+            0,
+            443,
+            887
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            1,
+            250,
+            410,
+            359
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            887,
+            0,
+            443,
+            887
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            2,
+            278,
+            407,
+            320
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1330,
+            0,
+            444,
+            887
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            4,
+            293,
+            401,
+            289
+          ]
+        }
+      ],
+      "binding": "view_effects `league_twistedfate_e_cast`（施法者身上，不跟随，朝左时镜像；格子左边中点放到普攻第 4 帧的右手）",
+      "game_size_description": "16 × 12",
+      "sha256": "e4b7755d6b1d9cc0b5b1f3c54e215c51105be36941394af7354d271cf308b41e",
+      "alpha": {
+        "fully_transparent_pixels": 1327334,
+        "partial_alpha_pixels": 244442,
+        "opaque_pixels": 1762
+      },
+      "luminance_0_255_alpha_gt_127": {
+        "mean": 135.14,
+        "brightest_decile_mean": 251.5
+      },
+      "notes": [
+        "手部起点需按动作图校准；原稿星光并非严格贴左边。",
+        "生图原稿未经调色、重绘、描边处理或网格化；含半透明边缘，颜色未严格量化到指定色阶。",
+        "实际画布/格子比例与提示词尺寸不同；请按 frames[].rect 切图后再定游戏尺寸。",
+        "整数切格宽度相差最多 1 px，以 rect 为准。"
+      ],
+      "requested_anchor_normalized": [
+        0,
+        0.5
+      ]
+    },
+    {
+      "prompt_number": 5,
+      "file": "twistedfate_fx_e_hit.png",
+      "image_size": [
+        1983,
+        793
+      ],
+      "requested_image_size": [
+        1280,
+        256
+      ],
+      "frame_count": 5,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            397,
+            793
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            0,
+            236,
+            397,
+            377
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            397,
+            0,
+            396,
+            793
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            0,
+            211,
+            396,
+            388
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            793,
+            0,
+            397,
+            793
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            0,
+            162,
+            397,
+            484
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1190,
+            0,
+            396,
+            793
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            0,
+            226,
+            396,
+            398
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1586,
+            0,
+            397,
+            793
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            0,
+            271,
+            369,
+            314
+          ]
+        }
+      ],
+      "binding": "view_effects `league_twistedfate_e_hit`（跟随，画在人物上面）",
+      "game_size_description": "18",
+      "sha256": "e58bcf6e3ee9d20828942e546bb3d441e8fa744d4476b77de5ee9f75c7e081e7",
+      "alpha": {
+        "fully_transparent_pixels": 1089551,
+        "partial_alpha_pixels": 481134,
+        "opaque_pixels": 1834
+      },
+      "luminance_0_255_alpha_gt_127": {
+        "mean": 180.68,
+        "brightest_decile_mean": 253.28
+      },
+      "notes": [
+        "大爆发接近部分切格边界，导入时注意辉光裁切。",
+        "生图原稿未经调色、重绘、描边处理或网格化；含半透明边缘，颜色未严格量化到指定色阶。",
+        "实际画布/格子比例与提示词尺寸不同；请按 frames[].rect 切图后再定游戏尺寸。",
+        "整数切格宽度相差最多 1 px，以 rect 为准。"
+      ]
+    },
+    {
+      "prompt_number": 6,
+      "file": "twistedfate_fx_dice_roll.png",
+      "image_size": [
+        1983,
+        793
+      ],
+      "requested_image_size": [
+        1280,
+        298
+      ],
+      "frame_count": 5,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            397,
+            793
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            77,
+            59,
+            227,
+            531
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            397,
+            0,
+            396,
+            793
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            78,
+            128,
+            256,
+            497
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            793,
+            0,
+            397,
+            793
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            43,
+            178,
+            298,
+            430
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1190,
+            0,
+            396,
+            793
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            41,
+            277,
+            314,
+            401
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1586,
+            0,
+            397,
+            793
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            17,
+            318,
+            361,
+            409
+          ]
+        }
+      ],
+      "binding": "view_buffs `league_twistedfate_dice_k` 的开头（pre_tag `dice_roll`，画在头顶上方）",
+      "game_size_description": "12 × 14",
+      "sha256": "4b22cddc0fb8ebf69af45b921f705c8708a103435556524306d6cda05924f003",
+      "alpha": {
+        "fully_transparent_pixels": 1183522,
+        "partial_alpha_pixels": 387836,
+        "opaque_pixels": 1161
+      },
+      "luminance_0_255_alpha_gt_127": {
+        "mean": 193.54,
+        "brightest_decile_mean": 253.21
+      },
+      "notes": [
+        "中间翻滚帧点数只作运动纹理，最终停下点数由 dice_faces 叠加。",
+        "生图原稿未经调色、重绘、描边处理或网格化；含半透明边缘，颜色未严格量化到指定色阶。",
+        "实际画布/格子比例与提示词尺寸不同；请按 frames[].rect 切图后再定游戏尺寸。",
+        "整数切格宽度相差最多 1 px，以 rect 为准。"
+      ]
+    },
+    {
+      "prompt_number": 7,
+      "file": "twistedfate_fx_dice_faces.png",
+      "image_size": [
+        2172,
+        724
+      ],
+      "requested_image_size": [
+        1536,
+        256
+      ],
+      "frame_count": 6,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            362,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            22,
+            178,
+            322,
+            369
+          ],
+          "tag": "dice_1",
+          "front_pip_count": 1
+        },
+        {
+          "index": 1,
+          "rect": [
+            362,
+            0,
+            362,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            23,
+            178,
+            321,
+            369
+          ],
+          "tag": "dice_2",
+          "front_pip_count": 2
+        },
+        {
+          "index": 2,
+          "rect": [
+            724,
+            0,
+            362,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            23,
+            178,
+            320,
+            369
+          ],
+          "tag": "dice_3",
+          "front_pip_count": 3
+        },
+        {
+          "index": 3,
+          "rect": [
+            1086,
+            0,
+            362,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            22,
+            178,
+            321,
+            369
+          ],
+          "tag": "dice_4",
+          "front_pip_count": 4
+        },
+        {
+          "index": 4,
+          "rect": [
+            1448,
+            0,
+            362,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            23,
+            178,
+            320,
+            369
+          ],
+          "tag": "dice_5",
+          "front_pip_count": 5
+        },
+        {
+          "index": 5,
+          "rect": [
+            1810,
+            0,
+            362,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            23,
+            178,
+            320,
+            369
+          ],
+          "tag": "dice_6",
+          "front_pip_count": 6
+        }
+      ],
+      "binding": "view_buffs `league_twistedfate_dice_1` … `dice_6`（loop_tag，各取一格，画在头顶上方）",
+      "game_size_description": "10 × 10",
+      "sha256": "a7393f677c21637d5e24d956714142297d02eb277712d7ca8b1c6a69c6522cca",
+      "alpha": {
+        "fully_transparent_pixels": 772416,
+        "partial_alpha_pixels": 799464,
+        "opaque_pixels": 648
+      },
+      "luminance_0_255_alpha_gt_127": {
+        "mean": 189.4,
+        "brightest_decile_mean": 252.11
+      },
+      "notes": [
+        "六格正面点数经目视核对为 1–6；顶部与侧面留白。辉光接近切格边界。",
+        "生图原稿未经调色、重绘、描边处理或网格化；含半透明边缘，颜色未严格量化到指定色阶。",
+        "实际画布/格子比例与提示词尺寸不同；请按 frames[].rect 切图后再定游戏尺寸。"
+      ]
+    },
+    {
+      "prompt_number": 8,
+      "file": "twistedfate_fx_dice_out.png",
+      "image_size": [
+        2172,
+        724
+      ],
+      "requested_image_size": [
+        768,
+        256
+      ],
+      "frame_count": 3,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            724,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            74,
+            78,
+            573,
+            584
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            724,
+            0,
+            724,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            48,
+            40,
+            640,
+            643
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1448,
+            0,
+            724,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            127,
+            117,
+            498,
+            485
+          ]
+        }
+      ],
+      "binding": "view_buffs `league_twistedfate_dice_k` 的结尾（remove_tag `dice_out`）",
+      "game_size_description": "12",
+      "sha256": "0becd16d829613986a2d8af296832c8292f8c9ee53decfaea37ec5c6a605e051",
+      "alpha": {
+        "fully_transparent_pixels": 1178675,
+        "partial_alpha_pixels": 391713,
+        "opaque_pixels": 2140
+      },
+      "luminance_0_255_alpha_gt_127": {
+        "mean": 208.13,
+        "brightest_decile_mean": 253.36
+      },
+      "notes": [
+        "第二格为放射状主星点并含小碎光；不保证全部碎光恰好八个。",
+        "生图原稿未经调色、重绘、描边处理或网格化；含半透明边缘，颜色未严格量化到指定色阶。",
+        "实际画布/格子比例与提示词尺寸不同；请按 frames[].rect 切图后再定游戏尺寸。"
+      ]
+    },
+    {
+      "prompt_number": 9,
+      "file": "twistedfate_fx_w_show.png",
+      "image_size": [
+        1903,
+        826
+      ],
+      "requested_image_size": [
+        768,
+        333
+      ],
+      "frame_count": 3,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            634,
+            826
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            60,
+            49,
+            551,
+            731
+          ],
+          "tag": "w_show_blue"
+        },
+        {
+          "index": 1,
+          "rect": [
+            634,
+            0,
+            635,
+            826
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            38,
+            49,
+            553,
+            732
+          ],
+          "tag": "w_show_red"
+        },
+        {
+          "index": 2,
+          "rect": [
+            1269,
+            0,
+            634,
+            826
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            18,
+            49,
+            555,
+            732
+          ],
+          "tag": "w_show_gold"
+        }
+      ],
+      "binding": "view_buffs `league_twistedfate_w_show_blue` / `_red` / `_gold`（各取一格，循环，画在头顶上方）",
+      "game_size_description": "10 × 13",
+      "sha256": "eb58b6f1b554a27207b2a9d95e12e51f3a822d4e8132b1ec7c4ddecdb3adac01",
+      "alpha": {
+        "fully_transparent_pixels": 860261,
+        "partial_alpha_pixels": 709778,
+        "opaque_pixels": 1839
+      },
+      "luminance_0_255_alpha_gt_127": {
+        "mean": 128.32,
+        "brightest_decile_mean": 249.96
+      },
+      "notes": [
+        "三格按蓝、红、金顺序；符号为水滴、剑和锁链。",
+        "生图原稿未经调色、重绘、描边处理或网格化；含半透明边缘，颜色未严格量化到指定色阶。",
+        "实际画布/格子比例与提示词尺寸不同；请按 frames[].rect 切图后再定游戏尺寸。",
+        "整数切格宽度相差最多 1 px，以 rect 为准。"
+      ]
+    },
+    {
+      "prompt_number": 10,
+      "file": "twistedfate_fx_w_blue.png",
+      "image_size": [
+        2206,
+        713
+      ],
+      "requested_image_size": [
+        1024,
+        329
+      ],
+      "frame_count": 4,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            552,
+            713
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            145,
+            109,
+            306,
+            534
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            552,
+            0,
+            551,
+            713
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            134,
+            75,
+            312,
+            568
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1103,
+            0,
+            551,
+            713
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            102,
+            114,
+            334,
+            529
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1654,
+            0,
+            552,
+            713
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            98,
+            84,
+            323,
+            559
+          ]
+        }
+      ],
+      "binding": "view_buffs `league_twistedfate_w_blue`（循环，画在头顶上方）",
+      "game_size_description": "14 × 18",
+      "sha256": "f4389604f4fb3ede380a7dbe6df673f7974ba9187e19b732c7d2cf2de83fc151",
+      "alpha": {
+        "fully_transparent_pixels": 1149603,
+        "partial_alpha_pixels": 421168,
+        "opaque_pixels": 2107
+      },
+      "luminance_0_255_alpha_gt_127": {
+        "mean": 148.94,
+        "brightest_decile_mean": 253.78
+      },
+      "notes": [
+        "卡身与火焰有少量帧间位置/轮廓差异，循环无缝性未在游戏验证。",
+        "生图原稿未经调色、重绘、描边处理或网格化；含半透明边缘，颜色未严格量化到指定色阶。",
+        "实际画布/格子比例与提示词尺寸不同；请按 frames[].rect 切图后再定游戏尺寸。",
+        "整数切格宽度相差最多 1 px，以 rect 为准。"
+      ]
+    },
+    {
+      "prompt_number": 11,
+      "file": "twistedfate_fx_w_red.png",
+      "image_size": [
+        2172,
+        724
+      ],
+      "requested_image_size": [
+        1024,
+        329
+      ],
+      "frame_count": 4,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            118,
+            75,
+            308,
+            593
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            116,
+            40,
+            322,
+            628
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            110,
+            75,
+            311,
+            593
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            134,
+            58,
+            279,
+            610
+          ]
+        }
+      ],
+      "binding": "view_buffs `league_twistedfate_w_red`（循环，画在头顶上方）",
+      "game_size_description": "14 × 18",
+      "sha256": "5eaea1f852b4e44bb8e273d0df03845b1d4321f4a96be4e92c1c5c166ceace0e",
+      "alpha": {
+        "fully_transparent_pixels": 1130903,
+        "partial_alpha_pixels": 439962,
+        "opaque_pixels": 1663
+      },
+      "luminance_0_255_alpha_gt_127": {
+        "mean": 101.92,
+        "brightest_decile_mean": 245.34
+      },
+      "notes": [
+        "剑符号含额外装饰，缩到游戏尺寸后需确认辨识度。",
+        "生图原稿未经调色、重绘、描边处理或网格化；含半透明边缘，颜色未严格量化到指定色阶。",
+        "实际画布/格子比例与提示词尺寸不同；请按 frames[].rect 切图后再定游戏尺寸。"
+      ]
+    },
+    {
+      "prompt_number": 12,
+      "file": "twistedfate_fx_w_gold.png",
+      "image_size": [
+        2206,
+        713
+      ],
+      "requested_image_size": [
+        1024,
+        329
+      ],
+      "frame_count": 4,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            552,
+            713
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            38,
+            27,
+            477,
+            658
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            552,
+            0,
+            551,
+            713
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            52,
+            89,
+            446,
+            545
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1103,
+            0,
+            551,
+            713
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            8,
+            92,
+            534,
+            537
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1654,
+            0,
+            552,
+            713
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            41,
+            27,
+            469,
+            657
+          ]
+        }
+      ],
+      "binding": "view_buffs `league_twistedfate_w_gold`（循环，画在头顶上方）",
+      "game_size_description": "14 × 18",
+      "sha256": "8daa2ea8fdf55bb0c86a327bc306a2cb2b08703ddf1326505eb6bb44d8b9ec4b",
+      "alpha": {
+        "fully_transparent_pixels": 962675,
+        "partial_alpha_pixels": 606516,
+        "opaque_pixels": 3687
+      },
+      "luminance_0_255_alpha_gt_127": {
+        "mean": 164.56,
+        "brightest_decile_mean": 250.36
+      },
+      "notes": [
+        "已针对深色锁链重生成；尖刺数量与无缝循环需导入后复核。",
+        "生图原稿未经调色、重绘、描边处理或网格化；含半透明边缘，颜色未严格量化到指定色阶。",
+        "实际画布/格子比例与提示词尺寸不同；请按 frames[].rect 切图后再定游戏尺寸。",
+        "整数切格宽度相差最多 1 px，以 rect 为准。"
+      ]
+    },
+    {
+      "prompt_number": 13,
+      "file": "twistedfate_fx_wb_card.png",
+      "image_size": [
+        2172,
+        724
+      ],
+      "requested_image_size": [
+        2048,
+        256
+      ],
+      "frame_count": 4,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            23,
+            275,
+            520,
+            178
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            0,
+            275,
+            512,
+            178
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            23,
+            275,
+            520,
+            178
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            0,
+            275,
+            510,
+            178
+          ]
+        }
+      ],
+      "binding": "view_projectiles `league_twistedfate_wb_card`（朝右，游戏转到飞行方向，上下对称）",
+      "game_size_description": "20 × 10",
+      "sha256": "ad2efea709cf044d204c91d0008df0f9a0400960fb6e1262abbd5aab868b3d29",
+      "alpha": {
+        "fully_transparent_pixels": 1330151,
+        "partial_alpha_pixels": 240816,
+        "opaque_pixels": 1561
+      },
+      "luminance_0_255_alpha_gt_127": {
+        "mean": 157.28,
+        "brightest_decile_mean": 252.36
+      },
+      "notes": [
+        "已针对横向牌身重生成；上下逐像素对称未保证。",
+        "生图原稿未经调色、重绘、描边处理或网格化；含半透明边缘，颜色未严格量化到指定色阶。",
+        "实际画布/格子比例与提示词尺寸不同；请按 frames[].rect 切图后再定游戏尺寸。"
+      ]
+    },
+    {
+      "prompt_number": 14,
+      "file": "twistedfate_fx_wr_card.png",
+      "image_size": [
+        2172,
+        724
+      ],
+      "requested_image_size": [
+        2048,
+        256
+      ],
+      "frame_count": 4,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            20,
+            256,
+            523,
+            213
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            0,
+            256,
+            511,
+            213
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            18,
+            256,
+            525,
+            213
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            0,
+            256,
+            510,
+            213
+          ]
+        }
+      ],
+      "binding": "view_projectiles `league_twistedfate_wr_card`（朝右，上下对称）",
+      "game_size_description": "20 × 10",
+      "sha256": "cf53a7ab7ffe785a16df97bb91d85e5de8f109623f88967f91e74d7a00ba3300",
+      "alpha": {
+        "fully_transparent_pixels": 1296926,
+        "partial_alpha_pixels": 273300,
+        "opaque_pixels": 2302
+      },
+      "luminance_0_255_alpha_gt_127": {
+        "mean": 126.87,
+        "brightest_decile_mean": 251.9
+      },
+      "notes": [
+        "已针对横向牌身重生成；上下逐像素对称未保证。",
+        "生图原稿未经调色、重绘、描边处理或网格化；含半透明边缘，颜色未严格量化到指定色阶。",
+        "实际画布/格子比例与提示词尺寸不同；请按 frames[].rect 切图后再定游戏尺寸。"
+      ]
+    },
+    {
+      "prompt_number": 15,
+      "file": "twistedfate_fx_wg_card.png",
+      "image_size": [
+        2172,
+        724
+      ],
+      "requested_image_size": [
+        2048,
+        256
+      ],
+      "frame_count": 4,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            22,
+            234,
+            515,
+            258
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            29,
+            234,
+            446,
+            258
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            18,
+            234,
+            523,
+            258
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            30,
+            234,
+            444,
+            258
+          ]
+        }
+      ],
+      "binding": "view_projectiles `league_twistedfate_wg_card`（朝右，上下对称）",
+      "game_size_description": "20 × 10",
+      "sha256": "56bc9177298c7c382821663421d84b166c75076124e57eb7bbf466831646fb5b",
+      "alpha": {
+        "fully_transparent_pixels": 1314512,
+        "partial_alpha_pixels": 255700,
+        "opaque_pixels": 2316
+      },
+      "luminance_0_255_alpha_gt_127": {
+        "mean": 186.5,
+        "brightest_decile_mean": 252.44
+      },
+      "notes": [
+        "已针对横向牌身及深色锁链重生成；上下逐像素对称未保证。",
+        "生图原稿未经调色、重绘、描边处理或网格化；含半透明边缘，颜色未严格量化到指定色阶。",
+        "实际画布/格子比例与提示词尺寸不同；请按 frames[].rect 切图后再定游戏尺寸。"
+      ]
+    },
+    {
+      "prompt_number": 16,
+      "file": "twistedfate_fx_wb_hit.png",
+      "image_size": [
+        1983,
+        793
+      ],
+      "requested_image_size": [
+        1280,
+        256
+      ],
+      "frame_count": 5,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            397,
+            793
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            56,
+            267,
+            265,
+            274
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            397,
+            0,
+            396,
+            793
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            11,
+            237,
+            345,
+            330
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            793,
+            0,
+            397,
+            793
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            8,
+            220,
+            381,
+            371
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1190,
+            0,
+            396,
+            793
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            29,
+            237,
+            356,
+            343
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1586,
+            0,
+            397,
+            793
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            59,
+            279,
+            309,
+            293
+          ]
+        }
+      ],
+      "binding": "view_effects `league_twistedfate_wb_hit`（跟随，画在人物上面）",
+      "game_size_description": "18",
+      "sha256": "f3df28d2015351d7c4be1520bdac3495c31f1c7d22070d5f39bea2d082260833",
+      "alpha": {
+        "fully_transparent_pixels": 1266466,
+        "partial_alpha_pixels": 304526,
+        "opaque_pixels": 1527
+      },
+      "luminance_0_255_alpha_gt_127": {
+        "mean": 160.1,
+        "brightest_decile_mean": 253.32
+      },
+      "notes": [
+        "原稿帧数与阶段经目视检查；物体尺寸及帧间锚点需导入时校准。",
+        "生图原稿未经调色、重绘、描边处理或网格化；含半透明边缘，颜色未严格量化到指定色阶。",
+        "实际画布/格子比例与提示词尺寸不同；请按 frames[].rect 切图后再定游戏尺寸。",
+        "整数切格宽度相差最多 1 px，以 rect 为准。"
+      ]
+    },
+    {
+      "prompt_number": 17,
+      "file": "twistedfate_fx_wr_hit.png",
+      "image_size": [
+        2172,
+        724
+      ],
+      "requested_image_size": [
+        1024,
+        256
+      ],
+      "frame_count": 4,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            76,
+            189,
+            403,
+            399
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            16,
+            120,
+            520,
+            504
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            81,
+            118,
+            401,
+            505
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            91,
+            134,
+            360,
+            464
+          ]
+        }
+      ],
+      "binding": "view_effects `league_twistedfate_wr_hit`（跟随，画在人物上面）",
+      "game_size_description": "14",
+      "sha256": "227b90719dea68f3df077c6074907c4715fd02562da7f51ad9cbce93f4400109",
+      "alpha": {
+        "fully_transparent_pixels": 1217447,
+        "partial_alpha_pixels": 352313,
+        "opaque_pixels": 2768
+      },
+      "luminance_0_255_alpha_gt_127": {
+        "mean": 135.05,
+        "brightest_decile_mean": 252.1
+      },
+      "notes": [
+        "原稿帧数与阶段经目视检查；物体尺寸及帧间锚点需导入时校准。",
+        "生图原稿未经调色、重绘、描边处理或网格化；含半透明边缘，颜色未严格量化到指定色阶。",
+        "实际画布/格子比例与提示词尺寸不同；请按 frames[].rect 切图后再定游戏尺寸。"
+      ]
+    },
+    {
+      "prompt_number": 18,
+      "file": "twistedfate_fx_wr_burst.png",
+      "image_size": [
+        2146,
+        733
+      ],
+      "requested_image_size": [
+        3000,
+        360
+      ],
+      "frame_count": 6,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            358,
+            733
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            21,
+            268,
+            310,
+            297
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            358,
+            0,
+            357,
+            733
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            4,
+            331,
+            340,
+            214
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            715,
+            0,
+            358,
+            733
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            7,
+            268,
+            342,
+            288
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1073,
+            0,
+            358,
+            733
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            9,
+            219,
+            342,
+            337
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1431,
+            0,
+            357,
+            733
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            14,
+            271,
+            338,
+            285
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            1788,
+            0,
+            358,
+            733
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            26,
+            266,
+            312,
+            286
+          ]
+        }
+      ],
+      "binding": "view_effects `league_twistedfate_wr_burst`（BIG，画在打中点的地面上）",
+      "game_size_description": "50 × 30",
+      "sha256": "4683a0732000f81f583de8f7d1707d2805ff8c5ed02e89f6c98ea9632a059b37",
+      "alpha": {
+        "fully_transparent_pixels": 1207337,
+        "partial_alpha_pixels": 365506,
+        "opaque_pixels": 175
+      },
+      "luminance_0_255_alpha_gt_127": {
+        "mean": 110.93,
+        "brightest_decile_mean": 247.31
+      },
+      "notes": [
+        "地面环为扁椭圆；火焰与辉光接近部分格边，地面中心需校准。",
+        "生图原稿未经调色、重绘、描边处理或网格化；含半透明边缘，颜色未严格量化到指定色阶。",
+        "实际画布/格子比例与提示词尺寸不同；请按 frames[].rect 切图后再定游戏尺寸。",
+        "整数切格宽度相差最多 1 px，以 rect 为准。"
+      ],
+      "requested_anchor_normalized": [
+        0.5,
+        0.8444444444444444
+      ]
+    },
+    {
+      "prompt_number": 19,
+      "file": "twistedfate_fx_wr_slow.png",
+      "image_size": [
+        1983,
+        793
+      ],
+      "requested_image_size": [
+        2560,
+        256
+      ],
+      "frame_count": 4,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            496,
+            793
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            40,
+            280,
+            428,
+            235
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            496,
+            0,
+            496,
+            793
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            37,
+            296,
+            428,
+            219
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            992,
+            0,
+            495,
+            793
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            37,
+            295,
+            421,
+            220
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1487,
+            0,
+            496,
+            793
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            36,
+            300,
+            427,
+            215
+          ]
+        }
+      ],
+      "binding": "view_buffs `league_twistedfate_wr_slow`（循环，画在脚下）",
+      "game_size_description": "18 × 7",
+      "sha256": "ab77421c6625c55aa963b34acc24fd215bf48980828c39608eb78bddf828d807",
+      "alpha": {
+        "fully_transparent_pixels": 1357042,
+        "partial_alpha_pixels": 213674,
+        "opaque_pixels": 1803
+      },
+      "luminance_0_255_alpha_gt_127": {
+        "mean": 89.9,
+        "brightest_decile_mean": 222.5
+      },
+      "notes": [
+        "地面减速环原稿；火舌精确数量/四分之一转动与循环衔接需复核。",
+        "生图原稿未经调色、重绘、描边处理或网格化；含半透明边缘，颜色未严格量化到指定色阶。",
+        "实际画布/格子比例与提示词尺寸不同；请按 frames[].rect 切图后再定游戏尺寸。",
+        "整数切格宽度相差最多 1 px，以 rect 为准。"
+      ]
+    },
+    {
+      "prompt_number": 20,
+      "file": "twistedfate_fx_wg_hit.png",
+      "image_size": [
+        1983,
+        793
+      ],
+      "requested_image_size": [
+        1280,
+        256
+      ],
+      "frame_count": 5,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            397,
+            793
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            53,
+            244,
+            344,
+            294
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            397,
+            0,
+            396,
+            793
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            0,
+            173,
+            365,
+            431
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            793,
+            0,
+            397,
+            793
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            4,
+            157,
+            390,
+            457
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1190,
+            0,
+            396,
+            793
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            33,
+            212,
+            322,
+            346
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1586,
+            0,
+            397,
+            793
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            59,
+            247,
+            275,
+            279
+          ]
+        }
+      ],
+      "binding": "view_effects `league_twistedfate_wg_hit`（跟随，画在人物上面）",
+      "game_size_description": "20",
+      "sha256": "dd0f18f686bb950762cbf44801f260290aa535f186922487e3dad723e5f5ec42",
+      "alpha": {
+        "fully_transparent_pixels": 1270202,
+        "partial_alpha_pixels": 299378,
+        "opaque_pixels": 2939
+      },
+      "luminance_0_255_alpha_gt_127": {
+        "mean": 198.59,
+        "brightest_decile_mean": 253.43
+      },
+      "notes": [
+        "生成的主星为约八向尖刺，未严格达到提示词十根长刺。",
+        "生图原稿未经调色、重绘、描边处理或网格化；含半透明边缘，颜色未严格量化到指定色阶。",
+        "实际画布/格子比例与提示词尺寸不同；请按 frames[].rect 切图后再定游戏尺寸。",
+        "整数切格宽度相差最多 1 px，以 rect 为准。"
+      ]
+    },
+    {
+      "prompt_number": 21,
+      "file": "twistedfate_fx_q_cast.png",
+      "image_size": [
+        2017,
+        780
+      ],
+      "requested_image_size": [
+        1152,
+        224
+      ],
+      "frame_count": 4,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            504,
+            780
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            43,
+            211,
+            461,
+            391
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            504,
+            0,
+            504,
+            780
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            0,
+            103,
+            452,
+            575
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1008,
+            0,
+            505,
+            780
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            17,
+            134,
+            488,
+            531
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1513,
+            0,
+            504,
+            780
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            0,
+            158,
+            444,
+            471
+          ]
+        }
+      ],
+      "binding": "view_effects `league_twistedfate_q_cast`（施法者身上，不跟随，朝左时镜像；格子左边中点放到 Q 第 4 帧的右手）",
+      "game_size_description": "18 × 14",
+      "sha256": "5d5ed807bc39de011accbe9ba44b5cacb1655e483ec8a2c8524d7b5b98ebc032",
+      "alpha": {
+        "fully_transparent_pixels": 1200398,
+        "partial_alpha_pixels": 371283,
+        "opaque_pixels": 1579
+      },
+      "luminance_0_255_alpha_gt_127": {
+        "mean": 160.44,
+        "brightest_decile_mean": 253.12
+      },
+      "notes": [
+        "手部起点需按动作图校准；三张牌的微小位置存在帧间变化。",
+        "生图原稿未经调色、重绘、描边处理或网格化；含半透明边缘，颜色未严格量化到指定色阶。",
+        "实际画布/格子比例与提示词尺寸不同；请按 frames[].rect 切图后再定游戏尺寸。",
+        "整数切格宽度相差最多 1 px，以 rect 为准。"
+      ],
+      "requested_anchor_normalized": [
+        0,
+        0.5
+      ]
+    },
+    {
+      "prompt_number": 22,
+      "file": "twistedfate_fx_q_cards.png",
+      "image_size": [
+        2172,
+        724
+      ],
+      "requested_image_size": [
+        3072,
+        324
+      ],
+      "frame_count": 6,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            362,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            88,
+            236,
+            197,
+            262
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            362,
+            0,
+            362,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            56,
+            230,
+            208,
+            272
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            724,
+            0,
+            362,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            12,
+            214,
+            350,
+            305
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1086,
+            0,
+            362,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            0,
+            206,
+            362,
+            321
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1448,
+            0,
+            362,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            0,
+            179,
+            358,
+            376
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            1810,
+            0,
+            362,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            5,
+            145,
+            343,
+            442
+          ]
+        }
+      ],
+      "binding": "view_projectiles `league_twistedfate_q_cards`（BIG，朝右，游戏转到飞行方向，上下对称，播一次）",
+      "game_size_description": "32 × 18",
+      "sha256": "1a13b06969102a712acf7b42c96e00f26866d941227af19695f1f546559262a0",
+      "alpha": {
+        "fully_transparent_pixels": 1221394,
+        "partial_alpha_pixels": 349853,
+        "opaque_pixels": 1281
+      },
+      "luminance_0_255_alpha_gt_127": {
+        "mean": 141.13,
+        "brightest_decile_mean": 251.83
+      },
+      "notes": [
+        "每格三张牌的动态带；牌距、轨迹及上下逐像素对称需游戏导入复核。",
+        "生图原稿未经调色、重绘、描边处理或网格化；含半透明边缘，颜色未严格量化到指定色阶。",
+        "实际画布/格子比例与提示词尺寸不同；请按 frames[].rect 切图后再定游戏尺寸。"
+      ]
+    },
+    {
+      "prompt_number": 23,
+      "file": "twistedfate_fx_q_hit.png",
+      "image_size": [
+        2172,
+        724
+      ],
+      "requested_image_size": [
+        1024,
+        256
+      ],
+      "frame_count": 4,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            19,
+            120,
+            508,
+            531
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            9,
+            99,
+            527,
+            552
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            24,
+            149,
+            497,
+            491
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            67,
+            171,
+            434,
+            387
+          ]
+        }
+      ],
+      "binding": "view_effects `league_twistedfate_q_hit`（跟随，画在人物上面）",
+      "game_size_description": "14",
+      "sha256": "067201234e820cc929315added750fb9ed0d1602282c7102ae04c981742c7bc9",
+      "alpha": {
+        "fully_transparent_pixels": 1132585,
+        "partial_alpha_pixels": 436680,
+        "opaque_pixels": 3263
+      },
+      "luminance_0_255_alpha_gt_127": {
+        "mean": 171.92,
+        "brightest_decile_mean": 253.35
+      },
+      "notes": [
+        "第三格可见四片主要碎片，未严格维持提示词三片。",
+        "生图原稿未经调色、重绘、描边处理或网格化；含半透明边缘，颜色未严格量化到指定色阶。",
+        "实际画布/格子比例与提示词尺寸不同；请按 frames[].rect 切图后再定游戏尺寸。"
+      ]
+    },
+    {
+      "prompt_number": 24,
+      "file": "twistedfate_fx_r_seen.png",
+      "image_size": [
+        2172,
+        724
+      ],
+      "requested_image_size": [
+        1024,
+        192
+      ],
+      "frame_count": 4,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            39,
+            178,
+            464,
+            363
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            40,
+            178,
+            464,
+            363
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            39,
+            178,
+            464,
+            363
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            39,
+            178,
+            465,
+            363
+          ]
+        }
+      ],
+      "binding": "view_buffs `league_twistedfate_r_seen`（循环，画在头顶上方）",
+      "game_size_description": "12 × 9",
+      "sha256": "73f8f44d5a0c7927550eb22bce92d17221c459a78d5fde60373e84973c032a02",
+      "alpha": {
+        "fully_transparent_pixels": 1239957,
+        "partial_alpha_pixels": 331835,
+        "opaque_pixels": 736
+      },
+      "luminance_0_255_alpha_gt_127": {
+        "mean": 163.76,
+        "brightest_decile_mean": 253.18
+      },
+      "notes": [
+        "四格命运之眼亮度循环；眼形有少量帧间变化。",
+        "生图原稿未经调色、重绘、描边处理或网格化；含半透明边缘，颜色未严格量化到指定色阶。",
+        "实际画布/格子比例与提示词尺寸不同；请按 frames[].rect 切图后再定游戏尺寸。"
+      ]
+    },
+    {
+      "prompt_number": 25,
+      "file": "twistedfate_fx_r_cast.png",
+      "image_size": [
+        2098,
+        750
+      ],
+      "requested_image_size": [
+        3584,
+        512
+      ],
+      "frame_count": 7,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            300,
+            750
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            40,
+            359,
+            260,
+            220
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            300,
+            0,
+            299,
+            750
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            0,
+            291,
+            299,
+            323
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            599,
+            0,
+            300,
+            750
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            0,
+            149,
+            282,
+            486
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            899,
+            0,
+            300,
+            750
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            1,
+            107,
+            298,
+            548
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1199,
+            0,
+            300,
+            750
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            18,
+            167,
+            281,
+            467
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            1499,
+            0,
+            299,
+            750
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            22,
+            433,
+            277,
+            202
+          ]
+        },
+        {
+          "index": 6,
+          "rect": [
+            1798,
+            0,
+            300,
+            750
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            0,
+            355,
+            251,
+            235
+          ]
+        }
+      ],
+      "binding": "view_effects `league_twistedfate_r_cast`（BIG，施法者身上，不跟随）",
+      "game_size_description": "56 × 56",
+      "sha256": "95814303672bf199e574d2ffb984199836f40b79b0a06da7546b2d21d4b18a24",
+      "alpha": {
+        "fully_transparent_pixels": 1074986,
+        "partial_alpha_pixels": 498156,
+        "opaque_pixels": 358
+      },
+      "luminance_0_255_alpha_gt_127": {
+        "mean": 210.5,
+        "brightest_decile_mean": 253.67
+      },
+      "notes": [
+        "不含人物；第二格约七张卡牌而非八张，眼瞳偏金；虚拟胸口/脚底位置需校准。",
+        "生图原稿未经调色、重绘、描边处理或网格化；含半透明边缘，颜色未严格量化到指定色阶。",
+        "实际画布/格子比例与提示词尺寸不同；请按 frames[].rect 切图后再定游戏尺寸。",
+        "整数切格宽度相差最多 1 px，以 rect 为准。"
+      ],
+      "requested_anchor_normalized": [
+        0.5,
+        0.875
+      ]
+    },
+    {
+      "prompt_number": 26,
+      "file": "twistedfate_fx_r_gate.png",
+      "image_size": [
+        2079,
+        756
+      ],
+      "requested_image_size": [
+        3520,
+        500
+      ],
+      "frame_count": 8,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            260,
+            756
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            9,
+            439,
+            241,
+            167
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            260,
+            0,
+            260,
+            756
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            7,
+            98,
+            248,
+            498
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            520,
+            0,
+            260,
+            756
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            6,
+            96,
+            246,
+            500
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            780,
+            0,
+            260,
+            756
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            7,
+            98,
+            244,
+            498
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1040,
+            0,
+            259,
+            756
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            8,
+            105,
+            246,
+            491
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            1299,
+            0,
+            260,
+            756
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            9,
+            96,
+            245,
+            500
+          ]
+        },
+        {
+          "index": 6,
+          "rect": [
+            1559,
+            0,
+            260,
+            756
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            9,
+            99,
+            246,
+            497
+          ]
+        },
+        {
+          "index": 7,
+          "rect": [
+            1819,
+            0,
+            260,
+            756
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            8,
+            98,
+            249,
+            498
+          ]
+        }
+      ],
+      "binding": "view_effects `league_twistedfate_r_gate`（BIG，施法者身上，不跟随）",
+      "game_size_description": "44 × 50",
+      "sha256": "728751c85c1d14be81a79677d6c31b993b7f599e63639a7ce362b9916552e9d5",
+      "alpha": {
+        "fully_transparent_pixels": 928848,
+        "partial_alpha_pixels": 642109,
+        "opaque_pixels": 767
+      },
+      "luminance_0_255_alpha_gt_127": {
+        "mean": 193.92,
+        "brightest_decile_mean": 252.56
+      },
+      "notes": [
+        "不含人物；3–8 帧为指定循环段，五牌轨道与循环衔接需实装复核。",
+        "生图原稿未经调色、重绘、描边处理或网格化；含半透明边缘，颜色未严格量化到指定色阶。",
+        "实际画布/格子比例与提示词尺寸不同；请按 frames[].rect 切图后再定游戏尺寸。",
+        "整数切格宽度相差最多 1 px，以 rect 为准。"
+      ],
+      "requested_anchor_normalized": [
+        0.5,
+        0.872
+      ],
+      "loop_frames_zero_based": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    {
+      "prompt_number": 27,
+      "file": "twistedfate_fx_r_dest.png",
+      "image_size": [
+        2172,
+        724
+      ],
+      "requested_image_size": [
+        3072,
+        256
+      ],
+      "frame_count": 6,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            362,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            141,
+            326,
+            80,
+            74
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            362,
+            0,
+            362,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            18,
+            270,
+            326,
+            192
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            724,
+            0,
+            362,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            20,
+            250,
+            321,
+            220
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1086,
+            0,
+            362,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            17,
+            250,
+            327,
+            220
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1448,
+            0,
+            362,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            20,
+            254,
+            324,
+            216
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            1810,
+            0,
+            362,
+            724
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            20,
+            250,
+            323,
+            220
+          ]
+        }
+      ],
+      "binding": "view_effects `league_twistedfate_r_dest`（BIG，画在地面上，不跟随，在人物下面）",
+      "game_size_description": "40 × 20",
+      "sha256": "d5dede50fa255c54f9d23ca815eb92811c78de466b2660116e0f101e99fa80f6",
+      "alpha": {
+        "fully_transparent_pixels": 1213037,
+        "partial_alpha_pixels": 359488,
+        "opaque_pixels": 3
+      },
+      "luminance_0_255_alpha_gt_127": {
+        "mean": 205.52,
+        "brightest_decile_mean": 254.03
+      },
+      "notes": [
+        "3–6 帧为指定循环段；地面椭圆透视及中心需实装复核。",
+        "生图原稿未经调色、重绘、描边处理或网格化；含半透明边缘，颜色未严格量化到指定色阶。",
+        "实际画布/格子比例与提示词尺寸不同；请按 frames[].rect 切图后再定游戏尺寸。"
+      ],
+      "loop_frames_zero_based": [
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "prompt_number": 28,
+      "file": "twistedfate_fx_r_out.png",
+      "image_size": [
+        2137,
+        736
+      ],
+      "requested_image_size": [
+        2000,
+        489
+      ],
+      "frame_count": 5,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            427,
+            736
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            16,
+            120,
+            373,
+            569
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            427,
+            0,
+            428,
+            736
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            8,
+            27,
+            402,
+            662
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            855,
+            0,
+            427,
+            736
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            37,
+            118,
+            354,
+            571
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1282,
+            0,
+            428,
+            736
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            36,
+            143,
+            387,
+            546
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1710,
+            0,
+            427,
+            736
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            142,
+            229,
+            190,
+            425
+          ]
+        }
+      ],
+      "binding": "view_effects `league_twistedfate_r_out`（BIG，画在出发点，不跟随）",
+      "game_size_description": "36 × 44",
+      "sha256": "f5449d938077f9ede562024116769423e88fc1e995883c16ccd417988b3166f5",
+      "alpha": {
+        "fully_transparent_pixels": 1035128,
+        "partial_alpha_pixels": 537388,
+        "opaque_pixels": 316
+      },
+      "luminance_0_255_alpha_gt_127": {
+        "mean": 211.98,
+        "brightest_decile_mean": 253.29
+      },
+      "notes": [
+        "不含人物；第二格可见五张卡牌而非六张；离场光柱脚底需实装校准。",
+        "生图原稿未经调色、重绘、描边处理或网格化；含半透明边缘，颜色未严格量化到指定色阶。",
+        "实际画布/格子比例与提示词尺寸不同；请按 frames[].rect 切图后再定游戏尺寸。",
+        "整数切格宽度相差最多 1 px，以 rect 为准。"
+      ],
+      "requested_anchor_normalized": [
+        0.5,
+        0.869120654396728
+      ]
+    },
+    {
+      "prompt_number": 29,
+      "file": "twistedfate_fx_r_in.png",
+      "image_size": [
+        1959,
+        803
+      ],
+      "requested_image_size": [
+        2000,
+        489
+      ],
+      "frame_count": 5,
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            392,
+            803
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            94,
+            67,
+            298,
+            656
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            392,
+            0,
+            392,
+            803
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            0,
+            57,
+            392,
+            721
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            784,
+            0,
+            391,
+            803
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            0,
+            79,
+            391,
+            674
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1175,
+            0,
+            392,
+            803
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            0,
+            353,
+            392,
+            401
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1567,
+            0,
+            392,
+            803
+          ],
+          "visible_bbox_in_frame_alpha_gt_127": [
+            80,
+            408,
+            256,
+            311
+          ]
+        }
+      ],
+      "binding": "view_effects `league_twistedfate_r_in`（BIG，画在到达点，不跟随）",
+      "game_size_description": "36 × 44",
+      "sha256": "0286e75313b1f7b5b0a0469e05c46eeeefdc03fb087dd74c94c7f4d374ce1eda",
+      "alpha": {
+        "fully_transparent_pixels": 1080894,
+        "partial_alpha_pixels": 491022,
+        "opaque_pixels": 1161
+      },
+      "luminance_0_255_alpha_gt_127": {
+        "mean": 184.79,
+        "brightest_decile_mean": 252.7
+      },
+      "notes": [
+        "不含人物；到达光柱脚底及卡牌数量需实装复核。",
+        "生图原稿未经调色、重绘、描边处理或网格化；含半透明边缘，颜色未严格量化到指定色阶。",
+        "实际画布/格子比例与提示词尺寸不同；请按 frames[].rect 切图后再定游戏尺寸。",
+        "整数切格宽度相差最多 1 px，以 rect 为准。"
+      ],
+      "requested_anchor_normalized": [
+        0.5,
+        0.869120654396728
+      ]
+    }
+  ]
+}

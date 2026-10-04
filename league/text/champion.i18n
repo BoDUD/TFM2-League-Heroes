@@ -371,6 +371,13 @@
         "skill": "掷出十字刃，飞到尽头再飞回手中，往返都对路上所有敌人造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>物理伤害。附近有英雄时朝他所在的位置掷出（出手前锁定，可以躲开）。",
         "skill2": "张开法术护盾，最多<#ffb900ff>3秒<>：<#ef5350ff>免疫技能伤害和控制<>。第一次被击中时回复<#7ed957ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7ed957ff>40%<>生命并触发敏锐疾行，护盾再撑<#ffb900ff>1秒<>后破碎。",
         "ult": "附近友方英雄（含自己）移速+<#ffb900ff>30%<>，持续<#ffb900ff>8秒<>。狩猎期间希维尔的攻击命中英雄会缩短回旋之刃和法术护盾的冷却，弹射冷却减半；她的攻击击杀英雄时刷新狩猎。"
+      },
+      "league_twistedfate": {
+        "name": "崔斯特",
+        "attack": "扔牌攻击。被动<#ff9028ff>灌铅骰子<>：普攻或万能牌击杀单位时掷骰子，按点数获得少量<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>法强<>，死亡清空。<#ff9028ff>卡牌骗术<>：每第4次攻击额外造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法伤害<>。",
+        "skill": "扔出三张牌，沿途每个敌人受到<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<><#a974ffff>魔法伤害<>。出手前方向就已锁定，可以躲开。",
+        "skill2": "头顶蓝、红、金牌轮换，转到想要的就锁定，下次普攻扔出（另加<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>）：<#ff9028ff>蓝牌<><#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>，技能冷却减半；<#ff9028ff>红牌<>目标周围<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>并<#ef5350ff>减速<>；<#ff9028ff>金牌<><#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>并<#ef5350ff>眩晕1.67秒<>。",
+        "ult": "<#ff9028ff>命运<>：所有敌方英雄头顶出现标记。<#ff9028ff>传送之门<>：引导<#ffb900ff>1.5秒<>（被控打断）后传到远处队友正在打的敌方英雄身边，落地锁定<#ff9028ff>金牌<>。身边没有敌人时才会用。"
       }
     },
     "skill_name": {
@@ -638,6 +645,11 @@
         "skill1": "回旋之刃",
         "skill2": "法术护盾",
         "ult": "狩猎"
+      },
+      "league_twistedfate": {
+        "skill1": "万能牌",
+        "skill2": "选牌",
+        "ult": "命运"
       }
     }
   },
@@ -1013,6 +1025,13 @@
         "skill": "擲出十字刃，飛到盡頭再飛回手中，往返都對路上所有敵人造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>物理傷害。附近有英雄時朝他所在的位置擲出（出手前鎖定，可以躲開）。",
         "skill2": "張開法術護盾，最多<#ffb900ff>3秒<>：<#ef5350ff>免疫技能傷害和控制<>。第一次被擊中時回復<#7ed957ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7ed957ff>40%<>生命並觸發戰鬥動能，護盾再撐<#ffb900ff>1秒<>後破碎。",
         "ult": "附近友方英雄（含自己）移速+<#ffb900ff>30%<>，持續<#ffb900ff>8秒<>。狩獵期間希維爾的攻擊命中英雄會縮短迴旋之刃和法術護盾的冷卻，十字彈射冷卻減半；她的攻擊擊殺英雄時刷新狩獵。"
+      },
+      "league_twistedfate": {
+        "name": "逆命",
+        "attack": "擲牌攻擊。被動<#ff9028ff>灌鉛骰子<>：普攻或萬能牌擊殺單位時擲骰子，依點數獲得少量<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>法術強度<>，陣亡清空。<#ff9028ff>卡牌騙術<>：每第4次攻擊額外造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法傷害<>。",
+        "skill": "擲出三張牌，沿途每個敵人受到<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<><#a974ffff>魔法傷害<>。出手前方向已鎖定，可以閃開。",
+        "skill2": "頭頂藍、紅、金牌輪換，轉到想要的就鎖定，下次普攻擲出（另加<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>）：<#ff9028ff>藍牌<><#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>，技能冷卻減半；<#ff9028ff>紅牌<>目標周圍<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>並<#ef5350ff>緩速<>；<#ff9028ff>金牌<><#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>並<#ef5350ff>暈眩1.67秒<>。",
+        "ult": "<#ff9028ff>命運<>：所有敵方英雄頭頂出現標記。<#ff9028ff>傳送之門<>：引導<#ffb900ff>1.5秒<>（被控打斷）後傳到遠處隊友正在打的敵方英雄身邊，落地鎖定<#ff9028ff>金牌<>。身邊沒有敵人時才會使用。"
       }
     },
     "skill_name": {
@@ -1280,6 +1299,11 @@
         "skill1": "迴旋之刃",
         "skill2": "法術護盾",
         "ult": "狩獵"
+      },
+      "league_twistedfate": {
+        "skill1": "萬能牌",
+        "skill2": "選牌",
+        "ult": "命運"
       }
     }
   },
@@ -1655,6 +1679,13 @@
         "skill": "Sivir hurls her crossblade: it flies to the end of its path and back to her hand, dealing <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>physical damage<> to every enemy it cuts through on both passes. With a champion in reach she throws it where he stands (aimed before it leaves: it can be dodged).",
         "skill2": "Sivir raises a spell shield for up to <#ffb900ff>3s<>: <#ef5350ff>immune to spell damage and crowd control<>. The first hit she takes heals her for <#7ed957ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7ed957ff>40%<> and triggers Fleet of Foot; the shield breaks <#ffb900ff>1s<> later.",
         "ult": "Nearby allied champions, Sivir included, gain <#ffb900ff>30%<> move speed for <#ffb900ff>8s<>. While she hunts, her attacks that hit champions take time off Boomerang Blade and Spell Shield, Ricochet comes back twice as fast, and a champion her attack kills renews the hunt."
+      },
+      "league_twistedfate": {
+        "name": "Twisted Fate",
+        "attack": "Throws cards. Passive <#ff9028ff>Loaded Dice<>: a unit killed by his attack or Wild Cards rolls a die, the face giving a little <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>Ability Power<> until he dies. <#ff9028ff>Stacked Deck<>: every 4th attack deals <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> bonus <#a974ffff>magic damage<>.",
+        "skill": "Twisted Fate throws three cards, dealing <#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<> <#a974ffff>magic damage<> to each enemy they pass through. The aim is set as he throws, so they can be dodged.",
+        "skill2": "Blue, red and gold cards cycle over his head; he locks the one he wants as it comes up and his next attack throws it (plus <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<>): <#ff9028ff>Blue<> <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<> and halves his spell cooldowns; <#ff9028ff>Red<> <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> around the target and <#ef5350ff>slows<>; <#ff9028ff>Gold<> <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> and <#ef5350ff>stuns<> for <#ffb900ff>1.67s<>.",
+        "ult": "<#ff9028ff>Destiny<>: every enemy champion is marked. <#ff9028ff>Gate<>: after a <#ffb900ff>1.5s<> channel (crowd control breaks it) he teleports beside a distant enemy champion his team is fighting and lands with a <#ff9028ff>Gold Card<> locked. Used only when no enemy is near him."
       }
     },
     "skill_name": {
@@ -1922,6 +1953,11 @@
         "skill1": "Boomerang Blade",
         "skill2": "Spell Shield",
         "ult": "On The Hunt"
+      },
+      "league_twistedfate": {
+        "skill1": "Wild Cards",
+        "skill2": "Pick a Card",
+        "ult": "Destiny"
       }
     }
   },
@@ -2297,6 +2333,13 @@
         "skill": "십자검을 던져 끝까지 날아갔다가 손으로 돌아오며, 오갈 때 모두 경로의 모든 적에게 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>물리 피해<>. 근처에 챔피언이 있으면 그 위치로 던집니다(던지기 전에 조준: 피할 수 있음).",
         "skill2": "최대 <#ffb900ff>3초<> 동안 주문 방어막: <#ef5350ff>스킬 피해와 군중 제어 면역<>. 처음 맞으면 체력을 <#7ed957ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7ed957ff>40%<> 회복하고 재빠른 발놀림 발동, 방어막은 <#ffb900ff>1초<> 뒤 깨집니다.",
         "ult": "주변 아군 챔피언(자신 포함) 이동 속도 +<#ffb900ff>30%<>, <#ffb900ff>8초<>. 사냥 중 챔피언을 맞힌 공격은 부메랑 검과 주문 방어막의 재사용 대기시간을 줄이고, 튕기는 부메랑은 두 배 빨리 돌아오며, 공격으로 챔피언을 처치하면 사냥이 갱신됩니다."
+      },
+      "league_twistedfate": {
+        "name": "트위스티드 페이트",
+        "attack": "카드를 던집니다. 기본 지속 효과 <#ff9028ff>사기 주사위<>: 기본 공격이나 와일드 카드로 유닛을 처치하면 주사위를 굴려 눈만큼 <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력<>을 조금 얻습니다(사망 시 초기화). <#ff9028ff>속임수 덱<>: 4번째 공격마다 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>의 추가 <#a974ffff>마법 피해<>.",
+        "skill": "카드 세 장을 던져 지나가는 모든 적에게 <#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>의 <#a974ffff>마법 피해<>를 입힙니다. 던지기 전에 방향이 정해져 피할 수 있습니다.",
+        "skill2": "머리 위에서 파랑·빨강·골드 카드가 바뀌고 원하는 카드가 나오면 고정해 다음 기본 공격으로 던집니다(추가 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<>): <#ff9028ff>파랑<> <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>, 스킬 재사용 대기시간 절반; <#ff9028ff>빨강<> 대상 주변 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> + <#ef5350ff>둔화<>; <#ff9028ff>골드<> <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + <#ffb900ff>1.67초<> <#ef5350ff>기절<>.",
+        "ult": "<#ff9028ff>운명<>: 모든 적 챔피언 머리 위에 표식. <#ff9028ff>관문<>: <#ffb900ff>1.5초<> 정신 집중(군중 제어에 끊김) 후 아군이 싸우고 있는 먼 적 챔피언 곁으로 순간이동하고, 착지하면 <#ff9028ff>골드 카드<>를 고정합니다. 주변에 적이 없을 때만 사용합니다."
       }
     },
     "skill_name": {
@@ -2564,6 +2607,11 @@
         "skill1": "부메랑 검",
         "skill2": "주문 방어막",
         "ult": "사냥 개시"
+      },
+      "league_twistedfate": {
+        "skill1": "와일드 카드",
+        "skill2": "카드 뽑기",
+        "ult": "운명"
       }
     }
   },
@@ -2939,6 +2987,13 @@
         "skill": "十字刃を投げ、端まで飛んで手元へ戻り、往復とも通り道の全ての敵に<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の<#ff9028ff>物理ダメージ<>。近くにチャンピオンがいればその位置へ投げる（投げる前に狙う：避けられる）。",
         "skill2": "最大<#ffb900ff>3秒<>スペルシールド：<#ef5350ff>スキルダメージと行動妨害を無効<>。最初に被弾すると<#7ed957ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7ed957ff>40%<>回復し戦駆けが発動、シールドは<#ffb900ff>1秒<>後に砕ける。",
         "ult": "周囲の味方チャンピオン（自身含む）の移動速度+<#ffb900ff>30%<>、<#ffb900ff>8秒<>。号令中、チャンピオンに当たった攻撃はブーメランブレードとスペルシールドのクールダウンを短縮し、跳刃は2倍速く戻り、攻撃でチャンピオンを倒すと号令が更新される。"
+      },
+      "league_twistedfate": {
+        "name": "ツイステッド・フェイト",
+        "attack": "カードを投げる。パッシブ <#ff9028ff>イカサマダイス<>：通常攻撃かワイルドカードでユニットを倒すとダイスを振り、出目に応じて<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力<>を少し得る(死亡で消える)。<#ff9028ff>スタックデッキ<>：4回目の攻撃ごとに<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の追加<#a974ffff>魔法ダメージ<>。",
+        "skill": "カードを3枚投げ、通り抜けた敵すべてに<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>の<#a974ffff>魔法ダメージ<>。投げる前に方向が決まるので避けられる。",
+        "skill2": "頭上で青・赤・金のカードが切り替わり、欲しいカードで止め次の通常攻撃で投げる(<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力100%<>追加)：<#ff9028ff>青<><#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>、スキルCD半減；<#ff9028ff>赤<>対象周囲に<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>と<#ef5350ff>スロウ<>；<#ff9028ff>金<><#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>と<#ffb900ff>1.67秒<><#ef5350ff>スタン<>。",
+        "ult": "<#ff9028ff>デスティニー<>：敵チャンピオン全員に印。<#ff9028ff>ゲート<>：<#ffb900ff>1.5秒<>詠唱(行動妨害で中断)後、味方が戦う遠くの敵チャンピオンの側へテレポートし、着地で<#ff9028ff>ゴールドカード<>を確定。近くに敵がいない時だけ使う。"
       }
     },
     "skill_name": {
@@ -3206,6 +3261,11 @@
         "skill1": "ブーメランブレード",
         "skill2": "スペルシールド",
         "ult": "戦姫の号令"
+      },
+      "league_twistedfate": {
+        "skill1": "ワイルドカード",
+        "skill2": "ドロー",
+        "ult": "デスティニー"
       }
     }
   }
