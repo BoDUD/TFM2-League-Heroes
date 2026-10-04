@@ -5,12 +5,14 @@
 Reads league/champion/league_nocturne.data_champion and league/text/champion.i18n and writes
 addons/league_nocturne_dark/override/league_nocturne.data_champion, .../text/champion.i18n and
 .../effects/league_nocturne_dark#sheet.png + #anim.fanim: the same kit with three changes -
-  * R's "every allied champion Invisible 180" is dropped and R calls the add-on's native effect
-    league_nocturne_dark:start instead, which for 180 ticks hides each allied champion that has no
-    enemy champion within 40000 (re-applied every tick) and plays the map veil below; the veil
-    pictures, the mist on enemies, the flight and the hit stay as they are;
+  * R's "every allied champion Invisible" at the cast (until the landing, at most 32 ticks) and at the
+    landing (20 ticks, the burst) are dropped and R calls the add-on's native effects
+    league_nocturne_dark:start / :land instead, which for as long hide each allied champion that has no
+    enemy champion within 40000 (re-applied every tick) and play the map veil below (v4: only while
+    the ult plays - 180 ticks outlasted it: 「魔腾不放大的时候也全队隐身」); the veil pictures, the mist on
+    enemies, the flight and the hit stay as they are;
   * a view effect league_nocturne_dark_veil: one 1280 x 1280 frame of translucent night blue
-    (the whole map picture, 128 px border included) shown for 3 s under the units (z -2); the
+    (the whole map picture, 128 px border included) shown for 0.75 s under the units (z -2); the
     native code plays it three times at the map centre, a few ticks apart, so the map darkens in
     steps and lightens the same way. It is an ordinary effect event, so it plays in step with the
     match picture (v1 darkened the screen from the client and drifted, see the README);
@@ -28,20 +30,20 @@ MOD_ID = "league_nocturne_dark"
 TEXT_KEY = "description.league_nocturne_dark.ult"
 AD = "<i#asset/base/ui/banpick/champion_stat_icon:ad_0>"
 TEXT = {
-    "zh-hans": "【黑暗测试版】黑暗降临：<#ffb900ff>3秒<>内全地图变暗，敌人只看得见、只打得到身边的我方单位；"
+    "zh-hans": "【黑暗测试版】黑暗降临：<#ffb900ff>魔腾飞扑和落地期间<>全地图变暗，敌人只看得见、只打得到身边的我方单位；"
                f"魔腾飞扑一名敌方英雄，落地造成<#ff9028ff>120<> + {AD}<#ff9028ff>120% 攻击力<>的<#ff9028ff>物理伤害<>，"
                "飞行中免疫控制。",
-    "zh-hant": "【黑暗測試版】黑暗降臨：<#ffb900ff>3秒<>內全地圖變暗，敵人只看得見、只打得到身邊的我方單位；"
+    "zh-hant": "【黑暗測試版】黑暗降臨：<#ffb900ff>夜曲飛撲和落地期間<>全地圖變暗，敵人只看得見、只打得到身邊的我方單位；"
                f"夜曲飛撲一名敵方英雄，落地造成<#ff9028ff>120<> + {AD}<#ff9028ff>120% 攻擊力<>的<#ff9028ff>物理傷害<>，"
                "飛行中免疫控制。",
-    "en": "[Darkness test build] Darkness falls: for <#ffb900ff>3s<> the map goes dark and enemies see and hit "
+    "en": "[Darkness test build] Darkness falls: <#ffb900ff>while Nocturne flies and lands<> the map goes dark and enemies see and hit "
           "only the allied units right next to them; Nocturne flies at an enemy champion, dealing "
           f"<#ff9028ff>120<> + {AD}<#ff9028ff>120% AD<> <#ff9028ff>physical damage<> on landing. He is immune to "
           "crowd control in flight.",
-    "ko": "[어둠 테스트판] 어둠이 내려 <#ffb900ff>3초<> 동안 지도가 어두워지고, 적은 바로 옆의 아군 유닛만 "
+    "ko": "[어둠 테스트판] 어둠이 내려 <#ffb900ff>녹턴이 날아가 착지하는 동안<> 지도가 어두워지고, 적은 바로 옆의 아군 유닛만 "
           f"보고 공격할 수 있습니다. 녹턴이 적 챔피언에게 날아가 착지 시 <#ff9028ff>120<> + {AD}<#ff9028ff>공격력의 120%<> "
           "<#ff9028ff>물리 피해<>를 입힙니다. 비행 중 군중 제어에 면역입니다.",
-    "ja": "【闇の試験版】闇が訪れ<#ffb900ff>3秒<>間マップが暗くなり、敵はすぐ近くの味方ユニットしか見えず攻撃できない。"
+    "ja": "【闇の試験版】闇が訪れ<#ffb900ff>飛びかかって着地するまで<>マップが暗くなり、敵はすぐ近くの味方ユニットしか見えず攻撃できない。"
           f"敵チャンピオンへ飛びかかり、着地で<#ff9028ff>120<> + {AD}<#ff9028ff>攻撃力の120%<>の<#ff9028ff>物理ダメージ<>。"
           "飛行中は行動妨害無効。",
 }
@@ -53,7 +55,7 @@ VEIL_TAG = "dark"
 VEIL_SIZE = 1280
 # night blue, alpha per layer: three layers = 1 - (1 - 60/255)^3, about 55 % dark
 VEIL_RGBA = (5, 8, 26, 60)
-VEIL_SECONDS = 3.0
+VEIL_SECONDS = 0.75             # the three layers end ~53 ticks after the cast: the ult's flight and landing
 
 
 def lp(path):
@@ -107,6 +109,15 @@ def main():
     if burst is None:
         sys.exit("R's r_burst picture is gone: update this script")
     top["effects"].insert(burst + 1, {"type": "Native", "effect_ref": MOD_ID + ":start"})
+    dives = [e for e in top["effects"] if e.get("type") == "MoveToTarget"]
+    if len(dives) != 1:
+        sys.exit("R no longer has one MoveToTarget: update this script")
+    ends = dives[0]["end_effects"]
+    lands = [i for i, e in enumerate(ends) if e.get("type") == "RangeEffect" and e.get("target") == "AllyChampion"
+             and [x.get("type") for x in e.get("effects", [])] == ["Invisible"]]
+    if len(lands) != 1:
+        sys.exit("R's landing no longer hides the allies once: update this script")
+    ends[lands[0]] = {"type": "Native", "effect_ref": MOD_ID + ":land"}
     views = champion.setdefault("view_effects", [])
     if any(v.get("name") == VEIL for v in views):
         sys.exit("the main pack already has a %s view effect" % VEIL)
