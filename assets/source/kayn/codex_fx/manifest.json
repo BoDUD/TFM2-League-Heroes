@@ -1,0 +1,2385 @@
+{
+  "version": 1,
+  "delivery": "generated_raw_vfx",
+  "assets": [
+    {
+      "name": "hit",
+      "file": "kayn_fx_hit.png",
+      "prompt_number": 1,
+      "image_size": [
+        2172,
+        724
+      ],
+      "frame_count": 4,
+      "layout": "one_horizontal_row_raw",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            561,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            41,
+            119,
+            559,
+            625
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            561,
+            0,
+            531,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            22,
+            81,
+            529,
+            677
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1092,
+            0,
+            537,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            54,
+            112,
+            521,
+            646
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            69,
+            168,
+            482,
+            618
+          ]
+        }
+      ],
+      "binding": "view_effects `league_kayn_hit`（跟随，画在人物上面）；导入时换色出 `hit_d`、`hit_s`",
+      "game_size": "14",
+      "raw_source": true,
+      "sha256": "158d68ed3a1779dae4270bbf88533074288c302643ce066aa490530818a832e5",
+      "limitations": [
+        "Native generated size/cell proportions differ from requested.",
+        "Frame rects follow actual gutters; widths may differ.",
+        "Semitransparent edge noise and non-palette shades retained; not a final native-resolution game strip.",
+        "4 阶段命中／弯曲刀痕／收细／火星；末帧火星仍较亮。"
+      ],
+      "anchor_status": "Not calibrated against final action strips; measure at import."
+    },
+    {
+      "name": "sa_hit",
+      "file": "kayn_fx_sa_hit.png",
+      "prompt_number": 2,
+      "image_size": [
+        1983,
+        793
+      ],
+      "frame_count": 5,
+      "layout": "one_horizontal_row_raw",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            378,
+            793
+          ],
+          "visible_bbox_alpha128": [
+            92,
+            317,
+            234,
+            481
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            378,
+            0,
+            344,
+            793
+          ],
+          "visible_bbox_alpha128": [
+            3,
+            231,
+            319,
+            551
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            722,
+            0,
+            468,
+            793
+          ],
+          "visible_bbox_alpha128": [
+            3,
+            186,
+            455,
+            613
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1190,
+            0,
+            396,
+            793
+          ],
+          "visible_bbox_alpha128": [
+            7,
+            230,
+            378,
+            582
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1586,
+            0,
+            397,
+            793
+          ],
+          "visible_bbox_alpha128": [
+            41,
+            220,
+            370,
+            572
+          ]
+        }
+      ],
+      "binding": "view_effects `league_kayn_sa_hit`（跟随，画在人物上面，在普攻命中上面一层）",
+      "game_size": "18",
+      "raw_source": true,
+      "sha256": "648ffcb447c2c89c188d453a8df103a93ab2b0cc885a7509191345d94fa3cfce",
+      "limitations": [
+        "Native generated size/cell proportions differ from requested.",
+        "Frame rects follow actual gutters; widths may differ.",
+        "Semitransparent edge noise and non-palette shades retained; not a final native-resolution game strip.",
+        "X 刀光与靛紫烟；第 4 帧仍保留明显刀光。"
+      ],
+      "anchor_status": "Not calibrated against final action strips; measure at import."
+    },
+    {
+      "name": "tf_d",
+      "file": "kayn_fx_tf_d.png",
+      "prompt_number": 3,
+      "image_size": [
+        2172,
+        724
+      ],
+      "frame_count": 8,
+      "layout": "one_horizontal_row_raw",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            270,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            24,
+            466,
+            249,
+            651
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            270,
+            0,
+            273,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            3,
+            217,
+            268,
+            675
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            543,
+            0,
+            274,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            4,
+            80,
+            272,
+            682
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            817,
+            0,
+            277,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            11,
+            67,
+            275,
+            683
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1094,
+            0,
+            266,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            8,
+            152,
+            264,
+            682
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            1360,
+            0,
+            272,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            13,
+            257,
+            270,
+            682
+          ]
+        },
+        {
+          "index": 6,
+          "rect": [
+            1632,
+            0,
+            268,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            25,
+            285,
+            240,
+            651
+          ]
+        },
+        {
+          "index": 7,
+          "rect": [
+            1900,
+            0,
+            272,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            29,
+            378,
+            228,
+            643
+          ]
+        }
+      ],
+      "binding": "view_effects `league_kayn_tf_d`（BIG，施法者脚下，不跟随，画在人物上面）",
+      "game_size": "48 × 52",
+      "raw_source": true,
+      "sha256": "7505d0ed8d5c9a157a2214378129b9b6fa39f01f85d01cc17b31c7c13f750daf",
+      "limitations": [
+        "Native generated size/cell proportions differ from requested.",
+        "Frame rects follow actual gutters; widths may differ.",
+        "Semitransparent edge noise and non-palette shades retained; not a final native-resolution game strip.",
+        "采用重画版，光柱分居两侧，中间留空；地裂呈放射状，椭圆比例不精确。"
+      ],
+      "anchor_status": "Not calibrated against final action strips; measure at import."
+    },
+    {
+      "name": "tf_s",
+      "file": "kayn_fx_tf_s.png",
+      "prompt_number": 4,
+      "image_size": [
+        2172,
+        724
+      ],
+      "frame_count": 8,
+      "layout": "one_horizontal_row_raw",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            272,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            20,
+            491,
+            260,
+            661
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            272,
+            0,
+            271,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            11,
+            309,
+            260,
+            661
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            543,
+            0,
+            271,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            11,
+            207,
+            254,
+            675
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            814,
+            0,
+            284,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            5,
+            64,
+            282,
+            677
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1098,
+            0,
+            270,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            12,
+            159,
+            268,
+            661
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            1368,
+            0,
+            261,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            41,
+            207,
+            248,
+            656
+          ]
+        },
+        {
+          "index": 6,
+          "rect": [
+            1629,
+            0,
+            271,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            62,
+            250,
+            246,
+            640
+          ]
+        },
+        {
+          "index": 7,
+          "rect": [
+            1900,
+            0,
+            272,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            67,
+            298,
+            216,
+            625
+          ]
+        }
+      ],
+      "binding": "view_effects `league_kayn_tf_s`（BIG，施法者脚下，不跟随，画在人物上面）",
+      "game_size": "48 × 52",
+      "raw_source": true,
+      "sha256": "0f086b0d7c0532861865fe031db1af1013ad6ed9ca3dec9f7e8fc48aad3f2ec2",
+      "limitations": [
+        "Native generated size/cell proportions differ from requested.",
+        "Frame rects follow actual gutters; widths may differ.",
+        "Semitransparent edge noise and non-palette shades retained; not a final native-resolution game strip.",
+        "地面漩涡、蓝触手、头顶闪光、烟散；脚底锚点需按导入动作测量。"
+      ],
+      "anchor_status": "Not calibrated against final action strips; measure at import."
+    },
+    {
+      "name": "form_d",
+      "file": "kayn_fx_form_d.png",
+      "prompt_number": 5,
+      "image_size": [
+        2146,
+        733
+      ],
+      "frame_count": 6,
+      "layout": "one_horizontal_row_raw",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            358,
+            733
+          ],
+          "visible_bbox_alpha128": [
+            31,
+            219,
+            336,
+            591
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            358,
+            0,
+            357,
+            733
+          ],
+          "visible_bbox_alpha128": [
+            34,
+            145,
+            346,
+            592
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            715,
+            0,
+            358,
+            733
+          ],
+          "visible_bbox_alpha128": [
+            33,
+            186,
+            342,
+            592
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1073,
+            0,
+            358,
+            733
+          ],
+          "visible_bbox_alpha128": [
+            24,
+            187,
+            332,
+            591
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1431,
+            0,
+            357,
+            733
+          ],
+          "visible_bbox_alpha128": [
+            18,
+            153,
+            327,
+            592
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            1788,
+            0,
+            358,
+            733
+          ],
+          "visible_bbox_alpha128": [
+            21,
+            219,
+            326,
+            591
+          ]
+        }
+      ],
+      "binding": "view_buffs `league_kayn_form_d`（循环，画在人物下面，朝左时镜像）",
+      "game_size": "36 × 44",
+      "raw_source": true,
+      "sha256": "db655c94b1363ea127e6f4f62b8274207c6e14a7fd786625b48bba2ad4feed25",
+      "limitations": [
+        "Native generated size/cell proportions differ from requested.",
+        "Frame rects follow actual gutters; widths may differ.",
+        "Semitransparent edge noise and non-palette shades retained; not a final native-resolution game strip.",
+        "第 2 帧左侧、第 5 帧右侧闪电；首尾火星位置不同，无缝循环尚未在引擎验证。"
+      ],
+      "anchor_status": "Not calibrated against final action strips; measure at import."
+    },
+    {
+      "name": "form_s",
+      "file": "kayn_fx_form_s.png",
+      "prompt_number": 6,
+      "image_size": [
+        2153,
+        730
+      ],
+      "frame_count": 6,
+      "layout": "one_horizontal_row_raw",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            359,
+            730
+          ],
+          "visible_bbox_alpha128": [
+            39,
+            236,
+            336,
+            574
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            359,
+            0,
+            359,
+            730
+          ],
+          "visible_bbox_alpha128": [
+            32,
+            204,
+            333,
+            579
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            718,
+            0,
+            358,
+            730
+          ],
+          "visible_bbox_alpha128": [
+            30,
+            155,
+            330,
+            578
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1076,
+            0,
+            359,
+            730
+          ],
+          "visible_bbox_alpha128": [
+            30,
+            122,
+            332,
+            579
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1435,
+            0,
+            359,
+            730
+          ],
+          "visible_bbox_alpha128": [
+            28,
+            123,
+            327,
+            578
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            1794,
+            0,
+            359,
+            730
+          ],
+          "visible_bbox_alpha128": [
+            23,
+            214,
+            322,
+            574
+          ]
+        }
+      ],
+      "binding": "view_buffs `league_kayn_form_s`（循环，画在人物下面，朝左时镜像）",
+      "game_size": "36 × 44",
+      "raw_source": true,
+      "sha256": "15254c2caa58e41aff110cba1f4d52a51fccf3dd4a664ca6eef67fb7a0e1a1cb",
+      "limitations": [
+        "Native generated size/cell proportions differ from requested.",
+        "Frame rects follow actual gutters; widths may differ.",
+        "Semitransparent edge noise and non-palette shades retained; not a final native-resolution game strip.",
+        "6 帧烟丝／青光点；中间烟丝可能遮住身体，需检查人物叠加；无缝衔接未验证。"
+      ],
+      "anchor_status": "Not calibrated against final action strips; measure at import."
+    },
+    {
+      "name": "q_dash",
+      "file": "kayn_fx_q_dash.png",
+      "prompt_number": 7,
+      "image_size": [
+        1881,
+        836
+      ],
+      "frame_count": 4,
+      "layout": "one_horizontal_row_raw",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            470,
+            836
+          ],
+          "visible_bbox_alpha128": [
+            43,
+            398,
+            457,
+            480
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            470,
+            0,
+            470,
+            836
+          ],
+          "visible_bbox_alpha128": [
+            31,
+            344,
+            454,
+            480
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            940,
+            0,
+            471,
+            836
+          ],
+          "visible_bbox_alpha128": [
+            25,
+            336,
+            451,
+            483
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1411,
+            0,
+            470,
+            836
+          ],
+          "visible_bbox_alpha128": [
+            39,
+            344,
+            445,
+            488
+          ]
+        }
+      ],
+      "binding": "view_effects `league_kayn_q_dash`（施法者脚下，不跟随，画在人物下面，朝左时镜像）",
+      "game_size": "36 × 16",
+      "raw_source": true,
+      "sha256": "33324865d8303ee1eab3a5156dde004503fcb3dfa0c6d100dd436fd3a53ddf70",
+      "limitations": [
+        "Native generated size/cell proportions differ from requested.",
+        "Frame rects follow actual gutters; widths may differ.",
+        "Semitransparent edge noise and non-palette shades retained; not a final native-resolution game strip.",
+        "右端为冲刺尖端、残影向左；末帧仍有淡色尖端，未完全退成零星烟丝。"
+      ],
+      "anchor_status": "Not calibrated against final action strips; measure at import."
+    },
+    {
+      "name": "q_spin",
+      "file": "kayn_fx_q_spin.png",
+      "prompt_number": 8,
+      "image_size": [
+        1998,
+        787
+      ],
+      "frame_count": 5,
+      "layout": "one_horizontal_row_raw",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            384,
+            787
+          ],
+          "visible_bbox_alpha128": [
+            40,
+            290,
+            357,
+            493
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            384,
+            0,
+            403,
+            787
+          ],
+          "visible_bbox_alpha128": [
+            3,
+            276,
+            366,
+            496
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            787,
+            0,
+            412,
+            787
+          ],
+          "visible_bbox_alpha128": [
+            3,
+            251,
+            409,
+            508
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1199,
+            0,
+            391,
+            787
+          ],
+          "visible_bbox_alpha128": [
+            41,
+            285,
+            386,
+            497
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1590,
+            0,
+            408,
+            787
+          ],
+          "visible_bbox_alpha128": [
+            3,
+            311,
+            381,
+            474
+          ]
+        }
+      ],
+      "binding": "view_effects `league_kayn_q_spin`（BIG，施法者脚下，不跟随）；导入时换色出 `q_spin_d`、`q_spin_s`",
+      "game_size": "52 × 30",
+      "raw_source": true,
+      "sha256": "02db680c1ec45a74617146e49c97b7dbbf9b2897a9e09422d540f81946a5ef63",
+      "limitations": [
+        "Native generated size/cell proportions differ from requested.",
+        "Frame rects follow actual gutters; widths may differ.",
+        "Semitransparent edge noise and non-palette shades retained; not a final native-resolution game strip.",
+        "采用重画版，5 帧已分开，末帧退成断片；第 4 帧残弧仍较亮。"
+      ],
+      "anchor_status": "Not calibrated against final action strips; measure at import."
+    },
+    {
+      "name": "q_hit",
+      "file": "kayn_fx_q_hit.png",
+      "prompt_number": 9,
+      "image_size": [
+        2172,
+        724
+      ],
+      "frame_count": 4,
+      "layout": "one_horizontal_row_raw",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            88,
+            173,
+            443,
+            557
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            0,
+            566,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            12,
+            200,
+            564,
+            538
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1109,
+            0,
+            520,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            8,
+            219,
+            512,
+            503
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            88,
+            213,
+            473,
+            515
+          ]
+        }
+      ],
+      "binding": "view_effects `league_kayn_q_hit`（跟随，画在人物上面）",
+      "game_size": "16",
+      "raw_source": true,
+      "sha256": "57f5076cde9cc2cf190a3c5ff5158a325a2200657eb00e9a8a5556a55149dc5e",
+      "limitations": [
+        "Native generated size/cell proportions differ from requested.",
+        "Frame rects follow actual gutters; widths may differ.",
+        "Semitransparent edge noise and non-palette shades retained; not a final native-resolution game strip.",
+        "白闪、红青横刀痕、断片、火星；具体火星数量未严格固定。"
+      ],
+      "anchor_status": "Not calibrated against final action strips; measure at import."
+    },
+    {
+      "name": "q_d_hit",
+      "file": "kayn_fx_q_d_hit.png",
+      "prompt_number": 10,
+      "image_size": [
+        1983,
+        793
+      ],
+      "frame_count": 5,
+      "layout": "one_horizontal_row_raw",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            383,
+            793
+          ],
+          "visible_bbox_alpha128": [
+            34,
+            256,
+            340,
+            536
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            383,
+            0,
+            388,
+            793
+          ],
+          "visible_bbox_alpha128": [
+            3,
+            224,
+            350,
+            552
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            771,
+            0,
+            464,
+            793
+          ],
+          "visible_bbox_alpha128": [
+            3,
+            107,
+            462,
+            649
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1235,
+            0,
+            387,
+            793
+          ],
+          "visible_bbox_alpha128": [
+            24,
+            200,
+            385,
+            586
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1622,
+            0,
+            361,
+            793
+          ],
+          "visible_bbox_alpha128": [
+            62,
+            240,
+            317,
+            544
+          ]
+        }
+      ],
+      "binding": "view_effects `league_kayn_q_d_hit`（跟随，画在人物上面）",
+      "game_size": "20",
+      "raw_source": true,
+      "sha256": "7bd50ed2708dc876bb93657254345e5731ab7b8e33932f2044f4937898a8cde0",
+      "limitations": [
+        "Native generated size/cell proportions differ from requested.",
+        "Frame rects follow actual gutters; widths may differ.",
+        "Semitransparent edge noise and non-palette shades retained; not a final native-resolution game strip.",
+        "5 帧血红／橙金放射爆发；尖刺数量未严格固定为 6。"
+      ],
+      "anchor_status": "Not calibrated against final action strips; measure at import."
+    },
+    {
+      "name": "ghost",
+      "file": "kayn_fx_ghost.png",
+      "prompt_number": 11,
+      "image_size": [
+        2172,
+        724
+      ],
+      "frame_count": 4,
+      "layout": "one_horizontal_row_raw",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            20,
+            277,
+            518,
+            525
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            15,
+            288,
+            514,
+            525
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            16,
+            308,
+            513,
+            525
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            27,
+            325,
+            516,
+            525
+          ]
+        }
+      ],
+      "binding": "view_buffs `league_kayn_ghost`（循环，画在人物下面，朝左时镜像）",
+      "game_size": "28 × 14",
+      "raw_source": true,
+      "sha256": "3c947b1e6dc60ea295af1eb89cc887fb462a50793ac80f4574a00156d8851987",
+      "limitations": [
+        "Native generated size/cell proportions differ from requested.",
+        "Frame rects follow actual gutters; widths may differ.",
+        "Semitransparent edge noise and non-palette shades retained; not a final native-resolution game strip.",
+        "地面环和向左烟尾；第 4 帧烟量较小，回到第 1 帧有密度跳变。"
+      ],
+      "anchor_status": "Not calibrated against final action strips; measure at import."
+    },
+    {
+      "name": "w_wind",
+      "file": "kayn_fx_w_wind.png",
+      "prompt_number": 12,
+      "image_size": [
+        2172,
+        724
+      ],
+      "frame_count": 6,
+      "layout": "one_horizontal_row_raw",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            362,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            146,
+            329,
+            218,
+            400
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            362,
+            0,
+            362,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            20,
+            204,
+            327,
+            530
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            724,
+            0,
+            362,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            15,
+            204,
+            336,
+            531
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1086,
+            0,
+            362,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            22,
+            223,
+            336,
+            530
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1448,
+            0,
+            362,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            37,
+            232,
+            306,
+            505
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            1810,
+            0,
+            362,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            13,
+            207,
+            328,
+            521
+          ]
+        }
+      ],
+      "binding": "view_effects `league_kayn_w_wind`（施法者身上，跟随，朝左时镜像；导入时把格子中心放到 W 第 1 帧镰刀上拉亚斯特红眼的位置）；导入时换色出 `w_wind_d`、`w_wind_s`",
+      "game_size": "24 × 24",
+      "raw_source": true,
+      "sha256": "6896210628984f71d5255216fd0907d3e6429f7bbbc16c4f6f56905c587fac10",
+      "limitations": [
+        "Native generated size/cell proportions differ from requested.",
+        "Frame rects follow actual gutters; widths may differ.",
+        "Semitransparent edge noise and non-palette shades retained; not a final native-resolution game strip.",
+        "6 帧中心红光、聚拢旋涡、星芒；中心点和人物镰刀红眼需要导入时对齐。"
+      ],
+      "anchor_status": "Not calibrated against final action strips; measure at import."
+    },
+    {
+      "name": "w_line",
+      "file": "kayn_fx_w_line.png",
+      "prompt_number": 13,
+      "image_size": [
+        1983,
+        793
+      ],
+      "frame_count": 5,
+      "layout": "one_horizontal_row_raw",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            394,
+            793
+          ],
+          "visible_bbox_alpha128": [
+            2,
+            378,
+            388,
+            427
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            394,
+            0,
+            398,
+            793
+          ],
+          "visible_bbox_alpha128": [
+            3,
+            317,
+            394,
+            481
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            792,
+            0,
+            398,
+            793
+          ],
+          "visible_bbox_alpha128": [
+            3,
+            285,
+            394,
+            510
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1190,
+            0,
+            397,
+            793
+          ],
+          "visible_bbox_alpha128": [
+            4,
+            296,
+            395,
+            507
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1587,
+            0,
+            396,
+            793
+          ],
+          "visible_bbox_alpha128": [
+            15,
+            329,
+            392,
+            477
+          ]
+        }
+      ],
+      "binding": "view_projectiles `league_kayn_w_line`（BIG，画在地面上，朝右画，上下对称）",
+      "game_size": "64 × 12",
+      "raw_source": true,
+      "sha256": "68c5e24f197f7d339711c329fa37e1e1332976d2dbe294c2897e1136f0825f96",
+      "limitations": [
+        "Native generated size/cell proportions differ from requested.",
+        "Frame rects follow actual gutters; widths may differ.",
+        "Semitransparent edge noise and non-palette shades retained; not a final native-resolution game strip.",
+        "朝右白芯红斩；上下大体对称，烟／碎石并非逐像素镜像。"
+      ],
+      "anchor_status": "Not calibrated against final action strips; measure at import."
+    },
+    {
+      "name": "w_line_d",
+      "file": "kayn_fx_w_line_d.png",
+      "prompt_number": 14,
+      "image_size": [
+        2172,
+        724
+      ],
+      "frame_count": 5,
+      "layout": "one_horizontal_row_raw",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            434,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            0,
+            319,
+            429,
+            424
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            434,
+            0,
+            435,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            5,
+            254,
+            431,
+            493
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            869,
+            0,
+            434,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            5,
+            212,
+            428,
+            531
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1303,
+            0,
+            434,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            3,
+            251,
+            427,
+            494
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1737,
+            0,
+            435,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            3,
+            315,
+            418,
+            427
+          ]
+        }
+      ],
+      "binding": "view_projectiles `league_kayn_w_line_d`（BIG，画在地面上，朝右画，上下对称）",
+      "game_size": "64 × 16",
+      "raw_source": true,
+      "sha256": "f340dd08cbdb669836fa02e3e9d5037ee30f8e843b5652fce6c015ec80c6d387",
+      "limitations": [
+        "Native generated size/cell proportions differ from requested.",
+        "Frame rects follow actual gutters; widths may differ.",
+        "Semitransparent edge noise and non-palette shades retained; not a final native-resolution game strip.",
+        "上下展开的血红金尖刺；火星／碎片不是逐像素对称。"
+      ],
+      "anchor_status": "Not calibrated against final action strips; measure at import."
+    },
+    {
+      "name": "w_line_s",
+      "file": "kayn_fx_w_line_s.png",
+      "prompt_number": 15,
+      "image_size": [
+        2176,
+        723
+      ],
+      "frame_count": 5,
+      "layout": "one_horizontal_row_raw",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            422,
+            723
+          ],
+          "visible_bbox_alpha128": [
+            7,
+            351,
+            414,
+            367
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            422,
+            0,
+            438,
+            723
+          ],
+          "visible_bbox_alpha128": [
+            3,
+            212,
+            429,
+            505
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            860,
+            0,
+            455,
+            723
+          ],
+          "visible_bbox_alpha128": [
+            3,
+            191,
+            453,
+            530
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1315,
+            0,
+            438,
+            723
+          ],
+          "visible_bbox_alpha128": [
+            9,
+            223,
+            436,
+            494
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1753,
+            0,
+            423,
+            723
+          ],
+          "visible_bbox_alpha128": [
+            20,
+            249,
+            411,
+            468
+          ]
+        }
+      ],
+      "binding": "view_projectiles `league_kayn_w_line_s`（BIG，画在地面上，朝右画，上下对称）",
+      "game_size": "82 × 12",
+      "raw_source": true,
+      "sha256": "c494fb11b9444589c0a8337ecbbdb9d91266062d319f983b5d081ac0c6d957ee",
+      "limitations": [
+        "Native generated size/cell proportions differ from requested.",
+        "Frame rects follow actual gutters; widths may differ.",
+        "Semitransparent edge noise and non-palette shades retained; not a final native-resolution game strip.",
+        "朝右青白斩与靛烟；烟不是逐像素上下镜像，长宽比需转换。"
+      ],
+      "anchor_status": "Not calibrated against final action strips; measure at import."
+    },
+    {
+      "name": "w_hit",
+      "file": "kayn_fx_w_hit.png",
+      "prompt_number": 16,
+      "image_size": [
+        2172,
+        724
+      ],
+      "frame_count": 4,
+      "layout": "one_horizontal_row_raw",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            53,
+            450,
+            490,
+            673
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            51,
+            53,
+            492,
+            678
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            108,
+            59,
+            487,
+            678
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            141,
+            173,
+            469,
+            678
+          ]
+        }
+      ],
+      "binding": "view_effects `league_kayn_w_hit`（跟随，画在人物上面）",
+      "game_size": "16",
+      "raw_source": true,
+      "sha256": "3fb12b53eeee8eaf6664ebb54940fa65fab6f70f4abc0e233fd3caad13ea5056",
+      "limitations": [
+        "Native generated size/cell proportions differ from requested.",
+        "Frame rects follow actual gutters; widths may differ.",
+        "Semitransparent edge noise and non-palette shades retained; not a final native-resolution game strip.",
+        "向上挑的红白刀痕；碎片更像火星，石块形状不突出。"
+      ],
+      "anchor_status": "Not calibrated against final action strips; measure at import."
+    },
+    {
+      "name": "w_slow",
+      "file": "kayn_fx_w_slow.png",
+      "prompt_number": 17,
+      "image_size": [
+        1983,
+        793
+      ],
+      "frame_count": 4,
+      "layout": "one_horizontal_row_raw",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            496,
+            793
+          ],
+          "visible_bbox_alpha128": [
+            14,
+            300,
+            487,
+            549
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            496,
+            0,
+            496,
+            793
+          ],
+          "visible_bbox_alpha128": [
+            11,
+            290,
+            487,
+            571
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            992,
+            0,
+            495,
+            793
+          ],
+          "visible_bbox_alpha128": [
+            7,
+            306,
+            478,
+            554
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1487,
+            0,
+            496,
+            793
+          ],
+          "visible_bbox_alpha128": [
+            5,
+            299,
+            483,
+            565
+          ]
+        }
+      ],
+      "binding": "view_buffs `league_kayn_w_slow`（循环，画在脚下）",
+      "game_size": "20 × 8",
+      "raw_source": true,
+      "sha256": "6efedecb70a510dde1666e73689fa965075641a53acc4422a722598b34246caf",
+      "limitations": [
+        "Native generated size/cell proportions differ from requested.",
+        "Frame rects follow actual gutters; widths may differ.",
+        "Semitransparent edge noise and non-palette shades retained; not a final native-resolution game strip.",
+        "4 帧地面缠绕环；烟与高光不是严格左右镜像，无缝循环未验证。"
+      ],
+      "anchor_status": "Not calibrated against final action strips; measure at import."
+    },
+    {
+      "name": "r_dive",
+      "file": "kayn_fx_r_dive.png",
+      "prompt_number": 18,
+      "image_size": [
+        2127,
+        739
+      ],
+      "frame_count": 4,
+      "layout": "one_horizontal_row_raw",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            532,
+            739
+          ],
+          "visible_bbox_alpha128": [
+            24,
+            246,
+            521,
+            512
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            532,
+            0,
+            532,
+            739
+          ],
+          "visible_bbox_alpha128": [
+            37,
+            267,
+            521,
+            481
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1064,
+            0,
+            531,
+            739
+          ],
+          "visible_bbox_alpha128": [
+            37,
+            284,
+            515,
+            481
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1595,
+            0,
+            532,
+            739
+          ],
+          "visible_bbox_alpha128": [
+            32,
+            285,
+            507,
+            480
+          ]
+        }
+      ],
+      "binding": "view_effects `league_kayn_r_dive`（施法者脚下，不跟随，画在人物下面，朝左时镜像）",
+      "game_size": "36 × 20",
+      "raw_source": true,
+      "sha256": "bdaad2ab6a6b2c04561e7629a0a33caaa3b81559fc7b1fb325bf1d331f9ccc62",
+      "limitations": [
+        "Native generated size/cell proportions differ from requested.",
+        "Frame rects follow actual gutters; widths may differ.",
+        "Semitransparent edge noise and non-palette shades retained; not a final native-resolution game strip.",
+        "左侧起跳烟、向右上升红影、碎散；脚底位置需测量。"
+      ],
+      "anchor_status": "Not calibrated against final action strips; measure at import."
+    },
+    {
+      "name": "r_enter",
+      "file": "kayn_fx_r_enter.png",
+      "prompt_number": 19,
+      "image_size": [
+        1983,
+        793
+      ],
+      "frame_count": 5,
+      "layout": "one_horizontal_row_raw",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            418,
+            793
+          ],
+          "visible_bbox_alpha128": [
+            15,
+            170,
+            416,
+            607
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            418,
+            0,
+            389,
+            793
+          ],
+          "visible_bbox_alpha128": [
+            25,
+            170,
+            387,
+            601
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            807,
+            0,
+            383,
+            793
+          ],
+          "visible_bbox_alpha128": [
+            24,
+            209,
+            373,
+            574
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1190,
+            0,
+            406,
+            793
+          ],
+          "visible_bbox_alpha128": [
+            50,
+            230,
+            404,
+            563
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1596,
+            0,
+            387,
+            793
+          ],
+          "visible_bbox_alpha128": [
+            81,
+            187,
+            359,
+            636
+          ]
+        }
+      ],
+      "binding": "view_effects `league_kayn_r_enter`（跟随，画在人物上面）",
+      "game_size": "24",
+      "raw_source": true,
+      "sha256": "566ed3f4ca4cc20dc87ffe4dbe842ab608db8d6119b591d67f9297c121f7e897",
+      "limitations": [
+        "Native generated size/cell proportions differ from requested.",
+        "Frame rects follow actual gutters; widths may differ.",
+        "Semitransparent edge noise and non-palette shades retained; not a final native-resolution game strip.",
+        "烟环向内收缩、红闪、最后烟丝；第 4 帧外圈仍较明显。"
+      ],
+      "anchor_status": "Not calibrated against final action strips; measure at import."
+    },
+    {
+      "name": "r_mark",
+      "file": "kayn_fx_r_mark.png",
+      "prompt_number": 20,
+      "image_size": [
+        2172,
+        724
+      ],
+      "frame_count": 4,
+      "layout": "one_horizontal_row_raw",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            45,
+            82,
+            528,
+            566
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            34,
+            82,
+            513,
+            560
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            30,
+            88,
+            511,
+            580
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            25,
+            82,
+            502,
+            569
+          ]
+        }
+      ],
+      "binding": "view_buffs `league_kayn_r_mark`（循环，画在人物上面）；导入时换色出 `r_mark_d`、`r_mark_s`",
+      "game_size": "16 × 16",
+      "raw_source": true,
+      "sha256": "d495e5f51f633bec1ce2e1110e8243419b8b61b47bafe74b39b16a7274c9d76f",
+      "limitations": [
+        "Native generated size/cell proportions differ from requested.",
+        "Frame rects follow actual gutters; widths may differ.",
+        "Semitransparent edge noise and non-palette shades retained; not a final native-resolution game strip.",
+        "按第 20 条四分之一转动的镰刀弧生成；这与通则的逐帧左右对称存在冲突，当前采用旋转方案，未严格左右对称。"
+      ],
+      "anchor_status": "Not calibrated against final action strips; measure at import."
+    },
+    {
+      "name": "r_exit",
+      "file": "kayn_fx_r_exit.png",
+      "prompt_number": 21,
+      "image_size": [
+        2172,
+        724
+      ],
+      "frame_count": 6,
+      "layout": "one_horizontal_row_raw",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            310,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            21,
+            229,
+            308,
+            485
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            310,
+            0,
+            378,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            3,
+            138,
+            373,
+            586
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            688,
+            0,
+            406,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            3,
+            138,
+            406,
+            603
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1094,
+            0,
+            400,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            0,
+            133,
+            398,
+            603
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1494,
+            0,
+            356,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            21,
+            133,
+            354,
+            570
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            1850,
+            0,
+            322,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            49,
+            197,
+            296,
+            533
+          ]
+        }
+      ],
+      "binding": "view_effects `league_kayn_r_exit`（BIG，跟随，画在人物上面）",
+      "game_size": "36",
+      "raw_source": true,
+      "sha256": "3a6f971c5a56bbcbac032016183ad419b437627d8de0e50be8bb046f27f70bb6",
+      "limitations": [
+        "Native generated size/cell proportions differ from requested.",
+        "Frame rects follow actual gutters; widths may differ.",
+        "Semitransparent edge noise and non-palette shades retained; not a final native-resolution game strip.",
+        "6 帧三向红白刀痕与烟爆；刀痕数量基本对应，角度不是精确几何值。"
+      ],
+      "anchor_status": "Not calibrated against final action strips; measure at import."
+    },
+    {
+      "name": "r_exit_d",
+      "file": "kayn_fx_r_exit_d.png",
+      "prompt_number": 22,
+      "image_size": [
+        2172,
+        724
+      ],
+      "frame_count": 6,
+      "layout": "one_horizontal_row_raw",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            298,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            25,
+            250,
+            276,
+            506
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            298,
+            0,
+            363,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            3,
+            176,
+            363,
+            570
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            661,
+            0,
+            486,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            0,
+            100,
+            484,
+            630
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1147,
+            0,
+            373,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            31,
+            165,
+            373,
+            581
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1520,
+            0,
+            315,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            0,
+            181,
+            313,
+            581
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            1835,
+            0,
+            337,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            1,
+            229,
+            310,
+            515
+          ]
+        }
+      ],
+      "binding": "view_effects `league_kayn_r_exit_d`（BIG，跟随，画在人物上面）",
+      "game_size": "36",
+      "raw_source": true,
+      "sha256": "6a683bdd3cfadc7c3dfb8cb207d14d7787687a1354ccb6c6da7d305a6376fdbd",
+      "limitations": [
+        "Native generated size/cell proportions differ from requested.",
+        "Frame rects follow actual gutters; widths may differ.",
+        "Semitransparent edge noise and non-palette shades retained; not a final native-resolution game strip.",
+        "6 帧血火／尖刺／碎滴；尖刺数量和交叉刀痕没有完全达到提示词的精确数量。"
+      ],
+      "anchor_status": "Not calibrated against final action strips; measure at import."
+    },
+    {
+      "name": "r_exit_s",
+      "file": "kayn_fx_r_exit_s.png",
+      "prompt_number": 23,
+      "image_size": [
+        2172,
+        724
+      ],
+      "frame_count": 6,
+      "layout": "one_horizontal_row_raw",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            362,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            51,
+            245,
+            327,
+            483
+          ]
+        },
+        {
+          "index": 1,
+          "rect": [
+            362,
+            0,
+            362,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            9,
+            162,
+            355,
+            531
+          ]
+        },
+        {
+          "index": 2,
+          "rect": [
+            724,
+            0,
+            362,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            4,
+            162,
+            359,
+            536
+          ]
+        },
+        {
+          "index": 3,
+          "rect": [
+            1086,
+            0,
+            362,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            16,
+            164,
+            360,
+            545
+          ]
+        },
+        {
+          "index": 4,
+          "rect": [
+            1448,
+            0,
+            362,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            34,
+            186,
+            357,
+            540
+          ]
+        },
+        {
+          "index": 5,
+          "rect": [
+            1810,
+            0,
+            362,
+            724
+          ],
+          "visible_bbox_alpha128": [
+            60,
+            192,
+            331,
+            521
+          ]
+        }
+      ],
+      "binding": "view_effects `league_kayn_r_exit_s`（BIG，跟随，画在人物上面）",
+      "game_size": "36",
+      "raw_source": true,
+      "sha256": "a13c60d982b06e8af11eba485489364583cf5204829c48afd4ff3e503f485362",
+      "limitations": [
+        "Native generated size/cell proportions differ from requested.",
+        "Frame rects follow actual gutters; widths may differ.",
+        "Semitransparent edge noise and non-palette shades retained; not a final native-resolution game strip.",
+        "6 帧青白细刀光与靛烟；第 5 帧仍有残存淡青刀光。"
+      ],
+      "anchor_status": "Not calibrated against final action strips; measure at import."
+    }
+  ],
+  "excluded_recolours": [
+    {
+      "file": "(recolour) hit_d",
+      "from": "hit",
+      "ramp": "darkin"
+    },
+    {
+      "file": "(recolour) hit_s",
+      "from": "hit",
+      "ramp": "shadow"
+    },
+    {
+      "file": "(recolour) q_spin_d",
+      "from": "q_spin",
+      "ramp": "darkin"
+    },
+    {
+      "file": "(recolour) q_spin_s",
+      "from": "q_spin",
+      "ramp": "shadow"
+    },
+    {
+      "file": "(recolour) w_wind_d",
+      "from": "w_wind",
+      "ramp": "darkin"
+    },
+    {
+      "file": "(recolour) w_wind_s",
+      "from": "w_wind",
+      "ramp": "shadow"
+    },
+    {
+      "file": "(recolour) r_mark_d",
+      "from": "r_mark",
+      "ramp": "darkin"
+    },
+    {
+      "file": "(recolour) r_mark_s",
+      "from": "r_mark",
+      "ramp": "shadow"
+    }
+  ]
+}
