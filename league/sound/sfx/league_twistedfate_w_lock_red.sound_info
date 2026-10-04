@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_twistedfate_sfx_lock_red",
+      "volume": 0.55
+    },
+    {
+      "delay": 0.05,
+      "clip": "league_twistedfate_vo_red",
+      "volume": 0.85
+    }
+  ]
+}
