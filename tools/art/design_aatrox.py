@@ -68,6 +68,12 @@ CLEAR = {23: 22, 24: 22, 25: 22, 26: 22, 27: 23, 28: 22, 29: 22, 30: 21, 31: 21,
          36: 20, 37: 19, 38: 18, 39: 18}
 SWORD_SHIFT = (-3, 2)
 HEAD_TURN = 3                         # the mirrored head moved right: its chin over the neck
+# step 7: (row, column) on the 128 canvas -> letter. Pinholes of background inside the body (the near armpit, between
+# the chest and the far arm, between the far claw and the far wing) and the knees: the near knee row had one navy
+# square between outlines (a black band, 「像快要断腿了」), the far knee one steel square
+MENDS = {(79, 59): "o", (79, 60): "o", (78, 66): "o", (79, 67): "o", (78, 72): "o",
+         (95, 58): "e", (94, 68): "0", (94, 67): "o"}
+OUTLINE_DARK = 40                     # edge squares this bright or brighter get an outline square outside them
 BLADE = set("56789abcfg")             # the blade's plum / red / orange letters
 N4 = [(-1, 0), (1, 0), (0, -1), (0, 1)]
 N8 = [(dy, dx) for dy in (-1, 0, 1) for dx in (-1, 0, 1) if dy or dx]
@@ -227,7 +233,21 @@ def build():
     y0 = SOLE_ROW + 1 - a.shape[0]
     can = np.zeros((128, 128, 4), np.uint8)
     can[y0:y0 + a.shape[0], x0:x0 + a.shape[1]] = a
-    return turn_head(can, first)
+    can = turn_head(can, first)
+    return mend(can, first)
+
+
+def mend(can, first):
+    """Step 7 (the frame audit, 2026-10-04): the background pinholes inside the body take the outline, both knees keep
+    two coloured squares (MENDS), and the outline closes round the mid-dark edges too (OUTLINE_DARK) - the head as
+    pasted in step 6 stays square for square."""
+    for (r, c), k in MENDS.items():
+        can[r, c] = list(COL[k]) + [255]
+    head = np.zeros(can.shape[:2], bool)
+    for r, c in head_squares(can, first, mirrored=True):
+        head[r, c] = True
+    can, _, _ = strips.complete_outline(can, color=COL["o"], dark=OUTLINE_DARK, feet=SOLE_ROW, keep=head)
+    return can
 
 
 def main():
