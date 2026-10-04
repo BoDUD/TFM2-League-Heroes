@@ -502,8 +502,10 @@ FX = {
     # aatrox.py SHOW 0) and its burning head is out from under his arm on tick 17, 5 px under the claw (the projectile's
     # height): the flash's ember and wisp (frames 3-4, to tick 21) burnt on in the claw beside it - two fire spots
     # (the review, phase 1b) - and are left out
-    "w_throw": [("w_throw", seq(range(2), [TICK, 2 * TICK]), [CLAW])],
-    "w_throw_r": [("w_throw", seq(range(2), [TICK, 2 * TICK]), [CLAW_R])],
+    # (2026-10-04, the user: 「为什么游戏对局里看不到W的特效？？一点都看不到」 - 3 ticks were too short to see: all four
+    # frames again, about 0.17 s)
+    "w_throw": [("w_throw", seq(range(4), [TICK, 2 * TICK, 3 * TICK, 4 * TICK]), [CLAW])],
+    "w_throw_r": [("w_throw", seq(range(4), [TICK, 2 * TICK, 3 * TICK, 4 * TICK]), [CLAW_R])],
     # the chain: 66000 at 2200 a tick = 30 ticks, paid out from his hand (tools/art/chain_aatrox.py: frame k = the claw
     # k x 2.2 px out and the links back to his hand, empty until it leaves the claw); the links: up to 33000 at 2500 =
     # 13 ticks
@@ -512,6 +514,11 @@ FX = {
     "w_hit": [("w_hit", seq(range(4), [40, 50, 60, 70]), [HIT])],
     "w_yank": [("w_yank", seq(range(4), [40, 60, 80, 100]), [BODY])],
     "w_slowed": [("w_slowed", seq(range(4), [100] * 4), [FEET])],
+    # the chain round whatever it hits, 0.6 s at its feet (build_aatrox.py plays it with w_hit): Aatrox is melee and
+    # throws W at the enemy in front of him, so the chain usually hits on the tick it leaves - the projectile and its
+    # picture were gone before a frame was drawn (SDK: 6 of 10 chains lived 0 ticks), and minions and monsters never
+    # wear w_slowed (champions only)
+    "w_tie": [("w_slowed", loop([0, 1, 2, 3], 100, 600), [FEET])],
     # 1.5 s of fear (90 ticks): a ring turning on the ground round the feet (build_aatrox.py z -1, under the unit);
     # the swirl over the head (aatrox_fx_r_feared.png) lay on tall champions' faces and floated over minions
     "r_feared": [("r_fear_ring", loop([0, 1, 2, 3], 6 * TICK, 1500), [FEET])],

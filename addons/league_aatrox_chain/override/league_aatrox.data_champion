@@ -3734,6 +3734,13 @@
                 {
                   "casting_type": "Targeting",
                   "effect": {
+                    "type": "ViewEffect",
+                    "name": "league_aatrox_w_tie"
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
                     "type": "TargetSfx",
                     "name": "league_aatrox_w_hit"
                   }
@@ -4922,6 +4929,14 @@
       "anim": "asset/league/effects/league_aatrox_fx",
       "tag": "w_hit",
       "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_aatrox_w_tie",
+      "anim": "asset/league/effects/league_aatrox_fx",
+      "tag": "w_tie",
+      "z": 1,
       "is_follow": true
     },
     {
