@@ -3049,6 +3049,35 @@ ult keeps its cap) caps each remaining cooldown at cooltime x 100 / (100 + m) (l
 Ricochet's own cooldown halves while she hunts. A champion killed by her blade renews the hunt (league_jinx's kill
 check: a flag on the champion that her `casted` clears the next tick while he lives; a corpse lob reads it).
 
+**Damage taken as a resource (league_sett W's Grit; written in a cloud session, not yet run in the SDK simulation).**
+League's Grit stores the damage Sett takes. No effect hears damage, but league_sivir E's hit sensor does: a 1-point
+`Shield` (`tick` 36000) on him through a self-only `RangeEffect`, then a caster flag with `WithShield` as its duration
+(`grit_sense`), gone 2 ticks after a hit breaks the point (section 5). His attack and ult start with the check: no
+`grit_init` (`Permanent`, cleared by death) -> arm the sensor and set it; `grit_sense` gone -> he was hit since the last
+check: one more Grit level and arm again. The levels `grit_1`..`grit_5` are exclusive 240-tick flags, each step
+removing the one before it (league_kaisa's Plasma), the top one refreshed, so Grit is gone 4 s after the last hit
+counted. W reads the level from the top and spends it on a self-only `Shield` and on the true damage of the punch's
+middle line, one branch per level. What it counts is "hit since his last attack", not how much: a level per check
+window. Any other shield on him (W's own, an ally's) keeps `grit_sense` alive, so no Grit is counted while one holds.
+The check stays out of `skill` / `skill2` (copied every tick, section 8). `tools/kit/sett_kit.py` writes it;
+`GRIT_MAX = 0` drops it for a fixed shield.
+
+**Stun only when two or more are pulled in (league_sett E, Facebreaker).** League stuns when enemies stand on both
+sides of Sett. No shape tells front from back (`Forward` is unsigned, a circle round the caster has no sides), so the
+pull is a circle (`Grab` without `tick`, they stop at him) and "both sides" becomes "two or more": a first
+`RangeEffect` on the same circle climbs 1-tick caster flags (`e_one` -> `e_two`, league_blitzcrank's count), and a
+`SwitchByBuff e_two` in the same tick picks the circle with `Stun` or the one with the slow. A native add-on could
+check the sides (league_camille_wall's way); the data pack keeps the count.
+
+**Throw a champion forward and land on it (league_sett R, The Show Stopper; not yet simulated).** `Targeting` on
+`EnemyChampion`: `Stun` on the target from the cast to just after the latest slam and a `cc_immune` caster buff; at
+the throw tick `Knockback {speed 3000, tick 8}` on the target (24000 away from him) and, in the same `Delayed`,
+`MoveToTarget` at the same speed. It homes on the target (league_leesin's QRQ chase), the gap stays while the target
+flies and closes once it has landed, so he always lands on a target that has stopped, whatever the cast distance;
+the slam runs from the dash's `end_effects` (league_malphite R): `ult_slam`, then the crater, a `RangeEffect` round
+him and the thrown champion's own extra share of its maximum health (League scales the slam with the thrown
+champion's bonus health; nothing reads another unit's health).
+
 ## 8. Gotchas
 
 - A `RangePeriodProjectile` put straight into an action's effects, or into a self-only `RangeEffect`, is never

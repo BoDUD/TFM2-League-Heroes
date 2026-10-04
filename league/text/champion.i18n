@@ -371,6 +371,13 @@
         "skill": "掷出十字刃，飞到尽头再飞回手中，往返都对路上所有敌人造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>物理伤害。附近有英雄时朝他所在的位置掷出（出手前锁定，可以躲开）。",
         "skill2": "张开法术护盾，最多<#ffb900ff>3秒<>：<#ef5350ff>免疫技能伤害和控制<>。第一次被击中时回复<#7ed957ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7ed957ff>40%<>生命并触发敏锐疾行，护盾再撑<#ffb900ff>1秒<>后破碎。",
         "ult": "附近友方英雄（含自己）移速+<#ffb900ff>30%<>，持续<#ffb900ff>8秒<>。狩猎期间希维尔的攻击命中英雄会缩短回旋之刃和法术护盾的冷却，弹射冷却减半；她的攻击击杀英雄时刷新狩猎。"
+      },
+      "league_sett": {
+        "name": "瑟提",
+        "attack": "被动<#ff9028ff>斗场豪勇<>：左右拳交替出击，右拳出手更快，额外造成<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>的<#ff9028ff>物理伤害<>；<#ffb900ff>2秒<>不出拳就从左拳重新开始。瑟提的<#6aff55ff>生命回复<>很高。",
+        "skill": "把周围的敌人全部<#ef5350ff>拉<>到面前对撞，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>的<#ff9028ff>物理伤害<>；拉到两个及以上时全部<#ef5350ff>眩晕<><#ffb900ff>1秒<>，否则<#ef5350ff>减速<><#ffb900ff>50%<>。之后两拳为<#ff9028ff>屈人之威<>：额外<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<> + <#ffb900ff>3%<>最大生命值伤害，移速+<#ffb900ff>30%<>。",
+        "skill2": "受伤积攒<#e8d44dff>豪意<>（最多<#ffb900ff>5<>层，<#ffb900ff>4秒<>消散）。消耗豪意获得<#e8d44dff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#e8d44dff>20%<><#e8d44dff>护盾<>，蓄力前轰一拳：<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<><#ff9028ff>物理伤害<>，正中的敌人再受<#f5f5f5ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>30%<><#f5f5f5ff>真实伤害<>。每层豪意护盾+<#e8d44dff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#e8d44dff>25%<>，真伤+<#f5f5f5ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>8%<>。",
+        "ult": "抓住一名敌方英雄<#ef5350ff>眩晕<>并扔向前方，再跃起追上砸地：周围敌人受到<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> + <#ffb900ff>4%<>最大生命值的<#ff9028ff>物理伤害<>并<#ef5350ff>减速<><#ffb900ff>99%<>，被扔的英雄再受<#ffb900ff>6%<>最大生命值伤害。"
       }
     },
     "skill_name": {
@@ -638,6 +645,11 @@
         "skill1": "回旋之刃",
         "skill2": "法术护盾",
         "ult": "狩猎"
+      },
+      "league_sett": {
+        "skill1": "强手裂颅",
+        "skill2": "蓄意轰拳",
+        "ult": "叹为观止"
       }
     }
   },
@@ -1013,6 +1025,13 @@
         "skill": "擲出十字刃，飛到盡頭再飛回手中，往返都對路上所有敵人造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>物理傷害。附近有英雄時朝他所在的位置擲出（出手前鎖定，可以躲開）。",
         "skill2": "張開法術護盾，最多<#ffb900ff>3秒<>：<#ef5350ff>免疫技能傷害和控制<>。第一次被擊中時回復<#7ed957ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7ed957ff>40%<>生命並觸發戰鬥動能，護盾再撐<#ffb900ff>1秒<>後破碎。",
         "ult": "附近友方英雄（含自己）移速+<#ffb900ff>30%<>，持續<#ffb900ff>8秒<>。狩獵期間希維爾的攻擊命中英雄會縮短迴旋之刃和法術護盾的冷卻，十字彈射冷卻減半；她的攻擊擊殺英雄時刷新狩獵。"
+      },
+      "league_sett": {
+        "name": "賽特",
+        "attack": "被動<#ff9028ff>鬥場豪勇<>：左右拳交替出擊，右拳出手更快，額外造成<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>的<#ff9028ff>物理傷害<>；<#ffb900ff>2秒<>不出拳就從左拳重新開始。賽特的<#6aff55ff>生命回復<>很高。",
+        "skill": "把周圍的敵人全部<#ef5350ff>拉<>到面前對撞，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>的<#ff9028ff>物理傷害<>；拉到兩個以上時全部<#ef5350ff>暈眩<><#ffb900ff>1秒<>，否則<#ef5350ff>緩速<><#ffb900ff>50%<>。之後兩拳為<#ff9028ff>屈人之威<>：額外<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<> + <#ffb900ff>3%<>最大生命傷害，移速+<#ffb900ff>30%<>。",
+        "skill2": "受傷累積<#e8d44dff>豪意<>（最多<#ffb900ff>5<>層，<#ffb900ff>4秒<>消散）。消耗豪意獲得<#e8d44dff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#e8d44dff>20%<><#e8d44dff>護盾<>，蓄力前轟一拳：<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<><#ff9028ff>物理傷害<>，正中的敵人再受<#f5f5f5ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>30%<><#f5f5f5ff>真實傷害<>。每層豪意護盾+<#e8d44dff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#e8d44dff>25%<>，真傷+<#f5f5f5ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>8%<>。",
+        "ult": "抓住一名敵方英雄<#ef5350ff>暈眩<>並扔向前方，再躍起追上砸地：周圍敵人受到<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> + <#ffb900ff>4%<>最大生命的<#ff9028ff>物理傷害<>並<#ef5350ff>緩速<><#ffb900ff>99%<>，被扔的英雄再受<#ffb900ff>6%<>最大生命傷害。"
       }
     },
     "skill_name": {
@@ -1280,6 +1299,11 @@
         "skill1": "迴旋之刃",
         "skill2": "法術護盾",
         "ult": "狩獵"
+      },
+      "league_sett": {
+        "skill1": "強手裂顱",
+        "skill2": "蓄意轟拳",
+        "ult": "嘆為觀止"
       }
     }
   },
@@ -1655,6 +1679,13 @@
         "skill": "Sivir hurls her crossblade: it flies to the end of its path and back to her hand, dealing <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>physical damage<> to every enemy it cuts through on both passes. With a champion in reach she throws it where he stands (aimed before it leaves: it can be dodged).",
         "skill2": "Sivir raises a spell shield for up to <#ffb900ff>3s<>: <#ef5350ff>immune to spell damage and crowd control<>. The first hit she takes heals her for <#7ed957ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7ed957ff>40%<> and triggers Fleet of Foot; the shield breaks <#ffb900ff>1s<> later.",
         "ult": "Nearby allied champions, Sivir included, gain <#ffb900ff>30%<> move speed for <#ffb900ff>8s<>. While she hunts, her attacks that hit champions take time off Boomerang Blade and Spell Shield, Ricochet comes back twice as fast, and a champion her attack kills renews the hunt."
+      },
+      "league_sett": {
+        "name": "Sett",
+        "attack": "Passive <#ff9028ff>Pit Grit<>: Sett's punches alternate left and right. The right punch lands sooner and deals <#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20% AD<> more <#ff9028ff>physical damage<>; after <#ffb900ff>2s<> without a punch he starts again with the left. He has high <#6aff55ff>health regeneration<>.",
+        "skill": "Sett grabs every enemy around him and smashes them together, dealing <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70% AD<> <#ff9028ff>physical damage<>. If he pulls in two or more, all are <#ef5350ff>stunned<> for <#ffb900ff>1s<>, otherwise <#ef5350ff>slowed<> by <#ffb900ff>50%<>. His next two punches are <#ff9028ff>Knuckle Down<>: <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20% AD<> + <#ffb900ff>3%<> of the target's max health more damage, and he gains <#ffb900ff>30%<> move speed.",
+        "skill2": "Passive: Sett gains a level of <#e8d44dff>Grit<> while taking damage (up to <#ffb900ff>5<>, lost after <#ffb900ff>4s<>). He spends it on a <#e8d44dff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#e8d44dff>20% AD<> <#e8d44dff>shield<> and winds up a punch: <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70% AD<> <#ff9028ff>physical damage<>; enemies in the middle also take <#f5f5f5ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>30% AD<> <#f5f5f5ff>true damage<>. Each level of Grit adds <#e8d44dff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#e8d44dff>25% AD<> shield and <#f5f5f5ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>8% AD<> true damage.",
+        "ult": "Sett grabs an enemy champion, <#ef5350ff>stuns<> it and hurls it forward, then leaps after it and slams it down: enemies nearby take <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> + <#ffb900ff>4%<> of their max health as <#ff9028ff>physical damage<> and are <#ef5350ff>slowed<> by <#ffb900ff>99%<> for <#ffb900ff>0.5s<>. The thrown champion takes another <#ffb900ff>6%<> of its max health."
       }
     },
     "skill_name": {
@@ -1922,6 +1953,11 @@
         "skill1": "Boomerang Blade",
         "skill2": "Spell Shield",
         "ult": "On The Hunt"
+      },
+      "league_sett": {
+        "skill1": "Facebreaker",
+        "skill2": "Haymaker",
+        "ult": "The Show Stopper"
       }
     }
   },
@@ -2297,6 +2333,13 @@
         "skill": "십자검을 던져 끝까지 날아갔다가 손으로 돌아오며, 오갈 때 모두 경로의 모든 적에게 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>물리 피해<>. 근처에 챔피언이 있으면 그 위치로 던집니다(던지기 전에 조준: 피할 수 있음).",
         "skill2": "최대 <#ffb900ff>3초<> 동안 주문 방어막: <#ef5350ff>스킬 피해와 군중 제어 면역<>. 처음 맞으면 체력을 <#7ed957ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7ed957ff>40%<> 회복하고 재빠른 발놀림 발동, 방어막은 <#ffb900ff>1초<> 뒤 깨집니다.",
         "ult": "주변 아군 챔피언(자신 포함) 이동 속도 +<#ffb900ff>30%<>, <#ffb900ff>8초<>. 사냥 중 챔피언을 맞힌 공격은 부메랑 검과 주문 방어막의 재사용 대기시간을 줄이고, 튕기는 부메랑은 두 배 빨리 돌아오며, 공격으로 챔피언을 처치하면 사냥이 갱신됩니다."
+      },
+      "league_sett": {
+        "name": "세트",
+        "attack": "기본 지속 효과 <#ff9028ff>투지<>: 왼손과 오른손으로 번갈아 주먹을 날립니다. 오른손은 더 빠르고 <#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<> <#ff9028ff>물리 피해<>를 추가로 입힙니다. <#ffb900ff>2초<> 동안 치지 않으면 왼손부터 다시 시작합니다. <#6aff55ff>체력 재생<>이 높습니다.",
+        "skill": "주변 적을 모두 <#ef5350ff>끌어당겨<> 맞부딪쳐 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> <#ff9028ff>물리 피해<>를 입힙니다. 둘 이상 끌어오면 모두 <#ffb900ff>1초<> <#ef5350ff>기절<>, 아니면 <#ffb900ff>50%<> <#ef5350ff>둔화<>. 다음 두 주먹은 <#ff9028ff>주먹질<>: <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<> + 최대 체력의 <#ffb900ff>3%<> 추가 피해, 이동 속도 +<#ffb900ff>30%<>.",
+        "skill2": "피해를 받으면 <#e8d44dff>근성<>이 쌓입니다(최대 <#ffb900ff>5<>, <#ffb900ff>4초<> 후 소멸). 근성을 소모해 <#e8d44dff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#e8d44dff>20%<> <#e8d44dff>보호막<>을 얻고 기를 모아 주먹을 날립니다: <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> <#ff9028ff>물리 피해<>, 중앙의 적은 <#f5f5f5ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>30%<> <#f5f5f5ff>고정 피해<> 추가. 근성 1당 보호막 +<#e8d44dff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#e8d44dff>25%<>, 고정 피해 +<#f5f5f5ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>8%<>.",
+        "ult": "적 챔피언을 붙잡아 <#ef5350ff>기절<>시키고 앞으로 내던진 뒤 뛰어올라 내리찍습니다. 주변 적은 <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> + 최대 체력의 <#ffb900ff>4%<> <#ff9028ff>물리 피해<>를 입고 <#ffb900ff>99%<> <#ef5350ff>둔화<>되며, 던져진 챔피언은 최대 체력의 <#ffb900ff>6%<> 피해를 추가로 입습니다."
       }
     },
     "skill_name": {
@@ -2564,6 +2607,11 @@
         "skill1": "부메랑 검",
         "skill2": "주문 방어막",
         "ult": "사냥 개시"
+      },
+      "league_sett": {
+        "skill1": "얼굴 깨기",
+        "skill2": "강펀치",
+        "ult": "회심의 일격"
       }
     }
   },
@@ -2939,6 +2987,13 @@
         "skill": "十字刃を投げ、端まで飛んで手元へ戻り、往復とも通り道の全ての敵に<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の<#ff9028ff>物理ダメージ<>。近くにチャンピオンがいればその位置へ投げる（投げる前に狙う：避けられる）。",
         "skill2": "最大<#ffb900ff>3秒<>スペルシールド：<#ef5350ff>スキルダメージと行動妨害を無効<>。最初に被弾すると<#7ed957ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7ed957ff>40%<>回復し戦駆けが発動、シールドは<#ffb900ff>1秒<>後に砕ける。",
         "ult": "周囲の味方チャンピオン（自身含む）の移動速度+<#ffb900ff>30%<>、<#ffb900ff>8秒<>。号令中、チャンピオンに当たった攻撃はブーメランブレードとスペルシールドのクールダウンを短縮し、跳刃は2倍速く戻り、攻撃でチャンピオンを倒すと号令が更新される。"
+      },
+      "league_sett": {
+        "name": "セト",
+        "attack": "パッシブ <#ff9028ff>ピットグリット<>：左右の拳で交互に殴る。右の拳は素早く、<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>の<#ff9028ff>物理ダメージ<>を追加。<#ffb900ff>2秒<>殴らないと左から。<#6aff55ff>体力自動回復<>が高い。",
+        "skill": "周囲の敵を全員<#ef5350ff>引き寄せ<>てぶつけ、<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>の<#ff9028ff>物理ダメージ<>。2体以上なら全員<#ef5350ff>スタン<><#ffb900ff>1秒<>、1体なら<#ffb900ff>50%<><#ef5350ff>スロウ<>。次の2発は<#ff9028ff>ナックルダウン<>：<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<> + 最大体力の<#ffb900ff>3%<>を追加、移動速度+<#ffb900ff>30%<>。",
+        "skill2": "被ダメージで<#e8d44dff>グリット<>を蓄積（最大<#ffb900ff>5<>、<#ffb900ff>4秒<>で消滅）。消費して<#e8d44dff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#e8d44dff>20%<>の<#e8d44dff>シールド<>、溜めて殴り<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>の<#ff9028ff>物理ダメージ<>、中央の敵には<#f5f5f5ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>30%<>の<#f5f5f5ff>確定ダメージ<>も。グリット1につきシールド+<#e8d44dff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#e8d44dff>25%<>、確定+<#f5f5f5ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#f5f5f5ff>8%<>。",
+        "ult": "敵チャンピオンを掴んで<#ef5350ff>スタン<>させ前方へ投げ、跳びかかって叩きつける。周囲の敵に<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> + 最大体力の<#ffb900ff>4%<>の<#ff9028ff>物理ダメージ<>と<#ffb900ff>99%<><#ef5350ff>スロウ<>、投げた相手には最大体力の<#ffb900ff>6%<>を追加。"
       }
     },
     "skill_name": {
@@ -3206,6 +3261,11 @@
         "skill1": "ブーメランブレード",
         "skill2": "スペルシールド",
         "ult": "戦姫の号令"
+      },
+      "league_sett": {
+        "skill1": "フェイスブレイカー",
+        "skill2": "ヘイメーカー",
+        "ult": "ショーストッパー"
       }
     }
   }
