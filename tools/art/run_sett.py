@@ -61,10 +61,12 @@ FOOT = [(4.5, 0), (2.0, 0), (-0.5, 0), (-3.0, 0), (-5.5, 1), (-5.0, 4.5), (-1.0,
 NEAR_UP = {70: (55, 56), 71: (55, 57), 72: (54, 58), 73: (54, 57), 74: (54, 57), 75: (53, 57), 76: (55, 57),
            77: (55, 57)}
 NEAR_FO = {78: (52, 57), 79: (52, 54), 80: (52, 54), 81: (52, 54), 82: (52, 55), 83: (51, 55), 84: (51, 56),
-           85: (55, 56)}
+           85: (55, 55)}
 FAR_UP = {74: (68, 70), 75: (68, 69), 76: (68, 70), 77: (68, 70)}
 FAR_FO = {78: (69, 70), 79: (69, 71), 80: (69, 71), 81: (70, 73), 82: (70, 73), 83: (70, 74), 84: (69, 74),
-          85: (69, 74), 86: (69, 72)}
+          85: (69, 74), 86: (72, 72)}               # (the squares under the fists are the coat's, behind them)
+FAR_WRAP = 3                                    # the far forearm's bandage rows at the elbow (78-80): laid
+                                                # sideways it keeps the first (joining the elbow), as foreshortened
 AXIS = {"near": (56, 55), "far": (69, 70)}      # the upper arm's and the forearm's axis columns
 SHOULDER = {"near": (56, 70), "far": (69, 74)}  # the upper arm's top row on its axis
 # the end of the mane's strand that hangs over the far arm's elbow, below the belt row: it stays with the body
@@ -72,7 +74,7 @@ STRAND = ((72, 79), (72, 80))
 # the poses: (upper arm, forearm degrees from hanging, + ahead; forearm rows dropped as it points at the camera) -
 # B the back of the swing, Pb passing behind, Pf passing ahead, F the front of the swing
 POSES = {
-    "near": {"B": (-35, 0, ()), "Pb": (-15, 15, ()), "Pf": (0, 40, (1,)), "F": (12, 40, (1, 2))},
+    "near": {"B": (-45, -20, ()), "Pb": (-15, 15, ()), "Pf": (0, 40, (1,)), "F": (12, 40, (1, 2))},
     "far": {"B": (-20, 0, ()), "Pb": (-10, 10, ()), "Pf": (5, 30, (1,)), "F": (10, 75, (1, 2))},
 }
 # over the cycle (frame 0 = the near foot's contact), League's timing: the arms at their ends a frame before and on
@@ -101,9 +103,11 @@ def cells_of(d, rows, outline=False):
 
 
 def body_block(d):
-    """{(x, y): colour}: the design above the trousers without its arms; what the arms hid painted with what lies
-    behind them - beside the near arm the coat's side (lit at the top as its lapel) or the mane at its back edge, beside
-    the far arm the flank's shade (beyond the flank nothing)."""
+    """{(x, y): colour}: the design above the trousers without its arms, what the near arm hid painted with what lies
+    behind it - the mane at the back of the shoulder (where the mane is beside it), else the coat's side, lit at the
+    top as its lapel. The design's gaps between the near arm and the coat front (background there: the legs drawn
+    under showed through) take the coat. The far arm's squares stay empty (frame() paints the flank's shade where the
+    far arm leaves them; painted here it hid the arm's own skin and thinned it)."""
     arm = set()
     for rows in (NEAR_UP, NEAR_FO, FAR_UP, FAR_FO):
         arm |= set(cells_of(d, rows, outline=True))
@@ -112,17 +116,19 @@ def body_block(d):
         for x in range(d.shape[1]):
             if d[y, x, 3] and (x, y) not in arm:
                 out[(x, y)] = d[y, x].copy()
-    for (x, y) in sorted(arm):
-        if y > BELT:
+    mane = lambda x, y: (x, y) not in arm and d[y, x, 3] and R.hexs(d[y, x]) in MANE
+    for (x, y) in sorted(arm, key=lambda q: (q[1], q[0])):
+        if y > BELT or x >= SHOULDER["far"][0] - 6:
             continue
-        if x < SHOULDER["far"][0] - 6:
-            left = out.get((x - 1, y))
-            if left is not None and R.hexs(left) in MANE and x <= AXIS["near"][0] - 2:
-                out[(x, y)] = left.copy()
-            else:
-                out[(x, y)] = rgba(COAT[0] if y <= 75 else COAT[1])
-        elif x <= SHOULDER["far"][0] - 1:
-            out[(x, y)] = rgba(SKIN_SHADE)
+        if x <= AXIS["near"][1] and y < BELT and any(mane(x + a, y + b) for a, b in
+                                                       ((-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1))):
+            out[(x, y)] = rgba(sorted(MANE)[0])                 # 290B42, the mane's darkest
+        else:
+            out[(x, y)] = rgba(COAT[0] if y <= 75 else COAT[1])
+    for y in range(SHOULDER["near"][1], BELT + 1):
+        for x in range(AXIS["near"][0], SHOULDER["far"][0] - 6):
+            if (x, y) not in out and (x - 1, y) in out and (x + 1, y) in out and (x, y - 1) in out:
+                out[(x, y)] = rgba(COAT[1])
     for (x, y) in STRAND:
         out[(x, y)] = d[y, x].copy()
     return out
@@ -137,6 +143,14 @@ def posed(d, side, up, fore, drop_fore, shoulder):
         up_rows, fo_rows = (NEAR_UP, NEAR_FO) if side == "near" else (FAR_UP, FAR_FO)
         ub = RA.strip(cells_of(d, up_rows), AXIS[side][0])
         fb = RA.strip(cells_of(d, fo_rows), AXIS[side][1])
+        if side == "far" and 45 < abs(fore) < 135:
+            # laid sideways: a quarter TURN, its lit outer edge (the right in the idle) up and its dark inner edge
+            # down, not the mirror RA.place makes for the far side; the bandage wrap stays at the elbow
+            keep = [0] + list(range(FAR_WRAP, max(a for a, _ in fb) + 1))   # one wrap row joins it to the elbow
+            fb = {(keep.index(a), c): col for (a, c), col in fb.items() if a in keep}
+            span = min(c for _, c in fb) + max(c for _, c in fb)
+            fb = {(a, span - c): col for (a, c), col in fb.items()}
+            drop_fore = ()
         cu, end = RA.place(ub, up, side)
         out = {(shoulder[0] + x, shoulder[1] + y): c for (x, y), c in cu.items()}
         st = RA.step_of(fore)
@@ -163,12 +177,14 @@ def edge(cells):
 def fill_dents(can):
     """A transparent square with the figure left, right and above it (a notch between an arm and the coat or a leg)
     takes the outline's black."""
-    op = can[..., 3] > 0
     out = can.copy()
-    for y in range(1, can.shape[0] - 1):
-        for x in range(1, can.shape[1] - 1):
-            if not op[y, x] and op[y, x - 1] and op[y, x + 1] and op[y - 1, x]:
-                out[y, x] = rgba(OUTLINE)
+    for _ in range(4):
+        op = out[..., 3] > 0
+        hit = op[1:-1, :-2] & op[1:-1, 2:] & op[:-2, 1:-1] & ~op[1:-1, 1:-1]
+        if not hit.any():
+            break
+        ys, xs = np.nonzero(hit)
+        out[ys + 1, xs + 1] = rgba(OUTLINE)
     return out
 
 
@@ -186,18 +202,19 @@ def coat(k, dy):
     """The coat's tails streaming back from the waist behind the legs: a short band from under the belt, its open front
     and its hem trimmed in gold like the design's, the lit plum along its top, fluttering a square."""
     flutter = [0, 1, 1, 0, 0, 1, 1, 0][k]
+    A0 = (51.0, BELT + 1.0 + dy)             # under the mane's back: the back panel hangs behind the near forearm
     A = (56.0, BELT + 1.0 + dy)              # the waist's back
     B = (61.0, BELT + 2.0 + dy)              # the waist's middle, under the belt
     C = (55.0, 89.0 + dy + flutter)          # the hem's front end
     D = (47.5, 86.5 + dy - flutter)          # the tip, furthest back
-    poly = [A, B, C, D]
+    poly = [A0, A, B, C, D]
     cells = {}
     for y in range(int(BELT + dy), 93 + dy):
         for x in range(42, 64):
             p = (x + 0.5, y + 0.5)
             if not inside(p, poly):
                 continue
-            to_hem, to_front, to_top = R.seg(p, C, D)[0], R.seg(p, B, C)[0], R.seg(p, A, D)[0]
+            to_hem, to_front, to_top = R.seg(p, C, D)[0], R.seg(p, B, C)[0], R.seg(p, A0, D)[0]
             if to_hem < 0.8 or to_front < 0.7:
                 h = HEM[0] if min(to_hem, to_front) < 0.4 else HEM[1]
             elif to_top < 0.9:
@@ -252,17 +269,35 @@ def frame(k, d=None):
     put(can, legs["near"], under=True)
     put(can, coat(k, dy), under=True)
     put(can, arms["far"], under=True)            # behind the body, over the far leg
+    for (x, y) in cells_of(d, FAR_UP, outline=True):
+        X, Y = x + lean(y), y + dy               # what the far arm leaves beside the flank: the flank's shade
+        if x <= SHOULDER["far"][0] - 1 and not can[Y, X, 3]:
+            can[Y, X] = rgba(SKIN_SHADE)
     put(can, legs["far"], under=True)
-    put(can, {q: rgba(OUTLINE) for q in edge(arms["far"]) if q in legs["far"]})
-    top = SHOULDER["near"][1] + dy + 3          # none where the arm hangs from the shoulder
-    put(can, {q: rgba(OUTLINE) for q in edge(arms["near"]) if q[1] >= top and can[q[1], q[0], 3]})
-    put(can, arms["near"])
+    put(can, {q: rgba(OUTLINE) for q in edge(arms["far"]) if q in legs["far"] or not can[q[1], q[0], 3]})
     can = R.pieces(can)
     can, _, _ = G.complete_outline(can, feet=99)
     can = fill_dents(can)
     clean = D.clean(can)                        # above the belt no black inside the figure, as the design
     can[:BELT + dy + 1] = clean[:BELT + dy + 1]
-    return can
+    # the near arm last, over the cleaned body, with an edge: against the background, the legs and the coat's tails
+    # (below the belt) black, as the design outlines its fist; above the belt the darkest of what it lies on, as the
+    # design parts its arm from its lapel (the skin's shade on skin, the mane's darkest on the mane, else the coat's
+    # darkest plum) - no black line beside the belly (「肚子上有一条黑线」); none where it hangs from the shoulder
+    top = SHOULDER["near"][1] + dy + 3
+    skin = {"F9BC89", "DC9263", SKIN_SHADE}
+    ring = {}
+    for (x, y) in edge(arms["near"]):
+        if not can[y, x, 3]:
+            ring[(x, y)] = rgba(OUTLINE)
+        elif y >= top:
+            h = R.hexs(can[y, x])
+            ring[(x, y)] = rgba(OUTLINE if y > BELT + dy else SKIN_SHADE if h in skin else
+                                min(MANE) if h in MANE else COAT[2])
+    put(can, ring)
+    put(can, arms["near"])
+    can, _, _ = G.complete_outline(can, feet=99)
+    return fill_dents(can)
 
 
 def review(path, z=6):
