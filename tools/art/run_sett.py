@@ -13,8 +13,11 @@ Sivir's run (tools/art/rig_sivir_run.py, the version the user approved: 「新�
   - the legs: each foot placed along the run cycle (ahead on the contact, drawn back under the body, off the toe,
     kicked up behind, swung through, reaching), the knee solved forward, both the design's length and width in the
     trousers' shades with the gold stripe and the design's shoe (strips_sett.leg), the hips where the design's are;
-  - the arms pump against the legs, bent at the elbow (more ahead than behind): the upper arm in the skin's shades,
-    the forearm in the bandage's, the design's own fist at the wrist; the far arm behind the body, the near one over;
+  - the arms pump against the legs (more ahead than behind): the design's own two arms, square for square, each in
+    two parts - the upper arm turned about the shoulder, the forearm with the gauntlet and the fist about the elbow a
+    little more (RotSprite, Ryze's run); the far arm behind the body, the near one over it, parted from what it
+    crosses by the design's darkest plum. (The first version drew the arms as lines in the skin's and the bandage's
+    shades with the fist pasted at the wrist - half as thick as the design's, the gauntlets gone: 「瑟提走路时手臂变形」);
   - the coat's tails stream back from the waist behind the legs, the hem in gold, fluttering a square.
 """
 import argparse
@@ -32,6 +35,7 @@ sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scr
 import pack_sett_strips as K  # noqa: E402
 import strips as G  # noqa: E402
 import strips_sett as R  # noqa: E402
+from rig_nocturne import rotsprite  # noqa: E402
 
 PIVOT = (64, 88)                 # the design canvas's; its soles on row 99
 BELT = 78                        # the design's last row above the trousers (the belt)
@@ -43,84 +47,106 @@ ANKLE_ROW = 95.0                 # the shoe's top row (the soles' row 99)
 # one foot over the cycle (phase 0 = its contact): (ankle x from its hip, lift of the sole) - a shorter, heavier stride
 # than Sivir's (her 6 ahead / 7 behind read as a stiff A on his bulk)
 FOOT = [(4.5, 0), (2.0, 0), (-0.5, 0), (-3.0, 0), (-5.5, 1), (-5.0, 4.5), (-1.0, 4.5), (3.8, 1.8)]
-# the arms, cut off the design: per row the columns of each (read off the design's material map: the near upper arm
-# and forearm left of the torso, the far ones right of it)
-NEAR_ARM = {70: (55, 56), 71: (55, 57), 72: (54, 58), 73: (54, 57), 74: (54, 57), 75: (53, 57), 76: (55, 57),
-            77: (55, 57), 78: (52, 57)}
-FAR_ARM = {74: (67, 70), 75: (67, 69), 76: (67, 70), 77: (68, 70), 78: (69, 70)}
-NEAR_FIST = (50, 78, 57, 86)     # x0, y0, x1, y1 on the canvas: the design's near fist (gold knuckles, plum glove)
-FAR_FIST = (70, 81, 76, 87)
-NEAR_SHOULDER = (56.0, 71.5)
-FAR_SHOULDER = (68.5, 74.5)
-UPPER, FORE = 5.0, 3.5           # shoulder -> elbow, elbow -> wrist (the design's arm: 8 squares shoulder -> wrist)
-# the near arm over the cycle (frame 0 = the near foot's contact): (upper arm, degrees from straight down, + ahead;
-# the elbow's bend); the far arm half a cycle on
-ARM = [(-30, 50), (-22, 55), (-5, 70), (18, 95), (30, 105), (22, 95), (5, 75), (-18, 55)]
-SKIN = ("F9BC89", "DC9263", "B06B44")
-BANDAGE = ("DCDFE8", "C4C9DB", "9FA8C3")
-RING = "F7C414"
+# the arms: the design's own, square for square (Ryze's run, tools/art/fix_ryze_strips_v2.py RUN_POSE: lines in the
+# arm's colours swung as pendulums read as strange, 「瑟提走路时手臂变形」 - the drawn arms here were half as thick as the
+# design's and lost the gauntlets). Each arm in two parts read off the design's material map, per row the columns:
+# the upper arm (the skin with the bandage at the elbow) and the forearm (the gold gauntlet and the fist)
+NEAR_UPPER = {70: (55, 56), 71: (55, 57), 72: (54, 58), 73: (54, 57), 74: (54, 57), 75: (53, 57), 76: (55, 57),
+              77: (55, 57)}
+NEAR_LOWER = {78: (52, 57), 79: (52, 54), 80: (52, 54), 81: (52, 54), 82: (52, 55), 83: (51, 55), 84: (51, 56),
+              85: (55, 56)}
+FAR_UPPER = {74: (68, 70), 75: (68, 69), 76: (68, 70), 77: (68, 70)}
+FAR_LOWER = {78: (69, 70), 79: (70, 74), 80: (69, 72), 81: (70, 73), 82: (70, 73), 83: (70, 74), 84: (69, 74),
+             85: (69, 74), 86: (69, 72)}
+# the joints on the design (the shoulder in the deltoid, the elbow where the bandage meets the gauntlet)
+NEAR_SHOULDER, NEAR_ELBOW = (56, 71), (55, 77)
+FAR_SHOULDER, FAR_ELBOW = (69, 74), (69, 77)
+# the near arm over the cycle (frame 0 = the near foot's contact, the arm back): (the upper arm turned about the
+# shoulder, the forearm turned about the elbow that much more), degrees, + ahead (RotSprite, small turns keep the
+# design's squares); the far arm half a cycle on
+ARM = [(-12, 6), (-6, 10), (2, 20), (10, 32), (14, 42), (10, 32), (2, 20), (-6, 10)]
+ARMS = (NEAR_UPPER, NEAR_LOWER, FAR_UPPER, FAR_LOWER)
+OUTLINE = "050302"
 COAT = ("451A2A", "340F1E", "1F0917")       # lit, mid, dark
 HEM = ("F7C414", "DF9704")
-NOT_FIST = {"9FA8C3", "B2B9D2", "C4C9DB", "DCDFE8", "290B42", "3C1268", "531E8E"}
 
 
 def rgba(h):
     return np.array((int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16), 255), np.uint8)
 
 
+def in_rows(rows, x, y):
+    return y in rows and rows[y][0] <= x <= rows[y][1]
+
+
 def upper_block(d):
-    """{(x, y): colour}: the design above the trousers without its arms."""
-    cells = {}
+    """{(x, y): colour}: the design above the trousers without its arms. Where the near arm hid the body (the squares
+    it leaves as it turns) the body's colour next to it in the row: the mane behind it, the coat's dark edge in front;
+    none where that is the outline (the silhouette moves with the arm). The far arm's squares stay empty: it is drawn
+    behind everything, so a fill there would hide it."""
+    body = {}
     for y in range(0, BELT + 1):
         for x in range(d.shape[1]):
-            if not d[y, x, 3]:
+            if d[y, x, 3] and not any(in_rows(a, x, y) for a in ARMS):
+                body[(x, y)] = d[y, x].copy()
+    fill = {}
+    for rows in (NEAR_UPPER, NEAR_LOWER):
+        for y, (a, b) in rows.items():
+            if y > BELT:
                 continue
-            for arm in (NEAR_ARM, FAR_ARM):
-                if y in arm and arm[y][0] <= x <= arm[y][1]:
-                    break
-            else:
-                cells[(x, y)] = d[y, x].copy()
+            for x in range(a, b + 1):
+                for n in range(1, 4):
+                    near = [c for c in (body.get((x - n, y)), body.get((x + n, y))) if c is not None]
+                    if near:
+                        if R.hexs(near[-1]) != OUTLINE:
+                            fill[(x, y)] = near[-1].copy()
+                        break
+    body.update(fill)
+    return body
+
+
+def part(d, rows, joint):
+    """The design's squares in rows as a sprite, and the joint in it."""
+    y0, y1 = min(rows), max(rows)
+    x0, x1 = min(a for a, _ in rows.values()), max(b for _, b in rows.values())
+    s = np.zeros((y1 - y0 + 1, x1 - x0 + 1, 4), np.uint8)
+    for y, (a, b) in rows.items():
+        s[y - y0, a - x0:b - x0 + 1] = d[y, a:b + 1]
+    return s, (joint[0] - x0, joint[1] - y0)
+
+
+def turned(d, rows, joint, deg, at):
+    """{(x, y): colour}: the part turned deg about its joint (RotSprite, + ahead), the joint on the square at."""
+    s, j = part(d, rows, joint)
+    r, (rx, ry) = rotsprite(s, j, deg)
+    ys, xs = np.nonzero(r[..., 3])
+    return {(int(x) - rx + at[0], int(y) - ry + at[1]): r[y, x].copy() for y, x in zip(ys, xs)}
+
+
+def arm(d, upper, lower, shoulder, elbow, up, bend, shift):
+    """The design's arm: the upper arm turned up degrees about the shoulder, the forearm up + bend about the elbow,
+    carried where the upper arm takes the elbow, both moved by shift (the lean and the bob); the forearm on top."""
+    sx, sy = shoulder[0] + shift[0], shoulder[1] + shift[1]
+    t = math.radians(up)
+    ex, ey = elbow[0] - shoulder[0], elbow[1] - shoulder[1]
+    at = (sx + int(round(ex * math.cos(t) + ey * math.sin(t))), sy + int(round(-ex * math.sin(t) + ey * math.cos(t))))
+    cells = turned(d, upper, shoulder, up, (sx, sy))
+    cells.update(turned(d, lower, elbow, up + bend, at))
     return cells
 
 
-def fist(d, box):
-    """The design's fist in box as {(dx, dy) from its top middle: colour} (its own outline, not the bandage's)."""
-    x0, y0, x1, y1 = box
+def contour(cells, can, top):
+    """The edge round the near arm where it lies over the body, the coat or the legs, in the darkest plum the design
+    parts the arm from the body with (black inside the figure was cleaned out of the design: 「去掉身体上没用的黑色
+    素」); without it the gauntlet's gold and plum melt into the coat's. None over the shoulder it hangs from (rows
+    above top)."""
     out = {}
-    for y in range(y0, y1):
-        for x in range(x0, x1):
-            if d[y, x, 3] and R.hexs(d[y, x]) not in NOT_FIST:
-                out[(x - (x0 + x1) // 2, y - y0)] = d[y, x].copy()
+    for (x, y) in cells:
+        for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+            q = (x + dx, y + dy)
+            if q not in cells and q[1] >= top and can[q[1], q[0], 3]:
+                out[q] = rgba(COAT[2])
     return out
-
-
-def pt(a, deg, n):
-    t = math.radians(deg)
-    return (a[0] + math.sin(t) * n, a[1] + math.cos(t) * n)
-
-
-def arm(shoulder, up, bend, hand):
-    """{(x, y): colour} of an arm: the upper arm (skin, lit ahead), the forearm (bandage), a gold ring, the fist."""
-    E = pt(shoulder, up, UPPER)
-    W = pt(E, up + bend, FORE)
-    cells = {}
-    xs, ys = [shoulder[0], E[0], W[0]], [shoulder[1], E[1], W[1]]
-    for y in range(int(min(ys)) - 3, int(max(ys)) + 4):
-        for x in range(int(min(xs)) - 3, int(max(xs)) + 4):
-            p = (x + 0.5, y + 0.5)
-            d1, _, s1 = R.seg(p, shoulder, E)
-            d2, t2, s2 = R.seg(p, E, W)
-            if d2 <= 1.3:
-                h = RING if t2 > FORE - 1.0 else (BANDAGE[0] if s2 > 0.5 else BANDAGE[2] if s2 < -0.5 else BANDAGE[1])
-            elif d1 <= 1.7:
-                h = SKIN[0] if s1 > 0.6 else SKIN[2] if s1 < -0.8 else SKIN[1]
-            else:
-                continue
-            cells[(x, y)] = rgba(h)
-    wx, wy = int(round(W[0] - 0.5)), int(round(W[1]))
-    for (dx, dy), c in hand.items():
-        cells[(wx + dx, wy + dy)] = c
-    return ring(cells)
 
 
 def ring(cells):
@@ -128,7 +154,7 @@ def ring(cells):
     for (x, y) in cells:
         for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
             if (x + dx, y + dy) not in cells:
-                out[(x + dx, y + dy)] = rgba("050302")
+                out[(x + dx, y + dy)] = rgba(OUTLINE)
     out.update(cells)
     return out
 
@@ -184,12 +210,8 @@ def frame(k, d=None):
     """Run frame k (0-7) on the 128 x 128 design canvas (the pivot (64, 88), the soles on row 99)."""
     d = K.design_1x() if d is None else d
     dy = BOB[k]
-    near_fist, far_fist = fist(d, NEAR_FIST), fist(d, FAR_FIST)
     foot = R.shoe()
     can = np.zeros((128, 128, 4), np.uint8)
-    up_f, bend_f = ARM[(k + 4) % 8]
-    sh = (FAR_SHOULDER[0] + lean(int(FAR_SHOULDER[1])), FAR_SHOULDER[1] + dy)
-    far_arm = arm(sh, up_f, bend_f, far_fist)
     legs = {}
     for side, ph in (("near", k % 8), ("far", (k + 4) % 8)):
         fx, lift = FOOT[ph]
@@ -197,15 +219,17 @@ def frame(k, d=None):
         knee, ankle = R.ik(hip, (hip[0] + fx, ANKLE_ROW - lift))
         legs[side] = R.leg(hip, knee, ankle, R.RUN_SHADES[side], foot)
     body = {(x + lean(y), y + dy): c for (x, y), c in upper_block(d).items()}
-    up_n, bend_n = ARM[k]
-    sh = (NEAR_SHOULDER[0] + lean(int(NEAR_SHOULDER[1])), NEAR_SHOULDER[1] + dy)
-    near_arm = arm(sh, up_n, bend_n, near_fist)
+    up, bend = ARM[k]
+    near_arm = arm(d, NEAR_UPPER, NEAR_LOWER, NEAR_SHOULDER, NEAR_ELBOW, up, bend, (lean(NEAR_SHOULDER[1]), dy))
+    up, bend = ARM[(k + 4) % 8]
+    far_arm = arm(d, FAR_UPPER, FAR_LOWER, FAR_SHOULDER, FAR_ELBOW, up, bend, (lean(FAR_SHOULDER[1]), dy))
     put(can, body)
-    put(can, near_arm)
     put(can, legs["near"], under=True)
     put(can, coat(k, dy), under=True)
     put(can, legs["far"], under=True)
     put(can, far_arm, under=True)
+    put(can, contour(near_arm, can, NEAR_SHOULDER[1] + dy + 3))
+    put(can, near_arm)
     can = R.pieces(can)
     can, _, _ = G.complete_outline(can, feet=99)
     return can
