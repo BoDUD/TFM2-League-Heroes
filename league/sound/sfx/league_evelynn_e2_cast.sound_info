@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_evelynn_sfx_e2",
+      "volume": 0.6
+    },
+    {
+      "delay": 0.05,
+      "clip": "league_evelynn_vo_e2",
+      "volume": 0.85
+    }
+  ]
+}

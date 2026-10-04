@@ -49,6 +49,9 @@ MOD = os.path.join(ROOT, "league")
 HEAD_ROWS = 12                  # idle frame 1's top rows: the head
 SURE = 0.9                      # share of the head's pixels that must match exactly
 STEADY = ("idle", "run")
+# (hero, tag) left as drawn: Rakan's run head rides on the body (tools/art/fix_rakan_strips.py SEAT, the user:
+# 「移动的时候头和身体不协调」) - steadied on the head, the frames would slide the body back under a still head
+UNSTEADY = {("rakan", "run")}
 # hero: rows every frame moves down, but never past the soles row (SOLES under the pivot): a hero drawn floating
 # who should stand on the ground. Nami floated 3 px like Janna, so in the collection grid (every hero's feet on one
 # line) she sat high; the user: "整体下移 3 格、去掉浮空". Frames already on the ground stay (R's landing, her death).
@@ -98,7 +101,7 @@ NECK_EYES = {("fiora", "hit", 0): (-19, 3)}
 # bottom.
 COMPLETE = {"nami", "veigar", "jax", "ahri", "taric", "tristana", "fiora", "diana", "leesin", "missfortune", "fizz", "shaco",
             "caitlyn", "nocturne", "blitzcrank", "camille", "leblanc", "kaisa", "sona", "kennen", "vi", "ryze", "jhin", "zilean",
-            "aatrox", "kayn", "sivir", "twistedfate", "sett"}
+            "aatrox", "kayn", "sivir", "twistedfate", "rakan", "evelynn", "sett"}
 # hero: the luminance from which an edge pixel gets the outline (complete_outline's `dark`, default 70). Fiora's teal
 # leggings (luminance ~58) and wine cape (~44) edge many action frames without black: tfm2_ase.py metrics counts only
 # luminance < 40 as outline, so at 70 her Q frames read 83-89% (the bare rapier aside); at 40 they close too.
@@ -129,7 +132,10 @@ BARE = {"fiora": [(0xE6, 0xE8, 0xF0)]}
 PLUG = {"sona": 9,
         # Jax: the idle's breathing seam (BOB, row 4) closes a notch at the near foot into a pinhole in slots 3-5;
         # every other hole in his frames is painted by tools/art/fix_jax_frames.py before the import
-        "jax": 0}
+        "jax": 0,
+        # Rakan: the completion closes 1-square slits between the cloak's feathers, the hands and the hair into
+        # pinholes (23 in 15 frames); his design has none
+        "rakan": 0}
 ORDER = {("lux", "idle"): [0, 0, 0, 0, 0, 0],   # the step-2 idle is the design in all six (was 0 1 2 3 5 4)
          # League leans his upper body a square forward in idle 4-5 and back in 6, and every frame's head
          # is voted anew, so the face swung and changed shape as he breathed (the user). Frame 1 in every
@@ -232,6 +238,10 @@ ORDER = {("lux", "idle"): [0, 0, 0, 0, 0, 0],   # the step-2 idle is the design 
          ("kayn", "idle"): [0, 0, 0, 0, 0, 0],
          # and Sivir (Codex's second-round draft 2 read back and cut to 40 rows, design_sivir.py: the idle is the design)
          ("sivir", "idle"): [0, 0, 0, 0, 0, 0],
+         # and Rakan (Codex's draft read back and cut to 40 rows, design_rakan.py: the idle is the design in all six)
+         ("rakan", "idle"): [0, 0, 0, 0, 0, 0],
+         # and Evelynn (Codex's draft A halved to 41 rows, design_evelynn.py: the idle is the design in all six)
+         ("evelynn", "idle"): [0, 0, 0, 0, 0, 0],
          # and Sett (Codex's raw draft B read onto 42 rows, design_sett.py; strips_sett.py writes the design six times)
          ("sett", "idle"): [0, 0, 0, 0, 0, 0]}
 # (hero, tag): (y, slots) - in those slots everything at or above pivot row y moves down a row (the row under
@@ -348,19 +358,28 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        # Ryze (second design, tools/art/design_ryze_v2.py): the seam in the boot shafts, rows 7/8 under the pivot (one
        # square differs); his hands hang to the belt
        ("ryze", "idle"): (7, [2, 3, 4]),
-       # Jhin: the cane and Whisper reach the ground, so a seam in the legs cuts them - at the knees the cane's bands
+       # Jhin: the cane and Whisper reach the ground, so a seam in the legs cut them - at the knees the cane's bands
        # and Whisper's slanted barrel stepped a row each breath (the user: 「上下摆动导致模型变形 盖伦就没这问题」); the
-       # seam runs under his shoulders (rows 77/78 of the design: no square of the silhouette and 12 of colour differ):
-       # the head, the collar, the shoulders and the cape's top sink a row, the hands, the cane, Whisper and the legs
-       # stay (the user's pick A of four)
-       ("jhin", "idle"): (-11, [2, 3, 4]),
+       # seam under his shoulders that followed (the user's pick A of four) squeezed his arms and cape a row (「烬是模型
+       # 上下摆动导致有点微小的变形」, 2026-10-04). Now Garen's way: the seam low in the boots (pivot rows 9/10: 1 square
+       # of opacity and 3 of colour differ, the fewest under the hips), the soles stay, and the cane and Whisper go down
+       # with his hands whole (BOB_CARRY)
+       ("jhin", "idle"): (9, [2, 3, 4]),
        # Zilean floats: the seam low in the robe under the clock's pendulum (rows 94/95 of the design: the same width,
        # 11 squares of colour differ); the hem and his dangling feet stay
        ("zilean", "idle"): (6, [2, 3, 4]),
        # Kayn: Rhaast's crescent hangs to the soles on his left and its butt spike to his right, so a seam in the legs
        # cuts the blade's curve; across the soles (rows 97/98 of the design: 6 squares of opacity and 5 of colour differ,
        # the fewest under the hips) all of him and the scythe sink a row, only the soles' row stays
-       ("kayn", "idle"): (9, [2, 3, 4])}
+       ("kayn", "idle"): (9, [2, 3, 4]),
+       # Rakan: his feather cloak trails to the ground on his left, so every seam over the soles cuts its slanted edge
+       # (4-8 squares of opacity); the seam under the knees' red bands (rows 71/72 of the cell: 4 squares of opacity
+       # and 9 of colour differ) keeps the bands whole, the boots lose their top row while he breathes
+       ("rakan", "idle"): (7, [2, 3, 4])}
+# (hero, tag): column ranges from the pivot (None: to the edge) that a BOB moves down whole, under its seam too - props
+# held in the hands that reach the ground, apart from the legs below the seam. Jhin: the cane left of his legs (pivot
+# columns -11 and less), Whisper's barrel right of them (+6 and more; the right sole ends at +5)
+BOB_CARRY = {("jhin", "idle"): ((None, -11), (6, None))}
 # (Aatrox had (8, [2, 3, 4]): his greatsword hangs to five rows over the soles, so every row seam over the boots cuts the
 # blade, and the seam across the boots (rows 96/97) cut their middle row 97 out - both boots squashed and their lights
 # blinked each breath (the frame audit, 2026-10-04). rig_aatrox.py now draws the breath in idle 3-5 with a seam per
@@ -428,6 +447,7 @@ EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade
         "kayn": (233, 173, 55),           # Rhaast or the spiky hair tops the frames; the gold is only his near eye's
         "sivir": (0x4F, 0xE6, 0xD2),      # the crossblade tops the raised frames; the mint is only in her eyes
         "twistedfate": (0x7A, 0xF4, 0xFF),   # the hat's brim tops every frame; the cyan is only in his one eye
+        "evelynn": (0xFF, 0xD2, 0x1E),       # her hair or a raised lasher tops the frames; the yellow is only her eyes
         "sett": (0xC8, 0x70, 0x0A)}       # his ears or a raised fist top the frames; the amber is only in his eyes
 
 
@@ -546,7 +566,7 @@ def build(hero):
         # a PASTED hero's idle is one frame (ORDER): steady on the frames shown, or it moves off its pivot
         used = sorted(set(ORDER.get((hero, tag), range(len(fr))))) if hero in PASTED else range(len(fr))
         sure = [hx[k] for k in used if hx[k] is not None]
-        if tag in STEADY and sure:
+        if tag in STEADY and (hero, tag) not in UNSTEADY and sure:
             target = round(sum(sure) / len(sure))
             dx = [0 if h is None else target - h for h in hx]
         order = ORDER.get((hero, tag), range(len(fr)))
@@ -715,7 +735,7 @@ def step(hero, sheet):
 
 def breathe(hero, sheet):
     """BOB and NECK: move the upper body of the listed slots down a row (after the retouch, which is drawn on the
-    frame before it moves)."""
+    frame before it moves); BOB_CARRY's columns go down whole, under the seam too."""
     for (h, tag), (y0, slots) in list(BOB.items()) + list(NECK.items()):
         if h != hero or tag not in sheet:
             continue
@@ -725,6 +745,13 @@ def breathe(hero, sheet):
             b = a.copy()
             b[1:cut + 1] = a[0:cut]
             b[0] = 0
+            if (h, tag) in BOB and (h, tag) in BOB_CARRY:
+                pc = a.shape[1] // 2
+                for lo, hi in BOB_CARRY[(h, tag)]:
+                    c0 = 0 if lo is None else max(0, pc + lo)
+                    c1 = a.shape[1] if hi is None else min(a.shape[1], pc + hi + 1)
+                    b[1:, c0:c1] = a[:-1, c0:c1]
+                    b[0, c0:c1] = 0
             sheet[tag][k] = (b, ms)
 
 

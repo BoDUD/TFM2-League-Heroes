@@ -1,0 +1,4023 @@
+{
+  "schema": "evelynn-fx-v1",
+  "delivery": "Generated VFX originals, formatted into equal cells. Game pixel normalization is a downstream step.",
+  "asset_count": 31,
+  "total_frames": 133,
+  "assets": [
+    {
+      "file": "evelynn_fx_a_hit.png",
+      "prompt_number": 1,
+      "title": "：普攻打中（目标身上），4 帧",
+      "frame_count": 4,
+      "loop": false,
+      "cell_size": [
+        543,
+        724
+      ],
+      "content_union_bbox": [
+        0,
+        0,
+        543,
+        724
+      ],
+      "image_size": [
+        2172,
+        724
+      ],
+      "requested_image_size": [
+        1024,
+        256
+      ],
+      "game_size": "14",
+      "binding": "view_effects `league_evelynn_a_hit`（跟随，画在人物上面）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "content_bbox": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "source_file": "generated-originals/evelynn_fx_a_hit.png",
+          "source_rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "empty": false
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "content_bbox": [
+            1,
+            47,
+            543,
+            724
+          ],
+          "source_file": "generated-originals/evelynn_fx_a_hit.png",
+          "source_rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "empty": false
+        },
+        {
+          "index": 2,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "content_bbox": [
+            1,
+            21,
+            541,
+            707
+          ],
+          "source_file": "generated-originals/evelynn_fx_a_hit.png",
+          "source_rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "empty": false
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "content_bbox": [
+            1,
+            23,
+            542,
+            724
+          ],
+          "source_file": "generated-originals/evelynn_fx_a_hit.png",
+          "source_rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "empty": false
+        }
+      ],
+      "source_file": "generated-originals/evelynn_fx_a_hit.png",
+      "preview_frame_ms": 110
+    },
+    {
+      "file": "evelynn_fx_e_hit.png",
+      "prompt_number": 2,
+      "title": "：E「鞭笞」打中（目标身上），5 帧",
+      "frame_count": 5,
+      "loop": false,
+      "cell_size": [
+        424,
+        793
+      ],
+      "content_union_bbox": [
+        5,
+        25,
+        424,
+        793
+      ],
+      "image_size": [
+        2120,
+        793
+      ],
+      "requested_image_size": [
+        1280,
+        256
+      ],
+      "game_size": "18",
+      "binding": "view_effects `league_evelynn_e_hit`（跟随，画在人物上面）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            424,
+            793
+          ],
+          "content_bbox": [
+            35,
+            25,
+            384,
+            743
+          ],
+          "source_file": "generated-originals/evelynn_fx_e_hit.png",
+          "source_rect": [
+            0,
+            0,
+            397,
+            793
+          ],
+          "empty": false
+        },
+        {
+          "index": 1,
+          "rect": [
+            424,
+            0,
+            424,
+            793
+          ],
+          "content_bbox": [
+            7,
+            49,
+            424,
+            755
+          ],
+          "source_file": "generated-originals/evelynn_fx_e_hit.png",
+          "source_rect": [
+            397,
+            0,
+            424,
+            793
+          ],
+          "empty": false
+        },
+        {
+          "index": 2,
+          "rect": [
+            848,
+            0,
+            424,
+            793
+          ],
+          "content_bbox": [
+            5,
+            192,
+            419,
+            793
+          ],
+          "source_file": "generated-originals/evelynn_fx_e_hit.png",
+          "source_rect": [
+            821,
+            0,
+            414,
+            793
+          ],
+          "empty": false
+        },
+        {
+          "index": 3,
+          "rect": [
+            1272,
+            0,
+            424,
+            793
+          ],
+          "content_bbox": [
+            26,
+            173,
+            398,
+            736
+          ],
+          "source_file": "generated-originals/evelynn_fx_e_hit.png",
+          "source_rect": [
+            1235,
+            0,
+            372,
+            793
+          ],
+          "empty": false
+        },
+        {
+          "index": 4,
+          "rect": [
+            1696,
+            0,
+            424,
+            793
+          ],
+          "content_bbox": [
+            24,
+            104,
+            384,
+            726
+          ],
+          "source_file": "generated-originals/evelynn_fx_e_hit.png",
+          "source_rect": [
+            1607,
+            0,
+            376,
+            793
+          ],
+          "empty": false
+        }
+      ],
+      "source_file": "generated-originals/evelynn_fx_e_hit.png",
+      "preview_frame_ms": 110
+    },
+    {
+      "file": "evelynn_fx_e2_trail.png",
+      "prompt_number": 3,
+      "title": "：强化鞭笞的冲刺拖尾（地上，留在原地），5 帧",
+      "frame_count": 5,
+      "loop": false,
+      "cell_size": [
+        413,
+        793
+      ],
+      "content_union_bbox": [
+        0,
+        38,
+        413,
+        767
+      ],
+      "image_size": [
+        2065,
+        793
+      ],
+      "requested_image_size": [
+        2560,
+        128
+      ],
+      "game_size": "48 × 12",
+      "binding": "view_effects `league_evelynn_e2_trail`（施法者身上，不跟随，朝左时镜像；格子左边中点放在她起跳的位置）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            413,
+            793
+          ],
+          "content_bbox": [
+            0,
+            114,
+            380,
+            688
+          ],
+          "source_file": "generated-originals/evelynn_fx_e2_trail.png",
+          "source_rect": [
+            0,
+            0,
+            380,
+            793
+          ],
+          "empty": false
+        },
+        {
+          "index": 1,
+          "rect": [
+            413,
+            0,
+            413,
+            793
+          ],
+          "content_bbox": [
+            0,
+            38,
+            413,
+            755
+          ],
+          "source_file": "generated-originals/evelynn_fx_e2_trail.png",
+          "source_rect": [
+            380,
+            0,
+            413,
+            793
+          ],
+          "empty": false
+        },
+        {
+          "index": 2,
+          "rect": [
+            826,
+            0,
+            413,
+            793
+          ],
+          "content_bbox": [
+            0,
+            86,
+            403,
+            704
+          ],
+          "source_file": "generated-originals/evelynn_fx_e2_trail.png",
+          "source_rect": [
+            793,
+            0,
+            403,
+            793
+          ],
+          "empty": false
+        },
+        {
+          "index": 3,
+          "rect": [
+            1239,
+            0,
+            413,
+            793
+          ],
+          "content_bbox": [
+            0,
+            131,
+            390,
+            767
+          ],
+          "source_file": "generated-originals/evelynn_fx_e2_trail.png",
+          "source_rect": [
+            1196,
+            0,
+            390,
+            793
+          ],
+          "empty": false
+        },
+        {
+          "index": 4,
+          "rect": [
+            1652,
+            0,
+            413,
+            793
+          ],
+          "content_bbox": [
+            0,
+            159,
+            382,
+            664
+          ],
+          "source_file": "generated-originals/evelynn_fx_e2_trail.png",
+          "source_rect": [
+            1586,
+            0,
+            397,
+            793
+          ],
+          "empty": false
+        }
+      ],
+      "source_file": "generated-originals/evelynn_fx_e2_trail.png",
+      "preview_frame_ms": 110
+    },
+    {
+      "file": "evelynn_fx_e2_hit.png",
+      "prompt_number": 4,
+      "title": "：强化鞭笞冲到目标的一击（目标身上），5 帧",
+      "frame_count": 5,
+      "loop": false,
+      "cell_size": [
+        397,
+        793
+      ],
+      "content_union_bbox": [
+        0,
+        9,
+        397,
+        793
+      ],
+      "image_size": [
+        1985,
+        793
+      ],
+      "requested_image_size": [
+        1280,
+        256
+      ],
+      "game_size": "22",
+      "binding": "view_effects `league_evelynn_e2_hit`（跟随，画在人物上面）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            397,
+            793
+          ],
+          "content_bbox": [
+            34,
+            74,
+            397,
+            761
+          ],
+          "source_file": "generated-originals/evelynn_fx_e2_hit.png",
+          "source_rect": [
+            0,
+            0,
+            397,
+            793
+          ],
+          "empty": false
+        },
+        {
+          "index": 1,
+          "rect": [
+            397,
+            0,
+            397,
+            793
+          ],
+          "content_bbox": [
+            1,
+            36,
+            396,
+            761
+          ],
+          "source_file": "generated-originals/evelynn_fx_e2_hit.png",
+          "source_rect": [
+            397,
+            0,
+            396,
+            793
+          ],
+          "empty": false
+        },
+        {
+          "index": 2,
+          "rect": [
+            794,
+            0,
+            397,
+            793
+          ],
+          "content_bbox": [
+            0,
+            9,
+            397,
+            793
+          ],
+          "source_file": "generated-originals/evelynn_fx_e2_hit.png",
+          "source_rect": [
+            793,
+            0,
+            397,
+            793
+          ],
+          "empty": false
+        },
+        {
+          "index": 3,
+          "rect": [
+            1191,
+            0,
+            397,
+            793
+          ],
+          "content_bbox": [
+            0,
+            25,
+            392,
+            770
+          ],
+          "source_file": "generated-originals/evelynn_fx_e2_hit.png",
+          "source_rect": [
+            1190,
+            0,
+            396,
+            793
+          ],
+          "empty": false
+        },
+        {
+          "index": 4,
+          "rect": [
+            1588,
+            0,
+            397,
+            793
+          ],
+          "content_bbox": [
+            1,
+            39,
+            377,
+            769
+          ],
+          "source_file": "generated-originals/evelynn_fx_e2_hit.png",
+          "source_rect": [
+            1586,
+            0,
+            397,
+            793
+          ],
+          "empty": false
+        }
+      ],
+      "source_file": "generated-originals/evelynn_fx_e2_hit.png",
+      "preview_frame_ms": 110
+    },
+    {
+      "file": "evelynn_fx_e_emp.png",
+      "prompt_number": 5,
+      "title": "：强化鞭笞就绪（她身上循环，到下一鞭为止），4 帧",
+      "frame_count": 4,
+      "loop": true,
+      "cell_size": [
+        486,
+        809
+      ],
+      "content_union_bbox": [
+        0,
+        36,
+        486,
+        809
+      ],
+      "image_size": [
+        1944,
+        809
+      ],
+      "requested_image_size": [
+        1536,
+        320
+      ],
+      "game_size": "24 × 20",
+      "binding": "view_buffs `league_evelynn_e_emp`（画在她身上，跟着走，朝左不镜像）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            486,
+            809
+          ],
+          "content_bbox": [
+            45,
+            177,
+            485,
+            809
+          ],
+          "source_file": "generated-originals/evelynn_fx_e_emp.png",
+          "source_rect": [
+            0,
+            0,
+            485,
+            809
+          ],
+          "empty": false
+        },
+        {
+          "index": 1,
+          "rect": [
+            486,
+            0,
+            486,
+            809
+          ],
+          "content_bbox": [
+            0,
+            36,
+            486,
+            809
+          ],
+          "source_file": "generated-originals/evelynn_fx_e_emp.png",
+          "source_rect": [
+            485,
+            0,
+            486,
+            809
+          ],
+          "empty": false
+        },
+        {
+          "index": 2,
+          "rect": [
+            972,
+            0,
+            486,
+            809
+          ],
+          "content_bbox": [
+            0,
+            126,
+            485,
+            809
+          ],
+          "source_file": "generated-originals/evelynn_fx_e_emp.png",
+          "source_rect": [
+            971,
+            0,
+            485,
+            809
+          ],
+          "empty": false
+        },
+        {
+          "index": 3,
+          "rect": [
+            1458,
+            0,
+            486,
+            809
+          ],
+          "content_bbox": [
+            0,
+            179,
+            466,
+            801
+          ],
+          "source_file": "generated-originals/evelynn_fx_e_emp.png",
+          "source_rect": [
+            1456,
+            0,
+            486,
+            809
+          ],
+          "empty": false
+        }
+      ],
+      "source_file": "generated-originals/evelynn_fx_e_emp.png",
+      "preview_frame_ms": 110
+    },
+    {
+      "file": "evelynn_fx_e_haste.png",
+      "prompt_number": 6,
+      "title": "：鞭笞的加速（脚下循环，2 秒），4 帧",
+      "frame_count": 4,
+      "loop": true,
+      "cell_size": [
+        543,
+        724
+      ],
+      "content_union_bbox": [
+        1,
+        128,
+        543,
+        698
+      ],
+      "image_size": [
+        2172,
+        724
+      ],
+      "requested_image_size": [
+        1536,
+        96
+      ],
+      "game_size": "24 × 6",
+      "binding": "view_buffs `league_evelynn_e_haste`（画在脚下，跟着走）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "content_bbox": [
+            17,
+            128,
+            543,
+            698
+          ],
+          "source_file": "generated-originals/evelynn_fx_e_haste.png",
+          "source_rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "empty": false
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "content_bbox": [
+            1,
+            339,
+            543,
+            579
+          ],
+          "source_file": "generated-originals/evelynn_fx_e_haste.png",
+          "source_rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "empty": false
+        },
+        {
+          "index": 2,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "content_bbox": [
+            9,
+            134,
+            543,
+            692
+          ],
+          "source_file": "generated-originals/evelynn_fx_e_haste.png",
+          "source_rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "empty": false
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "content_bbox": [
+            1,
+            303,
+            511,
+            684
+          ],
+          "source_file": "generated-originals/evelynn_fx_e_haste.png",
+          "source_rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "empty": false
+        }
+      ],
+      "source_file": "generated-originals/evelynn_fx_e_haste.png",
+      "preview_frame_ms": 110
+    },
+    {
+      "file": "evelynn_fx_q_cast.png",
+      "prompt_number": 7,
+      "title": "：Q 出手：手前面的紫粉色闪光（施法者身上），4 帧",
+      "frame_count": 4,
+      "loop": false,
+      "cell_size": [
+        469,
+        839
+      ],
+      "content_union_bbox": [
+        0,
+        23,
+        469,
+        839
+      ],
+      "image_size": [
+        1876,
+        839
+      ],
+      "requested_image_size": [
+        1120,
+        200
+      ],
+      "game_size": "14 × 10",
+      "binding": "view_effects `league_evelynn_q_cast`（施法者身上，不跟随，朝左时镜像；格子左边中点放到 Q 第 3 帧的手）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            469,
+            839
+          ],
+          "content_bbox": [
+            12,
+            148,
+            468,
+            813
+          ],
+          "source_file": "generated-originals/evelynn_fx_q_cast.png",
+          "source_rect": [
+            0,
+            0,
+            468,
+            839
+          ],
+          "empty": false
+        },
+        {
+          "index": 1,
+          "rect": [
+            469,
+            0,
+            469,
+            839
+          ],
+          "content_bbox": [
+            0,
+            23,
+            469,
+            839
+          ],
+          "source_file": "generated-originals/evelynn_fx_q_cast.png",
+          "source_rect": [
+            468,
+            0,
+            469,
+            839
+          ],
+          "empty": false
+        },
+        {
+          "index": 2,
+          "rect": [
+            938,
+            0,
+            469,
+            839
+          ],
+          "content_bbox": [
+            0,
+            54,
+            468,
+            821
+          ],
+          "source_file": "generated-originals/evelynn_fx_q_cast.png",
+          "source_rect": [
+            937,
+            0,
+            468,
+            839
+          ],
+          "empty": false
+        },
+        {
+          "index": 3,
+          "rect": [
+            1407,
+            0,
+            469,
+            839
+          ],
+          "content_bbox": [
+            0,
+            92,
+            445,
+            821
+          ],
+          "source_file": "generated-originals/evelynn_fx_q_cast.png",
+          "source_rect": [
+            1405,
+            0,
+            469,
+            839
+          ],
+          "empty": false
+        }
+      ],
+      "source_file": "generated-originals/evelynn_fx_q_cast.png",
+      "preview_frame_ms": 110
+    },
+    {
+      "file": "evelynn_fx_q_lash.png",
+      "prompt_number": 8,
+      "title": "：Q 飞出去的鞭子（飞行中循环），4 帧",
+      "frame_count": 4,
+      "loop": true,
+      "cell_size": [
+        543,
+        724
+      ],
+      "content_union_bbox": [
+        0,
+        55,
+        543,
+        698
+      ],
+      "image_size": [
+        2172,
+        724
+      ],
+      "requested_image_size": [
+        2048,
+        256
+      ],
+      "game_size": "18 × 8",
+      "binding": "view_projectiles `league_evelynn_q_lash`（朝右，游戏转到飞行方向，上下对称）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "content_bbox": [
+            15,
+            172,
+            543,
+            668
+          ],
+          "source_file": "generated-revisions/evelynn_fx_q_lash.png",
+          "source_rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "empty": false
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "content_bbox": [
+            0,
+            55,
+            543,
+            676
+          ],
+          "source_file": "generated-revisions/evelynn_fx_q_lash.png",
+          "source_rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "empty": false
+        },
+        {
+          "index": 2,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "content_bbox": [
+            0,
+            71,
+            543,
+            698
+          ],
+          "source_file": "generated-revisions/evelynn_fx_q_lash.png",
+          "source_rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "empty": false
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "content_bbox": [
+            0,
+            77,
+            527,
+            628
+          ],
+          "source_file": "generated-revisions/evelynn_fx_q_lash.png",
+          "source_rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "empty": false
+        }
+      ],
+      "source_file": "generated-revisions/evelynn_fx_q_lash.png",
+      "preview_frame_ms": 110
+    },
+    {
+      "file": "evelynn_fx_q_spike.png",
+      "prompt_number": 9,
+      "title": "：Q 自动射出的尖刺（飞行中循环），3 帧",
+      "frame_count": 3,
+      "loop": true,
+      "cell_size": [
+        724,
+        724
+      ],
+      "content_union_bbox": [
+        3,
+        20,
+        724,
+        724
+      ],
+      "image_size": [
+        2172,
+        724
+      ],
+      "requested_image_size": [
+        1536,
+        256
+      ],
+      "game_size": "20 × 8",
+      "binding": "view_projectiles `league_evelynn_q_spike`（朝右，游戏转到飞行方向，上下对称）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            724,
+            724
+          ],
+          "content_bbox": [
+            25,
+            39,
+            724,
+            706
+          ],
+          "source_file": "generated-originals/evelynn_fx_q_spike.png",
+          "source_rect": [
+            0,
+            0,
+            724,
+            724
+          ],
+          "empty": false
+        },
+        {
+          "index": 1,
+          "rect": [
+            724,
+            0,
+            724,
+            724
+          ],
+          "content_bbox": [
+            9,
+            20,
+            724,
+            724
+          ],
+          "source_file": "generated-originals/evelynn_fx_q_spike.png",
+          "source_rect": [
+            724,
+            0,
+            724,
+            724
+          ],
+          "empty": false
+        },
+        {
+          "index": 2,
+          "rect": [
+            1448,
+            0,
+            724,
+            724
+          ],
+          "content_bbox": [
+            3,
+            23,
+            710,
+            705
+          ],
+          "source_file": "generated-originals/evelynn_fx_q_spike.png",
+          "source_rect": [
+            1448,
+            0,
+            724,
+            724
+          ],
+          "empty": false
+        }
+      ],
+      "source_file": "generated-originals/evelynn_fx_q_spike.png",
+      "preview_frame_ms": 110
+    },
+    {
+      "file": "evelynn_fx_q_hit.png",
+      "prompt_number": 10,
+      "title": "：Q 鞭子打中（目标身上），4 帧",
+      "frame_count": 4,
+      "loop": false,
+      "cell_size": [
+        543,
+        724
+      ],
+      "content_union_bbox": [
+        0,
+        13,
+        543,
+        724
+      ],
+      "image_size": [
+        2172,
+        724
+      ],
+      "requested_image_size": [
+        1024,
+        256
+      ],
+      "game_size": "14",
+      "binding": "view_effects `league_evelynn_q_hit`（跟随，画在人物上面）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "content_bbox": [
+            47,
+            39,
+            543,
+            698
+          ],
+          "source_file": "generated-originals/evelynn_fx_q_hit.png",
+          "source_rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "empty": false
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "content_bbox": [
+            0,
+            13,
+            541,
+            724
+          ],
+          "source_file": "generated-originals/evelynn_fx_q_hit.png",
+          "source_rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "empty": false
+        },
+        {
+          "index": 2,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "content_bbox": [
+            22,
+            52,
+            541,
+            692
+          ],
+          "source_file": "generated-originals/evelynn_fx_q_hit.png",
+          "source_rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "empty": false
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "content_bbox": [
+            17,
+            21,
+            509,
+            692
+          ],
+          "source_file": "generated-originals/evelynn_fx_q_hit.png",
+          "source_rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "empty": false
+        }
+      ],
+      "source_file": "generated-originals/evelynn_fx_q_hit.png",
+      "preview_frame_ms": 110
+    },
+    {
+      "file": "evelynn_fx_q_mark.png",
+      "prompt_number": 11,
+      "title": "：Q 标记（目标头顶，循环 5 秒）：她接下来 3 次普攻多一段伤害，4 帧",
+      "frame_count": 4,
+      "loop": true,
+      "cell_size": [
+        496,
+        793
+      ],
+      "content_union_bbox": [
+        0,
+        37,
+        496,
+        753
+      ],
+      "image_size": [
+        1984,
+        793
+      ],
+      "requested_image_size": [
+        1280,
+        192
+      ],
+      "game_size": "10 × 6",
+      "binding": "view_buffs `league_evelynn_q_mark`（画在目标头顶上方，跟着走）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            496,
+            793
+          ],
+          "content_bbox": [
+            47,
+            149,
+            496,
+            743
+          ],
+          "source_file": "generated-originals/evelynn_fx_q_mark.png",
+          "source_rect": [
+            0,
+            0,
+            496,
+            793
+          ],
+          "empty": false
+        },
+        {
+          "index": 1,
+          "rect": [
+            496,
+            0,
+            496,
+            793
+          ],
+          "content_bbox": [
+            1,
+            37,
+            495,
+            753
+          ],
+          "source_file": "generated-originals/evelynn_fx_q_mark.png",
+          "source_rect": [
+            496,
+            0,
+            495,
+            793
+          ],
+          "empty": false
+        },
+        {
+          "index": 2,
+          "rect": [
+            992,
+            0,
+            496,
+            793
+          ],
+          "content_bbox": [
+            0,
+            104,
+            494,
+            710
+          ],
+          "source_file": "generated-originals/evelynn_fx_q_mark.png",
+          "source_rect": [
+            991,
+            0,
+            496,
+            793
+          ],
+          "empty": false
+        },
+        {
+          "index": 3,
+          "rect": [
+            1488,
+            0,
+            496,
+            793
+          ],
+          "content_bbox": [
+            1,
+            130,
+            460,
+            744
+          ],
+          "source_file": "generated-originals/evelynn_fx_q_mark.png",
+          "source_rect": [
+            1487,
+            0,
+            496,
+            793
+          ],
+          "empty": false
+        }
+      ],
+      "source_file": "generated-originals/evelynn_fx_q_mark.png",
+      "preview_frame_ms": 110
+    },
+    {
+      "file": "evelynn_fx_qb_hit.png",
+      "prompt_number": 12,
+      "title": "：Q 标记的追加伤害（目标身上），3 帧",
+      "frame_count": 3,
+      "loop": false,
+      "cell_size": [
+        724,
+        724
+      ],
+      "content_union_bbox": [
+        47,
+        19,
+        724,
+        684
+      ],
+      "image_size": [
+        2172,
+        724
+      ],
+      "requested_image_size": [
+        768,
+        256
+      ],
+      "game_size": "10",
+      "binding": "view_effects `league_evelynn_qb_hit`（跟随，画在人物上面）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            724,
+            724
+          ],
+          "content_bbox": [
+            103,
+            115,
+            620,
+            684
+          ],
+          "source_file": "generated-originals/evelynn_fx_qb_hit.png",
+          "source_rect": [
+            0,
+            0,
+            724,
+            724
+          ],
+          "empty": false
+        },
+        {
+          "index": 1,
+          "rect": [
+            724,
+            0,
+            724,
+            724
+          ],
+          "content_bbox": [
+            53,
+            19,
+            724,
+            662
+          ],
+          "source_file": "generated-originals/evelynn_fx_qb_hit.png",
+          "source_rect": [
+            724,
+            0,
+            724,
+            724
+          ],
+          "empty": false
+        },
+        {
+          "index": 2,
+          "rect": [
+            1448,
+            0,
+            724,
+            724
+          ],
+          "content_bbox": [
+            47,
+            160,
+            614,
+            656
+          ],
+          "source_file": "generated-originals/evelynn_fx_qb_hit.png",
+          "source_rect": [
+            1448,
+            0,
+            724,
+            724
+          ],
+          "empty": false
+        }
+      ],
+      "source_file": "generated-originals/evelynn_fx_qb_hit.png",
+      "preview_frame_ms": 110
+    },
+    {
+      "file": "evelynn_fx_sp_cast.png",
+      "prompt_number": 13,
+      "title": "：自动尖刺射出时她身上的一闪（施法者身上），3 帧",
+      "frame_count": 3,
+      "loop": false,
+      "cell_size": [
+        724,
+        724
+      ],
+      "content_union_bbox": [
+        9,
+        21,
+        718,
+        724
+      ],
+      "image_size": [
+        2172,
+        724
+      ],
+      "requested_image_size": [
+        768,
+        256
+      ],
+      "game_size": "12",
+      "binding": "view_effects `league_evelynn_sp_cast`（施法者身上，不跟随）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            724,
+            724
+          ],
+          "content_bbox": [
+            89,
+            21,
+            718,
+            684
+          ],
+          "source_file": "generated-originals/evelynn_fx_sp_cast.png",
+          "source_rect": [
+            0,
+            0,
+            724,
+            724
+          ],
+          "empty": false
+        },
+        {
+          "index": 1,
+          "rect": [
+            724,
+            0,
+            724,
+            724
+          ],
+          "content_bbox": [
+            17,
+            145,
+            684,
+            700
+          ],
+          "source_file": "generated-originals/evelynn_fx_sp_cast.png",
+          "source_rect": [
+            724,
+            0,
+            724,
+            724
+          ],
+          "empty": false
+        },
+        {
+          "index": 2,
+          "rect": [
+            1448,
+            0,
+            724,
+            724
+          ],
+          "content_bbox": [
+            9,
+            29,
+            686,
+            724
+          ],
+          "source_file": "generated-originals/evelynn_fx_sp_cast.png",
+          "source_rect": [
+            1448,
+            0,
+            724,
+            724
+          ],
+          "empty": false
+        }
+      ],
+      "source_file": "generated-originals/evelynn_fx_sp_cast.png",
+      "preview_frame_ms": 110
+    },
+    {
+      "file": "evelynn_fx_sp_hit.png",
+      "prompt_number": 14,
+      "title": "：尖刺打中（目标身上），3 帧",
+      "frame_count": 3,
+      "loop": false,
+      "cell_size": [
+        724,
+        724
+      ],
+      "content_union_bbox": [
+        0,
+        9,
+        724,
+        714
+      ],
+      "image_size": [
+        2172,
+        724
+      ],
+      "requested_image_size": [
+        768,
+        256
+      ],
+      "game_size": "10",
+      "binding": "view_effects `league_evelynn_sp_hit`（跟随，画在人物上面）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            724,
+            724
+          ],
+          "content_bbox": [
+            17,
+            21,
+            724,
+            692
+          ],
+          "source_file": "generated-originals/evelynn_fx_sp_hit.png",
+          "source_rect": [
+            0,
+            0,
+            724,
+            724
+          ],
+          "empty": false
+        },
+        {
+          "index": 1,
+          "rect": [
+            724,
+            0,
+            724,
+            724
+          ],
+          "content_bbox": [
+            0,
+            9,
+            724,
+            714
+          ],
+          "source_file": "generated-originals/evelynn_fx_sp_hit.png",
+          "source_rect": [
+            724,
+            0,
+            724,
+            724
+          ],
+          "empty": false
+        },
+        {
+          "index": 2,
+          "rect": [
+            1448,
+            0,
+            724,
+            724
+          ],
+          "content_bbox": [
+            0,
+            27,
+            710,
+            704
+          ],
+          "source_file": "generated-originals/evelynn_fx_sp_hit.png",
+          "source_rect": [
+            1448,
+            0,
+            724,
+            724
+          ],
+          "empty": false
+        }
+      ],
+      "source_file": "generated-originals/evelynn_fx_sp_hit.png",
+      "preview_frame_ms": 110
+    },
+    {
+      "file": "evelynn_fx_w_cast.png",
+      "prompt_number": 15,
+      "title": "：W 出手：飞吻放出诅咒（施法者身上），4 帧",
+      "frame_count": 4,
+      "loop": false,
+      "cell_size": [
+        464,
+        848
+      ],
+      "content_union_bbox": [
+        1,
+        21,
+        464,
+        822
+      ],
+      "image_size": [
+        1856,
+        848
+      ],
+      "requested_image_size": [
+        1120,
+        200
+      ],
+      "game_size": "14 × 10",
+      "binding": "view_effects `league_evelynn_w_cast`（施法者身上，不跟随，朝左时镜像；格子左边中点放到 W 第 2 帧的手）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            464,
+            848
+          ],
+          "content_bbox": [
+            17,
+            135,
+            464,
+            822
+          ],
+          "source_file": "generated-originals/evelynn_fx_w_cast.png",
+          "source_rect": [
+            0,
+            0,
+            464,
+            848
+          ],
+          "empty": false
+        },
+        {
+          "index": 1,
+          "rect": [
+            464,
+            0,
+            464,
+            848
+          ],
+          "content_bbox": [
+            1,
+            21,
+            456,
+            774
+          ],
+          "source_file": "generated-originals/evelynn_fx_w_cast.png",
+          "source_rect": [
+            464,
+            0,
+            463,
+            848
+          ],
+          "empty": false
+        },
+        {
+          "index": 2,
+          "rect": [
+            928,
+            0,
+            464,
+            848
+          ],
+          "content_bbox": [
+            11,
+            71,
+            462,
+            648
+          ],
+          "source_file": "generated-originals/evelynn_fx_w_cast.png",
+          "source_rect": [
+            927,
+            0,
+            464,
+            848
+          ],
+          "empty": false
+        },
+        {
+          "index": 3,
+          "rect": [
+            1392,
+            0,
+            464,
+            848
+          ],
+          "content_bbox": [
+            3,
+            141,
+            432,
+            656
+          ],
+          "source_file": "generated-originals/evelynn_fx_w_cast.png",
+          "source_rect": [
+            1391,
+            0,
+            464,
+            848
+          ],
+          "empty": false
+        }
+      ],
+      "source_file": "generated-originals/evelynn_fx_w_cast.png",
+      "preview_frame_ms": 110
+    },
+    {
+      "file": "evelynn_fx_w_bolt.png",
+      "prompt_number": 16,
+      "title": "：W 飞向目标的诅咒（飞行中循环），4 帧",
+      "frame_count": 4,
+      "loop": true,
+      "cell_size": [
+        444,
+        887
+      ],
+      "content_union_bbox": [
+        0,
+        116,
+        444,
+        861
+      ],
+      "image_size": [
+        1776,
+        887
+      ],
+      "requested_image_size": [
+        2048,
+        256
+      ],
+      "game_size": "14 × 8",
+      "binding": "view_projectiles `league_evelynn_w_bolt`（朝右，游戏转到飞行方向，上下对称）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            444,
+            887
+          ],
+          "content_bbox": [
+            17,
+            116,
+            443,
+            819
+          ],
+          "source_file": "generated-revisions/evelynn_fx_w_bolt.png",
+          "source_rect": [
+            0,
+            0,
+            443,
+            887
+          ],
+          "empty": false
+        },
+        {
+          "index": 1,
+          "rect": [
+            444,
+            0,
+            444,
+            887
+          ],
+          "content_bbox": [
+            0,
+            134,
+            444,
+            861
+          ],
+          "source_file": "generated-revisions/evelynn_fx_w_bolt.png",
+          "source_rect": [
+            443,
+            0,
+            444,
+            887
+          ],
+          "empty": false
+        },
+        {
+          "index": 2,
+          "rect": [
+            888,
+            0,
+            444,
+            887
+          ],
+          "content_bbox": [
+            0,
+            322,
+            443,
+            821
+          ],
+          "source_file": "generated-revisions/evelynn_fx_w_bolt.png",
+          "source_rect": [
+            887,
+            0,
+            443,
+            887
+          ],
+          "empty": false
+        },
+        {
+          "index": 3,
+          "rect": [
+            1332,
+            0,
+            444,
+            887
+          ],
+          "content_bbox": [
+            0,
+            120,
+            444,
+            831
+          ],
+          "source_file": "generated-revisions/evelynn_fx_w_bolt.png",
+          "source_rect": [
+            1330,
+            0,
+            444,
+            887
+          ],
+          "empty": false
+        }
+      ],
+      "source_file": "generated-revisions/evelynn_fx_w_bolt.png",
+      "preview_frame_ms": 110
+    },
+    {
+      "file": "evelynn_fx_w_hit.png",
+      "prompt_number": 17,
+      "title": "：W 印记落在目标身上，4 帧",
+      "frame_count": 4,
+      "loop": false,
+      "cell_size": [
+        543,
+        724
+      ],
+      "content_union_bbox": [
+        19,
+        100,
+        535,
+        644
+      ],
+      "image_size": [
+        2172,
+        724
+      ],
+      "requested_image_size": [
+        1024,
+        256
+      ],
+      "game_size": "16",
+      "binding": "view_effects `league_evelynn_w_hit`（跟随，画在人物上面）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "content_bbox": [
+            19,
+            110,
+            535,
+            644
+          ],
+          "source_file": "generated-originals/evelynn_fx_w_hit.png",
+          "source_rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "empty": false
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "content_bbox": [
+            95,
+            100,
+            523,
+            642
+          ],
+          "source_file": "generated-originals/evelynn_fx_w_hit.png",
+          "source_rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "empty": false
+        },
+        {
+          "index": 2,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "content_bbox": [
+            156,
+            181,
+            485,
+            531
+          ],
+          "source_file": "generated-originals/evelynn_fx_w_hit.png",
+          "source_rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "empty": false
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "content_bbox": [
+            21,
+            105,
+            424,
+            537
+          ],
+          "source_file": "generated-originals/evelynn_fx_w_hit.png",
+          "source_rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "empty": false
+        }
+      ],
+      "source_file": "generated-originals/evelynn_fx_w_hit.png",
+      "preview_frame_ms": 110
+    },
+    {
+      "file": "evelynn_fx_w_mark.png",
+      "prompt_number": 18,
+      "title": "：W 印记（目标头顶，循环，前 2.5 秒）：半颗心，4 帧",
+      "frame_count": 4,
+      "loop": true,
+      "cell_size": [
+        496,
+        793
+      ],
+      "content_union_bbox": [
+        1,
+        21,
+        467,
+        712
+      ],
+      "image_size": [
+        1984,
+        793
+      ],
+      "requested_image_size": [
+        1280,
+        288
+      ],
+      "game_size": "10 × 9",
+      "binding": "view_buffs `league_evelynn_w_mark`（画在目标头顶上方，跟着走）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            496,
+            793
+          ],
+          "content_bbox": [
+            83,
+            21,
+            447,
+            686
+          ],
+          "source_file": "generated-revisions/evelynn_fx_w_mark.png",
+          "source_rect": [
+            0,
+            0,
+            496,
+            793
+          ],
+          "empty": false
+        },
+        {
+          "index": 1,
+          "rect": [
+            496,
+            0,
+            496,
+            793
+          ],
+          "content_bbox": [
+            67,
+            209,
+            467,
+            640
+          ],
+          "source_file": "generated-revisions/evelynn_fx_w_mark.png",
+          "source_rect": [
+            496,
+            0,
+            495,
+            793
+          ],
+          "empty": false
+        },
+        {
+          "index": 2,
+          "rect": [
+            992,
+            0,
+            496,
+            793
+          ],
+          "content_bbox": [
+            1,
+            232,
+            464,
+            645
+          ],
+          "source_file": "generated-revisions/evelynn_fx_w_mark.png",
+          "source_rect": [
+            991,
+            0,
+            496,
+            793
+          ],
+          "empty": false
+        },
+        {
+          "index": 3,
+          "rect": [
+            1488,
+            0,
+            496,
+            793
+          ],
+          "content_bbox": [
+            13,
+            190,
+            426,
+            712
+          ],
+          "source_file": "generated-revisions/evelynn_fx_w_mark.png",
+          "source_rect": [
+            1487,
+            0,
+            496,
+            793
+          ],
+          "empty": false
+        }
+      ],
+      "source_file": "generated-revisions/evelynn_fx_w_mark.png",
+      "preview_frame_ms": 110
+    },
+    {
+      "file": "evelynn_fx_w_ripen.png",
+      "prompt_number": 19,
+      "title": "：W 印记成熟（2.5 秒时一闪），4 帧",
+      "frame_count": 4,
+      "loop": false,
+      "cell_size": [
+        543,
+        724
+      ],
+      "content_union_bbox": [
+        0,
+        0,
+        543,
+        724
+      ],
+      "image_size": [
+        2172,
+        724
+      ],
+      "requested_image_size": [
+        1024,
+        256
+      ],
+      "game_size": "14",
+      "binding": "view_effects `league_evelynn_w_ripen`（跟随，画在目标头顶）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "content_bbox": [
+            0,
+            7,
+            543,
+            724
+          ],
+          "source_file": "generated-originals/evelynn_fx_w_ripen.png",
+          "source_rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "empty": false
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "content_bbox": [
+            0,
+            9,
+            543,
+            724
+          ],
+          "source_file": "generated-originals/evelynn_fx_w_ripen.png",
+          "source_rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "empty": false
+        },
+        {
+          "index": 2,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "content_bbox": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "source_file": "generated-originals/evelynn_fx_w_ripen.png",
+          "source_rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "empty": false
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "content_bbox": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "source_file": "generated-originals/evelynn_fx_w_ripen.png",
+          "source_rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "empty": false
+        }
+      ],
+      "source_file": "generated-originals/evelynn_fx_w_ripen.png",
+      "preview_frame_ms": 110
+    },
+    {
+      "file": "evelynn_fx_w_ripe.png",
+      "prompt_number": 20,
+      "title": "：W 印记已成熟（目标头顶，循环）：亮粉色的心，4 帧",
+      "frame_count": 4,
+      "loop": true,
+      "cell_size": [
+        496,
+        793
+      ],
+      "content_union_bbox": [
+        3,
+        56,
+        492,
+        769
+      ],
+      "image_size": [
+        1984,
+        793
+      ],
+      "requested_image_size": [
+        1280,
+        288
+      ],
+      "game_size": "10 × 9",
+      "binding": "view_buffs `league_evelynn_w_ripe`（画在目标头顶上方，跟着走）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            496,
+            793
+          ],
+          "content_bbox": [
+            49,
+            170,
+            492,
+            690
+          ],
+          "source_file": "generated-originals/evelynn_fx_w_ripe.png",
+          "source_rect": [
+            0,
+            0,
+            496,
+            793
+          ],
+          "empty": false
+        },
+        {
+          "index": 1,
+          "rect": [
+            496,
+            0,
+            496,
+            793
+          ],
+          "content_bbox": [
+            3,
+            56,
+            488,
+            769
+          ],
+          "source_file": "generated-originals/evelynn_fx_w_ripe.png",
+          "source_rect": [
+            496,
+            0,
+            495,
+            793
+          ],
+          "empty": false
+        },
+        {
+          "index": 2,
+          "rect": [
+            992,
+            0,
+            496,
+            793
+          ],
+          "content_bbox": [
+            50,
+            169,
+            490,
+            698
+          ],
+          "source_file": "generated-originals/evelynn_fx_w_ripe.png",
+          "source_rect": [
+            991,
+            0,
+            496,
+            793
+          ],
+          "empty": false
+        },
+        {
+          "index": 3,
+          "rect": [
+            1488,
+            0,
+            496,
+            793
+          ],
+          "content_bbox": [
+            43,
+            132,
+            428,
+            728
+          ],
+          "source_file": "generated-originals/evelynn_fx_w_ripe.png",
+          "source_rect": [
+            1487,
+            0,
+            496,
+            793
+          ],
+          "empty": false
+        }
+      ],
+      "source_file": "generated-originals/evelynn_fx_w_ripe.png",
+      "preview_frame_ms": 110
+    },
+    {
+      "file": "evelynn_fx_w_pop.png",
+      "prompt_number": 21,
+      "title": "：W 魅惑触发：心碎开（目标身上），5 帧",
+      "frame_count": 5,
+      "loop": false,
+      "cell_size": [
+        397,
+        793
+      ],
+      "content_union_bbox": [
+        0,
+        9,
+        397,
+        775
+      ],
+      "image_size": [
+        1985,
+        793
+      ],
+      "requested_image_size": [
+        1280,
+        256
+      ],
+      "game_size": "20",
+      "binding": "view_effects `league_evelynn_w_pop`（跟随，画在人物上面）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            397,
+            793
+          ],
+          "content_bbox": [
+            18,
+            21,
+            397,
+            754
+          ],
+          "source_file": "generated-originals/evelynn_fx_w_pop.png",
+          "source_rect": [
+            0,
+            0,
+            397,
+            793
+          ],
+          "empty": false
+        },
+        {
+          "index": 1,
+          "rect": [
+            397,
+            0,
+            397,
+            793
+          ],
+          "content_bbox": [
+            0,
+            19,
+            395,
+            769
+          ],
+          "source_file": "generated-originals/evelynn_fx_w_pop.png",
+          "source_rect": [
+            397,
+            0,
+            396,
+            793
+          ],
+          "empty": false
+        },
+        {
+          "index": 2,
+          "rect": [
+            794,
+            0,
+            397,
+            793
+          ],
+          "content_bbox": [
+            0,
+            9,
+            386,
+            775
+          ],
+          "source_file": "generated-originals/evelynn_fx_w_pop.png",
+          "source_rect": [
+            793,
+            0,
+            397,
+            793
+          ],
+          "empty": false
+        },
+        {
+          "index": 3,
+          "rect": [
+            1191,
+            0,
+            397,
+            793
+          ],
+          "content_bbox": [
+            2,
+            31,
+            394,
+            757
+          ],
+          "source_file": "generated-originals/evelynn_fx_w_pop.png",
+          "source_rect": [
+            1190,
+            0,
+            396,
+            793
+          ],
+          "empty": false
+        },
+        {
+          "index": 4,
+          "rect": [
+            1588,
+            0,
+            397,
+            793
+          ],
+          "content_bbox": [
+            1,
+            19,
+            367,
+            740
+          ],
+          "source_file": "generated-originals/evelynn_fx_w_pop.png",
+          "source_rect": [
+            1586,
+            0,
+            397,
+            793
+          ],
+          "empty": false
+        }
+      ],
+      "source_file": "generated-originals/evelynn_fx_w_pop.png",
+      "preview_frame_ms": 110
+    },
+    {
+      "file": "evelynn_fx_w_charmed.png",
+      "prompt_number": 22,
+      "title": "：被魅惑（目标头顶，魅惑持续时间里循环）：转圈的小心，6 帧",
+      "frame_count": 6,
+      "loop": true,
+      "cell_size": [
+        319,
+        823
+      ],
+      "content_union_bbox": [
+        1,
+        120,
+        319,
+        752
+      ],
+      "image_size": [
+        1914,
+        823
+      ],
+      "requested_image_size": [
+        1680,
+        120
+      ],
+      "game_size": "14 × 6",
+      "binding": "view_buffs `league_evelynn_w_charmed`（画在目标头顶上方，跟着走）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            319,
+            823
+          ],
+          "content_bbox": [
+            21,
+            126,
+            317,
+            678
+          ],
+          "source_file": "generated-originals/evelynn_fx_w_charmed.png",
+          "source_rect": [
+            0,
+            0,
+            319,
+            823
+          ],
+          "empty": false
+        },
+        {
+          "index": 1,
+          "rect": [
+            319,
+            0,
+            319,
+            823
+          ],
+          "content_bbox": [
+            1,
+            152,
+            311,
+            628
+          ],
+          "source_file": "generated-originals/evelynn_fx_w_charmed.png",
+          "source_rect": [
+            319,
+            0,
+            318,
+            823
+          ],
+          "empty": false
+        },
+        {
+          "index": 2,
+          "rect": [
+            638,
+            0,
+            319,
+            823
+          ],
+          "content_bbox": [
+            5,
+            129,
+            319,
+            752
+          ],
+          "source_file": "generated-originals/evelynn_fx_w_charmed.png",
+          "source_rect": [
+            637,
+            0,
+            319,
+            823
+          ],
+          "empty": false
+        },
+        {
+          "index": 3,
+          "rect": [
+            957,
+            0,
+            319,
+            823
+          ],
+          "content_bbox": [
+            1,
+            120,
+            313,
+            676
+          ],
+          "source_file": "generated-originals/evelynn_fx_w_charmed.png",
+          "source_rect": [
+            956,
+            0,
+            319,
+            823
+          ],
+          "empty": false
+        },
+        {
+          "index": 4,
+          "rect": [
+            1276,
+            0,
+            319,
+            823
+          ],
+          "content_bbox": [
+            3,
+            148,
+            318,
+            750
+          ],
+          "source_file": "generated-originals/evelynn_fx_w_charmed.png",
+          "source_rect": [
+            1275,
+            0,
+            318,
+            823
+          ],
+          "empty": false
+        },
+        {
+          "index": 5,
+          "rect": [
+            1595,
+            0,
+            319,
+            823
+          ],
+          "content_bbox": [
+            1,
+            172,
+            303,
+            670
+          ],
+          "source_file": "generated-originals/evelynn_fx_w_charmed.png",
+          "source_rect": [
+            1593,
+            0,
+            319,
+            823
+          ],
+          "empty": false
+        }
+      ],
+      "source_file": "generated-originals/evelynn_fx_w_charmed.png",
+      "preview_frame_ms": 110
+    },
+    {
+      "file": "evelynn_fx_w_shred.png",
+      "prompt_number": 23,
+      "title": "：魔抗被削（目标脚下，循环 4 秒），4 帧",
+      "frame_count": 4,
+      "loop": true,
+      "cell_size": [
+        543,
+        724
+      ],
+      "content_union_bbox": [
+        3,
+        84,
+        541,
+        724
+      ],
+      "image_size": [
+        2172,
+        724
+      ],
+      "requested_image_size": [
+        1280,
+        120
+      ],
+      "game_size": "16 × 6",
+      "binding": "view_buffs `league_evelynn_w_shred`（画在脚下，跟着走）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "content_bbox": [
+            21,
+            120,
+            537,
+            704
+          ],
+          "source_file": "generated-originals/evelynn_fx_w_shred.png",
+          "source_rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "empty": false
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "content_bbox": [
+            3,
+            95,
+            541,
+            692
+          ],
+          "source_file": "generated-originals/evelynn_fx_w_shred.png",
+          "source_rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "empty": false
+        },
+        {
+          "index": 2,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "content_bbox": [
+            5,
+            95,
+            539,
+            700
+          ],
+          "source_file": "generated-originals/evelynn_fx_w_shred.png",
+          "source_rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "empty": false
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "content_bbox": [
+            13,
+            84,
+            529,
+            724
+          ],
+          "source_file": "generated-originals/evelynn_fx_w_shred.png",
+          "source_rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "empty": false
+        }
+      ],
+      "source_file": "generated-originals/evelynn_fx_w_shred.png",
+      "preview_frame_ms": 110
+    },
+    {
+      "file": "evelynn_fx_sh_in.png",
+      "prompt_number": 24,
+      "title": "：被动「恶魔魅影」：进入魅影（她身上），5 帧",
+      "frame_count": 5,
+      "loop": false,
+      "cell_size": [
+        471,
+        836
+      ],
+      "content_union_bbox": [
+        25,
+        65,
+        446,
+        780
+      ],
+      "image_size": [
+        2355,
+        836
+      ],
+      "requested_image_size": [
+        1440,
+        320
+      ],
+      "game_size": "36 × 40",
+      "binding": "view_buffs `league_evelynn_shade`（ThreePhase 的 pre_tag，画在她身上，z 在人物后面）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            471,
+            836
+          ],
+          "content_bbox": [
+            46,
+            71,
+            446,
+            768
+          ],
+          "source_file": "generated-originals/evelynn_fx_sh_in.png",
+          "source_rect": [
+            0,
+            0,
+            421,
+            748
+          ],
+          "empty": false
+        },
+        {
+          "index": 1,
+          "rect": [
+            471,
+            0,
+            471,
+            836
+          ],
+          "content_bbox": [
+            38,
+            102,
+            445,
+            774
+          ],
+          "source_file": "generated-originals/evelynn_fx_sh_in.png",
+          "source_rect": [
+            421,
+            0,
+            420,
+            748
+          ],
+          "empty": false
+        },
+        {
+          "index": 2,
+          "rect": [
+            942,
+            0,
+            471,
+            836
+          ],
+          "content_bbox": [
+            25,
+            65,
+            446,
+            768
+          ],
+          "source_file": "generated-originals/evelynn_fx_sh_in.png",
+          "source_rect": [
+            841,
+            0,
+            421,
+            748
+          ],
+          "empty": false
+        },
+        {
+          "index": 3,
+          "rect": [
+            1413,
+            0,
+            471,
+            836
+          ],
+          "content_bbox": [
+            25,
+            88,
+            445,
+            770
+          ],
+          "source_file": "generated-originals/evelynn_fx_sh_in.png",
+          "source_rect": [
+            1262,
+            0,
+            420,
+            748
+          ],
+          "empty": false
+        },
+        {
+          "index": 4,
+          "rect": [
+            1884,
+            0,
+            471,
+            836
+          ],
+          "content_bbox": [
+            51,
+            94,
+            420,
+            780
+          ],
+          "source_file": "generated-revisions/evelynn_fx_sh_loop.png",
+          "source_rect": [
+            0,
+            0,
+            369,
+            724
+          ],
+          "empty": false
+        }
+      ],
+      "source_file": "generated-originals/evelynn_fx_sh_in.png",
+      "preview_frame_ms": 110
+    },
+    {
+      "file": "evelynn_fx_sh_loop.png",
+      "prompt_number": 25,
+      "title": "：魅影中（她身上循环），6 帧",
+      "frame_count": 6,
+      "loop": true,
+      "cell_size": [
+        471,
+        836
+      ],
+      "content_union_bbox": [
+        51,
+        75,
+        420,
+        780
+      ],
+      "image_size": [
+        2826,
+        836
+      ],
+      "requested_image_size": [
+        1728,
+        320
+      ],
+      "game_size": "36 × 40",
+      "binding": "view_buffs `league_evelynn_shade`（ThreePhase 的 loop_tag）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            471,
+            836
+          ],
+          "content_bbox": [
+            51,
+            94,
+            420,
+            780
+          ],
+          "source_file": "generated-revisions/evelynn_fx_sh_loop.png",
+          "source_rect": [
+            0,
+            0,
+            369,
+            724
+          ],
+          "empty": false
+        },
+        {
+          "index": 1,
+          "rect": [
+            471,
+            0,
+            471,
+            836
+          ],
+          "content_bbox": [
+            58,
+            113,
+            413,
+            780
+          ],
+          "source_file": "generated-revisions/evelynn_fx_sh_loop.png",
+          "source_rect": [
+            369,
+            0,
+            355,
+            724
+          ],
+          "empty": false
+        },
+        {
+          "index": 2,
+          "rect": [
+            942,
+            0,
+            471,
+            836
+          ],
+          "content_bbox": [
+            54,
+            105,
+            416,
+            780
+          ],
+          "source_file": "generated-revisions/evelynn_fx_sh_loop.png",
+          "source_rect": [
+            724,
+            0,
+            362,
+            724
+          ],
+          "empty": false
+        },
+        {
+          "index": 3,
+          "rect": [
+            1413,
+            0,
+            471,
+            836
+          ],
+          "content_bbox": [
+            54,
+            75,
+            416,
+            780
+          ],
+          "source_file": "generated-revisions/evelynn_fx_sh_loop.png",
+          "source_rect": [
+            1086,
+            0,
+            362,
+            724
+          ],
+          "empty": false
+        },
+        {
+          "index": 4,
+          "rect": [
+            1884,
+            0,
+            471,
+            836
+          ],
+          "content_bbox": [
+            54,
+            137,
+            416,
+            780
+          ],
+          "source_file": "generated-revisions/evelynn_fx_sh_loop.png",
+          "source_rect": [
+            1448,
+            0,
+            362,
+            724
+          ],
+          "empty": false
+        },
+        {
+          "index": 5,
+          "rect": [
+            2355,
+            0,
+            471,
+            836
+          ],
+          "content_bbox": [
+            54,
+            121,
+            412,
+            758
+          ],
+          "source_file": "generated-revisions/evelynn_fx_sh_loop.png",
+          "source_rect": [
+            1810,
+            0,
+            362,
+            724
+          ],
+          "empty": false
+        }
+      ],
+      "source_file": "generated-revisions/evelynn_fx_sh_loop.png",
+      "preview_frame_ms": 110
+    },
+    {
+      "file": "evelynn_fx_sh_out.png",
+      "prompt_number": 26,
+      "title": "：离开魅影（她身上），4 帧",
+      "frame_count": 4,
+      "loop": false,
+      "cell_size": [
+        471,
+        836
+      ],
+      "content_union_bbox": [
+        0,
+        23,
+        465,
+        836
+      ],
+      "image_size": [
+        1884,
+        836
+      ],
+      "requested_image_size": [
+        1152,
+        320
+      ],
+      "game_size": "36 × 40",
+      "binding": "view_buffs `league_evelynn_shade`（ThreePhase 的 remove_tag）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            471,
+            836
+          ],
+          "content_bbox": [
+            51,
+            94,
+            420,
+            780
+          ],
+          "source_file": "generated-revisions/evelynn_fx_sh_loop.png",
+          "source_rect": [
+            0,
+            0,
+            369,
+            724
+          ],
+          "empty": false
+        },
+        {
+          "index": 1,
+          "rect": [
+            471,
+            0,
+            471,
+            836
+          ],
+          "content_bbox": [
+            0,
+            33,
+            461,
+            836
+          ],
+          "source_file": "generated-originals/evelynn_fx_sh_out.png",
+          "source_rect": [
+            470,
+            0,
+            470,
+            836
+          ],
+          "empty": false
+        },
+        {
+          "index": 2,
+          "rect": [
+            942,
+            0,
+            471,
+            836
+          ],
+          "content_bbox": [
+            4,
+            23,
+            465,
+            836
+          ],
+          "source_file": "generated-originals/evelynn_fx_sh_out.png",
+          "source_rect": [
+            940,
+            0,
+            471,
+            836
+          ],
+          "empty": false
+        },
+        {
+          "index": 3,
+          "rect": [
+            1413,
+            0,
+            471,
+            836
+          ],
+          "content_bbox": [
+            3,
+            87,
+            462,
+            836
+          ],
+          "source_file": "generated-originals/evelynn_fx_sh_out.png",
+          "source_rect": [
+            1411,
+            0,
+            470,
+            836
+          ],
+          "empty": false
+        }
+      ],
+      "source_file": "generated-originals/evelynn_fx_sh_out.png",
+      "preview_frame_ms": 110
+    },
+    {
+      "file": "evelynn_fx_r_cast.png",
+      "prompt_number": 27,
+      "title": "：R 出手：恶魔的爆发（施法者身上），5 帧",
+      "frame_count": 5,
+      "loop": false,
+      "cell_size": [
+        545,
+        793
+      ],
+      "content_union_bbox": [
+        0,
+        9,
+        545,
+        755
+      ],
+      "image_size": [
+        2725,
+        793
+      ],
+      "requested_image_size": [
+        1600,
+        320
+      ],
+      "game_size": "40 × 40",
+      "binding": "view_effects `league_evelynn_r_cast`（施法者身上，不跟随；脚在格子底部往上 8 格的中间）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            545,
+            793
+          ],
+          "content_bbox": [
+            144,
+            137,
+            425,
+            686
+          ],
+          "source_file": "generated-originals/evelynn_fx_r_cast.png",
+          "source_rect": [
+            0,
+            0,
+            306,
+            793
+          ],
+          "empty": false
+        },
+        {
+          "index": 1,
+          "rect": [
+            545,
+            0,
+            545,
+            793
+          ],
+          "content_bbox": [
+            59,
+            35,
+            486,
+            755
+          ],
+          "source_file": "generated-originals/evelynn_fx_r_cast.png",
+          "source_rect": [
+            306,
+            0,
+            427,
+            793
+          ],
+          "empty": false
+        },
+        {
+          "index": 2,
+          "rect": [
+            1090,
+            0,
+            545,
+            793
+          ],
+          "content_bbox": [
+            0,
+            58,
+            545,
+            755
+          ],
+          "source_file": "generated-originals/evelynn_fx_r_cast.png",
+          "source_rect": [
+            733,
+            0,
+            545,
+            793
+          ],
+          "empty": false
+        },
+        {
+          "index": 3,
+          "rect": [
+            1635,
+            0,
+            545,
+            793
+          ],
+          "content_bbox": [
+            92,
+            9,
+            453,
+            737
+          ],
+          "source_file": "generated-originals/evelynn_fx_r_cast.png",
+          "source_rect": [
+            1278,
+            0,
+            361,
+            793
+          ],
+          "empty": false
+        },
+        {
+          "index": 4,
+          "rect": [
+            2180,
+            0,
+            545,
+            793
+          ],
+          "content_bbox": [
+            100,
+            9,
+            430,
+            732
+          ],
+          "source_file": "generated-originals/evelynn_fx_r_cast.png",
+          "source_rect": [
+            1639,
+            0,
+            344,
+            793
+          ],
+          "empty": false
+        }
+      ],
+      "source_file": "generated-originals/evelynn_fx_r_cast.png",
+      "preview_frame_ms": 110
+    },
+    {
+      "file": "evelynn_fx_r_slash.png",
+      "prompt_number": 28,
+      "title": "：R 扇形斩：往前扫出的粉色大斩击（朝右，不循环），6 帧",
+      "frame_count": 6,
+      "loop": false,
+      "cell_size": [
+        390,
+        774
+      ],
+      "content_union_bbox": [
+        0,
+        9,
+        388,
+        742
+      ],
+      "image_size": [
+        2340,
+        774
+      ],
+      "requested_image_size": [
+        2688,
+        320
+      ],
+      "game_size": "56 × 40",
+      "binding": "view_projectiles `league_evelynn_r_slash`（朝右，游戏转到目标方向，上下对称）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            390,
+            774
+          ],
+          "content_bbox": [
+            25,
+            142,
+            226,
+            720
+          ],
+          "source_file": "generated-revisions/evelynn_fx_r_slash_x.png",
+          "source_rect": [
+            0,
+            0,
+            250,
+            774
+          ],
+          "empty": false
+        },
+        {
+          "index": 1,
+          "rect": [
+            390,
+            0,
+            390,
+            774
+          ],
+          "content_bbox": [
+            22,
+            21,
+            388,
+            738
+          ],
+          "source_file": "generated-revisions/evelynn_fx_r_slash_x.png",
+          "source_rect": [
+            250,
+            0,
+            390,
+            774
+          ],
+          "empty": false
+        },
+        {
+          "index": 2,
+          "rect": [
+            780,
+            0,
+            390,
+            774
+          ],
+          "content_bbox": [
+            1,
+            23,
+            380,
+            740
+          ],
+          "source_file": "generated-revisions/evelynn_fx_r_slash_x.png",
+          "source_rect": [
+            640,
+            0,
+            380,
+            774
+          ],
+          "empty": false
+        },
+        {
+          "index": 3,
+          "rect": [
+            1170,
+            0,
+            390,
+            774
+          ],
+          "content_bbox": [
+            0,
+            25,
+            370,
+            742
+          ],
+          "source_file": "generated-revisions/evelynn_fx_r_slash_x.png",
+          "source_rect": [
+            1020,
+            0,
+            370,
+            774
+          ],
+          "empty": false
+        },
+        {
+          "index": 4,
+          "rect": [
+            1560,
+            0,
+            390,
+            774
+          ],
+          "content_bbox": [
+            1,
+            9,
+            338,
+            719
+          ],
+          "source_file": "generated-revisions/evelynn_fx_r_slash_x.png",
+          "source_rect": [
+            1390,
+            0,
+            380,
+            774
+          ],
+          "empty": false
+        },
+        {
+          "index": 5,
+          "rect": [
+            1950,
+            0,
+            390,
+            774
+          ],
+          "content_bbox": null,
+          "source_file": "generated-revisions/evelynn_fx_r_slash_x.png",
+          "source_rect": [
+            1770,
+            0,
+            262,
+            774
+          ],
+          "empty": true
+        }
+      ],
+      "source_file": "generated-revisions/evelynn_fx_r_slash_x.png",
+      "preview_frame_ms": 110
+    },
+    {
+      "file": "evelynn_fx_r_hit.png",
+      "prompt_number": 29,
+      "title": "：R 打中（目标身上），4 帧",
+      "frame_count": 4,
+      "loop": false,
+      "cell_size": [
+        543,
+        724
+      ],
+      "content_union_bbox": [
+        0,
+        8,
+        543,
+        724
+      ],
+      "image_size": [
+        2172,
+        724
+      ],
+      "requested_image_size": [
+        1024,
+        256
+      ],
+      "game_size": "20",
+      "binding": "view_effects `league_evelynn_r_hit`（跟随，画在人物上面）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "content_bbox": [
+            33,
+            37,
+            543,
+            702
+          ],
+          "source_file": "generated-originals/evelynn_fx_r_hit.png",
+          "source_rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "empty": false
+        },
+        {
+          "index": 1,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "content_bbox": [
+            0,
+            28,
+            543,
+            696
+          ],
+          "source_file": "generated-originals/evelynn_fx_r_hit.png",
+          "source_rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "empty": false
+        },
+        {
+          "index": 2,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "content_bbox": [
+            0,
+            29,
+            541,
+            676
+          ],
+          "source_file": "generated-originals/evelynn_fx_r_hit.png",
+          "source_rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "empty": false
+        },
+        {
+          "index": 3,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "content_bbox": [
+            1,
+            8,
+            539,
+            724
+          ],
+          "source_file": "generated-originals/evelynn_fx_r_hit.png",
+          "source_rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "empty": false
+        }
+      ],
+      "source_file": "generated-originals/evelynn_fx_r_hit.png",
+      "preview_frame_ms": 110
+    },
+    {
+      "file": "evelynn_fx_r_blink.png",
+      "prompt_number": 30,
+      "title": "：R 往后闪：原地留下的影子（地上，不跟随），5 帧",
+      "frame_count": 5,
+      "loop": false,
+      "cell_size": [
+        397,
+        793
+      ],
+      "content_union_bbox": [
+        0,
+        19,
+        397,
+        774
+      ],
+      "image_size": [
+        1985,
+        793
+      ],
+      "requested_image_size": [
+        1120,
+        288
+      ],
+      "game_size": "28 × 36",
+      "binding": "view_effects `league_evelynn_r_blink`（施法者身上，不跟随；脚在格子底部往上 8 格的中间）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            397,
+            793
+          ],
+          "content_bbox": [
+            23,
+            66,
+            397,
+            759
+          ],
+          "source_file": "generated-originals/evelynn_fx_r_blink.png",
+          "source_rect": [
+            0,
+            0,
+            397,
+            793
+          ],
+          "empty": false
+        },
+        {
+          "index": 1,
+          "rect": [
+            397,
+            0,
+            397,
+            793
+          ],
+          "content_bbox": [
+            0,
+            19,
+            396,
+            757
+          ],
+          "source_file": "generated-originals/evelynn_fx_r_blink.png",
+          "source_rect": [
+            397,
+            0,
+            396,
+            793
+          ],
+          "empty": false
+        },
+        {
+          "index": 2,
+          "rect": [
+            794,
+            0,
+            397,
+            793
+          ],
+          "content_bbox": [
+            0,
+            29,
+            397,
+            769
+          ],
+          "source_file": "generated-originals/evelynn_fx_r_blink.png",
+          "source_rect": [
+            793,
+            0,
+            397,
+            793
+          ],
+          "empty": false
+        },
+        {
+          "index": 3,
+          "rect": [
+            1191,
+            0,
+            397,
+            793
+          ],
+          "content_bbox": [
+            0,
+            47,
+            396,
+            774
+          ],
+          "source_file": "generated-originals/evelynn_fx_r_blink.png",
+          "source_rect": [
+            1190,
+            0,
+            396,
+            793
+          ],
+          "empty": false
+        },
+        {
+          "index": 4,
+          "rect": [
+            1588,
+            0,
+            397,
+            793
+          ],
+          "content_bbox": [
+            0,
+            102,
+            391,
+            757
+          ],
+          "source_file": "generated-originals/evelynn_fx_r_blink.png",
+          "source_rect": [
+            1586,
+            0,
+            397,
+            793
+          ],
+          "empty": false
+        }
+      ],
+      "source_file": "generated-originals/evelynn_fx_r_blink.png",
+      "preview_frame_ms": 110
+    },
+    {
+      "file": "evelynn_fx_r_land.png",
+      "prompt_number": 31,
+      "title": "：R 闪到的地方：重新出现（她身上，不跟随），4 帧",
+      "frame_count": 4,
+      "loop": false,
+      "cell_size": [
+        584,
+        724
+      ],
+      "content_union_bbox": [
+        0,
+        165,
+        584,
+        700
+      ],
+      "image_size": [
+        2336,
+        724
+      ],
+      "requested_image_size": [
+        1024,
+        256
+      ],
+      "game_size": "28 × 28",
+      "binding": "view_effects `league_evelynn_r_land`（施法者身上，不跟随；脚在格子底部往上 8 格的中间）",
+      "frames": [
+        {
+          "index": 0,
+          "rect": [
+            0,
+            0,
+            584,
+            724
+          ],
+          "content_bbox": [
+            66,
+            245,
+            559,
+            685
+          ],
+          "source_file": "generated-originals/evelynn_fx_r_land.png",
+          "source_rect": [
+            0,
+            0,
+            534,
+            724
+          ],
+          "empty": false
+        },
+        {
+          "index": 1,
+          "rect": [
+            584,
+            0,
+            584,
+            724
+          ],
+          "content_bbox": [
+            28,
+            165,
+            555,
+            670
+          ],
+          "source_file": "generated-originals/evelynn_fx_r_land.png",
+          "source_rect": [
+            534,
+            0,
+            527,
+            724
+          ],
+          "empty": false
+        },
+        {
+          "index": 2,
+          "rect": [
+            1168,
+            0,
+            584,
+            724
+          ],
+          "content_bbox": [
+            0,
+            214,
+            584,
+            700
+          ],
+          "source_file": "generated-originals/evelynn_fx_r_land.png",
+          "source_rect": [
+            1061,
+            0,
+            584,
+            724
+          ],
+          "empty": false
+        },
+        {
+          "index": 3,
+          "rect": [
+            1752,
+            0,
+            584,
+            724
+          ],
+          "content_bbox": [
+            28,
+            222,
+            529,
+            642
+          ],
+          "source_file": "generated-originals/evelynn_fx_r_land.png",
+          "source_rect": [
+            1645,
+            0,
+            527,
+            724
+          ],
+          "empty": false
+        }
+      ],
+      "source_file": "generated-originals/evelynn_fx_r_land.png",
+      "preview_frame_ms": 110
+    }
+  ]
+}

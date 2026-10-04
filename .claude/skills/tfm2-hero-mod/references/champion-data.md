@@ -107,7 +107,13 @@ also means minions and monsters: a non-penetrating skillshot on it stops on the 
   `EnemyChampionRecentlyAttacked`, `AllyOnlySelf`, `AllyChampion`, `AllyNotSelf`,
   `AllyChampionInCC`, `BothWithoutTower`, `BothChampion` (the engine also has `Ally`, `Both`, `None`).
   `EnemyChampionRecentlyAttacked` is an enemy champion that the caster's *team* damaged recently
-  (a per-team timer on the target, `CastingTarget::check`), not one the caster hit itself.
+  (a per-team timer on the target, `CastingTarget::check`), not one the caster hit itself. It is the best stand-in
+  for "a wounded champion" that an execute can have (nothing reads current health): league_darius R on
+  `EnemyChampion` opened fights on champions at full health (players: 「现在AI会满血释放大招」); on
+  `EnemyChampionRecentlyAttacked` the targets at 75% health or more went from 10 of 53 casts to 3 of 52 and those at
+  30% or less from 11 to 20, 4.3-4.4 casts a game either way (12 simulated games, 2026-10-04). Gating it on his own
+  hits instead (league_riven's armed ult, landed by the attack that brings Noxian Might, or the fourth or third hit
+  in 5 s) cut the casts to 2.3-2.5 a game and left the targets' health after the blow where it was (35-45% against 39%).
   `EnemyChampionInCC` / `AllyChampionInCC` is a champion carrying one of six crowd-control states
   *(read from the SDK's game_core: `CastingTarget::check` tests the target's CC list against mask
   0x347)*: airborne (`Airborne`), stun, root (`Bind`), forced movement (`Knockback`, `Pull`, `Grab`),
@@ -524,7 +530,11 @@ when nobody hit her, and 89 ticks after the cast when enemies broke the shield f
 **`WithShield` to the tick** *(SDK simulation, league_kayle)*: a `WithShield` buff stays while any shield on
 the unit holds - also one an ally gave it - and is gone 2 ticks after the hit that breaks the shield, so read it
 with a `Delayed {tick: 2}`. A `FixedAttack` on yourself is scaled by `damaged_reduce` / `damaged_amplify` like any
-damage, and damage a shield absorbs does not count in the simulation's "tank" statistic. A dying caster's
+damage, and damage a shield absorbs does not count in the simulation's "tank" statistic. Separate shields are spent in
+the order they were added, and a 1-tick `Shield` is gone by the end of the tick it was added in (no `EntityShield` event
+shows it) *(SDK simulation, league_kaisa, 2026-10-04: a 39 shield then a 1-tick 100000 one; a hit of 23 left 16, a
+hit of 43 cost no health)*. Damage is floored after the reduction (20.5 x 115 = 2357 under 99% hit for 23).
+A `Damaged` event carries the whole hit, shield-absorbed or not. A dying caster's
 zones and pending `Delayed` effects stop; the respawned hero is a new entity with none of them. Not a zone started
 from a projectile's `end_effects` (or a `Delayed` there): it runs its whole life (league_caitlyn W's traps, thrown as
 projectiles, 2026-10-01; see "A dead caster").
@@ -1198,6 +1208,8 @@ league_kayn (jungle, --lane 1, 2026-10-04, only the Darkin form's W knocks up fo
 base ninja 0.50, league_leesin 1.67, league_vi 2.98, league_amumu 2.83 in the same batch - no change.
 league_twistedfate (mid, --lane 2, 2026-10-04, the gold card's 1.67 s stun, thrown only at champions): 1.23 a game;
 the base lightning mage 3.19 and pyromancer 0.50 in the same batch (league_ahri 1.27 before) - no change.
+league_evelynn (jungle, --lane 1, 2026-10-05, Allure's ripe mark: her next attack charms a champion 1.25 s): 1.81 a
+game; the base ninja 0.50 and league_kayn 1.00 in the same batch - no change.
 league_sett (top, 2026-10-05, Facebreaker's 1 s stun on two or more pulled in - on one too after his R - cast only with a champion near, and R's stun; Yasuo mid): 1.88 a game; the first kit (Facebreaker on waves too) 2.12, the
 base fighter 2.33 and league_darius 1.25 in the same batch - no change.
 
@@ -2741,7 +2753,14 @@ hits herself with a `FixedAttack` 100 times what the shield is measured against 
 (the shield is 20% of 199.5: her hit breaks it once her attack is 200), `hp_ratio` against the level table's maximum
 health for E (level 9) and W (level 12); a `WithShield` flag gone two ticks later means the hit broke the shield, and the
 stage becomes a permanent flag (two passes in a row in a fight, a silent re-read at each life's first cast: death
-clears caster buffs). The probes run in Q and W (skills: no crit roll on the self-hit).
+clears caster buffs). The probes run in Q (a skill: no crit roll on the self-hit). A hit that breaks the shield
+spills the rest into her health: 4-50 a probe, more with health items, and a 250-340 number over her on every Q
+(players: 「卡莎的q有点bug 这么q消耗自己的血」, 2026-10-04). Now a 1-tick soak shield (1000000) follows each probe's
+shield - shields are spent in order and the soak is gone by the end of the tick (section 5, "`WithShield` to the
+tick"), so the flag still reads the probe's shield alone - and the hit is small: 5% of her attack against a shield of
+10, 2% of her maximum health against 32 (level 9) and 37 (level 12), `ceil` of the stat at the threshold since the hit
+is floored; one probe every 15 s instead of 5. Two 18-minute simulations: no health lost to a probe (10 times before),
+the stages at the same levels. league_tristana's probes took the same soak, 2% hits (shields 27 / 32 / 37) and 15 s (2026-10-05: no health lost in two games, 7 and 4 times before); league_kayle's took the soak alone (tools/fix/fix_kayle_probe.py: 60 probe shields; 10 and 9 losses -> 0) - her probes have no damage guard, so a smaller shield would break under an enemy's ordinary hit.
 
 **A dash to a damaged champion, then a shield (league_kaisa R, Killer Instinct).** A `Targeting` cast on
 `EnemyChampionRecentlyAttacked` (100000): the action lasts only the 8-tick launch; at tick 7 the launch burst is left on
@@ -3090,7 +3109,41 @@ stopping `r_stop` (25000) short of the target with the destination mark on the g
 `ult_land` with `r_in` and the gold card locked. Landing 5000 away cost 0.9 deaths a game in the simulation;
 25000 short and a 90 s cooldown kept the help without the dives.
 
-**Damage taken as a resource (league_sett W's Grit; written in a cloud session, not yet run in the SDK simulation).**
+**A shade after a quiet spell (league_evelynn passive, Demon Shade).** Every action but W starts with `act`: it
+refreshes a caster flag `fight` for `idle` (240) ticks, takes the shade off (`shade`, `sh_regen`) and queues a
+`Delayed` of the same length on her (in a self-only `RangeEffect`, so a projectile's hit can queue it too) that enters
+the shade unless `fight` or `shade` is on - only the last action's check finds `fight` gone. Entering: `shade` for the
+poll chain's length, E's cooldown flag off and the empowered whip armed (`e_emp` with a `range` caster buff `e_range`,
+so the AI opens with the dash from farther), the sound, and an `AddCasted` poll (every `poll` 10 ticks for `poll_len`
+600, chained `poll_levels` 3 times by a delayed self `RangeEffect` while she stays in it) that renews `sh_regen` (an
+`hp_regen` buff of `regen` 12: the data reads no current health, so it heals at any health instead of League's
+below-a-threshold regeneration) and, once `lvl` is on, `CasterInvisible` for poll + 4 ticks, so the camouflage lapses
+within a poll after she acts. W does not call `act`: casting it keeps the shade, as in League.
+
+**A level gate read twice (league_evelynn's camouflage from level 5).** The data reads no level past
+`SwitchByLevel3`, so entering the shade runs league_kayle's probe (a 3-tick shield halfway between her level-4 and
+level-5 health against her own hit of 10% of her maximum health, a 2-tick `undying` guarding the rest; then a 99 hit
+held by a 100 shield, so no damage amplification fakes a level). One pass was fooled at level 4 by a monster's hit
+landing in its 2-tick window; now a second pass `probe_gap` (30) ticks later, run only while she is still in the
+shade, has to agree before `lvl` goes on (`Permanent`, until she dies). A `WithShield` flag that holds 2 ticks before
+her own shield means somebody else's shield is on her: the probe waits for the next shade. In the simulation the gate
+opened after level 5 in every seed.
+
+**An ult that waits for her combo (league_evelynn R, Last Caress).** League's R comes after her hits (it deals 2.4x
+to champions below 30% health). The AI casts an ult slot as soon as it meets a champion (and never cast an
+`AllyOnlySelf` slot at all), so the slot - a 3-tick `idle` action on `EnemyChampion` (`r_slot_range` 60000) - only arms
+`r_armed` for `r_arm` (600) ticks, refunding its cooldown (a 3-tick `ult_cooldown_mult` 4900 flag) when the window
+lapses unused. Her attacks fire it: while armed, an attack that is not the empowered whip (`r_skip`: the dash and the R
+pose would clash) checks her recent champion hits - a ladder `h1`..`h4` climbed by a champion-only twin of every
+attack and lasher hit and by every spike sent at a champion, started over after `h_win` (240) ticks without one - and
+fires at an enemy champion within `r_reach` once the ladder reached `r_need` (3), or `r_need_d` (2) with two enemy
+champions within `r_crowd`. Fire: `ult`, untargetable for the cast (`CasterInvisible`, `damaged_reduce` 100,
+`cc_immune`), a `DirDot` cone (radius 45000, `range` 342 = 140 degrees, `Forward` 1000) of 150 + 75% AP plus 35% per
+rung (x2.4 at the top: counted from her own hits, the target's health being unreadable), a `MoveBack` (9000 x 5 ticks)
+away from the champion picked, and the shade 75 ticks later (`act(idle=r_shade)`: League's 1.25 s). The slash's picture
+is a view-only `LinearProjectile` that crawls 30 ticks toward that champion (a slow homing shot would stay in the match).
+
+**Damage taken as a resource (league_sett W's Grit; in the SDK simulation the levels climb in fights, 2026-10-05).**
 League's Grit stores the damage Sett takes. No effect hears damage, but league_sivir E's hit sensor does: a 1-point
 `Shield` (`tick` 36000) on him through a self-only `RangeEffect`, then a caster flag with `WithShield` as its duration
 (`grit_sense`), gone 2 ticks after a hit breaks the point (section 5). His attack and ult start with the check: no
@@ -3110,7 +3163,7 @@ pull is a circle (`Grab` without `tick`, they stop at him) and "both sides" beco
 `SwitchByBuff e_two` in the same tick picks the circle with `Stun` or the one with the slow. A native add-on could
 check the sides (league_camille_wall's way); the data pack keeps the count.
 
-**Throw a champion forward and land on it (league_sett R, The Show Stopper; not yet simulated).** `Targeting` on
+**Throw a champion forward and land on it (league_sett R, The Show Stopper).** `Targeting` on
 `EnemyChampion`: `Stun` on the target from the cast to just after the latest slam and a `cc_immune` caster buff; at
 the throw tick `Knockback {speed 3000, tick 8}` on the target (24000 away from him) and, in the same `Delayed`,
 `MoveToTarget` at the same speed. It homes on the target (league_leesin's QRQ chase), the gap stays while the target
@@ -3118,6 +3171,15 @@ flies and closes once it has landed, so he always lands on a target that has sto
 the slam runs from the dash's `end_effects` (league_malphite R): `ult_slam`, then the crater, a `RangeEffect` round
 him and the thrown champion's own extra share of its maximum health (League scales the slam with the thrown
 champion's bonus health; nothing reads another unit's health).
+
+**Combos from the first skill's flag (league_sett R -> E, E -> W, R -> W; 2026-10-05).** As league_leesin's, the slot
+cast second plays the combo from a caster flag the first one left, and no slot is held: the slam adds `r_combo` and
+`w_combo` (150 ticks), a Facebreaker stun adds `w_combo` (90) only through a `RangeEffect` on `EnemyChampion` round
+him (a stunned wave does not count). Facebreaker in `r_combo` takes the stun branch whatever the count; Haymaker in
+`w_combo` lays its true-damage line as wide as the fist. Each branch removes its flag. Few combos fire by
+themselves (in 10 simulated minutes about one R -> E and two W in `w_combo`); casting Facebreaker on
+`EnemyChampion` instead of `EnemyWithoutTower` mattered more (9 casts, 7 on champions, against 28 and 3.5), and
+together they took him from +0.45 to +0.79 kills a game over two batches (porting-heroes "Balance check").
 
 ## 8. Gotchas
 

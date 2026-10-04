@@ -656,7 +656,7 @@
                   "name": "league_kaisa_probe_cd",
                   "duration": {
                     "Time": {
-                      "tick": 300
+                      "tick": 900
                     }
                   }
                 },
@@ -740,10 +740,17 @@
                                     },
                                     {
                                       "type": "Shield",
-                                      "amount": 39,
+                                      "amount": 10,
                                       "attack_ratio": 0,
                                       "ap_ratio": 0,
                                       "tick": 3
+                                    },
+                                    {
+                                      "type": "Shield",
+                                      "amount": 1000000,
+                                      "attack_ratio": 0,
+                                      "ap_ratio": 0,
+                                      "tick": 1
                                     },
                                     {
                                       "type": "AddCasterBuff",
@@ -768,7 +775,7 @@
                                     {
                                       "type": "FixedAttack",
                                       "damage": 0,
-                                      "attack_ratio": 2000,
+                                      "attack_ratio": 500,
                                       "hp_ratio": 0,
                                       "target_hp_ratio": 0,
                                       "attack_effect_type": "Target"
@@ -902,10 +909,17 @@
                                           },
                                           {
                                             "type": "Shield",
-                                            "amount": 315,
+                                            "amount": 32,
                                             "attack_ratio": 0,
                                             "ap_ratio": 0,
                                             "tick": 3
+                                          },
+                                          {
+                                            "type": "Shield",
+                                            "amount": 1000000,
+                                            "attack_ratio": 0,
+                                            "ap_ratio": 0,
+                                            "tick": 1
                                           },
                                           {
                                             "type": "AddCasterBuff",
@@ -931,7 +945,7 @@
                                             "type": "FixedAttack",
                                             "damage": 0,
                                             "attack_ratio": 0,
-                                            "hp_ratio": 2000,
+                                            "hp_ratio": 200,
                                             "target_hp_ratio": 0,
                                             "attack_effect_type": "Target"
                                           }
@@ -1051,10 +1065,17 @@
                                                                       },
                                                                       {
                                                                         "type": "Shield",
-                                                                        "amount": 369,
+                                                                        "amount": 37,
                                                                         "attack_ratio": 0,
                                                                         "ap_ratio": 0,
                                                                         "tick": 3
+                                                                      },
+                                                                      {
+                                                                        "type": "Shield",
+                                                                        "amount": 1000000,
+                                                                        "attack_ratio": 0,
+                                                                        "ap_ratio": 0,
+                                                                        "tick": 1
                                                                       },
                                                                       {
                                                                         "type": "AddCasterBuff",
@@ -1080,7 +1101,7 @@
                                                                         "type": "FixedAttack",
                                                                         "damage": 0,
                                                                         "attack_ratio": 0,
-                                                                        "hp_ratio": 2000,
+                                                                        "hp_ratio": 200,
                                                                         "target_hp_ratio": 0,
                                                                         "attack_effect_type": "Target"
                                                                       }
@@ -1166,7 +1187,7 @@
                   "name": "league_kaisa_probe_cd",
                   "duration": {
                     "Time": {
-                      "tick": 300
+                      "tick": 900
                     }
                   }
                 },
@@ -1260,10 +1281,17 @@
                                       },
                                       {
                                         "type": "Shield",
-                                        "amount": 369,
+                                        "amount": 37,
                                         "attack_ratio": 0,
                                         "ap_ratio": 0,
                                         "tick": 3
+                                      },
+                                      {
+                                        "type": "Shield",
+                                        "amount": 1000000,
+                                        "attack_ratio": 0,
+                                        "ap_ratio": 0,
+                                        "tick": 1
                                       },
                                       {
                                         "type": "AddCasterBuff",
@@ -1289,7 +1317,7 @@
                                         "type": "FixedAttack",
                                         "damage": 0,
                                         "attack_ratio": 0,
-                                        "hp_ratio": 2000,
+                                        "hp_ratio": 200,
                                         "target_hp_ratio": 0,
                                         "attack_effect_type": "Target"
                                       }
@@ -1437,10 +1465,17 @@
                                     },
                                     {
                                       "type": "Shield",
-                                      "amount": 315,
+                                      "amount": 32,
                                       "attack_ratio": 0,
                                       "ap_ratio": 0,
                                       "tick": 3
+                                    },
+                                    {
+                                      "type": "Shield",
+                                      "amount": 1000000,
+                                      "attack_ratio": 0,
+                                      "ap_ratio": 0,
+                                      "tick": 1
                                     },
                                     {
                                       "type": "AddCasterBuff",
@@ -1466,7 +1501,7 @@
                                       "type": "FixedAttack",
                                       "damage": 0,
                                       "attack_ratio": 0,
-                                      "hp_ratio": 2000,
+                                      "hp_ratio": 200,
                                       "target_hp_ratio": 0,
                                       "attack_effect_type": "Target"
                                     }
@@ -1614,10 +1649,17 @@
                                   },
                                   {
                                     "type": "Shield",
-                                    "amount": 39,
+                                    "amount": 10,
                                     "attack_ratio": 0,
                                     "ap_ratio": 0,
                                     "tick": 3
+                                  },
+                                  {
+                                    "type": "Shield",
+                                    "amount": 1000000,
+                                    "attack_ratio": 0,
+                                    "ap_ratio": 0,
+                                    "tick": 1
                                   },
                                   {
                                     "type": "AddCasterBuff",
@@ -1642,7 +1684,7 @@
                                   {
                                     "type": "FixedAttack",
                                     "damage": 0,
-                                    "attack_ratio": 2000,
+                                    "attack_ratio": 500,
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 0,
                                     "attack_effect_type": "Target"

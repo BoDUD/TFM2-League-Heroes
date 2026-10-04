@@ -379,6 +379,20 @@
         "skill2": "头顶蓝、红、金牌轮换，转到想要的就锁定，下次普攻扔出（另加<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>）：<#ff9028ff>蓝牌<><#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>，技能冷却减半；<#ff9028ff>红牌<>目标周围<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>并<#ef5350ff>减速<>；<#ff9028ff>金牌<><#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>并<#ef5350ff>眩晕1.67秒<>。",
         "ult": "<#ff9028ff>命运<>：所有敌方英雄头顶出现标记。<#ff9028ff>传送之门<>：引导<#ffb900ff>1.5秒<>（被控打断）后传到远处队友正在打的敌方英雄身边，落地锁定<#ff9028ff>金牌<>。身边没有敌人时才会用。"
       },
+      "league_rakan": {
+        "name": "洛",
+        "attack": "掷出羽毛攻击。被动<#ff9028ff>异色羽裳<>：获得<#e8d44dff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>70% 法强<>的<#e8d44dff>护盾<>，破掉<#ffb900ff>12秒<>后再生；攻击和技能每命中一名敌方英雄，再生快<#ffb900ff>1秒<>。",
+        "skill": "掷出羽毛，第一个敌人受到<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 法强<>的<#a974ffff>魔法伤害<>。命中英雄后，<#ffb900ff>3秒<>后或碰到友方英雄时，为自己和身边的友方英雄<#6aff55ff>回复<><#6aff55ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>50% 法强<>生命值。",
+        "skill2": "<#ff9028ff>盛大登场<>：冲向一名敌方英雄，旋上空中，<#ef5350ff>击飞<>周围敌人<#ffb900ff>0.8秒<>并造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法强<>的<#a974ffff>魔法伤害<>；随后<#ff9028ff>轻舞成双<>：飞到最近的友方英雄身边，给他<#e8d44dff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>70% 法强<>的<#e8d44dff>护盾<>（<#ffb900ff>3秒<>）。",
+        "ult": "<#ffb900ff>4秒<>内<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>疾速<>穿梭于敌人之间：碰到的每个敌人受到<#a974ffff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法强<>的<#a974ffff>魔法伤害<>并被<#ef5350ff>魅惑1.25秒<>（每个敌人一次）；碰到第一个英雄后更快。"
+      },
+      "league_evelynn": {
+        "name": "伊芙琳",
+        "attack": "鞭子攻击。<#ff9028ff>恶魔魅影<>：<#ffb900ff>4秒<>不出手（引诱除外）进入魅影：回血，5级起隐身。<#ff9028ff>鞭笞<>：每<#ffb900ff>8秒<>普攻变鞭打，额外<#a974ffff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>和<#ffffffff>3%<>最大生命伤害并加速；出魅影后的第一鞭冲向目标、打穿沿途。",
+        "skill": "鞭子打中第一个敌人，造成<#a974ffff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<><#a974ffff>魔法伤害<>，她接下来3次普攻各多<#a974ffff>15<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>。随后自动射出3根尖刺（优先英雄），各对一条线上的敌人造成<#a974ffff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>。",
+        "skill2": "给一名敌人（优先英雄）挂印记，施放不会现形。<#ffb900ff>2.5秒<>后她下一次打中就<#ef5350ff>魅惑<>：英雄<#ffb900ff>1.25秒<>并削减<#a974ffff>35%魔抗<>，野怪<#ffb900ff>3秒<>并受到<#a974ffff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>。",
+        "ult": "就绪后等她连续打中英雄或被围时释放：前方扇形<#a974ffff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<><#a974ffff>魔法伤害<>，最近每打中英雄一次+<#ffb900ff>35%<>（最多×2.4），期间<#ef5350ff>不可选中<>并向后闪，随后很快重回魅影。"
+      },
       "league_sett": {
         "name": "瑟提",
         "attack": "被动<#ff9028ff>沙场豪情<>：左右拳交替出击，右拳出手更快，额外造成<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>的<#ff9028ff>物理伤害<>；<#ffb900ff>2秒<>不出拳就从左拳重新开始。瑟提的<#6aff55ff>生命回复<>很高。",
@@ -657,6 +671,16 @@
         "skill1": "万能牌",
         "skill2": "选牌",
         "ult": "命运"
+      },
+      "league_rakan": {
+        "skill1": "微光飞翎",
+        "skill2": "盛大登场·轻舞成双",
+        "ult": "惊鸿过隙"
+      },
+      "league_evelynn": {
+        "skill1": "憎恨之刺",
+        "skill2": "引诱",
+        "ult": "最终抚慰"
       },
       "league_sett": {
         "skill1": "强手裂颅",
@@ -1045,6 +1069,20 @@
         "skill2": "頭頂藍、紅、金牌輪換，轉到想要的就鎖定，下次普攻擲出（另加<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>）：<#ff9028ff>藍牌<><#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>，技能冷卻減半；<#ff9028ff>紅牌<>目標周圍<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>並<#ef5350ff>緩速<>；<#ff9028ff>金牌<><#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>並<#ef5350ff>暈眩1.67秒<>。",
         "ult": "<#ff9028ff>命運<>：所有敵方英雄頭頂出現標記。<#ff9028ff>傳送之門<>：引導<#ffb900ff>1.5秒<>（被控打斷）後傳到遠處隊友正在打的敵方英雄身邊，落地鎖定<#ff9028ff>金牌<>。身邊沒有敵人時才會使用。"
       },
+      "league_rakan": {
+        "name": "銳空",
+        "attack": "擲出羽毛攻擊。被動<#ff9028ff>奇異羽篷<>：獲得<#e8d44dff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>70% 魔法強度<>的<#e8d44dff>護盾<>，破掉<#ffb900ff>12秒<>後再生；攻擊和技能每命中一名敵方英雄，再生快<#ffb900ff>1秒<>。",
+        "skill": "擲出羽毛，第一個敵人受到<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 魔法強度<>的<#a974ffff>魔法傷害<>。命中英雄後，<#ffb900ff>3秒<>後或碰到友方英雄時，為自身和身邊友方英雄<#6aff55ff>回復<><#6aff55ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>50% 魔法強度<>生命。",
+        "skill2": "<#ff9028ff>盛大登場<>：衝向一名敵方英雄並旋上空中，<#ef5350ff>擊飛<>周圍敵人<#ffb900ff>0.8秒<>，造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 魔法強度<>的<#a974ffff>魔法傷害<>；隨後<#ff9028ff>戰鬥舞踊<>：飛到最近的友方英雄身邊，提供<#e8d44dff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>70% 魔法強度<>的<#e8d44dff>護盾<>（<#ffb900ff>3秒<>）。",
+        "ult": "<#ffb900ff>4秒<>內<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>疾速<>穿梭於敵人之間：碰到的每個敵人受到<#a974ffff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 魔法強度<>的<#a974ffff>魔法傷害<>並被<#ef5350ff>魅惑1.25秒<>（每個敵人一次）；碰到第一名英雄後更快。"
+      },
+      "league_evelynn": {
+        "name": "伊芙琳",
+        "attack": "鞭擊。<#ff9028ff>魔魅之影<>：<#ffb900ff>4秒<>未出手（咒慾迷塵除外）進入魔魅之影：回復生命，5級起隱身。<#ff9028ff>奪魂鞭索<>：每<#ffb900ff>8秒<>普攻變為鞭打，額外<#a974ffff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>與<#ffffffff>3%<>最大生命傷害並加速；離開魔魅之影後第一鞭衝向目標、擊穿沿途。",
+        "skill": "鞭子擊中第一個敵人，造成<#a974ffff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<><#a974ffff>魔法傷害<>，接下來3次普攻各多<#a974ffff>15<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>。隨後自動射出3根尖刺（優先英雄），各對一條線上的敵人造成<#a974ffff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>。",
+        "skill2": "為一名敵人（優先英雄）施加印記，施放不會現形。<#ffb900ff>2.5秒<>後她下一次擊中即<#ef5350ff>魅惑<>：英雄<#ffb900ff>1.25秒<>並削減<#a974ffff>35%魔抗<>，野怪<#ffb900ff>3秒<>並受到<#a974ffff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>。",
+        "ult": "就緒後待她連續擊中英雄或被包圍時施放：前方扇形<#a974ffff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<><#a974ffff>魔法傷害<>，最近每擊中英雄一次+<#ffb900ff>35%<>（最多×2.4），期間<#ef5350ff>無法被選取<>並向後閃，隨後很快重回魔魅之影。"
+      },
       "league_sett": {
         "name": "賽特",
         "attack": "被動<#ff9028ff>恆毅之泉<>：左右拳交替出擊，右拳出手更快，額外造成<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>的<#ff9028ff>物理傷害<>；<#ffb900ff>2秒<>不出拳就從左拳重新開始。賽特的<#6aff55ff>生命回復<>很高。",
@@ -1323,6 +1361,16 @@
         "skill1": "萬能牌",
         "skill2": "選牌",
         "ult": "命運"
+      },
+      "league_rakan": {
+        "skill1": "癒光飛翎",
+        "skill2": "盛大登場·戰鬥舞踊",
+        "ult": "迷心迅步"
+      },
+      "league_evelynn": {
+        "skill1": "憎恨尖刺",
+        "skill2": "咒慾迷塵",
+        "ult": "殘戮收割"
       },
       "league_sett": {
         "skill1": "強手裂顱",
@@ -1711,6 +1759,20 @@
         "skill2": "Blue, red and gold cards cycle over his head; he locks the one he wants as it comes up and his next attack throws it (plus <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<>): <#ff9028ff>Blue<> <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<> and halves his spell cooldowns; <#ff9028ff>Red<> <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> around the target and <#ef5350ff>slows<>; <#ff9028ff>Gold<> <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> and <#ef5350ff>stuns<> for <#ffb900ff>1.67s<>.",
         "ult": "<#ff9028ff>Destiny<>: every enemy champion is marked. <#ff9028ff>Gate<>: after a <#ffb900ff>1.5s<> channel (crowd control breaks it) he teleports beside a distant enemy champion his team is fighting and lands with a <#ff9028ff>Gold Card<> locked. Used only when no enemy is near him."
       },
+      "league_rakan": {
+        "name": "Rakan",
+        "attack": "Throws a feather. Passive <#ff9028ff>Fey Feathers<>: Rakan holds a <#e8d44dff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>70% AP<> <#e8d44dff>shield<>; <#ffb900ff>12s<> after it breaks it comes back, <#ffb900ff>1s<> sooner for every attack or ability that hits an enemy champion.",
+        "skill": "Rakan flings a feather: the first enemy hit takes <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% AP<> <#a974ffff>magic damage<>. After a champion hit he <#6aff55ff>heals<> himself and nearby allied champions for <#6aff55ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>50% AP<> after <#ffb900ff>3s<>, or as soon as he touches an ally.",
+        "skill2": "<#ff9028ff>Grand Entrance<>: Rakan dashes onto an enemy champion and spirals up, <#ef5350ff>knocking up<> the enemies around him for <#ffb900ff>0.8s<> and dealing <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% AP<> <#a974ffff>magic damage<>; then <#ff9028ff>Battle Dance<>: he flies to the nearest allied champion and gives him a <#e8d44dff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>70% AP<> <#e8d44dff>shield<> for <#ffb900ff>3s<>.",
+        "ult": "For <#ffb900ff>4s<> Rakan <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>darts<> through the enemy team: every enemy he touches takes <#a974ffff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% AP<> <#a974ffff>magic damage<> and is <#ef5350ff>charmed for 1.25s<> (once each). The first champion he touches speeds him up."
+      },
+      "league_evelynn": {
+        "name": "Evelynn",
+        "attack": "Lashes. <#ff9028ff>Demon Shade<>: after <#ffb900ff>4s<> without attacks or spells (Allure excepted) she regenerates and, from level 5, is camouflaged. <#ff9028ff>Whiplash<>: every <#ffb900ff>8s<> her attack whips for <#a974ffff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> and <#ffffffff>3%<> max health and speeds her up; out of the Shade it dashes to the target, hitting all in between.",
+        "skill": "Her lasher hits the first enemy for <#a974ffff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<> <#a974ffff>magic damage<> and her next 3 attacks deal <#a974ffff>15<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> more. Then 3 spikes fire by themselves (champions first), each dealing <#a974ffff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<> to the enemies on its line.",
+        "skill2": "Marks an enemy (champions first) without breaking her Shade. After <#ffb900ff>2.5s<> her next hit <#ef5350ff>charms<> it: champions <#ffb900ff>1.25s<> and <#a974ffff>-35% magic resist<>, monsters <#ffb900ff>3s<> and <#a974ffff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>.",
+        "ult": "Readied, cast once she has hit champions a few times or is surrounded: a cone of <#a974ffff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<> <#a974ffff>magic damage<>, +<#ffb900ff>35%<> for each recent champion hit (up to x2.4); she is <#ef5350ff>untargetable<>, warps back and soon returns to the Shade."
+      },
       "league_sett": {
         "name": "Sett",
         "attack": "Passive <#ff9028ff>Pit Grit<>: Sett's punches alternate left and right. The right punch lands sooner and deals <#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20% AD<> more <#ff9028ff>physical damage<>; after <#ffb900ff>2s<> without a punch he starts again with the left. He has high <#6aff55ff>health regeneration<>.",
@@ -1989,6 +2051,16 @@
         "skill1": "Wild Cards",
         "skill2": "Pick a Card",
         "ult": "Destiny"
+      },
+      "league_rakan": {
+        "skill1": "Gleaming Quill",
+        "skill2": "Grand Entrance + Battle Dance",
+        "ult": "The Quickness"
+      },
+      "league_evelynn": {
+        "skill1": "Hate Spike",
+        "skill2": "Allure",
+        "ult": "Last Caress"
       },
       "league_sett": {
         "skill1": "Facebreaker",
@@ -2377,6 +2449,20 @@
         "skill2": "머리 위에서 파랑·빨강·골드 카드가 바뀌고 원하는 카드가 나오면 고정해 다음 기본 공격으로 던집니다(추가 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<>): <#ff9028ff>파랑<> <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>, 스킬 재사용 대기시간 절반; <#ff9028ff>빨강<> 대상 주변 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> + <#ef5350ff>둔화<>; <#ff9028ff>골드<> <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + <#ffb900ff>1.67초<> <#ef5350ff>기절<>.",
         "ult": "<#ff9028ff>운명<>: 모든 적 챔피언 머리 위에 표식. <#ff9028ff>관문<>: <#ffb900ff>1.5초<> 정신 집중(군중 제어에 끊김) 후 아군이 싸우고 있는 먼 적 챔피언 곁으로 순간이동하고, 착지하면 <#ff9028ff>골드 카드<>를 고정합니다. 주변에 적이 없을 때만 사용합니다."
       },
+      "league_rakan": {
+        "name": "라칸",
+        "attack": "깃털을 던져 공격합니다. 기본 지속 효과 <#ff9028ff>요술 망토<>: <#e8d44dff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>주문력의 70%<>의 <#e8d44dff>보호막<>을 얻고, 깨지면 <#ffb900ff>12초<> 뒤 다시 생깁니다. 기본 공격과 스킬이 적 챔피언에게 맞을 때마다 <#ffb900ff>1초<> 빨라집니다.",
+        "skill": "깃털을 던져 처음 맞은 적에게 <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 80%<>의 <#a974ffff>마법 피해<>를 입힙니다. 챔피언에게 맞으면 <#ffb900ff>3초<> 뒤 또는 아군에게 닿는 즉시 자신과 주변 아군 챔피언의 체력을 <#6aff55ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>주문력의 50%<> <#6aff55ff>회복<>합니다.",
+        "skill2": "<#ff9028ff>화려한 등장<>: 적 챔피언에게 돌진해 회전하며 솟아올라 주변 적을 <#ffb900ff>0.8초<> 동안 <#ef5350ff>에어본<>시키고 <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 70%<>의 <#a974ffff>마법 피해<>를 입힙니다. 이어서 <#ff9028ff>전쟁무도<>: 가장 가까운 아군 챔피언에게 날아가 <#ffb900ff>3초<> 동안 <#e8d44dff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>주문력의 70%<>의 <#e8d44dff>보호막<>을 씌웁니다.",
+        "ult": "<#ffb900ff>4초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>빠르게<> 적진을 누빕니다. 닿은 적마다 <#a974ffff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 70%<>의 <#a974ffff>마법 피해<>를 입히고 <#ef5350ff>1.25초 동안 매혹<>합니다(적마다 한 번). 처음 닿은 챔피언이 그를 더 빠르게 합니다."
+      },
+      "league_evelynn": {
+        "name": "이블린",
+        "attack": "채찍 공격. <#ff9028ff>악의 장막<>: <#ffb900ff>4초<> 동안 공격·스킬을 쓰지 않으면(황홀한 저주 제외) 체력이 회복되고 5레벨부터 위장합니다. <#ff9028ff>채찍유린<>: <#ffb900ff>8초<>마다 기본 공격이 채찍질이 되어 <#a974ffff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>와 최대 체력의 <#ffffffff>3%<> 피해를 주고 빨라집니다. 장막 직후엔 대상에게 돌진하며 경로의 적을 모두 칩니다.",
+        "skill": "채찍이 첫 적에게 <#a974ffff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>의 <#a974ffff>마법 피해<>를 주고 다음 기본 공격 3회가 <#a974ffff>15<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> 더 강해집니다. 이어서 가시 3개가 자동 발사되어(챔피언 우선) 직선상의 적에게 각각 <#a974ffff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>.",
+        "skill2": "적 하나(챔피언 우선)에 표식을 남기며 장막이 풀리지 않습니다. <#ffb900ff>2.5초<> 뒤 다음 공격이 적중하면 <#ef5350ff>매혹<>: 챔피언 <#ffb900ff>1.25초<> + <#a974ffff>마법 저항력 35% 감소<>, 몬스터 <#ffb900ff>3초<> + <#a974ffff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>.",
+        "ult": "준비된 뒤 챔피언을 여러 번 맞히거나 포위되면 시전: 전방 부채꼴에 <#a974ffff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<>의 <#a974ffff>마법 피해<>, 최근 챔피언 적중마다 +<#ffb900ff>35%<>(최대 x2.4). <#ef5350ff>대상으로 지정 불가<> 상태로 뒤로 순간이동하고 곧 장막에 들어갑니다."
+      },
       "league_sett": {
         "name": "세트",
         "attack": "기본 지속 효과 <#ff9028ff>투기장의 투지<>: 왼손과 오른손으로 번갈아 주먹을 날립니다. 오른손은 더 빠르고 <#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<> <#ff9028ff>물리 피해<>를 추가로 입힙니다. <#ffb900ff>2초<> 동안 치지 않으면 왼손부터 다시 시작합니다. <#6aff55ff>체력 재생<>이 높습니다.",
@@ -2655,6 +2741,16 @@
         "skill1": "와일드 카드",
         "skill2": "카드 뽑기",
         "ult": "운명"
+      },
+      "league_rakan": {
+        "skill1": "빛나는 깃털",
+        "skill2": "화려한 등장 + 전쟁무도",
+        "ult": "매혹의 질주"
+      },
+      "league_evelynn": {
+        "skill1": "증오의 가시",
+        "skill2": "황홀한 저주",
+        "ult": "최후의 포옹"
       },
       "league_sett": {
         "skill1": "얼굴 깨기",
@@ -3043,6 +3139,20 @@
         "skill2": "頭上で青・赤・金のカードが切り替わり、欲しいカードで止め次の通常攻撃で投げる(<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力100%<>追加)：<#ff9028ff>青<><#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>、スキルCD半減；<#ff9028ff>赤<>対象周囲に<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>と<#ef5350ff>スロウ<>；<#ff9028ff>金<><#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>と<#ffb900ff>1.67秒<><#ef5350ff>スタン<>。",
         "ult": "<#ff9028ff>デスティニー<>：敵チャンピオン全員に印。<#ff9028ff>ゲート<>：<#ffb900ff>1.5秒<>詠唱(行動妨害で中断)後、味方が戦う遠くの敵チャンピオンの側へテレポートし、着地で<#ff9028ff>ゴールドカード<>を確定。近くに敵がいない時だけ使う。"
       },
+      "league_rakan": {
+        "name": "ラカン",
+        "attack": "羽根を投げて攻撃。パッシブ<#ff9028ff>神秘の翼<>：<#e8d44dff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>魔力の70%<>の<#e8d44dff>シールド<>を得て、壊れると<#ffb900ff>12秒<>後に再生。通常攻撃とスキルが敵チャンピオンに当たるたび<#ffb900ff>1秒<>短縮。",
+        "skill": "羽根を投げ、最初の敵に<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の80%<>の<#a974ffff>魔法ダメージ<>。チャンピオンに当たると<#ffb900ff>3秒<>後か味方に触れた時、自身と周囲の味方チャンピオンを<#6aff55ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>魔力の50%<><#6aff55ff>回復<>。",
+        "skill2": "<#ff9028ff>華麗なる登場<>：敵チャンピオンへ突進して舞い上がり、周囲の敵を<#ffb900ff>0.8秒<><#ef5350ff>ノックアップ<>し<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の70%<>の<#a974ffff>魔法ダメージ<>。続いて<#ff9028ff>バトルダンス<>：最も近い味方チャンピオンへ飛び、<#ffb900ff>3秒<>間<#e8d44dff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>魔力の70%<>の<#e8d44dff>シールド<>。",
+        "ult": "<#ffb900ff>4秒<>間<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>素早く<>敵陣を駆け抜け、触れた敵に<#a974ffff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の70%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>1.25秒の魅了<>（各1回）。最初に触れたチャンピオンでさらに加速。"
+      },
+      "league_evelynn": {
+        "name": "イブリン",
+        "attack": "鞭で攻撃。<#ff9028ff>妖魔の影<>：<#ffb900ff>4秒<>攻撃もスキルもしないと(アリュール除く)影に入り体力回復、レベル5からカモフラージュ。<#ff9028ff>ウィップラッシュ<>：<#ffb900ff>8秒<>ごとに通常攻撃が鞭打ちになり<#a974ffff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>と最大体力の<#ffffffff>3%<>、移動速度上昇。影の直後は対象へ突進し途中の敵も打つ。",
+        "skill": "鞭が最初の敵に<#a974ffff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>の<#a974ffff>魔法ダメージ<>、次の通常攻撃3回は<#a974ffff>15<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>追加。続けて棘を3本自動で放ち(チャンピオン優先)、直線上の敵に各<#a974ffff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>。",
+        "skill2": "敵1体(チャンピオン優先)に印をつける。影は解けない。<#ffb900ff>2.5秒<>後の次の攻撃で<#ef5350ff>魅了<>：チャンピオン<#ffb900ff>1.25秒<>と<#a974ffff>魔法防御-35%<>、モンスター<#ffb900ff>3秒<>と<#a974ffff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>。",
+        "ult": "準備後、チャンピオンに何度か当てるか囲まれると発動：前方扇形に<#a974ffff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<>の<#a974ffff>魔法ダメージ<>、最近のチャンピオン命中ごとに+<#ffb900ff>35%<>(最大x2.4)。<#ef5350ff>対象指定不可<>で後方へ移動し、すぐ影に戻る。"
+      },
       "league_sett": {
         "name": "セト",
         "attack": "パッシブ <#ff9028ff>ファイティングスピリット<>：左右の拳で交互に殴る。右の拳は素早く、<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>の<#ff9028ff>物理ダメージ<>を追加。<#ffb900ff>2秒<>殴らないと左から。<#6aff55ff>体力自動回復<>が高い。",
@@ -3321,6 +3431,16 @@
         "skill1": "ワイルドカード",
         "skill2": "ドロー",
         "ult": "デスティニー"
+      },
+      "league_rakan": {
+        "skill1": "キラリ羽根",
+        "skill2": "華麗なる登場+バトルダンス",
+        "ult": "みんなオレに夢中"
+      },
+      "league_evelynn": {
+        "skill1": "ヘイトスパイク",
+        "skill2": "アリュール",
+        "ult": "ラストカレス"
       },
       "league_sett": {
         "skill1": "フェイスブレイカー",
