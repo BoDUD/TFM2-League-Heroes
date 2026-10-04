@@ -525,21 +525,36 @@ IDLE = {"base": "idle"}
 
 
 def frame(P, pose):
-    if pose.get("base") == "idle":
-        return P.idle.copy()
-    return compose(P, pose)
+    a = P.idle.copy() if pose.get("base") == "idle" else compose(P, pose)
+    return moved(a, pose.get("move", 0))
+
+
+def moved(a, dx):
+    """The whole frame dx columns across (+ forward): the figure steps as one piece, its own legs and all."""
+    if not dx:
+        return a
+    out = np.zeros_like(a)
+    if dx > 0:
+        out[:, dx:] = a[:, :-dx]
+    else:
+        out[:, :dx] = a[:, -dx:]
+    return out
 
 
 # every frame, in the cells table's order (design coordinates; the ring middle of the idle's blade is (47, 80))
 # the unit is placed by its cuff (the far hand) and turned about it: deg + swings the ring down, - up (the idle's ring
 # is 12.5 left of the cuff and 4 lower); the cuff stays within ARM_REACH of the far shoulder (61, 73.5)
 POSES = {
-    "attack": [{"unit": (58.0, 76.5, 0, "front")},                         # 1 the blade drawn back a little
-               {"unit": (55.0, 78.0, -10, "front")},                       # 2 wound back
-               {"hand": (55.0, 79.0, 0), "near": 35, "held": 0},           # 3 flung out of the near hand (release)
-               {"hand": (55.0, 79.0, 0), "near": 40},                      # 4 follow-through, both hands empty
-               {"hand": (57.0, 78.0, 0), "near": 15},                      # 5 recovering
-               IDLE],                                                      # 6 the blade back at the hip
+    # the attack lunges with the throw (「平A的时候没有身体联动 所以看起来僵硬」): League's attack draws back, then drives
+    # forward and lunges (its head -3.5 -2.6 +5.7 +13.7 +13.0 +2.2 px at lunge 0.4); the whole figure - her own legs and
+    # all, not a square redrawn - steps back 1, then forward 1, 2, 2, 1 ("move"). The upper body moved alone over the
+    # idle's legs read as a deformed model (「你改的模型都变形了啊」: a row lower = shorter legs, the hips off the legs).
+    "attack": [{"unit": (58.0, 76.5, 0, "front"), "move": -1},            # 1 the blade drawn back a little
+               {"unit": (55.0, 78.0, -10, "front"), "move": -1},          # 2 wound back
+               {"hand": (55.0, 79.0, 0), "near": 35, "held": 0, "move": 1},   # 3 flung out of the near hand
+               {"hand": (55.0, 79.0, 0), "near": 40, "move": 2},          # 4 follow-through, both hands empty
+               {"hand": (57.0, 78.0, 0), "near": 15, "move": 2},          # 5 recovering
+               {"base": "idle", "move": 1}],                               # 6 the blade back at the hip
     "skill": [{"unit": (55.5, 79.0, 20, "front")},                         # 1 low behind
               {"unit": (54.0, 70.0, -45, "front")},                        # 2 back and up
               {"unit": (56.0, 66.0, -75, "front")},                        # 3 up behind her head

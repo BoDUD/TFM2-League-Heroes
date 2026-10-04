@@ -1196,6 +1196,8 @@ league_zilean (support, --lane 4, 2026-10-03, the double bomb's 1.25 s stun on e
 league_leona 2.19 and the base priest 0.50 in the same batch - no change.
 league_kayn (jungle, --lane 1, 2026-10-04, only the Darkin form's W knocks up for 0.75 s): 1.00 a game; the
 base ninja 0.50, league_leesin 1.67, league_vi 2.98, league_amumu 2.83 in the same batch - no change.
+league_twistedfate (mid, --lane 2, 2026-10-04, the gold card's 1.67 s stun, thrown only at champions): 1.23 a game;
+the base lightning mage 3.19 and pyromancer 0.50 in the same batch (league_ahri 1.27 before) - no change.
 
 **Kill trigger (league_jinx Get Excited!).** No effect fires on a kill, but section 4's facts make one:
 1. Next to the damaging projectile, fire an invisible twin with the same speed and path and
@@ -2491,10 +2493,14 @@ shroud paid out 14-19 times a game, of about 25 casts.
 
 **Team invisibility and a dive from afar (league_nocturne R, Paranoia).** A `Targeting` cast on `EnemyChampion` within
 110000: on tick 8 a `RangeEffect` round him (2000000, `AllyChampion`) makes every allied champion, himself included,
-`Invisible` for 180 ticks, and one on `EnemyChampion` gives every enemy champion the `r_dark` mist (a picture-only
+`Invisible` for 32 ticks (the flight) and a second one in the dive's `end_effects` 20 more on landing (the burst; the
+longer timer wins), and one on `EnemyChampion` gives every enemy champion the `r_dark` mist as long (a picture-only
 buff with a `ThreePhase` view); then `MoveToTarget` (3500 a tick, a 45-tick `cc_immune` caster buff for the flight)
 lands 120 + 120% attack. The invisibility carries the kit: 4 s +2.12, 2 s +0.12, none -1.86 against the base junglers
-(lane 1, seeds 1-12), while halving the passive's heal changed nothing (+2.16); it settled at 3 s.
+(lane 1, seeds 1-12), while halving the passive's heal changed nothing (+2.16); it settled at 3 s. 0.53.2: 3 s outlasted
+the 0.75-s ult, so the team stayed hidden with nothing on screen saying why (the user: 「魔腾不放大的时候也全队隐身」) -
+now only while the ult plays; that cost 1.2 (+0.84 -> -0.35), which R damage (200 + 150%: -0.62) or a 35 s cooldown
+(-0.82) did not buy back, attack did: base 110 and growth 27 (was 100 / 22) +0.88 / +0.61 against +0.84 / +0.99.
 
 **A hook from a raised arm that brings its catch back along its own line (league_blitzcrank Q, Rocket Grab).** A
 `Direction` cast on `EnemyChampion` (range 70000) throws a non-penetrating `LinearProjectile` on `EnemyChampion`
@@ -3048,6 +3054,39 @@ ult keeps its cap) caps each remaining cooldown at cooltime x 100 / (100 + m) (l
 300-tick flags (`r_c1`, `r_c2`) gives the 1st, 2nd and 3rd hit 25, 60 and 110, and any spell cast resets it.
 Ricochet's own cooldown halves while she hunts. A champion killed by her blade renews the hunt (league_jinx's kill
 check: a flag on the champion that her `casted` clears the next tick while he lives; a corpse lob reads it).
+
+**A real card cycle over his head, locked when the wanted card comes up (league_twistedfate W, Pick a Card).**
+The cast (`EnemyWithoutTower`, so waves and camps get cards too) sets `w_shuffle` (360 ticks) and starts an
+`AddCasted` poll every `w_step` (30) ticks that steps the current card - a `w_cur_<card>` flag and its picture over
+his head (`w_show_<card>`, a `view_buffs` entry) with the flip sound. The AI's wish is read at each step: an enemy
+champion within `w_reach` -> gold; two or more units within `w_group_r` of the target (a count ladder `w_g1`,
+`w_g2` made by a `RangeEffect`) -> red; else blue. When the current card is the wished one it locks: the shuffle
+flags go, `w_<card>` (360 ticks) and its blazing picture go on, the lock voice plays. The next attack's throw reads
+`w_<card>` with `SwitchByBuff` and throws that card's homing projectile instead of the plain one; the gold card only
+leaves for an enemy champion within the attack's range + `g_reach` (with none, a plain card flies and gold stays
+locked). Blue's hit puts a 2-tick `skill_cooldown_mult` flag on him (his cooldowns cut, the refund), red's a
+1-tick lob whose zone hurts and slows round the target, gold's a `Stun` with a `ViewEffect` of turning stars for the
+stun's length (every CC needs a mark on the target: the user missed it). Stacked Deck counts every throw (a
+`Permanent` ladder `e1`..`e3`; the fourth adds magic damage and the hand flash).
+
+**Dice on kills (league_twistedfate passive, Loaded Dice).** League's gold cannot be given from data, so a kill
+rolls a small ability power bonus until death. league_jinx's kill check finds the kill (a Q hit reads its own flag
+k_read ticks later; an attack reads once after the card's longest flight); a `Permanent` ladder `d1`..`d5` walks a
+fixed scrambled order of faces (`dice_seq` 4, 1, 6, 3, 5, 2), the face shows as a `ThreePhase` view (pre
+`dice_roll`, loop `dice_k`, remove `dice_out`) on a 54-tick flag, and its ability power (`dice_ap` 0, 0, 1, 1, 1,
+2) is added to a `Permanent` caster buff. Death clears every data buff, so the bonus goes with him (League's
+gold would stay; an add-on could pay real gold through `player_add_gold`).
+
+**A Gate to a fight far away (league_twistedfate R, Destiny / Gate).** No data or native call changes vision, so
+Destiny is a picture: a `RangeEffect` (2000000) puts `r_seen` (360 ticks) with its eye on every enemy champion.
+The Gate is league_ryze R's armed poll: a 3-tick `idle` action on `EnemyChampion` (range 960000) arms an
+`AddCasted` poll that waits while any enemy is within `r_near`, then picks `EnemyChampionRecentlyAttacked` (his
+team's fight) 70000-360000 away and sends a probe `TargetProjectile`; an ally within `r_mate` of that champion
+(`from_projectile`) confirms the fight. Then: the marks, `ult` with `r_cast`, `ult_gate` with `r_gate` for the
+90-tick channel (CC checks every 15 ticks break it: no teleport, no gold card), a beacon `LinearProjectile`
+stopping `r_stop` (25000) short of the target with the destination mark on the ground, a delayed `Teleport` there,
+`ult_land` with `r_in` and the gold card locked. Landing 5000 away cost 0.9 deaths a game in the simulation;
+25000 short and a 90 s cooldown kept the help without the dives.
 
 **Damage taken as a resource (league_sett W's Grit; written in a cloud session, not yet run in the SDK simulation).**
 League's Grit stores the damage Sett takes. No effect hears damage, but league_sivir E's hit sensor does: a 1-point

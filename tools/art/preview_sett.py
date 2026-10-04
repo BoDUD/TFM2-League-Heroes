@@ -180,7 +180,8 @@ def main():
     args = ap.parse_args()
     os.makedirs(T.long_path(args.out), exist_ok=True)
     s = load(CHAMP)
-    print("frames", contact([(s, t["name"], t["name"]) for t in s.tags], os.path.join(args.out, "league_sett_frames.png")))
+    print("frames", contact([(s, t["name"], t["name"]) for t in s.tags],
+                            os.path.join(args.out, "league_sett_frames.png")))
     rows = []
     for name, path in FX.items():
         sp = load(path)

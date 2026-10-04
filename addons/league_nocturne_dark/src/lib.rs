@@ -4,9 +4,12 @@
 //! `mod.override_info` 把主包的魔腾换成 `override/` 里的副本：那条「全体隐身 180 tick」换成本包的
 //! 原生效果 `start`，别的（黑雾、飞扑、伤害、画面、声音）照旧。
 //!
-//! - 模拟里（`start` + 每 tick 的 `tick`，`DARK_T` tick）：魔腾一方的每个英雄，`NEAR` 内没有敌方英雄
+//! - 模拟里（`start` + 每 tick 的 `tick`）：魔腾一方的每个英雄，`NEAR` 内没有敌方英雄
 //!   时隐身 2 tick（每 tick 续上），有敌人贴近就现身——League 里被黑暗笼罩的人视野缩到身边，
 //!   本作没有按队伍改视野的接口，用「贴近才看得见」来做。
+//! - 黑暗只在大招的动作里（v4）：从出手到落地（最长 `FLY_T`），落地（`land`）后再 `LAND_T`（落地爆开的动作）。
+//!   原来固定 180 tick（3 秒），魔腾 0.75 秒就落地爆开完了，之后两秒多看不出在放大、队友却还隐着身
+//!   （用户：「魔腾不放大的时候也全队隐身」，选了「只在大招动作期间隐身」）。
 //! - 鬼影重重（v3，`Paranoia`：每个玩家每 tick 的 AI 输入钩子）：本作的视野是全队共享的——一个敌人贴近，
 //!   整队都看得见，魔腾飞扑落地后连远处的射手都锁他（用户：「梦魇开大时5个隐身别人还可以攻击的到」，模拟里
 //!   R 期间 52 次出手 47 次打魔腾、一半从 6 万外）。League 的鬼影重重是每个敌人只看得见自己身边、没有共享
@@ -30,8 +33,11 @@ use mod_api_stable::*;
 
 const ID: &str = "league_nocturne_dark";
 
-/// 黑暗时长（同主包的隐身 180 tick）。
-pub const DARK_T: usize = 180;
+/// 黑暗从 R 出手算起最长这么久（同主包出手时的隐身）：飞扑最长约 32 tick（每 tick 3500，施放距离 110000）；
+/// 落地时改成再 `LAND_T`。
+pub const FLY_T: usize = 32;
+/// 落地后黑暗再留这么久（同主包落地时的隐身）：落地爆开的动作 ult_hit 20 tick。
+pub const LAND_T: usize = 20;
 /// 敌方英雄这么近才看得见魔腾一方的英雄。
 pub const NEAR: f64 = 40_000.0;
 /// 每 tick 续的隐身时长。
@@ -152,17 +158,32 @@ fn dark_layer(sim: &mut StableSim<'_>, nocturne: usize) {
     sim.play_view_effect(VEIL, nocturne, &at, 0, 0, 0);
 }
 
-/// R 出手：黑暗 `DARK_T` tick，画面暗色叠 `VEIL_LAYERS` 层。
+/// R 出手：黑暗到落地（最长 `FLY_T` tick），画面暗色叠 `VEIL_LAYERS` 层。
 fn start(sim: &mut StableSim<'_>, nocturne: usize) {
     sim.entity_remove_buff(nocturne, ON);
-    sim.add_buff(nocturne, &BuffV1::timed(ON, DARK_T));
+    sim.add_buff(nocturne, &BuffV1::timed(ON, FLY_T));
     let (hidden, allies) = veil(sim, nocturne);
     dark_layer(sim, nocturne);
     for k in 1..VEIL_LAYERS {
         queue(sim, "layer", nocturne, k * VEIL_STEP);
     }
     queue(sim, "tick", nocturne, 1);
-    wlog(format!("{} DARKNESS for {DARK_T} ticks: {hidden} of {allies} allies unseen", head(sim, nocturne)));
+    wlog(format!(
+        "{} DARKNESS until the landing (at most {FLY_T} ticks), then {LAND_T}: {hidden} of {allies} allies unseen",
+        head(sim, nocturne)
+    ));
+}
+
+/// R 落地：黑暗只再留 `LAND_T` tick（落地爆开的动作），之后结束；飞得比 `FLY_T` 久、黑暗已经停了，就从落地再开 `LAND_T`。
+fn land(sim: &mut StableSim<'_>, nocturne: usize) {
+    let running = has_buff(sim, nocturne, ON);
+    sim.entity_remove_buff(nocturne, ON);
+    sim.add_buff(nocturne, &BuffV1::timed(ON, LAND_T));
+    veil(sim, nocturne);
+    if !running {
+        queue(sim, "tick", nocturne, 1);
+    }
+    wlog(format!("{} landed: darkness for {LAND_T} more ticks", head(sim, nocturne)));
 }
 
 /// 每 tick：黑暗还在就重新隐身（贴近的敌人看得见），没了就结束。
@@ -288,6 +309,13 @@ impl StableEffectType for Start {
     }
 }
 
+struct Land;
+impl StableEffectType for Land {
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, caster: usize, _: InputTargetV1) {
+        land(sim, caster);
+    }
+}
+
 struct Tick;
 impl StableEffectType for Tick {
     fn apply(&self, sim: &mut StableSim<'_>, _: u64, caster: usize, _: InputTargetV1) {
@@ -317,10 +345,11 @@ fn init(host: &StableHost) -> StableMod {
     ));
     let mut module = StableMod::new(ID);
     module.add_native_effect(format!("{ID}:start"), Start);
+    module.add_native_effect(format!("{ID}:land"), Land);
     module.add_native_effect(format!("{ID}:tick"), Tick);
     module.add_native_effect(format!("{ID}:layer"), Layer);
     module.add_player_input_ai(Paranoia::default());
-    host.log(LogLevel::Info, "league_nocturne_dark v3 loaded (Nocturne's R darkens the map; enemies hit only what is near).");
+    host.log(LogLevel::Info, "league_nocturne_dark v4 loaded (Nocturne's R darkens the map while he flies and lands; enemies hit only what is near).");
     module
 }
 
