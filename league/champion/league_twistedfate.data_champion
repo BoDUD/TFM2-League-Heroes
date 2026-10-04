@@ -176,6 +176,13 @@
                             {
                               "casting_type": "Targeting",
                               "effect": {
+                                "type": "ViewEffect",
+                                "name": "league_twistedfate_wg_stun"
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
                                 "type": "TargetSfx",
                                 "name": "league_twistedfate_wg_hit"
                               }
@@ -624,6 +631,10 @@
                                       "skill_cooldown_mult": 100
                                     },
                                     "only_to_enemy": false
+                                  },
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "league_twistedfate_wb_back"
                                   }
                                 ]
                               }
@@ -911,6 +922,13 @@
                               "effect": {
                                 "type": "ViewEffect",
                                 "name": "league_twistedfate_wg_hit"
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "ViewEffect",
+                                "name": "league_twistedfate_wg_stun"
                               }
                             },
                             {
@@ -1292,6 +1310,10 @@
                                       "skill_cooldown_mult": 100
                                     },
                                     "only_to_enemy": false
+                                  },
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "league_twistedfate_wb_back"
                                   }
                                 ]
                               }
@@ -4555,6 +4577,14 @@
     },
     {
       "type": "Animation",
+      "name": "league_twistedfate_wb_back",
+      "anim": "asset/league/effects/league_twistedfate_fx",
+      "tag": "wb_back",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
       "name": "league_twistedfate_wr_hit",
       "anim": "asset/league/effects/league_twistedfate_fx",
       "tag": "wr_hit",
@@ -4574,6 +4604,14 @@
       "name": "league_twistedfate_wg_hit",
       "anim": "asset/league/effects/league_twistedfate_fx",
       "tag": "wg_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_twistedfate_wg_stun",
+      "anim": "asset/league/effects/league_twistedfate_fx",
+      "tag": "wg_stun",
       "z": 2,
       "is_follow": true
     },

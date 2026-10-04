@@ -27,5 +27,6 @@
   "r_gate": {"cell": [33, 111], "anchor": [16, 55], "frames": 8},
   "r_dest": {"cell": [43, 31], "anchor": [21, 15], "frames": 6},
   "r_out": {"cell": [41, 107], "anchor": [20, 53], "frames": 5},
-  "r_in": {"cell": [33, 99], "anchor": [16, 49], "frames": 5}
+  "r_in": {"cell": [33, 99], "anchor": [16, 49], "frames": 5},
+  "wg_stun": {"cell": [23, 11], "anchor": [11, 5], "frames": 8}
 }

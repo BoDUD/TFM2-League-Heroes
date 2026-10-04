@@ -7,9 +7,10 @@
   league_twistedfate_effects.png   every effect animation, 3x
   league_twistedfate_showcase.gif  a scripted fight against Darius with Garen behind him, timed like the kit: Twisted Fate
                                    walks in; Pick a Card shuffles blue, red and gold over his head and locks the gold
-                                   card, his next attack throws it and stuns Darius; two cards, then Stacked Deck's
-                                   fourth (the magenta flash at his hand); Wild Cards fly through both; Pick a Card
-                                   again, the red card bursts on the ground under them and slows them; Destiny marks
+                                   card, his next attack throws it and stuns Darius (gold stars over his head); a card;
+                                   the blue card (a blue splash on him: his cooldowns back); Stacked Deck's fourth (the
+                                   magenta flash at his hand); Wild Cards fly through both; Pick a Card again, the red
+                                   card bursts on the ground under them and slows them; Destiny marks
                                    both, the Gate opens round him, its mark on the ground ahead, he vanishes and lands
                                    there with a gold card that finishes Darius - Loaded Dice rolls a 4 over his head; 3x
 """
@@ -114,9 +115,14 @@ def showcase(out, z=3, step=40):
     on(me, small, "w_gold", t, until=t + tick(12))
     hit = attack("wg_card", d, "wg_hit")
     d.holds.append((hit, hit + tick(100)))
-    # two cards, then Stacked Deck's fourth
+    on(d, small, "wg_stun", hit)
+    # a card; Pick a Card again: the blue card comes up first - locked; it hits hard and hands him back his cooldowns
+    # (the blue splash on him); then Stacked Deck's fourth
     attack("a_card", d)
-    attack("a_card", d)
+    shuffle(["blue"])
+    on(me, small, "w_blue", t, until=t + tick(12))
+    hit = attack("wb_card", d, "wb_hit")
+    on(me, small, "wb_back", hit)
     attack("a_card_e", d, "e_hit", e=True)
     # Wild Cards: 115 px at 4 a tick, through both
     q = t + tick(12)

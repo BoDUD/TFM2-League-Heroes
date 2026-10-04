@@ -227,6 +227,48 @@ def from_raw(folder):
         f.write(text)
 
 
+# the gold card's stun mark, drawn here (Codex's pack had none - the user: 「卡牌眩晕后没记号的吗？敌方英雄」; the pack's
+# League heroes all show one: Jax's, Annie's, Vayne's stars over the head): three gold stars turning on a flat ring over
+# the stunned head, the ones in front big and bright, the ones behind small and dim, STUN_N frames a turn; the pack's
+# gold ramp, no outline (light)
+STAR_FRONT = ["..h..", ".hWh.", "hWWWh", ".hWh.", "..h.."]
+STAR_BACK = [".f.", "fhf", ".f."]
+STAR_RGB = {"h": "FFD84E", "W": "FFFFFF", "f": "C07A10"}
+STUN_RX, STUN_RY, STUN_N = 8.0, 2.5, 8
+
+
+def stun_strip():
+    """Writes twistedfate_fx_wg_stun.png (8x) and its anchors entry: STUN_N cells, the ring's middle the anchor."""
+    L, U = 11, 5
+    tw, th = 2 * L + 1, 2 * U + 1
+    out = np.zeros((th, tw * STUN_N, 4), np.uint8)
+    for k in range(STUN_N):
+        cell = np.zeros((th, tw, 4), np.uint8)
+        stars = []
+        for j in range(3):
+            ang = 2 * math.pi * (k / STUN_N + j / 3)
+            stars.append((math.sin(ang), L + STUN_RX * math.cos(ang), U + STUN_RY * math.sin(ang)))
+        for depth, x, y in sorted(stars):                 # the ones behind first
+            spr = STAR_FRONT if depth > -0.2 else STAR_BACK
+            h, w = len(spr), len(spr[0])
+            x0, y0 = int(round(x)) - w // 2, int(round(y)) - h // 2
+            for r, row in enumerate(spr):
+                for c, ch in enumerate(row):
+                    if ch != "." and 0 <= y0 + r < th and 0 <= x0 + c < tw:
+                        cell[y0 + r, x0 + c, :3] = [int(STAR_RGB[ch][i:i + 2], 16) for i in (0, 2, 4)]
+                        cell[y0 + r, x0 + c, 3] = 255
+        out[:, k * tw:(k + 1) * tw] = cell
+    Image.fromarray(np.repeat(np.repeat(out, Z, 0), Z, 1), "RGBA").save(
+        G.lp(os.path.join(SRC, "twistedfate_fx_wg_stun.png")))
+    path = G.lp(os.path.join(SRC, "twistedfate_fx_anchors.json"))
+    with open(path, encoding="utf-8") as f:
+        anchors = json.load(f)
+    anchors["wg_stun"] = {"cell": [tw, th], "anchor": [L, U], "frames": STUN_N}
+    text = "{\n" + ",\n".join(f'  "{k}": {json.dumps(v)}' for k, v in anchors.items()) + "\n}\n"
+    with open(path, "w", encoding="utf-8", newline="\n") as f:
+        f.write(text)
+
+
 def cells(name, n):
     a = np.asarray(Image.open(G.lp(os.path.join(SRC, f"twistedfate_fx_{name}.png"))).convert("RGBA"))
     b = a.reshape(a.shape[0] // Z, Z, a.shape[1] // Z, Z, 4)
@@ -243,6 +285,8 @@ Q_HAND = (11, -8)           # the far hand that throws Q in skill 4
 OVER = (0, -31)             # the lowest row of a picture over the head: 2 px over his hat (the idle's top -29)
 DICE = (0, -36)             # the resting die's middle (dice_faces' lowest row on OVER)
 HIT = (0, -8)               # a hit on the upper body of a 32-44 px unit
+CHEST = (-2, -10)           # his chest (the white shirt under the cravat)
+STUN = (0, -28)             # the stun ring's middle: over the head of a 36-41 px unit
 FEET = (0, 9)               # a ring on the ground round a unit's feet (the ellipse's middle 2 over the soles)
 EMPTY = J.EMPTY
 
@@ -277,6 +321,10 @@ FX = {
     "wb_hit": [("wb_hit", seq(range(5), [40, 50, 60, 70, 80]), [HIT])],
     "wr_hit": [("wr_hit", seq(range(4), [40, 50, 60, 70]), [HIT])],
     "wg_hit": [("wg_hit", seq(range(5), [40, 50, 60, 70, 80]), [HIT])],
+    # the stun: 100 ticks (wg_stun) of stars, two turns
+    "wg_stun": [("wg_stun", seq([k % STUN_N for k in range(16)], [104] * 15 + [107]), [STUN])],
+    # the blue card's refund on him: the blue splash's spray (wb_hit 2-5) over his chest
+    "wb_back": [("wb_hit", seq([1, 2, 3, 4], [50, 60, 70, 80]), [CHEST])],
     "q_cast": [("q_cast", seq(range(4), [30, 40, 50, 60]), [Q_HAND])],
     "q_hit": [("q_hit", seq(range(4), [40, 50, 60, 70]), [HIT])],
     # over the head: the shuffling card (one picture each), the locked card, the slow, Destiny's eye
@@ -327,6 +375,7 @@ def main():
     args = ap.parse_args()
     if args.raw:
         from_raw(args.raw)
+    stun_strip()
     for sheet, table in (("league_twistedfate_fx", FX), ("league_twistedfate_big", BIG)):
         tags = build(table)
         w, h = G.write_sheet(os.path.join(MOD, "effects", sheet), tags)
