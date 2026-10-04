@@ -107,7 +107,13 @@ also means minions and monsters: a non-penetrating skillshot on it stops on the 
   `EnemyChampionRecentlyAttacked`, `AllyOnlySelf`, `AllyChampion`, `AllyNotSelf`,
   `AllyChampionInCC`, `BothWithoutTower`, `BothChampion` (the engine also has `Ally`, `Both`, `None`).
   `EnemyChampionRecentlyAttacked` is an enemy champion that the caster's *team* damaged recently
-  (a per-team timer on the target, `CastingTarget::check`), not one the caster hit itself.
+  (a per-team timer on the target, `CastingTarget::check`), not one the caster hit itself. It is the best stand-in
+  for "a wounded champion" that an execute can have (nothing reads current health): league_darius R on
+  `EnemyChampion` opened fights on champions at full health (players: 「现在AI会满血释放大招」); on
+  `EnemyChampionRecentlyAttacked` the targets at 75% health or more went from 10 of 53 casts to 3 of 52 and those at
+  30% or less from 11 to 20, 4.3-4.4 casts a game either way (12 simulated games, 2026-10-04). Gating it on his own
+  hits instead (league_riven's armed ult, landed by the attack that brings Noxian Might, or the fourth or third hit
+  in 5 s) cut the casts to 2.3-2.5 a game and left the targets' health after the blow where it was (35-45% against 39%).
   `EnemyChampionInCC` / `AllyChampionInCC` is a champion carrying one of six crowd-control states
   *(read from the SDK's game_core: `CastingTarget::check` tests the target's CC list against mask
   0x347)*: airborne (`Airborne`), stun, root (`Bind`), forced movement (`Knockback`, `Pull`, `Grab`),
@@ -524,7 +530,11 @@ when nobody hit her, and 89 ticks after the cast when enemies broke the shield f
 **`WithShield` to the tick** *(SDK simulation, league_kayle)*: a `WithShield` buff stays while any shield on
 the unit holds - also one an ally gave it - and is gone 2 ticks after the hit that breaks the shield, so read it
 with a `Delayed {tick: 2}`. A `FixedAttack` on yourself is scaled by `damaged_reduce` / `damaged_amplify` like any
-damage, and damage a shield absorbs does not count in the simulation's "tank" statistic. A dying caster's
+damage, and damage a shield absorbs does not count in the simulation's "tank" statistic. Separate shields are spent in
+the order they were added, and a 1-tick `Shield` is gone by the end of the tick it was added in (no `EntityShield` event
+shows it) *(SDK simulation, league_kaisa, 2026-10-04: a 39 shield then a 1-tick 100000 one; a hit of 23 left 16, a
+hit of 43 cost no health)*. Damage is floored after the reduction (20.5 x 115 = 2357 under 99% hit for 23).
+A `Damaged` event carries the whole hit, shield-absorbed or not. A dying caster's
 zones and pending `Delayed` effects stop; the respawned hero is a new entity with none of them. Not a zone started
 from a projectile's `end_effects` (or a `Delayed` there): it runs its whole life (league_caitlyn W's traps, thrown as
 projectiles, 2026-10-01; see "A dead caster").
@@ -2739,7 +2749,14 @@ hits herself with a `FixedAttack` 100 times what the shield is measured against 
 (the shield is 20% of 199.5: her hit breaks it once her attack is 200), `hp_ratio` against the level table's maximum
 health for E (level 9) and W (level 12); a `WithShield` flag gone two ticks later means the hit broke the shield, and the
 stage becomes a permanent flag (two passes in a row in a fight, a silent re-read at each life's first cast: death
-clears caster buffs). The probes run in Q and W (skills: no crit roll on the self-hit).
+clears caster buffs). The probes run in Q (a skill: no crit roll on the self-hit). A hit that breaks the shield
+spills the rest into her health: 4-50 a probe, more with health items, and a 250-340 number over her on every Q
+(players: 「卡莎的q有点bug 这么q消耗自己的血」, 2026-10-04). Now a 1-tick soak shield (1000000) follows each probe's
+shield - shields are spent in order and the soak is gone by the end of the tick (section 5, "`WithShield` to the
+tick"), so the flag still reads the probe's shield alone - and the hit is small: 5% of her attack against a shield of
+10, 2% of her maximum health against 32 (level 9) and 37 (level 12), `ceil` of the stat at the threshold since the hit
+is floored; one probe every 15 s instead of 5. Two 18-minute simulations: no health lost to a probe (10 times before),
+the stages at the same levels. league_tristana's and league_kayle's probes still spill (their hits are rarer).
 
 **A dash to a damaged champion, then a shield (league_kaisa R, Killer Instinct).** A `Targeting` cast on
 `EnemyChampionRecentlyAttacked` (100000): the action lasts only the 8-tick launch; at tick 7 the launch burst is left on

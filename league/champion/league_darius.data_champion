@@ -996,7 +996,7 @@
     "cancelable": false,
     "range": 46000,
     "casting_type": "Targeting",
-    "casting_target": "EnemyChampion",
+    "casting_target": "EnemyChampionRecentlyAttacked",
     "attack_type": "Skill",
     "effect": {
       "type": "Combine",
