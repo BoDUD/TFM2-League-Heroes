@@ -6,7 +6,7 @@ use std::collections::HashMap;
 use std::ffi::c_void;
 use std::mem::{size_of, zeroed};
 
-use league_nocturne_dark::{DARK_T, MAP_CENTER, VEIL, VEIL_LAYERS, VEIL_STEP};
+use league_nocturne_dark::{FLY_T, LAND_T, MAP_CENTER, VEIL, VEIL_LAYERS, VEIL_STEP};
 use mod_api_stable::*;
 
 struct Unit {
@@ -220,15 +220,15 @@ fn paranoia_hides_the_team_and_veils_the_map_in_the_sim() {
             run(&mut idle, &fx, 400);
             assert!(idle.views.is_empty() && idle.hidden.is_empty(), "darkness without the R");
 
-            // 开 R：#0、#2 每 tick 隐身，#1 身边有敌人看得见；DARK_T 后结束
+            // 开 R（没落地）：#0、#2 每 tick 隐身，#1 身边有敌人看得见；FLY_T 后结束
             let mut w = world(view);
             call(&mut w, &fx, "league_nocturne_dark:start", 0);
-            for t in 0..DARK_T {
+            for t in 0..FLY_T {
                 run(&mut w, &fx, 1);
                 assert_eq!(w.hidden.get(&t).cloned().unwrap_or_default(), [0, 2], "tick {t}");
             }
             run(&mut w, &fx, 30);
-            assert!((DARK_T + 2..DARK_T + 30).all(|t| !w.hidden.contains_key(&t)), "still hidden after the darkness");
+            assert!((FLY_T + 2..FLY_T + 30).all(|t| !w.hidden.contains_key(&t)), "still hidden after the darkness");
             assert!(w.queue.is_empty());
 
             // 地图暗色：地图中心，叠 VEIL_LAYERS 层、每层隔 VEIL_STEP tick，之后不再播
@@ -241,13 +241,42 @@ fn paranoia_hides_the_team_and_veils_the_map_in_the_sim() {
             }
         }
 
+        // 第 10 tick 落地：黑暗只再留 LAND_T（落地爆开的动作），之后结束
+        let mut w = world(true);
+        call(&mut w, &fx, "league_nocturne_dark:start", 0);
+        run(&mut w, &fx, 10);
+        call(&mut w, &fx, "league_nocturne_dark:land", 0);
+        run(&mut w, &fx, LAND_T + 30);
+        // (the landing tick hides twice: `land` itself and the running chain's `tick`)
+        let seen = |w: &World, t: usize| {
+            let mut v = w.hidden.get(&t).cloned().unwrap_or_default();
+            v.sort();
+            v.dedup();
+            v
+        };
+        assert!((10..10 + LAND_T).all(|t| seen(&w, t) == [0, 2]), "hidden while it lands");
+        assert!((10 + LAND_T + 2..10 + LAND_T + 30).all(|t| !w.hidden.contains_key(&t)), "hidden after the landing");
+        assert!(w.queue.is_empty());
+
+        // 飞得比 FLY_T 久（黑暗已经停了）：落地再黑 LAND_T
+        let mut w = world(true);
+        call(&mut w, &fx, "league_nocturne_dark:start", 0);
+        run(&mut w, &fx, FLY_T + 5);
+        assert!(!w.hidden.contains_key(&(FLY_T + 4)));
+        call(&mut w, &fx, "league_nocturne_dark:land", 0);
+        run(&mut w, &fx, LAND_T + 30);
+        let t0 = FLY_T + 5;
+        assert!((t0..t0 + LAND_T).all(|t| w.hidden.contains_key(&t)), "a late landing did not darken again");
+        assert!((t0 + LAND_T + 2..t0 + LAND_T + 30).all(|t| !w.hidden.contains_key(&t)));
+        assert!(w.queue.is_empty());
+
         // 黑暗中再开一次 R（重置时长）：重新叠一遍暗色，黑暗从第二次算起
         let mut w = world(true);
         call(&mut w, &fx, "league_nocturne_dark:start", 0);
-        run(&mut w, &fx, 100);
+        run(&mut w, &fx, 20);
         call(&mut w, &fx, "league_nocturne_dark:start", 0);
-        run(&mut w, &fx, DARK_T - 2);
-        assert!(w.hidden.contains_key(&(100 + DARK_T - 3)), "the second R did not reset the darkness");
+        run(&mut w, &fx, FLY_T - 2);
+        assert!(w.hidden.contains_key(&(20 + FLY_T - 3)), "the second R did not reset the darkness");
         assert_eq!(w.views.len(), 2 * VEIL_LAYERS);
 
         let text = std::fs::read_to_string(&log).expect("log written");
@@ -255,7 +284,8 @@ fn paranoia_hides_the_team_and_veils_the_map_in_the_sim() {
             let _ = std::fs::remove_file(&log);
         }
         assert!(text.starts_with(&format!("=== league_nocturne_dark v{}", env!("CARGO_PKG_VERSION"))), "{text}");
-        assert!(text.contains("DARKNESS for 180 ticks: 2 of 3 allies unseen"), "{text}");
+        assert!(text.contains("DARKNESS until the landing (at most 32 ticks), then 20: 2 of 3 allies unseen"), "{text}");
+        assert!(text.contains("landed: darkness for 20 more ticks"), "{text}");
         assert!(text.contains("darkness over"), "{text}");
     }
 }
@@ -341,7 +371,7 @@ fn in_the_dark_enemies_hit_only_what_is_near() {
         assert_eq!(think(&mut w, ai, 1, attack(4)), None);
 
         // 黑暗过去：照常
-        run(&mut w, &fx, DARK_T + 5);
+        run(&mut w, &fx, FLY_T + 5);
         assert_eq!(think(&mut w, ai, 4, attack(1)), None);
 
         let text = std::fs::read_to_string(&log).expect("log written");
