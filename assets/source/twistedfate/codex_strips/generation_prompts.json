@@ -1,0 +1,76 @@
+{
+  "execution_method": "native pixel-part articulation and frame-by-frame drawing; exact head/card compositing; no image-generation model invoked in this animation step",
+  "source_brief": "MODEL_STRIPS.md",
+  "animations": {
+    "idle": {
+      "method": "copy supplied idle bytes",
+      "reference_motion_text": "twistedfate_idle.png",
+      "pose_reference": "pose/lol_pose_idle.png",
+      "positions_and_timing": "twistedfate_cells.json",
+      "frame_count": 6
+    },
+    "run": {
+      "method": "approved pixel parts + articulated sleeves/legs + native pixel drawing",
+      "reference_motion_text": "WALK, 8 frames, one seamless loop (League's walk at his base speed: an upright, confident stroll, 1.7 s a cycle): the body upright, the head steady; the fan of cards held at the hip in the near hand, the far arm swinging gently with the step; the long coat swinging behind his legs; in frames 1-4 one foot comes forward, in frames 5-8 the other, the knees passing in frames 2-3 and 6-7 (the legs CROSS - never the same stance in all frames), both legs the same black trousers and brown boots; the body bobs at most 1 square; his head keeps the same place across the cell relative to the standing point in all 8 frames; frame 8 flows into frame 1.",
+      "pose_reference": "pose/lol_pose_run.png",
+      "positions_and_timing": "twistedfate_cells.json",
+      "frame_count": 8
+    },
+    "attack": {
+      "method": "approved pixel parts + articulated sleeves/legs + native pixel drawing",
+      "reference_motion_text": "BASIC ATTACK (he flicks a card), 6 frames: 1 the idle stance; 2 the near hand with the fan draws back across his chest; 3 the wind-up at its fullest, the near elbow raised; 4 THE THROW (the card leaves here): the near arm flung forward to the right at shoulder height, the wrist snapped, the fan still in the hand; 5 the follow-through; 6 back toward the idle stance. The flying card is an effect - do not draw it.",
+      "pose_reference": "pose/lol_pose_attack.png",
+      "positions_and_timing": "twistedfate_cells.json",
+      "frame_count": 6
+    },
+    "skill": {
+      "method": "approved pixel parts + articulated sleeves/legs + native pixel drawing",
+      "reference_motion_text": "WILD CARDS (Q: he throws three cards in a fan), 6 frames: 1 he gathers, the fan raised to his chest; 2 a small hop (1-2 squares off the ground, the SAME legs lifted), the near arm drawn back; 3 landing in a low crouch, the arm far back; 4 THE THROW (the cards leave here): crouched, the near arm swept forward to the right at chest height, the fan spread WIDE in the hand; 5 the follow-through, still low; 6 rising back toward the idle stance. The three flying cards are effects - do not draw them.",
+      "pose_reference": "pose/lol_pose_skill.png",
+      "positions_and_timing": "twistedfate_cells.json",
+      "frame_count": 6
+    },
+    "skill2": {
+      "method": "approved pixel parts + articulated sleeves/legs + native pixel drawing",
+      "reference_motion_text": "PICK A CARD (W: he starts shuffling), 2 frames: 1 the near hand lifts the fan to his chest; 2 he flicks the fan open at the chest, the cards spread. The cards cycling over his head are an effect.",
+      "pose_reference": "pose/lol_pose_skill2.png",
+      "positions_and_timing": "twistedfate_cells.json",
+      "frame_count": 2
+    },
+    "ult": {
+      "method": "approved pixel parts + articulated sleeves/legs + native pixel drawing",
+      "reference_motion_text": "DESTINY (R: he reads the fates), 4 frames: 1 the arms begin to open; 2 both arms spread wide at shoulder height, the fan in the near hand, the far hand open; 3 holding, the chin a little up; 4 holding. The glowing eye and the light are effects.",
+      "pose_reference": "pose/lol_pose_ult.png",
+      "positions_and_timing": "twistedfate_cells.json",
+      "frame_count": 4
+    },
+    "ult_gate": {
+      "method": "approved pixel parts + articulated sleeves/legs + native pixel drawing",
+      "reference_motion_text": "GATE'S CHANNEL (he gathers to teleport), 6 frames, a slow loop: a low crouch, knees bent, the far hand raised beside his face, the fan in the near hand held up in front of his chest; the coat flaring behind him; only a slight sway from frame to frame (1 square at most), frame 6 flowing into frame 1. The gate's swirl around him is an effect.",
+      "pose_reference": "pose/lol_pose_ult_gate.png",
+      "positions_and_timing": "twistedfate_cells.json",
+      "frame_count": 6
+    },
+    "ult_land": {
+      "method": "approved pixel parts + articulated sleeves/legs + native pixel drawing",
+      "reference_motion_text": "GATE'S ARRIVAL, 3 frames: 1 the channel's low crouch; 2 rising, half way; 3 the idle stance.",
+      "pose_reference": "pose/lol_pose_ult_land.png",
+      "positions_and_timing": "twistedfate_cells.json",
+      "frame_count": 3
+    },
+    "hit": {
+      "method": "approved pixel parts + articulated sleeves/legs + native pixel drawing",
+      "reference_motion_text": "HIT, 2 frames: 1 jolted back by a blow: his body and hat pushed back 1-2 squares (to the left), the coat swaying; 2 recovering toward the idle stance.",
+      "pose_reference": "pose/lol_pose_hit.png",
+      "positions_and_timing": "twistedfate_cells.json",
+      "frame_count": 2
+    },
+    "dead": {
+      "method": "approved pixel parts + articulated sleeves/legs + native pixel drawing",
+      "reference_motion_text": "DEATH, 8 frames (League's death): 1-2 struck, he staggers back; 3-4 he stumbles, the hat tipping; 5 he falls to his knees; 6 kneeling, slumping; 7-8 lying on the ground on his side, the hat beside his head (the same pose in 7 and 8); the head stays visible from the 3/4 front (turned down, never upside down). The cards may spill on the feet line, nothing lower.",
+      "pose_reference": "pose/lol_pose_dead.png",
+      "positions_and_timing": "twistedfate_cells.json",
+      "frame_count": 8
+    }
+  }
+}

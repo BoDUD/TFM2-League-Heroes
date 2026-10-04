@@ -14,10 +14,10 @@
     "asset/league/icons/league_twistedfate_ult"
   ],
   "stat": {
-    "attack": 80,
+    "attack": 85,
     "magic_power": 40,
-    "hp": 880,
-    "defence": 20,
+    "hp": 920,
+    "defence": 24,
     "magic_resistance": 22,
     "move_speed": 920,
     "hp_regen": 0,
@@ -25,9 +25,9 @@
     "crit_chance": 0
   },
   "growth": {
-    "attack": 7,
+    "attack": 8,
     "magic_power": 20,
-    "hp": 95,
+    "hp": 100,
     "defence": 7,
     "magic_resistance": 3,
     "move_speed": 10,
@@ -39,7 +39,7 @@
     "action_name": "attack",
     "description": "#asset/base/text/champion?description.league_twistedfate.attack",
     "duration": 26,
-    "cooltime": 72,
+    "cooltime": 66,
     "start_timing": 12,
     "cancelable": true,
     "range": 57500,
@@ -79,15 +79,7 @@
                   "effects": [
                     {
                       "type": "RemoveCasterBuff",
-                      "name": "league_twistedfate_w_gold"
-                    },
-                    {
-                      "type": "RemoveCasterBuff",
                       "name": "league_twistedfate_g_sent"
-                    },
-                    {
-                      "type": "Sfx",
-                      "name": "league_twistedfate_wg_throw"
                     },
                     {
                       "type": "RandomTarget",
@@ -106,6 +98,14 @@
                             }
                           },
                           "only_to_enemy": false
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_twistedfate_w_gold"
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_twistedfate_wg_throw"
                         },
                         {
                           "type": "TargetProjectile",
@@ -129,8 +129,8 @@
                               "casting_type": "Targeting",
                               "effect": {
                                 "type": "ApAttack",
-                                "damage": 15,
-                                "attack_ratio": 50,
+                                "damage": 30,
+                                "attack_ratio": 60,
                                 "hp_ratio": 0,
                                 "can_crit": false
                               }
@@ -139,8 +139,8 @@
                               "casting_type": "Targeting",
                               "effect": {
                                 "type": "ApAttack",
-                                "damage": 50,
-                                "attack_ratio": 40,
+                                "damage": 80,
+                                "attack_ratio": 60,
                                 "hp_ratio": 0,
                                 "can_crit": false
                               }
@@ -163,7 +163,7 @@
                               "casting_type": "Targeting",
                               "effect": {
                                 "type": "Stun",
-                                "duration": 70
+                                "duration": 100
                               }
                             },
                             {
@@ -231,116 +231,108 @@
                         "effects": []
                       },
                       "effect_none": {
-                        "type": "TargetProjectile",
-                        "name": "league_twistedfate_wg_card",
-                        "speed": 5500,
-                        "y_offset": -3000,
-                        "applied_target": "Enemy",
-                        "applied_effects": [
+                        "type": "Combine",
+                        "effects": [
                           {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "Attack",
-                              "damage": 0,
-                              "attack_ratio": 100,
-                              "hp_ratio": 0,
-                              "target_hp_ratio": 0,
-                              "attack_effect_type": "Target"
-                            }
+                            "type": "Sfx",
+                            "name": "league_twistedfate_a_throw"
                           },
                           {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "ApAttack",
-                              "damage": 15,
-                              "attack_ratio": 50,
-                              "hp_ratio": 0,
-                              "can_crit": false
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "ApAttack",
-                              "damage": 50,
-                              "attack_ratio": 40,
-                              "hp_ratio": 0,
-                              "can_crit": false
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "ViewEffect",
-                              "name": "league_twistedfate_e_hit"
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "TargetSfx",
-                              "name": "league_twistedfate_e_hit"
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "Stun",
-                              "duration": 70
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "ViewEffect",
-                              "name": "league_twistedfate_wg_hit"
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "TargetSfx",
-                              "name": "league_twistedfate_wg_hit"
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_twistedfate_k_a"
-                                },
-                                {
-                                  "type": "AddCasterBuff",
-                                  "buff_state": {
-                                    "name": "league_twistedfate_k_a",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 24
-                                      }
+                            "type": "TargetProjectile",
+                            "name": "league_twistedfate_a_card_e",
+                            "speed": 5500,
+                            "y_offset": -3000,
+                            "applied_target": "Enemy",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "Attack",
+                                  "damage": 0,
+                                  "attack_ratio": 100,
+                                  "hp_ratio": 0,
+                                  "target_hp_ratio": 0,
+                                  "attack_effect_type": "Target"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ApAttack",
+                                  "damage": 80,
+                                  "attack_ratio": 60,
+                                  "hp_ratio": 0,
+                                  "can_crit": false
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "league_twistedfate_e_hit"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "TargetSfx",
+                                  "name": "league_twistedfate_e_hit"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "league_twistedfate_a_hit"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "TargetSfx",
+                                  "name": "league_twistedfate_a_hit"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_twistedfate_k_a"
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_twistedfate_k_a",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 24
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
                                     }
-                                  },
-                                  "only_to_enemy": false
+                                  ]
                                 }
-                              ]
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "AddCasted",
-                              "casted_type": "Heal",
-                              "duration": 3,
-                              "period": 1,
-                              "effects": [
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_twistedfate_k_a"
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "AddCasted",
+                                  "casted_type": "Heal",
+                                  "duration": 3,
+                                  "period": 1,
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_twistedfate_k_a"
+                                    }
+                                  ]
                                 }
-                              ]
-                            }
+                              }
+                            ]
                           }
                         ]
                       }
@@ -383,8 +375,8 @@
                             "casting_type": "Targeting",
                             "effect": {
                               "type": "ApAttack",
-                              "damage": 50,
-                              "attack_ratio": 40,
+                              "damage": 80,
+                              "attack_ratio": 60,
                               "hp_ratio": 0,
                               "can_crit": false
                             }
@@ -496,8 +488,8 @@
                                           "casting_type": "Targeting",
                                           "effect": {
                                             "type": "ApAttack",
-                                            "damage": 30,
-                                            "attack_ratio": 60,
+                                            "damage": 50,
+                                            "attack_ratio": 70,
                                             "hp_ratio": 0,
                                             "can_crit": false
                                           }
@@ -564,8 +556,8 @@
                               "casting_type": "Targeting",
                               "effect": {
                                 "type": "ApAttack",
-                                "damage": 40,
-                                "attack_ratio": 80,
+                                "damage": 60,
+                                "attack_ratio": 100,
                                 "hp_ratio": 0,
                                 "can_crit": false
                               }
@@ -574,8 +566,8 @@
                               "casting_type": "Targeting",
                               "effect": {
                                 "type": "ApAttack",
-                                "damage": 50,
-                                "attack_ratio": 40,
+                                "damage": 80,
+                                "attack_ratio": 60,
                                 "hp_ratio": 0,
                                 "can_crit": false
                               }
@@ -708,8 +700,8 @@
                               "casting_type": "Targeting",
                               "effect": {
                                 "type": "ApAttack",
-                                "damage": 50,
-                                "attack_ratio": 40,
+                                "damage": 80,
+                                "attack_ratio": 60,
                                 "hp_ratio": 0,
                                 "can_crit": false
                               }
@@ -851,15 +843,7 @@
                   "effects": [
                     {
                       "type": "RemoveCasterBuff",
-                      "name": "league_twistedfate_w_gold"
-                    },
-                    {
-                      "type": "RemoveCasterBuff",
                       "name": "league_twistedfate_g_sent"
-                    },
-                    {
-                      "type": "Sfx",
-                      "name": "league_twistedfate_wg_throw"
                     },
                     {
                       "type": "RandomTarget",
@@ -878,6 +862,14 @@
                             }
                           },
                           "only_to_enemy": false
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_twistedfate_w_gold"
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_twistedfate_wg_throw"
                         },
                         {
                           "type": "TargetProjectile",
@@ -901,8 +893,8 @@
                               "casting_type": "Targeting",
                               "effect": {
                                 "type": "ApAttack",
-                                "damage": 15,
-                                "attack_ratio": 50,
+                                "damage": 30,
+                                "attack_ratio": 60,
                                 "hp_ratio": 0,
                                 "can_crit": false
                               }
@@ -911,7 +903,7 @@
                               "casting_type": "Targeting",
                               "effect": {
                                 "type": "Stun",
-                                "duration": 70
+                                "duration": 100
                               }
                             },
                             {
@@ -979,92 +971,84 @@
                         "effects": []
                       },
                       "effect_none": {
-                        "type": "TargetProjectile",
-                        "name": "league_twistedfate_wg_card",
-                        "speed": 5500,
-                        "y_offset": -3000,
-                        "applied_target": "Enemy",
-                        "applied_effects": [
+                        "type": "Combine",
+                        "effects": [
                           {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "Attack",
-                              "damage": 0,
-                              "attack_ratio": 100,
-                              "hp_ratio": 0,
-                              "target_hp_ratio": 0,
-                              "attack_effect_type": "Target"
-                            }
+                            "type": "Sfx",
+                            "name": "league_twistedfate_a_throw"
                           },
                           {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "ApAttack",
-                              "damage": 15,
-                              "attack_ratio": 50,
-                              "hp_ratio": 0,
-                              "can_crit": false
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "Stun",
-                              "duration": 70
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "ViewEffect",
-                              "name": "league_twistedfate_wg_hit"
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "TargetSfx",
-                              "name": "league_twistedfate_wg_hit"
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_twistedfate_k_a"
-                                },
-                                {
-                                  "type": "AddCasterBuff",
-                                  "buff_state": {
-                                    "name": "league_twistedfate_k_a",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 24
-                                      }
+                            "type": "TargetProjectile",
+                            "name": "league_twistedfate_a_card",
+                            "speed": 5500,
+                            "y_offset": -3000,
+                            "applied_target": "Enemy",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "Attack",
+                                  "damage": 0,
+                                  "attack_ratio": 100,
+                                  "hp_ratio": 0,
+                                  "target_hp_ratio": 0,
+                                  "attack_effect_type": "Target"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "league_twistedfate_a_hit"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "TargetSfx",
+                                  "name": "league_twistedfate_a_hit"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_twistedfate_k_a"
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_twistedfate_k_a",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 24
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
                                     }
-                                  },
-                                  "only_to_enemy": false
+                                  ]
                                 }
-                              ]
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "AddCasted",
-                              "casted_type": "Heal",
-                              "duration": 3,
-                              "period": 1,
-                              "effects": [
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_twistedfate_k_a"
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "AddCasted",
+                                  "casted_type": "Heal",
+                                  "duration": 3,
+                                  "period": 1,
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_twistedfate_k_a"
+                                    }
+                                  ]
                                 }
-                              ]
-                            }
+                              }
+                            ]
                           }
                         ]
                       }
@@ -1196,8 +1180,8 @@
                                           "casting_type": "Targeting",
                                           "effect": {
                                             "type": "ApAttack",
-                                            "damage": 30,
-                                            "attack_ratio": 60,
+                                            "damage": 50,
+                                            "attack_ratio": 70,
                                             "hp_ratio": 0,
                                             "can_crit": false
                                           }
@@ -1264,8 +1248,8 @@
                               "casting_type": "Targeting",
                               "effect": {
                                 "type": "ApAttack",
-                                "damage": 40,
-                                "attack_ratio": 80,
+                                "damage": 60,
+                                "attack_ratio": 100,
                                 "hp_ratio": 0,
                                 "can_crit": false
                               }
@@ -1871,7 +1855,7 @@
     "action_name": "skill",
     "description": "#asset/base/text/champion?description.league_twistedfate.skill",
     "duration": 24,
-    "cooltime": 360,
+    "cooltime": 240,
     "start_timing": 12,
     "cancelable": false,
     "range": 95000,
@@ -1890,307 +1874,647 @@
           "name": "league_twistedfate_q_cast"
         },
         {
-          "type": "LinearProjectile",
-          "name": "league_twistedfate_q_cards",
-          "penetrate": true,
-          "applied_target": "EnemyWithoutTower",
-          "applied_effects": [
+          "type": "Combine",
+          "effects": [
             {
-              "casting_type": "Targeting",
-              "effect": {
-                "type": "ApAttack",
-                "damage": 70,
-                "attack_ratio": 70,
-                "hp_ratio": 0,
-                "can_crit": false
-              }
+              "type": "RemoveCasterBuff",
+              "name": "league_twistedfate_q_champ"
             },
             {
-              "casting_type": "Targeting",
-              "effect": {
-                "type": "ViewEffect",
-                "name": "league_twistedfate_q_hit"
-              }
-            },
-            {
-              "casting_type": "Targeting",
-              "effect": {
-                "type": "TargetSfx",
-                "name": "league_twistedfate_q_hit"
-              }
-            },
-            {
-              "casting_type": "Targeting",
-              "effect": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_twistedfate_k_q"
+              "type": "RandomTarget",
+              "range": 105000,
+              "casting_target": "EnemyChampion",
+              "from_projectile": false,
+              "effects": [
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_twistedfate_q_champ",
+                    "duration": {
+                      "Time": {
+                        "tick": 1
+                      }
+                    }
                   },
-                  {
-                    "type": "AddCasterBuff",
-                    "buff_state": {
-                      "name": "league_twistedfate_k_q",
-                      "duration": {
-                        "Time": {
-                          "tick": 6
-                        }
+                  "only_to_enemy": false
+                },
+                {
+                  "type": "LinearProjectile",
+                  "name": "league_twistedfate_q_cards",
+                  "penetrate": true,
+                  "applied_target": "EnemyWithoutTower",
+                  "applied_effects": [
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "ApAttack",
+                        "damage": 120,
+                        "attack_ratio": 100,
+                        "hp_ratio": 0,
+                        "can_crit": false
                       }
                     },
-                    "only_to_enemy": false
-                  }
-                ]
-              }
-            },
-            {
-              "casting_type": "Targeting",
-              "effect": {
-                "type": "AddCasted",
-                "casted_type": "Heal",
-                "duration": 3,
-                "period": 1,
-                "effects": [
-                  {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_twistedfate_k_q"
-                  }
-                ]
-              }
-            },
-            {
-              "casting_type": "Targeting",
-              "effect": {
-                "type": "RangeEffect",
-                "shape": {
-                  "Circle": {
-                    "radius": 1000
-                  }
-                },
-                "target": "AllyOnlySelf",
-                "apply_type": "AroundCaster",
-                "effects": [
-                  {
-                    "type": "Delayed",
-                    "tick": 3,
-                    "effects": [
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_twistedfate_k_q",
-                        "effect_buff": {
-                          "type": "Combine",
-                          "effects": [
-                            {
-                              "type": "RemoveCasterBuff",
-                              "name": "league_twistedfate_k_q"
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "ViewEffect",
+                        "name": "league_twistedfate_q_hit"
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "TargetSfx",
+                        "name": "league_twistedfate_q_hit"
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_twistedfate_k_q"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_twistedfate_k_q",
+                              "duration": {
+                                "Time": {
+                                  "tick": 6
+                                }
+                              }
                             },
-                            {
-                              "type": "SwitchByBuff",
-                              "buff_name": "league_twistedfate_d5",
-                              "effect_buff": {
-                                "type": "Combine",
-                                "effects": [
-                                  {
-                                    "type": "RemoveCasterBuff",
-                                    "name": "league_twistedfate_d5"
-                                  },
-                                  {
-                                    "type": "RemoveCasterBuff",
-                                    "name": "league_twistedfate_dice_1"
-                                  },
-                                  {
-                                    "type": "RemoveCasterBuff",
-                                    "name": "league_twistedfate_dice_2"
-                                  },
-                                  {
-                                    "type": "RemoveCasterBuff",
-                                    "name": "league_twistedfate_dice_3"
-                                  },
-                                  {
-                                    "type": "RemoveCasterBuff",
-                                    "name": "league_twistedfate_dice_4"
-                                  },
-                                  {
-                                    "type": "RemoveCasterBuff",
-                                    "name": "league_twistedfate_dice_5"
-                                  },
-                                  {
-                                    "type": "RemoveCasterBuff",
-                                    "name": "league_twistedfate_dice_6"
-                                  },
-                                  {
-                                    "type": "AddCasterBuff",
-                                    "buff_state": {
-                                      "name": "league_twistedfate_dice_2",
-                                      "duration": {
-                                        "Time": {
-                                          "tick": 54
-                                        }
-                                      }
-                                    },
-                                    "only_to_enemy": false
-                                  },
-                                  {
-                                    "type": "Sfx",
-                                    "name": "league_twistedfate_dice"
-                                  }
-                                ]
-                              },
-                              "effect_none": {
+                            "only_to_enemy": false
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "AddCasted",
+                        "casted_type": "Heal",
+                        "duration": 3,
+                        "period": 1,
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_twistedfate_k_q"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 1000
+                          }
+                        },
+                        "target": "AllyOnlySelf",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Delayed",
+                            "tick": 3,
+                            "effects": [
+                              {
                                 "type": "SwitchByBuff",
-                                "buff_name": "league_twistedfate_d4",
+                                "buff_name": "league_twistedfate_k_q",
                                 "effect_buff": {
                                   "type": "Combine",
                                   "effects": [
                                     {
                                       "type": "RemoveCasterBuff",
-                                      "name": "league_twistedfate_d4"
+                                      "name": "league_twistedfate_k_q"
                                     },
                                     {
-                                      "type": "AddCasterBuff",
-                                      "buff_state": {
-                                        "name": "league_twistedfate_d5",
-                                        "duration": "Permanent"
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_twistedfate_d5",
+                                      "effect_buff": {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_twistedfate_d5"
+                                          },
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_twistedfate_dice_1"
+                                          },
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_twistedfate_dice_2"
+                                          },
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_twistedfate_dice_3"
+                                          },
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_twistedfate_dice_4"
+                                          },
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_twistedfate_dice_5"
+                                          },
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_twistedfate_dice_6"
+                                          },
+                                          {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_twistedfate_dice_2",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 54
+                                                }
+                                              }
+                                            },
+                                            "only_to_enemy": false
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_twistedfate_dice"
+                                          }
+                                        ]
                                       },
-                                      "only_to_enemy": false
-                                    },
-                                    {
-                                      "type": "RemoveCasterBuff",
-                                      "name": "league_twistedfate_dice_1"
-                                    },
-                                    {
-                                      "type": "RemoveCasterBuff",
-                                      "name": "league_twistedfate_dice_2"
-                                    },
-                                    {
-                                      "type": "RemoveCasterBuff",
-                                      "name": "league_twistedfate_dice_3"
-                                    },
-                                    {
-                                      "type": "RemoveCasterBuff",
-                                      "name": "league_twistedfate_dice_4"
-                                    },
-                                    {
-                                      "type": "RemoveCasterBuff",
-                                      "name": "league_twistedfate_dice_5"
-                                    },
-                                    {
-                                      "type": "RemoveCasterBuff",
-                                      "name": "league_twistedfate_dice_6"
-                                    },
-                                    {
-                                      "type": "AddCasterBuff",
-                                      "buff_state": {
-                                        "name": "league_twistedfate_dice_5",
-                                        "duration": {
-                                          "Time": {
-                                            "tick": 54
+                                      "effect_none": {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_twistedfate_d4",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_twistedfate_d4"
+                                            },
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_twistedfate_d5",
+                                                "duration": "Permanent"
+                                              },
+                                              "only_to_enemy": false
+                                            },
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_twistedfate_dice_1"
+                                            },
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_twistedfate_dice_2"
+                                            },
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_twistedfate_dice_3"
+                                            },
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_twistedfate_dice_4"
+                                            },
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_twistedfate_dice_5"
+                                            },
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_twistedfate_dice_6"
+                                            },
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_twistedfate_dice_5",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 54
+                                                  }
+                                                }
+                                              },
+                                              "only_to_enemy": false
+                                            },
+                                            {
+                                              "type": "Sfx",
+                                              "name": "league_twistedfate_dice"
+                                            },
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_twistedfate_dice_ap",
+                                                "duration": "Permanent",
+                                                "magic_power": 1
+                                              },
+                                              "only_to_enemy": false
+                                            }
+                                          ]
+                                        },
+                                        "effect_none": {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_twistedfate_d3",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_twistedfate_d3"
+                                              },
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_twistedfate_d4",
+                                                  "duration": "Permanent"
+                                                },
+                                                "only_to_enemy": false
+                                              },
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_twistedfate_dice_1"
+                                              },
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_twistedfate_dice_2"
+                                              },
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_twistedfate_dice_3"
+                                              },
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_twistedfate_dice_4"
+                                              },
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_twistedfate_dice_5"
+                                              },
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_twistedfate_dice_6"
+                                              },
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_twistedfate_dice_3",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 54
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
+                                              },
+                                              {
+                                                "type": "Sfx",
+                                                "name": "league_twistedfate_dice"
+                                              },
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_twistedfate_dice_ap",
+                                                  "duration": "Permanent",
+                                                  "magic_power": 1
+                                                },
+                                                "only_to_enemy": false
+                                              }
+                                            ]
+                                          },
+                                          "effect_none": {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_twistedfate_d2",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_twistedfate_d2"
+                                                },
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_twistedfate_d3",
+                                                    "duration": "Permanent"
+                                                  },
+                                                  "only_to_enemy": false
+                                                },
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_twistedfate_dice_1"
+                                                },
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_twistedfate_dice_2"
+                                                },
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_twistedfate_dice_3"
+                                                },
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_twistedfate_dice_4"
+                                                },
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_twistedfate_dice_5"
+                                                },
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_twistedfate_dice_6"
+                                                },
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_twistedfate_dice_6",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 54
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_twistedfate_dice"
+                                                },
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_twistedfate_dice_ap",
+                                                    "duration": "Permanent",
+                                                    "magic_power": 2
+                                                  },
+                                                  "only_to_enemy": false
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_twistedfate_d1",
+                                              "effect_buff": {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_twistedfate_d1"
+                                                  },
+                                                  {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_twistedfate_d2",
+                                                      "duration": "Permanent"
+                                                    },
+                                                    "only_to_enemy": false
+                                                  },
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_twistedfate_dice_1"
+                                                  },
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_twistedfate_dice_2"
+                                                  },
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_twistedfate_dice_3"
+                                                  },
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_twistedfate_dice_4"
+                                                  },
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_twistedfate_dice_5"
+                                                  },
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_twistedfate_dice_6"
+                                                  },
+                                                  {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_twistedfate_dice_1",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 54
+                                                        }
+                                                      }
+                                                    },
+                                                    "only_to_enemy": false
+                                                  },
+                                                  {
+                                                    "type": "Sfx",
+                                                    "name": "league_twistedfate_dice"
+                                                  }
+                                                ]
+                                              },
+                                              "effect_none": {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_twistedfate_d1",
+                                                      "duration": "Permanent"
+                                                    },
+                                                    "only_to_enemy": false
+                                                  },
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_twistedfate_dice_1"
+                                                  },
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_twistedfate_dice_2"
+                                                  },
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_twistedfate_dice_3"
+                                                  },
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_twistedfate_dice_4"
+                                                  },
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_twistedfate_dice_5"
+                                                  },
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_twistedfate_dice_6"
+                                                  },
+                                                  {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_twistedfate_dice_4",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 54
+                                                        }
+                                                      }
+                                                    },
+                                                    "only_to_enemy": false
+                                                  },
+                                                  {
+                                                    "type": "Sfx",
+                                                    "name": "league_twistedfate_dice"
+                                                  },
+                                                  {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_twistedfate_dice_ap",
+                                                      "duration": "Permanent",
+                                                      "magic_power": 1
+                                                    },
+                                                    "only_to_enemy": false
+                                                  }
+                                                ]
+                                              }
+                                            }
                                           }
                                         }
-                                      },
-                                      "only_to_enemy": false
-                                    },
-                                    {
-                                      "type": "Sfx",
-                                      "name": "league_twistedfate_dice"
-                                    },
-                                    {
-                                      "type": "AddCasterBuff",
-                                      "buff_state": {
-                                        "name": "league_twistedfate_dice_ap",
-                                        "duration": "Permanent",
-                                        "magic_power": 1
-                                      },
-                                      "only_to_enemy": false
+                                      }
                                     }
                                   ]
                                 },
                                 "effect_none": {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "league_twistedfate_d3",
-                                  "effect_buff": {
-                                    "type": "Combine",
-                                    "effects": [
-                                      {
-                                        "type": "RemoveCasterBuff",
-                                        "name": "league_twistedfate_d3"
-                                      },
-                                      {
-                                        "type": "AddCasterBuff",
-                                        "buff_state": {
-                                          "name": "league_twistedfate_d4",
-                                          "duration": "Permanent"
-                                        },
-                                        "only_to_enemy": false
-                                      },
-                                      {
-                                        "type": "RemoveCasterBuff",
-                                        "name": "league_twistedfate_dice_1"
-                                      },
-                                      {
-                                        "type": "RemoveCasterBuff",
-                                        "name": "league_twistedfate_dice_2"
-                                      },
-                                      {
-                                        "type": "RemoveCasterBuff",
-                                        "name": "league_twistedfate_dice_3"
-                                      },
-                                      {
-                                        "type": "RemoveCasterBuff",
-                                        "name": "league_twistedfate_dice_4"
-                                      },
-                                      {
-                                        "type": "RemoveCasterBuff",
-                                        "name": "league_twistedfate_dice_5"
-                                      },
-                                      {
-                                        "type": "RemoveCasterBuff",
-                                        "name": "league_twistedfate_dice_6"
-                                      },
-                                      {
-                                        "type": "AddCasterBuff",
-                                        "buff_state": {
-                                          "name": "league_twistedfate_dice_3",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 54
-                                            }
-                                          }
-                                        },
-                                        "only_to_enemy": false
-                                      },
-                                      {
-                                        "type": "Sfx",
-                                        "name": "league_twistedfate_dice"
-                                      },
-                                      {
-                                        "type": "AddCasterBuff",
-                                        "buff_state": {
-                                          "name": "league_twistedfate_dice_ap",
-                                          "duration": "Permanent",
-                                          "magic_power": 1
-                                        },
-                                        "only_to_enemy": false
-                                      }
-                                    ]
+                                  "type": "Combine",
+                                  "effects": []
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "end_effects": [],
+                  "speed": 4000,
+                  "range": 115000,
+                  "shape": {
+                    "Circle": {
+                      "radius": 9000
+                    }
+                  },
+                  "y_offset": 0
+                }
+              ]
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_twistedfate_q_champ",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "LinearProjectile",
+                "name": "league_twistedfate_q_cards",
+                "penetrate": true,
+                "applied_target": "EnemyWithoutTower",
+                "applied_effects": [
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "ApAttack",
+                      "damage": 120,
+                      "attack_ratio": 100,
+                      "hp_ratio": 0,
+                      "can_crit": false
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "ViewEffect",
+                      "name": "league_twistedfate_q_hit"
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "TargetSfx",
+                      "name": "league_twistedfate_q_hit"
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_twistedfate_k_q"
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_twistedfate_k_q",
+                            "duration": {
+                              "Time": {
+                                "tick": 6
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "AddCasted",
+                      "casted_type": "Heal",
+                      "duration": 3,
+                      "period": 1,
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_twistedfate_k_q"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "RangeEffect",
+                      "shape": {
+                        "Circle": {
+                          "radius": 1000
+                        }
+                      },
+                      "target": "AllyOnlySelf",
+                      "apply_type": "AroundCaster",
+                      "effects": [
+                        {
+                          "type": "Delayed",
+                          "tick": 3,
+                          "effects": [
+                            {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_twistedfate_k_q",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_twistedfate_k_q"
                                   },
-                                  "effect_none": {
+                                  {
                                     "type": "SwitchByBuff",
-                                    "buff_name": "league_twistedfate_d2",
+                                    "buff_name": "league_twistedfate_d5",
                                     "effect_buff": {
                                       "type": "Combine",
                                       "effects": [
                                         {
                                           "type": "RemoveCasterBuff",
-                                          "name": "league_twistedfate_d2"
-                                        },
-                                        {
-                                          "type": "AddCasterBuff",
-                                          "buff_state": {
-                                            "name": "league_twistedfate_d3",
-                                            "duration": "Permanent"
-                                          },
-                                          "only_to_enemy": false
+                                          "name": "league_twistedfate_d5"
                                         },
                                         {
                                           "type": "RemoveCasterBuff",
@@ -2219,7 +2543,7 @@
                                         {
                                           "type": "AddCasterBuff",
                                           "buff_state": {
-                                            "name": "league_twistedfate_dice_6",
+                                            "name": "league_twistedfate_dice_2",
                                             "duration": {
                                               "Time": {
                                                 "tick": 54
@@ -2231,32 +2555,23 @@
                                         {
                                           "type": "Sfx",
                                           "name": "league_twistedfate_dice"
-                                        },
-                                        {
-                                          "type": "AddCasterBuff",
-                                          "buff_state": {
-                                            "name": "league_twistedfate_dice_ap",
-                                            "duration": "Permanent",
-                                            "magic_power": 2
-                                          },
-                                          "only_to_enemy": false
                                         }
                                       ]
                                     },
                                     "effect_none": {
                                       "type": "SwitchByBuff",
-                                      "buff_name": "league_twistedfate_d1",
+                                      "buff_name": "league_twistedfate_d4",
                                       "effect_buff": {
                                         "type": "Combine",
                                         "effects": [
                                           {
                                             "type": "RemoveCasterBuff",
-                                            "name": "league_twistedfate_d1"
+                                            "name": "league_twistedfate_d4"
                                           },
                                           {
                                             "type": "AddCasterBuff",
                                             "buff_state": {
-                                              "name": "league_twistedfate_d2",
+                                              "name": "league_twistedfate_d5",
                                               "duration": "Permanent"
                                             },
                                             "only_to_enemy": false
@@ -2288,60 +2603,7 @@
                                           {
                                             "type": "AddCasterBuff",
                                             "buff_state": {
-                                              "name": "league_twistedfate_dice_1",
-                                              "duration": {
-                                                "Time": {
-                                                  "tick": 54
-                                                }
-                                              }
-                                            },
-                                            "only_to_enemy": false
-                                          },
-                                          {
-                                            "type": "Sfx",
-                                            "name": "league_twistedfate_dice"
-                                          }
-                                        ]
-                                      },
-                                      "effect_none": {
-                                        "type": "Combine",
-                                        "effects": [
-                                          {
-                                            "type": "AddCasterBuff",
-                                            "buff_state": {
-                                              "name": "league_twistedfate_d1",
-                                              "duration": "Permanent"
-                                            },
-                                            "only_to_enemy": false
-                                          },
-                                          {
-                                            "type": "RemoveCasterBuff",
-                                            "name": "league_twistedfate_dice_1"
-                                          },
-                                          {
-                                            "type": "RemoveCasterBuff",
-                                            "name": "league_twistedfate_dice_2"
-                                          },
-                                          {
-                                            "type": "RemoveCasterBuff",
-                                            "name": "league_twistedfate_dice_3"
-                                          },
-                                          {
-                                            "type": "RemoveCasterBuff",
-                                            "name": "league_twistedfate_dice_4"
-                                          },
-                                          {
-                                            "type": "RemoveCasterBuff",
-                                            "name": "league_twistedfate_dice_5"
-                                          },
-                                          {
-                                            "type": "RemoveCasterBuff",
-                                            "name": "league_twistedfate_dice_6"
-                                          },
-                                          {
-                                            "type": "AddCasterBuff",
-                                            "buff_state": {
-                                              "name": "league_twistedfate_dice_4",
+                                              "name": "league_twistedfate_dice_5",
                                               "duration": {
                                                 "Time": {
                                                   "tick": 54
@@ -2364,34 +2626,297 @@
                                             "only_to_enemy": false
                                           }
                                         ]
+                                      },
+                                      "effect_none": {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_twistedfate_d3",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_twistedfate_d3"
+                                            },
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_twistedfate_d4",
+                                                "duration": "Permanent"
+                                              },
+                                              "only_to_enemy": false
+                                            },
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_twistedfate_dice_1"
+                                            },
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_twistedfate_dice_2"
+                                            },
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_twistedfate_dice_3"
+                                            },
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_twistedfate_dice_4"
+                                            },
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_twistedfate_dice_5"
+                                            },
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_twistedfate_dice_6"
+                                            },
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_twistedfate_dice_3",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 54
+                                                  }
+                                                }
+                                              },
+                                              "only_to_enemy": false
+                                            },
+                                            {
+                                              "type": "Sfx",
+                                              "name": "league_twistedfate_dice"
+                                            },
+                                            {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_twistedfate_dice_ap",
+                                                "duration": "Permanent",
+                                                "magic_power": 1
+                                              },
+                                              "only_to_enemy": false
+                                            }
+                                          ]
+                                        },
+                                        "effect_none": {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_twistedfate_d2",
+                                          "effect_buff": {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_twistedfate_d2"
+                                              },
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_twistedfate_d3",
+                                                  "duration": "Permanent"
+                                                },
+                                                "only_to_enemy": false
+                                              },
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_twistedfate_dice_1"
+                                              },
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_twistedfate_dice_2"
+                                              },
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_twistedfate_dice_3"
+                                              },
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_twistedfate_dice_4"
+                                              },
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_twistedfate_dice_5"
+                                              },
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_twistedfate_dice_6"
+                                              },
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_twistedfate_dice_6",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 54
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
+                                              },
+                                              {
+                                                "type": "Sfx",
+                                                "name": "league_twistedfate_dice"
+                                              },
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_twistedfate_dice_ap",
+                                                  "duration": "Permanent",
+                                                  "magic_power": 2
+                                                },
+                                                "only_to_enemy": false
+                                              }
+                                            ]
+                                          },
+                                          "effect_none": {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_twistedfate_d1",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_twistedfate_d1"
+                                                },
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_twistedfate_d2",
+                                                    "duration": "Permanent"
+                                                  },
+                                                  "only_to_enemy": false
+                                                },
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_twistedfate_dice_1"
+                                                },
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_twistedfate_dice_2"
+                                                },
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_twistedfate_dice_3"
+                                                },
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_twistedfate_dice_4"
+                                                },
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_twistedfate_dice_5"
+                                                },
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_twistedfate_dice_6"
+                                                },
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_twistedfate_dice_1",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 54
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_twistedfate_dice"
+                                                }
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_twistedfate_d1",
+                                                    "duration": "Permanent"
+                                                  },
+                                                  "only_to_enemy": false
+                                                },
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_twistedfate_dice_1"
+                                                },
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_twistedfate_dice_2"
+                                                },
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_twistedfate_dice_3"
+                                                },
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_twistedfate_dice_4"
+                                                },
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_twistedfate_dice_5"
+                                                },
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_twistedfate_dice_6"
+                                                },
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_twistedfate_dice_4",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 54
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_twistedfate_dice"
+                                                },
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_twistedfate_dice_ap",
+                                                    "duration": "Permanent",
+                                                    "magic_power": 1
+                                                  },
+                                                  "only_to_enemy": false
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        }
                                       }
                                     }
                                   }
-                                }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": []
                               }
                             }
                           ]
-                        },
-                        "effect_none": {
-                          "type": "Combine",
-                          "effects": []
                         }
-                      }
-                    ]
+                      ]
+                    }
                   }
-                ]
+                ],
+                "end_effects": [],
+                "speed": 4000,
+                "range": 115000,
+                "shape": {
+                  "Circle": {
+                    "radius": 9000
+                  }
+                },
+                "y_offset": 0
               }
             }
-          ],
-          "end_effects": [],
-          "speed": 3500,
-          "range": 115000,
-          "shape": {
-            "Circle": {
-              "radius": 6000
-            }
-          },
-          "y_offset": 0
+          ]
         }
       ]
     }
@@ -2400,7 +2925,7 @@
     "action_name": "skill2",
     "description": "#asset/base/text/champion?description.league_twistedfate.skill2",
     "duration": 10,
-    "cooltime": 420,
+    "cooltime": 300,
     "start_timing": 1,
     "cancelable": false,
     "range": 75000,
@@ -2522,7 +3047,7 @@
                 },
                 {
                   "type": "RandomTarget",
-                  "range": 65000,
+                  "range": 80000,
                   "casting_target": "EnemyChampion",
                   "from_projectile": false,
                   "effects": [
@@ -2736,7 +3261,7 @@
                             },
                             {
                               "type": "RandomTarget",
-                              "range": 65000,
+                              "range": 80000,
                               "casting_target": "EnemyChampion",
                               "from_projectile": false,
                               "effects": [
@@ -2937,7 +3462,7 @@
                               },
                               {
                                 "type": "RandomTarget",
-                                "range": 65000,
+                                "range": 80000,
                                 "casting_target": "EnemyChampion",
                                 "from_projectile": false,
                                 "effects": [
@@ -3127,7 +3652,7 @@
                               },
                               {
                                 "type": "RandomTarget",
-                                "range": 65000,
+                                "range": 80000,
                                 "casting_target": "EnemyChampion",
                                 "from_projectile": false,
                                 "effects": [
@@ -3331,7 +3856,7 @@
     "action_name": "idle",
     "description": "#asset/base/text/champion?description.league_twistedfate.ult",
     "duration": 3,
-    "cooltime": 3600,
+    "cooltime": 5400,
     "start_timing": 1,
     "cancelable": false,
     "range": 960000,
@@ -3853,7 +4378,7 @@
                                                   "range": 360000,
                                                   "shape": {
                                                     "Circle": {
-                                                      "radius": 5000
+                                                      "radius": 25000
                                                     }
                                                   },
                                                   "y_offset": 5000
