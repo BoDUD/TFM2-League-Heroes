@@ -299,9 +299,9 @@
                       "effects": [
                         {
                           "type": "Attack",
-                          "damage": 35,
+                          "damage": 45,
                           "attack_ratio": 140,
-                          "target_hp_ratio": 3
+                          "target_hp_ratio": 4
                         },
                         {
                           "type": "ViewEffect",
@@ -325,9 +325,9 @@
                         "effects": [
                           {
                             "type": "Attack",
-                            "damage": 35,
+                            "damage": 45,
                             "attack_ratio": 140,
-                            "target_hp_ratio": 3
+                            "target_hp_ratio": 4
                           },
                           {
                             "type": "ViewEffect",
@@ -394,9 +394,9 @@
                       "effects": [
                         {
                           "type": "Attack",
-                          "damage": 20,
+                          "damage": 30,
                           "attack_ratio": 120,
-                          "target_hp_ratio": 3
+                          "target_hp_ratio": 4
                         },
                         {
                           "type": "ViewEffect",
@@ -420,9 +420,9 @@
                         "effects": [
                           {
                             "type": "Attack",
-                            "damage": 20,
+                            "damage": 30,
                             "attack_ratio": 120,
-                            "target_hp_ratio": 3
+                            "target_hp_ratio": 4
                           },
                           {
                             "type": "ViewEffect",
@@ -475,7 +475,7 @@
     "cancelable": false,
     "range": 30000,
     "casting_type": "None",
-    "casting_target": "EnemyWithoutTower",
+    "casting_target": "EnemyChampion",
     "attack_type": "Skill",
     "effect": {
       "type": "Combine",
@@ -530,80 +530,184 @@
             },
             {
               "type": "SwitchByBuff",
-              "buff_name": "league_sett_e_two",
+              "buff_name": "league_sett_r_combo",
               "effect_buff": {
-                "type": "RangeEffect",
-                "shape": {
-                  "Circle": {
-                    "radius": 24000
-                  }
-                },
-                "target": "EnemyWithoutTower",
-                "apply_type": "AroundCaster",
+                "type": "Combine",
                 "effects": [
                   {
-                    "type": "Attack",
-                    "damage": 40,
-                    "attack_ratio": 70
+                    "type": "RemoveCasterBuff",
+                    "name": "league_sett_r_combo"
                   },
                   {
-                    "type": "Grab",
-                    "speed": 3000
-                  },
-                  {
-                    "type": "Stun",
-                    "duration": 60
-                  },
-                  {
-                    "type": "ViewEffect",
-                    "name": "league_sett_e_hit"
-                  },
-                  {
-                    "type": "TargetSfx",
-                    "name": "league_sett_e_hit"
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 24000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "Attack",
+                            "damage": 40,
+                            "attack_ratio": 70
+                          },
+                          {
+                            "type": "Grab",
+                            "speed": 3000
+                          },
+                          {
+                            "type": "Stun",
+                            "duration": 60
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "league_sett_e_hit"
+                          },
+                          {
+                            "type": "TargetSfx",
+                            "name": "league_sett_e_hit"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 24000
+                          }
+                        },
+                        "target": "EnemyChampion",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_sett_w_combo",
+                              "duration": {
+                                "Time": {
+                                  "tick": 90
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      }
+                    ]
                   }
                 ]
               },
               "effect_none": {
-                "type": "RangeEffect",
-                "shape": {
-                  "Circle": {
-                    "radius": 24000
-                  }
-                },
-                "target": "EnemyWithoutTower",
-                "apply_type": "AroundCaster",
-                "effects": [
-                  {
-                    "type": "Attack",
-                    "damage": 40,
-                    "attack_ratio": 70
-                  },
-                  {
-                    "type": "Grab",
-                    "speed": 3000
-                  },
-                  {
-                    "type": "AddBuff",
-                    "buff_state": {
-                      "name": "league_sett_e_slow",
-                      "duration": {
-                        "Time": {
-                          "tick": 30
+                "type": "SwitchByBuff",
+                "buff_name": "league_sett_e_two",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RangeEffect",
+                      "shape": {
+                        "Circle": {
+                          "radius": 24000
                         }
                       },
-                      "move_speed_mult": -50
+                      "target": "EnemyWithoutTower",
+                      "apply_type": "AroundCaster",
+                      "effects": [
+                        {
+                          "type": "Attack",
+                          "damage": 40,
+                          "attack_ratio": 70
+                        },
+                        {
+                          "type": "Grab",
+                          "speed": 3000
+                        },
+                        {
+                          "type": "Stun",
+                          "duration": 60
+                        },
+                        {
+                          "type": "ViewEffect",
+                          "name": "league_sett_e_hit"
+                        },
+                        {
+                          "type": "TargetSfx",
+                          "name": "league_sett_e_hit"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "RangeEffect",
+                      "shape": {
+                        "Circle": {
+                          "radius": 24000
+                        }
+                      },
+                      "target": "EnemyChampion",
+                      "apply_type": "AroundCaster",
+                      "effects": [
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_sett_w_combo",
+                            "duration": {
+                              "Time": {
+                                "tick": 90
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "effect_none": {
+                  "type": "RangeEffect",
+                  "shape": {
+                    "Circle": {
+                      "radius": 24000
                     }
                   },
-                  {
-                    "type": "ViewEffect",
-                    "name": "league_sett_e_hit"
-                  },
-                  {
-                    "type": "TargetSfx",
-                    "name": "league_sett_e_hit"
-                  }
-                ]
+                  "target": "EnemyWithoutTower",
+                  "apply_type": "AroundCaster",
+                  "effects": [
+                    {
+                      "type": "Attack",
+                      "damage": 40,
+                      "attack_ratio": 70
+                    },
+                    {
+                      "type": "Grab",
+                      "speed": 3000
+                    },
+                    {
+                      "type": "AddBuff",
+                      "buff_state": {
+                        "name": "league_sett_e_slow",
+                        "duration": {
+                          "Time": {
+                            "tick": 30
+                          }
+                        },
+                        "move_speed_mult": -50
+                      }
+                    },
+                    {
+                      "type": "ViewEffect",
+                      "name": "league_sett_e_hit"
+                    },
+                    {
+                      "type": "TargetSfx",
+                      "name": "league_sett_e_hit"
+                    }
+                  ]
+                }
               }
             },
             {
@@ -769,30 +873,69 @@
                 ]
               },
               {
-                "type": "LineRangeProjectile",
-                "name": "league_sett_w_true_5",
-                "width": 4000,
-                "length": 50000,
-                "delay": 30,
-                "apply": 28,
-                "applied_target": "EnemyWithoutTower",
-                "applied_effects": [
-                  {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "FixedAttack",
-                      "damage": 80,
-                      "attack_ratio": 70
+                "type": "SwitchByBuff",
+                "buff_name": "league_sett_w_combo",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_sett_w_combo"
+                    },
+                    {
+                      "type": "LineRangeProjectile",
+                      "name": "league_sett_w_truew_5",
+                      "width": 20000,
+                      "length": 50000,
+                      "delay": 30,
+                      "apply": 28,
+                      "applied_target": "EnemyWithoutTower",
+                      "applied_effects": [
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "FixedAttack",
+                            "damage": 80,
+                            "attack_ratio": 70
+                          }
+                        },
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "ViewEffect",
+                            "name": "league_sett_w_true"
+                          }
+                        }
+                      ]
                     }
-                  },
-                  {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "ViewEffect",
-                      "name": "league_sett_w_true"
+                  ]
+                },
+                "effect_none": {
+                  "type": "LineRangeProjectile",
+                  "name": "league_sett_w_true_5",
+                  "width": 4000,
+                  "length": 50000,
+                  "delay": 30,
+                  "apply": 28,
+                  "applied_target": "EnemyWithoutTower",
+                  "applied_effects": [
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "FixedAttack",
+                        "damage": 80,
+                        "attack_ratio": 70
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "ViewEffect",
+                        "name": "league_sett_w_true"
+                      }
                     }
-                  }
-                ]
+                  ]
+                }
               }
             ]
           },
@@ -826,30 +969,69 @@
                   ]
                 },
                 {
-                  "type": "LineRangeProjectile",
-                  "name": "league_sett_w_true_4",
-                  "width": 4000,
-                  "length": 50000,
-                  "delay": 30,
-                  "apply": 28,
-                  "applied_target": "EnemyWithoutTower",
-                  "applied_effects": [
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "FixedAttack",
-                        "damage": 70,
-                        "attack_ratio": 62
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_sett_w_combo",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_sett_w_combo"
+                      },
+                      {
+                        "type": "LineRangeProjectile",
+                        "name": "league_sett_w_truew_4",
+                        "width": 20000,
+                        "length": 50000,
+                        "delay": 30,
+                        "apply": 28,
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "FixedAttack",
+                              "damage": 70,
+                              "attack_ratio": 62
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ViewEffect",
+                              "name": "league_sett_w_true"
+                            }
+                          }
+                        ]
                       }
-                    },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "ViewEffect",
-                        "name": "league_sett_w_true"
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "LineRangeProjectile",
+                    "name": "league_sett_w_true_4",
+                    "width": 4000,
+                    "length": 50000,
+                    "delay": 30,
+                    "apply": 28,
+                    "applied_target": "EnemyWithoutTower",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "FixedAttack",
+                          "damage": 70,
+                          "attack_ratio": 62
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ViewEffect",
+                          "name": "league_sett_w_true"
+                        }
                       }
-                    }
-                  ]
+                    ]
+                  }
                 }
               ]
             },
@@ -883,30 +1065,69 @@
                     ]
                   },
                   {
-                    "type": "LineRangeProjectile",
-                    "name": "league_sett_w_true_3",
-                    "width": 4000,
-                    "length": 50000,
-                    "delay": 30,
-                    "apply": 28,
-                    "applied_target": "EnemyWithoutTower",
-                    "applied_effects": [
-                      {
-                        "casting_type": "Targeting",
-                        "effect": {
-                          "type": "FixedAttack",
-                          "damage": 60,
-                          "attack_ratio": 54
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_sett_w_combo",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_sett_w_combo"
+                        },
+                        {
+                          "type": "LineRangeProjectile",
+                          "name": "league_sett_w_truew_3",
+                          "width": 20000,
+                          "length": 50000,
+                          "delay": 30,
+                          "apply": 28,
+                          "applied_target": "EnemyWithoutTower",
+                          "applied_effects": [
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "FixedAttack",
+                                "damage": 60,
+                                "attack_ratio": 54
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "ViewEffect",
+                                "name": "league_sett_w_true"
+                              }
+                            }
+                          ]
                         }
-                      },
-                      {
-                        "casting_type": "Targeting",
-                        "effect": {
-                          "type": "ViewEffect",
-                          "name": "league_sett_w_true"
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "LineRangeProjectile",
+                      "name": "league_sett_w_true_3",
+                      "width": 4000,
+                      "length": 50000,
+                      "delay": 30,
+                      "apply": 28,
+                      "applied_target": "EnemyWithoutTower",
+                      "applied_effects": [
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "FixedAttack",
+                            "damage": 60,
+                            "attack_ratio": 54
+                          }
+                        },
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "ViewEffect",
+                            "name": "league_sett_w_true"
+                          }
                         }
-                      }
-                    ]
+                      ]
+                    }
                   }
                 ]
               },
@@ -940,30 +1161,69 @@
                       ]
                     },
                     {
-                      "type": "LineRangeProjectile",
-                      "name": "league_sett_w_true_2",
-                      "width": 4000,
-                      "length": 50000,
-                      "delay": 30,
-                      "apply": 28,
-                      "applied_target": "EnemyWithoutTower",
-                      "applied_effects": [
-                        {
-                          "casting_type": "Targeting",
-                          "effect": {
-                            "type": "FixedAttack",
-                            "damage": 50,
-                            "attack_ratio": 46
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_sett_w_combo",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_sett_w_combo"
+                          },
+                          {
+                            "type": "LineRangeProjectile",
+                            "name": "league_sett_w_truew_2",
+                            "width": 20000,
+                            "length": 50000,
+                            "delay": 30,
+                            "apply": 28,
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "FixedAttack",
+                                  "damage": 50,
+                                  "attack_ratio": 46
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "league_sett_w_true"
+                                }
+                              }
+                            ]
                           }
-                        },
-                        {
-                          "casting_type": "Targeting",
-                          "effect": {
-                            "type": "ViewEffect",
-                            "name": "league_sett_w_true"
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "LineRangeProjectile",
+                        "name": "league_sett_w_true_2",
+                        "width": 4000,
+                        "length": 50000,
+                        "delay": 30,
+                        "apply": 28,
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "FixedAttack",
+                              "damage": 50,
+                              "attack_ratio": 46
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ViewEffect",
+                              "name": "league_sett_w_true"
+                            }
                           }
-                        }
-                      ]
+                        ]
+                      }
                     }
                   ]
                 },
@@ -997,30 +1257,69 @@
                         ]
                       },
                       {
-                        "type": "LineRangeProjectile",
-                        "name": "league_sett_w_true_1",
-                        "width": 4000,
-                        "length": 50000,
-                        "delay": 30,
-                        "apply": 28,
-                        "applied_target": "EnemyWithoutTower",
-                        "applied_effects": [
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "FixedAttack",
-                              "damage": 40,
-                              "attack_ratio": 38
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_sett_w_combo",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_sett_w_combo"
+                            },
+                            {
+                              "type": "LineRangeProjectile",
+                              "name": "league_sett_w_truew_1",
+                              "width": 20000,
+                              "length": 50000,
+                              "delay": 30,
+                              "apply": 28,
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": [
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "FixedAttack",
+                                    "damage": 40,
+                                    "attack_ratio": 38
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_sett_w_true"
+                                  }
+                                }
+                              ]
                             }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "ViewEffect",
-                              "name": "league_sett_w_true"
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "LineRangeProjectile",
+                          "name": "league_sett_w_true_1",
+                          "width": 4000,
+                          "length": 50000,
+                          "delay": 30,
+                          "apply": 28,
+                          "applied_target": "EnemyWithoutTower",
+                          "applied_effects": [
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "FixedAttack",
+                                "damage": 40,
+                                "attack_ratio": 38
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "ViewEffect",
+                                "name": "league_sett_w_true"
+                              }
                             }
-                          }
-                        ]
+                          ]
+                        }
                       }
                     ]
                   },
@@ -1047,30 +1346,69 @@
                         ]
                       },
                       {
-                        "type": "LineRangeProjectile",
-                        "name": "league_sett_w_true_0",
-                        "width": 4000,
-                        "length": 50000,
-                        "delay": 30,
-                        "apply": 28,
-                        "applied_target": "EnemyWithoutTower",
-                        "applied_effects": [
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "FixedAttack",
-                              "damage": 30,
-                              "attack_ratio": 30
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_sett_w_combo",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_sett_w_combo"
+                            },
+                            {
+                              "type": "LineRangeProjectile",
+                              "name": "league_sett_w_truew_0",
+                              "width": 20000,
+                              "length": 50000,
+                              "delay": 30,
+                              "apply": 28,
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": [
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "FixedAttack",
+                                    "damage": 30,
+                                    "attack_ratio": 30
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "league_sett_w_true"
+                                  }
+                                }
+                              ]
                             }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "ViewEffect",
-                              "name": "league_sett_w_true"
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "LineRangeProjectile",
+                          "name": "league_sett_w_true_0",
+                          "width": 4000,
+                          "length": 50000,
+                          "delay": 30,
+                          "apply": 28,
+                          "applied_target": "EnemyWithoutTower",
+                          "applied_effects": [
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "FixedAttack",
+                                "damage": 30,
+                                "attack_ratio": 30
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "ViewEffect",
+                                "name": "league_sett_w_true"
+                              }
                             }
-                          }
-                        ]
+                          ]
+                        }
                       }
                     ]
                   }
@@ -1421,6 +1759,30 @@
                           "name": "league_sett_r_hit"
                         }
                       ]
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_sett_r_combo",
+                        "duration": {
+                          "Time": {
+                            "tick": 150
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_sett_w_combo",
+                        "duration": {
+                          "Time": {
+                            "tick": 150
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
                     }
                   ]
                 }

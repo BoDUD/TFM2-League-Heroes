@@ -34,8 +34,11 @@ Art still to come: the sprite (asset/league/champions/league_sett: idle run atta
 ult_slam hit dead) and the effect sheets league_sett_fx / league_sett_big from Codex (assets/source/sett/). The
 ability icons and League's sounds come from the local client (tools/lol/extract_sett.py; the clips stay out of git),
 and the names in the text were checked against the zh_CN string table and Data Dragon (zh_TW, ko_KR, ja_JP). The
-numbers are a first guess inside the base ranges, not yet balanced on the SDK simulator (porting-heroes "Balance
-check").
+numbers were balanced on the SDK simulator (porting-heroes "Balance check"; lane 0 against the six base top laners,
+3 lineups, both sides, 10 minutes, seeds 1-12 and 13-24: 432 games a batch). The first kit read +0.39 / +0.50 kills a
+game (base fighter +1.14 / +0.72, league_darius +1.18); Facebreaker kept for champions with the combos +0.81 / +0.76
+(without the combos +0.55 / +0.49); then Knuckle Down 20 + 3% -> 30 + 4% +1.08 / +1.24 (the stun 1 s -> 1.25 s
++1.19 / +0.59, Facebreaker 40 -> 60 +0.68 / +0.59, the slam 120 -> 150 -0.04 / +1.03).
 """
 import argparse
 import json
@@ -66,7 +69,7 @@ RIGHT_DAMAGE, RIGHT_RATIO = 15, 120
 
 # Knuckle Down (Q, armed by Facebreaker): two punches
 Q_TICKS = 300
-Q_DAMAGE, Q_RATIO, Q_HP = 20, 20, 3          # added to the punch: + 20 + 20% AD + 3% of the target's max health
+Q_DAMAGE, Q_RATIO, Q_HP = 30, 20, 4          # added to the punch: + 30 + 20% AD + 4% of the target's max health
 Q_HASTE, Q_HASTE_TICKS = 30, 90
 
 # Facebreaker (E) - skill
@@ -78,6 +81,8 @@ E_DAMAGE, E_RATIO = 40, 70
 E_GRAB_SPEED = 3000
 E_STUN = 60
 E_SLOW, E_SLOW_TICKS = -50, 30
+E_TARGET = "EnemyChampion"          # kept for champions (a skilled Sett does not spend his stun on a wave): twice the
+                                    # champions pulled in, from 28 casts a game (3.5 on champions) to 9 (7)
 
 # Haymaker (W) - skill2
 W_DURATION, W_COOLTIME, W_START, W_RANGE = 54, 540, 2, 42000
@@ -91,6 +96,7 @@ W_SHIELD, W_SHIELD_R = 50, 20
 W_SHIELD_K, W_SHIELD_KR = 30, 25            # + per Grit level
 W_SHIELD_TICKS = 180
 W_VIEW_TICKS = 46                # the fist's picture: the wind-up, the punch on its tick 27, the fade
+W_TARGET = "EnemyWithoutTower"      # kept for champions as well it lost 0.8 kills a game: the shield trades in lane
 
 # Grit. GRIT_MAX = 0 drops the sensor: W is then a fixed shield and fixed true damage (the plan at the hero's pick)
 GRIT_MAX, GRIT_TICKS = 5, 240
@@ -108,6 +114,18 @@ R_RADIUS = 26000
 R_DAMAGE, R_RATIO, R_HP = 120, 100, 4
 R_TARGET_HP = 6                  # the thrown champion: + 6% of its max health
 R_SLOW, R_SLOW_TICKS = -99, 30
+R_TARGET = "EnemyChampion"          # EnemyChampionRecentlyAttacked (league_darius R's way) lost 0.3 kills a game
+
+# Combos (the user, 2026-10-05: "瑟提加点高手的技能连招逻辑"). The AI casts one slot at a time, so each combo is played
+# by the slot cast second, from a caster flag the first one left (league_leesin's way; no slot is held by a flag):
+#   R -> E  the slam leaves r_combo: Facebreaker cast in it stuns even when it pulls in one (the thrown champion
+#           lies at his feet, so a skilled Sett has it on one side and its team on the other)
+#   E -> W  a Facebreaker stun leaves w_combo: Haymaker cast in it lands its middle on the stunned (true damage
+#           across the whole fist)
+#   R -> W  the slam leaves w_combo as well (the slammed are slowed at his feet)
+COMBO = True
+R_COMBO_TICKS = 150              # 2.5 s after the slam
+E_COMBO_TICKS = 90               # 1.5 s after a Facebreaker stun (the stun lasts 1 s from the grab)
 
 # Sounds: League's, from tools/lol/extract_sett.py (the clips are not in git; league/sound/sfx/league_sett_*.sound_info
 # say what each one plays, mod.override_info maps them)
@@ -267,21 +285,31 @@ def facebreaker():
         return around(E_RADIUS, "EnemyWithoutTower", attack(E_DAMAGE, E_RATIO), {"type": "Grab", "speed": E_GRAB_SPEED},
                       cc, view(n("e_hit")), tsfx(SFX["e_hit"]))
 
+    stunned = pulled(stun(E_STUN))
+    if COMBO:   # E -> W only when a champion was stunned, not a wave
+        stunned = comb(stunned, around(E_RADIUS, "EnemyChampion", add(n("w_combo"), E_COMBO_TICKS)))
+    by_count = sw(n("e_two"), stunned, pulled(debuff(n("e_slow"), E_SLOW_TICKS, move_speed_mult=E_SLOW)))
     grab = delayed(
         E_GRAB - E_START,
         around(E_RADIUS, "EnemyWithoutTower", sw(n("e_one"), add(n("e_two"), 1), add(n("e_one"), 1))),
-        sw(n("e_two"), pulled(stun(E_STUN)), pulled(debuff(n("e_slow"), E_SLOW_TICKS, move_speed_mult=E_SLOW))),
+        sw(n("r_combo"), comb(rm(n("r_combo")), stunned), by_count) if COMBO else by_count,
         rm(n("q_2")), rm(n("q_1")), add(n("q_2"), Q_TICKS), add(n("q_1"), Q_TICKS),
         add(n("q_haste"), Q_HASTE_TICKS, move_speed_mult=Q_HASTE))
-    return action("skill", E_DURATION, E_COOLTIME, E_START, False, E_RANGE, "None", "EnemyWithoutTower", "Skill",
+    return action("skill", E_DURATION, E_COOLTIME, E_START, False, E_RANGE, "None", E_TARGET, "Skill",
                   comb(sfx(SFX["e_cast"]), grab, delayed(E_SMASH - E_START, cview(n("e_smash")))))
 
 
 def haymaker():
+    def true_line(k, width):
+        return line(n(f"w_true_{k}" if width == W_TRUE_WIDTH else f"w_truew_{k}"), width, W_LENGTH, W_APPLY,
+                    W_APPLY + 2, "EnemyWithoutTower", fixed(W_TRUE + k * W_TRUE_K, W_TRUE_R + k * W_TRUE_KR),
+                    view(n("w_true")))
+
     def level(k):
-        e = [self_only(shield(W_SHIELD + k * W_SHIELD_K, W_SHIELD_R + k * W_SHIELD_KR, W_SHIELD_TICKS)),
-             line(n(f"w_true_{k}"), W_TRUE_WIDTH, W_LENGTH, W_APPLY, W_APPLY + 2, "EnemyWithoutTower",
-                  fixed(W_TRUE + k * W_TRUE_K, W_TRUE_R + k * W_TRUE_KR), view(n("w_true")))]
+        middle = true_line(k, W_TRUE_WIDTH)
+        if COMBO:   # E -> W, R -> W: the middle on the stunned or slammed
+            middle = sw(n("w_combo"), comb(rm(n("w_combo")), true_line(k, W_SIDE_WIDTH)), middle)
+        e = [self_only(shield(W_SHIELD + k * W_SHIELD_K, W_SHIELD_R + k * W_SHIELD_KR, W_SHIELD_TICKS)), middle]
         return comb(rm(n(f"grit_{k}")), *e) if k else comb(*e)
 
     effect = comb(
@@ -291,7 +319,7 @@ def haymaker():
              attack(W_SIDE, W_SIDE_R), view(n("w_hit")), tsfx(SFX["w_hit"])),
         add(n("w_shield"), W_SHIELD_TICKS),
         grit_levels(level))
-    return action("skill2", W_DURATION, W_COOLTIME, W_START, False, W_RANGE, "Direction", "EnemyWithoutTower", "Skill",
+    return action("skill2", W_DURATION, W_COOLTIME, W_START, False, W_RANGE, "Direction", W_TARGET, "Skill",
                   effect)
 
 
@@ -300,7 +328,8 @@ def show_stopper():
                    cview(n("r_slam")), sfx(SFX["r_slam"]),
                    attack(0, 0, R_TARGET_HP),
                    around(R_RADIUS, "EnemyWithoutTower", attack(R_DAMAGE, R_RATIO, R_HP),
-                          debuff(n("r_slow"), R_SLOW_TICKS, move_speed_mult=R_SLOW), view(n("r_hit"))))
+                          debuff(n("r_slow"), R_SLOW_TICKS, move_speed_mult=R_SLOW), view(n("r_hit"))),
+                   *([add(n("r_combo"), R_COMBO_TICKS), add(n("w_combo"), R_COMBO_TICKS)] if COMBO else []))
     leap = {"type": "MoveToTarget", "speed": R_LEAP_SPEED, "range": R_LEAP_RANGE,
             "end_effects": [{"type": "RemoveCasterAnimation", "name": "ult_dash"}, anim("ult_slam", R_SLAM_ANIM), slam]}
     effect = comb(
@@ -311,7 +340,7 @@ def show_stopper():
         view(n("r_grab")),
         delayed(R_TOSS - R_START, {"type": "Knockback", "speed": R_TOSS_SPEED, "tick": R_TOSS_TICKS},
                 anim("ult_dash", R_DASH_ANIM), leap))
-    return action("ult", R_DURATION, R_COOLTIME, R_START, False, R_RANGE, "Targeting", "EnemyChampion", "Skill", effect)
+    return action("ult", R_DURATION, R_COOLTIME, R_START, False, R_RANGE, "Targeting", R_TARGET, "Skill", effect)
 
 
 def kit():
@@ -418,12 +447,11 @@ def texts():
                   f"and deals {c(ORANGE, rd)} + {en_ad(rr)} more {c(ORANGE, 'physical damage')}; after "
                   f"{c(AMBER, win + 's')} without a punch he starts again with the left. He has high "
                   f"{c(GREEN, 'health regeneration')}.",
-        "skill": f"Sett grabs every enemy around him and smashes them together, dealing {c(ORANGE, E_DAMAGE)} + "
-                 f"{en_ad(E_RATIO)} {c(ORANGE, 'physical damage')}. If he pulls in two or more, all are "
-                 f"{c(RED, 'stunned')} for {c(AMBER, stun_s + 's')}, otherwise {c(RED, 'slowed')} by "
-                 f"{c(AMBER, f'{slow}%')}. His next two punches are {c(ORANGE, 'Knuckle Down')}: "
-                 f"{c(ORANGE, Q_DAMAGE)} + {en_ad(Q_RATIO)} + {c(AMBER, f'{Q_HP}%')} of the target's max health more "
-                 f"damage, and he gains {c(AMBER, f'{q_haste}%')} move speed.",
+        "skill": f"Sett pulls in every enemy around him for {c(ORANGE, E_DAMAGE)} + {en_ad(E_RATIO)} "
+                 f"{c(ORANGE, 'physical damage')}: two or more are {c(RED, 'stunned')} for {c(AMBER, stun_s + 's')}, one "
+                 f"is {c(RED, 'slowed')} by {c(AMBER, f'{slow}%')}. His next two punches ({c(ORANGE, 'Knuckle Down')}) "
+                 f"deal {c(ORANGE, Q_DAMAGE)} + {en_ad(Q_RATIO)} + {c(AMBER, f'{Q_HP}%')} of the target's max health more "
+                 f"and he gains {c(AMBER, f'{q_haste}%')} move speed.",
         "skill2": grit(f"Passive: Sett gains a level of {c(YELLOW, 'Grit')} while taking damage (up to "
                        f"{c(AMBER, GRIT_MAX)}, lost after {c(AMBER, grit_s + 's')}). He spends it on a ",
                        "Sett gains a ")
@@ -432,11 +460,10 @@ def texts():
                   f"take {c(WHITE, W_TRUE)} + {en_ad(W_TRUE_R, WHITE)} {c(WHITE, 'true damage')}."
                   + grit(f" Each level of Grit adds {c(YELLOW, W_SHIELD_K)} + {en_ad(W_SHIELD_KR, YELLOW)} shield and "
                          f"{c(WHITE, W_TRUE_K)} + {en_ad(W_TRUE_KR, WHITE)} true damage."),
-        "ult": f"Sett grabs an enemy champion, {c(RED, 'stuns')} it and hurls it forward, then leaps after it and slams "
-               f"it down: enemies nearby take {c(ORANGE, R_DAMAGE)} + {en_ad(R_RATIO)} + {c(AMBER, f'{R_HP}%')} of their "
-               f"max health as {c(ORANGE, 'physical damage')} and are {c(RED, 'slowed')} by {c(AMBER, f'{r_slow}%')} "
-               f"for {c(AMBER, r_slow_s + 's')}. The thrown champion takes another {c(AMBER, f'{R_TARGET_HP}%')} of "
-               f"its max health.",
+        "ult": f"Sett grabs an enemy champion ({c(RED, 'stunned')}), hurls it and slams down on it: enemies nearby take "
+               f"{c(ORANGE, R_DAMAGE)} + {en_ad(R_RATIO)} + {c(AMBER, f'{R_HP}%')} of their max health as "
+               f"{c(ORANGE, 'physical damage')} and are {c(RED, 'slowed')} by {c(AMBER, f'{r_slow}%')} for "
+               f"{c(AMBER, r_slow_s + 's')}; the thrown one takes {c(AMBER, f'{R_TARGET_HP}%')} of its max health more.",
     }, ("Facebreaker", "Haymaker", "The Show Stopper"))
 
     out["ko"] = ("세트", {
@@ -477,6 +504,28 @@ def texts():
                f"{ad(R_RATIO)} + 最大体力の{c(AMBER, f'{R_HP}%')}の{c(ORANGE, '物理ダメージ')}と{c(AMBER, f'{r_slow}%')}"
                f"{c(RED, 'スロウ')}、投げた相手には最大体力の{c(AMBER, f'{R_TARGET_HP}%')}を追加。",
     }, ("フェイスブレイカー", "ヘイメーカー", "ショーストッパー"))
+
+    if COMBO:   # E -> W told in Facebreaker's text, R -> E and R -> W in the ult's
+        rc, ec = sec(R_COMBO_TICKS), sec(E_COMBO_TICKS)
+        extra = {
+            "zh-hans": (f"{c(RED, '眩晕')}英雄后{c(AMBER, ec + '秒')}内，蓄意轰拳整拳都是{c(WHITE, '真实伤害')}。",
+                        f"砸地后{c(AMBER, rc + '秒')}内，强手裂颅必定{c(RED, '眩晕')}，蓄意轰拳整拳都是{c(WHITE, '真实伤害')}。"),
+            "zh-hant": (f"{c(RED, '暈眩')}英雄後{c(AMBER, ec + '秒')}內，蓄意轟拳整拳都是{c(WHITE, '真實傷害')}。",
+                        f"砸地後{c(AMBER, rc + '秒')}內，強手裂顱必定{c(RED, '暈眩')}，蓄意轟拳整拳都是{c(WHITE, '真實傷害')}。"),
+            "en": (f" For {c(AMBER, ec + 's')} after it {c(RED, 'stuns')} a champion, Haymaker's whole fist deals "
+                   f"{c(WHITE, 'true damage')}.",
+                   f" For {c(AMBER, rc + 's')} after the slam, Facebreaker always {c(RED, 'stuns')} and Haymaker's whole "
+                   f"fist deals {c(WHITE, 'true damage')}."),
+            "ko": (f" 챔피언을 {c(RED, '기절')}시킨 뒤 {c(AMBER, ec + '초')} 동안 강펀치는 주먹 전체가 {c(WHITE, '고정 피해')}입니다.",
+                   f" 내리찍은 뒤 {c(AMBER, rc + '초')} 동안 얼굴 깨기는 반드시 {c(RED, '기절')}시키고, 강펀치는 주먹 전체가 "
+                   f"{c(WHITE, '고정 피해')}입니다."),
+            "ja": (f"チャンピオンを{c(RED, 'スタン')}させて{c(AMBER, ec + '秒')}間、ヘイメーカーは拳全体が{c(WHITE, '確定ダメージ')}。",
+                   f"叩きつけから{c(AMBER, rc + '秒')}間、フェイスブレイカーは必ず{c(RED, 'スタン')}、ヘイメーカーは拳全体が"
+                   f"{c(WHITE, '確定ダメージ')}。"),
+        }
+        for lang, (e_more, r_more) in extra.items():
+            out[lang][1]["skill"] += e_more
+            out[lang][1]["ult"] += r_more
     return out
 
 
