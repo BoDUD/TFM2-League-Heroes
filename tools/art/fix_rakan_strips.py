@@ -34,11 +34,13 @@ stay. Fixes, in order:
      in one column through the run while the body swayed under it - 1-2 squares left of where the idle's collar,
      shoulders and chest sit under the chin, a row lower in 3 frames - so the head is moved onto the body (SEAT, the
      offsets measured per frame against the idle under the chin; tools/art/import_native.py no longer re-steadies
-     the run on the head, which would move the body back). In the hit Codex shifted the whole upper body 5-7 squares
-     right of the legs (the design's own legs, pasted): the body - all but the head and the idle's legs - goes back
-     over the legs where the idle's chest is, and the head where the idle's head is; Codex's arms, fist and cloak
-     move with the body (the cloak flares back from the legs, as Codex drew it). Done first, so the clean-ups below
-     see the moved head.
+     the run on the head, which would move the body back). Done first, so the clean-ups below see the moved head.
+  8. HIT (「受击的时候身体和腿几乎分离」, then 「这里你真不修吗」 on the cloak and 「身体都变形了」): Codex shifted the
+     whole upper body 5-7 squares right of the legs (the design's own legs, pasted) and drew its own narrower body
+     and cloak; moved back over the legs they still read as another, deformed body. By the user's rule (a casting
+     body is the idle's body, only the moved limbs from Codex) the hit frames are the idle: frame 1 with Codex's
+     raised forearm and fist (HIT_ARM, taken after moving Codex's body back over the legs, SEAT) in place of the
+     idle's hand and feather at the chin (HIT_HAND), frame 2 the idle as it is; both 1 square back (HIT_RECOIL).
 --check compares the result with the committed strips instead of writing them; --review DIR writes, per tag, the
 delivery and the fixed frames side by side at 4x with every changed square marked.
 """
@@ -95,17 +97,24 @@ ARMS = {
 # (tag, frame index): {"head": (dx, dy)} moves the pasted head, {"body": (dx, dy)} everything but the head and the idle's
 # own legs (rows LEGS_ROW and lower, columns from LEGS_LEFT left of the pivot, that equal the idle frame's at the same
 # place from the pivot: Codex pasted the design's legs; its cloak beside them is its own, matching here and there by
-# chance). The cloak moves with the body and flares back from the legs as Codex drew it (filling the gap with the idle's
-# own cloak edge stood a stray red-orange strip beside the leg - the user: 「这里是什么？？」).
+# chance)
 SEAT = {
     ("run", 0): {"head": (-1, 0)}, ("run", 1): {"head": (-1, 1)}, ("run", 2): {"head": (-1, 0)},
     ("run", 3): {"head": (0, 1)}, ("run", 4): {"head": (-1, 0)}, ("run", 5): {"head": (-1, 1)},
     ("run", 6): {"head": (-2, 0)}, ("run", 7): {"head": (-2, 0)},
     ("hit", 0): {"body": (-5, 0), "head": (-3, -1)},
-    ("hit", 1): {"body": (-6, 1), "head": (-7, 2)},
 }
 LEGS_ROW = 60
 LEGS_LEFT = 8
+# the hit frames from the idle: (x0, x1, y0, y1) boxes from the pivot (x1, y1 excluded). HIT_HAND: the idle's right hand
+# and the golden feather at the chin, cleared in frame 1; HIT_ARM: Codex's raised forearm and fist (frame 1, moved
+# back over the legs by SEAT) laid in their place
+HIT_HAND = [(3, 12, -13, -8), (3, 12, -8, -3)]
+HIT_ARM = [(2, 14, -17, -9)]
+HIT_RECOIL = -1
+# hit frame 1, after the recoil (cell squares): the shoulder between the idle's chest and Codex's forearm, where the
+# ground showed through (skin, like the Q 4-5 upper arms)
+HIT_PATCH = [(50, 64, "E"), (50, 65, "E"), (51, 64, "H"), (51, 65, "H"), (52, 64, "H"), (52, 65, "G")]
 
 
 def _col(x, ys, ch):
@@ -427,7 +436,27 @@ def build():
                 legs[:, :px - LEGS_LEFT] = False
                 n, hm = fix_seat(f, hm, SEAT[(tag, k)], legs)
                 notes.append(f"seat {SEAT[(tag, k)]} ({n} squares)")
-            if tag != "idle" and hm is not None:
+            if tag == "hit":
+                px, py = cells["tags"][tag][k]["pivot"]
+                ref = np.roll(np.roll(idle[0], py - idle[1][1], 0), px - idle[1][0], 1)
+                g = f.copy()
+                f[:] = ref
+                if k == 0:
+                    for x0, x1, y0, y1 in HIT_HAND:
+                        f[py + y0:py + y1, px + x0:px + x1] = 0
+                    for x0, x1, y0, y1 in HIT_ARM:
+                        box = g[py + y0:py + y1, px + x0:px + x1]
+                        m = box[..., 3] > 0
+                        f[py + y0:py + y1, px + x0:px + x1][m] = box[m]
+                f[:] = np.roll(f, HIT_RECOIL, 1)
+                if k == 0:
+                    for y, x, ch in HIT_PATCH:
+                        f[y, x] = (*LETTERS[ch], 255)
+                hm = np.roll(find_head(ref, head, [(man["idle"]["frames"][0]["head_rect"][0] + px - idle[1][0],
+                                                   man["idle"]["frames"][0]["head_rect"][1] + py - idle[1][1])]),
+                             HIT_RECOIL, 1)
+                notes.append("the idle" + (" + Codex's raised fist" if k == 0 else "") + f", {HIT_RECOIL:+d} back")
+            if tag not in ("idle", "hit") and hm is not None:
                 g = fix_halo(f, hm)
                 if g:
                     notes.append(f"halo -{g}")
@@ -438,11 +467,11 @@ def build():
             if tag == "dead" and hm is not None and k >= 4:
                 gone, n = fix_dead_gap(f, hm, DEAD_CLEAR.get(k, []))
                 notes.append(f"remnant -{gone}, gap +{n}")
-            if tag != "idle":
+            if tag not in ("idle", "hit"):
                 b = fix_black(f)
                 if b:
                     notes.append(f"black -{b}")
-            if tag != "idle":
+            if tag not in ("idle", "hit"):
                 h = fix_holes(f, hm)
                 if h:
                     notes.append(f"holes +{h}")
