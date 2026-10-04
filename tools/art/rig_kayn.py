@@ -46,8 +46,8 @@ from PIL import Image, ImageDraw, ImageFont
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 WS = os.path.dirname(ROOT)
-sys.path.insert(0, os.path.join(WS, "work", "ka"))
-import fixkit as K  # noqa: E402
+sys.path.insert(0, HERE)
+import kayn_kit as K  # noqa: E402
 
 RIG = os.path.join(ROOT, "assets", "source", "kayn", "rig")
 NATIVE = os.path.join(ROOT, "assets", "source", "native")

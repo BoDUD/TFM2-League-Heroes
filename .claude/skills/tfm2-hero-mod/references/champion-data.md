@@ -1178,6 +1178,8 @@ league_jhin (bottom, --lane 3, 2026-10-03, Deadly Flourish's 1.67 s root on a ch
 game; the base archer 0.50 and gunner 0.19 in the same batch (league_kennen 1.48) - no change.
 league_zilean (support, --lane 4, 2026-10-03, the double bomb's 1.25 s stun on every enemy in its blast): 1.40 a game;
 league_leona 2.19 and the base priest 0.50 in the same batch - no change.
+league_kayn (jungle, --lane 1, 2026-10-04, only the Darkin form's W knocks up for 0.75 s): 1.00 a game; the
+base ninja 0.50, league_leesin 1.67, league_vi 2.98, league_amumu 2.83 in the same batch - no change.
 
 **Kill trigger (league_jinx Get Excited!).** No effect fires on a kill, but section 4's facts make one:
 1. Next to the damaging projectile, fire an invisible twin with the same speed and path and
@@ -2978,6 +2980,24 @@ two-flag count); a save plays Q's pose and the voice; an unused window caps the 
 30000 the check found someone 0.2 times a game, at 90000 / 40000 0.8. Nobody died under the rune; with a rewind of
 250 + 80% 5 of 7 saved champions died within a second after it, with 400 + 150% (League's revive is 600-1100 +
 200%) 3 of 6. A 60-tick stasis after it (`damaged_reduce` 100 + `cc_immune`, League's) was tested and left out.
+
+**Two forms chosen in play (league_kayn passive, The Darkin Scythe).** A form is a `Permanent` caster buff
+(`form_d` / `form_s`) that every slot reads with `SwitchByBuff`: the Darkin heals 20% of each champion hit's damage and
+adds % max health, the Shadow Assassin adds true damage in a 180-tick window after combat starts; the forms' own cast
+strips play through a `CasterAnimation` on the action's first tick (idle, run, hit and death cannot change - the engine
+picks them). The charges are `Permanent` step flags (`dc1`, `sc1` ...) climbed by spell hits on champions - near ones
+for the Darkin, W's hits on far ones only for the Shadow - and the top step removes them and adds the form, its
+aura (a `view_buffs` picture), the transform sound and, 2 ticks later, the transform pose. Data cannot read the
+target's attack range, and death clears every data buff, so the main pack's thresholds are low (2 / 1: 81% of lives
+form, median 33 s); the optional native add-on `addons/league_kayn_form` swaps the charge blocks (wrapped in a no-op
+marker `RemoveCasterBuff league_kayn_mk_charge`) for tags it counts by the champion's range and keeps the form on
+respawn (native decides, data shows - section 9).
+
+**Riding inside a champion (league_kayn R, Umbral Trespass).** A `Targeting` cast on `EnemyChampionRecentlyAttacked`
+(the team's recent target) dives with `MoveToTarget`; its `end_effects` hide him for 120 ticks (`CasterInvisible`, a
+caster flag with `damaged_reduce` 100 and `cc_immune`, and a `CasterAnimation` on an empty tag `r_hidden`), mark the
+target, and re-dash onto it every 10 ticks (`Delayed` `MoveToTarget`s) so he moves with it; the last one's
+`end_effects` burst out with the damage and the form's extras.
 
 ## 8. Gotchas
 
