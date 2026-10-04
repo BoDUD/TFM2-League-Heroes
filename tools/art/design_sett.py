@@ -65,6 +65,11 @@ FACE = {
     (13, 10): SHADE,
 }
 
+# A lone gold square by the far arm's elbow, at the tip of the mane's strand that hangs over it (a fleck of the draft's
+# gold read into its own block), and the outline square that only it touched. The user: 「右手臂上有个多余的色素不清理
+# 干净吗」. The strand's end is outlined where the gold was.
+SPECK = {(23, 21): "050302", (24, 21): None}
+
 
 def lp(path):
     path = os.path.abspath(path)
@@ -182,8 +187,8 @@ def figure(rows=ROWS):
     xs = np.nonzero(fig[..., 3].any(0))[0]
     fig = fig[:, xs.min():xs.max() + 1].copy()
     if rows == ROWS:
-        for (x, y), h in FACE.items():
-            fig[y, x] = (int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16), 255)
+        for (x, y), h in list(FACE.items()) + list(SPECK.items()):
+            fig[y, x] = (int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16), 255) if h else 0
     return fig
 
 

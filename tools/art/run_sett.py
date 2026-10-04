@@ -56,8 +56,11 @@ NEAR_UPPER = {70: (55, 56), 71: (55, 57), 72: (54, 58), 73: (54, 57), 74: (54, 5
 NEAR_LOWER = {78: (52, 57), 79: (52, 54), 80: (52, 54), 81: (52, 54), 82: (52, 55), 83: (51, 55), 84: (51, 56),
               85: (55, 56)}
 FAR_UPPER = {74: (68, 70), 75: (68, 69), 76: (68, 70), 77: (68, 70)}
-FAR_LOWER = {78: (69, 70), 79: (70, 74), 80: (69, 72), 81: (70, 73), 82: (70, 73), 83: (70, 74), 84: (69, 74),
+FAR_LOWER = {78: (69, 70), 79: (69, 71), 80: (69, 71), 81: (70, 73), 82: (70, 73), 83: (70, 74), 84: (69, 74),
              85: (69, 74), 86: (69, 72)}
+# the end of the mane's strand that hangs over the far arm's elbow, below the belt row: it stays with the body (cut with
+# the forearm, it rode on the bandage as stray purple)
+STRAND = ((72, 79), (72, 80))
 # the arms swing without turning (a turned gauntlet reads crooked: 「歪的？？」): over the cycle (frame 0 = the near
 # foot's contact, the near arm back) the forearm with the gauntlet and the fist moves dx squares ahead and lift rows up
 # (the elbow bending as it comes forward), upright as in the design; the upper arm's rows follow it a little more each
@@ -88,6 +91,8 @@ def upper_block(d):
         for x in range(d.shape[1]):
             if d[y, x, 3] and not any(in_rows(a, x, y) for a in ARMS):
                 body[(x, y)] = d[y, x].copy()
+    for (x, y) in STRAND:
+        body[(x, y)] = d[y, x].copy()
     fill = {}
     for rows in (NEAR_UPPER, NEAR_LOWER):
         for y, (a, b) in rows.items():
