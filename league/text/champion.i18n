@@ -374,10 +374,10 @@
       },
       "league_rakan": {
         "name": "洛",
-        "attack": "掷出羽毛攻击。被动<#ff9028ff>异色羽裳<>：获得<#e8d44dff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>60% 法强<>的<#e8d44dff>护盾<>，破掉<#ffb900ff>12秒<>后再生；攻击和技能每命中一名敌方英雄，再生快<#ffb900ff>1秒<>。",
-        "skill": "掷出羽毛，第一个敌人受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法强<>的<#a974ffff>魔法伤害<>。命中英雄后，<#ffb900ff>3秒<>后或碰到友方英雄时，为自己和身边的友方英雄<#6aff55ff>回复<><#6aff55ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>45% 法强<>生命值。",
-        "skill2": "<#ff9028ff>盛大登场<>：冲向一名敌方英雄，旋上空中，<#ef5350ff>击飞<>周围敌人<#ffb900ff>0.83秒<>并造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 法强<>的<#a974ffff>魔法伤害<>；随后<#ff9028ff>轻舞成双<>：飞到最近的友方英雄身边，给他<#e8d44dff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>60% 法强<>的<#e8d44dff>护盾<>（<#ffb900ff>3秒<>）。",
-        "ult": "<#ffb900ff>4秒<>内<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>疾速<>穿梭于敌人之间：碰到的每个敌人受到<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 法强<>的<#a974ffff>魔法伤害<>并被<#ef5350ff>魅惑1.1秒<>（每个敌人一次）；碰到第一个英雄后更快。"
+        "attack": "掷出羽毛攻击。被动<#ff9028ff>异色羽裳<>：获得<#e8d44dff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>70% 法强<>的<#e8d44dff>护盾<>，破掉<#ffb900ff>12秒<>后再生；攻击和技能每命中一名敌方英雄，再生快<#ffb900ff>1秒<>。",
+        "skill": "掷出羽毛，第一个敌人受到<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 法强<>的<#a974ffff>魔法伤害<>。命中英雄后，<#ffb900ff>3秒<>后或碰到友方英雄时，为自己和身边的友方英雄<#6aff55ff>回复<><#6aff55ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>50% 法强<>生命值。",
+        "skill2": "<#ff9028ff>盛大登场<>：冲向一名敌方英雄，旋上空中，<#ef5350ff>击飞<>周围敌人<#ffb900ff>0.8秒<>并造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法强<>的<#a974ffff>魔法伤害<>；随后<#ff9028ff>轻舞成双<>：飞到最近的友方英雄身边，给他<#e8d44dff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>70% 法强<>的<#e8d44dff>护盾<>（<#ffb900ff>3秒<>）。",
+        "ult": "<#ffb900ff>4秒<>内<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>疾速<>穿梭于敌人之间：碰到的每个敌人受到<#a974ffff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法强<>的<#a974ffff>魔法伤害<>并被<#ef5350ff>魅惑1.25秒<>（每个敌人一次）；碰到第一个英雄后更快。"
       }
     },
     "skill_name": {
@@ -1028,10 +1028,10 @@
       },
       "league_rakan": {
         "name": "銳空",
-        "attack": "擲出羽毛攻擊。被動<#ff9028ff>奇異羽篷<>：獲得<#e8d44dff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>60% 魔法強度<>的<#e8d44dff>護盾<>，破掉<#ffb900ff>12秒<>後再生；攻擊和技能每命中一名敵方英雄，再生快<#ffb900ff>1秒<>。",
-        "skill": "擲出羽毛，第一個敵人受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 魔法強度<>的<#a974ffff>魔法傷害<>。命中英雄後，<#ffb900ff>3秒<>後或碰到友方英雄時，為自身和身邊友方英雄<#6aff55ff>回復<><#6aff55ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>45% 魔法強度<>生命。",
-        "skill2": "<#ff9028ff>盛大登場<>：衝向一名敵方英雄並旋上空中，<#ef5350ff>擊飛<>周圍敵人<#ffb900ff>0.83秒<>，造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 魔法強度<>的<#a974ffff>魔法傷害<>；隨後<#ff9028ff>戰鬥舞踊<>：飛到最近的友方英雄身邊，提供<#e8d44dff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>60% 魔法強度<>的<#e8d44dff>護盾<>（<#ffb900ff>3秒<>）。",
-        "ult": "<#ffb900ff>4秒<>內<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>疾速<>穿梭於敵人之間：碰到的每個敵人受到<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 魔法強度<>的<#a974ffff>魔法傷害<>並被<#ef5350ff>魅惑1.1秒<>（每個敵人一次）；碰到第一名英雄後更快。"
+        "attack": "擲出羽毛攻擊。被動<#ff9028ff>奇異羽篷<>：獲得<#e8d44dff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>70% 魔法強度<>的<#e8d44dff>護盾<>，破掉<#ffb900ff>12秒<>後再生；攻擊和技能每命中一名敵方英雄，再生快<#ffb900ff>1秒<>。",
+        "skill": "擲出羽毛，第一個敵人受到<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 魔法強度<>的<#a974ffff>魔法傷害<>。命中英雄後，<#ffb900ff>3秒<>後或碰到友方英雄時，為自身和身邊友方英雄<#6aff55ff>回復<><#6aff55ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>50% 魔法強度<>生命。",
+        "skill2": "<#ff9028ff>盛大登場<>：衝向一名敵方英雄並旋上空中，<#ef5350ff>擊飛<>周圍敵人<#ffb900ff>0.8秒<>，造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 魔法強度<>的<#a974ffff>魔法傷害<>；隨後<#ff9028ff>戰鬥舞踊<>：飛到最近的友方英雄身邊，提供<#e8d44dff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>70% 魔法強度<>的<#e8d44dff>護盾<>（<#ffb900ff>3秒<>）。",
+        "ult": "<#ffb900ff>4秒<>內<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>疾速<>穿梭於敵人之間：碰到的每個敵人受到<#a974ffff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 魔法強度<>的<#a974ffff>魔法傷害<>並被<#ef5350ff>魅惑1.25秒<>（每個敵人一次）；碰到第一名英雄後更快。"
       }
     },
     "skill_name": {
@@ -1682,10 +1682,10 @@
       },
       "league_rakan": {
         "name": "Rakan",
-        "attack": "Throws a feather. Passive <#ff9028ff>Fey Feathers<>: Rakan holds a <#e8d44dff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>60% AP<> <#e8d44dff>shield<>; <#ffb900ff>12s<> after it breaks it comes back, <#ffb900ff>1s<> sooner for every attack or ability that hits an enemy champion.",
-        "skill": "Rakan flings a feather: the first enemy hit takes <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% AP<> <#a974ffff>magic damage<>. After a champion hit he <#6aff55ff>heals<> himself and nearby allied champions for <#6aff55ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>45% AP<> after <#ffb900ff>3s<>, or as soon as he touches an ally.",
-        "skill2": "<#ff9028ff>Grand Entrance<>: Rakan dashes onto an enemy champion and spirals up, <#ef5350ff>knocking up<> the enemies around him for <#ffb900ff>0.83s<> and dealing <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% AP<> <#a974ffff>magic damage<>; then <#ff9028ff>Battle Dance<>: he flies to the nearest allied champion and gives him a <#e8d44dff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>60% AP<> <#e8d44dff>shield<> for <#ffb900ff>3s<>.",
-        "ult": "For <#ffb900ff>4s<> Rakan <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>darts<> through the enemy team: every enemy he touches takes <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% AP<> <#a974ffff>magic damage<> and is <#ef5350ff>charmed for 1.1s<> (once each). The first champion he touches speeds him up."
+        "attack": "Throws a feather. Passive <#ff9028ff>Fey Feathers<>: Rakan holds a <#e8d44dff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>70% AP<> <#e8d44dff>shield<>; <#ffb900ff>12s<> after it breaks it comes back, <#ffb900ff>1s<> sooner for every attack or ability that hits an enemy champion.",
+        "skill": "Rakan flings a feather: the first enemy hit takes <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% AP<> <#a974ffff>magic damage<>. After a champion hit he <#6aff55ff>heals<> himself and nearby allied champions for <#6aff55ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>50% AP<> after <#ffb900ff>3s<>, or as soon as he touches an ally.",
+        "skill2": "<#ff9028ff>Grand Entrance<>: Rakan dashes onto an enemy champion and spirals up, <#ef5350ff>knocking up<> the enemies around him for <#ffb900ff>0.8s<> and dealing <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% AP<> <#a974ffff>magic damage<>; then <#ff9028ff>Battle Dance<>: he flies to the nearest allied champion and gives him a <#e8d44dff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>70% AP<> <#e8d44dff>shield<> for <#ffb900ff>3s<>.",
+        "ult": "For <#ffb900ff>4s<> Rakan <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>darts<> through the enemy team: every enemy he touches takes <#a974ffff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% AP<> <#a974ffff>magic damage<> and is <#ef5350ff>charmed for 1.25s<> (once each). The first champion he touches speeds him up."
       }
     },
     "skill_name": {
@@ -2336,10 +2336,10 @@
       },
       "league_rakan": {
         "name": "라칸",
-        "attack": "깃털을 던져 공격합니다. 기본 지속 효과 <#ff9028ff>요술 망토<>: <#e8d44dff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>주문력의 60%<>의 <#e8d44dff>보호막<>을 얻고, 깨지면 <#ffb900ff>12초<> 뒤 다시 생깁니다. 기본 공격과 스킬이 적 챔피언에게 맞을 때마다 <#ffb900ff>1초<> 빨라집니다.",
-        "skill": "깃털을 던져 처음 맞은 적에게 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 70%<>의 <#a974ffff>마법 피해<>를 입힙니다. 챔피언에게 맞으면 <#ffb900ff>3초<> 뒤 또는 아군에게 닿는 즉시 자신과 주변 아군 챔피언의 체력을 <#6aff55ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>주문력의 45%<> <#6aff55ff>회복<>합니다.",
-        "skill2": "<#ff9028ff>화려한 등장<>: 적 챔피언에게 돌진해 회전하며 솟아올라 주변 적을 <#ffb900ff>0.83초<> 동안 <#ef5350ff>에어본<>시키고 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 60%<>의 <#a974ffff>마법 피해<>를 입힙니다. 이어서 <#ff9028ff>전쟁무도<>: 가장 가까운 아군 챔피언에게 날아가 <#ffb900ff>3초<> 동안 <#e8d44dff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>주문력의 60%<>의 <#e8d44dff>보호막<>을 씌웁니다.",
-        "ult": "<#ffb900ff>4초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>빠르게<> 적진을 누빕니다. 닿은 적마다 <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 60%<>의 <#a974ffff>마법 피해<>를 입히고 <#ef5350ff>1.1초 동안 매혹<>합니다(적마다 한 번). 처음 닿은 챔피언이 그를 더 빠르게 합니다."
+        "attack": "깃털을 던져 공격합니다. 기본 지속 효과 <#ff9028ff>요술 망토<>: <#e8d44dff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>주문력의 70%<>의 <#e8d44dff>보호막<>을 얻고, 깨지면 <#ffb900ff>12초<> 뒤 다시 생깁니다. 기본 공격과 스킬이 적 챔피언에게 맞을 때마다 <#ffb900ff>1초<> 빨라집니다.",
+        "skill": "깃털을 던져 처음 맞은 적에게 <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 80%<>의 <#a974ffff>마법 피해<>를 입힙니다. 챔피언에게 맞으면 <#ffb900ff>3초<> 뒤 또는 아군에게 닿는 즉시 자신과 주변 아군 챔피언의 체력을 <#6aff55ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>주문력의 50%<> <#6aff55ff>회복<>합니다.",
+        "skill2": "<#ff9028ff>화려한 등장<>: 적 챔피언에게 돌진해 회전하며 솟아올라 주변 적을 <#ffb900ff>0.8초<> 동안 <#ef5350ff>에어본<>시키고 <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 70%<>의 <#a974ffff>마법 피해<>를 입힙니다. 이어서 <#ff9028ff>전쟁무도<>: 가장 가까운 아군 챔피언에게 날아가 <#ffb900ff>3초<> 동안 <#e8d44dff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>주문력의 70%<>의 <#e8d44dff>보호막<>을 씌웁니다.",
+        "ult": "<#ffb900ff>4초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>빠르게<> 적진을 누빕니다. 닿은 적마다 <#a974ffff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 70%<>의 <#a974ffff>마법 피해<>를 입히고 <#ef5350ff>1.25초 동안 매혹<>합니다(적마다 한 번). 처음 닿은 챔피언이 그를 더 빠르게 합니다."
       }
     },
     "skill_name": {
@@ -2990,10 +2990,10 @@
       },
       "league_rakan": {
         "name": "ラカン",
-        "attack": "羽根を投げて攻撃。パッシブ<#ff9028ff>神秘の翼<>：<#e8d44dff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>魔力の60%<>の<#e8d44dff>シールド<>を得て、壊れると<#ffb900ff>12秒<>後に再生。通常攻撃とスキルが敵チャンピオンに当たるたび<#ffb900ff>1秒<>短縮。",
-        "skill": "羽根を投げ、最初の敵に<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の70%<>の<#a974ffff>魔法ダメージ<>。チャンピオンに当たると<#ffb900ff>3秒<>後か味方に触れた時、自身と周囲の味方チャンピオンを<#6aff55ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>魔力の45%<><#6aff55ff>回復<>。",
-        "skill2": "<#ff9028ff>華麗なる登場<>：敵チャンピオンへ突進して舞い上がり、周囲の敵を<#ffb900ff>0.83秒<><#ef5350ff>ノックアップ<>し<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の60%<>の<#a974ffff>魔法ダメージ<>。続いて<#ff9028ff>バトルダンス<>：最も近い味方チャンピオンへ飛び、<#ffb900ff>3秒<>間<#e8d44dff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>魔力の60%<>の<#e8d44dff>シールド<>。",
-        "ult": "<#ffb900ff>4秒<>間<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>素早く<>敵陣を駆け抜け、触れた敵に<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の60%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>1.1秒の魅了<>（各1回）。最初に触れたチャンピオンでさらに加速。"
+        "attack": "羽根を投げて攻撃。パッシブ<#ff9028ff>神秘の翼<>：<#e8d44dff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>魔力の70%<>の<#e8d44dff>シールド<>を得て、壊れると<#ffb900ff>12秒<>後に再生。通常攻撃とスキルが敵チャンピオンに当たるたび<#ffb900ff>1秒<>短縮。",
+        "skill": "羽根を投げ、最初の敵に<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の80%<>の<#a974ffff>魔法ダメージ<>。チャンピオンに当たると<#ffb900ff>3秒<>後か味方に触れた時、自身と周囲の味方チャンピオンを<#6aff55ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#6aff55ff>魔力の50%<><#6aff55ff>回復<>。",
+        "skill2": "<#ff9028ff>華麗なる登場<>：敵チャンピオンへ突進して舞い上がり、周囲の敵を<#ffb900ff>0.8秒<><#ef5350ff>ノックアップ<>し<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の70%<>の<#a974ffff>魔法ダメージ<>。続いて<#ff9028ff>バトルダンス<>：最も近い味方チャンピオンへ飛び、<#ffb900ff>3秒<>間<#e8d44dff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#e8d44dff>魔力の70%<>の<#e8d44dff>シールド<>。",
+        "ult": "<#ffb900ff>4秒<>間<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>素早く<>敵陣を駆け抜け、触れた敵に<#a974ffff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の70%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>1.25秒の魅了<>（各1回）。最初に触れたチャンピオンでさらに加速。"
       }
     },
     "skill_name": {

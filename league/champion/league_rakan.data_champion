@@ -17,9 +17,9 @@
   "stat": {
     "attack": 78,
     "magic_power": 30,
-    "hp": 950,
-    "defence": 24,
-    "magic_resistance": 24,
+    "hp": 1000,
+    "defence": 28,
+    "magic_resistance": 26,
     "move_speed": 1030,
     "hp_regen": 0,
     "stack": 0,
@@ -28,8 +28,8 @@
   "growth": {
     "attack": 6,
     "magic_power": 15,
-    "hp": 95,
-    "defence": 7,
+    "hp": 105,
+    "defence": 8,
     "magic_resistance": 4,
     "move_speed": 10,
     "hp_regen": 0,
@@ -870,9 +870,9 @@
                               "effects": [
                                 {
                                   "type": "Shield",
-                                  "amount": 50,
+                                  "amount": 70,
                                   "attack_ratio": 0,
-                                  "ap_ratio": 60,
+                                  "ap_ratio": 70,
                                   "tick": 36000
                                 }
                               ]
@@ -1072,9 +1072,9 @@
                       "effects": [
                         {
                           "type": "Shield",
-                          "amount": 50,
+                          "amount": 70,
                           "attack_ratio": 0,
-                          "ap_ratio": 60,
+                          "ap_ratio": 70,
                           "tick": 36000
                         }
                       ]
@@ -1322,7 +1322,7 @@
     "action_name": "skill",
     "description": "#asset/base/text/champion?description.league_rakan.skill",
     "duration": 20,
-    "cooltime": 360,
+    "cooltime": 330,
     "start_timing": 10,
     "cancelable": false,
     "range": 60000,
@@ -1335,6 +1335,520 @@
         {
           "type": "RemoveCasterBuff",
           "name": "league_rakan_p_lq"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_rakan_p_on",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "SwitchByBuff",
+            "buff_name": "league_rakan_p_init",
+            "effect_buff": {
+              "type": "SwitchByBuff",
+              "buff_name": "league_rakan_p_wait",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_rakan_p_busy"
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_rakan_p_s1",
+                    "effect_buff": {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_rakan_p_busy",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_rakan_p_s2",
+                    "effect_buff": {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_rakan_p_busy",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_rakan_p_s3",
+                    "effect_buff": {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_rakan_p_busy",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_rakan_p_s4",
+                    "effect_buff": {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_rakan_p_busy",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_rakan_p_s5",
+                    "effect_buff": {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_rakan_p_busy",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_rakan_p_s6",
+                    "effect_buff": {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_rakan_p_busy",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_rakan_p_s7",
+                    "effect_buff": {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_rakan_p_busy",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_rakan_p_s8",
+                    "effect_buff": {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_rakan_p_busy",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_rakan_p_s9",
+                    "effect_buff": {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_rakan_p_busy",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_rakan_p_s10",
+                    "effect_buff": {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_rakan_p_busy",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_rakan_p_s11",
+                    "effect_buff": {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_rakan_p_busy",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_rakan_p_s12",
+                    "effect_buff": {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_rakan_p_busy",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_rakan_p_busy",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": []
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_rakan_p_wait"
+                        },
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "Circle": {
+                              "radius": 1000
+                            }
+                          },
+                          "target": "AllyOnlySelf",
+                          "apply_type": "AroundCaster",
+                          "effects": [
+                            {
+                              "type": "Shield",
+                              "amount": 70,
+                              "attack_ratio": 0,
+                              "ap_ratio": 70,
+                              "tick": 36000
+                            }
+                          ]
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_rakan_p_on",
+                            "duration": "WithShield"
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_rakan_p_shield"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_rakan_p_s1",
+                      "duration": {
+                        "Time": {
+                          "tick": 60
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_rakan_p_s2",
+                      "duration": {
+                        "Time": {
+                          "tick": 120
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_rakan_p_s3",
+                      "duration": {
+                        "Time": {
+                          "tick": 180
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_rakan_p_s4",
+                      "duration": {
+                        "Time": {
+                          "tick": 240
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_rakan_p_s5",
+                      "duration": {
+                        "Time": {
+                          "tick": 300
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_rakan_p_s6",
+                      "duration": {
+                        "Time": {
+                          "tick": 360
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_rakan_p_s7",
+                      "duration": {
+                        "Time": {
+                          "tick": 420
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_rakan_p_s8",
+                      "duration": {
+                        "Time": {
+                          "tick": 480
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_rakan_p_s9",
+                      "duration": {
+                        "Time": {
+                          "tick": 540
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_rakan_p_s10",
+                      "duration": {
+                        "Time": {
+                          "tick": 600
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_rakan_p_s11",
+                      "duration": {
+                        "Time": {
+                          "tick": 660
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_rakan_p_s12",
+                      "duration": {
+                        "Time": {
+                          "tick": 720
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_rakan_p_wait",
+                      "duration": "Permanent"
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              }
+            },
+            "effect_none": {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RangeEffect",
+                  "shape": {
+                    "Circle": {
+                      "radius": 1000
+                    }
+                  },
+                  "target": "AllyOnlySelf",
+                  "apply_type": "AroundCaster",
+                  "effects": [
+                    {
+                      "type": "Shield",
+                      "amount": 70,
+                      "attack_ratio": 0,
+                      "ap_ratio": 70,
+                      "tick": 36000
+                    }
+                  ]
+                },
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_rakan_p_on",
+                    "duration": "WithShield"
+                  },
+                  "only_to_enemy": false
+                },
+                {
+                  "type": "Sfx",
+                  "name": "league_rakan_p_shield"
+                },
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_rakan_p_init",
+                    "duration": "Permanent"
+                  },
+                  "only_to_enemy": false
+                }
+              ]
+            }
+          }
         },
         {
           "type": "Sfx",
@@ -1350,8 +1864,8 @@
               "casting_type": "Targeting",
               "effect": {
                 "type": "ApAttack",
-                "damage": 80,
-                "attack_ratio": 70,
+                "damage": 100,
+                "attack_ratio": 80,
                 "hp_ratio": 0,
                 "can_crit": false
               }
@@ -1443,9 +1957,9 @@
                                   "effects": [
                                     {
                                       "type": "Heal",
-                                      "amount": 45,
+                                      "amount": 70,
                                       "attack_ratio": 0,
-                                      "ap_ratio": 45,
+                                      "ap_ratio": 50,
                                       "heal_type": "Ally"
                                     },
                                     {
@@ -1500,9 +2014,9 @@
                                   "effects": [
                                     {
                                       "type": "Heal",
-                                      "amount": 45,
+                                      "amount": 70,
                                       "attack_ratio": 0,
-                                      "ap_ratio": 45,
+                                      "ap_ratio": 50,
                                       "heal_type": "Ally"
                                     },
                                     {
@@ -1608,7 +2122,7 @@
             }
           ],
           "end_effects": [],
-          "speed": 2500,
+          "speed": 6000,
           "range": 66000,
           "shape": {
             "Circle": {
@@ -1624,7 +2138,7 @@
     "action_name": "skill2",
     "description": "#asset/base/text/champion?description.league_rakan.skill2",
     "duration": 3,
-    "cooltime": 540,
+    "cooltime": 450,
     "start_timing": 1,
     "cancelable": false,
     "range": 45000,
@@ -1637,6 +2151,520 @@
         {
           "type": "RemoveCasterBuff",
           "name": "league_rakan_p_lw"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_rakan_p_on",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "SwitchByBuff",
+            "buff_name": "league_rakan_p_init",
+            "effect_buff": {
+              "type": "SwitchByBuff",
+              "buff_name": "league_rakan_p_wait",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_rakan_p_busy"
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_rakan_p_s1",
+                    "effect_buff": {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_rakan_p_busy",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_rakan_p_s2",
+                    "effect_buff": {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_rakan_p_busy",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_rakan_p_s3",
+                    "effect_buff": {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_rakan_p_busy",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_rakan_p_s4",
+                    "effect_buff": {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_rakan_p_busy",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_rakan_p_s5",
+                    "effect_buff": {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_rakan_p_busy",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_rakan_p_s6",
+                    "effect_buff": {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_rakan_p_busy",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_rakan_p_s7",
+                    "effect_buff": {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_rakan_p_busy",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_rakan_p_s8",
+                    "effect_buff": {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_rakan_p_busy",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_rakan_p_s9",
+                    "effect_buff": {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_rakan_p_busy",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_rakan_p_s10",
+                    "effect_buff": {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_rakan_p_busy",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_rakan_p_s11",
+                    "effect_buff": {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_rakan_p_busy",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_rakan_p_s12",
+                    "effect_buff": {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_rakan_p_busy",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_rakan_p_busy",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": []
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_rakan_p_wait"
+                        },
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "Circle": {
+                              "radius": 1000
+                            }
+                          },
+                          "target": "AllyOnlySelf",
+                          "apply_type": "AroundCaster",
+                          "effects": [
+                            {
+                              "type": "Shield",
+                              "amount": 70,
+                              "attack_ratio": 0,
+                              "ap_ratio": 70,
+                              "tick": 36000
+                            }
+                          ]
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_rakan_p_on",
+                            "duration": "WithShield"
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_rakan_p_shield"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_rakan_p_s1",
+                      "duration": {
+                        "Time": {
+                          "tick": 60
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_rakan_p_s2",
+                      "duration": {
+                        "Time": {
+                          "tick": 120
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_rakan_p_s3",
+                      "duration": {
+                        "Time": {
+                          "tick": 180
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_rakan_p_s4",
+                      "duration": {
+                        "Time": {
+                          "tick": 240
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_rakan_p_s5",
+                      "duration": {
+                        "Time": {
+                          "tick": 300
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_rakan_p_s6",
+                      "duration": {
+                        "Time": {
+                          "tick": 360
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_rakan_p_s7",
+                      "duration": {
+                        "Time": {
+                          "tick": 420
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_rakan_p_s8",
+                      "duration": {
+                        "Time": {
+                          "tick": 480
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_rakan_p_s9",
+                      "duration": {
+                        "Time": {
+                          "tick": 540
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_rakan_p_s10",
+                      "duration": {
+                        "Time": {
+                          "tick": 600
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_rakan_p_s11",
+                      "duration": {
+                        "Time": {
+                          "tick": 660
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_rakan_p_s12",
+                      "duration": {
+                        "Time": {
+                          "tick": 720
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_rakan_p_wait",
+                      "duration": "Permanent"
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              }
+            },
+            "effect_none": {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RangeEffect",
+                  "shape": {
+                    "Circle": {
+                      "radius": 1000
+                    }
+                  },
+                  "target": "AllyOnlySelf",
+                  "apply_type": "AroundCaster",
+                  "effects": [
+                    {
+                      "type": "Shield",
+                      "amount": 70,
+                      "attack_ratio": 0,
+                      "ap_ratio": 70,
+                      "tick": 36000
+                    }
+                  ]
+                },
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_rakan_p_on",
+                    "duration": "WithShield"
+                  },
+                  "only_to_enemy": false
+                },
+                {
+                  "type": "Sfx",
+                  "name": "league_rakan_p_shield"
+                },
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_rakan_p_init",
+                    "duration": "Permanent"
+                  },
+                  "only_to_enemy": false
+                }
+              ]
+            }
+          }
         },
         {
           "type": "Sfx",
@@ -1681,14 +2709,14 @@
                   "effects": [
                     {
                       "type": "ApAttack",
-                      "damage": 70,
-                      "attack_ratio": 60,
+                      "damage": 100,
+                      "attack_ratio": 70,
                       "hp_ratio": 0,
                       "can_crit": false
                     },
                     {
                       "type": "Airborne",
-                      "duration": 50
+                      "duration": 48
                     },
                     {
                       "type": "ViewEffect",
@@ -1819,9 +2847,9 @@
                     },
                     {
                       "type": "Shield",
-                      "amount": 70,
+                      "amount": 90,
                       "attack_ratio": 0,
-                      "ap_ratio": 60,
+                      "ap_ratio": 70,
                       "tick": 180
                     },
                     {
@@ -1847,7 +2875,7 @@
                     {
                       "type": "MoveToTarget",
                       "speed": 4000,
-                      "range": 95000,
+                      "range": 110000,
                       "end_effects": [
                         {
                           "type": "CasterAnimation",
@@ -1888,9 +2916,9 @@
                                 "effects": [
                                   {
                                     "type": "Heal",
-                                    "amount": 45,
+                                    "amount": 70,
                                     "attack_ratio": 0,
-                                    "ap_ratio": 45,
+                                    "ap_ratio": 50,
                                     "heal_type": "Ally"
                                   },
                                   {
@@ -1940,9 +2968,9 @@
                           },
                           {
                             "type": "Shield",
-                            "amount": 70,
+                            "amount": 90,
                             "attack_ratio": 0,
-                            "ap_ratio": 60,
+                            "ap_ratio": 70,
                             "tick": 180
                           },
                           {
@@ -1968,7 +2996,7 @@
                           {
                             "type": "MoveToTarget",
                             "speed": 4000,
-                            "range": 95000,
+                            "range": 110000,
                             "end_effects": [
                               {
                                 "type": "CasterAnimation",
@@ -2009,9 +3037,9 @@
                                       "effects": [
                                         {
                                           "type": "Heal",
-                                          "amount": 45,
+                                          "amount": 70,
                                           "attack_ratio": 0,
-                                          "ap_ratio": 45,
+                                          "ap_ratio": 50,
                                           "heal_type": "Ally"
                                         },
                                         {
@@ -2043,7 +3071,7 @@
                           "effects": [
                             {
                               "type": "RandomTarget",
-                              "range": 75000,
+                              "range": 90000,
                               "casting_target": "AllyNotSelf",
                               "from_projectile": false,
                               "effects": [
@@ -2061,9 +3089,9 @@
                                 },
                                 {
                                   "type": "Shield",
-                                  "amount": 70,
+                                  "amount": 90,
                                   "attack_ratio": 0,
-                                  "ap_ratio": 60,
+                                  "ap_ratio": 70,
                                   "tick": 180
                                 },
                                 {
@@ -2089,7 +3117,7 @@
                                 {
                                   "type": "MoveToTarget",
                                   "speed": 4000,
-                                  "range": 95000,
+                                  "range": 110000,
                                   "end_effects": [
                                     {
                                       "type": "CasterAnimation",
@@ -2130,9 +3158,9 @@
                                             "effects": [
                                               {
                                                 "type": "Heal",
-                                                "amount": 45,
+                                                "amount": 70,
                                                 "attack_ratio": 0,
-                                                "ap_ratio": 45,
+                                                "ap_ratio": 50,
                                                 "heal_type": "Ally"
                                               },
                                               {
@@ -2171,9 +3199,9 @@
                                 "effects": [
                                   {
                                     "type": "Shield",
-                                    "amount": 70,
+                                    "amount": 90,
                                     "attack_ratio": 0,
-                                    "ap_ratio": 60,
+                                    "ap_ratio": 70,
                                     "tick": 180
                                   },
                                   {
@@ -3041,9 +4069,9 @@
                               "effects": [
                                 {
                                   "type": "Shield",
-                                  "amount": 50,
+                                  "amount": 70,
                                   "attack_ratio": 0,
-                                  "ap_ratio": 60,
+                                  "ap_ratio": 70,
                                   "tick": 36000
                                 }
                               ]
@@ -3243,9 +4271,9 @@
                       "effects": [
                         {
                           "type": "Shield",
-                          "amount": 50,
+                          "amount": 70,
                           "attack_ratio": 0,
-                          "ap_ratio": 60,
+                          "ap_ratio": 70,
                           "tick": 36000
                         }
                       ]
@@ -3326,8 +4354,8 @@
               "casting_type": "Targeting",
               "effect": {
                 "type": "ApAttack",
-                "damage": 100,
-                "attack_ratio": 60,
+                "damage": 140,
+                "attack_ratio": 70,
                 "hp_ratio": 0,
                 "can_crit": false
               }
@@ -3336,7 +4364,7 @@
               "casting_type": "Targeting",
               "effect": {
                 "type": "Charm",
-                "tick": 66
+                "tick": 75
               }
             },
             {
