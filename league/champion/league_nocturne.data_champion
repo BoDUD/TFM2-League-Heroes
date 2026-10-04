@@ -1363,7 +1363,7 @@
           "effects": [
             {
               "type": "Invisible",
-              "tick": 180
+              "tick": 32
             },
             {
               "type": "ViewEffect",
@@ -1387,7 +1387,7 @@
                 "name": "league_nocturne_r_dark",
                 "duration": {
                   "Time": {
-                    "tick": 180
+                    "tick": 32
                   }
                 }
               }
@@ -1450,6 +1450,45 @@
               "type": "CasterAnimation",
               "name": "ult_hit",
               "tick": 20
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 2000000
+                }
+              },
+              "target": "AllyChampion",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "Invisible",
+                  "tick": 20
+                }
+              ]
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 2000000
+                }
+              },
+              "target": "EnemyChampion",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "AddBuff",
+                  "buff_state": {
+                    "name": "league_nocturne_r_dark",
+                    "duration": {
+                      "Time": {
+                        "tick": 20
+                      }
+                    }
+                  }
+                }
+              ]
             }
           ]
         }

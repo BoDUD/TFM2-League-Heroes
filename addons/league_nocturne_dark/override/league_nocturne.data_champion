@@ -1387,7 +1387,7 @@
                 "name": "league_nocturne_r_dark",
                 "duration": {
                   "Time": {
-                    "tick": 180
+                    "tick": 32
                   }
                 }
               }
@@ -1450,6 +1450,33 @@
               "type": "CasterAnimation",
               "name": "ult_hit",
               "tick": 20
+            },
+            {
+              "type": "Native",
+              "effect_ref": "league_nocturne_dark:land"
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 2000000
+                }
+              },
+              "target": "EnemyChampion",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "AddBuff",
+                  "buff_state": {
+                    "name": "league_nocturne_r_dark",
+                    "duration": {
+                      "Time": {
+                        "tick": 20
+                      }
+                    }
+                  }
+                }
+              ]
             }
           ]
         }

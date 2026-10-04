@@ -11,10 +11,10 @@
       "version": ">=0.50.0"
     }
   ],
-  "description": "Test build of Nocturne's Paranoia darkness (needs League of Legends Heroes): replaces the main pack's Nocturne so his R darkens the whole map for 3 s (a map-sized effect under the units that plays in step with the match) and, like League's Paranoia, enemies see and hit only what is right next to them: each allied champion is hidden until an enemy champion comes close, and an enemy can attack or cast on Nocturne's team only within its own short sight (farther targets make it walk closer instead). Writes a log for testing.",
+  "description": "Test build of Nocturne's Paranoia darkness (needs League of Legends Heroes): replaces the main pack's Nocturne so his R darkens the whole map while he flies and lands (the ult's own length) (a map-sized effect under the units that plays in step with the match) and, like League's Paranoia, enemies see and hit only what is right next to them: each allied champion is hidden until an enemy champion comes close, and an enemy can attack or cast on Nocturne's team only within its own short sight (farther targets make it walk closer instead). Writes a log for testing.",
   "last_updated": "2026-10-04",
   "mod_id": "league_nocturne_dark",
   "mod_type": "native",
   "name": "League Heroes: Nocturne Paranoia Darkness (test)",
-  "version": "0.3.0"
+  "version": "0.4.0"
 }
