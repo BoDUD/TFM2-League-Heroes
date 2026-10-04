@@ -9,8 +9,8 @@
                               walks in and swings twice; the empowered strike (Deathbringer Stance) thrusts a streak
                               from the blade and bursts on Darius; The Darkin Blade three times as League casts it
                               (0.6 s to the blow): Umbral Dash halfway through the wind-up (Q1 hops back so Darius
-                              stands on the slam's far edge, Q3 rushes in), the shape laid on the ground after it
-                              with its warning, then the blow (the arc, the edge's pillar and knock-up); Infernal Chains: the claw's flash,
+                              stands on the slam's far edge, Q3 rushes in), the warning on the ground from the cast
+                              (its twin, then the shape laid after the dash), then the blow (the arc, the edge's pillar and knock-up); Infernal Chains: the claw's flash,
                               the chain flies and hits, the ring lies under him and links run to its centre while he
                               walks off inside it (he had backed off first), and at 1.5 s the chains snap him back to the
                               centre (Garen, by the ring, is left alone); World Ender: the transformation, the wings and the aura,
@@ -37,6 +37,10 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 LEAGUE = os.path.join(ROOT, "league")
 CHAMP = os.path.join(LEAGUE, "champions", "league_aatrox")
 FX = {n: os.path.join(LEAGUE, "effects", n) for n in ("league_aatrox_fx", "league_aatrox_big")}
+TELE_T = (0, 9, 18)                     # build_aatrox.py / import_aatrox.py TELE_T: the warning's twins
+E_T = 18                                # build_aatrox.py e_t: the twin on it is laid only when E does not dash
+HOP, RUSH = -18, 21                     # E's slides: MoveBack 3000 x 6 ticks, RushTime 3000 x 7 (build_aatrox.py)
+TELE_TAGS = ("tele", "tele_b", "tele_c")
 
 
 class Body(Anim):
@@ -108,6 +112,17 @@ def showcase(out, z=3, step=40):
         on(foe, small, tag, when)
         foe.flinches.append(when)
 
+    def tele(k, q0, an, dash=False):
+        """Q's warning before the lock: the picture-only twins re-laid at TELE_T from where he stands then
+        (build_aatrox.py q*_tele, _b, _c; each plays its share of the warning's frames); the one on E_T only when E
+        does not dash (the warning is off for the dash)."""
+        for t_, tag_ in zip(TELE_T, TELE_TAGS):
+            if dash and t_ >= E_T:
+                continue
+            hx, hy = an.pos(q0 + tick(t_))
+            ahead = {1: 22, 2: 13, 3: min(14.5, d.pos(q0 + tick(t_))[0] - hx)}[k]
+            at(big, f"q{k}_{tag_}", q0 + tick(t_), hx + ahead, hy, ground=True)
+
     # he walks in; Darius and Garen wait
     run_in = Body(frames_of(aatrox, "run"), 0.0, x - 50, gy, loop=True, until=1000, slides=[(0.0, 1000.0, 50)])
     body.append(run_in)
@@ -118,23 +133,28 @@ def showcase(out, z=3, step=40):
         hit_on(d, "a_hit", t + tick(12))
         a("attack")
         a("idle", tick(66 - 26), loop=True)
-    # Deathbringer Stance: the streak from the blade's tip 4 ticks before the hit (tick 18)
-    on(me, small, "p_swing", t + tick(14))
+    # Deathbringer Stance: the streak from the blade's tip with the thrust (tick 18, build_aatrox.py p_hit_t)
+    on(me, small, "p_swing", t + tick(18))
     hit_on(d, "p_hit", t + tick(18))
     a("attack_p")
     a("idle", 400, loop=True)
 
     def q(tag, k, hit_t, slide, edge_up, e_t=18, lock_t=26):
-        """A Q cast (build_aatrox.py: e_t, q_lock_t, q_hit_t): E's slide halfway through the wind-up (6-7 ticks at
-        3 px), the shape laid on the ground after it (its picture: the warning, then the impact on the blow), the
-        slash 4 ticks before the blow, the edge's pillar + knock-up on Darius."""
+        """A Q cast (build_aatrox.py: e_t, q_lock_t, q_hit_t): the warning's twin from the cast, E's slide halfway
+        through the wind-up (6-7 ticks at 3 px; the hop back's trail turned round), the shape laid on the ground after
+        it (its picture: the rest of the warning, then the impact on the blow), the slash on the blow, the edge's
+        pillar + knock-up on Darius."""
         nonlocal t
         q0 = t
         an = a(tag, slides=[(q0 + tick(e_t), q0 + tick(e_t + abs(slide) / 3.0), slide)] if slide else ())
+        tele(k, q0, an, dash=bool(slide))
         if slide:
             ex, ey = an.pos(q0 + tick(e_t))
-            at(small, "e_dash", q0 + tick(e_t), ex, ey)    # left where the dash starts (is_follow false)
-        on(me, small, f"q{k}_slash", q0 + tick(hit_t - 4))
+            # left where the dash starts (is_follow false)
+            at(small, "e_dash" if slide > 0 else "e_dash_back", q0 + tick(e_t), ex, ey)
+        # on the blow where he stands then (build_aatrox.py: from the shape's point, not following); World Ender's
+        # forms: _r
+        at(small, f"q{k}_slash" + ("_r" if tag.endswith("_r") else ""), q0 + tick(hit_t), *an.pos(q0 + tick(hit_t)))
         hx, hy = an.pos(q0 + tick(lock_t))
         if k == 1:
             at(big, "q1_body", q0 + tick(lock_t), hx + 22, hy, ground=True)      # the 45000 line's middle
@@ -149,13 +169,13 @@ def showcase(out, z=3, step=40):
         d.hops.append((q0 + tick(hit_t), q0 + tick(hit_t + edge_up), 8 if k < 3 else 11))
 
     # Q1: Darius 26 px away, the far edge at 41: E hops back 18 px first
-    q("skill", 1, 36, -18, 15)
+    q("skill", 1, 36, HOP, 15)
     a("idle", 300, loop=True)
     # Q2: the far edge at 31: Darius at 44 is on it
     q("q2", 2, 36, 0, 15)
     a("idle", 300, loop=True)
     # Q3: the circle 14.5 ahead: E rushes 21 px in
-    q("q3", 3, 36, 21, 15)
+    q("q3", 3, 36, RUSH, 15)
     a("idle", 500, loop=True)
 
     # Darius backs off 40 px; Infernal Chains after him: the chain on tick 14 from the claw, 2.2 px a tick, raised 8 px
@@ -174,10 +194,7 @@ def showcase(out, z=3, step=40):
     # the ring under him, 3 px toward Aatrox; he walks off 18 px inside it (radius 33); Garen, by the ring's far edge,
     # is untouched (the chain holds only the one it hit)
     cx, cy = dx - 3, dy
-    at(big, "w_ring_in", hit, cx, cy, ground=True)
-    for k in range(24, 90, 16):
-        if k + 16 <= 90 + 8:
-            at(big, "w_ring_beat", hit + tick(k), cx, cy, ground=True)
+    at(big, "w_ring", hit, cx, cy, ground=True)            # appears and turns for the chain's 1.5 s
     d.runs.append((hit + tick(10), hit + tick(70)))
     d.slides.append((hit + tick(10), hit + tick(70), 18))
     # the links: every 4 ticks one flies from his feet to the ring's centre at 2.5 px a tick
@@ -309,6 +326,16 @@ def combos(out, z=3, step=40):
         on(d, small, tag, when)
         d.flinches.append(when)
 
+    def tele(k, q0, an, dash=False):
+        """Q's warning before the lock: the picture-only twins re-laid at TELE_T from where he stands then
+        (build_aatrox.py q*_tele, _b, _c), the one on E_T only when E does not dash."""
+        for t_, tag_ in zip(TELE_T, TELE_TAGS):
+            if dash and t_ >= E_T:
+                continue
+            hx, hy = an.pos(q0 + tick(t_))
+            ahead = {1: 22, 2: 13, 3: min(14.5, d.pos(q0 + tick(t_))[0] - hx)}[k]
+            at(big, f"q{k}_{tag_}", q0 + tick(t_), hx + ahead, hy, ground=True)
+
     def wings(t0, t1):
         w = OnFoe(frames_of(big, "r_aura"), t0, me, z=-1)
         w.loop, w.until = True, t1
@@ -316,16 +343,19 @@ def combos(out, z=3, step=40):
 
     def q(tag, k, place=None, e_t=18, lock_t=26, hit_t=36):
         """A Q cast; `place`: where Darius should stand from Aatrox at the lock (the far edge for Q1/Q2, the circle's
-        middle for Q3) - E slides him there halfway through the wind-up (at most 25 px, 3 px a tick)."""
+        middle for Q3) - E slides him toward it halfway through the wind-up, by E's own distance (HOP back or RUSH in,
+        3 px a tick), so the trails sit as in the game."""
         q0 = t
-        slide = 0.0
+        slide = 0
         if place is not None:
-            slide = max(-25.0, min(25.0, d.pos(q0 + tick(lock_t))[0] - place - x))
-            slide = round(slide)
+            need = d.pos(q0 + tick(lock_t))[0] - place - x
+            slide = 0 if abs(need) < 1 else (RUSH if need > 0 else HOP)
         an = a(tag, slides=[(q0 + tick(e_t), q0 + tick(e_t + abs(slide) / 3.0), slide)] if slide else ())
+        tele(k, q0, an, dash=bool(slide))
         if slide:
-            at(small, "e_dash", q0 + tick(e_t), *an.pos(q0 + tick(e_t)))
-        on(me, small, f"q{k}_slash", q0 + tick(hit_t - 4))
+            at(small, "e_dash" if slide > 0 else "e_dash_back", q0 + tick(e_t), *an.pos(q0 + tick(e_t)))
+        # on the blow where he stands then (build_aatrox.py, not following); World Ender's forms: _r
+        at(small, f"q{k}_slash" + ("_r" if tag.endswith("_r") else ""), q0 + tick(hit_t), *an.pos(q0 + tick(hit_t)))
         hx, hy = an.pos(q0 + tick(lock_t))
         if k == 1:
             at(big, "q1_body", q0 + tick(lock_t), hx + 22, hy, ground=True)
@@ -341,7 +371,7 @@ def combos(out, z=3, step=40):
 
     def swing(tag="attack"):
         if tag == "attack_p":
-            on(me, small, "p_swing", t + tick(14))
+            on(me, small, "p_swing", t + tick(18))
             hit_on("p_hit", t + tick(18))
         else:
             hit_on("a_hit", t + tick(12))
@@ -370,9 +400,7 @@ def combos(out, z=3, step=40):
     hit_on("w_hit", hit)
     on(d, small, "w_slowed", hit, until=hit + tick(90), ground=True)
     cx, cy = dx - 3, dy
-    at(big, "w_ring_in", hit, cx, cy, ground=True)
-    for k in range(24, 90, 16):
-        at(big, "w_ring_beat", hit + tick(k), cx, cy, ground=True)
+    at(big, "w_ring", hit, cx, cy, ground=True)
     d.runs.append((hit + tick(10), hit + tick(70)))   # he walks off inside the ring
     d.slides.append((hit + tick(10), hit + tick(70), 16))
     for k in range(0, 90, 4):
