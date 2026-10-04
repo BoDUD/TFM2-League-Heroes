@@ -48,23 +48,19 @@ PALETTE = {
 FEATURE = set()                  # no colour needs a smaller share to win a block (the eyes are drawn afterwards)
 DARK = {"050302"}                # the outline
 EYE = "C8700A"                   # the eyes' amber, a shade nothing else has (import_native can find the face by it)
-GLOW = "F7C414"                  # the near iris's lower half (the gold's lightest)
-FAR = "693B08"                   # the far eye's iris (a dark gold)
 WHITE = "DCDFE8"                 # the near eye's highlight (the trousers' lightest)
-GREY = "C4C9DB"                  # the far eye's white, a shade greyer
-LID = "050302"                   # lashes and the pupil (the draft draws them near-black too)
-BROW = "55011B"                  # the hair's darkest crimson: brows
+BROW = "55011B"                  # the hair's darkest crimson: brows and lashes
 SHADE = "B06B44"                 # the skin's shadow
 # The face at 42 rows (the read keeps the face's skin but not its features): (x, y) on the 42-row figure -> colour.
-# The eyes copy the draft's (sett_design_B_raw.png, its rows 11-13 read back on its own grid), the head staying its
-# size: dark lids over both eyes on row 6; the near eye 3 x 2 - a white highlight, an amber iris and a near-black pupil
-# over a shadow, a light gold glow and amber; a shadow-and-skin nose bridge; the far eye a grey white over a dark gold
-# iris. Skin under them, a shadow for the mouth. Earlier faces: amber under both eyes (「这两坨黄的有点怪吧」), then one
-# row of eyes (「用option2」); then 「你只需要保留眼睛 尽量相似就行」 - of four eyes drawn after the draft's, this one.
+# Brows and lashes on row 6; one row of eyes on row 7: the near eye a white highlight beside an amber iris, the far eye
+# an amber iris, one skin column between; skin under them, a shadow for the mouth. The first version had a second
+# row of amber under both eyes (three squares) - the user: 「这两坨黄的有点怪吧」, and of three faces took this one
+# (「用option2」) over no amber and a single amber square under each pupil. Later, eyes copied from the draft's (a 3 x 2
+# near eye: highlight, amber, pupil over shadow, glow, amber; dark lids) were tried; the user: 「就用option2吧」.
 FACE = {
-    (11, 6): LID, (12, 6): BROW, (13, 6): LID, (14, 6): BROW, (15, 6): LID,
-    (11, 7): WHITE, (12, 7): EYE, (13, 7): LID, (14, 7): "DC9263", (15, 7): GREY,
-    (11, 8): SHADE, (12, 8): GLOW, (13, 8): EYE, (14, 8): SHADE, (15, 8): FAR,
+    (11, 6): BROW, (12, 6): BROW, (13, 6): "F9BC89", (14, 6): BROW,
+    (11, 7): WHITE, (12, 7): EYE, (13, 7): "F9BC89", (14, 7): EYE, (15, 7): "DC9263",
+    (11, 8): "DC9263", (12, 8): "F9BC89", (13, 8): "F9BC89", (14, 8): "F9BC89", (15, 8): "DC9263",
     (11, 9): "DC9263", (12, 9): "F9BC89", (13, 9): "F9BC89", (14, 9): "F9BC89",
     (13, 10): SHADE,
 }
