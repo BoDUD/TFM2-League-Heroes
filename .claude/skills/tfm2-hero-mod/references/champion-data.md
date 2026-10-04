@@ -1198,6 +1198,8 @@ league_kayn (jungle, --lane 1, 2026-10-04, only the Darkin form's W knocks up fo
 base ninja 0.50, league_leesin 1.67, league_vi 2.98, league_amumu 2.83 in the same batch - no change.
 league_twistedfate (mid, --lane 2, 2026-10-04, the gold card's 1.67 s stun, thrown only at champions): 1.23 a game;
 the base lightning mage 3.19 and pyromancer 0.50 in the same batch (league_ahri 1.27 before) - no change.
+league_sett (top, 2026-10-05, Facebreaker's 1 s stun on two or more pulled in - on one too after his R - cast only with a champion near, and R's stun; Yasuo mid): 1.88 a game; the first kit (Facebreaker on waves too) 2.12, the
+base fighter 2.33 and league_darius 1.25 in the same batch - no change.
 
 **Kill trigger (league_jinx Get Excited!).** No effect fires on a kill, but section 4's facts make one:
 1. Next to the damaging projectile, fire an invisible twin with the same speed and path and
