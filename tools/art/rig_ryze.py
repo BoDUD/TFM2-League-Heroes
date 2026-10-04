@@ -100,7 +100,7 @@ def upper_part(d):
 
 # the seams the design fills between its hanging arms and the coat (design_ryze_v2.WINDOW) belong to the hanging arms:
 # an arm moved away leaves the coat's own outline
-from design_ryze_v2 import WINDOW as SEAMS  # noqa: E402
+from design_ryze_v2 import WINDOW as SEAMS, ARM_CUT  # noqa: E402
 
 
 def teal_next(d, x, y):
@@ -132,13 +132,17 @@ def leg_parts(d):
 
 # the arms as drawn, cut in two at the elbow (the bracer's top): the upper arm from under the shoulder pad, the
 # forearm with the bracer and the open hand; joints: the shoulder (S), the elbow (E), the hand's middle (H)
+# (the design's arms are ARM_CUT rows shorter since 2026-10-04, design_ryze_v2.py step 6: the elbow, the forearm and
+# the hand that many rows higher, the upper arm that many rows shorter)
+_N = ARM_CUT
 ARMS = {
-    "back": {"S": (-7.0, -14.0), "E": (-8.0, -6.5), "H": (-8.5, -1.0),
-             "upper": lambda x, y: -11 <= x <= -5 and -14 <= y <= -7,
-             "fore": lambda x, y: -12 <= x <= -6 and -6 <= y <= 1},
-    "front": {"S": (6.0, -13.5), "E": (6.5, -6.5), "H": (8.0, -1.0),
-              "upper": lambda x, y: (5 <= x <= 8 and -13 <= y <= -7) or (x == 4 and -10 <= y <= -7),
-              "fore": lambda x, y: (5 <= x <= 10 and -6 <= y <= 1) or (x == 4 and -6 <= y <= -3)},
+    "back": {"S": (-7.0, -14.0), "E": (-8.0, -6.5 - _N), "H": (-8.5, -1.0 - _N),
+             "upper": lambda x, y: -11 <= x <= -5 and -14 <= y <= -7 - _N,
+             "fore": lambda x, y: -12 <= x <= -6 and -6 - _N <= y <= 1 - _N},
+    "front": {"S": (6.0, -13.5), "E": (6.5, -6.5 - _N), "H": (8.0, -1.0 - _N),
+              "upper": lambda x, y: (5 <= x <= 8 and -13 <= y <= -7 - _N)
+              or (x == 4 and (-11 if _N else -10) <= y <= -7 - _N),
+              "fore": lambda x, y: (5 <= x <= 10 and -6 - _N <= y <= 1 - _N) or (x == 4 and -6 - _N <= y <= -3 - _N)},
 }
 ARM_KEEP = set("abdefgimhjqxyu")                # skin, outline, the bracer's leathers and golds
 

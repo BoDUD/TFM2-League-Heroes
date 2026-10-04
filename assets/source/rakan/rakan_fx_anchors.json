@@ -1,0 +1,17 @@
+{
+  "a_feather": {"cell": [15, 7], "anchor": [7, 3], "frames": 3},
+  "a_hit": {"cell": [15, 15], "anchor": [7, 7], "frames": 4},
+  "q_feather": {"cell": [25, 11], "anchor": [12, 5], "frames": 4},
+  "q_hit": {"cell": [19, 23], "anchor": [9, 11], "frames": 5},
+  "q_heal": {"cell": [35, 55], "anchor": [17, 27], "frames": 4},
+  "q_burst": {"cell": [87, 121], "anchor": [43, 60], "frames": 6},
+  "q_healed": {"cell": [19, 51], "anchor": [9, 25], "frames": 5},
+  "w_burst": {"cell": [31, 73], "anchor": [15, 36], "frames": 7},
+  "w_hit": {"cell": [17, 55], "anchor": [8, 27], "frames": 5},
+  "e_shield": {"cell": [19, 33], "anchor": [9, 16], "frames": 6},
+  "e_on": {"cell": [27, 67], "anchor": [13, 33], "frames": 6},
+  "p_on": {"cell": [39, 49], "anchor": [19, 24], "frames": 6},
+  "r_start": {"cell": [47, 49], "anchor": [23, 24], "frames": 6},
+  "r_on": {"cell": [99, 29], "anchor": [49, 14], "frames": 4},
+  "r_charmed": {"cell": [19, 49], "anchor": [9, 24], "frames": 8}
+}

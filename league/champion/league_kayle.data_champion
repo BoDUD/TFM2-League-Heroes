@@ -130,6 +130,13 @@
                                     "tick": 3
                                   },
                                   {
+                                    "type": "Shield",
+                                    "amount": 1000000,
+                                    "attack_ratio": 0,
+                                    "ap_ratio": 0,
+                                    "tick": 1
+                                  },
+                                  {
                                     "type": "AddCasterBuff",
                                     "buff_state": {
                                       "name": "league_kayle_probe5",
@@ -202,6 +209,13 @@
                                               "attack_ratio": 0,
                                               "ap_ratio": 0,
                                               "tick": 3
+                                            },
+                                            {
+                                              "type": "Shield",
+                                              "amount": 1000000,
+                                              "attack_ratio": 0,
+                                              "ap_ratio": 0,
+                                              "tick": 1
                                             },
                                             {
                                               "type": "AddCasterBuff",
@@ -312,6 +326,13 @@
                                                                           "tick": 3
                                                                         },
                                                                         {
+                                                                          "type": "Shield",
+                                                                          "amount": 1000000,
+                                                                          "attack_ratio": 0,
+                                                                          "ap_ratio": 0,
+                                                                          "tick": 1
+                                                                        },
+                                                                        {
                                                                           "type": "AddCasterBuff",
                                                                           "buff_state": {
                                                                             "name": "league_kayle_probe8",
@@ -384,6 +405,13 @@
                                                                                     "attack_ratio": 0,
                                                                                     "ap_ratio": 0,
                                                                                     "tick": 3
+                                                                                  },
+                                                                                  {
+                                                                                    "type": "Shield",
+                                                                                    "amount": 1000000,
+                                                                                    "attack_ratio": 0,
+                                                                                    "ap_ratio": 0,
+                                                                                    "tick": 1
                                                                                   },
                                                                                   {
                                                                                     "type": "AddCasterBuff",
@@ -493,6 +521,13 @@
                                                                                                                 "tick": 3
                                                                                                               },
                                                                                                               {
+                                                                                                                "type": "Shield",
+                                                                                                                "amount": 1000000,
+                                                                                                                "attack_ratio": 0,
+                                                                                                                "ap_ratio": 0,
+                                                                                                                "tick": 1
+                                                                                                              },
+                                                                                                              {
                                                                                                                 "type": "AddCasterBuff",
                                                                                                                 "buff_state": {
                                                                                                                   "name": "league_kayle_probe12",
@@ -565,6 +600,13 @@
                                                                                                                           "attack_ratio": 0,
                                                                                                                           "ap_ratio": 0,
                                                                                                                           "tick": 3
+                                                                                                                        },
+                                                                                                                        {
+                                                                                                                          "type": "Shield",
+                                                                                                                          "amount": 1000000,
+                                                                                                                          "attack_ratio": 0,
+                                                                                                                          "ap_ratio": 0,
+                                                                                                                          "tick": 1
                                                                                                                         },
                                                                                                                         {
                                                                                                                           "type": "AddCasterBuff",
@@ -792,6 +834,13 @@
                                         "tick": 3
                                       },
                                       {
+                                        "type": "Shield",
+                                        "amount": 1000000,
+                                        "attack_ratio": 0,
+                                        "ap_ratio": 0,
+                                        "tick": 1
+                                      },
+                                      {
                                         "type": "AddCasterBuff",
                                         "buff_state": {
                                           "name": "league_kayle_probe12",
@@ -864,6 +913,13 @@
                                                   "attack_ratio": 0,
                                                   "ap_ratio": 0,
                                                   "tick": 3
+                                                },
+                                                {
+                                                  "type": "Shield",
+                                                  "amount": 1000000,
+                                                  "attack_ratio": 0,
+                                                  "ap_ratio": 0,
+                                                  "tick": 1
                                                 },
                                                 {
                                                   "type": "AddCasterBuff",
@@ -1014,6 +1070,13 @@
                                           "tick": 3
                                         },
                                         {
+                                          "type": "Shield",
+                                          "amount": 1000000,
+                                          "attack_ratio": 0,
+                                          "ap_ratio": 0,
+                                          "tick": 1
+                                        },
+                                        {
                                           "type": "AddCasterBuff",
                                           "buff_state": {
                                             "name": "league_kayle_probe8",
@@ -1086,6 +1149,13 @@
                                                     "attack_ratio": 0,
                                                     "ap_ratio": 0,
                                                     "tick": 3
+                                                  },
+                                                  {
+                                                    "type": "Shield",
+                                                    "amount": 1000000,
+                                                    "attack_ratio": 0,
+                                                    "ap_ratio": 0,
+                                                    "tick": 1
                                                   },
                                                   {
                                                     "type": "AddCasterBuff",
@@ -1203,6 +1273,13 @@
                                                                                 "tick": 3
                                                                               },
                                                                               {
+                                                                                "type": "Shield",
+                                                                                "amount": 1000000,
+                                                                                "attack_ratio": 0,
+                                                                                "ap_ratio": 0,
+                                                                                "tick": 1
+                                                                              },
+                                                                              {
                                                                                 "type": "AddCasterBuff",
                                                                                 "buff_state": {
                                                                                   "name": "league_kayle_probe12",
@@ -1275,6 +1352,13 @@
                                                                                           "attack_ratio": 0,
                                                                                           "ap_ratio": 0,
                                                                                           "tick": 3
+                                                                                        },
+                                                                                        {
+                                                                                          "type": "Shield",
+                                                                                          "amount": 1000000,
+                                                                                          "attack_ratio": 0,
+                                                                                          "ap_ratio": 0,
+                                                                                          "tick": 1
                                                                                         },
                                                                                         {
                                                                                           "type": "AddCasterBuff",
@@ -1445,6 +1529,13 @@
                                           "tick": 3
                                         },
                                         {
+                                          "type": "Shield",
+                                          "amount": 1000000,
+                                          "attack_ratio": 0,
+                                          "ap_ratio": 0,
+                                          "tick": 1
+                                        },
+                                        {
                                           "type": "AddCasterBuff",
                                           "buff_state": {
                                             "name": "league_kayle_probe5",
@@ -1517,6 +1608,13 @@
                                                     "attack_ratio": 0,
                                                     "ap_ratio": 0,
                                                     "tick": 3
+                                                  },
+                                                  {
+                                                    "type": "Shield",
+                                                    "amount": 1000000,
+                                                    "attack_ratio": 0,
+                                                    "ap_ratio": 0,
+                                                    "tick": 1
                                                   },
                                                   {
                                                     "type": "AddCasterBuff",
@@ -1635,6 +1733,13 @@
                                                                                 "tick": 3
                                                                               },
                                                                               {
+                                                                                "type": "Shield",
+                                                                                "amount": 1000000,
+                                                                                "attack_ratio": 0,
+                                                                                "ap_ratio": 0,
+                                                                                "tick": 1
+                                                                              },
+                                                                              {
                                                                                 "type": "AddCasterBuff",
                                                                                 "buff_state": {
                                                                                   "name": "league_kayle_probe8",
@@ -1707,6 +1812,13 @@
                                                                                           "attack_ratio": 0,
                                                                                           "ap_ratio": 0,
                                                                                           "tick": 3
+                                                                                        },
+                                                                                        {
+                                                                                          "type": "Shield",
+                                                                                          "amount": 1000000,
+                                                                                          "attack_ratio": 0,
+                                                                                          "ap_ratio": 0,
+                                                                                          "tick": 1
                                                                                         },
                                                                                         {
                                                                                           "type": "AddCasterBuff",
@@ -1824,6 +1936,13 @@
                                                                                                                       "tick": 3
                                                                                                                     },
                                                                                                                     {
+                                                                                                                      "type": "Shield",
+                                                                                                                      "amount": 1000000,
+                                                                                                                      "attack_ratio": 0,
+                                                                                                                      "ap_ratio": 0,
+                                                                                                                      "tick": 1
+                                                                                                                    },
+                                                                                                                    {
                                                                                                                       "type": "AddCasterBuff",
                                                                                                                       "buff_state": {
                                                                                                                         "name": "league_kayle_probe12",
@@ -1896,6 +2015,13 @@
                                                                                                                                 "attack_ratio": 0,
                                                                                                                                 "ap_ratio": 0,
                                                                                                                                 "tick": 3
+                                                                                                                              },
+                                                                                                                              {
+                                                                                                                                "type": "Shield",
+                                                                                                                                "amount": 1000000,
+                                                                                                                                "attack_ratio": 0,
+                                                                                                                                "ap_ratio": 0,
+                                                                                                                                "tick": 1
                                                                                                                               },
                                                                                                                               {
                                                                                                                                 "type": "AddCasterBuff",
@@ -3043,6 +3169,13 @@
                                     "tick": 3
                                   },
                                   {
+                                    "type": "Shield",
+                                    "amount": 1000000,
+                                    "attack_ratio": 0,
+                                    "ap_ratio": 0,
+                                    "tick": 1
+                                  },
+                                  {
                                     "type": "AddCasterBuff",
                                     "buff_state": {
                                       "name": "league_kayle_probe5",
@@ -3115,6 +3248,13 @@
                                               "attack_ratio": 0,
                                               "ap_ratio": 0,
                                               "tick": 3
+                                            },
+                                            {
+                                              "type": "Shield",
+                                              "amount": 1000000,
+                                              "attack_ratio": 0,
+                                              "ap_ratio": 0,
+                                              "tick": 1
                                             },
                                             {
                                               "type": "AddCasterBuff",
@@ -3225,6 +3365,13 @@
                                                                           "tick": 3
                                                                         },
                                                                         {
+                                                                          "type": "Shield",
+                                                                          "amount": 1000000,
+                                                                          "attack_ratio": 0,
+                                                                          "ap_ratio": 0,
+                                                                          "tick": 1
+                                                                        },
+                                                                        {
                                                                           "type": "AddCasterBuff",
                                                                           "buff_state": {
                                                                             "name": "league_kayle_probe8",
@@ -3297,6 +3444,13 @@
                                                                                     "attack_ratio": 0,
                                                                                     "ap_ratio": 0,
                                                                                     "tick": 3
+                                                                                  },
+                                                                                  {
+                                                                                    "type": "Shield",
+                                                                                    "amount": 1000000,
+                                                                                    "attack_ratio": 0,
+                                                                                    "ap_ratio": 0,
+                                                                                    "tick": 1
                                                                                   },
                                                                                   {
                                                                                     "type": "AddCasterBuff",
@@ -3406,6 +3560,13 @@
                                                                                                                 "tick": 3
                                                                                                               },
                                                                                                               {
+                                                                                                                "type": "Shield",
+                                                                                                                "amount": 1000000,
+                                                                                                                "attack_ratio": 0,
+                                                                                                                "ap_ratio": 0,
+                                                                                                                "tick": 1
+                                                                                                              },
+                                                                                                              {
                                                                                                                 "type": "AddCasterBuff",
                                                                                                                 "buff_state": {
                                                                                                                   "name": "league_kayle_probe12",
@@ -3478,6 +3639,13 @@
                                                                                                                           "attack_ratio": 0,
                                                                                                                           "ap_ratio": 0,
                                                                                                                           "tick": 3
+                                                                                                                        },
+                                                                                                                        {
+                                                                                                                          "type": "Shield",
+                                                                                                                          "amount": 1000000,
+                                                                                                                          "attack_ratio": 0,
+                                                                                                                          "ap_ratio": 0,
+                                                                                                                          "tick": 1
                                                                                                                         },
                                                                                                                         {
                                                                                                                           "type": "AddCasterBuff",
@@ -3705,6 +3873,13 @@
                                         "tick": 3
                                       },
                                       {
+                                        "type": "Shield",
+                                        "amount": 1000000,
+                                        "attack_ratio": 0,
+                                        "ap_ratio": 0,
+                                        "tick": 1
+                                      },
+                                      {
                                         "type": "AddCasterBuff",
                                         "buff_state": {
                                           "name": "league_kayle_probe12",
@@ -3777,6 +3952,13 @@
                                                   "attack_ratio": 0,
                                                   "ap_ratio": 0,
                                                   "tick": 3
+                                                },
+                                                {
+                                                  "type": "Shield",
+                                                  "amount": 1000000,
+                                                  "attack_ratio": 0,
+                                                  "ap_ratio": 0,
+                                                  "tick": 1
                                                 },
                                                 {
                                                   "type": "AddCasterBuff",
@@ -3927,6 +4109,13 @@
                                           "tick": 3
                                         },
                                         {
+                                          "type": "Shield",
+                                          "amount": 1000000,
+                                          "attack_ratio": 0,
+                                          "ap_ratio": 0,
+                                          "tick": 1
+                                        },
+                                        {
                                           "type": "AddCasterBuff",
                                           "buff_state": {
                                             "name": "league_kayle_probe8",
@@ -3999,6 +4188,13 @@
                                                     "attack_ratio": 0,
                                                     "ap_ratio": 0,
                                                     "tick": 3
+                                                  },
+                                                  {
+                                                    "type": "Shield",
+                                                    "amount": 1000000,
+                                                    "attack_ratio": 0,
+                                                    "ap_ratio": 0,
+                                                    "tick": 1
                                                   },
                                                   {
                                                     "type": "AddCasterBuff",
@@ -4116,6 +4312,13 @@
                                                                                 "tick": 3
                                                                               },
                                                                               {
+                                                                                "type": "Shield",
+                                                                                "amount": 1000000,
+                                                                                "attack_ratio": 0,
+                                                                                "ap_ratio": 0,
+                                                                                "tick": 1
+                                                                              },
+                                                                              {
                                                                                 "type": "AddCasterBuff",
                                                                                 "buff_state": {
                                                                                   "name": "league_kayle_probe12",
@@ -4188,6 +4391,13 @@
                                                                                           "attack_ratio": 0,
                                                                                           "ap_ratio": 0,
                                                                                           "tick": 3
+                                                                                        },
+                                                                                        {
+                                                                                          "type": "Shield",
+                                                                                          "amount": 1000000,
+                                                                                          "attack_ratio": 0,
+                                                                                          "ap_ratio": 0,
+                                                                                          "tick": 1
                                                                                         },
                                                                                         {
                                                                                           "type": "AddCasterBuff",
@@ -4358,6 +4568,13 @@
                                           "tick": 3
                                         },
                                         {
+                                          "type": "Shield",
+                                          "amount": 1000000,
+                                          "attack_ratio": 0,
+                                          "ap_ratio": 0,
+                                          "tick": 1
+                                        },
+                                        {
                                           "type": "AddCasterBuff",
                                           "buff_state": {
                                             "name": "league_kayle_probe5",
@@ -4430,6 +4647,13 @@
                                                     "attack_ratio": 0,
                                                     "ap_ratio": 0,
                                                     "tick": 3
+                                                  },
+                                                  {
+                                                    "type": "Shield",
+                                                    "amount": 1000000,
+                                                    "attack_ratio": 0,
+                                                    "ap_ratio": 0,
+                                                    "tick": 1
                                                   },
                                                   {
                                                     "type": "AddCasterBuff",
@@ -4548,6 +4772,13 @@
                                                                                 "tick": 3
                                                                               },
                                                                               {
+                                                                                "type": "Shield",
+                                                                                "amount": 1000000,
+                                                                                "attack_ratio": 0,
+                                                                                "ap_ratio": 0,
+                                                                                "tick": 1
+                                                                              },
+                                                                              {
                                                                                 "type": "AddCasterBuff",
                                                                                 "buff_state": {
                                                                                   "name": "league_kayle_probe8",
@@ -4620,6 +4851,13 @@
                                                                                           "attack_ratio": 0,
                                                                                           "ap_ratio": 0,
                                                                                           "tick": 3
+                                                                                        },
+                                                                                        {
+                                                                                          "type": "Shield",
+                                                                                          "amount": 1000000,
+                                                                                          "attack_ratio": 0,
+                                                                                          "ap_ratio": 0,
+                                                                                          "tick": 1
                                                                                         },
                                                                                         {
                                                                                           "type": "AddCasterBuff",
@@ -4737,6 +4975,13 @@
                                                                                                                       "tick": 3
                                                                                                                     },
                                                                                                                     {
+                                                                                                                      "type": "Shield",
+                                                                                                                      "amount": 1000000,
+                                                                                                                      "attack_ratio": 0,
+                                                                                                                      "ap_ratio": 0,
+                                                                                                                      "tick": 1
+                                                                                                                    },
+                                                                                                                    {
                                                                                                                       "type": "AddCasterBuff",
                                                                                                                       "buff_state": {
                                                                                                                         "name": "league_kayle_probe12",
@@ -4809,6 +5054,13 @@
                                                                                                                                 "attack_ratio": 0,
                                                                                                                                 "ap_ratio": 0,
                                                                                                                                 "tick": 3
+                                                                                                                              },
+                                                                                                                              {
+                                                                                                                                "type": "Shield",
+                                                                                                                                "amount": 1000000,
+                                                                                                                                "attack_ratio": 0,
+                                                                                                                                "ap_ratio": 0,
+                                                                                                                                "tick": 1
                                                                                                                               },
                                                                                                                               {
                                                                                                                                 "type": "AddCasterBuff",
@@ -5419,6 +5671,13 @@
                                     "tick": 3
                                   },
                                   {
+                                    "type": "Shield",
+                                    "amount": 1000000,
+                                    "attack_ratio": 0,
+                                    "ap_ratio": 0,
+                                    "tick": 1
+                                  },
+                                  {
                                     "type": "AddCasterBuff",
                                     "buff_state": {
                                       "name": "league_kayle_probe5",
@@ -5491,6 +5750,13 @@
                                               "attack_ratio": 0,
                                               "ap_ratio": 0,
                                               "tick": 3
+                                            },
+                                            {
+                                              "type": "Shield",
+                                              "amount": 1000000,
+                                              "attack_ratio": 0,
+                                              "ap_ratio": 0,
+                                              "tick": 1
                                             },
                                             {
                                               "type": "AddCasterBuff",
@@ -5601,6 +5867,13 @@
                                                                           "tick": 3
                                                                         },
                                                                         {
+                                                                          "type": "Shield",
+                                                                          "amount": 1000000,
+                                                                          "attack_ratio": 0,
+                                                                          "ap_ratio": 0,
+                                                                          "tick": 1
+                                                                        },
+                                                                        {
                                                                           "type": "AddCasterBuff",
                                                                           "buff_state": {
                                                                             "name": "league_kayle_probe8",
@@ -5673,6 +5946,13 @@
                                                                                     "attack_ratio": 0,
                                                                                     "ap_ratio": 0,
                                                                                     "tick": 3
+                                                                                  },
+                                                                                  {
+                                                                                    "type": "Shield",
+                                                                                    "amount": 1000000,
+                                                                                    "attack_ratio": 0,
+                                                                                    "ap_ratio": 0,
+                                                                                    "tick": 1
                                                                                   },
                                                                                   {
                                                                                     "type": "AddCasterBuff",
@@ -5782,6 +6062,13 @@
                                                                                                                 "tick": 3
                                                                                                               },
                                                                                                               {
+                                                                                                                "type": "Shield",
+                                                                                                                "amount": 1000000,
+                                                                                                                "attack_ratio": 0,
+                                                                                                                "ap_ratio": 0,
+                                                                                                                "tick": 1
+                                                                                                              },
+                                                                                                              {
                                                                                                                 "type": "AddCasterBuff",
                                                                                                                 "buff_state": {
                                                                                                                   "name": "league_kayle_probe12",
@@ -5854,6 +6141,13 @@
                                                                                                                           "attack_ratio": 0,
                                                                                                                           "ap_ratio": 0,
                                                                                                                           "tick": 3
+                                                                                                                        },
+                                                                                                                        {
+                                                                                                                          "type": "Shield",
+                                                                                                                          "amount": 1000000,
+                                                                                                                          "attack_ratio": 0,
+                                                                                                                          "ap_ratio": 0,
+                                                                                                                          "tick": 1
                                                                                                                         },
                                                                                                                         {
                                                                                                                           "type": "AddCasterBuff",
@@ -6081,6 +6375,13 @@
                                         "tick": 3
                                       },
                                       {
+                                        "type": "Shield",
+                                        "amount": 1000000,
+                                        "attack_ratio": 0,
+                                        "ap_ratio": 0,
+                                        "tick": 1
+                                      },
+                                      {
                                         "type": "AddCasterBuff",
                                         "buff_state": {
                                           "name": "league_kayle_probe12",
@@ -6153,6 +6454,13 @@
                                                   "attack_ratio": 0,
                                                   "ap_ratio": 0,
                                                   "tick": 3
+                                                },
+                                                {
+                                                  "type": "Shield",
+                                                  "amount": 1000000,
+                                                  "attack_ratio": 0,
+                                                  "ap_ratio": 0,
+                                                  "tick": 1
                                                 },
                                                 {
                                                   "type": "AddCasterBuff",
@@ -6303,6 +6611,13 @@
                                           "tick": 3
                                         },
                                         {
+                                          "type": "Shield",
+                                          "amount": 1000000,
+                                          "attack_ratio": 0,
+                                          "ap_ratio": 0,
+                                          "tick": 1
+                                        },
+                                        {
                                           "type": "AddCasterBuff",
                                           "buff_state": {
                                             "name": "league_kayle_probe8",
@@ -6375,6 +6690,13 @@
                                                     "attack_ratio": 0,
                                                     "ap_ratio": 0,
                                                     "tick": 3
+                                                  },
+                                                  {
+                                                    "type": "Shield",
+                                                    "amount": 1000000,
+                                                    "attack_ratio": 0,
+                                                    "ap_ratio": 0,
+                                                    "tick": 1
                                                   },
                                                   {
                                                     "type": "AddCasterBuff",
@@ -6492,6 +6814,13 @@
                                                                                 "tick": 3
                                                                               },
                                                                               {
+                                                                                "type": "Shield",
+                                                                                "amount": 1000000,
+                                                                                "attack_ratio": 0,
+                                                                                "ap_ratio": 0,
+                                                                                "tick": 1
+                                                                              },
+                                                                              {
                                                                                 "type": "AddCasterBuff",
                                                                                 "buff_state": {
                                                                                   "name": "league_kayle_probe12",
@@ -6564,6 +6893,13 @@
                                                                                           "attack_ratio": 0,
                                                                                           "ap_ratio": 0,
                                                                                           "tick": 3
+                                                                                        },
+                                                                                        {
+                                                                                          "type": "Shield",
+                                                                                          "amount": 1000000,
+                                                                                          "attack_ratio": 0,
+                                                                                          "ap_ratio": 0,
+                                                                                          "tick": 1
                                                                                         },
                                                                                         {
                                                                                           "type": "AddCasterBuff",
@@ -6734,6 +7070,13 @@
                                           "tick": 3
                                         },
                                         {
+                                          "type": "Shield",
+                                          "amount": 1000000,
+                                          "attack_ratio": 0,
+                                          "ap_ratio": 0,
+                                          "tick": 1
+                                        },
+                                        {
                                           "type": "AddCasterBuff",
                                           "buff_state": {
                                             "name": "league_kayle_probe5",
@@ -6806,6 +7149,13 @@
                                                     "attack_ratio": 0,
                                                     "ap_ratio": 0,
                                                     "tick": 3
+                                                  },
+                                                  {
+                                                    "type": "Shield",
+                                                    "amount": 1000000,
+                                                    "attack_ratio": 0,
+                                                    "ap_ratio": 0,
+                                                    "tick": 1
                                                   },
                                                   {
                                                     "type": "AddCasterBuff",
@@ -6924,6 +7274,13 @@
                                                                                 "tick": 3
                                                                               },
                                                                               {
+                                                                                "type": "Shield",
+                                                                                "amount": 1000000,
+                                                                                "attack_ratio": 0,
+                                                                                "ap_ratio": 0,
+                                                                                "tick": 1
+                                                                              },
+                                                                              {
                                                                                 "type": "AddCasterBuff",
                                                                                 "buff_state": {
                                                                                   "name": "league_kayle_probe8",
@@ -6996,6 +7353,13 @@
                                                                                           "attack_ratio": 0,
                                                                                           "ap_ratio": 0,
                                                                                           "tick": 3
+                                                                                        },
+                                                                                        {
+                                                                                          "type": "Shield",
+                                                                                          "amount": 1000000,
+                                                                                          "attack_ratio": 0,
+                                                                                          "ap_ratio": 0,
+                                                                                          "tick": 1
                                                                                         },
                                                                                         {
                                                                                           "type": "AddCasterBuff",
@@ -7113,6 +7477,13 @@
                                                                                                                       "tick": 3
                                                                                                                     },
                                                                                                                     {
+                                                                                                                      "type": "Shield",
+                                                                                                                      "amount": 1000000,
+                                                                                                                      "attack_ratio": 0,
+                                                                                                                      "ap_ratio": 0,
+                                                                                                                      "tick": 1
+                                                                                                                    },
+                                                                                                                    {
                                                                                                                       "type": "AddCasterBuff",
                                                                                                                       "buff_state": {
                                                                                                                         "name": "league_kayle_probe12",
@@ -7185,6 +7556,13 @@
                                                                                                                                 "attack_ratio": 0,
                                                                                                                                 "ap_ratio": 0,
                                                                                                                                 "tick": 3
+                                                                                                                              },
+                                                                                                                              {
+                                                                                                                                "type": "Shield",
+                                                                                                                                "amount": 1000000,
+                                                                                                                                "attack_ratio": 0,
+                                                                                                                                "ap_ratio": 0,
+                                                                                                                                "tick": 1
                                                                                                                               },
                                                                                                                               {
                                                                                                                                 "type": "AddCasterBuff",
@@ -7923,6 +8301,13 @@
                                     "tick": 3
                                   },
                                   {
+                                    "type": "Shield",
+                                    "amount": 1000000,
+                                    "attack_ratio": 0,
+                                    "ap_ratio": 0,
+                                    "tick": 1
+                                  },
+                                  {
                                     "type": "AddCasterBuff",
                                     "buff_state": {
                                       "name": "league_kayle_probe5",
@@ -7995,6 +8380,13 @@
                                               "attack_ratio": 0,
                                               "ap_ratio": 0,
                                               "tick": 3
+                                            },
+                                            {
+                                              "type": "Shield",
+                                              "amount": 1000000,
+                                              "attack_ratio": 0,
+                                              "ap_ratio": 0,
+                                              "tick": 1
                                             },
                                             {
                                               "type": "AddCasterBuff",
@@ -8105,6 +8497,13 @@
                                                                           "tick": 3
                                                                         },
                                                                         {
+                                                                          "type": "Shield",
+                                                                          "amount": 1000000,
+                                                                          "attack_ratio": 0,
+                                                                          "ap_ratio": 0,
+                                                                          "tick": 1
+                                                                        },
+                                                                        {
                                                                           "type": "AddCasterBuff",
                                                                           "buff_state": {
                                                                             "name": "league_kayle_probe8",
@@ -8177,6 +8576,13 @@
                                                                                     "attack_ratio": 0,
                                                                                     "ap_ratio": 0,
                                                                                     "tick": 3
+                                                                                  },
+                                                                                  {
+                                                                                    "type": "Shield",
+                                                                                    "amount": 1000000,
+                                                                                    "attack_ratio": 0,
+                                                                                    "ap_ratio": 0,
+                                                                                    "tick": 1
                                                                                   },
                                                                                   {
                                                                                     "type": "AddCasterBuff",
@@ -8286,6 +8692,13 @@
                                                                                                                 "tick": 3
                                                                                                               },
                                                                                                               {
+                                                                                                                "type": "Shield",
+                                                                                                                "amount": 1000000,
+                                                                                                                "attack_ratio": 0,
+                                                                                                                "ap_ratio": 0,
+                                                                                                                "tick": 1
+                                                                                                              },
+                                                                                                              {
                                                                                                                 "type": "AddCasterBuff",
                                                                                                                 "buff_state": {
                                                                                                                   "name": "league_kayle_probe12",
@@ -8358,6 +8771,13 @@
                                                                                                                           "attack_ratio": 0,
                                                                                                                           "ap_ratio": 0,
                                                                                                                           "tick": 3
+                                                                                                                        },
+                                                                                                                        {
+                                                                                                                          "type": "Shield",
+                                                                                                                          "amount": 1000000,
+                                                                                                                          "attack_ratio": 0,
+                                                                                                                          "ap_ratio": 0,
+                                                                                                                          "tick": 1
                                                                                                                         },
                                                                                                                         {
                                                                                                                           "type": "AddCasterBuff",
