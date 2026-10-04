@@ -20,7 +20,7 @@ cry's ring and the hunt's ring on the box of their full-size frame.
 The second step places every cell by its anchor on a spot from the pivot (game px, x right, y down; the soles 11 under
 the pivot), measured on the rigged strips (tools/art/rig_sivir.py, the small crossblade's ring): the blade leaving her
 near hand in attack 3 (27, -14), the near hand that throws Q in skill 4 (23, -12), the blade she catches in the raised
-near hand in skill_catch 1 (22, -22), the blade at her back hip when W starts in attack 1 (-17, -7), her chest (3, -10)
+near hand in skill_catch 1 (22, -22), the blade at her back hip when W starts in attack 1 (-17, -8), her chest (3, -10)
 - and times it by the
 kit (60 ticks a second): the flying blades start with empty ticks (a projectile's first move points its picture up,
 import_lucian.py's RAY_SKIP; and it leaves her pivot, so the blade stays unseen until it is past her hand) and loop
@@ -173,7 +173,7 @@ def cells(name, n):
 
 # spots from the pivot (game px, x right, y down), measured on the finished strips (fx_pack_sv.py's marks)
 A_BLADE = (27, -14)         # the blade leaving her near hand in attack 3 (the throw)
-W_HIP = (-17, -7)           # the blade at her back hip in attack 1 (W lights it as the attack starts)
+W_HIP = (-17, -8)           # the blade at her back hip in attack 1 (W lights it as the attack starts)
 Q_HAND = (23, -12)          # the near hand that throws Q in skill 4
 Q_CATCH = (22, -22)         # the blade she catches in the raised near hand (skill_catch 1)
 CHEST = (3, -10)            # her chest (the idle's, eyes + 9)
