@@ -394,10 +394,12 @@ def cells(name, n):
     return [a[:, k * w:(k + 1) * w] for k in range(n)]
 
 
-PALM3, PALM4 = (19.5, -9), (23.5, -10)     # just past the hand's last pixel: attack frames 3 and 4
-CANNON_LOW = (22.5, -10)                   # W's cannon mouth as it charges (frames 3-4, standing on the idle's body)
-BLAST = (24.5, -12)                        # W's blast: between the raised cannon (-15) and the bolt (8 px up)
-PODS = [(-13, -30), (16, -29)]             # Q frame 3: the tops of the pods' magenta panels
+# measured on the second design's strips (tools/art/fix_kaisa_strips_v2.py: the idle's body, Codex's near arm and pods;
+# 2026-10-03; the first design's in brackets)
+PALM3, PALM4 = (17, -10), (18, -11)        # just past the hand's last pixel: attack frames 3 and 4 [(19.5, -9), (23.5, -10)]
+CANNON_LOW = (18.5, -12)                   # W's cannon mouth as it charges (frames 3-4) [(22.5, -10)]
+BLAST = (18, -18)                          # W's blast: the cannon's mouth raised by the recoil (frame 5) [(24.5, -12)]
+PODS = [(-15, -27), (12, -27)]             # Q frame 3: the tops of the pods' magenta panels [(-13, -30), (16, -29)]
 HIT = (0, -8)                              # a hit on the upper body of a 32-44 px unit
 OVERHEAD = (0, -33)                        # over a 32-44 px unit's head: the plasma mark
 SOLES = (0, 11)                            # the ground under a unit (its soles' row)

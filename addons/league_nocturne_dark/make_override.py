@@ -1,4 +1,4 @@
-"""Build the add-on's copy of Nocturne from the main pack (Paranoia darkness v2).
+"""Build the add-on's copy of Nocturne from the main pack (Paranoia darkness v3).
 
     python addons/league_nocturne_dark/make_override.py
 
@@ -28,20 +28,20 @@ MOD_ID = "league_nocturne_dark"
 TEXT_KEY = "description.league_nocturne_dark.ult"
 AD = "<i#asset/base/ui/banpick/champion_stat_icon:ad_0>"
 TEXT = {
-    "zh-hans": "【黑暗测试版】黑暗降临：<#ffb900ff>3秒<>内全地图变暗，我方英雄离敌人远时隐身、敌人贴近才看得见；"
+    "zh-hans": "【黑暗测试版】黑暗降临：<#ffb900ff>3秒<>内全地图变暗，敌人只看得见、只打得到身边的我方单位；"
                f"魔腾飞扑一名敌方英雄，落地造成<#ff9028ff>120<> + {AD}<#ff9028ff>120% 攻击力<>的<#ff9028ff>物理伤害<>，"
                "飞行中免疫控制。",
-    "zh-hant": "【黑暗測試版】黑暗降臨：<#ffb900ff>3秒<>內全地圖變暗，我方英雄離敵人遠時隱形、敵人貼近才看得見；"
+    "zh-hant": "【黑暗測試版】黑暗降臨：<#ffb900ff>3秒<>內全地圖變暗，敵人只看得見、只打得到身邊的我方單位；"
                f"夜曲飛撲一名敵方英雄，落地造成<#ff9028ff>120<> + {AD}<#ff9028ff>120% 攻擊力<>的<#ff9028ff>物理傷害<>，"
                "飛行中免疫控制。",
-    "en": "[Darkness test build] Darkness falls: for <#ffb900ff>3s<> the map goes dark and allied champions are "
-          "invisible to enemies that are not right next to them; Nocturne flies at an enemy champion, dealing "
+    "en": "[Darkness test build] Darkness falls: for <#ffb900ff>3s<> the map goes dark and enemies see and hit "
+          "only the allied units right next to them; Nocturne flies at an enemy champion, dealing "
           f"<#ff9028ff>120<> + {AD}<#ff9028ff>120% AD<> <#ff9028ff>physical damage<> on landing. He is immune to "
           "crowd control in flight.",
-    "ko": "[어둠 테스트판] 어둠이 내려 <#ffb900ff>3초<> 동안 지도가 어두워지고, 아군 챔피언은 적이 바로 옆에 오기 전까지 "
-          f"보이지 않습니다. 녹턴이 적 챔피언에게 날아가 착지 시 <#ff9028ff>120<> + {AD}<#ff9028ff>공격력의 120%<> "
+    "ko": "[어둠 테스트판] 어둠이 내려 <#ffb900ff>3초<> 동안 지도가 어두워지고, 적은 바로 옆의 아군 유닛만 "
+          f"보고 공격할 수 있습니다. 녹턴이 적 챔피언에게 날아가 착지 시 <#ff9028ff>120<> + {AD}<#ff9028ff>공격력의 120%<> "
           "<#ff9028ff>물리 피해<>를 입힙니다. 비행 중 군중 제어에 면역입니다.",
-    "ja": "【闇の試験版】闇が訪れ<#ffb900ff>3秒<>間マップが暗くなり、味方チャンピオンは敵がすぐ近くに来るまで見えない。"
+    "ja": "【闇の試験版】闇が訪れ<#ffb900ff>3秒<>間マップが暗くなり、敵はすぐ近くの味方ユニットしか見えず攻撃できない。"
           f"敵チャンピオンへ飛びかかり、着地で<#ff9028ff>120<> + {AD}<#ff9028ff>攻撃力の120%<>の<#ff9028ff>物理ダメージ<>。"
           "飛行中は行動妨害無効。",
 }

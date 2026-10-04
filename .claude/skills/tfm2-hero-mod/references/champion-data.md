@@ -2604,22 +2604,31 @@ The check runs at every action and on a train of pulses queued on himself (every
 action, one train at a time): a stun stops his actions, not the pulses, so a hook or a stun in a fight still sets it
 off. About 3-4 shields a game in the simulation.
 
-**A field fixed where she landed, nobody walks out (league_camille R, The Hextech Ultimatum).** A `Targeting`
-cast on `EnemyChampion`: a 14-tick caster buff (`damaged_reduce` 100, `cc_immune`) for the leap and, from tick 5,
-`MoveToTarget {speed: 5000}` whose `end_effects` set `r_on` (180 ticks), knock the others back (the target keeps its
-place through a 2-tick `cc_immune`), 3 ticks later block the target's dashes and start an `AddCasted` (`Bleed`,
-period 1) on it, and fire an anchor - a `LinearProjectile` with `speed` 1, `range` 1 and `y_offset` 5000 (league_ekko
-R; at `y_offset` 0 it started 5000 over her and took 5000 ticks to come down) - whose `end_effects` start the zones
-there (180 ticks, period 1): the drawn arena's floor as a `Rect` on `AllyOnlySelf` (a 2-tick `r_cin`) and on
-`EnemyChampion` (`r_tin`), and a wide circle on `AllyOnlySelf` that pulls her back to the centre whenever `r_cin` is
-missing - a `Pull` in a projectile's `applied_effects` heads for the projectile (section 4 "Pull vs Grab"). The
-target's `AddCasted` asks every tick, while she lives (`RandomTarget {range: 1, AllyOnlySelf}` -> a 1-tick `r_live`):
-no `r_tin` -> a 1-tick `Grab` (2000) toward her, who is inside, the wall's zap at most every 30 ticks. `r_tin` is
-any enemy champion in the arena, his teammates too, so a safety net also pulls him when she is not within 47000 of
-him (`RandomTarget AllyOnlySelf` from the projectile; with her body about 62 px between the centres, more than the
-arena is wide, so it never touches a target still inside - at 28000, 43 px, it nudged him in 7% of his ticks inside:
-the user, "离她太远不是应该不能释放吗？为啥强行？"). `Grab` and `Knockback` only pull toward or push away from the caster, so the target is kept through
-her and she through the zone's own pull (the user: "卡密尔的大招是无法离场的").
+**A field fixed where she landed: the target stays in, she may leave (league_camille R, The Hextech Ultimatum).** A
+`Targeting` cast on `EnemyChampion`: a 14-tick caster buff (`damaged_reduce` 100, `cc_immune`) for the leap and, from
+tick 5, `MoveToTarget {speed: 5000}` whose `end_effects` set `r_on` (180 ticks), knock the others back (the target keeps
+its place through a 2-tick `cc_immune`), 3 ticks later start an `AddCasted` (`Bleed`, period 1) on the target, and fire
+an anchor - a `LinearProjectile` with `speed` 1, `range` 1 and `y_offset` 5000 (league_ekko R; at `y_offset` 0 it started
+5000 over her and took 5000 ticks to come down) - whose `end_effects` start the zones there (180 ticks, period 1): the
+drawn arena's floor as a `Rect` on `EnemyChampion` (a 2-tick `r_tin`), a circle of 30000 on `AllyOnlySelf` (a 2-tick
+`r_cin`: she is in) and a map-wide circle on `AllyOnlySelf` that removes `r_on` whenever `r_cin` is missing - League's
+"ends automatically within 1 second if Camille leaves the area or dies" (the user, 2026-10-03: "敌人不能出去但是自己可以
+出去"; until then that zone held a `Pull`, which brought her back to the centre - a `Pull` in a projectile's
+`applied_effects` heads for the projectile, section 4 "Pull vs Grab" - the user had asked for "卡密尔的大招是无法离场的").
+With her radius the circle lets her stand about 46000 from the centre: at 24000 (about 40000) she "left" while kicking a
+target at the arena's edge; 30000 and 36000 ended the same share of arenas by her walking off (about a quarter: the AI
+going for someone else or leaving), and the smaller one keeps the pull toward her near the arena. The target's
+`AddCasted` asks every tick, while she lives (`RandomTarget {range: 1, AllyOnlySelf}` -> a 1-tick `r_live`) and `r_on`
+lasts: a 2-tick `BlockMoveSkill` (no dash; a 177-tick block from the landing outlived an arena that ended early), his
+mark as 30-tick `AddBuff` pieces behind a 30-tick caster flag (`r_mk`), and no `r_tin` -> a 1-tick `Grab` (2000) toward
+her, the wall's zap at most every 30 ticks. `r_tin` is any enemy champion in the arena, his teammates too, so a safety
+net also pulls him when she is not within 47000 of him (`RandomTarget AllyOnlySelf` from the projectile; with her body
+about 62 px between the centres, more than the arena is wide, so it never touches a target still inside - at 28000,
+43 px, it nudged him in 7% of his ticks inside: the user, "离她太远不是应该不能释放吗？为啥强行？"). `Grab` and `Knockback`
+only pull toward or push away from the caster, so the target is kept through her - and the arena has to end when she
+leaves, or it would drag him after her. Her E in the arena hooks only to escape: `SwitchByBuff r_on` stands before the
+engage search (a hook out would end the arena and free the target), the outnumbered escape stays on. In 24 simulated
+games (103 arenas) 30 ended by her walking off, 32 after the target died and 2 by her death.
 The first field let the target walk out (the user: "敌人也不能走出那个圈 现在还可以走出去"): a 36000 circle checked every
 6 ticks, and a shape counts the unit's own collision radius, so the target's centre had 51 px round the landing point
 while the arena is drawn 66 x 30 px - the ground has no perspective squash (the 5v5 map is a square, 960000 units, a
@@ -2636,8 +2645,14 @@ leap landed later: the AI leaps from about 52000 centre to centre.
 **A zone's picture comes turned by its direction (league_camille R).** The anchor flies 1 unit, so its direction
 is (0, 0), and the `RangePeriodProjectile` it starts got (-1, 0) in every logged field (15 of 15). A zone's view is
 turned to its direction like any projectile's - here half round, upside down - so the sheet stores the arena's frames
-turned half round and the engine turns them back (`tools/art/import_camille.py` `TURNED`). The view (`repeat` on, as long
-as the zone: 3000 ms) holds the arena forming (500 ms) and then standing.
+turned half round and the engine turns them back (`tools/art/import_camille.py` `TURNED`). A picture cannot be stopped,
+so one that ends with the arena comes in 30-tick pieces: `r_field` (the arena forming, 500 ms) at the landing, then five
+`r_floor` pieces (`r_zone`, the standing arena's 500-ms loop) every 30 ticks, each behind `SwitchByBuff r_on` and an
+alive flag (a dead Camille keeps `r_on`, but no flag can be added to her). Zones started from a `Delayed` in the anchor's
+`end_effects` got (1, 0) or (-1, 0) by the side she stood on (266 of 294 pointed from her to the zone): every other
+piece upside down. Started from a projectile fired at the landing they get its (0, 0) like the anchor's own zones, so
+each piece rides a clock - a `LinearProjectile` like the anchor with `range` 30, 60 ... 150: with direction (0, 0) it
+stays on the spot and ends after `range` ticks (320 pieces logged, all (-1, 0), all on the landing point).
 
 **A hook that needs a hold, armed by its slot and thrown by pulses (league_camille E, Hookshot).** League's
 Hookshot needs a wall; TFM2 has none (section 4) and no casting target picks towers alone. The user's rules: minions,

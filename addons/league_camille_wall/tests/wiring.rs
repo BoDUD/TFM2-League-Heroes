@@ -513,12 +513,21 @@ fn hookshot_from_cast_to_landing() {
         run_with(&mut world, &fx, Some(&mine), 60);
         assert!(world.hooks.is_empty() && world.units[1].damage == 0, "dived under his tower");
 
-        // 8. 她的 R 场地还在（r_on）：被动不出 E；E 拉人途中 R 开始了：停掉，不再拉
+        // 8. 她的 R 场地还在（r_on）：被动不突进（钩出去场地就没了）；血只剩 20%、敌人就在身边：照样钩出去逃；
+        //    E 拉人途中 R 跃起：停掉，不再拉
         let mut world = lane_world();
         world.units[0].buffs.clear();
         world.units[0].buffs.push((BuffV1::timed("league_camille_r_on", 180), 180));
         run_with(&mut world, &fx, Some(&mine), 60);
-        assert!(world.hooks.is_empty(), "hooked a wall inside her own R");
+        assert!(world.hooks.is_empty(), "engaged out of her own R");
+        let mut world =
+            World::new(vec![unit(80_000.0, 600_000.0, 0, true), unit(80_000.0, 570_000.0, 1, true), far_tower()]);
+        world.units[0].hp = 200;
+        world.units[0].buffs.push((BuffV1::timed("league_camille_r_on", 180), 180));
+        call(&mut world, &fx, "league_camille_wall:engage", 0, InputTargetV1::target(0));
+        run(&mut world, &fx, 150);
+        assert!(world.added.iter().any(|b| b == "league_camille_e_fled"), "no escape inside her R");
+        assert!(dist(me(&world), (80_000.0, 570_000.0)) > 50_000.0);
         let mut world = lane_world();
         call(&mut world, &fx, "league_camille_wall:engage", 0, InputTargetV1::target(0));
         run(&mut world, &fx, 22);
@@ -579,7 +588,7 @@ fn hookshot_from_cast_to_landing() {
         ] {
             assert!(text.contains(line), "missing {line:?} in the log:\n{text}");
         }
-        assert!(text.starts_with("=== league_camille_wall v4.1"), "{text}");
+        assert!(text.starts_with("=== league_camille_wall v4.2"), "{text}");
         assert!(!text.contains("stays at the wall") || !text.contains("E2:"), "E2 waited on the wall:
 {text}");
         // 挂在墙上 CLING tick 再扑
