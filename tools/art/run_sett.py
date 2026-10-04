@@ -20,8 +20,10 @@ Sivir's run (tools/art/rig_sivir_run.py, the version the user approved: 「新�
     45 degrees of hanging, quarter-turned with its lit side up past that, foreshortened by dropping rows where it
     points at the camera, the elbow's corner closed; nothing is resampled or turned by a fraction of a quarter. What an
     arm uncovers is painted with what lies behind it (the coat's side, the mane at its back edge, the far flank's
-    shade); the near arm is drawn over the body, the far arm behind the body and over the far leg, each outlined in
-    black where it crosses a leg or the coat; above the belt no black stays inside the figure (design_sett.clean, as
+    shade); the near arm is drawn over the body. The far arm, behind the body, keeps the design's upper arm and the
+    bandage's top row; only its gauntlet with the fist moves, upright (FAR_HAND_AT): ahead and up in front of the hip,
+    back behind the far thigh. Each arm is outlined in black where it crosses a leg, the coat or the background;
+    above the belt no black stays inside the figure (design_sett.clean, as
     the design: 「去掉身体上没用的黑色素」). Earlier versions failed: the arms drawn as lines in the skin's and the
     bandage's shades (「瑟提走路时手臂变形」); the arms turned at the shoulder and the elbow by RotSprite (the far arm
     reached out like a stick, the gauntlets crooked: 「还是不对啊」「歪的？？」); the upper arms' rows moved with the
@@ -65,8 +67,12 @@ NEAR_FO = {78: (52, 57), 79: (52, 54), 80: (52, 54), 81: (52, 54), 82: (52, 55),
 FAR_UP = {74: (68, 70), 75: (68, 69), 76: (68, 70), 77: (68, 70)}
 FAR_FO = {78: (69, 70), 79: (69, 71), 80: (69, 71), 81: (70, 73), 82: (70, 73), 83: (70, 74), 84: (69, 74),
           85: (69, 74), 86: (72, 72)}               # (the squares under the fists are the coat's, behind them)
-FAR_WRAP = 3                                    # the far forearm's bandage rows at the elbow (78-80): laid
-                                                # sideways it keeps the first (joining the elbow), as foreshortened
+# the far arm is behind the body: its upper arm and the bandage's top row stay as the design has them (posed, its
+# squares left the flank in pieces: 「还有这里严重穿模 变形」), only its gauntlet with the fist (rows 81-86) moves,
+# upright as the design's (laid level it read as a lump: 「不是变形吗？？」), the bandage's lower rows (79-80) bending
+# to it: (squares ahead, rows up) per pose - ahead and up in front of the hip, back behind the far thigh
+FAR_HAND = 81
+FAR_HAND_AT = {"F": (3, -2), "Pf": (2, -1), "Pb": (0, 0), "B": (-1, 0)}
 AXIS = {"near": (56, 55), "far": (69, 70)}      # the upper arm's and the forearm's axis columns
 SHOULDER = {"near": (56, 70), "far": (69, 74)}  # the upper arm's top row on its axis
 # the end of the mane's strand that hangs over the far arm's elbow, below the belt row: it stays with the body
@@ -76,7 +82,6 @@ STRAND = ((72, 79), (72, 80))
 # 「左手伸出去太长了吧」) - B the back of the swing, Pb passing behind, Pf passing ahead, F the front of the swing
 POSES = {
     "near": {"B": (-30, -10, (), (3, 5)), "Pb": (-15, 15, ()), "Pf": (0, 40, (1,)), "F": (12, 40, (1, 2))},
-    "far": {"B": (-20, 0, ()), "Pb": (-10, 10, ()), "Pf": (5, 30, (1,)), "F": (10, 75, (1, 2))},
 }
 # over the cycle (frame 0 = the near foot's contact), League's timing: the arms at their ends a frame before and on
 # each contact, passing quickly between
@@ -107,11 +112,11 @@ def body_block(d):
     """{(x, y): colour}: the design above the trousers without its arms, what the near arm hid painted with what lies
     behind it - the mane at the back of the shoulder (where the mane is beside it), else the coat's side, lit at the
     top as its lapel. The design's gaps between the near arm and the coat front (background there: the legs drawn
-    under showed through) take the coat. The far arm's squares stay empty (frame() paints the flank's shade where the
-    far arm leaves them; painted here it hid the arm's own skin and thinned it)."""
+    under showed through) take the coat. The far arm's upper arm and the bandage's top row stay."""
     arm = set()
-    for rows in (NEAR_UP, NEAR_FO, FAR_UP, FAR_FO):
+    for rows in (NEAR_UP, NEAR_FO):
         arm |= set(cells_of(d, rows, outline=True))
+    arm |= {q for q in cells_of(d, FAR_FO, outline=True) if q[1] > BELT}
     out = {}
     for y in range(0, BELT + 1):
         for x in range(d.shape[1]):
@@ -144,14 +149,6 @@ def posed(d, side, up, fore, drop_fore, shoulder, drop_up=()):
         up_rows, fo_rows = (NEAR_UP, NEAR_FO) if side == "near" else (FAR_UP, FAR_FO)
         ub = RA.strip(cells_of(d, up_rows), AXIS[side][0])
         fb = RA.strip(cells_of(d, fo_rows), AXIS[side][1])
-        if side == "far" and 45 < abs(fore) < 135:
-            # laid sideways: a quarter TURN, its lit outer edge (the right in the idle) up and its dark inner edge
-            # down, not the mirror RA.place makes for the far side; the bandage wrap stays at the elbow
-            keep = [0] + list(range(FAR_WRAP, max(a for a, _ in fb) + 1))   # one wrap row joins it to the elbow
-            fb = {(keep.index(a), c): col for (a, c), col in fb.items() if a in keep}
-            span = min(c for _, c in fb) + max(c for _, c in fb)
-            fb = {(a, span - c): col for (a, c), col in fb.items()}
-            drop_fore = ()
         cu, end = RA.place(ub, up, side, drop_up)
         out = {(shoulder[0] + x, shoulder[1] + y): c for (x, y), c in cu.items()}
         st = RA.step_of(fore)
@@ -163,6 +160,32 @@ def posed(d, side, up, fore, drop_fore, shoulder, drop_up=()):
         return RA.close_gaps(out, RA.OUTLINE)
     finally:
         RA.OUTLINE = keep
+
+
+def far_hand(d, pose, shift):
+    """{(x, y): colour} of the far forearm below the belt: the gauntlet with the fist (rows from FAR_HAND) moved as
+    FAR_HAND_AT says, upright as the design's; the bandage rows above it shifted a part of that, row by row, so it
+    stays joined to the elbow (a gauntlet lifted over them hides them: the forearm points at the camera)."""
+    dx, dy = FAR_HAND_AT[pose]
+    rows = sorted(y for y in FAR_FO if y > BELT)
+    wrap = [y for y in rows if y < FAR_HAND]
+    out = {}
+    for y in rows:
+        if y < FAR_HAND:
+            ox, oy = int(math.floor(dx * (wrap.index(y) + 1) / (len(wrap) + 1) + 0.5)), 0
+        else:
+            ox, oy = dx, dy
+        a, b = FAR_FO[y]
+        for x in range(a, b + 1):
+            if d[y, x, 3] and R.hexs(d[y, x]) != OUTLINE:
+                out[(x + ox + shift[0], y + oy + shift[1])] = d[y, x].copy()
+    for y in rows:                              # the hand drawn over the wrap where it was lifted onto it
+        if y >= FAR_HAND:
+            a, b = FAR_FO[y]
+            for x in range(a, b + 1):
+                if d[y, x, 3] and R.hexs(d[y, x]) != OUTLINE:
+                    out[(x + dx + shift[0], y + dy + shift[1])] = d[y, x].copy()
+    return out
 
 
 def edge(cells):
@@ -262,20 +285,22 @@ def frame(k, d=None):
         legs[side] = R.leg(hip, knee, ankle, R.RUN_SHADES[side], foot)
     body = {(x + lean(y), y + dy): c for (x, y), c in body_block(d).items()}
     arms = {}
-    for side, sched in (("near", NEAR_SCHED), ("far", FAR_SCHED)):
-        up, fore, drop, *rest = POSES[side][sched[k]]
-        sx, sy = SHOULDER[side]
-        arms[side] = posed(d, side, up, fore, drop, (sx + lean(sy), sy + dy), *rest)
+    up, fore, drop, *rest = POSES["near"][NEAR_SCHED[k]]
+    sx, sy = SHOULDER["near"]
+    arms["near"] = posed(d, "near", up, fore, drop, (sx + lean(sy), sy + dy), *rest)
+    arms["far"] = far_hand(d, FAR_SCHED[k], (0, dy))
+    ahead = FAR_SCHED[k] in ("F", "Pf")
     put(can, body)
     put(can, legs["near"], under=True)
     put(can, coat(k, dy), under=True)
-    put(can, arms["far"], under=True)            # behind the body, over the far leg
-    for (x, y) in cells_of(d, FAR_UP, outline=True):
-        X, Y = x + lean(y), y + dy               # what the far arm leaves beside the flank: the flank's shade
-        if x <= SHOULDER["far"][0] - 1 and not can[Y, X, 3]:
-            can[Y, X] = rgba(SKIN_SHADE)
-    put(can, legs["far"], under=True)
-    put(can, {q: rgba(OUTLINE) for q in edge(arms["far"]) if q in legs["far"] or not can[q[1], q[0], 3]})
+    if ahead:                                    # in front of the hip: over the far leg, outlined against it
+        put(can, arms["far"], under=True)
+        put(can, legs["far"], under=True)
+        put(can, {q: rgba(OUTLINE) for q in edge(arms["far"]) if q in legs["far"] or not can[q[1], q[0], 3]})
+    else:                                        # swung back: behind the far thigh
+        put(can, legs["far"], under=True)
+        put(can, arms["far"], under=True)
+        put(can, {q: rgba(OUTLINE) for q in edge(arms["far"]) if not can[q[1], q[0], 3]})
     can = R.pieces(can)
     can, _, _ = G.complete_outline(can, feet=99)
     can = fill_dents(can)
