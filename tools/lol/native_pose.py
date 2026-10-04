@@ -145,13 +145,13 @@ class Champ:
     """A champion's base skin: mesh, skeleton, texture and clips, read from the local client."""
 
     def __init__(self, lol, champ, keep=None, weapon=r"^weapon$", hide=(), hair_part=False, crown=None, extra=(),
-                 hide_submeshes=False, submesh_textures=None, glue=None, legs=None, head_joint="head"):
+                 hide_submeshes=False, submesh_textures=None, glue=None, legs=None, head_joint="head", opaque=False):
         w = Wad(os.path.join(lol, "Game", "DATA", "FINAL", "Champions", f"{champ}.wad.client"))
         skin_bin = w.read_path(f"data/characters/{champ.lower()}/skins/skin0.bin")
         refs = lambda blob, ext: sorted(set(m.decode("latin1") for m in re.findall(rb"[A-Za-z0-9_/\.\-]+\." + ext, blob)))
         skn = P.base_mesh(refs(skin_bin, rb"skn"))
         skl = P.base_mesh(refs(skin_bin, rb"skl"))
-        texs = P.diffuse_textures(refs(skin_bin, rb"(?:tex|dds)"), skin_bin, skn)
+        texs, tex_paths = P.skin_textures(w, champ, skin_bin, skn)
         skn_bytes = w.read_path(skn.lower())
         self.tris, self.verts = P.read_skn(skn_bytes)
         if hide_submeshes:   # the props the skin shows only in some clips (Teemo's mushroom and harmonica)
@@ -166,10 +166,12 @@ class Champ:
             gone = P.chain_vertices(self.joints, self.influences, self.verts, re.compile(pat, re.I))
             self.tris = self.tris[~gone[self.tris].any(1)]
         self.tex = P.read_tex(w.read_path(texs[0].lower()))
+        if opaque:   # Evelynn's colour map keeps a glow mask in its alpha, not cut-outs
+            self.tex = self.tex.convert("RGB").convert("RGBA")
         self.maps = None
         if submesh_textures:   # {"Katana": "Swords_TX"}: submeshes coloured by another of the skin's maps
             stems = list(dict.fromkeys(submesh_textures.values()))
-            paths = refs(skin_bin, rb"(?:tex|dds)")
+            paths = tex_paths
             self.maps = [self.tex] + [P.read_tex(w.read_path(next(q for q in paths if t.lower() in q.lower()).lower()))
                                       for t in stems]
             self.vmap = P.submesh_vertex_maps(skn_bytes, len(self.verts), [
@@ -187,6 +189,12 @@ class Champ:
         self.headv = head & ~hair
         if crown is not None:      # spikes on the head (Leona's crown) do not count as its top
             self.headv &= self.verts["pos"][:, 1] <= crown
+        # only what is drawn measures the crown and the soles: Evelynn's hidden horned mask (Eve_Mask_MAT) still has
+        # its vertices on the head joint, and its horn tips counted as her crown shrank her to 31 px of 40
+        drawn = np.zeros(len(self.verts), bool)
+        drawn[np.unique(self.tris)] = True
+        self.headv &= drawn
+        self.legv = self.legv & drawn
         self.head = next(i for i, j in enumerate(self.joints) if j["name"].lower() == head_joint.lower())
         by_name = {j["name"].lower(): i for i, j in enumerate(self.joints)}
         glues = glue if isinstance(glue, list) else ([glue] if glue else [])
@@ -376,7 +384,8 @@ def main():
     set_cell(*spec.get("cell", CELL))
     ch = Champ(args.lol, spec["champ"], keep, spec.get("weapon", r"^weapon$"), spec.get("hide", ()),
                spec.get("hair_part", False), spec.get("crown"), spec.get("parts", ()), spec.get("hide_submeshes", False),
-               spec.get("submesh_textures"), spec.get("glue"), spec.get("legs"), spec.get("head_joint", "head"))
+               spec.get("submesh_textures"), spec.get("glue"), spec.get("legs"), spec.get("head_joint", "head"),
+               spec.get("opaque", False))
     rot = camera(cam)
     sign = -1.0 if cam.get("mirror") else 1.0
     os.makedirs(args.out, exist_ok=True)
