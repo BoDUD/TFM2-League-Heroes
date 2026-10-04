@@ -12,9 +12,9 @@ colours (PALETTE, 25):
   - it is opaque when 45% of the block is (alpha 129 and up);
   - the outline's near-black wins a block it holds 40% of (inner lines stay); else the commonest colour;
   - a lone square whose four neighbours all share one other colour takes it (specks);
-  - an outline-black square inside the figure with three or four neighbours of one material takes that material's
-    darkest shade (the abs and the folds read back as black specks);
   - the outline is closed (strips.complete_outline);
+  - inside it no black: an outline-black square that does not touch the outside takes the darkest shade of the
+    darker material beside it (the draft's thin inner lines read back as thick black bands);
   - on the 128 x 128 canvas at 8x: the soles on row 99, the middle of the feet on column 64.
 """
 import argparse
@@ -129,28 +129,40 @@ def despeckle(a, feat):
     return o
 
 
-def soften(a):
-    """An outline-black square inside the figure with three or four 4-neighbours of one material (skin, trousers,
-    coat, mantle, hair, gold) takes that material's darkest shade: the draft's thin inner lines (the abs, the folds)
-    read back as black specks. Squares on the silhouette's edge stay."""
-    cols, _ = palette()
+def clean(a):
+    """Inner black goes: an outline-black square that does not touch the outside (no transparent 4-neighbour) takes
+    the darkest shade of the material around it (three of its 4-neighbours: the abs, the folds), else of the darker
+    material beside it (its 4-neighbours; else its diagonal ones: between the skin and the coat the coat's darkest
+    plum), filled from the outside in. The draft's thin inner lines read back as thick black bands at 42 rows; the
+    user: 「还有去掉身体上没用的黑色素 弄干净一点 现在非常不干净」. Only the outline around the silhouette stays black."""
     mat = {h: m for m, hs in PALETTE.items() for h in hs}
     darkest = {m: hs[0] for m, hs in PALETTE.items()}
+    lum = {m: 0.3 * int(h[0:2], 16) + 0.59 * int(h[2:4], 16) + 0.11 * int(h[4:6], 16) for m, h in darkest.items()}
+    name = lambda p: "%02X%02X%02X" % tuple(int(v) for v in p[:3])
+    n4 = ((-1, 0), (1, 0), (0, -1), (0, 1))
+    n8 = n4 + ((-1, -1), (-1, 1), (1, -1), (1, 1))
     H, W = a.shape[:2]
     o = a.copy()
-    name = lambda p: "%02X%02X%02X" % tuple(int(v) for v in p[:3])
-    for r in range(1, H - 1):
-        for c in range(1, W - 1):
-            if not a[r, c, 3] or name(a[r, c]) not in DARK:
-                continue
-            nb = [a[r + dy, c + dx] for dy, dx in ((-1, 0), (1, 0), (0, -1), (0, 1))]
-            if any(not p[3] for p in nb):
-                continue
-            ms = [mat.get(name(p)) for p in nb]
-            for m in set(ms) - {None, "outline"}:
-                if ms.count(m) >= 3:
-                    h = darkest[m] if m != "skin" else PALETTE["skin"][0]
-                    o[r, c] = (int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16), 255)
+    op = a[..., 3] > 0
+    inside = lambda r, c: 0 <= r < H and 0 <= c < W and op[r, c]
+    todo = {(r, c) for r in range(H) for c in range(W)
+            if op[r, c] and name(a[r, c]) in DARK and all(inside(r + dy, c + dx) for dy, dx in n4)}
+    while todo:
+        new = {}
+        for r, c in todo:
+            near = lambda nb: {mat[name(o[r + dy, c + dx])] for dy, dx in nb
+                               if inside(r + dy, c + dx) and (r + dy, c + dx) not in todo
+                               and name(o[r + dy, c + dx]) not in DARK}
+            ring = [mat.get(name(o[r + dy, c + dx])) for dy, dx in n4 if (r + dy, c + dx) not in todo]
+            most = [m for m in set(ring) - {None, "outline"} if ring.count(m) >= 3]
+            ms = most or near(n4) or near(n8)
+            if ms:
+                new[(r, c)] = darkest[min(ms, key=lambda m: lum[m])]
+        if not new:
+            break
+        for (r, c), h in new.items():
+            o[r, c] = (int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16), 255)
+        todo -= set(new)
     return o
 
 
@@ -165,8 +177,8 @@ def figure(rows=ROWS):
     left = (x0 + x1) / 2 - W * px / 2
     fig, feat = read_blocks(src, left, bottom, px, W, rows, cols, pal)
     fig = despeckle(fig, feat)
-    fig = soften(fig)
     fig, _, _ = G.complete_outline(fig, feet=rows - 1)
+    fig = clean(fig)
     xs = np.nonzero(fig[..., 3].any(0))[0]
     fig = fig[:, xs.min():xs.max() + 1].copy()
     if rows == ROWS:
