@@ -1198,6 +1198,8 @@ league_kayn (jungle, --lane 1, 2026-10-04, only the Darkin form's W knocks up fo
 base ninja 0.50, league_leesin 1.67, league_vi 2.98, league_amumu 2.83 in the same batch - no change.
 league_twistedfate (mid, --lane 2, 2026-10-04, the gold card's 1.67 s stun, thrown only at champions): 1.23 a game;
 the base lightning mage 3.19 and pyromancer 0.50 in the same batch (league_ahri 1.27 before) - no change.
+league_evelynn (jungle, --lane 1, 2026-10-05, Allure's ripe mark: her next attack charms a champion 1.25 s): 1.81 a
+game; the base ninja 0.50 and league_kayn 1.00 in the same batch - no change.
 
 **Kill trigger (league_jinx Get Excited!).** No effect fires on a kill, but section 4's facts make one:
 1. Next to the damaging projectile, fire an invisible twin with the same speed and path and
@@ -3087,6 +3089,40 @@ team's fight) 70000-360000 away and sends a probe `TargetProjectile`; an ally wi
 stopping `r_stop` (25000) short of the target with the destination mark on the ground, a delayed `Teleport` there,
 `ult_land` with `r_in` and the gold card locked. Landing 5000 away cost 0.9 deaths a game in the simulation;
 25000 short and a 90 s cooldown kept the help without the dives.
+
+**A shade after a quiet spell (league_evelynn passive, Demon Shade).** Every action but W starts with `act`: it
+refreshes a caster flag `fight` for `idle` (240) ticks, takes the shade off (`shade`, `sh_regen`) and queues a
+`Delayed` of the same length on her (in a self-only `RangeEffect`, so a projectile's hit can queue it too) that enters
+the shade unless `fight` or `shade` is on - only the last action's check finds `fight` gone. Entering: `shade` for the
+poll chain's length, E's cooldown flag off and the empowered whip armed (`e_emp` with a `range` caster buff `e_range`,
+so the AI opens with the dash from farther), the sound, and an `AddCasted` poll (every `poll` 10 ticks for `poll_len`
+600, chained `poll_levels` 3 times by a delayed self `RangeEffect` while she stays in it) that renews `sh_regen` (an
+`hp_regen` buff of `regen` 12: the data reads no current health, so it heals at any health instead of League's
+below-a-threshold regeneration) and, once `lvl` is on, `CasterInvisible` for poll + 4 ticks, so the camouflage lapses
+within a poll after she acts. W does not call `act`: casting it keeps the shade, as in League.
+
+**A level gate read twice (league_evelynn's camouflage from level 5).** The data reads no level past
+`SwitchByLevel3`, so entering the shade runs league_kayle's probe (a 3-tick shield halfway between her level-4 and
+level-5 health against her own hit of 10% of her maximum health, a 2-tick `undying` guarding the rest; then a 99 hit
+held by a 100 shield, so no damage amplification fakes a level). One pass was fooled at level 4 by a monster's hit
+landing in its 2-tick window; now a second pass `probe_gap` (30) ticks later, run only while she is still in the
+shade, has to agree before `lvl` goes on (`Permanent`, until she dies). A `WithShield` flag that holds 2 ticks before
+her own shield means somebody else's shield is on her: the probe waits for the next shade. In the simulation the gate
+opened after level 5 in every seed.
+
+**An ult that waits for her combo (league_evelynn R, Last Caress).** League's R comes after her hits (it deals 2.4x
+to champions below 30% health). The AI casts an ult slot as soon as it meets a champion (and never cast an
+`AllyOnlySelf` slot at all), so the slot - a 3-tick `idle` action on `EnemyChampion` (`r_slot_range` 60000) - only arms
+`r_armed` for `r_arm` (600) ticks, refunding its cooldown (a 3-tick `ult_cooldown_mult` 4900 flag) when the window
+lapses unused. Her attacks fire it: while armed, an attack that is not the empowered whip (`r_skip`: the dash and the R
+pose would clash) checks her recent champion hits - a ladder `h1`..`h4` climbed by a champion-only twin of every
+attack and lasher hit and by every spike sent at a champion, started over after `h_win` (240) ticks without one - and
+fires at an enemy champion within `r_reach` once the ladder reached `r_need` (3), or `r_need_d` (2) with two enemy
+champions within `r_crowd`. Fire: `ult`, untargetable for the cast (`CasterInvisible`, `damaged_reduce` 100,
+`cc_immune`), a `DirDot` cone (radius 45000, `range` 342 = 140 degrees, `Forward` 1000) of 150 + 75% AP plus 35% per
+rung (x2.4 at the top: counted from her own hits, the target's health being unreadable), a `MoveBack` (9000 x 5 ticks)
+away from the champion picked, and the shade 75 ticks later (`act(idle=r_shade)`: League's 1.25 s). The slash's picture
+is a view-only `LinearProjectile` that crawls 30 ticks toward that champion (a slow homing shot would stay in the match).
 
 ## 8. Gotchas
 
