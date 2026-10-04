@@ -417,6 +417,8 @@ class Parts:
         nl = self.body.copy()
         nl[nu | nb | fu | fb] = 0
         self.body_nolegs = drop_small(nl, 6)
+        self.legs_only = self.body.copy()                  # the idle's own legs, where the design has them
+        self.legs_only[~(nu | nb | fu | fb)] = 0
         self.idle = idle_of(self, unit & ~hand, hand)
 
 
@@ -459,53 +461,63 @@ def compose(P, pose):
     """One frame (128 x 128 RGBA, the design's canvas) from a pose:
     unit: (ring x, ring y, deg, z) - the crossblade in the far hand; hand: (cuff x, cuff y, deg) - the far hand empty;
     near: deg (the near arm turned about its shoulder, + up/forward); held: the crossblade in the near hand (deg);
-    lean: the upper body sheared back over the hips (+ = head to the left); the parts move with their shoulders."""
+    lean: the upper body sheared back over the hips (+ = head to the left); the parts move with their shoulders;
+    shift: (dx, dy) - the whole upper body (head, hair, torso, belt and skirt, both arms, the crossblade) moved as one
+    block over the idle's own legs, which stay where the design has them (+dx forward, +dy down)."""
     k = pose.get("lean", 0.0)
-    sh_far = lean_shift(int(SHOULDER_FAR[1]), k)
-    sh_near = lean_shift(int(SHOULDER_NEAR[1]), k)
+    bdx, bdy = pose.get("shift", (0, 0))
+    sh_far = lean_shift(int(SHOULDER_FAR[1]), k) + bdx
+    sh_near = lean_shift(int(SHOULDER_NEAR[1]), k) + bdx
     can = np.zeros((128, 128, 4), np.uint8)
     back, front = {}, {}
     cuff = None
-    shoulder = (SHOULDER_FAR[0] + sh_far, SHOULDER_FAR[1])
+    shoulder = (SHOULDER_FAR[0] + sh_far, SHOULDER_FAR[1] + bdy)
     rings = []
     if pose.get("unit"):
         cx, cy, deg, z = pose["unit"]
-        cuff = reach(shoulder, (cx + sh_far, cy))
+        cuff = reach(shoulder, (cx + sh_far, cy + bdy))
         cells = transform(*P.unit, CUFF, deg, cuff)
         r_ = rot_pt(RING, CUFF, deg)
         rings.append((r_[0] - CUFF[0] + cuff[0], r_[1] - CUFF[1] + cuff[1]))
         (back if z == "back" else front).update(cells)
     elif pose.get("hand"):
         cx, cy, deg = pose["hand"]
-        cuff = reach(shoulder, (cx + sh_far, cy))
+        cuff = reach(shoulder, (cx + sh_far, cy + bdy))
         front.update(transform(*P.hand, CUFF, deg, cuff))
     if pose.get("blade"):                       # the crossblade alone, the far hand hidden behind it
         bx, by, deg = pose["blade"]
-        front.update(transform(*P.blade, RING, deg, (bx + sh_far, by)))
-        rings.append((bx + sh_far, by))
+        front.update(transform(*P.blade, RING, deg, (bx + sh_far, by + bdy)))
+        rings.append((bx + sh_far, by + bdy))
     if cuff is not None:
         sl = sleeve(shoulder, cuff)
         layer = back if pose.get("sleeve_z", "front") == "back" else front
         for kk, v in sl.items():
             layer.setdefault(kk, v)
     put(can, back)
-    body = P.body
     cells = {}
-    for y, x in zip(*np.nonzero(body[..., 3])):
-        cells[(x + lean_shift(y, k), y)] = body[y, x]
+    if bdx or bdy:
+        legs = P.legs_only
+        put(can, {(x, y): legs[y, x] for y, x in zip(*np.nonzero(legs[..., 3]))})
+        body = P.body_nolegs
+        for y, x in zip(*np.nonzero(body[..., 3])):
+            cells[(x + lean_shift(y, k) + bdx, y + bdy)] = body[y, x]
+    else:
+        body = P.body
+        for y, x in zip(*np.nonzero(body[..., 3])):
+            cells[(x + lean_shift(y, k), y)] = body[y, x]
     put(can, cells)
     put(can, front)
     nd = pose.get("near", 0)
-    sn = (SHOULDER_NEAR[0] + sh_near, SHOULDER_NEAR[1])
+    sn = (SHOULDER_NEAR[0] + sh_near, SHOULDER_NEAR[1] + bdy)
     put(can, transform(*P.front, SHOULDER_NEAR, nd, sn))
     if pose.get("held") is not None:
         g = rot_pt(GLOVE_NEAR, SHOULDER_NEAR, nd)
-        g = (g[0] + sh_near, g[1])
+        g = (g[0] + sh_near, g[1] + bdy)
         put(can, transform(*P.blade, RING, pose["held"], (g[0] + HELD[0], g[1] + HELD[1])), under=True)
         rings.append((g[0] + HELD[0], g[1] + HELD[1]))
     can = drop_small(can, 4)
     keep = [(int(round(x - 0.5)), int(round(y - 0.5))) for x, y in rings]
-    return settle(can, keep, lean_shift(80, k), 0, 128)
+    return settle(can, keep, lean_shift(80, k) + bdx, bdy, 128)
 
 
 def settle(can, keep, shift=0, vshift=0, below=128):
@@ -534,11 +546,14 @@ def frame(P, pose):
 # the unit is placed by its cuff (the far hand) and turned about it: deg + swings the ring down, - up (the idle's ring
 # is 12.5 left of the cuff and 4 lower); the cuff stays within ARM_REACH of the far shoulder (61, 73.5)
 POSES = {
-    "attack": [{"unit": (58.0, 76.5, 0, "front")},                         # 1 the blade drawn back a little
-               {"unit": (55.0, 78.0, -10, "front")},                       # 2 wound back
-               {"hand": (55.0, 79.0, 0), "near": 35, "held": 0},           # 3 flung out of the near hand (release)
-               {"hand": (55.0, 79.0, 0), "near": 40},                      # 4 follow-through, both hands empty
-               {"hand": (57.0, 78.0, 0), "near": 15},                      # 5 recovering
+    # the attack's upper body follows the throw (「平A的时候没有身体联动 所以看起来僵硬」): League's attack crouches and
+    # draws back, then drives forward and lunges (its head -3.5 -2.6 +5.7 +13.7 +13.0 +2.2 px at lunge 0.4); over the
+    # idle's own legs the upper body sinks a row and goes back 1-2 in the wind-up, then forward 1, 3, 2 with the throw
+    "attack": [{"unit": (58.0, 76.5, 0, "front"), "shift": (-1, 1)},      # 1 the blade drawn back a little
+               {"unit": (55.0, 78.0, -10, "front"), "shift": (-2, 1)},    # 2 wound back
+               {"hand": (55.0, 79.0, 0), "near": 35, "held": 0, "shift": (1, 0)},   # 3 flung out of the near hand
+               {"hand": (55.0, 79.0, 0), "near": 40, "shift": (3, 0)},    # 4 follow-through, both hands empty
+               {"hand": (57.0, 78.0, 0), "near": 15, "shift": (2, 0)},    # 5 recovering
                IDLE],                                                      # 6 the blade back at the hip
     "skill": [{"unit": (55.5, 79.0, 20, "front")},                         # 1 low behind
               {"unit": (54.0, 70.0, -45, "front")},                        # 2 back and up
