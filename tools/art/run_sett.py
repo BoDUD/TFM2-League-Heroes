@@ -71,10 +71,11 @@ AXIS = {"near": (56, 55), "far": (69, 70)}      # the upper arm's and the forear
 SHOULDER = {"near": (56, 70), "far": (69, 74)}  # the upper arm's top row on its axis
 # the end of the mane's strand that hangs over the far arm's elbow, below the belt row: it stays with the body
 STRAND = ((72, 79), (72, 80))
-# the poses: (upper arm, forearm degrees from hanging, + ahead; forearm rows dropped as it points at the camera) -
-# B the back of the swing, Pb passing behind, Pf passing ahead, F the front of the swing
+# the poses: (upper arm, forearm degrees from hanging, + ahead; forearm rows dropped as it points at the camera;
+# upper arm rows dropped as it swings back, away from the camera - at -45 unshortened it reached out far too long:
+# 「左手伸出去太长了吧」) - B the back of the swing, Pb passing behind, Pf passing ahead, F the front of the swing
 POSES = {
-    "near": {"B": (-45, -20, ()), "Pb": (-15, 15, ()), "Pf": (0, 40, (1,)), "F": (12, 40, (1, 2))},
+    "near": {"B": (-30, -10, (), (3, 5)), "Pb": (-15, 15, ()), "Pf": (0, 40, (1,)), "F": (12, 40, (1, 2))},
     "far": {"B": (-20, 0, ()), "Pb": (-10, 10, ()), "Pf": (5, 30, (1,)), "F": (10, 75, (1, 2))},
 }
 # over the cycle (frame 0 = the near foot's contact), League's timing: the arms at their ends a frame before and on
@@ -134,7 +135,7 @@ def body_block(d):
     return out
 
 
-def posed(d, side, up, fore, drop_fore, shoulder):
+def posed(d, side, up, fore, drop_fore, shoulder, drop_up=()):
     """{(x, y): colour} of the design's arm, its upper arm `up` and its forearm `fore` degrees from hanging (+ ahead),
     the shoulder on `shoulder`: Ryze's posing of the idle's own squares (tools/art/ryze_arms.py)."""
     import ryze_arms as RA
@@ -151,7 +152,7 @@ def posed(d, side, up, fore, drop_fore, shoulder):
             span = min(c for _, c in fb) + max(c for _, c in fb)
             fb = {(a, span - c): col for (a, c), col in fb.items()}
             drop_fore = ()
-        cu, end = RA.place(ub, up, side)
+        cu, end = RA.place(ub, up, side, drop_up)
         out = {(shoulder[0] + x, shoulder[1] + y): c for (x, y), c in cu.items()}
         st = RA.step_of(fore)
         ex = shoulder[0] + end[0] + st[0] + AXIS[side][1] - AXIS[side][0]
@@ -262,9 +263,9 @@ def frame(k, d=None):
     body = {(x + lean(y), y + dy): c for (x, y), c in body_block(d).items()}
     arms = {}
     for side, sched in (("near", NEAR_SCHED), ("far", FAR_SCHED)):
-        up, fore, drop = POSES[side][sched[k]]
+        up, fore, drop, *rest = POSES[side][sched[k]]
         sx, sy = SHOULDER[side]
-        arms[side] = posed(d, side, up, fore, drop, (sx + lean(sy), sy + dy))
+        arms[side] = posed(d, side, up, fore, drop, (sx + lean(sy), sy + dy), *rest)
     put(can, body)
     put(can, legs["near"], under=True)
     put(can, coat(k, dy), under=True)
