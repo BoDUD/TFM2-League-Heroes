@@ -2979,6 +2979,40 @@ two-flag count); a save plays Q's pose and the voice; an unused window caps the 
 250 + 80% 5 of 7 saved champions died within a second after it, with 400 + 150% (League's revive is 600-1100 +
 200%) 3 of 6. A 60-tick stasis after it (`damaged_reduce` 100 + `cc_immune`, League's) was tested and left out.
 
+**A blade that bounces on her attacks for a few seconds (league_sivir W, Ricochet, folded into the attack).** Every
+600 ticks (300 while R hunts) the next attack sets `w_on` (240 ticks, +45% attack speed). An attack under it throws
+the homing `w_blade` and, at the same speed and height, Miss Fortune Q's wide penetrating twin (`w_twin`: radius
+20000, reach the attack's range + 50000): the units the twin touches in a 9-tick window after the blade hits take one
+bounce each - a ladder of flags (`w_h1`, `w_h2`; the third bounce shuts the window), 60% attack damage as an `Attack`
+(so it can crit) 5 ticks after the hop's picture. A 1-tick `w_wait` flag set by the blade's own hit keeps the twin
+from bouncing onto the unit the blade just hit.
+
+**A boomerang that flies out and back, the hand empty until it returns (league_sivir Q, Boomerang Blade).** A
+`Direction` cast on `EnemyWithoutTower`; 8 ticks before the throw a champion within range + 20000 is aimed at
+(league_caitlyn Q's hidden lob: its `end_effects` throw the blade at the spot he stood on, so he can step out),
+else the blade flies the cast's way to its full reach (waves, camps). The blade is a penetrating `LinearProjectile`
+(6500 a tick, 110000, 60 + 80% on everyone it passes) whose `end_effects` start a `BackToCasterLinearProjectile`
+(7000 a tick) with the same hit; that one's `end_effects` remove the `skill_wait` caster animation (the empty-handed
+hold started on the throw tick, `q_hold` 60 ticks) and play `skill_catch`. `BackToCasterLinearProjectile` takes no
+`y_offset` (it flies at the pivot's height): the outbound blade stays near it as well (-2000), or the picture jumps
+at the turn.
+
+**A spell shield that pays out when the first hit lands (league_sivir E, Spell Shield).** Nothing reports "a spell
+was blocked", but a shield breaking can be seen: E puts a 1-point `Shield` on her (`tick` e_cap + 4), a caster flag
+with `WithShield` as its duration (`e_guard`: it lasts while the shield does), `skill_damaged_reduce` 100 +
+`cc_immune` for e_cap (180) ticks, and a 2-tick lob starts a `RangePeriodProjectile` on `AllyChampion` (period 6)
+that checks on her: the window flag (`e_guard_on`) still on but `e_guard` gone = the shield broke -> the heal (60 +
+40% attack), Fleet of Foot, the picture, and the shroud removed `e_grace` (60) ticks later (a second spell landing
+with the first is still blocked). Any hit breaks the point, not only a spell. The AI casts it on `EnemyChampion`
+within 65000; it paid out about 4 times a game (a fixed 90-tick window like league_nocturne's W paid about once).
+
+**Cooldown cuts on champion hits while hunting (league_sivir R, On The Hunt).** League's R takes time off her basic
+spells on every champion hit. A 2-tick caster flag with `skill_cooldown_mult` m (and `ult_cooldown_mult` -m, so the
+ult keeps its cap) caps each remaining cooldown at cooltime x 100 / (100 + m) (league_taric's way); a ladder of
+300-tick flags (`r_c1`, `r_c2`) gives the 1st, 2nd and 3rd hit 25, 60 and 110, and any spell cast resets it.
+Ricochet's own cooldown halves while she hunts. A champion killed by her blade renews the hunt (league_jinx's kill
+check: a flag on the champion that her `casted` clears the next tick while he lives; a corpse lob reads it).
+
 ## 8. Gotchas
 
 - A `RangePeriodProjectile` put straight into an action's effects, or into a self-only `RangeEffect`, is never
