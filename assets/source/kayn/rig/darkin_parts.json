@@ -1,0 +1,119 @@
+{
+ "labels": {
+  "#FFD84A": "head",
+  "#FF8C1A": "hair",
+  "#2E7DFF": "torso",
+  "#7A3DFF": "far_arm",
+  "#FF3DD0": "near_arm",
+  "#1EB45A": "far_leg",
+  "#A8FF3D": "near_leg",
+  "#FF2B2B": "scythe"
+ },
+ "joints": {
+  "head": [
+   63,
+   69
+  ],
+  "hair": [
+   71,
+   69
+  ],
+  "torso": [
+   62,
+   85
+  ],
+  "near_arm": [
+   56,
+   73
+  ],
+  "far_arm": [
+   68,
+   74
+  ],
+  "near_leg": [
+   57,
+   86
+  ],
+  "far_leg": [
+   65,
+   89
+  ],
+  "scythe": [
+   74,
+   87
+  ]
+ },
+ "order": [
+  "far_leg",
+  "scythe",
+  "near_leg",
+  "far_arm",
+  "torso",
+  "near_arm",
+  "hair",
+  "head"
+ ],
+ "sprites": {
+  "legs_crouch": {
+   "joint": [
+    7,
+    3
+   ],
+   "drop": 4,
+   "low": 10,
+   "max_dy": 4
+  },
+  "legs_lunge": {
+   "joint": [
+    17,
+    2
+   ],
+   "drop": 3,
+   "low": 11,
+   "max_dy": 3
+  },
+  "legs_tuck": {
+   "joint": [
+    4,
+    1
+   ],
+   "drop": 0,
+   "low": 15,
+   "max_dy": -1,
+   "air": true
+  },
+  "legs_hang": {
+   "joint": [
+    7,
+    2
+   ],
+   "drop": 0,
+   "low": 14,
+   "max_dy": 0,
+   "air": true
+  },
+  "legs_kneel": {
+   "joint": [
+    13,
+    3
+   ],
+   "drop": 5,
+   "low": 9,
+   "max_dy": 5
+  },
+  "scythe_long": {
+   "joint": [
+    49,
+    10
+   ],
+   "note": "the repaired strips' whole straight darkin scythe (cut from work rh_skill2 3, hands left out): pommel left, blade right pointing up, joint = far grip on the shaft (shaft core rows 10-11). Use on the 'scythe' part: ['sprite', 'scythe_long'] then rot/flip/deg/at - matches the kept repaired frames' scythe size (the design's own scythe is drawn smaller)."
+  }
+ },
+ "hips": {
+  "joint": [
+   62,
+   85
+  ],
+  "note": "Leg pairs (legs_*): both legs in one sprite, joint = the hips' middle, which goes on the design's hips' middle (canvas 62, 85 = the torso joint). Use the pseudo-part 'hips': put 'hips' in the frame's 'order' where 'far_leg' was and leave out 'far_leg' and 'near_leg' (or 'hide' them), parts {'hips': [['sprite', 'legs_crouch', [62, 85]], ...more ops]}, and 'move': [0, dy]. Planted pairs (crouch, lunge, kneel): dy = the sprite's 'drop' so the hips come down with the body and the soles stand on the soles' row. Airborne pairs ('air': legs_tuck, legs_hang): lift the body, dy <= 'max_dy' (= 14 - 'low'; legs_tuck needs dy <= -1, legs_hang <= 0), or the renderer's cut below the soles' row (frame[FEET_ROW + 1:] = 0) takes the toes. 'low' = rows from the joint to the sprite's lowest pixel. Put 'hips' after 'scythe' instead when the legs must cover the shaft. Both legs wear the near leg's colours (F/K/I thigh, no darker far leg); legs_darkin.py --far design rewrites them with the idle's navy far leg. Drawn by work/ka/legs_darkin.py + legs_darkin_maps.py."
+ }
+}

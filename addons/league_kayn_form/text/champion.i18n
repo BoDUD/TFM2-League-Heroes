@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_kayn_form": {
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理伤害。暗裔魔镰：<#fffffffe><>【附加包·照英雄联盟】打中近战英雄攒<#fe5c50ff>暗裔<>、打中远程英雄攒<#8484fbff>影流<>（各<#ffb900ff>14<>次），先满的变身，整局保留<#ffffffff><>。<#fe5c50ff>暗裔杀手<>：对英雄的伤害回复<#ffb900ff>20%<>；<#8484fbff>影流刺客<>：开战<#ffb900ff>3秒<>内每次命中英雄额外<#ffb900ff>8<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>15%<>真实伤害。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_kayn_form": {
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理傷害。冥血罪鐮：<#fffffffe><>【附加包·照英雄聯盟】打中近戰英雄累積<#fe5c50ff>闇裔<>、打中遠程英雄累積<#8484fbff>影流<>（各<#ffb900ff>14<>次），先滿的變身，整局保留<#ffffffff><>。<#fe5c50ff>闇裔<>：對英雄的傷害回復<#ffb900ff>20%<>；<#8484fbff>影流<>：開戰<#ffb900ff>3秒<>內每次命中英雄額外<#ffb900ff>8<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>15%<>真實傷害。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_kayn_form": {
+        "attack": "Basic attacks deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. <#ff9028ff>Darkin Scythe<>: <#fffffffe><>[Add-on, as League] melee champion hits charge the <#fe5c50ff>Darkin<>, ranged ones the <#8484fbff>Shadow<> (<#ffb900ff>14<> each); the first full one stays his form all match<#ffffffff><>. <#fe5c50ff>Darkin<>: heals <#ffb900ff>20%<> of damage to champions. <#8484fbff>Shadow<>: for <#ffb900ff>3s<> into a fight, hits on champions deal <#ffb900ff>8<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>15%<> true damage more."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_kayn_form": {
+        "attack": "기본 공격은 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>다르킨의 낫<>: <#fffffffe><>[확장팩·LoL처럼] 근거리 챔피언 적중은 <#fe5c50ff>다르킨<>, 원거리는 <#8484fbff>그림자 암살자<> 충전(각 <#ffb900ff>14<>), 먼저 차는 쪽으로 변신해 게임 끝까지 유지<#ffffffff><>. <#fe5c50ff>다르킨<>: 챔피언 피해의 <#ffb900ff>20%<> 회복. <#8484fbff>암살자<>: 전투 시작 <#ffb900ff>3초<> 동안 챔피언 적중마다 <#ffb900ff>8<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>15%<> 고정 피해."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_kayn_form": {
+        "attack": "通常攻撃は<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>緋眼の大鎌<>：<#fffffffe><>【拡張・LoL準拠】近接チャンピオン命中で<#fe5c50ff>ダーキン<>、遠隔で<#8484fbff>暗殺者<>（各<#ffb900ff>14<>）が溜まり、先に満ちた方に変身し試合中ずっと維持<#ffffffff><>。<#fe5c50ff>ダーキン<>：与ダメージの<#ffb900ff>20%<>回復。<#8484fbff>暗殺者<>：開戦<#ffb900ff>3秒<>、命中ごとに<#ffb900ff>8<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>15%<>確定ダメージ。"
+      }
+    }
+  }
+}
