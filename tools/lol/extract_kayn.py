@@ -44,7 +44,8 @@ CLIPS = {
     "league_kayn_sfx_w_cast_d": ("Play_sfx_Kayn_KaynW_OnCast", 524982709, 1.6, -7),
     "league_kayn_sfx_w_hit": ("Play_sfx_Kayn_KaynW_tar_B", 454572908, 1.0, -10),
     "league_kayn_sfx_r_cast": ("Play_sfx_Kayn_KaynR_Enemy_cast", 373471911, 1.4, -8),
-    "league_kayn_sfx_r_enter": ("Play_sfx_Kayn_KaynRHost_OnBuffActivate", 1059587562, 1.5, -10),
+    "league_kayn_sfx_r_dive_in": ("Play_sfx_Kayn_KaynR_Self_cast", 213046100, 1.2, -4),  # the dive-in, over the hum
+    "league_kayn_sfx_r_enter": ("Play_sfx_Kayn_KaynRHost_OnBuffActivate", 1059587562, 1.5, -6),
     "league_kayn_sfx_r_exit": ("Play_sfx_Kayn_KaynRExitCeremony_Self_buffdeactivate", 283930643, 1.6, -6),
     "league_kayn_sfx_r_exit_hit": ("Play_sfx_Kayn_KaynW_tar_A", 366942513, 1.0, -8),
     "league_kayn_sfx_tf_d": ("Play_sfx_Kayn_Recall3D_leadout_Slayer", 905789645, 2.0, -6),

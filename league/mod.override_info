@@ -5683,6 +5683,10 @@
     "remapping": "asset/league/sound/sfx/league_kayn_sfx_r_cast",
     "type": "override"
   },
+  "asset/base/sound/sfx/league_kayn_sfx_r_dive_in": {
+    "remapping": "asset/league/sound/sfx/league_kayn_sfx_r_dive_in",
+    "type": "override"
+  },
   "asset/base/sound/sfx/league_kayn_sfx_r_enter": {
     "remapping": "asset/league/sound/sfx/league_kayn_sfx_r_enter",
     "type": "override"
