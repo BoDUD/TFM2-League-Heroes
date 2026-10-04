@@ -309,7 +309,7 @@
                         },
                         {
                           "type": "TargetSfx",
-                          "name": "fighter_skill_hit"
+                          "name": "league_sett_q_hit"
                         },
                         {
                           "type": "RemoveCasterBuff",
@@ -335,7 +335,7 @@
                           },
                           {
                             "type": "TargetSfx",
-                            "name": "fighter_skill_hit"
+                            "name": "league_sett_q_hit"
                           },
                           {
                             "type": "RemoveCasterBuff",
@@ -357,7 +357,7 @@
                           },
                           {
                             "type": "TargetSfx",
-                            "name": "fighter_attack"
+                            "name": "league_sett_a2_hit"
                           }
                         ]
                       }
@@ -404,7 +404,7 @@
                         },
                         {
                           "type": "TargetSfx",
-                          "name": "fighter_skill_hit"
+                          "name": "league_sett_q_hit"
                         },
                         {
                           "type": "RemoveCasterBuff",
@@ -430,7 +430,7 @@
                           },
                           {
                             "type": "TargetSfx",
-                            "name": "fighter_skill_hit"
+                            "name": "league_sett_q_hit"
                           },
                           {
                             "type": "RemoveCasterBuff",
@@ -452,7 +452,7 @@
                           },
                           {
                             "type": "TargetSfx",
-                            "name": "fighter_attack"
+                            "name": "league_sett_a_hit"
                           }
                         ]
                       }
@@ -482,7 +482,7 @@
       "effects": [
         {
           "type": "Sfx",
-          "name": "fighter_skill"
+          "name": "league_sett_e_cast"
         },
         {
           "type": "Delayed",
@@ -560,7 +560,7 @@
                   },
                   {
                     "type": "TargetSfx",
-                    "name": "fighter_skill_hit"
+                    "name": "league_sett_e_hit"
                   }
                 ]
               },
@@ -601,7 +601,7 @@
                   },
                   {
                     "type": "TargetSfx",
-                    "name": "fighter_skill_hit"
+                    "name": "league_sett_e_hit"
                   }
                 ]
               }
@@ -682,7 +682,7 @@
       "effects": [
         {
           "type": "Sfx",
-          "name": "fighter_skill2"
+          "name": "league_sett_w_cast"
         },
         {
           "type": "LineRangeProjectile",
@@ -722,7 +722,7 @@
               "casting_type": "Targeting",
               "effect": {
                 "type": "TargetSfx",
-                "name": "fighter_skill_hit"
+                "name": "league_sett_w_hit"
               }
             }
           ]
@@ -1332,7 +1332,7 @@
         },
         {
           "type": "Sfx",
-          "name": "fighter_ult"
+          "name": "league_sett_r_cast"
         },
         {
           "type": "Stun",
@@ -1380,7 +1380,7 @@
                     },
                     {
                       "type": "Sfx",
-                      "name": "fighter_skill_hit"
+                      "name": "league_sett_r_slam"
                     },
                     {
                       "type": "Attack",

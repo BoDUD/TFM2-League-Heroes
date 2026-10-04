@@ -109,10 +109,9 @@ R_DAMAGE, R_RATIO, R_HP = 120, 100, 4
 R_TARGET_HP = 6                  # the thrown champion: + 6% of its max health
 R_SLOW, R_SLOW_TICKS = -99, 30
 
-# Sounds: base placeholders until League's are extracted (then league_sett_* names with .sound_info + overrides)
-SFX = {"a_hit": "fighter_attack", "a2_hit": "fighter_attack", "q_hit": "fighter_skill_hit",
-       "e_cast": "fighter_skill", "e_hit": "fighter_skill_hit", "w_cast": "fighter_skill2", "w_hit": "fighter_skill_hit",
-       "r_cast": "fighter_ult", "r_slam": "fighter_skill_hit"}
+# Sounds: League's, from tools/lol/extract_sett.py (the clips are not in git; league/sound/sfx/league_sett_*.sound_info
+# say what each one plays, mod.override_info maps them)
+SFX = {k: f"{ID}_{k}" for k in ("a_hit", "a2_hit", "q_hit", "e_cast", "e_hit", "w_cast", "w_hit", "r_cast", "r_slam")}
 
 
 def n(s):
@@ -381,7 +380,7 @@ def texts():
     out = {}
 
     out["zh-hans"] = ("瑟提", {
-        "attack": f"被动{c(ORANGE, '斗场豪勇')}：左右拳交替出击，右拳出手更快，额外造成{c(ORANGE, rd)} + {ad(rr)}的"
+        "attack": f"被动{c(ORANGE, '沙场豪情')}：左右拳交替出击，右拳出手更快，额外造成{c(ORANGE, rd)} + {ad(rr)}的"
                   f"{c(ORANGE, '物理伤害')}；{c(AMBER, win + '秒')}不出拳就从左拳重新开始。瑟提的{c(GREEN, '生命回复')}很高。",
         "skill": f"把周围的敌人全部{c(RED, '拉')}到面前对撞，造成{c(ORANGE, E_DAMAGE)} + {ad(E_RATIO)}的{c(ORANGE, '物理伤害')}；"
                  f"拉到两个及以上时全部{c(RED, '眩晕')}{c(AMBER, stun_s + '秒')}，否则{c(RED, '减速')}{c(AMBER, f'{slow}%')}。"
@@ -398,16 +397,16 @@ def texts():
     }, ("强手裂颅", "蓄意轰拳", "叹为观止"))
 
     out["zh-hant"] = ("賽特", {
-        "attack": f"被動{c(ORANGE, '鬥場豪勇')}：左右拳交替出擊，右拳出手更快，額外造成{c(ORANGE, rd)} + {ad(rr)}的"
+        "attack": f"被動{c(ORANGE, '恆毅之泉')}：左右拳交替出擊，右拳出手更快，額外造成{c(ORANGE, rd)} + {ad(rr)}的"
                   f"{c(ORANGE, '物理傷害')}；{c(AMBER, win + '秒')}不出拳就從左拳重新開始。賽特的{c(GREEN, '生命回復')}很高。",
         "skill": f"把周圍的敵人全部{c(RED, '拉')}到面前對撞，造成{c(ORANGE, E_DAMAGE)} + {ad(E_RATIO)}的{c(ORANGE, '物理傷害')}；"
                  f"拉到兩個以上時全部{c(RED, '暈眩')}{c(AMBER, stun_s + '秒')}，否則{c(RED, '緩速')}{c(AMBER, f'{slow}%')}。"
-                 f"之後兩拳為{c(ORANGE, '屈人之威')}：額外{c(ORANGE, Q_DAMAGE)} + {ad(Q_RATIO)} + {c(AMBER, f'{Q_HP}%')}"
+                 f"之後兩拳為{c(ORANGE, '懾人猛拳')}：額外{c(ORANGE, Q_DAMAGE)} + {ad(Q_RATIO)} + {c(AMBER, f'{Q_HP}%')}"
                  f"最大生命傷害，移速+{c(AMBER, f'{q_haste}%')}。",
-        "skill2": grit(f"受傷累積{c(YELLOW, '豪意')}（最多{c(AMBER, GRIT_MAX)}層，{c(AMBER, grit_s + '秒')}消散）。消耗豪意")
+        "skill2": grit(f"受傷累積{c(YELLOW, '拳皇恆毅')}（最多{c(AMBER, GRIT_MAX)}層，{c(AMBER, grit_s + '秒')}消散）。消耗拳皇恆毅")
                   + f"獲得{c(YELLOW, W_SHIELD)} + {ad(W_SHIELD_R, YELLOW)}{c(YELLOW, '護盾')}，蓄力前轟一拳："
                   f"{c(ORANGE, W_SIDE)} + {ad(W_SIDE_R)}{c(ORANGE, '物理傷害')}，正中的敵人再受{c(WHITE, W_TRUE)} + "
-                  f"{ad(W_TRUE_R, WHITE)}{c(WHITE, '真實傷害')}。" + grit(f"每層豪意護盾+{c(YELLOW, W_SHIELD_K)} + "
+                  f"{ad(W_TRUE_R, WHITE)}{c(WHITE, '真實傷害')}。" + grit(f"每層拳皇恆毅護盾+{c(YELLOW, W_SHIELD_K)} + "
                   f"{ad(W_SHIELD_KR, YELLOW)}，真傷+{c(WHITE, W_TRUE_K)} + {ad(W_TRUE_KR, WHITE)}。"),
         "ult": f"抓住一名敵方英雄{c(RED, '暈眩')}並扔向前方，再躍起追上砸地：周圍敵人受到{c(ORANGE, R_DAMAGE)} + {ad(R_RATIO)}"
                f" + {c(AMBER, f'{R_HP}%')}最大生命的{c(ORANGE, '物理傷害')}並{c(RED, '緩速')}{c(AMBER, f'{r_slow}%')}，"
@@ -441,19 +440,19 @@ def texts():
     }, ("Facebreaker", "Haymaker", "The Show Stopper"))
 
     out["ko"] = ("세트", {
-        "attack": f"기본 지속 효과 {c(ORANGE, '투지')}: 왼손과 오른손으로 번갈아 주먹을 날립니다. 오른손은 더 빠르고 "
+        "attack": f"기본 지속 효과 {c(ORANGE, '투기장의 투지')}: 왼손과 오른손으로 번갈아 주먹을 날립니다. 오른손은 더 빠르고 "
                   f"{c(ORANGE, rd)} + {ad(rr)} {c(ORANGE, '물리 피해')}를 추가로 입힙니다. {c(AMBER, win + '초')} 동안 "
                   f"치지 않으면 왼손부터 다시 시작합니다. {c(GREEN, '체력 재생')}이 높습니다.",
         "skill": f"주변 적을 모두 {c(RED, '끌어당겨')} 맞부딪쳐 {c(ORANGE, E_DAMAGE)} + {ad(E_RATIO)} {c(ORANGE, '물리 피해')}"
                  f"를 입힙니다. 둘 이상 끌어오면 모두 {c(AMBER, stun_s + '초')} {c(RED, '기절')}, 아니면 "
-                 f"{c(AMBER, f'{slow}%')} {c(RED, '둔화')}. 다음 두 주먹은 {c(ORANGE, '주먹질')}: {c(ORANGE, Q_DAMAGE)} + "
+                 f"{c(AMBER, f'{slow}%')} {c(RED, '둔화')}. 다음 두 주먹은 {c(ORANGE, '주먹다짐')}: {c(ORANGE, Q_DAMAGE)} + "
                  f"{ad(Q_RATIO)} + 최대 체력의 {c(AMBER, f'{Q_HP}%')} 추가 피해, 이동 속도 +{c(AMBER, f'{q_haste}%')}.",
-        "skill2": grit(f"피해를 받으면 {c(YELLOW, '근성')}이 쌓입니다(최대 {c(AMBER, GRIT_MAX)}, {c(AMBER, grit_s + '초')} "
-                       f"후 소멸). 근성을 소모해 ")
+        "skill2": grit(f"피해를 받으면 {c(YELLOW, '투지')}가 쌓입니다(최대 {c(AMBER, GRIT_MAX)}, {c(AMBER, grit_s + '초')} "
+                       f"후 소멸). 투지를 소모해 ")
                   + f"{c(YELLOW, W_SHIELD)} + {ad(W_SHIELD_R, YELLOW)} {c(YELLOW, '보호막')}을 얻고 기를 모아 "
                   f"주먹을 날립니다: {c(ORANGE, W_SIDE)} + {ad(W_SIDE_R)} {c(ORANGE, '물리 피해')}, 중앙의 적은 "
                   f"{c(WHITE, W_TRUE)} + {ad(W_TRUE_R, WHITE)} {c(WHITE, '고정 피해')} 추가."
-                  + grit(f" 근성 1당 보호막 +{c(YELLOW, W_SHIELD_K)} + {ad(W_SHIELD_KR, YELLOW)}, 고정 피해 "
+                  + grit(f" 투지 1당 보호막 +{c(YELLOW, W_SHIELD_K)} + {ad(W_SHIELD_KR, YELLOW)}, 고정 피해 "
                          f"+{c(WHITE, W_TRUE_K)} + {ad(W_TRUE_KR, WHITE)}."),
         "ult": f"적 챔피언을 붙잡아 {c(RED, '기절')}시키고 앞으로 내던진 뒤 뛰어올라 내리찍습니다. 주변 적은 "
                f"{c(ORANGE, R_DAMAGE)} + {ad(R_RATIO)} + 최대 체력의 {c(AMBER, f'{R_HP}%')} {c(ORANGE, '물리 피해')}를 입고 "
@@ -462,17 +461,17 @@ def texts():
     }, ("얼굴 깨기", "강펀치", "회심의 일격"))
 
     out["ja"] = ("セト", {
-        "attack": f"パッシブ {c(ORANGE, 'ピットグリット')}：左右の拳で交互に殴る。右の拳は素早く、{c(ORANGE, rd)} + {ad(rr)}の"
+        "attack": f"パッシブ {c(ORANGE, 'ファイティングスピリット')}：左右の拳で交互に殴る。右の拳は素早く、{c(ORANGE, rd)} + {ad(rr)}の"
                   f"{c(ORANGE, '物理ダメージ')}を追加。{c(AMBER, win + '秒')}殴らないと左から。{c(GREEN, '体力自動回復')}が高い。",
         "skill": f"周囲の敵を全員{c(RED, '引き寄せ')}てぶつけ、{c(ORANGE, E_DAMAGE)} + {ad(E_RATIO)}の{c(ORANGE, '物理ダメージ')}。"
                  f"2体以上なら全員{c(RED, 'スタン')}{c(AMBER, stun_s + '秒')}、1体なら{c(AMBER, f'{slow}%')}{c(RED, 'スロウ')}。"
                  f"次の2発は{c(ORANGE, 'ナックルダウン')}：{c(ORANGE, Q_DAMAGE)} + {ad(Q_RATIO)} + 最大体力の"
                  f"{c(AMBER, f'{Q_HP}%')}を追加、移動速度+{c(AMBER, f'{q_haste}%')}。",
-        "skill2": grit(f"被ダメージで{c(YELLOW, 'グリット')}を蓄積（最大{c(AMBER, GRIT_MAX)}、{c(AMBER, grit_s + '秒')}"
+        "skill2": grit(f"被ダメージで{c(YELLOW, '闘魂')}を蓄積（最大{c(AMBER, GRIT_MAX)}、{c(AMBER, grit_s + '秒')}"
                        f"で消滅）。消費して")
                   + f"{c(YELLOW, W_SHIELD)} + {ad(W_SHIELD_R, YELLOW)}の{c(YELLOW, 'シールド')}、溜めて殴り{c(ORANGE, W_SIDE)} + "
                   f"{ad(W_SIDE_R)}の{c(ORANGE, '物理ダメージ')}、中央の敵には{c(WHITE, W_TRUE)} + {ad(W_TRUE_R, WHITE)}の"
-                  f"{c(WHITE, '確定ダメージ')}も。" + grit(f"グリット1につきシールド+{c(YELLOW, W_SHIELD_K)} + "
+                  f"{c(WHITE, '確定ダメージ')}も。" + grit(f"闘魂1につきシールド+{c(YELLOW, W_SHIELD_K)} + "
                   f"{ad(W_SHIELD_KR, YELLOW)}、確定+{c(WHITE, W_TRUE_K)} + {ad(W_TRUE_KR, WHITE)}。"),
         "ult": f"敵チャンピオンを掴んで{c(RED, 'スタン')}させ前方へ投げ、跳びかかって叩きつける。周囲の敵に{c(ORANGE, R_DAMAGE)} + "
                f"{ad(R_RATIO)} + 最大体力の{c(AMBER, f'{R_HP}%')}の{c(ORANGE, '物理ダメージ')}と{c(AMBER, f'{r_slow}%')}"
