@@ -23,6 +23,11 @@ body that keeps Ryze's shoulders. Steps, all from the repo:
      columns each side between the hands and the trousers, the trousers two or three squares wide - so the legs read
      as cut off the body (the user: 「瑞兹这腿和身体感觉是分割的」). The trousers drawn up to the belt instead, as wide
      as the thighs under them, one outline square left between them and each hand.
+  6. The arms shortened (the user, 2026-10-04: 「瑞兹的手臂看起来可以稍微改短一点」): ARM_CUT rows taken out of each
+     upper arm from CUT_FROM down, everything of the arm under them - the elbow, the bracer, the hand - moved up as
+     many rows; the squares it leaves are ground (the hands hang beside the hips, outside the body).
+     tools/art/rig_ryze.py cuts the arm parts and puts the joints by the same ARM_CUT, so every posed arm in the
+     actions (tools/art/ryze_arms.py, the idle's own arm squares) is as much shorter as the idle's.
 The figure: 41 rows, 24 columns. Written at 8x on the first design's 128 x 128 canvas (soles on row 99, the feet's
 middle on column 64): assets/source/ryze/design_v2/ryze_design_v2.png, and _1x. --check compares with the files.
 """
@@ -166,6 +171,44 @@ HIPS = {(-5, -4): "112A70", (-4, -4): "18235D", (-3, -4): "233D98", (-2, -4): "1
         (5, 0): "112A70"}
 
 
+# step 6: rows out of the upper arms (from the standing point)
+ARM_CUT = 2
+CUT_FROM = -11
+# the hanging arms before the cut, as tools/art/rig_ryze.py's boxes cut them (x, y from the standing point), and the
+# hands' lowest outline squares under them
+ARM_BOX = {
+    "far": lambda x, y: (-11 <= x <= -5 and -14 <= y <= -7) or (-12 <= x <= -6 and -6 <= y <= 1),
+    "near": lambda x, y: ((5 <= x <= 8 and -13 <= y <= -7) or (x == 4 and -10 <= y <= -7)
+                          or (5 <= x <= 10 and -6 <= y <= 1) or (x == 4 and -6 <= y <= -3)),
+}
+ARM_TIPS = [(-8, 2), (8, 2)]
+
+
+def shorten(c):
+    """Step 6: ARM_CUT rows out of each upper arm from CUT_FROM down, the arm under them moved up (the arm's own
+    squares only: skin, outline, the bracer's leathers and golds - rig_ryze.ARM_KEEP)."""
+    if not ARM_CUT:
+        return c
+    import rig_ryze as R                                    # (it imports this module: loaded here, not at the top)
+    c = c.copy()
+    py, px = SOLES - 11, MID
+    arm = {}
+    for side, box in ARM_BOX.items():
+        for y in range(-16, 3):
+            for x in range(-13, 12):
+                q = c[py + y, px + x]
+                if q[3] and (box(x, y) or (x, y) in ARM_TIPS) and R.code(q) in R.ARM_KEEP:
+                    arm[(x, y)] = q.copy()
+    for (x, y) in arm:
+        c[py + y, px + x] = 0
+    for (x, y), q in arm.items():
+        if y < CUT_FROM:
+            c[py + y, px + x] = q
+        elif y >= CUT_FROM + ARM_CUT:
+            c[py + y - ARM_CUT, px + x] = q
+    return c
+
+
 def on_canvas(fig):
     H, W = fig.shape[:2]
     feet = np.nonzero(fig[H - 1, :, 3])[0]
@@ -192,7 +235,7 @@ def main():
     old = old_figure()
     pal = np.unique(old[old[..., 3] > 0][:, :3], axis=0).astype(float)
     fig = transplant(read_master(pal), old)
-    c = hands(on_canvas(fig))
+    c = shorten(hands(on_canvas(fig)))
     fig = crop(c)
     big = np.repeat(np.repeat(c, Z, 0), Z, 1)
     n = len(np.unique(fig[fig[..., 3] > 0][:, :3], axis=0))

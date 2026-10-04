@@ -40,13 +40,14 @@ def _seg(p, a, b):
     return math.hypot(dx, dy), t, across
 
 
-def joints(S, E, W, H):
-    """The joints with the idle's bone lengths: the directions of S->E, E->W and W->H kept."""
+def joints(S, E, W, H, upper=None):
+    """The joints with the idle's bone lengths: the directions of S->E, E->W and W->H kept (upper: the upper arm's
+    length, UPPER unless given - the idle's upper arms are shorter since design_ryze_v2.py's ARM_CUT)."""
     def step(a, b, n):
         vx, vy = b[0] - a[0], b[1] - a[1]
         ln = math.hypot(vx, vy) or 1.0
         return (a[0] + vx / ln * n, a[1] + vy / ln * n)
-    E2 = step(S, E, UPPER)
+    E2 = step(S, E, UPPER if upper is None else upper)
     W2 = step(E2, (E2[0] + W[0] - E[0], E2[1] + W[1] - E[1]), FORE)
     H2 = step(W2, (W2[0] + H[0] - W[0], W2[1] + H[1] - W[1]), HAND)
     return S, E2, W2, H2
@@ -64,9 +65,10 @@ def lit_sign(a, b, side):
     return 1 if nx * out > 0 else -1
 
 
-def draw(S, E, W, H, side, shape="fist", rgba=None, ink=(0x0F, 0x02, 0x13, 255)):
-    """{(x, y): rgba} of one arm (with its outline) from its joints; side "far" or "near"."""
-    S, E, W, H = joints(S, E, W, H)
+def draw(S, E, W, H, side, shape="fist", rgba=None, ink=(0x0F, 0x02, 0x13, 255), upper=None):
+    """{(x, y): rgba} of one arm (with its outline) from its joints; side "far" or "near" (without rgba: {(x, y):
+    colour letter}, no outline)."""
+    S, E, W, H = joints(S, E, W, H, upper)
     xs = [p[0] for p in (S, E, W, H)]
     ys = [p[1] for p in (S, E, W, H)]
     cells = {}
