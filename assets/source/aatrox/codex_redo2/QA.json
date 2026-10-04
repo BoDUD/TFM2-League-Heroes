@@ -1,0 +1,354 @@
+[
+  {
+    "tag": "run",
+    "frame": 0,
+    "changed_original_pixels": 0,
+    "added_logical_pixels": 84,
+    "source_pixels_below_ground": 0,
+    "new_pixels_below_ground": 0
+  },
+  {
+    "tag": "run",
+    "frame": 1,
+    "changed_original_pixels": 0,
+    "added_logical_pixels": 85,
+    "source_pixels_below_ground": 0,
+    "new_pixels_below_ground": 0
+  },
+  {
+    "tag": "run",
+    "frame": 2,
+    "changed_original_pixels": 0,
+    "added_logical_pixels": 72,
+    "source_pixels_below_ground": 0,
+    "new_pixels_below_ground": 0
+  },
+  {
+    "tag": "run",
+    "frame": 3,
+    "changed_original_pixels": 0,
+    "added_logical_pixels": 92,
+    "source_pixels_below_ground": 0,
+    "new_pixels_below_ground": 0
+  },
+  {
+    "tag": "run",
+    "frame": 4,
+    "changed_original_pixels": 0,
+    "added_logical_pixels": 105,
+    "source_pixels_below_ground": 0,
+    "new_pixels_below_ground": 0
+  },
+  {
+    "tag": "run",
+    "frame": 5,
+    "changed_original_pixels": 0,
+    "added_logical_pixels": 106,
+    "source_pixels_below_ground": 0,
+    "new_pixels_below_ground": 0
+  },
+  {
+    "tag": "run",
+    "frame": 6,
+    "changed_original_pixels": 0,
+    "added_logical_pixels": 95,
+    "source_pixels_below_ground": 0,
+    "new_pixels_below_ground": 0
+  },
+  {
+    "tag": "run",
+    "frame": 7,
+    "changed_original_pixels": 0,
+    "added_logical_pixels": 84,
+    "source_pixels_below_ground": 0,
+    "new_pixels_below_ground": 0
+  },
+  {
+    "tag": "attack",
+    "frame": 0,
+    "changed_original_pixels": 0,
+    "added_logical_pixels": 305,
+    "source_pixels_below_ground": 0,
+    "new_pixels_below_ground": 0
+  },
+  {
+    "tag": "attack",
+    "frame": 1,
+    "changed_original_pixels": 0,
+    "added_logical_pixels": 52,
+    "source_pixels_below_ground": 0,
+    "new_pixels_below_ground": 0
+  },
+  {
+    "tag": "attack",
+    "frame": 2,
+    "changed_original_pixels": 0,
+    "added_logical_pixels": 157,
+    "source_pixels_below_ground": 0,
+    "new_pixels_below_ground": 0
+  },
+  {
+    "tag": "attack",
+    "frame": 3,
+    "changed_original_pixels": 0,
+    "added_logical_pixels": 59,
+    "source_pixels_below_ground": 0,
+    "new_pixels_below_ground": 0
+  },
+  {
+    "tag": "attack",
+    "frame": 4,
+    "changed_original_pixels": 0,
+    "added_logical_pixels": 79,
+    "source_pixels_below_ground": 0,
+    "new_pixels_below_ground": 0
+  },
+  {
+    "tag": "attack",
+    "frame": 5,
+    "changed_original_pixels": 0,
+    "added_logical_pixels": 305,
+    "source_pixels_below_ground": 0,
+    "new_pixels_below_ground": 0
+  },
+  {
+    "tag": "attack_p",
+    "frame": 0,
+    "changed_original_pixels": 0,
+    "added_logical_pixels": 302,
+    "source_pixels_below_ground": 0,
+    "new_pixels_below_ground": 0
+  },
+  {
+    "tag": "attack_p",
+    "frame": 1,
+    "changed_original_pixels": 0,
+    "added_logical_pixels": 143,
+    "source_pixels_below_ground": 0,
+    "new_pixels_below_ground": 0
+  },
+  {
+    "tag": "attack_p",
+    "frame": 2,
+    "changed_original_pixels": 0,
+    "added_logical_pixels": 71,
+    "source_pixels_below_ground": 0,
+    "new_pixels_below_ground": 0
+  },
+  {
+    "tag": "attack_p",
+    "frame": 3,
+    "changed_original_pixels": 0,
+    "added_logical_pixels": 63,
+    "source_pixels_below_ground": 0,
+    "new_pixels_below_ground": 0
+  },
+  {
+    "tag": "attack_p",
+    "frame": 4,
+    "changed_original_pixels": 0,
+    "added_logical_pixels": 123,
+    "source_pixels_below_ground": 0,
+    "new_pixels_below_ground": 0
+  },
+  {
+    "tag": "attack_p",
+    "frame": 5,
+    "changed_original_pixels": 0,
+    "added_logical_pixels": 305,
+    "source_pixels_below_ground": 0,
+    "new_pixels_below_ground": 0
+  },
+  {
+    "tag": "skill",
+    "frame": 0,
+    "changed_original_pixels": 0,
+    "added_logical_pixels": 322,
+    "source_pixels_below_ground": 0,
+    "new_pixels_below_ground": 0
+  },
+  {
+    "tag": "skill",
+    "frame": 1,
+    "changed_original_pixels": 0,
+    "added_logical_pixels": 223,
+    "source_pixels_below_ground": 0,
+    "new_pixels_below_ground": 0
+  },
+  {
+    "tag": "skill",
+    "frame": 2,
+    "changed_original_pixels": 0,
+    "added_logical_pixels": 129,
+    "source_pixels_below_ground": 0,
+    "new_pixels_below_ground": 0
+  },
+  {
+    "tag": "skill",
+    "frame": 3,
+    "changed_original_pixels": 0,
+    "added_logical_pixels": 169,
+    "source_pixels_below_ground": 0,
+    "new_pixels_below_ground": 0
+  },
+  {
+    "tag": "skill",
+    "frame": 4,
+    "changed_original_pixels": 0,
+    "added_logical_pixels": 102,
+    "source_pixels_below_ground": 0,
+    "new_pixels_below_ground": 0
+  },
+  {
+    "tag": "skill",
+    "frame": 5,
+    "changed_original_pixels": 0,
+    "added_logical_pixels": 95,
+    "source_pixels_below_ground": 0,
+    "new_pixels_below_ground": 0
+  },
+  {
+    "tag": "skill",
+    "frame": 6,
+    "changed_original_pixels": 0,
+    "added_logical_pixels": 130,
+    "source_pixels_below_ground": 0,
+    "new_pixels_below_ground": 0
+  },
+  {
+    "tag": "skill",
+    "frame": 7,
+    "changed_original_pixels": 0,
+    "added_logical_pixels": 305,
+    "source_pixels_below_ground": 0,
+    "new_pixels_below_ground": 0
+  },
+  {
+    "tag": "q2",
+    "frame": 0,
+    "changed_original_pixels": 0,
+    "added_logical_pixels": 308,
+    "source_pixels_below_ground": 0,
+    "new_pixels_below_ground": 0
+  },
+  {
+    "tag": "q2",
+    "frame": 1,
+    "changed_original_pixels": 0,
+    "added_logical_pixels": 122,
+    "source_pixels_below_ground": 0,
+    "new_pixels_below_ground": 0
+  },
+  {
+    "tag": "q2",
+    "frame": 2,
+    "changed_original_pixels": 0,
+    "added_logical_pixels": 77,
+    "source_pixels_below_ground": 0,
+    "new_pixels_below_ground": 0
+  },
+  {
+    "tag": "q2",
+    "frame": 3,
+    "changed_original_pixels": 0,
+    "added_logical_pixels": 58,
+    "source_pixels_below_ground": 0,
+    "new_pixels_below_ground": 0
+  },
+  {
+    "tag": "q2",
+    "frame": 4,
+    "changed_original_pixels": 0,
+    "added_logical_pixels": 151,
+    "source_pixels_below_ground": 0,
+    "new_pixels_below_ground": 0
+  },
+  {
+    "tag": "q2",
+    "frame": 5,
+    "changed_original_pixels": 0,
+    "added_logical_pixels": 151,
+    "source_pixels_below_ground": 0,
+    "new_pixels_below_ground": 0
+  },
+  {
+    "tag": "q2",
+    "frame": 6,
+    "changed_original_pixels": 0,
+    "added_logical_pixels": 73,
+    "source_pixels_below_ground": 0,
+    "new_pixels_below_ground": 0
+  },
+  {
+    "tag": "q2",
+    "frame": 7,
+    "changed_original_pixels": 0,
+    "added_logical_pixels": 305,
+    "source_pixels_below_ground": 0,
+    "new_pixels_below_ground": 0
+  },
+  {
+    "tag": "q3",
+    "frame": 0,
+    "changed_original_pixels": 0,
+    "added_logical_pixels": 266,
+    "source_pixels_below_ground": 0,
+    "new_pixels_below_ground": 0
+  },
+  {
+    "tag": "q3",
+    "frame": 1,
+    "changed_original_pixels": 0,
+    "added_logical_pixels": 120,
+    "source_pixels_below_ground": 0,
+    "new_pixels_below_ground": 0
+  },
+  {
+    "tag": "q3",
+    "frame": 2,
+    "changed_original_pixels": 0,
+    "added_logical_pixels": 69,
+    "source_pixels_below_ground": 0,
+    "new_pixels_below_ground": 0
+  },
+  {
+    "tag": "q3",
+    "frame": 3,
+    "changed_original_pixels": 0,
+    "added_logical_pixels": 169,
+    "source_pixels_below_ground": 0,
+    "new_pixels_below_ground": 0
+  },
+  {
+    "tag": "q3",
+    "frame": 4,
+    "changed_original_pixels": 0,
+    "added_logical_pixels": 161,
+    "source_pixels_below_ground": 0,
+    "new_pixels_below_ground": 0
+  },
+  {
+    "tag": "q3",
+    "frame": 5,
+    "changed_original_pixels": 0,
+    "added_logical_pixels": 119,
+    "source_pixels_below_ground": 0,
+    "new_pixels_below_ground": 0
+  },
+  {
+    "tag": "q3",
+    "frame": 6,
+    "changed_original_pixels": 0,
+    "added_logical_pixels": 39,
+    "source_pixels_below_ground": 0,
+    "new_pixels_below_ground": 0
+  },
+  {
+    "tag": "q3",
+    "frame": 7,
+    "changed_original_pixels": 0,
+    "added_logical_pixels": 305,
+    "source_pixels_below_ground": 0,
+    "new_pixels_below_ground": 0
+  }
+]

@@ -91,6 +91,12 @@ empty tooltip). That is why the linter exists - run it after every edit.
 - Custom sounds need override entries for both the sound name and its clip.
 - Do not use `Native`, `ShrinkingBarrier`, `AddStatScaledBuff` or `Rush` - base-only effects.
 - Never translate stat-icon ids inside `<i#...:ad_0>` tags.
+- **Both sides: every directional picture must face the right way on the red team.** A `CasterViewEffect`
+  that starts after the action's first tick (inside a `Delayed` or an `AddCasted`) must have `is_follow: false`:
+  with `is_follow: true` the client draws it mirrored the wrong way on the red side (league_vi E's wave,
+  league_aatrox's Q slashes, passive streak and W flash - "在红色方技能特效是反的", 2026-10-03). Follow only at
+  the action's start (put a wait in leading empty frames). Check every directional effect on a red-side
+  caster before shipping; `lint_mod.py` warns on the combination (champion-data section 6).
 
 ## Bundled resources
 

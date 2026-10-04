@@ -1,0 +1,8 @@
+# Miss Fortune's design sprite (missfortune_native.png, 128-square canvas; idle 1's drawing 16 rows down, 16 columns
+# right): squares fix_missfortune_model.py sets in it on top of idle frame 1's patch (same format as the tags' files)
+
+# round 2: two loose one-square outline crumbs left by the old guns (idle coords r63 c30 and r73 c52), cleared
+@ 1 79 46
+|.
+@ 1 89 68
+|.

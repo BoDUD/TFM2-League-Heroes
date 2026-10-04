@@ -1,0 +1,332 @@
+{
+ "a_hit": {
+  "cell": [
+   17,
+   17
+  ],
+  "anchor": [
+   8,
+   8
+  ],
+  "frames": 4
+ },
+ "p_swing": {
+  "cell": [
+   45,
+   17
+  ],
+  "anchor": [
+   22,
+   8
+  ],
+  "frames": 5
+ },
+ "p_hit": {
+  "cell": [
+   25,
+   25
+  ],
+  "anchor": [
+   12,
+   12
+  ],
+  "frames": 5
+ },
+ "q1_slash": {
+  "cell": [
+   49,
+   93
+  ],
+  "anchor": [
+   24,
+   46
+  ],
+  "frames": 5
+ },
+ "q2_slash": {
+  "cell": [
+   51,
+   39
+  ],
+  "anchor": [
+   25,
+   19
+  ],
+  "frames": 5
+ },
+ "q3_slash": {
+  "cell": [
+   37,
+   103
+  ],
+  "anchor": [
+   18,
+   51
+  ],
+  "frames": 5
+ },
+ "q1_body": {
+  "cell": [
+   49,
+   19
+  ],
+  "anchor": [
+   24,
+   9
+  ],
+  "frames": 4
+ },
+ "q2_body": {
+  "cell": [
+   73,
+   39
+  ],
+  "anchor": [
+   36,
+   19
+  ],
+  "frames": 4
+ },
+ "q3_body": {
+  "cell": [
+   43,
+   39
+  ],
+  "anchor": [
+   21,
+   19
+  ],
+  "frames": 5
+ },
+ "q_hit": {
+  "cell": [
+   19,
+   19
+  ],
+  "anchor": [
+   9,
+   9
+  ],
+  "frames": 4
+ },
+ "q_edge": {
+  "cell": [
+   19,
+   63
+  ],
+  "anchor": [
+   9,
+   31
+  ],
+  "frames": 5
+ },
+ "e_dash": {
+  "cell": [
+   63,
+   25
+  ],
+  "anchor": [
+   31,
+   12
+  ],
+  "frames": 4
+ },
+ "w_throw": {
+  "cell": [
+   33,
+   25
+  ],
+  "anchor": [
+   16,
+   12
+  ],
+  "frames": 4
+ },
+ "w_chain": {
+  "cell": [
+   43,
+   15
+  ],
+  "anchor": [
+   21,
+   7
+  ],
+  "frames": 4
+ },
+ "w_link": {
+  "cell": [
+   19,
+   9
+  ],
+  "anchor": [
+   9,
+   4
+  ],
+  "frames": 4
+ },
+ "w_hit": {
+  "cell": [
+   19,
+   21
+  ],
+  "anchor": [
+   9,
+   10
+  ],
+  "frames": 4
+ },
+ "w_ring": {
+  "cell": [
+   73,
+   47
+  ],
+  "anchor": [
+   36,
+   23
+  ],
+  "frames": 6
+ },
+ "w_snap": {
+  "cell": [
+   71,
+   77
+  ],
+  "anchor": [
+   35,
+   38
+  ],
+  "frames": 5
+ },
+ "w_yank": {
+  "cell": [
+   21,
+   21
+  ],
+  "anchor": [
+   10,
+   10
+  ],
+  "frames": 4
+ },
+ "w_slowed": {
+  "cell": [
+   23,
+   13
+  ],
+  "anchor": [
+   11,
+   6
+  ],
+  "frames": 4
+ },
+ "r_transform": {
+  "cell": [
+   51,
+   133
+  ],
+  "anchor": [
+   25,
+   66
+  ],
+  "frames": 8
+ },
+ "r_aura": {
+  "cell": [
+   51,
+   29
+  ],
+  "anchor": [
+   25,
+   25
+  ],
+  "frames": 6
+ },
+ "r_feared": {
+  "cell": [
+   13,
+   13
+  ],
+  "anchor": [
+   6,
+   6
+  ],
+  "frames": 4
+ },
+ "r_renew": {
+  "cell": [
+   33,
+   37
+  ],
+  "anchor": [
+   16,
+   18
+  ],
+  "frames": 5
+ },
+ "q1_warn": {
+  "cell": [
+   45,
+   13
+  ],
+  "anchor": [
+   22,
+   6
+  ],
+  "frames": 18
+ },
+ "q2_warn": {
+  "cell": [
+   42,
+   37
+  ],
+  "anchor": [
+   21,
+   18
+  ],
+  "frames": 18
+ },
+ "q3_warn": {
+  "cell": [
+   45,
+   45
+  ],
+  "anchor": [
+   22,
+   22
+  ],
+  "frames": 18
+ },
+ "r_burst": {
+  "cell": [
+   51,
+   133
+  ],
+  "anchor": [
+   25,
+   66
+  ],
+  "frames": 8
+ },
+ "w_chain_grow": {
+  "cell": [
+   64,
+   13
+  ],
+  "anchor": [
+   57,
+   6
+  ],
+  "frames": 30
+ },
+ "r_fear_ring": {
+  "cell": [
+   21,
+   9
+  ],
+  "anchor": [
+   10,
+   4
+  ],
+  "frames": 4
+ }
+}

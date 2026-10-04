@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_aatrox": {
+    "remapping": "asset/league_aatrox_chain/override/league_aatrox",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_aatrox_chain/text/champion",
+    "type": "merge"
+  }
+}

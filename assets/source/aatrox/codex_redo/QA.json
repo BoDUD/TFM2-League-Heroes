@@ -1,0 +1,82 @@
+{
+  "assets": [
+    {
+      "file": "aatrox_run.png",
+      "frames": 8,
+      "size": [
+        3584,
+        1536
+      ],
+      "grid": "pass",
+      "alpha": "pass",
+      "palette": "pass",
+      "feet_line": "pass"
+    },
+    {
+      "file": "aatrox_skill.png",
+      "frames": 8,
+      "size": [
+        3584,
+        1536
+      ],
+      "grid": "pass",
+      "alpha": "pass",
+      "palette": "pass",
+      "feet_line": "pass"
+    },
+    {
+      "file": "aatrox_q2.png",
+      "frames": 8,
+      "size": [
+        3584,
+        1536
+      ],
+      "grid": "pass",
+      "alpha": "pass",
+      "palette": "pass",
+      "feet_line": "pass"
+    },
+    {
+      "file": "aatrox_q3.png",
+      "frames": 8,
+      "size": [
+        3584,
+        1536
+      ],
+      "grid": "pass",
+      "alpha": "pass",
+      "palette": "pass",
+      "feet_line": "pass"
+    },
+    {
+      "file": "aatrox_ult.png",
+      "frames": 8,
+      "size": [
+        3584,
+        1536
+      ],
+      "grid": "pass",
+      "alpha": "pass",
+      "palette": "pass",
+      "feet_line": "pass"
+    },
+    {
+      "file": "aatrox_rwings.png",
+      "frames": 6,
+      "size": [
+        2688,
+        1536
+      ],
+      "grid": "pass",
+      "alpha": "pass",
+      "palette": "pass",
+      "feet_line": "pass"
+    }
+  ],
+  "approved_head_patches": 28,
+  "run_upper_unchanged": true,
+  "wing_symmetry": true,
+  "q_hit_600ms": true,
+  "game_tested": false,
+  "semantic_pose_parity": "approximation_not_pixel_exact_3d_motion"
+}
