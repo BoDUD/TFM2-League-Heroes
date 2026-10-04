@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_sivir_sfx_a_cast",
+      "volume": 0.5
+    },
+    {
+      "delay": 0.0,
+      "clip": "league_sivir_sfx_w_throw",
+      "volume": 0.45
+    }
+  ]
+}

@@ -350,6 +350,13 @@
         "skill": "蓄力<#ffb900ff>0.5秒<>（开始蓄力时锁定方向）后向前冲刺，对路上的敌人造成<#ff9028ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理伤害；撞到第一个英雄时停下并击退他，叠1层爆弹重拳，之后<#ffb900ff>1.5秒<>内施放透体之劲会立刻出拳。",
         "skill2": "<#ffb900ff>2<>层充能（每层<#ffb900ff>8秒<>）。下一次普攻变为透体之劲，对目标和其身后扇形内的敌人造成<#ff9028ff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>物理伤害。",
         "ult": "锁定一名敌方英雄冲过去，期间免疫控制；撞开路上的敌人，造成<#ff9028ff>75<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>物理伤害并眩晕<#ffb900ff>0.75秒<>；到达后将目标击飞<#ffb900ff>1.25秒<>并造成<#ff9028ff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>物理伤害，下一拳自带透体之劲。"
+      },
+      "league_sivir": {
+        "name": "希维尔",
+        "attack": "被动 <#ff9028ff>敏锐疾行<>：攻击或技能命中英雄时移速+<#ffb900ff>25%<>，2秒内递减。<#ff9028ff>弹射<>：每<#ffb900ff>10秒<>下一次攻击开启<#ffb900ff>4秒<>弹射：攻速+<#ffb900ff>45%<>，攻击再弹向目标身后最多<#ffb900ff>3<>个敌人，各造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>物理伤害（可暴击）。",
+        "skill": "掷出十字刃，飞到尽头再飞回手中，往返都对路上所有敌人造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>物理伤害。附近有英雄时朝他所在的位置掷出（出手前锁定，可以躲开）。",
+        "skill2": "张开法术护盾，最多<#ffb900ff>3秒<>：<#ef5350ff>免疫技能伤害和控制<>。第一次被击中时回复<#7ed957ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7ed957ff>40%<>生命并触发敏锐疾行，护盾再撑<#ffb900ff>1秒<>后破碎。",
+        "ult": "附近友方英雄（含自己）移速+<#ffb900ff>30%<>，持续<#ffb900ff>8秒<>。狩猎期间希维尔的攻击命中英雄会缩短回旋之刃和法术护盾的冷却，弹射冷却减半；她的攻击击杀英雄时刷新狩猎。"
       }
     },
     "skill_name": {
@@ -602,6 +609,11 @@
         "skill1": "强能冲拳",
         "skill2": "透体之劲",
         "ult": "天霸横空烈轰"
+      },
+      "league_sivir": {
+        "skill1": "回旋之刃",
+        "skill2": "法术护盾",
+        "ult": "狩猎"
       }
     }
   },
@@ -956,6 +968,13 @@
         "skill": "蓄力<#ffb900ff>0.5秒<>（開始蓄力時鎖定方向）後向前衝刺，對路上的敵人造成<#ff9028ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理傷害；撞到第一個英雄時停下並擊退他，疊1層爆彈重拳，之後<#ffb900ff>1.5秒<>內施放透體之勁會立刻出拳。",
         "skill2": "<#ffb900ff>2<>層充能（每層<#ffb900ff>8秒<>）。下一次普攻變為透體之勁，對目標和其身後扇形內的敵人造成<#ff9028ff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>物理傷害。",
         "ult": "鎖定一名敵方英雄衝過去，期間免疫控制；撞開路上的敵人，造成<#ff9028ff>75<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>物理傷害並暈眩<#ffb900ff>0.75秒<>；到達後將目標擊飛<#ffb900ff>1.25秒<>並造成<#ff9028ff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>物理傷害，下一拳自帶透體之勁。"
+      },
+      "league_sivir": {
+        "name": "希維爾",
+        "attack": "被動 <#ff9028ff>戰鬥動能<>：攻擊或技能命中英雄時移速+<#ffb900ff>25%<>，2秒內遞減。<#ff9028ff>十字彈射<>：每<#ffb900ff>10秒<>下一次攻擊開啟<#ffb900ff>4秒<>彈射：攻速+<#ffb900ff>45%<>，攻擊再彈向目標身後最多<#ffb900ff>3<>個敵人，各造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>物理傷害（可暴擊）。",
+        "skill": "擲出十字刃，飛到盡頭再飛回手中，往返都對路上所有敵人造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>物理傷害。附近有英雄時朝他所在的位置擲出（出手前鎖定，可以躲開）。",
+        "skill2": "張開法術護盾，最多<#ffb900ff>3秒<>：<#ef5350ff>免疫技能傷害和控制<>。第一次被擊中時回復<#7ed957ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7ed957ff>40%<>生命並觸發戰鬥動能，護盾再撐<#ffb900ff>1秒<>後破碎。",
+        "ult": "附近友方英雄（含自己）移速+<#ffb900ff>30%<>，持續<#ffb900ff>8秒<>。狩獵期間希維爾的攻擊命中英雄會縮短迴旋之刃和法術護盾的冷卻，十字彈射冷卻減半；她的攻擊擊殺英雄時刷新狩獵。"
       }
     },
     "skill_name": {
@@ -1208,6 +1227,11 @@
         "skill1": "強能衝拳",
         "skill2": "透體之勁",
         "ult": "天霸橫空烈轟"
+      },
+      "league_sivir": {
+        "skill1": "迴旋之刃",
+        "skill2": "法術護盾",
+        "ult": "狩獵"
       }
     }
   },
@@ -1562,6 +1586,13 @@
         "skill": "Vi charges for <#ffb900ff>0.5s<> (the aim locks as she starts), then dashes ahead dealing <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<> to enemies on the way; the first champion stops her and is knocked back (a Denting Blows stack). For <#ffb900ff>1.5s<> after, Relentless Force punches at once.",
         "skill2": "<#ffb900ff>2<> charges (<#ffb900ff>8s<> each). Her next attack becomes Relentless Force: <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110% AD<> <#ff9028ff>physical damage<> to the target and enemies in a cone behind it.",
         "ult": "Vi targets an enemy champion and charges, immune to crowd control; enemies in the way take <#ff9028ff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% AD<> <#ff9028ff>physical damage<> and are stunned <#ffb900ff>0.75s<>. On arrival the target is knocked up <#ffb900ff>1.25s<> for <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120% AD<>; her next attack is a Relentless Force."
+      },
+      "league_sivir": {
+        "name": "Sivir",
+        "attack": "Passive <#ff9028ff>Fleet of Foot<>: hitting a champion with an attack or a spell gives <#ffb900ff>25%<> move speed, fading over 2s. <#ff9028ff>Ricochet<>: every <#ffb900ff>10s<> her next attack starts <#ffb900ff>4s<> of Ricochet: +<#ffb900ff>45%<> attack speed, and each attack also bounces to up to <#ffb900ff>3<> enemies behind its target for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> physical damage (can crit).",
+        "skill": "Sivir hurls her crossblade: it flies to the end of its path and back to her hand, dealing <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>physical damage<> to every enemy it cuts through on both passes. With a champion in reach she throws it where he stands (aimed before it leaves: it can be dodged).",
+        "skill2": "Sivir raises a spell shield for up to <#ffb900ff>3s<>: <#ef5350ff>immune to spell damage and crowd control<>. The first hit she takes heals her for <#7ed957ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7ed957ff>40%<> and triggers Fleet of Foot; the shield breaks <#ffb900ff>1s<> later.",
+        "ult": "Nearby allied champions, Sivir included, gain <#ffb900ff>30%<> move speed for <#ffb900ff>8s<>. While she hunts, her attacks that hit champions take time off Boomerang Blade and Spell Shield, Ricochet comes back twice as fast, and a champion her attack kills renews the hunt."
       }
     },
     "skill_name": {
@@ -1814,6 +1845,11 @@
         "skill1": "Vault Breaker",
         "skill2": "Relentless Force",
         "ult": "Cease and Desist"
+      },
+      "league_sivir": {
+        "skill1": "Boomerang Blade",
+        "skill2": "Spell Shield",
+        "ult": "On The Hunt"
       }
     }
   },
@@ -2168,6 +2204,13 @@
         "skill": "<#ffb900ff>0.5초<> 충전 후(충전 시작 때 방향 고정) 돌진해 경로의 적에게 <#ff9028ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>; 처음 부딪힌 챔피언에서 멈추고 밀쳐냅니다(강타 1중첩). 이후 <#ffb900ff>1.5초<> 안에 가차없는 힘은 바로 주먹을 날립니다.",
         "skill2": "<#ffb900ff>2<>회 충전(회당 <#ffb900ff>8초<>). 다음 기본 공격이 대상과 그 뒤 부채꼴의 적에게 <#ff9028ff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 110%<> <#ff9028ff>물리 피해<>를 줍니다.",
         "ult": "적 챔피언에게 돌진하며 군중 제어에 면역; 경로의 적은 <#ff9028ff>75<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> 피해와 <#ffb900ff>0.75초<> 기절. 도착하면 대상을 <#ffb900ff>1.25초<> 띄워 올리고 <#ff9028ff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 120%<> 피해, 다음 공격은 가차없는 힘."
+      },
+      "league_sivir": {
+        "name": "시비르",
+        "attack": "기본 지속 효과 <#ff9028ff>재빠른 발놀림<>: 공격이나 스킬로 챔피언을 맞히면 이동 속도 +<#ffb900ff>25%<>(2초에 걸쳐 감소). <#ff9028ff>튕기는 부메랑<>: <#ffb900ff>10초<>마다 다음 공격이 <#ffb900ff>4초<> 동안 튕기기를 켭니다: 공격 속도 +<#ffb900ff>45%<>, 공격이 대상 뒤의 적 최대 <#ffb900ff>3<>명에게 튕겨 각각 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> 물리 피해(치명타 가능).",
+        "skill": "십자검을 던져 끝까지 날아갔다가 손으로 돌아오며, 오갈 때 모두 경로의 모든 적에게 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>물리 피해<>. 근처에 챔피언이 있으면 그 위치로 던집니다(던지기 전에 조준: 피할 수 있음).",
+        "skill2": "최대 <#ffb900ff>3초<> 동안 주문 방어막: <#ef5350ff>스킬 피해와 군중 제어 면역<>. 처음 맞으면 체력을 <#7ed957ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7ed957ff>40%<> 회복하고 재빠른 발놀림 발동, 방어막은 <#ffb900ff>1초<> 뒤 깨집니다.",
+        "ult": "주변 아군 챔피언(자신 포함) 이동 속도 +<#ffb900ff>30%<>, <#ffb900ff>8초<>. 사냥 중 챔피언을 맞힌 공격은 부메랑 검과 주문 방어막의 재사용 대기시간을 줄이고, 튕기는 부메랑은 두 배 빨리 돌아오며, 공격으로 챔피언을 처치하면 사냥이 갱신됩니다."
       }
     },
     "skill_name": {
@@ -2420,6 +2463,11 @@
         "skill1": "금고 부수기",
         "skill2": "가차없는 힘",
         "ult": "기선 제압"
+      },
+      "league_sivir": {
+        "skill1": "부메랑 검",
+        "skill2": "주문 방어막",
+        "ult": "사냥 개시"
       }
     }
   },
@@ -2774,6 +2822,13 @@
         "skill": "<#ffb900ff>0.5秒<>溜め（溜め始めに方向固定）、前方へ突進し進路上の敵に<#ff9028ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>。最初のチャンピオンで止まりノックバック（スタック1）、<#ffb900ff>1.5秒<>以内のレレントレスフォースは即座に殴る。",
         "skill2": "チャージ<#ffb900ff>2<>（1回<#ffb900ff>8秒<>）。次の通常攻撃が対象と背後の扇形の敵に<#ff9028ff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の110%<>の<#ff9028ff>物理ダメージ<>。",
         "ult": "敵チャンピオンへ突進（行動妨害無効）、進路上の敵に<#ff9028ff>75<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>とスタン<#ffb900ff>0.75秒<>。到達で対象を<#ffb900ff>1.25秒<>打ち上げ<#ff9028ff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の120%<>、次の攻撃はレレントレスフォース。"
+      },
+      "league_sivir": {
+        "name": "シヴィア",
+        "attack": "パッシブ <#ff9028ff>戦駆け<>：攻撃かスキルがチャンピオンに当たると移動速度+<#ffb900ff>25%<>（2秒で減衰）。<#ff9028ff>跳刃<>：<#ffb900ff>10秒<>ごとに次の攻撃で<#ffb900ff>4秒<>跳刃：攻撃速度+<#ffb900ff>45%<>、攻撃が対象の後ろの敵最大<#ffb900ff>3<>体へ跳ね、各<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の物理ダメージ（クリティカル可）。",
+        "skill": "十字刃を投げ、端まで飛んで手元へ戻り、往復とも通り道の全ての敵に<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の<#ff9028ff>物理ダメージ<>。近くにチャンピオンがいればその位置へ投げる（投げる前に狙う：避けられる）。",
+        "skill2": "最大<#ffb900ff>3秒<>スペルシールド：<#ef5350ff>スキルダメージと行動妨害を無効<>。最初に被弾すると<#7ed957ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7ed957ff>40%<>回復し戦駆けが発動、シールドは<#ffb900ff>1秒<>後に砕ける。",
+        "ult": "周囲の味方チャンピオン（自身含む）の移動速度+<#ffb900ff>30%<>、<#ffb900ff>8秒<>。号令中、チャンピオンに当たった攻撃はブーメランブレードとスペルシールドのクールダウンを短縮し、跳刃は2倍速く戻り、攻撃でチャンピオンを倒すと号令が更新される。"
       }
     },
     "skill_name": {
@@ -3026,6 +3081,11 @@
         "skill1": "ヴォールトブレイカー",
         "skill2": "レレントレスフォース",
         "ult": "セース・アンド・デジスト"
+      },
+      "league_sivir": {
+        "skill1": "ブーメランブレード",
+        "skill2": "スペルシールド",
+        "ult": "戦姫の号令"
       }
     }
   }

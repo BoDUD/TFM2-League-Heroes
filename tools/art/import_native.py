@@ -97,7 +97,8 @@ NECK_EYES = {("fiora", "hit", 0): (-19, 3)}
 # needs it closed). Nothing goes under the soles row; a frame that already reaches lower (lying down) keeps its own
 # bottom.
 COMPLETE = {"nami", "veigar", "jax", "ahri", "taric", "tristana", "fiora", "diana", "leesin", "missfortune", "fizz", "shaco",
-            "caitlyn", "nocturne", "blitzcrank", "camille", "leblanc", "kaisa", "sona", "kennen", "vi", "ryze", "jhin", "zilean"}
+            "caitlyn", "nocturne", "blitzcrank", "camille", "leblanc", "kaisa", "sona", "kennen", "vi", "ryze", "jhin", "zilean",
+            "sivir"}
 # hero: the luminance from which an edge pixel gets the outline (complete_outline's `dark`, default 70). Fiora's teal
 # leggings (luminance ~58) and wine cape (~44) edge many action frames without black: tfm2_ase.py metrics counts only
 # luminance < 40 as outline, so at 70 her Q frames read 83-89% (the bare rapier aside); at 40 they close too.
@@ -223,7 +224,9 @@ ORDER = {("lux", "idle"): [0, 0, 0, 0, 0, 0],   # the step-2 idle is the design 
          # and Jhin (Codex's raw draft A cut to 41 rows, design_jhin.py: the pack's idle is the design in all six)
          ("jhin", "idle"): [0, 0, 0, 0, 0, 0],
          # and Zilean (Codex's image-model draft A_draft_02 cut to 40 rows: the pack's idle is the design in all six)
-         ("zilean", "idle"): [0, 0, 0, 0, 0, 0]}
+         ("zilean", "idle"): [0, 0, 0, 0, 0, 0],
+         # and Sivir (Codex's second-round draft 2 read back and cut to 40 rows, design_sivir.py: the idle is the design)
+         ("sivir", "idle"): [0, 0, 0, 0, 0, 0]}
 # (hero, tag): (y, slots) - in those slots everything at or above pivot row y moves down a row (the row under
 # it is covered): one frame breathing, the face the same drawing throughout. Leona's shield covers her from
 # the chest to the ankles, so she sinks down to its tip and only the boots stay (a seam across the shield
@@ -346,7 +349,9 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        ("jhin", "idle"): (-11, [2, 3, 4]),
        # Zilean floats: the seam low in the robe under the clock's pendulum (rows 94/95 of the design: the same width,
        # 11 squares of colour differ); the hem and his dangling feet stay
-       ("zilean", "idle"): (6, [2, 3, 4])}
+       ("zilean", "idle"): (6, [2, 3, 4]),
+       # Sivir: the head, the scarf and the shoulders sink a row over the crouching body (the seam under the scarf)
+       ("sivir", "idle"): (-12, [2, 3, 4])}
 # hero: a module in tools/art with tidy(tag, k, frame) -> frame, run on the finished frames (after the outline is closed
 # and cleaned): the user's clean-up of dirty black blocks and stray squares inside the silhouette (2026-10-02:
 # "盖伦把黑边清理干净 有杂的黑色的地方", "风女 莫甘娜 不干净的黑色块也太多了", "莫甘娜头部有很多多余的方块", "阿狸也是都给我清理干净")
@@ -404,7 +409,8 @@ EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade
                                           # iris's top square (design_vi.py; the crystals use the other blues)
         "ryze": (251, 251, 253),          # the scroll or a raised hand tops the frames; the white is only in his eyes
         "jhin": (255, 110, 180),          # Whisper or the cannon tops the flourishes; the pink is only in his eyes
-        "zilean": (246, 249, 250)}        # the clock's roof tops every frame; this white is only in his eyes
+        "zilean": (246, 249, 250),        # the clock's roof tops every frame; this white is only in his eyes
+        "sivir": (0x4F, 0xE6, 0xD2)}      # the crossblade tops the raised frames; the mint is only in her eyes
 
 
 def blocks(path):
