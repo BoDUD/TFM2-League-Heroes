@@ -1194,8 +1194,16 @@
                 "tick": 18,
                 "effects": [
                   {
-                    "type": "CasterViewEffect",
-                    "name": "league_aatrox_p_swing"
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_aatrox_r",
+                    "effect_buff": {
+                      "type": "CasterViewEffect",
+                      "name": "league_aatrox_p_swing_r"
+                    },
+                    "effect_none": {
+                      "type": "CasterViewEffect",
+                      "name": "league_aatrox_p_swing"
+                    }
                   }
                 ]
               },
@@ -3607,6 +3615,54 @@
           "name": "league_aatrox_p_lw2"
         },
         {
+          "type": "SwitchByBuff",
+          "buff_name": "league_aatrox_r",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "CasterAnimation",
+                "name": "skill2_r",
+                "tick": 30
+              },
+              {
+                "type": "RemoveCasterBuff",
+                "name": "league_aatrox_r_look"
+              },
+              {
+                "type": "Delayed",
+                "tick": 30,
+                "effects": [
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_aatrox_r",
+                    "effect_buff": {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_aatrox_r_look",
+                        "duration": {
+                          "Time": {
+                            "tick": 600
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": []
+          }
+        },
+        {
           "type": "Sfx",
           "name": "league_aatrox_w_cast"
         },
@@ -3615,8 +3671,16 @@
           "tick": 14,
           "effects": [
             {
-              "type": "CasterViewEffect",
-              "name": "league_aatrox_w_throw"
+              "type": "SwitchByBuff",
+              "buff_name": "league_aatrox_r",
+              "effect_buff": {
+                "type": "CasterViewEffect",
+                "name": "league_aatrox_w_throw_r"
+              },
+              "effect_none": {
+                "type": "CasterViewEffect",
+                "name": "league_aatrox_w_throw"
+              }
             },
             {
               "type": "Sfx",
@@ -4624,6 +4688,14 @@
     },
     {
       "type": "Animation",
+      "name": "league_aatrox_p_swing_r",
+      "anim": "asset/league/effects/league_aatrox_fx",
+      "tag": "p_swing_r",
+      "z": 1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
       "name": "league_aatrox_p_hit",
       "anim": "asset/league/effects/league_aatrox_fx",
       "tag": "p_hit",
@@ -4747,6 +4819,14 @@
       "name": "league_aatrox_w_throw",
       "anim": "asset/league/effects/league_aatrox_fx",
       "tag": "w_throw",
+      "z": 1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_aatrox_w_throw_r",
+      "anim": "asset/league/effects/league_aatrox_fx",
+      "tag": "w_throw_r",
       "z": 1,
       "is_follow": false
     },

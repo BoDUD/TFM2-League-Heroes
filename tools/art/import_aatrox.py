@@ -414,6 +414,11 @@ Q3_TIP = (28, 10)           # q3 6, the slam: the tip at (28, 6..8), the burst's
 Q3_TIP_R = (38, 10)         # q3_r 6, the tip on the ground at (38, 10)
 Q3_ARC = -10                # q3_slash frame 2 (the arc) has its foot 10 px ahead of the burst's: placed 10 px back
 CLAW = (16, -13)            # the red claw in W 4: its tip at (16, -14..-12)
+# World Ender's forms fly (tools/art/air_aatrox.py): the thrust and the throw drawn as many px higher as the frame lifts
+# him - attack_p_r 4 and skill2_r 4 seven rows (the streak stays where the thrust was, like the ground one; --tips
+# finds the wings' tips ahead of the blade and the claw in these two frames)
+P_TIP_R = (22, -14)
+CLAW_R = (16, -20)
 HIT = (0, -8)               # a hit on the upper body of a 32-44 px unit
 BODY = (0, -6)              # round the body (the chains wrapping him, the renewal ring)
 FEET = (0, 9)               # a ring on the ground round a unit's feet (the ellipse's middle 2 over the soles)
@@ -468,6 +473,7 @@ FX = {
     # 4 ticks long it floated alone in the air for 2)
     # frame 5 (a lone 2-square ember) left out, its 2 ticks on the fading streak (frame 4): gone on tick 30 still
     "p_swing": [("p_swing", seq(range(4), [TICK, TICK, 4 * TICK, 6 * TICK]), [P_TIP])],
+    "p_swing_r": [("p_swing", seq(range(4), [TICK, TICK, 4 * TICK, 6 * TICK]), [P_TIP_R])],
     "p_hit": [("p_hit", seq(range(5), [40, 50, 60, 80, 100]), [HIT])],
     # on the blow (body frame 6, the blade down, tick Q_BLOW): the arc a tick, then the full arc (Q1, Q2) or the burst
     # (Q3) - frame 1 (the glint up where the blade was not yet) is left out. build_aatrox.py plays them on the blow
@@ -497,6 +503,7 @@ FX = {
     # height): the flash's ember and wisp (frames 3-4, to tick 21) burnt on in the claw beside it - two fire spots
     # (the review, phase 1b) - and are left out
     "w_throw": [("w_throw", seq(range(2), [TICK, 2 * TICK]), [CLAW])],
+    "w_throw_r": [("w_throw", seq(range(2), [TICK, 2 * TICK]), [CLAW_R])],
     # the chain: 66000 at 2200 a tick = 30 ticks, paid out from his hand (tools/art/chain_aatrox.py: frame k = the claw
     # k x 2.2 px out and the links back to his hand, empty until it leaves the claw); the links: up to 33000 at 2500 =
     # 13 ticks
@@ -679,7 +686,8 @@ def build(table):
 # the spots measured on a body frame (strip tag, frame from 1) and how each sits on that frame's forward-most square
 # (the blade's tip or the claw): --tips compares them with the strips as they are now
 TIPS = {
-    "P_TIP": (("attack_p", 4), ("attack_p_r", 4)),      # the streak's root 2 px behind the tip, on its rows
+    "P_TIP": (("attack_p", 4),),                         # the streak's root 2 px behind the tip, on its rows
+    "P_TIP_R": (("attack_p_r", 4),),                    # World Ender's thrust in the air (air_aatrox.py: lifted)
     "Q1_TIP": (("skill", 6),),                          # the arc's foot under the tip, on the ground (row 10)
     "Q1_TIP_R": (("skill_r", 6),),
     "Q2_TIP": (("q2", 6),),                             # the crescent's rim 4 px short of the tip
@@ -687,6 +695,7 @@ TIPS = {
     "Q3_TIP": (("q3", 6),),                             # the burst's foot under the tip, on the ground
     "Q3_TIP_R": (("q3_r", 6),),
     "CLAW": (("skill2", 4),),                           # the claw's tip, its middle row
+    "CLAW_R": (("skill2_r", 4),),
 }
 
 

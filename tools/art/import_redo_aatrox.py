@@ -24,6 +24,8 @@ The second redo (assets/source/aatrox/codex_redo2/, REDO2.md, 2026-10-04: 「开
 Ender's forms of the attack, the empowered attack and the three Q casts - the approved frames with League's wings added
 behind (every frame's base pixels kept, the soles already on the idle's row) - become the tags <tag>_r with the base
 tag's cells and timings (R_FORMS); build_aatrox.py plays them while World Ender runs.
+Since 2026-10-04 those R forms and the ult are tools/art/air_aatrox.py's (World Ender in the air, built from the
+approved frames): after running this, run air_aatrox.py again.
 """
 import json
 import os
