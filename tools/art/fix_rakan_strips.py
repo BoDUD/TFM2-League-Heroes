@@ -38,9 +38,9 @@ stay. Fixes, in order:
   8. HIT (「受击的时候身体和腿几乎分离」, then 「这里你真不修吗」 on the cloak and 「身体都变形了」): Codex shifted the
      whole upper body 5-7 squares right of the legs (the design's own legs, pasted) and drew its own narrower body
      and cloak; moved back over the legs they still read as another, deformed body. By the user's rule (a casting
-     body is the idle's body, only the moved limbs from Codex) the hit frames are the idle: frame 1 with Codex's
-     raised forearm and fist (HIT_ARM, taken after moving Codex's body back over the legs, SEAT) in place of the
-     idle's hand and feather at the chin (HIT_HAND), frame 2 the idle as it is; both 1 square back (HIT_RECOIL).
+     body is the idle's body) the hit frames are the idle itself, knocked back HIT_RECOIL squares (2, then 1).
+     Codex's raised fist stood at the neck (「手都到脖子这了 能和别的一个高度吗」): the hand stays at the idle's
+     height, with the feather.
 --check compares the result with the committed strips instead of writing them; --review DIR writes, per tag, the
 delivery and the fixed frames side by side at 4x with every changed square marked.
 """
@@ -102,19 +102,11 @@ SEAT = {
     ("run", 0): {"head": (-1, 0)}, ("run", 1): {"head": (-1, 1)}, ("run", 2): {"head": (-1, 0)},
     ("run", 3): {"head": (0, 1)}, ("run", 4): {"head": (-1, 0)}, ("run", 5): {"head": (-1, 1)},
     ("run", 6): {"head": (-2, 0)}, ("run", 7): {"head": (-2, 0)},
-    ("hit", 0): {"body": (-5, 0), "head": (-3, -1)},
 }
 LEGS_ROW = 60
 LEGS_LEFT = 8
-# the hit frames from the idle: (x0, x1, y0, y1) boxes from the pivot (x1, y1 excluded). HIT_HAND: the idle's right hand
-# and the golden feather at the chin, cleared in frame 1; HIT_ARM: Codex's raised forearm and fist (frame 1, moved
-# back over the legs by SEAT) laid in their place
-HIT_HAND = [(3, 12, -13, -8), (3, 12, -8, -3)]
-HIT_ARM = [(2, 14, -17, -9)]
-HIT_RECOIL = -1
-# hit frame 1, after the recoil (cell squares): the shoulder between the idle's chest and Codex's forearm, where the
-# ground showed through (skin, like the Q 4-5 upper arms)
-HIT_PATCH = [(50, 64, "E"), (50, 65, "E"), (51, 64, "H"), (51, 65, "H"), (52, 64, "H"), (52, 65, "G")]
+# the hit frames: the idle knocked back this many squares (frame 1, frame 2)
+HIT_RECOIL = [-2, -1]
 
 
 def _col(x, ys, ch):
@@ -439,23 +431,8 @@ def build():
             if tag == "hit":
                 px, py = cells["tags"][tag][k]["pivot"]
                 ref = np.roll(np.roll(idle[0], py - idle[1][1], 0), px - idle[1][0], 1)
-                g = f.copy()
-                f[:] = ref
-                if k == 0:
-                    for x0, x1, y0, y1 in HIT_HAND:
-                        f[py + y0:py + y1, px + x0:px + x1] = 0
-                    for x0, x1, y0, y1 in HIT_ARM:
-                        box = g[py + y0:py + y1, px + x0:px + x1]
-                        m = box[..., 3] > 0
-                        f[py + y0:py + y1, px + x0:px + x1][m] = box[m]
-                f[:] = np.roll(f, HIT_RECOIL, 1)
-                if k == 0:
-                    for y, x, ch in HIT_PATCH:
-                        f[y, x] = (*LETTERS[ch], 255)
-                hm = np.roll(find_head(ref, head, [(man["idle"]["frames"][0]["head_rect"][0] + px - idle[1][0],
-                                                   man["idle"]["frames"][0]["head_rect"][1] + py - idle[1][1])]),
-                             HIT_RECOIL, 1)
-                notes.append("the idle" + (" + Codex's raised fist" if k == 0 else "") + f", {HIT_RECOIL:+d} back")
+                f[:] = np.roll(ref, HIT_RECOIL[k], 1)
+                notes.append(f"the idle, {HIT_RECOIL[k]:+d} back")
             if tag not in ("idle", "hit") and hm is not None:
                 g = fix_halo(f, hm)
                 if g:
