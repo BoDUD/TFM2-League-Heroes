@@ -681,11 +681,15 @@
     "league_lissandra": {
       "face": {
         "x": 0,
-        "y": -36
+        "y": -39
       },
       "center": {
         "x": 0,
         "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -9
       }
     }
   }
