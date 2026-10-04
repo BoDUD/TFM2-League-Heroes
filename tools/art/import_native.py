@@ -354,12 +354,13 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        # Ryze (second design, tools/art/design_ryze_v2.py): the seam in the boot shafts, rows 7/8 under the pivot (one
        # square differs); his hands hang to the belt
        ("ryze", "idle"): (7, [2, 3, 4]),
-       # Jhin: the cane and Whisper reach the ground, so a seam in the legs cuts them - at the knees the cane's bands
+       # Jhin: the cane and Whisper reach the ground, so a seam in the legs cut them - at the knees the cane's bands
        # and Whisper's slanted barrel stepped a row each breath (the user: 「上下摆动导致模型变形 盖伦就没这问题」); the
-       # seam runs under his shoulders (rows 77/78 of the design: no square of the silhouette and 12 of colour differ):
-       # the head, the collar, the shoulders and the cape's top sink a row, the hands, the cane, Whisper and the legs
-       # stay (the user's pick A of four)
-       ("jhin", "idle"): (-11, [2, 3, 4]),
+       # seam under his shoulders that followed (the user's pick A of four) squeezed his arms and cape a row (「烬是模型
+       # 上下摆动导致有点微小的变形」, 2026-10-04). Now Garen's way: the seam low in the boots (pivot rows 9/10: 1 square
+       # of opacity and 3 of colour differ, the fewest under the hips), the soles stay, and the cane and Whisper go down
+       # with his hands whole (BOB_CARRY)
+       ("jhin", "idle"): (9, [2, 3, 4]),
        # Zilean floats: the seam low in the robe under the clock's pendulum (rows 94/95 of the design: the same width,
        # 11 squares of colour differ); the hem and his dangling feet stay
        ("zilean", "idle"): (6, [2, 3, 4]),
@@ -371,6 +372,10 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        # (4-8 squares of opacity); the seam under the knees' red bands (rows 71/72 of the cell: 4 squares of opacity
        # and 9 of colour differ) keeps the bands whole, the boots lose their top row while he breathes
        ("rakan", "idle"): (7, [2, 3, 4])}
+# (hero, tag): column ranges from the pivot (None: to the edge) that a BOB moves down whole, under its seam too - props
+# held in the hands that reach the ground, apart from the legs below the seam. Jhin: the cane left of his legs (pivot
+# columns -11 and less), Whisper's barrel right of them (+6 and more; the right sole ends at +5)
+BOB_CARRY = {("jhin", "idle"): ((None, -11), (6, None))}
 # (Aatrox had (8, [2, 3, 4]): his greatsword hangs to five rows over the soles, so every row seam over the boots cuts the
 # blade, and the seam across the boots (rows 96/97) cut their middle row 97 out - both boots squashed and their lights
 # blinked each breath (the frame audit, 2026-10-04). rig_aatrox.py now draws the breath in idle 3-5 with a seam per
@@ -724,7 +729,7 @@ def step(hero, sheet):
 
 def breathe(hero, sheet):
     """BOB and NECK: move the upper body of the listed slots down a row (after the retouch, which is drawn on the
-    frame before it moves)."""
+    frame before it moves); BOB_CARRY's columns go down whole, under the seam too."""
     for (h, tag), (y0, slots) in list(BOB.items()) + list(NECK.items()):
         if h != hero or tag not in sheet:
             continue
@@ -734,6 +739,13 @@ def breathe(hero, sheet):
             b = a.copy()
             b[1:cut + 1] = a[0:cut]
             b[0] = 0
+            if (h, tag) in BOB and (h, tag) in BOB_CARRY:
+                pc = a.shape[1] // 2
+                for lo, hi in BOB_CARRY[(h, tag)]:
+                    c0 = 0 if lo is None else max(0, pc + lo)
+                    c1 = a.shape[1] if hi is None else min(a.shape[1], pc + hi + 1)
+                    b[1:, c0:c1] = a[:-1, c0:c1]
+                    b[0, c0:c1] = 0
             sheet[tag][k] = (b, ms)
 
 
