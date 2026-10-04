@@ -1,0 +1,147 @@
+[
+ {
+  "file": "twistedfate_fx_a_card.png",
+  "binding": "view_projectiles `league_twistedfate_a_card`（朝右，游戏转到飞行方向，上下对称）",
+  "size": "16 × 8"
+ },
+ {
+  "file": "twistedfate_fx_a_card_e.png",
+  "binding": "view_projectiles `league_twistedfate_a_card_e`（朝右，游戏转到飞行方向，上下对称）",
+  "size": "22 × 10"
+ },
+ {
+  "file": "twistedfate_fx_a_hit.png",
+  "binding": "view_effects `league_twistedfate_a_hit`（跟随，画在人物上面）",
+  "size": "12"
+ },
+ {
+  "file": "twistedfate_fx_e_cast.png",
+  "binding": "view_effects `league_twistedfate_e_cast`（施法者身上，不跟随，朝左时镜像；格子左边中点放到普攻第 4 帧的右手）",
+  "size": "16 × 12"
+ },
+ {
+  "file": "twistedfate_fx_e_hit.png",
+  "binding": "view_effects `league_twistedfate_e_hit`（跟随，画在人物上面）",
+  "size": "18"
+ },
+ {
+  "file": "twistedfate_fx_dice_roll.png",
+  "binding": "view_buffs `league_twistedfate_dice_k` 的开头（pre_tag `dice_roll`，画在头顶上方）",
+  "size": "12 × 14"
+ },
+ {
+  "file": "twistedfate_fx_dice_faces.png",
+  "binding": "view_buffs `league_twistedfate_dice_1` … `dice_6`（loop_tag，各取一格，画在头顶上方）",
+  "size": "10 × 10"
+ },
+ {
+  "file": "twistedfate_fx_dice_out.png",
+  "binding": "view_buffs `league_twistedfate_dice_k` 的结尾（remove_tag `dice_out`）",
+  "size": "12"
+ },
+ {
+  "file": "twistedfate_fx_w_show.png",
+  "binding": "view_buffs `league_twistedfate_w_show_blue` / `_red` / `_gold`（各取一格，循环，画在头顶上方）",
+  "size": "10 × 13"
+ },
+ {
+  "file": "twistedfate_fx_w_blue.png",
+  "binding": "view_buffs `league_twistedfate_w_blue`（循环，画在头顶上方）",
+  "size": "14 × 18"
+ },
+ {
+  "file": "twistedfate_fx_w_red.png",
+  "binding": "view_buffs `league_twistedfate_w_red`（循环，画在头顶上方）",
+  "size": "14 × 18"
+ },
+ {
+  "file": "twistedfate_fx_w_gold.png",
+  "binding": "view_buffs `league_twistedfate_w_gold`（循环，画在头顶上方）",
+  "size": "14 × 18"
+ },
+ {
+  "file": "twistedfate_fx_wb_card.png",
+  "binding": "view_projectiles `league_twistedfate_wb_card`（朝右，游戏转到飞行方向，上下对称）",
+  "size": "20 × 10"
+ },
+ {
+  "file": "twistedfate_fx_wr_card.png",
+  "binding": "view_projectiles `league_twistedfate_wr_card`（朝右，上下对称）",
+  "size": "20 × 10"
+ },
+ {
+  "file": "twistedfate_fx_wg_card.png",
+  "binding": "view_projectiles `league_twistedfate_wg_card`（朝右，上下对称）",
+  "size": "20 × 10"
+ },
+ {
+  "file": "twistedfate_fx_wb_hit.png",
+  "binding": "view_effects `league_twistedfate_wb_hit`（跟随，画在人物上面）",
+  "size": "18"
+ },
+ {
+  "file": "twistedfate_fx_wr_hit.png",
+  "binding": "view_effects `league_twistedfate_wr_hit`（跟随，画在人物上面）",
+  "size": "14"
+ },
+ {
+  "file": "twistedfate_fx_wr_burst.png",
+  "binding": "view_effects `league_twistedfate_wr_burst`（BIG，画在打中点的地面上）",
+  "size": "50 × 30"
+ },
+ {
+  "file": "twistedfate_fx_wr_slow.png",
+  "binding": "view_buffs `league_twistedfate_wr_slow`（循环，画在脚下）",
+  "size": "18 × 7"
+ },
+ {
+  "file": "twistedfate_fx_wg_hit.png",
+  "binding": "view_effects `league_twistedfate_wg_hit`（跟随，画在人物上面）",
+  "size": "20"
+ },
+ {
+  "file": "twistedfate_fx_q_cast.png",
+  "binding": "view_effects `league_twistedfate_q_cast`（施法者身上，不跟随，朝左时镜像；格子左边中点放到 Q 第 4 帧的右手）",
+  "size": "18 × 14"
+ },
+ {
+  "file": "twistedfate_fx_q_cards.png",
+  "binding": "view_projectiles `league_twistedfate_q_cards`（BIG，朝右，游戏转到飞行方向，上下对称，播一次）",
+  "size": "32 × 18"
+ },
+ {
+  "file": "twistedfate_fx_q_hit.png",
+  "binding": "view_effects `league_twistedfate_q_hit`（跟随，画在人物上面）",
+  "size": "14"
+ },
+ {
+  "file": "twistedfate_fx_r_seen.png",
+  "binding": "view_buffs `league_twistedfate_r_seen`（循环，画在头顶上方）",
+  "size": "12 × 9"
+ },
+ {
+  "file": "twistedfate_fx_r_cast.png",
+  "binding": "view_effects `league_twistedfate_r_cast`（BIG，施法者身上，不跟随）",
+  "size": "56 × 56"
+ },
+ {
+  "file": "twistedfate_fx_r_gate.png",
+  "binding": "view_effects `league_twistedfate_r_gate`（BIG，施法者身上，不跟随）",
+  "size": "44 × 50"
+ },
+ {
+  "file": "twistedfate_fx_r_dest.png",
+  "binding": "view_effects `league_twistedfate_r_dest`（BIG，画在地面上，不跟随，在人物下面）",
+  "size": "40 × 20"
+ },
+ {
+  "file": "twistedfate_fx_r_out.png",
+  "binding": "view_effects `league_twistedfate_r_out`（BIG，画在出发点，不跟随）",
+  "size": "36 × 44"
+ },
+ {
+  "file": "twistedfate_fx_r_in.png",
+  "binding": "view_effects `league_twistedfate_r_in`（BIG，画在到达点，不跟随）",
+  "size": "36 × 44"
+ }
+]
