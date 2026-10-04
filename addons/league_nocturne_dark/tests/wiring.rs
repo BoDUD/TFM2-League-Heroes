@@ -189,10 +189,20 @@ fn world(view: bool) -> World {
     }
 }
 
-#[test]
-fn paranoia_hides_the_team_and_veils_the_map_in_the_sim() {
+/// The add-on resolves its log path once per process (a LazyLock), so every test logs to the same file: one at a time
+/// (the lock), the file cleared first, so each test reads only its own lines.
+fn test_log() -> (std::sync::MutexGuard<'static, ()>, std::path::PathBuf) {
+    static SERIAL: std::sync::Mutex<()> = std::sync::Mutex::new(());
+    let guard = SERIAL.lock().unwrap_or_else(|e| e.into_inner());
     let log = std::env::temp_dir().join("league_nocturne_dark_test.log");
     std::env::set_var("LEAGUE_NOCTURNE_DARK_LOG", &log);
+    let _ = std::fs::remove_file(&log);
+    (guard, log)
+}
+
+#[test]
+fn paranoia_hides_the_team_and_veils_the_map_in_the_sim() {
+    let (_serial, log) = test_log();
     unsafe {
         let mut host: HostApiV1 = zeroed();
         host.size = size_of::<HostApiV1>();
@@ -286,8 +296,7 @@ unsafe fn think(world: &mut World, ai: &PlayerAiRegV1, player: usize, base: Inpu
 
 #[test]
 fn in_the_dark_enemies_hit_only_what_is_near() {
-    let log = std::env::temp_dir().join("league_nocturne_dark_ai_test.log");
-    std::env::set_var("LEAGUE_NOCTURNE_DARK_LOG", &log);
+    let (_serial, log) = test_log();
     unsafe {
         let mut host: HostApiV1 = zeroed();
         host.size = size_of::<HostApiV1>();
