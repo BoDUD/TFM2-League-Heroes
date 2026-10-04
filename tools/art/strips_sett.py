@@ -18,10 +18,12 @@ amber left out); specks merged; the outline closed; no black inside the body (de
     Vi's did;
   - the place: across the cell the pasted head goes where League's head joint is in sett_cells.json (native_pose.py
     on poses.json; the design's head stands 7.9 squares left of the idle's joint and 13.3 above it); down the cell
-    the soles go on the feet line (row 67), a run or slam frame drawn off Codex's ground line keeps its lift
-    (FLIGHT, cut to stay inside the cell), the flight hangs 5 rows over the line (HOVER), and the slam's first frame
-    drops onto the second's spot (HEAD_FROM);
-  - the run's far leg, which Codex shaded violet, takes the trousers' shades (LEG_VIOLET).
+    the soles go on the feet line (row 67), a slam frame drawn off Codex's ground line keeps its lift (FLIGHT, cut
+    to stay inside the cell), the flight hangs 5 rows over the line (HOVER), and the slam's first frame drops onto
+    the second's spot (HEAD_FROM);
+  - the run is not Codex's: its upper body changed shape in every frame and its legs were thin
+    (「移动的时候腿有点细？有点变形？」, then 「跑步姿势有点怪吧？而且好像还有点变形」), so it is drawn on the design's own
+    body by tools/art/run_sett.py (Sivir's way), with the legs drawn here (leg, ik, shoe).
 --raw copies Codex's raw generations into assets/source/sett/codex_strips/ snapped to the design's colours (an
 indexed PNG reads back exactly the same). Writes assets/source/native/sett_<tag>.png (8x, 96 x 80 cells,
 native_refs.layout) and sett_cells.json (League's pivots and the strips' ms); the idle is the design six times.
@@ -53,9 +55,9 @@ HEAD_AT = (-7.9, -13.3)          # the design head's top-left from League's head
 DESIGN_PIVOT = (64, 88)
 # per strip: (frame, rows) - that frame stands rows tall in the design's squares (its standing frame: 42), or a block
 # size in the draft's pixels where no frame stands (the flight: between the throw's 7.6 and the slam's 7.8)
-REF = {"run": ("max", 42), "attack": (4, 42), "attack2": (4, 42), "skill": (6, 42), "skill2": (6, 42),
+REF = {"attack": (4, 42), "attack2": (4, 42), "skill": (6, 42), "skill2": (6, 42),
        "ult": (2, 41), "ult_dash": 7.7, "ult_slam": (3, 42), "hit": (1, 42), "dead": (0, 42)}
-FLIGHT = {"run", "ult_slam"}     # strips whose frames may be drawn above Codex's ground line
+FLIGHT = {"ult_slam"}            # strips whose frames may be drawn above Codex's ground line
 HANG = {"ult_dash"}              # placed by League's head height, not on the ground
 OWN_HEAD = {("dead", k) for k in range(2, 8)}
 HOVER = {"ult_dash": 5}          # the flight's lowest row this many rows over the feet line (League's dash skims it)
@@ -63,28 +65,14 @@ TOP = 2                          # an airborne frame's lift is cut so its top st
 # (tag, frame): the frame's head this many squares from that of another frame of the strip instead of League's: the
 # slam's first frame drops onto the spot of the second (League's power bomb starts it 20 squares back, mid-leap)
 HEAD_FROM = {("ult_slam", 0): (1, -5)}
-# strips whose legs Codex shaded with the mantle's violet (the far leg in the run): violet squares in the lowest
-# LEG_ROWS rows of the frame take the trousers' shades
-LEG_VIOLET = {"run": 16}
-TROUSERS = {"290B42": "9FA8C3", "3C1268": "9FA8C3", "531E8E": "B2B9D2"}
-# The run's legs, redrawn (「移动的时候腿有点细？有点变形？」: Codex's legs were 3-4 squares thin, the back one came
-# and went behind the coat and the shoes changed size; the far leg barely took turns with the near one). As Sivir's
-# run (rig_sivir_run.py, the version the user liked): Codex's upper body stays (the pumping fists, the lean, the coat
-# streaming back); under the belt its legs go and two legs are drawn along a run cycle - each foot placed (ahead on
-# the contact, drawn back under the body, off the toe, kicked up behind, swung through, reaching), the knee solved
-# forward, both legs the design's length and width (thigh 6 squares, shin 4) in the trousers' shades with the gold
-# side stripe, the far leg a shade darker and behind the coat, the near one over everything, the design's own shoe
-# (its far one, curled to the right) at each ankle. One foot is always on the ground.
-RUN_THIGH, RUN_SHIN = 8.0, 7.2            # hip -> knee, knee -> ankle: a little longer than the drop from the
-#                                           belt to the shoe top (~13 rows), so the planted leg bends at the knee
+# the legs run_sett.py draws: two bones from the hip, each foot in the design's shoe (its far one, curled to the right),
+# the design's width (thigh 6 squares, shin 4) in the trousers' shades with the gold side stripe, the far leg a shade
+# darker
+RUN_THIGH, RUN_SHIN = 8.0, 7.2            # hip -> knee, knee -> ankle
 RUN_W = (2.7, 1.9)                        # half widths of the thigh and the shin
-RUN_FOOT = [(6.6, 0), (3.3, 0), (0.0, 0), (-3.9, 0), (-7.7, 1), (-7.2, 5.5), (-1.1, 5.5), (5.5, 2.2)]
-RUN_HIP_GAP = 1.5                          # the near hip this far left of the trousers' middle, the far one right
 RUN_SHADES = {"near": ("DCDFE8", "C4C9DB", "9FA8C3", "DF9704"), "far": ("C4C9DB", "B2B9D2", "9FA8C3", "BD7702")}
 SHOE = (66, 95, 75, 100)                  # the design's far shoe on the canvas (x0, y0, x1, y1)
 SHOE_ANKLE = (68.5, 95)
-COAT = {"1F0917", "340F1E", "451A2A"}
-RUN_COAT = 12                              # the coat's tails end above the knees: only legs this near the ground
 HEAD_SURE = 0.5
 HAIR = {"55011B", "810426", "AA0C35", "C7153E", "D51B45"}
 SKIN = {"B06B44", "DC9263", "F9BC89"}
@@ -201,18 +189,6 @@ def read(f, px, bottom):
     return fig[:, xs.min():xs.max() + 1].copy()
 
 
-def trousers(fig, rows):
-    """The mantle's violet in the lowest `rows` rows becomes the trousers' shades (TROUSERS)."""
-    out = fig.copy()
-    for y in range(max(0, fig.shape[0] - rows), fig.shape[0]):
-        for x in range(fig.shape[1]):
-            h = hexs(fig[y, x]) if fig[y, x, 3] else None
-            if h in TROUSERS:
-                c = TROUSERS[h]
-                out[y, x] = (int(c[0:2], 16), int(c[2:4], 16), int(c[4:6], 16), 255)
-    return out
-
-
 def seg(p, a, b):
     """(distance from p to segment a-b, position along it, side: + to the right of a->b going down)."""
     vx, vy = b[0] - a[0], b[1] - a[1]
@@ -286,61 +262,6 @@ def leg(hip, knee, ankle, shades, foot):
                 ring[q] = rgba("050302")
     ring.update(cells)
     return ring
-
-
-def run_legs(c, k):
-    """Run frame k with Codex's legs under the belt replaced by two drawn legs (see RUN_THIGH)."""
-    c = c.copy()
-    H, W = c.shape[:2]
-    top = mid = None
-    for y in range(44, 60):
-        xs = [x for x in range(36, 57) if c[y, x, 3] and hexs(c[y, x]) in TROUSERS_ALL]
-        if len(xs) >= 3:
-            top, mid = y, (min(xs) + max(xs) + 1) / 2
-            break
-    # Codex's legs go: under the belt, round the trousers' middle, all but the coat (and the coat's gold beside it)
-    x0, x1 = int(mid) - 20, int(mid) + 12
-    for y in range(top, H):
-        for x in range(W) if y > FEET - RUN_COAT else range(max(0, x0), min(W, x1)):
-            if not c[y, x, 3]:
-                continue
-            h = hexs(c[y, x])
-            coat = h in COAT or (h not in TROUSERS_ALL and h != "050302" and any(
-                c[y + dy, x + dx, 3] and hexs(c[y + dy, x + dx]) in COAT
-                for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1)) if 0 <= y + dy < H and 0 <= x + dx < W))
-            if not coat or y > FEET - RUN_COAT:
-                c[y, x] = 0
-    # what Codex shaded its back leg with reads as the coat's plum too: under the belt only the coat's mass stays (a
-    # square with at least 3 of its 8 neighbours drawn in it), the leg's thin strips go
-    for _ in range(2):
-        keep = c.copy()
-        for y in range(top + 1, H):
-            for x in range(1, W - 1):
-                if c[y, x, 3] and hexs(c[y, x]) != "050302":
-                    n = sum(1 for dy in (-1, 0, 1) for dx in (-1, 0, 1) if (dy or dx) and c[y + dy, x + dx, 3]
-                            and hexs(c[y + dy, x + dx]) != "050302")
-                    if n < 3:
-                        keep[y, x] = 0
-        c = keep
-    c = orphans(c)
-    foot = shoe()
-    hip_y = top + 0.5
-    ankle_y = FEET - 4 + 0.0                 # the shoe's top row: 4 rows over the soles' row
-    legs = {}
-    for side, ph, dx in (("near", k % 8, -RUN_HIP_GAP), ("far", (k + 4) % 8, RUN_HIP_GAP)):
-        fx, lift = RUN_FOOT[ph]
-        hip = (mid + dx, hip_y)
-        knee, ankle = ik(hip, (hip[0] + fx, ankle_y - lift))
-        legs[side] = leg(hip, knee, ankle, RUN_SHADES[side], foot)
-    for (x, y), col in legs["far"].items():
-        if 0 <= y <= FEET and 0 <= x < W and not c[y, x, 3]:
-            c[y, x] = col
-    for (x, y), col in legs["near"].items():
-        if top <= y <= FEET and 0 <= x < W:
-            c[y, x] = col
-    c = pieces(c)
-    c, _, _ = G.complete_outline(c, feet=FEET)
-    return c
 
 
 def head_sprite():
@@ -548,19 +469,28 @@ def own_head_at(fig, head):
     return int(round(xs.mean() - head.shape[1] / 2)), int(round(ys.mean() - head.shape[0] / 2))
 
 
+def at_pivot(canvas, pivot, cw, ch):
+    """A design-canvas frame (its pivot (64, 88)) in a cell with its pivot at `pivot`."""
+    c = np.zeros((ch, cw, 4), np.uint8)
+    ox, oy = pivot[0] - DESIGN_PIVOT[0], pivot[1] - DESIGN_PIVOT[1]
+    ys, xs = np.nonzero(canvas[..., 3])
+    ok = (ys + oy >= 0) & (ys + oy < ch) & (xs + ox >= 0) & (xs + ox < cw)
+    c[ys[ok] + oy, xs[ok] + ox] = canvas[ys[ok], xs[ok]]
+    return c
+
+
 def build(cells, src=SRC):
     head = head_sprite()
     CW, CH = cells["cell"]
     sheets, report = {}, {}
-    idle = K.design_1x()
-    sheets["idle"] = []
-    for f in cells["tags"]["idle"]:
-        c = np.zeros((CH, CW, 4), np.uint8)
-        ox, oy = f["pivot"][0] - DESIGN_PIVOT[0], f["pivot"][1] - DESIGN_PIVOT[1]
-        ys, xs = np.nonzero(idle[..., 3])
-        c[ys + oy, xs + ox] = idle[ys, xs]
-        sheets["idle"].append(c)
+    idle = np.zeros((128, 128, 4), np.uint8)
+    idle[:] = K.design_1x()
+    sheets["idle"] = [at_pivot(idle, f["pivot"], CW, CH) for f in cells["tags"]["idle"]]
+    import run_sett                  # it draws its legs with this module's leg(), so it is imported here
+    sheets["run"] = [at_pivot(run_sett.frame(k), f["pivot"], CW, CH) for k, f in enumerate(cells["tags"]["run"])]
     for tag in TAGS:
+        if tag == "run":
+            continue
         table = cells["tags"][tag]
         a = np.asarray(Image.open(os.path.join(src, f"sett_{tag}_raw.png")).convert("RGBA"))
         frames = raw_frames(a, len(table))
@@ -573,8 +503,6 @@ def build(cells, src=SRC):
             bottom = extent(f)[1]
             lift = int(round((ground[row] - bottom) / px)) if tag in FLIGHT else 0
             fig = read(f, px, bottom)
-            if tag in LEG_VIOLET:
-                fig = trousers(fig, LEG_VIOLET[tag])
             if (tag, k) in OWN_HEAD:
                 hx, hy = own_head_at(fig, head)
                 share = None
@@ -595,8 +523,6 @@ def build(cells, src=SRC):
             ys, xs = np.nonzero(fig[..., 3])
             ok = (ys + oy >= 0) & (ys + oy < CH) & (xs + ox >= 0) & (xs + ox < CW)
             c[ys[ok] + oy, xs[ok] + ox] = fig[ys[ok], xs[ok]]
-            if tag == "run":
-                c = run_legs(c, k)
             out.append(c)
             rep.append((None if share is None else round(share, 2), fig.shape[1], fig.shape[0], lift,
                         int((fig[..., 3] > 0).sum()), int((~ok).sum())))
