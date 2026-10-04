@@ -63,6 +63,9 @@ TAGS = ["idle", "run", "attack", "attack_p", "skill", "q2", "q3", "skill2", "ult
 # drawn by Codex since 2026-10-04 (League's full-body Q casts, the transformation with League's wings):
 # tools/art/import_redo_aatrox.py writes them
 CODEX = {"skill", "q2", "q3", "ult"}
+# kept as committed and not rebuilt: the run is v11 (55b19749), the one the user approved (「挺不错的」); the audit round's
+# run below (lead leg swapping, swings to 49 degrees) read in game as 「看起来极度不协调」 and was taken back
+KEEP = {"run"}
 Z = 8
 PIVOT = (64, 88)
 SOLES = 99                           # the soles' row on the canvas (the feet line, pivot + 11)
@@ -1660,7 +1663,7 @@ def build(tags=None):
     sm = sword_mask(des)
     out = {}
     for tag in TAGS:
-        if tag in CODEX or (tags and tag not in tags):
+        if tag in CODEX or tag in KEEP or (tags and tag not in tags):
             continue
         frs = cells["tags"][tag]
         cols, rows = layout(len(frs))
