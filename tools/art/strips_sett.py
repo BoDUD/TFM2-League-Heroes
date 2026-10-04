@@ -67,6 +67,24 @@ HEAD_FROM = {("ult_slam", 0): (1, -5)}
 # LEG_ROWS rows of the frame take the trousers' shades
 LEG_VIOLET = {"run": 16}
 TROUSERS = {"290B42": "9FA8C3", "3C1268": "9FA8C3", "531E8E": "B2B9D2"}
+# The run's legs, redrawn (「移动的时候腿有点细？有点变形？」: Codex's legs were 3-4 squares thin, the back one came
+# and went behind the coat and the shoes changed size; the far leg barely took turns with the near one). As Sivir's
+# run (rig_sivir_run.py, the version the user liked): Codex's upper body stays (the pumping fists, the lean, the coat
+# streaming back); under the belt its legs go and two legs are drawn along a run cycle - each foot placed (ahead on
+# the contact, drawn back under the body, off the toe, kicked up behind, swung through, reaching), the knee solved
+# forward, both legs the design's length and width (thigh 6 squares, shin 4) in the trousers' shades with the gold
+# side stripe, the far leg a shade darker and behind the coat, the near one over everything, the design's own shoe
+# (its far one, curled to the right) at each ankle. One foot is always on the ground.
+RUN_THIGH, RUN_SHIN = 8.0, 7.2            # hip -> knee, knee -> ankle: a little longer than the drop from the
+#                                           belt to the shoe top (~13 rows), so the planted leg bends at the knee
+RUN_W = (2.7, 1.9)                        # half widths of the thigh and the shin
+RUN_FOOT = [(6.6, 0), (3.3, 0), (0.0, 0), (-3.9, 0), (-7.7, 1), (-7.2, 5.5), (-1.1, 5.5), (5.5, 2.2)]
+RUN_HIP_GAP = 1.5                          # the near hip this far left of the trousers' middle, the far one right
+RUN_SHADES = {"near": ("DCDFE8", "C4C9DB", "9FA8C3", "DF9704"), "far": ("C4C9DB", "B2B9D2", "9FA8C3", "BD7702")}
+SHOE = (66, 95, 75, 100)                  # the design's far shoe on the canvas (x0, y0, x1, y1)
+SHOE_ANKLE = (68.5, 95)
+COAT = {"1F0917", "340F1E", "451A2A"}
+RUN_COAT = 12                              # the coat's tails end above the knees: only legs this near the ground
 HEAD_SURE = 0.5
 HAIR = {"55011B", "810426", "AA0C35", "C7153E", "D51B45"}
 SKIN = {"B06B44", "DC9263", "F9BC89"}
@@ -193,6 +211,136 @@ def trousers(fig, rows):
                 c = TROUSERS[h]
                 out[y, x] = (int(c[0:2], 16), int(c[2:4], 16), int(c[4:6], 16), 255)
     return out
+
+
+def seg(p, a, b):
+    """(distance from p to segment a-b, position along it, side: + to the right of a->b going down)."""
+    vx, vy = b[0] - a[0], b[1] - a[1]
+    n = float(np.hypot(vx, vy)) or 1e-9
+    s = max(0.0, min(n, ((p[0] - a[0]) * vx + (p[1] - a[1]) * vy) / n))
+    qx, qy = a[0] + vx / n * s, a[1] + vy / n * s
+    return float(np.hypot(p[0] - qx, p[1] - qy)), s, (p[0] - qx) * (vy / n) - (p[1] - qy) * (vx / n)
+
+
+def ik(hip, ankle, l1=RUN_THIGH, l2=RUN_SHIN):
+    """The knee of a two-bone leg from hip to ankle, bent forward (+x); the ankle drawn in if out of reach."""
+    dx, dy = ankle[0] - hip[0], ankle[1] - hip[1]
+    d = float(np.hypot(dx, dy))
+    if d >= l1 + l2 - 1e-6:
+        k = (l1 + l2 - 1e-6) / d
+        ankle = (hip[0] + dx * k, hip[1] + dy * k)
+        dx, dy, d = dx * k, dy * k, l1 + l2 - 1e-6
+    a = (l1 * l1 - l2 * l2 + d * d) / (2 * d)
+    h = float(np.sqrt(max(0.0, l1 * l1 - a * a)))
+    nx, ny = -dy / d, dx / d
+    if nx < 0:
+        nx, ny = -nx, -ny
+    return (hip[0] + dx * a / d + nx * h, hip[1] + dy * a / d + ny * h), ankle
+
+
+def rgba(h):
+    return np.array((int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16), 255), np.uint8)
+
+
+def shoe():
+    """The design's far shoe (curled to the right) as {(dx, dy) from its ankle: colour}, its outline left to leg()."""
+    a = K.design_1x()
+    x0, y0, x1, y1 = SHOE
+    out = {}
+    for y in range(y0, y1):
+        for x in range(x0, x1):
+            if a[y, x, 3] and hexs(a[y, x]) not in TROUSERS_ALL and hexs(a[y, x]) != "050302":
+                out[(x - int(SHOE_ANKLE[0]), y - SHOE_ANKLE[1])] = a[y, x].copy()
+    return out
+
+
+TROUSERS_ALL = {"9FA8C3", "B2B9D2", "C4C9DB", "DCDFE8"}
+
+
+def leg(hip, knee, ankle, shades, foot):
+    """{(x, y): colour} of one leg: the thigh and the shin in the trousers' shades (lit on the front, dark behind,
+    the gold stripe down the middle), the shoe at the ankle, one outline ring (nothing under the ankle's shoe line)."""
+    lit, mid, dark, gold = shades
+    cells = {}
+    xs, ys = [hip[0], knee[0], ankle[0]], [hip[1], knee[1], ankle[1]]
+    for y in range(int(min(ys)) - 3, int(max(ys)) + 3):
+        for x in range(int(min(xs)) - 4, int(max(xs)) + 5):
+            p = (x + 0.5, y + 0.5)
+            d1, s1, side1 = seg(p, hip, knee)
+            d2, s2, side2 = seg(p, knee, ankle)
+            if d1 <= RUN_W[0] and (d1 <= d2 or s1 < RUN_THIGH * 0.6):
+                side = side1
+            elif d2 <= RUN_W[1] and p[1] < ankle[1] + 0.5:
+                side = side2
+            else:
+                continue
+            cells[(x, y)] = rgba(gold if abs(side - 0.4) < 0.5 else lit if side > 0.9 else dark if side < -0.9 else mid)
+    ax, ay = int(round(ankle[0] - 0.5)), int(round(ankle[1]))
+    for (dx, dy), c in foot.items():
+        cells[(ax + dx, ay + dy)] = c
+    ring = {}
+    for (x, y) in cells:
+        for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+            q = (x + dx, y + dy)
+            if q not in cells:
+                ring[q] = rgba("050302")
+    ring.update(cells)
+    return ring
+
+
+def run_legs(c, k):
+    """Run frame k with Codex's legs under the belt replaced by two drawn legs (see RUN_THIGH)."""
+    c = c.copy()
+    H, W = c.shape[:2]
+    top = mid = None
+    for y in range(44, 60):
+        xs = [x for x in range(36, 57) if c[y, x, 3] and hexs(c[y, x]) in TROUSERS_ALL]
+        if len(xs) >= 3:
+            top, mid = y, (min(xs) + max(xs) + 1) / 2
+            break
+    # Codex's legs go: under the belt, round the trousers' middle, all but the coat (and the coat's gold beside it)
+    x0, x1 = int(mid) - 20, int(mid) + 12
+    for y in range(top, H):
+        for x in range(W) if y > FEET - RUN_COAT else range(max(0, x0), min(W, x1)):
+            if not c[y, x, 3]:
+                continue
+            h = hexs(c[y, x])
+            coat = h in COAT or (h not in TROUSERS_ALL and h != "050302" and any(
+                c[y + dy, x + dx, 3] and hexs(c[y + dy, x + dx]) in COAT
+                for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1)) if 0 <= y + dy < H and 0 <= x + dx < W))
+            if not coat or y > FEET - RUN_COAT:
+                c[y, x] = 0
+    # what Codex shaded its back leg with reads as the coat's plum too: under the belt only the coat's mass stays (a
+    # square with at least 3 of its 8 neighbours drawn in it), the leg's thin strips go
+    for _ in range(2):
+        keep = c.copy()
+        for y in range(top + 1, H):
+            for x in range(1, W - 1):
+                if c[y, x, 3] and hexs(c[y, x]) != "050302":
+                    n = sum(1 for dy in (-1, 0, 1) for dx in (-1, 0, 1) if (dy or dx) and c[y + dy, x + dx, 3]
+                            and hexs(c[y + dy, x + dx]) != "050302")
+                    if n < 3:
+                        keep[y, x] = 0
+        c = keep
+    c = orphans(c)
+    foot = shoe()
+    hip_y = top + 0.5
+    ankle_y = FEET - 4 + 0.0                 # the shoe's top row: 4 rows over the soles' row
+    legs = {}
+    for side, ph, dx in (("near", k % 8, -RUN_HIP_GAP), ("far", (k + 4) % 8, RUN_HIP_GAP)):
+        fx, lift = RUN_FOOT[ph]
+        hip = (mid + dx, hip_y)
+        knee, ankle = ik(hip, (hip[0] + fx, ankle_y - lift))
+        legs[side] = leg(hip, knee, ankle, RUN_SHADES[side], foot)
+    for (x, y), col in legs["far"].items():
+        if 0 <= y <= FEET and 0 <= x < W and not c[y, x, 3]:
+            c[y, x] = col
+    for (x, y), col in legs["near"].items():
+        if top <= y <= FEET and 0 <= x < W:
+            c[y, x] = col
+    c = pieces(c)
+    c, _, _ = G.complete_outline(c, feet=FEET)
+    return c
 
 
 def head_sprite():
@@ -447,6 +595,8 @@ def build(cells, src=SRC):
             ys, xs = np.nonzero(fig[..., 3])
             ok = (ys + oy >= 0) & (ys + oy < CH) & (xs + ox >= 0) & (xs + ox < CW)
             c[ys[ok] + oy, xs[ok] + ox] = fig[ys[ok], xs[ok]]
+            if tag == "run":
+                c = run_legs(c, k)
             out.append(c)
             rep.append((None if share is None else round(share, 2), fig.shape[1], fig.shape[0], lift,
                         int((fig[..., 3] > 0).sum()), int((~ok).sum())))
