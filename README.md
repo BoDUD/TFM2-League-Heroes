@@ -2,7 +2,7 @@
 
 团战经理2（Teamfight Manager 2）的英雄联盟英雄 Mod，mod_id 是 `league`。纯数据 mod：不改游戏本体，不需要编译。
 
-英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）、烬（`league_jhin`）、基兰（`league_zilean`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹、ADC 烬、辅助基兰。
+英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）、烬（`league_jhin`）、基兰（`league_zilean`）、希维尔（`league_sivir`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹、ADC 烬、辅助基兰。第十一组的 ADC 希维尔。
 
 对敌人放的小技能，施放目标是「敌人（不含防御塔）」，清线、打野时也会放；只有大招、德莱厄斯的 E（拉人）、阿木木的 Q（绷带）、锤石的 Q（钩子）、阿狸的 E（魅惑）、薇恩的 E（恶魔审判）、维迦的 E（扭曲空间）、凯特琳的 W（约德尔诱捕器）、卡莎的 W（虚空索敌）和基兰的 E（时光发条）只对英雄放（莫甘娜的 Q 对什么都放，但射程内有敌方英雄时朝英雄射；贝蕾亚的 Q 也一样，射程内有敌方英雄时扑英雄；娜美的 W、Q 也是，射程内有敌方英雄时打英雄；黛安娜的 Q 也一样，射程内有敌方英雄时朝英雄射，E 带着月光再冲的第二下也先找英雄；菲奥娜的 Q、W 也一样，射程内有敌方英雄时冲向、刺向英雄；凯特琳的 Q 也一样，射程内有敌方英雄时朝英雄射；凯南的 Q 也一样，射程内有敌方英雄时锁定英雄射）；提莫的 W 是给自己加速和伪装，也只在敌方英雄靠近时放。最早几个英雄的小技能只对英雄放，打野时一直平 A 野怪，按玩家反馈改了。
 
@@ -96,6 +96,7 @@
 ![瑞兹演示：卢锡安站在他身后，他跑进场，双手推出符文法球打德莱厄斯；Q 超负荷：蓝色的符文光弹打中他；E → W → Q 连招：紫色的法术涌动在德莱厄斯身上炸开，涌动（紫色符文绕着胸口转）也挂到他身后的盖伦身上，符文禁锢的蓝色牢笼把带涌动的德莱厄斯困住，再一发超负荷引爆两人身上的涌动（闪电劈下、紫色爆开），腰间充好的两枚符文放出、脚下起风加速；德莱厄斯和盖伦往后撤，德莱厄斯跑出射程，R 曲境折跃追过去：脚下开一个传送门，另一个开在德莱厄斯脚边，引导一秒后他和站在门里的卢锡安一起传送过去（原地一道光柱，落地符文爆发，卢锡安身上一闪），落地补的法术涌动又给德莱厄斯挂上涌动](docs/preview/league_ryze_showcase.gif?v=1003ry2)
 ![烬演示：跑进场，低语连开三枪（抬枪时一闪，枪口青白色的火，金色子弹）；第四枪先耍一圈枪，玫红光环从枪口转出，暴击炸开花瓣，头顶的四颗子弹开始一颗颗装上；装弹时扔出曼舞手雷，打中德莱厄斯后翻滚着落到身后的盖伦身上再炸；W 致命华彩：先把莲花扔到德莱厄斯脚下，手杖枪射出紫色光晕的长弹，他被定身（脚下的玫瑰荆棘），莲花在他脚下开花、减速，2 秒后炸成火焰；R 完美谢幕：跪地架起大炮，身边升起玫红光幕，连开四炮，第四发暴击，德莱厄斯倒下，尸体上开出一朵莲花再炸开](docs/preview/league_jhin_showcase.gif?v=1003jh)
 ![基兰演示：卢锡安站在他身前，基兰飘进场，时光法球打德莱厄斯；Q 定时炸弹抛到德莱厄斯身上粘住（胸口的炸弹在倒计时），W 穿梭未来：身后的钟面倒转，再扔一颗，两颗炸弹一起爆，德莱厄斯和身后的盖伦被眩晕（头顶转着小金钟）；E 时光发条：德莱厄斯腰上紫色的钟圈减速，卢锡安脚下金色的钟圈加速，攒满的瓶子倒在卢锡安头上；再扔一颗炸弹粘在德莱厄斯身上，下一发法球打死他，炸弹当场爆炸、炸到盖伦；盖伦走到卢锡安身边，致命打击沉默他，R 时光倒流：基兰脚下亮起金色符文钟，卢锡安头顶挂上时光符文，盖伦转着砍他也死不了，5 秒后回溯回血](docs/preview/league_zilean_showcase.gif?v=1003zl)
+![希维尔演示：她跑进场，十字刃普攻；弹射开启后攻击弹向身后的敌人；Q 回旋之刃掷出去再飞回手中，往返都打中路上的敌人；E 法术护盾挡下技能并回血；R 狩猎：全队加速](docs/preview/league_sivir_showcase.gif)
 
 ## 英雄：盖伦
 
@@ -2103,6 +2104,33 @@ python tools/art/preview_zilean.py
 - 特效用 Codex 画的 19 种（110 帧，生图原稿，`import_zilean.py --raw` 同瑞兹：每个游戏像素取覆盖的原稿像素里最多的颜色，四分之一以上不透明才画，颜色归到包里的青、金、紫三套色阶，光效外圈最暗的一档去掉；炸弹、瓶子、符文是实物，保留自己的暗边）。Codex 自己按 8 px 网格读回的条图格数太少（双炸弹爆炸只有 38 格宽，要 64），所以从原稿重读；4 × 2 排版的原稿格边混进来的邻格碎片去掉；大招符文原稿每格往左漂，按钟面逐帧对齐。位置：普攻、Q、E 的出手闪光在手上 (18, −6)、举起的手 (16, −21)、(15, −5)，命中和粘着的炸弹在上半身 (0, −8)，眩晕的三只小钟在头顶 (0, −33)，减速的钟圈在腰上，加速圈、大招的符文钟和地上的炸弹在脚下，W 倒转的钟面在他身后 (−1, −9)，爆炸的闪光在地面圈正上方（地面圈落在脚下），瓶子的光流落到头顶 (0, −27)，符文的钟在头顶上方 (0, −23)，回溯的光柱从脚下升起。时长：粘着的炸弹 4 帧 × 125 ms（技能每 30 tick 重放一次），地上的炸弹 3 秒（前 10 帧转两圈，最后两帧变亮），单炸弹爆炸 0.49 秒、双炸弹 0.6 秒，眩晕 1.25 秒，减速、加速、符文跟着状态循环。
 
 逐帧预览：[`docs/preview/league_zilean_frames.png`](docs/preview/league_zilean_frames.png)，特效：[`docs/preview/league_zilean_effects.png`](docs/preview/league_zilean_effects.png)。
+
+## 英雄：希维尔
+
+| 部分 | 内容 |
+|---|---|
+| 定位 | ADC（远程，分类 Range），用户 10 月 2 日排的第十一组的 ADC，从用户旧 mod `lol_mod` 的 `boomerang_hunter` 移植。战争女神：十字刃弹射清线，Q 回旋之刃往返，E 法术护盾，R 全队加速 |
+| 普攻 / 被动 | 普攻 100% 攻击力，射程 55000。被动「敏锐疾行」：攻击或技能命中英雄时移速 +25%，2 秒内递减。W「弹射」并入普攻：每 10 秒下一次攻击开启 4 秒弹射，攻速 +45%，攻击再弹向目标身后最多 3 个敌人，各 60% 物理伤害（可暴击） |
+| 技能1 | Q「回旋之刃」：射程 100000，冷却 8 秒。掷出十字刃，飞到尽头再飞回手中，往返都对路上所有敌人造成 60 + 80% 物理伤害；附近有英雄时朝他所在的位置掷出（出手前锁定，可以躲开） |
+| 技能2 | E「法术护盾」：对敌方英雄施放，冷却 12 秒。张开护盾最多 3 秒：免疫技能伤害和控制；第一次被击中时回复 60 + 40% 生命并触发敏锐疾行，护盾再撑 1 秒后破碎 |
+| 大招 | R「狩猎」：冷却 50 秒。附近友方英雄（含自己）移速 +30%，持续 8 秒；狩猎期间希维尔的攻击命中英雄会缩短回旋之刃和法术护盾的冷却，弹射冷却减半；她的攻击击杀英雄时刷新狩猎 |
+| 数值 | 攻击 110（+23）、生命 900（+90）、护甲 20（+7）、魔抗 15（+3）、移速 900（+9）。数值是自己设计的 |
+| 精灵图 | 待机、移动、普攻、Q（掷出、等待、接住）、E、R、受击、死亡。造型是 Codex 第二轮的生图草稿 2 按格子读回、删到 40 行（`design_sivir.py`），动作用造型自己的部件摆出（`rig_sivir.py`，移动 `rig_sivir_run.py`） |
+| 音效 | 英雄联盟的音效（`tools/lol/extract_sivir.py`）：普攻掷刃和命中、Q 掷出 / 回旋 / 命中、E 张开 / 挡下、R 施放 |
+
+重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
+
+```bash
+python tools/lol/extract_sivir.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstream-cli.exe 路径>"
+python tools/art/design_sivir.py          # 造型
+python tools/art/rig_sivir.py             # 动作
+python tools/art/rig_sivir_run.py         # 移动
+python tools/art/import_native.py --hero sivir
+python tools/art/import_sivir.py          # 特效
+python tools/art/preview_sivir.py
+```
+
+美术提示词：原画 [`assets/source/sivir/PICTURE_PROMPT.md`](assets/source/sivir/PICTURE_PROMPT.md)，造型 [`MODEL_PROMPTS.md`](assets/source/sivir/MODEL_PROMPTS.md)，动作 [`MODEL_STRIPS.md`](assets/source/sivir/MODEL_STRIPS.md)，特效 [`PROMPTS_FX.md`](assets/source/sivir/PROMPTS_FX.md)。逐帧预览：[`docs/preview/league_sivir_frames.png`](docs/preview/league_sivir_frames.png)，特效：[`docs/preview/league_sivir_effects.png`](docs/preview/league_sivir_effects.png)。
 
 ## 选人卡片位置（`banpick_center`）
 
