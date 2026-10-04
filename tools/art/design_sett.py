@@ -47,17 +47,19 @@ PALETTE = {
 }
 FEATURE = set()                  # no colour needs a smaller share to win a block (the eyes are drawn afterwards)
 DARK = {"050302"}                # the outline
-EYE = "F28C0A"                   # the eyes' amber, a shade nothing else has (import_native can find the face by it)
+EYE = "C8700A"                   # the eyes' amber, a shade nothing else has (import_native can find the face by it)
 WHITE = "DCDFE8"                 # the near eye's highlight (the trousers' lightest)
 BROW = "55011B"                  # the hair's darkest crimson: brows and lashes
 SHADE = "B06B44"                 # the skin's shadow
 # The face at 42 rows (the read keeps the face's skin but not its features): (x, y) on the 42-row figure -> colour.
-# Lash and brow row 6 over the eyes; row 7 the near eye's highlight and pupil, the far eye's pupil against the cheek's
-# outline; row 8 amber under both; one skin column between them; a shadow under the near eye and at the mouth.
+# Brows and lashes on row 6; one row of eyes on row 7: the near eye a white highlight beside an amber iris, the far eye
+# an amber iris, one skin column between; skin under them, a shadow for the mouth. The first version had a second
+# row of amber under both eyes (three squares) - the user: 「这两坨黄的有点怪吧」, and of three faces took this one
+# (「用option2」) over no amber and a single amber square under each pupil.
 FACE = {
     (11, 6): BROW, (12, 6): BROW, (13, 6): "F9BC89", (14, 6): BROW,
-    (11, 7): WHITE, (12, 7): "050302", (13, 7): "F9BC89", (14, 7): "050302", (15, 7): "DC9263",
-    (11, 8): EYE, (12, 8): EYE, (13, 8): "F9BC89", (14, 8): EYE, (15, 8): "DC9263",
+    (11, 7): WHITE, (12, 7): EYE, (13, 7): "F9BC89", (14, 7): EYE, (15, 7): "DC9263",
+    (11, 8): "DC9263", (12, 8): "F9BC89", (13, 8): "F9BC89", (14, 8): "F9BC89", (15, 8): "DC9263",
     (11, 9): "DC9263", (12, 9): "F9BC89", (13, 9): "F9BC89", (14, 9): "F9BC89",
     (13, 10): SHADE,
 }
