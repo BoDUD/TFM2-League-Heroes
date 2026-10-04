@@ -438,9 +438,32 @@ def plugged(f, py):
     return f
 
 
+# ------------------------------------------------------------------ frame times: each release frame on the kit's tick
+# (work/ev/build_evelynn.py, 60 ticks a second; the pack's cells in codex_strips/evelynn_cells.json). The attack and the
+# whip hit at tick 10, which their 4th frame already starts at (160 ms). Q's lash leaves at q_st 10: frame 3 at 165 ms;
+# W's curse at w_st 6: frame 2 at 100 ms, the action 12 ticks; R's cone at tick 13 (fired from an attack's tick 1 plus
+# r_hit 12): frame 3 at 200 ms, the strip as long as r_dur's 500 ms (the pack's 450); the empowered whip's dash lands 3-5
+# ticks in: frame 4 at 80 ms. The others keep their lengths.
+TIMING = {"skill": [85, 80, 45, 45, 45], "skill2": [100, 40, 35, 25], "ult": [100, 100, 100, 70, 65, 65],
+          "attack_e2": [25, 25, 30, 80, 100, 140]}
+
+
+def write_cells():
+    with open(G.lp(os.path.join(SRC, "evelynn_cells.json")), encoding="utf-8") as f:
+        cells = json.load(f)
+    for tag, ms in TIMING.items():
+        rows = cells["tags"][tag]
+        assert len(rows) == len(ms), tag
+        for r, m in zip(rows, ms):
+            r["ms"] = m
+    with open(G.lp(os.path.join(NATIVE, "evelynn_cells.json")), "w", encoding="utf-8", newline="\n") as f:
+        json.dump(cells, f, ensure_ascii=False, indent=1)
+        f.write("\n")
+
+
 # ------------------------------------------------------------------ the strips
 def load(tag):
-    with open(G.lp(os.path.join(NATIVE, "evelynn_cells.json")), encoding="utf-8") as f:
+    with open(G.lp(os.path.join(SRC, "evelynn_cells.json")), encoding="utf-8") as f:
         cells = json.load(f)
     a = np.asarray(Image.open(G.lp(os.path.join(SRC, f"evelynn_{tag}_1x.png"))).convert("RGBA")).copy()
     return a, cells
@@ -504,6 +527,8 @@ def main():
     ap.add_argument("--review", help="write <tag>_fix.png at 6x here instead of the strips")
     a = ap.parse_args()
     out = build()
+    if not a.review:
+        write_cells()
     for tag, sheet in out.items():
         if a.review:
             os.makedirs(a.review, exist_ok=True)
