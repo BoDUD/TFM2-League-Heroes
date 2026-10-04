@@ -2491,10 +2491,14 @@ shroud paid out 14-19 times a game, of about 25 casts.
 
 **Team invisibility and a dive from afar (league_nocturne R, Paranoia).** A `Targeting` cast on `EnemyChampion` within
 110000: on tick 8 a `RangeEffect` round him (2000000, `AllyChampion`) makes every allied champion, himself included,
-`Invisible` for 180 ticks, and one on `EnemyChampion` gives every enemy champion the `r_dark` mist (a picture-only
+`Invisible` for 32 ticks (the flight) and a second one in the dive's `end_effects` 20 more on landing (the burst; the
+longer timer wins), and one on `EnemyChampion` gives every enemy champion the `r_dark` mist as long (a picture-only
 buff with a `ThreePhase` view); then `MoveToTarget` (3500 a tick, a 45-tick `cc_immune` caster buff for the flight)
 lands 120 + 120% attack. The invisibility carries the kit: 4 s +2.12, 2 s +0.12, none -1.86 against the base junglers
-(lane 1, seeds 1-12), while halving the passive's heal changed nothing (+2.16); it settled at 3 s.
+(lane 1, seeds 1-12), while halving the passive's heal changed nothing (+2.16); it settled at 3 s. 0.53.2: 3 s outlasted
+the 0.75-s ult, so the team stayed hidden with nothing on screen saying why (the user: 「魔腾不放大的时候也全队隐身」) -
+now only while the ult plays; that cost 1.2 (+0.84 -> -0.35), which R damage (200 + 150%: -0.62) or a 35 s cooldown
+(-0.82) did not buy back, attack did: base 110 and growth 27 (was 100 / 22) +0.88 / +0.61 against +0.84 / +0.99.
 
 **A hook from a raised arm that brings its catch back along its own line (league_blitzcrank Q, Rocket Grab).** A
 `Direction` cast on `EnemyChampion` (range 70000) throws a non-penetrating `LinearProjectile` on `EnemyChampion`

@@ -14,7 +14,7 @@
     "asset/league/icons/league_nocturne_ult"
   ],
   "stat": {
-    "attack": 100,
+    "attack": 110,
     "magic_power": 30,
     "hp": 940,
     "defence": 27,
@@ -25,7 +25,7 @@
     "crit_chance": 0
   },
   "growth": {
-    "attack": 22,
+    "attack": 27,
     "magic_power": 10,
     "hp": 90,
     "defence": 8,
@@ -1387,7 +1387,7 @@
                 "name": "league_nocturne_r_dark",
                 "duration": {
                   "Time": {
-                    "tick": 180
+                    "tick": 32
                   }
                 }
               }
@@ -1450,6 +1450,33 @@
               "type": "CasterAnimation",
               "name": "ult_hit",
               "tick": 20
+            },
+            {
+              "type": "Native",
+              "effect_ref": "league_nocturne_dark:land"
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 2000000
+                }
+              },
+              "target": "EnemyChampion",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "AddBuff",
+                  "buff_state": {
+                    "name": "league_nocturne_r_dark",
+                    "duration": {
+                      "Time": {
+                        "tick": 20
+                      }
+                    }
+                  }
+                }
+              ]
             }
           ]
         }

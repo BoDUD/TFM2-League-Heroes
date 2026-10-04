@@ -13,8 +13,9 @@
                                  Darkness rises round him and bursts when a blow lands on it, then Darius is feared (the
                                  nightmare eyes over his head) and flees, Nocturne gliding after him; Darius falls;
                                  Garen walks up and Paranoia: darkness bursts round Nocturne, he turns invisible (drawn
-                                 faded) under the veil, the dark mist rings Garen's head, he dives at Garen trailing
-                                 shadow and lands with the crossing strike; 3x
+                                 faded) under the veil while the ult plays (the flight and the landing's burst), the
+                                 dark mist rings Garen's head as long, he dives at Garen trailing shadow and lands with
+                                 the crossing strike; 3x
 """
 import argparse
 import os
@@ -153,20 +154,21 @@ def showcase(out, z=3, step=40):
     mine(fx, "p_spin", p1)
     death = strike(d, "attack_p", 8, "p_hit")
     d.death = death + 60
-    # Paranoia at Garen: darkness on tick 8, invisible for 3 s, the mist on Garen, the dive 3.5 px a tick
+    # Paranoia at Garen: darkness on tick 8, invisible only while the ult plays (the flight, at most 32 ticks, and the
+    # landing's 20-tick burst: 「魔腾不放大的时候也全队隐身」), the mist on Garen as long, the dive 3.5 px a tick
     idle_to(t + 300)
     r0 = t
     launch = r0 + tick(8)
     mine(fx, "r_veil", launch)
     if fr(big, "r_burst"):
         under.append(Anim(fr(big, "r_burst"), launch, x, gy))
-    hidden.append((launch, launch + tick(180)))
-    dark = fr(fx, "r_dark_in") + fr(fx, "r_dark") * 8 + fr(fx, "r_dark_out")
+    dark = fr(fx, "r_dark_in") + fr(fx, "r_dark") * 2 + fr(fx, "r_dark_out")
     if dark:
         over.append(OnFoe(dark, launch, g, z=2))
     gx, gyy = g.pos(launch)
     land_x = gx - 30
     flight = tick(max(1.0, (land_x - x) / 3.5))
+    hidden.append((launch, launch + max(tick(32), flight + tick(20))))
     mine(fx, "r_trail", launch, until=launch + flight)
     body.append(Anim(frames_of(nc, "ult")[:2], r0, x, gy, loop=True, until=launch))
     fly = frames_of(nc, "ult")[2:]
