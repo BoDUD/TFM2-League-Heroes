@@ -16,11 +16,12 @@ lashers drawn on the 1x grid). Most frames read as League's poses; these did not
     apart, each under its own hip); the two lashers trailing behind like League's run, one up, one low: each a tapering
     band from her back hip ending in the design's own blade (the idle's back-lasher tip, unrotated), following the bob
     a frame late. (A first pass drew thin 3-square legs that crossed in an X: 「走路时腿有点怪吧？」.)
-  - attack 3-5, attack_e 4-5, attack_e2 1-5, skill 2, ult 1 and 3-5, dead 2: Codex's lunges and crouches stood on the
+  - attack 3-5, attack_e 4-5, attack_e2 1-5, skill 2, ult 1 and 3-5: Codex's lunges and crouches stood on the
     design's shins shifted row by row into thin stair-stepped sticks, without the thighs, the back foot out in a split
     (「放技能时腿也有点怪吧？」). Their legs come out (RELEG), the rest is raised back to the standing height, and they
     stand on the rig's legs in the idle's stance (the rule since Caitlyn: casting frames stand on the idle's legs); the
-    lunge stays as the body's step forward.
+    lunge stays as the body's step forward. Codex's own hips go too (hips_cleared; left in, its pink thigh tops stuck out
+    beside the rig's: 「这里凸出来的是什么」, ult 4); the legs are set under Codex's belt (hip_shift). Dead 2 holds dead 1.
   - dead 5-8: the kneeling body turned 35, 65 and 90 degrees whole, ending head-down with the front lasher standing up
     in the air. League's death clip buckles her to her knees and keeps her slumped low (the game fades her out; she
     never lies down), which Codex's 1-4 already follow. 5-8 are frame 4 with the upper body sinking 1-2 rows over the
@@ -176,9 +177,9 @@ def run_frame(d, k):
 # lashers (within reach of its own lasher_paths in manifest.json), claws and sleeves stay. The rig's legs go in from
 # the hips (where Codex's upper body put the design's hips: its head_translation) to Codex's own feet, pulled in when
 # they are out of a leg's reach: the near leg to the back foot, the far one to the front foot, so they never cross.
-RELEG = {"attack": [2, 3, 4], "attack_e": [3, 4], "attack_e2": [0, 1, 2, 3, 4], "skill": [1], "ult": [0, 2, 3, 4],
-         "dead": [1]}
+RELEG = {"attack": [2, 3, 4], "attack_e": [3, 4], "attack_e2": [0, 1, 2, 3, 4], "skill": [1], "ult": [0, 2, 3, 4]}
 LEGISH = {C[k] for k in "01236"}
+LILAC = {C[k] for k in "78"}
 PINKS = {C[k] for k in "c9"}
 GROUND_Y = 81                    # the soles' cell row (pivot row 70 + 11)
 
@@ -192,39 +193,156 @@ def seg_dist(px_, py_, a, b):
     return math.hypot(px_ - ax - t * vx, py_ - ay - t * vy)
 
 
-def releg(d, frame, info, stand=True):
+def releg(d, frame, info):
     """Codex's legs out (see RELEG); the rest of the frame - head, torso, arms, claws, lashers - raised back to the
     standing height (League's lunge kept as the whole body's step forward, Codex's head_translation x), on the rig's
-    legs in the idle's stance."""
+    legs in the idle's stance, set under Codex's own belt (hip_shift)."""
     import evelynn_legs as LG
     tx, ty = info["head"]["head_translation"]
     paths = info["head"]["lasher_paths"]
     waist = LG.HIP_Y + ty
-    hips = [(LG.HIP_NEAR[0] + tx, LG.HIP_NEAR[1] + ty), (LG.HIP_FAR[0] + tx, LG.HIP_FAR[1] + ty)]
     out = frame.copy()
     H, W = frame.shape[:2]
+    claw = claws(frame)
     for y in range(waist, H):
         for x in range(W):
             if not frame[y, x, 3]:
                 continue
-            cx, cy = x + 0.5, y + 0.5
-            lash = any(seg_dist(cx, cy, a, b) <= 2.5 for p in paths for a, b in zip(p, p[1:])) or                 any(math.hypot(cx - p[-1][0] - 0.5, cy - p[-1][1] - 0.5) <= 4.5 for p in paths)
             col = tuple(int(v) for v in frame[y, x, :3])
-            thigh = any(abs(cx - hx) <= 3.5 and hy <= cy < hy + 8 for hx, hy in hips)
-            if not lash and (col in LEGISH or (col in PINKS and thigh)):
+            if on_lasher(x + 0.5, y + 0.5, col, paths):
+                continue
+            # the legs' colours, pink that is no claw (Codex's thighs and knees, wherever it moved them) and lilac off
+            # the lashers (the idle's front-lasher curl Codex left on the far leg it moved)
+            if col in LEGISH or (col in PINKS and not claw[y, x]) or col in LILAC:
                 out[y, x] = 0
     up = ty - CELL_DY                                  # rows Codex lowered the body
+    raised = np.zeros_like(out)
+    paste(raised, out, 0, -up)
+    sx, sy = hip_shift(d, raised, tx)
+    if sy:
+        moved = np.zeros_like(raised)
+        paste(moved, raised, 0, -sy)
+        raised = moved
     can = np.zeros_like(frame)
     tex, ft = LG.texture(d), LG.foot(d)
-    sy = CELL_DY                                       # the legs stand where the idle's do
-    hip_n = (LG.HIP_NEAR[0] + tx, LG.HIP_NEAR[1] + sy)
-    hip_f = (LG.HIP_FAR[0] + tx, LG.HIP_FAR[1] + sy)
-    LG.draw(can, tex, ft, hip_f, (LG.STAND_FAR[0] + tx, LG.STAND_FAR[1] + sy))
+    hx = tx + sx
+    hip_n = (LG.HIP_NEAR[0] + hx, LG.HIP_NEAR[1] + CELL_DY)
+    hip_f = (LG.HIP_FAR[0] + hx, LG.HIP_FAR[1] + CELL_DY)
+    LG.draw(can, tex, ft, hip_f, (LG.STAND_FAR[0] + hx, LG.STAND_FAR[1] + CELL_DY))
     crotch = region(d, lambda x, y: LG.HIP_Y <= y <= LG.HIP_Y + 2 and 59 <= x <= 62)
-    paste(can, crotch, tx, sy)
-    LG.draw(can, tex, ft, hip_n, (LG.STAND_NEAR[0] + tx, LG.STAND_NEAR[1] + sy))
-    paste(can, out, 0, -up)
+    paste(can, crotch, hx, CELL_DY)
+    LG.draw(can, tex, ft, hip_n, (LG.STAND_NEAR[0] + hx, LG.STAND_NEAR[1] + CELL_DY))
+    paste(can, hips_cleared(raised, hip_n, hip_f, paths, up + sy), 0, 0)
     return crumbs_off(can)
+
+
+LASH_COL = {C[k] for k in "0125678"}
+
+
+def on_lasher(cx, cy, col, paths):
+    """A square of Codex's lashers: a lasher colour within reach of a lasher path past its first 4 squares (the paths
+    start inside the hips, where the hip block's own squares would pass), or near the path's end (the blade)."""
+    if col not in LASH_COL:
+        return False
+    for p in paths:
+        cut = trim(p, 4.0)
+        if any(seg_dist(cx, cy, a, b) <= 2.5 for a, b in zip(cut, cut[1:])):
+            return True
+        if math.hypot(cx - p[-1][0] - 0.5, cy - p[-1][1] - 0.5) <= 4.5:
+            return True
+    return False
+
+
+def trim(path, n):
+    """The polyline without its first n squares of length."""
+    out, left = [], n
+    for a, b in zip(path, path[1:]):
+        L = math.hypot(b[0] - a[0], b[1] - a[1])
+        if not out and left >= L:
+            left -= L
+            continue
+        if not out:
+            t = left / L if L else 0
+            out.append((a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t))
+        out.append(b)
+    return out if len(out) >= 2 else list(path[-2:])
+
+
+def hip_shift(d, raised, tx):
+    """Where Codex left the design's lower torso (rows 81-84, columns 55-64: the belt and the rows over it) in the raised
+    frame, from where its head went: the (dx, dy) with the most squares of the same colour - Codex moved its torso apart
+    from the head in some lunges (ult 4: three columns left)."""
+    tpl = [(x, y, tuple(int(v) for v in d[y, x, :3])) for y in range(81, 85) for x in range(55, 65) if d[y, x, 3]]
+    best = (-1, 0, 0)
+    for dy in range(-2, 3):
+        for dx in range(-6, 7):
+            hit = 0
+            for x, y, c in tpl:
+                X, Y = x + tx + dx, y + CELL_DY + dy
+                if 0 <= X < raised.shape[1] and 0 <= Y < raised.shape[0] and raised[Y, X, 3] and \
+                        tuple(int(v) for v in raised[Y, X, :3]) == c:
+                    hit += 1
+            if hit > best[0] or (hit == best[0] and abs(dx) + abs(dy) < abs(best[1]) + abs(best[2])):
+                best = (hit, dx, dy)
+    return (best[1], best[2]) if best[0] >= len(tpl) * 0.35 else (0, 0)
+
+
+CLAW_TIP = {C[k] for k in "gf"}
+
+
+def claws(f):
+    """Squares of the claws: pink pieces (c, 9, g, f; 4-connected) that hold a claw tip (g, f) - thighs and knees have
+    none."""
+    H, W = f.shape[:2]
+    pink = np.zeros((H, W), bool)
+    for y in range(H):
+        for x in range(W):
+            if f[y, x, 3] and tuple(int(v) for v in f[y, x, :3]) in (PINKS | CLAW_TIP):
+                pink[y, x] = True
+    lab, n = G.label(pink)
+    out = np.zeros((H, W), bool)
+    for i in range(1, n + 1):
+        ys, xs = np.nonzero(lab == i)
+        if any(tuple(int(v) for v in f[y, x, :3]) in CLAW_TIP for y, x in zip(ys, xs)):
+            out[lab == i] = True
+    return out
+KEEP_HUE = {C[k] for k in "4578"}                  # sleeves, violet, lilac: never leg or hip material
+
+
+def hips_cleared(raised, hip_n, hip_f, paths, up):
+    """Codex's own hips and thigh tops off the raised frame, where the rig's hips and thighs now are (left in, its pink
+    thigh tops stuck out beside the rig's: the user, 「这里凸出来的是什么」, ult 4). In a box round the rig's hips from
+    three rows over the belt down, a square stays when it is on Codex's lashers, a sleeve or violet colour, or on a
+    claw - a pink piece that has a claw tip (g, f) - or touches one; under the belt every other square goes, over it
+    only pink without a tip."""
+    import evelynn_legs as LG
+    out = raised.copy()
+    H, W = out.shape[:2]
+    belt = LG.HIP_Y + CELL_DY
+    x0, x1 = int(min(hip_n[0], hip_f[0])) - 7, int(max(hip_n[0], hip_f[0])) + 10
+    y0 = belt - 3
+    pink = np.zeros((H, W), bool)
+    for y in range(H):
+        for x in range(W):
+            if out[y, x, 3] and tuple(int(v) for v in out[y, x, :3]) in (PINKS | CLAW_TIP):
+                pink[y, x] = True
+    claw = claws(out)
+    near_claw = claw.copy()
+    near_claw[1:] |= claw[:-1]
+    near_claw[:-1] |= claw[1:]
+    near_claw[:, 1:] |= claw[:, :-1]
+    near_claw[:, :-1] |= claw[:, 1:]
+    for y in range(max(0, y0), H):
+        for x in range(max(0, x0), min(W, x1)):
+            if not out[y, x, 3]:
+                continue
+            col = tuple(int(v) for v in out[y, x, :3])
+            if on_lasher(x + 0.5, y + 0.5 + up, col, paths) or col in KEEP_HUE or near_claw[y, x]:
+                continue
+            if y < belt and not (pink[y, x] and not claw[y, x]):
+                continue                                   # over the belt only the thigh tops go
+            out[y, x] = 0
+    return out
 
 
 def crumbs_off(f, keep=12):
@@ -372,6 +490,10 @@ def build():
             frs = [releg(d, f, man["animations"][tag]["frames"][k]) if k in RELEG[tag] else f for k, f in enumerate(frs)]
         if tag in ("hit", "skill2", "dead"):
             frs = [restore_back_lasher(d, f, rows[k]["pivot"][0]) if (tag, k) in BAR else f for k, f in enumerate(frs)]
+        if tag == "dead":
+            # 2 holds 1's stagger: Codex's 2 stood on a stick leg, and on the rig's legs its hanging claw ran into the
+            # thigh as one pink lump
+            frs[1] = np.roll(frs[0], rows[1]["pivot"][0] - rows[0]["pivot"][0], axis=1)
         frs = [plugged(f, rows[k]["pivot"][1]) for k, f in enumerate(frs)]
         out[tag] = sheet_of(frs, cw, ch)
     return out
