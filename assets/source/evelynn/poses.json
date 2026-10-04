@@ -1,0 +1,309 @@
+{
+ "hero": "evelynn",
+ "champ": "Evelynn",
+ "camera": {
+  "yaw": 60,
+  "pitch": 20,
+  "mirror": true
+ },
+ "chibi": {
+  "head": 2.4,
+  "legs": 0.8
+ },
+ "height": 40,
+ "cell": [
+  128,
+  96,
+  14
+ ],
+ "hide_submeshes": true,
+ "opaque": true,
+ "design": "evelynn_idle01@3000",
+ "tags": {
+  "idle": {
+   "frames": [
+    [
+     "evelynn_idle01@3000",
+     200
+    ],
+    [
+     "evelynn_idle01@3000",
+     200
+    ],
+    [
+     "evelynn_idle01@3000",
+     200
+    ],
+    [
+     "evelynn_idle01@3000",
+     200
+    ],
+    [
+     "evelynn_idle01@3000",
+     200
+    ],
+    [
+     "evelynn_idle01@3000",
+     200
+    ]
+   ]
+  },
+  "run": {
+   "head_like": "evelynn_idle01@3000",
+   "frames": [
+    [
+     "evelynn_run@0",
+     125
+    ],
+    [
+     "evelynn_run@125",
+     125
+    ],
+    [
+     "evelynn_run@250",
+     125
+    ],
+    [
+     "evelynn_run@375",
+     125
+    ],
+    [
+     "evelynn_run@500",
+     125
+    ],
+    [
+     "evelynn_run@625",
+     125
+    ],
+    [
+     "evelynn_run@750",
+     125
+    ],
+    [
+     "evelynn_run@875",
+     125
+    ]
+   ]
+  },
+  "attack": {
+   "lunge": 0.4,
+   "release": 4,
+   "frames": [
+    [
+     "evelynn_idle01@3000>evelynn_attack3@60:0.5",
+     50
+    ],
+    [
+     "evelynn_attack3@112",
+     50
+    ],
+    [
+     "evelynn_attack3@225",
+     60
+    ],
+    [
+     "evelynn_attack3@338",
+     70
+    ],
+    [
+     "evelynn_attack3@450",
+     80
+    ],
+    [
+     "evelynn_attack3@600>evelynn_idle01@3000:0.5",
+     90
+    ]
+   ]
+  },
+  "attack_e": {
+   "lunge": 0.4,
+   "release": 4,
+   "frames": [
+    [
+     "evelynn_idle01@3000>evelynn_crit@60:0.5",
+     50
+    ],
+    [
+     "evelynn_crit@150",
+     50
+    ],
+    [
+     "evelynn_crit@225",
+     60
+    ],
+    [
+     "evelynn_crit@338",
+     70
+    ],
+    [
+     "evelynn_crit@450",
+     70
+    ],
+    [
+     "evelynn_crit@600>evelynn_idle01@3000:0.5",
+     70
+    ]
+   ]
+  },
+  "attack_e2": {
+   "lunge": 0.5,
+   "release": 4,
+   "frames": [
+    [
+     "evelynn_spell3_empowered@0",
+     50
+    ],
+    [
+     "evelynn_spell3_empowered@100",
+     50
+    ],
+    [
+     "evelynn_spell3_empowered@200",
+     60
+    ],
+    [
+     "evelynn_spell3_empowered@330",
+     60
+    ],
+    [
+     "evelynn_spell3_empowered@450",
+     70
+    ],
+    [
+     "evelynn_spell3_empowered@600",
+     70
+    ]
+   ]
+  },
+  "skill": {
+   "lunge": 0.3,
+   "release": 3,
+   "frames": [
+    [
+     "evelynn_idle01@3000>evelynn_spell1@100:0.5",
+     50
+    ],
+    [
+     "evelynn_spell1@200",
+     50
+    ],
+    [
+     "evelynn_spell1@330",
+     60
+    ],
+    [
+     "evelynn_spell1@450",
+     60
+    ],
+    [
+     "evelynn_spell1@650>evelynn_idle01@3000:0.5",
+     70
+    ]
+   ]
+  },
+  "skill2": {
+   "lunge": 0.3,
+   "release": 2,
+   "frames": [
+    [
+     "evelynn_idle01@3000>evelynn_spell2@100:0.5",
+     70
+    ],
+    [
+     "evelynn_spell2@250",
+     70
+    ],
+    [
+     "evelynn_spell2@400",
+     70
+    ],
+    [
+     "evelynn_spell2@560>evelynn_idle01@3000:0.5",
+     70
+    ]
+   ]
+  },
+  "ult": {
+   "lunge": 0.3,
+   "release": 3,
+   "frames": [
+    [
+     "evelynn_idle01@3000>evelynn_spell4@0:0.5",
+     70
+    ],
+    [
+     "evelynn_spell4@150",
+     70
+    ],
+    [
+     "evelynn_spell4@300",
+     70
+    ],
+    [
+     "evelynn_spell4@450",
+     80
+    ],
+    [
+     "evelynn_spell4@600",
+     80
+    ],
+    [
+     "evelynn_spell4@780",
+     80
+    ]
+   ]
+  },
+  "hit": {
+   "frames": [
+    [
+     "evelynn_idle01@3000>evelynn_death@300:0.35",
+     100
+    ],
+    [
+     "evelynn_idle01@3000>evelynn_death@300:0.15",
+     100
+    ]
+   ]
+  },
+  "dead": {
+   "anchor": "first",
+   "lunge": 0.3,
+   "flat": true,
+   "travel": 0.2,
+   "frames": [
+    [
+     "evelynn_death@0",
+     110
+    ],
+    [
+     "evelynn_death@250",
+     110
+    ],
+    [
+     "evelynn_death@500",
+     110
+    ],
+    [
+     "evelynn_death@750",
+     110
+    ],
+    [
+     "evelynn_death@1000",
+     110
+    ],
+    [
+     "evelynn_death@1300",
+     110
+    ],
+    [
+     "evelynn_death@1700",
+     110
+    ],
+    [
+     "evelynn_death@2200",
+     110
+    ]
+   ]
+  }
+ }
+}

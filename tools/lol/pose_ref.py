@@ -233,6 +233,24 @@ def diffuse_textures(paths, skin_bin=None, skn=None):
     return found
 
 
+def skin_textures(w, champ, skin_bin, skn):
+    """(colour maps, every texture path) of the base skin. Evelynn's skin bin names no colour map: her materials sit in
+    the shared bins it links (DATA/Characters/Evelynn/Evelynn_Multi_Skins_*.bin, `Evelynn_base_CM_TX3_V03.tex`), and her
+    stealth look (`..._CM_TX3_Shade`) sorts before the plain map."""
+    refs = lambda blob, ext: sorted(set(m.decode("latin1") for m in re.findall(rb"[A-Za-z0-9_/\.\-]+\." + ext, blob)))
+    paths = refs(skin_bin, rb"(?:tex|dds)")
+    texs = diffuse_textures(paths, skin_bin, skn)
+    if texs:
+        return texs, paths
+    for link in refs(skin_bin, rb"bin"):
+        if link.lower().startswith(f"data/characters/{champ.lower()}/") and "/animations/" not in link.lower():
+            try:
+                paths = sorted(set(paths) | set(refs(w.read_path(link.lower()), rb"(?:tex|dds)")))
+            except Exception:
+                pass
+    return sorted(diffuse_textures(paths, None, None), key=lambda p: "shade" in p.lower()), paths
+
+
 def base_mesh(paths):
     """The base skin's own .skn / .skl among the paths a skin bin names. Taric's bin also names a particle mesh
     (`Skins/Base/Particles/Taric_Base_W_cas_anim.skn`, three gems) that sorts before `Taric.skn`. The folder is
@@ -574,6 +592,8 @@ def main():
                          "(w = weight of clipB); clip = .anm name without extension. Needs --name")
     ap.add_argument("--name", help="file name (without .png) of the --frame strip")
     ap.add_argument("--hq", action="store_true", help="per-pixel textured render (clearer face and trim; slower)")
+    ap.add_argument("--opaque", action="store_true",
+                    help="ignore the colour map's alpha (Evelynn's holds a glow mask, not cut-outs: 93%% of it is < 128)")
     ap.add_argument("--head", type=float, default=1.0,
                     help="scale the head (about 2 gives the big-headed TFM2 proportions)")
     ap.add_argument("--legs", type=float, default=1.0, help="scale each leg from the hip down (TFM2: about 0.8)")
@@ -607,7 +627,7 @@ def main():
     refs = lambda blob, ext: sorted(set(m.decode("latin1") for m in re.findall(rb"[A-Za-z0-9_/\.\-]+\." + ext, blob)))
     skn = base_mesh(refs(skin_bin, rb"skn"))
     skl = base_mesh(refs(skin_bin, rb"skl"))
-    texs = diffuse_textures(refs(skin_bin, rb"(?:tex|dds)"), skin_bin, skn)
+    texs, tex_paths = skin_textures(w, champ, skin_bin, skn)
     skn_bytes = w.read_path(skn.lower())
     tris, verts = read_skn(skn_bytes)
     if args.hide_submeshes:
@@ -618,11 +638,13 @@ def main():
     joints, influences = read_skl(w.read_path(skl.lower()))
     influences, hair_re = keep_parts(joints, influences, verts, {k: float(r) for k, r in (x.split(":") for x in args.keep)})
     tex = read_tex(w.read_path(texs[0].lower())) if texs else Image.new("RGB", (4, 4), (180, 180, 180))
+    if args.opaque:
+        tex = tex.convert("RGB").convert("RGBA")
     tri_tex = None
     if args.submesh_texture:
         pairs = [x.split("=", 1) for x in args.submesh_texture]
         stems = list(dict.fromkeys(t for _, t in pairs))
-        paths = refs(skin_bin, rb"(?:tex|dds)")
+        paths = tex_paths
         maps = [tex] + [read_tex(w.read_path(next(q for q in paths if t.lower() in q.lower()).lower())) for t in stems]
         vmap = submesh_vertex_maps(skn_bytes, len(verts), [({n for n, t in pairs if t == stem}, k + 1)
                                                            for k, stem in enumerate(stems)])

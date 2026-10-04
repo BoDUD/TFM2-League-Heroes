@@ -378,6 +378,13 @@
         "skill": "扔出三张牌，沿途每个敌人受到<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<><#a974ffff>魔法伤害<>。出手前方向就已锁定，可以躲开。",
         "skill2": "头顶蓝、红、金牌轮换，转到想要的就锁定，下次普攻扔出（另加<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>）：<#ff9028ff>蓝牌<><#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>，技能冷却减半；<#ff9028ff>红牌<>目标周围<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>并<#ef5350ff>减速<>；<#ff9028ff>金牌<><#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>并<#ef5350ff>眩晕1.67秒<>。",
         "ult": "<#ff9028ff>命运<>：所有敌方英雄头顶出现标记。<#ff9028ff>传送之门<>：引导<#ffb900ff>1.5秒<>（被控打断）后传到远处队友正在打的敌方英雄身边，落地锁定<#ff9028ff>金牌<>。身边没有敌人时才会用。"
+      },
+      "league_evelynn": {
+        "name": "伊芙琳",
+        "attack": "鞭子攻击。<#ff9028ff>恶魔魅影<>：<#ffb900ff>4秒<>不出手（引诱除外）进入魅影：回血，5级起隐身。<#ff9028ff>鞭笞<>：每<#ffb900ff>8秒<>普攻变鞭打，额外<#a974ffff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>和<#ffffffff>3%<>最大生命伤害并加速；出魅影后的第一鞭冲向目标、打穿沿途。",
+        "skill": "鞭子打中第一个敌人，造成<#a974ffff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<><#a974ffff>魔法伤害<>，她接下来3次普攻各多<#a974ffff>15<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>。随后自动射出3根尖刺（优先英雄），各对一条线上的敌人造成<#a974ffff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>。",
+        "skill2": "给一名敌人（优先英雄）挂印记，施放不会现形。<#ffb900ff>2.5秒<>后她下一次打中就<#ef5350ff>魅惑<>：英雄<#ffb900ff>1.25秒<>并削减<#a974ffff>35%魔抗<>，野怪<#ffb900ff>3秒<>并受到<#a974ffff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>。",
+        "ult": "就绪后等她连续打中英雄或被围时释放：前方扇形<#a974ffff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<><#a974ffff>魔法伤害<>，最近每打中英雄一次+<#ffb900ff>35%<>（最多×2.4），期间<#ef5350ff>不可选中<>并向后闪，随后很快重回魅影。"
       }
     },
     "skill_name": {
@@ -650,6 +657,11 @@
         "skill1": "万能牌",
         "skill2": "选牌",
         "ult": "命运"
+      },
+      "league_evelynn": {
+        "skill1": "憎恨之刺",
+        "skill2": "引诱",
+        "ult": "最终抚慰"
       }
     }
   },
@@ -1032,6 +1044,13 @@
         "skill": "擲出三張牌，沿途每個敵人受到<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<><#a974ffff>魔法傷害<>。出手前方向已鎖定，可以閃開。",
         "skill2": "頭頂藍、紅、金牌輪換，轉到想要的就鎖定，下次普攻擲出（另加<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>）：<#ff9028ff>藍牌<><#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>，技能冷卻減半；<#ff9028ff>紅牌<>目標周圍<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>並<#ef5350ff>緩速<>；<#ff9028ff>金牌<><#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>並<#ef5350ff>暈眩1.67秒<>。",
         "ult": "<#ff9028ff>命運<>：所有敵方英雄頭頂出現標記。<#ff9028ff>傳送之門<>：引導<#ffb900ff>1.5秒<>（被控打斷）後傳到遠處隊友正在打的敵方英雄身邊，落地鎖定<#ff9028ff>金牌<>。身邊沒有敵人時才會使用。"
+      },
+      "league_evelynn": {
+        "name": "伊芙琳",
+        "attack": "鞭擊。<#ff9028ff>魔魅之影<>：<#ffb900ff>4秒<>未出手（咒慾迷塵除外）進入魔魅之影：回復生命，5級起隱身。<#ff9028ff>奪魂鞭索<>：每<#ffb900ff>8秒<>普攻變為鞭打，額外<#a974ffff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>與<#ffffffff>3%<>最大生命傷害並加速；離開魔魅之影後第一鞭衝向目標、擊穿沿途。",
+        "skill": "鞭子擊中第一個敵人，造成<#a974ffff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<><#a974ffff>魔法傷害<>，接下來3次普攻各多<#a974ffff>15<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>。隨後自動射出3根尖刺（優先英雄），各對一條線上的敵人造成<#a974ffff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>。",
+        "skill2": "為一名敵人（優先英雄）施加印記，施放不會現形。<#ffb900ff>2.5秒<>後她下一次擊中即<#ef5350ff>魅惑<>：英雄<#ffb900ff>1.25秒<>並削減<#a974ffff>35%魔抗<>，野怪<#ffb900ff>3秒<>並受到<#a974ffff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>。",
+        "ult": "就緒後待她連續擊中英雄或被包圍時施放：前方扇形<#a974ffff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<><#a974ffff>魔法傷害<>，最近每擊中英雄一次+<#ffb900ff>35%<>（最多×2.4），期間<#ef5350ff>無法被選取<>並向後閃，隨後很快重回魔魅之影。"
       }
     },
     "skill_name": {
@@ -1304,6 +1323,11 @@
         "skill1": "萬能牌",
         "skill2": "選牌",
         "ult": "命運"
+      },
+      "league_evelynn": {
+        "skill1": "憎恨尖刺",
+        "skill2": "咒慾迷塵",
+        "ult": "殘戮收割"
       }
     }
   },
@@ -1686,6 +1710,13 @@
         "skill": "Twisted Fate throws three cards, dealing <#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<> <#a974ffff>magic damage<> to each enemy they pass through. The aim is set as he throws, so they can be dodged.",
         "skill2": "Blue, red and gold cards cycle over his head; he locks the one he wants as it comes up and his next attack throws it (plus <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<>): <#ff9028ff>Blue<> <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<> and halves his spell cooldowns; <#ff9028ff>Red<> <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> around the target and <#ef5350ff>slows<>; <#ff9028ff>Gold<> <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> and <#ef5350ff>stuns<> for <#ffb900ff>1.67s<>.",
         "ult": "<#ff9028ff>Destiny<>: every enemy champion is marked. <#ff9028ff>Gate<>: after a <#ffb900ff>1.5s<> channel (crowd control breaks it) he teleports beside a distant enemy champion his team is fighting and lands with a <#ff9028ff>Gold Card<> locked. Used only when no enemy is near him."
+      },
+      "league_evelynn": {
+        "name": "Evelynn",
+        "attack": "Lashes. <#ff9028ff>Demon Shade<>: after <#ffb900ff>4s<> without attacks or spells (Allure excepted) she regenerates and, from level 5, is camouflaged. <#ff9028ff>Whiplash<>: every <#ffb900ff>8s<> her attack whips for <#a974ffff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> and <#ffffffff>3%<> max health and speeds her up; out of the Shade it dashes to the target, hitting all in between.",
+        "skill": "Her lasher hits the first enemy for <#a974ffff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<> <#a974ffff>magic damage<> and her next 3 attacks deal <#a974ffff>15<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> more. Then 3 spikes fire by themselves (champions first), each dealing <#a974ffff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<> to the enemies on its line.",
+        "skill2": "Marks an enemy (champions first) without breaking her Shade. After <#ffb900ff>2.5s<> her next hit <#ef5350ff>charms<> it: champions <#ffb900ff>1.25s<> and <#a974ffff>-35% magic resist<>, monsters <#ffb900ff>3s<> and <#a974ffff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>.",
+        "ult": "Readied, cast once she has hit champions a few times or is surrounded: a cone of <#a974ffff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<> <#a974ffff>magic damage<>, +<#ffb900ff>35%<> for each recent champion hit (up to x2.4); she is <#ef5350ff>untargetable<>, warps back and soon returns to the Shade."
       }
     },
     "skill_name": {
@@ -1958,6 +1989,11 @@
         "skill1": "Wild Cards",
         "skill2": "Pick a Card",
         "ult": "Destiny"
+      },
+      "league_evelynn": {
+        "skill1": "Hate Spike",
+        "skill2": "Allure",
+        "ult": "Last Caress"
       }
     }
   },
@@ -2340,6 +2376,13 @@
         "skill": "카드 세 장을 던져 지나가는 모든 적에게 <#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>의 <#a974ffff>마법 피해<>를 입힙니다. 던지기 전에 방향이 정해져 피할 수 있습니다.",
         "skill2": "머리 위에서 파랑·빨강·골드 카드가 바뀌고 원하는 카드가 나오면 고정해 다음 기본 공격으로 던집니다(추가 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<>): <#ff9028ff>파랑<> <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>, 스킬 재사용 대기시간 절반; <#ff9028ff>빨강<> 대상 주변 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> + <#ef5350ff>둔화<>; <#ff9028ff>골드<> <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> + <#ffb900ff>1.67초<> <#ef5350ff>기절<>.",
         "ult": "<#ff9028ff>운명<>: 모든 적 챔피언 머리 위에 표식. <#ff9028ff>관문<>: <#ffb900ff>1.5초<> 정신 집중(군중 제어에 끊김) 후 아군이 싸우고 있는 먼 적 챔피언 곁으로 순간이동하고, 착지하면 <#ff9028ff>골드 카드<>를 고정합니다. 주변에 적이 없을 때만 사용합니다."
+      },
+      "league_evelynn": {
+        "name": "이블린",
+        "attack": "채찍 공격. <#ff9028ff>악의 장막<>: <#ffb900ff>4초<> 동안 공격·스킬을 쓰지 않으면(황홀한 저주 제외) 체력이 회복되고 5레벨부터 위장합니다. <#ff9028ff>채찍유린<>: <#ffb900ff>8초<>마다 기본 공격이 채찍질이 되어 <#a974ffff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>와 최대 체력의 <#ffffffff>3%<> 피해를 주고 빨라집니다. 장막 직후엔 대상에게 돌진하며 경로의 적을 모두 칩니다.",
+        "skill": "채찍이 첫 적에게 <#a974ffff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>의 <#a974ffff>마법 피해<>를 주고 다음 기본 공격 3회가 <#a974ffff>15<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> 더 강해집니다. 이어서 가시 3개가 자동 발사되어(챔피언 우선) 직선상의 적에게 각각 <#a974ffff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>.",
+        "skill2": "적 하나(챔피언 우선)에 표식을 남기며 장막이 풀리지 않습니다. <#ffb900ff>2.5초<> 뒤 다음 공격이 적중하면 <#ef5350ff>매혹<>: 챔피언 <#ffb900ff>1.25초<> + <#a974ffff>마법 저항력 35% 감소<>, 몬스터 <#ffb900ff>3초<> + <#a974ffff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>.",
+        "ult": "준비된 뒤 챔피언을 여러 번 맞히거나 포위되면 시전: 전방 부채꼴에 <#a974ffff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<>의 <#a974ffff>마법 피해<>, 최근 챔피언 적중마다 +<#ffb900ff>35%<>(최대 x2.4). <#ef5350ff>대상으로 지정 불가<> 상태로 뒤로 순간이동하고 곧 장막에 들어갑니다."
       }
     },
     "skill_name": {
@@ -2612,6 +2655,11 @@
         "skill1": "와일드 카드",
         "skill2": "카드 뽑기",
         "ult": "운명"
+      },
+      "league_evelynn": {
+        "skill1": "증오의 가시",
+        "skill2": "황홀한 저주",
+        "ult": "최후의 포옹"
       }
     }
   },
@@ -2994,6 +3042,13 @@
         "skill": "カードを3枚投げ、通り抜けた敵すべてに<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>の<#a974ffff>魔法ダメージ<>。投げる前に方向が決まるので避けられる。",
         "skill2": "頭上で青・赤・金のカードが切り替わり、欲しいカードで止め次の通常攻撃で投げる(<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力100%<>追加)：<#ff9028ff>青<><#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>、スキルCD半減；<#ff9028ff>赤<>対象周囲に<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>と<#ef5350ff>スロウ<>；<#ff9028ff>金<><#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>と<#ffb900ff>1.67秒<><#ef5350ff>スタン<>。",
         "ult": "<#ff9028ff>デスティニー<>：敵チャンピオン全員に印。<#ff9028ff>ゲート<>：<#ffb900ff>1.5秒<>詠唱(行動妨害で中断)後、味方が戦う遠くの敵チャンピオンの側へテレポートし、着地で<#ff9028ff>ゴールドカード<>を確定。近くに敵がいない時だけ使う。"
+      },
+      "league_evelynn": {
+        "name": "イブリン",
+        "attack": "鞭で攻撃。<#ff9028ff>妖魔の影<>：<#ffb900ff>4秒<>攻撃もスキルもしないと(アリュール除く)影に入り体力回復、レベル5からカモフラージュ。<#ff9028ff>ウィップラッシュ<>：<#ffb900ff>8秒<>ごとに通常攻撃が鞭打ちになり<#a974ffff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>と最大体力の<#ffffffff>3%<>、移動速度上昇。影の直後は対象へ突進し途中の敵も打つ。",
+        "skill": "鞭が最初の敵に<#a974ffff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>の<#a974ffff>魔法ダメージ<>、次の通常攻撃3回は<#a974ffff>15<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>追加。続けて棘を3本自動で放ち(チャンピオン優先)、直線上の敵に各<#a974ffff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>。",
+        "skill2": "敵1体(チャンピオン優先)に印をつける。影は解けない。<#ffb900ff>2.5秒<>後の次の攻撃で<#ef5350ff>魅了<>：チャンピオン<#ffb900ff>1.25秒<>と<#a974ffff>魔法防御-35%<>、モンスター<#ffb900ff>3秒<>と<#a974ffff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>。",
+        "ult": "準備後、チャンピオンに何度か当てるか囲まれると発動：前方扇形に<#a974ffff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<>の<#a974ffff>魔法ダメージ<>、最近のチャンピオン命中ごとに+<#ffb900ff>35%<>(最大x2.4)。<#ef5350ff>対象指定不可<>で後方へ移動し、すぐ影に戻る。"
       }
     },
     "skill_name": {
@@ -3266,6 +3321,11 @@
         "skill1": "ワイルドカード",
         "skill2": "ドロー",
         "ult": "デスティニー"
+      },
+      "league_evelynn": {
+        "skill1": "ヘイトスパイク",
+        "skill2": "アリュール",
+        "ult": "ラストカレス"
       }
     }
   }
