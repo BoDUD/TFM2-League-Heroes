@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.52.0"
+    }
+  ],
+  "description": "Optional add-on for League of Legends Heroes: Kayn's passive The Darkin Scythe as in League. Damaging melee champions charges the Darkin, ranged champions the Shadow Assassin (by each champion's attack range); the first full side transforms him and the form stays for the whole match, deaths included. Without it the main pack's Kayn works on its own (spell hits next to him charge the Darkin, a W reaching only far champions the Shadow Assassin, the form for one life). Writes a log for testing.",
+  "last_updated": "2026-10-04",
+  "mod_id": "league_kayn_form",
+  "mod_type": "native",
+  "name": "League Heroes: Kayn Darkin Scythe",
+  "version": "0.1.0"
+}
