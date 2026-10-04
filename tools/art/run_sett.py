@@ -13,18 +13,21 @@ Sivir's run (tools/art/rig_sivir_run.py, the version the user approved: 「新�
   - the legs: each foot placed along the run cycle (ahead on the contact, drawn back under the body, off the toe,
     kicked up behind, swung through, reaching), the knee solved forward, both the design's length and width in the
     trousers' shades with the gold stripe and the design's shoe (strips_sett.leg), the hips where the design's are;
-  - the arms pump as League's run does (Sett_Run: both elbows bent, the fists at the waist, one ahead, one back), from
-    the design's own squares: the upper arms stay in the body as the design has them; each gauntlet with its fist
-    either hangs as the design's (back) or is bent level ahead of the elbow (the gauntlet mirrored over its diagonal:
-    a quarter turn that keeps the light on top, nothing resampled), the near one ahead while the far foot leads, the
-    far one the other way. Where a fist crosses the coat or a leg it is outlined in black, as the design outlines its
-    fist; where it lies over the design's body the edge is the darkest colour beside it, as the design's inner lines.
-    The design's outline round its gaps (between the near arm and the coat) takes the darkest colour beside it once the
-    coat fills the gap. Earlier versions failed: the arms drawn as lines in the skin's and the bandage's shades
-    (「瑟提走路时手臂变形」); the design's arms turned at the shoulder and the elbow by RotSprite (the far arm reached out
-    like a stick, the gauntlets crooked: 「还是不对啊」「歪的？？」); the upper arms' rows moved with the gauntlets (holes
-    closed as black lines and notches: 「肚子上有一条黑线 还有右手臂比左手臂细？」「手臂那里还有一块凹进去的」); the arms
-    hanging straight with the fists moved a square (「你看看对吗 走路时手和手臂错误」);
+  - the arms swing as League's run swings them (Sett_Run: the near arm back while the near foot leads, ahead while the
+    far foot does; the far arm the other way; the elbows always bent) and as Ryze's approved run poses its arms
+    (tools/art/ryze_arms.py): each arm is the design's own squares in two bones - the upper arm (skin, the bandage at
+    the elbow) and the forearm (the gold gauntlet and the fist) - each bone sheared row by row toward its angle within
+    45 degrees of hanging, quarter-turned with its lit side up past that, foreshortened by dropping rows where it
+    points at the camera, the elbow's corner closed; nothing is resampled or turned by a fraction of a quarter. What an
+    arm uncovers is painted with what lies behind it (the coat's side, the mane at its back edge, the far flank's
+    shade); the near arm is drawn over the body, the far arm behind the body and over the far leg, each outlined in
+    black where it crosses a leg or the coat; above the belt no black stays inside the figure (design_sett.clean, as
+    the design: 「去掉身体上没用的黑色素」). Earlier versions failed: the arms drawn as lines in the skin's and the
+    bandage's shades (「瑟提走路时手臂变形」); the arms turned at the shoulder and the elbow by RotSprite (the far arm
+    reached out like a stick, the gauntlets crooked: 「还是不对啊」「歪的？？」); the upper arms' rows moved with the
+    gauntlets and their holes left unpainted (black lines and notches: 「肚子上有一条黑线 还有右手臂比左手臂细？」
+    「手臂那里还有一块凹进去的」); the arms hanging straight (「走路时手和手臂错误」); the gauntlets laid level at the
+    waist, melting into the belt and snapping between two poses (「手还是不对」「一坨屎」);
   - the coat's tails stream back from the waist behind the legs, the hem in gold, fluttering a square.
 """
 import argparse
@@ -53,110 +56,119 @@ ANKLE_ROW = 95.0                 # the shoe's top row (the soles' row 99)
 # one foot over the cycle (phase 0 = its contact): (ankle x from its hip, lift of the sole) - a shorter, heavier stride
 # than Sivir's (her 6 ahead / 7 behind read as a stiff A on his bulk)
 FOOT = [(4.5, 0), (2.0, 0), (-0.5, 0), (-3.0, 0), (-5.5, 1), (-5.0, 4.5), (-1.0, 4.5), (3.8, 1.8)]
-# the arms: the design's own, square for square (lines in the arm's colours read as deformed, as Ryze's did:
-# tools/art/fix_ryze_strips_v2.py RUN_POSE). The upper arms (skin, the bandage at the elbow) stay in the body as the
-# design has them (moving them left holes that closed as black lines and notches); only the forearms move - the gold
-# gauntlet and the fist, read off the design's material map (per row the columns), never turned by a fraction of a
-# quarter (「歪的？？」). The far forearm's bandage rows (79, 80) stay with its elbow, so only its gauntlet moves
-NEAR_FORE = {78: (52, 54), 79: (52, 54), 80: (52, 54), 81: (52, 54), 82: (52, 55), 83: (51, 55), 84: (51, 56),
-             85: (55, 56)}
-FAR_FORE = {79: (69, 71), 80: (69, 71), 81: (70, 73), 82: (70, 73), 83: (70, 74), 84: (69, 74), 85: (69, 74),
-            86: (69, 72)}
-FAR_WRIST = 81                   # the far forearm's first gauntlet row: the rows above it stay with the elbow
+# the design's arms, per row the columns (read off its material map): the upper arm (skin; the bandage at the elbow)
+# and the forearm (the gold gauntlet, the plum glove, the skin knuckles; the far one's bandage on top)
+NEAR_UP = {70: (55, 56), 71: (55, 57), 72: (54, 58), 73: (54, 57), 74: (54, 57), 75: (53, 57), 76: (55, 57),
+           77: (55, 57)}
+NEAR_FO = {78: (52, 57), 79: (52, 54), 80: (52, 54), 81: (52, 54), 82: (52, 55), 83: (51, 55), 84: (51, 56),
+           85: (55, 56)}
+FAR_UP = {74: (68, 70), 75: (68, 69), 76: (68, 70), 77: (68, 70)}
+FAR_FO = {78: (69, 70), 79: (69, 71), 80: (69, 71), 81: (70, 73), 82: (70, 73), 83: (70, 74), 84: (69, 74),
+          85: (69, 74), 86: (69, 72)}
+AXIS = {"near": (56, 55), "far": (69, 70)}      # the upper arm's and the forearm's axis columns
+SHOULDER = {"near": (56, 70), "far": (69, 74)}  # the upper arm's top row on its axis
 # the end of the mane's strand that hangs over the far arm's elbow, below the belt row: it stays with the body
 STRAND = ((72, 79), (72, 80))
-# over the cycle (frame 0 = the near foot's contact): each forearm hanging ("down", squares ahead) or bent level
-# ("fwd", squares ahead, rows down from its place at the elbow) - the near one back while its foot leads, ahead while
-# the far foot leads; the far one the other way; both hanging as the legs pass (frames 2 and 6)
-NEAR_POSE = [("down", -1), ("down", -1), ("down", 0), ("fwd", -1, 1), ("fwd", 0, 0), ("fwd", -1, 1), ("down", 0),
-             ("down", -1)]
-FAR_POSE = [("fwd", 0, 0), ("fwd", -1, 1), ("down", 0), ("down", -1), ("down", -1), ("down", -1), ("down", 0),
-            ("fwd", -1, 1)]
-# where a forearm bent forward sits: the top left of the gauntlet laid level (the design's turned a quarter, lossless)
-NEAR_FWD = (55, 75)
-FAR_FWD = (72, 78)
-ARMS = (NEAR_FORE, FAR_FORE)
+# the poses: (upper arm, forearm degrees from hanging, + ahead; forearm rows dropped as it points at the camera) -
+# B the back of the swing, Pb passing behind, Pf passing ahead, F the front of the swing
+POSES = {
+    "near": {"B": (-35, 0, ()), "Pb": (-15, 15, ()), "Pf": (0, 40, (1,)), "F": (12, 40, (1, 2))},
+    "far": {"B": (-20, 0, ()), "Pb": (-10, 10, ()), "Pf": (5, 30, (1,)), "F": (10, 75, (1, 2))},
+}
+# over the cycle (frame 0 = the near foot's contact), League's timing: the arms at their ends a frame before and on
+# each contact, passing quickly between
+NEAR_SCHED = ["B", "Pb", "Pf", "F", "F", "Pf", "Pb", "B"]
+FAR_SCHED = ["F", "Pf", "Pb", "B", "B", "Pb", "Pf", "F"]
 OUTLINE = "050302"
 COAT = ("451A2A", "340F1E", "1F0917")       # lit, mid, dark
 HEM = ("F7C414", "DF9704")
+SKIN_SHADE = "B06B44"
+MANE = {"531E8E", "3C1268", "290B42"}
 
 
 def rgba(h):
     return np.array((int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16), 255), np.uint8)
 
 
-def in_rows(rows, x, y):
-    return y in rows and rows[y][0] <= x <= rows[y][1]
-
-
-def upper_block(d):
-    """{(x, y): colour}: the design above the trousers without its forearms (only the near gauntlet's top row is that
-    high). Where it leaves the body as it swings, the body's colour next to it in the row: the mane behind it, the
-    bandage at the elbow; none where that is the outline."""
-    body = {}
-    for y in range(0, BELT + 1):
-        for x in range(d.shape[1]):
-            if d[y, x, 3] and not any(in_rows(a, x, y) for a in ARMS):
-                body[(x, y)] = d[y, x].copy()
-    for (x, y) in STRAND:
-        body[(x, y)] = d[y, x].copy()
-    fill = {}
-    for rows in (NEAR_FORE,):
-        for y, (a, b) in rows.items():
-            if y > BELT:
-                continue
-            for x in range(a, b + 1):
-                for n in range(1, 4):
-                    near = [c for c in (body.get((x - n, y)), body.get((x + n, y))) if c is not None]
-                    if near:
-                        if R.hexs(near[-1]) != OUTLINE:
-                            fill[(x, y)] = near[-1].copy()
-                        break
-    body.update(fill)
-    return body
-
-
-def fore(d, rows, dx, shift, wrist=0):
-    """The design's forearm as {(x, y): colour}, its rows from wrist down moved dx ahead (the rows above stay with the
-    elbow), all moved by shift (the lean and the bob)."""
-    cells = {}
+def cells_of(d, rows, outline=False):
+    """{(x, y): colour} of the design's squares in rows (its outline squares too only if outline)."""
+    out = {}
     for y, (a, b) in rows.items():
         for x in range(a, b + 1):
-            if d[y, x, 3]:
-                cells[(x + (dx if y >= wrist else 0) + shift[0], y + shift[1])] = d[y, x].copy()
-    return cells
+            if d[y, x, 3] and (outline or R.hexs(d[y, x]) != OUTLINE):
+                out[(x, y)] = d[y, x].copy()
+    return out
 
 
-def bent(d, rows, pose, fwd, shift, wrist=0):
-    """A forearm in its pose: ("down", dx) hangs as the design's, its rows from wrist down moved dx; ("fwd", dx, dy) is
-    bent level at the elbow: its rows from wrist down (the gauntlet and the fist) mirrored over their diagonal (a
-    quarter turn that keeps the light on top, square for square), their elbow end at fwd moved (dx, dy), the rows
-    above the wrist (the far arm's bandage) left at the elbow. Returns the cells and the squares the outline must not
-    cover (the elbow end)."""
-    if pose[0] == "down":
-        return fore(d, rows, pose[1], shift, wrist), lambda q: q[1] < min(rows) + 1 + shift[1]
-    hand = {y: c for y, c in rows.items() if y >= wrist}
-    cells = fore(d, {y: c for y, c in rows.items() if y < wrist}, 0, shift)
-    y0 = min(hand)
-    x0 = min(a for a, _ in hand.values())
-    for y, (a, b) in hand.items():
-        for x in range(a, b + 1):
-            if d[y, x, 3]:
-                cells[(fwd[0] + pose[1] + (y - y0) + shift[0], fwd[1] + pose[2] + (x - x0) + shift[1])] = d[y, x].copy()
-    left = fwd[0] + pose[1] + shift[0]
-    return cells, lambda q: q[0] <= left
-
-
-def contour(cells, can, skip):
-    """The outline round a gauntlet where it lies over the body, the coat or the legs, black as the design outlines its
-    fist against the coat (without it the gauntlet's gold and plum melt into the coat's and the belt's); none at the
-    elbow end it hangs from (skip)."""
+def body_block(d):
+    """{(x, y): colour}: the design above the trousers without its arms; what the arms hid painted with what lies
+    behind them - beside the near arm the coat's side (lit at the top as its lapel) or the mane at its back edge, beside
+    the far arm the flank's shade (beyond the flank nothing)."""
+    arm = set()
+    for rows in (NEAR_UP, NEAR_FO, FAR_UP, FAR_FO):
+        arm |= set(cells_of(d, rows, outline=True))
     out = {}
+    for y in range(0, BELT + 1):
+        for x in range(d.shape[1]):
+            if d[y, x, 3] and (x, y) not in arm:
+                out[(x, y)] = d[y, x].copy()
+    for (x, y) in sorted(arm):
+        if y > BELT:
+            continue
+        if x < SHOULDER["far"][0] - 6:
+            left = out.get((x - 1, y))
+            if left is not None and R.hexs(left) in MANE and x <= AXIS["near"][0] - 2:
+                out[(x, y)] = left.copy()
+            else:
+                out[(x, y)] = rgba(COAT[0] if y <= 75 else COAT[1])
+        elif x <= SHOULDER["far"][0] - 1:
+            out[(x, y)] = rgba(SKIN_SHADE)
+    for (x, y) in STRAND:
+        out[(x, y)] = d[y, x].copy()
+    return out
+
+
+def posed(d, side, up, fore, drop_fore, shoulder):
+    """{(x, y): colour} of the design's arm, its upper arm `up` and its forearm `fore` degrees from hanging (+ ahead),
+    the shoulder on `shoulder`: Ryze's posing of the idle's own squares (tools/art/ryze_arms.py)."""
+    import ryze_arms as RA
+    keep, RA.OUTLINE = RA.OUTLINE, {tuple(rgba(OUTLINE)[:3])}
+    try:
+        up_rows, fo_rows = (NEAR_UP, NEAR_FO) if side == "near" else (FAR_UP, FAR_FO)
+        ub = RA.strip(cells_of(d, up_rows), AXIS[side][0])
+        fb = RA.strip(cells_of(d, fo_rows), AXIS[side][1])
+        cu, end = RA.place(ub, up, side)
+        out = {(shoulder[0] + x, shoulder[1] + y): c for (x, y), c in cu.items()}
+        st = RA.step_of(fore)
+        ex = shoulder[0] + end[0] + st[0] + AXIS[side][1] - AXIS[side][0]
+        ey = shoulder[1] + end[1] + st[1]
+        cf, _ = RA.place(fb, fore, side, drop_fore)
+        for (x, y), c in cf.items():
+            out[(ex + x, ey + y)] = c
+        return RA.close_gaps(out, RA.OUTLINE)
+    finally:
+        RA.OUTLINE = keep
+
+
+def edge(cells):
+    """The squares round cells (4-neighbours outside them)."""
+    out = set()
     for (x, y) in cells:
         for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
-            q = (x + dx, y + dy)
-            if q not in cells and not skip(q) and can[q[1], q[0], 3]:
-                out[q] = rgba(OUTLINE)
+            if (x + dx, y + dy) not in cells:
+                out.add((x + dx, y + dy))
+    return out
+
+
+def fill_dents(can):
+    """A transparent square with the figure left, right and above it (a notch between an arm and the coat or a leg)
+    takes the outline's black."""
+    op = can[..., 3] > 0
+    out = can.copy()
+    for y in range(1, can.shape[0] - 1):
+        for x in range(1, can.shape[1] - 1):
+            if not op[y, x] and op[y, x - 1] and op[y, x + 1] and op[y - 1, x]:
+                out[y, x] = rgba(OUTLINE)
     return out
 
 
@@ -219,6 +231,7 @@ def put(can, cells, under=False):
 
 def frame(k, d=None):
     """Run frame k (0-7) on the 128 x 128 design canvas (the pivot (64, 88), the soles on row 99)."""
+    import design_sett as D
     d = K.design_1x() if d is None else d
     dy = BOB[k]
     foot = R.shoe()
@@ -229,47 +242,27 @@ def frame(k, d=None):
         hip = (HIPS[side], HIP_ROW + dy)
         knee, ankle = R.ik(hip, (hip[0] + fx, ANKLE_ROW - lift))
         legs[side] = R.leg(hip, knee, ankle, R.RUN_SHADES[side], foot)
-    body = {(x + lean(y), y + dy): c for (x, y), c in upper_block(d).items()}
-    near, near_end = bent(d, NEAR_FORE, NEAR_POSE[k], NEAR_FWD, (lean(min(NEAR_FORE)), dy))
-    far, far_end = bent(d, FAR_FORE, FAR_POSE[k], FAR_FWD, (0, dy), FAR_WRIST)
+    body = {(x + lean(y), y + dy): c for (x, y), c in body_block(d).items()}
+    arms = {}
+    for side, sched in (("near", NEAR_SCHED), ("far", FAR_SCHED)):
+        up, fore, drop = POSES[side][sched[k]]
+        sx, sy = SHOULDER[side]
+        arms[side] = posed(d, side, up, fore, drop, (sx + lean(sy), sy + dy))
     put(can, body)
     put(can, legs["near"], under=True)
     put(can, coat(k, dy), under=True)
-    put(can, far, under=True)            # the far fist beside the hip over the far leg, as the idle shows it
-    if FAR_POSE[k][0] == "fwd":          # bent forward, the forearm passes in front of the mane's strand at the elbow
-        put(can, {q: c for q, c in far.items() if (q[0], q[1] - dy) in STRAND or
-                  (q[0], q[1] - dy) in {(71, 77), (72, 77), (71, 78), (72, 78)}})
+    put(can, arms["far"], under=True)            # behind the body, over the far leg
     put(can, legs["far"], under=True)
-    put(can, {q: c for q, c in contour(far, can, far_end).items() if q in legs["far"]})
-    edge = contour(near, can, near_end)
-    put(can, {q: c for q, c in edge.items() if q not in body})
-    put(can, near)
-    put(can, {q: darkest(can, q) for q in edge if q in body})
+    put(can, {q: rgba(OUTLINE) for q in edge(arms["far"]) if q in legs["far"]})
+    top = SHOULDER["near"][1] + dy + 3          # none where the arm hangs from the shoulder
+    put(can, {q: rgba(OUTLINE) for q in edge(arms["near"]) if q[1] >= top and can[q[1], q[0], 3]})
+    put(can, arms["near"])
     can = R.pieces(can)
     can, _, _ = G.complete_outline(can, feet=99)
-    return unblack(can, [q for q, c in body.items() if R.hexs(c) == OUTLINE])
-
-
-def darkest(can, q):
-    """The darkest colour beside square q (its 8 neighbours, the outline's black aside): an edge inside the design's
-    body in its darkest material, as the design's own inner lines (design_sett.clean)."""
-    x, y = q
-    lum = lambda c: 0.3 * int(c[0]) + 0.59 * int(c[1]) + 0.11 * int(c[2])
-    near = [can[y + dy, x + dx] for dx in (-1, 0, 1) for dy in (-1, 0, 1)
-            if (dx or dy) and can[y + dy, x + dx, 3] and R.hexs(can[y + dy, x + dx]) != OUTLINE]
-    return min(near, key=lum).copy() if near else rgba(OUTLINE)
-
-
-def unblack(can, cells):
-    """The design's outline squares round its gaps (between the near arm and the coat, under the arms) lie inside the
-    figure once the coat and the legs fill the gaps: each takes the darkest colour beside it, as the design's own
-    inner lines did (design_sett.clean; 「去掉身体上没用的黑色素」). The outline round the silhouette, the legs' and the
-    near gauntlet's stay black."""
-    out = can.copy()
-    for x, y in cells:
-        if all(can[y + dy, x + dx, 3] for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1))):
-            out[y, x] = darkest(can, (x, y))
-    return out
+    can = fill_dents(can)
+    clean = D.clean(can)                        # above the belt no black inside the figure, as the design
+    can[:BELT + dy + 1] = clean[:BELT + dy + 1]
+    return can
 
 
 def review(path, z=6):
