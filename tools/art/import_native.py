@@ -49,6 +49,9 @@ MOD = os.path.join(ROOT, "league")
 HEAD_ROWS = 12                  # idle frame 1's top rows: the head
 SURE = 0.9                      # share of the head's pixels that must match exactly
 STEADY = ("idle", "run")
+# (hero, tag) left as drawn: Rakan's run head rides on the body (tools/art/fix_rakan_strips.py SEAT, the user:
+# 「移动的时候头和身体不协调」) - steadied on the head, the frames would slide the body back under a still head
+UNSTEADY = {("rakan", "run")}
 # hero: rows every frame moves down, but never past the soles row (SOLES under the pivot): a hero drawn floating
 # who should stand on the ground. Nami floated 3 px like Janna, so in the collection grid (every hero's feet on one
 # line) she sat high; the user: "整体下移 3 格、去掉浮空". Frames already on the ground stay (R's landing, her death).
@@ -129,7 +132,10 @@ BARE = {"fiora": [(0xE6, 0xE8, 0xF0)]}
 PLUG = {"sona": 9,
         # Jax: the idle's breathing seam (BOB, row 4) closes a notch at the near foot into a pinhole in slots 3-5;
         # every other hole in his frames is painted by tools/art/fix_jax_frames.py before the import
-        "jax": 0}
+        "jax": 0,
+        # Rakan: the completion closes 1-square slits between the cloak's feathers, the hands and the hair into
+        # pinholes (23 in 15 frames); his design has none
+        "rakan": 0}
 ORDER = {("lux", "idle"): [0, 0, 0, 0, 0, 0],   # the step-2 idle is the design in all six (was 0 1 2 3 5 4)
          # League leans his upper body a square forward in idle 4-5 and back in 6, and every frame's head
          # is voted anew, so the face swung and changed shape as he breathed (the user). Frame 1 in every
@@ -548,7 +554,7 @@ def build(hero):
         # a PASTED hero's idle is one frame (ORDER): steady on the frames shown, or it moves off its pivot
         used = sorted(set(ORDER.get((hero, tag), range(len(fr))))) if hero in PASTED else range(len(fr))
         sure = [hx[k] for k in used if hx[k] is not None]
-        if tag in STEADY and sure:
+        if tag in STEADY and (hero, tag) not in UNSTEADY and sure:
             target = round(sum(sure) / len(sure))
             dx = [0 if h is None else target - h for h in hx]
         order = ORDER.get((hero, tag), range(len(fr)))

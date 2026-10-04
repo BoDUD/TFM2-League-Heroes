@@ -30,6 +30,15 @@ stay. Fixes, in order:
      with no light 8-neighbour and the outline on both sides along its row or its column takes the trousers' green
      above the knees (rows under KNEE_ROW: the thighs, as in the idle) and lower down the commonest leg colour within
      3 squares (the wraps' grey-violet or the band's red); bands 2 rows thick stay, they have no middle.
+  7. SEAT (the user, in game: 「移动的时候头和身体不协调」, 「受击的时候身体和腿几乎分离」): Codex kept the pasted head
+     in one column through the run while the body swayed under it - 1-2 squares left of where the idle's collar,
+     shoulders and chest sit under the chin, a row lower in 3 frames - so the head is moved onto the body (SEAT, the
+     offsets measured per frame against the idle under the chin; tools/art/import_native.py no longer re-steadies
+     the run on the head, which would move the body back). In the hit Codex shifted the whole upper body 5-7 squares
+     right of the legs (the design's own legs, pasted): the body - all but the head and the idle's legs - goes back
+     over the legs where the idle's chest is, and the head where the idle's head is; Codex's arms, fist and cloak
+     move with the body (the cloak flares back from the legs, as Codex drew it). Done first, so the clean-ups below
+     see the moved head.
 --check compares the result with the committed strips instead of writing them; --review DIR writes, per tag, the
 delivery and the fixed frames side by side at 4x with every changed square marked.
 """
@@ -81,6 +90,22 @@ ARMS = {
                             "HHAA..",
                             ]),
 }
+
+
+# (tag, frame index): {"head": (dx, dy)} moves the pasted head, {"body": (dx, dy)} everything but the head and the idle's
+# own legs (rows LEGS_ROW and lower, columns from LEGS_LEFT left of the pivot, that equal the idle frame's at the same
+# place from the pivot: Codex pasted the design's legs; its cloak beside them is its own, matching here and there by
+# chance). The cloak moves with the body and flares back from the legs as Codex drew it (filling the gap with the idle's
+# own cloak edge stood a stray red-orange strip beside the leg - the user: 「这里是什么？？」).
+SEAT = {
+    ("run", 0): {"head": (-1, 0)}, ("run", 1): {"head": (-1, 1)}, ("run", 2): {"head": (-1, 0)},
+    ("run", 3): {"head": (0, 1)}, ("run", 4): {"head": (-1, 0)}, ("run", 5): {"head": (-1, 1)},
+    ("run", 6): {"head": (-2, 0)}, ("run", 7): {"head": (-2, 0)},
+    ("hit", 0): {"body": (-5, 0), "head": (-3, -1)},
+    ("hit", 1): {"body": (-6, 1), "head": (-7, 2)},
+}
+LEGS_ROW = 60
+LEGS_LEFT = 8
 
 
 def _col(x, ys, ch):
@@ -331,6 +356,35 @@ def fix_black(f):
     return n
 
 
+def fix_seat(f, hm, spec, legs):
+    """The body block and the head moved by SEAT's offsets (the idle's legs stay; the head on top). Returns the moved
+    pixels' count and the head's new mask."""
+    H, W = f.shape[:2]
+    op = f[..., 3] > 0
+    block = op & ~hm & ~legs if "body" in spec else np.zeros_like(op)
+    out = f.copy()
+    out[hm] = 0
+    out[block] = 0
+
+    def put(mask, d, under):
+        ys, xs = np.nonzero(mask)
+        ny, nx = ys + d[1], xs + d[0]
+        ok = (ny >= 0) & (ny < H) & (nx >= 0) & (nx < W)
+        ys, xs, ny, nx = ys[ok], xs[ok], ny[ok], nx[ok]
+        keep = ~under[ny, nx]
+        out[ny[keep], nx[keep]] = f[ys[keep], xs[keep]]
+        moved = np.zeros_like(mask)
+        moved[ny, nx] = True
+        return moved
+
+    if block.any():
+        put(block, spec["body"], legs)
+    new_hm = put(hm, spec.get("head", (0, 0)), np.zeros_like(hm))
+    n = int((out != f).any(-1).sum())
+    f[:] = out
+    return n, new_hm
+
+
 def load_strip(tag, cells):
     a = np.asarray(Image.open(lp(os.path.join(SRC, f"rakan_{tag}_1x.png"))).convert("RGBA")).copy()
     cw, ch = cells["cell"]
@@ -352,9 +406,12 @@ def build():
         cols = np.rot90(box, k)
         HEADCOL[k] = {(y, x): tuple(int(v) for v in cols[y, x, :3]) for y, x in np.argwhere(np.rot90(head, k))}
     out, log = {}, []
+    idle = None
     for tag in TAGS:
         a, slots = load_strip(tag, cells)
         orig = a.copy()
+        if tag == "idle":
+            idle = (orig[slots[0][0], slots[0][1]].copy(), cells["tags"]["idle"][0]["pivot"])
         for k, (sy, sx) in enumerate(slots):
             f = a[sy, sx]
             rect = man[tag]["frames"][k]["head_rect"]
@@ -362,6 +419,14 @@ def build():
             if hm is None and tag != "idle":
                 log.append(f"{tag} {k + 1}: head not found")
             notes = []
+            if (tag, k) in SEAT and hm is not None:
+                px, py = cells["tags"][tag][k]["pivot"]
+                ref = np.roll(np.roll(idle[0], py - idle[1][1], 0), px - idle[1][0], 1)
+                legs = (f[..., 3] > 0) & (f == ref).all(-1)
+                legs[:LEGS_ROW] = False
+                legs[:, :px - LEGS_LEFT] = False
+                n, hm = fix_seat(f, hm, SEAT[(tag, k)], legs)
+                notes.append(f"seat {SEAT[(tag, k)]} ({n} squares)")
             if tag != "idle" and hm is not None:
                 g = fix_halo(f, hm)
                 if g:

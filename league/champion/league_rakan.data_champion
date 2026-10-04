@@ -6491,14 +6491,6 @@
       "tag": "q_feather",
       "repeat": true,
       "z": 0
-    },
-    {
-      "type": "Animated",
-      "name": "league_rakan_r_ring",
-      "anim": "asset/league/effects/league_rakan_big",
-      "tag": "r_ring",
-      "repeat": true,
-      "z": -1
     }
   ],
   "view_effects": [
@@ -6582,7 +6574,7 @@
       "anim": "asset/league/effects/league_rakan_fx",
       "tag": "p_on",
       "repeat": true,
-      "z": 1
+      "z": -1
     },
     {
       "type": "Animated",
@@ -6590,7 +6582,7 @@
       "anim": "asset/league/effects/league_rakan_fx",
       "tag": "q_heal",
       "repeat": true,
-      "z": 1
+      "z": -1
     },
     {
       "type": "Animated",
@@ -6599,6 +6591,14 @@
       "tag": "e_on",
       "repeat": true,
       "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_rakan_r_on",
+      "anim": "asset/league/effects/league_rakan_fx",
+      "tag": "r_on",
+      "repeat": true,
+      "z": -1
     }
   ]
 }

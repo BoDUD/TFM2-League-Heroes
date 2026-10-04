@@ -1,0 +1,77 @@
+[
+ {
+  "file": "rakan_fx_a_feather.png",
+  "binding": "view_projectiles `league_rakan_a_feather`（循环，朝飞行方向转）",
+  "size": "12 × 5"
+ },
+ {
+  "file": "rakan_fx_a_hit.png",
+  "binding": "view_effects `league_rakan_a_hit`（跟随，画在人物上面）",
+  "size": "12"
+ },
+ {
+  "file": "rakan_fx_q_feather.png",
+  "binding": "view_projectiles `league_rakan_q_feather`（循环，朝飞行方向转）",
+  "size": "22 × 9"
+ },
+ {
+  "file": "rakan_fx_q_hit.png",
+  "binding": "view_effects `league_rakan_q_hit`（跟随，画在人物上面）",
+  "size": "18"
+ },
+ {
+  "file": "rakan_fx_q_heal.png",
+  "binding": "view_buffs `league_rakan_q_heal`（循环，画在人物下面）",
+  "size": "32 × 24"
+ },
+ {
+  "file": "rakan_fx_q_burst.png",
+  "binding": "view_effects `league_rakan_q_burst`（BIG，洛脚下，不跟随，画在人物下面）",
+  "size": "84 × 48"
+ },
+ {
+  "file": "rakan_fx_q_healed.png",
+  "binding": "view_effects `league_rakan_q_healed`（跟随，画在人物上面）",
+  "size": "16 × 24"
+ },
+ {
+  "file": "rakan_fx_w_burst.png",
+  "binding": "view_effects `league_rakan_w_burst`（BIG，洛脚下，不跟随，画在人物下面）",
+  "size": "32 × 40"
+ },
+ {
+  "file": "rakan_fx_w_hit.png",
+  "binding": "view_effects `league_rakan_w_hit`（跟随，画在人物上面）",
+  "size": "16 × 26"
+ },
+ {
+  "file": "rakan_fx_e_shield.png",
+  "binding": "view_effects `league_rakan_e_shield`（跟随，画在人物上面）",
+  "size": "26 × 30"
+ },
+ {
+  "file": "rakan_fx_e_on.png",
+  "binding": "view_buffs `league_rakan_e_on`（循环，画在人物上面）",
+  "size": "30 × 40"
+ },
+ {
+  "file": "rakan_fx_p_on.png",
+  "binding": "view_buffs `league_rakan_p_on`（循环，画在人物上面）",
+  "size": "34 × 46"
+ },
+ {
+  "file": "rakan_fx_r_start.png",
+  "binding": "view_effects `league_rakan_r_start`（跟随，开大第一 tick 放，画在人物上面）",
+  "size": "40 × 44"
+ },
+ {
+  "file": "rakan_fx_r_on.png",
+  "binding": "view_buffs `league_rakan_r_on`（循环，画在人物下面，朝左时镜像）",
+  "size": "48 × 30"
+ },
+ {
+  "file": "rakan_fx_r_charmed.png",
+  "binding": "view_effects `league_rakan_r_charmed`（跟随，画在人物上面）",
+  "size": "18 × 24"
+ }
+]
