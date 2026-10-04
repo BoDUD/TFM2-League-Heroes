@@ -1,0 +1,1934 @@
+{
+  "cell_logical": [
+    112,
+    96
+  ],
+  "scale": 8,
+  "palette": [
+    "0A0408",
+    "270D28",
+    "181F2B",
+    "4B0827",
+    "1F2A38",
+    "263647",
+    "42224C",
+    "8F0E2B",
+    "3B586B",
+    "BF1630",
+    "68407A",
+    "F2323B",
+    "5B8498",
+    "FF7A2A",
+    "95C3D4"
+  ],
+  "assets": [
+    {
+      "file": "aatrox_run.png",
+      "source": "run/aatrox_run_body.png",
+      "image_size_px": [
+        3584,
+        1536
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "duration_ms": 125,
+          "rect_px": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "pivot_logical": [
+            57,
+            70
+          ],
+          "pivot_px": [
+            456,
+            560
+          ],
+          "opaque_bbox_logical": [
+            30,
+            42,
+            69,
+            82
+          ],
+          "opaque_bbox_px": [
+            240,
+            336,
+            552,
+            656
+          ],
+          "head_template_match": [
+            0,
+            53,
+            43
+          ],
+          "source_pixels_changed": 0,
+          "leg_joints_logical": {
+            "bright": [
+              [
+                53,
+                70
+              ],
+              [
+                57,
+                74
+              ],
+              [
+                57,
+                79
+              ]
+            ],
+            "dark": [
+              [
+                61,
+                70
+              ],
+              [
+                58,
+                74
+              ],
+              [
+                54,
+                77
+              ]
+            ]
+          }
+        },
+        {
+          "index": 1,
+          "duration_ms": 125,
+          "rect_px": [
+            896,
+            0,
+            896,
+            768
+          ],
+          "pivot_logical": [
+            58,
+            70
+          ],
+          "pivot_px": [
+            464,
+            560
+          ],
+          "opaque_bbox_logical": [
+            31,
+            42,
+            70,
+            82
+          ],
+          "opaque_bbox_px": [
+            248,
+            336,
+            560,
+            656
+          ],
+          "head_template_match": [
+            0,
+            54,
+            43
+          ],
+          "source_pixels_changed": 0,
+          "leg_joints_logical": {
+            "bright": [
+              [
+                54,
+                70
+              ],
+              [
+                57,
+                75
+              ],
+              [
+                59,
+                79
+              ]
+            ],
+            "dark": [
+              [
+                62,
+                70
+              ],
+              [
+                58,
+                74
+              ],
+              [
+                54,
+                76
+              ]
+            ]
+          }
+        },
+        {
+          "index": 2,
+          "duration_ms": 125,
+          "rect_px": [
+            1792,
+            0,
+            896,
+            768
+          ],
+          "pivot_logical": [
+            58,
+            70
+          ],
+          "pivot_px": [
+            464,
+            560
+          ],
+          "opaque_bbox_logical": [
+            31,
+            42,
+            70,
+            82
+          ],
+          "opaque_bbox_px": [
+            248,
+            336,
+            560,
+            656
+          ],
+          "head_template_match": [
+            0,
+            54,
+            43
+          ],
+          "source_pixels_changed": 0,
+          "leg_joints_logical": {
+            "bright": [
+              [
+                54,
+                70
+              ],
+              [
+                57,
+                76
+              ],
+              [
+                58,
+                79
+              ]
+            ],
+            "dark": [
+              [
+                62,
+                70
+              ],
+              [
+                59,
+                73
+              ],
+              [
+                54,
+                74
+              ]
+            ]
+          }
+        },
+        {
+          "index": 3,
+          "duration_ms": 125,
+          "rect_px": [
+            2688,
+            0,
+            896,
+            768
+          ],
+          "pivot_logical": [
+            59,
+            70
+          ],
+          "pivot_px": [
+            472,
+            560
+          ],
+          "opaque_bbox_logical": [
+            32,
+            42,
+            71,
+            82
+          ],
+          "opaque_bbox_px": [
+            256,
+            336,
+            568,
+            656
+          ],
+          "head_template_match": [
+            0,
+            55,
+            43
+          ],
+          "source_pixels_changed": 0,
+          "leg_joints_logical": {
+            "bright": [
+              [
+                55,
+                70
+              ],
+              [
+                58,
+                75
+              ],
+              [
+                56,
+                79
+              ]
+            ],
+            "dark": [
+              [
+                63,
+                70
+              ],
+              [
+                63,
+                76
+              ],
+              [
+                58,
+                76
+              ]
+            ]
+          }
+        },
+        {
+          "index": 4,
+          "duration_ms": 125,
+          "rect_px": [
+            0,
+            768,
+            896,
+            768
+          ],
+          "pivot_logical": [
+            58,
+            70
+          ],
+          "pivot_px": [
+            464,
+            560
+          ],
+          "opaque_bbox_logical": [
+            31,
+            42,
+            70,
+            82
+          ],
+          "opaque_bbox_px": [
+            248,
+            336,
+            560,
+            656
+          ],
+          "head_template_match": [
+            0,
+            54,
+            43
+          ],
+          "source_pixels_changed": 0,
+          "leg_joints_logical": {
+            "bright": [
+              [
+                54,
+                70
+              ],
+              [
+                56,
+                76
+              ],
+              [
+                52,
+                79
+              ]
+            ],
+            "dark": [
+              [
+                62,
+                70
+              ],
+              [
+                63,
+                76
+              ],
+              [
+                59,
+                78
+              ]
+            ]
+          }
+        },
+        {
+          "index": 5,
+          "duration_ms": 125,
+          "rect_px": [
+            896,
+            768,
+            896,
+            768
+          ],
+          "pivot_logical": [
+            58,
+            70
+          ],
+          "pivot_px": [
+            464,
+            560
+          ],
+          "opaque_bbox_logical": [
+            31,
+            42,
+            70,
+            82
+          ],
+          "opaque_bbox_px": [
+            248,
+            336,
+            560,
+            656
+          ],
+          "head_template_match": [
+            0,
+            54,
+            43
+          ],
+          "source_pixels_changed": 0,
+          "leg_joints_logical": {
+            "bright": [
+              [
+                54,
+                70
+              ],
+              [
+                55,
+                76
+              ],
+              [
+                51,
+                77
+              ]
+            ],
+            "dark": [
+              [
+                62,
+                70
+              ],
+              [
+                63,
+                76
+              ],
+              [
+                60,
+                79
+              ]
+            ]
+          }
+        },
+        {
+          "index": 6,
+          "duration_ms": 125,
+          "rect_px": [
+            1792,
+            768,
+            896,
+            768
+          ],
+          "pivot_logical": [
+            58,
+            70
+          ],
+          "pivot_px": [
+            464,
+            560
+          ],
+          "opaque_bbox_logical": [
+            31,
+            42,
+            70,
+            82
+          ],
+          "opaque_bbox_px": [
+            248,
+            336,
+            560,
+            656
+          ],
+          "head_template_match": [
+            0,
+            54,
+            43
+          ],
+          "source_pixels_changed": 0,
+          "leg_joints_logical": {
+            "bright": [
+              [
+                54,
+                70
+              ],
+              [
+                56,
+                76
+              ],
+              [
+                52,
+                74
+              ]
+            ],
+            "dark": [
+              [
+                62,
+                70
+              ],
+              [
+                62,
+                76
+              ],
+              [
+                59,
+                79
+              ]
+            ]
+          }
+        },
+        {
+          "index": 7,
+          "duration_ms": 125,
+          "rect_px": [
+            2688,
+            768,
+            896,
+            768
+          ],
+          "pivot_logical": [
+            57,
+            70
+          ],
+          "pivot_px": [
+            456,
+            560
+          ],
+          "opaque_bbox_logical": [
+            30,
+            42,
+            69,
+            82
+          ],
+          "opaque_bbox_px": [
+            240,
+            336,
+            552,
+            656
+          ],
+          "head_template_match": [
+            0,
+            53,
+            43
+          ],
+          "source_pixels_changed": 0,
+          "leg_joints_logical": {
+            "bright": [
+              [
+                53,
+                70
+              ],
+              [
+                57,
+                73
+              ],
+              [
+                54,
+                76
+              ]
+            ],
+            "dark": [
+              [
+                61,
+                70
+              ],
+              [
+                58,
+                76
+              ],
+              [
+                56,
+                79
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "file": "aatrox_attack_r.png",
+      "source": "rform/aatrox_attack_now.png",
+      "image_size_px": [
+        2688,
+        1536
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "duration_ms": 70,
+          "rect_px": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "pivot_logical": [
+            59,
+            70
+          ],
+          "pivot_px": [
+            472,
+            560
+          ],
+          "opaque_bbox_logical": [
+            32,
+            42,
+            84,
+            82
+          ],
+          "opaque_bbox_px": [
+            256,
+            336,
+            672,
+            656
+          ],
+          "head_template_match": [
+            0,
+            55,
+            43
+          ],
+          "source_pixels_changed": 0
+        },
+        {
+          "index": 1,
+          "duration_ms": 65,
+          "rect_px": [
+            896,
+            0,
+            896,
+            768
+          ],
+          "pivot_logical": [
+            62,
+            70
+          ],
+          "pivot_px": [
+            496,
+            560
+          ],
+          "opaque_bbox_logical": [
+            33,
+            42,
+            80,
+            82
+          ],
+          "opaque_bbox_px": [
+            264,
+            336,
+            640,
+            656
+          ],
+          "head_template_match": [
+            5,
+            58,
+            43
+          ],
+          "source_pixels_changed": 0
+        },
+        {
+          "index": 2,
+          "duration_ms": 65,
+          "rect_px": [
+            1792,
+            0,
+            896,
+            768
+          ],
+          "pivot_logical": [
+            58,
+            70
+          ],
+          "pivot_px": [
+            464,
+            560
+          ],
+          "opaque_bbox_logical": [
+            40,
+            34,
+            79,
+            82
+          ],
+          "opaque_bbox_px": [
+            320,
+            272,
+            632,
+            656
+          ],
+          "head_template_match": [
+            5,
+            54,
+            43
+          ],
+          "source_pixels_changed": 0
+        },
+        {
+          "index": 3,
+          "duration_ms": 80,
+          "rect_px": [
+            0,
+            768,
+            896,
+            768
+          ],
+          "pivot_logical": [
+            48,
+            70
+          ],
+          "pivot_px": [
+            384,
+            560
+          ],
+          "opaque_bbox_logical": [
+            32,
+            42,
+            75,
+            82
+          ],
+          "opaque_bbox_px": [
+            256,
+            336,
+            600,
+            656
+          ],
+          "head_template_match": [
+            5,
+            44,
+            43
+          ],
+          "source_pixels_changed": 0
+        },
+        {
+          "index": 4,
+          "duration_ms": 80,
+          "rect_px": [
+            896,
+            768,
+            896,
+            768
+          ],
+          "pivot_logical": [
+            47,
+            70
+          ],
+          "pivot_px": [
+            376,
+            560
+          ],
+          "opaque_bbox_logical": [
+            29,
+            42,
+            72,
+            82
+          ],
+          "opaque_bbox_px": [
+            232,
+            336,
+            576,
+            656
+          ],
+          "head_template_match": [
+            5,
+            43,
+            43
+          ],
+          "source_pixels_changed": 0
+        },
+        {
+          "index": 5,
+          "duration_ms": 73,
+          "rect_px": [
+            1792,
+            768,
+            896,
+            768
+          ],
+          "pivot_logical": [
+            54,
+            70
+          ],
+          "pivot_px": [
+            432,
+            560
+          ],
+          "opaque_bbox_logical": [
+            27,
+            42,
+            79,
+            82
+          ],
+          "opaque_bbox_px": [
+            216,
+            336,
+            632,
+            656
+          ],
+          "head_template_match": [
+            0,
+            50,
+            43
+          ],
+          "source_pixels_changed": 0
+        }
+      ]
+    },
+    {
+      "file": "aatrox_attack_p_r.png",
+      "source": "rform/aatrox_attack_p_now.png",
+      "image_size_px": [
+        2688,
+        1536
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "duration_ms": 100,
+          "rect_px": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "pivot_logical": [
+            57,
+            70
+          ],
+          "pivot_px": [
+            456,
+            560
+          ],
+          "opaque_bbox_logical": [
+            33,
+            42,
+            82,
+            82
+          ],
+          "opaque_bbox_px": [
+            264,
+            336,
+            656,
+            656
+          ],
+          "head_template_match": [
+            5,
+            53,
+            43
+          ],
+          "source_pixels_changed": 0
+        },
+        {
+          "index": 1,
+          "duration_ms": 100,
+          "rect_px": [
+            896,
+            0,
+            896,
+            768
+          ],
+          "pivot_logical": [
+            59,
+            70
+          ],
+          "pivot_px": [
+            472,
+            560
+          ],
+          "opaque_bbox_logical": [
+            29,
+            42,
+            80,
+            82
+          ],
+          "opaque_bbox_px": [
+            232,
+            336,
+            640,
+            656
+          ],
+          "head_template_match": [
+            5,
+            55,
+            43
+          ],
+          "source_pixels_changed": 0
+        },
+        {
+          "index": 2,
+          "duration_ms": 100,
+          "rect_px": [
+            1792,
+            0,
+            896,
+            768
+          ],
+          "pivot_logical": [
+            61,
+            70
+          ],
+          "pivot_px": [
+            488,
+            560
+          ],
+          "opaque_bbox_logical": [
+            31,
+            42,
+            80,
+            82
+          ],
+          "opaque_bbox_px": [
+            248,
+            336,
+            640,
+            656
+          ],
+          "head_template_match": [
+            5,
+            57,
+            43
+          ],
+          "source_pixels_changed": 0
+        },
+        {
+          "index": 3,
+          "duration_ms": 100,
+          "rect_px": [
+            0,
+            768,
+            896,
+            768
+          ],
+          "pivot_logical": [
+            45,
+            70
+          ],
+          "pivot_px": [
+            360,
+            560
+          ],
+          "opaque_bbox_logical": [
+            27,
+            41,
+            72,
+            82
+          ],
+          "opaque_bbox_px": [
+            216,
+            328,
+            576,
+            656
+          ],
+          "head_template_match": [
+            5,
+            41,
+            43
+          ],
+          "source_pixels_changed": 0
+        },
+        {
+          "index": 4,
+          "duration_ms": 100,
+          "rect_px": [
+            896,
+            768,
+            896,
+            768
+          ],
+          "pivot_logical": [
+            47,
+            70
+          ],
+          "pivot_px": [
+            376,
+            560
+          ],
+          "opaque_bbox_logical": [
+            27,
+            42,
+            74,
+            82
+          ],
+          "opaque_bbox_px": [
+            216,
+            336,
+            592,
+            656
+          ],
+          "head_template_match": [
+            5,
+            43,
+            43
+          ],
+          "source_pixels_changed": 0
+        },
+        {
+          "index": 5,
+          "duration_ms": 100,
+          "rect_px": [
+            1792,
+            768,
+            896,
+            768
+          ],
+          "pivot_logical": [
+            54,
+            70
+          ],
+          "pivot_px": [
+            432,
+            560
+          ],
+          "opaque_bbox_logical": [
+            27,
+            42,
+            79,
+            82
+          ],
+          "opaque_bbox_px": [
+            216,
+            336,
+            632,
+            656
+          ],
+          "head_template_match": [
+            0,
+            50,
+            43
+          ],
+          "source_pixels_changed": 0
+        }
+      ]
+    },
+    {
+      "file": "aatrox_skill_r.png",
+      "source": "rform/aatrox_skill_now.png",
+      "image_size_px": [
+        3584,
+        1536
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "duration_ms": 100,
+          "rect_px": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "pivot_logical": [
+            58,
+            70
+          ],
+          "pivot_px": [
+            464,
+            560
+          ],
+          "opaque_bbox_logical": [
+            34,
+            41,
+            87,
+            82
+          ],
+          "opaque_bbox_px": [
+            272,
+            328,
+            696,
+            656
+          ],
+          "head_template_match": [
+            21,
+            58,
+            42
+          ],
+          "source_pixels_changed": 0
+        },
+        {
+          "index": 1,
+          "duration_ms": 150,
+          "rect_px": [
+            896,
+            0,
+            896,
+            768
+          ],
+          "pivot_logical": [
+            60,
+            70
+          ],
+          "pivot_px": [
+            480,
+            560
+          ],
+          "opaque_bbox_logical": [
+            37,
+            35,
+            85,
+            82
+          ],
+          "opaque_bbox_px": [
+            296,
+            280,
+            680,
+            656
+          ],
+          "head_template_match": [
+            21,
+            60,
+            41
+          ],
+          "source_pixels_changed": 0
+        },
+        {
+          "index": 2,
+          "duration_ms": 150,
+          "rect_px": [
+            1792,
+            0,
+            896,
+            768
+          ],
+          "pivot_logical": [
+            60,
+            70
+          ],
+          "pivot_px": [
+            480,
+            560
+          ],
+          "opaque_bbox_logical": [
+            47,
+            35,
+            88,
+            82
+          ],
+          "opaque_bbox_px": [
+            376,
+            280,
+            704,
+            656
+          ],
+          "head_template_match": [
+            21,
+            63,
+            41
+          ],
+          "source_pixels_changed": 0
+        },
+        {
+          "index": 3,
+          "duration_ms": 100,
+          "rect_px": [
+            2688,
+            0,
+            896,
+            768
+          ],
+          "pivot_logical": [
+            58,
+            70
+          ],
+          "pivot_px": [
+            464,
+            560
+          ],
+          "opaque_bbox_logical": [
+            26,
+            24,
+            84,
+            82
+          ],
+          "opaque_bbox_px": [
+            208,
+            192,
+            672,
+            656
+          ],
+          "head_template_match": [
+            21,
+            61,
+            34
+          ],
+          "source_pixels_changed": 0
+        },
+        {
+          "index": 4,
+          "duration_ms": 100,
+          "rect_px": [
+            0,
+            768,
+            896,
+            768
+          ],
+          "pivot_logical": [
+            54,
+            70
+          ],
+          "pivot_px": [
+            432,
+            560
+          ],
+          "opaque_bbox_logical": [
+            35,
+            16,
+            82,
+            78
+          ],
+          "opaque_bbox_px": [
+            280,
+            128,
+            656,
+            624
+          ],
+          "head_template_match": [
+            21,
+            57,
+            36
+          ],
+          "source_pixels_changed": 0
+        },
+        {
+          "index": 5,
+          "duration_ms": 100,
+          "rect_px": [
+            896,
+            768,
+            896,
+            768
+          ],
+          "pivot_logical": [
+            46,
+            70
+          ],
+          "pivot_px": [
+            368,
+            560
+          ],
+          "opaque_bbox_logical": [
+            28,
+            46,
+            84,
+            82
+          ],
+          "opaque_bbox_px": [
+            224,
+            368,
+            672,
+            656
+          ],
+          "head_template_match": [
+            21,
+            48,
+            50
+          ],
+          "source_pixels_changed": 0
+        },
+        {
+          "index": 6,
+          "duration_ms": 50,
+          "rect_px": [
+            1792,
+            768,
+            896,
+            768
+          ],
+          "pivot_logical": [
+            47,
+            70
+          ],
+          "pivot_px": [
+            376,
+            560
+          ],
+          "opaque_bbox_logical": [
+            31,
+            50,
+            86,
+            82
+          ],
+          "opaque_bbox_px": [
+            248,
+            400,
+            688,
+            656
+          ],
+          "head_template_match": [
+            21,
+            49,
+            50
+          ],
+          "source_pixels_changed": 0
+        },
+        {
+          "index": 7,
+          "duration_ms": 50,
+          "rect_px": [
+            2688,
+            768,
+            896,
+            768
+          ],
+          "pivot_logical": [
+            54,
+            70
+          ],
+          "pivot_px": [
+            432,
+            560
+          ],
+          "opaque_bbox_logical": [
+            27,
+            42,
+            79,
+            82
+          ],
+          "opaque_bbox_px": [
+            216,
+            336,
+            632,
+            656
+          ],
+          "head_template_match": [
+            0,
+            50,
+            43
+          ],
+          "source_pixels_changed": 0
+        }
+      ]
+    },
+    {
+      "file": "aatrox_q2_r.png",
+      "source": "rform/aatrox_q2_now.png",
+      "image_size_px": [
+        3584,
+        1536
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "duration_ms": 100,
+          "rect_px": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "pivot_logical": [
+            54,
+            70
+          ],
+          "pivot_px": [
+            432,
+            560
+          ],
+          "opaque_bbox_logical": [
+            31,
+            43,
+            86,
+            82
+          ],
+          "opaque_bbox_px": [
+            248,
+            344,
+            688,
+            656
+          ],
+          "head_template_match": [
+            21,
+            57,
+            43
+          ],
+          "source_pixels_changed": 0
+        },
+        {
+          "index": 1,
+          "duration_ms": 150,
+          "rect_px": [
+            896,
+            0,
+            896,
+            768
+          ],
+          "pivot_logical": [
+            59,
+            70
+          ],
+          "pivot_px": [
+            472,
+            560
+          ],
+          "opaque_bbox_logical": [
+            34,
+            40,
+            83,
+            78
+          ],
+          "opaque_bbox_px": [
+            272,
+            320,
+            664,
+            624
+          ],
+          "head_template_match": [
+            21,
+            60,
+            40
+          ],
+          "source_pixels_changed": 0
+        },
+        {
+          "index": 2,
+          "duration_ms": 150,
+          "rect_px": [
+            1792,
+            0,
+            896,
+            768
+          ],
+          "pivot_logical": [
+            61,
+            70
+          ],
+          "pivot_px": [
+            488,
+            560
+          ],
+          "opaque_bbox_logical": [
+            45,
+            23,
+            84,
+            78
+          ],
+          "opaque_bbox_px": [
+            360,
+            184,
+            672,
+            624
+          ],
+          "head_template_match": [
+            21,
+            63,
+            38
+          ],
+          "source_pixels_changed": 0
+        },
+        {
+          "index": 3,
+          "duration_ms": 100,
+          "rect_px": [
+            2688,
+            0,
+            896,
+            768
+          ],
+          "pivot_logical": [
+            61,
+            70
+          ],
+          "pivot_px": [
+            488,
+            560
+          ],
+          "opaque_bbox_logical": [
+            37,
+            25,
+            84,
+            82
+          ],
+          "opaque_bbox_px": [
+            296,
+            200,
+            672,
+            656
+          ],
+          "head_template_match": [
+            21,
+            64,
+            36
+          ],
+          "source_pixels_changed": 0
+        },
+        {
+          "index": 4,
+          "duration_ms": 100,
+          "rect_px": [
+            0,
+            768,
+            896,
+            768
+          ],
+          "pivot_logical": [
+            59,
+            70
+          ],
+          "pivot_px": [
+            472,
+            560
+          ],
+          "opaque_bbox_logical": [
+            27,
+            34,
+            89,
+            82
+          ],
+          "opaque_bbox_px": [
+            216,
+            272,
+            712,
+            656
+          ],
+          "head_template_match": [
+            21,
+            67,
+            42
+          ],
+          "source_pixels_changed": 0
+        },
+        {
+          "index": 5,
+          "duration_ms": 100,
+          "rect_px": [
+            896,
+            768,
+            896,
+            768
+          ],
+          "pivot_logical": [
+            48,
+            70
+          ],
+          "pivot_px": [
+            384,
+            560
+          ],
+          "opaque_bbox_logical": [
+            22,
+            49,
+            90,
+            82
+          ],
+          "opaque_bbox_px": [
+            176,
+            392,
+            720,
+            656
+          ],
+          "head_template_match": [
+            21,
+            50,
+            49
+          ],
+          "source_pixels_changed": 0
+        },
+        {
+          "index": 6,
+          "duration_ms": 50,
+          "rect_px": [
+            1792,
+            768,
+            896,
+            768
+          ],
+          "pivot_logical": [
+            43,
+            70
+          ],
+          "pivot_px": [
+            344,
+            560
+          ],
+          "opaque_bbox_logical": [
+            17,
+            49,
+            86,
+            82
+          ],
+          "opaque_bbox_px": [
+            136,
+            392,
+            688,
+            656
+          ],
+          "head_template_match": [
+            21,
+            45,
+            49
+          ],
+          "source_pixels_changed": 0
+        },
+        {
+          "index": 7,
+          "duration_ms": 50,
+          "rect_px": [
+            2688,
+            768,
+            896,
+            768
+          ],
+          "pivot_logical": [
+            54,
+            70
+          ],
+          "pivot_px": [
+            432,
+            560
+          ],
+          "opaque_bbox_logical": [
+            27,
+            42,
+            79,
+            82
+          ],
+          "opaque_bbox_px": [
+            216,
+            336,
+            632,
+            656
+          ],
+          "head_template_match": [
+            0,
+            50,
+            43
+          ],
+          "source_pixels_changed": 0
+        }
+      ]
+    },
+    {
+      "file": "aatrox_q3_r.png",
+      "source": "rform/aatrox_q3_now.png",
+      "image_size_px": [
+        3584,
+        1536
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "frames": [
+        {
+          "index": 0,
+          "duration_ms": 100,
+          "rect_px": [
+            0,
+            0,
+            896,
+            768
+          ],
+          "pivot_logical": [
+            60,
+            70
+          ],
+          "pivot_px": [
+            480,
+            560
+          ],
+          "opaque_bbox_logical": [
+            30,
+            50,
+            90,
+            82
+          ],
+          "opaque_bbox_px": [
+            240,
+            400,
+            720,
+            656
+          ],
+          "head_template_match": [
+            21,
+            61,
+            50
+          ],
+          "source_pixels_changed": 0
+        },
+        {
+          "index": 1,
+          "duration_ms": 150,
+          "rect_px": [
+            896,
+            0,
+            896,
+            768
+          ],
+          "pivot_logical": [
+            62,
+            70
+          ],
+          "pivot_px": [
+            496,
+            560
+          ],
+          "opaque_bbox_logical": [
+            49,
+            20,
+            90,
+            75
+          ],
+          "opaque_bbox_px": [
+            392,
+            160,
+            720,
+            600
+          ],
+          "head_template_match": [
+            21,
+            65,
+            37
+          ],
+          "source_pixels_changed": 0
+        },
+        {
+          "index": 2,
+          "duration_ms": 150,
+          "rect_px": [
+            1792,
+            0,
+            896,
+            768
+          ],
+          "pivot_logical": [
+            55,
+            70
+          ],
+          "pivot_px": [
+            440,
+            560
+          ],
+          "opaque_bbox_logical": [
+            45,
+            19,
+            78,
+            73
+          ],
+          "opaque_bbox_px": [
+            360,
+            152,
+            624,
+            584
+          ],
+          "head_template_match": [
+            21,
+            58,
+            35
+          ],
+          "source_pixels_changed": 0
+        },
+        {
+          "index": 3,
+          "duration_ms": 100,
+          "rect_px": [
+            2688,
+            0,
+            896,
+            768
+          ],
+          "pivot_logical": [
+            56,
+            70
+          ],
+          "pivot_px": [
+            448,
+            560
+          ],
+          "opaque_bbox_logical": [
+            45,
+            8,
+            84,
+            72
+          ],
+          "opaque_bbox_px": [
+            360,
+            64,
+            672,
+            576
+          ],
+          "head_template_match": [
+            21,
+            59,
+            25
+          ],
+          "source_pixels_changed": 0
+        },
+        {
+          "index": 4,
+          "duration_ms": 100,
+          "rect_px": [
+            0,
+            768,
+            896,
+            768
+          ],
+          "pivot_logical": [
+            57,
+            70
+          ],
+          "pivot_px": [
+            456,
+            560
+          ],
+          "opaque_bbox_logical": [
+            45,
+            6,
+            85,
+            72
+          ],
+          "opaque_bbox_px": [
+            360,
+            48,
+            680,
+            576
+          ],
+          "head_template_match": [
+            21,
+            59,
+            24
+          ],
+          "source_pixels_changed": 0
+        },
+        {
+          "index": 5,
+          "duration_ms": 100,
+          "rect_px": [
+            896,
+            768,
+            896,
+            768
+          ],
+          "pivot_logical": [
+            47,
+            70
+          ],
+          "pivot_px": [
+            376,
+            560
+          ],
+          "opaque_bbox_logical": [
+            23,
+            53,
+            86,
+            82
+          ],
+          "opaque_bbox_px": [
+            184,
+            424,
+            688,
+            656
+          ],
+          "head_template_match": [
+            21,
+            51,
+            55
+          ],
+          "source_pixels_changed": 0
+        },
+        {
+          "index": 6,
+          "duration_ms": 50,
+          "rect_px": [
+            1792,
+            768,
+            896,
+            768
+          ],
+          "pivot_logical": [
+            47,
+            70
+          ],
+          "pivot_px": [
+            376,
+            560
+          ],
+          "opaque_bbox_logical": [
+            24,
+            54,
+            86,
+            82
+          ],
+          "opaque_bbox_px": [
+            192,
+            432,
+            688,
+            656
+          ],
+          "head_template_match": [
+            21,
+            51,
+            57
+          ],
+          "source_pixels_changed": 0
+        },
+        {
+          "index": 7,
+          "duration_ms": 50,
+          "rect_px": [
+            2688,
+            768,
+            896,
+            768
+          ],
+          "pivot_logical": [
+            49,
+            70
+          ],
+          "pivot_px": [
+            392,
+            560
+          ],
+          "opaque_bbox_logical": [
+            22,
+            42,
+            74,
+            82
+          ],
+          "opaque_bbox_px": [
+            176,
+            336,
+            592,
+            656
+          ],
+          "head_template_match": [
+            0,
+            45,
+            43
+          ],
+          "source_pixels_changed": 0
+        }
+      ]
+    }
+  ]
+}

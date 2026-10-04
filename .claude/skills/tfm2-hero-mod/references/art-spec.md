@@ -82,7 +82,10 @@ Sin's first idle, fixed in `leesin_retouch.json`).
 - **Anything with an up and down goes on a caster view.** A projectile's view is turned to the
   cast direction (champion-data section 6), so a wall or a banner on a `LineRangeProjectile` lies
   across the screen when cast upward. A `CasterViewEffect` is not turned, is mirrored for a
-  left-facing caster and stands where it was played. league_yasuo's Wind Wall went this way (64 px
+  left-facing caster and stands where it was played. Timed into an action (a `Delayed`), it must have
+  `is_follow: false`, or the client mirrors it the wrong way for a red-side caster (league_vi E, league_aatrox Q,
+  2026-10-03; champion-data section 6): check every directional picture with the hero on the red team.
+  league_yasuo's Wind Wall went this way (64 px
   tall, 20 px in front of him) before the user dropped the skill: Codex's twisted column of wind read
   as a tornado, League's ground-line shape (a long line with the ends bent back) read as a wall, and
   44 px was too small to shield him. A projectile that has an up and down but must fly (league_thresh's

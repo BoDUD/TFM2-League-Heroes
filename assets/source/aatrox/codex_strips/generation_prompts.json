@@ -1,0 +1,354 @@
+{
+  "run": {
+    "mode": "authorized_native_pixel_animation",
+    "pose_plan": "run",
+    "prompt": "Preserve supplied final design, exact head and standing legs; rigidly move/turn supplied straight sword; animate run according to MODEL_STRIPS.md. No image generator was used for final frames."
+  },
+  "attack": {
+    "mode": "authorized_native_pixel_animation",
+    "pose_plan": [
+      [
+        158.19859051364818,
+        [
+          58,
+          86
+        ],
+        0,
+        0
+      ],
+      [
+        175,
+        [
+          57,
+          84
+        ],
+        -1,
+        0
+      ],
+      [
+        45,
+        [
+          68,
+          78
+        ],
+        0,
+        1
+      ],
+      [
+        0,
+        [
+          72,
+          84
+        ],
+        2,
+        1
+      ],
+      [
+        12,
+        [
+          72,
+          85
+        ],
+        1,
+        0
+      ],
+      [
+        158.19859051364818,
+        [
+          58,
+          86
+        ],
+        0,
+        0
+      ]
+    ],
+    "prompt": "Preserve supplied final design, exact head and standing legs; rigidly move/turn supplied straight sword; animate attack according to MODEL_STRIPS.md. No image generator was used for final frames."
+  },
+  "attack_p": {
+    "mode": "authorized_native_pixel_animation",
+    "pose_plan": [
+      [
+        -125,
+        [
+          59,
+          79
+        ],
+        0,
+        0
+      ],
+      [
+        177,
+        [
+          56,
+          86
+        ],
+        -2,
+        0
+      ],
+      [
+        165,
+        [
+          55,
+          85
+        ],
+        -2,
+        0
+      ],
+      [
+        0,
+        [
+          75,
+          84
+        ],
+        2,
+        1
+      ],
+      [
+        0,
+        [
+          75,
+          84
+        ],
+        2,
+        1
+      ],
+      [
+        158.19859051364818,
+        [
+          58,
+          86
+        ],
+        0,
+        0
+      ]
+    ],
+    "prompt": "Preserve supplied final design, exact head and standing legs; rigidly move/turn supplied straight sword; animate attack_p according to MODEL_STRIPS.md. No image generator was used for final frames."
+  },
+  "skill": {
+    "mode": "authorized_native_pixel_animation",
+    "pose_plan": [
+      [
+        158.19859051364818,
+        [
+          58,
+          86
+        ],
+        0,
+        0
+      ],
+      [
+        -130,
+        [
+          53,
+          70
+        ],
+        -1,
+        0
+      ],
+      [
+        -100,
+        [
+          53,
+          62
+        ],
+        0,
+        0
+      ],
+      [
+        0,
+        [
+          68,
+          74
+        ],
+        1,
+        1
+      ],
+      [
+        65,
+        [
+          67,
+          78
+        ],
+        2,
+        1
+      ],
+      [
+        65,
+        [
+          67,
+          78
+        ],
+        1,
+        1
+      ],
+      [
+        158.19859051364818,
+        [
+          58,
+          86
+        ],
+        0,
+        0
+      ]
+    ],
+    "prompt": "Preserve supplied final design, exact head and standing legs; rigidly move/turn supplied straight sword; animate skill according to MODEL_STRIPS.md. No image generator was used for final frames."
+  },
+  "q2": {
+    "mode": "authorized_native_pixel_animation",
+    "pose_plan": [
+      [
+        158.19859051364818,
+        [
+          58,
+          86
+        ],
+        0,
+        0
+      ],
+      [
+        -150,
+        [
+          53,
+          72
+        ],
+        -1,
+        0
+      ],
+      [
+        -115,
+        [
+          53,
+          64
+        ],
+        -1,
+        0
+      ],
+      [
+        -30,
+        [
+          69,
+          78
+        ],
+        1,
+        0
+      ],
+      [
+        0,
+        [
+          75,
+          84
+        ],
+        2,
+        1
+      ],
+      [
+        12,
+        [
+          75,
+          84
+        ],
+        1,
+        1
+      ],
+      [
+        158.19859051364818,
+        [
+          58,
+          86
+        ],
+        0,
+        0
+      ]
+    ],
+    "prompt": "Preserve supplied final design, exact head and standing legs; rigidly move/turn supplied straight sword; animate q2 according to MODEL_STRIPS.md. No image generator was used for final frames."
+  },
+  "q3": {
+    "mode": "authorized_native_pixel_animation",
+    "pose_plan": [
+      [
+        -130,
+        [
+          54,
+          73
+        ],
+        0,
+        1
+      ],
+      [
+        -110,
+        [
+          53,
+          62
+        ],
+        0,
+        -2
+      ],
+      [
+        -100,
+        [
+          53,
+          60
+        ],
+        0,
+        -3
+      ],
+      [
+        -15,
+        [
+          67,
+          70
+        ],
+        1,
+        -1
+      ],
+      [
+        65,
+        [
+          67,
+          78
+        ],
+        2,
+        1
+      ],
+      [
+        65,
+        [
+          67,
+          78
+        ],
+        1,
+        1
+      ],
+      [
+        158.19859051364818,
+        [
+          58,
+          86
+        ],
+        0,
+        0
+      ]
+    ],
+    "prompt": "Preserve supplied final design, exact head and standing legs; rigidly move/turn supplied straight sword; animate q3 according to MODEL_STRIPS.md. No image generator was used for final frames."
+  },
+  "skill2": {
+    "mode": "authorized_native_pixel_animation",
+    "pose_plan": "skill2",
+    "prompt": "Preserve supplied final design, exact head and standing legs; rigidly move/turn supplied straight sword; animate skill2 according to MODEL_STRIPS.md. No image generator was used for final frames."
+  },
+  "ult": {
+    "mode": "authorized_native_pixel_animation",
+    "pose_plan": "ult",
+    "prompt": "Preserve supplied final design, exact head and standing legs; rigidly move/turn supplied straight sword; animate ult according to MODEL_STRIPS.md. No image generator was used for final frames."
+  },
+  "hit": {
+    "mode": "authorized_native_pixel_animation",
+    "pose_plan": "hit",
+    "prompt": "Preserve supplied final design, exact head and standing legs; rigidly move/turn supplied straight sword; animate hit according to MODEL_STRIPS.md. No image generator was used for final frames."
+  },
+  "dead": {
+    "mode": "authorized_native_pixel_animation",
+    "pose_plan": "dead",
+    "prompt": "Preserve supplied final design, exact head and standing legs; rigidly move/turn supplied straight sword; animate dead according to MODEL_STRIPS.md. No image generator was used for final frames."
+  }
+}

@@ -357,6 +357,13 @@
         "skill": "冲向目标并旋转镰刀，冲刺和旋转各造成<#ff9028ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>物理伤害（<#fe5c50ff>暗裔<>：对英雄再加<#ff9028ff>4%最大生命<>）。掠影步：之后<#ffb900ff>2秒<>移速+<#ffb900ff>35%<>（<#8484fbff>影流<>+<#ffb900ff>55%<>），回复<#ffb900ff>20<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>20%<>生命。",
         "skill2": "举镰<#ffb900ff>0.55秒<>（举起时锁定方向）后向前斩出一道镰刃，造成<#ff9028ff>55<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理伤害和逐渐衰减的<#ffb900ff>50%<>减速。<#fe5c50ff>暗裔<>：击飞<#ffb900ff>0.75秒<>；<#8484fbff>影流<>：距离更远。",
         "ult": "钻进最近被己方打过的敌方英雄体内，<#ffb900ff>2秒<>不可选取，随后破体而出造成<#ff9028ff>110<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>物理伤害。<#fe5c50ff>暗裔<>：再加<#ff9028ff>10%最大生命<>伤害并回复其中<#ffb900ff>70%<>；<#8484fbff>影流<>：重新开启开战额外伤害。"
+      },
+      "league_aatrox": {
+        "name": "亚托克斯",
+        "attack": "被动 <#ff9028ff>赐死剑气<>：每<#ffb900ff>10秒<>强化一次普攻，额外造成<#ffb900ff>25<>和英雄<#ffb900ff>6%<>最大生命值的伤害并<#4caf50ff>回血<>；命中英雄冷却-2秒，剑刃边缘-4秒。对英雄的伤害<#4caf50ff>回复18%<>。",
+        "skill": "可连放三段，形状各异，每段+<#ffb900ff>25%<>，造成<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<>物理伤害；剑刃边缘命中再+<#ffb900ff>60%<>并<#ef5350ff>击飞<>。<#ff9028ff>暗影冲决<>就绪时先冲刺，把敌人送到剑刃边缘。",
+        "skill2": "甩出锁链，第一个敌人受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>物理伤害；被锁住的英雄<#ffb900ff>1.5秒<>后被<#ef5350ff>拖回<>再受一次伤害。",
+        "ult": "显现恶魔形态<#ffb900ff>10秒<>：<#ef5350ff>恐惧<>附近小兵和野怪，攻击力+<#ffb900ff>25%<>，自我治疗+<#4caf50ff>50%<>，移速+<#ffb900ff>45%<>并逐渐衰减。击杀英雄会刷新持续时间。"
       }
     },
     "skill_name": {
@@ -614,6 +621,11 @@
         "skill1": "巨镰横扫",
         "skill2": "利刃纵贯",
         "ult": "裂舍影"
+      },
+      "league_aatrox": {
+        "skill1": "暗裔利刃",
+        "skill2": "恶火束链",
+        "ult": "大灭"
       }
     }
   },
@@ -975,6 +987,13 @@
         "skill": "衝向目標並旋轉鐮刀，衝刺和旋轉各造成<#ff9028ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>物理傷害（<#fe5c50ff>闇裔<>：對英雄再加<#ff9028ff>4%最大生命<>）。夜叉行：之後<#ffb900ff>2秒<>移速+<#ffb900ff>35%<>（<#8484fbff>影流<>+<#ffb900ff>55%<>），回復<#ffb900ff>20<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>20%<>生命。",
         "skill2": "舉鐮<#ffb900ff>0.55秒<>（舉起時鎖定方向）後向前斬出一道鐮刃，造成<#ff9028ff>55<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>物理傷害和逐漸減弱的<#ffb900ff>50%<>緩速。<#fe5c50ff>闇裔<>：擊飛<#ffb900ff>0.75秒<>；<#8484fbff>影流<>：距離更遠。",
         "ult": "鑽進最近被己方打過的敵方英雄體內，<#ffb900ff>2秒<>無法被選取，隨後破體而出造成<#ff9028ff>110<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>物理傷害。<#fe5c50ff>闇裔<>：再加<#ff9028ff>10%最大生命<>傷害並回復其中<#ffb900ff>70%<>；<#8484fbff>影流<>：重新開啟開戰額外傷害。"
+      },
+      "league_aatrox": {
+        "name": "厄薩斯",
+        "attack": "被動 <#ff9028ff>冥使劍姿<>：每<#ffb900ff>10秒<>強化一次普攻，額外造成<#ffb900ff>25<>和英雄<#ffb900ff>6%<>最大生命值的傷害並<#4caf50ff>回血<>；命中英雄冷卻-2秒，劍刃邊緣-4秒。對英雄的傷害<#4caf50ff>回復18%<>。",
+        "skill": "可連放三段，形狀各異，每段+<#ffb900ff>25%<>，造成<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<>物理傷害；劍刃邊緣命中再+<#ffb900ff>60%<>並<#ef5350ff>擊飛<>。<#ff9028ff>冥影衝鋒<>就緒時先衝刺，把敵人送到劍刃邊緣。",
+        "skill2": "甩出鎖鏈，第一個敵人受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>物理傷害；被鎖住的英雄<#ffb900ff>1.5秒<>後被<#ef5350ff>拖回<>再受一次傷害。",
+        "ult": "顯現惡魔形態<#ffb900ff>10秒<>：<#ef5350ff>恐懼<>附近小兵和野怪，攻擊力+<#ffb900ff>25%<>，自我治療+<#4caf50ff>50%<>，移速+<#ffb900ff>45%<>並逐漸衰減。擊殺英雄會刷新持續時間。"
       }
     },
     "skill_name": {
@@ -1232,6 +1251,11 @@
         "skill1": "獵魂斬",
         "skill2": "散華刃",
         "ult": "伏影滅"
+      },
+      "league_aatrox": {
+        "skill1": "冥血邪劍",
+        "skill2": "冥府血鏈",
+        "ult": "劍魔滅世"
       }
     }
   },
@@ -1593,6 +1617,13 @@
         "skill": "Kayn dashes at the target and spins his scythe; the dash and the spin each deal <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55% AD<> <#ff9028ff>physical damage<> (<#fe5c50ff>Darkin<>: +<#ff9028ff>4% max health<> to champions). <#ff9028ff>Shadow Step<>: then <#ffb900ff>+35%<> move speed (<#8484fbff>Shadow<> <#ffb900ff>+55%<>) for <#ffb900ff>2s<> and heals <#ffb900ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>20%<>.",
         "skill2": "Kayn raises his scythe for <#ffb900ff>0.55s<> (the aim locks as he raises it), then slashes a line ahead: <#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<> and a decaying <#ffb900ff>50%<> slow. <#fe5c50ff>Darkin<>: knocks up for <#ffb900ff>0.75s<>. <#8484fbff>Shadow<>: longer reach.",
         "ult": "Kayn infests an enemy champion his team damaged recently, untargetable for <#ffb900ff>2s<>, then bursts out for <#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150% AD<> <#ff9028ff>physical damage<>. <#fe5c50ff>Darkin<>: +<#ff9028ff>10% max health<>, healing <#ffb900ff>70%<> of it. <#8484fbff>Shadow<>: his fight-start bonus opens again."
+      },
+      "league_aatrox": {
+        "name": "Aatrox",
+        "attack": "Passive <#ff9028ff>Deathbringer Stance<>: every <#ffb900ff>10s<> an attack deals <#ffb900ff>25<> more and <#ffb900ff>6%<> of a champion's max health and <#4caf50ff>heals<> him; each hit on a champion takes 2s off the wait, an edge hit 4s. He <#4caf50ff>heals 18%<> of the damage he deals to champions.",
+        "skill": "Aatrox slams his greatsword up to three times, each with a new shape and +<#ffb900ff>25%<> damage: <#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<> <#ff9028ff>physical damage<>; enemies hit by the edge take <#ffb900ff>60%<> more and are <#ef5350ff>knocked up<>. With <#ff9028ff>Umbral Dash<> ready he first dashes to put a champion on the edge.",
+        "skill2": "Aatrox fires a chain: the first enemy hit takes <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> <#ff9028ff>physical damage<>; a champion it hits is chained: <#ffb900ff>1.5s<> later it is <#ef5350ff>pulled back<> and hit again.",
+        "ult": "Aatrox reveals his demonic form for <#ffb900ff>10s<>: nearby minions and monsters are <#ef5350ff>feared<>, he gains <#ffb900ff>25%<> attack damage, <#4caf50ff>50%<> more self-healing and <#ffb900ff>45%<> move speed that decays. Champion kills refresh it."
       }
     },
     "skill_name": {
@@ -1850,6 +1881,11 @@
         "skill1": "Reaping Slash",
         "skill2": "Blade's Reach",
         "ult": "Umbral Trespass"
+      },
+      "league_aatrox": {
+        "skill1": "The Darkin Blade",
+        "skill2": "Infernal Chains",
+        "ult": "World Ender"
       }
     }
   },
@@ -2211,6 +2247,13 @@
         "skill": "대상에게 돌진한 뒤 낫을 회전, 돌진과 회전이 각각 <#ff9028ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 55%<> <#ff9028ff>물리 피해<>(<#fe5c50ff>다르킨<>: 챔피언에게 <#ff9028ff>최대 체력의 4%<> 추가). <#ff9028ff>그림자의 길<>: 이후 <#ffb900ff>2초<> 이동 속도 +<#ffb900ff>35%<>(<#8484fbff>암살자<> +<#ffb900ff>55%<>), 체력 <#ffb900ff>20<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>20%<> 회복.",
         "skill2": "<#ffb900ff>0.55초<> 낫을 들어 올린 뒤(이때 방향 고정) 앞으로 베어 <#ff9028ff>55<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>와 점점 약해지는 <#ffb900ff>50%<> 둔화. <#fe5c50ff>다르킨<>: <#ffb900ff>0.75초<> 띄워 올림. <#8484fbff>암살자<>: 사거리 증가.",
         "ult": "최근 아군이 피해를 준 적 챔피언에게 침투해 <#ffb900ff>2초<> 동안 대상으로 지정할 수 없고, 빠져나오며 <#ff9028ff>110<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 150%<> <#ff9028ff>물리 피해<>. <#fe5c50ff>다르킨<>: <#ff9028ff>최대 체력의 10%<> 추가, 그 <#ffb900ff>70%<> 회복. <#8484fbff>암살자<>: 전투 시작 추가 피해 재활성화."
+      },
+      "league_aatrox": {
+        "name": "아트록스",
+        "attack": "기본 지속 효과 <#ff9028ff>사신 태세<>: <#ffb900ff>10초<>마다 기본 공격이 <#ffb900ff>25<> 추가 피해와 챔피언 최대 체력의 <#ffb900ff>6%<> 피해를 입히고 <#4caf50ff>체력을 회복<>합니다. 챔피언 적중 시 -2초, 검날 끝 적중 시 -4초. 챔피언에게 입힌 피해의 <#4caf50ff>18%<> 회복.",
+        "skill": "대검을 최대 세 번 내리치며 매번 모양이 바뀌고 피해 +<#ffb900ff>25%<>: <#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<> <#ff9028ff>물리 피해<>. 검날 끝에 맞으면 <#ffb900ff>60%<> 추가 피해와 <#ef5350ff>에어본<>. <#ff9028ff>파멸의 돌진<>이 준비되면 먼저 돌진해 챔피언을 검날 끝에 둡니다.",
+        "skill2": "사슬을 던져 처음 맞은 적에게 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> <#ff9028ff>물리 피해<>를 줍니다. 사슬에 묶인 챔피언은 <#ffb900ff>1.5초<> 뒤 <#ef5350ff>끌려와<> 다시 피해를 입습니다.",
+        "ult": "<#ffb900ff>10초<> 동안 악마 형태: 주변 미니언과 몬스터 <#ef5350ff>공포<>, 공격력 +<#ffb900ff>25%<>, 자가 회복 +<#4caf50ff>50%<>, 이동 속도 +<#ffb900ff>45%<>(점차 감소). 챔피언 처치 시 지속 시간 초기화."
       }
     },
     "skill_name": {
@@ -2468,6 +2511,11 @@
         "skill1": "살상돌격",
         "skill2": "몰아치는 낫",
         "ult": "그림자의 지배"
+      },
+      "league_aatrox": {
+        "skill1": "다르킨의 검",
+        "skill2": "지옥사슬",
+        "ult": "세계의 종결자"
       }
     }
   },
@@ -2829,6 +2877,13 @@
         "skill": "対象へ突進し大鎌を回転、突進と回転がそれぞれ<#ff9028ff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の55%<>の<#ff9028ff>物理ダメージ<>（<#fe5c50ff>ダーキン<>：チャンピオンに<#ff9028ff>最大体力の4%<>追加）。<#ff9028ff>影抜き<>：その後<#ffb900ff>2秒<>移動速度+<#ffb900ff>35%<>（<#8484fbff>暗殺者<>+<#ffb900ff>55%<>）、体力<#ffb900ff>20<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ffb900ff>20%<>回復。",
         "skill2": "<#ffb900ff>0.55秒<>大鎌を構え（その時に方向固定）前方を斬り、<#ff9028ff>55<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>と減衰する<#ffb900ff>50%<>スロウ。<#fe5c50ff>ダーキン<>：<#ffb900ff>0.75秒<>打ち上げ。<#8484fbff>暗殺者<>：射程が長い。",
         "ult": "味方が最近ダメージを与えた敵チャンピオンに潜り込み<#ffb900ff>2秒<>対象不可、飛び出して<#ff9028ff>110<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の150%<>の<#ff9028ff>物理ダメージ<>。<#fe5c50ff>ダーキン<>：<#ff9028ff>最大体力の10%<>追加、その<#ffb900ff>70%<>回復。<#8484fbff>暗殺者<>：開戦ボーナスが再び有効。"
+      },
+      "league_aatrox": {
+        "name": "エイトロックス",
+        "attack": "パッシブ <#ff9028ff>死兆の構え<>：<#ffb900ff>10秒<>ごとに通常攻撃が<#ffb900ff>25<>と最大体力の<#ffb900ff>6%<>を追加し<#4caf50ff>回復<>。チャンピオン命中で-2秒、剣先命中で-4秒。チャンピオンへのダメージの<#4caf50ff>18%<>を回復。",
+        "skill": "大剣を最大3回振り下ろし、毎回形が変わりダメージ+<#ffb900ff>25%<>：<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<>の<#ff9028ff>物理ダメージ<>。剣先に当たると<#ffb900ff>60%<>追加し<#ef5350ff>ノックアップ<>。<#ff9028ff>影進撃<>が使えれば先に突進し剣先を合わせる。",
+        "skill2": "鎖を放ち最初の敵に<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>の<#ff9028ff>物理ダメージ<>。鎖に繋がれたチャンピオンは<#ffb900ff>1.5秒<>後に<#ef5350ff>引き戻され<>再びダメージ。",
+        "ult": "<#ffb900ff>10秒<>魔の姿：周囲のミニオンとモンスターを<#ef5350ff>恐怖<>、攻撃力+<#ffb900ff>25%<>、自己回復+<#4caf50ff>50%<>、移動速度+<#ffb900ff>45%<>（減衰）。キルで効果時間リセット。"
       }
     },
     "skill_name": {
@@ -3086,6 +3141,11 @@
         "skill1": "飛影斬",
         "skill2": "刃影襲",
         "ult": "真影侵壊"
+      },
+      "league_aatrox": {
+        "skill1": "ダーキンブレード",
+        "skill2": "炎獄の鎖",
+        "ult": "ワールドエンダー"
       }
     }
   }

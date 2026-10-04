@@ -318,6 +318,21 @@ def untargeted_moves(node, under_random=False):
     return 0
 
 
+def late_caster_views(node, late=False):
+    """CasterViewEffect names played after the action's first tick: inside a Delayed or an AddCasted."""
+    found = set()
+    if isinstance(node, dict):
+        if late and node.get("type") == "CasterViewEffect" and node.get("name"):
+            found.add(node["name"])
+        inner = late or node.get("type") in ("Delayed", "AddCasted")
+        for v in node.values():
+            found |= late_caster_views(v, inner)
+    elif isinstance(node, list):
+        for v in node:
+            found |= late_caster_views(v, late)
+    return found
+
+
 # effects that act on the unit they are applied to (not the caster's own buffs, sounds or pictures)
 UNIT_EFFECTS = {"Shield", "Heal", "FixedAttack", "Attack", "ApAttack", "AddCasted", "AddBuff", "Stun", "Bind",
                 "Airborne", "Banish", "Knockback", "Pull", "Grab", "Taunt", "Charm", "Fear", "BlockAttack",
@@ -651,6 +666,7 @@ def main(argv=None):
         found = dict(types=[], projectiles=set(), view_effects=set(), anims=set(), sfx=set(), switch_buffs=set(),
                      removed_buffs=set(), buffs=set(), bad_enum=[], no_duration=set(), ignored=[], no_ratio=set(),
                      never=set(), dead_buff=set(), crawl=set())
+        late_views = set()
         for slot in ACTIONS:
             a = d.get(slot)
             if not isinstance(a, dict):
@@ -701,6 +717,7 @@ def main(argv=None):
             if a.get("casting_type") == "None" and untargeted_moves(a.get("effect")):
                 rep.warn(WA, "MoveToTarget in a casting_type None action has no target and will not move - "
                              "cast as Targeting or wrap it in RandomTarget")
+            late_views |= late_caster_views(a.get("effect"))
             bad = withself_unit_effects(a.get("effect"))
             if bad:
                 rep.warn(WA, f"WithSelf around {', '.join(sorted(bad))}: the engine applies it to the caster AND again to "
@@ -774,6 +791,17 @@ def main(argv=None):
                         f"(dead entry or typo)")
         for nm in sorted(vb - used):
             rep.warn(W, f"view_buffs '{nm}' matches no buff name{hint(nm, used)} (dead entry or typo)")
+        # a caster picture that starts after the action's first tick and follows the caster is drawn mirrored the
+        # wrong way on the red side (league_vi E's wave, league_aatrox's Q slashes, 2026-10-03); oppi's LoL Reborn
+        # never combines the two (its 7 delayed caster pictures are all is_follow false, its 8 following ones play
+        # at the action's start)
+        follows = {v.get("name") for v in d.get("view_effects") or [] if v.get("is_follow")}
+        for nm in sorted(late_views & follows):
+            rep.warn(W, f"CasterViewEffect '{nm}' starts after the action's first tick (in a Delayed or AddCasted) with "
+                        f"is_follow true: on the red side the client draws it mirrored the wrong way - set is_follow "
+                        f"false (mirrored by the caster's facing when it starts, it stays where it was played) or play "
+                        f"it at the action's start with leading empty frames (left-right symmetric pictures show no "
+                        f"difference)")
         for nm in sorted(found["view_effects"] - ve - vp - vb):
             rep.warn(W, f"ViewEffect '{nm}' has no view_effects entry here{hint(nm, ve | vp | vb)} - "
                         f"nothing will be drawn")
