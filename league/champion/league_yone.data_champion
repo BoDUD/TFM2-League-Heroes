@@ -3972,28 +3972,33 @@
                   "name": "league_yone_e_cast"
                 },
                 {
-                  "type": "LinearProjectile",
-                  "name": "league_yone_e_anchor",
-                  "speed": 1,
-                  "range": 1,
-                  "penetrate": true,
+                  "type": "CasterViewEffect",
+                  "name": "league_yone_e_body"
+                },
+                {
+                  "type": "RangeEffect",
                   "shape": {
                     "Circle": {
                       "radius": 1000
                     }
                   },
-                  "y_offset": 5000,
-                  "applied_target": "EnemyChampion",
-                  "applied_effects": [],
-                  "end_effects": [
+                  "target": "AllyOnlySelf",
+                  "apply_type": "AroundCaster",
+                  "effects": [
                     {
-                      "type": "ViewEffect",
-                      "name": "league_yone_e_body"
-                    },
-                    {
-                      "type": "Delayed",
-                      "tick": 239,
-                      "effects": [
+                      "type": "ParabolicProjectile",
+                      "name": "league_yone_e_anchor",
+                      "travel_time": 240,
+                      "range": 400000,
+                      "range_effect_name": "",
+                      "shape": {
+                        "Circle": {
+                          "radius": 1
+                        }
+                      },
+                      "applied_target": "EnemyChampion",
+                      "applied_effects": [],
+                      "end_effects": [
                         {
                           "type": "SwitchByBuff",
                           "buff_name": "league_yone_spirit",

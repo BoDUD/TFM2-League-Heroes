@@ -429,7 +429,14 @@ How they behave *(measured in the SDK simulation for league_jinx, 3-12 ten-minut
   probably turns a picture on a point toward it from the caster, which has no direction at zero distance
   *(inferred)*. Play such a picture as a `CasterViewEffect` in the cast (not following), and keep
   `ViewEffect`s for points away from the caster (Ekko's field, Teemo's and Jinx's traps). league_yone's body
-  left behind (`e_body` in his anchor's `end_effects`) is the same pattern and has not been seen in game. A `BackToCasterLinearProjectile` started from them flies from that point back to the
+  left behind was the same pattern (`e_body` in his anchor's `end_effects`); since 0.50.8 it is a `CasterViewEffect` in the cast.
+  **In game 0.6.4 a `Delayed` in that anchor's `end_effects` no longer took league_yone back** (the user, 2026-10-04: the
+  spirit flew out and stayed, "本体回灵体"), while the classic SDK still teleports him to the anchor (a `ForceMove`
+  event, 34 of 34 returns). His return now rides a lob with no `Delayed`: a `ParabolicProjectile` (`travel_time` 240)
+  from a `RangeEffect` on `AllyOnlySelf` lands on the cast point and its `end_effects` run the `Teleport` (tick 239
+  after the cast, on the spot, in the simulation). A slow `LinearProjectile` cannot stand in: at `speed` 1 it never
+  moves (no `end_effects`), at 10 its life varies with the direction (truncated steps), at 100 it drifts 23900 units.
+  league_ekko R and league_leblanc W still use the anchor + `Delayed`. A `BackToCasterLinearProjectile` started from them flies from that point back to the
   caster, wherever he has walked meanwhile, hits what it passes and runs its own `end_effects` on the caster
   when it reaches him (league_ekko Q; Reimu, Draven and Swain chain it the same way).
 - A `ParabolicProjectile`'s `range_effect_name` plays on the landing point the tick it is fired (a
@@ -1392,11 +1399,13 @@ much (lane 1: +0.82 / +0.09 -> -0.29 / -0.35, and a bigger proc did not win it b
 
 **Leave the body, fight as a spirit, snap back (league_yone E, Soul Unbound folded into W).** Every 15 s (a
 caster cooldown buff), when a `RandomTarget` finds an enemy champion within 50000 (it sets a 2-tick flag the
-next `SwitchByBuff` reads), W opens with Soul Unbound; otherwise it is a plain W. The body stays: Ekko's anchor
-(a `LinearProjectile` with `speed` 1, `range` 1, `y_offset` 5000) plays the body left behind in its
-`end_effects` - a `ViewEffect` bound to the sprite's own `e_body` tag (League's `Spell3_bodyLoop`, 2 x 2000 ms,
-`z` 0, not following) - and 239 ticks later pulls him back with `Teleport` if the spirit buff is still there
-(death clears it). The spirit (a caster buff with `move_speed_mult` 25 and a `view_buffs` aura) dashes onto a
+next `SwitchByBuff` reads), W opens with Soul Unbound; otherwise it is a plain W. The body stays: the cast plays
+it as a `CasterViewEffect` bound to the sprite's own `e_body` tag (League's `Spell3_bodyLoop`, 2 x 2000 ms, `z` 0,
+not following; until 0.50.8 a `ViewEffect` in the anchor's `end_effects`, never seen in game), and a lob aimed at
+himself (`ParabolicProjectile`, `travel_time` 240, from a `RangeEffect` on `AllyOnlySelf`) lands on the cast point
+239 ticks later and pulls him back with `Teleport` if the spirit buff is still there (death clears it). Until
+0.50.8 the pull was Ekko's anchor (a `LinearProjectile` with `speed` 1, `range` 1, `y_offset` 5000) and a
+`Delayed` of 239 ticks, which game 0.6.4 stopped honouring (section 4). The spirit (a caster buff with `move_speed_mult` 25 and a `view_buffs` aura) dashes onto a
 champion (`RandomTarget` + `MoveToTarget`) and cleaves there.
 League repeats a share of the damage dealt meanwhile; nothing reads the damage dealt, so every damaging hit
 has a champion-only twin (the attack's `TargetProjectile`, twins of Q's, Q3's and R's lines, W's champion cone)
