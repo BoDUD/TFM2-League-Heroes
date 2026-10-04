@@ -2756,7 +2756,7 @@ shield - shields are spent in order and the soak is gone by the end of the tick 
 tick"), so the flag still reads the probe's shield alone - and the hit is small: 5% of her attack against a shield of
 10, 2% of her maximum health against 32 (level 9) and 37 (level 12), `ceil` of the stat at the threshold since the hit
 is floored; one probe every 15 s instead of 5. Two 18-minute simulations: no health lost to a probe (10 times before),
-the stages at the same levels. league_tristana's and league_kayle's probes still spill (their hits are rarer).
+the stages at the same levels. league_tristana's probes took the same soak, 2% hits (shields 27 / 32 / 37) and 15 s (2026-10-05: no health lost in two games, 7 and 4 times before); league_kayle's took the soak alone (tools/fix/fix_kayle_probe.py: 60 probe shields; 10 and 9 losses -> 0) - her probes have no damage guard, so a smaller shield would break under an enemy's ordinary hit.
 
 **A dash to a damaged champion, then a shield (league_kaisa R, Killer Instinct).** A `Targeting` cast on
 `EnemyChampionRecentlyAttacked` (100000): the action lasts only the 8-tick launch; at tick 7 the launch burst is left on
