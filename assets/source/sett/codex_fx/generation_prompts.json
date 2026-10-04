@@ -1,0 +1,114 @@
+[
+  {
+    "name": "sett_fx_a_hit",
+    "prompt_number": 1,
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, glows, shockwaves or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an orange-gold ramp (#FFFFFF, #FFF2C2, #FFCC4D, #F59A1E, #B85712).\nEffect: a SMALL PUNCH HIT (a jab), 4 frames: 1 a white flash 4 squares across at the center; 2 a white-gold four-pointed impact star 10 squares across, 3-4 short orange speed lines bursting out from it; 3 the star breaking into orange-gold sparks flying outward, the lines thinner; 4 a few fading sparks.\nLayout: one horizontal row of 4 equal square cells, image size 1024x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n",
+    "method": "native image_gen",
+    "reference": "style/vi_effects.png (style only)",
+    "additional_constraints": "Exact frames, equal cells, consistent anchors, no labels/grid/characters, transparent margins."
+  },
+  {
+    "name": "sett_fx_a2_hit",
+    "prompt_number": 2,
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, glows, shockwaves or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an orange-gold ramp (#FFFFFF, #FFF2C2, #FFCC4D, #F59A1E, #B85712).\nEffect: a HEAVY PUNCH HIT (a cross), 5 frames: 1 a white flash 6 squares across; 2 a white-gold burst 12 squares across with 6 jagged rays; 3 an orange shock ring 16 squares across round a fading gold core, orange sparks flying out; 4 the ring thinner and broken, the sparks further out; 5 a few fading sparks.\nLayout: one horizontal row of 5 equal square cells, image size 1280x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n",
+    "method": "native image_gen",
+    "reference": "style/vi_effects.png (style only)",
+    "additional_constraints": "Exact frames, equal cells, consistent anchors, no labels/grid/characters, transparent margins."
+  },
+  {
+    "name": "sett_fx_q_glow",
+    "prompt_number": 3,
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, glows or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an orange-gold ramp (#FFFFFF, #FFF2C2, #FFCC4D, #F59A1E, #B85712).\nEffect: GLOWING FISTS (do NOT draw the fists or the figure; draw only the glow round where two fists are), 4 frames, a seamless loop, symmetric left and right: in every cell two small golden flames, each about 6 squares wide and 8 tall, their centers 20 squares apart on the cell's middle row (one left of center, one right), each a white-gold core with orange tongues licking upward and 1-2 gold sparks rising above it; the tongues and sparks move up a little each frame. The middle of the cell between the two flames stays EMPTY.\nLayout: one horizontal row of 4 equal cells, each 2 wide by 1 tall (512x256), image size 2048x256; the pair of flames centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n",
+    "method": "native image_gen",
+    "reference": "style/vi_effects.png (style only)",
+    "additional_constraints": "Exact frames, equal cells, consistent anchors, no labels/grid/characters, transparent margins."
+  },
+  {
+    "name": "sett_fx_q_hit",
+    "prompt_number": 4,
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, glows, shockwaves or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an orange-gold ramp (#FFFFFF, #FFF2C2, #FFCC4D, #F59A1E, #B85712).\nEffect: an EMPOWERED PUNCH HIT, 5 frames: 1 a bright white flash 8 squares across; 2 a golden fist-shaped burst (the silhouette of a punching fist, white-gold, 12 squares) bursting toward the right with a big white-gold star behind it; 3 a gold ring 22 squares across round it, golden shards flying out in all directions; 4 the ring breaking up, the shards further out, the fist shape fading; 5 a few fading gold sparks.\nLayout: one horizontal row of 5 equal square cells, image size 1280x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n",
+    "method": "native image_gen",
+    "reference": "style/vi_effects.png (style only)",
+    "additional_constraints": "Exact frames, equal cells, consistent anchors, no labels/grid/characters, transparent margins."
+  },
+  {
+    "name": "sett_fx_e_hit",
+    "prompt_number": 5,
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, glows, shockwaves or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an orange-gold ramp (#FFFFFF, #FFF2C2, #FFCC4D, #F59A1E, #B85712).\nEffect: a GRAB HIT, 4 frames, symmetric left and right: 1 a white flash 5 squares across; 2 a white-gold impact star 10 squares across with a horizontal streak 14 squares long through it; 3 the star breaking into orange sparks, the streak thinner; 4 a few fading sparks.\nLayout: one horizontal row of 4 equal square cells, image size 1024x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n",
+    "method": "native image_gen",
+    "reference": "style/vi_effects.png (style only)",
+    "additional_constraints": "Exact frames, equal cells, consistent anchors, no labels/grid/characters, transparent margins."
+  },
+  {
+    "name": "sett_fx_e_smash",
+    "prompt_number": 6,
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, glows, shockwaves or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an orange-gold ramp (#FFFFFF, #FFF2C2, #FFCC4D, #F59A1E, #B85712).\nEffect: a CLAP SHOCKWAVE (two fists smashed together at the center; do NOT draw the fists), 5 frames: 1 a white flash 6 squares across at the center; 2 a white-gold starburst 14 squares across with long horizontal rays; 3 two curved orange-gold shockwave crescents bursting out to the left and to the right, 24 squares apart at their tips, sparks flying; 4 the crescents further out and thinner, 26 squares apart, the core fading; 5 a few fading sparks.\nLayout: one horizontal row of 5 equal square cells, image size 1280x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n",
+    "method": "native image_gen",
+    "reference": "style/vi_effects.png (style only)",
+    "additional_constraints": "Exact frames, equal cells, consistent anchors, no labels/grid/characters, transparent margins."
+  },
+  {
+    "name": "sett_fx_w_fist",
+    "prompt_number": 7,
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, glows, shockwaves or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an orange-gold ramp (#FFFFFF, #FFF2C2, #FFCC4D, #F59A1E, #B85712).\nEffect: a GIANT FIST PUNCH SHOCKWAVE travelling to the RIGHT, symmetric top and bottom (the cell's middle row is its axis), the puncher stands at the LEFT end of every cell (do NOT draw him), 9 frames read left to right, top to bottom: 1 a faint orange fan-shaped warning on the ground opening to the right, from 4 squares tall at the left end to 36 squares tall at the right end, only its edges and a few dashes drawn; 2-3 the same fan a little brighter, a few gold sparks gathering at its left end; 4 the fan bright orange, a white-gold glow gathering at the left end; 5 THE PUNCH: a huge translucent white-gold FIST (14 squares wide, 12 tall, knuckles to the right) bursting out of the left end, a golden shock cone behind it; 6 the fist halfway along, the cone widening to 30 squares; 7 the fist at the right end, a wide golden shockwave arc 36 squares tall there; 8 the fist and the arc breaking into gold and orange sparks; 9 a few fading sparks and light dust.\nLayout: three rows of 3 equal cells, each 3 wide by 2 tall (384x256), image size 1152x768; the axis on every cell's middle row. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n",
+    "method": "native image_gen",
+    "reference": "style/vi_effects.png (style only)",
+    "additional_constraints": "Exact frames, equal cells, consistent anchors, no labels/grid/characters, transparent margins."
+  },
+  {
+    "name": "sett_fx_w_shield",
+    "prompt_number": 8,
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, glows, shields or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a silver ramp (#FFFFFF, #EEF1F6, #C9CEDB, #959CB0, #626A82) with a few sparks from an orange-gold ramp (#FFFFFF, #FFF2C2, #FFCC4D, #F59A1E, #B85712).\nEffect: a SILVER SHIELD SHELL round a standing muscular figure (do NOT draw the figure; the inside of the shell stays EMPTY - only its rim and a few highlights are drawn; symmetric left and right), 3 rows of 4 frames: ROW 1 (appear): 1 a white ring 6 squares across at the chest (14 squares up from the bottom of the shell); 2 the ring 16 squares across; 3 the shell half formed, 30 squares wide; 4 the full shell: a rounded rim 36 squares wide and 46 tall, 1-2 squares thick, white at the top left fading to grey-silver at the bottom right, a white highlight arc at the top left, 2-3 small gold sparks on it. ROW 2 (hold, a seamless loop): the full shell, a bright band of light sliding round the rim a quarter of the way each frame, the gold sparks twinkling. ROW 3 (break): 1 the rim cracks into 6-8 silver plates; 2 the plates falling apart and outward; 3 small silver shards and gold sparks falling; 4 a few fading shards.\nLayout: three horizontal rows of 4 equal square cells each, image size 1536x1152 (each cell 384x384); the shell's center 22 squares up from the bottom of every cell, horizontally centered. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n",
+    "method": "native image_gen",
+    "reference": "style/vi_effects.png (style only)",
+    "additional_constraints": "Exact frames, equal cells, consistent anchors, no labels/grid/characters, transparent margins."
+  },
+  {
+    "name": "sett_fx_w_true",
+    "prompt_number": 9,
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, glows, shockwaves or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an orange-gold ramp (#FFFFFF, #FFF2C2, #FFCC4D, #F59A1E, #B85712), mostly its white and pale shades.\nEffect: a TRUE DAMAGE HIT, 5 frames: 1 a pure white flash 8 squares across; 2 a big white four-pointed star 18 squares across with long thin rays, a pale gold glow round its core; 3 a gold ring 20 squares across round a fading white core; 4 the ring breaking into pale gold sparks; 5 a few fading sparks.\nLayout: one horizontal row of 5 equal square cells, image size 1280x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n",
+    "method": "native image_gen",
+    "reference": "style/vi_effects.png (style only)",
+    "additional_constraints": "Exact frames, equal cells, consistent anchors, no labels/grid/characters, transparent margins."
+  },
+  {
+    "name": "sett_fx_w_hit",
+    "prompt_number": 10,
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, glows, shockwaves or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an orange-gold ramp (#FFFFFF, #FFF2C2, #FFCC4D, #F59A1E, #B85712) and a few dust squares from (#F2DDB8, #CBA676, #94704A).\nEffect: a SHOCKWAVE HIT, 4 frames: 1 a white flash 5 squares across; 2 an orange-gold burst 12 squares across with short rays; 3 the burst breaking into orange sparks, a small puff of pale dust under it; 4 a few fading sparks and dust.\nLayout: one horizontal row of 4 equal square cells, image size 1024x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n",
+    "method": "native image_gen",
+    "reference": "style/vi_effects.png (style only)",
+    "additional_constraints": "Exact frames, equal cells, consistent anchors, no labels/grid/characters, transparent margins."
+  },
+  {
+    "name": "sett_fx_r_grab",
+    "prompt_number": 11,
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, glows, shockwaves or sparks, BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an orange-gold ramp (#FFFFFF, #FFF2C2, #FFCC4D, #F59A1E, #B85712).\nEffect: a GRAB, 4 frames, symmetric left and right: 1 two curved golden arcs (like two hands) 18 squares apart, left and right of the center, curving inward; 2 the arcs closing in to 10 squares apart, brighter; 3 they meet: a white-gold flash 12 squares across at the center, gold sparks; 4 the flash fading into a few sparks.\nLayout: one horizontal row of 4 equal square cells, image size 1024x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n",
+    "method": "native image_gen",
+    "reference": "style/vi_effects.png (style only)",
+    "additional_constraints": "Exact frames, equal cells, consistent anchors, no labels/grid/characters, transparent margins."
+  },
+  {
+    "name": "sett_fx_r_slam",
+    "prompt_number": 12,
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, glows or shockwaves (rocks and debris may have a 1-square dark edge), BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a fiery ramp (#FFE6A8, #FFAA40, #F2662A, #C23A1E, #7A1E16) and an earth ramp (#F2DDB8, #CBA676, #94704A, #604834, #3C2C22), white #FFFFFF for the flash.\nEffect: a GROUND SLAM CRATER seen from above at an angle (every ring and crack is an ellipse twice as wide as tall), centered in the cell, nobody drawn, 6 frames read left to right, top to bottom: 1 a white-hot flash on the ground, an ellipse 16 squares wide at the center; 2 a fiery orange shock ring 40 squares wide bursting out, cracks radiating from the center, rocks and debris flying up; 3 the ring 60 squares wide and thinner, the cracks longer, a ring of earth-coloured dust; 4 the fire ring breaking up at 64 squares, dust spreading, debris falling; 5 the crater left: a cracked dark-earth ellipse 30 squares wide with glowing orange cracks, a little dust; 6 the crater faint, the cracks fading.\nLayout: two rows of 3 equal cells, each 2 wide by 1 tall (512x256), image size 1536x512; the crater's center in the middle of every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n",
+    "method": "native image_gen",
+    "reference": "style/vi_effects.png (style only)",
+    "additional_constraints": "Exact frames, equal cells, consistent anchors, no labels/grid/characters, transparent margins."
+  },
+  {
+    "name": "sett_fx_r_hit",
+    "prompt_number": 13,
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, glows or shockwaves (small rocks may have a 1-square dark edge), BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an orange-gold ramp (#FFFFFF, #FFF2C2, #FFCC4D, #F59A1E, #B85712) and an earth ramp (#F2DDB8, #CBA676, #94704A, #604834).\nEffect: a SLAM HIT, 4 frames: 1 a white-orange flash 6 squares across; 2 an orange burst 12 squares across, 3-4 small rocks flying up; 3 the burst fading, the rocks higher, a puff of dust; 4 a few falling rocks and fading dust.\nLayout: one horizontal row of 4 equal square cells, image size 1024x256; centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n",
+    "method": "native image_gen",
+    "reference": "style/vi_effects.png (style only)",
+    "additional_constraints": "Exact frames, equal cells, consistent anchors, no labels/grid/characters, transparent margins."
+  },
+  {
+    "name": "sett_fx_grit",
+    "prompt_number": 14,
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, glows, flames or sparks, colours only from a fiery ramp (#FFE6A8, #FFAA40, #F2662A, #C23A1E, #7A1E16) - bright but thin, it sits under the figure all the time.\nEffect: a HEAT AURA at a standing figure's feet (do NOT draw the figure; the middle stays EMPTY above the ground ring; symmetric left and right), 6 frames, a seamless loop: a thin glowing orange ellipse on the ground 28 squares wide and 10 tall near the bottom of the cell, and 4-6 wavy wisps of heat and small embers rising from its rim to about 12 squares above it, each wisp moving up 2 squares a frame and fading at the top while new ones start at the ring.\nLayout: two rows of 3 equal cells, each 3 wide by 2 tall (384x256), image size 1152x512; the ellipse's center 6 squares up from the bottom of every cell, horizontally centered. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n",
+    "method": "native image_gen",
+    "reference": "style/vi_effects.png (style only)",
+    "additional_constraints": "Exact frames, equal cells, consistent anchors, no labels/grid/characters, transparent margins."
+  }
+]

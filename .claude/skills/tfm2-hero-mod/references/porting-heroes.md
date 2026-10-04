@@ -62,6 +62,8 @@ OK = direct, ~ = approximate, X = not possible in data-only mods.
 | Amplify one damage type (Amumu's Curse: +10% of magic damage as true) | no per-type amplify field: `damaged_amplify` on all damage, re-applied so it never stacks | ~ |
 | Hook that pulls the caster in (Amumu Q) | `LinearProjectile` on `EnemyChampion`: damage and `Stun` in `applied_effects`, `MoveToTarget` from a `Delayed` there (league_leesin Q2's way) | OK |
 | Cooldown reduced when hit (Amumu E) | no "was hit" trigger: a shorter fixed cooldown | X |
+| Damage taken stored as a resource (Sett's Grit) | a 1-point self `Shield` with a `WithShield` caster flag is a hit sensor (league_sivir E): each attack that finds the flag gone counts a level and arms it again; levels per check window, not amounts (champion-data "Damage taken as a resource"; not yet simulated) | ~ |
+| Stun when enemies stand on both sides (Sett E) | no shape tells front from back: pull a circle in and stun when two or more were pulled (a 1-tick count, champion-data "Stun only when two or more are pulled in") | ~ |
 | Charges (Amumu Q: 2, Teemo R: 3) | `cooltime_use_count: N`: N charges, each refilled in `cooltime / N`, one after the other (champion-data "Recast / charges", measured). league_amumu keeps 1 and a shorter cooldown (chosen before this was known); league_teemo R has 3 of 20 s, spent as targets come | OK |
 | Ability treated as a basic attack (Yasuo Q: crits, on-hit) | the action's `attack_type: BaseAttack` (champion-data "Critical strikes") | OK |
 | Crit chance up, crit damage down (Yasuo, Yone passive) | a flat `crit_chance` stat or buff; a crit is always 2x and the chance cannot be multiplied | ~ |

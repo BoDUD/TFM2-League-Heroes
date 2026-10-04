@@ -101,7 +101,7 @@ NECK_EYES = {("fiora", "hit", 0): (-19, 3)}
 # bottom.
 COMPLETE = {"nami", "veigar", "jax", "ahri", "taric", "tristana", "fiora", "diana", "leesin", "missfortune", "fizz", "shaco",
             "caitlyn", "nocturne", "blitzcrank", "camille", "leblanc", "kaisa", "sona", "kennen", "vi", "ryze", "jhin", "zilean",
-            "aatrox", "kayn", "sivir", "twistedfate", "rakan", "evelynn"}
+            "aatrox", "kayn", "sivir", "twistedfate", "rakan", "evelynn", "sett"}
 # hero: the luminance from which an edge pixel gets the outline (complete_outline's `dark`, default 70). Fiora's teal
 # leggings (luminance ~58) and wine cape (~44) edge many action frames without black: tfm2_ase.py metrics counts only
 # luminance < 40 as outline, so at 70 her Q frames read 83-89% (the bare rapier aside); at 40 they close too.
@@ -241,7 +241,9 @@ ORDER = {("lux", "idle"): [0, 0, 0, 0, 0, 0],   # the step-2 idle is the design 
          # and Rakan (Codex's draft read back and cut to 40 rows, design_rakan.py: the idle is the design in all six)
          ("rakan", "idle"): [0, 0, 0, 0, 0, 0],
          # and Evelynn (Codex's draft A halved to 41 rows, design_evelynn.py: the idle is the design in all six)
-         ("evelynn", "idle"): [0, 0, 0, 0, 0, 0]}
+         ("evelynn", "idle"): [0, 0, 0, 0, 0, 0],
+         # and Sett (Codex's raw draft B read onto 42 rows, design_sett.py; strips_sett.py writes the design six times)
+         ("sett", "idle"): [0, 0, 0, 0, 0, 0]}
 # (hero, tag): (y, slots) - in those slots everything at or above pivot row y moves down a row (the row under
 # it is covered): one frame breathing, the face the same drawing throughout. Leona's shield covers her from
 # the chest to the ankles, so she sinks down to its tip and only the boots stay (a seam across the shield
@@ -445,7 +447,8 @@ EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade
         "kayn": (233, 173, 55),           # Rhaast or the spiky hair tops the frames; the gold is only his near eye's
         "sivir": (0x4F, 0xE6, 0xD2),      # the crossblade tops the raised frames; the mint is only in her eyes
         "twistedfate": (0x7A, 0xF4, 0xFF),   # the hat's brim tops every frame; the cyan is only in his one eye
-        "evelynn": (0xFF, 0xD2, 0x1E)}       # her hair or a raised lasher tops the frames; the yellow is only her eyes
+        "evelynn": (0xFF, 0xD2, 0x1E),       # her hair or a raised lasher tops the frames; the yellow is only her eyes
+        "sett": (0xC8, 0x70, 0x0A)}       # his ears or a raised fist top the frames; the amber is only in his eyes
 
 
 def blocks(path):

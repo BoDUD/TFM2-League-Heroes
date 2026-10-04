@@ -1210,6 +1210,8 @@ league_twistedfate (mid, --lane 2, 2026-10-04, the gold card's 1.67 s stun, thro
 the base lightning mage 3.19 and pyromancer 0.50 in the same batch (league_ahri 1.27 before) - no change.
 league_evelynn (jungle, --lane 1, 2026-10-05, Allure's ripe mark: her next attack charms a champion 1.25 s): 1.81 a
 game; the base ninja 0.50 and league_kayn 1.00 in the same batch - no change.
+league_sett (top, 2026-10-05, Facebreaker's 1 s stun on two or more pulled in - on one too after his R - cast only with a champion near, and R's stun; Yasuo mid): 1.88 a game; the first kit (Facebreaker on waves too) 2.12, the
+base fighter 2.33 and league_darius 1.25 in the same batch - no change.
 
 **Kill trigger (league_jinx Get Excited!).** No effect fires on a kill, but section 4's facts make one:
 1. Next to the damaging projectile, fire an invisible twin with the same speed and path and
@@ -3140,6 +3142,44 @@ champions within `r_crowd`. Fire: `ult`, untargetable for the cast (`CasterInvis
 rung (x2.4 at the top: counted from her own hits, the target's health being unreadable), a `MoveBack` (9000 x 5 ticks)
 away from the champion picked, and the shade 75 ticks later (`act(idle=r_shade)`: League's 1.25 s). The slash's picture
 is a view-only `LinearProjectile` that crawls 30 ticks toward that champion (a slow homing shot would stay in the match).
+
+**Damage taken as a resource (league_sett W's Grit; in the SDK simulation the levels climb in fights, 2026-10-05).**
+League's Grit stores the damage Sett takes. No effect hears damage, but league_sivir E's hit sensor does: a 1-point
+`Shield` (`tick` 36000) on him through a self-only `RangeEffect`, then a caster flag with `WithShield` as its duration
+(`grit_sense`), gone 2 ticks after a hit breaks the point (section 5). His attack and ult start with the check: no
+`grit_init` (`Permanent`, cleared by death) -> arm the sensor and set it; `grit_sense` gone -> he was hit since the last
+check: one more Grit level and arm again. The levels `grit_1`..`grit_5` are exclusive 240-tick flags, each step
+removing the one before it (league_kaisa's Plasma), the top one refreshed, so Grit is gone 4 s after the last hit
+counted. W reads the level from the top and spends it on a self-only `Shield` and on the true damage of the punch's
+middle line, one branch per level. What it counts is "hit since his last attack", not how much: a level per check
+window. Any other shield on him (W's own, an ally's) keeps `grit_sense` alive, so no Grit is counted while one holds.
+The check stays out of `skill` / `skill2` (copied every tick, section 8). `tools/kit/sett_kit.py` writes it;
+`GRIT_MAX = 0` drops it for a fixed shield.
+
+**Stun only when two or more are pulled in (league_sett E, Facebreaker).** League stuns when enemies stand on both
+sides of Sett. No shape tells front from back (`Forward` is unsigned, a circle round the caster has no sides), so the
+pull is a circle (`Grab` without `tick`, they stop at him) and "both sides" becomes "two or more": a first
+`RangeEffect` on the same circle climbs 1-tick caster flags (`e_one` -> `e_two`, league_blitzcrank's count), and a
+`SwitchByBuff e_two` in the same tick picks the circle with `Stun` or the one with the slow. A native add-on could
+check the sides (league_camille_wall's way); the data pack keeps the count.
+
+**Throw a champion forward and land on it (league_sett R, The Show Stopper).** `Targeting` on
+`EnemyChampion`: `Stun` on the target from the cast to just after the latest slam and a `cc_immune` caster buff; at
+the throw tick `Knockback {speed 3000, tick 8}` on the target (24000 away from him) and, in the same `Delayed`,
+`MoveToTarget` at the same speed. It homes on the target (league_leesin's QRQ chase), the gap stays while the target
+flies and closes once it has landed, so he always lands on a target that has stopped, whatever the cast distance;
+the slam runs from the dash's `end_effects` (league_malphite R): `ult_slam`, then the crater, a `RangeEffect` round
+him and the thrown champion's own extra share of its maximum health (League scales the slam with the thrown
+champion's bonus health; nothing reads another unit's health).
+
+**Combos from the first skill's flag (league_sett R -> E, E -> W, R -> W; 2026-10-05).** As league_leesin's, the slot
+cast second plays the combo from a caster flag the first one left, and no slot is held: the slam adds `r_combo` and
+`w_combo` (150 ticks), a Facebreaker stun adds `w_combo` (90) only through a `RangeEffect` on `EnemyChampion` round
+him (a stunned wave does not count). Facebreaker in `r_combo` takes the stun branch whatever the count; Haymaker in
+`w_combo` lays its true-damage line as wide as the fist. Each branch removes its flag. Few combos fire by
+themselves (in 10 simulated minutes about one R -> E and two W in `w_combo`); casting Facebreaker on
+`EnemyChampion` instead of `EnemyWithoutTower` mattered more (9 casts, 7 on champions, against 28 and 3.5), and
+together they took him from +0.45 to +0.79 kills a game over two batches (porting-heroes "Balance check").
 
 ## 8. Gotchas
 

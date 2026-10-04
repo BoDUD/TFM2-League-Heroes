@@ -1,0 +1,19 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_sett_sfx_r_cast",
+      "volume": 0.6
+    },
+    {
+      "delay": 0.1,
+      "clip": "league_sett_sfx_r_grab",
+      "volume": 0.45
+    },
+    {
+      "delay": 0.0,
+      "clip": "league_sett_vo_r",
+      "volume": 0.9
+    }
+  ]
+}
