@@ -14,9 +14,9 @@
     "asset/league/icons/league_evelynn_ult"
   ],
   "stat": {
-    "attack": 80,
+    "attack": 75,
     "magic_power": 50,
-    "hp": 920,
+    "hp": 880,
     "defence": 26,
     "magic_resistance": 20,
     "move_speed": 1100,
@@ -225,7 +225,7 @@
                                                   },
                                                   {
                                                     "type": "Shield",
-                                                    "amount": 122,
+                                                    "amount": 118,
                                                     "attack_ratio": 0,
                                                     "ap_ratio": 0,
                                                     "tick": 3
@@ -386,7 +386,7 @@
                                                                                 },
                                                                                 {
                                                                                   "type": "Shield",
-                                                                                  "amount": 122,
+                                                                                  "amount": 118,
                                                                                   "attack_ratio": 0,
                                                                                   "ap_ratio": 0,
                                                                                   "tick": 3
@@ -597,7 +597,7 @@
                                                       "tick": 12
                                                     }
                                                   },
-                                                  "hp_regen": 25
+                                                  "hp_regen": 12
                                                 },
                                                 "only_to_enemy": false
                                               }
@@ -672,7 +672,7 @@
                                                                     "tick": 12
                                                                   }
                                                                 },
-                                                                "hp_regen": 25
+                                                                "hp_regen": 12
                                                               },
                                                               "only_to_enemy": false
                                                             }
@@ -744,7 +744,7 @@
                                                                               "tick": 12
                                                                             }
                                                                           },
-                                                                          "hp_regen": 25
+                                                                          "hp_regen": 12
                                                                         },
                                                                         "only_to_enemy": false
                                                                       }
@@ -792,683 +792,46 @@
           ]
         },
         {
+          "type": "RemoveCasterBuff",
+          "name": "league_evelynn_r_skip"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_evelynn_e_emp",
+          "effect_buff": {
+            "type": "SwitchByBuff",
+            "buff_name": "league_evelynn_e_cd",
+            "effect_buff": {
+              "type": "Combine",
+              "effects": []
+            },
+            "effect_none": {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_evelynn_r_skip",
+                "duration": {
+                  "Time": {
+                    "tick": 1
+                  }
+                }
+              },
+              "only_to_enemy": false
+            }
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": []
+          }
+        },
+        {
           "type": "SwitchByBuff",
           "buff_name": "league_evelynn_r_armed",
           "effect_buff": {
             "type": "SwitchByBuff",
-            "buff_name": "league_evelynn_e_emp",
+            "buff_name": "league_evelynn_r_skip",
             "effect_buff": {
-              "type": "SwitchByBuff",
-              "buff_name": "league_evelynn_e_cd",
-              "effect_buff": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_evelynn_r_go"
-                  },
-                  {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_evelynn_r_n1"
-                  },
-                  {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_evelynn_r_n2"
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 30000
-                      }
-                    },
-                    "target": "EnemyChampion",
-                    "apply_type": "AroundCaster",
-                    "effects": [
-                      {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_evelynn_r_n1",
-                        "effect_buff": {
-                          "type": "AddCasterBuff",
-                          "buff_state": {
-                            "name": "league_evelynn_r_n2",
-                            "duration": {
-                              "Time": {
-                                "tick": 1
-                              }
-                            }
-                          },
-                          "only_to_enemy": false
-                        },
-                        "effect_none": {
-                          "type": "AddCasterBuff",
-                          "buff_state": {
-                            "name": "league_evelynn_r_n1",
-                            "duration": {
-                              "Time": {
-                                "tick": 1
-                              }
-                            }
-                          },
-                          "only_to_enemy": false
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_evelynn_h_win",
-                    "effect_buff": {
-                      "type": "SwitchByBuff",
-                      "buff_name": "league_evelynn_h3",
-                      "effect_buff": {
-                        "type": "AddCasterBuff",
-                        "buff_state": {
-                          "name": "league_evelynn_r_go",
-                          "duration": {
-                            "Time": {
-                              "tick": 1
-                            }
-                          }
-                        },
-                        "only_to_enemy": false
-                      },
-                      "effect_none": {
-                        "type": "SwitchByBuff",
-                        "buff_name": "league_evelynn_r_n2",
-                        "effect_buff": {
-                          "type": "SwitchByBuff",
-                          "buff_name": "league_evelynn_h2",
-                          "effect_buff": {
-                            "type": "AddCasterBuff",
-                            "buff_state": {
-                              "name": "league_evelynn_r_go",
-                              "duration": {
-                                "Time": {
-                                  "tick": 1
-                                }
-                              }
-                            },
-                            "only_to_enemy": false
-                          },
-                          "effect_none": {
-                            "type": "Combine",
-                            "effects": []
-                          }
-                        },
-                        "effect_none": {
-                          "type": "Combine",
-                          "effects": []
-                        }
-                      }
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  },
-                  {
-                    "type": "SwitchByBuff",
-                    "buff_name": "league_evelynn_r_go",
-                    "effect_buff": {
-                      "type": "RandomTarget",
-                      "range": 35000,
-                      "casting_target": "EnemyChampion",
-                      "from_projectile": false,
-                      "effects": [
-                        {
-                          "type": "Combine",
-                          "effects": [
-                            {
-                              "type": "RemoveCasterBuff",
-                              "name": "league_evelynn_r_armed"
-                            },
-                            {
-                              "type": "CasterAnimation",
-                              "name": "ult",
-                              "tick": 30
-                            },
-                            {
-                              "type": "Sfx",
-                              "name": "league_evelynn_r_cast"
-                            },
-                            {
-                              "type": "CasterViewEffect",
-                              "name": "league_evelynn_r_cast"
-                            },
-                            {
-                              "type": "CasterInvisible",
-                              "tick": 41
-                            },
-                            {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_evelynn_r_safe"
-                                },
-                                {
-                                  "type": "AddCasterBuff",
-                                  "buff_state": {
-                                    "name": "league_evelynn_r_safe",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 41
-                                      }
-                                    },
-                                    "damaged_reduce": 100,
-                                    "cc_immune": true
-                                  },
-                                  "only_to_enemy": false
-                                }
-                              ]
-                            },
-                            {
-                              "type": "LinearProjectile",
-                              "name": "league_evelynn_r_slash",
-                              "penetrate": true,
-                              "applied_target": "Enemy",
-                              "applied_effects": [],
-                              "end_effects": [],
-                              "speed": 100,
-                              "range": 3000,
-                              "shape": {
-                                "Circle": {
-                                  "radius": 1
-                                }
-                              },
-                              "y_offset": 0
-                            },
-                            {
-                              "type": "Delayed",
-                              "tick": 12,
-                              "effects": [
-                                {
-                                  "type": "RangeEffect",
-                                  "shape": {
-                                    "DirDot": {
-                                      "radius": 45000,
-                                      "range": 342
-                                    }
-                                  },
-                                  "target": "EnemyWithoutTower",
-                                  "apply_type": {
-                                    "Forward": {
-                                      "offset": 1000
-                                    }
-                                  },
-                                  "effects": [
-                                    {
-                                      "type": "ApAttack",
-                                      "damage": 150,
-                                      "attack_ratio": 75,
-                                      "hp_ratio": 0,
-                                      "can_crit": false
-                                    },
-                                    {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_evelynn_h4",
-                                      "effect_buff": {
-                                        "type": "ApAttack",
-                                        "damage": 210,
-                                        "attack_ratio": 105,
-                                        "hp_ratio": 0,
-                                        "can_crit": false
-                                      },
-                                      "effect_none": {
-                                        "type": "SwitchByBuff",
-                                        "buff_name": "league_evelynn_h3",
-                                        "effect_buff": {
-                                          "type": "ApAttack",
-                                          "damage": 157,
-                                          "attack_ratio": 78,
-                                          "hp_ratio": 0,
-                                          "can_crit": false
-                                        },
-                                        "effect_none": {
-                                          "type": "SwitchByBuff",
-                                          "buff_name": "league_evelynn_h2",
-                                          "effect_buff": {
-                                            "type": "ApAttack",
-                                            "damage": 105,
-                                            "attack_ratio": 52,
-                                            "hp_ratio": 0,
-                                            "can_crit": false
-                                          },
-                                          "effect_none": {
-                                            "type": "SwitchByBuff",
-                                            "buff_name": "league_evelynn_h1",
-                                            "effect_buff": {
-                                              "type": "ApAttack",
-                                              "damage": 52,
-                                              "attack_ratio": 26,
-                                              "hp_ratio": 0,
-                                              "can_crit": false
-                                            },
-                                            "effect_none": {
-                                              "type": "Combine",
-                                              "effects": []
-                                            }
-                                          }
-                                        }
-                                      }
-                                    },
-                                    {
-                                      "type": "ViewEffect",
-                                      "name": "league_evelynn_r_hit"
-                                    },
-                                    {
-                                      "type": "TargetSfx",
-                                      "name": "league_evelynn_r_hit"
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "CasterViewEffect",
-                                  "name": "league_evelynn_r_blink"
-                                },
-                                {
-                                  "type": "MoveBack",
-                                  "speed": 9000,
-                                  "tick": 5
-                                },
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_evelynn_h1"
-                                },
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_evelynn_h2"
-                                },
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_evelynn_h3"
-                                },
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_evelynn_h4"
-                                },
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_evelynn_h_win"
-                                },
-                                {
-                                  "type": "Combine",
-                                  "effects": [
-                                    {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "RemoveCasterBuff",
-                                          "name": "league_evelynn_fight"
-                                        },
-                                        {
-                                          "type": "AddCasterBuff",
-                                          "buff_state": {
-                                            "name": "league_evelynn_fight",
-                                            "duration": {
-                                              "Time": {
-                                                "tick": 75
-                                              }
-                                            }
-                                          },
-                                          "only_to_enemy": false
-                                        }
-                                      ]
-                                    },
-                                    {
-                                      "type": "RemoveCasterBuff",
-                                      "name": "league_evelynn_shade"
-                                    },
-                                    {
-                                      "type": "RemoveCasterBuff",
-                                      "name": "league_evelynn_sh_regen"
-                                    },
-                                    {
-                                      "type": "RangeEffect",
-                                      "shape": {
-                                        "Circle": {
-                                          "radius": 1000
-                                        }
-                                      },
-                                      "target": "AllyOnlySelf",
-                                      "apply_type": "AroundCaster",
-                                      "effects": [
-                                        {
-                                          "type": "Delayed",
-                                          "tick": 75,
-                                          "effects": [
-                                            {
-                                              "type": "SwitchByBuff",
-                                              "buff_name": "league_evelynn_fight",
-                                              "effect_buff": {
-                                                "type": "Combine",
-                                                "effects": []
-                                              },
-                                              "effect_none": {
-                                                "type": "SwitchByBuff",
-                                                "buff_name": "league_evelynn_shade",
-                                                "effect_buff": {
-                                                  "type": "Combine",
-                                                  "effects": []
-                                                },
-                                                "effect_none": {
-                                                  "type": "Combine",
-                                                  "effects": [
-                                                    {
-                                                      "type": "AddCasterBuff",
-                                                      "buff_state": {
-                                                        "name": "league_evelynn_shade",
-                                                        "duration": {
-                                                          "Time": {
-                                                            "tick": 1800
-                                                          }
-                                                        }
-                                                      },
-                                                      "only_to_enemy": false
-                                                    },
-                                                    {
-                                                      "type": "RemoveCasterBuff",
-                                                      "name": "league_evelynn_e_cd"
-                                                    },
-                                                    {
-                                                      "type": "SwitchByBuff",
-                                                      "buff_name": "league_evelynn_e_emp",
-                                                      "effect_buff": {
-                                                        "type": "Combine",
-                                                        "effects": []
-                                                      },
-                                                      "effect_none": {
-                                                        "type": "Combine",
-                                                        "effects": [
-                                                          {
-                                                            "type": "AddCasterBuff",
-                                                            "buff_state": {
-                                                              "name": "league_evelynn_e_emp",
-                                                              "duration": "Permanent"
-                                                            },
-                                                            "only_to_enemy": false
-                                                          },
-                                                          {
-                                                            "type": "AddCasterBuff",
-                                                            "buff_state": {
-                                                              "name": "league_evelynn_e_range",
-                                                              "duration": "Permanent",
-                                                              "range": 20000
-                                                            },
-                                                            "only_to_enemy": false
-                                                          }
-                                                        ]
-                                                      }
-                                                    },
-                                                    {
-                                                      "type": "Sfx",
-                                                      "name": "league_evelynn_sh_in"
-                                                    },
-                                                    {
-                                                      "type": "Combine",
-                                                      "effects": [
-                                                        {
-                                                          "type": "AddCasted",
-                                                          "casted_type": "Heal",
-                                                          "duration": 600,
-                                                          "period": 10,
-                                                          "effects": [
-                                                            {
-                                                              "type": "SwitchByBuff",
-                                                              "buff_name": "league_evelynn_shade",
-                                                              "effect_buff": {
-                                                                "type": "Combine",
-                                                                "effects": [
-                                                                  {
-                                                                    "type": "SwitchByBuff",
-                                                                    "buff_name": "league_evelynn_lvl",
-                                                                    "effect_buff": {
-                                                                      "type": "CasterInvisible",
-                                                                      "tick": 14
-                                                                    },
-                                                                    "effect_none": {
-                                                                      "type": "Combine",
-                                                                      "effects": []
-                                                                    }
-                                                                  },
-                                                                  {
-                                                                    "type": "Combine",
-                                                                    "effects": [
-                                                                      {
-                                                                        "type": "RemoveCasterBuff",
-                                                                        "name": "league_evelynn_sh_regen"
-                                                                      },
-                                                                      {
-                                                                        "type": "AddCasterBuff",
-                                                                        "buff_state": {
-                                                                          "name": "league_evelynn_sh_regen",
-                                                                          "duration": {
-                                                                            "Time": {
-                                                                              "tick": 12
-                                                                            }
-                                                                          },
-                                                                          "hp_regen": 25
-                                                                        },
-                                                                        "only_to_enemy": false
-                                                                      }
-                                                                    ]
-                                                                  }
-                                                                ]
-                                                              },
-                                                              "effect_none": {
-                                                                "type": "Combine",
-                                                                "effects": []
-                                                              }
-                                                            }
-                                                          ]
-                                                        },
-                                                        {
-                                                          "type": "RangeEffect",
-                                                          "shape": {
-                                                            "Circle": {
-                                                              "radius": 1000
-                                                            }
-                                                          },
-                                                          "target": "AllyOnlySelf",
-                                                          "apply_type": "AroundCaster",
-                                                          "effects": [
-                                                            {
-                                                              "type": "Delayed",
-                                                              "tick": 600,
-                                                              "effects": [
-                                                                {
-                                                                  "type": "SwitchByBuff",
-                                                                  "buff_name": "league_evelynn_shade",
-                                                                  "effect_buff": {
-                                                                    "type": "Combine",
-                                                                    "effects": [
-                                                                      {
-                                                                        "type": "AddCasted",
-                                                                        "casted_type": "Heal",
-                                                                        "duration": 600,
-                                                                        "period": 10,
-                                                                        "effects": [
-                                                                          {
-                                                                            "type": "SwitchByBuff",
-                                                                            "buff_name": "league_evelynn_shade",
-                                                                            "effect_buff": {
-                                                                              "type": "Combine",
-                                                                              "effects": [
-                                                                                {
-                                                                                  "type": "SwitchByBuff",
-                                                                                  "buff_name": "league_evelynn_lvl",
-                                                                                  "effect_buff": {
-                                                                                    "type": "CasterInvisible",
-                                                                                    "tick": 14
-                                                                                  },
-                                                                                  "effect_none": {
-                                                                                    "type": "Combine",
-                                                                                    "effects": []
-                                                                                  }
-                                                                                },
-                                                                                {
-                                                                                  "type": "Combine",
-                                                                                  "effects": [
-                                                                                    {
-                                                                                      "type": "RemoveCasterBuff",
-                                                                                      "name": "league_evelynn_sh_regen"
-                                                                                    },
-                                                                                    {
-                                                                                      "type": "AddCasterBuff",
-                                                                                      "buff_state": {
-                                                                                        "name": "league_evelynn_sh_regen",
-                                                                                        "duration": {
-                                                                                          "Time": {
-                                                                                            "tick": 12
-                                                                                          }
-                                                                                        },
-                                                                                        "hp_regen": 25
-                                                                                      },
-                                                                                      "only_to_enemy": false
-                                                                                    }
-                                                                                  ]
-                                                                                }
-                                                                              ]
-                                                                            },
-                                                                            "effect_none": {
-                                                                              "type": "Combine",
-                                                                              "effects": []
-                                                                            }
-                                                                          }
-                                                                        ]
-                                                                      },
-                                                                      {
-                                                                        "type": "RangeEffect",
-                                                                        "shape": {
-                                                                          "Circle": {
-                                                                            "radius": 1000
-                                                                          }
-                                                                        },
-                                                                        "target": "AllyOnlySelf",
-                                                                        "apply_type": "AroundCaster",
-                                                                        "effects": [
-                                                                          {
-                                                                            "type": "Delayed",
-                                                                            "tick": 600,
-                                                                            "effects": [
-                                                                              {
-                                                                                "type": "SwitchByBuff",
-                                                                                "buff_name": "league_evelynn_shade",
-                                                                                "effect_buff": {
-                                                                                  "type": "AddCasted",
-                                                                                  "casted_type": "Heal",
-                                                                                  "duration": 600,
-                                                                                  "period": 10,
-                                                                                  "effects": [
-                                                                                    {
-                                                                                      "type": "SwitchByBuff",
-                                                                                      "buff_name": "league_evelynn_shade",
-                                                                                      "effect_buff": {
-                                                                                        "type": "Combine",
-                                                                                        "effects": [
-                                                                                          {
-                                                                                            "type": "SwitchByBuff",
-                                                                                            "buff_name": "league_evelynn_lvl",
-                                                                                            "effect_buff": {
-                                                                                              "type": "CasterInvisible",
-                                                                                              "tick": 14
-                                                                                            },
-                                                                                            "effect_none": {
-                                                                                              "type": "Combine",
-                                                                                              "effects": []
-                                                                                            }
-                                                                                          },
-                                                                                          {
-                                                                                            "type": "Combine",
-                                                                                            "effects": [
-                                                                                              {
-                                                                                                "type": "RemoveCasterBuff",
-                                                                                                "name": "league_evelynn_sh_regen"
-                                                                                              },
-                                                                                              {
-                                                                                                "type": "AddCasterBuff",
-                                                                                                "buff_state": {
-                                                                                                  "name": "league_evelynn_sh_regen",
-                                                                                                  "duration": {
-                                                                                                    "Time": {
-                                                                                                      "tick": 12
-                                                                                                    }
-                                                                                                  },
-                                                                                                  "hp_regen": 25
-                                                                                                },
-                                                                                                "only_to_enemy": false
-                                                                                              }
-                                                                                            ]
-                                                                                          }
-                                                                                        ]
-                                                                                      },
-                                                                                      "effect_none": {
-                                                                                        "type": "Combine",
-                                                                                        "effects": []
-                                                                                      }
-                                                                                    }
-                                                                                  ]
-                                                                                },
-                                                                                "effect_none": {
-                                                                                  "type": "Combine",
-                                                                                  "effects": []
-                                                                                }
-                                                                              }
-                                                                            ]
-                                                                          }
-                                                                        ]
-                                                                      }
-                                                                    ]
-                                                                  },
-                                                                  "effect_none": {
-                                                                    "type": "Combine",
-                                                                    "effects": []
-                                                                  }
-                                                                }
-                                                              ]
-                                                            }
-                                                          ]
-                                                        }
-                                                      ]
-                                                    }
-                                                  ]
-                                                }
-                                              }
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "Delayed",
-                                  "tick": 6,
-                                  "effects": [
-                                    {
-                                      "type": "CasterViewEffect",
-                                      "name": "league_evelynn_r_land"
-                                    }
-                                  ]
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      ]
-                    },
-                    "effect_none": {
-                      "type": "Combine",
-                      "effects": []
-                    }
-                  }
-                ]
-              },
-              "effect_none": {
-                "type": "Combine",
-                "effects": []
-              }
+              "type": "Combine",
+              "effects": []
             },
             "effect_none": {
               "type": "Combine",
@@ -1918,7 +1281,7 @@
                                                                             "tick": 12
                                                                           }
                                                                         },
-                                                                        "hp_regen": 25
+                                                                        "hp_regen": 12
                                                                       },
                                                                       "only_to_enemy": false
                                                                     }
@@ -1993,7 +1356,7 @@
                                                                                           "tick": 12
                                                                                         }
                                                                                       },
-                                                                                      "hp_regen": 25
+                                                                                      "hp_regen": 12
                                                                                     },
                                                                                     "only_to_enemy": false
                                                                                   }
@@ -2065,7 +1428,7 @@
                                                                                                     "tick": 12
                                                                                                   }
                                                                                                 },
-                                                                                                "hp_regen": 25
+                                                                                                "hp_regen": 12
                                                                                               },
                                                                                               "only_to_enemy": false
                                                                                             }
@@ -3261,7 +2624,7 @@
                                                       "tick": 12
                                                     }
                                                   },
-                                                  "hp_regen": 25
+                                                  "hp_regen": 12
                                                 },
                                                 "only_to_enemy": false
                                               }
@@ -3336,7 +2699,7 @@
                                                                     "tick": 12
                                                                   }
                                                                 },
-                                                                "hp_regen": 25
+                                                                "hp_regen": 12
                                                               },
                                                               "only_to_enemy": false
                                                             }
@@ -3408,7 +2771,7 @@
                                                                               "tick": 12
                                                                             }
                                                                           },
-                                                                          "hp_regen": 25
+                                                                          "hp_regen": 12
                                                                         },
                                                                         "only_to_enemy": false
                                                                       }
