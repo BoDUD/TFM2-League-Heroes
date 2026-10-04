@@ -98,7 +98,7 @@ NECK_EYES = {("fiora", "hit", 0): (-19, 3)}
 # bottom.
 COMPLETE = {"nami", "veigar", "jax", "ahri", "taric", "tristana", "fiora", "diana", "leesin", "missfortune", "fizz", "shaco",
             "caitlyn", "nocturne", "blitzcrank", "camille", "leblanc", "kaisa", "sona", "kennen", "vi", "ryze", "jhin", "zilean",
-            "aatrox", "kayn"}
+            "aatrox", "kayn", "sivir"}
 # hero: the luminance from which an edge pixel gets the outline (complete_outline's `dark`, default 70). Fiora's teal
 # leggings (luminance ~58) and wine cape (~44) edge many action frames without black: tfm2_ase.py metrics counts only
 # luminance < 40 as outline, so at 70 her Q frames read 83-89% (the bare rapier aside); at 40 they close too.
@@ -229,7 +229,9 @@ ORDER = {("lux", "idle"): [0, 0, 0, 0, 0, 0],   # the step-2 idle is the design 
          # six, its breath drawn in 3-5 (BREATH, instead of a BOB seam), so the six play in order
          ("aatrox", "idle"): [0, 1, 2, 3, 4, 5],
          # and Kayn (his draft read back at 40 rows, design_kayn.py: the pack's idle is the design in all six)
-         ("kayn", "idle"): [0, 0, 0, 0, 0, 0]}
+         ("kayn", "idle"): [0, 0, 0, 0, 0, 0],
+         # and Sivir (Codex's second-round draft 2 read back and cut to 40 rows, design_sivir.py: the idle is the design)
+         ("sivir", "idle"): [0, 0, 0, 0, 0, 0]}
 # (hero, tag): (y, slots) - in those slots everything at or above pivot row y moves down a row (the row under
 # it is covered): one frame breathing, the face the same drawing throughout. Leona's shield covers her from
 # the chest to the ankles, so she sinks down to its tip and only the boots stay (a seam across the shield
@@ -361,6 +363,8 @@ BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
 # blade, and the seam across the boots (rows 96/97) cut their middle row 97 out - both boots squashed and their lights
 # blinked each breath (the frame audit, 2026-10-04). rig_aatrox.py now draws the breath in idle 3-5 with a seam per
 # part - the blade whole, each leg losing one of its two equal shin rows - and ORDER plays the six.)
+# Sivir does not breathe: the seam under her scarf cut the crossblade and the near shoulder every breath and the
+# ban/pick card shook (the user: 「BP界面还是会上下摇动」); of a seam in the boots or none, the user picked none
 # hero: a module in tools/art with tidy(tag, k, frame) -> frame, run on the finished frames (after the outline is closed
 # and cleaned): the user's clean-up of dirty black blocks and stray squares inside the silhouette (2026-10-02:
 # "盖伦把黑边清理干净 有杂的黑色的地方", "风女 莫甘娜 不干净的黑色块也太多了", "莫甘娜头部有很多多余的方块", "阿狸也是都给我清理干净")
@@ -419,7 +423,8 @@ EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade
         "ryze": (251, 251, 253),          # the scroll or a raised hand tops the frames; the white is only in his eyes
         "jhin": (255, 110, 180),          # Whisper or the cannon tops the flourishes; the pink is only in his eyes
         "zilean": (246, 249, 250),        # the clock's roof tops every frame; this white is only in his eyes
-        "kayn": (233, 173, 55)}           # Rhaast or the spiky hair tops the frames; the gold is only his near eye's
+        "kayn": (233, 173, 55),           # Rhaast or the spiky hair tops the frames; the gold is only his near eye's
+        "sivir": (0x4F, 0xE6, 0xD2)}      # the crossblade tops the raised frames; the mint is only in her eyes
 
 
 def blocks(path):
