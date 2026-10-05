@@ -166,7 +166,8 @@ class Parts:
         self.bow_arm_m = op & (R >= 81) & (R <= 87) & (C >= 66) & (C <= 69)
         draw = np.zeros_like(op)
         for y in range(81, 93):
-            for x in range(52, 58):
+            # from row 88 down only the hand (cols 51-56): column 57 there is the near thigh's outline (design_varus FIX)
+            for x in (range(52, 58) if y < 88 else range(51, 57)):
                 if op[y, x] and tuple(int(v) for v in d[y, x, :3]) not in RED:
                     draw[y, x] = True
         self.draw_m = draw
