@@ -23,7 +23,8 @@ whole lines, area-voted to 40) the user took 「5 原稿按面积缩40行 ... �
   7. FIX (the user: 「这里是什么啊 黑色一大块？」, beside the medallion): the chest harness strap, voted into the outline's
      black, in the picture's dark grey-brown leather with a lit top edge; the black and clear squares between the
      scarf's front tail and the belly in the belly's own skin and crimson; LEG_CLEAN (leg_clean) after CLEAN;
-  8. SLIM (「身材臃肿看起来像啤酒肚」): two columns out of the belly, waist, hips and legs, the bow in with the hand.
+  8. SLIM (「身材臃肿看起来像啤酒肚」): two columns out of the belly, waist, hips and legs, the bow in with the hand;
+  9. ABS (「学oppi搞点腹肌吧」, option E): two rows of ab blocks under the medallion and the pecs' lower line.
 --check compares the result with the committed varus_native.png instead of writing it.
 """
 import argparse
@@ -68,6 +69,16 @@ FAR_EDGE = 67          # rows / columns on the canvas the clean-up leaves alone 
 # keep their widths and stand side by side); everything right of the cut moves in with the bow arm, and the bow moves
 # SLIM_BOW columns left whole, its grip still in the hand (its top passes behind the hair)
 SLIM_CUT, SLIM_LEG_CUT, SLIM_BOW = 59, 63, 2
+# ABS (the user: 「学oppi搞点腹肌吧」, option E of work/vr/varus_abs_options.png): oppi's Varus draws the belly as light
+# blocks parted by dark lines. Under the medallion (its lowest square now skin, the waistband's left rise a row lower):
+# two rows of blocks (rows 82, 84) parted by a deep centre line (column 61) and a gap row (83); the pecs' lower line
+# beside the tattoo (rows 79-80). Squares on the slimmed design.
+SKIN_LIT, SKIN, SKIN_SHADE, SKIN_DEEP = (0xFC, 0xDB, 0xB2), (0xE6, 0xB9, 0x9A), (0xC1, 0x8D, 0x7D), (0x9C, 0x6A, 0x62)
+ABS = {(79, 60): SKIN, (79, 61): SKIN_DEEP, (80, 58): SKIN_SHADE,
+       (82, 59): SKIN_SHADE, (82, 60): SKIN_LIT, (82, 61): SKIN_DEEP, (82, 62): SKIN_LIT, (82, 63): SKIN_LIT,
+       (82, 64): SKIN_SHADE,
+       (83, 59): SKIN, (83, 60): SKIN_SHADE, (83, 61): SKIN_DEEP, (83, 62): SKIN_SHADE, (83, 63): SKIN,
+       (84, 59): SKIN_SHADE, (84, 60): SKIN_LIT, (84, 61): SKIN_DEEP, (84, 62): SKIN_LIT, (84, 63): SKIN}
 
 
 def lp(path):
@@ -236,6 +247,8 @@ def build():
     for (y, x), c in FIX.items():
         can[y, x] = (*c, 255)
     can, bow = slim(can)
+    for (y, x), c in ABS.items():
+        can[y, x] = (*c, 255)
     return can, added, darkened, bow
 
 
