@@ -47,9 +47,13 @@ ROWS = 40
 FACE = (66, 73, 55, 68)
 STRAP, STRAP_LIT = (0x3A, 0x34, 0x38), (0x6A, 0x62, 0x68)       # the harness leather (Codex's palette.json)
 SKIN_SH, CRIMSON_D = (0xC1, 0x8D, 0x7D), (0x89, 0x08, 0x51)
+THIGH, OUTLINE_RGB = (0x26, 0x14, 0x32), (0x0B, 0x04, 0x10)
 FIX = {(80, 61): STRAP_LIT, (80, 62): STRAP_LIT, (81, 61): STRAP, (81, 62): STRAP,
        (83, 59): SKIN_SH, (83, 60): SKIN_SH, (84, 59): CRIMSON_D, (84, 60): SKIN_SH,
-       (85, 58): CRIMSON_D, (85, 59): CRIMSON_D, (85, 60): CRIMSON_D}          # rows / columns on the canvas the clean-up leaves alone (the eyes, brows, mouth)
+       (85, 58): CRIMSON_D, (85, 59): CRIMSON_D, (85, 60): CRIMSON_D,
+       # the near thigh's left edge under the scarf's tail (rows 88-90) dented two squares in - 「腿部这里还少一块」:
+       # filled in the thigh's dark purple, the outline one column out
+       (88, 58): THIGH, (89, 58): THIGH, (89, 57): OUTLINE_RGB, (90, 57): OUTLINE_RGB}          # rows / columns on the canvas the clean-up leaves alone (the eyes, brows, mouth)
 
 
 def lp(path):

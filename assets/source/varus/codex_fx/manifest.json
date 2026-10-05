@@ -1,0 +1,1508 @@
+[
+  {
+    "index": 1,
+    "file": "varus_fx_a_arrow.png",
+    "stage": "generated_source",
+    "generator": "native image_gen",
+    "size": [
+      2172,
+      724
+    ],
+    "requested_size": [
+      2048,
+      256
+    ],
+    "rows": 1,
+    "columns": 4,
+    "total_frames": 4,
+    "frame_rectangles_estimate": [
+      [
+        0,
+        0,
+        543,
+        724
+      ],
+      [
+        543,
+        0,
+        1086,
+        724
+      ],
+      [
+        1086,
+        0,
+        1629,
+        724
+      ],
+      [
+        1629,
+        0,
+        2172,
+        724
+      ]
+    ],
+    "rectangles_note": "Equal-grid estimates, not manually aligned import crops. Width may differ by 1px.",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "transparent_pixels": 1478338,
+    "partial_alpha_pixels": 92651,
+    "empty_estimated_cells": [],
+    "sha256": "c0a67e8c87f2eb01b541d9073c3873c3a3308dfadd9da38ac0c25f28f9e8ef67",
+    "binding": {
+      "file": "varus_fx_a_arrow.png",
+      "binding": "view_projectiles `league_varus_a_arrow`（朝右，游戏转到飞行方向，上下对称）",
+      "size": "14 × 5"
+    },
+    "prompt_file": "prompts/01_varus_fx_a_arrow.txt"
+  },
+  {
+    "index": 2,
+    "file": "varus_fx_a_flash.png",
+    "stage": "generated_source",
+    "generator": "native image_gen",
+    "size": [
+      2103,
+      748
+    ],
+    "requested_size": [
+      720,
+      200
+    ],
+    "rows": 1,
+    "columns": 3,
+    "total_frames": 3,
+    "frame_rectangles_estimate": [
+      [
+        0,
+        0,
+        701,
+        748
+      ],
+      [
+        701,
+        0,
+        1402,
+        748
+      ],
+      [
+        1402,
+        0,
+        2103,
+        748
+      ]
+    ],
+    "rectangles_note": "Equal-grid estimates, not manually aligned import crops. Width may differ by 1px.",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "transparent_pixels": 1351358,
+    "partial_alpha_pixels": 219567,
+    "empty_estimated_cells": [],
+    "sha256": "b16958864debd020d6a42d47a7904dc447aba307befc6ea823d1e37b88daddd1",
+    "binding": {
+      "file": "varus_fx_a_flash.png",
+      "binding": "view_effects `league_varus_a_flash`（施法者身上，不跟随；格子左边中点放到放箭那一帧的弓弦）",
+      "size": "12 × 10"
+    },
+    "prompt_file": "prompts/02_varus_fx_a_flash.txt"
+  },
+  {
+    "index": 3,
+    "file": "varus_fx_a_hit.png",
+    "stage": "generated_source",
+    "generator": "native image_gen",
+    "size": [
+      1983,
+      793
+    ],
+    "requested_size": [
+      1024,
+      256
+    ],
+    "rows": 1,
+    "columns": 4,
+    "total_frames": 4,
+    "frame_rectangles_estimate": [
+      [
+        0,
+        0,
+        496,
+        793
+      ],
+      [
+        496,
+        0,
+        992,
+        793
+      ],
+      [
+        992,
+        0,
+        1487,
+        793
+      ],
+      [
+        1487,
+        0,
+        1983,
+        793
+      ]
+    ],
+    "rectangles_note": "Equal-grid estimates, not manually aligned import crops. Width may differ by 1px.",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "transparent_pixels": 1399469,
+    "partial_alpha_pixels": 170277,
+    "empty_estimated_cells": [],
+    "sha256": "b22802ea48adcb10ee3bd127d011f0565b13d93b96d965f6a0aec4ee0b51f99f",
+    "binding": {
+      "file": "varus_fx_a_hit.png",
+      "binding": "view_effects `league_varus_a_hit`（跟随，画在人物上面）",
+      "size": "12"
+    },
+    "prompt_file": "prompts/03_varus_fx_a_hit.txt"
+  },
+  {
+    "index": 4,
+    "file": "varus_fx_b_mark.png",
+    "stage": "generated_source",
+    "generator": "native image_gen",
+    "size": [
+      1881,
+      836
+    ],
+    "requested_size": [
+      2048,
+      576
+    ],
+    "rows": 3,
+    "columns": 4,
+    "total_frames": 12,
+    "frame_rectangles_estimate": [
+      [
+        0,
+        0,
+        470,
+        279
+      ],
+      [
+        470,
+        0,
+        940,
+        279
+      ],
+      [
+        940,
+        0,
+        1411,
+        279
+      ],
+      [
+        1411,
+        0,
+        1881,
+        279
+      ],
+      [
+        0,
+        279,
+        470,
+        557
+      ],
+      [
+        470,
+        279,
+        940,
+        557
+      ],
+      [
+        940,
+        279,
+        1411,
+        557
+      ],
+      [
+        1411,
+        279,
+        1881,
+        557
+      ],
+      [
+        0,
+        557,
+        470,
+        836
+      ],
+      [
+        470,
+        557,
+        940,
+        836
+      ],
+      [
+        940,
+        557,
+        1411,
+        836
+      ],
+      [
+        1411,
+        557,
+        1881,
+        836
+      ]
+    ],
+    "rectangles_note": "Equal-grid estimates, not manually aligned import crops. Width may differ by 1px.",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "transparent_pixels": 1257040,
+    "partial_alpha_pixels": 311604,
+    "empty_estimated_cells": [],
+    "sha256": "0a3a17e8a644975355b30d43756431e1675850c55c2097c4dfe1ca7ccb7127f9",
+    "binding": {
+      "file": "varus_fx_b_mark.png",
+      "binding": "view_effects `league_varus_b_v1` / `b_v2` / `b_v3`（第 1/2/3 行，跟随，画在人物上面，每次命中播一遍）",
+      "size": "16 × 6"
+    },
+    "prompt_file": "prompts/04_varus_fx_b_mark.txt"
+  },
+  {
+    "index": 5,
+    "file": "varus_fx_b_pop.png",
+    "stage": "generated_source",
+    "generator": "native image_gen",
+    "size": [
+      1983,
+      793
+    ],
+    "requested_size": [
+      1280,
+      256
+    ],
+    "rows": 1,
+    "columns": 5,
+    "total_frames": 5,
+    "frame_rectangles_estimate": [
+      [
+        0,
+        0,
+        397,
+        793
+      ],
+      [
+        397,
+        0,
+        793,
+        793
+      ],
+      [
+        793,
+        0,
+        1190,
+        793
+      ],
+      [
+        1190,
+        0,
+        1586,
+        793
+      ],
+      [
+        1586,
+        0,
+        1983,
+        793
+      ]
+    ],
+    "rectangles_note": "Equal-grid estimates, not manually aligned import crops. Width may differ by 1px.",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "transparent_pixels": 1232604,
+    "partial_alpha_pixels": 339138,
+    "empty_estimated_cells": [],
+    "sha256": "3a37e8afba8b7a3df00511d3b1c2399eb64e26426972d23692087ab3fd857368",
+    "binding": {
+      "file": "varus_fx_b_pop.png",
+      "binding": "view_effects `league_varus_b_pop1` / `b_pop2` / `b_pop3`（同一张，按层数放大，跟随，画在人物上面）",
+      "size": "22"
+    },
+    "prompt_file": "prompts/05_varus_fx_b_pop.txt"
+  },
+  {
+    "index": 6,
+    "file": "varus_fx_w_pop.png",
+    "stage": "generated_source",
+    "generator": "native image_gen",
+    "size": [
+      1983,
+      793
+    ],
+    "requested_size": [
+      1280,
+      256
+    ],
+    "rows": 1,
+    "columns": 5,
+    "total_frames": 5,
+    "frame_rectangles_estimate": [
+      [
+        0,
+        0,
+        397,
+        793
+      ],
+      [
+        397,
+        0,
+        793,
+        793
+      ],
+      [
+        793,
+        0,
+        1190,
+        793
+      ],
+      [
+        1190,
+        0,
+        1586,
+        793
+      ],
+      [
+        1586,
+        0,
+        1983,
+        793
+      ]
+    ],
+    "rectangles_note": "Equal-grid estimates, not manually aligned import crops. Width may differ by 1px.",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "transparent_pixels": 1111762,
+    "partial_alpha_pixels": 457554,
+    "empty_estimated_cells": [],
+    "sha256": "81ae78241b9ec58a715a240ac3eeb6d843c8a824fba00c652706510bcb56a8af",
+    "binding": {
+      "file": "varus_fx_w_pop.png",
+      "binding": "view_effects `league_varus_w_pop`（跟随，画在人物上面）",
+      "size": "28"
+    },
+    "prompt_file": "prompts/06_varus_fx_w_pop.txt"
+  },
+  {
+    "index": 7,
+    "file": "varus_fx_w_glow.png",
+    "stage": "generated_source",
+    "generator": "native image_gen",
+    "size": [
+      1999,
+      786
+    ],
+    "requested_size": [
+      896,
+      352
+    ],
+    "rows": 1,
+    "columns": 4,
+    "total_frames": 4,
+    "frame_rectangles_estimate": [
+      [
+        0,
+        0,
+        500,
+        786
+      ],
+      [
+        500,
+        0,
+        1000,
+        786
+      ],
+      [
+        1000,
+        0,
+        1499,
+        786
+      ],
+      [
+        1499,
+        0,
+        1999,
+        786
+      ]
+    ],
+    "rectangles_note": "Equal-grid estimates, not manually aligned import crops. Width may differ by 1px.",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "transparent_pixels": 1200386,
+    "partial_alpha_pixels": 369894,
+    "empty_estimated_cells": [],
+    "sha256": "79cae14abe2792d453167cea9a9504f51db476754012b0a5c1c82a20da85fd31",
+    "binding": {
+      "file": "varus_fx_w_glow.png",
+      "binding": "view_effects `league_varus_w_glow`（施法者身上，跟随；格子中心放到弓的握把）",
+      "size": "14 × 22"
+    },
+    "prompt_file": "prompts/07_varus_fx_w_glow.txt"
+  },
+  {
+    "index": 8,
+    "file": "varus_fx_q_charge.png",
+    "stage": "generated_source",
+    "generator": "native image_gen",
+    "size": [
+      2172,
+      724
+    ],
+    "requested_size": [
+      1536,
+      256
+    ],
+    "rows": 1,
+    "columns": 6,
+    "total_frames": 6,
+    "frame_rectangles_estimate": [
+      [
+        0,
+        0,
+        362,
+        724
+      ],
+      [
+        362,
+        0,
+        724,
+        724
+      ],
+      [
+        724,
+        0,
+        1086,
+        724
+      ],
+      [
+        1086,
+        0,
+        1448,
+        724
+      ],
+      [
+        1448,
+        0,
+        1810,
+        724
+      ],
+      [
+        1810,
+        0,
+        2172,
+        724
+      ]
+    ],
+    "rectangles_note": "Equal-grid estimates, not manually aligned import crops. Width may differ by 1px.",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "transparent_pixels": 1188912,
+    "partial_alpha_pixels": 382795,
+    "empty_estimated_cells": [],
+    "sha256": "7eb980de1641b673d80bf47b1dff84175aa2dd88a0434c35382530dccd9dc042",
+    "binding": {
+      "file": "varus_fx_q_charge.png",
+      "binding": "view_effects `league_varus_q_charge`（施法者身上，跟随；格子中心放到弓的握把）和 `q_charge_s`（快速出手，同一张前 3 帧）",
+      "size": "24 × 24"
+    },
+    "prompt_file": "prompts/08_varus_fx_q_charge.txt"
+  },
+  {
+    "index": 9,
+    "file": "varus_fx_q_fire.png",
+    "stage": "generated_source",
+    "generator": "native image_gen",
+    "size": [
+      2172,
+      724
+    ],
+    "requested_size": [
+      1536,
+      448
+    ],
+    "rows": 1,
+    "columns": 4,
+    "total_frames": 4,
+    "frame_rectangles_estimate": [
+      [
+        0,
+        0,
+        543,
+        724
+      ],
+      [
+        543,
+        0,
+        1086,
+        724
+      ],
+      [
+        1086,
+        0,
+        1629,
+        724
+      ],
+      [
+        1629,
+        0,
+        2172,
+        724
+      ]
+    ],
+    "rectangles_note": "Equal-grid estimates, not manually aligned import crops. Width may differ by 1px.",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "transparent_pixels": 1235090,
+    "partial_alpha_pixels": 334373,
+    "empty_estimated_cells": [],
+    "sha256": "0178d2ab33e51fbcb9e3bafa4e6fb4de71bccb2979c46cf953d8f15cd5a1a38e",
+    "binding": {
+      "file": "varus_fx_q_fire.png",
+      "binding": "view_effects `league_varus_q_fire`（施法者身上，不跟随；格子左边中点放到弓弦）",
+      "size": "24 × 14"
+    },
+    "prompt_file": "prompts/09_varus_fx_q_fire.txt"
+  },
+  {
+    "index": 10,
+    "file": "varus_fx_q_arrow.png",
+    "stage": "generated_source",
+    "generator": "native image_gen",
+    "size": [
+      2172,
+      724
+    ],
+    "requested_size": [
+      3072,
+      256
+    ],
+    "rows": 1,
+    "columns": 4,
+    "total_frames": 4,
+    "frame_rectangles_estimate": [
+      [
+        0,
+        0,
+        543,
+        724
+      ],
+      [
+        543,
+        0,
+        1086,
+        724
+      ],
+      [
+        1086,
+        0,
+        1629,
+        724
+      ],
+      [
+        1629,
+        0,
+        2172,
+        724
+      ]
+    ],
+    "rectangles_note": "Equal-grid estimates, not manually aligned import crops. Width may differ by 1px.",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "transparent_pixels": 1395621,
+    "partial_alpha_pixels": 176228,
+    "empty_estimated_cells": [],
+    "sha256": "39f98fb85afcf7a6c9b5162e285473a1a2f60409dad3ea6795bc2e7ec40572ac",
+    "binding": {
+      "file": "varus_fx_q_arrow.png",
+      "binding": "view_projectiles `league_varus_q_arrow`（满蓄力）和 `q_arrow_s`（快速出手，同一张缩小）（朝右，游戏转到飞行方向，上下对称）",
+      "size": "30 × 10"
+    },
+    "prompt_file": "prompts/10_varus_fx_q_arrow.txt"
+  },
+  {
+    "index": 11,
+    "file": "varus_fx_q_hit.png",
+    "stage": "generated_source",
+    "generator": "native image_gen",
+    "size": [
+      1983,
+      793
+    ],
+    "requested_size": [
+      1280,
+      256
+    ],
+    "rows": 1,
+    "columns": 5,
+    "total_frames": 5,
+    "frame_rectangles_estimate": [
+      [
+        0,
+        0,
+        397,
+        793
+      ],
+      [
+        397,
+        0,
+        793,
+        793
+      ],
+      [
+        793,
+        0,
+        1190,
+        793
+      ],
+      [
+        1190,
+        0,
+        1586,
+        793
+      ],
+      [
+        1586,
+        0,
+        1983,
+        793
+      ]
+    ],
+    "rectangles_note": "Equal-grid estimates, not manually aligned import crops. Width may differ by 1px.",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "transparent_pixels": 1376147,
+    "partial_alpha_pixels": 194940,
+    "empty_estimated_cells": [],
+    "sha256": "371861c811efafd0473e5331cc1dd0ed4c455949be1b2103a5e3f8abd70daa94",
+    "binding": {
+      "file": "varus_fx_q_hit.png",
+      "binding": "view_effects `league_varus_q_hit`（跟随，画在人物上面）",
+      "size": "18"
+    },
+    "prompt_file": "prompts/11_varus_fx_q_hit.txt"
+  },
+  {
+    "index": 12,
+    "file": "varus_fx_e_cast.png",
+    "stage": "generated_source",
+    "generator": "native image_gen",
+    "size": [
+      2172,
+      724
+    ],
+    "requested_size": [
+      1024,
+      256
+    ],
+    "rows": 1,
+    "columns": 4,
+    "total_frames": 4,
+    "frame_rectangles_estimate": [
+      [
+        0,
+        0,
+        543,
+        724
+      ],
+      [
+        543,
+        0,
+        1086,
+        724
+      ],
+      [
+        1086,
+        0,
+        1629,
+        724
+      ],
+      [
+        1629,
+        0,
+        2172,
+        724
+      ]
+    ],
+    "rectangles_note": "Equal-grid estimates, not manually aligned import crops. Width may differ by 1px.",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "transparent_pixels": 1340449,
+    "partial_alpha_pixels": 228508,
+    "empty_estimated_cells": [],
+    "sha256": "4e90fa08894f98cc943a29b013fc6b79d2a2ba8118514c57f8d80eb8ab562c4a",
+    "binding": {
+      "file": "varus_fx_e_cast.png",
+      "binding": "view_effects `league_varus_e_cast`（施法者身上，跟随第一 tick；格子左下角放到朝右上方的弓弦）",
+      "size": "16 × 16"
+    },
+    "prompt_file": "prompts/12_varus_fx_e_cast.txt"
+  },
+  {
+    "index": 13,
+    "file": "varus_fx_e_rain.png",
+    "stage": "generated_source",
+    "generator": "native image_gen",
+    "size": [
+      2194,
+      717
+    ],
+    "requested_size": [
+      3136,
+      480
+    ],
+    "rows": 1,
+    "columns": 7,
+    "total_frames": 7,
+    "frame_rectangles_estimate": [
+      [
+        0,
+        0,
+        313,
+        717
+      ],
+      [
+        313,
+        0,
+        627,
+        717
+      ],
+      [
+        627,
+        0,
+        940,
+        717
+      ],
+      [
+        940,
+        0,
+        1254,
+        717
+      ],
+      [
+        1254,
+        0,
+        1567,
+        717
+      ],
+      [
+        1567,
+        0,
+        1881,
+        717
+      ],
+      [
+        1881,
+        0,
+        2194,
+        717
+      ]
+    ],
+    "rectangles_note": "Equal-grid estimates, not manually aligned import crops. Width may differ by 1px.",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "transparent_pixels": 1181361,
+    "partial_alpha_pixels": 391666,
+    "empty_estimated_cells": [],
+    "sha256": "12a228a00854908bd4a91bfeecdadff778f8781978afd86f65706afcbebd2c7a",
+    "binding": {
+      "file": "varus_fx_e_rain.png",
+      "binding": "view_effects `league_varus_e_rain`（BIG，画在施放点上，不跟随）",
+      "size": "56 × 60"
+    },
+    "prompt_file": "prompts/13_varus_fx_e_rain.txt"
+  },
+  {
+    "index": 14,
+    "file": "varus_fx_e_field.png",
+    "stage": "generated_source",
+    "generator": "native image_gen",
+    "size": [
+      2067,
+      761
+    ],
+    "requested_size": [
+      1856,
+      240
+    ],
+    "rows": 1,
+    "columns": 4,
+    "total_frames": 4,
+    "frame_rectangles_estimate": [
+      [
+        0,
+        0,
+        517,
+        761
+      ],
+      [
+        517,
+        0,
+        1034,
+        761
+      ],
+      [
+        1034,
+        0,
+        1550,
+        761
+      ],
+      [
+        1550,
+        0,
+        2067,
+        761
+      ]
+    ],
+    "rectangles_note": "Equal-grid estimates, not manually aligned import crops. Width may differ by 1px.",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "transparent_pixels": 1199439,
+    "partial_alpha_pixels": 373436,
+    "empty_estimated_cells": [],
+    "sha256": "da2b50f3e09519d9e4ef3576595dce6be1fa8062d20e3b798849adce748d75e3",
+    "binding": {
+      "file": "varus_fx_e_field.png",
+      "binding": "view_projectiles `league_varus_e_field`（BIG，地面，画在人物下面，循环）",
+      "size": "58 × 30"
+    },
+    "prompt_file": "prompts/14_varus_fx_e_field.txt"
+  },
+  {
+    "index": 15,
+    "file": "varus_fx_e_hit.png",
+    "stage": "generated_source",
+    "generator": "native image_gen",
+    "size": [
+      2172,
+      724
+    ],
+    "requested_size": [
+      1024,
+      256
+    ],
+    "rows": 1,
+    "columns": 4,
+    "total_frames": 4,
+    "frame_rectangles_estimate": [
+      [
+        0,
+        0,
+        543,
+        724
+      ],
+      [
+        543,
+        0,
+        1086,
+        724
+      ],
+      [
+        1086,
+        0,
+        1629,
+        724
+      ],
+      [
+        1629,
+        0,
+        2172,
+        724
+      ]
+    ],
+    "rectangles_note": "Equal-grid estimates, not manually aligned import crops. Width may differ by 1px.",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "transparent_pixels": 1340541,
+    "partial_alpha_pixels": 229762,
+    "empty_estimated_cells": [],
+    "sha256": "d33f1a17b8c8eecbbaf16a5354330f6027b12692eafc10fdc97f783970b1a0b4",
+    "binding": {
+      "file": "varus_fx_e_hit.png",
+      "binding": "view_effects `league_varus_e_hit`（跟随，画在人物上面）",
+      "size": "12"
+    },
+    "prompt_file": "prompts/15_varus_fx_e_hit.txt"
+  },
+  {
+    "index": 16,
+    "file": "varus_fx_e_slow.png",
+    "stage": "generated_source",
+    "generator": "native image_gen",
+    "size": [
+      1881,
+      836
+    ],
+    "requested_size": [
+      2304,
+      256
+    ],
+    "rows": 1,
+    "columns": 4,
+    "total_frames": 4,
+    "frame_rectangles_estimate": [
+      [
+        0,
+        0,
+        470,
+        836
+      ],
+      [
+        470,
+        0,
+        940,
+        836
+      ],
+      [
+        940,
+        0,
+        1411,
+        836
+      ],
+      [
+        1411,
+        0,
+        1881,
+        836
+      ]
+    ],
+    "rectangles_note": "Equal-grid estimates, not manually aligned import crops. Width may differ by 1px.",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "transparent_pixels": 1322951,
+    "partial_alpha_pixels": 248987,
+    "empty_estimated_cells": [],
+    "sha256": "d964aecae7ef3490748ed14ddcb9202253b1ae21588f6424f8e19b2ea5dd671b",
+    "binding": {
+      "file": "varus_fx_e_slow.png",
+      "binding": "view_buffs `league_varus_e_slow`（循环，画在脚下）",
+      "size": "18 × 8"
+    },
+    "prompt_file": "prompts/16_varus_fx_e_slow.txt"
+  },
+  {
+    "index": 17,
+    "file": "varus_fx_r_cast.png",
+    "stage": "generated_source",
+    "generator": "native image_gen",
+    "size": [
+      1983,
+      793
+    ],
+    "requested_size": [
+      1280,
+      256
+    ],
+    "rows": 1,
+    "columns": 4,
+    "total_frames": 4,
+    "frame_rectangles_estimate": [
+      [
+        0,
+        0,
+        496,
+        793
+      ],
+      [
+        496,
+        0,
+        992,
+        793
+      ],
+      [
+        992,
+        0,
+        1487,
+        793
+      ],
+      [
+        1487,
+        0,
+        1983,
+        793
+      ]
+    ],
+    "rectangles_note": "Equal-grid estimates, not manually aligned import crops. Width may differ by 1px.",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "transparent_pixels": 1196316,
+    "partial_alpha_pixels": 374494,
+    "empty_estimated_cells": [],
+    "sha256": "55c499fb85093f94434a229968428df68670cafe982965a29d871e828a57b833",
+    "binding": {
+      "file": "varus_fx_r_cast.png",
+      "binding": "view_effects `league_varus_r_cast`（施法者身上，跟随第一 tick；格子左边中点放到 R 第 3 帧的弓）",
+      "size": "20 × 16"
+    },
+    "prompt_file": "prompts/17_varus_fx_r_cast.txt"
+  },
+  {
+    "index": 18,
+    "file": "varus_fx_r_chain.png",
+    "stage": "generated_source",
+    "generator": "native image_gen",
+    "size": [
+      2032,
+      774
+    ],
+    "requested_size": [
+      2688,
+      288
+    ],
+    "rows": 1,
+    "columns": 4,
+    "total_frames": 4,
+    "frame_rectangles_estimate": [
+      [
+        0,
+        0,
+        508,
+        774
+      ],
+      [
+        508,
+        0,
+        1016,
+        774
+      ],
+      [
+        1016,
+        0,
+        1524,
+        774
+      ],
+      [
+        1524,
+        0,
+        2032,
+        774
+      ]
+    ],
+    "rectangles_note": "Equal-grid estimates, not manually aligned import crops. Width may differ by 1px.",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "transparent_pixels": 1416670,
+    "partial_alpha_pixels": 155774,
+    "empty_estimated_cells": [],
+    "sha256": "011b9ad57912cd653038190c5e1aa5cb063901a1251248793eca565098ae6ae6",
+    "binding": {
+      "file": "varus_fx_r_chain.png",
+      "binding": "view_projectiles `league_varus_r_chain`（朝右，游戏转到飞行方向，上下对称）",
+      "size": "28 × 12"
+    },
+    "prompt_file": "prompts/18_varus_fx_r_chain.txt"
+  },
+  {
+    "index": 19,
+    "file": "varus_fx_r_hit.png",
+    "stage": "generated_source",
+    "generator": "native image_gen",
+    "size": [
+      1983,
+      793
+    ],
+    "requested_size": [
+      1280,
+      256
+    ],
+    "rows": 1,
+    "columns": 5,
+    "total_frames": 5,
+    "frame_rectangles_estimate": [
+      [
+        0,
+        0,
+        397,
+        793
+      ],
+      [
+        397,
+        0,
+        793,
+        793
+      ],
+      [
+        793,
+        0,
+        1190,
+        793
+      ],
+      [
+        1190,
+        0,
+        1586,
+        793
+      ],
+      [
+        1586,
+        0,
+        1983,
+        793
+      ]
+    ],
+    "rectangles_note": "Equal-grid estimates, not manually aligned import crops. Width may differ by 1px.",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "transparent_pixels": 1248458,
+    "partial_alpha_pixels": 321615,
+    "empty_estimated_cells": [],
+    "sha256": "5059d0196a56d6ab80a98bccfc5855a23b2fb43823f64463f20a93f14a9f54e7",
+    "binding": {
+      "file": "varus_fx_r_hit.png",
+      "binding": "view_effects `league_varus_r_hit`（跟随，画在人物上面）",
+      "size": "22"
+    },
+    "prompt_file": "prompts/19_varus_fx_r_hit.txt"
+  },
+  {
+    "index": 20,
+    "file": "varus_fx_r_bind.png",
+    "stage": "generated_source",
+    "generator": "native image_gen",
+    "size": [
+      1958,
+      803
+    ],
+    "requested_size": [
+      1056,
+      432
+    ],
+    "rows": 1,
+    "columns": 4,
+    "total_frames": 4,
+    "frame_rectangles_estimate": [
+      [
+        0,
+        0,
+        490,
+        803
+      ],
+      [
+        490,
+        0,
+        979,
+        803
+      ],
+      [
+        979,
+        0,
+        1468,
+        803
+      ],
+      [
+        1468,
+        0,
+        1958,
+        803
+      ]
+    ],
+    "rectangles_note": "Equal-grid estimates, not manually aligned import crops. Width may differ by 1px.",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "transparent_pixels": 821798,
+    "partial_alpha_pixels": 748257,
+    "empty_estimated_cells": [],
+    "sha256": "b97d5f65930fe2621f8d0f6b649d79bf522c6c1a954ab96217023e3ef8ec6911",
+    "binding": {
+      "file": "varus_fx_r_bind.png",
+      "binding": "view_buffs `league_varus_r_bind`（循环，画在人物上面）",
+      "size": "22 × 36"
+    },
+    "prompt_file": "prompts/20_varus_fx_r_bind.txt"
+  },
+  {
+    "index": 21,
+    "file": "varus_fx_r_spread.png",
+    "stage": "generated_source",
+    "generator": "native image_gen",
+    "size": [
+      2103,
+      748
+    ],
+    "requested_size": [
+      2880,
+      256
+    ],
+    "rows": 1,
+    "columns": 6,
+    "total_frames": 6,
+    "frame_rectangles_estimate": [
+      [
+        0,
+        0,
+        350,
+        748
+      ],
+      [
+        350,
+        0,
+        701,
+        748
+      ],
+      [
+        701,
+        0,
+        1052,
+        748
+      ],
+      [
+        1052,
+        0,
+        1402,
+        748
+      ],
+      [
+        1402,
+        0,
+        1752,
+        748
+      ],
+      [
+        1752,
+        0,
+        2103,
+        748
+      ]
+    ],
+    "rectangles_note": "Equal-grid estimates, not manually aligned import crops. Width may differ by 1px.",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "transparent_pixels": 1341871,
+    "partial_alpha_pixels": 230644,
+    "empty_estimated_cells": [],
+    "sha256": "45faf0b55640ecb64a92a58da5e7f004723b96871e19ffce06089e7fa065930f",
+    "binding": {
+      "file": "varus_fx_r_spread.png",
+      "binding": "view_effects `league_varus_r_spread`（BIG，画在命中点，不跟随）",
+      "size": "60 × 32"
+    },
+    "prompt_file": "prompts/21_varus_fx_r_spread.txt"
+  },
+  {
+    "index": 22,
+    "file": "varus_fx_r_spread_hit.png",
+    "stage": "generated_source",
+    "generator": "native image_gen",
+    "size": [
+      2172,
+      724
+    ],
+    "requested_size": [
+      1024,
+      256
+    ],
+    "rows": 1,
+    "columns": 4,
+    "total_frames": 4,
+    "frame_rectangles_estimate": [
+      [
+        0,
+        0,
+        543,
+        724
+      ],
+      [
+        543,
+        0,
+        1086,
+        724
+      ],
+      [
+        1086,
+        0,
+        1629,
+        724
+      ],
+      [
+        1629,
+        0,
+        2172,
+        724
+      ]
+    ],
+    "rectangles_note": "Equal-grid estimates, not manually aligned import crops. Width may differ by 1px.",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "transparent_pixels": 1208648,
+    "partial_alpha_pixels": 361593,
+    "empty_estimated_cells": [],
+    "sha256": "d270248317e2b64ef05e9dc6f70cf66e5b61836439fe7eb13ef592100ab94088",
+    "binding": {
+      "file": "varus_fx_r_spread_hit.png",
+      "binding": "view_effects `league_varus_r_spread_hit`（跟随，画在人物上面）",
+      "size": "16"
+    },
+    "prompt_file": "prompts/22_varus_fx_r_spread_hit.txt"
+  },
+  {
+    "index": 23,
+    "file": "varus_fx_p_rage_on.png",
+    "stage": "generated_source",
+    "generator": "native image_gen",
+    "size": [
+      2172,
+      724
+    ],
+    "requested_size": [
+      1200,
+      368
+    ],
+    "rows": 1,
+    "columns": 5,
+    "total_frames": 5,
+    "frame_rectangles_estimate": [
+      [
+        0,
+        0,
+        434,
+        724
+      ],
+      [
+        434,
+        0,
+        869,
+        724
+      ],
+      [
+        869,
+        0,
+        1303,
+        724
+      ],
+      [
+        1303,
+        0,
+        1738,
+        724
+      ],
+      [
+        1738,
+        0,
+        2172,
+        724
+      ]
+    ],
+    "rectangles_note": "Equal-grid estimates, not manually aligned import crops. Width may differ by 1px.",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "transparent_pixels": 1020072,
+    "partial_alpha_pixels": 551684,
+    "empty_estimated_cells": [],
+    "sha256": "dcd646b7c2fbef6cd390a43b27e01042e53c36d029eab63098ca069fc763bfe9",
+    "binding": {
+      "file": "varus_fx_p_rage_on.png",
+      "binding": "view_effects `league_varus_p_rage_on`（BIG，施法者身上，不跟随）",
+      "size": "30 × 46"
+    },
+    "prompt_file": "prompts/23_varus_fx_p_rage_on.txt"
+  },
+  {
+    "index": 24,
+    "file": "varus_fx_p_rage.png",
+    "stage": "generated_source",
+    "generator": "native image_gen",
+    "size": [
+      2079,
+      756
+    ],
+    "requested_size": [
+      2816,
+      256
+    ],
+    "rows": 1,
+    "columns": 4,
+    "total_frames": 4,
+    "frame_rectangles_estimate": [
+      [
+        0,
+        0,
+        520,
+        756
+      ],
+      [
+        520,
+        0,
+        1040,
+        756
+      ],
+      [
+        1040,
+        0,
+        1559,
+        756
+      ],
+      [
+        1559,
+        0,
+        2079,
+        756
+      ]
+    ],
+    "rectangles_note": "Equal-grid estimates, not manually aligned import crops. Width may differ by 1px.",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "transparent_pixels": 1285961,
+    "partial_alpha_pixels": 284075,
+    "empty_estimated_cells": [],
+    "sha256": "cc6d4d1742918541edc5cffc731e8c0dff2a92ccc611c4b383eb715ac74bcfa5",
+    "binding": {
+      "file": "varus_fx_p_rage.png",
+      "binding": "view_buffs `league_varus_p_rage`（循环，画在脚下，人物下面）",
+      "size": "22 × 9"
+    },
+    "prompt_file": "prompts/24_varus_fx_p_rage.txt"
+  }
+]

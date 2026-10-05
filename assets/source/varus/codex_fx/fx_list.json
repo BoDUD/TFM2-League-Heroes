@@ -1,0 +1,122 @@
+[
+ {
+  "file": "varus_fx_a_arrow.png",
+  "binding": "view_projectiles `league_varus_a_arrow`（朝右，游戏转到飞行方向，上下对称）",
+  "size": "14 × 5"
+ },
+ {
+  "file": "varus_fx_a_flash.png",
+  "binding": "view_effects `league_varus_a_flash`（施法者身上，不跟随；格子左边中点放到放箭那一帧的弓弦）",
+  "size": "12 × 10"
+ },
+ {
+  "file": "varus_fx_a_hit.png",
+  "binding": "view_effects `league_varus_a_hit`（跟随，画在人物上面）",
+  "size": "12"
+ },
+ {
+  "file": "varus_fx_b_mark.png",
+  "binding": "view_effects `league_varus_b_v1` / `b_v2` / `b_v3`（第 1/2/3 行，跟随，画在人物上面，每次命中播一遍）",
+  "size": "16 × 6"
+ },
+ {
+  "file": "varus_fx_b_pop.png",
+  "binding": "view_effects `league_varus_b_pop1` / `b_pop2` / `b_pop3`（同一张，按层数放大，跟随，画在人物上面）",
+  "size": "22"
+ },
+ {
+  "file": "varus_fx_w_pop.png",
+  "binding": "view_effects `league_varus_w_pop`（跟随，画在人物上面）",
+  "size": "28"
+ },
+ {
+  "file": "varus_fx_w_glow.png",
+  "binding": "view_effects `league_varus_w_glow`（施法者身上，跟随；格子中心放到弓的握把）",
+  "size": "14 × 22"
+ },
+ {
+  "file": "varus_fx_q_charge.png",
+  "binding": "view_effects `league_varus_q_charge`（施法者身上，跟随；格子中心放到弓的握把）和 `q_charge_s`（快速出手，同一张前 3 帧）",
+  "size": "24 × 24"
+ },
+ {
+  "file": "varus_fx_q_fire.png",
+  "binding": "view_effects `league_varus_q_fire`（施法者身上，不跟随；格子左边中点放到弓弦）",
+  "size": "24 × 14"
+ },
+ {
+  "file": "varus_fx_q_arrow.png",
+  "binding": "view_projectiles `league_varus_q_arrow`（满蓄力）和 `q_arrow_s`（快速出手，同一张缩小）（朝右，游戏转到飞行方向，上下对称）",
+  "size": "30 × 10"
+ },
+ {
+  "file": "varus_fx_q_hit.png",
+  "binding": "view_effects `league_varus_q_hit`（跟随，画在人物上面）",
+  "size": "18"
+ },
+ {
+  "file": "varus_fx_e_cast.png",
+  "binding": "view_effects `league_varus_e_cast`（施法者身上，跟随第一 tick；格子左下角放到朝右上方的弓弦）",
+  "size": "16 × 16"
+ },
+ {
+  "file": "varus_fx_e_rain.png",
+  "binding": "view_effects `league_varus_e_rain`（BIG，画在施放点上，不跟随）",
+  "size": "56 × 60"
+ },
+ {
+  "file": "varus_fx_e_field.png",
+  "binding": "view_projectiles `league_varus_e_field`（BIG，地面，画在人物下面，循环）",
+  "size": "58 × 30"
+ },
+ {
+  "file": "varus_fx_e_hit.png",
+  "binding": "view_effects `league_varus_e_hit`（跟随，画在人物上面）",
+  "size": "12"
+ },
+ {
+  "file": "varus_fx_e_slow.png",
+  "binding": "view_buffs `league_varus_e_slow`（循环，画在脚下）",
+  "size": "18 × 8"
+ },
+ {
+  "file": "varus_fx_r_cast.png",
+  "binding": "view_effects `league_varus_r_cast`（施法者身上，跟随第一 tick；格子左边中点放到 R 第 3 帧的弓）",
+  "size": "20 × 16"
+ },
+ {
+  "file": "varus_fx_r_chain.png",
+  "binding": "view_projectiles `league_varus_r_chain`（朝右，游戏转到飞行方向，上下对称）",
+  "size": "28 × 12"
+ },
+ {
+  "file": "varus_fx_r_hit.png",
+  "binding": "view_effects `league_varus_r_hit`（跟随，画在人物上面）",
+  "size": "22"
+ },
+ {
+  "file": "varus_fx_r_bind.png",
+  "binding": "view_buffs `league_varus_r_bind`（循环，画在人物上面）",
+  "size": "22 × 36"
+ },
+ {
+  "file": "varus_fx_r_spread.png",
+  "binding": "view_effects `league_varus_r_spread`（BIG，画在命中点，不跟随）",
+  "size": "60 × 32"
+ },
+ {
+  "file": "varus_fx_r_spread_hit.png",
+  "binding": "view_effects `league_varus_r_spread_hit`（跟随，画在人物上面）",
+  "size": "16"
+ },
+ {
+  "file": "varus_fx_p_rage_on.png",
+  "binding": "view_effects `league_varus_p_rage_on`（BIG，施法者身上，不跟随）",
+  "size": "30 × 46"
+ },
+ {
+  "file": "varus_fx_p_rage.png",
+  "binding": "view_buffs `league_varus_p_rage`（循环，画在脚下，人物下面）",
+  "size": "22 × 9"
+ }
+]
