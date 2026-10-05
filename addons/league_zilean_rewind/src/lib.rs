@@ -410,7 +410,8 @@ impl StableEffectType for Stage {
 /// 本包的原生效果：`league_zilean_rewind:<名字>`。数据层只调 `rune`。
 pub const STAGES: [&str; 3] = ["rune", "watch", "revive"];
 
-fn init(host: &StableHost) -> StableMod {
+/// Everything this add-on registers, into `module`: its own DLL's (`init`) or league_addons' (all add-ons in one).
+pub fn register(host: &StableHost, module: &mut StableMod) {
     // 上一次启动的日志留一份（.prev.log），重启游戏不丢
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
@@ -422,15 +423,22 @@ fn init(host: &StableHost) -> StableMod {
         host.abi_level(),
         LOG_PATH.display()
     ));
-    let mut module = StableMod::new(ID);
     module.add_native_effect(format!("{ID}:rune"), Stage(Step::Rune));
     module.add_native_effect(format!("{ID}:watch"), Stage(Step::Watch));
     module.add_native_effect(format!("{ID}:revive"), Stage(Step::Revive));
     module.add_native_passive(format!("{ID}:guard"), Guard::default());
     host.log(LogLevel::Info, "league_zilean_rewind v2 loaded (Zilean's R guards allies in danger and rewinds lethal damage).");
+}
+
+#[cfg_attr(league_bundle, allow(dead_code))]
+fn init(host: &StableHost) -> StableMod {
+    let mut module = StableMod::new(ID);
+    register(host, &mut module);
     module
 }
 
+// league_addons compiles this file as one of its modules and registers it with the others
+#[cfg(not(league_bundle))]
 declare_stable_mod!(init, requires = 9);
 
 #[cfg(test)]

@@ -1113,7 +1113,8 @@ impl StablePassive for Hop {
     }
 }
 
-fn init(host: &StableHost) -> StableMod {
+/// Everything this add-on registers, into `module`: its own DLL's (`init`) or league_addons' (all add-ons in one).
+pub fn register(host: &StableHost, module: &mut StableMod) {
     // 上一次启动的日志留一份（.prev.log），重启游戏不丢
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
@@ -1125,7 +1126,6 @@ fn init(host: &StableHost) -> StableMod {
         host.abi_level(),
         LOG_PATH.display()
     ));
-    let mut module = StableMod::new(ID);
     module.add_native_effect(format!("{ID}:insec"), Insec);
     module.add_native_effect(format!("{ID}:dash"), Dash);
     module.add_native_effect(format!("{ID}:kick_check"), KickCheck);
@@ -1133,9 +1133,17 @@ fn init(host: &StableHost) -> StableMod {
     module.add_player_input_ai(LeeAi::default());
     module.add_native_passive(format!("{ID}:hop"), Hop::default());
     host.log(LogLevel::Info, "league_leesin_hop v1 loaded (Lee Sin's W dashes to a spot).");
+}
+
+#[cfg_attr(league_bundle, allow(dead_code))]
+fn init(host: &StableHost) -> StableMod {
+    let mut module = StableMod::new(ID);
+    register(host, &mut module);
     module
 }
 
+// league_addons compiles this file as one of its modules and registers it with the others
+#[cfg(not(league_bundle))]
 declare_stable_mod!(init, requires = 9);
 
 #[cfg(test)]
