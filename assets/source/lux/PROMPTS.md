@@ -268,7 +268,7 @@ Layout: one horizontal row of 6 equal square cells, image size 1536x256; the bur
 | `lux_fx_q_bind.png` | 8 | 特效 `league_lux_q_bind`（跟随目标，定身 1.5 秒：1–2、3–6 两遍、7–8） | 80/80 + 8 × 125 + 90/90 |
 | `lux_fx_shield.png` | 8 | 特效 `league_lux_shield`（跟随友方） | 80/80 + 8 × 100 + 90/90 |
 | `lux_fx_e_orb.png` | 4 | 飞行道具 `league_lux_e_orb`（E 抛物线） | 4 × 80 ms 循环 |
-| `lux_fx_e_zone.png` | 8 | 范围 `league_lux_e_burst`（1–4 两遍 = 1 秒光圈，5–8 = 引爆） | 8 × 125 + 4 × 100 |
+| `lux_fx_e_zone.png` | 8 | 落点的 ViewEffect `league_lux_e_burst`（不随方向旋转；判定是无画面的 `league_lux_e_zone`；1–4 两遍 = 1 秒光圈，5–8 = 引爆） | 8 × 125 + 4 × 100 |
 | `lux_fx_r_beam.png` | 6（竖排） | `league_lux_r_beam`（`LineRangeProjectile`，拉到 240 px 长） | 200/217/60/130/130/130 |
 | `lux_fx_mark.png` | 6 | 特效 `league_lux_mark`（跟随目标） | 1、2–5 两遍、6 |
 | `lux_fx_ignite.png` | 6 | 特效 `league_lux_ignite` | 6 × 60 ms |

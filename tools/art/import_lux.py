@@ -344,7 +344,8 @@ FX = {
         # a bubble around the whole unit, centred on its body
         "shield": ("fx_shield", 8, 0.115, anchors_oval, (0, -5), [80, 80, 110, 110, 110, 110, 90, 90], 0.4),
         "e_orb": ("fx_e_orb", 4, 0.03, anchors_centre, (0, 0), [80] * 4, 0.4),
-        # the field ring = 53 px (its 26500 radius) on the ground; 1-4 twice (1 s), then the blast
+        # the field ring = 53 px (its 26500 radius) on the ground; 1-4 twice (1 s), then the blast; a ViewEffect on
+        # the landing point (a zone view turns: the orb hung under the ring cast leftward)
         "e_zone": ("fx_e_zone", 8, 0.256, anchors_field, (0, 11), [125] * 4 + [100] * 4, 0.4),
         "mark": ("fx_mark", 6, 0.05, anchors_centre, (0, -8), [80, 110, 110, 110, 110, 100], 0.4),
         "ignite": ("fx_ignite", 6, 0.06, anchors_centre, (0, -6), [60] * 6, 0.4),
