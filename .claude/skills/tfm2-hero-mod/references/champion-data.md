@@ -3235,6 +3235,24 @@ ticks re-applies a 15-tick slow (30%) and `heal_reduce` 40 every 15 ticks, so it
 (passes minions, stops on the first enemy champion) roots 120 ticks, detonates the stacks (no refund) and sets three; its
 `end_effects` drop a delayed zone at the hit spot: 30 ticks later every enemy champion within 55000 is rooted 90 ticks and
 shows three pips (the pictures only - the ladder is his, set once).
+**Crit stacks that drain one at a time (league_tryndamere Battle Fury).** Five caster flags f_1..f_5, each `crit_chance` +8
+(the engine's crit: 2x, on the basic attack only); his attack climbs one, every unit E passes one, a killing blow two
+(league_jinx's kill check). All of f_1..f_n are on at once and only the top one ticks (f_top 300); every lower one lasts
+f_step 60 more (league_jax Relentless Assault), so Fury holds 5 s after the last hit, then drains a stack a second. Only
+f_5 has a view (the full-Fury glow) - five stacked pictures would draw five auras.
+
+**An armed save that can't die (league_tryndamere R, Undying Rage).** Health is unreadable, so the R slot only arms
+(league_kayle R: a 3-tick cast on the idle tag adds r_armed for 900 ticks, refunded through `ult_cooldown_mult` when
+unused) and his attack checks the danger: two enemy champions within 30000, or hit at five checks in a row (league_sett's
+1-point shield as the hit sensor, one level of h_1..h_5 a check). A save: full Fury, an `undying` caster buff for 300
+ticks (health stops at 1), and at tick 290 Bloodlust heals by the Fury held and spends it. One-tick `chk` / `go` flags keep
+the check written once in the attack tree (duplicated it was 745 nodes; now 286). The danger proxy fired at a median 75%
+health in the SDK - the optional native add-on addons/league_tryndamere_rage (a `StablePassive` reading health in
+`on_update` / `on_damaged`) fires it below 15% instead; the main pack stays complete without it.
+
+**A shout that slows only the ones leaving (league_tryndamere W, Mocking Shout).** Nothing reads facing; League slows
+enemies turned away, i.e. running off, so the far ones stand in: every enemy champion within w_r loses 25% attack, and
+those beyond w_near (12000) are also slowed 40% - two `RangeEffect`s, the near one adding a +40 buff that cancels the slow.
 
 ## 8. Gotchas
 

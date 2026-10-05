@@ -2,7 +2,7 @@
 
 团战经理2（Teamfight Manager 2）的英雄联盟英雄 Mod，mod_id 是 `league`。纯数据 mod：不改游戏本体，不需要编译。
 
-英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）、烬（`league_jhin`）、基兰（`league_zilean`）、亚托克斯（`league_aatrox`）、凯隐（`league_kayn`）、希维尔（`league_sivir`）、崔斯特（`league_twistedfate`）、洛（`league_rakan`）、伊芙琳（`league_evelynn`）、瑟提（`league_sett`）、丽桑卓（`league_lissandra`）、韦鲁斯（`league_varus`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹、ADC 烬、辅助基兰。第十一组有上单亚托克斯（剑魔）、打野凯隐、中单崔斯特、ADC 希维尔、辅助洛。第十二组有上单瑟提（腕豪）、打野伊芙琳、中单丽桑卓、ADC 韦鲁斯。
+英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）、烬（`league_jhin`）、基兰（`league_zilean`）、亚托克斯（`league_aatrox`）、凯隐（`league_kayn`）、希维尔（`league_sivir`）、崔斯特（`league_twistedfate`）、洛（`league_rakan`）、伊芙琳（`league_evelynn`）、瑟提（`league_sett`）、丽桑卓（`league_lissandra`）、韦鲁斯（`league_varus`）、蛮王（`league_tryndamere`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹、ADC 烬、辅助基兰。第十一组有上单亚托克斯（剑魔）、打野凯隐、中单崔斯特、ADC 希维尔、辅助洛。第十二组有上单瑟提（腕豪）、打野伊芙琳、中单丽桑卓、ADC 韦鲁斯。第十三组有上单蛮王。
 
 对敌人放的小技能，施放目标是「敌人（不含防御塔）」，清线、打野时也会放；只有大招、德莱厄斯的 E（拉人）、阿木木的 Q（绷带）、锤石的 Q（钩子）、阿狸的 E（魅惑）、薇恩的 E（恶魔审判）、维迦的 E（扭曲空间）、凯特琳的 W（约德尔诱捕器）、卡莎的 W（虚空索敌）、基兰的 E（时光发条）和洛的 W（盛大登场，落地后接 E 轻舞成双）只对英雄放（莫甘娜的 Q 对什么都放，但射程内有敌方英雄时朝英雄射；贝蕾亚的 Q 也一样，射程内有敌方英雄时扑英雄；娜美的 W、Q 也是，射程内有敌方英雄时打英雄；黛安娜的 Q 也一样，射程内有敌方英雄时朝英雄射，E 带着月光再冲的第二下也先找英雄；菲奥娜的 Q、W 也一样，射程内有敌方英雄时冲向、刺向英雄；凯特琳的 Q 也一样，射程内有敌方英雄时朝英雄射；凯南的 Q 也一样，射程内有敌方英雄时锁定英雄射；伊芙琳的 W 也一样，射程内有敌方英雄时先给英雄挂印记；丽桑卓的 Q 也一样，射程内有敌方英雄时朝英雄射，W 身边没人时冰爪只滑向队友正在打的敌方英雄，否则只是扔出去打一下；韦鲁斯的 Q 也一样，射程内有敌方英雄时拉满弓朝英雄射，只有小兵野怪时快速出手）；提莫的 W 是给自己加速和伪装，也只在敌方英雄靠近时放。最早几个英雄的小技能只对英雄放，打野时一直平 A 野怪，按玩家反馈改了。
 
@@ -110,6 +110,8 @@
 ![丽桑卓演示：她滑进场，一颗冰弹打德莱厄斯；Q 寒冰碎片：冰锥从伸出的手上射出，穿过德莱厄斯和身后的盖伦，两人脚下结霜减速；E 冰川之径：冰爪贴地滑到德莱厄斯脚下，她跟着滑过去，落地的寒雾一冲，W 冰霜之环在脚下炸开一圈冰刺，两人被冰晶冻住脚；又一颗冰弹；R 冰封陵墓：寒风卷下，德莱厄斯被封进冰墓，周围炸出黑冰、留下一片发光裂纹的冰地，盖伦减速；冰弹打倒德莱厄斯，他从冰里站起来变成黑冰冰仆，1.5 秒后碎裂，炸到盖伦；最后被围时她把自己冻进冰块](docs/preview/league_lissandra_showcase.gif?v=1005lz)
 
 ![韦鲁斯演示：他跑进场，两箭射中德莱厄斯，头顶亮起一层、两层枯萎；Q 穿刺之箭拉满弓：弓上聚起紫光、枯萎之箭的红光缠着弓，长箭穿过德莱厄斯和身后的盖伦，德莱厄斯身上的两层枯萎引爆，枯萎之箭再炸出一根紫红光柱；又一箭；E 恶灵箭雨：朝天射一箭，箭雨落在两人头上，地面留下一片冒紫光的腐化之地，两人减速；R 腐败锁链：触须飞出缠住德莱厄斯（三层枯萎），半秒后腐化在地上扩散，触须窜上来缠住盖伦；两箭打倒德莱厄斯，复仇之欲的紫光在他身上爆开、脚下亮起攻速光环；最后对盖伦快速出手一支穿刺之箭](docs/preview/league_varus_showcase.gif?v=1005vr)
+
+![蛮王演示：他跑进场；E 旋风斩：大剑绕身转出一圈红白刀光，冲到德莱厄斯面前砍中他；一剑；W 蔑视：仰头怒吼，红色声波和地上的冲击波推出去，德莱厄斯和身后的盖伦头顶挂上断剑（攻击力降低），离得远的盖伦脚下减速；连砍几剑叠满怒气，脚下和身边烧起红光；危险时 R 无尽怒火：身上炸开橙红色的火焰和火环，之后 5 秒全身被火包着、死不了，他继续砍，德莱厄斯倒下；最后喝 Q 嗜血杀戮：红色光点吸进身体，胸口一亮回血](docs/preview/league_tryndamere_showcase.gif?v=1005tr)
 
 ## 英雄：盖伦
 
@@ -2455,6 +2457,48 @@ python tools/art/preview_varus.py
 - 特效用 Codex 画的 24 张（生图原稿，`import_varus.py --raw`：每张按格子等分，每个游戏像素取覆盖的原稿像素里最多的颜色，颜色归到包里给每张的色阶——暗裔紫光、品红、腐化紫红、黑紫，箭和触须保留描边、光效外圈最暗的一档去掉；枯萎标记那张的三行拆成 1/2/3 层）。位置：普攻、Q、E、R 从弓的握把出手（放箭那一帧量的：普攻 (13, −9)、Q (13, −8)、E (13, −18)、R (14, −8)），枯萎标记在头顶上方，箭雨、腐化地面、扩散的地面圈按椭圆最宽的一行对在脚下，禁锢的触须底边踩在脚底线上。箭、Q 的大箭、触须都从 8 px 高飞出（`y_offset` −3000），第一帧前空 2 tick（飞过弓之前不画）。
 
 逐帧预览：[`docs/preview/league_varus_frames.png`](docs/preview/league_varus_frames.png)，特效：[`docs/preview/league_varus_effects.png`](docs/preview/league_varus_effects.png)。
+
+## 英雄：蛮王
+
+| 部分 | 内容 |
+|---|---|
+| 定位 | 上单（战士，分类 Melee），用户排的第十三组的上单（同组：赵信、布兰德、莎弥拉、派克）。蛮族之王 泰达米尔：普攻、旋风斩叠怒气加暴击，W 怒吼削弱附近的敌人，R 在危险时让他 5 秒内死不了，结束时喝 Q 回血。四个选择都按推荐的来（用户选的）：E / W / R 三个技能位、Q 并进 R 的结尾，R 平时「待命等危险」，怒气 5 层 |
+| 普攻 / 被动 | 普攻是近战挥剑，100% 攻击力的物理伤害，射程 25000，攻击间隔 62 tick（第 12 tick 砍中），会暴击（引擎的暴击：普攻 2 倍）。被动「战斗狂怒」：普攻每打中一次得 1 层怒气，E 每扫到一个敌人得 1 层，击杀（金克丝那套击杀检测）得 2 层，最多 5 层，每层暴击率 +8%（满层 40%，同英雄联盟 100 点怒气）。怒气同贾克斯的被动那样一层一层掉：最后一次命中后 300 tick 开始掉，之后每 60 tick 掉一层。满层时脚下和身边烧着一层红光。Q「嗜血杀戮」的被动（按已损生命加攻击力）读不到生命，并进了基础攻击力 |
+| 技能1 | E「旋风斩」：冷却 480 tick（8 秒），射程 45000，也对小兵和野怪放。旋转着朝目标冲 48000（RushTime，穿过目标），路上半径 15000 内的敌人都受到 100 + 160% 攻击力的物理伤害，每砍到一个得 1 层怒气（不会暴击）；英雄联盟暴击减冷却并进了冷却时间 |
+| 技能2 | W「蔑视」：冷却 840 tick（14 秒），身边 40000 内有敌方英雄时放。怒吼：40000 内的敌方英雄攻击力降低 25%，持续 4 秒；离他 12000 以外的（英雄联盟是背对他的，这里读不到朝向，远一点的就是正要跑开的）再减速 40%，持续 2 秒 |
+| 大招 | R「无尽怒火」：冷却 50 秒，凯尔那样「待命」：敌方英雄进到 60000 内时放出，待命 900 tick（15 秒），没用上就退还冷却。待命期间他每次普攻查一次危险：被两名以上敌方英雄贴身（30000 内），或连续 5 次检查都挨了打（瑟提那样用 1 点护盾感知挨打）——就爆发：怒气加满，300 tick（5 秒）内生命不会降到 1 以下（`undying`），播 R 的动作、火焰和配音；第 290 tick 喝 Q「嗜血杀戮」：回 60 + 30% 攻击力的生命，每层怒气再加 50 + 10%，然后清空怒气 |
+| 残血开大附加包 | 用户：「大招快没血的时候设置开也行」。数据读不到当前生命，主包只能按上面的「危险」开（SDK 模拟里开大时生命中位数 75%）。附加包 [`addons/league_tryndamere_rage`](addons/league_tryndamere_rage/README.md) 用原生代码读生命：R 待命、身边 50000 内有敌方英雄、生命低于 15%（或 1 秒内被打掉 35% 以上、只剩 40% 以下）才开；R 没好时生命低于 30% 喝 Q（12 秒一次）。主包不装附加包也完整可玩；附加包只做了单元测试，开大时机要在游戏里看日志确认 |
+| 数值 | 攻击 86（+17）、生命 1050（+105）、护甲 30（+8）、魔抗 25（+4）、移速 1000（+11）、生命回复 2（+1）。英雄联盟的蛮王攻击没有成长（嗜血的被动），这里按 Melee 的基础调低一点。数值是自己设计的，用 SDK 对战模拟调：上路，对 6 个原版上单（`fighter`、`executioner`、`lancer`、`pole_warrior`、`knight`、`berserker`），3 套阵容、两边各打，10 分钟。初稿 −0.62（按危险喝 Q 会在满血时喝掉）；Q 只在 R 结束时喝 −0.03；E 70 + 120% → 100 + 160%、冷却 9 → 8 秒、生命 1000 → 1050 后种子 1–12 +1.34、13–24 +1.24（原版斗士 +1.14 / +0.72，本包的瑟提 +1.08 / +1.24）。每层暴击 10% 差不多，用 8% 保持英雄联盟满怒气 40% |
+| 亚索联动 | 蛮王没有击飞或控制，W 只是减速，不算亚索大招要的控制，不用调 |
+| 精灵图 | 9 个动作 53 帧：待机、移动、普攻、E（`skill`）、W（`skill2`）、Q（`skill_q`）、R（`ult`）、受击、死亡。造型 57 × 40 px（含拖在身后的大剑），24 色。待机 6 帧同一张、不呼吸；头像截取点 (11, −38)，待机最高点 −28，不用选人卡片位置 |
+| 特效 | Codex 生图的 11 张（`import_tryndamere.py` 缩成游戏像素）：`league_tryndamere_fx` 普攻、E、W 的命中，Q 的回血红光，满怒气的红光，W 的减攻标记（头顶的断剑）和减速标记；`league_tryndamere_big` E 绕身转的刀光、W 的怒吼冲击波、R 爆发的火焰和不死期间身上的火 |
+| 音效 | 英雄联盟的音效和配音（`tools/lol/extract_tryndamere.py`）：普攻挥剑、命中，E、W、Q、R；E、W、R 各一句中文配音。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
+| 图标 | 官方技能图标（E / W / R），从本地客户端提取，缩到 64×64 |
+
+重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
+
+```bash
+python tools/lol/extract_tryndamere.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstream-cli.exe 路径>"
+python tools/kit/build_tryndamere.py        # 技能数据，数字都在脚本的参数表 P 里；--nodes 看每棵技能树的节点数
+python tools/kit/setup_tryndamere.py --face 11,-38   # 五种语言的文字、音效配置、共享文件里他的键
+python tools/art/design_tryndamere.py       # 造型：Codex 原稿 A_retry 按格子读回、整行整列删到 40 行（脸不动）
+python tools/lol/native_pose.py assets/source/tryndamere/poses.json --out <渲染文件夹>   # 动作参考帧
+python tools/art/rig_tryndamere.py          # 动作：每帧都是造型本身，手臂连剑整块转；--review <文件夹> 先看
+python tools/art/import_native.py --hero tryndamere
+python tools/art/import_tryndamere.py       # 特效；--raw <Codex 的特效交付文件夹> 先把生图原稿缩成游戏尺寸的原尺寸条
+python tools/art/preview_tryndamere.py
+python addons/league_tryndamere_rage/make_override.py   # 附加包的英雄数据和文字（主包的蛮王改了以后重跑）
+```
+
+美术（原画的提示词见 [`assets/source/tryndamere/PICTURE_PROMPT.md`](assets/source/tryndamere/PICTURE_PROMPT.md)，造型的见 [`MODEL_PROMPTS.md`](assets/source/tryndamere/MODEL_PROMPTS.md)，动作的见 [`MODEL_STRIPS.md`](assets/source/tryndamere/MODEL_STRIPS.md)，特效的见 [`PROMPTS_FX.md`](assets/source/tryndamere/PROMPTS_FX.md)；Codex 的交付说明在 [`codex_picture/`](assets/source/tryndamere/codex_picture/)、[`codex_model/`](assets/source/tryndamere/codex_model/)、[`codex_strips/`](assets/source/tryndamere/codex_strips/)、[`codex_fx/`](assets/source/tryndamere/codex_fx/)）：
+
+- 原画：Codex 画了 A（英雄联盟的待机：大剑拖在身后）、B，用户选 A。
+- 造型：Codex 按游戏尺寸画的 40 行是隔列删出来的，碎成杂点；它重画的原稿 A_retry 按自己的格子读回是 80 × 56。按面积投票缩（眼睛没了）、贴大头再手画脸都被否了（「眼睛都看不到」「这是做的什么啊」）；改成薇恩、锐雯那样整行整列地删：原稿颜色先归成 24 色，每组里和邻行最像的那行删掉，眼睛、脸、胡子、嘴那几行几列和角尖那一行不删，删到 40 行，删掉描边的地方补描边。用户从四个版本里选「40 行原样」——每一格都是原稿自己的。
+- 动作参考（`poses.json`）：镜头 yaw 60、pitch 20，镜像（yaw 45 看到的是背）；头 2.6 倍、腿 0.85、头发 0.5（长马尾不挡人）；高度 40。普攻第 5 帧（第 12 tick）砍中，W 第 4 帧（第 10 tick）怒吼，和技能数据一致。
+- 动作：Codex 的动作条（[`codex_strips/`](assets/source/tryndamere/codex_strips/)，它自己的交接写着「未通过视觉验收」）举剑时手臂是细木板、E 是一根棍、死亡时身体碎开。用户：「codex实在太笨了 ... 我们自己来修复」。改成全部用造型自己的像素摆（`rig_tryndamere.py`，通用的部分做成了 [`tools/art/rigkit.py`](tools/art/rigkit.py)，以后的英雄可以直接用）：握剑的手臂连同大剑从造型上整块切下，绕肩膀只做 90° 的整数倍旋转（举到身后、举过头顶、劈到身前；E 转一整圈）；另一只手臂也是造型自己的，Q、W、R 转上去举拳、W 翻过来往前伸；身体、头、腿每帧和待机一格不差，位移都是整个人一起动。先后被否的做法：镜像的剑（弧度反了）、只挪上半身（腰错位，「刀和身体 有点变形吧」「放技能还是受击打的时候变形」）、沿骨骼画的手臂和错切拉平的手臂（「左手右手释放技能都变形」）、死亡时删 7 行腿再左右平移（「死亡动画整个模型变形」）。现在的死亡：整个人后退一格，剑先甩到身后再脱手插在地上，膝盖只弯 4 行。跑步两腿从胯部交替迈步，脚收到胯下。
+- 特效用 Codex 画的 11 张（生图原稿，`import_tryndamere.py --raw`：每张按格子等分，每个游戏像素取覆盖的原稿像素里最多的颜色，颜色归到包里给每张的色阶——血红、余烬橙、暗红，断剑标记和灰烬保留描边、光效外圈最暗的一档去掉）。位置：E 的刀光以腰为中心（(7, −2)，跟着他冲过去），Q 的红光在胸口（(6, −8)），W 的冲击波、R 的火、满怒气的光按地上椭圆最宽的一行对在脚下，减攻的断剑在头顶。
+
+逐帧预览：[`docs/preview/league_tryndamere_frames.png`](docs/preview/league_tryndamere_frames.png)，特效：[`docs/preview/league_tryndamere_effects.png`](docs/preview/league_tryndamere_effects.png)。
 
 ## 选人卡片位置（`banpick_center`）
 

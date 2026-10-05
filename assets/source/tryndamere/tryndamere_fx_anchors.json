@@ -1,0 +1,13 @@
+{
+  "a_hit": {"cell": [23, 21], "anchor": [11, 10], "frames": 4},
+  "f_full": {"cell": [37, 85], "anchor": [18, 42], "frames": 4},
+  "e_spin": {"cell": [45, 43], "anchor": [22, 21], "frames": 6},
+  "e_hit": {"cell": [25, 17], "anchor": [12, 8], "frames": 4},
+  "w_shout": {"cell": [87, 103], "anchor": [43, 51], "frames": 6},
+  "w_hit": {"cell": [21, 23], "anchor": [10, 11], "frames": 4},
+  "w_weak": {"cell": [17, 31], "anchor": [8, 15], "frames": 4},
+  "w_slow": {"cell": [27, 27], "anchor": [13, 13], "frames": 4},
+  "q_heal": {"cell": [39, 57], "anchor": [19, 28], "frames": 5},
+  "r_cast": {"cell": [35, 105], "anchor": [17, 52], "frames": 6},
+  "r_rage": {"cell": [39, 91], "anchor": [19, 45], "frames": 4}
+}

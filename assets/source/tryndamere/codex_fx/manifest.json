@@ -1,0 +1,306 @@
+[
+  {
+    "file": "tryndamere_fx_a_hit.png",
+    "binding": "view_effects `league_tryndamere_a_hit`（跟随，画在人物上面）",
+    "size": "16",
+    "prompt_number": 1,
+    "frames": 4,
+    "actual_size": [
+      2172,
+      724
+    ],
+    "requested_size": [
+      1024,
+      256
+    ],
+    "alpha_zero_pixels": 1315785,
+    "alpha_partial_pixels": 255314,
+    "alpha_opaque_pixels": 1429,
+    "suggested_equal_cell_boundaries": [
+      0,
+      543,
+      1086,
+      1629,
+      2172
+    ],
+    "sha256": "15b9f2580b190c0eb041a54f74d9891acdb6bcd5b3d706075fe85f6e94f6699d",
+    "status": "generated_original_requires_import_normalization"
+  },
+  {
+    "file": "tryndamere_fx_f_full.png",
+    "binding": "view_buffs `league_tryndamere_f_5`（满 5 层怒气时，循环，画在人物下面）",
+    "size": "26 × 40",
+    "prompt_number": 2,
+    "frames": 4,
+    "actual_size": [
+      2022,
+      778
+    ],
+    "requested_size": [
+      832,
+      320
+    ],
+    "alpha_zero_pixels": 1015904,
+    "alpha_partial_pixels": 556808,
+    "alpha_opaque_pixels": 404,
+    "suggested_equal_cell_boundaries": [
+      0,
+      506,
+      1011,
+      1516,
+      2022
+    ],
+    "sha256": "b0a641ae678ff049e92b3cb148d64d0c531b042b332f134b5aca552d77a01d04",
+    "status": "generated_original_requires_import_normalization"
+  },
+  {
+    "file": "tryndamere_fx_e_spin.png",
+    "binding": "view_effects `league_tryndamere_e_spin`（BIG，施法者身上，跟随；格子中心放到他的腰）",
+    "size": "40 × 30",
+    "prompt_number": 3,
+    "frames": 6,
+    "actual_size": [
+      2172,
+      724
+    ],
+    "requested_size": [
+      1920,
+      240
+    ],
+    "alpha_zero_pixels": 1371309,
+    "alpha_partial_pixels": 200851,
+    "alpha_opaque_pixels": 368,
+    "suggested_equal_cell_boundaries": [
+      0,
+      362,
+      724,
+      1086,
+      1448,
+      1810,
+      2172
+    ],
+    "sha256": "006555ddd586151a364b581a95ef0ca8b6d43daebe5236cbfaacdd1dd2b77753",
+    "status": "generated_original_requires_import_normalization"
+  },
+  {
+    "file": "tryndamere_fx_e_hit.png",
+    "binding": "view_effects `league_tryndamere_e_hit`（跟随，画在人物上面）",
+    "size": "16",
+    "prompt_number": 4,
+    "frames": 4,
+    "actual_size": [
+      2172,
+      724
+    ],
+    "requested_size": [
+      1024,
+      256
+    ],
+    "alpha_zero_pixels": 1347855,
+    "alpha_partial_pixels": 223057,
+    "alpha_opaque_pixels": 1616,
+    "suggested_equal_cell_boundaries": [
+      0,
+      543,
+      1086,
+      1629,
+      2172
+    ],
+    "sha256": "3c20f9afb71629655371c2851605111ba7203622cc206adbd7a9431a629c3efa",
+    "status": "generated_original_requires_import_normalization"
+  },
+  {
+    "file": "tryndamere_fx_w_shout.png",
+    "binding": "view_effects `league_tryndamere_w_shout`（BIG，施法者身上，跟随；格子里的脚放到他脚下）",
+    "size": "84 × 48",
+    "prompt_number": 5,
+    "frames": 6,
+    "actual_size": [
+      2172,
+      724
+    ],
+    "requested_size": [
+      3360,
+      320
+    ],
+    "alpha_zero_pixels": 1252917,
+    "alpha_partial_pixels": 319397,
+    "alpha_opaque_pixels": 214,
+    "suggested_equal_cell_boundaries": [
+      0,
+      362,
+      724,
+      1086,
+      1448,
+      1810,
+      2172
+    ],
+    "sha256": "49dd9c6904c0231da640cfa6cd9eb7cea87d9557fdc6fac5bd0bb9e09b1cd3f9",
+    "status": "generated_original_requires_import_normalization"
+  },
+  {
+    "file": "tryndamere_fx_w_hit.png",
+    "binding": "view_effects `league_tryndamere_w_hit`（跟随，画在人物上面）",
+    "size": "16 × 20",
+    "prompt_number": 6,
+    "frames": 4,
+    "actual_size": [
+      2172,
+      724
+    ],
+    "requested_size": [
+      1024,
+      320
+    ],
+    "alpha_zero_pixels": 1120267,
+    "alpha_partial_pixels": 449364,
+    "alpha_opaque_pixels": 2897,
+    "suggested_equal_cell_boundaries": [
+      0,
+      543,
+      1086,
+      1629,
+      2172
+    ],
+    "sha256": "0e4ad47a3297946798ee3c2d6446395ee857d44c40fc3b5089bfc004069a71c8",
+    "status": "generated_original_requires_import_normalization"
+  },
+  {
+    "file": "tryndamere_fx_w_weak.png",
+    "binding": "view_buffs `league_tryndamere_w_weak`（循环，画在人物上面，头顶）",
+    "size": "12 × 12",
+    "prompt_number": 7,
+    "frames": 4,
+    "actual_size": [
+      2172,
+      724
+    ],
+    "requested_size": [
+      1024,
+      256
+    ],
+    "alpha_zero_pixels": 1251480,
+    "alpha_partial_pixels": 316956,
+    "alpha_opaque_pixels": 4092,
+    "suggested_equal_cell_boundaries": [
+      0,
+      543,
+      1086,
+      1629,
+      2172
+    ],
+    "sha256": "9dcc2107faa860904c32d566ee96126c285f86c1d177d8445b23ead3312392b5",
+    "status": "generated_original_requires_import_normalization"
+  },
+  {
+    "file": "tryndamere_fx_w_slow.png",
+    "binding": "view_buffs `league_tryndamere_w_slow`（循环，画在脚下）",
+    "size": "18 × 8",
+    "prompt_number": 8,
+    "frames": 4,
+    "actual_size": [
+      2172,
+      724
+    ],
+    "requested_size": [
+      2304,
+      256
+    ],
+    "alpha_zero_pixels": 1387275,
+    "alpha_partial_pixels": 184916,
+    "alpha_opaque_pixels": 337,
+    "suggested_equal_cell_boundaries": [
+      0,
+      543,
+      1086,
+      1629,
+      2172
+    ],
+    "sha256": "c3febd0b45c92342d5d787f77cbb728102d9ca062b09286a543d63d22ae8d79f",
+    "status": "generated_original_requires_import_normalization"
+  },
+  {
+    "file": "tryndamere_fx_q_heal.png",
+    "binding": "view_effects `league_tryndamere_q_heal`（施法者身上，不跟随；格子中心放到他的胸口）",
+    "size": "30 × 44",
+    "prompt_number": 9,
+    "frames": 5,
+    "actual_size": [
+      2172,
+      724
+    ],
+    "requested_size": [
+      1200,
+      352
+    ],
+    "alpha_zero_pixels": 1202078,
+    "alpha_partial_pixels": 368682,
+    "alpha_opaque_pixels": 1768,
+    "suggested_equal_cell_boundaries": [
+      0,
+      434,
+      869,
+      1303,
+      1738,
+      2172
+    ],
+    "sha256": "5f0466666abf3db5bcd1eb5c7bd9b3d0906e2f201f047602909ca9733a460ba9",
+    "status": "generated_original_requires_import_normalization"
+  },
+  {
+    "file": "tryndamere_fx_r_cast.png",
+    "binding": "view_effects `league_tryndamere_r_cast`（BIG，施法者身上，不跟随；格子里的脚放到他脚下）",
+    "size": "48 × 56",
+    "prompt_number": 10,
+    "frames": 6,
+    "actual_size": [
+      2172,
+      724
+    ],
+    "requested_size": [
+      2304,
+      448
+    ],
+    "alpha_zero_pixels": 1152259,
+    "alpha_partial_pixels": 419425,
+    "alpha_opaque_pixels": 844,
+    "suggested_equal_cell_boundaries": [
+      0,
+      362,
+      724,
+      1086,
+      1448,
+      1810,
+      2172
+    ],
+    "sha256": "f7bca222435c5b733fa94844e173833e4bacabaeb182c5418147581f8e9c9d0c",
+    "status": "generated_original_requires_import_normalization"
+  },
+  {
+    "file": "tryndamere_fx_r_rage.png",
+    "binding": "view_buffs `league_tryndamere_r_rage`（BIG，循环，画在人物下面）",
+    "size": "34 × 50",
+    "prompt_number": 11,
+    "frames": 4,
+    "actual_size": [
+      2067,
+      761
+    ],
+    "requested_size": [
+      1088,
+      400
+    ],
+    "alpha_zero_pixels": 862376,
+    "alpha_partial_pixels": 708964,
+    "alpha_opaque_pixels": 1647,
+    "suggested_equal_cell_boundaries": [
+      0,
+      517,
+      1034,
+      1550,
+      2067
+    ],
+    "sha256": "7ddd2ffd88c9a1ad1b21abb5af224aea3dc4e9c1e8e565a7ae1d13176079d648",
+    "status": "generated_original_requires_import_normalization"
+  }
+]
