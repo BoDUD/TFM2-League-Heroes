@@ -58,6 +58,13 @@ REMOVE = {("dead", 0): [(36, 56, 80, 96)],
           ("dead", 4): [(63, 77, 30, 46)],
           ("skill2", 2): [(58, 66, 92, 97)],
           ("skill2", 3): [(56, 66, 85, 92)]}
+# (tag, 0-based frame): boxes where Codex's old horns in iron grey stand in front of the face (W's charge holds both
+# arms back, so nothing iron belongs there): the iron, rim, brown, gold and outline squares there (not the pasted
+# head) go
+REMOVE_JUNK = {("skill2", 0): [(55, 72, 84, 97)],
+               ("skill2", 1): [(50, 71, 79, 91)],
+               ("skill2", 2): [(56, 69, 88, 98)],
+               ("skill2", 5): [(51, 61, 82, 90)]}
 VIOLET = {(0x3B, 0x18, 0x88), (0x55, 0x26, 0xC3), (0x73, 0x3D, 0xF5), (0x9A, 0x63, 0xF3), (0xBB, 0x88, 0xFB),
           (0x15, 0x0B, 0x4B)}
 CUTS = {"butt": ("skill2", [4, 5]), "slam": ("skill", [2, 3, 4, 5])}     # 0-based frames
@@ -465,7 +472,14 @@ def build(tag, des, mask, palette, cells):
             gone = box & ~placed & (f[..., 3] > 0)
             f[gone] = 0
             n += int(gone.sum())
-        if (tag, i) in REMOVE:
+        junk_cols = {IRON, HORN_DARK, OUTLINE} | NOT_HEAD
+        for r0, r1, c0, c1 in REMOVE_JUNK.get((tag, i), []):
+            for y in range(r0, r1):
+                for x in range(c0, c1):
+                    if f[y, x, 3] and not placed[y, x] and tuple(int(v) for v in f[y, x, :3]) in junk_cols:
+                        f[y, x] = 0
+                        n += 1
+        if (tag, i) in REMOVE or (tag, i) in REMOVE_JUNK:
             f = clean_fragments(f, small=30)
         n += seal(f, placed)
         n += desilver(f, placed)
