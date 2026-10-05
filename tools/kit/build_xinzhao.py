@@ -66,6 +66,9 @@ P = {
     # immunity to damage from beyond 450, cd 120-80 s)
     "r_cd": 3000, "r_range": 30000, "r_dur": 36, "r_at": 10, "r_rad": 36000, "r_dmg": 100, "r_ratio": 100, "r_hp": 10,
     "r_kb_speed": 2500, "r_kb_t": 8, "r_red": 40, "r_t": 180,
+    # the native add-on (addons/league_xinzhao_guard) instead of r_red: the damage from beyond r_far (League's 450 units;
+    # R's 36000 sweep is League's 450 radius) is given back as it lands
+    "r_far": 36000,
 }
 
 
@@ -161,7 +164,9 @@ def action(name, dur, cd, st, rng, ctype, ctarget, effect, atype="Skill", cancel
             "casting_type": ctype, "casting_target": ctarget, "attack_type": atype, "effect": effect}
 
 
-def build(p):
+def build(p, native=False):
+    """native: the add-on's copy (addons/league_xinzhao_guard) - the guard's reduction dropped, its passive blocks the
+    damage from afar instead (it reads the attacker's distance)."""
     # ------------------------------------------------------------------ attack: strip, Three Talon Strike, Determination
     def strike(tag, hit_at, q_extra, passive):
         """The attack's tree for one strip: its animation now, the hit `hit_at` ticks later."""
@@ -227,7 +232,8 @@ def build(p):
                 {"type": "Knockback", "speed": p["r_kb_speed"], "tick": p["r_kb_t"]}]),
         around(p["r_rad"], "EnemyChampion", [attack(0, 0, p["r_hp"])]),
         cview("r_sweep"), sfx("r_knock"),
-        *rm("r_guard"), flag("r_guard", p["r_t"], damaged_reduce=p["r_red"]), sfx("r_guard"),
+        *rm("r_guard"), (flag("r_guard", p["r_t"]) if native else flag("r_guard", p["r_t"], damaged_reduce=p["r_red"])),
+        sfx("r_guard"),
         delayed(p["r_t"], sfx("r_end")),
     ]
     ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
@@ -248,7 +254,7 @@ def build(p):
     views_b = [B_("q_1", FX, 3), B_("q_2", FX, 3), B_("q_3", FX, 3), B_("e_slow", FX, -1), B_("w_slow", FX, -1),
                B_("r_chal", FX, 3),
                B_("r_guard", BIG, -1)]
-    return {
+    kit = {
         "id": ID, "category": "Melee", "tags": ["AD", "Melee", "CC"],
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
         "skill_icons": [f"asset/league/icons/{ID}_skill", f"asset/league/icons/{ID}_skill2", f"asset/league/icons/{ID}_ult"],
@@ -261,6 +267,9 @@ def build(p):
         "attack": attack_a, "skill": skill, "skill2": skill2, "ult": ult,
         "view_projectiles": views_p, "view_effects": views_e, "view_buffs": views_b,
     }
+    if native:
+        kit["passive"] = {"passive_ref": "league_xinzhao_guard:guard", "params": {"far": int(p["r_far"])}}
+    return kit
 
 
 def nodes(o):

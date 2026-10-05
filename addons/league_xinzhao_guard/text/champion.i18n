@@ -1,0 +1,37 @@
+{
+  "zh-hans": {
+    "description": {
+      "league_xinzhao_guard": {
+        "ult": "【远程免伤测试版】横扫周围，造成<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>加目标最大生命值10%的物理伤害，除被挑战的目标（施放对象）外全部<#ef5350ff>击退<>。之后<#ffb900ff>3秒<>内，横扫范围外的敌人对他造成的伤害全部免疫。"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "league_xinzhao_guard": {
+        "ult": "【遠程免傷測試版】橫掃周圍，造成<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>加目標最大生命值10%的物理傷害，除被挑戰的目標（施放對象）外全部<#ef5350ff>擊退<>。之後<#ffb900ff>3秒<>內，橫掃範圍外的敵人對他造成的傷害全部免疫。"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "league_xinzhao_guard": {
+        "ult": "[Test build: far damage blocked] Sweeps around him for <#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> plus 10% of the target's max health as physical damage, <#ef5350ff>knocking back<> every enemy but the challenged one. For <#ffb900ff>3s<> afterwards he ignores all damage from enemies beyond the sweep's reach."
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "league_xinzhao_guard": {
+        "ult": "[원거리 면역 테스트판] 주변을 휩쓸어 <#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> + 대상 최대 체력의 10%만큼 물리 피해를 입히고, 도전받은 대상을 제외한 모든 적을 <#ef5350ff>밀어냅니다<>. 이후 <#ffb900ff>3초<> 동안 휩쓸기 범위 밖의 적에게서 받는 피해를 무시합니다."
+      }
+    }
+  },
+  "ja": {
+    "description": {
+      "league_xinzhao_guard": {
+        "ult": "【遠距離無効テスト版】周囲を薙ぎ払い<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>+対象の最大体力の10%の物理ダメージ、チャレンジ中の対象以外を<#ef5350ff>ノックバック<>。その後<#ffb900ff>3秒<>間、薙ぎ払いの範囲外の敵からのダメージを無効。"
+      }
+    }
+  }
+}

@@ -2567,6 +2567,7 @@ python addons/league_tryndamere_rage/make_override.py   # 附加包的英雄数�
 | 技能2 | W「风斩电刺」：冷却 600 tick（10 秒），射程 60000，也对小兵和野怪放。第 13 tick 在身前横扫（半圆，半径 32000），20 + 40% 攻击力的物理伤害；第 17 tick 朝目标直刺一道电光（一条线，60000 长），40 + 65% 攻击力的物理伤害，减速 50%，持续 1.5 秒。英雄联盟的「挑战」标记会让 E 射程变远，引擎的施法距离不能随 buff 变，没做 |
 | 大招 | R「新月护卫」：冷却 50 秒，只对英雄放（射程 30000，贴身才放）。第 10 tick 绕身横扫（半径 36000）：100 + 100% 攻击力的物理伤害，英雄再加最大生命值 10%（英雄联盟是当前生命 15%，读不到当前生命）；**被挑战的目标（施放对象）留在身边**，其余敌人全部击退（每 tick 2500，8 tick）——做法：横扫前给目标挂 3 tick 的 `cc_immune`，SDK 里核对过击退那一刻目标一格没动、周围的小兵和英雄都被推开；目标头顶挂金色挑战纹章。之后 3 秒受到的伤害降低 40%（英雄联盟是挡住 450 码外的伤害；数据读不到伤害来自多远，用户选的减伤），身后亮起金色护卫光 |
 | 数值 | 攻击 82（+18）、生命 980（+102）、护甲 32（+8）、魔抗 25（+4）、移速 1000（+11）、生命回复 2（+1）。数值是自己设计的，用 SDK 对战模拟调：打野，对 5 个原版打野（`demon`、`circus_blade`、`hunter`、`inquisitor`、`ninja`），3 套阵容、两边各打，每批 24 局 × 30，10 分钟。初稿 +2.01（同批凯隐 +1.12）；被动回血 20 + 25% → 15 + 15%、E 60% → 50%、Q 35% → 30%、攻击 90 → 86 是 +1.17。按动作条的出手帧重跑（W、R 出手变快）升到 +1.89 / +2.26（同两批凯隐 +1.12 / +1.72）；生命 1020 → 980、W 直刺 80% → 65%、攻击 86 → 82 后两批 +1.10 / +1.29，和凯隐持平 |
+| 远程免伤附加包 | 用户：「读不到多远就改rust源代码 看看能不能」。附加包 [`addons/league_xinzhao_guard`](addons/league_xinzhao_guard/README.md) 用原生代码读攻击者的位置：R 之后 3 秒的护卫光还在时，离他超过 36000（R 的横扫半径，英雄联盟的 450 码）的敌人打来的伤害，一落下就原样加回（主包的 40% 减伤在附加包里去掉）；近身的伤害照常吃。主包不装附加包也完整可玩；附加包只做了单元测试，一下就致命的远程伤害可能来不及挡，要在游戏里看日志确认 |
 | 亚索联动 | Q 第三下的击飞是亚索大招要的控制 |
 | 精灵图 | 12 个动作 75 帧：待机、移动、普攻、被动第三下（`attack_p`）、Q 三下（`q1`、`q2`、`q3`）、E（`skill`）、W（`skill2`）、R（`ult`）、受击、死亡。造型 65 × 42 px（含斜架在身后的长枪），25 色，描边 99%。待机 6 帧同一张、不呼吸；头像截取点 (12, −36)（脸上，不在发髻上）；发髻顶在 −30，选人卡片 `banpick_center` −9 |
 | 特效 | Codex 生图的 20 张（`import_xinzhao.py` 缩成游戏像素）：`league_xinzhao_fx` 普攻、被动第三下、Q、Q3 击飞、E、W 两下和 R 的命中，被动回血的金光，头顶 3/2/1 道金爪印（Q 剩几下），E 和 W 的减速标记，R 的挑战纹章；`league_xinzhao_big` E 的冲刺光痕和落地冲击圈，W 的横扫月牙和电刺，R 起手转枪的金光、绕身一圈的新月刃光和之后 3 秒的护卫光 |
@@ -2585,6 +2586,7 @@ python tools/art/rig_xinzhao.py          # 动作：每帧都是造型本身，�
 python tools/art/import_native.py --hero xinzhao
 python tools/art/import_xinzhao.py       # 特效；--raw <Codex 的特效交付文件夹> 先把生图原稿缩成游戏尺寸的原尺寸条
 python tools/art/preview_xinzhao.py      # --only red：整场镜像（红色方）
+python addons/league_xinzhao_guard/make_override.py   # 附加包的英雄数据和文字（主包的赵信改了以后重跑）
 ```
 
 美术（原画的提示词见 [`assets/source/xinzhao/PICTURE_PROMPT.md`](assets/source/xinzhao/PICTURE_PROMPT.md)，造型的见 [`MODEL_PROMPTS.md`](assets/source/xinzhao/MODEL_PROMPTS.md)，动作的见 [`MODEL_STRIPS.md`](assets/source/xinzhao/MODEL_STRIPS.md)，特效的见 [`PROMPTS_FX.md`](assets/source/xinzhao/PROMPTS_FX.md)；Codex 的交付在 [`codex_picture/`](assets/source/xinzhao/codex_picture/)、[`codex_model/`](assets/source/xinzhao/codex_model/)、[`codex_strips/`](assets/source/xinzhao/codex_strips/)、[`codex_fx/`](assets/source/xinzhao/codex_fx/)；附图包由 `tools/art/pack_xinzhao_picture.py`、`pack_xinzhao_model.py`、`pack_xinzhao_strips.py`、`pack_xinzhao_fx.py` 在本地生成，英雄联盟的渲染不进仓库）：
