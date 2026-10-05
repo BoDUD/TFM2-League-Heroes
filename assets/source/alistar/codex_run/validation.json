@@ -1,0 +1,96 @@
+{
+  "size": [
+    4096,
+    1536
+  ],
+  "grid": [
+    4,
+    2
+  ],
+  "frame_ms": 125,
+  "pixel_scale": 8,
+  "binary_alpha": true,
+  "original_body_preserved": true,
+  "frames": [
+    {
+      "frame": 1,
+      "guide_near_hoof_x": 62.5,
+      "near_lift": 0,
+      "guide_far_hoof_x": 52,
+      "far_lift": 1,
+      "far_visible_pixels": 38,
+      "near_visible_pixels": 41,
+      "upper_body_exact": true
+    },
+    {
+      "frame": 2,
+      "guide_near_hoof_x": 60,
+      "near_lift": 0,
+      "guide_far_hoof_x": 53.5,
+      "far_lift": 3,
+      "far_visible_pixels": 31,
+      "near_visible_pixels": 39,
+      "upper_body_exact": true
+    },
+    {
+      "frame": 3,
+      "guide_near_hoof_x": 57.5,
+      "near_lift": 0,
+      "guide_far_hoof_x": 57,
+      "far_lift": 3,
+      "far_visible_pixels": 13,
+      "near_visible_pixels": 48,
+      "upper_body_exact": true
+    },
+    {
+      "frame": 4,
+      "guide_near_hoof_x": 55,
+      "near_lift": 0,
+      "guide_far_hoof_x": 60,
+      "far_lift": 1,
+      "far_visible_pixels": 28,
+      "near_visible_pixels": 42,
+      "upper_body_exact": true
+    },
+    {
+      "frame": 5,
+      "guide_near_hoof_x": 53,
+      "near_lift": 1,
+      "guide_far_hoof_x": 61.5,
+      "far_lift": 0,
+      "far_visible_pixels": 39,
+      "near_visible_pixels": 28,
+      "upper_body_exact": true
+    },
+    {
+      "frame": 6,
+      "guide_near_hoof_x": 54.5,
+      "near_lift": 3,
+      "guide_far_hoof_x": 59,
+      "far_lift": 0,
+      "far_visible_pixels": 41,
+      "near_visible_pixels": 24,
+      "upper_body_exact": true
+    },
+    {
+      "frame": 7,
+      "guide_near_hoof_x": 58,
+      "near_lift": 3,
+      "guide_far_hoof_x": 56.5,
+      "far_lift": 0,
+      "far_visible_pixels": 44,
+      "near_visible_pixels": 28,
+      "upper_body_exact": true
+    },
+    {
+      "frame": 8,
+      "guide_near_hoof_x": 61,
+      "near_lift": 1,
+      "guide_far_hoof_x": 54,
+      "far_lift": 0,
+      "far_visible_pixels": 42,
+      "near_visible_pixels": 36,
+      "upper_body_exact": true
+    }
+  ]
+}
