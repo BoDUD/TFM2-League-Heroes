@@ -1214,6 +1214,8 @@ league_sett (top, 2026-10-05, Facebreaker's 1 s stun on two or more pulled in - 
 base fighter 2.33 and league_darius 1.25 in the same batch - no change.
 league_lissandra (mid, --lane 2, 2026-10-05, Ring of Frost's 1.25 s root - also after Glacial Path's blink - and Frozen
 Tomb's 1.5 s stun): 1.79 a game; the base lightning mage 3.19 and league_twistedfate 1.23 in the same batch - no change.
+league_varus (bottom, --lane 3, 2026-10-05, Chain of Corruption's 2 s root and its 1.5 s spread): 0.71 a game; the base
+gunner 0.19 and league_jhin 1.17 in the same batch - no change.
 
 **Kill trigger (league_jinx Get Excited!).** No effect fires on a kill, but section 4's facts make one:
 1. Next to the damaging projectile, fire an invisible twin with the same speed and path and
@@ -3209,6 +3211,30 @@ of `CasterAnimation ult_self`, a `damaged_reduce` 100 + `cc_immune` caster buff 
 heal over the stasis; else an `EnemyChampionRecentlyAttacked` within 60000 -> a stun, the tomb buff's picture and the
 damage. Either way a 1-tick lob onto the tomb starts the burst and a `RangePeriodProjectile` field (180 ticks, a 20-tick
 slow every 15) - zones need a point, the lob gives one even on herself.
+
+**A smart charge (league_varus Q, Piercing Arrow).** League holds the bow up to 1.25 s; the AI can't hold a key, so the
+cast picks the draw: a `Direction` cast on `EnemyWithoutTower`, and an enemy champion within 130000 at the cast -> the full
+draw (`CasterAnimation skill`, 66 ticks), else the quick one (`skill_quick`, 24 ticks, 60% damage, a shorter arrow). The
+action itself lasts 3 ticks and the animation holds him (league_aatrox Q). The arrow is aimed at the release, at where a
+champion in reach stands then (dodgeable), else along the cast; it pierces, and the falloff (100 / 80 / 60%) counts on
+caster flags for this arrow - three steps, since each step doubles the branch (four steps put the Q tree at 332 nodes).
+
+**Stacks counted on the caster, burst on the target (league_varus Blight).** Nothing reads a buff count on the target, so
+his attack's champion-only twin climbs a caster-flag ladder b_1 -> b_2 -> b_3 (league_kaisa's Plasma; 360 ticks, refreshed
+by every hit) and shows the pips on the target. Q, E and R hits on a champion read the ladder: 3% of the target's maximum
+health per stack as true damage (`FixedAttack` `target_hp_ratio`; nothing magic reads max health) and, for Q and E, a
+2-tick `skill_cooldown_mult` 15 / 35 / 64, which caps every cooldown at 87 / 74 / 61% (League's 13% refund per stack;
+the cap reaches R too, a small bonus); then the ladder clears. The count is his, not the target's - switching targets keeps it, a rare and harmless gap. W's active
+(Blighted Arrow) folds into the full draw: with its own 40 s flag gone it adds 6% max health on the champion detonated.
+
+**A hail on a point, then ground that slows and cuts healing (league_varus E).** A `Position` cast on `EnemyWithoutTower`;
+the arrows land 20 ticks after the release on the cast point (dodgeable), then a `RangePeriodProjectile` field for 240
+ticks re-applies a 15-tick slow (30%) and `heal_reduce` 40 every 15 ticks, so it never stacks up.
+
+**A chain that roots and spreads (league_varus R).** A `Targeting` cast on `EnemyChampion`; at the release a tendril line
+(passes minions, stops on the first enemy champion) roots 120 ticks, detonates the stacks (no refund) and sets three; its
+`end_effects` drop a delayed zone at the hit spot: 30 ticks later every enemy champion within 55000 is rooted 90 ticks and
+shows three pips (the pictures only - the ladder is his, set once).
 
 ## 8. Gotchas
 
