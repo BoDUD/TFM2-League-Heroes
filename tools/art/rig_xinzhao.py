@@ -141,47 +141,85 @@ def leaned(a, lean):
     return out
 
 
-# the standing actions, per frame: ((quarter turns, mirrored) of the back arm + spear unit about the shoulder, behind
-# the body?), front arm None / "up" / "fwd", whole-figure shift (dx, dy; dy -1 = off the ground), lean (+ forward)
+# the spear's holds: ((quarter turns clockwise about the shoulder, mirrored, slid through the hand), behind the body?)
 K0 = ((0, False, 0), True)             # as drawn, behind him
 K0M = ((0, True, 8), False)            # the head low in front (a low sweep)
+K0B = ((0, True, 8), True)             # the head low in front, the shaft behind him
 K1 = ((1, False, 10), False)           # upright, the head up, in front
 K1B = ((1, False, 10), True)           # upright behind
 K2 = ((2, False, 16), False)           # the thrust: the head forward, held near the butt
 K2M = ((2, True, 8), True)             # the head up behind him
+
+# the legs: the image-left (back) leg and the image-right (front) leg, each turned about the hips (rigkit.swing_leg:
+# the boot moved whole) - L / R columns (+ forward = right) and the boots' lifts
+LEG_L = {r: (44, 59) for r in range(89, 100)}
+LEG_R = {r: (68, 83) for r in range(89, 100)}
+HIP, ANKLE = 89, 94
+
+
+def pose(sp=K0, front=None, shift=(0, 0), lean=0.0, legs=(0, 0, 0, 0)):
+    """One standing frame: the spear's hold, the front arm (None / "up" / "fwd"), the whole figure's shift (dx, dy;
+    dy < 0 off the ground), the lean (+ forward), the legs (back leg dx, front leg dx, back lift, front lift)."""
+    return dict(sp=sp, front=front, shift=shift, lean=lean, legs=legs)
+
+
+# League's poses (poses.json renders and Codex's drawings of them): he lunges into every thrust - the front foot a
+# step forward, the back leg pushed back, the whole figure forward - and E leaves the ground
+LUNGE = (-2, 4, 0, 0)
+STEP = (-1, 2, 0, 0)
 STAND = {
     # the thrust (Attack 4, the hit on frame 4): drawn back, the low sweep forward, the thrust out, held, back
-    "attack": [(K0, None, (-1, 0), -0.04), (K0M, None, (0, 0), 0.02), (K0M, None, (1, 0), 0.06),
-               (K2, None, (2, 0), 0.1), (K2, None, (1, 0), 0.06), (K0, None, (0, 0), 0.0)],
+    "attack": [pose(K0, None, (-1, 0), -0.04), pose(K0M, None, (0, 0), 0.04, STEP), pose(K0M, None, (1, 0), 0.06, STEP),
+               pose(K2, "fwd", (3, 0), 0.1, LUNGE), pose(K2, "fwd", (2, 0), 0.06, LUNGE), pose(K0, None, (0, 0), 0.0)],
     # Determination's third hit: lifted behind, swung up, over, brought down in front (frame 4), held low, back
-    "attack_p": [(K1B, None, (-1, 0), -0.05), (K1B, "up", (-1, 0), -0.08), (K2M, "up", (0, 0), -0.04),
-                 (K0M, None, (2, 0), 0.1), (K0M, None, (1, 0), 0.06), (K0, None, (0, 0), 0.0)],
+    "attack_p": [pose(K1B, None, (-1, 0), -0.05), pose(K1B, "up", (-1, -1), -0.08, (0, 0, 0, 1)),
+                 pose(K2M, "up", (0, -1), -0.04, (0, 0, 0, 1)), pose(K0M, None, (3, 0), 0.1, LUNGE),
+                 pose(K0M, None, (2, 0), 0.06, LUNGE), pose(K0, None, (0, 0), 0.0)],
     # Q1: raised up, over, the thrust (frame 4), held, upright, back
-    "q1": [(K1B, None, (0, 0), -0.04), (K2M, "up", (0, 0), -0.06), (K2, None, (1, 0), 0.05),
-           (K2, "fwd", (2, 0), 0.1), (K2, "fwd", (2, 0), 0.08), (K1, None, (0, 0), 0.0)],
+    "q1": [pose(K1B, None, (0, 0), -0.04), pose(K2M, "up", (0, 0), -0.06), pose(K2, None, (1, 0), 0.05, STEP),
+           pose(K2, "fwd", (3, 0), 0.1, LUNGE), pose(K2, "fwd", (3, 0), 0.08, LUNGE), pose(K1, None, (1, 0), 0.0, STEP)],
     # Q2: level, twirled upright, swept low forward, swung up in front (frame 4), up behind, back
-    "q2": [(K2, None, (0, 0), 0.02), (K1, "up", (0, 0), 0.0), (K0M, None, (1, 0), 0.06),
-           (K2, "fwd", (2, 0), 0.1), (K2M, "up", (1, 0), 0.0), (K0, None, (0, 0), 0.0)],
-    # Q3: a crouch upright, level, swept up, the lift (frame 4), held up high, back
-    "q3": [(K1, None, (0, 1), 0.04), (K2, None, (1, 0), 0.05), (K2, "up", (1, -1), -0.02),
-           (K1, "up", (1, -1), -0.06), (K2M, "up", (0, 0), -0.04), (K2M, "up", (0, 0), -0.04), (K0, None, (0, 0), 0.0)],
-    # E: the crouch, the leap with the spear level ahead (off the ground), the landing strike (frame 4), the thrust, back
-    "skill": [(K0, None, (0, 1), 0.06), (K2, "fwd", (2, -2), 0.12), (K2, "fwd", (3, -2), 0.12),
-              (K0M, None, (2, 0), 0.1), (K2, "fwd", (1, 0), 0.06), (K0, None, (0, 0), 0.0)],
+    "q2": [pose(K2, None, (0, 0), 0.02), pose(K1, "up", (0, 0), 0.0), pose(K0M, None, (1, 0), 0.06, STEP),
+           pose(K2, "fwd", (3, 0), 0.1, LUNGE), pose(K2M, "up", (2, 0), 0.0, STEP), pose(K0, None, (0, 0), 0.0)],
+    # Q3: a crouch upright, level, swept up, the lift (frame 4, on his toes), held up high, back
+    "q3": [pose(K1, None, (0, 1), 0.04), pose(K2, None, (1, 0), 0.05, STEP), pose(K2, "up", (1, -1), -0.02, STEP),
+           pose(K1, "up", (1, -2), -0.06, (-1, 1, 0, 1)), pose(K2M, "up", (0, -1), -0.04), pose(K2M, "up", (0, 0), -0.04),
+           pose(K0, None, (0, 0), 0.0)],
+    # E: the crouch, the leap with the spear level ahead (off the ground, the back leg trailing, the front knee up),
+    # the landing strike (frame 4), the thrust, back
+    "skill": [pose(K0, None, (0, 1), 0.06, (0, 0, 0, 0)), pose(K2, "fwd", (3, -4), 0.12, (-4, 3, 3, 2)),
+              pose(K2, "fwd", (5, -3), 0.12, (-4, 3, 2, 2)), pose(K0M, None, (4, 0), 0.1, LUNGE),
+              pose(K2, "fwd", (2, 0), 0.06, STEP), pose(K0, None, (0, 0), 0.0)],
     # W: swung back, spun upright in front, upright at his side, the slash (frame 4), the thrust (5-6), back
-    "skill2": [(K2M, None, (-1, 0), -0.05), (K1, "up", (0, 0), 0.0), (K1B, None, (0, 0), 0.0), (K2, "fwd", (1, 0), 0.06),
-               (K2, "fwd", (3, 0), 0.12), (K2, "fwd", (2, 0), 0.1), (K0, None, (0, 0), 0.0)],
+    "skill2": [pose(K2M, None, (-1, 0), -0.05), pose(K1, "up", (0, 0), 0.0), pose(K1B, None, (0, 0), 0.0),
+               pose(K2, "fwd", (1, 0), 0.06, STEP), pose(K2, "fwd", (4, 0), 0.12, LUNGE), pose(K2, "fwd", (3, 0), 0.1, LUNGE),
+               pose(K0, None, (0, 0), 0.0)],
     # R: low across, swung behind, the sweep (frame 3), round to the left and the right, upright at his side
-    "ult": [(K0, None, (0, 0), 0.04), (K2M, None, (-1, 0), -0.05), (K2, "fwd", (1, 0), 0.08),
-            (((0, True, 8), True), None, (0, 0), -0.04), (K2, "fwd", (1, 0), 0.08), (K0M, None, (1, 0), 0.04),
-            (K1, None, (0, 0), 0.0)],
-    "hit": [(K0, None, (-1, 0), -0.08), (K0, None, (0, 0), -0.04)],
+    "ult": [pose(K0, None, (0, 0), 0.04), pose(K2M, None, (-1, 0), -0.05, (1, -1, 0, 0)), pose(K2, "fwd", (2, 0), 0.08, STEP),
+            pose(K0B, None, (1, 0), -0.04, STEP), pose(K2, "fwd", (2, 0), 0.08, STEP), pose(K0M, None, (1, 0), 0.04, STEP),
+            pose(K1, None, (0, 0), 0.0)],
+    "hit": [pose(K0, None, (-2, 0), -0.08, (1, -1, 0, 0)), pose(K0, None, (-1, 0), -0.04)],
 }
 
 
-def stand(P, pose):
-    ((k, mirror, slide), under), front, (dx, dy), lean = pose
-    c = leaned(P.core, lean)
+def legs_apart(P, legs):
+    """The trunk without the legs, and the two legs turned about the hips (back leg drawn behind the trunk)."""
+    a = P.core
+    left, right = K.mask_rows(LEG_L) & (a[..., 3] > 0), K.mask_rows(LEG_R) & (a[..., 3] > 0)
+    trunk = a.copy()
+    trunk[left | right] = 0
+    dl, dr, ll, lr = legs
+    return trunk, K.swing_leg(a, left, HIP, ANKLE, dl, ll), K.swing_leg(a, right, HIP, ANKLE, dr, lr)
+
+
+def stand(P, p):
+    (k, mirror, slide), under = p["sp"]
+    lean, (dx, dy), front = p["lean"], p["shift"], p["front"]
+    trunk, leg_l, leg_r = legs_apart(P, p["legs"])
+    c = np.zeros((128, 128, 4), np.uint8)
+    K.put(c, leg_l, 0, 0)
+    K.put(c, leaned(trunk, lean), 0, 0)
+    K.put(c, leg_r, 0, 0)
     fs = lean_shift(int(FRONT_PIVOT[1]), lean)
     K.place(c, P.front[front], (FRONT_PIVOT[0] + fs, FRONT_PIVOT[1]), under=front is not None)
     bs = lean_shift(int(SHOULDER[1]), lean)
@@ -193,9 +231,6 @@ def stand(P, pose):
 
 # the run: the legs swung about the hips, the boots lifted in turn (rig_tryndamere's numbers: the stance's feet are 26
 # columns apart as his)
-LEG_L = {r: (44, 59) for r in range(89, 100)}
-LEG_R = {r: (68, 83) for r in range(89, 100)}
-HIP, ANKLE = 89, 94
 IN = 7.0
 SWING = [5.0, 3.0, 0.0, -3.0, -5.0, -3.0, 0.0, 3.0]
 NEAR_LIFT = [0, 0, 0, 0, 0, 2, 3, 2]
@@ -217,10 +252,14 @@ def run(P, k):
     return c
 
 
-# the death (League's: he sinks to one knee on the spear, then goes down): the whole figure staggers, the knees give
-# (crouch: leg rows above the boots taken out, rig_tryndamere), the spear upright in his hand, then dropped flat
+# the death (League's: he sinks to one knee on the upright spear, then falls forward on his face): the knees give
+# (crouch: leg rows above the boots taken out, rig_tryndamere) with the spear upright in his hand; then he tips forward
+# (the whole figure turned 45 degrees about his front foot - rigkit.turn, a whole figure only) and lies face down (an
+# exact quarter turn: no squares change), the spear dropped beside him
 KNEES = 94
-DEAD = [None, (0, -1, K1), (1, -1, K1), (2, -1, K1), (3, -1, K1), (4, -1, None), (5, -1, None), (5, -1, None)]
+LIE_X = 70.0                           # the fallen body's middle column (a little ahead of the standing point)
+DEAD = [("hit",), ("crouch", 1, K1), ("crouch", 2, K1), ("crouch", 3, K1), ("crouch", 4, K1), ("tip", 45),
+        ("lie",), ("lie",)]
 
 
 def crouched(c, n):
@@ -232,20 +271,39 @@ def crouched(c, n):
     return out
 
 
-def dead(P, k):
-    if DEAD[k] is None:
-        return stand(P, STAND["hit"][0])
-    n, dx, sp = DEAD[k]
+def kneeling(P, n, sp):
     c = K.put(np.zeros((128, 128, 4), np.uint8), P.core, 0, 0)
     K.place(c, P.front[None], FRONT_PIVOT)
     if sp is not None:
         (kk, m, sl), under = sp
         K.place(c, unit_as(P, kk, m, sl), SHOULDER, under=under)
-    c = crouched(c, n)
-    if sp is None:           # the spear dropped: lying on the ground in front of him
-        K.place(c, P.spears["dl"], (76.0, float(P.D.soles) - 1), under=False)
-    c[P.D.soles + 1:] = 0
-    return K.shifted(c, dx, 0)
+    return crouched(c, n)
+
+
+def on_ground(c, soles):
+    """The figure moved down so its lowest square is on the soles' row."""
+    low = int(np.nonzero(c[..., 3].any(1))[0].max())
+    return K.shifted(c, 0, soles - low)
+
+
+def dead(P, k):
+    kind = DEAD[k]
+    soles = P.D.soles
+    if kind[0] == "hit":
+        return stand(P, STAND["hit"][0])
+    if kind[0] == "crouch":
+        c = K.shifted(kneeling(P, kind[1], kind[2]), -1, 0)
+    else:
+        body = kneeling(P, 4, None)
+        part = K.Part.from_canvas(body, body[..., 3] > 0, (80.0, float(soles)))
+        part = K.turn(part, -kind[1]) if kind[0] == "tip" else K.rot90(part, 1)
+        c = np.zeros((128, 128, 4), np.uint8)
+        K.place(c, part, (64.0, 70.0))
+        xs = np.nonzero(c[..., 3].any(0))[0]
+        c = K.shifted(on_ground(c, soles), int(round(LIE_X - (xs.min() + xs.max()) / 2)), 0)
+        K.place(c, P.spears["dl"], (LIE_X - 6.0, float(soles) - 1), under=True)
+    c[soles + 1:] = 0
+    return c
 
 
 MS = {"idle": [200] * 6, "run": [130] * 8, "attack": [60, 60, 60, 100, 100, 120], "attack_p": [70, 70, 70, 100, 100, 100],
