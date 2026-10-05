@@ -220,8 +220,12 @@
                     "name": "league_soraka_e_cast"
                   },
                   {
+                    "type": "ViewEffect",
+                    "name": "league_soraka_e_field"
+                  },
+                  {
                     "type": "RangePeriodProjectile",
-                    "name": "league_soraka_e_field",
+                    "name": "league_soraka_e_zone",
                     "shape": {
                       "Circle": {
                         "radius": 30000
@@ -567,14 +571,6 @@
       "tag": "bolt",
       "repeat": true,
       "z": 0
-    },
-    {
-      "type": "Animated",
-      "name": "league_soraka_e_field",
-      "anim": "asset/league/effects/league_soraka_zone",
-      "tag": "e_field",
-      "repeat": false,
-      "z": -1
     }
   ],
   "view_effects": [
@@ -631,6 +627,13 @@
       "tag": "heal",
       "z": 1,
       "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_soraka_e_field",
+      "anim": "asset/league/effects/league_soraka_zone",
+      "tag": "e_field",
+      "z": -1
     }
   ],
   "view_buffs": []
