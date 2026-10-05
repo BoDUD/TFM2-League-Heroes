@@ -200,7 +200,7 @@ Layout: one horizontal row of 8 equal cells, each 3 wide to 1 tall, image size 3
 | `vi_fx_e_cone` | view_effects `league_vi_e_cone`（跟随她，从出拳的拳头往右） | 44 × 26 |
 | `vi_fx_e_hit` | view_effects `league_vi_e_hit`（跟随目标） | 12 |
 | `vi_fx_r_cast` | view_effects `league_vi_r_cast`（跟随她） | 30 × 40 |
-| `vi_fx_r_trail` | view_effects `league_vi_r_trail`（跟随她，画在她身后） | 40 × 20 |
+| `vi_fx_r_trail` | view_effects `league_vi_r_trail`（跟随她，画在她身后；大招第一个 tick 播放，冲刺前的 7 tick 是空帧） | 40 × 20 |
 | `vi_fx_r_side` | view_effects `league_vi_r_side`（跟随目标） | 14 |
 | `vi_fx_r_hit` | view_effects `league_vi_r_hit`（跟随目标） | 20 × 36 |
 | `vi_fx_r_slam` | view_effects `league_vi_r_slam`（地面，不跟随） | 40 × 14 |
