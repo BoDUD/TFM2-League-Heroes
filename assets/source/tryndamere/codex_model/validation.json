@@ -1,0 +1,38 @@
+{
+  "A": {
+    "width": 40,
+    "height": 42,
+    "head_rows": 14,
+    "bbox_1x": [
+      40,
+      58,
+      80,
+      100
+    ],
+    "sole_row": 99,
+    "opaque_colors": 24,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "face_eye_row": 68
+  },
+  "B": {
+    "width": 40,
+    "height": 42,
+    "head_rows": 12,
+    "bbox_1x": [
+      40,
+      58,
+      80,
+      100
+    ],
+    "sole_row": 99,
+    "opaque_colors": 24,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "face_eye_row": 66
+  }
+}
