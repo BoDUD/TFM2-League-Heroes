@@ -91,12 +91,17 @@ empty tooltip). That is why the linter exists - run it after every edit.
 - Custom sounds need override entries for both the sound name and its clip.
 - Do not use `Native`, `ShrinkingBarrier`, `AddStatScaledBuff` or `Rush` - base-only effects.
 - Never translate stat-icon ids inside `<i#...:ad_0>` tags.
-- **Both sides: every directional picture must face the right way on the red team.** A `CasterViewEffect`
-  that starts after the action's first tick (inside a `Delayed` or an `AddCasted`) must have `is_follow: false`:
-  with `is_follow: true` the client draws it mirrored the wrong way on the red side (league_vi E's wave,
-  league_aatrox's Q slashes, passive streak and W flash - "在红色方技能特效是反的", 2026-10-03). Follow only at
-  the action's start (put a wait in leading empty frames). Check every directional effect on a red-side
-  caster before shipping; `lint_mod.py` warns on the combination (champion-data section 6).
+- **Both sides: the client never mirrors an effect picture - only the hero's own frames.** A `ViewEffect` or
+  `CasterViewEffect` picture is drawn as stored whichever way the hero faces, `is_follow` or not (game_view's
+  `generate` copies the view system's flip, false for every data view: disassembled 2026-10-06, after the 2026-10-05
+  `is_follow: false` fix left league_jhin's muzzle flashes pointing right on the red side, 「烬在红色方 ... 技能特效
+  伤口还是反的」). So a picture with a front and a back that rides on the hero - a muzzle flash, a cast flash at the
+  hand, a slash beside him - goes into his own action frames: list it in `assets/source/native/<hero>_bake.json`
+  (effect tag, action tag, start in ms: start_timing + 1 + the `Delayed` ticks), run `tools/art/import_native.py`,
+  then `tools/fix/unbind_baked_fx.py` drops its `CasterViewEffect` (league_jhin). Pictures on targets and points are
+  made left-right symmetric; one that must point at a target rides a projectile (turned with it). `lint_mod.py`
+  warns on every caster picture with a front and a back (champion-data section 6); `tools/art/bake_gifs.py` draws
+  the blue side and the red side before and after.
 - **Both sides: a zone's picture turns with the cast.** The `view_projectiles` picture of a `RangeProjectile` /
   `RangePeriodProjectile`, as of any projectile, is turned to its direction - on a `Position` cast (1, 0) or (-1, 0) - so
   cast leftward (the red side, mostly) it stands upside down: 「曙光女神大招在红色方放的是颠倒的」 (league_leona R,

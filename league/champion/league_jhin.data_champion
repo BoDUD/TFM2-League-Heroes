@@ -70,10 +70,6 @@
             "tick": 12,
             "effects": [
               {
-                "type": "CasterViewEffect",
-                "name": "league_jhin_a4_muzzle"
-              },
-              {
                 "type": "Sfx",
                 "name": "league_jhin_a4_shot"
               },
@@ -428,21 +424,12 @@
             {
               "type": "Delayed",
               "tick": 2,
-              "effects": [
-                {
-                  "type": "CasterViewEffect",
-                  "name": "league_jhin_a_cast"
-                }
-              ]
+              "effects": []
             },
             {
               "type": "Delayed",
               "tick": 8,
               "effects": [
-                {
-                  "type": "CasterViewEffect",
-                  "name": "league_jhin_a_muzzle"
-                },
                 {
                   "type": "Sfx",
                   "name": "league_jhin_a_shot"
@@ -718,21 +705,12 @@
               {
                 "type": "Delayed",
                 "tick": 2,
-                "effects": [
-                  {
-                    "type": "CasterViewEffect",
-                    "name": "league_jhin_a_cast"
-                  }
-                ]
+                "effects": []
               },
               {
                 "type": "Delayed",
                 "tick": 8,
                 "effects": [
-                  {
-                    "type": "CasterViewEffect",
-                    "name": "league_jhin_a_muzzle"
-                  },
                   {
                     "type": "Sfx",
                     "name": "league_jhin_a_shot"
@@ -1001,21 +979,12 @@
               {
                 "type": "Delayed",
                 "tick": 2,
-                "effects": [
-                  {
-                    "type": "CasterViewEffect",
-                    "name": "league_jhin_a_cast"
-                  }
-                ]
+                "effects": []
               },
               {
                 "type": "Delayed",
                 "tick": 8,
                 "effects": [
-                  {
-                    "type": "CasterViewEffect",
-                    "name": "league_jhin_a_muzzle"
-                  },
                   {
                     "type": "Sfx",
                     "name": "league_jhin_a_shot"
@@ -1319,10 +1288,6 @@
         {
           "type": "Sfx",
           "name": "league_jhin_q_cast"
-        },
-        {
-          "type": "CasterViewEffect",
-          "name": "league_jhin_q_throw"
         },
         {
           "type": "LinearProjectile",
@@ -3600,10 +3565,6 @@
           "tick": 42,
           "effects": [
             {
-              "type": "CasterViewEffect",
-              "name": "league_jhin_w_muzzle"
-            },
-            {
               "type": "Sfx",
               "name": "league_jhin_w_shot"
             }
@@ -4910,10 +4871,6 @@
                                                       "tick": 12
                                                     },
                                                     {
-                                                      "type": "CasterViewEffect",
-                                                      "name": "league_jhin_r_muzzle"
-                                                    },
-                                                    {
                                                       "type": "SwitchByBuff",
                                                       "buff_name": "league_jhin_r_s4",
                                                       "effect_buff": {
@@ -5089,35 +5046,11 @@
   "view_effects": [
     {
       "type": "Animation",
-      "name": "league_jhin_a_cast",
-      "anim": "asset/league/effects/league_jhin_fx",
-      "tag": "a_cast",
-      "z": 1,
-      "is_follow": false
-    },
-    {
-      "type": "Animation",
-      "name": "league_jhin_a_muzzle",
-      "anim": "asset/league/effects/league_jhin_fx",
-      "tag": "a_muzzle",
-      "z": 1,
-      "is_follow": false
-    },
-    {
-      "type": "Animation",
       "name": "league_jhin_a_hit",
       "anim": "asset/league/effects/league_jhin_fx",
       "tag": "a_hit",
       "z": 1,
       "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_jhin_a4_muzzle",
-      "anim": "asset/league/effects/league_jhin_fx",
-      "tag": "a4_muzzle",
-      "z": 1,
-      "is_follow": false
     },
     {
       "type": "Animation",
@@ -5137,14 +5070,6 @@
     },
     {
       "type": "Animation",
-      "name": "league_jhin_q_throw",
-      "anim": "asset/league/effects/league_jhin_fx",
-      "tag": "q_throw",
-      "z": 1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
       "name": "league_jhin_q_boom",
       "anim": "asset/league/effects/league_jhin_fx",
       "tag": "q_boom",
@@ -5158,14 +5083,6 @@
       "tag": "q_drop",
       "z": 2,
       "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_jhin_w_muzzle",
-      "anim": "asset/league/effects/league_jhin_fx",
-      "tag": "w_muzzle",
-      "z": 1,
-      "is_follow": false
     },
     {
       "type": "Animation",
@@ -5222,14 +5139,6 @@
       "tag": "r_deploy",
       "z": 1,
       "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_jhin_r_muzzle",
-      "anim": "asset/league/effects/league_jhin_fx",
-      "tag": "r_muzzle",
-      "z": 1,
-      "is_follow": false
     },
     {
       "type": "Animation",

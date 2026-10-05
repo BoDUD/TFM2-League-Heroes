@@ -321,25 +321,25 @@ def untargeted_moves(node, under_random=False):
     return 0
 
 
-def late_caster_views(node, late=False):
-    """CasterViewEffect names played after the action's first tick: inside a Delayed or an AddCasted."""
+def caster_views(node):
+    """Names of the pictures a CasterViewEffect plays anywhere in the node."""
     found = set()
     if isinstance(node, dict):
-        if late and node.get("type") == "CasterViewEffect" and node.get("name"):
+        if node.get("type") == "CasterViewEffect" and node.get("name"):
             found.add(node["name"])
-        inner = late or node.get("type") in ("Delayed", "AddCasted")
         for v in node.values():
-            found |= late_caster_views(v, inner)
+            found |= caster_views(v)
     elif isinstance(node, list):
         for v in node:
-            found |= late_caster_views(v, late)
+            found |= caster_views(v)
     return found
 
 
-def turned_off_share(sprite_stem, tags):
+def turned_off_share(sprite_stem, tags, mirror=False):
     """Share of a picture's opaque pixels that land on transparent ones when it is turned half round about its pivot
     (the game draws every frame centred on it): about 0 for a ring or disc centred on the pivot, high for anything with
-    an up and down or drawn off the pivot (a ring on the ground line under it). None when unreadable (Pillow missing)."""
+    an up and down or drawn off the pivot (a ring on the ground line under it). With mirror, flipped left to right
+    instead: high for anything with a front and a back (a muzzle flash). None when unreadable (Pillow missing)."""
     try:
         import tfm2_ase
         from PIL import Image, ImageChops
@@ -351,7 +351,7 @@ def turned_off_share(sprite_stem, tags):
         for i in sp.tag_frames(tag):
             a = sp.frames[i].getchannel("A").point(lambda v: 255 if v else 0)
             opaque += a.histogram()[255]
-            off += ImageChops.subtract(a, a.transpose(Image.ROTATE_180)).histogram()[255]
+            off += ImageChops.subtract(a, a.transpose(Image.FLIP_LEFT_RIGHT if mirror else Image.ROTATE_180)).histogram()[255]
     return off / opaque if opaque else None
 
 
@@ -690,7 +690,7 @@ def main(argv=None):
         found = dict(types=[], projectiles=set(), view_effects=set(), anims=set(), sfx=set(), switch_buffs=set(),
                      removed_buffs=set(), buffs=set(), bad_enum=[], no_duration=set(), ignored=[], no_ratio=set(),
                      never=set(), dead_buff=set(), crawl=set(), zones=set())
-        late_views = set()
+        caster_pics = set()
         for slot in ACTIONS:
             a = d.get(slot)
             if not isinstance(a, dict):
@@ -741,7 +741,7 @@ def main(argv=None):
             if a.get("casting_type") == "None" and untargeted_moves(a.get("effect")):
                 rep.warn(WA, "MoveToTarget in a casting_type None action has no target and will not move - "
                              "cast as Targeting or wrap it in RandomTarget")
-            late_views |= late_caster_views(a.get("effect"))
+            caster_pics |= caster_views(a.get("effect"))
             bad = withself_unit_effects(a.get("effect"))
             if bad:
                 rep.warn(WA, f"WithSelf around {', '.join(sorted(bad))}: the engine applies it to the caster AND again to "
@@ -815,17 +815,23 @@ def main(argv=None):
                         f"(dead entry or typo)")
         for nm in sorted(vb - used):
             rep.warn(W, f"view_buffs '{nm}' matches no buff name{hint(nm, used)} (dead entry or typo)")
-        # a caster picture that starts after the action's first tick and follows the caster is drawn mirrored the
-        # wrong way on the red side (league_vi E's wave, league_aatrox's Q slashes, 2026-10-03); oppi's LoL Reborn
-        # never combines the two (its 7 delayed caster pictures are all is_follow false, its 8 following ones play
-        # at the action's start)
-        follows = {v.get("name") for v in d.get("view_effects") or [] if v.get("is_follow")}
-        for nm in sorted(late_views & follows):
-            rep.warn(W, f"CasterViewEffect '{nm}' starts after the action's first tick (in a Delayed or AddCasted) with "
-                        f"is_follow true: on the red side the client draws it mirrored the wrong way - set is_follow "
-                        f"false (mirrored by the caster's facing when it starts, it stays where it was played) or play "
-                        f"it at the action's start with leading empty frames (left-right symmetric pictures show no "
-                        f"difference)")
+        # the client never mirrors a data effect picture: game_view's generate copies the view system's flip, which
+        # register_data_champion_views sets to false, whatever is_follow says (disassembled 2026-10-06; league_jhin's
+        # muzzle flashes, made is_follow false on 2026-10-05, still pointed right on the red side: 「烬在红色方 ...
+        # 技能特效 伤口还是反的」). Only the hero's own frames are mirrored with his facing, so a caster picture with a
+        # front and a back is drawn into them (tools/art/import_native.py, assets/source/native/<hero>_bake.json)
+        views = {v.get("name"): v for v in d.get("view_effects") or []}
+        for nm in sorted(caster_pics & set(views)):
+            v = views[nm]
+            stem = mod.local(v.get("anim") or "")
+            tags = [v[k] for k in ("tag", "loop_tag") if v.get(k)]
+            share = turned_off_share(stem, tags, mirror=True) if stem and tags else None
+            if share is not None and share > 0.5:
+                rep.warn(W, f"CasterViewEffect '{nm}' has a front and a back (mirrored, {share:.0%} of its opaque pixels "
+                            f"land on empty ones), and the client never mirrors a data effect picture, is_follow or "
+                            f"not: facing left (the red side, mostly) it points the wrong way - draw it into the hero's "
+                            f"own frames (assets/source/native/<hero>_bake.json, tools/fix/unbind_baked_fx.py), or "
+                            f"make it left-right symmetric")
         # a zone's picture is turned with the zone's direction like any projectile's - (1, 0) or (-1, 0) on a Position
         # cast - so cast leftward it stands upside down: league_leona R's sunlight on the red side ("曙光女神大招在红色方
         # 放的是颠倒的", 2026-10-05), league_missfortune E's rain falling upward; a ViewEffect on the point is never

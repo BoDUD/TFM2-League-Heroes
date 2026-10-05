@@ -24,6 +24,8 @@ Then <hero>_retouch.json, when there is one, retouches single pixels of the cut 
 nose and face side; Lux's staff below her hand and the brow row over her eyes, a table tools/art/lux_retouch.py
 writes): x, y from the pivot, the colour expected there and the new one. A pixel that no longer has
 the expected colour stops the import, so edits made for one version of the strips never land on another.
+Then <hero>_bake.json, when there is one, draws effect pictures with a front and a back into the action frames (the
+client mirrors the hero's frames with his facing, never an effect picture: league_jhin's muzzle flashes; bake()).
 Writes league/champions/league_<hero>. The effects still come from tools/art/import_<hero>.py, which
 writes the round-1 body only with --body.
 --review DIR writes <hero>_native.png: every frame at 4x around its pivot (pivot column, feet line).
@@ -900,6 +902,76 @@ def flatness(frames):
     return same / n
 
 
+def bake(hero, sheet):
+    """Apply <hero>_bake.json: draw the listed effect frames into the hero's own action frames. The client never
+    mirrors a data effect picture (ViewEffect, CasterViewEffect; game_view's generate copies the view system's flip,
+    which register_data_champion_views sets to false), but it mirrors the hero's frames with his facing, so a picture
+    with a front and a back that rides on the hero belongs in his frames. Each entry {"tag", "into", "at_ms",
+    "under"}: the effect sheet's tag starts at_ms into the action tag, centred on the pivot as a CasterViewEffect is
+    (both are drawn centred on the unit); the action's frames are cut where an effect frame starts or ends and
+    padded to one canvas per tag. Returns {action tag: effect tags}."""
+    path = os.path.join(SRC, f"{hero}_bake.json")
+    if not os.path.exists(path):
+        return {}
+    with open(path, encoding="utf-8") as f:
+        cfg = json.load(f)
+    import tfm2_ase
+    fx = tfm2_ase.load_sprite(os.path.join(MOD, "effects", cfg["fx"] + "#sheet.png"))
+    done = {}
+    for into in dict.fromkeys(e["into"] for e in cfg["items"]):
+        items = [e for e in cfg["items"] if e["into"] == into]
+        layers = []                                   # (start ms, [(array, ms)], under)
+        for e in items:
+            ids = fx.tag_frames(e["tag"])
+            if not ids:
+                sys.exit(f"{hero}_bake.json: {cfg['fx']} has no tag {e['tag']}")
+            layers.append((int(round(e["at_ms"])), [(np.asarray(fx.frames[i]), fx.durations[i]) for i in ids],
+                           e.get("under", False)))
+        frames = sheet[into]
+        arrs, hh, hw = canvas([a for a, _ in frames] + [a for _, fr, _ in layers for a, _ in fr])
+        body = arrs[:len(frames)]
+        cuts = {0}
+        t = 0
+        for _, ms in frames:
+            t += ms
+            cuts.add(t)
+        total = t
+        for t0, fr, _ in layers:
+            t = t0
+            for _, ms in fr:
+                cuts.add(min(t, total))
+                t += ms
+            cuts.add(min(t, total))
+        cuts = sorted(c for c in cuts if 0 <= c <= total)
+
+        def at(seq, t, t0=0):
+            for k, (_, ms) in enumerate(seq):
+                if t0 <= t < t0 + ms:
+                    return k
+                t0 += ms
+            return None
+        out = []
+        for a, b in zip(cuts, cuts[1:]):
+            k = at(frames, a)
+            img = Image.fromarray(body[k])
+            for t0, fr, under in layers:
+                j = at(fr, a, t0)
+                if j is None:
+                    continue
+                pic = Image.fromarray(np.pad(fr[j][0], ((hh - fr[j][0].shape[0] // 2,) * 2,
+                                                        (hw - fr[j][0].shape[1] // 2,) * 2, (0, 0))))
+                img = Image.alpha_composite(pic, img) if under else Image.alpha_composite(img, pic)
+            out.append((np.asarray(img), b - a))
+        # trim the empty margin, the same on both sides so the pivot stays in the middle
+        al = np.max([a[..., 3] for a, _ in out], 0)
+        ys, xs = np.nonzero(al)
+        my = min(int(ys.min()), al.shape[0] - 1 - int(ys.max()))
+        mx = min(int(xs.min()), al.shape[1] - 1 - int(xs.max()))
+        sheet[into] = [(a[my:a.shape[0] - my, mx:a.shape[1] - mx], ms) for a, ms in out]
+        done[into] = [e["tag"] for e in items]
+    return done
+
+
 def review(hero, sheet, out, z=4):
     hw = max(a.shape[1] // 2 for fr in sheet.values() for a, _ in fr)
     hh = max(a.shape[0] // 2 for fr in sheet.values() for a, _ in fr)
@@ -948,6 +1020,8 @@ def main():
         tidied = tidy_frames(hero, sheet)
         if tidied:
             print(f"{hero}: {TIDY[hero]} changed {tidied} pixels")
+        for tag, fx in bake(hero, sheet).items():
+            print(f"{hero}_bake.json: {tag} carries {', '.join(fx)} ({len(sheet[tag])} frames)")
         w, h = G.write_sheet(os.path.join(MOD, "champions", f"league_{hero}"), sheet)
         frames = [a for fr in sheet.values() for a, _ in fr]
         colours = len(np.unique(np.concatenate([a[a[..., 3] > 0][:, :3] for a in frames]), axis=0))

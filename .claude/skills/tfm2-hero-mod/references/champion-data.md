@@ -657,48 +657,47 @@ the same champion file.
   loop repeated, `strips.write_sheet(share=True)` packing the repeats once). It still flags league_camille R's two
   (stored turned on purpose: her zones always get (-1, 0), section 7) and league_fiddlesticks E's reap (a crescent
   drawn facing the cast, symmetric top to bottom: meant to turn with it).
-  A `CasterViewEffect` is not turned: it is drawn at the caster's pivot, mirrored when the caster
-  faces left (the base gunner's backward-run dust is drawn only behind him), and stays where it was
-  played unless `is_follow`.
-  **The red side: a caster picture that starts after the action's first tick must not follow** *(seen in game,
-  2026-10-03)*. Played from a `Delayed` or an `AddCasted` with `is_follow: true`, it is mirrored the wrong way
-  whenever the caster is on the red team, while it looks right on the blue side: league_vi E's shock wave
-  ("红方释放的释放是歪的") and league_aatrox's Q slashes, passive streak and W flash ("在红色方技能特效是反的") all
-  stood backwards there. The match events carry no facing (`EffectApplyed {name, caster_id, target, info}`); the
-  client picks it - a non-following picture becomes `AnimationOnce {flip_x}`, the flip taken from the caster's
-  action facing when it starts (`game_view` `get_action_flip_x`), a following one `AnimationOnceFollow {offset_x,
-  offset_y}` with no flip of its own. oppi's LoL Reborn never combines the two: its 7 caster pictures inside a
-  `Delayed` all have `is_follow: false`, its 8 following ones play at the action's start (league_riven's layers
-  too: bound on the action's first tick - except the R's when her attack starts it or fires Wind Slash, 10 ticks
-  in, and Wind Slash's later checks: those plays are bound without `is_follow`). So a directional picture timed into
-  an action gets `is_follow: false`
-  (mirrored by the facing when it starts, it stays where it was played - fine while the hero stands in the
-  animation); one that must ride on the hero (a dash trail) plays at the action's start, the wait drawn as
-  leading empty frames. Left-right symmetric pictures (rings, auras, heals) show no difference. `lint_mod.py`
-  warns on every late following caster picture (73 in 31 heroes of this pack in 2026-10, most of them
-  symmetric). Check every directional effect with the hero on the red team before shipping.
-  On 2026-10-05 the directional ones were fixed (50 warnings in 30 heroes left, judged symmetric but four): the
-  muzzle and hand flashes of league_caitlyn, league_jhin, league_kaisa W, league_leblanc, league_kennen Q and
-  league_ryze Q and league_diana's cleave became `is_follow: false`; league_kaisa R's and league_vi R's dash trails
-  and league_tristana Q's burst at the bell play on the action's first tick, the wait an empty first frame (117 and
-  167 ms; the importers write it as `(None, ms)`). Nothing in data fits the four left: league_leblanc W's trail in
-  her Q-W combo (decided 24 ticks into Q, and it must ride her dash), league_tristana's Rapid Fire wisp and
-  league_masteryi's Highlander lines (replayed every second while a buff lasts, each play gated on the buff, as the
-  hero walks and turns - started with the action they could not stop with the buff) and league_fiora's speed lines
-  (played when a Vital is struck). A picture with no front and back (centred on the hero) would end it for them.
-  A picture drawn off the pivot's side follows its caster: league_tristana's
-  flashes at the bell, 22 px in front of her pivot, played without `is_follow`, were seen behind her
-  after she turned (the user, 2026-10-01); with `is_follow` they turn with her, as league_riven's layers do. An `Animation` plays its tag once, so a view that must stand for
-  seconds lists its loop frames again (a 4 s loop of 100 ms frames is 40 frames).
-  A buff's picture (`view_buffs`) is not mirrored that way: league_fiora's parry crescent, drawn 17 px in front
-  of her as the parry buff's picture, stood behind her whenever she faced left (the user, 2026-10-01: "W格挡会和
-  剑的位置不一致"). A picture with a front and a back goes on a `CasterViewEffect` with `is_follow`, played with
-  the buff, its tag listing the loop for the buff's duration (her speed lines trailing behind her: 750 ms per struck
-  Vital, the strong half of the burst). Such a picture cannot be stopped: refreshed before it ends, the next one
-  plays over it. It only turns left or right: her crescent as a caster picture stood beside her while her stab went
-  down ("剑姬格挡还会歪？"). A picture that must face the target goes on a `TargetProjectile` cast at it
+  **The client never mirrors an effect picture** *(game_view and TeamfightManager2.exe disassembled, 2026-10-06)*.
+  A `ViewEffect` or `CasterViewEffect` is drawn exactly as stored whichever way the hero faces, `is_follow` or not:
+  `register_data_champion_views` builds each `view_effects` entry's `AnimationEffectViewSystem` with its flip byte
+  set to 0, `generate` copies that byte into the `AnimationOnce` / `AnimationOnceFollow` it makes (both the SDK's
+  0.5.1 and the shipped exe's), the match event handler appends the view unchanged (for a following one it only
+  drops an older play of the same picture on the same unit), and `EffectView::render` passes that byte to
+  `RenderCommand::flip_x`. `get_action_flip_x` (caster left or right of the action's target) only sets the hero's
+  facing for an action. `view_buffs` pictures are not mirrored either. The hero's own frames are: so a picture drawn
+  pointing right points right on the red side too. Until 2026-10-05 this file said a non-following caster picture
+  took the caster's facing (inferred, never seen): the "red side" fixes of 2026-10-03 and 2026-10-05 that set
+  `is_follow: false` or moved a picture to the action's start (league_vi E and R, league_aatrox Q, passive and W,
+  league_caitlyn, league_jhin, league_kaisa W and R, league_leblanc, league_kennen Q, league_ryze Q,
+  league_diana, league_tristana Q) changed nothing in game - league_jhin's muzzle flashes still pointed right on the
+  red side (「烬在红色方 玩家反应 技能特效 伤口还是反的」, 2026-10-06). What looked like mirroring before was
+  where the picture stood: league_tristana's flashes 22 px in front of her pivot were behind her after she turned,
+  league_fiora's parry crescent (a buff picture 17 px in front) behind her when she faced left.
+  So:
+  - **A picture with a front and a back that rides on the hero is drawn into his own frames.** List it in
+    `assets/source/native/<hero>_bake.json` (`{"fx": "<effect sheet>", "items": [{"tag", "into", "at_ms",
+    "under"}]}`): `tools/art/import_native.py` draws the effect tag into the action tag from `at_ms` on, centred on
+    the pivot as the `CasterViewEffect` was (both are drawn centred on the unit), cutting the action's frames where
+    an effect frame starts or ends and padding them to one canvas (the canvas grows; frames of any size are drawn
+    centred). `at_ms` is the time the `CasterViewEffect` played: the action's effect fires at `start_timing` + 1,
+    plus the `Delayed` ticks over it; one played with a `CasterAnimation` starts with that tag. Then
+    `tools/fix/unbind_baked_fx.py --hero <hero>` removes those `CasterViewEffect`s and their `view_effects`
+    entries. league_jhin's six flashes (the cast and muzzle flashes of the attack and the fourth shot, Q's throw,
+    W's and R's muzzles) are baked so. A baked picture plays with the animation, so attack speed (which speeds the
+    action, not the `Delayed`) no longer pulls it off the shot frame; it ends with the action.
+  - A picture on a target or a point (a hit, a burst) is made left-right symmetric; a short spray behind the hit is
+    acceptable on both sides.
+  - A picture that must point at the target rides a projectile, which is turned with its direction (below).
+  - A picture that stays on the hero while he walks (league_jhin's reload bullets over his head) cannot be baked into
+    one action: keep it centred on the pivot column.
+  `lint_mod.py` warns on every caster picture whose mirror leaves more than half its pixels on empty ones (137 in 46
+  heroes of this pack on 2026-10-06); `tools/art/bake_gifs.py --hero <hero>` draws the blue side and the red side
+  before and after. An `Animation` plays its tag once, so a view that must stand for seconds lists its loop frames
+  again (a 4 s loop of 100 ms frames is 40 frames). A `CasterViewEffect` stays where it was played unless
+  `is_follow`; a following one cannot be stopped: refreshed before it ends, the next one plays over it.
+  A picture that must face the target goes on a `TargetProjectile` cast at it
   (league_lucian Q's way: it points from the caster's pivot at the target and `y_offset` lifts only its picture):
-  her crescent rides one with `speed` 100 and `y_offset` -4000 (9 px up), drawn 17 px ahead along its flight and
+  league_fiora's parry crescent rides one with `speed` 100 and `y_offset` -4000 (9 px up), drawn 17 px ahead along its flight and
   mirrored top to bottom, each 6-tick frame stepped back by the distance crept, an empty last frame after the
   parry's 45 ticks while the projectile crawls on (4-9 s in a logged game; it goes at once if the target dies).
   A picture that must outlive a target killed by the hit rides a view-only `LineRangeProjectile` instead (in a

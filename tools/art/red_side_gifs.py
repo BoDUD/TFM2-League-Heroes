@@ -7,8 +7,9 @@ Each GIF plays the hero's actions that carry a fixed picture, in three panels: t
 side as it was drawn before the fix and the red side now (facing left). The panels are put together from the hero's
 own sheets by the rules the client follows (champion-data.md section 6), not recorded in game:
 - a zone's or a projectile's picture (view_projectiles) is turned to its direction - half round when cast leftward;
-- a ViewEffect is drawn unturned on its point, a CasterViewEffect on the caster, mirrored by the caster's facing,
-  except one with is_follow that starts after the action's first tick: the client draws it unmirrored;
+- a ViewEffect is drawn unturned on its point, a CasterViewEffect on the caster - neither ever mirrored (the client
+  copies the view system's flip, false for every data view; found 2026-10-06, the GIFs made before showed caster
+  pictures mirrored on the red side, which the game never did);
 - the picture's time is the action's start_timing plus the Delayed ticks over it (a lob's end_effects after its
   travel_time); a projectile flies at its speed;
 - a picture stamped along a flight (league_yasuo's Q3 whirlwind since 2026-10-05: `ViewEffect`s in the end_effects
@@ -244,7 +245,7 @@ def build_shots(hero, base):
             if kind == "view_projectiles":
                 rule = "turned"
             elif eff["type"] == "CasterViewEffect":
-                rule = "unmirrored" if (view.get("is_follow") and late) else "mirrored"
+                rule = "unmirrored"
             else:
                 rule = "upright"
             place = "caster" if (eff["type"] in ("CasterViewEffect", "ApplyInProjectile") or
