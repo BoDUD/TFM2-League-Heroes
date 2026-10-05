@@ -1,0 +1,11 @@
+[package]
+name = "league_addons"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+mod-api-stable = { path = "../vendor/mod-api-stable" }

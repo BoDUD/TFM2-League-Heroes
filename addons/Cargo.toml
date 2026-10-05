@@ -1,5 +1,6 @@
 # The native add-ons of League Heroes: each member builds one Windows DLL (`cargo build --release`),
-# installed as its own mod folder next to the main `league` pack. The stable mod API is vendored
+# installed as its own mod folder next to the main `league` pack; league_addons compiles all of them into one DLL
+# (the add-on bundle players subscribe to, league_addons/README.md). The stable mod API is vendored
 # once in vendor/mod-api-stable (the game's mod-sdk-stable, ABI level 9).
 [workspace]
 members = ["league_*"]
