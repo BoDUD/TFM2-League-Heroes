@@ -832,11 +832,10 @@ def kneel_frame(pivot, shape, P, dy, pose):
 #   League's two airborne frames;
 # - the upper body: the design's without its arms, with its pelvis rows (PELVIS), RUN_LEAN of a square per row forward
 #   over the hips (the head as one block), bobbing with League's head in the design's camera (lol_joints_v2.json);
-# - the arms: drawn from joints (ryze_arms.draw) on League's timing - each between its back and its forward pose
-#   (RUN_ARMS) as far as League's hand is ahead of its shoulder in the design's camera - the elbows bent; a forward swing
-#   comes at the camera, so the forearm is shorter there (RUN_FORE_CUT: the fist before the waist; League's own angles
-#   left the near arm a straight stick and a level forearm a striped bar: 「瑞兹右手臂还是有点小问题的 有点奇怪」); the far
-#   arm behind the body, across the belly when forward; the near one in front, behind the body when swung back;
+# - the arms: drawn from joints (ryze_arms.draw), three held poses each on League's timing (RUN_POSES), the elbows
+#   bent; a forward swing comes at the camera, so the forearm is shorter there (the fist before the waist; League's own
+#   angles left the near arm a straight stick and a level forearm a striped bar: 「瑞兹右手臂还是有点小问题的 有点奇怪」);
+#   the far arm behind the body, across the belly when forward; the near one beside the body all through;
 # - the hands are the design's own (3 squares wide, the fingertips a square under them), turned with the forearm by
 #   ryze_arms.place (rows shifted within 45 degrees of hanging, a quarter turn past it - nothing resampled): a fist drawn
 #   round the hand's middle was a lilac dot (「手的形状也没有 所以都非常奇怪」);
@@ -853,12 +852,23 @@ RUN_FOOT = {"near": ("jDhj", "jjjj"), "far": ("rjjh", "jjjj")}
 RUN_KICK = 50                                            # a shin further than this from hanging: the foot raised
 RUN_LEAN = 0.12
 RUN_BOB = 0.6                                            # of League's head's bob (game px in the design's camera)
-# (upper arm, forearm degrees from hanging, + forward) at the back and the front of each arm's swing, and the share of
-# the forearm's length lost at the front
-# (the far forearm hangs back at the back of the swing, as League's does (-24 degrees): hanging forward, its hand met
-# the hip and walled in a pocket of ground with the body)
-RUN_ARMS = {"far": {"back": (-40, -15), "fwd": (-5, 88)}, "near": {"back": (-35, 25), "fwd": (12, 80)}}
-RUN_FORE_CUT = {"far": 0.25, "near": 0.45}
+# each arm in three held poses, as a sprite's run swings its arms (one shape held through the frames of a swing; the
+# arms eased between League's angles every frame, the forearm a square longer or shorter and the hand a square off
+# each time, crawled: 「右手臂还是奇怪看起来 在那晃动和个虫一样」): F at the front of the swing, M passing, B at the back;
+# {side: {pose: (upper arm, forearm degrees from hanging (+ forward), the forearm's share of its length, layer)}}. A
+# forward swing comes at the camera: the forearm shorter, the fist before the waist. The near (screen-right) arm stays
+# beside the body when swung back (hidden behind it for three frames it vanished and popped back); the far forearm
+# hangs back at the back of the swing, as League's does (-24 degrees: hanging forward, its hand met the hip and walled
+# in a pocket of ground with the body)
+# The near upper arm is the design's own, as the idle has it beside the body: only the forearm and the hand swing from
+# its elbow (an upper arm drawn again lay against the body, its outline cut into the shirt's edge and the body read
+# narrower: 「右手臂是贴着身体的 还导致身体变形了」), so the near poses' upper arm angle is 0.
+RUN_POSES = {"near": {"F": (0, 72, 0.6, "front"), "M": (0, 35, 0.9, "front"), "B": (0, 8, 1.0, "front")},
+             "far": {"F": (-5, 86, 0.75, "over"), "M": (-20, 30, 1.0, "back"), "B": (-40, -15, 1.0, "back")}}
+# the poses frame by frame on League's timing (each hand's lead over its shoulder in the design's camera,
+# lol_joints_v2.json: the near hand ahead in 7-2, back in 4-5; the far one ahead in 3-5, back in 8-1 - in 7 it passes,
+# its hand clear of the near leg kicked up behind, which walled in ground with it)
+RUN_ARM_FRAMES = {"near": "FFMBBMFF", "far": "BMFFFMMB"}
 RUN_HAND = {"far": -8, "near": 8}                        # the column through the middle of each hand on the design
 RUN_HAND_TOP = -4                                        # the hands' first row on the design (the bracer above)
 
@@ -874,16 +884,11 @@ def run_hand(P, side, fore):
 
 
 def run_tables():
-    """League's run: the profile joints (legs), each arm's swing (0 back .. 1 forward) and the body's bob per frame."""
+    """League's run: the profile joints (legs) and the body's bob per frame."""
     with open(lp(RUN_PROFILE), encoding="utf-8") as f:
         prof = json.load(f)
-    lol = R.lol_table()["run"]
-    swing = {}
-    for side, s in (("far", "R"), ("near", "L")):
-        ahead = [f["joints"][s + "_Hand"][0] - f["joints"][s + "_Shoulder"][0] for f in lol]
-        swing[side] = [(v - min(ahead)) / (max(ahead) - min(ahead)) for v in ahead]
-    head = [f["joints"]["Head"][1] for f in lol]
-    return prof, swing, [int(round(RUN_BOB * (y - min(head)))) for y in head]
+    head = [f["joints"]["Head"][1] for f in R.lol_table()["run"]]
+    return prof, [int(round(RUN_BOB * (y - min(head)))) for y in head]
 
 
 def run_leg(side, hip, thigh, shin, foot):
@@ -942,7 +947,7 @@ def fill_pockets(a):
 
 def run_frame(k, pivot, shape, P, tables):
     """Run frame k (0-7) on the design's own body from League's joints (see RUN_PROFILE above)."""
-    prof, swing, bob = tables
+    prof, bob = tables
     j, air = prof[k]["joints"], prof[k]["air"]
 
     def ang(a_, b_):
@@ -958,15 +963,16 @@ def run_frame(k, pivot, shape, P, tables):
         RD.put(out, pivot, run_leg(side, (RUN_HIP[side][0], RUN_HIP[side][1] + dy), *legs[side])[0], ink)
     arms = {"back": {}, "over": {}, "front": {}}
     for side in ("far", "near"):
-        t = swing[side][k]
-        (ub, fb), (uf, ff) = RUN_ARMS[side]["back"], RUN_ARMS[side]["fwd"]
-        up, fo = math.radians(ub + (uf - ub) * t), math.radians(fb + (ff - fb) * t)
-        layer = ("over" if t > 0.5 else "back") if side == "far" else ("front" if t > 0.4 else "back")
+        ud, fd, share, layer = RUN_POSES[side][RUN_ARM_FRAMES[side][k]]
+        up, fo = math.radians(ud), math.radians(fd)
         sp = R.ARMS["back" if side == "far" else "front"]
         upper = math.hypot(sp["E"][0] - sp["S"][0], sp["E"][1] - sp["S"][1])
-        fl = RA.FORE * (1.0 - RUN_FORE_CUT[side] * t)
+        fl = RA.FORE * share
         S = DRAW_S[side]
         E = (S[0] + upper * math.sin(up), S[1] + upper * math.cos(up))
+        if side == "near":                       # the design's upper arm (with the body below), the forearm from its elbow
+            E = sp["E"]
+            S, upper = (E[0], E[1] - 0.01), 0.01
         W = (E[0] + fl * math.sin(fo), E[1] + fl * math.cos(fo))
         H = (W[0] + RA.HAND * math.sin(fo), W[1] + RA.HAND * math.cos(fo))
         cells = {q: R.rgba(ch) for q, ch in RA.draw(S, E, W, H, side, "none", upper=upper, fore=fl).items()}
@@ -981,12 +987,14 @@ def run_frame(k, pivot, shape, P, tables):
     body.update({xy: c for xy, c in torso_sides(P["upper"]).items() if xy[1] <= BELT_ROW and xy not in body})
     body.update({(x, y): c for (x, y), c in P["full"].items()
                  if PELVIS[0] <= y <= PELVIS[1] and PELVIS_X[0] <= x <= PELVIS_X[1]})
+    body.update(P["arms"][("front", "upper")])  # the near upper arm as the design has it (its outline with it)
     for (x, y), c in body.items():
         X, Y = px + x + (R.lean_x(RUN_LEAN, y) if y < R.HIP_Y else 0), py + y + dy + b
         if 0 <= Y < shape[0] and 0 <= X < shape[1]:
             out[Y, X] = c
-    for layer in ("over", "front"):
-        ring_layer(out, arms[layer], py, px, face=face, over=True)
+    elbow = {(py + y + dy + b, px + x + R.lean_x(RUN_LEAN, y)) for (x, y) in P["arms"][("front", "upper")]}
+    ring_layer(out, arms["over"], py, px, face=face, over=True)
+    ring_layer(out, arms["front"], py, px, face=face | elbow, over=True)     # no line across the near elbow
     ring_close(out, py)
     return fill_pockets(out)
 
