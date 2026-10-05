@@ -102,7 +102,8 @@ NECK_EYES = {("fiora", "hit", 0): (-19, 3)}
 # bottom.
 COMPLETE = {"nami", "veigar", "jax", "ahri", "taric", "tristana", "fiora", "diana", "leesin", "missfortune", "fizz", "shaco",
             "caitlyn", "nocturne", "blitzcrank", "camille", "leblanc", "kaisa", "sona", "kennen", "vi", "ryze", "jhin", "zilean",
-            "aatrox", "kayn", "sivir", "twistedfate", "rakan", "evelynn", "sett", "lissandra", "varus", "alistar", "tryndamere", "xinzhao"}
+            "aatrox", "kayn", "sivir", "twistedfate", "rakan", "evelynn", "sett", "lissandra", "varus", "alistar", "tryndamere",
+            "xerath", "xinzhao"}
 # hero: the luminance from which an edge pixel gets the outline (complete_outline's `dark`, default 70). Fiora's teal
 # leggings (luminance ~58) and wine cape (~44) edge many action frames without black: tfm2_ase.py metrics counts only
 # luminance < 40 as outline, so at 70 her Q frames read 83-89% (the bare rapier aside); at 40 they close too.
@@ -255,6 +256,9 @@ ORDER = {("lux", "idle"): [0, 0, 0, 0, 0, 0],   # the step-2 idle is the design 
          # and Tryndamere (Codex's A_retry cut to 40 rows by whole lines, design_tryndamere.py; rig_tryndamere.py
          # writes the design six times)
          ("tryndamere", "idle"): [0, 0, 0, 0, 0, 0],
+         # and Xerath (Codex's draft B cut to 44 rows by whole lines, design_xerath.py; Codex's step 2 writes the design
+         # six times)
+         ("xerath", "idle"): [0, 0, 0, 0, 0, 0],
          # and Xin Zhao (Codex's draft 03 cut to 42 rows by whole lines, design_xinzhao.py; rig_xinzhao.py writes the
          # design with its rebuilt straight spear six times)
          ("xinzhao", "idle"): [0, 0, 0, 0, 0, 0]}
@@ -265,6 +269,8 @@ ORDER = {("lux", "idle"): [0, 0, 0, 0, 0, 0],   # the step-2 idle is the design 
 BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        # Lissandra has no legs: everything down to the gown's straight part sinks, the crystal hem (rows 92-99) stays
        ("lissandra", "idle"): (3, [2, 3, 4]),
+       # Xerath floats on two pointed legs: all of him down to the lower leg plates sinks a row, the tips stay
+       ("xerath", "idle"): (8, [2, 3, 4]),
        # Alistar: the seam in his furry shins (row 92); the hooves and the fur round them stay
        ("alistar", "idle"): (4, [2, 3, 4]),
        ("leona", "idle"): (8, [2, 3, 4]),

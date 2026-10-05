@@ -1,0 +1,331 @@
+{
+ "hero": "xerath",
+ "champ": "Xerath",
+ "camera": {
+  "yaw": 45,
+  "pitch": 20,
+  "mirror": true
+ },
+ "chibi": {
+  "head": 2.2,
+  "legs": 1.0,
+  "hair": 1.0
+ },
+ "height": 44,
+ "cell": [
+  128,
+  96,
+  14
+ ],
+ "design": "Xerath_Idle1@0",
+ "tags": {
+  "idle": {
+   "frames": [
+    [
+     "Xerath_Idle1@0",
+     200
+    ],
+    [
+     "Xerath_Idle1@0",
+     200
+    ],
+    [
+     "Xerath_Idle1@0",
+     200
+    ],
+    [
+     "Xerath_Idle1@0",
+     200
+    ],
+    [
+     "Xerath_Idle1@0",
+     200
+    ],
+    [
+     "Xerath_Idle1@0",
+     200
+    ]
+   ]
+  },
+  "run": {
+   "head_like": "Xerath_Idle1@0",
+   "frames": [
+    [
+     "Xerath_run@0",
+     121
+    ],
+    [
+     "Xerath_run@121",
+     121
+    ],
+    [
+     "Xerath_run@242",
+     121
+    ],
+    [
+     "Xerath_run@363",
+     121
+    ],
+    [
+     "Xerath_run@484",
+     121
+    ],
+    [
+     "Xerath_run@605",
+     121
+    ],
+    [
+     "Xerath_run@726",
+     121
+    ],
+    [
+     "Xerath_run@847",
+     121
+    ]
+   ]
+  },
+  "attack": {
+   "lunge": 0.4,
+   "release": 4,
+   "frames": [
+    [
+     "Xerath_Idle1@0>Xerath_Attack1@100:0.5",
+     60
+    ],
+    [
+     "Xerath_Attack1@220",
+     60
+    ],
+    [
+     "Xerath_Attack1@300",
+     50
+    ],
+    [
+     "Xerath_Attack1@363",
+     90
+    ],
+    [
+     "Xerath_Attack1@500",
+     100
+    ],
+    [
+     "Xerath_Attack1@700>Xerath_Idle1@0:0.5",
+     107
+    ]
+   ]
+  },
+  "skill": {
+   "lunge": 0.3,
+   "release": 6,
+   "frames": [
+    [
+     "Xerath_Idle1@0>Xerath_channel_windup@0:0.5",
+     150
+    ],
+    [
+     "Xerath_channel_windup@200",
+     150
+    ],
+    [
+     "Xerath_channel_windup@400",
+     150
+    ],
+    [
+     "Xerath_channel_windup@600",
+     150
+    ],
+    [
+     "Xerath_channel_windup@847",
+     300
+    ],
+    [
+     "Xerath_Spell1@700",
+     100
+    ],
+    [
+     "Xerath_Spell1@1050>Xerath_Idle1@0:0.5",
+     67
+    ]
+   ]
+  },
+  "skill_quick": {
+   "lunge": 0.3,
+   "release": 4,
+   "frames": [
+    [
+     "Xerath_Idle1@0>Xerath_channel_windup@0:0.5",
+     120
+    ],
+    [
+     "Xerath_channel_windup@400",
+     120
+    ],
+    [
+     "Xerath_channel_windup@847",
+     127
+    ],
+    [
+     "Xerath_Spell1@700",
+     100
+    ],
+    [
+     "Xerath_Spell1@1050>Xerath_Idle1@0:0.5",
+     66
+    ]
+   ]
+  },
+  "skill2": {
+   "lunge": 0.3,
+   "release": 3,
+   "frames": [
+    [
+     "Xerath_Idle1@0>Xerath_Spell3@60:0.5",
+     80
+    ],
+    [
+     "Xerath_Spell3@150",
+     87
+    ],
+    [
+     "Xerath_Spell3@242",
+     80
+    ],
+    [
+     "Xerath_Spell3@363",
+     83
+    ],
+    [
+     "Xerath_Spell4@363",
+     90
+    ],
+    [
+     "Xerath_Spell4@605>Xerath_Idle1@0:0.5",
+     80
+    ]
+   ]
+  },
+  "ult": {
+   "lunge": 0.2,
+   "frames": [
+    [
+     "Xerath_Idle1@0>Xerath_Spell4@121:0.5",
+     100
+    ],
+    [
+     "Xerath_Spell4@242",
+     100
+    ],
+    [
+     "Xerath_Spell4@363",
+     100
+    ],
+    [
+     "Xerath_Spell4@484",
+     100
+    ],
+    [
+     "Xerath_channel@0",
+     100
+    ]
+   ]
+  },
+  "ult_loop": {
+   "lunge": 0.2,
+   "frames": [
+    [
+     "Xerath_channel@0",
+     160
+    ],
+    [
+     "Xerath_channel@160",
+     160
+    ],
+    [
+     "Xerath_channel@320",
+     160
+    ],
+    [
+     "Xerath_channel@480",
+     160
+    ],
+    [
+     "Xerath_channel@640",
+     160
+    ],
+    [
+     "Xerath_channel@800",
+     160
+    ]
+   ]
+  },
+  "ult_shot": {
+   "lunge": 0.2,
+   "release": 1,
+   "frames": [
+    [
+     "Xerath_Spell1@700",
+     80
+    ],
+    [
+     "Xerath_Spell1@875",
+     80
+    ],
+    [
+     "Xerath_channel@0",
+     73
+    ]
+   ]
+  },
+  "hit": {
+   "frames": [
+    [
+     "Xerath_Idle1@0>Xerath_Death@300:0.25",
+     100
+    ],
+    [
+     "Xerath_Idle1@0>Xerath_Death@300:0.1",
+     100
+    ]
+   ]
+  },
+  "dead": {
+   "anchor": "first",
+   "lunge": 0.3,
+   "travel": 0.3,
+   "frames": [
+    [
+     "Xerath_Death@0",
+     100
+    ],
+    [
+     "Xerath_Death@300",
+     110
+    ],
+    [
+     "Xerath_Death@625",
+     120
+    ],
+    [
+     "Xerath_Death@1000",
+     130
+    ],
+    [
+     "Xerath_Death@1500",
+     150
+    ],
+    [
+     "Xerath_Death@2500",
+     200
+    ],
+    [
+     "Xerath_Death@3500",
+     300
+    ],
+    [
+     "Xerath_Death@4375",
+     400
+    ]
+   ]
+  }
+ }
+}

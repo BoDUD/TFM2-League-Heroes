@@ -1270,6 +1270,8 @@ league_varus (bottom, --lane 3, 2026-10-05, Chain of Corruption's 2 s root and i
 gunner 0.19 and league_jhin 1.17 in the same batch - no change.
 league_alistar (support, --lane 4, 2026-10-05, Pulverize's and Headbutt -> Pulverize's 1 s knock-ups, Trample's 1 s stun):
 2.23 a game; league_leona 2.19 and the base priest 0.50 in the same batch - no change.
+league_xerath (mid, --lane 2, 2026-10-06, Shocking Orb's 0.75-2 s stun on one unit): 0.94 a game; the base lightning
+mage 3.40 and league_lissandra 2.10 in the same batch - no change.
 
 **Kill trigger (league_jinx Get Excited!).** No effect fires on a kill, but section 4's facts make one:
 1. Next to the damaging projectile, fire an invisible twin with the same speed and path and
@@ -3317,6 +3319,32 @@ health in the SDK - the optional native add-on addons/league_tryndamere_rage (a 
 **A shout that slows only the ones leaving (league_tryndamere W, Mocking Shout).** Nothing reads facing; League slows
 enemies turned away, i.e. running off, so the far ones stand in: every enemy champion within w_r loses 25% attack, and
 those beyond w_near (12000) are also slowed 40% - two `RangeEffect`s, the near one adding a +40 buff that cancels the slow.
+
+**A wait that kills shorten (league_xerath Mana Surge).** Nothing subtracts time from a buff, so the passive's 14 s wait
+is four caster flags laid at once (p_a..p_d: 210, 420, 630, 840 ticks); he is ready when none is left (four nested
+`SwitchByBuff`). A unit his orb or Shocking Orb kills (league_jinx's kill check) removes the LONGEST flag still on: the
+remaining ones expire 210 ticks apart, so each kill brings the surge exactly 3.5 s closer (League's refund) with no poll.
+The surge orb's hit adds a 2-tick `skill_cooldown_mult` 30 / `ult_cooldown_mult` -30: the mana League refills becomes
+cooldown here.
+
+**A stun that grows with the distance flown (league_xerath E, Shocking Orb).** No effect knows how far a projectile went,
+but its speed is fixed: two caster flags laid at the release (e_d1 for e_band1 ticks, e_d2 for e_band2) tell the hit how
+long the orb flew - e_d1 still on: the short stun, e_d2: the middle one, neither: the long one (0.75 / 1.33 / 2 s).
+
+**A follow-up that lands where the first skillshot found a champion (league_xerath E -> W).** The orb stops on the first
+enemy (minions too); a champion-only twin on the same line passes the minions, and its hit sets a flag and, a tick later,
+lobs the Eye (a 1-tick `ParabolicProjectile`) onto that champion - stunned already when the orb reached him too. With
+no champion on the line, a `Delayed` of e_fall ticks on the cast target (it reads the flag) lobs the Eye there instead.
+The Eye's two zones (the ring and the sweet spot) share one centre: the centre's extra damage and slow are a second,
+smaller `RangeProjectile` with the same timing.
+
+**Long-range shells from a standing channel (league_xerath R, Rite of the Arcane).** league_jhin R's channel: the
+deploy tag, then a looped channel tag; one `AddCasted` poll on him every 6 ticks ends it on crowd control and, between
+shots (a r_wait flag), picks a champion his team is hitting within 220000 (else any): a 1-tick lob marks the spot (its
+`end_effects` play the warning ring and, 8 ticks before the blast, the falling bolt as `ViewEffect`s - upright, never
+turned) and the blast zone hits r_delay ticks later. A champion-only twin zone on the same spot sets a 2-tick flag the
+`Delayed` read after the blast climbs into the ramp ladder r_h1..r_h3 (+20% a rung for the later shells); r_s1..r_s3
+count the shells and the fourth ends the channel.
 
 **Knock back everyone but the one you challenge (league_xinzhao R, Crescent Guard).** A `Targeting` cast on
 `EnemyChampion`; on the sweep's tick (a `Delayed` of the cast) the cast target first gets a 3-tick `AddBuff` with

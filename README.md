@@ -2,7 +2,7 @@
 
 团战经理2（Teamfight Manager 2）的英雄联盟英雄 Mod，mod_id 是 `league`。纯数据 mod：不改游戏本体，不需要编译。
 
-英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）、烬（`league_jhin`）、基兰（`league_zilean`）、亚托克斯（`league_aatrox`）、凯隐（`league_kayn`）、希维尔（`league_sivir`）、崔斯特（`league_twistedfate`）、洛（`league_rakan`）、伊芙琳（`league_evelynn`）、瑟提（`league_sett`）、丽桑卓（`league_lissandra`）、韦鲁斯（`league_varus`）、阿利斯塔（`league_alistar`）、蛮王（`league_tryndamere`）、赵信（`league_xinzhao`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹、ADC 烬、辅助基兰。第十一组有上单亚托克斯（剑魔）、打野凯隐、中单崔斯特、ADC 希维尔、辅助洛。第十二组有上单瑟提（腕豪）、打野伊芙琳、中单丽桑卓、ADC 韦鲁斯、辅助阿利斯塔（牛头）。第十三组有上单蛮王、打野赵信。
+英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）、烬（`league_jhin`）、基兰（`league_zilean`）、亚托克斯（`league_aatrox`）、凯隐（`league_kayn`）、希维尔（`league_sivir`）、崔斯特（`league_twistedfate`）、洛（`league_rakan`）、伊芙琳（`league_evelynn`）、瑟提（`league_sett`）、丽桑卓（`league_lissandra`）、韦鲁斯（`league_varus`）、阿利斯塔（`league_alistar`）、蛮王（`league_tryndamere`）、泽拉斯（`league_xerath`）、赵信（`league_xinzhao`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹、ADC 烬、辅助基兰。第十一组有上单亚托克斯（剑魔）、打野凯隐、中单崔斯特、ADC 希维尔、辅助洛。第十二组有上单瑟提（腕豪）、打野伊芙琳、中单丽桑卓、ADC 韦鲁斯、辅助阿利斯塔（牛头）。第十三组有上单蛮王、打野赵信。蛮王之后按用户的计划做中单泽拉斯。
 
 对敌人放的小技能，施放目标是「敌人（不含防御塔）」，清线、打野时也会放；只有大招、德莱厄斯的 E（拉人）、阿木木的 Q（绷带）、锤石的 Q（钩子）、阿狸的 E（魅惑）、薇恩的 E（恶魔审判）、维迦的 E（扭曲空间）、凯特琳的 W（约德尔诱捕器）、卡莎的 W（虚空索敌）、基兰的 E（时光发条）、洛的 W（盛大登场，落地后接 E 轻舞成双）和阿利斯塔的 W（野蛮冲撞，撞完接大地粉碎）只对英雄放（莫甘娜的 Q 对什么都放，但射程内有敌方英雄时朝英雄射；贝蕾亚的 Q 也一样，射程内有敌方英雄时扑英雄；娜美的 W、Q 也是，射程内有敌方英雄时打英雄；黛安娜的 Q 也一样，射程内有敌方英雄时朝英雄射，E 带着月光再冲的第二下也先找英雄；菲奥娜的 Q、W 也一样，射程内有敌方英雄时冲向、刺向英雄；凯特琳的 Q 也一样，射程内有敌方英雄时朝英雄射；凯南的 Q 也一样，射程内有敌方英雄时锁定英雄射；伊芙琳的 W 也一样，射程内有敌方英雄时先给英雄挂印记；丽桑卓的 Q 也一样，射程内有敌方英雄时朝英雄射，W 身边没人时冰爪只滑向队友正在打的敌方英雄，否则只是扔出去打一下；韦鲁斯的 Q 也一样，射程内有敌方英雄时拉满弓朝英雄射，只有小兵野怪时快速出手）；提莫的 W 是给自己加速和伪装，也只在敌方英雄靠近时放。最早几个英雄的小技能只对英雄放，打野时一直平 A 野怪，按玩家反馈改了。
 
@@ -115,6 +115,8 @@
 
 ![蛮王演示：他跑进场；E 旋风斩：大剑绕身转出一圈红白刀光，冲到德莱厄斯面前砍中他；一剑；W 蔑视：仰头怒吼，红色声波和地上的冲击波推出去，德莱厄斯和身后的盖伦头顶挂上断剑（攻击力降低），离得远的盖伦脚下减速；连砍几剑叠满怒气，脚下和身边烧起红光；危险时 R 无尽怒火：身上炸开橙红色的火焰和火环，之后 5 秒全身被火包着、死不了，他继续砍，德莱厄斯倒下；最后喝 Q 嗜血杀戮：红色光点吸进身体，胸口一亮回血](docs/preview/league_tryndamere_showcase.gif?v=1005tr4)
 ![赵信演示：他跑进场；E 无畏冲锋：飞身持枪扑向德莱厄斯，身后拖着蓝白电光，落地时脚下一圈冲击波，德莱厄斯被减速，头顶亮起三道金爪印；Q 三重爪击：三下强化突刺，爪印一道一道减少，第三下把德莱厄斯挑飞，被动第三下回血的金光；两下普攻后被动大挥再回一次血；W 风斩电刺：身前横扫出金色月牙，再朝前刺出一道电光，穿过德莱厄斯和身后的盖伦，两人脚下减速；R 新月护卫：起手转枪的金光，绕身一圈蓝白新月刃光，被挑战的德莱厄斯留在身边、头顶金色挑战纹章，身后的盖伦被击退，他身后亮起金色护卫光 3 秒；他继续刺，德莱厄斯倒下](docs/preview/league_xinzhao_showcase.gif?v=1006xz)
+
+![泽拉斯演示：他滑进场，一颗奥术法球打德莱厄斯；Q 奥能脉冲蓄满：举手蓄力、前爪聚起光球，一道长光束贯穿德莱厄斯和身后的盖伦；一颗法球，再一颗法力澎湃的强化法球（手上涌出蓝光、法球绕着闪电）；E 冲击法球打中德莱厄斯，头顶电光转圈晕住，随后他脚下亮起毁灭之眼的法阵、一道光柱砸下来；R 奥术仪式：脚下法阵亮起、光柱冲天，引导时脚下符文法阵转动，连发 4 发炮击——落点先出瞄准圈，光弹从天而降炸开，最后一发击杀德莱厄斯](docs/preview/league_xerath_showcase.gif?v=1006xr1)
 
 ## 英雄：盖伦
 
@@ -2556,6 +2558,46 @@ python addons/league_tryndamere_rage/make_override.py   # 附加包的英雄数�
 - 特效用 Codex 画的 11 张（生图原稿，`import_tryndamere.py --raw`：每张按格子等分，每个游戏像素取覆盖的原稿像素里最多的颜色，颜色归到包里给每张的色阶——血红、余烬橙、暗红，断剑标记和灰烬保留描边、光效外圈最暗的一档去掉）。位置：E 的刀光以腰为中心（(7, −2)，跟着他冲过去），Q 的红光在胸口（(6, −8)），W 的冲击波、R 的火、满怒气的光按地上椭圆最宽的一行对在脚下，减攻的断剑在头顶。游戏里看（「特效盖不住身体」）：他连拖着的大剑约 57 格宽，火焰只有 35 格——不死的火焰、满怒气的光、R 的爆发按原高度画、横向拉宽 1.7–1.75 倍，盖住整个人；R 的爆发和 W 的冲击波对准躯干（站位点往前 6 格：他前倾，躯干在两脚中间的前面）。不死的火焰和满怒气的光是 buff 的画面，游戏不按朝向翻转，只能以站位点为中心左右对称。
 
 逐帧预览：[`docs/preview/league_tryndamere_frames.png`](docs/preview/league_tryndamere_frames.png)，特效：[`docs/preview/league_tryndamere_effects.png`](docs/preview/league_tryndamere_effects.png)。
+
+## 英雄：泽拉斯
+
+| 部分 | 内容 |
+|---|---|
+| 定位 | 中单（法师，分类 Magician），按用户的计划接在蛮王之后做的第 62 位英雄。远古巫灵 泽拉斯：超远距离的炮台法师，Q 蓄力光束、E 眩晕接 W 法阵、R 站定连发炮击。四个选择都按推荐的来（用户选的）：Q / E→W / R 三个技能位，被动改成强化普攻减冷却 |
+| 普攻 / 被动 | 普攻甩出奥术法球（追踪，100% 攻击力的物理伤害），射程 55000，攻击间隔 90 tick（第 10 tick 出手）。被动「法力澎湃」：团战经理没有蓝条，原版的回蓝改成回技能——每 14 秒下一次普攻是强化法球，额外 40 + 40% 法强的魔法伤害，打中时 Q 和 E→W 的剩余冷却压到 77%（2 tick 的 `skill_cooldown_mult` 30）。等待用 4 个同时加上的标记（210 / 420 / 630 / 840 tick），一个都不剩就好了；他的普攻或冲击法球每击杀一个单位（金克丝那套击杀检测），去掉最长的那个，下一次强化提前 3.5 秒（英雄联盟同样是每击杀 3.5 秒） |
+| 技能1 | Q「奥能脉冲」：冷却 300 tick（5 秒），朝方向放（`Direction`），也对小兵和野怪放。韦鲁斯 Q 那样的智能蓄力：140000 内有敌方英雄就完整蓄力 54 tick（0.9 秒），光束射 150000；只有小兵野怪时快速蓄力 22 tick，伤害 65%、射 95000。出手时 145000 内有敌方英雄就朝他站的位置射（锁定方向，走开就躲掉），否则朝施法方向。光束贯穿直线上所有敌人：110 + 85% 法强的魔法伤害 |
+| 技能2 | E「冲击法球」→ W「毁灭之眼」：冷却 600 tick（10 秒），对目标放（也对小兵和野怪）。第 10 tick 甩出冲击法球（直线、打中第一个敌人停下）：60 + 45% 法强，眩晕按飞行距离 0.75 / 1.33 / 2 秒（发射时加两个计时标记，命中时看还剩哪个——英雄联盟 0.75–2.25 秒）。同路径一颗只认英雄的隐形副本穿过小兵，打中第一个敌方英雄后，毁灭之眼落在他脚下（被眩晕的话正好在中心）；线上没有英雄时，30 tick 后落在目标脚下。法阵 30 tick 后炸开：半径 26000 内 60 + 50% 法强、减速 25%，中心 11000 内再加 67%（英雄联盟的 ×1.667）、再减速 35%，减速 2.5 秒 |
+| 大招 | R「奥术仪式」：冷却 50 秒，对 220000 内的敌方英雄放（几乎整个战场）。烬 R 那样的站定引导：飞升 30 tick，然后引导最多 330 tick；每 6 tick 检查一次，被控制就中断；两发之间隔 54 tick，召唤一发炮击——优先打队友正在打的英雄，否则射程内随便一个：落点先出瞄准圈，36 tick（0.6 秒）后爆炸，半径 18000 内 120 + 45% 法强；这次引导里每有一发打中过英雄，之后的炮击伤害 +20%（英雄联盟的递增伤害）。打满 4 发结束 |
+| 数值 | 攻击 78（+6）、法强 42（+21）、生命 860（+95）、护甲 18（+7）、魔抗 20（+4）、移速 900（+9）。英雄联盟的泽拉斯是生命少、射程远的炮台法师。数值是自己设计的，用 SDK 对战模拟调：中路，对 5 个原版中单（`pyromancer`、`ice_mage`、`lightning_mage`、`wind_mage`、`white_mage`），3 套阵容、两边各打，10 分钟。初稿（Q 95 + 75%、冷却 5.5 秒）种子 1–24 +1.05、25–48 +1.01；Q 110 + 85%、冷却 5 秒后 +1.48 / +1.60（本包的瑞兹 +1.63 / +1.61、阿狸 +1.55 / +1.76、安妮 +1.65 / +1.36）。Q、E、W、R 一起加强是 +2.78（12 个种子），太强 |
+| 亚索联动 | 泽拉斯在中路时亚索大招每局对英雄放 0.94 次（同批闪电法师 3.40、丽桑卓 2.10；阿狸 1.27），只有 E 一个单体眩晕，不用调 |
+| 精灵图 | 11 个动作 62 帧：待机、移动（悬浮滑行）、普攻、Q 完整蓄力（`skill`）、Q 快速蓄力（`skill_quick`）、E→W（`skill2`）、R 起手（`ult`）、R 引导（`ult_loop`）、R 每一发（`ult_shot`）、受击、死亡（铠甲散落一地）。造型 31 × 44 px（用户：「泽拉斯尺寸可以做大一点」「可以44px？」），23 色。待机 6 帧同一张、第 2–4 帧整体下沉一行（腿尖不动）；头像截取点 (1, −41)，选人卡片位置 −7 |
+| 特效 | Codex 生图的 27 张（`import_xerath.py` 缩成游戏像素）：`league_xerath_fx` 普攻法球、强化法球、出手闪光、命中，Q 的蓄力、发射闪光、长短两种光束、命中，E 的出手、冲击法球、电爆、头顶的眩晕电光，W 的命中和减速，R 每一发的出手闪光、命中、结束；`league_xerath_big` W 的预警法阵和天降光柱，R 的飞升、引导时脚下的符文法阵、炮击的瞄准圈和天降光弹 |
+| 音效 | 英雄联盟的音效和配音（`tools/lol/extract_xerath.py`）：普攻出手、命中，法力澎湃，Q 蓄力、发射、命中，E 出手、命中，W 法阵、爆炸，R 开始、每一发、爆炸、结束；Q、E、R 各一句中文配音。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
+| 图标 | 官方技能图标（Q / E / R），从本地客户端提取，缩到 64×64 |
+
+重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
+
+```bash
+python tools/lol/extract_xerath.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstream-cli.exe 路径>"
+python tools/kit/build_xerath.py        # 技能数据，数字都在脚本的参数表 P 里；--nodes 看每棵技能树的节点数
+python tools/kit/setup_xerath.py        # 五种语言的文字、音效配置、共享文件里他的键（头像点和选人卡片点在脚本的 VIEW 里）
+python tools/art/design_xerath.py       # 造型：Codex 原稿 B 按格子读回（78 × 39），整行整列删到 44 行（脸不动）
+python tools/lol/native_pose.py assets/source/xerath/poses.json --out <渲染文件夹>   # 动作参考帧
+python tools/art/fix_xerath_strips.py   # 动作：Codex 用造型部件摆的动作条，加上施法时身体的前倾后仰
+python tools/art/import_native.py --hero xerath
+python tools/art/import_xerath.py       # 特效；--raw assets/source/xerath/codex_fx 先把生图原稿缩成游戏尺寸的原尺寸条
+python tools/art/preview_xerath.py
+```
+
+美术（原画的提示词见 [`assets/source/xerath/PICTURE_PROMPT.md`](assets/source/xerath/PICTURE_PROMPT.md)，造型的见 [`MODEL_PROMPTS.md`](assets/source/xerath/MODEL_PROMPTS.md)，动作的见 [`MODEL_STRIPS.md`](assets/source/xerath/MODEL_STRIPS.md)，特效的见 [`PROMPTS_FX.md`](assets/source/xerath/PROMPTS_FX.md)；Codex 的交付说明在 [`codex_picture/`](assets/source/xerath/codex_picture/)、[`codex_model/`](assets/source/xerath/codex_model/)、[`codex_strips/`](assets/source/xerath/codex_strips/)、[`codex_fx/`](assets/source/xerath/codex_fx/)）：
+
+- 原画：Codex 画了 A（英雄联盟的待机：悬浮，两臂垂下）、B（Q 蓄力），用户选 A。
+- 造型：Codex 自己删到 40 行的两版是隔行删出来的，碎成杂点；用户：「泽拉斯尺寸可以做大一点」「可以44px？」。改成把它的生图原稿按自己的格子读回（A 62 行、B 78 行），整行整列删到 44 行（兜帽和眼睛的行列不删），出了 A、B 宽窄几种和 B 50 行让用户挑，用户选「B44 宽」（31 × 44）。远侧的腿尖比近侧高两行，照原稿保留（悬浮、3/4 视角）。
+- 动作参考（`poses.json`）：镜头 yaw 45、pitch 20，镜像；头 2.2 倍；高度 44。普攻第 4 帧（第 10 tick）出手，Q 完整蓄力第 6 帧（第 54 tick）、快速第 4 帧（第 22 tick）发射，E 第 3 帧（第 10 tick）甩出，和技能数据一致。
+- 动作：Codex 这次没有重画身体，而是用造型自己的像素摆的（手臂拆成部件整块按 90° 转、平移，头逐格贴回），身体、肩甲、铁链、封印和腿每帧都是待机的。但施法时身体完全不动；按用户之前对蛮王、希维尔说的「僵硬」，`fix_xerath_strips.py` 照蛮王的做法加了前倾后仰：腰以上逐行最多挪 2 列（兜帽跟着下巴那一行整块平移，不错切），腿不动——甩法球和蓄力时后仰，出手时前倾，引导时略微前倾。死亡最后三帧旁边的几条孤立黑线（1–4 格的碎块）去掉了。
+- 特效用 Codex 画的 27 张（生图原稿，`import_xerath.py --raw`：每张按格子等分，每个游戏像素取覆盖的原稿像素里最多的颜色，颜色归到包里给每张的色阶——奥术青蓝、深蓝紫，光效外圈最暗的一档去掉）。Codex 自己说没做到的对称按规则补齐：光束上下镜像（红方往左飞时引擎会上下翻），眩晕、减速、引导法阵、飞升、结束这些不随朝向翻转的画面左右镜像；飞升的光柱在他身体的位置挖空，不盖住人。位置：出手闪光和法球从前爪（站位点右 18、上 15）出，Q 蓄力聚在举起的前爪（右 10、上 20）；W 的光柱和 R 的光弹是竖直的，放在落点上播放，不随方向转（红方不会颠倒）。技能数据里光束和冲击法球的出手高度对到前爪（`y_offset` −10000），追踪的普攻法球 8 格高（从更高的地方追踪会飞歪）。
+
+逐帧预览：[`docs/preview/league_xerath_frames.png`](docs/preview/league_xerath_frames.png)，特效：[`docs/preview/league_xerath_effects.png`](docs/preview/league_xerath_effects.png)。
 
 ## 英雄：赵信
 

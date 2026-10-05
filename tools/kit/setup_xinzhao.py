@@ -4,7 +4,7 @@
 
 Writes (in league/): text/champion.i18n (league_xinzhao in every language, description + skill_name),
 sound/sfx/league_xinzhao_*.sound_info, mod.override_info (every sound and clip), style/champion_view (face, centre and
-the ban/pick card's point once the sprite is in), mod.mod_info (0.63.0, Xin Zhao named). Only his keys change in the
+the ban/pick card's point once the sprite is in), mod.mod_info (0.64.0, Xin Zhao named). Only his keys change in the
 shared files. JSON: indent 2, CRLF, UTF-8. --check only prints each text's shown length against lint_mod's TOOLTIP_MAX.
 Names: Data Dragon 16.19.1 (zh_CN 赵信 / 果决, 三重爪击, 风斩电刺, 无畏冲锋, 新月护卫; zh_TW 趙信 / 鬥戰決心, 三重爪擊,
 風雷迅馳, 一騎當先, 新月無雙; ko 신 짜오 / 결심, 삼조격, 풍전참뢰, 무쌍돌격, 현월수호; ja シン・ジャオ / 不退転, 三槍撃, 風成雷鳴,
@@ -24,7 +24,7 @@ from build_xinzhao import P, lp  # noqa: E402
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 MOD = os.path.join(REPO, "league")
 ID = "league_xinzhao"
-VERSION = "0.63.0"
+VERSION = "0.64.0"
 ADi = "<i#asset/base/ui/banpick/champion_stat_icon:ad_0>"
 TOOLTIP_MAX = {"zh-hans": 130, "zh-hant": 130, "en": 334, "ja": 147, "ko": 185}
 O = "<#ff9028ff>"      # names, physical

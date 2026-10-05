@@ -1,0 +1,164 @@
+[
+  {
+    "id": "a_orb",
+    "first_prompt_number": 1,
+    "selected": "first",
+    "retry_prompt": null
+  },
+  {
+    "id": "a_orb_p",
+    "first_prompt_number": 2,
+    "selected": "first",
+    "retry_prompt": null
+  },
+  {
+    "id": "a_flash",
+    "first_prompt_number": 3,
+    "selected": "first",
+    "retry_prompt": null
+  },
+  {
+    "id": "a_hit",
+    "first_prompt_number": 4,
+    "selected": "first",
+    "retry_prompt": null
+  },
+  {
+    "id": "p_surge",
+    "first_prompt_number": 5,
+    "selected": "first",
+    "retry_prompt": null
+  },
+  {
+    "id": "p_hit",
+    "first_prompt_number": 6,
+    "selected": "first",
+    "retry_prompt": null
+  },
+  {
+    "id": "q_charge",
+    "first_prompt_number": 7,
+    "selected": "first",
+    "retry_prompt": null
+  },
+  {
+    "id": "q_charge_s",
+    "first_prompt_number": 8,
+    "selected": "first",
+    "retry_prompt": null
+  },
+  {
+    "id": "q_fire",
+    "first_prompt_number": 9,
+    "selected": "first",
+    "retry_prompt": null
+  },
+  {
+    "id": "q_beam",
+    "first_prompt_number": 10,
+    "selected": "first",
+    "retry_prompt": null
+  },
+  {
+    "id": "q_beam_s",
+    "first_prompt_number": 11,
+    "selected": "first",
+    "retry_prompt": null
+  },
+  {
+    "id": "q_hit",
+    "first_prompt_number": 12,
+    "selected": "first",
+    "retry_prompt": null
+  },
+  {
+    "id": "e_cast",
+    "first_prompt_number": 13,
+    "selected": "first",
+    "retry_prompt": null
+  },
+  {
+    "id": "e_orb",
+    "first_prompt_number": 14,
+    "selected": "first",
+    "retry_prompt": null
+  },
+  {
+    "id": "e_hit",
+    "first_prompt_number": 15,
+    "selected": "first",
+    "retry_prompt": null
+  },
+  {
+    "id": "e_stun",
+    "first_prompt_number": 16,
+    "selected": "first",
+    "retry_prompt": null
+  },
+  {
+    "id": "w_mark",
+    "first_prompt_number": 17,
+    "selected": "first",
+    "retry_prompt": null
+  },
+  {
+    "id": "w_blast",
+    "first_prompt_number": 18,
+    "selected": "first",
+    "retry_prompt": null
+  },
+  {
+    "id": "w_hit",
+    "first_prompt_number": 19,
+    "selected": "first",
+    "retry_prompt": null
+  },
+  {
+    "id": "w_slow",
+    "first_prompt_number": 20,
+    "selected": "retry",
+    "retry_prompt": "Reference image1 contains League Xerath original VFX shape families, many grayscale. Use relevant shape family ONLY, ignore its captions, render as crisp bright pixel art in requested colors. Reference image2 is hero SCALE ONLY (44gamepixels tall), do NOT draw characters or rulers or text. Reference image3 is effect origin map ONLY, do NOT draw people, labels or crosses. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, beams, lightning, runes, smoke or sparks (only the solid stone shards get a 1-square dark outline #0A0A12), BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a deep blue-violet ramp (#8AA8FF, #5A64E8, #3A34B0, #241C70, #120C3A) and an arcane cyan-blue ramp (#FFFFFF, #E0FCFF, #9AF2FF, #4CD4FF, #1E8CF0, #1A48C0).\nEffect: a SLOW MARK at a figure's feet (do NOT draw the figure; SYMMETRIC LEFT AND RIGHT), 4 frames, a seamless loop: a flattened ellipse of deep blue-violet light on the ground (twice as wide as tall, 16 squares wide), 4 short cyan streaks sinking DOWN into it a square each frame.\nLayout: one horizontal row of 4 equal 9:4 cells, image size 2304x256 (each cell 576x256); the ellipse at the bottom middle of every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n CRITICAL: exactly 4 sequential animation frames in ONE horizontal row of equally sized cells. Do not omit or duplicate frames. Only the effect, NO character, NO extra decorative panel or giant composition. Clean hard square pixels. Empty background with alpha0, no checkerboard or background glow. Requested each cell aspect 576:256. MANDATORY: every frame bilaterally mirror symmetric left-to-right, including minor sparks. Hollow center where the character would stand. No person silhouette.\nCRITICAL REVISION: FOUR short cyan sinking streaks, two on left and two on right, mirrored around an EMPTY transparent middle. Keep ellipse and streak heights nearly constant in all four frames, shift streaks downward only one pixel each step, seamless first-last transition, NO tall pillars, NO flame. Strict bilateral symmetry. Ring exactly width twice height."
+  },
+  {
+    "id": "r_rise",
+    "first_prompt_number": 21,
+    "selected": "first",
+    "retry_prompt": "Reference image1 contains League Xerath original VFX shape families, many grayscale. Use relevant shape family ONLY, ignore its captions, render as crisp bright pixel art in requested colors. Reference image2 is hero SCALE ONLY (44gamepixels tall), do NOT draw characters or rulers or text. Reference image3 is effect origin map ONLY, do NOT draw people, labels or crosses. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, beams, lightning, runes, smoke or sparks (only the solid stone shards get a 1-square dark outline #0A0A12), BRIGHT colours (each shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an arcane cyan-blue ramp (#FFFFFF, #E0FCFF, #9AF2FF, #4CD4FF, #1E8CF0, #1A48C0) and a deep blue-violet ramp (#8AA8FF, #5A64E8, #3A34B0, #241C70, #120C3A).\nEffect: an ASCENSION round a floating figure (do NOT draw the figure; leave its place empty; SYMMETRIC LEFT AND RIGHT), 6 frames: 1 a flattened rune circle (twice as wide as tall, 40 squares wide) lights up on the ground round the standing point; 2-3 a column of white-cyan light rising from it past the top of the cell, behind the figure's place, its edges only (the figure's place inside stays mostly empty), glowing blue runes and a few small outlined stone shards rising round it; 4 the brightest; 5-6 the column thinning, runes floating at shoulder height.\nLayout: one horizontal row of 6 equal 13:18 cells, image size 2496x576 (each cell 416x576); the standing point 8 squares (64 px) above the bottom, horizontally centered, in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.\n CRITICAL: exactly 6 sequential animation frames in ONE horizontal row of equally sized cells. Do not omit or duplicate frames. Only the effect, NO character, NO extra decorative panel or giant composition. Clean hard square pixels. Empty background with alpha0, no checkerboard or background glow. Requested each cell aspect 416:576. MANDATORY: every frame bilaterally mirror symmetric left-to-right, including minor sparks. Hollow center where the character would stand. No person silhouette.\nCRITICAL REVISION: Each of six frames must have a completely empty transparent central vertical corridor where a champion stands, at least 35% of cell width from ground to top. Only TWO side-edge columns, never a full column, never white fill or glow in this middle corridor. No central star on ground. Strict bilateral symmetry. Stone fragments only at outside edges. Six frames from small hollow ring to side pillars to brighter side pillars to fade."
+  },
+  {
+    "id": "r_chan",
+    "first_prompt_number": 22,
+    "selected": "first",
+    "retry_prompt": null
+  },
+  {
+    "id": "r_cast_shot",
+    "first_prompt_number": 23,
+    "selected": "first",
+    "retry_prompt": null
+  },
+  {
+    "id": "r_end",
+    "first_prompt_number": 24,
+    "selected": "first",
+    "retry_prompt": null
+  },
+  {
+    "id": "r_mark",
+    "first_prompt_number": 25,
+    "selected": "first",
+    "retry_prompt": null
+  },
+  {
+    "id": "r_bolt",
+    "first_prompt_number": 26,
+    "selected": "first",
+    "retry_prompt": null
+  },
+  {
+    "id": "r_hit",
+    "first_prompt_number": 27,
+    "selected": "first",
+    "retry_prompt": null
+  }
+]

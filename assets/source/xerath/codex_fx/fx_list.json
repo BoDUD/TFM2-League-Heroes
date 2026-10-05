@@ -1,0 +1,137 @@
+[
+ {
+  "file": "xerath_fx_a_orb.png",
+  "binding": "view_projectiles `league_xerath_a_orb`（朝飞行方向转，画成朝右飞）",
+  "size": "14 × 8"
+ },
+ {
+  "file": "xerath_fx_a_orb_p.png",
+  "binding": "view_projectiles `league_xerath_a_orb_p`（朝飞行方向转，画成朝右飞）",
+  "size": "20 × 12"
+ },
+ {
+  "file": "xerath_fx_a_flash.png",
+  "binding": "view_effects `league_xerath_a_flash`（施法者身上，不跟随；格子中心放到出手帧的前爪）",
+  "size": "12"
+ },
+ {
+  "file": "xerath_fx_a_hit.png",
+  "binding": "view_effects `league_xerath_a_hit`（跟随，画在人物上面）",
+  "size": "14"
+ },
+ {
+  "file": "xerath_fx_p_surge.png",
+  "binding": "view_effects `league_xerath_p_surge`（施法者身上，不跟随；格子中心放到出手帧的前爪）",
+  "size": "18"
+ },
+ {
+  "file": "xerath_fx_p_hit.png",
+  "binding": "view_effects `league_xerath_p_hit`（跟随，画在人物上面）",
+  "size": "20"
+ },
+ {
+  "file": "xerath_fx_q_charge.png",
+  "binding": "view_effects `league_xerath_q_charge`（施法者身上，跟随；格子里的站位点放到他脚下）",
+  "size": "56 × 56"
+ },
+ {
+  "file": "xerath_fx_q_charge_s.png",
+  "binding": "view_effects `league_xerath_q_charge_s`（施法者身上，跟随；站位点放到他脚下）",
+  "size": "56 × 56"
+ },
+ {
+  "file": "xerath_fx_q_fire.png",
+  "binding": "view_effects `league_xerath_q_fire`（施法者身上，不跟随；格子中心放到出手帧的前爪）",
+  "size": "24 × 16"
+ },
+ {
+  "file": "xerath_fx_q_beam.png",
+  "binding": "view_projectiles `league_xerath_q_beam`（朝飞行方向转，画成朝右飞；上下对称）",
+  "size": "56 × 12"
+ },
+ {
+  "file": "xerath_fx_q_beam_s.png",
+  "binding": "view_projectiles `league_xerath_q_beam_s`（朝飞行方向转，画成朝右飞；上下对称）",
+  "size": "36 × 10"
+ },
+ {
+  "file": "xerath_fx_q_hit.png",
+  "binding": "view_effects `league_xerath_q_hit`（跟随，画在人物上面）",
+  "size": "14"
+ },
+ {
+  "file": "xerath_fx_e_cast.png",
+  "binding": "view_effects `league_xerath_e_cast`（施法者身上，不跟随；格子中心放到出手帧的前爪）",
+  "size": "16"
+ },
+ {
+  "file": "xerath_fx_e_orb.png",
+  "binding": "view_projectiles `league_xerath_e_orb`（朝飞行方向转，画成朝右飞）",
+  "size": "16 × 12"
+ },
+ {
+  "file": "xerath_fx_e_hit.png",
+  "binding": "view_effects `league_xerath_e_hit`（跟随，画在人物上面）",
+  "size": "22"
+ },
+ {
+  "file": "xerath_fx_e_stun.png",
+  "binding": "view_buffs `league_xerath_e_stun`（循环，画在人物上面，头顶）",
+  "size": "14 × 8"
+ },
+ {
+  "file": "xerath_fx_w_mark.png",
+  "binding": "view_effects `league_xerath_w_mark`（BIG，落点，不转；画在人物下面）",
+  "size": "56 × 28"
+ },
+ {
+  "file": "xerath_fx_w_blast.png",
+  "binding": "view_effects `league_xerath_w_blast`（BIG，落点，不转；画在人物上面）",
+  "size": "44 × 72"
+ },
+ {
+  "file": "xerath_fx_w_hit.png",
+  "binding": "view_effects `league_xerath_w_hit`（跟随，画在人物上面）",
+  "size": "16"
+ },
+ {
+  "file": "xerath_fx_w_slow.png",
+  "binding": "view_buffs `league_xerath_w_slow`（循环，画在脚下）",
+  "size": "18 × 8"
+ },
+ {
+  "file": "xerath_fx_r_rise.png",
+  "binding": "view_effects `league_xerath_r_rise`（BIG，施法者身上，跟随；格子里的站位点放到他脚下）",
+  "size": "52 × 72"
+ },
+ {
+  "file": "xerath_fx_r_chan.png",
+  "binding": "view_buffs `league_xerath_r_chan`（BIG，循环，画在人物下面）",
+  "size": "48 × 24"
+ },
+ {
+  "file": "xerath_fx_r_cast_shot.png",
+  "binding": "view_effects `league_xerath_r_cast_shot`（施法者身上，不跟随；格子中心放到出手帧的前爪）",
+  "size": "16 × 20"
+ },
+ {
+  "file": "xerath_fx_r_end.png",
+  "binding": "view_effects `league_xerath_r_end`（施法者身上，不跟随；格子里的站位点放到他脚下）",
+  "size": "32 × 48"
+ },
+ {
+  "file": "xerath_fx_r_mark.png",
+  "binding": "view_effects `league_xerath_r_mark`（BIG，落点，不转；画在人物下面）",
+  "size": "40 × 20"
+ },
+ {
+  "file": "xerath_fx_r_bolt.png",
+  "binding": "view_effects `league_xerath_r_bolt`（BIG，落点，不转；画在人物上面）",
+  "size": "48 × 84"
+ },
+ {
+  "file": "xerath_fx_r_hit.png",
+  "binding": "view_effects `league_xerath_r_hit`（跟随，画在人物上面）",
+  "size": "18"
+ }
+]
