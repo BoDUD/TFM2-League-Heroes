@@ -17,8 +17,9 @@ squares match the others'), the rest sized to a 34 px hero.
 Codex's wind wall (22) is not used: the user dropped Wind Wall from the kit.
 
 The second step anchors each strip on the union of its frames' drawings: hits on the target's chest,
-the Q thrust centred on its rectangle (the game turns it to the cast direction), the whirlwind with
-its foot on the ground and its middle on the projectile, the knock-up rising from the target's feet,
+the Q thrust centred on its rectangle (the game turns it to the cast direction), the whirlwind's eye on
+the projectile (drawn from above since 2026-10-05 by tools/art/yasuo_whirl.py: Codex's upright funnel flew
+upside down leftward, on the red side), the knock-up rising from the target's feet,
 the shield and the R slashes around the body, the Q-ready ribbons at the waist, the EQ rings round
 Yasuo's middle. Views are drawn at the unit's pivot, 11 px above the feet line. No palette or
 outline pass on the sheets.
@@ -36,6 +37,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scripts"))
 import strips as G  # noqa: E402
+sys.path.insert(0, HERE)
+import yasuo_whirl as W  # noqa: E402
 
 SRC = os.path.join(ROOT, "assets", "source", "yasuo")
 MOD = os.path.join(ROOT, "league")
@@ -53,7 +56,7 @@ RAW = {
     "shield": (6, 0.1),
     "q_ready": (6, 0.1),
     "q_thrust": (4, 0.088),          # the spear ~510 source px -> 45 px
-    "tornado": (6, 0.08),            # ~300 -> 24 px
+    # (the whirlwind's strip is drawn by tools/art/yasuo_whirl.py since 2026-10-05, not read from Codex's funnel)
     "eq": (5, 0.0735),               # enlarged 2x on import: ring ~50 px
     "eq3": (6, 0.08),                # 2x: ring ~50 px
     "r_slash": (8, 0.1),
@@ -123,8 +126,9 @@ FX = {
     "league_yasuo_big": {
         # the rectangle's view is centred on it and turned to the cast direction
         "q_thrust": ("q_thrust", 4, 1, union(0.5, 0.5), (0, 0), [55] * 4),
-        # a projectile flies at the pivot's height: the foot 11 px below it, on the ground
-        "tornado": ("tornado", 6, 1, union(0.5, 0.65), (0, 0), [60] * 6),
+        # the whirlwind seen from above (tools/art/yasuo_whirl.py): its eye on the projectile, which flies at the
+        # pivot's height; the picture is turned with the flight, the same at every turn
+        "tornado": ("tornado", 6, 1, lambda fs: [(W.EYE[0] + 0.5, W.EYE[1] + 0.5)] * len(fs), (0, 0), [60] * 6),
         "eq": ("eq", 5, 2, union(0.5, 0.5), (0, 0), [60] * 5),
         # the ring on the ground round his feet, the column rising out of it
         "eq3": ("eq3", 6, 2, union(0.5, 0.9), FEET, [70] * 6),
