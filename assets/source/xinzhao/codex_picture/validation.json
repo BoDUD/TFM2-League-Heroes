@@ -1,0 +1,38 @@
+{
+  "xinzhao-model-A.png": {
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      254
+    ],
+    "visible_bbox_alpha_128": [
+      96,
+      84,
+      1440,
+      950
+    ],
+    "transparent_pixels": 1219565
+  },
+  "xinzhao-model-B.png": {
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      254
+    ],
+    "visible_bbox_alpha_128": [
+      78,
+      11,
+      1477,
+      995
+    ],
+    "transparent_pixels": 1173286
+  }
+}
