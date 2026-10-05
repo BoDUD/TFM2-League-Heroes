@@ -409,10 +409,10 @@
       },
       "league_alistar": {
         "name": "阿利斯塔",
-        "attack": "用双拳重击。被动<#ff9028ff>凯旋怒吼<>：控制命中敌方英雄<#ffb900ff>3次<>后怒吼，回复自己<#7cfc00ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>30%<>、周围友方英雄<#7cfc00ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>40%<>生命。",
-        "skill": "<#ff9028ff>践踏<>接<#ff9028ff>大地粉碎<>：先践踏<#ffb900ff>3秒<>（每脚<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<>），再砸地，周围敌人受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法伤害<>并<#ef5350ff>击飞1秒<>。踩中英雄<#ffb900ff>5次<>后，下次普攻<#ef5350ff>眩晕1秒<>。",
-        "skill2": "<#ff9028ff>野蛮冲撞<>接<#ff9028ff>大地粉碎<>：冲向敌方英雄，撞退并造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法伤害<>，随即砸地<#ef5350ff>击飞<>周围敌人，同时开始践踏。",
-        "ult": "交战时怒吼：<#ef5350ff>免疫控制1秒<>，<#ffb900ff>7秒<>内受到的伤害降低<#ffb900ff>60%<>。"
+        "attack": "用双拳重击。被动<#ff9028ff>凯旋怒吼<>：控制命中敌方英雄<#ffb900ff>3次<>后怒吼，回复自己<#7cfc00ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>20%<>、周围友方英雄<#7cfc00ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>30%<>生命。",
+        "skill": "<#ff9028ff>践踏<>接<#ff9028ff>大地粉碎<>：先践踏<#ffb900ff>3秒<>（每脚<#a974ffff>8<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6%<>），再砸地，周围敌人受到<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法伤害<>并<#ef5350ff>击飞1秒<>。踩中英雄<#ffb900ff>5次<>后，下次普攻<#ef5350ff>眩晕1秒<>。",
+        "skill2": "<#ff9028ff>野蛮冲撞<>接<#ff9028ff>大地粉碎<>：冲向敌方英雄，撞退并造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法伤害<>，随即砸地<#ef5350ff>击飞<>周围敌人，同时开始践踏。",
+        "ult": "交战时怒吼：<#ef5350ff>免疫控制1秒<>，<#ffb900ff>7秒<>内受到的伤害降低<#ffb900ff>50%<>。"
       }
     },
     "skill_name": {
@@ -1123,10 +1123,10 @@
       },
       "league_alistar": {
         "name": "亞歷斯塔",
-        "attack": "用雙拳重擊。被動<#ff9028ff>勝利怒吼<>：控制命中敵方英雄<#ffb900ff>3次<>後怒吼，回復自己<#7cfc00ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>30%<>、周圍友方英雄<#7cfc00ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>40%<>生命。",
-        "skill": "<#ff9028ff>蠻牛之力<>接<#ff9028ff>大地粉碎<>：先踐踏<#ffb900ff>3秒<>（每腳<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<>），再砸地，周圍敵人受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法傷害<>並<#ef5350ff>擊飛1秒<>。踩中英雄<#ffb900ff>5次<>後，下次普攻<#ef5350ff>暈眩1秒<>。",
-        "skill2": "<#ff9028ff>野蠻衝撞<>接<#ff9028ff>大地粉碎<>：衝向敵方英雄，撞退並造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法傷害<>，隨即砸地<#ef5350ff>擊飛<>周圍敵人，同時開始踐踏。",
-        "ult": "交戰時怒吼：<#ef5350ff>免疫控制1秒<>，<#ffb900ff>7秒<>內受到的傷害降低<#ffb900ff>60%<>。"
+        "attack": "用雙拳重擊。被動<#ff9028ff>勝利怒吼<>：控制命中敵方英雄<#ffb900ff>3次<>後怒吼，回復自己<#7cfc00ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>20%<>、周圍友方英雄<#7cfc00ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>30%<>生命。",
+        "skill": "<#ff9028ff>蠻牛之力<>接<#ff9028ff>大地粉碎<>：先踐踏<#ffb900ff>3秒<>（每腳<#a974ffff>8<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6%<>），再砸地，周圍敵人受到<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法傷害<>並<#ef5350ff>擊飛1秒<>。踩中英雄<#ffb900ff>5次<>後，下次普攻<#ef5350ff>暈眩1秒<>。",
+        "skill2": "<#ff9028ff>野蠻衝撞<>接<#ff9028ff>大地粉碎<>：衝向敵方英雄，撞退並造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法傷害<>，隨即砸地<#ef5350ff>擊飛<>周圍敵人，同時開始踐踏。",
+        "ult": "交戰時怒吼：<#ef5350ff>免疫控制1秒<>，<#ffb900ff>7秒<>內受到的傷害降低<#ffb900ff>50%<>。"
       }
     },
     "skill_name": {
@@ -1837,10 +1837,10 @@
       },
       "league_alistar": {
         "name": "Alistar",
-        "attack": "Pounds with both fists. Passive <#ff9028ff>Triumphant Roar<>: after his crowd control lands on enemy champions <#ffb900ff>3 times<> he roars, healing himself <#7cfc00ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>30%<> and allied champions nearby <#7cfc00ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>40%<>.",
-        "skill": "<#ff9028ff>Trample<> into <#ff9028ff>Pulverize<>: he tramples for <#ffb900ff>3s<> (<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<> a stomp), then smashes the ground: <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>magic damage<> and a <#ef5350ff>1s knock-up<> around him. After <#ffb900ff>5<> stomps on champions his next attack <#ef5350ff>stuns<> for 1s.",
-        "skill2": "<#ff9028ff>Headbutt<> into <#ff9028ff>Pulverize<>: charges an enemy champion, knocks him back for <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>magic damage<>, then smashes the ground, <#ef5350ff>knocking up<> enemies around him. Starts Trample too.",
-        "ult": "Roars in a fight: <#ef5350ff>immune to crowd control<> for <#ffb900ff>1s<>, takes <#ffb900ff>60%<> less damage for <#ffb900ff>7s<>."
+        "attack": "Pounds with both fists. Passive <#ff9028ff>Triumphant Roar<>: after his crowd control lands on enemy champions <#ffb900ff>3 times<> he roars, healing himself <#7cfc00ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>20%<> and allied champions nearby <#7cfc00ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>30%<>.",
+        "skill": "<#ff9028ff>Trample<> into <#ff9028ff>Pulverize<>: he tramples for <#ffb900ff>3s<> (<#a974ffff>8<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6%<> a stomp), then smashes the ground: <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>magic damage<> and a <#ef5350ff>1s knock-up<> around him. After <#ffb900ff>5<> stomps on champions his next attack <#ef5350ff>stuns<> for 1s.",
+        "skill2": "<#ff9028ff>Headbutt<> into <#ff9028ff>Pulverize<>: charges an enemy champion, knocks him back for <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>magic damage<>, then smashes the ground, <#ef5350ff>knocking up<> enemies around him. Starts Trample too.",
+        "ult": "Roars in a fight: <#ef5350ff>immune to crowd control<> for <#ffb900ff>1s<>, takes <#ffb900ff>50%<> less damage for <#ffb900ff>7s<>."
       }
     },
     "skill_name": {
@@ -2551,10 +2551,10 @@
       },
       "league_alistar": {
         "name": "알리스타",
-        "attack": "두 주먹으로 내리칩니다. 기본 지속 효과 <#ff9028ff>승리의 포효<>: 군중 제어를 적 챔피언에게 <#ffb900ff>3번<> 적중시키면 포효해 자신은 <#7cfc00ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>30%<>, 주변 아군 챔피언은 <#7cfc00ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>40%<>의 체력을 회복합니다.",
-        "skill": "<#ff9028ff>짓밟기<> 후 <#ff9028ff>분쇄<>: <#ffb900ff>3초<> 동안 짓밟고(한 번에 <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<>) 땅을 내리쳐 주변 적에게 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>의 <#a974ffff>마법 피해<>를 입히고 <#ef5350ff>1초 띄워 올립니다<>. 챔피언을 <#ffb900ff>5번<> 밟으면 다음 기본 공격이 <#ef5350ff>1초 기절<>시킵니다.",
-        "skill2": "<#ff9028ff>박치기<> 후 <#ff9028ff>분쇄<>: 적 챔피언에게 돌진해 밀쳐내며 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>의 <#a974ffff>마법 피해<>를 입히고, 곧바로 땅을 내리쳐 주변 적을 <#ef5350ff>띄워 올립니다<>. 짓밟기도 시작합니다.",
-        "ult": "교전 중 포효: <#ffb900ff>1초<> 동안 <#ef5350ff>군중 제어 면역<>, <#ffb900ff>7초<> 동안 받는 피해가 <#ffb900ff>60%<> 감소합니다."
+        "attack": "두 주먹으로 내리칩니다. 기본 지속 효과 <#ff9028ff>승리의 포효<>: 군중 제어를 적 챔피언에게 <#ffb900ff>3번<> 적중시키면 포효해 자신은 <#7cfc00ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>20%<>, 주변 아군 챔피언은 <#7cfc00ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>30%<>의 체력을 회복합니다.",
+        "skill": "<#ff9028ff>짓밟기<> 후 <#ff9028ff>분쇄<>: <#ffb900ff>3초<> 동안 짓밟고(한 번에 <#a974ffff>8<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6%<>) 땅을 내리쳐 주변 적에게 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>의 <#a974ffff>마법 피해<>를 입히고 <#ef5350ff>1초 띄워 올립니다<>. 챔피언을 <#ffb900ff>5번<> 밟으면 다음 기본 공격이 <#ef5350ff>1초 기절<>시킵니다.",
+        "skill2": "<#ff9028ff>박치기<> 후 <#ff9028ff>분쇄<>: 적 챔피언에게 돌진해 밀쳐내며 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>의 <#a974ffff>마법 피해<>를 입히고, 곧바로 땅을 내리쳐 주변 적을 <#ef5350ff>띄워 올립니다<>. 짓밟기도 시작합니다.",
+        "ult": "교전 중 포효: <#ffb900ff>1초<> 동안 <#ef5350ff>군중 제어 면역<>, <#ffb900ff>7초<> 동안 받는 피해가 <#ffb900ff>50%<> 감소합니다."
       }
     },
     "skill_name": {
@@ -3265,10 +3265,10 @@
       },
       "league_alistar": {
         "name": "アリスター",
-        "attack": "両拳で殴りつける。パッシブ <#ff9028ff>戦士の咆哮<>：行動妨害を敵チャンピオンに<#ffb900ff>3回<>当てると咆哮し、自身は<#7cfc00ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>30%<>、周囲の味方チャンピオンは<#7cfc00ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>40%<>回復。",
-        "skill": "<#ff9028ff>踏破<>から<#ff9028ff>圧砕<>：<#ffb900ff>3秒<>踏み鳴らし（1回<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>12%<>）、地面を叩いて周囲の敵に<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>1秒のノックアップ<>。チャンピオンを<#ffb900ff>5回<>踏むと次の通常攻撃が<#ef5350ff>1秒スタン<>。",
-        "skill2": "<#ff9028ff>頭突き<>から<#ff9028ff>圧砕<>：敵チャンピオンに突進してノックバックし<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の<#a974ffff>魔法ダメージ<>、すぐ地面を叩いて周囲の敵を<#ef5350ff>ノックアップ<>。踏破も始める。",
-        "ult": "戦闘中に咆哮：<#ffb900ff>1秒<><#ef5350ff>行動妨害無効<>、<#ffb900ff>7秒<>間受けるダメージ<#ffb900ff>60%<>軽減。"
+        "attack": "両拳で殴りつける。パッシブ <#ff9028ff>戦士の咆哮<>：行動妨害を敵チャンピオンに<#ffb900ff>3回<>当てると咆哮し、自身は<#7cfc00ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>20%<>、周囲の味方チャンピオンは<#7cfc00ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>30%<>回復。",
+        "skill": "<#ff9028ff>踏破<>から<#ff9028ff>圧砕<>：<#ffb900ff>3秒<>踏み鳴らし（1回<#a974ffff>8<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6%<>）、地面を叩いて周囲の敵に<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>1秒のノックアップ<>。チャンピオンを<#ffb900ff>5回<>踏むと次の通常攻撃が<#ef5350ff>1秒スタン<>。",
+        "skill2": "<#ff9028ff>頭突き<>から<#ff9028ff>圧砕<>：敵チャンピオンに突進してノックバックし<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の<#a974ffff>魔法ダメージ<>、すぐ地面を叩いて周囲の敵を<#ef5350ff>ノックアップ<>。踏破も始める。",
+        "ult": "戦闘中に咆哮：<#ffb900ff>1秒<><#ef5350ff>行動妨害無効<>、<#ffb900ff>7秒<>間受けるダメージ<#ffb900ff>50%<>軽減。"
       }
     },
     "skill_name": {
