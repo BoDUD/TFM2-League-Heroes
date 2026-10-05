@@ -110,9 +110,9 @@ def cells(name, n):
 
 
 # spots from the pivot (game px, x right, y down), measured on the finished strips (pack_tryndamere_fx.SHOTS)
-WAIST = (7, -2)             # E 3: the middle of the spin (canvas (71, 86), the pivot (64, 88))
-BODY = (6, 10)              # a ring under him centred on his torso, not on the middle of his wide stance
-CHEST = (6, -8)             # Q 3: the chest (canvas (70, 80))
+WAIST = (6, -2)             # E 3: the middle of the spin (canvas (71, 86), the pivot (64, 88))
+BODY = (5, 10)              # a ring under him centred on his torso, not on the middle of his wide stance
+CHEST = (6, -7)             # Q 3: the chest (canvas (70, 80))
 HIT = (0, -11)              # a hit on the upper body of a 36-44 px unit
 OVER = (0, -32)             # the attack-down icon's foot over the head (the idle tops 28 over the pivot)
 FEET = (0, 10)              # a ring on the ground round a unit's feet (the soles 11 under the pivot)

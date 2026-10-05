@@ -27,6 +27,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 import rigkit as K  # noqa: E402
+import design_tryndamere as DT  # noqa: E402
 
 NATIVE = os.path.join(ROOT, "assets", "source", "native")
 DESIGN = os.path.join(NATIVE, "tryndamere_native.png")
@@ -39,6 +40,8 @@ MS = {"idle": [200] * 6, "run": [125] * 8, "attack": [50, 50, 50, 50, 100, 100],
 TAGS = list(MS)
 
 # ---------------------------------------------------------------------------------------------- parts (canvas rows)
+# Every part, point and row below is on the 40-row design's canvas (design_tryndamere step 5); the design in game is
+# the smaller one (step 6, 37 rows: 「蛮王还可以缩小点吧」), and small() maps them onto it by the rows and columns kept.
 # the greatsword: guard, orb and blade, the hand's squares left out (rows 83-99; right of col 54 below row 90 is the
 # near leg)
 SWORD = {83: (51, 55), 84: (52, 57), 85: (49, 57), 86: (48, 57), 87: (49, 57), 88: (46, 56), 89: (46, 56),
@@ -69,9 +72,9 @@ class Parts:
         D = K.Design(DESIGN)
         self.D = D
         a = D.a
-        sword_m = K.mask_rows(SWORD)
-        arm_m = K.mask_rows(BACK_ARM)
-        front_m = K.mask_rows(FRONT_ARM)
+        sword_m = mask(SWORD)
+        arm_m = mask(BACK_ARM)
+        front_m = mask(FRONT_ARM)
         self.sword_m, self.arm_m, self.front_m = sword_m, arm_m, front_m
         # the sword on its own (thrown in the death) in its four exact diagonal directions, the grip as the joint
         self.dirs = K.orientations(K.Part.from_canvas(a, sword_m, GRIP))
@@ -170,7 +173,7 @@ DROP = [1, 0, 0, 0, 1, 0, 0, 0]
 
 def run(P, k):
     a = P.D.a
-    near, far = K.mask_rows(NEAR_LEG), K.mask_rows(FAR_LEG)
+    near, far = mask(NEAR_LEG), mask(FAR_LEG)
     trunk = a.copy()
     trunk[near | far] = 0
     s, d = SWING[k], DROP[k]
@@ -223,6 +226,38 @@ def dead(P, k):
         K.place(c, P.dirs[sword[1]], sword[0], under=True)
     c[P.D.soles + 1:] = 0
     return K.shifted(c, dx, 0)
+
+
+# ---------------------------------------------------------------------------------------------- the 40 -> 37 map
+_ROWS, _COLS, _OY, _OX = DT.small_map()
+
+
+def _axis(v, kept, first):
+    """A continuous coordinate on the 40-row canvas -> the small canvas (a deleted line snaps to the next kept)."""
+    i = math.floor(v)
+    n = sum(1 for k in kept if k < i)
+    return first + n + ((v - i) if i in kept else 0.0)
+
+
+def pt(p):
+    return (_axis(p[0], _COLS, _OX), _axis(p[1], _ROWS, _OY))
+
+
+def row(r):
+    return int(round(_axis(r, _ROWS, _OY)))
+
+
+def mask(spec):
+    """A part's mask (rows: (first, last) column on the 40-row canvas) on the small canvas."""
+    m40 = K.mask_rows(spec)
+    out = np.zeros_like(m40)
+    out[_OY:_OY + len(_ROWS), _OX:_OX + len(_COLS)] = m40[np.ix_(_ROWS, _COLS)]
+    return out
+
+
+SHOULDER, FRONT_PIVOT, GRIP = pt(SHOULDER), pt(FRONT_PIVOT), pt(GRIP)
+HIP_ROW, NECK_ROW, HIP, ANKLE, KNEES = row(HIP_ROW), row(NECK_ROW), row(HIP), row(ANKLE), row(KNEES)
+DEAD = [d if d is None or isinstance(d[2], int) else (d[0], d[1], (pt(d[2][0]), d[2][1])) for d in DEAD]
 
 
 def frames(P, tag):

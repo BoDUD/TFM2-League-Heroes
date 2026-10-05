@@ -718,8 +718,8 @@
     },
     "league_tryndamere": {
       "face": {
-        "x": 11,
-        "y": -38
+        "x": 9,
+        "y": -35
       },
       "center": {
         "x": 0,
