@@ -560,7 +560,7 @@
           "type": "TargetProjectile",
           "name": "league_lissandra_a_bolt",
           "speed": 5000,
-          "y_offset": -2500,
+          "y_offset": -8000,
           "applied_target": "Enemy",
           "applied_effects": [
             {
@@ -594,7 +594,7 @@
           "type": "TargetProjectile",
           "name": "league_lissandra_a_twin",
           "speed": 5000,
-          "y_offset": -2500,
+          "y_offset": -8000,
           "applied_target": "EnemyChampion",
           "applied_effects": [
             {
@@ -1357,7 +1357,7 @@
                       "radius": 7000
                     }
                   },
-                  "y_offset": -1500
+                  "y_offset": -15000
                 },
                 {
                   "type": "LinearProjectile",
@@ -1413,7 +1413,7 @@
                       "radius": 7000
                     }
                   },
-                  "y_offset": -1500
+                  "y_offset": -15000
                 },
                 {
                   "type": "ParabolicProjectile",
@@ -1593,7 +1593,7 @@
                         "radius": 7000
                       }
                     },
-                    "y_offset": -1500
+                    "y_offset": -15000
                   },
                   {
                     "type": "LinearProjectile",
@@ -1649,7 +1649,7 @@
                         "radius": 7000
                       }
                     },
-                    "y_offset": -1500
+                    "y_offset": -15000
                   }
                 ]
               }

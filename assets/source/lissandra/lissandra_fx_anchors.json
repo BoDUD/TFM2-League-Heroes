@@ -1,0 +1,23 @@
+{
+  "a_bolt": {"cell": [25, 7], "anchor": [12, 3], "frames": 4},
+  "a_hit": {"cell": [15, 15], "anchor": [7, 7], "frames": 4},
+  "q_cast": {"cell": [35, 13], "anchor": [17, 6], "frames": 4},
+  "q_shard": {"cell": [49, 15], "anchor": [24, 7], "frames": 4},
+  "q_hit": {"cell": [19, 19], "anchor": [9, 9], "frames": 5},
+  "slow": {"cell": [21, 31], "anchor": [10, 15], "frames": 4},
+  "w_ring": {"cell": [63, 67], "anchor": [31, 33], "frames": 6},
+  "w_hit": {"cell": [17, 17], "anchor": [8, 8], "frames": 4},
+  "w_root": {"cell": [23, 31], "anchor": [11, 15], "frames": 4},
+  "e_cast": {"cell": [35, 15], "anchor": [17, 7], "frames": 4},
+  "e_claw": {"cell": [41, 15], "anchor": [20, 7], "frames": 4},
+  "e_hit": {"cell": [19, 17], "anchor": [9, 8], "frames": 4},
+  "e_port": {"cell": [37, 93], "anchor": [18, 46], "frames": 5},
+  "r_cast": {"cell": [37, 115], "anchor": [18, 57], "frames": 5},
+  "r_tomb": {"cell": [35, 95], "anchor": [17, 47], "frames": 4},
+  "r_burst": {"cell": [59, 71], "anchor": [29, 35], "frames": 6},
+  "r_field": {"cell": [63, 31], "anchor": [31, 15], "frames": 4},
+  "r_self_cast": {"cell": [37, 89], "anchor": [18, 44], "frames": 4},
+  "r_stasis": {"cell": [39, 103], "anchor": [19, 51], "frames": 4},
+  "p_thrall": {"cell": [27, 67], "anchor": [13, 33], "frames": 8},
+  "p_burst": {"cell": [53, 141], "anchor": [26, 70], "frames": 6}
+}
