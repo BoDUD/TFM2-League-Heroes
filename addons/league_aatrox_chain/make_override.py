@@ -166,7 +166,12 @@ def main():
 
     # the main pack's ring at the chain's stop: its picture and sound, the snap
     ring = one([e for e in chain["end_effects"] if HERO + "_w_ring" in json.dumps(e)], "ring at the chain's stop")
-    ring_nodes = [copy.deepcopy(n) for n in walk(ring) if n.get("type") in ("ViewEffect", "Sfx")]
+    # (since 2026-10-05 the main pack plays it twice over: for a champion and for any other hit - one of each here)
+    ring_nodes, seen = [], set()
+    for n in walk(ring):
+        if n.get("type") in ("ViewEffect", "Sfx") and (n["type"], n["name"]) not in seen:
+            seen.add((n["type"], n["name"]))
+            ring_nodes.append(copy.deepcopy(n))
     snap = [n for n in ring_nodes if n["name"] == HERO + "_w_snap"]
     ring_pic = [n for n in ring_nodes if n["name"] == HERO + "_w_ring"]
     if len(snap) != 1 or len(ring_pic) != 2:
