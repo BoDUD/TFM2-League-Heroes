@@ -66,6 +66,7 @@ RGB = {"o": OUT, "k": (0xE6, 0xB9, 0x9A), "h": (0xC1, 0x8D, 0x7D), "m": (0xFC, 0
        "8": (0x65, 0x24, 0x93), "1": (0x26, 0x14, 0x32)}
 RED = {(0x64, 0x00, 0x05), (0x9D, 0x04, 0x0A), (0xF0, 0x1A, 0x1A)}   # the scarf's reds (not the draw arm)
 STRING = RGB["1"]
+ARROW, ARROW_TIP = (0xE8, 0x38, 0xF3), (0xE5, 0xE7, 0xFB)   # the nocked arrow: magenta shaft, white-lilac head
 # the arm strips, (along, across) -> letter: along the bone from its joint, across + to the image-right side
 UPPER = {(a, c): k for a in range(4) for c, k in ((-1, "o"), (0, "k"), (1, "h"), (2, "o"))}
 FORE = {**{(a, c): k for a in range(3) for c, k in ((-1, "o"), (0, "c"), (1, "6"), (2, "o"))},
@@ -73,7 +74,8 @@ FORE = {**{(a, c): k for a in range(3) for c, k in ((-1, "o"), (0, "c"), (1, "6"
         (4, -1): "o", (4, 0): "d", (4, 1): "8", (4, 2): "3", (4, 3): "o",
         (5, 0): "o", (5, 1): "9", (5, 2): "o", (6, 1): "o"}
 DRAW_SH = (55, 80)               # the draw arm's shoulder (under the tattooed deltoid, which stays on the body)
-BOW_SH = (66, 80)                # the bow arm's shoulder
+BOW_SH = (66, 78)                # the bow arm's shoulder: the torso's upper right corner under the scarf (at row 80 the
+                                 # arm grew out of the medallion - the user: 「手臂连接处看起来做的也不好 很怪」)
 GRIP = (70, 85)                  # where the bow hand holds the bow, on the design canvas
 GLOW = {(0x3B, 0x18, 0x5F): (0x65, 0x24, 0x93), (0x65, 0x24, 0x93): (0xA1, 0x12, 0xF7),
         (0xA1, 0x12, 0xF7): (0xCA, 0x2B, 0xFB), (0xCA, 0x2B, 0xFB): (0xE8, 0x38, 0xF3),
@@ -97,22 +99,25 @@ HEAD_ROWS = (60, 73)
 A_LEVEL = (80, 90)
 D_REACH, D_FULL, D_LOOSE, D_FOLLOW, D_DOWN = (-15, 70), (-135, 65), (-125, -150), (-95, -125), (-25, -15)
 POSES = {
-    "attack": [dict(bow=A_LEVEL, draw=D_REACH, string="rest"),
-               dict(bow=A_LEVEL, draw=D_FULL, string="draw", dx=-1),
-               dict(bow=A_LEVEL, draw=D_LOOSE, string="rest", dx=1),
-               dict(bow=A_LEVEL, draw=D_FOLLOW, string="rest", dx=1),
+    # League / oppi's Varus: the bow lights up while he draws and a glowing arrow lies on the string (oppi draws it in the
+    # sprite); the release frame shows the string straight and the arrow gone
+    "attack": [dict(bow=A_LEVEL, draw=D_REACH, string="rest", glow=1),
+               dict(bow=A_LEVEL, draw=D_FULL, string="draw", dx=-1, glow=1, arrow=True),
+               dict(bow=A_LEVEL, draw=D_LOOSE, string="rest", dx=1, glow=2),
+               dict(bow=A_LEVEL, draw=D_FOLLOW, string="rest", dx=1, glow=1),
                dict(bow=(55, 75), draw=D_DOWN, string="rest"),
                None],
-    "skill": [dict(bow=A_LEVEL, draw=D_REACH, string="rest"),
-              dict(bow=A_LEVEL, draw=D_FULL, string="draw", dx=-1, glow=1),
-              dict(bow=A_LEVEL, draw=D_FULL, string="draw", dx=-1, glow=2),
-              dict(bow=A_LEVEL, draw=D_FULL, string="draw", dx=-1, glow=1),
-              dict(bow=A_LEVEL, draw=D_FULL, string="draw", dx=-1, glow=2),
-              dict(bow=A_LEVEL, draw=D_LOOSE, string="rest", dx=1, glow=1),
-              dict(bow=(55, 75), draw=D_DOWN, string="rest")],
-    "skill2": [dict(bow=(105, 120), draw=(-30, 100), string="rest", rot=-30),
-               dict(bow=(120, 135), draw=(-115, 95), string="draw", dx=-1, rot=-45),
-               dict(bow=(120, 135), draw=(-130, -160), string="rest", dx=1, rot=-45),
+    # Q: League's (and oppi's) charge is a low wide archer's stance - the legs spread into a lunge while he draws and holds
+    "skill": [dict(bow=A_LEVEL, draw=D_REACH, string="rest", lunge=(-2, 2, 1)),
+              dict(bow=A_LEVEL, draw=D_FULL, string="draw", lunge=(-3, 3, 1), glow=1, arrow=True),
+              dict(bow=A_LEVEL, draw=D_FULL, string="draw", lunge=(-3, 3, 1), glow=2, arrow=True),
+              dict(bow=A_LEVEL, draw=D_FULL, string="draw", lunge=(-3, 3, 1), glow=1, arrow=True),
+              dict(bow=A_LEVEL, draw=D_FULL, string="draw", lunge=(-3, 3, 1), glow=2, arrow=True),
+              dict(bow=A_LEVEL, draw=D_LOOSE, string="rest", lunge=(-3, 3, 1), dx=1, glow=2),
+              dict(bow=(55, 75), draw=D_DOWN, string="rest", lunge=(-1, 1, 0))],
+    "skill2": [dict(bow=(105, 120), draw=(-30, 100), string="rest", rot=-30, glow=1),
+               dict(bow=(120, 135), draw=(-115, 95), string="draw", dx=-1, rot=-45, glow=1, arrow=True),
+               dict(bow=(120, 135), draw=(-130, -160), string="rest", dx=1, rot=-45, glow=2),
                dict(bow=(110, 125), draw=(-100, -130), string="rest", rot=-40),
                None],
     "ult": [dict(bow=(30, 55), draw=(-40, -60), lunge=(-3, 2, 1), rot=15),
@@ -259,6 +264,28 @@ def leg_sprite(P, m, dx, drop, lift):
     return T.put(shin, boot, 0, 0)
 
 
+def seams(c, shoulder):
+    """Outline squares at a shoulder (3 columns either side, 2 rows above to 3 below) lying between two drawn colours
+    (left and right, or above and below) take the lighter of them: the arm joins the body without a black seam."""
+    sx, sy = shoulder
+    op = c[..., 3] > 0
+    ink = op & (c[..., :3] == np.array(OUT, np.uint8)).all(-1)
+    fix = []
+    for y in range(sy - 2, sy + 4):
+        for x in range(sx - 3, sx + 4):
+            if not ink[y, x]:
+                continue
+            for (y1, x1), (y2, x2) in (((y, x - 1), (y, x + 1)), ((y - 1, x), (y + 1, x))):
+                if op[y1, x1] and op[y2, x2] and not ink[y1, x1] and not ink[y2, x2]:
+                    a1, a2 = c[y1, x1], c[y2, x2]
+                    lum = lambda q: 0.299 * int(q[0]) + 0.587 * int(q[1]) + 0.114 * int(q[2])
+                    fix.append((y, x, a1 if lum(a1) >= lum(a2) else a2))
+                    break
+    for y, x, col in fix:
+        c[y, x] = col
+    return c
+
+
 def standing(P, pose):
     if pose is None:
         return P.design.copy()
@@ -284,9 +311,19 @@ def standing(P, pose):
     if pose.get("string") == "draw":
         line(c, tips[0], (dhand[0] + 0.5, dhand[1] + 0.5), STRING)
         line(c, (dhand[0] + 0.5, dhand[1] + 0.5), tips[1], STRING)
+    if pose.get("arrow"):
+        # from the draw hand through the grip, 4 squares past it: the shaft magenta, the last 2 squares the head
+        hx, hy = dhand[0] + 0.5, dhand[1] + 0.5
+        gx, gy = bhand[0] + 1.5, bhand[1] + 0.5
+        L = math.hypot(gx - hx, gy - hy) or 1.0
+        ex, ey = gx + (gx - hx) / L * 4, gy + (gy - hy) / L * 4
+        line(c, (hx, hy), (ex, ey), ARROW, under=False)
+        line(c, (ex - (gx - hx) / L * 1.2, ey - (gy - hy) / L * 1.2), (ex, ey), ARROW_TIP, under=False)
     elif pose.get("string") == "rest":
         line(c, tips[0], tips[1], STRING)
     paint(c, dcells)                                     # the draw arm in front
+    seams(c, bsh)
+    seams(c, dsh)
     dx = pose.get("dx", 0)
     return T.shifted(c, dx, 0) if dx else c
 
