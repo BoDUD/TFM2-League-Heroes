@@ -22,7 +22,7 @@ whole lines, area-voted to 40) the user took 「5 原稿按面积缩40行 ... �
      neighbours; two passes; the face (FACE) untouched; inner lines of two squares and more stay;
   7. FIX (the user: 「这里是什么啊 黑色一大块？」, beside the medallion): the chest harness strap, voted into the outline's
      black, in the picture's dark grey-brown leather with a lit top edge; the black and clear squares between the
-     scarf's front tail and the belly in the belly's own skin and crimson.
+     scarf's front tail and the belly in the belly's own skin and crimson; LEG_CLEAN (leg_clean) after CLEAN.
 --check compares the result with the committed varus_native.png instead of writing it.
 """
 import argparse
@@ -45,6 +45,7 @@ FEET_ROWS = 3
 K = 24
 ROWS = 40
 FACE = (66, 73, 55, 68)
+LEGS = (89, 99, 58, 75)          # rows / columns of the legs for leg_clean (the draw hand, cols 51-57, left out)
 STRAP, STRAP_LIT = (0x3A, 0x34, 0x38), (0x6A, 0x62, 0x68)       # the harness leather (Codex's palette.json)
 SKIN_SH, CRIMSON_D = (0xC1, 0x8D, 0x7D), (0x89, 0x08, 0x51)
 THIGH, OUTLINE_RGB = (0x26, 0x14, 0x32), (0x0B, 0x04, 0x10)
@@ -131,6 +132,28 @@ def clean(a, outline, passes=2):
     return a
 
 
+def leg_clean(a, outline):
+    """LEG_CLEAN (「腿上没用的黑色素也要清一清」): on the legs (LEGS rows / columns, the hand beside them left out) every
+    outline-coloured square inside the figure (all four neighbours drawn) takes the commonest colour of its drawn
+    non-outline neighbours, inner lines included; the silhouette's outline stays."""
+    from collections import Counter
+    op = a[..., 3] > 0
+    ink = op & (a[..., :3] == np.array(outline, np.uint8)).all(-1)
+    out = a.copy()
+    r0, r1, c0, c1 = LEGS
+    for y in range(r0, r1 + 1):
+        for x in range(c0, c1 + 1):
+            if not ink[y, x]:
+                continue
+            nb = [(y + dy, x + dx) for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1))]
+            if not all(op[q] for q in nb):
+                continue
+            cols = Counter(tuple(int(v) for v in a[q]) for q in nb if not ink[q])
+            if cols:
+                out[y, x] = cols.most_common(1)[0][0]
+    return out
+
+
 def build():
     raw, _, _ = regrid(np.asarray(Image.open(lp(RAW)).convert("RGBA")))
     ys, xs = np.nonzero(raw[..., 3] >= 128)
@@ -154,6 +177,7 @@ def build():
     can[y0:y0 + a.shape[0], x0:x0 + a.shape[1]] = a
     can, added, darkened = strips.complete_outline(can, color=outline, feet=SOLE_ROW)
     can = clean(can, outline)
+    can = leg_clean(can, outline)
     for (y, x), c in FIX.items():
         can[y, x] = (*c, 255)
     return can, added, darkened

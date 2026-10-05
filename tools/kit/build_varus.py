@@ -319,7 +319,7 @@ def build(p):
                E("q_charge"), E("q_charge_s"), E("q_fire", FX, 2, **LATE), E("q_hit", FX, 2),
                E("e_cast"), E("e_rain", BIG, 2, False), E("e_hit", FX, 2),
                E("r_cast"), E("r_hit", FX, 2), E("r_spread", BIG, 1, False), E("r_spread_hit", FX, 2),
-               E("p_rage_on", FX, 2, **LATE)]
+               E("p_rage_on", BIG, 2, **LATE)]
     views_b = [B_("e_slow", FX, -1), B_("r_bind", FX, 2), B_("p_rage", FX, -1)]
     return {
         "id": ID, "category": "Range", "tags": ["AD", "Range", "CC"],

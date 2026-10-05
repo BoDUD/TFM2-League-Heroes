@@ -3317,7 +3317,7 @@
     {
       "type": "Animation",
       "name": "league_varus_p_rage_on",
-      "anim": "asset/league/effects/league_varus_fx",
+      "anim": "asset/league/effects/league_varus_big",
       "tag": "p_rage_on",
       "z": 2,
       "is_follow": false
