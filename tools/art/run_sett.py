@@ -9,10 +9,14 @@ each), the drawn legs stood in a stiff A in three frames, and the hips and the h
 Sivir's run (tools/art/rig_sivir_run.py, the version the user approved: 「新版很不错」):
   - the upper body is the design itself above the belt (its head, torso, upper arms, mantle, clasps, coat fronts and
     belt), the near gauntlet's top row taken off, one rigid block in every frame; it leans forward (each row shifted
-    LEAN of a square per row over the belt) and sinks with the stride (BOB: low after each contact, high on the push);
-  - the legs: each foot placed along the run cycle (ahead on the contact, drawn back under the body, off the toe,
-    kicked up behind, swung through, reaching), the knee solved forward, both the design's length and width in the
-    trousers' shades with the gold stripe and the design's shoe (strips_sett.leg), the hips where the design's are;
+    LEAN of a square per row over the belt) and sits as low as the legs let it stand (sink());
+  - the legs are League's Sett_Run frame for frame (2026-10-05, 「瑟提走路应该不是弯曲的」: the feet placed along a cycle
+    of our own with the knee solved forward kept both knees bent in every frame, a short crouching shuffle): each knee
+    and ankle where League's are from its hip in the design's own camera (LOL_RUN), so the planted leg stands straight,
+    the other kicks up behind (its shoe turned back) and swings through, and the body drops on landing as League's
+    does; both the design's length and width in the trousers' shades with the gold stripe and the design's shoe
+    (strips_sett.leg), the hips where the design's are. League's profile angles on these hips (5 squares apart) read
+    as a squat: the stride is League's as the design's camera sees it;
   - the arms swing as League's run swings them (Sett_Run: the near arm back while the near foot leads, ahead while the
     far foot does; the far arm the other way; the elbows always bent) and as Ryze's approved run poses its arms
     (tools/art/ryze_arms.py): each arm is the design's own squares in two bones - the upper arm (skin, the bandage at
@@ -33,6 +37,7 @@ Sivir's run (tools/art/rig_sivir_run.py, the version the user approved: 「新�
   - the coat's tails stream back from the waist behind the legs, the hem in gold, fluttering a square.
 """
 import argparse
+import json
 import math
 import os
 import sys
@@ -51,13 +56,23 @@ import strips_sett as R  # noqa: E402
 PIVOT = (64, 88)                 # the design canvas's; its soles on row 99
 BELT = 78                        # the design's last row above the trousers (the belt)
 LEAN = 0.09                      # squares a row the upper body shifts forward over the belt (the head ~1.8 ahead)
-BOB = [2, 3, 3, 1, 2, 3, 3, 1]   # rows the body sits lower: low after each contact (frames 0 and 4), high on the push
 HIPS = {"near": 61.0, "far": 66.0}
 HIP_ROW = 79.5
-ANKLE_ROW = 95.0                 # the shoe's top row (the soles' row 99)
-# one foot over the cycle (phase 0 = its contact): (ankle x from its hip, lift of the sole) - a shorter, heavier stride
-# than Sivir's (her 6 ahead / 7 behind read as a stiff A on his bulk)
-FOOT = [(4.5, 0), (2.0, 0), (-0.5, 0), (-3.0, 0), (-5.5, 1), (-5.0, 4.5), (-1.0, 4.5), (3.8, 1.8)]
+SOLE_ROW = 99                    # the design's soles
+SHOE_DROP = 4                    # the shoe's sole under its ankle (strips_sett.SHOE)
+# the legs are League's Sett_Run frame for frame, in the design's own camera (poses.json: yaw 30, pitch 20, mirrored,
+# legs 1.05 - the design's own proportions, so League's game-size offsets fit its 8 + 7.2 bones):
+#   python tools/lol/pose_joints.py assets/source/sett/poses.json --tag run --json assets/source/sett/lol_run_joints.json
+#       --joints Pelvis,L_Hip,L_KneeLower,L_Foot,L_Toe,R_Hip,R_KneeLower,R_Foot,R_Toe
+# League's R side is the near one (screen left, the near arm's); run frame 0 is League's frame 4 (533 ms), the near
+# foot planted, so the arms' schedules (NEAR_SCHED: frame 0 = the near foot's contact) keep their phase
+LOL_RUN = os.path.join(ROOT, "assets", "source", "sett", "lol_run_joints.json")
+LOL_OFFSET = 4
+LOL_SIDE = {"near": "R", "far": "L"}
+KICK = 60                        # a shin past this many degrees from hanging (kicked up behind) shows its shoe turned
+BEHIND = 6                       # League's foot this far behind the pelvis (away from the camera): the leg behind the coat
+FRAGMENT = 6                     # a leg's squares left showing in pieces smaller than this (between the coat, the other
+                                 # leg and an arm) take the colour round them
 # the design's arms, per row the columns (read off its material map): the upper arm (skin; the bandage at the elbow)
 # and the forearm (the gold gauntlet, the plum glove, the skin knuckles; the far one's bandage on top)
 NEAR_UP = {70: (55, 56), 71: (55, 57), 72: (54, 58), 73: (54, 57), 74: (54, 57), 75: (53, 57), 76: (55, 57),
@@ -270,19 +285,102 @@ def put(can, cells, under=False):
             can[y, x] = c
 
 
+def leg_fragments(can, legs):
+    """A leg's squares showing in pieces of fewer than FRAGMENT (the far leg peeking between the coat's hem and the near
+    leg, a kicked shin between the coat and a gauntlet) take the commonest colour round them that is not a leg's."""
+    out = can.copy()
+    trousers = set(R.TROUSERS_ALL) | {"DF9704", "BD7702"}
+    for side, cells in legs.items():
+        own = np.zeros(can.shape[:2], bool)
+        for (x, y), c in cells.items():
+            if 0 <= y < can.shape[0] and 0 <= x < can.shape[1] and (can[y, x] == c).all() and                     R.hexs(c) in trousers:
+                own[y, x] = True
+        seen = np.zeros_like(own)
+        for y, x in zip(*np.nonzero(own)):
+            if seen[y, x]:
+                continue
+            st, comp = [(y, x)], []
+            seen[y, x] = True
+            while st:
+                cy, cx = st.pop()
+                comp.append((cy, cx))
+                for ny, nx in ((cy + 1, cx), (cy - 1, cx), (cy, cx + 1), (cy, cx - 1)):
+                    if own[ny, nx] and not seen[ny, nx]:
+                        seen[ny, nx] = True
+                        st.append((ny, nx))
+            if len(comp) >= FRAGMENT:
+                continue
+            for cy, cx in comp:
+                round_ = [R.hexs(out[cy + oy, cx + ox]) for oy in (-1, 0, 1) for ox in (-1, 0, 1)
+                          if (oy or ox) and out[cy + oy, cx + ox, 3] and not own[cy + oy, cx + ox]
+                          and R.hexs(out[cy + oy, cx + ox]) not in trousers]
+                out[cy, cx] = rgba(max(set(round_), key=round_.count)) if round_ else rgba(OUTLINE)
+    return out
+
+
+def leg_slits(can, dy):
+    """Under the belt, black runs of 2 or more squares between two squares of trousers in one row (two legs close
+    together, each with its outline, the gap between closed with black) keep one black square, by the left leg; the
+    rest take the trousers' darkest shade, so the legs read as close, not cut apart."""
+    out = can.copy()
+    trousers = set(R.TROUSERS_ALL)
+    dark = rgba("9FA8C3")
+    for y in range(BELT + dy + 2, SOLE_ROW - SHOE_DROP):
+        x = 0
+        while x < can.shape[1]:
+            if R.hexs(can[y, x]) in trousers and can[y, x, 3]:
+                e = x + 1
+                while e < can.shape[1] and can[y, e, 3] and R.hexs(can[y, e]) == OUTLINE:
+                    e += 1
+                if e - x - 1 >= 2 and e < can.shape[1] and can[y, e, 3] and R.hexs(can[y, e]) in trousers:
+                    for xx in range(x + 2, e):
+                        out[y, xx] = dark
+                x = e
+            else:
+                x += 1
+    return out
+
+
+def lol_frame(k):
+    with open(LOL_RUN, encoding="utf-8") as f:
+        return json.load(f)[(k + LOL_OFFSET) % 8]
+
+
+def lol_legs(k, dy):
+    """{side: (hip, knee, ankle, kicked)}: each knee and ankle where League's are from its hip, the hips the design's
+    dropped dy rows; kicked: the shin swung up behind past KICK degrees with League's toe pointing back."""
+    j = lol_frame(k)["joints"]
+    out = {}
+    for side in ("near", "far"):
+        s = LOL_SIDE[side]
+        h, kn, an, to = j[s + "_Hip"], j[s + "_KneeLower"], j[s + "_Foot"], j[s + "_Toe"]
+        hip = (HIPS[side], HIP_ROW + dy)
+        knee = (hip[0] + kn[0] - h[0], hip[1] + kn[1] - h[1])
+        ankle = (hip[0] + an[0] - h[0], hip[1] + an[1] - h[1])
+        shin = math.degrees(math.atan2(an[0] - kn[0], an[1] - kn[1]))
+        out[side] = (hip, knee, ankle, abs(shin) > KICK and to[0] < an[0], an[2] < j["Pelvis"][2] - BEHIND)
+    return out
+
+
+def sink(k):
+    """Rows the body sits lower than the design: as low as the lowest shoe stands on the soles' row (League's legs
+    bend on landing: the body drops; League's frames in the air lift it)."""
+    low = max(a[1] for _, _, a, _, _ in lol_legs(k, 0).values()) + SHOE_DROP
+    return int(round(SOLE_ROW - low)) - lol_frame(k)["air"]
+
+
 def frame(k, d=None):
     """Run frame k (0-7) on the 128 x 128 design canvas (the pivot (64, 88), the soles on row 99)."""
     import design_sett as D
     d = K.design_1x() if d is None else d
-    dy = BOB[k]
+    dy = sink(k)
     foot = R.shoe()
+    back = {(-x, y): c for (x, y), c in foot.items()}       # a foot kicked up behind: the shoe's toe back
     can = np.zeros((128, 128, 4), np.uint8)
-    legs = {}
-    for side, ph in (("near", k % 8), ("far", (k + 4) % 8)):
-        fx, lift = FOOT[ph]
-        hip = (HIPS[side], HIP_ROW + dy)
-        knee, ankle = R.ik(hip, (hip[0] + fx, ANKLE_ROW - lift))
-        legs[side] = R.leg(hip, knee, ankle, R.RUN_SHADES[side], foot)
+    legs, behind = {}, {}
+    for side, (hip, knee, ankle, kicked, away) in lol_legs(k, dy).items():
+        legs[side] = R.leg(hip, knee, ankle, R.RUN_SHADES[side], back if kicked else foot)
+        behind[side] = away
     body = {(x + lean(y), y + dy): c for (x, y), c in body_block(d).items()}
     arms = {}
     up, fore, drop, *rest = POSES["near"][NEAR_SCHED[k]]
@@ -291,8 +389,11 @@ def frame(k, d=None):
     arms["far"] = far_hand(d, FAR_SCHED[k], (0, dy))
     ahead = FAR_SCHED[k] in ("F", "Pf")
     put(can, body)
-    put(can, legs["near"], under=True)
+    if not behind["near"]:
+        put(can, legs["near"], under=True)
     put(can, coat(k, dy), under=True)
+    if behind["near"]:                           # kicked up behind the body: behind the coat's tails (League's depth)
+        put(can, legs["near"], under=True)
     if ahead:                                    # in front of the hip: over the far leg, outlined against it
         put(can, arms["far"], under=True)
         put(can, legs["far"], under=True)
@@ -301,9 +402,11 @@ def frame(k, d=None):
         put(can, legs["far"], under=True)
         put(can, arms["far"], under=True)
         put(can, {q: rgba(OUTLINE) for q in edge(arms["far"]) if not can[q[1], q[0], 3]})
+    can = leg_fragments(can, legs)
     can = R.pieces(can)
     can, _, _ = G.complete_outline(can, feet=99)
     can = fill_dents(can)
+    can = leg_slits(can, dy)
     clean = D.clean(can)                        # above the belt no black inside the figure, as the design
     can[:BELT + dy + 1] = clean[:BELT + dy + 1]
     # the near arm last, over the cleaned body, with an edge: against the background, the legs and the coat's tails

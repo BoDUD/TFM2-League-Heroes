@@ -12,7 +12,7 @@ every frame and the idle's legs under the standing ones. What is mended here (th
   colour round them - first on the frame as drawn, then on the outline-closed copy;
 - the neck: pockets of ground walled in next to the pasted head (the scroll's strap and the shoulder) take the design's
   squares at the same place from the head;
-- small pockets elsewhere (at most POCKET squares: an arm and the body, the legs in the run; or a slit at most SLIT[1]
+- small pockets elsewhere (at most POCKET squares: an arm and the body; or a slit at most SLIT[1]
   squares wide between an arm and the body) the commonest colour round them.
 The standing frames (IDLE_BODY: on the idle's own legs) then get the idle's own upper body. Codex drew the casting
 bodies wider than the idle's, in a brown vest instead of the idle's navy shirt, with arms five or six squares thick and
@@ -28,10 +28,10 @@ fists of five (the idle's arms and hands are three); the user on the combo redra
   finger in POINT kept), the near one moved in ARM_IN squares to the idle's shoulder; the far arm behind the body (in
   front of the scroll when raised across it: OVER_SCROLL), the near one in front of it, each with one outline;
 then the pockets as above, those up to BODY_POCKET squares (between a thinned arm and the idle's narrower body)
-from the design's squares there. After the review: the run's arms and R's channel are drawn from joints (DRAWN,
-Codex's broke into pieces), the passing legs get their boots back (FEET), crumbs apart from the figure go (CRUMB), the
-far arm Codex folded into a lump while shooting and the recoveries' short arms are the idle's own (IDLE_ARMS), and R's
-channel stands (REUSE).
+from the design's squares there. After the review: R's channel is drawn from joints (DRAWN, Codex's broke into
+pieces), crumbs apart from the figure go (CRUMB), the far arm Codex folded into a lump while shooting and the
+recoveries' short arms are the idle's own (IDLE_ARMS), and R's channel stands (REUSE). The run is not Codex's any more:
+League's Ryze_Run_Fast frame for frame on the design's own body (run_frame, 2026-10-05).
 Writes assets/source/native/ryze_<tag>.png on the cells of assets/source/native/ryze_cells.json (the idle: the design
 itself on all six pivots, with the same pocket fill); then run tools/art/import_native.py --hero ryze.
 """
@@ -82,18 +82,13 @@ DARK = {tuple(int(R.PAL[k][i:i + 2], 16) for i in (0, 2, 4)) for k in "ab"}
 # the arm's own colours: the skin, the bracer's leathers and golds (not the shirt's navy: Codex's wider body beside a
 # far arm is no arm)
 ARM_COLOURS = {tuple(int(R.PAL[k][i:i + 2], 16) for i in (0, 2, 4)) for k in "defgimhjqxyuD"}
-BELT_ROW = -4                                    # the belt's last row (from the pivot): OWN_LEGS frames take Codex's legs under it
+BELT_ROW = -4                                    # the belt's last row (from the pivot): a crouch (CROUCH) takes Codex's legs under it
 # the run's pelvis (the user, 2026-10-05: 「腿和腰脱节的问题你没解决啊」「跑步的时候」「瑞兹走路时候这里少一块就像脱节一样」):
 # Codex's thighs met the belt narrower than it and 2-5 squares to its left in five of the eight frames, so ground showed
 # under the belt's front end. The design's two rows under the belt (the trousers' seat and the flap's top: pivot rows
-# PELVIS, columns PELVIS_X) go with the upper body, and Codex's legs hang under them, moved sideways so that their top
-# two rows centre under the pivot (legs_dx)
+# PELVIS, columns PELVIS_X) go with the upper body; the run's legs hang under them (run_frame: League's since)
 PELVIS = (-3, -2)
 PELVIS_X = (-6, 6)
-LEGS_DX = {"last": 0}                            # the last run frame's sideways move (its hand-drawn FEET go with it)
-# the frames on Codex's own legs (the run's strides, W's kneel): the idle's upper body to its belt dropped to Codex's
-# head over Codex's legs, Codex's arms drawn again
-OWN_LEGS = {("run", k) for k in range(1, 9)}
 # the crouches (Codex's kneel / squat, its head 6-15 rows down, its hips 2-8): CROUCH - none since the combo's
 # Overload stands too (the user's rule since Caitlyn: the casts stand on the idle's own legs; Codex's kneel there was
 # a dark heap of legs under a huge cloth flap)
@@ -110,10 +105,6 @@ MAX_CUT = 3
 FLAP_TOP = -4                                    # the teal flap's top row on the design (from the pivot)
 EYE_AT = (-1, -23)                               # the near eye's top-left white square on the design
 ARM_STEPS = 16                                   # an arm's line at most this long (the idle's: shoulder to fingertips)
-# the run's legs in the idle's materials (Codex shaded the back leg darker: 「左腿变色」), Codex's legs pushed down to the
-# idle's hips with rows taken out of the shins
-LEG_REMAP = {"u": "j", "q": "h", "r": "j", "l": "o"}
-TROUSERS = set("ozw")
 # the run's arms: Codex's broke into pieces over the body (the review: "arm fragments"), lines of the idle's arm
 # colours swung as pendulums read as strange (「瑞兹走路时手还是有点不自然」), and League's run joints laid on the screen
 # as League's camera sees them threw the far arm out level from the shoulder (「你觉得对吗 我的天 都变形了」); then the
@@ -123,19 +114,9 @@ TROUSERS = set("ozw")
 # 图这里是像素丢失 一条黑线？ 第二张图这里手臂严重变形？ 右手臂和蛇精一样的？你看像官方瑞兹啊 好好修复吧」). So the run and
 # R's channel are drawn from joints (ryze_arms.draw: shaded capsules in the idle's materials and widths, the bones the
 # idle's lengths); {(tag, frame): {side: (upper arm degrees, forearm degrees, layer)}} from straight down, + forward.
-# The run: the first version's joints in 1-3 and 7; in 4-6 the near arm swinging back and the far one behind the body
-# (the first version had the near forearm folded backwards and the far one across the chest), in 8 the far upper arm
-# hanging back (not level from the shoulder). R 5-8: League's joints (lol_joints_v2.json, the game camera): the far arm
+# (The run's arms are League's since: run_frame.) R 5-8: League's joints (lol_joints_v2.json, the game camera): the far arm
 # raised by the head and the near one held out low (5-7), both raised (8; the landing's first frame is R's last, REUSE)
 DRAWN = {
-    ("run", 1): {"far": (-32, -28, "back"), "near": (7, 56, "front")},
-    ("run", 2): {"far": (-39, -27, "back"), "near": (0, 61, "front")},
-    ("run", 3): {"far": (-28, -7, "back"), "near": (6, 14, "front")},
-    ("run", 4): {"far": (10, 30, "back"), "near": (-15, -5, "front")},
-    ("run", 5): {"far": (15, 35, "back"), "near": (-8, 0, "front")},
-    ("run", 6): {"far": (10, 30, "back"), "near": (0, 20, "front")},
-    ("run", 7): {"far": (-11, -11, "back"), "near": (0, 76, "front")},
-    ("run", 8): {"far": (-35, -20, "back"), "near": (-8, 90, "front")},
     ("ult", 5): {"far": (-106, 177, "over"), "near": (28, 64, "front")},
     ("ult", 6): {"far": (-117, -155, "over"), "near": (45, 63, "front")},
     ("ult", 7): {"far": (-110, -149, "over"), "near": (50, 63, "front")},
@@ -147,9 +128,6 @@ DRAW_S = {"far": (-7.0, -13.5), "near": (6.5, -13.0)}    # the shoulders for ryz
 # (tools/art/ryze_arms.py) - Codex's v2 arms and the idle's arm turned at a guess read as stiff (「瑞兹的手臂感觉还是很
 # 奇怪真的」「像个僵尸一样」「不自然」)
 V1_ARMS = os.path.join(ROOT, "assets", "source", "ryze", "v1_arm_joints.json")
-# the boots of the legs swinging through in the run's passing frames (run_legs took rows out of the shins: the leg
-# ended at the knee band); {row from the pivot: (first column, squares)} in the idle's boot materials
-FEET = {("run", 2): {7: (0, "Dxx"), 8: (0, "rjhh")}, ("run", 6): {6: (-1, "Dxx"), 7: (-1, "rjhh")}}
 # the frames whose arm (side) is the idle's own: Codex folded the far arm into a lump at the hip while the near one
 # shoots (attack 3-4: "a black blob"; a flat bar across the chest in 1, an L by the scroll in 2, 5 and Q 3, 5), and its
 # arms hung short of the idle's in the recoveries (attack 6, Q 1, 5 and 6)
@@ -474,7 +452,7 @@ def finger(pix, side, dx, dy):
 
 def arm_mask(a, pivot, hd, P, over_scroll=False, legs=None, upper=None):
     """Codex's arms in a standing frame: the squares (mask) and the frame's skin and outline squares; legs / upper:
-    the body's legs and upper body when not the idle's (OWN_LEGS: Codex's legs, the upper body to the belt)."""
+    the body's legs and upper body when not the idle's (a crouch: Codex's legs, the upper body to the belt)."""
     px, py = pivot
     dx, dy = hd
     h, w = a.shape[:2]
@@ -840,6 +818,188 @@ def kneel_frame(pivot, shape, P, dy, pose):
     return out
 
 
+# ---- the run (2026-10-05): League's Ryze_Run_Fast frame for frame on the design's own body ---------------------------
+# The user on the run built from Codex's strides and the first version's arm joints: 「感觉不对啊 和英雄联盟不一样」
+# 「瑞兹走路也没那味」「手臂做的很不好」 - the legs split 29 squares wide in 4 and 8, the arms swung with the legs on
+# the same side, the near forearm stuck out level. League's run (the clip `Run` plays: Ryze_Run_Fast, see
+# tools/lol/anim_graph.py) at game size: short bouncing strides, the heel kicked up behind, the knee lifted, the body
+# leaning and bobbing, both fists pumping at the waist. So:
+# - the legs: League's angles seen from the side (RUN_PROFILE, tools/lol/pose_joints.py with poses_run_profile.json =
+#   poses_v2.json at yaw 90: the stride reads across the screen) on bones of the design's lengths (the thigh to the knee
+#   band, the shin to the ankle band, the foot level under a standing shin or along League's foot kicked up), drawn row
+#   by row (column by column where a bone lies flat) in the design's leg materials (rig_ryze.limb), the screen-left leg
+#   (League's R) lit and in front, each with one outline; the body as high as the lowest sole lets it stand, lifted in
+#   League's two airborne frames;
+# - the upper body: the design's without its arms, with its pelvis rows (PELVIS), RUN_LEAN of a square per row forward
+#   over the hips (the head as one block), bobbing with League's head in the design's camera (lol_joints_v2.json);
+# - the arms: the design's own arm squares (the upper arm, the bracer, the hand) posed whole from the shoulder by
+#   ryze_arms.pose (each bone's rows shifted within 45 degrees of hanging, a quarter turn past it, rows dropped where it
+#   points at the camera - nothing resampled), three held poses each on League's timing (RUN_POSES), the elbows bent;
+#   the far arm behind the body, across the belly when forward; the near one before the body, behind it when swung
+#   back. Drawn as capsules (ryze_arms.draw) they were tubes of their own: eased every frame they crawled
+#   (「右手臂还是奇怪看起来 在那晃动和个虫一样」), the near one drawn against the body cut its outline into the shirt
+#   (「右手臂是贴着身体的 还导致身体变形了」), with only its forearm swinging it read stiff (「只有前臂晃动」);
+# - the hands are fists: the design's hand without its fingertip row (RUN_FIST_ROW) - the round fist drawn before was
+#   a lilac dot (「手的形状也没有」), the design's open hand with its fingertip an odd finger (「手指头做的是什么啊
+#   你不然就做成拳头形状啊」);
+# - ground walled in by the figure (between the far arm and the body: 「瑞兹这里有点色素丢失」) takes the colour beside it
+#   that is neither the outline nor an arm's (fill_pockets); a crack one square wide takes the outline (fill_cracks).
+RUN_PROFILE = os.path.join(ROOT, "assets", "source", "ryze", "lol_run_profile.json")
+RUN_SIDE = {"near": "R", "far": "L"}                     # the run's legs: the screen-left one is League's R
+RUN_HIP = {"near": (-4.0, -1.0), "far": (3.0, -1.0)}     # the hip joints (from the pivot)
+RUN_BONES = (4.0, 6.0, 3.0)                              # the thigh, the shin, a raised foot
+RUN_SOLE = 10                                            # the soles' row (the outline under them on 11)
+RUN_THIGH = {"near": ["wow", "woz", "wwo", "wwz", "xxo"], "far": ["ozo", "ozl", "oow", "ozl", "hxo"]}
+RUN_SHIN = {"near": ["hhhj", "jxjj", "jj", "hj", "hj", "xj"], "far": ["jhhj", "jjxj", "jj", "jh", "jh", "jx"]}
+RUN_FOOT = {"near": ("jDhj", "jjjj"), "far": ("rjjh", "jjjj")}
+RUN_KICK = 50                                            # a shin further than this from hanging: the foot raised
+RUN_LEAN = 0.12
+RUN_BOB = 0.6                                            # of League's head's bob (game px in the design's camera)
+# each arm in three held poses, as a sprite's run swings its arms (one shape held through the frames of a swing):
+# F at the front of the swing, M passing, B at the back; {side: {pose: (upper arm, forearm degrees from hanging
+# (+ forward), layer)}}. The near arm goes behind the body only at the back of its swing. The far one swings back from
+# the shoulder only a little, the whole arm leaning back as one: swung further it parted from the body in a narrow wedge,
+# a crack of ground or, filled, a dark lump (「你不觉得奇怪吗？」), and a forearm turned further back is a stair of bracer;
+# its forearm hangs back, as League's does (hanging forward, its hand met the hip and walled in ground with the body)
+# The near arm swings as the far one does (「左手做的很好 右手不能按左手那样做吗」): at the front its upper arm hangs and
+# the forearm lies level, a quarter turn of the bracer clean as the far arm's across the belly (sheared down at 50
+# degrees it was a stair of bracer); passing it hangs nearly as the idle's (bent 25 degrees its forearm reached down
+# the thigh); at the back it is behind the body.
+RUN_POSES = {"near": {"F": (-5, 80, "front"), "M": (0, 8, "front"), "B": (-25, 0, "back")},
+             "far": {"F": (-5, 80, "over"), "M": (-6, 18, "back"), "B": (-14, -14, "back")}}
+# the poses frame by frame on League's timing (each hand's lead over its shoulder in the design's camera,
+# lol_joints_v2.json: the near hand ahead in 7-2, back in 4-5; the far one ahead in 3-5, back in 8-1 - in 7 it passes,
+# its hand clear of the near leg kicked up behind, which walled in ground with it)
+RUN_ARM_FRAMES = {"near": "FFMBBMFF", "far": "BMFFFMMB"}
+RUN_FIST_ROW = -2                                        # the design's hands down to this row: the fingertips left out
+CRACK_ROWS = 6                                           # one-square cracks closed down to this row (from the pivot)
+def run_arms(P):
+    """The design's arm squares without their outline (ring_layer draws one round each layer), the hands fists."""
+    return {(key, part): {q: c for q, c in cells.items() if tuple(int(v) for v in c[:3]) not in DARK
+                          and not (part == "fore" and q[1] > RUN_FIST_ROW)}
+            for (key, part), cells in P["arms"].items()}
+
+
+def run_tables():
+    """League's run: the profile joints (legs) and the body's bob per frame."""
+    with open(lp(RUN_PROFILE), encoding="utf-8") as f:
+        prof = json.load(f)
+    head = [f["joints"]["Head"][1] for f in R.lol_table()["run"]]
+    return prof, [int(round(RUN_BOB * (y - min(head)))) for y in head]
+
+
+def run_leg(side, hip, thigh, shin, foot):
+    """({(x, y): colour}, lowest row) of one run leg from its hip along League's angles (radians from hanging)."""
+    lt, ls, lf = RUN_BONES
+    knee = (hip[0] + lt * math.sin(thigh), hip[1] + lt * math.cos(thigh))
+    ank = (knee[0] + ls * math.sin(shin), knee[1] + ls * math.cos(shin))
+    cells = {}
+    R.limb(hip, knee, RUN_THIGH[side], -1, cells)
+    R.limb(knee, ank, RUN_SHIN[side], -1, cells, first=False)
+    ax, ay = int(math.floor(ank[0] + 0.5)), int(math.floor(ank[1] + 0.5))
+    if abs(math.degrees(shin)) <= RUN_KICK:     # standing or reaching: the foot level, the toe forward
+        for row, s in enumerate(RUN_FOOT[side]):
+            for j, ch in enumerate(s):
+                cells[(ax - 1 + j, ay + 1 + row)] = R.rgba(ch)
+    else:                                       # kicked up behind: the boot's foot along League's
+        R.limb(ank, (ank[0] + lf * math.sin(foot), ank[1] + lf * math.cos(foot)), ["jj", "Dj", "jr"], -1, cells,
+               first=False)
+    return cells, max(y for _, y in cells)
+
+
+def fill_pockets(a):
+    """Ground walled in by the figure takes the commonest colour beside it that is neither the outline nor an arm's
+    (ARM_COLOURS: the torso's side next to an arm), else the outline's; filled from its edge in."""
+    h, w = a.shape[:2]
+    op = a[..., 3] > 0
+    outside = np.zeros((h, w), bool)
+    todo = deque([(y, x) for y in range(h) for x in (0, w - 1) if not op[y, x]] +
+                 [(y, x) for x in range(w) for y in (0, h - 1) if not op[y, x]])
+    for y, x in todo:
+        outside[y, x] = True
+    while todo:
+        y, x = todo.popleft()
+        for oy, ox in N4:
+            Y, X = y + oy, x + ox
+            if 0 <= Y < h and 0 <= X < w and not op[Y, X] and not outside[Y, X]:
+                outside[Y, X] = True
+                todo.append((Y, X))
+    left = set(zip(*np.nonzero(~op & ~outside)))
+    while left:
+        done = {}
+        for y, x in left:
+            near = [tuple(int(v) for v in a[y + oy, x + ox]) for oy in (-1, 0, 1) for ox in (-1, 0, 1)
+                    if (oy or ox) and a[y + oy, x + ox, 3]]
+            if not near:
+                continue
+            body = [c for c in near if c[:3] not in DARK and c[:3] not in ARM_COLOURS]
+            done[(y, x)] = Counter(body).most_common(1)[0][0] if body else INK + (255,)
+        if not done:
+            break
+        for (y, x), c in done.items():
+            a[y, x] = c
+        left -= set(done)
+    return a
+
+
+def fill_cracks(a, py):
+    """A crack of ground one square wide - the figure on both sides of it in its row and above it (between a limb and
+    the body, between two legs touching under the flap) - takes the outline: two outlines meeting read as one line, as
+    the design draws them (「这里也补补吧」). Wider gaps stay open: a gap filled with the body's colour beside it read as
+    a dark lump (「你不觉得奇怪吗？」)."""
+    h, w = a.shape[:2]
+    op = a[..., 3] > 0
+    found = [(y, x) for y in range(1, min(h - 1, py + CRACK_ROWS + 1)) for x in range(1, w - 1)
+             if not op[y, x] and op[y, x - 1] and op[y, x + 1] and op[y - 1, x]]
+    for y, x in found:
+        a[y, x] = INK + (255,)
+    return a
+
+
+def run_frame(k, pivot, shape, P, tables):
+    """Run frame k (0-7) on the design's own body from League's joints (see RUN_PROFILE above)."""
+    prof, bob = tables
+    j, air = prof[k]["joints"], prof[k]["air"]
+
+    def ang(a_, b_):
+        return math.atan2(b_[0] - a_[0], b_[1] - a_[1])
+    legs = {side: (ang(j[s + "_Hip"], j[s + "_KneeLower"]), ang(j[s + "_KneeLower"], j[s + "_Foot"]),
+                   ang(j[s + "_Foot"], j[s + "_Toe"])) for side, s in RUN_SIDE.items()}
+    dy = RUN_SOLE - max(run_leg(side, RUN_HIP[side], *legs[side])[1] for side in legs) - air
+    b = bob[k]
+    px, py = pivot
+    out = np.zeros(shape, np.uint8)
+    ink = np.array(INK + (255,), np.uint8)
+    for side in ("far", "near"):
+        RD.put(out, pivot, run_leg(side, (RUN_HIP[side][0], RUN_HIP[side][1] + dy), *legs[side])[0], ink)
+    arms = {"back": {}, "over": {}, "front": {}}
+    squares = run_arms(P)
+    for side in ("far", "near"):
+        up, fore, layer = RUN_POSES[side][RUN_ARM_FRAMES[side][k]]
+        arms[layer].update({(x + R.lean_x(RUN_LEAN, -14), y + dy + b): c
+                            for (x, y), c in RA.pose(squares, side, up, fore).items()})
+    face = {(py + y + dy + b, px + x + R.lean_x(RUN_LEAN, y)) for (x, y), c in P["upper"].items()
+            if y <= HEAD[3] and HEAD[0] - 1 <= x <= HEAD[1] + 1}
+    ring_layer(out, arms["back"], py, px, face=set(), over=False)
+    body = dict(P["upper"])
+    body.update({xy: c for xy, c in torso_sides(P["upper"]).items() if xy[1] <= BELT_ROW and xy not in body})
+    body.update({(x, y): c for (x, y), c in P["full"].items()
+                 if PELVIS[0] <= y <= PELVIS[1] and PELVIS_X[0] <= x <= PELVIS_X[1]})
+    for (x, y), c in body.items():
+        X, Y = px + x + (R.lean_x(RUN_LEAN, y) if y < R.HIP_Y else 0), py + y + dy + b
+        if 0 <= Y < shape[0] and 0 <= X < shape[1]:
+            out[Y, X] = c
+    for layer in ("over", "front"):
+        ring_layer(out, arms[layer], py, px, face=face, over=True)
+    for _ in range(6):                           # closing the outline can make a notch of what was open: again
+        before = out.copy()
+        ring_close(out, py)
+        fill_pockets(fill_cracks(out, py))
+        if (out == before).all():
+            break
+    return out
+
+
 def ring_layer(out, cells, py, px, face, over):
     """Arm squares (x, y from the pivot) onto the frame with one outline round them: over the body too when over, never
     on the face (a hand by the face stops at it)."""
@@ -908,89 +1068,8 @@ def ring_close(a, py):
     return int(need.sum())
 
 
-def legs_dx(legs):
-    """The sideways move that centres the legs' top two rows of trousers (and flap) under the pivot."""
-    rows = sorted({y for _, y in legs})[:2]
-    xs = [x for (x, y), c in legs.items() if y in rows and R.code(c) in TROUSERS | set("ABC")]
-    return 0 if not xs else int(math.floor(-(min(xs) + max(xs)) / 2 + 0.5))
-
-
-def run_legs(a, pivot, codex_flap, dy, belt=BELT_ROW):
-    """The run's legs: Codex's from under its belt, pushed down to the idle's hips (rows taken out of the shins),
-    in the idle's leg materials, the trousers lit on their back edge as the idle's; belt: the last row of the upper
-    body they hang from (the run's: the pelvis, PELVIS)."""
-    px, py = pivot
-    h, w = a.shape[:2]
-    top = codex_flap + 1                         # Codex's legs start under its flap's top row
-    want = belt + 1 + dy
-    rows = {}
-    for y in range(top, 12):
-        rows[y] = {x - px: a[py + y, x].copy() for x in range(w) if a[py + y, x, 3]}
-    d = max(0, want - top)
-    if d:
-        cand = list(range(top + 6, 9))
-        cost = {r: sum(1 for x in set(rows[r]) | set(rows.get(r + 1, {}))
-                       if (x in rows[r]) != (x in rows.get(r + 1, {})) or (x in rows[r] and tuple(rows[r][x][:3])
-                                                                            != tuple(rows[r + 1][x][:3])))
-                for r in cand}
-        gone = []
-        for r in sorted(cost, key=lambda r: (cost[r], r)):
-            if len(gone) < d and all(abs(r - q) > 1 for q in gone):
-                gone.append(r)
-        keep = [y for y in sorted(rows) if y not in gone]
-        new = {}
-        for i, y in enumerate(keep):
-            new[11 - (len(keep) - 1 - i)] = rows[y]
-        rows = new
-    out = {}
-    for y, row in rows.items():
-        if y < want:
-            continue
-        for x, c in row.items():
-            ch = R.code(c)
-            if ch in LEG_REMAP:
-                c = R.rgba(LEG_REMAP[ch])
-            out[(x, y)] = c
-    for y in {yy for _, yy in out}:              # the trousers' lit back edge
-        for x in sorted(x for x, yy in out if yy == y):
-            if R.code(out[(x, y)]) in TROUSERS and R.code(out.get((x - 1, y), np.zeros(4, np.uint8))) in ("a", "?") \
-                    and R.code(out.get((x + 1, y), np.zeros(4, np.uint8))) in TROUSERS:
-                out[(x, y)] = R.rgba("w")
-    if belt != BELT_ROW:                         # under the pelvis: leg materials only - Codex's hands hung by its hips
-        out = {q: c for q, c in out.items() if R.code(c) in LEG_CODES}   # (their skin and the dark round them went
-        for _ in range(3):                       # into the legs as these rows moved down: run 2, 8)
-            for q in [q for q, c in out.items() if R.code(c) in DARK_CODES]:
-                if not any((q[0] + ox, q[1] + oy) in out and R.code(out[(q[0] + ox, q[1] + oy)]) not in DARK_CODES
-                           for ox in (-1, 0, 1) for oy in (-1, 0, 1) if ox or oy):
-                    del out[q]
-        seen = set()                             # and the knots of a hand's leather left apart from the legs
-        for q0 in list(out):
-            if q0 in seen:
-                continue
-            comp, todo = [q0], [q0]
-            seen.add(q0)
-            while todo:
-                x, y = todo.pop()
-                for n_ in ((x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)):
-                    if n_ in out and n_ not in seen:
-                        seen.add(n_)
-                        comp.append(n_)
-                        todo.append(n_)
-            if len(comp) < LEG_KNOT:
-                for q in comp:
-                    del out[q]
-    return out
-
-
-LEG_KNOT = 6                                     # leg pieces of fewer squares (4-connected) are a hand's leftovers
-
-
-LEG_CODES = set("ozwABChjxDruqyl") | set("ab")   # trousers, flap, cuffs and boots, outline
-DARK_CODES = set("ab")
-
-
 def own_legs(a, pivot, dy):
-    """Codex's own legs (the run's strides, R's kneel) under the idle's belt dropped dy rows: its squares from the row
+    """Codex's own legs (a crouch) under the idle's belt dropped dy rows: its squares from the row
     under the belt down, not skin nor a bracer's leather within 2 squares of skin (a hand on the ground)."""
     px, py = pivot
     h, w = a.shape[:2]
@@ -1033,7 +1112,7 @@ def cut_rows(full, n):
 def idle_body(a, pivot, hd, P, tag, point=(), over_scroll=False, legs_own=False, crouch_hip=None, swing=None,
               idle_arms=(), drawn=None):
     """A standing frame on the idle's own upper body with Codex's arms drawn again (the module's docstring); legs_own:
-    the idle's upper body down to its belt, dropped to Codex's head, over Codex's own legs (OWN_LEGS); crouch_hip: in a
+    the idle's upper body down to its belt, dropped to Codex's head, over Codex's own legs (a crouch); crouch_hip: in a
     crouch (CROUCH) the belt drops to Codex's hips instead, the torso losing up to MAX_CUT rows to reach Codex's head
     (the head higher than Codex's by what is left), Codex's arms kept where they reach (the hands on the ground)."""
     px, py = pivot
@@ -1052,14 +1131,9 @@ def idle_body(a, pivot, hd, P, tag, point=(), over_scroll=False, legs_own=False,
         hip = dy if crouch_hip is None else crouch_hip
         cut = min(MAX_CUT, max(0, dy - hip))
         drop = hip + cut                         # the head's drop
-        legs = own_legs(a, pivot, hip) if crouch_hip is not None else \
-            run_legs(a, pivot, flap_top(a, pivot), dy, PELVIS[1])
+        legs = own_legs(a, pivot, hip)
         full = {xy: c for xy, c in P["upper"].items() if xy[1] <= BELT_ROW}
         full.update({xy: c for xy, c in torso_sides(P["upper"]).items() if xy[1] <= BELT_ROW and xy not in full})
-        if crouch_hip is None:                   # the run: the pelvis with the upper body (PELVIS)
-            full.update({(x, y): c for (x, y), c in P["full"].items()
-                         if PELVIS[0] <= y <= PELVIS[1] and PELVIS_X[0] <= x <= PELVIS_X[1]})
-            LEGS_DX["last"] = legs_dx(legs)
         rows = cut_rows(full, cut)
         placed = {(x, y + drop - sum(r < y for r in rows)): c for (x, y), c in full.items() if y not in rows}
         upper = {(x - dx, y - dy): c for (x, y), c in placed.items()}
@@ -1181,12 +1255,10 @@ def idle_body(a, pivot, hd, P, tag, point=(), over_scroll=False, legs_own=False,
             for (x, y), c in P["legs"][side].items():
                 out[py + y, px + x] = c
     else:
-        ldx = LEGS_DX["last"] if crouch_hip is None else 0     # the run's legs centred under the pelvis
         for (x, y), c in legs.items():
-            # (the run: no skin in the legs - Codex's hands by its hips went with its arms)
             if 0 <= py + y < h and not arm[py + y, px + x] and not (
-                    swing is not None and tuple(int(v) for v in c[:3]) in SKIN) and 0 <= px + x + ldx < w:
-                out[py + y, px + x + ldx] = c
+                    swing is not None and tuple(int(v) for v in c[:3]) in SKIN) and 0 <= px + x < w:
+                out[py + y, px + x] = c
     if swing is not None:                        # the run's far arm behind the body, its hand over the legs
         for (x, y), c in swing["back"].items():
             out[py + y + drop, px + x] = c
@@ -1223,6 +1295,7 @@ def build():
     head = {(x, y): c for (x, y), c in des.items() if x0 <= x <= x1 and y0 <= y <= y1}
     P = R.parts(R.design())
     poses = arm_poses()
+    run_tabs = run_tables()
     out, log = {}, []
     for tag in TAGS:
         frs = cells["tags"][tag]
@@ -1247,8 +1320,11 @@ def build():
                 kdy, pose_ = R_KNEEL[k + 1]
                 a = kneel_frame(fr["pivot"], a.shape, P, kdy, pose_)
                 note = f" | kneel drawn on the idle: {kdy}"
+            if tag == "run":                     # League's run on the design's own body (run_frame), not Codex's
+                a = run_frame(k, fr["pivot"], a.shape, P, run_tabs)
+                note = " | run drawn from League's joints"
             crouch = (tag, k + 1) in CROUCH
-            own = (tag, k + 1) in OWN_LEGS or crouch
+            own = crouch
             if (IDLE_BODY.get(tag) == "all" or (k + 1) in IDLE_BODY.get(tag, []) or own) and not kneel:
                 point = [s for (t, n), s in POINT.items() if t == tag and n == k + 1]
                 if hd[2] < 0.9:                  # the pasted head partly covered: its place by the eyes
@@ -1270,13 +1346,6 @@ def build():
                     for x in range(-5, 7):
                         a[py + y + ey, px + x + ex] = 0
                 note += " | crown band cleared"
-            if (tag, k + 1) in FEET:            # hand-drawn: the boot of a leg swinging through (its rows cut off)
-                px, py = fr["pivot"]
-                fdx = LEGS_DX["last"] if (tag, k + 1) in OWN_LEGS else 0     # with the legs' sideways move
-                for row, (x0, s) in FEET[(tag, k + 1)].items():
-                    for j, ch in enumerate(s):
-                        a[py + row, px + x0 + j + fdx] = R.rgba(ch)
-                note += " | boot drawn"
             if tag != "idle":                    # crumbs apart from the figure (a hand of Codex's left by the legs)
                 ps = pieces(a[..., 3] > 0)
                 big = max(len(p_) for p_ in ps)

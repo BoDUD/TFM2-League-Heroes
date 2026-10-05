@@ -1268,6 +1268,8 @@ league_lissandra (mid, --lane 2, 2026-10-05, Ring of Frost's 1.25 s root - also 
 Tomb's 1.5 s stun): 1.79 a game; the base lightning mage 3.19 and league_twistedfate 1.23 in the same batch - no change.
 league_varus (bottom, --lane 3, 2026-10-05, Chain of Corruption's 2 s root and its 1.5 s spread): 0.71 a game; the base
 gunner 0.19 and league_jhin 1.17 in the same batch - no change.
+league_alistar (support, --lane 4, 2026-10-05, Pulverize's and Headbutt -> Pulverize's 1 s knock-ups, Trample's 1 s stun):
+2.23 a game; league_leona 2.19 and the base priest 0.50 in the same batch - no change.
 
 **Kill trigger (league_jinx Get Excited!).** No effect fires on a kill, but section 4's facts make one:
 1. Next to the damaging projectile, fire an invisible twin with the same speed and path and
@@ -3287,6 +3289,27 @@ ticks re-applies a 15-tick slow (30%) and `heal_reduce` 40 every 15 ticks, so it
 (passes minions, stops on the first enemy champion) roots 120 ticks, detonates the stacks (no refund) and sets three; its
 `end_effects` drop a delayed zone at the hit spot: 30 ticks later every enemy champion within 55000 is rooted 90 ticks and
 shows three pips (the pictures only - the ladder is his, set once).
+
+**One skill that starts another (league_alistar E -> Q).** League's Trample is folded into Pulverize and into
+Headbutt -> Pulverize: with its own cooldown flag off, a cast also starts the trample - one `AddCasted` on himself
+(`RangeEffect AllyOnlySelf`) that stomps every 30 ticks for 3 s on `EnemyWithoutTower` round him, its first stomp on
+the wind-up. Every stomp that touches a champion climbs a caster-flag ladder e1..e4, and each champion the slam throws
+up counts one too (League's E Q: the stomps land on them in the air); the fifth arms e_ready, and his next attack's
+champion-only twin stuns 60 ticks and clears it.
+
+**A dash that ends in a slam where the push left them (league_alistar W -> Q).** A `Targeting` cast on `EnemyChampion`:
+`MoveToTarget` (3500 a tick) with `end_effects` = the headbutt (damage + `Knockback` 2500 x 8 ticks on the champions in
+front) and a `Delayed` 6-tick slam ring round where he stands - the same Pulverize ring, so it lands on the champion
+just as the knock-back sets him down.
+
+**Crowd control counted for a passive (league_alistar Triumphant Roar).** Every crowd-control effect's champion twin
+(the knock-ups, the headbutt, the stun) climbs a p1 -> p2 ladder on the caster; the third, with the 300-tick cooldown
+flag off, heals him and every allied champion within 40000 (`RangeEffect` `AllyChampion`) and clears the ladder.
+
+**An unstoppable roar fired on contact (league_alistar R).** Armed like league_blitzcrank R: a 3-tick `None` cast on
+`EnemyChampion` arms the slot 600 ticks; every action and a 15-tick pulse fire it when an enemy champion is within
+32000 or he is crowd-controlled himself: `cc_immune` 60 ticks (League's cleanse), `damaged_reduce` 50 for 420 ticks,
+the aura drawn behind him (view_buff `z` -1). Unused, `ult_cooldown_mult` refunds the cooldown.
 
 ## 8. Gotchas
 
