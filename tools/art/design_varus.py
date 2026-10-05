@@ -15,7 +15,11 @@ whole lines, area-voted to 40) the user took 「5 原稿按面积缩40行 ... �
   3. down to 40 rows by area: each new square (73/40 of a read-back square on a side) the colour covering most of it,
      background when the background covers most: 29 x 40;
   4. on the 128x128 canvas at 8x: the soles on row 99, the middle of the feet (the lowest three rows) on column 64;
-  5. strips.complete_outline (one outline square outside every light edge, nothing under the soles).
+  5. strips.complete_outline (one outline square outside every light edge, nothing under the soles);
+  6. CLEAN (the user, after the strips: 「有些杂乱的黑色素 不干净的地方也帮我清理一下」): an outline-coloured square
+     inside the figure (all four neighbours drawn) with at most one outline square beside it - a loose black speck the
+     area vote left on the chest, the forearms, the legs and the bow - takes the commonest colour of its other
+     neighbours; two passes; the face (FACE) untouched; inner lines of two squares and more stay.
 --check compares the result with the committed varus_native.png instead of writing it.
 """
 import argparse
@@ -37,6 +41,7 @@ SOLE_ROW, MID_COL = 99, 64
 FEET_ROWS = 3
 K = 24
 ROWS = 40
+FACE = (66, 73, 55, 68)          # rows / columns on the canvas the clean-up leaves alone (the eyes, brows, mouth)
 
 
 def lp(path):
@@ -95,6 +100,25 @@ def down(idx, n, rows):
     return out
 
 
+def clean(a, outline, passes=2):
+    """Loose inner black specks take their neighbours' commonest colour (step 6)."""
+    from collections import Counter
+    for _ in range(passes):
+        op = a[..., 3] > 0
+        ink = op & (a[..., :3] == np.array(outline, np.uint8)).all(-1)
+        new = a.copy()
+        for y, x in zip(*np.nonzero(ink)):
+            if FACE[0] <= y <= FACE[1] and FACE[2] <= x <= FACE[3]:
+                continue
+            nb4 = [(y + dy, x + dx) for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1))]
+            if not all(op[q] for q in nb4) or sum(ink[q] for q in nb4) > 1:
+                continue
+            cols = Counter(tuple(int(v) for v in a[q]) for q in nb4 if not ink[q])
+            new[y, x] = cols.most_common(1)[0][0]
+        a = new
+    return a
+
+
 def build():
     raw, _, _ = regrid(np.asarray(Image.open(lp(RAW)).convert("RGBA")))
     ys, xs = np.nonzero(raw[..., 3] >= 128)
@@ -117,7 +141,7 @@ def build():
     x0 = int(round(MID_COL - mid))
     can[y0:y0 + a.shape[0], x0:x0 + a.shape[1]] = a
     can, added, darkened = strips.complete_outline(can, color=outline, feet=SOLE_ROW)
-    return can, added, darkened
+    return clean(can, outline), added, darkened
 
 
 def main():
