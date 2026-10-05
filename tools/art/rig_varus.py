@@ -79,7 +79,6 @@ GLOW = {(0x3B, 0x18, 0x5F): (0x65, 0x24, 0x93), (0x65, 0x24, 0x93): (0xA1, 0x12,
         (0xA1, 0x12, 0xF7): (0xCA, 0x2B, 0xFB), (0xCA, 0x2B, 0xFB): (0xE8, 0x38, 0xF3),
         (0x52, 0x04, 0xBA): (0xA1, 0x12, 0xF7), (0x26, 0x14, 0x32): (0x3B, 0x18, 0x5F)}
 HIP, ANKLE = 88, 96
-SIDE_ROWS, SIDE_L, SIDE_R, SIDE_W = (81, 88), (52, 60), (64, 70), 2   # side_filled: rows, left / right columns
 NEAR_ANKLE, FAR_ANKLE = 58.5, 67.0
 BOOTS = 95
 HEAD_ROWS = (60, 73)
@@ -167,45 +166,10 @@ class Parts:
         self.tips = ((float(xs[ys == top].mean()), float(top)), (float(xs[ys == bot].mean()), float(bot)))
         self.body = d.copy()
         self.body[self.bow_m | self.bow_arm_m | self.draw_m] = 0
-        self.body = side_filled(self.body)
         self.body_bow_arm = d.copy()                 # the design without the bow and its hand (the death's empty hand)
         self.body_bow_arm[self.bow_m] = 0
         self.trunk = self.body.copy()
         self.trunk[self.near_leg | self.far_leg] = 0
-
-
-def side_filled(body):
-    """The torso's sides where the arms were taken off (rows SIDE_ROWS): a clear square right beside the torso, up to
-    SIDE_W columns out on the draw-arm side (left) and the bow-arm side (right), takes the colour of the torso's
-    outermost coloured square in that row (skin, crimson or purple - never the scarf's reds or the outline); the
-    outline then closes outside it. Left empty they read as a piece missing from his body (the user: 「身体上少一块色素」)."""
-    out = body.copy()
-    op = body[..., 3] > 0
-
-    def side(y, x):
-        c = tuple(int(v) for v in body[y, x, :3])
-        return op[y, x] and c != OUT and c not in RED
-
-    for y in range(SIDE_ROWS[0], SIDE_ROWS[1] + 1):
-        for x0, x1, step in ((SIDE_L[0], SIDE_L[1], -1), (SIDE_R[0], SIDE_R[1], 1)):
-            # the torso's outermost coloured square on this side, searched from the middle outward
-            xs = range(x1, x0 - 1, step) if step < 0 else range(x0, x1 + 1)
-            edge = None
-            for x in (range(62, x0 - 1, -1) if step < 0 else range(62, x1 + 1)):
-                if side(y, x):
-                    edge = x
-                elif op[y, x] and tuple(int(v) for v in body[y, x, :3]) == OUT:
-                    continue
-                else:
-                    break
-            if edge is None:
-                continue
-            for k in range(1, SIDE_W + 1):
-                x = edge + step * k
-                if op[y, x] and tuple(int(v) for v in body[y, x, :3]) != OUT:
-                    break
-                out[y, x] = body[y, edge]
-    return out
 
 
 def arm(shoulder, up, fore):

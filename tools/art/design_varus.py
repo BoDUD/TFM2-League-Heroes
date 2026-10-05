@@ -19,7 +19,10 @@ whole lines, area-voted to 40) the user took 「5 原稿按面积缩40行 ... �
   6. CLEAN (the user, after the strips: 「有些杂乱的黑色素 不干净的地方也帮我清理一下」): an outline-coloured square
      inside the figure (all four neighbours drawn) with at most one outline square beside it - a loose black speck the
      area vote left on the chest, the forearms, the legs and the bow - takes the commonest colour of its other
-     neighbours; two passes; the face (FACE) untouched; inner lines of two squares and more stay.
+     neighbours; two passes; the face (FACE) untouched; inner lines of two squares and more stay;
+  7. FIX (the user: 「这里是什么啊 黑色一大块？」, beside the medallion): the chest harness strap, voted into the outline's
+     black, in the picture's dark grey-brown leather with a lit top edge; the black and clear squares between the
+     scarf's front tail and the belly in the belly's own skin and crimson.
 --check compares the result with the committed varus_native.png instead of writing it.
 """
 import argparse
@@ -41,7 +44,12 @@ SOLE_ROW, MID_COL = 99, 64
 FEET_ROWS = 3
 K = 24
 ROWS = 40
-FACE = (66, 73, 55, 68)          # rows / columns on the canvas the clean-up leaves alone (the eyes, brows, mouth)
+FACE = (66, 73, 55, 68)
+STRAP, STRAP_LIT = (0x3A, 0x34, 0x38), (0x6A, 0x62, 0x68)       # the harness leather (Codex's palette.json)
+SKIN_SH, CRIMSON_D = (0xC1, 0x8D, 0x7D), (0x89, 0x08, 0x51)
+FIX = {(80, 61): STRAP_LIT, (80, 62): STRAP_LIT, (81, 61): STRAP, (81, 62): STRAP,
+       (83, 59): SKIN_SH, (83, 60): SKIN_SH, (84, 59): CRIMSON_D, (84, 60): SKIN_SH,
+       (85, 58): CRIMSON_D, (85, 59): CRIMSON_D, (85, 60): CRIMSON_D}          # rows / columns on the canvas the clean-up leaves alone (the eyes, brows, mouth)
 
 
 def lp(path):
@@ -141,7 +149,10 @@ def build():
     x0 = int(round(MID_COL - mid))
     can[y0:y0 + a.shape[0], x0:x0 + a.shape[1]] = a
     can, added, darkened = strips.complete_outline(can, color=outline, feet=SOLE_ROW)
-    return clean(can, outline), added, darkened
+    can = clean(can, outline)
+    for (y, x), c in FIX.items():
+        can[y, x] = (*c, 255)
+    return can, added, darkened
 
 
 def main():
