@@ -1,0 +1,10 @@
+{
+  "asset/league/champion/league_tryndamere": {
+    "remapping": "asset/league_tryndamere_rage/override/league_tryndamere",
+    "type": "override"
+  },
+  "asset/base/text/champion": {
+    "remapping": "asset/league_tryndamere_rage/text/champion",
+    "type": "merge"
+  }
+}

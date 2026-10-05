@@ -5,7 +5,7 @@
   "q_hit": {"cell": [25, 27], "anchor": [12, 13], "frames": 5},
   "e_hit": {"cell": [17, 13], "anchor": [8, 6], "frames": 4},
   "e_smash": {"cell": [29, 25], "anchor": [14, 12], "frames": 5},
-  "w_fist": {"cell": [63, 41], "anchor": [31, 20], "frames": 9},
+  "w_fist": {"cell": [83, 47], "anchor": [41, 23], "frames": 9},
   "w_shield": {"cell": [47, 47], "anchor": [23, 23], "frames": 12},
   "w_true": {"cell": [19, 23], "anchor": [9, 11], "frames": 5},
   "w_hit": {"cell": [17, 17], "anchor": [8, 8], "frames": 4},

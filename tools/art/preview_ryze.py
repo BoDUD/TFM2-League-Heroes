@@ -10,7 +10,8 @@
                             Flux's violet orb bursts on Darius and marks him and Garen (violet runes circling their
                             chests), Rune Prison roots the Flux'd Darius in a cage of blue bars, the reset Overload
                             bursts the Flux on both (a lightning strike and a violet blast each), the two runes he
-                            charged (circling his waist) burst out and hasten him; Darius and Garen back off, and once
+                            charged (circling his waist) burst out and hasten him, a second Spell Flux and Overload
+                            burst it again (E-W-Q-E-Q); Darius and Garen back off, and once
                             Darius has left his reach Realm Warp chases him: a portal under Ryze and Lucian and one
                             where the line toward Darius touches him, he and Lucian blink through (a column where they
                             stood, the arrival round him, a flash on Lucian) and his landing Spell Flux marks Darius
@@ -69,7 +70,7 @@ def showcase(out, z=3, step=40):
     W, H = 300, 150
     gy = 100                                          # the pivot row: R's column rises 54 px over it
     x0 = 72
-    reach_stop = 15                                   # R's chase line stops r_stop (5000) + Darius's body short of him
+    reach_stop = 46                                   # R lands r_stop (38000: in his reach) + Darius's body short of him
     lucian = Ally(load(os.path.join(LEAGUE, "champions", "league_lucian")), x0 - 24, gy - 8)   # in the 30 px portal
     d = Held(load(os.path.join(LEAGUE, "champions", "league_darius")), x0 + 54, gy + 8)      # 55 px: attack range
     g = Held(load(os.path.join(LEAGUE, "champions", "league_garen")), 286, gy - 14)         # walking in
@@ -132,16 +133,16 @@ def showcase(out, z=3, step=40):
     shot("q_bolt", start, d, 6.0, "q_hit")
     a("skill")
     a("idle", 600, loop=True)
-    # the combo E -> W -> Q: E on tick 6, W on 24, Q on 38
+    # the combo E -> W -> Q -> E -> Q (2026-10-05): E on tick 6, W on 16, Q on 26, E again on 36, Q again on 46
     c0 = t
     on(me, small, "e_cast", c0 + tick(6))
     land = shot("e_orb", c0 + tick(6), d, 4.5, "e_hit")
     marked = land + tick(3)                           # the lob (1 tick) and the zone's 2-tick delay
-    on(me, small, "rune1", c0 + tick(6), until=c0 + tick(24))
-    on(d, small, "w_root", c0 + tick(24))             # Flux is up: rooted 75 ticks in the cage
-    d.holds.append((c0 + tick(24), c0 + tick(24 + 75)))
-    on(me, small, "rune2", c0 + tick(24), until=c0 + tick(38))
-    q = c0 + tick(38)
+    on(me, small, "rune1", c0 + tick(6), until=c0 + tick(16))
+    on(d, small, "w_root", c0 + tick(16))             # Flux is up: rooted 75 ticks in the cage
+    d.holds.append((c0 + tick(16), c0 + tick(16 + 75)))
+    on(me, small, "rune2", c0 + tick(16), until=c0 + tick(26))
+    q = c0 + tick(26)
     on(me, small, "q_cast", q)
     on(me, small, "rune_out", q)
     on(me, small, "q_haste", q, until=q + tick(120), ground=True)
@@ -150,6 +151,18 @@ def showcase(out, z=3, step=40):
     for foe in (d, g):                                # the burst on every Flux'd enemy
         on(foe, small, "q_pop", hit)
         foe.flinches.append(hit)
+    # the second Spell Flux marks them again, the second Overload bursts it
+    on(me, small, "e_cast", c0 + tick(36))
+    on(me, small, "rune1", c0 + tick(36), until=c0 + tick(46))
+    land2 = shot("e_orb", c0 + tick(36), d, 4.5, "e_hit")
+    q2 = c0 + tick(46)
+    on(me, small, "q_cast", q2)
+    on(me, small, "rune_out", q2)
+    hit2 = shot("q_bolt", q2, d, 6.0, "q_hit")
+    flux(land2 + tick(3), hit2)
+    for foe in (d, g):
+        on(foe, small, "q_pop", hit2)
+        foe.flinches.append(hit2)
     a("skill2")
     a("idle", 900, loop=True)
     # Realm Warp, the chase: out of the cage Darius runs off, Garen with him; once Darius has left Ryze's reach (60 px

@@ -61,7 +61,9 @@ RAW = {
     "q_hit": dict(n=5, size=22, measure="m", anchor="cell", ramps="ORANGE"),
     "e_hit": dict(n=4, size=14, measure="m", anchor="cell", ramps="ORANGE"),
     "e_smash": dict(n=5, size=26, measure="w", anchor="cell", ramps="ORANGE"),
-    "w_fist": dict(n=9, size=50, measure=("frame", 0, "w"), anchor="fan", ramps="ORANGE"),
+    # W's fist 60 squares, its line 50 (2026-10-05, the user: 「瑟提的W ... 特效适当加长或者加宽一点」): the fan's left end
+    # stays on him, the anchor still the line's middle 25 squares ahead
+    "w_fist": dict(n=9, size=60, measure=("frame", 0, "w"), anchor="fan", ramps="ORANGE"),
     "w_shield": dict(n=12, size=44, measure="w", anchor=("fixed", "box", 3), ramps="SILVER ORANGE"),
     "w_true": dict(n=5, size=20, measure="m", anchor="cell", ramps="ORANGE"),
     "w_hit": dict(n=4, size=14, measure="m", anchor="cell", ramps="ORANGE EARTH"),
@@ -106,14 +108,20 @@ def anchor(how, k, a, solid, rects, s=None):
     return J.anchor(how, k, a, solid, rects)
 
 
-def from_raw(folder):
+def from_raw(folder, only=None):
     with open(os.path.join(folder, "manifest.json"), encoding="utf-8-sig") as f:
         manifest = {os.path.basename(a["file"]): a for a in json.load(f)["assets"]}
-    os.makedirs(os.path.join(SRC, "codex_fx"), exist_ok=True)
-    for name in ("HANDOFF.md", "manifest.json", "generation_prompts.json"):
-        shutil.copy(os.path.join(folder, name), os.path.join(SRC, "codex_fx", name))
     anchors = {}
+    if only:                                   # the strips not rebuilt keep their cells
+        with open(os.path.join(SRC, "sett_fx_anchors.json"), encoding="utf-8") as f:
+            anchors = json.load(f)
+    else:
+        os.makedirs(os.path.join(SRC, "codex_fx"), exist_ok=True)
+        for name in ("HANDOFF.md", "manifest.json", "generation_prompts.json"):
+            shutil.copy(os.path.join(folder, name), os.path.join(SRC, "codex_fx", name))
     for name, spec in RAW.items():
+        if only and name not in only:
+            continue
         fn = f"sett_fx_{name}.png"
         hexes_, pal = palette(spec["ramps"])
         a = np.asarray(Image.open(os.path.join(folder, fn)).convert("RGBA")).copy()
@@ -226,9 +234,11 @@ def build(table):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--raw", help="Codex's delivery folder: rebuild the native strips from its PNGs first")
+    ap.add_argument("--only", nargs="+", choices=sorted(RAW), help="with --raw: rebuild just these native strips "
+                    "(a full --raw no longer reproduces every committed strip)")
     args = ap.parse_args()
     if args.raw:
-        from_raw(args.raw)
+        from_raw(args.raw, args.only)
     for sheet, table in (("league_sett_fx", FX), ("league_sett_big", BIG)):
         tags = build(table)
         w, h = G.write_sheet(os.path.join(MOD, "effects", sheet), tags)

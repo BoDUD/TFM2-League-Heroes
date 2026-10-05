@@ -1,0 +1,1769 @@
+{
+  "scale": 8,
+  "cell_size_1x": [
+    128,
+    96
+  ],
+  "coordinate_convention": "0-based logical pixels, bbox right/bottom exclusive",
+  "animations": {
+    "run": {
+      "image": "tryndamere_run.png",
+      "grid": [
+        4,
+        2
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 125,
+          "rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            74,
+            70
+          ],
+          "bbox": [
+            49,
+            42,
+            106,
+            82
+          ],
+          "head_position": [
+            80,
+            42
+          ],
+          "head_identical": true,
+          "weapon_tip": [
+            49,
+            81
+          ],
+          "weapon_hand": [
+            72,
+            64
+          ],
+          "sole_row": 81,
+          "below_sole_pixels": 0
+        },
+        {
+          "frame": 2,
+          "ms": 125,
+          "rect_1x": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            74,
+            70
+          ],
+          "bbox": [
+            49,
+            42,
+            106,
+            82
+          ],
+          "head_position": [
+            80,
+            42
+          ],
+          "head_identical": true,
+          "weapon_tip": [
+            49,
+            81
+          ],
+          "weapon_hand": [
+            72,
+            64
+          ],
+          "sole_row": 81,
+          "below_sole_pixels": 0
+        },
+        {
+          "frame": 3,
+          "ms": 125,
+          "rect_1x": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            75,
+            70
+          ],
+          "bbox": [
+            50,
+            42,
+            107,
+            82
+          ],
+          "head_position": [
+            81,
+            42
+          ],
+          "head_identical": true,
+          "weapon_tip": [
+            50,
+            81
+          ],
+          "weapon_hand": [
+            73,
+            64
+          ],
+          "sole_row": 81,
+          "below_sole_pixels": 0
+        },
+        {
+          "frame": 4,
+          "ms": 125,
+          "rect_1x": [
+            384,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            76,
+            70
+          ],
+          "bbox": [
+            51,
+            42,
+            108,
+            82
+          ],
+          "head_position": [
+            82,
+            42
+          ],
+          "head_identical": true,
+          "weapon_tip": [
+            51,
+            81
+          ],
+          "weapon_hand": [
+            74,
+            64
+          ],
+          "sole_row": 81,
+          "below_sole_pixels": 0
+        },
+        {
+          "frame": 5,
+          "ms": 125,
+          "rect_1x": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "pivot": [
+            76,
+            70
+          ],
+          "bbox": [
+            51,
+            42,
+            108,
+            82
+          ],
+          "head_position": [
+            82,
+            42
+          ],
+          "head_identical": true,
+          "weapon_tip": [
+            51,
+            81
+          ],
+          "weapon_hand": [
+            74,
+            64
+          ],
+          "sole_row": 81,
+          "below_sole_pixels": 0
+        },
+        {
+          "frame": 6,
+          "ms": 125,
+          "rect_1x": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "pivot": [
+            74,
+            70
+          ],
+          "bbox": [
+            49,
+            42,
+            106,
+            82
+          ],
+          "head_position": [
+            80,
+            42
+          ],
+          "head_identical": true,
+          "weapon_tip": [
+            49,
+            81
+          ],
+          "weapon_hand": [
+            72,
+            64
+          ],
+          "sole_row": 81,
+          "below_sole_pixels": 0
+        },
+        {
+          "frame": 7,
+          "ms": 125,
+          "rect_1x": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "pivot": [
+            73,
+            70
+          ],
+          "bbox": [
+            48,
+            42,
+            105,
+            82
+          ],
+          "head_position": [
+            79,
+            42
+          ],
+          "head_identical": true,
+          "weapon_tip": [
+            48,
+            81
+          ],
+          "weapon_hand": [
+            71,
+            64
+          ],
+          "sole_row": 81,
+          "below_sole_pixels": 0
+        },
+        {
+          "frame": 8,
+          "ms": 125,
+          "rect_1x": [
+            384,
+            96,
+            128,
+            96
+          ],
+          "pivot": [
+            73,
+            70
+          ],
+          "bbox": [
+            48,
+            42,
+            105,
+            82
+          ],
+          "head_position": [
+            79,
+            42
+          ],
+          "head_identical": true,
+          "weapon_tip": [
+            48,
+            81
+          ],
+          "weapon_hand": [
+            71,
+            64
+          ],
+          "sole_row": 81,
+          "below_sole_pixels": 0
+        }
+      ],
+      "production": "Approved design pixels in separated layers; motion guide from generated raw and supplied poses; rigid nearest-neighbour rotations, no scaling or row deletion."
+    },
+    "attack": {
+      "image": "tryndamere_attack.png",
+      "grid": [
+        3,
+        2
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 50,
+          "rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            76,
+            70
+          ],
+          "bbox": [
+            51,
+            42,
+            108,
+            82
+          ],
+          "head_position": [
+            82,
+            42
+          ],
+          "head_identical": true,
+          "weapon_tip": [
+            51,
+            81
+          ],
+          "weapon_hand": [
+            74,
+            64
+          ],
+          "sole_row": 81,
+          "below_sole_pixels": 0
+        },
+        {
+          "frame": 2,
+          "ms": 50,
+          "rect_1x": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            72,
+            70
+          ],
+          "bbox": [
+            42,
+            38,
+            104,
+            82
+          ],
+          "head_position": [
+            78,
+            42
+          ],
+          "head_identical": true,
+          "weapon_tip": [
+            43,
+            39
+          ],
+          "weapon_hand": [
+            70,
+            48
+          ],
+          "sole_row": 81,
+          "below_sole_pixels": 0
+        },
+        {
+          "frame": 3,
+          "ms": 50,
+          "rect_1x": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            62,
+            70
+          ],
+          "bbox": [
+            53,
+            15,
+            88,
+            82
+          ],
+          "head_position": [
+            68,
+            42
+          ],
+          "head_identical": true,
+          "weapon_tip": [
+            76,
+            15
+          ],
+          "weapon_hand": [
+            74,
+            44
+          ],
+          "sole_row": 81,
+          "below_sole_pixels": 0
+        },
+        {
+          "frame": 4,
+          "ms": 50,
+          "rect_1x": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "pivot": [
+            64,
+            70
+          ],
+          "bbox": [
+            55,
+            14,
+            90,
+            82
+          ],
+          "head_position": [
+            70,
+            42
+          ],
+          "head_identical": true,
+          "weapon_tip": [
+            80,
+            14
+          ],
+          "weapon_hand": [
+            78,
+            43
+          ],
+          "sole_row": 81,
+          "below_sole_pixels": 0
+        },
+        {
+          "frame": 5,
+          "ms": 100,
+          "rect_1x": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "pivot": [
+            47,
+            70
+          ],
+          "bbox": [
+            38,
+            42,
+            102,
+            82
+          ],
+          "head_position": [
+            53,
+            42
+          ],
+          "head_identical": true,
+          "weapon_tip": [
+            102,
+            59
+          ],
+          "weapon_hand": [
+            73,
+            59
+          ],
+          "sole_row": 81,
+          "below_sole_pixels": 0
+        },
+        {
+          "frame": 6,
+          "ms": 100,
+          "rect_1x": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "pivot": [
+            79,
+            70
+          ],
+          "bbox": [
+            54,
+            42,
+            111,
+            82
+          ],
+          "head_position": [
+            85,
+            42
+          ],
+          "head_identical": true,
+          "weapon_tip": [
+            54,
+            81
+          ],
+          "weapon_hand": [
+            77,
+            64
+          ],
+          "sole_row": 81,
+          "below_sole_pixels": 0
+        }
+      ],
+      "production": "Approved design pixels in separated layers; motion guide from generated raw and supplied poses; rigid nearest-neighbour rotations, no scaling or row deletion.",
+      "strike_frame": 5,
+      "strike_tick": 12,
+      "strike_positions": {
+        "weapon_tip": [
+          102,
+          59
+        ],
+        "weapon_hand": [
+          73,
+          59
+        ]
+      }
+    },
+    "skill": {
+      "image": "tryndamere_skill.png",
+      "grid": [
+        3,
+        2
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 44,
+          "rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            54,
+            70
+          ],
+          "bbox": [
+            14,
+            42,
+            86,
+            82
+          ],
+          "head_position": [
+            60,
+            42
+          ],
+          "head_identical": true,
+          "weapon_tip": [
+            14,
+            59
+          ],
+          "weapon_hand": [
+            43,
+            59
+          ],
+          "sole_row": 81,
+          "below_sole_pixels": 0
+        },
+        {
+          "frame": 2,
+          "ms": 44,
+          "rect_1x": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            63,
+            70
+          ],
+          "bbox": [
+            32,
+            42,
+            96,
+            82
+          ],
+          "head_position": [
+            69,
+            42
+          ],
+          "head_identical": true,
+          "weapon_tip": [
+            32,
+            60
+          ],
+          "weapon_hand": [
+            61,
+            60
+          ],
+          "sole_row": 81,
+          "below_sole_pixels": 0
+        },
+        {
+          "frame": 3,
+          "ms": 44,
+          "rect_1x": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            72,
+            70
+          ],
+          "bbox": [
+            63,
+            42,
+            125,
+            82
+          ],
+          "head_position": [
+            78,
+            42
+          ],
+          "head_identical": true,
+          "weapon_tip": [
+            125,
+            58
+          ],
+          "weapon_hand": [
+            96,
+            58
+          ],
+          "sole_row": 81,
+          "below_sole_pixels": 0
+        },
+        {
+          "frame": 4,
+          "ms": 44,
+          "rect_1x": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "pivot": [
+            45,
+            70
+          ],
+          "bbox": [
+            41,
+            42,
+            96,
+            82
+          ],
+          "head_position": [
+            51,
+            42
+          ],
+          "head_identical": true,
+          "weapon_tip": [
+            96,
+            59
+          ],
+          "weapon_hand": [
+            67,
+            59
+          ],
+          "sole_row": 81,
+          "below_sole_pixels": 0
+        },
+        {
+          "frame": 5,
+          "ms": 44,
+          "rect_1x": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "pivot": [
+            69,
+            70
+          ],
+          "bbox": [
+            31,
+            42,
+            102,
+            82
+          ],
+          "head_position": [
+            75,
+            42
+          ],
+          "head_identical": true,
+          "weapon_tip": [
+            31,
+            59
+          ],
+          "weapon_hand": [
+            60,
+            59
+          ],
+          "sole_row": 81,
+          "below_sole_pixels": 0
+        },
+        {
+          "frame": 6,
+          "ms": 47,
+          "rect_1x": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "pivot": [
+            60,
+            70
+          ],
+          "bbox": [
+            35,
+            42,
+            92,
+            82
+          ],
+          "head_position": [
+            66,
+            42
+          ],
+          "head_identical": true,
+          "weapon_tip": [
+            35,
+            81
+          ],
+          "weapon_hand": [
+            58,
+            64
+          ],
+          "sole_row": 81,
+          "below_sole_pixels": 0
+        }
+      ],
+      "production": "Approved design pixels in separated layers; motion guide from generated raw and supplied poses; rigid nearest-neighbour rotations, no scaling or row deletion.",
+      "strike_frame": 1,
+      "strike_tick": 0,
+      "strike_positions": {
+        "weapon_tip": [
+          14,
+          59
+        ],
+        "weapon_hand": [
+          43,
+          59
+        ]
+      }
+    },
+    "skill2": {
+      "image": "tryndamere_skill2.png",
+      "grid": [
+        3,
+        2
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 60,
+          "rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            68,
+            70
+          ],
+          "bbox": [
+            43,
+            42,
+            100,
+            82
+          ],
+          "head_position": [
+            74,
+            42
+          ],
+          "head_identical": true,
+          "weapon_tip": [
+            43,
+            81
+          ],
+          "weapon_hand": [
+            66,
+            64
+          ],
+          "sole_row": 81,
+          "below_sole_pixels": 0
+        },
+        {
+          "frame": 2,
+          "ms": 60,
+          "rect_1x": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            45,
+            70
+          ],
+          "bbox": [
+            20,
+            42,
+            75,
+            82
+          ],
+          "head_position": [
+            51,
+            42
+          ],
+          "head_identical": true,
+          "weapon_tip": [
+            20,
+            81
+          ],
+          "weapon_hand": [
+            43,
+            64
+          ],
+          "sole_row": 81,
+          "below_sole_pixels": 0
+        },
+        {
+          "frame": 3,
+          "ms": 50,
+          "rect_1x": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            70,
+            70
+          ],
+          "bbox": [
+            45,
+            42,
+            102,
+            82
+          ],
+          "head_position": [
+            76,
+            42
+          ],
+          "head_identical": true,
+          "weapon_tip": [
+            45,
+            81
+          ],
+          "weapon_hand": [
+            68,
+            64
+          ],
+          "sole_row": 81,
+          "below_sole_pixels": 0
+        },
+        {
+          "frame": 4,
+          "ms": 80,
+          "rect_1x": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "pivot": [
+            79,
+            70
+          ],
+          "bbox": [
+            54,
+            42,
+            119,
+            82
+          ],
+          "head_position": [
+            85,
+            42
+          ],
+          "head_identical": true,
+          "weapon_tip": [
+            54,
+            81
+          ],
+          "weapon_hand": [
+            77,
+            64
+          ],
+          "sole_row": 81,
+          "below_sole_pixels": 0
+        },
+        {
+          "frame": 5,
+          "ms": 80,
+          "rect_1x": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "pivot": [
+            76,
+            70
+          ],
+          "bbox": [
+            51,
+            42,
+            116,
+            82
+          ],
+          "head_position": [
+            82,
+            42
+          ],
+          "head_identical": true,
+          "weapon_tip": [
+            51,
+            81
+          ],
+          "weapon_hand": [
+            74,
+            64
+          ],
+          "sole_row": 81,
+          "below_sole_pixels": 0
+        },
+        {
+          "frame": 6,
+          "ms": 70,
+          "rect_1x": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "pivot": [
+            78,
+            70
+          ],
+          "bbox": [
+            53,
+            42,
+            110,
+            82
+          ],
+          "head_position": [
+            84,
+            42
+          ],
+          "head_identical": true,
+          "weapon_tip": [
+            53,
+            81
+          ],
+          "weapon_hand": [
+            76,
+            64
+          ],
+          "sole_row": 81,
+          "below_sole_pixels": 0
+        }
+      ],
+      "production": "Approved design pixels in separated layers; motion guide from generated raw and supplied poses; rigid nearest-neighbour rotations, no scaling or row deletion.",
+      "strike_frame": 4,
+      "strike_tick": 10,
+      "strike_positions": {
+        "weapon_tip": [
+          54,
+          81
+        ],
+        "weapon_hand": [
+          77,
+          64
+        ]
+      }
+    },
+    "skill_q": {
+      "image": "tryndamere_skill_q.png",
+      "grid": [
+        3,
+        2
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 80,
+          "rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            77,
+            70
+          ],
+          "bbox": [
+            52,
+            42,
+            103,
+            82
+          ],
+          "head_position": [
+            83,
+            42
+          ],
+          "head_identical": true,
+          "weapon_tip": [
+            52,
+            81
+          ],
+          "weapon_hand": [
+            75,
+            64
+          ],
+          "sole_row": 81,
+          "below_sole_pixels": 0
+        },
+        {
+          "frame": 2,
+          "ms": 80,
+          "rect_1x": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            76,
+            70
+          ],
+          "bbox": [
+            51,
+            42,
+            102,
+            82
+          ],
+          "head_position": [
+            82,
+            42
+          ],
+          "head_identical": true,
+          "weapon_tip": [
+            51,
+            81
+          ],
+          "weapon_hand": [
+            74,
+            64
+          ],
+          "sole_row": 81,
+          "below_sole_pixels": 0
+        },
+        {
+          "frame": 3,
+          "ms": 80,
+          "rect_1x": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            77,
+            70
+          ],
+          "bbox": [
+            52,
+            42,
+            103,
+            82
+          ],
+          "head_position": [
+            83,
+            42
+          ],
+          "head_identical": true,
+          "weapon_tip": [
+            52,
+            81
+          ],
+          "weapon_hand": [
+            75,
+            64
+          ],
+          "sole_row": 81,
+          "below_sole_pixels": 0
+        },
+        {
+          "frame": 4,
+          "ms": 80,
+          "rect_1x": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "pivot": [
+            79,
+            70
+          ],
+          "bbox": [
+            54,
+            42,
+            105,
+            82
+          ],
+          "head_position": [
+            85,
+            42
+          ],
+          "head_identical": true,
+          "weapon_tip": [
+            54,
+            81
+          ],
+          "weapon_hand": [
+            77,
+            64
+          ],
+          "sole_row": 81,
+          "below_sole_pixels": 0
+        },
+        {
+          "frame": 5,
+          "ms": 80,
+          "rect_1x": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "pivot": [
+            79,
+            70
+          ],
+          "bbox": [
+            54,
+            42,
+            111,
+            82
+          ],
+          "head_position": [
+            85,
+            42
+          ],
+          "head_identical": true,
+          "weapon_tip": [
+            54,
+            81
+          ],
+          "weapon_hand": [
+            77,
+            64
+          ],
+          "sole_row": 81,
+          "below_sole_pixels": 0
+        }
+      ],
+      "production": "Approved design pixels in separated layers; motion guide from generated raw and supplied poses; rigid nearest-neighbour rotations, no scaling or row deletion."
+    },
+    "ult": {
+      "image": "tryndamere_ult.png",
+      "grid": [
+        3,
+        2
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 80,
+          "rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            73,
+            70
+          ],
+          "bbox": [
+            48,
+            42,
+            101,
+            82
+          ],
+          "head_position": [
+            79,
+            42
+          ],
+          "head_identical": true,
+          "weapon_tip": [
+            48,
+            81
+          ],
+          "weapon_hand": [
+            71,
+            64
+          ],
+          "sole_row": 81,
+          "below_sole_pixels": 0
+        },
+        {
+          "frame": 2,
+          "ms": 80,
+          "rect_1x": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            74,
+            70
+          ],
+          "bbox": [
+            49,
+            42,
+            102,
+            82
+          ],
+          "head_position": [
+            80,
+            42
+          ],
+          "head_identical": true,
+          "weapon_tip": [
+            49,
+            81
+          ],
+          "weapon_hand": [
+            72,
+            64
+          ],
+          "sole_row": 81,
+          "below_sole_pixels": 0
+        },
+        {
+          "frame": 3,
+          "ms": 90,
+          "rect_1x": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            74,
+            70
+          ],
+          "bbox": [
+            49,
+            42,
+            102,
+            82
+          ],
+          "head_position": [
+            80,
+            42
+          ],
+          "head_identical": true,
+          "weapon_tip": [
+            49,
+            81
+          ],
+          "weapon_hand": [
+            72,
+            64
+          ],
+          "sole_row": 81,
+          "below_sole_pixels": 0
+        },
+        {
+          "frame": 4,
+          "ms": 90,
+          "rect_1x": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "pivot": [
+            74,
+            70
+          ],
+          "bbox": [
+            49,
+            42,
+            102,
+            82
+          ],
+          "head_position": [
+            80,
+            42
+          ],
+          "head_identical": true,
+          "weapon_tip": [
+            49,
+            81
+          ],
+          "weapon_hand": [
+            72,
+            64
+          ],
+          "sole_row": 81,
+          "below_sole_pixels": 0
+        },
+        {
+          "frame": 5,
+          "ms": 80,
+          "rect_1x": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "pivot": [
+            72,
+            70
+          ],
+          "bbox": [
+            47,
+            42,
+            100,
+            82
+          ],
+          "head_position": [
+            78,
+            42
+          ],
+          "head_identical": true,
+          "weapon_tip": [
+            47,
+            81
+          ],
+          "weapon_hand": [
+            70,
+            64
+          ],
+          "sole_row": 81,
+          "below_sole_pixels": 0
+        },
+        {
+          "frame": 6,
+          "ms": 80,
+          "rect_1x": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "pivot": [
+            76,
+            70
+          ],
+          "bbox": [
+            51,
+            42,
+            108,
+            82
+          ],
+          "head_position": [
+            82,
+            42
+          ],
+          "head_identical": true,
+          "weapon_tip": [
+            51,
+            81
+          ],
+          "weapon_hand": [
+            74,
+            64
+          ],
+          "sole_row": 81,
+          "below_sole_pixels": 0
+        }
+      ],
+      "production": "Approved design pixels in separated layers; motion guide from generated raw and supplied poses; rigid nearest-neighbour rotations, no scaling or row deletion.",
+      "strike_frame": 2,
+      "strike_tick": 5,
+      "strike_positions": {
+        "weapon_tip": [
+          49,
+          81
+        ],
+        "weapon_hand": [
+          72,
+          64
+        ]
+      }
+    },
+    "hit": {
+      "image": "tryndamere_hit.png",
+      "grid": [
+        2,
+        1
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 100,
+          "rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            85,
+            70
+          ],
+          "bbox": [
+            60,
+            42,
+            117,
+            82
+          ],
+          "head_position": [
+            91,
+            42
+          ],
+          "head_identical": true,
+          "weapon_tip": [
+            60,
+            81
+          ],
+          "weapon_hand": [
+            83,
+            64
+          ],
+          "sole_row": 81,
+          "below_sole_pixels": 0
+        },
+        {
+          "frame": 2,
+          "ms": 100,
+          "rect_1x": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            81,
+            70
+          ],
+          "bbox": [
+            56,
+            42,
+            113,
+            82
+          ],
+          "head_position": [
+            87,
+            42
+          ],
+          "head_identical": true,
+          "weapon_tip": [
+            56,
+            81
+          ],
+          "weapon_hand": [
+            79,
+            64
+          ],
+          "sole_row": 81,
+          "below_sole_pixels": 0
+        }
+      ],
+      "production": "Approved design pixels in separated layers; motion guide from generated raw and supplied poses; rigid nearest-neighbour rotations, no scaling or row deletion."
+    },
+    "dead": {
+      "image": "tryndamere_dead.png",
+      "grid": [
+        4,
+        2
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "ms": 100,
+          "rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            79,
+            70
+          ],
+          "bbox": [
+            54,
+            42,
+            111,
+            82
+          ],
+          "head_position": [
+            85,
+            42
+          ],
+          "head_identical": true,
+          "weapon_tip": [
+            54,
+            81
+          ],
+          "weapon_hand": [
+            77,
+            64
+          ],
+          "sole_row": 81,
+          "below_sole_pixels": 0
+        },
+        {
+          "frame": 2,
+          "ms": 110,
+          "rect_1x": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            59,
+            70
+          ],
+          "bbox": [
+            49,
+            2,
+            90,
+            82
+          ],
+          "head_position": [
+            57,
+            43
+          ],
+          "head_identical": true,
+          "weapon_tip": [
+            85,
+            2
+          ],
+          "weapon_hand": null,
+          "sole_row": 81,
+          "below_sole_pixels": 0
+        },
+        {
+          "frame": 3,
+          "ms": 110,
+          "rect_1x": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            62,
+            70
+          ],
+          "bbox": [
+            50,
+            2,
+            109,
+            82
+          ],
+          "head_position": [
+            52,
+            45
+          ],
+          "head_identical": true,
+          "weapon_tip": [
+            109,
+            3
+          ],
+          "weapon_hand": null,
+          "sole_row": 81,
+          "below_sole_pixels": 0
+        },
+        {
+          "frame": 4,
+          "ms": 120,
+          "rect_1x": [
+            384,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            64,
+            70
+          ],
+          "bbox": [
+            47,
+            38,
+            106,
+            82
+          ],
+          "head_position": [
+            47,
+            52
+          ],
+          "head_identical": true,
+          "weapon_tip": [
+            96,
+            74
+          ],
+          "weapon_hand": null,
+          "sole_row": 81,
+          "below_sole_pixels": 0
+        },
+        {
+          "frame": 5,
+          "ms": 130,
+          "rect_1x": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "pivot": [
+            63,
+            70
+          ],
+          "bbox": [
+            42,
+            38,
+            105,
+            82
+          ],
+          "head_position": [
+            42,
+            62
+          ],
+          "head_identical": true,
+          "weapon_tip": [
+            95,
+            76
+          ],
+          "weapon_hand": null,
+          "sole_row": 81,
+          "below_sole_pixels": 0
+        },
+        {
+          "frame": 6,
+          "ms": 150,
+          "rect_1x": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "pivot": [
+            66,
+            70
+          ],
+          "bbox": [
+            41,
+            34,
+            105,
+            82
+          ],
+          "head_position": [
+            45,
+            54
+          ],
+          "head_identical": true,
+          "weapon_tip": [
+            95,
+            70
+          ],
+          "weapon_hand": null,
+          "sole_row": 81,
+          "below_sole_pixels": 0
+        },
+        {
+          "frame": 7,
+          "ms": 200,
+          "rect_1x": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "pivot": [
+            62,
+            70
+          ],
+          "bbox": [
+            37,
+            34,
+            101,
+            82
+          ],
+          "head_position": [
+            41,
+            54
+          ],
+          "head_identical": true,
+          "weapon_tip": [
+            91,
+            70
+          ],
+          "weapon_hand": null,
+          "sole_row": 81,
+          "below_sole_pixels": 0
+        },
+        {
+          "frame": 8,
+          "ms": 300,
+          "rect_1x": [
+            384,
+            96,
+            128,
+            96
+          ],
+          "pivot": [
+            60,
+            70
+          ],
+          "bbox": [
+            35,
+            34,
+            99,
+            82
+          ],
+          "head_position": [
+            39,
+            54
+          ],
+          "head_identical": true,
+          "weapon_tip": [
+            89,
+            70
+          ],
+          "weapon_hand": null,
+          "sole_row": 81,
+          "below_sole_pixels": 0
+        }
+      ],
+      "production": "Approved design pixels in separated layers; motion guide from generated raw and supplied poses; rigid nearest-neighbour rotations, no scaling or row deletion."
+    }
+  },
+  "status": "revision_draft_not_approved",
+  "limitations": [
+    "Arm contours and connections need manual pixel-art refinement.",
+    "E body rotation remains schematic rather than a full faithful turn.",
+    "Q and R torso motion is too limited.",
+    "Death fall and anatomical connections require refinement."
+  ]
+}
