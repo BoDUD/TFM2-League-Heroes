@@ -22,6 +22,8 @@ pasting the head, cleared a 27 x 22 rectangle round the eyes: every frame showed
   5b. the death's last frame repeats the one before (Codex's own import copied it; its raw read back only one eye
      there and the head slid under the feet line, 「死亡的时候头部少了像素？」); a lying head is placed by both eyes or
      where it lay the frame before, and a pasted head never reaches under the soles' row;
+  5c. despeckle: lone squares unlike all their neighbours and stray black specks inside the figure take the colour
+     round them (「还有清理没用的色素 杂点太多 不干净」);
   6. CUTS: butt = skill2 frames 5-6 (the headbutt played on landing) and slam = skill frames 3-6 (Pulverize after the
      headbutt) become strips of their own, their cells added to alistar_cells.json.
 The idle is the pack's own (the design in all six cells).
@@ -304,6 +306,55 @@ def small_junk(f, placed, reach=6, size=12):
     return len(todo)
 
 
+def despeckle(f, placed, rounds=3):
+    """「还有清理没用的色素 杂点太多 不干净」: inside the figure (all 4 neighbours opaque), not on the pasted head, a square
+    unlike all 8 neighbours where 5 or more of them share one colour takes that colour (or unlike its 4 neighbours when
+    3 of them share one: a speck touching its own colour only at a corner); an outline square there with at
+    most one outline 4-neighbour (a stray black speck, not a line) takes its neighbours' most common other colour. The
+    eyes' red and the ring's greys are never touched."""
+    from collections import Counter
+    H, W = f.shape[:2]
+    keep = {EYE_RED} | SILVER
+    n = 0
+    for _ in range(rounds):
+        changes = []
+        for y in range(1, H - 1):
+            for x in range(1, W - 1):
+                if not f[y, x, 3] or placed[y, x]:
+                    continue
+                c = tuple(int(v) for v in f[y, x, :3])
+                if c in keep:
+                    continue
+                n4 = [f[y + dy, x + dx] for dy, dx in ((0, -1), (0, 1), (-1, 0), (1, 0))]
+                if any(p_[3] == 0 for p_ in n4):
+                    continue
+                n8 = [tuple(int(v) for v in f[y + dy, x + dx, :3]) for dy in (-1, 0, 1) for dx in (-1, 0, 1)
+                      if (dy or dx) and f[y + dy, x + dx, 3]]
+                if c == OUTLINE:
+                    ol4 = sum(1 for p_ in n4 if tuple(int(v) for v in p_[:3]) == OUTLINE)
+                    if ol4 <= 1:
+                        others = [q for q in n8 if q != OUTLINE]
+                        if others:
+                            changes.append((y, x, Counter(others).most_common(1)[0][0]))
+                    continue
+                c4 = [tuple(int(v) for v in p_[:3]) for p_ in n4]
+                if c not in n8:
+                    top, k = Counter(n8).most_common(1)[0]
+                    if k >= 5 and top != OUTLINE:
+                        changes.append((y, x, top))
+                        continue
+                if c not in c4:                      # touching its own colour only at a corner
+                    top, k = Counter(c4).most_common(1)[0]
+                    if k >= 3 and top != OUTLINE:
+                        changes.append((y, x, top))
+        for y, x, c in changes:
+            f[y, x, :3] = c
+        n += len(changes)
+        if not changes:
+            break
+    return n
+
+
 def strays(f, placed, reach=12):
     """Codex's old horn outlines left round the pasted head once their fill was cleared: dangling outline strokes near
     the head (an outline or dark-brown square, not part of the head, with at most one opaque 4-neighbour) are pruned,
@@ -439,6 +490,7 @@ def build(tag, des, mask, palette, cells):
     out = np.zeros_like(a)
     log = []
     last_eyes = None
+    log_clean = []
     for i, meta in enumerate(frs):
         if (tag, i) in SAME_AS:          # a held last frame: the frame before it again
             k = SAME_AS[(tag, i)]
@@ -485,6 +537,8 @@ def build(tag, des, mask, palette, cells):
         n += desilver(f, placed)
         n += small_junk(f, placed)
         n += strays(f, placed)
+        cleaned = despeckle(f, placed)
+        log_clean.append(cleaned)
         can = np.pad(f, ((2, 2), (2, 2), (0, 0)))
         can, _, _ = strips.complete_outline(can, color=OUTLINE, feet=SOLE + 2)
         f = can[2:-2, 2:-2]
@@ -493,7 +547,7 @@ def build(tag, des, mask, palette, cells):
         f = clean_fragments(f, small=10)                   # specks the clearing cut off
         out[Y:Y + CH, X:X + CW] = f
         log.append(f"{i + 1}:eyes{len(red)} cleared{n}")
-    print(tag, " ".join(log))
+    print(tag, " ".join(log), "| specks cleaned", log_clean)
     return out
 
 
