@@ -254,6 +254,17 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   the hip (clear of the back leg, the gold foot above); and the other end of the R's floating wand. A shaft drawn in
   outline colour between the finial and the hand reads as a break too (hit 1-2): make it the shaft's gold. Check
   every frame with a held staff, spear or bow: the part past the hand shows, or the body hides it.
+- **A long weapon the body hides must be rebuilt whole before it turns (league_xinzhao's spear, rig_xinzhao.py).** In the
+  idle his spear slants behind his whole figure: only its head (left of the back hand) and its butt (right of the head)
+  are drawn, the shaft between them hidden by the body. Turned about the shoulder as it is, the turned spear would have a
+  hole where the body stood. Cut the two ends at their fittings (the blade, hook and collar; the ring and spike), drop the
+  short shaft stubs the design shows next to them, and draw the shaft between in the design's own shaft colours (a lit and
+  a dark row, an outline row each side) along a clean pixel-art ratio (his 1:2, the design's own slope 0.46), moving the
+  butt along so the line enters its ring. The first rebuild drew the exact 0.38 slope from the old stubs: the shaft
+  stepped 2-3-2 and forked off the stub at the collar (the user: 「枪有变形的部分啊」). The idle then holds the rebuilt
+  spear too, or the butt jumps a row whenever an action starts. A thrust slides the spear through the hand (held near the
+  butt, the head far ahead) - a slide along the spear's own axis, no new pixels.
+
 - **A pasted face keeps its forehead row.** league_lux's design draws each eye as one row of dark lid over a white
   and a blue square, skin above the lids. Pasted on Codex's own hair, 18 frames had the bangs' outline or a grey
   highlight on a lid, one eye twice as heavy as the other (「眼睛统一统一 不对的地方就行修正」): the row above both lids,

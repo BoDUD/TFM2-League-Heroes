@@ -1301,7 +1301,7 @@
               "name": "league_xinzhao_w_thrust",
               "width": 8000,
               "length": 60000,
-              "delay": 12,
+              "delay": 16,
               "apply": 2,
               "applied_target": "EnemyWithoutTower",
               "applied_effects": [

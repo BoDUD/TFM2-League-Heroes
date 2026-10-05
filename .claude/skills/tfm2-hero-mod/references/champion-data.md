@@ -3318,6 +3318,20 @@ health in the SDK - the optional native add-on addons/league_tryndamere_rage (a 
 enemies turned away, i.e. running off, so the far ones stand in: every enemy champion within w_r loses 25% attack, and
 those beyond w_near (12000) are also slowed 40% - two `RangeEffect`s, the near one adding a +40 buff that cancels the slow.
 
+**Knock back everyone but the one you challenge (league_xinzhao R, Crescent Guard).** A `Targeting` cast on
+`EnemyChampion`; on the sweep's tick (a `Delayed` of the cast) the cast target first gets a 3-tick `AddBuff` with
+`cc_immune: true`, then a `RangeEffect` round the caster damages and `Knockback`s every enemy in it - the challenged one
+is immune for that tick and stays beside him *(SDK simulation, 2026-10-06: the knock-backs are `ForceMove` events 15-16
+ticks after the cast; in 14 casts over three games the target never had one then, the minions and champions round him
+did)*. The same 3 ticks also shrug off any other crowd control that lands on that tick - too short to matter.
+
+**A dash that arms the next three attacks (league_xinzhao E -> Q, Audacious Charge and Three Talon Strike).** The E
+lands (`MoveToTarget`'s `end_effects`) and adds `q_1` (240 ticks); the attack picks on tick 1, `q_1` -> `q_2` -> `q_3`
+-> none, each with its own strip (`CasterAnimation q1/q2/q3`) and its hit in a `Delayed`, the third adding `Airborne`
+45; Determination's third-attack count (two 240-tick counters, league_diana's) runs alongside, so every branch is
+built twice (passive or not): 12 leaves in one `SwitchByBuff` tree. Each of `q_1`..`q_3` binds its own picture (3, 2
+and 1 gold talon marks over his head), so the count shows.
+
 **One skill that starts another (league_alistar E -> Q).** League's Trample is folded into Pulverize and into
 Headbutt -> Pulverize: with its own cooldown flag off, a cast also starts the trample - one `AddCasted` on himself
 (`RangeEffect AllyOnlySelf`) that stomps every 30 ticks for 3 s on `EnemyWithoutTower` round him, its first stomp on

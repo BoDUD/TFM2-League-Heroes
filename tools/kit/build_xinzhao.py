@@ -209,7 +209,7 @@ def build(p):
     cone = {"DirDot": {"radius": p["w_r"], "range": p["w_cone"]}}
     slash = around(cone, "EnemyWithoutTower", [attack(p["w1_dmg"], p["w1_ratio"]), view("w_hit")], forward=1000)
     thrust = {"type": "LineRangeProjectile", "name": n("w_thrust"), "width": p["w_width"], "length": p["w_len"],
-              "delay": 12, "apply": 2, "applied_target": "EnemyWithoutTower",
+              "delay": 16, "apply": 2, "applied_target": "EnemyWithoutTower",
               "applied_effects": [T(e) for e in (attack(p["w2_dmg"], p["w2_ratio"]),
                                                  buff("w_slow", p["w_slow_t"], move_speed_mult=-p["w_slow"]),
                                                  view("w_hit2"), tsfx("w_hit"))]}
