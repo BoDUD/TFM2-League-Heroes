@@ -53,6 +53,7 @@ PACK_CELL = 56                    # squares per swap-pack cell
 PACK_PIVOT = (27, 50)             # the design's standing point in a pack cell (soles row 50)
 FRAMES = 9
 MS = 111
+WAIST = True                      # waist(): no black line between belly, loincloth and legs
 
 
 def lp(path):
@@ -162,6 +163,48 @@ def read_cell(im, k, pal, pal_lab):
     return out, bx[0] / s, by[-1] / s                                # left column / bottom edge in pack squares
 
 
+CLOTH_DARK = (0x42, 0x17, 0x14)  # the loincloth's own dark edge in the idle
+BELLY_SHADE = (0x3B, 0x18, 0x88)  # the idle's shadow under the belly
+PURPLE = {(0x15, 0x0B, 0x4B), (0x3B, 0x18, 0x88), (0x55, 0x26, 0xC3), (0x73, 0x3D, 0xF5), (0x9A, 0x63, 0xF3)}
+
+
+def waist(can):
+    """GPT drew a near-black line between the belly and the loincloth and round the loincloth against the legs; the
+    idle has none (the loincloth meets body and legs with its own dark brown, the belly meets the thighs in a purple
+    shade), so the waist read as cut off the legs (「腰部一条横线很明显」「明显腰部和腿分离了」). Inner outline squares (all four
+    neighbours filled) at the waist: next to the loincloth -> its dark brown; in the belly line over the thighs -> the
+    belly shade. Squares on the silhouette, the fists and everything away from the waist keep their outline."""
+    px, py = CELL_PIVOT
+    op = can[..., 3] > 0
+    cloth = [(y, x) for y in range(py - 16, py + 2) for x in range(px - 14, px + 8) if op[y, x] and col(can[y, x]) in CLOTH]
+    if not cloth:
+        return 0
+    top = min(y for y, _ in cloth)
+    total = 0
+    for rnd in range(4):              # GPT's gap between the far cuff and the loincloth is 3-4 squares of black: work
+        fixed = []                    # inwards, keeping one outline square against the iron cuff
+        for y in range(top - 2, py + 2):
+            for x in range(px - 16, px + 10):
+                if col(can[y, x]) != OUTLINE or not op[y, x]:
+                    continue
+                n4 = [(y - 1, x), (y + 1, x), (y, x - 1), (y, x + 1)]
+                if not all(op[p] for p in n4):
+                    continue
+                near = [col(can[p]) for p in n4]
+                if rnd and any(c in CHAIN for c in near):
+                    continue
+                if any(c in CLOTH for c in near):           # the gap behind the loincloth: body shade
+                    fixed.append((y, x, BELLY_SHADE if rnd else CLOTH_DARK))
+                elif (rnd or y <= top + 1 and near[0] in PURPLE | {OUTLINE}) and any(c in PURPLE for c in near):
+                    fixed.append((y, x, BELLY_SHADE))
+        for y, x, c in fixed:
+            can[y, x, :3] = c
+        total += len(fixed)
+        if not fixed:
+            break
+    return total
+
+
 def build():
     des = np.asarray(Image.open(lp(DESIGN)).convert("RGBA"))[4::8, 4::8]
     pal = np.array(sorted({col(p) for p in des[des[..., 3] > 0]}))
@@ -183,6 +226,8 @@ def build():
         can[CELL_PIVOT[1] + 12:] = 0
         for y, x in holes(can[..., 3] > 0):
             can[y, x] = (*OUTLINE, 255)
+        if WAIST:
+            waist(can)
         strip[(k // cols) * CELL[1]:(k // cols + 1) * CELL[1], (k % cols) * CELL[0]:(k % cols + 1) * CELL[0]] = can
         ys, xs = np.nonzero(can[..., 3])
         report.append((k + 1, int(ys.max() - ys.min() + 1), int(ys.max()), int(xs.min()), int(xs.max())))
