@@ -1,0 +1,2007 @@
+{
+  "format_version": 1,
+  "cell": [
+    128,
+    96
+  ],
+  "scale": 8,
+  "baseline_row": 81,
+  "palette": [
+    "#0B0410",
+    "#261432",
+    "#28767C",
+    "#2D3E46",
+    "#3B185F",
+    "#5204BA",
+    "#640005",
+    "#652493",
+    "#7E76AB",
+    "#890851",
+    "#908C8E",
+    "#9D040A",
+    "#A112F7",
+    "#B2B1DE",
+    "#C18D7D",
+    "#CA2BFB",
+    "#D32087",
+    "#E5E7FB",
+    "#E6B99A",
+    "#E838F3",
+    "#ED9201",
+    "#F01A1A",
+    "#FCDBB2",
+    "#FDE502"
+  ],
+  "tags": {
+    "attack": {
+      "file": "varus_attack.png",
+      "frame_count": 6,
+      "columns": 3,
+      "rows": 2,
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            61,
+            70
+          ],
+          "duration_ms": 70,
+          "bbox": [
+            45,
+            39,
+            81,
+            82
+          ],
+          "assembly": {
+            "head_rect": [
+              47,
+              42,
+              20,
+              14
+            ],
+            "hand": [
+              75,
+              59
+            ],
+            "figure_shift": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 2,
+          "cell_rect": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            60,
+            70
+          ],
+          "duration_ms": 80,
+          "bbox": [
+            42,
+            39,
+            79,
+            82
+          ],
+          "assembly": {
+            "head_rect": [
+              45,
+              42,
+              20,
+              14
+            ],
+            "hand": [
+              73,
+              59
+            ],
+            "figure_shift": [
+              -1,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 3,
+          "cell_rect": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            59,
+            70
+          ],
+          "duration_ms": 80,
+          "bbox": [
+            44,
+            39,
+            80,
+            82
+          ],
+          "assembly": {
+            "head_rect": [
+              46,
+              42,
+              20,
+              14
+            ],
+            "hand": [
+              74,
+              59
+            ],
+            "figure_shift": [
+              1,
+              0
+            ]
+          },
+          "release": true,
+          "release_tick": 9,
+          "release_hand": [
+            74,
+            59
+          ],
+          "release_hand_relative_to_pivot": [
+            15,
+            -11
+          ],
+          "release_hand_sheet_8x": [
+            2640,
+            472
+          ]
+        },
+        {
+          "frame": 4,
+          "cell_rect": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            59,
+            70
+          ],
+          "duration_ms": 70,
+          "bbox": [
+            43,
+            39,
+            80,
+            82
+          ],
+          "assembly": {
+            "head_rect": [
+              46,
+              42,
+              20,
+              14
+            ],
+            "hand": [
+              74,
+              59
+            ],
+            "figure_shift": [
+              1,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 5,
+          "cell_rect": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            62,
+            70
+          ],
+          "duration_ms": 60,
+          "bbox": [
+            46,
+            42,
+            79,
+            82
+          ],
+          "assembly": {
+            "head_rect": [
+              48,
+              42,
+              20,
+              14
+            ],
+            "hand": [
+              73,
+              64
+            ],
+            "figure_shift": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 6,
+          "cell_rect": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            62,
+            70
+          ],
+          "duration_ms": 40,
+          "bbox": [
+            46,
+            42,
+            75,
+            82
+          ],
+          "assembly": {
+            "head_rect": [
+              48,
+              42,
+              20,
+              14
+            ],
+            "hand": [
+              69,
+              67
+            ],
+            "figure_shift": [
+              0,
+              0
+            ]
+          }
+        }
+      ],
+      "method": "pixel-layer assembly from approved design, poses informed by references and generated raw; no raw shrinking or row deletion"
+    },
+    "run": {
+      "file": "varus_run.png",
+      "frame_count": 8,
+      "columns": 4,
+      "rows": 2,
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            57,
+            70
+          ],
+          "duration_ms": 133,
+          "bbox": [
+            45,
+            42,
+            77,
+            82
+          ],
+          "assembly": {
+            "head_rect": [
+              49,
+              42,
+              20,
+              14
+            ],
+            "hand": [
+              71,
+              66
+            ],
+            "figure_shift": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 2,
+          "cell_rect": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            57,
+            70
+          ],
+          "duration_ms": 133,
+          "bbox": [
+            45,
+            42,
+            78,
+            82
+          ],
+          "assembly": {
+            "head_rect": [
+              49,
+              42,
+              20,
+              14
+            ],
+            "hand": [
+              71,
+              66
+            ],
+            "figure_shift": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 3,
+          "cell_rect": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            58,
+            70
+          ],
+          "duration_ms": 133,
+          "bbox": [
+            46,
+            43,
+            78,
+            82
+          ],
+          "assembly": {
+            "head_rect": [
+              50,
+              43,
+              20,
+              14
+            ],
+            "hand": [
+              72,
+              67
+            ],
+            "figure_shift": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 4,
+          "cell_rect": [
+            384,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            3072,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            59,
+            70
+          ],
+          "duration_ms": 133,
+          "bbox": [
+            47,
+            43,
+            80,
+            82
+          ],
+          "assembly": {
+            "head_rect": [
+              51,
+              43,
+              20,
+              14
+            ],
+            "hand": [
+              73,
+              67
+            ],
+            "figure_shift": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 5,
+          "cell_rect": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            59,
+            70
+          ],
+          "duration_ms": 133,
+          "bbox": [
+            47,
+            42,
+            79,
+            82
+          ],
+          "assembly": {
+            "head_rect": [
+              51,
+              42,
+              20,
+              14
+            ],
+            "hand": [
+              73,
+              66
+            ],
+            "figure_shift": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 6,
+          "cell_rect": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            59,
+            70
+          ],
+          "duration_ms": 133,
+          "bbox": [
+            47,
+            42,
+            80,
+            82
+          ],
+          "assembly": {
+            "head_rect": [
+              51,
+              42,
+              20,
+              14
+            ],
+            "hand": [
+              73,
+              66
+            ],
+            "figure_shift": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 7,
+          "cell_rect": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            59,
+            70
+          ],
+          "duration_ms": 133,
+          "bbox": [
+            47,
+            43,
+            79,
+            82
+          ],
+          "assembly": {
+            "head_rect": [
+              51,
+              43,
+              20,
+              14
+            ],
+            "hand": [
+              73,
+              67
+            ],
+            "figure_shift": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 8,
+          "cell_rect": [
+            384,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            3072,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            57,
+            70
+          ],
+          "duration_ms": 133,
+          "bbox": [
+            45,
+            43,
+            78,
+            82
+          ],
+          "assembly": {
+            "head_rect": [
+              49,
+              43,
+              20,
+              14
+            ],
+            "hand": [
+              71,
+              67
+            ],
+            "figure_shift": [
+              0,
+              0
+            ]
+          }
+        }
+      ],
+      "method": "pixel-layer assembly from approved design, poses informed by references and generated raw; no raw shrinking or row deletion"
+    },
+    "skill": {
+      "file": "varus_skill.png",
+      "frame_count": 7,
+      "columns": 4,
+      "rows": 2,
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            60,
+            70
+          ],
+          "duration_ms": 100,
+          "bbox": [
+            44,
+            39,
+            80,
+            82
+          ],
+          "assembly": {
+            "head_rect": [
+              46,
+              42,
+              20,
+              14
+            ],
+            "hand": [
+              74,
+              59
+            ],
+            "figure_shift": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 2,
+          "cell_rect": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            63,
+            70
+          ],
+          "duration_ms": 150,
+          "bbox": [
+            45,
+            39,
+            82,
+            82
+          ],
+          "assembly": {
+            "head_rect": [
+              48,
+              42,
+              20,
+              14
+            ],
+            "hand": [
+              76,
+              59
+            ],
+            "figure_shift": [
+              -1,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 3,
+          "cell_rect": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            63,
+            70
+          ],
+          "duration_ms": 250,
+          "bbox": [
+            46,
+            39,
+            82,
+            82
+          ],
+          "assembly": {
+            "head_rect": [
+              48,
+              42,
+              20,
+              14
+            ],
+            "hand": [
+              76,
+              59
+            ],
+            "figure_shift": [
+              -1,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 4,
+          "cell_rect": [
+            384,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            3072,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            63,
+            70
+          ],
+          "duration_ms": 300,
+          "bbox": [
+            45,
+            39,
+            83,
+            82
+          ],
+          "assembly": {
+            "head_rect": [
+              48,
+              42,
+              20,
+              14
+            ],
+            "hand": [
+              77,
+              59
+            ],
+            "figure_shift": [
+              -1,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 5,
+          "cell_rect": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            64,
+            70
+          ],
+          "duration_ms": 300,
+          "bbox": [
+            47,
+            39,
+            83,
+            82
+          ],
+          "assembly": {
+            "head_rect": [
+              49,
+              42,
+              20,
+              14
+            ],
+            "hand": [
+              77,
+              59
+            ],
+            "figure_shift": [
+              -1,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 6,
+          "cell_rect": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            60,
+            70
+          ],
+          "duration_ms": 80,
+          "bbox": [
+            44,
+            39,
+            81,
+            82
+          ],
+          "assembly": {
+            "head_rect": [
+              47,
+              42,
+              20,
+              14
+            ],
+            "hand": [
+              75,
+              59
+            ],
+            "figure_shift": [
+              1,
+              0
+            ]
+          },
+          "release": true,
+          "release_tick": 66,
+          "release_hand": [
+            75,
+            59
+          ],
+          "release_hand_relative_to_pivot": [
+            15,
+            -11
+          ],
+          "release_hand_sheet_8x": [
+            1624,
+            1240
+          ]
+        },
+        {
+          "frame": 7,
+          "cell_rect": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            59,
+            70
+          ],
+          "duration_ms": 87,
+          "bbox": [
+            43,
+            42,
+            72,
+            82
+          ],
+          "assembly": {
+            "head_rect": [
+              45,
+              42,
+              20,
+              14
+            ],
+            "hand": [
+              66,
+              67
+            ],
+            "figure_shift": [
+              0,
+              0
+            ]
+          }
+        }
+      ],
+      "method": "pixel-layer assembly from approved design, poses informed by references and generated raw; no raw shrinking or row deletion"
+    },
+    "skill2": {
+      "file": "varus_skill2.png",
+      "frame_count": 5,
+      "columns": 3,
+      "rows": 2,
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            61,
+            70
+          ],
+          "duration_ms": 80,
+          "bbox": [
+            45,
+            35,
+            88,
+            82
+          ],
+          "assembly": {
+            "head_rect": [
+              47,
+              42,
+              20,
+              14
+            ],
+            "hand": [
+              73,
+              50
+            ],
+            "figure_shift": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 2,
+          "cell_rect": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            62,
+            70
+          ],
+          "duration_ms": 87,
+          "bbox": [
+            45,
+            35,
+            89,
+            82
+          ],
+          "assembly": {
+            "head_rect": [
+              48,
+              42,
+              20,
+              14
+            ],
+            "hand": [
+              74,
+              50
+            ],
+            "figure_shift": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 3,
+          "cell_rect": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            59,
+            70
+          ],
+          "duration_ms": 80,
+          "bbox": [
+            43,
+            35,
+            86,
+            82
+          ],
+          "assembly": {
+            "head_rect": [
+              45,
+              42,
+              20,
+              14
+            ],
+            "hand": [
+              71,
+              50
+            ],
+            "figure_shift": [
+              0,
+              0
+            ]
+          },
+          "release": true,
+          "release_tick": 10,
+          "release_hand": [
+            71,
+            50
+          ],
+          "release_hand_relative_to_pivot": [
+            12,
+            -20
+          ],
+          "release_hand_sheet_8x": [
+            2616,
+            400
+          ]
+        },
+        {
+          "frame": 4,
+          "cell_rect": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            59,
+            70
+          ],
+          "duration_ms": 80,
+          "bbox": [
+            42,
+            35,
+            86,
+            82
+          ],
+          "assembly": {
+            "head_rect": [
+              45,
+              42,
+              20,
+              14
+            ],
+            "hand": [
+              71,
+              50
+            ],
+            "figure_shift": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 5,
+          "cell_rect": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            62,
+            70
+          ],
+          "duration_ms": 73,
+          "bbox": [
+            46,
+            42,
+            75,
+            82
+          ],
+          "assembly": {
+            "head_rect": [
+              48,
+              42,
+              20,
+              14
+            ],
+            "hand": [
+              69,
+              67
+            ],
+            "figure_shift": [
+              0,
+              0
+            ]
+          }
+        }
+      ],
+      "method": "pixel-layer assembly from approved design, poses informed by references and generated raw; no raw shrinking or row deletion"
+    },
+    "ult": {
+      "file": "varus_ult.png",
+      "frame_count": 5,
+      "columns": 3,
+      "rows": 2,
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            61,
+            70
+          ],
+          "duration_ms": 120,
+          "bbox": [
+            45,
+            45,
+            75,
+            82
+          ],
+          "assembly": {
+            "head_rect": [
+              47,
+              45,
+              20,
+              14
+            ],
+            "hand": [
+              67,
+              65
+            ],
+            "figure_shift": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 2,
+          "cell_rect": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            67,
+            70
+          ],
+          "duration_ms": 130,
+          "bbox": [
+            52,
+            46,
+            85,
+            82
+          ],
+          "assembly": {
+            "head_rect": [
+              55,
+              48,
+              20,
+              14
+            ],
+            "hand": [
+              79,
+              66
+            ],
+            "figure_shift": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 3,
+          "cell_rect": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            67,
+            70
+          ],
+          "duration_ms": 90,
+          "bbox": [
+            55,
+            45,
+            93,
+            82
+          ],
+          "assembly": {
+            "head_rect": [
+              57,
+              49,
+              20,
+              14
+            ],
+            "hand": [
+              87,
+              65
+            ],
+            "figure_shift": [
+              0,
+              0
+            ]
+          },
+          "release": true,
+          "release_tick": 15,
+          "release_hand": [
+            87,
+            65
+          ],
+          "release_hand_relative_to_pivot": [
+            20,
+            -5
+          ],
+          "release_hand_sheet_8x": [
+            2744,
+            520
+          ]
+        },
+        {
+          "frame": 4,
+          "cell_rect": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            67,
+            70
+          ],
+          "duration_ms": 80,
+          "bbox": [
+            53,
+            46,
+            91,
+            82
+          ],
+          "assembly": {
+            "head_rect": [
+              56,
+              49,
+              20,
+              14
+            ],
+            "hand": [
+              85,
+              66
+            ],
+            "figure_shift": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 5,
+          "cell_rect": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            66,
+            70
+          ],
+          "duration_ms": 80,
+          "bbox": [
+            50,
+            42,
+            79,
+            82
+          ],
+          "assembly": {
+            "head_rect": [
+              52,
+              42,
+              20,
+              14
+            ],
+            "hand": [
+              73,
+              67
+            ],
+            "figure_shift": [
+              0,
+              0
+            ]
+          }
+        }
+      ],
+      "method": "pixel-layer assembly from approved design, poses informed by references and generated raw; no raw shrinking or row deletion"
+    },
+    "hit": {
+      "file": "varus_hit.png",
+      "frame_count": 2,
+      "columns": 2,
+      "rows": 1,
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            63,
+            70
+          ],
+          "duration_ms": 100,
+          "bbox": [
+            45,
+            42,
+            74,
+            82
+          ],
+          "assembly": {
+            "head_rect": [
+              47,
+              42,
+              20,
+              14
+            ],
+            "hand": [
+              68,
+              67
+            ],
+            "figure_shift": [
+              -2,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 2,
+          "cell_rect": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            66,
+            70
+          ],
+          "duration_ms": 100,
+          "bbox": [
+            50,
+            42,
+            79,
+            82
+          ],
+          "assembly": {
+            "head_rect": [
+              52,
+              42,
+              20,
+              14
+            ],
+            "hand": [
+              73,
+              67
+            ],
+            "figure_shift": [
+              0,
+              0
+            ]
+          }
+        }
+      ],
+      "method": "pixel-layer assembly from approved design, poses informed by references and generated raw; no raw shrinking or row deletion"
+    },
+    "dead": {
+      "file": "varus_dead.png",
+      "frame_count": 8,
+      "columns": 4,
+      "rows": 2,
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            65,
+            70
+          ],
+          "duration_ms": 100,
+          "bbox": [
+            49,
+            42,
+            77,
+            82
+          ],
+          "assembly": {
+            "head_rect": [
+              51,
+              42,
+              20,
+              14
+            ],
+            "hand": [
+              71,
+              65
+            ],
+            "figure_shift": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 2,
+          "cell_rect": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            58,
+            70
+          ],
+          "duration_ms": 110,
+          "bbox": [
+            40,
+            42,
+            69,
+            82
+          ],
+          "assembly": {
+            "head_rect": [
+              43,
+              42,
+              20,
+              14
+            ],
+            "hand": [
+              63,
+              65
+            ],
+            "figure_shift": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 3,
+          "cell_rect": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            69,
+            70
+          ],
+          "duration_ms": 110,
+          "bbox": [
+            53,
+            43,
+            97,
+            82
+          ],
+          "assembly": {
+            "head_rect": [
+              55,
+              43,
+              20,
+              14
+            ],
+            "hand": [
+              87,
+              75
+            ],
+            "figure_shift": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 4,
+          "cell_rect": [
+            384,
+            0,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            3072,
+            0,
+            1024,
+            768
+          ],
+          "pivot": [
+            58,
+            70
+          ],
+          "duration_ms": 120,
+          "bbox": [
+            40,
+            44,
+            89,
+            82
+          ],
+          "assembly": {
+            "head_rect": [
+              43,
+              44,
+              20,
+              14
+            ],
+            "hand": [
+              76,
+              80
+            ],
+            "figure_shift": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 5,
+          "cell_rect": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            48,
+            70
+          ],
+          "duration_ms": 130,
+          "bbox": [
+            32,
+            47,
+            79,
+            82
+          ],
+          "assembly": {
+            "head_rect": [
+              34,
+              47,
+              20,
+              14
+            ],
+            "hand": [
+              66,
+              80
+            ],
+            "figure_shift": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 6,
+          "cell_rect": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            51,
+            70
+          ],
+          "duration_ms": 150,
+          "bbox": [
+            34,
+            49,
+            82,
+            82
+          ],
+          "assembly": {
+            "head_rect": [
+              37,
+              49,
+              20,
+              14
+            ],
+            "hand": [
+              69,
+              80
+            ],
+            "figure_shift": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 7,
+          "cell_rect": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            53,
+            70
+          ],
+          "duration_ms": 200,
+          "bbox": [
+            37,
+            50,
+            84,
+            82
+          ],
+          "assembly": {
+            "head_rect": [
+              39,
+              50,
+              20,
+              14
+            ],
+            "hand": [
+              71,
+              80
+            ],
+            "figure_shift": [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "frame": 8,
+          "cell_rect": [
+            384,
+            96,
+            128,
+            96
+          ],
+          "cell_rect_8x": [
+            3072,
+            768,
+            1024,
+            768
+          ],
+          "pivot": [
+            53,
+            70
+          ],
+          "duration_ms": 300,
+          "bbox": [
+            37,
+            50,
+            84,
+            82
+          ],
+          "assembly": {
+            "head_rect": [
+              39,
+              50,
+              20,
+              14
+            ],
+            "hand": [
+              71,
+              80
+            ],
+            "figure_shift": [
+              0,
+              0
+            ]
+          }
+        }
+      ],
+      "method": "pixel-layer assembly from approved design, poses informed by references and generated raw; no raw shrinking or row deletion"
+    },
+    "idle": {
+      "file": "varus_idle.png",
+      "frame_count": 6,
+      "columns": 3,
+      "rows": 2,
+      "method": "unchanged supplied file",
+      "frames": [
+        {
+          "frame": 1,
+          "cell_rect": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            65,
+            70
+          ],
+          "duration_ms": 200,
+          "bbox": [
+            49,
+            42,
+            78,
+            82
+          ]
+        },
+        {
+          "frame": 2,
+          "cell_rect": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            65,
+            70
+          ],
+          "duration_ms": 200,
+          "bbox": [
+            49,
+            42,
+            78,
+            82
+          ]
+        },
+        {
+          "frame": 3,
+          "cell_rect": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "pivot": [
+            65,
+            70
+          ],
+          "duration_ms": 200,
+          "bbox": [
+            49,
+            42,
+            78,
+            82
+          ]
+        },
+        {
+          "frame": 4,
+          "cell_rect": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "pivot": [
+            65,
+            70
+          ],
+          "duration_ms": 200,
+          "bbox": [
+            49,
+            42,
+            78,
+            82
+          ]
+        },
+        {
+          "frame": 5,
+          "cell_rect": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "pivot": [
+            65,
+            70
+          ],
+          "duration_ms": 200,
+          "bbox": [
+            49,
+            42,
+            78,
+            82
+          ]
+        },
+        {
+          "frame": 6,
+          "cell_rect": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "pivot": [
+            65,
+            70
+          ],
+          "duration_ms": 200,
+          "bbox": [
+            49,
+            42,
+            78,
+            82
+          ]
+        }
+      ]
+    }
+  }
+}
