@@ -3016,7 +3016,7 @@
       "anim": "asset/league/effects/league_kennen_fx",
       "tag": "q_cast",
       "z": 1,
-      "is_follow": true
+      "is_follow": false
     },
     {
       "type": "Animation",

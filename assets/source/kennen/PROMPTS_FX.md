@@ -242,7 +242,7 @@ Layout: one horizontal row of 5 equal cells, each 1 wide to 3 tall, image size 1
 | `kennen_fx_k_mark2` | view_effects `league_kennen_k_mark2`（目标头顶，跟随） | 14 × 7 |
 | `kennen_fx_k_stun` | view_effects `league_kennen_k_stun`（目标身上，跟随；一次播完 1.25 秒） | 24 × 30 |
 | `kennen_fx_q_star` | view_projectiles `league_kennen_q_star`（朝右，游戏转到飞行方向） | 18 × 10 |
-| `kennen_fx_q_cast` | view_effects `league_kennen_q_cast`（施法者身上，跟随） | 14 |
+| `kennen_fx_q_cast` | view_effects `league_kennen_q_cast`（施法者身上，不跟随：动作中途播放，跟随的话红色方会画反） | 14 |
 | `kennen_fx_q_hit` | view_effects `league_kennen_q_hit`（跟随） | 20 |
 | `kennen_fx_w_burst` | view_effects `league_kennen_w_burst`（施法者身上，跟随；大图 league_kennen_big） | 100 × 50（半径 50000） |
 | `kennen_fx_w_hit` | view_effects `league_kennen_w_hit`（跟随） | 16 |
