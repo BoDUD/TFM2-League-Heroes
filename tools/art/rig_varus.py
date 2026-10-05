@@ -86,11 +86,13 @@ HIP, ANKLE = 88, 96
 # (the waist row above it in the belly's crimson - 「腰这里少一块？」 - and a column of outline outside, which the
 # completion does not add beside such dark squares); one column further (to the outline on col 68) so the waist is
 # flush with the thigh, knee and shin below it - 「放技能时腰部又凹在腿里面了」
-HIP_FILL = {(85, 65): (0x89, 0x08, 0x51), (85, 66): (0x89, 0x08, 0x51), (85, 67): (0x89, 0x08, 0x51),
-            (86, 65): (0x26, 0x14, 0x32), (86, 66): (0x26, 0x14, 0x32), (86, 67): (0x26, 0x14, 0x32),
-            (87, 65): (0x26, 0x14, 0x32), (87, 66): (0x26, 0x14, 0x32), (87, 67): (0x26, 0x14, 0x32),
-            (88, 65): (0x26, 0x14, 0x32), (88, 66): (0x26, 0x14, 0x32), (88, 67): (0x26, 0x14, 0x32),
-            (85, 68): OUT, (86, 68): OUT, (87, 68): OUT, (88, 68): OUT}
+HIP_FILL = {(85, 65): (0x89, 0x08, 0x51), (85, 66): (0x89, 0x08, 0x51),
+            (86, 65): (0x26, 0x14, 0x32), (86, 66): (0x26, 0x14, 0x32), (87, 65): (0x26, 0x14, 0x32),
+            (87, 66): (0x26, 0x14, 0x32), (88, 65): (0x26, 0x14, 0x32), (88, 66): (0x26, 0x14, 0x32),
+            (85, 67): OUT, (86, 67): OUT, (87, 67): OUT, (88, 67): OUT}
+# the waist above the hip (rows 81-84, under the raised bow arm) a column wider the same way, so the right edge is one
+# line on column 67 from the waist through the hip to the shin (design_varus FAR_SHIFT / FAR_EDGE)
+WAIST_ROWS, WAIST_EDGE = (81, 84), 67
 NEAR_ANKLE, FAR_ANKLE = 58.5, 67.0
 BOOTS = 95
 HEAD_ROWS = (60, 73)
@@ -184,6 +186,11 @@ class Parts:
         self.body[self.bow_m | self.bow_arm_m | self.draw_m] = 0
         for (y, x), rgb in HIP_FILL.items():         # the hip under the bow arm, flush with the far leg below it
             self.body[y, x] = (*rgb, 255)
+        for y in range(WAIST_ROWS[0], WAIST_ROWS[1] + 1):
+            e = WAIST_EDGE - 1                       # the waist's last coloured square moves out onto column 66
+            if tuple(int(v) for v in self.body[y, e, :3]) == OUT or not self.body[y, e, 3]:
+                self.body[y, e] = self.body[y, e - 1]
+            self.body[y, WAIST_EDGE] = (*OUT, 255)
         self.body_bow_arm = d.copy()                 # the design without the bow and its hand (the death's empty hand)
         self.body_bow_arm[self.bow_m] = 0
         self.trunk = self.body.copy()

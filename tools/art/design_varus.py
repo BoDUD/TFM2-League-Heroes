@@ -54,13 +54,12 @@ FIX = {(80, 61): STRAP_LIT, (80, 62): STRAP_LIT, (81, 61): STRAP, (81, 62): STRA
        (85, 58): CRIMSON_D, (85, 59): CRIMSON_D, (85, 60): CRIMSON_D,
        # the near thigh's left edge under the scarf's tail (rows 88-90) dented two squares in - 「腿部这里还少一块」:
        # filled in the thigh's dark purple, the outline one column out
-       (88, 58): THIGH, (89, 58): THIGH, (89, 57): OUTLINE_RGB, (90, 57): OUTLINE_RGB,
-       # the far thigh's top (rows 89-90) a column wider on the right, flush with the knee and shin below and with the
-       # waist above it in the casts (「放技能时腰部又凹在腿里面了」)
-       (89, 67): THIGH, (90, 67): THIGH, (89, 68): OUTLINE_RGB, (90, 68): OUTLINE_RGB,
-       # and the far shin's outer outline on that same column where it had none (dark purple gets no automatic outline):
-       # waist, thigh and shin one straight edge (「对齐对齐对齐」)
-       (91, 68): OUTLINE_RGB, (94, 68): OUTLINE_RGB, (95, 68): OUTLINE_RGB}          # rows / columns on the canvas the clean-up leaves alone (the eyes, brows, mouth)
+       (88, 58): THIGH, (89, 58): THIGH, (89, 57): OUTLINE_RGB, (90, 57): OUTLINE_RGB}
+# the far leg below the thigh (rows 91-99, columns 63-70: shin, knee, boot) one column in, so its outer edge comes onto
+# the thigh's (the outline on column 67) - the user, about the casts: the dark legs stood out past the waist
+# (「腰和腿要对齐」「不对 是把腿凸在外面」「对齐对齐对齐」); the outer outline then closed on that column (FAR_EDGE)
+FAR_SHIFT = (91, 99, 63, 70)
+FAR_EDGE = 67          # rows / columns on the canvas the clean-up leaves alone (the eyes, brows, mouth)
 
 
 def lp(path):
@@ -160,6 +159,20 @@ def leg_clean(a, outline):
     return out
 
 
+def far_leg_in(a, outline):
+    """FAR_SHIFT's squares one column left (the near leg, columns 62 and less, untouched); then on every row from the
+    thigh down the far leg's outer edge gets its outline on FAR_EDGE where a coloured square ends there."""
+    r0, r1, c0, c1 = FAR_SHIFT
+    out = a.copy()
+    out[r0:r1 + 1, c0 - 1:c1 + 1] = 0
+    out[r0:r1 + 1, c0 - 1:c1] = a[r0:r1 + 1, c0:c1 + 1]
+    for y in range(89, 97):
+        x = FAR_EDGE - 1
+        if out[y, x, 3] and tuple(int(v) for v in out[y, x, :3]) != tuple(outline) and not out[y, FAR_EDGE, 3]:
+            out[y, FAR_EDGE] = (*outline, 255)
+    return out
+
+
 def build():
     raw, _, _ = regrid(np.asarray(Image.open(lp(RAW)).convert("RGBA")))
     ys, xs = np.nonzero(raw[..., 3] >= 128)
@@ -184,6 +197,7 @@ def build():
     can, added, darkened = strips.complete_outline(can, color=outline, feet=SOLE_ROW)
     can = clean(can, outline)
     can = leg_clean(can, outline)
+    can = far_leg_in(can, outline)
     for (y, x), c in FIX.items():
         can[y, x] = (*c, 255)
     return can, added, darkened
