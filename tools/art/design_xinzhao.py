@@ -16,7 +16,13 @@ Steps:
      then the columns the same, the width in proportion - never FACE_ROWS / FACE_COLS (the silver fringe, the brows, the
      eyes, the cheek, the chin), which stay square for square, and never the topknot's top row;
   4. strips.complete_outline where a deleted line held the outline (the face never touched);
-  5. on the 128x128 canvas at 8x: the soles on row 99, the middle of the feet (the lowest three rows) on column 64.
+  5. on the 128x128 canvas at 8x: the soles on row 99, the middle of the feet (the lowest three rows) on column 64;
+  6. SLIM (2026-10-06, the user on the run: 「体型也有点胖」 - the body from the gold pauldron to the front bracer stood
+     22 columns wide, League's at game size 12-14): below the chin (from SLIM_ROW) the columns SLIM_COLS go, the ones
+     most like their right neighbour in that band (the chest, the white undershirt, the belt, the front arm's side), and
+     everything right of each moves in a column - the head, the topknot and the spear above SLIM_ROW stay; the user
+     picked 4 of the options 2 / 3 / 4; the outline closed again, and an outline square the cut left with no colour
+     round it (outlines run together) takes the colour round it. Varus's SLIM (design_varus.py) the same way.
 --check compares the result with the committed xinzhao_native.png instead of writing it.
 """
 import argparse
@@ -38,6 +44,41 @@ from regrid import regrid  # noqa: E402
 RAW = os.path.join(ROOT, "assets", "source", "xinzhao", "codex_model", "raw", "03.png")
 OUT = os.path.join(ROOT, "assets", "source", "native", "xinzhao_native.png")
 K, HEIGHT = 26, 42
+SLIM_ROW, SLIM_COLS = 75, (59, 64, 70, 72)
+
+
+def slim_x(x, row):
+    """Where a canvas column of the design before SLIM is after it (a deleted column: where its right neighbour went)."""
+    return x if row < SLIM_ROW else x - sum(1 for c in SLIM_COLS if c < x)
+
+
+def slim(can, outline):
+    out = can.copy()
+    for x in sorted(SLIM_COLS, reverse=True):
+        out[SLIM_ROW:, x:-1] = out[SLIM_ROW:, x + 1:]
+        out[SLIM_ROW:, -1] = 0
+    out, added, _ = strips.complete_outline(out, color=outline, feet=SOLE_ROW)
+    # the cut brought outlines together (the undershirt's, the belt's, the front hand's): an outline square below
+    # SLIM_ROW with no colour among its 8 neighbours takes the commonest colour within two squares
+    # (a pinhole the cut opened inside the figure - between the front hand and the undershirt - counts: the rig's finish
+    # would fill it with black)
+    ol = np.array(outline, np.uint8)
+    op = out[..., 3] > 0
+    for y, x in zip(*np.nonzero(~op)):
+        if y >= SLIM_ROW and 0 < x < 127 and y < 127 and op[y - 1, x] and op[y + 1, x] and op[y, x - 1] and op[y, x + 1]:
+            out[y, x] = (*outline, 255)
+    ink = (out[..., 3] > 0) & (out[..., :3] == ol).all(-1)
+    for y, x in zip(*np.nonzero(ink)):
+        if y < SLIM_ROW or (out[y - 1:y + 2, x - 1:x + 2, 3] > 0).sum() < 9:
+            continue
+        near = [tuple(out[yy, xx, :3]) for yy in range(y - 1, y + 2) for xx in range(x - 1, x + 2) if not ink[yy, xx]]
+        if near:
+            continue
+        ring = [tuple(out[yy, xx, :3]) for yy in range(y - 2, y + 3) for xx in range(x - 2, x + 3)
+                if out[yy, xx, 3] and not ink[yy, xx]]
+        if ring:
+            out[y, x, :3] = max(set(ring), key=ring.count)
+    return out, added
 FACE_ROWS = range(15, 27)          # on the read-back: the silver fringe, brows, eyes, cheek, mouth, chin
 FACE_COLS = range(61, 73)          # the hair's edge in front of the ear to the face's front
 SOLE_ROW, MID_COL, FEET_ROWS = 99, 64, 3
@@ -86,7 +127,8 @@ def build(height=HEIGHT):
     y0, x0 = SOLE_ROW + 1 - fig.shape[0], int(round(MID_COL - mid))
     x0 = max(0, min(128 - fig.shape[1], x0))
     out[y0:y0 + fig.shape[0], x0:x0 + fig.shape[1]] = fig
-    return out, rows, cols, added
+    out, more = slim(out, outline)
+    return out, rows, cols, added + more
 
 
 def main():

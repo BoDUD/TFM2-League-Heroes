@@ -31,6 +31,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 import rigkit as K  # noqa: E402
+from design_xinzhao import slim_x  # noqa: E402
 
 NATIVE = os.path.join(ROOT, "assets", "source", "native")
 DESIGN = os.path.join(NATIVE, "xinzhao_native.png")
@@ -55,9 +56,16 @@ SHAFT_LIT, SHAFT_DARK = "#86523F", "#613231"
 # the back arm: the hand on the grip and the forearm up to the gold shoulder guard; it turns about SHOULDER
 BACK_ARM = {80: (47, 51), 81: (46, 52), 82: (47, 52), 83: (47, 50), 84: (47, 50), 85: (48, 50)}
 SHOULDER = (52.5, 80.5)
+
+
+def slimmed(rows):
+    """A {row: (c0, c1)} mask read on the design before its SLIM (design_xinzhao.py), on the slimmed design."""
+    return {r: (slim_x(a, r), slim_x(b + 1, r) - 1) for r, (a, b) in rows.items()}
+
+
 # the front arm under the silver pauldron: the bracer, the forearm and the open hand
-FRONT_ARM = {82: (71, 77), 83: (71, 76), 84: (72, 78), 85: (74, 78), 86: (76, 79), 87: (76, 79), 88: (77, 80)}
-FRONT_PIVOT = (73.0, 82.0)
+FRONT_ARM = slimmed({82: (71, 77), 83: (71, 76), 84: (72, 78), 85: (74, 78), 86: (76, 79), 87: (76, 79), 88: (77, 80)})
+FRONT_PIVOT = (slim_x(73, 82) + 0.0, 82.0)
 HIP_ROW, NECK_ROW = 88, 75
 
 
@@ -166,8 +174,8 @@ K2M = ((2, True, 8), True)             # the head up behind him
 
 # the legs: the image-left (back) leg and the image-right (front) leg, each turned about the hips (rigkit.swing_leg:
 # the boot moved whole) - L / R columns (+ forward = right) and the boots' lifts
-LEG_L = {r: (44, 59) for r in range(89, 100)}
-LEG_R = {r: (68, 83) for r in range(89, 100)}
+LEG_L = slimmed({r: (44, 59) for r in range(89, 100)})
+LEG_R = slimmed({r: (68, 83) for r in range(89, 100)})
 HIP, ANKLE = 89, 94
 
 
@@ -253,23 +261,28 @@ def stand(P, p):
 # the gold knee guard at the knee; the hips close together under the tabard (the stance's were 18 columns apart), the
 # body as low as the planted boot lets it stand. League's R leg is the near one (nearer the camera, drawn over).
 LOL_RUN = os.path.join(ROOT, "assets", "source", "xinzhao", "lol_run_joints.json")
-# League's R hip behind the L one, as League's camera has them. The thighs' outer edges on the waist's own outline
-# columns (56 and 73, rows 84-88), as Varus's 「腰和腿要对齐」 (design_varus.py FAR_SHIFT): the first version's hips
-# (59.5, 65.5) left the waist's front five columns with no leg under them - 「你要对齐 脚和腰 ... 脚走路前面空那么多」
-WAIST = (56, 73)
-RUN_HIPS = {"R": WAIST[0] + 1.5 + 2.6, "L": WAIST[1] - 0.5 - 2.6}
+# League's R hip behind the L one, as League's camera has them, both under the middle of the waist (its outline
+# columns 56 and 73, rows 84-88): the first version's hips (59.5, 65.5) sat behind it and left the waist's front with
+# no leg under it (「你要对齐 脚和腰 ... 脚走路前面空那么多」); then the thighs' outer edges on the waist's edges put the
+# far hip at its front, and the far leg kicked up behind stayed hidden under the body. League's hips are ~4 apart
+WAIST = (slim_x(56, 86), slim_x(74, 86) - 1)
+RUN_HIPS = {"R": (WAIST[0] + WAIST[1] + 1) / 2 - 2.0, "L": (WAIST[0] + WAIST[1] + 1) / 2 + 2.0}
 RUN_HIP_ROW = 88.5
-THIGH, SHIN = 4.6, 3.4                      # the design's hip -> knee -> ankle (88 -> 96 standing)
-RUN_W = (2.6, 2.0)                          # half widths: the baggy trousers, the shin into the boot
-BOOT_BOX = (95, 99, 71, 83)                 # the design's front boot (rows, columns), its ankle at BOOT_ANKLE
-BOOT_ANKLE = (75, 95)
-BOOT_DROP = 4                               # the boot's sole under its ankle
+# League's legs at game size (2026-10-06, 「这赵信走路姿势和LOL里面不像啊」「腿那里也严重不对」): hip to soles ~15 of 42
+# rows, slim, small boots - the design's crouching stance has 11 rows of baggy trouser and 11-column boots, and drawn
+# at that length the run was a shuffle of stubs under the tabard. The run's legs are League's length: standing on
+# them he is two rows taller than the crouching idle, as League's run stands up out of its idle crouch
+THIGH, SHIN = 5.6, 5.0                      # hip -> knee -> ankle
+RUN_W = (2.2, 1.6)                          # half widths: the trousers, the shin into the boot
+BOOT_DROP = 3                               # the boot's sole under its ankle
+BOOT_COL = ("1B1D31", "0D0A19", "6E6A82")   # the design's boot: leather, sole, the lit edge
+TABARD_END = 91                             # the tabard cut here in the run (the design's hangs to row 95, over the legs)
 KICK = 60                                   # a shin past this many degrees from hanging, its toe behind: boot turned
 TROUSER = ("AE9BC9", "654F83")              # lit, shade
 KNEE_GUARD = {(0, 0): "EAB241", (1, 0): "E2A53D", (0, 1): "E2A53D", (1, 1): "A46E21"}
-RUN_LEAN = 0.08
-STRIDE = 1.2                                # League's angles opened a little: the design's legs are short
-BOB = 1                                     # the body rises or drops a row at most (League's flight frames lift it 7)
+RUN_LEAN = 0.22                             # League's run leans well forward (the head ~3 columns ahead)
+STRIDE = 1.0                                # League's angles as they are
+BOB = 1                                     # the body rises or drops a row at most about its middle height
 
 
 def lol_run():
@@ -310,19 +323,22 @@ def run_legs(k, dy):
 
 def run_sink(k):
     """Rows the body moves down from the design: the lowest boot's sole on the soles' row (League's air frames lift)."""
-    low = max(a[1] for _, _, a, _ in run_legs(k, 0).values()) + BOOT_DROP
-    dy = int(round(99 - low)) - (1 if lol_run()[k]["air"] else 0)
-    return max(-BOB, min(BOB, dy))
+    def raw(i):
+        low = max(a[1] for _, _, a, _ in run_legs(i, 0).values()) + BOOT_DROP
+        return int(round(99 - low)) - (1 if lol_run()[i]["air"] else 0)
+    mid = sorted(raw(i) for i in range(8))[4]
+    return max(mid - BOB, min(mid + BOB, raw(k)))
 
 
 def boot(a, back):
-    r0, r1, c0, c1 = BOOT_BOX
+    """A small boot in the design's boot colours, its ankle at (0, 0): the shaft 3 wide, the foot 5 long with the toe
+    ahead (behind when kicked up), the sole dark, the lit edge down the front."""
+    leather, sole, edge = (np.array((*K.rgb(h), 255), np.uint8) for h in BOOT_COL)
     out = {}
-    for y in range(r0, r1 + 1):
-        for x in range(c0, c1 + 1):
-            if a[y, x, 3]:
-                dx = x - BOOT_ANKLE[0]
-                out[(-dx if back else dx, y - BOOT_ANKLE[1])] = a[y, x].copy()
+    for y in range(0, BOOT_DROP + 1):
+        x1 = 1 if y < BOOT_DROP - 1 else 3
+        for x in range(-1, x1 + 1):
+            out[(-x if back else x, y)] = sole if y == BOOT_DROP else edge if x == x1 and y < BOOT_DROP - 1 else leather
     return out
 
 
@@ -362,7 +378,8 @@ def draw_leg(a, hip, knee, ankle, kicked, outline):
 def run(P, k):
     a = P.D.a
     dy = run_sink(k)
-    trunk, _, _ = legs_apart(P, (0, 0, 0, 0))     # the body without the legs; the tabard (columns 60-67) stays
+    trunk, _, _ = legs_apart(P, (0, 0, 0, 0))     # the body without the legs; the tabard (columns 60-67) stays,
+    trunk[TABARD_END + 1:] = 0                    # cut shorter
     c = np.zeros((128, 128, 4), np.uint8)
     legs = {s: draw_leg(a, *run_legs(k, dy)[s], P.D.outline) for s in ("L", "R")}
     top = int(RUN_HIP_ROW + dy)                   # the legs only from the hips down: above, the body (a thigh's ring
@@ -388,7 +405,7 @@ def run(P, k):
 # (the whole figure turned 45 degrees about his front foot - rigkit.turn, a whole figure only) and lies face down (an
 # exact quarter turn: no squares change), the spear dropped beside him
 KNEES = 94
-LIE_X = 70.0                           # the fallen body's middle column (a little ahead of the standing point)
+LIE_X = slim_x(70, 90) + 0.0                           # the fallen body's middle column (a little ahead of the standing point)
 DEAD = [("hit",), ("crouch", 1, K1), ("crouch", 2, K1), ("crouch", 3, K1), ("crouch", 4, K1), ("tip", 45),
         ("lie",), ("lie",)]
 
@@ -454,7 +471,23 @@ def frames(P, tag):
         out = [stand(P, p) for p in STAND[tag]]
     else:                    # idle: the design with the rebuilt straight spear, as every other strip holds it
         out = [stand(P, pose()) for _ in range(n)]
-    return [K.finish(f, P.D.outline, P.D.soles) for f in out]
+    return [unorphan(K.finish(f, P.D.outline, P.D.soles), P.D.outline) for f in out]
+
+
+def unorphan(f, outline):
+    """An outline square inside the figure with no colour round it (the leaning body's edge run into the front arm's on
+    the slimmed design: a lump of black) takes the commonest colour within two squares."""
+    f = f.copy()
+    m = K.orphan_outline(f, outline)
+    ink = (f[..., 3] > 0) & (f[..., :3] == np.array(outline, np.uint8)).all(-1)
+    for y, x in zip(*np.nonzero(m)):
+        if (f[y - 1:y + 2, x - 1:x + 2, 3] > 0).sum() < 9:
+            continue
+        ring = [tuple(f[yy, xx, :3]) for yy in range(y - 2, y + 3) for xx in range(x - 2, x + 3)
+                if f[yy, xx, 3] and not ink[yy, xx]]
+        if ring:
+            f[y, x, :3] = max(set(ring), key=ring.count)
+    return f
 
 
 def parts_sheet(P, path):
