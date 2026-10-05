@@ -525,8 +525,11 @@ IDLE = {"base": "idle"}
 
 
 def frame(P, pose):
-    a = P.idle.copy() if pose.get("base") == "idle" else compose(P, pose)
-    return moved(a, pose.get("move", 0))
+    if pose.get("base") == "idle":
+        return moved(P.idle.copy(), pose.get("move", 0))
+    if "legs" in pose:
+        return act(P, pose)                     # moves itself
+    return moved(compose(P, pose), pose.get("move", 0))
 
 
 def moved(a, dx):
@@ -545,36 +548,41 @@ def moved(a, dx):
 # the unit is placed by its cuff (the far hand) and turned about it: deg + swings the ring down, - up (the idle's ring
 # is 12.5 left of the cuff and 4 lower); the cuff stays within ARM_REACH of the far shoulder (61, 73.5)
 POSES = {
-    # the attack lunges with the throw (「平A的时候没有身体联动 所以看起来僵硬」): League's attack draws back, then drives
+    # the attack and the skills move the body (act(): legs, lean, hop, move; 2026-10-05, see act).
+    # Before: the attack lunges with the throw (「平A的时候没有身体联动 所以看起来僵硬」): League's attack draws back, then drives
     # forward and lunges (its head -3.5 -2.6 +5.7 +13.7 +13.0 +2.2 px at lunge 0.4); the whole figure - her own legs and
     # all, not a square redrawn - steps back 1, then forward 1, 2, 2, 1 ("move"). The upper body moved alone over the
     # idle's legs read as a deformed model (「你改的模型都变形了啊」: a row lower = shorter legs, the hips off the legs).
-    "attack": [{"unit": (58.0, 76.5, 0, "front"), "move": -1},            # 1 the blade drawn back a little
-               {"unit": (55.0, 78.0, -10, "front"), "move": -1},          # 2 wound back
-               {"hand": (55.0, 79.0, 0), "near": 35, "held": 0, "move": 1},   # 3 flung out of the near hand
-               {"hand": (55.0, 79.0, 0), "near": 40, "move": 2},          # 4 follow-through, both hands empty
-               {"hand": (57.0, 78.0, 0), "near": 15, "move": 2},          # 5 recovering
-               {"base": "idle", "move": 1}],                               # 6 the blade back at the hip
-    "skill": [{"unit": (55.5, 79.0, 20, "front")},                         # 1 low behind
-              {"unit": (54.0, 70.0, -45, "front")},                        # 2 back and up
-              {"unit": (56.0, 66.0, -75, "front")},                        # 3 up behind her head
-              {"hand": (55.0, 79.0, 0), "near": 35}],                      # 4 thrown (release)
-    "skill_wait": [{"hand": (54.0, 79.0, 10), "near": 20},
-                   {"hand": (54.0, 79.5, 5), "near": 17}],
-    "skill_catch": [{"hand": (56.0, 80.0, 0), "near": 80, "held": 0},     # 1 caught overhead in the near hand
-                    {"unit": (58.0, 75.0, -10, "front"), "near": 10},    # 2 brought down to the hip
-                    IDLE],
-    # E: the crossblade raised beside her as League's Spell Shield raises it (held before her it hid the whole body),
-    # the near hand up casting; the shield's bubble is the effect round her
-    "skill2": [{"unit": (58.0, 74.0, -15, "front"), "near": 15},
-               {"unit": (56.0, 70.0, -30, "front"), "near": 30},
-               {"unit": (56.0, 69.5, -32, "front"), "near": 30},
-               IDLE],
-    "ult": [{"unit": (57.5, 79.5, 10, "front")},
-            {"unit": (55.5, 67.5, -60, "front")},
-            {"unit": (61.5, 65.0, -90, "front")},                          # 3-4 raised over her head
-            {"unit": (61.5, 65.0, -95, "front")},
-            {"unit": (57.5, 79.0, 5, "front")}],
+    "attack": [
+        {"unit": (58.0, 76.5, 0, "front"), "move": -1, "lean": 0.04, "legs": (46, 0, -55, 0)},
+        {"unit": (55.0, 78.0, -10, "front"), "move": -1, "lean": 0.07, "legs": (44, 0, -56, 0)},
+        {"hand": (55.0, 79.0, 0), "near": 35, "held": 0, "move": 1, "lean": -0.05, "legs": (54, 0, -60, 0)},
+        {"hand": (55.0, 79.0, 0), "near": 40, "move": 2, "lean": -0.08, "legs": (57, 0, -62, 0)},
+        {"hand": (57.0, 78.0, 0), "near": 15, "move": 2, "lean": -0.04, "legs": (50, 0, -58, 0)},
+        {"base": "idle", "move": 1}],
+    "skill": [
+        {"unit": (55.5, 79.0, 20, "front"), "move": -1, "lean": 0.05, "legs": (50, 0, -58, 0)},
+        {"unit": (54.0, 70.0, -45, "front"), "move": -1, "lean": 0.09, "legs": (34, 1, -44, 0), "hop": 1},
+        {"unit": (56.0, 66.0, -75, "front"), "lean": 0.10, "legs": (26, 2, -36, 0), "hop": 2},
+        {"hand": (55.0, 79.0, 0), "near": 35, "move": 2, "lean": -0.08, "legs": (58, 0, -62, 0)}],
+    "skill_wait": [
+        {"hand": (54.0, 79.0, 10), "near": 20, "move": 1, "lean": -0.03, "legs": (50, 0, -57, 0)},
+        {"hand": (54.0, 79.5, 5), "near": 17, "move": 1, "lean": -0.02, "legs": (49, 0, -56, 0)}],
+    "skill_catch": [
+        {"hand": (56.0, 80.0, 0), "near": 80, "held": 0, "lean": 0.06, "legs": (40, 0, -50, 0), "hop": 1},
+        {"unit": (58.0, 75.0, -10, "front"), "near": 10, "lean": 0.02},
+        {"base": "idle"}],
+    "skill2": [
+        {"unit": (58.0, 74.0, -15, "front"), "near": 15, "lean": 0.03, "legs": (36, 0, -46, 0)},
+        {"unit": (56.0, 70.0, -30, "front"), "near": 30, "lean": 0.06, "legs": (28, 0, -38, 0), "hop": 1},
+        {"unit": (56.0, 69.5, -32, "front"), "near": 30, "lean": 0.06, "legs": (28, 0, -38, 0)},
+        {"base": "idle"}],
+    "ult": [
+        {"unit": (57.5, 79.5, 10, "front"), "lean": 0.03, "legs": (52, 0, -60, 0)},
+        {"unit": (55.5, 67.5, -60, "front"), "lean": 0.06, "legs": (38, 0, -46, 0), "hop": 1},
+        {"unit": (61.5, 65.0, -90, "front"), "lean": 0.08, "legs": (22, 1, -28, 0), "hop": 2},
+        {"unit": (61.5, 65.0, -95, "front"), "lean": 0.08, "legs": (22, 0, -28, 0), "hop": 1},
+        {"unit": (57.5, 79.0, 5, "front"), "lean": -0.07, "legs": (56, 0, -62, 0), "move": 1}],
     "hit": [{"unit": (59.5, 76.0, 0, "front"), "lean": 0.07, "near": 20},
             {"unit": (59.5, 76.0, 0, "front"), "lean": 0.035, "near": 10}],
 }
@@ -686,6 +694,82 @@ def stand(P, legs_pose, unit_pose, near_deg, hand=None, blade=True):
     else:
         keep = []
     return settle(can, keep, 0, dy, 86 + dy)
+
+
+# ---------------------------------------------------------------------------------------------------------------
+# the actions with the body in them (2026-10-05, the user: 「感觉放技能的时候身体不变 和平A时一样 你看看英雄联盟里面什么样吧」;
+# the trial GIF approved: 「希维尔OK了」): League's attack, Q, E and R move the whole body - a crouch to wind up, the
+# body back and up, a lunge on the throw. No back view can be drawn from the design's parts, so each frame poses the
+# same parts: the legs turned about their hips (`legs`: near angle, near lift, far angle, far lift, from straight
+# down; a wider stance is lower), the upper body leaning over the hips (`lean`, as the hit), the figure lifted
+# (`hop`) and stepped (`move`). Nothing is redrawn, so she is never fatter (「人物释放技能时变胖 模型变形」).
+
+ACT_LEGS = (NEAR_LEG_DEG, 0, FAR_LEG_DEG, 0)
+
+
+def act(P, pose):
+    na, nl, fa, fl = pose.get("legs", ACT_LEGS)
+    hips = pose.get("hips", (NEAR_HIP[0], FAR_HIP[0]))
+    k = pose.get("lean", 0.0)
+    hop = pose.get("hop", 0)
+    nu, nb, fu, fb = P.legs
+    legs = {}
+    for side, upper, boot, hip0, ankle0, deg0, ang, lift, hx in (
+            ("far", fu, fb, FAR_HIP, FAR_ANKLE, FAR_LEG_DEG, fa, fl, hips[1]),
+            ("near", nu, nb, NEAR_HIP, NEAR_ANKLE, NEAR_LEG_DEG, na, nl, hips[0])):
+        deg = ang - deg0
+        hip = (hx, hip0[1])
+        cells = transform(*upper, hip0, deg, hip)
+        ank = rot_pt(ankle0, hip0, deg)
+        ank = (ank[0] - hip0[0] + hip[0], ank[1] - hip0[1] + hip[1])
+        bs, bo = boot
+        cells.update({kk: v for kk, v in transform(bs, bo, ankle0, 0, ank).items()})
+        legs[side] = ({(x, y - lift): c for (x, y), c in cells.items()}, lift)
+    planted = [legs[s][0] for s in ("near", "far") if legs[s][1] == 0] or [legs["near"][0], legs["far"][0]]
+    low = max(y for cells in planted for (_, y) in cells)
+    dy = 99 - low - hop
+    can = np.zeros((128, 128, 4), np.uint8)
+    put(can, {(x, y + dy): c for (x, y), c in legs["far"][0].items()})
+    put(can, {(x, y + dy): c for (x, y), c in legs["near"][0].items()})
+    sh_far = lean_shift(int(SHOULDER_FAR[1]), k)
+    sh_near = lean_shift(int(SHOULDER_NEAR[1]), k)
+    shoulder = (SHOULDER_FAR[0] + sh_far, SHOULDER_FAR[1])
+    back, front, rings = {}, {}, []
+    cuff = None
+    if pose.get("unit"):
+        cx, cy, deg, z = pose["unit"]
+        cuff = reach(shoulder, (cx + sh_far, cy))
+        cells = transform(*P.unit, CUFF, deg, cuff)
+        r_ = rot_pt(RING, CUFF, deg)
+        rings.append((r_[0] - CUFF[0] + cuff[0], r_[1] - CUFF[1] + cuff[1]))
+        (back if z == "back" else front).update(cells)
+    elif pose.get("hand"):
+        cx, cy, deg = pose["hand"]
+        cuff = reach(shoulder, (cx + sh_far, cy))
+        front.update(transform(*P.hand, CUFF, deg, cuff))
+    if cuff is not None:
+        for kk, v in sleeve(shoulder, cuff).items():
+            (back if pose.get("sleeve_z", "front") == "back" else front).setdefault(kk, v)
+    up = {}
+    body = P.body_nolegs
+    for y, x in zip(*np.nonzero(body[..., 3])):
+        up[(x + lean_shift(y, k), y)] = body[y, x]
+    put(can, {(x, y + dy): c for (x, y), c in back.items()})
+    put(can, {(x, y + dy): c for (x, y), c in up.items()})
+    put(can, {(x, y + dy): c for (x, y), c in front.items()})
+    nd = pose.get("near", 0)
+    sn = (SHOULDER_NEAR[0] + sh_near, SHOULDER_NEAR[1])
+    put(can, {(x, y + dy): c for (x, y), c in transform(*P.front, SHOULDER_NEAR, nd, sn).items()})
+    if pose.get("held") is not None:
+        g = rot_pt(GLOVE_NEAR, SHOULDER_NEAR, nd)
+        g = (g[0] + sh_near, g[1])
+        cells = transform(*P.blade, RING, pose["held"], (g[0] + HELD[0], g[1] + HELD[1]))
+        put(can, {(x, y + dy): c for (x, y), c in cells.items()}, under=True)
+        rings.append((g[0] + HELD[0], g[1] + HELD[1]))
+    can = drop_small(can, 4)
+    keep = [(int(round(x - 0.5)), int(round(y - 0.5 + dy))) for x, y in rings]
+    can = settle(can, keep, lean_shift(80, k), dy, 86 + dy)
+    return moved(can, pose.get("move", 0))
 
 
 # ---------------------------------------------------------------------------------------------------------------
