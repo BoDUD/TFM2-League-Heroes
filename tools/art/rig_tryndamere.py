@@ -17,6 +17,7 @@ give the poses:
 - the body, the head, the pauldron and both legs stay square for square in every standing frame.
 """
 import argparse
+import math
 import os
 import sys
 
@@ -55,6 +56,14 @@ SHOULDER = (59.5, 78.0)                # the back arm's root at the torso: the a
 FRONT_PIVOT = (85.0, 78.5)             # the front arm's root under the pauldron
 
 
+# the lean (2026-10-05, the user: 「蛮王在游戏里有点僵硬 和之前希维尔一个问题」): as rig_sivir's accepted casts, the
+# upper body leans over the hips - each row above HIP_ROW moved round((HIP_ROW - row) x lean) columns, so the waist
+# never splits - the head moves whole with the shift of its chin row (never sheared: square eyes go diagonal), and
+# both arms ride their shoulders' shift as rigid parts; the legs stay
+HIP_ROW = 88
+NECK_ROW = 76
+
+
 class Parts:
     def __init__(self):
         D = K.Design(DESIGN)
@@ -69,45 +78,78 @@ class Parts:
         # the back arm with the sword in its fist as one rigid unit, and the arm alone; the front arm alone
         self.unit = K.Part.from_canvas(a, sword_m | arm_m, SHOULDER)
         self.arm = K.Part.from_canvas(a, arm_m, SHOULDER)
-        self.front = {"up": K.rot90(K.Part.from_canvas(a, front_m, FRONT_PIVOT), 3),
-                      "fwd": K.Part.from_canvas(a, front_m, FRONT_PIVOT).flip_v()}
+        rest = K.Part.from_canvas(a, front_m, FRONT_PIVOT)
+        self.front = {None: rest, "up": K.rot90(rest, 3), "fwd": rest.flip_v()}
         self.body = a.copy()
         self.body[sword_m | arm_m] = 0
+        self.core = self.body.copy()            # without either arm: the part that leans
+        self.core[front_m] = 0
+
+
+def lean_shift(row, lean):
+    """Columns the row moves for a lean (+ forward): 0 at the hips, the head as its chin row."""
+    if not lean or row >= HIP_ROW:
+        return 0
+    v = (HIP_ROW - max(row, NECK_ROW)) * lean
+    return int(math.floor(abs(v) + 0.5)) * (1 if v > 0 else -1)
+
+
+def leaned(a, lean):
+    out = np.zeros_like(a)
+    for y in range(a.shape[0]):
+        d = lean_shift(y, lean)
+        if d > 0:
+            out[y, d:] = a[y, :-d]
+        elif d < 0:
+            out[y, :d] = a[y, -d:]
+        else:
+            out[y] = a[y]
+    return out
 
 
 # the standing actions, per frame: (back arm + sword: quarter turns clockwise about SHOULDER or None = as drawn,
-# front arm: "up" (a quarter turn up) / "fwd" (pointing forward-up) or None, whole-figure shift (dx, dy)) - only exact
-# quarter turns / a flip, so neither arm nor blade changes shape (drawn bones and sheared arms looked bent:
-# 「左手右手释放技能都变形」); turned back (1) or over the head (2) the unit goes behind the body
+# front arm: "up" (a quarter turn up) / "fwd" (pointing forward-up) or None, whole-figure shift (dx, dy; dy -1 = a
+# hop), lean (+ forward)) - only exact quarter turns / a flip, so neither arm nor blade changes shape (drawn bones and
+# sheared arms looked bent: 「左手右手释放技能都变形」); turned back (1) or over the head (2) the unit goes behind the body.
+# The body moves as League's does (「僵硬」): the attack draws back and leans away, then lunges into the chop; E leans
+# into the spin and leaves the ground; W rears back and roars forward; Q and R throw the chest back.
 STAND = {
     # the overhead chop (release tick 12, frame 5): raised back, over the head, chopped down in front of him
-    "attack": [(None, None, (0, 0)), (1, None, (0, 0)), (1, None, (0, 0)), (2, None, (0, 0)), (3, None, (0, 0)),
-               (3, None, (0, 0))],
-    # E: one turn of the sword round him
-    "skill": [(1, None, (0, 0)), (2, None, (0, 0)), (3, None, (0, 0)), (None, None, (0, 0)), (1, None, (0, 0)),
-              (None, None, (0, 0))],
-    # W: the free fist raised, then thrust at the enemy as he shouts (release frame 4)
-    "skill2": [(None, None, (0, 0)), (None, None, (0, 0)), (None, "up", (0, 0)), (None, "fwd", (0, 0)),
-               (None, "fwd", (0, 0)), (None, None, (0, 0))],
-    # Q: the fist raised as he drinks the fury
-    "skill_q": [(None, None, (0, 0)), (None, "up", (0, 0)), (None, "up", (0, 0)), (None, "up", (0, 0)),
-                (None, None, (0, 0))],
-    # R: the roar - the sword raised back and the fist up
-    "ult": [(None, None, (0, 0)), (1, "up", (0, 0)), (1, "up", (0, 0)), (1, "up", (0, 0)), (1, "up", (0, 0)),
-            (None, None, (0, 0))],
-    "hit": [(None, None, (-1, 0)), (None, None, (0, 0))],
+    "attack": [(None, None, (-1, 0), -0.08), (1, None, (-1, 0), -0.14), (1, None, (-1, 0), -0.18),
+               (2, None, (0, 0), -0.06), (3, None, (2, 0), 0.2), (3, None, (1, 0), 0.12)],
+    # E: one turn of the sword round him, leaning into it, off the ground in the middle
+    "skill": [(1, None, (0, 0), 0.08), (2, None, (1, -1), 0.14), (3, None, (1, -1), 0.16), (None, None, (1, 0), 0.12),
+              (1, None, (1, 0), 0.1), (None, None, (0, 0), 0.04)],
+    # W: rears back with the fist raised, then thrusts it at the enemy as he roars (release frame 4)
+    "skill2": [(None, None, (0, 0), 0.06), (None, None, (-1, 0), -0.08), (None, "up", (-1, 0), -0.16),
+               (None, "fwd", (1, 0), 0.2), (None, "fwd", (1, 0), 0.16), (None, None, (0, 0), 0.06)],
+    # Q: the fist raised, the chest thrown back as he drinks the fury
+    "skill_q": [(None, None, (0, 0), 0.0), (None, "up", (0, 0), -0.12), (None, "up", (0, -1), -0.16),
+                (None, "up", (0, 0), -0.1), (None, None, (0, 0), 0.0)],
+    # R: the roar - a crouch forward, then the sword raised back, the fist up, the chest thrown back, off the ground
+    "ult": [(None, None, (0, 0), 0.1), (1, "up", (0, -1), -0.16), (1, "up", (0, -1), -0.2), (1, "up", (0, 0), -0.2),
+            (1, "up", (0, 0), -0.14), (None, None, (0, 0), 0.0)],
+    "hit": [(None, None, (-1, 0), -0.16), (None, None, (0, 0), -0.08)],
 }
 
 
 def stand(P, pose):
-    k, front, (dx, dy) = pose
-    c = np.zeros((128, 128, 4), np.uint8)
-    K.put(c, P.D.a if k is None else P.body, 0, 0)
-    if front:
-        c[P.front_m] = 0
-        K.place(c, P.front[front], FRONT_PIVOT, under=True)
-    if k is not None:
-        K.place(c, K.rot90(P.unit, k), SHOULDER, under=k in (1, 2))
+    k, front, (dx, dy), lean = pose
+    if not lean:
+        c = np.zeros((128, 128, 4), np.uint8)
+        K.put(c, P.D.a if k is None else P.body, 0, 0)
+        if front:
+            c[P.front_m] = 0
+            K.place(c, P.front[front], FRONT_PIVOT, under=True)
+        if k is not None:
+            K.place(c, K.rot90(P.unit, k), SHOULDER, under=k in (1, 2))
+    else:
+        c = leaned(P.core, lean)
+        fs = lean_shift(int(FRONT_PIVOT[1]), lean)
+        K.place(c, P.front[front], (FRONT_PIVOT[0] + fs, FRONT_PIVOT[1]), under=front is not None)
+        bs = lean_shift(int(SHOULDER[1]), lean)
+        kk = k or 0
+        K.place(c, K.rot90(P.unit, kk), (SHOULDER[0] + bs, SHOULDER[1]), under=kk in (1, 2))
     # the pose's shift moves the WHOLE figure, legs included (moving the body over still legs broke the waist)
     return K.shifted(c, dx, dy) if (dx or dy) else c
 

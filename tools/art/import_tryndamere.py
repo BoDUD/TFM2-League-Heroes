@@ -55,16 +55,16 @@ RIM = {"8A0A1A": "D0141E", "9A2A10": "E0501A", "1E040C": "3A0618"}
 # raw strip -> native: frames n, size (game px) over measure, anchor, ramps
 RAW = {
     "a_hit": dict(n=4, size=16, measure="m", anchor="core", ramps="RED EMBER"),
-    "f_full": dict(n=4, size=46, measure="h", anchor=("fixed", "ellipse", 0), ramps="RED EMBER"),
-    "e_spin": dict(n=6, size=40, measure="w", anchor=("fixed", "box", 4), ramps="RED EMBER"),
+    "f_full": dict(n=4, size=48, measure="h", anchor=("fixed", "ellipse", 0), ramps="RED EMBER", stretch=1.7),
+    "e_spin": dict(n=6, size=52, measure="w", anchor=("fixed", "box", 4), ramps="RED EMBER"),
     "e_hit": dict(n=4, size=16, measure="m", anchor="core", ramps="RED EMBER"),
     "w_shout": dict(n=6, size=84, measure="w", anchor=("fixed", "ellipse", 3), ramps="RED DARK"),
     "w_hit": dict(n=4, size=20, measure="m", anchor=("fixed", "core", 1), ramps="RED DARK"),
     "w_weak": dict(n=4, size=14, measure="h", anchor="low", ramps="INK DARK RED"),
     "w_slow": dict(n=4, size=24, measure="w", anchor="ellipse", ramps="DARK RED"),
     "q_heal": dict(n=5, size=44, measure="h", anchor=("fixed", "core", 2), ramps="RED EMBER"),
-    "r_cast": dict(n=6, size=56, measure="h", anchor=("fixed", "ellipse", 2), ramps="INK EMBER RED DARK"),
-    "r_rage": dict(n=4, size=50, measure="h", anchor=("fixed", "ellipse", 0), ramps="EMBER RED"),
+    "r_cast": dict(n=6, size=58, measure="h", anchor=("fixed", "ellipse", 2), ramps="INK EMBER RED DARK", stretch=1.75),
+    "r_rage": dict(n=4, size=54, measure="h", anchor=("fixed", "ellipse", 0), ramps="EMBER RED", stretch=1.75),
 }
 
 
@@ -79,7 +79,12 @@ def from_raw(folder):
     for name, spec in RAW.items():
         fn = f"tryndamere_fx_{name}.png"
         _, pal = palette(spec["ramps"])
-        a = np.asarray(Image.open(G.lp(os.path.join(folder, fn))).convert("RGBA")).copy()
+        im = Image.open(G.lp(os.path.join(folder, fn))).convert("RGBA")
+        if spec.get("stretch"):
+            # flames round the whole figure: drawn as tall as asked, then widened to cover him (the user, in game:
+            # 「特效盖不住身体」 - 35 px of fire round a 57 px figure with his greatsword); every cell widens alike
+            im = im.resize((round(im.width * spec["stretch"]), im.height), Image.NEAREST)
+        a = np.asarray(im).copy()
         solid = a[..., 3] >= 100
         idx = J.snap(a, solid, pal)
         rects = V.grid(a, spec["n"])
@@ -106,6 +111,7 @@ def cells(name, n):
 
 # spots from the pivot (game px, x right, y down), measured on the finished strips (pack_tryndamere_fx.SHOTS)
 WAIST = (7, -2)             # E 3: the middle of the spin (canvas (71, 86), the pivot (64, 88))
+BODY = (6, 10)              # a ring under him centred on his torso, not on the middle of his wide stance
 CHEST = (6, -8)             # Q 3: the chest (canvas (70, 80))
 HIT = (0, -11)              # a hit on the upper body of a 36-44 px unit
 OVER = (0, -32)             # the attack-down icon's foot over the head (the idle tops 28 over the pivot)
@@ -127,9 +133,10 @@ BIG = {
     # E: the skill strip lasts e_tick + 4 = 16 ticks (267 ms); the spin follows him through the dash
     "e_spin": [("e_spin", seq(range(6), [40, 45, 45, 45, 45, 50]), [WAIST])],
     # W: the roar (the release is skill2 frame 4, tick 10); the ring reaches w_r (40 px) by frame 4
-    "w_shout": [("w_shout", seq(range(6), [50, 60, 70, 80, 90, 100]), [FEET])],
-    "r_cast": [("r_cast", seq(range(6), [50, 60, 80, 90, 100, 120]), [FEET])],
-    # the 5 undying seconds: flames round him (under him)
+    "w_shout": [("w_shout", seq(range(6), [50, 60, 70, 80, 90, 100]), [BODY])],
+    "r_cast": [("r_cast", seq(range(6), [50, 60, 80, 90, 100, 120]), [BODY])],
+    # the 5 undying seconds: flames round him (under him). A buff's picture is never mirrored by his facing
+    # (champion-data: league_fiora's parry), so it stays centred on the pivot and is wide enough for both sides
     "r_rage": [("r_rage", seq(range(4), [100] * 4), [FEET])],
 }
 
