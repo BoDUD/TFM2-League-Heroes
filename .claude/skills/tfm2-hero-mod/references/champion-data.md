@@ -2931,6 +2931,11 @@ Q on 38 of one 12-frame strip, the W and the Q `Delayed` on the target with a fl
 (`c_w_ok`, `c_q_ok`): a `Delayed` queued on a unit that dies runs only its pictures, so when the target died the
 caster's own `Delayed` checks find the flag missing and fire the W or Q at a `RandomTarget` (champions first). The
 runes League's Q passive counts are pictures and flags on the caster (E -> one, W -> two, Q spends them: move speed).
+2026-10-05 (the user: 「没有高爆发的连招 查查高手怎么玩的」): high-elo Ryze chains Q between every E and W (Q-E-Q-W-Q-E-Q), so the cast is now
+E -> W -> Q -> E -> Q on ticks 6/16/26/36/46; the second E and Q go only at the cast's target (a fallback for each put the
+tree at 515 nodes). The second E is a third Flux generation (`fx_d`) so the first E's marks never burst twice, and one
+`fx_any` flag stands for "any Flux up" - three nested `SwitchByBuff`s on the generations had copied every `yes` branch
+three times (skill2 241 nodes, skill 23).
 
 **A team teleport to chase or escape (league_ryze R, Realm Warp).** The user: never at an enemy already in front of
 him, "追敌人或者逃跑用", "或者运送小兵". The first version - a `Direction` cast on `EnemyChampion` (80000) that blinked 30000
@@ -2960,6 +2965,11 @@ no casting target names allied minions alone. Crowd control breaks the channel (
 himself every 15 ticks sets `r_cut`). In 72 games: 2.2 chases, 0.6 escapes and 0.2 cut channels a game, a chase carrying about 0.8
 champions and 0.2 minions; lane 2 +1.41 / +1.35 against +1.65 / +2.01 for the old blink (it threw its landing
 Spell Flux into every fight).
+2026-10-05, the user: 「团战开了大往里面送」. Logged landings (a test runner that tags each jump after the `ult`
+animation, 240 games): 16% within 20000 of an enemy champion, 17% with two within 45000, 40% with no ally within 50000,
+16% dead within 3 s. The chase now lands r_stop 38000 short of the first enemy champion on the line (inside his reach,
+not on it), needs an `AllyNotSelf` within his portal (25000, so someone comes along) and is skipped when three enemy
+champions are within 100000 of him (a teamfight - the escape still runs): 8% / 8% / 14% dead, 1.8 chases a game.
 
 **Four shots, the fourth a crit, then a reload he walks through (league_jhin, Whisper).** The attack is a chain of
 three caster flags `a_1` -> `a_3` (600 ticks); the fourth plays its own strip (`CasterAnimation attack4`) and fires
