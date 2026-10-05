@@ -28,7 +28,7 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 HEROES = ["aatrox", "ahri", "akali", "alistar", "amumu", "briar", "caitlyn", "diana", "ekko", "evelynn", "ezreal",
           "fiddlesticks", "fiora", "fizz", "garen", "jax", "jhin", "jinx", "kaisa", "kayle", "kayn", "kennen", "leblanc",
           "lissandra", "masteryi", "missfortune", "nocturne", "rakan", "riven", "ryze", "sett", "sivir", "soraka", "teemo",
-          "tristana", "tryndamere", "twistedfate", "varus", "veigar", "vi", "xerath", "yasuo", "yone", "zilean"]
+          "tristana", "tryndamere", "twistedfate", "varus", "veigar", "vi", "xerath", "xinzhao", "yasuo", "yone", "zilean"]
 CUT = {"aatrox": ["q3_slash", "q3_slash_r"], "kaisa": ["r_trail"], "vi": ["q_go", "r_trail"], "tristana": ["q_cast"]}
 SYM = {
     "ahri": ["w_orbit"], "alistar": ["e_ready", "w_butt"], "fiddlesticks": ["r_storm"], "fiora": ["v_ms_fx"],
@@ -36,7 +36,7 @@ SYM = {
     "kennen": ["w_burst"], "masteryi": ["q_vanish", "wuju"], "missfortune": ["strut"], "rakan": ["r_start"],
     "sivir": ["e_block", "r_renew"], "soraka": ["rejuv"], "teemo": ["stealth", "w_cast"], "tristana": ["q_rapid"],
     "tryndamere": ["w_shout"], "vi": ["e_arm"], "varus": ["p_rage_on"], "yasuo": ["shield"],
-    "yone": ["e_leave", "e_return", "shield"],
+    "yone": ["e_leave", "e_return", "shield"], "xinzhao": ["p_heal"],
 }
 KEEP = {"ekko": ["r_ghost"]}
 HIT = {"ezreal": ["r_hit"], "riven": ["r_hit"], "yasuo": ["q_hit", "e_hit"], "vayne": ["hit"], "janna": ["w_hit"],
