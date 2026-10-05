@@ -19,6 +19,7 @@ The front arm is the design's own, as drawn, a quarter turn up ("up") or flipped
 stay square for square; a pose's shift moves the whole figure; a lean shears the upper body over the hips (rig_tryndamere).
 """
 import argparse
+import json
 import math
 import os
 import sys
@@ -242,25 +243,137 @@ def stand(P, p):
     return c
 
 
-# the run: the legs swung about the hips, the boots lifted in turn (rig_tryndamere's numbers: the stance's feet are 26
-# columns apart as his)
-IN = 7.0
-SWING = [5.0, 3.0, 0.0, -3.0, -5.0, -3.0, 0.0, 3.0]
-NEAR_LIFT = [0, 0, 0, 0, 0, 2, 3, 2]
-FAR_LIFT = [0, 2, 3, 2, 0, 0, 0, 0]
-DROP = [1, 0, 0, 0, 1, 0, 0, 0]
+# the run (2026-10-06, 「这个赵信怎么是螃蟹步啊」: the design's wide stance turned about its hips only closed and opened
+# the legs, both boots sliding sideways at once) - League's Runbase frame for frame, as Sett's and Sivir's runs
+# (tools/art/run_sett.py): the upper body, the arms and the spear the design's own, one block leaning forward; the
+# legs DRAWN on two bones at League's angles (assets/source/xinzhao/lol_run_joints.json, from
+#   python tools/lol/pose_joints.py assets/source/xinzhao/poses.json --tag run --json assets/source/xinzhao/lol_run_joints.json
+#       --joints Pelvis,L_Hip,L_KneeLower,L_Foot,L_Toe,R_Hip,R_KneeLower,R_Foot,R_Toe)
+# in the trousers' own shades, the design's boot stamped at each ankle (turned back when the shin is kicked up behind),
+# the gold knee guard at the knee; the hips close together under the tabard (the stance's were 18 columns apart), the
+# body as low as the planted boot lets it stand. League's R leg is the near one (nearer the camera, drawn over).
+LOL_RUN = os.path.join(ROOT, "assets", "source", "xinzhao", "lol_run_joints.json")
+RUN_HIPS = {"R": 59.5, "L": 65.5}           # League's R hip behind the L one, as League's camera has them
+RUN_HIP_ROW = 88.5
+THIGH, SHIN = 4.6, 3.4                      # the design's hip -> knee -> ankle (88 -> 96 standing)
+RUN_W = (2.6, 2.0)                          # half widths: the baggy trousers, the shin into the boot
+BOOT_BOX = (95, 99, 71, 83)                 # the design's front boot (rows, columns), its ankle at BOOT_ANKLE
+BOOT_ANKLE = (75, 95)
+BOOT_DROP = 4                               # the boot's sole under its ankle
+KICK = 60                                   # a shin past this many degrees from hanging, its toe behind: boot turned
+TROUSER = ("AE9BC9", "654F83")              # lit, shade
+KNEE_GUARD = {(0, 0): "EAB241", (1, 0): "E2A53D", (0, 1): "E2A53D", (1, 1): "A46E21"}
+RUN_LEAN = 0.08
+STRIDE = 1.2                                # League's angles opened a little: the design's legs are short
+BOB = 1                                     # the body rises or drops a row at most (League's flight frames lift it 7)
+
+
+def lol_run():
+    with open(LOL_RUN, encoding="utf-8") as f:
+        return json.load(f)
+
+
+def deg(a, b):
+    return math.degrees(math.atan2(b[0] - a[0], b[1] - a[1]))
+
+
+def at(p, d, n):
+    t = math.radians(d)
+    return (p[0] + math.sin(t) * n, p[1] + math.cos(t) * n)
+
+
+def seg(p, a, b):
+    vx, vy = b[0] - a[0], b[1] - a[1]
+    n = math.hypot(vx, vy) or 1e-9
+    t = max(0.0, min(n, ((p[0] - a[0]) * vx + (p[1] - a[1]) * vy) / n))
+    qx, qy = a[0] + vx / n * t, a[1] + vy / n * t
+    return math.hypot(p[0] - qx, p[1] - qy), (p[0] - qx) * (vy / n) - (p[1] - qy) * (vx / n)
+
+
+def run_legs(k, dy):
+    """{side: (hip, knee, ankle, kicked)} on the design: League's thigh and shin angles on the design's bones."""
+    j = lol_run()[k]["joints"]
+    out = {}
+    for s in ("R", "L"):
+        h, kn, an, to = j[s + "_Hip"], j[s + "_KneeLower"], j[s + "_Foot"], j[s + "_Toe"]
+        hip = (RUN_HIPS[s], RUN_HIP_ROW + dy)
+        knee = at(hip, deg(h, kn) * STRIDE, THIGH)
+        shin = deg(kn, an) * STRIDE
+        ankle = at(knee, shin, SHIN)
+        out[s] = (hip, knee, ankle, abs(shin) > KICK and to[0] < an[0])
+    return out
+
+
+def run_sink(k):
+    """Rows the body moves down from the design: the lowest boot's sole on the soles' row (League's air frames lift)."""
+    low = max(a[1] for _, _, a, _ in run_legs(k, 0).values()) + BOOT_DROP
+    dy = int(round(99 - low)) - (1 if lol_run()[k]["air"] else 0)
+    return max(-BOB, min(BOB, dy))
+
+
+def boot(a, back):
+    r0, r1, c0, c1 = BOOT_BOX
+    out = {}
+    for y in range(r0, r1 + 1):
+        for x in range(c0, c1 + 1):
+            if a[y, x, 3]:
+                dx = x - BOOT_ANKLE[0]
+                out[(-dx if back else dx, y - BOOT_ANKLE[1])] = a[y, x].copy()
+    return out
+
+
+def draw_leg(a, hip, knee, ankle, kicked, outline):
+    """{(x, y): colour}: the thigh and the shin in the trousers' shades (lit on top and in front, shade under), the
+    knee guard, the boot at the ankle, one outline ring."""
+    lit, shade = (np.array((*K.rgb(h), 255), np.uint8) for h in TROUSER)
+    cells = {}
+    xs, ys = (hip[0], knee[0], ankle[0]), (hip[1], knee[1], ankle[1])
+    for y in range(int(min(ys)) - 3, int(max(ys)) + 3):
+        for x in range(int(min(xs)) - 4, int(max(xs)) + 5):
+            p = (x + 0.5, y + 0.5)
+            d1, s1 = seg(p, hip, knee)
+            d2, s2 = seg(p, knee, ankle)
+            if d1 <= RUN_W[0] and d1 <= d2 + 0.5:
+                side = s1
+            elif d2 <= RUN_W[1]:
+                side = s2
+            else:
+                continue
+            cells[(x, y)] = shade if side < -0.6 or (d2 < d1 and y >= ankle[1] - 1) else lit
+    kx, ky = int(math.floor(knee[0])), int(math.floor(knee[1])) - 1
+    for (dx, dy), h in KNEE_GUARD.items():
+        cells[(kx + dx, ky + dy)] = np.array((*K.rgb(h), 255), np.uint8)
+    ax, ay = int(round(ankle[0] - 0.5)), int(round(ankle[1]))
+    for (dx, dy), c in boot(a, kicked).items():
+        cells[(ax + dx, ay + dy)] = c
+    ring = {}
+    for (x, y) in cells:
+        for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+            if (x + dx, y + dy) not in cells:
+                ring[(x + dx, y + dy)] = np.array((*outline, 255), np.uint8)
+    ring.update(cells)
+    return ring
 
 
 def run(P, k):
     a = P.D.a
-    left, right = K.mask_rows(LEG_L) & (a[..., 3] > 0), K.mask_rows(LEG_R) & (a[..., 3] > 0)
-    trunk = a.copy()
-    trunk[left | right] = 0
-    s, d = SWING[k], DROP[k]
+    dy = run_sink(k)
+    trunk, _, _ = legs_apart(P, (0, 0, 0, 0))     # the body without the legs; the tabard (columns 60-67) stays
     c = np.zeros((128, 128, 4), np.uint8)
-    K.put(c, K.swing_leg(a, right, HIP, ANKLE, -IN - s, FAR_LIFT[k]), 0, 0)
-    K.put(c, K.shifted(trunk, 0, d), 0, 0)
-    K.put(c, K.swing_leg(a, left, HIP, ANKLE, IN + s, NEAR_LIFT[k]), 0, 0)
+    legs = {s: draw_leg(a, *run_legs(k, dy)[s], P.D.outline) for s in ("L", "R")}
+    for (x, y), col in legs["L"].items():         # the far leg under the body
+        if 0 <= y < 128 and 0 <= x < 128:
+            c[y, x] = col
+    up = np.zeros_like(c)
+    K.put(up, leaned(trunk, RUN_LEAN), 0, 0)
+    fs = lean_shift(int(FRONT_PIVOT[1]), RUN_LEAN)
+    K.place(up, P.front[None], (FRONT_PIVOT[0] + fs, FRONT_PIVOT[1]))
+    bs = lean_shift(int(SHOULDER[1]), RUN_LEAN)
+    K.place(up, unit_as(P, *K0[0][:1]), (SHOULDER[0] + bs, SHOULDER[1]), under=True)
+    K.put(c, K.shifted(up, 0, dy), 0, 0)
+    for (x, y), col in legs["R"].items():         # the near leg over the tabard, under the arms and the spear
+        if 0 <= y < 128 and 0 <= x < 128 and (y > RUN_HIP_ROW + dy or not c[y, x, 3]):
+            c[y, x] = col
     c[P.D.soles + 1:] = 0
     return c
 
