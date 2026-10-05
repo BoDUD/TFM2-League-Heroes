@@ -38,11 +38,18 @@ PIVOT = (64, 88)                       # the standing point on the 128 canvas (t
 CELL, CELL_PIVOT = (128, 96), (64, 70)
 
 # ---------------------------------------------------------------------------------------------- parts (canvas)
-HEAD_BOX = (80, 93, 14, 46)            # rows r0..r1, columns c0..c1: the spear's head group, nothing of his body in it
-BUTT_BOX = (63, 73, 74, 86)            # the butt group right of his head
+HEAD_BOX = (80, 93, 14, 46)            # rows r0..r1, columns c0..c1: the spear's head end, nothing of his body in it
+HEAD_KEEP = 42                         # of it the blade, hook, streamer and gold collar (columns up to 42); right of
+                                       # that the design's own shaft stub, dropped (it is drawn again, straight)
+BUTT_BOX = (63, 73, 74, 86)            # the butt end right of his head
 BUTT_SHAFT = {69: (72, 73), 70: (72, 73), 71: (72, 73), 72: (72, 73)}   # the shaft's squares beside the head
-TIP, BUTT_TIP = (15.5, 91.0), (85.5, 64.5)     # the blade's tip and the butt's tip (the spear's axis)
-GRIP = (47.5, 82.5)                    # where the back hand holds it
+BUTT_KEEP = 79                         # of it the gold ring and the iron spike (columns from 79)
+BUTT_ROW = 68                          # the design's shaft enters the ring on row 68 (its lit row)
+# the shaft: from the collar (column 43, lit row 83) up to the ring, a clean 1:2 step (one row every two columns: the
+# design's own shaft runs 0.46; an exact 0.38 line mixed steps of 2 and 3 and the shaft wobbled - 「枪有变形的部分」)
+SHAFT_X0, SHAFT_Y0, SHAFT_RUN = 43, 83, 2
+TIP, BUTT_TIP = (15.5, 91.0), (85.5, 63.5)     # the spear's axis (the slide through the hand follows it)
+GRIP = (47.5, 82.0)                    # where the back hand holds it (on the drawn shaft)
 SHAFT_LIT, SHAFT_DARK = "#86523F", "#613231"
 # the back arm: the hand on the grip and the forearm up to the gold shoulder guard; it turns about SHOULDER
 BACK_ARM = {80: (47, 51), 81: (46, 52), 82: (47, 52), 83: (47, 50), 84: (47, 50), 85: (48, 50)}
@@ -68,19 +75,25 @@ class Parts:
         r0, r1, c0, c1 = BUTT_BOX
         butt_m = (K.mask_box(r0, r1, c0, c1) | K.mask_rows(BUTT_SHAFT)) & (a[..., 3] > 0)
         self.head_m, self.butt_m = head_m, butt_m
-        # the whole spear: the shaft drawn along the axis, both groups over it (their outline never across the shaft)
+        # the whole spear: the head end and the butt end (their own shaft stubs dropped), the shaft drawn between them
+        cols = np.arange(128)[None, :].repeat(128, 0)
+        head_keep = head_m & (cols <= HEAD_KEEP)
+        butt_keep = butt_m & (cols >= BUTT_KEEP)
         sp = np.zeros_like(a)
         lit, dark, out = (*K.rgb(SHAFT_LIT), 255), (*K.rgb(SHAFT_DARK), 255), (*D.outline, 255)
-        for x in range(int(GRIP[0]) - 6, BUTT_BOX[2] + 2):
-            yt = int(math.floor(axis_y(x + 0.5) - 0.5))          # the shaft's two rows: yt (lit), yt + 1 (dark)
+
+        def top(x):
+            return SHAFT_Y0 - (x - SHAFT_X0) // SHAFT_RUN
+
+        for x in range(SHAFT_X0 - 1, BUTT_KEEP + 2):
+            yt = top(x)
             for yy, c in ((yt - 1, out), (yt, lit), (yt + 1, dark), (yt + 2, out)):
                 if sp[yy, x, 3] == 0 or c is not out:
                     sp[yy, x] = c
-        groups = np.where((head_m | butt_m)[..., None], a, 0).astype(np.uint8)
-        ink = (groups[..., :3] == np.array(D.outline, np.uint8)).all(-1) & (groups[..., 3] > 0)
-        shaft = (sp[..., 3] > 0) & ~(sp[..., :3] == np.array(D.outline, np.uint8)).all(-1)
-        groups[ink & shaft] = 0
-        K.put(sp, groups, 0, 0)
+        K.put(sp, np.where(head_keep[..., None], a, 0).astype(np.uint8), 0, 0)
+        # the butt end moved along so the shaft enters its ring on the drawn shaft's row
+        butt = np.where(butt_keep[..., None], a, 0).astype(np.uint8)
+        K.put(sp, butt, 0, top(BUTT_KEEP) - BUTT_ROW)
         self.spear = K.Part.from_canvas(sp, sp[..., 3] > 0, GRIP)
         s = self.spear
         self.spears = {"dl": s, "ul": K.rot90(s, 1), "ur": K.rot90(s, 2), "dr": K.rot90(s, 3),
@@ -321,8 +334,8 @@ def frames(P, tag):
         out = [dead(P, k) for k in range(n)]
     elif tag in STAND:
         out = [stand(P, p) for p in STAND[tag]]
-    else:
-        out = [P.D.a.copy() for _ in range(n)]
+    else:                    # idle: the design with the rebuilt straight spear, as every other strip holds it
+        out = [stand(P, pose()) for _ in range(n)]
     return [K.finish(f, P.D.outline, P.D.soles) for f in out]
 
 
