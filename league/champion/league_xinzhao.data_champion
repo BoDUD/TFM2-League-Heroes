@@ -666,7 +666,7 @@
                 },
                 {
                   "type": "Delayed",
-                  "tick": 14,
+                  "tick": 13,
                   "effects": [
                     {
                       "type": "Attack",
@@ -792,7 +792,7 @@
                   },
                   {
                     "type": "Delayed",
-                    "tick": 14,
+                    "tick": 13,
                     "effects": [
                       {
                         "type": "Attack",
@@ -868,7 +868,7 @@
                   },
                   {
                     "type": "Delayed",
-                    "tick": 14,
+                    "tick": 13,
                     "effects": [
                       {
                         "type": "Attack",
@@ -1234,7 +1234,7 @@
   "skill2": {
     "action_name": "skill2",
     "description": "#asset/base/text/champion?description.league_xinzhao.skill2",
-    "duration": 36,
+    "duration": 32,
     "cooltime": 600,
     "start_timing": 1,
     "cancelable": false,
@@ -1251,7 +1251,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 12,
+          "tick": 13,
           "effects": [
             {
               "type": "CasterViewEffect",
@@ -1290,7 +1290,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 24,
+          "tick": 17,
           "effects": [
             {
               "type": "Sfx",
@@ -1376,7 +1376,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 14,
+          "tick": 10,
           "effects": [
             {
               "type": "AddBuff",
@@ -1628,6 +1628,22 @@
       "name": "league_xinzhao_q_1",
       "anim": "asset/league/effects/league_xinzhao_fx",
       "tag": "q_1",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_xinzhao_q_2",
+      "anim": "asset/league/effects/league_xinzhao_fx",
+      "tag": "q_2",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_xinzhao_q_3",
+      "anim": "asset/league/effects/league_xinzhao_fx",
+      "tag": "q_3",
       "repeat": true,
       "z": 3
     },

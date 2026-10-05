@@ -22,7 +22,8 @@ Kit (the user's picks, 2026-10-05: E with Q folded in / W / R, the challenged on
           (+ r_hp% of a champion's max health: League's 15% of current health, nothing reads it) and every one but the
           challenged is knocked back (r_kb_speed x r_kb_t). For r_t ticks he takes r_red% less damage (League blocks the
           damage from beyond 450 units; the native add-on addons/league_xinzhao_guard does that instead).
-Placeholder timings (no sprite yet): set from the strips' hit frames once they are in.
+Timings from the strips (tools/art/rig_xinzhao.py): the attack, Q1 and Q2 hit on tick 11, Determination on 13, Q3 on 13,
+W's slash on 13 and its thrust on 17, R's sweep on 10.
 """
 import argparse
 import json
@@ -46,7 +47,7 @@ P = {
     "regen": 2, "regen_g": 1,
     # attack: the strip picked on tick 1, the hit a `Delayed` later
     "atk_range": 26000, "atk_dur": 26, "atk_cd": 60, "a_hit": 11, "a_anim": 24,
-    "p_hit": 13, "p_anim": 28, "q1_hit": 11, "q2_hit": 11, "q3_hit": 14, "q_anim": 26,
+    "p_hit": 13, "p_anim": 28, "q1_hit": 11, "q2_hit": 11, "q3_hit": 13, "q_anim": 26,
     # passive Determination (League: every third attack 15-45% AD more, heals 7-92 + 10% AD + 55% AP)
     "p_t": 240, "p_ratio": 40, "p_heal": 15, "p_heal_ratio": 15,
     # Three Talon Strike (League: 16-56 + 40% bonus AD a thrust, the third knocks up 0.75 s, 4 s to use them)
@@ -57,12 +58,12 @@ P = {
     "e_dmg": 40, "e_ratio": 50, "e_slow": 30, "e_slow_t": 30, "e_as": 40, "e_as_t": 300,
     # skill2: W Wind Becomes Lightning (League: slash 30-70 + 30% AD, thrust 40-200 + 80% AD, 900 range, slow 50% 1.5 s,
     # cd 12-8 s)
-    "w_cd": 600, "w_range": 60000, "w_dur": 36, "w_slash_at": 12, "w_thrust_at": 24, "w_r": 32000, "w_cone": 0,
+    "w_cd": 600, "w_range": 60000, "w_dur": 32, "w_slash_at": 13, "w_thrust_at": 17, "w_r": 32000, "w_cone": 0,
     "w1_dmg": 20, "w1_ratio": 40, "w_len": 60000, "w_width": 8000, "w2_dmg": 40, "w2_ratio": 80, "w_slow": 50,
     "w_slow_t": 90,
     # ult: R Crescent Guard (League: 75-275 + 100% bonus AD + 15% current health, 450 radius, knock-back, 3 s of
     # immunity to damage from beyond 450, cd 120-80 s)
-    "r_cd": 3000, "r_range": 30000, "r_dur": 36, "r_at": 14, "r_rad": 36000, "r_dmg": 100, "r_ratio": 100, "r_hp": 10,
+    "r_cd": 3000, "r_range": 30000, "r_dur": 36, "r_at": 10, "r_rad": 36000, "r_dmg": 100, "r_ratio": 100, "r_hp": 10,
     "r_kb_speed": 2500, "r_kb_t": 8, "r_red": 40, "r_t": 180,
 }
 
@@ -243,7 +244,7 @@ def build(p):
                E("w_slash", BIG, 2, **LATE), E("w_hit"), E("w_hit2"),
                E("r_tell", BIG), E("r_sweep", BIG, 2, **LATE), E("r_hit")]
     views_p = [{"type": "Animated", "name": n("w_thrust"), "anim": BIG, "tag": "w_thrust", "repeat": False, "z": 2}]
-    views_b = [B_("q_1", FX, 3), B_("e_slow", FX, -1), B_("w_slow", FX, -1), B_("r_chal", FX, 3),
+    views_b = [B_("q_1", FX, 3), B_("q_2", FX, 3), B_("q_3", FX, 3), B_("e_slow", FX, -1), B_("w_slow", FX, -1), B_("r_chal", FX, 3),
                B_("r_guard", BIG, -1)]
     return {
         "id": ID, "category": "Melee", "tags": ["AD", "Melee", "CC"],
