@@ -7700,7 +7700,7 @@
       "anim": "asset/league/effects/league_alistar_big",
       "tag": "r_on",
       "repeat": true,
-      "z": 2
+      "z": -1
     }
   ]
 }
