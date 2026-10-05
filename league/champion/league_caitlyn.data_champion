@@ -3618,7 +3618,7 @@
       "anim": "asset/league/effects/league_caitlyn_fx",
       "tag": "shot",
       "z": 1,
-      "is_follow": true
+      "is_follow": false
     },
     {
       "type": "Animation",
@@ -3626,7 +3626,7 @@
       "anim": "asset/league/effects/league_caitlyn_fx",
       "tag": "hs_shot",
       "z": 1,
-      "is_follow": true
+      "is_follow": false
     },
     {
       "type": "Animation",
@@ -3642,7 +3642,7 @@
       "anim": "asset/league/effects/league_caitlyn_fx",
       "tag": "e_shot",
       "z": 1,
-      "is_follow": true
+      "is_follow": false
     },
     {
       "type": "Animation",
@@ -3658,7 +3658,7 @@
       "anim": "asset/league/effects/league_caitlyn_fx",
       "tag": "q_muzzle",
       "z": 1,
-      "is_follow": true
+      "is_follow": false
     },
     {
       "type": "Animation",
@@ -3706,7 +3706,7 @@
       "anim": "asset/league/effects/league_caitlyn_fx",
       "tag": "r_muzzle",
       "z": 1,
-      "is_follow": true
+      "is_follow": false
     },
     {
       "type": "Animation",

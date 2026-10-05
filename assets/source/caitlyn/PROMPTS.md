@@ -265,11 +265,11 @@ Layout: one horizontal row of 4 equal cells, each 2 wide to 1 tall, image size 1
 | `caitlyn_fx_e_net` | view_projectiles `league_caitlyn_e_net`（不循环，最后一帧停住） | 16 × 14 |
 | `caitlyn_fx_w_throw` | view_projectiles `league_caitlyn_w_throw` | 8 × 8 |
 | `caitlyn_fx_r_bullet` | view_projectiles `league_caitlyn_r_bullet` | 32 × 6 |
-| `caitlyn_fx_shot` | view_effects `league_caitlyn_shot`（她身上，跟随） | 10 × 8 |
-| `caitlyn_fx_hs_shot` | view_effects `league_caitlyn_hs_shot`（她身上，跟随） | 16 × 12 |
-| `caitlyn_fx_e_shot` | view_effects `league_caitlyn_e_shot`（她身上，跟随） | 12 × 12 |
-| `caitlyn_fx_q_muzzle` | view_effects `league_caitlyn_q_muzzle`（她身上，跟随） | 18 × 14 |
-| `caitlyn_fx_r_muzzle` | view_effects `league_caitlyn_r_muzzle`（她身上，跟随） | 26 × 18 |
+| `caitlyn_fx_shot` | view_effects `league_caitlyn_shot`（她身上，不跟随：动作中途播放，跟随的话红色方会画反） | 10 × 8 |
+| `caitlyn_fx_hs_shot` | view_effects `league_caitlyn_hs_shot`（她身上，不跟随：动作中途播放，跟随的话红色方会画反） | 16 × 12 |
+| `caitlyn_fx_e_shot` | view_effects `league_caitlyn_e_shot`（她身上，不跟随：动作中途播放，跟随的话红色方会画反） | 12 × 12 |
+| `caitlyn_fx_q_muzzle` | view_effects `league_caitlyn_q_muzzle`（她身上，不跟随：动作中途播放，跟随的话红色方会画反） | 18 × 14 |
+| `caitlyn_fx_r_muzzle` | view_effects `league_caitlyn_r_muzzle`（她身上，不跟随：动作中途播放，跟随的话红色方会画反） | 26 × 18 |
 | `caitlyn_fx_hit` | view_effects `league_caitlyn_hit`（跟随） | 10 |
 | `caitlyn_fx_hs_hit` | view_effects `league_caitlyn_hs_hit`（跟随） | 20 |
 | `caitlyn_fx_q_hit` | view_effects `league_caitlyn_q_hit`（跟随） | 16 |
