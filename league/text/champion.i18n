@@ -413,6 +413,13 @@
         "skill": "拉弓射出穿透箭：射程内有敌方英雄时蓄满力，造成<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<><#ff9028ff>物理伤害<>，否则快速出手、伤害较低；之后每个敌人伤害递减。命中英雄时引爆枯萎：每层<#ffffffff>3%最大生命值<>真实伤害并缩短技能冷却。每40秒一次蓄满的箭再加<#ffffffff>6%<>。",
         "skill2": "向目标区域射下箭雨，造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<><#ff9028ff>物理伤害<>并引爆枯萎；地面腐化<#ffb900ff>4秒<>，其中的敌人<#ef5350ff>减速30%<>、受到的治疗降低40%。",
         "ult": "射出腐败锁链，命中第一个敌方英雄：<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理伤害<>、<#ef5350ff>禁锢2秒<>、叠满3层枯萎；锁链随后扩散到附近的敌方英雄，<#ef5350ff>禁锢1.5秒<>。"
+      },
+      "league_tryndamere": {
+        "name": "泰达米尔",
+        "attack": "挥剑攻击。被动<#ff9028ff>战斗狂怒<>：普攻和旋风斩每命中一个敌人得1层怒气，击杀得2层，最多5层，每层暴击率+<#ffb900ff>8%<>（暴击造成2倍伤害）；停手5秒后每秒掉一层。",
+        "skill": "旋转着冲过目标，对路径上的所有敌人造成<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<><#ff9028ff>物理伤害<>，每命中一个敌人得1层怒气。",
+        "skill2": "向周围的敌方英雄发出蔑视的怒吼，攻击力降低<#ef5350ff>25%<>，持续<#ffb900ff>4秒<>；离他较远、正要逃开的敌人还会<#ef5350ff>减速40%<>，持续2秒。",
+        "ult": "被两名以上敌方英雄贴身或连续挨打时爆发：怒气全满，<#ffb900ff>5秒<>内生命不会降到1以下。结束时施放<#ff9028ff>嗜血杀戮<>，消耗怒气回复<#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>30%<>生命，每层怒气再加<#66bb6aff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>10%<>。"
       }
     },
     "skill_name": {
@@ -710,6 +717,11 @@
         "skill1": "穿刺之箭",
         "skill2": "恶灵箭雨",
         "ult": "腐败锁链"
+      },
+      "league_tryndamere": {
+        "skill1": "旋风斩",
+        "skill2": "蔑视",
+        "ult": "无尽怒火"
       }
     }
   },
@@ -1127,6 +1139,13 @@
         "skill": "拉弓射出穿透箭：射程內有敵方英雄時蓄滿力，造成<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<><#ff9028ff>物理傷害<>，否則快速出手、傷害較低；之後每個敵人傷害遞減。命中英雄時引爆荒蕪：每層<#ffffffff>3%最大生命值<>真實傷害並縮短技能冷卻。每40秒一次蓄滿的箭再加<#ffffffff>6%<>。",
         "skill2": "向目標區域射下箭雨，造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<><#ff9028ff>物理傷害<>並引爆荒蕪；地面腐化<#ffb900ff>4秒<>，其中的敵人<#ef5350ff>緩速30%<>、受到的治療降低40%。",
         "ult": "射出墮落連鎖，命中第一個敵方英雄：<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理傷害<>、<#ef5350ff>定身2秒<>、疊滿3層荒蕪；連鎖隨後擴散到附近的敵方英雄，<#ef5350ff>定身1.5秒<>。"
+      },
+      "league_tryndamere": {
+        "name": "泰達米爾",
+        "attack": "揮劍攻擊。被動<#ff9028ff>戰鬥狂怒<>：普攻和旋風斬每命中一個敵人得1層怒氣，擊殺得2層，最多5層，每層暴擊率+<#ffb900ff>8%<>（暴擊造成2倍傷害）；停手5秒後每秒掉一層。",
+        "skill": "旋轉著衝過目標，對路徑上的所有敵人造成<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<><#ff9028ff>物理傷害<>，每命中一個敵人得1層怒氣。",
+        "skill2": "向周圍的敵方英雄發出輕蔑的怒吼，攻擊力降低<#ef5350ff>25%<>，持續<#ffb900ff>4秒<>；離他較遠、正要逃開的敵人還會<#ef5350ff>緩速40%<>，持續2秒。",
+        "ult": "被兩名以上敵方英雄貼身或連續挨打時爆發：怒氣全滿，<#ffb900ff>5秒<>內生命不會降到1以下。結束時施放<#ff9028ff>嗜血殺戮<>，消耗怒氣回復<#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>30%<>生命，每層怒氣再加<#66bb6aff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>10%<>。"
       }
     },
     "skill_name": {
@@ -1424,6 +1443,11 @@
         "skill1": "破甲箭",
         "skill2": "腐敗箭雨",
         "ult": "墮落連鎖"
+      },
+      "league_tryndamere": {
+        "skill1": "旋風斬",
+        "skill2": "嘲諷",
+        "ult": "無盡怒火"
       }
     }
   },
@@ -1841,6 +1865,13 @@
         "skill": "Draws and fires a piercing arrow: fully charged with an enemy champion in reach for <#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<> <#ff9028ff>physical damage<>, else a quick weaker shot; each further enemy takes less. A champion hit bursts Blight: <#ffffffff>3% max health<> true damage per stack and shorter cooldowns. Every 40s a full draw adds <#ffffffff>6%<>.",
         "skill2": "Rains arrows on an area: <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> <#ff9028ff>physical damage<>, bursting Blight. The ground stays corrupted for <#ffb900ff>4s<>: enemies in it are <#ef5350ff>slowed<> by 30% and healed 40% less.",
         "ult": "Flings a tendril at the first enemy champion: <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>physical damage<>, <#ef5350ff>rooted<> for <#ffb900ff>2s<>, full Blight. The corruption then spreads to enemy champions nearby, <#ef5350ff>rooting<> them for <#ffb900ff>1.5s<>."
+      },
+      "league_tryndamere": {
+        "name": "Tryndamere",
+        "attack": "Sword strikes. Passive <#ff9028ff>Battle Fury<>: each enemy his attacks and Spinning Slash hit gives a stack of Fury, a kill two, up to 5; each stack is <#ffb900ff>+8%<> critical strike chance (crits deal double). Fury drains a stack a second once he stops for 5s.",
+        "skill": "Spins through the target, dealing <#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<> <#ff9028ff>physical damage<> to every enemy in his path and gaining a stack of Fury for each.",
+        "skill2": "Mocks the enemy champions around him: <#ef5350ff>-25%<> attack for <#ffb900ff>4s<>. Those farther off, turning to run, are also <#ef5350ff>slowed<> by 40% for 2s.",
+        "ult": "When two enemy champions are on him or the blows keep coming: full Fury, and for <#ffb900ff>5s<> his health cannot fall below 1. As it ends he casts <#ff9028ff>Bloodlust<>, spending his Fury to heal <#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>30%<>, plus <#66bb6aff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>10%<> per stack."
       }
     },
     "skill_name": {
@@ -2138,6 +2169,11 @@
         "skill1": "Piercing Arrow",
         "skill2": "Hail of Arrows",
         "ult": "Chain of Corruption"
+      },
+      "league_tryndamere": {
+        "skill1": "Spinning Slash",
+        "skill2": "Mocking Shout",
+        "ult": "Undying Rage"
       }
     }
   },
@@ -2555,6 +2591,13 @@
         "skill": "꿰뚫는 화살을 쏩니다. 사거리 안에 적 챔피언이 있으면 끝까지 당겨 <#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<>의 <#ff9028ff>물리 피해<>, 없으면 빠르게 약하게 쏩니다. 뒤의 적일수록 피해가 줄어듭니다. 챔피언 적중 시 역병이 터져 중첩당 <#ffffffff>최대 체력의 3%<> 고정 피해, 스킬 재사용 대기시간 감소. 40초마다 완충 화살은 <#ffffffff>6%<> 추가.",
         "skill2": "지역에 화살비를 퍼부어 <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>의 <#ff9028ff>물리 피해<>를 입히고 역병을 터뜨립니다. 땅이 <#ffb900ff>4초<> 오염되어 적이 30% <#ef5350ff>둔화<>되고 받는 회복이 40% 줄어듭니다.",
         "ult": "첫 적 챔피언에게 덩굴을 던져 <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>의 <#ff9028ff>물리 피해<>, <#ffb900ff>2초<> <#ef5350ff>속박<>, 역병 3중첩. 이어서 부패가 주변 적 챔피언에게 퍼져 <#ffb900ff>1.5초<> <#ef5350ff>속박<>합니다."
+      },
+      "league_tryndamere": {
+        "name": "트린다미어",
+        "attack": "검으로 공격합니다. 기본 지속 효과 <#ff9028ff>격노<>: 기본 공격과 회전 베기가 적을 맞힐 때마다 분노 1, 처치 시 2 (최대 5). 중첩당 치명타 확률 <#ffb900ff>+8%<> (치명타는 2배 피해). 5초간 공격하지 않으면 1초마다 1씩 줄어듭니다.",
+        "skill": "대상을 지나 회전하며 돌진해 경로의 모든 적에게 <#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<>의 <#ff9028ff>물리 피해<>를 입히고, 적중한 적마다 분노 1을 얻습니다.",
+        "skill2": "주변 적 챔피언을 조롱해 공격력을 <#ffb900ff>4초<> 동안 <#ef5350ff>25%<> 낮춥니다. 멀리서 등을 돌린 적은 2초 동안 40% <#ef5350ff>둔화<>됩니다.",
+        "ult": "적 챔피언 둘 이상에게 붙잡히거나 계속 맞으면 발동: 분노가 가득 차고 <#ffb900ff>5초<> 동안 체력이 1 아래로 떨어지지 않습니다. 끝날 때 <#ff9028ff>피의 갈망<>으로 분노를 소모해 <#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>30%<>, 중첩당 <#66bb6aff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>10%<> 회복합니다."
       }
     },
     "skill_name": {
@@ -2852,6 +2895,11 @@
         "skill1": "꿰뚫는 화살",
         "skill2": "퍼붓는 화살",
         "ult": "부패의 사슬"
+      },
+      "league_tryndamere": {
+        "skill1": "회전 베기",
+        "skill2": "조롱의 외침",
+        "ult": "불사의 분노"
       }
     }
   },
@@ -3269,6 +3317,13 @@
         "skill": "貫通する矢を放つ。射程内に敵チャンピオンがいれば引き絞り<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<>の<#ff9028ff>物理ダメージ<>、いなければ素早く弱く撃つ。後ろの敵ほど減衰。チャンピオンに当たると枯死が弾け、1つにつき<#ffffffff>最大体力の3%<>の確定ダメージとスキル短縮。40秒ごとに引き絞った矢は<#ffffffff>6%<>追加。",
         "skill2": "範囲に矢の雨を降らせ<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>の<#ff9028ff>物理ダメージ<>、枯死を弾けさせる。地面が<#ffb900ff>4秒<>穢れ、中の敵に30%の<#ef5350ff>スロウ<>と回復40%低下。",
         "ult": "最初の敵チャンピオンに蔓を放ち<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の<#ff9028ff>物理ダメージ<>、<#ffb900ff>2秒<>の<#ef5350ff>スネア<>、枯死3つ。続いて穢れが周囲の敵チャンピオンに広がり<#ffb900ff>1.5秒<><#ef5350ff>スネア<>。"
+      },
+      "league_tryndamere": {
+        "name": "トリンダメア",
+        "attack": "剣で攻撃。パッシブ <#ff9028ff>戦場の咆哮<>：通常攻撃とスピンスラッシュが敵に当たるたびフューリー1、キルで2（最大5）。1つにつきクリティカル率<#ffb900ff>+8%<>（クリティカルは2倍）。5秒攻撃しないと毎秒1つ減る。",
+        "skill": "対象を突き抜けて回転斬りし、通り道の全ての敵に<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<>の<#ff9028ff>物理ダメージ<>、当たった敵1体ごとにフューリー1。",
+        "skill2": "周囲の敵チャンピオンを嘲り、攻撃力<#ef5350ff>-25%<>（<#ffb900ff>4秒<>）。離れて背を向けた敵は40%の<#ef5350ff>スロウ<>（2秒）。",
+        "ult": "敵チャンピオン2体以上に囲まれるか攻撃を受け続けると発動：フューリー最大、<#ffb900ff>5秒<>間体力が1未満にならない。終わりに<#ff9028ff>血の欲望<>でフューリーを消費し<#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>30%<>、1つにつき<#66bb6aff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>10%<>回復。"
       }
     },
     "skill_name": {
@@ -3566,6 +3621,11 @@
         "skill1": "乾坤一擲",
         "skill2": "滅びの矢雨",
         "ult": "穢れの連鎖"
+      },
+      "league_tryndamere": {
+        "skill1": "スピンスラッシュ",
+        "skill2": "嘲りの叫び",
+        "ult": "不死の憤激"
       }
     }
   }
