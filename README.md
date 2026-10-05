@@ -10,7 +10,7 @@
 
 ![艾希演示：跑步、普攻、Q 连射、W 万箭齐发、R 魔法水晶箭](docs/preview/league_ashe_showcase.gif?v=1001w)
 
-![拉克丝演示：跑步、普攻、Q 光之束缚和护盾、被动引爆、E 透光奇点、R 终极闪光](docs/preview/league_lux_showcase.gif?v=0930)
+![拉克丝演示：跑步、普攻、Q 光之束缚和护盾、被动引爆、E 透光奇点、R 终极闪光](docs/preview/league_lux_showcase.gif?v=1005staff)
 
 ![李青连招演示：Q 天音波、回音击、出一拳再天雷破（QQAE）；Q 还在冷却时放 R，回旋踢把德莱厄斯踢飞，飞踢追上去再打一下（QRQ）；第二段 Q 好着时放 R，正面踢把亚索踢进金克丝，紧接着出掌，天音波追上空中的亚索，再回音击冲过去（RQQ）](docs/preview/league_leesin_combos.gif)
 ![李青演示：跑步、Q 天音波和回音击、疾风骤雨普攻、E 天雷破和金钟罩；R 猛龙摆尾：逃开的德莱厄斯身后没人，回旋踢把他踢回盖伦那边；第二段亚索身后站着金克丝，正面踢把他踢进金克丝，金龙撞飞她](docs/preview/league_leesin_showcase.gif?v=1001head)
