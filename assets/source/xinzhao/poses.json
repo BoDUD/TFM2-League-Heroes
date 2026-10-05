@@ -1,0 +1,395 @@
+{
+ "hero": "xinzhao",
+ "champ": "XinZhao",
+ "camera": {
+  "yaw": 60,
+  "pitch": 20,
+  "mirror": true
+ },
+ "chibi": {
+  "head": 2.4,
+  "legs": 0.85,
+  "hair": 0.6
+ },
+ "height": 42,
+ "cell": [
+  128,
+  96,
+  14
+ ],
+ "design": "Idlebase@0",
+ "hide": [
+  "^Hair[0-9]$"
+ ],
+ "weapon": "^Weapon_Main$",
+ "tags": {
+  "idle": {
+   "frames": [
+    [
+     "Idlebase@0",
+     200
+    ],
+    [
+     "Idlebase@0",
+     200
+    ],
+    [
+     "Idlebase@0",
+     200
+    ],
+    [
+     "Idlebase@0",
+     200
+    ],
+    [
+     "Idlebase@0",
+     200
+    ],
+    [
+     "Idlebase@0",
+     200
+    ]
+   ]
+  },
+  "run": {
+   "head_like": "Idlebase@0",
+   "frames": [
+    [
+     "Runbase@0",
+     130
+    ],
+    [
+     "Runbase@108",
+     130
+    ],
+    [
+     "Runbase@217",
+     130
+    ],
+    [
+     "Runbase@325",
+     130
+    ],
+    [
+     "Runbase@433",
+     130
+    ],
+    [
+     "Runbase@542",
+     130
+    ],
+    [
+     "Runbase@650",
+     130
+    ],
+    [
+     "Runbase@758",
+     130
+    ]
+   ]
+  },
+  "attack": {
+   "lunge": 0.4,
+   "release": 4,
+   "frames": [
+    [
+     "Idlebase@0>Attack_AA_04_hit@0:0.5",
+     60
+    ],
+    [
+     "Attack_AA_04_hit@100",
+     60
+    ],
+    [
+     "Attack_AA_04_hit@167",
+     60
+    ],
+    [
+     "Attack_AA_04_hit@233",
+     100
+    ],
+    [
+     "Attack_AA_04_settle@200",
+     100
+    ],
+    [
+     "Attack_AA_04_settle@700>Idlebase@0:0.5",
+     120
+    ]
+   ]
+  },
+  "attack_p": {
+   "lunge": 0.4,
+   "release": 4,
+   "frames": [
+    [
+     "Idlebase@0>Passive_AA_01@0:0.5",
+     70
+    ],
+    [
+     "Passive_AA_01@80",
+     70
+    ],
+    [
+     "Passive_AA_01@160",
+     70
+    ],
+    [
+     "Passive_AA_01@240",
+     100
+    ],
+    [
+     "Passive_AA_01@400",
+     100
+    ],
+    [
+     "Passive_AA_01@700>Idlebase@0:0.5",
+     100
+    ]
+   ]
+  },
+  "q1": {
+   "lunge": 0.4,
+   "release": 4,
+   "frames": [
+    [
+     "Idlebase@0>Spell1_AA_01@0:0.5",
+     60
+    ],
+    [
+     "Spell1_AA_01@60",
+     60
+    ],
+    [
+     "Spell1_AA_01@120",
+     60
+    ],
+    [
+     "Spell1_AA_01@180",
+     100
+    ],
+    [
+     "Spell1_AA_01@350",
+     100
+    ],
+    [
+     "Spell1_AA_01@700>Idlebase@0:0.5",
+     100
+    ]
+   ]
+  },
+  "q2": {
+   "lunge": 0.4,
+   "release": 4,
+   "frames": [
+    [
+     "Idlebase@0>Spell1_AA_02@0:0.5",
+     60
+    ],
+    [
+     "Spell1_AA_02@100",
+     60
+    ],
+    [
+     "Spell1_AA_02@200",
+     60
+    ],
+    [
+     "Spell1_AA_02@300",
+     100
+    ],
+    [
+     "Spell1_AA_02@500",
+     100
+    ],
+    [
+     "Spell1_AA_02@700>Idlebase@0:0.5",
+     100
+    ]
+   ]
+  },
+  "q3": {
+   "lunge": 0.4,
+   "release": 4,
+   "frames": [
+    [
+     "Idlebase@0>Spell1_AA_03@0:0.5",
+     70
+    ],
+    [
+     "Spell1_AA_03@100",
+     70
+    ],
+    [
+     "Spell1_AA_03@200",
+     70
+    ],
+    [
+     "Spell1_AA_03@300",
+     100
+    ],
+    [
+     "Spell1_AA_03@500",
+     100
+    ],
+    [
+     "Spell1_AA_03@800",
+     100
+    ],
+    [
+     "Spell1_AA_03@1100>Idlebase@0:0.5",
+     100
+    ]
+   ]
+  },
+  "skill": {
+   "lunge": 0.3,
+   "release": 4,
+   "frames": [
+    [
+     "Idlebase@0>Spell3@0:0.5",
+     50
+    ],
+    [
+     "Spell3@0",
+     50
+    ],
+    [
+     "Spell3@67",
+     50
+    ],
+    [
+     "Attack_AA_01_hit@200",
+     80
+    ],
+    [
+     "Attack_AA_01_settle@400",
+     80
+    ],
+    [
+     "Attack_AA_01_settle@800>Idlebase@0:0.5",
+     80
+    ]
+   ]
+  },
+  "skill2": {
+   "lunge": 0.3,
+   "release": 4,
+   "frames": [
+    [
+     "Idlebase@0>Spell2_b@0:0.5",
+     70
+    ],
+    [
+     "Spell2_b@100",
+     70
+    ],
+    [
+     "Spell2_b@200",
+     70
+    ],
+    [
+     "Spell2_b@375",
+     70
+    ],
+    [
+     "Spell2_b@450",
+     70
+    ],
+    [
+     "Spell2_b@525",
+     80
+    ],
+    [
+     "Spell2_toIdle@300>Idlebase@0:0.5",
+     100
+    ]
+   ]
+  },
+  "ult": {
+   "lunge": 0.3,
+   "release": 3,
+   "frames": [
+    [
+     "Idlebase@0>Spell4_v2@0:0.5",
+     80
+    ],
+    [
+     "Spell4_v2@120",
+     80
+    ],
+    [
+     "Spell4_v2@240",
+     90
+    ],
+    [
+     "Spell4_v2@360",
+     90
+    ],
+    [
+     "Spell4_v2@480",
+     90
+    ],
+    [
+     "Spell4_v2@720",
+     90
+    ],
+    [
+     "Spell4_v2@960>Idlebase@0:0.5",
+     100
+    ]
+   ]
+  },
+  "hit": {
+   "frames": [
+    [
+     "Idlebase@0>Death@300:0.25",
+     100
+    ],
+    [
+     "Idlebase@0>Death@300:0.1",
+     100
+    ]
+   ]
+  },
+  "dead": {
+   "anchor": "first",
+   "lunge": 0.3,
+   "travel": 0.3,
+   "frames": [
+    [
+     "Idlebase@0>Death@150:0.5",
+     100
+    ],
+    [
+     "Death@300",
+     110
+    ],
+    [
+     "Death@600",
+     110
+    ],
+    [
+     "Death@900",
+     120
+    ],
+    [
+     "Death@1200",
+     130
+    ],
+    [
+     "Death@1500",
+     150
+    ],
+    [
+     "Death@1800",
+     200
+    ],
+    [
+     "Death@2300",
+     300
+    ]
+   ]
+  }
+ }
+}
