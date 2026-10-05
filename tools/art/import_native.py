@@ -21,7 +21,8 @@ Two fixes for the loops, where every pixel of jitter shows:
     (design B) holds his scythe over his head and redrew the head in every run frame: he is steadied on
     his eyes, the one colour nothing else uses (EYES; his run's eyes wandered 12 px about the pivot).
 Then <hero>_retouch.json, when there is one, retouches single pixels of the cut frames (Lee Sin's mouth,
-nose and face side; Lux's run, where her wand's gold end read as a gold foot): x, y from the pivot, the colour expected there and the new one. A pixel that no longer has
+nose and face side; Lux's staff below her hand and the brow row over her eyes, a table tools/art/lux_retouch.py
+writes): x, y from the pivot, the colour expected there and the new one. A pixel that no longer has
 the expected colour stops the import, so edits made for one version of the strips never land on another.
 Writes league/champions/league_<hero>. The effects still come from tools/art/import_<hero>.py, which
 writes the round-1 body only with --body.

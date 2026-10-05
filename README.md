@@ -10,7 +10,7 @@
 
 ![艾希演示：跑步、普攻、Q 连射、W 万箭齐发、R 魔法水晶箭](docs/preview/league_ashe_showcase.gif?v=1001w)
 
-![拉克丝演示：跑步、普攻、Q 光之束缚和护盾、被动引爆、E 透光奇点、R 终极闪光](docs/preview/league_lux_showcase.gif?v=0930)
+![拉克丝演示：跑步、普攻、Q 光之束缚和护盾、被动引爆、E 透光奇点、R 终极闪光](docs/preview/league_lux_showcase.gif?v=1005staff)
 
 ![李青连招演示：Q 天音波、回音击、出一拳再天雷破（QQAE）；Q 还在冷却时放 R，回旋踢把德莱厄斯踢飞，飞踢追上去再打一下（QRQ）；第二段 Q 好着时放 R，正面踢把亚索踢进金克丝，紧接着出掌，天音波追上空中的亚索，再回音击冲过去（RQQ）](docs/preview/league_leesin_combos.gif)
 ![李青演示：跑步、Q 天音波和回音击、疾风骤雨普攻、E 天雷破和金钟罩；R 猛龙摆尾：逃开的德莱厄斯身后没人，回旋踢把他踢回盖伦那边；第二段亚索身后站着金克丝，正面踢把他踢进金克丝，金龙撞飞她](docs/preview/league_leesin_showcase.gif?v=1001head)
@@ -230,6 +230,14 @@ python tools/art/preview_lux.py
 跑步第 4、5、7、8 帧的下半身像变了形：英雄联盟里拉克丝跑到后半段把法杖竖在身后，杖尾垂到后脚边，游戏尺寸下金白色的杖尾和后腿粘在一起，看起来像一只金色的脚。这四帧的杖尾改画成和其他帧一样的深色靴子（杖尾算作被腿挡住），逐像素记在 [`native/lux_retouch.json`](assets/source/native/lux_retouch.json)，导入时套用。
 
 待机的法杖看起来是歪的：法杖从她身后斜穿过去，露出的两截不在一条直线上。脚边金球到左腿那截画成 45°，右手到右上金球那截约 30°，顺着下面那截看，会从手上方 6 格处穿过。6 帧待机的这一截都按"金球—右手—金球"这条直线重画（每 3 格升 2 格，中间一格棕色，放到深色卡片背景上也看得出方向），每帧改 8～9 个像素，同样记在 `lux_retouch.json` 里。受击两帧的杖身本来就在直线上，没有改。
+
+上面两处修改是第一版角色图的。Codex 第二版重画时法杖只画了手上面一截，这两处随旧的修图表一起去掉了，现在的 `lux_retouch.json` 是下面两处（2026-10-05）。
+
+法杖被截断（用户：「拉克丝看起来好像法杖被截断？你查一查这个问题」）：英雄联盟里拉克丝的法杖和她差不多高，两端都有金饰，手握在中段，第一轮的造型图也是这样画的。Codex 第二版只画了手上面那一截：上端金饰、一小段杆，手握在杆的末端，手下面什么都没有，所以举起法杖时像被截断了。`tools/art/lux_retouch.py` 沿手上面那截的直线，补画手下面的半截和杖尾的小金饰，长度约为上半截的四分之三，和握在中段的比例一样。补了这些帧：待机、跑步第 4–8 帧、普攻第 6 帧、Q 第 1 和第 7 帧、E 第 2、6、7 帧、R 第 2–8 帧（悬空的法杖原来有一头是秃的）、受击两帧、死亡第 1 帧。拿在身前的画在身体前面，用描边和身体隔开；拿在身后的只画露出来的部分；跑步时杖尾停在臀部以上，不碰后腿（避免以前「金色的脚」的问题）。受击两帧金饰和手之间原来有一段描边色的暗杆，看起来像断开了，也改成了金色。其他帧法杖的另一半本来就被身体或手臂挡住，没有改。对比动图：[`docs/preview/league_lux_staff.gif`](docs/preview/league_lux_staff.gif)。
+
+眼睛统一（用户：「眼睛统一统一 不对的地方就行修正」）：造型图里每只眼睛是一排深色眼皮，盖在一白一蓝两格上，眼皮上面是额头的皮肤。第二版把这张脸贴进每一帧时，头发还是 Codex 原来画的，有 18 帧刘海的描边或一格灰色高光正好压在眼皮上，那只眼睛就比另一只粗一倍。同一个工具把两只眼睛正上方那一排（从左眼白到右眼蓝）里的深色和灰色改回皮肤色，每帧的两只眼睛都和待机时一样。对比：[`docs/preview/league_lux_eyes.png`](docs/preview/league_lux_eyes.png)。
+
+两处修改逐格记在 [`native/lux_retouch.json`](assets/source/native/lux_retouch.json)（35 帧共 607 格），由 `lux_retouch.py` 生成，`import_native.py` 导入时套用。
 
 逐帧预览：[`docs/preview/league_lux_frames.png`](docs/preview/league_lux_frames.png)，特效：[`docs/preview/league_lux_effects.png`](docs/preview/league_lux_effects.png)。
 
