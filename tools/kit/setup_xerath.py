@@ -34,7 +34,7 @@ A = "<#ffb900ff>"      # durations, counts
 R = "<#ef5350ff>"      # crowd control
 E = "<>"
 # champion_view: set from the imported sprite (tfm2_ase.py face; banpick_center when the idle tops -28)
-VIEW = {"face": {"x": 0, "y": -36}, "center": {"x": 0, "y": -12}}
+VIEW = {"face": {"x": 1, "y": -41}, "center": {"x": 0, "y": -12}, "banpick_center": {"x": 0, "y": -7}}
 
 
 def mag(d, r):

@@ -64,7 +64,7 @@
             "type": "TargetProjectile",
             "name": "league_xerath_a_orb",
             "speed": 4500,
-            "y_offset": -2000,
+            "y_offset": -3000,
             "applied_target": "Enemy",
             "applied_effects": [
               {
@@ -236,7 +236,7 @@
               "type": "TargetProjectile",
               "name": "league_xerath_a_orb",
               "speed": 4500,
-              "y_offset": -2000,
+              "y_offset": -3000,
               "applied_target": "Enemy",
               "applied_effects": [
                 {
@@ -408,7 +408,7 @@
                 "type": "TargetProjectile",
                 "name": "league_xerath_a_orb",
                 "speed": 4500,
-                "y_offset": -2000,
+                "y_offset": -3000,
                 "applied_target": "Enemy",
                 "applied_effects": [
                   {
@@ -580,7 +580,7 @@
                   "type": "TargetProjectile",
                   "name": "league_xerath_a_orb",
                   "speed": 4500,
-                  "y_offset": -2000,
+                  "y_offset": -3000,
                   "applied_target": "Enemy",
                   "applied_effects": [
                     {
@@ -808,7 +808,7 @@
                       "type": "TargetProjectile",
                       "name": "league_xerath_a_orb_p",
                       "speed": 4500,
-                      "y_offset": -2000,
+                      "y_offset": -3000,
                       "applied_target": "Enemy",
                       "applied_effects": [
                         {
@@ -1185,7 +1185,7 @@
                                 "radius": 7000
                               }
                             },
-                            "y_offset": -2000
+                            "y_offset": -10000
                           }
                         ]
                       },
@@ -1235,7 +1235,7 @@
                               "radius": 7000
                             }
                           },
-                          "y_offset": -2000
+                          "y_offset": -10000
                         }
                       }
                     ]
@@ -1341,7 +1341,7 @@
                                 "radius": 7000
                               }
                             },
-                            "y_offset": -2000
+                            "y_offset": -10000
                           }
                         ]
                       },
@@ -1391,7 +1391,7 @@
                               "radius": 7000
                             }
                           },
-                          "y_offset": -2000
+                          "y_offset": -10000
                         }
                       }
                     ]
@@ -1728,7 +1728,7 @@
               "radius": 5000
             }
           },
-          "y_offset": -2000
+          "y_offset": -10000
         },
         {
           "type": "LinearProjectile",
@@ -1908,7 +1908,7 @@
               "radius": 5000
             }
           },
-          "y_offset": -2000
+          "y_offset": -10000
         },
         {
           "type": "Delayed",

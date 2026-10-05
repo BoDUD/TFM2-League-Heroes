@@ -53,19 +53,21 @@ P = {
     # attack cooldown 90); League's Xerath is the artillery mage: a long range, little health, slow on his feet
     "hp": 860, "hp_g": 95, "atk": 78, "atk_g": 6, "mp": 42, "mp_g": 21, "def": 18, "def_g": 7, "mr": 20, "mr_g": 4,
     "ms": 900, "ms_g": 9,
-    # attack (League 525 range)
-    "atk_range": 55000, "atk_dur": 28, "atk_cd": 90, "atk_st": 10, "orb_speed": 4500, "orb_y": -2000,
+    # attack (League 525 range); the shots' heights (5000 - y_offset above the pivot): the straight Q beam and E orb leave
+    # the front claw (15 px over the pivot in the release frames), the homing orb 8 px (a homing shot from higher flies
+    # crooked at the target's pivot)
+    "atk_range": 55000, "atk_dur": 28, "atk_cd": 90, "atk_st": 10, "orb_speed": 4500, "orb_y": -3000,
     # passive Mana Surge (League: every 16 s, -3.5 s per kill)
     "p_step": 210, "p_dmg": 40, "p_ap": 40, "p_cdr": 30, "k_hold": 40, "k_read": 4,
     # skill: Q Arcanopulse (League: 1.5 s charge, 750 -> 1450 range, width 145, 70-230 + 85% AP, cd 9-5 s)
     "q_cd": 300, "q_range": 100000, "q_full_t": 54, "q_quick_t": 22, "q_rec": 10, "q_aim_f": 140000,
-    "q_reach_f": 150000, "q_reach_q": 95000, "q_speed": 15000, "q_rad": 7000, "q_y": -2000,
+    "q_reach_f": 150000, "q_reach_q": 95000, "q_speed": 15000, "q_rad": 7000, "q_y": -10000,
     "q_dmg": 110, "q_ap": 85, "q_quick": 65,
     # skill2: E Shocking Orb (League: 1125 range at 1400/s, width 60, 80-240 + 45% AP, stun 0.75-2.25 s, cd 13.5-11 s)
     # -> W Eye of Destruction (League: 0.5 s delay, radius 275 / centre ~100, 60-200 + 60% AP, centre x1.667,
     # slow 25% / centre 60-80% decaying over 2.5 s, cd 14-9 s)
     "c_cd": 600, "c_range": 95000, "c_dur": 30, "c_st": 10,
-    "e_speed": 4000, "e_reach": 110000, "e_rad": 5000, "e_y": -2000, "e_dmg": 60, "e_ap": 45,
+    "e_speed": 4000, "e_reach": 110000, "e_rad": 5000, "e_y": -10000, "e_dmg": 60, "e_ap": 45,
     "e_band1": 9, "e_band2": 18, "e_stun1": 45, "e_stun2": 80, "e_stun3": 120, "e_fall": 30,
     "w_delay": 30, "w_r_out": 26000, "w_r_in": 11000, "w_dmg": 60, "w_ap": 50, "w_mid": 67,
     "w_slow": 25, "w_slow_mid": 35, "w_slow_t": 150,
