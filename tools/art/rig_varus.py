@@ -84,11 +84,13 @@ HIP, ANKLE = 88, 96
 # the hip's right side under the bow arm was two squares narrower than the far leg below it: a notch the raised
 # arm left open (the user: 「腰和腿的这里 要不要补像素块」) - filled in the hip's dark purple, inside the idle's outline
 # (the waist row above it in the belly's crimson - 「腰这里少一块？」 - and a column of outline outside, which the
-# completion does not add beside such dark squares)
-HIP_FILL = {(85, 65): (0x89, 0x08, 0x51), (85, 66): (0x89, 0x08, 0x51),
-            (86, 65): (0x26, 0x14, 0x32), (86, 66): (0x26, 0x14, 0x32), (87, 65): (0x26, 0x14, 0x32),
-            (87, 66): (0x26, 0x14, 0x32), (88, 65): (0x26, 0x14, 0x32), (88, 66): (0x26, 0x14, 0x32),
-            (85, 67): OUT, (86, 67): OUT, (87, 67): OUT, (88, 67): OUT}
+# completion does not add beside such dark squares); one column further (to the outline on col 68) so the waist is
+# flush with the thigh, knee and shin below it - 「放技能时腰部又凹在腿里面了」
+HIP_FILL = {(85, 65): (0x89, 0x08, 0x51), (85, 66): (0x89, 0x08, 0x51), (85, 67): (0x89, 0x08, 0x51),
+            (86, 65): (0x26, 0x14, 0x32), (86, 66): (0x26, 0x14, 0x32), (86, 67): (0x26, 0x14, 0x32),
+            (87, 65): (0x26, 0x14, 0x32), (87, 66): (0x26, 0x14, 0x32), (87, 67): (0x26, 0x14, 0x32),
+            (88, 65): (0x26, 0x14, 0x32), (88, 66): (0x26, 0x14, 0x32), (88, 67): (0x26, 0x14, 0x32),
+            (85, 68): OUT, (86, 68): OUT, (87, 68): OUT, (88, 68): OUT}
 NEAR_ANKLE, FAR_ANKLE = 58.5, 67.0
 BOOTS = 95
 HEAD_ROWS = (60, 73)
