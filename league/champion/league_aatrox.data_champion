@@ -3608,6 +3608,10 @@
         },
         {
           "type": "RemoveCasterBuff",
+          "name": "league_aatrox_w_any"
+        },
+        {
+          "type": "RemoveCasterBuff",
           "name": "league_aatrox_p_lw"
         },
         {
@@ -3692,6 +3696,21 @@
               "penetrate": false,
               "applied_target": "EnemyWithoutTower",
               "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_aatrox_w_any",
+                      "duration": {
+                        "Time": {
+                          "tick": 30
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  }
+                },
                 {
                   "casting_type": "Targeting",
                   "effect": {
@@ -4145,6 +4164,10 @@
                             "name": "league_aatrox_w_champ"
                           },
                           {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_aatrox_w_any"
+                          },
+                          {
                             "type": "ViewEffect",
                             "name": "league_aatrox_w_ring"
                           },
@@ -4165,8 +4188,39 @@
                         ]
                       },
                       "effect_none": {
-                        "type": "Combine",
-                        "effects": []
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_aatrox_w_any",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_aatrox_w_any"
+                            },
+                            {
+                              "type": "ViewEffect",
+                              "name": "league_aatrox_w_ring"
+                            },
+                            {
+                              "type": "Sfx",
+                              "name": "league_aatrox_w_ring"
+                            },
+                            {
+                              "type": "Delayed",
+                              "tick": 89,
+                              "effects": [
+                                {
+                                  "type": "ViewEffect",
+                                  "name": "league_aatrox_w_snap"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
                       }
                     }
                   ]
