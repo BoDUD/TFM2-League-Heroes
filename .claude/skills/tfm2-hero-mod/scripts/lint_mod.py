@@ -47,6 +47,9 @@ PROJECTILE_EFFECTS = {"TargetProjectile", "AutoTargetProjectile", "TargetSplashP
                       "BackToCasterLinearProjectile", "ParabolicProjectile", "LineRangeProjectile",
                       "RangeProjectile", "RangePeriodProjectile", "ApplyInProjectile",
                       "TargetProjectileFromProjectile", "ShrinkingBarrier"}
+# zones on the ground: their view_projectiles picture is turned with their direction like any projectile's - (1, 0) or
+# (-1, 0) on a Position cast, so upside down when cast leftward (league_leona R, league_missfortune E, 2026-10-05)
+ZONE_EFFECTS = {"RangeProjectile", "RangePeriodProjectile", "ApplyInProjectile"}
 CATEGORIES = {"Melee", "Range", "Magician", "Util", "Assassin"}
 CASTING_TYPES = {"Targeting", "Direction", "Position", "None"}
 # the game's own CastingTarget variants (serde's list in TeamfightManager2.exe 0.6.2): Both is every unit of both sides,
@@ -333,6 +336,25 @@ def late_caster_views(node, late=False):
     return found
 
 
+def turned_off_share(sprite_stem, tags):
+    """Share of a picture's opaque pixels that land on transparent ones when it is turned half round about its pivot
+    (the game draws every frame centred on it): about 0 for a ring or disc centred on the pivot, high for anything with
+    an up and down or drawn off the pivot (a ring on the ground line under it). None when unreadable (Pillow missing)."""
+    try:
+        import tfm2_ase
+        from PIL import Image, ImageChops
+        sp = tfm2_ase.load_sprite(sprite_stem)
+    except (ImportError, SystemExit, Exception):  # noqa: BLE001 - Pillow missing or unreadable sheet
+        return None
+    opaque = off = 0
+    for tag in tags:
+        for i in sp.tag_frames(tag):
+            a = sp.frames[i].getchannel("A").point(lambda v: 255 if v else 0)
+            opaque += a.histogram()[255]
+            off += ImageChops.subtract(a, a.transpose(Image.ROTATE_180)).histogram()[255]
+    return off / opaque if opaque else None
+
+
 # effects that act on the unit they are applied to (not the caster's own buffs, sounds or pictures)
 UNIT_EFFECTS = {"Shield", "Heal", "FixedAttack", "Attack", "ApAttack", "AddCasted", "AddBuff", "Stun", "Bind",
                 "Airborne", "Banish", "Knockback", "Pull", "Grab", "Taunt", "Charm", "Fear", "BlockAttack",
@@ -391,6 +413,8 @@ def walk_effects(node, out):
             name = node.get("name")
             if t in PROJECTILE_EFFECTS and name:
                 out["projectiles"].add(name)
+            if t in ZONE_EFFECTS and name:
+                out["zones"].add((name, t))
             if t in ("ViewEffect", "CasterViewEffect") and name:
                 out["view_effects"].add(name)
             if t in ("CasterAnimation", "RemoveCasterAnimation") and name:
@@ -665,7 +689,7 @@ def main(argv=None):
         # actions + effects
         found = dict(types=[], projectiles=set(), view_effects=set(), anims=set(), sfx=set(), switch_buffs=set(),
                      removed_buffs=set(), buffs=set(), bad_enum=[], no_duration=set(), ignored=[], no_ratio=set(),
-                     never=set(), dead_buff=set(), crawl=set())
+                     never=set(), dead_buff=set(), crawl=set(), zones=set())
         late_views = set()
         for slot in ACTIONS:
             a = d.get(slot)
@@ -802,6 +826,26 @@ def main(argv=None):
                         f"false (mirrored by the caster's facing when it starts, it stays where it was played) or play "
                         f"it at the action's start with leading empty frames (left-right symmetric pictures show no "
                         f"difference)")
+        # a zone's picture is turned with the zone's direction like any projectile's - (1, 0) or (-1, 0) on a Position
+        # cast - so cast leftward it stands upside down: league_leona R's sunlight on the red side ("曙光女神大招在红色方
+        # 放的是颠倒的", 2026-10-05), league_missfortune E's rain falling upward; a ViewEffect on the point is never
+        # turned. Checked wherever the zone is (a Position cast, or a lob's end_effects as league_lux E's ring)
+        zone_views = {v.get("name"): v for v in d.get("view_projectiles") or []}
+        for nm, t in sorted(z for z in found["zones"] if z[0] in zone_views):
+            v = zone_views[nm]
+            tags = [v[k] for k in ("tag", "pre_tag", "loop_tag", "remove_tag") if v.get(k)]
+            stem = mod.local(v.get("anim") or "")
+            share = turned_off_share(stem, tags) if stem and tags else None
+            measured = (f" (turned half round, {share:.0%} of its opaque pixels land on empty ones)"
+                        if share is not None else "")
+            rep.warn(W, f"{t} '{nm}' has a view_projectiles picture: a zone's picture is turned with its direction "
+                        f"like any projectile's - (1, 0) or (-1, 0) on a Position cast - so cast leftward (the red side, "
+                        f"mostly) it stands upside down, and a picture drawn off its pivot (a ring on the ground line "
+                        f"under it) moves to the other side{measured}; if it has an up and down, give the zone no view "
+                        f"and play the picture as a ViewEffect next to it (on the cast point, or the landing point in "
+                        f"a projectile's end_effects, it is never turned - league_leona R, league_lux E) - pictures "
+                        f"that look the same turned half round about their pivot show no difference, and one stored "
+                        f"turned for a fixed direction is fine (league_camille R: its zones always get (-1, 0))")
         for nm in sorted(found["view_effects"] - ve - vp - vb):
             rep.warn(W, f"ViewEffect '{nm}' has no view_effects entry here{hint(nm, ve | vp | vb)} - "
                         f"nothing will be drawn")

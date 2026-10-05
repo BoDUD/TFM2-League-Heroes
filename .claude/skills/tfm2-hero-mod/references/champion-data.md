@@ -631,7 +631,22 @@ the same champion file.
   rained upward whenever she cast it leftward (seen in-game in the mid lane). A picture that must stay
   upright goes in a `ViewEffect` next to the zone in the cast's `Combine` instead (no view for the zone):
   on a `Position` cast it plays on the cast point in the same tick, unturned (an `Animation` plays its tag
-  once, so its frames cover the zone's lifetime).
+  once, so its frames cover the zone's lifetime). The same went for league_leona R's sunlight (a `RangeProjectile`;
+  the user: 「曙光女神大招在红色方放的是颠倒的」, 2026-10-05), league_varus E's ground, league_soraka Q's star (drawn
+  falling from the top left, cast leftward it rose from below; the zone sits in both branches of her Equinox switch,
+  a `ViewEffect` next to each) and league_lux E's ring with the orb above it - a zone started in the lobbed orb's
+  `end_effects`, so its `ViewEffect` plays on the landing point (section 4) - all `ViewEffect`s now, their zones
+  without a view. A zone's picture is turned about its pivot (the frame's centre), so a ring drawn on the ground
+  line, 11 px under the pivot as the feet are, also floats 22 px higher when turned *(inferred from the frames'
+  anchors)*: only a picture that looks the same turned half round about its pivot is safe as a zone's view.
+  `lint_mod.py` warns on every zone (`RangeProjectile`, `RangePeriodProjectile`, `ApplyInProjectile`) that has a
+  `view_projectiles` picture, wherever it is cast, with the share of the picture that lands elsewhere turned half
+  round. On 2026-10-05 it flags 8 in 5 heroes: league_camille R's two (stored turned on purpose: her zones always get
+  (-1, 0), section 7), league_fiddlesticks E's reap (a crescent drawn facing the cast, symmetric top to bottom: meant
+  to turn with it), and, to check with the hero on the red team, league_soraka E's field (a ring on the ground line),
+  league_lissandra R's field (upright icicles on the ground line; the direction of a zone from her 1-tick lob is not
+  logged) and league_sona's three auras (upright notes on a ring round her; no `ApplyInProjectile`'s direction has
+  been logged).
   A `CasterViewEffect` is not turned: it is drawn at the caster's pivot, mirrored when the caster
   faces left (the base gunner's backward-run dust is drawn only behind him), and stays where it was
   played unless `is_follow`.
@@ -644,12 +659,23 @@ the same champion file.
   action facing when it starts (`game_view` `get_action_flip_x`), a following one `AnimationOnceFollow {offset_x,
   offset_y}` with no flip of its own. oppi's LoL Reborn never combines the two: its 7 caster pictures inside a
   `Delayed` all have `is_follow: false`, its 8 following ones play at the action's start (league_riven's layers
-  too: bound on the action's first tick). So a directional picture timed into an action gets `is_follow: false`
+  too: bound on the action's first tick - except the R's when her attack starts it or fires Wind Slash, 10 ticks
+  in, and Wind Slash's later checks: those plays are bound without `is_follow`). So a directional picture timed into
+  an action gets `is_follow: false`
   (mirrored by the facing when it starts, it stays where it was played - fine while the hero stands in the
   animation); one that must ride on the hero (a dash trail) plays at the action's start, the wait drawn as
   leading empty frames. Left-right symmetric pictures (rings, auras, heals) show no difference. `lint_mod.py`
   warns on every late following caster picture (73 in 31 heroes of this pack in 2026-10, most of them
   symmetric). Check every directional effect with the hero on the red team before shipping.
+  On 2026-10-05 the directional ones were fixed (50 warnings in 30 heroes left, judged symmetric but four): the
+  muzzle and hand flashes of league_caitlyn, league_jhin, league_kaisa W, league_leblanc, league_kennen Q and
+  league_ryze Q and league_diana's cleave became `is_follow: false`; league_kaisa R's and league_vi R's dash trails
+  and league_tristana Q's burst at the bell play on the action's first tick, the wait an empty first frame (117 and
+  167 ms; the importers write it as `(None, ms)`). Nothing in data fits the four left: league_leblanc W's trail in
+  her Q-W combo (decided 24 ticks into Q, and it must ride her dash), league_tristana's Rapid Fire wisp and
+  league_masteryi's Highlander lines (replayed every second while a buff lasts, each play gated on the buff, as the
+  hero walks and turns - started with the action they could not stop with the buff) and league_fiora's speed lines
+  (played when a Vital is struck). A picture with no front and back (centred on the hero) would end it for them.
   A picture drawn off the pivot's side follows its caster: league_tristana's
   flashes at the bell, 22 px in front of her pivot, played without `is_follow`, were seen behind her
   after she turned (the user, 2026-10-01); with `is_follow` they turn with her, as league_riven's layers do. An `Animation` plays its tag once, so a view that must stand for
@@ -669,7 +695,10 @@ the same champion file.
   `Targeting` action it points at the target and lasts its `delay`; league_briar E's scream, league_vi E's shock wave:
   as a caster picture it stood the wrong way on the red side, "E技能的特效没有跟随人物 反方向的").
   A thing with a top and a bottom that flies every way (league_thresh's lantern) is laid along its flight
-  and mirrored top to bottom, so every turn of it looks the same (art-spec).
+  and mirrored top to bottom, so every turn of it looks the same (art-spec). league_yasuo Q3's tornado is still an
+  upright funnel on its `LinearProjectile`: upside down flying left, on its side flying up or down. No data fixes a
+  flying picture; it needs one that reads the same at every turn (a whirl seen from above, as league_janna's tornado
+  is drawn) or the lantern's way.
 - A projectile's picture has one length, but its frames can follow the flight: an `Animated` view with
   `repeat: false` plays its tag once from the moment the projectile appears. league_thresh Q's chain is
   drawn frame by frame (a frame every 2 ticks, 11 px longer each, behind a hook flying 5500 a tick), so its
