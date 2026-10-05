@@ -79,6 +79,10 @@ GLOW = {(0x3B, 0x18, 0x5F): (0x65, 0x24, 0x93), (0x65, 0x24, 0x93): (0xA1, 0x12,
         (0xA1, 0x12, 0xF7): (0xCA, 0x2B, 0xFB), (0xCA, 0x2B, 0xFB): (0xE8, 0x38, 0xF3),
         (0x52, 0x04, 0xBA): (0xA1, 0x12, 0xF7), (0x26, 0x14, 0x32): (0x3B, 0x18, 0x5F)}
 HIP, ANKLE = 88, 96
+# the hip's right side under the bow arm was two squares narrower than the far leg below it: a notch the raised
+# arm left open (the user: 「腰和腿的这里 要不要补像素块」) - filled in the hip's dark purple, inside the idle's outline
+HIP_FILL = [(86, 65), (86, 66), (87, 65), (87, 66), (88, 65), (88, 66)]
+HIP_RGB = (0x26, 0x14, 0x32)
 NEAR_ANKLE, FAR_ANKLE = 58.5, 67.0
 BOOTS = 95
 HEAD_ROWS = (60, 73)
@@ -166,6 +170,8 @@ class Parts:
         self.tips = ((float(xs[ys == top].mean()), float(top)), (float(xs[ys == bot].mean()), float(bot)))
         self.body = d.copy()
         self.body[self.bow_m | self.bow_arm_m | self.draw_m] = 0
+        for y, x in HIP_FILL:                        # the hip under the bow arm, flush with the far leg below it
+            self.body[y, x] = (*HIP_RGB, 255)
         self.body_bow_arm = d.copy()                 # the design without the bow and its hand (the death's empty hand)
         self.body_bow_arm[self.bow_m] = 0
         self.trunk = self.body.copy()
@@ -339,10 +345,30 @@ def dead(P, k):
     return T.shifted(c, dx, 0) if dx else c
 
 
+def thin_outline(a):
+    """Outline squares on the silhouette (a clear square beside them) whose drawn 4-neighbours are all outline go: the
+    outer layer of a double ring, where an arm taken off left its own outline beside the body's (the hip under the
+    bow arm read as a black slab - the user: 「这里又是黑的啊」). The completion then closes one ring again."""
+    a = a.copy()
+    op = a[..., 3] > 0
+    ink = op & (a[..., :3] == np.array(OUT, np.uint8)).all(-1)
+    gone = []
+    for y, x in zip(*np.nonzero(ink)):
+        nb = [(y + dy, x + dx) for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1))]
+        if all(op[q] for q in nb):
+            continue
+        drawn = [q for q in nb if op[q]]
+        if drawn and all(ink[q] for q in drawn):
+            gone.append((y, x))
+    for q in gone:
+        a[q] = 0
+    return a
+
+
 def finish(a):
     T.OUT = OUT
     T.SOLES = SOLES
-    return T.finish(a)
+    return T.finish(thin_outline(a))
 
 
 def frames(P, tag):
