@@ -1,0 +1,130 @@
+{
+  "idle": {
+    "grid_exact": true,
+    "palette_valid": true,
+    "alpha_binary": true,
+    "colors": 25,
+    "heights": [
+      44,
+      44,
+      44,
+      44,
+      44,
+      44
+    ],
+    "head_exact": false,
+    "legs_exact": "supplied idle / variable motion"
+  },
+  "run": {
+    "grid_exact": true,
+    "palette_valid": true,
+    "alpha_binary": true,
+    "colors": 25,
+    "heights": [
+      54,
+      53,
+      48,
+      54,
+      49,
+      53,
+      47,
+      52
+    ],
+    "head_exact": true,
+    "legs_exact": "supplied idle / variable motion"
+  },
+  "attack": {
+    "grid_exact": true,
+    "palette_valid": true,
+    "alpha_binary": true,
+    "colors": 25,
+    "heights": [
+      47,
+      56,
+      51,
+      52,
+      43,
+      46
+    ],
+    "head_exact": true,
+    "legs_exact": "not satisfied / needs artistic revision"
+  },
+  "skill": {
+    "grid_exact": true,
+    "palette_valid": true,
+    "alpha_binary": true,
+    "colors": 25,
+    "heights": [
+      51,
+      73,
+      82,
+      44,
+      43,
+      52
+    ],
+    "head_exact": true,
+    "legs_exact": "not satisfied / needs artistic revision"
+  },
+  "skill2": {
+    "grid_exact": true,
+    "palette_valid": true,
+    "alpha_binary": true,
+    "colors": 25,
+    "heights": [
+      39,
+      39,
+      39,
+      39,
+      54,
+      42
+    ],
+    "head_exact": true,
+    "legs_exact": "not satisfied / needs artistic revision"
+  },
+  "ult": {
+    "grid_exact": true,
+    "palette_valid": true,
+    "alpha_binary": true,
+    "colors": 25,
+    "heights": [
+      48,
+      46,
+      58,
+      69,
+      69,
+      46
+    ],
+    "head_exact": true,
+    "legs_exact": "not satisfied / needs artistic revision"
+  },
+  "hit": {
+    "grid_exact": true,
+    "palette_valid": true,
+    "alpha_binary": true,
+    "colors": 25,
+    "heights": [
+      48,
+      41
+    ],
+    "head_exact": true,
+    "legs_exact": "not satisfied / needs artistic revision"
+  },
+  "dead": {
+    "grid_exact": true,
+    "palette_valid": true,
+    "alpha_binary": true,
+    "colors": 25,
+    "heights": [
+      50,
+      63,
+      62,
+      57,
+      48,
+      29,
+      29,
+      29
+    ],
+    "head_exact": true,
+    "legs_exact": "supplied idle / variable motion"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "a_hit": {"cell": [17, 17], "anchor": [8, 8], "frames": 4},
+  "q_slam": {"cell": [67, 89], "anchor": [33, 44], "frames": 6},
+  "q_up": {"cell": [25, 57], "anchor": [12, 28], "frames": 5},
+  "w_dash": {"cell": [53, 93], "anchor": [26, 46], "frames": 6},
+  "w_butt": {"cell": [43, 21], "anchor": [21, 10], "frames": 4},
+  "w_hit": {"cell": [21, 19], "anchor": [10, 9], "frames": 4},
+  "e_stomp": {"cell": [55, 27], "anchor": [27, 13], "frames": 4},
+  "e_hit": {"cell": [13, 11], "anchor": [6, 5], "frames": 3},
+  "e_ready": {"cell": [21, 25], "anchor": [10, 12], "frames": 5},
+  "e_hit_stun": {"cell": [25, 23], "anchor": [12, 11], "frames": 5},
+  "e_stun": {"cell": [21, 15], "anchor": [10, 7], "frames": 8},
+  "p_roar": {"cell": [51, 147], "anchor": [25, 73], "frames": 6},
+  "p_heal": {"cell": [13, 21], "anchor": [6, 10], "frames": 5},
+  "r_cast": {"cell": [41, 127], "anchor": [20, 63], "frames": 6},
+  "r_on": {"cell": [59, 107], "anchor": [29, 53], "frames": 6}
+}

@@ -281,6 +281,11 @@ OK = direct, ~ = approximate, X = not possible in data-only mods.
 | Piercing Arrow: hold to charge, longer and harder (Varus Q, with W's Blighted Arrow) | smart charge: a champion near -> the full 66-tick draw, else a quick 24-tick 60% shot; aimed at the release (dodgeable), pierces with 100/80/60% falloff; a full draw off W's 40 s flag adds 6% max health | ~ (the draw is picked, not held) |
 | Hail of Arrows: a rain that leaves slowing, anti-heal ground (Varus E) | `Position` cast, lands 20 ticks after the release; a 4 s field: 30% slow + `heal_reduce` 40 | ✓ |
 | Chain of Corruption: a tendril that roots and spreads (Varus R) | a line stopping on the first champion: 2 s root, detonation, three stacks; 30 ticks later a 55000 zone roots every champion there 1.5 s | ✓ |
+| Triumphant Roar: heal self and allies after crowd-controlling champions (Alistar passive) | his crowd control on champions counted on a caster ladder; the third (5 s cooldown) heals him 40 + 20% AP and allies within 40000 50 + 30% AP | ~ (no minion-death stacks) |
+| Pulverize: knock up everything round him (Alistar Q) | a `None` cast on `EnemyWithoutTower`; the slam on tick 14 knocks up 1 s within 28000 | ✓ |
+| Headbutt -> Pulverize: the W Q combo (Alistar W) | `MoveToTarget` onto a champion, knock-back on arrival, the Pulverize ring 6 ticks later where he stands | ✓ |
+| Trample: stomps, five on champions -> a stunning attack (Alistar E) | started by Q and W->Q (cooldown flag): a 3 s `AddCasted` stomp every 30 ticks; five champion stomps arm a 1 s stun on the next attack | ~ (no self-cast E) |
+| Unbreakable Will: cleanse, then take less damage (Alistar R) | armed slot fired on contact or when he is controlled: `cc_immune` 1 s, `damaged_reduce` 50% for 7 s; unused -> cooldown refunded | ✓ |
 | Experience for an ally (Zilean's Time in a Bottle) | a caster timer per life; the next haste on an ally pours it out as a `Permanent` stat buff on both (champion-data "Experience as stats") | ~ (stats, not levels) |
 | Revive on death (Zilean R) | `undying` on the ally for the rune's time, the heal at its end; armed, cast on an ally in CC or himself when crowded (champion-data "A revive as an undying rune") | ~ (cannot die under it; no revive) |
 | 2-3 stage recast | `cooltime_use_count` or recast buff + `SwitchByBuff` | ~ (AI timing) |
