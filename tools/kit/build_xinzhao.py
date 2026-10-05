@@ -35,22 +35,26 @@ ID = "league_xinzhao"
 FX = "asset/league/effects/league_xinzhao_fx"
 BIG = "asset/league/effects/league_xinzhao_big"
 
+# Numbers = candidate c5 of the 10-min classic-SDK simulations (jungle against demon, circus_blade, hunter, inquisitor
+# and ninja, three lineups, both sides, seeds 1-24, 2026-10-05; placeholder timings): +1.17 (league_kayn +1.12 on the
+# same seeds). The draft was +2.01: Determination's heal 20 + 25% -> 15 + 15% +1.89, E 60% -> 50% and Q 35% -> 30%
+# +1.62, attack 90 -> 86 +1.17 (R's reduction 40% -> 30% instead: +1.38). Rerun on the strips' timings.
 P = {
     # stats (Melee base: attack 95 +19, hp 1000 +100, defence 30 +8, mr 25 +4, move 1000 +11); League's Xin Zhao:
     # 63 AD +3, 640 +106 hp, 35 armour, 345 move, attack speed 0.645 +3.5%
-    "hp": 1020, "hp_g": 102, "atk": 90, "atk_g": 18, "def": 32, "def_g": 8, "mr": 25, "mr_g": 4, "ms": 1000, "ms_g": 11,
+    "hp": 1020, "hp_g": 102, "atk": 86, "atk_g": 18, "def": 32, "def_g": 8, "mr": 25, "mr_g": 4, "ms": 1000, "ms_g": 11,
     "regen": 2, "regen_g": 1,
     # attack: the strip picked on tick 1, the hit a `Delayed` later
     "atk_range": 26000, "atk_dur": 26, "atk_cd": 60, "a_hit": 11, "a_anim": 24,
     "p_hit": 13, "p_anim": 28, "q1_hit": 11, "q2_hit": 11, "q3_hit": 14, "q_anim": 26,
     # passive Determination (League: every third attack 15-45% AD more, heals 7-92 + 10% AD + 55% AP)
-    "p_t": 240, "p_ratio": 40, "p_heal": 20, "p_heal_ratio": 25,
+    "p_t": 240, "p_ratio": 40, "p_heal": 15, "p_heal_ratio": 15,
     # Three Talon Strike (League: 16-56 + 40% bonus AD a thrust, the third knocks up 0.75 s, 4 s to use them)
-    "q_t": 240, "q_dmg": 20, "q_ratio": 35, "q_up": 45,
+    "q_t": 240, "q_dmg": 20, "q_ratio": 30, "q_up": 45,
     # skill: E Audacious Charge (League: 650 range, 50-170 + 60% AP magic, slow 30% 0.5 s, +40-60% attack speed 5 s,
     # cd 12 s)
     "e_cd": 540, "e_range": 50000, "e_dur": 18, "e_anim": 16, "e_speed": 3500, "e_rad": 20000,
-    "e_dmg": 40, "e_ratio": 60, "e_slow": 30, "e_slow_t": 30, "e_as": 40, "e_as_t": 300,
+    "e_dmg": 40, "e_ratio": 50, "e_slow": 30, "e_slow_t": 30, "e_as": 40, "e_as_t": 300,
     # skill2: W Wind Becomes Lightning (League: slash 30-70 + 30% AD, thrust 40-200 + 80% AD, 900 range, slow 50% 1.5 s,
     # cd 12-8 s)
     "w_cd": 600, "w_range": 60000, "w_dur": 36, "w_slash_at": 12, "w_thrust_at": 24, "w_r": 32000, "w_cone": 0,

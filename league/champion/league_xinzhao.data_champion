@@ -14,7 +14,7 @@
     "asset/league/icons/league_xinzhao_ult"
   ],
   "stat": {
-    "attack": 90,
+    "attack": 86,
     "magic_power": 0,
     "hp": 1020,
     "defence": 32,
@@ -111,7 +111,7 @@
                 {
                   "type": "Attack",
                   "damage": 20,
-                  "attack_ratio": 35,
+                  "attack_ratio": 30,
                   "hp_ratio": 0,
                   "target_hp_ratio": 0,
                   "attack_effect_type": "Target"
@@ -144,8 +144,8 @@
                   "effects": [
                     {
                       "type": "Heal",
-                      "amount": 20,
-                      "attack_ratio": 25,
+                      "amount": 15,
+                      "attack_ratio": 15,
                       "ap_ratio": 0,
                       "heal_type": "Caster"
                     }
@@ -241,7 +241,7 @@
                   {
                     "type": "Attack",
                     "damage": 20,
-                    "attack_ratio": 35,
+                    "attack_ratio": 30,
                     "hp_ratio": 0,
                     "target_hp_ratio": 0,
                     "attack_effect_type": "Target"
@@ -321,7 +321,7 @@
                   {
                     "type": "Attack",
                     "damage": 20,
-                    "attack_ratio": 35,
+                    "attack_ratio": 30,
                     "hp_ratio": 0,
                     "target_hp_ratio": 0,
                     "attack_effect_type": "Target"
@@ -405,7 +405,7 @@
                   {
                     "type": "Attack",
                     "damage": 20,
-                    "attack_ratio": 35,
+                    "attack_ratio": 30,
                     "hp_ratio": 0,
                     "target_hp_ratio": 0,
                     "attack_effect_type": "Target"
@@ -438,8 +438,8 @@
                     "effects": [
                       {
                         "type": "Heal",
-                        "amount": 20,
-                        "attack_ratio": 25,
+                        "amount": 15,
+                        "attack_ratio": 15,
                         "ap_ratio": 0,
                         "heal_type": "Caster"
                       }
@@ -535,7 +535,7 @@
                     {
                       "type": "Attack",
                       "damage": 20,
-                      "attack_ratio": 35,
+                      "attack_ratio": 30,
                       "hp_ratio": 0,
                       "target_hp_ratio": 0,
                       "attack_effect_type": "Target"
@@ -615,7 +615,7 @@
                     {
                       "type": "Attack",
                       "damage": 20,
-                      "attack_ratio": 35,
+                      "attack_ratio": 30,
                       "hp_ratio": 0,
                       "target_hp_ratio": 0,
                       "attack_effect_type": "Target"
@@ -687,7 +687,7 @@
                     {
                       "type": "Attack",
                       "damage": 20,
-                      "attack_ratio": 35,
+                      "attack_ratio": 30,
                       "hp_ratio": 0,
                       "target_hp_ratio": 0,
                       "attack_effect_type": "Target"
@@ -728,8 +728,8 @@
                       "effects": [
                         {
                           "type": "Heal",
-                          "amount": 20,
-                          "attack_ratio": 25,
+                          "amount": 15,
+                          "attack_ratio": 15,
                           "ap_ratio": 0,
                           "heal_type": "Caster"
                         }
@@ -813,7 +813,7 @@
                       {
                         "type": "Attack",
                         "damage": 20,
-                        "attack_ratio": 35,
+                        "attack_ratio": 30,
                         "hp_ratio": 0,
                         "target_hp_ratio": 0,
                         "attack_effect_type": "Target"
@@ -889,7 +889,7 @@
                       {
                         "type": "Attack",
                         "damage": 20,
-                        "attack_ratio": 35,
+                        "attack_ratio": 30,
                         "hp_ratio": 0,
                         "target_hp_ratio": 0,
                         "attack_effect_type": "Target"
@@ -979,8 +979,8 @@
                       "effects": [
                         {
                           "type": "Heal",
-                          "amount": 20,
-                          "attack_ratio": 25,
+                          "amount": 15,
+                          "attack_ratio": 15,
                           "ap_ratio": 0,
                           "heal_type": "Caster"
                         }
@@ -1150,7 +1150,7 @@
                 {
                   "type": "Attack",
                   "damage": 40,
-                  "attack_ratio": 60,
+                  "attack_ratio": 50,
                   "hp_ratio": 0,
                   "target_hp_ratio": 0,
                   "attack_effect_type": "Target"
