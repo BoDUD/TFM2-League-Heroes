@@ -702,8 +702,12 @@
           ]
         },
         {
+          "type": "CasterViewEffect",
+          "name": "league_sona_q_aura"
+        },
+        {
           "type": "ApplyInProjectile",
-          "name": "league_sona_q_aura",
+          "name": "league_sona_q_aura_zone",
           "shape": {
             "Circle": {
               "radius": 45000
@@ -957,8 +961,12 @@
           ]
         },
         {
+          "type": "CasterViewEffect",
+          "name": "league_sona_w_aura"
+        },
+        {
           "type": "ApplyInProjectile",
-          "name": "league_sona_w_aura",
+          "name": "league_sona_w_aura_zone",
           "shape": {
             "Circle": {
               "radius": 45000
@@ -1201,8 +1209,12 @@
                 ]
               },
               {
+                "type": "CasterViewEffect",
+                "name": "league_sona_e_aura"
+              },
+              {
                 "type": "ApplyInProjectile",
-                "name": "league_sona_e_aura",
+                "name": "league_sona_e_aura_zone",
                 "shape": {
                   "Circle": {
                     "radius": 45000
@@ -1358,30 +1370,6 @@
       "tag": "r_wave",
       "repeat": true,
       "z": 1
-    },
-    {
-      "type": "Animated",
-      "name": "league_sona_q_aura",
-      "anim": "asset/league/effects/league_sona_big",
-      "tag": "q_aura",
-      "repeat": true,
-      "z": -1
-    },
-    {
-      "type": "Animated",
-      "name": "league_sona_w_aura",
-      "anim": "asset/league/effects/league_sona_big",
-      "tag": "w_aura",
-      "repeat": true,
-      "z": -1
-    },
-    {
-      "type": "Animated",
-      "name": "league_sona_e_aura",
-      "anim": "asset/league/effects/league_sona_big",
-      "tag": "e_aura",
-      "repeat": true,
-      "z": -1
     }
   ],
   "view_effects": [
@@ -1447,6 +1435,30 @@
       "anim": "asset/league/effects/league_sona_fx",
       "tag": "r_hit",
       "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_sona_q_aura",
+      "anim": "asset/league/effects/league_sona_big",
+      "tag": "q_aura",
+      "z": -1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_sona_w_aura",
+      "anim": "asset/league/effects/league_sona_big",
+      "tag": "w_aura",
+      "z": -1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_sona_e_aura",
+      "anim": "asset/league/effects/league_sona_big",
+      "tag": "e_aura",
+      "z": -1,
       "is_follow": true
     }
   ],

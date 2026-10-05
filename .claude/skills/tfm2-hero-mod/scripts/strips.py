@@ -678,16 +678,24 @@ def centre_frame(arr, u0, r0):
     return out
 
 
-def write_sheet(path_stem, tags, gap=1, max_w=2048):
+def write_sheet(path_stem, tags, gap=1, max_w=2048, share=False):
     """tags: {tag: [(frame_array, duration_ms), ...]} -> path_stem#sheet.png + path_stem#anim.fanim.
-    Frames are shelf-packed left to right (1 px gaps), a new shelf when max_w is reached."""
+    Frames are shelf-packed left to right (1 px gaps), a new shelf when max_w is reached; with share, a frame
+    identical to one already packed points at its squares (a loop repeated to hold a picture costs no sheet)."""
     rects, x, y, shelf_h = [], 0, 0, 0
+    seen = {}
     for tag, frames in tags.items():
         for arr, _ in frames:
+            key = (arr.shape, arr.tobytes()) if share else None
+            if key is not None and key in seen:
+                rects.append(seen[key])
+                continue
             h, w = arr.shape[:2]
             if x and x + w > max_w:
                 x, y, shelf_h = 0, y + shelf_h + gap, 0
             rects.append((x, y, w, h))
+            if key is not None:
+                seen[key] = rects[-1]
             x += w + gap
             shelf_h = max(shelf_h, h)
     W = max(r[0] + r[2] for r in rects)
