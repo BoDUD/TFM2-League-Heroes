@@ -48,6 +48,14 @@ K, HEIGHT = 24, 40
 SMALL = 37
 SMALL_FACE_ROWS = range(63, 77)    # on the 40-row canvas: the helmet's brim to the beard's bottom
 SMALL_FACE_COLS = range(73, 84)    # the cheek guard's edge to the gem
+# the greatsword on the 40-row canvas (rows: first, last column; the hand's squares left out) and where the fist holds
+# it - tools/art/rig_tryndamere.py turns it with the arm. It shrinks on its own: the body's deleted rows, and in each
+# the blade's middle column instead of the body's, so the blade loses a step along its own diagonal (the body's columns
+# cut it 2 rows off its line and kinked it when turned: 「蛮王缩小后 攻击的时候模型有点变形？」)
+SWORD = {83: (51, 55), 84: (52, 57), 85: (49, 57), 86: (48, 57), 87: (49, 57), 88: (46, 56), 89: (46, 56),
+         90: (46, 55), 91: (44, 54), 92: (45, 54), 93: (44, 53), 94: (43, 52), 95: (42, 51), 96: (41, 50),
+         97: (40, 49), 98: (39, 48), 99: (39, 45)}
+GRIP = (55.5, 83.5)
 FACE_ROWS = range(12, 19)          # on the 80 x 56 read-back: brim, eye, cheek, beard + mouth, chin, the beard's bottom
 FACE_COLS = range(52, 59)          # the cheek guard's edge, the face, the eye, the mouth, the gem
 SOLE_ROW, MID_COL, FEET_ROWS = 99, 64, 3
@@ -115,7 +123,20 @@ def smaller(can):
     fc = range(SMALL_FACE_COLS.start - x0, SMALL_FACE_COLS.stop - x0)
     rows = R.keep_axis([idx[y] for y in range(H)], SMALL, fr)
     cols = R.keep_axis([idx[rows][:, x] for x in range(W)], round(W * SMALL / H), fc)
-    small = fig[np.ix_(rows, cols)]
+    sw = np.zeros(can.shape[:2], bool)
+    for r, (c0, c1) in SWORD.items():
+        sw[r, c0:c1 + 1] = True
+    sw &= can[..., 3] > 0
+    body = fig.copy()
+    body[sw[y0:y0 + H, x0:x0 + W]] = 0
+    small = body[np.ix_(rows, cols)]
+    # the blade: the same rows, its own columns (the blade's middle in each deleted row)
+    gone = sorted(set(range(H)) - set(rows))
+    drop = {int(round((SWORD[y0 + r][0] + SWORD[y0 + r][1]) / 2)) - x0 for r in gone if y0 + r in SWORD}
+    drop |= set(sorted(set(range(W)) - set(cols))[len(drop):]) if len(drop) < W - len(cols) else set()
+    scols = [c for c in range(W) if c not in drop]
+    blade = np.where(sw[y0:y0 + H, x0:x0 + W, None], fig, 0)[np.ix_(rows, scols)]
+    small = np.where(small[..., 3:] > 0, small, blade)
     keep = np.zeros(small.shape[:2], bool)
     keep[rows.index(fr.start):rows.index(fr.stop - 1) + 1, cols.index(fc.start):cols.index(fc.stop - 1) + 1] = True
     ink = tuple(int(v) for v in fig[fig[..., 3] > 0][:, :3][np.argmin((fig[fig[..., 3] > 0][:, :3] * [0.299, 0.587, 0.114]).sum(1))])
@@ -127,14 +148,15 @@ def smaller(can):
     out[oy - 1:oy - 1 + pad.shape[0], ox - 1:ox - 1 + pad.shape[1]] = np.where(
         pad[..., 3:] > 0, pad, out[oy - 1:oy - 1 + pad.shape[0], ox - 1:ox - 1 + pad.shape[1]])
     out[SOLE_ROW + 1:] = 0
-    return out, [y0 + r for r in rows], [x0 + c for c in cols], oy, ox
+    return out, [y0 + r for r in rows], [x0 + c for c in cols], oy, ox, [x0 + c for c in scols]
 
 
 def small_map():
-    """(rows kept, columns kept, first row, first column) of smaller(): a 40-row point / mask -> the small canvas."""
+    """(rows kept, columns kept, first row, first column, the sword's columns kept) of smaller(): a 40-row point /
+    mask -> the small canvas."""
     can, _, _, _ = build()
-    _, rows, cols, oy, ox = smaller(can)
-    return rows, cols, oy, ox
+    _, rows, cols, oy, ox, scols = smaller(can)
+    return rows, cols, oy, ox, scols
 
 
 def main():
@@ -142,7 +164,7 @@ def main():
     ap.add_argument("--check", action="store_true")
     a = ap.parse_args()
     can40, rows, cols, added = build()
-    can, srows, scols, _, _ = smaller(can40)
+    can, srows, scols, _, _, _ = smaller(can40)
     ys, xs = np.nonzero(can[..., 3] > 0)
     info = (f"{xs.max() - xs.min() + 1} x {ys.max() - ys.min() + 1} (rows {ys.min()}-{ys.max()}, cols {xs.min()}-{xs.max()}), "
             f"{len({tuple(p[:3]) for p in can[can[..., 3] > 0]})} colours, outline +{added}; rows kept {rows}; columns kept {cols}; "

@@ -44,10 +44,7 @@ TAGS = list(MS)
 # the smaller one (step 6, 37 rows: 「蛮王还可以缩小点吧」), and small() maps them onto it by the rows and columns kept.
 # the greatsword: guard, orb and blade, the hand's squares left out (rows 83-99; right of col 54 below row 90 is the
 # near leg)
-SWORD = {83: (51, 55), 84: (52, 57), 85: (49, 57), 86: (48, 57), 87: (49, 57), 88: (46, 56), 89: (46, 56),
-         90: (46, 55), 91: (44, 54), 92: (45, 54), 93: (44, 53), 94: (43, 52), 95: (42, 51), 96: (41, 50),
-         97: (40, 49), 98: (39, 48), 99: (39, 45)}
-GRIP = (55.5, 83.5)                    # where the fist holds the sword (x, y)
+SWORD, GRIP = DT.SWORD, DT.GRIP        # (design_tryndamere: the sword shrinks along its own diagonal)
 # the back arm: wraps, bracer and the fist on the grip (the upper arm is behind the shoulder in the idle)
 BACK_ARM = {77: (57, 59), 78: (57, 61), 79: (56, 62), 80: (55, 61), 81: (55, 61), 82: (55, 61), 83: (56, 60),
             84: (58, 59)}                 # (rows 81-82 to col 61: the hair's tip that hung in front of the arm)
@@ -72,7 +69,7 @@ class Parts:
         D = K.Design(DESIGN)
         self.D = D
         a = D.a
-        sword_m = mask(SWORD)
+        sword_m = mask(SWORD, _SCOLS)
         arm_m = mask(BACK_ARM)
         front_m = mask(FRONT_ARM)
         self.sword_m, self.arm_m, self.front_m = sword_m, arm_m, front_m
@@ -115,24 +112,25 @@ def leaned(a, lean):
 # hop), lean (+ forward)) - only exact quarter turns / a flip, so neither arm nor blade changes shape (drawn bones and
 # sheared arms looked bent: 「左手右手释放技能都变形」); turned back (1) or over the head (2) the unit goes behind the body.
 # The body moves as League's does (「僵硬」): the attack draws back and leans away, then lunges into the chop; E leans
-# into the spin and leaves the ground; W rears back and roars forward; Q and R throw the chest back.
+# into the spin and leaves the ground; W rears back and roars forward; Q and R throw the chest back. The lean stays
+# within 0.10 (a column at the shoulders): at 0.20 the 37-row figure's chop read as a bent body (「攻击的时候模型有点变形」).
 STAND = {
     # the overhead chop (release tick 12, frame 5): raised back, over the head, chopped down in front of him
-    "attack": [(None, None, (-1, 0), -0.08), (1, None, (-1, 0), -0.14), (1, None, (-1, 0), -0.18),
-               (2, None, (0, 0), -0.06), (3, None, (2, 0), 0.2), (3, None, (1, 0), 0.12)],
+    "attack": [(None, None, (-1, 0), -0.04), (1, None, (-1, 0), -0.07), (1, None, (-1, 0), -0.09),
+               (2, None, (0, 0), -0.03), (3, None, (2, 0), 0.1), (3, None, (1, 0), 0.06)],
     # E: one turn of the sword round him, leaning into it, off the ground in the middle
-    "skill": [(1, None, (0, 0), 0.08), (2, None, (1, -1), 0.14), (3, None, (1, -1), 0.16), (None, None, (1, 0), 0.12),
-              (1, None, (1, 0), 0.1), (None, None, (0, 0), 0.04)],
+    "skill": [(1, None, (0, 0), 0.04), (2, None, (1, -1), 0.07), (3, None, (1, -1), 0.08), (None, None, (1, 0), 0.06),
+              (1, None, (1, 0), 0.05), (None, None, (0, 0), 0.02)],
     # W: rears back with the fist raised, then thrusts it at the enemy as he roars (release frame 4)
-    "skill2": [(None, None, (0, 0), 0.06), (None, None, (-1, 0), -0.08), (None, "up", (-1, 0), -0.16),
-               (None, "fwd", (1, 0), 0.2), (None, "fwd", (1, 0), 0.16), (None, None, (0, 0), 0.06)],
+    "skill2": [(None, None, (0, 0), 0.03), (None, None, (-1, 0), -0.04), (None, "up", (-1, 0), -0.08),
+               (None, "fwd", (1, 0), 0.1), (None, "fwd", (1, 0), 0.08), (None, None, (0, 0), 0.03)],
     # Q: the fist raised, the chest thrown back as he drinks the fury
-    "skill_q": [(None, None, (0, 0), 0.0), (None, "up", (0, 0), -0.12), (None, "up", (0, -1), -0.16),
-                (None, "up", (0, 0), -0.1), (None, None, (0, 0), 0.0)],
+    "skill_q": [(None, None, (0, 0), 0.0), (None, "up", (0, 0), -0.06), (None, "up", (0, -1), -0.08),
+                (None, "up", (0, 0), -0.05), (None, None, (0, 0), 0.0)],
     # R: the roar - a crouch forward, then the sword raised back, the fist up, the chest thrown back, off the ground
-    "ult": [(None, None, (0, 0), 0.1), (1, "up", (0, -1), -0.16), (1, "up", (0, -1), -0.2), (1, "up", (0, 0), -0.2),
-            (1, "up", (0, 0), -0.14), (None, None, (0, 0), 0.0)],
-    "hit": [(None, None, (-1, 0), -0.16), (None, None, (0, 0), -0.08)],
+    "ult": [(None, None, (0, 0), 0.05), (1, "up", (0, -1), -0.08), (1, "up", (0, -1), -0.1), (1, "up", (0, 0), -0.1),
+            (1, "up", (0, 0), -0.07), (None, None, (0, 0), 0.0)],
+    "hit": [(None, None, (-1, 0), -0.08), (None, None, (0, 0), -0.04)],
 }
 
 
@@ -229,7 +227,7 @@ def dead(P, k):
 
 
 # ---------------------------------------------------------------------------------------------- the 40 -> 37 map
-_ROWS, _COLS, _OY, _OX = DT.small_map()
+_ROWS, _COLS, _OY, _OX, _SCOLS = DT.small_map()
 
 
 def _axis(v, kept, first):
@@ -239,23 +237,24 @@ def _axis(v, kept, first):
     return first + n + ((v - i) if i in kept else 0.0)
 
 
-def pt(p):
-    return (_axis(p[0], _COLS, _OX), _axis(p[1], _ROWS, _OY))
+def pt(p, cols=None):
+    return (_axis(p[0], cols or _COLS, _OX), _axis(p[1], _ROWS, _OY))
 
 
 def row(r):
     return int(round(_axis(r, _ROWS, _OY)))
 
 
-def mask(spec):
+def mask(spec, cols=None):
     """A part's mask (rows: (first, last) column on the 40-row canvas) on the small canvas."""
+    cols = cols or _COLS
     m40 = K.mask_rows(spec)
     out = np.zeros_like(m40)
-    out[_OY:_OY + len(_ROWS), _OX:_OX + len(_COLS)] = m40[np.ix_(_ROWS, _COLS)]
+    out[_OY:_OY + len(_ROWS), _OX:_OX + len(cols)] = m40[np.ix_(_ROWS, cols)]
     return out
 
 
-SHOULDER, FRONT_PIVOT, GRIP = pt(SHOULDER), pt(FRONT_PIVOT), pt(GRIP)
+SHOULDER, FRONT_PIVOT, GRIP = pt(SHOULDER), pt(FRONT_PIVOT), pt(GRIP, _SCOLS)
 HIP_ROW, NECK_ROW, HIP, ANKLE, KNEES = row(HIP_ROW), row(NECK_ROW), row(HIP), row(ANKLE), row(KNEES)
 DEAD = [d if d is None or isinstance(d[2], int) else (d[0], d[1], (pt(d[2][0]), d[2][1])) for d in DEAD]
 
