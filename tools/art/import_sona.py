@@ -44,6 +44,7 @@ OVERHEAD = (0, -31)            # over a 35-40 px hero's crown
 LIFT = (0, -40)                # the etwahl over her head in R's frames 3-5
 GROUND = 9                     # a ring round the feet: its ellipse's middle 2 px over the soles
 AURA = 45000                   # the Melody's radius (league_sona.data_champion)
+AURA_TICKS = 180               # its life (league_sona.data_champion: the ApplyInProjectile's tick)
 # name: factor other than 1/2. Halved, the slow's staff ring (21 px) and the haste's wind (19 px) hid behind a
 # 34 px hero; R's burst (19 px) was smaller than the etwahl it bursts on (34 px)
 SCALE = {"pc_tempo": 1, "e_ally": 1, "r_cast": 1}
@@ -216,7 +217,11 @@ def build():
     big = {"r_wave": seq(centred(cells("r_wave")), 80), "r_cast": seq(at(cells("r_cast"), LIFT), 80)}
     for name in RINGS:
         frames, mid = ring(name)
-        big[name] = seq(round_feet(frames, mid), 120)
+        # the aura's picture rides on Sona as a CasterViewEffect played with the aura (2026-10-05: as its follow-zone's
+        # view it was turned with the zone, upside down whenever the zone took a leftward direction): one play of the
+        # tag covers the aura's 180 ticks, the loop's six frames repeated (25 x 120 ms), sharing their squares
+        loop = round_feet(frames, mid)
+        big[name] = seq([loop[k % len(loop)] for k in range(AURA_TICKS * 1000 // 60 // 120)], 120)
     return {"league_sona_fx": fx, "league_sona_big": big}
 
 
@@ -254,7 +259,7 @@ def main():
     args = ap.parse_args()
     sheets = build()
     for sprite, tags in sheets.items():
-        w, h = G.write_sheet(os.path.join(MOD, "effects", sprite), tags)
+        w, h = G.write_sheet(os.path.join(MOD, "effects", sprite), tags, share=True)
         print(f"league/effects/{sprite}#sheet.png {w}x{h}: " + ", ".join(
             f"{t} {len(v)}f {sum(m for _, m in v)}ms" for t, v in tags.items()))
     if args.review:

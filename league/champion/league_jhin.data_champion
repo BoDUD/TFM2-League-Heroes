@@ -5093,7 +5093,7 @@
       "anim": "asset/league/effects/league_jhin_fx",
       "tag": "a_cast",
       "z": 1,
-      "is_follow": true
+      "is_follow": false
     },
     {
       "type": "Animation",
@@ -5101,7 +5101,7 @@
       "anim": "asset/league/effects/league_jhin_fx",
       "tag": "a_muzzle",
       "z": 1,
-      "is_follow": true
+      "is_follow": false
     },
     {
       "type": "Animation",
@@ -5117,7 +5117,7 @@
       "anim": "asset/league/effects/league_jhin_fx",
       "tag": "a4_muzzle",
       "z": 1,
-      "is_follow": true
+      "is_follow": false
     },
     {
       "type": "Animation",
@@ -5165,7 +5165,7 @@
       "anim": "asset/league/effects/league_jhin_fx",
       "tag": "w_muzzle",
       "z": 1,
-      "is_follow": true
+      "is_follow": false
     },
     {
       "type": "Animation",
@@ -5229,7 +5229,7 @@
       "anim": "asset/league/effects/league_jhin_fx",
       "tag": "r_muzzle",
       "z": 1,
-      "is_follow": true
+      "is_follow": false
     },
     {
       "type": "Animation",

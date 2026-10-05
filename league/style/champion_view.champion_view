@@ -692,6 +692,20 @@
         "y": -9
       }
     },
+    "league_alistar": {
+      "face": {
+        "x": 9,
+        "y": -32
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -7
+      }
+    },
     "league_varus": {
       "face": {
         "x": -1,

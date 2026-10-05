@@ -1,0 +1,2578 @@
+{
+  "cell_1x": [
+    128,
+    96
+  ],
+  "scale": 8,
+  "palette": [
+    [
+      1,
+      83,
+      217
+    ],
+    [
+      4,
+      138,
+      252
+    ],
+    [
+      18,
+      3,
+      25
+    ],
+    [
+      21,
+      11,
+      75
+    ],
+    [
+      24,
+      184,
+      251
+    ],
+    [
+      59,
+      24,
+      136
+    ],
+    [
+      66,
+      23,
+      20
+    ],
+    [
+      68,
+      58,
+      63
+    ],
+    [
+      85,
+      38,
+      195
+    ],
+    [
+      86,
+      225,
+      253
+    ],
+    [
+      115,
+      61,
+      245
+    ],
+    [
+      135,
+      62,
+      40
+    ],
+    [
+      142,
+      150,
+      162
+    ],
+    [
+      154,
+      99,
+      243
+    ],
+    [
+      168,
+      130,
+      110
+    ],
+    [
+      187,
+      136,
+      251
+    ],
+    [
+      195,
+      250,
+      253
+    ],
+    [
+      200,
+      103,
+      47
+    ],
+    [
+      216,
+      220,
+      228
+    ],
+    [
+      225,
+      181,
+      144
+    ],
+    [
+      244,
+      117,
+      137
+    ],
+    [
+      245,
+      183,
+      67
+    ],
+    [
+      250,
+      241,
+      214
+    ],
+    [
+      251,
+      18,
+      13
+    ],
+    [
+      251,
+      213,
+      155
+    ]
+  ],
+  "status": "review_draft",
+  "tags": {
+    "idle": {
+      "file": "alistar_idle.png",
+      "size_px": [
+        3072,
+        1536
+      ],
+      "raw_size_px": [
+        3072,
+        1536
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            57,
+            70
+          ],
+          "pivot_px": [
+            456,
+            560
+          ],
+          "duration_ms": 200,
+          "bbox_1x": [
+            37,
+            38,
+            41,
+            44
+          ],
+          "bbox_px": [
+            296,
+            304,
+            328,
+            352
+          ],
+          "corrections": {}
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            57,
+            70
+          ],
+          "pivot_px": [
+            456,
+            560
+          ],
+          "duration_ms": 200,
+          "bbox_1x": [
+            37,
+            38,
+            41,
+            44
+          ],
+          "bbox_px": [
+            296,
+            304,
+            328,
+            352
+          ],
+          "corrections": {}
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            57,
+            70
+          ],
+          "pivot_px": [
+            456,
+            560
+          ],
+          "duration_ms": 200,
+          "bbox_1x": [
+            37,
+            38,
+            41,
+            44
+          ],
+          "bbox_px": [
+            296,
+            304,
+            328,
+            352
+          ],
+          "corrections": {}
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "rect_px": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            57,
+            70
+          ],
+          "pivot_px": [
+            456,
+            560
+          ],
+          "duration_ms": 200,
+          "bbox_1x": [
+            37,
+            38,
+            41,
+            44
+          ],
+          "bbox_px": [
+            296,
+            304,
+            328,
+            352
+          ],
+          "corrections": {}
+        },
+        {
+          "frame": 5,
+          "rect_1x": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "rect_px": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            57,
+            70
+          ],
+          "pivot_px": [
+            456,
+            560
+          ],
+          "duration_ms": 200,
+          "bbox_1x": [
+            37,
+            38,
+            41,
+            44
+          ],
+          "bbox_px": [
+            296,
+            304,
+            328,
+            352
+          ],
+          "corrections": {}
+        },
+        {
+          "frame": 6,
+          "rect_1x": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "rect_px": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            57,
+            70
+          ],
+          "pivot_px": [
+            456,
+            560
+          ],
+          "duration_ms": 200,
+          "bbox_1x": [
+            37,
+            38,
+            41,
+            44
+          ],
+          "bbox_px": [
+            296,
+            304,
+            328,
+            352
+          ],
+          "corrections": {}
+        }
+      ],
+      "hit_frame": null
+    },
+    "run": {
+      "file": "alistar_run.png",
+      "size_px": [
+        4096,
+        1536
+      ],
+      "raw_size_px": [
+        2048,
+        768
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            58,
+            70
+          ],
+          "pivot_px": [
+            464,
+            560
+          ],
+          "duration_ms": 125,
+          "bbox_1x": [
+            33,
+            28,
+            55,
+            54
+          ],
+          "bbox_px": [
+            264,
+            224,
+            440,
+            432
+          ],
+          "corrections": {
+            "whole_figure_translation": [
+              -3,
+              -1
+            ],
+            "head_rect": [
+              56,
+              48,
+              23,
+              18
+            ],
+            "head_rotation": 0
+          }
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            57,
+            70
+          ],
+          "pivot_px": [
+            456,
+            560
+          ],
+          "duration_ms": 125,
+          "bbox_1x": [
+            37,
+            29,
+            53,
+            53
+          ],
+          "bbox_px": [
+            296,
+            232,
+            424,
+            424
+          ],
+          "corrections": {
+            "whole_figure_translation": [
+              -1,
+              -1
+            ],
+            "head_rect": [
+              55,
+              49,
+              23,
+              18
+            ],
+            "head_rotation": 0
+          }
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            58,
+            70
+          ],
+          "pivot_px": [
+            464,
+            560
+          ],
+          "duration_ms": 125,
+          "bbox_1x": [
+            36,
+            34,
+            57,
+            48
+          ],
+          "bbox_px": [
+            288,
+            272,
+            456,
+            384
+          ],
+          "corrections": {
+            "whole_figure_translation": [
+              0,
+              -1
+            ],
+            "head_rect": [
+              56,
+              48,
+              23,
+              18
+            ],
+            "head_rotation": 0
+          }
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            384,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            3072,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            59,
+            70
+          ],
+          "pivot_px": [
+            472,
+            560
+          ],
+          "duration_ms": 125,
+          "bbox_1x": [
+            34,
+            28,
+            57,
+            54
+          ],
+          "bbox_px": [
+            272,
+            224,
+            456,
+            432
+          ],
+          "corrections": {
+            "whole_figure_translation": [
+              -1,
+              -1
+            ],
+            "head_rect": [
+              57,
+              49,
+              23,
+              18
+            ],
+            "head_rotation": 0
+          }
+        },
+        {
+          "frame": 5,
+          "rect_1x": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "rect_px": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            58,
+            70
+          ],
+          "pivot_px": [
+            464,
+            560
+          ],
+          "duration_ms": 125,
+          "bbox_1x": [
+            34,
+            33,
+            58,
+            49
+          ],
+          "bbox_px": [
+            272,
+            264,
+            464,
+            392
+          ],
+          "corrections": {
+            "whole_figure_translation": [
+              0,
+              1
+            ],
+            "head_rect": [
+              56,
+              48,
+              23,
+              18
+            ],
+            "head_rotation": 0
+          }
+        },
+        {
+          "frame": 6,
+          "rect_1x": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "rect_px": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            58,
+            70
+          ],
+          "pivot_px": [
+            464,
+            560
+          ],
+          "duration_ms": 125,
+          "bbox_1x": [
+            35,
+            29,
+            55,
+            53
+          ],
+          "bbox_px": [
+            280,
+            232,
+            440,
+            424
+          ],
+          "corrections": {
+            "whole_figure_translation": [
+              -1,
+              0
+            ],
+            "head_rect": [
+              56,
+              49,
+              23,
+              18
+            ],
+            "head_rotation": 0
+          }
+        },
+        {
+          "frame": 7,
+          "rect_1x": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "rect_px": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            61,
+            70
+          ],
+          "pivot_px": [
+            488,
+            560
+          ],
+          "duration_ms": 125,
+          "bbox_1x": [
+            44,
+            35,
+            57,
+            47
+          ],
+          "bbox_px": [
+            352,
+            280,
+            456,
+            376
+          ],
+          "corrections": {
+            "whole_figure_translation": [
+              9,
+              0
+            ],
+            "head_rect": [
+              59,
+              48,
+              23,
+              18
+            ],
+            "head_rotation": 0
+          }
+        },
+        {
+          "frame": 8,
+          "rect_1x": [
+            384,
+            96,
+            128,
+            96
+          ],
+          "rect_px": [
+            3072,
+            768,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            62,
+            70
+          ],
+          "pivot_px": [
+            496,
+            560
+          ],
+          "duration_ms": 125,
+          "bbox_1x": [
+            35,
+            30,
+            55,
+            52
+          ],
+          "bbox_px": [
+            280,
+            240,
+            440,
+            416
+          ],
+          "corrections": {
+            "whole_figure_translation": [
+              -2,
+              0
+            ],
+            "head_rect": [
+              60,
+              49,
+              23,
+              18
+            ],
+            "head_rotation": 0
+          }
+        }
+      ],
+      "hit_frame": null
+    },
+    "attack": {
+      "file": "alistar_attack.png",
+      "size_px": [
+        3072,
+        1536
+      ],
+      "raw_size_px": [
+        1774,
+        887
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            56,
+            70
+          ],
+          "pivot_px": [
+            448,
+            560
+          ],
+          "duration_ms": 70,
+          "bbox_1x": [
+            20,
+            35,
+            71,
+            47
+          ],
+          "bbox_px": [
+            160,
+            280,
+            568,
+            376
+          ],
+          "corrections": {
+            "whole_figure_translation": [
+              -13,
+              -14
+            ],
+            "head_rect": [
+              54,
+              44,
+              23,
+              18
+            ],
+            "head_rotation": 0
+          }
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            58,
+            70
+          ],
+          "pivot_px": [
+            464,
+            560
+          ],
+          "duration_ms": 70,
+          "bbox_1x": [
+            30,
+            26,
+            60,
+            56
+          ],
+          "bbox_px": [
+            240,
+            208,
+            480,
+            448
+          ],
+          "corrections": {
+            "whole_figure_translation": [
+              -16,
+              -14
+            ],
+            "head_rect": [
+              53,
+              47,
+              23,
+              18
+            ],
+            "head_rotation": 0
+          }
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            59,
+            70
+          ],
+          "pivot_px": [
+            472,
+            560
+          ],
+          "duration_ms": 60,
+          "bbox_1x": [
+            19,
+            31,
+            55,
+            51
+          ],
+          "bbox_px": [
+            152,
+            248,
+            440,
+            408
+          ],
+          "corrections": {
+            "whole_figure_translation": [
+              -25,
+              -14
+            ],
+            "head_rect": [
+              44,
+              47,
+              23,
+              18
+            ],
+            "head_rotation": 0
+          }
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "rect_px": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            56,
+            70
+          ],
+          "pivot_px": [
+            448,
+            560
+          ],
+          "duration_ms": 90,
+          "bbox_1x": [
+            18,
+            30,
+            83,
+            52
+          ],
+          "bbox_px": [
+            144,
+            240,
+            664,
+            416
+          ],
+          "corrections": {
+            "whole_figure_translation": [
+              -12,
+              -2
+            ],
+            "head_rect": [
+              63,
+              48,
+              23,
+              18
+            ],
+            "head_rotation": 0
+          },
+          "hit_tick": 12,
+          "fist_positions_1x": [
+            [
+              87,
+              77
+            ]
+          ],
+          "fist_positions_method": "visual estimate; review before hitbox import"
+        },
+        {
+          "frame": 5,
+          "rect_1x": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "rect_px": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            65,
+            70
+          ],
+          "pivot_px": [
+            520,
+            560
+          ],
+          "duration_ms": 80,
+          "bbox_1x": [
+            24,
+            39,
+            69,
+            43
+          ],
+          "bbox_px": [
+            192,
+            312,
+            552,
+            344
+          ],
+          "corrections": {
+            "whole_figure_translation": [
+              -12,
+              -1
+            ],
+            "head_rect": [
+              65,
+              53,
+              23,
+              18
+            ],
+            "head_rotation": 0
+          }
+        },
+        {
+          "frame": 6,
+          "rect_1x": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "rect_px": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            56,
+            70
+          ],
+          "pivot_px": [
+            448,
+            560
+          ],
+          "duration_ms": 63,
+          "bbox_1x": [
+            29,
+            36,
+            53,
+            46
+          ],
+          "bbox_px": [
+            232,
+            288,
+            424,
+            368
+          ],
+          "corrections": {
+            "whole_figure_translation": [
+              -15,
+              -1
+            ],
+            "head_rect": [
+              56,
+              48,
+              23,
+              18
+            ],
+            "head_rotation": 0
+          }
+        }
+      ],
+      "hit_frame": 4
+    },
+    "skill": {
+      "file": "alistar_skill.png",
+      "size_px": [
+        3072,
+        1536
+      ],
+      "raw_size_px": [
+        1774,
+        887
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            58,
+            70
+          ],
+          "pivot_px": [
+            464,
+            560
+          ],
+          "duration_ms": 70,
+          "bbox_1x": [
+            39,
+            31,
+            52,
+            51
+          ],
+          "bbox_px": [
+            312,
+            248,
+            416,
+            408
+          ],
+          "corrections": {
+            "whole_figure_translation": [
+              2,
+              -12
+            ],
+            "head_rect": [
+              63,
+              43,
+              23,
+              18
+            ],
+            "head_rotation": 0
+          }
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            57,
+            70
+          ],
+          "pivot_px": [
+            456,
+            560
+          ],
+          "duration_ms": 80,
+          "bbox_1x": [
+            34,
+            9,
+            49,
+            73
+          ],
+          "bbox_px": [
+            272,
+            72,
+            392,
+            584
+          ],
+          "corrections": {
+            "whole_figure_translation": [
+              -8,
+              -12
+            ],
+            "head_rect": [
+              55,
+              34,
+              23,
+              18
+            ],
+            "head_rotation": 0
+          }
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            56,
+            70
+          ],
+          "pivot_px": [
+            448,
+            560
+          ],
+          "duration_ms": 83,
+          "bbox_1x": [
+            34,
+            0,
+            45,
+            82
+          ],
+          "bbox_px": [
+            272,
+            0,
+            360,
+            656
+          ],
+          "corrections": {
+            "whole_figure_translation": [
+              -10,
+              -12
+            ],
+            "head_rect": [
+              54,
+              30,
+              23,
+              18
+            ],
+            "head_rotation": 0
+          }
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "rect_px": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            51,
+            70
+          ],
+          "pivot_px": [
+            408,
+            560
+          ],
+          "duration_ms": 90,
+          "bbox_1x": [
+            21,
+            38,
+            59,
+            44
+          ],
+          "bbox_px": [
+            168,
+            304,
+            472,
+            352
+          ],
+          "corrections": {
+            "whole_figure_translation": [
+              -21,
+              -5
+            ],
+            "head_rect": [
+              49,
+              50,
+              23,
+              18
+            ],
+            "head_rotation": 0
+          },
+          "hit_tick": 14,
+          "fist_positions_1x": [
+            [
+              65,
+              79
+            ],
+            [
+              81,
+              79
+            ]
+          ],
+          "fist_positions_method": "visual estimate; review before hitbox import"
+        },
+        {
+          "frame": 5,
+          "rect_1x": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "rect_px": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            52,
+            70
+          ],
+          "pivot_px": [
+            416,
+            560
+          ],
+          "duration_ms": 90,
+          "bbox_1x": [
+            18,
+            39,
+            64,
+            43
+          ],
+          "bbox_px": [
+            144,
+            312,
+            512,
+            344
+          ],
+          "corrections": {
+            "whole_figure_translation": [
+              -22,
+              -7
+            ],
+            "head_rect": [
+              48,
+              53,
+              23,
+              18
+            ],
+            "head_rotation": 0
+          }
+        },
+        {
+          "frame": 6,
+          "rect_1x": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "rect_px": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            55,
+            70
+          ],
+          "pivot_px": [
+            440,
+            560
+          ],
+          "duration_ms": 87,
+          "bbox_1x": [
+            33,
+            30,
+            53,
+            52
+          ],
+          "bbox_px": [
+            264,
+            240,
+            424,
+            416
+          ],
+          "corrections": {
+            "whole_figure_translation": [
+              -10,
+              -4
+            ],
+            "head_rect": [
+              59,
+              42,
+              23,
+              18
+            ],
+            "head_rotation": 0
+          }
+        }
+      ],
+      "hit_frame": 4
+    },
+    "skill2": {
+      "file": "alistar_skill2.png",
+      "size_px": [
+        3072,
+        1536
+      ],
+      "raw_size_px": [
+        1774,
+        887
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            58,
+            70
+          ],
+          "pivot_px": [
+            464,
+            560
+          ],
+          "duration_ms": 80,
+          "bbox_1x": [
+            32,
+            43,
+            61,
+            39
+          ],
+          "bbox_px": [
+            256,
+            344,
+            488,
+            312
+          ],
+          "corrections": {
+            "whole_figure_translation": [
+              -2,
+              -2
+            ],
+            "head_rect": [
+              65,
+              54,
+              23,
+              18
+            ],
+            "head_rotation": 0
+          }
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            57,
+            70
+          ],
+          "pivot_px": [
+            456,
+            560
+          ],
+          "duration_ms": 80,
+          "bbox_1x": [
+            27,
+            43,
+            62,
+            39
+          ],
+          "bbox_px": [
+            216,
+            344,
+            496,
+            312
+          ],
+          "corrections": {
+            "whole_figure_translation": [
+              -7,
+              -2
+            ],
+            "head_rect": [
+              62,
+              55,
+              23,
+              18
+            ],
+            "head_rotation": 0
+          }
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            57,
+            70
+          ],
+          "pivot_px": [
+            456,
+            560
+          ],
+          "duration_ms": 80,
+          "bbox_1x": [
+            36,
+            43,
+            61,
+            39
+          ],
+          "bbox_px": [
+            288,
+            344,
+            488,
+            312
+          ],
+          "corrections": {
+            "whole_figure_translation": [
+              2,
+              -2
+            ],
+            "head_rect": [
+              71,
+              54,
+              23,
+              18
+            ],
+            "head_rotation": 0
+          }
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "rect_px": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            58,
+            70
+          ],
+          "pivot_px": [
+            464,
+            560
+          ],
+          "duration_ms": 80,
+          "bbox_1x": [
+            27,
+            43,
+            62,
+            39
+          ],
+          "bbox_px": [
+            216,
+            344,
+            496,
+            312
+          ],
+          "corrections": {
+            "whole_figure_translation": [
+              -8,
+              2
+            ],
+            "head_rect": [
+              63,
+              53,
+              23,
+              18
+            ],
+            "head_rotation": 0
+          }
+        },
+        {
+          "frame": 5,
+          "rect_1x": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "rect_px": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            58,
+            70
+          ],
+          "pivot_px": [
+            464,
+            560
+          ],
+          "duration_ms": 100,
+          "bbox_1x": [
+            29,
+            28,
+            68,
+            54
+          ],
+          "bbox_px": [
+            232,
+            224,
+            544,
+            432
+          ],
+          "corrections": {
+            "whole_figure_translation": [
+              -1,
+              2
+            ],
+            "head_rect": [
+              74,
+              28,
+              23,
+              18
+            ],
+            "head_rotation": 0
+          },
+          "hit_tick": 19,
+          "fist_positions_1x": [],
+          "fist_positions_method": "visual estimate; review before hitbox import",
+          "contact_type": "headbutt",
+          "head_contact_1x": [
+            96,
+            40
+          ]
+        },
+        {
+          "frame": 6,
+          "rect_1x": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "rect_px": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            57,
+            70
+          ],
+          "pivot_px": [
+            456,
+            560
+          ],
+          "duration_ms": 100,
+          "bbox_1x": [
+            32,
+            40,
+            50,
+            42
+          ],
+          "bbox_px": [
+            256,
+            320,
+            400,
+            336
+          ],
+          "corrections": {
+            "whole_figure_translation": [
+              -7,
+              2
+            ],
+            "head_rect": [
+              57,
+              49,
+              23,
+              18
+            ],
+            "head_rotation": 0
+          }
+        }
+      ],
+      "hit_frame": 5
+    },
+    "ult": {
+      "file": "alistar_ult.png",
+      "size_px": [
+        3072,
+        1536
+      ],
+      "raw_size_px": [
+        1774,
+        887
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            59,
+            70
+          ],
+          "pivot_px": [
+            472,
+            560
+          ],
+          "duration_ms": 80,
+          "bbox_1x": [
+            33,
+            34,
+            49,
+            48
+          ],
+          "bbox_px": [
+            264,
+            272,
+            392,
+            384
+          ],
+          "corrections": {
+            "whole_figure_translation": [
+              -8,
+              -12
+            ],
+            "head_rect": [
+              56,
+              46,
+              23,
+              18
+            ],
+            "head_rotation": 0
+          }
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            56,
+            70
+          ],
+          "pivot_px": [
+            448,
+            560
+          ],
+          "duration_ms": 80,
+          "bbox_1x": [
+            33,
+            36,
+            50,
+            46
+          ],
+          "bbox_px": [
+            264,
+            288,
+            400,
+            368
+          ],
+          "corrections": {
+            "whole_figure_translation": [
+              -8,
+              -11
+            ],
+            "head_rect": [
+              57,
+              54,
+              23,
+              18
+            ],
+            "head_rotation": 0
+          }
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            56,
+            70
+          ],
+          "pivot_px": [
+            448,
+            560
+          ],
+          "duration_ms": 80,
+          "bbox_1x": [
+            36,
+            24,
+            60,
+            58
+          ],
+          "bbox_px": [
+            288,
+            192,
+            480,
+            464
+          ],
+          "corrections": {
+            "whole_figure_translation": [
+              2,
+              -11
+            ],
+            "head_rect": [
+              65,
+              33,
+              23,
+              18
+            ],
+            "head_rotation": 0
+          }
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "rect_px": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            69,
+            70
+          ],
+          "pivot_px": [
+            552,
+            560
+          ],
+          "duration_ms": 100,
+          "bbox_1x": [
+            33,
+            13,
+            77,
+            69
+          ],
+          "bbox_px": [
+            264,
+            104,
+            616,
+            552
+          ],
+          "corrections": {
+            "whole_figure_translation": [
+              7,
+              -3
+            ],
+            "head_rect": [
+              63,
+              13,
+              23,
+              18
+            ],
+            "head_rotation": 0
+          },
+          "hit_tick": 14,
+          "fist_positions_1x": [
+            [
+              32,
+              58
+            ],
+            [
+              83,
+              58
+            ]
+          ],
+          "fist_positions_method": "visual estimate; review before hitbox import"
+        },
+        {
+          "frame": 5,
+          "rect_1x": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "rect_px": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            65,
+            70
+          ],
+          "pivot_px": [
+            520,
+            560
+          ],
+          "duration_ms": 80,
+          "bbox_1x": [
+            14,
+            13,
+            81,
+            69
+          ],
+          "bbox_px": [
+            112,
+            104,
+            648,
+            552
+          ],
+          "corrections": {
+            "whole_figure_translation": [
+              -8,
+              -3
+            ],
+            "head_rect": [
+              51,
+              13,
+              23,
+              18
+            ],
+            "head_rotation": 0
+          }
+        },
+        {
+          "frame": 6,
+          "rect_1x": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "rect_px": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            60,
+            70
+          ],
+          "pivot_px": [
+            480,
+            560
+          ],
+          "duration_ms": 80,
+          "bbox_1x": [
+            32,
+            36,
+            51,
+            46
+          ],
+          "bbox_px": [
+            256,
+            288,
+            408,
+            368
+          ],
+          "corrections": {
+            "whole_figure_translation": [
+              -8,
+              -7
+            ],
+            "head_rect": [
+              57,
+              47,
+              23,
+              18
+            ],
+            "head_rotation": 0
+          }
+        }
+      ],
+      "hit_frame": 4
+    },
+    "hit": {
+      "file": "alistar_hit.png",
+      "size_px": [
+        2048,
+        768
+      ],
+      "raw_size_px": [
+        2048,
+        768
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            61,
+            70
+          ],
+          "pivot_px": [
+            488,
+            560
+          ],
+          "duration_ms": 100,
+          "bbox_1x": [
+            25,
+            34,
+            65,
+            48
+          ],
+          "bbox_px": [
+            200,
+            272,
+            520,
+            384
+          ],
+          "corrections": {
+            "whole_figure_translation": [
+              -7,
+              0
+            ],
+            "head_rect": [
+              42,
+              34,
+              23,
+              18
+            ],
+            "head_rotation": 0
+          }
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            59,
+            70
+          ],
+          "pivot_px": [
+            472,
+            560
+          ],
+          "duration_ms": 100,
+          "bbox_1x": [
+            34,
+            41,
+            52,
+            41
+          ],
+          "bbox_px": [
+            272,
+            328,
+            416,
+            328
+          ],
+          "corrections": {
+            "whole_figure_translation": [
+              -7,
+              0
+            ],
+            "head_rect": [
+              57,
+              50,
+              23,
+              18
+            ],
+            "head_rotation": 0
+          }
+        }
+      ],
+      "hit_frame": null
+    },
+    "dead": {
+      "file": "alistar_dead.png",
+      "size_px": [
+        4096,
+        1536
+      ],
+      "raw_size_px": [
+        2048,
+        768
+      ],
+      "frames": [
+        {
+          "frame": 1,
+          "rect_1x": [
+            0,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            57,
+            70
+          ],
+          "pivot_px": [
+            456,
+            560
+          ],
+          "duration_ms": 100,
+          "bbox_1x": [
+            47,
+            32,
+            46,
+            50
+          ],
+          "bbox_px": [
+            376,
+            256,
+            368,
+            400
+          ],
+          "corrections": {
+            "whole_figure_translation": [
+              6,
+              -13
+            ],
+            "head_rect": [
+              67,
+              44,
+              23,
+              18
+            ],
+            "head_rotation": 0
+          }
+        },
+        {
+          "frame": 2,
+          "rect_1x": [
+            128,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            1024,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            61,
+            70
+          ],
+          "pivot_px": [
+            488,
+            560
+          ],
+          "duration_ms": 110,
+          "bbox_1x": [
+            31,
+            19,
+            70,
+            63
+          ],
+          "bbox_px": [
+            248,
+            152,
+            560,
+            504
+          ],
+          "corrections": {
+            "whole_figure_translation": [
+              -3,
+              -13
+            ],
+            "head_rect": [
+              44,
+              19,
+              23,
+              18
+            ],
+            "head_rotation": 0
+          }
+        },
+        {
+          "frame": 3,
+          "rect_1x": [
+            256,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            2048,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            61,
+            70
+          ],
+          "pivot_px": [
+            488,
+            560
+          ],
+          "duration_ms": 110,
+          "bbox_1x": [
+            24,
+            20,
+            72,
+            62
+          ],
+          "bbox_px": [
+            192,
+            160,
+            576,
+            496
+          ],
+          "corrections": {
+            "whole_figure_translation": [
+              -11,
+              -13
+            ],
+            "head_rect": [
+              38,
+              20,
+              23,
+              18
+            ],
+            "head_rotation": 0
+          }
+        },
+        {
+          "frame": 4,
+          "rect_1x": [
+            384,
+            0,
+            128,
+            96
+          ],
+          "rect_px": [
+            3072,
+            0,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            61,
+            70
+          ],
+          "pivot_px": [
+            488,
+            560
+          ],
+          "duration_ms": 120,
+          "bbox_1x": [
+            16,
+            25,
+            64,
+            57
+          ],
+          "bbox_px": [
+            128,
+            200,
+            512,
+            456
+          ],
+          "corrections": {
+            "whole_figure_translation": [
+              -26,
+              -14
+            ],
+            "head_rect": [
+              32,
+              27,
+              23,
+              18
+            ],
+            "head_rotation": 0
+          }
+        },
+        {
+          "frame": 5,
+          "rect_1x": [
+            0,
+            96,
+            128,
+            96
+          ],
+          "rect_px": [
+            0,
+            768,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            63,
+            70
+          ],
+          "pivot_px": [
+            504,
+            560
+          ],
+          "duration_ms": 130,
+          "bbox_1x": [
+            33,
+            34,
+            62,
+            48
+          ],
+          "bbox_px": [
+            264,
+            272,
+            496,
+            384
+          ],
+          "corrections": {
+            "whole_figure_translation": [
+              2,
+              -6
+            ],
+            "head_rect": [
+              37,
+              41,
+              23,
+              18
+            ],
+            "head_rotation": 0
+          }
+        },
+        {
+          "frame": 6,
+          "rect_1x": [
+            128,
+            96,
+            128,
+            96
+          ],
+          "rect_px": [
+            1024,
+            768,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            62,
+            70
+          ],
+          "pivot_px": [
+            496,
+            560
+          ],
+          "duration_ms": 150,
+          "bbox_1x": [
+            21,
+            53,
+            71,
+            29
+          ],
+          "bbox_px": [
+            168,
+            424,
+            568,
+            232
+          ],
+          "corrections": {
+            "whole_figure_translation": [
+              -14,
+              -6
+            ],
+            "head_rect": [
+              29,
+              59,
+              18,
+              23
+            ],
+            "head_rotation": 90
+          }
+        },
+        {
+          "frame": 7,
+          "rect_1x": [
+            256,
+            96,
+            128,
+            96
+          ],
+          "rect_px": [
+            2048,
+            768,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            62,
+            70
+          ],
+          "pivot_px": [
+            496,
+            560
+          ],
+          "duration_ms": 200,
+          "bbox_1x": [
+            21,
+            53,
+            71,
+            29
+          ],
+          "bbox_px": [
+            168,
+            424,
+            568,
+            232
+          ],
+          "corrections": {
+            "whole_figure_translation": [
+              -14,
+              -6
+            ],
+            "head_rect": [
+              29,
+              59,
+              18,
+              23
+            ],
+            "head_rotation": 90
+          }
+        },
+        {
+          "frame": 8,
+          "rect_1x": [
+            384,
+            96,
+            128,
+            96
+          ],
+          "rect_px": [
+            3072,
+            768,
+            1024,
+            768
+          ],
+          "pivot_1x": [
+            62,
+            70
+          ],
+          "pivot_px": [
+            496,
+            560
+          ],
+          "duration_ms": 300,
+          "bbox_1x": [
+            21,
+            53,
+            71,
+            29
+          ],
+          "bbox_px": [
+            168,
+            424,
+            568,
+            232
+          ],
+          "corrections": {
+            "copied_frame": 7
+          }
+        }
+      ],
+      "hit_frame": null
+    }
+  },
+  "coordinate_convention": "rect/bbox = x,y,width,height; frame and hit_frame are one-based",
+  "clips": {
+    "butt": {
+      "source": "skill2",
+      "frames": [
+        5,
+        6
+      ]
+    },
+    "slam": {
+      "source": "skill",
+      "frames": [
+        3,
+        4,
+        5,
+        6
+      ]
+    }
+  }
+}

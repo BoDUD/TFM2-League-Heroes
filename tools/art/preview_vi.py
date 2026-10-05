@@ -151,7 +151,8 @@ def showcase(out, z=3, step=40):
     gx, _ = g.pos(t)
     to = gx - 18
     fly = tick(max(1.0, (to - x) / R_SPEED))
-    on_her("r_trail", t, until=t + fly, behind=True)           # looping behind her until she arrives
+    on_her("r_trail", r0, until=t + fly, behind=True)          # from the ult's first tick (empty for the 7 ticks
+                                                               # before the dash), looping behind her until she arrives
     passed = t + fly * max(0.0, min(1.0, (d.pos(t)[0] - 10 - x) / max(1.0, to - x)))
     on(d, "r_side", passed)
     d.flinches.append(passed)

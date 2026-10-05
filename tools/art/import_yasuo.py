@@ -23,7 +23,15 @@ the shield and the R slashes around the body, the Q-ready ribbons at the waist, 
 Yasuo's middle. Views are drawn at the unit's pivot, 11 px above the feet line. No palette or
 outline pass on the sheets.
 Writes league/effects/league_yasuo_fx (hit, q_hit, knockup, e_hit, shield, q_ready) and
-league/effects/league_yasuo_big (q_thrust, tornado, eq, eq3, r_slash).
+league/effects/league_yasuo_big (q_thrust, tornado, eq, eq3, r_slash, tornado_0 .. tornado_5).
+
+Q3's whirlwind is not drawn as its projectile's picture, which the game turns to the flight: the upright funnel
+flew upside down to the left (the red side, mostly; the user kept the funnel: 「亚索的旋风特效还是用这个 右边的话你想办法处理一下」,
+2026-10-05). The projectile flies without a picture and the funnel is stamped where it is, every STAMP_TICKS, by
+`ViewEffect`s (never turned) in the end_effects of hidden projectiles that stop there
+(tools/fix/fix_yasuo_q3_stamps.py). tornado_0 .. tornado_5 are the loop's six frames one by one, each held for
+STAMP_MS (its stamp's ticks and a little more, so that one stamp is not gone before the next is drawn); they
+share the tornado tag's squares on the sheet.
 """
 import argparse
 import os
@@ -133,6 +141,10 @@ FX = {
 }
 
 
+STAMP_TICKS = 2
+STAMP_MS = 34                         # 2 ticks are 33.3 ms
+
+
 def build():
     sheets = {}
     for sprite, tags in FX.items():
@@ -148,6 +160,9 @@ def build():
                 frames.append((G.centre_frame(f, u0, r0), m))
             out[tag] = frames
         sheets[sprite] = out
+    big = sheets["league_yasuo_big"]
+    for i, (f, _) in enumerate(big["tornado"]):
+        big[f"tornado_{i}"] = [(f, STAMP_MS)]
     return sheets
 
 
@@ -158,7 +173,7 @@ def main():
     if args.raw:
         from_raw(args.raw)
     for sprite, tags in build().items():
-        w, h = G.write_sheet(os.path.join(MOD, "effects", sprite), tags)
+        w, h = G.write_sheet(os.path.join(MOD, "effects", sprite), tags, share=sprite == "league_yasuo_big")
         print(f"league/effects/{sprite}#sheet.png {w}x{h}: " + ", ".join(
             f"{t} {len(v)}f {sum(m for _, m in v)}ms" for t, v in tags.items()))
 

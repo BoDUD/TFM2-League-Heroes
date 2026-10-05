@@ -20,6 +20,10 @@ assets/source/riven/riven_fx_<set>_<back|front>.png (1x, the delivery's cell lay
 The sheets: every frame cut round its cell's standing point (strips.centre_frame, as import_native cuts the body),
 so a CasterViewEffect played with the action's CasterAnimation (both on the action's first tick, `is_follow`)
 lands on her frame for frame; the back layers are bound with z -1 (under the units), the front ones with z 1.
+The R's layers also start later than that - 10 ticks into her attack, when the attack starts the R or fires Wind
+Slash, and from Wind Slash's checks every 30 ticks - and there they are bound without `is_follow`
+(league_riven_r_on_back_atk / _front_atk, league_riven_r_slash_back): a following caster picture started after the
+action's first tick is mirrored the wrong way for a red-side caster. Her CasterAnimation holds her still meanwhile.
 Drawn at her own scale they are not resized: Ki Burst's ring reaches 41-42 px to either side and Q3's crack 28-39,
 which is where a unit's standing point is still hit - a RangeEffect's radius (25000 and 26000) plus the collision
 radii of the caster and the unit tested, about 17000 together (league_garen E began 45 px from its target at a range

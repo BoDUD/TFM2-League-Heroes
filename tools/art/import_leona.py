@@ -151,7 +151,7 @@ FX = {
     },
     "league_leona_big": {
         "w_burst": (7, 2, FEET, [70] * 7, 1),
-        "r_flare": (12, 2, FEET, [100] * 6 + [50] + [70] * 5, 1),   # the beam on frame 7, at 0.6 s
+        "r_flare": (12, 2, FEET, [100] * 6 + [50] + [70] * 5, 1),   # the beam on frame 7, at 0.6 s; a ViewEffect on the cast point (a zone view turns: upside down cast leftward)
     },
 }
 

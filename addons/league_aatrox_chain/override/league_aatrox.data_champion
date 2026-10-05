@@ -3608,6 +3608,10 @@
         },
         {
           "type": "RemoveCasterBuff",
+          "name": "league_aatrox_w_any"
+        },
+        {
+          "type": "RemoveCasterBuff",
           "name": "league_aatrox_p_lw"
         },
         {
@@ -3692,6 +3696,21 @@
               "penetrate": false,
               "applied_target": "EnemyWithoutTower",
               "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_aatrox_w_any",
+                      "duration": {
+                        "Time": {
+                          "tick": 30
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  }
+                },
                 {
                   "casting_type": "Targeting",
                   "effect": {

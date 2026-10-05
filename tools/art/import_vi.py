@@ -27,7 +27,9 @@ The hits, W's third hit, Q's stop and R's knock aside on the target's upper body
 shield and R's launch with their foot on the soles; R's slam crack round the feet (its middle 2 px over the soles).
 Times (60 ticks a second, league_vi.data_champion): the Q charge 5 x 100 ms (its 30 ticks), Q's dust 6 x 70 ms (the
 12-tick dash and after), the shield 3 + 25 + 2 frames = 3 s (its 180 ticks: frames 4-8 loop five times, then it
-shatters), R's trail 6 x 70 ms (the dash, up to 28 ticks), the slam 8 x 90 ms, the rest 60-80 ms. Writes
+shatters), R's trail 6 x 70 ms (the dash, up to 28 ticks; it plays on the ult's first tick and waits the 7 ticks
+before the dash in an empty first frame, as a following caster picture played from a Delayed is mirrored the wrong
+way for a red-side caster), the slam 8 x 90 ms, the rest 60-80 ms. Writes
 league/effects/league_vi_fx. --review draws every effect at 4x on her frame (or a target: her idle) on the arena
 colour.
 """
@@ -178,7 +180,9 @@ def build():
         "e_wave": seq(on_line(cells("e_cone"), E_SMASH[0], WAVE), 60),
         "e_hit": seq(at(cells("e_hit"), BODY), 70),
         "r_cast": seq(grounded(cells("r_cast")), 80),
-        "r_trail": seq(right_at(cells("r_trail"), R_BACK), 70),
+        # played on the ult's first tick (a following picture played later is mirrored the wrong way on the red
+        # side): empty for the 7 ticks before the dash
+        "r_trail": [(np.zeros((1, 1, 4), np.uint8), round(7 * 1000 / 60))] + seq(right_at(cells("r_trail"), R_BACK), 70),
         "r_side": seq(at(cells("r_side"), BODY), 80),
         "r_hit": seq(grounded(cells("r_hit")), 80),
         "r_slam": seq(round_feet(cells("r_slam")), 90),

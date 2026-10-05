@@ -254,10 +254,10 @@ Layout: one horizontal row of 8 equal cells, each 7 wide to 12 tall, image size 
 | `kaisa_fx_q_pod` | view_effects `league_kaisa_q_cast`（Claude 把它放到两个翼舱的光眼上） | 12 |
 | `kaisa_fx_q_hit` | view_effects `league_kaisa_q_hit`（跟随） | 14 |
 | `kaisa_fx_w_charge` | view_effects `league_kaisa_w_charge`（跟随，放在炮口） | 14 × 12 |
-| `kaisa_fx_w_muzzle` | view_effects `league_kaisa_w_muzzle`（跟随，放在炮口） | 20 × 14 |
+| `kaisa_fx_w_muzzle` | view_effects `league_kaisa_w_muzzle`（不跟随：动作中途播放，跟随的话红色方会画反；放在炮口） | 20 × 14 |
 | `kaisa_fx_w_hit` | view_effects `league_kaisa_w_hit`（跟随） | 22 |
 | `kaisa_fx_r_launch` | view_effects `league_kaisa_r_launch`（不跟随，留在原地） | 28 × 18 |
-| `kaisa_fx_r_trail` | view_effects `league_kaisa_r_trail`（跟随，冲刺时播放） | 36 × 16 |
+| `kaisa_fx_r_trail` | view_effects `league_kaisa_r_trail`（跟随；大招第一个 tick 播放，冲刺前的 7 tick 是空帧） | 36 × 16 |
 | `kaisa_fx_r_land` | view_effects `league_kaisa_r_land`（跟随） | 26 × 14 |
 | `kaisa_fx_r_shield` | view_effects `league_kaisa_r_shield`（跟随） | 30 × 42 |
 | `kaisa_fx_evolve` | view_effects `league_kaisa_evolve`（跟随） | 28 × 48 |

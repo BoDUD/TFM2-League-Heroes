@@ -5,6 +5,7 @@ torso upright, the near arm pumping bent at the elbow (a fist), the blade held b
 run cycle in the design's own leg materials (skin at the thigh top, the purple stocking, the gold knee guard stamped
 as drawn at the knee, the boot as drawn at the ankle), both legs the same lengths, the body on the planted foot
 (a bob of a row at most)."""
+import json
 import math
 import os
 import sys
@@ -229,7 +230,7 @@ ARM3 = [(-30, 45), (-25, 50), (-5, 70), (20, 95), (35, 105), (25, 95), (0, 70), 
 BLADE3 = [5, 6, 4, 0, -4, -6, -4, 0]             # the unit's swing (degrees) against the near arm
 
 
-def run_frame(P, i):
+def run_frame_v3(P, i):
     d = P.d
     knee, boot = parts(d)
     hip_y = HIP_BASE + BOB[i]
@@ -263,6 +264,124 @@ def run_frame(P, i):
     r_ = (r0[0] - R.CUFF[0] + cuff[0] + lean_c, r0[1] - R.CUFF[1] + cuff[1] + up_dy)
     keep = [(int(round(r_[0] - 0.5)), int(round(r_[1] - 0.5)))]
     return R.settle(can, keep, 0, up_dy, 86 + up_dy)
+
+
+# ---------------------------------------------------------------------------------------------------------------
+# v4 (2026-10-05, 「还有希维尔也有点奇怪 你按照刚才的方法看一看怎么改」, the way Sett's run was redone the same day): v3
+# placed each foot along a cycle of its own and solved the knee forward, so both knees stayed bent in every frame - a
+# short crouching shuffle - where League's Sivir_Base_Run (what `Run` plays, tools/lol/anim_graph.py) strides long:
+# the planted leg straight, the other kicked up behind and swung through. Each knee and ankle now stands where League's
+# are from its hip in the design's own camera (LOL_RUN: tools/lol/pose_joints.py with assets/source/sivir/poses.json
+# --tag run), its height scaled to these bones and its stride a third wider (LOL_SCALE: at the height's scale the feet
+# stayed under the body); the body as low as the lowest boot lets it stand (lifted in League's two frames in the air
+# it hopped); the leg nearer the camera in League's frame drawn over the other, a boot kicked up behind turned toe back. The
+# arm and the blade keep v3's swings (ARM3, BLADE3) on the same phase: run frame 1 is League's contact of the near foot.
+LOL_RUN = os.path.join(os.path.dirname(os.path.dirname(HERE)), "assets", "source", "sivir", "lol_run_joints.json")
+LOL_OFFSET = 6                                   # run frame i is League's frame (i + 6) % 8: League's 875 ms in frame 1
+LOL_SIDE = {"near": "L", "far": "R"}             # the near hip (68.5, screen right) is League's L
+LOL_LEG = 20.7                                   # League's leg from the hip to the ankle, stretched (game px)
+LOL_SCALE = (1.3 * (THIGH + SHIN) / LOL_LEG, (THIGH + SHIN) / LOL_LEG)   # across, down
+KICK = 60                                        # a shin further than this from hanging, its toe back: the boot turned
+
+
+def lol_legs(i):
+    """{side: (knee, ankle offsets from the hip, kicked, depth)} of League's frame for run frame i (LOL_SCALE)."""
+    with open(LOL_RUN, encoding="utf-8") as f:
+        fr = json.load(f)[(i + LOL_OFFSET) % 8]
+    j, (sx, sy) = fr["joints"], LOL_SCALE
+    out = {}
+    for side, n in LOL_SIDE.items():
+        h, k, a, t = j[n + "_Hip"], j[n + "_KneeLower"], j[n + "_Foot"], j[n + "_Toe"]
+        shin = math.degrees(math.atan2(a[0] - k[0], a[1] - k[1]))
+        out[side] = (((k[0] - h[0]) * sx, (k[1] - h[1]) * sy), ((a[0] - h[0]) * sx, (a[1] - h[1]) * sy),
+                     abs(shin) > KICK and t[0] < a[0], (k[2] + a[2]) / 2)
+    return out
+
+
+def fill_walled(can, keep):
+    """Ground walled in by the figure (between the legs under the skirt, where League's stride parts them) takes the
+    commonest colour beside it that is not the outline, else the stocking's shade - except the blade's ring (keep)."""
+    from collections import Counter, deque
+    h, w = can.shape[:2]
+    op = can[..., 3] > 0
+    outside = np.zeros((h, w), bool)
+    todo = deque([(y, x) for y in range(h) for x in (0, w - 1) if not op[y, x]] +
+                 [(y, x) for x in range(w) for y in (0, h - 1) if not op[y, x]])
+    for y, x in todo:
+        outside[y, x] = True
+    while todo:
+        y, x = todo.popleft()
+        for oy, ox in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+            Y, X = y + oy, x + ox
+            if 0 <= Y < h and 0 <= X < w and not op[Y, X] and not outside[Y, X]:
+                outside[Y, X] = True
+                todo.append((Y, X))
+    walled = {(y, x) for y, x in zip(*np.nonzero(~op & ~outside))}
+    ring, seen = set(), set()
+    for q in walled:                               # the ring's opening: the walled piece within 3 squares of its middle
+        if q in seen:
+            continue
+        piece, stack = set(), [q]
+        while stack:
+            y, x = stack.pop()
+            if (y, x) in piece or (y, x) not in walled:
+                continue
+            piece.add((y, x))
+            stack += [(y + 1, x), (y - 1, x), (y, x + 1), (y, x - 1)]
+        seen |= piece
+        if any(abs(x - kx) <= 3 and abs(y - ky) <= 3 for y, x in piece for kx, ky in keep):
+            ring |= piece
+    left = walled - ring
+    while left:
+        done = {}
+        for y, x in left:
+            near = [tuple(int(v) for v in can[y + oy, x + ox]) for oy in (-1, 0, 1) for ox in (-1, 0, 1)
+                    if (oy or ox) and can[y + oy, x + ox, 3] and tuple(int(v) for v in can[y + oy, x + ox, :3]) != OUT]
+            if near:
+                done[(y, x)] = Counter(near).most_common(1)[0][0]
+        if not done:
+            for y, x in left:
+                can[y, x] = rgba("e")
+            break
+        for (y, x), c in done.items():
+            can[y, x] = c
+        left -= set(done)
+    return can
+
+
+def run_frame(P, i):
+    d = P.d
+    knee, boot = parts(d)
+    legs = lol_legs(i)
+    hip_y = 99 - ANKLE_TO_SOLE + 0.5 - max(a[1] for _, a, _, _ in legs.values())
+    up_dy = int(round(hip_y - HIP_ROW))
+    hip_y = HIP_ROW + up_dy
+    can = np.zeros((128, 128, 4), np.uint8)
+    # the blade behind the waist, under the legs
+    ud = BLADE3[i]
+    cuff = (59.0, 76.0)
+    lean_c = R.lean_shift(int(cuff[1]), LEAN)
+    behind = R.transform(*P.unit, R.CUFF, ud, (cuff[0] + lean_c, cuff[1] + up_dy))
+    for k, v in R.sleeve((R.SHOULDER_FAR[0] + R.lean_shift(int(R.SHOULDER_FAR[1]), LEAN), R.SHOULDER_FAR[1] + up_dy),
+                         (cuff[0] + lean_c, cuff[1] + up_dy)).items():
+        behind.setdefault(k, v)
+    R.put(can, behind)
+    for side in sorted(legs, key=lambda sd: legs[sd][3]):          # the far one (in League's depth) first
+        (kx, ky), (ax, ay), kicked, _ = legs[side]
+        hip = (V3_HIPS[side], hip_y)
+        R.put(can, ring(leg_at(hip, (hip[0] + kx, hip_y + ky), (hip[0] + ax, hip_y + ay), knee, boot, kicked)[0]))
+    up = {}
+    body = P.body_nolegs
+    for yy, xx in zip(*np.nonzero(body[..., 3])):
+        up.setdefault((xx, yy), body[yy, xx])
+    R.put(can, {(x + R.lean_shift(y, LEAN), y + up_dy): c for (x, y), c in up.items()})
+    ua, el = ARM3[i]
+    R.put(can, ring(arm_cells((SHOULDER[0] + R.lean_shift(int(SHOULDER[1]), LEAN), SHOULDER[1] + up_dy), ua, el)))
+    can = R.drop_small(can, 4)
+    r0 = R.rot_pt(R.RING, R.CUFF, ud)
+    r_ = (r0[0] - R.CUFF[0] + cuff[0] + lean_c, r0[1] - R.CUFF[1] + cuff[1] + up_dy)
+    keep = [(int(round(r_[0] - 0.5)), int(round(r_[1] - 0.5)))]
+    return fill_walled(R.settle(can, keep, 0, up_dy, 86 + up_dy), keep)
 
 
 if __name__ == "__main__":

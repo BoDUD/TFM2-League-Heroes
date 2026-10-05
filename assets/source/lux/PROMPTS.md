@@ -268,7 +268,7 @@ Layout: one horizontal row of 6 equal square cells, image size 1536x256; the bur
 | `lux_fx_q_bind.png` | 8 | 特效 `league_lux_q_bind`（跟随目标，定身 1.5 秒：1–2、3–6 两遍、7–8） | 80/80 + 8 × 125 + 90/90 |
 | `lux_fx_shield.png` | 8 | 特效 `league_lux_shield`（跟随友方） | 80/80 + 8 × 100 + 90/90 |
 | `lux_fx_e_orb.png` | 4 | 飞行道具 `league_lux_e_orb`（E 抛物线） | 4 × 80 ms 循环 |
-| `lux_fx_e_zone.png` | 8 | 范围 `league_lux_e_burst`（1–4 两遍 = 1 秒光圈，5–8 = 引爆） | 8 × 125 + 4 × 100 |
+| `lux_fx_e_zone.png` | 8 | 落点的 ViewEffect `league_lux_e_burst`（不随方向旋转；判定是无画面的 `league_lux_e_zone`；1–4 两遍 = 1 秒光圈，5–8 = 引爆） | 8 × 125 + 4 × 100 |
 | `lux_fx_r_beam.png` | 6（竖排） | `league_lux_r_beam`（`LineRangeProjectile`，拉到 240 px 长） | 200/217/60/130/130/130 |
 | `lux_fx_mark.png` | 6 | 特效 `league_lux_mark`（跟随目标） | 1、2–5 两遍、6 |
 | `lux_fx_ignite.png` | 6 | 特效 `league_lux_ignite` | 6 × 60 ms |
@@ -324,4 +324,4 @@ $P --pitch 12 --width 1.3 --fit 0.5 --ground 0.86 --shift 0.16 --name lux_pose_d
 
 ## 进游戏后的修正（2026-09-26）
 
-用户反馈拉克丝的下半身有时像变了形。查下来是跑步第 4、5、7、8 帧：英雄联盟的 `lux_run` 后半段把法杖竖在身后，杖尾垂到后脚边。游戏尺寸下，金、白、肤色的杖尾和后腿之间没有描边隔开，读起来像一只金色的脚。四帧里这团像素改成和其他帧一样的深蓝腿、深色靴子，杖尾算作被腿挡住。共 42 个像素，记在 [`../native/lux_retouch.json`](../native/lux_retouch.json)，`import_native.py` 导入时套用。其他动作的腿都是深蓝加金色护膝、靴边，逐帧一致，没有改。
+用户反馈拉克丝的下半身有时像变了形。查下来是跑步第 4、5、7、8 帧：英雄联盟的 `lux_run` 后半段把法杖竖在身后，杖尾垂到后脚边。游戏尺寸下，金、白、肤色的杖尾和后腿之间没有描边隔开，读起来像一只金色的脚。四帧里这团像素改成和其他帧一样的深蓝腿、深色靴子，杖尾算作被腿挡住。共 42 个像素，记在 [`../native/lux_retouch.json`](../native/lux_retouch.json)，`import_native.py` 导入时套用。其他动作的腿都是深蓝加金色护膝、靴边，逐帧一致，没有改。（Codex 第二版重画后这处修改去掉了；2026-10-05 起 `lux_retouch.json` 由 `tools/art/lux_retouch.py` 生成，内容是补全手下面的半截法杖、统一两只眼睛，见 README。）

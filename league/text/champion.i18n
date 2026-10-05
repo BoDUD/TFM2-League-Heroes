@@ -407,6 +407,13 @@
         "skill2": "<#ff9028ff>冰霜之环<>：周围敌人受到<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法伤害<>并<#ef5350ff>定身1.25秒<>。身边没敌人时放<#ff9028ff>冰川之径<>：冰爪造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>，追上正在交战的敌方英雄后再放冰环。",
         "ult": "冰封敌方英雄：<#ef5350ff>眩晕1.5秒<>，受到<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<><#a974ffff>魔法伤害<>。被两名以上敌方英雄围住时改为冰封自己<#ffb900ff>2.5秒<>：免疫伤害和控制，回复<#7cfc00ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>80%<>生命。冰块周围留下减速冰地。"
       },
+      "league_alistar": {
+        "name": "阿利斯塔",
+        "attack": "用双拳重击。被动<#ff9028ff>凯旋怒吼<>：控制命中敌方英雄<#ffb900ff>3次<>后怒吼，回复自己<#7cfc00ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>20%<>、周围友方英雄<#7cfc00ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>30%<>生命。",
+        "skill": "<#ff9028ff>践踏<>接<#ff9028ff>大地粉碎<>：先践踏<#ffb900ff>3秒<>（每脚<#a974ffff>8<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6%<>），再砸地，周围敌人受到<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法伤害<>并<#ef5350ff>击飞1秒<>。踩中英雄<#ffb900ff>5次<>后，下次普攻<#ef5350ff>眩晕1秒<>。",
+        "skill2": "<#ff9028ff>野蛮冲撞<>接<#ff9028ff>大地粉碎<>：冲向敌方英雄，撞退并造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法伤害<>，随即砸地<#ef5350ff>击飞<>周围敌人，同时开始践踏。",
+        "ult": "交战时怒吼：<#ef5350ff>免疫控制1秒<>，<#ffb900ff>7秒<>内受到的伤害降低<#ffb900ff>50%<>。"
+      },
       "league_varus": {
         "name": "韦鲁斯",
         "attack": "射箭攻击，附带<#a974ffff>20魔法伤害<>，命中英雄叠一层<#ff9028ff>枯萎<>（最多3层）。被动<#ff9028ff>复仇之欲<>：击杀英雄后攻速+<#ffb900ff>60%<>，击杀小兵野怪+<#ffb900ff>20%<>，持续5秒。",
@@ -712,6 +719,11 @@
         "skill1": "寒冰碎片",
         "skill2": "冰霜之环",
         "ult": "冰封陵墓"
+      },
+      "league_alistar": {
+        "skill1": "大地粉碎",
+        "skill2": "野蛮冲撞",
+        "ult": "坚定意志"
       },
       "league_varus": {
         "skill1": "穿刺之箭",
@@ -1133,6 +1145,13 @@
         "skill2": "<#ff9028ff>暴雪結界<>：周圍敵人受到<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法傷害<>並<#ef5350ff>定身1.25秒<>。身邊沒敵人時施放<#ff9028ff>急速冰刺<>：冰爪造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>，追上交戰中的敵方英雄後再放結界。",
         "ult": "冰封敵方英雄：<#ef5350ff>暈眩1.5秒<>，受到<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<><#a974ffff>魔法傷害<>。被兩名以上敵方英雄包圍時改為冰封自己<#ffb900ff>2.5秒<>：免疫傷害和控制，回復<#7cfc00ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>80%<>生命。冰塊周圍留下緩速冰地。"
       },
+      "league_alistar": {
+        "name": "亞歷斯塔",
+        "attack": "用雙拳重擊。被動<#ff9028ff>勝利怒吼<>：控制命中敵方英雄<#ffb900ff>3次<>後怒吼，回復自己<#7cfc00ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>20%<>、周圍友方英雄<#7cfc00ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>30%<>生命。",
+        "skill": "<#ff9028ff>蠻牛之力<>接<#ff9028ff>大地粉碎<>：先踐踏<#ffb900ff>3秒<>（每腳<#a974ffff>8<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6%<>），再砸地，周圍敵人受到<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法傷害<>並<#ef5350ff>擊飛1秒<>。踩中英雄<#ffb900ff>5次<>後，下次普攻<#ef5350ff>暈眩1秒<>。",
+        "skill2": "<#ff9028ff>野蠻衝撞<>接<#ff9028ff>大地粉碎<>：衝向敵方英雄，撞退並造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<><#a974ffff>魔法傷害<>，隨即砸地<#ef5350ff>擊飛<>周圍敵人，同時開始踐踏。",
+        "ult": "交戰時怒吼：<#ef5350ff>免疫控制1秒<>，<#ffb900ff>7秒<>內受到的傷害降低<#ffb900ff>50%<>。"
+      },
       "league_varus": {
         "name": "法洛士",
         "attack": "射箭攻擊，附帶<#a974ffff>20魔法傷害<>，命中英雄疊一層<#ff9028ff>荒蕪<>（最多3層）。被動<#ff9028ff>復仇怒火<>：擊殺英雄後攻速+<#ffb900ff>60%<>，擊殺小兵野怪+<#ffb900ff>20%<>，持續5秒。",
@@ -1438,6 +1457,11 @@
         "skill1": "幽影碎冰",
         "skill2": "暴雪結界",
         "ult": "永凍墳地"
+      },
+      "league_alistar": {
+        "skill1": "大地粉碎",
+        "skill2": "野蠻衝撞",
+        "ult": "堅定意志"
       },
       "league_varus": {
         "skill1": "破甲箭",
@@ -1859,6 +1883,13 @@
         "skill2": "<#ff9028ff>Ring of Frost<>: enemies around her take <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>magic damage<> and are <#ef5350ff>rooted<> for <#ffb900ff>1.25s<>. With no enemy near, <#ff9028ff>Glacial Path<> first: a claw dealing <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>; she blinks after it to an enemy champion her team is fighting and casts the ring there.",
         "ult": "Encases an enemy champion: <#ef5350ff>stunned<> for <#ffb900ff>1.5s<>, <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<> <#a974ffff>magic damage<>. Surrounded by two or more enemy champions, she encases herself instead for <#ffb900ff>2.5s<>: immune to damage and crowd control, healing <#7cfc00ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>80%<>. The ice leaves a slowing field around the tomb."
       },
+      "league_alistar": {
+        "name": "Alistar",
+        "attack": "Pounds with both fists. Passive <#ff9028ff>Triumphant Roar<>: after his crowd control lands on enemy champions <#ffb900ff>3 times<> he roars, healing himself <#7cfc00ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>20%<> and allied champions nearby <#7cfc00ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>30%<>.",
+        "skill": "<#ff9028ff>Trample<> into <#ff9028ff>Pulverize<>: he tramples for <#ffb900ff>3s<> (<#a974ffff>8<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6%<> a stomp), then smashes the ground: <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>magic damage<> and a <#ef5350ff>1s knock-up<> around him. After <#ffb900ff>5<> stomps on champions his next attack <#ef5350ff>stuns<> for 1s.",
+        "skill2": "<#ff9028ff>Headbutt<> into <#ff9028ff>Pulverize<>: charges an enemy champion, knocks him back for <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>magic damage<>, then smashes the ground, <#ef5350ff>knocking up<> enemies around him. Starts Trample too.",
+        "ult": "Roars in a fight: <#ef5350ff>immune to crowd control<> for <#ffb900ff>1s<>, takes <#ffb900ff>50%<> less damage for <#ffb900ff>7s<>."
+      },
       "league_varus": {
         "name": "Varus",
         "attack": "Shoots arrows dealing <#a974ffff>20 magic damage<> on hit; each champion hit adds a stack of <#ff9028ff>Blight<> (up to 3). Passive <#ff9028ff>Living Vengeance<>: a champion kill gives <#ffb900ff>+60%<> attack speed, a minion or monster kill <#ffb900ff>+20%<>, for 5s.",
@@ -2164,6 +2195,11 @@
         "skill1": "Ice Shard",
         "skill2": "Ring of Frost",
         "ult": "Frozen Tomb"
+      },
+      "league_alistar": {
+        "skill1": "Pulverize",
+        "skill2": "Headbutt",
+        "ult": "Unbreakable Will"
       },
       "league_varus": {
         "skill1": "Piercing Arrow",
@@ -2585,6 +2621,13 @@
         "skill2": "<#ff9028ff>서릿발<>: 주변 적에게 <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>의 <#a974ffff>마법 피해<>를 입히고 <#ffb900ff>1.25초<> <#ef5350ff>속박<>합니다. 주변에 적이 없으면 먼저 <#ff9028ff>얼음갈퀴 길<>: 갈퀴가 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>의 피해를 주고, 교전 중인 적 챔피언 곁으로 이동해 서릿발을 사용합니다.",
         "ult": "적 챔피언을 얼려 <#ffb900ff>1.5초<> <#ef5350ff>기절<>시키고 <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>의 <#a974ffff>마법 피해<>. 적 챔피언 둘 이상에게 둘러싸이면 대신 자신을 <#ffb900ff>2.5초<> 얼려 피해와 군중 제어에 면역이 되고 <#7cfc00ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>80%<>의 체력을 회복합니다. 얼음 주변에 둔화 지대가 남습니다."
       },
+      "league_alistar": {
+        "name": "알리스타",
+        "attack": "두 주먹으로 내리칩니다. 기본 지속 효과 <#ff9028ff>승리의 포효<>: 군중 제어를 적 챔피언에게 <#ffb900ff>3번<> 적중시키면 포효해 자신은 <#7cfc00ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>20%<>, 주변 아군 챔피언은 <#7cfc00ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>30%<>의 체력을 회복합니다.",
+        "skill": "<#ff9028ff>짓밟기<> 후 <#ff9028ff>분쇄<>: <#ffb900ff>3초<> 동안 짓밟고(한 번에 <#a974ffff>8<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6%<>) 땅을 내리쳐 주변 적에게 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>의 <#a974ffff>마법 피해<>를 입히고 <#ef5350ff>1초 띄워 올립니다<>. 챔피언을 <#ffb900ff>5번<> 밟으면 다음 기본 공격이 <#ef5350ff>1초 기절<>시킵니다.",
+        "skill2": "<#ff9028ff>박치기<> 후 <#ff9028ff>분쇄<>: 적 챔피언에게 돌진해 밀쳐내며 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>의 <#a974ffff>마법 피해<>를 입히고, 곧바로 땅을 내리쳐 주변 적을 <#ef5350ff>띄워 올립니다<>. 짓밟기도 시작합니다.",
+        "ult": "교전 중 포효: <#ffb900ff>1초<> 동안 <#ef5350ff>군중 제어 면역<>, <#ffb900ff>7초<> 동안 받는 피해가 <#ffb900ff>50%<> 감소합니다."
+      },
       "league_varus": {
         "name": "바루스",
         "attack": "화살로 공격해 <#a974ffff>20의 마법 피해<>를 추가로 입히고, 챔피언에게 <#ff9028ff>역병<> 중첩을 쌓습니다(최대 3). 기본 지속 효과 <#ff9028ff>죽지 않는 복수심<>: 챔피언 처치 시 공격 속도 <#ffb900ff>+60%<>, 미니언·몬스터 처치 시 <#ffb900ff>+20%<> (5초).",
@@ -2890,6 +2933,11 @@
         "skill1": "얼음 파편",
         "skill2": "서릿발",
         "ult": "얼음 무덤"
+      },
+      "league_alistar": {
+        "skill1": "분쇄",
+        "skill2": "박치기",
+        "ult": "꺾을 수 없는 의지"
       },
       "league_varus": {
         "skill1": "꿰뚫는 화살",
@@ -3311,6 +3359,13 @@
         "skill2": "<#ff9028ff>リング・オブ・フロスト<>：周囲の敵に<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の<#a974ffff>魔法ダメージ<>と<#ffb900ff>1.25秒<>の<#ef5350ff>スネア<>。近くに敵がいなければ先に<#ff9028ff>グラシアルパス<>：爪が<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>、交戦中の敵チャンピオンの側へ移動してリングを放つ。",
         "ult": "敵チャンピオンを凍らせ<#ffb900ff>1.5秒<><#ef5350ff>スタン<>、<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>の<#a974ffff>魔法ダメージ<>。敵チャンピオン2体以上に囲まれると代わりに自分を<#ffb900ff>2.5秒<>凍らせ、ダメージと行動妨害を無効化し<#7cfc00ff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>80%<>回復。氷の周りにスロウの氷原が残る。"
       },
+      "league_alistar": {
+        "name": "アリスター",
+        "attack": "両拳で殴りつける。パッシブ <#ff9028ff>戦士の咆哮<>：行動妨害を敵チャンピオンに<#ffb900ff>3回<>当てると咆哮し、自身は<#7cfc00ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>20%<>、周囲の味方チャンピオンは<#7cfc00ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>30%<>回復。",
+        "skill": "<#ff9028ff>踏破<>から<#ff9028ff>圧砕<>：<#ffb900ff>3秒<>踏み鳴らし（1回<#a974ffff>8<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>6%<>）、地面を叩いて周囲の敵に<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>1秒のノックアップ<>。チャンピオンを<#ffb900ff>5回<>踏むと次の通常攻撃が<#ef5350ff>1秒スタン<>。",
+        "skill2": "<#ff9028ff>頭突き<>から<#ff9028ff>圧砕<>：敵チャンピオンに突進してノックバックし<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の<#a974ffff>魔法ダメージ<>、すぐ地面を叩いて周囲の敵を<#ef5350ff>ノックアップ<>。踏破も始める。",
+        "ult": "戦闘中に咆哮：<#ffb900ff>1秒<><#ef5350ff>行動妨害無効<>、<#ffb900ff>7秒<>間受けるダメージ<#ffb900ff>50%<>軽減。"
+      },
       "league_varus": {
         "name": "ヴァルス",
         "attack": "矢で攻撃し<#a974ffff>20の魔法ダメージ<>を追加、チャンピオンに<#ff9028ff>枯死<>を付与（最大3）。パッシブ <#ff9028ff>復讐の化身<>：チャンピオンを倒すと攻撃速度<#ffb900ff>+60%<>、ミニオン・モンスターで<#ffb900ff>+20%<>（5秒）。",
@@ -3616,6 +3671,11 @@
         "skill1": "アイスシャード",
         "skill2": "リング・オブ・フロスト",
         "ult": "フローズングレイブ"
+      },
+      "league_alistar": {
+        "skill1": "圧砕",
+        "skill2": "頭突き",
+        "ult": "不屈の意志"
       },
       "league_varus": {
         "skill1": "乾坤一擲",

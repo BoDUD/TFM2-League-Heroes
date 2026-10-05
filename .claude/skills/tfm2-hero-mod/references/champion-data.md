@@ -431,9 +431,9 @@ How they behave *(measured in the SDK simulation for league_jinx, 3-12 ten-minut
   league_thresh R's Box, played in the `end_effects` of Ekko's anchor (which ends on his own spot), was
   invisible (seen by the user, 2026-09-29), though the simulation logs the event
   (`EffectApplyed { target: Pos, caster_id }`, the same as for a far point) and the binding reads back
-  normally (`is_follow` false by default). The view layer's effect system carries an `is_rot` flag, so it
-  probably turns a picture on a point toward it from the caster, which has no direction at zero distance
-  *(inferred)*. Play such a picture as a `CasterViewEffect` in the cast (not following), and keep
+  normally (`is_follow` false by default). The view layer's effect system carries an `is_rot` flag, but a mod's
+  `ViewEffect` never sets it (read from the SDK's game_view, section 6), so the turn is not why; the cause is
+  unknown. Play such a picture as a `CasterViewEffect` in the cast (not following), and keep
   `ViewEffect`s for points away from the caster (Ekko's field, Teemo's and Jinx's traps). league_yone's body
   left behind (`e_body` in his anchor's `end_effects`) is the same pattern and has not been seen in game. A `BackToCasterLinearProjectile` started from them flies from that point back to the
   caster, wherever he has walked meanwhile, hits what it passes and runs its own `end_effects` on the caster
@@ -620,6 +620,14 @@ the same champion file.
   shield holds as `loop_tag` and the forming played backwards as `remove_tag`: a separate `ViewEffect` for the
   intro would play on top of the buff's loop.
 - `z` < 0 draws under units (ground decals, zones); `is_follow` makes an effect follow its unit.
+- How the client builds a mod's views *(read from the SDK's game_view 0.5.1, 2026-10-05:
+  `GameViewSystem::register_data_champion_views` and the systems' `render` / `generate`)*: an `Animated`
+  `view_projectiles` entry becomes an `AnimatedProjectileSystem` with its turn on and no spin (`render` draws the
+  sprite with `RenderCommand::rot` of the projectile's angle), and `Sprite` and `ThreePhase` turn too - so every
+  projectile's or zone's picture follows its direction, never a flip. A `view_effects` `Animation` becomes an
+  `AnimationEffectViewSystem` whose `is_rot` and `render_at_caster` are always off and whose `is_follow` is the data's;
+  `generate` makes an `AnimationOnce` on a point (never turned: only `is_rot` calls `atan2`), an
+  `AnimationOnceFollow` on a unit with `is_follow`. 1 px is 1000 units (`generate` scales positions by 0.001).
 - The whole schema (serde names in the SDK's `game_core` metadata): `view_effects` are `Animation` or
   `LoopAnimation`, each `{name, anim, tag, z, is_follow}`; `view_projectiles` are `Animated
   {repeat}`, `Sprite` or `ThreePhase {pre_tag, loop_tag, remove_tag}`. There is no rotation or flip
@@ -631,7 +639,24 @@ the same champion file.
   rained upward whenever she cast it leftward (seen in-game in the mid lane). A picture that must stay
   upright goes in a `ViewEffect` next to the zone in the cast's `Combine` instead (no view for the zone):
   on a `Position` cast it plays on the cast point in the same tick, unturned (an `Animation` plays its tag
-  once, so its frames cover the zone's lifetime).
+  once, so its frames cover the zone's lifetime). The same went for league_leona R's sunlight (a `RangeProjectile`;
+  the user: 「曙光女神大招在红色方放的是颠倒的」, 2026-10-05), league_varus E's ground, league_soraka Q's star (drawn
+  falling from the top left, cast leftward it rose from below; the zone sits in both branches of her Equinox switch,
+  a `ViewEffect` next to each) and league_lux E's ring with the orb above it - a zone started in the lobbed orb's
+  `end_effects`, so its `ViewEffect` plays on the landing point (section 4) - all `ViewEffect`s now, their zones
+  without a view. A zone's picture is turned about its pivot (the frame's centre), so a ring drawn on the ground
+  line, 11 px under the pivot as the feet are, also floats 22 px higher when turned *(inferred from the frames'
+  anchors)*: only a picture that looks the same turned half round about its pivot is safe as a zone's view.
+  `lint_mod.py` warns on every zone (`RangeProjectile`, `RangePeriodProjectile`, `ApplyInProjectile`) that has a
+  `view_projectiles` picture, wherever it is cast, with the share of the picture that lands elsewhere turned half
+  round. On 2026-10-05 it flagged 8 in 5 heroes; the user had the doubtful ones fixed the same way (「众星之子 E /
+  丽桑卓 R / 娑娜光环按同样的方法修」): league_soraka E's field (a ring on the ground line: a `ViewEffect` in its
+  `Delayed`), league_lissandra R's field (upright icicles: a `ViewEffect` in each of the six lobs' `end_effects`) and
+  league_sona's three auras (upright notes on a ring round her: each a `CasterViewEffect` with `is_follow: true` at
+  the action's own tick, next to its follow-zone `ApplyInProjectile`, its tag held for the aura's 180 ticks - the
+  loop repeated, `strips.write_sheet(share=True)` packing the repeats once). It still flags league_camille R's two
+  (stored turned on purpose: her zones always get (-1, 0), section 7) and league_fiddlesticks E's reap (a crescent
+  drawn facing the cast, symmetric top to bottom: meant to turn with it).
   A `CasterViewEffect` is not turned: it is drawn at the caster's pivot, mirrored when the caster
   faces left (the base gunner's backward-run dust is drawn only behind him), and stays where it was
   played unless `is_follow`.
@@ -644,12 +669,23 @@ the same champion file.
   action facing when it starts (`game_view` `get_action_flip_x`), a following one `AnimationOnceFollow {offset_x,
   offset_y}` with no flip of its own. oppi's LoL Reborn never combines the two: its 7 caster pictures inside a
   `Delayed` all have `is_follow: false`, its 8 following ones play at the action's start (league_riven's layers
-  too: bound on the action's first tick). So a directional picture timed into an action gets `is_follow: false`
+  too: bound on the action's first tick - except the R's when her attack starts it or fires Wind Slash, 10 ticks
+  in, and Wind Slash's later checks: those plays are bound without `is_follow`). So a directional picture timed into
+  an action gets `is_follow: false`
   (mirrored by the facing when it starts, it stays where it was played - fine while the hero stands in the
   animation); one that must ride on the hero (a dash trail) plays at the action's start, the wait drawn as
   leading empty frames. Left-right symmetric pictures (rings, auras, heals) show no difference. `lint_mod.py`
   warns on every late following caster picture (73 in 31 heroes of this pack in 2026-10, most of them
   symmetric). Check every directional effect with the hero on the red team before shipping.
+  On 2026-10-05 the directional ones were fixed (50 warnings in 30 heroes left, judged symmetric but four): the
+  muzzle and hand flashes of league_caitlyn, league_jhin, league_kaisa W, league_leblanc, league_kennen Q and
+  league_ryze Q and league_diana's cleave became `is_follow: false`; league_kaisa R's and league_vi R's dash trails
+  and league_tristana Q's burst at the bell play on the action's first tick, the wait an empty first frame (117 and
+  167 ms; the importers write it as `(None, ms)`). Nothing in data fits the four left: league_leblanc W's trail in
+  her Q-W combo (decided 24 ticks into Q, and it must ride her dash), league_tristana's Rapid Fire wisp and
+  league_masteryi's Highlander lines (replayed every second while a buff lasts, each play gated on the buff, as the
+  hero walks and turns - started with the action they could not stop with the buff) and league_fiora's speed lines
+  (played when a Vital is struck). A picture with no front and back (centred on the hero) would end it for them.
   A picture drawn off the pivot's side follows its caster: league_tristana's
   flashes at the bell, 22 px in front of her pivot, played without `is_follow`, were seen behind her
   after she turned (the user, 2026-10-01); with `is_follow` they turn with her, as league_riven's layers do. An `Animation` plays its tag once, so a view that must stand for
@@ -669,7 +705,23 @@ the same champion file.
   `Targeting` action it points at the target and lasts its `delay`; league_briar E's scream, league_vi E's shock wave:
   as a caster picture it stood the wrong way on the red side, "E技能的特效没有跟随人物 反方向的").
   A thing with a top and a bottom that flies every way (league_thresh's lantern) is laid along its flight
-  and mirrored top to bottom, so every turn of it looks the same (art-spec).
+  and mirrored top to bottom, so every turn of it looks the same (art-spec). Or it flies without a picture and is
+  stamped where it is: league_yasuo Q3's whirlwind, an upright funnel on its `LinearProjectile` (upside down flying
+  left, on its side flying up or down; the user kept the funnel, 2026-10-05: 「亚索的旋风特效还是用这个 右边的话你想办法处理
+  一下」). The whirlwind lost its `view_projectiles` entry; next to it in the same `Delayed`, 16 hidden
+  `LinearProjectile`s (`league_yasuo_q3_step`: its speed, no radius, no effects) stop where it is on every other tick
+  of its flight, and each one's `end_effects` play one frame of the funnel's loop as a `ViewEffect` on its stop point,
+  never turned (`league_yasuo_q3_tornado_<i>`: tag `tornado_<i>`, the frame showing at that tick, held 34 ms - a
+  little over the 2 ticks, so one stamp is not gone before the next; `tools/fix/fix_yasuo_q3_stamps.py`,
+  `tools/art/import_yasuo.py`). The funnel steps 5 px 30 times a second along the true path, whichever way it flies.
+  Where a `LinearProjectile` is *(SDK simulation, 2026-10-05: hidden ones of every range from 1 to 80000 at speed
+  2500, each playing a `ViewEffect` where it stopped, and `ProjectileMove`)*: it moves one step in the tick it spawns
+  and each tick after; it stops on the first tick its travel reaches its range and plays its `end_effects` on its
+  range exactly, so a projectile that stops on tick t of its flight has range speed x (t + 1) from the third tick on
+  (2500 stopped on tick 1, 5000 on 2, 7500 and 10000 on 3, 12500 on 4, 15000 on 5, the whirlwind's 80000 on 31).
+  Some casts start the flight a tick later or sooner, but projectiles fired together keep together, so the stamps stay
+  on the whirlwind. `ProjectileSpawnData` gives the start 5000 above the caster's ground point and `dir` from there to
+  where it will end (the client's picture is turned to that).
 - A projectile's picture has one length, but its frames can follow the flight: an `Animated` view with
   `repeat: false` plays its tag once from the moment the projectile appears. league_thresh Q's chain is
   drawn frame by frame (a frame every 2 ticks, 11 px longer each, behind a hook flying 5500 a tick), so its
@@ -1216,6 +1268,8 @@ league_lissandra (mid, --lane 2, 2026-10-05, Ring of Frost's 1.25 s root - also 
 Tomb's 1.5 s stun): 1.79 a game; the base lightning mage 3.19 and league_twistedfate 1.23 in the same batch - no change.
 league_varus (bottom, --lane 3, 2026-10-05, Chain of Corruption's 2 s root and its 1.5 s spread): 0.71 a game; the base
 gunner 0.19 and league_jhin 1.17 in the same batch - no change.
+league_alistar (support, --lane 4, 2026-10-05, Pulverize's and Headbutt -> Pulverize's 1 s knock-ups, Trample's 1 s stun):
+2.23 a game; league_leona 2.19 and the base priest 0.50 in the same batch - no change.
 
 **Kill trigger (league_jinx Get Excited!).** No effect fires on a kill, but section 4's facts make one:
 1. Next to the damaging projectile, fire an invisible twin with the same speed and path and
@@ -3253,6 +3307,27 @@ health in the SDK - the optional native add-on addons/league_tryndamere_rage (a 
 **A shout that slows only the ones leaving (league_tryndamere W, Mocking Shout).** Nothing reads facing; League slows
 enemies turned away, i.e. running off, so the far ones stand in: every enemy champion within w_r loses 25% attack, and
 those beyond w_near (12000) are also slowed 40% - two `RangeEffect`s, the near one adding a +40 buff that cancels the slow.
+
+**One skill that starts another (league_alistar E -> Q).** League's Trample is folded into Pulverize and into
+Headbutt -> Pulverize: with its own cooldown flag off, a cast also starts the trample - one `AddCasted` on himself
+(`RangeEffect AllyOnlySelf`) that stomps every 30 ticks for 3 s on `EnemyWithoutTower` round him, its first stomp on
+the wind-up. Every stomp that touches a champion climbs a caster-flag ladder e1..e4, and each champion the slam throws
+up counts one too (League's E Q: the stomps land on them in the air); the fifth arms e_ready, and his next attack's
+champion-only twin stuns 60 ticks and clears it.
+
+**A dash that ends in a slam where the push left them (league_alistar W -> Q).** A `Targeting` cast on `EnemyChampion`:
+`MoveToTarget` (3500 a tick) with `end_effects` = the headbutt (damage + `Knockback` 2500 x 8 ticks on the champions in
+front) and a `Delayed` 6-tick slam ring round where he stands - the same Pulverize ring, so it lands on the champion
+just as the knock-back sets him down.
+
+**Crowd control counted for a passive (league_alistar Triumphant Roar).** Every crowd-control effect's champion twin
+(the knock-ups, the headbutt, the stun) climbs a p1 -> p2 ladder on the caster; the third, with the 300-tick cooldown
+flag off, heals him and every allied champion within 40000 (`RangeEffect` `AllyChampion`) and clears the ladder.
+
+**An unstoppable roar fired on contact (league_alistar R).** Armed like league_blitzcrank R: a 3-tick `None` cast on
+`EnemyChampion` arms the slot 600 ticks; every action and a 15-tick pulse fire it when an enemy champion is within
+32000 or he is crowd-controlled himself: `cc_immune` 60 ticks (League's cleanse), `damaged_reduce` 50 for 420 ticks,
+the aura drawn behind him (view_buff `z` -1). Unused, `ult_cooldown_mult` refunds the cooldown.
 
 ## 8. Gotchas
 

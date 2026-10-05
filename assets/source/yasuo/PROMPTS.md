@@ -296,6 +296,8 @@ Layout: one horizontal row of 6 equal square cells, image size 1536x256; no gaps
 
 ### 16. `yasuo_fx_tornado.png`：Q3 旋风（飞行物），6 帧循环
 
+（2026-10-05：飞行物的画面跟着飞行方向转，这个竖漏斗往左飞会倒过来。用户要保留漏斗，所以旋风本体不挂画面，改成沿路每 2 tick 在旋风所在位置播一帧漏斗（`ViewEffect` 不旋转），见 `tools/fix/fix_yasuo_q3_stamps.py`。）
+
 游戏按方向移动这张图（朝右飞）。旋风的碰撞范围约 24 格宽。
 
 ```text
@@ -386,7 +388,7 @@ Layout: one horizontal row of 8 equal square cells, image size 2048x256; the sla
 | `yasuo_fx_q_thrust.png` | 4 | 投射物 `league_yasuo_q_thrust`（朝目标方向，45000 × 12000） | 4 × 55 |
 | `yasuo_fx_q_hit.png` | 5 | 特效 `league_yasuo_q_hit` | 5 × 60 |
 | `yasuo_fx_q_ready.png` | 6 | 状态 `league_yasuo_q_ready`（亚索身上循环） | 6 × 100 循环 |
-| `yasuo_fx_tornado.png` | 6 | 投射物 `league_yasuo_q3_tornado`（半径 12000） | 6 × 60 循环 |
+| `yasuo_fx_tornado.png` | 6 | Q3 旋风（半径 12000）：`tornado` 6 帧循环；2026-10-05 起逐帧拆成 `tornado_0`～`tornado_5`，沿路盖章播放（`league_yasuo_q3_tornado_<i>`，见 `tools/fix/fix_yasuo_q3_stamps.py`） | 6 × 60 循环；盖章每帧 34 |
 | `yasuo_fx_knockup.png` | 6 | 特效 `league_yasuo_knockup`（跟随目标，1 秒） | 6 × 167 |
 | `yasuo_fx_eq.png` | 5 | 特效 `league_yasuo_eq`（跟随亚索，半径 25000） | 5 × 60 |
 | `yasuo_fx_eq3.png` | 6 | 特效 `league_yasuo_eq3`（跟随亚索，半径 25000） | 6 × 70 |

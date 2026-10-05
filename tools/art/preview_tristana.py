@@ -112,7 +112,7 @@ def showcase(out, z=3, step=40):
     # barrel steams every second of Rapid Fire's 7 s
     e0 = t
     mine(fx, "e_shot", e0 + tick(8))
-    mine(fx, "q_cast", e0 + tick(18))
+    mine(fx, "q_cast", e0 + tick(8))                 # with Q's effect: the tag waits 10 ticks in an empty frame
     stick = fly("e_charge", e0 + tick(8), d, 4.5, -4)
     stacks["since"] = stick
     steam = [e0 + tick(k) for k in range(20, 420, 60)]

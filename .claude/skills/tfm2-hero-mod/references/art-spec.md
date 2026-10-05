@@ -85,6 +85,16 @@ Sin's first idle, fixed in `leesin_retouch.json`).
   left-facing caster and stands where it was played. Timed into an action (a `Delayed`), it must have
   `is_follow: false`, or the client mirrors it the wrong way for a red-side caster (league_vi E, league_aatrox Q,
   2026-10-03; champion-data section 6): check every directional picture with the hero on the red team.
+  A ground zone's picture is a projectile's too: a `RangeProjectile` / `RangePeriodProjectile` on a `Position` cast
+  is turned to (1, 0) or (-1, 0), so upside down cast leftward - league_leona R's sunlight, league_missfortune E's
+  rain, league_soraka Q's falling star and E's field, league_lux E's orb over its ring and league_lissandra R's icicles
+  play as `ViewEffect`s on the point instead (never turned), next to zones with no view; league_sona's auras (notes
+  over a ring that follows her) as `CasterViewEffect`s that follow her; and `lint_mod.py` warns on every zone with a
+  picture. A flying picture with an up and down is laid along its flight, or drawn upright and stamped along the
+  flight by `ViewEffect`s (league_yasuo Q3's funnel: one frame a stamp, tags `tornado_0` .. `tornado_5`,
+  tools/fix/fix_yasuo_q3_stamps.py). Give a zone a
+  picture of its own only if it looks the same turned half round about its pivot: centred on it (a ring drawn on the
+  ground line under the pivot floats above it when turned).
   league_yasuo's Wind Wall went this way (64 px
   tall, 20 px in front of him) before the user dropped the skill: Codex's twisted column of wind read
   as a tornado, League's ground-line shape (a long line with the ends bent back) read as a wall, and
@@ -231,9 +241,24 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   skin pixels, no outline between) merged with the leg and read as a gold foot: the user saw
   her lower body deform. Check each frame where a prop end meets a hand, foot or head. Separate
   them with outline or colour, or hide the end behind the limb. Lux's four frames were fixed in
-  `lux_retouch.json`. Single-pixel fixes can go in
+  `lux_retouch.json` (until Codex's step-2 redraw, which drew the wand short). Single-pixel fixes can go in
   `assets/source/native/<hero>_retouch.json`, which `import_native.py` applies after cutting the
-  frames; it stops if a source pixel changed.
+  frames; it stops if a source pixel changed. A table worth more than a few squares is written by a script
+  (league_lux: `tools/art/lux_retouch.py` draws it from line and finial specs).
+- **A long prop keeps its length in every frame.** Codex's step-2 redraw of Lux kept only the part of her staff
+  above her hand - the upper finial on a short shaft, the hand at its end, nothing past it - and wherever the rest
+  should show she seemed to hold a staff cut off at the fist (「拉克丝看起来好像法杖被截断？你查一查这个问题」, 2026-10-05).
+  League's staff is about her height, a finial at each end, held near the middle. `lux_retouch.py` draws the lower
+  part in the line of the part above the hand, about three quarters of its length, with a small finial: over the body,
+  outlined, where she holds it in front of her; only on clear squares where it passes behind her; a run's end above
+  the hip (clear of the back leg, the gold foot above); and the other end of the R's floating wand. A shaft drawn in
+  outline colour between the finial and the hand reads as a break too (hit 1-2): make it the shaft's gold. Check
+  every frame with a held staff, spear or bow: the part past the hand shows, or the body hides it.
+- **A pasted face keeps its forehead row.** league_lux's design draws each eye as one row of dark lid over a white
+  and a blue square, skin above the lids. Pasted on Codex's own hair, 18 frames had the bangs' outline or a grey
+  highlight on a lid, one eye twice as heavy as the other (「眼睛统一统一 不对的地方就行修正」): the row above both lids,
+  from the left white to the right blue, went back to skin (`lux_retouch.py` BROWS). After pasting a face, compare
+  both eyes of every frame with the design's at game size.
 - **Pose references from the source game.** Without one the model invents the motion: Garen's
   first run trailed the sword and his idle rested it on the shoulder, while in League both hold
   it forward at the waist - the user spotted it at once. Render the real clips (for LoL:

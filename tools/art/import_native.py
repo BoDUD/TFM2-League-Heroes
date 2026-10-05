@@ -21,7 +21,8 @@ Two fixes for the loops, where every pixel of jitter shows:
     (design B) holds his scythe over his head and redrew the head in every run frame: he is steadied on
     his eyes, the one colour nothing else uses (EYES; his run's eyes wandered 12 px about the pivot).
 Then <hero>_retouch.json, when there is one, retouches single pixels of the cut frames (Lee Sin's mouth,
-nose and face side; Lux's run, where her wand's gold end read as a gold foot): x, y from the pivot, the colour expected there and the new one. A pixel that no longer has
+nose and face side; Lux's staff below her hand and the brow row over her eyes, a table tools/art/lux_retouch.py
+writes): x, y from the pivot, the colour expected there and the new one. A pixel that no longer has
 the expected colour stops the import, so edits made for one version of the strips never land on another.
 Writes league/champions/league_<hero>. The effects still come from tools/art/import_<hero>.py, which
 writes the round-1 body only with --body.
@@ -101,7 +102,7 @@ NECK_EYES = {("fiora", "hit", 0): (-19, 3)}
 # bottom.
 COMPLETE = {"nami", "veigar", "jax", "ahri", "taric", "tristana", "fiora", "diana", "leesin", "missfortune", "fizz", "shaco",
             "caitlyn", "nocturne", "blitzcrank", "camille", "leblanc", "kaisa", "sona", "kennen", "vi", "ryze", "jhin", "zilean",
-            "aatrox", "kayn", "sivir", "twistedfate", "rakan", "evelynn", "sett", "lissandra", "varus", "tryndamere"}
+            "aatrox", "kayn", "sivir", "twistedfate", "rakan", "evelynn", "sett", "lissandra", "varus", "alistar", "tryndamere"}
 # hero: the luminance from which an edge pixel gets the outline (complete_outline's `dark`, default 70). Fiora's teal
 # leggings (luminance ~58) and wine cape (~44) edge many action frames without black: tfm2_ase.py metrics counts only
 # luminance < 40 as outline, so at 70 her Q frames read 83-89% (the bare rapier aside); at 40 they close too.
@@ -249,6 +250,8 @@ ORDER = {("lux", "idle"): [0, 0, 0, 0, 0, 0],   # the step-2 idle is the design 
          ("lissandra", "idle"): [0, 0, 0, 0, 0, 0],
          # and Varus (Codex's draft A area-voted to 40 rows, design_varus.py; rig_varus.py writes the design six times)
          ("varus", "idle"): [0, 0, 0, 0, 0, 0],
+         # and Alistar (Codex's draft A halved to 44 rows, design_alistar.py: the idle is the design in all six)
+         ("alistar", "idle"): [0, 0, 0, 0, 0, 0],
          # and Tryndamere (Codex's A_retry cut to 40 rows by whole lines, design_tryndamere.py; rig_tryndamere.py
          # writes the design six times)
          ("tryndamere", "idle"): [0, 0, 0, 0, 0, 0]}
@@ -259,6 +262,8 @@ ORDER = {("lux", "idle"): [0, 0, 0, 0, 0, 0],   # the step-2 idle is the design 
 BOB = {("yasuo", "idle"): (-2, [2, 3, 4]),
        # Lissandra has no legs: everything down to the gown's straight part sinks, the crystal hem (rows 92-99) stays
        ("lissandra", "idle"): (3, [2, 3, 4]),
+       # Alistar: the seam in his furry shins (row 92); the hooves and the fur round them stay
+       ("alistar", "idle"): (4, [2, 3, 4]),
        ("leona", "idle"): (8, [2, 3, 4]),
        # Teemo's boots are seven rows: the lowest five stay, the rest of him sinks (seam in the shins)
        ("teemo", "idle"): (6, [2, 3, 4]),
@@ -458,7 +463,8 @@ EYES = {"fiddlesticks": (200, 224, 96),   # Codex's design B: the scythe's blade
         "sivir": (0x4F, 0xE6, 0xD2),      # the crossblade tops the raised frames; the mint is only in her eyes
         "twistedfate": (0x7A, 0xF4, 0xFF),   # the hat's brim tops every frame; the cyan is only in his one eye
         "evelynn": (0xFF, 0xD2, 0x1E),       # her hair or a raised lasher tops the frames; the yellow is only her eyes
-        "sett": (0xC8, 0x70, 0x0A)}       # his ears or a raised fist top the frames; the amber is only in his eyes
+        "sett": (0xC8, 0x70, 0x0A),       # his ears or a raised fist top the frames; the amber is only in his eyes
+        "alistar": (0xFB, 0x12, 0x0D)}    # his mane, horns or raised fists top the frames; the red is only his eyes
 
 
 def blocks(path):

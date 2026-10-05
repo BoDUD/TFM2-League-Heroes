@@ -172,7 +172,7 @@ def showcase(out, z=3, step=40):
     gx, _ = g.pos(rl)
     to = gx - 16
     fly_ms = tick(max(1.0, (to - x) / DASH))
-    flash("r_trail", rl)
+    flash("r_trail", r0)                    # played on the ult's first tick, empty for the 7 ticks before the dash
     a("ult_dash", fly_ms, loop=True, to=to)
     landed = t
     flash("r_land", landed)

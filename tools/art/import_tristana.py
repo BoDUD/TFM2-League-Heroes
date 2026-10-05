@@ -41,7 +41,9 @@ under the pivot (the soles), the stars over the head, the rocket over her goggle
 the projectiles start empty for the ticks they spend inside her (her pivot to the bell: 5, 5 and 3 ticks at 6000, 4500
 and 7000 a tick), then loop, and hold their first frame after 1 s (`repeat: false`, so nothing shows over her body);
 the bomb's two frames last 10 ticks, its replay period; the stun stars last the 30-tick stun; the wisp is 1 s, played
-every second of Rapid Fire. Writes assets/source/tristana/tristana_fx_<name>.png plus tristana_fx_anchors.json, and
+every second of Rapid Fire. Rapid Fire's burst plays with Q's effect and waits the 10 ticks to E's strip's end in an
+empty first frame (167 ms): played from a Delayed, a following caster picture is mirrored the wrong way for a
+red-side caster. Writes assets/source/tristana/tristana_fx_<name>.png plus tristana_fx_anchors.json, and
 league/effects/league_tristana_fx and league_tristana_big (e_boom, e_boom4, w_land, r_blast).
 """
 import argparse
@@ -372,7 +374,9 @@ FX = {
         "e_bomb2": [("e_bomb", seq([4, 5], [84, 84]), CHEST)],
         "e_bomb3": [("e_bomb", seq([6, 7], [84, 84]), CHEST)],
         "e_stack": [("e_stack", seq(range(3), [60] * 3), CHEST)],
-        "q_cast": [("q_cast", seq(range(5), [70] * 5), BELL)],
+        # played with Q's effect (tick 8), empty for the 10 ticks to E's strip's end (a following picture played
+        # later is mirrored the wrong way on the red side)
+        "q_cast": [("q_cast", [(None, 167)] + seq(range(5), [70] * 5), BELL)],
         "q_rapid": [("q_rapid", seq([0, 1, 2, 3] * 2, [125] * 8), STEAM)],
         "w_ready": [("w_ready", seq(range(5), [60, 70, 80, 90, 100]), HER_HEAD)],
         "r_muzzle": [("r_muzzle", seq(range(6), [20, 20, 25, 25, 100, 110]), MUZZLE_R)],

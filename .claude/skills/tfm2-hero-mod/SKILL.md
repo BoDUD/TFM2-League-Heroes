@@ -97,6 +97,22 @@ empty tooltip). That is why the linter exists - run it after every edit.
   league_aatrox's Q slashes, passive streak and W flash - "在红色方技能特效是反的", 2026-10-03). Follow only at
   the action's start (put a wait in leading empty frames). Check every directional effect on a red-side
   caster before shipping; `lint_mod.py` warns on the combination (champion-data section 6).
+- **Both sides: a zone's picture turns with the cast.** The `view_projectiles` picture of a `RangeProjectile` /
+  `RangePeriodProjectile`, as of any projectile, is turned to its direction - on a `Position` cast (1, 0) or (-1, 0) - so
+  cast leftward (the red side, mostly) it stands upside down: 「曙光女神大招在红色方放的是颠倒的」 (league_leona R,
+  2026-10-05). Anything with an up and down - a falling beam, rain, a star falling diagonally, an orb above a ring, an
+  upright tornado - goes in a `ViewEffect` next to a zone that has no view: on the cast point, or on the landing point
+  in a lob's `end_effects`, it is never turned (league_leona R, league_missfortune E, league_varus E, league_soraka Q
+  and E, league_lux E, league_lissandra R); a picture riding on the caster with a follow-zone goes in a
+  `CasterViewEffect` with `is_follow: true` at the action's own tick, its tag held for the zone's life
+  (league_sona's auras). Only a picture that looks the same turned half round about its pivot is safe as a zone's
+  view - a ring drawn on the ground line under the pivot is not (turned, it floats above it). A flying projectile with
+  an up and down is laid along its flight and mirrored top to bottom (league_thresh's lantern), or it flies without a
+  picture and is stamped where it is: hidden projectiles on its path, one stopping on every other tick, each playing
+  one frame as a `ViewEffect` in its `end_effects` (league_yasuo Q3's upright funnel, which flew upside down to the
+  left; the user kept the funnel: 「亚索的旋风特效还是用这个 右边的话你想办法处理一下」; `tools/fix/fix_yasuo_q3_stamps.py`).
+  `lint_mod.py` warns on every zone with a picture and measures how much of it moves when turned (champion-data
+  section 6).
 
 ## Bundled resources
 

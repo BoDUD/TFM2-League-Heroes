@@ -1436,6 +1436,10 @@
           "name": "league_vi_r_cast"
         },
         {
+          "type": "CasterViewEffect",
+          "name": "league_vi_r_trail"
+        },
+        {
           "type": "CasterAnimation",
           "name": "ult",
           "tick": 8
@@ -1448,10 +1452,6 @@
               "type": "CasterAnimation",
               "name": "ult_dash",
               "tick": 30
-            },
-            {
-              "type": "CasterViewEffect",
-              "name": "league_vi_r_trail"
             },
             {
               "type": "MoveToTarget",

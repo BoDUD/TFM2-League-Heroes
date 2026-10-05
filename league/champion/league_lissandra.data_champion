@@ -232,8 +232,12 @@
                                         ]
                                       },
                                       {
+                                        "type": "ViewEffect",
+                                        "name": "league_lissandra_r_field"
+                                      },
+                                      {
                                         "type": "RangePeriodProjectile",
-                                        "name": "league_lissandra_r_field",
+                                        "name": "league_lissandra_r_zone",
                                         "shape": {
                                           "Circle": {
                                             "radius": 30000
@@ -403,8 +407,12 @@
                                         ]
                                       },
                                       {
+                                        "type": "ViewEffect",
+                                        "name": "league_lissandra_r_field"
+                                      },
+                                      {
                                         "type": "RangePeriodProjectile",
-                                        "name": "league_lissandra_r_field",
+                                        "name": "league_lissandra_r_zone",
                                         "shape": {
                                           "Circle": {
                                             "radius": 30000
@@ -950,8 +958,12 @@
                                         ]
                                       },
                                       {
+                                        "type": "ViewEffect",
+                                        "name": "league_lissandra_r_field"
+                                      },
+                                      {
                                         "type": "RangePeriodProjectile",
-                                        "name": "league_lissandra_r_field",
+                                        "name": "league_lissandra_r_zone",
                                         "shape": {
                                           "Circle": {
                                             "radius": 30000
@@ -1121,8 +1133,12 @@
                                         ]
                                       },
                                       {
+                                        "type": "ViewEffect",
+                                        "name": "league_lissandra_r_field"
+                                      },
+                                      {
                                         "type": "RangePeriodProjectile",
-                                        "name": "league_lissandra_r_field",
+                                        "name": "league_lissandra_r_zone",
                                         "shape": {
                                           "Circle": {
                                             "radius": 30000
@@ -1856,8 +1872,12 @@
                                         ]
                                       },
                                       {
+                                        "type": "ViewEffect",
+                                        "name": "league_lissandra_r_field"
+                                      },
+                                      {
                                         "type": "RangePeriodProjectile",
-                                        "name": "league_lissandra_r_field",
+                                        "name": "league_lissandra_r_zone",
                                         "shape": {
                                           "Circle": {
                                             "radius": 30000
@@ -2027,8 +2047,12 @@
                                         ]
                                       },
                                       {
+                                        "type": "ViewEffect",
+                                        "name": "league_lissandra_r_field"
+                                      },
+                                      {
                                         "type": "RangePeriodProjectile",
-                                        "name": "league_lissandra_r_field",
+                                        "name": "league_lissandra_r_zone",
                                         "shape": {
                                           "Circle": {
                                             "radius": 30000
@@ -3083,14 +3107,6 @@
       "tag": "e_claw",
       "repeat": true,
       "z": 1
-    },
-    {
-      "type": "Animated",
-      "name": "league_lissandra_r_field",
-      "anim": "asset/league/effects/league_lissandra_big",
-      "tag": "r_field",
-      "repeat": true,
-      "z": -1
     }
   ],
   "view_effects": [
@@ -3205,6 +3221,13 @@
       "tag": "p_burst",
       "z": 1,
       "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_lissandra_r_field",
+      "anim": "asset/league/effects/league_lissandra_big",
+      "tag": "r_field",
+      "z": -1
     }
   ],
   "view_buffs": [

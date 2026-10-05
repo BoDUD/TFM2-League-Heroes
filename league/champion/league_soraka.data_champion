@@ -110,39 +110,48 @@
           "type": "SwitchByBuff",
           "buff_name": "league_soraka_e_cooldown",
           "effect_buff": {
-            "type": "RangeProjectile",
-            "name": "league_soraka_q_star",
-            "shape": {
-              "Circle": {
-                "radius": 30000
-              }
-            },
-            "delay": 35,
-            "apply": 25,
-            "applied_target": "EnemyWithoutTower",
-            "applied_effects": [
+            "type": "Combine",
+            "effects": [
               {
-                "casting_type": "Targeting",
-                "effect": {
-                  "type": "ApAttack",
-                  "damage": 70,
-                  "attack_ratio": 50
-                }
+                "type": "ViewEffect",
+                "name": "league_soraka_q_star"
               },
               {
-                "casting_type": "Targeting",
-                "effect": {
-                  "type": "AddBuff",
-                  "buff_state": {
-                    "name": "league_soraka_q_slow",
-                    "duration": {
-                      "Time": {
-                        "tick": 120
-                      }
-                    },
-                    "move_speed_mult": -30
+                "type": "RangeProjectile",
+                "name": "league_soraka_q_zone",
+                "shape": {
+                  "Circle": {
+                    "radius": 30000
                   }
-                }
+                },
+                "delay": 35,
+                "apply": 25,
+                "applied_target": "EnemyWithoutTower",
+                "applied_effects": [
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "ApAttack",
+                      "damage": 70,
+                      "attack_ratio": 50
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "AddBuff",
+                      "buff_state": {
+                        "name": "league_soraka_q_slow",
+                        "duration": {
+                          "Time": {
+                            "tick": 120
+                          }
+                        },
+                        "move_speed_mult": -30
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -162,8 +171,12 @@
                 "only_to_enemy": false
               },
               {
+                "type": "ViewEffect",
+                "name": "league_soraka_q_star"
+              },
+              {
                 "type": "RangeProjectile",
-                "name": "league_soraka_q_star",
+                "name": "league_soraka_q_zone",
                 "shape": {
                   "Circle": {
                     "radius": 30000
@@ -207,8 +220,12 @@
                     "name": "league_soraka_e_cast"
                   },
                   {
+                    "type": "ViewEffect",
+                    "name": "league_soraka_e_field"
+                  },
+                  {
                     "type": "RangePeriodProjectile",
-                    "name": "league_soraka_e_field",
+                    "name": "league_soraka_e_zone",
                     "shape": {
                       "Circle": {
                         "radius": 30000
@@ -554,22 +571,6 @@
       "tag": "bolt",
       "repeat": true,
       "z": 0
-    },
-    {
-      "type": "Animated",
-      "name": "league_soraka_q_star",
-      "anim": "asset/league/effects/league_soraka_zone",
-      "tag": "q_star",
-      "repeat": false,
-      "z": 1
-    },
-    {
-      "type": "Animated",
-      "name": "league_soraka_e_field",
-      "anim": "asset/league/effects/league_soraka_zone",
-      "tag": "e_field",
-      "repeat": false,
-      "z": -1
     }
   ],
   "view_effects": [
@@ -578,6 +579,13 @@
       "name": "league_soraka_hit",
       "anim": "asset/league/effects/league_soraka_fx",
       "tag": "hit",
+      "z": 1
+    },
+    {
+      "type": "Animation",
+      "name": "league_soraka_q_star",
+      "anim": "asset/league/effects/league_soraka_zone",
+      "tag": "q_star",
       "z": 1
     },
     {
@@ -619,6 +627,13 @@
       "tag": "heal",
       "z": 1,
       "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_soraka_e_field",
+      "anim": "asset/league/effects/league_soraka_zone",
+      "tag": "e_field",
+      "z": -1
     }
   ],
   "view_buffs": []

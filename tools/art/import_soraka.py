@@ -64,7 +64,8 @@ FX = {
         "w_heal": ("fx_w_heal", 7, 2, (16, 28), FEET, [80] * 7, None),
     },
     "league_soraka_zone": {
-        # 24 ticks falling, the hit on frame 5, 10 ticks live: 34 ticks = 570 ms
+        # 24 ticks falling, the hit on frame 5, 10 ticks live: 34 ticks = 570 ms; a ViewEffect on the cast point
+        # (a zone view turns: the star rose from below cast leftward)
         "q_star": ("fx_q_star", 8, 2, (16, 56), FEET, [100, 100, 100, 100, 40, 40, 40, 50], None),
         # 90 ticks: opening, frames 3-6 twice, the flash that closes it just before the root
         "e_field": ("fx_e_field", 8, 2, (16, 16), FEET, [80, 80, 135, 135, 135, 135, 180, 80], (2, 6, 2)),

@@ -2731,16 +2731,16 @@
           "name": "league_kaisa_r_cast"
         },
         {
+          "type": "CasterViewEffect",
+          "name": "league_kaisa_r_trail"
+        },
+        {
           "type": "Delayed",
           "tick": 7,
           "effects": [
             {
               "type": "CasterViewEffect",
               "name": "league_kaisa_r_launch"
-            },
-            {
-              "type": "CasterViewEffect",
-              "name": "league_kaisa_r_trail"
             },
             {
               "type": "CasterAnimation",
@@ -2936,7 +2936,7 @@
       "anim": "asset/league/effects/league_kaisa_fx",
       "tag": "w_muzzle",
       "z": 1,
-      "is_follow": true
+      "is_follow": false
     },
     {
       "type": "Animation",
