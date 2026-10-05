@@ -1022,7 +1022,7 @@
     "action_name": "skill",
     "description": "#asset/base/text/champion?description.league_xerath.skill",
     "duration": 3,
-    "cooltime": 330,
+    "cooltime": 300,
     "start_timing": 1,
     "cancelable": false,
     "range": 100000,
@@ -1156,8 +1156,8 @@
                                 "casting_type": "Targeting",
                                 "effect": {
                                   "type": "ApAttack",
-                                  "damage": 95,
-                                  "attack_ratio": 75,
+                                  "damage": 110,
+                                  "attack_ratio": 85,
                                   "hp_ratio": 0,
                                   "attack_effect_type": "Target"
                                 }
@@ -1206,8 +1206,8 @@
                               "casting_type": "Targeting",
                               "effect": {
                                 "type": "ApAttack",
-                                "damage": 95,
-                                "attack_ratio": 75,
+                                "damage": 110,
+                                "attack_ratio": 85,
                                 "hp_ratio": 0,
                                 "attack_effect_type": "Target"
                               }
@@ -1312,8 +1312,8 @@
                                 "casting_type": "Targeting",
                                 "effect": {
                                   "type": "ApAttack",
-                                  "damage": 61,
-                                  "attack_ratio": 48,
+                                  "damage": 71,
+                                  "attack_ratio": 55,
                                   "hp_ratio": 0,
                                   "attack_effect_type": "Target"
                                 }
@@ -1362,8 +1362,8 @@
                               "casting_type": "Targeting",
                               "effect": {
                                 "type": "ApAttack",
-                                "damage": 61,
-                                "attack_ratio": 48,
+                                "damage": 71,
+                                "attack_ratio": 55,
                                 "hp_ratio": 0,
                                 "attack_effect_type": "Target"
                               }

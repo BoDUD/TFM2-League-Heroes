@@ -431,7 +431,7 @@
       "league_xerath": {
         "name": "泽拉斯",
         "attack": "发射奥术法球攻击。被动<#ff9028ff>法力澎湃<>：每<#ffb900ff>14秒<>下一次攻击额外造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法伤害<>，并使小技能冷却缩短23%；他每击杀一个单位，等待缩短3.5秒。",
-        "skill": "蓄力后射出贯穿光束，对直线上的敌人造成<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<><#a974ffff>魔法伤害<>。附近有敌方英雄时蓄满，射得更远；只打小兵时快速蓄力，伤害65%。",
+        "skill": "蓄力后射出贯穿光束，对直线上的敌人造成<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<><#a974ffff>魔法伤害<>。附近有敌方英雄时蓄满，射得更远；只打小兵时快速蓄力，伤害65%。",
         "skill2": "<#ff9028ff>冲击法球<>：命中第一个敌人造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>并<#ef5350ff>晕眩0.75~2秒<>（飞得越远越久）。随后<#ff9028ff>毁灭之眼<>落在敌方英雄头上，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>并<#ef5350ff>减速<>，中心伤害+67%。",
         "ult": "飞升并原地引导，向远处的敌方英雄连发<#ffb900ff>4次<>魔法炮击，落点预警后爆炸，每发造成<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法伤害<>；每次命中英雄，之后的炮击伤害+20%。被控制会打断。"
       }
@@ -1181,7 +1181,7 @@
       "league_xerath": {
         "name": "齊勒斯",
         "attack": "發射祕術法球攻擊。被動<#ff9028ff>祕術強襲<>：每<#ffb900ff>14秒<>下一次攻擊額外造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法傷害<>，並使小技能冷卻縮短23%；他每擊殺一個單位，等待縮短3.5秒。",
-        "skill": "蓄力後射出貫穿光束，對直線上的敵人造成<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<><#a974ffff>魔法傷害<>。附近有敵方英雄時蓄滿，射得更遠；只打小兵時快速蓄力，傷害65%。",
+        "skill": "蓄力後射出貫穿光束，對直線上的敵人造成<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<><#a974ffff>魔法傷害<>。附近有敵方英雄時蓄滿，射得更遠；只打小兵時快速蓄力，傷害65%。",
         "skill2": "<#ff9028ff>幻魔打擊<>：命中第一個敵人造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>並<#ef5350ff>暈眩0.75~2秒<>（飛得越遠越久）。隨後<#ff9028ff>毀滅之眼<>落在敵方英雄頭上，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>並<#ef5350ff>緩速<>，中心傷害+67%。",
         "ult": "飛升並原地引導，向遠處的敵方英雄連發<#ffb900ff>4次<>魔法炮擊，落點預警後爆炸，每發造成<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法傷害<>；每次命中英雄，之後的炮擊傷害+20%。被控制會打斷。"
       }
@@ -1931,7 +1931,7 @@
       "league_xerath": {
         "name": "Xerath",
         "attack": "Fires arcane orbs. Passive <#ff9028ff>Mana Surge<>: every <#ffb900ff>14s<> his next attack deals <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> bonus <#a974ffff>magic damage<> and cuts his basic spells' cooldowns by 23%. Each unit he kills brings it 3.5s sooner.",
-        "skill": "Charges, then fires a piercing beam: <#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<> <#a974ffff>magic damage<> to every enemy in the line. With an enemy champion near he charges fully for a longer beam; against minions alone a quick charge deals 65%.",
+        "skill": "Charges, then fires a piercing beam: <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<> <#a974ffff>magic damage<> to every enemy in the line. With an enemy champion near he charges fully for a longer beam; against minions alone a quick charge deals 65%.",
         "skill2": "<#ff9028ff>Shocking Orb<>: the first enemy hit takes <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> and is <#ef5350ff>stunned<> for 0.75-2s (longer the farther it flew). Then the <#ff9028ff>Eye of Destruction<> falls on the enemy champion: <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> and a <#ef5350ff>slow<>, +67% in the centre.",
         "ult": "Ascends and channels in place, calling <#ffb900ff>4<> arcane shells down on distant enemy champions. Each lands after a warning for <#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> <#a974ffff>magic damage<>; every champion hit adds 20% to the shells after it. Crowd control breaks the channel."
       }
@@ -2681,7 +2681,7 @@
       "league_xerath": {
         "name": "제라스",
         "attack": "비전 구체로 공격합니다. 기본 지속 효과 <#ff9028ff>마나 쇄도<>: <#ffb900ff>14초<>마다 다음 공격이 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>의 추가 <#a974ffff>마법 피해<>를 입히고 기본 스킬 재사용 대기시간을 23% 줄입니다. 유닛을 처치할 때마다 3.5초 빨라집니다.",
-        "skill": "충전 후 관통하는 광선을 발사해 직선상의 적에게 <#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<>의 <#a974ffff>마법 피해<>를 입힙니다. 적 챔피언이 가까우면 끝까지 충전해 더 멀리, 미니언만 있으면 빠르게 충전해 65% 피해.",
+        "skill": "충전 후 관통하는 광선을 발사해 직선상의 적에게 <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<>의 <#a974ffff>마법 피해<>를 입힙니다. 적 챔피언이 가까우면 끝까지 충전해 더 멀리, 미니언만 있으면 빠르게 충전해 65% 피해.",
         "skill2": "<#ff9028ff>충격 구체<>: 처음 맞힌 적에게 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> 피해와 0.75~2초 <#ef5350ff>기절<>(멀리 날수록 길게). 이어서 <#ff9028ff>파멸의 눈<>이 적 챔피언에게 떨어져 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 피해와 <#ef5350ff>둔화<>, 중심은 +67%.",
         "ult": "승천해 제자리에서 정신을 집중하며 먼 적 챔피언에게 비전 포격을 <#ffb900ff>4회<> 퍼붓습니다. 경고 후 폭발해 <#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>의 <#a974ffff>마법 피해<>, 챔피언 적중마다 이후 포격 +20%. 군중 제어에 끊깁니다."
       }
@@ -3431,7 +3431,7 @@
       "league_xerath": {
         "name": "ゼラス",
         "attack": "魔力のオーブで攻撃。パッシブ <#ff9028ff>マナサージ<>：<#ffb900ff>14秒<>ごとに次の攻撃が<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の追加<#a974ffff>魔法ダメージ<>、通常スキルのクールダウン23%短縮。ユニットを倒すたび3.5秒早まる。",
-        "skill": "チャージ後に貫通する光線を放ち、直線上の敵に<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<>の<#a974ffff>魔法ダメージ<>。敵チャンピオンが近いとフルチャージで長射程、ミニオンだけなら素早く65%。",
+        "skill": "チャージ後に貫通する光線を放ち、直線上の敵に<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<>の<#a974ffff>魔法ダメージ<>。敵チャンピオンが近いとフルチャージで長射程、ミニオンだけなら素早く65%。",
         "skill2": "<#ff9028ff>ショックオーブ<>：最初に当たった敵に<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>、0.75~2秒<#ef5350ff>スタン<>（遠いほど長い）。続いて<#ff9028ff>デストラクションアイ<>が敵チャンピオンに落ち<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>と<#ef5350ff>スロウ<>、中心は+67%。",
         "ult": "昇華してその場で詠唱し、遠くの敵チャンピオンへ魔法砲撃を<#ffb900ff>4回<>。予告の後に爆発し<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>の<#a974ffff>魔法ダメージ<>、チャンピオン命中ごとに以降+20%。CCで中断。"
       }

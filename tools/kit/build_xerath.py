@@ -44,6 +44,10 @@ ID = "league_xerath"
 FX = "asset/league/effects/league_xerath_fx"
 BIG = "asset/league/effects/league_xerath_big"
 
+# Numbers = candidate c2 of the 10-min classic-SDK simulations (tr_sim/sim/kd.py, mid lane against the five base mages,
+# both sides, three lineups, 2026-10-06): +1.48 on seeds 1-24, +1.60 on seeds 25-48 (league_ryze +1.63 / +1.61,
+# league_ahri +1.55 / +1.76, league_annie +1.65 / +1.36). The draft c1 (Q 95 + 75%, 5.5 s) was +1.05 / +1.01; Q at
+# 105 + 80% every 5.25 s +1.19 / +1.70, with R 135 + 50% +0.87 / +1.54; Q, E, W and R all up +2.78 on 12 seeds.
 P = {
     # stats (Magician base: attack 80 +6, magic power 40 +20, hp 900 +100, defence 20, mr 20, move 900, range 60000,
     # attack cooldown 90); League's Xerath is the artillery mage: a long range, little health, slow on his feet
@@ -54,9 +58,9 @@ P = {
     # passive Mana Surge (League: every 16 s, -3.5 s per kill)
     "p_step": 210, "p_dmg": 40, "p_ap": 40, "p_cdr": 30, "k_hold": 40, "k_read": 4,
     # skill: Q Arcanopulse (League: 1.5 s charge, 750 -> 1450 range, width 145, 70-230 + 85% AP, cd 9-5 s)
-    "q_cd": 330, "q_range": 100000, "q_full_t": 54, "q_quick_t": 22, "q_rec": 10, "q_aim_f": 140000,
+    "q_cd": 300, "q_range": 100000, "q_full_t": 54, "q_quick_t": 22, "q_rec": 10, "q_aim_f": 140000,
     "q_reach_f": 150000, "q_reach_q": 95000, "q_speed": 15000, "q_rad": 7000, "q_y": -2000,
-    "q_dmg": 95, "q_ap": 75, "q_quick": 65,
+    "q_dmg": 110, "q_ap": 85, "q_quick": 65,
     # skill2: E Shocking Orb (League: 1125 range at 1400/s, width 60, 80-240 + 45% AP, stun 0.75-2.25 s, cd 13.5-11 s)
     # -> W Eye of Destruction (League: 0.5 s delay, radius 275 / centre ~100, 60-200 + 60% AP, centre x1.667,
     # slow 25% / centre 60-80% decaying over 2.5 s, cd 14-9 s)
