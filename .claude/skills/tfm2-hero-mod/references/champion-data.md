@@ -431,9 +431,9 @@ How they behave *(measured in the SDK simulation for league_jinx, 3-12 ten-minut
   league_thresh R's Box, played in the `end_effects` of Ekko's anchor (which ends on his own spot), was
   invisible (seen by the user, 2026-09-29), though the simulation logs the event
   (`EffectApplyed { target: Pos, caster_id }`, the same as for a far point) and the binding reads back
-  normally (`is_follow` false by default). The view layer's effect system carries an `is_rot` flag, so it
-  probably turns a picture on a point toward it from the caster, which has no direction at zero distance
-  *(inferred)*. Play such a picture as a `CasterViewEffect` in the cast (not following), and keep
+  normally (`is_follow` false by default). The view layer's effect system carries an `is_rot` flag, but a mod's
+  `ViewEffect` never sets it (read from the SDK's game_view, section 6), so the turn is not why; the cause is
+  unknown. Play such a picture as a `CasterViewEffect` in the cast (not following), and keep
   `ViewEffect`s for points away from the caster (Ekko's field, Teemo's and Jinx's traps). league_yone's body
   left behind (`e_body` in his anchor's `end_effects`) is the same pattern and has not been seen in game. A `BackToCasterLinearProjectile` started from them flies from that point back to the
   caster, wherever he has walked meanwhile, hits what it passes and runs its own `end_effects` on the caster
@@ -620,6 +620,14 @@ the same champion file.
   shield holds as `loop_tag` and the forming played backwards as `remove_tag`: a separate `ViewEffect` for the
   intro would play on top of the buff's loop.
 - `z` < 0 draws under units (ground decals, zones); `is_follow` makes an effect follow its unit.
+- How the client builds a mod's views *(read from the SDK's game_view 0.5.1, 2026-10-05:
+  `GameViewSystem::register_data_champion_views` and the systems' `render` / `generate`)*: an `Animated`
+  `view_projectiles` entry becomes an `AnimatedProjectileSystem` with its turn on and no spin (`render` draws the
+  sprite with `RenderCommand::rot` of the projectile's angle), and `Sprite` and `ThreePhase` turn too - so every
+  projectile's or zone's picture follows its direction, never a flip. A `view_effects` `Animation` becomes an
+  `AnimationEffectViewSystem` whose `is_rot` and `render_at_caster` are always off and whose `is_follow` is the data's;
+  `generate` makes an `AnimationOnce` on a point (never turned: only `is_rot` calls `atan2`), an
+  `AnimationOnceFollow` on a unit with `is_follow`. 1 px is 1000 units (`generate` scales positions by 0.001).
 - The whole schema (serde names in the SDK's `game_core` metadata): `view_effects` are `Animation` or
   `LoopAnimation`, each `{name, anim, tag, z, is_follow}`; `view_projectiles` are `Animated
   {repeat}`, `Sprite` or `ThreePhase {pre_tag, loop_tag, remove_tag}`. There is no rotation or flip
@@ -697,10 +705,23 @@ the same champion file.
   `Targeting` action it points at the target and lasts its `delay`; league_briar E's scream, league_vi E's shock wave:
   as a caster picture it stood the wrong way on the red side, "E技能的特效没有跟随人物 反方向的").
   A thing with a top and a bottom that flies every way (league_thresh's lantern) is laid along its flight
-  and mirrored top to bottom, so every turn of it looks the same (art-spec). No data fixes a flying picture with an up
-  and down: league_yasuo Q3's tornado was an upright funnel on its `LinearProjectile` (upside down flying left, on its
-  side flying up or down) and was drawn again from above (`tools/art/yasuo_whirl.py`, 2026-10-05: three spiral arms
-  round an eye, a wind trail behind, as league_janna's tornado is drawn), which reads the same at every turn.
+  and mirrored top to bottom, so every turn of it looks the same (art-spec). Or it flies without a picture and is
+  stamped where it is: league_yasuo Q3's whirlwind, an upright funnel on its `LinearProjectile` (upside down flying
+  left, on its side flying up or down; the user kept the funnel, 2026-10-05: 「亚索的旋风特效还是用这个 右边的话你想办法处理
+  一下」). The whirlwind lost its `view_projectiles` entry; next to it in the same `Delayed`, 16 hidden
+  `LinearProjectile`s (`league_yasuo_q3_step`: its speed, no radius, no effects) stop where it is on every other tick
+  of its flight, and each one's `end_effects` play one frame of the funnel's loop as a `ViewEffect` on its stop point,
+  never turned (`league_yasuo_q3_tornado_<i>`: tag `tornado_<i>`, the frame showing at that tick, held 34 ms - a
+  little over the 2 ticks, so one stamp is not gone before the next; `tools/fix/fix_yasuo_q3_stamps.py`,
+  `tools/art/import_yasuo.py`). The funnel steps 5 px 30 times a second along the true path, whichever way it flies.
+  Where a `LinearProjectile` is *(SDK simulation, 2026-10-05: hidden ones of every range from 1 to 80000 at speed
+  2500, each playing a `ViewEffect` where it stopped, and `ProjectileMove`)*: it moves one step in the tick it spawns
+  and each tick after; it stops on the first tick its travel reaches its range and plays its `end_effects` on its
+  range exactly, so a projectile that stops on tick t of its flight has range speed x (t + 1) from the third tick on
+  (2500 stopped on tick 1, 5000 on 2, 7500 and 10000 on 3, 12500 on 4, 15000 on 5, the whirlwind's 80000 on 31).
+  Some casts start the flight a tick later or sooner, but projectiles fired together keep together, so the stamps stay
+  on the whirlwind. `ProjectileSpawnData` gives the start 5000 above the caster's ground point and `dir` from there to
+  where it will end (the client's picture is turned to that).
 - A projectile's picture has one length, but its frames can follow the flight: an `Animated` view with
   `repeat: false` plays its tag once from the moment the projectile appears. league_thresh Q's chain is
   drawn frame by frame (a frame every 2 ticks, 11 px longer each, behind a hook flying 5500 a tick), so its

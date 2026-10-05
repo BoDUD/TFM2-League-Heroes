@@ -10,7 +10,10 @@ own sheets by the rules the client follows (champion-data.md section 6), not rec
 - a ViewEffect is drawn unturned on its point, a CasterViewEffect on the caster, mirrored by the caster's facing,
   except one with is_follow that starts after the action's first tick: the client draws it unmirrored;
 - the picture's time is the action's start_timing plus the Delayed ticks over it (a lob's end_effects after its
-  travel_time); a projectile flies at its speed.
+  travel_time); a projectile flies at its speed;
+- a picture stamped along a flight (league_yasuo's Q3 whirlwind since 2026-10-05: `ViewEffect`s in the end_effects
+  of hidden projectiles that stop on its path, tools/fix/fix_yasuo_q3_stamps.py) is each stamp drawn unturned on its
+  stop point, from the tick its projectile stops (SDK simulation: travel speed x (tick + 1) from the third tick).
 "Before" reads the kit and the effect sheets at --base (default: where this branch left main), "now" the working tree.
 """
 import argparse
@@ -50,6 +53,8 @@ FIXED = {
 }
 # a picture played under another name now (the attack's non-following copies of Riven's R layers)
 NOW_NAME = {("riven", "r_on_back"): "r_on_back_atk", ("riven", "r_on_front"): "r_on_front_atk"}
+# a flying picture stamped along its path now, by the prefix of the stamps' names
+STAMPED = {("yasuo", "q3_tornado"): "q3_tornado_"}
 
 
 def git_bytes(ref, path):
@@ -128,6 +133,42 @@ def find(k, full):
     return slot, tick, eff, late
 
 
+def stop_tick(rng, speed):
+    """The tick of its flight a LinearProjectile stops on (fix_yasuo_q3_stamps.py: travel speed x (tick + 1) from the
+    third tick, speed x tick before)."""
+    n = 1
+    while (speed * (n + 1) if n >= 3 else speed * n) < rng:
+        n += 1
+    return n
+
+
+def stamps(k, prefix):
+    """[(slot, tick from the action's start, view name, distance in px)] of every ViewEffect named prefix* played
+    where a LinearProjectile stops."""
+    out = []
+
+    def walk(node, slot, tick):
+        if isinstance(node, list):
+            for e in node:
+                walk(e, slot, tick)
+            return
+        if not isinstance(node, dict):
+            return
+        t = node.get("type")
+        if t == "LinearProjectile":
+            for e in node.get("end_effects", []):
+                if e.get("type") == "ViewEffect" and e.get("name", "").startswith(prefix):
+                    out.append((slot, tick + stop_tick(node["range"], node["speed"]), e["name"], node["range"] / 1000.0))
+        for key, v in node.items():
+            if isinstance(v, (dict, list)) and key not in ("buff_state", "shape", "end_effects"):
+                walk(v, slot, tick + (node.get("tick", 0) if t == "Delayed" and key == "effects" else 0))
+
+    for slot in SLOTS:
+        if slot in k:
+            walk(k[slot].get("effect"), slot, k[slot].get("start_timing", 0))
+    return out
+
+
 class Shot:
     """One action of the hero with the fixed pictures it plays."""
 
@@ -188,6 +229,12 @@ def build_shots(hero, base):
         old = f"league_{hero}_{short}"
         new = f"league_{hero}_" + NOW_NAME.get((hero, short), short)
         for when, k, v, name, ref in (("before", bk, bv, old, base), ("now", nk, nv, new, None)):
+            if when == "now" and (hero, short) in STAMPED:
+                for slot, tick, stamp, dist in stamps(k, f"league_{hero}_" + STAMPED[(hero, short)]):
+                    view = v[stamp][1]
+                    shots.setdefault(slot, Shot(hero, slot, bk, nk)).pics.append(
+                        (when, tick, anim(ref, view["anim"], view["tag"]), view.get("z", 0), dist, "upright", None))
+                continue
             hit = find(k, name)
             if hit is None:
                 continue
@@ -232,6 +279,8 @@ def panel(shot, t, side, when):
         x, y = hx, PIVOT_Y
         if place == "point":
             x += face * REACH
+        elif isinstance(place, float):          # a stamp: its distance along the flight
+            x += face * place
         if flight is not None:
             run = min(flight[1], flight[0] * (t - tick))
             x += face * run

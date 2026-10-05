@@ -398,9 +398,9 @@ python tools/lol/extract_yasuo.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstr
 python tools/lol/native_pose.py assets/source/yasuo/poses.json --out <渲染文件夹> --alpha --parts
 python tools/art/restyle_native.py assets/source/yasuo/poses.json --renders <渲染文件夹>   # 角色图
 python tools/art/import_native.py --hero yasuo     # 套用 yasuo_retouch.json
-python tools/art/yasuo_whirl.py       # Q3 旋风（俯视，逐格画）：assets/source/yasuo/yasuo_fx_tornado.png
 python tools/art/import_yasuo.py      # 特效；--raw <Codex 的交付文件夹> 先把原始图转成原尺寸条
 python tools/kit/yasuo_combos.py   # 连招写进技能数据（只跑一次，--check 查）
+python tools/fix/fix_yasuo_q3_stamps.py   # Q3 旋风沿路逐格盖章，任何方向都是正的（只跑一次，--check 查）
 python tools/art/preview_yasuo.py
 ```
 
@@ -415,7 +415,7 @@ python tools/art/preview_yasuo.py
   - 跑步（0.10.0）：原版跑步时低着头，脸转成侧脸（朝向 0.25–0.36，嘴要 0.45 以上才画），脸块的下半截每帧贴得不一样，有几帧下巴线压在皮肤上像张开的嘴，用户说跑步时一会有嘴一会没嘴。改成跑步时头保持待机的朝向（`head_like`，蕾欧娜的跑步也是这样），8 帧都是和待机一样的脸，嘴一直在。身体和马尾还是原版的跑步动作，其他动作不变。
   - 死亡动画里拔出来的刀没有动画轨道，会竖在身边，死亡动作不画这把刀（`hide`）；腰绳的两根绳尾缩到 0.6 倍，跑动时不再甩出一大片金色。
 - 特效用 Codex 画的 11 张：`import_yasuo.py --raw` 把原始图（半透明、格子比例不对）转成原尺寸条，再按技能范围定大小：Q 突刺 45 px 长，旋风 24 px 宽，EQ 的圈 50 px 宽（半径 25000，画一半大再放大 2 倍）。
-- Q3 旋风重画（2026-10-05，用户：「亚索 Q3 龙卷风重画」）：Codex 画的是竖着的漏斗（侧面看），飞行物的画面跟着飞行方向转，往左飞（红色方大多朝左放）就倒过来、往上下飞就横躺。现在是从上往下看的旋风（`tools/art/yasuo_whirl.py` 逐格画）：三条旋臂绕着白亮的风眼，6 帧转三分之一圈正好循环，后面拖一道风（画在左边，跟着飞行方向转，永远在后面），边上甩出几点尘土；直径 24 格（Q3 半径 12000），颜色用原来漏斗的蓝白和尘土灰，不描边；风眼对准飞行物，任何方向看都一样。
+- Q3 旋风在红色方倒过来（2026-10-05）：飞行物的画面会跟着飞行方向转，Codex 画的竖漏斗往左飞（红色方大多朝左放）就倒过来，往上下飞就横躺。先试过重画成俯视的旋涡，用户还是要原来的漏斗（「亚索的旋风特效还是用这个 右边的话你想办法处理一下」）。现在的做法：旋风本体照常飞、照常击飞，但不再挂画面；同一时刻沿同一条路线发出 16 个看不见的小投射物，分别停在旋风第 1、3、5……31 tick 所在的位置，每个停下时在落点播一帧漏斗（`ViewEffect`，游戏不会旋转它），一帧 34 ms，正好接上下一个。漏斗每 2 tick 前进 5 格，往哪个方向飞都是正的。数据由 `tools/fix/fix_yasuo_q3_stamps.py` 写入，`league_yasuo_big` 多了 `tornado_0`～`tornado_5` 六个单帧标签，和 `tornado` 共用同一块贴图。停点用 SDK 模拟核对过：16 个画面都落在旋风当时的位置，间隔 2 tick、每步 5000。
 - 风墙：先后试过 Codex 画的风柱（被看成龙卷风）和照英雄联盟地面青线画的风幕，最后用户觉得风墙在这个游戏里不合适，整个技能删掉了。
 - 出手时刻和动画对齐：普攻第 11 tick 命中，Q 第 8 tick 命中，Q3 旋风每 tick 飞 2.5 px，R 第 24 tick 落刀。
 - 还原（0.27.1）：Codex 按定稿重画过一版动作条（第二步，换成用户选的眼睛，头像点挪到 (1, −39)），之后又试了重画头和马尾，用户觉得亚索的脸越做越离谱，要回到没做新美术的这一版：动作条、定稿、贴图、帧表、头像点和导入工具的表都回到 9248421 之前，重新导入的贴图和帧表与那时逐字节相同；展示动图重新渲染（对手是现在的德莱厄斯和盖伦），李青的展示里也有亚索，一起重渲染。

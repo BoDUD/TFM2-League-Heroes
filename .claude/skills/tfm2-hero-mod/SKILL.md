@@ -107,10 +107,12 @@ empty tooltip). That is why the linter exists - run it after every edit.
   `CasterViewEffect` with `is_follow: true` at the action's own tick, its tag held for the zone's life
   (league_sona's auras). Only a picture that looks the same turned half round about its pivot is safe as a zone's
   view - a ring drawn on the ground line under the pivot is not (turned, it floats above it). A flying projectile with
-  an up and down is laid along its flight and mirrored top to bottom (league_thresh's lantern) or drawn from above so
-  that every turn of it reads the same (league_yasuo Q3's whirlwind, redrawn by `tools/art/yasuo_whirl.py` after its
-  upright funnel flew upside down to the left: 「亚索 Q3 龙卷风重画」). `lint_mod.py` warns on every zone with a
-  picture and measures how much of it moves when turned (champion-data section 6).
+  an up and down is laid along its flight and mirrored top to bottom (league_thresh's lantern), or it flies without a
+  picture and is stamped where it is: hidden projectiles on its path, one stopping on every other tick, each playing
+  one frame as a `ViewEffect` in its `end_effects` (league_yasuo Q3's upright funnel, which flew upside down to the
+  left; the user kept the funnel: 「亚索的旋风特效还是用这个 右边的话你想办法处理一下」; `tools/fix/fix_yasuo_q3_stamps.py`).
+  `lint_mod.py` warns on every zone with a picture and measures how much of it moves when turned (champion-data
+  section 6).
 
 ## Bundled resources
 

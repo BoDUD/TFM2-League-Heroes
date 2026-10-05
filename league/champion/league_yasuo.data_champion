@@ -471,6 +471,342 @@
                         }
                       ],
                       "end_effects": []
+                    },
+                    {
+                      "type": "LinearProjectile",
+                      "name": "league_yasuo_q3_step",
+                      "speed": 2500,
+                      "range": 2500,
+                      "shape": {
+                        "Circle": {
+                          "radius": 0
+                        }
+                      },
+                      "penetrate": true,
+                      "y_offset": 0,
+                      "applied_target": "EnemyChampion",
+                      "applied_effects": [],
+                      "end_effects": [
+                        {
+                          "type": "ViewEffect",
+                          "name": "league_yasuo_q3_tornado_0"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "LinearProjectile",
+                      "name": "league_yasuo_q3_step",
+                      "speed": 2500,
+                      "range": 10000,
+                      "shape": {
+                        "Circle": {
+                          "radius": 0
+                        }
+                      },
+                      "penetrate": true,
+                      "y_offset": 0,
+                      "applied_target": "EnemyChampion",
+                      "applied_effects": [],
+                      "end_effects": [
+                        {
+                          "type": "ViewEffect",
+                          "name": "league_yasuo_q3_tornado_0"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "LinearProjectile",
+                      "name": "league_yasuo_q3_step",
+                      "speed": 2500,
+                      "range": 15000,
+                      "shape": {
+                        "Circle": {
+                          "radius": 0
+                        }
+                      },
+                      "penetrate": true,
+                      "y_offset": 0,
+                      "applied_target": "EnemyChampion",
+                      "applied_effects": [],
+                      "end_effects": [
+                        {
+                          "type": "ViewEffect",
+                          "name": "league_yasuo_q3_tornado_1"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "LinearProjectile",
+                      "name": "league_yasuo_q3_step",
+                      "speed": 2500,
+                      "range": 20000,
+                      "shape": {
+                        "Circle": {
+                          "radius": 0
+                        }
+                      },
+                      "penetrate": true,
+                      "y_offset": 0,
+                      "applied_target": "EnemyChampion",
+                      "applied_effects": [],
+                      "end_effects": [
+                        {
+                          "type": "ViewEffect",
+                          "name": "league_yasuo_q3_tornado_1"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "LinearProjectile",
+                      "name": "league_yasuo_q3_step",
+                      "speed": 2500,
+                      "range": 25000,
+                      "shape": {
+                        "Circle": {
+                          "radius": 0
+                        }
+                      },
+                      "penetrate": true,
+                      "y_offset": 0,
+                      "applied_target": "EnemyChampion",
+                      "applied_effects": [],
+                      "end_effects": [
+                        {
+                          "type": "ViewEffect",
+                          "name": "league_yasuo_q3_tornado_2"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "LinearProjectile",
+                      "name": "league_yasuo_q3_step",
+                      "speed": 2500,
+                      "range": 30000,
+                      "shape": {
+                        "Circle": {
+                          "radius": 0
+                        }
+                      },
+                      "penetrate": true,
+                      "y_offset": 0,
+                      "applied_target": "EnemyChampion",
+                      "applied_effects": [],
+                      "end_effects": [
+                        {
+                          "type": "ViewEffect",
+                          "name": "league_yasuo_q3_tornado_3"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "LinearProjectile",
+                      "name": "league_yasuo_q3_step",
+                      "speed": 2500,
+                      "range": 35000,
+                      "shape": {
+                        "Circle": {
+                          "radius": 0
+                        }
+                      },
+                      "penetrate": true,
+                      "y_offset": 0,
+                      "applied_target": "EnemyChampion",
+                      "applied_effects": [],
+                      "end_effects": [
+                        {
+                          "type": "ViewEffect",
+                          "name": "league_yasuo_q3_tornado_3"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "LinearProjectile",
+                      "name": "league_yasuo_q3_step",
+                      "speed": 2500,
+                      "range": 40000,
+                      "shape": {
+                        "Circle": {
+                          "radius": 0
+                        }
+                      },
+                      "penetrate": true,
+                      "y_offset": 0,
+                      "applied_target": "EnemyChampion",
+                      "applied_effects": [],
+                      "end_effects": [
+                        {
+                          "type": "ViewEffect",
+                          "name": "league_yasuo_q3_tornado_4"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "LinearProjectile",
+                      "name": "league_yasuo_q3_step",
+                      "speed": 2500,
+                      "range": 45000,
+                      "shape": {
+                        "Circle": {
+                          "radius": 0
+                        }
+                      },
+                      "penetrate": true,
+                      "y_offset": 0,
+                      "applied_target": "EnemyChampion",
+                      "applied_effects": [],
+                      "end_effects": [
+                        {
+                          "type": "ViewEffect",
+                          "name": "league_yasuo_q3_tornado_4"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "LinearProjectile",
+                      "name": "league_yasuo_q3_step",
+                      "speed": 2500,
+                      "range": 50000,
+                      "shape": {
+                        "Circle": {
+                          "radius": 0
+                        }
+                      },
+                      "penetrate": true,
+                      "y_offset": 0,
+                      "applied_target": "EnemyChampion",
+                      "applied_effects": [],
+                      "end_effects": [
+                        {
+                          "type": "ViewEffect",
+                          "name": "league_yasuo_q3_tornado_5"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "LinearProjectile",
+                      "name": "league_yasuo_q3_step",
+                      "speed": 2500,
+                      "range": 55000,
+                      "shape": {
+                        "Circle": {
+                          "radius": 0
+                        }
+                      },
+                      "penetrate": true,
+                      "y_offset": 0,
+                      "applied_target": "EnemyChampion",
+                      "applied_effects": [],
+                      "end_effects": [
+                        {
+                          "type": "ViewEffect",
+                          "name": "league_yasuo_q3_tornado_5"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "LinearProjectile",
+                      "name": "league_yasuo_q3_step",
+                      "speed": 2500,
+                      "range": 60000,
+                      "shape": {
+                        "Circle": {
+                          "radius": 0
+                        }
+                      },
+                      "penetrate": true,
+                      "y_offset": 0,
+                      "applied_target": "EnemyChampion",
+                      "applied_effects": [],
+                      "end_effects": [
+                        {
+                          "type": "ViewEffect",
+                          "name": "league_yasuo_q3_tornado_0"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "LinearProjectile",
+                      "name": "league_yasuo_q3_step",
+                      "speed": 2500,
+                      "range": 65000,
+                      "shape": {
+                        "Circle": {
+                          "radius": 0
+                        }
+                      },
+                      "penetrate": true,
+                      "y_offset": 0,
+                      "applied_target": "EnemyChampion",
+                      "applied_effects": [],
+                      "end_effects": [
+                        {
+                          "type": "ViewEffect",
+                          "name": "league_yasuo_q3_tornado_0"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "LinearProjectile",
+                      "name": "league_yasuo_q3_step",
+                      "speed": 2500,
+                      "range": 70000,
+                      "shape": {
+                        "Circle": {
+                          "radius": 0
+                        }
+                      },
+                      "penetrate": true,
+                      "y_offset": 0,
+                      "applied_target": "EnemyChampion",
+                      "applied_effects": [],
+                      "end_effects": [
+                        {
+                          "type": "ViewEffect",
+                          "name": "league_yasuo_q3_tornado_1"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "LinearProjectile",
+                      "name": "league_yasuo_q3_step",
+                      "speed": 2500,
+                      "range": 75000,
+                      "shape": {
+                        "Circle": {
+                          "radius": 0
+                        }
+                      },
+                      "penetrate": true,
+                      "y_offset": 0,
+                      "applied_target": "EnemyChampion",
+                      "applied_effects": [],
+                      "end_effects": [
+                        {
+                          "type": "ViewEffect",
+                          "name": "league_yasuo_q3_tornado_2"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "LinearProjectile",
+                      "name": "league_yasuo_q3_step",
+                      "speed": 2500,
+                      "range": 80000,
+                      "shape": {
+                        "Circle": {
+                          "radius": 0
+                        }
+                      },
+                      "penetrate": true,
+                      "y_offset": 0,
+                      "applied_target": "EnemyChampion",
+                      "applied_effects": [],
+                      "end_effects": [
+                        {
+                          "type": "ViewEffect",
+                          "name": "league_yasuo_q3_tornado_2"
+                        }
+                      ]
                     }
                   ]
                 }
@@ -986,14 +1322,6 @@
       "tag": "q_thrust",
       "repeat": false,
       "z": 1
-    },
-    {
-      "type": "Animated",
-      "name": "league_yasuo_q3_tornado",
-      "anim": "asset/league/effects/league_yasuo_big",
-      "tag": "tornado",
-      "repeat": true,
-      "z": 1
     }
   ],
   "view_effects": [
@@ -1059,6 +1387,48 @@
       "tag": "r_slash",
       "z": 2,
       "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_yasuo_q3_tornado_0",
+      "anim": "asset/league/effects/league_yasuo_big",
+      "tag": "tornado_0",
+      "z": 1
+    },
+    {
+      "type": "Animation",
+      "name": "league_yasuo_q3_tornado_1",
+      "anim": "asset/league/effects/league_yasuo_big",
+      "tag": "tornado_1",
+      "z": 1
+    },
+    {
+      "type": "Animation",
+      "name": "league_yasuo_q3_tornado_2",
+      "anim": "asset/league/effects/league_yasuo_big",
+      "tag": "tornado_2",
+      "z": 1
+    },
+    {
+      "type": "Animation",
+      "name": "league_yasuo_q3_tornado_3",
+      "anim": "asset/league/effects/league_yasuo_big",
+      "tag": "tornado_3",
+      "z": 1
+    },
+    {
+      "type": "Animation",
+      "name": "league_yasuo_q3_tornado_4",
+      "anim": "asset/league/effects/league_yasuo_big",
+      "tag": "tornado_4",
+      "z": 1
+    },
+    {
+      "type": "Animation",
+      "name": "league_yasuo_q3_tornado_5",
+      "anim": "asset/league/effects/league_yasuo_big",
+      "tag": "tornado_5",
+      "z": 1
     }
   ],
   "view_buffs": [
