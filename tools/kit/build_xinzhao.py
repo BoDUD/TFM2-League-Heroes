@@ -36,14 +36,15 @@ ID = "league_xinzhao"
 FX = "asset/league/effects/league_xinzhao_fx"
 BIG = "asset/league/effects/league_xinzhao_big"
 
-# Numbers = candidate c5 of the 10-min classic-SDK simulations (jungle against demon, circus_blade, hunter, inquisitor
-# and ninja, three lineups, both sides, seeds 1-24, 2026-10-05; placeholder timings): +1.17 (league_kayn +1.12 on the
-# same seeds). The draft was +2.01: Determination's heal 20 + 25% -> 15 + 15% +1.89, E 60% -> 50% and Q 35% -> 30%
-# +1.62, attack 90 -> 86 +1.17 (R's reduction 40% -> 30% instead: +1.38). Rerun on the strips' timings.
+# Numbers = the 10-min classic-SDK simulations (jungle against demon, circus_blade, hunter, inquisitor and ninja, three
+# lineups, both sides, 24 seeds a batch, 2026-10-06). The draft was +2.01: Determination's heal 20 + 25% -> 15 + 15%,
+# E 60% -> 50% and Q 35% -> 30% AD, attack 90 -> 86: +1.17 on placeholder timings. On the strips' timings (W and R
+# faster) +1.89 / +2.26 (league_kayn +1.12 / +1.72 on the same seeds); hp 1020 -> 980, W's thrust 80% -> 65% and
+# attack 86 -> 82: +1.10 / +1.29 (each alone +1.36 to +1.56 on seeds 1-24).
 P = {
     # stats (Melee base: attack 95 +19, hp 1000 +100, defence 30 +8, mr 25 +4, move 1000 +11); League's Xin Zhao:
     # 63 AD +3, 640 +106 hp, 35 armour, 345 move, attack speed 0.645 +3.5%
-    "hp": 1020, "hp_g": 102, "atk": 86, "atk_g": 18, "def": 32, "def_g": 8, "mr": 25, "mr_g": 4, "ms": 1000, "ms_g": 11,
+    "hp": 980, "hp_g": 102, "atk": 82, "atk_g": 18, "def": 32, "def_g": 8, "mr": 25, "mr_g": 4, "ms": 1000, "ms_g": 11,
     "regen": 2, "regen_g": 1,
     # attack: the strip picked on tick 1, the hit a `Delayed` later
     "atk_range": 26000, "atk_dur": 26, "atk_cd": 60, "a_hit": 11, "a_anim": 24,
@@ -59,7 +60,7 @@ P = {
     # skill2: W Wind Becomes Lightning (League: slash 30-70 + 30% AD, thrust 40-200 + 80% AD, 900 range, slow 50% 1.5 s,
     # cd 12-8 s)
     "w_cd": 600, "w_range": 60000, "w_dur": 32, "w_slash_at": 13, "w_thrust_at": 17, "w_r": 32000, "w_cone": 0,
-    "w1_dmg": 20, "w1_ratio": 40, "w_len": 60000, "w_width": 8000, "w2_dmg": 40, "w2_ratio": 80, "w_slow": 50,
+    "w1_dmg": 20, "w1_ratio": 40, "w_len": 60000, "w_width": 8000, "w2_dmg": 40, "w2_ratio": 65, "w_slow": 50,
     "w_slow_t": 90,
     # ult: R Crescent Guard (League: 75-275 + 100% bonus AD + 15% current health, 450 radius, knock-back, 3 s of
     # immunity to damage from beyond 450, cd 120-80 s)
@@ -244,7 +245,8 @@ def build(p):
                E("w_slash", BIG, 2, **LATE), E("w_hit"), E("w_hit2"),
                E("r_tell", BIG), E("r_sweep", BIG, 2, **LATE), E("r_hit")]
     views_p = [{"type": "Animated", "name": n("w_thrust"), "anim": BIG, "tag": "w_thrust", "repeat": False, "z": 2}]
-    views_b = [B_("q_1", FX, 3), B_("q_2", FX, 3), B_("q_3", FX, 3), B_("e_slow", FX, -1), B_("w_slow", FX, -1), B_("r_chal", FX, 3),
+    views_b = [B_("q_1", FX, 3), B_("q_2", FX, 3), B_("q_3", FX, 3), B_("e_slow", FX, -1), B_("w_slow", FX, -1),
+               B_("r_chal", FX, 3),
                B_("r_guard", BIG, -1)]
     return {
         "id": ID, "category": "Melee", "tags": ["AD", "Melee", "CC"],

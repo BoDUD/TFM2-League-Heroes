@@ -14,9 +14,9 @@
     "asset/league/icons/league_xinzhao_ult"
   ],
   "stat": {
-    "attack": 86,
+    "attack": 82,
     "magic_power": 0,
-    "hp": 1020,
+    "hp": 980,
     "defence": 32,
     "magic_resistance": 25,
     "move_speed": 1000,
@@ -1310,7 +1310,7 @@
                   "effect": {
                     "type": "Attack",
                     "damage": 40,
-                    "attack_ratio": 80,
+                    "attack_ratio": 65,
                     "hp_ratio": 0,
                     "target_hp_ratio": 0,
                     "attack_effect_type": "Target"
