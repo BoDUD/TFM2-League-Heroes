@@ -40,15 +40,16 @@ def _seg(p, a, b):
     return math.hypot(dx, dy), t, across
 
 
-def joints(S, E, W, H, upper=None):
+def joints(S, E, W, H, upper=None, fore=None):
     """The joints with the idle's bone lengths: the directions of S->E, E->W and W->H kept (upper: the upper arm's
-    length, UPPER unless given - the idle's upper arms are shorter since design_ryze_v2.py's ARM_CUT)."""
+    length, UPPER unless given - the idle's upper arms are shorter since design_ryze_v2.py's ARM_CUT; fore: the
+    bracer's, FORE unless given - shorter where the forearm comes at the camera)."""
     def step(a, b, n):
         vx, vy = b[0] - a[0], b[1] - a[1]
         ln = math.hypot(vx, vy) or 1.0
         return (a[0] + vx / ln * n, a[1] + vy / ln * n)
     E2 = step(S, E, UPPER if upper is None else upper)
-    W2 = step(E2, (E2[0] + W[0] - E[0], E2[1] + W[1] - E[1]), FORE)
+    W2 = step(E2, (E2[0] + W[0] - E[0], E2[1] + W[1] - E[1]), FORE if fore is None else fore)
     H2 = step(W2, (W2[0] + H[0] - W[0], W2[1] + H[1] - W[1]), HAND)
     return S, E2, W2, H2
 
@@ -65,10 +66,11 @@ def lit_sign(a, b, side):
     return 1 if nx * out > 0 else -1
 
 
-def draw(S, E, W, H, side, shape="fist", rgba=None, ink=(0x0F, 0x02, 0x13, 255), upper=None):
+def draw(S, E, W, H, side, shape="fist", rgba=None, ink=(0x0F, 0x02, 0x13, 255), upper=None, fore=None):
     """{(x, y): rgba} of one arm (with its outline) from its joints; side "far" or "near" (without rgba: {(x, y):
     colour letter}, no outline)."""
-    S, E, W, H = joints(S, E, W, H, upper)
+    S, E, W, H = joints(S, E, W, H, upper, fore)
+    fl = FORE if fore is None else fore
     xs = [p[0] for p in (S, E, W, H)]
     ys = [p[1] for p in (S, E, W, H)]
     cells = {}
@@ -79,8 +81,10 @@ def draw(S, E, W, H, side, shape="fist", rgba=None, ink=(0x0F, 0x02, 0x13, 255),
         for x in range(int(math.floor(min(xs))) - 3, int(math.ceil(max(xs))) + 4):
             p = (x + 0.5, y + 0.5)
             best = None
-            # the hand: a fist round H, or a palm from W past H
-            if palm:
+            # the hand: a fist round H, or a palm from W past H (none: the caller puts a hand of its own on the wrist)
+            if shape == "none":
+                pass
+            elif palm:
                 tip = (H[0] + (H[0] - W[0]) * 0.8, H[1] + (H[1] - W[1]) * 0.8)
                 d, t, ac = _seg(p, W, tip)
                 if d <= 1.25:
@@ -93,8 +97,8 @@ def draw(S, E, W, H, side, shape="fist", rgba=None, ink=(0x0F, 0x02, 0x13, 255),
             if best is None:
                 d, t, ac = _seg(p, E, W)
                 if d <= R_FORE:
-                    along = t * FORE
-                    part = "band" if along < 1.0 or along > FORE - 1.0 else "bracer"
+                    along = t * fl
+                    part = "band" if along < 1.0 or along > fl - 1.0 else "bracer"
                     best = (part, ac * sf / R_FORE, t)
             if best is None:
                 d, t, ac = _seg(p, S, E)
