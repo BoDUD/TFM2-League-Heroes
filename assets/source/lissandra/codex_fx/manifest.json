@@ -1,0 +1,2244 @@
+{
+  "delivery": "GENERATED_SOURCE_ARTWORK_FOR_IMPORT",
+  "game_import_performed": false,
+  "art_generated_with": "image_gen",
+  "reference_texture_included": false,
+  "effects": [
+    {
+      "file": "lissandra_fx_a_bolt.png",
+      "raw_file": "raw/lissandra_fx_a_bolt.png",
+      "index": 1,
+      "frame_count_requested": 4,
+      "frame_count_visually_observed": 4,
+      "layout": "single_horizontal_row",
+      "loop": true,
+      "actual_size": [
+        2172,
+        724
+      ],
+      "requested_size": [
+        2048,
+        256
+      ],
+      "dimensions_match_requested": false,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            104,
+            297,
+            504,
+            426
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            77,
+            289,
+            503,
+            433
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            56,
+            281,
+            501,
+            440
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            80,
+            295,
+            503,
+            426
+          ],
+          "duration_ms": null
+        }
+      ],
+      "binding": "view_projectiles `league_lissandra_a_bolt`（朝右，游戏转到飞行方向，上下对称）",
+      "target_game_size": "12 × 6",
+      "sha256": "ab9c13690ae666f238e45453cd328382964c488d15b1021b1242ecec75b284ed",
+      "alpha_partial_fraction": 0.09309,
+      "opaque_luminance_mean_255": 170.87,
+      "opaque_luminance_brightest_10pct_255": 252.86,
+      "import_remaining": [
+        "recover game pixel grid and palette",
+        "align anchors / cell aspect",
+        "clean AA / partially transparent fringes",
+        "verify loop and projectile top-bottom symmetry"
+      ]
+    },
+    {
+      "file": "lissandra_fx_a_hit.png",
+      "raw_file": "raw/lissandra_fx_a_hit.png",
+      "index": 2,
+      "frame_count_requested": 4,
+      "frame_count_visually_observed": 4,
+      "layout": "single_horizontal_row",
+      "loop": false,
+      "actual_size": [
+        2172,
+        724
+      ],
+      "requested_size": [
+        1024,
+        256
+      ],
+      "dimensions_match_requested": false,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            72,
+            130,
+            510,
+            575
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            77,
+            161,
+            462,
+            547
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            84,
+            174,
+            463,
+            535
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            135,
+            209,
+            419,
+            517
+          ],
+          "duration_ms": null
+        }
+      ],
+      "binding": "view_effects `league_lissandra_a_hit`（跟随，画在人物上面）",
+      "target_game_size": "12",
+      "sha256": "8853862b7db608344f44fe180ff35fa0a6f6484fc0b6ffa7bddc5423d38aa58c",
+      "alpha_partial_fraction": 0.13572,
+      "opaque_luminance_mean_255": 208.03,
+      "opaque_luminance_brightest_10pct_255": 253.64,
+      "import_remaining": [
+        "recover game pixel grid and palette",
+        "align anchors / cell aspect",
+        "clean AA / partially transparent fringes",
+        "verify loop and projectile top-bottom symmetry"
+      ]
+    },
+    {
+      "file": "lissandra_fx_q_cast.png",
+      "raw_file": "raw/lissandra_fx_q_cast.png",
+      "index": 3,
+      "frame_count_requested": 4,
+      "frame_count_visually_observed": 4,
+      "layout": "single_horizontal_row",
+      "loop": false,
+      "actual_size": [
+        2172,
+        724
+      ],
+      "requested_size": [
+        1024,
+        192
+      ],
+      "dimensions_match_requested": false,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            16,
+            233,
+            543,
+            483
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            0,
+            204,
+            543,
+            523
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            0,
+            256,
+            543,
+            513
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            0,
+            292,
+            525,
+            487
+          ],
+          "duration_ms": null
+        }
+      ],
+      "binding": "view_effects `league_lissandra_q_cast`（施法者身上，跟随第一 tick；格子左边中点放到 Q 第 4 帧的手）",
+      "target_game_size": "16 × 12",
+      "sha256": "2f67a64d3827c6681b4441954550e61d7cc3487d401ca363ed0ad495d10136b5",
+      "alpha_partial_fraction": 0.14777,
+      "opaque_luminance_mean_255": 211.44,
+      "opaque_luminance_brightest_10pct_255": 253.23,
+      "import_remaining": [
+        "recover game pixel grid and palette",
+        "align anchors / cell aspect",
+        "clean AA / partially transparent fringes",
+        "verify loop and projectile top-bottom symmetry"
+      ]
+    },
+    {
+      "file": "lissandra_fx_q_shard.png",
+      "raw_file": "raw/lissandra_fx_q_shard.png",
+      "index": 4,
+      "frame_count_requested": 4,
+      "frame_count_visually_observed": 4,
+      "layout": "single_horizontal_row",
+      "loop": true,
+      "actual_size": [
+        2172,
+        724
+      ],
+      "requested_size": [
+        2048,
+        256
+      ],
+      "dimensions_match_requested": false,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            41,
+            263,
+            539,
+            460
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            56,
+            258,
+            537,
+            466
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            38,
+            263,
+            538,
+            466
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            40,
+            242,
+            537,
+            482
+          ],
+          "duration_ms": null
+        }
+      ],
+      "binding": "view_projectiles `league_lissandra_q_shard`（朝右，游戏转到飞行方向，上下对称）",
+      "target_game_size": "26 × 12",
+      "sha256": "cc237d6bd5d09ebfd710946758e98710226bc1a3aaa3c847a5f348d072346f1e",
+      "alpha_partial_fraction": 0.14077,
+      "opaque_luminance_mean_255": 182.55,
+      "opaque_luminance_brightest_10pct_255": 252.31,
+      "import_remaining": [
+        "recover game pixel grid and palette",
+        "align anchors / cell aspect",
+        "clean AA / partially transparent fringes",
+        "verify loop and projectile top-bottom symmetry"
+      ]
+    },
+    {
+      "file": "lissandra_fx_q_hit.png",
+      "raw_file": "raw/lissandra_fx_q_hit.png",
+      "index": 5,
+      "frame_count_requested": 5,
+      "frame_count_visually_observed": 5,
+      "layout": "single_horizontal_row",
+      "loop": false,
+      "actual_size": [
+        1983,
+        793
+      ],
+      "requested_size": [
+        1280,
+        256
+      ],
+      "dimensions_match_requested": false,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            397,
+            793
+          ],
+          "bbox": [
+            29,
+            202,
+            385,
+            574
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            397,
+            0,
+            396,
+            793
+          ],
+          "bbox": [
+            23,
+            192,
+            377,
+            589
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            793,
+            0,
+            397,
+            793
+          ],
+          "bbox": [
+            22,
+            200,
+            376,
+            582
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            1190,
+            0,
+            396,
+            793
+          ],
+          "bbox": [
+            8,
+            199,
+            378,
+            568
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 5,
+          "rect": [
+            1586,
+            0,
+            397,
+            793
+          ],
+          "bbox": [
+            19,
+            208,
+            355,
+            581
+          ],
+          "duration_ms": null
+        }
+      ],
+      "binding": "view_effects `league_lissandra_q_hit`（跟随，画在人物上面）",
+      "target_game_size": "16",
+      "sha256": "5fae58915e0a1622b22c217ad29d6483e8850352f83bb6bb7311499637c3d488",
+      "alpha_partial_fraction": 0.2603,
+      "opaque_luminance_mean_255": 212.78,
+      "opaque_luminance_brightest_10pct_255": 253.76,
+      "import_remaining": [
+        "recover game pixel grid and palette",
+        "align anchors / cell aspect",
+        "clean AA / partially transparent fringes",
+        "verify loop and projectile top-bottom symmetry"
+      ]
+    },
+    {
+      "file": "lissandra_fx_slow.png",
+      "raw_file": "raw/lissandra_fx_slow.png",
+      "index": 6,
+      "frame_count_requested": 4,
+      "frame_count_visually_observed": 4,
+      "layout": "single_horizontal_row",
+      "loop": true,
+      "actual_size": [
+        1983,
+        793
+      ],
+      "requested_size": [
+        2560,
+        256
+      ],
+      "dimensions_match_requested": false,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            496,
+            793
+          ],
+          "bbox": [
+            33,
+            353,
+            464,
+            602
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            496,
+            0,
+            496,
+            793
+          ],
+          "bbox": [
+            33,
+            294,
+            463,
+            601
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            992,
+            0,
+            495,
+            793
+          ],
+          "bbox": [
+            32,
+            243,
+            463,
+            602
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            1487,
+            0,
+            496,
+            793
+          ],
+          "bbox": [
+            33,
+            216,
+            464,
+            601
+          ],
+          "duration_ms": null
+        }
+      ],
+      "binding": "view_buffs `league_lissandra_q_slow` / `r_slow` / `p_slow`（同一张，循环，画在脚下）",
+      "target_game_size": "18 × 7",
+      "sha256": "8d69ebfa39beeddba775364802905a10c13529607d2c7bd54f28bd56d3b4a2bb",
+      "alpha_partial_fraction": 0.10621,
+      "opaque_luminance_mean_255": 217.33,
+      "opaque_luminance_brightest_10pct_255": 253.1,
+      "import_remaining": [
+        "recover game pixel grid and palette",
+        "align anchors / cell aspect",
+        "clean AA / partially transparent fringes",
+        "verify loop and projectile top-bottom symmetry"
+      ]
+    },
+    {
+      "file": "lissandra_fx_w_ring.png",
+      "raw_file": "raw/lissandra_fx_w_ring.png",
+      "index": 7,
+      "frame_count_requested": 6,
+      "frame_count_visually_observed": 6,
+      "layout": "single_horizontal_row",
+      "loop": false,
+      "actual_size": [
+        2103,
+        748
+      ],
+      "requested_size": [
+        2880,
+        272
+      ],
+      "dimensions_match_requested": false,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            350,
+            748
+          ],
+          "bbox": [
+            40,
+            378,
+            350,
+            515
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            350,
+            0,
+            351,
+            748
+          ],
+          "bbox": [
+            0,
+            373,
+            351,
+            520
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            701,
+            0,
+            351,
+            748
+          ],
+          "bbox": [
+            0,
+            312,
+            351,
+            520
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            1052,
+            0,
+            350,
+            748
+          ],
+          "bbox": [
+            0,
+            258,
+            350,
+            522
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 5,
+          "rect": [
+            1402,
+            0,
+            350,
+            748
+          ],
+          "bbox": [
+            0,
+            302,
+            350,
+            520
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 6,
+          "rect": [
+            1752,
+            0,
+            351,
+            748
+          ],
+          "bbox": [
+            0,
+            377,
+            332,
+            520
+          ],
+          "duration_ms": null
+        }
+      ],
+      "binding": "view_effects `league_lissandra_w_ring`（BIG，施法者身上，第一 tick 跟随，画在人物下面）和 `w_ring_late`（同一张，E 落地时，不跟随）",
+      "target_game_size": "60 × 34",
+      "sha256": "1d0af13ae39e9eba62d2974dfd3127283c1ff90b920dd63093a8736f049b21cf",
+      "alpha_partial_fraction": 0.16879,
+      "opaque_luminance_mean_255": 196.44,
+      "opaque_luminance_brightest_10pct_255": 252.34,
+      "import_remaining": [
+        "recover game pixel grid and palette",
+        "align anchors / cell aspect",
+        "clean AA / partially transparent fringes",
+        "verify loop and projectile top-bottom symmetry"
+      ]
+    },
+    {
+      "file": "lissandra_fx_w_hit.png",
+      "raw_file": "raw/lissandra_fx_w_hit.png",
+      "index": 8,
+      "frame_count_requested": 4,
+      "frame_count_visually_observed": 4,
+      "layout": "single_horizontal_row",
+      "loop": false,
+      "actual_size": [
+        2172,
+        724
+      ],
+      "requested_size": [
+        1024,
+        256
+      ],
+      "dimensions_match_requested": false,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            90,
+            188,
+            429,
+            549
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            4,
+            124,
+            516,
+            628
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            48,
+            153,
+            543,
+            588
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            0,
+            207,
+            451,
+            549
+          ],
+          "duration_ms": null
+        }
+      ],
+      "binding": "view_effects `league_lissandra_w_hit`（跟随，画在人物上面）",
+      "target_game_size": "14",
+      "sha256": "55d76616bae95cef0e8f4f0dfd7d459c8ca534b0cc4160f8e88b37ab6f458859",
+      "alpha_partial_fraction": 0.19696,
+      "opaque_luminance_mean_255": 204.59,
+      "opaque_luminance_brightest_10pct_255": 253.58,
+      "import_remaining": [
+        "recover game pixel grid and palette",
+        "align anchors / cell aspect",
+        "clean AA / partially transparent fringes",
+        "verify loop and projectile top-bottom symmetry"
+      ]
+    },
+    {
+      "file": "lissandra_fx_w_root.png",
+      "raw_file": "raw/lissandra_fx_w_root.png",
+      "index": 9,
+      "frame_count_requested": 4,
+      "frame_count_visually_observed": 4,
+      "layout": "single_horizontal_row",
+      "loop": true,
+      "actual_size": [
+        1983,
+        793
+      ],
+      "requested_size": [
+        2560,
+        384
+      ],
+      "dimensions_match_requested": false,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            496,
+            793
+          ],
+          "bbox": [
+            10,
+            282,
+            487,
+            612
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            496,
+            0,
+            496,
+            793
+          ],
+          "bbox": [
+            9,
+            282,
+            487,
+            612
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            992,
+            0,
+            495,
+            793
+          ],
+          "bbox": [
+            8,
+            282,
+            486,
+            612
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            1487,
+            0,
+            496,
+            793
+          ],
+          "bbox": [
+            9,
+            282,
+            486,
+            612
+          ],
+          "duration_ms": null
+        }
+      ],
+      "binding": "view_buffs `league_lissandra_w_root`（循环，画在脚下，1.25 秒）",
+      "target_game_size": "20 × 12",
+      "sha256": "b5d979fcb4d15b9532b21abc2722eba63f8a53300b59c95ac0e24e7efcaa0e36",
+      "alpha_partial_fraction": 0.23633,
+      "opaque_luminance_mean_255": 175.62,
+      "opaque_luminance_brightest_10pct_255": 250.67,
+      "import_remaining": [
+        "recover game pixel grid and palette",
+        "align anchors / cell aspect",
+        "clean AA / partially transparent fringes",
+        "verify loop and projectile top-bottom symmetry"
+      ]
+    },
+    {
+      "file": "lissandra_fx_e_cast.png",
+      "raw_file": "raw/lissandra_fx_e_cast.png",
+      "index": 10,
+      "frame_count_requested": 4,
+      "frame_count_visually_observed": 4,
+      "layout": "single_horizontal_row",
+      "loop": false,
+      "actual_size": [
+        2172,
+        724
+      ],
+      "requested_size": [
+        1024,
+        192
+      ],
+      "dimensions_match_requested": false,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            18,
+            207,
+            543,
+            503
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            0,
+            183,
+            543,
+            547
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            0,
+            254,
+            543,
+            483
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            0,
+            280,
+            524,
+            483
+          ],
+          "duration_ms": null
+        }
+      ],
+      "binding": "view_effects `league_lissandra_e_cast`（施法者身上，跟随第一 tick；格子左边中点放到 E 第 2 帧的手）",
+      "target_game_size": "16 × 12",
+      "sha256": "0e998b56fbe4e09060d08d330b39eee208b8f84290c53261c3c9465e835f49df",
+      "alpha_partial_fraction": 0.1287,
+      "opaque_luminance_mean_255": 213.41,
+      "opaque_luminance_brightest_10pct_255": 253.55,
+      "import_remaining": [
+        "recover game pixel grid and palette",
+        "align anchors / cell aspect",
+        "clean AA / partially transparent fringes",
+        "verify loop and projectile top-bottom symmetry"
+      ]
+    },
+    {
+      "file": "lissandra_fx_e_claw.png",
+      "raw_file": "raw/lissandra_fx_e_claw.png",
+      "index": 11,
+      "frame_count_requested": 4,
+      "frame_count_visually_observed": 4,
+      "layout": "single_horizontal_row",
+      "loop": true,
+      "actual_size": [
+        2172,
+        724
+      ],
+      "requested_size": [
+        2048,
+        256
+      ],
+      "dimensions_match_requested": false,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            19,
+            230,
+            539,
+            494
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            51,
+            230,
+            537,
+            494
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            64,
+            230,
+            538,
+            494
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            69,
+            230,
+            538,
+            494
+          ],
+          "duration_ms": null
+        }
+      ],
+      "binding": "view_projectiles `league_lissandra_e_claw`（朝右，游戏转到飞行方向，上下对称）",
+      "target_game_size": "22 × 12",
+      "sha256": "abcd30901fc72b75af0cb2ec193fc73d3c247b716ca4075d92da999bd84645d5",
+      "alpha_partial_fraction": 0.23014,
+      "opaque_luminance_mean_255": 174.04,
+      "opaque_luminance_brightest_10pct_255": 253.13,
+      "import_remaining": [
+        "recover game pixel grid and palette",
+        "align anchors / cell aspect",
+        "clean AA / partially transparent fringes",
+        "verify loop and projectile top-bottom symmetry"
+      ]
+    },
+    {
+      "file": "lissandra_fx_e_hit.png",
+      "raw_file": "raw/lissandra_fx_e_hit.png",
+      "index": 12,
+      "frame_count_requested": 4,
+      "frame_count_visually_observed": 4,
+      "layout": "single_horizontal_row",
+      "loop": false,
+      "actual_size": [
+        2172,
+        724
+      ],
+      "requested_size": [
+        1024,
+        256
+      ],
+      "dimensions_match_requested": false,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            61,
+            151,
+            489,
+            594
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            55,
+            136,
+            527,
+            594
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            87,
+            151,
+            498,
+            594
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            125,
+            193,
+            446,
+            534
+          ],
+          "duration_ms": null
+        }
+      ],
+      "binding": "view_effects `league_lissandra_e_hit`（跟随，画在人物上面）",
+      "target_game_size": "14",
+      "sha256": "c9aa666a6f5aadfccc4069b9d1e1f5d3e5b6b64bb1d1568cf122dcae3fc4b8c3",
+      "alpha_partial_fraction": 0.19555,
+      "opaque_luminance_mean_255": 218.73,
+      "opaque_luminance_brightest_10pct_255": 254.49,
+      "import_remaining": [
+        "recover game pixel grid and palette",
+        "align anchors / cell aspect",
+        "clean AA / partially transparent fringes",
+        "verify loop and projectile top-bottom symmetry"
+      ]
+    },
+    {
+      "file": "lissandra_fx_e_port.png",
+      "raw_file": "raw/lissandra_fx_e_port.png",
+      "index": 13,
+      "frame_count_requested": 5,
+      "frame_count_visually_observed": 5,
+      "layout": "single_horizontal_row",
+      "loop": false,
+      "actual_size": [
+        1774,
+        887
+      ],
+      "requested_size": [
+        2040,
+        360
+      ],
+      "dimensions_match_requested": false,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            355,
+            887
+          ],
+          "bbox": [
+            29,
+            481,
+            341,
+            722
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            355,
+            0,
+            355,
+            887
+          ],
+          "bbox": [
+            10,
+            203,
+            352,
+            722
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            710,
+            0,
+            354,
+            887
+          ],
+          "bbox": [
+            8,
+            266,
+            347,
+            722
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            1064,
+            0,
+            355,
+            887
+          ],
+          "bbox": [
+            9,
+            299,
+            347,
+            721
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 5,
+          "rect": [
+            1419,
+            0,
+            355,
+            887
+          ],
+          "bbox": [
+            40,
+            456,
+            305,
+            722
+          ],
+          "duration_ms": null
+        }
+      ],
+      "binding": "view_effects `league_lissandra_e_port`（BIG，画在她落地的位置，不跟随）",
+      "target_game_size": "34 × 30",
+      "sha256": "fb17fca3b8c3ab6de6ebd20cc200f375f87093ff86111f7bbb07376c1c4fddab",
+      "alpha_partial_fraction": 0.26552,
+      "opaque_luminance_mean_255": 211.56,
+      "opaque_luminance_brightest_10pct_255": 253.36,
+      "import_remaining": [
+        "recover game pixel grid and palette",
+        "align anchors / cell aspect",
+        "clean AA / partially transparent fringes",
+        "verify loop and projectile top-bottom symmetry"
+      ]
+    },
+    {
+      "file": "lissandra_fx_r_cast.png",
+      "raw_file": "raw/lissandra_fx_r_cast.png",
+      "index": 14,
+      "frame_count_requested": 5,
+      "frame_count_visually_observed": 5,
+      "layout": "single_horizontal_row",
+      "loop": false,
+      "actual_size": [
+        1983,
+        793
+      ],
+      "requested_size": [
+        1600,
+        400
+      ],
+      "dimensions_match_requested": false,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            397,
+            793
+          ],
+          "bbox": [
+            31,
+            18,
+            397,
+            371
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            397,
+            0,
+            396,
+            793
+          ],
+          "bbox": [
+            0,
+            158,
+            396,
+            735
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            793,
+            0,
+            397,
+            793
+          ],
+          "bbox": [
+            0,
+            291,
+            397,
+            688
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            1190,
+            0,
+            396,
+            793
+          ],
+          "bbox": [
+            0,
+            362,
+            396,
+            672
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 5,
+          "rect": [
+            1586,
+            0,
+            397,
+            793
+          ],
+          "bbox": [
+            0,
+            378,
+            353,
+            671
+          ],
+          "duration_ms": null
+        }
+      ],
+      "binding": "view_effects `league_lissandra_r_cast`（BIG，施法者身上，不跟随）",
+      "target_game_size": "40 × 50",
+      "sha256": "5d4fe8dd4d935416a527c05b87532c3a87ff4bbfd6948caf37f1ea00d2b14897",
+      "alpha_partial_fraction": 0.26389,
+      "opaque_luminance_mean_255": 222.03,
+      "opaque_luminance_brightest_10pct_255": 253.84,
+      "import_remaining": [
+        "recover game pixel grid and palette",
+        "align anchors / cell aspect",
+        "clean AA / partially transparent fringes",
+        "verify loop and projectile top-bottom symmetry"
+      ]
+    },
+    {
+      "file": "lissandra_fx_r_tomb.png",
+      "raw_file": "raw/lissandra_fx_r_tomb.png",
+      "index": 15,
+      "frame_count_requested": 4,
+      "frame_count_visually_observed": 4,
+      "layout": "single_horizontal_row",
+      "loop": true,
+      "actual_size": [
+        2070,
+        760
+      ],
+      "requested_size": [
+        960,
+        352
+      ],
+      "dimensions_match_requested": false,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            518,
+            760
+          ],
+          "bbox": [
+            21,
+            7,
+            513,
+            751
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            518,
+            0,
+            517,
+            760
+          ],
+          "bbox": [
+            23,
+            7,
+            512,
+            751
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            1035,
+            0,
+            517,
+            760
+          ],
+          "bbox": [
+            23,
+            7,
+            513,
+            751
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            1552,
+            0,
+            518,
+            760
+          ],
+          "bbox": [
+            24,
+            7,
+            517,
+            751
+          ],
+          "duration_ms": null
+        }
+      ],
+      "binding": "view_buffs `league_lissandra_r_tomb`（BIG，循环，画在人物上面）",
+      "target_game_size": "30 × 44",
+      "sha256": "7ae33d8b42b68e2b0595ada699db4d915f3fa5098bfc305447e34dab95a5fcaa",
+      "alpha_partial_fraction": 0.6327,
+      "opaque_luminance_mean_255": 149.24,
+      "opaque_luminance_brightest_10pct_255": 253.31,
+      "import_remaining": [
+        "recover game pixel grid and palette",
+        "align anchors / cell aspect",
+        "clean AA / partially transparent fringes",
+        "verify loop and projectile top-bottom symmetry"
+      ],
+      "central_opening_transparent_fraction": [
+        0.9342,
+        0.931,
+        0.9312,
+        0.9318
+      ]
+    },
+    {
+      "file": "lissandra_fx_r_burst.png",
+      "raw_file": "raw/lissandra_fx_r_burst.png",
+      "index": 16,
+      "frame_count_requested": 6,
+      "frame_count_visually_observed": 6,
+      "layout": "single_horizontal_row",
+      "loop": false,
+      "actual_size": [
+        2033,
+        773
+      ],
+      "requested_size": [
+        2688,
+        288
+      ],
+      "dimensions_match_requested": false,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            339,
+            773
+          ],
+          "bbox": [
+            15,
+            304,
+            339,
+            548
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            339,
+            0,
+            339,
+            773
+          ],
+          "bbox": [
+            0,
+            349,
+            339,
+            547
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            678,
+            0,
+            338,
+            773
+          ],
+          "bbox": [
+            0,
+            240,
+            338,
+            548
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            1016,
+            0,
+            339,
+            773
+          ],
+          "bbox": [
+            0,
+            249,
+            339,
+            562
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 5,
+          "rect": [
+            1355,
+            0,
+            339,
+            773
+          ],
+          "bbox": [
+            0,
+            357,
+            317,
+            545
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 6,
+          "rect": [
+            1694,
+            0,
+            339,
+            773
+          ],
+          "bbox": [
+            30,
+            431,
+            314,
+            530
+          ],
+          "duration_ms": null
+        }
+      ],
+      "binding": "view_effects `league_lissandra_r_burst`（BIG，画在冰墓的位置，不跟随）",
+      "target_game_size": "56 × 36",
+      "sha256": "58d20178a3b0dae19e34e7d396c34ffd617e0b18a4d2a75c6f676e3f9806323e",
+      "alpha_partial_fraction": 0.19966,
+      "opaque_luminance_mean_255": 98.14,
+      "opaque_luminance_brightest_10pct_255": 243.58,
+      "import_remaining": [
+        "recover game pixel grid and palette",
+        "align anchors / cell aspect",
+        "clean AA / partially transparent fringes",
+        "verify loop and projectile top-bottom symmetry"
+      ]
+    },
+    {
+      "file": "lissandra_fx_r_field.png",
+      "raw_file": "raw/lissandra_fx_r_field.png",
+      "index": 17,
+      "frame_count_requested": 4,
+      "frame_count_visually_observed": 4,
+      "layout": "single_horizontal_row",
+      "loop": true,
+      "actual_size": [
+        2172,
+        724
+      ],
+      "requested_size": [
+        2048,
+        256
+      ],
+      "dimensions_match_requested": false,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            11,
+            238,
+            534,
+            477
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            11,
+            237,
+            533,
+            477
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            10,
+            237,
+            533,
+            477
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            10,
+            237,
+            533,
+            477
+          ],
+          "duration_ms": null
+        }
+      ],
+      "binding": "view_projectiles `league_lissandra_r_field`（BIG，地面上，画在人物下面）",
+      "target_game_size": "60 × 30",
+      "sha256": "3e2db6185d8c342f9cc59e23ac3c6b28053ca8cf4b0ae6685e5cf65cd0124190",
+      "alpha_partial_fraction": 0.23964,
+      "opaque_luminance_mean_255": 75.1,
+      "opaque_luminance_brightest_10pct_255": 214.5,
+      "import_remaining": [
+        "recover game pixel grid and palette",
+        "align anchors / cell aspect",
+        "clean AA / partially transparent fringes",
+        "verify loop and projectile top-bottom symmetry"
+      ]
+    },
+    {
+      "file": "lissandra_fx_r_self_cast.png",
+      "raw_file": "raw/lissandra_fx_r_self_cast.png",
+      "index": 18,
+      "frame_count_requested": 4,
+      "frame_count_visually_observed": 4,
+      "layout": "single_horizontal_row",
+      "loop": false,
+      "actual_size": [
+        2067,
+        761
+      ],
+      "requested_size": [
+        1088,
+        400
+      ],
+      "dimensions_match_requested": false,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            517,
+            761
+          ],
+          "bbox": [
+            17,
+            388,
+            498,
+            737
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            517,
+            0,
+            517,
+            761
+          ],
+          "bbox": [
+            14,
+            212,
+            499,
+            737
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            1034,
+            0,
+            516,
+            761
+          ],
+          "bbox": [
+            19,
+            76,
+            504,
+            742
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            1550,
+            0,
+            517,
+            761
+          ],
+          "bbox": [
+            38,
+            15,
+            506,
+            742
+          ],
+          "duration_ms": null
+        }
+      ],
+      "binding": "view_effects `league_lissandra_r_self_cast`（BIG，施法者身上，不跟随）",
+      "target_game_size": "34 × 50",
+      "sha256": "e0ba51ac2c1636827e76bd96484be74d840e33cb1aac948b6a076e5c62b8e4a9",
+      "alpha_partial_fraction": 0.46196,
+      "opaque_luminance_mean_255": 187.96,
+      "opaque_luminance_brightest_10pct_255": 253.78,
+      "import_remaining": [
+        "recover game pixel grid and palette",
+        "align anchors / cell aspect",
+        "clean AA / partially transparent fringes",
+        "verify loop and projectile top-bottom symmetry"
+      ]
+    },
+    {
+      "file": "lissandra_fx_r_stasis.png",
+      "raw_file": "raw/lissandra_fx_r_stasis.png",
+      "index": 19,
+      "frame_count_requested": 4,
+      "frame_count_visually_observed": 4,
+      "layout": "single_horizontal_row",
+      "loop": true,
+      "actual_size": [
+        2066,
+        761
+      ],
+      "requested_size": [
+        1088,
+        400
+      ],
+      "dimensions_match_requested": false,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            516,
+            761
+          ],
+          "bbox": [
+            22,
+            9,
+            516,
+            749
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            516,
+            0,
+            517,
+            761
+          ],
+          "bbox": [
+            0,
+            9,
+            509,
+            749
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            1033,
+            0,
+            517,
+            761
+          ],
+          "bbox": [
+            16,
+            9,
+            517,
+            749
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            1550,
+            0,
+            516,
+            761
+          ],
+          "bbox": [
+            0,
+            9,
+            509,
+            749
+          ],
+          "duration_ms": null
+        }
+      ],
+      "binding": "view_buffs `league_lissandra_r_stasis`（BIG，循环，画在人物上面）",
+      "target_game_size": "34 × 50",
+      "sha256": "ff743875c8b1ef73dad585bee7eac39450edf8580165b2ba8e8dd194d2eafd2b",
+      "alpha_partial_fraction": 0.64776,
+      "opaque_luminance_mean_255": 157.42,
+      "opaque_luminance_brightest_10pct_255": 253.34,
+      "import_remaining": [
+        "recover game pixel grid and palette",
+        "align anchors / cell aspect",
+        "clean AA / partially transparent fringes",
+        "verify loop and projectile top-bottom symmetry"
+      ],
+      "central_opening_transparent_fraction": [
+        0.9342,
+        0.9403,
+        0.9397,
+        0.9438
+      ]
+    },
+    {
+      "file": "lissandra_fx_p_thrall.png",
+      "raw_file": "raw/lissandra_fx_p_thrall.png",
+      "index": 20,
+      "frame_count_requested": 8,
+      "frame_count_visually_observed": 8,
+      "layout": "single_horizontal_row",
+      "loop": false,
+      "actual_size": [
+        2021,
+        778
+      ],
+      "requested_size": [
+        1664,
+        320
+      ],
+      "dimensions_match_requested": false,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            253,
+            778
+          ],
+          "bbox": [
+            15,
+            462,
+            253,
+            657
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            253,
+            0,
+            252,
+            778
+          ],
+          "bbox": [
+            0,
+            288,
+            252,
+            656
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            505,
+            0,
+            253,
+            778
+          ],
+          "bbox": [
+            0,
+            146,
+            253,
+            652
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            758,
+            0,
+            252,
+            778
+          ],
+          "bbox": [
+            28,
+            182,
+            247,
+            652
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 5,
+          "rect": [
+            1010,
+            0,
+            253,
+            778
+          ],
+          "bbox": [
+            26,
+            166,
+            242,
+            656
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 6,
+          "rect": [
+            1263,
+            0,
+            253,
+            778
+          ],
+          "bbox": [
+            9,
+            163,
+            228,
+            655
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 7,
+          "rect": [
+            1516,
+            0,
+            252,
+            778
+          ],
+          "bbox": [
+            1,
+            159,
+            230,
+            655
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 8,
+          "rect": [
+            1768,
+            0,
+            253,
+            778
+          ],
+          "bbox": [
+            3,
+            126,
+            235,
+            656
+          ],
+          "duration_ms": null
+        }
+      ],
+      "binding": "view_effects `league_lissandra_p_thrall`（BIG，画在尸体的位置，不跟随）",
+      "target_game_size": "26 × 40",
+      "sha256": "16ee10e05b0a4e7e248646c2128b4c856fdd72d5846b5f50433ccc3d400ba1a1",
+      "alpha_partial_fraction": 0.45666,
+      "opaque_luminance_mean_255": 68.34,
+      "opaque_luminance_brightest_10pct_255": 216.68,
+      "import_remaining": [
+        "recover game pixel grid and palette",
+        "align anchors / cell aspect",
+        "clean AA / partially transparent fringes",
+        "verify loop and projectile top-bottom symmetry"
+      ]
+    },
+    {
+      "file": "lissandra_fx_p_burst.png",
+      "raw_file": "raw/lissandra_fx_p_burst.png",
+      "index": 21,
+      "frame_count_requested": 6,
+      "frame_count_visually_observed": 6,
+      "layout": "single_horizontal_row",
+      "loop": false,
+      "actual_size": [
+        1920,
+        819
+      ],
+      "requested_size": [
+        2400,
+        272
+      ],
+      "dimensions_match_requested": false,
+      "frames": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            320,
+            819
+          ],
+          "bbox": [
+            58,
+            166,
+            320,
+            641
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 2,
+          "rect": [
+            320,
+            0,
+            320,
+            819
+          ],
+          "bbox": [
+            0,
+            332,
+            320,
+            652
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 3,
+          "rect": [
+            640,
+            0,
+            320,
+            819
+          ],
+          "bbox": [
+            0,
+            323,
+            320,
+            648
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 4,
+          "rect": [
+            960,
+            0,
+            320,
+            819
+          ],
+          "bbox": [
+            0,
+            269,
+            320,
+            652
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 5,
+          "rect": [
+            1280,
+            0,
+            320,
+            819
+          ],
+          "bbox": [
+            0,
+            398,
+            320,
+            652
+          ],
+          "duration_ms": null
+        },
+        {
+          "index": 6,
+          "rect": [
+            1600,
+            0,
+            320,
+            819
+          ],
+          "bbox": [
+            0,
+            403,
+            291,
+            636
+          ],
+          "duration_ms": null
+        }
+      ],
+      "binding": "view_effects `league_lissandra_p_burst`（BIG，画在冰仆的位置，不跟随）",
+      "target_game_size": "50 × 34",
+      "sha256": "774814d826db9ef170926ebe1e248789e72fc55caa3e1d5f6a062842c642f4c7",
+      "alpha_partial_fraction": 0.22312,
+      "opaque_luminance_mean_255": 176.56,
+      "opaque_luminance_brightest_10pct_255": 253.46,
+      "import_remaining": [
+        "recover game pixel grid and palette",
+        "align anchors / cell aspect",
+        "clean AA / partially transparent fringes",
+        "verify loop and projectile top-bottom symmetry"
+      ]
+    }
+  ]
+}

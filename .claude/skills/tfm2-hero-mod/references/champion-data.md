@@ -1212,6 +1212,8 @@ league_evelynn (jungle, --lane 1, 2026-10-05, Allure's ripe mark: her next attac
 game; the base ninja 0.50 and league_kayn 1.00 in the same batch - no change.
 league_sett (top, 2026-10-05, Facebreaker's 1 s stun on two or more pulled in - on one too after his R - cast only with a champion near, and R's stun; Yasuo mid): 1.88 a game; the first kit (Facebreaker on waves too) 2.12, the
 base fighter 2.33 and league_darius 1.25 in the same batch - no change.
+league_lissandra (mid, --lane 2, 2026-10-05, Ring of Frost's 1.25 s root - also after Glacial Path's blink - and Frozen
+Tomb's 1.5 s stun): 1.79 a game; the base lightning mage 3.19 and league_twistedfate 1.23 in the same batch - no change.
 
 **Kill trigger (league_jinx Get Excited!).** No effect fires on a kill, but section 4's facts make one:
 1. Next to the damaging projectile, fire an invisible twin with the same speed and path and
@@ -3180,6 +3182,33 @@ him (a stunned wave does not count). Facebreaker in `r_combo` takes the stun bra
 themselves (in 10 simulated minutes about one R -> E and two W in `w_combo`); casting Facebreaker on
 `EnemyChampion` instead of `EnemyWithoutTower` mattered more (9 casts, 7 on champions, against 28 and 3.5), and
 together they took him from +0.45 to +0.79 kills a game over two batches (porting-heroes "Balance check").
+
+**A thrall where the champion she killed fell (league_lissandra passive, Iceborn Subjugation).** League raises any enemy
+champion that dies near her; nothing reports a death and a `Delayed` queued on a dying unit runs only its pictures, so
+the spot is taken in the same tick as the damage: every damaging source (the attack's champion-only twin, Q's twin line,
+W's ring on `EnemyChampion`, R's target) adds league_jinx's kill flag `k_<src>` before the damage and a 3-tick
+`AddCasted` that clears it after (a living target clears it, a dead one never runs it), and fires a hidden 1-tick
+`ParabolicProjectile` at the target - fired straight from the effect list (a RangeEffect's per-target list or a
+`RandomTarget`), never from a projectile's `applied_effects`, where projectiles do not spawn. Its `end_effects` wait
+`flight + 3` ticks at the landing spot and, with the flag still on, raise the thrall there (a `ViewEffect`) and shatter
+it 90 ticks later (a `RangeProjectile` burst + slow). The wait must outlast the projectile: read on the tick the bolt
+hit, the flag had not been cleared yet and a thrall rose over a living champion (the attack's longest flight is range +
+40000 at its speed). In three logged games all 8 thralls stood on real champion deaths.
+
+**Ring now, else glide in on the claw and ring (league_lissandra W with E folded in).** A `None` cast on `EnemyWithoutTower`
+(85000): an enemy unit within the ring's radius rings at once; else, with E off its own cooldown flag (`e_cd`, 15 s), an
+`EnemyChampionRecentlyAttacked` within reach gets the claw (a penetrating damage line) and a hidden non-penetrating line on
+`EnemyChampion` with the claw's speed and a radius of the stop distance, whose `end_effects` `Teleport` her and ring 4 ticks
+later (a `RangeEffect` round the caster runs where she landed); else the claw alone flies at a champion or any enemy in
+reach - a poke that clears waves without blinking into them, and never an empty cast. 3-7 blinks a game.
+
+**One ult, two tombs (league_lissandra R, Frozen Tomb).** League freezes an enemy or, low on health, herself; health is
+unreadable, so crowding stands in (league_kayle R): the slot only arms the ult (a 3-tick `None` cast, refunded after 600
+ticks unused) and her attack, Q and W check it: two enemy champions within 30000 (the n1/n2 ladder) -> herself: 150 ticks
+of `CasterAnimation ult_self`, a `damaged_reduce` 100 + `cc_immune` caster buff (it carries the ice block's picture) and a
+heal over the stasis; else an `EnemyChampionRecentlyAttacked` within 60000 -> a stun, the tomb buff's picture and the
+damage. Either way a 1-tick lob onto the tomb starts the burst and a `RangePeriodProjectile` field (180 ticks, a 20-tick
+slow every 15) - zones need a point, the lob gives one even on herself.
 
 ## 8. Gotchas
 

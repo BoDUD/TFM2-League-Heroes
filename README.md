@@ -2,9 +2,9 @@
 
 团战经理2（Teamfight Manager 2）的英雄联盟英雄 Mod，mod_id 是 `league`。纯数据 mod：不改游戏本体，不需要编译。
 
-英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）、烬（`league_jhin`）、基兰（`league_zilean`）、亚托克斯（`league_aatrox`）、凯隐（`league_kayn`）、希维尔（`league_sivir`）、崔斯特（`league_twistedfate`）、洛（`league_rakan`）、伊芙琳（`league_evelynn`）、瑟提（`league_sett`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹、ADC 烬、辅助基兰。第十一组有上单亚托克斯（剑魔）、打野凯隐、中单崔斯特、ADC 希维尔、辅助洛。第十二组有上单瑟提（腕豪）、打野伊芙琳。
+英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）、烬（`league_jhin`）、基兰（`league_zilean`）、亚托克斯（`league_aatrox`）、凯隐（`league_kayn`）、希维尔（`league_sivir`）、崔斯特（`league_twistedfate`）、洛（`league_rakan`）、伊芙琳（`league_evelynn`）、瑟提（`league_sett`）、丽桑卓（`league_lissandra`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹、ADC 烬、辅助基兰。第十一组有上单亚托克斯（剑魔）、打野凯隐、中单崔斯特、ADC 希维尔、辅助洛。第十二组有上单瑟提（腕豪）、打野伊芙琳、中单丽桑卓。
 
-对敌人放的小技能，施放目标是「敌人（不含防御塔）」，清线、打野时也会放；只有大招、德莱厄斯的 E（拉人）、阿木木的 Q（绷带）、锤石的 Q（钩子）、阿狸的 E（魅惑）、薇恩的 E（恶魔审判）、维迦的 E（扭曲空间）、凯特琳的 W（约德尔诱捕器）、卡莎的 W（虚空索敌）、基兰的 E（时光发条）和洛的 W（盛大登场，落地后接 E 轻舞成双）只对英雄放（莫甘娜的 Q 对什么都放，但射程内有敌方英雄时朝英雄射；贝蕾亚的 Q 也一样，射程内有敌方英雄时扑英雄；娜美的 W、Q 也是，射程内有敌方英雄时打英雄；黛安娜的 Q 也一样，射程内有敌方英雄时朝英雄射，E 带着月光再冲的第二下也先找英雄；菲奥娜的 Q、W 也一样，射程内有敌方英雄时冲向、刺向英雄；凯特琳的 Q 也一样，射程内有敌方英雄时朝英雄射；凯南的 Q 也一样，射程内有敌方英雄时锁定英雄射；伊芙琳的 W 也一样，射程内有敌方英雄时先给英雄挂印记）；提莫的 W 是给自己加速和伪装，也只在敌方英雄靠近时放。最早几个英雄的小技能只对英雄放，打野时一直平 A 野怪，按玩家反馈改了。
+对敌人放的小技能，施放目标是「敌人（不含防御塔）」，清线、打野时也会放；只有大招、德莱厄斯的 E（拉人）、阿木木的 Q（绷带）、锤石的 Q（钩子）、阿狸的 E（魅惑）、薇恩的 E（恶魔审判）、维迦的 E（扭曲空间）、凯特琳的 W（约德尔诱捕器）、卡莎的 W（虚空索敌）、基兰的 E（时光发条）和洛的 W（盛大登场，落地后接 E 轻舞成双）只对英雄放（莫甘娜的 Q 对什么都放，但射程内有敌方英雄时朝英雄射；贝蕾亚的 Q 也一样，射程内有敌方英雄时扑英雄；娜美的 W、Q 也是，射程内有敌方英雄时打英雄；黛安娜的 Q 也一样，射程内有敌方英雄时朝英雄射，E 带着月光再冲的第二下也先找英雄；菲奥娜的 Q、W 也一样，射程内有敌方英雄时冲向、刺向英雄；凯特琳的 Q 也一样，射程内有敌方英雄时朝英雄射；凯南的 Q 也一样，射程内有敌方英雄时锁定英雄射；伊芙琳的 W 也一样，射程内有敌方英雄时先给英雄挂印记；丽桑卓的 Q 也一样，射程内有敌方英雄时朝英雄射，W 身边没人时冰爪只滑向队友正在打的敌方英雄，否则只是扔出去打一下）；提莫的 W 是给自己加速和伪装，也只在敌方英雄靠近时放。最早几个英雄的小技能只对英雄放，打野时一直平 A 野怪，按玩家反馈改了。
 
 ![盖伦演示：普攻、Q+W、强化普攻、E 旋转、R 德玛西亚正义](docs/preview/league_garen_showcase.gif?v=0930)
 
@@ -106,6 +106,8 @@
 ![伊芙琳演示：跑进场鞭打德莱厄斯（鞭笞：紫色鞭痕和心形闪光，脚下加速的紫线）；W 引诱：飞吻放出诅咒，他头顶挂上空心的心；Q 憎恨之刺：鞭子打中他，头上一圈荆棘冠，随后三根尖刺自动射穿两人；普攻带出荆棘标记的追加伤害；心被填满成熟，下一击魅惑：心碎开，三颗小心在他头顶转圈，他朝伊芙琳走过来，脚下是削魔抗的裂纹光环；R 最终抚慰：恶魔爆发，前方一道粉色 X 斩痕打中两人，她原地留下烟影闪回，德莱厄斯倒下；1.25 秒后她进入恶魔魅影（紫烟升起包住她，强化鞭笞就绪的光点），盖伦走过来，她冲出魅影鞭打盖伦（身后拖着紫烟）](docs/preview/league_evelynn_showcase.gif?v=1005ev)
 
 ![瑟提演示：他跑进场，左刺拳、右重拳打德莱厄斯；E 强手裂颅张开双臂，把前面的德莱厄斯和背后的盖伦一起拽过来对撞（两人眩晕，胸前两拳之间炸开冲击），拳头冒起金色的光焰、脚下冒出豪意的热浪；两记强化拳；W 蓄意轰拳：地上的扇形预警，巨拳轰出，正中打出真实伤害，银白色的护盾罩住他；R 叹为观止：抓住德莱厄斯往前扔，跳过去砸地，砸出一个大坑，德莱厄斯倒下](docs/preview/league_sett_showcase.gif?v=1004si)
+
+![丽桑卓演示：她滑进场，一颗冰弹打德莱厄斯；Q 寒冰碎片：冰锥从伸出的手上射出，穿过德莱厄斯和身后的盖伦，两人脚下结霜减速；E 冰川之径：冰爪贴地滑到德莱厄斯脚下，她跟着滑过去，落地的寒雾一冲，W 冰霜之环在脚下炸开一圈冰刺，两人被冰晶冻住脚；又一颗冰弹；R 冰封陵墓：寒风卷下，德莱厄斯被封进冰墓，周围炸出黑冰、留下一片发光裂纹的冰地，盖伦减速；冰弹打倒德莱厄斯，他从冰里站起来变成黑冰冰仆，1.5 秒后碎裂，炸到盖伦；最后被围时她把自己冻进冰块](docs/preview/league_lissandra_showcase.gif?v=1005lz)
 
 ## 英雄：盖伦
 
@@ -2371,6 +2373,46 @@ python tools/art/preview_sett.py          # 逐帧图、特效图和展示动图
 - 特效：第 3 步特效（[`PROMPTS_FX.md`](assets/source/sett/PROMPTS_FX.md)，包由 `tools/art/pack_sett_fx.py` 生成：定稿、大小对照（W 往前 50 格、R 砸地 52 × 26 的椭圆）、出手帧的挂点（待机两拳 (±10, −5)、E 对撞 (7, −11)、W 出拳 (24, −14)、R 砸地在鞋底）、蔚的特效当画风参考）：14 张，小图进 `league_sett_fx`（左右拳命中、强化拳的金色拳光和命中、E 拽到、W 护盾三段、W 真伤和两侧命中、R 抓取和砸中、豪意 4–5 层脚下的热浪），大图进 `league_sett_big`（W 巨拳：朝右画、铺在 50 格的出拳线上，前 4 帧地上预警，第 27 tick 拳头轰出；E 对撞；R 砸地大坑）；颜色照英雄联盟：拳头和冲击橙金、护盾银白、热浪橙红、砸地土黄。Codex 交回 14 张生图（77 帧，[`codex_fx/HANDOFF.md`](assets/source/sett/codex_fx/HANDOFF.md)），`import_sett.py --raw` 照希维尔的做法缩成游戏像素：每个游戏像素取覆盖的原稿像素里最多的颜色，归到包里给每张的色阶，光效外圈最深的一档去掉（砸地的土块留着暗边）；每张按包里写的大小定比例（命中 12–22 格、拳光 30 格宽、E 对撞 26 格、W 巨拳的预警扇形正好 50 格，画面中心是出拳线的中点，R 砸坑 64 格宽、热浪 32 格宽）。W 护盾按 36 格导入时是个罩在胸口的圈，头顶和脚露在外面，放大到 44 格罩住全身。挂点：命中在上半身 (0, −8)，拳光两团对着待机的两只拳头（中点 (−1, −5)），E 对撞在两拳之间 (7, −11)，护盾中心 (−1, −10)，热浪和砸坑在鞋底 (0, 10)；时长：W 巨拳 46 tick（前 4 帧 27 tick 的地上预警，第 5 帧拳头轰出，正好在打中那一刻），护盾三段（出现 0.2 秒、持续循环、碎掉 0.26 秒），砸坑 0.7 秒。特效的平均亮度 173（蔚 152、希维尔 155），暗底上看得见。
 
 逐帧预览：[`docs/preview/league_sett_frames.png`](docs/preview/league_sett_frames.png)，特效：[`docs/preview/league_sett_effects.png`](docs/preview/league_sett_effects.png)。
+
+## 英雄：丽桑卓
+
+| 部分 | 内容 |
+|---|---|
+| 定位 | 中单（法师，分类 Magician），用户 10 月 2 日排的第十二组的中单（同组：瑟提、伊芙琳、韦鲁斯、牛头）。冰霜女巫：冰锥减速、冰环定身、冰爪滑进人群开团，冰封陵墓既能冻住敌人也能冻住自己保命 |
+| 普攻 / 被动 | 普攻是一颗追踪的小冰弹，100% 攻击力的物理伤害，射程 55000，攻击间隔 85 tick（第 13 tick 出手，从手的高度飞出）。被动「冰脉驱役」：她的普攻、Q、W、R 打死的敌方英雄在倒下的地方化成冰仆，1.5 秒后碎裂，对周围（半径 25000）敌人造成 150 + 70% 法术强度的魔法伤害并减速 25% 1.5 秒。英雄联盟是附近任何敌方英雄死亡都会变冰仆、冰仆还会走向敌人；这里没有「有人死了」的事件，用击杀检测（金克丝那套：命中时挂标记，活着的目标一 tick 后清掉）加命中同一 tick 投一个 1 tick 的隐形落点记下位置，所以只认她自己打死的、冰仆站在原地 |
+| 技能1 | Q「寒冰碎片」：射程 70000，冷却 4 秒，也对小兵和野怪放。出手瞬间（第 12 tick）射程内有敌方英雄就朝他当时的位置射（直线，可以躲），否则朝施放方向：一根冰锥穿过路上的所有敌人（英雄联盟是打中第一个后碎片继续往后飞，这里直接穿透），120 + 100% 法术强度的魔法伤害，减速 25% 1.5 秒 |
+| 技能2 | W「冰霜之环」，E「冰川之径」并入（用户选的）：冷却 7 秒。身边（半径 26000）有敌人：立刻放冰环，100 + 80% 法术强度的魔法伤害并定身 1.25 秒。身边没人：E 不在冷却（15 秒）且 85000 内有队友正在打的敌方英雄时，冰爪贴地滑向他（路上的敌人 80 + 60% 法术强度），她顺着冰路滑到爪子停下的地方（英雄身前 14000），落地接冰环——英雄联盟的 E → W 开团；否则冰爪只扔出去打一下（清线、打野，不滑过去） |
+| 大招 | R「冰封陵墓」：冷却 60 秒。大招位只负责「就绪」（同凯尔的大招：AI 遇到英雄就会放大招位），就绪 10 秒内她的普攻、Q、W 出手时检查：身边 30000 内有两个及以上敌方英雄（英雄联盟是残血时冻自己，这里读不到生命值，用「被围」代替）→ 冻住自己 2.5 秒，伤害和控制都免疫，期间回复 200 + 80% 法术强度的生命；否则 60000 内有队友正在打的敌方英雄 → 把他冻进冰墓，眩晕 1.5 秒，200 + 100% 法术强度的魔法伤害。两种都在冰墓周围炸开黑冰（半径 26000 内敌人 80 + 40% 法术强度），留下一片冰地 3 秒，冰地上的敌人减速 40%。10 秒内没用上就返还冷却 |
+| 数值 | 攻击 80（+6）、法术强度 40（+20）、生命 920（+100）、护甲 22（+7）、魔抗 22（+3）、移速 900（+10）。数值是自己设计的，用 SDK 对战模拟调：中单，对 5 个原版中单（`pyromancer`、`ice_mage`、`lightning_mage`、`wind_mage`、`white_mage`），3 套阵容、两边各打，10 分钟。初稿 −0.22（输出 7915，偏弱）；各技能伤害都加（Q 90 + 80% → 120 + 100%、冷却 4.5 → 4 秒，W 70 + 60% → 100 + 80%，E 60 + 50% → 80 + 60%，R 150 + 75% → 200 + 100%，冰仆 100 + 50% → 150 + 70%）后种子 1–24 +1.51、25–48 +1.55（本包的瑞兹 +1.50）。把「被围」的范围放大到 40000 或加坦度（生命 980、双抗 26，+2.04）都没用上 |
+| 亚索联动 | 冰环的定身和冰墓的眩晕都是亚索大招要的控制：丽桑卓中单、亚索同队时，亚索每局 R 到被控英雄 1.79 次（同一批原版雷法 3.19、崔斯特 1.23），亚索不用调 |
+| 精灵图 | 10 个动作 57 帧：待机、移动（滑行）、普攻、Q、W、E 掷爪（`skill2_e`）、R 冻敌人（`ult`）、R 冻自己（`ult_self`）、受击、死亡。造型 27 × 42 px，21 色；她没有腿（英雄联盟里长裙拖地、滑着走），裙摆最低一行就是脚底线。待机 6 帧同一张，呼吸时裙摆以上下沉一行（裙摆的冰晶不动）；头像截取点 (0, −39)，选人卡片 `banpick_center` −9（待机最高点 −30） |
+| 特效 | Codex 生图的 21 张 97 帧（`import_lissandra.py` 缩成游戏像素）：`league_lissandra_fx` 冰弹和命中、Q 手上的寒气、冰锥和命中、减速的霜（Q、R 冰地、冰仆三处共用）、W 命中和定身的冰晶、E 手上的光、冰爪和划痕；`league_lissandra_big` W 冰环（W 和 E 落地各用一次）、E 落地的寒雾和冰晶、R 卷下的寒风、冰墓、黑冰爆发、冰地、冻自己时冰块成形和持续、冰仆站起和碎裂 |
+| 音效 | 英雄联盟的音效和配音（`tools/lol/extract_lissandra.py`）：普攻出手和命中，Q 出手、飞出和命中，W 冰环和定身，E 出手、命中和滑过去，R 出手、冰墓、冻自己、冰爆、冰地，冰仆站起和碎裂；Q、W、E、R（冻敌人 / 冻自己）各一句中文配音。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
+| 图标 | 官方技能图标（Q / W / R），从本地客户端提取，缩到 64×64 |
+
+重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
+
+```bash
+python tools/lol/extract_lissandra.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstream-cli.exe 路径>"
+python tools/kit/build_lissandra.py        # 技能数据，数字都在脚本的参数表 P 里；--nodes 看每棵技能树的节点数
+python tools/kit/setup_lissandra.py --face=0,-39 --banpick=-9   # 五种语言的文字、音效配置、共享文件里她的键
+python tools/art/design_lissandra.py       # 造型：Codex 换皮的 B 按格子取多数色读回、修脸
+python tools/lol/native_pose.py assets/source/lissandra/poses.json --out <渲染文件夹>   # 动作参考帧
+python tools/art/rig_lissandra.py          # 动作：每帧都是造型本身，只用她自己的手臂格子按英雄联盟的角度摆
+python tools/art/import_native.py --hero lissandra
+python tools/art/import_lissandra.py       # 特效；--raw <Codex 的特效交付文件夹> 先把生图原稿缩成游戏尺寸的原尺寸条
+python tools/art/preview_lissandra.py
+```
+
+美术（原画的提示词见 [`assets/source/lissandra/PICTURE_PROMPT.md`](assets/source/lissandra/PICTURE_PROMPT.md)，造型的见 [`MODEL_PROMPTS.md`](assets/source/lissandra/MODEL_PROMPTS.md)、[`MODEL_PROMPTS_V2.md`](assets/source/lissandra/MODEL_PROMPTS_V2.md)、[`SKIN_PROMPT.md`](assets/source/lissandra/SKIN_PROMPT.md)，动作的见 [`MODEL_STRIPS.md`](assets/source/lissandra/MODEL_STRIPS.md)，特效的见 [`PROMPTS_FX.md`](assets/source/lissandra/PROMPTS_FX.md)；Codex 的交付说明在 [`codex_picture/`](assets/source/lissandra/codex_picture/)、[`codex_model/`](assets/source/lissandra/codex_model/)、[`codex_skin/`](assets/source/lissandra/codex_skin/)、[`codex_strips/`](assets/source/lissandra/codex_strips/)、[`codex_fx/`](assets/source/lissandra/codex_fx/)）：
+
+- 原画：Codex 画了 A（英雄联盟的待机：两臂垂在身侧）、B（Q 的起手：双臂张开），用户选 A。渲染参考时她皮肤里的子网格名字是反的：身体叫 `Lissandra_Death_subm`，`Lissandra_Model_Lissandra1` 是死亡时的冰晶，藏掉后者；英雄联盟里她的眼睛被冰冠的面罩挡住，照原版不画眼睛，下半张脸一格深蓝嘴唇。
+- 造型：Codex 的生图画不准 40 行——第一轮按脚本删行拼的 A/B 很粗（辫子是一根白柱子、脸很小），细节好的那张原稿是 79 行；第二轮让它照细节原稿直接画 40 行，三张原稿还是 72–100 行，任何缩小（按面积、2×2 减半、整行删）都碎成杂点。改用用户定的「骨架 + 皮囊」：我逐格画了一张 40 行的骨架（大小、比例、姿势，`assets/source/lissandra/design_lz.py`），和 Codex 第二轮最好的原稿（皮囊）一起交给 Codex 换皮，用户选了 B（42 行）。Codex 的方块大小在 19 px 上下浮动，按格子中心取色会取到邻格，改成每格取多数色（格距 19.75 px、偏移 (16, 8)，在 18–20.5 px 之间搜出来最「纯」的一组）；读回后脸是一块浅色，按规则重修：眼睛那一行是面罩（下沿一格亮边）、两行皮肤、一格深蓝嘴唇、一行下巴阴影。
+- 动作参考（`poses.json`）：镜头 yaw 45、pitch 20，镜像；头 2.4 倍，辫子按头的放大缩回（`hair` 0.42，不然辫子拖到裙摆下面）；高度 42；藏死亡冰晶和 Q 的冰刺。移动用英雄联盟的 `Run`（她滑行，2 秒一个循环，8 帧 × 250 ms）。
+- 动作：Codex 的动作条（[`codex_strips/`](assets/source/lissandra/codex_strips/)）它自己的说明就写了不合格：身体被画到 47–60 行、手臂太细、辫子对不上。她没有腿，所以每帧的身体（冰冠、头、胸甲、长裙）直接是造型本身，只把两条手臂拆下来（身前那只第 70–73 列、身后那只第 60–62 列，第 74–85 行，肘在第 80 行），用她自己的格子分大臂、小臂两段，按英雄联盟每帧的角度摆（`rig_twistedfate.place_bone`：45° 以内逐行错开，横过来整段转 90°，接近 45° 加宽一格）；身后那只画在身体后面。滑行时手臂往后拖、互相摆几度，裙摆以上起伏一行；死亡照英雄联盟：举起双臂，深色冰锥从裙摆往上长到胸口，冻成冰雕。用户看过后改了两处：R 身前那只手举过 150° 成了压在冰冠上的细钩、斜 45° 甩出成了细长棍（「放R的时候右手有点怪 违和感」），改成举到冠刃旁边、甩出收短；放技能时裙摆以上左右挪一格当作前倾后仰，上身在裙摆上错开（「放技能的时候模型左右晃动导致变形了」），去掉，只留受击的后仰。
+- 特效用 Codex 画的 21 张（97 帧，生图原稿，`import_lissandra.py --raw`：每张按画的格子数等分，每个游戏像素取覆盖的原稿像素里最多的颜色，颜色归到包里给每张的色阶——白蓝的冰、寒雾、手上的青光、她的黑冰，实心冰保留描边、光效外圈最暗的一档去掉）。位置：Q、E 出手的寒光在伸出的手 (17, −16) / (17, −12)；冰墓、冰块、冰仆、定身的冰晶底边踩在脚底线上，地面的环和冰地按椭圆最宽的一行对在脚下。冰弹从 8 px 高出手（追踪弹从更高处出手会飞歪），冰锥从 15 px 高出手；飞出去的冰弹、冰锥、冰爪第一帧前空 2–3 tick（飞过手之前不画）。
+
+逐帧预览：[`docs/preview/league_lissandra_frames.png`](docs/preview/league_lissandra_frames.png)，特效：[`docs/preview/league_lissandra_effects.png`](docs/preview/league_lissandra_effects.png)。
 
 ## 选人卡片位置（`banpick_center`）
 

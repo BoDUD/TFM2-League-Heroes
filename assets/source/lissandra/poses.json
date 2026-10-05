@@ -1,0 +1,308 @@
+{
+ "hero": "lissandra",
+ "champ": "Lissandra",
+ "camera": {
+  "yaw": 45,
+  "pitch": 20,
+  "mirror": true
+ },
+ "chibi": {
+  "head": 2.4,
+  "legs": 1.0,
+  "hair": 0.42
+ },
+ "height": 42,
+ "cell": [
+  128,
+  96,
+  14
+ ],
+ "hide_submeshes": [
+  "Lissandra_Model_Lissandra1",
+  "Lissandra_Q_Spike2"
+ ],
+ "design": "Lissandra_Idle1@0",
+ "tags": {
+  "idle": {
+   "frames": [
+    [
+     "Lissandra_Idle1@0",
+     200
+    ],
+    [
+     "Lissandra_Idle1@0",
+     200
+    ],
+    [
+     "Lissandra_Idle1@0",
+     200
+    ],
+    [
+     "Lissandra_Idle1@0",
+     200
+    ],
+    [
+     "Lissandra_Idle1@0",
+     200
+    ],
+    [
+     "Lissandra_Idle1@0",
+     200
+    ]
+   ]
+  },
+  "run": {
+   "head_like": "Lissandra_Idle1@0",
+   "frames": [
+    [
+     "Lissandra_Run@0",
+     250
+    ],
+    [
+     "Lissandra_Run@250",
+     250
+    ],
+    [
+     "Lissandra_Run@500",
+     250
+    ],
+    [
+     "Lissandra_Run@750",
+     250
+    ],
+    [
+     "Lissandra_Run@1000",
+     250
+    ],
+    [
+     "Lissandra_Run@1250",
+     250
+    ],
+    [
+     "Lissandra_Run@1500",
+     250
+    ],
+    [
+     "Lissandra_Run@1750",
+     250
+    ]
+   ]
+  },
+  "attack": {
+   "lunge": 0.4,
+   "release": 4,
+   "frames": [
+    [
+     "Lissandra_Idle1@0>Lissandra_Attack1@100:0.5",
+     70
+    ],
+    [
+     "Lissandra_Attack1@250",
+     70
+    ],
+    [
+     "Lissandra_Attack1@400",
+     80
+    ],
+    [
+     "Lissandra_Attack1@550",
+     80
+    ],
+    [
+     "Lissandra_Attack1@800",
+     70
+    ],
+    [
+     "Lissandra_Attack1@1100>Lissandra_Idle1@0:0.5",
+     63
+    ]
+   ]
+  },
+  "skill": {
+   "lunge": 0.4,
+   "release": 4,
+   "frames": [
+    [
+     "Lissandra_Idle1@0>Lissandra_Spell1@100:0.5",
+     60
+    ],
+    [
+     "Lissandra_Spell1@250",
+     70
+    ],
+    [
+     "Lissandra_Spell1@410",
+     70
+    ],
+    [
+     "Lissandra_Spell1@500",
+     80
+    ],
+    [
+     "Lissandra_Spell1@750",
+     80
+    ],
+    [
+     "Lissandra_Spell1@1000>Lissandra_Idle1@0:0.5",
+     73
+    ]
+   ]
+  },
+  "skill2": {
+   "lunge": 0.3,
+   "frames": [
+    [
+     "Lissandra_Spell2@0",
+     60
+    ],
+    [
+     "Lissandra_Spell2@110",
+     70
+    ],
+    [
+     "Lissandra_Spell2@220",
+     80
+    ],
+    [
+     "Lissandra_Spell2@400",
+     90
+    ],
+    [
+     "Lissandra_Spell2@600>Lissandra_Idle1@0:0.5",
+     100
+    ]
+   ]
+  },
+  "skill2_e": {
+   "lunge": 0.3,
+   "release": 2,
+   "frames": [
+    [
+     "Lissandra_Idle1@0>Lissandra_Spell3@0:0.5",
+     60
+    ],
+    [
+     "Lissandra_Spell3@229",
+     80
+    ],
+    [
+     "Lissandra_Spell3@350",
+     90
+    ],
+    [
+     "Lissandra_Spell3@600",
+     120
+    ],
+    [
+     "Lissandra_Spell3@900",
+     160
+    ],
+    [
+     "Lissandra_Spell3@1200",
+     223
+    ]
+   ]
+  },
+  "ult": {
+   "lunge": 0.3,
+   "release": 3,
+   "frames": [
+    [
+     "Lissandra_Spell4@100",
+     80
+    ],
+    [
+     "Lissandra_Spell4@229",
+     80
+    ],
+    [
+     "Lissandra_Spell4@457",
+     90
+    ],
+    [
+     "Lissandra_Spell4@686",
+     100
+    ],
+    [
+     "Lissandra_Spell4@1000>Lissandra_Idle1@0:0.5",
+     150
+    ]
+   ]
+  },
+  "ult_self": {
+   "lunge": 0.2,
+   "frames": [
+    [
+     "Lissandra_Spell4_SELF@200",
+     500
+    ],
+    [
+     "Lissandra_Spell4_SELF@700",
+     500
+    ],
+    [
+     "Lissandra_Spell4_SELF@1200",
+     500
+    ],
+    [
+     "Lissandra_Spell4_SELF@1700",
+     500
+    ],
+    [
+     "Lissandra_Spell4_SELF@2200",
+     500
+    ]
+   ]
+  },
+  "hit": {
+   "frames": [
+    [
+     "Lissandra_Idle1@0>Lissandra_Death@300:0.25",
+     100
+    ],
+    [
+     "Lissandra_Idle1@0>Lissandra_Death@300:0.1",
+     100
+    ]
+   ]
+  },
+  "dead": {
+   "anchor": "first",
+   "lunge": 0.3,
+   "frames": [
+    [
+     "Lissandra_Death@0",
+     100
+    ],
+    [
+     "Lissandra_Death@200",
+     110
+    ],
+    [
+     "Lissandra_Death@400",
+     110
+    ],
+    [
+     "Lissandra_Death@625",
+     120
+    ],
+    [
+     "Lissandra_Death@900",
+     130
+    ],
+    [
+     "Lissandra_Death@1250",
+     150
+    ],
+    [
+     "Lissandra_Death@1875",
+     200
+    ],
+    [
+     "Lissandra_Death@2500",
+     300
+    ]
+   ]
+  }
+ }
+}
