@@ -22,7 +22,8 @@ whole lines, area-voted to 40) the user took 「5 原稿按面积缩40行 ... �
      neighbours; two passes; the face (FACE) untouched; inner lines of two squares and more stay;
   7. FIX (the user: 「这里是什么啊 黑色一大块？」, beside the medallion): the chest harness strap, voted into the outline's
      black, in the picture's dark grey-brown leather with a lit top edge; the black and clear squares between the
-     scarf's front tail and the belly in the belly's own skin and crimson; LEG_CLEAN (leg_clean) after CLEAN.
+     scarf's front tail and the belly in the belly's own skin and crimson; LEG_CLEAN (leg_clean) after CLEAN;
+  8. SLIM (「身材臃肿看起来像啤酒肚」): two columns out of the belly, waist, hips and legs, the bow in with the hand.
 --check compares the result with the committed varus_native.png instead of writing it.
 """
 import argparse
@@ -60,6 +61,13 @@ FIX = {(80, 61): STRAP_LIT, (80, 62): STRAP_LIT, (81, 61): STRAP, (81, 62): STRA
 # (「腰和腿要对齐」「不对 是把腿凸在外面」「对齐对齐对齐」); the outer outline then closed on that column (FAR_EDGE)
 FAR_SHIFT = (91, 99, 63, 70)
 FAR_EDGE = 67          # rows / columns on the canvas the clean-up leaves alone (the eyes, brows, mouth)
+# SLIM (the user, after the showcase: 「身材臃肿看起来像啤酒肚」): the belly stood as wide as the chest, the head and the
+# hips, its skin and buckle the front of the figure. From row 80 down two columns come out of the middle of the body
+# (row 79 one, a taper under the chest): SLIM_CUT, SLIM_CUT+1 in the belly, waist and hips (skin and crimson inside,
+# left of the strap) and SLIM_LEG_CUT, +1 on the legs (the gap between them and the far leg's inner outline: the legs
+# keep their widths and stand side by side); everything right of the cut moves in with the bow arm, and the bow moves
+# SLIM_BOW columns left whole, its grip still in the hand (its top passes behind the hair)
+SLIM_CUT, SLIM_LEG_CUT, SLIM_BOW = 59, 63, 2
 
 
 def lp(path):
@@ -173,6 +181,33 @@ def far_leg_in(a, outline):
     return out
 
 
+def bow_mask(a):
+    """The bow on the design canvas before SLIM (rig_varus.Parts takes it the same way, SLIM_BOW columns further left)."""
+    R, C = np.mgrid[0:128, 0:128]
+    return (a[..., 3] > 0) & (R >= 64) & (((C >= 70) & (R <= 92)) | ((C >= 71) & (R > 92)))
+
+
+def slim(a):
+    """SLIM: two columns out of the body from row 80 (one on row 79); the bow SLIM_BOW columns left. Returns the
+    design and the bow's squares in it (rig_varus takes the bow by them: by columns it would take the hair's edge)."""
+    bm = bow_mask(a)
+    body = a.copy()
+    body[bm] = 0
+    out = np.zeros_like(a)
+    out[:79] = body[:79]
+    for y in range(79, 100):
+        s = 1 if y == 79 else 2
+        c = SLIM_CUT if y < 89 else SLIM_LEG_CUT
+        out[y, :c] = body[y, :c]
+        out[y, c:128 - s] = body[y, c + s:]
+    bow = np.zeros_like(a)
+    bow[bm] = a[bm]
+    bow = np.roll(bow, -SLIM_BOW, axis=1)
+    m = (bow[..., 3] > 0) & (out[..., 3] == 0)
+    out[m] = bow[m]
+    return out, m
+
+
 def build():
     raw, _, _ = regrid(np.asarray(Image.open(lp(RAW)).convert("RGBA")))
     ys, xs = np.nonzero(raw[..., 3] >= 128)
@@ -200,14 +235,20 @@ def build():
     can = far_leg_in(can, outline)
     for (y, x), c in FIX.items():
         can[y, x] = (*c, 255)
-    return can, added, darkened
+    can, bow = slim(can)
+    return can, added, darkened, bow
+
+
+def bow_squares():
+    """The bow's squares on the finished design (rig_varus.Parts)."""
+    return build()[3]
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--check", action="store_true")
     a = ap.parse_args()
-    can, added, darkened = build()
+    can, added, darkened, _ = build()
     ys, xs = np.nonzero(can[..., 3] > 0)
     info = (f"{xs.max() - xs.min() + 1} x {ys.max() - ys.min() + 1} (rows {ys.min()}-{ys.max()}, cols {xs.min()}-{xs.max()}), "
             f"{len({tuple(p[:3]) for p in can[can[..., 3] > 0]})} colours, outline +{added} darkened {darkened}")

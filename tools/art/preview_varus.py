@@ -120,7 +120,7 @@ def showcase(out, z=3, step=40):
     spot = At(int((d.pos(rel)[0] + g.pos(rel)[0]) // 2), gy)
     on(spot, big, "e_rain", rel)
     land = rel + tick(20)
-    on(spot, big, "e_field", land, until=land + tick(240), ground=True)
+    on(spot, big, "e_ground", rel, ground=True)          # empty until the landing, then the ground 240 ticks
     for k, foe in enumerate((d, g)):
         on(foe, small, "e_hit", land)
         on(foe, small, "e_slow", land, until=land + tick(240), ground=True)

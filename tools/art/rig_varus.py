@@ -24,7 +24,8 @@ league_ryze's arms were posed (tools/art/rig_twistedfate.py):
 - attack / Q / E stand on the design's legs; the whole figure (legs included) steps a column back on the full draw and
   forward at the release (league_sivir's attack: never the upper body alone over the legs).
 - the run (League's run, 1.07 s, 8 frames): the legs sheared about the hip like league_twistedfate's walk (the lead foot
-  changes each half cycle), the upper body a row lower at each contact, the draw arm swinging, the bow carried low.
+  changes each half cycle), the upper body a row lower at each contact, the draw arm swinging a little by his side,
+  the bow in the idle's hand (the idle's forearm and grip, bobbing with the body).
 - R (League's crouch and throw): the legs spread into a lunge (the near one back, the far one forward, sheared about the
   hip) with the body a row or two lower, the bow arm swept back then thrust forward to the right at chest height.
 - the death (League's: the darkin bow leaves him): struck back a column, the draw hand to his chest, the bow falls from
@@ -46,6 +47,7 @@ from PIL import Image
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import rig_twistedfate as T  # noqa: E402
+import design_varus  # noqa: E402
 
 NATIVE = T.NATIVE
 DESIGN = os.path.join(NATIVE, "varus_native.png")
@@ -76,7 +78,7 @@ FORE = {**{(a, c): k for a in range(3) for c, k in ((-1, "o"), (0, "c"), (1, "6"
 DRAW_SH = (55, 80)               # the draw arm's shoulder (under the tattooed deltoid, which stays on the body)
 BOW_SH = (66, 78)                # the bow arm's shoulder: the torso's upper right corner under the scarf (at row 80 the
                                  # arm grew out of the medallion - the user: 「手臂连接处看起来做的也不好 很怪」)
-GRIP = (70, 85)                  # where the bow hand holds the bow, on the design canvas
+GRIP = (68, 85)                  # where the bow hand holds the bow, on the design canvas (after design_varus SLIM)
 GLOW = {(0x3B, 0x18, 0x5F): (0x65, 0x24, 0x93), (0x65, 0x24, 0x93): (0xA1, 0x12, 0xF7),
         (0xA1, 0x12, 0xF7): (0xCA, 0x2B, 0xFB), (0xCA, 0x2B, 0xFB): (0xE8, 0x38, 0xF3),
         (0x52, 0x04, 0xBA): (0xA1, 0x12, 0xF7), (0x26, 0x14, 0x32): (0x3B, 0x18, 0x5F)}
@@ -85,15 +87,16 @@ HIP, ANKLE = 88, 96
 # arm left open (the user: 「腰和腿的这里 要不要补像素块」) - filled in the hip's dark purple, inside the idle's outline
 # (the waist row above it in the belly's crimson - 「腰这里少一块？」 - and a column of outline outside, which the
 # completion does not add beside such dark squares); one column further (to the outline on col 68) so the waist is
-# flush with the thigh, knee and shin below it - 「放技能时腰部又凹在腿里面了」
-HIP_FILL = {(85, 65): (0x89, 0x08, 0x51), (85, 66): (0x89, 0x08, 0x51),
-            (86, 65): (0x26, 0x14, 0x32), (86, 66): (0x26, 0x14, 0x32), (87, 65): (0x26, 0x14, 0x32),
-            (87, 66): (0x26, 0x14, 0x32), (88, 65): (0x26, 0x14, 0x32), (88, 66): (0x26, 0x14, 0x32),
-            (85, 67): OUT, (86, 67): OUT, (87, 67): OUT, (88, 67): OUT}
+# flush with the thigh, knee and shin below it - 「放技能时腰部又凹在腿里面了」; all two columns further left since the
+# design's SLIM (「身材臃肿看起来像啤酒肚」)
+HIP_FILL = {(85, 63): (0x89, 0x08, 0x51), (85, 64): (0x89, 0x08, 0x51),
+            (86, 63): (0x26, 0x14, 0x32), (86, 64): (0x26, 0x14, 0x32), (87, 63): (0x26, 0x14, 0x32),
+            (87, 64): (0x26, 0x14, 0x32), (88, 63): (0x26, 0x14, 0x32), (88, 64): (0x26, 0x14, 0x32),
+            (85, 65): OUT, (86, 65): OUT, (87, 65): OUT, (88, 65): OUT}
 # the waist above the hip (rows 81-84, under the raised bow arm) a column wider the same way, so the right edge is one
-# line on column 67 from the waist through the hip to the shin (design_varus FAR_SHIFT / FAR_EDGE)
-WAIST_ROWS, WAIST_EDGE = (81, 84), 67
-NEAR_ANKLE, FAR_ANKLE = 58.5, 67.0
+# line on column 65 from the waist through the hip to the shin (design_varus FAR_SHIFT / FAR_EDGE, then SLIM)
+WAIST_ROWS, WAIST_EDGE = (81, 84), 65
+NEAR_ANKLE, FAR_ANKLE = 58.5, 65.0
 BOOTS = 95
 HEAD_ROWS = (60, 73)
 
@@ -132,21 +135,23 @@ POSES = {
     "hit": [dict(dx=-1, keep_arms=True), None],
 }
 POSES["skill_quick"] = [POSES["skill"][i] for i in (0, 1, 2, 5, 6)]
-# the run: leg swing (the near ankle's offset; the far one opposite), lifted boots, the drop, the draw arm
+# the run: leg swing (the near ankle's offset; the far one opposite), lifted boots, the drop, the draw arm (a small
+# swing by the side; the bow arm and the bow are the idle's, carried low - held straight out before, the user: 「局内
+# 手臂摆动看的有点奇怪」)
 SWING = [4.0, 2.0, 0.0, -2.0, -4.0, -2.0, 0.0, 2.0]
 NEAR_LIFT = [0, 0, 0, 0, 0, 1, 2, 1]
 FAR_LIFT = [0, 1, 2, 1, 0, 0, 0, 0]
 DROP = [1, 1, 0, 0, 1, 1, 0, 0]
-RUN_DRAW = [(-25, -15), (-18, -10), (-8, -4), (2, 6), (12, 18), (2, 6), (-8, -4), (-18, -10)]
+RUN_DRAW = [(-16, -8), (-12, -6), (-6, -2), (0, 4), (6, 10), (0, 4), (-6, -2), (-12, -6)]
 # the death: (dx, draw arm, bow: "hand" | ("fall", degrees, (x, y)) | ("lie", (x, y)), kneel rows, head dip)
 DEAD = [(-1, (-15, -25), "hand", 0, 0),
         (-1, (10, 120), "hand", 0, 0),
-        (-1, (10, 120), ("fall", -50, (78, 86)), 0, 0),
-        (0, (10, 120), ("lie", (80, 99)), 2, 0),
-        (0, (5, 110), ("lie", (80, 99)), 4, 0),
-        (0, (0, 100), ("lie", (80, 99)), 6, 1),
-        (0, (0, 100), ("lie", (80, 99)), 6, 1),
-        (0, (0, 100), ("lie", (80, 99)), 6, 1)]
+        (-1, (10, 120), ("fall", -50, (76, 86)), 0, 0),
+        (0, (10, 120), ("lie", (78, 99)), 2, 0),
+        (0, (5, 110), ("lie", (78, 99)), 4, 0),
+        (0, (0, 100), ("lie", (78, 99)), 6, 1),
+        (0, (0, 100), ("lie", (78, 99)), 6, 1),
+        (0, (0, 100), ("lie", (78, 99)), 6, 1)]
 
 
 def lp(p):
@@ -166,8 +171,8 @@ class Parts:
         self.design = d
         op = d[..., 3] > 0
         R, C = np.mgrid[0:128, 0:128]
-        self.bow_m = op & (R >= 64) & (((C >= 70) & (R <= 92)) | ((C >= 71) & (R > 92)))
-        self.bow_arm_m = op & (R >= 81) & (R <= 87) & (C >= 66) & (C <= 69)
+        self.bow_m = op & design_varus.bow_squares()  # the bow as SLIM placed it (by columns: the hair's edge too)
+        self.bow_arm_m = op & (R >= 81) & (R <= 87) & (C >= 64) & (C <= 67)
         draw = np.zeros_like(op)
         for y in range(81, 93):
             # from row 88 down only the hand (cols 51-56): column 57 there is the near thigh's outline (design_varus FIX)
@@ -176,7 +181,7 @@ class Parts:
                     draw[y, x] = True
         self.draw_m = draw
         self.near_leg = op & (R >= 89) & (C >= 56) & (C <= 62)
-        self.far_leg = op & (R >= 89) & (C >= 63) & (C <= 70) & ~self.bow_m
+        self.far_leg = op & (R >= 89) & (C >= 63) & (C <= 68) & ~self.bow_m
         self.bow = np.zeros_like(d)
         self.bow[self.bow_m] = d[self.bow_m]
         ys, xs = np.nonzero(self.bow_m)
@@ -195,6 +200,8 @@ class Parts:
         self.body_bow_arm[self.bow_m] = 0
         self.trunk = self.body.copy()
         self.trunk[self.near_leg | self.far_leg] = 0
+        self.bow_arm = np.zeros_like(d)              # the idle's bow hand and forearm (the run carries the bow in it)
+        self.bow_arm[self.bow_arm_m] = d[self.bow_arm_m]
 
 
 def arm(shoulder, up, fore):
@@ -343,11 +350,10 @@ def run(P, k):
     drop = DROP[k]
     c = np.zeros((128, 128, 4), np.uint8)
     T.put(c, leg_sprite(P, P.far_leg, -s * 0.8, drop, FAR_LIFT[k]), 0, 0)
-    bcells, bhand = arm((BOW_SH[0], BOW_SH[1] + drop), 20, 75)
-    paint(c, bcells)
     T.put(c, T.shifted(P.trunk, 0, drop), 0, 0)
     T.put(c, leg_sprite(P, P.near_leg, s, drop, NEAR_LIFT[k]), 0, 0)
-    place_bow(c, P, bhand, 0)
+    T.put(c, T.shifted(P.bow_arm, 0, drop), 0, 0)
+    place_bow(c, P, (GRIP[0] - 1, GRIP[1] + drop), 0)
     dcells, _ = arm((DRAW_SH[0], DRAW_SH[1] + drop), *RUN_DRAW[k])
     paint(c, dcells)
     return c

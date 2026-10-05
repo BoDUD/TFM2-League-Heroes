@@ -223,6 +223,7 @@ flight = J.flight
 looped = TF.looped
 
 FIELD_MS = 240 * 1000 // 60     # e_field_t: the corrupted ground lasts 240 ticks
+LAND_MS = 20 * 1000 // 60        # e_land: the rain lands 20 ticks after the release
 CHARGE_MS = 66 * 1000 // 60     # q_full_t: the full draw
 FX = {
     # the arrow: 57.5 px at 7 px a tick, homing (twice that); out of the bow 13 px away: 2 empty ticks
@@ -263,7 +264,12 @@ FX = {
 BIG = {
     # the rain lands e_land (20 ticks = 333 ms) after the release: the strike frame (3) starts there
     "e_rain": [("e_rain", seq(range(7), [100, 110, 120, 90, 100, 110, 120]), [FEET])],
-    "e_field": [("e_field", looped([0], [1, 2, 3, 0], [150], 150, FIELD_MS), [FEET])],
+    # the corrupted ground, played with the rain on the cast point (under the units), empty until the landing. It was
+    # the field projectile's own view, which the engine turns to the cast direction: cast leftward (the red side) it
+    # stood upside down above the spot, its flames hanging down (the user: 「红方技能特效是歪的 第二技能」); a
+    # ViewEffect on the cast point is never turned
+    "e_ground": [("e_field", [(EMPTY, LAND_MS)], [FEET]),
+                 ("e_field", looped([0], [1, 2, 3, 0], [150], 150, FIELD_MS), [FEET])],
     "r_spread": [("r_spread", seq(range(6), [50, 60, 70, 80, 90, 100]), [FEET])],
     "p_rage_on": [("p_rage_on", seq(range(5), [50, 60, 70, 80, 90]), [SOLES])],
 }

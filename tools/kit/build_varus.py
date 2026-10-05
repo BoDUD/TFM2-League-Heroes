@@ -289,7 +289,7 @@ def build(p):
     ground = field("e_field", p["e_r"], p["e_field_t"], 15, "EnemyWithoutTower",
                    [buff("e_slow", 15, move_speed_mult=-p["e_slow"], heal_reduce=p["e_grievous"])])
     skill2 = action("skill2", p["e_dur"], p["e_cd"], p["e_st"], p["e_range"], "Position", "EnemyWithoutTower",
-                    combine(cview("e_cast"), sfx("e_cast"), view("e_rain"), land, land_c,
+                    combine(cview("e_cast"), sfx("e_cast"), view("e_rain"), view("e_ground"), land, land_c,
                             delayed(p["e_land"], sfx("e_land"), ground)))
 
     # ------------------------------------------------------------------ ult: R Chain of Corruption
@@ -313,11 +313,13 @@ def build(p):
                                                     "repeat": repeat, "z": z}
     B_ = lambda name, anim_=FX, z=2: {"type": "Animated", "name": n(name), "anim": anim_, "tag": name, "repeat": True,
                                       "z": z}
-    views_p = [P_("a_arrow"), P_("q_arrow"), P_("q_arrow_s"), P_("r_chain"), P_("e_field", BIG, -1)]
+    # the corrupted ground has no projectile view (a zone's view is turned to the cast direction: upside down on the red
+    # side); its picture plays as e_ground on the cast point, unturned
+    views_p = [P_("a_arrow"), P_("q_arrow"), P_("q_arrow_s"), P_("r_chain")]
     views_e = [E("a_flash", FX, 2, **LATE), E("a_hit", FX, 2), E("b_v1", FX, 3), E("b_v2", FX, 3), E("b_v3", FX, 3),
                E("b_pop1", FX, 3), E("b_pop2", FX, 3), E("b_pop3", FX, 3), E("w_pop", FX, 3), E("w_glow"),
                E("q_charge"), E("q_charge_s"), E("q_fire", FX, 2, **LATE), E("q_hit", FX, 2),
-               E("e_cast"), E("e_rain", BIG, 2, False), E("e_hit", FX, 2),
+               E("e_cast"), E("e_rain", BIG, 2, False), E("e_ground", BIG, -1, False), E("e_hit", FX, 2),
                E("r_cast"), E("r_hit", FX, 2), E("r_spread", BIG, 1, False), E("r_spread_hit", FX, 2),
                E("p_rage_on", BIG, 2, **LATE)]
     views_b = [B_("e_slow", FX, -1), B_("r_bind", FX, 2), B_("p_rage", FX, -1)]

@@ -2316,6 +2316,10 @@
           "name": "league_varus_e_rain"
         },
         {
+          "type": "ViewEffect",
+          "name": "league_varus_e_ground"
+        },
+        {
           "type": "RangeProjectile",
           "name": "league_varus_e_land",
           "shape": {
@@ -3135,14 +3139,6 @@
       "tag": "r_chain",
       "repeat": true,
       "z": 1
-    },
-    {
-      "type": "Animated",
-      "name": "league_varus_e_field",
-      "anim": "asset/league/effects/league_varus_big",
-      "tag": "e_field",
-      "repeat": true,
-      "z": -1
     }
   ],
   "view_effects": [
@@ -3272,6 +3268,14 @@
       "anim": "asset/league/effects/league_varus_big",
       "tag": "e_rain",
       "z": 2,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_varus_e_ground",
+      "anim": "asset/league/effects/league_varus_big",
+      "tag": "e_ground",
+      "z": -1,
       "is_follow": false
     },
     {
