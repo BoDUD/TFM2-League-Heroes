@@ -102,12 +102,15 @@ empty tooltip). That is why the linter exists - run it after every edit.
   cast leftward (the red side, mostly) it stands upside down: 「曙光女神大招在红色方放的是颠倒的」 (league_leona R,
   2026-10-05). Anything with an up and down - a falling beam, rain, a star falling diagonally, an orb above a ring, an
   upright tornado - goes in a `ViewEffect` next to a zone that has no view: on the cast point, or on the landing point
-  in a lob's `end_effects`, it is never turned (league_leona R, league_missfortune E, league_varus E, league_soraka Q,
-  league_lux E). Only a picture that looks the same turned half round about its pivot is safe as a zone's view - a
-  ring drawn on the ground line under the pivot is not (turned, it floats above it). A flying projectile with an up
-  and down is laid along its flight and mirrored top to bottom (league_thresh's lantern; league_yasuo Q3's upright
-  tornado still flies upside down to the left). `lint_mod.py` warns on every zone with a picture and measures how much
-  of it moves when turned (champion-data section 6).
+  in a lob's `end_effects`, it is never turned (league_leona R, league_missfortune E, league_varus E, league_soraka Q
+  and E, league_lux E, league_lissandra R); a picture riding on the caster with a follow-zone goes in a
+  `CasterViewEffect` with `is_follow: true` at the action's own tick, its tag held for the zone's life
+  (league_sona's auras). Only a picture that looks the same turned half round about its pivot is safe as a zone's
+  view - a ring drawn on the ground line under the pivot is not (turned, it floats above it). A flying projectile with
+  an up and down is laid along its flight and mirrored top to bottom (league_thresh's lantern) or drawn from above so
+  that every turn of it reads the same (league_yasuo Q3's whirlwind, redrawn by `tools/art/yasuo_whirl.py` after its
+  upright funnel flew upside down to the left: 「亚索 Q3 龙卷风重画」). `lint_mod.py` warns on every zone with a
+  picture and measures how much of it moves when turned (champion-data section 6).
 
 ## Bundled resources
 

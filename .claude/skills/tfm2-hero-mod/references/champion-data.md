@@ -641,12 +641,14 @@ the same champion file.
   anchors)*: only a picture that looks the same turned half round about its pivot is safe as a zone's view.
   `lint_mod.py` warns on every zone (`RangeProjectile`, `RangePeriodProjectile`, `ApplyInProjectile`) that has a
   `view_projectiles` picture, wherever it is cast, with the share of the picture that lands elsewhere turned half
-  round. On 2026-10-05 it flags 8 in 5 heroes: league_camille R's two (stored turned on purpose: her zones always get
-  (-1, 0), section 7), league_fiddlesticks E's reap (a crescent drawn facing the cast, symmetric top to bottom: meant
-  to turn with it), and, to check with the hero on the red team, league_soraka E's field (a ring on the ground line),
-  league_lissandra R's field (upright icicles on the ground line; the direction of a zone from her 1-tick lob is not
-  logged) and league_sona's three auras (upright notes on a ring round her; no `ApplyInProjectile`'s direction has
-  been logged).
+  round. On 2026-10-05 it flagged 8 in 5 heroes; the user had the doubtful ones fixed the same way (「众星之子 E /
+  丽桑卓 R / 娑娜光环按同样的方法修」): league_soraka E's field (a ring on the ground line: a `ViewEffect` in its
+  `Delayed`), league_lissandra R's field (upright icicles: a `ViewEffect` in each of the six lobs' `end_effects`) and
+  league_sona's three auras (upright notes on a ring round her: each a `CasterViewEffect` with `is_follow: true` at
+  the action's own tick, next to its follow-zone `ApplyInProjectile`, its tag held for the aura's 180 ticks - the
+  loop repeated, `strips.write_sheet(share=True)` packing the repeats once). It still flags league_camille R's two
+  (stored turned on purpose: her zones always get (-1, 0), section 7) and league_fiddlesticks E's reap (a crescent
+  drawn facing the cast, symmetric top to bottom: meant to turn with it).
   A `CasterViewEffect` is not turned: it is drawn at the caster's pivot, mirrored when the caster
   faces left (the base gunner's backward-run dust is drawn only behind him), and stays where it was
   played unless `is_follow`.
@@ -695,10 +697,10 @@ the same champion file.
   `Targeting` action it points at the target and lasts its `delay`; league_briar E's scream, league_vi E's shock wave:
   as a caster picture it stood the wrong way on the red side, "E技能的特效没有跟随人物 反方向的").
   A thing with a top and a bottom that flies every way (league_thresh's lantern) is laid along its flight
-  and mirrored top to bottom, so every turn of it looks the same (art-spec). league_yasuo Q3's tornado is still an
-  upright funnel on its `LinearProjectile`: upside down flying left, on its side flying up or down. No data fixes a
-  flying picture; it needs one that reads the same at every turn (a whirl seen from above, as league_janna's tornado
-  is drawn) or the lantern's way.
+  and mirrored top to bottom, so every turn of it looks the same (art-spec). No data fixes a flying picture with an up
+  and down: league_yasuo Q3's tornado was an upright funnel on its `LinearProjectile` (upside down flying left, on its
+  side flying up or down) and was drawn again from above (`tools/art/yasuo_whirl.py`, 2026-10-05: three spiral arms
+  round an eye, a wind trail behind, as league_janna's tornado is drawn), which reads the same at every turn.
 - A projectile's picture has one length, but its frames can follow the flight: an `Animated` view with
   `repeat: false` plays its tag once from the moment the projectile appears. league_thresh Q's chain is
   drawn frame by frame (a frame every 2 ticks, 11 px longer each, behind a hook flying 5500 a tick), so its
