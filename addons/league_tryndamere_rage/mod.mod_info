@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.62.0"
+    }
+  ],
+  "description": "Test build of Tryndamere's Undying Rage at low health (needs League of Legends Heroes): replaces the main pack's Tryndamere so his armed R goes off when his health drops low (or a big burst lands) with an enemy champion close, as a League player would press it, instead of the data pack's crowded-or-pressed guess; with R on cooldown he drinks Bloodlust when hurt. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-05",
+  "mod_id": "league_tryndamere_rage",
+  "mod_type": "native",
+  "name": "League Heroes: Tryndamere Undying Rage at low health (test)",
+  "version": "0.1.0"
+}

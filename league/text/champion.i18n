@@ -319,9 +319,9 @@
       "league_ryze": {
         "name": "瑞兹",
         "attack": "发射符文法球攻击。被动<#ff9028ff>奥术专精<>：所有技能伤害额外加上<i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>2% 最大生命值<>（本作没有法力值，以生命值代替法力）。",
-        "skill": "向前释放魔爆，对命中的第一个敌人造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55% 法强<>的<#a974ffff>魔法伤害<>。若有敌人带着<#ff9028ff>涌动<>，命中时它们全部受到<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 法强<>的弹射伤害，涌动随之消耗。",
-        "skill2": "连招：<#ff9028ff>法术涌动<>造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>伤害，给目标和附近敌人挂上<#ff9028ff>涌动<><#ffb900ff>4秒<>；<#ff9028ff>符文禁锢<>造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>伤害，有涌动时<#ef5350ff>禁锢1.25秒<>，否则减速；再补一发<#ff9028ff>超负荷<>，两枚符文让他<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移速+30%<>。",
-        "ult": "两名敌方英雄逼近（或独自被贴身）时开门逃向反方向；交战的敌人逃出射程、身边有队友时开门追过去。引导<#ffb900ff>1秒<>后传送，门里的友方英雄和小兵一起过去，落地补一发<#ff9028ff>法术涌动<>。被控会打断。被动：施放后本条命内涌动弹射伤害提高到<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% 法强<>。"
+        "skill": "向前释放魔爆，对命中的第一个敌人造成<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% 法强<>的<#a974ffff>魔法伤害<>。若有敌人带着<#ff9028ff>涌动<>，命中时它们全部受到<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35% 法强<>的弹射伤害，涌动随之消耗。",
+        "skill2": "连招 E→W→Q→E→Q：<#ff9028ff>法术涌动<>造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>伤害，给目标和附近敌人挂上<#ff9028ff>涌动<><#ffb900ff>4秒<>；<#ff9028ff>符文禁锢<>造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>伤害，有涌动时<#ef5350ff>禁锢1.25秒<>，否则减速；<#ff9028ff>超负荷<>引爆涌动，再一发<#ff9028ff>法术涌动<>和<#ff9028ff>超负荷<>，符文让他<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移速+30%<>。",
+        "ult": "两名敌方英雄逼近（或独自被贴身）时开门逃向反方向；交战的敌人逃出射程、门里有队友且不在团战中时开门追过去，落在射程边上。引导<#ffb900ff>1秒<>后传送，门里的友军一起过去，落地补一发<#ff9028ff>法术涌动<>。被控会打断。被动：施放后本条命内涌动弹射伤害提高到<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55% 法强<>。"
       },
       "league_kennen": {
         "name": "凯南",
@@ -420,6 +420,13 @@
         "skill": "拉弓射出穿透箭：射程内有敌方英雄时蓄满力，造成<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<><#ff9028ff>物理伤害<>，否则快速出手、伤害较低；之后每个敌人伤害递减。命中英雄时引爆枯萎：每层<#ffffffff>3%最大生命值<>真实伤害并缩短技能冷却。每40秒一次蓄满的箭再加<#ffffffff>6%<>。",
         "skill2": "向目标区域射下箭雨，造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<><#ff9028ff>物理伤害<>并引爆枯萎；地面腐化<#ffb900ff>4秒<>，其中的敌人<#ef5350ff>减速30%<>、受到的治疗降低40%。",
         "ult": "射出腐败锁链，命中第一个敌方英雄：<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理伤害<>、<#ef5350ff>禁锢2秒<>、叠满3层枯萎；锁链随后扩散到附近的敌方英雄，<#ef5350ff>禁锢1.5秒<>。"
+      },
+      "league_tryndamere": {
+        "name": "泰达米尔",
+        "attack": "挥剑攻击。被动<#ff9028ff>战斗狂怒<>：普攻和旋风斩每命中一个敌人得1层怒气，击杀得2层，最多5层，每层暴击率+<#ffb900ff>8%<>（暴击造成2倍伤害）；停手5秒后每秒掉一层。",
+        "skill": "旋转着冲过目标，对路径上的所有敌人造成<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<><#ff9028ff>物理伤害<>，每命中一个敌人得1层怒气。",
+        "skill2": "向周围的敌方英雄发出蔑视的怒吼，攻击力降低<#ef5350ff>25%<>，持续<#ffb900ff>4秒<>；离他较远、正要逃开的敌人还会<#ef5350ff>减速40%<>，持续2秒。",
+        "ult": "被两名以上敌方英雄贴身或连续挨打时爆发：怒气全满，<#ffb900ff>5秒<>内生命不会降到1以下。结束时施放<#ff9028ff>嗜血杀戮<>，消耗怒气回复<#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>30%<>生命，每层怒气再加<#66bb6aff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>10%<>。"
       }
     },
     "skill_name": {
@@ -722,6 +729,11 @@
         "skill1": "穿刺之箭",
         "skill2": "恶灵箭雨",
         "ult": "腐败锁链"
+      },
+      "league_tryndamere": {
+        "skill1": "旋风斩",
+        "skill2": "蔑视",
+        "ult": "无尽怒火"
       }
     }
   },
@@ -1045,9 +1057,9 @@
       "league_ryze": {
         "name": "雷茲",
         "attack": "發射符文法球攻擊。被動<#ff9028ff>奧術專精<>：所有技能傷害額外加上<i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>2% 最大生命<>（本作沒有魔力，以生命代替魔力）。",
-        "skill": "向前釋放魔法爆裂，對命中的第一個敵人造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55% 法術強度<>的<#a974ffff>魔法傷害<>。若有敵人帶著<#ff9028ff>法術湧動<>，命中時它們全部受到<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>的彈射傷害，湧動隨之消耗。",
-        "skill2": "連招：<#ff9028ff>法術湧動<>造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>傷害，給目標和附近敵人附加<#ff9028ff>湧動<><#ffb900ff>4秒<>；<#ff9028ff>符文禁錮<>造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>傷害，有湧動時<#ef5350ff>定身1.25秒<>，否則緩速；再補一發<#ff9028ff>超負荷<>，兩個符文讓他<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>跑速+30%<>。",
-        "ult": "兩名敵方英雄逼近（或獨自被貼身）時開門逃往反方向；交戰的敵人逃出射程、身邊有隊友時開門追過去。引導<#ffb900ff>1秒<>後傳送，門裡的隊友英雄和小兵一起過去，落地補一發<#ff9028ff>法術湧動<>。被控會打斷。被動：施放後本條命內湧動彈射傷害提升至<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>。"
+        "skill": "向前釋放魔法爆裂，對命中的第一個敵人造成<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% 法術強度<>的<#a974ffff>魔法傷害<>。若有敵人帶著<#ff9028ff>法術湧動<>，命中時它們全部受到<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>的彈射傷害，湧動隨之消耗。",
+        "skill2": "連招 E→W→Q→E→Q：<#ff9028ff>法術湧動<>造成<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>傷害，給目標和附近敵人附加<#ff9028ff>湧動<><#ffb900ff>4秒<>；<#ff9028ff>符文禁錮<>造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>傷害，有湧動時<#ef5350ff>定身1.25秒<>，否則緩速；<#ff9028ff>超負荷<>引爆湧動，再一發<#ff9028ff>法術湧動<>和<#ff9028ff>超負荷<>，符文讓他<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>跑速+30%<>。",
+        "ult": "兩名敵方英雄逼近（或獨自被貼身）時開門逃往反方向；交戰的敵人逃出射程、門裡有隊友、附近敵人不到三個時開門追過去，落在射程邊緣。引導<#ffb900ff>1秒<>後傳送，門裡的友軍一起過去，落地補一發<#ff9028ff>法術湧動<>。被控會打斷。被動：施放後本條命內湧動彈射傷害提升至<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>。"
       },
       "league_kennen": {
         "name": "凱能",
@@ -1146,6 +1158,13 @@
         "skill": "拉弓射出穿透箭：射程內有敵方英雄時蓄滿力，造成<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<><#ff9028ff>物理傷害<>，否則快速出手、傷害較低；之後每個敵人傷害遞減。命中英雄時引爆荒蕪：每層<#ffffffff>3%最大生命值<>真實傷害並縮短技能冷卻。每40秒一次蓄滿的箭再加<#ffffffff>6%<>。",
         "skill2": "向目標區域射下箭雨，造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<><#ff9028ff>物理傷害<>並引爆荒蕪；地面腐化<#ffb900ff>4秒<>，其中的敵人<#ef5350ff>緩速30%<>、受到的治療降低40%。",
         "ult": "射出墮落連鎖，命中第一個敵方英雄：<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理傷害<>、<#ef5350ff>定身2秒<>、疊滿3層荒蕪；連鎖隨後擴散到附近的敵方英雄，<#ef5350ff>定身1.5秒<>。"
+      },
+      "league_tryndamere": {
+        "name": "泰達米爾",
+        "attack": "揮劍攻擊。被動<#ff9028ff>戰鬥狂怒<>：普攻和旋風斬每命中一個敵人得1層怒氣，擊殺得2層，最多5層，每層暴擊率+<#ffb900ff>8%<>（暴擊造成2倍傷害）；停手5秒後每秒掉一層。",
+        "skill": "旋轉著衝過目標，對路徑上的所有敵人造成<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<><#ff9028ff>物理傷害<>，每命中一個敵人得1層怒氣。",
+        "skill2": "向周圍的敵方英雄發出輕蔑的怒吼，攻擊力降低<#ef5350ff>25%<>，持續<#ffb900ff>4秒<>；離他較遠、正要逃開的敵人還會<#ef5350ff>緩速40%<>，持續2秒。",
+        "ult": "被兩名以上敵方英雄貼身或連續挨打時爆發：怒氣全滿，<#ffb900ff>5秒<>內生命不會降到1以下。結束時施放<#ff9028ff>嗜血殺戮<>，消耗怒氣回復<#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>30%<>生命，每層怒氣再加<#66bb6aff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>10%<>。"
       }
     },
     "skill_name": {
@@ -1448,6 +1467,11 @@
         "skill1": "破甲箭",
         "skill2": "腐敗箭雨",
         "ult": "墮落連鎖"
+      },
+      "league_tryndamere": {
+        "skill1": "旋風斬",
+        "skill2": "嘲諷",
+        "ult": "無盡怒火"
       }
     }
   },
@@ -1771,9 +1795,9 @@
       "league_ryze": {
         "name": "Ryze",
         "attack": "Rune orb shots. Passive <#ff9028ff>Arcane Mastery<>: all his spells deal bonus damage equal to <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>2% of his max Health<> (TFM2 has no mana; health stands in for it).",
-        "skill": "Ryze unleashes a blast that deals <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55% AP<> <#a974ffff>magic damage<> to the first enemy hit. If any enemies carry <#ff9028ff>Flux<>, the hit makes all of them take <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% AP<> bounce damage and uses the Flux up.",
-        "skill2": "Combo: <#ff9028ff>Spell Flux<> deals <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% AP<> and puts <#ff9028ff>Flux<> on the target and enemies near it for <#ffb900ff>4s<>; <#ff9028ff>Rune Prison<> deals <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55% AP<> and <#ef5350ff>roots<> for <#ffb900ff>1.25s<> while Flux is up (slows otherwise); then an <#ff9028ff>Overload<> whose two runes give him <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>30% Move Speed<>.",
-        "ult": "Ryze opens a portal to flee when two enemy champions close in (or one reaches him alone), or to chase a foe leaving his range with an ally near. After <#ffb900ff>1s<> he warps with the allied champions and minions in it, then throws a <#ff9028ff>Spell Flux<>. Crowd control breaks it. Passive: once cast in a life, the Flux bounce deals <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% AP<>."
+        "skill": "Ryze unleashes a blast that deals <#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% AP<> <#a974ffff>magic damage<> to the first enemy hit. If any enemies carry <#ff9028ff>Flux<>, the hit makes all of them take <#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35% AP<> bounce damage and uses the Flux up.",
+        "skill2": "Combo E-W-Q-E-Q: <#ff9028ff>Spell Flux<> deals <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45% AP<> and puts <#ff9028ff>Flux<> on the target and enemies near it for <#ffb900ff>4s<>; <#ff9028ff>Rune Prison<> deals <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55% AP<> and <#ef5350ff>roots<> for <#ffb900ff>1.25s<> while Flux is up (slows otherwise); <#ff9028ff>Overload<> bursts the Flux, then a second <#ff9028ff>Spell Flux<> and <#ff9028ff>Overload<>; the runes give him <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>30% Move Speed<>.",
+        "ult": "Ryze opens a portal to flee when enemy champions close in, or to chase a foe leaving his range with an ally along, outside teamfights, landing at casting range. After <#ffb900ff>1s<> he warps with the allies in it, then throws a <#ff9028ff>Spell Flux<>. Crowd control breaks it. Passive: once cast in a life, the Flux bounce deals <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55% AP<>."
       },
       "league_kennen": {
         "name": "Kennen",
@@ -1872,6 +1896,13 @@
         "skill": "Draws and fires a piercing arrow: fully charged with an enemy champion in reach for <#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<> <#ff9028ff>physical damage<>, else a quick weaker shot; each further enemy takes less. A champion hit bursts Blight: <#ffffffff>3% max health<> true damage per stack and shorter cooldowns. Every 40s a full draw adds <#ffffffff>6%<>.",
         "skill2": "Rains arrows on an area: <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> <#ff9028ff>physical damage<>, bursting Blight. The ground stays corrupted for <#ffb900ff>4s<>: enemies in it are <#ef5350ff>slowed<> by 30% and healed 40% less.",
         "ult": "Flings a tendril at the first enemy champion: <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>physical damage<>, <#ef5350ff>rooted<> for <#ffb900ff>2s<>, full Blight. The corruption then spreads to enemy champions nearby, <#ef5350ff>rooting<> them for <#ffb900ff>1.5s<>."
+      },
+      "league_tryndamere": {
+        "name": "Tryndamere",
+        "attack": "Sword strikes. Passive <#ff9028ff>Battle Fury<>: each enemy his attacks and Spinning Slash hit gives a stack of Fury, a kill two, up to 5; each stack is <#ffb900ff>+8%<> critical strike chance (crits deal double). Fury drains a stack a second once he stops for 5s.",
+        "skill": "Spins through the target, dealing <#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<> <#ff9028ff>physical damage<> to every enemy in his path and gaining a stack of Fury for each.",
+        "skill2": "Mocks the enemy champions around him: <#ef5350ff>-25%<> attack for <#ffb900ff>4s<>. Those farther off, turning to run, are also <#ef5350ff>slowed<> by 40% for 2s.",
+        "ult": "When two enemy champions are on him or the blows keep coming: full Fury, and for <#ffb900ff>5s<> his health cannot fall below 1. As it ends he casts <#ff9028ff>Bloodlust<>, spending his Fury to heal <#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>30%<>, plus <#66bb6aff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>10%<> per stack."
       }
     },
     "skill_name": {
@@ -2174,6 +2205,11 @@
         "skill1": "Piercing Arrow",
         "skill2": "Hail of Arrows",
         "ult": "Chain of Corruption"
+      },
+      "league_tryndamere": {
+        "skill1": "Spinning Slash",
+        "skill2": "Mocking Shout",
+        "ult": "Undying Rage"
       }
     }
   },
@@ -2497,9 +2533,9 @@
       "league_ryze": {
         "name": "라이즈",
         "attack": "룬 구체를 발사합니다. 기본 지속 효과 <#ff9028ff>비전 연마<>: 모든 스킬이 <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>최대 체력의 2%<>만큼 추가 피해를 입힙니다(마나 대신 체력).",
-        "skill": "돌풍을 발사해 처음 맞힌 적에게 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 55%<>의 <#a974ffff>마법 피해<>를 입힙니다. <#ff9028ff>전이 표식<>이 있는 적이 있으면 모두 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 40%<>의 튕기는 피해를 입고 표식은 소모됩니다.",
-        "skill2": "연계: <#ff9028ff>주문 전이<>가 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 피해를 입히고 대상과 주변 적에게 <#ffb900ff>4초<> 동안 <#ff9028ff>전이 표식<>을 남깁니다. <#ff9028ff>룬 감옥<>이 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> 피해를 입히고 표식이 있으면 <#ffb900ff>1.25초<> <#ef5350ff>속박<>(없으면 둔화). 이어서 <#ff9028ff>과부하<>를 쏘고 룬 두 개로 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도 30%<> 증가.",
-        "ult": "적 챔피언 둘이 다가오거나 혼자 붙잡히면 반대쪽으로 피하고, 교전 중인 적이 사거리 밖으로 달아나면 아군과 함께 쫓아갑니다. <#ffb900ff>1초<> 뒤 문 안의 아군 챔피언·미니언과 순간이동하고 착지 시 <#ff9028ff>주문 전이<>. 군중 제어에 끊깁니다. 기본 지속 효과: 사용한 생명 동안 튕기는 피해 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>."
+        "skill": "돌풍을 발사해 처음 맞힌 적에게 <#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 50%<>의 <#a974ffff>마법 피해<>를 입힙니다. <#ff9028ff>전이 표식<>이 있는 적이 있으면 모두 <#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 35%<>의 튕기는 피해를 입고 표식은 소모됩니다.",
+        "skill2": "연계 E→W→Q→E→Q: <#ff9028ff>주문 전이<>가 <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> 피해를 입히고 대상과 주변 적에게 <#ffb900ff>4초<> 동안 <#ff9028ff>전이 표식<>. <#ff9028ff>룬 감옥<>이 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> 피해, 표식이 있으면 <#ffb900ff>1.25초<> <#ef5350ff>속박<>(없으면 둔화). <#ff9028ff>과부하<>로 터뜨리고 다시 <#ff9028ff>주문 전이<>와 <#ff9028ff>과부하<>, 룬으로 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도 30%<> 증가.",
+        "ult": "적 챔피언 둘이 다가오거나 혼자 붙잡히면 반대쪽으로 피하고, 교전 중인 적이 사거리 밖으로 달아나고 주변 적이 셋 미만이면 아군과 함께 사거리 끝까지 쫓아갑니다. <#ffb900ff>1초<> 뒤 문 안의 아군 챔피언·미니언과 순간이동하고 착지 시 <#ff9028ff>주문 전이<>. 군중 제어에 끊깁니다. 기본 지속 효과: 사용한 생명 동안 튕기는 피해 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>."
       },
       "league_kennen": {
         "name": "케넨",
@@ -2598,6 +2634,13 @@
         "skill": "꿰뚫는 화살을 쏩니다. 사거리 안에 적 챔피언이 있으면 끝까지 당겨 <#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<>의 <#ff9028ff>물리 피해<>, 없으면 빠르게 약하게 쏩니다. 뒤의 적일수록 피해가 줄어듭니다. 챔피언 적중 시 역병이 터져 중첩당 <#ffffffff>최대 체력의 3%<> 고정 피해, 스킬 재사용 대기시간 감소. 40초마다 완충 화살은 <#ffffffff>6%<> 추가.",
         "skill2": "지역에 화살비를 퍼부어 <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>의 <#ff9028ff>물리 피해<>를 입히고 역병을 터뜨립니다. 땅이 <#ffb900ff>4초<> 오염되어 적이 30% <#ef5350ff>둔화<>되고 받는 회복이 40% 줄어듭니다.",
         "ult": "첫 적 챔피언에게 덩굴을 던져 <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>의 <#ff9028ff>물리 피해<>, <#ffb900ff>2초<> <#ef5350ff>속박<>, 역병 3중첩. 이어서 부패가 주변 적 챔피언에게 퍼져 <#ffb900ff>1.5초<> <#ef5350ff>속박<>합니다."
+      },
+      "league_tryndamere": {
+        "name": "트린다미어",
+        "attack": "검으로 공격합니다. 기본 지속 효과 <#ff9028ff>격노<>: 기본 공격과 회전 베기가 적을 맞힐 때마다 분노 1, 처치 시 2 (최대 5). 중첩당 치명타 확률 <#ffb900ff>+8%<> (치명타는 2배 피해). 5초간 공격하지 않으면 1초마다 1씩 줄어듭니다.",
+        "skill": "대상을 지나 회전하며 돌진해 경로의 모든 적에게 <#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<>의 <#ff9028ff>물리 피해<>를 입히고, 적중한 적마다 분노 1을 얻습니다.",
+        "skill2": "주변 적 챔피언을 조롱해 공격력을 <#ffb900ff>4초<> 동안 <#ef5350ff>25%<> 낮춥니다. 멀리서 등을 돌린 적은 2초 동안 40% <#ef5350ff>둔화<>됩니다.",
+        "ult": "적 챔피언 둘 이상에게 붙잡히거나 계속 맞으면 발동: 분노가 가득 차고 <#ffb900ff>5초<> 동안 체력이 1 아래로 떨어지지 않습니다. 끝날 때 <#ff9028ff>피의 갈망<>으로 분노를 소모해 <#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>30%<>, 중첩당 <#66bb6aff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>10%<> 회복합니다."
       }
     },
     "skill_name": {
@@ -2900,6 +2943,11 @@
         "skill1": "꿰뚫는 화살",
         "skill2": "퍼붓는 화살",
         "ult": "부패의 사슬"
+      },
+      "league_tryndamere": {
+        "skill1": "회전 베기",
+        "skill2": "조롱의 외침",
+        "ult": "불사의 분노"
       }
     }
   },
@@ -3223,9 +3271,9 @@
       "league_ryze": {
         "name": "ライズ",
         "attack": "ルーンのオーブを放つ。パッシブ <#ff9028ff>古代の呪術<>：全スキルが<i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>最大体力の2%<>の追加ダメージ(マナの代わりに体力)。",
-        "skill": "エネルギー弾を放ち、最初に当たった敵に<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の55%<>の<#a974ffff>魔法ダメージ<>。<#ff9028ff>フラックス<>を受けた敵がいれば全員に<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の40%<>の波及ダメージ、フラックスは消費。",
-        "skill2": "連携：<#ff9028ff>スペルフラックス<>が<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>、対象と周囲の敵に<#ffb900ff>4秒<><#ff9028ff>フラックス<>。<#ff9028ff>ルーンプリズン<>が<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>、フラックス中は<#ffb900ff>1.25秒<><#ef5350ff>スネア<>(無ければスロウ)。続けて<#ff9028ff>オーバーロード<>、ルーン2個で<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度30%<>増加。",
-        "ult": "敵チャンピオン2体が迫る(孤立中に接近される)と逃げ、交戦中の敵が射程外へ逃げると味方と追う。<#ffb900ff>1秒<>詠唱後、中の味方チャンピオンとミニオンと共にテレポートし着地時に<#ff9028ff>スペルフラックス<>。行動妨害で中断。パッシブ：使用したライフの間、波及ダメージ<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>。"
+        "skill": "エネルギー弾を放ち、最初に当たった敵に<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の50%<>の<#a974ffff>魔法ダメージ<>。<#ff9028ff>フラックス<>を受けた敵がいれば全員に<#a974ffff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の35%<>の波及ダメージ、フラックスは消費。",
+        "skill2": "連携E→W→Q→E→Q：<#ff9028ff>スペルフラックス<>が<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>、対象と周囲の敵に<#ffb900ff>4秒<><#ff9028ff>フラックス<>。<#ff9028ff>ルーンプリズン<>が<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>、フラックス中は<#ffb900ff>1.25秒<><#ef5350ff>スネア<>(無ければスロウ)。<#ff9028ff>オーバーロード<>で起爆し、再び<#ff9028ff>スペルフラックス<>と<#ff9028ff>オーバーロード<>、ルーンで<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度30%<>増加。",
+        "ult": "敵チャンピオン2体が迫る(孤立中に接近される)と逃げ、交戦中の敵が射程外へ逃げ、周りの敵が3体未満なら味方と射程ぎりぎりまで追う。<#ffb900ff>1秒<>詠唱後、中の味方チャンピオンとミニオンと共にテレポートし着地時に<#ff9028ff>スペルフラックス<>。行動妨害で中断。パッシブ：使用したライフの間、波及ダメージ<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>。"
       },
       "league_kennen": {
         "name": "ケネン",
@@ -3324,6 +3372,13 @@
         "skill": "貫通する矢を放つ。射程内に敵チャンピオンがいれば引き絞り<#ff9028ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<>の<#ff9028ff>物理ダメージ<>、いなければ素早く弱く撃つ。後ろの敵ほど減衰。チャンピオンに当たると枯死が弾け、1つにつき<#ffffffff>最大体力の3%<>の確定ダメージとスキル短縮。40秒ごとに引き絞った矢は<#ffffffff>6%<>追加。",
         "skill2": "範囲に矢の雨を降らせ<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>の<#ff9028ff>物理ダメージ<>、枯死を弾けさせる。地面が<#ffb900ff>4秒<>穢れ、中の敵に30%の<#ef5350ff>スロウ<>と回復40%低下。",
         "ult": "最初の敵チャンピオンに蔓を放ち<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の<#ff9028ff>物理ダメージ<>、<#ffb900ff>2秒<>の<#ef5350ff>スネア<>、枯死3つ。続いて穢れが周囲の敵チャンピオンに広がり<#ffb900ff>1.5秒<><#ef5350ff>スネア<>。"
+      },
+      "league_tryndamere": {
+        "name": "トリンダメア",
+        "attack": "剣で攻撃。パッシブ <#ff9028ff>戦場の咆哮<>：通常攻撃とスピンスラッシュが敵に当たるたびフューリー1、キルで2（最大5）。1つにつきクリティカル率<#ffb900ff>+8%<>（クリティカルは2倍）。5秒攻撃しないと毎秒1つ減る。",
+        "skill": "対象を突き抜けて回転斬りし、通り道の全ての敵に<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<>の<#ff9028ff>物理ダメージ<>、当たった敵1体ごとにフューリー1。",
+        "skill2": "周囲の敵チャンピオンを嘲り、攻撃力<#ef5350ff>-25%<>（<#ffb900ff>4秒<>）。離れて背を向けた敵は40%の<#ef5350ff>スロウ<>（2秒）。",
+        "ult": "敵チャンピオン2体以上に囲まれるか攻撃を受け続けると発動：フューリー最大、<#ffb900ff>5秒<>間体力が1未満にならない。終わりに<#ff9028ff>血の欲望<>でフューリーを消費し<#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>30%<>、1つにつき<#66bb6aff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>10%<>回復。"
       }
     },
     "skill_name": {
@@ -3626,6 +3681,11 @@
         "skill1": "乾坤一擲",
         "skill2": "滅びの矢雨",
         "ult": "穢れの連鎖"
+      },
+      "league_tryndamere": {
+        "skill1": "スピンスラッシュ",
+        "skill2": "嘲りの叫び",
+        "ult": "不死の憤激"
       }
     }
   }

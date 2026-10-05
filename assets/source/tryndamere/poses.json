@@ -1,0 +1,284 @@
+{
+ "hero": "tryndamere",
+ "champ": "Tryndamere",
+ "camera": {
+  "yaw": 60,
+  "pitch": 20,
+  "mirror": true
+ },
+ "chibi": {
+  "head": 2.6,
+  "legs": 0.85,
+  "hair": 0.5
+ },
+ "height": 40,
+ "cell": [
+  128,
+  96,
+  14
+ ],
+ "design": "tryndamere_idle1@0",
+ "tags": {
+  "idle": {
+   "frames": [
+    [
+     "tryndamere_idle1@0",
+     200
+    ],
+    [
+     "tryndamere_idle1@0",
+     200
+    ],
+    [
+     "tryndamere_idle1@0",
+     200
+    ],
+    [
+     "tryndamere_idle1@0",
+     200
+    ],
+    [
+     "tryndamere_idle1@0",
+     200
+    ],
+    [
+     "tryndamere_idle1@0",
+     200
+    ]
+   ]
+  },
+  "run": {
+   "head_like": "tryndamere_idle1@0",
+   "frames": [
+    [
+     "tryndamere_run@0",
+     125
+    ],
+    [
+     "tryndamere_run@125",
+     125
+    ],
+    [
+     "tryndamere_run@250",
+     125
+    ],
+    [
+     "tryndamere_run@375",
+     125
+    ],
+    [
+     "tryndamere_run@500",
+     125
+    ],
+    [
+     "tryndamere_run@625",
+     125
+    ],
+    [
+     "tryndamere_run@750",
+     125
+    ],
+    [
+     "tryndamere_run@875",
+     125
+    ]
+   ]
+  },
+  "attack": {
+   "lunge": 0.4,
+   "release": 5,
+   "frames": [
+    [
+     "tryndamere_idle1@0>tryndamere_attack1@180:0.5",
+     50
+    ],
+    [
+     "tryndamere_attack1@360",
+     50
+    ],
+    [
+     "tryndamere_attack1@540",
+     50
+    ],
+    [
+     "tryndamere_attack1@700",
+     50
+    ],
+    [
+     "tryndamere_attack1@810",
+     100
+    ],
+    [
+     "tryndamere_attack1@950>tryndamere_idle1@0:0.5",
+     100
+    ]
+   ]
+  },
+  "skill": {
+   "lunge": 0.3,
+   "release": 1,
+   "frames": [
+    [
+     "tryndamere_spell3@97",
+     44
+    ],
+    [
+     "tryndamere_spell3@194",
+     44
+    ],
+    [
+     "tryndamere_spell3@290",
+     44
+    ],
+    [
+     "tryndamere_spell3@387",
+     44
+    ],
+    [
+     "tryndamere_spell3@484",
+     44
+    ],
+    [
+     "tryndamere_spell3@581",
+     47
+    ]
+   ]
+  },
+  "skill2": {
+   "lunge": 0.3,
+   "release": 4,
+   "frames": [
+    [
+     "tryndamere_idle1@0>tryndamere_spell2@125:0.5",
+     60
+    ],
+    [
+     "tryndamere_spell2@125",
+     60
+    ],
+    [
+     "tryndamere_spell2@250",
+     50
+    ],
+    [
+     "tryndamere_spell2@375",
+     80
+    ],
+    [
+     "tryndamere_spell2@500",
+     80
+    ],
+    [
+     "tryndamere_spell2@750>tryndamere_idle1@0:0.5",
+     70
+    ]
+   ]
+  },
+  "skill_q": {
+   "lunge": 0.3,
+   "frames": [
+    [
+     "tryndamere_spell1@121",
+     80
+    ],
+    [
+     "tryndamere_spell1@242",
+     80
+    ],
+    [
+     "tryndamere_spell1@363",
+     80
+    ],
+    [
+     "tryndamere_spell1@484",
+     80
+    ],
+    [
+     "tryndamere_spell1@605>tryndamere_idle1@0:0.5",
+     80
+    ]
+   ]
+  },
+  "ult": {
+   "lunge": 0.3,
+   "release": 2,
+   "frames": [
+    [
+     "tryndamere_spell4@121",
+     80
+    ],
+    [
+     "tryndamere_spell4@242",
+     80
+    ],
+    [
+     "tryndamere_spell4@363",
+     90
+    ],
+    [
+     "tryndamere_spell4@484",
+     90
+    ],
+    [
+     "tryndamere_spell4@605",
+     80
+    ],
+    [
+     "tryndamere_spell4@726>tryndamere_idle1@0:0.5",
+     80
+    ]
+   ]
+  },
+  "hit": {
+   "frames": [
+    [
+     "tryndamere_idle1@0>tryndamere_death@300:0.25",
+     100
+    ],
+    [
+     "tryndamere_idle1@0>tryndamere_death@300:0.1",
+     100
+    ]
+   ]
+  },
+  "dead": {
+   "anchor": "first",
+   "lunge": 0.3,
+   "travel": 0.3,
+   "frames": [
+    [
+     "tryndamere_death@0",
+     100
+    ],
+    [
+     "tryndamere_death@200",
+     110
+    ],
+    [
+     "tryndamere_death@400",
+     110
+    ],
+    [
+     "tryndamere_death@650",
+     120
+    ],
+    [
+     "tryndamere_death@950",
+     130
+    ],
+    [
+     "tryndamere_death@1300",
+     150
+    ],
+    [
+     "tryndamere_death@1900",
+     200
+    ],
+    [
+     "tryndamere_death@2600",
+     300
+    ]
+   ]
+  }
+ }
+}

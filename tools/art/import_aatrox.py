@@ -441,6 +441,8 @@ HOP_X = (-2, -4, -6, -8, -10, -12, -17)
 RUSH_CUT = {"clip": (-3, 60), "least": 6}
 HOP_CUT = {"clip": (-60, 3), "least": 6}
 Q1_LINE = (0, 0)            # the Q1 line's middle (45000 long): the rectangle from him
+Q1_BODY = (4, 0)            # its picture 1.2x as long (tools/art/fx_scale.py, 「剑魔的三段Q特效适当加长」): 4 px ahead so
+                            # its back end still starts at him
 Q2_POINT = (-13, 0)         # the Q2 fan's point on the caster (a 26000 line, centred)
 Q2_WARN = (1, 0)            # the trapezoid's middle, 14 px ahead of him (7 behind to 34.5 ahead)
 EMPTY = "empty"             # a frame with nothing in it (a projectile's first tick)
@@ -558,7 +560,7 @@ BIG = {
        for name, t0, t1 in zip(TELE_TAGS, TELE_T, TELE_T[1:] + (LOCK_T,))},
     # the impact from its second frame (the first was 8 / 138 / 81 squares after a warning of 585 / 1218 / 1565), in
     # whole ticks
-    "q1_body": [("q1_warn", WARN, [Q1_LINE]), ("q1_body", seq(range(1, 4), [4 * TICK, 5 * TICK, 6 * TICK]), [Q1_LINE])],
+    "q1_body": [("q1_warn", WARN, [Q1_LINE]), ("q1_body", seq(range(1, 4), [4 * TICK, 5 * TICK, 6 * TICK]), [Q1_BODY])],
     "q2_body": [("q2_warn", WARN, [Q2_WARN]), ("q2_body", seq(range(1, 4), [4 * TICK, 5 * TICK, 6 * TICK]), [Q2_POINT])],
     "q3_body": [("q3_warn", WARN, [FEET]), ("q3_body", seq(range(1, 5), [4 * TICK, 5 * TICK, 7 * TICK, 10 * TICK]), [FEET])],
     # the ring (the main pack's and the add-on's): appears, turns to 1.5 s
