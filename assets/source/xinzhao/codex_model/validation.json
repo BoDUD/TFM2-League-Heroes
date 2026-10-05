@@ -1,0 +1,30 @@
+{
+  "A": {
+    "body_height": 42,
+    "head_top_to_chin": 15,
+    "width_including_spear": 57,
+    "opaque_colours": 25,
+    "soles_row": 99,
+    "sprite_offset": [
+      27,
+      58
+    ],
+    "boot_midpoint_x": 64.0,
+    "eye_row_local": 10,
+    "normalization": "source-cell sampling; whole-row/column deletion protecting face rows and columns; fixed-palette mapping; eye and missing-outline cleanup"
+  },
+  "B": {
+    "body_height": 42,
+    "head_top_to_chin": 13,
+    "width_including_spear": 57,
+    "opaque_colours": 25,
+    "soles_row": 99,
+    "sprite_offset": [
+      26,
+      58
+    ],
+    "boot_midpoint_x": 63.5,
+    "eye_row_local": 8,
+    "normalization": "source-cell sampling; whole-row/column deletion protecting face rows and columns; fixed-palette mapping; eye and missing-outline cleanup"
+  }
+}
