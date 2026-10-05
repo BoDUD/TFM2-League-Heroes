@@ -2,9 +2,9 @@
 
 团战经理2（Teamfight Manager 2）的英雄联盟英雄 Mod，mod_id 是 `league`。纯数据 mod：不改游戏本体，不需要编译。
 
-英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）、烬（`league_jhin`）、基兰（`league_zilean`）、亚托克斯（`league_aatrox`）、凯隐（`league_kayn`）、希维尔（`league_sivir`）、崔斯特（`league_twistedfate`）、洛（`league_rakan`）、伊芙琳（`league_evelynn`）、瑟提（`league_sett`）、丽桑卓（`league_lissandra`）、韦鲁斯（`league_varus`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹、ADC 烬、辅助基兰。第十一组有上单亚托克斯（剑魔）、打野凯隐、中单崔斯特、ADC 希维尔、辅助洛。第十二组有上单瑟提（腕豪）、打野伊芙琳、中单丽桑卓、ADC 韦鲁斯。
+英雄：盖伦（`league_garen`）、艾希（`league_ashe`）、拉克丝（`league_lux`）、李青（`league_leesin`）、索拉卡（`league_soraka`）、德莱厄斯（`league_darius`）、阿木木（`league_amumu`）、亚索（`league_yasuo`）、金克丝（`league_jinx`）、蕾欧娜（`league_leona`）、提莫（`league_teemo`）、易（`league_masteryi`）、安妮（`league_annie`）、厄运小姐（`league_missfortune`）、迦娜（`league_janna`）、墨菲特（`league_malphite`）、艾克（`league_ekko`）、永恩（`league_yone`）、伊泽瑞尔（`league_ezreal`）、锤石（`league_thresh`）、凯尔（`league_kayle`）、费德提克（`league_fiddlesticks`）、阿狸（`league_ahri`）、卢锡安（`league_lucian`）、莫甘娜（`league_morgana`）、锐雯（`league_riven`）、贝蕾亚（`league_briar`）、阿卡丽（`league_akali`）、薇恩（`league_vayne`）、娜美（`league_nami`）、贾克斯（`league_jax`）、黛安娜（`league_diana`）、维迦（`league_veigar`）、塔里克（`league_taric`）、崔丝塔娜（`league_tristana`）、菲奥娜（`league_fiora`）、菲兹（`league_fizz`）、萨科（`league_shaco`）、凯特琳（`league_caitlyn`）、魔腾（`league_nocturne`）、布里茨（`league_blitzcrank`）、卡蜜尔（`league_camille`）、乐芙兰（`league_leblanc`）、卡莎（`league_kaisa`）、娑娜（`league_sona`）、凯南（`league_kennen`）、蔚（`league_vi`）、瑞兹（`league_ryze`）、烬（`league_jhin`）、基兰（`league_zilean`）、亚托克斯（`league_aatrox`）、凯隐（`league_kayn`）、希维尔（`league_sivir`）、崔斯特（`league_twistedfate`）、洛（`league_rakan`）、伊芙琳（`league_evelynn`）、瑟提（`league_sett`）、丽桑卓（`league_lissandra`）、韦鲁斯（`league_varus`）、阿利斯塔（`league_alistar`）。每组上单、打野、中单、ADC、辅助各一：第一组盖伦、李青、拉克丝、艾希、索拉卡，第二组德莱厄斯、阿木木、亚索、金克丝、蕾欧娜，第三组提莫、易（无极剑圣）、安妮、厄运小姐、迦娜，第四组墨菲特、艾克、永恩、伊泽瑞尔、锤石，第五组有上单凯尔、打野费德提克、中单阿狸、ADC 卢锡安、辅助莫甘娜，第六组有上单锐雯、打野贝蕾亚、中单阿卡丽、ADC 薇恩、辅助娜美，第七组有上单贾克斯、中单维迦、ADC 崔丝塔娜、辅助塔里克，第八组有上单菲奥娜（剑姬，排在原定凯南的位置，凯南延后）、中单菲兹、ADC 凯特琳、辅助布里茨，第九组有上单卡蜜尔（青钢影）、打野魔腾、中单乐芙兰、ADC 卡莎、辅助娑娜。按用户 10 月 2 日排的顺序，打野黛安娜是第七组的，萨科是第八组的。第十组有上单凯南、打野蔚、中单瑞兹、ADC 烬、辅助基兰。第十一组有上单亚托克斯（剑魔）、打野凯隐、中单崔斯特、ADC 希维尔、辅助洛。第十二组有上单瑟提（腕豪）、打野伊芙琳、中单丽桑卓、ADC 韦鲁斯、辅助阿利斯塔（牛头）。
 
-对敌人放的小技能，施放目标是「敌人（不含防御塔）」，清线、打野时也会放；只有大招、德莱厄斯的 E（拉人）、阿木木的 Q（绷带）、锤石的 Q（钩子）、阿狸的 E（魅惑）、薇恩的 E（恶魔审判）、维迦的 E（扭曲空间）、凯特琳的 W（约德尔诱捕器）、卡莎的 W（虚空索敌）、基兰的 E（时光发条）和洛的 W（盛大登场，落地后接 E 轻舞成双）只对英雄放（莫甘娜的 Q 对什么都放，但射程内有敌方英雄时朝英雄射；贝蕾亚的 Q 也一样，射程内有敌方英雄时扑英雄；娜美的 W、Q 也是，射程内有敌方英雄时打英雄；黛安娜的 Q 也一样，射程内有敌方英雄时朝英雄射，E 带着月光再冲的第二下也先找英雄；菲奥娜的 Q、W 也一样，射程内有敌方英雄时冲向、刺向英雄；凯特琳的 Q 也一样，射程内有敌方英雄时朝英雄射；凯南的 Q 也一样，射程内有敌方英雄时锁定英雄射；伊芙琳的 W 也一样，射程内有敌方英雄时先给英雄挂印记；丽桑卓的 Q 也一样，射程内有敌方英雄时朝英雄射，W 身边没人时冰爪只滑向队友正在打的敌方英雄，否则只是扔出去打一下；韦鲁斯的 Q 也一样，射程内有敌方英雄时拉满弓朝英雄射，只有小兵野怪时快速出手）；提莫的 W 是给自己加速和伪装，也只在敌方英雄靠近时放。最早几个英雄的小技能只对英雄放，打野时一直平 A 野怪，按玩家反馈改了。
+对敌人放的小技能，施放目标是「敌人（不含防御塔）」，清线、打野时也会放；只有大招、德莱厄斯的 E（拉人）、阿木木的 Q（绷带）、锤石的 Q（钩子）、阿狸的 E（魅惑）、薇恩的 E（恶魔审判）、维迦的 E（扭曲空间）、凯特琳的 W（约德尔诱捕器）、卡莎的 W（虚空索敌）、基兰的 E（时光发条）、洛的 W（盛大登场，落地后接 E 轻舞成双）和阿利斯塔的 W（野蛮冲撞，撞完接大地粉碎）只对英雄放（莫甘娜的 Q 对什么都放，但射程内有敌方英雄时朝英雄射；贝蕾亚的 Q 也一样，射程内有敌方英雄时扑英雄；娜美的 W、Q 也是，射程内有敌方英雄时打英雄；黛安娜的 Q 也一样，射程内有敌方英雄时朝英雄射，E 带着月光再冲的第二下也先找英雄；菲奥娜的 Q、W 也一样，射程内有敌方英雄时冲向、刺向英雄；凯特琳的 Q 也一样，射程内有敌方英雄时朝英雄射；凯南的 Q 也一样，射程内有敌方英雄时锁定英雄射；伊芙琳的 W 也一样，射程内有敌方英雄时先给英雄挂印记；丽桑卓的 Q 也一样，射程内有敌方英雄时朝英雄射，W 身边没人时冰爪只滑向队友正在打的敌方英雄，否则只是扔出去打一下；韦鲁斯的 Q 也一样，射程内有敌方英雄时拉满弓朝英雄射，只有小兵野怪时快速出手）；提莫的 W 是给自己加速和伪装，也只在敌方英雄靠近时放。最早几个英雄的小技能只对英雄放，打野时一直平 A 野怪，按玩家反馈改了。
 
 ![盖伦演示：普攻、Q+W、强化普攻、E 旋转、R 德玛西亚正义](docs/preview/league_garen_showcase.gif?v=0930)
 
@@ -110,6 +110,8 @@
 ![丽桑卓演示：她滑进场，一颗冰弹打德莱厄斯；Q 寒冰碎片：冰锥从伸出的手上射出，穿过德莱厄斯和身后的盖伦，两人脚下结霜减速；E 冰川之径：冰爪贴地滑到德莱厄斯脚下，她跟着滑过去，落地的寒雾一冲，W 冰霜之环在脚下炸开一圈冰刺，两人被冰晶冻住脚；又一颗冰弹；R 冰封陵墓：寒风卷下，德莱厄斯被封进冰墓，周围炸出黑冰、留下一片发光裂纹的冰地，盖伦减速；冰弹打倒德莱厄斯，他从冰里站起来变成黑冰冰仆，1.5 秒后碎裂，炸到盖伦；最后被围时她把自己冻进冰块](docs/preview/league_lissandra_showcase.gif?v=1005lz)
 
 ![韦鲁斯演示：他跑进场，两箭射中德莱厄斯，头顶亮起一层、两层枯萎；Q 穿刺之箭拉满弓：弓上聚起紫光、枯萎之箭的红光缠着弓，长箭穿过德莱厄斯和身后的盖伦，德莱厄斯身上的两层枯萎引爆，枯萎之箭再炸出一根紫红光柱；又一箭；E 恶灵箭雨：朝天射一箭，箭雨落在两人头上，地面留下一片冒紫光的腐化之地，两人减速；R 腐败锁链：触须飞出缠住德莱厄斯（三层枯萎），半秒后腐化在地上扩散，触须窜上来缠住盖伦；两箭打倒德莱厄斯，复仇之欲的紫光在他身上爆开、脚下亮起攻速光环；最后对盖伦快速出手一支穿刺之箭](docs/preview/league_varus_showcase.gif?v=1005vr)
+
+![阿利斯塔演示：他跑进场；践踏接大地粉碎（E → Q）：一脚践踏，砸地把德莱厄斯和盖伦一起击飞，践踏在他脚下继续一圈圈踩；两拳，第五次踩中英雄时锁链印记亮起，下一拳把德莱厄斯眩晕（头上冒星星）；控制命中三次，凯旋怒吼给自己回血；盖伦后退，野蛮冲撞接大地粉碎：冲过去一头撞退盖伦，在他落地的地方砸地再击飞；坚定意志：怒吼一声，身后亮起怒气光环](docs/preview/league_alistar_showcase.gif?v=1005al)
 
 ## 英雄：盖伦
 
@@ -2455,6 +2457,47 @@ python tools/art/preview_varus.py
 - 特效用 Codex 画的 24 张（生图原稿，`import_varus.py --raw`：每张按格子等分，每个游戏像素取覆盖的原稿像素里最多的颜色，颜色归到包里给每张的色阶——暗裔紫光、品红、腐化紫红、黑紫，箭和触须保留描边、光效外圈最暗的一档去掉；枯萎标记那张的三行拆成 1/2/3 层）。位置：普攻、Q、E、R 从弓的握把出手（放箭那一帧量的：普攻 (13, −9)、Q (13, −8)、E (13, −18)、R (14, −8)），枯萎标记在头顶上方，箭雨、腐化地面、扩散的地面圈按椭圆最宽的一行对在脚下，禁锢的触须底边踩在脚底线上。箭、Q 的大箭、触须都从 8 px 高飞出（`y_offset` −3000），第一帧前空 2 tick（飞过弓之前不画）。
 
 逐帧预览：[`docs/preview/league_varus_frames.png`](docs/preview/league_varus_frames.png)，特效：[`docs/preview/league_varus_effects.png`](docs/preview/league_varus_effects.png)。
+
+## 英雄：阿利斯塔
+
+| 部分 | 内容 |
+|---|---|
+| 定位 | 辅助（分类 Util；本包没有坦克分类，标签 Tank），用户 10 月 2 日排的第十二组的辅助（同组：瑟提、伊芙琳、丽桑卓、韦鲁斯）。牛头：Q 砸地群体击飞，W 冲撞接 Q（W→Q 二连），E 践踏并进 Q 和 W，满五次的下一拳眩晕，R 免控减伤 |
+| 普攻 / 被动 | 普攻是双拳重击，100% 攻击力的物理伤害，射程 25000，攻击间隔 80 tick（第 12 tick 打中）。被动「凯旋怒吼」：他的控制（Q、W→Q 的击飞，W 的撞退，E 的眩晕）每命中一个敌方英雄记一次，满 3 次（冷却 5 秒）就怒吼：自己回复 40 + 20% 法强，40000 内的友方英雄回复 50 + 30% 法强。英雄联盟里附近小兵死亡也会叠层，这里没做 |
+| 技能1 | Q「大地粉碎」+ E「践踏」（用户选的 E → Q 二连）：冷却 600 tick（10 秒），也对小兵和野怪放，射程 24000。施放时如果践踏没在冷却，先开始践踏（出手时踩第一脚）：3 秒内每 30 tick 踩一脚，24000 内的敌人受到 8 + 6% 法强魔法伤害；第 14 tick 砸地，28000 内的敌人受到 50 + 50% 法强魔法伤害并击飞 1 秒，每击飞一个英雄也算踩中一次。践踏累计踩中敌方英雄 5 次后，下一次普攻英雄眩晕 1 秒，额外 50 + 50% 法强魔法伤害。践踏冷却 1080 tick（18 秒） |
+| 技能2 | W「野蛮冲撞」接大地粉碎（W → Q，用户选的）：冷却 720 tick（12 秒），只对英雄放，射程 55000。冲向目标（每 tick 3500），一头撞上造成 40 + 50% 法强魔法伤害并把面前的英雄撞退（8 tick，每 tick 2500）；落地 6 tick 后在原地砸地，周围敌人受到 30 + 30% 法强魔法伤害并击飞 1 秒——砸在被撞飞的英雄落下的位置。同样会开始践踏 |
+| 大招 | R「坚定意志」：冷却 60 秒，只对英雄放，和布里茨的 R 一样先「上膛」：70000 内有敌方英雄时上膛 10 秒，之后 32000 内有敌方英雄、或他自己被控制时立刻触发：免疫控制 1 秒（英雄联盟的解控），7 秒内受到的伤害降低 50%，怒吼一声、身后亮起怒气光环。上膛期间没用上就返还冷却 |
+| 数值 | 攻击 80（+6）、生命 1100（+120）、护甲 38（+8）、魔抗 28（+4）、移速 1000（+10），和本包的蕾欧娜同一档。数值是自己设计的，用 SDK 对战模拟调：辅助位，对 5 个原版辅助（`priest`、`bard`、`enchanter`、`monk`、`taoist`），3 套阵容、两边各打，10 分钟。初稿 +6.08（伤害 9254，蕾欧娜 3705：Q 和 W→Q 几秒一次，每次都是 1 秒的群体击飞）；砍到 Q 50 + 50%、冷却 6 → 10 秒，W→Q 的砸地单算 30 + 30%，W 40 + 50%、冷却 8 → 12 秒，践踏每脚 8 + 6%、冷却 10 → 18 秒，怒吼的回复下调，R 减伤 60% → 50% 后，种子 1–24 +1.65、25–48 +1.47（蕾欧娜 +0.78 / +1.23）。击飞保留英雄联盟的 1 秒（0.75 秒那版 +0.85，不如保留原版手感） |
+| 亚索联动 | Q、W→Q 的击飞和 E 的眩晕都是亚索大招要的控制：牛头辅助、亚索同队时，亚索每局 R 到被控英雄 2.23 次（同一批蕾欧娜 2.19、原版 `priest` 0.50），和蕾欧娜一样，亚索不用调 |
+| 精灵图 | 10 个动作 55 帧：待机 6、移动 9（9 × 111 ms，一秒一个循环）、普攻 6、Q（`skill`）6、W 冲撞（`skill2`）6、W 撞头（`butt`）2、W→Q 砸地（`slam`）4、R 6、受击 2、死亡 8。造型 41 × 44 px，25 色。头像截取点 (9, −32)，选人卡片 `banpick_center` y −7 |
+| 特效 | Codex 生图的 15 张（`import_alistar.py` 缩成游戏像素）：`league_alistar_fx` 普攻命中、击飞的尘土、撞头闪光和命中、践踏命中、锁链印记（满五次）、眩晕一拳的命中和头上的星星、怒吼回血；`league_alistar_big` 大地粉碎的地裂、W→Q 的地裂、冲撞的尘土、践踏的地面圈、凯旋怒吼的光圈、R 的怒吼爆发和身后的怒气光环（画在他身后） |
+| 音效 | 英雄联盟的音效和配音（`tools/lol/extract_alistar.py`）：普攻命中，Q 出手和砸地，W 出手和撞上，践踏、印记满、眩晕，被动怒吼，R 怒吼；Q、W 各一句中文配音。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
+| 图标 | 官方技能图标（Q / W / R），从本地客户端提取，缩到 64×64 |
+
+重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
+
+```bash
+python tools/lol/extract_alistar.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstream-cli.exe 路径>"
+python tools/kit/build_alistar.py        # 技能数据，数字都在脚本的参数表 P 里；--nodes 看每棵技能树的节点数
+python tools/kit/setup_alistar.py --face=9,-32 --banpick -7   # 五种语言的文字、音效配置、共享文件里他的键
+python tools/art/design_alistar.py       # 造型：Codex 原稿 A 按 2×2 减半到 44 行，修鼻环下的横线、左角照右角镜像
+python tools/lol/native_pose.py assets/source/alistar/poses.json --out <渲染文件夹>   # 动作参考帧
+python tools/art/fix_alistar_strips.py   # 动作：Codex 的动作条按格子读回，贴回造型的头，清掉杂点和缺像素
+python tools/art/run_alistar.py          # 移动：换皮交付按格子读回、换成造型的颜色，修腰上的黑线
+python tools/art/import_native.py --hero alistar
+python tools/art/import_alistar.py       # 特效；--raw <Codex 的特效交付文件夹> 先把生图原稿缩成游戏尺寸的原尺寸条
+python tools/art/preview_alistar.py
+```
+
+美术（原画的提示词见 [`assets/source/alistar/PICTURE_PROMPT.md`](assets/source/alistar/PICTURE_PROMPT.md)，造型的见 [`MODEL_PROMPTS.md`](assets/source/alistar/MODEL_PROMPTS.md)，动作的见 [`MODEL_STRIPS.md`](assets/source/alistar/MODEL_STRIPS.md)，特效的见 [`PROMPTS_FX.md`](assets/source/alistar/PROMPTS_FX.md)，移动的换皮提示词见 [`codex_run_swap/pack/PROMPT.md`](assets/source/alistar/codex_run_swap/pack/PROMPT.md)；Codex 的交付说明在 [`codex_picture/`](assets/source/alistar/codex_picture/)、[`codex_model/`](assets/source/alistar/codex_model/)、[`codex_strips/`](assets/source/alistar/codex_strips/)、[`codex_fx/`](assets/source/alistar/codex_fx/)、[`codex_run_swap/`](assets/source/alistar/codex_run_swap/)）：
+
+- 原画：Codex 画了 A（英雄联盟的待机）、B，用户选 A。
+- 造型：Codex 原稿 A 先按格子读回，再 2×2 减半到 44 行（用户在几种缩法里选的）；按用户的反馈修了鼻环下面的一条横线，左边的牛角改成右角的镜像。
+- 动作：Codex 的动作条每帧都贴了造型的头，贴的时候头四周带着一圈方框，改成按头的形状贴；按用户的反馈逐帧补了缺的像素（死亡时头上、W 冲撞的旧牛角）、清掉银色杂点和孤立的小块，审核动图统一画布（之前帧大小不一，看起来像多出一截身体）。
+- 移动：前几版都是待机的上半身不动、只换腿，用户：「牛头走路没有交叉步」「单脚走路的」「走路和待机的体型不一样」，Codex 只画腿的一版把远侧的拳头弄丢了、腿压成了细棍，按步态重排的一版用户还是觉得「不自然」。参考隔壁 oppi 的牛头跑步（拳头和腿反向摆、后腿弯膝往后踢、身体一起一伏），用「骨架 + 皮囊」换皮让 Codex 重画了 9 帧：图 1 是那套跑步动作（只当动作参考，原图不放进仓库），图 2 是我们的造型。`run_alistar.py` 抠掉绿底、按格子读回、颜色换成造型的 25 色、按站位点摆好；GPT 在肚子和兜裆布之间画了一条黑线、护腕和兜裆布之间留了一块黑，用户：「腰部一条横线很明显」「明显腰部和腿分离了」，改成兜裆布自己的深棕色和肚子下的深紫阴影（腿不动）。
+- 特效用 Codex 画的 15 张（`import_alistar.py --raw`：每张按格子等分，颜色归到包里给每张的色阶）。R 的怒气光环按宽高分别缩放、画在他身后（`z` −1），冲撞的尘土缩小到脚边。
+
+逐帧预览：[`docs/preview/league_alistar_frames.png`](docs/preview/league_alistar_frames.png)，特效：[`docs/preview/league_alistar_effects.png`](docs/preview/league_alistar_effects.png)。
 
 ## 选人卡片位置（`banpick_center`）
 
