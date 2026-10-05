@@ -277,6 +277,11 @@ RUN_W = (2.2, 1.6)                          # half widths: the trousers, the shi
 BOOT_DROP = 3                               # the boot's sole under its ankle
 BOOT_COL = ("1B1D31", "0D0A19", "6E6A82")   # the design's boot: leather, sole, the lit edge
 TABARD_END = 91                             # the tabard cut here in the run (the design's hangs to row 95, over the legs)
+# below the jacket's hem (row 87) the run keeps only the tabard's columns: the design's thigh tops on row 88 (the
+# stance's right thigh, lavender, columns 67-69; the left hem's end) stayed with the body beside the drawn legs, a
+# ledge apart from them - 「这里和腿分裂是不是世纪难题？」
+HEM_ROW = 87
+TABARD_COLS = (slim_x(61, 88), slim_x(68, 88))
 KICK = 60                                   # a shin past this many degrees from hanging, its toe behind: boot turned
 TROUSER = ("AE9BC9", "654F83")              # lit, shade
 KNEE_GUARD = {(0, 0): "EAB241", (1, 0): "E2A53D", (0, 1): "E2A53D", (1, 1): "A46E21"}
@@ -380,6 +385,8 @@ def run(P, k):
     dy = run_sink(k)
     trunk, _, _ = legs_apart(P, (0, 0, 0, 0))     # the body without the legs; the tabard (columns 60-67) stays,
     trunk[TABARD_END + 1:] = 0                    # cut shorter
+    trunk[HEM_ROW + 1:, :TABARD_COLS[0]] = 0
+    trunk[HEM_ROW + 1:, TABARD_COLS[1] + 1:] = 0
     c = np.zeros((128, 128, 4), np.uint8)
     legs = {s: draw_leg(a, *run_legs(k, dy)[s], P.D.outline) for s in ("L", "R")}
     top = int(RUN_HIP_ROW + dy)                   # the legs only from the hips down: above, the body (a thigh's ring
