@@ -1,0 +1,102 @@
+[
+ {
+  "file": "xinzhao_fx_a_hit.png",
+  "binding": "view_effects `league_xinzhao_a_hit`（跟随，画在人物上面）",
+  "size": "14"
+ },
+ {
+  "file": "xinzhao_fx_p_hit.png",
+  "binding": "view_effects `league_xinzhao_p_hit`（跟随，画在人物上面）",
+  "size": "20"
+ },
+ {
+  "file": "xinzhao_fx_p_heal.png",
+  "binding": "view_effects `league_xinzhao_p_heal`（施法者身上，不跟随；格子中心放到他的胸口）",
+  "size": "22 × 32"
+ },
+ {
+  "file": "xinzhao_fx_e_dash.png",
+  "binding": "view_effects `league_xinzhao_e_dash`（BIG，施法者身上，跟随；格子里的站位点放到他的站位点）",
+  "size": "44 × 24"
+ },
+ {
+  "file": "xinzhao_fx_e_land.png",
+  "binding": "view_effects `league_xinzhao_e_land`（BIG，施法者脚下，不跟随，z -1）",
+  "size": "44 × 20"
+ },
+ {
+  "file": "xinzhao_fx_e_hit.png",
+  "binding": "view_effects `league_xinzhao_e_hit`（跟随，画在人物上面）",
+  "size": "16"
+ },
+ {
+  "file": "xinzhao_fx_e_slow.png",
+  "binding": "view_buffs `league_xinzhao_e_slow`（循环，画在脚下）",
+  "size": "16 × 6"
+ },
+ {
+  "file": "xinzhao_fx_q_marks.png",
+  "binding": "view_buffs `league_xinzhao_q_1` / `q_2` / `q_3`（循环，画在人物上面，头顶）",
+  "size": "14 × 8"
+ },
+ {
+  "file": "xinzhao_fx_q_hit.png",
+  "binding": "view_effects `league_xinzhao_q_hit`（跟随，画在人物上面）",
+  "size": "16"
+ },
+ {
+  "file": "xinzhao_fx_q3_up.png",
+  "binding": "view_effects `league_xinzhao_q3_up`（跟随，画在人物上面）",
+  "size": "20 × 32"
+ },
+ {
+  "file": "xinzhao_fx_w_slash.png",
+  "binding": "view_effects `league_xinzhao_w_slash`（BIG，施法者身上，不跟随；格子里的站位点放到他的站位点）",
+  "size": "40 × 30"
+ },
+ {
+  "file": "xinzhao_fx_w_thrust.png",
+  "binding": "view_projectiles `league_xinzhao_w_thrust`（BIG，LineRangeProjectile 60000 长：画面按方向转动，所以**上下必须对称**）",
+  "size": "60 × 10"
+ },
+ {
+  "file": "xinzhao_fx_w_hit.png",
+  "binding": "view_effects `league_xinzhao_w_hit`（跟随，画在人物上面）",
+  "size": "14"
+ },
+ {
+  "file": "xinzhao_fx_w_hit2.png",
+  "binding": "view_effects `league_xinzhao_w_hit2`（跟随，画在人物上面）",
+  "size": "16"
+ },
+ {
+  "file": "xinzhao_fx_w_slow.png",
+  "binding": "view_buffs `league_xinzhao_w_slow`（循环，画在脚下）",
+  "size": "18 × 8"
+ },
+ {
+  "file": "xinzhao_fx_r_tell.png",
+  "binding": "view_effects `league_xinzhao_r_tell`（BIG，施法者身上，跟随；格子中心放到他的胸口）",
+  "size": "30 × 30"
+ },
+ {
+  "file": "xinzhao_fx_r_sweep.png",
+  "binding": "view_effects `league_xinzhao_r_sweep`（BIG，施法者身上，不跟随；格子里的站位点放到他的站位点）",
+  "size": "76 × 44"
+ },
+ {
+  "file": "xinzhao_fx_r_hit.png",
+  "binding": "view_effects `league_xinzhao_r_hit`（跟随，画在人物上面）",
+  "size": "16"
+ },
+ {
+  "file": "xinzhao_fx_r_chal.png",
+  "binding": "view_buffs `league_xinzhao_r_chal`（循环，画在人物上面，头顶）",
+  "size": "12 × 12"
+ },
+ {
+  "file": "xinzhao_fx_r_guard.png",
+  "binding": "view_buffs `league_xinzhao_r_guard`（BIG，循环，画在人物下面，z -1）",
+  "size": "30 × 44"
+ }
+]

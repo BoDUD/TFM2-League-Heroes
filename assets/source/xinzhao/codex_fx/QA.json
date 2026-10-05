@@ -1,0 +1,16 @@
+{
+  "image_count": 20,
+  "expected_set_matches": true,
+  "total_frames": 96,
+  "output_dimensions_match_export_manifest": true,
+  "transparent_background_present_all": true,
+  "strict_pixel_palette_and_binary_alpha_verified": false,
+  "w_thrust_top_bottom_difference": [
+    0.038822,
+    0.055779,
+    0.119431,
+    0.058396,
+    0.070151
+  ],
+  "runtime_import_tested": false
+}

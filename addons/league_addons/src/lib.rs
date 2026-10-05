@@ -28,6 +28,9 @@ mod nocturne_dark;
 #[path = "../../league_tryndamere_rage/src/lib.rs"]
 mod tryndamere_rage;
 #[allow(dead_code)] // items public in the add-on's own crate
+#[path = "../../league_xinzhao_guard/src/lib.rs"]
+mod xinzhao_guard;
+#[allow(dead_code)] // items public in the add-on's own crate
 #[path = "../../league_zilean_rewind/src/lib.rs"]
 mod zilean_rewind;
 
@@ -42,9 +45,10 @@ fn init(host: &StableHost) -> StableMod {
     aatrox_chain::register(host, &mut module);
     kayn_form::register(host, &mut module);
     tryndamere_rage::register(host, &mut module);
+    xinzhao_guard::register(host, &mut module);
     host.log(
         LogLevel::Info,
-        "league_addons loaded: Nocturne darkness, Camille wall hook, Zilean true rewind, Lee Sin W dash, Aatrox chain, Kayn forms, Tryndamere low-health rage.",
+        "league_addons loaded: Nocturne darkness, Camille wall hook, Zilean true rewind, Lee Sin W dash, Aatrox chain, Kayn forms, Tryndamere low-health rage, Xin Zhao far-damage guard.",
     );
     module
 }

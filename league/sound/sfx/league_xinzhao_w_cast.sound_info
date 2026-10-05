@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_xinzhao_sfx_w",
+      "volume": 0.5
+    },
+    {
+      "delay": 0.05,
+      "clip": "league_xinzhao_vo_w",
+      "volume": 0.85
+    }
+  ]
+}
