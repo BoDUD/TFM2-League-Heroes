@@ -3181,7 +3181,7 @@
       "anim": "asset/league/effects/league_ryze_fx",
       "tag": "q_cast",
       "z": 1,
-      "is_follow": true
+      "is_follow": false
     },
     {
       "type": "Animation",
