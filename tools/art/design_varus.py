@@ -57,7 +57,10 @@ FIX = {(80, 61): STRAP_LIT, (80, 62): STRAP_LIT, (81, 61): STRAP, (81, 62): STRA
        (88, 58): THIGH, (89, 58): THIGH, (89, 57): OUTLINE_RGB, (90, 57): OUTLINE_RGB,
        # the far thigh's top (rows 89-90) a column wider on the right, flush with the knee and shin below and with the
        # waist above it in the casts (「放技能时腰部又凹在腿里面了」)
-       (89, 67): THIGH, (90, 67): THIGH, (89, 68): OUTLINE_RGB, (90, 68): OUTLINE_RGB}          # rows / columns on the canvas the clean-up leaves alone (the eyes, brows, mouth)
+       (89, 67): THIGH, (90, 67): THIGH, (89, 68): OUTLINE_RGB, (90, 68): OUTLINE_RGB,
+       # and the far shin's outer outline on that same column where it had none (dark purple gets no automatic outline):
+       # waist, thigh and shin one straight edge (「对齐对齐对齐」)
+       (91, 68): OUTLINE_RGB, (94, 68): OUTLINE_RGB, (95, 68): OUTLINE_RGB}          # rows / columns on the canvas the clean-up leaves alone (the eyes, brows, mouth)
 
 
 def lp(path):
