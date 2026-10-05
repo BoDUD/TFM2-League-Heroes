@@ -93,11 +93,11 @@
                           },
                           {
                             "type": "CasterViewEffect",
-                            "name": "league_riven_r_on_back"
+                            "name": "league_riven_r_on_back_atk"
                           },
                           {
                             "type": "CasterViewEffect",
-                            "name": "league_riven_r_on_front"
+                            "name": "league_riven_r_on_front_atk"
                           },
                           {
                             "type": "Sfx",
@@ -6096,6 +6096,14 @@
     },
     {
       "type": "Animation",
+      "name": "league_riven_r_on_back_atk",
+      "anim": "asset/league/effects/league_riven_big",
+      "tag": "r_on_back",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
       "name": "league_riven_r_on_front",
       "anim": "asset/league/effects/league_riven_big",
       "tag": "r_on_front",
@@ -6104,11 +6112,19 @@
     },
     {
       "type": "Animation",
+      "name": "league_riven_r_on_front_atk",
+      "anim": "asset/league/effects/league_riven_big",
+      "tag": "r_on_front",
+      "z": 1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
       "name": "league_riven_r_slash_back",
       "anim": "asset/league/effects/league_riven_fx",
       "tag": "r_slash_back",
       "z": -1,
-      "is_follow": true
+      "is_follow": false
     },
     {
       "type": "Animation",
