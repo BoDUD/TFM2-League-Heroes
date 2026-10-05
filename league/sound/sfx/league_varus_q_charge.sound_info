@@ -1,0 +1,19 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_varus_sfx_q",
+      "volume": 0.55
+    },
+    {
+      "delay": 0.1,
+      "clip": "league_varus_sfx_q_charge",
+      "volume": 0.4
+    },
+    {
+      "delay": 0.05,
+      "clip": "league_varus_vo_q",
+      "volume": 0.85
+    }
+  ]
+}
