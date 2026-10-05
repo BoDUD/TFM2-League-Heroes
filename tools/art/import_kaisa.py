@@ -36,7 +36,9 @@ y_offset -3000 lifts it 8) and starts empty for the 3 ticks it spends inside her
 2 (24 px at 14000), then they loop and hold (`repeat: false`); Q's missiles come out of the pods (y_offset -24000,
 29 px up). W's charge waits for the cannon to come up (170 ms) and burns to the shot (383 ms); W's blast sits
 between the cannon (-16) and its bolt (8 px up). The plasma marks last 1 s over the target's head (the kit plays one
-per hit), the shield 2 s (its 120 ticks), the E arcs 1 s (replayed every second of the attack speed).
+per hit), the shield 2 s (its 120 ticks), the E arcs 1 s (replayed every second of the attack speed). R's dash trail
+plays with the ult's first tick and stays empty for the 7 ticks before the dash (117 ms): played from the dash's
+Delayed, a following picture is mirrored the wrong way for a red-side caster.
 Writes league/effects/league_kaisa_fx.
 """
 import argparse
@@ -442,7 +444,9 @@ FX = {
     "w_muzzle": [("w_muzzle", seq(range(5), [30, 40, 50, 60, 70]), [BLAST])],
     "w_hit": [("w_hit", seq(range(6), [50, 60, 70, 80, 90, 100]), [HIT])],
     "r_launch": [("r_launch", seq(range(6), [50, 60, 70, 80, 90, 100]), [SOLES])],
-    "r_trail": [("r_trail", seq([0, 1, 2, 3] * 2, [40] * 8), [TRAIL])],
+    # played at the ult's start (a following picture played later is mirrored the wrong way on the red side): empty
+    # for the 7 ticks before the dash
+    "r_trail": [("r_trail", [(None, round(7 * TICK))] + seq([0, 1, 2, 3] * 2, [40] * 8), [TRAIL])],
     "r_land": [("r_land", seq(range(5), [50, 60, 70, 80, 90]), [SOLES])],
     "r_shield": [("r_shield", seq([0, 1] + list(range(2, 10)) * 2 + [10, 11], [60, 60] + [100] * 16 + [100, 100]),
                   [SOLES])],

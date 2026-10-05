@@ -3762,7 +3762,7 @@
       "anim": "asset/league/effects/league_diana_big",
       "tag": "p_cleave",
       "z": 1,
-      "is_follow": true
+      "is_follow": false
     },
     {
       "type": "Animation",

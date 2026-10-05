@@ -3322,7 +3322,7 @@
       "anim": "asset/league/effects/league_leblanc_fx",
       "tag": "a_cast",
       "z": 1,
-      "is_follow": true
+      "is_follow": false
     },
     {
       "type": "Animation",
@@ -3378,7 +3378,7 @@
       "anim": "asset/league/effects/league_leblanc_fx",
       "tag": "rq_cast",
       "z": 1,
-      "is_follow": true
+      "is_follow": false
     },
     {
       "type": "Animation",
@@ -3410,7 +3410,7 @@
       "anim": "asset/league/effects/league_leblanc_fx",
       "tag": "e_cast",
       "z": 1,
-      "is_follow": true
+      "is_follow": false
     },
     {
       "type": "Animation",
@@ -3434,7 +3434,7 @@
       "anim": "asset/league/effects/league_leblanc_fx",
       "tag": "re_cast",
       "z": 1,
-      "is_follow": true
+      "is_follow": false
     },
     {
       "type": "Animation",

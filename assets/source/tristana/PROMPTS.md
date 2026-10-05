@@ -240,7 +240,7 @@ Layout: one horizontal row of 4 equal cells, each 2 wide to 1 tall, image size 1
 | `tristana_fx_e_boom4` | view_effects `league_tristana_e_boom4`（大图，不跟随） | 60 × 48 |
 | `tristana_fx_p_boom` | view_effects `league_tristana_p_boom`（不跟随） | 34 × 28（半径 20000） |
 | `tristana_fx_hit` | view_effects `league_tristana_hit`（跟随） | 14 |
-| `tristana_fx_q_cast` | view_effects `league_tristana_q_cast`（跟随） | 24 × 20 |
+| `tristana_fx_q_cast` | view_effects `league_tristana_q_cast`（跟随；Q 生效的 tick 播放，前 10 tick 是空帧） | 24 × 20 |
 | `tristana_fx_q_rapid` | view_buffs `league_tristana_q_rapid` | 24 × 20 |
 | `tristana_fx_w_land` | view_effects `league_tristana_w_land`（大图，不跟随，z −1） | 44 × 28（半径 22000） |
 | `tristana_fx_w_ready` | view_effects `league_tristana_w_ready`（跟随） | 14 × 14 |

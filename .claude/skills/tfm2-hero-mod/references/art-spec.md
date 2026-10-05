@@ -85,6 +85,16 @@ Sin's first idle, fixed in `leesin_retouch.json`).
   left-facing caster and stands where it was played. Timed into an action (a `Delayed`), it must have
   `is_follow: false`, or the client mirrors it the wrong way for a red-side caster (league_vi E, league_aatrox Q,
   2026-10-03; champion-data section 6): check every directional picture with the hero on the red team.
+  A ground zone's picture is a projectile's too: a `RangeProjectile` / `RangePeriodProjectile` on a `Position` cast
+  is turned to (1, 0) or (-1, 0), so upside down cast leftward - league_leona R's sunlight, league_missfortune E's
+  rain, league_soraka Q's falling star and E's field, league_lux E's orb over its ring and league_lissandra R's icicles
+  play as `ViewEffect`s on the point instead (never turned), next to zones with no view; league_sona's auras (notes
+  over a ring that follows her) as `CasterViewEffect`s that follow her; and `lint_mod.py` warns on every zone with a
+  picture. A flying picture with an up and down is laid along its flight, or drawn upright and stamped along the
+  flight by `ViewEffect`s (league_yasuo Q3's funnel: one frame a stamp, tags `tornado_0` .. `tornado_5`,
+  tools/fix/fix_yasuo_q3_stamps.py). Give a zone a
+  picture of its own only if it looks the same turned half round about its pivot: centred on it (a ring drawn on the
+  ground line under the pivot floats above it when turned).
   league_yasuo's Wind Wall went this way (64 px
   tall, 20 px in front of him) before the user dropped the skill: Codex's twisted column of wind read
   as a tornado, League's ground-line shape (a long line with the ends bent back) read as a wall, and

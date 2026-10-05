@@ -2717,14 +2717,8 @@
           "name": "league_tristana_e_shot"
         },
         {
-          "type": "Delayed",
-          "tick": 10,
-          "effects": [
-            {
-              "type": "CasterViewEffect",
-              "name": "league_tristana_q_cast"
-            }
-          ]
+          "type": "CasterViewEffect",
+          "name": "league_tristana_q_cast"
         },
         {
           "type": "Delayed",

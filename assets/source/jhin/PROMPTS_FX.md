@@ -320,10 +320,10 @@ Layout: two horizontal rows of 4 equal cells each, each cell 5 wide to 2 tall, i
 |---|---|---|
 | `jhin_fx_a_bolt` | view_projectiles `league_jhin_a_bolt`（朝右，游戏转到飞行方向） | 10 × 4 |
 | `jhin_fx_a4_bolt` | view_projectiles `league_jhin_a4_bolt`（朝右，游戏转到飞行方向） | 18 × 8 |
-| `jhin_fx_a_cast` | view_effects `league_jhin_a_cast`（施法者身上，跟随；Claude 放到普攻第 2 帧低语的位置） | 10 |
-| `jhin_fx_a_muzzle` | view_effects `league_jhin_a_muzzle`（施法者身上，跟随，朝左时游戏左右镜像；格子左边中点放到普攻第 3 帧的枪口） | 12 × 10 |
+| `jhin_fx_a_cast` | view_effects `league_jhin_a_cast`（施法者身上，不跟随（动作中途播放，跟随的话红色方会画反）；Claude 放到普攻第 2 帧低语的位置） | 10 |
+| `jhin_fx_a_muzzle` | view_effects `league_jhin_a_muzzle`（施法者身上，不跟随（动作中途播放，跟随的话红色方会画反），朝左时游戏左右镜像；格子左边中点放到普攻第 3 帧的枪口） | 12 × 10 |
 | `jhin_fx_a_hit` | view_effects `league_jhin_a_hit`（跟随） | 10 |
-| `jhin_fx_a4_muzzle` | view_effects `league_jhin_a4_muzzle`（施法者身上，跟随，朝左时镜像；格子左边中点放到第四枪第 4 帧的枪口） | 20 × 14 |
+| `jhin_fx_a4_muzzle` | view_effects `league_jhin_a4_muzzle`（施法者身上，不跟随（动作中途播放，跟随的话红色方会画反），朝左时镜像；格子左边中点放到第四枪第 4 帧的枪口） | 20 × 14 |
 | `jhin_fx_a4_hit` | view_effects `league_jhin_a4_hit`（跟随，画在人物上面） | 18 |
 | `jhin_fx_a_reload` | view_effects `league_jhin_a_reload`（施法者身上，跟随，画在头顶上；导入时拉长到装弹的 2.2 秒） | 18 × 8 |
 | `jhin_fx_q_nade` | view_projectiles `league_jhin_q_nade`（循环，游戏转到飞行方向） | 8 × 8 |
@@ -331,7 +331,7 @@ Layout: two horizontal rows of 4 equal cells each, each cell 5 wide to 2 tall, i
 | `jhin_fx_q_boom` | view_effects `league_jhin_q_boom`（跟随，画在人物上面） | 18 |
 | `jhin_fx_q_drop` | view_effects `league_jhin_q_drop`（跟随；落到底以后接 `q_boom`） | 8 × 24 |
 | `jhin_fx_w_shot` | view_projectiles `league_jhin_w_shot`（朝右，游戏转到飞行方向） | 32 × 5 |
-| `jhin_fx_w_muzzle` | view_effects `league_jhin_w_muzzle`（施法者身上，跟随，朝左时镜像；格子左边中点放到 W 第 7 帧的枪口） | 22 × 14 |
+| `jhin_fx_w_muzzle` | view_effects `league_jhin_w_muzzle`（施法者身上，不跟随（动作中途播放，跟随的话红色方会画反），朝左时镜像；格子左边中点放到 W 第 7 帧的枪口） | 22 × 14 |
 | `jhin_fx_w_hit` | view_effects `league_jhin_w_hit`（跟随，画在人物上面） | 16 |
 | `jhin_fx_w_root` | view_effects `league_jhin_w_root`（跟随；3–6 帧导入时重复到定身结束） | 22 × 18 |
 | `jhin_fx_e_seed` | view_projectiles `league_jhin_e_seed`（游戏转到飞行方向） | 8 × 8 |
@@ -340,7 +340,7 @@ Layout: two horizontal rows of 4 equal cells each, each cell 5 wide to 2 tall, i
 | `jhin_fx_e_boom` | view_effects `league_jhin_e_boom`（不跟随，画在人物上面，大图） | 40 × 40 |
 | `jhin_fx_e_hit` | view_effects `league_jhin_e_hit`（跟随，画在人物上面） | 14 |
 | `jhin_fx_r_deploy` | view_effects `league_jhin_r_deploy`（施法者身上，跟随，朝左时镜像） | 36 × 30 |
-| `jhin_fx_r_muzzle` | view_effects `league_jhin_r_muzzle`（施法者身上，跟随，朝左时镜像；格子左边中点放到 R 开炮帧的炮口） | 24 × 16 |
+| `jhin_fx_r_muzzle` | view_effects `league_jhin_r_muzzle`（施法者身上，不跟随（动作中途播放，跟随的话红色方会画反），朝左时镜像；格子左边中点放到 R 开炮帧的炮口） | 24 × 16 |
 | `jhin_fx_r_bullet` | view_projectiles `league_jhin_r_bullet`（朝右，游戏转到飞行方向） | 30 × 8 |
 | `jhin_fx_r_hit` | view_effects `league_jhin_r_hit`（跟随，画在人物上面） | 18 |
 | `jhin_fx_r_crit` | view_effects `league_jhin_r_crit`（跟随，画在人物上面） | 26 |

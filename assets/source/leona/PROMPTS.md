@@ -151,7 +151,7 @@ Layout: one horizontal row of 8 equal square cells, image size 2048x256; the eff
 | `leona_fx_sunlight.png` | 6 | buff `league_leona_sunlight`（敌人头顶，1.5 秒） | 6 × 100 循环 |
 | `leona_fx_eclipse.png` | 8 | buff `league_leona_eclipse`（莱昂娜身上，3 秒） | 8 × 100 循环 |
 | `leona_fx_w_burst.png` | 7 | 特效 `league_leona_w_burst`（跟随莱昂娜，半径 35000） | 7 × 70 |
-| `leona_fx_r_flare.png` | 12 | 投射物 `league_leona_r_flare`（落点，半径 36000 / 中心 16000，存在 1 秒，第 0.62 秒结算） | 6 × 100，50，5 × 70 |
+| `leona_fx_r_flare.png` | 12 | 落点的 ViewEffect `league_leona_r_flare`（不随方向旋转；判定是无画面的 `league_leona_r_zone`，半径 36000 / 中心 16000，存在 1 秒，第 0.62 秒结算） | 6 × 100，50，5 × 70 |
 | `leona_fx_r_stun.png` | 8 | 特效 `league_leona_r_stun`（跟随目标，1.75 秒） | 8 × 110，重复两遍 |
 
 特效表：`league_leona_fx`（hit、q_hit、e_blade、e_hit、e_root、sunlight、eclipse、r_stun），`league_leona_big`（w_burst、r_flare）。

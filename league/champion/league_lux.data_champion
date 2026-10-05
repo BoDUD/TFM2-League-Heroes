@@ -327,8 +327,12 @@
               "end_effects": []
             },
             {
+              "type": "ViewEffect",
+              "name": "league_lux_e_burst"
+            },
+            {
               "type": "RangePeriodProjectile",
-              "name": "league_lux_e_burst",
+              "name": "league_lux_e_zone",
               "shape": {
                 "Circle": {
                   "radius": 26500
@@ -496,14 +500,6 @@
     },
     {
       "type": "Animated",
-      "name": "league_lux_e_burst",
-      "anim": "asset/league/effects/league_lux_fx",
-      "tag": "e_zone",
-      "repeat": false,
-      "z": -1
-    },
-    {
-      "type": "Animated",
       "name": "league_lux_r_beam",
       "anim": "asset/league/effects/league_lux_r",
       "tag": "beam",
@@ -533,6 +529,13 @@
       "tag": "q_bind",
       "z": 1,
       "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_lux_e_burst",
+      "anim": "asset/league/effects/league_lux_fx",
+      "tag": "e_zone",
+      "z": -1
     },
     {
       "type": "Animation",

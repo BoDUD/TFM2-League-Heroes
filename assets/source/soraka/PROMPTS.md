@@ -338,7 +338,7 @@ Layout: one horizontal row of 8 equal cells, each twice as tall as wide (1:2), i
 | `soraka_dead.png` | 7 | `dead` | 100/100/120/120/120/200/400 |
 | `soraka_fx_bolt.png` | 4 | 飞行道具 `league_soraka_bolt` | 4 × 60 循环 |
 | `soraka_fx_hit.png` | 5 | 特效 `league_soraka_hit` | 5 × 60 |
-| `soraka_fx_q_star.png` | 8 | 范围投射物 `league_soraka_q_star`（落点 = 投射物位置，延迟 24 + 生效 10 tick） | 4 × 100 下落，之后 4 帧共约 170 |
+| `soraka_fx_q_star.png` | 8 | 落点的 ViewEffect `league_soraka_q_star`（不随方向旋转；判定是无画面的 `league_soraka_q_zone`，延迟 24 + 生效 10 tick） | 4 × 100 下落，之后 4 帧共约 170 |
 | `soraka_fx_rejuv.png` | 6 | 特效 `league_soraka_rejuv`（跟随索拉卡） | 6 × 80 |
 | `soraka_fx_e_field.png` | 8 | 区域 `league_soraka_e_field`（地面，90 tick） | 1–2、3–6 循环、7–8，合计 1.5 秒 |
 | `soraka_fx_e_bind.png` | 6 | 特效 `league_soraka_e_bind`（跟随，定身 1 秒） | 1–2、3–5 两遍、6 |

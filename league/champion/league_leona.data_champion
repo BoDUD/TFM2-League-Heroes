@@ -380,8 +380,12 @@
           "name": "league_leona_r_cast"
         },
         {
+          "type": "ViewEffect",
+          "name": "league_leona_r_flare"
+        },
+        {
           "type": "RangeProjectile",
-          "name": "league_leona_r_flare",
+          "name": "league_leona_r_zone",
           "shape": {
             "Circle": {
               "radius": 36000
@@ -480,14 +484,6 @@
       "tag": "e_blade",
       "repeat": true,
       "z": 1
-    },
-    {
-      "type": "Animated",
-      "name": "league_leona_r_flare",
-      "anim": "asset/league/effects/league_leona_big",
-      "tag": "r_flare",
-      "repeat": false,
-      "z": 1
     }
   ],
   "view_effects": [
@@ -529,6 +525,13 @@
       "tag": "w_burst",
       "z": 1,
       "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_leona_r_flare",
+      "anim": "asset/league/effects/league_leona_big",
+      "tag": "r_flare",
+      "z": 1
     },
     {
       "type": "Animation",

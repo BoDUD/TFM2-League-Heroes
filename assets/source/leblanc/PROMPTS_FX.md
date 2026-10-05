@@ -235,7 +235,7 @@ Layout: one horizontal row of 5 equal cells, each 3 wide to 4 tall, image size 1
 | 特效图 | 绑定 | 大小（游戏像素） |
 |---|---|---|
 | `leblanc_fx_a_orb` | view_projectiles `league_leblanc_a_orb`（朝右，游戏转到飞行方向） | 10 × 8 |
-| `leblanc_fx_a_cast` | view_effects `league_leblanc_a_cast`（施法者身上，跟随） | 12 |
+| `leblanc_fx_a_cast` | view_effects `league_leblanc_a_cast`（施法者身上，不跟随：动作中途播放，跟随的话红色方会画反） | 12 |
 | `leblanc_fx_a_hit` | view_effects `league_leblanc_a_hit`（跟随） | 14 |
 | `leblanc_fx_q_orb` | view_projectiles `league_leblanc_q_orb`（朝右，游戏转到飞行方向） | 16 × 12 |
 | `leblanc_fx_q_cast` | view_effects `league_leblanc_q_cast`（施法者身上，跟随） | 16 |
@@ -244,7 +244,7 @@ Layout: one horizontal row of 5 equal cells, each 3 wide to 4 tall, image size 1
 | `leblanc_fx_q_pop` | view_effects `league_leblanc_q_pop`（目标身上，跟随；大图 league_leblanc_big） | 32 |
 | `leblanc_fx_e_chain` | view_projectiles `league_leblanc_e_chain`（朝右，游戏转到飞行方向） | 16 × 8 |
 | `leblanc_fx_e_tether` | view_projectiles `league_leblanc_e_tether`（从目标飞回她身边，每隔几 tick 发一节，连起来就是锁链；朝右画） | 10 × 6 |
-| `leblanc_fx_e_cast` | view_effects `league_leblanc_e_cast`（施法者身上，跟随） | 14 |
+| `leblanc_fx_e_cast` | view_effects `league_leblanc_e_cast`（施法者身上，不跟随：动作中途播放，跟随的话红色方会画反） | 14 |
 | `leblanc_fx_e_hit` | view_effects `league_leblanc_e_hit`（跟随） | 16 |
 | `leblanc_fx_e_root` | view_effects `league_leblanc_e_root`（目标身上，跟随；一次播完 1.5 秒） | 26 × 16 |
 | `leblanc_fx_w_pad` | view_effects `league_leblanc_w_pad`（她冲刺前站的地方，不跟随，地面层；大图 league_leblanc_big） | 30 × 14 |
