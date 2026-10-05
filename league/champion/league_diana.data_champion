@@ -112,10 +112,6 @@
                 ]
               },
               {
-                "type": "CasterViewEffect",
-                "name": "league_diana_p_cleave"
-              },
-              {
                 "type": "Sfx",
                 "name": "league_diana_p_cleave"
               }
@@ -3528,10 +3524,6 @@
           "name": "league_diana_r_n3"
         },
         {
-          "type": "CasterViewEffect",
-          "name": "league_diana_r_draw"
-        },
-        {
           "type": "RangeEffect",
           "shape": {
             "Circle": {
@@ -3758,14 +3750,6 @@
     },
     {
       "type": "Animation",
-      "name": "league_diana_p_cleave",
-      "anim": "asset/league/effects/league_diana_big",
-      "tag": "p_cleave",
-      "z": 1,
-      "is_follow": false
-    },
-    {
-      "type": "Animation",
       "name": "league_diana_q_hit",
       "anim": "asset/league/effects/league_diana_fx",
       "tag": "q_hit",
@@ -3795,14 +3779,6 @@
       "tag": "w_boom",
       "z": 1,
       "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_diana_r_draw",
-      "anim": "asset/league/effects/league_diana_big",
-      "tag": "r_draw",
-      "z": -1,
-      "is_follow": false
     },
     {
       "type": "Animation",

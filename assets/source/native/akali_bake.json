@@ -1,0 +1,8 @@
+{
+  "fx": "league_akali_big",
+  "items": [
+    {"tag": "e_dash", "into": "skill2_dash", "at_ms": 0},
+    {"tag": "r_dash", "into": "ult2_fx1", "from": "ult2", "slice_ms": 0, "length_ms": 317, "at_ms": 0},
+    {"tag": "r_dash", "into": "ult", "at_ms": 67}
+  ]
+}

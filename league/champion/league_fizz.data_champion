@@ -376,10 +376,6 @@
           "name": "league_fizz_q_cast"
         },
         {
-          "type": "CasterViewEffect",
-          "name": "league_fizz_q_dash"
-        },
-        {
           "type": "RushMoveToBack",
           "speed": 4500,
           "applied_effects": [
@@ -2356,14 +2352,6 @@
       "tag": "q_hit",
       "z": 1,
       "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_fizz_q_dash",
-      "anim": "asset/league/effects/league_fizz_fx",
-      "tag": "q_dash",
-      "z": -1,
-      "is_follow": false
     },
     {
       "type": "Animation",

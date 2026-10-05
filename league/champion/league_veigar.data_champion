@@ -1993,10 +1993,6 @@
           "name": "league_veigar_r_cast"
         },
         {
-          "type": "CasterViewEffect",
-          "name": "league_veigar_r_cast"
-        },
-        {
           "type": "Delayed",
           "tick": 10,
           "effects": [
@@ -2293,14 +2289,6 @@
       "name": "league_veigar_w_hit",
       "anim": "asset/league/effects/league_veigar_fx",
       "tag": "w_hit",
-      "z": 1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_veigar_r_cast",
-      "anim": "asset/league/effects/league_veigar_fx",
-      "tag": "r_cast",
       "z": 1,
       "is_follow": true
     },

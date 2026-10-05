@@ -4064,8 +4064,9 @@
                   "name": "league_fiora_q_cast"
                 },
                 {
-                  "type": "CasterViewEffect",
-                  "name": "league_fiora_q_dash"
+                  "type": "CasterAnimation",
+                  "name": "skill_fx1",
+                  "tick": 24
                 },
                 {
                   "type": "MoveToTarget",
@@ -5224,8 +5225,9 @@
                 "name": "league_fiora_q_cast"
               },
               {
-                "type": "CasterViewEffect",
-                "name": "league_fiora_q_dash"
+                "type": "CasterAnimation",
+                "name": "skill_fx1",
+                "tick": 24
               },
               {
                 "type": "MoveToTarget",
@@ -11633,14 +11635,6 @@
     },
     {
       "type": "Animation",
-      "name": "league_fiora_q_dash",
-      "anim": "asset/league/effects/league_fiora_fx",
-      "tag": "q_dash",
-      "z": -1,
-      "is_follow": false
-    },
-    {
-      "type": "Animation",
       "name": "league_fiora_vital_mark",
       "anim": "asset/league/effects/league_fiora_fx",
       "tag": "vital_mark",
@@ -11658,8 +11652,8 @@
     {
       "type": "Animation",
       "name": "league_fiora_v_ms_fx",
-      "anim": "asset/league/effects/league_fiora_fx",
-      "tag": "v_ms",
+      "anim": "asset/league/effects/league_fiora_sym",
+      "tag": "v_ms_fx",
       "z": -1,
       "is_follow": true
     },

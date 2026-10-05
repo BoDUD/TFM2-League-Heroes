@@ -1,0 +1,14 @@
+{
+ "league_yone_e_leave": {
+  "anim": "asset/league/effects/league_yone_fx",
+  "tag": "e_cast"
+ },
+ "league_yone_e_return": {
+  "anim": "asset/league/effects/league_yone_fx",
+  "tag": "e_return"
+ },
+ "league_yone_shield": {
+  "anim": "asset/league/effects/league_yone_fx",
+  "tag": "shield"
+ }
+}

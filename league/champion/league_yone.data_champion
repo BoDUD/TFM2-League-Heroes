@@ -3968,8 +3968,9 @@
                   "name": "league_yone_e_cast"
                 },
                 {
-                  "type": "CasterViewEffect",
-                  "name": "league_yone_e_cast"
+                  "type": "CasterAnimation",
+                  "name": "skill2_fx1",
+                  "tick": 22
                 },
                 {
                   "type": "LinearProjectile",
@@ -7366,17 +7367,10 @@
     {
       "type": "Animation",
       "name": "league_yone_shield",
-      "anim": "asset/league/effects/league_yone_fx",
+      "anim": "asset/league/effects/league_yone_sym",
       "tag": "shield",
       "z": 1,
       "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_yone_e_cast",
-      "anim": "asset/league/effects/league_yone_fx",
-      "tag": "e_cast",
-      "z": 1
     },
     {
       "type": "Animation",
@@ -7389,14 +7383,14 @@
     {
       "type": "Animation",
       "name": "league_yone_e_leave",
-      "anim": "asset/league/effects/league_yone_fx",
-      "tag": "e_cast",
+      "anim": "asset/league/effects/league_yone_sym",
+      "tag": "e_leave",
       "z": 1
     },
     {
       "type": "Animation",
       "name": "league_yone_e_return",
-      "anim": "asset/league/effects/league_yone_fx",
+      "anim": "asset/league/effects/league_yone_sym",
       "tag": "e_return",
       "z": 1,
       "is_follow": true

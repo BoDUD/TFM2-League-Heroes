@@ -26,8 +26,8 @@ import tfm2_ase  # noqa: E402
 OUT = os.path.join(ROOT, "docs", "preview", "red_side")
 SRC = os.path.join(ROOT, "assets", "source", "native")
 STEP = 1000 / 30                                  # ms a GIF frame
-PANEL = (150, 110)
-PIVOT = (75, 60)
+PANEL = (180, 120)
+PIVOT = (90, 66)
 Z = 3
 ARENA = (92, 104, 88)
 FONT = "C:/Windows/Fonts/msyh.ttc"
@@ -58,10 +58,16 @@ def at(frames, ms):
 
 
 def paste(can, a, x, y):
+    """Composite a frame centred on (x, y), clipped to the panel."""
     h, w = a.shape[:2]
     x0, y0 = int(x - w // 2), int(y - h // 2)
+    cx0, cy0 = max(0, x0), max(0, y0)
+    cx1, cy1 = min(can.shape[1], x0 + w), min(can.shape[0], y0 + h)
+    if cx1 <= cx0 or cy1 <= cy0:
+        return
+    part = Image.fromarray(np.ascontiguousarray(a[cy0 - y0:cy1 - y0, cx0 - x0:cx1 - x0]))
     img = Image.fromarray(can)
-    img.alpha_composite(Image.fromarray(a), (x0, y0)) if x0 >= 0 and y0 >= 0 else None
+    img.alpha_composite(part, (cx0, cy0))
     can[...] = np.asarray(img)
 
 
@@ -90,19 +96,54 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--hero", required=True)
     ap.add_argument("--base", default="origin/main")
+    ap.add_argument("--repeat", type=int, default=1, help="plays of each action")
     args = ap.parse_args()
     with open(os.path.join(SRC, f"{args.hero}_bake.json"), encoding="utf-8") as f:
         cfg = json.load(f)
+    items = cfg["items"]
     hero_now = sheet_at(f"champions/league_{args.hero}", None)
     hero_was = sheet_at(f"champions/league_{args.hero}", args.base)
-    fx_was = sheet_at("effects/" + cfg["fx"], args.base)
+    fx_was = {}
+
+    def fx_frames(it):
+        name = it.get("fx", cfg["fx"])
+        if name not in fx_was:
+            fx_was[name] = sheet_at("effects/" + name, args.base)
+        return timeline(fx_was[name], it["tag"])
+
+    copies = {it["into"]: it for it in items if "from" in it}
+
+    def origin(tag):
+        """(the tag at --base it comes from, ms into it, [(ms into that tag, picture frames)])."""
+        own = [it for it in items if it["into"] == tag]
+        if tag in copies:
+            c = copies[tag]
+            base, start, pics = origin(c["from"])
+            start += c["slice_ms"]
+        else:
+            base, start, pics = tag, 0, []
+        return base, start, pics + [(start + it["at_ms"], fx_frames(it)) for it in own]
+
+    def body_from(sp, tag, start, length):
+        fr = timeline(sp, tag)
+        total = sum(d for _, d in fr)
+        out, t, end = [], 0, start + length
+        while t < end and total:
+            for a, d in fr:
+                lo, hi = max(t, start), min(t + d, end)
+                if hi > lo:
+                    out.append((a, hi - lo))
+                t += d
+        return out
+
     frames = []
-    for into in dict.fromkeys(e["into"] for e in cfg["items"]):
-        now = timeline(hero_now, into)
-        was = timeline(hero_was, into)
-        pics = [(e["at_ms"], timeline(fx_was, e["tag"])) for e in cfg["items"] if e["into"] == into]
+    for tag in dict.fromkeys(it["into"] for it in items):
+        now = timeline(hero_now, tag)
         total = sum(d for _, d in now)
-        for _ in range(2):                        # each action twice, then a short pause
+        base, start, pics = origin(tag)
+        was = body_from(hero_was, base, start, total)
+        pics = [(t0 - start, fr) for t0, fr in pics]
+        for _ in range(args.repeat):
             ms = 0.0
             while ms < total + 150:
                 row = [panel(now, [], ms, False), panel(was, pics, ms, True), panel(now, [], ms, True)]

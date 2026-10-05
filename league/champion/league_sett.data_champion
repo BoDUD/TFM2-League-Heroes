@@ -760,12 +760,7 @@
         {
           "type": "Delayed",
           "tick": 16,
-          "effects": [
-            {
-              "type": "CasterViewEffect",
-              "name": "league_sett_e_smash"
-            }
-          ]
+          "effects": []
         }
       ]
     }
@@ -1835,14 +1830,6 @@
       "tag": "e_hit",
       "z": 2,
       "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_sett_e_smash",
-      "anim": "asset/league/effects/league_sett_big",
-      "tag": "e_smash",
-      "z": 1,
-      "is_follow": false
     },
     {
       "type": "Animation",

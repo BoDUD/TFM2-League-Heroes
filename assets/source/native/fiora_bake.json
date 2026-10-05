@@ -1,0 +1,6 @@
+{
+  "fx": "league_fiora_fx",
+  "items": [
+    {"tag": "q_dash", "into": "skill_fx1", "from": "skill", "slice_ms": 33, "length_ms": 400, "at_ms": 0, "under": true}
+  ]
+}

@@ -1,0 +1,6 @@
+{
+ "league_riven_r_hit": {
+  "anim": "asset/league/effects/league_riven_fx",
+  "tag": "r_hit"
+ }
+}

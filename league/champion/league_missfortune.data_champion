@@ -1850,7 +1850,7 @@
     {
       "type": "Animation",
       "name": "league_missfortune_strut",
-      "anim": "asset/league/effects/league_missfortune_fx",
+      "anim": "asset/league/effects/league_missfortune_sym",
       "tag": "strut",
       "z": 1,
       "is_follow": true

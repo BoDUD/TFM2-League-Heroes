@@ -830,7 +830,7 @@ def main(argv=None):
                 rep.warn(W, f"CasterViewEffect '{nm}' has a front and a back (mirrored, {share:.0%} of its opaque pixels "
                             f"land on empty ones), and the client never mirrors a data effect picture, is_follow or "
                             f"not: facing left (the red side, mostly) it points the wrong way - draw it into the hero's "
-                            f"own frames (assets/source/native/<hero>_bake.json, tools/fix/unbind_baked_fx.py), or "
+                            f"own frames (tools/fix/bake_caster_fx.py), or "
                             f"make it left-right symmetric")
         # a zone's picture is turned with the zone's direction like any projectile's - (1, 0) or (-1, 0) on a Position
         # cast - so cast leftward it stands upside down: league_leona R's sunlight on the red side ("曙光女神大招在红色方

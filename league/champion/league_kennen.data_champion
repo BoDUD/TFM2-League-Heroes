@@ -61,8 +61,9 @@
             "type": "Combine",
             "effects": [
               {
-                "type": "CasterViewEffect",
-                "name": "league_kennen_a_cast2"
+                "type": "CasterAnimation",
+                "name": "attack_fx1",
+                "tick": 12
               },
               {
                 "type": "TargetProjectile",
@@ -366,8 +367,9 @@
               "type": "Combine",
               "effects": [
                 {
-                  "type": "CasterViewEffect",
-                  "name": "league_kennen_a_cast"
+                  "type": "CasterAnimation",
+                  "name": "attack_fx2",
+                  "tick": 12
                 },
                 {
                   "type": "TargetProjectile",
@@ -442,8 +444,9 @@
                 "type": "Combine",
                 "effects": [
                   {
-                    "type": "CasterViewEffect",
-                    "name": "league_kennen_a_cast"
+                    "type": "CasterAnimation",
+                    "name": "attack_fx2",
+                    "tick": 12
                   },
                   {
                     "type": "TargetProjectile",
@@ -518,8 +521,9 @@
                   "type": "Combine",
                   "effects": [
                     {
-                      "type": "CasterViewEffect",
-                      "name": "league_kennen_a_cast"
+                      "type": "CasterAnimation",
+                      "name": "attack_fx2",
+                      "tick": 12
                     },
                     {
                       "type": "TargetProjectile",
@@ -587,8 +591,9 @@
                   "type": "Combine",
                   "effects": [
                     {
-                      "type": "CasterViewEffect",
-                      "name": "league_kennen_a_cast"
+                      "type": "CasterAnimation",
+                      "name": "attack_fx2",
+                      "tick": 12
                     },
                     {
                       "type": "TargetProjectile",
@@ -1295,10 +1300,6 @@
           "tick": 10,
           "effects": [
             {
-              "type": "CasterViewEffect",
-              "name": "league_kennen_q_cast"
-            },
-            {
               "type": "SwitchByBuff",
               "buff_name": "league_kennen_q_aimed",
               "effect_buff": {
@@ -1640,8 +1641,9 @@
           "name": "league_kennen_e_in"
         },
         {
-          "type": "CasterViewEffect",
-          "name": "league_kennen_e_ball"
+          "type": "CasterAnimation",
+          "name": "skill2_fx1",
+          "tick": 18
         },
         {
           "type": "RushTime",
@@ -2956,22 +2958,6 @@
   "view_effects": [
     {
       "type": "Animation",
-      "name": "league_kennen_a_cast",
-      "anim": "asset/league/effects/league_kennen_fx",
-      "tag": "a_cast",
-      "z": 1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_kennen_a_cast2",
-      "anim": "asset/league/effects/league_kennen_fx",
-      "tag": "a_cast2",
-      "z": 1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
       "name": "league_kennen_a_hit",
       "anim": "asset/league/effects/league_kennen_fx",
       "tag": "a_hit",
@@ -3012,14 +2998,6 @@
     },
     {
       "type": "Animation",
-      "name": "league_kennen_q_cast",
-      "anim": "asset/league/effects/league_kennen_fx",
-      "tag": "q_cast",
-      "z": 1,
-      "is_follow": false
-    },
-    {
-      "type": "Animation",
       "name": "league_kennen_q_hit",
       "anim": "asset/league/effects/league_kennen_fx",
       "tag": "q_hit",
@@ -3029,7 +3007,7 @@
     {
       "type": "Animation",
       "name": "league_kennen_w_burst",
-      "anim": "asset/league/effects/league_kennen_big",
+      "anim": "asset/league/effects/league_kennen_sym",
       "tag": "w_burst",
       "z": -1,
       "is_follow": true
@@ -3049,14 +3027,6 @@
       "tag": "e_in",
       "z": 1,
       "is_follow": false
-    },
-    {
-      "type": "Animation",
-      "name": "league_kennen_e_ball",
-      "anim": "asset/league/effects/league_kennen_fx",
-      "tag": "e_ball",
-      "z": 2,
-      "is_follow": true
     },
     {
       "type": "Animation",

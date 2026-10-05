@@ -902,73 +902,103 @@ def flatness(frames):
     return same / n
 
 
+def slice_ms(frames, start, length=None):
+    """The frames from `start` ms on (the first one shortened); with `length`, `length` ms of them, the tag looping
+    (a CasterAnimation held longer than its tag plays it again: league_garen's spin)."""
+    total = sum(ms for _, ms in frames)
+    length = total - start if length is None else length
+    out, t, end = [], 0, start + length
+    while t < end:
+        for a, ms in frames:
+            lo, hi = max(t, start), min(t + ms, end)
+            if hi > lo:
+                out.append((a, hi - lo))
+            t += ms
+    return out
+
+
+def overlay(frames, pic, t0, under=False):
+    """frames with the picture's frames drawn over (or under) them from t0 ms on, both centred on the pivot; the
+    frames are cut where a picture frame starts or ends (none past the last frame's end) and padded to one canvas,
+    then the empty margin trimmed equally on both sides."""
+    arrs, hh, hw = canvas([a for a, _ in frames] + [a for a, _ in pic])
+    body = arrs[:len(frames)]
+    total = sum(ms for _, ms in frames)
+    cuts, t = {0, total}, 0
+    for _, ms in frames:
+        t += ms
+        cuts.add(t)
+    t = t0
+    for _, ms in pic:
+        cuts.add(t)
+        t += ms
+    cuts.add(t)
+    cuts = sorted(c for c in cuts if 0 <= c <= total)
+
+    def at(seq, t, t0=0):
+        for k, (_, ms) in enumerate(seq):
+            if t0 <= t < t0 + ms:
+                return k
+            t0 += ms
+        return None
+    out = []
+    for a, b in zip(cuts, cuts[1:]):
+        img = Image.fromarray(body[at(frames, a)])
+        j = at(pic, a, t0)
+        if j is not None:
+            p = pic[j][0]
+            top = Image.fromarray(np.pad(p, ((hh - p.shape[0] // 2,) * 2, (hw - p.shape[1] // 2,) * 2, (0, 0))))
+            img = Image.alpha_composite(top, img) if under else Image.alpha_composite(img, top)
+        out.append((np.asarray(img), b - a))
+    al = np.max([a[..., 3] for a, _ in out], 0)
+    ys, xs = np.nonzero(al)
+    my = min(int(ys.min()), al.shape[0] - 1 - int(ys.max()))
+    mx = min(int(xs.min()), al.shape[1] - 1 - int(xs.max()))
+    return [(a[my:a.shape[0] - my, mx:a.shape[1] - mx], ms) for a, ms in out]
+
+
 def bake(hero, sheet):
-    """Apply <hero>_bake.json: draw the listed effect frames into the hero's own action frames. The client never
-    mirrors a data effect picture (ViewEffect, CasterViewEffect; game_view's generate copies the view system's flip,
-    which register_data_champion_views sets to false), but it mirrors the hero's frames with his facing, so a picture
-    with a front and a back that rides on the hero belongs in his frames. Each entry {"tag", "into", "at_ms",
-    "under"}: the effect sheet's tag starts at_ms into the action tag, centred on the pivot as a CasterViewEffect is
-    (both are drawn centred on the unit); the action's frames are cut where an effect frame starts or ends and
-    padded to one canvas per tag. Returns {action tag: effect tags}."""
+    """Apply <hero>_bake.json: draw effect pictures into the hero's own action frames. The client never mirrors a
+    data effect picture (ViewEffect, CasterViewEffect: game_view's generate copies the view system's flip, which
+    register_data_champion_views sets to false), but it mirrors the hero's frames with his facing, so a picture with
+    a front and a back that rides on the hero belongs in his frames. {"fx": effect sheet, "items": [...]}, applied in
+    order; an item {"tag", "into", "at_ms", "under", "fx"} draws the effect tag into the action tag from at_ms on,
+    centred on the pivot as a CasterViewEffect is (both are drawn centred on the unit), under the body when "under";
+    with {"from", "slice_ms", "length_ms"} the tag `into` is made first as `from`'s frames from slice_ms on (for
+    length_ms, looping, when given) - a copy a
+    CasterAnimation plays from the moment the picture played, when only some plays of the action carry it
+    (tools/fix/bake_caster_fx.py). Returns {action tag: effect tags}."""
     path = os.path.join(SRC, f"{hero}_bake.json")
     if not os.path.exists(path):
         return {}
     with open(path, encoding="utf-8") as f:
         cfg = json.load(f)
     import tfm2_ase
-    fx = tfm2_ase.load_sprite(os.path.join(MOD, "effects", cfg["fx"] + "#sheet.png"))
-    done = {}
-    for into in dict.fromkeys(e["into"] for e in cfg["items"]):
-        items = [e for e in cfg["items"] if e["into"] == into]
-        layers = []                                   # (start ms, [(array, ms)], under)
-        for e in items:
-            ids = fx.tag_frames(e["tag"])
-            if not ids:
-                sys.exit(f"{hero}_bake.json: {cfg['fx']} has no tag {e['tag']}")
-            layers.append((int(round(e["at_ms"])), [(np.asarray(fx.frames[i]), fx.durations[i]) for i in ids],
-                           e.get("under", False)))
-        frames = sheet[into]
-        arrs, hh, hw = canvas([a for a, _ in frames] + [a for _, fr, _ in layers for a, _ in fr])
-        body = arrs[:len(frames)]
-        cuts = {0}
-        t = 0
-        for _, ms in frames:
-            t += ms
-            cuts.add(t)
-        total = t
-        for t0, fr, _ in layers:
-            t = t0
-            for _, ms in fr:
-                cuts.add(min(t, total))
-                t += ms
-            cuts.add(min(t, total))
-        cuts = sorted(c for c in cuts if 0 <= c <= total)
+    sheets, done = {}, {}
+    # a copy is made once every picture drawn straight into its source is in (league_xerath's passive copy of his
+    # attack carries the attack's flash): items go in order of how deep in a chain of copies their tag is
+    src = {e["into"]: e["from"] for e in cfg["items"] if "from" in e}
 
-        def at(seq, t, t0=0):
-            for k, (_, ms) in enumerate(seq):
-                if t0 <= t < t0 + ms:
-                    return k
-                t0 += ms
-            return None
-        out = []
-        for a, b in zip(cuts, cuts[1:]):
-            k = at(frames, a)
-            img = Image.fromarray(body[k])
-            for t0, fr, under in layers:
-                j = at(fr, a, t0)
-                if j is None:
-                    continue
-                pic = Image.fromarray(np.pad(fr[j][0], ((hh - fr[j][0].shape[0] // 2,) * 2,
-                                                        (hw - fr[j][0].shape[1] // 2,) * 2, (0, 0))))
-                img = Image.alpha_composite(pic, img) if under else Image.alpha_composite(img, pic)
-            out.append((np.asarray(img), b - a))
-        # trim the empty margin, the same on both sides so the pivot stays in the middle
-        al = np.max([a[..., 3] for a, _ in out], 0)
-        ys, xs = np.nonzero(al)
-        my = min(int(ys.min()), al.shape[0] - 1 - int(ys.max()))
-        mx = min(int(xs.min()), al.shape[1] - 1 - int(xs.max()))
-        sheet[into] = [(a[my:a.shape[0] - my, mx:a.shape[1] - mx], ms) for a, ms in out]
-        done[into] = [e["tag"] for e in items]
+    def depth(tag):
+        return 0 if tag not in src else depth(src[tag]) + 1
+    for e in sorted(cfg["items"], key=lambda e: depth(e["into"])):
+        name = e.get("fx", cfg["fx"])
+        if name not in sheets:
+            sheets[name] = tfm2_ase.load_sprite(os.path.join(MOD, "effects", name + "#sheet.png"))
+        fx = sheets[name]
+        ids = fx.tag_frames(e["tag"])
+        if not ids:
+            sys.exit(f"{hero}_bake.json: {name} has no tag {e['tag']}")
+        if "from" in e:
+            if e["from"] not in sheet:
+                sys.exit(f"{hero}_bake.json: no tag {e['from']} to copy {e['into']} from")
+            if e["into"] not in sheet:
+                sheet[e["into"]] = slice_ms(sheet[e["from"]], int(round(e["slice_ms"])), e.get("length_ms"))
+        elif e.get("length_ms") and sum(ms for _, ms in sheet[e["into"]]) < e["length_ms"]:
+            sheet[e["into"]] = slice_ms(sheet[e["into"]], 0, e["length_ms"])     # a held loop drawn out first
+        pic = [(np.asarray(fx.frames[i]), fx.durations[i]) for i in ids]
+        sheet[e["into"]] = overlay(sheet[e["into"]], pic, int(round(e["at_ms"])), e.get("under", False))
+        done.setdefault(e["into"], []).append(e["tag"])
     return done
 
 

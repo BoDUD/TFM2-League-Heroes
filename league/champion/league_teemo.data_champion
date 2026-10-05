@@ -8438,7 +8438,7 @@
     {
       "type": "Animation",
       "name": "league_teemo_w_cast",
-      "anim": "asset/league/effects/league_teemo_fx",
+      "anim": "asset/league/effects/league_teemo_sym",
       "tag": "w_cast",
       "z": -1,
       "is_follow": true
@@ -8446,7 +8446,7 @@
     {
       "type": "Animation",
       "name": "league_teemo_stealth",
-      "anim": "asset/league/effects/league_teemo_fx",
+      "anim": "asset/league/effects/league_teemo_sym",
       "tag": "stealth",
       "z": 2,
       "is_follow": true

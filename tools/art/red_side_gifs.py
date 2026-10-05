@@ -43,14 +43,12 @@ ZONES = ("RangeProjectile", "RangePeriodProjectile", "ApplyInProjectile", "LineR
 FLYING = ("LinearProjectile", "TargetProjectile", "ParabolicProjectile")
 VISUAL = ("ViewEffect", "CasterViewEffect") + ZONES + FLYING
 # {hero: [effect names fixed on the red side]}
+# the zones' pictures; the caster pictures of the 2026-10-05 pass (league_caitlyn, league_jhin, league_kaisa,
+# league_leblanc, league_kennen, league_ryze, league_diana, league_vi, league_tristana, league_riven) are gone from here:
+# their "after" panels showed them mirrored, which the client never did. tools/art/bake_gifs.py shows those now.
 FIXED = {
     "leona": ["r_flare"], "soraka": ["q_star", "e_field"], "lux": ["e_burst"], "lissandra": ["r_field"],
     "sona": ["q_aura", "w_aura", "e_aura"], "yasuo": ["q3_tornado"],
-    "caitlyn": ["shot", "hs_shot", "q_muzzle", "e_shot", "r_muzzle"],
-    "jhin": ["a_cast", "a_muzzle", "a4_muzzle", "w_muzzle", "r_muzzle"],
-    "kaisa": ["w_muzzle", "r_trail"], "leblanc": ["a_cast", "e_cast", "re_cast", "rq_cast"],
-    "kennen": ["q_cast"], "ryze": ["q_cast"], "diana": ["p_cleave"], "vi": ["r_trail"], "tristana": ["q_cast"],
-    "riven": ["r_on_back", "r_on_front", "r_slash_back"],
 }
 # a picture played under another name now (the attack's non-following copies of Riven's R layers)
 NOW_NAME = {("riven", "r_on_back"): "r_on_back_atk", ("riven", "r_on_front"): "r_on_front_atk"}

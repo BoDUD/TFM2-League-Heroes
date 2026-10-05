@@ -1,0 +1,6 @@
+{
+ "league_tryndamere_w_shout": {
+  "anim": "asset/league/effects/league_tryndamere_big",
+  "tag": "w_shout"
+ }
+}

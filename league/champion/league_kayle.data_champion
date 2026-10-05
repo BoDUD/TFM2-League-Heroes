@@ -9325,7 +9325,7 @@
     {
       "type": "Animation",
       "name": "league_kayle_w_heal",
-      "anim": "asset/league/effects/league_kayle_fx",
+      "anim": "asset/league/effects/league_kayle_sym",
       "tag": "w_heal",
       "z": 1,
       "is_follow": true

@@ -1,0 +1,6 @@
+{
+  "fx": "league_amumu_big",
+  "items": [
+    {"tag": "r_burst", "into": "ult", "at_ms": 317}
+  ]
+}

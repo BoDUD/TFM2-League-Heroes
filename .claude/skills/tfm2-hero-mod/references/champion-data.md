@@ -673,28 +673,57 @@ the same champion file.
   red side (「烬在红色方 玩家反应 技能特效 伤口还是反的」, 2026-10-06). What looked like mirroring before was
   where the picture stood: league_tristana's flashes 22 px in front of her pivot were behind her after she turned,
   league_fiora's parry crescent (a buff picture 17 px in front) behind her when she faced left.
-  So:
-  - **A picture with a front and a back that rides on the hero is drawn into his own frames.** List it in
-    `assets/source/native/<hero>_bake.json` (`{"fx": "<effect sheet>", "items": [{"tag", "into", "at_ms",
-    "under"}]}`): `tools/art/import_native.py` draws the effect tag into the action tag from `at_ms` on, centred on
-    the pivot as the `CasterViewEffect` was (both are drawn centred on the unit), cutting the action's frames where
-    an effect frame starts or ends and padding them to one canvas (the canvas grows; frames of any size are drawn
-    centred). `at_ms` is the time the `CasterViewEffect` played: the action's effect fires at `start_timing` + 1,
-    plus the `Delayed` ticks over it; one played with a `CasterAnimation` starts with that tag. Then
-    `tools/fix/unbind_baked_fx.py --hero <hero>` removes those `CasterViewEffect`s and their `view_effects`
-    entries. league_jhin's six flashes (the cast and muzzle flashes of the attack and the fourth shot, Q's throw,
-    W's and R's muzzles) are baked so. A baked picture plays with the animation, so attack speed (which speeds the
-    action, not the `Delayed`) no longer pulls it off the shot frame; it ends with the action.
-  - A picture on a target or a point (a hit, a burst) is made left-right symmetric; a short spray behind the hit is
-    acceptable on both sides.
+  So (the whole pack went through this on 2026-10-06, `tools/fix/red_side_caster_fx.py`, which lists what each hero
+  got):
+  - **A picture with a front and a back that rides on the hero is drawn into his own frames.**
+    `assets/source/native/<hero>_bake.json` (`{"fx": "<effect sheet>", "items": [...]}`, one item a line, applied in
+    order) is read by `tools/art/import_native.py`: `{"tag", "into", "at_ms", "under", "fx"}` draws the effect tag
+    into the action tag from `at_ms` on, centred on the pivot as the `CasterViewEffect` was (both are drawn centred
+    on the unit), under the body when the view's `z` was below 0, cutting the frames where an effect frame starts or
+    ends and padding them to one canvas (frames of any size are drawn centred). `tools/fix/bake_caster_fx.py --hero
+    <hero>` writes the items and changes the kit: it times every play of a flagged picture - the action's effect
+    fires at `start_timing` + 1, plus the `Delayed` ticks over it, a lob's `travel_time`, a penetrating
+    `LinearProjectile`'s flight to its range - and finds the animation on him then: the action's own, or the last
+    `CasterAnimation` started in the same effect list (everything in a list happens in the same tick, so one started
+    after the picture in the list counts: league_garen's E pulses play the picture, then start the spin again), in a
+    `Combine` in it, or in a Switch in it whose branches start different ones (league_aatrox Q: `skill_r` in his R,
+    `skill` out of it - the play follows its own branch of the same Switch fields, or is split the same way).
+    - A play under no condition its animation was not started under, in a tag started in one place only: the
+      picture is drawn into that tag and the `CasterViewEffect` goes. Nothing the game runs changes.
+    - Any other play (only some casts show it: a Switch branch, a lob's `end_effects`): the `CasterViewEffect`
+      becomes a `CasterAnimation` of a copy of the animation on him then, from that moment on, with the picture
+      drawn in (`{"from", "slice_ms", "length_ms"}`: the copy is made first, looping a tag held longer than it
+      lasts). **A `CasterAnimation` keeps the unit from walking**, so the copy ends where the animation it replaces
+      would have: as long as a `CasterAnimation` it cuts short, within the action for the action's own (a first try
+      held league_aatrox W 2 ticks past his action and the simulated games went another way). A
+      `RemoveCasterAnimation` of the source tag gets one of each copy next to it. Starting an animation still nudges
+      the simulated AI by a tick now and then, which is why the first way is taken whenever it fits.
+    - A picture that runs more than 150 ms past the animation it would be drawn into played on while he walked: it
+      is left, unless it is a dash trail or flash whose tail may be cut there (`--cut`: league_kaisa R, league_vi Q
+      and R, league_aatrox Q3, league_tristana Q).
+    Checked against the SDK simulation (old kit and new, the same seeds, `EntityEvent Action / Animation` and
+    `EffectApplyed`): every play landed in the copy or the tag it was drawn into at its time. Attack speed shortens
+    the effect's `start_timing` to `floor(start_timing x 100 / speed) + 1` ticks but not the `Delayed`, so a baked
+    picture, which plays with the animation, now keeps to the shot frame where the old one drifted.
+  - **A caster picture the hero's frames cannot carry is made left-right symmetric**: an aura, shield or burst
+    replayed while he walks (league_tristana's Rapid Fire wisp, league_masteryi's Highlander, league_kaisa's E) or
+    played when a projectile hits (league_jinx's Get Excited, league_varus's rage). `tools/fix/mirror_union_fx.py`
+    draws each frame over its mirror image into `league/effects/league_<hero>_sym` (a tag per picture, its source in
+    `assets/source/native/<hero>_sym.json`; rerun after the source sheet changes) and points the view there.
+  - A picture on a target or a point (a hit, a burst) is mostly symmetric already; one that shows where the blow came
+    from - a streak or chevron pointing on along the shot (league_ezreal R, league_riven's Wind Slash, league_yasuo Q
+    and E, league_vayne's bolts) - is made symmetric the same way. A slash or crescent across the target reads the
+    same either way.
   - A picture that must point at the target rides a projectile, which is turned with its direction (below).
-  - A picture that stays on the hero while he walks (league_jhin's reload bullets over his head) cannot be baked into
-    one action: keep it centred on the pivot column.
+  - **Not fixable in data:** a figure of the hero left on the ground while he moves on - league_ekko's R ghost,
+    league_shaco's W clone, league_yone's body during E. It is no one action, nothing reads his facing, a figure has
+    a front, and a projectile's picture turned half round stands upside down.
   `lint_mod.py` warns on every caster picture whose mirror leaves more than half its pixels on empty ones (137 in 46
-  heroes of this pack on 2026-10-06); `tools/art/bake_gifs.py --hero <hero>` draws the blue side and the red side
-  before and after. An `Animation` plays its tag once, so a view that must stand for seconds lists its loop frames
-  again (a 4 s loop of 100 ms frames is 40 frames). A `CasterViewEffect` stays where it was played unless
-  `is_follow`; a following one cannot be stopped: refreshed before it ends, the next one plays over it.
+  heroes before the pass, league_ekko's ghost after); `tools/art/bake_gifs.py --hero <hero>` draws the blue side and
+  the red side before and after (`docs/preview/red_side/<hero>_bake.gif`). An `Animation` plays its tag once, so a
+  view that must stand for seconds lists its loop frames again (a 4 s loop of 100 ms frames is 40 frames). A
+  `CasterViewEffect` stays where it was played unless `is_follow`; a following one cannot be stopped: refreshed before
+  it ends, the next one plays over it.
   A picture that must face the target goes on a `TargetProjectile` cast at it
   (league_lucian Q's way: it points from the caster's pivot at the target and `y_offset` lifts only its picture):
   league_fiora's parry crescent rides one with `speed` 100 and `y_offset` -4000 (9 px up), drawn 17 px ahead along its flight and

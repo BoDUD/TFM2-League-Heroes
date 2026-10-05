@@ -109,8 +109,9 @@
                 ]
               },
               {
-                "type": "CasterViewEffect",
-                "name": "league_sivir_w_cast"
+                "type": "CasterAnimation",
+                "name": "attack_fx1",
+                "tick": 22
               },
               {
                 "type": "Sfx",
@@ -1456,8 +1457,9 @@
                               "tick": 10
                             },
                             {
-                              "type": "CasterViewEffect",
-                              "name": "league_sivir_q_catch"
+                              "type": "CasterAnimation",
+                              "name": "skill_catch_fx1",
+                              "tick": 10
                             }
                           ],
                           "speed": 7000,
@@ -1488,10 +1490,6 @@
           "type": "Delayed",
           "tick": 10,
           "effects": [
-            {
-              "type": "CasterViewEffect",
-              "name": "league_sivir_q_throw"
-            },
             {
               "type": "Sfx",
               "name": "league_sivir_q_throw"
@@ -1708,8 +1706,9 @@
                         "tick": 10
                       },
                       {
-                        "type": "CasterViewEffect",
-                        "name": "league_sivir_q_catch"
+                        "type": "CasterAnimation",
+                        "name": "skill_catch_fx1",
+                        "tick": 10
                       }
                     ],
                     "speed": 7000,
@@ -2091,16 +2090,8 @@
     },
     {
       "type": "Animation",
-      "name": "league_sivir_w_cast",
-      "anim": "asset/league/effects/league_sivir_fx",
-      "tag": "w_cast",
-      "z": 1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
       "name": "league_sivir_w_bounce",
-      "anim": "asset/league/effects/league_sivir_fx",
+      "anim": "asset/league/effects/league_sivir_sym",
       "tag": "w_bounce",
       "z": 2,
       "is_follow": true
@@ -2115,14 +2106,6 @@
     },
     {
       "type": "Animation",
-      "name": "league_sivir_q_throw",
-      "anim": "asset/league/effects/league_sivir_fx",
-      "tag": "q_throw",
-      "z": 1,
-      "is_follow": false
-    },
-    {
-      "type": "Animation",
       "name": "league_sivir_q_hit",
       "anim": "asset/league/effects/league_sivir_fx",
       "tag": "q_hit",
@@ -2131,16 +2114,8 @@
     },
     {
       "type": "Animation",
-      "name": "league_sivir_q_catch",
-      "anim": "asset/league/effects/league_sivir_fx",
-      "tag": "q_catch",
-      "z": 1,
-      "is_follow": false
-    },
-    {
-      "type": "Animation",
       "name": "league_sivir_e_block",
-      "anim": "asset/league/effects/league_sivir_fx",
+      "anim": "asset/league/effects/league_sivir_sym",
       "tag": "e_block",
       "z": 2,
       "is_follow": false
@@ -2156,7 +2131,7 @@
     {
       "type": "Animation",
       "name": "league_sivir_r_renew",
-      "anim": "asset/league/effects/league_sivir_fx",
+      "anim": "asset/league/effects/league_sivir_sym",
       "tag": "r_renew",
       "z": 2,
       "is_follow": false

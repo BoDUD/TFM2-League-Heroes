@@ -591,7 +591,7 @@
     {
       "type": "Animation",
       "name": "league_soraka_rejuv",
-      "anim": "asset/league/effects/league_soraka_fx",
+      "anim": "asset/league/effects/league_soraka_sym",
       "tag": "rejuv",
       "z": 1,
       "is_follow": true

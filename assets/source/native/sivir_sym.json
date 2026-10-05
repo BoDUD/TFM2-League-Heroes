@@ -1,0 +1,14 @@
+{
+ "league_sivir_e_block": {
+  "anim": "asset/league/effects/league_sivir_fx",
+  "tag": "e_block"
+ },
+ "league_sivir_r_renew": {
+  "anim": "asset/league/effects/league_sivir_fx",
+  "tag": "r_renew"
+ },
+ "league_sivir_w_bounce": {
+  "anim": "asset/league/effects/league_sivir_fx",
+  "tag": "w_bounce"
+ }
+}

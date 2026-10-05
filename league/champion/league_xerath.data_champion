@@ -54,10 +54,6 @@
           "name": "league_xerath_a_cast"
         },
         {
-          "type": "CasterViewEffect",
-          "name": "league_xerath_a_flash"
-        },
-        {
           "type": "SwitchByBuff",
           "buff_name": "league_xerath_p_a",
           "effect_buff": {
@@ -797,8 +793,9 @@
                       "only_to_enemy": false
                     },
                     {
-                      "type": "CasterViewEffect",
-                      "name": "league_xerath_p_surge"
+                      "type": "CasterAnimation",
+                      "name": "attack_fx1",
+                      "tick": 17
                     },
                     {
                       "type": "Sfx",
@@ -1068,8 +1065,9 @@
                 "tick": 64
               },
               {
-                "type": "CasterViewEffect",
-                "name": "league_xerath_q_charge"
+                "type": "CasterAnimation",
+                "name": "skill_fx1",
+                "tick": 64
               },
               {
                 "type": "Sfx",
@@ -1118,10 +1116,6 @@
                       {
                         "type": "Combine",
                         "effects": [
-                          {
-                            "type": "CasterViewEffect",
-                            "name": "league_xerath_q_fire"
-                          },
                           {
                             "type": "Sfx",
                             "name": "league_xerath_q_fire"
@@ -1253,10 +1247,6 @@
                 "tick": 32
               },
               {
-                "type": "CasterViewEffect",
-                "name": "league_xerath_q_charge_s"
-              },
-              {
                 "type": "Sfx",
                 "name": "league_xerath_q_charge"
               },
@@ -1274,10 +1264,6 @@
                       {
                         "type": "Combine",
                         "effects": [
-                          {
-                            "type": "CasterViewEffect",
-                            "name": "league_xerath_q_fire"
-                          },
                           {
                             "type": "Sfx",
                             "name": "league_xerath_q_fire"
@@ -1445,10 +1431,6 @@
             }
           },
           "only_to_enemy": false
-        },
-        {
-          "type": "CasterViewEffect",
-          "name": "league_xerath_e_cast"
         },
         {
           "type": "Sfx",
@@ -2825,10 +2807,6 @@
                                           "tick": 14
                                         },
                                         {
-                                          "type": "CasterViewEffect",
-                                          "name": "league_xerath_r_cast_shot"
-                                        },
-                                        {
                                           "type": "Delayed",
                                           "tick": 14,
                                           "effects": [
@@ -3090,27 +3068,11 @@
   "view_effects": [
     {
       "type": "Animation",
-      "name": "league_xerath_a_flash",
-      "anim": "asset/league/effects/league_xerath_fx",
-      "tag": "a_flash",
-      "z": 2,
-      "is_follow": false
-    },
-    {
-      "type": "Animation",
       "name": "league_xerath_a_hit",
       "anim": "asset/league/effects/league_xerath_fx",
       "tag": "a_hit",
       "z": 2,
       "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_xerath_p_surge",
-      "anim": "asset/league/effects/league_xerath_fx",
-      "tag": "p_surge",
-      "z": 2,
-      "is_follow": false
     },
     {
       "type": "Animation",
@@ -3122,43 +3084,11 @@
     },
     {
       "type": "Animation",
-      "name": "league_xerath_q_charge",
-      "anim": "asset/league/effects/league_xerath_fx",
-      "tag": "q_charge",
-      "z": 1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_xerath_q_charge_s",
-      "anim": "asset/league/effects/league_xerath_fx",
-      "tag": "q_charge_s",
-      "z": 1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_xerath_q_fire",
-      "anim": "asset/league/effects/league_xerath_fx",
-      "tag": "q_fire",
-      "z": 2,
-      "is_follow": false
-    },
-    {
-      "type": "Animation",
       "name": "league_xerath_q_hit",
       "anim": "asset/league/effects/league_xerath_fx",
       "tag": "q_hit",
       "z": 2,
       "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_xerath_e_cast",
-      "anim": "asset/league/effects/league_xerath_fx",
-      "tag": "e_cast",
-      "z": 2,
-      "is_follow": false
     },
     {
       "type": "Animation",
@@ -3199,14 +3129,6 @@
       "tag": "r_rise",
       "z": 2,
       "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_xerath_r_cast_shot",
-      "anim": "asset/league/effects/league_xerath_fx",
-      "tag": "r_cast_shot",
-      "z": 2,
-      "is_follow": false
     },
     {
       "type": "Animation",

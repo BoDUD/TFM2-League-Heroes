@@ -1335,7 +1335,7 @@
     {
       "type": "Animation",
       "name": "league_yasuo_q_hit",
-      "anim": "asset/league/effects/league_yasuo_fx",
+      "anim": "asset/league/effects/league_yasuo_sym",
       "tag": "q_hit",
       "z": 1,
       "is_follow": true
@@ -1351,7 +1351,7 @@
     {
       "type": "Animation",
       "name": "league_yasuo_e_hit",
-      "anim": "asset/league/effects/league_yasuo_fx",
+      "anim": "asset/league/effects/league_yasuo_sym",
       "tag": "e_hit",
       "z": 1,
       "is_follow": true
@@ -1359,7 +1359,7 @@
     {
       "type": "Animation",
       "name": "league_yasuo_shield",
-      "anim": "asset/league/effects/league_yasuo_fx",
+      "anim": "asset/league/effects/league_yasuo_sym",
       "tag": "shield",
       "z": 1,
       "is_follow": true

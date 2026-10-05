@@ -291,8 +291,9 @@
                                     "tick": 30
                                   },
                                   {
-                                    "type": "CasterViewEffect",
-                                    "name": "league_lissandra_r_cast"
+                                    "type": "CasterAnimation",
+                                    "name": "ult_fx1",
+                                    "tick": 30
                                   },
                                   {
                                     "type": "Sfx",
@@ -1017,8 +1018,9 @@
                                     "tick": 30
                                   },
                                   {
-                                    "type": "CasterViewEffect",
-                                    "name": "league_lissandra_r_cast"
+                                    "type": "CasterAnimation",
+                                    "name": "ult_fx1",
+                                    "tick": 30
                                   },
                                   {
                                     "type": "Sfx",
@@ -1288,10 +1290,6 @@
         },
         {
           "type": "Sfx",
-          "name": "league_lissandra_q_cast"
-        },
-        {
-          "type": "CasterViewEffect",
           "name": "league_lissandra_q_cast"
         },
         {
@@ -1931,8 +1929,9 @@
                                     "tick": 30
                                   },
                                   {
-                                    "type": "CasterViewEffect",
-                                    "name": "league_lissandra_r_cast"
+                                    "type": "CasterAnimation",
+                                    "name": "ult_fx1",
+                                    "tick": 30
                                   },
                                   {
                                     "type": "Sfx",
@@ -2511,8 +2510,9 @@
                               "tick": 43
                             },
                             {
-                              "type": "CasterViewEffect",
-                              "name": "league_lissandra_e_cast"
+                              "type": "CasterAnimation",
+                              "name": "skill2_e_fx1",
+                              "tick": 43
                             },
                             {
                               "type": "Sfx",
@@ -2864,8 +2864,9 @@
                                   "tick": 18
                                 },
                                 {
-                                  "type": "CasterViewEffect",
-                                  "name": "league_lissandra_e_cast"
+                                  "type": "CasterAnimation",
+                                  "name": "skill2_e_fx2",
+                                  "tick": 18
                                 },
                                 {
                                   "type": "Sfx",
@@ -2938,8 +2939,9 @@
                                     "tick": 18
                                   },
                                   {
-                                    "type": "CasterViewEffect",
-                                    "name": "league_lissandra_e_cast"
+                                    "type": "CasterAnimation",
+                                    "name": "skill2_e_fx2",
+                                    "tick": 18
                                   },
                                   {
                                     "type": "Sfx",
@@ -3120,14 +3122,6 @@
     },
     {
       "type": "Animation",
-      "name": "league_lissandra_q_cast",
-      "anim": "asset/league/effects/league_lissandra_fx",
-      "tag": "q_cast",
-      "z": 1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
       "name": "league_lissandra_q_hit",
       "anim": "asset/league/effects/league_lissandra_fx",
       "tag": "q_hit",
@@ -3160,14 +3154,6 @@
     },
     {
       "type": "Animation",
-      "name": "league_lissandra_e_cast",
-      "anim": "asset/league/effects/league_lissandra_fx",
-      "tag": "e_cast",
-      "z": 1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
       "name": "league_lissandra_e_hit",
       "anim": "asset/league/effects/league_lissandra_fx",
       "tag": "e_hit",
@@ -3179,14 +3165,6 @@
       "name": "league_lissandra_e_port",
       "anim": "asset/league/effects/league_lissandra_big",
       "tag": "e_port",
-      "z": 1,
-      "is_follow": false
-    },
-    {
-      "type": "Animation",
-      "name": "league_lissandra_r_cast",
-      "anim": "asset/league/effects/league_lissandra_big",
-      "tag": "r_cast",
       "z": 1,
       "is_follow": false
     },

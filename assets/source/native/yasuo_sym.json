@@ -1,0 +1,14 @@
+{
+ "league_yasuo_shield": {
+  "anim": "asset/league/effects/league_yasuo_fx",
+  "tag": "shield"
+ },
+ "league_yasuo_q_hit": {
+  "anim": "asset/league/effects/league_yasuo_fx",
+  "tag": "q_hit"
+ },
+ "league_yasuo_e_hit": {
+  "anim": "asset/league/effects/league_yasuo_fx",
+  "tag": "e_hit"
+ }
+}

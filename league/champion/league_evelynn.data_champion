@@ -1559,10 +1559,6 @@
                   "name": "league_evelynn_e2_cast"
                 },
                 {
-                  "type": "CasterViewEffect",
-                  "name": "league_evelynn_e2_trail"
-                },
-                {
                   "type": "Combine",
                   "effects": [
                     {
@@ -2823,10 +2819,6 @@
           "name": "league_evelynn_q_cast"
         },
         {
-          "type": "CasterViewEffect",
-          "name": "league_evelynn_q_cast"
-        },
-        {
           "type": "LinearProjectile",
           "name": "league_evelynn_q_lash",
           "penetrate": false,
@@ -3847,10 +3839,6 @@
           "name": "league_evelynn_w_cast"
         },
         {
-          "type": "CasterViewEffect",
-          "name": "league_evelynn_w_cast"
-        },
-        {
           "type": "RemoveCasterBuff",
           "name": "league_evelynn_w_c"
         },
@@ -4249,22 +4237,6 @@
     },
     {
       "type": "Animation",
-      "name": "league_evelynn_e2_trail",
-      "anim": "asset/league/effects/league_evelynn_big",
-      "tag": "e2_trail",
-      "z": -1,
-      "is_follow": false
-    },
-    {
-      "type": "Animation",
-      "name": "league_evelynn_q_cast",
-      "anim": "asset/league/effects/league_evelynn_fx",
-      "tag": "q_cast",
-      "z": 1,
-      "is_follow": false
-    },
-    {
-      "type": "Animation",
       "name": "league_evelynn_q_hit",
       "anim": "asset/league/effects/league_evelynn_fx",
       "tag": "q_hit",
@@ -4293,14 +4265,6 @@
       "anim": "asset/league/effects/league_evelynn_fx",
       "tag": "sp_hit",
       "z": 2,
-      "is_follow": false
-    },
-    {
-      "type": "Animation",
-      "name": "league_evelynn_w_cast",
-      "anim": "asset/league/effects/league_evelynn_fx",
-      "tag": "w_cast",
-      "z": 1,
       "is_follow": false
     },
     {

@@ -53,10 +53,6 @@
           "name": "league_kaisa_attack_shot"
         },
         {
-          "type": "CasterViewEffect",
-          "name": "league_kaisa_shot"
-        },
-        {
           "type": "TargetProjectile",
           "name": "league_kaisa_bolt",
           "speed": 7000,
@@ -1766,10 +1762,6 @@
           "name": "league_kaisa_q_cast"
         },
         {
-          "type": "CasterViewEffect",
-          "name": "league_kaisa_q_cast"
-        },
-        {
           "type": "SwitchByBuff",
           "buff_name": "league_kaisa_evo_q",
           "effect_buff": {
@@ -2269,10 +2261,6 @@
           "name": "league_kaisa_w_cast"
         },
         {
-          "type": "CasterViewEffect",
-          "name": "league_kaisa_w_charge"
-        },
-        {
           "type": "Delayed",
           "tick": 17,
           "effects": [
@@ -2702,10 +2690,6 @@
             {
               "type": "Sfx",
               "name": "league_kaisa_w_fire"
-            },
-            {
-              "type": "CasterViewEffect",
-              "name": "league_kaisa_w_muzzle"
             }
           ]
         }
@@ -2729,10 +2713,6 @@
         {
           "type": "Sfx",
           "name": "league_kaisa_r_cast"
-        },
-        {
-          "type": "CasterViewEffect",
-          "name": "league_kaisa_r_trail"
         },
         {
           "type": "Delayed",
@@ -2828,14 +2808,6 @@
   "view_effects": [
     {
       "type": "Animation",
-      "name": "league_kaisa_shot",
-      "anim": "asset/league/effects/league_kaisa_fx",
-      "tag": "shot",
-      "z": 1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
       "name": "league_kaisa_hit",
       "anim": "asset/league/effects/league_kaisa_fx",
       "tag": "hit",
@@ -2893,7 +2865,7 @@
     {
       "type": "Animation",
       "name": "league_kaisa_e_aura",
-      "anim": "asset/league/effects/league_kaisa_fx",
+      "anim": "asset/league/effects/league_kaisa_sym",
       "tag": "e_aura",
       "z": 1,
       "is_follow": true
@@ -2901,16 +2873,8 @@
     {
       "type": "Animation",
       "name": "league_kaisa_e_invis",
-      "anim": "asset/league/effects/league_kaisa_fx",
+      "anim": "asset/league/effects/league_kaisa_sym",
       "tag": "e_invis",
-      "z": 1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_kaisa_q_cast",
-      "anim": "asset/league/effects/league_kaisa_fx",
-      "tag": "q_cast",
       "z": 1,
       "is_follow": true
     },
@@ -2921,22 +2885,6 @@
       "tag": "q_hit",
       "z": 1,
       "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_kaisa_w_charge",
-      "anim": "asset/league/effects/league_kaisa_fx",
-      "tag": "w_charge",
-      "z": 1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_kaisa_w_muzzle",
-      "anim": "asset/league/effects/league_kaisa_fx",
-      "tag": "w_muzzle",
-      "z": 1,
-      "is_follow": false
     },
     {
       "type": "Animation",
@@ -2953,14 +2901,6 @@
       "tag": "r_launch",
       "z": -1,
       "is_follow": false
-    },
-    {
-      "type": "Animation",
-      "name": "league_kaisa_r_trail",
-      "anim": "asset/league/effects/league_kaisa_fx",
-      "tag": "r_trail",
-      "z": -1,
-      "is_follow": true
     },
     {
       "type": "Animation",

@@ -1,0 +1,7 @@
+{
+  "fx": "league_diana_big",
+  "items": [
+    {"tag": "p_cleave", "into": "attack_p", "at_ms": 217},
+    {"tag": "r_draw", "into": "ult", "at_ms": 283, "under": true}
+  ]
+}

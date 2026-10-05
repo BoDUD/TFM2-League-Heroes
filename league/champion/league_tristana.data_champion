@@ -78,10 +78,6 @@
           "name": "league_tristana_attack_shot"
         },
         {
-          "type": "CasterViewEffect",
-          "name": "league_tristana_shot"
-        },
-        {
           "type": "TargetProjectile",
           "name": "league_tristana_bolt",
           "speed": 6000,
@@ -2711,14 +2707,6 @@
             "attack_speed_mult": 80
           },
           "only_to_enemy": false
-        },
-        {
-          "type": "CasterViewEffect",
-          "name": "league_tristana_e_shot"
-        },
-        {
-          "type": "CasterViewEffect",
-          "name": "league_tristana_q_cast"
         },
         {
           "type": "Delayed",
@@ -6072,10 +6060,6 @@
           "name": "league_tristana_r_cast"
         },
         {
-          "type": "CasterViewEffect",
-          "name": "league_tristana_r_muzzle"
-        },
-        {
           "type": "RandomTarget",
           "range": 30000,
           "casting_target": "EnemyChampion",
@@ -6889,22 +6873,6 @@
     },
     {
       "type": "Animation",
-      "name": "league_tristana_shot",
-      "anim": "asset/league/effects/league_tristana_fx",
-      "tag": "shot",
-      "z": 1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_tristana_e_shot",
-      "anim": "asset/league/effects/league_tristana_fx",
-      "tag": "e_shot",
-      "z": 1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
       "name": "league_tristana_p_boom",
       "anim": "asset/league/effects/league_tristana_fx",
       "tag": "p_boom",
@@ -6969,16 +6937,8 @@
     },
     {
       "type": "Animation",
-      "name": "league_tristana_q_cast",
-      "anim": "asset/league/effects/league_tristana_fx",
-      "tag": "q_cast",
-      "z": 1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
       "name": "league_tristana_q_rapid",
-      "anim": "asset/league/effects/league_tristana_fx",
+      "anim": "asset/league/effects/league_tristana_sym",
       "tag": "q_rapid",
       "z": 1,
       "is_follow": true
@@ -6997,14 +6957,6 @@
       "anim": "asset/league/effects/league_tristana_fx",
       "tag": "w_ready",
       "z": 2,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_tristana_r_muzzle",
-      "anim": "asset/league/effects/league_tristana_fx",
-      "tag": "r_muzzle",
-      "z": 1,
       "is_follow": true
     },
     {

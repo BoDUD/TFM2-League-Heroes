@@ -129,10 +129,6 @@
           }
         },
         {
-          "type": "CasterViewEffect",
-          "name": "league_ryze_q_cast"
-        },
-        {
           "type": "LinearProjectile",
           "name": "league_ryze_q_bolt",
           "speed": 6000,
@@ -287,10 +283,6 @@
         },
         {
           "type": "Sfx",
-          "name": "league_ryze_e_cast"
-        },
-        {
-          "type": "CasterViewEffect",
           "name": "league_ryze_e_cast"
         },
         {
@@ -1434,10 +1426,6 @@
                   "name": "league_ryze_q_cast"
                 },
                 {
-                  "type": "CasterViewEffect",
-                  "name": "league_ryze_q_cast"
-                },
-                {
                   "type": "RemoveCasterBuff",
                   "name": "league_ryze_rune2"
                 },
@@ -1747,10 +1735,6 @@
                   "name": "league_ryze_e_cast"
                 },
                 {
-                  "type": "CasterViewEffect",
-                  "name": "league_ryze_e_cast"
-                },
-                {
                   "type": "Combine",
                   "effects": [
                     {
@@ -1779,10 +1763,6 @@
               "effects": [
                 {
                   "type": "Sfx",
-                  "name": "league_ryze_q_cast"
-                },
-                {
-                  "type": "CasterViewEffect",
                   "name": "league_ryze_q_cast"
                 },
                 {
@@ -3641,14 +3621,6 @@
     },
     {
       "type": "Animation",
-      "name": "league_ryze_q_cast",
-      "anim": "asset/league/effects/league_ryze_fx",
-      "tag": "q_cast",
-      "z": 1,
-      "is_follow": false
-    },
-    {
-      "type": "Animation",
       "name": "league_ryze_q_hit",
       "anim": "asset/league/effects/league_ryze_fx",
       "tag": "q_hit",
@@ -3661,14 +3633,6 @@
       "anim": "asset/league/effects/league_ryze_fx",
       "tag": "q_pop",
       "z": 2,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_ryze_e_cast",
-      "anim": "asset/league/effects/league_ryze_fx",
-      "tag": "e_cast",
-      "z": 1,
       "is_follow": true
     },
     {

@@ -1,0 +1,6 @@
+{
+  "fx": "league_jinx_fx",
+  "items": [
+    {"tag": "w_charge", "into": "skill", "at_ms": 33}
+  ]
+}

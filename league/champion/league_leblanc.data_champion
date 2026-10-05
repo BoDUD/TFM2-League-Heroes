@@ -113,8 +113,9 @@
                   "tick": 11,
                   "effects": [
                     {
-                      "type": "CasterViewEffect",
-                      "name": "league_leblanc_a_cast"
+                      "type": "CasterAnimation",
+                      "name": "attack_fx1",
+                      "tick": 10
                     },
                     {
                       "type": "TargetProjectile",
@@ -624,8 +625,9 @@
                               "tick": 10,
                               "effects": [
                                 {
-                                  "type": "CasterViewEffect",
-                                  "name": "league_leblanc_e_cast"
+                                  "type": "CasterAnimation",
+                                  "name": "e_fx1",
+                                  "tick": 20
                                 }
                               ]
                             }
@@ -645,8 +647,9 @@
                         "tick": 11,
                         "effects": [
                           {
-                            "type": "CasterViewEffect",
-                            "name": "league_leblanc_a_cast"
+                            "type": "CasterAnimation",
+                            "name": "attack_fx1",
+                            "tick": 10
                           },
                           {
                             "type": "TargetProjectile",
@@ -745,8 +748,9 @@
                     "tick": 11,
                     "effects": [
                       {
-                        "type": "CasterViewEffect",
-                        "name": "league_leblanc_a_cast"
+                        "type": "CasterAnimation",
+                        "name": "attack_fx1",
+                        "tick": 10
                       },
                       {
                         "type": "TargetProjectile",
@@ -1256,8 +1260,9 @@
                                 "tick": 10,
                                 "effects": [
                                   {
-                                    "type": "CasterViewEffect",
-                                    "name": "league_leblanc_e_cast"
+                                    "type": "CasterAnimation",
+                                    "name": "e_fx1",
+                                    "tick": 20
                                   }
                                 ]
                               }
@@ -1277,8 +1282,9 @@
                           "tick": 11,
                           "effects": [
                             {
-                              "type": "CasterViewEffect",
-                              "name": "league_leblanc_a_cast"
+                              "type": "CasterAnimation",
+                              "name": "attack_fx1",
+                              "tick": 10
                             },
                             {
                               "type": "TargetProjectile",
@@ -1372,10 +1378,6 @@
         },
         {
           "type": "Sfx",
-          "name": "league_leblanc_q_cast"
-        },
-        {
-          "type": "CasterViewEffect",
           "name": "league_leblanc_q_cast"
         },
         {
@@ -1809,8 +1811,9 @@
                               "name": "league_leblanc_w_cast"
                             },
                             {
-                              "type": "CasterViewEffect",
-                              "name": "league_leblanc_w_trail"
+                              "type": "CasterAnimation",
+                              "name": "skill2_fx1",
+                              "tick": 18
                             },
                             {
                               "type": "MoveToTarget",
@@ -2265,8 +2268,9 @@
                 "name": "league_leblanc_w_cast"
               },
               {
-                "type": "CasterViewEffect",
-                "name": "league_leblanc_w_trail"
+                "type": "CasterAnimation",
+                "name": "skill2_fx1",
+                "tick": 18
               },
               {
                 "type": "MoveToTarget",
@@ -2549,8 +2553,9 @@
                 "name": "league_leblanc_rw_cast"
               },
               {
-                "type": "CasterViewEffect",
-                "name": "league_leblanc_rw_trail"
+                "type": "CasterAnimation",
+                "name": "skill2_fx2",
+                "tick": 18
               },
               {
                 "type": "MoveToTarget",
@@ -3061,8 +3066,9 @@
                   "tick": 10,
                   "effects": [
                     {
-                      "type": "CasterViewEffect",
-                      "name": "league_leblanc_re_cast"
+                      "type": "CasterAnimation",
+                      "name": "e_fx2",
+                      "tick": 20
                     }
                   ]
                 }
@@ -3087,8 +3093,9 @@
               "tick": 11,
               "effects": [
                 {
-                  "type": "CasterViewEffect",
-                  "name": "league_leblanc_rq_cast"
+                  "type": "CasterAnimation",
+                  "name": "ult_fx1",
+                  "tick": 29
                 },
                 {
                   "type": "TargetProjectile",
@@ -3318,14 +3325,6 @@
   "view_effects": [
     {
       "type": "Animation",
-      "name": "league_leblanc_a_cast",
-      "anim": "asset/league/effects/league_leblanc_fx",
-      "tag": "a_cast",
-      "z": 1,
-      "is_follow": false
-    },
-    {
-      "type": "Animation",
       "name": "league_leblanc_a_hit",
       "anim": "asset/league/effects/league_leblanc_fx",
       "tag": "a_hit",
@@ -3339,14 +3338,6 @@
       "tag": "p_clone",
       "z": 0,
       "is_follow": false
-    },
-    {
-      "type": "Animation",
-      "name": "league_leblanc_q_cast",
-      "anim": "asset/league/effects/league_leblanc_fx",
-      "tag": "q_cast",
-      "z": 1,
-      "is_follow": true
     },
     {
       "type": "Animation",
@@ -3374,14 +3365,6 @@
     },
     {
       "type": "Animation",
-      "name": "league_leblanc_rq_cast",
-      "anim": "asset/league/effects/league_leblanc_fx",
-      "tag": "rq_cast",
-      "z": 1,
-      "is_follow": false
-    },
-    {
-      "type": "Animation",
       "name": "league_leblanc_rq_hit",
       "anim": "asset/league/effects/league_leblanc_fx",
       "tag": "rq_hit",
@@ -3406,14 +3389,6 @@
     },
     {
       "type": "Animation",
-      "name": "league_leblanc_e_cast",
-      "anim": "asset/league/effects/league_leblanc_fx",
-      "tag": "e_cast",
-      "z": 1,
-      "is_follow": false
-    },
-    {
-      "type": "Animation",
       "name": "league_leblanc_e_hit",
       "anim": "asset/league/effects/league_leblanc_fx",
       "tag": "e_hit",
@@ -3427,14 +3402,6 @@
       "tag": "e_root",
       "z": 2,
       "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_leblanc_re_cast",
-      "anim": "asset/league/effects/league_leblanc_fx",
-      "tag": "re_cast",
-      "z": 1,
-      "is_follow": false
     },
     {
       "type": "Animation",
@@ -3462,14 +3429,6 @@
     },
     {
       "type": "Animation",
-      "name": "league_leblanc_w_trail",
-      "anim": "asset/league/effects/league_leblanc_fx",
-      "tag": "w_trail",
-      "z": -1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
       "name": "league_leblanc_w_blast",
       "anim": "asset/league/effects/league_leblanc_big",
       "tag": "w_blast",
@@ -3482,14 +3441,6 @@
       "anim": "asset/league/effects/league_leblanc_fx",
       "tag": "w_hit",
       "z": 1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_leblanc_rw_trail",
-      "anim": "asset/league/effects/league_leblanc_fx",
-      "tag": "rw_trail",
-      "z": -1,
       "is_follow": true
     },
     {

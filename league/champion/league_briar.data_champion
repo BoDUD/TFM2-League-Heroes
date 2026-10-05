@@ -265,8 +265,9 @@
                 "name": "league_briar_snack"
               },
               {
-                "type": "CasterViewEffect",
-                "name": "league_briar_snack_heal"
+                "type": "CasterAnimation",
+                "name": "attack_fx1",
+                "tick": 16
               },
               {
                 "type": "TargetSfx",
@@ -539,8 +540,9 @@
                   "name": "league_briar_snack"
                 },
                 {
-                  "type": "CasterViewEffect",
-                  "name": "league_briar_snack_heal"
+                  "type": "CasterAnimation",
+                  "name": "attack_fx1",
+                  "tick": 16
                 },
                 {
                   "type": "TargetSfx",
@@ -1495,14 +1497,6 @@
       "name": "league_briar_snack",
       "anim": "asset/league/effects/league_briar_fx",
       "tag": "snack",
-      "z": 1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_briar_snack_heal",
-      "anim": "asset/league/effects/league_briar_fx",
-      "tag": "snack_heal",
       "z": 1,
       "is_follow": true
     },

@@ -1,0 +1,9 @@
+{
+  "fx": "league_kennen_fx",
+  "items": [
+    {"tag": "a_cast2", "into": "attack_fx1", "from": "attack", "slice_ms": 200, "length_ms": 200, "at_ms": 0},
+    {"tag": "a_cast", "into": "attack_fx2", "from": "attack", "slice_ms": 200, "length_ms": 200, "at_ms": 0},
+    {"tag": "q_cast", "into": "skill", "at_ms": 200},
+    {"tag": "e_ball", "into": "skill2_fx1", "from": "skill2", "slice_ms": 0, "length_ms": 300, "at_ms": 0}
+  ]
+}

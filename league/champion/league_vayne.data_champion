@@ -1449,7 +1449,7 @@
     {
       "type": "Animation",
       "name": "league_vayne_hit",
-      "anim": "asset/league/effects/league_vayne_fx",
+      "anim": "asset/league/effects/league_vayne_sym",
       "tag": "hit",
       "z": 1,
       "is_follow": true

@@ -1390,10 +1390,6 @@
                               "tick": 19
                             },
                             {
-                              "type": "CasterViewEffect",
-                              "name": "league_akali_e_dash"
-                            },
-                            {
                               "type": "MoveToTarget",
                               "speed": 6000,
                               "range": 150000,
@@ -1667,8 +1663,9 @@
                                                           "tick": 19
                                                         },
                                                         {
-                                                          "type": "CasterViewEffect",
-                                                          "name": "league_akali_r_dash"
+                                                          "type": "CasterAnimation",
+                                                          "name": "ult2_fx1",
+                                                          "tick": 19
                                                         },
                                                         {
                                                           "type": "RushTime",
@@ -1980,10 +1977,6 @@
           "tick": 2,
           "effects": [
             {
-              "type": "CasterViewEffect",
-              "name": "league_akali_r_dash"
-            },
-            {
               "type": "RushTime",
               "speed": 8000,
               "tick": 9,
@@ -2177,8 +2170,9 @@
                       "tick": 19
                     },
                     {
-                      "type": "CasterViewEffect",
-                      "name": "league_akali_r_dash"
+                      "type": "CasterAnimation",
+                      "name": "ult2_fx1",
+                      "tick": 19
                     },
                     {
                       "type": "RushTime",
@@ -2423,8 +2417,9 @@
                               "tick": 19
                             },
                             {
-                              "type": "CasterViewEffect",
-                              "name": "league_akali_r_dash"
+                              "type": "CasterAnimation",
+                              "name": "ult2_fx1",
+                              "tick": 19
                             },
                             {
                               "type": "RushTime",
@@ -2761,27 +2756,11 @@
     },
     {
       "type": "Animation",
-      "name": "league_akali_e_dash",
-      "anim": "asset/league/effects/league_akali_big",
-      "tag": "e_dash",
-      "z": 1,
-      "is_follow": false
-    },
-    {
-      "type": "Animation",
       "name": "league_akali_e2_hit",
       "anim": "asset/league/effects/league_akali_fx",
       "tag": "e2_hit",
       "z": 1,
       "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_akali_r_dash",
-      "anim": "asset/league/effects/league_akali_big",
-      "tag": "r_dash",
-      "z": 1,
-      "is_follow": false
     },
     {
       "type": "Animation",

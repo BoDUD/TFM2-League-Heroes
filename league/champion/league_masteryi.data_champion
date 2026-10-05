@@ -991,14 +991,14 @@
     {
       "type": "Animation",
       "name": "league_masteryi_q_vanish",
-      "anim": "asset/league/effects/league_masteryi_fx",
+      "anim": "asset/league/effects/league_masteryi_sym",
       "tag": "q_vanish",
       "z": 1
     },
     {
       "type": "Animation",
       "name": "league_masteryi_wuju",
-      "anim": "asset/league/effects/league_masteryi_fx",
+      "anim": "asset/league/effects/league_masteryi_sym",
       "tag": "wuju",
       "z": 2,
       "is_follow": true

@@ -4317,10 +4317,6 @@
           "name": "league_rakan_r_cast"
         },
         {
-          "type": "CasterViewEffect",
-          "name": "league_rakan_r_start"
-        },
-        {
           "type": "AddCasterBuff",
           "buff_state": {
             "name": "league_rakan_r_on",
@@ -4336,6 +4332,11 @@
         {
           "type": "CasterAnimation",
           "name": "ult",
+          "tick": 240
+        },
+        {
+          "type": "CasterAnimation",
+          "name": "ult_fx1",
           "tick": 240
         },
         {
@@ -6548,14 +6549,6 @@
       "anim": "asset/league/effects/league_rakan_fx",
       "tag": "e_shield",
       "z": 2,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_rakan_r_start",
-      "anim": "asset/league/effects/league_rakan_fx",
-      "tag": "r_start",
-      "z": 1,
       "is_follow": true
     },
     {

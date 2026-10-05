@@ -1,0 +1,12 @@
+{
+  "fx": "league_kayn_fx",
+  "items": [
+    {"tag": "q_dash", "into": "rh_skill", "at_ms": 0, "under": true},
+    {"tag": "q_dash", "into": "sh_skill", "at_ms": 0, "under": true},
+    {"tag": "q_dash", "into": "skill", "at_ms": 33, "under": true},
+    {"tag": "w_wind_d", "into": "rh_skill2", "at_ms": 0},
+    {"tag": "w_wind_s", "into": "sh_skill2", "at_ms": 0},
+    {"tag": "w_wind", "into": "skill2_fx1", "from": "skill2", "slice_ms": 33, "length_ms": 767, "at_ms": 0},
+    {"tag": "r_dive", "into": "ult_fx1", "from": "ult", "slice_ms": 0, "length_ms": 200, "at_ms": 0, "under": true}
+  ]
+}

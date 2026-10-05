@@ -1,0 +1,8 @@
+{
+  "fx": "league_vi_fx",
+  "items": [
+    {"tag": "q_charge", "into": "skill_fx1", "from": "skill", "slice_ms": 0, "length_ms": 500, "at_ms": 0},
+    {"tag": "q_go", "into": "skill_dash", "at_ms": 0, "under": true},
+    {"tag": "r_trail", "into": "ult_fx1", "from": "ult", "slice_ms": 0, "length_ms": 133, "at_ms": 0, "under": true}
+  ]
+}
