@@ -525,7 +525,8 @@ impl StableEffectType for Stage {
 /// 本包的原生效果：`league_aatrox_chain:<名字>`。数据层只调 `chain`。
 pub const STAGES: [&str; 4] = ["chain", "watch", "drag", "noop"];
 
-fn init(host: &StableHost) -> StableMod {
+/// Everything this add-on registers, into `module`: its own DLL's (`init`) or league_addons' (all add-ons in one).
+pub fn register(host: &StableHost, module: &mut StableMod) {
     // 上一次启动的日志留一份（.prev.log），重启游戏不丢
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
@@ -538,15 +539,22 @@ fn init(host: &StableHost) -> StableMod {
         host.abi_level(),
         LOG_PATH.display()
     ));
-    let mut module = StableMod::new(ID);
     module.add_native_effect(format!("{ID}:chain"), Stage(Step::Chain));
     module.add_native_effect(format!("{ID}:watch"), Stage(Step::Watch));
     module.add_native_effect(format!("{ID}:drag"), Stage(Step::Drag));
     module.add_native_effect(format!("{ID}:noop"), Stage(Step::Noop));
     host.log(LogLevel::Info, "league_aatrox_chain v0.2 loaded (Aatrox's W tethers the unit it hits, breaks outside the ring, pulls back at 1.5 s).");
+}
+
+#[cfg_attr(league_bundle, allow(dead_code))]
+fn init(host: &StableHost) -> StableMod {
+    let mut module = StableMod::new(ID);
+    register(host, &mut module);
     module
 }
 
+// league_addons compiles this file as one of its modules and registers it with the others
+#[cfg(not(league_bundle))]
 declare_stable_mod!(init, requires = 9);
 
 #[cfg(test)]
