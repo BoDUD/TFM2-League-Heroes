@@ -842,8 +842,10 @@ def kneel_frame(pivot, shape, P, dy, pose):
 # - the hands are fists: the design's hand without its fingertip row (RUN_FIST_ROW) - the round fist drawn before was
 #   a lilac dot (「手的形状也没有」), the design's open hand with its fingertip an odd finger (「手指头做的是什么啊
 #   你不然就做成拳头形状啊」);
-# - ground walled in by the figure (between the far arm and the body: 「瑞兹这里有点色素丢失」) takes the colour beside it
-#   that is neither the outline nor an arm's (the torso's side), else the outline's (fill_pockets).
+# - ground walled in by the figure (between the far arm and the body: 「瑞兹这里有点色素丢失」) or in a slit or a notch
+#   of it (between a swung arm and the body, under the flap between the legs: 「这里也补补吧」) takes the colour beside it
+#   that is neither the outline nor an arm's (the torso's side, the trousers), else the outline's (fill_notches,
+#   fill_pockets).
 RUN_PROFILE = os.path.join(ROOT, "assets", "source", "ryze", "lol_run_profile.json")
 RUN_SIDE = {"near": "R", "far": "L"}                     # the run's legs: the screen-left one is League's R
 RUN_HIP = {"near": (-4.0, -1.0), "far": (3.0, -1.0)}     # the hip joints (from the pivot)
@@ -859,13 +861,19 @@ RUN_BOB = 0.6                                            # of League's head's bo
 # F at the front of the swing, M passing, B at the back; {side: {pose: (upper arm, forearm degrees from hanging
 # (+ forward), layer)}}. The near arm goes behind the body only at the back of its swing; the far forearm hangs back
 # there, as League's does (-24 degrees: hanging forward, its hand met the hip and walled in ground with the body)
-RUN_POSES = {"near": {"F": (18, 50, "front"), "M": (0, 20, "front"), "B": (-12, 5, "back")},
+# The near arm swings as the far one does (「左手做的很好 右手不能按左手那样做吗」): at the front its upper arm hangs and
+# the forearm lies level, a quarter turn of the bracer clean as the far arm's across the belly (sheared down at 50
+# degrees it was a stair of bracer); passing it hangs nearly as the idle's (bent 25 degrees its forearm reached down
+# the thigh); at the back it is behind the body.
+RUN_POSES = {"near": {"F": (-5, 80, "front"), "M": (0, 8, "front"), "B": (-25, 0, "back")},
              "far": {"F": (-5, 80, "over"), "M": (-20, 25, "back"), "B": (-35, -10, "back")}}
 # the poses frame by frame on League's timing (each hand's lead over its shoulder in the design's camera,
 # lol_joints_v2.json: the near hand ahead in 7-2, back in 4-5; the far one ahead in 3-5, back in 8-1 - in 7 it passes,
 # its hand clear of the near leg kicked up behind, which walled in ground with it)
 RUN_ARM_FRAMES = {"near": "FFMBBMFF", "far": "BMFFFMMB"}
 RUN_FIST_ROW = -2                                        # the design's hands down to this row: the fingertips left out
+NOTCH_ROWS = 2                                           # notches filled down to this row (from the pivot): the crotch
+CRACK_ROWS = 6                                           # one-square cracks between the legs closed down to this row
 def run_arms(P):
     """The design's arm squares without their outline (ring_layer draws one round each layer), the hands fists."""
     return {(key, part): {q: c for q, c in cells.items() if tuple(int(v) for v in c[:3]) not in DARK
@@ -935,6 +943,42 @@ def fill_pockets(a):
     return a
 
 
+def fill_notches(a, py, reach=2, passes=4):
+    """Ground in a slit or a notch of the figure - the figure within `reach` squares to its left and to its right in
+    its row and above it (between a swung arm and the body, under the flap between the legs: 「这里也补补吧」), down to
+    the crotch (NOTCH_ROWS: the gap between two legs below it stays open, or the legs would melt together a row at a
+    time) - takes the colour beside it as fill_pockets gives it."""
+    h, w = a.shape[:2]
+    for _ in range(passes):
+        op = a[..., 3] > 0
+        found = []
+        for y in range(1, min(h - 1, py + NOTCH_ROWS + 1)):
+            for x in range(reach, w - reach):
+                if op[y, x]:
+                    continue
+                if (op[y, x - reach:x].any() and op[y, x + 1:x + reach + 1].any()
+                        and op[max(0, y - reach):y, x].any()):
+                    found.append((y, x))
+        # under the crotch, a crack of one square between two legs touching (the design draws the outline there,
+        # under the flap) - not the wider gap of a stride
+        for y in range(py + NOTCH_ROWS + 1, min(h - 1, py + CRACK_ROWS + 1)):
+            for x in range(1, w - 1):
+                if not op[y, x] and op[y, x - 1] and op[y, x + 1] and op[y - 1, x]:
+                    found.append((y, x, "crack"))
+        if not found:
+            break
+        for q in found:
+            y, x = q[0], q[1]
+            if len(q) == 3:
+                a[y, x] = INK + (255,)
+                continue
+            near = [tuple(int(v) for v in a[y + oy, x + ox]) for oy in (-1, 0, 1) for ox in (-1, 0, 1)
+                    if (oy or ox) and a[y + oy, x + ox, 3]]
+            body = [c for c in near if c[:3] not in DARK and c[:3] not in ARM_COLOURS]
+            a[y, x] = Counter(body).most_common(1)[0][0] if body else INK + (255,)
+    return a
+
+
 def run_frame(k, pivot, shape, P, tables):
     """Run frame k (0-7) on the design's own body from League's joints (see RUN_PROFILE above)."""
     prof, bob = tables
@@ -970,8 +1014,13 @@ def run_frame(k, pivot, shape, P, tables):
             out[Y, X] = c
     for layer in ("over", "front"):
         ring_layer(out, arms[layer], py, px, face=face, over=True)
-    ring_close(out, py)
-    return fill_pockets(out)
+    for _ in range(6):                           # closing the outline can make a notch of what was open: again
+        before = out.copy()
+        ring_close(out, py)
+        fill_pockets(fill_notches(out, py))
+        if (out == before).all():
+            break
+    return out
 
 
 def ring_layer(out, cells, py, px, face, over):
