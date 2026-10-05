@@ -253,7 +253,11 @@ def stand(P, p):
 # the gold knee guard at the knee; the hips close together under the tabard (the stance's were 18 columns apart), the
 # body as low as the planted boot lets it stand. League's R leg is the near one (nearer the camera, drawn over).
 LOL_RUN = os.path.join(ROOT, "assets", "source", "xinzhao", "lol_run_joints.json")
-RUN_HIPS = {"R": 59.5, "L": 65.5}           # League's R hip behind the L one, as League's camera has them
+# League's R hip behind the L one, as League's camera has them. The thighs' outer edges on the waist's own outline
+# columns (56 and 73, rows 84-88), as Varus's 「腰和腿要对齐」 (design_varus.py FAR_SHIFT): the first version's hips
+# (59.5, 65.5) left the waist's front five columns with no leg under them - 「你要对齐 脚和腰 ... 脚走路前面空那么多」
+WAIST = (56, 73)
+RUN_HIPS = {"R": WAIST[0] + 1.5 + 2.6, "L": WAIST[1] - 0.5 - 2.6}
 RUN_HIP_ROW = 88.5
 THIGH, SHIN = 4.6, 3.4                      # the design's hip -> knee -> ankle (88 -> 96 standing)
 RUN_W = (2.6, 2.0)                          # half widths: the baggy trousers, the shin into the boot
@@ -361,8 +365,9 @@ def run(P, k):
     trunk, _, _ = legs_apart(P, (0, 0, 0, 0))     # the body without the legs; the tabard (columns 60-67) stays
     c = np.zeros((128, 128, 4), np.uint8)
     legs = {s: draw_leg(a, *run_legs(k, dy)[s], P.D.outline) for s in ("L", "R")}
-    for (x, y), col in legs["L"].items():         # the far leg under the body
-        if 0 <= y < 128 and 0 <= x < 128:
+    top = int(RUN_HIP_ROW + dy)                   # the legs only from the hips down: above, the body (a thigh's ring
+    for (x, y), col in legs["L"].items():         # there filled the gap by the front arm with black); the far leg under
+        if top <= y < 128 and 0 <= x < 128:
             c[y, x] = col
     up = np.zeros_like(c)
     K.put(up, leaned(trunk, RUN_LEAN), 0, 0)
@@ -372,7 +377,7 @@ def run(P, k):
     K.place(up, unit_as(P, *K0[0][:1]), (SHOULDER[0] + bs, SHOULDER[1]), under=True)
     K.put(c, K.shifted(up, 0, dy), 0, 0)
     for (x, y), col in legs["R"].items():         # the near leg over the tabard, under the arms and the spear
-        if 0 <= y < 128 and 0 <= x < 128 and (y > RUN_HIP_ROW + dy or not c[y, x, 3]):
+        if 0 <= x < 128 and top <= y < 128 and (y > RUN_HIP_ROW + dy or not c[y, x, 3]):
             c[y, x] = col
     c[P.D.soles + 1:] = 0
     return c
