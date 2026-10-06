@@ -43,12 +43,14 @@ BIG = "asset/league/effects/league_gwen_big"
 # fighter, executioner, lancer, pole_warrior, knight and berserker, three lineups, both sides, 24 seeds a batch,
 # 2026-10-06): +1.41 on seeds 1-24, +1.24 on 25-48 (league_fiora +1.22 / +1.47, league_tryndamere +1.29 / +1.02). The
 # draft g0 was +1.55 / +2.00: hp 980 -> 950, Q 90 + 50% -> 70 + 40%, E +40% -> +30% attack speed, W 25 -> 22 resists
-# (also cutting the passive to 8 went +1.42 / +0.53). Timings from the strips (tools/art/rig_gwen.py MS): the attack's
+# (also cutting the passive to 8 went +1.42 / +0.53). The combos (2026-10-06) took g4 to +3.39; d2 brought it back:
+# E's landing snip 60% AD without E's on-hit, the centre 40 -> 25 true, hp 950 -> 880, attack 80 -> 74, Q 70 -> 60
+# (minis 15 -> 12), E +30% -> +25% attack speed, R 60/70/90 -> 50/60/75: +1.33 on seeds 1-24. Timings from the strips (tools/art/rig_gwen.py MS): the attack's
 # thrust frame 4 at 190 ms (tick 11), Q's shut frames 3 / 5 / 7 at ticks 7 / 14 / 22, R's throw frame 4 at tick 10.
 P = {
     # stats (Assassin AP base like league_diana / league_akali: attack 80 +10, magic power 50 +20, hp 950 +95, defence
     # 28 +8, mr 20 +3, move 1100); League's Gwen: 620 +114 hp, 63 AD, 39 armour, 340 move, 150 range
-    "hp": 950, "hp_g": 98, "atk": 80, "atk_g": 10, "mp": 50, "mp_g": 20, "def": 30, "def_g": 8, "mr": 24, "mr_g": 4,
+    "hp": 880, "hp_g": 98, "atk": 74, "atk_g": 10, "mp": 50, "mp_g": 20, "def": 30, "def_g": 8, "mr": 24, "mr_g": 4,
     "ms": 1080, "ms_g": 11,
     # attack
     "atk_range": 24000, "atk_dur": 24, "atk_cd": 56, "a_hit": 11,
@@ -56,20 +58,20 @@ P = {
     "p_dmg": 10, "p_ratio": 8, "p_hp": 1, "p_heal": 10, "p_heal_r": 6,
     # skill: Q Snip Snip! (League: cd 6.5-3.5 s, final 35-185 + 35% AP, minis 20% of it, 2 + 4 stacks, 6 s stacks)
     "q_n": 4, "q_keep": 360, "q_cd": 330, "q_range": 30000, "q_dur": 30, "q_t0": 6, "q_gap": 3, "q_final": 22,
-    "q_mini": 15, "q_mini_r": 8, "q_dmg": 70, "q_ratio": 40, "q_true": 40, "q_cone_r": 30000, "q_cone": 300,
+    "q_mini": 12, "q_mini_r": 8, "q_dmg": 60, "q_ratio": 40, "q_true": 25, "q_cone_r": 30000, "q_cone": 300,
     "q_c_off": 16000, "q_c_r": 6000,
     # skill2: E Skip 'n Slash (League: 350 dash, 4 s, +17.5-92.5% AS, +75 range, 15 + 20% AP on hit, cd 13-11 s) ->
     # W Hallowed Mist (League: 4 s, radius 370, +20-32 armour and MR, cd 22-18 s)
-    "e_cd": 900, "e_range": 45000, "e_speed": 6000, "e_tick": 8, "e_t": 240, "e_as": 30, "e_rng": 7500,
+    "e_cd": 900, "e_range": 45000, "e_speed": 6000, "e_tick": 8, "e_t": 240, "e_as": 25, "e_rng": 7500,
     "e_dmg": 15, "e_ratio": 20,
     "w_t": 240, "w_r": 37000, "w_period": 6, "w_def": 22,
     # ult: R Needlework (League: 3 casts, 1/3/5 needles, 35-95 + 10% AP each needle, slow 30-90% for 1.5 s, cd 120 s)
     "r_cd": 2400, "r_range": 70000, "r_gap": 36, "r_t0": 10, "r_len": 80000, "r_w1": 5000, "r_w2": 15000, "r_w3": 25000,
-    "r_apply": 4, "r_delay": 12, "r_dmg1": 60, "r_dmg2": 70, "r_dmg3": 90, "r_ratio": 25, "r_slow": 40, "r_slow_t": 90,
+    "r_apply": 4, "r_delay": 12, "r_dmg1": 50, "r_dmg2": 60, "r_dmg3": 75, "r_ratio": 25, "r_slow": 40, "r_slow_t": 90,
     "r_anim": 24,
     # combos (the user: 「另外加一点格温高手的连招逻辑进去」): E's landing snip, E -> Q's centre on the target, R woven
     # with attacks
-    "e_cut": 1, "e_cut_ratio": 100, "e_cut_bonus": 1, "eq_t": 120, "r_weave": 1,
+    "e_cut": 1, "e_cut_ratio": 60, "e_cut_bonus": 0, "eq_t": 120, "r_weave": 1,
 }
 
 

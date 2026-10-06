@@ -341,6 +341,100 @@ def clean_dark(a, protect):
     return n
 
 
+# step 12: the hair redrawn cute (the user: 「我觉得格温的发型优化下 做卡哇伊点」): League's Gwen - a round crown with one
+# springy strand (ahoge), three-pointed bangs over the brows, a lock either side of the face to the shoulders, the back
+# hair dark between them, and a twin drill on each side: springy segments, each a column off the last, a violet bow at
+# its root. Canvas coordinates; drawn over the old hair and the empty squares only (the body, the face and the
+# scissors' squares in front of the hair stay), then outlined.
+HAIR_HEX = {"0": "#08021a", "a": "#020375", "c": "#0b0baa", "e": "#4516eb", "g": "#025ff8", "h": "#0187fa",
+            "k": "#03adfb", "n": "#28ddfc", "t": "#8ff2fe"}
+OLD_HAIR = {"#020375", "#0b0baa", "#025ff8", "#0187fa", "#03adfb", "#28ddfc", "#8ff2fe"}
+OLD_HIGH = {"#1d1444", "#3c2a71", "#fabe38", "#fbe169", "#08021a"}   # the old dark masses and clip, rows <= 71
+DOME = {54: (60, 69), 55: (58, 71), 56: (57, 72), 57: (57, 72), 58: (56, 73), 59: (56, 73), 60: (56, 73), 61: (57, 72),
+        62: (58, 71), 63: (60, 70)}
+DRILL_SEG = [".tnh.", "tnnhg", "nkhhg", "khhga", ".aga."]    # k: the old hair's light blue (the palette keeps its 25)
+BOW = ["ee.ee", "ecaec"]
+HAIR_FACE = (62, 68, 64, 69)            # columns, rows of the face: never touched
+
+
+def hair_squares():
+    H = {}
+    for y, (x0, x1) in DOME.items():
+        for x in range(x0, x1 + 1):
+            ch = "n"
+            if x >= x1 - 2:
+                ch = "h"
+            if x == x1:
+                ch = "g"
+            if y >= 61 and x <= x0 + 1:
+                ch = "h"
+            H[(x, y)] = ch
+    for q in [(60, 55), (61, 55), (62, 55), (59, 56), (60, 56), (58, 57)]:
+        H[q] = "t"
+    for q in [(65, 56), (64, 57), (64, 58), (63, 59), (63, 60), (69, 57), (69, 58), (70, 59), (70, 60), (59, 59),
+              (59, 60)]:
+        H[q] = "h"
+    for q in [(65, 53), (66, 53), (66, 52), (67, 51), (68, 51)]:
+        H[q] = "n"
+    H[(68, 52)] = "h"
+    for x, ch in zip(range(60, 71), "hhnghngnhhg"):
+        H[(x, 63)] = ch
+    H[(62, 62)] = H[(65, 62)] = H[(68, 62)] = "h"
+    for y in range(64, 73):
+        if y <= 71:
+            H[(61, y)] = H[(69, y)] = "h"
+        H[(60, y)] = H[(70, y)] = "n" if y < 70 else "h"
+    H[(60, 72)] = H[(70, 72)] = H[(61, 71)] = H[(69, 71)] = "g"
+    for cx in (54, 74):
+        y = 62
+        for k, off in enumerate((0, 1, 0, 1)):
+            for r, row in enumerate(DRILL_SEG if k < 3 else DRILL_SEG[:4]):
+                for i, ch in enumerate(row):
+                    if ch != ".":
+                        H[(cx - 2 + off + i, y + r)] = ch
+            y += 4
+        H[(cx, y)] = "h"
+        H[(cx + 1, y)] = H[(cx, y + 1)] = "g"
+    for bx in (52, 72):
+        for r, row in enumerate(BOW):
+            for i, ch in enumerate(row):
+                if ch != ".":
+                    H[(bx + i, 60 + r)] = ch
+    for y in range(62, 73):
+        for x in (57, 58, 59, 71, 72):
+            H.setdefault((x, y), "a" if y >= 66 else "g")
+    return H
+
+
+def cute_hair(canvas, mask):
+    """Step 12 on the 128 canvas; `mask` (the scissors' squares) loses the squares the hair now covers."""
+    H = hair_squares()
+    old = canvas.copy()
+    hexof = lambda y, x: "#%02x%02x%02x" % tuple(int(v) for v in old[y, x, :3]) if old[y, x, 3] else None  # noqa: E731
+    fx0, fx1, fy0, fy1 = HAIR_FACE
+    for y in range(69, 72):                         # behind the neck between the locks: the hair's shadow
+        for x in range(61, 70):
+            if (x, y) not in H and hexof(y, x) in OLD_HAIR and not mask[y, x]:
+                H[(x, y)] = "a"
+    for y in range(48, 86):
+        for x in range(44, 86):
+            if fx0 <= x <= fx1 and fy0 <= y <= fy1:
+                continue
+            h = hexof(y, x)
+            hairy = not mask[y, x] and (h in OLD_HAIR or (y <= 71 and h in OLD_HIGH))
+            if (x, y) in H:
+                if h is None or hairy or mask[y, x]:
+                    canvas[y, x] = (*hx(HAIR_HEX[H[(x, y)]]), 255)
+                    mask[y, x] = False
+            elif hairy and (y <= 71 or x < 57 or x > 77):
+                canvas[y, x] = 0
+    op = canvas[..., 3] > 0
+    for y, x in zip(*np.nonzero(~op)):
+        if 46 <= y <= 88 and 42 <= x <= 86 and any(
+                q in H and canvas[q[1], q[0], 3] for q in ((x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1))):
+            canvas[y, x] = (*hx(HAIR_HEX["0"]), 255)
+
+
 def build(with_mask=False):
     """The design canvas; with_mask also the scissors' squares on it (step 9's, the point's)."""
     raw = read_back()
@@ -374,9 +468,10 @@ def build(with_mask=False):
     r0, r1, c0, c1 = FACE_BOX
     face[r0:r1 + 1, c0:c1 + 1] = True
     clean_dark(canvas, face)                           # step 11
+    mask = np.zeros((128, 128), bool)
+    mask[y0:y0 + fig.shape[0], x0:x0 + fig.shape[1]] = sc
+    cute_hair(canvas, mask)                            # step 12
     if with_mask:
-        mask = np.zeros((128, 128), bool)
-        mask[y0:y0 + fig.shape[0], x0:x0 + fig.shape[1]] = sc
         return canvas, mask
     return canvas
 

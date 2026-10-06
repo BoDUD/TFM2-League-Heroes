@@ -69,7 +69,7 @@ LEG_TOP, LEG_SPLIT = 86, 64            # the legs' rows (to the soles) and the c
 SC_LEN, SC_OPEN = 30, 44               # the held scissors: blade (squares), the snip's opening (degrees)
 IDLE_DEG = 155                         # the design's blade points 155 degrees (down and back)
 HAIR = "acghknt"                       # the hair's colours: the far arm and what it holds pass over them (the curls
-HAIR_ROWS = (56, 80)                   # hang behind her shoulders), under everything else; right of the torso's edge
+HAIR_ROWS = (50, 84)                   # hang behind her shoulders), under everything else; right of the torso's edge
 TORSO_RIGHT = 70                       # (column 70) only the curls and the sleeve are there: the far arm goes over them
 
 
@@ -411,26 +411,36 @@ def run_parts(P):
     return upper, sc_low, near, far
 
 
+# the run's life (the user: 「还有走路时太过于僵硬 没有那种灵性」): the free near hand swings against the near leg
+# (degrees from hanging, + forward), the twin drills trail a column behind as she pushes off and swing back at the
+# contacts - whole, under the arms and sleeves (moving them a frame late in rows tore them from the head)
+ARM_SWING = [-25, -15, 0, 15, 25, 15, 0, -15]
+SWAY = [0, -1, -1, 0, 0, -1, -1, 0]
+DRILLS = ((66, 84), (58, 71))          # rows of the drills below their bows; columns left / right of them are the drills
+
+
 def run_frame(P, k):
     upper, sc_low, near, far = run_parts(P)
-    body = P.body.copy()
-    body[LEG_TOP:] = 0
-    (r0, r1), (c0, c1) = CURLS
-    curls = np.zeros(body.shape[:2], bool)
-    curls[r0:r1 + 1] = P.hair[r0:r1 + 1]
-    curls[:, c0:c1 + 1] = False
-    lag = np.zeros_like(body)
-    lag[curls] = body[curls]
+    top = stand(P, {"near": (ARM_SWING[k], None)})
+    P.keep = None
+    sc_only = (P.scissors[..., 3] > 0) & (P.body[..., 3] == 0) & (top == P.scissors).all(-1)
+    top[sc_only] = 0                                   # the scissors ride separately, under everything
+    top[LEG_TOP:] = 0
+    (r0, r1), (cl, cr) = DRILLS
+    drill = np.zeros(top.shape[:2], bool)
+    drill[r0:r1 + 1] = P.hair[r0:r1 + 1] & (top[r0:r1 + 1] == P.body[r0:r1 + 1]).all(-1)
+    drill[:, cl + 1:cr] = False
+    tails = np.zeros_like(top)
+    tails[drill] = top[drill]
+    top[drill] = 0
     sc = P.scissors.copy()
-    body[curls] = 0
     c = np.zeros((128, 128, 4), np.uint8)
     for leg, ph, side in ((far, (k + 4) % 8, "far"), (near, k, "near")):
         K.put(c, bent(leg, *CYCLE[ph], hip_in=HIP_IN[side]), 0, 0)
     dy = BOB[k]
-    late = BOB[k - LAG]
-    K.put(c, shifted(body, 0, dy), 0, 0)
-    K.put(c, shifted(lag, 0, late), 0, 0, under=True)
-    K.put(c, shifted(sc, 0, late), 0, 0, under=True)
+    K.put(c, shifted(top, 0, dy), 0, 0)
+    K.put(c, shifted(tails, SWAY[k], dy), 0, 0, under=True)
+    K.put(c, shifted(sc, 0, dy), 0, 0, under=True)
     c[SOLES + 1:] = 0
     return c
 
