@@ -65,7 +65,8 @@ NEAR_SH, FAR_SH = (58, 75), (71, 73)   # the arms' first squares (top-left of th
                                        # right under its puffed sleeve, so it shows over the curls
 ARM_STEPS, GLOVE_STEPS = 3, 2         # the design's arm: 3 skin steps and the glove's 2 (the user: longer ones were wrong)
 STRAY = [(58, 86), (58, 87), (58, 88)] # squares left of the old small scissors under the skirt's left edge
-LEG_TOP, LEG_SPLIT = 86, 66            # the legs' rows (to the soles) and the column between them
+LEG_TOP, LEG_SPLIT = 87, 66            # the legs' rows (to the soles) and the column between them; the skirt's hem
+                                       # (row 86) stays on the body (a lifted leg took its piece of it up)
 SC_LEN, SC_OPEN = 30, 44               # the held scissors: blade (squares), the snip's opening (degrees)
 IDLE_DEG = 155                         # the design's blade points 155 degrees (down and back)
 HAIR = "acghknt"                       # the hair's colours: the far arm and what it holds pass over them (the curls
@@ -351,15 +352,13 @@ def stand(P, pose):
 
 # ------------------------------------------------------------------------------------------------ the run
 # one leg's cycle (8 frames): (knee columns, ankle columns from the hip - + forward = image right -, rows lifted):
-# contact, loading, mid-stance, push, toe-off, kick, passing, reach; the other leg half a cycle later. The hip stays
-# under the skirt; the thigh rows lean to the knee, the shin rows on to the ankle, the boot rows move whole with the
-# ankle (the user: v1's legs slid as straight sticks, 「走路的时候 说不出的怪」)
-CYCLE = [(1, 1, 0), (0, 1, 0), (0, 0, 0), (-1, -1, 0), (-1, -1, 1), (0, -1, 2), (0, 0, 3), (1, 1, 2)]
-# the hips drawn in under the skirt (the near leg 2 columns right, the far one 2 left): 6 apart, a stride of 3 put both
-# feet on one spot at the contacts and the near leg hid the far one (「两个腿上都有像素丢失吧？」); 2 apart they part at
-# the contacts and cross while passing (run-crossing: twice the swing must exceed the hip gap)
-HIP_IN = {"near": -1, "far": 1}        # no crossing: the legs a column apart each, a swing of 1 and the lift for the step
-                                       # (crossed they stacked into one: 「还是有点奇怪呢」)
+# contact, loading, mid-stance, push, toe-off, lift, passing, reach; the other leg half a cycle later. She stands
+# facing us, so the legs step where they stand (a front view's trot): the planted leg straight, the other lifted - its
+# top under the skirt, so it shows as a knee raised - its foot a column forward at the top. Swinging them sideways
+# read as anything but a step: crossed, the legs stacked into one (「还是有点奇怪呢」); swung apart together, they
+# opened and closed like a jumping jack (「太奇怪了 找找分析修复一下」)
+CYCLE = [(0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 1), (0, 1, 2), (0, 1, 3), (0, 0, 1)]
+HIP_IN = {"near": 0, "far": 0}         # the hips where they stand (bent() can still draw a leg in under the skirt)
 BOB = [1, 1, 0, 0, 1, 1, 0, 0]          # the body a row lower at each contact - two rows (and the curls and scissors a frame
 LAG = 0                                # late, a reviewer's idea) squashed her onto her legs and tore the curls from the
 CURLS = ((68, 82), (60, 68))           # head: 「走路时模型变形了吧？」
@@ -452,6 +451,8 @@ def run_frame(P, k):
     dy = BOB[k]
     K.put(c, shifted(top, 0, dy), 0, 0)
     K.put(c, shifted(tails, SWAY[k], dy), 0, 0, under=True)
+    K.put(c, shifted(tails, 0, dy), 0, 0, under=True)  # the curl swung out: where it stood shows the curl, not a slit
+                                                       # of the ground beside her face
     K.put(c, shifted(sc, 0, dy), 0, 0, under=True)
     c[SOLES + 1:] = 0
     s4 = shifted(sc, 0, dy)
@@ -577,7 +578,9 @@ def finish(P, raw):
     keep = getattr(P, "keep", None)
     P.keep = None
     soften_inner_ink(P, f, keep)
-    return f
+    # a lone clear square left inside her takes the colour round it - the design has none (the gaps between the legs
+    # are wider): the sunk rings by the skirt's edge as she breathes, a ring by the tilted head as she falls
+    return K.fill_pinholes(f, 1, P.D.outline)
 
 
 def soften_inner_ink(P, f, keep=None):

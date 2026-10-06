@@ -583,17 +583,31 @@ def polish(canvas, mask):
         for i, c in enumerate(row):
             if c != "-" and not mask[y, 56 + i + dx]:
                 put(56 + i + dx, y, c)
-    # the skirt's hem over the legs' tops: the outline row under it closed where the legs moved from
-    for x in range(56, 74):
-        if ch(87, x) == "." and ch(86, x) not in ".0":
-            put(x, 87, "0")
-    # outline squares the rings above left touching no colour (over the scissors' spikes, outside the near shoulder) go
+    # the skirt's bottom edge closed: an outline square under each skirt square left over nothing - row 86 had a hole
+    # above the near stocking and none under the two last squares on the right (「太奇怪了 找找分析修复一下」), row 87
+    # where the legs moved from
+    for y in (86, 87):
+        for x in range(56, 76):
+            if ch(y, x) == "." and ch(y - 1, x) not in ".0" and not mask[y, x]:
+                put(x, y, "0")
+    # outline squares the rings above left touching no colour (over the scissors' spikes, outside the near shoulder) go -
+    # on the edge only: never the scissors' own (it punched their rings' hearts into a checker: 「剪刀孔请用可爱的形状」)
+    # nor one with ink all round (that left a clear pinhole under the near curl; 「太奇怪了 找找分析修复一下」)
     ink = (a[..., :3] == hx(PAL["0"])).all(-1) & (a[..., 3] > 0)
     col = (a[..., 3] > 0) & ~ink
     for y, x in zip(*np.nonzero(ink)):
-        if 50 <= y <= 99 and not any(0 <= y + dy < 128 and 0 <= x + dx < 128 and col[y + dy, x + dx] for dy, dx in N4):
+        if not 50 <= y <= 99 or mask[y, x]:
+            continue
+        nb = [(y + dy, x + dx) for dy, dx in N4 if 0 <= y + dy < 128 and 0 <= x + dx < 128]
+        if not any(col[p] for p in nb) and any(not a[p][3] for p in nb):
             a[y, x] = 0
             mask[y, x] = False
+    # a clear square with the outline on all four sides takes it (under the near curl the head's outline ring was put
+    # all round a square it left clear: a pinhole of the ground)
+    op = a[..., 3] > 0
+    for y, x in zip(*np.nonzero(~op)):
+        if 50 <= y <= 99 and all(op[y + dy, x + dx] and not mask[y + dy, x + dx] for dy, dx in N4):
+            put(x, y, "0")
 
 
 def build(with_mask=False):
