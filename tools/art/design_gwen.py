@@ -401,6 +401,250 @@ def back_hair(a):
                         n += 1
     return n
 
+# step 14 (the user: 「你把我44行的精修一下吧」, then 「有点味道了 继续美化」, after their own picture of her): the head
+# polished the picture's way and the skirt and legs cleaned. Canvas coordinates, the scissors' squares (mask) behind:
+# 1. the dark masses beside her head (the draft's bows, navy since step 13) cleared, and in their place an end-on curl
+#    each side by her shoulders - a disc lit top left with a navy line winding into its middle (the picture's spiral
+#    ringlets) - the hair from the crown down to them filled;
+# 2. a small bow on each side of the crown (5 x 3, violet lit on top, a gold knot) - big black ones read as blots
+#    (「蝴蝶结这么大？？？？」);
+# 3. the crown redrawn (CROWN): lit top left, darker to the right, a parting splitting two locks, strands, the bangs'
+#    points on her forehead and a cyan ahoge curling up (it was a navy stub);
+# 4. the skirt with fewer things on it (「裙子上元素可以少一点」): the white panels' gold edging and the gold under the
+#    hem take the colours beside them, the middle hem ornament goes; the bow's star and two hem ornaments stay;
+# 5. the stockings in three clean steps per leg (lit left edge, dark right edge), a lilac knee each, a gold star on the
+#    far thigh; the boots' lone squares cleaned.
+PAL = {"0": "#08021a", "a": "#020375", "b": "#1d1444", "c": "#0b0baa", "d": "#3c2a71", "e": "#4516eb", "f": "#653a94",
+       "g": "#025ff8", "h": "#0187fa", "i": "#e0506a", "j": "#7f6be0", "k": "#03adfb", "l": "#e89620", "m": "#aa93f3",
+       "n": "#28ddfc", "o": "#f39378", "p": "#f6a6a0", "q": "#fabe38", "r": "#f8b899", "s": "#cec1fa", "t": "#8ff2fe",
+       "u": "#fbe169", "v": "#fce3cd", "w": "#fcf6cb", "x": "#f3f8fa"}
+LETTER = {v: k for k, v in PAL.items()}
+POLISH_FACE = (62, 68, 63, 69)                     # columns, rows of the face: kept
+FACE_TURN = (62, 68)                               # the face's columns: its features moved one to the right
+FACE_NEAR = ((61, 63, "g"), (62, 63, "h"), (63, 63, "k"),   # the bangs over the forehead's bare strip,
+             (62, 64, "h"), (62, 65, "h"), (62, 66, "a"),   # a lock of the bangs down the near cheek,
+             (63, 65, "0"), (63, 67, "p"),                   # a lash at the near eye's outer corner, the blush 2 wide,
+             (62, 67, "r"), (62, 68, "r"))                   # the cheek's edge shaded
+CURLS_ = [(57.5, 68.5, 3.9, True), (73.0, 68.5, 3.9, False)]   # centre, radius, winding
+BOW_ = ["fd.df", "ddqdd", "bd.db"]
+BOWS_AT = [(57, 60), (73, 60)]
+SIDES = {62: ("0tnkhagh", "hgaknkh0"),
+         63: ("0nkhgagh", "ggankhg0"),
+         64: ("0khgaggh", "hgakhga0")}           # columns 54-61 and 69-76
+THIGHS = (63, 66, 70)                         # rows 87-90 one block: the near thigh 63-66, the far 67-70
+CALVES = {91: ((62, 65), (67, 70)), 92: ((62, 65), (67, 70)), 93: ((62, 65), (67, 70))}  # near, far: straight
+BOOTS = {94: ((61, "sxxsm"), (67, "msxs")),   # (first column, colours): the near boot facing us, its toe out to
+         95: ((61, "msqsb"), (67, "bmqm")),   # the left; the far boot turned to her front (image right), its toe
+         96: ((61, "ssxsb"), (67, "bmss")),   # out to the right - a gold buckle each, a gold toe cap
+         97: ((61, "qsssb"), (67, "bmsss")),
+         98: ((61, "ssssb"), (68, "bmssq"))}
+THIGH_STAR = ((69, 87, "u"), (68, 88, "q"), (69, 88, "u"), (70, 88, "q"), (69, 89, "l"))
+CROWN = {54: "--.000.........",
+         55: "--0ntn0........",
+         56: "--0nn0.........",
+         57: "-0nkn000000----",
+         58: "0gnttnnhnkh0---",
+         59: "--ntnnkhnkhhg--",
+         60: "--nnhnaknnhgg--",
+         61: "--knnhannkhhg--",
+         62: "0ghnnkakknkhgg0",
+         63: "0ghvvvknnkhggg0"}                  # from column 58; '-' keeps, '.' clears
+
+
+def polish(canvas, mask):
+    a = canvas
+
+    def ch(y, x):
+        if not a[y, x, 3]:
+            return "."
+        return LETTER.get("#%02x%02x%02x" % tuple(int(v) for v in a[y, x, :3]), "?")
+
+    def put(x, y, c):
+        if c == ".":
+            a[y, x] = 0
+        else:
+            a[y, x] = (*hx(PAL[c]), 255)
+        mask[y, x] = False
+
+    fx0, fx1, fy0, fy1 = POLISH_FACE
+    # 1. the side masses cleared (not the face, the scissors or the dress's dark at the shoulders)
+    for y in range(59, 75):
+        for x in list(range(50, 62)) + list(range(69, 80)):
+            if (fx0 <= x <= fx1 and fy0 <= y <= fy1) or mask[y, x]:
+                continue
+            c = ch(y, x)
+            if c in "acghkntqu0bdf" and not (y >= 72 and c in "bdf"):     # the draft's bows (violet) too
+                put(x, y, ".")
+    for cx, cy, r, cw in CURLS_:
+        pitch = r / 1.5
+        for y in range(int(cy - r - 1), int(cy + r + 2)):
+            for x in range(int(cx - r - 1), int(cx + r + 2)):
+                dx, dy = x + 0.5 - cx, y + 0.5 - cy
+                d = np.hypot(dx, dy)
+                if d > r:
+                    continue
+                th = np.arctan2(dy, dx) * (1 if cw else -1)
+                u = (d + th / (2 * np.pi) * pitch) % pitch
+                if u < pitch * 0.42 and d > 0.6:
+                    c = "a"
+                else:
+                    lit = -(dx + dy) / (r * 1.4)
+                    c = "t" if lit > 0.55 else ("n" if lit > 0.05 else ("k" if lit > -0.35 else ("h" if lit > -0.7 else "g")))
+                if mask[y, x] or ch(y, x) in ".acghknt0" or y < 72:
+                    put(x, y, c)
+    for y in range(59, 66):
+        for x in (59, 60, 61, 69, 70, 71):
+            if ch(y, x) == ".":
+                put(x, y, "h" if x in (61, 69) else "g")
+    # 2. the bows
+    for cx, cy in BOWS_AT:
+        for r, row in enumerate(BOW_):
+            for i, c in enumerate(row):
+                if c != ".":
+                    put(cx - 2 + i, cy - 1 + r, c)
+    # outline round the head (rows 52-76), never over the scissors
+    op = a[..., 3] > 0
+    ring = np.zeros_like(op)
+    for dy, dx in N4:
+        ring |= np.roll(np.roll(op, dy, 0), dx, 1)
+    ring &= ~op
+    ring[:52] = False
+    ring[77:] = False
+    for y, x in zip(*np.nonzero(ring)):
+        put(x, y, "0")
+    # the hair behind the bows: the gaps between a bow and the crown and curls (filled with outline they made the
+    # bows a black blot) take the hair's blue; then one outline ring outside again
+    bows = {(cx - 2 + i, cy - 1 + r) for cx, cy in BOWS_AT for r, row in enumerate(BOW_) for i, c in enumerate(row)
+            if c != "."}
+    for x0, x1 in ((55, 59), (71, 75)):
+        for y in range(62, 65):                    # under the bow down to the curl: above it only the outline
+            for x in range(x0, x1 + 1):
+                if (x, y) not in bows and ch(y, x) in ".0" and not mask[y, x]:
+                    put(x, y, "g")
+    for y in range(52, 77):
+        for x in range(46, 86):
+            if ch(y, x) == "0" and all(ch(y + dy, x + dx) not in "." for dy, dx in N4) and not mask[y, x] and                     not (fx0 <= x <= fx1 and fy0 <= y <= fy1) and 56 <= y <= 64 and (x <= 59 or x >= 71):
+                put(x, y, "a")                     # an outline square now inside the hair: the hair's navy line
+    # the hair from each bow down into its curl: locks lit on the left with a navy line (filled flat blue, the two
+    # sides and the crown's edges read as a headband)
+    for y, (left, right) in SIDES.items():
+        for i, c in enumerate(left):
+            put(54 + i, y, c)
+        for i, c in enumerate(right):
+            put(69 + i, y, c)
+    # 3. the crown
+    for y, row in CROWN.items():
+        for i, c in enumerate(row):
+            if c != "-":
+                put(58 + i, y, c)
+    op = (a[..., 3] > 0) & ~(a[..., :3] == hx(PAL["0"])).all(-1)   # colour, not outline: one ring, not two
+    for y in range(53, 65):
+        for x in range(54, 78):
+            if not a[y, x, 3] and any(op[y + dy, x + dx] for dy, dx in N4):
+                put(x, y, "0")
+    # outline squares with no colour beside them (the first ring's outer squares now doubled) go
+    for y in range(52, 66):
+        for x in range(46, 86):
+            if ch(y, x) == "0" and not mask[y, x] and not any(op[y + dy, x + dx] for dy, dx in N4) and                     not any(ch(y + dy, x + dx) == "0" and op[y + 2 * dy, x + 2 * dx] if 0 <= y + 2 * dy < 128 else False
+                            for dy, dx in N4):
+                put(x, y, ".")
+
+    def common(y, x, skip):
+        nb = [ch(y + dy, x + dx) for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1))]
+        nb = [n for n in nb if n not in skip]
+        return min(set(nb), key=lambda c: (-nb.count(c), c)) if nb else None   # ties by letter: the same every run
+
+    # 4. the skirt
+    for y in list(range(79, 82)) + [86, 87]:
+        for x in range(55, 80):
+            if ch(y, x) in "qul" and not mask[y, x]:
+                c = common(y, x, set("qul0."))
+                if c:
+                    put(x, y, c)
+    if ch(84, 65) in "qul":
+        put(65, 84, "b")
+    # 5. the legs redrawn (the user: 「腿能更新吗」, the picture's): diamond-checked violet stockings lit on the left edge,
+    # a small gold star on the far thigh, white boots with a gold buckle and toe cap - standing as the first design
+    # did, a little turned (「你看看之前的格温的站姿」「你现在站的太正了」: the redrawn legs stood square, apart, toes out):
+    # the thighs together, the near leg out to the left from the knee, its boot facing us, the far leg straight, its
+    # boot turned to her front; under her middle (「腿移中间点呗」; the run splits them at column 66)
+    for y in range(87, 100):
+        for x in range(56, 76):
+            if not mask[y, x] and (y >= 89 or 58 <= x <= 73):
+                put(x, y, ".")
+    legs = np.zeros(mask.shape, bool)
+
+    def stocking(y, x0, x1, lit):
+        for x in range(x0, x1 + 1):
+            put(x, y, "f" if (x + y) % 2 == 0 else "d")
+            legs[y, x] = True
+        if lit:
+            put(x0, y, "j")
+        put(x1, y, "b" if (x1 + y) % 2 else "d")
+
+    t0, t1, t2 = THIGHS
+    for y in range(87, 91):
+        stocking(y, t0, t1, True)
+        stocking(y, t1 + 1, t2, False)
+        if y >= 89:
+            put(t1 + 1, y, "b")                           # the crease between the thighs
+    for y, ((n0, n1), (f0, f1)) in CALVES.items():
+        stocking(y, n0, n1, True)
+        stocking(y, f0, f1, False)
+    for x, y, c in THIGH_STAR:
+        put(x, y, c)
+    for y, segs in BOOTS.items():
+        for x0, cols in segs:
+            for i, c in enumerate(cols):
+                put(x0 + i, y, c)
+                legs[y, x0 + i] = True
+    for y in range(87, 100):                              # one outline round them, never over the skirt or scissors
+        for x in range(56, 76):
+            if not (legs[y, x] or mask[y, x] or a[y, x, 3]) and any(
+                    legs[y + dy, x + dx] for dy, dx in N4 if 0 <= y + dy < 128):
+                put(x, y, "0")
+    for y in range(91, 99):                               # and one column between them
+        if not legs[y, 66]:
+            put(66, y, "0")
+    # the skirt's bottom edge closed: an outline square under each skirt square left over nothing - row 86 had a hole
+    # above the near stocking and none under the two last squares on the right (「太奇怪了 找找分析修复一下」), row 87
+    # where the legs moved from
+    for y in (86, 87):
+        for x in range(56, 76):
+            if ch(y, x) == "." and ch(y - 1, x) not in ".0" and not mask[y, x]:
+                put(x, y, "0")
+    # outline squares the rings above left touching no colour (over the scissors' spikes, outside the near shoulder) go -
+    # on the edge only: never the scissors' own (it punched their rings' hearts into a checker: 「剪刀孔请用可爱的形状」)
+    # nor one with ink all round (that left a clear pinhole under the near curl; 「太奇怪了 找找分析修复一下」)
+    ink = (a[..., :3] == hx(PAL["0"])).all(-1) & (a[..., 3] > 0)
+    col = (a[..., 3] > 0) & ~ink
+    for y, x in zip(*np.nonzero(ink)):
+        if not 50 <= y <= 99 or mask[y, x]:
+            continue
+        nb = [(y + dy, x + dx) for dy, dx in N4 if 0 <= y + dy < 128 and 0 <= x + dx < 128]
+        if not any(col[p] for p in nb) and any(not a[p][3] for p in nb):
+            a[y, x] = 0
+            mask[y, x] = False
+    # a clear square with the outline on all four sides takes it (under the near curl the head's outline ring was put
+    # all round a square it left clear: a pinhole of the ground)
+    op = a[..., 3] > 0
+    for y, x in zip(*np.nonzero(~op)):
+        if 50 <= y <= 99 and all(op[y + dy, x + dx] and not mask[y + dy, x + dx] for dy, dx in N4):
+            put(x, y, "0")
+    # 6. the face turned a column to her front (image right) with the stance (「你现在站的太正了」, then 「加上」): the
+    # brows, eyes, blush and mouth (columns 62-68, rows 64-68) one column right, the column they leave skin
+    f0, f1 = FACE_TURN
+    for y in range(64, 69):
+        row = [ch(y, x) for x in range(f0, f1 + 1)]
+        for i, c in enumerate(["v"] + row[:-1]):
+            put(f0 + i, y, c)
+    # its near side then two columns of bare skin (「左边脸部有点奇怪吧 再精致一点 感觉少了点什么」): a lock of the
+    # bangs down the near cheek, the near eye the bigger (a lash at its outer corner), the blush two wide, the edge
+    # shaded; the bangs over the strip of forehead left of them (a white bar over the lock: 「那块白的还有点奇怪」)
+    for x, y, c in FACE_NEAR:
+        put(x, y, c)
+
+
 def build(with_mask=False):
     """The design canvas; with_mask also the scissors' squares on it (step 9's, the point's)."""
     raw = read_back()
@@ -437,7 +681,7 @@ def build(with_mask=False):
     mask = np.zeros((128, 128), bool)
     mask[y0:y0 + fig.shape[0], x0:x0 + fig.shape[1]] = sc
     lone_ink(canvas, face | mask)                      # step 12
-    back_hair(canvas)                                  # step 13
+    polish(canvas, mask)                               # step 14 (supersedes step 13's recolouring)
     if with_mask:
         return canvas, mask
     return canvas
