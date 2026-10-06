@@ -1,6 +1,6 @@
-"""Pull Pyke's sounds and ability icons out of a local League of Legends install.
+r"""Pull Pyke's sounds and ability icons out of a local League of Legends install.
 
-    python tools/lol/extract_pyke.py --lol "D:\\WeGameApps\lol" --vgmstream path\to\vgmstream-cli.exe
+    python tools/lol/extract_pyke.py --lol "D:\WeGameApps\lol" --vgmstream path\to\vgmstream-cli.exe
 
 Same route as extract_garen.py (its decode/finish helpers are reused): reads (never writes)
 Game/DATA/FINAL/Champions/Pyke.wad.client and Pyke.<lang>.wad.client, resolves the base-skin Wwise events below
@@ -14,7 +14,7 @@ Skewer's stab QMelee_OnCast / _hit, the charge Q_OnCast (a long rising loop, cut
 hit QRange_hit_champion; Ghostwater Dive W_buffactivate; Phantom Undertow E_OnCast (the dash), EMissile_return (the
 phantom coming back), EMissile_hit (its stun); Death from Below R_cast, R_hitlocation_enemy (the X striking),
 R_kill_reset_selfonly (the reset); the grey health Passive_heal_start. Voice: QRange_cast3D, QMelee_cast3D,
-E_stealthExit3D, W_cast2D, RExecuteEnemy2D (the zh_CN bank has no R_cast3D media).
+E_stealthExit3D, RExecuteEnemy2D at the reset (the zh_CN bank has no R_cast3D media).
 Icons: PykeQ = skill, PykeE = skill2 (the combo's dash and stun), PykeR = ult.
 """
 import argparse
@@ -55,7 +55,6 @@ CLIPS = {
     "league_pyke_sfx_p_heal": (P + "Passive_heal_start", 285925337, 1.2, -12),
     "league_pyke_vo_q": (V + "PykeQRange_cast3D", 1546633707, 1.3, -4),
     "league_pyke_vo_q2": (V + "PykeQMelee_cast3D", 507620540, 1.0, -4),
-    "league_pyke_vo_w": (V + "PykeW_cast2D", 1418121795, 2.3, -4),
     "league_pyke_vo_e": (V + "PykeE_stealthExit3D", 1240967689, 1.5, -4),
     "league_pyke_vo_r": (V + "RExecuteEnemy2D", 879376418, 2.3, -3),
 }

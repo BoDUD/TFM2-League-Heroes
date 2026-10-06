@@ -1,0 +1,2310 @@
+{
+  "id": "league_pyke",
+  "category": "Assassin",
+  "tags": [
+    "AD",
+    "Melee",
+    "CC"
+  ],
+  "sprite": "asset/league/champions/league_pyke",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/league/icons/league_pyke_skill",
+    "asset/league/icons/league_pyke_skill2",
+    "asset/league/icons/league_pyke_ult"
+  ],
+  "stat": {
+    "attack": 74,
+    "magic_power": 0,
+    "hp": 900,
+    "defence": 26,
+    "magic_resistance": 18,
+    "move_speed": 1100,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 8,
+    "magic_power": 0,
+    "hp": 82,
+    "defence": 8,
+    "magic_resistance": 4,
+    "move_speed": 12,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.league_pyke.attack",
+    "duration": 24,
+    "cooltime": 55,
+    "start_timing": 9,
+    "cancelable": true,
+    "range": 24000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_pyke_init",
+          "effect_buff": {
+            "type": "SwitchByBuff",
+            "buff_name": "league_pyke_sense",
+            "effect_buff": {
+              "type": "Combine",
+              "effects": []
+            },
+            "effect_none": {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_pyke_g5",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_pyke_g5"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_pyke_g5",
+                          "duration": {
+                            "Time": {
+                              "tick": 480
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_pyke_g4",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_pyke_g4"
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_pyke_g5",
+                            "duration": {
+                              "Time": {
+                                "tick": 480
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_pyke_g3",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_pyke_g3"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_pyke_g4",
+                              "duration": {
+                                "Time": {
+                                  "tick": 480
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_pyke_g2",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_pyke_g2"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_pyke_g3",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 480
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_pyke_g1",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_pyke_g1"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_pyke_g2",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 480
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_pyke_g1",
+                              "duration": {
+                                "Time": {
+                                  "tick": 480
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_pyke_hurt"
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_pyke_hurt",
+                        "duration": {
+                          "Time": {
+                            "tick": 180
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "RangeEffect",
+                  "shape": {
+                    "Circle": {
+                      "radius": 1000
+                    }
+                  },
+                  "target": "AllyOnlySelf",
+                  "apply_type": "AroundCaster",
+                  "effects": [
+                    {
+                      "type": "Shield",
+                      "amount": 1,
+                      "attack_ratio": 0,
+                      "ap_ratio": 0,
+                      "tick": 36000
+                    }
+                  ]
+                },
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_pyke_sense",
+                    "duration": "WithShield"
+                  },
+                  "only_to_enemy": false
+                }
+              ]
+            }
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "RangeEffect",
+                "shape": {
+                  "Circle": {
+                    "radius": 1000
+                  }
+                },
+                "target": "AllyOnlySelf",
+                "apply_type": "AroundCaster",
+                "effects": [
+                  {
+                    "type": "Shield",
+                    "amount": 1,
+                    "attack_ratio": 0,
+                    "ap_ratio": 0,
+                    "tick": 36000
+                  }
+                ]
+              },
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_pyke_sense",
+                  "duration": "WithShield"
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_pyke_init",
+                  "duration": "Permanent"
+                },
+                "only_to_enemy": false
+              }
+            ]
+          }
+        },
+        {
+          "type": "RangeEffect",
+          "shape": {
+            "Circle": {
+              "radius": 1000
+            }
+          },
+          "target": "AllyOnlySelf",
+          "apply_type": "AroundCaster",
+          "effects": [
+            {
+              "type": "Delayed",
+              "tick": 180,
+              "effects": [
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_pyke_sense",
+                  "effect_buff": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_pyke_hurt",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": []
+                    },
+                    "effect_none": {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_pyke_g5",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_pyke_g1"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_pyke_g2"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_pyke_g3"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_pyke_g4"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_pyke_g5"
+                          },
+                          {
+                            "type": "CasterViewEffect",
+                            "name": "league_pyke_p_heal"
+                          },
+                          {
+                            "type": "Sfx",
+                            "name": "league_pyke_p_heal"
+                          },
+                          {
+                            "type": "RangeEffect",
+                            "shape": {
+                              "Circle": {
+                                "radius": 1000
+                              }
+                            },
+                            "target": "AllyOnlySelf",
+                            "apply_type": "AroundCaster",
+                            "effects": [
+                              {
+                                "type": "AddCasted",
+                                "casted_type": "Heal",
+                                "duration": 37,
+                                "period": 12,
+                                "effects": [
+                                  {
+                                    "type": "Heal",
+                                    "amount": 18,
+                                    "attack_ratio": 10,
+                                    "ap_ratio": 0,
+                                    "heal_type": "Caster"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_pyke_g4",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_pyke_g1"
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_pyke_g2"
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_pyke_g3"
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_pyke_g4"
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_pyke_g5"
+                            },
+                            {
+                              "type": "CasterViewEffect",
+                              "name": "league_pyke_p_heal"
+                            },
+                            {
+                              "type": "Sfx",
+                              "name": "league_pyke_p_heal"
+                            },
+                            {
+                              "type": "RangeEffect",
+                              "shape": {
+                                "Circle": {
+                                  "radius": 1000
+                                }
+                              },
+                              "target": "AllyOnlySelf",
+                              "apply_type": "AroundCaster",
+                              "effects": [
+                                {
+                                  "type": "AddCasted",
+                                  "casted_type": "Heal",
+                                  "duration": 37,
+                                  "period": 12,
+                                  "effects": [
+                                    {
+                                      "type": "Heal",
+                                      "amount": 15,
+                                      "attack_ratio": 8,
+                                      "ap_ratio": 0,
+                                      "heal_type": "Caster"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_pyke_g3",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_pyke_g1"
+                              },
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_pyke_g2"
+                              },
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_pyke_g3"
+                              },
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_pyke_g4"
+                              },
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_pyke_g5"
+                              },
+                              {
+                                "type": "CasterViewEffect",
+                                "name": "league_pyke_p_heal"
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "league_pyke_p_heal"
+                              },
+                              {
+                                "type": "RangeEffect",
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 1000
+                                  }
+                                },
+                                "target": "AllyOnlySelf",
+                                "apply_type": "AroundCaster",
+                                "effects": [
+                                  {
+                                    "type": "AddCasted",
+                                    "casted_type": "Heal",
+                                    "duration": 37,
+                                    "period": 12,
+                                    "effects": [
+                                      {
+                                        "type": "Heal",
+                                        "amount": 11,
+                                        "attack_ratio": 6,
+                                        "ap_ratio": 0,
+                                        "heal_type": "Caster"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_pyke_g2",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_pyke_g1"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_pyke_g2"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_pyke_g3"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_pyke_g4"
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_pyke_g5"
+                                },
+                                {
+                                  "type": "CasterViewEffect",
+                                  "name": "league_pyke_p_heal"
+                                },
+                                {
+                                  "type": "Sfx",
+                                  "name": "league_pyke_p_heal"
+                                },
+                                {
+                                  "type": "RangeEffect",
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 1000
+                                    }
+                                  },
+                                  "target": "AllyOnlySelf",
+                                  "apply_type": "AroundCaster",
+                                  "effects": [
+                                    {
+                                      "type": "AddCasted",
+                                      "casted_type": "Heal",
+                                      "duration": 37,
+                                      "period": 12,
+                                      "effects": [
+                                        {
+                                          "type": "Heal",
+                                          "amount": 7,
+                                          "attack_ratio": 4,
+                                          "ap_ratio": 0,
+                                          "heal_type": "Caster"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_pyke_g1",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_pyke_g1"
+                                  },
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_pyke_g2"
+                                  },
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_pyke_g3"
+                                  },
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_pyke_g4"
+                                  },
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_pyke_g5"
+                                  },
+                                  {
+                                    "type": "CasterViewEffect",
+                                    "name": "league_pyke_p_heal"
+                                  },
+                                  {
+                                    "type": "Sfx",
+                                    "name": "league_pyke_p_heal"
+                                  },
+                                  {
+                                    "type": "RangeEffect",
+                                    "shape": {
+                                      "Circle": {
+                                        "radius": 1000
+                                      }
+                                    },
+                                    "target": "AllyOnlySelf",
+                                    "apply_type": "AroundCaster",
+                                    "effects": [
+                                      {
+                                        "type": "AddCasted",
+                                        "casted_type": "Heal",
+                                        "duration": 37,
+                                        "period": 12,
+                                        "effects": [
+                                          {
+                                            "type": "Heal",
+                                            "amount": 3,
+                                            "attack_ratio": 2,
+                                            "ap_ratio": 0,
+                                            "heal_type": "Caster"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": []
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Sfx",
+          "name": "league_pyke_a_swing"
+        },
+        {
+          "type": "Attack",
+          "damage": 0,
+          "attack_ratio": 100,
+          "hp_ratio": 0,
+          "target_hp_ratio": 0,
+          "attack_effect_type": "Target"
+        },
+        {
+          "type": "ViewEffect",
+          "name": "league_pyke_a_hit"
+        },
+        {
+          "type": "TargetSfx",
+          "name": "league_pyke_a_hit"
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.league_pyke.skill",
+    "duration": 3,
+    "cooltime": 420,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 100000,
+    "casting_type": "Direction",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "RemoveCasterBuff",
+          "name": "league_pyke_q_tap"
+        },
+        {
+          "type": "RandomTarget",
+          "range": 26000,
+          "casting_target": "EnemyChampion",
+          "from_projectile": false,
+          "effects": [
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_pyke_q_tap",
+                "duration": {
+                  "Time": {
+                    "tick": 1
+                  }
+                }
+              },
+              "only_to_enemy": false
+            }
+          ]
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_pyke_q_tap",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "CasterAnimation",
+                "name": "skill_stab",
+                "tick": 22
+              },
+              {
+                "type": "Sfx",
+                "name": "league_pyke_q_stab"
+              },
+              {
+                "type": "SwitchByBuff",
+                "buff_name": "league_pyke_vo_cd",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": []
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_pyke_vo_cd",
+                        "duration": {
+                          "Time": {
+                            "tick": 600
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "Sfx",
+                      "name": "league_pyke_vo_q2"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "Delayed",
+                "tick": 8,
+                "effects": [
+                  {
+                    "type": "RandomTarget",
+                    "range": 32000,
+                    "casting_target": "EnemyChampion",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Attack",
+                        "damage": 35,
+                        "attack_ratio": 60,
+                        "hp_ratio": 0,
+                        "target_hp_ratio": 0,
+                        "attack_effect_type": "Target"
+                      },
+                      {
+                        "type": "AddBuff",
+                        "buff_state": {
+                          "name": "league_pyke_q_slow",
+                          "duration": {
+                            "Time": {
+                              "tick": 60
+                            }
+                          },
+                          "move_speed_mult": -60
+                        }
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "league_pyke_q_stab_hit"
+                      },
+                      {
+                        "type": "TargetSfx",
+                        "name": "league_pyke_q_stab_hit"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "CasterAnimation",
+                "name": "skill",
+                "tick": 50
+              },
+              {
+                "type": "CasterViewEffect",
+                "name": "league_pyke_q_charge"
+              },
+              {
+                "type": "Sfx",
+                "name": "league_pyke_q_charge"
+              },
+              {
+                "type": "SwitchByBuff",
+                "buff_name": "league_pyke_vo_cd",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": []
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_pyke_vo_cd",
+                        "duration": {
+                          "Time": {
+                            "tick": 600
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "Sfx",
+                      "name": "league_pyke_vo_q"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "Delayed",
+                "tick": 36,
+                "effects": [
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_pyke_q_go"
+                      },
+                      {
+                        "type": "Sfx",
+                        "name": "league_pyke_q_throw"
+                      },
+                      {
+                        "type": "RandomTarget",
+                        "range": 85000,
+                        "casting_target": "EnemyChampion",
+                        "from_projectile": false,
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_pyke_q_go",
+                              "duration": {
+                                "Time": {
+                                  "tick": 1
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "LinearProjectile",
+                            "name": "league_pyke_q_hook_c",
+                            "penetrate": false,
+                            "applied_target": "EnemyChampion",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "Attack",
+                                  "damage": 35,
+                                  "attack_ratio": 60,
+                                  "hp_ratio": 0,
+                                  "target_hp_ratio": 0,
+                                  "attack_effect_type": "Target"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "league_pyke_q_slow",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 60
+                                      }
+                                    },
+                                    "move_speed_mult": -60
+                                  }
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "Grab",
+                                  "speed": 1500
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "ViewEffect",
+                                  "name": "league_pyke_q_hit"
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "TargetSfx",
+                                  "name": "league_pyke_q_hit"
+                                }
+                              }
+                            ],
+                            "end_effects": [
+                              {
+                                "type": "BackToCasterLinearProjectile",
+                                "name": "league_pyke_q_return",
+                                "speed": 1500,
+                                "range": 95000,
+                                "shape": {
+                                  "Circle": {
+                                    "radius": 1000
+                                  }
+                                },
+                                "penetrate": true,
+                                "applied_target": "EnemyChampion",
+                                "applied_effects": [],
+                                "end_effects": []
+                              }
+                            ],
+                            "speed": 6000,
+                            "range": 95000,
+                            "shape": {
+                              "Circle": {
+                                "radius": 6000
+                              }
+                            },
+                            "y_offset": -3000
+                          }
+                        ]
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_pyke_q_go",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": []
+                        },
+                        "effect_none": {
+                          "type": "LinearProjectile",
+                          "name": "league_pyke_q_hook",
+                          "penetrate": false,
+                          "applied_target": "EnemyWithoutTower",
+                          "applied_effects": [
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "Attack",
+                                "damage": 35,
+                                "attack_ratio": 60,
+                                "hp_ratio": 0,
+                                "target_hp_ratio": 0,
+                                "attack_effect_type": "Target"
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "AddBuff",
+                                "buff_state": {
+                                  "name": "league_pyke_q_slow",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 60
+                                    }
+                                  },
+                                  "move_speed_mult": -60
+                                }
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "Grab",
+                                "speed": 1500
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "ViewEffect",
+                                "name": "league_pyke_q_hit"
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "TargetSfx",
+                                "name": "league_pyke_q_hit"
+                              }
+                            }
+                          ],
+                          "end_effects": [
+                            {
+                              "type": "BackToCasterLinearProjectile",
+                              "name": "league_pyke_q_return",
+                              "speed": 1500,
+                              "range": 95000,
+                              "shape": {
+                                "Circle": {
+                                  "radius": 1000
+                                }
+                              },
+                              "penetrate": true,
+                              "applied_target": "EnemyChampion",
+                              "applied_effects": [],
+                              "end_effects": []
+                            }
+                          ],
+                          "speed": 6000,
+                          "range": 95000,
+                          "shape": {
+                            "Circle": {
+                              "radius": 6000
+                            }
+                          },
+                          "y_offset": -3000
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.league_pyke.skill2",
+    "duration": 3,
+    "cooltime": 660,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 70000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "CasterInvisible",
+              "tick": 150
+            },
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_pyke_w_camo"
+                },
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_pyke_w_camo",
+                    "duration": {
+                      "Time": {
+                        "tick": 150
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                }
+              ]
+            },
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_pyke_w_ms"
+                },
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_pyke_w_ms",
+                    "duration": {
+                      "Time": {
+                        "tick": 45
+                      }
+                    },
+                    "move_speed_mult": 20
+                  },
+                  "only_to_enemy": false
+                }
+              ]
+            },
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_pyke_w_ms2"
+                },
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_pyke_w_ms2",
+                    "duration": {
+                      "Time": {
+                        "tick": 90
+                      }
+                    },
+                    "move_speed_mult": 20
+                  },
+                  "only_to_enemy": false
+                }
+              ]
+            },
+            {
+              "type": "CasterViewEffect",
+              "name": "league_pyke_w_cast"
+            },
+            {
+              "type": "Sfx",
+              "name": "league_pyke_w_cast"
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_pyke_g5",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_pyke_g1"
+                  },
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_pyke_g2"
+                  },
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_pyke_g3"
+                  },
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_pyke_g4"
+                  },
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_pyke_g5"
+                  },
+                  {
+                    "type": "CasterViewEffect",
+                    "name": "league_pyke_p_heal"
+                  },
+                  {
+                    "type": "Sfx",
+                    "name": "league_pyke_p_heal"
+                  },
+                  {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 1000
+                      }
+                    },
+                    "target": "AllyOnlySelf",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
+                        "type": "AddCasted",
+                        "casted_type": "Heal",
+                        "duration": 37,
+                        "period": 12,
+                        "effects": [
+                          {
+                            "type": "Heal",
+                            "amount": 18,
+                            "attack_ratio": 10,
+                            "ap_ratio": 0,
+                            "heal_type": "Caster"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_pyke_g4",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_pyke_g1"
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_pyke_g2"
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_pyke_g3"
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_pyke_g4"
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_pyke_g5"
+                    },
+                    {
+                      "type": "CasterViewEffect",
+                      "name": "league_pyke_p_heal"
+                    },
+                    {
+                      "type": "Sfx",
+                      "name": "league_pyke_p_heal"
+                    },
+                    {
+                      "type": "RangeEffect",
+                      "shape": {
+                        "Circle": {
+                          "radius": 1000
+                        }
+                      },
+                      "target": "AllyOnlySelf",
+                      "apply_type": "AroundCaster",
+                      "effects": [
+                        {
+                          "type": "AddCasted",
+                          "casted_type": "Heal",
+                          "duration": 37,
+                          "period": 12,
+                          "effects": [
+                            {
+                              "type": "Heal",
+                              "amount": 15,
+                              "attack_ratio": 8,
+                              "ap_ratio": 0,
+                              "heal_type": "Caster"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "effect_none": {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_pyke_g3",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_pyke_g1"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_pyke_g2"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_pyke_g3"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_pyke_g4"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_pyke_g5"
+                      },
+                      {
+                        "type": "CasterViewEffect",
+                        "name": "league_pyke_p_heal"
+                      },
+                      {
+                        "type": "Sfx",
+                        "name": "league_pyke_p_heal"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 1000
+                          }
+                        },
+                        "target": "AllyOnlySelf",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "AddCasted",
+                            "casted_type": "Heal",
+                            "duration": 37,
+                            "period": 12,
+                            "effects": [
+                              {
+                                "type": "Heal",
+                                "amount": 11,
+                                "attack_ratio": 6,
+                                "ap_ratio": 0,
+                                "heal_type": "Caster"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_pyke_g2",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_pyke_g1"
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_pyke_g2"
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_pyke_g3"
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_pyke_g4"
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_pyke_g5"
+                        },
+                        {
+                          "type": "CasterViewEffect",
+                          "name": "league_pyke_p_heal"
+                        },
+                        {
+                          "type": "Sfx",
+                          "name": "league_pyke_p_heal"
+                        },
+                        {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "Circle": {
+                              "radius": 1000
+                            }
+                          },
+                          "target": "AllyOnlySelf",
+                          "apply_type": "AroundCaster",
+                          "effects": [
+                            {
+                              "type": "AddCasted",
+                              "casted_type": "Heal",
+                              "duration": 37,
+                              "period": 12,
+                              "effects": [
+                                {
+                                  "type": "Heal",
+                                  "amount": 7,
+                                  "attack_ratio": 4,
+                                  "ap_ratio": 0,
+                                  "heal_type": "Caster"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_pyke_g1",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_pyke_g1"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_pyke_g2"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_pyke_g3"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_pyke_g4"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_pyke_g5"
+                          },
+                          {
+                            "type": "CasterViewEffect",
+                            "name": "league_pyke_p_heal"
+                          },
+                          {
+                            "type": "Sfx",
+                            "name": "league_pyke_p_heal"
+                          },
+                          {
+                            "type": "RangeEffect",
+                            "shape": {
+                              "Circle": {
+                                "radius": 1000
+                              }
+                            },
+                            "target": "AllyOnlySelf",
+                            "apply_type": "AroundCaster",
+                            "effects": [
+                              {
+                                "type": "AddCasted",
+                                "casted_type": "Heal",
+                                "duration": 37,
+                                "period": 12,
+                                "effects": [
+                                  {
+                                    "type": "Heal",
+                                    "amount": 3,
+                                    "attack_ratio": 2,
+                                    "ap_ratio": 0,
+                                    "heal_type": "Caster"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "Combine",
+                        "effects": []
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 15,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "CasterAnimation",
+                  "name": "skill2",
+                  "tick": 14
+                },
+                {
+                  "type": "Sfx",
+                  "name": "league_pyke_e_dash"
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_pyke_vo_cd",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": []
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_pyke_vo_cd",
+                          "duration": {
+                            "Time": {
+                              "tick": 600
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "Sfx",
+                        "name": "league_pyke_vo_e"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "LinearProjectile",
+                  "name": "league_pyke_anchor",
+                  "penetrate": true,
+                  "applied_target": "Enemy",
+                  "applied_effects": [],
+                  "end_effects": [
+                    {
+                      "type": "ViewEffect",
+                      "name": "league_pyke_e_left"
+                    },
+                    {
+                      "type": "Delayed",
+                      "tick": 12,
+                      "effects": [
+                        {
+                          "type": "Sfx",
+                          "name": "league_pyke_e_return"
+                        },
+                        {
+                          "type": "BackToCasterLinearProjectile",
+                          "name": "league_pyke_e_phantom",
+                          "speed": 12000,
+                          "range": 120000,
+                          "shape": {
+                            "Circle": {
+                              "radius": 12000
+                            }
+                          },
+                          "penetrate": true,
+                          "applied_target": "EnemyChampion",
+                          "applied_effects": [
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "Attack",
+                                "damage": 50,
+                                "attack_ratio": 60,
+                                "hp_ratio": 0,
+                                "target_hp_ratio": 0,
+                                "attack_effect_type": "Target"
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "Stun",
+                                "duration": 60
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "AddBuff",
+                                "buff_state": {
+                                  "name": "league_pyke_e_stun",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 60
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "ViewEffect",
+                                "name": "league_pyke_e_hit"
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "TargetSfx",
+                                "name": "league_pyke_e_hit"
+                              }
+                            }
+                          ],
+                          "end_effects": []
+                        }
+                      ]
+                    }
+                  ],
+                  "speed": 1,
+                  "range": 1,
+                  "shape": {
+                    "Circle": {
+                      "radius": 1000
+                    }
+                  },
+                  "y_offset": 5000
+                },
+                {
+                  "type": "RushMoveToBack",
+                  "speed": 9000,
+                  "applied_effects": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.league_pyke.ult",
+    "duration": 3,
+    "cooltime": 2700,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 75000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampionRecentlyAttacked",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "RemoveCasterBuff",
+          "name": "league_pyke_k_r"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_pyke_init",
+          "effect_buff": {
+            "type": "SwitchByBuff",
+            "buff_name": "league_pyke_sense",
+            "effect_buff": {
+              "type": "Combine",
+              "effects": []
+            },
+            "effect_none": {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_pyke_g5",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_pyke_g5"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_pyke_g5",
+                          "duration": {
+                            "Time": {
+                              "tick": 480
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_pyke_g4",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_pyke_g4"
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_pyke_g5",
+                            "duration": {
+                              "Time": {
+                                "tick": 480
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_pyke_g3",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_pyke_g3"
+                          },
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_pyke_g4",
+                              "duration": {
+                                "Time": {
+                                  "tick": 480
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        ]
+                      },
+                      "effect_none": {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_pyke_g2",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_pyke_g2"
+                            },
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_pyke_g3",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 480
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_pyke_g1",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_pyke_g1"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_pyke_g2",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 480
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "league_pyke_g1",
+                              "duration": {
+                                "Time": {
+                                  "tick": 480
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_pyke_hurt"
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_pyke_hurt",
+                        "duration": {
+                          "Time": {
+                            "tick": 180
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "RangeEffect",
+                  "shape": {
+                    "Circle": {
+                      "radius": 1000
+                    }
+                  },
+                  "target": "AllyOnlySelf",
+                  "apply_type": "AroundCaster",
+                  "effects": [
+                    {
+                      "type": "Shield",
+                      "amount": 1,
+                      "attack_ratio": 0,
+                      "ap_ratio": 0,
+                      "tick": 36000
+                    }
+                  ]
+                },
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_pyke_sense",
+                    "duration": "WithShield"
+                  },
+                  "only_to_enemy": false
+                }
+              ]
+            }
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "RangeEffect",
+                "shape": {
+                  "Circle": {
+                    "radius": 1000
+                  }
+                },
+                "target": "AllyOnlySelf",
+                "apply_type": "AroundCaster",
+                "effects": [
+                  {
+                    "type": "Shield",
+                    "amount": 1,
+                    "attack_ratio": 0,
+                    "ap_ratio": 0,
+                    "tick": 36000
+                  }
+                ]
+              },
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_pyke_sense",
+                  "duration": "WithShield"
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_pyke_init",
+                  "duration": "Permanent"
+                },
+                "only_to_enemy": false
+              }
+            ]
+          }
+        },
+        {
+          "type": "CasterAnimation",
+          "name": "ult",
+          "tick": 40
+        },
+        {
+          "type": "Sfx",
+          "name": "league_pyke_r_cast"
+        },
+        {
+          "type": "ParabolicProjectile",
+          "name": "league_pyke_r_lob",
+          "travel_time": 1,
+          "range": 400000,
+          "shape": {
+            "Circle": {
+              "radius": 1000
+            }
+          },
+          "range_effect_name": "",
+          "applied_target": "EnemyWithoutTower",
+          "applied_effects": [],
+          "end_effects": [
+            {
+              "type": "ViewEffect",
+              "name": "league_pyke_r_mark"
+            },
+            {
+              "type": "RangeProjectile",
+              "name": "league_pyke_r_x_c",
+              "shape": {
+                "Circle": {
+                  "radius": 28000
+                }
+              },
+              "delay": 31,
+              "apply": 31,
+              "applied_target": "EnemyChampion",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_pyke_k_r"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_pyke_k_r",
+                          "duration": {
+                            "Time": {
+                              "tick": 40
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "FixedAttack",
+                    "damage": 180,
+                    "attack_ratio": 60,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 0,
+                    "attack_effect_type": "Target"
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ViewEffect",
+                    "name": "league_pyke_r_hit"
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "TargetSfx",
+                    "name": "league_pyke_r_hit"
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "AddCasted",
+                    "casted_type": "Heal",
+                    "duration": 3,
+                    "period": 1,
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_pyke_k_r"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "Delayed",
+                    "tick": 1,
+                    "effects": [
+                      {
+                        "type": "Heal",
+                        "amount": 90,
+                        "attack_ratio": 30,
+                        "ap_ratio": 0,
+                        "heal_type": "Any"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "Delayed",
+                    "tick": 3,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_pyke_k_r",
+                        "effect_buff": {
+                          "type": "Teleport"
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 1000
+                      }
+                    },
+                    "target": "AllyOnlySelf",
+                    "apply_type": "AroundCaster",
+                    "effects": [
+                      {
+                        "type": "Delayed",
+                        "tick": 4,
+                        "effects": [
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_pyke_k_r",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_pyke_k_r"
+                                },
+                                {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_pyke_r_reset"
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_pyke_r_reset",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 2
+                                          }
+                                        },
+                                        "ult_cooldown_mult": 10000
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "CasterViewEffect",
+                                  "name": "league_pyke_r_reset"
+                                },
+                                {
+                                  "type": "Sfx",
+                                  "name": "league_pyke_r_reset"
+                                },
+                                {
+                                  "type": "Sfx",
+                                  "name": "league_pyke_vo_r"
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "type": "RangeProjectile",
+              "name": "league_pyke_r_x",
+              "shape": {
+                "Circle": {
+                  "radius": 28000
+                }
+              },
+              "delay": 31,
+              "apply": 31,
+              "applied_target": "Enemy",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "Attack",
+                    "damage": 90,
+                    "attack_ratio": 30,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 0,
+                    "attack_effect_type": "Target"
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ViewEffect",
+                    "name": "league_pyke_r_hit"
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "TargetSfx",
+                    "name": "league_pyke_r_hit"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 24,
+              "effects": [
+                {
+                  "type": "ViewEffect",
+                  "name": "league_pyke_r_strike"
+                },
+                {
+                  "type": "Sfx",
+                  "name": "league_pyke_r_strike"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "league_pyke_q_hook",
+      "anim": "asset/league/effects/league_pyke_fx",
+      "tag": "q_hook",
+      "repeat": true,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_pyke_q_hook_c",
+      "anim": "asset/league/effects/league_pyke_fx",
+      "tag": "q_hook_c",
+      "repeat": true,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_pyke_q_return",
+      "anim": "asset/league/effects/league_pyke_fx",
+      "tag": "q_return",
+      "repeat": true,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_pyke_e_phantom",
+      "anim": "asset/league/effects/league_pyke_big",
+      "tag": "e_phantom",
+      "repeat": true,
+      "z": 1
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "league_pyke_a_hit",
+      "anim": "asset/league/effects/league_pyke_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_pyke_q_charge",
+      "anim": "asset/league/effects/league_pyke_fx",
+      "tag": "q_charge",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_pyke_q_stab_hit",
+      "anim": "asset/league/effects/league_pyke_fx",
+      "tag": "q_stab_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_pyke_q_hit",
+      "anim": "asset/league/effects/league_pyke_fx",
+      "tag": "q_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_pyke_w_cast",
+      "anim": "asset/league/effects/league_pyke_fx",
+      "tag": "w_cast",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_pyke_e_left",
+      "anim": "asset/league/effects/league_pyke_big",
+      "tag": "e_left",
+      "z": 1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_pyke_e_hit",
+      "anim": "asset/league/effects/league_pyke_fx",
+      "tag": "e_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_pyke_r_mark",
+      "anim": "asset/league/effects/league_pyke_big",
+      "tag": "r_mark",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_pyke_r_strike",
+      "anim": "asset/league/effects/league_pyke_big",
+      "tag": "r_strike",
+      "z": 2,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_pyke_r_hit",
+      "anim": "asset/league/effects/league_pyke_fx",
+      "tag": "r_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_pyke_r_reset",
+      "anim": "asset/league/effects/league_pyke_fx",
+      "tag": "r_reset",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_pyke_p_heal",
+      "anim": "asset/league/effects/league_pyke_fx",
+      "tag": "p_heal",
+      "z": 3,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "league_pyke_q_slow",
+      "anim": "asset/league/effects/league_pyke_fx",
+      "tag": "q_slow",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_pyke_e_stun",
+      "anim": "asset/league/effects/league_pyke_fx",
+      "tag": "e_stun",
+      "repeat": true,
+      "z": 3
+    }
+  ]
+}

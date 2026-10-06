@@ -43,27 +43,32 @@ ID = "league_pyke"
 FX = "asset/league/effects/league_pyke_fx"
 BIG = "asset/league/effects/league_pyke_big"
 
-# Numbers: draft c0 (to be tuned in the classic-SDK simulation, tr_sim/sim/kd.py --lane 4 against the base supports).
+# Numbers = candidate c5 of the 10-min classic-SDK simulations (tr_sim/sim/kd.py --lane 4 against priest, bard, enchanter,
+# monk and taoist, both sides, three lineups, 2026-10-06): +0.90 on seeds 1-24 (league_leona +0.78, league_rakan +0.84
+# on the same seeds). The draft c1 was +3.80 (8825 damage a game, twice Leona's; R 6 casts a game): attack 90 +16 ->
+# 74 +8, R 220 + 90% every 25 s -> 180 + 60% every 45 s, Q 60 + 100% -> 35 + 60% every 7 s, E 70 + 90% -> 50 + 60%,
+# grey health 22 + 12% -> 15 + 8% a stack (c2 +1.53, c3 +2.82, c4 with less health and a shorter stun +0.56).
+# E's phantom comes back 12 ticks after the dash at 12000 a tick (25 hits in 32 casts; 3 in 37 at 40 ticks).
 P = {
     # stats (Assassin base: move 1100); League's Pyke: 600 +110 hp, 62 AD +2, 45 armour, 330 move, melee 150 range;
     # no bonus health (it becomes AD): the pack's lowest support health, an assassin's attack growth
-    "hp": 900, "hp_g": 82, "atk": 90, "atk_g": 16, "def": 26, "def_g": 8, "mr": 18, "mr_g": 4, "ms": 1100, "ms_g": 12,
+    "hp": 900, "hp_g": 82, "atk": 74, "atk_g": 8, "def": 26, "def_g": 8, "mr": 18, "mr_g": 4, "ms": 1100, "ms_g": 12,
     # attack: the harpoon swing
     "atk_range": 24000, "atk_dur": 24, "atk_cd": 55, "a_st": 9,
     # passive: grey health (League: 10% + lethality of champion damage taken in the last 4 s, healed while unseen)
-    "p_lv": 5, "p_keep": 480, "p_calm": 180, "p_heal": 22, "p_heal_r": 12, "p_pulse_n": 4, "p_pulse": 12,
+    "p_lv": 5, "p_keep": 480, "p_calm": 180, "p_heal": 15, "p_heal_r": 8, "p_pulse_n": 4, "p_pulse": 12,
     # skill: Q Bone Skewer (League: tap 100-? + 60% bonus AD stab; hold 0.5-1 s, 1100 range, 70 width, 2000 speed,
     # pull 500, slow 90% 1 s, cd 10-7.5 s)
-    "q_cd": 360, "q_range": 100000, "q_close": 26000, "q_stab_t": 22, "q_stab_at": 8, "q_hold": 36, "q_throw_t": 14,
-    "q_speed": 6000, "q_reach": 95000, "q_rad": 6000, "q_y": -3000, "q_dmg": 60, "q_ratio": 100, "q_slow": 60,
+    "q_cd": 420, "q_range": 100000, "q_close": 26000, "q_stab_t": 22, "q_stab_at": 8, "q_hold": 36, "q_throw_t": 14,
+    "q_speed": 6000, "q_reach": 95000, "q_rad": 6000, "q_y": -3000, "q_dmg": 35, "q_ratio": 60, "q_slow": 60,
     "q_slow_t": 60, "q_grab": 1500,
     # skill2: W Ghostwater Dive (League: camouflage 5 s, +45% fading over 1.5 s, cd 12-8 s) -> E Phantom Undertow
     # (League: dash 550, the phantom back after 1 s, 100-350 + 100% bonus AD to champions, stun 1.25 s, cd 15-11 s)
-    "c_cd": 660, "c_range": 70000, "c_lead": 15, "w_camo": 150, "w_ms": 40, "w_ms_t": 90, "e_t": 14, "e_speed": 7000,
-    "e_ret": 40, "e_ph_speed": 4000, "e_ph_rad": 9000, "e_ph_range": 120000, "e_dmg": 70, "e_ratio": 90, "e_stun": 60,
+    "c_cd": 660, "c_range": 70000, "c_lead": 15, "w_camo": 150, "w_ms": 40, "w_ms_t": 90, "e_t": 14, "e_speed": 9000,
+    "e_ret": 12, "e_ph_speed": 12000, "e_ph_rad": 12000, "e_ph_range": 120000, "e_dmg": 50, "e_ratio": 60, "e_stun": 60,
     # ult: R Death from Below (League: range 750, X after 0.5 s, threshold 250-850 + 80% bonus AD (+150% lethality),
     # 50% to the rest, recast 20 s after a champion dies in it, cd 120-80 s)
-    "r_cd": 1500, "r_range": 75000, "r_delay": 30, "r_rad": 28000, "r_dmg": 220, "r_ratio": 90, "r_anim": 40,
+    "r_cd": 2700, "r_range": 75000, "r_delay": 30, "r_rad": 28000, "r_dmg": 180, "r_ratio": 60, "r_anim": 40,
     "k_hold": 40, "k_read": 4,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
@@ -260,7 +265,7 @@ def build(p):
 
     # ------------------------------------------------------------------ skill: Q Bone Skewer
     slow = buff("q_slow", p["q_slow_t"], move_speed_mult=-p["q_slow"])
-    stab = combine(anim("skill_stab", p["q_stab_t"]), sfx("q_stab"),
+    stab = combine(anim("skill_stab", p["q_stab_t"]), sfx("q_stab"), voice("vo_q2", p),
                    delayed(p["q_stab_at"], pick(p["q_close"] + 6000, "EnemyChampion",
                                                 attack(p["q_dmg"], p["q_ratio"]), slow, view("q_stab_hit"),
                                                 tsfx("q_stab_hit"))))
@@ -296,7 +301,8 @@ def build(p):
 
     # ------------------------------------------------------------------ ult: R Death from Below
     k_set = refresh("k_r", p["k_hold"])
-    reset = combine(*rm("k_r"), refresh("r_reset", 2, ult_cooldown_mult=10000), cview("r_reset"), sfx("r_reset"))
+    reset = combine(*rm("k_r"), refresh("r_reset", 2, ult_cooldown_mult=10000), cview("r_reset"), sfx("r_reset"),
+                    sfx("vo_r"))
     r_t = p["r_delay"] + 1
     execute = [k_set, true_dmg(p["r_dmg"], p["r_ratio"]), view("r_hit"), tsfx("r_hit"),
                casted(3, 1, *rm("k_r")),
@@ -310,7 +316,7 @@ def build(p):
              [attack(p["r_dmg"] // 2, p["r_ratio"] // 2), view("r_hit"), tsfx("r_hit")]),
         delayed(p["r_delay"] - 6, view("r_strike"), sfx("r_strike"))])
     ult = action("ult", 3, p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampionRecentlyAttacked",
-                 combine(*rm("k_r"), check, anim("ult", p["r_anim"]), sfx("r_cast"), voice("vo_r", p), x))
+                 combine(*rm("k_r"), check, anim("ult", p["r_anim"]), sfx("r_cast"), x))
 
     # ------------------------------------------------------------------ views
     # a caster picture played after the action's first tick must not follow him (the red side's mirroring)
