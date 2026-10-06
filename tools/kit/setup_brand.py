@@ -120,7 +120,7 @@ TEXT = {
 }
 
 C = "league_brand_sfx_"
-V = "league_brand_vo_"
+V = "league_brand_sfx_vo_"  # clip names differ from the sound names: a clip named like its sound is not found in game
 # sound name -> [(clip, volume, delay)]
 SOUNDS = {
     "league_brand_a_cast": [(C + "a_cast", 0.4, 0.0)],

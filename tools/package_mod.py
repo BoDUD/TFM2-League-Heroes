@@ -279,7 +279,10 @@ def played_clips(src, files):
     clips = set()
     for rel in files:
         if rel.endswith(".sound_info"):
+            name = os.path.basename(rel)[:-len(".sound_info")]
             for p in parse_json(read(os.path.join(src, rel)), rel).get("plays", []):
+                if p.get("clip") == name:        # the game then finds no sound by that name (2026-10-07 log)
+                    sys.exit(f"{rel}: plays a clip of its own name; give the clip another name (league_<id>_sfx_...)")
                 clips.add(p.get("clip"))
     return clips
 

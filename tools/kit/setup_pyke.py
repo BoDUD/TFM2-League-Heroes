@@ -127,7 +127,7 @@ TEXT = {
 }
 
 C = "league_pyke_sfx_"
-V = "league_pyke_vo_"
+V = "league_pyke_sfx_vo_"  # clip names differ from the sound names: a clip named like its sound is not found in game
 # sound name -> [(clip, volume, delay)]
 SOUNDS = {
     "league_pyke_a_swing": [(C + "swing", 0.4, 0.0)],

@@ -52,12 +52,12 @@ CLIPS = {
     "league_khazix_sfx_w_hit": (P + "WMissile_hit", 364395639, 1.0, -9),
     "league_khazix_sfx_r_cast": (P + "R_OnCast", 375610459, 1.2, -9),
     "league_khazix_sfx_evo": (P + "QEvo_OnCast", 256071492, 1.2, -9),
-    "league_khazix_vo_q": (V + "KhazixQ_cast3D", 693285072, 1.8, -4),
-    "league_khazix_vo_e": (V + "KhazixE_cast3D", 34229015, 2.2, -4),
-    "league_khazix_vo_r": (V + "Attack2DGeneral", 573309130, 4.2, -4),
-    "league_khazix_vo_evo_q": (V + "KhazixQEvo_cast3D", 1201279788, 2.5, -3),
-    "league_khazix_vo_evo_e": (V + "KhazixEEvo_cast3D", 652586847, 2.7, -3),
-    "league_khazix_vo_evo_r": (V + "KhazixREvo_cast3D", 2049473451, 3.2, -3),
+    "league_khazix_sfx_vo_q": (V + "KhazixQ_cast3D", 693285072, 1.8, -4),
+    "league_khazix_sfx_vo_e": (V + "KhazixE_cast3D", 34229015, 2.2, -4),
+    "league_khazix_sfx_vo_r": (V + "Attack2DGeneral", 573309130, 4.2, -4),
+    "league_khazix_sfx_vo_evo_q": (V + "KhazixQEvo_cast3D", 1201279788, 2.5, -3),
+    "league_khazix_sfx_vo_evo_e": (V + "KhazixEEvo_cast3D", 652586847, 2.7, -3),
+    "league_khazix_sfx_vo_evo_r": (V + "KhazixREvo_cast3D", 2049473451, 3.2, -3),
 }
 ICONS = {  # TFM2 slot -> Riot icon (the _red ones are the evolved icons)
     "league_khazix_skill": "ASSETS/Characters/KhaZix/HUD/Icons2D/Khazix_Q.dds",

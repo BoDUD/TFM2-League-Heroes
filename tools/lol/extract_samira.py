@@ -57,10 +57,10 @@ CLIPS = {
     "league_samira_sfx_style": (P + "PassiveCombo_style_cast", 627403248, 0.9, -12),
     "league_samira_sfx_s": (P + "RReadyBuff_OnBuffActivate", 412985637, 1.4, -9),
     "league_samira_sfx_dash": (P + "PDash_cast", 107071894, 0.6, -10),
-    "league_samira_vo_q": (V + "QGun_cast3D", 1347959952, 1.1, -4),
-    "league_samira_vo_q2": (V + "QSword_cast3D", 625574555, 1.2, -4),
-    "league_samira_vo_e": (V + "E_cast3D", 616248774, 1.3, -4),
-    "league_samira_vo_r": (V + "R_cast3D", 1006189096, 1.4, -3),
+    "league_samira_sfx_vo_q": (V + "QGun_cast3D", 1347959952, 1.1, -4),
+    "league_samira_sfx_vo_q2": (V + "QSword_cast3D", 625574555, 1.2, -4),
+    "league_samira_sfx_vo_e": (V + "E_cast3D", 616248774, 1.3, -4),
+    "league_samira_sfx_vo_r": (V + "R_cast3D", 1006189096, 1.4, -3),
 }
 ICONS = {  # TFM2 slot -> Riot icon
     "league_samira_skill": "ASSETS/Characters/Samira/HUD/Icons2D/SamiraQ.dds",

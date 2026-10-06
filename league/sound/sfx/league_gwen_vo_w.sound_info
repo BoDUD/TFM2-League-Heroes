@@ -2,7 +2,7 @@
   "plays": [
     {
       "delay": 0.1,
-      "clip": "league_gwen_vo_w",
+      "clip": "league_gwen_sfx_vo_w",
       "volume": 0.75
     }
   ]
