@@ -3470,6 +3470,33 @@ flag off, heals him and every allied champion within 40000 (`RangeEffect` `AllyC
 32000 or he is crowd-controlled himself: `cc_immune` 60 ticks (League's cleanse), `damaged_reduce` 50 for 420 ticks,
 the aura drawn behind him (view_buff `z` -1). Unused, `ult_cooldown_mult` refunds the cooldown.
 
+**Isolated: nobody of the target's side beside it (league_khazix Q, Taste Their Fear).** League's Isolated is "no allied
+unit within 375 of the target". A `RangeEffect` is centred on the caster, so the count is taken at the target: on tick 1
+of the `Targeting` cast a hidden 1-tick `ParabolicProjectile` lands on the target's spot and its `end_effects` start a
+`RangeProjectile` (`delay` 1, `apply` 1, radius 30000, `EnemyWithoutTower`) whose applied effects climb 1-tick-renewed
+caster flags `i1` -> `i2` (league_kayle R's count; the target itself is the first). The claw lands on tick 12 (well after
+the count) and reads them: `i2` -> the plain hit, `i1` alone -> the isolated one, neither -> the plain one. In the
+simulation (6 logged games, the draft numbers) 49 of his 81 Qs on champions (60%) and 224 of 302 on camps (74%) came
+out isolated (a camp's monsters stand apart).
+
+**Evolutions read from a level, ability power as the gauge (league_khazix).** League's evolution points come at levels
+6, 11 and 16; here Q, E and R evolve at 5, 8 and 11 from league_kayle's probe, with two lessons. (1) Inside an attack
+action the probe's self-hit rolled critical strikes (`attack_type: BaseAttack` crits every `FixedAttack` too, section 4)
+and broke the shield at twice the measured size once he bought crit chance: the hits now come from a 1-run `AddCasted`
+on him (damage over time never crits). (2) Maximum health is no gauge for a hero that buys health: 0 to 800 item health
+at level 8 in 16 simulated games put E's and R's evolutions up to three levels early. He gains 1 ability power a level
+instead (`growth.magic_power` 1; nothing in his kit reads AP and no item he buys gives any): under 2 ticks of
+`damaged_reduce` 99 and `magic_resistance_penetration` 100 an `ApAttack` of 1000000% AP (100 x AP after the cut) hits a
+3-tick shield of 100 x (level - 1.5) plus a 1-tick soak shield; another shield already on him skips the probe, a 100
+shield against a 9900 hit guards against damage amplification, and two passes 30 ticks apart must agree. Each life's
+first attack re-reads the stages silently. In the simulation every stage came 1-5 s after its level.
+
+**Recasts as cooldown caps (league_khazix R, Void Assault).** League's R can be cast again within 12 s. The slot's real
+cooldown starts at each cast; a first cast (flag `r_c1`) and, evolved, a second (`r_c2`) add a 3-tick
+`ult_cooldown_mult` that caps it at 120 ticks, so the AI can cast again 2 s later; the last use adds nothing and the full
+cooldown runs. There is no 12 s window (a lapse cannot add cooldown back), which the AI does not need: it spends the
+recasts as champions come into reach.
+
 ## 8. Gotchas
 
 - A `RangePeriodProjectile` put straight into an action's effects, or into a self-only `RangeEffect`, is never

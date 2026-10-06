@@ -37,9 +37,9 @@ G = "<#66bb6aff>"      # healing
 E = "<>"
 # champion_view: the face at the top of the blue face plate (33 px over the feet, 9 px ahead of the standing point;
 # tfm2_ase.py face took the antenna tips, 43 px up, for the crown), the centre on the chest; banpick: the card shows 40
-# px, -40 - y to -y round the pivot - at -3 the body from the wings' roots to the toe claws (the antenna tips and the
-# wings' tops, 45 px up, are cut)
-VIEW = {"face": {"x": 9, "y": -33}, "center": {"x": 2, "y": -16}, "banpick_center": {"x": 0, "y": -3}}
+# px, -40 - y to -y round the pivot, and he is 44 (antenna tips -33 to soles +11): -8 cuts 1 px of the antennae and 3 of
+# the toe claws (after Pyke's 「派克在bp界面腿都看不到了」 the legs matter more than the tips)
+VIEW = {"face": {"x": 9, "y": -33}, "center": {"x": 2, "y": -16}, "banpick_center": {"x": 0, "y": -8}}
 
 
 def phy(d, r):
