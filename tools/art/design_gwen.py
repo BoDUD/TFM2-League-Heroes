@@ -37,7 +37,8 @@ at one scale), then for the face 「脸部五官太奇怪了」「改不好就�
   9. the neck and the bodice as the draft has them (TORSO; the user: 「只剩脖子和身体那里有点怪了」, then 「OK了」): a
      2-square neck, a cyan choker, a skin V under it, black puffed sleeves, the dark bodice, the purple bow with the
      gold star;
- 10. on the 128x128 canvas at 8x: the soles on row 99, the middle of the feet (the lowest three rows) on column 64.
+ 10. the blade's point closed (POINT: a detached last square read as broken, 「剪刀这里看起来像断的」);
+ 11. on the 128x128 canvas at 8x: the soles on row 99, the middle of the feet (the lowest three rows) on column 64.
 --check compares the result with the committed gwen_native.png instead of writing it.
 """
 import argparse
@@ -111,6 +112,9 @@ TORSO = {14: "---BDDB-----",
          19: "--IQkQkQI---",
          20: "-lllTRTlll--",
          21: "-llkXTXkll--"}
+# the blade's point (the user: 「剪刀这里看起来像断的」): the last blue square stood one clear square off the blade with an
+# outline square under it; both go, the gap's square is outline - the point ends on row 39
+POINT = {(0, 40): None, (0, 41): None, (1, 40): "I"}
 TORSO_KEYS = {"B": "A", "D": "G", "P": "N", "I": "I", "a": "Ad", "Q": "U", "k": "Kp", "h": "h", "H": "H",
               "l": "Lb", "T": "T", "R": "R", "X": "S2"}
 
@@ -307,6 +311,8 @@ def build():
     paint(fig, {(FACE_X0 + i, y): ch for y, row in FACE.items() for i, ch in enumerate(row) if ch != "-"})
     paint(fig, NECK)
     fig = league_scissors(fig)
+    for (x, y), ch in POINT.items():
+        fig[y, x] = 0 if ch is None else (*C[ch], 255)
     paint(fig, {(TORSO_X0 + i, y): TORSO_KEYS[ch] for y, row in TORSO.items() for i, ch in enumerate(row) if ch != "-"})
     feet = np.nonzero((fig[-FEET_ROWS:, :, 3] > 0).any(0))[0]
     mid_x = (feet.min() + feet.max()) / 2
