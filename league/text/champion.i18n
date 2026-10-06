@@ -466,7 +466,7 @@
       "league_khazix": {
         "name": "卡兹克",
         "attack": "利爪攻击。被动<#ff9028ff>无形威胁<>：隐身或4秒没出手后，下次攻击英雄附加<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<><#a974ffff>伤害<>并减速25%。<#ffb900ff>5/8/11级<>依次进化Q、E、R。",
-        "skill": "爪击：<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<><#ff9028ff>物理伤害<>；目标身边没有友军（<#ffb900ff>孤立无援<>）时改为<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<>。<#ff9028ff>进化收割利爪<>：攻击距离变长，对孤立目标返还冷却。",
+        "skill": "爪击：<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<><#ff9028ff>物理伤害<>；目标身边没有友军（<#ffb900ff>孤立无援<>）时改为<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>125%<>。<#ff9028ff>进化收割利爪<>：攻击距离变长，对孤立目标返还冷却。",
         "skill2": "跃向敌方英雄，落地造成<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<><#ff9028ff>物理伤害<>，再射出<#ff9028ff>虚空突刺<>：<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>并减速40%，身在爆炸中回复<#66bb6aff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>15%<><#66bb6aff>生命<>。<#ff9028ff>进化虫翼<>：跳得更远，击杀英雄刷新。",
         "ult": "<#ffb900ff>隐身1.25秒<>并加速40%，<#ff9028ff>无形威胁<>就绪，可再用1次。<#ff9028ff>进化动态遮蔽<>：<#ffb900ff>隐身2秒<>，共可用3次。"
       }
@@ -1276,7 +1276,7 @@
       "league_khazix": {
         "name": "卡力斯",
         "attack": "利爪攻擊。被動<#ff9028ff>暗影殺機<>：隱形或4秒沒出手後，下次攻擊英雄附加<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<><#a974ffff>傷害<>並緩速25%。<#ffb900ff>5/8/11級<>依次進化Q、E、R。",
-        "skill": "爪擊：<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<><#ff9028ff>物理傷害<>；目標身邊沒有友軍（<#ffb900ff>孤立<>）時改為<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<>。<#ff9028ff>進化死神之爪<>：攻擊距離變長，對孤立目標返還冷卻。",
+        "skill": "爪擊：<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<><#ff9028ff>物理傷害<>；目標身邊沒有友軍（<#ffb900ff>孤立<>）時改為<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>125%<>。<#ff9028ff>進化死神之爪<>：攻擊距離變長，對孤立目標返還冷卻。",
         "skill2": "躍向敵方英雄，落地造成<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<><#ff9028ff>物理傷害<>，再射出<#ff9028ff>虛空尖刺<>：<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>並緩速40%，身在爆炸中回復<#66bb6aff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>15%<><#66bb6aff>生命<>。<#ff9028ff>進化飛翅<>：跳得更遠，擊殺英雄重置。",
         "ult": "<#ffb900ff>隱形1.25秒<>並加速40%，<#ff9028ff>暗影殺機<>就緒，可再用1次。<#ff9028ff>進化自適應化形<>：<#ffb900ff>隱形2秒<>，共可用3次。"
       }
@@ -2086,7 +2086,7 @@
       "league_khazix": {
         "name": "Kha'Zix",
         "attack": "Claw strikes. Passive <#ff9028ff>Unseen Threat<>: after stealth or 4s without acting, his next attack on a champion deals <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<> <#a974ffff>bonus damage<> and slows 25%. Evolves Q, E, R at <#ffb900ff>levels 5/8/11<>.",
-        "skill": "Slashes for <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<> <#ff9028ff>physical damage<>, or <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<> to a target with no allies nearby (<#ffb900ff>Isolated<>). <#ff9028ff>Reaper Claws<>: longer attack range; refunds cooldown on Isolated targets.",
+        "skill": "Slashes for <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> <#ff9028ff>physical damage<>, or <#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>125%<> to a target with no allies nearby (<#ffb900ff>Isolated<>). <#ff9028ff>Reaper Claws<>: longer attack range; refunds cooldown on Isolated targets.",
         "skill2": "Leaps at an enemy champion, dealing <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<> <#ff9028ff>physical damage<> on landing, then fires a <#ff9028ff>Void Spike<>: <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>, a 40% slow, and heals him <#66bb6aff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>15%<> if he is in the blast. <#ff9028ff>Wings<>: longer leap, reset on champion kills.",
         "ult": "Becomes <#ffb900ff>invisible for 1.25s<> with 40% move speed and <#ff9028ff>Unseen Threat<> ready; can be cast once more. <#ff9028ff>Adaptive Cloaking<>: <#ffb900ff>2s<>, three casts."
       }
@@ -2896,7 +2896,7 @@
       "league_khazix": {
         "name": "카직스",
         "attack": "발톱 공격. 기본 지속 효과 <#ff9028ff>보이지 않는 위협<>: 은신 후 또는 4초간 행동하지 않으면 다음 챔피언 공격이 <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<>의 <#a974ffff>추가 피해<>, 25% 둔화. <#ffb900ff>5/8/11레벨<>에 Q, E, R 진화.",
-        "skill": "베기: <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<>의 <#ff9028ff>물리 피해<>, 주변에 아군이 없는(<#ffb900ff>고립<>) 대상에게는 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<>. <#ff9028ff>거대 갈고리<>: 사거리 증가, 고립 대상에게 재사용 대기시간 반환.",
+        "skill": "베기: <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>의 <#ff9028ff>물리 피해<>, 주변에 아군이 없는(<#ffb900ff>고립<>) 대상에게는 <#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>125%<>. <#ff9028ff>거대 갈고리<>: 사거리 증가, 고립 대상에게 재사용 대기시간 반환.",
         "skill2": "적 챔피언에게 도약해 착지 시 <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<>의 <#ff9028ff>물리 피해<>, 이어서 <#ff9028ff>공허의 가시<>: <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>, 40% 둔화, 폭발 범위 안이면 <#66bb6aff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>15%<> <#66bb6aff>회복<>. <#ff9028ff>날개<>: 사거리 증가, 챔피언 처치 시 초기화.",
         "ult": "<#ffb900ff>1.25초 은신<>, 이동 속도 40%, <#ff9028ff>보이지 않는 위협<> 준비, 한 번 더 사용 가능. <#ff9028ff>활성 보호색<>: <#ffb900ff>2초<>, 3회 사용."
       }
@@ -3706,7 +3706,7 @@
       "league_khazix": {
         "name": "カ＝ジックス",
         "attack": "爪で攻撃。パッシブ <#ff9028ff>見えざる脅威<>：インビジブル後か4秒行動しないと、次のチャンピオンへの攻撃が<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<>の<#a974ffff>追加ダメージ<>と25%スロウ。<#ffb900ff>Lv5/8/11<>でQ・E・Rが進化。",
-        "skill": "斬撃：<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>65%<>の<#ff9028ff>物理ダメージ<>、近くに味方がいない（<#ffb900ff>孤立<>）対象には<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<>。<#ff9028ff>死鎌<>：射程延長、孤立対象でCD返還。",
+        "skill": "斬撃：<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>の<#ff9028ff>物理ダメージ<>、近くに味方がいない（<#ffb900ff>孤立<>）対象には<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>125%<>。<#ff9028ff>死鎌<>：射程延長、孤立対象でCD返還。",
         "skill2": "敵チャンピオンへ跳躍し着地で<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<>の<#ff9028ff>物理ダメージ<>、続けて<#ff9028ff>ヴォイドの刺棘<>：<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>と40%スロウ、爆発内なら<#66bb6aff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#66bb6aff>15%<><#66bb6aff>回復<>。<#ff9028ff>翅<>：飛距離延長、キルでCD解消。",
         "ult": "<#ffb900ff>1.25秒インビジブル<>、移動速度40%、<#ff9028ff>見えざる脅威<>発動、もう1回使用可。<#ff9028ff>適応擬態<>：<#ffb900ff>2秒<>、3回使用。"
       }

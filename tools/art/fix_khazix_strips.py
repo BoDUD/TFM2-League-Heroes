@@ -227,6 +227,94 @@ def dead_frame(design, what):
     return on_ground(out, 0 if kind == "tilt" else amount, dx)
 
 
+# ---- the whole figure smaller (the user: 「螳螂可以整体缩小一点」; 42 x 45 squares at the design's size, Darius 42 x 36):
+# rig_pyke.py's shrink - one square row in every SHRINK above the soles and one column in every SHRINK each side of the
+# standing column come out of every frame alike (in each band the one most like its neighbour over all the frames, the
+# idle and the run counted thrice), the soles and the standing column stay. The head Codex pasted in every upright frame
+# comes out first and the head shrunk once goes back where its spot landed, so the face is the same squares in every
+# frame; the lying death frames (no upright head) shrink as they are. No resampling.
+SHRINK = 6
+
+
+def bands(start, stop, step):
+    res, d = [], 1 if step > 0 else -1
+    while True:
+        b = [start + d * j for j in range(abs(step))]
+        if (b[-1] - stop) * d > 0:
+            return res
+        res.append(b)
+        start += step
+
+
+def drops(frames, weights, k):
+    """The rows and columns to drop: one per band, the least different from the square row / column beyond it, never
+    two neighbours."""
+    st = np.stack(frames).astype(int)
+    W = np.array(weights, float)[:, None]
+    alpha = st[..., 3] > 0
+    ys = np.nonzero(alpha.any((0, 2)))[0]
+    xs = np.nonzero(alpha.any((0, 1)))[0]
+
+    def cost(axis, i, j):
+        diff = np.abs(np.take(st, i, axis=axis + 1) - np.take(st, j, axis=axis + 1)).sum(-1) > 0
+        return float((diff * W).sum())
+
+    def pick(bs, key):
+        got = []
+        for b in bs:
+            c = [r for r in b if all(abs(r - g) > 1 for g in got)]
+            got.append(min(c, key=key))
+        return sorted(got)
+
+    rows = pick(bands(SOLES - 1, int(ys.min()), -k), lambda r: cost(0, r, r - 1))
+    left = pick(bands(PIVOT[0] - 1, int(xs.min()), -k), lambda c: cost(1, c, c + 1))
+    right = pick(bands(PIVOT[0] + 1, int(xs.max()), k), lambda c: cost(1, c, c - 1))
+    return rows, left, right
+
+
+def shrink(f, rows, left, right):
+    h, w = f.shape[:2]
+    g = f[[r for r in range(h) if r not in rows]][:, [c for c in range(w) if c not in left and c not in right]]
+    out = np.zeros_like(f)
+    out[len(rows):, len(left):len(left) + g.shape[1]] = g
+    return out
+
+
+def shrunk_xy(x, y, rows, left, right):
+    """Where a canvas square (x, y) lands after shrink."""
+    return (x + sum(1 for c in left if c > x) - sum(1 for c in right if c < x), y + sum(1 for r in rows if r > y))
+
+
+def head_at(f, head):
+    """The offset of the pasted head in f (every square of it there), or None."""
+    hy, hx = np.nonzero(head[..., 3] > 0)
+    for dy in range(-8, 9):
+        for dx in range(-8, 9):
+            ys, xs = hy + dy, hx + dx
+            if ys.min() < 0 or xs.min() < 0 or ys.max() >= f.shape[0] or xs.max() >= f.shape[1]:
+                continue
+            if (f[ys, xs] == head[hy, hx]).all():
+                return dx, dy
+    return None
+
+
+def shrink_frame(f, head, cut, ink):
+    off = head_at(f, head)
+    if off is None:
+        return K.finish(shrink(f, *cut), ink, SOLES)
+    dx, dy = off
+    body = f.copy()
+    body[K.shifted(head, dx, dy)[..., 3] > 0] = 0
+    g = shrink(body, *cut)
+    hy, hx = np.nonzero(head[..., 3] > 0)
+    ax, ay = shrunk_xy(int(hx.min()), int(hy.min()), *cut)
+    bx, by = shrunk_xy(int(hx.min()) + dx, int(hy.min()) + dy, *cut)
+    put = K.shifted(shrink(head, *cut), bx - ax, by - ay)
+    keep = put[..., 3] > 0
+    g[keep] = put[keep]
+    return K.finish(g, ink, SOLES, keep=keep)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--check", action="store_true")
@@ -236,6 +324,7 @@ def main():
     cw, ch = cells["cell"]
     design = at1x(DESIGN) if Image.open(DESIGN).size[0] != 128 else np.asarray(Image.open(DESIGN).convert("RGBA")).copy()
     ink = outline_colour(design)
+    sheets = {}
     for tag in TAGS:
         sheet = at1x(os.path.join(SRC, f"khazix_{tag}.png"))
         if tag == "run":
@@ -261,8 +350,33 @@ def main():
                 K.put(cell, fig, px - PIVOT[0], py - PIVOT[1])
                 sheet[Y:Y + ch, X:X + cw] = cell
             print(f"dead: frames {[i + 1 for i, w in enumerate(DEAD) if w != 'codex']} rebuilt from the design")
+        sheets[tag] = sheet
+    if SHRINK:
+        # every frame on the design's canvas (its pivot on PIVOT), the cut found over all of them, then back in its cell
+        def frames(tag):
+            cols = sheets[tag].shape[1] // cw
+            for i, c in enumerate(cells["tags"][tag]):
+                X, Y = (i % cols) * cw, (i // cols) * ch
+                yield X, Y, c["pivot"]
+
+        canv = {}
+        for tag in TAGS:
+            for X, Y, (px, py) in frames(tag):
+                cv = np.zeros((128, 128, 4), np.uint8)
+                K.put(cv, sheets[tag][Y:Y + ch, X:X + cw], PIVOT[0] - px, PIVOT[1] - py)
+                canv[tag, X, Y] = cv
+        cut = drops(list(canv.values()), [3 if t in ("idle", "run") else 1 for t, _, _ in canv], SHRINK)
+        head = np.asarray(Image.open(HEAD).convert("RGBA")).copy()
+        for tag in TAGS:
+            for X, Y, (px, py) in frames(tag):
+                cell = np.zeros((ch, cw, 4), np.uint8)
+                K.put(cell, shrink_frame(canv[tag, X, Y], head, cut, ink), px - PIVOT[0], py - PIVOT[1])
+                sheets[tag][Y:Y + ch, X:X + cw] = cell
+        print("shrink: rows", cut[0], "columns", cut[1], cut[2])
+    for tag in TAGS:
         if a.check:
             continue
+        sheet = sheets[tag]
         big = Image.fromarray(np.repeat(np.repeat(sheet, Z, 0), Z, 1))
         big.save(os.path.join(OUT, f"khazix_{tag}.png"))
     if not a.check:
