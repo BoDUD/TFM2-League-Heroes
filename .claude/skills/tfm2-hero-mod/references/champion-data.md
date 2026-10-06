@@ -1303,6 +1303,8 @@ league_alistar (support, --lane 4, 2026-10-05, Pulverize's and Headbutt -> Pulve
 2.23 a game; league_leona 2.19 and the base priest 0.50 in the same batch - no change.
 league_xerath (mid, --lane 2, 2026-10-06, Shocking Orb's 0.75-2 s stun on one unit): 0.94 a game; the base lightning
 mage 3.40 and league_lissandra 2.10 in the same batch - no change.
+league_brand (mid, --lane 2, 2026-10-06, Sear's 0.83 s stun after Conflagration, W's pillar on the stunned champion):
+1.73 a game; the base lightning mage 3.40, pyromancer 0.58 and league_xerath 1.17 in the same batch - no change.
 league_samira (bottom, --lane 3, 2026-10-06, the passive's 0.5 s juggle - only onto a champion already in crowd
 control, once every 6 s): 0.25 a game; the base gunner 0.35 and league_varus 0.67 in the same batch - no change.
 league_pyke (support, --lane 4, 2026-10-06, Phantom Undertow's 1 s stun on every champion the phantom passes, Bone
@@ -3455,6 +3457,12 @@ much.
 
 **A stack counter drawn by one buff per slot (league_gwen Q stacks).** qs1..qsk are all on at k stacks; each buff's view is one mark in its own slot over her head, so k marks show without any counting logic.
 
+**Stacks that blow up the third time, counted on him (league_brand passive, Blaze).** Every spell hit sets the unit ablaze: two `AddCasted Fire` instances (magic every 60 ticks for 240; one per hit, as League re-applies Blaze). Nothing reads a buff count on the target, so the stacks are league_kennen's caster ladder b_1 -> b_2 (240 ticks), climbed a tick later from a champion-only hit (a zone on `EnemyChampion`, or `RandomTarget {range: 1, EnemyChampion, from_projectile}` in a non-penetrating line's hit) behind a 3-tick lock per spell; a champion hit while b_2 holds adds an `unstable` buff (its picture) and `Delayed 120` a 1-tick lob onto him whose zone is the blast (magic + `FixedAttack target_hp_ratio`), and the ladder clears. The ladder also stands in for "the target is ablaze" (W's +25%, E's wider spread). The burn's own % max-health true damage (on every R bounce too) made the draft +5.62: dropped.
+
+**A bouncing ult without a projectile from the target (league_brand R, Pyroclasm).** Every projectile leaves from the caster (league_nami W), so after the seed's hit a 1-tick lob onto the target opens a chain of lobs on that spot (`travel_time` r_gap each, nested once per bounce - one level each, never a branch per level: two branches per bounce made 2^5 copies); each landing picks the next unit round the first spot with `RandomTarget from_projectile` - `EnemyChampion` first; after a champion hit (flag r_pc) only when a champion count zone found two (r_n2), else `EnemyWithoutTower` - and plays a seed falling on it, the hit r_fall ticks later. The cast is gated: a lob onto the target counts the enemies round it (u_1 -> u_2 flags); alone, the cast is called off and `Delayed 6` a 3-tick `ult_cooldown_mult` 4900 brings R back in 60 ticks (laid during the 6-tick action it did nothing: the cooldown starts when the action ends).
+
+**A combo into the other slot (league_brand E -> Q -> W).** skill2 (E then Q, on `EnemyChampion`) sets `q_champ` when Q's fireball hits a champion; q_rel + 6 ticks later, with W's shared cooldown flag w_cd off (the W slot's effect is an empty branch while it runs: league_leblanc W), it casts W's pillar on the `EnemyChampionInCC` in reach - the stunned one - and lays w_cd: three hits, the third stack.
+
 **One skill that starts another (league_alistar E -> Q).** League's Trample is folded into Pulverize and into
 Headbutt -> Pulverize: with its own cooldown flag off, a cast also starts the trample - one `AddCasted` on himself
 (`RangeEffect AllyOnlySelf`) that stomps every 30 ticks for 3 s on `EnemyWithoutTower` round him, its first stomp on
@@ -3475,6 +3483,33 @@ flag off, heals him and every allied champion within 40000 (`RangeEffect` `AllyC
 `EnemyChampion` arms the slot 600 ticks; every action and a 15-tick pulse fire it when an enemy champion is within
 32000 or he is crowd-controlled himself: `cc_immune` 60 ticks (League's cleanse), `damaged_reduce` 50 for 420 ticks,
 the aura drawn behind him (view_buff `z` -1). Unused, `ult_cooldown_mult` refunds the cooldown.
+
+**Isolated: nobody of the target's side beside it (league_khazix Q, Taste Their Fear).** League's Isolated is "no allied
+unit within 375 of the target". A `RangeEffect` is centred on the caster, so the count is taken at the target: on tick 1
+of the `Targeting` cast a hidden 1-tick `ParabolicProjectile` lands on the target's spot and its `end_effects` start a
+`RangeProjectile` (`delay` 1, `apply` 1, radius 30000, `EnemyWithoutTower`) whose applied effects climb 1-tick-renewed
+caster flags `i1` -> `i2` (league_kayle R's count; the target itself is the first). The claw lands on tick 12 (well after
+the count) and reads them: `i2` -> the plain hit, `i1` alone -> the isolated one, neither -> the plain one. In the
+simulation (6 logged games, the draft numbers) 49 of his 81 Qs on champions (60%) and 224 of 302 on camps (74%) came
+out isolated (a camp's monsters stand apart).
+
+**Evolutions read from a level, ability power as the gauge (league_khazix).** League's evolution points come at levels
+6, 11 and 16; here Q, E and R evolve at 5, 8 and 11 from league_kayle's probe, with two lessons. (1) Inside an attack
+action the probe's self-hit rolled critical strikes (`attack_type: BaseAttack` crits every `FixedAttack` too, section 4)
+and broke the shield at twice the measured size once he bought crit chance: the hits now come from a 1-run `AddCasted`
+on him (damage over time never crits). (2) Maximum health is no gauge for a hero that buys health: 0 to 800 item health
+at level 8 in 16 simulated games put E's and R's evolutions up to three levels early. He gains 1 ability power a level
+instead (`growth.magic_power` 1; nothing in his kit reads AP and no item he buys gives any): under 2 ticks of
+`damaged_reduce` 99 and `magic_resistance_penetration` 100 an `ApAttack` of 1000000% AP (100 x AP after the cut) hits a
+3-tick shield of 100 x (level - 1.5) plus a 1-tick soak shield; another shield already on him skips the probe, a 100
+shield against a 9900 hit guards against damage amplification, and two passes 30 ticks apart must agree. Each life's
+first attack re-reads the stages silently. In the simulation every stage came 1-5 s after its level.
+
+**Recasts as cooldown caps (league_khazix R, Void Assault).** League's R can be cast again within 12 s. The slot's real
+cooldown starts at each cast; a first cast (flag `r_c1`) and, evolved, a second (`r_c2`) add a 3-tick
+`ult_cooldown_mult` that caps it at 120 ticks, so the AI can cast again 2 s later; the last use adds nothing and the full
+cooldown runs. There is no 12 s window (a lapse cannot add cooldown back), which the AI does not need: it spends the
+recasts as champions come into reach.
 
 ## 8. Gotchas
 

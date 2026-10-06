@@ -616,6 +616,10 @@ def main():
     ap.add_argument("--submesh-texture", action="append", default=[], metavar="SUBMESH=TEXTURE",
                     help="colour a submesh with another of the skin's maps, named by a part of its file name "
                          "(repeatable; Yone: Katana=Swords_TX, GhostKatana=Swords_TX)")
+    ap.add_argument("--layer", action="append", default=[], metavar="CLIP@MS=REGEX",
+                    help="take the joints whose names match REGEX from this clip at this time, over every pose "
+                         "(repeatable; League layers parts that way: Kha'Zix's evolutions come from "
+                         "Khazix_evo_overrides@0='Wing|_evo$|_base$|Spike|Shell')")
     ap.add_argument("--out", required=True)
     args = ap.parse_args()
     if args.frame and not args.name:
@@ -669,7 +673,28 @@ def main():
     os.makedirs(args.out, exist_ok=True)
     draw = render_hq if args.hq else render
 
+    layers = []
+    if args.layer:
+        all_anims = {os.path.splitext(os.path.basename(a))[0].lower(): a for a in anims}
+        for spec in args.layer:
+            at, rx = spec.split("=", 1)
+            name, ms = at.rsplit("@", 1)
+            if name.lower() not in all_anims:
+                raise SystemExit(f"--layer: no clip {name!r}")
+            pose = local_pose(joints, read_anim(w.read_path(all_anims[name.lower()].lower())), float(ms) / 1000.0)
+            pick_ = [i for i, j in enumerate(joints) if re.search(rx, j["name"], re.I)]
+            layers.append((pick_, pose))
+            print(f"--layer {name}@{ms}: {len(pick_)} joints")
+
+    def layered(local):
+        local = list(local)
+        for pick_, pose in layers:
+            for i in pick_:
+                local[i] = pose[i]
+        return local
+
     def cell(local):
+        local = layered(local)
         pv = skin(verts, influences, bind_inv, globals_(joints, [trs(*p) for p in chibi(joints, local, args.head, args.legs, args.hair, hair_re)]))
         if small:   # shorter legs lift the body: put the lowest point of the legs where League has it
             adult = skin(verts, influences, bind_inv, globals_(joints, [trs(*p) for p in local]))
