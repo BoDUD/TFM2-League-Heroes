@@ -401,6 +401,193 @@ def back_hair(a):
                         n += 1
     return n
 
+# step 14 (the user: 「你把我44行的精修一下吧」, then 「有点味道了 继续美化」, after their own picture of her): the head
+# polished the picture's way and the skirt and legs cleaned. Canvas coordinates, the scissors' squares (mask) behind:
+# 1. the dark masses beside her head (the draft's bows, navy since step 13) cleared, and in their place an end-on curl
+#    each side by her shoulders - a disc lit top left with a navy line winding into its middle (the picture's spiral
+#    ringlets) - the hair from the crown down to them filled;
+# 2. a small bow on each side of the crown (5 x 3, violet lit on top, a gold knot) - big black ones read as blots
+#    (「蝴蝶结这么大？？？？」);
+# 3. the crown redrawn (CROWN): lit top left, darker to the right, a parting splitting two locks, strands, the bangs'
+#    points on her forehead and a cyan ahoge curling up (it was a navy stub);
+# 4. the skirt with fewer things on it (「裙子上元素可以少一点」): the white panels' gold edging and the gold under the
+#    hem take the colours beside them, the middle hem ornament goes; the bow's star and two hem ornaments stay;
+# 5. the stockings in three clean steps per leg (lit left edge, dark right edge), a lilac knee each, a gold star on the
+#    far thigh; the boots' lone squares cleaned.
+PAL = {"0": "#08021a", "a": "#020375", "b": "#1d1444", "c": "#0b0baa", "d": "#3c2a71", "e": "#4516eb", "f": "#653a94",
+       "g": "#025ff8", "h": "#0187fa", "i": "#e0506a", "j": "#7f6be0", "k": "#03adfb", "l": "#e89620", "m": "#aa93f3",
+       "n": "#28ddfc", "o": "#f39378", "p": "#f6a6a0", "q": "#fabe38", "r": "#f8b899", "s": "#cec1fa", "t": "#8ff2fe",
+       "u": "#fbe169", "v": "#fce3cd", "w": "#fcf6cb", "x": "#f3f8fa"}
+LETTER = {v: k for k, v in PAL.items()}
+POLISH_FACE = (62, 68, 63, 69)                     # columns, rows of the face: kept
+CURLS_ = [(57.5, 68.5, 3.9, True), (73.0, 68.5, 3.9, False)]   # centre, radius, winding
+BOW_ = ["fd.df", "ddqdd", "bd.db"]
+BOWS_AT = [(57, 60), (73, 60)]
+SIDES = {62: ("0tnkhagh", "hgaknkh0"),
+         63: ("0nkhgagh", "ggankhg0"),
+         64: ("0khgaggh", "hgakhga0")}           # columns 54-61 and 69-76
+LEGS = {93: "---0sxs0-0sxs0--",
+        94: "---0xsu0-0usx0--",
+        95: "---0mqm0-0mqm0--",
+        96: "--0smmb0-0bmms0-",
+        97: "-0qssmb0-0bmssq0",
+        98: "-0sss0b0-0b0sss0",
+        99: "-0000.0---0.0000"}                   # the boots, from column 56; '-' leaves the square
+CROWN = {54: "--.000.........",
+         55: "--0ntn0........",
+         56: "--0nn0.........",
+         57: "-0nkn000000----",
+         58: "0gnttnnhnkh0---",
+         59: "--ntnnkhnkhhg--",
+         60: "--nnhnaknnhgg--",
+         61: "--knnhannkhhg--",
+         62: "0ghnnkakknkhgg0",
+         63: "0ghvvvknnkhggg0"}                  # from column 58; '-' keeps, '.' clears
+
+
+def polish(canvas, mask):
+    a = canvas
+
+    def ch(y, x):
+        if not a[y, x, 3]:
+            return "."
+        return LETTER.get("#%02x%02x%02x" % tuple(int(v) for v in a[y, x, :3]), "?")
+
+    def put(x, y, c):
+        if c == ".":
+            a[y, x] = 0
+        else:
+            a[y, x] = (*hx(PAL[c]), 255)
+        mask[y, x] = False
+
+    fx0, fx1, fy0, fy1 = POLISH_FACE
+    # 1. the side masses cleared (not the face, the scissors or the dress's dark at the shoulders)
+    for y in range(59, 75):
+        for x in list(range(50, 62)) + list(range(69, 80)):
+            if (fx0 <= x <= fx1 and fy0 <= y <= fy1) or mask[y, x]:
+                continue
+            c = ch(y, x)
+            if c in "acghkntqu0bdf" and not (y >= 72 and c in "bdf"):     # the draft's bows (violet) too
+                put(x, y, ".")
+    for cx, cy, r, cw in CURLS_:
+        pitch = r / 1.5
+        for y in range(int(cy - r - 1), int(cy + r + 2)):
+            for x in range(int(cx - r - 1), int(cx + r + 2)):
+                dx, dy = x + 0.5 - cx, y + 0.5 - cy
+                d = np.hypot(dx, dy)
+                if d > r:
+                    continue
+                th = np.arctan2(dy, dx) * (1 if cw else -1)
+                u = (d + th / (2 * np.pi) * pitch) % pitch
+                if u < pitch * 0.42 and d > 0.6:
+                    c = "a"
+                else:
+                    lit = -(dx + dy) / (r * 1.4)
+                    c = "t" if lit > 0.55 else ("n" if lit > 0.05 else ("k" if lit > -0.35 else ("h" if lit > -0.7 else "g")))
+                if mask[y, x] or ch(y, x) in ".acghknt0" or y < 72:
+                    put(x, y, c)
+    for y in range(59, 66):
+        for x in (59, 60, 61, 69, 70, 71):
+            if ch(y, x) == ".":
+                put(x, y, "h" if x in (61, 69) else "g")
+    # 2. the bows
+    for cx, cy in BOWS_AT:
+        for r, row in enumerate(BOW_):
+            for i, c in enumerate(row):
+                if c != ".":
+                    put(cx - 2 + i, cy - 1 + r, c)
+    # outline round the head (rows 52-76), never over the scissors
+    op = a[..., 3] > 0
+    ring = np.zeros_like(op)
+    for dy, dx in N4:
+        ring |= np.roll(np.roll(op, dy, 0), dx, 1)
+    ring &= ~op
+    ring[:52] = False
+    ring[77:] = False
+    for y, x in zip(*np.nonzero(ring)):
+        put(x, y, "0")
+    # the hair behind the bows: the gaps between a bow and the crown and curls (filled with outline they made the
+    # bows a black blot) take the hair's blue; then one outline ring outside again
+    bows = {(cx - 2 + i, cy - 1 + r) for cx, cy in BOWS_AT for r, row in enumerate(BOW_) for i, c in enumerate(row)
+            if c != "."}
+    for x0, x1 in ((55, 59), (71, 75)):
+        for y in range(62, 65):                    # under the bow down to the curl: above it only the outline
+            for x in range(x0, x1 + 1):
+                if (x, y) not in bows and ch(y, x) in ".0" and not mask[y, x]:
+                    put(x, y, "g")
+    for y in range(52, 77):
+        for x in range(46, 86):
+            if ch(y, x) == "0" and all(ch(y + dy, x + dx) not in "." for dy, dx in N4) and not mask[y, x] and                     not (fx0 <= x <= fx1 and fy0 <= y <= fy1) and 56 <= y <= 64 and (x <= 59 or x >= 71):
+                put(x, y, "a")                     # an outline square now inside the hair: the hair's navy line
+    # the hair from each bow down into its curl: locks lit on the left with a navy line (filled flat blue, the two
+    # sides and the crown's edges read as a headband)
+    for y, (left, right) in SIDES.items():
+        for i, c in enumerate(left):
+            put(54 + i, y, c)
+        for i, c in enumerate(right):
+            put(69 + i, y, c)
+    # 3. the crown
+    for y, row in CROWN.items():
+        for i, c in enumerate(row):
+            if c != "-":
+                put(58 + i, y, c)
+    op = (a[..., 3] > 0) & ~(a[..., :3] == hx(PAL["0"])).all(-1)   # colour, not outline: one ring, not two
+    for y in range(53, 65):
+        for x in range(54, 78):
+            if not a[y, x, 3] and any(op[y + dy, x + dx] for dy, dx in N4):
+                put(x, y, "0")
+    # outline squares with no colour beside them (the first ring's outer squares now doubled) go
+    for y in range(52, 66):
+        for x in range(46, 86):
+            if ch(y, x) == "0" and not mask[y, x] and not any(op[y + dy, x + dx] for dy, dx in N4) and                     not any(ch(y + dy, x + dx) == "0" and op[y + 2 * dy, x + 2 * dx] if 0 <= y + 2 * dy < 128 else False
+                            for dy, dx in N4):
+                put(x, y, ".")
+
+    def common(y, x, skip):
+        nb = [ch(y + dy, x + dx) for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1))]
+        nb = [n for n in nb if n not in skip]
+        return min(set(nb), key=lambda c: (-nb.count(c), c)) if nb else None   # ties by letter: the same every run
+
+    # 4. the skirt
+    for y in list(range(79, 82)) + [86, 87]:
+        for x in range(55, 80):
+            if ch(y, x) in "qul" and not mask[y, x]:
+                c = common(y, x, set("qul0."))
+                if c:
+                    put(x, y, c)
+    if ch(84, 65) in "qul":
+        put(65, 84, "b")
+    # 5. the legs redrawn (the user: 「腿能更新吗」, the picture's): diamond-checked violet stockings lit on the left edge,
+    # a small gold star on the far thigh; white heeled boots - a gold star buckle at the ankle, a gold toe cap, the
+    # toes out, a gap under the arch for the heel - in the old legs' columns (the run splits them at column 64)
+    for y in range(87, 100):
+        for x in range(56, 72):
+            if not mask[y, x] and (y >= 89 or x not in (56, 57, 70, 71)):
+                put(x, y, ".")
+    for y in range(87, 93):
+        legs = ((60, 63), (65, 68)) if y < 91 else ((60, 62), (66, 68))
+        for x0, x1 in legs:
+            put(x0 - 1, y, "0")
+            put(x1 + 1, y, "0")
+            for x in range(x0, x1 + 1):
+                put(x, y, "f" if (x + y) % 2 == 0 else "d")
+            put(x0, y, "j")
+            put(x1, y, "b" if (x1 + y) % 2 else "d")
+    for x, y, c in ((67, 87, "u"), (66, 88, "q"), (67, 88, "u"), (68, 88, "q"), (67, 89, "l")):
+        put(x, y, c)
+    for y, row in LEGS.items():
+        for i, c in enumerate(row):
+            if c != "-" and not mask[y, 56 + i]:
+                put(56 + i, y, c)
+    # outline squares the rings above left touching no colour (over the scissors' spikes, outside the near shoulder) go
+    ink = (a[..., :3] == hx(PAL["0"])).all(-1) & (a[..., 3] > 0)
+    col = (a[..., 3] > 0) & ~ink
+    for y, x in zip(*np.nonzero(ink)):
+        if 50 <= y <= 99 and not any(0 <= y + dy < 128 and 0 <= x + dx < 128 and col[y + dy, x + dx] for dy, dx in N4):
+            a[y, x] = 0
+            mask[y, x] = False
+
+
 def build(with_mask=False):
     """The design canvas; with_mask also the scissors' squares on it (step 9's, the point's)."""
     raw = read_back()
@@ -437,7 +624,7 @@ def build(with_mask=False):
     mask = np.zeros((128, 128), bool)
     mask[y0:y0 + fig.shape[0], x0:x0 + fig.shape[1]] = sc
     lone_ink(canvas, face | mask)                      # step 12
-    back_hair(canvas)                                  # step 13
+    polish(canvas, mask)                               # step 14 (supersedes step 13's recolouring)
     if with_mask:
         return canvas, mask
     return canvas

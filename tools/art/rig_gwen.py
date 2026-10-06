@@ -418,8 +418,8 @@ def run_parts(P):
 # contacts - whole, under the arms and sleeves (moving them a frame late in rows tore them from the head)
 ARM_SWING = [-25, -15, 0, 15, 25, 15, 0, -15]
 SWAY = [0, -1, -1, 0, 0, -1, -1, 0]
-DRILLS = ((69, 84), (57, 200))         # the trailing curls: the back (left) curls' lower half only - the right ones swung
-                                       # into her neck and the whole curl moved from row 66 looked broken (「头发上 有点变形」)
+DRILLS = ((64, 73), (61, 200))         # the trailing curl: the back (left) spiral curl whole (a part of it moved cut
+                                       # its spiral; the right one swung into her neck: 「头发上 有点变形」)
 
 
 def run_frame(P, k):
