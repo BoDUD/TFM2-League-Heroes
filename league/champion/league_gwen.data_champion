@@ -1,0 +1,2085 @@
+{
+  "id": "league_gwen",
+  "category": "Assassin",
+  "tags": [
+    "AP",
+    "Magic",
+    "Melee",
+    "Heal"
+  ],
+  "sprite": "asset/league/champions/league_gwen",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/league/icons/league_gwen_skill",
+    "asset/league/icons/league_gwen_skill2",
+    "asset/league/icons/league_gwen_ult"
+  ],
+  "stat": {
+    "attack": 74,
+    "magic_power": 50,
+    "hp": 880,
+    "defence": 30,
+    "magic_resistance": 24,
+    "move_speed": 1080,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 10,
+    "magic_power": 20,
+    "hp": 98,
+    "defence": 8,
+    "magic_resistance": 4,
+    "move_speed": 11,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.league_gwen.attack",
+    "duration": 24,
+    "cooltime": 56,
+    "start_timing": 1,
+    "cancelable": true,
+    "range": 24000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "league_gwen_a_swing"
+        },
+        {
+          "type": "Delayed",
+          "tick": 11,
+          "effects": [
+            {
+              "type": "TargetProjectile",
+              "name": "league_gwen_a_cut",
+              "speed": 100000,
+              "y_offset": 0,
+              "applied_target": "Enemy",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "Attack",
+                    "damage": 0,
+                    "attack_ratio": 100,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 0,
+                    "attack_effect_type": "Target"
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ApAttack",
+                    "damage": 10,
+                    "attack_ratio": 8,
+                    "hp_ratio": 0,
+                    "can_crit": false
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_gwen_e_on",
+                    "effect_buff": {
+                      "type": "ApAttack",
+                      "damage": 15,
+                      "attack_ratio": 20,
+                      "hp_ratio": 0,
+                      "can_crit": false
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": []
+                    }
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ViewEffect",
+                    "name": "league_gwen_a_hit"
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "TargetSfx",
+                    "name": "league_gwen_a_hit"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "TargetProjectile",
+              "name": "league_gwen_a_cut_c",
+              "speed": 100000,
+              "y_offset": 0,
+              "applied_target": "EnemyChampion",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "FixedAttack",
+                    "damage": 0,
+                    "attack_ratio": 0,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 1,
+                    "attack_effect_type": "Target"
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "Heal",
+                    "amount": 10,
+                    "attack_ratio": 0,
+                    "ap_ratio": 6,
+                    "heal_type": "Caster"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_gwen_qs4",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_gwen_qs1"
+                  },
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_gwen_qs2"
+                  },
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_gwen_qs3"
+                  },
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_gwen_qs4"
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_gwen_qs1",
+                      "duration": {
+                        "Time": {
+                          "tick": 360
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_gwen_qs2",
+                      "duration": {
+                        "Time": {
+                          "tick": 360
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_gwen_qs3",
+                      "duration": {
+                        "Time": {
+                          "tick": 360
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_gwen_qs4",
+                      "duration": {
+                        "Time": {
+                          "tick": 360
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_gwen_qs3",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_gwen_qs1"
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_gwen_qs2"
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_gwen_qs3"
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_gwen_qs4"
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_gwen_qs1",
+                        "duration": {
+                          "Time": {
+                            "tick": 360
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_gwen_qs2",
+                        "duration": {
+                          "Time": {
+                            "tick": 360
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_gwen_qs3",
+                        "duration": {
+                          "Time": {
+                            "tick": 360
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_gwen_qs4",
+                        "duration": {
+                          "Time": {
+                            "tick": 360
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                "effect_none": {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_gwen_qs2",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_gwen_qs1"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_gwen_qs2"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_gwen_qs3"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_gwen_qs4"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_gwen_qs1",
+                          "duration": {
+                            "Time": {
+                              "tick": 360
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_gwen_qs2",
+                          "duration": {
+                            "Time": {
+                              "tick": 360
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_gwen_qs3",
+                          "duration": {
+                            "Time": {
+                              "tick": 360
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_gwen_qs1",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_gwen_qs1"
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_gwen_qs2"
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_gwen_qs3"
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_gwen_qs4"
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_gwen_qs1",
+                            "duration": {
+                              "Time": {
+                                "tick": 360
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_gwen_qs2",
+                            "duration": {
+                              "Time": {
+                                "tick": 360
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_gwen_qs1"
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_gwen_qs2"
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_gwen_qs3"
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_gwen_qs4"
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_gwen_qs1",
+                            "duration": {
+                              "Time": {
+                                "tick": 360
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.league_gwen.skill",
+    "duration": 30,
+    "cooltime": 330,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 30000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "CasterAnimation",
+          "name": "skill",
+          "tick": 30
+        },
+        {
+          "type": "Sfx",
+          "name": "league_gwen_q_open"
+        },
+        {
+          "type": "Sfx",
+          "name": "league_gwen_vo_q"
+        },
+        {
+          "type": "Delayed",
+          "tick": 6,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "league_gwen_q_snip"
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "DirDot": {
+                  "radius": 30000,
+                  "range": 300
+                }
+              },
+              "target": "EnemyWithoutTower",
+              "apply_type": {
+                "Forward": {
+                  "offset": 1000
+                }
+              },
+              "effects": [
+                {
+                  "type": "ApAttack",
+                  "damage": 12,
+                  "attack_ratio": 8,
+                  "hp_ratio": 0,
+                  "can_crit": false
+                },
+                {
+                  "type": "ApAttack",
+                  "damage": 10,
+                  "attack_ratio": 8,
+                  "hp_ratio": 0,
+                  "can_crit": false
+                },
+                {
+                  "type": "ViewEffect",
+                  "name": "league_gwen_q_hit"
+                },
+                {
+                  "type": "TargetSfx",
+                  "name": "league_gwen_q_hit"
+                }
+              ]
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "DirDot": {
+                  "radius": 30000,
+                  "range": 300
+                }
+              },
+              "target": "EnemyChampion",
+              "apply_type": {
+                "Forward": {
+                  "offset": 1000
+                }
+              },
+              "effects": [
+                {
+                  "type": "FixedAttack",
+                  "damage": 0,
+                  "attack_ratio": 0,
+                  "hp_ratio": 0,
+                  "target_hp_ratio": 1,
+                  "attack_effect_type": "Target"
+                },
+                {
+                  "type": "Heal",
+                  "amount": 10,
+                  "attack_ratio": 0,
+                  "ap_ratio": 6,
+                  "heal_type": "Caster"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_gwen_qs1",
+          "effect_buff": {
+            "type": "Delayed",
+            "tick": 9,
+            "effects": [
+              {
+                "type": "Sfx",
+                "name": "league_gwen_q_snip"
+              },
+              {
+                "type": "RangeEffect",
+                "shape": {
+                  "DirDot": {
+                    "radius": 30000,
+                    "range": 300
+                  }
+                },
+                "target": "EnemyWithoutTower",
+                "apply_type": {
+                  "Forward": {
+                    "offset": 1000
+                  }
+                },
+                "effects": [
+                  {
+                    "type": "ApAttack",
+                    "damage": 12,
+                    "attack_ratio": 8,
+                    "hp_ratio": 0,
+                    "can_crit": false
+                  },
+                  {
+                    "type": "ApAttack",
+                    "damage": 10,
+                    "attack_ratio": 8,
+                    "hp_ratio": 0,
+                    "can_crit": false
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "league_gwen_q_hit"
+                  },
+                  {
+                    "type": "TargetSfx",
+                    "name": "league_gwen_q_hit"
+                  }
+                ]
+              },
+              {
+                "type": "RangeEffect",
+                "shape": {
+                  "DirDot": {
+                    "radius": 30000,
+                    "range": 300
+                  }
+                },
+                "target": "EnemyChampion",
+                "apply_type": {
+                  "Forward": {
+                    "offset": 1000
+                  }
+                },
+                "effects": [
+                  {
+                    "type": "FixedAttack",
+                    "damage": 0,
+                    "attack_ratio": 0,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 1,
+                    "attack_effect_type": "Target"
+                  },
+                  {
+                    "type": "Heal",
+                    "amount": 10,
+                    "attack_ratio": 0,
+                    "ap_ratio": 6,
+                    "heal_type": "Caster"
+                  }
+                ]
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": []
+          }
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_gwen_qs2",
+          "effect_buff": {
+            "type": "Delayed",
+            "tick": 12,
+            "effects": [
+              {
+                "type": "Sfx",
+                "name": "league_gwen_q_snip"
+              },
+              {
+                "type": "RangeEffect",
+                "shape": {
+                  "DirDot": {
+                    "radius": 30000,
+                    "range": 300
+                  }
+                },
+                "target": "EnemyWithoutTower",
+                "apply_type": {
+                  "Forward": {
+                    "offset": 1000
+                  }
+                },
+                "effects": [
+                  {
+                    "type": "ApAttack",
+                    "damage": 12,
+                    "attack_ratio": 8,
+                    "hp_ratio": 0,
+                    "can_crit": false
+                  },
+                  {
+                    "type": "ApAttack",
+                    "damage": 10,
+                    "attack_ratio": 8,
+                    "hp_ratio": 0,
+                    "can_crit": false
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "league_gwen_q_hit"
+                  },
+                  {
+                    "type": "TargetSfx",
+                    "name": "league_gwen_q_hit"
+                  }
+                ]
+              },
+              {
+                "type": "RangeEffect",
+                "shape": {
+                  "DirDot": {
+                    "radius": 30000,
+                    "range": 300
+                  }
+                },
+                "target": "EnemyChampion",
+                "apply_type": {
+                  "Forward": {
+                    "offset": 1000
+                  }
+                },
+                "effects": [
+                  {
+                    "type": "FixedAttack",
+                    "damage": 0,
+                    "attack_ratio": 0,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 1,
+                    "attack_effect_type": "Target"
+                  },
+                  {
+                    "type": "Heal",
+                    "amount": 10,
+                    "attack_ratio": 0,
+                    "ap_ratio": 6,
+                    "heal_type": "Caster"
+                  }
+                ]
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": []
+          }
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_gwen_qs3",
+          "effect_buff": {
+            "type": "Delayed",
+            "tick": 15,
+            "effects": [
+              {
+                "type": "Sfx",
+                "name": "league_gwen_q_snip"
+              },
+              {
+                "type": "RangeEffect",
+                "shape": {
+                  "DirDot": {
+                    "radius": 30000,
+                    "range": 300
+                  }
+                },
+                "target": "EnemyWithoutTower",
+                "apply_type": {
+                  "Forward": {
+                    "offset": 1000
+                  }
+                },
+                "effects": [
+                  {
+                    "type": "ApAttack",
+                    "damage": 12,
+                    "attack_ratio": 8,
+                    "hp_ratio": 0,
+                    "can_crit": false
+                  },
+                  {
+                    "type": "ApAttack",
+                    "damage": 10,
+                    "attack_ratio": 8,
+                    "hp_ratio": 0,
+                    "can_crit": false
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "league_gwen_q_hit"
+                  },
+                  {
+                    "type": "TargetSfx",
+                    "name": "league_gwen_q_hit"
+                  }
+                ]
+              },
+              {
+                "type": "RangeEffect",
+                "shape": {
+                  "DirDot": {
+                    "radius": 30000,
+                    "range": 300
+                  }
+                },
+                "target": "EnemyChampion",
+                "apply_type": {
+                  "Forward": {
+                    "offset": 1000
+                  }
+                },
+                "effects": [
+                  {
+                    "type": "FixedAttack",
+                    "damage": 0,
+                    "attack_ratio": 0,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 1,
+                    "attack_effect_type": "Target"
+                  },
+                  {
+                    "type": "Heal",
+                    "amount": 10,
+                    "attack_ratio": 0,
+                    "ap_ratio": 6,
+                    "heal_type": "Caster"
+                  }
+                ]
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": []
+          }
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_gwen_qs4",
+          "effect_buff": {
+            "type": "Delayed",
+            "tick": 18,
+            "effects": [
+              {
+                "type": "Sfx",
+                "name": "league_gwen_q_snip"
+              },
+              {
+                "type": "RangeEffect",
+                "shape": {
+                  "DirDot": {
+                    "radius": 30000,
+                    "range": 300
+                  }
+                },
+                "target": "EnemyWithoutTower",
+                "apply_type": {
+                  "Forward": {
+                    "offset": 1000
+                  }
+                },
+                "effects": [
+                  {
+                    "type": "ApAttack",
+                    "damage": 12,
+                    "attack_ratio": 8,
+                    "hp_ratio": 0,
+                    "can_crit": false
+                  },
+                  {
+                    "type": "ApAttack",
+                    "damage": 10,
+                    "attack_ratio": 8,
+                    "hp_ratio": 0,
+                    "can_crit": false
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "league_gwen_q_hit"
+                  },
+                  {
+                    "type": "TargetSfx",
+                    "name": "league_gwen_q_hit"
+                  }
+                ]
+              },
+              {
+                "type": "RangeEffect",
+                "shape": {
+                  "DirDot": {
+                    "radius": 30000,
+                    "range": 300
+                  }
+                },
+                "target": "EnemyChampion",
+                "apply_type": {
+                  "Forward": {
+                    "offset": 1000
+                  }
+                },
+                "effects": [
+                  {
+                    "type": "FixedAttack",
+                    "damage": 0,
+                    "attack_ratio": 0,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 1,
+                    "attack_effect_type": "Target"
+                  },
+                  {
+                    "type": "Heal",
+                    "amount": 10,
+                    "attack_ratio": 0,
+                    "ap_ratio": 6,
+                    "heal_type": "Caster"
+                  }
+                ]
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": []
+          }
+        },
+        {
+          "type": "Delayed",
+          "tick": 22,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "league_gwen_q_final"
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "DirDot": {
+                  "radius": 30000,
+                  "range": 300
+                }
+              },
+              "target": "EnemyWithoutTower",
+              "apply_type": {
+                "Forward": {
+                  "offset": 1000
+                }
+              },
+              "effects": [
+                {
+                  "type": "ApAttack",
+                  "damage": 60,
+                  "attack_ratio": 40,
+                  "hp_ratio": 0,
+                  "can_crit": false
+                },
+                {
+                  "type": "ApAttack",
+                  "damage": 10,
+                  "attack_ratio": 8,
+                  "hp_ratio": 0,
+                  "can_crit": false
+                },
+                {
+                  "type": "ViewEffect",
+                  "name": "league_gwen_q_hit"
+                },
+                {
+                  "type": "TargetSfx",
+                  "name": "league_gwen_q_hit"
+                }
+              ]
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "DirDot": {
+                  "radius": 30000,
+                  "range": 300
+                }
+              },
+              "target": "EnemyChampion",
+              "apply_type": {
+                "Forward": {
+                  "offset": 1000
+                }
+              },
+              "effects": [
+                {
+                  "type": "FixedAttack",
+                  "damage": 0,
+                  "attack_ratio": 0,
+                  "hp_ratio": 0,
+                  "target_hp_ratio": 1,
+                  "attack_effect_type": "Target"
+                },
+                {
+                  "type": "Heal",
+                  "amount": 10,
+                  "attack_ratio": 0,
+                  "ap_ratio": 6,
+                  "heal_type": "Caster"
+                }
+              ]
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_gwen_eq",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "TargetProjectile",
+                    "name": "league_gwen_q_mark",
+                    "speed": 100000,
+                    "y_offset": 0,
+                    "applied_target": "EnemyWithoutTower",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "FixedAttack",
+                          "damage": 25,
+                          "attack_ratio": 0,
+                          "hp_ratio": 0,
+                          "target_hp_ratio": 0,
+                          "attack_effect_type": "Target"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ViewEffect",
+                          "name": "league_gwen_q_true"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "TargetSfx",
+                          "name": "league_gwen_q_true"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_gwen_eq"
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "RangeEffect",
+                "shape": {
+                  "Circle": {
+                    "radius": 6000
+                  }
+                },
+                "target": "EnemyWithoutTower",
+                "apply_type": {
+                  "Forward": {
+                    "offset": 16000
+                  }
+                },
+                "effects": [
+                  {
+                    "type": "FixedAttack",
+                    "damage": 25,
+                    "attack_ratio": 0,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 0,
+                    "attack_effect_type": "Target"
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "league_gwen_q_true"
+                  },
+                  {
+                    "type": "TargetSfx",
+                    "name": "league_gwen_q_true"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 1,
+          "effects": [
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_gwen_qs1"
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_gwen_qs2"
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_gwen_qs3"
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_gwen_qs4"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.league_gwen.skill2",
+    "duration": 12,
+    "cooltime": 900,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 45000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "CasterAnimation",
+          "name": "skill2",
+          "tick": 12
+        },
+        {
+          "type": "Sfx",
+          "name": "league_gwen_e_cast"
+        },
+        {
+          "type": "Sfx",
+          "name": "league_gwen_vo_e"
+        },
+        {
+          "type": "MoveToTarget",
+          "speed": 6000,
+          "range": 55000,
+          "end_effects": []
+        },
+        {
+          "type": "Delayed",
+          "tick": 8,
+          "effects": [
+            {
+              "type": "CasterViewEffect",
+              "name": "league_gwen_w_mist"
+            },
+            {
+              "type": "Sfx",
+              "name": "league_gwen_w_cast"
+            },
+            {
+              "type": "Sfx",
+              "name": "league_gwen_vo_w"
+            },
+            {
+              "type": "LinearProjectile",
+              "name": "league_gwen_w_anchor",
+              "speed": 1,
+              "range": 1,
+              "y_offset": 5000,
+              "penetrate": true,
+              "shape": {
+                "Circle": {
+                  "radius": 1000
+                }
+              },
+              "applied_target": "EnemyChampion",
+              "applied_effects": [],
+              "end_effects": [
+                {
+                  "type": "RangePeriodProjectile",
+                  "name": "league_gwen_w_zone",
+                  "shape": {
+                    "Circle": {
+                      "radius": 37000
+                    }
+                  },
+                  "tick": 240,
+                  "period": 6,
+                  "first_delay": 0,
+                  "applied_target": "AllyChampion",
+                  "applied_effects": [
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "RandomTarget",
+                        "range": 37000,
+                        "casting_target": "AllyOnlySelf",
+                        "from_projectile": true,
+                        "effects": [
+                          {
+                            "type": "CasterInvisible",
+                            "tick": 8
+                          },
+                          {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_gwen_w_in"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_gwen_w_in",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 8
+                                    }
+                                  },
+                                  "defence": 22,
+                                  "magic_resistance": 22
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "end_effects": []
+                }
+              ]
+            },
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_gwen_e_on"
+                },
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_gwen_e_on",
+                    "duration": {
+                      "Time": {
+                        "tick": 240
+                      }
+                    },
+                    "attack_speed_mult": 25,
+                    "range": 7500
+                  },
+                  "only_to_enemy": false
+                }
+              ]
+            },
+            {
+              "type": "Sfx",
+              "name": "league_gwen_a_swing"
+            },
+            {
+              "type": "TargetProjectile",
+              "name": "league_gwen_e_cut",
+              "speed": 100000,
+              "y_offset": 0,
+              "applied_target": "EnemyChampion",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "Attack",
+                    "damage": 0,
+                    "attack_ratio": 60,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 0,
+                    "attack_effect_type": "Target"
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ApAttack",
+                    "damage": 10,
+                    "attack_ratio": 8,
+                    "hp_ratio": 0,
+                    "can_crit": false
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ViewEffect",
+                    "name": "league_gwen_a_hit"
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "TargetSfx",
+                    "name": "league_gwen_a_hit"
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "FixedAttack",
+                    "damage": 0,
+                    "attack_ratio": 0,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 1,
+                    "attack_effect_type": "Target"
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "Heal",
+                    "amount": 10,
+                    "attack_ratio": 0,
+                    "ap_ratio": 6,
+                    "heal_type": "Caster"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_gwen_qs4",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_gwen_qs1"
+                  },
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_gwen_qs2"
+                  },
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_gwen_qs3"
+                  },
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_gwen_qs4"
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_gwen_qs1",
+                      "duration": {
+                        "Time": {
+                          "tick": 360
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_gwen_qs2",
+                      "duration": {
+                        "Time": {
+                          "tick": 360
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_gwen_qs3",
+                      "duration": {
+                        "Time": {
+                          "tick": 360
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_gwen_qs4",
+                      "duration": {
+                        "Time": {
+                          "tick": 360
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_gwen_qs3",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_gwen_qs1"
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_gwen_qs2"
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_gwen_qs3"
+                    },
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "league_gwen_qs4"
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_gwen_qs1",
+                        "duration": {
+                          "Time": {
+                            "tick": 360
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_gwen_qs2",
+                        "duration": {
+                          "Time": {
+                            "tick": 360
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_gwen_qs3",
+                        "duration": {
+                          "Time": {
+                            "tick": 360
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_gwen_qs4",
+                        "duration": {
+                          "Time": {
+                            "tick": 360
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                "effect_none": {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_gwen_qs2",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_gwen_qs1"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_gwen_qs2"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_gwen_qs3"
+                      },
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_gwen_qs4"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_gwen_qs1",
+                          "duration": {
+                            "Time": {
+                              "tick": 360
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_gwen_qs2",
+                          "duration": {
+                            "Time": {
+                              "tick": 360
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_gwen_qs3",
+                          "duration": {
+                            "Time": {
+                              "tick": 360
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "SwitchByBuff",
+                    "buff_name": "league_gwen_qs1",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_gwen_qs1"
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_gwen_qs2"
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_gwen_qs3"
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_gwen_qs4"
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_gwen_qs1",
+                            "duration": {
+                              "Time": {
+                                "tick": 360
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_gwen_qs2",
+                            "duration": {
+                              "Time": {
+                                "tick": 360
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_gwen_qs1"
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_gwen_qs2"
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_gwen_qs3"
+                        },
+                        {
+                          "type": "RemoveCasterBuff",
+                          "name": "league_gwen_qs4"
+                        },
+                        {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_gwen_qs1",
+                            "duration": {
+                              "Time": {
+                                "tick": 360
+                              }
+                            }
+                          },
+                          "only_to_enemy": false
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_gwen_eq"
+                },
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_gwen_eq",
+                    "duration": {
+                      "Time": {
+                        "tick": 120
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.league_gwen.ult",
+    "duration": 34,
+    "cooltime": 2400,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 70000,
+    "casting_type": "Direction",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "league_gwen_vo_r"
+        },
+        {
+          "type": "Sfx",
+          "name": "league_gwen_r_cast"
+        },
+        {
+          "type": "Delayed",
+          "tick": 10,
+          "effects": [
+            {
+              "type": "CasterAnimation",
+              "name": "ult",
+              "tick": 24
+            },
+            {
+              "type": "Sfx",
+              "name": "league_gwen_r_throw"
+            },
+            {
+              "type": "LineRangeProjectile",
+              "name": "league_gwen_r_v1",
+              "width": 5000,
+              "length": 80000,
+              "delay": 12,
+              "apply": 4,
+              "applied_target": "EnemyWithoutTower",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ApAttack",
+                    "damage": 50,
+                    "attack_ratio": 25,
+                    "hp_ratio": 0,
+                    "can_crit": false
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ApAttack",
+                    "damage": 10,
+                    "attack_ratio": 8,
+                    "hp_ratio": 0,
+                    "can_crit": false
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "league_gwen_r_slow",
+                      "duration": {
+                        "Time": {
+                          "tick": 90
+                        }
+                      },
+                      "move_speed_mult": -40
+                    }
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ViewEffect",
+                    "name": "league_gwen_r_hit"
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "TargetSfx",
+                    "name": "league_gwen_r_hit"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "LineRangeProjectile",
+              "name": "league_gwen_r_v1_c",
+              "width": 5000,
+              "length": 80000,
+              "delay": 12,
+              "apply": 4,
+              "applied_target": "EnemyChampion",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "FixedAttack",
+                    "damage": 0,
+                    "attack_ratio": 0,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 1,
+                    "attack_effect_type": "Target"
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "Heal",
+                    "amount": 10,
+                    "attack_ratio": 0,
+                    "ap_ratio": 6,
+                    "heal_type": "Caster"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 46,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "league_gwen_r_throw"
+            },
+            {
+              "type": "LineRangeProjectile",
+              "name": "league_gwen_r_v2",
+              "width": 15000,
+              "length": 80000,
+              "delay": 12,
+              "apply": 4,
+              "applied_target": "EnemyWithoutTower",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ApAttack",
+                    "damage": 60,
+                    "attack_ratio": 25,
+                    "hp_ratio": 0,
+                    "can_crit": false
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ApAttack",
+                    "damage": 10,
+                    "attack_ratio": 8,
+                    "hp_ratio": 0,
+                    "can_crit": false
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "league_gwen_r_slow",
+                      "duration": {
+                        "Time": {
+                          "tick": 90
+                        }
+                      },
+                      "move_speed_mult": -40
+                    }
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ViewEffect",
+                    "name": "league_gwen_r_hit"
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "TargetSfx",
+                    "name": "league_gwen_r_hit"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "LineRangeProjectile",
+              "name": "league_gwen_r_v2_c",
+              "width": 15000,
+              "length": 80000,
+              "delay": 12,
+              "apply": 4,
+              "applied_target": "EnemyChampion",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "FixedAttack",
+                    "damage": 0,
+                    "attack_ratio": 0,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 1,
+                    "attack_effect_type": "Target"
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "Heal",
+                    "amount": 10,
+                    "attack_ratio": 0,
+                    "ap_ratio": 6,
+                    "heal_type": "Caster"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 82,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "league_gwen_r_throw"
+            },
+            {
+              "type": "LineRangeProjectile",
+              "name": "league_gwen_r_v3",
+              "width": 25000,
+              "length": 80000,
+              "delay": 12,
+              "apply": 4,
+              "applied_target": "EnemyWithoutTower",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ApAttack",
+                    "damage": 75,
+                    "attack_ratio": 25,
+                    "hp_ratio": 0,
+                    "can_crit": false
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ApAttack",
+                    "damage": 10,
+                    "attack_ratio": 8,
+                    "hp_ratio": 0,
+                    "can_crit": false
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "league_gwen_r_slow",
+                      "duration": {
+                        "Time": {
+                          "tick": 90
+                        }
+                      },
+                      "move_speed_mult": -40
+                    }
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ViewEffect",
+                    "name": "league_gwen_r_hit"
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "TargetSfx",
+                    "name": "league_gwen_r_hit"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "LineRangeProjectile",
+              "name": "league_gwen_r_v3_c",
+              "width": 25000,
+              "length": 80000,
+              "delay": 12,
+              "apply": 4,
+              "applied_target": "EnemyChampion",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "FixedAttack",
+                    "damage": 0,
+                    "attack_ratio": 0,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 1,
+                    "attack_effect_type": "Target"
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "Heal",
+                    "amount": 10,
+                    "attack_ratio": 0,
+                    "ap_ratio": 6,
+                    "heal_type": "Caster"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "league_gwen_r_v1",
+      "anim": "asset/league/effects/league_gwen_big",
+      "tag": "r_v1",
+      "repeat": false,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_gwen_r_v2",
+      "anim": "asset/league/effects/league_gwen_big",
+      "tag": "r_v2",
+      "repeat": false,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_gwen_r_v3",
+      "anim": "asset/league/effects/league_gwen_big",
+      "tag": "r_v3",
+      "repeat": false,
+      "z": 1
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "league_gwen_a_hit",
+      "anim": "asset/league/effects/league_gwen_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_gwen_q_hit",
+      "anim": "asset/league/effects/league_gwen_fx",
+      "tag": "q_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_gwen_q_true",
+      "anim": "asset/league/effects/league_gwen_fx",
+      "tag": "q_true",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_gwen_r_hit",
+      "anim": "asset/league/effects/league_gwen_fx",
+      "tag": "r_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_gwen_w_mist",
+      "anim": "asset/league/effects/league_gwen_big",
+      "tag": "w_mist",
+      "z": -1,
+      "is_follow": false
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "league_gwen_qs1",
+      "anim": "asset/league/effects/league_gwen_fx",
+      "tag": "qs1",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_gwen_qs2",
+      "anim": "asset/league/effects/league_gwen_fx",
+      "tag": "qs2",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_gwen_qs3",
+      "anim": "asset/league/effects/league_gwen_fx",
+      "tag": "qs3",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_gwen_qs4",
+      "anim": "asset/league/effects/league_gwen_fx",
+      "tag": "qs4",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_gwen_e_on",
+      "anim": "asset/league/effects/league_gwen_fx",
+      "tag": "e_on",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "league_gwen_w_in",
+      "anim": "asset/league/effects/league_gwen_fx",
+      "tag": "w_in",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "league_gwen_r_slow",
+      "anim": "asset/league/effects/league_gwen_fx",
+      "tag": "r_slow",
+      "repeat": true,
+      "z": 2
+    }
+  ]
+}

@@ -1,0 +1,158 @@
+{
+  "idle": {
+    "frame_count": 6,
+    "size_matches": true,
+    "strict_8x_blocks": true,
+    "binary_alpha": true,
+    "palette_matches": true,
+    "all_heads_identical": true,
+    "pixels_below_floor": 0,
+    "frame_durations": [
+      200,
+      200,
+      200,
+      200,
+      200,
+      200
+    ],
+    "visual_acceptance": "needs_review",
+    "scope": "offline action asset checks; no live game proof"
+  },
+  "run": {
+    "frame_count": 8,
+    "size_matches": true,
+    "strict_8x_blocks": true,
+    "binary_alpha": true,
+    "palette_matches": true,
+    "all_heads_identical": true,
+    "pixels_below_floor": 0,
+    "frame_durations": [
+      150,
+      150,
+      150,
+      150,
+      150,
+      150,
+      150,
+      150
+    ],
+    "visual_acceptance": "needs_review",
+    "scope": "offline action asset checks; no live game proof"
+  },
+  "attack": {
+    "frame_count": 6,
+    "size_matches": true,
+    "strict_8x_blocks": true,
+    "binary_alpha": true,
+    "palette_matches": true,
+    "all_heads_identical": true,
+    "pixels_below_floor": 0,
+    "frame_durations": [
+      60,
+      60,
+      70,
+      70,
+      80,
+      100
+    ],
+    "visual_acceptance": "needs_review",
+    "scope": "offline action asset checks; no live game proof"
+  },
+  "skill": {
+    "frame_count": 8,
+    "size_matches": true,
+    "strict_8x_blocks": true,
+    "binary_alpha": true,
+    "palette_matches": true,
+    "all_heads_identical": true,
+    "pixels_below_floor": 0,
+    "frame_durations": [
+      50,
+      60,
+      60,
+      60,
+      60,
+      70,
+      80,
+      100
+    ],
+    "visual_acceptance": "needs_review",
+    "scope": "offline action asset checks; no live game proof"
+  },
+  "skill2": {
+    "frame_count": 8,
+    "size_matches": true,
+    "strict_8x_blocks": true,
+    "binary_alpha": true,
+    "palette_matches": true,
+    "all_heads_identical": true,
+    "pixels_below_floor": 0,
+    "frame_durations": [
+      40,
+      40,
+      40,
+      60,
+      80,
+      80,
+      80,
+      100
+    ],
+    "visual_acceptance": "needs_review",
+    "scope": "offline action asset checks; no live game proof"
+  },
+  "ult": {
+    "frame_count": 6,
+    "size_matches": true,
+    "strict_8x_blocks": true,
+    "binary_alpha": true,
+    "palette_matches": true,
+    "all_heads_identical": true,
+    "pixels_below_floor": 0,
+    "frame_durations": [
+      50,
+      60,
+      60,
+      70,
+      80,
+      100
+    ],
+    "visual_acceptance": "needs_review",
+    "scope": "offline action asset checks; no live game proof"
+  },
+  "hit": {
+    "frame_count": 2,
+    "size_matches": true,
+    "strict_8x_blocks": true,
+    "binary_alpha": true,
+    "palette_matches": true,
+    "all_heads_identical": true,
+    "pixels_below_floor": 0,
+    "frame_durations": [
+      100,
+      100
+    ],
+    "visual_acceptance": "needs_review",
+    "scope": "offline action asset checks; no live game proof"
+  },
+  "dead": {
+    "frame_count": 8,
+    "size_matches": true,
+    "strict_8x_blocks": true,
+    "binary_alpha": true,
+    "palette_matches": true,
+    "all_heads_identical": true,
+    "pixels_below_floor": 0,
+    "frame_durations": [
+      100,
+      110,
+      110,
+      120,
+      130,
+      150,
+      200,
+      300
+    ],
+    "visual_acceptance": "needs_review",
+    "scope": "offline action asset checks; no live game proof"
+  }
+}
