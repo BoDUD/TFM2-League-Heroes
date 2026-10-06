@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Samira's design (assets/source/native/samira_native.png): Codex's generated draft attempt1_A read back on its own grid
 and shrunk to 40 rows by whole rows and columns, every kept square the draft's own (tools/art/design_tryndamere.py's way).
+A re-pose in oppi's idle stance (tools/art/pack_samira_pose.py -> codex_pose/) was tried and set aside: 「用左边的」.
 
     python tools/art/design_samira.py [--check]
 
@@ -24,7 +25,12 @@ Steps:
      silhouette: the old blade squares there (grey, under the hip, right of the front leg) go and a straight blade is
      drawn from BLADE_TOP to BLADE_TIP under the body - 3 wide: dark steel back, steel, a silver edge (the draft's own
      colours) - its point past the front leg; the near holster's pistol barrel runs 4 squares down the outer thigh
-     (BARREL); the outline closed again, the face never touched.
+     (BARREL); the outline closed again, the face never touched;
+  7. BOOTS (the user: 「你帮我挑挑干净 脚这里都是歪的」): the eye columns kept above them left the near leg uncut and the
+     far leg's columns cut unevenly, so the shins stepped crookedly and the draft's boot texture came out as specks.
+     Below the knees (rows 90-99) each boot is laid out row by row (LEFT_BOOT / RIGHT_BOOT: the outline squares, measured
+     from the cut's own legs and set on straight lines): inside, the design's two greens (dark half, mid half), the red
+     cuff row (CUFF) and a gold heel square, the soles' row all outline; loose squares round them go, the outline closed.
 --check compares the result with the committed samira_native.png instead of writing it.
 """
 import argparse
@@ -52,6 +58,12 @@ SOLE_ROW, MID_COL, FEET_ROWS = 99, 64, 3
 BLADE_TOP, BLADE_TIP = (83.0, 72.0), (97.0, 82.0)     # canvas (row, column)
 BARREL = (54, range(87, 91))                          # canvas column, rows
 INK = (12, 8, 13)
+LEFT_BOOT = {90: (55, 59), 91: (54, 59), 92: (54, 59), 93: (54, 59), 94: (53, 58), 95: (53, 58), 96: (53, 58),
+             97: (53, 58), 98: (53, 59), 99: (53, 59)}
+RIGHT_BOOT = {90: (67, 72), 91: (67, 72), 92: (67, 72), 93: (67, 72), 94: (67, 72), 95: (67, 72), 96: (67, 72),
+              97: (67, 74), 98: (67, 76), 99: (67, 76)}
+CUFF = 92
+GREEN_D, GREEN_M, RED, RED_D, GOLD = (35, 43, 41), (56, 67, 61), (178, 4, 19), (110, 2, 15), (212, 118, 3)
 STEEL_D, STEEL, SILVER, SILVER2 = (38, 41, 54), (119, 123, 144), (233, 235, 242), (181, 186, 210)
 
 
@@ -97,7 +109,47 @@ def build():
     out = np.zeros((128, 128, 4), np.uint8)
     y0, x0 = SOLE_ROW + 1 - fig.shape[0], int(round(MID_COL - mid_x))
     out[y0:y0 + fig.shape[0], x0:x0 + fig.shape[1]] = fig
-    return weapons(out), rows, cols, added
+    return boots(weapons(out)), rows, cols, added
+
+
+def is_blade(c):
+    c = [int(v) for v in c]
+    return (abs(c[0] - c[2]) < 45 and abs(c[1] - c[2]) < 45 and sum(c) > 150 and c[2] >= c[0]) or         tuple(c) in (STEEL_D, STEEL)
+
+
+def boots(a):
+    """Step 7: both boots below the knees laid out on straight edges in the design's own colours."""
+    a = a.copy()
+    for spans, (x0, x1) in ((LEFT_BOOT, (51, 62)), (RIGHT_BOOT, (65, 78))):
+        for y in spans:
+            for x in range(x0, x1):
+                if a[y, x, 3] and not is_blade(a[y, x, :3]):
+                    a[y, x, 3] = 0
+    for spans in (LEFT_BOOT, RIGHT_BOOT):
+        for y, (lft, rgt) in spans.items():
+            inner = list(range(lft + 1, rgt))
+            for x in range(lft, rgt + 1):
+                if y == SOLE_ROW or x in (lft, rgt):
+                    c = INK
+                else:
+                    i = inner.index(x)
+                    c = GREEN_D if i < (len(inner) + 1) // 2 else GREEN_M
+                    if y == CUFF:
+                        c = RED_D if i == 0 else RED
+                    if y == SOLE_ROW - 1 and i == 0:
+                        c = GOLD
+                a[y, x, :3], a[y, x, 3] = c, 255
+    for _ in range(2):
+        op = a[..., 3] > 0
+        cnt = sum(np.roll(np.roll(op, dy, 0), dx, 1).astype(int) for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1)))
+        band = np.zeros_like(op)
+        band[86:SOLE_ROW + 1, 50:84] = True
+        a[op & (cnt <= 1) & band, 3] = 0
+    keep = np.zeros(a.shape[:2], bool)
+    keep[60:90] = True
+    a, _, _ = strips.complete_outline(a, color=INK, feet=SOLE_ROW + 1, keep=keep)
+    a[SOLE_ROW + 1:] = 0
+    return a
 
 
 def weapons(a):

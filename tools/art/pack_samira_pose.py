@@ -16,7 +16,7 @@ across her back as now. Writes into <out>:
   4_head.png / _1x.png     the head to paste into the new pose, as it is in the design
   5_palette.png            the design's colours
   MODEL_POSE.md            the prompts (also assets/source/samira/MODEL_POSE.md)
-then <out>.zip.
+then <out>.zip. Codex's delivery (assets/source/samira/codex_pose/) was set aside by the user: 「用左边的」.
 """
 import argparse
 import os
