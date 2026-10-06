@@ -54,6 +54,8 @@ RAISED = (63.5, 59.5)                  # where the shoulder joint sits when the 
 
 RUN_RAW = os.path.join(ROOT, "assets", "source", "pyke", "codex_run", "raw", "pyke_run_phase_fix_raw.png")
 RUN_PITCH, RUN_SEAM = 4.87, 83
+CLAW_END = 84                                               # nothing of Codex's from here right: its arm's outline
+CLAW_X = 74                                                 # right of this the near side: the claw arm and the hem
 TRAIL_HIP, TRAIL_X, TRAIL_FROM = (55.5, 86.5), 54, 44     # the trailing leg: hip joint, columns left of TRAIL_X,
                                                             # turned down when it reaches out past TRAIL_FROM
 
@@ -95,6 +97,15 @@ def read_run(palette):
         ys, xs = np.nonzero(sm[..., 3])
         out.append(sm[ys.min():ys.max() + 1, xs.min():xs.max() + 1])
     return out
+
+
+def drop_crumbs(a, most):
+    """Opaque pieces of up to `most` squares cleared."""
+    for comp in K.pieces(a)[1:]:
+        if len(comp) <= most:
+            for y, x in comp:
+                a[y, x] = 0
+    return a
 
 
 def masks(a):
@@ -191,6 +202,8 @@ class Rig:
         hang = des.copy()
         hang[(yy < RUN_SEAM) | (xx < 76)] = 0
         hm4 = np.repeat(self.hm[..., None], 4, -1).astype(np.uint8) * 255
+        L = self.d.letters()
+        not_legs = [L[k] for k in "imobdhw"]          # skin, the coat's navy and teal
         frames = []
         for c, dx, dy in placed:
             # the upper body at the idle's height, a row lower where Codex's body is low: the run never stands taller
@@ -200,6 +213,11 @@ class Rig:
             out = np.zeros_like(des)
             legs = c.copy()
             legs[:RUN_SEAM + at] = 0                   # Codex's legs from just under where our upper body ends
+            # Codex's own claw arm and coat hem on the near side: they lay 1-2 squares off the design's and doubled the
+            # arm (「移动时手变形了」) - legs have no skin or navy, so those colours there go, the design's arm stays
+            legs[(xx >= CLAW_X) & K.colour_mask(legs, not_legs)] = 0
+            legs[:, CLAW_END:] = 0                     # and its arm's outline beside the design's (no leg reaches there)
+            legs = drop_crumbs(legs, 6)
             K.put(out, legs, 0, 0)
             K.put(out, hang, dx, at)
             K.put(out, up, dx, at)
