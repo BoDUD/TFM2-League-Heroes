@@ -277,7 +277,7 @@
                             "type": "TargetProjectile",
                             "name": "league_samira_r_bullet",
                             "speed": 12000,
-                            "y_offset": -3000,
+                            "y_offset": -8000,
                             "applied_target": "EnemyWithoutTower",
                             "applied_effects": [
                               {
@@ -742,7 +742,7 @@
                               "type": "TargetProjectile",
                               "name": "league_samira_a_bullet",
                               "speed": 8000,
-                              "y_offset": -3000,
+                              "y_offset": -8000,
                               "applied_target": "Enemy",
                               "applied_effects": [
                                 {
@@ -776,7 +776,7 @@
                               "type": "TargetProjectile",
                               "name": "league_samira_a_bullet_c",
                               "speed": 8000,
-                              "y_offset": -3000,
+                              "y_offset": -8000,
                               "applied_target": "EnemyChampion",
                               "applied_effects": [
                                 {
@@ -1385,7 +1385,7 @@
                             "type": "TargetProjectile",
                             "name": "league_samira_a_bullet",
                             "speed": 8000,
-                            "y_offset": -3000,
+                            "y_offset": -8000,
                             "applied_target": "Enemy",
                             "applied_effects": [
                               {
@@ -1419,7 +1419,7 @@
                             "type": "TargetProjectile",
                             "name": "league_samira_a_bullet_c",
                             "speed": 8000,
-                            "y_offset": -3000,
+                            "y_offset": -8000,
                             "applied_target": "EnemyChampion",
                             "applied_effects": [
                               {
@@ -2257,10 +2257,6 @@
                 "name": "league_samira_vo_q2"
               },
               {
-                "type": "CasterViewEffect",
-                "name": "league_samira_q_slash"
-              },
-              {
                 "type": "Delayed",
                 "tick": 8,
                 "effects": [
@@ -2654,7 +2650,7 @@
                         "radius": 5000
                       }
                     },
-                    "y_offset": -3000
+                    "y_offset": -8000
                   }
                 ]
               }
@@ -3008,10 +3004,6 @@
         {
           "type": "Sfx",
           "name": "league_samira_vo_e"
-        },
-        {
-          "type": "CasterViewEffect",
-          "name": "league_samira_e_dash"
         },
         {
           "type": "RushMoveToBack",
@@ -4278,7 +4270,7 @@
                           "type": "TargetProjectile",
                           "name": "league_samira_r_bullet",
                           "speed": 12000,
-                          "y_offset": -3000,
+                          "y_offset": -8000,
                           "applied_target": "EnemyWithoutTower",
                           "applied_effects": [
                             {
@@ -4636,22 +4628,6 @@
       "name": "league_samira_q_slash_hit",
       "anim": "asset/league/effects/league_samira_fx",
       "tag": "q_slash_hit",
-      "z": 2,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_samira_q_slash",
-      "anim": "asset/league/effects/league_samira_big",
-      "tag": "q_slash",
-      "z": 2,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "league_samira_e_dash",
-      "anim": "asset/league/effects/league_samira_big",
-      "tag": "e_dash",
       "z": 2,
       "is_follow": true
     },

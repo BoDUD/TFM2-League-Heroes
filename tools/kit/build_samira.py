@@ -59,7 +59,7 @@ P = {
     "hp": 1030, "hp_g": 92, "atk": 112, "atk_g": 20, "def": 26, "def_g": 7, "mr": 15, "mr_g": 3, "ms": 900, "ms_g": 9,
     # attack: probe at tick 1, the strip picked a_read ticks later
     "atk_range": 55000, "atk_dur": 24, "atk_cd": 58, "a_read": 2, "a_shot": 8, "a_hit_m": 8, "a_anim": 22,
-    "bullet_speed": 8000, "bullet_y": -3000, "pm_reach": 8000,
+    "bullet_speed": 8000, "bullet_y": -8000, "pm_reach": 8000,   # bullets 8 px up (the muzzles 11-13; higher, they slant)
     # passive: Style grades, melee bonus, the juggle
     "g_n": 6, "g_t": 540, "split_a": 1, "g_ms": 3, "pm_dmg": 15, "pm_ratio": 20, "j_cd": 360, "j_up": 30, "j_speed": 6000,
     "k_hold": 40, "k_read": 4, "reset_mult": 10000, "a_climb": 18,
@@ -298,7 +298,7 @@ def build(p):
 
     # ------------------------------------------------------------------ skill: Q Flair
     cone = {"DirDot": {"radius": p["q_cone_r"], "range": p["q_cone"]}}
-    slash = combine(anim("skill_m", p["q_anim"]), sfx("q_swing"), sfx("vo_q2"), cview("q_slash"),
+    slash = combine(anim("skill_m", p["q_anim"]), sfx("q_swing"), sfx("vo_q2"),
                     delayed(p["q_slash_at"],
                             around(cone, "EnemyChampion", champ("q", "q"), forward=1000),
                             around(cone, "EnemyWithoutTower",
@@ -331,11 +331,13 @@ def build(p):
     spin = [slash_e, refresh("w_spin", p["w_t"], base_attack_damaged_reduce=p["w_red"]), sfx("w_cast"),
             *rm("e_as"), flag("e_as", p["e_as_t"], attack_speed_mult=p["e_as"]), climb("e"),
             delayed(p["w1_at"], spin_hit()), delayed(p["w2_at"], spin_hit()), delayed(p["w2_at"] + 2, climb("w"))]
-    combo = combine(anim("skill2", p["e_tick"] + p["w_t"]), sfx("e_cast"), sfx("vo_e"), cview("e_dash"),
+    combo = combine(anim("skill2", p["e_tick"] + p["w_t"]), sfx("e_cast"), sfx("vo_e"),
                     rush, delayed(p["e_tick"] + 1, *spin))
     skill2 = action("skill2", p["e_tick"] + 1, p["e_cd"], 1, p["e_range"], "Targeting", p["e_target"], combo)
 
     # ------------------------------------------------------------------ views
+    # (Q's half-moon sweep, E's dash trail, the muzzle flashes and the sword's chop arc point one way: they are drawn
+    # into her own frames, which the client mirrors with her facing - assets/source/native/samira_bake.json)
     E = lambda name, anim_=FX, z=2, follow=True: {"type": "Animation", "name": n(name), "anim": anim_, "tag": name,
                                                    "z": z, "is_follow": follow}
     LATE = dict(follow=False)
@@ -344,8 +346,8 @@ def build(p):
     B_ = lambda name, anim_=FX, z=2: {"type": "Animated", "name": n(name), "anim": anim_, "tag": name, "repeat": True,
                                       "z": z}
     views_p = [P_("a_bullet"), P_("q_bullet"), P_("r_bullet")]
-    views_e = [E("a_hit"), E("a_slash_hit"), E("j_up"), E("q_hit"), E("q_slash_hit"), E("q_slash", BIG),
-               E("e_dash", BIG), E("e_hit"), E("e_reset", FX, 3, **LATE), E("w_hit"), E("r_hit"),
+    views_e = [E("a_hit"), E("a_slash_hit"), E("j_up"), E("q_hit"), E("q_slash_hit"),
+               E("e_hit"), E("e_reset", FX, 3, **LATE), E("w_hit"), E("r_hit"),
                E("g_up", FX, 3, **LATE), E("g_s", FX, 3, **LATE)]
     views_b = [B_(f"g{k}", FX, 3) for k in range(1, g_n + 1)] + [B_("w_spin", BIG, 2), B_("r_on", BIG, 2)]
     return {

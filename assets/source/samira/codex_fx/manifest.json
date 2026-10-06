@@ -1,0 +1,2153 @@
+{
+  "status": "source_art_delivery_complete_requires_import",
+  "count": 23,
+  "effects": [
+    {
+      "file": "samira_fx_a_bullet.png",
+      "frames": 4,
+      "required_size": [
+        1024,
+        128
+      ],
+      "delivery_type": "generated_source_original",
+      "actual_size": [
+        2172,
+        724
+      ],
+      "sha256": "67c51709077c52e1118f4217e9a26789ccc859ba8144a7a52dba680c71a51d46",
+      "prompt": "prompts/samira_fx_a_bullet.txt",
+      "raw": "raw/samira_fx_a_bullet_attempt1.png",
+      "binding": "view_projectiles `league_samira_a_bullet`（朝飞行方向转，画成朝右飞；上下对称）",
+      "target_game_size": "12 × 4",
+      "source_cells": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            53,
+            289,
+            496,
+            430
+          ],
+          "visible_pixels": 18184,
+          "average_luminance": 173.2,
+          "brightest_decile_luminance": 253.4
+        },
+        {
+          "index": 2,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            576,
+            286,
+            1034,
+            436
+          ],
+          "visible_pixels": 18805,
+          "average_luminance": 179.3,
+          "brightest_decile_luminance": 253.3
+        },
+        {
+          "index": 3,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            1121,
+            286,
+            1581,
+            436
+          ],
+          "visible_pixels": 17685,
+          "average_luminance": 178.1,
+          "brightest_decile_luminance": 253.3
+        },
+        {
+          "index": 4,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            1680,
+            292,
+            2130,
+            434
+          ],
+          "visible_pixels": 16625,
+          "average_luminance": 181.0,
+          "brightest_decile_luminance": 253.4
+        }
+      ],
+      "frame_ms": null,
+      "timing_note": "本包未指定毫秒时长，由导入端设置；预览100ms仅供查看。",
+      "review_note": "朝右的弹头与尾巴，4帧循环；火星没有严格逐像素上下对称。",
+      "needs_import_normalization": true,
+      "visual_frame_count": 4
+    },
+    {
+      "file": "samira_fx_a_flash.png",
+      "frames": 3,
+      "required_size": [
+        768,
+        192
+      ],
+      "delivery_type": "generated_source_original",
+      "actual_size": [
+        2172,
+        724
+      ],
+      "sha256": "62944fdb31b5f840b8b41a16f073fbaff9a73aec8f8e9361a90e77ab64a23956",
+      "prompt": "prompts/samira_fx_a_flash.txt",
+      "raw": "raw/samira_fx_a_flash_attempt1.png",
+      "binding": "画进 `samira_attack` 第 4 帧起（枪口，`design/samira_shots.png` attack 4 的十字；导入时烘进精灵帧）",
+      "target_game_size": "14 × 10",
+      "source_cells": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            724,
+            724
+          ],
+          "bbox": [
+            55,
+            180,
+            724,
+            546
+          ],
+          "visible_pixels": 114621,
+          "average_luminance": 169.9,
+          "brightest_decile_luminance": 253.1
+        },
+        {
+          "index": 2,
+          "rect": [
+            724,
+            0,
+            724,
+            724
+          ],
+          "bbox": [
+            724,
+            255,
+            1446,
+            497
+          ],
+          "visible_pixels": 47616,
+          "average_luminance": 160.1,
+          "brightest_decile_luminance": 252.9
+        },
+        {
+          "index": 3,
+          "rect": [
+            1448,
+            0,
+            724,
+            724
+          ],
+          "bbox": [
+            1551,
+            306,
+            2079,
+            473
+          ],
+          "visible_pixels": 14902,
+          "average_luminance": 165.4,
+          "brightest_decile_luminance": 253.1
+        }
+      ],
+      "frame_ms": null,
+      "timing_note": "本包未指定毫秒时长，由导入端设置；预览100ms仅供查看。",
+      "review_note": "朝右的3帧枪火，逐帧衰减；原稿不是固定16px方块。",
+      "needs_import_normalization": true,
+      "visual_frame_count": 3
+    },
+    {
+      "file": "samira_fx_a_hit.png",
+      "frames": 4,
+      "required_size": [
+        896,
+        224
+      ],
+      "delivery_type": "generated_source_original",
+      "actual_size": [
+        2079,
+        756
+      ],
+      "sha256": "719792c5570097f6499e4af7ef502887b12e0766fe7eec7e0a110d8317c6efe1",
+      "prompt": "prompts/samira_fx_a_hit.txt",
+      "raw": "raw/samira_fx_a_hit_attempt1.png",
+      "binding": "view_effects `league_samira_a_hit`（跟随，画在人物上面）",
+      "target_game_size": "12",
+      "source_cells": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            520,
+            756
+          ],
+          "bbox": [
+            58,
+            149,
+            497,
+            589
+          ],
+          "visible_pixels": 51465,
+          "average_luminance": 171.6,
+          "brightest_decile_luminance": 253.2
+        },
+        {
+          "index": 2,
+          "rect": [
+            520,
+            0,
+            520,
+            756
+          ],
+          "bbox": [
+            607,
+            173,
+            966,
+            550
+          ],
+          "visible_pixels": 32499,
+          "average_luminance": 155.4,
+          "brightest_decile_luminance": 250.6
+        },
+        {
+          "index": 3,
+          "rect": [
+            1040,
+            0,
+            519,
+            756
+          ],
+          "bbox": [
+            1098,
+            173,
+            1516,
+            552
+          ],
+          "visible_pixels": 27113,
+          "average_luminance": 149.8,
+          "brightest_decile_luminance": 248.9
+        },
+        {
+          "index": 4,
+          "rect": [
+            1559,
+            0,
+            520,
+            756
+          ],
+          "bbox": [
+            1683,
+            224,
+            1998,
+            538
+          ],
+          "visible_pixels": 9387,
+          "average_luminance": 149.6,
+          "brightest_decile_luminance": 252.4
+        }
+      ],
+      "frame_ms": null,
+      "timing_note": "本包未指定毫秒时长，由导入端设置；预览100ms仅供查看。",
+      "review_note": "4帧白金闪光和橙火星；后两帧偏亮，导入端可调整透明衰减。",
+      "needs_import_normalization": true,
+      "visual_frame_count": 4
+    },
+    {
+      "file": "samira_fx_a_slash.png",
+      "frames": 3,
+      "required_size": [
+        1440,
+        512
+      ],
+      "delivery_type": "generated_source_original",
+      "actual_size": [
+        2103,
+        748
+      ],
+      "sha256": "0aec08958c225adac3a4a0b67e8e86b3fec764489cbb8c103aea96122515853d",
+      "prompt": "prompts/samira_fx_a_slash.txt",
+      "raw": "raw/samira_fx_a_slash_attempt1.png",
+      "binding": "画进 `samira_attack_m` 第 4 帧起（`design/samira_shots.png` attack_m 4 的十字是弧的中心；导入时烘进精灵帧）",
+      "target_game_size": "28 × 30",
+      "source_cells": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            701,
+            748
+          ],
+          "bbox": [
+            21,
+            51,
+            687,
+            704
+          ],
+          "visible_pixels": 151568,
+          "average_luminance": 122.1,
+          "brightest_decile_luminance": 253.1
+        },
+        {
+          "index": 2,
+          "rect": [
+            701,
+            0,
+            701,
+            748
+          ],
+          "bbox": [
+            829,
+            51,
+            1343,
+            704
+          ],
+          "visible_pixels": 69776,
+          "average_luminance": 117.8,
+          "brightest_decile_luminance": 252.6
+        },
+        {
+          "index": 3,
+          "rect": [
+            1402,
+            0,
+            701,
+            748
+          ],
+          "bbox": [
+            1556,
+            80,
+            2045,
+            690
+          ],
+          "visible_pixels": 24844,
+          "average_luminance": 118.2,
+          "brightest_decile_luminance": 246.6
+        }
+      ],
+      "frame_ms": null,
+      "timing_note": "本包未指定毫秒时长，由导入端设置；预览100ms仅供查看。",
+      "review_note": "3帧右凸新月弧，后两帧碎成火星；半透明边和细碎像素需要导入端规范化。",
+      "needs_import_normalization": true,
+      "visual_frame_count": 3
+    },
+    {
+      "file": "samira_fx_a_slash_hit.png",
+      "frames": 4,
+      "required_size": [
+        1152,
+        288
+      ],
+      "delivery_type": "generated_source_original",
+      "actual_size": [
+        2172,
+        724
+      ],
+      "sha256": "d6689cf379474bdc01a549aa7842ad54a6f89b99ef25ceee12feee020794dae1",
+      "prompt": "prompts/samira_fx_a_slash_hit.txt",
+      "raw": "raw/samira_fx_a_slash_hit_attempt1.png",
+      "binding": "view_effects `league_samira_a_slash_hit`（跟随，画在人物上面）",
+      "target_game_size": "16",
+      "source_cells": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            51,
+            121,
+            543,
+            634
+          ],
+          "visible_pixels": 50769,
+          "average_luminance": 116.5,
+          "brightest_decile_luminance": 253.4
+        },
+        {
+          "index": 2,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            543,
+            110,
+            1077,
+            622
+          ],
+          "visible_pixels": 41235,
+          "average_luminance": 126.2,
+          "brightest_decile_luminance": 252.0
+        },
+        {
+          "index": 3,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            1122,
+            148,
+            1582,
+            622
+          ],
+          "visible_pixels": 26308,
+          "average_luminance": 108.8,
+          "brightest_decile_luminance": 244.2
+        },
+        {
+          "index": 4,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            1692,
+            157,
+            2067,
+            571
+          ],
+          "visible_pixels": 9171,
+          "average_luminance": 111.7,
+          "brightest_decile_luminance": 246.5
+        }
+      ],
+      "frame_ms": null,
+      "timing_note": "本包未指定毫秒时长，由导入端设置；预览100ms仅供查看。",
+      "review_note": "4帧斜剑痕与火星；白芯和红火保留，非严格限定色板。",
+      "needs_import_normalization": true,
+      "visual_frame_count": 4
+    },
+    {
+      "file": "samira_fx_j_up.png",
+      "frames": 4,
+      "required_size": [
+        1408,
+        480
+      ],
+      "delivery_type": "generated_source_original",
+      "actual_size": [
+        2149,
+        732
+      ],
+      "sha256": "73346b701650ef7b9e2d7d9260600b866578dfea14cd68012922095087c243da",
+      "prompt": "prompts/samira_fx_j_up.txt",
+      "raw": "raw/samira_fx_j_up_attempt1.png",
+      "binding": "view_effects `league_samira_j_up`（跟随，画在人物上面）",
+      "target_game_size": "20 × 28",
+      "source_cells": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            537,
+            732
+          ],
+          "bbox": [
+            38,
+            292,
+            502,
+            693
+          ],
+          "visible_pixels": 45488,
+          "average_luminance": 141.0,
+          "brightest_decile_luminance": 238.4
+        },
+        {
+          "index": 2,
+          "rect": [
+            537,
+            0,
+            537,
+            732
+          ],
+          "bbox": [
+            595,
+            71,
+            1038,
+            693
+          ],
+          "visible_pixels": 77636,
+          "average_luminance": 150.1,
+          "brightest_decile_luminance": 252.9
+        },
+        {
+          "index": 3,
+          "rect": [
+            1074,
+            0,
+            538,
+            732
+          ],
+          "bbox": [
+            1114,
+            44,
+            1583,
+            694
+          ],
+          "visible_pixels": 53706,
+          "average_luminance": 135.9,
+          "brightest_decile_luminance": 244.0
+        },
+        {
+          "index": 4,
+          "rect": [
+            1612,
+            0,
+            537,
+            732
+          ],
+          "bbox": [
+            1670,
+            96,
+            2105,
+            694
+          ],
+          "visible_pixels": 26645,
+          "average_luminance": 135.4,
+          "brightest_decile_luminance": 226.2
+        }
+      ],
+      "frame_ms": null,
+      "timing_note": "本包未指定毫秒时长，由导入端设置；预览100ms仅供查看。",
+      "review_note": "4帧上挑弧和脚下沙尘；弧顶和尘土锚点按原稿测量后再绑定。",
+      "needs_import_normalization": true,
+      "visual_frame_count": 4
+    },
+    {
+      "file": "samira_fx_q_bullet.png",
+      "frames": 4,
+      "required_size": [
+        1536,
+        160
+      ],
+      "delivery_type": "generated_source_original",
+      "actual_size": [
+        2172,
+        724
+      ],
+      "sha256": "88e7730a0646e02890090df2bdad001d186777f4ae4411f9016931bb9c760bc6",
+      "prompt": "prompts/samira_fx_q_bullet.txt",
+      "raw": "raw/samira_fx_q_bullet_attempt1.png",
+      "binding": "view_projectiles `league_samira_q_bullet`（朝飞行方向转，画成朝右飞；上下对称）",
+      "target_game_size": "22 × 7",
+      "source_cells": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            25,
+            237,
+            523,
+            479
+          ],
+          "visible_pixels": 49565,
+          "average_luminance": 168.9,
+          "brightest_decile_luminance": 252.9
+        },
+        {
+          "index": 2,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            582,
+            254,
+            1062,
+            466
+          ],
+          "visible_pixels": 45091,
+          "average_luminance": 172.1,
+          "brightest_decile_luminance": 252.9
+        },
+        {
+          "index": 3,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            1119,
+            252,
+            1601,
+            466
+          ],
+          "visible_pixels": 43764,
+          "average_luminance": 172.4,
+          "brightest_decile_luminance": 253.1
+        },
+        {
+          "index": 4,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            1670,
+            258,
+            2148,
+            463
+          ],
+          "visible_pixels": 40709,
+          "average_luminance": 169.6,
+          "brightest_decile_luminance": 252.9
+        }
+      ],
+      "frame_ms": null,
+      "timing_note": "本包未指定毫秒时长，由导入端设置；预览100ms仅供查看。",
+      "review_note": "4帧较大的右向弹头；主体近似上下对称，侧焰和火星不严格对称。",
+      "needs_import_normalization": true,
+      "visual_frame_count": 4
+    },
+    {
+      "file": "samira_fx_q_flash.png",
+      "frames": 3,
+      "required_size": [
+        1056,
+        256
+      ],
+      "delivery_type": "generated_source_original",
+      "actual_size": [
+        2172,
+        724
+      ],
+      "sha256": "96b068062a502bdbc5410b256b36fa7c005631bbc45ebd3ed1f9c3c99811f6dc",
+      "prompt": "prompts/samira_fx_q_flash.txt",
+      "raw": "raw/samira_fx_q_flash_attempt1.png",
+      "binding": "画进 `samira_skill` 第 3 帧起（枪口，`design/samira_shots.png` skill 3 的十字；导入时烘进精灵帧）",
+      "target_game_size": "20 × 14",
+      "source_cells": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            724,
+            724
+          ],
+          "bbox": [
+            33,
+            117,
+            702,
+            592
+          ],
+          "visible_pixels": 127674,
+          "average_luminance": 180.3,
+          "brightest_decile_luminance": 253.3
+        },
+        {
+          "index": 2,
+          "rect": [
+            724,
+            0,
+            724,
+            724
+          ],
+          "bbox": [
+            748,
+            229,
+            1411,
+            519
+          ],
+          "visible_pixels": 75606,
+          "average_luminance": 158.6,
+          "brightest_decile_luminance": 253.0
+        },
+        {
+          "index": 3,
+          "rect": [
+            1448,
+            0,
+            724,
+            724
+          ],
+          "bbox": [
+            1469,
+            225,
+            2139,
+            491
+          ],
+          "visible_pixels": 26480,
+          "average_luminance": 163.9,
+          "brightest_decile_luminance": 252.0
+        }
+      ],
+      "frame_ms": null,
+      "timing_note": "本包未指定毫秒时长，由导入端设置；预览100ms仅供查看。",
+      "review_note": "3帧更大的右向枪火；均有白亮芯，颜色和网格尚需规范化。",
+      "needs_import_normalization": true,
+      "visual_frame_count": 3
+    },
+    {
+      "file": "samira_fx_q_hit.png",
+      "frames": 4,
+      "required_size": [
+        1152,
+        288
+      ],
+      "delivery_type": "generated_source_original",
+      "actual_size": [
+        2172,
+        724
+      ],
+      "sha256": "86cf906b530d7358e030c9aa5163e3d24179a8b3100df555ae7e3eda7d8fb088",
+      "prompt": "prompts/samira_fx_q_hit.txt",
+      "raw": "raw/samira_fx_q_hit_attempt1.png",
+      "binding": "view_effects `league_samira_q_hit`（跟随，画在人物上面）",
+      "target_game_size": "16",
+      "source_cells": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            36,
+            159,
+            475,
+            578
+          ],
+          "visible_pixels": 56280,
+          "average_luminance": 196.1,
+          "brightest_decile_luminance": 253.5
+        },
+        {
+          "index": 2,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            570,
+            129,
+            1082,
+            620
+          ],
+          "visible_pixels": 77528,
+          "average_luminance": 186.0,
+          "brightest_decile_luminance": 252.7
+        },
+        {
+          "index": 3,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            1133,
+            142,
+            1591,
+            574
+          ],
+          "visible_pixels": 29382,
+          "average_luminance": 164.4,
+          "brightest_decile_luminance": 251.9
+        },
+        {
+          "index": 4,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            1706,
+            168,
+            2113,
+            574
+          ],
+          "visible_pixels": 12864,
+          "average_luminance": 147.6,
+          "brightest_decile_luminance": 248.7
+        }
+      ],
+      "frame_ms": null,
+      "timing_note": "本包未指定毫秒时长，由导入端设置；预览100ms仅供查看。",
+      "review_note": "4帧爆闪、扩散火星；与普通命中相比体积更大。",
+      "needs_import_normalization": true,
+      "visual_frame_count": 4
+    },
+    {
+      "file": "samira_fx_q_slash.png",
+      "frames": 4,
+      "required_size": [
+        2816,
+        704
+      ],
+      "delivery_type": "generated_source_original",
+      "actual_size": [
+        2080,
+        756
+      ],
+      "sha256": "7af4a3a875ef2a0168a10636d736bdc83d5ab930b5d786c59f883988e3256b86",
+      "prompt": "prompts/samira_fx_q_slash.txt",
+      "raw": "raw/samira_fx_q_slash_attempt1.png",
+      "binding": "view_effects `league_samira_q_slash`（BIG，施法者身上，跟随；格子里的站位点放到她脚下，导入时前面补空帧对上挥剑帧）",
+      "target_game_size": "44 × 44",
+      "source_cells": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            520,
+            756
+          ],
+          "bbox": [
+            47,
+            59,
+            441,
+            392
+          ],
+          "visible_pixels": 31758,
+          "average_luminance": 163.9,
+          "brightest_decile_luminance": 253.8
+        },
+        {
+          "index": 2,
+          "rect": [
+            520,
+            0,
+            520,
+            756
+          ],
+          "bbox": [
+            551,
+            52,
+            1040,
+            712
+          ],
+          "visible_pixels": 103391,
+          "average_luminance": 165.7,
+          "brightest_decile_luminance": 253.9
+        },
+        {
+          "index": 3,
+          "rect": [
+            1040,
+            0,
+            520,
+            756
+          ],
+          "bbox": [
+            1040,
+            96,
+            1538,
+            712
+          ],
+          "visible_pixels": 53242,
+          "average_luminance": 143.8,
+          "brightest_decile_luminance": 252.8
+        },
+        {
+          "index": 4,
+          "rect": [
+            1560,
+            0,
+            520,
+            756
+          ],
+          "bbox": [
+            1681,
+            114,
+            2059,
+            712
+          ],
+          "visible_pixels": 16478,
+          "average_luminance": 127.2,
+          "brightest_decile_luminance": 251.9
+        }
+      ],
+      "frame_ms": null,
+      "timing_note": "本包未指定毫秒时长，由导入端设置；预览100ms仅供查看。",
+      "review_note": "4帧右凸大半月弧；中央角色空位不画人，实际站位须按导入目标重新定位。",
+      "needs_import_normalization": true,
+      "visual_frame_count": 4
+    },
+    {
+      "file": "samira_fx_q_slash_hit.png",
+      "frames": 4,
+      "required_size": [
+        1280,
+        320
+      ],
+      "delivery_type": "generated_source_original",
+      "actual_size": [
+        2172,
+        724
+      ],
+      "sha256": "88d49c43a61225cfbd3aafe8ec3ca9cb3c417f75514012f063a34bcb49cb8be9",
+      "prompt": "prompts/samira_fx_q_slash_hit.txt",
+      "raw": "raw/samira_fx_q_slash_hit_attempt1.png",
+      "binding": "view_effects `league_samira_q_slash_hit`（跟随，画在人物上面）",
+      "target_game_size": "18",
+      "source_cells": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            24,
+            109,
+            529,
+            598
+          ],
+          "visible_pixels": 96666,
+          "average_luminance": 103.1,
+          "brightest_decile_luminance": 251.7
+        },
+        {
+          "index": 2,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            592,
+            119,
+            1051,
+            582
+          ],
+          "visible_pixels": 54679,
+          "average_luminance": 112.8,
+          "brightest_decile_luminance": 252.1
+        },
+        {
+          "index": 3,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            1130,
+            163,
+            1567,
+            564
+          ],
+          "visible_pixels": 29788,
+          "average_luminance": 119.4,
+          "brightest_decile_luminance": 252.6
+        },
+        {
+          "index": 4,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            1717,
+            172,
+            2115,
+            561
+          ],
+          "visible_pixels": 13290,
+          "average_luminance": 101.4,
+          "brightest_decile_luminance": 237.4
+        }
+      ],
+      "frame_ms": null,
+      "timing_note": "本包未指定毫秒时长，由导入端设置；预览100ms仅供查看。",
+      "review_note": "4帧交叉剑痕；X形命中、火星衰减。",
+      "needs_import_normalization": true,
+      "visual_frame_count": 4
+    },
+    {
+      "file": "samira_fx_e_dash.png",
+      "frames": 4,
+      "required_size": [
+        3072,
+        384
+      ],
+      "delivery_type": "generated_source_original",
+      "actual_size": [
+        2172,
+        724
+      ],
+      "sha256": "3bc53e4fa464da5c1b7cb1befbbc59af60a55e6af31fe6cf017a628ca4c0e360",
+      "prompt": "prompts/samira_fx_e_dash.txt",
+      "raw": "raw/samira_fx_e_dash_attempt1.png",
+      "binding": "view_effects `league_samira_e_dash`（BIG，施法者身上，跟随；格子里的站位点放到她脚下）",
+      "target_game_size": "48 × 24",
+      "source_cells": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            105,
+            262,
+            534,
+            506
+          ],
+          "visible_pixels": 25135,
+          "average_luminance": 137.7,
+          "brightest_decile_luminance": 242.3
+        },
+        {
+          "index": 2,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            546,
+            240,
+            1071,
+            514
+          ],
+          "visible_pixels": 49713,
+          "average_luminance": 136.7,
+          "brightest_decile_luminance": 233.7
+        },
+        {
+          "index": 3,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            1097,
+            255,
+            1603,
+            514
+          ],
+          "visible_pixels": 30446,
+          "average_luminance": 130.3,
+          "brightest_decile_luminance": 223.2
+        },
+        {
+          "index": 4,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            1733,
+            286,
+            2131,
+            514
+          ],
+          "visible_pixels": 9471,
+          "average_luminance": 143.4,
+          "brightest_decile_luminance": 208.2
+        }
+      ],
+      "frame_ms": null,
+      "timing_note": "本包未指定毫秒时长，由导入端设置；预览100ms仅供查看。",
+      "review_note": "4帧红速度线、黄沙和碎屑；拖尾朝左，右端是移动人物的位置。",
+      "needs_import_normalization": true,
+      "visual_frame_count": 4
+    },
+    {
+      "file": "samira_fx_e_hit.png",
+      "frames": 4,
+      "required_size": [
+        1152,
+        288
+      ],
+      "delivery_type": "generated_source_original",
+      "actual_size": [
+        2172,
+        724
+      ],
+      "sha256": "133365014fa56a0847aeef8c76c65acecf30be67ddddcc260b53c726f25fd693",
+      "prompt": "prompts/samira_fx_e_hit.txt",
+      "raw": "raw/samira_fx_e_hit_attempt1.png",
+      "binding": "view_effects `league_samira_e_hit`（跟随，画在人物上面）",
+      "target_game_size": "16",
+      "source_cells": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            15,
+            263,
+            532,
+            476
+          ],
+          "visible_pixels": 48006,
+          "average_luminance": 118.3,
+          "brightest_decile_luminance": 253.3
+        },
+        {
+          "index": 2,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            580,
+            296,
+            1075,
+            538
+          ],
+          "visible_pixels": 48326,
+          "average_luminance": 153.5,
+          "brightest_decile_luminance": 243.1
+        },
+        {
+          "index": 3,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            1125,
+            194,
+            1613,
+            546
+          ],
+          "visible_pixels": 41394,
+          "average_luminance": 163.1,
+          "brightest_decile_luminance": 245.3
+        },
+        {
+          "index": 4,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            1708,
+            229,
+            2157,
+            523
+          ],
+          "visible_pixels": 14338,
+          "average_luminance": 150.2,
+          "brightest_decile_luminance": 242.7
+        }
+      ],
+      "frame_ms": null,
+      "timing_note": "本包未指定毫秒时长，由导入端设置；预览100ms仅供查看。",
+      "review_note": "4帧水平剑痕和黄沙，末帧粒子衰减。",
+      "needs_import_normalization": true,
+      "visual_frame_count": 4
+    },
+    {
+      "file": "samira_fx_e_reset.png",
+      "frames": 4,
+      "required_size": [
+        1536,
+        384
+      ],
+      "delivery_type": "generated_source_original",
+      "actual_size": [
+        2172,
+        724
+      ],
+      "sha256": "0542d0babf078bc7da6592264df1c2bbc6e923db15f00ebd64da42d903a72258",
+      "prompt": "prompts/samira_fx_e_reset.txt",
+      "raw": "raw/samira_fx_e_reset_attempt1.png",
+      "binding": "view_effects `league_samira_e_reset`（施法者身上，不跟随；左右对称）",
+      "target_game_size": "22",
+      "source_cells": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            85,
+            248,
+            458,
+            577
+          ],
+          "visible_pixels": 43011,
+          "average_luminance": 192.7,
+          "brightest_decile_luminance": 253.9
+        },
+        {
+          "index": 2,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            561,
+            109,
+            1065,
+            598
+          ],
+          "visible_pixels": 82163,
+          "average_luminance": 191.4,
+          "brightest_decile_luminance": 253.6
+        },
+        {
+          "index": 3,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            1124,
+            103,
+            1607,
+            580
+          ],
+          "visible_pixels": 34349,
+          "average_luminance": 177.2,
+          "brightest_decile_luminance": 250.4
+        },
+        {
+          "index": 4,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            1738,
+            163,
+            2086,
+            580
+          ],
+          "visible_pixels": 9750,
+          "average_luminance": 184.6,
+          "brightest_decile_luminance": 252.9
+        }
+      ],
+      "frame_ms": null,
+      "timing_note": "本包未指定毫秒时长，由导入端设置；预览100ms仅供查看。",
+      "review_note": "4帧金环和升起的星光；视觉近似左右对称，细小星点不完全一致。",
+      "needs_import_normalization": true,
+      "visual_frame_count": 4
+    },
+    {
+      "file": "samira_fx_w_spin.png",
+      "frames": 4,
+      "required_size": [
+        4096,
+        640
+      ],
+      "delivery_type": "generated_source_original",
+      "actual_size": [
+        1983,
+        793
+      ],
+      "sha256": "45b77c09a50a5d1000308c0487e6ce6298898cc6f7954106bd36742a62393351",
+      "prompt": "prompts/samira_fx_w_spin.txt",
+      "raw": "raw/samira_fx_w_spin_attempt1.png",
+      "binding": "view_buffs `league_samira_w_spin`（BIG，循环，画在人物上面；左右对称）",
+      "target_game_size": "64 × 40",
+      "source_cells": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            496,
+            793
+          ],
+          "bbox": [
+            25,
+            261,
+            482,
+            553
+          ],
+          "visible_pixels": 40119,
+          "average_luminance": 119.4,
+          "brightest_decile_luminance": 248.3
+        },
+        {
+          "index": 2,
+          "rect": [
+            496,
+            0,
+            496,
+            793
+          ],
+          "bbox": [
+            516,
+            239,
+            978,
+            564
+          ],
+          "visible_pixels": 40344,
+          "average_luminance": 119.2,
+          "brightest_decile_luminance": 248.4
+        },
+        {
+          "index": 3,
+          "rect": [
+            992,
+            0,
+            495,
+            793
+          ],
+          "bbox": [
+            1000,
+            253,
+            1477,
+            552
+          ],
+          "visible_pixels": 38050,
+          "average_luminance": 116.9,
+          "brightest_decile_luminance": 247.8
+        },
+        {
+          "index": 4,
+          "rect": [
+            1487,
+            0,
+            496,
+            793
+          ],
+          "bbox": [
+            1504,
+            231,
+            1966,
+            570
+          ],
+          "visible_pixels": 40773,
+          "average_luminance": 114.4,
+          "brightest_decile_luminance": 247.8
+        }
+      ],
+      "frame_ms": null,
+      "timing_note": "本包未指定毫秒时长，由导入端设置；预览100ms仅供查看。",
+      "review_note": "4帧扁椭圆红剑火环，中央空；高亮变化用于循环，不能保证正好每帧推进四分之一圈或严格左右对称。",
+      "needs_import_normalization": true,
+      "visual_frame_count": 4
+    },
+    {
+      "file": "samira_fx_w_hit.png",
+      "frames": 4,
+      "required_size": [
+        1152,
+        288
+      ],
+      "delivery_type": "generated_source_original",
+      "actual_size": [
+        2172,
+        724
+      ],
+      "sha256": "7a68a6903957f2c9d8b8342ac488b0b7550eebcbb0c5b522ee6c759646c7d686",
+      "prompt": "prompts/samira_fx_w_hit.txt",
+      "raw": "raw/samira_fx_w_hit_attempt1.png",
+      "binding": "view_effects `league_samira_w_hit`（跟随，画在人物上面）",
+      "target_game_size": "16",
+      "source_cells": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            17,
+            168,
+            539,
+            573
+          ],
+          "visible_pixels": 97568,
+          "average_luminance": 136.9,
+          "brightest_decile_luminance": 253.2
+        },
+        {
+          "index": 2,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            583,
+            204,
+            1075,
+            559
+          ],
+          "visible_pixels": 39466,
+          "average_luminance": 134.2,
+          "brightest_decile_luminance": 253.3
+        },
+        {
+          "index": 3,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            1155,
+            200,
+            1600,
+            559
+          ],
+          "visible_pixels": 21243,
+          "average_luminance": 138.8,
+          "brightest_decile_luminance": 252.7
+        },
+        {
+          "index": 4,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            1705,
+            244,
+            2123,
+            538
+          ],
+          "visible_pixels": 7519,
+          "average_luminance": 109.9,
+          "brightest_decile_luminance": 246.3
+        }
+      ],
+      "frame_ms": null,
+      "timing_note": "本包未指定毫秒时长，由导入端设置；预览100ms仅供查看。",
+      "review_note": "4帧弯剑痕和火星；亮芯清楚。",
+      "needs_import_normalization": true,
+      "visual_frame_count": 4
+    },
+    {
+      "file": "samira_fx_r_on.png",
+      "frames": 4,
+      "required_size": [
+        4096,
+        896
+      ],
+      "delivery_type": "generated_source_original",
+      "actual_size": [
+        2172,
+        724
+      ],
+      "sha256": "7c97170a0657264188db9c1fd613588854017d1e93aadbba79f1b33ab0bb38b5",
+      "prompt": "prompts/samira_fx_r_on.txt",
+      "raw": "raw/samira_fx_r_on_attempt1.png",
+      "binding": "view_buffs `league_samira_r_on`（BIG，循环，画在人物上面；左右对称）",
+      "target_game_size": "64 × 56",
+      "source_cells": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            25,
+            170,
+            530,
+            556
+          ],
+          "visible_pixels": 56358,
+          "average_luminance": 134.9,
+          "brightest_decile_luminance": 252.9
+        },
+        {
+          "index": 2,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            563,
+            162,
+            1066,
+            556
+          ],
+          "visible_pixels": 55298,
+          "average_luminance": 137.4,
+          "brightest_decile_luminance": 252.6
+        },
+        {
+          "index": 3,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            1105,
+            170,
+            1618,
+            550
+          ],
+          "visible_pixels": 51320,
+          "average_luminance": 136.0,
+          "brightest_decile_luminance": 252.5
+        },
+        {
+          "index": 4,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            1642,
+            174,
+            2146,
+            571
+          ],
+          "visible_pixels": 50796,
+          "average_luminance": 127.2,
+          "brightest_decile_luminance": 252.4
+        }
+      ],
+      "frame_ms": null,
+      "timing_note": "本包未指定毫秒时长，由导入端设置；预览100ms仅供查看。",
+      "review_note": "4帧红旋风、金枪火和玫瑰花瓣，中央空；各侧粒子不严格镜面对称，导入端应校对人物遮挡。",
+      "needs_import_normalization": true,
+      "visual_frame_count": 4
+    },
+    {
+      "file": "samira_fx_r_flash.png",
+      "frames": 2,
+      "required_size": [
+        384,
+        160
+      ],
+      "delivery_type": "generated_source_original",
+      "actual_size": [
+        1942,
+        809
+      ],
+      "sha256": "5e285c097cf38b82169f69ec9a85c179bdfbb78ec852b3b1c85dbf0bc6f17240",
+      "prompt": "prompts/samira_fx_r_flash.txt",
+      "raw": "raw/samira_fx_r_flash_attempt1.png",
+      "binding": "画进 `samira_ult` 第 2–9 帧（两把枪口，`design/samira_shots.png` ult 2 的两个十字；朝左那把用镜像；导入时烘进精灵帧）",
+      "target_game_size": "10 × 8",
+      "source_cells": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            971,
+            809
+          ],
+          "bbox": [
+            80,
+            139,
+            971,
+            682
+          ],
+          "visible_pixels": 160200,
+          "average_luminance": 169.6,
+          "brightest_decile_luminance": 253.0
+        },
+        {
+          "index": 2,
+          "rect": [
+            971,
+            0,
+            971,
+            809
+          ],
+          "bbox": [
+            994,
+            252,
+            1691,
+            550
+          ],
+          "visible_pixels": 37002,
+          "average_luminance": 160.7,
+          "brightest_decile_luminance": 251.9
+        }
+      ],
+      "frame_ms": null,
+      "timing_note": "本包未指定毫秒时长，由导入端设置；预览100ms仅供查看。",
+      "review_note": "2帧右向小枪火；用于两枪时由导入端镜像左侧实例。",
+      "needs_import_normalization": true,
+      "visual_frame_count": 2
+    },
+    {
+      "file": "samira_fx_r_bullet.png",
+      "frames": 3,
+      "required_size": [
+        864,
+        128
+      ],
+      "delivery_type": "generated_source_original",
+      "actual_size": [
+        1995,
+        788
+      ],
+      "sha256": "a0ab2b6254233f5178cda81e89ec6136286da323c7f35f30a9114ba4b97a0b32",
+      "prompt": "prompts/samira_fx_r_bullet.txt",
+      "raw": "raw/samira_fx_r_bullet_attempt1.png",
+      "binding": "view_projectiles `league_samira_r_bullet`（朝飞行方向转，画成朝右飞；上下对称）",
+      "target_game_size": "16 × 5",
+      "source_cells": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            665,
+            788
+          ],
+          "bbox": [
+            40,
+            322,
+            596,
+            462
+          ],
+          "visible_pixels": 33906,
+          "average_luminance": 146.2,
+          "brightest_decile_luminance": 252.8
+        },
+        {
+          "index": 2,
+          "rect": [
+            665,
+            0,
+            665,
+            788
+          ],
+          "bbox": [
+            692,
+            320,
+            1259,
+            467
+          ],
+          "visible_pixels": 31455,
+          "average_luminance": 133.0,
+          "brightest_decile_luminance": 250.2
+        },
+        {
+          "index": 3,
+          "rect": [
+            1330,
+            0,
+            665,
+            788
+          ],
+          "bbox": [
+            1372,
+            321,
+            1938,
+            462
+          ],
+          "visible_pixels": 27936,
+          "average_luminance": 130.6,
+          "brightest_decile_luminance": 247.2
+        }
+      ],
+      "frame_ms": null,
+      "timing_note": "本包未指定毫秒时长，由导入端设置；预览100ms仅供查看。",
+      "review_note": "3帧右向红橙曳光弹；核心近似对称，烟尾与火星不严格上下对称。",
+      "needs_import_normalization": true,
+      "visual_frame_count": 3
+    },
+    {
+      "file": "samira_fx_r_hit.png",
+      "frames": 4,
+      "required_size": [
+        1024,
+        256
+      ],
+      "delivery_type": "generated_source_original",
+      "actual_size": [
+        2172,
+        724
+      ],
+      "sha256": "3333d1a0a3da479a7dd0c9bbd1f1e9924414fc0b426fb2a5cbaa891546bee593",
+      "prompt": "prompts/samira_fx_r_hit.txt",
+      "raw": "raw/samira_fx_r_hit_attempt1.png",
+      "binding": "view_effects `league_samira_r_hit`（跟随，画在人物上面）",
+      "target_game_size": "14",
+      "source_cells": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            47,
+            173,
+            496,
+            602
+          ],
+          "visible_pixels": 46808,
+          "average_luminance": 226.6,
+          "brightest_decile_luminance": 253.6
+        },
+        {
+          "index": 2,
+          "rect": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            573,
+            186,
+            1065,
+            613
+          ],
+          "visible_pixels": 74899,
+          "average_luminance": 145.9,
+          "brightest_decile_luminance": 250.8
+        },
+        {
+          "index": 3,
+          "rect": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            1136,
+            201,
+            1582,
+            575
+          ],
+          "visible_pixels": 34461,
+          "average_luminance": 140.3,
+          "brightest_decile_luminance": 245.3
+        },
+        {
+          "index": 4,
+          "rect": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "bbox": [
+            1735,
+            245,
+            2107,
+            561
+          ],
+          "visible_pixels": 13181,
+          "average_luminance": 137.0,
+          "brightest_decile_luminance": 246.7
+        }
+      ],
+      "frame_ms": null,
+      "timing_note": "本包未指定毫秒时长，由导入端设置；预览100ms仅供查看。",
+      "review_note": "4帧火光与玫瑰花瓣衰减；花瓣轮廓应在游戏大小再检查。",
+      "needs_import_normalization": true,
+      "visual_frame_count": 4
+    },
+    {
+      "file": "samira_fx_g_letters.png",
+      "frames": 6,
+      "required_size": [
+        1536,
+        256
+      ],
+      "delivery_type": "generated_source_original",
+      "actual_size": [
+        2172,
+        724
+      ],
+      "sha256": "2d61750edbda93ea4922f20ca7833f0b2914de57446a43bc7acccab5aeae4374",
+      "prompt": "prompts/samira_fx_g_letters_attempt2.txt",
+      "raw": "raw/samira_fx_g_letters_attempt2.png",
+      "binding": "view_buffs `league_samira_g1`…`g6`（每格一个字母：g1 = E … g6 = S；画在头顶，不旋转）",
+      "target_game_size": "10 × 10（S 12 × 12）",
+      "source_cells": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            362,
+            724
+          ],
+          "bbox": [
+            76,
+            247,
+            277,
+            517
+          ],
+          "visible_pixels": 49039,
+          "average_luminance": 107.1,
+          "brightest_decile_luminance": 226.0
+        },
+        {
+          "index": 2,
+          "rect": [
+            362,
+            0,
+            362,
+            724
+          ],
+          "bbox": [
+            417,
+            242,
+            651,
+            517
+          ],
+          "visible_pixels": 54362,
+          "average_luminance": 119.1,
+          "brightest_decile_luminance": 235.7
+        },
+        {
+          "index": 3,
+          "rect": [
+            724,
+            0,
+            362,
+            724
+          ],
+          "bbox": [
+            771,
+            242,
+            1001,
+            517
+          ],
+          "visible_pixels": 44317,
+          "average_luminance": 108.2,
+          "brightest_decile_luminance": 231.4
+        },
+        {
+          "index": 4,
+          "rect": [
+            1086,
+            0,
+            362,
+            724
+          ],
+          "bbox": [
+            1142,
+            221,
+            1373,
+            519
+          ],
+          "visible_pixels": 60821,
+          "average_luminance": 118.8,
+          "brightest_decile_luminance": 225.5
+        },
+        {
+          "index": 5,
+          "rect": [
+            1448,
+            0,
+            362,
+            724
+          ],
+          "bbox": [
+            1496,
+            221,
+            1748,
+            519
+          ],
+          "visible_pixels": 56400,
+          "average_luminance": 116.9,
+          "brightest_decile_luminance": 222.4
+        },
+        {
+          "index": 6,
+          "rect": [
+            1810,
+            0,
+            362,
+            724
+          ],
+          "bbox": [
+            1872,
+            88,
+            2113,
+            540
+          ],
+          "visible_pixels": 81591,
+          "average_luminance": 104.5,
+          "brightest_decile_luminance": 228.0
+        }
+      ],
+      "frame_ms": null,
+      "timing_note": "本包未指定毫秒时长，由导入端设置；预览100ms仅供查看。",
+      "review_note": "第2版：6格按E、D、C、B、A、S排列；直立粗方块字，深色轮廓，仅S带火焰。第1版倾斜且火焰过多，已弃用但保留raw。仍需最终游戏尺寸检查。",
+      "needs_import_normalization": true,
+      "visual_frame_count": 6,
+      "rejected_attempts": [
+        "raw/samira_fx_g_letters_attempt1.png"
+      ]
+    },
+    {
+      "file": "samira_fx_g_up.png",
+      "frames": 3,
+      "required_size": [
+        864,
+        288
+      ],
+      "delivery_type": "generated_source_original",
+      "actual_size": [
+        2172,
+        724
+      ],
+      "sha256": "88c63599d4b6f1bd8d4fb5d45b042da3aafceda0d772818a2d397c25e2cb35e7",
+      "prompt": "prompts/samira_fx_g_up.txt",
+      "raw": "raw/samira_fx_g_up_attempt1.png",
+      "binding": "view_effects `league_samira_g_up`（施法者身上，不跟随，头顶；左右对称）",
+      "target_game_size": "16",
+      "source_cells": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            724,
+            724
+          ],
+          "bbox": [
+            82,
+            80,
+            640,
+            644
+          ],
+          "visible_pixels": 70164,
+          "average_luminance": 209.7,
+          "brightest_decile_luminance": 253.2
+        },
+        {
+          "index": 2,
+          "rect": [
+            724,
+            0,
+            724,
+            724
+          ],
+          "bbox": [
+            779,
+            71,
+            1393,
+            652
+          ],
+          "visible_pixels": 86401,
+          "average_luminance": 198.3,
+          "brightest_decile_luminance": 253.0
+        },
+        {
+          "index": 3,
+          "rect": [
+            1448,
+            0,
+            724,
+            724
+          ],
+          "bbox": [
+            1532,
+            124,
+            2088,
+            603
+          ],
+          "visible_pixels": 28395,
+          "average_luminance": 193.5,
+          "brightest_decile_luminance": 252.9
+        }
+      ],
+      "frame_ms": null,
+      "timing_note": "本包未指定毫秒时长，由导入端设置；预览100ms仅供查看。",
+      "review_note": "3帧金色星闪、扩散圆环和小星；视觉近似左右对称，细节不完全一致。",
+      "needs_import_normalization": true,
+      "visual_frame_count": 3
+    },
+    {
+      "file": "samira_fx_g_s.png",
+      "frames": 4,
+      "required_size": [
+        1920,
+        480
+      ],
+      "delivery_type": "generated_source_original",
+      "actual_size": [
+        1983,
+        793
+      ],
+      "sha256": "1ef85eb587fc7dd23de706f10f3bf982487d2f19fad27f9915b7bbc03715705e",
+      "prompt": "prompts/samira_fx_g_s.txt",
+      "raw": "raw/samira_fx_g_s_attempt1.png",
+      "binding": "view_effects `league_samira_g_s`（施法者身上，不跟随，头顶；左右对称）",
+      "target_game_size": "28",
+      "source_cells": [
+        {
+          "index": 1,
+          "rect": [
+            0,
+            0,
+            496,
+            793
+          ],
+          "bbox": [
+            42,
+            216,
+            454,
+            617
+          ],
+          "visible_pixels": 46303,
+          "average_luminance": 203.6,
+          "brightest_decile_luminance": 253.6
+        },
+        {
+          "index": 2,
+          "rect": [
+            496,
+            0,
+            496,
+            793
+          ],
+          "bbox": [
+            513,
+            170,
+            975,
+            636
+          ],
+          "visible_pixels": 83551,
+          "average_luminance": 151.3,
+          "brightest_decile_luminance": 253.4
+        },
+        {
+          "index": 3,
+          "rect": [
+            992,
+            0,
+            495,
+            793
+          ],
+          "bbox": [
+            1010,
+            127,
+            1475,
+            638
+          ],
+          "visible_pixels": 49432,
+          "average_luminance": 144.0,
+          "brightest_decile_luminance": 252.0
+        },
+        {
+          "index": 4,
+          "rect": [
+            1487,
+            0,
+            496,
+            793
+          ],
+          "bbox": [
+            1516,
+            171,
+            1951,
+            641
+          ],
+          "visible_pixels": 21315,
+          "average_luminance": 122.2,
+          "brightest_decile_luminance": 248.0
+        }
+      ],
+      "frame_ms": null,
+      "timing_note": "本包未指定毫秒时长，由导入端设置；预览100ms仅供查看。",
+      "review_note": "4帧金红爆闪、扩散环和火星；视觉近似左右对称，细节不完全一致。",
+      "needs_import_normalization": true,
+      "visual_frame_count": 4
+    }
+  ],
+  "source_originals_preserved": true,
+  "reference_texture_excluded_from_delivery": true,
+  "scope": "23 independent VFX source strips; no game import, baking, runtime data changes or playable-mod certification"
+}
