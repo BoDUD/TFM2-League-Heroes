@@ -432,12 +432,12 @@ SIDES = {62: ("0tnkhagh", "hgaknkh0"),
          63: ("0nkhgagh", "ggankhg0"),
          64: ("0khgaggh", "hgakhga0")}           # columns 54-61 and 69-76
 THIGHS = (63, 66, 70)                         # rows 87-90 one block: the near thigh 63-66, the far 67-70
-CALVES = {91: ((62, 65), (67, 70)), 92: ((61, 65), (67, 70)), 93: ((61, 64), (67, 70))}  # near, far
+CALVES = {91: ((62, 65), (67, 70)), 92: ((62, 65), (67, 70)), 93: ((62, 65), (67, 70))}  # near, far: straight
 BOOTS = {94: ((61, "sxxsm"), (67, "msxs")),   # (first column, colours): the near boot facing us, its toe out to
          95: ((61, "msqsb"), (67, "bmqm")),   # the left; the far boot turned to her front (image right), its toe
-         96: ((60, "ssxsb"), (67, "bmss")),   # out to the right - a gold buckle each, a gold toe cap
-         97: ((61, "qssb"), (67, "bmsss")),
-         98: ((62, "sssb"), (68, "bmssq"))}
+         96: ((61, "ssxsb"), (67, "bmss")),   # out to the right - a gold buckle each, a gold toe cap
+         97: ((61, "qsssb"), (67, "bmsss")),
+         98: ((61, "ssssb"), (68, "bmssq"))}
 THIGH_STAR = ((69, 87, "u"), (68, 88, "q"), (69, 88, "u"), (70, 88, "q"), (69, 89, "l"))
 CROWN = {54: "--.000.........",
          55: "--0ntn0........",
