@@ -18,7 +18,13 @@ Steps:
      EYE_ROWS (the eyepatch and the green eye); then the columns to WIDTH the same way, never EYE_COLS. Only the eyes
      are kept whole: head and body lose rows in proportion;
   4. strips.complete_outline where a deleted line held the outline (the eyes never touched);
-  5. on the 128x128 canvas at 8x: the soles on row 99, the middle of the feet (the lowest three rows) on column 64.
+  5. on the 128x128 canvas at 8x: the soles on row 99, the middle of the feet (the lowest three rows) on column 64;
+  6. WEAPONS (the user: 「武器有点看不清啊 你不好好调一下吗」「你可以参考隔壁oppi的怎么画的」): the cut had left the greatsword
+     behind her as grey crumbs between the thigh and the braid. As oppi's Samira does, the weapons show OUTSIDE the
+     silhouette: the old blade squares there (grey, under the hip, right of the front leg) go and a straight blade is
+     drawn from BLADE_TOP to BLADE_TIP under the body - 3 wide: dark steel back, steel, a silver edge (the draft's own
+     colours) - its point past the front leg; the near holster's pistol barrel runs 4 squares down the outer thigh
+     (BARREL); the outline closed again, the face never touched.
 --check compares the result with the committed samira_native.png instead of writing it.
 """
 import argparse
@@ -43,6 +49,10 @@ K, HEIGHT, WIDTH = 28, 40, 27
 EYE_ROWS = range(16, 21)           # on the 81 x 44 read-back: the eyepatch, the strap, the green eye
 EYE_COLS = range(19, 28)
 SOLE_ROW, MID_COL, FEET_ROWS = 99, 64, 3
+BLADE_TOP, BLADE_TIP = (83.0, 72.0), (97.0, 82.0)     # canvas (row, column)
+BARREL = (54, range(87, 91))                          # canvas column, rows
+INK = (12, 8, 13)
+STEEL_D, STEEL, SILVER, SILVER2 = (38, 41, 54), (119, 123, 144), (233, 235, 242), (181, 186, 210)
 
 
 def lp(path):
@@ -87,7 +97,41 @@ def build():
     out = np.zeros((128, 128, 4), np.uint8)
     y0, x0 = SOLE_ROW + 1 - fig.shape[0], int(round(MID_COL - mid_x))
     out[y0:y0 + fig.shape[0], x0:x0 + fig.shape[1]] = fig
-    return out, rows, cols, added
+    return weapons(out), rows, cols, added
+
+
+def weapons(a):
+    """Step 6: the blade under the hip redrawn straight and past the front leg, the near pistol's barrel down the thigh."""
+    a = a.copy()
+    col = a[..., :3].astype(int)
+    op = a[..., 3] > 0
+    yy, xx = np.mgrid[0:a.shape[0], 0:a.shape[1]]
+    grey = (np.abs(col[..., 0] - col[..., 2]) < 45) & (np.abs(col[..., 1] - col[..., 2]) < 45) & (col.sum(-1) > 150)
+    a[op & grey & (yy >= 82) & (xx >= 72), 3] = 0
+    body = a[..., 3] > 0
+    p0, tip = np.array(BLADE_TOP), np.array(BLADE_TIP)
+    length = np.linalg.norm(tip - p0)
+    u = (tip - p0) / length
+    nrm = np.array([-u[1], u[0]])
+    sword = np.zeros_like(a)
+    for t in np.arange(0, length + 0.01, 0.2):
+        p, left = p0 + u * t, length - t
+        for k, c in ((-1, STEEL_D), (0, STEEL), (1, SILVER)):
+            if (k == -1 and left < 2) or (k == 1 and left < 0.7):
+                continue
+            r, cc = (int(round(v)) for v in p + nrm * k)
+            if r <= SOLE_ROW:
+                sword[r, cc, :3], sword[r, cc, 3] = c, 255
+    out = np.where(body[..., None], a, sword)
+    c, rows = BARREL
+    for r in rows:
+        out[r, c, :3] = SILVER if r == rows.start else (SILVER2 if r < rows.stop - 1 else STEEL)
+        out[r, c, 3] = 255
+    keep = np.zeros(out.shape[:2], bool)
+    keep[64:75, 57:73] = True                         # the face
+    out, _, _ = strips.complete_outline(out, color=INK, feet=SOLE_ROW + 1, keep=keep)
+    out[SOLE_ROW + 1:] = 0
+    return out
 
 
 def main():
