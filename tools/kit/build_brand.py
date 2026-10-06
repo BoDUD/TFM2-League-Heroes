@@ -5,13 +5,13 @@
 Kit (the user's picks, 2026-10-06: all the recommended options, plus 「加入高手的连招」):
   passive Blaze (炽热之焰): every spell hit sets the unit ablaze (烈焰焚身): an `AddCasted` Fire burn of p_burn +
           p_burn_ap% AP magic damage every p_period ticks for p_t ticks and p_hp% of its maximum health as TRUE damage
-          every p_hp_period ticks (nothing magic reads max health). Stacks: nothing reads a buff on another unit, so the
-          count lives on him (league_kennen / league_varus): two caster flags b_1 -> b_2 (b_keep ticks, refreshed by every
+          every p_hp_period ticks (nothing magic reads max health; 0 since c4, so that burn is left out). Stacks:
+          nothing reads a buff on another unit, so the count lives on him (league_kennen / league_varus): two caster flags b_1 -> b_2 (b_keep ticks, refreshed by every
           climb), climbed once per source per cast (a 3-tick lock) by his spell hits on enemy CHAMPIONS. A champion hit
           while b_2 holds is the third stack: it turns unstable and p_wait ticks later detonates where it stands - p_det +
           p_det_ap% AP magic damage and p_det_hp% max health true damage to every enemy within p_det_r, setting them
           ablaze - and the count starts over. The pips (1-3) show over the champion hit. A native add-on may later count
-          real stacks per enemy (the main pack is complete alone).
+          real stacks per enemy (the main pack is complete alone): addons/league_brand (native=1).
   attack  A homing fireball (100% AD).
   skill   W Pillar of Flame (烈焰之柱): a `Targeting` cast on `EnemyWithoutTower` (w_range). At the release a hidden
           1-tick lob marks the target's spot (the ground lights up) and w_delay ticks later the pillar hits round it
@@ -62,6 +62,9 @@ P = {
     # passive Blaze (League: 3% max HP magic over 4 s, 3 stacks -> 2 s later 9-13% max HP round the target)
     "p_t": 240, "p_period": 60, "p_burn": 6, "p_burn_ap": 4, "p_hp_period": 120, "p_hp": 0,
     "b_keep": 240, "p_wait": 120, "p_det_r": 26000, "p_det": 50, "p_det_ap": 30, "p_det_hp": 4,
+    # 1 = the copy for the add-on (addons/league_brand): a champion hit is its `Native` league_brand:blaze, which counts
+    # the stacks on that champion and detonates it itself (p_det_hp% max health as magic damage there)
+    "native": 0,
     # skill: W Pillar of Flame (League: 900 range, 0.625 s delay, radius 240, 75-255 + 60% AP, +25% on ablaze,
     # cd 10.5-8 s)
     "w_cd": 480, "w_range": 85000, "w_dur": 20, "w_rel": 11, "w_delay": 36, "w_r": 23000, "w_dmg": 70, "w_ap": 55,
@@ -222,8 +225,8 @@ def build(p):
     # ------------------------------------------------------------------ passive: Blaze
     def ignite():
         """On every unit a spell hits: the burn (its own instance, as League's re-applied Blaze)."""
-        return combine(casted(p["p_t"], p["p_period"], ap(p["p_burn"], p["p_burn_ap"])),
-                       casted(p["p_t"], p["p_hp_period"], true(0, p["p_hp"])), buff("p_burn", p["p_t"]))
+        hp = [casted(p["p_t"], p["p_hp_period"], true(0, p["p_hp"]))] if p["p_hp"] else []
+        return combine(casted(p["p_t"], p["p_period"], ap(p["p_burn"], p["p_burn_ap"])), *hp, buff("p_burn", p["p_t"]))
 
     detonation = lob("p_lob", [
         view("p_boom"), sfx("p_boom"),
@@ -232,6 +235,8 @@ def build(p):
 
     def mark(src):
         """On an enemy champion a spell of his hit: the third stack detonates it, the pips, the count a tick later."""
+        if p["native"]:
+            return {"type": "Native", "effect_ref": f"{ID}:blaze"}
         keep = p["b_keep"]
         climb = sw("b_2", combine(*rm("b_1", "b_2")),
                    sw("b_1", combine(refresh("b_1", keep), refresh("b_2", keep)), refresh("b_1", keep)))

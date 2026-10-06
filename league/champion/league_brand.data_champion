@@ -251,22 +251,6 @@
                               ]
                             },
                             {
-                              "type": "AddCasted",
-                              "casted_type": "Fire",
-                              "duration": 240,
-                              "period": 120,
-                              "effects": [
-                                {
-                                  "type": "FixedAttack",
-                                  "damage": 0,
-                                  "attack_ratio": 0,
-                                  "hp_ratio": 0,
-                                  "target_hp_ratio": 0,
-                                  "attack_effect_type": "Target"
-                                }
-                              ]
-                            },
-                            {
                               "type": "AddBuff",
                               "buff_state": {
                                 "name": "league_brand_p_burn",
@@ -711,22 +695,6 @@
                                       ]
                                     },
                                     {
-                                      "type": "AddCasted",
-                                      "casted_type": "Fire",
-                                      "duration": 240,
-                                      "period": 120,
-                                      "effects": [
-                                        {
-                                          "type": "FixedAttack",
-                                          "damage": 0,
-                                          "attack_ratio": 0,
-                                          "hp_ratio": 0,
-                                          "target_hp_ratio": 0,
-                                          "attack_effect_type": "Target"
-                                        }
-                                      ]
-                                    },
-                                    {
                                       "type": "AddBuff",
                                       "buff_state": {
                                         "name": "league_brand_p_burn",
@@ -1070,22 +1038,6 @@
                                           "attack_ratio": 4,
                                           "hp_ratio": 0,
                                           "can_crit": false
-                                        }
-                                      ]
-                                    },
-                                    {
-                                      "type": "AddCasted",
-                                      "casted_type": "Fire",
-                                      "duration": 240,
-                                      "period": 120,
-                                      "effects": [
-                                        {
-                                          "type": "FixedAttack",
-                                          "damage": 0,
-                                          "attack_ratio": 0,
-                                          "hp_ratio": 0,
-                                          "target_hp_ratio": 0,
-                                          "attack_effect_type": "Target"
                                         }
                                       ]
                                     },
@@ -1466,22 +1418,6 @@
                                 "attack_ratio": 4,
                                 "hp_ratio": 0,
                                 "can_crit": false
-                              }
-                            ]
-                          },
-                          {
-                            "type": "AddCasted",
-                            "casted_type": "Fire",
-                            "duration": 240,
-                            "period": 120,
-                            "effects": [
-                              {
-                                "type": "FixedAttack",
-                                "damage": 0,
-                                "attack_ratio": 0,
-                                "hp_ratio": 0,
-                                "target_hp_ratio": 0,
-                                "attack_effect_type": "Target"
                               }
                             ]
                           },
@@ -2000,22 +1936,6 @@
                                                 "attack_ratio": 4,
                                                 "hp_ratio": 0,
                                                 "can_crit": false
-                                              }
-                                            ]
-                                          },
-                                          {
-                                            "type": "AddCasted",
-                                            "casted_type": "Fire",
-                                            "duration": 240,
-                                            "period": 120,
-                                            "effects": [
-                                              {
-                                                "type": "FixedAttack",
-                                                "damage": 0,
-                                                "attack_ratio": 0,
-                                                "hp_ratio": 0,
-                                                "target_hp_ratio": 0,
-                                                "attack_effect_type": "Target"
                                               }
                                             ]
                                           },
@@ -2568,22 +2488,6 @@
                                   ]
                                 },
                                 {
-                                  "type": "AddCasted",
-                                  "casted_type": "Fire",
-                                  "duration": 240,
-                                  "period": 120,
-                                  "effects": [
-                                    {
-                                      "type": "FixedAttack",
-                                      "damage": 0,
-                                      "attack_ratio": 0,
-                                      "hp_ratio": 0,
-                                      "target_hp_ratio": 0,
-                                      "attack_effect_type": "Target"
-                                    }
-                                  ]
-                                },
-                                {
                                   "type": "AddBuff",
                                   "buff_state": {
                                     "name": "league_brand_p_burn",
@@ -3129,22 +3033,6 @@
                                                             ]
                                                           },
                                                           {
-                                                            "type": "AddCasted",
-                                                            "casted_type": "Fire",
-                                                            "duration": 240,
-                                                            "period": 120,
-                                                            "effects": [
-                                                              {
-                                                                "type": "FixedAttack",
-                                                                "damage": 0,
-                                                                "attack_ratio": 0,
-                                                                "hp_ratio": 0,
-                                                                "target_hp_ratio": 0,
-                                                                "attack_effect_type": "Target"
-                                                              }
-                                                            ]
-                                                          },
-                                                          {
                                                             "type": "AddBuff",
                                                             "buff_state": {
                                                               "name": "league_brand_p_burn",
@@ -3519,22 +3407,6 @@
                                                             ]
                                                           },
                                                           {
-                                                            "type": "AddCasted",
-                                                            "casted_type": "Fire",
-                                                            "duration": 240,
-                                                            "period": 120,
-                                                            "effects": [
-                                                              {
-                                                                "type": "FixedAttack",
-                                                                "damage": 0,
-                                                                "attack_ratio": 0,
-                                                                "hp_ratio": 0,
-                                                                "target_hp_ratio": 0,
-                                                                "attack_effect_type": "Target"
-                                                              }
-                                                            ]
-                                                          },
-                                                          {
                                                             "type": "AddBuff",
                                                             "buff_state": {
                                                               "name": "league_brand_p_burn",
@@ -3707,22 +3579,6 @@
                                                                     "attack_ratio": 4,
                                                                     "hp_ratio": 0,
                                                                     "can_crit": false
-                                                                  }
-                                                                ]
-                                                              },
-                                                              {
-                                                                "type": "AddCasted",
-                                                                "casted_type": "Fire",
-                                                                "duration": 240,
-                                                                "period": 120,
-                                                                "effects": [
-                                                                  {
-                                                                    "type": "FixedAttack",
-                                                                    "damage": 0,
-                                                                    "attack_ratio": 0,
-                                                                    "hp_ratio": 0,
-                                                                    "target_hp_ratio": 0,
-                                                                    "attack_effect_type": "Target"
                                                                   }
                                                                 ]
                                                               },
@@ -4101,22 +3957,6 @@
                                                                 ]
                                                               },
                                                               {
-                                                                "type": "AddCasted",
-                                                                "casted_type": "Fire",
-                                                                "duration": 240,
-                                                                "period": 120,
-                                                                "effects": [
-                                                                  {
-                                                                    "type": "FixedAttack",
-                                                                    "damage": 0,
-                                                                    "attack_ratio": 0,
-                                                                    "hp_ratio": 0,
-                                                                    "target_hp_ratio": 0,
-                                                                    "attack_effect_type": "Target"
-                                                                  }
-                                                                ]
-                                                              },
-                                                              {
                                                                 "type": "AddBuff",
                                                                 "buff_state": {
                                                                   "name": "league_brand_p_burn",
@@ -4289,22 +4129,6 @@
                                                                         "attack_ratio": 4,
                                                                         "hp_ratio": 0,
                                                                         "can_crit": false
-                                                                      }
-                                                                    ]
-                                                                  },
-                                                                  {
-                                                                    "type": "AddCasted",
-                                                                    "casted_type": "Fire",
-                                                                    "duration": 240,
-                                                                    "period": 120,
-                                                                    "effects": [
-                                                                      {
-                                                                        "type": "FixedAttack",
-                                                                        "damage": 0,
-                                                                        "attack_ratio": 0,
-                                                                        "hp_ratio": 0,
-                                                                        "target_hp_ratio": 0,
-                                                                        "attack_effect_type": "Target"
                                                                       }
                                                                     ]
                                                                   },
@@ -4683,22 +4507,6 @@
                                                                     ]
                                                                   },
                                                                   {
-                                                                    "type": "AddCasted",
-                                                                    "casted_type": "Fire",
-                                                                    "duration": 240,
-                                                                    "period": 120,
-                                                                    "effects": [
-                                                                      {
-                                                                        "type": "FixedAttack",
-                                                                        "damage": 0,
-                                                                        "attack_ratio": 0,
-                                                                        "hp_ratio": 0,
-                                                                        "target_hp_ratio": 0,
-                                                                        "attack_effect_type": "Target"
-                                                                      }
-                                                                    ]
-                                                                  },
-                                                                  {
                                                                     "type": "AddBuff",
                                                                     "buff_state": {
                                                                       "name": "league_brand_p_burn",
@@ -4871,22 +4679,6 @@
                                                                             "attack_ratio": 4,
                                                                             "hp_ratio": 0,
                                                                             "can_crit": false
-                                                                          }
-                                                                        ]
-                                                                      },
-                                                                      {
-                                                                        "type": "AddCasted",
-                                                                        "casted_type": "Fire",
-                                                                        "duration": 240,
-                                                                        "period": 120,
-                                                                        "effects": [
-                                                                          {
-                                                                            "type": "FixedAttack",
-                                                                            "damage": 0,
-                                                                            "attack_ratio": 0,
-                                                                            "hp_ratio": 0,
-                                                                            "target_hp_ratio": 0,
-                                                                            "attack_effect_type": "Target"
                                                                           }
                                                                         ]
                                                                       },
@@ -5261,22 +5053,6 @@
                                                                             "attack_ratio": 4,
                                                                             "hp_ratio": 0,
                                                                             "can_crit": false
-                                                                          }
-                                                                        ]
-                                                                      },
-                                                                      {
-                                                                        "type": "AddCasted",
-                                                                        "casted_type": "Fire",
-                                                                        "duration": 240,
-                                                                        "period": 120,
-                                                                        "effects": [
-                                                                          {
-                                                                            "type": "FixedAttack",
-                                                                            "damage": 0,
-                                                                            "attack_ratio": 0,
-                                                                            "hp_ratio": 0,
-                                                                            "target_hp_ratio": 0,
-                                                                            "attack_effect_type": "Target"
                                                                           }
                                                                         ]
                                                                       },
